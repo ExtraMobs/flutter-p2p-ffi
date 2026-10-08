@@ -1,0 +1,2828 @@
+{
+  "schemaVersion": 10,
+  "tool": "goast",
+  "goVersion": "go1.26.5",
+  "packages": [
+    {
+      "path": "main",
+      "name": "main",
+      "files": [
+        {
+          "path": "pathshim.go",
+          "ast": {
+            "node": "File",
+            "doc": {
+              "node": "CommentGroup",
+              "list": [
+                {
+                  "node": "Comment",
+                  "slash": {
+                    "file": "pathshim.go",
+                    "line": 1,
+                    "column": 1,
+                    "offset": 0
+                  },
+                  "text": "// Shim de path: Join variádico (com e sem `...`), Split (dois retornos),"
+                },
+                {
+                  "node": "Comment",
+                  "slash": {
+                    "file": "pathshim.go",
+                    "line": 2,
+                    "column": 1,
+                    "offset": 75
+                  },
+                  "text": "// Match com ErrBadPattern (errors.Is), valor de função `path.Base`."
+                }
+              ]
+            },
+            "package": {
+              "file": "pathshim.go",
+              "line": 3,
+              "column": 1,
+              "offset": 146
+            },
+            "name": {
+              "node": "Ident",
+              "namePos": {
+                "file": "pathshim.go",
+                "line": 3,
+                "column": 9,
+                "offset": 154
+              },
+              "name": "main",
+              "obj": null
+            },
+            "decls": [
+              {
+                "node": "GenDecl",
+                "doc": null,
+                "tokPos": {
+                  "file": "pathshim.go",
+                  "line": 5,
+                  "column": 1,
+                  "offset": 160
+                },
+                "tok": "import",
+                "lparen": {
+                  "file": "pathshim.go",
+                  "line": 5,
+                  "column": 8,
+                  "offset": 167
+                },
+                "specs": [
+                  {
+                    "node": "ImportSpec",
+                    "doc": null,
+                    "name": null,
+                    "path": {
+                      "node": "BasicLit",
+                      "valuePos": {
+                        "file": "pathshim.go",
+                        "line": 6,
+                        "column": 2,
+                        "offset": 170
+                      },
+                      "valueEnd": {
+                        "file": "pathshim.go",
+                        "line": 6,
+                        "column": 10,
+                        "offset": 178
+                      },
+                      "kind": "STRING",
+                      "value": "\"errors\""
+                    },
+                    "comment": null,
+                    "endPos": null
+                  },
+                  {
+                    "node": "ImportSpec",
+                    "doc": null,
+                    "name": null,
+                    "path": {
+                      "node": "BasicLit",
+                      "valuePos": {
+                        "file": "pathshim.go",
+                        "line": 7,
+                        "column": 2,
+                        "offset": 180
+                      },
+                      "valueEnd": {
+                        "file": "pathshim.go",
+                        "line": 7,
+                        "column": 7,
+                        "offset": 185
+                      },
+                      "kind": "STRING",
+                      "value": "\"fmt\""
+                    },
+                    "comment": null,
+                    "endPos": null
+                  },
+                  {
+                    "node": "ImportSpec",
+                    "doc": null,
+                    "name": null,
+                    "path": {
+                      "node": "BasicLit",
+                      "valuePos": {
+                        "file": "pathshim.go",
+                        "line": 8,
+                        "column": 2,
+                        "offset": 187
+                      },
+                      "valueEnd": {
+                        "file": "pathshim.go",
+                        "line": 8,
+                        "column": 8,
+                        "offset": 193
+                      },
+                      "kind": "STRING",
+                      "value": "\"path\""
+                    },
+                    "comment": null,
+                    "endPos": null
+                  }
+                ],
+                "rparen": {
+                  "file": "pathshim.go",
+                  "line": 9,
+                  "column": 1,
+                  "offset": 194
+                }
+              },
+              {
+                "node": "FuncDecl",
+                "doc": null,
+                "recv": null,
+                "name": {
+                  "node": "Ident",
+                  "namePos": {
+                    "file": "pathshim.go",
+                    "line": 11,
+                    "column": 6,
+                    "offset": 202
+                  },
+                  "name": "main",
+                  "obj": {
+                    "node": "Object",
+                    "name": "main",
+                    "kind": "func"
+                  },
+                  "$obj": {
+                    "name": "main",
+                    "kind": "func",
+                    "def": true,
+                    "type": 0,
+                    "decl": "pathshim.go:202",
+                    "pkg": "main",
+                    "top": true
+                  }
+                },
+                "type": {
+                  "node": "FuncType",
+                  "func": {
+                    "file": "pathshim.go",
+                    "line": 11,
+                    "column": 1,
+                    "offset": 197
+                  },
+                  "typeParams": null,
+                  "params": {
+                    "node": "FieldList",
+                    "opening": {
+                      "file": "pathshim.go",
+                      "line": 11,
+                      "column": 10,
+                      "offset": 206
+                    },
+                    "list": null,
+                    "closing": {
+                      "file": "pathshim.go",
+                      "line": 11,
+                      "column": 11,
+                      "offset": 207
+                    }
+                  },
+                  "results": null
+                },
+                "body": {
+                  "node": "BlockStmt",
+                  "lbrace": {
+                    "file": "pathshim.go",
+                    "line": 11,
+                    "column": 13,
+                    "offset": 209
+                  },
+                  "list": [
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "pathshim.go",
+                              "line": 12,
+                              "column": 2,
+                              "offset": 212
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "pathshim.go",
+                              "line": 12,
+                              "column": 6,
+                              "offset": 216
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 1,
+                              "decl": "print.go:313",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 1
+                        },
+                        "lparen": {
+                          "file": "pathshim.go",
+                          "line": 12,
+                          "column": 13,
+                          "offset": 223
+                        },
+                        "args": [
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "SelectorExpr",
+                              "x": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "pathshim.go",
+                                  "line": 12,
+                                  "column": 14,
+                                  "offset": 224
+                                },
+                                "name": "path",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "path",
+                                  "kind": "package",
+                                  "pkg": "path"
+                                }
+                              },
+                              "sel": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "pathshim.go",
+                                  "line": 12,
+                                  "column": 19,
+                                  "offset": 229
+                                },
+                                "name": "Join",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "Join",
+                                  "kind": "func",
+                                  "type": 9,
+                                  "decl": "path.go:154",
+                                  "pkg": "path",
+                                  "top": true
+                                }
+                              },
+                              "$type": 9
+                            },
+                            "lparen": {
+                              "file": "pathshim.go",
+                              "line": 12,
+                              "column": 23,
+                              "offset": 233
+                            },
+                            "args": [
+                              {
+                                "node": "BasicLit",
+                                "valuePos": {
+                                  "file": "pathshim.go",
+                                  "line": 12,
+                                  "column": 24,
+                                  "offset": 234
+                                },
+                                "valueEnd": {
+                                  "file": "pathshim.go",
+                                  "line": 12,
+                                  "column": 27,
+                                  "offset": 237
+                                },
+                                "kind": "STRING",
+                                "value": "\"a\"",
+                                "$type": 8,
+                                "$value": {
+                                  "kind": "string",
+                                  "value": "a"
+                                }
+                              },
+                              {
+                                "node": "BasicLit",
+                                "valuePos": {
+                                  "file": "pathshim.go",
+                                  "line": 12,
+                                  "column": 29,
+                                  "offset": 239
+                                },
+                                "valueEnd": {
+                                  "file": "pathshim.go",
+                                  "line": 12,
+                                  "column": 35,
+                                  "offset": 245
+                                },
+                                "kind": "STRING",
+                                "value": "\"../b\"",
+                                "$type": 8,
+                                "$value": {
+                                  "kind": "string",
+                                  "value": "../b"
+                                }
+                              },
+                              {
+                                "node": "BasicLit",
+                                "valuePos": {
+                                  "file": "pathshim.go",
+                                  "line": 12,
+                                  "column": 37,
+                                  "offset": 247
+                                },
+                                "valueEnd": {
+                                  "file": "pathshim.go",
+                                  "line": 12,
+                                  "column": 40,
+                                  "offset": 250
+                                },
+                                "kind": "STRING",
+                                "value": "\"c\"",
+                                "$type": 8,
+                                "$value": {
+                                  "kind": "string",
+                                  "value": "c"
+                                }
+                              }
+                            ],
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "pathshim.go",
+                              "line": 12,
+                              "column": 40,
+                              "offset": 250
+                            },
+                            "$type": 8
+                          },
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "SelectorExpr",
+                              "x": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "pathshim.go",
+                                  "line": 12,
+                                  "column": 43,
+                                  "offset": 253
+                                },
+                                "name": "path",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "path",
+                                  "kind": "package",
+                                  "pkg": "path"
+                                }
+                              },
+                              "sel": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "pathshim.go",
+                                  "line": 12,
+                                  "column": 48,
+                                  "offset": 258
+                                },
+                                "name": "Join",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "Join",
+                                  "kind": "func",
+                                  "type": 9,
+                                  "decl": "path.go:154",
+                                  "pkg": "path",
+                                  "top": true
+                                }
+                              },
+                              "$type": 9
+                            },
+                            "lparen": {
+                              "file": "pathshim.go",
+                              "line": 12,
+                              "column": 52,
+                              "offset": 262
+                            },
+                            "args": null,
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "pathshim.go",
+                              "line": 12,
+                              "column": 53,
+                              "offset": 263
+                            },
+                            "$type": 8
+                          },
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "SelectorExpr",
+                              "x": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "pathshim.go",
+                                  "line": 12,
+                                  "column": 56,
+                                  "offset": 266
+                                },
+                                "name": "path",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "path",
+                                  "kind": "package",
+                                  "pkg": "path"
+                                }
+                              },
+                              "sel": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "pathshim.go",
+                                  "line": 12,
+                                  "column": 61,
+                                  "offset": 271
+                                },
+                                "name": "Join",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "Join",
+                                  "kind": "func",
+                                  "type": 9,
+                                  "decl": "path.go:154",
+                                  "pkg": "path",
+                                  "top": true
+                                }
+                              },
+                              "$type": 9
+                            },
+                            "lparen": {
+                              "file": "pathshim.go",
+                              "line": 12,
+                              "column": 65,
+                              "offset": 275
+                            },
+                            "args": [
+                              {
+                                "node": "CompositeLit",
+                                "type": {
+                                  "node": "ArrayType",
+                                  "lbrack": {
+                                    "file": "pathshim.go",
+                                    "line": 12,
+                                    "column": 66,
+                                    "offset": 276
+                                  },
+                                  "len": null,
+                                  "elt": {
+                                    "node": "Ident",
+                                    "namePos": {
+                                      "file": "pathshim.go",
+                                      "line": 12,
+                                      "column": 68,
+                                      "offset": 278
+                                    },
+                                    "name": "string",
+                                    "obj": null,
+                                    "$type": 8,
+                                    "$isType": true,
+                                    "$obj": {
+                                      "name": "string",
+                                      "kind": "type",
+                                      "type": 8
+                                    }
+                                  },
+                                  "$type": 10,
+                                  "$isType": true
+                                },
+                                "lbrace": {
+                                  "file": "pathshim.go",
+                                  "line": 12,
+                                  "column": 74,
+                                  "offset": 284
+                                },
+                                "elts": [
+                                  {
+                                    "node": "BasicLit",
+                                    "valuePos": {
+                                      "file": "pathshim.go",
+                                      "line": 12,
+                                      "column": 75,
+                                      "offset": 285
+                                    },
+                                    "valueEnd": {
+                                      "file": "pathshim.go",
+                                      "line": 12,
+                                      "column": 79,
+                                      "offset": 289
+                                    },
+                                    "kind": "STRING",
+                                    "value": "\"/x\"",
+                                    "$type": 8,
+                                    "$value": {
+                                      "kind": "string",
+                                      "value": "/x"
+                                    }
+                                  },
+                                  {
+                                    "node": "BasicLit",
+                                    "valuePos": {
+                                      "file": "pathshim.go",
+                                      "line": 12,
+                                      "column": 81,
+                                      "offset": 291
+                                    },
+                                    "valueEnd": {
+                                      "file": "pathshim.go",
+                                      "line": 12,
+                                      "column": 83,
+                                      "offset": 293
+                                    },
+                                    "kind": "STRING",
+                                    "value": "\"\"",
+                                    "$type": 8,
+                                    "$value": {
+                                      "kind": "string",
+                                      "value": ""
+                                    }
+                                  },
+                                  {
+                                    "node": "BasicLit",
+                                    "valuePos": {
+                                      "file": "pathshim.go",
+                                      "line": 12,
+                                      "column": 85,
+                                      "offset": 295
+                                    },
+                                    "valueEnd": {
+                                      "file": "pathshim.go",
+                                      "line": 12,
+                                      "column": 89,
+                                      "offset": 299
+                                    },
+                                    "kind": "STRING",
+                                    "value": "\"y/\"",
+                                    "$type": 8,
+                                    "$value": {
+                                      "kind": "string",
+                                      "value": "y/"
+                                    }
+                                  }
+                                ],
+                                "rbrace": {
+                                  "file": "pathshim.go",
+                                  "line": 12,
+                                  "column": 89,
+                                  "offset": 299
+                                },
+                                "incomplete": false,
+                                "$type": 10
+                              }
+                            ],
+                            "ellipsis": {
+                              "file": "pathshim.go",
+                              "line": 12,
+                              "column": 90,
+                              "offset": 300
+                            },
+                            "rparen": {
+                              "file": "pathshim.go",
+                              "line": 12,
+                              "column": 93,
+                              "offset": 303
+                            },
+                            "$type": 8
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "pathshim.go",
+                          "line": 12,
+                          "column": 94,
+                          "offset": 304
+                        },
+                        "$type": 11
+                      }
+                    },
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "pathshim.go",
+                            "line": 13,
+                            "column": 2,
+                            "offset": 307
+                          },
+                          "name": "dir",
+                          "obj": {
+                            "node": "Object",
+                            "name": "dir",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "dir",
+                            "kind": "var",
+                            "def": true,
+                            "type": 8,
+                            "decl": "pathshim.go:307",
+                            "pkg": "main"
+                          }
+                        },
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "pathshim.go",
+                            "line": 13,
+                            "column": 7,
+                            "offset": 312
+                          },
+                          "name": "file",
+                          "obj": {
+                            "node": "Object",
+                            "name": "file",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "file",
+                            "kind": "var",
+                            "def": true,
+                            "type": 8,
+                            "decl": "pathshim.go:312",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "pathshim.go",
+                        "line": 13,
+                        "column": 12,
+                        "offset": 317
+                      },
+                      "tok": ":=",
+                      "rhs": [
+                        {
+                          "node": "CallExpr",
+                          "fun": {
+                            "node": "SelectorExpr",
+                            "x": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "pathshim.go",
+                                "line": 13,
+                                "column": 15,
+                                "offset": 320
+                              },
+                              "name": "path",
+                              "obj": null,
+                              "$obj": {
+                                "name": "path",
+                                "kind": "package",
+                                "pkg": "path"
+                              }
+                            },
+                            "sel": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "pathshim.go",
+                                "line": 13,
+                                "column": 20,
+                                "offset": 325
+                              },
+                              "name": "Split",
+                              "obj": null,
+                              "$obj": {
+                                "name": "Split",
+                                "kind": "func",
+                                "type": 12,
+                                "decl": "path.go:144",
+                                "pkg": "path",
+                                "top": true
+                              }
+                            },
+                            "$type": 12
+                          },
+                          "lparen": {
+                            "file": "pathshim.go",
+                            "line": 13,
+                            "column": 25,
+                            "offset": 330
+                          },
+                          "args": [
+                            {
+                              "node": "BasicLit",
+                              "valuePos": {
+                                "file": "pathshim.go",
+                                "line": 13,
+                                "column": 26,
+                                "offset": 331
+                              },
+                              "valueEnd": {
+                                "file": "pathshim.go",
+                                "line": 13,
+                                "column": 45,
+                                "offset": 350
+                              },
+                              "kind": "STRING",
+                              "value": "\"static/myfile.css\"",
+                              "$type": 8,
+                              "$value": {
+                                "kind": "string",
+                                "value": "static/myfile.css"
+                              }
+                            }
+                          ],
+                          "ellipsis": null,
+                          "rparen": {
+                            "file": "pathshim.go",
+                            "line": 13,
+                            "column": 45,
+                            "offset": 350
+                          },
+                          "$type": 13
+                        }
+                      ]
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "pathshim.go",
+                              "line": 14,
+                              "column": 2,
+                              "offset": 353
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "pathshim.go",
+                              "line": 14,
+                              "column": 6,
+                              "offset": 357
+                            },
+                            "name": "Printf",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Printf",
+                              "kind": "func",
+                              "type": 14,
+                              "decl": "print.go:231",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 14
+                        },
+                        "lparen": {
+                          "file": "pathshim.go",
+                          "line": 14,
+                          "column": 12,
+                          "offset": 363
+                        },
+                        "args": [
+                          {
+                            "node": "BasicLit",
+                            "valuePos": {
+                              "file": "pathshim.go",
+                              "line": 14,
+                              "column": 13,
+                              "offset": 364
+                            },
+                            "valueEnd": {
+                              "file": "pathshim.go",
+                              "line": 14,
+                              "column": 22,
+                              "offset": 373
+                            },
+                            "kind": "STRING",
+                            "value": "\"%q %q\\n\"",
+                            "$type": 8,
+                            "$value": {
+                              "kind": "string",
+                              "value": "%q %q\n"
+                            }
+                          },
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "pathshim.go",
+                              "line": 14,
+                              "column": 24,
+                              "offset": 375
+                            },
+                            "name": "dir",
+                            "obj": {
+                              "node": "Object",
+                              "name": "dir",
+                              "kind": "var"
+                            },
+                            "$type": 8,
+                            "$obj": {
+                              "name": "dir",
+                              "kind": "var",
+                              "type": 8,
+                              "decl": "pathshim.go:307",
+                              "pkg": "main"
+                            }
+                          },
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "pathshim.go",
+                              "line": 14,
+                              "column": 29,
+                              "offset": 380
+                            },
+                            "name": "file",
+                            "obj": {
+                              "node": "Object",
+                              "name": "file",
+                              "kind": "var"
+                            },
+                            "$type": 8,
+                            "$obj": {
+                              "name": "file",
+                              "kind": "var",
+                              "type": 8,
+                              "decl": "pathshim.go:312",
+                              "pkg": "main"
+                            }
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "pathshim.go",
+                          "line": 14,
+                          "column": 33,
+                          "offset": 384
+                        },
+                        "$type": 11
+                      }
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "pathshim.go",
+                              "line": 15,
+                              "column": 2,
+                              "offset": 387
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "pathshim.go",
+                              "line": 15,
+                              "column": 6,
+                              "offset": 391
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 1,
+                              "decl": "print.go:313",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 1
+                        },
+                        "lparen": {
+                          "file": "pathshim.go",
+                          "line": 15,
+                          "column": 13,
+                          "offset": 398
+                        },
+                        "args": [
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "SelectorExpr",
+                              "x": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "pathshim.go",
+                                  "line": 15,
+                                  "column": 14,
+                                  "offset": 399
+                                },
+                                "name": "path",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "path",
+                                  "kind": "package",
+                                  "pkg": "path"
+                                }
+                              },
+                              "sel": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "pathshim.go",
+                                  "line": 15,
+                                  "column": 19,
+                                  "offset": 404
+                                },
+                                "name": "Clean",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "Clean",
+                                  "kind": "func",
+                                  "type": 15,
+                                  "decl": "path.go:71",
+                                  "pkg": "path",
+                                  "top": true
+                                }
+                              },
+                              "$type": 15
+                            },
+                            "lparen": {
+                              "file": "pathshim.go",
+                              "line": 15,
+                              "column": 24,
+                              "offset": 409
+                            },
+                            "args": [
+                              {
+                                "node": "BasicLit",
+                                "valuePos": {
+                                  "file": "pathshim.go",
+                                  "line": 15,
+                                  "column": 25,
+                                  "offset": 410
+                                },
+                                "valueEnd": {
+                                  "file": "pathshim.go",
+                                  "line": 15,
+                                  "column": 42,
+                                  "offset": 427
+                                },
+                                "kind": "STRING",
+                                "value": "\"/../a//b/./c/..\"",
+                                "$type": 8,
+                                "$value": {
+                                  "kind": "string",
+                                  "value": "/../a//b/./c/.."
+                                }
+                              }
+                            ],
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "pathshim.go",
+                              "line": 15,
+                              "column": 42,
+                              "offset": 427
+                            },
+                            "$type": 8
+                          },
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "SelectorExpr",
+                              "x": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "pathshim.go",
+                                  "line": 15,
+                                  "column": 45,
+                                  "offset": 430
+                                },
+                                "name": "path",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "path",
+                                  "kind": "package",
+                                  "pkg": "path"
+                                }
+                              },
+                              "sel": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "pathshim.go",
+                                  "line": 15,
+                                  "column": 50,
+                                  "offset": 435
+                                },
+                                "name": "Ext",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "Ext",
+                                  "kind": "func",
+                                  "type": 15,
+                                  "decl": "path.go:178",
+                                  "pkg": "path",
+                                  "top": true
+                                }
+                              },
+                              "$type": 15
+                            },
+                            "lparen": {
+                              "file": "pathshim.go",
+                              "line": 15,
+                              "column": 53,
+                              "offset": 438
+                            },
+                            "args": [
+                              {
+                                "node": "BasicLit",
+                                "valuePos": {
+                                  "file": "pathshim.go",
+                                  "line": 15,
+                                  "column": 54,
+                                  "offset": 439
+                                },
+                                "valueEnd": {
+                                  "file": "pathshim.go",
+                                  "line": 15,
+                                  "column": 67,
+                                  "offset": 452
+                                },
+                                "kind": "STRING",
+                                "value": "\"/a/b.tar.gz\"",
+                                "$type": 8,
+                                "$value": {
+                                  "kind": "string",
+                                  "value": "/a/b.tar.gz"
+                                }
+                              }
+                            ],
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "pathshim.go",
+                              "line": 15,
+                              "column": 67,
+                              "offset": 452
+                            },
+                            "$type": 8
+                          },
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "SelectorExpr",
+                              "x": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "pathshim.go",
+                                  "line": 15,
+                                  "column": 70,
+                                  "offset": 455
+                                },
+                                "name": "path",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "path",
+                                  "kind": "package",
+                                  "pkg": "path"
+                                }
+                              },
+                              "sel": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "pathshim.go",
+                                  "line": 15,
+                                  "column": 75,
+                                  "offset": 460
+                                },
+                                "name": "Dir",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "Dir",
+                                  "kind": "func",
+                                  "type": 15,
+                                  "decl": "path.go:222",
+                                  "pkg": "path",
+                                  "top": true
+                                }
+                              },
+                              "$type": 15
+                            },
+                            "lparen": {
+                              "file": "pathshim.go",
+                              "line": 15,
+                              "column": 78,
+                              "offset": 463
+                            },
+                            "args": [
+                              {
+                                "node": "BasicLit",
+                                "valuePos": {
+                                  "file": "pathshim.go",
+                                  "line": 15,
+                                  "column": 79,
+                                  "offset": 464
+                                },
+                                "valueEnd": {
+                                  "file": "pathshim.go",
+                                  "line": 15,
+                                  "column": 86,
+                                  "offset": 471
+                                },
+                                "kind": "STRING",
+                                "value": "\"/a/b/\"",
+                                "$type": 8,
+                                "$value": {
+                                  "kind": "string",
+                                  "value": "/a/b/"
+                                }
+                              }
+                            ],
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "pathshim.go",
+                              "line": 15,
+                              "column": 86,
+                              "offset": 471
+                            },
+                            "$type": 8
+                          },
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "SelectorExpr",
+                              "x": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "pathshim.go",
+                                  "line": 15,
+                                  "column": 89,
+                                  "offset": 474
+                                },
+                                "name": "path",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "path",
+                                  "kind": "package",
+                                  "pkg": "path"
+                                }
+                              },
+                              "sel": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "pathshim.go",
+                                  "line": 15,
+                                  "column": 94,
+                                  "offset": 479
+                                },
+                                "name": "IsAbs",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "IsAbs",
+                                  "kind": "func",
+                                  "type": 16,
+                                  "decl": "path.go:211",
+                                  "pkg": "path",
+                                  "top": true
+                                }
+                              },
+                              "$type": 16
+                            },
+                            "lparen": {
+                              "file": "pathshim.go",
+                              "line": 15,
+                              "column": 99,
+                              "offset": 484
+                            },
+                            "args": [
+                              {
+                                "node": "BasicLit",
+                                "valuePos": {
+                                  "file": "pathshim.go",
+                                  "line": 15,
+                                  "column": 100,
+                                  "offset": 485
+                                },
+                                "valueEnd": {
+                                  "file": "pathshim.go",
+                                  "line": 15,
+                                  "column": 104,
+                                  "offset": 489
+                                },
+                                "kind": "STRING",
+                                "value": "\"/x\"",
+                                "$type": 8,
+                                "$value": {
+                                  "kind": "string",
+                                  "value": "/x"
+                                }
+                              }
+                            ],
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "pathshim.go",
+                              "line": 15,
+                              "column": 104,
+                              "offset": 489
+                            },
+                            "$type": 17
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "pathshim.go",
+                          "line": 15,
+                          "column": 105,
+                          "offset": 490
+                        },
+                        "$type": 11
+                      }
+                    },
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "pathshim.go",
+                            "line": 16,
+                            "column": 2,
+                            "offset": 493
+                          },
+                          "name": "base",
+                          "obj": {
+                            "node": "Object",
+                            "name": "base",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "base",
+                            "kind": "var",
+                            "def": true,
+                            "type": 15,
+                            "decl": "pathshim.go:493",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "pathshim.go",
+                        "line": 16,
+                        "column": 7,
+                        "offset": 498
+                      },
+                      "tok": ":=",
+                      "rhs": [
+                        {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "pathshim.go",
+                              "line": 16,
+                              "column": 10,
+                              "offset": 501
+                            },
+                            "name": "path",
+                            "obj": null,
+                            "$obj": {
+                              "name": "path",
+                              "kind": "package",
+                              "pkg": "path"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "pathshim.go",
+                              "line": 16,
+                              "column": 15,
+                              "offset": 506
+                            },
+                            "name": "Base",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Base",
+                              "kind": "func",
+                              "type": 15,
+                              "decl": "path.go:191",
+                              "pkg": "path",
+                              "top": true
+                            }
+                          },
+                          "$type": 15
+                        }
+                      ]
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "pathshim.go",
+                              "line": 17,
+                              "column": 2,
+                              "offset": 512
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "pathshim.go",
+                              "line": 17,
+                              "column": 6,
+                              "offset": 516
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 1,
+                              "decl": "print.go:313",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 1
+                        },
+                        "lparen": {
+                          "file": "pathshim.go",
+                          "line": 17,
+                          "column": 13,
+                          "offset": 523
+                        },
+                        "args": [
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "pathshim.go",
+                                "line": 17,
+                                "column": 14,
+                                "offset": 524
+                              },
+                              "name": "base",
+                              "obj": {
+                                "node": "Object",
+                                "name": "base",
+                                "kind": "var"
+                              },
+                              "$type": 15,
+                              "$obj": {
+                                "name": "base",
+                                "kind": "var",
+                                "type": 15,
+                                "decl": "pathshim.go:493",
+                                "pkg": "main"
+                              }
+                            },
+                            "lparen": {
+                              "file": "pathshim.go",
+                              "line": 17,
+                              "column": 18,
+                              "offset": 528
+                            },
+                            "args": [
+                              {
+                                "node": "BasicLit",
+                                "valuePos": {
+                                  "file": "pathshim.go",
+                                  "line": 17,
+                                  "column": 19,
+                                  "offset": 529
+                                },
+                                "valueEnd": {
+                                  "file": "pathshim.go",
+                                  "line": 17,
+                                  "column": 26,
+                                  "offset": 536
+                                },
+                                "kind": "STRING",
+                                "value": "\"/a/b/\"",
+                                "$type": 8,
+                                "$value": {
+                                  "kind": "string",
+                                  "value": "/a/b/"
+                                }
+                              }
+                            ],
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "pathshim.go",
+                              "line": 17,
+                              "column": 26,
+                              "offset": 536
+                            },
+                            "$type": 8
+                          },
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "pathshim.go",
+                                "line": 17,
+                                "column": 29,
+                                "offset": 539
+                              },
+                              "name": "base",
+                              "obj": {
+                                "node": "Object",
+                                "name": "base",
+                                "kind": "var"
+                              },
+                              "$type": 15,
+                              "$obj": {
+                                "name": "base",
+                                "kind": "var",
+                                "type": 15,
+                                "decl": "pathshim.go:493",
+                                "pkg": "main"
+                              }
+                            },
+                            "lparen": {
+                              "file": "pathshim.go",
+                              "line": 17,
+                              "column": 33,
+                              "offset": 543
+                            },
+                            "args": [
+                              {
+                                "node": "BasicLit",
+                                "valuePos": {
+                                  "file": "pathshim.go",
+                                  "line": 17,
+                                  "column": 34,
+                                  "offset": 544
+                                },
+                                "valueEnd": {
+                                  "file": "pathshim.go",
+                                  "line": 17,
+                                  "column": 36,
+                                  "offset": 546
+                                },
+                                "kind": "STRING",
+                                "value": "\"\"",
+                                "$type": 8,
+                                "$value": {
+                                  "kind": "string",
+                                  "value": ""
+                                }
+                              }
+                            ],
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "pathshim.go",
+                              "line": 17,
+                              "column": 36,
+                              "offset": 546
+                            },
+                            "$type": 8
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "pathshim.go",
+                          "line": 17,
+                          "column": 37,
+                          "offset": 547
+                        },
+                        "$type": 11
+                      }
+                    },
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "pathshim.go",
+                            "line": 18,
+                            "column": 2,
+                            "offset": 550
+                          },
+                          "name": "ok",
+                          "obj": {
+                            "node": "Object",
+                            "name": "ok",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "ok",
+                            "kind": "var",
+                            "def": true,
+                            "type": 17,
+                            "decl": "pathshim.go:550",
+                            "pkg": "main"
+                          }
+                        },
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "pathshim.go",
+                            "line": 18,
+                            "column": 6,
+                            "offset": 554
+                          },
+                          "name": "err",
+                          "obj": {
+                            "node": "Object",
+                            "name": "err",
+                            "kind": "var"
+                          },
+                          "$obj": {
+                            "name": "err",
+                            "kind": "var",
+                            "def": true,
+                            "type": 5,
+                            "decl": "pathshim.go:554",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "pathshim.go",
+                        "line": 18,
+                        "column": 10,
+                        "offset": 558
+                      },
+                      "tok": ":=",
+                      "rhs": [
+                        {
+                          "node": "CallExpr",
+                          "fun": {
+                            "node": "SelectorExpr",
+                            "x": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "pathshim.go",
+                                "line": 18,
+                                "column": 13,
+                                "offset": 561
+                              },
+                              "name": "path",
+                              "obj": null,
+                              "$obj": {
+                                "name": "path",
+                                "kind": "package",
+                                "pkg": "path"
+                              }
+                            },
+                            "sel": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "pathshim.go",
+                                "line": 18,
+                                "column": 18,
+                                "offset": 566
+                              },
+                              "name": "Match",
+                              "obj": null,
+                              "$obj": {
+                                "name": "Match",
+                                "kind": "func",
+                                "type": 18,
+                                "decl": "match.go:36",
+                                "pkg": "path",
+                                "top": true
+                              }
+                            },
+                            "$type": 18
+                          },
+                          "lparen": {
+                            "file": "pathshim.go",
+                            "line": 18,
+                            "column": 23,
+                            "offset": 571
+                          },
+                          "args": [
+                            {
+                              "node": "BasicLit",
+                              "valuePos": {
+                                "file": "pathshim.go",
+                                "line": 18,
+                                "column": 24,
+                                "offset": 572
+                              },
+                              "valueEnd": {
+                                "file": "pathshim.go",
+                                "line": 18,
+                                "column": 30,
+                                "offset": 578
+                              },
+                              "kind": "STRING",
+                              "value": "\"*.go\"",
+                              "$type": 8,
+                              "$value": {
+                                "kind": "string",
+                                "value": "*.go"
+                              }
+                            },
+                            {
+                              "node": "BasicLit",
+                              "valuePos": {
+                                "file": "pathshim.go",
+                                "line": 18,
+                                "column": 32,
+                                "offset": 580
+                              },
+                              "valueEnd": {
+                                "file": "pathshim.go",
+                                "line": 18,
+                                "column": 41,
+                                "offset": 589
+                              },
+                              "kind": "STRING",
+                              "value": "\"main.go\"",
+                              "$type": 8,
+                              "$value": {
+                                "kind": "string",
+                                "value": "main.go"
+                              }
+                            }
+                          ],
+                          "ellipsis": null,
+                          "rparen": {
+                            "file": "pathshim.go",
+                            "line": 18,
+                            "column": 41,
+                            "offset": 589
+                          },
+                          "$type": 19
+                        }
+                      ]
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "pathshim.go",
+                              "line": 19,
+                              "column": 2,
+                              "offset": 592
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "pathshim.go",
+                              "line": 19,
+                              "column": 6,
+                              "offset": 596
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 1,
+                              "decl": "print.go:313",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 1
+                        },
+                        "lparen": {
+                          "file": "pathshim.go",
+                          "line": 19,
+                          "column": 13,
+                          "offset": 603
+                        },
+                        "args": [
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "pathshim.go",
+                              "line": 19,
+                              "column": 14,
+                              "offset": 604
+                            },
+                            "name": "ok",
+                            "obj": {
+                              "node": "Object",
+                              "name": "ok",
+                              "kind": "var"
+                            },
+                            "$type": 17,
+                            "$obj": {
+                              "name": "ok",
+                              "kind": "var",
+                              "type": 17,
+                              "decl": "pathshim.go:550",
+                              "pkg": "main"
+                            }
+                          },
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "pathshim.go",
+                              "line": 19,
+                              "column": 18,
+                              "offset": 608
+                            },
+                            "name": "err",
+                            "obj": {
+                              "node": "Object",
+                              "name": "err",
+                              "kind": "var"
+                            },
+                            "$type": 5,
+                            "$obj": {
+                              "name": "err",
+                              "kind": "var",
+                              "type": 5,
+                              "decl": "pathshim.go:554",
+                              "pkg": "main"
+                            }
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "pathshim.go",
+                          "line": 19,
+                          "column": 21,
+                          "offset": 611
+                        },
+                        "$type": 11
+                      }
+                    },
+                    {
+                      "node": "AssignStmt",
+                      "lhs": [
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "pathshim.go",
+                            "line": 20,
+                            "column": 2,
+                            "offset": 614
+                          },
+                          "name": "_",
+                          "obj": null
+                        },
+                        {
+                          "node": "Ident",
+                          "namePos": {
+                            "file": "pathshim.go",
+                            "line": 20,
+                            "column": 5,
+                            "offset": 617
+                          },
+                          "name": "err",
+                          "obj": {
+                            "node": "Object",
+                            "name": "err",
+                            "kind": "var"
+                          },
+                          "$type": 5,
+                          "$obj": {
+                            "name": "err",
+                            "kind": "var",
+                            "type": 5,
+                            "decl": "pathshim.go:554",
+                            "pkg": "main"
+                          }
+                        }
+                      ],
+                      "tokPos": {
+                        "file": "pathshim.go",
+                        "line": 20,
+                        "column": 9,
+                        "offset": 621
+                      },
+                      "tok": "=",
+                      "rhs": [
+                        {
+                          "node": "CallExpr",
+                          "fun": {
+                            "node": "SelectorExpr",
+                            "x": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "pathshim.go",
+                                "line": 20,
+                                "column": 11,
+                                "offset": 623
+                              },
+                              "name": "path",
+                              "obj": null,
+                              "$obj": {
+                                "name": "path",
+                                "kind": "package",
+                                "pkg": "path"
+                              }
+                            },
+                            "sel": {
+                              "node": "Ident",
+                              "namePos": {
+                                "file": "pathshim.go",
+                                "line": 20,
+                                "column": 16,
+                                "offset": 628
+                              },
+                              "name": "Match",
+                              "obj": null,
+                              "$obj": {
+                                "name": "Match",
+                                "kind": "func",
+                                "type": 18,
+                                "decl": "match.go:36",
+                                "pkg": "path",
+                                "top": true
+                              }
+                            },
+                            "$type": 18
+                          },
+                          "lparen": {
+                            "file": "pathshim.go",
+                            "line": 20,
+                            "column": 21,
+                            "offset": 633
+                          },
+                          "args": [
+                            {
+                              "node": "BasicLit",
+                              "valuePos": {
+                                "file": "pathshim.go",
+                                "line": 20,
+                                "column": 22,
+                                "offset": 634
+                              },
+                              "valueEnd": {
+                                "file": "pathshim.go",
+                                "line": 20,
+                                "column": 25,
+                                "offset": 637
+                              },
+                              "kind": "STRING",
+                              "value": "\"[\"",
+                              "$type": 8,
+                              "$value": {
+                                "kind": "string",
+                                "value": "["
+                              }
+                            },
+                            {
+                              "node": "BasicLit",
+                              "valuePos": {
+                                "file": "pathshim.go",
+                                "line": 20,
+                                "column": 27,
+                                "offset": 639
+                              },
+                              "valueEnd": {
+                                "file": "pathshim.go",
+                                "line": 20,
+                                "column": 30,
+                                "offset": 642
+                              },
+                              "kind": "STRING",
+                              "value": "\"a\"",
+                              "$type": 8,
+                              "$value": {
+                                "kind": "string",
+                                "value": "a"
+                              }
+                            }
+                          ],
+                          "ellipsis": null,
+                          "rparen": {
+                            "file": "pathshim.go",
+                            "line": 20,
+                            "column": 30,
+                            "offset": 642
+                          },
+                          "$type": 19
+                        }
+                      ]
+                    },
+                    {
+                      "node": "ExprStmt",
+                      "x": {
+                        "node": "CallExpr",
+                        "fun": {
+                          "node": "SelectorExpr",
+                          "x": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "pathshim.go",
+                              "line": 21,
+                              "column": 2,
+                              "offset": 645
+                            },
+                            "name": "fmt",
+                            "obj": null,
+                            "$obj": {
+                              "name": "fmt",
+                              "kind": "package",
+                              "pkg": "fmt"
+                            }
+                          },
+                          "sel": {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "pathshim.go",
+                              "line": 21,
+                              "column": 6,
+                              "offset": 649
+                            },
+                            "name": "Println",
+                            "obj": null,
+                            "$obj": {
+                              "name": "Println",
+                              "kind": "func",
+                              "type": 1,
+                              "decl": "print.go:313",
+                              "pkg": "fmt",
+                              "top": true
+                            }
+                          },
+                          "$type": 1
+                        },
+                        "lparen": {
+                          "file": "pathshim.go",
+                          "line": 21,
+                          "column": 13,
+                          "offset": 656
+                        },
+                        "args": [
+                          {
+                            "node": "Ident",
+                            "namePos": {
+                              "file": "pathshim.go",
+                              "line": 21,
+                              "column": 14,
+                              "offset": 657
+                            },
+                            "name": "err",
+                            "obj": {
+                              "node": "Object",
+                              "name": "err",
+                              "kind": "var"
+                            },
+                            "$type": 5,
+                            "$obj": {
+                              "name": "err",
+                              "kind": "var",
+                              "type": 5,
+                              "decl": "pathshim.go:554",
+                              "pkg": "main"
+                            }
+                          },
+                          {
+                            "node": "CallExpr",
+                            "fun": {
+                              "node": "SelectorExpr",
+                              "x": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "pathshim.go",
+                                  "line": 21,
+                                  "column": 19,
+                                  "offset": 662
+                                },
+                                "name": "errors",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "errors",
+                                  "kind": "package",
+                                  "pkg": "errors"
+                                }
+                              },
+                              "sel": {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "pathshim.go",
+                                  "line": 21,
+                                  "column": 26,
+                                  "offset": 669
+                                },
+                                "name": "Is",
+                                "obj": null,
+                                "$obj": {
+                                  "name": "Is",
+                                  "kind": "func",
+                                  "type": 20,
+                                  "decl": "wrap.go:44",
+                                  "pkg": "errors",
+                                  "top": true
+                                }
+                              },
+                              "$type": 20
+                            },
+                            "lparen": {
+                              "file": "pathshim.go",
+                              "line": 21,
+                              "column": 28,
+                              "offset": 671
+                            },
+                            "args": [
+                              {
+                                "node": "Ident",
+                                "namePos": {
+                                  "file": "pathshim.go",
+                                  "line": 21,
+                                  "column": 29,
+                                  "offset": 672
+                                },
+                                "name": "err",
+                                "obj": {
+                                  "node": "Object",
+                                  "name": "err",
+                                  "kind": "var"
+                                },
+                                "$type": 5,
+                                "$obj": {
+                                  "name": "err",
+                                  "kind": "var",
+                                  "type": 5,
+                                  "decl": "pathshim.go:554",
+                                  "pkg": "main"
+                                }
+                              },
+                              {
+                                "node": "SelectorExpr",
+                                "x": {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "pathshim.go",
+                                    "line": 21,
+                                    "column": 34,
+                                    "offset": 677
+                                  },
+                                  "name": "path",
+                                  "obj": null,
+                                  "$obj": {
+                                    "name": "path",
+                                    "kind": "package",
+                                    "pkg": "path"
+                                  }
+                                },
+                                "sel": {
+                                  "node": "Ident",
+                                  "namePos": {
+                                    "file": "pathshim.go",
+                                    "line": 21,
+                                    "column": 39,
+                                    "offset": 682
+                                  },
+                                  "name": "ErrBadPattern",
+                                  "obj": null,
+                                  "$obj": {
+                                    "name": "ErrBadPattern",
+                                    "kind": "var",
+                                    "type": 5,
+                                    "decl": "match.go:13",
+                                    "pkg": "path",
+                                    "top": true
+                                  }
+                                },
+                                "$type": 5
+                              }
+                            ],
+                            "ellipsis": null,
+                            "rparen": {
+                              "file": "pathshim.go",
+                              "line": 21,
+                              "column": 52,
+                              "offset": 695
+                            },
+                            "$type": 17
+                          }
+                        ],
+                        "ellipsis": null,
+                        "rparen": {
+                          "file": "pathshim.go",
+                          "line": 21,
+                          "column": 53,
+                          "offset": 696
+                        },
+                        "$type": 11
+                      }
+                    }
+                  ],
+                  "rbrace": {
+                    "file": "pathshim.go",
+                    "line": 22,
+                    "column": 1,
+                    "offset": 698
+                  }
+                }
+              }
+            ],
+            "fileStart": {
+              "file": "pathshim.go",
+              "line": 1,
+              "column": 1,
+              "offset": 0
+            },
+            "fileEnd": {
+              "file": "pathshim.go",
+              "line": 22,
+              "column": 3,
+              "offset": 700
+            },
+            "scope": null,
+            "imports": [
+              {
+                "node": "ImportSpec",
+                "doc": null,
+                "name": null,
+                "path": {
+                  "node": "BasicLit",
+                  "valuePos": {
+                    "file": "pathshim.go",
+                    "line": 6,
+                    "column": 2,
+                    "offset": 170
+                  },
+                  "valueEnd": {
+                    "file": "pathshim.go",
+                    "line": 6,
+                    "column": 10,
+                    "offset": 178
+                  },
+                  "kind": "STRING",
+                  "value": "\"errors\""
+                },
+                "comment": null,
+                "endPos": null
+              },
+              {
+                "node": "ImportSpec",
+                "doc": null,
+                "name": null,
+                "path": {
+                  "node": "BasicLit",
+                  "valuePos": {
+                    "file": "pathshim.go",
+                    "line": 7,
+                    "column": 2,
+                    "offset": 180
+                  },
+                  "valueEnd": {
+                    "file": "pathshim.go",
+                    "line": 7,
+                    "column": 7,
+                    "offset": 185
+                  },
+                  "kind": "STRING",
+                  "value": "\"fmt\""
+                },
+                "comment": null,
+                "endPos": null
+              },
+              {
+                "node": "ImportSpec",
+                "doc": null,
+                "name": null,
+                "path": {
+                  "node": "BasicLit",
+                  "valuePos": {
+                    "file": "pathshim.go",
+                    "line": 8,
+                    "column": 2,
+                    "offset": 187
+                  },
+                  "valueEnd": {
+                    "file": "pathshim.go",
+                    "line": 8,
+                    "column": 8,
+                    "offset": 193
+                  },
+                  "kind": "STRING",
+                  "value": "\"path\""
+                },
+                "comment": null,
+                "endPos": null
+              }
+            ],
+            "unresolved": [
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "pathshim.go",
+                  "line": 12,
+                  "column": 2,
+                  "offset": 212
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "pathshim.go",
+                  "line": 12,
+                  "column": 14,
+                  "offset": 224
+                },
+                "name": "path",
+                "obj": null,
+                "$obj": {
+                  "name": "path",
+                  "kind": "package",
+                  "pkg": "path"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "pathshim.go",
+                  "line": 12,
+                  "column": 43,
+                  "offset": 253
+                },
+                "name": "path",
+                "obj": null,
+                "$obj": {
+                  "name": "path",
+                  "kind": "package",
+                  "pkg": "path"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "pathshim.go",
+                  "line": 12,
+                  "column": 56,
+                  "offset": 266
+                },
+                "name": "path",
+                "obj": null,
+                "$obj": {
+                  "name": "path",
+                  "kind": "package",
+                  "pkg": "path"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "pathshim.go",
+                  "line": 12,
+                  "column": 68,
+                  "offset": 278
+                },
+                "name": "string",
+                "obj": null,
+                "$type": 8,
+                "$isType": true,
+                "$obj": {
+                  "name": "string",
+                  "kind": "type",
+                  "type": 8
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "pathshim.go",
+                  "line": 13,
+                  "column": 15,
+                  "offset": 320
+                },
+                "name": "path",
+                "obj": null,
+                "$obj": {
+                  "name": "path",
+                  "kind": "package",
+                  "pkg": "path"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "pathshim.go",
+                  "line": 14,
+                  "column": 2,
+                  "offset": 353
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "pathshim.go",
+                  "line": 15,
+                  "column": 2,
+                  "offset": 387
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "pathshim.go",
+                  "line": 15,
+                  "column": 14,
+                  "offset": 399
+                },
+                "name": "path",
+                "obj": null,
+                "$obj": {
+                  "name": "path",
+                  "kind": "package",
+                  "pkg": "path"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "pathshim.go",
+                  "line": 15,
+                  "column": 45,
+                  "offset": 430
+                },
+                "name": "path",
+                "obj": null,
+                "$obj": {
+                  "name": "path",
+                  "kind": "package",
+                  "pkg": "path"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "pathshim.go",
+                  "line": 15,
+                  "column": 70,
+                  "offset": 455
+                },
+                "name": "path",
+                "obj": null,
+                "$obj": {
+                  "name": "path",
+                  "kind": "package",
+                  "pkg": "path"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "pathshim.go",
+                  "line": 15,
+                  "column": 89,
+                  "offset": 474
+                },
+                "name": "path",
+                "obj": null,
+                "$obj": {
+                  "name": "path",
+                  "kind": "package",
+                  "pkg": "path"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "pathshim.go",
+                  "line": 16,
+                  "column": 10,
+                  "offset": 501
+                },
+                "name": "path",
+                "obj": null,
+                "$obj": {
+                  "name": "path",
+                  "kind": "package",
+                  "pkg": "path"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "pathshim.go",
+                  "line": 17,
+                  "column": 2,
+                  "offset": 512
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "pathshim.go",
+                  "line": 18,
+                  "column": 13,
+                  "offset": 561
+                },
+                "name": "path",
+                "obj": null,
+                "$obj": {
+                  "name": "path",
+                  "kind": "package",
+                  "pkg": "path"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "pathshim.go",
+                  "line": 19,
+                  "column": 2,
+                  "offset": 592
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "pathshim.go",
+                  "line": 20,
+                  "column": 11,
+                  "offset": 623
+                },
+                "name": "path",
+                "obj": null,
+                "$obj": {
+                  "name": "path",
+                  "kind": "package",
+                  "pkg": "path"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "pathshim.go",
+                  "line": 21,
+                  "column": 2,
+                  "offset": 645
+                },
+                "name": "fmt",
+                "obj": null,
+                "$obj": {
+                  "name": "fmt",
+                  "kind": "package",
+                  "pkg": "fmt"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "pathshim.go",
+                  "line": 21,
+                  "column": 19,
+                  "offset": 662
+                },
+                "name": "errors",
+                "obj": null,
+                "$obj": {
+                  "name": "errors",
+                  "kind": "package",
+                  "pkg": "errors"
+                }
+              },
+              {
+                "node": "Ident",
+                "namePos": {
+                  "file": "pathshim.go",
+                  "line": 21,
+                  "column": 34,
+                  "offset": 677
+                },
+                "name": "path",
+                "obj": null,
+                "$obj": {
+                  "name": "path",
+                  "kind": "package",
+                  "pkg": "path"
+                }
+              }
+            ],
+            "comments": [
+              {
+                "node": "CommentGroup",
+                "list": [
+                  {
+                    "node": "Comment",
+                    "slash": {
+                      "file": "pathshim.go",
+                      "line": 1,
+                      "column": 1,
+                      "offset": 0
+                    },
+                    "text": "// Shim de path: Join variádico (com e sem `...`), Split (dois retornos),"
+                  },
+                  {
+                    "node": "Comment",
+                    "slash": {
+                      "file": "pathshim.go",
+                      "line": 2,
+                      "column": 1,
+                      "offset": 75
+                    },
+                    "text": "// Match com ErrBadPattern (errors.Is), valor de função `path.Base`."
+                  }
+                ]
+              }
+            ],
+            "goVersion": ""
+          }
+        }
+      ],
+      "imports": [
+        {
+          "path": "errors",
+          "name": "errors"
+        },
+        {
+          "path": "fmt",
+          "name": "fmt"
+        },
+        {
+          "path": "path",
+          "name": "path"
+        }
+      ],
+      "typeTable": [
+        {
+          "kind": "func",
+          "params": [],
+          "results": [],
+          "variadic": false
+        },
+        {
+          "kind": "func",
+          "params": [
+            2
+          ],
+          "results": [
+            4,
+            5
+          ],
+          "variadic": true
+        },
+        {
+          "kind": "slice",
+          "elem": 3
+        },
+        {
+          "kind": "interface",
+          "methods": [],
+          "embeddeds": []
+        },
+        {
+          "kind": "basic",
+          "name": "int"
+        },
+        {
+          "kind": "named",
+          "pkg": "",
+          "name": "error",
+          "underlying": 6
+        },
+        {
+          "kind": "interface",
+          "methods": [
+            {
+              "name": "Error",
+              "type": 7
+            }
+          ],
+          "embeddeds": []
+        },
+        {
+          "kind": "func",
+          "params": [],
+          "results": [
+            8
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "basic",
+          "name": "string"
+        },
+        {
+          "kind": "func",
+          "params": [
+            10
+          ],
+          "results": [
+            8
+          ],
+          "variadic": true
+        },
+        {
+          "kind": "slice",
+          "elem": 8
+        },
+        {
+          "kind": "tuple",
+          "elems": [
+            4,
+            5
+          ]
+        },
+        {
+          "kind": "func",
+          "params": [
+            8
+          ],
+          "results": [
+            8,
+            8
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "tuple",
+          "elems": [
+            8,
+            8
+          ]
+        },
+        {
+          "kind": "func",
+          "params": [
+            8,
+            2
+          ],
+          "results": [
+            4,
+            5
+          ],
+          "variadic": true
+        },
+        {
+          "kind": "func",
+          "params": [
+            8
+          ],
+          "results": [
+            8
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "func",
+          "params": [
+            8
+          ],
+          "results": [
+            17
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "basic",
+          "name": "bool"
+        },
+        {
+          "kind": "func",
+          "params": [
+            8,
+            8
+          ],
+          "results": [
+            17,
+            5
+          ],
+          "variadic": false
+        },
+        {
+          "kind": "tuple",
+          "elems": [
+            17,
+            5
+          ]
+        },
+        {
+          "kind": "func",
+          "params": [
+            5,
+            5
+          ],
+          "results": [
+            17
+          ],
+          "variadic": false
+        }
+      ],
+      "implements": null,
+      "conversions": [],
+      "asserts": [],
+      "initOrder": [],
+      "stdlibUsage": [
+        "errors.Is",
+        "fmt.Printf",
+        "fmt.Println",
+        "path.Base",
+        "path.Clean",
+        "path.Dir",
+        "path.ErrBadPattern",
+        "path.Ext",
+        "path.IsAbs",
+        "path.Join",
+        "path.Match",
+        "path.Split"
+      ],
+      "reflectUsage": null
+    }
+  ]
+}

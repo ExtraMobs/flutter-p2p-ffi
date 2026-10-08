@@ -450,6 +450,17 @@
       "stdin",
       "stdout"
     ],
+    "path": [
+      "base",
+      "clean",
+      "dir",
+      "errBadPattern",
+      "ext",
+      "isAbs",
+      "join",
+      "match",
+      "split"
+    ],
     "reflect": [
       "$assignable",
       "$convertible",
@@ -3067,6 +3078,7 @@
         "unwrap"
       ]
     },
+    "path": {},
     "reflect": {
       "ChanDir": [
         "$goType",
