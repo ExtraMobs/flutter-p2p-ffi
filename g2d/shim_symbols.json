@@ -397,6 +397,7 @@
       "parseCIDR",
       "parseIP",
       "parseMAC",
+      "pipe",
       "resolveIPAddr",
       "resolveTCPAddr",
       "resolveUDPAddr",
