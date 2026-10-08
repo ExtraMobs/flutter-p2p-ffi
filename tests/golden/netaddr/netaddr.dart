@@ -56,19 +56,25 @@ Golang.String _describe(net.Addr? a) {
   {
     final $t2 = a;
     if (go.isType<net.TCPAddr?>($t2, struct: false)) {
-      final net.TCPAddr? v = go.unNil<net.TCPAddr>($t2 as net.TCPAddr?);
+      final net.TCPAddr? v = go.unNil<net.TCPAddr>(
+        go.unShim($t2) as net.TCPAddr?,
+      );
       return fmt.sprintf(
         Golang.String.fromDart('tcp ip=%v port=%d zone=%q'),
         go.Slice<Object?>.of([v!.ip, v!.port, v!.zone], _$e2),
       );
     } else if (go.isType<net.UDPAddr?>($t2, struct: false)) {
-      final net.UDPAddr? v$1 = go.unNil<net.UDPAddr>($t2 as net.UDPAddr?);
+      final net.UDPAddr? v$1 = go.unNil<net.UDPAddr>(
+        go.unShim($t2) as net.UDPAddr?,
+      );
       return fmt.sprintf(
         Golang.String.fromDart('udp ip=%v port=%d'),
         go.Slice<Object?>.of([v$1!.ip, v$1!.port], _$e2),
       );
     } else if (go.isType<net.IPAddr?>($t2, struct: false)) {
-      final net.IPAddr? v$2 = go.unNil<net.IPAddr>($t2 as net.IPAddr?);
+      final net.IPAddr? v$2 = go.unNil<net.IPAddr>(
+        go.unShim($t2) as net.IPAddr?,
+      );
       return Golang.String.fromDart('ip ') + (v$2 ?? net.IPAddr.$nil).string();
     } else if ($t2 == null) {
       return Golang.String.fromDart('nil');

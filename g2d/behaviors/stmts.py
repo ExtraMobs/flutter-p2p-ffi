@@ -510,16 +510,19 @@ class TypeSwitchStmt(StmtBehavior):
                 single = len(types) == 1 and not (types[0]["node"] == "Ident" and types[0]["name"] == "nil")
                 if single:
                     mode, dt, t = self.asserts.assert_parts({"type": types[0]})
+                    x = subject
+                    if "shimadapt" in self.engine.services and self.service("shimadapt").shim_case(t):
+                        x = f"{self.imports.qualify(None, 'unShim')}({subject})"  # tira o adaptador (D8)
                     if mode == "value":
-                        value, vt = f"({subject} as {dt}).$copy()", t
+                        value, vt = f"({x} as {dt}).$copy()", t
                     elif mode == "pointer":
-                        value, vt = f"{self.imports.qualify(None, 'unNil')}<{dt.non_null()}>({subject} as {dt})", t
+                        value, vt = f"{self.imports.qualify(None, 'unNil')}<{dt.non_null()}>({x} as {dt})", t
                     elif mode == "func":
                         # `type_test` já confirmou o tipo (case único, exato
                         # via `go.Func` ou, sem wrapper, por subtipo do Dart).
                         value, vt = f"{self.imports.qualify(None, 'unwrapFunc')}<{dt}>({subject})", t
                     else:
-                        value, vt = f"{subject} as {dt}", t
+                        value, vt = f"{x} as {dt}", t
                 else:
                     value, vt = subject, static_t
                 obj = {"name": ident["name"], "decl": decl}

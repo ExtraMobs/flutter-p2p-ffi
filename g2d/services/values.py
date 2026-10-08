@@ -83,11 +83,19 @@ class ValueSemantics(Service):
             text, prec = self.expr_prec(n)
         if reclass in ("wrap", "wrap-bare"):
             text, prec = self.async_wrap(text, src, nilable=reclass == "wrap"), POSTFIX
+        if to_iface and self.shim_adapted(src, target):
+            text, prec = self.service("shimadapt").wrap(text, src, target), POSTFIX
         return f"({text})" if prec < min_prec else text
+
+    def shim_adapted(self, src, target):
+        """Valor de classe de shim numa interface gerada: entra no adaptador
+        (`g2d/services/shimadapt.py`)."""
+        return "shimadapt" in self.engine.services and self.service("shimadapt").needs(src, target)
 
     def coerce_multi(self, n, targets):
         """`operands.multi_value(n)` com os valores fluindo para os tipos
-        targets (None: não converte). Só a troca de classe de func pede
+        targets (None: não converte). Só a troca de classe de func e o
+        adaptador de valor do shim numa interface gerada pedem
         conversão aqui (`ctx, cancel = context.WithCancel(ctx)` com `cancel
         func()` numa classe `async`): o record é desestruturado num switch
         expression e refeito."""
@@ -98,7 +106,7 @@ class ValueSemantics(Service):
         elems = [self.pkg.type_at(e) for e in t["elems"]]
         targets = [None if tg is None else self.pkg.type_at(tg) for tg in targets]
         probe = [{"node": "G2DTemp", "text": "", "$type": e} for e in t["elems"]]
-        if not any(tg is not None and self.concurrency.reclass(x, e, tg)
+        if not any(tg is not None and (self.concurrency.reclass(x, e, tg) or self.shim_adapted(e, tg))
                    for x, e, tg in zip(probe, elems, targets)):
             return text
         temps = [dict(x, text=self.names.temp()) for x in probe]

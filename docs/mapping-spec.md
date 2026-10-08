@@ -1302,6 +1302,45 @@ dele, dos imports diretos e `error`). Um `a.T` passado como `b.Namer` num
   library que não foi emitida (`IfaceTable.missing`): ele não fica
   dependente de um pacote que não é dependência Go dele.
 
+**Valor de classe de shim numa interface gerada.** As classes dos shims
+não declaram as interfaces dos pacotes do grafo (`return new(bytes.Buffer)`
+num `(LW, error)`; o `return net.ListenUDP(...)` do `stdnet` do pion num
+`transport.UDPConn`). Na conversão estática (atribuição, argumento, retorno,
+inclusive `return f()` com vários resultados, elemento de composto) o valor
+entra num adaptador gerado na library que converte
+(`g2d/services/shimadapt.py`, `InterfacesPlugin`): `final class
+_$Shim$<I>$<T> extends go.ShimIface<T> implements I`, um por (interface,
+tipo do shim), com cada método repassado ao valor do shim (`$v`).
+Interfaces alvo: nomeada não genérica de pacote do grafo (ou do próprio
+pacote) e anônima que não é uma do runtime; tipos de origem: nomeado de
+pacote com shim (`STDLIB_SHIMS`) e ponteiro para ele, já com a sentinela
+`$nil` (o nil tipado continua não nil na interface).
+
+- Cor: o método da interface segue o grupo dele, e o adaptador liga as
+  formas (forma síncrona → método síncrono do shim; `$async` → o `$async`
+  do shim, ou `async =>` sobre o síncrono). Método do shim que só tem a
+  forma `Future` (`NET_SUSPENDING`, `ASYNC_SHIM_METHODS`: `ReadFromUDP`, o
+  `Read`/`Write` das conexões) torna `async` o método da interface
+  (`color.summarize` sobre as `conversions` do goast); a forma síncrona do
+  adaptador para ele é o `fatal` do `go.syncOfAsync`.
+- Transparência (runtime, `go.unShim`): `isType`/`assertType`/`tryType`
+  (`x.(*net.UDPConn)`, comma-ok, `case *bytes.Buffer:`) testam o valor do
+  shim; `isIface`/`assertIface`/`tryIface` mantêm o adaptador quando ele é o
+  alvo e senão testam o valor do shim (`x.(io.Reader)`, `x.(fmt.Stringer)`);
+  `ifaceEq` e o `==` do adaptador comparam os valores do shim (ponteiro:
+  identidade); `goTypeName`, o `fmt` (`%T`, `%v`, `Stringer`) e o `reflect`
+  (`TypeOf`, `ValueOf`) veem o valor do shim. A variável do `case T:` único
+  de type switch com T do shim, interface do shim ou `error` é ligada a
+  `go.unShim(x) as T`.
+
+Fixture `ifaceshimnomeada`: o `LW` (`*bytes.Buffer` por retorno, argumento,
+variável, campo e slice; assertion de volta, `io.Reader`, `fmt.Stringer`,
+type switch, `==`, nil tipado, `%T`/`%v`, `reflect`) e um `UDPConn` com a
+forma do do pion sobre 127.0.0.1 (`return net.ListenUDP(...)`/`DialUDP`,
+`ReadFromUDP`/`WriteToUDP`/`ReadFrom`/`WriteTo`/`Read`/`Write` que
+suspendem, deadlines, `x.(*net.UDPConn)`, `any(x).(io.Closer)`, erro com o
+`*net.UDPConn` nil não nil na interface).
+
 Fixtures: `ifacecross` (interface nomeada entre pacotes por argumento,
 `*T` por ponteiro, type assertion e type switch sobre tipo que só virou
 `any`, interface anônima entre pacotes, `fmt.Stringer` e `sort.Interface`
@@ -1310,8 +1349,10 @@ sem import) e `ifaceshim`.
 ⚠️ Limites: tipo genérico e interface genérica ficam de fora (o `implements`
 deles continua o do goast); interface anônima com embutida continua uma por
 library; interface **nomeada** do pacote testada contra valor de classe de
-shim (`type timeouter interface{ Timeout() bool }` com
-`context.DeadlineExceeded`) dá `false`
-(`TODO/P2-design-interface-nomeada-valor-de-shim.md`); a atribuição de uma
+shim **só por type assertion** (o valor chegou cru por `any`/`error`:
+`type timeouter interface{ Timeout() bool }` com `context.DeadlineExceeded`)
+dá `false`, porque o adaptador só nasce na conversão estática
+(`TODO/P2-design-interface-nomeada-valor-de-shim.md`); `errors.As` com alvo
+de tipo do shim não vê através do adaptador; a atribuição de uma
 interface a outra que não a embute continua sem cast no Dart.
 

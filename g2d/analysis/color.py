@@ -33,6 +33,7 @@ from g2d.model import unparen, walk
 from g2d.services.concurrency import (COLOR_POLYMORPHIC_SHIM, LOCKS, ONCE_DO, SPAWNING_SHIM, SUSPENDING_FUNCS,
                                       SUSPENDING_SHIM, WAITGROUP_GO, Concurrency)
 from g2d.services.dualio import ASYNC_SHIM_TYPES, DUAL_SHIM_CALLS, dual_capable, sync_shim
+from g2d.services.shimadapt import suspending
 
 
 class ColorSummary:
@@ -163,6 +164,8 @@ def summarize(engine, decls=None):
                 a, b = conc.method_key(t, m["name"]), conc.iface_key(i, m["name"])
                 if a is not None:
                     s.unions.add((a, b))
+    for c in pkg.conversions:  # valor de shim numa interface gerada (D8): o adaptador espera o shim
+        s.direct |= suspending(engine, c["type"], c["iface"])
     for t in pkg.type_table:
         # Tipo do shim que suspende (`io.PipeReader`): os métodos dele
         # suspendem e entram no grupo da interface que o valor pode virar.

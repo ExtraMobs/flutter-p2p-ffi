@@ -126,7 +126,7 @@ Golang.String _describe(Object? x) {
         ], _$e1),
       );
     } else if (go.isIface<fmt.Stringer>($t2, const ['String'])) {
-      final fmt.Stringer? v$2 = $t2 as fmt.Stringer;
+      final fmt.Stringer? v$2 = go.unShim($t2) as fmt.Stringer;
       return Golang.String.fromDart('stringer ') + v$2!.string();
     } else {
       return Golang.String.fromDart('not');

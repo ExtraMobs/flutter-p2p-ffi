@@ -1,7 +1,7 @@
 # Pacotes do grafo com Dart inválido no audit
 
 - **Prioridade:** P1 · **Área:** construcao
-- **Depende de:** D8 (`P1-design-interfaces-entre-pacotes.md`) para o `deadline`
+- **Depende de:** —
 
 ## Problema
 
@@ -11,35 +11,15 @@ mesmo ambiente o resultado é o mesmo (157 verdes, 8 `dart-invalido`): não vem 
 de §2c, e sim do ambiente em que o audit anterior foi gerado (versão do SDK ou cache antigo).
 Os casos que sobram depois de §2c:
 
-- `github.com/pion/transport/v3/deadline` e `v4/deadline`: `func afterFunc(...) timer { return
-  time.AfterFunc(d, f) }`, com `timer` interface local (`Stop`, `Reset`) satisfeita pelo
-  `*time.Timer` do shim (tipo de shim em interface local, D8).
 - `golang.org/x/text/internal/language/compact`: `tag._full = tFull.$ifaceCopy()` atribui `Tag`
   a `$_fullTag?` (interface local não exportada que `Tag` não declara implementar).
 
-- `github.com/pion/transport/v3/stdnet` e `v4/stdnet` (desde 2026-10-07, quando o shim ganhou
-  `net.IPConn` e o pacote passou a ser emitido): `func (n *Net) ListenUDP(...) (transport.UDPConn,
-  error) { return net.ListenUDP(network, locAddr) }`, o mesmo caso do `deadline` (o
-  `*net.UDPConn`/`*net.TCPConn` do shim não implementa a interface nomeada `transport.UDPConn`).
-  (O `syscallConn` que faltava no `net.TCPListener` do shim entrou com o E2
-  em 2026-10-08; sobram os quatro `return_of_invalid_type`.)
-
-Repro mínimo do caso comum (tipo de shim devolvido como interface nomeada do pacote):
-
-```go
-type LW interface {
-	Write([]byte) (int, error)
-	Len() int
-}
-
-func mk() (LW, error) { return new(bytes.Buffer), nil }
-```
-
-```text
-$ python -m g2d transpile d.json -o out   # emite sem Unsupported
-(LW?, go.GoError?) _mk() {
-  return (bytes.Buffer() ?? bytes.Buffer.$nil, null);   // Buffer não implementa LW
-```
+Resolvidos (2026-10-08): `github.com/pion/transport/v3/stdnet`, `v4/stdnet` (`return
+net.ListenUDP(...)` como `transport.UDPConn`) e `v3/deadline`, `v4/deadline` (`time.AfterFunc`
+como a interface local `timer`): valor de classe de shim numa interface gerada entra num
+adaptador `go.ShimIface` (`docs/mapping-spec.md` § "Interfaces entre pacotes (D8)", fixture
+`ifaceshimnomeada` com o repro `LW`). Transpilados com a ColorTable do grafo inteiro e
+`dart analyze` dos quatro arquivos: `No issues found!`.
 
 (`crlib/fifo` está em `P1-construcao-generico-metodo-ptr-t.md`.)
 
@@ -60,5 +40,5 @@ falhar com os PRs #7–#10.)
 ## Critério de pronto
 
 - Cada caso vira repro mínimo + fixture em `tests/golden/` com Dart válido igual ao Go, ou
-  `Unsupported` com código estável (o `deadline` pode ficar `Unsupported` até D8).
+  `Unsupported` com código estável.
 - Audit regerado sem `dart-invalido`.
