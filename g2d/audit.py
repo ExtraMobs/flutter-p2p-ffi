@@ -275,7 +275,7 @@ def color_graph(order, dumps, log=print, imports=None):
     ao lado dos dumps, por versão do código que os calcula."""
     h = hashlib.sha256()
     for f in ("analysis/color.py", "analysis/ifacecross.py", "services/concurrency.py", "services/dualio.py",
-              "services/anon.py"):
+              "services/anon.py", "services/shimadapt.py"):
         with open(os.path.join(ROOT, "g2d", f), "rb") as fh:
             h.update(fh.read())
     cache = os.path.join(dumps, "color-" + h.hexdigest()[:12])

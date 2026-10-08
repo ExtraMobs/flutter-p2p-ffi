@@ -242,6 +242,7 @@ final class _Printer with io.WriterSync implements State {
     String? under,
     bool? value,
   }) {
+    arg = unShim(arg); // valor de shim numa interface gerada (D8)
     if (arg is TypeTag) {
       name = arg.name;
       under = arg.under;
@@ -520,6 +521,7 @@ final class _Printer with io.WriterSync implements State {
   }
 
   static String _typeName(Object a) => switch (a) {
+    ShimIface s => _typeName(s.$v),
     bool() => 'bool',
     Func f => f.sig,
     TypeTag t => t.name,

@@ -204,7 +204,7 @@ Golang.String _describe(json.Token? t) {
   {
     final $t2 = t;
     if (go.isType<json.Delim>($t2)) {
-      final json.Delim v = $t2 as json.Delim;
+      final json.Delim v = go.unShim($t2) as json.Delim;
       return Golang.String.fromDart('Delim(') +
           v.string() +
           Golang.String.fromDart(')');
@@ -221,7 +221,7 @@ Golang.String _describe(json.Token? t) {
         go.Slice<Object?>.of([v$2], _$e2),
       );
     } else if (go.isType<json.Number>($t2)) {
-      final json.Number v$3 = $t2 as json.Number;
+      final json.Number v$3 = go.unShim($t2) as json.Number;
       return Golang.String.fromDart('Number(') +
           v$3.string() +
           Golang.String.fromDart(')');

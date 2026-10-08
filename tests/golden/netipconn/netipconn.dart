@@ -181,7 +181,7 @@ Golang.String _kind(Object? c) {
     } else if (go.isType<net.UDPConn?>($t2, struct: false)) {
       return Golang.String.fromDart('udp');
     } else if (go.isType<net.IPConn?>($t2, struct: false)) {
-      final net.IPConn? v = go.unNil<net.IPConn>($t2 as net.IPConn?);
+      final net.IPConn? v = go.unNil<net.IPConn>(go.unShim($t2) as net.IPConn?);
       if (v == null) {
         return Golang.String.fromDart('ip(nil)');
       }

@@ -38,6 +38,8 @@ class PackageBehavior(Behavior):
         body += self.synthetic_classes()
         body += self.init_behavior.emit()
         body += self.promoter.mixin_decls
+        if "shimadapt" in self.engine.services:
+            body += self.service("shimadapt").decls
         if self.descriptors.elem_decls:
             body += ["", "// Descritores de tipo (go.Elem) usados por slices, maps e ponteiros."]
             body += self.descriptors.elem_decls

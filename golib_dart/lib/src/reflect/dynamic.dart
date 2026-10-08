@@ -9,6 +9,7 @@ part of '../../reflect.dart';
 /// - `*T` de não-struct: o T reificado do `go.Ptr`;
 /// - o resto (shim sem descritor, genérico): um descritor opaco pelo nome Go.
 RType? rtypeOf(Object? x) {
+  x = unShim(x); // valor de shim numa interface gerada (D8)
   switch (x) {
     case null:
       return null;
@@ -126,11 +127,11 @@ int _kindOfRep(Object x) => switch (x) {
 /// Representação Dart guardada num `reflect.Value` para o valor [x] de uma
 /// interface: struct/array por valor fica como está (a cópia `$isValue`);
 /// sentinelas de ponteiro nil viram null; `go.Func` vira a closure.
-Object? $repOf(Object? x) => switch (x) {
+Object? $repOf(Object? x) => switch (unShim(x)) {
   GoValue v when v.$nilPtr => null,
   NilPtr() => null,
   Func f => f.value,
-  _ => x,
+  final y => y,
 };
 
 /// Descritor de T a partir do dicionário `go.Elem<T>` de um genérico.

@@ -1,4 +1,4 @@
-# Interface nomeada do pacote testada contra valor de classe de shim
+# Interface nomeada do pacote testada (type assertion) contra valor cru de classe de shim
 
 - **Prioridade:** P2 · **Área:** design
 - **Depende de:** —
@@ -38,13 +38,25 @@ $ goast dump . > nl.json && python -m g2d transpile nl.json -o out && dart run o
 assert: false
 ```
 
+## Estado
+
+A conversão **estática** (atribuição, argumento, retorno, `return f()` com
+vários resultados) já funciona desde 2026-10-08: o valor entra num adaptador
+`go.ShimIface` gerado no ponto da conversão (`g2d/services/shimadapt.py`,
+fixture `ifaceshimnomeada`; `docs/mapping-spec.md` § D8). Sobra o caso
+deste artefato: o valor chegou cru por `any`/`error` e só a type assertion
+(ou `case I:`) pede a interface gerada; nesse ponto o g2d não sabe o tipo
+concreto, e nenhum adaptador existe.
+
 ## Caminhos
 
 1. A interface nomeada cujo method set é o de uma interface do runtime vira
    `typedef timeouter = go.Timeouter;` (o nome de uma interface não aparece
    em `%T` nem em `==`; a reflexão dela precisaria de cuidado), com o
    `implements` deduplicado.
-2. Adaptador na type assertion quando o valor é de classe de shim.
+2. Na assertion para interface gerada, adaptador escolhido em runtime: a
+   interface gera uma fábrica sobre os tipos do shim que a cobrem (o g2d não
+   tem o method set dos tipos do shim no resumo do grafo; precisaria dele).
 
 ## Prioridade
 

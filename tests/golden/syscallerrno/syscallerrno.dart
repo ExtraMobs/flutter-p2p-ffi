@@ -65,20 +65,22 @@ Golang.String _kind(go.GoError? err) {
     if ($t2 == null) {
       return Golang.String.fromDart('nil');
     } else if (go.isType<syscall.Errno>($t2)) {
-      final syscall.Errno e = $t2 as syscall.Errno;
+      final syscall.Errno e = go.unShim($t2) as syscall.Errno;
       return fmt.sprintf(
         Golang.String.fromDart('Errno(%d)'),
         go.Slice<Object?>.of([Golang.Int.from(e)], _$e0),
       );
     } else if (go.isType<os.SyscallError?>($t2, struct: false)) {
       final os.SyscallError? e$1 = go.unNil<os.SyscallError>(
-        $t2 as os.SyscallError?,
+        go.unShim($t2) as os.SyscallError?,
       );
       return Golang.String.fromDart('SyscallError(') +
           e$1!.syscall +
           Golang.String.fromDart(')');
     } else if (go.isType<net.OpError?>($t2, struct: false)) {
-      final net.OpError? e$2 = go.unNil<net.OpError>($t2 as net.OpError?);
+      final net.OpError? e$2 = go.unNil<net.OpError>(
+        go.unShim($t2) as net.OpError?,
+      );
       return Golang.String.fromDart('OpError(') +
           e$2!.op +
           Golang.String.fromDart(')');

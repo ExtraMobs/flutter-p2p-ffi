@@ -23,6 +23,7 @@ from g2d.services.naming import Naming
 from g2d.services.operands import Operands
 from g2d.services.promotion import Promotion
 from g2d.services.reflection import Reflection
+from g2d.services.shimadapt import ShimAdapters
 from g2d.services.shimfields import ShimFieldColors
 from g2d.services.types import TypeMapper
 from g2d.services.typesys import TypeSystem
@@ -94,6 +95,7 @@ class InterfacesPlugin(Plugin):
     """Interfaces (abstract mixin class), type assertion e type switch."""
 
     def install(self, engine):
+        engine.register_service(ShimAdapters)  # valor de shim numa interface gerada (D8)
         engine.register_type_decl(decls.InterfaceClass)
         engine.register_expr(exprs.TypeAssertExpr)
         engine.register_stmt(stmts.TypeSwitchStmt)

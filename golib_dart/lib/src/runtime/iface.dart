@@ -8,10 +8,36 @@ import 'slice.dart';
 import 'map.dart';
 import 'struct.dart';
 
+/// Valor de classe de shim guardado numa interface gerada que o shim não
+/// declara (D8: `return new(bytes.Buffer)` como `LW`, `net.ListenUDP(...)`
+/// como o `transport.UDPConn` do pion). O g2d gera, no ponto da conversão,
+/// a subclasse que implementa a interface e repassa cada método a [$v]. O
+/// embrulho é transparente: assertion, type switch, `==`, `%T`/`%v` e o
+/// `reflect` veem o valor do shim.
+abstract class ShimIface<S extends Object> {
+  ShimIface(this.$v);
+
+  /// O valor do shim (a sentinela `$nil` para o ponteiro nil tipado).
+  final S $v;
+
+  @override
+  bool operator ==(Object other) => ifaceEq($v, other);
+
+  @override
+  int get hashCode => $v.hashCode;
+
+  @override
+  String toString() => $v.toString();
+}
+
+/// O valor dinâmico de uma interface sem o embrulho [ShimIface].
+Object? unShim(Object? x) => x is ShimIface ? x.$v : x;
+
 /// Nome Go do tipo dinâmico de um valor em interface (mensagens de erro).
 /// Uma struct guardada como ponteiro aparece como `*T`.
 String goTypeName(Object? v) => switch (v) {
   null => 'nil',
+  ShimIface s => goTypeName(s.$v),
   Func f => f.sig,
   GoValue s when !s.$isValue => '*${s.$goType}',
   GoTyped t => t.$goType,
@@ -102,6 +128,7 @@ Object? _unwrapNil(Object? x) =>
 /// [struct]: `true` para struct por valor (`x.(T)`), `false` para ponteiro
 /// para struct (`x.(*T)`), `null` para os demais tipos.
 bool isType<T>(Object? x, {bool? struct}) {
+  x = unShim(x);
   // Interface nil nunca satisfaz uma assertion (mesmo com T anulável).
   if (x == null || x is! T) return false;
   if (struct == null) return true;
@@ -110,6 +137,7 @@ bool isType<T>(Object? x, {bool? struct}) {
 
 /// `x.(T)` para T concreto. Struct por valor sai copiada.
 T assertType<T>(Object? x, String iface, String target, {bool? struct}) {
+  x = unShim(x);
   if (isType<T>(x, struct: struct)) {
     if (struct == true) return (x as GoValue).$copy() as T;
     return _unwrapNil(x) as T;
@@ -122,6 +150,7 @@ T assertType<T>(Object? x, String iface, String target, {bool? struct}) {
 
 /// `v, ok := x.(T)` para T concreto.
 (T, bool) tryType<T>(Object? x, T zero, {bool? struct}) {
+  x = unShim(x);
   if (!isType<T>(x, struct: struct)) return (zero, false);
   if (struct == true) return ((x as GoValue).$copy() as T, true);
   return (_unwrapNil(x) as T, true);
@@ -131,15 +160,21 @@ T assertType<T>(Object? x, String iface, String target, {bool? struct}) {
 /// [methods] = method set de I)? A classe Dart de uma struct/array é a mesma
 /// para T e *T e declara as interfaces dos dois; um valor guardado por valor
 /// ([GoValue.$isValue]) só tem o method set de T (`$valueMethods`), como no
-/// Go: `P{}` não é `Incer` se `Inc` é de `*P`.
-bool isIface<T>(Object? x, List<String> methods) =>
-    x != null &&
-    x is T &&
-    (x is! GoValue || !x.$isValue || methods.every(x.$methods.contains));
+/// Go: `P{}` não é `Incer` se `Inc` é de `*P`. O [ShimIface] que não é T
+/// é testado pelo valor do shim (`x.(io.Reader)` de um `LW`).
+bool isIface<T>(Object? x, List<String> methods) {
+  x = _ifaceOf<T>(x);
+  return x != null &&
+      x is T &&
+      (x is! GoValue || !x.$isValue || methods.every(x.$methods.contains));
+}
+
+Object? _ifaceOf<T>(Object? x) => x is ShimIface && x is! T ? x.$v : x;
 
 /// `x.(I)` para I interface; [methods] = method set de I (nomes Go
 /// ordenados), também para a mensagem de erro do Go.
 T assertIface<T>(Object? x, String target, List<String> methods) {
+  x = _ifaceOf<T>(x);
   if (isIface<T>(x, methods)) return x as T;
   if (x == null) {
     throw Panic(
@@ -160,11 +195,13 @@ T assertIface<T>(Object? x, String target, List<String> methods) {
 
 /// `v, ok := x.(I)` para I interface ([methods]: ver [isIface]).
 (T?, bool) tryIface<T>(Object? x, [List<String> methods = const []]) =>
-    isIface<T>(x, methods) ? (x as T, true) : (null, false);
+    isIface<T>(x, methods) ? (_ifaceOf<T>(x) as T, true) : (null, false);
 
 /// `==` entre valores de interface: struct por valor compara campos,
 /// ponteiro (struct guardada por referência) compara identidade.
 bool ifaceEq(Object? a, Object? b) {
+  a = unShim(a);
+  b = unShim(b);
   if (a is GoValue && b is GoValue) {
     if (!a.$isValue || !b.$isValue) return identical(a, b);
   }
