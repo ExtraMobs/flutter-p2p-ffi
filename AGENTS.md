@@ -152,6 +152,23 @@ decisão pendente; leia antes de escolher o que atacar.
 4. Problemas descobertos no caminho viram novos artefatos, provados antes
    de serem escritos.
 
+## Grafo de conhecimento (graphify)
+
+O repositório traz o skill do [graphify](https://github.com/Graphify-Labs/graphify)
+(`.claude/skills/graphify/`, pacote PyPI `graphifyy`) e o `.graphifyignore`
+(só código e docs escritos à mão; fora corpus, goldens gerados, dumps e docs
+gerados). O grafo em `graphify-out/` não é versionado: `graphify update .`
+o refaz em ~15 s só por AST (Go e Python por tree-sitter, Dart por regex),
+sem LLM; com a pasta do projeto, `.claude/hooks/graphify-session.sh` o põe em
+`/mnt/project-files/graphify/transpiled_ipfs` e ele sobrevive entre sessões.
+
+- Pergunta sobre o código: `graphify query "<pergunta>"`, `graphify path "A" "B"`,
+  `graphify explain "X"` antes de varrer arquivos; `graphify-out/GRAPH_REPORT.md`
+  só para visão geral.
+- Depois de mudar código: `graphify update .`.
+- O contêiner é efêmero: sem o graphify instalado, `python3 -m pip install --user graphifyy`
+  (ou `.claude/hooks/graphify-session.sh`, que instala e refaz o grafo).
+
 ## Multiagentes
 
 **Sempre que puder, use multiagentes**: divida o trabalho em partes
