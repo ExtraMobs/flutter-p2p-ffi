@@ -24,9 +24,13 @@ lookup: <nil>
   sem uso pelo `net`) e S1–S5. Audit 192/1112 (`grpc/internal/resolver/dns/
   internal` verde); `pion/transport/*/stdnet` passou a ser emitido e caiu em
   `dart-invalido` (ver `P1-construcao-dart-invalido-audit.md`).
-- 2026-10-08: E2–E7 integrados (um só `socket()` do Go para TCP com
-  `Control`, UDP, Unix e IP bruto). Falta: `Read`/`Write` do `RawConn`
-  sobre TCP do `dart:io` (ver E2) e o E8.
+- 2026-10-08 no `main`: E2–E7 integrados (um só `socket()` do Go para TCP com
+  `Control`, UDP, Unix e IP bruto) e o `RawConn.Read`/`Write` sobre o TCP do
+  `dart:io` (readyreader do gRPC). Audit segue 192/1112: o que destrava
+  pacotes inteiros agora é o D5 (`x/sys/unix`) e o D3 (`os`); saíram do
+  ranking `ListenConfig.Control`, `TCPConn.SyscallConn`, `ReadMsgUDP`/
+  `WriteMsgUDP`, `syscall.Read`/`Socketpair`/`GetsockoptInt` e o
+  `syscallConn` que deixava o `stdnet` do pion inválido. Falta o E8 (macOS).
 
 O Go/js simula a rede em memória (`Listen` e `unixgram` funcionam), por isso
 não serve de oráculo para o Node: daí o F5.

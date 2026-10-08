@@ -21,8 +21,8 @@ Os casos que sobram depois de §2c:
   `net.IPConn` e o pacote passou a ser emitido): `func (n *Net) ListenUDP(...) (transport.UDPConn,
   error) { return net.ListenUDP(network, locAddr) }`, o mesmo caso do `deadline` (o
   `*net.UDPConn`/`*net.TCPConn` do shim não implementa a interface nomeada `transport.UDPConn`).
-  O `syscallConn` que faltava no `net.TCPListener` do shim entra com o E2 do
-  `P1-rede-ffi-vm.md`.
+  (O `syscallConn` que faltava no `net.TCPListener` do shim entrou com o E2
+  em 2026-10-08; sobram os quatro `return_of_invalid_type`.)
 
 Repro mínimo do caso comum (tipo de shim devolvido como interface nomeada do pacote):
 
