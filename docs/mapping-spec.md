@@ -621,10 +621,12 @@ erro do `Control` sem embrulho; `SyscallConn` de `UnixConn` com
 `syscall.Read`, `EAGAIN` sem dado, leitura parcial pelo raw e o resto pelo
 `Read` normal e o inverso, leitor parado até o dado chegar, prazo vencido
 antes e durante a espera, `raw.Write` com `syscall.Write`, buffer de escrita
-cheio, EOF como `n == 0`, depois do `Close`), byte a byte
+cheio, EOF como `n == 0`, depois do `Close`), `netrawreadnow` (`syscall.Read`
+com o dado já no kernel antes de o laço de eventos rodar: `Control`,
+`raw.Read` de uma tentativa, `EAGAIN`, leitura parcial e o resto pelo `Read`), byte a byte
 iguais ao `go run` na VM, no JS e no Wasm (`netunixgram`, `netunixpacket`,
 `netunixmsg`, `netiprawsock`, `netcontrol`, `netudpffi`, `syscallsock`,
-`netunixcontrol` e `netrawread` com
+`netunixcontrol`, `netrawread` e `netrawreadnow` com
 `<caso>.node.out` no Node, regra F5: cada linha que difere é o
 `operation not supported`/`protocol not available` da mesma operação);
 recarga dos arquivos do resolvedor em `golib_dart/test/net_reload_test.dart`;
@@ -643,9 +645,11 @@ o arquivo; o autobind do Node escolhe o nome no shim (o formato é o do
 kernel, mas o nome não é dele); `UnixListener.File` não existe no shim;
 `SyscallConn` de UDP do `dart:io` (fora do linux) tem `Read`/`Write` com
 `operation not supported`; no TCP do `dart:io` o `syscall.Read` do
-descritor virtual só enxerga o que o `RawSocket` já anunciou como legível
-(antes do primeiro evento de leitura dá `EAGAIN` mesmo com dado no kernel;
-o `raw.Read` espera o evento, então o `readyreader` não percebe), e o
+descritor virtual lê o que já está no kernel mesmo antes do evento de
+leitura (no linux; fora dele só depois do evento), mas o EOF antes do
+evento `readClosed` dá `EAGAIN` (o `RawSocket.read` devolve `null` nos
+dois casos; o `raw.Read` espera o evento, então o `readyreader` não
+percebe), e o
 descritor virtual do listener do
 `dart:io` dá `ENOPROTOOPT` (o `RawServerSocket` não tem `setRawOption`);
 sem rede FFI, discar com `Control` (TCP, UDP, Unix, IP) dá
