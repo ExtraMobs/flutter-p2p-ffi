@@ -30,7 +30,7 @@ lookup: <nil>
   pacotes inteiros agora é o D5 (`x/sys/unix`) e o D3 (`os`); saíram do
   ranking `ListenConfig.Control`, `TCPConn.SyscallConn`, `ReadMsgUDP`/
   `WriteMsgUDP`, `syscall.Read`/`Socketpair`/`GetsockoptInt` e o
-  `syscallConn` que deixava o `stdnet` do pion inválido. Falta o E8 (macOS).
+  `syscallConn` que deixava o `stdnet` do pion inválido. O E8 (macOS) saiu do escopo (dono, 2026-10-08): nada mais pendente aqui.
 
 O Go/js simula a rede em memória (`Listen` e `unixgram` funcionam), por isso
 não serve de oráculo para o Node: daí o F5.
@@ -191,7 +191,7 @@ stack e `V6ONLY` ainda precisam de teste numa máquina com IPv6 (o
 `favoriteAddrFamily` mede a pilha como o Go). `ListenMulticastUDP` e
 `FileConn`/`FileListener` (D3) seguem fora.
 
-### E8. macOS
+### E8. macOS — fora do escopo atual do projeto (dono, 2026-10-08)
 Layouts (`sin_len`, `sun_path` de 104, `cmsghdr` alinhado a 4, `__error()`),
 `getifaddrs` com `AF_LINK`, ponte por caminho em diretório 0700 e `pipe` no
 lugar do `eventfd`. Linger/keepalive no macOS não precisam de FFI (só as

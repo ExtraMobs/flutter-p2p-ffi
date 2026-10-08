@@ -67,7 +67,7 @@ Legenda: ✅ fiel · ⚠️ fiel no caso comum, com limite conhecido · ❌ não
   `golib_dart/test/net_ffi_build_test.dart`, com o import direto como
   controle negativo). Serve à rede da VM (D4/FFI), e depois ao shim
   `syscall`, ao `x/sys/unix` (D5) e ao `Fd()` (D3); nunca a ponteiros Go.
-  Só linux/amd64 (F3); macOS na etapa E8; Windows sem FFI.
+  Só linux/amd64 (F3); macOS fora do escopo atual do projeto (dono, 2026-10-08); Windows sem FFI.
 - **`Type` como objeto de primeira classe.** Nas três plataformas:
   - a identidade por classe funciona (`runtimeType == Celsius`, `is T`
     reificado, `Type` como chave de map);
