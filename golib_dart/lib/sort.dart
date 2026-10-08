@@ -10,7 +10,7 @@ library;
 import 'builtin.dart';
 import 'fixed_types/golang.dart' as Golang;
 
-part 'src/sort/pdqsort.dart';
+import 'src/sort/pdqsort.dart';
 
 /// `sort.Interface`.
 abstract interface class Interface {
@@ -23,12 +23,12 @@ abstract interface class Interface {
 void sort(Interface? data) {
   final n = data!.len().toInt();
   if (n <= 1) return;
-  _Pdq(_iLess(data), _iSwap(data)).pdqsort(0, n, n.bitLength);
+  Pdq(_iLess(data), _iSwap(data)).pdqsort(0, n, n.bitLength);
 }
 
 /// `sort.Stable(data)`.
 void stable(Interface? data) =>
-    _Pdq(_iLess(data!), _iSwap(data)).stable(data.len().toInt());
+    Pdq(_iLess(data!), _iSwap(data)).stable(data.len().toInt());
 
 /// `sort.IsSorted(data)`: compara de trás para frente, como o Go.
 bool isSorted(Interface? data) {
@@ -41,13 +41,13 @@ bool isSorted(Interface? data) {
 /// `sort.Slice(x, less)`: x tem de ser um slice.
 void slice$(Object? x, bool Function(Golang.Int, Golang.Int)? less) {
   final s = x as Slice;
-  _Pdq(_fLess(less!), _sSwap(s)).pdqsort(0, s.length, s.length.bitLength);
+  Pdq(_fLess(less!), _sSwap(s)).pdqsort(0, s.length, s.length.bitLength);
 }
 
 /// `sort.SliceStable(x, less)`.
 void sliceStable(Object? x, bool Function(Golang.Int, Golang.Int)? less) {
   final s = x as Slice;
-  _Pdq(_fLess(less!), _sSwap(s)).stable(s.length);
+  Pdq(_fLess(less!), _sSwap(s)).stable(s.length);
 }
 
 /// `sort.Ints(x)` (`slices.Sort`).
@@ -77,8 +77,8 @@ Golang.Int search(Golang.Int n, bool Function(Golang.Int)? f) {
   return i;
 }
 
-typedef _Less = bool Function(int i, int j);
-typedef _Swap = void Function(int i, int j);
+typedef _Less = PdqLess;
+typedef _Swap = PdqSwap;
 
 _Less _iLess(Interface d) =>
     (i, j) => d.less(Golang.Int(i), Golang.Int(j));
@@ -89,7 +89,7 @@ _Less _fLess(bool Function(Golang.Int, Golang.Int) f) =>
 _Swap _sSwap<T>(Slice<T> s) =>
     (i, j) => swapElems(s, i, j);
 
-void _ordered<T>(Slice<T> x, bool Function(T, T) less) => _Pdq(
+void _ordered<T>(Slice<T> x, bool Function(T, T) less) => Pdq(
   (i, j) => less(x[i], x[j]),
   _sSwap(x),
 ).pdqsort(0, x.length, x.length.bitLength);

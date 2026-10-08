@@ -56,7 +56,10 @@ STDLIB_SHIMS = {
     "net": "package:golib_dart/net.dart",
     "net/netip": "package:golib_dart/net/netip.dart",
     "net/textproto": "package:golib_dart/net/textproto.dart",
+    "net/url": "package:golib_dart/net/url.dart",
+    "path": "package:golib_dart/path.dart",
     "regexp": "package:golib_dart/regexp.dart",
+    "slices": "package:golib_dart/slices.dart",
     "sort": "package:golib_dart/sort.dart",
     "strconv": "package:golib_dart/strconv.dart",
     "strings": "package:golib_dart/strings.dart",
@@ -75,7 +78,7 @@ STDLIB_SHIMS = {
 # descritores e `*N` seguem as regras dos tipos gerados. Os outros compostos
 # nomeados de shim são typedef do subjacente (`json.RawMessage`).
 SHIM_NAMED_CLASSES = frozenset({("net", "IP"), ("net", "IPMask"), ("net", "HardwareAddr"), ("net", "Buffers"),
-                                ("net/textproto", "MIMEHeader")})
+                                ("net/textproto", "MIMEHeader"), ("net/url", "Values")})
 
 # Pacotes cuja presença no grafo liga os descritores de reflexão (M5):
 # `reflect` e os shims construídos sobre ele.
