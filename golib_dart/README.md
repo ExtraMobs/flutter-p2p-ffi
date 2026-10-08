@@ -179,6 +179,10 @@ e pelos cenários de `test/net_sys_test.dart`:
     informa o progresso** (`progress:`, o `n` que o Go devolve junto com o
     erro numa escrita interrompida).
 15. **`PollDesc.datagram`**: a mesma prontidão sobre `RawDatagramSocket`.
+16. **`FD.RawRead`/`RawWrite`** (`fd_raw.dart`, extensão `FdRaw`): as
+    travas e prazos do `Fd` em volta de um `f` do usuário, com
+    `readNow`/`writeNow` (o `read(2)`/`write(2)` não bloqueante sobre o
+    mesmo `RawSocket`: `null`/0 é o `EAGAIN`), para o `RawConn` do `net`.
 
 Chaves de map `Float64` (NaN nunca encontrado, +0 ≡ −0) foram auditadas e já
 batiam com o Go.

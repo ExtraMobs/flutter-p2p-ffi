@@ -9,11 +9,15 @@ part of '../../net.dart';
 // - socket do `dart:io` (TCP, Unix, UDP fora do linux): o `dart:io` não
 //   expõe o fd. `Control` passa ao `f` um descritor virtual
 //   (`src/syscall/vfd.dart`) cujas opções (`syscall.SetsockoptInt`/
-//   `GetsockoptInt`) vão ao `setRawOption`/`getRawOption` do socket.
-//   ⚠️ `Read`/`Write` dão `operation not supported` (ler por trás do
-//   `dart:io` deixaria o estado dele velho).
+//   `GetsockoptInt`) vão ao `setRawOption`/`getRawOption` do socket. Em
+//   TCP e Unix de fluxo, `Read`/`Write` são o `FD.RawRead`/`RawWrite` do Go
+//   sobre o `Fd` da conexão (mesmas travas e prazos, esperando a prontidão
+//   do `RawSocket`), e o `syscall.Read`/`Write` do `f` no descritor virtual
+//   lê e escreve no mesmo `RawSocket` sem esperar (`EAGAIN`, 0 no EOF): o
+//   padrão do `readyreader` do gRPC. ⚠️ No UDP do `dart:io` (fora do
+//   linux), `Read`/`Write` dão `operation not supported`.
 // - Node e navegador (F4): o descritor virtual responde `ENOPROTOOPT` a
-//   toda opção; `Read`/`Write` como no `dart:io`.
+//   toda opção; `Read`/`Write` dão `operation not supported`.
 
 /// Descritores virtuais por socket do `sys` (um por socket, liberado no
 /// `Close` da conexão).
@@ -51,6 +55,20 @@ final class _VfdOwner implements vfd.VirtualFd {
     return s is sys.SysSockopts
         ? s.rawGetsockopt(level, opt, out)
         : -_enoprotoopt;
+  }
+
+  static const _eopnotsupp = 95;
+
+  @override
+  int read(Uint8List buf) {
+    final s = _s;
+    return s is sys.SysVfdIo ? s.vfdRead(buf) : -_eopnotsupp;
+  }
+
+  @override
+  int write(Uint8List data) {
+    final s = _s;
+    return s is sys.SysVfdIo ? s.vfdWrite(data) : -_eopnotsupp;
   }
 }
 
@@ -113,6 +131,17 @@ final class _RawConn implements syscall.RawConn {
         _opError(read ? 'raw-read' : 'raw-write', _net, _laddr, _raddr, err);
     if (_closed()) return fail(errClosed);
     final s = _sys;
+    if (s is sys.SysVfdIo) {
+      // Descritor virtual (`dart:io` de fluxo): o `FD.RawRead`/`RawWrite`.
+      final fd = _vfdOf(s);
+      bool g() => f!(Golang.Uintptr(fd));
+      try {
+        await (read ? s.rawRead(g) : s.rawWrite(g));
+        return null;
+      } on sys.SysException catch (e) {
+        return fail(_sysError(e));
+      }
+    }
     if (s is! sys.SysRawFd) return fail(syscall.eopnotsupp);
     try {
       // `prepareRead`/`prepareWrite`: prazo vencido falha antes do `f`.

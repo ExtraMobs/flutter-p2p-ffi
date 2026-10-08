@@ -31,6 +31,7 @@ part 'io_ffi.dart';
 part 'io_ffi_udp.dart';
 part 'io_iface.dart';
 part 'io_listen.dart';
+part 'io_local_ip.dart';
 part 'io_tcp.dart';
 part 'io_udp.dart';
 part 'io_unix.dart';

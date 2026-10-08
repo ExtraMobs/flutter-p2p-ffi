@@ -61,7 +61,7 @@ Future<SysTcpConn> _dialTcp(
 }
 
 /// Conexão TCP sobre o `Fd` do `internal/poll`.
-final class _IoTcpConn implements SysTcpConn, SysSockopts {
+final class _IoTcpConn implements SysTcpConn, SysSockopts, SysVfdIo {
   _IoTcpConn._(this._socket, this._fd, this.local, this.remote);
 
   /// Endereços lidos na criação (o `RawSocket` não responde depois de
@@ -206,6 +206,62 @@ final class _IoTcpConn implements SysTcpConn, SysSockopts {
       ? -sf.EBADF
       : _ioGetsockopt(_socket.getRawOption, level, opt, out);
 
+  /// `syscall.Read` no descritor virtual: o `read(2)` não bloqueante.
+  @override
+  int vfdRead(Uint8List buf) {
+    if (buf.isEmpty || _readErrDone) return 0;
+    try {
+      final data = _fd.readNow(buf.length);
+      if (data == null) return -sf.EAGAIN;
+      buf.setRange(0, data.length, data);
+      return data.length;
+    } on NetClosingException {
+      return -sf.EBADF;
+    } catch (e) {
+      // O erro do socket sai uma vez; depois, EOF (como em [read]).
+      _readErrDone = true;
+      return -_ioErrno(e);
+    }
+  }
+
+  /// `syscall.Write` no descritor virtual: o `write(2)` não bloqueante.
+  @override
+  int vfdWrite(Uint8List data) {
+    try {
+      final n = _fd.writeNow(data);
+      return n == 0 && data.isNotEmpty ? -sf.EAGAIN : n;
+    } on NetClosingException {
+      return -sf.EBADF;
+    } on StateError {
+      return -sf.EPIPE;
+    } catch (e) {
+      return -_ioErrno(e);
+    }
+  }
+
+  /// `RawConn.Read`: o `f` é do usuário (o que ele lança sobe intacto).
+  @override
+  Future<void> rawRead(bool Function() f) => heldIo(() async {
+    try {
+      await _fd.rawRead(f);
+    } on NetClosingException {
+      throw const SysClosed();
+    } on DeadlineExceededException {
+      throw const SysTimeout();
+    }
+  });
+
+  @override
+  Future<void> rawWrite(bool Function() f) => heldIo(() async {
+    try {
+      await _fd.rawWrite(f);
+    } on NetClosingException {
+      throw const SysClosed();
+    } on DeadlineExceededException {
+      throw const SysTimeout();
+    }
+  });
+
   void _opt(void Function() set) {
     if (_fd.isClosed) throw const SysClosed();
     try {
@@ -228,67 +284,3 @@ const int _tcpKeepCnt = 6;
 
 /// Linux (ou Android): só lá as constantes acima valem.
 final bool _linuxSockopt = Platform.isLinux || Platform.isAndroid;
-
-/// IP local de uma conexão. Com IP fixado (bind explícito), é ele; no linux,
-/// a linha da conexão em `/proc/net/tcp{,6}` (exato); senão, ⚠️ o loopback
-/// da família quando o par é loopback, e "não especificado" no resto.
-Future<Uint8List> _localIp(Uint8List? bound, SysAddr remote, int port) async {
-  if (bound != null && bound.isNotEmpty && !bound.every((b) => b == 0)) {
-    return bound;
-  }
-  if (Platform.isLinux || Platform.isAndroid) {
-    final ip = await _procLocalIp(remote, port);
-    if (ip != null) {
-      return remote.ip.length == 16 ? ipTo16(ip) : (ipTo4(ip) ?? ip);
-    }
-  }
-  final v4 = ipTo4(remote.ip);
-  if (isLoopbackIp(remote.ip)) {
-    if (v4 == null) return Uint8List(16)..[15] = 1;
-    final lo = Uint8List.fromList([127, 0, 0, 1]);
-    return remote.ip.length == 16 ? ipTo16(lo) : lo;
-  }
-  return Uint8List(remote.ip.length);
-}
-
-/// Procura `local:port ↔ remote` em `/proc/net/tcp` e `tcp6`.
-Future<Uint8List?> _procLocalIp(SysAddr remote, int port) async {
-  final want = ipTo16(remote.ip);
-  for (final f in const ['/proc/net/tcp', '/proc/net/tcp6']) {
-    final String text;
-    try {
-      text = await File(f).readAsString();
-    } on FileSystemException {
-      continue;
-    }
-    for (final line in text.split('\n').skip(1)) {
-      final cols = line.trim().split(RegExp(r'\s+'));
-      if (cols.length < 3) continue;
-      final l = _procAddr(cols[1]), r = _procAddr(cols[2]);
-      if (l == null || r == null) continue;
-      if (l.$2 != port || r.$2 != remote.port) continue;
-      if (!_eq(ipTo16(r.$1), want)) continue;
-      return l.$1;
-    }
-  }
-  return null;
-}
-
-/// `0100007F:1F90` → (127.0.0.1, 8080): palavras de 32 bits na ordem do host.
-(Uint8List, int)? _procAddr(String s) {
-  final c = s.indexOf(':');
-  if (c < 0) return null;
-  final hex = s.substring(0, c);
-  final port = int.tryParse(s.substring(c + 1), radix: 16);
-  if (port == null || (hex.length != 8 && hex.length != 32)) return null;
-  final out = Uint8List(hex.length ~/ 2);
-  for (var w = 0; w < hex.length ~/ 8; w++) {
-    final v = int.tryParse(hex.substring(w * 8, w * 8 + 8), radix: 16);
-    if (v == null) return null;
-    for (var b = 0; b < 4; b++) {
-      final shift = Endian.host == Endian.little ? 8 * b : 8 * (3 - b);
-      out[w * 4 + b] = (v >> shift) & 0xff;
-    }
-  }
-  return (out, port);
-}
