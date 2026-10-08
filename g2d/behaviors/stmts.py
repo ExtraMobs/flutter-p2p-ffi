@@ -569,6 +569,22 @@ def fixed_receiver(b, fun, pre):
     return dict(fun, x={"node": "G2DTemp", "text": tmp, "$type": x.get("$type")})
 
 
+def fixed_args(b, args, pre):
+    """Argumentos de `go`/`defer` avaliados agora, fixados em temporários.
+    Constantes e `nil` passam direto: a chamada os converte ao tipo do
+    parâmetro (`nil` não tem tipo próprio para o temporário)."""
+    fixed = []
+    for a in args:
+        t = b.pkg.type_of(a)
+        if a.get("$value") is not None or (t and t["kind"] == "basic" and t["name"] == "untyped nil"):
+            fixed.append(a)
+            continue
+        tmp = b.names.temp()
+        pre.append(f"final {tmp} = {b.values.coerce(a, t)};")
+        fixed.append({"node": "G2DTemp", "text": tmp, "$type": a.get("$type")})
+    return fixed
+
+
 class DeferStmt(StmtBehavior):
     kinds = ("DeferStmt",)
 
@@ -582,15 +598,7 @@ class DeferStmt(StmtBehavior):
             # `defer recover()` não recupera no Go (recover não é chamado por
             # uma função adiada); raro demais para modelar.
             raise Unsupported("defer-recover", "defer recover()", s)
-        # Avalia os argumentos agora, fixando-os em temporários.
-        fixed = []
-        for a in args:
-            if a.get("$value") is not None:
-                fixed.append(a)
-                continue
-            tmp = self.names.temp()
-            pre.append(f"final {tmp} = {self.values.coerce(a, self.pkg.type_of(a))};")
-            fixed.append({"node": "G2DTemp", "text": tmp, "$type": a.get("$type")})
+        fixed = fixed_args(self, args, pre)
         callee_node = fun
         if fun["node"] == "SelectorExpr" and fun.get("$sel", {}).get("kind") == "method":
             callee_node = fixed_receiver(self, fun, pre)
@@ -654,14 +662,8 @@ class GoStmt(StmtBehavior):
         fun, args = call["fun"], call["args"] or []
         if fun.get("$builtin"):
             raise Unsupported(f"go:builtin:{fun.get('name')}", f"go de builtin {fun.get('name')}", s)
-        pre, fixed = [], []
-        for a in args:
-            if a.get("$value") is not None:
-                fixed.append(a)
-                continue
-            tmp = self.names.temp()
-            pre.append(f"final {tmp} = {self.values.coerce(a, self.pkg.type_of(a))};")
-            fixed.append({"node": "G2DTemp", "text": tmp, "$type": a.get("$type")})
+        pre = []
+        fixed = fixed_args(self, args, pre)
         callee_node = fun
         if fun["node"] == "SelectorExpr" and fun.get("$sel", {}).get("kind") == "method":
             callee_node = fixed_receiver(self, fun, pre)

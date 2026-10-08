@@ -888,7 +888,9 @@ a cor da chamada, do lado do g2d, nunca um lookup por nome Go em runtime.
 
 `defer`: os argumentos (e o receptor) são avaliados no `defer`; receptor de
 método de receptor valor é copiado na hora (desreferenciado se `*T`), no
-`defer` e no `go` (fixture `deferrecv`). As chamadas
+`defer` e no `go` (fixture `deferrecv`). Constantes e `nil` não vão para
+o temporário: a chamada os converte ao tipo do parâmetro (inclusive o
+elemento do variádico; fixture `godeferargnil`). As chamadas
 rodam em ordem LIFO no `finally`, e um panic num defer substitui o anterior.
 O `finally` devolve os resultados, que os defers podem ter alterado. Os
 erros de runtime do Dart viram os `runtime.Error` do Go com as mesmas
