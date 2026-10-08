@@ -28,6 +28,7 @@ GoError _sysError(Object e) => switch (e) {
   sys.SysCanceled() => _errCanceled,
   final sys.SysError x => os.newSyscallError(_s(x.syscall), _errnoOf(x))!,
   final sys.SysDnsError x => _dnsError(x),
+  final sys.SysAddrError x => AddrError(err: _s(x.err), addr: _s(x.addr)),
   _ => throw e,
 };
 

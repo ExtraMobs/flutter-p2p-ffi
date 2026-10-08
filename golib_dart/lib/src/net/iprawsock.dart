@@ -2,10 +2,9 @@ part of '../../net.dart';
 
 // IP bruto (`iprawsock.go`, `parseNetwork` de `dial.go`, `lookupProtocol`
 // de `lookup.go`/`lookup_unix.go` e `internetAddrList`/`forResolve` de
-// `ipsock.go` do Go 1.26), sem socket bruto: a rede (`ip`, `ip4:icmp`,
-// `ip6:58`...) e o endereço são tratados como no Go, e o socket falha com
-// `socket: operation not supported` (⚠️ o Go abre o socket como root e dá
-// `operation not permitted` sem root).
+// `ipsock.go` do Go 1.26): a rede (`ip`, `ip4:icmp`, `ip6:58`...), o
+// endereço e o `DialIP`/`ListenIP`. O socket (`SOCK_RAW` pela rede FFI) está
+// em `iprawsock_sock.dart`; a conexão, em `ipconn.dart`.
 
 /// `maxProtoLength`: `len("RSVP-E2E-IGNORE") + 10`.
 const _maxProtoLength = 25;
@@ -159,44 +158,43 @@ Future<(IPAddr?, GoError?)> resolveIPAddr(
   return (_forResolve(net, address.toString(), addrs), null);
 }
 
-/// `sysDialer.dialIP`/`sysListener.listenIP` até o socket: a rede tem de
-/// ser IP com protocolo; o socket não existe no shim.
-GoError _rawSocket(String network) {
-  final (afnet, _, err) = _parseNetwork(network, needsProto: true);
-  if (err != null) return err;
-  if (!_isIPFamily(afnet)) return UnknownNetworkError(_s(network));
-  return _notSupported('socket');
-}
+/// `(*IPAddr)(nil)` também como `null`.
+IPAddr? _nilIP(IPAddr? a) => a == null || a.$nilPtr ? null : a;
 
-/// `net.DialIP(network, laddr, raddr)`: sempre o erro do socket.
+/// `net.DialIP(network, laddr, raddr)`.
 Future<(IPConn?, GoError?)> dialIP(
   Golang.String network,
   IPAddr? laddr,
   IPAddr? raddr,
 ) async {
   final net = network.toString();
-  if (raddr == null) {
-    return (null, _opError('dial', net, laddr, null, _errMissingAddress));
+  final la = _nilIP(laddr), ra = _nilIP(raddr);
+  if (ra == null) {
+    return (null, _opError('dial', net, la, null, _errMissingAddress));
   }
-  return (null, _opError('dial', net, laddr, raddr, _rawSocket(net)));
+  final (c, err) = await _ipSocket(net, la, ra, listen: false);
+  return (c, err == null ? null : _opError('dial', net, la, ra, err));
 }
 
-/// `net.ListenIP(network, laddr)`: sempre o erro do socket.
+/// `net.ListenIP(network, laddr)`.
 Future<(IPConn?, GoError?)> listenIP(
   Golang.String network,
   IPAddr? laddr,
 ) async {
   final net = network.toString();
-  final la = laddr ?? IPAddr();
-  return (null, _opError('listen', net, null, la, _rawSocket(net)));
+  final la = _nilIP(laddr) ?? IPAddr();
+  final (c, err) = await _ipSocket(net, la, null, listen: true);
+  return (c, err == null ? null : _opError('listen', net, null, la, err));
 }
 
-/// `Dialer.DialContext` com rede IP: resolve como o Go e falha no socket.
+/// `Dialer.DialContext` com rede IP: resolve como o Go e disca o primeiro.
 Future<(Conn?, GoError?)> _dialIPNetwork(
   String net,
   String address,
-  Addr? la,
-) async {
+  Addr? la, {
+  context.Context? ctx,
+  _CtrlFn? ctrl,
+}) async {
   final (afnet, _, err) = _parseNetwork(net, needsProto: true);
   if (err != null) return (null, _opError('dial', net, null, null, err));
   if (address.isEmpty) {
@@ -211,19 +209,32 @@ Future<(Conn?, GoError?)> _dialIPNetwork(
     );
     return (null, _opError('dial', net, null, null, mismatch));
   }
-  return (null, _opError('dial', net, la, addrs.first, _rawSocket(net)));
+  final ra = addrs.first;
+  final (c, serr) = await _ipSocket(
+    net,
+    _nilIP(la as IPAddr?),
+    ra,
+    listen: false,
+    ctx: ctx,
+    ctrl: ctrl,
+  );
+  if (serr != null) return (null, _opError('dial', net, la, ra, serr));
+  return (c as Conn?, null);
 }
 
-/// `ListenConfig.Listen`/`ListenPacket` com rede IP.
-Future<GoError> _listenIPNetwork(
+/// `ListenConfig.Listen` (sempre `unexpected address type`, como no Go) e
+/// `ListenPacket` com rede IP.
+Future<(IPConn?, GoError?)> _listenIPNetwork(
   String net,
   String address, {
   required bool packet,
+  context.Context? ctx,
+  _CtrlFn? ctrl,
 }) async {
   final (afnet, _, err) = _parseNetwork(net, needsProto: true);
-  if (err != null) return _opError('listen', net, null, null, err);
+  if (err != null) return (null, _opError('listen', net, null, null, err));
   final (addrs, rerr) = await _ipAddrList(afnet, address);
-  if (rerr != null) return _opError('listen', net, null, null, rerr);
+  if (rerr != null) return (null, _opError('listen', net, null, null, rerr));
   final la = addrs.firstWhere(
     (a) => a.ip.to4().length != 0,
     orElse: () => addrs.first,
@@ -233,7 +244,15 @@ Future<GoError> _listenIPNetwork(
       err: _s('unexpected address type'),
       addr: _s(address),
     );
-    return _opError('listen', net, null, la, unexpected);
+    return (null, _opError('listen', net, null, la, unexpected));
   }
-  return _opError('listen', net, null, la, _rawSocket(net));
+  final (c, serr) = await _ipSocket(
+    net,
+    la,
+    null,
+    listen: true,
+    ctx: ctx,
+    ctrl: ctrl,
+  );
+  return (c, serr == null ? null : _opError('listen', net, null, la, serr));
 }

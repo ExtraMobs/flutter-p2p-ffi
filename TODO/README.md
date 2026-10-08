@@ -23,8 +23,9 @@ Já decidido (não reabrir): D10 (2026-10-07), rede pelo `dart:ffi` na VM: `dart
 comportamento do Go: `dart:io` na VM/AOT, `node:net`/`node:dgram`/`node:dns`
 no JS/Wasm sob Node (escolha em runtime) e erro Go no navegador, sem emular
 TCP sobre WebSocket; DNS do sistema para IP e TXT (cliente UDP próprio na
-VM); feito: TCP, UDP, sockets Unix de fluxo (`unix`; `unixgram`/`unixpacket`
-seguem `operation not supported`), DNS, portas e interfaces
+VM); feito: TCP, UDP, sockets Unix (`unix`, e na VM linux pelo FFI
+`unixgram`/`unixpacket`/oob; no Node `operation not supported`), IP bruto
+na VM linux, DNS, portas e interfaces
 (`docs/mapping-spec.md` § "Rede (D4)"). D8 (2026-10-05), interface satisfeita por tipo
 de outro pacote: `implements` sobre o grafo, restrito às conversões que
 acontecem (e aos tipos que viram interface e são testados por type
@@ -82,7 +83,7 @@ no `fmt`) foram resolvidos em 2026-10-03.
 
 | Artefato | Resumo |
 |---|---|
-| `P1-rede-ffi-vm.md` | D10: shim `syscall`, `IPConn`, base FFI (poller, ponte), `Control`/`SyscallConn`, `unixgram`/`unixpacket`, IP bruto, UDP no FFI, e as correções S1–S5 do `net` (`Resolver.Dial`, `LookupSRV`/`MX`..., `/etc/services`, `KeepAliveConfig`, `FallbackDelay`) |
+| `P1-rede-ffi-vm.md` | D10: shim `syscall`, `IPConn`, base FFI (poller, ponte), `Control`/`SyscallConn`, UDP no FFI (`unixgram`/`unixpacket`/IP bruto feitos), e as correções S1–S5 do `net` (`Resolver.Dial`, `LookupSRV`/`MX`..., `/etc/services`, `KeepAliveConfig`, `FallbackDelay`) |
 
 ### 2e. P2
 

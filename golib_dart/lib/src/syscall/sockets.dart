@@ -80,8 +80,6 @@ int _getsockopt(int fd, int level, int opt, Uint8List out) {
   return (Golang.Int(r), null);
 }
 
-const _intElem = Elem<Golang.Int>(8, Golang.Int.new, ofInt: Golang.Int.from);
-
 /// `Socketpair(domain, typ, proto)`: `[0 0]` na falha.
 (GoArray<Golang.Int>, GoError?) socketpair(
   Golang.Int domain,

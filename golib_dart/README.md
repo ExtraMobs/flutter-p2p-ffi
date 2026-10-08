@@ -214,10 +214,12 @@ dart test -p node $(grep -L "dart:io" test/*_test.dart)   # mesmos testes no JS
     ignorado); UDP recebido sem leitor fica numa fila de até 4096 datagramas (o resto se perde); listener sem contrapressão de
     `accept` (as conexões ficam pausadas até serem aceitas); fora do linux,
     interfaces com índice pela ordem e sem MTU/flags.
-  - Sockets Unix (`unix`, fluxo): `unixgram`/`unixpacket` não existem
-    (`EOPNOTSUPP`: nem o `dart:io` nem o Node têm datagrama/seqpacket Unix);
-    `sysUnlinkUnix` é best-effort porque VM e Node já apagam o arquivo do
-    socket ao fechá-lo (então `SetUnlinkOnClose(false)` não o preserva);
+  - Sockets Unix: na VM no linux, os três tipos pelo socket FFI genérico
+    (`sysSocket`), iguais ao Go. Fora dela, só `unix` de fluxo;
+    `unixgram`/`unixpacket` dão `EOPNOTSUPP` (nem o `dart:io` nem o Node
+    têm datagrama/seqpacket Unix); `sysUnlinkUnix` é best-effort porque VM e
+    Node já apagam o arquivo do socket ao fechá-lo (o Node preserva com
+    `link` + `rename` no `sysCloseKeepingUnixFile`; a VM fora do linux não);
     sem bind da origem de quem disca; o Node reporta EACCES quando o
     diretório do caminho não existe, e a camada devolve ENOENT (como o Go)
     checando o diretório antes.

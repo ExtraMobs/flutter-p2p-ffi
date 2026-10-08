@@ -10,6 +10,7 @@ import 'dart:async';
 import 'dart:collection';
 import 'dart:js_interop';
 import 'dart:js_interop_unsafe';
+import 'dart:math' show Random;
 import 'dart:typed_data';
 
 import '../../internal/poll/fd_mutex.dart';
@@ -26,6 +27,18 @@ part 'js_unix.dart';
 
 /// Rede disponível: só sob Node (com `process.getBuiltinModule`).
 bool get sysNetSupported => _node != null;
+
+/// Fecha o listener Unix [close] preservando o arquivo [path]
+/// (`SetUnlinkOnClose(false)`): o Node (libuv) apaga o arquivo do socket
+/// ao fechá-lo, então ele ganha um nome extra (`link`) antes e volta
+/// (`rename`) depois.
+void sysCloseKeepingUnixFile(String path, void Function() close) {
+  if (_node == null || path.isEmpty || path.startsWith('@')) {
+    close();
+    return;
+  }
+  _keepUnixFile(path, close);
+}
 
 /// Conecta em [remote]; [local] fixa a origem; [deadline] vence com
 /// [SysTimeout]; [cancel] completando aborta com [SysCanceled].
@@ -132,6 +145,9 @@ void _require(String syscall) {
 /// supported`).
 SysSocket sysSocket(int family, int sotype, int proto) =>
     throw SysError.unsupported('socket');
+
+/// Sem rede FFI, não há `close` adiado a esperar.
+Future<void> sysClosesSettled() async {}
 
 /// Sem rede FFI, a família não é escolhida por aqui.
 SysIpStack sysIpStack() =>

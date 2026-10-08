@@ -38,6 +38,11 @@ part 'io_unix.dart';
 /// Rede disponível (sempre, na VM).
 bool get sysNetSupported => true;
 
+/// Fecha o listener Unix [close] preservando o arquivo [path]
+/// (`SetUnlinkOnClose(false)`). ⚠️ Sem a rede FFI (VM fora do linux), o
+/// `dart:io` apaga o arquivo ao fechar o socket e ele não é preservado.
+void sysCloseKeepingUnixFile(String path, void Function() close) => close();
+
 /// Conecta em [remote]; [local] fixa a origem; [deadline] vence com
 /// [SysTimeout]; [cancel] completando aborta com [SysCanceled].
 Future<SysTcpConn> sysDialTcp(

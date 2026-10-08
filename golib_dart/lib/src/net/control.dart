@@ -1,53 +1,51 @@
 part of '../../net.dart';
 
 // `Dialer.Control`/`ControlContext` e `ListenConfig.Control` (etapa E2 do
-// plano D10) e o UDP da VM no linux (E7): o `socket()` do Go
-// (`sock_posix.go`, `ipsock_posix.go`, `sockopt_linux.go`) sobre o socket
+// plano D10) e o único `socket()` do Go do shim ([_goSocket];
+// `sock_posix.go`, `ipsock_posix.go`, `sockopt_linux.go`) sobre o socket
 // cru da rede FFI (`sys.SysSocket`), na mesma ordem: `socket` →
-// `IPV6_V6ONLY` (AF_INET6, erro ignorado) → `SO_BROADCAST` (datagrama) →
-// `SO_REUSEADDR` (escuta de fluxo) → `Control` → `bind` → `listen` ou
-// `connect`. O erro do `Control` volta sem embrulho dentro do `OpError`, e
-// o socket é fechado.
+// `IPV6_V6ONLY` (AF_INET6 que não é bruto, erro ignorado) → `SO_BROADCAST`
+// (datagrama e bruto fora do Unix) → `SO_REUSEADDR` (escuta de fluxo e
+// seqpacket) → `Control` → `bind` → `listen` ou `connect`. O erro do
+// `Control` volta sem embrulho dentro do `OpError`, e o socket é fechado.
 //
 // - TCP discado com `Control`: o socket conectado vai para o `dart:io` pela
 //   ponte (`SysSocket.toTcpConn`); daí em diante é uma conexão como as
 //   outras.
 // - TCP escutando com `Control`: o listener fica no FFI (laço de
 //   `accept4`); cada conexão aceita vai para o `dart:io`.
-// - UDP na VM no linux: sempre por aqui, com ou sem `Control` (F2).
+// - UDP (E7), Unix de todos os tipos (E3–E5, `unix.dart`) e IP bruto (E6,
+//   `iprawsock_sock.dart`) na VM no linux: sempre por aqui, com ou sem
+//   `Control`; a conexão fica no FFI (`SysSocket.toUdpConn`/`toSockConn`).
 // - Sem rede FFI (Node, navegador, VM fora do linux; F4): discar com
 //   `Control`/`ControlContext` dá `socket: operation not supported`, e
-//   escutar ignora o `Control`. ⚠️ Sockets Unix com `Control`: discar falha
-//   igual em toda plataforma, e escutar ignora o `Control` (até o E5).
+//   escutar ignora o `Control`.
 
 /// `Dialer.Control` e `ListenConfig.Control`: `func(network, address
 /// string, c syscall.RawConn) error`. Síncrono (a cor do campo no g2d é
 /// fixa, `g2d/services/shimfields.py`), como o Go o chama.
-typedef SocketControl =
-    GoError? Function(
-      Golang.String network,
-      Golang.String address,
-      syscall.RawConn? c,
-    );
+typedef SocketControl = GoError? Function(
+  Golang.String network,
+  Golang.String address,
+  syscall.RawConn? c,
+);
 
 /// `Dialer.ControlContext`: `func(ctx context.Context, network, address
 /// string, c syscall.RawConn) error`. Síncrono.
-typedef SocketControlContext =
-    GoError? Function(
-      context.Context? ctx,
-      Golang.String network,
-      Golang.String address,
-      syscall.RawConn? c,
-    );
+typedef SocketControlContext = GoError? Function(
+  context.Context? ctx,
+  Golang.String network,
+  Golang.String address,
+  syscall.RawConn? c,
+);
 
 /// O `ctrlCtxFn` do Go.
-typedef _CtrlFn =
-    GoError? Function(
-      context.Context? ctx,
-      String network,
-      String address,
-      syscall.RawConn c,
-    );
+typedef _CtrlFn = GoError? Function(
+  context.Context? ctx,
+  String network,
+  String address,
+  syscall.RawConn c,
+);
 
 /// O `ctrlCtxFn` de um `Dialer`: `ControlContext` vence `Control`.
 _CtrlFn? _dialerCtrl(Dialer d) {
@@ -74,10 +72,10 @@ final class _GoErr implements Exception {
   final GoError err;
 }
 
-const _afInet = 2;
-const _afInet6 = 10;
-const _sockStream = 1;
-const _sockDgram = 2;
+const _afInet = sys.sysAfInet;
+const _afInet6 = sys.sysAfInet6;
+const _sockStream = sys.sysSockStream;
+const _sockDgram = sys.sysSockDgram;
 
 /// `fd.ctrlNetwork()`: a rede com a família (`tcp4`, `udp6`...).
 String _ctrlNetwork(String net, int family) {
@@ -137,16 +135,19 @@ int _listenerBacklog() {
   return n == null || n <= 0 ? 4096 : n;
 }
 
-/// O `socket()` do Go: devolve o socket com `bind`/`listen` (escuta: só
-/// [laddr]) ou `bind`/`connect` (discagem: [raddr]) feitos. Erros:
-/// [_GoErr], `SysError` (`socket`, `bind`, `listen`, `connect`),
-/// `SysTimeout`, `SysCanceled`.
+/// O `socket()` do Go (`sock_posix.go`), o único do shim: devolve o socket
+/// com `bind`/`listen` (escuta: só [laddr], fluxo ou seqpacket), só `bind`
+/// (datagrama com [laddr] e sem [raddr]) ou `bind`/`connect` (discagem e IP
+/// bruto) feitos. [laddrStr]/[raddrStr] são o `String()` que o `Control`
+/// recebe. Erros: [_GoErr], `SysError` (`socket`, `bind`, `listen`,
+/// `connect`), `SysAddrError`, `SysTimeout`, `SysCanceled`.
 Future<sys.SysSocket> _goSocket({
   required context.Context? ctx,
   required String net,
   required int family,
   required int sotype,
-  required bool ipv6only,
+  int proto = 0,
+  bool ipv6only = false,
   sys.SysAddr? laddr,
   sys.SysAddr? raddr,
   String? laddrStr,
@@ -155,18 +156,31 @@ Future<sys.SysSocket> _goSocket({
   DateTime? deadline,
   Future<void>? cancel,
 }) async {
-  final s = sys.sysSocket(family, sotype, 0);
+  // O `Close` do Go é síncrono: o `bind`/`connect` logo depois tem de ver
+  // o socket anterior fechado.
+  await sys.sysClosesSettled();
+  final s = sys.sysSocket(family, sotype, proto);
   try {
-    // `setDefaultSockopts`.
-    if (family == _afInet6) {
-      s.setsockoptInt(41 /* IPPROTO_IPV6 */, 26 /* IPV6_V6ONLY */, ipv6only ? 1 : 0);
+    // `setDefaultSockopts` (erro do `IPV6_V6ONLY` ignorado, como no Go).
+    if (family == sys.sysAfInet6 && sotype != sys.sysSockRaw) {
+      s.setsockoptInt(
+        41 /* IPPROTO_IPV6 */,
+        26 /* IPV6_V6ONLY */,
+        ipv6only ? 1 : 0,
+      );
     }
-    if (sotype == _sockDgram) {
+    if ((sotype == sys.sysSockDgram || sotype == sys.sysSockRaw) &&
+        family != sys.sysAfUnix) {
       _sockopt(s.setsockoptInt(1 /* SOL_SOCKET */, 6 /* SO_BROADCAST */, 1));
     }
     void control(String address) {
       if (ctrl == null) return;
-      final err = ctrl(ctx, _ctrlNetwork(net, family), address, _RawConn(s, net, null, null, () => false));
+      final err = ctrl(
+        ctx,
+        _ctrlNetwork(net, family),
+        address,
+        _RawConn(s, net, null, null, () => false),
+      );
       if (err != null) throw _GoErr(err);
     }
 
@@ -178,7 +192,7 @@ Future<sys.SysSocket> _goSocket({
     if (laddr != null && raddr == null) {
       var la = laddr;
       var laStr = laddrStr ?? '';
-      if (sotype == _sockStream) {
+      if (sotype == sys.sysSockStream || sotype == sys.sysSockSeqpacket) {
         // `listenStream`.
         _sockopt(s.setsockoptInt(1, 2 /* SO_REUSEADDR */, 1));
         check(la);
@@ -187,16 +201,29 @@ Future<sys.SysSocket> _goSocket({
         s.listen(_listenerBacklog());
         return s;
       }
-      // `listenDatagram`: multicast escuta no "não especificado" da família.
-      if (_ipOf(la.ip).isMulticast()) {
-        _sockopt(s.setsockoptInt(1, 2 /* SO_REUSEADDR */, 1));
-        la = sys.SysAddr(family == _afInet ? Uint8List(4) : Uint8List(16), la.port, la.zone);
-        laStr = (family == _afInet ? UDPAddr(ip: iPv4zero, port: Golang.Int(la.port)) : UDPAddr(ip: iPv6unspecified, port: Golang.Int(la.port))).string().toString();
+      if (sotype == sys.sysSockDgram) {
+        // `listenDatagram`: multicast UDP escuta no "não especificado" da
+        // família.
+        if (family != sys.sysAfUnix && _ipOf(la.ip).isMulticast()) {
+          _sockopt(s.setsockoptInt(1, 2 /* SO_REUSEADDR */, 1));
+          la = sys.SysAddr(
+            family == _afInet ? Uint8List(4) : Uint8List(16),
+            la.port,
+            la.zone,
+          );
+          laStr =
+              (family == _afInet
+                      ? UDPAddr(ip: iPv4zero, port: Golang.Int(la.port))
+                      : UDPAddr(ip: iPv6unspecified, port: Golang.Int(la.port)))
+                  .string()
+                  .toString();
+        }
+        check(la);
+        control(laStr);
+        s.bind(la);
+        return s;
       }
-      check(la);
-      control(laStr);
-      s.bind(la);
-      return s;
+      // IP bruto: o `dial` só com o endereço local.
     }
     // `dial`.
     control(raddr != null ? raddrStr ?? '' : laddrStr ?? '');
@@ -217,7 +244,8 @@ Future<sys.SysSocket> _goSocket({
 
 /// `os.NewSyscallError("setsockopt", err)` de uma opção que falhou.
 void _sockopt(int r) {
-  if (r < 0) throw _GoErr(os.newSyscallError(_s('setsockopt'), syscall.Errno(-r))!);
+  if (r < 0)
+    throw _GoErr(os.newSyscallError(_s('setsockopt'), syscall.Errno(-r))!);
 }
 
 /// `x.String()` de um endereço IP do `sys` na rede [net] (o que o Go passa
@@ -285,7 +313,9 @@ Future<sys.SysUdpConn> _udpGo(
     ipv6only: v6only,
     laddr: la,
     raddr: raddr,
-    laddrStr: la == null ? null : _addrString(net, la, emptyHost: emptyHost || la.ip.isEmpty),
+    laddrStr: la == null
+        ? null
+        : _addrString(net, la, emptyHost: emptyHost || la.ip.isEmpty),
     raddrStr: raddr == null ? null : _addrString(net, raddr),
     ctrl: ctrl,
   );

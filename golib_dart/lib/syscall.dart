@@ -8,7 +8,9 @@
 /// Funções que fazem syscall (pela libc do `sysffi` na VM no linux, F1):
 /// `SetsockoptInt`, `GetsockoptInt`, `Read`, `Write`, `Socketpair` e
 /// `Close` (`src/syscall/sockets.dart`; no Node, falham como o Go em
-/// js/wasm, F4). ⚠️ As outras (`Socket`, `Bind`...) viram `Unsupported`
+/// js/wasm, F4). Mensagens de controle em Dart puro (`UnixRights`,
+/// `ParseSocketControlMessage`, `ParseUnixRights`, `CmsgLen`,
+/// `CmsgSpace`; `src/syscall/sockcmsg.dart`). ⚠️ As outras (`Socket`, `Bind`...) viram `Unsupported`
 /// `shim-simbolo:syscall.*` no código gerado; os outros tipos e constantes
 /// (`Stat_t`, `Signal`, `O_*`...) também não estão aqui.
 ///
@@ -30,4 +32,5 @@ import 'src/syscall/vfd.dart' as vfd;
 part 'src/syscall/errno.dart';
 part 'src/syscall/consts_linux_amd64.dart';
 part 'src/syscall/rawconn.dart';
+part 'src/syscall/sockcmsg.dart';
 part 'src/syscall/sockets.dart';

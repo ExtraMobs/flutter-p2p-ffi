@@ -725,9 +725,11 @@
       "swapUint64"
     ],
     "syscall": [
+      "Cmsghdr",
       "Conn",
       "Errno",
       "RawConn",
+      "SocketControlMessage",
       "af_ALG",
       "af_APPLETALK",
       "af_ASH",
@@ -770,6 +772,8 @@
       "af_WANPIPE",
       "af_X25",
       "close",
+      "cmsgLen",
+      "cmsgSpace",
       "e2BIG",
       "eacces",
       "eaddrinuse",
@@ -1049,6 +1053,8 @@
       "msg_TRYHARD",
       "msg_WAITALL",
       "msg_WAITFORONE",
+      "parseSocketControlMessage",
+      "parseUnixRights",
       "read",
       "scm_CREDENTIALS",
       "scm_RIGHTS",
@@ -1056,6 +1062,7 @@
       "scm_TIMESTAMPING",
       "scm_TIMESTAMPNS",
       "setsockoptInt",
+      "sizeofCmsghdr",
       "so_ACCEPTCONN",
       "so_ATTACH_FILTER",
       "so_BINDTODEVICE",
@@ -1136,6 +1143,7 @@
       "tcp_QUICKACK",
       "tcp_SYNCNT",
       "tcp_WINDOW_CLAMP",
+      "unixRights",
       "write"
     ],
     "time": [
@@ -2833,6 +2841,7 @@
         "read$async",
         "readFrom",
         "readFromUnix",
+        "readMsgUnix",
         "remoteAddr",
         "setDeadline",
         "setReadBuffer",
@@ -2842,6 +2851,7 @@
         "syscallConn",
         "write",
         "write$async",
+        "writeMsgUnix",
         "writeTo",
         "writeToUnix"
       ],
@@ -3995,6 +4005,27 @@
       ]
     },
     "syscall": {
+      "Cmsghdr": [
+        "$classIs",
+        "$copy",
+        "$fieldNames",
+        "$fieldTypes",
+        "$fields",
+        "$goType",
+        "$ifaceCopy",
+        "$isValue",
+        "$methods",
+        "$nilPtr",
+        "$ptrMethods",
+        "$set",
+        "$setAny",
+        "$valueMethods",
+        "hashCode",
+        "len",
+        "level",
+        "setLen",
+        "type"
+      ],
       "Conn": [
         "syscallConn"
       ],
@@ -4025,6 +4056,25 @@
         "control",
         "read",
         "write"
+      ],
+      "SocketControlMessage": [
+        "$classIs",
+        "$copy",
+        "$fieldNames",
+        "$fieldTypes",
+        "$fields",
+        "$goType",
+        "$ifaceCopy",
+        "$isValue",
+        "$methods",
+        "$nilPtr",
+        "$ptrMethods",
+        "$set",
+        "$setAny",
+        "$valueMethods",
+        "data",
+        "hashCode",
+        "header"
       ]
     },
     "time": {

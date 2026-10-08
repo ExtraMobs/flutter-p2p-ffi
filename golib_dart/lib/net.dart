@@ -10,11 +10,12 @@
 /// structs geradas; as interfaces `Addr` e `Error` entram em
 /// `SHIM_INTERFACES`.
 ///
-/// Rede real em `src/net/{conn,unix,dial,lookup,interfaces}.dart` (D4);
-/// `Control`, `SyscallConn` e o UDP da VM no linux pela rede FFI em
-/// `src/net/{control,rawconn,udp_msg}.dart` (D10, E2/E7); IP
-/// bruto sem socket (`ResolveIPAddr`, `IPConn`) em `src/net/{iprawsock,
-/// ipconn}.dart`; os erros de sistema são `syscall.Errno` (shim `syscall`).
+/// Rede real em `src/net/{conn,unix*,dial,lookup,interfaces}.dart` (D4);
+/// o `socket()` do Go, `Control`, `SyscallConn` e o UDP da VM no linux pela
+/// rede FFI em `src/net/{control,rawconn,udp_msg}.dart` (D10, E2–E7); IP
+/// bruto (`ResolveIPAddr`, `IPConn`, `SOCK_RAW` pela rede FFI) em
+/// `src/net/{iprawsock,iprawsock_sock,ipconn}.dart`; os erros de sistema
+/// são `syscall.Errno` (shim `syscall`).
 // ignore_for_file: library_prefixes
 library;
 
@@ -51,9 +52,12 @@ part 'src/net/parse.dart';
 part 'src/net/errno.dart';
 part 'src/net/conn.dart';
 part 'src/net/unix.dart';
+part 'src/net/unix_conn.dart';
+part 'src/net/unix_msg.dart';
 part 'src/net/dial.dart';
 part 'src/net/iprawsock.dart';
 part 'src/net/ipconn.dart';
+part 'src/net/iprawsock_sock.dart';
 part 'src/net/dial_parallel.dart';
 part 'src/net/keepalive.dart';
 part 'src/net/lookup.dart';

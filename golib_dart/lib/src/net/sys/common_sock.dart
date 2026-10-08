@@ -1,6 +1,6 @@
 part of 'common.dart';
 
-// Sockets montados passo a passo (rede FFI, etapas E2/E7 do plano D10): o
+// Sockets montados passo a passo (rede FFI, etapas E2–E7 do plano D10): o
 // `net` segue a ordem do `socket()` do Go (`socket` → opções padrão →
 // `Control` → `bind` → `listen`/`connect`) sobre [SysSocket], e o
 // `SyscallConn` do Go vê o descritor por [SysRawFd] (fd real) ou
@@ -38,13 +38,17 @@ abstract interface class SysSockopts {
 /// [toTcpListener], [toUdpConn]) passam o fd a outro dono; depois deles e
 /// do [close], este objeto está fechado.
 abstract interface class SysSocket implements SysRawFd {
-  /// `AF_INET` (2) ou `AF_INET6` (10).
+  /// [sysAfUnix], [sysAfInet] ou [sysAfInet6].
   int get family;
+
+  /// [sysSockStream], [sysSockDgram], [sysSockRaw] ou [sysSockSeqpacket].
+  int get sotype;
 
   /// `setsockopt` de um `int`: 0 ou `-errno`.
   int setsockoptInt(int level, int opt, int value);
 
-  /// `bind`. Erros: [SysError] (`bind`).
+  /// `bind`. Erros: [SysError] (`bind`), [SysAddrError] (IP fora da
+  /// família).
   void bind(SysAddr local);
 
   /// `listen`. Erros: [SysError] (`listen`).
@@ -52,7 +56,11 @@ abstract interface class SysSocket implements SysRawFd {
 
   /// `connect` não bloqueante, com [deadline] (vence com [SysTimeout]) e
   /// [cancel] (aborta com [SysCanceled]). Erros: [SysError] (`connect`).
-  Future<void> connect(SysAddr remote, {DateTime? deadline, Future<void>? cancel});
+  Future<void> connect(
+    SysAddr remote, {
+    DateTime? deadline,
+    Future<void>? cancel,
+  });
 
   /// `getsockname`; `null` se falhar.
   SysAddr? localAddr();
@@ -71,6 +79,10 @@ abstract interface class SysSocket implements SysRawFd {
   /// Socket de datagrama (com `bind` ou `connect` já feitos) → conexão UDP
   /// com [SysUdpMsg] e [SysRawFd].
   SysUdpConn toUdpConn();
+
+  /// Qualquer outro socket (Unix de todos os tipos, IP bruto), discado,
+  /// escutando ou só com `bind` → [SysSockConn] (fica no FFI).
+  SysSockConn toSockConn();
 
   /// Fecha (síncrono, idempotente).
   void close();
@@ -114,4 +126,77 @@ final class SysIpStack {
   final bool ipv4;
   final bool ipv6;
   final bool ipv4MappedIPv6;
+}
+
+/// Tipos de socket do linux (os do `syscall`), para [SysSockConn.sotype].
+const sysSockStream = 1, sysSockDgram = 2, sysSockRaw = 3, sysSockSeqpacket = 5;
+
+/// Famílias do linux, para [SysSockConn.family] e o `sysSocket`.
+const sysAfUnix = 1, sysAfInet = 2, sysAfInet6 = 10;
+
+/// A conexão de um [SysSocket] montado (`SysSocket.toSockConn`), com as
+/// operações do `netFD` do Go: conexão
+/// ([SysTcpConn]: `read`/`write`/`close`...), listener ([SysTcpListener]:
+/// `accept`) e datagrama/mensagem ([readFrom], [writeTo], [readMsg],
+/// [writeMsg]). Qual operação faz sentido depende do tipo; o sistema
+/// responde às outras com o errno do Go (`accept4` num datagrama dá
+/// `EOPNOTSUPP`, `recvfrom` num listener dá `EINVAL`).
+///
+/// Ao contrário de [SysTcpConn.read], [read] devolve o 0 cru: quem chama
+/// decide se é EOF (o `ZeroReadIsEOF` do Go vale para fluxo e seqpacket,
+/// não para datagrama nem IP bruto). Erros: [SysError] com a syscall do Go
+/// (`read`, `write`, `recvfrom`, `sendto`, `recvmsg`, `sendmsg`,
+/// `accept4`), [SysTimeout], [SysClosed].
+abstract interface class SysSockConn implements SysTcpConn, SysTcpListener {
+  /// [sysSockStream], [sysSockDgram], [sysSockRaw] ou [sysSockSeqpacket].
+  int get sotype;
+
+  /// [sysAfUnix], [sysAfInet] ou [sysAfInet6].
+  int get family;
+
+  /// `connect` feito (o `fd.isConnected` do Go): o lado que discou.
+  bool get isConnected;
+
+  /// O `getsockname` (o `fd.laddr` do Go), ou `null`.
+  SysAddr? get localAddr;
+
+  /// O par (o `fd.raddr` do Go), ou `null` (listener, datagrama sem
+  /// destino).
+  SysAddr? get remoteAddr;
+
+  @override
+  Future<SysSockConn> accept();
+
+  /// `recvfrom`: o tamanho lido (truncado em `buf.length` num datagrama) e
+  /// a origem (`null` quando o remetente não tem nome).
+  Future<(int, SysAddr?)> readFrom(Uint8List buf);
+
+  /// `sendto` para [to]; devolve `data.length`.
+  Future<int> writeTo(Uint8List data, SysAddr to);
+
+  /// `recvmsg` com [flags] (`MSG_*`): `(n, oobn, flags, origem)`; os dados
+  /// de controle são copiados para [oob]. Sem dados e com [oob], lê um byte
+  /// fictício num socket que não é de datagrama, como o `syscall.Recvmsg`.
+  Future<(int, int, int, SysAddr?)> readMsg(
+    Uint8List buf,
+    Uint8List oob, [
+    int flags,
+  ]);
+
+  /// `sendmsg` com [oob] para [to] (`null`: o par conectado): `(n, oobn)`.
+  /// Sem dados e com [oob], manda um byte fictício num socket que não é de
+  /// datagrama e devolve `n == 0`, como o `syscall.SendmsgN`.
+  Future<(int, int)> writeMsg(Uint8List data, Uint8List oob, SysAddr? to);
+}
+
+/// Endereço que não serve à família do socket (o `*AddrError` do
+/// `ipToSockaddr` do Go): `address ::1: non-IPv4 address`.
+final class SysAddrError extends SysException {
+  const SysAddrError(this.err, this.addr);
+
+  final String err;
+  final String addr;
+
+  @override
+  String toString() => 'address $addr: $err';
 }

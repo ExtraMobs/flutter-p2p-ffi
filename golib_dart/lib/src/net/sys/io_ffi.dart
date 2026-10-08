@@ -1,19 +1,29 @@
 part of 'sys_io.dart';
 
-// Rede FFI na VM (etapa E2 do plano D10): o socket cru que o `net` monta na
-// ordem do `socket()` do Go ([SysSocket]), o listener de fluxo que fica no
-// FFI (laço de `accept4`; cada conexão aceita vai para o `dart:io` pela
-// ponte) e as opções de socket das conexões do `dart:io` ([SysSockopts]).
+// Rede FFI na VM (etapas E2–E7 do plano D10): o socket cru que o `net`
+// monta na ordem do `socket()` do Go ([SysSocket]; o único `socket()` do
+// shim é o `_goSocket` de `src/net/control.dart`), o listener de fluxo que
+// fica no FFI (laço de `accept4`; cada conexão aceita vai para o `dart:io`
+// pela ponte) e as opções de socket das conexões do `dart:io`
+// ([SysSockopts]). Os sockets que ficam no FFI (Unix, IP bruto, UDP) viram
+// um `FfiSock` (`ffi/sock.dart`), que também faz os `sockaddr` do Go.
 
 /// Socket cru da libc (não bloqueante, `close-on-exec`). Sem rede FFI (VM
 /// fora do linux), falha como o Go em js/wasm (F4).
 SysSocket sysSocket(int family, int sotype, int proto) {
   if (!ffi.sysFfiAvailable) throw SysError.unsupported('socket');
   try {
-    return _FfiSocket(ffi.FfiFd.socket(family, sotype, proto), family);
+    return _FfiSocket(ffi.FfiFd.socket(family, sotype, proto), family, sotype);
   } on ffi.FfiErrno catch (e) {
     throw _ffiError(e);
   }
+}
+
+/// Espera os `close` adiados (listener do `dart:io`, fd do FFI): o
+/// `socket()` do Go vem depois de um `Close` síncrono.
+Future<void> sysClosesSettled() async {
+  if (_pendingCloses.isNotEmpty) await _closesSettled();
+  if (ffi.sysFfiAvailable) await ffi.FfiFd.closesSettled();
 }
 
 /// O `ipStackCapabilities.probe` do Go (linux): IPv4 se um socket
@@ -80,62 +90,22 @@ Future<T> _ffiIo<T>(Future<T> Function() op) async {
   }
 }
 
-/// [a] no layout da família [family] (o `ipToSockaddr` do Go; quem chama
-/// já conferiu que o IP cabe nela). Em `AF_INET6`, IP vazio ou `0.0.0.0` é
-/// `::`, e IPv4 vai mapeado.
-sf.Sockaddr _sockaddrIn(SysAddr a, int family) {
-  if (family == sf.AF_INET) {
-    final ip = a.ip.isEmpty ? Uint8List(4) : (ipTo4(a.ip) ?? a.ip);
-    return sf.Sockaddr.inet(ip, a.port);
-  }
-  final zero = a.ip.isEmpty || (a.ip.length == 4 && a.isUnspecified);
-  return sf.Sockaddr.inet(
-    zero ? Uint8List(16) : ipTo16(a.ip),
-    a.port,
-    scopeId: _zoneIndex(a.zone),
-  );
-}
-
-/// [sa] (IPv4/IPv6) como endereço do motor, com a zona pelo nome da
-/// interface (`zoneCache.name` do Go: o número, se não houver nome).
-SysAddr _sysAddrIn(sf.Sockaddr sa) {
-  if (sa.family == sf.AF_UNIX) return SysAddr.unix(sa.path ?? '');
-  return SysAddr(sa.ip, sa.port, _zoneName(sa.scopeId));
-}
-
-/// Índice da interface [zone] (nome ou número), 0 se não existe.
-int _zoneIndex(String zone) {
-  if (zone.isEmpty) return 0;
-  final n = int.tryParse(zone);
-  if (n != null) return n;
-  final s = sysReadFile('/sys/class/net/$zone/ifindex');
-  return int.tryParse(s?.trim() ?? '') ?? 0;
-}
-
-String _zoneName(int index) {
-  if (index == 0) return '';
-  try {
-    for (final e in Directory('/sys/class/net').listSync()) {
-      final name = e.path.substring(e.path.lastIndexOf('/') + 1);
-      final s = sysReadFile('/sys/class/net/$name/ifindex');
-      if (int.tryParse(s?.trim() ?? '') == index) return name;
-    }
-  } on FileSystemException {
-    // sem /sys: o número
-  }
-  return '$index';
-}
-
 /// `TCP_NODELAY` ligado, como o `newTCPConn` do Go (erro ignorado).
 void _noDelay(int fd) => sf.setsockoptInt(fd, sf.IPPROTO_TCP, 1, 1);
 
 final class _FfiSocket implements SysSocket {
-  _FfiSocket(this._fd, this.family);
+  _FfiSocket(this._fd, this.family, this.sotype);
 
   final ffi.FfiFd _fd;
 
   @override
   final int family;
+
+  @override
+  final int sotype;
+
+  /// O destino do [connect] feito, ou `null`.
+  SysAddr? _connectedTo;
 
   @override
   int get rawFd => _fd.fd;
@@ -161,8 +131,16 @@ final class _FfiSocket implements SysSocket {
   @override
   void bind(SysAddr local) {
     if (_fd.isClosed) throw const SysClosed();
-    final r = _bindRaw(_fd.fd, _sockaddrIn(local, family));
-    if (r < 0) throw _ffiError(ffi.FfiErrno('bind', -r));
+    final sa = sf.libcAlloc<Uint8>(sf.sockaddrStorageSize);
+    try {
+      final len = ffi.ffiEncodeSockaddr(family, local, sa, 'bind');
+      final r = sf.bind(_fd.fd, sa, len);
+      if (r < 0) throw ffi.FfiErrno('bind', -r);
+    } on ffi.FfiErrno catch (e) {
+      throw _ffiError(e);
+    } finally {
+      sf.libcAlloc.free(sa);
+    }
   }
 
   @override
@@ -184,24 +162,19 @@ final class _FfiSocket implements SysSocket {
     if (_pendingCloses.isNotEmpty) await _closesSettled();
     await _ffiIo(
       () => _fd.connect(
-        _sockaddrIn(remote, family),
+        ffi.ffiSockaddr(family, remote, 'connect'),
         deadline: deadline,
         cancel: cancel,
       ),
     );
+    _connectedTo = remote;
   }
 
   @override
-  SysAddr? localAddr() {
-    final sa = _fd.localAddr();
-    return sa == null ? null : _sysAddrIn(sa);
-  }
+  SysAddr? localAddr() => ffi.ffiLocalAddr(_fd);
 
   @override
-  SysAddr? remoteAddr() {
-    final sa = _fd.peerAddr();
-    return sa == null ? null : _sysAddrIn(sa);
-  }
+  SysAddr? remoteAddr() => ffi.ffiPeerAddr(_fd);
 
   @override
   Future<SysTcpConn> toTcpConn() => heldIo(() async {
@@ -223,7 +196,11 @@ final class _FfiSocket implements SysSocket {
   }
 
   @override
-  SysUdpConn toUdpConn() => _FfiUdpConn(_fd, family);
+  SysUdpConn toUdpConn() => _FfiUdpConn(toSockConn() as ffi.FfiSock);
+
+  @override
+  SysSockConn toSockConn() =>
+      ffi.FfiSock.of(_fd, family, sotype, raddr: _connectedTo);
 
   @override
   void close() => _fd.close();

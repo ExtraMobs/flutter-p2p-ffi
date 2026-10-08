@@ -7,9 +7,12 @@
 /// - Navegador (mesmo `sys_js.dart`, decidido em runtime): toda operação
 ///   falha com `SysError(code: 'EOPNOTSUPP')`; não há emulação de TCP.
 ///
-/// Sockets Unix: só de fluxo (`unix`), com o caminho em [SysAddr.unix]
-/// ([sysDialUnix], [sysListenUnix], [sysUnlinkUnix]); ⚠️ datagrama e
-/// seqpacket (`unixgram`/`unixpacket`) não existem em nenhuma plataforma.
+/// Sockets Unix de fluxo pela plataforma ([sysDialUnix], [sysListenUnix],
+/// [sysUnlinkUnix], caminho em [SysAddr.unix]). Socket cru ([sysSocket],
+/// que o `socket()` do Go do shim monta: TCP com `Control`, UDP,
+/// `unix`/`unixgram`/`unixpacket`, IP bruto) só com [sysFfiAvailable] (rede
+/// FFI, VM no linux); ⚠️ sem ela, `unixgram`, `unixpacket` e IP bruto dão
+/// `EOPNOTSUPP`.
 ///
 /// Os tipos (`SysAddr`, erros, `SysTcpConn`...) estão em `common.dart`.
 ///

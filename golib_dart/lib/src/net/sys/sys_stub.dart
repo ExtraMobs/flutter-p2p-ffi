@@ -11,6 +11,9 @@ import 'common.dart';
 /// Rede disponível: nunca, aqui.
 bool get sysNetSupported => false;
 
+/// Fecha o listener Unix (não há arquivo a preservar).
+void sysCloseKeepingUnixFile(String path, void Function() close) => close();
+
 Future<SysTcpConn> sysDialTcp(
   SysAddr remote, {
   SysAddr? local,
@@ -60,6 +63,9 @@ String sysHostname() => '';
 /// supported`).
 SysSocket sysSocket(int family, int sotype, int proto) =>
     throw SysError.unsupported('socket');
+
+/// Sem rede FFI, não há `close` adiado a esperar.
+Future<void> sysClosesSettled() async {}
 
 /// Sem rede FFI, a família não é escolhida por aqui.
 SysIpStack sysIpStack() =>

@@ -2,7 +2,7 @@
 ///
 /// Prazo, fechamento e cancelamento usam os erros comuns do motor
 /// (`SysTimeout`, `SysClosed`, `SysCanceled`, de `common.dart`); quem liga o
-/// FFI ao shim `net` (E2/E7) converte [FfiErrno] para o `syscall.Errno` do
+/// FFI ao shim `net` (E2–E7) converte [FfiErrno] para o `syscall.Errno` do
 /// shim `syscall` (`os.SyscallError` do Go: `connect: connection refused`).
 library;
 
