@@ -25,10 +25,12 @@ const _strElem = Elem<Golang.String>(16, Golang.String.new, pointers: true);
 
 void main() {
   test('path igual ao Go (path_test.go, match_test.go)', () async {
-    final r = await Process.run('go', [
-      'run',
-      'test/go_path_vectors.go',
-    ], stdoutEncoding: utf8);
+    final r = await Process.run(
+      'go',
+      ['run', 'test/go_path_vectors.go'],
+      environment: {...Platform.environment, 'GOTOOLCHAIN': 'go1.26.5'},
+      stdoutEncoding: utf8,
+    );
     expect(r.exitCode, 0, reason: '${r.stderr}');
     final cases = jsonDecode(r.stdout as String) as List;
     expect(cases.length, greaterThan(100));
