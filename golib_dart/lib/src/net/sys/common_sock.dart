@@ -33,6 +33,14 @@ abstract interface class SysSockopts {
   int rawGetsockopt(int level, int opt, Uint8List out);
 }
 
+/// Socket UDP do Node, sem `setsockopt`: as opções de multicast do
+/// `ListenMulticastUDP` (números e estruturas do linux: `IP_MULTICAST_IF`,
+/// `IP_MULTICAST_LOOP`, `IP_ADD_MEMBERSHIP` com `ip_mreqn` e as do IPv6)
+/// pelas chamadas do `dgram`. Devolve 0 ou `-errno`.
+abstract interface class SysMulticastOpts {
+  int multicastSetsockopt(int level, int opt, Uint8List value);
+}
+
 /// Socket do `dart:io` de fluxo (TCP, Unix) cujo descritor virtual também
 /// lê e escreve: o `syscall.Read`/`Write` do `f` de um `RawConn.Read`/
 /// `Write` (o leitor do gRPC, `readyreader`). [vfdRead]/[vfdWrite] não

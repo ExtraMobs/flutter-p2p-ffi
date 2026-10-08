@@ -121,6 +121,7 @@ const _expected = <String, List<String>>{
     'loopback com 127.0.0.1/8 true',
     'índices > 0 true',
   ],
+  'stat': ['tamanho true', 'mtime em ms true', 'ausente null'],
 };
 
 const _browserExpected = '''
@@ -240,10 +241,11 @@ void main() {
       final s = await accepted;
       int opt(int level, int option) {
         final raw = sysGetRawOption(c, level, option, 4)!;
-        return ByteData.view(raw.buffer, raw.offsetInBytes, 4).getInt32(
-          0,
-          Endian.host,
-        );
+        return ByteData.view(
+          raw.buffer,
+          raw.offsetInBytes,
+          4,
+        ).getInt32(0, Endian.host);
       }
 
       (int, int) linger() {

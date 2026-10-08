@@ -92,6 +92,12 @@ Future<SysUdpConn> sysListenUdp(SysAddr local, {bool v6Only = false}) async {
   return _listenUdp(local, v6Only);
 }
 
+/// `DialUDP`: socket em [local] conectado a [remote] (`dgram.connect`).
+Future<SysUdpConn> sysDialUdp(SysAddr local, SysAddr remote) async {
+  _require('socket');
+  return _dialUdp(local, remote);
+}
+
 /// IPs de [host] pelo `dns.lookup` do Node (o `getaddrinfo` do sistema).
 Future<List<Uint8List>> sysLookupIp(
   String host, {
@@ -121,6 +127,20 @@ String? sysReadFile(String path) {
   try {
     return _str(
       _fs.callMethod<JSAny?>('readFileSync'.toJS, path.toJS, 'latin1'.toJS),
+    );
+  } catch (_) {
+    return null;
+  }
+}
+
+/// `(mtime em ms, tamanho)` de [path] (`fs.statSync`), ou `null`.
+(int, int)? sysStatFile(String path) {
+  if (_node == null) return null;
+  try {
+    final st = _fs.callMethod<JSObject>('statSync'.toJS, path.toJS);
+    return (
+      st.getProperty<JSNumber>('mtimeMs'.toJS).toDartDouble.floor(),
+      st.getProperty<JSNumber>('size'.toJS).toDartInt,
     );
   } catch (_) {
     return null;

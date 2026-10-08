@@ -4,8 +4,8 @@ part of '../../net.dart';
 // `/etc/resolv.conf` (`dnsconfig_unix.go`), a ordem de `hosts:` do
 // `/etc/nsswitch.conf` (`conf.go`, ramo sem cgo), o `/etc/hosts`
 // (`hosts.go`) e o `/etc/services` (`port_unix.go`). Como o Go, o
-// resolv.conf e o hosts são relidos no máximo a cada 5 s (⚠️ sem comparar
-// o mtime: o Go relê antes se o arquivo mudou e o prazo venceu).
+// resolv.conf, o nsswitch.conf e o hosts são conferidos no máximo a cada
+// 5 s e só relidos se o mtime (no hosts, também o tamanho) mudou.
 
 const _cacheMaxAge = Duration(seconds: 5);
 
@@ -21,6 +21,10 @@ final class _DnsConfig {
   bool singleRequest = false;
   bool useTCP = false;
   bool trustAD = false;
+  bool noReload = false;
+
+  /// mtime do arquivo lido (`null` se não abriu).
+  int? mtime;
   int _soffset = 0;
 
   /// `serverOffset()`: com `rotate`, 0, 1, 2... a cada consulta.
@@ -97,6 +101,7 @@ List<String> _dnsDefaultSearch() {
 /// `dnsReadConfig(filename)`.
 _DnsConfig _dnsReadConfig(String filename) {
   final conf = _DnsConfig();
+  final st = sys.sysStatFile(filename);
   final lines = _readLines(filename);
   if (lines == null) {
     conf
@@ -104,6 +109,7 @@ _DnsConfig _dnsReadConfig(String filename) {
       ..search = _dnsDefaultSearch();
     return conf;
   }
+  conf.mtime = st?.$1;
   final servers = <String>[];
   List<String>? search;
   for (final line in lines) {
@@ -144,8 +150,10 @@ _DnsConfig _dnsReadConfig(String filename) {
             conf.useTCP = true;
           } else if (s == 'trust-ad') {
             conf.trustAD = true;
-          } else if (s == 'edns0' || s == 'no-reload') {
-            // edns0: o Go sempre usa; no-reload: só muda o recarregamento.
+          } else if (s == 'no-reload') {
+            conf.noReload = true;
+          } else if (s == 'edns0') {
+            // o Go sempre usa EDNS0.
           } else {
             conf.unknownOpt = true;
           }
@@ -167,15 +175,44 @@ _DnsConfig _dnsReadConfig(String filename) {
 _DnsConfig? _resolvConf;
 DateTime _resolvChecked = DateTime.fromMillisecondsSinceEpoch(0);
 
-/// `getSystemDNSConfig()`: o `/etc/resolv.conf`, relido a cada 5 s.
+/// `getSystemDNSConfig()` (`resolverConfig.tryUpdate`): o resolv.conf,
+/// conferido a cada 5 s e relido se o mtime mudou (nunca com `no-reload`).
 _DnsConfig _systemDNSConfig() {
   final now = DateTime.now();
-  var conf = _resolvConf;
-  if (conf == null || now.difference(_resolvChecked) >= _cacheMaxAge) {
-    conf = _resolvConf = _dnsReadConfig('/etc/resolv.conf');
+  final path = sys.sysResolvConfPath;
+  final conf = _resolvConf;
+  if (conf == null) {
     _resolvChecked = now;
+    return _resolvConf = _dnsReadConfig(path);
   }
-  return conf;
+  if (conf.noReload || now.difference(_resolvChecked) < _cacheMaxAge) {
+    return conf;
+  }
+  _resolvChecked = now;
+  if (sys.sysStatFile(path)?.$1 == conf.mtime) return conf;
+  return _resolvConf = _dnsReadConfig(path);
+}
+
+List<String>? _nssSrcs;
+int? _nssMtime;
+DateTime? _nssChecked;
+
+/// O `hosts:` do nsswitch.conf (`nsswitchConfig.tryUpdate`), conferido a
+/// cada 5 s e relido se o mtime mudou; `null` sem arquivo ou sem `hosts`.
+List<String>? _nssHostsConf() {
+  final now = DateTime.now();
+  final path = sys.sysNssPath;
+  final checked = _nssChecked;
+  if (checked != null) {
+    if (now.difference(checked) < _cacheMaxAge) return _nssSrcs;
+    _nssChecked = now;
+    if (sys.sysStatFile(path)?.$1 == _nssMtime) return _nssSrcs;
+  }
+  _nssChecked = now;
+  final st = sys.sysStatFile(path);
+  final lines = _readLines(path);
+  _nssMtime = lines == null ? null : st?.$1;
+  return _nssSrcs = lines == null ? null : _nssHosts(lines);
 }
 
 // ------------------------------------------------------------ nsswitch
@@ -186,9 +223,7 @@ enum _HostLookupOrder { filesDNS, dnsFiles, files, dns }
 /// `systemConf().hostLookupOrder(r, host)` sem cgo: o `hosts:` do
 /// `/etc/nsswitch.conf` (ausente ou sem `hosts`: arquivos e depois DNS).
 _HostLookupOrder _hostLookupOrder() {
-  final lines = _readLines('/etc/nsswitch.conf');
-  if (lines == null) return _HostLookupOrder.filesDNS;
-  final srcs = _nssHosts(lines);
+  final srcs = _nssHostsConf();
   if (srcs == null || srcs.isEmpty) return _HostLookupOrder.filesDNS;
   var hasDNSSource = false, hasDNSSourceChecked = false;
   var filesSource = false, dnsSource = false;

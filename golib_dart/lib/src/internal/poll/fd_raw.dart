@@ -11,12 +11,15 @@ extension FdRaw on Fd {
   /// no EOF, `null` sem dado (o `EAGAIN`). Lança o sentinela de fechado ou
   /// o erro do socket. Não olha prazo (a syscall não olha).
   ///
-  /// Mesmas regras de [Fd.read]: o fim de leitura vem antes, e o socket só
-  /// é lido com a prontidão anunciada (ler a seco envenena o `RawSocket`).
+  /// O fim de leitura vem antes, como em [Fd.read]. No linux o socket é lido
+  /// mesmo sem o evento de leitura (o dado já no kernel sai, como no
+  /// `read(2)`; ler sem dado devolve `null` sem efeito, conferido no Dart
+  /// 3.13.5). ⚠️ O EOF antes do evento `readClosed` também volta `null`: dá
+  /// `EAGAIN` até o evento chegar. Fora do linux, só com a prontidão.
   Uint8List? readNow(int len) {
     if (_fdmu.isClosed) throw errClosing(isFile: _isFile);
     if (_pd.readClosed) return Uint8List(0);
-    if (_pd.readable) {
+    if (_pd.readable || Platform.isLinux) {
       final data = _socket.read(len);
       if (data != null && data.isNotEmpty) {
         if (_socket.available() == 0) _pd.drained();

@@ -30,6 +30,9 @@ Future<SysTcpListener> sysListenTcp(
 Future<SysUdpConn> sysListenUdp(SysAddr local, {bool v6Only = false}) async =>
     throw SysError.unsupported('socket');
 
+Future<SysUdpConn> sysDialUdp(SysAddr local, SysAddr remote) async =>
+    throw SysError.unsupported('socket');
+
 Future<SysTcpConn> sysDialUnix(
   String path, {
   DateTime? deadline,
@@ -54,6 +57,9 @@ Future<List<SysInterface>> sysInterfaces() async =>
 
 /// Sem sistema de arquivos: `null`.
 String? sysReadFile(String path) => null;
+
+/// Sem sistema de arquivos: `null`.
+(int, int)? sysStatFile(String path) => null;
 
 /// Sem nome de host.
 String sysHostname() => '';

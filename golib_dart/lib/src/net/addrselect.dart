@@ -1,30 +1,30 @@
 part of '../../net.dart';
 
-// `addrselect.go`: a ordem RFC 6724 dos endereços de um nome.
-//
-// ⚠️ O Go descobre o endereço de origem de cada destino com um `connect`
-// UDP (a rota do kernel); o shim não tem `connect` UDP em toda plataforma e
-// aproxima pela lista de interfaces: loopback sai do loopback da família, o
-// resto do primeiro endereço da família numa interface ativa que não é
-// loopback (link-local para destino link-local). Sem endereço da família, o
-// destino fica sem origem (inalcançável), como o `connect` sem rota.
+// `addrselect.go`: a ordem RFC 6724 dos endereços de um nome. A origem de
+// cada destino é a do kernel, como no Go: o `LocalAddr` de um `DialUDP`
+// (`connect`) para a porta 9; sem rota, o destino fica sem origem.
 
 /// `sortByRFC6724(addrs)`.
 Future<void> _sortByRFC6724(List<_IPZ> addrs) async {
   if (addrs.length < 2) return;
-  List<sys.SysInterface> ifaces;
-  try {
-    ifaces = await sys.sysInterfaces();
-  } on Object {
-    ifaces = const [];
-  }
-  final infos = [
-    for (final a in addrs) _RFC6724Info(a, _srcAddr(a.$1, ifaces)),
-  ];
+  final infos = [for (final a in addrs) _RFC6724Info(a, await _srcAddr(a))];
   _sortStable(infos, _compareByRFC6724);
   for (var i = 0; i < infos.length; i++) {
     addrs[i] = infos[i].addr;
   }
+}
+
+/// `srcAddrs` (um destino): a origem de [dst], ou `null` sem rota.
+Future<Uint8List?> _srcAddr(_IPZ dst) async {
+  final (c, err) = await dialUDP(
+    _gs('udp'),
+    null,
+    UDPAddr(ip: _ipOf(dst.$1), port: Golang.Int(9), zone: _gs(dst.$2)),
+  );
+  if (err != null || c == null) return null;
+  final la = c.localAddr();
+  c.close();
+  return la is UDPAddr ? _as16(_ipBytes(la.ip)) : null;
 }
 
 /// IP em 16 bytes (IPv4 mapeado).
@@ -51,27 +51,6 @@ bool _isLinkLocalIP(Uint8List ip) {
   final b = _as16(ip);
   if (_isV4Mapped(b)) return b[12] == 169 && b[13] == 254;
   return b[0] == 0xfe && b[1] & 0xc0 == 0x80;
-}
-
-/// A origem aproximada de [dst] (ver o cabeçalho); `null` sem rota.
-Uint8List? _srcAddr(Uint8List dst, List<sys.SysInterface> ifaces) {
-  final v4 = _isV4(dst);
-  final loop = _isLoopbackIP(dst), link = _isLinkLocalIP(dst);
-  for (final ifc in ifaces) {
-    if (!ifc.up) continue;
-    for (final (ip, _) in ifc.addrs) {
-      if (_isV4(ip) != v4) continue;
-      if (loop) {
-        if (_isLoopbackIP(ip)) return _as16(ip);
-        continue;
-      }
-      if (ifc.loopback || _isLoopbackIP(ip)) continue;
-      if (!v4 && !link && _isLinkLocalIP(ip)) continue;
-      if (!v4 && link && !_isLinkLocalIP(ip)) continue;
-      return _as16(ip);
-    }
-  }
-  return null;
 }
 
 final class _RFC6724Info {

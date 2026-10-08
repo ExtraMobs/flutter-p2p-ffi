@@ -1,0 +1,5 @@
+syscallconn: <nil>
+control: -1 "" operation not supported <nil>
+one-shot: -1 "" operation not supported true
+vazio: -1 operation not supported <nil>
+parcial: -1 "" operation not supported <nil> / resto: 16 "helloworldabcdef" <nil>

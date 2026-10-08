@@ -393,12 +393,14 @@ final scenarios = <String, Future<List<String>> Function()>{
     c.close();
     l.close();
     sysUnlinkUnix(path);
-    out.add('segundo listen no mesmo caminho ${await _try(() async {
-      final l2 = await sysListenUnix(path);
-      l2.close();
-      sysUnlinkUnix(path);
-      return 'ok';
-    })}');
+    out.add(
+      'segundo listen no mesmo caminho ${await _try(() async {
+        final l2 = await sysListenUnix(path);
+        l2.close();
+        sysUnlinkUnix(path);
+        return 'ok';
+      })}',
+    );
     return out;
   },
 
@@ -460,6 +462,17 @@ final scenarios = <String, Future<List<String>> Function()>{
       'loopback up ${first?.up}',
       'loopback com 127.0.0.1/8 $has127',
       'índices > 0 ${ifs.every((i) => i.index > 0)}',
+    ];
+  },
+
+  // `stat` do resolvedor (mtime em ms, tamanho), como o do `net` do Go.
+  'stat': () async {
+    final st = sysStatFile('pubspec.yaml');
+    final now = DateTime.now().millisecondsSinceEpoch;
+    return [
+      'tamanho ${st?.$2 == sysReadFile('pubspec.yaml')?.length}',
+      'mtime em ms ${st != null && st.$1 > 1577836800000 && st.$1 <= now}',
+      'ausente ${sysStatFile('/nao/existe')}',
     ];
   },
 };

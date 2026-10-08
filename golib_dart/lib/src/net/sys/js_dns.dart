@@ -107,7 +107,9 @@ Future<List<String>> _lookupTxt(String name, SysAddr? server) async {
 /// `internal`; no linux, `/sys/class/net` dá índice, MTU, flags e as
 /// interfaces sem endereço (como na VM). ⚠️ Fora do linux: índice pela
 /// ordem, sem MTU, `up`/`running` para toda interface listada.
-Future<List<SysInterface>> _interfaces() async {
+Future<List<SysInterface>> _interfaces() async => _interfacesSync();
+
+List<SysInterface> _interfacesSync() {
   final osIfaces = _os.callMethod<JSObject>('networkInterfaces'.toJS);
   final names = _keys(osIfaces);
   final byName = <String, SysInterface>{};

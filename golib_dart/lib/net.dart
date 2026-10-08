@@ -38,6 +38,7 @@ import 'net/netip.dart' as netip;
 import 'os.dart' as os;
 import 'src/net/sys/dns_rr.dart' as dns;
 import 'src/net/sys/sys.dart' as sys;
+import 'src/syscall/sys/sys.dart' as ssys show sysSetsockopt;
 import 'src/syscall/vfd.dart' as vfd;
 import 'strconv.dart' as strconv;
 import 'sync.dart' as sync;
@@ -79,6 +80,7 @@ part 'src/net/rawconn.dart';
 part 'src/net/udp_msg.dart';
 part 'src/net/pipe.dart';
 part 'src/net/buffers.dart';
+part 'src/net/multicast.dart';
 
 const _byteElem = Elem<Golang.Uint8>(
   1,

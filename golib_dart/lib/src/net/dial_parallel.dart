@@ -210,7 +210,7 @@ final class _SysDialer {
         final local = la is UDPAddr
             ? _sysAddrOf(la.ip, la.port.toInt(), la.zone)
             : sys.SysAddr(a.ip.length == 4 ? Uint8List(4) : Uint8List(16), 0);
-        final fd = await sys.sysListenUdp(local);
+        final fd = await sys.sysDialUdp(local, a);
         return (
           UDPConn._(fd, net, _udpAddrOf(fd.local), _udpAddrOf(a)) as Conn,
           null,

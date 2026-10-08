@@ -560,13 +560,15 @@ conhecido (exceção do `dart:io`/Node sem código) vira um erro de texto
 | `Conn`, `Listener`, `PacketConn` | interfaces de shim (`SHIM_INTERFACES`); tipo gerado que as implementa (embrulho de `net.Conn`) entra no grupo de cor do método |
 | `Pipe` (`src/net/pipe.dart`; fixture `netpipe`) | porta de `net/pipe.go` sobre `Chan`/`select`, igual em toda plataforma: as duas pontas são `net.Conn` (`Read`/`Write` suspendem pelo grupo do `net.Conn`), sem buffer, `Write` só volta com tudo lido, `Close` dá `ErrClosedPipe` deste lado e `EOF` do outro, deadlines pelo `pipeDeadline` (`os.ErrDeadlineExceeded` no `*OpError` `read pipe`/`write pipe`), endereços `pipe` |
 | `Buffers` (`src/net/buffers.dart`; fixture `netbuffers`) | nomeado de shim sobre `[][]byte` (`SHIM_NAMED_CLASSES`; métodos em `Buffers$Ptr`): `Read` e `consume` como o Go (mudam o slice e os `v[i]`, nunca os bytes), `WriteTo` dual (`DUAL_SHIM_CALLS`): um `Write` por pedaço, ou, com uma conexão do shim (`TCPConn`/`UDPConn`/`UnixConn`/`IPConn`), o `writeBuffers` (até 1024 pedaços não vazios por vez, `*OpError` `writev` com `writev: <errno>`). Na rede FFI da VM (UDP, Unix, IP bruto) é o `writev(2)` de verdade; no `dart:io` (TCP) e no Node, os pedaços juntos num `write` só (um datagrama, como o `writev`). ⚠️ Tipo gerado que embute a conexão não repassa o `writeBuffers` não exportado: o `WriteTo` nele faz um `Write` por pedaço (datagrama vira vários) |
-| `Resolver` com `Dial` ou `PreferGo` | todo lookup dele pelo cliente DNS puro do Go, como com `CGO_ENABLED=0` (`src/net/dns_go.dart`, `lookup_go.dart`, `dns_conf.dart`, `dns_hosts.dart`, `sys/dns_rr.dart`): `/etc/resolv.conf` inteiro (servidores, `search`/`domain` ou o domínio do hostname, `ndots`, `timeout`, `attempts`, `rotate`, `single-request`, `use-vc`, `trust-ad`), ordem do `hosts:` do `/etc/nsswitch.conf`, `/etc/hosts`, `.onion` fora do DNS, A e AAAA em paralelo, UDP com EDNS0 e retomada por TCP na resposta truncada, `StrictErrors`, erros com `Server`; o `Dial` recebe `udp`/`tcp` e o `ip:53` do resolv.conf, e uma `Conn` que é `PacketConn` troca datagramas, a outra o formato com tamanho |
+| `Resolver` com `Dial` ou `PreferGo` | todo lookup dele pelo cliente DNS puro do Go, como com `CGO_ENABLED=0` (`src/net/dns_go.dart`, `lookup_go.dart`, `dns_conf.dart`, `dns_hosts.dart`, `sys/dns_rr.dart`): `/etc/resolv.conf` inteiro (conferido no máximo a cada 5 s e relido só se o mtime mudou, nunca com `no-reload`; o `/etc/nsswitch.conf` também, e o `/etc/hosts` pelo mtime e o tamanho, como o `tryUpdate`/`readHosts` do Go, com o `stat` da camada `sys`: `FileStat.statSync` na VM, `fs.statSync` no Node; ⚠️ mtime em milissegundos, o Go compara em nanossegundos; servidores, `search`/`domain` ou o domínio do hostname, `ndots`, `timeout`, `attempts`, `rotate`, `single-request`, `use-vc`, `trust-ad`), ordem do `hosts:` do `/etc/nsswitch.conf`, `/etc/hosts`, `.onion` fora do DNS, A e AAAA em paralelo, ordem RFC 6724 (`addrselect.go`) com a origem de cada destino pelo `LocalAddr` de um `DialUDP` para a porta 9, como o `srcAddrs` do Go (⚠️ na VM fora do linux o `DialUDP` não conecta e a origem sai não especificada), UDP com EDNS0 e retomada por TCP na resposta truncada, `StrictErrors`, erros com `Server`; o `Dial` recebe `udp`/`tcp` e o `ip:53` do resolv.conf, e uma `Conn` que é `PacketConn` troca datagramas, a outra o formato com tamanho |
 | `LookupCNAME`, `LookupSRV`, `LookupMX`, `LookupNS`, `LookupTXT`, `LookupAddr` (pacote e `Resolver`), `SRV`, `MX`, `NS` | sempre o cliente do Go (o do `Resolver`, ou o `Dialer` padrão sobre os sockets do shim, igual na VM e no Node): nomes com ponto final, SRV por prioridade e embaralhado pelo peso, MX embaralhado e ordenado pela preferência, `LookupCNAME` pela consulta A/AAAA (nome canônico da resposta; sem CNAME, o próprio nome), PTR pelo `/etc/hosts` antes do DNS, registros com nome inválido filtrados com o `DNSError` do Go; no navegador sem `Dial`, o erro da rede ausente |
+| `singleflight` do `lookupIPAddr` (`LookupIP`/`IPAddr`/`NetIP`, `Resolve*Addr`, `Dial`; `src/net/lookup_ip.dart`) | porta do `internal/singleflight` do Go em Dart puro, um grupo por `Resolver`: consultas iguais (`network` + `\0` + `host`) simultâneas saem uma vez e todas recebem o resultado; a consulta roda num `ctx` que só guarda os valores (`WithoutCancel` + `WithCancel`), quem tem o `ctx` cancelado sai na hora com `lookup <host>: operation was canceled` (sem `Server`) e, se ninguém mais a compartilha, a consulta é esquecida e cancelada (`ForgetUnshared`) |
 | `LookupHost`, `LookupIP`, `LookupPort`, `Resolver.Lookup{Host,IP,IPAddr,NetIP,Port}` sem `Dial`/`PreferGo`, `Resolve{TCP,UDP}Addr` | resolver do sistema para IP: `getaddrinfo` na VM e `dns.lookup` no Node (o `Dialer.Resolver` vale no dial); portas pela tabela embutida do Go completada pelo `/etc/services` (o arquivo vence, com os aliases; `parsePort` do Go) |
 | IP bruto: `ResolveIPAddr`, `IPConn`, `DialIP`, `ListenIP`, `Dial`/`Listen`/`ListenPacket` com `ip`/`ip4`/`ip6` + `:protocolo` (`src/net/iprawsock.dart`, `iprawsock_sock.dart`, `ipconn.dart`) | `parseNetwork` do Go (protocolo por número ou nome, `/etc/protocols` lido pela camada `sys` e a tabela embutida `icmp`/`igmp`/`tcp`/`udp`/`ipv6-icmp`, `unknown IP protocol specified`, `unknown network`), resolução como o `internetAddrList`/`forResolve` do Go (literal com zona, resolver do sistema, filtro `ip4`/`ip6`, `no suitable address found`). Na VM no linux, `SOCK_RAW` pelo `socket()` do Go do shim (o mesmo do `Control`, abaixo) com o `favoriteAddrFamily` do Go: `Read`/`ReadMsgIP` trazem o cabeçalho IPv4 e `ReadFrom`/`ReadFromIP` o tiram (`stripIPv4Header`), `WriteTo` em conexão discada dá `use of WriteTo with pre-connected connection`, erros de endereço (`non-IPv4 address`) e do `bind`/`sendto` como o Go, prazos e `Close`, `Control` do `Dialer`/`ListenConfig` e `SyscallConn` com o fd real; sem privilégio o sistema recusa com o mesmo `socket: operation not permitted` do Go. Node, navegador e VM fora do linux: `socket: operation not supported` no `*OpError` com o `Addr` do Go. `IPConn` é struct de shim (`Conn`, `PacketConn`, `syscall.Conn`); o valor zero e `(*IPConn)(nil)` agem como o `!c.ok()` do Go (`EINVAL`, endereços nil, pânico de nil); serve a type switch, embutimento (`*net.IPConn` embutido repassa os métodos, inclusive os do `conn` não exportado) e assinaturas |
 | `Dialer.Control`/`ControlContext`, `ListenConfig.Control` (`src/net/control.dart`) | campos de função síncronos (`SocketControl`/`SocketControlContext`; cor presa no g2d, `SHIM_FUNC_FIELDS` com `False`: função que suspende escrita neles é recusada com `async:valor-func`). Na VM no linux o socket é montado pela rede FFI na ordem do `socket()` do Go (`_goSocket`, o único do shim, também para UDP, Unix e IP bruto com ou sem `Control`): `socket` → `IPV6_V6ONLY` (AF_INET6 que não é bruto, erro ignorado) → `SO_BROADCAST` (datagrama e bruto fora do Unix) → `SO_REUSEADDR` (escuta de fluxo e seqpacket; multicast UDP) → `Control` → `bind` → `listen`/`connect`; família pelo `favoriteAddrFamily` com a pilha medida como o `ipStackCapabilities` do Go; o `Control` recebe a rede com a família (`tcp4`, `udp6`...) e o `String()` do endereço (`:0` com host vazio); o erro dele volta sem embrulho no `*OpError` e o socket é fechado. TCP discado com `Control` vai ao `dart:io` pela ponte; Unix (os três tipos) e IP bruto ficam no FFI (`FfiSock`), com `Control` na discagem e na escuta e a rede `unix`/`unixgram`/`unixpacket` ou `ip4`/`ip6` no `Control`; TCP escutando com `Control` fica no FFI (laço de `accept4`; cada conexão aceita vai ao `dart:io`). `ControlContext` vence `Control` e recebe o `ctx`. Sem rede FFI (Node, navegador, VM fora do linux; F4): discar com eles dá `socket: operation not supported`, escutar ignora o `Control` |
 | `TCPConn`/`UDPConn`/`UnixConn`/`IPConn`/`TCPListener`/`UnixListener.SyscallConn` (`src/net/rawconn.dart`) | o `rawConn`/`rawListener` do Go por dono do descritor: fd real (na VM no linux: UDP, Unix, IP bruto, listener TCP com `Control`, o socket no meio do `Control`) dá `Control`, `Read` e `Write` de verdade (prazos da conexão, `raw-read ...: i/o timeout`); socket do `dart:io` (TCP; Unix e UDP fora do linux) passa ao `f` um descritor virtual (≥ 2^30, `src/syscall/vfd.dart`) cujas opções vão a `setRawOption`/`getRawOption`; em TCP (e Unix de fluxo fora do linux) do `dart:io`, `Read`/`Write` são o `FD.RawRead`/`RawWrite` do Go sobre o `Fd` da conexão (mesmas travas, prazo vencido falha antes do `f`, espera de prontidão do `RawSocket` entre as tentativas, `Close` acorda com `use of closed network connection`) e o `syscall.Read`/`Write` do `f` lê/escreve no mesmo `RawSocket` sem esperar (`EAGAIN`, 0 no EOF, o errno do socket), convivendo com o `Read` normal sem perder bytes (o padrão do `readyreader` do gRPC); Node: o virtual responde `ENOPROTOOPT`. Fechado: `raw-control ...: use of closed network connection`; listener: `Read`/`Write` dão `EINVAL` |
-| UDP na VM no linux (E7; `src/net/sys/io_ffi_udp.dart`, `src/net/udp_msg.dart`) | sempre pela rede FFI (com ou sem `Control`): `DialUDP`/`Dial("udp")` conectam de verdade (`LocalAddr` com o IP do `connect`, o kernel filtra o par, `read: connection refused` do ICMP), `Read`/`Write` são o `read(2)`/`write(2)` do Go (`write: destination address required` sem destino), IPv6 num socket `AF_INET` dá o `AddrError` `non-IPv4 address`; `ReadMsgUDP`/`ReadMsgUDPAddrPort` com os dados de controle e as flags do `recvmsg` (`MSG_TRUNC`), `WriteMsgUDP`/`WriteMsgUDPAddrPort` com `oob` (`sendmsg`). Fora do linux e no Node: `RawDatagramSocket`/`node:dgram` como antes; `ReadMsgUDP` volta com `oobn`/`flags` zero e `WriteMsgUDP` com `oob` dá `sendmsg: operation not supported` |
+| UDP na VM no linux (E7; `src/net/sys/io_ffi_udp.dart`, `src/net/udp_msg.dart`) | sempre pela rede FFI (com ou sem `Control`): `DialUDP`/`Dial("udp")` conectam de verdade (`LocalAddr` com o IP do `connect`, o kernel filtra o par, `read: connection refused` do ICMP), `Read`/`Write` são o `read(2)`/`write(2)` do Go (`write: destination address required` sem destino), IPv6 num socket `AF_INET` dá o `AddrError` `non-IPv4 address`; `ReadMsgUDP`/`ReadMsgUDPAddrPort` com os dados de controle e as flags do `recvmsg` (`MSG_TRUNC`), `WriteMsgUDP`/`WriteMsgUDPAddrPort` com `oob` (`sendmsg`). No Node, `DialUDP`/`Dial("udp")` fazem `dgram.connect` (`sys.sysDialUdp`, `sys/js_udp.dart`): `LocalAddr` do `connect`, o kernel filtra o par, e o `ECONNREFUSED` do ICMP (evento `error` do Node) fica guardado como o erro pendente do socket no linux e sai na próxima operação, `read: connection refused` ou `write: connection refused` (a escrita que o recebe não envia); `ReadMsgUDP` do socket conectado traz `MSG_TRUNC`. Fora do linux e no Node sem `connect`: `RawDatagramSocket`/`node:dgram` como antes; `ReadMsgUDP` volta com `oobn`/`flags` zero e `WriteMsgUDP` com `oob` dá `sendmsg: operation not supported` |
+| `ListenMulticastUDP` (`src/net/multicast.dart`; usuário: `huin/goupnp/httpu`) | o socket do `ListenUDP` (grupo multicast escuta no não especificado da família com `SO_REUSEADDR`, o `listenDatagram` do Go, também no Node) e a sequência do Go: `IP_MULTICAST_IF` (com interface), `IP_MULTICAST_LOOP` desligado e `IP_ADD_MEMBERSHIP` com `ip_mreqn` e o índice da interface (IPv6: `IPV6_MULTICAST_IF`, `IPV6_MULTICAST_LOOP`, `IPV6_JOIN_GROUP`), com o erro `setsockopt: ...` no `*OpError` `listen`; na VM no linux no fd real, no Node pelo `dgram` (`setMulticastInterface` com o IPv4 da interface, `setMulticastLoopback`, `addMembership`). ⚠️ O IPv6 só foi escrito, não testado (sandbox sem IPv6); no Node, interface sem IPv4 (ou, no IPv6, sem nome) dá `setsockopt: no such device` |
 | `Interfaces`, `InterfaceAddrs`, `InterfaceByIndex`/`ByName`, `Interface.Addrs` | `NetworkInterface.list` / `os.networkInterfaces`, com `/sys/class/net` no linux para índice, MTU, MAC e flags |
 
 Fixtures `nettcp` (servidor de eco, embrulho de `net.Conn`, 1 MiB, prazo de
@@ -582,7 +584,11 @@ negativo) e `netunix` (eco sobre socket Unix, endereços dos dois lados,
 ausente/ocupado, rede desconhecida), `netresolver` (servidor DNS falso UDP e
 TCP no próprio programa, alcançado pelo `Resolver.Dial`: A/AAAA, CNAME,
 SRV, MX, NS, TXT truncado → TCP, PTR, NXDOMAIN, SERVFAIL, nome inválido,
-`/etc/hosts`, `Dial` síncrono que falha), `netports` (`LookupPort` com
+`/etc/hosts`, `Dial` síncrono que falha), `netaddrselect` (ordem RFC 6724 com a origem do kernel: `0.0.0.0` com
+origem `127.0.0.1` atrás de um destino global, destino sem rota no fim),
+`netsingleflight` (consultas
+iguais simultâneas com uma discagem só, nomes e `Resolver`s diferentes
+separados, cancelamento compartilhado e sozinho), `netports` (`LookupPort` com
 `/etc/services`, rede `ip`, `parsePort`), `netdialer` (`dialSerial` com o
 primeiro endereço recusado, erro do primeiro, `dialParallel` com
 `FallbackDelay`, `KeepAliveConfig` no `Dialer`, no `ListenConfig` e em
@@ -604,7 +610,11 @@ nomeado, `ReadMsgUnix`/`WriteMsgUnix` com `SCM_RIGHTS` e o shim `syscall`
 já ligado, `Dialer.Control` com a rede `tcp4`, `ControlContext` com o
 `ctx`, erro do `Control` sem embrulho na discagem e na escuta, origem fixa,
 recusa, escuta sem host, `SyscallConn` com opções, depois do `Close` e do
-listener), `netudpffi` (`Control` em UDP com `SO_BROADCAST`, `DialUDP`
+listener), `netmulticast` (`ListenMulticastUDP`: dois membros na mesma porta, o
+próprio envio não volta, unicast na porta, interface de loopback, erros de
+rede, de endereço e de grupo que não é multicast), `netudpconnect` (UDP conectado: `LocalAddr` do `connect`, par filtrado
+pelo kernel, `ECONNREFUSED` do ICMP na próxima `Read` ou `Write`; igual ao
+`go run` também no Node), `netudpffi` (`Control` em UDP com `SO_BROADCAST`, `DialUDP`
 conectado, `IP_RECVTOS`/`IP_TOS` pelo `SyscallConn`, cmsg no `ReadMsgUDP`,
 `MSG_TRUNC`, `IP_TOS` por mensagem no `WriteMsgUDP`, `RawConn.Read`/`Write`
 com `syscall.Read`/`Write`), `syscallsock` e `netunixcontrol` (`Control`/
@@ -616,12 +626,15 @@ erro do `Control` sem embrulho; `SyscallConn` de `UnixConn` com
 `syscall.Read`, `EAGAIN` sem dado, leitura parcial pelo raw e o resto pelo
 `Read` normal e o inverso, leitor parado até o dado chegar, prazo vencido
 antes e durante a espera, `raw.Write` com `syscall.Write`, buffer de escrita
-cheio, EOF como `n == 0`, depois do `Close`), byte a byte
+cheio, EOF como `n == 0`, depois do `Close`), `netrawreadnow` (`syscall.Read`
+com o dado já no kernel antes de o laço de eventos rodar: `Control`,
+`raw.Read` de uma tentativa, `EAGAIN`, leitura parcial e o resto pelo `Read`), byte a byte
 iguais ao `go run` na VM, no JS e no Wasm (`netunixgram`, `netunixpacket`,
 `netunixmsg`, `netiprawsock`, `netcontrol`, `netudpffi`, `syscallsock`,
-`netunixcontrol` e `netrawread` com
+`netunixcontrol`, `netrawread` e `netrawreadnow` com
 `<caso>.node.out` no Node, regra F5: cada linha que difere é o
 `operation not supported`/`protocol not available` da mesma operação);
+recarga dos arquivos do resolvedor em `golib_dart/test/net_reload_test.dart`;
 oráculo da camada em `golib_dart/test/net_sys_test.dart`,
 `test/net_sys_node/`, `test/net_ffi_sock_test.dart` (socket FFI genérico:
 fd recebido por `SCM_RIGHTS` que funciona, formato do autobind, `close`
@@ -637,28 +650,26 @@ o arquivo; o autobind do Node escolhe o nome no shim (o formato é o do
 kernel, mas o nome não é dele); `UnixListener.File` não existe no shim;
 `SyscallConn` de UDP do `dart:io` (fora do linux) tem `Read`/`Write` com
 `operation not supported`; no TCP do `dart:io` o `syscall.Read` do
-descritor virtual só enxerga o que o `RawSocket` já anunciou como legível
-(antes do primeiro evento de leitura dá `EAGAIN` mesmo com dado no kernel;
-o `raw.Read` espera o evento, então o `readyreader` não percebe), e o
+descritor virtual lê o que já está no kernel mesmo antes do evento de
+leitura (no linux; fora dele só depois do evento), mas o EOF antes do
+evento `readClosed` dá `EAGAIN` (o `RawSocket.read` devolve `null` nos
+dois casos; o `raw.Read` espera o evento, então o `readyreader` não
+percebe), e o
 descritor virtual do listener do
 `dart:io` dá `ENOPROTOOPT` (o `RawServerSocket` não tem `setRawOption`);
 sem rede FFI, discar com `Control` (TCP, UDP, Unix, IP) dá
 `socket: operation not supported` e escutar ignora o `Control`; a pilha
 IPv6 (dual stack, `V6ONLY` no UDP) só foi testada sem IPv6; `LookupHost`/`IP` sem
 `Dial`/`PreferGo` usam o resolvedor do sistema (o `DNSError` dele não traz
-`Server`); no cliente do Go, a ordem RFC 6724 acha a origem de cada destino
-pela lista de interfaces (o Go faz um `connect` UDP), o resolv.conf e o
-hosts são relidos a cada 5 s sem olhar o mtime, o cancelamento do `ctx` no
-meio de uma consulta só vale pelo prazo da `Conn` (o Go também), e o
-`singleflight` do `LookupIPAddr` não existe (consultas iguais simultâneas
-saem duas vezes); `SO_LINGER` e `TCP_KEEP{IDLE,
+`Server`); no cliente do Go, o cancelamento do `ctx` no
+meio de uma consulta só vale pelo prazo da `Conn` (o Go também); `SO_LINGER` e `TCP_KEEP{IDLE,
 INTVL,CNT}` só valem no linux (fora dele as constantes mudam e os ajustes
 ficam aceitos e ignorados), e no Node só o tempo de ociosidade do keepalive
 é ajustável (`socket.setKeepAlive`), `SetLinger(0)` vira
 `resetAndDestroy()` e `SetLinger(sec > 0)` fica aceito e ignorado; o Node
 não tem `shutdown(SHUT_RD)` (o `CloseRead` só passa a dar EOF); fora do
-linux a VM não expõe `IPV6_V6ONLY` para UDP, e o UDP "conectado" do Node
-e da VM fora do linux só filtra o par (sem `connect`: `LocalAddr` não
+linux a VM não expõe `IPV6_V6ONLY` para UDP, e o UDP "conectado" da VM
+fora do linux só filtra o par (sem `connect`: `LocalAddr` não
 especificado, sem o `ECONNREFUSED` do ICMP); fora do linux, MTU, MAC e
 flags de interface são aproximados. O DoH do kubo é código transpilado e
 vem com o shim `net/http`.
