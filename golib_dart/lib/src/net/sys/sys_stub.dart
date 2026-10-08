@@ -11,26 +11,6 @@ import 'common.dart';
 /// Rede disponível: nunca, aqui.
 bool get sysNetSupported => false;
 
-/// [sysSocket] existe: nunca, aqui.
-bool get sysSockSupported => false;
-
-/// Socket genérico do Go (o `netFD`, `sock_posix.go`): sockets Unix de
-/// todos os tipos e IP bruto, pela rede FFI. Só onde [sysSockSupported];
-/// fora dela, `socket: operation not supported`.
-Future<SysSock> sysSocket({
-  required int family,
-  required int sotype,
-  int proto = 0,
-  bool ipv6only = false,
-  SysAddr? laddr,
-  SysAddr? raddr,
-  DateTime? deadline,
-  Future<void>? cancel,
-}) async => throw SysError.unsupported('socket');
-
-/// `supportsIPv4map` do Go: não, aqui.
-bool sysSupportsIPv4map() => false;
-
 /// Fecha o listener Unix (não há arquivo a preservar).
 void sysCloseKeepingUnixFile(String path, void Function() close) => close();
 
@@ -77,3 +57,16 @@ String? sysReadFile(String path) => null;
 
 /// Sem nome de host.
 String sysHostname() => '';
+
+/// Socket cru da rede FFI (`Control`, `SyscallConn` com fd real): não
+/// existe aqui; falha como o Go em js/wasm (F4: `socket: operation not
+/// supported`).
+SysSocket sysSocket(int family, int sotype, int proto) =>
+    throw SysError.unsupported('socket');
+
+/// Sem rede FFI, não há `close` adiado a esperar.
+Future<void> sysClosesSettled() async {}
+
+/// Sem rede FFI, a família não é escolhida por aqui.
+SysIpStack sysIpStack() =>
+    const SysIpStack(ipv4: true, ipv6: false, ipv4MappedIPv6: false);

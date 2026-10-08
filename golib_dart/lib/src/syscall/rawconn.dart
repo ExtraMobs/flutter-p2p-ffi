@@ -4,8 +4,10 @@ part of '../../syscall.dart';
 
 /// `syscall.RawConn`: acesso ao descritor de uma conexão. `Read`/`Write`
 /// esperam o descritor ficar pronto, então suspendem (`ASYNC_IFACE_METHODS`
-/// em `g2d/services/dualio.py`); o callback `f` é síncrono. ⚠️ Nenhum
-/// tipo do shim implementa ainda: o `SyscallConn` das conexões devolve erro.
+/// em `g2d/services/dualio.py`); o callback `f` é síncrono. Implementado
+/// pelo `SyscallConn` de `net.TCPConn`/`UDPConn`/`UnixConn` e dos listeners
+/// (`src/net/rawconn.dart`): fd real na rede FFI da VM, descritor virtual
+/// (só opções) num socket do dart:io ou do Node.
 abstract interface class RawConn {
   /// `Control(f)`: chama `f(fd)` sem esperar.
   GoError? control(void Function(Golang.Uintptr fd)? f);

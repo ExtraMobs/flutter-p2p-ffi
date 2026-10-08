@@ -7,20 +7,18 @@ part of '../../net.dart';
 /// `net.IPConn`: socket de IP bruto (`SOCK_RAW`) pela rede FFI (VM no
 /// linux; exige privilégio, como no Go). O valor zero (`&net.IPConn{}`) não
 /// tem descritor: todo método age como no Go com `c.ok()` falso (`EINVAL`,
-/// endereços nil; pânico de nil sobre `(*IPConn)(nil)`). ⚠️ `SyscallConn`
-/// de um socket aberto ainda não existe (etapa E2): devolve
-/// `operation not supported`.
+/// endereços nil; pânico de nil sobre `(*IPConn)(nil)`).
 final class IPConn extends GoStruct<IPConn>
     with io.CloserSync
     implements Conn, PacketConn, syscall.Conn {
   IPConn() : _fd = null, _net = '', _laddr = null, _raddr = null;
 
-  IPConn._(sys.SysSock this._fd, this._net, this._laddr, this._raddr);
+  IPConn._(sys.SysSockConn this._fd, this._net, this._laddr, this._raddr);
 
   /// `(*IPConn)(nil)` dentro de uma interface.
   static final IPConn $nil = IPConn()..$nilPtr = true;
 
-  final sys.SysSock? _fd;
+  final sys.SysSockConn? _fd;
 
   /// `fd.net`: a família sem o protocolo (`ip4`, `ip6`, `ip`).
   final String _net;
@@ -73,7 +71,7 @@ final class IPConn extends GoStruct<IPConn>
       _opError(op, _net, _laddr, _raddr, e is GoError ? e : _sysError(e));
 
   /// Opção/prazo: fechado é `ErrClosed` no `*OpError` de `set`.
-  GoError? _set(void Function(sys.SysSock fd) f) {
+  GoError? _set(void Function(sys.SysSockConn fd) f) {
     final bad = _bad;
     if (bad != null) return bad;
     if (_closed) return _op('set', errClosed);
@@ -123,12 +121,12 @@ final class IPConn extends GoStruct<IPConn>
   /// `SetWriteBuffer(bytes)`: dica aceita e ignorada.
   GoError? setWriteBuffer(Golang.Int bytes) => _set((_) {});
 
-  /// `SyscallConn()`.
+  /// `SyscallConn()`: o `rawConn` do Go sobre o fd real (`rawconn.dart`).
   @override
   (syscall.RawConn?, GoError?) syscallConn() {
     final bad = _bad;
     if (bad != null) return (null, bad);
-    return (null, _notSupported('socket'));
+    return (_RawConn(_fd!, _net, _laddr, _raddr, () => _closed), null);
   }
 
   /// `Read(b)` síncrono (o g2d chama a forma `$async`).

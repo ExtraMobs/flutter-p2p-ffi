@@ -1,5 +1,7 @@
 // Socket genérico da rede FFI (`src/net/sys/ffi/sock.dart`, etapas E3–E6):
-// `ffiSocket` e `FfiSock` direto, sem o shim `net` (os fixtures
+// `sysSocket` e `FfiSock` direto, sem o shim `net` (o `_sock` daqui faz só
+// `bind`/`listen`/`connect`; a sequência completa do `socket()` do Go é o
+// `_goSocket` do shim) (os fixtures
 // `netunixgram`, `netunixpacket`, `netunixmsg` e `netiprawsock` cobrem o
 // shim contra o `go run`). Aqui ficam o que o fixture não pode imprimir de
 // forma determinística: o fd que chega por SCM_RIGHTS funciona, o nome do
@@ -17,8 +19,8 @@ import 'dart:ffi' show AllocatorAlloc, Uint8;
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:golib_dart/src/net/sys/common.dart';
-import 'package:golib_dart/src/net/sys/ffi/vm.dart';
+import 'package:golib_dart/src/net/sys/ffi/vm.dart' show FfiFd, FfiSock;
+import 'package:golib_dart/src/net/sys/sys.dart';
 import 'package:golib_dart/src/sysffi/sysffi.dart' as sf;
 import 'package:test/test.dart';
 
@@ -26,11 +28,36 @@ final _tag = '@golib-sock-test-$pid';
 
 SysAddr _u(String name) => SysAddr.unix('$_tag-$name');
 
-Future<FfiSock> _gram(String name) async => await ffiSocket(
+/// Socket montado: com [laddr] e sem [raddr], `bind` (e `listen` no
+/// fluxo/seqpacket); com [raddr], `connect`.
+Future<FfiSock> ffiSocket({
+  required int family,
+  required int sotype,
+  int proto = 0,
+  SysAddr? laddr,
+  SysAddr? raddr,
+}) async {
+  await sysClosesSettled();
+  final s = sysSocket(family, sotype, proto);
+  try {
+    if (laddr != null) s.bind(laddr);
+    if (raddr != null) {
+      await s.connect(raddr);
+    } else if (sotype == sf.SOCK_STREAM || sotype == sf.SOCK_SEQPACKET) {
+      s.listen(16);
+    }
+    return s.toSockConn() as FfiSock;
+  } catch (_) {
+    s.close();
+    rethrow;
+  }
+}
+
+Future<FfiSock> _gram(String name) => ffiSocket(
   family: sf.AF_UNIX,
   sotype: sf.SOCK_DGRAM,
   laddr: name.isEmpty ? SysAddr.unix('') : _u(name),
-) as FfiSock;
+);
 
 /// `SCM_RIGHTS` com [fd] (o `syscall.UnixRights` do Go).
 Uint8List _rights(int fd) {
@@ -81,7 +108,7 @@ void main() {
       family: sf.AF_UNIX,
       sotype: sf.SOCK_DGRAM,
       raddr: _u('a'),
-    ) as FfiSock;
+    );
     addTearDown(c.close);
     expect(c.localAddr?.path, '@', reason: 'sem nome, como o Go');
     expect(c.remoteAddr?.path, '$_tag-a');
@@ -108,7 +135,7 @@ void main() {
         s.close();
       }
     });
-    final pfd = (p as FfiSock).fd;
+    final pfd = p.fd;
     final (n, oobn) = await a.writeMsg(
       ascii.encode('fd'),
       _rights(pfd),
@@ -154,7 +181,7 @@ void main() {
       family: sf.AF_UNIX,
       sotype: sf.SOCK_SEQPACKET,
       laddr: _u('sp'),
-    ) as FfiSock;
+    );
     addTearDown(l.close);
     final acc = l.accept();
     final c = await ffiSocket(
@@ -208,7 +235,7 @@ void main() {
   });
 
   test('IP bruto: eco ICMP no loopback (ou o EPERM do Go)', () async {
-    final SysSock s;
+    final SysSockConn s;
     try {
       s = await ffiSocket(
         family: sf.AF_INET,

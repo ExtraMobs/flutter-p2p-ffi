@@ -8,10 +8,11 @@
 ///   falha com `SysError(code: 'EOPNOTSUPP')`; não há emulação de TCP.
 ///
 /// Sockets Unix de fluxo pela plataforma ([sysDialUnix], [sysListenUnix],
-/// [sysUnlinkUnix], caminho em [SysAddr.unix]). Socket genérico do Go
-/// ([sysSocket]: `unix`/`unixgram`/`unixpacket`, IP bruto) só com
-/// [sysSockSupported] (rede FFI, VM no linux); ⚠️ sem ela, `unixgram`,
-/// `unixpacket` e IP bruto dão `EOPNOTSUPP`.
+/// [sysUnlinkUnix], caminho em [SysAddr.unix]). Socket cru ([sysSocket],
+/// que o `socket()` do Go do shim monta: TCP com `Control`, UDP,
+/// `unix`/`unixgram`/`unixpacket`, IP bruto) só com [sysFfiAvailable] (rede
+/// FFI, VM no linux); ⚠️ sem ela, `unixgram`, `unixpacket` e IP bruto dão
+/// `EOPNOTSUPP`.
 ///
 /// Os tipos (`SysAddr`, erros, `SysTcpConn`...) estão em `common.dart`.
 ///

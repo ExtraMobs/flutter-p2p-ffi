@@ -61,7 +61,7 @@ Future<SysTcpConn> _dialTcp(
 }
 
 /// Conexão TCP sobre o `Fd` do `internal/poll`.
-final class _IoTcpConn implements SysTcpConn {
+final class _IoTcpConn implements SysTcpConn, SysSockopts {
   _IoTcpConn._(this._socket, this._fd, this.local, this.remote);
 
   /// Endereços lidos na criação (o `RawSocket` não responde depois de
@@ -195,6 +195,16 @@ final class _IoTcpConn implements SysTcpConn {
       RawSocketOption.fromInt(RawSocketOption.levelTcp, option, value),
     );
   });
+
+  @override
+  int rawSetsockopt(int level, int opt, Uint8List value) => _fd.isClosed
+      ? -sf.EBADF
+      : _ioSetsockopt(_socket.setRawOption, level, opt, value);
+
+  @override
+  int rawGetsockopt(int level, int opt, Uint8List out) => _fd.isClosed
+      ? -sf.EBADF
+      : _ioGetsockopt(_socket.getRawOption, level, opt, out);
 
   void _opt(void Function() set) {
     if (_fd.isClosed) throw const SysClosed();

@@ -191,8 +191,10 @@ Future<(IPConn?, GoError?)> listenIP(
 Future<(Conn?, GoError?)> _dialIPNetwork(
   String net,
   String address,
-  Addr? la,
-) async {
+  Addr? la, {
+  context.Context? ctx,
+  _CtrlFn? ctrl,
+}) async {
   final (afnet, _, err) = _parseNetwork(net, needsProto: true);
   if (err != null) return (null, _opError('dial', net, null, null, err));
   if (address.isEmpty) {
@@ -213,6 +215,8 @@ Future<(Conn?, GoError?)> _dialIPNetwork(
     _nilIP(la as IPAddr?),
     ra,
     listen: false,
+    ctx: ctx,
+    ctrl: ctrl,
   );
   if (serr != null) return (null, _opError('dial', net, la, ra, serr));
   return (c as Conn?, null);
@@ -224,6 +228,8 @@ Future<(IPConn?, GoError?)> _listenIPNetwork(
   String net,
   String address, {
   required bool packet,
+  context.Context? ctx,
+  _CtrlFn? ctrl,
 }) async {
   final (afnet, _, err) = _parseNetwork(net, needsProto: true);
   if (err != null) return (null, _opError('listen', net, null, null, err));
@@ -240,6 +246,13 @@ Future<(IPConn?, GoError?)> _listenIPNetwork(
     );
     return (null, _opError('listen', net, null, la, unexpected));
   }
-  final (c, serr) = await _ipSocket(net, la, null, listen: true);
+  final (c, serr) = await _ipSocket(
+    net,
+    la,
+    null,
+    listen: true,
+    ctx: ctx,
+    ctrl: ctrl,
+  );
   return (c, serr == null ? null : _opError('listen', net, null, la, serr));
 }

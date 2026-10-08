@@ -17,6 +17,30 @@ Os casos que sobram depois de §2c:
 - `golang.org/x/text/internal/language/compact`: `tag._full = tFull.$ifaceCopy()` atribui `Tag`
   a `$_fullTag?` (interface local não exportada que `Tag` não declara implementar).
 
+- `github.com/pion/transport/v3/stdnet` e `v4/stdnet` (desde 2026-10-07, quando o shim ganhou
+  `net.IPConn` e o pacote passou a ser emitido): `func (n *Net) ListenUDP(...) (transport.UDPConn,
+  error) { return net.ListenUDP(network, locAddr) }`, o mesmo caso do `deadline` (o
+  `*net.UDPConn`/`*net.TCPConn` do shim não implementa a interface nomeada `transport.UDPConn`).
+  O `syscallConn` que faltava no `net.TCPListener` do shim entra com o E2 do
+  `P1-rede-ffi-vm.md`.
+
+Repro mínimo do caso comum (tipo de shim devolvido como interface nomeada do pacote):
+
+```go
+type LW interface {
+	Write([]byte) (int, error)
+	Len() int
+}
+
+func mk() (LW, error) { return new(bytes.Buffer), nil }
+```
+
+```text
+$ python -m g2d transpile d.json -o out   # emite sem Unsupported
+(LW?, go.GoError?) _mk() {
+  return (bytes.Buffer() ?? bytes.Buffer.$nil, null);   // Buffer não implementa LW
+```
+
 (`crlib/fifo` está em `P1-construcao-generico-metodo-ptr-t.md`.)
 
 ## Prova

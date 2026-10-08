@@ -2,7 +2,7 @@ part of '../../net.dart';
 
 // `net.UnixConn` (`unixsock.go`/`unixsock_posix.go` do Go 1.26) sobre o
 // `sys` da plataforma. Com a rede FFI (VM no linux) a conexão é um
-// `sys.SysSock` de qualquer tipo (`unix`, `unixgram`, `unixpacket`) e tudo
+// `sys.SysSockConn` de qualquer tipo (`unix`, `unixgram`, `unixpacket`) e tudo
 // é o `netFD` do Go; sem ela (Node, VM fora do linux), só fluxo, sobre a
 // conexão de fluxo da plataforma, com o resto emulado ou recusado com
 // `operation not supported` (`unix_msg.dart`).
@@ -19,7 +19,8 @@ String _sotypeToNet(int sotype) => switch (sotype) {
 };
 
 /// `net.UnixConn`: um socket Unix conectado, aceito ou de datagrama.
-final class UnixConn extends _NetConn<UnixConn> implements Conn, PacketConn {
+final class UnixConn extends _NetConn<UnixConn>
+    implements Conn, PacketConn, syscall.Conn {
   UnixConn._(this._fd, String net, Addr? laddr, Addr? raddr, this._connected)
     : super(net, laddr, raddr);
 
@@ -27,7 +28,7 @@ final class UnixConn extends _NetConn<UnixConn> implements Conn, PacketConn {
   static final UnixConn $nil = UnixConn._(null, 'unix', null, null, false)
     ..$nilPtr = true;
 
-  /// A conexão da plataforma; com a rede FFI, um [sys.SysSock].
+  /// A conexão da plataforma; com a rede FFI, um [sys.SysSockConn].
   final sys.SysTcpConn? _fd;
 
   /// `fd.isConnected` do Go: verdadeiro no lado que discou (o aceito não o
@@ -52,6 +53,7 @@ final class UnixConn extends _NetConn<UnixConn> implements Conn, PacketConn {
     'SetReadDeadline',
     'SetWriteBuffer',
     'SetWriteDeadline',
+    'SyscallConn',
     'Write',
     'WriteMsgUnix',
     'WriteTo',
@@ -61,9 +63,9 @@ final class UnixConn extends _NetConn<UnixConn> implements Conn, PacketConn {
   UnixConn $copy() => UnixConn._(_fd, _net, _laddr, _raddr, _connected);
 
   /// O socket genérico (rede FFI), ou `null` (fluxo da plataforma).
-  sys.SysSock? get _sock {
+  sys.SysSockConn? get _sock {
     final fd = _fd;
-    return fd is sys.SysSock ? fd : null;
+    return fd is sys.SysSockConn ? fd : null;
   }
 
   /// `SOCK_*` do socket.
@@ -74,6 +76,11 @@ final class UnixConn extends _NetConn<UnixConn> implements Conn, PacketConn {
 
   @override
   void _sysClose() => _fd!.close();
+
+  /// Com a rede FFI, o fd real do socket; sem ela, o descritor virtual
+  /// (`rawconn.dart`).
+  @override
+  Object? get _sysSocket => _fd;
 
   @override
   GoError? _setDeadlines(time.Time t, {bool read = true, bool write = true}) {
@@ -248,7 +255,7 @@ final class UnixConn extends _NetConn<UnixConn> implements Conn, PacketConn {
 
 /// `newUnixConn` do Go: os endereços do socket, com a rede pelo tipo dele.
 UnixConn _newUnixConn(sys.SysTcpConn c, String net, {required bool dialed}) {
-  if (c is sys.SysSock) {
+  if (c is sys.SysSockConn) {
     final n = _sotypeToNet(c.sotype);
     final l = c.localAddr, r = c.remoteAddr;
     return UnixConn._(

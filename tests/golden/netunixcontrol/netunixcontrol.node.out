@@ -1,0 +1,28 @@
+listen unix: <nil>
+listen unix control: operation not supported
+dial unix: dial unix @N-s: socket: operation not supported
+dial unix control: operation not supported
+unixconn syscallconn: operation not supported
+unixconn so_type: operation not supported
+raw write: operation not supported
+raw read: operation not supported
+unixconn raw-control after close: operation not supported
+dial control error: dial unix @N-s: socket: operation not supported
+listen unixgram: listen unixgram @N-g: socket: operation not supported
+dial unixgram: dial unixgram @N-g: socket: operation not supported
+dial unixgram control: operation not supported
+unixgram read: operation not supported
+listenpacket unixgram: listen unixgram @N-p: socket: operation not supported
+listenpacket unixgram control: operation not supported
+listen unixpacket: listen unixpacket @N-q: socket: operation not supported
+listen unixpacket control: operation not supported
+listen control error: listen unixpacket @N-r: socket: operation not supported
+listener syscallconn: <nil>
+listener so_acceptconn: protocol not available
+listener raw read: invalid argument
+listener raw-control after close: raw-control unix @N-s: use of closed network connection
+listen ip4:icmp: listen ip4:icmp 127.0.0.1: socket: operation not supported
+listen ip4:icmp control: operation not supported
+ipconn syscallconn: operation not supported
+ipconn so_type: operation not supported
+zero ipconn syscallconn: invalid argument

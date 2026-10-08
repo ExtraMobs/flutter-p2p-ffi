@@ -5,8 +5,9 @@ part of '../../net.dart';
 // `socket()` de `sock_posix.go` do Go 1.26. A conexão está em
 // `unix_conn.dart`; as mensagens com dados de controle, em `unix_msg.dart`.
 //
-// Com a rede FFI (VM no linux, `sys.sysSockSupported`) tudo é o socket do
-// sistema, como no Go: os três tipos, autobind (`Listen("unix", "")`),
+// Com a rede FFI (VM no linux, `sys.sysFfiAvailable`) tudo é o socket do
+// sistema, montado pelo `socket()` do Go (`_goSocket`, `control.dart`, com
+// `Control`), como no Go: os três tipos, autobind (`Listen("unix", "")`),
 // `laddr` nomeado, nomes abstratos, `SetUnlinkOnClose(false)`. Sem ela (Node,
 // VM fora do linux), só `unix` sobre a conexão de fluxo da plataforma
 // (autobind e `SetUnlinkOnClose(false)` emulados no Node); ⚠️ `unixgram`,
@@ -27,7 +28,7 @@ int _unixSotype(String net) => switch (net) {
 /// com `Listen("unixgram")`, um datagrama, cujo `Accept` falha como no Go).
 final class UnixListener extends GoStruct<UnixListener>
     with io.CloserSync
-    implements Listener {
+    implements Listener, syscall.Conn {
   UnixListener._(this._ln, this._net, this._laddr, this._path);
 
   /// `(*UnixListener)(nil)` dentro de uma interface.
@@ -54,6 +55,7 @@ final class UnixListener extends GoStruct<UnixListener>
     'Close',
     'SetDeadline',
     'SetUnlinkOnClose',
+    'SyscallConn',
   ];
   @override
   UnixListener $copy() =>
@@ -96,6 +98,7 @@ final class UnixListener extends GoStruct<UnixListener>
   GoError? close() {
     if (_closed) return _op('close', errClosed);
     _closed = true;
+    _vfdRelease(_ln);
     final named = _path.isNotEmpty && !_path.startsWith('@');
     if (!_unlinked) {
       _unlinked = true;
@@ -114,6 +117,18 @@ final class UnixListener extends GoStruct<UnixListener>
     if (_closed) return _op('set', errClosed);
     _ln!.deadline = _deadline(t);
     return null;
+  }
+
+  /// `SyscallConn()`: o `rawListener` do Go (`Read`/`Write` dão `EINVAL`);
+  /// com a rede FFI, sobre o fd real.
+  @override
+  (syscall.RawConn?, GoError?) syscallConn() {
+    final ln = _ln;
+    if (ln == null) return (null, syscall.einval);
+    return (
+      _RawConn(ln, _net, _laddr, null, () => _closed, listener: true),
+      null,
+    );
   }
 
   /// `SetUnlinkOnClose(unlink)`.
@@ -141,13 +156,15 @@ Future<(UnixConn?, GoError?)> dialUnix(
 }
 
 /// `sysDialer.dialUnix` (o `unixSocket` em modo dial): o erro sem o
-/// `*OpError`, que quem chama monta.
+/// `*OpError`, que quem chama monta. [ctrl]: o `Control` do `Dialer`.
 Future<(UnixConn?, GoError?)> _dialUnix(
   String net,
   UnixAddr? laddr,
   UnixAddr? raddr, {
   DateTime? deadline,
   Future<void>? cancel,
+  context.Context? ctx,
+  _CtrlFn? ctrl,
 }) async {
   // `isWildcard`: nil ou sem nome.
   final l = laddr == null || laddr.name.length == 0 ? null : laddr;
@@ -156,9 +173,9 @@ Future<(UnixConn?, GoError?)> _dialUnix(
   if (r == null && (sotype != sys.sysSockDgram || l == null)) {
     return (null, _errMissingAddress);
   }
-  if (!sys.sysSockSupported) {
-    // Só o fluxo da plataforma, sem nome do lado que disca.
-    if (sotype != sys.sysSockStream || l != null) {
+  if (!sys.sysFfiAvailable) {
+    // Só o fluxo da plataforma, sem nome do lado que disca nem `Control`.
+    if (sotype != sys.sysSockStream || l != null || ctrl != null) {
       return (null, _notSupported('socket'));
     }
     try {
@@ -173,15 +190,22 @@ Future<(UnixConn?, GoError?)> _dialUnix(
     }
   }
   try {
-    final s = await sys.sysSocket(
+    final s = await _goSocket(
+      ctx: ctx,
+      net: net,
       family: sys.sysAfUnix,
       sotype: sotype,
       laddr: l == null ? null : sys.SysAddr.unix(l.name.toString()),
       raddr: r == null ? null : sys.SysAddr.unix(r.name.toString()),
+      laddrStr: l?.name.toString(),
+      raddrStr: r?.name.toString(),
+      ctrl: ctrl,
       deadline: deadline,
       cancel: cancel,
     );
-    return (_newUnixConn(s, net, dialed: true), null);
+    return (_newUnixConn(s.toSockConn(), net, dialed: true), null);
+  } on _GoErr catch (e) {
+    return (null, e.err);
   } on Object catch (e) {
     return (null, _sysError(e));
   }
@@ -208,10 +232,16 @@ Future<(UnixListener?, GoError?)> listenUnix(
 }
 
 /// `sysListener.listenUnix`: o erro sem o `*OpError`. Nome vazio é o
-/// autobind do linux (um nome abstrato de 5 dígitos hexadecimais).
-Future<(UnixListener?, GoError?)> _listenUnix(String net, UnixAddr la) async {
+/// autobind do linux (um nome abstrato de 5 dígitos hexadecimais). [ctrl]:
+/// o `Control` do `ListenConfig` (ignorado sem a rede FFI).
+Future<(UnixListener?, GoError?)> _listenUnix(
+  String net,
+  UnixAddr la, {
+  context.Context? ctx,
+  _CtrlFn? ctrl,
+}) async {
   final sotype = _unixSotype(net);
-  if (!sys.sysSockSupported) {
+  if (!sys.sysFfiAvailable) {
     if (sotype != sys.sysSockStream) return (null, _notSupported('socket'));
     try {
       final ln = await sys.sysListenUnix(la.name.toString());
@@ -222,21 +252,28 @@ Future<(UnixListener?, GoError?)> _listenUnix(String net, UnixAddr la) async {
     }
   }
   try {
-    final s = await sys.sysSocket(
+    final s = await _goSocket(
+      ctx: ctx,
+      net: net,
       family: sys.sysAfUnix,
       sotype: sotype,
       laddr: sys.SysAddr.unix(la.name.toString()),
+      laddrStr: la.name.toString(),
+      ctrl: ctrl,
     );
-    final local = s.localAddr;
+    final c = s.toSockConn();
+    final local = c.localAddr;
     return (
       UnixListener._(
-        s,
+        c,
         net,
         local == null ? null : _unixAddrOf(local, _sotypeToNet(sotype)),
         local?.path ?? '',
       ),
       null,
     );
+  } on _GoErr catch (e) {
+    return (null, e.err);
   } on Object catch (e) {
     return (null, _sysError(e));
   }
@@ -265,15 +302,26 @@ Future<(UnixConn?, GoError?)> listenUnixgram(
 /// `sysListener.listenUnixgram` (também o `ListenPacket` de `unix` e
 /// `unixpacket`, que no Go devolve um `UnixConn` sobre o socket
 /// escutando): o erro sem o `*OpError`.
-Future<(UnixConn?, GoError?)> _listenUnixgram(String net, UnixAddr la) async {
-  if (!sys.sysSockSupported) return (null, _notSupported('socket'));
+Future<(UnixConn?, GoError?)> _listenUnixgram(
+  String net,
+  UnixAddr la, {
+  context.Context? ctx,
+  _CtrlFn? ctrl,
+}) async {
+  if (!sys.sysFfiAvailable) return (null, _notSupported('socket'));
   try {
-    final s = await sys.sysSocket(
+    final s = await _goSocket(
+      ctx: ctx,
+      net: net,
       family: sys.sysAfUnix,
       sotype: _unixSotype(net),
       laddr: sys.SysAddr.unix(la.name.toString()),
+      laddrStr: la.name.toString(),
+      ctrl: ctrl,
     );
-    return (_newUnixConn(s, net, dialed: false), null);
+    return (_newUnixConn(s.toSockConn(), net, dialed: false), null);
+  } on _GoErr catch (e) {
+    return (null, e.err);
   } on Object catch (e) {
     return (null, _sysError(e));
   }

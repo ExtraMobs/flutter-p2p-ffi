@@ -28,26 +28,6 @@ part 'js_unix.dart';
 /// Rede disponível: só sob Node (com `process.getBuiltinModule`).
 bool get sysNetSupported => _node != null;
 
-/// [sysSocket] existe: nunca, aqui.
-bool get sysSockSupported => false;
-
-/// Socket genérico do Go (o `netFD`, `sock_posix.go`): sockets Unix de
-/// todos os tipos e IP bruto, pela rede FFI. Só onde [sysSockSupported];
-/// fora dela, `socket: operation not supported`.
-Future<SysSock> sysSocket({
-  required int family,
-  required int sotype,
-  int proto = 0,
-  bool ipv6only = false,
-  SysAddr? laddr,
-  SysAddr? raddr,
-  DateTime? deadline,
-  Future<void>? cancel,
-}) async => throw SysError.unsupported('socket');
-
-/// `supportsIPv4map` do Go: não, aqui.
-bool sysSupportsIPv4map() => false;
-
 /// Fecha o listener Unix [close] preservando o arquivo [path]
 /// (`SetUnlinkOnClose(false)`): o Node (libuv) apaga o arquivo do socket
 /// ao fechá-lo, então ele ganha um nome extra (`link`) antes e volta
@@ -159,3 +139,16 @@ void _require(String syscall) {
   if (_node == null) throw SysError.unsupported(syscall);
   ensureAsyncScheduling();
 }
+
+/// Socket cru da rede FFI (`Control`, `SyscallConn` com fd real): não
+/// existe aqui; falha como o Go em js/wasm (F4: `socket: operation not
+/// supported`).
+SysSocket sysSocket(int family, int sotype, int proto) =>
+    throw SysError.unsupported('socket');
+
+/// Sem rede FFI, não há `close` adiado a esperar.
+Future<void> sysClosesSettled() async {}
+
+/// Sem rede FFI, a família não é escolhida por aqui.
+SysIpStack sysIpStack() =>
+    const SysIpStack(ipv4: true, ipv6: false, ipv4MappedIPv6: false);

@@ -17,6 +17,17 @@ ip4: listen ip4:icmp 127.0.0.1: socket: Operation not supported on transport end
 lookup: <nil>
 ```
 
+## Andamento
+
+- 2026-10-07 no `main`: E0 (shim `syscall` com `Errno`, `IPConn`/`ResolveIPAddr`
+  sem socket, regra `.node.out` no e2e), E1 (`sysffi/`, poller, ponte; ainda
+  sem uso pelo `net`) e S1–S5. Audit 192/1112 (`grpc/internal/resolver/dns/
+  internal` verde); `pion/transport/*/stdnet` passou a ser emitido e caiu em
+  `dart-invalido` (ver `P1-construcao-dart-invalido-audit.md`).
+- 2026-10-08: E2–E7 integrados (um só `socket()` do Go para TCP com
+  `Control`, UDP, Unix e IP bruto). Falta: `Read`/`Write` do `RawConn`
+  sobre TCP do `dart:io` (ver E2) e o E8.
+
 O Go/js simula a rede em memória (`Listen` e `unixgram` funcionam), por isso
 não serve de oráculo para o Node: daí o F5.
 
@@ -150,29 +161,29 @@ a espera, a VM encerrando com o poller vivo, um build AOT
 (`dart compile exe`), e compilação JS/Wasm de uma entrada que importa o
 `net` sem puxar `dart:ffi`.
 
-### E2. `Control`, `ControlContext`, `SyscallConn` (com F1 e F4)
-- Sequência do Go: `socket` → `IPV6_V6ONLY` (AF_INET6 não raw, erro
-  ignorado) → `SO_BROADCAST` (UDP/raw) → `SO_REUSEADDR` (listen de fluxo)
-  → **Control** → `bind` → `listen`/`connect`. Erro do Control volta sem
-  embrulho dentro do `OpError` e o fd é fechado. `network` passado:
-  `tcp4`/`udp6`... pela família (`ctrlNetwork`). `ListenConfig` não tem
-  `ControlContext`.
-- Funções do shim `syscall` sobre o `sysffi`: `SetsockoptInt`,
-  `GetsockoptInt`, `Read`, `Write`, `Socketpair`, `UnixRights`,
-  `ParseSocketControlMessage`, `ParseUnixRights`, `EAGAIN`/`EWOULDBLOCK`.
-- Usuários: go-reuseport/go-libp2p (cai no caminho sem reuseport se falhar,
-  `reuseport_posix.go:23-25`, `listen.go:46-51`), miekg/dns, grpc.
+### E2. `Control`, `ControlContext`, `SyscallConn` — feito
+Entregue (fixtures `netcontrol`, `syscallsock`; `docs/mapping-spec.md` §
+Rede). Unix e IP bruto com `Control` e `SyscallConn` (fd real) vieram
+na integração com o E3–E7 (fixture `netunixcontrol`).
+⚠️ `SyscallConn` de socket do `dart:io` (TCP, Unix) tem `Read`/`Write`
+com `operation not supported`: o readyreader do gRPC só recai no caminho
+normal se o `SyscallConn()` falhar, então ele quebra na VM quando a
+conexão é TCP (o gRPC disca com `Control` do keepalive, e a conexão vai ao
+`dart:io` pela ponte). Caminho possível: `Read` do descritor virtual pelo
+`RawSocket.read` (síncrono, `null` = `EAGAIN`) em vez de recusar.
 
-### E7. UDP no FFI (com F2)
-Já existem do E6: o socket genérico (`sys.sysSocket`/`FfiSock`, com
-`SO_BROADCAST` e `IPV6_V6ONLY` do Go), `sys.sysSupportsIPv4map()` e o
-`favoriteAddrFamily` do IP bruto (`_favoriteFamily`, `iprawsock_sock.dart`),
-que o UDP pode generalizar.
-`favoriteAddrFamily` do Go com o teste de capacidade da pilha
-(`supportsIPv4map`; sem IPv6 cai em AF_INET), `SyscallConn`,
-`ReadMsgUDP`/`WriteMsgUDP` com oob (`IP_RECVTOS`, `IPV6_RECVTCLASS`,
-`IP_PKTINFO`). ⚠️ O sandbox não tem IPv6: dual stack e `V6ONLY` precisam
-de teste numa máquina com IPv6. O `io_udp.dart` atual fica fora do linux.
+### E3–E7 — feitos
+Entregues: `unixgram` (E3), `unixpacket` (E4), extras de Unix (E5:
+autobind, `laddr` nomeado, `SetUnlinkOnClose(false)`, `ReadMsgUnix`/
+`WriteMsgUnix` com oob, `syscall.UnixRights`/`ParseSocketControlMessage`/
+`ParseUnixRights`), IP bruto (E6) e UDP no FFI (E7), todos sobre um só
+`socket()` do Go (`_goSocket`, `src/net/control.dart`) e um só `netFD`
+(`FfiSock`, `src/net/sys/ffi/sock.dart`); fixtures `netunixgram`,
+`netunixpacket`, `netunixmsg`, `netiprawsock`, `netudpffi`. Detalhes e
+limites em `docs/mapping-spec.md` § Rede. ⚠️ O sandbox não tem IPv6: dual
+stack e `V6ONLY` ainda precisam de teste numa máquina com IPv6 (o
+`favoriteAddrFamily` mede a pilha como o Go). `ListenMulticastUDP` e
+`FileConn`/`FileListener` (D3) seguem fora.
 
 ### E8. macOS
 Layouts (`sin_len`, `sun_path` de 104, `cmsghdr` alinhado a 4, `__error()`),
@@ -197,7 +208,7 @@ do limite de ~300: o código novo entra em partes novas (`control.dart`,
 ## 5. O que continua sem solução
 
 - **Node** (sem FFI nativo): `unixgram`, `unixpacket`, IP bruto,
-  `laddr` nomeado e oob no Unix (E3–E6 feitos na VM linux; fixtures com
+  `laddr` nomeado e oob no Unix (E3–E7 feitos na VM linux; fixtures com
   `.node.out`) e `SyscallConn.Read/Write` dão o erro do Go; intervalo e contagem do
   keepalive e linger > 0 seguem aceitos e ignorados, e `CloseRead` só passa
   a dar EOF (como está hoje no `mapping-spec`). QUIC não roda no Node em
@@ -207,8 +218,7 @@ do limite de ~300: o código novo entra em partes novas (`control.dart`,
 ## 6. Execução
 
 E0 primeiro (sem decisão pendente além do F5 para o item 1). Depois, com F1:
-E1, e então E2 e E7 (maior valor, junto do D5); E3–E6 feitos
-(`docs/mapping-spec.md` § "Rede (D4)"). `FileConn`/`FileListener` (D3)
+E1, e então E2–E7, feitos (`docs/mapping-spec.md` § "Rede (D4)"). `FileConn`/`FileListener` (D3)
 continuam fora. As
 worktrees em paralelo mexem nos mesmos arquivos (`sys_io.dart`, `sys.dart`,
 lista de partes do `net.dart`, `shim_symbols.json`): cada arquivo tem um

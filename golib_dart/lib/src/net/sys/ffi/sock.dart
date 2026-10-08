@@ -1,24 +1,20 @@
-/// [FfiSock]: o socket genérico ([SysSock]) da rede FFI, porta do `netFD`
-/// e do `socket()` de `sock_posix.go` do Go 1.26.5 sobre o [FfiFd]. Serve
-/// aos sockets Unix de todos os tipos (`unix`, `unixgram`, `unixpacket`;
-/// E3–E5) e ao IP bruto (E6).
+/// [FfiSock]: a conexão ([SysSockConn]) de todo socket da rede FFI que não
+/// vai para o `dart:io`: o `netFD` do Go 1.26.5 sobre o [FfiFd]. Serve aos
+/// sockets Unix de todos os tipos (`unix`, `unixgram`, `unixpacket`;
+/// E3–E5), ao IP bruto (E6) e, por baixo do `SysUdpConn`, ao UDP (E7).
 ///
-/// [ffiSocket] segue a sequência do Go: `socket` → opções padrão
-/// (`IPV6_V6ONLY` num AF_INET6 que não é bruto, `SO_BROADCAST` em
-/// datagrama/bruto fora do Unix) → com `laddr` e sem `raddr`, o listener
-/// (`SO_REUSEADDR`, `bind`, `listen` no fluxo/seqpacket; só `bind` no
-/// datagrama/bruto); senão o dial (`bind` do `laddr`, `connect`). Os
-/// endereços saem do `getsockname`/`getpeername` como no Go (nome Unix
-/// abstrato com `@`; sem nome, `@`).
-///
-/// ⚠️ `Control`/`ControlContext` não entram aqui (etapa E2). ⚠️ Zona IPv6
-/// só numérica (`%3`): o nome da interface do `zoneCache` do Go não é
-/// procurado.
+/// O socket nasce montado pelo `socket()` do Go do shim `net`
+/// (`_goSocket`, `src/net/control.dart`) sobre o `SysSocket`
+/// (`io_ffi.dart`), que o entrega aqui por `toSockConn`/`toUdpConn`. Os
+/// endereços saem do `getsockname`/`getpeername` como no `anyToSockaddr` do
+/// Go (nome Unix abstrato com `@`; sem nome, `@`; `AF_UNSPEC` é nil; zona
+/// IPv6 pelo nome da interface, como o `zoneCache`).
 library;
 
 import 'dart:async';
 import 'dart:convert';
 import 'dart:ffi';
+import 'dart:io' show Directory, File, FileSystemException;
 import 'dart:typed_data';
 
 import '../../../sysffi/sysffi.dart' as sf;
@@ -43,10 +39,48 @@ Future<T> _sys<T>(Future<T> Function() op) async {
   }
 }
 
+/// Índice da interface [zone] (nome ou número), 0 se não existe.
+int ffiZoneIndex(String zone) {
+  if (zone.isEmpty) return 0;
+  final n = int.tryParse(zone);
+  if (n != null) return n;
+  return int.tryParse(_readSys('/sys/class/net/$zone/ifindex')) ?? 0;
+}
+
+/// Nome da interface [index] (o número, se não houver nome).
+String ffiZoneName(int index) {
+  if (index == 0) return '';
+  try {
+    for (final e in Directory('/sys/class/net').listSync()) {
+      final name = e.path.substring(e.path.lastIndexOf('/') + 1);
+      if (int.tryParse(_readSys('/sys/class/net/$name/ifindex')) == index) {
+        return name;
+      }
+    }
+  } on FileSystemException {
+    // sem /sys: o número
+  }
+  return '$index';
+}
+
+String _readSys(String path) {
+  try {
+    return File(path).readAsStringSync().trim();
+  } on FileSystemException {
+    return '';
+  }
+}
+
 /// Grava [a] no layout do kernel para [family] (o `sockaddr` do Go) e
 /// devolve o tamanho. Nome Unix que não cabe: `EINVAL` de [syscall]; IP de
-/// outra família: [SysAddrError].
-int _encode(int family, SysAddr a, Pointer<Uint8> out, String syscall) {
+/// outra família: [SysAddrError]. Em `AF_INET6`, IP vazio ou `0.0.0.0` é
+/// `::`, e IPv4 vai mapeado (`ipToSockaddrInet6`).
+int ffiEncodeSockaddr(
+  int family,
+  SysAddr a,
+  Pointer<Uint8> out,
+  String syscall,
+) {
   switch (family) {
     case sf.AF_UNIX:
       final n = sf.encodeSockaddr(sf.Sockaddr.unix(a.path ?? ''), out);
@@ -60,7 +94,6 @@ int _encode(int family, SysAddr a, Pointer<Uint8> out, String syscall) {
         out,
       );
     default:
-      // `ipToSockaddrInet6`: vazio ou `0.0.0.0` é `::`; IPv4 vira mapeado.
       var ip = a.ip;
       final v4 = ipTo4(ip);
       if (ip.isEmpty || (v4 != null && v4.every((b) => b == 0))) {
@@ -70,17 +103,30 @@ int _encode(int family, SysAddr a, Pointer<Uint8> out, String syscall) {
         sf.Sockaddr.inet(
           Uint8List.fromList(ipTo16(ip)),
           a.port,
-          scopeId: int.tryParse(a.zone) ?? 0,
+          scopeId: ffiZoneIndex(a.zone),
         ),
         out,
       );
   }
 }
 
+/// [a] como [sf.Sockaddr] da [family] (para o `FfiFd.connect`), com as
+/// regras e os erros de [ffiEncodeSockaddr].
+sf.Sockaddr ffiSockaddr(int family, SysAddr a, String syscall) {
+  final sa = sf.libcAlloc<Uint8>(sf.sockaddrStorageSize);
+  try {
+    final len = ffiEncodeSockaddr(family, a, sa, syscall);
+    if (family == sf.AF_UNIX) return sf.Sockaddr.unix(a.path ?? '');
+    return sf.decodeSockaddr(sa, len);
+  } finally {
+    sf.libcAlloc.free(sa);
+  }
+}
+
 /// O `anyToSockaddr` do Go sobre [len] bytes em [sa] (o resto zerado):
 /// família `AF_UNSPEC` (remetente sem nome) é `null`; nome Unix com NUL
 /// inicial vira `@` e termina no primeiro NUL.
-SysAddr? _decode(Pointer<Uint8> sa, int len) {
+SysAddr? ffiDecodeSockaddr(Pointer<Uint8> sa, int len) {
   if (len < 2) return null;
   final b = sa.asTypedList(sf.sockaddrStorageSize);
   final family = b[0] | b[1] << 8;
@@ -94,159 +140,32 @@ SysAddr? _decode(Pointer<Uint8> sa, int len) {
       );
     case sf.AF_INET || sf.AF_INET6:
       final s = sf.decodeSockaddr(sa, len);
-      return SysAddr(s.ip, s.port, s.scopeId == 0 ? '' : '${s.scopeId}');
+      return SysAddr(s.ip, s.port, ffiZoneName(s.scopeId));
   }
   return null;
 }
+
+/// `getsockname` de [fd] no formato do Go, ou `null`.
+SysAddr? ffiLocalAddr(FfiFd fd) =>
+    fd.isClosed ? null : _name(fd.fd, sf.getsockname);
+
+/// `getpeername` de [fd] no formato do Go, ou `null` (sem par).
+SysAddr? ffiPeerAddr(FfiFd fd) =>
+    fd.isClosed ? null : _name(fd.fd, sf.getpeername);
 
 /// `getsockname`/`getpeername` de [fd] no formato do Go, ou `null`.
 SysAddr? _name(int fd, int Function(int, Pointer<Uint8>, Pointer<Uint32>) f) {
   final sa = sf.libcAlloc<Uint8>(sf.sockaddrStorageSize);
   final len = sf.libcAlloc<Uint32>()..value = sf.sockaddrStorageSize;
   try {
+    sa
+        .asTypedList(sf.sockaddrStorageSize)
+        .fillRange(0, sf.sockaddrStorageSize, 0);
     if (f(fd, sa, len) < 0) return null;
-    return _decode(sa, len.value);
+    return ffiDecodeSockaddr(sa, len.value);
   } finally {
     sf.libcAlloc.free(sa);
     sf.libcAlloc.free(len);
-  }
-}
-
-bool? _v4map;
-
-/// `supportsIPv4map` do Go: um socket AF_INET6 com `IPV6_V6ONLY` desligado
-/// aceita `::ffff:127.0.0.1`. Medido uma vez por isolate.
-bool ffiSupportsIPv4map() => _v4map ??= () {
-  final fd = sf.socket(sf.AF_INET6, sf.SOCK_STREAM | sf.SOCK_CLOEXEC, 0);
-  if (fd < 0) return false;
-  try {
-    if (sf.setsockoptInt(fd, sf.IPPROTO_IPV6, sf.IPV6_V6ONLY, 0) < 0) {
-      return false;
-    }
-    final sa = sf.libcAlloc<Uint8>(sf.sockaddrStorageSize);
-    try {
-      final ip = Uint8List(16)
-        ..[10] = 0xff
-        ..[11] = 0xff
-        ..[12] = 127
-        ..[15] = 1;
-      final n = sf.encodeSockaddr(sf.Sockaddr.inet(ip, 0), sa);
-      return sf.bind(fd, sa, n) == 0;
-    } finally {
-      sf.libcAlloc.free(sa);
-    }
-  } finally {
-    sf.close(fd);
-  }
-}();
-
-/// Abre um socket como o `socket()` do Go (ver a documentação da library).
-/// [laddr] sem [raddr] é listener (com [backlog] no fluxo/seqpacket); com
-/// [raddr], dial ([deadline] e [cancel] valem para o `connect`). Erros:
-/// [SysError] com a syscall do Go (`socket`, `setsockopt`, `bind`,
-/// `listen`, `connect`), [SysAddrError], [SysTimeout], [SysCanceled].
-Future<SysSock> ffiSocket({
-  required int family,
-  required int sotype,
-  int proto = 0,
-  bool ipv6only = false,
-  SysAddr? laddr,
-  SysAddr? raddr,
-  int backlog = 4096,
-  DateTime? deadline,
-  Future<void>? cancel,
-}) => _sys(() async {
-  if (deadline != null && !deadline.isAfter(DateTime.now())) {
-    throw const SysTimeout();
-  }
-  await FfiFd.closesSettled();
-  final fd = FfiFd.socket(family, sotype, proto);
-  try {
-    // `setDefaultSockopts`.
-    if (family == sf.AF_INET6 && sotype != sf.SOCK_RAW) {
-      sf.setsockoptInt(
-        fd.fd,
-        sf.IPPROTO_IPV6,
-        sf.IPV6_V6ONLY,
-        ipv6only ? 1 : 0,
-      );
-    }
-    if ((sotype == sf.SOCK_DGRAM || sotype == sf.SOCK_RAW) &&
-        family != sf.AF_UNIX) {
-      _check(
-        sf.setsockoptInt(fd.fd, sf.SOL_SOCKET, sf.SO_BROADCAST, 1),
-        'setsockopt',
-      );
-    }
-    if (laddr != null && raddr == null) {
-      final stream = sotype == sf.SOCK_STREAM || sotype == sf.SOCK_SEQPACKET;
-      if (stream) {
-        _check(
-          sf.setsockoptInt(fd.fd, sf.SOL_SOCKET, sf.SO_REUSEADDR, 1),
-          'setsockopt',
-        );
-      }
-      _bind(fd.fd, family, laddr);
-      if (stream) _check(sf.listen(fd.fd, backlog), 'listen');
-      return FfiSock._(
-        fd,
-        family,
-        sotype,
-        _name(fd.fd, sf.getsockname),
-        null,
-        connected: false,
-      );
-    }
-    if (laddr != null) _bind(fd.fd, family, laddr);
-    if (raddr == null) {
-      return FfiSock._(
-        fd,
-        family,
-        sotype,
-        _name(fd.fd, sf.getsockname),
-        null,
-        connected: false,
-      );
-    }
-    final to = _sockaddrOf(family, raddr, 'connect');
-    await fd.connect(to, deadline: deadline, cancel: cancel);
-    return FfiSock._(
-      fd,
-      family,
-      sotype,
-      _name(fd.fd, sf.getsockname),
-      _name(fd.fd, sf.getpeername) ?? raddr,
-      connected: true,
-    );
-  } catch (_) {
-    fd.close();
-    rethrow;
-  }
-});
-
-void _check(int r, String syscall) {
-  if (r < 0) throw FfiErrno(syscall, -r);
-}
-
-void _bind(int fd, int family, SysAddr a) {
-  final sa = sf.libcAlloc<Uint8>(sf.sockaddrStorageSize);
-  try {
-    final len = _encode(family, a, sa, 'bind');
-    _check(sf.bind(fd, sa, len), 'bind');
-  } finally {
-    sf.libcAlloc.free(sa);
-  }
-}
-
-/// [a] como [sf.Sockaddr] da [family] (para o `FfiFd.connect`).
-sf.Sockaddr _sockaddrOf(int family, SysAddr a, String syscall) {
-  final sa = sf.libcAlloc<Uint8>(sf.sockaddrStorageSize);
-  try {
-    final len = _encode(family, a, sa, syscall);
-    if (family == sf.AF_UNIX) return sf.Sockaddr.unix(a.path ?? '');
-    return sf.decodeSockaddr(sa, len);
-  } finally {
-    sf.libcAlloc.free(sa);
   }
 }
 
@@ -282,8 +201,23 @@ final class _Msg {
   void free() => sf.libcAlloc.free(_mem);
 }
 
-/// [SysSock] sobre um [FfiFd].
-final class FfiSock implements SysSock {
+/// [SysSockConn] sobre um [FfiFd], com o fd real para o `SyscallConn`
+/// ([SysRawFd]).
+final class FfiSock implements SysSockConn, SysRawFd {
+  /// A conexão do socket [fd] já montado (`bind`, `listen` ou `connect`
+  /// feitos): endereços pelo `getsockname`/`getpeername`. [raddr]: o
+  /// destino do `connect` feito (o `fd.isConnected` do Go), que vale como
+  /// par quando o `getpeername` não responde, como no `netFD.dial`.
+  factory FfiSock.of(FfiFd fd, int family, int sotype, {SysAddr? raddr}) =>
+      FfiSock._(
+        fd,
+        family,
+        sotype,
+        _name(fd.fd, sf.getsockname),
+        raddr == null ? null : _name(fd.fd, sf.getpeername) ?? raddr,
+        connected: raddr != null,
+      );
+
   FfiSock._(
     this._fd,
     this.family,
@@ -308,6 +242,21 @@ final class FfiSock implements SysSock {
 
   /// O número do fd (`-1` depois do [close]).
   int get fd => _fd.fd;
+
+  @override
+  int get rawFd => _fd.fd;
+
+  @override
+  bool get rawReadExpired => _fd.readExpired;
+
+  @override
+  bool get rawWriteExpired => _fd.writeExpired;
+
+  @override
+  Future<void> rawWaitRead() => _fd.waitRead();
+
+  @override
+  Future<void> rawWaitWrite() => _fd.waitWrite();
 
   SysAddr get _none =>
       family == sf.AF_UNIX ? SysAddr.unix('') : SysAddr(Uint8List(0), 0);
@@ -351,7 +300,7 @@ final class FfiSock implements SysSock {
         len.value = sf.sockaddrStorageSize;
         return sf.recvfrom(fd, buf, 0, sa, len);
       });
-      return (n, _decode(sa, len.value));
+      return (n, ffiDecodeSockaddr(sa, len.value));
     } finally {
       sf.libcAlloc.free(sa);
       sf.libcAlloc.free(len);
@@ -362,7 +311,7 @@ final class FfiSock implements SysSock {
   Future<int> writeTo(Uint8List data, SysAddr to) => _sys(() async {
     final sa = sf.libcAlloc<Uint8>(sf.sockaddrStorageSize);
     try {
-      final salen = _encode(family, to, sa, 'sendto');
+      final salen = ffiEncodeSockaddr(family, to, sa, 'sendto');
       await _fd.io(
         sf.POLLOUT,
         'sendto',
@@ -385,9 +334,9 @@ final class FfiSock implements SysSock {
   @override
   Future<(int, int, int, SysAddr?)> readMsg(
     Uint8List buf,
-    Uint8List oob,
-    int flags,
-  ) => _sys(() async {
+    Uint8List oob, [
+    int flags = 0,
+  ]) => _sys(() async {
     if (_fd.isClosed) throw const SysClosed();
     var dataLen = buf.length;
     if (oob.isNotEmpty && buf.isEmpty && _soType() != sf.SOCK_DGRAM) {
@@ -416,7 +365,12 @@ final class FfiSock implements SysSock {
       if (copy > 0) buf.setRange(0, copy, m.data.asTypedList(copy));
       final oobn = m.hdr.ref.controllen;
       if (oobn > 0) oob.setRange(0, oobn, m.control.asTypedList(oobn));
-      return (n, oobn, m.hdr.ref.flags, _decode(m.name, m.hdr.ref.namelen));
+      return (
+        n,
+        oobn,
+        m.hdr.ref.flags,
+        ffiDecodeSockaddr(m.name, m.hdr.ref.namelen),
+      );
     } finally {
       m.free();
     }
@@ -432,7 +386,9 @@ final class FfiSock implements SysSock {
         }
         final m = _Msg(dataLen, oob.length);
         try {
-          final salen = to == null ? 0 : _encode(family, to, m.name, 'sendmsg');
+          final salen = to == null
+              ? 0
+              : ffiEncodeSockaddr(family, to, m.name, 'sendmsg');
           if (data.isNotEmpty) m.data.asTypedList(data.length).setAll(0, data);
           if (oob.isNotEmpty) m.control.asTypedList(oob.length).setAll(0, oob);
           final n = await _fd.io(sf.POLLOUT, 'sendmsg', (fd) {
@@ -456,7 +412,7 @@ final class FfiSock implements SysSock {
       });
 
   @override
-  Future<SysSock> accept() => _sys(() async {
+  Future<SysSockConn> accept() => _sys(() async {
     final sa = sf.libcAlloc<Uint8>(sf.sockaddrStorageSize);
     final len = sf.libcAlloc<Uint32>();
     try {
@@ -486,7 +442,7 @@ final class FfiSock implements SysSock {
         family,
         sotype,
         _name(nfd, sf.getsockname),
-        _decode(sa, len.value),
+        ffiDecodeSockaddr(sa, len.value),
         connected: false,
       );
     } finally {
