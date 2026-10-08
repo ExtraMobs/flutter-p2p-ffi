@@ -426,6 +426,15 @@
       "parsePrefix",
       "prefixFrom"
     ],
+    "net/textproto": [
+      "Error",
+      "MIMEHeader",
+      "MIMEHeader$Ptr",
+      "ProtocolError",
+      "canonicalMIMEHeaderKey",
+      "trimBytes",
+      "trimString"
+    ],
     "os": [
       "File",
       "SyscallError",
@@ -3016,6 +3025,77 @@
         "string",
         "unmarshalBinary",
         "unmarshalText"
+      ]
+    },
+    "net/textproto": {
+      "Error": [
+        "$classIs",
+        "$copy",
+        "$fieldNames",
+        "$fieldTypes",
+        "$fields",
+        "$goType",
+        "$ifaceCopy",
+        "$isValue",
+        "$methods",
+        "$nilPtr",
+        "$ptrMethods",
+        "$set",
+        "$setAny",
+        "$valueMethods",
+        "code",
+        "error",
+        "hashCode",
+        "msg"
+      ],
+      "MIMEHeader": [
+        "$goType",
+        "$key",
+        "$methods",
+        "$withKV",
+        "add",
+        "clear",
+        "containsKey",
+        "del",
+        "delete",
+        "elem",
+        "entries",
+        "get",
+        "identity",
+        "isNil",
+        "keysSnapshot",
+        "length",
+        "lookup",
+        "set",
+        "values"
+      ],
+      "MIMEHeader$Ptr": [
+        "$assignIfIs",
+        "$errorTargetOk",
+        "$goType",
+        "$methods",
+        "$p",
+        "$withElem",
+        "add",
+        "del",
+        "get",
+        "hashCode",
+        "set",
+        "value",
+        "values"
+      ],
+      "ProtocolError": [
+        "$goType",
+        "$methods",
+        "$str",
+        "$wrapStr",
+        "compareTo",
+        "error",
+        "hashCode",
+        "length",
+        "slice",
+        "toBytes",
+        "toString"
       ]
     },
     "os": {
