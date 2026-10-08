@@ -33,6 +33,19 @@ abstract interface class SysSockopts {
   int rawGetsockopt(int level, int opt, Uint8List out);
 }
 
+/// Socket do `dart:io` de fluxo (TCP, Unix) cujo descritor virtual também
+/// lê e escreve: o `syscall.Read`/`Write` do `f` de um `RawConn.Read`/
+/// `Write` (o leitor do gRPC, `readyreader`). [vfdRead]/[vfdWrite] não
+/// esperam e devolvem como a libc do `sysffi`: `>= 0` (0 na leitura é o
+/// EOF) ou `-errno` (`EAGAIN` sem dado ou sem espaço). [rawRead]/[rawWrite]
+/// são o `FD.RawRead`/`RawWrite`. Erros: [SysClosed], [SysTimeout].
+abstract interface class SysVfdIo {
+  int vfdRead(Uint8List buf);
+  int vfdWrite(Uint8List data);
+  Future<void> rawRead(bool Function() f);
+  Future<void> rawWrite(bool Function() f);
+}
+
 /// Socket cru da rede FFI, criado por `sysSocket(family, sotype, proto)`
 /// (não bloqueante, `close-on-exec`). Os métodos que consomem ([toTcpConn],
 /// [toTcpListener], [toUdpConn]) passam o fd a outro dono; depois deles e

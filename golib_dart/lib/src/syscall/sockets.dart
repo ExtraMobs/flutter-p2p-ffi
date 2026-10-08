@@ -6,7 +6,8 @@ part of '../../syscall.dart';
 //
 // Descritor virtual (`src/syscall/vfd.dart`: o que o `RawConn.Control` de
 // uma conexão do `dart:io` ou do Node passa ao `f`): as opções vão ao dono
-// do socket. ⚠️ No Node (e no navegador) não há descritor real (F4): as
+// do socket (opções; `Read`/`Write` sem esperar num TCP/Unix de fluxo do
+// `dart:io`). ⚠️ No Node (e no navegador) não há descritor real (F4): as
 // opções de socket dão `ENOPROTOOPT`, e `Read`, `Write`, `Socketpair` e
 // `Close`, `EOPNOTSUPP`.
 
@@ -60,7 +61,7 @@ int _getsockopt(int fd, int level, int opt, Uint8List out) {
 (Golang.Int, GoError?) read(Golang.Int fd, Slice<Golang.Uint8> p) {
   final buf = Uint8List(p.length);
   final r = fd.toInt() >= vfd.vfdBase
-      ? -95 // descritor virtual: o socket não é deste processo
+      ? (vfd.vfdLookup(fd.toInt())?.read(buf) ?? -9)
       : sys.sysRead(fd.toInt(), buf);
   if (r < 0) return (Golang.Int(-1), Errno(-r));
   for (var i = 0; i < r; i++) {
@@ -75,7 +76,9 @@ int _getsockopt(int fd, int level, int opt, Uint8List out) {
   for (var i = 0; i < buf.length; i++) {
     buf[i] = p[i].toInt();
   }
-  final r = fd.toInt() >= vfd.vfdBase ? -95 : sys.sysWrite(fd.toInt(), buf);
+  final r = fd.toInt() >= vfd.vfdBase
+      ? (vfd.vfdLookup(fd.toInt())?.write(buf) ?? -9)
+      : sys.sysWrite(fd.toInt(), buf);
   if (r < 0) return (Golang.Int(-1), Errno(-r));
   return (Golang.Int(r), null);
 }

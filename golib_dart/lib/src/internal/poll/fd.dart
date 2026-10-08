@@ -7,6 +7,8 @@ import 'errors.dart';
 import 'fd_mutex.dart';
 import 'poll_desc.dart';
 
+part 'fd_raw.dart';
+
 /// Descritor de rede não-bloqueante com a semântica de tempo de vida do Go.
 ///
 /// Port de `internal/poll.FD` (`internal/poll/fd_unix.go`) sobre o [RawSocket]

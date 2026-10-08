@@ -90,10 +90,10 @@ Sem dependências novas: nada de `package:ffi`.
 ### 1.4 `SyscallConn` por dono do fd
 - Socket do FFI: `Control`, `Read` e `Write` reais.
 - Socket do `dart:io`: `Control` via `setRawOption`/`getRawOption` (já
-  usados em `io_tcp.dart`); `Read`/`Write` não (ler um dup por trás do
-  `dart:io` deixa o estado dele velho). Por isso `SyscallConn` em TCP do
-  `dart:io` devolve erro, e o gRPC (`readyreader`) recai no caminho normal
-  porque trata esse erro devolvendo nil.
+  usados em `io_tcp.dart`); `Read`/`Write` (TCP e Unix de fluxo) são o
+  `FD.RawRead`/`RawWrite` sobre o `Fd` da conexão, e o `syscall.Read`/
+  `Write` do `f` lê/escreve no mesmo `RawSocket` sem esperar (não num dup:
+  o estado do `dart:io` fica coerente). Feito (fixture `netrawread`).
 
 ## 2. Lado do g2d (faltava na v1)
 
@@ -163,12 +163,14 @@ a espera, a VM encerrando com o poller vivo, um build AOT
 Entregue (fixtures `netcontrol`, `syscallsock`; `docs/mapping-spec.md` §
 Rede). Sobra: `UnixRights`/`ParseSocketControlMessage`/`ParseUnixRights`
 (com o E5); Unix com `Control` (discar falha, escutar ignora; E5).
-⚠️ `SyscallConn` de socket do `dart:io` (TCP, Unix) tem `Read`/`Write`
-com `operation not supported`: o readyreader do gRPC só recai no caminho
-normal se o `SyscallConn()` falhar, então ele quebra na VM quando a
-conexão é TCP (o gRPC disca com `Control` do keepalive, e a conexão vai ao
-`dart:io` pela ponte). Caminho possível: `Read` do descritor virtual pelo
-`RawSocket.read` (síncrono, `null` = `EAGAIN`) em vez de recusar.
+`SyscallConn` de socket do `dart:io` (TCP, Unix de fluxo): `Read`/`Write`
+são o `FD.RawRead`/`RawWrite` (`internal/poll/fd_raw.dart`) e o
+`syscall.Read`/`Write` do descritor virtual lê/escreve no `RawSocket` sem
+esperar (`EAGAIN`, 0 no EOF): o readyreader do gRPC funciona na VM
+(fixture `netrawread`, igual ao `go run`). ⚠️ O `syscall.Read` virtual só
+vê o que o `RawSocket` anunciou (antes do evento de leitura dá `EAGAIN`
+mesmo com dado no kernel; o `raw.Read` espera o evento). UDP do `dart:io`
+(fora do linux) e Node seguem com `operation not supported` (F4/F5).
 
 ### E3. `unixgram` (FFI + poller)
 Semântica e erros conferidos com `go run` (ver o relatório do Go): excesso
