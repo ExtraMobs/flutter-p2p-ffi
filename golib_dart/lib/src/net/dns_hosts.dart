@@ -1,6 +1,7 @@
 part of '../../net.dart';
 
-// O `/etc/hosts` (`hosts.go`, relido no máximo a cada 5 s) e o
+// O `/etc/hosts` (`hosts.go`: conferido no máximo a cada 5 s, relido se o
+// mtime ou o tamanho mudou) e o
 // `/etc/services` (`port_unix.go`, lido uma vez) do resolvedor puro do Go.
 
 // ------------------------------------------------------------ /etc/hosts
@@ -10,6 +11,8 @@ typedef _ByName = ({List<String> addrs, String canonical});
 Map<String, _ByName> _hostsByName = const {};
 Map<String, List<String>> _hostsByAddr = const {};
 DateTime _hostsExpire = DateTime.fromMillisecondsSinceEpoch(0);
+String _hostsPath = '';
+(int, int)? _hostsStat;
 
 /// `absDomainName`: nome com ponto ganha o ponto final.
 String _absDomainName(String s) =>
@@ -21,13 +24,23 @@ String _parseLiteralIP(String addr) {
   return err != null ? '' : ip.string().toString();
 }
 
-/// `readHosts()`, no máximo a cada 5 s.
+/// `readHosts()`.
 void _readHosts() {
   final now = DateTime.now();
-  if (now.isBefore(_hostsExpire) && _hostsByName.isNotEmpty) return;
+  final hp = sys.sysHostsPath;
+  if (now.isBefore(_hostsExpire) &&
+      _hostsPath == hp &&
+      _hostsByName.isNotEmpty) {
+    return;
+  }
+  final st = sys.sysStatFile(hp);
+  if (st != null && _hostsPath == hp && st == _hostsStat) {
+    _hostsExpire = now.add(_cacheMaxAge);
+    return;
+  }
   final hs = <String, _ByName>{};
   final is$ = <String, List<String>>{};
-  for (var line in _readLines('/etc/hosts') ?? const <String>[]) {
+  for (var line in _readLines(hp) ?? const <String>[]) {
     final hash = line.indexOf('#');
     if (hash >= 0) line = line.substring(0, hash);
     final f = _fields(line);
@@ -49,6 +62,8 @@ void _readHosts() {
     }
   }
   _hostsExpire = now.add(_cacheMaxAge);
+  _hostsPath = hp;
+  _hostsStat = st;
   _hostsByName = hs;
   _hostsByAddr = is$;
 }

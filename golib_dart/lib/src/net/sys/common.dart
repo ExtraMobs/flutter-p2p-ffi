@@ -16,6 +16,12 @@ part 'common_ip.dart';
 part 'common_sock.dart';
 part 'common_wait.dart';
 
+/// Arquivos do resolvedor puro do Go (`hostsFilePath`, `nssConfigPath` e o
+/// `resolv.conf`); só os testes trocam.
+String sysHostsPath = '/etc/hosts';
+String sysNssPath = '/etc/nsswitch.conf';
+String sysResolvConfPath = '/etc/resolv.conf';
+
 /// Endereço cru: [ip] com 4 ou 16 bytes (vazio = não especificado/"any",
 /// deixando a família à escolha do motor), [port] e [zone] IPv6.
 ///

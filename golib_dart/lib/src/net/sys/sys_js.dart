@@ -127,6 +127,20 @@ String? sysReadFile(String path) {
   }
 }
 
+/// `(mtime em ms, tamanho)` de [path] (`fs.statSync`), ou `null`.
+(int, int)? sysStatFile(String path) {
+  if (_node == null) return null;
+  try {
+    final st = _fs.callMethod<JSObject>('statSync'.toJS, path.toJS);
+    return (
+      st.getProperty<JSNumber>('mtimeMs'.toJS).toDartDouble.floor(),
+      st.getProperty<JSNumber>('size'.toJS).toDartInt,
+    );
+  } catch (_) {
+    return null;
+  }
+}
+
 /// O nome do host (`os.hostname()`); vazio sem Node.
 String sysHostname() {
   if (_node == null) return '';

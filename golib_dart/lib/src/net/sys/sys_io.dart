@@ -138,6 +138,13 @@ String? sysReadFile(String path) {
   }
 }
 
+/// `(mtime em ms, tamanho)` de [path] (`stat` do `net` do Go), ou `null`.
+(int, int)? sysStatFile(String path) {
+  final st = FileStat.statSync(path);
+  if (st.type == FileSystemEntityType.notFound) return null;
+  return (st.modified.millisecondsSinceEpoch, st.size);
+}
+
 /// O nome do host (`os.Hostname`).
 String sysHostname() {
   try {

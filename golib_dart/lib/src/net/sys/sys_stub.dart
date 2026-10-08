@@ -55,6 +55,9 @@ Future<List<SysInterface>> sysInterfaces() async =>
 /// Sem sistema de arquivos: `null`.
 String? sysReadFile(String path) => null;
 
+/// Sem sistema de arquivos: `null`.
+(int, int)? sysStatFile(String path) => null;
+
 /// Sem nome de host.
 String sysHostname() => '';
 
