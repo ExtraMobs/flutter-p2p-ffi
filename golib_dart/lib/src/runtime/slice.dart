@@ -114,6 +114,23 @@ base class Slice<T> {
         ),
       );
     }
+    // `s[i:j:k]`: as mensagens do Go para j e i (boundsSlice3B/3C).
+    if (max != null && (h < 0 || h > m)) {
+      throw Panic(
+        RuntimeError(
+          'runtime error: slice bounds out of range '
+          '[:${indexText(h)}:${h < 0 ? '' : indexText(m)}]',
+        ),
+      );
+    }
+    if (max != null && (low < 0 || low > h)) {
+      throw Panic(
+        RuntimeError(
+          'runtime error: slice bounds out of range '
+          '[${indexText(low)}:${low < 0 ? '' : indexText(h)}:]',
+        ),
+      );
+    }
     if (h < 0 || h > m) {
       throw Panic(
         RuntimeError(

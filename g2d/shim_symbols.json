@@ -594,6 +594,39 @@
       "mustCompile",
       "quoteMeta"
     ],
+    "slices": [
+      "binarySearch",
+      "binarySearchFunc",
+      "clip",
+      "clone",
+      "compact",
+      "compactFunc",
+      "compare",
+      "compareFunc",
+      "concat",
+      "contains",
+      "containsFunc",
+      "delete$",
+      "deleteFunc",
+      "equal",
+      "equalFunc",
+      "grow",
+      "index",
+      "indexFunc",
+      "insert",
+      "isSorted",
+      "isSortedFunc",
+      "max",
+      "maxFunc",
+      "min",
+      "minFunc",
+      "repeat",
+      "replace",
+      "reverse",
+      "sort",
+      "sortFunc",
+      "sortStableFunc"
+    ],
     "sort": [
       "Interface",
       "float64s",
@@ -3571,6 +3604,7 @@
         "subexpNames"
       ]
     },
+    "slices": {},
     "sort": {
       "Interface": [
         "len",

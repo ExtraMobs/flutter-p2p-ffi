@@ -1,12 +1,21 @@
-part of '../../sort.dart';
+/// pdqsort e stable do Go 1.26.5 (`sort/zsort*.go`, `slices/zsort*.go`: o
+/// mesmo gerador), sobre índices: compartilhado pelos shims `sort` e
+/// `slices`.
+// ignore_for_file: library_prefixes
+library;
+
+import '../../fixed_types/golang.dart' as Golang;
+
+typedef PdqLess = bool Function(int i, int j);
+typedef PdqSwap = void Function(int i, int j);
 
 const _unknownHint = 0, _increasingHint = 1, _decreasingHint = 2;
 
-final class _Pdq {
-  _Pdq(this.less, this.swap);
+final class Pdq {
+  Pdq(this.less, this.swap);
 
-  final _Less less;
-  final _Swap swap;
+  final PdqLess less;
+  final PdqSwap swap;
 
   void insertionSort(int a, int b) {
     for (var i = a + 1; i < b; i++) {

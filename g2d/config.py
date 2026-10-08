@@ -57,6 +57,7 @@ STDLIB_SHIMS = {
     "net/netip": "package:golib_dart/net/netip.dart",
     "path": "package:golib_dart/path.dart",
     "regexp": "package:golib_dart/regexp.dart",
+    "slices": "package:golib_dart/slices.dart",
     "sort": "package:golib_dart/sort.dart",
     "strconv": "package:golib_dart/strconv.dart",
     "strings": "package:golib_dart/strings.dart",
