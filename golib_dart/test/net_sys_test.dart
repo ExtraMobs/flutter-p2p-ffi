@@ -211,21 +211,20 @@ void main() {
     // O `close` do `dart:io` termina no laço de eventos; sem a espera dos
     // fechamentos pendentes, ~3% dos dials levavam `connection reset`.
     test('dial logo após o Close do listener é recusado', () async {
+      // Outro teste em paralelo pode pegar a mesma porta efêmera logo depois
+      // do Close (o dial conecta nele): isso não é a corrida, só o reset é.
       final lo = SysAddr(Uint8List.fromList([127, 0, 0, 1]), 0);
+      final outros = <String>[];
       for (var i = 0; i < 500; i++) {
         final l = await sysListenTcp(lo);
         l.close();
-        await expectLater(
-          sysDialTcp(l.local),
-          throwsA(
-            isA<SysError>().having(
-              (e) => e.toString(),
-              'erro',
-              contains('connection refused'),
-            ),
-          ),
-        );
+        try {
+          (await sysDialTcp(l.local)).close();
+        } on SysError catch (e) {
+          if (!e.toString().contains('connection refused')) outros.add('$e');
+        }
       }
+      expect(outros, isEmpty);
     });
 
     test('SO_LINGER e TCP_KEEP* no socket (linux)', () async {
