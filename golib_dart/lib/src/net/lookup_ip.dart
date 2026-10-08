@@ -33,6 +33,49 @@ extension _ResolverIP on Resolver {
         _newDNSError(_mapErr(ctx.err())!, _gs(host), _gs('')) as GoError,
       );
     }
+    // `lookupGroup.DoChan(network + "\0" + host)`: a consulta roda num ctx
+    // que só guarda os valores (o cancelamento de um não derruba os outros).
+    final group = _lookupGroups[_r] ??= {};
+    final key = '$network\x00$host';
+    var f = group[key];
+    if (f != null) {
+      f.dups++;
+    } else {
+      final (gctx, gcancel) = context.withCancel(
+        ctx == null ? context.background() : context.withoutCancel(ctx),
+      );
+      final fl = f = group[key] = _Flight(gcancel);
+      final run = _lookupIPRaw(gctx, network, host);
+      run.whenComplete(() {
+        if (identical(group[key], fl)) group.remove(key);
+        fl.cancel();
+      }).ignore();
+      fl.done.complete(run);
+    }
+    final stop = _cancelOf(ctx, null);
+    final res = await Future.any([
+      f.done.future,
+      stop.future.then((_) => null),
+    ]);
+    stop.stop();
+    if (res != null) return res;
+    // `ForgetUnshared`: sozinho, a consulta é esquecida e cancelada.
+    if (f.dups == 0 && identical(group[key], f)) {
+      group.remove(key);
+      f.cancel();
+    }
+    return (
+      const <_IPZ>[],
+      _newDNSError(_mapErr(ctx!.err())!, _gs(host), _gs('')) as GoError,
+    );
+  }
+
+  /// O `lookupIP` do `Resolver`, sem o `singleflight`.
+  Future<(List<_IPZ>, GoError?)> _lookupIPRaw(
+    context.Context? ctx,
+    String network,
+    String host,
+  ) async {
     if (_goIP) {
       try {
         final (ips, _) = await _r._goLookupIPCNAMEOrder(
@@ -89,6 +132,17 @@ extension _ResolverIP on Resolver {
     }
     return (out, null);
   }
+}
+
+/// O `singleflight.Group` (`lookupGroup`) de cada `Resolver`.
+final _lookupGroups = Expando<Map<String, _Flight>>();
+
+/// Uma consulta em voo do `singleflight`: [dups] conta quem se juntou.
+final class _Flight {
+  _Flight(this.cancel);
+  final context.CancelFunc cancel;
+  final done = Completer<(List<_IPZ>, GoError?)?>();
+  int dups = 0;
 }
 
 /// `parseNetwork` do `LookupIP`: só `ip`, `ip4`, `ip6` (com `:proto`).
