@@ -203,7 +203,7 @@ final class _Msg {
 
 /// [SysSockConn] sobre um [FfiFd], com o fd real para o `SyscallConn`
 /// ([SysRawFd]).
-final class FfiSock implements SysSockConn, SysRawFd {
+final class FfiSock implements SysSockConn, SysRawFd, SysWritev {
   /// A conexão do socket [fd] já montado (`bind`, `listen` ou `connect`
   /// feitos): endereços pelo `getsockname`/`getpeername`. [raddr]: o
   /// destino do `connect` feito (o `fd.isConnected` do Go), que vale como
@@ -287,6 +287,61 @@ final class FfiSock implements SysSockConn, SysRawFd {
       ),
     );
   }
+
+  /// `writev(2)`, como o `poll.FD.Writev` do Go: no fluxo, a parcial
+  /// avança os iovecs e repete; datagrama, seqpacket e bruto mandam uma
+  /// mensagem só.
+  @override
+  Future<int> writev(List<Uint8List> chunks) => _sys(() async {
+    final total = chunks.fold(0, (t, c) => t + c.length);
+    final data = sf.libcAlloc<Uint8>(total);
+    final iov = sf.libcAlloc<sf.IoVec>(chunks.length);
+    try {
+      var o = 0;
+      for (var i = 0; i < chunks.length; i++) {
+        final c = chunks[i];
+        (data + o).asTypedList(c.length).setAll(0, c);
+        (iov + i).ref
+          ..base = (data + o).cast()
+          ..len = c.length;
+        o += c.length;
+      }
+      var n = 0, first = 0;
+      while (n < total) {
+        final int r;
+        try {
+          r = await _fd.io(
+            sf.POLLOUT,
+            'writev',
+            (fd) => sf.writev(fd, iov + first, chunks.length - first),
+          );
+        } on FfiErrno catch (e) {
+          throw FfiErrno('writev', e.errno, written: n);
+        } on SysTimeout {
+          throw SysTimeout(n);
+        } on SysClosed {
+          throw SysClosed(n);
+        }
+        n += r;
+        if (!_stream) break;
+        var k = r; // consome k bytes dos iovecs
+        while (first < chunks.length && k >= (iov + first).ref.len) {
+          k -= (iov + first).ref.len;
+          first++;
+        }
+        if (k > 0) {
+          final v = (iov + first).ref;
+          v
+            ..base = (v.base.cast<Uint8>() + k).cast()
+            ..len = v.len - k;
+        }
+      }
+      return n;
+    } finally {
+      sf.libcAlloc.free(data);
+      sf.libcAlloc.free(iov);
+    }
+  });
 
   @override
   Future<(int, SysAddr?)> readFrom(Uint8List buf) => _sys(() async {

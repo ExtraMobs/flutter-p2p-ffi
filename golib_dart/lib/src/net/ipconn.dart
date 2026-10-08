@@ -10,7 +10,7 @@ part of '../../net.dart';
 /// endereços nil; pânico de nil sobre `(*IPConn)(nil)`).
 final class IPConn extends GoStruct<IPConn>
     with io.CloserSync
-    implements Conn, PacketConn, syscall.Conn {
+    implements Conn, PacketConn, syscall.Conn, _BuffersWriter {
   IPConn() : _fd = null, _net = '', _laddr = null, _raddr = null;
 
   IPConn._(sys.SysSockConn this._fd, this._net, this._laddr, this._raddr);
@@ -69,6 +69,11 @@ final class IPConn extends GoStruct<IPConn>
 
   GoError _op(String op, Object e) =>
       _opError(op, _net, _laddr, _raddr, e is GoError ? e : _sysError(e));
+
+  /// `writeBuffers(v)` (`buffers.dart`).
+  @override
+  Future<(Golang.Int64, GoError?)> _writeBuffers(Buffers$Ptr v) =>
+      _writeBuffersVia(v, _fd, _closed, write$async, _op);
 
   /// Opção/prazo: fechado é `ErrClosed` no `*OpError` de `set`.
   GoError? _set(void Function(sys.SysSockConn fd) f) {
