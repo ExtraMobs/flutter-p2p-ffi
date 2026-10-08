@@ -87,6 +87,12 @@ external int _read(int fd, Pointer<Uint8> buf, int n);
 )
 external int _write(int fd, Pointer<Uint8> buf, int n);
 
+@Native<IntPtr Function(Int32, Pointer<IoVec>, Int32)>(
+  symbol: 'writev',
+  isLeaf: true,
+)
+external int _writev(int fd, Pointer<IoVec> iov, int cnt);
+
 @Native<Int32 Function()>(symbol: 'getpid', isLeaf: true)
 external int _getpid();
 
@@ -168,6 +174,12 @@ int read(int fd, Uint8List buf) {
 int write(int fd, Uint8List buf) {
   final e = _errnoLocation();
   final r = _write(fd, buf.address, buf.length);
+  return r < 0 ? -e.value : r;
+}
+
+int writev(int fd, Pointer<IoVec> iov, int cnt) {
+  final e = _errnoLocation();
+  final r = _writev(fd, iov, cnt);
   return r < 0 ? -e.value : r;
 }
 

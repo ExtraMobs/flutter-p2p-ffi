@@ -101,6 +101,14 @@ abstract interface class SysSocket implements SysRawFd {
   void close();
 }
 
+/// `writev(2)` (rede FFI): o `writeBuffers` das conexões do Go.
+abstract interface class SysWritev {
+  /// Os pedaços numa syscall só (uma mensagem no datagrama); no fluxo, a
+  /// escrita parcial continua de onde parou. Erros como `write`, com a
+  /// syscall `writev` e `written`.
+  Future<int> writev(List<Uint8List> chunks);
+}
+
 /// UDP com descritor real (rede FFI, E7): o que o `UDPConn` do Go faz além
 /// de `ReadFrom`/`WriteTo`.
 abstract interface class SysUdpMsg {

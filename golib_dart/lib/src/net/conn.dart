@@ -64,7 +64,8 @@ void _copyInto(Slice<Golang.Uint8> p, Uint8List src, int n) {
 
 /// Os métodos que o `conn` do Go dá a todo tipo de conexão.
 abstract base class _NetConn<T extends _NetConn<T>> extends GoStruct<T>
-    with io.CloserSync {
+    with io.CloserSync
+    implements _BuffersWriter {
   _NetConn(this._net, this._laddr, this._raddr);
 
   /// `tcp`, `udp`... (o `fd.net` do Go).
@@ -91,6 +92,13 @@ abstract base class _NetConn<T extends _NetConn<T>> extends GoStruct<T>
 
   GoError _op(String op, Object e) =>
       _opError(op, _net, _laddr, _raddr, _sysError(e));
+
+  Future<(Golang.Int, GoError?)> write$async(Slice<Golang.Uint8> b);
+
+  /// `writeBuffers(v)` (`buffers.dart`).
+  @override
+  Future<(Golang.Int64, GoError?)> _writeBuffers(Buffers$Ptr v) =>
+      _writeBuffersVia(v, _sysSocket, _closed, write$async, _op);
 
   /// `LocalAddr()`.
   Addr? localAddr() => _laddr;

@@ -148,6 +148,7 @@ DUAL_SHIM_CALLS = {
     ("m", "bytes", "Reader", "WriteTo"): ((0, "Write"),),
     ("m", "strings", "Reader", "WriteTo"): ((0, "Write"),),
     ("m", "strings", "Replacer", "WriteString"): ((0, "Write"),),
+    ("m", "net", "Buffers", "WriteTo"): ((0, "Write"),),
 }
 
 # Funções do shim que só guardam a interface de I/O num tipo do shim que

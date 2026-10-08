@@ -10,6 +10,9 @@
 /// structs geradas; as interfaces `Addr` e `Error` entram em
 /// `SHIM_INTERFACES`.
 ///
+/// `Pipe` (conexão em memória) em `src/net/pipe.dart`; `Buffers` e o
+/// `writev` das conexões em `src/net/buffers.dart`.
+///
 /// Rede real em `src/net/{conn,unix*,dial,lookup,interfaces}.dart` (D4);
 /// o `socket()` do Go, `Control`, `SyscallConn` e o UDP da VM no linux pela
 /// rede FFI em `src/net/{control,rawconn,udp_msg}.dart` (D10, E2–E7); IP
@@ -37,6 +40,7 @@ import 'src/net/sys/dns_rr.dart' as dns;
 import 'src/net/sys/sys.dart' as sys;
 import 'src/syscall/vfd.dart' as vfd;
 import 'strconv.dart' as strconv;
+import 'sync.dart' as sync;
 import 'syscall.dart' as syscall;
 import 'time.dart' as time;
 
@@ -73,6 +77,8 @@ part 'src/net/interfaces.dart';
 part 'src/net/control.dart';
 part 'src/net/rawconn.dart';
 part 'src/net/udp_msg.dart';
+part 'src/net/pipe.dart';
+part 'src/net/buffers.dart';
 
 const _byteElem = Elem<Golang.Uint8>(
   1,

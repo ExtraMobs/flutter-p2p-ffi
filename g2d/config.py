@@ -74,7 +74,7 @@ STDLIB_SHIMS = {
 # quando tem métodos): conversões `net.IP(b)`/`[]byte(ip)`, zero value,
 # descritores e `*N` seguem as regras dos tipos gerados. Os outros compostos
 # nomeados de shim são typedef do subjacente (`json.RawMessage`).
-SHIM_NAMED_CLASSES = frozenset({("net", "IP"), ("net", "IPMask"), ("net", "HardwareAddr"),
+SHIM_NAMED_CLASSES = frozenset({("net", "IP"), ("net", "IPMask"), ("net", "HardwareAddr"), ("net", "Buffers"),
                                 ("net/textproto", "MIMEHeader")})
 
 # Pacotes cuja presença no grafo liga os descritores de reflexão (M5):

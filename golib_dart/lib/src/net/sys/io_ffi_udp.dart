@@ -9,7 +9,7 @@ part of 'sys_io.dart';
 // ICMP), `recvmsg`/`sendmsg` com dados de controle (`ReadMsgUDP`/
 // `WriteMsgUDP`) e o fd real do `SyscallConn`.
 
-final class _FfiUdpConn implements SysUdpConn, SysUdpMsg, SysRawFd {
+final class _FfiUdpConn implements SysUdpConn, SysUdpMsg, SysRawFd, SysWritev {
   _FfiUdpConn(this._s);
 
   final ffi.FfiSock _s;
@@ -52,6 +52,9 @@ final class _FfiUdpConn implements SysUdpConn, SysUdpMsg, SysRawFd {
 
   @override
   Future<int> send(Uint8List data) => _s.write(data);
+
+  @override
+  Future<int> writev(List<Uint8List> chunks) => _s.writev(chunks);
 
   @override
   Future<(int, int, int, SysAddr?)> readMsg(Uint8List buf, Uint8List oob) =>
