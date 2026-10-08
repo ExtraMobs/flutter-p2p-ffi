@@ -380,6 +380,7 @@
       "joinHostPort",
       "listen",
       "listenIP",
+      "listenMulticastUDP",
       "listenPacket",
       "listenTCP",
       "listenUDP",
