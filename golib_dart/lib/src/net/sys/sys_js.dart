@@ -92,6 +92,12 @@ Future<SysUdpConn> sysListenUdp(SysAddr local, {bool v6Only = false}) async {
   return _listenUdp(local, v6Only);
 }
 
+/// `DialUDP`: socket em [local] conectado a [remote] (`dgram.connect`).
+Future<SysUdpConn> sysDialUdp(SysAddr local, SysAddr remote) async {
+  _require('socket');
+  return _dialUdp(local, remote);
+}
+
 /// IPs de [host] pelo `dns.lookup` do Node (o `getaddrinfo` do sistema).
 Future<List<Uint8List>> sysLookupIp(
   String host, {

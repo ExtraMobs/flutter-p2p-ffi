@@ -398,7 +398,7 @@ Future<(UDPConn?, GoError?)> dialUDP(
     final local = laddr != null
         ? _sysAddrOf(laddr.ip, laddr.port.toInt(), laddr.zone)
         : sys.SysAddr(r.ip.length == 4 ? Uint8List(4) : Uint8List(16), 0);
-    final fd = await sys.sysListenUdp(local);
+    final fd = await sys.sysDialUdp(local, r);
     return (UDPConn._(fd, net, _udpAddrOf(fd.local), _udpAddrOf(r)), null);
   } on Object catch (e) {
     return (null, _opError('dial', net, laddr, raddr, _sysError(e)));

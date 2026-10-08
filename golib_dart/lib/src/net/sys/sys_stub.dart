@@ -30,6 +30,9 @@ Future<SysTcpListener> sysListenTcp(
 Future<SysUdpConn> sysListenUdp(SysAddr local, {bool v6Only = false}) async =>
     throw SysError.unsupported('socket');
 
+Future<SysUdpConn> sysDialUdp(SysAddr local, SysAddr remote) async =>
+    throw SysError.unsupported('socket');
+
 Future<SysTcpConn> sysDialUnix(
   String path, {
   DateTime? deadline,

@@ -84,6 +84,11 @@ void sysUnlinkUnix(String path) => _unlinkUnix(path);
 Future<SysUdpConn> sysListenUdp(SysAddr local, {bool v6Only = false}) =>
     _listenUdp(local);
 
+/// `DialUDP` sem rede FFI (VM fora do linux): ⚠️ o `RawDatagramSocket` não
+/// conecta; o `net` só filtra o par.
+Future<SysUdpConn> sysDialUdp(SysAddr local, SysAddr remote) =>
+    _listenUdp(local);
+
 /// IPs de [host] pelo resolvedor do sistema (`getaddrinfo`: `/etc/hosts`,
 /// DNS...). [network]: `ip`, `ip4` ou `ip6`.
 Future<List<Uint8List>> sysLookupIp(String host, {String network = 'ip'}) =>
