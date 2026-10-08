@@ -165,10 +165,10 @@ a espera, a VM encerrando com o poller vivo, um build AOT
 Entregue (fixtures `netcontrol`, `syscallsock`; `docs/mapping-spec.md` §
 Rede). Unix e IP bruto com `Control` e `SyscallConn` (fd real) vieram
 na integração com o E3–E7 (fixture `netunixcontrol`).
-`SyscallConn` de socket do `dart:io` (TCP, Unix de fluxo): `Read`/`Write`
-são o `FD.RawRead`/`RawWrite` (`internal/poll/fd_raw.dart`) e o
-`syscall.Read`/`Write` do descritor virtual lê/escreve no `RawSocket` sem
-esperar (`EAGAIN`, 0 no EOF): o readyreader do gRPC funciona na VM
+`SyscallConn` de socket do `dart:io` (TCP; Unix de fluxo fora do linux):
+`Read`/`Write` são o `FD.RawRead`/`RawWrite` (`internal/poll/fd_raw.dart`)
+e o `syscall.Read`/`Write` do descritor virtual lê/escreve no `RawSocket`
+sem esperar (`EAGAIN`, 0 no EOF): o readyreader do gRPC funciona na VM
 (fixture `netrawread`, igual ao `go run`). ⚠️ O `syscall.Read` virtual só
 vê o que o `RawSocket` anunciou (antes do evento de leitura dá `EAGAIN`
 mesmo com dado no kernel; o `raw.Read` espera o evento). UDP do `dart:io`
