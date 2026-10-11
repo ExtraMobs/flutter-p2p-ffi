@@ -99,7 +99,8 @@ verificações ao abrir (com o log copiável) e tem o teste de integração
 `DNS.Resolvers` (DNS por HTTPS), como o app faz: o resolvedor do Go não acha o DNS do
 sistema. Para o mDNS, o app segura um `WifiManager.MulticastLock` (ver `MainActivity.kt`).
 Conexões por relay duram até 2 min e não levam pubsub nem bitswap: entre dois aparelhos
-atrás de NAT de operadora, só há troca de dados se um deles for alcançável. Números e achados
+atrás de NAT de operadora, só há troca de dados se o hole punching der certo ou se um deles
+for alcançável. Números e achados
 em [`TODO.md`](TODO.md).
 
 ### Linux pelo WSL (validado no Ubuntu 26.04)
@@ -127,10 +128,12 @@ recuperar); grave o relatório com `debug.setCrashOutput(os.create(caminho),
 debug.CrashOptions())` (`package:ipfs_ffi/runtime/debug.dart`, `package:ipfs_ffi/os.dart`)
 e leia o arquivo no próximo início.
 
-Chamadas síncronas só com número, `bool`, string e handle usam um export C direto
-(sem JSON; `dart run tool/bench.dart` mede); o resto passa pelo `IpfsCall`.
+Chamadas síncronas só com número, `bool`, string, bytes, tipo-valor (CID, path, peer
+ID, multiaddr, ipns.Name) e handle usam um export C direto, assim como o `context`
+(sem JSON; `dart run tool/bench.dart` mede); o resto passa pelo `IpfsCall`. Nas
+assíncronas o JSON é a menor parte do custo (ver `TODO.md`).
 
-Pendências e roteiro em [`TODO.md`](TODO.md): o resto do JSON (exports diretos para bytes e tipos-valor, medição das assíncronas, formato binário) e o que falta do Android (dois aparelhos conectando direto, uso longo).
+Pendências e roteiro em [`TODO.md`](TODO.md): o que falta do Android (dois aparelhos conectando direto, uso longo).
 
 Limites: os plugins do kubo são injetados uma vez por processo; um panic em
 goroutine interna do kubo (fora da chamada) derruba o processo (veja o relatório de crash acima).

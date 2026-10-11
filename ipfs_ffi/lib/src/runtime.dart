@@ -76,12 +76,34 @@ final _native = _Native($dylib);
 // Exports diretos (gen: funções síncronas só com número, bool, string e
 // handle): sem JSON; o resultado sai por $out e o erro é o retorno.
 
-/// Saída dos exports diretos: 8 bytes por isolate, lidos logo após a chamada.
+/// Saída dos exports diretos: 8 bytes por isolate, lidos logo após a chamada;
+/// [$outN] leva o tamanho quando o resultado são bytes.
 final Pointer<Int64> $out = _native.malloc(8).cast();
+final Pointer<Int64> $outN = _native.malloc(8).cast();
 
 Pointer<Uint8> $cstr(String s) => _native.cstr(s);
 void $free(Pointer<NativeType> p) => _native.free(p.cast());
 String $take(Pointer<Uint8> p) => _native.take(p);
+
+/// Cópia de [b] num buffer C (o chamador solta com [$free]).
+Pointer<Uint8> $cbytes(Uint8List b) {
+  final p = _native.malloc(b.isEmpty ? 1 : b.length).cast<Uint8>();
+  if (p == nullptr) throw IpfsException('GoMalloc falhou');
+  p.asTypedList(b.length).setAll(0, b);
+  return p;
+}
+
+/// Lê e solta os bytes devolvidos por um export direto (NULL → vazio).
+Uint8List $takeBytes(Pointer<Uint8> p, int n) {
+  if (p == nullptr) return Uint8List(0);
+  final out = Uint8List.fromList(p.asTypedList(n));
+  _native.free(p.cast());
+  return out;
+}
+
+/// Ponteiro não nulo de um export direto: NULL é o nil do Go.
+Pointer<Uint8> $nnP(Pointer<Uint8> p) =>
+    p != nullptr ? p : throw IpfsException('o Go devolveu nil');
 
 /// Erro de um export direto: NULL = ok; senão a mensagem (ou o panic).
 void $check(Pointer<Uint8> err) {

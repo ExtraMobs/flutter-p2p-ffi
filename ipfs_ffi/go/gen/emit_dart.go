@@ -725,7 +725,7 @@ func nativeT(t *tinfo) (string, string) {
 	switch cat(t) {
 	case "double":
 		return "Double", "double"
-	case "string":
+	case "string", "value", "bytes": // bytes: + Int64 do tamanho ao lado
 		return "Pointer<Uint8>", "Pointer<Uint8>"
 	}
 	return "Int64", "int"
@@ -748,11 +748,20 @@ func (e *dartEmitter) directBody(l *dartLib, f *fn, in string) string {
 			args = append(args, v+".$h")
 		case "bool":
 			args = append(args, v+" ? 1 : 0")
-		case "string":
+		case "string", "value":
 			s := fmt.Sprintf("$s%d", i)
+			if cat(p.t) == "value" {
+				v += ".value"
+			}
 			pre = append(pre, fmt.Sprintf("final %s = $cstr(%s);", s, v))
 			post = append(post, fmt.Sprintf("$free(%s);", s))
 			args = append(args, s)
+		case "bytes": // buffer C com a cópia; o Go copia de novo
+			s := fmt.Sprintf("$b%d", i)
+			nat, dart = append(nat, "Int64"), append(dart, "int")
+			pre = append(pre, fmt.Sprintf("final %s = $cbytes(%s);", s, v))
+			post = append(post, fmt.Sprintf("$free(%s);", s))
+			args = append(args, s, v+".length")
 		default:
 			args = append(args, v)
 		}
@@ -769,6 +778,10 @@ func (e *dartEmitter) directBody(l *dartLib, f *fn, in string) string {
 			out, ret = "$out.cast<Double>()", "$out.cast<Double>().value"
 		case "string":
 			out, ret = "$out.cast<Pointer<Uint8>>()", "$take($out.cast<Pointer<Uint8>>().value)"
+		case "value": // NULL (nil do Go) vira IpfsException, como no JSON
+			out, ret = "$out.cast<Pointer<Uint8>>()", e.ref(r, l)+"($take($nnP($out.cast<Pointer<Uint8>>().value)))"
+		case "bytes": // nil → vazio, como no JSON
+			out, ret = "$out.cast<Pointer<Uint8>>()", "$takeBytes($out.cast<Pointer<Uint8>>().value, $outN.value)"
 		default:
 			ret = "$out.value"
 		}
@@ -781,6 +794,9 @@ func (e *dartEmitter) directBody(l *dartLib, f *fn, in string) string {
 		outNat = "Pointer<Pointer<Uint8>>"
 	}
 	nat, dart, args = append(nat, outNat), append(dart, outNat), append(args, out)
+	if len(f.results) == 1 && cat(f.results[0]) == "bytes" {
+		nat, dart, args = append(nat, "Pointer<Int64>"), append(dart, "Pointer<Int64>"), append(args, "$outN")
+	}
 	fn := fmt.Sprintf("_d%d", f.direct)
 	l.lookups = append(l.lookups, fmt.Sprintf("final %s = $dylib.lookupFunction<Pointer<Uint8> Function(%s), Pointer<Uint8> Function(%s)>('IpfsD%d');\n",
 		fn, strings.Join(nat, ", "), strings.Join(dart, ", "), f.direct))

@@ -13,7 +13,6 @@ import "C"
 
 import (
 	"bytes"
-	"context"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -240,6 +239,38 @@ func decBytes(raw json.RawMessage) ([]byte, error) {
 	return bytes.Clone(unsafe.Slice((*byte)(p), b.N)), nil
 }
 
+// Exports diretos (gen: directFn) com bytes e tipos-valor.
+
+// cbytes: cópia Go do buffer [p, p+n) do Dart.
+func cbytes(p *C.char, n C.int64_t) []byte {
+	if n == 0 {
+		return []byte{}
+	}
+	return C.GoBytes(unsafe.Pointer(p), C.int(n))
+}
+
+// outBytes: []byte devolvido como buffer C (solto pelo Dart); nil → NULL.
+func outBytes(b []byte, out **C.char, outn *C.int64_t) {
+	*out, *outn = nil, C.int64_t(len(b))
+	if len(b) > 0 {
+		*out = (*C.char)(C.CBytes(b))
+	}
+}
+
+// jstr: a string como JSON, para os decodificadores de tipo-valor (decCid...).
+func jstr(s string) json.RawMessage {
+	b, _ := json.Marshal(s)
+	return b
+}
+
+// cstrOrNil: o valor de um encoder de tipo-valor como string C; nil → NULL.
+func cstrOrNil(v any) *C.char {
+	if s, ok := v.(string); ok {
+		return C.CString(s)
+	}
+	return nil
+}
+
 func encBytes(b []byte) any {
 	if b == nil {
 		return nil
@@ -440,63 +471,18 @@ func encConfig(c config.Config) any {
 	return json.RawMessage(b)
 }
 
-// Escrito à mão: context (o Dart espelha o pacote em lib/context.dart) e os
+// Escrito à mão (o context está em manual_context.go): ganchos de teste e os
 // perfis de config (config.Profiles é um mapa de funções; ver API.md).
 func init() {
-	reg["context.Background"] = entry{call: func([]json.RawMessage) (any, error) {
-		return henc(context.Background()), nil
-	}}
-	withCancel := func(ctx context.Context, cancel context.CancelFunc) (any, error) {
-		return []any{henc(ctx), henc(cancel)}, nil
-	}
-	reg["context.WithCancel"] = entry{call: func(a []json.RawMessage) (any, error) {
-		parent, err := hdec[context.Context](a[0])
-		if err != nil {
-			return nil, err
-		}
-		return withCancel(context.WithCancel(parent))
-	}}
-	reg["context.WithTimeout"] = entry{call: func(a []json.RawMessage) (any, error) {
-		parent, err := hdec[context.Context](a[0])
-		if err != nil {
-			return nil, err
-		}
-		d, err := jdec[time.Duration](a[1])
-		if err != nil {
-			return nil, err
-		}
-		return withCancel(context.WithTimeout(parent, d))
-	}}
-	reg["context.WithDeadline"] = entry{call: func(a []json.RawMessage) (any, error) {
-		parent, err := hdec[context.Context](a[0])
-		if err != nil {
-			return nil, err
-		}
-		t, err := decTime(a[1])
-		if err != nil {
-			return nil, err
-		}
-		return withCancel(context.WithDeadline(parent, t))
-	}}
-	reg["context.CancelFunc"] = entry{call: func(a []json.RawMessage) (any, error) {
-		cancel, err := hdec[context.CancelFunc](a[0])
-		if err == nil {
-			cancel()
-		}
-		return nil, err
-	}}
-	reg["context.Context.Err"] = entry{call: func(a []json.RawMessage) (any, error) {
-		ctx, err := hdec[context.Context](a[0])
-		if err != nil || ctx.Err() == nil {
-			return nil, err
-		}
-		return ctx.Err().Error(), nil
-	}}
-
 	// Gancho de teste (test/crash_child.dart): panic numa goroutine fora de
 	// qualquer chamada, como um bug interno do kubo; o guard não o alcança.
 	reg["ipfs_ffi/test.PanicInGoroutine"] = entry{call: func([]json.RawMessage) (any, error) {
 		go func() { panic("ipfs_ffi: panic de teste numa goroutine") }()
+		return nil, nil
+	}}
+	// Gancho do tool/bench.dart: o custo fixo do IpfsCall (JSON mínimo, e o
+	// listener quando assíncrono), sem trabalho do kubo.
+	reg["ipfs_ffi/test.Noop"] = entry{call: func([]json.RawMessage) (any, error) {
 		return nil, nil
 	}}
 	// Ganchos de teste das goroutines do ipfs_ffi: o panic vira erro.

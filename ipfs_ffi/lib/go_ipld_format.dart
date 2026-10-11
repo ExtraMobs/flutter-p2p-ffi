@@ -47,14 +47,14 @@ class Node extends $go_block_format.Block {
 
   /// Go: `func (blocks.Block).Cid() cid.Cid`.
   $go_cid.Cid cid() {
-    final $r = $callSync('github.com/ipfs/go-ipld-format.Node.Cid', [this]);
-    return $go_cid.Cid($nn($r) as String);
+    $check(_d23($h, $out.cast<Pointer<Uint8>>()));
+    return $go_cid.Cid($take($nnP($out.cast<Pointer<Uint8>>().value)));
   }
 
   /// Go: `func (blocks.Block).RawData() []byte`.
   Uint8List rawData() {
-    final $r = $callSync('github.com/ipfs/go-ipld-format.Node.RawData', [this]);
-    return $bytes($r);
+    $check(_d24($h, $out.cast<Pointer<Uint8>>(), $outN));
+    return $takeBytes($out.cast<Pointer<Uint8>>().value, $outN.value);
   }
 
   /// Go: `func (format.Node).Links() []*format.Link`.
@@ -67,7 +67,7 @@ class Node extends $go_block_format.Block {
 
   /// Go: `func (format.Node).Size() (uint64, error)`.
   int size() {
-    $check(_d22($h, $out));
+    $check(_d25($h, $out));
     return $out.value;
   }
 
@@ -178,6 +178,13 @@ final class NodeStat implements GoJson {
 }
 
 // Exports diretos (sem JSON) usados acima.
-final _d22 = $dylib.lookupFunction<
+final _d23 = $dylib.lookupFunction<
+    Pointer<Uint8> Function(Int64, Pointer<Pointer<Uint8>>),
+    Pointer<Uint8> Function(int, Pointer<Pointer<Uint8>>)>('IpfsD23');
+final _d24 = $dylib.lookupFunction<
+    Pointer<Uint8> Function(Int64, Pointer<Pointer<Uint8>>, Pointer<Int64>),
+    Pointer<Uint8> Function(
+        int, Pointer<Pointer<Uint8>>, Pointer<Int64>)>('IpfsD24');
+final _d25 = $dylib.lookupFunction<
     Pointer<Uint8> Function(Int64, Pointer<Int64>),
-    Pointer<Uint8> Function(int, Pointer<Int64>)>('IpfsD22');
+    Pointer<Uint8> Function(int, Pointer<Int64>)>('IpfsD25');

@@ -51,19 +51,23 @@ type fn struct {
 	direct  int    // >= 0: export direto IpfsD<n> (sem JSON); -1: só pelo IpfsCall
 }
 
-// directKind: atravessa um export direto com tipo C (int64, double, char*).
+// directKind: atravessa um export direto com tipo C (int64, double, char*;
+// bytes como ponteiro + tamanho; tipo-valor como a string dele).
 func directKind(t *tinfo) bool {
 	switch t.k {
-	case kBasic:
+	case kBasic, kBytes:
 		return true
 	case kHandle:
 		return !t.reader // io.Reader em parâmetro aceita bytes: fica no JSON
+	case kValue: // CID, path, peer ID, multiaddr, ipns.Name (não time nem Config)
+		return !t.ptr && t.val.dartClass != "" && !t.val.json
 	}
 	return false
 }
 
-// isDirect: função síncrona só com número, bool, string e handle, que ganha
-// export próprio (ipfs_ffi/TODO.md: ~27 µs por chamada no JSON).
+// isDirect: função síncrona só com número, bool, string, bytes, tipo-valor e
+// handle, que ganha export próprio (ipfs_ffi/TODO.md: ~27 µs por chamada no
+// JSON).
 func isDirect(f *fn) bool {
 	if f.why != "" || f.async || f.stream != nil || len(f.results) > 1 {
 		return false

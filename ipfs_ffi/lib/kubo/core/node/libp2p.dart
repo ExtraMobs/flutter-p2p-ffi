@@ -19,25 +19,25 @@ class RoutingOption extends GoHandle {
 
 /// Go: `var libp2p.DHTOption libp2p.RoutingOption`.
 RoutingOption get dhtOption {
-  $check(_d12($out));
+  $check(_d13($out));
   return RoutingOption.$h($nnH($out.value));
 }
 
 /// Go: `var libp2p.DHTClientOption libp2p.RoutingOption`.
 RoutingOption get dhtClientOption {
-  $check(_d13($out));
+  $check(_d14($out));
   return RoutingOption.$h($nnH($out.value));
 }
 
 /// Go: `var libp2p.DHTServerOption libp2p.RoutingOption`.
 RoutingOption get dhtServerOption {
-  $check(_d14($out));
+  $check(_d15($out));
   return RoutingOption.$h($nnH($out.value));
 }
 
 /// Go: `var libp2p.NilRouterOption func(_ libp2p.RoutingOptionArgs) (routing.Routing, error)`.
 RoutingOption get nilRouterOption {
-  $check(_d15($out));
+  $check(_d16($out));
   return RoutingOption.$h($nnH($out.value));
 }
 
@@ -51,11 +51,11 @@ RoutingOption constructDefaultRouting(
 }
 
 // Exports diretos (sem JSON) usados acima.
-final _d12 = $dylib.lookupFunction<Pointer<Uint8> Function(Pointer<Int64>),
-    Pointer<Uint8> Function(Pointer<Int64>)>('IpfsD12');
 final _d13 = $dylib.lookupFunction<Pointer<Uint8> Function(Pointer<Int64>),
     Pointer<Uint8> Function(Pointer<Int64>)>('IpfsD13');
 final _d14 = $dylib.lookupFunction<Pointer<Uint8> Function(Pointer<Int64>),
     Pointer<Uint8> Function(Pointer<Int64>)>('IpfsD14');
 final _d15 = $dylib.lookupFunction<Pointer<Uint8> Function(Pointer<Int64>),
     Pointer<Uint8> Function(Pointer<Int64>)>('IpfsD15');
+final _d16 = $dylib.lookupFunction<Pointer<Uint8> Function(Pointer<Int64>),
+    Pointer<Uint8> Function(Pointer<Int64>)>('IpfsD16');

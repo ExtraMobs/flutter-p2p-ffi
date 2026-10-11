@@ -580,6 +580,17 @@ func fn16(a []json.RawMessage) (any, error) {
 	return henc(r0), nil
 }
 
+// github.com/ipfs/boxo/files.NewBytesFile (direto)
+//
+//export IpfsD6
+func IpfsD6(c0 *C.char, c0n C.int64_t, out *C.int64_t) (cerr *C.char) {
+	defer guardC(&cerr)
+	p0 := []byte(cbytes(c0, c0n))
+	r0 := p_files.NewBytesFile(p0)
+	*out = C.int64_t(hint(r0))
+	return nil
+}
+
 // github.com/ipfs/boxo/files.NewSerialFile
 func fn17(a []json.RawMessage) (any, error) {
 	if err := nargs(a, 3); err != nil {
@@ -606,8 +617,8 @@ func fn17(a []json.RawMessage) (any, error) {
 
 // github.com/ipfs/boxo/files.NewSerialFile (direto)
 //
-//export IpfsD6
-func IpfsD6(c0 *C.char, c1 C.int64_t, c2 C.int64_t, out *C.int64_t) (cerr *C.char) {
+//export IpfsD7
+func IpfsD7(c0 *C.char, c1 C.int64_t, c2 C.int64_t, out *C.int64_t) (cerr *C.char) {
 	defer guardC(&cerr)
 	p0 := string(C.GoString(c0))
 	p1 := bool(c1 != 0)
@@ -638,8 +649,8 @@ func fn18(a []json.RawMessage) (any, error) {
 
 // github.com/ipfs/boxo/files.ToFile (direto)
 //
-//export IpfsD7
-func IpfsD7(c0 C.int64_t, out *C.int64_t) (cerr *C.char) {
+//export IpfsD8
+func IpfsD8(c0 C.int64_t, out *C.int64_t) (cerr *C.char) {
 	defer guardC(&cerr)
 	p0, err := hget[p_files.Node](int64(c0))
 	if err != nil {
@@ -672,8 +683,8 @@ func fn19(a []json.RawMessage) (any, error) {
 
 // github.com/ipfs/boxo/files.WriteTo (direto)
 //
-//export IpfsD8
-func IpfsD8(c0 C.int64_t, c1 *C.char, out *C.int64_t) (cerr *C.char) {
+//export IpfsD9
+func IpfsD9(c0 C.int64_t, c1 *C.char, out *C.int64_t) (cerr *C.char) {
 	defer guardC(&cerr)
 	p0, err := hget[p_files.Node](int64(c0))
 	if err != nil {
@@ -705,8 +716,8 @@ func fn20(a []json.RawMessage) (any, error) {
 
 // os.Stat (direto)
 //
-//export IpfsD9
-func IpfsD9(c0 *C.char, out *C.int64_t) (cerr *C.char) {
+//export IpfsD10
+func IpfsD10(c0 *C.char, out *C.int64_t) (cerr *C.char) {
 	defer guardC(&cerr)
 	p0 := string(C.GoString(c0))
 	r0, err := p_os.Stat(p0)
@@ -748,8 +759,8 @@ func fn22(a []json.RawMessage) (any, error) {
 
 // github.com/ipfs/kubo/core/coreiface.CoreAPI.Pin (direto)
 //
-//export IpfsD10
-func IpfsD10(cr C.int64_t, out *C.int64_t) (cerr *C.char) {
+//export IpfsD11
+func IpfsD11(cr C.int64_t, out *C.int64_t) (cerr *C.char) {
 	defer guardC(&cerr)
 	recv, err := hget[p_iface.CoreAPI](int64(cr))
 	if err != nil {
@@ -962,8 +973,8 @@ func fn29(a []json.RawMessage) (any, error) {
 
 // github.com/ipfs/kubo/core/coreiface.CoreAPI.Block (direto)
 //
-//export IpfsD11
-func IpfsD11(cr C.int64_t, out *C.int64_t) (cerr *C.char) {
+//export IpfsD12
+func IpfsD12(cr C.int64_t, out *C.int64_t) (cerr *C.char) {
 	defer guardC(&cerr)
 	recv, err := hget[p_iface.CoreAPI](int64(cr))
 	if err != nil {
@@ -1147,8 +1158,8 @@ func fn37(a []json.RawMessage) (any, error) {
 
 // github.com/ipfs/kubo/core/node/libp2p.DHTOption (direto)
 //
-//export IpfsD12
-func IpfsD12(out *C.int64_t) (cerr *C.char) {
+//export IpfsD13
+func IpfsD13(out *C.int64_t) (cerr *C.char) {
 	defer guardC(&cerr)
 	r0 := p_libp2p.DHTOption
 	*out = C.int64_t(hint(r0))
@@ -1166,8 +1177,8 @@ func fn38(a []json.RawMessage) (any, error) {
 
 // github.com/ipfs/kubo/core/node/libp2p.DHTClientOption (direto)
 //
-//export IpfsD13
-func IpfsD13(out *C.int64_t) (cerr *C.char) {
+//export IpfsD14
+func IpfsD14(out *C.int64_t) (cerr *C.char) {
 	defer guardC(&cerr)
 	r0 := p_libp2p.DHTClientOption
 	*out = C.int64_t(hint(r0))
@@ -1185,8 +1196,8 @@ func fn39(a []json.RawMessage) (any, error) {
 
 // github.com/ipfs/kubo/core/node/libp2p.DHTServerOption (direto)
 //
-//export IpfsD14
-func IpfsD14(out *C.int64_t) (cerr *C.char) {
+//export IpfsD15
+func IpfsD15(out *C.int64_t) (cerr *C.char) {
 	defer guardC(&cerr)
 	r0 := p_libp2p.DHTServerOption
 	*out = C.int64_t(hint(r0))
@@ -1204,8 +1215,8 @@ func fn40(a []json.RawMessage) (any, error) {
 
 // github.com/ipfs/kubo/core/node/libp2p.NilRouterOption (direto)
 //
-//export IpfsD15
-func IpfsD15(out *C.int64_t) (cerr *C.char) {
+//export IpfsD16
+func IpfsD16(out *C.int64_t) (cerr *C.char) {
 	defer guardC(&cerr)
 	r0 := p_libp2p.RoutingOption(p_libp2p.NilRouterOption)
 	*out = C.int64_t(hint(r0))
@@ -1244,8 +1255,8 @@ func fn42(a []json.RawMessage) (any, error) {
 
 // github.com/ipfs/kubo/core/coreiface.CoreAPI.Key (direto)
 //
-//export IpfsD16
-func IpfsD16(cr C.int64_t, out *C.int64_t) (cerr *C.char) {
+//export IpfsD17
+func IpfsD17(cr C.int64_t, out *C.int64_t) (cerr *C.char) {
 	defer guardC(&cerr)
 	recv, err := hget[p_iface.CoreAPI](int64(cr))
 	if err != nil {
@@ -1291,8 +1302,8 @@ func fn44(a []json.RawMessage) (any, error) {
 
 // github.com/ipfs/kubo/core/coreiface.CoreAPI.Swarm (direto)
 //
-//export IpfsD17
-func IpfsD17(cr C.int64_t, out *C.int64_t) (cerr *C.char) {
+//export IpfsD18
+func IpfsD18(cr C.int64_t, out *C.int64_t) (cerr *C.char) {
 	defer guardC(&cerr)
 	recv, err := hget[p_iface.CoreAPI](int64(cr))
 	if err != nil {
@@ -1426,8 +1437,8 @@ func fn50(a []json.RawMessage) (any, error) {
 
 // github.com/ipfs/kubo/core/coreiface.CoreAPI.Routing (direto)
 //
-//export IpfsD18
-func IpfsD18(cr C.int64_t, out *C.int64_t) (cerr *C.char) {
+//export IpfsD19
+func IpfsD19(cr C.int64_t, out *C.int64_t) (cerr *C.char) {
 	defer guardC(&cerr)
 	recv, err := hget[p_iface.CoreAPI](int64(cr))
 	if err != nil {
@@ -1570,8 +1581,8 @@ func fn56(a []json.RawMessage) (any, error) {
 
 // github.com/ipfs/kubo/core/coreiface.CoreAPI.Name (direto)
 //
-//export IpfsD19
-func IpfsD19(cr C.int64_t, out *C.int64_t) (cerr *C.char) {
+//export IpfsD20
+func IpfsD20(cr C.int64_t, out *C.int64_t) (cerr *C.char) {
 	defer guardC(&cerr)
 	recv, err := hget[p_iface.CoreAPI](int64(cr))
 	if err != nil {
@@ -1873,8 +1884,8 @@ func fn67(a []json.RawMessage) (any, error) {
 
 // github.com/ipfs/kubo/core/coreiface.CoreAPI.Dag (direto)
 //
-//export IpfsD20
-func IpfsD20(cr C.int64_t, out *C.int64_t) (cerr *C.char) {
+//export IpfsD21
+func IpfsD21(cr C.int64_t, out *C.int64_t) (cerr *C.char) {
 	defer guardC(&cerr)
 	recv, err := hget[p_iface.CoreAPI](int64(cr))
 	if err != nil {
@@ -2068,8 +2079,8 @@ func fn75(a []json.RawMessage) (any, error) {
 
 // github.com/ipfs/kubo/core/coreiface.APIDagService.Pinning (direto)
 //
-//export IpfsD21
-func IpfsD21(cr C.int64_t, out *C.int64_t) (cerr *C.char) {
+//export IpfsD22
+func IpfsD22(cr C.int64_t, out *C.int64_t) (cerr *C.char) {
 	defer guardC(&cerr)
 	recv, err := hget[p_iface.APIDagService](int64(cr))
 	if err != nil {
@@ -2141,6 +2152,20 @@ func fn78(a []json.RawMessage) (any, error) {
 	return encCid(r0), nil
 }
 
+// github.com/ipfs/go-ipld-format.Node.Cid (direto)
+//
+//export IpfsD23
+func IpfsD23(cr C.int64_t, out **C.char) (cerr *C.char) {
+	defer guardC(&cerr)
+	recv, err := hget[p_format.Node](int64(cr))
+	if err != nil {
+		return C.CString(err.Error())
+	}
+	r0 := recv.Cid()
+	*out = cstrOrNil(encCid(r0))
+	return nil
+}
+
 // github.com/ipfs/go-ipld-format.Node.RawData
 func fn79(a []json.RawMessage) (any, error) {
 	if err := nargs(a, 1); err != nil {
@@ -2152,6 +2177,20 @@ func fn79(a []json.RawMessage) (any, error) {
 	}
 	r0 := recv.RawData()
 	return encBytes(r0), nil
+}
+
+// github.com/ipfs/go-ipld-format.Node.RawData (direto)
+//
+//export IpfsD24
+func IpfsD24(cr C.int64_t, out **C.char, outn *C.int64_t) (cerr *C.char) {
+	defer guardC(&cerr)
+	recv, err := hget[p_format.Node](int64(cr))
+	if err != nil {
+		return C.CString(err.Error())
+	}
+	r0 := recv.RawData()
+	outBytes(r0, out, outn)
+	return nil
 }
 
 // github.com/ipfs/go-ipld-format.Node.Links
@@ -2185,8 +2224,8 @@ func fn81(a []json.RawMessage) (any, error) {
 
 // github.com/ipfs/go-ipld-format.Node.Size (direto)
 //
-//export IpfsD22
-func IpfsD22(cr C.int64_t, out *C.int64_t) (cerr *C.char) {
+//export IpfsD25
+func IpfsD25(cr C.int64_t, out *C.int64_t) (cerr *C.char) {
 	defer guardC(&cerr)
 	recv, err := hget[p_format.Node](int64(cr))
 	if err != nil {
@@ -2229,6 +2268,17 @@ func fn83(a []json.RawMessage) (any, error) {
 	return henc(r0), nil
 }
 
+// github.com/ipfs/boxo/ipld/merkledag.NewRawNode (direto)
+//
+//export IpfsD26
+func IpfsD26(c0 *C.char, c0n C.int64_t, out *C.int64_t) (cerr *C.char) {
+	defer guardC(&cerr)
+	p0 := []byte(cbytes(c0, c0n))
+	r0 := p_merkledag.NewRawNode(p0)
+	*out = C.int64_t(hint(r0))
+	return nil
+}
+
 // github.com/ipfs/boxo/ipld/merkledag.NodeWithData
 func fn84(a []json.RawMessage) (any, error) {
 	if err := nargs(a, 1); err != nil {
@@ -2240,6 +2290,17 @@ func fn84(a []json.RawMessage) (any, error) {
 	}
 	r0 := p_merkledag.NodeWithData(p0)
 	return henc(r0), nil
+}
+
+// github.com/ipfs/boxo/ipld/merkledag.NodeWithData (direto)
+//
+//export IpfsD27
+func IpfsD27(c0 *C.char, c0n C.int64_t, out *C.int64_t) (cerr *C.char) {
+	defer guardC(&cerr)
+	p0 := []byte(cbytes(c0, c0n))
+	r0 := p_merkledag.NodeWithData(p0)
+	*out = C.int64_t(hint(r0))
+	return nil
 }
 
 // github.com/ipfs/boxo/ipld/merkledag.ProtoNode.AddNodeLink
@@ -2268,8 +2329,8 @@ func fn85(a []json.RawMessage) (any, error) {
 
 // github.com/ipfs/boxo/ipld/merkledag.ProtoNode.AddNodeLink (direto)
 //
-//export IpfsD23
-func IpfsD23(cr C.int64_t, c0 *C.char, c1 C.int64_t, out *C.int64_t) (cerr *C.char) {
+//export IpfsD28
+func IpfsD28(cr C.int64_t, c0 *C.char, c1 C.int64_t, out *C.int64_t) (cerr *C.char) {
 	defer guardC(&cerr)
 	recv, err := hget[*p_merkledag.ProtoNode](int64(cr))
 	if err != nil {
@@ -2304,6 +2365,21 @@ func fn86(a []json.RawMessage) (any, error) {
 	return nil, nil
 }
 
+// github.com/ipfs/boxo/ipld/merkledag.ProtoNode.SetData (direto)
+//
+//export IpfsD29
+func IpfsD29(cr C.int64_t, c0 *C.char, c0n C.int64_t, out *C.int64_t) (cerr *C.char) {
+	defer guardC(&cerr)
+	recv, err := hget[*p_merkledag.ProtoNode](int64(cr))
+	if err != nil {
+		return C.CString(err.Error())
+	}
+	p0 := []byte(cbytes(c0, c0n))
+	recv.SetData(p0)
+	_ = out
+	return nil
+}
+
 // github.com/ipfs/boxo/ipld/merkledag.ProtoNode.Data
 func fn87(a []json.RawMessage) (any, error) {
 	if err := nargs(a, 1); err != nil {
@@ -2315,6 +2391,20 @@ func fn87(a []json.RawMessage) (any, error) {
 	}
 	r0 := recv.Data()
 	return encBytes(r0), nil
+}
+
+// github.com/ipfs/boxo/ipld/merkledag.ProtoNode.Data (direto)
+//
+//export IpfsD30
+func IpfsD30(cr C.int64_t, out **C.char, outn *C.int64_t) (cerr *C.char) {
+	defer guardC(&cerr)
+	recv, err := hget[*p_merkledag.ProtoNode](int64(cr))
+	if err != nil {
+		return C.CString(err.Error())
+	}
+	r0 := recv.Data()
+	outBytes(r0, out, outn)
+	return nil
 }
 
 // os.Create
@@ -2335,8 +2425,8 @@ func fn88(a []json.RawMessage) (any, error) {
 
 // os.Create (direto)
 //
-//export IpfsD24
-func IpfsD24(c0 *C.char, out *C.int64_t) (cerr *C.char) {
+//export IpfsD31
+func IpfsD31(c0 *C.char, out *C.int64_t) (cerr *C.char) {
 	defer guardC(&cerr)
 	p0 := string(C.GoString(c0))
 	r0, err := p_os.Create(p0)
@@ -2365,8 +2455,8 @@ func fn89(a []json.RawMessage) (any, error) {
 
 // os.File.Close (direto)
 //
-//export IpfsD25
-func IpfsD25(cr C.int64_t, out *C.int64_t) (cerr *C.char) {
+//export IpfsD32
+func IpfsD32(cr C.int64_t, out *C.int64_t) (cerr *C.char) {
 	defer guardC(&cerr)
 	recv, err := hget[*p_os.File](int64(cr))
 	if err != nil {
@@ -2414,8 +2504,8 @@ func fn91(a []json.RawMessage) (any, error) {
 
 // github.com/ipfs/kubo/core/coreiface.CoreAPI.PubSub (direto)
 //
-//export IpfsD26
-func IpfsD26(cr C.int64_t, out *C.int64_t) (cerr *C.char) {
+//export IpfsD33
+func IpfsD33(cr C.int64_t, out *C.int64_t) (cerr *C.char) {
 	defer guardC(&cerr)
 	recv, err := hget[p_iface.CoreAPI](int64(cr))
 	if err != nil {
@@ -2566,8 +2656,8 @@ func fn97(a []json.RawMessage) (any, error) {
 
 // github.com/ipfs/kubo/core/coreiface.PubSubSubscription.Close (direto)
 //
-//export IpfsD27
-func IpfsD27(cr C.int64_t, out *C.int64_t) (cerr *C.char) {
+//export IpfsD34
+func IpfsD34(cr C.int64_t, out *C.int64_t) (cerr *C.char) {
 	defer guardC(&cerr)
 	recv, err := hget[p_iface.PubSubSubscription](int64(cr))
 	if err != nil {

@@ -64,14 +64,17 @@ String? prepare(String repoPath, String crashLog) {
   if (!fsrepo.isInitialized(repoPath)) {
     final cfg = config
         .initWithIdentity(config.createIdentity([options.key.type('ed25519')]));
-    final addresses = cfg.json['Addresses'] as Map<String, Object?>;
-    final defaults = (addresses['Swarm'] as List).cast<String>();
+    final defaults = ((cfg.json['Addresses'] as Map)['Swarm'] as List)
+        .cast<String>()
+        .toList();
     for (final p in ['randomports', 'lowpower']) {
       config.profiles[p]!.transform(cfg);
     }
     // O randomports troca a lista padrão por só TCP; sem UDP não há QUIC nem
     // hole punching (DCUtR). Volta a lista padrão do kubo (TCP, QUIC,
-    // WebTransport, WebRTC) na porta que ele sorteou.
+    // WebTransport, WebRTC) na porta que ele sorteou. O transform troca o
+    // JSON inteiro: o mapa Addresses é lido depois dele.
+    final addresses = cfg.json['Addresses'] as Map<String, Object?>;
     final port = RegExp(r'/tcp/(\d+)')
         .firstMatch((addresses['Swarm'] as List).first as String)![1]!;
     addresses['Swarm'] = [

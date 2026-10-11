@@ -411,8 +411,13 @@ func (g *goEmitter) enc(t *tinfo, expr string) string {
 
 // cat: categoria C de um tipo direto (directKind).
 func cat(t *tinfo) string {
-	if t.k == kHandle {
+	switch t.k {
+	case kHandle:
 		return "handle"
+	case kBytes:
+		return "bytes"
+	case kValue:
+		return "value"
 	}
 	b := t.t.Underlying().(*types.Basic)
 	switch {
@@ -430,7 +435,7 @@ func cType(t *tinfo) string {
 	switch cat(t) {
 	case "double":
 		return "C.double"
-	case "string":
+	case "string", "value", "bytes": // bytes: + tamanho C.int64_t ao lado
 		return "*C.char"
 	}
 	return "C.int64_t" // bool, inteiros e handles
@@ -458,6 +463,11 @@ func (g *goEmitter) directFn(f *fn) string {
 		switch cat(p.t) {
 		case "handle":
 			fmt.Fprintf(&b, "\t%s, err := hget[%s](int64(%s))\n%s", v, T, c, fail)
+		case "bytes": // o Go copia; o buffer é do Dart
+			params = append(params, c+"n C.int64_t")
+			fmt.Fprintf(&b, "\t%s := %s(cbytes(%s, %sn))\n", v, T, c, c)
+		case "value": // os mesmos decodificadores do JSON
+			fmt.Fprintf(&b, "\t%s, err := %s(jstr(C.GoString(%s)))\n%s", v, p.t.val.dec, c, fail)
 		case "bool":
 			fmt.Fprintf(&b, "\t%s := %s(%s != 0)\n", v, T, c)
 		case "string":
@@ -472,6 +482,9 @@ func (g *goEmitter) directFn(f *fn) string {
 		outT = "*" + cType(f.results[0])
 	}
 	params = append(params, "out "+outT)
+	if len(f.results) == 1 && cat(f.results[0]) == "bytes" {
+		params = append(params, "outn *C.int64_t")
+	}
 
 	call := g.callee(f, recv) + "(" + strings.Join(args, ", ") + ")"
 	if f.isVar {
@@ -498,6 +511,10 @@ func (g *goEmitter) directFn(f *fn) string {
 			b.WriteString("\tif r0 {\n\t\t*out = 1\n\t} else {\n\t\t*out = 0\n\t}\n")
 		case "string":
 			b.WriteString("\t*out = C.CString(string(r0))\n")
+		case "bytes":
+			b.WriteString("\toutBytes(r0, out, outn)\n")
+		case "value": // nil do encoder (CID indefinido...) vira NULL
+			fmt.Fprintf(&b, "\t*out = cstrOrNil(%s(r0))\n", r.val.enc)
 		case "double":
 			b.WriteString("\t*out = C.double(r0)\n")
 		default:

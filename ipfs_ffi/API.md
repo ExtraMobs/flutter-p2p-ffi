@@ -7,7 +7,7 @@ Cada linha é um símbolo Go exposto e onde ele está no Dart.
 
 | Go | Dart | Modo |
 |---|---|---|
-| `func files.NewBytesFile(b []byte) files.File` | `newBytesFile` | síncrona |
+| `func files.NewBytesFile(b []byte) files.File` | `newBytesFile` | síncrona (direta) |
 | `func files.NewSerialFile(path string, includeHidden bool, stat os.FileInfo) (files.Node, error)` | `newSerialFile` | síncrona (direta) |
 | `func files.ToFile(n files.Node) files.File` | `toFile` | síncrona (direta) |
 | `func files.WriteTo(nd files.Node, fpath string) error` | `writeTo` | síncrona (direta) |
@@ -16,11 +16,11 @@ Cada linha é um símbolo Go exposto e onde ele está no Dart.
 
 | Go | Dart | Modo |
 |---|---|---|
-| `func merkledag.NewRawNode(data []byte) *merkledag.RawNode` | `factory RawNode` | síncrona |
-| `func merkledag.NodeWithData(d []byte) *merkledag.ProtoNode` | `nodeWithData` | síncrona |
+| `func merkledag.NewRawNode(data []byte) *merkledag.RawNode` | `factory RawNode` | síncrona (direta) |
+| `func merkledag.NodeWithData(d []byte) *merkledag.ProtoNode` | `nodeWithData` | síncrona (direta) |
 | `func (*merkledag.ProtoNode).AddNodeLink(name string, that format.Node) error` | `ProtoNode.addNodeLink` | síncrona (direta) |
-| `func (*merkledag.ProtoNode).SetData(d []byte)` | `ProtoNode.setData` | síncrona |
-| `func (*merkledag.ProtoNode).Data() []byte` | `ProtoNode.data` | síncrona |
+| `func (*merkledag.ProtoNode).SetData(d []byte)` | `ProtoNode.setData` | síncrona (direta) |
+| `func (*merkledag.ProtoNode).Data() []byte` | `ProtoNode.data` | síncrona (direta) |
 
 ## `github.com/ipfs/go-ipld-format` → `package:ipfs_ffi/go_ipld_format.dart`
 
@@ -28,8 +28,8 @@ Cada linha é um símbolo Go exposto e onde ele está no Dart.
 |---|---|---|
 | `func (format.NodeAdder).Add(context.Context, format.Node) error` | `NodeAdder.add` | Future |
 | `func (format.NodeAdder).AddMany(context.Context, []format.Node) error` | `NodeAdder.addMany` | Future |
-| `func (blocks.Block).Cid() cid.Cid` | `Node.cid` | síncrona |
-| `func (blocks.Block).RawData() []byte` | `Node.rawData` | síncrona |
+| `func (blocks.Block).Cid() cid.Cid` | `Node.cid` | síncrona (direta) |
+| `func (blocks.Block).RawData() []byte` | `Node.rawData` | síncrona (direta) |
 | `func (format.Node).Links() []*format.Link` | `Node.links` | síncrona |
 | `func (format.Node).Size() (uint64, error)` | `Node.size` | síncrona (direta) |
 | `func (format.Node).Stat() (*format.NodeStat, error)` | `Node.stat` | síncrona |

@@ -23,7 +23,8 @@ import 'package:ipfs_ffi/kubo/core/corerepo.dart' as corerepo;
 import 'package:ipfs_ffi/kubo/core/node.dart' as node;
 import 'package:ipfs_ffi/kubo/core/node/libp2p.dart' as libp2p;
 import 'package:ipfs_ffi/kubo/repo/fsrepo.dart' as fsrepo;
-import 'package:ipfs_ffi/src/runtime.dart' show $call, $stream, GoSink;
+import 'package:ipfs_ffi/src/runtime.dart'
+    show $call, $callSync, $stream, GoSink;
 
 typedef Log = void Function(String line);
 
@@ -209,12 +210,42 @@ Future<int> localChecks(Log log) async {
           return sw.elapsedMicroseconds / count;
         }
 
+        Future<double> benchAsync(Future<Object?> Function() f) async {
+          for (var i = 0; i < 200; i++) {
+            await f();
+          }
+          const count = 2000;
+          final sw = Stopwatch()..start();
+          for (var i = 0; i < count; i++) {
+            await f();
+          }
+          return sw.elapsedMicroseconds / count;
+        }
+
+        String us(double v) => '${v.toStringAsFixed(1)} µs';
         final direct = bench(() => api.unixfs());
         final stat = bench(() => fsrepo.isInitialized(repoPath));
-        final json = bench(() => ctx.err());
-        log('  api.unixfs() ${direct.toStringAsFixed(1)} µs; '
-            'fsrepo.isInitialized ${stat.toStringAsFixed(1)} µs; '
-            'ctx.err() (JSON) ${json.toStringAsFixed(1)} µs');
+        final err = bench(() => ctx.err());
+        final timeout = bench(() {
+          final (_, cancel) =
+              context.withTimeout(ctx, const Duration(seconds: 1));
+          cancel();
+        });
+        const noop = 'ipfs_ffi/test.Noop';
+        final json = bench(() => $callSync(noop, const []));
+        final jsonAsync = await benchAsync(() => $call(noop, const []));
+        final p =
+            await api.unixfs().add(ctx, files.newBytesFile(utf8.encode('x')));
+        final block = api.block();
+        final statAsync = await benchAsync(() => block.stat(ctx, p));
+        final statSync = bench(() => $callSync(
+            'github.com/ipfs/kubo/core/coreiface.BlockAPI.Stat',
+            [block, ctx, p]));
+        log('  diretos: api.unixfs() ${us(direct)}; fsrepo.isInitialized '
+            '${us(stat)}; ctx.err() ${us(err)}; withTimeout+cancel ${us(timeout)}');
+        log('  JSON (IpfsCall): Noop síncrono ${us(json)}, assíncrono '
+            '${us(jsonAsync)}; block.stat assíncrono ${us(statAsync)}, '
+            'a mesma entrada síncrona ${us(statSync)}');
         check(direct < json * 2, 'o direto não é pior que o JSON');
       },
     }, log);
@@ -319,7 +350,13 @@ Future<int> networkChecks(iface.CoreApi api, Log log) => runAll({
       },
       'endereços do nó': () async {
         log('  locais: ${(await api.swarm().localAddrs(ctx)).join(' ')}');
-        log('  escuta: ${(await api.swarm().listenAddrs(ctx)).join(' ')}');
+        final listen = [
+          for (final a in await api.swarm().listenAddrs(ctx)) '$a'
+        ];
+        log('  escuta: ${listen.join(' ')}');
+        // o repo do app escuta também em UDP (QUIC): sem isso não há hole punching
+        check(listen.any((a) => a.contains('/udp/') && a.contains('/quic-v1')),
+            'escuta em UDP (QUIC)');
       },
       'DNSLink + bloco da rede (/ipns/ipfs.tech, até 60 s)': () async {
         final (c, cancel) =

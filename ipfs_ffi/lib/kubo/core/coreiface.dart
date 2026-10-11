@@ -77,7 +77,7 @@ class ApiDagService extends $go_ipld_format.DagService {
 
   /// Go: `func (iface.APIDagService).Pinning() format.NodeAdder`.
   $go_ipld_format.NodeAdder pinning() {
-    $check(_d21($h, $out));
+    $check(_d22($h, $out));
     return $go_ipld_format.NodeAdder.$h($nnH($out.value));
   }
 }
@@ -268,43 +268,43 @@ class CoreApi extends GoHandle {
 
   /// Go: `func (iface.CoreAPI).Pin() iface.PinAPI`.
   PinApi pin() {
-    $check(_d10($h, $out));
+    $check(_d11($h, $out));
     return PinApi.$h($nnH($out.value));
   }
 
   /// Go: `func (iface.CoreAPI).Block() iface.BlockAPI`.
   BlockApi block() {
-    $check(_d11($h, $out));
+    $check(_d12($h, $out));
     return BlockApi.$h($nnH($out.value));
   }
 
   /// Go: `func (iface.CoreAPI).Key() iface.KeyAPI`.
   KeyApi key() {
-    $check(_d16($h, $out));
+    $check(_d17($h, $out));
     return KeyApi.$h($nnH($out.value));
   }
 
   /// Go: `func (iface.CoreAPI).Swarm() iface.SwarmAPI`.
   SwarmApi swarm() {
-    $check(_d17($h, $out));
+    $check(_d18($h, $out));
     return SwarmApi.$h($nnH($out.value));
   }
 
   /// Go: `func (iface.CoreAPI).Routing() iface.RoutingAPI`.
   RoutingApi routing() {
-    $check(_d18($h, $out));
+    $check(_d19($h, $out));
     return RoutingApi.$h($nnH($out.value));
   }
 
   /// Go: `func (iface.CoreAPI).Name() iface.NameAPI`.
   NameApi name() {
-    $check(_d19($h, $out));
+    $check(_d20($h, $out));
     return NameApi.$h($nnH($out.value));
   }
 
   /// Go: `func (iface.CoreAPI).Dag() iface.APIDagService`.
   ApiDagService dag() {
-    $check(_d20($h, $out));
+    $check(_d21($h, $out));
     return ApiDagService.$h($nnH($out.value));
   }
 
@@ -321,7 +321,7 @@ class CoreApi extends GoHandle {
 
   /// Go: `func (iface.CoreAPI).PubSub() iface.PubSubAPI`.
   PubSubApi pubSub() {
-    $check(_d26($h, $out));
+    $check(_d33($h, $out));
     return PubSubApi.$h($nnH($out.value));
   }
 }
@@ -715,7 +715,7 @@ class PubSubSubscription extends $io.Closer {
 
   /// Go: `func (io.Closer).Close() error`.
   void close() {
-    $check(_d27($h, $out));
+    $check(_d34($h, $out));
   }
 }
 
@@ -858,21 +858,18 @@ class UnixfsApi extends GoHandle {
 }
 
 // Exports diretos (sem JSON) usados acima.
-final _d21 = $dylib.lookupFunction<
+final _d22 = $dylib.lookupFunction<
     Pointer<Uint8> Function(Int64, Pointer<Int64>),
-    Pointer<Uint8> Function(int, Pointer<Int64>)>('IpfsD21');
+    Pointer<Uint8> Function(int, Pointer<Int64>)>('IpfsD22');
 final _d5 = $dylib.lookupFunction<
     Pointer<Uint8> Function(Int64, Pointer<Int64>),
     Pointer<Uint8> Function(int, Pointer<Int64>)>('IpfsD5');
-final _d10 = $dylib.lookupFunction<
-    Pointer<Uint8> Function(Int64, Pointer<Int64>),
-    Pointer<Uint8> Function(int, Pointer<Int64>)>('IpfsD10');
 final _d11 = $dylib.lookupFunction<
     Pointer<Uint8> Function(Int64, Pointer<Int64>),
     Pointer<Uint8> Function(int, Pointer<Int64>)>('IpfsD11');
-final _d16 = $dylib.lookupFunction<
+final _d12 = $dylib.lookupFunction<
     Pointer<Uint8> Function(Int64, Pointer<Int64>),
-    Pointer<Uint8> Function(int, Pointer<Int64>)>('IpfsD16');
+    Pointer<Uint8> Function(int, Pointer<Int64>)>('IpfsD12');
 final _d17 = $dylib.lookupFunction<
     Pointer<Uint8> Function(Int64, Pointer<Int64>),
     Pointer<Uint8> Function(int, Pointer<Int64>)>('IpfsD17');
@@ -885,9 +882,12 @@ final _d19 = $dylib.lookupFunction<
 final _d20 = $dylib.lookupFunction<
     Pointer<Uint8> Function(Int64, Pointer<Int64>),
     Pointer<Uint8> Function(int, Pointer<Int64>)>('IpfsD20');
-final _d26 = $dylib.lookupFunction<
+final _d21 = $dylib.lookupFunction<
     Pointer<Uint8> Function(Int64, Pointer<Int64>),
-    Pointer<Uint8> Function(int, Pointer<Int64>)>('IpfsD26');
-final _d27 = $dylib.lookupFunction<
+    Pointer<Uint8> Function(int, Pointer<Int64>)>('IpfsD21');
+final _d33 = $dylib.lookupFunction<
     Pointer<Uint8> Function(Int64, Pointer<Int64>),
-    Pointer<Uint8> Function(int, Pointer<Int64>)>('IpfsD27');
+    Pointer<Uint8> Function(int, Pointer<Int64>)>('IpfsD33');
+final _d34 = $dylib.lookupFunction<
+    Pointer<Uint8> Function(Int64, Pointer<Int64>),
+    Pointer<Uint8> Function(int, Pointer<Int64>)>('IpfsD34');
