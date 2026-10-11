@@ -16,6 +16,8 @@ import 'package:ipfs_ffi/kubo/core/coreiface.dart' as iface;
 import 'package:ipfs_ffi/kubo/core/coreiface/options.dart' as options;
 import 'package:ipfs_ffi/kubo/core/corerepo.dart' as corerepo;
 import 'package:ipfs_ffi/kubo/core/node.dart' as node;
+import 'package:ipfs_ffi/kubo/core/node/libp2p.dart' as libp2p;
+import 'package:ipfs_ffi/go_libp2p/core/peer.dart' as peer;
 import 'package:ipfs_ffi/kubo/plugin/loader.dart' as loader;
 import 'package:ipfs_ffi/kubo/repo/fsrepo.dart' as fsrepo;
 import 'package:ipfs_ffi/os.dart' as os;
@@ -180,5 +182,104 @@ void main() {
         api.block().stat(ctx, loose), throwsA(isA<IpfsException>()));
     expect((await api.block().stat(ctx, kept)).size, greaterThan(0));
     await corerepo.garbageCollect(n, ctx); // a versão que só espera
+  });
+
+  // M3: dois nós online no mesmo processo (como o kubo-as-a-library):
+  // perfil `test` (127.0.0.1, portas aleatórias, sem bootstrap) e DHT em
+  // modo servidor, para um achar o outro como provedor.
+  group('rede', () {
+    late core.IpfsNode na, nb;
+    late iface.CoreApi a, b;
+
+    Future<(core.IpfsNode, iface.CoreApi)> online(String name) async {
+      final cfg = config.initWithIdentity(
+          config.createIdentity([options.key.type('ed25519')]));
+      config.profiles['test']!.transform(cfg);
+      final repoPath = '${tmp.path}/$name';
+      fsrepo.init(repoPath, cfg);
+      final n = await core.newNode(
+          ctx,
+          node.BuildCfg(
+              repo: fsrepo.open(repoPath),
+              online: true,
+              routing: libp2p.dhtServerOption));
+      return (n, coreapi.newCoreApi(n));
+    }
+
+    setUpAll(() async {
+      (na, a) = await online('a');
+      (nb, b) = await online('b');
+    });
+
+    tearDownAll(() async {
+      await na.close();
+      await nb.close();
+    });
+
+    test('identidade, endereços, connect e peers', () async {
+      final idA = (await a.key().self(ctx)).id!;
+      final addrs = await a.swarm().localAddrs(ctx);
+      expect(addrs, isNotEmpty);
+      expect((await a.swarm().listenAddrs(ctx)), isNotEmpty);
+
+      await b.swarm().connect(ctx, peer.AddrInfo(id: idA, addrs: addrs));
+      final peers = await b.swarm().peers(ctx);
+      expect([for (final p in peers) p.id], contains(idA));
+
+      // o mesmo AddrInfo pelo formato texto /ip4/.../p2p/<id>
+      final p2p = peer.addrInfoToP2pAddrs(peer.AddrInfo(id: idA, addrs: addrs));
+      expect(peer.addrInfoFromString(p2p.first.value).id, idA);
+
+      final found = await b.routing().findPeer(ctx, idA);
+      expect(found.addrs, isNotEmpty);
+    });
+
+    test('B busca por bitswap o que A adicionou', () async {
+      final data = utf8.encode('de A para B ${DateTime.now()}');
+      final p = await a
+          .unixfs()
+          .add(ctx, files.newBytesFile(data), [options.unixfs.pin(true, '')]);
+      final (c, cancel) = context.withTimeout(
+          context.background(), const Duration(seconds: 30));
+      try {
+        final got = await b.unixfs().get(c, p);
+        expect(io.readAll(files.toFile(got)), data);
+      } finally {
+        cancel();
+      }
+    });
+
+    test('provide em A e findProviders em B', () async {
+      final idA = (await a.key().self(ctx)).id!;
+      final p = await a.unixfs().add(
+          ctx,
+          files.newBytesFile(utf8.encode('provide ${DateTime.now()}')),
+          [options.unixfs.pin(true, '')]);
+      // No kubo 0.43 o Provide só enfileira o anúncio (StartProviding): a
+      // busca é repetida até o registro chegar à DHT.
+      await a.routing().provide(ctx, p);
+      final deadline = DateTime.now().add(const Duration(seconds: 30));
+      var provs = <peer.AddrInfo>[];
+      while (provs.isEmpty && DateTime.now().isBefore(deadline)) {
+        provs = await b
+            .routing()
+            .findProviders(ctx, p, [options.routing.numProviders(1)]).toList();
+        if (provs.isEmpty)
+          await Future<void>.delayed(const Duration(milliseconds: 300));
+      }
+      expect([for (final i in provs) i.id], contains(idA));
+    });
+
+    test('disconnect', () async {
+      final idA = (await a.key().self(ctx)).id!;
+      // como `ipfs swarm disconnect`: o multiaddr tem de terminar em /p2p/<id>
+      final p2p = peer.addrInfoToP2pAddrs(peer.AddrInfo(id: idA, addrs: [
+        for (final c in await b.swarm().peers(ctx))
+          if (c.id == idA) c.address!
+      ]));
+      await b.swarm().disconnect(ctx, p2p.first);
+      final peers = await b.swarm().peers(ctx);
+      expect([for (final p in peers) p.id], isNot(contains(idA)));
+    });
   });
 }

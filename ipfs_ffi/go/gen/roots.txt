@@ -48,3 +48,25 @@ github.com/ipfs/kubo/core/coreiface.BlockAPI.Rm
 github.com/ipfs/kubo/core/coreiface.BlockAPI.Stat
 github.com/ipfs/kubo/core/corerepo.GarbageCollect
 github.com/ipfs/kubo/core/corerepo.GarbageCollectAsync
+
+# M3 rede (o roteamento como o daemon.go escolhe; swarm; routing; identidade)
+github.com/ipfs/kubo/repo.Repo.Config
+github.com/ipfs/kubo/core/node/libp2p.DHTOption
+github.com/ipfs/kubo/core/node/libp2p.DHTClientOption
+github.com/ipfs/kubo/core/node/libp2p.DHTServerOption
+github.com/ipfs/kubo/core/node/libp2p.NilRouterOption
+github.com/ipfs/kubo/core/node/libp2p.ConstructDefaultRouting
+github.com/ipfs/kubo/core/coreiface.CoreAPI.Key
+github.com/ipfs/kubo/core/coreiface.KeyAPI.Self
+github.com/ipfs/kubo/core/coreiface.CoreAPI.Swarm
+github.com/ipfs/kubo/core/coreiface.SwarmAPI.Connect
+github.com/ipfs/kubo/core/coreiface.SwarmAPI.Disconnect
+github.com/ipfs/kubo/core/coreiface.SwarmAPI.Peers
+github.com/ipfs/kubo/core/coreiface.SwarmAPI.ListenAddrs
+github.com/ipfs/kubo/core/coreiface.SwarmAPI.LocalAddrs
+github.com/ipfs/kubo/core/coreiface.CoreAPI.Routing
+github.com/ipfs/kubo/core/coreiface.RoutingAPI.Provide
+github.com/ipfs/kubo/core/coreiface.RoutingAPI.FindProviders
+github.com/ipfs/kubo/core/coreiface.RoutingAPI.FindPeer
+github.com/libp2p/go-libp2p/core/peer.AddrInfoFromString
+github.com/libp2p/go-libp2p/core/peer.AddrInfoToP2pAddrs

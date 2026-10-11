@@ -7,6 +7,8 @@ import 'package:ipfs_ffi/boxo/files.dart' as $files;
 import 'package:ipfs_ffi/boxo/path.dart' as $path;
 import 'package:ipfs_ffi/context.dart' as $context;
 import 'package:ipfs_ffi/go_cid.dart' as $go_cid;
+import 'package:ipfs_ffi/go_libp2p/core/peer.dart' as $peer;
+import 'package:ipfs_ffi/go_multiaddr.dart' as $go_multiaddr;
 import 'package:ipfs_ffi/io.dart' as $io;
 import 'package:ipfs_ffi/kubo/core/coreiface/options.dart' as $options;
 
@@ -80,6 +82,35 @@ final class BlockStat {
   final int size;
 }
 
+/// Go: `iface.ConnectionInfo` (valores lidos dos métodos).
+final class ConnectionInfo {
+  ConnectionInfo.$fromJson(Map<String, Object?> j)
+      : address = j['Address'] == null
+            ? null
+            : $go_multiaddr.Multiaddr(j['Address'] as String),
+        direction = j['Direction'] as int,
+        id = j['ID'] == null ? null : $peer.Id(j['ID'] as String),
+        latency = j['Latency'] == null ? null : j['Latency'] as int,
+        streams = j['Streams'] == null
+            ? null
+            : [for (final e0 in j['Streams'] as List) e0 as String];
+
+  /// Go: `Address()`.
+  final $go_multiaddr.Multiaddr? address;
+
+  /// Go: `Direction()`.
+  final int direction;
+
+  /// Go: `ID()`.
+  final $peer.Id? id;
+
+  /// Go: `Latency()`.
+  final int? latency;
+
+  /// Go: `Streams()`.
+  final List<String>? streams;
+}
+
 /// Go: `iface.CoreAPI` (handle).
 class CoreApi extends GoHandle {
   CoreApi.$h(super.$h);
@@ -117,6 +148,27 @@ class CoreApi extends GoHandle {
     final $r =
         $callSync('github.com/ipfs/kubo/core/coreiface.CoreAPI.Block', [this]);
     return BlockApi.$h($nn($r) as int);
+  }
+
+  /// Go: `func (iface.CoreAPI).Key() iface.KeyAPI`.
+  KeyApi key() {
+    final $r =
+        $callSync('github.com/ipfs/kubo/core/coreiface.CoreAPI.Key', [this]);
+    return KeyApi.$h($nn($r) as int);
+  }
+
+  /// Go: `func (iface.CoreAPI).Swarm() iface.SwarmAPI`.
+  SwarmApi swarm() {
+    final $r =
+        $callSync('github.com/ipfs/kubo/core/coreiface.CoreAPI.Swarm', [this]);
+    return SwarmApi.$h($nn($r) as int);
+  }
+
+  /// Go: `func (iface.CoreAPI).Routing() iface.RoutingAPI`.
+  RoutingApi routing() {
+    final $r = $callSync(
+        'github.com/ipfs/kubo/core/coreiface.CoreAPI.Routing', [this]);
+    return RoutingApi.$h($nn($r) as int);
   }
 }
 
@@ -180,6 +232,37 @@ final class DirEntry implements GoJson {
         'Mode': $enc(mode),
         'ModTime': $enc(modTime)
       };
+}
+
+/// Go: `iface.Key` (valores lidos dos métodos).
+final class Key {
+  Key.$fromJson(Map<String, Object?> j)
+      : id = j['ID'] == null ? null : $peer.Id(j['ID'] as String),
+        name = j['Name'] as String,
+        path = j['Path'] == null ? null : $path.Path(j['Path'] as String);
+
+  /// Go: `ID()`.
+  final $peer.Id? id;
+
+  /// Go: `Name()`.
+  final String name;
+
+  /// Go: `Path()`.
+  final $path.Path? path;
+}
+
+/// Go: `iface.KeyAPI` (handle).
+class KeyApi extends GoHandle {
+  KeyApi.$h(super.$h);
+
+  /// Go: `func (iface.KeyAPI).Self(ctx context.Context) (iface.Key, error)`.
+  ///
+  /// Assíncrona: roda numa goroutine.
+  Future<Key> self($context.Context ctx) async {
+    final $r = await $call(
+        'github.com/ipfs/kubo/core/coreiface.KeyAPI.Self', [this, ctx]);
+    return Key.$fromJson($nn($r) as Map<String, Object?>);
+  }
 }
 
 /// Go: `iface.Pin` (valores lidos dos métodos).
@@ -275,6 +358,94 @@ final class PinStatus {
 
   /// Go: `Ok()`.
   final bool ok;
+}
+
+/// Go: `iface.RoutingAPI` (handle).
+class RoutingApi extends GoHandle {
+  RoutingApi.$h(super.$h);
+
+  /// Go: `func (iface.RoutingAPI).Provide(context.Context, path.Path, ...options.RoutingProvideOption) error`.
+  ///
+  /// Assíncrona: roda numa goroutine.
+  Future<void> provide($context.Context ctx, $path.Path path,
+      [List<$options.RoutingProvideOption> opts = const []]) async {
+    await $call('github.com/ipfs/kubo/core/coreiface.RoutingAPI.Provide',
+        [this, ctx, path, opts]);
+  }
+
+  /// Go: `func (iface.RoutingAPI).FindProviders(context.Context, path.Path, ...options.RoutingFindProvidersOption) (<-chan peer.AddrInfo, error)`.
+  Stream<$peer.AddrInfo> findProviders($context.Context ctx, $path.Path path,
+          [List<$options.RoutingFindProvidersOption> opts = const []]) =>
+      $stream('github.com/ipfs/kubo/core/coreiface.RoutingAPI.FindProviders', [
+        this,
+        ctx,
+        path,
+        opts
+      ]).map((r) => $peer.AddrInfo.$fromJson(r as Map<String, Object?>));
+
+  /// Go: `func (iface.RoutingAPI).FindPeer(context.Context, peer.ID) (peer.AddrInfo, error)`.
+  ///
+  /// Assíncrona: roda numa goroutine.
+  Future<$peer.AddrInfo> findPeer($context.Context ctx, $peer.Id id) async {
+    final $r = await $call(
+        'github.com/ipfs/kubo/core/coreiface.RoutingAPI.FindPeer',
+        [this, ctx, id]);
+    return $peer.AddrInfo.$fromJson($nn($r) as Map<String, Object?>);
+  }
+}
+
+/// Go: `iface.SwarmAPI` (handle).
+class SwarmApi extends GoHandle {
+  SwarmApi.$h(super.$h);
+
+  /// Go: `func (iface.SwarmAPI).Connect(context.Context, peer.AddrInfo) error`.
+  ///
+  /// Assíncrona: roda numa goroutine.
+  Future<void> connect($context.Context ctx, $peer.AddrInfo addrInfo) async {
+    await $call('github.com/ipfs/kubo/core/coreiface.SwarmAPI.Connect',
+        [this, ctx, addrInfo]);
+  }
+
+  /// Go: `func (iface.SwarmAPI).Disconnect(context.Context, multiaddr.Multiaddr) error`.
+  ///
+  /// Assíncrona: roda numa goroutine.
+  Future<void> disconnect(
+      $context.Context ctx, $go_multiaddr.Multiaddr multiaddr) async {
+    await $call('github.com/ipfs/kubo/core/coreiface.SwarmAPI.Disconnect',
+        [this, ctx, multiaddr]);
+  }
+
+  /// Go: `func (iface.SwarmAPI).Peers(context.Context) ([]iface.ConnectionInfo, error)`.
+  ///
+  /// Assíncrona: roda numa goroutine.
+  Future<List<ConnectionInfo>> peers($context.Context ctx) async {
+    final $r = await $call(
+        'github.com/ipfs/kubo/core/coreiface.SwarmAPI.Peers', [this, ctx]);
+    return [
+      for (final e0 in $r as List)
+        ConnectionInfo.$fromJson(e0 as Map<String, Object?>)
+    ];
+  }
+
+  /// Go: `func (iface.SwarmAPI).ListenAddrs(context.Context) ([]multiaddr.Multiaddr, error)`.
+  ///
+  /// Assíncrona: roda numa goroutine.
+  Future<List<$go_multiaddr.Multiaddr>> listenAddrs(
+      $context.Context ctx) async {
+    final $r = await $call(
+        'github.com/ipfs/kubo/core/coreiface.SwarmAPI.ListenAddrs',
+        [this, ctx]);
+    return [for (final e0 in $r as List) $go_multiaddr.Multiaddr(e0 as String)];
+  }
+
+  /// Go: `func (iface.SwarmAPI).LocalAddrs(context.Context) ([]multiaddr.Multiaddr, error)`.
+  ///
+  /// Assíncrona: roda numa goroutine.
+  Future<List<$go_multiaddr.Multiaddr>> localAddrs($context.Context ctx) async {
+    final $r = await $call(
+        'github.com/ipfs/kubo/core/coreiface.SwarmAPI.LocalAddrs', [this, ctx]);
+    return [for (final e0 in $r as List) $go_multiaddr.Multiaddr(e0 as String)];
+  }
 }
 
 /// Go: `iface.UnixfsAPI` (handle).

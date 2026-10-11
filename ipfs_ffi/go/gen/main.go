@@ -30,7 +30,9 @@ type param struct {
 
 type fn struct {
 	key     string // a linha da raiz: chave do despacho
-	obj     *types.Func
+	obj     types.Object // *types.Func, ou *types.Var de pacote (isVar)
+	isVar   bool
+	conv    types.Type // variável: converter para este tipo nomeado
 	pkg     *types.Package // library Dart de destino
 	recv    *tinfo
 	params  []param
@@ -188,11 +190,28 @@ func (m *model) resolve(pkgs map[string]*types.Package, line string) (*fn, error
 	f := &fn{key: line, pkg: pkg}
 	switch {
 	case method == "":
-		fo, ok := obj.(*types.Func)
-		if !ok {
-			return nil, fmt.Errorf("%s não é função", line)
+		switch o := obj.(type) {
+		case *types.Func:
+			f.obj = o
+		case *types.Var: // variável de pacote: getter sem parâmetros
+			f.obj, f.isVar = o, true
+			t := o.Type()
+			// func sem nome (NilRouterOption = constructNilRouting) idêntica a um
+			// tipo nomeado do pacote (RoutingOption): usa o tipo nomeado.
+			if _, unnamed := t.(*types.Signature); unnamed {
+				for _, n := range pkg.Scope().Names() {
+					if tn, ok := pkg.Scope().Lookup(n).(*types.TypeName); ok && tn.Exported() && types.Identical(tn.Type().Underlying(), t) {
+						t, f.conv = tn.Type(), tn.Type()
+						break
+					}
+				}
+			}
+			f.results = []*tinfo{m.classify(t)}
+			m.check(f)
+			return f, nil
+		default:
+			return nil, fmt.Errorf("%s não é função nem variável", line)
 		}
-		f.obj = fo
 	default:
 		tn, ok := obj.(*types.TypeName)
 		if !ok {

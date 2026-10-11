@@ -586,6 +586,9 @@ func (e *dartEmitter) function(l *dartLib, f *fn, class string, factory bool) st
 		dec = "(" + strings.Join(ds, ", ") + ")"
 	}
 	head := fmt.Sprintf("%s %s%s", ret, name, sig)
+	if f.isVar {
+		head = fmt.Sprintf("%s get %s", ret, name)
+	}
 	if factory {
 		head = "factory " + class + sig
 	}

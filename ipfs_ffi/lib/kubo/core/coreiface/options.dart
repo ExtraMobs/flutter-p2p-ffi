@@ -49,6 +49,16 @@ final class PinUpdateOption extends GoOption {
   PinUpdateOption.$(super.p, super.a);
 }
 
+/// Go: `options.RoutingFindProvidersOption` (opção funcional; construtores nas variáveis do pacote).
+final class RoutingFindProvidersOption extends GoOption {
+  RoutingFindProvidersOption.$(super.p, super.a);
+}
+
+/// Go: `options.RoutingProvideOption` (opção funcional; construtores nas variáveis do pacote).
+final class RoutingProvideOption extends GoOption {
+  RoutingProvideOption.$(super.p, super.a);
+}
+
 /// Go: `options.UnixfsAddOption` (opção funcional; construtores nas variáveis do pacote).
 final class UnixfsAddOption extends GoOption {
   UnixfsAddOption.$(super.p, super.a);
@@ -95,6 +105,21 @@ final class _Block {
 
   /// Go: `options.Block.Pin`.
   BlockPutOption pin(bool pin) => BlockPutOption.$('Block.Pin', [pin]);
+}
+
+/// Go: `var Dht`: construtores de opções.
+const dht = _Dht._();
+
+final class _Dht {
+  const _Dht._();
+
+  /// Go: `options.Dht.NumProviders`.
+  RoutingFindProvidersOption numProviders(int numProviders) =>
+      RoutingFindProvidersOption.$('Dht.NumProviders', [numProviders]);
+
+  /// Go: `options.Dht.Recursive`.
+  RoutingProvideOption recursive(bool recursive) =>
+      RoutingProvideOption.$('Dht.Recursive', [recursive]);
 }
 
 /// Go: `var Key`: construtores de opções.
@@ -184,6 +209,36 @@ final class _PinLs {
 
   /// Go: `options.Pin.Ls.Type`.
   PinLsOption type(String typeStr) => PinLsOption.$('Pin.Ls.Type', [typeStr]);
+}
+
+/// Go: `var Put`: construtores de opções.
+const put = _Put._();
+
+final class _Put {
+  const _Put._();
+
+  /// Go: `options.Put.NumProviders`.
+  RoutingFindProvidersOption numProviders(int numProviders) =>
+      RoutingFindProvidersOption.$('Put.NumProviders', [numProviders]);
+
+  /// Go: `options.Put.Recursive`.
+  RoutingProvideOption recursive(bool recursive) =>
+      RoutingProvideOption.$('Put.Recursive', [recursive]);
+}
+
+/// Go: `var Routing`: construtores de opções.
+const routing = _Routing._();
+
+final class _Routing {
+  const _Routing._();
+
+  /// Go: `options.Routing.NumProviders`.
+  RoutingFindProvidersOption numProviders(int numProviders) =>
+      RoutingFindProvidersOption.$('Routing.NumProviders', [numProviders]);
+
+  /// Go: `options.Routing.Recursive`.
+  RoutingProvideOption recursive(bool recursive) =>
+      RoutingProvideOption.$('Routing.Recursive', [recursive]);
 }
 
 /// Go: `var Unixfs`: construtores de opções.

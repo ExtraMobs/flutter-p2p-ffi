@@ -116,6 +116,12 @@ func (g *goEmitter) function(name string, f *fn) string {
 	b.WriteString(body)
 
 	call := g.callee(f, recv) + "(" + strings.Join(args, ", ") + ")"
+	if f.isVar {
+		call = g.callee(f, recv)
+		if f.conv != nil {
+			call = g.ts(f.conv) + "(" + call + ")"
+		}
+	}
 	declared := n > 0
 	assign := func(lhs []string) string {
 		op := ":="

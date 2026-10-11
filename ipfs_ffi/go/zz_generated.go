@@ -14,10 +14,14 @@ import (
 	p_iface "github.com/ipfs/kubo/core/coreiface"
 	p_options "github.com/ipfs/kubo/core/coreiface/options"
 	p_corerepo "github.com/ipfs/kubo/core/corerepo"
+	p_libp2p "github.com/ipfs/kubo/core/node/libp2p"
 	p_gc "github.com/ipfs/kubo/gc"
 	p_loader "github.com/ipfs/kubo/plugin/loader"
 	p_repo "github.com/ipfs/kubo/repo"
 	p_fsrepo "github.com/ipfs/kubo/repo/fsrepo"
+	p_peer "github.com/libp2p/go-libp2p/core/peer"
+	p_protocol "github.com/libp2p/go-libp2p/core/protocol"
+	p_multiaddr "github.com/multiformats/go-multiaddr"
 	"io"
 	p_io2 "io"
 	p_fs "io/fs"
@@ -67,6 +71,26 @@ func init() {
 	reg["github.com/ipfs/kubo/core/coreiface.BlockAPI.Stat"] = entry{call: fn33}
 	reg["github.com/ipfs/kubo/core/corerepo.GarbageCollect"] = entry{call: fn34}
 	reg["github.com/ipfs/kubo/core/corerepo.GarbageCollectAsync"] = entry{stream: fn35}
+	reg["github.com/ipfs/kubo/repo.Repo.Config"] = entry{call: fn36}
+	reg["github.com/ipfs/kubo/core/node/libp2p.DHTOption"] = entry{call: fn37}
+	reg["github.com/ipfs/kubo/core/node/libp2p.DHTClientOption"] = entry{call: fn38}
+	reg["github.com/ipfs/kubo/core/node/libp2p.DHTServerOption"] = entry{call: fn39}
+	reg["github.com/ipfs/kubo/core/node/libp2p.NilRouterOption"] = entry{call: fn40}
+	reg["github.com/ipfs/kubo/core/node/libp2p.ConstructDefaultRouting"] = entry{call: fn41}
+	reg["github.com/ipfs/kubo/core/coreiface.CoreAPI.Key"] = entry{call: fn42}
+	reg["github.com/ipfs/kubo/core/coreiface.KeyAPI.Self"] = entry{call: fn43}
+	reg["github.com/ipfs/kubo/core/coreiface.CoreAPI.Swarm"] = entry{call: fn44}
+	reg["github.com/ipfs/kubo/core/coreiface.SwarmAPI.Connect"] = entry{call: fn45}
+	reg["github.com/ipfs/kubo/core/coreiface.SwarmAPI.Disconnect"] = entry{call: fn46}
+	reg["github.com/ipfs/kubo/core/coreiface.SwarmAPI.Peers"] = entry{call: fn47}
+	reg["github.com/ipfs/kubo/core/coreiface.SwarmAPI.ListenAddrs"] = entry{call: fn48}
+	reg["github.com/ipfs/kubo/core/coreiface.SwarmAPI.LocalAddrs"] = entry{call: fn49}
+	reg["github.com/ipfs/kubo/core/coreiface.CoreAPI.Routing"] = entry{call: fn50}
+	reg["github.com/ipfs/kubo/core/coreiface.RoutingAPI.Provide"] = entry{call: fn51}
+	reg["github.com/ipfs/kubo/core/coreiface.RoutingAPI.FindProviders"] = entry{stream: fn52}
+	reg["github.com/ipfs/kubo/core/coreiface.RoutingAPI.FindPeer"] = entry{call: fn53}
+	reg["github.com/libp2p/go-libp2p/core/peer.AddrInfoFromString"] = entry{call: fn54}
+	reg["github.com/libp2p/go-libp2p/core/peer.AddrInfoToP2pAddrs"] = entry{call: fn55}
 }
 
 func nargs(a []json.RawMessage, n int) error {
@@ -851,6 +875,357 @@ func fn35(a []json.RawMessage, emit func(any)) error {
 	return nil
 }
 
+// github.com/ipfs/kubo/repo.Repo.Config
+func fn36(a []json.RawMessage) (any, error) {
+	if err := nargs(a, 1); err != nil {
+		return nil, err
+	}
+	recv, err := hdec[p_repo.Repo](a[0])
+	if err != nil {
+		return nil, err
+	}
+	r0, err := recv.Config()
+	if err != nil {
+		return nil, err
+	}
+	return enc3(r0), nil
+}
+
+// github.com/ipfs/kubo/core/node/libp2p.DHTOption
+func fn37(a []json.RawMessage) (any, error) {
+	if err := nargs(a, 0); err != nil {
+		return nil, err
+	}
+	r0 := p_libp2p.DHTOption
+	return henc(r0), nil
+}
+
+// github.com/ipfs/kubo/core/node/libp2p.DHTClientOption
+func fn38(a []json.RawMessage) (any, error) {
+	if err := nargs(a, 0); err != nil {
+		return nil, err
+	}
+	r0 := p_libp2p.DHTClientOption
+	return henc(r0), nil
+}
+
+// github.com/ipfs/kubo/core/node/libp2p.DHTServerOption
+func fn39(a []json.RawMessage) (any, error) {
+	if err := nargs(a, 0); err != nil {
+		return nil, err
+	}
+	r0 := p_libp2p.DHTServerOption
+	return henc(r0), nil
+}
+
+// github.com/ipfs/kubo/core/node/libp2p.NilRouterOption
+func fn40(a []json.RawMessage) (any, error) {
+	if err := nargs(a, 0); err != nil {
+		return nil, err
+	}
+	r0 := p_libp2p.RoutingOption(p_libp2p.NilRouterOption)
+	return henc(r0), nil
+}
+
+// github.com/ipfs/kubo/core/node/libp2p.ConstructDefaultRouting
+func fn41(a []json.RawMessage) (any, error) {
+	if err := nargs(a, 2); err != nil {
+		return nil, err
+	}
+	p0, err := dec4(a[0])
+	if err != nil {
+		return nil, err
+	}
+	p1, err := hdec[p_libp2p.RoutingOption](a[1])
+	if err != nil {
+		return nil, err
+	}
+	r0 := p_libp2p.ConstructDefaultRouting(p0, p1)
+	return henc(r0), nil
+}
+
+// github.com/ipfs/kubo/core/coreiface.CoreAPI.Key
+func fn42(a []json.RawMessage) (any, error) {
+	if err := nargs(a, 1); err != nil {
+		return nil, err
+	}
+	recv, err := hdec[p_iface.CoreAPI](a[0])
+	if err != nil {
+		return nil, err
+	}
+	r0 := recv.Key()
+	return henc(r0), nil
+}
+
+// github.com/ipfs/kubo/core/coreiface.KeyAPI.Self
+func fn43(a []json.RawMessage) (any, error) {
+	if err := nargs(a, 2); err != nil {
+		return nil, err
+	}
+	recv, err := hdec[p_iface.KeyAPI](a[0])
+	if err != nil {
+		return nil, err
+	}
+	p0, err := hdec[p_context.Context](a[1])
+	if err != nil {
+		return nil, err
+	}
+	r0, err := recv.Self(p0)
+	if err != nil {
+		return nil, err
+	}
+	return enc25(r0), nil
+}
+
+// github.com/ipfs/kubo/core/coreiface.CoreAPI.Swarm
+func fn44(a []json.RawMessage) (any, error) {
+	if err := nargs(a, 1); err != nil {
+		return nil, err
+	}
+	recv, err := hdec[p_iface.CoreAPI](a[0])
+	if err != nil {
+		return nil, err
+	}
+	r0 := recv.Swarm()
+	return henc(r0), nil
+}
+
+// github.com/ipfs/kubo/core/coreiface.SwarmAPI.Connect
+func fn45(a []json.RawMessage) (any, error) {
+	if err := nargs(a, 3); err != nil {
+		return nil, err
+	}
+	recv, err := hdec[p_iface.SwarmAPI](a[0])
+	if err != nil {
+		return nil, err
+	}
+	p0, err := hdec[p_context.Context](a[1])
+	if err != nil {
+		return nil, err
+	}
+	p1, err := dec26(a[2])
+	if err != nil {
+		return nil, err
+	}
+	err = recv.Connect(p0, p1)
+	if err != nil {
+		return nil, err
+	}
+	return nil, nil
+}
+
+// github.com/ipfs/kubo/core/coreiface.SwarmAPI.Disconnect
+func fn46(a []json.RawMessage) (any, error) {
+	if err := nargs(a, 3); err != nil {
+		return nil, err
+	}
+	recv, err := hdec[p_iface.SwarmAPI](a[0])
+	if err != nil {
+		return nil, err
+	}
+	p0, err := hdec[p_context.Context](a[1])
+	if err != nil {
+		return nil, err
+	}
+	p1, err := decMultiaddr(a[2])
+	if err != nil {
+		return nil, err
+	}
+	err = recv.Disconnect(p0, p1)
+	if err != nil {
+		return nil, err
+	}
+	return nil, nil
+}
+
+// github.com/ipfs/kubo/core/coreiface.SwarmAPI.Peers
+func fn47(a []json.RawMessage) (any, error) {
+	if err := nargs(a, 2); err != nil {
+		return nil, err
+	}
+	recv, err := hdec[p_iface.SwarmAPI](a[0])
+	if err != nil {
+		return nil, err
+	}
+	p0, err := hdec[p_context.Context](a[1])
+	if err != nil {
+		return nil, err
+	}
+	r0, err := recv.Peers(p0)
+	if err != nil {
+		return nil, err
+	}
+	return enc28(r0), nil
+}
+
+// github.com/ipfs/kubo/core/coreiface.SwarmAPI.ListenAddrs
+func fn48(a []json.RawMessage) (any, error) {
+	if err := nargs(a, 2); err != nil {
+		return nil, err
+	}
+	recv, err := hdec[p_iface.SwarmAPI](a[0])
+	if err != nil {
+		return nil, err
+	}
+	p0, err := hdec[p_context.Context](a[1])
+	if err != nil {
+		return nil, err
+	}
+	r0, err := recv.ListenAddrs(p0)
+	if err != nil {
+		return nil, err
+	}
+	return enc31(r0), nil
+}
+
+// github.com/ipfs/kubo/core/coreiface.SwarmAPI.LocalAddrs
+func fn49(a []json.RawMessage) (any, error) {
+	if err := nargs(a, 2); err != nil {
+		return nil, err
+	}
+	recv, err := hdec[p_iface.SwarmAPI](a[0])
+	if err != nil {
+		return nil, err
+	}
+	p0, err := hdec[p_context.Context](a[1])
+	if err != nil {
+		return nil, err
+	}
+	r0, err := recv.LocalAddrs(p0)
+	if err != nil {
+		return nil, err
+	}
+	return enc31(r0), nil
+}
+
+// github.com/ipfs/kubo/core/coreiface.CoreAPI.Routing
+func fn50(a []json.RawMessage) (any, error) {
+	if err := nargs(a, 1); err != nil {
+		return nil, err
+	}
+	recv, err := hdec[p_iface.CoreAPI](a[0])
+	if err != nil {
+		return nil, err
+	}
+	r0 := recv.Routing()
+	return henc(r0), nil
+}
+
+// github.com/ipfs/kubo/core/coreiface.RoutingAPI.Provide
+func fn51(a []json.RawMessage) (any, error) {
+	if err := nargs(a, 4); err != nil {
+		return nil, err
+	}
+	recv, err := hdec[p_iface.RoutingAPI](a[0])
+	if err != nil {
+		return nil, err
+	}
+	p0, err := hdec[p_context.Context](a[1])
+	if err != nil {
+		return nil, err
+	}
+	p1, err := decPath(a[2])
+	if err != nil {
+		return nil, err
+	}
+	p2, err := opts32(a[3])
+	if err != nil {
+		return nil, err
+	}
+	err = recv.Provide(p0, p1, p2...)
+	if err != nil {
+		return nil, err
+	}
+	return nil, nil
+}
+
+// github.com/ipfs/kubo/core/coreiface.RoutingAPI.FindProviders
+func fn52(a []json.RawMessage, emit func(any)) error {
+	if err := nargs(a, 4); err != nil {
+		return err
+	}
+	recv, err := hdec[p_iface.RoutingAPI](a[0])
+	if err != nil {
+		return err
+	}
+	p0, err := hdec[p_context.Context](a[1])
+	if err != nil {
+		return err
+	}
+	p1, err := decPath(a[2])
+	if err != nil {
+		return err
+	}
+	p2, err := opts33(a[3])
+	if err != nil {
+		return err
+	}
+	ch, err := recv.FindProviders(p0, p1, p2...)
+	if err != nil {
+		return err
+	}
+	for v := range ch {
+		emit(enc34(v))
+	}
+	return nil
+}
+
+// github.com/ipfs/kubo/core/coreiface.RoutingAPI.FindPeer
+func fn53(a []json.RawMessage) (any, error) {
+	if err := nargs(a, 3); err != nil {
+		return nil, err
+	}
+	recv, err := hdec[p_iface.RoutingAPI](a[0])
+	if err != nil {
+		return nil, err
+	}
+	p0, err := hdec[p_context.Context](a[1])
+	if err != nil {
+		return nil, err
+	}
+	p1, err := decPeerID(a[2])
+	if err != nil {
+		return nil, err
+	}
+	r0, err := recv.FindPeer(p0, p1)
+	if err != nil {
+		return nil, err
+	}
+	return enc34(r0), nil
+}
+
+// github.com/libp2p/go-libp2p/core/peer.AddrInfoFromString
+func fn54(a []json.RawMessage) (any, error) {
+	if err := nargs(a, 1); err != nil {
+		return nil, err
+	}
+	p0, err := jdec[string](a[0])
+	if err != nil {
+		return nil, err
+	}
+	r0, err := p_peer.AddrInfoFromString(p0)
+	if err != nil {
+		return nil, err
+	}
+	return enc35(r0), nil
+}
+
+// github.com/libp2p/go-libp2p/core/peer.AddrInfoToP2pAddrs
+func fn55(a []json.RawMessage) (any, error) {
+	if err := nargs(a, 1); err != nil {
+		return nil, err
+	}
+	p0, err := dec36(a[0])
+	if err != nil {
+		return nil, err
+	}
+	r0, err := p_peer.AddrInfoToP2pAddrs(p0)
+	if err != nil {
+		return nil, err
+	}
+	return enc31(r0), nil
+}
+
 func opts0(raw json.RawMessage) ([]p_options.KeyGenerateOption, error) {
 	var items []struct {
 		P string
@@ -965,6 +1340,20 @@ func dec6(raw json.RawMessage) (p_core.BuildCfg, error) {
 			return v, err
 		}
 		v.DisableEncryptedConnections = x
+	}
+	if r, ok := m["Routing"]; ok {
+		x, err := hdec[p_libp2p.RoutingOption](r)
+		if err != nil {
+			return v, err
+		}
+		v.Routing = x
+	}
+	if r, ok := m["Host"]; ok {
+		x, err := hdec[p_libp2p.HostOption](r)
+		if err != nil {
+			return v, err
+		}
+		v.Host = x
 	}
 	if r, ok := m["Repo"]; ok {
 		x, err := hdec[p_repo.Repo](r)
@@ -1657,4 +2046,207 @@ func enc24(v p_gc.Result) any {
 		"KeyRemoved": encCid(v.KeyRemoved),
 		"Error":      encErr(v.Error),
 	}
+}
+
+func enc25(v p_iface.Key) any {
+	if v == nil {
+		return nil
+	}
+	m := map[string]any{}
+	m["ID"] = encPeerID(v.ID())
+	m["Name"] = v.Name()
+	m["Path"] = encPath(v.Path())
+	return m
+}
+
+func dec27(raw json.RawMessage) ([]p_multiaddr.Multiaddr, error) {
+	var rs []json.RawMessage
+	if err := json.Unmarshal(raw, &rs); err != nil {
+		return nil, err
+	}
+	out := make([]p_multiaddr.Multiaddr, len(rs))
+	for i, r := range rs {
+		x, err := decMultiaddr(r)
+		if err != nil {
+			return nil, err
+		}
+		out[i] = x
+	}
+	return out, nil
+}
+
+func dec26(raw json.RawMessage) (p_peer.AddrInfo, error) {
+	var v p_peer.AddrInfo
+	var m map[string]json.RawMessage
+	if err := json.Unmarshal(raw, &m); err != nil || m == nil {
+		return v, err
+	}
+	if r, ok := m["ID"]; ok {
+		x, err := decPeerID(r)
+		if err != nil {
+			return v, err
+		}
+		v.ID = x
+	}
+	if r, ok := m["Addrs"]; ok {
+		x, err := dec27(r)
+		if err != nil {
+			return v, err
+		}
+		v.Addrs = x
+	}
+	return v, nil
+}
+
+func enc30(v []p_protocol.ID) any {
+	out := make([]any, len(v))
+	for i, e := range v {
+		out[i] = string(e)
+	}
+	return out
+}
+
+func enc29(v p_iface.ConnectionInfo) any {
+	if v == nil {
+		return nil
+	}
+	m := map[string]any{}
+	m["Address"] = encMultiaddr(v.Address())
+	m["Direction"] = int(v.Direction())
+	m["ID"] = encPeerID(v.ID())
+	if x, err := v.Latency(); err == nil {
+		m["Latency"] = int64(x)
+	}
+	if x, err := v.Streams(); err == nil {
+		m["Streams"] = enc30(x)
+	}
+	return m
+}
+
+func enc28(v []p_iface.ConnectionInfo) any {
+	out := make([]any, len(v))
+	for i, e := range v {
+		out[i] = enc29(e)
+	}
+	return out
+}
+
+func enc31(v []p_multiaddr.Multiaddr) any {
+	out := make([]any, len(v))
+	for i, e := range v {
+		out[i] = encMultiaddr(e)
+	}
+	return out
+}
+
+func opts32(raw json.RawMessage) ([]p_options.RoutingProvideOption, error) {
+	var items []struct {
+		P string
+		A []json.RawMessage
+	}
+	if err := json.Unmarshal(raw, &items); err != nil {
+		return nil, err
+	}
+	out := make([]p_options.RoutingProvideOption, 0, len(items))
+	for _, it := range items {
+		switch it.P {
+		case "Dht.Recursive":
+			if err := nargs(it.A, 1); err != nil {
+				return nil, fmt.Errorf("%s: %w", it.P, err)
+			}
+			a0, err := jdec[bool](it.A[0])
+			if err != nil {
+				return nil, err
+			}
+			out = append(out, p_options.Dht.Recursive(a0))
+		case "Put.Recursive":
+			if err := nargs(it.A, 1); err != nil {
+				return nil, fmt.Errorf("%s: %w", it.P, err)
+			}
+			a0, err := jdec[bool](it.A[0])
+			if err != nil {
+				return nil, err
+			}
+			out = append(out, p_options.Put.Recursive(a0))
+		case "Routing.Recursive":
+			if err := nargs(it.A, 1); err != nil {
+				return nil, fmt.Errorf("%s: %w", it.P, err)
+			}
+			a0, err := jdec[bool](it.A[0])
+			if err != nil {
+				return nil, err
+			}
+			out = append(out, p_options.Routing.Recursive(a0))
+		default:
+			return nil, fmt.Errorf("ipfs_ffi: opção desconhecida %q", it.P)
+		}
+	}
+	return out, nil
+}
+
+func opts33(raw json.RawMessage) ([]p_options.RoutingFindProvidersOption, error) {
+	var items []struct {
+		P string
+		A []json.RawMessage
+	}
+	if err := json.Unmarshal(raw, &items); err != nil {
+		return nil, err
+	}
+	out := make([]p_options.RoutingFindProvidersOption, 0, len(items))
+	for _, it := range items {
+		switch it.P {
+		case "Dht.NumProviders":
+			if err := nargs(it.A, 1); err != nil {
+				return nil, fmt.Errorf("%s: %w", it.P, err)
+			}
+			a0, err := jdec[int](it.A[0])
+			if err != nil {
+				return nil, err
+			}
+			out = append(out, p_options.Dht.NumProviders(a0))
+		case "Put.NumProviders":
+			if err := nargs(it.A, 1); err != nil {
+				return nil, fmt.Errorf("%s: %w", it.P, err)
+			}
+			a0, err := jdec[int](it.A[0])
+			if err != nil {
+				return nil, err
+			}
+			out = append(out, p_options.Put.NumProviders(a0))
+		case "Routing.NumProviders":
+			if err := nargs(it.A, 1); err != nil {
+				return nil, fmt.Errorf("%s: %w", it.P, err)
+			}
+			a0, err := jdec[int](it.A[0])
+			if err != nil {
+				return nil, err
+			}
+			out = append(out, p_options.Routing.NumProviders(a0))
+		default:
+			return nil, fmt.Errorf("ipfs_ffi: opção desconhecida %q", it.P)
+		}
+	}
+	return out, nil
+}
+
+func enc34(v p_peer.AddrInfo) any {
+	return map[string]any{
+		"ID":    encPeerID(v.ID),
+		"Addrs": enc31(v.Addrs),
+	}
+}
+
+func enc35(v *p_peer.AddrInfo) any {
+	if v == nil {
+		return nil
+	}
+	return enc34(*v)
+}
+
+func dec36(raw json.RawMessage) (*p_peer.AddrInfo, error) {
+	if string(raw) == "null" {
+		return nil, nil
+	}
+	v, err := dec26(raw)
+	return &v, err
 }

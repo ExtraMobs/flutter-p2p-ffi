@@ -35,7 +35,15 @@ Exemplos, na ordem em que o kubo monta um nó:
 2. `dart run example/02_add_get.dart [repo] [arquivo-ou-pasta]`: nó sem HTTP, `add`/`get`/`ls`;
 3. `dart run example/03_pins_gc.dart [repo]`: pins, blocos crus e GC (`ipfs pin`,
    `ipfs block`, `ipfs repo gc`). A CoreAPI não pina por padrão: passe
-   `options.unixfs.pin(true, nome)` no `add` (o `ipfs add` do CLI faz isso).
+   `options.unixfs.pin(true, nome)` no `add` (o `ipfs add` do CLI faz isso);
+4. `dart run example/04_online.dart [repo] [segundos] [cid]`: o nó na rede pública,
+   como o `ipfs daemon` sem HTTP; o roteamento sai do `Routing.Type` da config como
+   no `daemon.go` (`libp2p.constructDefaultRouting(cfg, libp2p.dhtOption)`...).
+   Inicialize o repo com `randomports` se a 4001 estiver ocupada (IPFS Desktop);
+5. `dart run example/05_two_nodes.dart`: dois nós no mesmo processo; B conecta em A
+   (`swarm().connect`), acha A como provedor (`routing().findProviders`) e lê por
+   bitswap. O `routing().provide` do kubo 0.43 só enfileira o anúncio: quem busca
+   logo em seguida pode precisar repetir.
 
 ## Como o Go vira Dart
 

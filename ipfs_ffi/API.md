@@ -53,6 +53,18 @@ Cada linha é um símbolo Go exposto e onde ele está no Dart.
 | `func (iface.BlockAPI).Get(context.Context, path.Path) (io.Reader, error)` | `BlockApi.get` | Future |
 | `func (iface.BlockAPI).Rm(context.Context, path.Path, ...options.BlockRmOption) error` | `BlockApi.rm` | Future |
 | `func (iface.BlockAPI).Stat(context.Context, path.Path) (iface.BlockStat, error)` | `BlockApi.stat` | Future |
+| `func (iface.CoreAPI).Key() iface.KeyAPI` | `CoreApi.key` | síncrona |
+| `func (iface.KeyAPI).Self(ctx context.Context) (iface.Key, error)` | `KeyApi.self` | Future |
+| `func (iface.CoreAPI).Swarm() iface.SwarmAPI` | `CoreApi.swarm` | síncrona |
+| `func (iface.SwarmAPI).Connect(context.Context, peer.AddrInfo) error` | `SwarmApi.connect` | Future |
+| `func (iface.SwarmAPI).Disconnect(context.Context, multiaddr.Multiaddr) error` | `SwarmApi.disconnect` | Future |
+| `func (iface.SwarmAPI).Peers(context.Context) ([]iface.ConnectionInfo, error)` | `SwarmApi.peers` | Future |
+| `func (iface.SwarmAPI).ListenAddrs(context.Context) ([]multiaddr.Multiaddr, error)` | `SwarmApi.listenAddrs` | Future |
+| `func (iface.SwarmAPI).LocalAddrs(context.Context) ([]multiaddr.Multiaddr, error)` | `SwarmApi.localAddrs` | Future |
+| `func (iface.CoreAPI).Routing() iface.RoutingAPI` | `CoreApi.routing` | síncrona |
+| `func (iface.RoutingAPI).Provide(context.Context, path.Path, ...options.RoutingProvideOption) error` | `RoutingApi.provide` | Future |
+| `func (iface.RoutingAPI).FindProviders(context.Context, path.Path, ...options.RoutingFindProvidersOption) (<-chan peer.AddrInfo, error)` | `RoutingApi.findProviders` | Stream |
+| `func (iface.RoutingAPI).FindPeer(context.Context, peer.ID) (peer.AddrInfo, error)` | `RoutingApi.findPeer` | Future |
 
 ## `github.com/ipfs/kubo/core/corerepo` → `package:ipfs_ffi/kubo/core/corerepo.dart`
 
@@ -60,6 +72,16 @@ Cada linha é um símbolo Go exposto e onde ele está no Dart.
 |---|---|---|
 | `func corerepo.GarbageCollect(n *core.IpfsNode, ctx context.Context) error` | `garbageCollect` | Future |
 | `func corerepo.GarbageCollectAsync(n *core.IpfsNode, ctx context.Context) <-chan gc.Result` | `garbageCollectAsync` | Stream |
+
+## `github.com/ipfs/kubo/core/node/libp2p` → `package:ipfs_ffi/kubo/core/node/libp2p.dart`
+
+| Go | Dart | Modo |
+|---|---|---|
+| `var libp2p.DHTOption libp2p.RoutingOption` | `dhtOption` | síncrona |
+| `var libp2p.DHTClientOption libp2p.RoutingOption` | `dhtClientOption` | síncrona |
+| `var libp2p.DHTServerOption libp2p.RoutingOption` | `dhtServerOption` | síncrona |
+| `var libp2p.NilRouterOption func(_ libp2p.RoutingOptionArgs) (routing.Routing, error)` | `nilRouterOption` | síncrona |
+| `func libp2p.ConstructDefaultRouting(cfg *config.Config, routingOpt libp2p.RoutingOption) libp2p.RoutingOption` | `constructDefaultRouting` | síncrona |
 
 ## `github.com/ipfs/kubo/plugin/loader` → `package:ipfs_ffi/kubo/plugin/loader.dart`
 
@@ -69,6 +91,12 @@ Cada linha é um símbolo Go exposto e onde ele está no Dart.
 | `func (*loader.PluginLoader).Initialize() error` | `PluginLoader.initialize` | síncrona |
 | `func (*loader.PluginLoader).Inject() error` | `PluginLoader.inject` | síncrona |
 
+## `github.com/ipfs/kubo/repo` → `package:ipfs_ffi/kubo/repo.dart`
+
+| Go | Dart | Modo |
+|---|---|---|
+| `func (repo.Repo).Config() (*config.Config, error)` | `Repo.config` | síncrona |
+
 ## `github.com/ipfs/kubo/repo/fsrepo` → `package:ipfs_ffi/kubo/repo/fsrepo.dart`
 
 | Go | Dart | Modo |
@@ -76,6 +104,13 @@ Cada linha é um símbolo Go exposto e onde ele está no Dart.
 | `func fsrepo.IsInitialized(path string) bool` | `isInitialized` | síncrona |
 | `func fsrepo.Init(repoPath string, conf *config.Config) error` | `init` | síncrona |
 | `func fsrepo.Open(repoPath string) (repo.Repo, error)` | `open` | síncrona |
+
+## `github.com/libp2p/go-libp2p/core/peer` → `package:ipfs_ffi/go_libp2p/core/peer.dart`
+
+| Go | Dart | Modo |
+|---|---|---|
+| `func peer.AddrInfoFromString(s string) (*peer.AddrInfo, error)` | `addrInfoFromString` | síncrona |
+| `func peer.AddrInfoToP2pAddrs(pi *peer.AddrInfo) ([]multiaddr.Multiaddr, error)` | `addrInfoToP2pAddrs` | síncrona |
 
 ## `io` → `package:ipfs_ffi/io.dart`
 
@@ -88,11 +123,6 @@ Cada linha é um símbolo Go exposto e onde ele está no Dart.
 | Go | Dart | Modo |
 |---|---|---|
 | `func os.Stat(name string) (os.FileInfo, error)` | `stat` | síncrona |
-
-## Campos de struct que não atravessam
-
-- `github.com/ipfs/kubo/core/node.BuildCfg.Routing`: função github.com/ipfs/kubo/core/node/libp2p.RoutingOption
-- `github.com/ipfs/kubo/core/node.BuildCfg.Host`: função github.com/ipfs/kubo/core/node/libp2p.HostOption
 
 ## Construtores de opção omitidos
 

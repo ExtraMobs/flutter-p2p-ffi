@@ -227,7 +227,7 @@ func (m *model) fillNamed(ti *tinfo, n *types.Named) {
 			ti.k, ti.ctors = kOpts, ctors
 			return
 		}
-		unsupported(ti, "função %s", key)
+		ti.k = kHandle // valor de função opaco (ex. libp2p.RoutingOption): só o Go o cria e o chama
 	case *types.Interface:
 		m.fillInterface(ti, n, u)
 	case *types.Struct:

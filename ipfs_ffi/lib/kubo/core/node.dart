@@ -3,23 +3,26 @@
 library;
 
 import 'package:ipfs_ffi/src/runtime.dart';
+import 'package:ipfs_ffi/kubo/core/node/libp2p.dart' as $libp2p;
 import 'package:ipfs_ffi/kubo/repo.dart' as $repo;
 
 /// Go: `node.BuildCfg`.
-///
-/// Campos que não atravessam a ponte: `Routing` (função github.com/ipfs/kubo/core/node/libp2p.RoutingOption), `Host` (função github.com/ipfs/kubo/core/node/libp2p.HostOption).
 final class BuildCfg implements GoJson {
   BuildCfg(
       {bool? online,
       Map<String, bool>? extraOpts,
       bool? permanent,
       bool? disableEncryptedConnections,
+      $libp2p.RoutingOption? routing,
+      $libp2p.HostOption? host,
       $repo.Repo? repo,
       int? shutdownTimeout})
       : online = online ?? false,
         extraOpts = extraOpts ?? {},
         permanent = permanent ?? false,
         disableEncryptedConnections = disableEncryptedConnections ?? false,
+        routing = routing,
+        host = host,
         repo = repo,
         shutdownTimeout = shutdownTimeout ?? 0;
 
@@ -31,6 +34,11 @@ final class BuildCfg implements GoJson {
         },
         permanent = j['Permanent'] as bool,
         disableEncryptedConnections = j['DisableEncryptedConnections'] as bool,
+        routing = j['Routing'] == null
+            ? null
+            : $libp2p.RoutingOption.$h(j['Routing'] as int),
+        host =
+            j['Host'] == null ? null : $libp2p.HostOption.$h(j['Host'] as int),
         repo = j['Repo'] == null ? null : $repo.Repo.$h(j['Repo'] as int),
         shutdownTimeout = j['ShutdownTimeout'] as int;
 
@@ -46,6 +54,12 @@ final class BuildCfg implements GoJson {
   /// Go: `DisableEncryptedConnections`.
   bool disableEncryptedConnections;
 
+  /// Go: `Routing`.
+  $libp2p.RoutingOption? routing;
+
+  /// Go: `Host`.
+  $libp2p.HostOption? host;
+
   /// Go: `Repo`.
   $repo.Repo? repo;
 
@@ -58,6 +72,8 @@ final class BuildCfg implements GoJson {
         'ExtraOpts': $enc(extraOpts),
         'Permanent': $enc(permanent),
         'DisableEncryptedConnections': $enc(disableEncryptedConnections),
+        'Routing': $enc(routing),
+        'Host': $enc(host),
         'Repo': $enc(repo),
         'ShutdownTimeout': $enc(shutdownTimeout)
       };
