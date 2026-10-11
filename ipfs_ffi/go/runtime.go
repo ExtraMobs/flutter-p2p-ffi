@@ -72,21 +72,24 @@ func IpfsCall(method, args *C.char, mode C.int, cb C.ipfs_cb, id C.int64_t) *C.c
 	}
 	go func() {
 		send := func(kind int, s string) { C.ipfs_invoke(cb, id, C.int32_t(kind), C.CString(s)) }
-		if mode == modeStream {
-			err := invokeStream(name, raw, func(v any) { send(evItem, mustJSON(v)) })
-			if err != nil {
-				send(evError, err.Error())
-			} else {
-				send(evEnd, "null")
+		// o invoke já tem guard; este pega um panic no envio (mustJSON)
+		err := try(func() error {
+			if mode == modeStream {
+				err := invokeStream(name, raw, func(v any) { send(evItem, mustJSON(v)) })
+				if err == nil {
+					send(evEnd, "null")
+				}
+				return err
 			}
-			return
-		}
-		v, err := invoke(name, raw)
+			v, err := invoke(name, raw)
+			if err == nil {
+				send(evValue, mustJSON(v))
+			}
+			return err
+		})
 		if err != nil {
 			send(evError, err.Error())
-			return
 		}
-		send(evValue, mustJSON(v))
 	}()
 	return nil
 }
@@ -124,11 +127,25 @@ func invokeStream(name, raw string, emit func(any)) (err error) {
 }
 
 // guard transforma um panic da chamada em erro, em vez de derrubar o
-// processo Dart. ponytail: panic em goroutine interna do kubo continua fatal.
+// processo Dart. Toda goroutine do ipfs_ffi passa por ele (try/goTry);
+// ponytail: panic em goroutine interna do kubo continua fatal (o Go não tem
+// tratador global; só um processo separado isolaria).
 func guard(err *error) {
 	if r := recover(); r != nil {
 		*err = fmt.Errorf("panic: %v", r)
 	}
+}
+
+// try roda f; um panic vira o erro devolvido.
+func try(f func() error) (err error) {
+	defer guard(&err)
+	return f()
+}
+
+// goTry roda f numa goroutine e entrega em errc o erro, ou o panic como erro
+// (as funções do kubo que recebem um chan<-, como Pin.Ls).
+func goTry(errc chan<- error, f func() error) {
+	go func() { errc <- try(f) }()
 }
 
 func mustJSON(v any) string {
@@ -210,7 +227,7 @@ func jdec[T any](raw json.RawMessage) (T, error) {
 // marca o byte mais alto do ponteiro (0xB4...), que vira um número negativo.
 type cbuf struct {
 	P int64 `json:"$p"`
-	N int     `json:"$n"`
+	N int   `json:"$n"`
 }
 
 func decBytes(raw json.RawMessage) ([]byte, error) {
@@ -237,7 +254,7 @@ func encBytes(b []byte) any {
 // Dart receber tudo antes do resultado.
 func chanSink[T any](raw json.RawMessage, enc func(T) any) (chan any, func(), error) {
 	var s struct {
-		S  int64   `json:"$s"`
+		S  int64 `json:"$s"`
 		CB int64 `json:"$cb"` // int64 como o $p do cbuf
 	}
 	if err := json.Unmarshal(raw, &s); err != nil {
@@ -250,12 +267,19 @@ func chanSink[T any](raw json.RawMessage, enc func(T) any) (chan any, func(), er
 	fin := make(chan struct{})
 	go func() {
 		defer close(fin)
+		// um panic ao codificar encerra o sink com erro; o canal segue sendo
+		// esvaziado para o kubo não travar escrevendo nele
+		var perr error
 		for v := range ch {
-			if t, ok := v.(T); ok {
-				send(evItem, mustJSON(enc(t)))
+			if t, ok := v.(T); ok && perr == nil {
+				perr = try(func() error { send(evItem, mustJSON(enc(t))); return nil })
 			}
 		}
-		send(evEnd, "null")
+		if perr != nil {
+			send(evError, perr.Error())
+		} else {
+			send(evEnd, "null")
+		}
 	}()
 	var once sync.Once
 	return ch, func() { once.Do(func() { close(ch); <-fin }) }, nil
@@ -473,6 +497,31 @@ func init() {
 	// qualquer chamada, como um bug interno do kubo; o guard não o alcança.
 	reg["ipfs_ffi/test.PanicInGoroutine"] = entry{call: func([]json.RawMessage) (any, error) {
 		go func() { panic("ipfs_ffi: panic de teste numa goroutine") }()
+		return nil, nil
+	}}
+	// Ganchos de teste das goroutines do ipfs_ffi: o panic vira erro.
+	// PanicInChanFunc: como uma função do kubo com chan<- (gerado com goTry).
+	reg["ipfs_ffi/test.PanicInChanFunc"] = entry{stream: func(_ []json.RawMessage, emit func(any)) error {
+		ch, errc := make(chan int), make(chan error, 1)
+		goTry(errc, func() error { ch <- 1; panic("ipfs_ffi: panic de teste numa função com canal") })
+		emit(<-ch)
+		return <-errc
+	}}
+	// PanicInSink: o encoder do chanSink entra em panic no 2º item de 3.
+	reg["ipfs_ffi/test.PanicInSink"] = entry{call: func(a []json.RawMessage) (any, error) {
+		ch, done, err := chanSink(a[0], func(i int) any {
+			if i == 2 {
+				panic("ipfs_ffi: panic de teste no sink")
+			}
+			return i
+		})
+		if err != nil {
+			return nil, err
+		}
+		for i := 1; i <= 3; i++ {
+			ch <- i
+		}
+		done()
 		return nil, nil
 	}}
 

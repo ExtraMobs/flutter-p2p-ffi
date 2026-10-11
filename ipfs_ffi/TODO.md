@@ -21,7 +21,10 @@ Se um dia pesar: o `context.dart` escrito à mão ainda usa JSON (`background`,
 ## Feito: relatório de crash (0.5.0)
 
 Um panic numa goroutine interna do kubo (fora de uma chamada) não é recuperável no
-processo: derruba o app. O `guard` cobre só a chamada. `os.create(caminho)` +
+processo: derruba o app. O `guard` cobre a chamada e todas as goroutines do próprio
+ipfs_ffi (`try`/`goTry` em `go/runtime.go`: a do `IpfsCall` assíncrono, a das funções
+do kubo com `chan<-` geradas e a do `chanSink` das opções), onde o panic vira
+`IpfsException`; as do kubo e das dependências não têm como. `os.create(caminho)` +
 `debug.setCrashOutput(f, debug.CrashOptions())` fazem o Go gravar o relatório
 (`panic: ...` e o stack das goroutines) nesse arquivo; o app o lê no próximo início.
 

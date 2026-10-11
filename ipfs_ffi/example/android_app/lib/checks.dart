@@ -23,6 +23,7 @@ import 'package:ipfs_ffi/kubo/core/corerepo.dart' as corerepo;
 import 'package:ipfs_ffi/kubo/core/node.dart' as node;
 import 'package:ipfs_ffi/kubo/core/node/libp2p.dart' as libp2p;
 import 'package:ipfs_ffi/kubo/repo/fsrepo.dart' as fsrepo;
+import 'package:ipfs_ffi/src/runtime.dart' show $call, $stream, GoSink;
 
 typedef Log = void Function(String line);
 
@@ -180,6 +181,19 @@ Future<int> localChecks(Log log) async {
         } finally {
           await nn.close();
         }
+      },
+      // as goroutines do próprio ipfs_ffi (try/goTry no go/runtime.go)
+      'panic numa goroutine do ipfs_ffi vira IpfsException': () async {
+        final items = <Object?>[];
+        await expectThrows(
+            $stream('ipfs_ffi/test.PanicInChanFunc', const [])
+                .forEach(items.add),
+            'função com canal');
+        check('$items' == '[1]', 'o item antes do panic chegou');
+        final c = StreamController<Object?>();
+        final sink = expectThrows(c.stream.drain<void>(), 'sink');
+        await $call('ipfs_ffi/test.PanicInSink', [GoSink(c.sink, (j) => j)]);
+        await sink;
       },
       'custo da ponte (JSON × export direto)': () async {
         final repoPath = '${tmp.path}/offline';

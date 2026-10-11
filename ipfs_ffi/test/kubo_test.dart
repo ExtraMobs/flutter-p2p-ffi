@@ -25,6 +25,7 @@ import 'package:ipfs_ffi/go_libp2p/core/peer.dart' as peer;
 import 'package:ipfs_ffi/kubo/plugin/loader.dart' as loader;
 import 'package:ipfs_ffi/kubo/repo/fsrepo.dart' as fsrepo;
 import 'package:ipfs_ffi/os.dart' as os;
+import 'package:ipfs_ffi/src/runtime.dart' show $call, $stream, GoSink;
 import 'package:test/test.dart';
 
 void main() {
@@ -499,6 +500,33 @@ void main() {
     expect(text, contains('panic: ipfs_ffi: panic de teste numa goroutine'));
     expect(text, contains('goroutine '));
   }, timeout: const Timeout(Duration(minutes: 2)));
+
+  // As goroutines do próprio ipfs_ffi (go/runtime.go try/goTry): o panic vira
+  // IpfsException e o processo segue.
+  group('panic em goroutine do ipfs_ffi vira erro', () {
+    test('função do kubo com chan<- (goTry)', () async {
+      final events = <Object?>[];
+      await expectLater(
+          $stream('ipfs_ffi/test.PanicInChanFunc', const [])
+              .forEach(events.add),
+          throwsA(isA<IpfsException>().having((e) => e.message, 'message',
+              contains('panic de teste numa função com canal'))));
+      expect(events, [1]); // o que saiu antes do panic chega
+    });
+
+    test('encoder do sink de uma opção (chanSink)', () async {
+      final c = StreamController<Object?>();
+      final got = <Object?>[];
+      // o erro chega ao sink antes de a chamada voltar
+      final check = expectLater(
+          c.stream.forEach(got.add),
+          throwsA(isA<IpfsException>().having((e) => e.message, 'message',
+              contains('panic de teste no sink'))));
+      await $call('ipfs_ffi/test.PanicInSink', [GoSink(c.sink, (j) => j)]);
+      await check;
+      expect(got, [1]);
+    });
+  });
 
   // Arquivos CAR (ipfs dag export / import)
   group('CAR', () {

@@ -150,10 +150,11 @@ func (g *goEmitter) function(name string, f *fn) string {
 	switch {
 	case chanIdx >= 0: // chan<- passado: a função roda numa goroutine e o kubo fecha o canal
 		fmt.Fprintf(&b, "\tch := make(chan %s)\n\terrc := make(chan error, 1)\n", g.ts(f.params[chanIdx].t.t.(*types.Chan).Elem()))
+		// goTry (runtime.go): um panic do kubo vira o erro da chamada
 		if f.hasErr {
-			fmt.Fprintf(&b, "\tgo func() { errc <- %s }()\n", call)
+			fmt.Fprintf(&b, "\tgoTry(errc, func() error { return %s })\n", call)
 		} else {
-			fmt.Fprintf(&b, "\tgo func() { %s; errc <- nil }()\n", call)
+			fmt.Fprintf(&b, "\tgoTry(errc, func() error { %s; return nil })\n", call)
 		}
 		item := g.enc(f.stream, "v")
 		fmt.Fprintf(&b, `	for {

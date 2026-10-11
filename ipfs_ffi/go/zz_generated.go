@@ -543,7 +543,7 @@ func fn15(a []json.RawMessage, emit func(any)) error {
 	}
 	ch := make(chan p_iface.DirEntry)
 	errc := make(chan error, 1)
-	go func() { errc <- recv.Ls(p0, p1, ch, p3...) }()
+	goTry(errc, func() error { return recv.Ls(p0, p1, ch, p3...) })
 	for {
 		select {
 		case v, ok := <-ch:
@@ -809,7 +809,7 @@ func fn24(a []json.RawMessage, emit func(any)) error {
 	}
 	ch := make(chan p_iface.Pin)
 	errc := make(chan error, 1)
-	go func() { errc <- recv.Ls(p0, ch, p2...) }()
+	goTry(errc, func() error { return recv.Ls(p0, ch, p2...) })
 	for {
 		select {
 		case v, ok := <-ch:

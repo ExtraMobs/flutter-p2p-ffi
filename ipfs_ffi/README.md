@@ -116,8 +116,9 @@ e `dart test`. O gerador produz exatamente os mesmos arquivos nos dois sistemas.
 linux o QUIC pede um buffer UDP maior (aviso do quic-go, não erro):
 `sudo sysctl -w net.core.rmem_max=7500000 net.core.wmem_max=7500000`.
 
-Relatório de crash: um panic numa goroutine interna do kubo derruba o processo (não
-dá para recuperar); grave o relatório com `debug.setCrashOutput(os.create(caminho),
+Relatório de crash: um panic numa chamada ou numa goroutine do próprio ipfs_ffi vira
+`IpfsException`; numa goroutine interna do kubo derruba o processo (não dá para
+recuperar); grave o relatório com `debug.setCrashOutput(os.create(caminho),
 debug.CrashOptions())` (`package:ipfs_ffi/runtime/debug.dart`, `package:ipfs_ffi/os.dart`)
 e leia o arquivo no próximo início.
 
