@@ -1,15 +1,15 @@
 // App de validação do ipfs_ffi no Android: sobe um nó IPFS (kubo via
 // dart:ffi) com repo no diretório de dados do app, mostra peer ID e peers,
-// adiciona e lê um texto, fecha o nó no background e reabre na volta, e mostra
-// o relatório de crash do Go se o processo anterior caiu.
+// fecha o nó no background e reabre na volta, roda as verificações
+// (lib/checks.dart) e junta tudo num log que se copia com um toque. Mostra o
+// relatório de crash do Go se o processo anterior caiu.
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
+import 'dart:isolate';
 
 import 'package:flutter/material.dart';
-import 'package:ipfs_ffi/boxo/files.dart' as files;
-import 'package:ipfs_ffi/context.dart' as context;
-import 'package:ipfs_ffi/io.dart' as io;
+import 'package:flutter/services.dart';
+import 'package:ipfs_ffi/context.dart' as gocontext;
 import 'package:ipfs_ffi/kubo/config.dart' as config;
 import 'package:ipfs_ffi/kubo/core.dart' as core;
 import 'package:ipfs_ffi/kubo/core/coreapi.dart' as coreapi;
@@ -21,6 +21,9 @@ import 'package:ipfs_ffi/kubo/plugin/loader.dart' as loader;
 import 'package:ipfs_ffi/kubo/repo/fsrepo.dart' as fsrepo;
 import 'package:ipfs_ffi/os.dart' as os;
 import 'package:ipfs_ffi/runtime/debug.dart' as debug;
+import 'package:ipfs_ffi/src/runtime.dart' show $callSync;
+
+import 'checks.dart';
 
 /// Diretório de dados do app (/data/user/0/<pacote>), sem path_provider: o
 /// systemTemp do Flutter no Android é o `cache` dentro dele.
@@ -63,13 +66,19 @@ String? prepare(String repoPath, String crashLog) {
     for (final p in ['randomports', 'lowpower']) {
       config.profiles[p]!.transform(cfg);
     }
+    // O Android não tem /etc/resolv.conf: o resolvedor do Go cai em [::1]:53
+    // e DNSLink e /dnsaddr falham. DNS por HTTPS (DNS.Resolvers do kubo).
+    cfg.json['DNS'] = {
+      ...?cfg.json['DNS'] as Map<String, Object?>?,
+      'Resolvers': {'.': 'https://cloudflare-dns.com/dns-query'},
+    };
     fsrepo.init(repoPath, cfg);
   }
   return previous;
 }
 
 /// Sobe o nó online sobre [repoPath], com pubsub ligado.
-Future<core.IpfsNode> startNode(context.Context ctx, String repoPath) {
+Future<core.IpfsNode> startNode(gocontext.Context ctx, String repoPath) {
   final repo = fsrepo.open(repoPath);
   return core.newNode(
       ctx,
@@ -80,7 +89,36 @@ Future<core.IpfsNode> startNode(context.Context ctx, String repoPath) {
           extraOpts: {'pubsub': true}));
 }
 
-void main() => runApp(const MaterialApp(home: NodePage()));
+/// O log do app: tudo que a tela, as verificações e os erros não tratados
+/// escrevem, com hora; é o que o botão "copiar" leva. Cada linha vai também
+/// para o logcat (tag `flutter`).
+final logText = ValueNotifier('');
+
+void log(String line) {
+  final t = DateTime.now().toIso8601String().substring(11, 23);
+  logText.value += '$t $line\n';
+  Zone.root.print('$t $line');
+}
+
+void main() {
+  runZonedGuarded(() {
+    WidgetsFlutterBinding.ensureInitialized();
+    FlutterError.onError =
+        (d) => log('erro do Flutter: ${d.exceptionAsString()}\n${d.stack}');
+    runApp(const MaterialApp(home: NodePage()));
+  }, (e, st) => log('erro não tratado: $e\n$st'),
+      zoneSpecification:
+          ZoneSpecification(print: (self, parent, zone, line) => log(line)));
+}
+
+/// Bateria em % pelo sysfs (nem todo aparelho deixa ler).
+String battery() {
+  try {
+    return '${File('/sys/class/power_supply/battery/capacity').readAsStringSync().trim()}%';
+  } catch (_) {
+    return 'indisponível';
+  }
+}
 
 class NodePage extends StatefulWidget {
   const NodePage({super.key});
@@ -90,60 +128,84 @@ class NodePage extends StatefulWidget {
 }
 
 class _NodePageState extends State<NodePage> {
-  final ctx = context.background();
+  final ctx = gocontext.background();
   late final String repoPath = '$appDataDir/ipfs';
   late final AppLifecycleListener _life;
-  Future<void> _busy = Future.value(); // start/stop em série
+  Future<void> _busy = Future.value(); // start/stop/verificações em série
   core.IpfsNode? _node;
   iface.CoreApi? _api;
   Timer? _tick;
+  final _logView = TextEditingController();
+  final _logScroll = ScrollController();
   String _status = 'iniciando...';
   String _peerId = '';
   int _peers = 0;
   int _cycles = 0;
-  String _last = '';
-  String? _crash;
+  bool _running = false;
 
   @override
   void initState() {
     super.initState();
+    logText.addListener(_syncLog);
     _life = AppLifecycleListener(
       onPause: () => _serial(_stop),
       onResume: () => _serial(_start),
     );
     _serial(() async {
-      _crash = prepare(repoPath, '$appDataDir/crash.log');
+      log('app: ${Platform.operatingSystemVersion}; Dart ${Platform.version}');
+      log('cpus: ${Platform.numberOfProcessors}; bateria: ${battery()}');
+      final crash = prepare(repoPath, '$appDataDir/crash.log');
+      if (crash != null)
+        log('O PROCESSO ANTERIOR CAIU (relatório do Go):\n$crash');
       await _start();
     });
   }
 
   @override
   void dispose() {
+    logText.removeListener(_syncLog);
     _life.dispose();
     _serial(_stop);
     super.dispose();
   }
 
+  void _syncLog() {
+    _logView.text = logText.value;
+    // acompanha o fim do log
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (_logScroll.hasClients) {
+        _logScroll.jumpTo(_logScroll.position.maxScrollExtent);
+      }
+    });
+  }
+
   void _serial(Future<void> Function() f) {
-    _busy = _busy.then((_) => f()).catchError((Object e) {
+    _busy = _busy.then((_) => f()).catchError((Object e, StackTrace st) {
+      log('erro: $e\n$st');
       if (mounted) setState(() => _status = 'erro: $e');
     });
   }
 
+  void _set(VoidCallback f) {
+    if (mounted) setState(f);
+  }
+
   Future<void> _start() async {
     if (_node != null) return;
-    setState(() => _status = 'subindo o nó...');
+    _set(() => _status = 'subindo o nó...');
+    final sw = Stopwatch()..start();
     final n = await startNode(ctx, repoPath);
     final api = coreapi.newCoreApi(n);
     _node = n;
     _api = api;
     _peerId = (await api.key().self(ctx)).id.toString();
     _cycles++;
+    log('nó online em ${sw.elapsedMilliseconds} ms (subida $_cycles): $_peerId');
     _tick = Timer.periodic(const Duration(seconds: 3), (_) async {
       final peers = await api.swarm().peers(ctx);
-      if (mounted) setState(() => _peers = peers.length);
+      _set(() => _peers = peers.length);
     });
-    setState(() => _status = 'online');
+    _set(() => _status = 'online');
   }
 
   Future<void> _stop() async {
@@ -152,40 +214,108 @@ class _NodePageState extends State<NodePage> {
     _node = null;
     _api = null;
     if (n == null) return;
-    if (mounted) setState(() => _status = 'fechando (background)...');
+    _set(() => _status = 'fechando (background)...');
+    log('fechando o nó (app em background); peers: $_peers');
     await n.close();
-    if (mounted) setState(() => _status = 'fechado');
+    log('nó fechado');
+    _set(() => _status = 'fechado');
   }
 
-  Future<void> _addGet() async {
-    final api = _api;
-    if (api == null) return;
-    final text = 'olá do Android ${DateTime.now()}';
-    final p = await api.unixfs().add(ctx, files.newBytesFile(utf8.encode(text)),
-        [options.unixfs.pin(true, '')]);
-    final back =
-        utf8.decode(io.readAll(files.toFile(await api.unixfs().get(ctx, p))));
-    setState(() => _last = '$p\n$back');
+  void _runChecks() {
+    if (_running) return;
+    _set(() => _running = true);
+    _serial(() async {
+      try {
+        log('=== verificações (bateria ${battery()}) ===');
+        var failed = 0;
+        final api = _api;
+        if (api == null) {
+          log('nó fechado: pulando as de rede pública');
+        } else {
+          failed += await networkChecks(api, log);
+        }
+        failed += await localChecks(log);
+        log('=== fim: ${failed == 0 ? 'tudo passou' : '$failed falharam'} '
+            '(bateria ${battery()}) ===');
+      } finally {
+        _set(() => _running = false);
+      }
+    });
+  }
+
+  Future<void> _copy() async {
+    await Clipboard.setData(ClipboardData(text: logText.value));
+    if (mounted) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text('log copiado')));
+    }
+  }
+
+  Future<void> _crash() async {
+    final ok = await showDialog<bool>(
+        context: context,
+        builder: (c) => AlertDialog(
+              content: const Text(
+                  'Derruba o app com um panic numa goroutine do Go. Abra o app de novo: o relatório aparece no log.'),
+              actions: [
+                TextButton(
+                    onPressed: () => Navigator.pop(c, false),
+                    child: const Text('cancelar')),
+                TextButton(
+                    onPressed: () => Navigator.pop(c, true),
+                    child: const Text('derrubar')),
+              ],
+            ));
+    if (ok ?? false) {
+      log('derrubando o processo de propósito...');
+      $callSync('ipfs_ffi/test.PanicInGoroutine', const []);
+      await Isolate.current.pause(); // o panic chega antes
+    }
   }
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(title: const Text('ipfs_ffi')),
-        body: ListView(padding: const EdgeInsets.all(16), children: [
-          Text('estado: $_status (subidas: $_cycles)',
-              key: const Key('status')),
-          SelectableText('peer: $_peerId'),
-          Text('peers conectados: $_peers', key: const Key('peers')),
-          const SizedBox(height: 12),
-          FilledButton(
-              onPressed: _api == null ? null : _addGet,
-              child: const Text('add + get')),
-          SelectableText(_last, key: const Key('last')),
-          if (_crash != null) ...[
-            const SizedBox(height: 12),
-            const Text('o processo anterior caiu (relatório do Go):'),
-            SelectableText(_crash!, style: const TextStyle(fontSize: 10)),
-          ],
+        appBar: AppBar(title: const Text('ipfs_ffi'), actions: [
+          IconButton(
+              tooltip: 'derrubar (teste de crash)',
+              onPressed: _crash,
+              icon: const Icon(Icons.dangerous_outlined)),
         ]),
+        body: Padding(
+          padding: const EdgeInsets.all(12),
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+            Text('estado: $_status (subidas: $_cycles) · peers: $_peers',
+                key: const Key('status')),
+            SelectableText('peer: $_peerId', maxLines: 1),
+            const SizedBox(height: 8),
+            Row(children: [
+              Expanded(
+                  child: FilledButton(
+                      onPressed: _running ? null : _runChecks,
+                      child: Text(_running ? 'rodando...' : 'rodar testes'))),
+              const SizedBox(width: 8),
+              Expanded(
+                  child: FilledButton.tonal(
+                      onPressed: _copy, child: const Text('copiar log'))),
+              IconButton(
+                  tooltip: 'limpar',
+                  onPressed: () => logText.value = '',
+                  icon: const Icon(Icons.delete_outline)),
+            ]),
+            const SizedBox(height: 8),
+            Expanded(
+              child: TextField(
+                controller: _logView,
+                scrollController: _logScroll,
+                readOnly: true,
+                maxLines: null,
+                expands: true,
+                style: const TextStyle(fontFamily: 'monospace', fontSize: 11),
+                decoration: const InputDecoration(border: OutlineInputBorder()),
+              ),
+            ),
+          ]),
+        ),
       );
 }

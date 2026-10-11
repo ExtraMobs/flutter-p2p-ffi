@@ -22,7 +22,6 @@ android {
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = maxOf(24, flutter.minSdkVersion) // a libipfs.so é compilada para a API 24
-        ndk { abiFilters += listOf("x86_64", "arm64-v8a") }
         targetSdk = flutter.targetSdkVersion
         // Uses the version code from pubspec.yaml. When using split APKs, 1000 * ABI_VERSION
         // is added automatically by Flutter. (https://developer.android.com/studio/build/configure-apk-splits#configure-APK-versions)
@@ -35,6 +34,15 @@ android {
     // A libipfs.so fica em ipfs_ffi/native/android/<abi>/ (`dart run
     // tool/build.dart android`); o APK a empacota de lá, sem cópia.
     sourceSets["main"].jniLibs.srcDirs("../../../../native/android")
+    // Só as libipfs.so das ABIs do --target-platform (padrão: todas), para o
+    // APK de um aparelho arm64 não levar a do x86_64.
+    val abiOf = mapOf("android-arm64" to "arm64-v8a", "android-x64" to "x86_64")
+    val targets = (project.findProperty("target-platform") as String?)?.split(",")
+    if (targets != null) {
+        for ((platform, abi) in abiOf) {
+            if (platform !in targets) packaging.jniLibs.excludes += "lib/$abi/**"
+        }
+    }
 
     buildTypes {
         release {
