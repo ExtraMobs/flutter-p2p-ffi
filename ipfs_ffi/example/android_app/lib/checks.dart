@@ -1,6 +1,6 @@
 // Verificações do ipfs_ffi no aparelho: as locais (os fluxos da suíte de
 // desktop que cabem num processo, os ciclos de fechar e reabrir e o custo da
-// ponte) rodam no integration test e no botão do app; as de rede pública só
+// ponte) rodam no integration test e ao abrir o app; as de rede pública só
 // no app, sobre o nó dele. Cada uma escreve no log e falha com exceção.
 import 'dart:async';
 import 'dart:convert';

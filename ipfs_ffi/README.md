@@ -91,7 +91,7 @@ NDK (`ANDROID_NDK_HOME`, ou o mais novo em `<Android SDK>/ndk`), alinhadas em 16
 Android o `ipfsLibraryPath` padrão é `libipfs.so`: a lib vai dentro do APK. O app de
 validação em [`example/android_app`](example/android_app) mostra como empacotar (o Gradle
 lê direto de `native/android`), sobe o nó, fecha no background e reabre na volta, roda as
-verificações (botão "rodar testes", com o log copiável) e tem o teste de integração
+verificações ao abrir (com o log copiável) e tem o teste de integração
 (`flutter test integration_test -d <aparelho>`). Release para aparelho:
 `flutter build apk --release --target-platform android-arm64`. No Android configure
 `DNS.Resolvers` (DNS por HTTPS), como o app faz: o resolvedor do Go não acha o DNS do

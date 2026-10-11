@@ -141,7 +141,6 @@ class _NodePageState extends State<NodePage> {
   String _peerId = '';
   int _peers = 0;
   int _cycles = 0;
-  bool _running = false;
 
   @override
   void initState() {
@@ -158,6 +157,7 @@ class _NodePageState extends State<NodePage> {
       if (crash != null)
         log('O PROCESSO ANTERIOR CAIU (relatório do Go):\n$crash');
       await _start();
+      await _checks();
     });
   }
 
@@ -221,26 +221,15 @@ class _NodePageState extends State<NodePage> {
     _set(() => _status = 'fechado');
   }
 
-  void _runChecks() {
-    if (_running) return;
-    _set(() => _running = true);
-    _serial(() async {
-      try {
-        log('=== verificações (bateria ${battery()}) ===');
-        var failed = 0;
-        final api = _api;
-        if (api == null) {
-          log('nó fechado: pulando as de rede pública');
-        } else {
-          failed += await networkChecks(api, log);
-        }
-        failed += await localChecks(log);
-        log('=== fim: ${failed == 0 ? 'tudo passou' : '$failed falharam'} '
-            '(bateria ${battery()}) ===');
-      } finally {
-        _set(() => _running = false);
-      }
-    });
+  /// As verificações, uma vez ao abrir o app, com o nó recém-online.
+  Future<void> _checks() async {
+    log('=== verificações (bateria ${battery()}) ===');
+    _set(() => _status = 'online, rodando os testes...');
+    var failed = await networkChecks(_api!, log);
+    failed += await localChecks(log);
+    log('=== fim: ${failed == 0 ? 'tudo passou' : '$failed falharam'} '
+        '(bateria ${battery()}) ===');
+    _set(() => _status = 'online, testes concluídos');
   }
 
   Future<void> _copy() async {
@@ -290,11 +279,6 @@ class _NodePageState extends State<NodePage> {
             SelectableText('peer: $_peerId', maxLines: 1),
             const SizedBox(height: 8),
             Row(children: [
-              Expanded(
-                  child: FilledButton(
-                      onPressed: _running ? null : _runChecks,
-                      child: Text(_running ? 'rodando...' : 'rodar testes'))),
-              const SizedBox(width: 8),
               Expanded(
                   child: FilledButton.tonal(
                       onPressed: _copy, child: const Text('copiar log'))),

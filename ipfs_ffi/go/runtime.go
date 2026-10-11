@@ -206,8 +206,10 @@ func jdec[T any](raw json.RawMessage) (T, error) {
 
 // []byte não vai no JSON: vai {"$p": endereço, "$n": tamanho} de um buffer
 // C. O do Dart é do Dart (o Go copia); o devolvido pelo Go é solto pelo Dart.
+// Endereços cruzam como int64 (o int do Dart): no arm64 do Android o alocador
+// marca o byte mais alto do ponteiro (0xB4...), que vira um número negativo.
 type cbuf struct {
-	P uintptr `json:"$p"`
+	P int64 `json:"$p"`
 	N int     `json:"$n"`
 }
 
@@ -216,7 +218,8 @@ func decBytes(raw json.RawMessage) ([]byte, error) {
 	if err := json.Unmarshal(raw, &b); err != nil || b == nil {
 		return nil, err
 	}
-	p := *(*unsafe.Pointer)(unsafe.Pointer(&b.P)) // endereço de memória C, fora do GC
+	addr := uintptr(b.P)
+	p := *(*unsafe.Pointer)(unsafe.Pointer(&addr)) // endereço de memória C, fora do GC
 	return bytes.Clone(unsafe.Slice((*byte)(p), b.N)), nil
 }
 
@@ -224,7 +227,7 @@ func encBytes(b []byte) any {
 	if b == nil {
 		return nil
 	}
-	return cbuf{P: uintptr(C.CBytes(b)), N: len(b)}
+	return cbuf{P: int64(uintptr(C.CBytes(b))), N: len(b)}
 }
 
 // chanSink: canal que o chamador passa numa opção (options.Unixfs.Events). O
@@ -235,12 +238,13 @@ func encBytes(b []byte) any {
 func chanSink[T any](raw json.RawMessage, enc func(T) any) (chan any, func(), error) {
 	var s struct {
 		S  int64   `json:"$s"`
-		CB uintptr `json:"$cb"`
+		CB int64 `json:"$cb"` // int64 como o $p do cbuf
 	}
 	if err := json.Unmarshal(raw, &s); err != nil {
 		return nil, nil, err
 	}
-	cb := *(*C.ipfs_cb)(unsafe.Pointer(&s.CB))
+	cbAddr := uintptr(s.CB)
+	cb := *(*C.ipfs_cb)(unsafe.Pointer(&cbAddr))
 	send := func(kind int, text string) { C.ipfs_invoke(cb, C.int64_t(s.S), C.int32_t(kind), C.CString(text)) }
 	ch := make(chan any, 8) // como o `ipfs add` (adderOutChanSize)
 	fin := make(chan struct{})

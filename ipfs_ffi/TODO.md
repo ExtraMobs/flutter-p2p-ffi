@@ -42,26 +42,33 @@ funcionais), as 39 `Future` e 7 `Stream` (argumentos e resultado pelo listener) 
    resultados assíncronos, eventos de stream), com codificador e decodificador gerados
    nos dois lados. Trabalho do tamanho da F2; decidir com os números do passo 2.
 
-## Marco final: Android (0.7.0: A1–A3, A5, A6 no emulador; falta o aparelho real)
+## Marco final: Android (0.7.0 no emulador; aparelho real em 2026-10-11, dados móveis)
 
 O mesmo nó mínimo num app Android, com a API Dart gerada sem mudança. Validado em
 2026-10-11 no emulador `sdk_gphone16k_x86_64` (Android 17 / API 37, páginas de 16 KB),
-com NDK 30.0.16248370 e o app Flutter de validação em `example/android_app`.
+com NDK 30.0.16248370 e o app Flutter de validação em `example/android_app`, e num aparelho
+real: Xiaomi (Android 16, arm64-v8a), nos dados móveis (`ccmni*`, IPv4
+100.x atrás do NAT da operadora + IPv6).
 
 | Etapa | O quê | Status |
 |---|---|---|
 | **A1. Build por ABI** | `dart run tool/build.dart android`: `GOOS=android`, clang do NDK (`--target=<arch>-linux-android24`), `-extldflags=-Wl,-z,max-page-size=16384`, `-checklinkname=0` (o `wlynxg/anet` do go-libp2p usa linkname em `net.zoneCache`) → `native/android/<abi>/libipfs.so` | ✅ x86_64 79,4 MB, arm64-v8a 56,1 MB; `LOAD Align 0x4000`; exports conferidos |
 | **A2. Carregar a lib** | `ipfsLibraryPath` = `libipfs.so` no Android; o Gradle do app empacota direto de `native/android` (`jniLibs.srcDirs`; só as ABIs do `--target-platform`, por `packaging.jniLibs.excludes`), `minSdk` 24, `INTERNET` no release | ✅ app abre a lib e sobe o nó |
-| **A3. Nó no app** | `lib/checks.dart`: add/get, pins+GC, progresso, IPNS/chaves/dag, CAR, dois nós (bitswap, provide/findProviders, pubsub), ciclos, custo da ponte; rodam no `integration_test/ipfs_test.dart` e no botão "rodar testes" do app, que junta tudo num log com "copiar" | ✅ 7/7 no emulador |
-| **A4. Rede móvel** | roteamento do `Routing.Type` (perfis `randomports` + `lowpower`); DNS por HTTPS no repo do app; verificações de rede no app (interfaces, peers entrada × saída, endereços, DNSLink + bloco da rede) | ✅ no emulador: 94–245 peers, `/ipns/ipfs.tech` em 163 ms e o bloco raiz em 4 s. ⚠️ endereços locais (netlink, abaixo). ⏳ aparelho real: Wi-Fi × dados móveis, NAT |
-| **A5. Ciclo de vida** | o app fecha o nó em `paused` e reabre em `resumed`; `debug.setCrashOutput` em `<dados do app>/crash.log`, mostrado no próximo início | ✅ background → volta reabre o nó (mesmo peer); 10 ciclos no teste. ⏳ provocar um crash real no aparelho e ver o relatório na tela |
-| **A6. Custo** | APK, memória, ponte | ✅ APK release (arm64+x64) 167,9 MB; por aparelho ≈ 72 MB (arm64) / ≈ 97 MB (x86_64), quase tudo a `libipfs.so`; memória com o nó online há 60 s: PSS 192,6 MB, RSS 310 MB; ponte: `api.unixfs()` 5,7–8,1 µs, `fsrepo.isInitialized` 10,6–15 µs, `ctx.err()` (JSON) 14–27 µs. ⏳ bateria e dados num aparelho real |
+| **A3. Nó no app** | `lib/checks.dart`: add/get, pins+GC, progresso, IPNS/chaves/dag, CAR, dois nós (bitswap, provide/findProviders, pubsub), ciclos, custo da ponte; rodam no `integration_test/ipfs_test.dart` e sozinhas ao abrir o app, que junta tudo num log com "copiar" (e no logcat) | ✅ 7/7 no emulador e no aparelho |
+| **A4. Rede móvel** | roteamento do `Routing.Type` (perfis `randomports` + `lowpower`); DNS por HTTPS no repo do app; verificações de rede no app (interfaces, peers entrada × saída, endereços, DNSLink + bloco da rede) | ✅ no emulador: 94–245 peers, `/ipns/ipfs.tech` em 163 ms e o bloco raiz em 4 s. Aparelho, dados móveis: 8–23 peers, todos de saída (nenhum entra pelo NAT da operadora); `/ipns/ipfs.tech` em 0,2–1,3 s e o bloco raiz logo depois. ⚠️ endereços locais (netlink, abaixo). ⏳ Wi-Fi no aparelho |
+| **A5. Ciclo de vida** | o app fecha o nó em `paused` e reabre em `resumed`; `debug.setCrashOutput` em `<dados do app>/crash.log`, mostrado no próximo início | ✅ background → volta reabre o nó (mesmo peer); 10 ciclos no teste (emulador e aparelho); botão de crash no app: relatório do Go no próximo início (emulador). ⏳ o crash no aparelho |
+| **A6. Custo** | APK, memória, ponte | ✅ APK release (arm64+x64) 167,9 MB; por aparelho ≈ 72 MB (arm64) / ≈ 97 MB (x86_64), quase tudo a `libipfs.so`; memória com o nó online há 60 s: PSS 192,6 MB, RSS 310 MB; ponte: `api.unixfs()` 5,7–8,1 µs, `fsrepo.isInitialized` 10,6–15 µs, `ctx.err()` (JSON) 14–27 µs. Aparelho (APK arm64 72,1 MB): PSS 286,6 MB, RSS 442 MB com o nó online há ~1 min depois das verificações; ponte 2,7 / 7,8 / 11,5 µs. ⏳ consumo de bateria e de dados ao longo do tempo |
 
 Achados:
 - Release: `flutter build apk --release --target-platform android-arm64` (72,1 MB, para
   aparelho) ou `android-arm64,android-x64` (sem isso o Flutter também põe as libs dele de
   armeabi-v7a, e o app instalaria num aparelho de 32 bits sem a `libipfs.so`). O Gradle do
   app só empacota a `libipfs.so` das ABIs pedidas.
+- Ponteiros com tag: no arm64 do Android o alocador marca o byte mais alto do ponteiro
+  (`0xB4…`), e o endereço do buffer de bytes, como `int` do Dart, chegava negativo ao Go
+  (`json: cannot unmarshal number -5476376614457254512 into Go struct field cbuf.$p of type
+  uintptr`): todo `add`/`get` falhava no aparelho, nunca no emulador. Os endereços cruzam
+  agora como `int64` (`go/runtime.go`).
 - DNS: o Android não tem `/etc/resolv.conf`, e o resolvedor do Go cai em `[::1]:53`
   (`lookup _dnslink.ipfs.tech. on [::1]:53: ... connection refused`). O app grava
   `DNS.Resolvers` `{".": "https://cloudflare-dns.com/dns-query"}` no repo novo. Quem usa a
