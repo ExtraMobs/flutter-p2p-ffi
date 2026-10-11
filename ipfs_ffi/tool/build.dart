@@ -1,7 +1,8 @@
 // Compila o Go de ../go em native/: libipfs.so (linux/amd64) e ipfs.dll
 // (windows/amd64). Uso: `dart run tool/build.dart [linux|windows]...`
-// (sem argumento, os dois). Exige Go 1.26.5 (GOTOOLCHAIN=auto baixa) e, fora
-// do Windows, x86_64-w64-mingw32-gcc para a DLL.
+// (sem argumento, os dois). Exige Go 1.26.5 (GOTOOLCHAIN=auto baixa) e um gcc
+// para o cgo: no Windows, o mingw-w64 no PATH; no linux, x86_64-w64-mingw32-gcc
+// para a DLL.
 import 'dart:io';
 
 const targets = {'linux': 'libipfs.so', 'windows': 'ipfs.dll'};

@@ -10,7 +10,9 @@ processo Dart (VM/AOT no linux e no Windows; não serve para JS/Wasm).
 - `native/`: `libipfs.so` (linux/amd64) e `ipfs.dll` (windows/amd64), fora do
   git; gere com o `tool/build.dart` antes de usar.
 - `dart run tool/build.dart [linux|windows]`: recompila `native/`. Exige Go
-  1.26.5 (`GOTOOLCHAIN=auto` baixa) e, fora do Windows, `x86_64-w64-mingw32-gcc` para a DLL.
+  1.26.5 (`GOTOOLCHAIN=auto` baixa) e um gcc para o cgo: no Windows, o
+  mingw-w64 no PATH (ex. `winget install BrechtSanders.WinLibs.POSIX.UCRT`);
+  no linux, `x86_64-w64-mingw32-gcc` para a DLL.
 - `lib/ipfs_ffi.dart` (partes em `lib/src/ipfs_ffi/`: `native` abre a lib,
   `memory` aloca com `GoMalloc`/`GoFree`, `node`, `run`, `daemon`): `IpfsNode` (nó em memória), `ipfsRun` (CLI) e
   `IpfsDaemon` (daemon com repo em disco, rede, API RPC e gateway).
