@@ -71,6 +71,25 @@ Exemplos, na ordem em que o kubo monta um nó:
   desatualizados.
 - Testes: `dart test` nesta pasta.
 
+### Linux pelo WSL (validado no Ubuntu 26.04)
+
+Instale as ferramentas do linux no Ubuntu do WSL (o `dart` do Windows vaza pelo
+PATH do WSL; use o do linux):
+
+```bash
+sudo apt-get install -y build-essential curl gpg
+# Dart: repositório apt oficial (storage.googleapis.com/download.dartlang.org, "stable main")
+sudo apt-get install -y dart
+# Go 1.26.5 no diretório do usuário
+mkdir -p ~/go-sdk && curl -fsSL https://go.dev/dl/go1.26.5.linux-amd64.tar.gz | tar -xz -C ~/go-sdk
+export PATH="$HOME/go-sdk/go/bin:/usr/lib/dart/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+```
+
+Depois, na mesma pasta do repo (`/mnt/<drive>/...`): `dart run tool/build.dart linux`
+e `dart test`. O gerador produz exatamente os mesmos arquivos nos dois sistemas. No
+linux o QUIC pede um buffer UDP maior (aviso do quic-go, não erro):
+`sudo sysctl -w net.core.rmem_max=7500000 net.core.wmem_max=7500000`.
+
 Roteiro: linux (WSL), IPNS/chaves/Dag (inclusive DAG-CBOR/JSON), progresso do `add`,
 crash report e exports diretos; marco final: Android (ver [`TODO.md`](TODO.md)).
 

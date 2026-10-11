@@ -1,4 +1,6 @@
 .dart_tool/
 pubspec.lock
 .ipfs-example/
+.ipfs-ffi/
+.ipfs-online/
 native/
