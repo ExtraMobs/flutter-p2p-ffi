@@ -19,9 +19,13 @@ class IpfsException implements Exception {
 }
 
 /// Caminho da lib nativa; padrão `native/libipfs.so` ou `native\ipfs.dll`
-/// relativo ao diretório atual. Mude antes da primeira chamada.
-String ipfsLibraryPath =
-    Platform.isWindows ? r'native\ipfs.dll' : 'native/libipfs.so';
+/// relativo ao diretório atual, e no Android `libipfs.so` (o loader acha a
+/// lib empacotada no APK). Mude antes da primeira chamada.
+String ipfsLibraryPath = Platform.isAndroid
+    ? 'libipfs.so'
+    : Platform.isWindows
+        ? r'native\ipfs.dll'
+        : 'native/libipfs.so';
 
 typedef _CbNative = Void Function(Int64, Int32, Pointer<Uint8>);
 typedef _CallNative = Pointer<Uint8> Function(Pointer<Uint8>, Pointer<Uint8>,

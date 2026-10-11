@@ -1,0 +1,22 @@
+name: ipfs_ffi_android
+description: App de validação do ipfs_ffi no Android (nó IPFS do kubo via dart:ffi).
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.5.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  ipfs_ffi:
+    path: ../..
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  integration_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true

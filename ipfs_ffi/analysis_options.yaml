@@ -1,0 +1,5 @@
+# O app de validação do Android (Flutter) tem a própria análise: `flutter analyze`
+# em example/android_app. O pacote ipfs_ffi é Dart puro.
+analyzer:
+  exclude:
+    - example/android_app/**
