@@ -13,6 +13,8 @@ import (
 	p_coreapi "github.com/ipfs/kubo/core/coreapi"
 	p_iface "github.com/ipfs/kubo/core/coreiface"
 	p_options "github.com/ipfs/kubo/core/coreiface/options"
+	p_corerepo "github.com/ipfs/kubo/core/corerepo"
+	p_gc "github.com/ipfs/kubo/gc"
 	p_loader "github.com/ipfs/kubo/plugin/loader"
 	p_repo "github.com/ipfs/kubo/repo"
 	p_fsrepo "github.com/ipfs/kubo/repo/fsrepo"
@@ -51,6 +53,20 @@ func init() {
 	reg["github.com/ipfs/boxo/files.WriteTo"] = entry{call: fn19}
 	reg["os.Stat"] = entry{call: fn20}
 	reg["io.ReadAll"] = entry{call: fn21}
+	reg["github.com/ipfs/kubo/core/coreiface.CoreAPI.Pin"] = entry{call: fn22}
+	reg["github.com/ipfs/kubo/core/coreiface.PinAPI.Add"] = entry{call: fn23}
+	reg["github.com/ipfs/kubo/core/coreiface.PinAPI.Ls"] = entry{stream: fn24}
+	reg["github.com/ipfs/kubo/core/coreiface.PinAPI.IsPinned"] = entry{call: fn25}
+	reg["github.com/ipfs/kubo/core/coreiface.PinAPI.Rm"] = entry{call: fn26}
+	reg["github.com/ipfs/kubo/core/coreiface.PinAPI.Update"] = entry{call: fn27}
+	reg["github.com/ipfs/kubo/core/coreiface.PinAPI.Verify"] = entry{stream: fn28}
+	reg["github.com/ipfs/kubo/core/coreiface.CoreAPI.Block"] = entry{call: fn29}
+	reg["github.com/ipfs/kubo/core/coreiface.BlockAPI.Put"] = entry{call: fn30}
+	reg["github.com/ipfs/kubo/core/coreiface.BlockAPI.Get"] = entry{call: fn31}
+	reg["github.com/ipfs/kubo/core/coreiface.BlockAPI.Rm"] = entry{call: fn32}
+	reg["github.com/ipfs/kubo/core/coreiface.BlockAPI.Stat"] = entry{call: fn33}
+	reg["github.com/ipfs/kubo/core/corerepo.GarbageCollect"] = entry{call: fn34}
+	reg["github.com/ipfs/kubo/core/corerepo.GarbageCollectAsync"] = entry{stream: fn35}
 }
 
 func nargs(a []json.RawMessage, n int) error {
@@ -481,6 +497,358 @@ func fn21(a []json.RawMessage) (any, error) {
 		return nil, err
 	}
 	return encBytes(r0), nil
+}
+
+// github.com/ipfs/kubo/core/coreiface.CoreAPI.Pin
+func fn22(a []json.RawMessage) (any, error) {
+	if err := nargs(a, 1); err != nil {
+		return nil, err
+	}
+	recv, err := hdec[p_iface.CoreAPI](a[0])
+	if err != nil {
+		return nil, err
+	}
+	r0 := recv.Pin()
+	return henc(r0), nil
+}
+
+// github.com/ipfs/kubo/core/coreiface.PinAPI.Add
+func fn23(a []json.RawMessage) (any, error) {
+	if err := nargs(a, 4); err != nil {
+		return nil, err
+	}
+	recv, err := hdec[p_iface.PinAPI](a[0])
+	if err != nil {
+		return nil, err
+	}
+	p0, err := hdec[p_context.Context](a[1])
+	if err != nil {
+		return nil, err
+	}
+	p1, err := decPath(a[2])
+	if err != nil {
+		return nil, err
+	}
+	p2, err := opts12(a[3])
+	if err != nil {
+		return nil, err
+	}
+	err = recv.Add(p0, p1, p2...)
+	if err != nil {
+		return nil, err
+	}
+	return nil, nil
+}
+
+// github.com/ipfs/kubo/core/coreiface.PinAPI.Ls
+func fn24(a []json.RawMessage, emit func(any)) error {
+	if err := nargs(a, 3); err != nil {
+		return err
+	}
+	recv, err := hdec[p_iface.PinAPI](a[0])
+	if err != nil {
+		return err
+	}
+	p0, err := hdec[p_context.Context](a[1])
+	if err != nil {
+		return err
+	}
+	p2, err := opts13(a[2])
+	if err != nil {
+		return err
+	}
+	ch := make(chan p_iface.Pin)
+	errc := make(chan error, 1)
+	go func() { errc <- recv.Ls(p0, ch, p2...) }()
+	for {
+		select {
+		case v, ok := <-ch:
+			if !ok {
+				return <-errc
+			}
+			emit(enc14(v))
+		case err := <-errc:
+			for { // a função voltou: só resta o que já estava no canal
+				select {
+				case v, ok := <-ch:
+					if !ok {
+						return err
+					}
+					emit(enc14(v))
+				default:
+					return err
+				}
+			}
+		}
+	}
+}
+
+// github.com/ipfs/kubo/core/coreiface.PinAPI.IsPinned
+func fn25(a []json.RawMessage) (any, error) {
+	if err := nargs(a, 4); err != nil {
+		return nil, err
+	}
+	recv, err := hdec[p_iface.PinAPI](a[0])
+	if err != nil {
+		return nil, err
+	}
+	p0, err := hdec[p_context.Context](a[1])
+	if err != nil {
+		return nil, err
+	}
+	p1, err := decPath(a[2])
+	if err != nil {
+		return nil, err
+	}
+	p2, err := opts15(a[3])
+	if err != nil {
+		return nil, err
+	}
+	r0, r1, err := recv.IsPinned(p0, p1, p2...)
+	if err != nil {
+		return nil, err
+	}
+	return []any{r0, r1}, nil
+}
+
+// github.com/ipfs/kubo/core/coreiface.PinAPI.Rm
+func fn26(a []json.RawMessage) (any, error) {
+	if err := nargs(a, 4); err != nil {
+		return nil, err
+	}
+	recv, err := hdec[p_iface.PinAPI](a[0])
+	if err != nil {
+		return nil, err
+	}
+	p0, err := hdec[p_context.Context](a[1])
+	if err != nil {
+		return nil, err
+	}
+	p1, err := decPath(a[2])
+	if err != nil {
+		return nil, err
+	}
+	p2, err := opts16(a[3])
+	if err != nil {
+		return nil, err
+	}
+	err = recv.Rm(p0, p1, p2...)
+	if err != nil {
+		return nil, err
+	}
+	return nil, nil
+}
+
+// github.com/ipfs/kubo/core/coreiface.PinAPI.Update
+func fn27(a []json.RawMessage) (any, error) {
+	if err := nargs(a, 5); err != nil {
+		return nil, err
+	}
+	recv, err := hdec[p_iface.PinAPI](a[0])
+	if err != nil {
+		return nil, err
+	}
+	p0, err := hdec[p_context.Context](a[1])
+	if err != nil {
+		return nil, err
+	}
+	p1, err := decPath(a[2])
+	if err != nil {
+		return nil, err
+	}
+	p2, err := decPath(a[3])
+	if err != nil {
+		return nil, err
+	}
+	p3, err := opts17(a[4])
+	if err != nil {
+		return nil, err
+	}
+	err = recv.Update(p0, p1, p2, p3...)
+	if err != nil {
+		return nil, err
+	}
+	return nil, nil
+}
+
+// github.com/ipfs/kubo/core/coreiface.PinAPI.Verify
+func fn28(a []json.RawMessage, emit func(any)) error {
+	if err := nargs(a, 2); err != nil {
+		return err
+	}
+	recv, err := hdec[p_iface.PinAPI](a[0])
+	if err != nil {
+		return err
+	}
+	p0, err := hdec[p_context.Context](a[1])
+	if err != nil {
+		return err
+	}
+	ch, err := recv.Verify(p0)
+	if err != nil {
+		return err
+	}
+	for v := range ch {
+		emit(enc18(v))
+	}
+	return nil
+}
+
+// github.com/ipfs/kubo/core/coreiface.CoreAPI.Block
+func fn29(a []json.RawMessage) (any, error) {
+	if err := nargs(a, 1); err != nil {
+		return nil, err
+	}
+	recv, err := hdec[p_iface.CoreAPI](a[0])
+	if err != nil {
+		return nil, err
+	}
+	r0 := recv.Block()
+	return henc(r0), nil
+}
+
+// github.com/ipfs/kubo/core/coreiface.BlockAPI.Put
+func fn30(a []json.RawMessage) (any, error) {
+	if err := nargs(a, 4); err != nil {
+		return nil, err
+	}
+	recv, err := hdec[p_iface.BlockAPI](a[0])
+	if err != nil {
+		return nil, err
+	}
+	p0, err := hdec[p_context.Context](a[1])
+	if err != nil {
+		return nil, err
+	}
+	p1, err := decReader(a[2])
+	if err != nil {
+		return nil, err
+	}
+	p2, err := opts21(a[3])
+	if err != nil {
+		return nil, err
+	}
+	r0, err := recv.Put(p0, p1, p2...)
+	if err != nil {
+		return nil, err
+	}
+	return enc22(r0), nil
+}
+
+// github.com/ipfs/kubo/core/coreiface.BlockAPI.Get
+func fn31(a []json.RawMessage) (any, error) {
+	if err := nargs(a, 3); err != nil {
+		return nil, err
+	}
+	recv, err := hdec[p_iface.BlockAPI](a[0])
+	if err != nil {
+		return nil, err
+	}
+	p0, err := hdec[p_context.Context](a[1])
+	if err != nil {
+		return nil, err
+	}
+	p1, err := decPath(a[2])
+	if err != nil {
+		return nil, err
+	}
+	r0, err := recv.Get(p0, p1)
+	if err != nil {
+		return nil, err
+	}
+	return henc(r0), nil
+}
+
+// github.com/ipfs/kubo/core/coreiface.BlockAPI.Rm
+func fn32(a []json.RawMessage) (any, error) {
+	if err := nargs(a, 4); err != nil {
+		return nil, err
+	}
+	recv, err := hdec[p_iface.BlockAPI](a[0])
+	if err != nil {
+		return nil, err
+	}
+	p0, err := hdec[p_context.Context](a[1])
+	if err != nil {
+		return nil, err
+	}
+	p1, err := decPath(a[2])
+	if err != nil {
+		return nil, err
+	}
+	p2, err := opts23(a[3])
+	if err != nil {
+		return nil, err
+	}
+	err = recv.Rm(p0, p1, p2...)
+	if err != nil {
+		return nil, err
+	}
+	return nil, nil
+}
+
+// github.com/ipfs/kubo/core/coreiface.BlockAPI.Stat
+func fn33(a []json.RawMessage) (any, error) {
+	if err := nargs(a, 3); err != nil {
+		return nil, err
+	}
+	recv, err := hdec[p_iface.BlockAPI](a[0])
+	if err != nil {
+		return nil, err
+	}
+	p0, err := hdec[p_context.Context](a[1])
+	if err != nil {
+		return nil, err
+	}
+	p1, err := decPath(a[2])
+	if err != nil {
+		return nil, err
+	}
+	r0, err := recv.Stat(p0, p1)
+	if err != nil {
+		return nil, err
+	}
+	return enc22(r0), nil
+}
+
+// github.com/ipfs/kubo/core/corerepo.GarbageCollect
+func fn34(a []json.RawMessage) (any, error) {
+	if err := nargs(a, 2); err != nil {
+		return nil, err
+	}
+	p0, err := hdec[*p_core.IpfsNode](a[0])
+	if err != nil {
+		return nil, err
+	}
+	p1, err := hdec[p_context.Context](a[1])
+	if err != nil {
+		return nil, err
+	}
+	err = p_corerepo.GarbageCollect(p0, p1)
+	if err != nil {
+		return nil, err
+	}
+	return nil, nil
+}
+
+// github.com/ipfs/kubo/core/corerepo.GarbageCollectAsync
+func fn35(a []json.RawMessage, emit func(any)) error {
+	if err := nargs(a, 2); err != nil {
+		return err
+	}
+	p0, err := hdec[*p_core.IpfsNode](a[0])
+	if err != nil {
+		return err
+	}
+	p1, err := hdec[p_context.Context](a[1])
+	if err != nil {
+		return err
+	}
+	ch := p_corerepo.GarbageCollectAsync(p0, p1)
+	for v := range ch {
+		emit(enc24(v))
+	}
+	return nil
 }
 
 func opts0(raw json.RawMessage) ([]p_options.KeyGenerateOption, error) {
@@ -936,5 +1304,357 @@ func enc11(v p_iface.DirEntry) any {
 		"Target":  v.Target,
 		"Mode":    uint32(v.Mode),
 		"ModTime": encTime(v.ModTime),
+	}
+}
+
+func opts12(raw json.RawMessage) ([]p_options.PinAddOption, error) {
+	var items []struct {
+		P string
+		A []json.RawMessage
+	}
+	if err := json.Unmarshal(raw, &items); err != nil {
+		return nil, err
+	}
+	out := make([]p_options.PinAddOption, 0, len(items))
+	for _, it := range items {
+		switch it.P {
+		case "Pin.Name":
+			if err := nargs(it.A, 1); err != nil {
+				return nil, fmt.Errorf("%s: %w", it.P, err)
+			}
+			a0, err := jdec[string](it.A[0])
+			if err != nil {
+				return nil, err
+			}
+			out = append(out, p_options.Pin.Name(a0))
+		case "Pin.Recursive":
+			if err := nargs(it.A, 1); err != nil {
+				return nil, fmt.Errorf("%s: %w", it.P, err)
+			}
+			a0, err := jdec[bool](it.A[0])
+			if err != nil {
+				return nil, err
+			}
+			out = append(out, p_options.Pin.Recursive(a0))
+		default:
+			return nil, fmt.Errorf("ipfs_ffi: opção desconhecida %q", it.P)
+		}
+	}
+	return out, nil
+}
+
+func opts13(raw json.RawMessage) ([]p_options.PinLsOption, error) {
+	var items []struct {
+		P string
+		A []json.RawMessage
+	}
+	if err := json.Unmarshal(raw, &items); err != nil {
+		return nil, err
+	}
+	out := make([]p_options.PinLsOption, 0, len(items))
+	for _, it := range items {
+		switch it.P {
+		case "Pin.Ls.All":
+			if err := nargs(it.A, 0); err != nil {
+				return nil, fmt.Errorf("%s: %w", it.P, err)
+			}
+			out = append(out, p_options.Pin.Ls.All())
+		case "Pin.Ls.Detailed":
+			if err := nargs(it.A, 1); err != nil {
+				return nil, fmt.Errorf("%s: %w", it.P, err)
+			}
+			a0, err := jdec[bool](it.A[0])
+			if err != nil {
+				return nil, err
+			}
+			out = append(out, p_options.Pin.Ls.Detailed(a0))
+		case "Pin.Ls.Direct":
+			if err := nargs(it.A, 0); err != nil {
+				return nil, fmt.Errorf("%s: %w", it.P, err)
+			}
+			out = append(out, p_options.Pin.Ls.Direct())
+		case "Pin.Ls.Indirect":
+			if err := nargs(it.A, 0); err != nil {
+				return nil, fmt.Errorf("%s: %w", it.P, err)
+			}
+			out = append(out, p_options.Pin.Ls.Indirect())
+		case "Pin.Ls.Name":
+			if err := nargs(it.A, 1); err != nil {
+				return nil, fmt.Errorf("%s: %w", it.P, err)
+			}
+			a0, err := jdec[string](it.A[0])
+			if err != nil {
+				return nil, err
+			}
+			out = append(out, p_options.Pin.Ls.Name(a0))
+		case "Pin.Ls.Recursive":
+			if err := nargs(it.A, 0); err != nil {
+				return nil, fmt.Errorf("%s: %w", it.P, err)
+			}
+			out = append(out, p_options.Pin.Ls.Recursive())
+		case "Pin.Ls.Type":
+			if err := nargs(it.A, 1); err != nil {
+				return nil, fmt.Errorf("%s: %w", it.P, err)
+			}
+			a0, err := jdec[string](it.A[0])
+			if err != nil {
+				return nil, err
+			}
+			o, err := p_options.Pin.Ls.Type(a0)
+			if err != nil {
+				return nil, err
+			}
+			out = append(out, o)
+		default:
+			return nil, fmt.Errorf("ipfs_ffi: opção desconhecida %q", it.P)
+		}
+	}
+	return out, nil
+}
+
+func enc14(v p_iface.Pin) any {
+	if v == nil {
+		return nil
+	}
+	m := map[string]any{}
+	m["Name"] = v.Name()
+	m["Path"] = encImmutablePath(v.Path())
+	m["Type"] = v.Type()
+	return m
+}
+
+func opts15(raw json.RawMessage) ([]p_options.PinIsPinnedOption, error) {
+	var items []struct {
+		P string
+		A []json.RawMessage
+	}
+	if err := json.Unmarshal(raw, &items); err != nil {
+		return nil, err
+	}
+	out := make([]p_options.PinIsPinnedOption, 0, len(items))
+	for _, it := range items {
+		switch it.P {
+		case "Pin.IsPinned.All":
+			if err := nargs(it.A, 0); err != nil {
+				return nil, fmt.Errorf("%s: %w", it.P, err)
+			}
+			out = append(out, p_options.Pin.IsPinned.All())
+		case "Pin.IsPinned.Direct":
+			if err := nargs(it.A, 0); err != nil {
+				return nil, fmt.Errorf("%s: %w", it.P, err)
+			}
+			out = append(out, p_options.Pin.IsPinned.Direct())
+		case "Pin.IsPinned.Indirect":
+			if err := nargs(it.A, 0); err != nil {
+				return nil, fmt.Errorf("%s: %w", it.P, err)
+			}
+			out = append(out, p_options.Pin.IsPinned.Indirect())
+		case "Pin.IsPinned.Recursive":
+			if err := nargs(it.A, 0); err != nil {
+				return nil, fmt.Errorf("%s: %w", it.P, err)
+			}
+			out = append(out, p_options.Pin.IsPinned.Recursive())
+		case "Pin.IsPinned.Type":
+			if err := nargs(it.A, 1); err != nil {
+				return nil, fmt.Errorf("%s: %w", it.P, err)
+			}
+			a0, err := jdec[string](it.A[0])
+			if err != nil {
+				return nil, err
+			}
+			o, err := p_options.Pin.IsPinned.Type(a0)
+			if err != nil {
+				return nil, err
+			}
+			out = append(out, o)
+		default:
+			return nil, fmt.Errorf("ipfs_ffi: opção desconhecida %q", it.P)
+		}
+	}
+	return out, nil
+}
+
+func opts16(raw json.RawMessage) ([]p_options.PinRmOption, error) {
+	var items []struct {
+		P string
+		A []json.RawMessage
+	}
+	if err := json.Unmarshal(raw, &items); err != nil {
+		return nil, err
+	}
+	out := make([]p_options.PinRmOption, 0, len(items))
+	for _, it := range items {
+		switch it.P {
+		case "Pin.RmRecursive":
+			if err := nargs(it.A, 1); err != nil {
+				return nil, fmt.Errorf("%s: %w", it.P, err)
+			}
+			a0, err := jdec[bool](it.A[0])
+			if err != nil {
+				return nil, err
+			}
+			out = append(out, p_options.Pin.RmRecursive(a0))
+		default:
+			return nil, fmt.Errorf("ipfs_ffi: opção desconhecida %q", it.P)
+		}
+	}
+	return out, nil
+}
+
+func opts17(raw json.RawMessage) ([]p_options.PinUpdateOption, error) {
+	var items []struct {
+		P string
+		A []json.RawMessage
+	}
+	if err := json.Unmarshal(raw, &items); err != nil {
+		return nil, err
+	}
+	out := make([]p_options.PinUpdateOption, 0, len(items))
+	for _, it := range items {
+		switch it.P {
+		case "Pin.Unpin":
+			if err := nargs(it.A, 1); err != nil {
+				return nil, fmt.Errorf("%s: %w", it.P, err)
+			}
+			a0, err := jdec[bool](it.A[0])
+			if err != nil {
+				return nil, err
+			}
+			out = append(out, p_options.Pin.Unpin(a0))
+		default:
+			return nil, fmt.Errorf("ipfs_ffi: opção desconhecida %q", it.P)
+		}
+	}
+	return out, nil
+}
+
+func enc20(v p_iface.BadPinNode) any {
+	if v == nil {
+		return nil
+	}
+	m := map[string]any{}
+	m["Err"] = encErr(v.Err())
+	m["Path"] = encImmutablePath(v.Path())
+	return m
+}
+
+func enc19(v []p_iface.BadPinNode) any {
+	out := make([]any, len(v))
+	for i, e := range v {
+		out[i] = enc20(e)
+	}
+	return out
+}
+
+func enc18(v p_iface.PinStatus) any {
+	if v == nil {
+		return nil
+	}
+	m := map[string]any{}
+	m["BadNodes"] = enc19(v.BadNodes())
+	m["Err"] = encErr(v.Err())
+	m["Ok"] = v.Ok()
+	return m
+}
+
+func opts21(raw json.RawMessage) ([]p_options.BlockPutOption, error) {
+	var items []struct {
+		P string
+		A []json.RawMessage
+	}
+	if err := json.Unmarshal(raw, &items); err != nil {
+		return nil, err
+	}
+	out := make([]p_options.BlockPutOption, 0, len(items))
+	for _, it := range items {
+		switch it.P {
+		case "Block.CidCodec":
+			if err := nargs(it.A, 1); err != nil {
+				return nil, fmt.Errorf("%s: %w", it.P, err)
+			}
+			a0, err := jdec[string](it.A[0])
+			if err != nil {
+				return nil, err
+			}
+			out = append(out, p_options.Block.CidCodec(a0))
+		case "Block.Format":
+			if err := nargs(it.A, 1); err != nil {
+				return nil, fmt.Errorf("%s: %w", it.P, err)
+			}
+			a0, err := jdec[string](it.A[0])
+			if err != nil {
+				return nil, err
+			}
+			out = append(out, p_options.Block.Format(a0))
+		case "Block.Hash":
+			if err := nargs(it.A, 2); err != nil {
+				return nil, fmt.Errorf("%s: %w", it.P, err)
+			}
+			a0, err := jdec[uint64](it.A[0])
+			if err != nil {
+				return nil, err
+			}
+			a1, err := jdec[int](it.A[1])
+			if err != nil {
+				return nil, err
+			}
+			out = append(out, p_options.Block.Hash(a0, a1))
+		case "Block.Pin":
+			if err := nargs(it.A, 1); err != nil {
+				return nil, fmt.Errorf("%s: %w", it.P, err)
+			}
+			a0, err := jdec[bool](it.A[0])
+			if err != nil {
+				return nil, err
+			}
+			out = append(out, p_options.Block.Pin(a0))
+		default:
+			return nil, fmt.Errorf("ipfs_ffi: opção desconhecida %q", it.P)
+		}
+	}
+	return out, nil
+}
+
+func enc22(v p_iface.BlockStat) any {
+	if v == nil {
+		return nil
+	}
+	m := map[string]any{}
+	m["Path"] = encImmutablePath(v.Path())
+	m["Size"] = v.Size()
+	return m
+}
+
+func opts23(raw json.RawMessage) ([]p_options.BlockRmOption, error) {
+	var items []struct {
+		P string
+		A []json.RawMessage
+	}
+	if err := json.Unmarshal(raw, &items); err != nil {
+		return nil, err
+	}
+	out := make([]p_options.BlockRmOption, 0, len(items))
+	for _, it := range items {
+		switch it.P {
+		case "Block.Force":
+			if err := nargs(it.A, 1); err != nil {
+				return nil, fmt.Errorf("%s: %w", it.P, err)
+			}
+			a0, err := jdec[bool](it.A[0])
+			if err != nil {
+				return nil, err
+			}
+			out = append(out, p_options.Block.Force(a0))
+		default:
+			return nil, fmt.Errorf("ipfs_ffi: opção desconhecida %q", it.P)
+		}
+	}
+	return out, nil
+}
+
+func enc24(v p_gc.Result) any {
+	return map[string]any{
+		"KeyRemoved": encCid(v.KeyRemoved),
+		"Error":      encErr(v.Error),
 	}
 }

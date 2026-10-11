@@ -260,12 +260,17 @@ func (m *model) fillInterface(ti *tinfo, n *types.Named, u *types.Interface) {
 			return
 		}
 		res, hasErr := splitErr(sig.Results())
-		if len(res) != 1 {
+		var rt *tinfo
+		switch {
+		case len(res) == 0 && hasErr: // Err() error: o erro é o valor lido
+			rt, hasErr = m.classify(sig.Results().At(0).Type()), false
+		case len(res) == 1:
+			rt = m.classify(res[0])
+		default:
 			return
 		}
-		rt := m.classify(res[0])
 		switch rt.k {
-		case kBasic, kBytes, kValue, kDTO, kSnap, kSlice, kMap:
+		case kBasic, kBytes, kValue, kDTO, kSnap, kSlice, kMap, kError:
 		default:
 			return
 		}
@@ -290,7 +295,7 @@ func (m *model) fillStruct(ti *tinfo, n *types.Named, u *types.Struct) {
 		ft := m.classify(f.Type())
 		fd := field{name: f.Name(), t: ft}
 		switch ft.k {
-		case kBasic, kBytes, kValue, kDTO, kSnap, kHandle, kSlice, kMap:
+		case kBasic, kBytes, kValue, kDTO, kSnap, kHandle, kSlice, kMap, kError:
 			if ft.k == kSnap {
 				fd.skipped = "interface só de leitura"
 			}

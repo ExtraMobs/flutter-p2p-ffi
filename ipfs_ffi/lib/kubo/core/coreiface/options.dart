@@ -9,9 +9,44 @@ final class ApiOption extends GoOption {
   ApiOption.$(super.p, super.a);
 }
 
+/// Go: `options.BlockPutOption` (opção funcional; construtores nas variáveis do pacote).
+final class BlockPutOption extends GoOption {
+  BlockPutOption.$(super.p, super.a);
+}
+
+/// Go: `options.BlockRmOption` (opção funcional; construtores nas variáveis do pacote).
+final class BlockRmOption extends GoOption {
+  BlockRmOption.$(super.p, super.a);
+}
+
 /// Go: `options.KeyGenerateOption` (opção funcional; construtores nas variáveis do pacote).
 final class KeyGenerateOption extends GoOption {
   KeyGenerateOption.$(super.p, super.a);
+}
+
+/// Go: `options.PinAddOption` (opção funcional; construtores nas variáveis do pacote).
+final class PinAddOption extends GoOption {
+  PinAddOption.$(super.p, super.a);
+}
+
+/// Go: `options.PinIsPinnedOption` (opção funcional; construtores nas variáveis do pacote).
+final class PinIsPinnedOption extends GoOption {
+  PinIsPinnedOption.$(super.p, super.a);
+}
+
+/// Go: `options.PinLsOption` (opção funcional; construtores nas variáveis do pacote).
+final class PinLsOption extends GoOption {
+  PinLsOption.$(super.p, super.a);
+}
+
+/// Go: `options.PinRmOption` (opção funcional; construtores nas variáveis do pacote).
+final class PinRmOption extends GoOption {
+  PinRmOption.$(super.p, super.a);
+}
+
+/// Go: `options.PinUpdateOption` (opção funcional; construtores nas variáveis do pacote).
+final class PinUpdateOption extends GoOption {
+  PinUpdateOption.$(super.p, super.a);
 }
 
 /// Go: `options.UnixfsAddOption` (opção funcional; construtores nas variáveis do pacote).
@@ -37,6 +72,31 @@ final class _Api {
   ApiOption offline(bool offline) => ApiOption.$('Api.Offline', [offline]);
 }
 
+/// Go: `var Block`: construtores de opções.
+const block = _Block._();
+
+final class _Block {
+  const _Block._();
+
+  /// Go: `options.Block.CidCodec`.
+  BlockPutOption cidCodec(String codecName) =>
+      BlockPutOption.$('Block.CidCodec', [codecName]);
+
+  /// Go: `options.Block.Force`.
+  BlockRmOption force(bool force) => BlockRmOption.$('Block.Force', [force]);
+
+  /// Go: `options.Block.Format`.
+  BlockPutOption format(String format) =>
+      BlockPutOption.$('Block.Format', [format]);
+
+  /// Go: `options.Block.Hash`.
+  BlockPutOption hash(int mhType, int mhLen) =>
+      BlockPutOption.$('Block.Hash', [mhType, mhLen]);
+
+  /// Go: `options.Block.Pin`.
+  BlockPutOption pin(bool pin) => BlockPutOption.$('Block.Pin', [pin]);
+}
+
 /// Go: `var Key`: construtores de opções.
 const key = _Key._();
 
@@ -49,6 +109,81 @@ final class _Key {
   /// Go: `options.Key.Type`.
   KeyGenerateOption type(String algorithm) =>
       KeyGenerateOption.$('Key.Type', [algorithm]);
+}
+
+/// Go: `var Pin`: construtores de opções.
+const pin = _Pin._();
+
+final class _Pin {
+  const _Pin._();
+
+  /// Go: `Pin.IsPinned`.
+  final isPinned = const _PinIsPinned._();
+
+  /// Go: `Pin.Ls`.
+  final ls = const _PinLs._();
+
+  /// Go: `options.Pin.Name`.
+  PinAddOption name(String name) => PinAddOption.$('Pin.Name', [name]);
+
+  /// Go: `options.Pin.Recursive`.
+  PinAddOption recursive(bool recursive) =>
+      PinAddOption.$('Pin.Recursive', [recursive]);
+
+  /// Go: `options.Pin.RmRecursive`.
+  PinRmOption rmRecursive(bool recursive) =>
+      PinRmOption.$('Pin.RmRecursive', [recursive]);
+
+  /// Go: `options.Pin.Unpin`.
+  PinUpdateOption unpin(bool unpin) => PinUpdateOption.$('Pin.Unpin', [unpin]);
+}
+
+final class _PinIsPinned {
+  const _PinIsPinned._();
+
+  /// Go: `options.Pin.IsPinned.All`.
+  PinIsPinnedOption all() => PinIsPinnedOption.$('Pin.IsPinned.All', []);
+
+  /// Go: `options.Pin.IsPinned.Direct`.
+  PinIsPinnedOption direct() => PinIsPinnedOption.$('Pin.IsPinned.Direct', []);
+
+  /// Go: `options.Pin.IsPinned.Indirect`.
+  PinIsPinnedOption indirect() =>
+      PinIsPinnedOption.$('Pin.IsPinned.Indirect', []);
+
+  /// Go: `options.Pin.IsPinned.Recursive`.
+  PinIsPinnedOption recursive() =>
+      PinIsPinnedOption.$('Pin.IsPinned.Recursive', []);
+
+  /// Go: `options.Pin.IsPinned.Type`.
+  PinIsPinnedOption type(String typeStr) =>
+      PinIsPinnedOption.$('Pin.IsPinned.Type', [typeStr]);
+}
+
+final class _PinLs {
+  const _PinLs._();
+
+  /// Go: `options.Pin.Ls.All`.
+  PinLsOption all() => PinLsOption.$('Pin.Ls.All', []);
+
+  /// Go: `options.Pin.Ls.Detailed`.
+  PinLsOption detailed(bool detailed) =>
+      PinLsOption.$('Pin.Ls.Detailed', [detailed]);
+
+  /// Go: `options.Pin.Ls.Direct`.
+  PinLsOption direct() => PinLsOption.$('Pin.Ls.Direct', []);
+
+  /// Go: `options.Pin.Ls.Indirect`.
+  PinLsOption indirect() => PinLsOption.$('Pin.Ls.Indirect', []);
+
+  /// Go: `options.Pin.Ls.Name`.
+  PinLsOption name(String name) => PinLsOption.$('Pin.Ls.Name', [name]);
+
+  /// Go: `options.Pin.Ls.Recursive`.
+  PinLsOption recursive() => PinLsOption.$('Pin.Ls.Recursive', []);
+
+  /// Go: `options.Pin.Ls.Type`.
+  PinLsOption type(String typeStr) => PinLsOption.$('Pin.Ls.Type', [typeStr]);
 }
 
 /// Go: `var Unixfs`: construtores de opções.

@@ -1,5 +1,6 @@
 // A API gerada (go/gen) na ordem em que o kubo monta um nó: plugins →
-// identidade e config → fsrepo.Init/Open → core.NewNode → CoreAPI → Unixfs.
+// identidade e config → fsrepo.Init/Open → core.NewNode → CoreAPI → Unixfs
+// (M1) → pins, blocos e GC (M2).
 import 'dart:convert';
 import 'dart:io' show Directory, File;
 
@@ -13,6 +14,7 @@ import 'package:ipfs_ffi/kubo/core.dart' as core;
 import 'package:ipfs_ffi/kubo/core/coreapi.dart' as coreapi;
 import 'package:ipfs_ffi/kubo/core/coreiface.dart' as iface;
 import 'package:ipfs_ffi/kubo/core/coreiface/options.dart' as options;
+import 'package:ipfs_ffi/kubo/core/corerepo.dart' as corerepo;
 import 'package:ipfs_ffi/kubo/core/node.dart' as node;
 import 'package:ipfs_ffi/kubo/plugin/loader.dart' as loader;
 import 'package:ipfs_ffi/kubo/repo/fsrepo.dart' as fsrepo;
@@ -112,5 +114,71 @@ void main() {
         core.IpfsNode.$h(1 << 40).close(),
         throwsA(isA<IpfsException>()
             .having((e) => e.message, 'message', contains('panic'))));
+  });
+
+  // M2: pins, blocos e GC
+  Future<path.ImmutablePath> addUnpinned(String s) => api.unixfs().add(
+      ctx, files.newBytesFile(utf8.encode(s)), [options.unixfs.pin(false, '')]);
+
+  test('pin add, isPinned, ls, update e rm', () async {
+    final a = await addUnpinned('pin a');
+    final b = await addUnpinned('pin b');
+    expect((await api.pin().isPinned(ctx, a)).$2, isFalse);
+
+    await api.pin().add(ctx, a, [options.pin.name('meu-pin')]);
+    final (how, pinned) = await api.pin().isPinned(ctx, a);
+    expect((how, pinned), ('recursive', true));
+    // o filtro por nome só vale com detailed (como `ipfs pin ls --names`)
+    final pins = await api.pin().ls(ctx, [
+      options.pin.ls.recursive(),
+      options.pin.ls.detailed(true),
+      options.pin.ls.name('meu-pin'),
+    ]).toList();
+    expect([for (final p in pins) p.path?.value], [a.value]);
+    expect(pins.single.name, 'meu-pin');
+
+    await api.pin().update(ctx, a, b); // move o pin de a para b
+    expect((await api.pin().isPinned(ctx, a)).$2, isFalse);
+    expect((await api.pin().isPinned(ctx, b)).$2, isTrue);
+
+    await api.pin().rm(ctx, b);
+    expect((await api.pin().isPinned(ctx, b)).$2, isFalse);
+    expect(await api.pin().verify(ctx).every((s) => s.ok && s.err == null),
+        isTrue);
+  });
+
+  test('block put, stat, get e rm', () async {
+    final data = utf8.encode('bloco cru');
+    final st = await api.block().put(ctx, data, [options.block.pin(false)]);
+    expect(st.size, data.length);
+    expect(st.path!.value, startsWith('/ipfs/bafkrei')); // raw + sha2-256
+
+    expect((await api.block().stat(ctx, st.path!)).size, data.length);
+    final r = await api.block().get(ctx, st.path!);
+    expect(io.readAll(r), data);
+
+    await api.block().rm(ctx, st.path!);
+    await expectLater(
+        api.block().stat(ctx, st.path!), throwsA(isA<IpfsException>()));
+  });
+
+  test('GC apaga o que não está pinado e mantém o pinado', () async {
+    final loose = await addUnpinned('solto ${DateTime.now()}');
+    // a CoreAPI não pina por padrão (o `ipfs add` do CLI é que passa pin=true)
+    final kept = await api.unixfs().add(
+        ctx,
+        files.newBytesFile(utf8.encode('pinado ${DateTime.now()}')),
+        [options.unixfs.pin(true, '')]);
+
+    final removed = await corerepo.garbageCollectAsync(n, ctx).toList();
+    // O blockstore guarda pelo multihash: o GC informa CIDv1 raw (bafkrei...),
+    // não o CIDv0 (Qm...) do add.
+    expect(removed, isNotEmpty);
+    expect([for (final r in removed) r.error], everyElement(isNull));
+
+    await expectLater(
+        api.block().stat(ctx, loose), throwsA(isA<IpfsException>()));
+    expect((await api.block().stat(ctx, kept)).size, greaterThan(0));
+    await corerepo.garbageCollect(n, ctx); // a versão que só espera
   });
 }

@@ -32,3 +32,19 @@ github.com/ipfs/boxo/files.ToFile
 github.com/ipfs/boxo/files.WriteTo
 os.Stat
 io.ReadAll
+
+# M2 pins, blocos e GC (ipfs pin, ipfs block, ipfs repo gc)
+github.com/ipfs/kubo/core/coreiface.CoreAPI.Pin
+github.com/ipfs/kubo/core/coreiface.PinAPI.Add
+github.com/ipfs/kubo/core/coreiface.PinAPI.Ls
+github.com/ipfs/kubo/core/coreiface.PinAPI.IsPinned
+github.com/ipfs/kubo/core/coreiface.PinAPI.Rm
+github.com/ipfs/kubo/core/coreiface.PinAPI.Update
+github.com/ipfs/kubo/core/coreiface.PinAPI.Verify
+github.com/ipfs/kubo/core/coreiface.CoreAPI.Block
+github.com/ipfs/kubo/core/coreiface.BlockAPI.Put
+github.com/ipfs/kubo/core/coreiface.BlockAPI.Get
+github.com/ipfs/kubo/core/coreiface.BlockAPI.Rm
+github.com/ipfs/kubo/core/coreiface.BlockAPI.Stat
+github.com/ipfs/kubo/core/corerepo.GarbageCollect
+github.com/ipfs/kubo/core/corerepo.GarbageCollectAsync

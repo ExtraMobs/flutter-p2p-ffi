@@ -218,6 +218,8 @@ func (e *dartEmitter) dt(t *tinfo, from *dartLib) string {
 	switch t.k {
 	case kBasic:
 		return basicDart(t)
+	case kError:
+		return "String" // a mensagem; null = sem erro
 	case kBytes:
 		from.bytes = true
 		return "Uint8List"
@@ -226,12 +228,7 @@ func (e *dartEmitter) dt(t *tinfo, from *dartLib) string {
 			return "DateTime"
 		}
 		return e.ref(t, from)
-	case kHandle:
-		if t.reader {
-			return "Object" // Uint8List ou um handle de io.Reader
-		}
-		return e.ref(t, from)
-	case kDTO, kSnap, kOpts:
+	case kHandle, kDTO, kSnap, kOpts:
 		return e.ref(t, from)
 	case kSlice:
 		return "List<" + e.dt(t.elem, from) + ">"
@@ -247,7 +244,7 @@ func (e *dartEmitter) dt(t *tinfo, from *dartLib) string {
 
 func nullable(t *tinfo) bool {
 	switch t.k {
-	case kValue, kDTO, kSnap, kHandle, kBytes:
+	case kValue, kDTO, kSnap, kHandle, kBytes, kError:
 		return true
 	}
 	return false
@@ -266,6 +263,8 @@ func (e *dartEmitter) dd(t *tinfo, x string, from *dartLib, depth int) string {
 	case kBytes:
 		from.bytes = true
 		return "$bytes(" + x + ")"
+	case kError:
+		return x + " as String"
 	case kValue:
 		switch {
 		case t.val.dartClass == "":
@@ -547,7 +546,11 @@ func (e *dartEmitter) function(l *dartLib, f *fn, class string, factory bool) st
 			opt = fmt.Sprintf("[%s %s = const []]", e.dt(p.t, l), n)
 			continue
 		}
-		params = append(params, e.dt(p.t, l)+" "+n)
+		dartT := e.dt(p.t, l)
+		if p.t.reader {
+			dartT = "Object" // Uint8List ou um handle de io.Reader
+		}
+		params = append(params, dartT+" "+n)
 	}
 	if opt != "" {
 		params = append(params, opt)

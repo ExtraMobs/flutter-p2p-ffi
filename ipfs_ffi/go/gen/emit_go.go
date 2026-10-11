@@ -234,6 +234,8 @@ func (g *goEmitter) dec(t *tinfo) string {
 		return "decReader"
 	case t.k == kBytes:
 		return "decBytes"
+	case t.k == kError:
+		return "decErr"
 	case t.k == kHandle, t.k == kCtx:
 		return "hdec[" + g.ts(t.t) + "]"
 	case plain(t):
@@ -324,6 +326,8 @@ func (g *goEmitter) enc(t *tinfo, expr string) string {
 		return expr
 	case t.k == kBytes:
 		return "encBytes(" + expr + ")"
+	case t.k == kError:
+		return "encErr(" + expr + ")"
 	case t.k == kHandle:
 		return "henc(" + expr + ")"
 	case t.k == kValue && !t.ptr:

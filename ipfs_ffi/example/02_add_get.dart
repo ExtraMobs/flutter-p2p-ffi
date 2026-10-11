@@ -26,7 +26,8 @@ Future<void> main(List<String> args) async {
   try {
     final api = coreapi.newCoreApi(n);
 
-    // bytes → CID (o kubo quebra em blocos, monta o DAG e faz pin)
+    // bytes → CID (o kubo quebra em blocos e monta o DAG; a CoreAPI não pina
+    // por padrão: ver o exemplo 03)
     final p = await api
         .unixfs()
         .add(ctx, files.newBytesFile(utf8.encode('olá do Dart via FFI\n')));

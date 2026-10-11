@@ -15,6 +15,7 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"reflect"
@@ -199,6 +200,22 @@ func encBytes(b []byte) any {
 		return nil
 	}
 	return cbuf{P: uintptr(C.CBytes(b)), N: len(b)}
+}
+
+// error dentro de um valor (PinStatus.Err(), gc.Result.Error): a mensagem.
+func encErr(err error) any {
+	if err == nil {
+		return nil
+	}
+	return err.Error()
+}
+
+func decErr(raw json.RawMessage) (error, error) {
+	s, err := jdec[*string](raw)
+	if err != nil || s == nil {
+		return nil, err
+	}
+	return errors.New(*s), nil
 }
 
 // decReader aceita bytes ou um handle de io.Reader.

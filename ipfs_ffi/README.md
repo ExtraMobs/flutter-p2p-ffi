@@ -30,8 +30,12 @@ await n.close();
 ```
 
 Exemplos, na ordem em que o kubo monta um nó:
-`dart run example/01_init_repo.dart [repo]` (`ipfs init`) e
-`dart run example/02_add_get.dart [repo] [arquivo-ou-pasta]`.
+
+1. `dart run example/01_init_repo.dart [repo]`: `ipfs init` (plugins, identidade, config, repo);
+2. `dart run example/02_add_get.dart [repo] [arquivo-ou-pasta]`: nó sem HTTP, `add`/`get`/`ls`;
+3. `dart run example/03_pins_gc.dart [repo]`: pins, blocos crus e GC (`ipfs pin`,
+   `ipfs block`, `ipfs repo gc`). A CoreAPI não pina por padrão: passe
+   `options.unixfs.pin(true, nome)` no `add` (o `ipfs add` do CLI faz isso).
 
 ## Como o Go vira Dart
 
