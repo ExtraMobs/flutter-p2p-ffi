@@ -335,3 +335,53 @@ Future<int> networkChecks(iface.CoreApi api, Log log) => runAll({
         }
       },
     }, log);
+
+/// Alcançabilidade, com o nó online há [wait] (AutoRelay e hole punching
+/// levam um tempo): os transportes das conexões, quem entrou (direto ou por
+/// relay) e se o nó tem endereço de relay (/p2p-circuit) para anunciar.
+Future<int> reachabilityChecks(iface.CoreApi api, Stopwatch online, Log log,
+        {Duration wait = const Duration(minutes: 2)}) =>
+    runAll({
+      'alcançabilidade (nó online há ${wait.inMinutes} min)': () async {
+        final rest = wait - online.elapsed;
+        if (rest > Duration.zero) {
+          log('  esperando ${rest.inSeconds} s');
+          await Future<void>.delayed(rest);
+        }
+        final peers = await api.swarm().peers(ctx);
+        String transport(String a) => a.contains('/p2p-circuit')
+            ? 'relay'
+            : a.contains('/webrtc')
+                ? 'webrtc'
+                : a.contains('/webtransport')
+                    ? 'webtransport'
+                    : a.contains('/quic')
+                        ? 'quic'
+                        : a.contains('/tcp')
+                            ? 'tcp'
+                            : '?';
+        final byTransport = <String, int>{};
+        for (final p in peers) {
+          final t = transport('${p.address}');
+          byTransport[t] = (byTransport[t] ?? 0) + 1;
+        }
+        // network.Direction do libp2p: 1 = entrada, 2 = saída
+        final inbound = [
+          for (final p in peers)
+            if (p.direction == 1) '${p.address}'
+        ];
+        log('  ${peers.length} peers; transportes $byTransport; '
+            'entrada ${inbound.length}');
+        for (final a in inbound.take(5)) {
+          log('  entrou por $a');
+        }
+        final addrs = [for (final a in await api.swarm().localAddrs(ctx)) '$a'];
+        final relay = addrs.where((a) => a.contains('/p2p-circuit')).length;
+        log('  ${addrs.length} endereços anunciados ($relay de relay):');
+        for (final a in addrs) {
+          log('    $a');
+        }
+        check(relay > 0 || inbound.isNotEmpty,
+            'alcançável (endereço de relay ou conexão de entrada)');
+      },
+    }, log);

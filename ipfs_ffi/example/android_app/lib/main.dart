@@ -64,9 +64,19 @@ String? prepare(String repoPath, String crashLog) {
   if (!fsrepo.isInitialized(repoPath)) {
     final cfg = config
         .initWithIdentity(config.createIdentity([options.key.type('ed25519')]));
+    final addresses = cfg.json['Addresses'] as Map<String, Object?>;
+    final defaults = (addresses['Swarm'] as List).cast<String>();
     for (final p in ['randomports', 'lowpower']) {
       config.profiles[p]!.transform(cfg);
     }
+    // O randomports troca a lista padrão por só TCP; sem UDP não há QUIC nem
+    // hole punching (DCUtR). Volta a lista padrão do kubo (TCP, QUIC,
+    // WebTransport, WebRTC) na porta que ele sorteou.
+    final port = RegExp(r'/tcp/(\d+)')
+        .firstMatch((addresses['Swarm'] as List).first as String)![1]!;
+    addresses['Swarm'] = [
+      for (final a in defaults) a.replaceAll('/4001', '/$port')
+    ];
     // O Android não tem /etc/resolv.conf: o resolvedor do Go cai em [::1]:53
     // e DNSLink e /dnsaddr falham. DNS por HTTPS (DNS.Resolvers do kubo).
     cfg.json['DNS'] = {
@@ -217,6 +227,9 @@ class _NodePageState extends State<NodePage> {
     _api = api;
     _peerId = (await api.key().self(ctx)).id.toString();
     _cycles++;
+    _online
+      ..reset()
+      ..start();
     log('nó online em ${sw.elapsedMilliseconds} ms (subida $_cycles): $_peerId');
     _tick = Timer.periodic(const Duration(seconds: 3), (_) async {
       final peers = await api.swarm().peers(ctx);
@@ -224,6 +237,9 @@ class _NodePageState extends State<NodePage> {
     });
     _set(() => _status = 'online');
   }
+
+  /// Há quanto tempo o nó está online (zerado a cada subida).
+  final _online = Stopwatch();
 
   Future<void> _stop() async {
     _tick?.cancel();
@@ -244,6 +260,8 @@ class _NodePageState extends State<NodePage> {
     _set(() => _status = 'online, rodando os testes...');
     var failed = await networkChecks(_api!, log);
     failed += await localChecks(log);
+    _set(() => _status = 'online, esperando para medir a alcançabilidade...');
+    failed += await reachabilityChecks(_api!, _online, log);
     log('=== fim: ${failed == 0 ? 'tudo passou' : '$failed falharam'} '
         '(bateria ${battery()}) ===');
     _set(() => _status = 'online, testes concluídos');
