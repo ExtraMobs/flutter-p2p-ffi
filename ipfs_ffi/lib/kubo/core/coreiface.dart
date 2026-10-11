@@ -82,6 +82,67 @@ class ApiDagService extends $go_ipld_format.DagService {
   }
 }
 
+/// Go: `iface.AddEvent`.
+final class AddEvent implements GoJson {
+  AddEvent(
+      {String? name,
+      $path.ImmutablePath? path,
+      int? bytes,
+      String? size,
+      int? mode,
+      int? mtime,
+      int? mtimeNsecs})
+      : name = name ?? '',
+        path = path,
+        bytes = bytes ?? 0,
+        size = size ?? '',
+        mode = mode ?? 0,
+        mtime = mtime ?? 0,
+        mtimeNsecs = mtimeNsecs ?? 0;
+
+  AddEvent.$fromJson(Map<String, Object?> j)
+      : name = j['Name'] as String,
+        path =
+            j['Path'] == null ? null : $path.ImmutablePath(j['Path'] as String),
+        bytes = j['Bytes'] as int,
+        size = j['Size'] as String,
+        mode = j['Mode'] as int,
+        mtime = j['Mtime'] as int,
+        mtimeNsecs = j['MtimeNsecs'] as int;
+
+  /// Go: `Name`.
+  String name;
+
+  /// Go: `Path`.
+  $path.ImmutablePath? path;
+
+  /// Go: `Bytes`.
+  int bytes;
+
+  /// Go: `Size`.
+  String size;
+
+  /// Go: `Mode`.
+  int mode;
+
+  /// Go: `Mtime`.
+  int mtime;
+
+  /// Go: `MtimeNsecs`.
+  int mtimeNsecs;
+
+  @override
+  Map<String, Object?> $toJson() => {
+        'Name': $enc(name),
+        'Path': $enc(path),
+        'Bytes': $enc(bytes),
+        'Size': $enc(size),
+        'Mode': $enc(mode),
+        'Mtime': $enc(mtime),
+        'MtimeNsecs': $enc(mtimeNsecs)
+      };
+}
+
 /// Go: `iface.BadPinNode` (valores lidos dos métodos).
 final class BadPinNode {
   BadPinNode.$fromJson(Map<String, Object?> j)

@@ -21,6 +21,7 @@ import (
 	"reflect"
 	"runtime/cgo"
 	"sort"
+	"sync"
 	"time"
 	"unsafe"
 
@@ -201,6 +202,36 @@ func encBytes(b []byte) any {
 		return nil
 	}
 	return cbuf{P: uintptr(C.CBytes(b)), N: len(b)}
+}
+
+// chanSink: canal que o chamador passa numa opção (options.Unixfs.Events). O
+// Dart manda {"$s": id, "$cb": listener}; cada item do tipo T vai ao
+// StreamSink dele. O kubo não fecha esse canal (quem fecha é o `ipfs add`):
+// done o fecha quando a chamada volta e espera o último item sair, para o
+// Dart receber tudo antes do resultado.
+func chanSink[T any](raw json.RawMessage, enc func(T) any) (chan any, func(), error) {
+	var s struct {
+		S  int64   `json:"$s"`
+		CB uintptr `json:"$cb"`
+	}
+	if err := json.Unmarshal(raw, &s); err != nil {
+		return nil, nil, err
+	}
+	cb := *(*C.ipfs_cb)(unsafe.Pointer(&s.CB))
+	send := func(kind int, text string) { C.ipfs_invoke(cb, C.int64_t(s.S), C.int32_t(kind), C.CString(text)) }
+	ch := make(chan any, 8) // como o `ipfs add` (adderOutChanSize)
+	fin := make(chan struct{})
+	go func() {
+		defer close(fin)
+		for v := range ch {
+			if t, ok := v.(T); ok {
+				send(evItem, mustJSON(enc(t)))
+			}
+		}
+		send(evEnd, "null")
+	}()
+	var once sync.Once
+	return ch, func() { once.Do(func() { close(ch); <-fin }) }, nil
 }
 
 // error dentro de um valor (PinStatus.Err(), gc.Result.Error): a mensagem.

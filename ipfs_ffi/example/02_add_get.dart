@@ -2,13 +2,17 @@
 // adicionar e ler arquivos, sem HTTP. Rode o 01_init_repo.dart antes.
 //
 //   dart run example/02_add_get.dart [repo] [arquivo-ou-pasta]
+import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:ipfs_ffi/boxo/files.dart' as files;
 import 'package:ipfs_ffi/context.dart' as context;
 import 'package:ipfs_ffi/io.dart' as io;
 import 'package:ipfs_ffi/kubo/core.dart' as core;
 import 'package:ipfs_ffi/kubo/core/coreapi.dart' as coreapi;
+import 'package:ipfs_ffi/kubo/core/coreiface.dart' as iface;
+import 'package:ipfs_ffi/kubo/core/coreiface/options.dart' as options;
 import 'package:ipfs_ffi/kubo/core/node.dart' as node;
 import 'package:ipfs_ffi/kubo/plugin/loader.dart' as loader;
 import 'package:ipfs_ffi/kubo/repo/fsrepo.dart' as fsrepo;
@@ -35,12 +39,32 @@ Future<void> main(List<String> args) async {
     final file = files.toFile(await api.unixfs().get(ctx, p));
     print('get: ${utf8.decode(io.readAll(file)).trim()}');
 
-    // arquivo ou pasta do disco
+    // arquivo ou pasta do disco, com o progresso do kubo (como o `ipfs add`)
     if (args.length > 1) {
       final src = args[1];
-      final root = await api
-          .unixfs()
-          .add(ctx, files.newSerialFile(src, false, os.stat(src)));
+      final total = FileSystemEntity.isFileSync(src)
+          ? File(src).lengthSync()
+          : Directory(src)
+              .listSync(recursive: true)
+              .whereType<File>()
+              .fold<int>(0, (s, f) => s + f.lengthSync());
+      final events = StreamController<iface.AddEvent>();
+      final porArquivo =
+          <String, int>{}; // `bytes` é o progresso de cada arquivo
+      events.stream.listen((e) {
+        if (e.path == null) {
+          porArquivo[e.name] = e.bytes;
+          final lido = porArquivo.values.fold<int>(0, (s, b) => s + b);
+          stdout.write(
+              '\r  ${(100 * lido / (total == 0 ? 1 : total)).clamp(0, 100).toStringAsFixed(0)}%');
+        } else {
+          stdout.write('\r  ${e.name.isEmpty ? src : e.name} → ${e.path}\n');
+        }
+      });
+      final root = await api.unixfs().add(
+          ctx,
+          files.newSerialFile(src, false, os.stat(src)),
+          [options.unixfs.events(events.sink), options.unixfs.progress(true)]);
       print('add $src: $root');
       await for (final e in api.unixfs().ls(ctx, root)) {
         print('  ${e.name}  ${e.size} B  ${e.cid}');

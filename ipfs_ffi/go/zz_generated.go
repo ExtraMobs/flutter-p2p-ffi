@@ -189,7 +189,8 @@ func fn3(a []json.RawMessage) (any, error) {
 	if err := nargs(a, 1); err != nil {
 		return nil, err
 	}
-	p1, err := opts0(a[0])
+	p1, done1, err := opts0(a[0])
+	defer done1()
 	if err != nil {
 		return nil, err
 	}
@@ -310,7 +311,8 @@ func fn10(a []json.RawMessage) (any, error) {
 	if err != nil {
 		return nil, err
 	}
-	p1, err := opts7(a[1])
+	p1, done1, err := opts7(a[1])
+	defer done1()
 	if err != nil {
 		return nil, err
 	}
@@ -375,7 +377,8 @@ func fn13(a []json.RawMessage) (any, error) {
 	if err != nil {
 		return nil, err
 	}
-	p2, err := opts9(a[3])
+	p2, done2, err := opts9(a[3])
+	defer done2()
 	if err != nil {
 		return nil, err
 	}
@@ -427,7 +430,8 @@ func fn15(a []json.RawMessage, emit func(any)) error {
 	if err != nil {
 		return err
 	}
-	p3, err := opts10(a[3])
+	p3, done3, err := opts12(a[3])
+	defer done3()
 	if err != nil {
 		return err
 	}
@@ -440,7 +444,7 @@ func fn15(a []json.RawMessage, emit func(any)) error {
 			if !ok {
 				return <-errc
 			}
-			emit(enc11(v))
+			emit(enc13(v))
 		case err := <-errc:
 			for { // a função voltou: só resta o que já estava no canal
 				select {
@@ -448,7 +452,7 @@ func fn15(a []json.RawMessage, emit func(any)) error {
 					if !ok {
 						return err
 					}
-					emit(enc11(v))
+					emit(enc13(v))
 				default:
 					return err
 				}
@@ -589,7 +593,8 @@ func fn23(a []json.RawMessage) (any, error) {
 	if err != nil {
 		return nil, err
 	}
-	p2, err := opts12(a[3])
+	p2, done2, err := opts14(a[3])
+	defer done2()
 	if err != nil {
 		return nil, err
 	}
@@ -613,7 +618,8 @@ func fn24(a []json.RawMessage, emit func(any)) error {
 	if err != nil {
 		return err
 	}
-	p2, err := opts13(a[2])
+	p2, done2, err := opts15(a[2])
+	defer done2()
 	if err != nil {
 		return err
 	}
@@ -626,7 +632,7 @@ func fn24(a []json.RawMessage, emit func(any)) error {
 			if !ok {
 				return <-errc
 			}
-			emit(enc14(v))
+			emit(enc16(v))
 		case err := <-errc:
 			for { // a função voltou: só resta o que já estava no canal
 				select {
@@ -634,7 +640,7 @@ func fn24(a []json.RawMessage, emit func(any)) error {
 					if !ok {
 						return err
 					}
-					emit(enc14(v))
+					emit(enc16(v))
 				default:
 					return err
 				}
@@ -660,7 +666,8 @@ func fn25(a []json.RawMessage) (any, error) {
 	if err != nil {
 		return nil, err
 	}
-	p2, err := opts15(a[3])
+	p2, done2, err := opts17(a[3])
+	defer done2()
 	if err != nil {
 		return nil, err
 	}
@@ -688,7 +695,8 @@ func fn26(a []json.RawMessage) (any, error) {
 	if err != nil {
 		return nil, err
 	}
-	p2, err := opts16(a[3])
+	p2, done2, err := opts18(a[3])
+	defer done2()
 	if err != nil {
 		return nil, err
 	}
@@ -720,7 +728,8 @@ func fn27(a []json.RawMessage) (any, error) {
 	if err != nil {
 		return nil, err
 	}
-	p3, err := opts17(a[4])
+	p3, done3, err := opts19(a[4])
+	defer done3()
 	if err != nil {
 		return nil, err
 	}
@@ -749,7 +758,7 @@ func fn28(a []json.RawMessage, emit func(any)) error {
 		return err
 	}
 	for v := range ch {
-		emit(enc18(v))
+		emit(enc20(v))
 	}
 	return nil
 }
@@ -784,7 +793,8 @@ func fn30(a []json.RawMessage) (any, error) {
 	if err != nil {
 		return nil, err
 	}
-	p2, err := opts21(a[3])
+	p2, done2, err := opts23(a[3])
+	defer done2()
 	if err != nil {
 		return nil, err
 	}
@@ -792,7 +802,7 @@ func fn30(a []json.RawMessage) (any, error) {
 	if err != nil {
 		return nil, err
 	}
-	return enc22(r0), nil
+	return enc24(r0), nil
 }
 
 // github.com/ipfs/kubo/core/coreiface.BlockAPI.Get
@@ -836,7 +846,8 @@ func fn32(a []json.RawMessage) (any, error) {
 	if err != nil {
 		return nil, err
 	}
-	p2, err := opts23(a[3])
+	p2, done2, err := opts25(a[3])
+	defer done2()
 	if err != nil {
 		return nil, err
 	}
@@ -868,7 +879,7 @@ func fn33(a []json.RawMessage) (any, error) {
 	if err != nil {
 		return nil, err
 	}
-	return enc22(r0), nil
+	return enc24(r0), nil
 }
 
 // github.com/ipfs/kubo/core/corerepo.GarbageCollect
@@ -906,7 +917,7 @@ func fn35(a []json.RawMessage, emit func(any)) error {
 	}
 	ch := p_corerepo.GarbageCollectAsync(p0, p1)
 	for v := range ch {
-		emit(enc24(v))
+		emit(enc26(v))
 	}
 	return nil
 }
@@ -1010,7 +1021,7 @@ func fn43(a []json.RawMessage) (any, error) {
 	if err != nil {
 		return nil, err
 	}
-	return enc25(r0), nil
+	return enc27(r0), nil
 }
 
 // github.com/ipfs/kubo/core/coreiface.CoreAPI.Swarm
@@ -1039,7 +1050,7 @@ func fn45(a []json.RawMessage) (any, error) {
 	if err != nil {
 		return nil, err
 	}
-	p1, err := dec26(a[2])
+	p1, err := dec28(a[2])
 	if err != nil {
 		return nil, err
 	}
@@ -1091,7 +1102,7 @@ func fn47(a []json.RawMessage) (any, error) {
 	if err != nil {
 		return nil, err
 	}
-	return enc28(r0), nil
+	return enc30(r0), nil
 }
 
 // github.com/ipfs/kubo/core/coreiface.SwarmAPI.ListenAddrs
@@ -1111,7 +1122,7 @@ func fn48(a []json.RawMessage) (any, error) {
 	if err != nil {
 		return nil, err
 	}
-	return enc31(r0), nil
+	return enc33(r0), nil
 }
 
 // github.com/ipfs/kubo/core/coreiface.SwarmAPI.LocalAddrs
@@ -1131,7 +1142,7 @@ func fn49(a []json.RawMessage) (any, error) {
 	if err != nil {
 		return nil, err
 	}
-	return enc31(r0), nil
+	return enc33(r0), nil
 }
 
 // github.com/ipfs/kubo/core/coreiface.CoreAPI.Routing
@@ -1164,7 +1175,8 @@ func fn51(a []json.RawMessage) (any, error) {
 	if err != nil {
 		return nil, err
 	}
-	p2, err := opts32(a[3])
+	p2, done2, err := opts34(a[3])
+	defer done2()
 	if err != nil {
 		return nil, err
 	}
@@ -1192,7 +1204,8 @@ func fn52(a []json.RawMessage, emit func(any)) error {
 	if err != nil {
 		return err
 	}
-	p2, err := opts33(a[3])
+	p2, done2, err := opts35(a[3])
+	defer done2()
 	if err != nil {
 		return err
 	}
@@ -1201,7 +1214,7 @@ func fn52(a []json.RawMessage, emit func(any)) error {
 		return err
 	}
 	for v := range ch {
-		emit(enc34(v))
+		emit(enc36(v))
 	}
 	return nil
 }
@@ -1227,7 +1240,7 @@ func fn53(a []json.RawMessage) (any, error) {
 	if err != nil {
 		return nil, err
 	}
-	return enc34(r0), nil
+	return enc36(r0), nil
 }
 
 // github.com/libp2p/go-libp2p/core/peer.AddrInfoFromString
@@ -1243,7 +1256,7 @@ func fn54(a []json.RawMessage) (any, error) {
 	if err != nil {
 		return nil, err
 	}
-	return enc35(r0), nil
+	return enc37(r0), nil
 }
 
 // github.com/libp2p/go-libp2p/core/peer.AddrInfoToP2pAddrs
@@ -1251,7 +1264,7 @@ func fn55(a []json.RawMessage) (any, error) {
 	if err := nargs(a, 1); err != nil {
 		return nil, err
 	}
-	p0, err := dec36(a[0])
+	p0, err := dec38(a[0])
 	if err != nil {
 		return nil, err
 	}
@@ -1259,7 +1272,7 @@ func fn55(a []json.RawMessage) (any, error) {
 	if err != nil {
 		return nil, err
 	}
-	return enc31(r0), nil
+	return enc33(r0), nil
 }
 
 // github.com/ipfs/kubo/core/coreiface.CoreAPI.Name
@@ -1292,7 +1305,8 @@ func fn57(a []json.RawMessage) (any, error) {
 	if err != nil {
 		return nil, err
 	}
-	p2, err := opts37(a[3])
+	p2, done2, err := opts39(a[3])
+	defer done2()
 	if err != nil {
 		return nil, err
 	}
@@ -1320,7 +1334,8 @@ func fn58(a []json.RawMessage) (any, error) {
 	if err != nil {
 		return nil, err
 	}
-	p2, err := opts38(a[3])
+	p2, done2, err := opts40(a[3])
+	defer done2()
 	if err != nil {
 		return nil, err
 	}
@@ -1348,7 +1363,8 @@ func fn59(a []json.RawMessage, emit func(any)) error {
 	if err != nil {
 		return err
 	}
-	p2, err := opts38(a[3])
+	p2, done2, err := opts40(a[3])
+	defer done2()
 	if err != nil {
 		return err
 	}
@@ -1357,7 +1373,7 @@ func fn59(a []json.RawMessage, emit func(any)) error {
 		return err
 	}
 	for v := range ch {
-		emit(enc39(v))
+		emit(enc41(v))
 	}
 	return nil
 }
@@ -1379,7 +1395,8 @@ func fn60(a []json.RawMessage) (any, error) {
 	if err != nil {
 		return nil, err
 	}
-	p2, err := opts0(a[3])
+	p2, done2, err := opts0(a[3])
+	defer done2()
 	if err != nil {
 		return nil, err
 	}
@@ -1387,7 +1404,7 @@ func fn60(a []json.RawMessage) (any, error) {
 	if err != nil {
 		return nil, err
 	}
-	return enc25(r0), nil
+	return enc27(r0), nil
 }
 
 // github.com/ipfs/kubo/core/coreiface.KeyAPI.Rename
@@ -1411,7 +1428,8 @@ func fn61(a []json.RawMessage) (any, error) {
 	if err != nil {
 		return nil, err
 	}
-	p3, err := opts40(a[4])
+	p3, done3, err := opts42(a[4])
+	defer done3()
 	if err != nil {
 		return nil, err
 	}
@@ -1419,7 +1437,7 @@ func fn61(a []json.RawMessage) (any, error) {
 	if err != nil {
 		return nil, err
 	}
-	return []any{enc25(r0), r1}, nil
+	return []any{enc27(r0), r1}, nil
 }
 
 // github.com/ipfs/kubo/core/coreiface.KeyAPI.List
@@ -1439,7 +1457,7 @@ func fn62(a []json.RawMessage) (any, error) {
 	if err != nil {
 		return nil, err
 	}
-	return enc41(r0), nil
+	return enc43(r0), nil
 }
 
 // github.com/ipfs/kubo/core/coreiface.KeyAPI.Remove
@@ -1463,7 +1481,7 @@ func fn63(a []json.RawMessage) (any, error) {
 	if err != nil {
 		return nil, err
 	}
-	return enc25(r0), nil
+	return enc27(r0), nil
 }
 
 // github.com/ipfs/kubo/core/coreiface.KeyAPI.Sign
@@ -1491,7 +1509,7 @@ func fn64(a []json.RawMessage) (any, error) {
 	if err != nil {
 		return nil, err
 	}
-	return []any{enc25(r0), encBytes(r1)}, nil
+	return []any{enc27(r0), encBytes(r1)}, nil
 }
 
 // github.com/ipfs/kubo/core/coreiface.KeyAPI.Verify
@@ -1523,7 +1541,7 @@ func fn65(a []json.RawMessage) (any, error) {
 	if err != nil {
 		return nil, err
 	}
-	return []any{enc25(r0), r1}, nil
+	return []any{enc27(r0), r1}, nil
 }
 
 // github.com/ipfs/kubo/core/coreiface.SwarmAPI.KnownAddrs
@@ -1543,7 +1561,7 @@ func fn66(a []json.RawMessage) (any, error) {
 	if err != nil {
 		return nil, err
 	}
-	return enc42(r0), nil
+	return enc44(r0), nil
 }
 
 // github.com/ipfs/kubo/core/coreiface.CoreAPI.Dag
@@ -1620,13 +1638,13 @@ func fn70(a []json.RawMessage, emit func(any)) error {
 	if err != nil {
 		return err
 	}
-	p1, err := dec43(a[2])
+	p1, err := dec45(a[2])
 	if err != nil {
 		return err
 	}
 	ch := recv.GetMany(p0, p1)
 	for v := range ch {
-		emit(enc44(v))
+		emit(enc46(v))
 	}
 	return nil
 }
@@ -1668,7 +1686,7 @@ func fn72(a []json.RawMessage) (any, error) {
 	if err != nil {
 		return nil, err
 	}
-	p1, err := dec46(a[2])
+	p1, err := dec48(a[2])
 	if err != nil {
 		return nil, err
 	}
@@ -1716,7 +1734,7 @@ func fn74(a []json.RawMessage) (any, error) {
 	if err != nil {
 		return nil, err
 	}
-	p1, err := dec43(a[2])
+	p1, err := dec45(a[2])
 	if err != nil {
 		return nil, err
 	}
@@ -1777,7 +1795,7 @@ func fn77(a []json.RawMessage) (any, error) {
 	if err != nil {
 		return nil, err
 	}
-	p1, err := dec46(a[2])
+	p1, err := dec48(a[2])
 	if err != nil {
 		return nil, err
 	}
@@ -1824,7 +1842,7 @@ func fn80(a []json.RawMessage) (any, error) {
 		return nil, err
 	}
 	r0 := recv.Links()
-	return enc47(r0), nil
+	return enc49(r0), nil
 }
 
 // github.com/ipfs/go-ipld-format.Node.Size
@@ -1856,7 +1874,7 @@ func fn82(a []json.RawMessage) (any, error) {
 	if err != nil {
 		return nil, err
 	}
-	return enc50(r0), nil
+	return enc52(r0), nil
 }
 
 // github.com/ipfs/boxo/ipld/merkledag.NewRawNode
@@ -1939,40 +1957,51 @@ func fn87(a []json.RawMessage) (any, error) {
 	return encBytes(r0), nil
 }
 
-func opts0(raw json.RawMessage) ([]p_options.KeyGenerateOption, error) {
+func opts0(raw json.RawMessage) (out []p_options.KeyGenerateOption, done func(), err error) {
+	var dones []func()
+	done = func() {
+		for _, d := range dones {
+			d()
+		}
+	}
+	defer func() {
+		if err != nil {
+			done()
+		}
+	}()
 	var items []struct {
 		P string
 		A []json.RawMessage
 	}
 	if err := json.Unmarshal(raw, &items); err != nil {
-		return nil, err
+		return nil, done, err
 	}
-	out := make([]p_options.KeyGenerateOption, 0, len(items))
+	out = make([]p_options.KeyGenerateOption, 0, len(items))
 	for _, it := range items {
 		switch it.P {
 		case "Key.Size":
 			if err := nargs(it.A, 1); err != nil {
-				return nil, fmt.Errorf("%s: %w", it.P, err)
+				return nil, done, fmt.Errorf("%s: %w", it.P, err)
 			}
 			a0, err := jdec[int](it.A[0])
 			if err != nil {
-				return nil, err
+				return nil, done, err
 			}
 			out = append(out, p_options.Key.Size(a0))
 		case "Key.Type":
 			if err := nargs(it.A, 1); err != nil {
-				return nil, fmt.Errorf("%s: %w", it.P, err)
+				return nil, done, fmt.Errorf("%s: %w", it.P, err)
 			}
 			a0, err := jdec[string](it.A[0])
 			if err != nil {
-				return nil, err
+				return nil, done, err
 			}
 			out = append(out, p_options.Key.Type(a0))
 		default:
-			return nil, fmt.Errorf("ipfs_ffi: opção desconhecida %q", it.P)
+			return nil, done, fmt.Errorf("ipfs_ffi: opção desconhecida %q", it.P)
 		}
 	}
-	return out, nil
+	return out, done, nil
 }
 
 func enc1(v p_config.Identity) any {
@@ -2093,40 +2122,51 @@ func dec5(raw json.RawMessage) (*p_core.BuildCfg, error) {
 	return &v, err
 }
 
-func opts7(raw json.RawMessage) ([]p_options.ApiOption, error) {
+func opts7(raw json.RawMessage) (out []p_options.ApiOption, done func(), err error) {
+	var dones []func()
+	done = func() {
+		for _, d := range dones {
+			d()
+		}
+	}
+	defer func() {
+		if err != nil {
+			done()
+		}
+	}()
 	var items []struct {
 		P string
 		A []json.RawMessage
 	}
 	if err := json.Unmarshal(raw, &items); err != nil {
-		return nil, err
+		return nil, done, err
 	}
-	out := make([]p_options.ApiOption, 0, len(items))
+	out = make([]p_options.ApiOption, 0, len(items))
 	for _, it := range items {
 		switch it.P {
 		case "Api.FetchBlocks":
 			if err := nargs(it.A, 1); err != nil {
-				return nil, fmt.Errorf("%s: %w", it.P, err)
+				return nil, done, fmt.Errorf("%s: %w", it.P, err)
 			}
 			a0, err := jdec[bool](it.A[0])
 			if err != nil {
-				return nil, err
+				return nil, done, err
 			}
 			out = append(out, p_options.Api.FetchBlocks(a0))
 		case "Api.Offline":
 			if err := nargs(it.A, 1); err != nil {
-				return nil, fmt.Errorf("%s: %w", it.P, err)
+				return nil, done, fmt.Errorf("%s: %w", it.P, err)
 			}
 			a0, err := jdec[bool](it.A[0])
 			if err != nil {
-				return nil, err
+				return nil, done, err
 			}
 			out = append(out, p_options.Api.Offline(a0))
 		default:
-			return nil, fmt.Errorf("ipfs_ffi: opção desconhecida %q", it.P)
+			return nil, done, fmt.Errorf("ipfs_ffi: opção desconhecida %q", it.P)
 		}
 	}
-	return out, nil
+	return out, done, nil
 }
 
 func enc8(v []string) any {
@@ -2137,267 +2177,318 @@ func enc8(v []string) any {
 	return out
 }
 
-func opts9(raw json.RawMessage) ([]p_options.UnixfsAddOption, error) {
+func enc11(v p_iface.AddEvent) any {
+	return map[string]any{
+		"Name":       v.Name,
+		"Path":       encImmutablePath(v.Path),
+		"Bytes":      v.Bytes,
+		"Size":       v.Size,
+		"Mode":       uint32(v.Mode),
+		"Mtime":      v.Mtime,
+		"MtimeNsecs": v.MtimeNsecs,
+	}
+}
+
+func enc10(v *p_iface.AddEvent) any {
+	if v == nil {
+		return nil
+	}
+	return enc11(*v)
+}
+
+func opts9(raw json.RawMessage) (out []p_options.UnixfsAddOption, done func(), err error) {
+	var dones []func()
+	done = func() {
+		for _, d := range dones {
+			d()
+		}
+	}
+	defer func() {
+		if err != nil {
+			done()
+		}
+	}()
 	var items []struct {
 		P string
 		A []json.RawMessage
 	}
 	if err := json.Unmarshal(raw, &items); err != nil {
-		return nil, err
+		return nil, done, err
 	}
-	out := make([]p_options.UnixfsAddOption, 0, len(items))
+	out = make([]p_options.UnixfsAddOption, 0, len(items))
 	for _, it := range items {
 		switch it.P {
 		case "Unixfs.Chunker":
 			if err := nargs(it.A, 1); err != nil {
-				return nil, fmt.Errorf("%s: %w", it.P, err)
+				return nil, done, fmt.Errorf("%s: %w", it.P, err)
 			}
 			a0, err := jdec[string](it.A[0])
 			if err != nil {
-				return nil, err
+				return nil, done, err
 			}
 			out = append(out, p_options.Unixfs.Chunker(a0))
 		case "Unixfs.CidVersion":
 			if err := nargs(it.A, 1); err != nil {
-				return nil, fmt.Errorf("%s: %w", it.P, err)
+				return nil, done, fmt.Errorf("%s: %w", it.P, err)
 			}
 			a0, err := jdec[int](it.A[0])
 			if err != nil {
-				return nil, err
+				return nil, done, err
 			}
 			out = append(out, p_options.Unixfs.CidVersion(a0))
+		case "Unixfs.Events":
+			if err := nargs(it.A, 1); err != nil {
+				return nil, done, fmt.Errorf("%s: %w", it.P, err)
+			}
+			a0, d0, err := chanSink[*p_iface.AddEvent](it.A[0], func(v *p_iface.AddEvent) any { return enc10(v) })
+			if err != nil {
+				return nil, done, err
+			}
+			dones = append(dones, d0)
+			out = append(out, p_options.Unixfs.Events(a0))
 		case "Unixfs.FsCache":
 			if err := nargs(it.A, 1); err != nil {
-				return nil, fmt.Errorf("%s: %w", it.P, err)
+				return nil, done, fmt.Errorf("%s: %w", it.P, err)
 			}
 			a0, err := jdec[bool](it.A[0])
 			if err != nil {
-				return nil, err
+				return nil, done, err
 			}
 			out = append(out, p_options.Unixfs.FsCache(a0))
 		case "Unixfs.Hash":
 			if err := nargs(it.A, 1); err != nil {
-				return nil, fmt.Errorf("%s: %w", it.P, err)
+				return nil, done, fmt.Errorf("%s: %w", it.P, err)
 			}
 			a0, err := jdec[uint64](it.A[0])
 			if err != nil {
-				return nil, err
+				return nil, done, err
 			}
 			out = append(out, p_options.Unixfs.Hash(a0))
 		case "Unixfs.HashOnly":
 			if err := nargs(it.A, 1); err != nil {
-				return nil, fmt.Errorf("%s: %w", it.P, err)
+				return nil, done, fmt.Errorf("%s: %w", it.P, err)
 			}
 			a0, err := jdec[bool](it.A[0])
 			if err != nil {
-				return nil, err
+				return nil, done, err
 			}
 			out = append(out, p_options.Unixfs.HashOnly(a0))
 		case "Unixfs.IncludeEmptyDirs":
 			if err := nargs(it.A, 1); err != nil {
-				return nil, fmt.Errorf("%s: %w", it.P, err)
+				return nil, done, fmt.Errorf("%s: %w", it.P, err)
 			}
 			a0, err := jdec[bool](it.A[0])
 			if err != nil {
-				return nil, err
+				return nil, done, err
 			}
 			out = append(out, p_options.Unixfs.IncludeEmptyDirs(a0))
 		case "Unixfs.Inline":
 			if err := nargs(it.A, 1); err != nil {
-				return nil, fmt.Errorf("%s: %w", it.P, err)
+				return nil, done, fmt.Errorf("%s: %w", it.P, err)
 			}
 			a0, err := jdec[bool](it.A[0])
 			if err != nil {
-				return nil, err
+				return nil, done, err
 			}
 			out = append(out, p_options.Unixfs.Inline(a0))
 		case "Unixfs.InlineLimit":
 			if err := nargs(it.A, 1); err != nil {
-				return nil, fmt.Errorf("%s: %w", it.P, err)
+				return nil, done, fmt.Errorf("%s: %w", it.P, err)
 			}
 			a0, err := jdec[int](it.A[0])
 			if err != nil {
-				return nil, err
+				return nil, done, err
 			}
 			out = append(out, p_options.Unixfs.InlineLimit(a0))
 		case "Unixfs.Layout":
 			if err := nargs(it.A, 1); err != nil {
-				return nil, fmt.Errorf("%s: %w", it.P, err)
+				return nil, done, fmt.Errorf("%s: %w", it.P, err)
 			}
 			a0, err := jdec[p_options.Layout](it.A[0])
 			if err != nil {
-				return nil, err
+				return nil, done, err
 			}
 			out = append(out, p_options.Unixfs.Layout(a0))
 		case "Unixfs.MaxDirectoryLinks":
 			if err := nargs(it.A, 1); err != nil {
-				return nil, fmt.Errorf("%s: %w", it.P, err)
+				return nil, done, fmt.Errorf("%s: %w", it.P, err)
 			}
 			a0, err := jdec[int](it.A[0])
 			if err != nil {
-				return nil, err
+				return nil, done, err
 			}
 			out = append(out, p_options.Unixfs.MaxDirectoryLinks(a0))
 		case "Unixfs.MaxFileLinks":
 			if err := nargs(it.A, 1); err != nil {
-				return nil, fmt.Errorf("%s: %w", it.P, err)
+				return nil, done, fmt.Errorf("%s: %w", it.P, err)
 			}
 			a0, err := jdec[int](it.A[0])
 			if err != nil {
-				return nil, err
+				return nil, done, err
 			}
 			out = append(out, p_options.Unixfs.MaxFileLinks(a0))
 		case "Unixfs.MaxHAMTFanout":
 			if err := nargs(it.A, 1); err != nil {
-				return nil, fmt.Errorf("%s: %w", it.P, err)
+				return nil, done, fmt.Errorf("%s: %w", it.P, err)
 			}
 			a0, err := jdec[int](it.A[0])
 			if err != nil {
-				return nil, err
+				return nil, done, err
 			}
 			out = append(out, p_options.Unixfs.MaxHAMTFanout(a0))
 		case "Unixfs.Mode":
 			if err := nargs(it.A, 1); err != nil {
-				return nil, fmt.Errorf("%s: %w", it.P, err)
+				return nil, done, fmt.Errorf("%s: %w", it.P, err)
 			}
 			a0, err := jdec[p_fs.FileMode](it.A[0])
 			if err != nil {
-				return nil, err
+				return nil, done, err
 			}
 			out = append(out, p_options.Unixfs.Mode(a0))
 		case "Unixfs.Mtime":
 			if err := nargs(it.A, 2); err != nil {
-				return nil, fmt.Errorf("%s: %w", it.P, err)
+				return nil, done, fmt.Errorf("%s: %w", it.P, err)
 			}
 			a0, err := jdec[int64](it.A[0])
 			if err != nil {
-				return nil, err
+				return nil, done, err
 			}
 			a1, err := jdec[uint32](it.A[1])
 			if err != nil {
-				return nil, err
+				return nil, done, err
 			}
 			out = append(out, p_options.Unixfs.Mtime(a0, a1))
 		case "Unixfs.Nocopy":
 			if err := nargs(it.A, 1); err != nil {
-				return nil, fmt.Errorf("%s: %w", it.P, err)
+				return nil, done, fmt.Errorf("%s: %w", it.P, err)
 			}
 			a0, err := jdec[bool](it.A[0])
 			if err != nil {
-				return nil, err
+				return nil, done, err
 			}
 			out = append(out, p_options.Unixfs.Nocopy(a0))
 		case "Unixfs.Pin":
 			if err := nargs(it.A, 2); err != nil {
-				return nil, fmt.Errorf("%s: %w", it.P, err)
+				return nil, done, fmt.Errorf("%s: %w", it.P, err)
 			}
 			a0, err := jdec[bool](it.A[0])
 			if err != nil {
-				return nil, err
+				return nil, done, err
 			}
 			a1, err := jdec[string](it.A[1])
 			if err != nil {
-				return nil, err
+				return nil, done, err
 			}
 			out = append(out, p_options.Unixfs.Pin(a0, a1))
 		case "Unixfs.PreserveMode":
 			if err := nargs(it.A, 1); err != nil {
-				return nil, fmt.Errorf("%s: %w", it.P, err)
+				return nil, done, fmt.Errorf("%s: %w", it.P, err)
 			}
 			a0, err := jdec[bool](it.A[0])
 			if err != nil {
-				return nil, err
+				return nil, done, err
 			}
 			out = append(out, p_options.Unixfs.PreserveMode(a0))
 		case "Unixfs.PreserveMtime":
 			if err := nargs(it.A, 1); err != nil {
-				return nil, fmt.Errorf("%s: %w", it.P, err)
+				return nil, done, fmt.Errorf("%s: %w", it.P, err)
 			}
 			a0, err := jdec[bool](it.A[0])
 			if err != nil {
-				return nil, err
+				return nil, done, err
 			}
 			out = append(out, p_options.Unixfs.PreserveMtime(a0))
 		case "Unixfs.Progress":
 			if err := nargs(it.A, 1); err != nil {
-				return nil, fmt.Errorf("%s: %w", it.P, err)
+				return nil, done, fmt.Errorf("%s: %w", it.P, err)
 			}
 			a0, err := jdec[bool](it.A[0])
 			if err != nil {
-				return nil, err
+				return nil, done, err
 			}
 			out = append(out, p_options.Unixfs.Progress(a0))
 		case "Unixfs.RawLeaves":
 			if err := nargs(it.A, 1); err != nil {
-				return nil, fmt.Errorf("%s: %w", it.P, err)
+				return nil, done, fmt.Errorf("%s: %w", it.P, err)
 			}
 			a0, err := jdec[bool](it.A[0])
 			if err != nil {
-				return nil, err
+				return nil, done, err
 			}
 			out = append(out, p_options.Unixfs.RawLeaves(a0))
 		case "Unixfs.Silent":
 			if err := nargs(it.A, 1); err != nil {
-				return nil, fmt.Errorf("%s: %w", it.P, err)
+				return nil, done, fmt.Errorf("%s: %w", it.P, err)
 			}
 			a0, err := jdec[bool](it.A[0])
 			if err != nil {
-				return nil, err
+				return nil, done, err
 			}
 			out = append(out, p_options.Unixfs.Silent(a0))
 		case "Unixfs.SizeEstimationMode":
 			if err := nargs(it.A, 1); err != nil {
-				return nil, fmt.Errorf("%s: %w", it.P, err)
+				return nil, done, fmt.Errorf("%s: %w", it.P, err)
 			}
 			a0, err := jdec[p_io.SizeEstimationMode](it.A[0])
 			if err != nil {
-				return nil, err
+				return nil, done, err
 			}
 			out = append(out, p_options.Unixfs.SizeEstimationMode(a0))
 		default:
-			return nil, fmt.Errorf("ipfs_ffi: opção desconhecida %q", it.P)
+			return nil, done, fmt.Errorf("ipfs_ffi: opção desconhecida %q", it.P)
 		}
 	}
-	return out, nil
+	return out, done, nil
 }
 
-func opts10(raw json.RawMessage) ([]p_options.UnixfsLsOption, error) {
+func opts12(raw json.RawMessage) (out []p_options.UnixfsLsOption, done func(), err error) {
+	var dones []func()
+	done = func() {
+		for _, d := range dones {
+			d()
+		}
+	}
+	defer func() {
+		if err != nil {
+			done()
+		}
+	}()
 	var items []struct {
 		P string
 		A []json.RawMessage
 	}
 	if err := json.Unmarshal(raw, &items); err != nil {
-		return nil, err
+		return nil, done, err
 	}
-	out := make([]p_options.UnixfsLsOption, 0, len(items))
+	out = make([]p_options.UnixfsLsOption, 0, len(items))
 	for _, it := range items {
 		switch it.P {
 		case "Unixfs.ResolveChildren":
 			if err := nargs(it.A, 1); err != nil {
-				return nil, fmt.Errorf("%s: %w", it.P, err)
+				return nil, done, fmt.Errorf("%s: %w", it.P, err)
 			}
 			a0, err := jdec[bool](it.A[0])
 			if err != nil {
-				return nil, err
+				return nil, done, err
 			}
 			out = append(out, p_options.Unixfs.ResolveChildren(a0))
 		case "Unixfs.UseCumulativeSize":
 			if err := nargs(it.A, 1); err != nil {
-				return nil, fmt.Errorf("%s: %w", it.P, err)
+				return nil, done, fmt.Errorf("%s: %w", it.P, err)
 			}
 			a0, err := jdec[bool](it.A[0])
 			if err != nil {
-				return nil, err
+				return nil, done, err
 			}
 			out = append(out, p_options.Unixfs.UseCumulativeSize(a0))
 		default:
-			return nil, fmt.Errorf("ipfs_ffi: opção desconhecida %q", it.P)
+			return nil, done, fmt.Errorf("ipfs_ffi: opção desconhecida %q", it.P)
 		}
 	}
-	return out, nil
+	return out, done, nil
 }
 
-func enc11(v p_iface.DirEntry) any {
+func enc13(v p_iface.DirEntry) any {
 	return map[string]any{
 		"Name":    v.Name,
 		"Cid":     encCid(v.Cid),
@@ -2409,112 +2500,134 @@ func enc11(v p_iface.DirEntry) any {
 	}
 }
 
-func opts12(raw json.RawMessage) ([]p_options.PinAddOption, error) {
+func opts14(raw json.RawMessage) (out []p_options.PinAddOption, done func(), err error) {
+	var dones []func()
+	done = func() {
+		for _, d := range dones {
+			d()
+		}
+	}
+	defer func() {
+		if err != nil {
+			done()
+		}
+	}()
 	var items []struct {
 		P string
 		A []json.RawMessage
 	}
 	if err := json.Unmarshal(raw, &items); err != nil {
-		return nil, err
+		return nil, done, err
 	}
-	out := make([]p_options.PinAddOption, 0, len(items))
+	out = make([]p_options.PinAddOption, 0, len(items))
 	for _, it := range items {
 		switch it.P {
 		case "Pin.Name":
 			if err := nargs(it.A, 1); err != nil {
-				return nil, fmt.Errorf("%s: %w", it.P, err)
+				return nil, done, fmt.Errorf("%s: %w", it.P, err)
 			}
 			a0, err := jdec[string](it.A[0])
 			if err != nil {
-				return nil, err
+				return nil, done, err
 			}
 			out = append(out, p_options.Pin.Name(a0))
 		case "Pin.Recursive":
 			if err := nargs(it.A, 1); err != nil {
-				return nil, fmt.Errorf("%s: %w", it.P, err)
+				return nil, done, fmt.Errorf("%s: %w", it.P, err)
 			}
 			a0, err := jdec[bool](it.A[0])
 			if err != nil {
-				return nil, err
+				return nil, done, err
 			}
 			out = append(out, p_options.Pin.Recursive(a0))
 		default:
-			return nil, fmt.Errorf("ipfs_ffi: opção desconhecida %q", it.P)
+			return nil, done, fmt.Errorf("ipfs_ffi: opção desconhecida %q", it.P)
 		}
 	}
-	return out, nil
+	return out, done, nil
 }
 
-func opts13(raw json.RawMessage) ([]p_options.PinLsOption, error) {
+func opts15(raw json.RawMessage) (out []p_options.PinLsOption, done func(), err error) {
+	var dones []func()
+	done = func() {
+		for _, d := range dones {
+			d()
+		}
+	}
+	defer func() {
+		if err != nil {
+			done()
+		}
+	}()
 	var items []struct {
 		P string
 		A []json.RawMessage
 	}
 	if err := json.Unmarshal(raw, &items); err != nil {
-		return nil, err
+		return nil, done, err
 	}
-	out := make([]p_options.PinLsOption, 0, len(items))
+	out = make([]p_options.PinLsOption, 0, len(items))
 	for _, it := range items {
 		switch it.P {
 		case "Pin.Ls.All":
 			if err := nargs(it.A, 0); err != nil {
-				return nil, fmt.Errorf("%s: %w", it.P, err)
+				return nil, done, fmt.Errorf("%s: %w", it.P, err)
 			}
 			out = append(out, p_options.Pin.Ls.All())
 		case "Pin.Ls.Detailed":
 			if err := nargs(it.A, 1); err != nil {
-				return nil, fmt.Errorf("%s: %w", it.P, err)
+				return nil, done, fmt.Errorf("%s: %w", it.P, err)
 			}
 			a0, err := jdec[bool](it.A[0])
 			if err != nil {
-				return nil, err
+				return nil, done, err
 			}
 			out = append(out, p_options.Pin.Ls.Detailed(a0))
 		case "Pin.Ls.Direct":
 			if err := nargs(it.A, 0); err != nil {
-				return nil, fmt.Errorf("%s: %w", it.P, err)
+				return nil, done, fmt.Errorf("%s: %w", it.P, err)
 			}
 			out = append(out, p_options.Pin.Ls.Direct())
 		case "Pin.Ls.Indirect":
 			if err := nargs(it.A, 0); err != nil {
-				return nil, fmt.Errorf("%s: %w", it.P, err)
+				return nil, done, fmt.Errorf("%s: %w", it.P, err)
 			}
 			out = append(out, p_options.Pin.Ls.Indirect())
 		case "Pin.Ls.Name":
 			if err := nargs(it.A, 1); err != nil {
-				return nil, fmt.Errorf("%s: %w", it.P, err)
+				return nil, done, fmt.Errorf("%s: %w", it.P, err)
 			}
 			a0, err := jdec[string](it.A[0])
 			if err != nil {
-				return nil, err
+				return nil, done, err
 			}
 			out = append(out, p_options.Pin.Ls.Name(a0))
 		case "Pin.Ls.Recursive":
 			if err := nargs(it.A, 0); err != nil {
-				return nil, fmt.Errorf("%s: %w", it.P, err)
+				return nil, done, fmt.Errorf("%s: %w", it.P, err)
 			}
 			out = append(out, p_options.Pin.Ls.Recursive())
 		case "Pin.Ls.Type":
 			if err := nargs(it.A, 1); err != nil {
-				return nil, fmt.Errorf("%s: %w", it.P, err)
+				return nil, done, fmt.Errorf("%s: %w", it.P, err)
 			}
 			a0, err := jdec[string](it.A[0])
 			if err != nil {
-				return nil, err
+				return nil, done, err
 			}
 			o, err := p_options.Pin.Ls.Type(a0)
 			if err != nil {
-				return nil, err
+				return nil, done, err
 			}
 			out = append(out, o)
 		default:
-			return nil, fmt.Errorf("ipfs_ffi: opção desconhecida %q", it.P)
+			return nil, done, fmt.Errorf("ipfs_ffi: opção desconhecida %q", it.P)
 		}
 	}
-	return out, nil
+	return out, done, nil
 }
 
-func enc14(v p_iface.Pin) any {
+func enc16(v p_iface.Pin) any {
 	if v == nil {
 		return nil
 	}
@@ -2525,112 +2638,145 @@ func enc14(v p_iface.Pin) any {
 	return m
 }
 
-func opts15(raw json.RawMessage) ([]p_options.PinIsPinnedOption, error) {
+func opts17(raw json.RawMessage) (out []p_options.PinIsPinnedOption, done func(), err error) {
+	var dones []func()
+	done = func() {
+		for _, d := range dones {
+			d()
+		}
+	}
+	defer func() {
+		if err != nil {
+			done()
+		}
+	}()
 	var items []struct {
 		P string
 		A []json.RawMessage
 	}
 	if err := json.Unmarshal(raw, &items); err != nil {
-		return nil, err
+		return nil, done, err
 	}
-	out := make([]p_options.PinIsPinnedOption, 0, len(items))
+	out = make([]p_options.PinIsPinnedOption, 0, len(items))
 	for _, it := range items {
 		switch it.P {
 		case "Pin.IsPinned.All":
 			if err := nargs(it.A, 0); err != nil {
-				return nil, fmt.Errorf("%s: %w", it.P, err)
+				return nil, done, fmt.Errorf("%s: %w", it.P, err)
 			}
 			out = append(out, p_options.Pin.IsPinned.All())
 		case "Pin.IsPinned.Direct":
 			if err := nargs(it.A, 0); err != nil {
-				return nil, fmt.Errorf("%s: %w", it.P, err)
+				return nil, done, fmt.Errorf("%s: %w", it.P, err)
 			}
 			out = append(out, p_options.Pin.IsPinned.Direct())
 		case "Pin.IsPinned.Indirect":
 			if err := nargs(it.A, 0); err != nil {
-				return nil, fmt.Errorf("%s: %w", it.P, err)
+				return nil, done, fmt.Errorf("%s: %w", it.P, err)
 			}
 			out = append(out, p_options.Pin.IsPinned.Indirect())
 		case "Pin.IsPinned.Recursive":
 			if err := nargs(it.A, 0); err != nil {
-				return nil, fmt.Errorf("%s: %w", it.P, err)
+				return nil, done, fmt.Errorf("%s: %w", it.P, err)
 			}
 			out = append(out, p_options.Pin.IsPinned.Recursive())
 		case "Pin.IsPinned.Type":
 			if err := nargs(it.A, 1); err != nil {
-				return nil, fmt.Errorf("%s: %w", it.P, err)
+				return nil, done, fmt.Errorf("%s: %w", it.P, err)
 			}
 			a0, err := jdec[string](it.A[0])
 			if err != nil {
-				return nil, err
+				return nil, done, err
 			}
 			o, err := p_options.Pin.IsPinned.Type(a0)
 			if err != nil {
-				return nil, err
+				return nil, done, err
 			}
 			out = append(out, o)
 		default:
-			return nil, fmt.Errorf("ipfs_ffi: opção desconhecida %q", it.P)
+			return nil, done, fmt.Errorf("ipfs_ffi: opção desconhecida %q", it.P)
 		}
 	}
-	return out, nil
+	return out, done, nil
 }
 
-func opts16(raw json.RawMessage) ([]p_options.PinRmOption, error) {
+func opts18(raw json.RawMessage) (out []p_options.PinRmOption, done func(), err error) {
+	var dones []func()
+	done = func() {
+		for _, d := range dones {
+			d()
+		}
+	}
+	defer func() {
+		if err != nil {
+			done()
+		}
+	}()
 	var items []struct {
 		P string
 		A []json.RawMessage
 	}
 	if err := json.Unmarshal(raw, &items); err != nil {
-		return nil, err
+		return nil, done, err
 	}
-	out := make([]p_options.PinRmOption, 0, len(items))
+	out = make([]p_options.PinRmOption, 0, len(items))
 	for _, it := range items {
 		switch it.P {
 		case "Pin.RmRecursive":
 			if err := nargs(it.A, 1); err != nil {
-				return nil, fmt.Errorf("%s: %w", it.P, err)
+				return nil, done, fmt.Errorf("%s: %w", it.P, err)
 			}
 			a0, err := jdec[bool](it.A[0])
 			if err != nil {
-				return nil, err
+				return nil, done, err
 			}
 			out = append(out, p_options.Pin.RmRecursive(a0))
 		default:
-			return nil, fmt.Errorf("ipfs_ffi: opção desconhecida %q", it.P)
+			return nil, done, fmt.Errorf("ipfs_ffi: opção desconhecida %q", it.P)
 		}
 	}
-	return out, nil
+	return out, done, nil
 }
 
-func opts17(raw json.RawMessage) ([]p_options.PinUpdateOption, error) {
+func opts19(raw json.RawMessage) (out []p_options.PinUpdateOption, done func(), err error) {
+	var dones []func()
+	done = func() {
+		for _, d := range dones {
+			d()
+		}
+	}
+	defer func() {
+		if err != nil {
+			done()
+		}
+	}()
 	var items []struct {
 		P string
 		A []json.RawMessage
 	}
 	if err := json.Unmarshal(raw, &items); err != nil {
-		return nil, err
+		return nil, done, err
 	}
-	out := make([]p_options.PinUpdateOption, 0, len(items))
+	out = make([]p_options.PinUpdateOption, 0, len(items))
 	for _, it := range items {
 		switch it.P {
 		case "Pin.Unpin":
 			if err := nargs(it.A, 1); err != nil {
-				return nil, fmt.Errorf("%s: %w", it.P, err)
+				return nil, done, fmt.Errorf("%s: %w", it.P, err)
 			}
 			a0, err := jdec[bool](it.A[0])
 			if err != nil {
-				return nil, err
+				return nil, done, err
 			}
 			out = append(out, p_options.Pin.Unpin(a0))
 		default:
-			return nil, fmt.Errorf("ipfs_ffi: opção desconhecida %q", it.P)
+			return nil, done, fmt.Errorf("ipfs_ffi: opção desconhecida %q", it.P)
 		}
 	}
-	return out, nil
+	return out, done, nil
 }
 
-func enc20(v p_iface.BadPinNode) any {
+func enc22(v p_iface.BadPinNode) any {
 	if v == nil {
 		return nil
 	}
@@ -2640,84 +2786,95 @@ func enc20(v p_iface.BadPinNode) any {
 	return m
 }
 
-func enc19(v []p_iface.BadPinNode) any {
+func enc21(v []p_iface.BadPinNode) any {
 	out := make([]any, len(v))
 	for i, e := range v {
-		out[i] = enc20(e)
+		out[i] = enc22(e)
 	}
 	return out
 }
 
-func enc18(v p_iface.PinStatus) any {
+func enc20(v p_iface.PinStatus) any {
 	if v == nil {
 		return nil
 	}
 	m := map[string]any{}
-	m["BadNodes"] = enc19(v.BadNodes())
+	m["BadNodes"] = enc21(v.BadNodes())
 	m["Err"] = encErr(v.Err())
 	m["Ok"] = v.Ok()
 	return m
 }
 
-func opts21(raw json.RawMessage) ([]p_options.BlockPutOption, error) {
+func opts23(raw json.RawMessage) (out []p_options.BlockPutOption, done func(), err error) {
+	var dones []func()
+	done = func() {
+		for _, d := range dones {
+			d()
+		}
+	}
+	defer func() {
+		if err != nil {
+			done()
+		}
+	}()
 	var items []struct {
 		P string
 		A []json.RawMessage
 	}
 	if err := json.Unmarshal(raw, &items); err != nil {
-		return nil, err
+		return nil, done, err
 	}
-	out := make([]p_options.BlockPutOption, 0, len(items))
+	out = make([]p_options.BlockPutOption, 0, len(items))
 	for _, it := range items {
 		switch it.P {
 		case "Block.CidCodec":
 			if err := nargs(it.A, 1); err != nil {
-				return nil, fmt.Errorf("%s: %w", it.P, err)
+				return nil, done, fmt.Errorf("%s: %w", it.P, err)
 			}
 			a0, err := jdec[string](it.A[0])
 			if err != nil {
-				return nil, err
+				return nil, done, err
 			}
 			out = append(out, p_options.Block.CidCodec(a0))
 		case "Block.Format":
 			if err := nargs(it.A, 1); err != nil {
-				return nil, fmt.Errorf("%s: %w", it.P, err)
+				return nil, done, fmt.Errorf("%s: %w", it.P, err)
 			}
 			a0, err := jdec[string](it.A[0])
 			if err != nil {
-				return nil, err
+				return nil, done, err
 			}
 			out = append(out, p_options.Block.Format(a0))
 		case "Block.Hash":
 			if err := nargs(it.A, 2); err != nil {
-				return nil, fmt.Errorf("%s: %w", it.P, err)
+				return nil, done, fmt.Errorf("%s: %w", it.P, err)
 			}
 			a0, err := jdec[uint64](it.A[0])
 			if err != nil {
-				return nil, err
+				return nil, done, err
 			}
 			a1, err := jdec[int](it.A[1])
 			if err != nil {
-				return nil, err
+				return nil, done, err
 			}
 			out = append(out, p_options.Block.Hash(a0, a1))
 		case "Block.Pin":
 			if err := nargs(it.A, 1); err != nil {
-				return nil, fmt.Errorf("%s: %w", it.P, err)
+				return nil, done, fmt.Errorf("%s: %w", it.P, err)
 			}
 			a0, err := jdec[bool](it.A[0])
 			if err != nil {
-				return nil, err
+				return nil, done, err
 			}
 			out = append(out, p_options.Block.Pin(a0))
 		default:
-			return nil, fmt.Errorf("ipfs_ffi: opção desconhecida %q", it.P)
+			return nil, done, fmt.Errorf("ipfs_ffi: opção desconhecida %q", it.P)
 		}
 	}
-	return out, nil
+	return out, done, nil
 }
 
-func enc22(v p_iface.BlockStat) any {
+func enc24(v p_iface.BlockStat) any {
 	if v == nil {
 		return nil
 	}
@@ -2727,41 +2884,52 @@ func enc22(v p_iface.BlockStat) any {
 	return m
 }
 
-func opts23(raw json.RawMessage) ([]p_options.BlockRmOption, error) {
+func opts25(raw json.RawMessage) (out []p_options.BlockRmOption, done func(), err error) {
+	var dones []func()
+	done = func() {
+		for _, d := range dones {
+			d()
+		}
+	}
+	defer func() {
+		if err != nil {
+			done()
+		}
+	}()
 	var items []struct {
 		P string
 		A []json.RawMessage
 	}
 	if err := json.Unmarshal(raw, &items); err != nil {
-		return nil, err
+		return nil, done, err
 	}
-	out := make([]p_options.BlockRmOption, 0, len(items))
+	out = make([]p_options.BlockRmOption, 0, len(items))
 	for _, it := range items {
 		switch it.P {
 		case "Block.Force":
 			if err := nargs(it.A, 1); err != nil {
-				return nil, fmt.Errorf("%s: %w", it.P, err)
+				return nil, done, fmt.Errorf("%s: %w", it.P, err)
 			}
 			a0, err := jdec[bool](it.A[0])
 			if err != nil {
-				return nil, err
+				return nil, done, err
 			}
 			out = append(out, p_options.Block.Force(a0))
 		default:
-			return nil, fmt.Errorf("ipfs_ffi: opção desconhecida %q", it.P)
+			return nil, done, fmt.Errorf("ipfs_ffi: opção desconhecida %q", it.P)
 		}
 	}
-	return out, nil
+	return out, done, nil
 }
 
-func enc24(v p_gc.Result) any {
+func enc26(v p_gc.Result) any {
 	return map[string]any{
 		"KeyRemoved": encCid(v.KeyRemoved),
 		"Error":      encErr(v.Error),
 	}
 }
 
-func enc25(v p_iface.Key) any {
+func enc27(v p_iface.Key) any {
 	if v == nil {
 		return nil
 	}
@@ -2772,7 +2940,7 @@ func enc25(v p_iface.Key) any {
 	return m
 }
 
-func dec27(raw json.RawMessage) ([]p_multiaddr.Multiaddr, error) {
+func dec29(raw json.RawMessage) ([]p_multiaddr.Multiaddr, error) {
 	var rs []json.RawMessage
 	if err := json.Unmarshal(raw, &rs); err != nil {
 		return nil, err
@@ -2788,7 +2956,7 @@ func dec27(raw json.RawMessage) ([]p_multiaddr.Multiaddr, error) {
 	return out, nil
 }
 
-func dec26(raw json.RawMessage) (p_peer.AddrInfo, error) {
+func dec28(raw json.RawMessage) (p_peer.AddrInfo, error) {
 	var v p_peer.AddrInfo
 	var m map[string]json.RawMessage
 	if err := json.Unmarshal(raw, &m); err != nil || m == nil {
@@ -2802,7 +2970,7 @@ func dec26(raw json.RawMessage) (p_peer.AddrInfo, error) {
 		v.ID = x
 	}
 	if r, ok := m["Addrs"]; ok {
-		x, err := dec27(r)
+		x, err := dec29(r)
 		if err != nil {
 			return v, err
 		}
@@ -2811,7 +2979,7 @@ func dec26(raw json.RawMessage) (p_peer.AddrInfo, error) {
 	return v, nil
 }
 
-func enc30(v []p_protocol.ID) any {
+func enc32(v []p_protocol.ID) any {
 	out := make([]any, len(v))
 	for i, e := range v {
 		out[i] = string(e)
@@ -2819,7 +2987,7 @@ func enc30(v []p_protocol.ID) any {
 	return out
 }
 
-func enc29(v p_iface.ConnectionInfo) any {
+func enc31(v p_iface.ConnectionInfo) any {
 	if v == nil {
 		return nil
 	}
@@ -2831,20 +2999,20 @@ func enc29(v p_iface.ConnectionInfo) any {
 		m["Latency"] = int64(x)
 	}
 	if x, err := v.Streams(); err == nil {
-		m["Streams"] = enc30(x)
+		m["Streams"] = enc32(x)
 	}
 	return m
 }
 
-func enc28(v []p_iface.ConnectionInfo) any {
+func enc30(v []p_iface.ConnectionInfo) any {
 	out := make([]any, len(v))
 	for i, e := range v {
-		out[i] = enc29(e)
+		out[i] = enc31(e)
 	}
 	return out
 }
 
-func enc31(v []p_multiaddr.Multiaddr) any {
+func enc33(v []p_multiaddr.Multiaddr) any {
 	out := make([]any, len(v))
 	for i, e := range v {
 		out[i] = encMultiaddr(e)
@@ -2852,286 +3020,341 @@ func enc31(v []p_multiaddr.Multiaddr) any {
 	return out
 }
 
-func opts32(raw json.RawMessage) ([]p_options.RoutingProvideOption, error) {
+func opts34(raw json.RawMessage) (out []p_options.RoutingProvideOption, done func(), err error) {
+	var dones []func()
+	done = func() {
+		for _, d := range dones {
+			d()
+		}
+	}
+	defer func() {
+		if err != nil {
+			done()
+		}
+	}()
 	var items []struct {
 		P string
 		A []json.RawMessage
 	}
 	if err := json.Unmarshal(raw, &items); err != nil {
-		return nil, err
+		return nil, done, err
 	}
-	out := make([]p_options.RoutingProvideOption, 0, len(items))
+	out = make([]p_options.RoutingProvideOption, 0, len(items))
 	for _, it := range items {
 		switch it.P {
 		case "Dht.Recursive":
 			if err := nargs(it.A, 1); err != nil {
-				return nil, fmt.Errorf("%s: %w", it.P, err)
+				return nil, done, fmt.Errorf("%s: %w", it.P, err)
 			}
 			a0, err := jdec[bool](it.A[0])
 			if err != nil {
-				return nil, err
+				return nil, done, err
 			}
 			out = append(out, p_options.Dht.Recursive(a0))
 		case "Put.Recursive":
 			if err := nargs(it.A, 1); err != nil {
-				return nil, fmt.Errorf("%s: %w", it.P, err)
+				return nil, done, fmt.Errorf("%s: %w", it.P, err)
 			}
 			a0, err := jdec[bool](it.A[0])
 			if err != nil {
-				return nil, err
+				return nil, done, err
 			}
 			out = append(out, p_options.Put.Recursive(a0))
 		case "Routing.Recursive":
 			if err := nargs(it.A, 1); err != nil {
-				return nil, fmt.Errorf("%s: %w", it.P, err)
+				return nil, done, fmt.Errorf("%s: %w", it.P, err)
 			}
 			a0, err := jdec[bool](it.A[0])
 			if err != nil {
-				return nil, err
+				return nil, done, err
 			}
 			out = append(out, p_options.Routing.Recursive(a0))
 		default:
-			return nil, fmt.Errorf("ipfs_ffi: opção desconhecida %q", it.P)
+			return nil, done, fmt.Errorf("ipfs_ffi: opção desconhecida %q", it.P)
 		}
 	}
-	return out, nil
+	return out, done, nil
 }
 
-func opts33(raw json.RawMessage) ([]p_options.RoutingFindProvidersOption, error) {
+func opts35(raw json.RawMessage) (out []p_options.RoutingFindProvidersOption, done func(), err error) {
+	var dones []func()
+	done = func() {
+		for _, d := range dones {
+			d()
+		}
+	}
+	defer func() {
+		if err != nil {
+			done()
+		}
+	}()
 	var items []struct {
 		P string
 		A []json.RawMessage
 	}
 	if err := json.Unmarshal(raw, &items); err != nil {
-		return nil, err
+		return nil, done, err
 	}
-	out := make([]p_options.RoutingFindProvidersOption, 0, len(items))
+	out = make([]p_options.RoutingFindProvidersOption, 0, len(items))
 	for _, it := range items {
 		switch it.P {
 		case "Dht.NumProviders":
 			if err := nargs(it.A, 1); err != nil {
-				return nil, fmt.Errorf("%s: %w", it.P, err)
+				return nil, done, fmt.Errorf("%s: %w", it.P, err)
 			}
 			a0, err := jdec[int](it.A[0])
 			if err != nil {
-				return nil, err
+				return nil, done, err
 			}
 			out = append(out, p_options.Dht.NumProviders(a0))
 		case "Put.NumProviders":
 			if err := nargs(it.A, 1); err != nil {
-				return nil, fmt.Errorf("%s: %w", it.P, err)
+				return nil, done, fmt.Errorf("%s: %w", it.P, err)
 			}
 			a0, err := jdec[int](it.A[0])
 			if err != nil {
-				return nil, err
+				return nil, done, err
 			}
 			out = append(out, p_options.Put.NumProviders(a0))
 		case "Routing.NumProviders":
 			if err := nargs(it.A, 1); err != nil {
-				return nil, fmt.Errorf("%s: %w", it.P, err)
+				return nil, done, fmt.Errorf("%s: %w", it.P, err)
 			}
 			a0, err := jdec[int](it.A[0])
 			if err != nil {
-				return nil, err
+				return nil, done, err
 			}
 			out = append(out, p_options.Routing.NumProviders(a0))
 		default:
-			return nil, fmt.Errorf("ipfs_ffi: opção desconhecida %q", it.P)
+			return nil, done, fmt.Errorf("ipfs_ffi: opção desconhecida %q", it.P)
 		}
 	}
-	return out, nil
+	return out, done, nil
 }
 
-func enc34(v p_peer.AddrInfo) any {
+func enc36(v p_peer.AddrInfo) any {
 	return map[string]any{
 		"ID":    encPeerID(v.ID),
-		"Addrs": enc31(v.Addrs),
+		"Addrs": enc33(v.Addrs),
 	}
 }
 
-func enc35(v *p_peer.AddrInfo) any {
+func enc37(v *p_peer.AddrInfo) any {
 	if v == nil {
 		return nil
 	}
-	return enc34(*v)
+	return enc36(*v)
 }
 
-func dec36(raw json.RawMessage) (*p_peer.AddrInfo, error) {
+func dec38(raw json.RawMessage) (*p_peer.AddrInfo, error) {
 	if string(raw) == "null" {
 		return nil, nil
 	}
-	v, err := dec26(raw)
+	v, err := dec28(raw)
 	return &v, err
 }
 
-func opts37(raw json.RawMessage) ([]p_options.NamePublishOption, error) {
+func opts39(raw json.RawMessage) (out []p_options.NamePublishOption, done func(), err error) {
+	var dones []func()
+	done = func() {
+		for _, d := range dones {
+			d()
+		}
+	}
+	defer func() {
+		if err != nil {
+			done()
+		}
+	}()
 	var items []struct {
 		P string
 		A []json.RawMessage
 	}
 	if err := json.Unmarshal(raw, &items); err != nil {
-		return nil, err
+		return nil, done, err
 	}
-	out := make([]p_options.NamePublishOption, 0, len(items))
+	out = make([]p_options.NamePublishOption, 0, len(items))
 	for _, it := range items {
 		switch it.P {
 		case "Name.AllowDelegated":
 			if err := nargs(it.A, 1); err != nil {
-				return nil, fmt.Errorf("%s: %w", it.P, err)
+				return nil, done, fmt.Errorf("%s: %w", it.P, err)
 			}
 			a0, err := jdec[bool](it.A[0])
 			if err != nil {
-				return nil, err
+				return nil, done, err
 			}
 			out = append(out, p_options.Name.AllowDelegated(a0))
 		case "Name.AllowOffline":
 			if err := nargs(it.A, 1); err != nil {
-				return nil, fmt.Errorf("%s: %w", it.P, err)
+				return nil, done, fmt.Errorf("%s: %w", it.P, err)
 			}
 			a0, err := jdec[bool](it.A[0])
 			if err != nil {
-				return nil, err
+				return nil, done, err
 			}
 			out = append(out, p_options.Name.AllowOffline(a0))
 		case "Name.CompatibleWithV1":
 			if err := nargs(it.A, 1); err != nil {
-				return nil, fmt.Errorf("%s: %w", it.P, err)
+				return nil, done, fmt.Errorf("%s: %w", it.P, err)
 			}
 			a0, err := jdec[bool](it.A[0])
 			if err != nil {
-				return nil, err
+				return nil, done, err
 			}
 			out = append(out, p_options.Name.CompatibleWithV1(a0))
 		case "Name.Key":
 			if err := nargs(it.A, 1); err != nil {
-				return nil, fmt.Errorf("%s: %w", it.P, err)
+				return nil, done, fmt.Errorf("%s: %w", it.P, err)
 			}
 			a0, err := jdec[string](it.A[0])
 			if err != nil {
-				return nil, err
+				return nil, done, err
 			}
 			out = append(out, p_options.Name.Key(a0))
 		case "Name.Sequence":
 			if err := nargs(it.A, 1); err != nil {
-				return nil, fmt.Errorf("%s: %w", it.P, err)
+				return nil, done, fmt.Errorf("%s: %w", it.P, err)
 			}
 			a0, err := jdec[uint64](it.A[0])
 			if err != nil {
-				return nil, err
+				return nil, done, err
 			}
 			out = append(out, p_options.Name.Sequence(a0))
 		case "Name.TTL":
 			if err := nargs(it.A, 1); err != nil {
-				return nil, fmt.Errorf("%s: %w", it.P, err)
+				return nil, done, fmt.Errorf("%s: %w", it.P, err)
 			}
 			a0, err := jdec[p_time.Duration](it.A[0])
 			if err != nil {
-				return nil, err
+				return nil, done, err
 			}
 			out = append(out, p_options.Name.TTL(a0))
 		case "Name.ValidTime":
 			if err := nargs(it.A, 1); err != nil {
-				return nil, fmt.Errorf("%s: %w", it.P, err)
+				return nil, done, fmt.Errorf("%s: %w", it.P, err)
 			}
 			a0, err := jdec[p_time.Duration](it.A[0])
 			if err != nil {
-				return nil, err
+				return nil, done, err
 			}
 			out = append(out, p_options.Name.ValidTime(a0))
 		default:
-			return nil, fmt.Errorf("ipfs_ffi: opção desconhecida %q", it.P)
+			return nil, done, fmt.Errorf("ipfs_ffi: opção desconhecida %q", it.P)
 		}
 	}
-	return out, nil
+	return out, done, nil
 }
 
-func opts38(raw json.RawMessage) ([]p_options.NameResolveOption, error) {
+func opts40(raw json.RawMessage) (out []p_options.NameResolveOption, done func(), err error) {
+	var dones []func()
+	done = func() {
+		for _, d := range dones {
+			d()
+		}
+	}
+	defer func() {
+		if err != nil {
+			done()
+		}
+	}()
 	var items []struct {
 		P string
 		A []json.RawMessage
 	}
 	if err := json.Unmarshal(raw, &items); err != nil {
-		return nil, err
+		return nil, done, err
 	}
-	out := make([]p_options.NameResolveOption, 0, len(items))
+	out = make([]p_options.NameResolveOption, 0, len(items))
 	for _, it := range items {
 		switch it.P {
 		case "Name.Cache":
 			if err := nargs(it.A, 1); err != nil {
-				return nil, fmt.Errorf("%s: %w", it.P, err)
+				return nil, done, fmt.Errorf("%s: %w", it.P, err)
 			}
 			a0, err := jdec[bool](it.A[0])
 			if err != nil {
-				return nil, err
+				return nil, done, err
 			}
 			out = append(out, p_options.Name.Cache(a0))
 		case "Name.ResolveOption":
 			if err := nargs(it.A, 1); err != nil {
-				return nil, fmt.Errorf("%s: %w", it.P, err)
+				return nil, done, fmt.Errorf("%s: %w", it.P, err)
 			}
 			a0, err := hdec[p_namesys.ResolveOption](it.A[0])
 			if err != nil {
-				return nil, err
+				return nil, done, err
 			}
 			out = append(out, p_options.Name.ResolveOption(a0))
 		default:
-			return nil, fmt.Errorf("ipfs_ffi: opção desconhecida %q", it.P)
+			return nil, done, fmt.Errorf("ipfs_ffi: opção desconhecida %q", it.P)
 		}
 	}
-	return out, nil
+	return out, done, nil
 }
 
-func enc39(v p_iface.IpnsResult) any {
+func enc41(v p_iface.IpnsResult) any {
 	return map[string]any{
 		"Path": encPath(v.Path),
 		"Err":  encErr(v.Err),
 	}
 }
 
-func opts40(raw json.RawMessage) ([]p_options.KeyRenameOption, error) {
+func opts42(raw json.RawMessage) (out []p_options.KeyRenameOption, done func(), err error) {
+	var dones []func()
+	done = func() {
+		for _, d := range dones {
+			d()
+		}
+	}
+	defer func() {
+		if err != nil {
+			done()
+		}
+	}()
 	var items []struct {
 		P string
 		A []json.RawMessage
 	}
 	if err := json.Unmarshal(raw, &items); err != nil {
-		return nil, err
+		return nil, done, err
 	}
-	out := make([]p_options.KeyRenameOption, 0, len(items))
+	out = make([]p_options.KeyRenameOption, 0, len(items))
 	for _, it := range items {
 		switch it.P {
 		case "Key.Force":
 			if err := nargs(it.A, 1); err != nil {
-				return nil, fmt.Errorf("%s: %w", it.P, err)
+				return nil, done, fmt.Errorf("%s: %w", it.P, err)
 			}
 			a0, err := jdec[bool](it.A[0])
 			if err != nil {
-				return nil, err
+				return nil, done, err
 			}
 			out = append(out, p_options.Key.Force(a0))
 		default:
-			return nil, fmt.Errorf("ipfs_ffi: opção desconhecida %q", it.P)
+			return nil, done, fmt.Errorf("ipfs_ffi: opção desconhecida %q", it.P)
 		}
 	}
-	return out, nil
+	return out, done, nil
 }
 
-func enc41(v []p_iface.Key) any {
+func enc43(v []p_iface.Key) any {
 	out := make([]any, len(v))
 	for i, e := range v {
-		out[i] = enc25(e)
+		out[i] = enc27(e)
 	}
 	return out
 }
 
-func enc42(v map[p_peer.ID][]p_multiaddr.Multiaddr) any {
+func enc44(v map[p_peer.ID][]p_multiaddr.Multiaddr) any {
 	out := make(map[string]any, len(v))
 	for k, e := range v {
-		out[keyStr(encPeerID(k))] = enc31(e)
+		out[keyStr(encPeerID(k))] = enc33(e)
 	}
 	return out
 }
 
-func dec43(raw json.RawMessage) ([]p_cid.Cid, error) {
+func dec45(raw json.RawMessage) ([]p_cid.Cid, error) {
 	var rs []json.RawMessage
 	if err := json.Unmarshal(raw, &rs); err != nil {
 		return nil, err
@@ -3147,21 +3370,21 @@ func dec43(raw json.RawMessage) ([]p_cid.Cid, error) {
 	return out, nil
 }
 
-func enc45(v p_format.NodeOption) any {
+func enc47(v p_format.NodeOption) any {
 	return map[string]any{
 		"Node": henc(v.Node),
 		"Err":  encErr(v.Err),
 	}
 }
 
-func enc44(v *p_format.NodeOption) any {
+func enc46(v *p_format.NodeOption) any {
 	if v == nil {
 		return nil
 	}
-	return enc45(*v)
+	return enc47(*v)
 }
 
-func dec46(raw json.RawMessage) ([]p_format.Node, error) {
+func dec48(raw json.RawMessage) ([]p_format.Node, error) {
 	var rs []json.RawMessage
 	if err := json.Unmarshal(raw, &rs); err != nil {
 		return nil, err
@@ -3177,7 +3400,7 @@ func dec46(raw json.RawMessage) ([]p_format.Node, error) {
 	return out, nil
 }
 
-func enc49(v p_format.Link) any {
+func enc51(v p_format.Link) any {
 	return map[string]any{
 		"Name": v.Name,
 		"Size": v.Size,
@@ -3185,22 +3408,22 @@ func enc49(v p_format.Link) any {
 	}
 }
 
-func enc48(v *p_format.Link) any {
+func enc50(v *p_format.Link) any {
 	if v == nil {
 		return nil
 	}
-	return enc49(*v)
+	return enc51(*v)
 }
 
-func enc47(v []*p_format.Link) any {
+func enc49(v []*p_format.Link) any {
 	out := make([]any, len(v))
 	for i, e := range v {
-		out[i] = enc48(e)
+		out[i] = enc50(e)
 	}
 	return out
 }
 
-func enc51(v p_format.NodeStat) any {
+func enc53(v p_format.NodeStat) any {
 	return map[string]any{
 		"Hash":           v.Hash,
 		"NumLinks":       v.NumLinks,
@@ -3211,9 +3434,9 @@ func enc51(v p_format.NodeStat) any {
 	}
 }
 
-func enc50(v *p_format.NodeStat) any {
+func enc52(v *p_format.NodeStat) any {
 	if v == nil {
 		return nil
 	}
-	return enc51(*v)
+	return enc53(*v)
 }

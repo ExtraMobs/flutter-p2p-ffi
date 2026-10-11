@@ -1,7 +1,9 @@
 // A API gerada (go/gen) na ordem em que o kubo monta um nó: plugins →
 // identidade e config → fsrepo.Init/Open → core.NewNode → CoreAPI → Unixfs
 // (M1) → pins, blocos e GC (M2).
+import 'dart:async';
 import 'dart:convert';
+import 'dart:typed_data';
 import 'dart:io' show Directory, File;
 
 import 'package:ipfs_ffi/boxo/files.dart' as files;
@@ -392,6 +394,62 @@ void main() {
       await expectLater(dag.put(api, ctx, big), throwsA(isA<IpfsException>()));
       expect((await dag.put(api, ctx, big, allowBigBlock: true)).value,
           startsWith('bafyrei'));
+    });
+  });
+
+  // F3: progresso do add (options.unixfs.events + progress)
+  group('progresso do add', () {
+    test('4 MiB com progress: bytes crescentes, último com o path', () async {
+      final data = Uint8List.fromList(List.generate(4 << 20, (i) => i * 13));
+      final events = StreamController<iface.AddEvent>();
+      final got = <iface.AddEvent>[];
+      var closed = false;
+      events.stream.listen(got.add, onDone: () => closed = true);
+
+      final p = await api.unixfs().add(ctx, files.newBytesFile(data), [
+        options.unixfs.events(events.sink),
+        options.unixfs.progress(true),
+      ]);
+      expect(closed, isTrue, reason: 'o sink fecha antes do Future completar');
+
+      final progress = [
+        for (final e in got)
+          if (e.path == null) e.bytes
+      ];
+      expect(progress, isNotEmpty);
+      expect(progress, orderedEquals([...progress]..sort()));
+      expect(progress.last, data.length);
+      expect(got.last.path?.value, p.value);
+    });
+
+    test('diretório sem progress: um evento por arquivo', () async {
+      final dir = Directory('${tmp.path}/ev')..createSync();
+      File('${dir.path}/x.txt').writeAsStringSync('x');
+      File('${dir.path}/y.txt').writeAsStringSync('yy');
+      final events = StreamController<iface.AddEvent>();
+      final names = events.stream.map((e) => e.name).toList();
+      final root = await api.unixfs().add(
+          ctx,
+          files.newSerialFile(dir.path, false, os.stat(dir.path)),
+          [options.unixfs.events(events.sink)]);
+      // nomes relativos à raiz ('' = o próprio diretório); o `ipfs add` do CLI
+      // mostra 'ev/x.txt' porque embrulha a pasta num diretório com o nome dela
+      expect(await names, containsAll(['x.txt', 'y.txt', '']));
+      expect(root.value, startsWith('/ipfs/'));
+    });
+
+    test('context cancelado: o Future falha e o sink fecha', () async {
+      final (c, cancel) = context.withCancel(context.background());
+      cancel();
+      final events = StreamController<iface.AddEvent>();
+      final done = events.stream.toList();
+      await expectLater(
+          api.unixfs().add(c, files.newBytesFile(Uint8List(1 << 20)), [
+            options.unixfs.events(events.sink),
+            options.unixfs.progress(true)
+          ]),
+          throwsA(isA<IpfsException>()));
+      await done.timeout(const Duration(seconds: 5));
     });
   });
 }

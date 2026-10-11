@@ -32,7 +32,9 @@ await n.close();
 Exemplos, na ordem em que o kubo monta um nó:
 
 1. `dart run example/01_init_repo.dart [repo]`: `ipfs init` (plugins, identidade, config, repo);
-2. `dart run example/02_add_get.dart [repo] [arquivo-ou-pasta]`: nó sem HTTP, `add`/`get`/`ls`;
+2. `dart run example/02_add_get.dart [repo] [arquivo-ou-pasta]`: nó sem HTTP, `add`/`get`/`ls`,
+   com o progresso do `add` (`options.unixfs.events(controller.sink)` + `progress(true)`:
+   eventos `AddEvent` com os `bytes` de cada arquivo e, no fim, o `path`);
 3. `dart run example/03_pins_gc.dart [repo]`: pins, blocos crus e GC (`ipfs pin`,
    `ipfs block`, `ipfs repo gc`). A CoreAPI não pina por padrão: passe
    `options.unixfs.pin(true, nome)` no `add` (o `ipfs add` do CLI faz isso);
@@ -94,8 +96,7 @@ e `dart test`. O gerador produz exatamente os mesmos arquivos nos dois sistemas.
 linux o QUIC pede um buffer UDP maior (aviso do quic-go, não erro):
 `sudo sysctl -w net.core.rmem_max=7500000 net.core.wmem_max=7500000`.
 
-Roteiro: progresso do `add`,
-crash report e exports diretos; marco final: Android (ver [`TODO.md`](TODO.md)).
+Roteiro: crash report e exports diretos; marco final: Android (ver [`TODO.md`](TODO.md)).
 
 Limites: os plugins do kubo são injetados uma vez por processo; um panic em
 goroutine interna do kubo (fora da chamada) ainda derruba o processo.

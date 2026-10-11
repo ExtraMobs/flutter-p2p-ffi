@@ -71,10 +71,16 @@ final _native = _Native(DynamicLibrary.open(ipfsLibraryPath));
 const _sync = 0, _async = 1, _streamMode = 2;
 const _evValue = 0, _evItem = 1, _evEnd = 2, _evError = 3;
 
-/// Chamada pendente desta isolate: o Completer ou StreamController, os
-/// argumentos (mantêm os handles vivos até o Go terminar) e os buffers C dos
-/// bytes enviados (o Go os lê na goroutine; soltos no fim).
-typedef _Pending = (Object sink, List<Object?> args, List<Pointer<Uint8>> bufs);
+/// Chamada pendente desta isolate: o Completer, StreamController ou GoSink,
+/// os argumentos (mantêm os handles vivos até o Go terminar), os buffers C dos
+/// bytes enviados (o Go os lê na goroutine; soltos no fim) e os sinks que a
+/// chamada registrou (fechados no fim, se o Go não os usou).
+typedef _Pending = (
+  Object sink,
+  List<Object?> args,
+  List<Pointer<Uint8>> bufs,
+  List<int> sinks,
+);
 
 final _pending = <int, _Pending>{};
 var _nextId = 0;
@@ -84,29 +90,50 @@ final _listener = NativeCallable<_CbNative>.listener(_onEvent)
 
 void _onEvent(int id, int kind, Pointer<Uint8> data) {
   final text = _native.take(data);
-  final (sink, _, bufs) = _pending[id]!;
+  final entry = _pending[id];
+  if (entry == null) return; // sink já fechado pelo fim da chamada
+  final (sink, _, bufs, sinks) = entry;
   switch ((kind, sink)) {
     case (_evValue, Completer<Object?> c):
       c.complete(jsonDecode(text));
     case (_evItem, StreamController<Object?> s):
       s.add(jsonDecode(text));
       return;
+    case (_evItem, GoSink<Object?> s):
+      s._add(jsonDecode(text));
+      return;
     case (_evEnd, StreamController<Object?> s):
       s.close();
+    case (_evEnd, GoSink<Object?> s):
+      s.sink.close();
     case (_evError, Completer<Object?> c):
       c.completeError(IpfsException(text));
     case (_evError, StreamController<Object?> s):
       s
         ..addError(IpfsException(text))
         ..close();
+    case (_evError, GoSink<Object?> s):
+      s.sink
+        ..addError(IpfsException(text))
+        ..close();
   }
+  _finish(id, bufs, sinks);
+}
+
+void _finish(int id, List<Pointer<Uint8>> bufs, List<int> sinks) {
   _pending.remove(id);
   _freeAll(bufs);
+  for (final s in sinks) {
+    if (_pending.remove(s)?.$1 case final GoSink<Object?> sink) {
+      sink.sink.close(); // o Go não chegou a usar o canal
+    }
+  }
   if (_pending.isEmpty) _listener.keepIsolateAlive = false;
 }
 
-/// Buffers C dos bytes da chamada sendo codificada (preenchido por $enc).
+/// Buffers C e sinks da chamada sendo codificada (preenchidos por $enc).
 List<Pointer<Uint8>>? _bufs;
+List<int>? _sinks;
 
 void _freeAll(List<Pointer<Uint8>> bufs) {
   for (final p in bufs) {
@@ -114,26 +141,32 @@ void _freeAll(List<Pointer<Uint8>> bufs) {
   }
 }
 
-/// Codifica os argumentos (bytes vão para buffers C) e chama o Go. Devolve a
-/// resposta síncrona (ou NULL) e os buffers, que o chamador solta.
-(Pointer<Uint8>, List<Pointer<Uint8>>) _start(
+/// Codifica os argumentos (bytes vão para buffers C, sinks são registrados) e
+/// chama o Go. Devolve a resposta síncrona (ou NULL), os buffers e os sinks.
+(Pointer<Uint8>, List<Pointer<Uint8>>, List<int>) _start(
     String fn, List<Object?> args, int mode, int id) {
   final bufs = _bufs = [];
+  final sinks = _sinks = [];
   final String json;
   try {
     json = jsonEncode($enc(args));
   } catch (_) {
     _freeAll(bufs);
+    for (final s in sinks) {
+      _pending.remove(s);
+    }
     rethrow;
   } finally {
     _bufs = null;
+    _sinks = null;
   }
   final name = _native.cstr(fn);
   final cjson = _native.cstr(json);
   try {
     return (
       _native.call(name, cjson, mode, _listener.nativeFunction, id),
-      bufs
+      bufs,
+      sinks
     );
   } finally {
     _native
@@ -150,8 +183,8 @@ List<Object?>? _keep;
 /// Chamada síncrona: bloqueia a isolate até o Go responder.
 Object? $callSync(String fn, List<Object?> args) {
   _keep = args;
-  final (reply, bufs) = _start(fn, args, _sync, 0);
-  _freeAll(bufs); // o Go já copiou
+  final (reply, bufs, sinks) = _start(fn, args, _sync, 0);
+  _finish(0, bufs, sinks); // o Go já copiou os bytes e fechou os canais
   _keep = null;
   final r = jsonDecode(_native.take(reply)) as Map;
   if (r['e'] case final String e) throw IpfsException(e);
@@ -160,21 +193,21 @@ Object? $callSync(String fn, List<Object?> args) {
 
 int _register(Object sink, List<Object?> args) {
   final id = ++_nextId;
-  _pending[id] = (sink, args, const []);
+  _pending[id] = (sink, args, const [], const []);
   _listener.keepIsolateAlive = true;
   return id;
 }
 
-void _attach(int id, List<Pointer<Uint8>> bufs) {
-  final (sink, args, _) = _pending[id]!;
-  _pending[id] = (sink, args, bufs);
+void _attach(int id, (Pointer<Uint8>, List<Pointer<Uint8>>, List<int>) r) {
+  final (sink, args, _, _) = _pending[id]!;
+  _pending[id] = (sink, args, r.$2, r.$3);
 }
 
 /// Chamada assíncrona: o Go roda numa goroutine e responde pelo listener.
 Future<Object?> $call(String fn, List<Object?> args) {
   final c = Completer<Object?>();
   final id = _register(c, args);
-  _attach(id, _start(fn, args, _async, id).$2);
+  _attach(id, _start(fn, args, _async, id));
   return c.future;
 }
 
@@ -182,8 +215,19 @@ Future<Object?> $call(String fn, List<Object?> args) {
 Stream<Object?> $stream(String fn, List<Object?> args) {
   final s = StreamController<Object?>();
   final id = _register(s, args);
-  _attach(id, _start(fn, args, _streamMode, id).$2);
+  _attach(id, _start(fn, args, _streamMode, id));
   return s.stream;
+}
+
+/// Canal `chan<- T` que o Go recebe numa opção (options.Unixfs.Events): os
+/// itens vão para [sink], que é fechado quando a chamada termina.
+final class GoSink<T> {
+  GoSink(this.sink, this.decode);
+
+  final StreamSink<T> sink;
+  final T Function(Object? json) decode;
+
+  void _add(Object? json) => sink.add(decode(json));
 }
 
 /// Objeto que vive no Go: o Dart guarda o handle; o NativeFinalizer o solta.
@@ -245,12 +289,23 @@ Object? $enc(Object? v) => switch (v) {
       GoValue() => v.value,
       GoJson() => v.$toJson(),
       GoOption() => {'P': v.p, 'A': $enc(v.a)},
+      GoSink() => _sinkRef(v),
       DateTime() => v.toUtc().toIso8601String(),
       Duration() => v.inMicroseconds * 1000,
       List() => [for (final e in v) $enc(e)],
       Map() => {for (final e in v.entries) e.key as String: $enc(e.value)},
       _ => throw ArgumentError.value(v, 'v', 'não atravessa a ponte FFI'),
     };
+
+/// O GoSink vira um stream pendente; o Go recebe o id e o listener desta
+/// isolate para mandar os itens.
+Map<String, int> _sinkRef(GoSink<Object?> s) {
+  final sinks =
+      _sinks ?? (throw StateError(r'$enc de GoSink fora de uma chamada'));
+  final id = _register(s, const []);
+  sinks.add(id);
+  return {r'$s': id, r'$cb': _listener.nativeFunction.address};
+}
 
 /// Bytes não vão no JSON: vão {"$p": endereço, "$n": tamanho} de um buffer
 /// C (cópia de memória, sem base64; ver cbuf em go/runtime.go).

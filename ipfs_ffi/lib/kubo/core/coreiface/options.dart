@@ -2,8 +2,11 @@
 // Go: github.com/ipfs/kubo/core/coreiface/options
 library;
 
+import 'dart:async';
+
 import 'package:ipfs_ffi/src/runtime.dart';
 import 'package:ipfs_ffi/boxo/namesys.dart' as $namesys;
+import 'package:ipfs_ffi/kubo/core/coreiface.dart' as $coreiface;
 
 /// Go: `options.ApiOption` (opção funcional; construtores nas variáveis do pacote).
 final class ApiOption extends GoOption {
@@ -314,6 +317,13 @@ final class _Unixfs {
   /// Go: `options.Unixfs.CidVersion`.
   UnixfsAddOption cidVersion(int version) =>
       UnixfsAddOption.$('Unixfs.CidVersion', [version]);
+
+  /// Go: `options.Unixfs.Events`.
+  UnixfsAddOption events(StreamSink<$coreiface.AddEvent> sink) =>
+      UnixfsAddOption.$('Unixfs.Events', [
+        GoSink<$coreiface.AddEvent>(sink,
+            (j) => $coreiface.AddEvent.$fromJson(j as Map<String, Object?>))
+      ]);
 
   /// Go: `options.Unixfs.FsCache`.
   UnixfsAddOption fsCache(bool enable) =>

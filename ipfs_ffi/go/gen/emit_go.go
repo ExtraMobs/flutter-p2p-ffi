@@ -102,7 +102,11 @@ func (g *goEmitter) function(name string, f *fn) string {
 			args = append(args, "ch")
 			continue
 		}
-		fmt.Fprintf(&b, "\t%s, err := %s(a[%d])\n\tif err != nil {\n\t\t%s\n\t}\n", v, g.dec(p.t), n, ret)
+		if p.t.k == kSlice && p.t.elem.k == kOpts { // opções: done fecha os canais delas
+			fmt.Fprintf(&b, "\t%s, done%d, err := %s(a[%d])\n\tdefer done%d()\n\tif err != nil {\n\t\t%s\n\t}\n", v, i, g.dec(p.t), n, i, ret)
+		} else {
+			fmt.Fprintf(&b, "\t%s, err := %s(a[%d])\n\tif err != nil {\n\t\t%s\n\t}\n", v, g.dec(p.t), n, ret)
+		}
 		n++
 		if p.variadic {
 			v += "..."
@@ -294,26 +298,35 @@ func (g *goEmitter) decOpts(t *tinfo) string {
 	return g.helper("opts:"+t.key, "opts", func(name string) string {
 		T := g.ts(t.t)
 		var b strings.Builder
-		fmt.Fprintf(&b, "func %s(raw json.RawMessage) ([]%s, error) {\n", name, T)
-		fmt.Fprintf(&b, "\tvar items []struct {\n\t\tP string\n\t\tA []json.RawMessage\n\t}\n\tif err := json.Unmarshal(raw, &items); err != nil {\n\t\treturn nil, err\n\t}\n")
-		fmt.Fprintf(&b, "\tout := make([]%s, 0, len(items))\n\tfor _, it := range items {\n\t\tswitch it.P {\n", T)
+		// done fecha os canais que as opções criaram (Unixfs.Events): a função
+		// gerada o roda em defer, depois da chamada e antes da resposta.
+		fmt.Fprintf(&b, "func %s(raw json.RawMessage) (out []%s, done func(), err error) {\n", name, T)
+		b.WriteString("\tvar dones []func()\n\tdone = func() {\n\t\tfor _, d := range dones {\n\t\t\td()\n\t\t}\n\t}\n")
+		b.WriteString("\tdefer func() {\n\t\tif err != nil {\n\t\t\tdone()\n\t\t}\n\t}()\n")
+		fmt.Fprintf(&b, "\tvar items []struct {\n\t\tP string\n\t\tA []json.RawMessage\n\t}\n\tif err := json.Unmarshal(raw, &items); err != nil {\n\t\treturn nil, done, err\n\t}\n")
+		fmt.Fprintf(&b, "\tout = make([]%s, 0, len(items))\n\tfor _, it := range items {\n\t\tswitch it.P {\n", T)
 		pkg := g.qual(t.named.Obj().Pkg())
 		for _, c := range usableCtors(t) {
 			p := strings.Join(c.path, ".")
-			fmt.Fprintf(&b, "\t\tcase %q:\n\t\t\tif err := nargs(it.A, %d); err != nil {\n\t\t\t\treturn nil, fmt.Errorf(\"%%s: %%w\", it.P, err)\n\t\t\t}\n", p, len(c.params))
+			fmt.Fprintf(&b, "\t\tcase %q:\n\t\t\tif err := nargs(it.A, %d); err != nil {\n\t\t\t\treturn nil, done, fmt.Errorf(\"%%s: %%w\", it.P, err)\n\t\t\t}\n", p, len(c.params))
 			var args []string
 			for i, pt := range c.params {
-				fmt.Fprintf(&b, "\t\t\ta%d, err := %s(it.A[%d])\n\t\t\tif err != nil {\n\t\t\t\treturn nil, err\n\t\t\t}\n", i, g.dec(pt), i)
+				if pt.k == kChanSend { // canal do chamador: vai ao StreamSink do Dart
+					E := g.ts(pt.elem.t)
+					fmt.Fprintf(&b, "\t\t\ta%d, d%d, err := chanSink[%s](it.A[%d], func(v %s) any { return %s })\n\t\t\tif err != nil {\n\t\t\t\treturn nil, done, err\n\t\t\t}\n\t\t\tdones = append(dones, d%d)\n", i, i, E, i, E, g.enc(pt.elem, "v"), i)
+				} else {
+					fmt.Fprintf(&b, "\t\t\ta%d, err := %s(it.A[%d])\n\t\t\tif err != nil {\n\t\t\t\treturn nil, done, err\n\t\t\t}\n", i, g.dec(pt), i)
+				}
 				args = append(args, fmt.Sprintf("a%d", i))
 			}
 			call := fmt.Sprintf("%s.%s(%s)", pkg, p, strings.Join(args, ", "))
 			if c.hasErr {
-				fmt.Fprintf(&b, "\t\t\to, err := %s\n\t\t\tif err != nil {\n\t\t\t\treturn nil, err\n\t\t\t}\n\t\t\tout = append(out, o)\n", call)
+				fmt.Fprintf(&b, "\t\t\to, err := %s\n\t\t\tif err != nil {\n\t\t\t\treturn nil, done, err\n\t\t\t}\n\t\t\tout = append(out, o)\n", call)
 			} else {
 				fmt.Fprintf(&b, "\t\t\tout = append(out, %s)\n", call)
 			}
 		}
-		b.WriteString("\t\tdefault:\n\t\t\treturn nil, fmt.Errorf(\"ipfs_ffi: opção desconhecida %q\", it.P)\n\t\t}\n\t}\n\treturn out, nil\n}\n")
+		b.WriteString("\t\tdefault:\n\t\t\treturn nil, done, fmt.Errorf(\"ipfs_ffi: opção desconhecida %q\", it.P)\n\t\t}\n\t}\n\treturn out, done, nil\n}\n")
 		return b.String()
 	})
 }

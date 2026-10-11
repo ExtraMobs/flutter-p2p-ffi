@@ -27,6 +27,7 @@ type dartLib struct {
 	classes map[string]*dclass
 	funcs   []*fn
 	bytes   bool // usa Uint8List
+	async   bool // usa StreamSink (dart:async)
 }
 
 type dclass struct {
@@ -327,8 +328,14 @@ func (e *dartEmitter) emitLib(l *dartLib) string {
 	}
 	var b strings.Builder
 	fmt.Fprintf(&b, "// Gerado por ipfs_ffi/go/gen a partir de go/gen/roots.txt; não editar.\n// Go: %s\nlibrary;\n\n", l.goPath)
+	if l.async {
+		b.WriteString("import 'dart:async';\n")
+	}
 	if l.bytes {
-		b.WriteString("import 'dart:typed_data';\n\n")
+		b.WriteString("import 'dart:typed_data';\n")
+	}
+	if l.async || l.bytes {
+		b.WriteString("\n")
 	}
 	if usesRuntime(body.String()) {
 		b.WriteString("import 'package:ipfs_ffi/src/runtime.dart';\n")
@@ -505,6 +512,13 @@ func (e *dartEmitter) holders(l *dartLib, b *strings.Builder) {
 				pn := memberName(c.pnames[i])
 				if pn == "" || pn == "_" {
 					pn = fmt.Sprintf("arg%d", i)
+				}
+				if p.k == kChanSend { // canal do chamador: StreamSink, registrado pelo runtime
+					l.async = true
+					E := e.dt(p.elem, l)
+					ps = append(ps, "StreamSink<"+E+"> "+pn)
+					as = append(as, fmt.Sprintf("GoSink<%s>(%s, (j) => %s)", E, pn, e.dd(p.elem, "j", l, 0)))
+					continue
 				}
 				ps = append(ps, e.dt(p, l)+" "+pn)
 				as = append(as, pn)

@@ -344,14 +344,39 @@ func (m *model) optCtors(pkg *types.Package, optKey string) []optCtor {
 		scope := pkg.Scope()
 		for _, name := range scope.Names() {
 			if v, ok := scope.Lookup(name).(*types.Var); ok && v.Exported() {
-				m.walkOpts(byType, []string{name}, v.Type(), 0)
+				m.walkOpts(pkg, byType, []string{name}, v.Type(), 0)
 			}
 		}
 	}
 	return byType[optKey]
 }
 
-func (m *model) walkOpts(byType map[string][]optCtor, path []string, t types.Type, depth int) {
+// chanElem: o tipo real dos itens de um canal `chan<- any` passado numa opção
+// (o kubo documenta o que envia; o tipo Go não diz).
+var chanElem = map[string][2]string{
+	"github.com/ipfs/kubo/core/coreiface/options.Unixfs.Events": {"github.com/ipfs/kubo/core/coreiface", "AddEvent"},
+}
+
+// sinkParam: parâmetro `chan<- T` de construtor de opção vira, no Dart, um
+// StreamSink; os itens têm o tipo de chanElem quando o canal é de `any`.
+func (m *model) sinkParam(ctorKey string, ch *types.Chan) *tinfo {
+	ti := &tinfo{k: kChanSend, t: ch, key: "sink:" + ctorKey}
+	elem := ch.Elem()
+	if e, ok := chanElem[ctorKey]; ok {
+		if p := m.load(e[0]); p != nil {
+			if tn, ok := p.Scope().Lookup(e[1]).(*types.TypeName); ok {
+				elem = types.NewPointer(tn.Type())
+			}
+		}
+	}
+	ti.elem = m.classify(elem)
+	if !okElem(ti.elem) {
+		unsupported(ti, "canal de %s", describe(ti.elem))
+	}
+	return ti
+}
+
+func (m *model) walkOpts(pkg *types.Package, byType map[string][]optCtor, path []string, t types.Type, depth int) {
 	ms := types.NewMethodSet(t)
 	for i := 0; i < ms.Len(); i++ {
 		f := ms.At(i).Obj().(*types.Func)
@@ -373,7 +398,11 @@ func (m *model) walkOpts(byType map[string][]optCtor, path []string, t types.Typ
 		c := optCtor{path: append(append([]string{}, path...), f.Name()), hasErr: hasErr}
 		for j := 0; j < sig.Params().Len(); j++ {
 			p := sig.Params().At(j)
-			c.params = append(c.params, m.classify(p.Type()))
+			if ch, ok := p.Type().(*types.Chan); ok && ch.Dir() == types.SendOnly {
+				c.params = append(c.params, m.sinkParam(pkg.Path()+"."+strings.Join(c.path, "."), ch))
+			} else {
+				c.params = append(c.params, m.classify(p.Type()))
+			}
 			c.pnames = append(c.pnames, p.Name())
 		}
 		k := objKey(rn.Obj())
@@ -382,7 +411,7 @@ func (m *model) walkOpts(byType map[string][]optCtor, path []string, t types.Typ
 	if s, ok := t.Underlying().(*types.Struct); ok && depth < 2 {
 		for i := 0; i < s.NumFields(); i++ {
 			if f := s.Field(i); f.Exported() {
-				m.walkOpts(byType, append(append([]string{}, path...), f.Name()), f.Type(), depth+1)
+				m.walkOpts(pkg, byType, append(append([]string{}, path...), f.Name()), f.Type(), depth+1)
 			}
 		}
 	}
@@ -392,7 +421,7 @@ func (m *model) walkOpts(byType map[string][]optCtor, path []string, t types.Typ
 func okOptCtor(c optCtor) (bool, string) {
 	for i, p := range c.params {
 		switch p.k {
-		case kBasic, kBytes, kValue, kSlice, kMap, kHandle:
+		case kBasic, kBytes, kValue, kSlice, kMap, kHandle, kChanSend:
 		default:
 			why := p.why
 			if why == "" {
