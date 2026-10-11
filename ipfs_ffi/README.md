@@ -71,5 +71,8 @@ Exemplos, na ordem em que o kubo monta um nó:
   desatualizados.
 - Testes: `dart test` nesta pasta.
 
+Roteiro: linux (WSL), IPNS/chaves/Dag (inclusive DAG-CBOR/JSON), progresso do `add`,
+crash report e exports diretos; marco final: Android (ver [`TODO.md`](TODO.md)).
+
 Limites: os plugins do kubo são injetados uma vez por processo; um panic em
 goroutine interna do kubo (fora da chamada) ainda derruba o processo.

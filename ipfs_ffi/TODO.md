@@ -26,3 +26,21 @@ e responder sem JSON quando o resultado for simples.
 
 **Quando.** Só se um uso real mostrar chamadas pequenas e repetidas pesando (medir
 antes e depois com o mesmo cenário acima).
+
+## Marco final: Android
+
+Objetivo de longo prazo do dono: o mesmo nó mínimo rodando num app Android. A API
+Dart gerada não muda; muda só o build e o empacotamento da lib nativa. Fica depois do
+linux (F1) e das fases F2–F4 do roteiro.
+
+- **Build**: `GOOS=android`, `CGO_ENABLED=1`, `-buildmode=c-shared`, com o clang do
+  NDK de cada ABI (`aarch64-linux-android<api>-clang` etc.) → uma `libipfs.so` por ABI
+  (`arm64-v8a`, `armeabi-v7a`, `x86_64`). Novo alvo `tool/build.dart android`.
+- **Empacotamento**: pelo hook de native assets do Dart (`hook/build.dart`) ou por
+  `jniLibs/<abi>/libipfs.so` no app; no Dart, `ipfsLibraryPath = 'libipfs.so'` (sem
+  caminho: o loader do Android acha a lib do APK).
+- **Execução**: repo no diretório de dados do app; permissão de rede; perfil
+  `lowpower` (ou `randomports`); fechar o nó (`close`) quando o app vai para
+  background e reabrir na volta.
+- **A validar lá**: tamanho da `.so` (~57 MB no Windows hoje), consumo de bateria e de
+  dados, NAT de rede móvel, tempo de subida do nó.
