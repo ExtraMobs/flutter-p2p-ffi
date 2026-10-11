@@ -70,3 +70,41 @@ github.com/ipfs/kubo/core/coreiface.RoutingAPI.FindProviders
 github.com/ipfs/kubo/core/coreiface.RoutingAPI.FindPeer
 github.com/libp2p/go-libp2p/core/peer.AddrInfoFromString
 github.com/libp2p/go-libp2p/core/peer.AddrInfoToP2pAddrs
+
+# F2a IPNS e chaves (ipfs name, ipfs key)
+github.com/ipfs/kubo/core/coreiface.CoreAPI.Name
+github.com/ipfs/kubo/core/coreiface.NameAPI.Publish
+github.com/ipfs/kubo/core/coreiface.NameAPI.Resolve
+github.com/ipfs/kubo/core/coreiface.NameAPI.Search
+github.com/ipfs/kubo/core/coreiface.KeyAPI.Generate
+github.com/ipfs/kubo/core/coreiface.KeyAPI.Rename
+github.com/ipfs/kubo/core/coreiface.KeyAPI.List
+github.com/ipfs/kubo/core/coreiface.KeyAPI.Remove
+github.com/ipfs/kubo/core/coreiface.KeyAPI.Sign
+github.com/ipfs/kubo/core/coreiface.KeyAPI.Verify
+
+# F2b endereços conhecidos (ipfs swarm addrs)
+github.com/ipfs/kubo/core/coreiface.SwarmAPI.KnownAddrs
+
+# F2c Dag sobre merkledag (ipfs dag, nós raw e dag-pb)
+github.com/ipfs/kubo/core/coreiface.CoreAPI.Dag
+github.com/ipfs/kubo/core/coreiface.CoreAPI.ResolveNode
+github.com/ipfs/kubo/core/coreiface.APIDagService.Get
+github.com/ipfs/kubo/core/coreiface.APIDagService.GetMany
+github.com/ipfs/kubo/core/coreiface.APIDagService.Add
+github.com/ipfs/kubo/core/coreiface.APIDagService.AddMany
+github.com/ipfs/kubo/core/coreiface.APIDagService.Remove
+github.com/ipfs/kubo/core/coreiface.APIDagService.RemoveMany
+github.com/ipfs/kubo/core/coreiface.APIDagService.Pinning
+github.com/ipfs/go-ipld-format.NodeAdder.Add
+github.com/ipfs/go-ipld-format.NodeAdder.AddMany
+github.com/ipfs/go-ipld-format.Node.Cid
+github.com/ipfs/go-ipld-format.Node.RawData
+github.com/ipfs/go-ipld-format.Node.Links
+github.com/ipfs/go-ipld-format.Node.Size
+github.com/ipfs/go-ipld-format.Node.Stat
+github.com/ipfs/boxo/ipld/merkledag.NewRawNode
+github.com/ipfs/boxo/ipld/merkledag.NodeWithData
+github.com/ipfs/boxo/ipld/merkledag.ProtoNode.AddNodeLink
+github.com/ipfs/boxo/ipld/merkledag.ProtoNode.SetData
+github.com/ipfs/boxo/ipld/merkledag.ProtoNode.Data

@@ -24,6 +24,7 @@ import (
 	"time"
 	"unsafe"
 
+	"github.com/ipfs/boxo/ipns"
 	"github.com/ipfs/boxo/path"
 	"github.com/ipfs/go-cid"
 	"github.com/ipfs/kubo/config"
@@ -317,6 +318,33 @@ func encTime(t time.Time) any {
 		return nil
 	}
 	return t.UTC().Format(time.RFC3339Nano)
+}
+
+func decIpnsName(raw json.RawMessage) (ipns.Name, error) {
+	s, err := jdec[string](raw)
+	if err != nil || s == "" {
+		return ipns.Name{}, err
+	}
+	return ipns.NameFromString(s)
+}
+
+func encIpnsName(n ipns.Name) any {
+	if n == (ipns.Name{}) {
+		return nil
+	}
+	return n.String()
+}
+
+// Mapa com chave tipo-valor (map[peer.ID]...): a chave do JSON é a string do
+// conversor.
+func quoteRaw(s string) json.RawMessage {
+	b, _ := json.Marshal(s)
+	return b
+}
+
+func keyStr(v any) string {
+	s, _ := v.(string)
+	return s
 }
 
 // config.Config atravessa no JSON do próprio kubo (o do arquivo config).

@@ -43,7 +43,11 @@ Exemplos, na ordem em que o kubo monta um nó:
 5. `dart run example/05_two_nodes.dart`: dois nós no mesmo processo; B conecta em A
    (`swarm().connect`), acha A como provedor (`routing().findProviders`) e lê por
    bitswap. O `routing().provide` do kubo 0.43 só enfileira o anúncio: quem busca
-   logo em seguida pode precisar repetir.
+   logo em seguida pode precisar repetir;
+6. `dart run example/06_ipns_dag.dart [repo]`: IPNS (`name().publish/resolve`), chaves
+   (`key().generate/sign/verify`), nós IPLD dag-pb/raw (`merkledag`, `dag().add/get`) e
+   DAG-CBOR/JSON (`package:ipfs_ffi/kubo/core/commands/dag.dart`: `dag.put`/`dag.get`,
+   o `ipfs dag put/get` portado à mão, com caminho dentro do nó e links).
 
 ## Como o Go vira Dart
 
@@ -90,7 +94,7 @@ e `dart test`. O gerador produz exatamente os mesmos arquivos nos dois sistemas.
 linux o QUIC pede um buffer UDP maior (aviso do quic-go, não erro):
 `sudo sysctl -w net.core.rmem_max=7500000 net.core.wmem_max=7500000`.
 
-Roteiro: linux (WSL), IPNS/chaves/Dag (inclusive DAG-CBOR/JSON), progresso do `add`,
+Roteiro: progresso do `add`,
 crash report e exports diretos; marco final: Android (ver [`TODO.md`](TODO.md)).
 
 Limites: os plugins do kubo são injetados uma vez por processo; um panic em

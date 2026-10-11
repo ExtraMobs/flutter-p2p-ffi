@@ -9,7 +9,9 @@ import 'package:ipfs_ffi/boxo/path.dart' as path;
 import 'package:ipfs_ffi/context.dart' as context;
 import 'package:ipfs_ffi/io.dart' as io;
 import 'package:ipfs_ffi/ipfs_ffi.dart' show IpfsException;
+import 'package:ipfs_ffi/boxo/ipld/merkledag.dart' as merkledag;
 import 'package:ipfs_ffi/kubo/config.dart' as config;
+import 'package:ipfs_ffi/kubo/core/commands/dag.dart' as dag;
 import 'package:ipfs_ffi/kubo/core.dart' as core;
 import 'package:ipfs_ffi/kubo/core/coreapi.dart' as coreapi;
 import 'package:ipfs_ffi/kubo/core/coreiface.dart' as iface;
@@ -225,6 +227,9 @@ void main() {
       await b.swarm().connect(ctx, peer.AddrInfo(id: idA, addrs: addrs));
       final peers = await b.swarm().peers(ctx);
       expect([for (final p in peers) p.id], contains(idA));
+      // F2: ipfs swarm addrs (mapa com chave peer.ID)
+      final known = await b.swarm().knownAddrs(ctx);
+      expect(known[idA], isNotEmpty);
 
       // o mesmo AddrInfo pelo formato texto /ip4/.../p2p/<id>
       final p2p = peer.addrInfoToP2pAddrs(peer.AddrInfo(id: idA, addrs: addrs));
@@ -280,6 +285,113 @@ void main() {
       await b.swarm().disconnect(ctx, p2p.first);
       final peers = await b.swarm().peers(ctx);
       expect([for (final p in peers) p.id], isNot(contains(idA)));
+    });
+  });
+
+  // F2: IPNS, chaves, Dag (merkledag) e DAG-CBOR/JSON, no nó offline
+  group('IPNS e chaves', () {
+    test('publish e resolve (offline, chave do nó)', () async {
+      final p = await api.unixfs().add(
+          ctx,
+          files.newBytesFile(utf8.encode('ipns ${DateTime.now()}')),
+          [options.unixfs.pin(true, '')]);
+      final name =
+          await api.name().publish(ctx, p, [options.name.allowOffline(true)]);
+      expect(name.value, startsWith('k51'));
+      final resolved = await api
+          .name()
+          .resolve(ctx, '/ipns/$name', [options.name.cache(false)]);
+      expect(resolved.value, p.value);
+      final found = await api.name().search(ctx, '/ipns/$name').toList();
+      expect([for (final r in found) r.path?.value], contains(p.value));
+    });
+
+    test('generate, list, rename, sign, verify e remove', () async {
+      final k =
+          await api.key().generate(ctx, 'k1', [options.key.type('ed25519')]);
+      expect(k.name, 'k1');
+      expect([for (final k in await api.key().list(ctx)) k.name],
+          containsAll(['self', 'k1']));
+      final (renamed, overwritten) = await api.key().rename(ctx, 'k1', 'k2');
+      expect((renamed.name, overwritten), ('k2', false));
+
+      final data = utf8.encode('assinado');
+      final (signer, sig) = await api.key().sign(ctx, 'k2', data);
+      expect(signer.id, k.id);
+      expect((await api.key().verify(ctx, 'k2', sig, data)).$2, isTrue);
+      expect((await api.key().verify(ctx, 'k2', sig, utf8.encode('outro'))).$2,
+          isFalse);
+      expect((await api.key().remove(ctx, 'k2')).id, k.id);
+    });
+  });
+
+  group('Dag', () {
+    test('nós raw e dag-pb: add, get, links, stat, getMany e remove', () async {
+      final raw = merkledag.RawNode(utf8.encode('folha'));
+      await api.dag().add(ctx, raw);
+      final got = await api.dag().get(ctx, raw.cid());
+      expect(utf8.decode(got.rawData()), 'folha');
+
+      final pn = merkledag.nodeWithData(utf8.encode('raiz'));
+      pn.addNodeLink('filho', raw);
+      await api.dag().pinning().add(ctx, pn);
+      expect(utf8.decode(pn.data()), 'raiz');
+      final links = pn.links();
+      expect([for (final l in links) (l.name, l.cid)], [('filho', raw.cid())]);
+      expect(pn.stat().numLinks, 1);
+      expect((await api.pin().isPinned(ctx, path.Path('/ipfs/${pn.cid()}'))).$2,
+          isTrue);
+
+      final many = await api.dag().getMany(ctx, [raw.cid(), pn.cid()]).toList();
+      expect([for (final o in many) o.err], everyElement(isNull));
+      expect({for (final o in many) o.node!.cid()}, {raw.cid(), pn.cid()});
+
+      final node =
+          await api.resolveNode(ctx, path.Path('/ipfs/${pn.cid()}/filho'));
+      expect(node.cid(), raw.cid());
+
+      await api.dag().remove(ctx, raw.cid());
+      await expectLater(api.block().stat(ctx, path.Path('/ipfs/${raw.cid()}')),
+          throwsA(isA<IpfsException>()));
+    });
+
+    test('dag put/get: DAG-JSON → DAG-CBOR, caminho dentro do nó e link',
+        () async {
+      final c = await dag.put(
+          api, ctx, utf8.encode('{"a": {"b": [1, 2]}, "t": "oi"}'));
+      expect(c.value, startsWith('bafyrei')); // dag-cbor + sha2-256
+      expect(
+          jsonDecode(
+              utf8.decode(await dag.get(api, ctx, path.Path('/ipfs/$c')))),
+          {
+            'a': {
+              'b': [1, 2]
+            },
+            't': 'oi'
+          });
+      expect(
+          jsonDecode(
+              utf8.decode(await dag.get(api, ctx, path.Path('/ipfs/$c/a/b')))),
+          [1, 2]);
+
+      // link IPLD: {"/": cid} em dag-json
+      final c2 =
+          await dag.put(api, ctx, utf8.encode('{"x": {"/": "$c"}}'), pin: true);
+      expect(
+          jsonDecode(
+              utf8.decode(await dag.get(api, ctx, path.Path('/ipfs/$c2/x/t')))),
+          'oi');
+
+      // outro codec de saída: o mesmo nó em dag-cbor tem o próprio CID como hash
+      final cbor = await dag.get(api, ctx, path.Path('/ipfs/$c'),
+          outputCodec: 'dag-cbor');
+      expect(cbor, isNotEmpty);
+
+      // bloco acima de 2 MiB: recusado, como no CLI, salvo allowBigBlock
+      final big = utf8.encode('{"d": "${'x' * (2 * 1024 * 1024 + 1)}"}');
+      await expectLater(dag.put(api, ctx, big), throwsA(isA<IpfsException>()));
+      expect((await dag.put(api, ctx, big, allowBigBlock: true)).value,
+          startsWith('bafyrei'));
     });
   });
 }

@@ -7,7 +7,11 @@ import (
 	"encoding/json"
 	"fmt"
 	p_files "github.com/ipfs/boxo/files"
+	p_merkledag "github.com/ipfs/boxo/ipld/merkledag"
 	p_io "github.com/ipfs/boxo/ipld/unixfs/io"
+	p_namesys "github.com/ipfs/boxo/namesys"
+	p_cid "github.com/ipfs/go-cid"
+	p_format "github.com/ipfs/go-ipld-format"
 	p_config "github.com/ipfs/kubo/config"
 	p_core "github.com/ipfs/kubo/core"
 	p_coreapi "github.com/ipfs/kubo/core/coreapi"
@@ -91,6 +95,38 @@ func init() {
 	reg["github.com/ipfs/kubo/core/coreiface.RoutingAPI.FindPeer"] = entry{call: fn53}
 	reg["github.com/libp2p/go-libp2p/core/peer.AddrInfoFromString"] = entry{call: fn54}
 	reg["github.com/libp2p/go-libp2p/core/peer.AddrInfoToP2pAddrs"] = entry{call: fn55}
+	reg["github.com/ipfs/kubo/core/coreiface.CoreAPI.Name"] = entry{call: fn56}
+	reg["github.com/ipfs/kubo/core/coreiface.NameAPI.Publish"] = entry{call: fn57}
+	reg["github.com/ipfs/kubo/core/coreiface.NameAPI.Resolve"] = entry{call: fn58}
+	reg["github.com/ipfs/kubo/core/coreiface.NameAPI.Search"] = entry{stream: fn59}
+	reg["github.com/ipfs/kubo/core/coreiface.KeyAPI.Generate"] = entry{call: fn60}
+	reg["github.com/ipfs/kubo/core/coreiface.KeyAPI.Rename"] = entry{call: fn61}
+	reg["github.com/ipfs/kubo/core/coreiface.KeyAPI.List"] = entry{call: fn62}
+	reg["github.com/ipfs/kubo/core/coreiface.KeyAPI.Remove"] = entry{call: fn63}
+	reg["github.com/ipfs/kubo/core/coreiface.KeyAPI.Sign"] = entry{call: fn64}
+	reg["github.com/ipfs/kubo/core/coreiface.KeyAPI.Verify"] = entry{call: fn65}
+	reg["github.com/ipfs/kubo/core/coreiface.SwarmAPI.KnownAddrs"] = entry{call: fn66}
+	reg["github.com/ipfs/kubo/core/coreiface.CoreAPI.Dag"] = entry{call: fn67}
+	reg["github.com/ipfs/kubo/core/coreiface.CoreAPI.ResolveNode"] = entry{call: fn68}
+	reg["github.com/ipfs/kubo/core/coreiface.APIDagService.Get"] = entry{call: fn69}
+	reg["github.com/ipfs/kubo/core/coreiface.APIDagService.GetMany"] = entry{stream: fn70}
+	reg["github.com/ipfs/kubo/core/coreiface.APIDagService.Add"] = entry{call: fn71}
+	reg["github.com/ipfs/kubo/core/coreiface.APIDagService.AddMany"] = entry{call: fn72}
+	reg["github.com/ipfs/kubo/core/coreiface.APIDagService.Remove"] = entry{call: fn73}
+	reg["github.com/ipfs/kubo/core/coreiface.APIDagService.RemoveMany"] = entry{call: fn74}
+	reg["github.com/ipfs/kubo/core/coreiface.APIDagService.Pinning"] = entry{call: fn75}
+	reg["github.com/ipfs/go-ipld-format.NodeAdder.Add"] = entry{call: fn76}
+	reg["github.com/ipfs/go-ipld-format.NodeAdder.AddMany"] = entry{call: fn77}
+	reg["github.com/ipfs/go-ipld-format.Node.Cid"] = entry{call: fn78}
+	reg["github.com/ipfs/go-ipld-format.Node.RawData"] = entry{call: fn79}
+	reg["github.com/ipfs/go-ipld-format.Node.Links"] = entry{call: fn80}
+	reg["github.com/ipfs/go-ipld-format.Node.Size"] = entry{call: fn81}
+	reg["github.com/ipfs/go-ipld-format.Node.Stat"] = entry{call: fn82}
+	reg["github.com/ipfs/boxo/ipld/merkledag.NewRawNode"] = entry{call: fn83}
+	reg["github.com/ipfs/boxo/ipld/merkledag.NodeWithData"] = entry{call: fn84}
+	reg["github.com/ipfs/boxo/ipld/merkledag.ProtoNode.AddNodeLink"] = entry{call: fn85}
+	reg["github.com/ipfs/boxo/ipld/merkledag.ProtoNode.SetData"] = entry{call: fn86}
+	reg["github.com/ipfs/boxo/ipld/merkledag.ProtoNode.Data"] = entry{call: fn87}
 }
 
 func nargs(a []json.RawMessage, n int) error {
@@ -1226,6 +1262,683 @@ func fn55(a []json.RawMessage) (any, error) {
 	return enc31(r0), nil
 }
 
+// github.com/ipfs/kubo/core/coreiface.CoreAPI.Name
+func fn56(a []json.RawMessage) (any, error) {
+	if err := nargs(a, 1); err != nil {
+		return nil, err
+	}
+	recv, err := hdec[p_iface.CoreAPI](a[0])
+	if err != nil {
+		return nil, err
+	}
+	r0 := recv.Name()
+	return henc(r0), nil
+}
+
+// github.com/ipfs/kubo/core/coreiface.NameAPI.Publish
+func fn57(a []json.RawMessage) (any, error) {
+	if err := nargs(a, 4); err != nil {
+		return nil, err
+	}
+	recv, err := hdec[p_iface.NameAPI](a[0])
+	if err != nil {
+		return nil, err
+	}
+	p0, err := hdec[p_context.Context](a[1])
+	if err != nil {
+		return nil, err
+	}
+	p1, err := decPath(a[2])
+	if err != nil {
+		return nil, err
+	}
+	p2, err := opts37(a[3])
+	if err != nil {
+		return nil, err
+	}
+	r0, err := recv.Publish(p0, p1, p2...)
+	if err != nil {
+		return nil, err
+	}
+	return encIpnsName(r0), nil
+}
+
+// github.com/ipfs/kubo/core/coreiface.NameAPI.Resolve
+func fn58(a []json.RawMessage) (any, error) {
+	if err := nargs(a, 4); err != nil {
+		return nil, err
+	}
+	recv, err := hdec[p_iface.NameAPI](a[0])
+	if err != nil {
+		return nil, err
+	}
+	p0, err := hdec[p_context.Context](a[1])
+	if err != nil {
+		return nil, err
+	}
+	p1, err := jdec[string](a[2])
+	if err != nil {
+		return nil, err
+	}
+	p2, err := opts38(a[3])
+	if err != nil {
+		return nil, err
+	}
+	r0, err := recv.Resolve(p0, p1, p2...)
+	if err != nil {
+		return nil, err
+	}
+	return encPath(r0), nil
+}
+
+// github.com/ipfs/kubo/core/coreiface.NameAPI.Search
+func fn59(a []json.RawMessage, emit func(any)) error {
+	if err := nargs(a, 4); err != nil {
+		return err
+	}
+	recv, err := hdec[p_iface.NameAPI](a[0])
+	if err != nil {
+		return err
+	}
+	p0, err := hdec[p_context.Context](a[1])
+	if err != nil {
+		return err
+	}
+	p1, err := jdec[string](a[2])
+	if err != nil {
+		return err
+	}
+	p2, err := opts38(a[3])
+	if err != nil {
+		return err
+	}
+	ch, err := recv.Search(p0, p1, p2...)
+	if err != nil {
+		return err
+	}
+	for v := range ch {
+		emit(enc39(v))
+	}
+	return nil
+}
+
+// github.com/ipfs/kubo/core/coreiface.KeyAPI.Generate
+func fn60(a []json.RawMessage) (any, error) {
+	if err := nargs(a, 4); err != nil {
+		return nil, err
+	}
+	recv, err := hdec[p_iface.KeyAPI](a[0])
+	if err != nil {
+		return nil, err
+	}
+	p0, err := hdec[p_context.Context](a[1])
+	if err != nil {
+		return nil, err
+	}
+	p1, err := jdec[string](a[2])
+	if err != nil {
+		return nil, err
+	}
+	p2, err := opts0(a[3])
+	if err != nil {
+		return nil, err
+	}
+	r0, err := recv.Generate(p0, p1, p2...)
+	if err != nil {
+		return nil, err
+	}
+	return enc25(r0), nil
+}
+
+// github.com/ipfs/kubo/core/coreiface.KeyAPI.Rename
+func fn61(a []json.RawMessage) (any, error) {
+	if err := nargs(a, 5); err != nil {
+		return nil, err
+	}
+	recv, err := hdec[p_iface.KeyAPI](a[0])
+	if err != nil {
+		return nil, err
+	}
+	p0, err := hdec[p_context.Context](a[1])
+	if err != nil {
+		return nil, err
+	}
+	p1, err := jdec[string](a[2])
+	if err != nil {
+		return nil, err
+	}
+	p2, err := jdec[string](a[3])
+	if err != nil {
+		return nil, err
+	}
+	p3, err := opts40(a[4])
+	if err != nil {
+		return nil, err
+	}
+	r0, r1, err := recv.Rename(p0, p1, p2, p3...)
+	if err != nil {
+		return nil, err
+	}
+	return []any{enc25(r0), r1}, nil
+}
+
+// github.com/ipfs/kubo/core/coreiface.KeyAPI.List
+func fn62(a []json.RawMessage) (any, error) {
+	if err := nargs(a, 2); err != nil {
+		return nil, err
+	}
+	recv, err := hdec[p_iface.KeyAPI](a[0])
+	if err != nil {
+		return nil, err
+	}
+	p0, err := hdec[p_context.Context](a[1])
+	if err != nil {
+		return nil, err
+	}
+	r0, err := recv.List(p0)
+	if err != nil {
+		return nil, err
+	}
+	return enc41(r0), nil
+}
+
+// github.com/ipfs/kubo/core/coreiface.KeyAPI.Remove
+func fn63(a []json.RawMessage) (any, error) {
+	if err := nargs(a, 3); err != nil {
+		return nil, err
+	}
+	recv, err := hdec[p_iface.KeyAPI](a[0])
+	if err != nil {
+		return nil, err
+	}
+	p0, err := hdec[p_context.Context](a[1])
+	if err != nil {
+		return nil, err
+	}
+	p1, err := jdec[string](a[2])
+	if err != nil {
+		return nil, err
+	}
+	r0, err := recv.Remove(p0, p1)
+	if err != nil {
+		return nil, err
+	}
+	return enc25(r0), nil
+}
+
+// github.com/ipfs/kubo/core/coreiface.KeyAPI.Sign
+func fn64(a []json.RawMessage) (any, error) {
+	if err := nargs(a, 4); err != nil {
+		return nil, err
+	}
+	recv, err := hdec[p_iface.KeyAPI](a[0])
+	if err != nil {
+		return nil, err
+	}
+	p0, err := hdec[p_context.Context](a[1])
+	if err != nil {
+		return nil, err
+	}
+	p1, err := jdec[string](a[2])
+	if err != nil {
+		return nil, err
+	}
+	p2, err := decBytes(a[3])
+	if err != nil {
+		return nil, err
+	}
+	r0, r1, err := recv.Sign(p0, p1, p2)
+	if err != nil {
+		return nil, err
+	}
+	return []any{enc25(r0), encBytes(r1)}, nil
+}
+
+// github.com/ipfs/kubo/core/coreiface.KeyAPI.Verify
+func fn65(a []json.RawMessage) (any, error) {
+	if err := nargs(a, 5); err != nil {
+		return nil, err
+	}
+	recv, err := hdec[p_iface.KeyAPI](a[0])
+	if err != nil {
+		return nil, err
+	}
+	p0, err := hdec[p_context.Context](a[1])
+	if err != nil {
+		return nil, err
+	}
+	p1, err := jdec[string](a[2])
+	if err != nil {
+		return nil, err
+	}
+	p2, err := decBytes(a[3])
+	if err != nil {
+		return nil, err
+	}
+	p3, err := decBytes(a[4])
+	if err != nil {
+		return nil, err
+	}
+	r0, r1, err := recv.Verify(p0, p1, p2, p3)
+	if err != nil {
+		return nil, err
+	}
+	return []any{enc25(r0), r1}, nil
+}
+
+// github.com/ipfs/kubo/core/coreiface.SwarmAPI.KnownAddrs
+func fn66(a []json.RawMessage) (any, error) {
+	if err := nargs(a, 2); err != nil {
+		return nil, err
+	}
+	recv, err := hdec[p_iface.SwarmAPI](a[0])
+	if err != nil {
+		return nil, err
+	}
+	p0, err := hdec[p_context.Context](a[1])
+	if err != nil {
+		return nil, err
+	}
+	r0, err := recv.KnownAddrs(p0)
+	if err != nil {
+		return nil, err
+	}
+	return enc42(r0), nil
+}
+
+// github.com/ipfs/kubo/core/coreiface.CoreAPI.Dag
+func fn67(a []json.RawMessage) (any, error) {
+	if err := nargs(a, 1); err != nil {
+		return nil, err
+	}
+	recv, err := hdec[p_iface.CoreAPI](a[0])
+	if err != nil {
+		return nil, err
+	}
+	r0 := recv.Dag()
+	return henc(r0), nil
+}
+
+// github.com/ipfs/kubo/core/coreiface.CoreAPI.ResolveNode
+func fn68(a []json.RawMessage) (any, error) {
+	if err := nargs(a, 3); err != nil {
+		return nil, err
+	}
+	recv, err := hdec[p_iface.CoreAPI](a[0])
+	if err != nil {
+		return nil, err
+	}
+	p0, err := hdec[p_context.Context](a[1])
+	if err != nil {
+		return nil, err
+	}
+	p1, err := decPath(a[2])
+	if err != nil {
+		return nil, err
+	}
+	r0, err := recv.ResolveNode(p0, p1)
+	if err != nil {
+		return nil, err
+	}
+	return henc(r0), nil
+}
+
+// github.com/ipfs/kubo/core/coreiface.APIDagService.Get
+func fn69(a []json.RawMessage) (any, error) {
+	if err := nargs(a, 3); err != nil {
+		return nil, err
+	}
+	recv, err := hdec[p_iface.APIDagService](a[0])
+	if err != nil {
+		return nil, err
+	}
+	p0, err := hdec[p_context.Context](a[1])
+	if err != nil {
+		return nil, err
+	}
+	p1, err := decCid(a[2])
+	if err != nil {
+		return nil, err
+	}
+	r0, err := recv.Get(p0, p1)
+	if err != nil {
+		return nil, err
+	}
+	return henc(r0), nil
+}
+
+// github.com/ipfs/kubo/core/coreiface.APIDagService.GetMany
+func fn70(a []json.RawMessage, emit func(any)) error {
+	if err := nargs(a, 3); err != nil {
+		return err
+	}
+	recv, err := hdec[p_iface.APIDagService](a[0])
+	if err != nil {
+		return err
+	}
+	p0, err := hdec[p_context.Context](a[1])
+	if err != nil {
+		return err
+	}
+	p1, err := dec43(a[2])
+	if err != nil {
+		return err
+	}
+	ch := recv.GetMany(p0, p1)
+	for v := range ch {
+		emit(enc44(v))
+	}
+	return nil
+}
+
+// github.com/ipfs/kubo/core/coreiface.APIDagService.Add
+func fn71(a []json.RawMessage) (any, error) {
+	if err := nargs(a, 3); err != nil {
+		return nil, err
+	}
+	recv, err := hdec[p_iface.APIDagService](a[0])
+	if err != nil {
+		return nil, err
+	}
+	p0, err := hdec[p_context.Context](a[1])
+	if err != nil {
+		return nil, err
+	}
+	p1, err := hdec[p_format.Node](a[2])
+	if err != nil {
+		return nil, err
+	}
+	err = recv.Add(p0, p1)
+	if err != nil {
+		return nil, err
+	}
+	return nil, nil
+}
+
+// github.com/ipfs/kubo/core/coreiface.APIDagService.AddMany
+func fn72(a []json.RawMessage) (any, error) {
+	if err := nargs(a, 3); err != nil {
+		return nil, err
+	}
+	recv, err := hdec[p_iface.APIDagService](a[0])
+	if err != nil {
+		return nil, err
+	}
+	p0, err := hdec[p_context.Context](a[1])
+	if err != nil {
+		return nil, err
+	}
+	p1, err := dec46(a[2])
+	if err != nil {
+		return nil, err
+	}
+	err = recv.AddMany(p0, p1)
+	if err != nil {
+		return nil, err
+	}
+	return nil, nil
+}
+
+// github.com/ipfs/kubo/core/coreiface.APIDagService.Remove
+func fn73(a []json.RawMessage) (any, error) {
+	if err := nargs(a, 3); err != nil {
+		return nil, err
+	}
+	recv, err := hdec[p_iface.APIDagService](a[0])
+	if err != nil {
+		return nil, err
+	}
+	p0, err := hdec[p_context.Context](a[1])
+	if err != nil {
+		return nil, err
+	}
+	p1, err := decCid(a[2])
+	if err != nil {
+		return nil, err
+	}
+	err = recv.Remove(p0, p1)
+	if err != nil {
+		return nil, err
+	}
+	return nil, nil
+}
+
+// github.com/ipfs/kubo/core/coreiface.APIDagService.RemoveMany
+func fn74(a []json.RawMessage) (any, error) {
+	if err := nargs(a, 3); err != nil {
+		return nil, err
+	}
+	recv, err := hdec[p_iface.APIDagService](a[0])
+	if err != nil {
+		return nil, err
+	}
+	p0, err := hdec[p_context.Context](a[1])
+	if err != nil {
+		return nil, err
+	}
+	p1, err := dec43(a[2])
+	if err != nil {
+		return nil, err
+	}
+	err = recv.RemoveMany(p0, p1)
+	if err != nil {
+		return nil, err
+	}
+	return nil, nil
+}
+
+// github.com/ipfs/kubo/core/coreiface.APIDagService.Pinning
+func fn75(a []json.RawMessage) (any, error) {
+	if err := nargs(a, 1); err != nil {
+		return nil, err
+	}
+	recv, err := hdec[p_iface.APIDagService](a[0])
+	if err != nil {
+		return nil, err
+	}
+	r0 := recv.Pinning()
+	return henc(r0), nil
+}
+
+// github.com/ipfs/go-ipld-format.NodeAdder.Add
+func fn76(a []json.RawMessage) (any, error) {
+	if err := nargs(a, 3); err != nil {
+		return nil, err
+	}
+	recv, err := hdec[p_format.NodeAdder](a[0])
+	if err != nil {
+		return nil, err
+	}
+	p0, err := hdec[p_context.Context](a[1])
+	if err != nil {
+		return nil, err
+	}
+	p1, err := hdec[p_format.Node](a[2])
+	if err != nil {
+		return nil, err
+	}
+	err = recv.Add(p0, p1)
+	if err != nil {
+		return nil, err
+	}
+	return nil, nil
+}
+
+// github.com/ipfs/go-ipld-format.NodeAdder.AddMany
+func fn77(a []json.RawMessage) (any, error) {
+	if err := nargs(a, 3); err != nil {
+		return nil, err
+	}
+	recv, err := hdec[p_format.NodeAdder](a[0])
+	if err != nil {
+		return nil, err
+	}
+	p0, err := hdec[p_context.Context](a[1])
+	if err != nil {
+		return nil, err
+	}
+	p1, err := dec46(a[2])
+	if err != nil {
+		return nil, err
+	}
+	err = recv.AddMany(p0, p1)
+	if err != nil {
+		return nil, err
+	}
+	return nil, nil
+}
+
+// github.com/ipfs/go-ipld-format.Node.Cid
+func fn78(a []json.RawMessage) (any, error) {
+	if err := nargs(a, 1); err != nil {
+		return nil, err
+	}
+	recv, err := hdec[p_format.Node](a[0])
+	if err != nil {
+		return nil, err
+	}
+	r0 := recv.Cid()
+	return encCid(r0), nil
+}
+
+// github.com/ipfs/go-ipld-format.Node.RawData
+func fn79(a []json.RawMessage) (any, error) {
+	if err := nargs(a, 1); err != nil {
+		return nil, err
+	}
+	recv, err := hdec[p_format.Node](a[0])
+	if err != nil {
+		return nil, err
+	}
+	r0 := recv.RawData()
+	return encBytes(r0), nil
+}
+
+// github.com/ipfs/go-ipld-format.Node.Links
+func fn80(a []json.RawMessage) (any, error) {
+	if err := nargs(a, 1); err != nil {
+		return nil, err
+	}
+	recv, err := hdec[p_format.Node](a[0])
+	if err != nil {
+		return nil, err
+	}
+	r0 := recv.Links()
+	return enc47(r0), nil
+}
+
+// github.com/ipfs/go-ipld-format.Node.Size
+func fn81(a []json.RawMessage) (any, error) {
+	if err := nargs(a, 1); err != nil {
+		return nil, err
+	}
+	recv, err := hdec[p_format.Node](a[0])
+	if err != nil {
+		return nil, err
+	}
+	r0, err := recv.Size()
+	if err != nil {
+		return nil, err
+	}
+	return r0, nil
+}
+
+// github.com/ipfs/go-ipld-format.Node.Stat
+func fn82(a []json.RawMessage) (any, error) {
+	if err := nargs(a, 1); err != nil {
+		return nil, err
+	}
+	recv, err := hdec[p_format.Node](a[0])
+	if err != nil {
+		return nil, err
+	}
+	r0, err := recv.Stat()
+	if err != nil {
+		return nil, err
+	}
+	return enc50(r0), nil
+}
+
+// github.com/ipfs/boxo/ipld/merkledag.NewRawNode
+func fn83(a []json.RawMessage) (any, error) {
+	if err := nargs(a, 1); err != nil {
+		return nil, err
+	}
+	p0, err := decBytes(a[0])
+	if err != nil {
+		return nil, err
+	}
+	r0 := p_merkledag.NewRawNode(p0)
+	return henc(r0), nil
+}
+
+// github.com/ipfs/boxo/ipld/merkledag.NodeWithData
+func fn84(a []json.RawMessage) (any, error) {
+	if err := nargs(a, 1); err != nil {
+		return nil, err
+	}
+	p0, err := decBytes(a[0])
+	if err != nil {
+		return nil, err
+	}
+	r0 := p_merkledag.NodeWithData(p0)
+	return henc(r0), nil
+}
+
+// github.com/ipfs/boxo/ipld/merkledag.ProtoNode.AddNodeLink
+func fn85(a []json.RawMessage) (any, error) {
+	if err := nargs(a, 3); err != nil {
+		return nil, err
+	}
+	recv, err := hdec[*p_merkledag.ProtoNode](a[0])
+	if err != nil {
+		return nil, err
+	}
+	p0, err := jdec[string](a[1])
+	if err != nil {
+		return nil, err
+	}
+	p1, err := hdec[p_format.Node](a[2])
+	if err != nil {
+		return nil, err
+	}
+	err = recv.AddNodeLink(p0, p1)
+	if err != nil {
+		return nil, err
+	}
+	return nil, nil
+}
+
+// github.com/ipfs/boxo/ipld/merkledag.ProtoNode.SetData
+func fn86(a []json.RawMessage) (any, error) {
+	if err := nargs(a, 2); err != nil {
+		return nil, err
+	}
+	recv, err := hdec[*p_merkledag.ProtoNode](a[0])
+	if err != nil {
+		return nil, err
+	}
+	p0, err := decBytes(a[1])
+	if err != nil {
+		return nil, err
+	}
+	recv.SetData(p0)
+	return nil, nil
+}
+
+// github.com/ipfs/boxo/ipld/merkledag.ProtoNode.Data
+func fn87(a []json.RawMessage) (any, error) {
+	if err := nargs(a, 1); err != nil {
+		return nil, err
+	}
+	recv, err := hdec[*p_merkledag.ProtoNode](a[0])
+	if err != nil {
+		return nil, err
+	}
+	r0 := recv.Data()
+	return encBytes(r0), nil
+}
+
 func opts0(raw json.RawMessage) ([]p_options.KeyGenerateOption, error) {
 	var items []struct {
 		P string
@@ -2249,4 +2962,258 @@ func dec36(raw json.RawMessage) (*p_peer.AddrInfo, error) {
 	}
 	v, err := dec26(raw)
 	return &v, err
+}
+
+func opts37(raw json.RawMessage) ([]p_options.NamePublishOption, error) {
+	var items []struct {
+		P string
+		A []json.RawMessage
+	}
+	if err := json.Unmarshal(raw, &items); err != nil {
+		return nil, err
+	}
+	out := make([]p_options.NamePublishOption, 0, len(items))
+	for _, it := range items {
+		switch it.P {
+		case "Name.AllowDelegated":
+			if err := nargs(it.A, 1); err != nil {
+				return nil, fmt.Errorf("%s: %w", it.P, err)
+			}
+			a0, err := jdec[bool](it.A[0])
+			if err != nil {
+				return nil, err
+			}
+			out = append(out, p_options.Name.AllowDelegated(a0))
+		case "Name.AllowOffline":
+			if err := nargs(it.A, 1); err != nil {
+				return nil, fmt.Errorf("%s: %w", it.P, err)
+			}
+			a0, err := jdec[bool](it.A[0])
+			if err != nil {
+				return nil, err
+			}
+			out = append(out, p_options.Name.AllowOffline(a0))
+		case "Name.CompatibleWithV1":
+			if err := nargs(it.A, 1); err != nil {
+				return nil, fmt.Errorf("%s: %w", it.P, err)
+			}
+			a0, err := jdec[bool](it.A[0])
+			if err != nil {
+				return nil, err
+			}
+			out = append(out, p_options.Name.CompatibleWithV1(a0))
+		case "Name.Key":
+			if err := nargs(it.A, 1); err != nil {
+				return nil, fmt.Errorf("%s: %w", it.P, err)
+			}
+			a0, err := jdec[string](it.A[0])
+			if err != nil {
+				return nil, err
+			}
+			out = append(out, p_options.Name.Key(a0))
+		case "Name.Sequence":
+			if err := nargs(it.A, 1); err != nil {
+				return nil, fmt.Errorf("%s: %w", it.P, err)
+			}
+			a0, err := jdec[uint64](it.A[0])
+			if err != nil {
+				return nil, err
+			}
+			out = append(out, p_options.Name.Sequence(a0))
+		case "Name.TTL":
+			if err := nargs(it.A, 1); err != nil {
+				return nil, fmt.Errorf("%s: %w", it.P, err)
+			}
+			a0, err := jdec[p_time.Duration](it.A[0])
+			if err != nil {
+				return nil, err
+			}
+			out = append(out, p_options.Name.TTL(a0))
+		case "Name.ValidTime":
+			if err := nargs(it.A, 1); err != nil {
+				return nil, fmt.Errorf("%s: %w", it.P, err)
+			}
+			a0, err := jdec[p_time.Duration](it.A[0])
+			if err != nil {
+				return nil, err
+			}
+			out = append(out, p_options.Name.ValidTime(a0))
+		default:
+			return nil, fmt.Errorf("ipfs_ffi: opção desconhecida %q", it.P)
+		}
+	}
+	return out, nil
+}
+
+func opts38(raw json.RawMessage) ([]p_options.NameResolveOption, error) {
+	var items []struct {
+		P string
+		A []json.RawMessage
+	}
+	if err := json.Unmarshal(raw, &items); err != nil {
+		return nil, err
+	}
+	out := make([]p_options.NameResolveOption, 0, len(items))
+	for _, it := range items {
+		switch it.P {
+		case "Name.Cache":
+			if err := nargs(it.A, 1); err != nil {
+				return nil, fmt.Errorf("%s: %w", it.P, err)
+			}
+			a0, err := jdec[bool](it.A[0])
+			if err != nil {
+				return nil, err
+			}
+			out = append(out, p_options.Name.Cache(a0))
+		case "Name.ResolveOption":
+			if err := nargs(it.A, 1); err != nil {
+				return nil, fmt.Errorf("%s: %w", it.P, err)
+			}
+			a0, err := hdec[p_namesys.ResolveOption](it.A[0])
+			if err != nil {
+				return nil, err
+			}
+			out = append(out, p_options.Name.ResolveOption(a0))
+		default:
+			return nil, fmt.Errorf("ipfs_ffi: opção desconhecida %q", it.P)
+		}
+	}
+	return out, nil
+}
+
+func enc39(v p_iface.IpnsResult) any {
+	return map[string]any{
+		"Path": encPath(v.Path),
+		"Err":  encErr(v.Err),
+	}
+}
+
+func opts40(raw json.RawMessage) ([]p_options.KeyRenameOption, error) {
+	var items []struct {
+		P string
+		A []json.RawMessage
+	}
+	if err := json.Unmarshal(raw, &items); err != nil {
+		return nil, err
+	}
+	out := make([]p_options.KeyRenameOption, 0, len(items))
+	for _, it := range items {
+		switch it.P {
+		case "Key.Force":
+			if err := nargs(it.A, 1); err != nil {
+				return nil, fmt.Errorf("%s: %w", it.P, err)
+			}
+			a0, err := jdec[bool](it.A[0])
+			if err != nil {
+				return nil, err
+			}
+			out = append(out, p_options.Key.Force(a0))
+		default:
+			return nil, fmt.Errorf("ipfs_ffi: opção desconhecida %q", it.P)
+		}
+	}
+	return out, nil
+}
+
+func enc41(v []p_iface.Key) any {
+	out := make([]any, len(v))
+	for i, e := range v {
+		out[i] = enc25(e)
+	}
+	return out
+}
+
+func enc42(v map[p_peer.ID][]p_multiaddr.Multiaddr) any {
+	out := make(map[string]any, len(v))
+	for k, e := range v {
+		out[keyStr(encPeerID(k))] = enc31(e)
+	}
+	return out
+}
+
+func dec43(raw json.RawMessage) ([]p_cid.Cid, error) {
+	var rs []json.RawMessage
+	if err := json.Unmarshal(raw, &rs); err != nil {
+		return nil, err
+	}
+	out := make([]p_cid.Cid, len(rs))
+	for i, r := range rs {
+		x, err := decCid(r)
+		if err != nil {
+			return nil, err
+		}
+		out[i] = x
+	}
+	return out, nil
+}
+
+func enc45(v p_format.NodeOption) any {
+	return map[string]any{
+		"Node": henc(v.Node),
+		"Err":  encErr(v.Err),
+	}
+}
+
+func enc44(v *p_format.NodeOption) any {
+	if v == nil {
+		return nil
+	}
+	return enc45(*v)
+}
+
+func dec46(raw json.RawMessage) ([]p_format.Node, error) {
+	var rs []json.RawMessage
+	if err := json.Unmarshal(raw, &rs); err != nil {
+		return nil, err
+	}
+	out := make([]p_format.Node, len(rs))
+	for i, r := range rs {
+		x, err := hdec[p_format.Node](r)
+		if err != nil {
+			return nil, err
+		}
+		out[i] = x
+	}
+	return out, nil
+}
+
+func enc49(v p_format.Link) any {
+	return map[string]any{
+		"Name": v.Name,
+		"Size": v.Size,
+		"Cid":  encCid(v.Cid),
+	}
+}
+
+func enc48(v *p_format.Link) any {
+	if v == nil {
+		return nil
+	}
+	return enc49(*v)
+}
+
+func enc47(v []*p_format.Link) any {
+	out := make([]any, len(v))
+	for i, e := range v {
+		out[i] = enc48(e)
+	}
+	return out
+}
+
+func enc51(v p_format.NodeStat) any {
+	return map[string]any{
+		"Hash":           v.Hash,
+		"NumLinks":       v.NumLinks,
+		"BlockSize":      v.BlockSize,
+		"LinksSize":      v.LinksSize,
+		"DataSize":       v.DataSize,
+		"CumulativeSize": v.CumulativeSize,
+	}
+}
+
+func enc50(v *p_format.NodeStat) any {
+	if v == nil {
+		return nil
+	}
+	return enc51(*v)
 }

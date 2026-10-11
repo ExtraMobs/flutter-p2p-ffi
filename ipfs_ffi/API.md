@@ -12,6 +12,28 @@ Cada linha é um símbolo Go exposto e onde ele está no Dart.
 | `func files.ToFile(n files.Node) files.File` | `toFile` | síncrona |
 | `func files.WriteTo(nd files.Node, fpath string) error` | `writeTo` | síncrona |
 
+## `github.com/ipfs/boxo/ipld/merkledag` → `package:ipfs_ffi/boxo/ipld/merkledag.dart`
+
+| Go | Dart | Modo |
+|---|---|---|
+| `func merkledag.NewRawNode(data []byte) *merkledag.RawNode` | `factory RawNode` | síncrona |
+| `func merkledag.NodeWithData(d []byte) *merkledag.ProtoNode` | `nodeWithData` | síncrona |
+| `func (*merkledag.ProtoNode).AddNodeLink(name string, that format.Node) error` | `ProtoNode.addNodeLink` | síncrona |
+| `func (*merkledag.ProtoNode).SetData(d []byte)` | `ProtoNode.setData` | síncrona |
+| `func (*merkledag.ProtoNode).Data() []byte` | `ProtoNode.data` | síncrona |
+
+## `github.com/ipfs/go-ipld-format` → `package:ipfs_ffi/go_ipld_format.dart`
+
+| Go | Dart | Modo |
+|---|---|---|
+| `func (format.NodeAdder).Add(context.Context, format.Node) error` | `NodeAdder.add` | Future |
+| `func (format.NodeAdder).AddMany(context.Context, []format.Node) error` | `NodeAdder.addMany` | Future |
+| `func (blocks.Block).Cid() cid.Cid` | `Node.cid` | síncrona |
+| `func (blocks.Block).RawData() []byte` | `Node.rawData` | síncrona |
+| `func (format.Node).Links() []*format.Link` | `Node.links` | síncrona |
+| `func (format.Node).Size() (uint64, error)` | `Node.size` | síncrona |
+| `func (format.Node).Stat() (*format.NodeStat, error)` | `Node.stat` | síncrona |
+
 ## `github.com/ipfs/kubo/config` → `package:ipfs_ffi/kubo/config.dart`
 
 | Go | Dart | Modo |
@@ -65,6 +87,26 @@ Cada linha é um símbolo Go exposto e onde ele está no Dart.
 | `func (iface.RoutingAPI).Provide(context.Context, path.Path, ...options.RoutingProvideOption) error` | `RoutingApi.provide` | Future |
 | `func (iface.RoutingAPI).FindProviders(context.Context, path.Path, ...options.RoutingFindProvidersOption) (<-chan peer.AddrInfo, error)` | `RoutingApi.findProviders` | Stream |
 | `func (iface.RoutingAPI).FindPeer(context.Context, peer.ID) (peer.AddrInfo, error)` | `RoutingApi.findPeer` | Future |
+| `func (iface.CoreAPI).Name() iface.NameAPI` | `CoreApi.name` | síncrona |
+| `func (iface.NameAPI).Publish(ctx context.Context, path path.Path, opts ...options.NamePublishOption) (ipns.Name, error)` | `NameApi.publish` | Future |
+| `func (iface.NameAPI).Resolve(ctx context.Context, name string, opts ...options.NameResolveOption) (path.Path, error)` | `NameApi.resolve` | Future |
+| `func (iface.NameAPI).Search(ctx context.Context, name string, opts ...options.NameResolveOption) (<-chan iface.IpnsResult, error)` | `NameApi.search` | Stream |
+| `func (iface.KeyAPI).Generate(ctx context.Context, name string, opts ...options.KeyGenerateOption) (iface.Key, error)` | `KeyApi.generate` | Future |
+| `func (iface.KeyAPI).Rename(ctx context.Context, oldName string, newName string, opts ...options.KeyRenameOption) (iface.Key, bool, error)` | `KeyApi.rename` | Future |
+| `func (iface.KeyAPI).List(ctx context.Context) ([]iface.Key, error)` | `KeyApi.list` | Future |
+| `func (iface.KeyAPI).Remove(ctx context.Context, name string) (iface.Key, error)` | `KeyApi.remove` | Future |
+| `func (iface.KeyAPI).Sign(ctx context.Context, name string, data []byte) (iface.Key, []byte, error)` | `KeyApi.sign` | Future |
+| `func (iface.KeyAPI).Verify(ctx context.Context, keyOrName string, signature []byte, data []byte) (iface.Key, bool, error)` | `KeyApi.verify` | Future |
+| `func (iface.SwarmAPI).KnownAddrs(context.Context) (map[peer.ID][]multiaddr.Multiaddr, error)` | `SwarmApi.knownAddrs` | Future |
+| `func (iface.CoreAPI).Dag() iface.APIDagService` | `CoreApi.dag` | síncrona |
+| `func (iface.CoreAPI).ResolveNode(context.Context, path.Path) (format.Node, error)` | `CoreApi.resolveNode` | Future |
+| `func (format.NodeGetter).Get(context.Context, cid.Cid) (format.Node, error)` | `ApiDagService.get` | Future |
+| `func (format.NodeGetter).GetMany(context.Context, []cid.Cid) <-chan *format.NodeOption` | `ApiDagService.getMany` | Stream |
+| `func (format.NodeAdder).Add(context.Context, format.Node) error` | `ApiDagService.add` | Future |
+| `func (format.NodeAdder).AddMany(context.Context, []format.Node) error` | `ApiDagService.addMany` | Future |
+| `func (format.DAGService).Remove(context.Context, cid.Cid) error` | `ApiDagService.remove` | Future |
+| `func (format.DAGService).RemoveMany(context.Context, []cid.Cid) error` | `ApiDagService.removeMany` | Future |
+| `func (iface.APIDagService).Pinning() format.NodeAdder` | `ApiDagService.pinning` | síncrona |
 
 ## `github.com/ipfs/kubo/core/corerepo` → `package:ipfs_ffi/kubo/core/corerepo.dart`
 
@@ -132,6 +174,10 @@ Cada linha é um símbolo Go exposto e onde ele está no Dart.
 
 - `context` (`package:ipfs_ffi/context.dart`, à mão): `background`, `withCancel`, `withTimeout`, `withDeadline`; `CancelFunc` é chamável (`cancel()`).
 - `config.Profiles` (à mão): `profiles[nome]!.transform(cfg)`; no Go é um mapa de funções.
+- `ipfs dag put`/`ipfs dag get` (`package:ipfs_ffi/kubo/core/commands/dag.dart`, porte à mão em `go/manual_dag.go`): no kubo é o corpo dos comandos, não função de biblioteca; mesmos padrões do CLI (dag-json → dag-cbor, limite de 2 MiB), hash padrão `sha2-256`.
+- Handle concreto que implementa uma interface exposta estende a classe dela (`merkledag.RawNode`/`ProtoNode` → `Node`), para valer onde o Go aceita a interface; struct que embute interface é handle, não DTO.
+- Mapa com chave tipo-valor (`map[peer.ID][]Multiaddr`) vira `Map<Id, List<Multiaddr>>`.
+- Variável de pacote vira getter; tipo função nomeado (`libp2p.RoutingOption`) é handle opaco, criado só no Go.
 - Métodos e funções com `context.Context` são assíncronos (`Future`); canais viram `Stream`; `(T, error)` vira `T` com `IpfsException`.
 - Variádicos viram `List` opcional; opções funcionais espelham as variáveis do pacote (`options.unixfs.pin(true, '')`).
 - `NewX` síncrono que devolve `X` do mesmo pacote vira `factory X(...)`.

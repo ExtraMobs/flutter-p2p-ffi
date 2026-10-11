@@ -347,6 +347,8 @@ func paramName(t *tinfo, i int) string {
 		return "opts"
 	case t.k == kChanSend:
 		return "out"
+	case t.k == kSlice && t.elem.named != nil: // []cid.Cid → cids, []Node → nodes
+		return t.elem.named.Obj().Name() + "s"
 	case t.named != nil:
 		return t.named.Obj().Name()
 	}

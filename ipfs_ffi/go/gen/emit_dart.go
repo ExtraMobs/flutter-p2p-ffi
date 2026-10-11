@@ -125,6 +125,7 @@ func emitDart(m *model, fns []*fn) map[string][]byte {
 			l.funcs = append(l.funcs, f)
 		}
 	}
+	e.linkConcrete()
 	out := map[string][]byte{}
 	for path, l := range e.libs {
 		src := e.emitLib(l)
@@ -233,7 +234,11 @@ func (e *dartEmitter) dt(t *tinfo, from *dartLib) string {
 	case kSlice:
 		return "List<" + e.dt(t.elem, from) + ">"
 	case kMap:
-		return "Map<String, " + e.dt(t.elem, from) + ">"
+		key := "String"
+		if t.mkey != nil {
+			key = e.dt(t.mkey, from)
+		}
+		return "Map<" + key + ", " + e.dt(t.elem, from) + ">"
 	case kCtx:
 		return e.imp(from, "package:ipfs_ffi/context.dart") + ".Context"
 	case kChanSend, kChanRecv:
@@ -282,7 +287,11 @@ func (e *dartEmitter) dd(t *tinfo, x string, from *dartLib, depth int) string {
 		return fmt.Sprintf("[for (final %s in %s as List) %s]", v, x, e.dd(t.elem, v, from, depth+1))
 	case kMap:
 		v := fmt.Sprintf("e%d", depth)
-		return fmt.Sprintf("{for (final %s in (%s as Map<String, Object?>).entries) %s.key: %s}", v, x, v, e.dd(t.elem, v+".value", from, depth+1))
+		key := v + ".key"
+		if t.mkey != nil { // a chave do JSON já é String: só envolve na classe-valor
+			key = e.ref(t.mkey, from) + "(" + key + ")"
+		}
+		return fmt.Sprintf("{for (final %s in (%s as Map<String, Object?>).entries) %s: %s}", v, x, key, e.dd(t.elem, v+".value", from, depth+1))
 	}
 	panic("gen: sem decodificação Dart para " + t.key)
 }
@@ -625,4 +634,43 @@ func docType(t *tinfo) string {
 		return types.TypeString(t.named, shortQual)
 	}
 	return types.TypeString(t.t, shortQual)
+}
+
+// linkConcrete: handle concreto (*merkledag.RawNode) que implementa uma
+// interface exposta (ipld.Node) estende a classe dela no Dart, para ser aceito
+// onde o Go aceita a interface. Escolhe a interface com mais métodos.
+func (e *dartEmitter) linkConcrete() {
+	var ifaces []*dclass
+	for _, path := range sortedKeys(e.libs) {
+		l := e.libs[path]
+		for _, k := range sortedKeys(l.classes) {
+			c := l.classes[k]
+			// só interfaces com métodos expostos (io.Closer sem métodos gerados não acrescenta nada)
+			if c.t.k == kHandle && !c.t.reader && types.IsInterface(c.t.named) && len(c.methods) > 0 {
+				ifaces = append(ifaces, c)
+			}
+		}
+	}
+	for _, path := range sortedKeys(e.libs) {
+		l := e.libs[path]
+		for _, k := range sortedKeys(l.classes) {
+			c := l.classes[k]
+			if c.t.k != kHandle || c.t.super != nil || types.IsInterface(c.t.named) {
+				continue
+			}
+			var best *dclass
+			for _, i := range ifaces {
+				it := i.t.named.Underlying().(*types.Interface)
+				if !types.Implements(types.NewPointer(c.t.named), it) && !types.Implements(c.t.named, it) {
+					continue
+				}
+				if best == nil || it.NumMethods() > best.t.named.Underlying().(*types.Interface).NumMethods() {
+					best = i
+				}
+			}
+			if best != nil {
+				c.t.super = best.t
+			}
+		}
+	}
 }

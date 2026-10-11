@@ -2,15 +2,85 @@
 // Go: github.com/ipfs/kubo/core/coreiface
 library;
 
+import 'dart:typed_data';
+
 import 'package:ipfs_ffi/src/runtime.dart';
 import 'package:ipfs_ffi/boxo/files.dart' as $files;
+import 'package:ipfs_ffi/boxo/ipns.dart' as $ipns;
 import 'package:ipfs_ffi/boxo/path.dart' as $path;
 import 'package:ipfs_ffi/context.dart' as $context;
 import 'package:ipfs_ffi/go_cid.dart' as $go_cid;
+import 'package:ipfs_ffi/go_ipld_format.dart' as $go_ipld_format;
 import 'package:ipfs_ffi/go_libp2p/core/peer.dart' as $peer;
 import 'package:ipfs_ffi/go_multiaddr.dart' as $go_multiaddr;
 import 'package:ipfs_ffi/io.dart' as $io;
 import 'package:ipfs_ffi/kubo/core/coreiface/options.dart' as $options;
+
+/// Go: `iface.APIDagService` (handle).
+class ApiDagService extends $go_ipld_format.DagService {
+  ApiDagService.$h(super.$h) : super.$h();
+
+  /// Go: `func (format.NodeGetter).Get(context.Context, cid.Cid) (format.Node, error)`.
+  ///
+  /// Assíncrona: roda numa goroutine.
+  Future<$go_ipld_format.Node> get(
+      $context.Context ctx, $go_cid.Cid cid) async {
+    final $r = await $call(
+        'github.com/ipfs/kubo/core/coreiface.APIDagService.Get',
+        [this, ctx, cid]);
+    return $go_ipld_format.Node.$h($nn($r) as int);
+  }
+
+  /// Go: `func (format.NodeGetter).GetMany(context.Context, []cid.Cid) <-chan *format.NodeOption`.
+  Stream<$go_ipld_format.NodeOption> getMany(
+          $context.Context ctx, List<$go_cid.Cid> cids) =>
+      $stream('github.com/ipfs/kubo/core/coreiface.APIDagService.GetMany', [
+        this,
+        ctx,
+        cids
+      ]).map((r) =>
+          $go_ipld_format.NodeOption.$fromJson(r as Map<String, Object?>));
+
+  /// Go: `func (format.NodeAdder).Add(context.Context, format.Node) error`.
+  ///
+  /// Assíncrona: roda numa goroutine.
+  Future<void> add($context.Context ctx, $go_ipld_format.Node node) async {
+    await $call('github.com/ipfs/kubo/core/coreiface.APIDagService.Add',
+        [this, ctx, node]);
+  }
+
+  /// Go: `func (format.NodeAdder).AddMany(context.Context, []format.Node) error`.
+  ///
+  /// Assíncrona: roda numa goroutine.
+  Future<void> addMany(
+      $context.Context ctx, List<$go_ipld_format.Node> nodes) async {
+    await $call('github.com/ipfs/kubo/core/coreiface.APIDagService.AddMany',
+        [this, ctx, nodes]);
+  }
+
+  /// Go: `func (format.DAGService).Remove(context.Context, cid.Cid) error`.
+  ///
+  /// Assíncrona: roda numa goroutine.
+  Future<void> remove($context.Context ctx, $go_cid.Cid cid) async {
+    await $call('github.com/ipfs/kubo/core/coreiface.APIDagService.Remove',
+        [this, ctx, cid]);
+  }
+
+  /// Go: `func (format.DAGService).RemoveMany(context.Context, []cid.Cid) error`.
+  ///
+  /// Assíncrona: roda numa goroutine.
+  Future<void> removeMany($context.Context ctx, List<$go_cid.Cid> cids) async {
+    await $call('github.com/ipfs/kubo/core/coreiface.APIDagService.RemoveMany',
+        [this, ctx, cids]);
+  }
+
+  /// Go: `func (iface.APIDagService).Pinning() format.NodeAdder`.
+  $go_ipld_format.NodeAdder pinning() {
+    final $r = $callSync(
+        'github.com/ipfs/kubo/core/coreiface.APIDagService.Pinning', [this]);
+    return $go_ipld_format.NodeAdder.$h($nn($r) as int);
+  }
+}
 
 /// Go: `iface.BadPinNode` (valores lidos dos métodos).
 final class BadPinNode {
@@ -170,6 +240,31 @@ class CoreApi extends GoHandle {
         'github.com/ipfs/kubo/core/coreiface.CoreAPI.Routing', [this]);
     return RoutingApi.$h($nn($r) as int);
   }
+
+  /// Go: `func (iface.CoreAPI).Name() iface.NameAPI`.
+  NameApi name() {
+    final $r =
+        $callSync('github.com/ipfs/kubo/core/coreiface.CoreAPI.Name', [this]);
+    return NameApi.$h($nn($r) as int);
+  }
+
+  /// Go: `func (iface.CoreAPI).Dag() iface.APIDagService`.
+  ApiDagService dag() {
+    final $r =
+        $callSync('github.com/ipfs/kubo/core/coreiface.CoreAPI.Dag', [this]);
+    return ApiDagService.$h($nn($r) as int);
+  }
+
+  /// Go: `func (iface.CoreAPI).ResolveNode(context.Context, path.Path) (format.Node, error)`.
+  ///
+  /// Assíncrona: roda numa goroutine.
+  Future<$go_ipld_format.Node> resolveNode(
+      $context.Context ctx, $path.Path path) async {
+    final $r = await $call(
+        'github.com/ipfs/kubo/core/coreiface.CoreAPI.ResolveNode',
+        [this, ctx, path]);
+    return $go_ipld_format.Node.$h($nn($r) as int);
+  }
 }
 
 /// Go: `iface.DirEntry`.
@@ -234,6 +329,26 @@ final class DirEntry implements GoJson {
       };
 }
 
+/// Go: `iface.IpnsResult`.
+final class IpnsResult implements GoJson {
+  IpnsResult({$path.Path? path, String? err})
+      : path = path,
+        err = err;
+
+  IpnsResult.$fromJson(Map<String, Object?> j)
+      : path = j['Path'] == null ? null : $path.Path(j['Path'] as String),
+        err = j['Err'] == null ? null : j['Err'] as String;
+
+  /// Go: `Path`.
+  $path.Path? path;
+
+  /// Go: `Err`.
+  String? err;
+
+  @override
+  Map<String, Object?> $toJson() => {'Path': $enc(path), 'Err': $enc(err)};
+}
+
 /// Go: `iface.Key` (valores lidos dos métodos).
 final class Key {
   Key.$fromJson(Map<String, Object?> j)
@@ -263,6 +378,105 @@ class KeyApi extends GoHandle {
         'github.com/ipfs/kubo/core/coreiface.KeyAPI.Self', [this, ctx]);
     return Key.$fromJson($nn($r) as Map<String, Object?>);
   }
+
+  /// Go: `func (iface.KeyAPI).Generate(ctx context.Context, name string, opts ...options.KeyGenerateOption) (iface.Key, error)`.
+  ///
+  /// Assíncrona: roda numa goroutine.
+  Future<Key> generate($context.Context ctx, String name,
+      [List<$options.KeyGenerateOption> opts = const []]) async {
+    final $r = await $call(
+        'github.com/ipfs/kubo/core/coreiface.KeyAPI.Generate',
+        [this, ctx, name, opts]);
+    return Key.$fromJson($nn($r) as Map<String, Object?>);
+  }
+
+  /// Go: `func (iface.KeyAPI).Rename(ctx context.Context, oldName string, newName string, opts ...options.KeyRenameOption) (iface.Key, bool, error)`.
+  ///
+  /// Assíncrona: roda numa goroutine.
+  Future<(Key, bool)> rename(
+      $context.Context ctx, String oldName, String newName,
+      [List<$options.KeyRenameOption> opts = const []]) async {
+    final $l = await $call('github.com/ipfs/kubo/core/coreiface.KeyAPI.Rename',
+        [this, ctx, oldName, newName, opts]) as List;
+    return (Key.$fromJson($nn($l[0]) as Map<String, Object?>), $l[1] as bool);
+  }
+
+  /// Go: `func (iface.KeyAPI).List(ctx context.Context) ([]iface.Key, error)`.
+  ///
+  /// Assíncrona: roda numa goroutine.
+  Future<List<Key>> list($context.Context ctx) async {
+    final $r = await $call(
+        'github.com/ipfs/kubo/core/coreiface.KeyAPI.List', [this, ctx]);
+    return [
+      for (final e0 in $r as List) Key.$fromJson(e0 as Map<String, Object?>)
+    ];
+  }
+
+  /// Go: `func (iface.KeyAPI).Remove(ctx context.Context, name string) (iface.Key, error)`.
+  ///
+  /// Assíncrona: roda numa goroutine.
+  Future<Key> remove($context.Context ctx, String name) async {
+    final $r = await $call(
+        'github.com/ipfs/kubo/core/coreiface.KeyAPI.Remove', [this, ctx, name]);
+    return Key.$fromJson($nn($r) as Map<String, Object?>);
+  }
+
+  /// Go: `func (iface.KeyAPI).Sign(ctx context.Context, name string, data []byte) (iface.Key, []byte, error)`.
+  ///
+  /// Assíncrona: roda numa goroutine.
+  Future<(Key, Uint8List)> sign(
+      $context.Context ctx, String name, Uint8List data) async {
+    final $l = await $call('github.com/ipfs/kubo/core/coreiface.KeyAPI.Sign',
+        [this, ctx, name, data]) as List;
+    return (Key.$fromJson($nn($l[0]) as Map<String, Object?>), $bytes($l[1]));
+  }
+
+  /// Go: `func (iface.KeyAPI).Verify(ctx context.Context, keyOrName string, signature []byte, data []byte) (iface.Key, bool, error)`.
+  ///
+  /// Assíncrona: roda numa goroutine.
+  Future<(Key, bool)> verify($context.Context ctx, String keyOrName,
+      Uint8List signature, Uint8List data) async {
+    final $l = await $call('github.com/ipfs/kubo/core/coreiface.KeyAPI.Verify',
+        [this, ctx, keyOrName, signature, data]) as List;
+    return (Key.$fromJson($nn($l[0]) as Map<String, Object?>), $l[1] as bool);
+  }
+}
+
+/// Go: `iface.NameAPI` (handle).
+class NameApi extends GoHandle {
+  NameApi.$h(super.$h);
+
+  /// Go: `func (iface.NameAPI).Publish(ctx context.Context, path path.Path, opts ...options.NamePublishOption) (ipns.Name, error)`.
+  ///
+  /// Assíncrona: roda numa goroutine.
+  Future<$ipns.Name> publish($context.Context ctx, $path.Path path,
+      [List<$options.NamePublishOption> opts = const []]) async {
+    final $r = await $call(
+        'github.com/ipfs/kubo/core/coreiface.NameAPI.Publish',
+        [this, ctx, path, opts]);
+    return $ipns.Name($nn($r) as String);
+  }
+
+  /// Go: `func (iface.NameAPI).Resolve(ctx context.Context, name string, opts ...options.NameResolveOption) (path.Path, error)`.
+  ///
+  /// Assíncrona: roda numa goroutine.
+  Future<$path.Path> resolve($context.Context ctx, String name,
+      [List<$options.NameResolveOption> opts = const []]) async {
+    final $r = await $call(
+        'github.com/ipfs/kubo/core/coreiface.NameAPI.Resolve',
+        [this, ctx, name, opts]);
+    return $path.Path($nn($r) as String);
+  }
+
+  /// Go: `func (iface.NameAPI).Search(ctx context.Context, name string, opts ...options.NameResolveOption) (<-chan iface.IpnsResult, error)`.
+  Stream<IpnsResult> search($context.Context ctx, String name,
+          [List<$options.NameResolveOption> opts = const []]) =>
+      $stream('github.com/ipfs/kubo/core/coreiface.NameAPI.Search', [
+        this,
+        ctx,
+        name,
+        opts
+      ]).map((r) => IpnsResult.$fromJson(r as Map<String, Object?>));
 }
 
 /// Go: `iface.Pin` (valores lidos dos métodos).
@@ -445,6 +659,22 @@ class SwarmApi extends GoHandle {
     final $r = await $call(
         'github.com/ipfs/kubo/core/coreiface.SwarmAPI.LocalAddrs', [this, ctx]);
     return [for (final e0 in $r as List) $go_multiaddr.Multiaddr(e0 as String)];
+  }
+
+  /// Go: `func (iface.SwarmAPI).KnownAddrs(context.Context) (map[peer.ID][]multiaddr.Multiaddr, error)`.
+  ///
+  /// Assíncrona: roda numa goroutine.
+  Future<Map<$peer.Id, List<$go_multiaddr.Multiaddr>>> knownAddrs(
+      $context.Context ctx) async {
+    final $r = await $call(
+        'github.com/ipfs/kubo/core/coreiface.SwarmAPI.KnownAddrs', [this, ctx]);
+    return {
+      for (final e0 in ($r as Map<String, Object?>).entries)
+        $peer.Id(e0.key): [
+          for (final e1 in e0.value as List)
+            $go_multiaddr.Multiaddr(e1 as String)
+        ]
+    };
   }
 }
 

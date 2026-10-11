@@ -45,6 +45,7 @@ var valueTypes = map[string]valueSpec{
 	"github.com/multiformats/go-multiaddr.Multiaddr":   {dec: "decMultiaddr", enc: "encMultiaddr", dartClass: "Multiaddr"},
 	"time.Time":                                        {dec: "decTime", enc: "encTime", dartDec: "DateTime.parse(%s as String)"},
 	"github.com/ipfs/kubo/config.Config":               {dec: "decConfig", enc: "encConfig", dartClass: "Config", json: true},
+	"github.com/ipfs/boxo/ipns.Name":                   {dec: "decIpnsName", enc: "encIpnsName", dartClass: "Name"},
 }
 
 // handleTypes: interfaces que parecem só-getters mas são recursos (handle).
@@ -57,6 +58,7 @@ type tinfo struct {
 	named  *types.Named // tipo nomeado (classe Dart) de kValue/kDTO/kSnap/kHandle/kOpts
 	ptr    bool         // kDTO/kValue por ponteiro (*BuildCfg, *config.Config)
 	elem   *tinfo       // kSlice, kMap, kChanSend, kChanRecv
+	mkey   *tinfo       // kMap com chave tipo-valor (nil = chave string)
 	val    valueSpec
 	why    string // kUnsupported
 	fields []field
@@ -139,9 +141,14 @@ func (m *model) fill(ti *tinfo) {
 			unsupported(ti, "[]%s", ti.elem.why)
 		}
 	case *types.Map:
-		if b, ok := t.Key().(*types.Basic); !ok || b.Kind() != types.String {
+		// chave string (ou nomeado sobre string) vai direto no JSON; chave
+		// tipo-valor (peer.ID) passa pelo conversor da tabela.
+		if b, ok := t.Key().Underlying().(*types.Basic); !ok || b.Kind() != types.String {
 			unsupported(ti, "mapa com chave %s", t.Key())
 			return
+		}
+		if kt := m.classify(t.Key()); kt.k == kValue && !kt.val.json {
+			ti.mkey = kt
 		}
 		ti.k, ti.elem = kMap, m.classify(t.Elem())
 		if ti.elem.k == kUnsupported {
@@ -284,7 +291,10 @@ func (m *model) fillInterface(ti *tinfo, n *types.Named, u *types.Interface) {
 // atravessam ficam de fora, registrados no API.md).
 func (m *model) fillStruct(ti *tinfo, n *types.Named, u *types.Struct) {
 	for i := 0; i < u.NumFields(); i++ {
-		if !u.Field(i).Exported() {
+		f := u.Field(i)
+		// campo não exportado, ou interface embutida (merkledag.RawNode embute
+		// blocks.Block e ipld.Node): é um objeto, não um registro de dados.
+		if !f.Exported() || (f.Embedded() && types.IsInterface(f.Type()) && m.classify(f.Type()).k != kValue) {
 			ti.k = kHandle
 			return
 		}

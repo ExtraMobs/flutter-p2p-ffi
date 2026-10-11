@@ -3,6 +3,7 @@
 library;
 
 import 'package:ipfs_ffi/src/runtime.dart';
+import 'package:ipfs_ffi/boxo/namesys.dart' as $namesys;
 
 /// Go: `options.ApiOption` (opção funcional; construtores nas variáveis do pacote).
 final class ApiOption extends GoOption {
@@ -22,6 +23,21 @@ final class BlockRmOption extends GoOption {
 /// Go: `options.KeyGenerateOption` (opção funcional; construtores nas variáveis do pacote).
 final class KeyGenerateOption extends GoOption {
   KeyGenerateOption.$(super.p, super.a);
+}
+
+/// Go: `options.KeyRenameOption` (opção funcional; construtores nas variáveis do pacote).
+final class KeyRenameOption extends GoOption {
+  KeyRenameOption.$(super.p, super.a);
+}
+
+/// Go: `options.NamePublishOption` (opção funcional; construtores nas variáveis do pacote).
+final class NamePublishOption extends GoOption {
+  NamePublishOption.$(super.p, super.a);
+}
+
+/// Go: `options.NameResolveOption` (opção funcional; construtores nas variáveis do pacote).
+final class NameResolveOption extends GoOption {
+  NameResolveOption.$(super.p, super.a);
 }
 
 /// Go: `options.PinAddOption` (opção funcional; construtores nas variáveis do pacote).
@@ -128,12 +144,56 @@ const key = _Key._();
 final class _Key {
   const _Key._();
 
+  /// Go: `options.Key.Force`.
+  KeyRenameOption force(bool force) => KeyRenameOption.$('Key.Force', [force]);
+
   /// Go: `options.Key.Size`.
   KeyGenerateOption size(int size) => KeyGenerateOption.$('Key.Size', [size]);
 
   /// Go: `options.Key.Type`.
   KeyGenerateOption type(String algorithm) =>
       KeyGenerateOption.$('Key.Type', [algorithm]);
+}
+
+/// Go: `var Name`: construtores de opções.
+const name = _Name._();
+
+final class _Name {
+  const _Name._();
+
+  /// Go: `options.Name.AllowDelegated`.
+  NamePublishOption allowDelegated(bool allowDelegated) =>
+      NamePublishOption.$('Name.AllowDelegated', [allowDelegated]);
+
+  /// Go: `options.Name.AllowOffline`.
+  NamePublishOption allowOffline(bool allow) =>
+      NamePublishOption.$('Name.AllowOffline', [allow]);
+
+  /// Go: `options.Name.Cache`.
+  NameResolveOption cache(bool cache) =>
+      NameResolveOption.$('Name.Cache', [cache]);
+
+  /// Go: `options.Name.CompatibleWithV1`.
+  NamePublishOption compatibleWithV1(bool compatible) =>
+      NamePublishOption.$('Name.CompatibleWithV1', [compatible]);
+
+  /// Go: `options.Name.Key`.
+  NamePublishOption key(String key) => NamePublishOption.$('Name.Key', [key]);
+
+  /// Go: `options.Name.ResolveOption`.
+  NameResolveOption resolveOption($namesys.ResolveOption opt) =>
+      NameResolveOption.$('Name.ResolveOption', [opt]);
+
+  /// Go: `options.Name.Sequence`.
+  NamePublishOption sequence(int seq) =>
+      NamePublishOption.$('Name.Sequence', [seq]);
+
+  /// Go: `options.Name.TTL`.
+  NamePublishOption ttl(int ttl) => NamePublishOption.$('Name.TTL', [ttl]);
+
+  /// Go: `options.Name.ValidTime`.
+  NamePublishOption validTime(int validTime) =>
+      NamePublishOption.$('Name.ValidTime', [validTime]);
 }
 
 /// Go: `var Pin`: construtores de opções.

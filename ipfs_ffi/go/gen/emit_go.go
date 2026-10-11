@@ -228,7 +228,7 @@ func plain(t *tinfo) bool {
 	case kBasic:
 		return true
 	case kSlice, kMap:
-		return plain(t.elem)
+		return t.mkey == nil && plain(t.elem)
 	}
 	return false
 }
@@ -273,7 +273,15 @@ func (g *goEmitter) dec(t *tinfo) string {
 		case t.k == kSlice:
 			fmt.Fprintf(&b, "\tvar rs []json.RawMessage\n\tif err := json.Unmarshal(raw, &rs); err != nil {\n\t\treturn nil, err\n\t}\n\tout := make(%s, len(rs))\n\tfor i, r := range rs {\n\t\tx, err := %s(r)\n\t\tif err != nil {\n\t\t\treturn nil, err\n\t\t}\n\t\tout[i] = x\n\t}\n\treturn out, nil\n}\n", T, g.dec(t.elem))
 		case t.k == kMap:
-			fmt.Fprintf(&b, "\tvar rs map[string]json.RawMessage\n\tif err := json.Unmarshal(raw, &rs); err != nil {\n\t\treturn nil, err\n\t}\n\tout := make(%s, len(rs))\n\tfor k, r := range rs {\n\t\tx, err := %s(r)\n\t\tif err != nil {\n\t\t\treturn nil, err\n\t\t}\n\t\tout[k] = x\n\t}\n\treturn out, nil\n}\n", T, g.dec(t.elem))
+			key := g.ts(t.t.Underlying().(*types.Map).Key()) + "(k)"
+			if t.mkey != nil { // chave tipo-valor: a string do JSON passa pelo conversor
+				key = "kk"
+			}
+			fmt.Fprintf(&b, "\tvar rs map[string]json.RawMessage\n\tif err := json.Unmarshal(raw, &rs); err != nil {\n\t\treturn nil, err\n\t}\n\tout := make(%s, len(rs))\n\tfor k, r := range rs {\n", T)
+			if t.mkey != nil {
+				fmt.Fprintf(&b, "\t\tkk, err := %s(quoteRaw(k))\n\t\tif err != nil {\n\t\t\treturn nil, err\n\t\t}\n", g.dec(t.mkey))
+			}
+			fmt.Fprintf(&b, "\t\tx, err := %s(r)\n\t\tif err != nil {\n\t\t\treturn nil, err\n\t\t}\n\t\tout[%s] = x\n\t}\n\treturn out, nil\n}\n", g.dec(t.elem), key)
 		default:
 			panic("gen: sem decodificador para " + t.key)
 		}
@@ -370,7 +378,11 @@ func (g *goEmitter) enc(t *tinfo, expr string) string {
 		case t.k == kSlice:
 			fmt.Fprintf(&b, "\tout := make([]any, len(v))\n\tfor i, e := range v {\n\t\tout[i] = %s\n\t}\n\treturn out\n}\n", g.enc(t.elem, "e"))
 		case t.k == kMap:
-			fmt.Fprintf(&b, "\tout := make(map[string]any, len(v))\n\tfor k, e := range v {\n\t\tout[k] = %s\n\t}\n\treturn out\n}\n", g.enc(t.elem, "e"))
+			key := "string(k)"
+			if t.mkey != nil {
+				key = "keyStr(" + g.enc(t.mkey, "k") + ")"
+			}
+			fmt.Fprintf(&b, "\tout := make(map[string]any, len(v))\n\tfor k, e := range v {\n\t\tout[%s] = %s\n\t}\n\treturn out\n}\n", key, g.enc(t.elem, "e"))
 		default:
 			panic("gen: sem codificador para " + t.key)
 		}
