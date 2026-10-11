@@ -1,0 +1,21 @@
+/// Go: `var config.Profiles map[string]config.Profile`. Escrito à mão
+/// (go/gen/extra): no Go o perfil é uma função `Transform`.
+final Map<String, Profile> profiles = {
+  for (final name in ($callSync('config.Profiles', const []) as List).cast<String>())
+    name: Profile._(name),
+};
+
+/// Go: `config.Profile`.
+final class Profile {
+  Profile._(this._name);
+
+  final String _name;
+
+  /// Go: `Transform(c *Config) error`: aplica o perfil a [c].
+  void transform(Config c) {
+    final r = $callSync('config.Profile.Transform', [_name, c]) as Map<String, Object?>;
+    c.json
+      ..clear()
+      ..addAll(r);
+  }
+}

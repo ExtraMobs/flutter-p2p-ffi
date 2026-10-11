@@ -10,6 +10,11 @@ const targets = {'linux': 'libipfs.so', 'windows': 'ipfs.dll'};
 Future<void> main(List<String> args) async {
   final root = File.fromUri(Platform.script).parent.parent;
   final native = Directory('${root.path}/native')..createSync();
+  // A ponte gerada (zz_generated.go, lib/, API.md) sai de go/gen/roots.txt.
+  stdout.writeln('go run ./gen');
+  final gen = await Process.start('go', ['run', './gen'],
+      workingDirectory: '${root.path}/go', mode: ProcessStartMode.inheritStdio);
+  if (await gen.exitCode != 0) exit(1);
   for (final os in args.isEmpty ? targets.keys : args) {
     final lib = targets[os] ?? (throw ArgumentError('alvo inválido: $os'));
     final env = {'CGO_ENABLED': '1', 'GOOS': os, 'GOARCH': 'amd64'};

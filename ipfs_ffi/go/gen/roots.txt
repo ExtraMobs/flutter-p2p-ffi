@@ -1,0 +1,34 @@
+# Símbolos Go expostos ao Dart, na ordem em que o kubo monta um nó
+# (cmd/ipfs/kubo/daemon.go e docs/examples/kubo-as-a-library).
+# Um por linha: pacote.Função ou pacote.Tipo.Método. Depois de editar:
+# `go run ./gen` na pasta go/.
+
+# M1.0 plugins (uma vez por processo, antes de qualquer repo)
+github.com/ipfs/kubo/plugin/loader.NewPluginLoader
+github.com/ipfs/kubo/plugin/loader.PluginLoader.Initialize
+github.com/ipfs/kubo/plugin/loader.PluginLoader.Inject
+
+# M1.1 identidade, config e repo (ipfs init)
+github.com/ipfs/kubo/config.CreateIdentity
+github.com/ipfs/kubo/config.InitWithIdentity
+github.com/ipfs/kubo/repo/fsrepo.IsInitialized
+github.com/ipfs/kubo/repo/fsrepo.Init
+github.com/ipfs/kubo/repo/fsrepo.Open
+
+# M1.2 nó e CoreAPI
+github.com/ipfs/kubo/core.NewNode
+github.com/ipfs/kubo/core.IpfsNode.Close
+github.com/ipfs/kubo/core/coreapi.NewCoreAPI
+github.com/ipfs/kubo/core/coreiface.CoreAPI.Unixfs
+github.com/ipfs/kubo/core/coreiface.CoreAPI.ResolvePath
+
+# M1.3 arquivos (Unixfs)
+github.com/ipfs/kubo/core/coreiface.UnixfsAPI.Add
+github.com/ipfs/kubo/core/coreiface.UnixfsAPI.Get
+github.com/ipfs/kubo/core/coreiface.UnixfsAPI.Ls
+github.com/ipfs/boxo/files.NewBytesFile
+github.com/ipfs/boxo/files.NewSerialFile
+github.com/ipfs/boxo/files.ToFile
+github.com/ipfs/boxo/files.WriteTo
+os.Stat
+io.ReadAll

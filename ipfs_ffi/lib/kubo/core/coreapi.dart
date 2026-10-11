@@ -1,0 +1,16 @@
+// Gerado por ipfs_ffi/go/gen a partir de go/gen/roots.txt; não editar.
+// Go: github.com/ipfs/kubo/core/coreapi
+library;
+
+import 'package:ipfs_ffi/src/runtime.dart';
+import 'package:ipfs_ffi/kubo/core.dart' as $core;
+import 'package:ipfs_ffi/kubo/core/coreiface.dart' as $coreiface;
+import 'package:ipfs_ffi/kubo/core/coreiface/options.dart' as $options;
+
+/// Go: `func coreapi.NewCoreAPI(n *core.IpfsNode, opts ...options.ApiOption) (iface.CoreAPI, error)`.
+$coreiface.CoreApi newCoreApi($core.IpfsNode n,
+    [List<$options.ApiOption> opts = const []]) {
+  final $r =
+      $callSync('github.com/ipfs/kubo/core/coreapi.NewCoreAPI', [n, opts]);
+  return $coreiface.CoreApi.$h($nn($r) as int);
+}

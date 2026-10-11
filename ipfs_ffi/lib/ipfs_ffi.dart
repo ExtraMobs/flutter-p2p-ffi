@@ -1,16 +1,13 @@
-/// Binding dart:ffi da lib nativa gerada por `tool/build.dart`
-/// (`native/libipfs.so` no linux, `native/ipfs.dll` no Windows).
+/// Kubo (IPFS em Go) dentro do processo Dart, por dart:ffi.
+///
+/// A API é a do próprio Go, uma library por pacote (sem o prefixo
+/// `github.com/<org>/`), gerada a partir de `go/gen/roots.txt`; a lista do
+/// que existe está no `API.md`. Importe cada pacote com prefixo, como no Go:
+///
+/// ```dart
+/// import 'package:ipfs_ffi/context.dart' as context;
+/// import 'package:ipfs_ffi/kubo/core.dart' as core;
+/// ```
 library;
 
-import 'dart:convert';
-import 'dart:ffi';
-import 'dart:io';
-import 'dart:isolate';
-import 'dart:typed_data';
-
-part 'src/ipfs_ffi/native.dart';
-part 'src/ipfs_ffi/memory.dart';
-part 'src/ipfs_ffi/exception.dart';
-part 'src/ipfs_ffi/node.dart';
-part 'src/ipfs_ffi/run.dart';
-part 'src/ipfs_ffi/daemon.dart';
+export 'src/runtime.dart' show IpfsException, ipfsLibraryPath;

@@ -1,36 +1,63 @@
 # ipfs_ffi
 
 Kubo v0.43.1 (IPFS em Go) compilado com `-buildmode=c-shared` e usado do
-Dart por `dart:ffi`. Alternativa à transpilação: o Go roda nativo dentro do
-processo Dart (VM/AOT no linux e no Windows; não serve para JS/Wasm).
+Dart por `dart:ffi`: o nó roda nativo dentro do processo Dart, sem HTTP.
+Alvos: VM/AOT no Windows e no linux (não serve para JS/Wasm).
 
-- `go/main.go`: API C — `IpfsStart`/`IpfsAdd`/`IpfsGet`/`IpfsStop` (nó em
-  memória), `IpfsRun` (CLI completo do kubo: `init`, `daemon`, ...),
-  `GoMalloc`/`GoFree`.
-- `native/`: `libipfs.so` (linux/amd64) e `ipfs.dll` (windows/amd64), fora do
-  git; gere com o `tool/build.dart` antes de usar.
-- `dart run tool/build.dart [linux|windows]`: recompila `native/`. Exige Go
+A API Dart é a do próprio Go, gerada: uma library por pacote Go, sem o
+prefixo `github.com/<org>/` (`kubo/core.dart`, `boxo/files.dart`...). O que
+existe, e o que ficou de fora com o motivo, está no [`API.md`](API.md).
+
+```dart
+import 'dart:convert';
+
+import 'package:ipfs_ffi/boxo/files.dart' as files;
+import 'package:ipfs_ffi/context.dart' as context;
+import 'package:ipfs_ffi/io.dart' as io;
+import 'package:ipfs_ffi/kubo/core.dart' as core;
+import 'package:ipfs_ffi/kubo/core/coreapi.dart' as coreapi;
+import 'package:ipfs_ffi/kubo/core/node.dart' as node;
+import 'package:ipfs_ffi/kubo/plugin/loader.dart' as loader;
+import 'package:ipfs_ffi/kubo/repo/fsrepo.dart' as fsrepo;
+
+final plugins = loader.PluginLoader('')..initialize()..inject(); // 1x por processo
+final ctx = context.background();
+final n = await core.newNode(ctx, node.BuildCfg(repo: fsrepo.open('.ipfs-ffi')));
+final api = coreapi.newCoreApi(n);
+final p = await api.unixfs().add(ctx, files.newBytesFile(utf8.encode('oi')));
+print(utf8.decode(io.readAll(files.toFile(await api.unixfs().get(ctx, p)))));
+await n.close();
+```
+
+Exemplos, na ordem em que o kubo monta um nó:
+`dart run example/01_init_repo.dart [repo]` (`ipfs init`) e
+`dart run example/02_add_get.dart [repo] [arquivo-ou-pasta]`.
+
+## Como o Go vira Dart
+
+- `context.Context` é o 1º parâmetro, como no Go (`package:ipfs_ffi/context.dart`:
+  `background`, `withCancel`, `withTimeout`, `withDeadline`; `cancel()`).
+- Função ou método com `context` é assíncrono (`Future`); canal vira `Stream`;
+  `(T, error)` vira `T` com `IpfsException` (inclusive em panic do Go).
+- Opções funcionais espelham as variáveis do Go:
+  `[options.unixfs.cidVersion(1), options.unixfs.rawLeaves(true)]`.
+- Objetos com estado ficam no Go (handle solto por `NativeFinalizer`); o nó e
+  o repo continuam exigindo o `close` do Go. CID, path, peer e multiaddr são
+  valores (a string); `config.Config` guarda o JSON do kubo em `json`.
+
+## Gerar e compilar
+
+- `dart run tool/build.dart [linux|windows]`: roda o gerador (`go run ./gen` em
+  `go/`) e compila `native/` (`libipfs.so`, `ipfs.dll`; fora do git). Exige Go
   1.26.5 (`GOTOOLCHAIN=auto` baixa) e um gcc para o cgo: no Windows, o
   mingw-w64 no PATH (ex. `winget install BrechtSanders.WinLibs.POSIX.UCRT`);
   no linux, `x86_64-w64-mingw32-gcc` para a DLL.
-- `lib/ipfs_ffi.dart` (partes em `lib/src/ipfs_ffi/`: `native` abre a lib,
-  `memory` aloca com `GoMalloc`/`GoFree`, `node`, `run`, `daemon`): `IpfsNode` (nó em memória), `ipfsRun` (CLI) e
-  `IpfsDaemon` (daemon com repo em disco, rede, API RPC e gateway).
+- Para expor mais do kubo/boxo: acrescente o símbolo em `go/gen/roots.txt`
+  (`pacote.Função` ou `pacote.Tipo.Método`) e rode o build. O que o gerador
+  não exprime vai à mão em `go/runtime.go` e `go/gen/extra/<library>.extra`.
+- `go run ./gen -check` (em `go/`) falha se os arquivos gerados estão
+  desatualizados.
+- Testes: `dart test` nesta pasta.
 
-```dart
-final node = IpfsNode.start();           // nó em memória, offline
-final cid = node.add(utf8.encode('oi')); // bloco bruto -> CID
-print(node.get(cid));
-node.stop();
-
-final daemon = await IpfsDaemon.start('.ipfs');  // init na 1ª vez
-print(await daemon.rpc('id'));                     // POST /api/v0/id
-await daemon.stop();
-```
-
-Daemon completo: `dart run example/daemon.dart [repo]` (Ctrl-C para).
-Testes: `dart test` nesta pasta.
-
-Limites: um daemon por processo (o kubo usa métricas globais); `ipfsRun`
-uma chamada por vez enquanto o kubo lê os argumentos; a config de plugins do
-primeiro repo vale para o processo todo.
+Limites: os plugins do kubo são injetados uma vez por processo; um panic em
+goroutine interna do kubo (fora da chamada) ainda derruba o processo.
