@@ -30,6 +30,7 @@ import (
 	p_io2 "io"
 	p_fs "io/fs"
 	p_os "os"
+	p_debug "runtime/debug"
 	p_time "time"
 )
 
@@ -127,6 +128,9 @@ func init() {
 	reg["github.com/ipfs/boxo/ipld/merkledag.ProtoNode.AddNodeLink"] = entry{call: fn85}
 	reg["github.com/ipfs/boxo/ipld/merkledag.ProtoNode.SetData"] = entry{call: fn86}
 	reg["github.com/ipfs/boxo/ipld/merkledag.ProtoNode.Data"] = entry{call: fn87}
+	reg["os.Create"] = entry{call: fn88}
+	reg["os.File.Close"] = entry{call: fn89}
+	reg["runtime/debug.SetCrashOutput"] = entry{call: fn90}
 }
 
 func nargs(a []json.RawMessage, n int) error {
@@ -1957,6 +1961,58 @@ func fn87(a []json.RawMessage) (any, error) {
 	return encBytes(r0), nil
 }
 
+// os.Create
+func fn88(a []json.RawMessage) (any, error) {
+	if err := nargs(a, 1); err != nil {
+		return nil, err
+	}
+	p0, err := jdec[string](a[0])
+	if err != nil {
+		return nil, err
+	}
+	r0, err := p_os.Create(p0)
+	if err != nil {
+		return nil, err
+	}
+	return henc(r0), nil
+}
+
+// os.File.Close
+func fn89(a []json.RawMessage) (any, error) {
+	if err := nargs(a, 1); err != nil {
+		return nil, err
+	}
+	recv, err := hdec[*p_os.File](a[0])
+	if err != nil {
+		return nil, err
+	}
+	err = recv.Close()
+	if err != nil {
+		return nil, err
+	}
+	return nil, nil
+}
+
+// runtime/debug.SetCrashOutput
+func fn90(a []json.RawMessage) (any, error) {
+	if err := nargs(a, 2); err != nil {
+		return nil, err
+	}
+	p0, err := hdec[*p_os.File](a[0])
+	if err != nil {
+		return nil, err
+	}
+	p1, err := dec54(a[1])
+	if err != nil {
+		return nil, err
+	}
+	err = p_debug.SetCrashOutput(p0, p1)
+	if err != nil {
+		return nil, err
+	}
+	return nil, nil
+}
+
 func opts0(raw json.RawMessage) (out []p_options.KeyGenerateOption, done func(), err error) {
 	var dones []func()
 	done = func() {
@@ -3439,4 +3495,13 @@ func enc52(v *p_format.NodeStat) any {
 		return nil
 	}
 	return enc53(*v)
+}
+
+func dec54(raw json.RawMessage) (p_debug.CrashOptions, error) {
+	var v p_debug.CrashOptions
+	var m map[string]json.RawMessage
+	if err := json.Unmarshal(raw, &m); err != nil || m == nil {
+		return v, err
+	}
+	return v, nil
 }

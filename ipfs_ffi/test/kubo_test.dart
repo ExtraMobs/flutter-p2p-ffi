@@ -4,7 +4,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:typed_data';
-import 'dart:io' show Directory, File;
+import 'dart:io' show Directory, File, Platform, Process;
 
 import 'package:ipfs_ffi/boxo/files.dart' as files;
 import 'package:ipfs_ffi/boxo/path.dart' as path;
@@ -452,4 +452,17 @@ void main() {
       await done.timeout(const Duration(seconds: 5));
     });
   });
+
+  // F4a: panic numa goroutine interna derruba o processo (o guard só cobre a
+  // chamada); com debug.setCrashOutput o relatório fica num arquivo.
+  test('panic em goroutine do Go: o processo cai e o relatório fica no arquivo',
+      () async {
+    final log = '${tmp.path}/crash.log';
+    final r = await Process.run(
+        Platform.resolvedExecutable, ['run', 'test/crash_child.dart', log]);
+    expect(r.exitCode, isNot(0));
+    final text = File(log).readAsStringSync();
+    expect(text, contains('panic: ipfs_ffi: panic de teste numa goroutine'));
+    expect(text, contains('goroutine '));
+  }, timeout: const Timeout(Duration(minutes: 2)));
 }

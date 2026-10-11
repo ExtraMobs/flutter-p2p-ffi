@@ -442,6 +442,13 @@ func init() {
 		return ctx.Err().Error(), nil
 	}}
 
+	// Gancho de teste (test/crash_child.dart): panic numa goroutine fora de
+	// qualquer chamada, como um bug interno do kubo; o guard não o alcança.
+	reg["ipfs_ffi/test.PanicInGoroutine"] = entry{call: func([]json.RawMessage) (any, error) {
+		go func() { panic("ipfs_ffi: panic de teste numa goroutine") }()
+		return nil, nil
+	}}
+
 	reg["config.Profiles"] = entry{call: func([]json.RawMessage) (any, error) {
 		names := make([]any, 0, len(config.Profiles))
 		for name := range config.Profiles {

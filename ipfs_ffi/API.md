@@ -165,6 +165,14 @@ Cada linha é um símbolo Go exposto e onde ele está no Dart.
 | Go | Dart | Modo |
 |---|---|---|
 | `func os.Stat(name string) (os.FileInfo, error)` | `stat` | síncrona |
+| `func os.Create(name string) (*os.File, error)` | `create` | síncrona |
+| `func (*os.File).Close() error` | `File.close` | síncrona |
+
+## `runtime/debug` → `package:ipfs_ffi/runtime/debug.dart`
+
+| Go | Dart | Modo |
+|---|---|---|
+| `func debug.SetCrashOutput(f *os.File, opts debug.CrashOptions) error` | `setCrashOutput` | síncrona |
 
 ## Adaptações (regras do gerador e código à mão)
 

@@ -108,3 +108,9 @@ github.com/ipfs/boxo/ipld/merkledag.NodeWithData
 github.com/ipfs/boxo/ipld/merkledag.ProtoNode.AddNodeLink
 github.com/ipfs/boxo/ipld/merkledag.ProtoNode.SetData
 github.com/ipfs/boxo/ipld/merkledag.ProtoNode.Data
+
+# F4a relatório de crash: um panic em goroutine interna do kubo derruba o
+# processo; o Go grava o relatório num arquivo para o app ler no próximo início
+os.Create
+os.File.Close
+runtime/debug.SetCrashOutput
