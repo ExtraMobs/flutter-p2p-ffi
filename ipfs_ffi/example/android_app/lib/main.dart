@@ -2,7 +2,8 @@
 // dart:ffi) com repo no diretório de dados do app, mostra peer ID e peers,
 // fecha o nó no background e reabre na volta, roda as verificações
 // (lib/checks.dart) e junta tudo num log que se copia com um toque. Mostra o
-// relatório de crash do Go se o processo anterior caiu.
+// relatório de crash do Go se o processo anterior caiu; na primeira vez
+// derruba o próprio processo para testar esse relatório.
 import 'dart:async';
 import 'dart:io';
 import 'dart:isolate';
@@ -154,12 +155,28 @@ class _NodePageState extends State<NodePage> {
       log('app: ${Platform.operatingSystemVersion}; Dart ${Platform.version}');
       log('cpus: ${Platform.numberOfProcessors}; bateria: ${battery()}');
       final crash = prepare(repoPath, '$appDataDir/crash.log');
-      if (crash != null)
+      if (_previousLog.existsSync()) {
+        log('--- log da execução anterior ---\n'
+            '${_previousLog.readAsStringSync()}--- fim do anterior ---');
+        _previousLog.deleteSync();
+      }
+      if (crash != null) {
         log('O PROCESSO ANTERIOR CAIU (relatório do Go):\n$crash');
+      }
       await _start();
       await _checks();
+      // teste de crash automático, uma vez por instalação: o relatório
+      // aparece no próximo início (o log desta execução vai junto)
+      final done = File('$appDataDir/crash-testado');
+      if (!done.existsSync()) {
+        done.writeAsStringSync('');
+        _crashNow();
+      }
     });
   }
+
+  /// O log da execução que caiu de propósito, para o próximo início mostrar.
+  final _previousLog = File('$appDataDir/anterior.log');
 
   @override
   void dispose() {
@@ -255,11 +272,17 @@ class _NodePageState extends State<NodePage> {
                     child: const Text('derrubar')),
               ],
             ));
-    if (ok ?? false) {
-      log('derrubando o processo de propósito...');
-      $callSync('ipfs_ffi/test.PanicInGoroutine', const []);
-      await Isolate.current.pause(); // o panic chega antes
-    }
+    if (ok ?? false) _crashNow();
+  }
+
+  /// Panic numa goroutine solta do Go: o processo inteiro cai, e o relatório
+  /// (debug.setCrashOutput) aparece no próximo início.
+  void _crashNow() {
+    log('derrubando o processo de propósito (panic numa goroutine do Go); '
+        'abra o app de novo para ver o relatório');
+    _previousLog.writeAsStringSync(logText.value);
+    $callSync('ipfs_ffi/test.PanicInGoroutine', const []);
+    Isolate.current.pause(); // o panic chega antes
   }
 
   @override
