@@ -65,10 +65,10 @@ Future<void> main() async {
     for (var i = 0; i < 100; i++) {
       final provs = await b
           .routing()
-          .findProviders(ctx, p, [options.routing.numProviders(1)]).toList();
-      if (provs.isNotEmpty) {
-        final id = provs.first.id;
-        print('B achou o provedor $id${id == idA ? ' (A)' : ''} na DHT');
+          .findProviders(ctx, p, [options.routing.numProviders(5)]).toList();
+      // quem baixou o bloco também passa a anunciá-lo: procura A entre eles
+      if (provs.any((i) => i.id == idA)) {
+        print('B achou A ($idA) entre os provedores na DHT');
         break;
       }
       await Future<void>.delayed(const Duration(milliseconds: 300));

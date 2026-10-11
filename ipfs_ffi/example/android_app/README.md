@@ -10,6 +10,8 @@ dart run tool/build.dart android
 # aqui: o Gradle empacota a lib de ../../native/android (jniLibs.srcDirs)
 flutter run -d <emulador-ou-aparelho>
 flutter test integration_test -d <emulador-ou-aparelho>
+# release só com as ABIs que têm a libipfs.so
+flutter build apk --release --target-platform android-arm64,android-x64
 ```
 
 A tela sobe um nó online (repo no diretório de dados do app, perfis `randomports` e

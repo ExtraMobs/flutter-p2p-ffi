@@ -42,21 +42,29 @@ funcionais), as 39 `Future` e 7 `Stream` (argumentos e resultado pelo listener) 
    resultados assíncronos, eventos de stream), com codificador e decodificador gerados
    nos dois lados. Trabalho do tamanho da F2; decidir com os números do passo 2.
 
-## Marco final: Android
+## Marco final: Android (0.7.0: A1–A3, A5, A6 no emulador; falta o aparelho real)
 
-Objetivo de longo prazo do dono: o mesmo nó mínimo rodando num app Android. A API Dart
-gerada não muda; mudam o build, o empacotamento da lib nativa e o ciclo de vida no app.
-Pré-requisitos: Android SDK + NDK (r27+), um emulador x86_64 e um aparelho arm64.
+O mesmo nó mínimo num app Android, com a API Dart gerada sem mudança. Validado em
+2026-10-11 no emulador `sdk_gphone16k_x86_64` (Android 17 / API 37, páginas de 16 KB),
+com NDK 30.0.16248370 e o app Flutter de validação em `example/android_app`.
 
-| Etapa | O quê | Pronto quando |
+| Etapa | O quê | Status |
 |---|---|---|
-| **A1. Build por ABI** | Alvo `dart run tool/build.dart android`: `GOOS=android GOARCH=arm64/arm/amd64 CGO_ENABLED=1 -buildmode=c-shared` com o clang do NDK de cada ABI (`aarch64-linux-android<api>-clang`, `armv7a-linux-androideabi<api>-clang`, `x86_64-linux-android<api>-clang`) → `native/android/<abi>/libipfs.so`. | as três `.so` saem do build e exportam `IpfsCall`/`IpfsD*`/`GoMalloc` (conferido com `llvm-nm` do NDK); tamanho medido |
-| **A2. Carregar a lib** | `ipfsLibraryPath = 'libipfs.so'` no Android (o loader acha a lib do APK); empacotar por `jniLibs/<abi>/` num app de exemplo e, se der, pelo hook de native assets (`hook/build.dart`). | `example` Flutter/Dart mínimo abre a lib no emulador e chama `context.background()` |
-| **A3. Nó no app** | Repo no diretório de dados do app (`getApplicationSupportDirectory`), plugins 1x, perfil `lowpower` (ou `randomports`), nó offline e depois online; `add`/`get`/pin/GC como nos exemplos 01–03. | os testes do `kubo_test.dart` que não dependem de dois processos rodam no emulador (integration test) |
-| **A4. Rede móvel** | Nó online com o roteamento do `Routing.Type`; permissão `INTERNET`; medir peers, NAT (rede celular x Wi-Fi), relay/AutoTLS. | o exemplo 04 conecta à rede pública num aparelho real, em Wi-Fi e em dados móveis |
-| **A5. Ciclo de vida** | Fechar o nó (`close`) quando o app vai para background e reabrir na volta; `debug.setCrashOutput` no diretório do app e leitura do relatório no próximo início; isolates auxiliares para o trabalho longo. | ir e voltar do background 10x sem vazar handles nem travar; crash de teste gera relatório legível no app |
-| **A6. Custo** | Medir tamanho do APK por ABI, memória, bateria e dados em 1 h de nó online; `tool/bench.dart` no aparelho (JSON x direto). | números registrados aqui, com o perfil e o roteamento recomendados para celular |
+| **A1. Build por ABI** | `dart run tool/build.dart android`: `GOOS=android`, clang do NDK (`--target=<arch>-linux-android24`), `-extldflags=-Wl,-z,max-page-size=16384`, `-checklinkname=0` (o `wlynxg/anet` do go-libp2p usa linkname em `net.zoneCache`) → `native/android/<abi>/libipfs.so` | ✅ x86_64 79,4 MB, arm64-v8a 56,1 MB; `LOAD Align 0x4000`; exports conferidos |
+| **A2. Carregar a lib** | `ipfsLibraryPath` = `libipfs.so` no Android; o Gradle do app empacota direto de `native/android` (`jniLibs.srcDirs`), `abiFilters` x86_64 + arm64-v8a, `minSdk` 24, `INTERNET` no release | ✅ app abre a lib e sobe o nó |
+| **A3. Nó no app** | `integration_test/ipfs_test.dart`: add/get, pins+GC, progresso, IPNS/chaves/dag, CAR, dois nós (bitswap, provide/findProviders, pubsub), ciclos, custo da ponte | ✅ 7/7 no emulador (2 execuções) |
+| **A4. Rede móvel** | roteamento do `Routing.Type` (perfis `randomports` + `lowpower`) | ✅ no emulador: 110–155 peers em 40 s; o DNS do bootstrap (`/dnsaddr`) funcionou sem ajuste. ⏳ aparelho real: Wi-Fi × dados móveis, NAT |
+| **A5. Ciclo de vida** | o app fecha o nó em `paused` e reabre em `resumed`; `debug.setCrashOutput` em `<dados do app>/crash.log`, mostrado no próximo início | ✅ background → volta reabre o nó (mesmo peer); 10 ciclos no teste. ⏳ provocar um crash real no aparelho e ver o relatório na tela |
+| **A6. Custo** | APK, memória, ponte | ✅ APK release (arm64+x64) 167,9 MB; por aparelho ≈ 72 MB (arm64) / ≈ 97 MB (x86_64), quase tudo a `libipfs.so`; memória com o nó online há 60 s: PSS 192,6 MB, RSS 310 MB; ponte: `api.unixfs()` 5,7–8,1 µs, `fsrepo.isInitialized` 10,6–15 µs, `ctx.err()` (JSON) 14–27 µs. ⏳ bateria e dados num aparelho real |
 
-Limites esperados: a `.so` grande (~57 MB no Windows; reduzir com `-ldflags=-s -w` e
-`-trimpath`, que o build já usa, e talvez cortando plugins/transportes não usados);
-um nó por processo (plugins e métricas globais do kubo); iOS fora do escopo atual.
+Achados:
+- Release: `flutter build apk --release --target-platform android-arm64,android-x64` (sem
+  isso o Flutter também põe as libs dele de armeabi-v7a, e o app instalaria num aparelho de
+  32 bits sem a `libipfs.so`); `--split-per-abi` conflita com o `abiFilters`.
+- Com `Routing.Type` none (`libp2p.nilRouterOption`) o kubo 0.43 não fecha o datastore do
+  `provider-keystore` no `close` (o hook pula o provider Noop): reabrir o mesmo repo no mesmo
+  processo falha com "resource temporarily unavailable". Com roteamento real não acontece.
+- Quem baixa um bloco também passa a anunciá-lo (estratégia padrão do provide): numa busca
+  por provedores, procure o peer esperado entre vários (`numProviders(5)`), não o primeiro.
+- Limites que seguem: um nó por processo (plugins e métricas globais do kubo); iOS fora do
+  escopo; a `.so` grande (cortar plugins/transportes não usados é o próximo passo se pesar).

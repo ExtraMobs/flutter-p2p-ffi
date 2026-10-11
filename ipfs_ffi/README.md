@@ -2,7 +2,7 @@
 
 Kubo v0.43.1 (IPFS em Go) compilado com `-buildmode=c-shared` e usado do
 Dart por `dart:ffi`: o nó roda nativo dentro do processo Dart, sem HTTP.
-Alvos: VM/AOT no Windows e no linux (não serve para JS/Wasm).
+Alvos: VM/AOT no Windows, no linux e no Android (não serve para JS/Wasm).
 
 A API Dart é a do próprio Go, gerada: uma library por pacote Go, sem o
 prefixo `github.com/<org>/` (`kubo/core.dart`, `boxo/files.dart`...). O que
@@ -84,6 +84,17 @@ Exemplos, na ordem em que o kubo monta um nó:
   desatualizados.
 - Testes: `dart test` nesta pasta.
 
+### Android (validado no emulador, Android 17)
+
+`dart run tool/build.dart android` gera `native/android/{x86_64,arm64-v8a}/libipfs.so` com o
+NDK (`ANDROID_NDK_HOME`, ou o mais novo em `<Android SDK>/ndk`), alinhadas em 16 KB. No
+Android o `ipfsLibraryPath` padrão é `libipfs.so`: a lib vai dentro do APK. O app de
+validação em [`example/android_app`](example/android_app) mostra como empacotar (o Gradle
+lê direto de `native/android`), sobe o nó, fecha no background e reabre na volta, e tem o
+teste de integração (`flutter test integration_test -d <aparelho>`). Release:
+`flutter build apk --release --target-platform android-arm64,android-x64`. Números e
+achados em [`TODO.md`](TODO.md).
+
 ### Linux pelo WSL (validado no Ubuntu 26.04)
 
 Instale as ferramentas do linux no Ubuntu do WSL (o `dart` do Windows vaza pelo
@@ -111,7 +122,7 @@ e leia o arquivo no próximo início.
 Chamadas síncronas só com número, `bool`, string e handle usam um export C direto
 (sem JSON; `dart run tool/bench.dart` mede); o resto passa pelo `IpfsCall`.
 
-Pendências e roteiro em [`TODO.md`](TODO.md): o resto do JSON (exports diretos para bytes e tipos-valor, medição das assíncronas, formato binário) e o marco final, Android (etapas A1–A6).
+Pendências e roteiro em [`TODO.md`](TODO.md): o resto do JSON (exports diretos para bytes e tipos-valor, medição das assíncronas, formato binário) e o que falta do Android (aparelho real: rede móvel, bateria, crash).
 
 Limites: os plugins do kubo são injetados uma vez por processo; um panic em
 goroutine interna do kubo (fora da chamada) derruba o processo (veja o relatório de crash acima).

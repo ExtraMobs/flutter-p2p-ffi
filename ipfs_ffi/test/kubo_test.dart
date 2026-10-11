@@ -268,10 +268,11 @@ void main() {
       await a.routing().provide(ctx, p);
       final deadline = DateTime.now().add(const Duration(seconds: 30));
       var provs = <peer.AddrInfo>[];
-      while (provs.isEmpty && DateTime.now().isBefore(deadline)) {
+      while (
+          !provs.any((i) => i.id == idA) && DateTime.now().isBefore(deadline)) {
         provs = await b
             .routing()
-            .findProviders(ctx, p, [options.routing.numProviders(1)]).toList();
+            .findProviders(ctx, p, [options.routing.numProviders(5)]).toList();
         if (provs.isEmpty)
           await Future<void>.delayed(const Duration(milliseconds: 300));
       }
