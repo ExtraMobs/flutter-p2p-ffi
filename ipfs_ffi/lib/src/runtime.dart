@@ -65,7 +65,27 @@ final class _Native {
   }
 }
 
-final _native = _Native(DynamicLibrary.open(ipfsLibraryPath));
+/// A lib nativa; as libraries geradas buscam nela os exports diretos.
+final $dylib = DynamicLibrary.open(ipfsLibraryPath);
+final _native = _Native($dylib);
+
+// Exports diretos (gen: funções síncronas só com número, bool, string e
+// handle): sem JSON; o resultado sai por $out e o erro é o retorno.
+
+/// Saída dos exports diretos: 8 bytes por isolate, lidos logo após a chamada.
+final Pointer<Int64> $out = _native.malloc(8).cast();
+
+Pointer<Uint8> $cstr(String s) => _native.cstr(s);
+void $free(Pointer<NativeType> p) => _native.free(p.cast());
+String $take(Pointer<Uint8> p) => _native.take(p);
+
+/// Erro de um export direto: NULL = ok; senão a mensagem (ou o panic).
+void $check(Pointer<Uint8> err) {
+  if (err != nullptr) throw IpfsException(_native.take(err));
+}
+
+/// Handle devolvido por um export direto: 0 é o nil do Go.
+int $nnH(int h) => h != 0 ? h : throw IpfsException('o Go devolveu nil');
 
 // Modos do IpfsCall e eventos do callback (go/runtime.go).
 const _sync = 0, _async = 1, _streamMode = 2;

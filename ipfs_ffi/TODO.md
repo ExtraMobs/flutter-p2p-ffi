@@ -1,31 +1,29 @@
 # Pendências do ipfs_ffi
 
-## Exports diretos para assinaturas simples (sem JSON)
+## Feito: exports diretos para assinaturas simples (0.5.0)
 
-**Situação.** Toda chamada passa pelo export único `IpfsCall` (`go/runtime.go`) com
-os argumentos e o resultado em JSON, inclusive um `bool` ou um `int`. Isso deixa o
-gerador simples (um símbolo novo = uma linha no `go/gen/roots.txt`) e cobre o que é
-estruturado (structs, listas, mapas, opções, múltiplos resultados, `nil`) com a
-biblioteca padrão dos dois lados. Bytes já não vão no JSON (buffer C, commit
-`3334369`).
+Toda chamada passava pelo export único `IpfsCall` com JSON (~27 µs no Windows,
+mesmo para um `bool`). Desde a 0.5.0 o gerador emite um `//export IpfsD<n>` com
+tipos C para cada função **síncrona** só com número, `bool`, string e handle (26
+das raízes: os getters da `CoreAPI`, `fsrepo.isInitialized/open`, `files.toFile`,
+`os.stat`...); o resto continua no `IpfsCall`. A API Dart não mudou. Medido com
+`dart run tool/bench.dart` (20 mil chamadas depois do aquecimento):
 
-**Custo medido** (Windows, 2026-10-11, nó offline): ~27 µs por chamada síncrona sem
-trabalho no Go (`ctx.err()`); ~142 µs por `resolvePath` assíncrono sequencial (~40 µs
-em paralelo). O custo vem do JSON nos dois sentidos e de ~6 transições Go↔C por
-chamada (`GoMalloc`/`GoFree` das strings + a chamada). Irrelevante diante de
-operações IPFS (ms no disco, mais na rede); pesa só em laços com milhares de
-chamadas pequenas.
+| Chamada | Windows antes | Windows depois | linux depois |
+|---|---|---|---|
+| `api.unixfs()` (handle → handle) | 24–26 µs | 4,2–4,4 µs | 1,5 µs |
+| `fsrepo.isInitialized` (string → bool, consulta o disco) | 73–78 µs | 49–50 µs | 3,7 µs |
+| `ctx.err()` (à mão, continua em JSON: controle) | 19 µs | 20 µs | 5,9 µs |
 
-**Proposta.** O gerador decide por função: se todos os parâmetros e resultados são
-números, `bool`, string ou handle, emite um `//export` próprio com os tipos C
-(`int64_t`, `double`, `char*`) e, no Dart, o `lookupFunction` com essa assinatura,
-sem JSON; o resto continua no `IpfsCall`. A API Dart gerada não muda (a regra do
-projeto: desempenho se ganha dentro do runtime/gerador). Esperado: ~1–3 µs nessas
-chamadas. Alternativa menor: alocar os argumentos no Dart sem `GoMalloc` por string
-e responder sem JSON quando o resultado for simples.
+Se um dia pesar: o `context.dart` escrito à mão ainda usa JSON (`background`,
+`withCancel`, `err`) e pode ganhar exports diretos à mão no mesmo molde.
 
-**Quando.** Só se um uso real mostrar chamadas pequenas e repetidas pesando (medir
-antes e depois com o mesmo cenário acima).
+## Feito: relatório de crash (0.5.0)
+
+Um panic numa goroutine interna do kubo (fora de uma chamada) não é recuperável no
+processo: derruba o app. O `guard` cobre só a chamada. `os.create(caminho)` +
+`debug.setCrashOutput(f, debug.CrashOptions())` fazem o Go gravar o relatório
+(`panic: ...` e o stack das goroutines) nesse arquivo; o app o lê no próximo início.
 
 ## Marco final: Android
 

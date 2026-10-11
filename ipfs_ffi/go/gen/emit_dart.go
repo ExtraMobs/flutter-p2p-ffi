@@ -28,6 +28,8 @@ type dartLib struct {
 	funcs   []*fn
 	bytes   bool // usa Uint8List
 	async   bool // usa StreamSink (dart:async)
+	ffi     bool // tem exports diretos (dart:ffi)
+	lookups []string
 }
 
 type dclass struct {
@@ -326,15 +328,24 @@ func (e *dartEmitter) emitLib(l *dartLib) string {
 	for _, f := range l.funcs {
 		body.WriteString(e.function(l, f, "", false) + "\n")
 	}
+	if len(l.lookups) > 0 {
+		body.WriteString("// Exports diretos (sem JSON) usados acima.\n")
+		for _, lk := range l.lookups {
+			body.WriteString(lk)
+		}
+	}
 	var b strings.Builder
 	fmt.Fprintf(&b, "// Gerado por ipfs_ffi/go/gen a partir de go/gen/roots.txt; não editar.\n// Go: %s\nlibrary;\n\n", l.goPath)
 	if l.async {
 		b.WriteString("import 'dart:async';\n")
 	}
+	if l.ffi {
+		b.WriteString("import 'dart:ffi';\n")
+	}
 	if l.bytes {
 		b.WriteString("import 'dart:typed_data';\n")
 	}
-	if l.async || l.bytes {
+	if l.async || l.bytes || l.ffi {
 		b.WriteString("\n")
 	}
 	if usesRuntime(body.String()) {
@@ -594,6 +605,19 @@ func (e *dartEmitter) function(l *dartLib, f *fn, class string, factory bool) st
 		fmt.Fprintf(&b, "%sStream<%s> %s%s =>\n%s    $stream(%s).map((r) => %s);\n", indent, e.dt(f.stream, l), name, sig, indent, call, e.dd(f.stream, "r", l, 0))
 		return b.String()
 	}
+	if f.direct >= 0 {
+		head := ""
+		switch {
+		case factory:
+			head = "factory " + class + sig
+		case f.isVar:
+			head = e.directRet(f, l) + " get " + name
+		default:
+			head = e.directRet(f, l) + " " + name + sig
+		}
+		b.WriteString(indent + head + " {\n" + e.directBody(l, f, indent+"  ") + indent + "}\n")
+		return b.String()
+	}
 	ret, dec := "void", ""
 	switch len(f.results) {
 	case 0:
@@ -687,4 +711,96 @@ func (e *dartEmitter) linkConcrete() {
 			}
 		}
 	}
+}
+
+func (e *dartEmitter) directRet(f *fn, l *dartLib) string {
+	if len(f.results) == 0 {
+		return "void"
+	}
+	return e.dt(f.results[0], l)
+}
+
+// nativeT: tipo dart:ffi (nativo, Dart) de um tipo direto.
+func nativeT(t *tinfo) (string, string) {
+	switch cat(t) {
+	case "double":
+		return "Double", "double"
+	case "string":
+		return "Pointer<Uint8>", "Pointer<Uint8>"
+	}
+	return "Int64", "int"
+}
+
+// directBody: corpo Dart que chama o export IpfsD<n> (sem JSON) e declara o
+// lookup dele na library.
+func (e *dartEmitter) directBody(l *dartLib, f *fn, in string) string {
+	l.ffi = true
+	var nat, dart, args, pre, post []string
+	if f.recv != nil {
+		nat, dart, args = append(nat, "Int64"), append(dart, "int"), append(args, "$h")
+	}
+	for i, p := range f.params {
+		n, d := nativeT(p.t)
+		nat, dart = append(nat, n), append(dart, d)
+		v := memberName(p.name)
+		switch cat(p.t) {
+		case "handle":
+			args = append(args, v+".$h")
+		case "bool":
+			args = append(args, v+" ? 1 : 0")
+		case "string":
+			s := fmt.Sprintf("$s%d", i)
+			pre = append(pre, fmt.Sprintf("final %s = $cstr(%s);", s, v))
+			post = append(post, fmt.Sprintf("$free(%s);", s))
+			args = append(args, s)
+		default:
+			args = append(args, v)
+		}
+	}
+	out, ret := "$out", ""
+	if len(f.results) == 1 {
+		r := f.results[0]
+		switch cat(r) {
+		case "handle":
+			ret = e.ref(r, l) + ".$h($nnH($out.value))"
+		case "bool":
+			ret = "$out.value != 0"
+		case "double":
+			out, ret = "$out.cast<Double>()", "$out.cast<Double>().value"
+		case "string":
+			out, ret = "$out.cast<Pointer<Uint8>>()", "$take($out.cast<Pointer<Uint8>>().value)"
+		default:
+			ret = "$out.value"
+		}
+	}
+	outNat := "Pointer<Int64>"
+	switch out {
+	case "$out.cast<Double>()":
+		outNat = "Pointer<Double>"
+	case "$out.cast<Pointer<Uint8>>()":
+		outNat = "Pointer<Pointer<Uint8>>"
+	}
+	nat, dart, args = append(nat, outNat), append(dart, outNat), append(args, out)
+	fn := fmt.Sprintf("_d%d", f.direct)
+	l.lookups = append(l.lookups, fmt.Sprintf("final %s = $dylib.lookupFunction<Pointer<Uint8> Function(%s), Pointer<Uint8> Function(%s)>('IpfsD%d');\n",
+		fn, strings.Join(nat, ", "), strings.Join(dart, ", "), f.direct))
+
+	var b strings.Builder
+	callLine := fmt.Sprintf("$check(%s(%s));", fn, strings.Join(args, ", "))
+	if len(pre) == 0 {
+		b.WriteString(in + callLine + "\n")
+	} else {
+		for _, p := range pre {
+			b.WriteString(in + p + "\n")
+		}
+		fmt.Fprintf(&b, "%stry {\n%s  %s\n%s} finally {\n", in, in, callLine, in)
+		for _, p := range post {
+			b.WriteString(in + "  " + p + "\n")
+		}
+		b.WriteString(in + "}\n")
+	}
+	if ret != "" {
+		b.WriteString(in + "return " + ret + ";\n")
+	}
+	return b.String()
 }

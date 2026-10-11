@@ -2,6 +2,7 @@
 // Go: github.com/ipfs/boxo/ipld/merkledag
 library;
 
+import 'dart:ffi';
 import 'dart:typed_data';
 
 import 'package:ipfs_ffi/src/runtime.dart';
@@ -13,8 +14,12 @@ class ProtoNode extends $go_ipld_format.Node {
 
   /// Go: `func (*merkledag.ProtoNode).AddNodeLink(name string, that format.Node) error`.
   void addNodeLink(String name, $go_ipld_format.Node that) {
-    $callSync('github.com/ipfs/boxo/ipld/merkledag.ProtoNode.AddNodeLink',
-        [this, name, that]);
+    final $s0 = $cstr(name);
+    try {
+      $check(_d23($h, $s0, that.$h, $out));
+    } finally {
+      $free($s0);
+    }
   }
 
   /// Go: `func (*merkledag.ProtoNode).SetData(d []byte)`.
@@ -48,3 +53,9 @@ ProtoNode nodeWithData(Uint8List d) {
   final $r = $callSync('github.com/ipfs/boxo/ipld/merkledag.NodeWithData', [d]);
   return ProtoNode.$h($nn($r) as int);
 }
+
+// Exports diretos (sem JSON) usados acima.
+final _d23 = $dylib.lookupFunction<
+    Pointer<Uint8> Function(Int64, Pointer<Uint8>, Int64, Pointer<Int64>),
+    Pointer<Uint8> Function(
+        int, Pointer<Uint8>, int, Pointer<Int64>)>('IpfsD23');

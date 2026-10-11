@@ -2,6 +2,7 @@
 // Go: github.com/ipfs/go-ipld-format
 library;
 
+import 'dart:ffi';
 import 'dart:typed_data';
 
 import 'package:ipfs_ffi/src/runtime.dart';
@@ -66,8 +67,8 @@ class Node extends $go_block_format.Block {
 
   /// Go: `func (format.Node).Size() (uint64, error)`.
   int size() {
-    final $r = $callSync('github.com/ipfs/go-ipld-format.Node.Size', [this]);
-    return $r as int;
+    $check(_d22($h, $out));
+    return $out.value;
   }
 
   /// Go: `func (format.Node).Stat() (*format.NodeStat, error)`.
@@ -175,3 +176,8 @@ final class NodeStat implements GoJson {
         'CumulativeSize': $enc(cumulativeSize)
       };
 }
+
+// Exports diretos (sem JSON) usados acima.
+final _d22 = $dylib.lookupFunction<
+    Pointer<Uint8> Function(Int64, Pointer<Int64>),
+    Pointer<Uint8> Function(int, Pointer<Int64>)>('IpfsD22');

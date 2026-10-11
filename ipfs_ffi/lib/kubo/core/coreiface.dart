@@ -2,6 +2,7 @@
 // Go: github.com/ipfs/kubo/core/coreiface
 library;
 
+import 'dart:ffi';
 import 'dart:typed_data';
 
 import 'package:ipfs_ffi/src/runtime.dart';
@@ -76,9 +77,8 @@ class ApiDagService extends $go_ipld_format.DagService {
 
   /// Go: `func (iface.APIDagService).Pinning() format.NodeAdder`.
   $go_ipld_format.NodeAdder pinning() {
-    final $r = $callSync(
-        'github.com/ipfs/kubo/core/coreiface.APIDagService.Pinning', [this]);
-    return $go_ipld_format.NodeAdder.$h($nn($r) as int);
+    $check(_d21($h, $out));
+    return $go_ipld_format.NodeAdder.$h($nnH($out.value));
   }
 }
 
@@ -248,9 +248,8 @@ class CoreApi extends GoHandle {
 
   /// Go: `func (iface.CoreAPI).Unixfs() iface.UnixfsAPI`.
   UnixfsApi unixfs() {
-    final $r =
-        $callSync('github.com/ipfs/kubo/core/coreiface.CoreAPI.Unixfs', [this]);
-    return UnixfsApi.$h($nn($r) as int);
+    $check(_d5($h, $out));
+    return UnixfsApi.$h($nnH($out.value));
   }
 
   /// Go: `func (iface.CoreAPI).ResolvePath(context.Context, path.Path) (path.ImmutablePath, []string, error)`.
@@ -269,51 +268,44 @@ class CoreApi extends GoHandle {
 
   /// Go: `func (iface.CoreAPI).Pin() iface.PinAPI`.
   PinApi pin() {
-    final $r =
-        $callSync('github.com/ipfs/kubo/core/coreiface.CoreAPI.Pin', [this]);
-    return PinApi.$h($nn($r) as int);
+    $check(_d10($h, $out));
+    return PinApi.$h($nnH($out.value));
   }
 
   /// Go: `func (iface.CoreAPI).Block() iface.BlockAPI`.
   BlockApi block() {
-    final $r =
-        $callSync('github.com/ipfs/kubo/core/coreiface.CoreAPI.Block', [this]);
-    return BlockApi.$h($nn($r) as int);
+    $check(_d11($h, $out));
+    return BlockApi.$h($nnH($out.value));
   }
 
   /// Go: `func (iface.CoreAPI).Key() iface.KeyAPI`.
   KeyApi key() {
-    final $r =
-        $callSync('github.com/ipfs/kubo/core/coreiface.CoreAPI.Key', [this]);
-    return KeyApi.$h($nn($r) as int);
+    $check(_d16($h, $out));
+    return KeyApi.$h($nnH($out.value));
   }
 
   /// Go: `func (iface.CoreAPI).Swarm() iface.SwarmAPI`.
   SwarmApi swarm() {
-    final $r =
-        $callSync('github.com/ipfs/kubo/core/coreiface.CoreAPI.Swarm', [this]);
-    return SwarmApi.$h($nn($r) as int);
+    $check(_d17($h, $out));
+    return SwarmApi.$h($nnH($out.value));
   }
 
   /// Go: `func (iface.CoreAPI).Routing() iface.RoutingAPI`.
   RoutingApi routing() {
-    final $r = $callSync(
-        'github.com/ipfs/kubo/core/coreiface.CoreAPI.Routing', [this]);
-    return RoutingApi.$h($nn($r) as int);
+    $check(_d18($h, $out));
+    return RoutingApi.$h($nnH($out.value));
   }
 
   /// Go: `func (iface.CoreAPI).Name() iface.NameAPI`.
   NameApi name() {
-    final $r =
-        $callSync('github.com/ipfs/kubo/core/coreiface.CoreAPI.Name', [this]);
-    return NameApi.$h($nn($r) as int);
+    $check(_d19($h, $out));
+    return NameApi.$h($nnH($out.value));
   }
 
   /// Go: `func (iface.CoreAPI).Dag() iface.APIDagService`.
   ApiDagService dag() {
-    final $r =
-        $callSync('github.com/ipfs/kubo/core/coreiface.CoreAPI.Dag', [this]);
-    return ApiDagService.$h($nn($r) as int);
+    $check(_d20($h, $out));
+    return ApiDagService.$h($nnH($out.value));
   }
 
   /// Go: `func (iface.CoreAPI).ResolveNode(context.Context, path.Path) (format.Node, error)`.
@@ -772,3 +764,32 @@ class UnixfsApi extends GoHandle {
         opts
       ]).map((r) => DirEntry.$fromJson(r as Map<String, Object?>));
 }
+
+// Exports diretos (sem JSON) usados acima.
+final _d21 = $dylib.lookupFunction<
+    Pointer<Uint8> Function(Int64, Pointer<Int64>),
+    Pointer<Uint8> Function(int, Pointer<Int64>)>('IpfsD21');
+final _d5 = $dylib.lookupFunction<
+    Pointer<Uint8> Function(Int64, Pointer<Int64>),
+    Pointer<Uint8> Function(int, Pointer<Int64>)>('IpfsD5');
+final _d10 = $dylib.lookupFunction<
+    Pointer<Uint8> Function(Int64, Pointer<Int64>),
+    Pointer<Uint8> Function(int, Pointer<Int64>)>('IpfsD10');
+final _d11 = $dylib.lookupFunction<
+    Pointer<Uint8> Function(Int64, Pointer<Int64>),
+    Pointer<Uint8> Function(int, Pointer<Int64>)>('IpfsD11');
+final _d16 = $dylib.lookupFunction<
+    Pointer<Uint8> Function(Int64, Pointer<Int64>),
+    Pointer<Uint8> Function(int, Pointer<Int64>)>('IpfsD16');
+final _d17 = $dylib.lookupFunction<
+    Pointer<Uint8> Function(Int64, Pointer<Int64>),
+    Pointer<Uint8> Function(int, Pointer<Int64>)>('IpfsD17');
+final _d18 = $dylib.lookupFunction<
+    Pointer<Uint8> Function(Int64, Pointer<Int64>),
+    Pointer<Uint8> Function(int, Pointer<Int64>)>('IpfsD18');
+final _d19 = $dylib.lookupFunction<
+    Pointer<Uint8> Function(Int64, Pointer<Int64>),
+    Pointer<Uint8> Function(int, Pointer<Int64>)>('IpfsD19');
+final _d20 = $dylib.lookupFunction<
+    Pointer<Uint8> Function(Int64, Pointer<Int64>),
+    Pointer<Uint8> Function(int, Pointer<Int64>)>('IpfsD20');

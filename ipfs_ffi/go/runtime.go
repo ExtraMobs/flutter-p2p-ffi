@@ -155,16 +155,39 @@ func henc(v any) any {
 }
 
 func hdec[T any](raw json.RawMessage) (T, error) {
-	var zero T
 	var h int64
-	if err := json.Unmarshal(raw, &h); err != nil || h == 0 {
+	if err := json.Unmarshal(raw, &h); err != nil {
+		var zero T
 		return zero, err
+	}
+	return hget[T](h)
+}
+
+// hget: o valor do handle [h] (0 = nil), para o JSON e os exports diretos.
+func hget[T any](h int64) (T, error) {
+	var zero T
+	if h == 0 {
+		return zero, nil
 	}
 	v, ok := cgo.Handle(h).Value().(T)
 	if !ok {
 		return zero, fmt.Errorf("ipfs_ffi: handle %d não é %v", h, reflect.TypeFor[T]())
 	}
 	return v, nil
+}
+
+// hint: handle novo de [v] como inteiro (0 = nil), para os exports diretos.
+func hint(v any) int64 {
+	h, _ := henc(v).(int64)
+	return h
+}
+
+// guardC: o guard dos exports diretos (gen: funções síncronas só com número,
+// bool, string e handle): panic vira a mensagem de erro devolvida.
+func guardC(cerr **C.char) {
+	if r := recover(); r != nil {
+		*cerr = C.CString(fmt.Sprintf("panic: %v", r))
+	}
 }
 
 //export IpfsHandleFree

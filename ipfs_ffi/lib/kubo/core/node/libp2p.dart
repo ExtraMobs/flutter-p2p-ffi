@@ -2,6 +2,8 @@
 // Go: github.com/ipfs/kubo/core/node/libp2p
 library;
 
+import 'dart:ffi';
+
 import 'package:ipfs_ffi/src/runtime.dart';
 import 'package:ipfs_ffi/kubo/config.dart' as $config;
 
@@ -17,29 +19,26 @@ class RoutingOption extends GoHandle {
 
 /// Go: `var libp2p.DHTOption libp2p.RoutingOption`.
 RoutingOption get dhtOption {
-  final $r = $callSync('github.com/ipfs/kubo/core/node/libp2p.DHTOption', []);
-  return RoutingOption.$h($nn($r) as int);
+  $check(_d12($out));
+  return RoutingOption.$h($nnH($out.value));
 }
 
 /// Go: `var libp2p.DHTClientOption libp2p.RoutingOption`.
 RoutingOption get dhtClientOption {
-  final $r =
-      $callSync('github.com/ipfs/kubo/core/node/libp2p.DHTClientOption', []);
-  return RoutingOption.$h($nn($r) as int);
+  $check(_d13($out));
+  return RoutingOption.$h($nnH($out.value));
 }
 
 /// Go: `var libp2p.DHTServerOption libp2p.RoutingOption`.
 RoutingOption get dhtServerOption {
-  final $r =
-      $callSync('github.com/ipfs/kubo/core/node/libp2p.DHTServerOption', []);
-  return RoutingOption.$h($nn($r) as int);
+  $check(_d14($out));
+  return RoutingOption.$h($nnH($out.value));
 }
 
 /// Go: `var libp2p.NilRouterOption func(_ libp2p.RoutingOptionArgs) (routing.Routing, error)`.
 RoutingOption get nilRouterOption {
-  final $r =
-      $callSync('github.com/ipfs/kubo/core/node/libp2p.NilRouterOption', []);
-  return RoutingOption.$h($nn($r) as int);
+  $check(_d15($out));
+  return RoutingOption.$h($nnH($out.value));
 }
 
 /// Go: `func libp2p.ConstructDefaultRouting(cfg *config.Config, routingOpt libp2p.RoutingOption) libp2p.RoutingOption`.
@@ -50,3 +49,13 @@ RoutingOption constructDefaultRouting(
       [cfg, routingOpt]);
   return RoutingOption.$h($nn($r) as int);
 }
+
+// Exports diretos (sem JSON) usados acima.
+final _d12 = $dylib.lookupFunction<Pointer<Uint8> Function(Pointer<Int64>),
+    Pointer<Uint8> Function(Pointer<Int64>)>('IpfsD12');
+final _d13 = $dylib.lookupFunction<Pointer<Uint8> Function(Pointer<Int64>),
+    Pointer<Uint8> Function(Pointer<Int64>)>('IpfsD13');
+final _d14 = $dylib.lookupFunction<Pointer<Uint8> Function(Pointer<Int64>),
+    Pointer<Uint8> Function(Pointer<Int64>)>('IpfsD14');
+final _d15 = $dylib.lookupFunction<Pointer<Uint8> Function(Pointer<Int64>),
+    Pointer<Uint8> Function(Pointer<Int64>)>('IpfsD15');

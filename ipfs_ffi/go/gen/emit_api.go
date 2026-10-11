@@ -36,6 +36,8 @@ func emitAPI(m *model, fns []*fn) []byte {
 				mode = "Stream"
 			case f.async:
 				mode = "Future"
+			case f.direct >= 0:
+				mode = "síncrona (direta)"
 			}
 			fmt.Fprintf(&b, "| `%s` | `%s` | %s |\n", goDoc(f.obj), dart, mode)
 		}

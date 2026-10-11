@@ -41,6 +41,40 @@ type fn struct {
 	async   bool
 	stream  *tinfo // elemento do canal (kChanSend em parâmetro ou kChanRecv no resultado)
 	why     string // motivo da omissão
+	direct  int    // >= 0: export direto IpfsD<n> (sem JSON); -1: só pelo IpfsCall
+}
+
+// directKind: atravessa um export direto com tipo C (int64, double, char*).
+func directKind(t *tinfo) bool {
+	switch t.k {
+	case kBasic:
+		return true
+	case kHandle:
+		return !t.reader // io.Reader em parâmetro aceita bytes: fica no JSON
+	}
+	return false
+}
+
+// isDirect: função síncrona só com número, bool, string e handle, que ganha
+// export próprio (ipfs_ffi/TODO.md: ~27 µs por chamada no JSON).
+func isDirect(f *fn) bool {
+	if f.why != "" || f.async || f.stream != nil || len(f.results) > 1 {
+		return false
+	}
+	if f.recv != nil && !directKind(f.recv) {
+		return false
+	}
+	for _, p := range f.params {
+		if p.variadic || !directKind(p.t) {
+			return false
+		}
+	}
+	for _, r := range f.results {
+		if !directKind(r) {
+			return false
+		}
+	}
+	return true
 }
 
 func main() {
@@ -106,6 +140,13 @@ func generate(rootsFile string) (map[string][]byte, error) {
 			return nil, err
 		}
 		fns = append(fns, f)
+	}
+	nd := 0
+	for _, f := range fns {
+		f.direct = -1
+		if isDirect(f) {
+			f.direct, nd = nd, nd+1
+		}
 	}
 	out := map[string][]byte{}
 	goSrc, err := emitGo(m, fns)
