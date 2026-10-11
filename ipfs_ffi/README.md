@@ -104,7 +104,7 @@ e leia o arquivo no próximo início.
 Chamadas síncronas só com número, `bool`, string e handle usam um export C direto
 (sem JSON; `dart run tool/bench.dart` mede); o resto passa pelo `IpfsCall`.
 
-Roteiro: marco final, Android (ver [`TODO.md`](TODO.md)).
+Pendências e roteiro em [`TODO.md`](TODO.md): o resto do JSON (exports diretos para bytes e tipos-valor, medição das assíncronas, formato binário) e o marco final, Android (etapas A1–A6).
 
 Limites: os plugins do kubo são injetados uma vez por processo; um panic em
 goroutine interna do kubo (fora da chamada) derruba o processo (veja o relatório de crash acima).
