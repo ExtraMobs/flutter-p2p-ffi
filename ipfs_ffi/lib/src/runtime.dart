@@ -71,9 +71,12 @@ final _native = _Native(DynamicLibrary.open(ipfsLibraryPath));
 const _sync = 0, _async = 1, _streamMode = 2;
 const _evValue = 0, _evItem = 1, _evEnd = 2, _evError = 3;
 
-/// Chamadas pendentes desta isolate: Completer ou StreamController, e os
-/// argumentos (mantêm os handles vivos até o Go terminar).
-final _pending = <int, (Object, List<Object?>)>{};
+/// Chamada pendente desta isolate: o Completer ou StreamController, os
+/// argumentos (mantêm os handles vivos até o Go terminar) e os buffers C dos
+/// bytes enviados (o Go os lê na goroutine; soltos no fim).
+typedef _Pending = (Object sink, List<Object?> args, List<Pointer<Uint8>> bufs);
+
+final _pending = <int, _Pending>{};
 var _nextId = 0;
 
 final _listener = NativeCallable<_CbNative>.listener(_onEvent)
@@ -81,7 +84,7 @@ final _listener = NativeCallable<_CbNative>.listener(_onEvent)
 
 void _onEvent(int id, int kind, Pointer<Uint8> data) {
   final text = _native.take(data);
-  final (sink, _) = _pending[id]!;
+  final (sink, _, bufs) = _pending[id]!;
   switch ((kind, sink)) {
     case (_evValue, Completer<Object?> c):
       c.complete(jsonDecode(text));
@@ -98,18 +101,44 @@ void _onEvent(int id, int kind, Pointer<Uint8> data) {
         ..close();
   }
   _pending.remove(id);
+  _freeAll(bufs);
   if (_pending.isEmpty) _listener.keepIsolateAlive = false;
 }
 
-Pointer<Uint8> _start(String fn, List<Object?> args, int mode, int id) {
-  final name = _native.cstr(fn);
-  final json = _native.cstr(jsonEncode($enc(args)));
+/// Buffers C dos bytes da chamada sendo codificada (preenchido por $enc).
+List<Pointer<Uint8>>? _bufs;
+
+void _freeAll(List<Pointer<Uint8>> bufs) {
+  for (final p in bufs) {
+    _native.free(p.cast());
+  }
+}
+
+/// Codifica os argumentos (bytes vão para buffers C) e chama o Go. Devolve a
+/// resposta síncrona (ou NULL) e os buffers, que o chamador solta.
+(Pointer<Uint8>, List<Pointer<Uint8>>) _start(
+    String fn, List<Object?> args, int mode, int id) {
+  final bufs = _bufs = [];
+  final String json;
   try {
-    return _native.call(name, json, mode, _listener.nativeFunction, id);
+    json = jsonEncode($enc(args));
+  } catch (_) {
+    _freeAll(bufs);
+    rethrow;
+  } finally {
+    _bufs = null;
+  }
+  final name = _native.cstr(fn);
+  final cjson = _native.cstr(json);
+  try {
+    return (
+      _native.call(name, cjson, mode, _listener.nativeFunction, id),
+      bufs
+    );
   } finally {
     _native
       ..free(name.cast())
-      ..free(json.cast());
+      ..free(cjson.cast());
   }
 }
 
@@ -121,33 +150,39 @@ List<Object?>? _keep;
 /// Chamada síncrona: bloqueia a isolate até o Go responder.
 Object? $callSync(String fn, List<Object?> args) {
   _keep = args;
-  try {
-    final reply = jsonDecode(_native.take(_start(fn, args, _sync, 0))) as Map;
-    if (reply['e'] case final String e) throw IpfsException(e);
-    return reply['v'];
-  } finally {
-    _keep = null;
-  }
+  final (reply, bufs) = _start(fn, args, _sync, 0);
+  _freeAll(bufs); // o Go já copiou
+  _keep = null;
+  final r = jsonDecode(_native.take(reply)) as Map;
+  if (r['e'] case final String e) throw IpfsException(e);
+  return r['v'];
 }
 
 int _register(Object sink, List<Object?> args) {
   final id = ++_nextId;
-  _pending[id] = (sink, args);
+  _pending[id] = (sink, args, const []);
   _listener.keepIsolateAlive = true;
   return id;
+}
+
+void _attach(int id, List<Pointer<Uint8>> bufs) {
+  final (sink, args, _) = _pending[id]!;
+  _pending[id] = (sink, args, bufs);
 }
 
 /// Chamada assíncrona: o Go roda numa goroutine e responde pelo listener.
 Future<Object?> $call(String fn, List<Object?> args) {
   final c = Completer<Object?>();
-  _start(fn, args, _async, _register(c, args));
+  final id = _register(c, args);
+  _attach(id, _start(fn, args, _async, id).$2);
   return c.future;
 }
 
 /// Canal do Go: um item por evento, até o Go fechar o canal.
 Stream<Object?> $stream(String fn, List<Object?> args) {
   final s = StreamController<Object?>();
-  _start(fn, args, _streamMode, _register(s, args));
+  final id = _register(s, args);
+  _attach(id, _start(fn, args, _streamMode, id).$2);
   return s.stream;
 }
 
@@ -205,7 +240,7 @@ abstract class GoOption {
 /// Argumento Dart → JSON do runtime Go.
 Object? $enc(Object? v) => switch (v) {
       null || bool() || int() || double() || String() => v,
-      Uint8List() => base64Encode(v),
+      Uint8List() => _cbuf(v),
       GoHandle() => v.$h,
       GoValue() => v.value,
       GoJson() => v.$toJson(),
@@ -217,9 +252,28 @@ Object? $enc(Object? v) => switch (v) {
       _ => throw ArgumentError.value(v, 'v', 'não atravessa a ponte FFI'),
     };
 
-/// []byte do Go (base64; nil → vazio).
-Uint8List $bytes(Object? v) =>
-    v == null ? Uint8List(0) : base64Decode(v as String);
+/// Bytes não vão no JSON: vão {"$p": endereço, "$n": tamanho} de um buffer
+/// C (cópia de memória, sem base64; ver cbuf em go/runtime.go).
+Map<String, int> _cbuf(Uint8List b) {
+  final bufs =
+      _bufs ?? (throw StateError(r'$enc de bytes fora de uma chamada'));
+  final p = _native.malloc(b.isEmpty ? 1 : b.length).cast<Uint8>();
+  if (p == nullptr) throw IpfsException('GoMalloc falhou');
+  bufs.add(p);
+  p.asTypedList(b.length).setAll(0, b);
+  return {r'$p': p.address, r'$n': b.length};
+}
+
+/// []byte devolvido pelo Go (buffer C, solto aqui; nil → vazio).
+Uint8List $bytes(Object? v) {
+  if (v == null) return Uint8List(0);
+  final m = v as Map<String, Object?>;
+  final p = Pointer<Uint8>.fromAddress(m[r'$p'] as int);
+  final n = m[r'$n'] as int;
+  final out = Uint8List(n)..setRange(0, n, p.asTypedList(n));
+  _native.free(p.cast());
+  return out;
+}
 
 /// Resultado não nulo: nil do Go vira IpfsException.
 Object $nn(Object? v) => v ?? (throw IpfsException('o Go devolveu nil'));

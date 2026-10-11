@@ -170,18 +170,41 @@ func IpfsHandleFree(p unsafe.Pointer) {
 	cgo.Handle(uintptr(p)).Delete()
 }
 
-// jdec decodifica tipos que o encoding/json já entende (básicos, []byte em
-// base64, mapas e slices deles).
+// jdec decodifica tipos que o encoding/json já entende (básicos, mapas e
+// slices deles).
 func jdec[T any](raw json.RawMessage) (T, error) {
 	var v T
 	err := json.Unmarshal(raw, &v)
 	return v, err
 }
 
-// decReader aceita bytes (string base64) ou um handle de io.Reader.
+// []byte não vai no JSON: vai {"$p": endereço, "$n": tamanho} de um buffer
+// C. O do Dart é do Dart (o Go copia); o devolvido pelo Go é solto pelo Dart.
+type cbuf struct {
+	P uintptr `json:"$p"`
+	N int     `json:"$n"`
+}
+
+func decBytes(raw json.RawMessage) ([]byte, error) {
+	var b *cbuf
+	if err := json.Unmarshal(raw, &b); err != nil || b == nil {
+		return nil, err
+	}
+	p := *(*unsafe.Pointer)(unsafe.Pointer(&b.P)) // endereço de memória C, fora do GC
+	return bytes.Clone(unsafe.Slice((*byte)(p), b.N)), nil
+}
+
+func encBytes(b []byte) any {
+	if b == nil {
+		return nil
+	}
+	return cbuf{P: uintptr(C.CBytes(b)), N: len(b)}
+}
+
+// decReader aceita bytes ou um handle de io.Reader.
 func decReader(raw json.RawMessage) (io.Reader, error) {
-	if len(raw) > 0 && raw[0] == '"' {
-		b, err := jdec[[]byte](raw)
+	if len(raw) > 0 && raw[0] == '{' {
+		b, err := decBytes(raw)
 		return bytes.NewReader(b), err
 	}
 	return hdec[io.Reader](raw)

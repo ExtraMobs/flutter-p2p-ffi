@@ -219,7 +219,7 @@ func (g *goEmitter) helper(key, prefix string, mk func(name string) string) stri
 // plain: o encoding/json já sabe (des)serializar como o Dart espera.
 func plain(t *tinfo) bool {
 	switch t.k {
-	case kBasic, kBytes:
+	case kBasic:
 		return true
 	case kSlice, kMap:
 		return plain(t.elem)
@@ -232,6 +232,8 @@ func (g *goEmitter) dec(t *tinfo) string {
 	switch {
 	case t.k == kHandle && t.reader:
 		return "decReader"
+	case t.k == kBytes:
+		return "decBytes"
 	case t.k == kHandle, t.k == kCtx:
 		return "hdec[" + g.ts(t.t) + "]"
 	case plain(t):
@@ -321,7 +323,7 @@ func (g *goEmitter) enc(t *tinfo, expr string) string {
 		}
 		return expr
 	case t.k == kBytes:
-		return expr
+		return "encBytes(" + expr + ")"
 	case t.k == kHandle:
 		return "henc(" + expr + ")"
 	case t.k == kValue && !t.ptr:

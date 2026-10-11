@@ -386,7 +386,7 @@ func fn16(a []json.RawMessage) (any, error) {
 	if err := nargs(a, 1); err != nil {
 		return nil, err
 	}
-	p0, err := jdec[[]byte](a[0])
+	p0, err := decBytes(a[0])
 	if err != nil {
 		return nil, err
 	}
@@ -480,7 +480,7 @@ func fn21(a []json.RawMessage) (any, error) {
 	if err != nil {
 		return nil, err
 	}
-	return r0, nil
+	return encBytes(r0), nil
 }
 
 func opts0(raw json.RawMessage) ([]p_options.KeyGenerateOption, error) {
