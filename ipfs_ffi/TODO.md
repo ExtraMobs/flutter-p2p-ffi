@@ -55,10 +55,10 @@ real: Xiaomi (Android 16, arm64-v8a), nos dados móveis (`ccmni*`, IPv4
 
 | Etapa | O quê | Status |
 |---|---|---|
-| **A1. Build por ABI** | `dart run tool/build.dart android`: `GOOS=android`, clang do NDK (`--target=<arch>-linux-android24`), `-extldflags=-Wl,-z,max-page-size=16384`, `-checklinkname=0` (o `wlynxg/anet` do go-libp2p usa linkname em `net.zoneCache`) → `native/android/<abi>/libipfs.so` | ✅ x86_64 79,4 MB, arm64-v8a 56,1 MB; `LOAD Align 0x4000`; exports conferidos |
+| **A1. Build por ABI** | `dart run tool/build.dart android`: `GOOS=android`, clang do NDK (`--target=<arch>-linux-android24`), `-extldflags=-Wl,-z,max-page-size=16384`, `-checklinkname=0` (o `wlynxg/anet` usa linkname em `net.zoneCache`), e o `go-multiaddr/net` e o `zeroconf` trocados pelo anet (`-modfile` gerado, ver Netlink abaixo) → `native/android/<abi>/libipfs.so` | ✅ x86_64 79,4 MB, arm64-v8a 56,1 MB; `LOAD Align 0x4000`; exports conferidos |
 | **A2. Carregar a lib** | `ipfsLibraryPath` = `libipfs.so` no Android; o Gradle do app empacota direto de `native/android` (`jniLibs.srcDirs`; só as ABIs do `--target-platform`, por `packaging.jniLibs.excludes`), `minSdk` 24, `INTERNET` no release | ✅ app abre a lib e sobe o nó |
 | **A3. Nó no app** | `lib/checks.dart`: add/get, pins+GC, progresso, IPNS/chaves/dag, CAR, dois nós (bitswap, provide/findProviders, pubsub), ciclos, custo da ponte; rodam no `integration_test/ipfs_test.dart` e sozinhas ao abrir o app, que junta tudo num log com "copiar" (e no logcat; linhas longas saem cortadas lá, a caixa do app tem tudo) | ✅ 7/7 no emulador e no aparelho |
-| **A4. Rede móvel** | roteamento do `Routing.Type` (perfis `randomports` + `lowpower`, com a lista padrão de endereços do kubo de volta: TCP + QUIC/WebTransport/WebRTC em UDP na porta sorteada); DNS por HTTPS no repo do app; verificações de rede no app (interfaces, peers entrada × saída, endereços, DNSLink + bloco da rede e, com 2 min online, transportes, conexões de entrada e endereços de relay) | ✅ no emulador: 94–245 peers, `/ipns/ipfs.tech` em 163 ms e o bloco raiz em 4 s. Aparelho só com TCP: dados móveis 8–23 peers, Wi-Fi 92, todos de saída e nenhum endereço de relay. Com UDP (2 min online): Wi-Fi 54–72 peers, dados móveis 124 (metade ou mais por QUIC), reserva em 2 relays (8–9 endereços `/p2p-circuit`); um nó no PC discou para o celular pelo relay e conectou em 2,2 s (Wi-Fi) e 2,7 s (dados móveis, atrás do NAT da operadora). A conexão não virou direta (hole punching): o celular não conhece os próprios endereços (netlink, abaixo). No Wi-Fi ela caiu em ~30 s (limite do relay ou o ConnMgr do `lowpower`; não medido). `/ipns/ipfs.tech` em 0,16–1,3 s. ⚠️ endereços locais (netlink) |
+| **A4. Rede móvel** | roteamento do `Routing.Type` (perfis `randomports` + `lowpower`, com a lista padrão de endereços do kubo de volta: TCP + QUIC/WebTransport/WebRTC em UDP na porta sorteada); DNS por HTTPS no repo do app; anet (endereços locais e mDNS) e `MulticastLock` no app; verificações de rede no app (interfaces, peers entrada × saída, endereços, DNSLink + bloco da rede e, com 2 min online, transportes, conexões de entrada e na rede local, endereços de relay) | ✅ emulador: 94–245 peers, `/ipns/ipfs.tech` em 163 ms. Aparelho, 11/11: só com TCP, 8–23 peers (dados) e 92 (Wi-Fi), nenhum relay; com UDP, 54–124 peers (metade ou mais por QUIC) e reserva em 2 relays; com o anet o nó anuncia o IP do Wi-Fi (192.168.1.x) ou o da operadora (100.x, IPv6 2804:…). Rede local: um nó no PC achou o celular por mDNS em 3 s e conectou direto nos dois sentidos. Dados móveis: o PC conectou pelo relay em ~2,6 s; com o UPnP do PC ligado, a conexão virou direta em ~7 s (inversão: o celular discou para o PC), com o UPnP desligado ficou no relay (sem hole punching: o NAT da operadora parece simétrico, a porta pública muda por destino). `/ipns/ipfs.tech` em 0,16–1,3 s |
 | **A5. Ciclo de vida** | o app fecha o nó em `paused` e reabre em `resumed`; `debug.setCrashOutput` em `<dados do app>/crash.log`, mostrado no próximo início | ✅ background → volta reabre o nó (mesmo peer); 10 ciclos no teste (emulador e aparelho); crash de teste: na primeira abertura o app derruba o próprio processo (panic numa goroutine do Go) e, na seguinte, mostra o relatório do Go e o log da execução que caiu. ✅ emulador e aparelho |
 | **A6. Custo** | APK, memória, ponte | ✅ APK release (arm64+x64) 167,9 MB; por aparelho ≈ 72 MB (arm64) / ≈ 97 MB (x86_64), quase tudo a `libipfs.so`; memória com o nó online há 60 s: PSS 192,6 MB, RSS 310 MB; ponte: `api.unixfs()` 5,7–8,1 µs, `fsrepo.isInitialized` 10,6–15 µs, `ctx.err()` (JSON) 14–27 µs. Aparelho (APK arm64 72,1 MB): PSS 286,6–298,2 MB, RSS 442–446 MB com o nó online há ~1 min depois das verificações; ponte 2,7 / 7,8 / 11,5 µs. ⏳ consumo de bateria e de dados ao longo do tempo |
 
@@ -76,13 +76,25 @@ Achados:
   (`lookup _dnslink.ipfs.tech. on [::1]:53: ... connection refused`). O app grava
   `DNS.Resolvers` `{".": "https://cloudflare-dns.com/dns-query"}` no repo novo. Quem usa a
   lib no Android precisa fazer o mesmo (ou a lib passa a configurar o resolvedor do Go).
-- Netlink: desde o Android 11 o app não pode usar netlink, e `net.InterfaceAddrs` do Go falha
-  (`route ip+net: netlinkrib: permission denied`): `Swarm.ListenAddrs` dá erro e o nó só
-  enxerga 127.0.0.1/::1 como endereço local (os peers chegam pelas conexões de saída). O
-  `wlynxg/anet` (já no grafo pelo pion do WebRTC) resolve isso no Android; falta decidir como
-  ligá-lo no caminho do kubo/go-multiaddr. Pelo código, o mesmo bloqueio quebra o mDNS
-  (`zeroconf` → `net.Interfaces`; o anet resolve, mais um `MulticastLock` no app) e o
-  UPnP/NAT-PMP (`go-netroute` acha o gateway por netlink de rota; o anet não cobre).
+- Netlink: desde o Android 11 o app não pode fazer `bind()` em socket netlink nem pedir
+  `RTM_GETLINK`, e o `net.Interfaces`/`net.InterfaceAddrs` do Go falham (`route ip+net:
+  netlinkrib: permission denied`; golang/go#40569): o libp2p cai no plano B de anunciar só
+  127.0.0.1/::1 (`addrs_manager.go`) e o mDNS não acha interface. O `wlynxg/anet` (já no
+  grafo pelo pion) refaz isso com `RTM_GETADDR` sem `bind()` e `ioctl`. No build do Android
+  o `tool/build.dart` copia o `go-multiaddr` e o `zeroconf` do cache de módulos para
+  `.dart_tool/android_mod/`, troca as chamadas pelo anet (o build para se o trecho mudar) e
+  compila com um `-modfile` gerado com os `replace` (o Go recusa `-overlay` em arquivos do
+  cache de módulos). O caminho dessas cópias fica no buildinfo da `.so`. Não coberto:
+  UPnP/NAT-PMP (`go-netroute` usa netlink de rota) e outros ~10 pontos menores do grafo.
+- Relay (circuit v2), medido com relay, nó privado e discador locais: a conexão dura até
+  **2 min** ou 128 KiB (padrão do go-libp2p; o kubo sempre monta um limite, mesmo com a
+  config) e **pubsub e bitswap não passam por ela** (conexão "limitada"): o relay só serve
+  para montar uma conexão direta (inversão ou hole punching). O ConnMgr do discador não a
+  derruba (sobreviveu ao corte de 226 para 27 peers); o `Peering` do kubo conecta pelo
+  circuito, mas não refez a conexão em 130 s depois do limite. A queda em ~30 s vista com um
+  relay público segue sem causa (o relay é de terceiros). Dois celulares atrás de NAT
+  simétrico, portanto, não trocam dados: precisam de IPv6 (não testado), de um relay sem
+  limite (fora do kubo: um relay do go-libp2p com `Limit: nil`) ou de um peer alcançável.
 - APK arm64 no emulador x86_64 (tradução arm64→x86 do berberis) cai com SIGILL: o
   `golang.org/x/sys/cpu` não lê o `/proc/self/auxv` lá e cai no `mrs ID_AA64ISAR0_EL1`, que o
   kernel de um arm64 real emula e o tradutor não. No emulador use o build x86_64.

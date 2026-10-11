@@ -84,10 +84,12 @@ Exemplos, na ordem em que o kubo monta um nó:
   desatualizados.
 - Testes: `dart test` nesta pasta.
 
-### Android (validado no emulador, Android 17)
+### Android (validado no emulador e num aparelho, Android 16 e 17)
 
 `dart run tool/build.dart android` gera `native/android/{x86_64,arm64-v8a}/libipfs.so` com o
-NDK (`ANDROID_NDK_HOME`, ou o mais novo em `<Android SDK>/ndk`), alinhadas em 16 KB. No
+NDK (`ANDROID_NDK_HOME`, ou o mais novo em `<Android SDK>/ndk`), alinhadas em 16 KB, com o
+`go-multiaddr` e o `zeroconf` trocados pelo `wlynxg/anet` (no Android 11+ o `net` do Go não
+lista interfaces; sem isso o nó só anuncia 127.0.0.1 e o mDNS não funciona). No
 Android o `ipfsLibraryPath` padrão é `libipfs.so`: a lib vai dentro do APK. O app de
 validação em [`example/android_app`](example/android_app) mostra como empacotar (o Gradle
 lê direto de `native/android`), sobe o nó, fecha no background e reabre na volta, roda as
@@ -95,7 +97,10 @@ verificações ao abrir (com o log copiável) e tem o teste de integração
 (`flutter test integration_test -d <aparelho>`). Release para aparelho:
 `flutter build apk --release --target-platform android-arm64`. No Android configure
 `DNS.Resolvers` (DNS por HTTPS), como o app faz: o resolvedor do Go não acha o DNS do
-sistema. Números e achados em [`TODO.md`](TODO.md).
+sistema. Para o mDNS, o app segura um `WifiManager.MulticastLock` (ver `MainActivity.kt`).
+Conexões por relay duram até 2 min e não levam pubsub nem bitswap: entre dois aparelhos
+atrás de NAT de operadora, só há troca de dados se um deles for alcançável. Números e achados
+em [`TODO.md`](TODO.md).
 
 ### Linux pelo WSL (validado no Ubuntu 26.04)
 
@@ -125,7 +130,7 @@ e leia o arquivo no próximo início.
 Chamadas síncronas só com número, `bool`, string e handle usam um export C direto
 (sem JSON; `dart run tool/bench.dart` mede); o resto passa pelo `IpfsCall`.
 
-Pendências e roteiro em [`TODO.md`](TODO.md): o resto do JSON (exports diretos para bytes e tipos-valor, medição das assíncronas, formato binário) e o que falta do Android (aparelho real: rede móvel, bateria, crash).
+Pendências e roteiro em [`TODO.md`](TODO.md): o resto do JSON (exports diretos para bytes e tipos-valor, medição das assíncronas, formato binário) e o que falta do Android (dois aparelhos conectando direto, uso longo).
 
 Limites: os plugins do kubo são injetados uma vez por processo; um panic em
 goroutine interna do kubo (fora da chamada) derruba o processo (veja o relatório de crash acima).

@@ -20,6 +20,80 @@ const targets = {
 /// API mínima do Android para a lib (a do app pode ser maior).
 const androidApi = 24;
 
+/// Android 11+: o `net` do Go lista interfaces por netlink com bind() e
+/// RTM_GETLINK, que o sistema nega ao app (golang/go#40569); sem isso o
+/// libp2p só anuncia 127.0.0.1/::1 e o mDNS não acha interface. O
+/// github.com/wlynxg/anet (já no grafo, pelo pion) faz o mesmo sem eles. Só no
+/// build do Android, estes módulos vão com as chamadas trocadas pelo anet:
+/// copiados do cache para .dart_tool/android_mod/ e ligados por `replace` num
+/// go.mod gerado (`go build -modfile`; o Go não aceita `-overlay` em arquivos
+/// do cache de módulos). Cada trecho tem de existir, senão o build para
+/// (dependência atualizada: rever).
+/// ponytail: só os pontos de endereço local e mDNS; UPnP/NAT-PMP
+/// (go-netroute) segue sem rota.
+const androidPatches = {
+  'github.com/multiformats/go-multiaddr': {
+    'net/net.go': {'net.InterfaceAddrs()': 'anet.InterfaceAddrs()'},
+  },
+  'github.com/libp2p/zeroconf/v2': {
+    'connection.go': {'net.Interfaces()': 'anet.Interfaces()'},
+    'server.go': {
+      'net.InterfaceByIndex(': 'anet.InterfaceByIndex(',
+      'iface.Addrs()': 'anet.InterfaceAddrsByInterface(iface)',
+    },
+  },
+};
+
+/// Monta .dart_tool/android_mod/ (módulos trocados + android.mod/.sum) e
+/// devolve o caminho do android.mod para o `-modfile`.
+Future<String> androidModfile(Directory root) async {
+  final goDir = '${root.path}/go';
+  Future<String> goList(String module, String field) async {
+    final r = await Process.run('go', ['list', '-m', '-f', field, module],
+        workingDirectory: goDir);
+    if (r.exitCode != 0) throw StateError('go list -m $module: ${r.stderr}');
+    return (r.stdout as String).trim();
+  }
+
+  final dir = Directory('${root.path}/.dart_tool/android_mod');
+  if (dir.existsSync()) dir.deleteSync(recursive: true);
+  final anet = await goList('github.com/wlynxg/anet', '{{.Version}}');
+  final replaces =
+      StringBuffer('\n// tool/build.dart: módulos trocados pelo anet\n');
+  for (final MapEntry(key: module, value: files) in androidPatches.entries) {
+    final from = Directory(await goList(module, '{{.Dir}}'));
+    final to = Directory('${dir.path}/$module');
+    for (final f in from.listSync(recursive: true).whereType<File>()) {
+      final rel = f.path.substring(from.path.length + 1);
+      File('${to.path}/$rel')
+        ..parent.createSync(recursive: true)
+        ..writeAsBytesSync(f.readAsBytesSync());
+    }
+    for (final MapEntry(key: file, value: edits) in files.entries) {
+      final target = File('${to.path}/$file');
+      var src = target.readAsStringSync();
+      for (final MapEntry(key: a, value: b) in edits.entries) {
+        if (!src.contains(a)) {
+          throw StateError('patch do Android: "$a" não está mais em '
+              '$module/$file; reveja androidPatches em tool/build.dart');
+        }
+        src = src.replaceAll(a, b);
+      }
+      target.writeAsStringSync(
+          src.replaceFirst('import (', 'import (\n\t"github.com/wlynxg/anet"'));
+    }
+    File('${to.path}/go.mod').writeAsStringSync(
+        '\nrequire github.com/wlynxg/anet $anet\n',
+        mode: FileMode.append);
+    replaces.writeln(
+        'replace $module => ${to.absolute.path.replaceAll(r'\', '/')}');
+  }
+  final mod = File('${dir.path}/android.mod')
+    ..writeAsStringSync(File('$goDir/go.mod').readAsStringSync() + '$replaces');
+  File('$goDir/go.sum').copySync('${dir.path}/android.sum');
+  return mod.absolute.path;
+}
+
 Future<void> main(List<String> args) async {
   final root = File.fromUri(Platform.script).parent.parent;
   final native = Directory('${root.path}/native')..createSync();
@@ -28,7 +102,9 @@ Future<void> main(List<String> args) async {
   final gen = await Process.start('go', ['run', './gen'],
       workingDirectory: '${root.path}/go', mode: ProcessStartMode.inheritStdio);
   if (await gen.exitCode != 0) exit(1);
-  for (final name in args.isEmpty ? ['linux', 'windows'] : args) {
+  final names = args.isEmpty ? ['linux', 'windows'] : args;
+  final modfile = names.contains('android') ? await androidModfile(root) : null;
+  for (final name in names) {
     final builds =
         targets[name] ?? (throw ArgumentError('alvo inválido: $name'));
     for (final (goos, goarch, lib) in builds) {
@@ -55,6 +131,7 @@ Future<void> main(List<String> args) async {
           'build',
           '-trimpath',
           '-ldflags=$ldflags',
+          if (goos == 'android') '-modfile=$modfile',
           '-buildmode=c-shared',
           '-o',
           out,

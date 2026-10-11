@@ -375,6 +375,16 @@ Future<int> reachabilityChecks(iface.CoreApi api, Stopwatch online, Log log,
         for (final a in inbound.take(5)) {
           log('  entrou por $a');
         }
+        // conexões diretas na rede local (mDNS ou o IP local anunciado)
+        final lan = RegExp(r'/ip4/(10\.|192\.168\.|172\.(1[6-9]|2\d|3[01])\.)');
+        final local = [
+          for (final p in peers)
+            if (lan.hasMatch('${p.address}')) '${p.id} por ${p.address}'
+        ];
+        log('  ${local.length} conexões na rede local');
+        for (final a in local.take(5)) {
+          log('    $a');
+        }
         final addrs = [for (final a in await api.swarm().localAddrs(ctx)) '$a'];
         final relay = addrs.where((a) => a.contains('/p2p-circuit')).length;
         log('  ${addrs.length} endereços anunciados ($relay de relay):');

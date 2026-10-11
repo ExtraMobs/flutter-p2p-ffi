@@ -1,6 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- o nó IPFS precisa de rede também no release (o Flutter só a põe no debug) -->
     <uses-permission android:name="android.permission.INTERNET"/>
+    <!-- MulticastLock do mDNS (MainActivity.kt) -->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE"/>
     <application
         android:label="ipfs_ffi_android"
         android:name="${applicationName}"
