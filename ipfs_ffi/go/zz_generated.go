@@ -137,6 +137,13 @@ func init() {
 	reg["os.Create"] = entry{call: fn88}
 	reg["os.File.Close"] = entry{call: fn89}
 	reg["runtime/debug.SetCrashOutput"] = entry{call: fn90}
+	reg["github.com/ipfs/kubo/core/coreiface.CoreAPI.PubSub"] = entry{call: fn91}
+	reg["github.com/ipfs/kubo/core/coreiface.PubSubAPI.Ls"] = entry{call: fn92}
+	reg["github.com/ipfs/kubo/core/coreiface.PubSubAPI.Peers"] = entry{call: fn93}
+	reg["github.com/ipfs/kubo/core/coreiface.PubSubAPI.Publish"] = entry{call: fn94}
+	reg["github.com/ipfs/kubo/core/coreiface.PubSubAPI.Subscribe"] = entry{call: fn95}
+	reg["github.com/ipfs/kubo/core/coreiface.PubSubSubscription.Next"] = entry{call: fn96}
+	reg["github.com/ipfs/kubo/core/coreiface.PubSubSubscription.Close"] = entry{call: fn97}
 }
 
 func nargs(a []json.RawMessage, n int) error {
@@ -2392,6 +2399,187 @@ func fn90(a []json.RawMessage) (any, error) {
 	return nil, nil
 }
 
+// github.com/ipfs/kubo/core/coreiface.CoreAPI.PubSub
+func fn91(a []json.RawMessage) (any, error) {
+	if err := nargs(a, 1); err != nil {
+		return nil, err
+	}
+	recv, err := hdec[p_iface.CoreAPI](a[0])
+	if err != nil {
+		return nil, err
+	}
+	r0 := recv.PubSub()
+	return henc(r0), nil
+}
+
+// github.com/ipfs/kubo/core/coreiface.CoreAPI.PubSub (direto)
+//
+//export IpfsD26
+func IpfsD26(cr C.int64_t, out *C.int64_t) (cerr *C.char) {
+	defer guardC(&cerr)
+	recv, err := hget[p_iface.CoreAPI](int64(cr))
+	if err != nil {
+		return C.CString(err.Error())
+	}
+	r0 := recv.PubSub()
+	*out = C.int64_t(hint(r0))
+	return nil
+}
+
+// github.com/ipfs/kubo/core/coreiface.PubSubAPI.Ls
+func fn92(a []json.RawMessage) (any, error) {
+	if err := nargs(a, 2); err != nil {
+		return nil, err
+	}
+	recv, err := hdec[p_iface.PubSubAPI](a[0])
+	if err != nil {
+		return nil, err
+	}
+	p0, err := hdec[p_context.Context](a[1])
+	if err != nil {
+		return nil, err
+	}
+	r0, err := recv.Ls(p0)
+	if err != nil {
+		return nil, err
+	}
+	return enc8(r0), nil
+}
+
+// github.com/ipfs/kubo/core/coreiface.PubSubAPI.Peers
+func fn93(a []json.RawMessage) (any, error) {
+	if err := nargs(a, 3); err != nil {
+		return nil, err
+	}
+	recv, err := hdec[p_iface.PubSubAPI](a[0])
+	if err != nil {
+		return nil, err
+	}
+	p0, err := hdec[p_context.Context](a[1])
+	if err != nil {
+		return nil, err
+	}
+	p1, done1, err := opts55(a[2])
+	defer done1()
+	if err != nil {
+		return nil, err
+	}
+	r0, err := recv.Peers(p0, p1...)
+	if err != nil {
+		return nil, err
+	}
+	return enc56(r0), nil
+}
+
+// github.com/ipfs/kubo/core/coreiface.PubSubAPI.Publish
+func fn94(a []json.RawMessage) (any, error) {
+	if err := nargs(a, 4); err != nil {
+		return nil, err
+	}
+	recv, err := hdec[p_iface.PubSubAPI](a[0])
+	if err != nil {
+		return nil, err
+	}
+	p0, err := hdec[p_context.Context](a[1])
+	if err != nil {
+		return nil, err
+	}
+	p1, err := jdec[string](a[2])
+	if err != nil {
+		return nil, err
+	}
+	p2, err := decBytes(a[3])
+	if err != nil {
+		return nil, err
+	}
+	err = recv.Publish(p0, p1, p2)
+	if err != nil {
+		return nil, err
+	}
+	return nil, nil
+}
+
+// github.com/ipfs/kubo/core/coreiface.PubSubAPI.Subscribe
+func fn95(a []json.RawMessage) (any, error) {
+	if err := nargs(a, 4); err != nil {
+		return nil, err
+	}
+	recv, err := hdec[p_iface.PubSubAPI](a[0])
+	if err != nil {
+		return nil, err
+	}
+	p0, err := hdec[p_context.Context](a[1])
+	if err != nil {
+		return nil, err
+	}
+	p1, err := jdec[string](a[2])
+	if err != nil {
+		return nil, err
+	}
+	p2, done2, err := opts57(a[3])
+	defer done2()
+	if err != nil {
+		return nil, err
+	}
+	r0, err := recv.Subscribe(p0, p1, p2...)
+	if err != nil {
+		return nil, err
+	}
+	return henc(r0), nil
+}
+
+// github.com/ipfs/kubo/core/coreiface.PubSubSubscription.Next
+func fn96(a []json.RawMessage) (any, error) {
+	if err := nargs(a, 2); err != nil {
+		return nil, err
+	}
+	recv, err := hdec[p_iface.PubSubSubscription](a[0])
+	if err != nil {
+		return nil, err
+	}
+	p0, err := hdec[p_context.Context](a[1])
+	if err != nil {
+		return nil, err
+	}
+	r0, err := recv.Next(p0)
+	if err != nil {
+		return nil, err
+	}
+	return enc58(r0), nil
+}
+
+// github.com/ipfs/kubo/core/coreiface.PubSubSubscription.Close
+func fn97(a []json.RawMessage) (any, error) {
+	if err := nargs(a, 1); err != nil {
+		return nil, err
+	}
+	recv, err := hdec[p_iface.PubSubSubscription](a[0])
+	if err != nil {
+		return nil, err
+	}
+	err = recv.Close()
+	if err != nil {
+		return nil, err
+	}
+	return nil, nil
+}
+
+// github.com/ipfs/kubo/core/coreiface.PubSubSubscription.Close (direto)
+//
+//export IpfsD27
+func IpfsD27(cr C.int64_t, out *C.int64_t) (cerr *C.char) {
+	defer guardC(&cerr)
+	recv, err := hget[p_iface.PubSubSubscription](int64(cr))
+	if err != nil {
+		return C.CString(err.Error())
+	}
+	if err := recv.Close(); err != nil {
+		return C.CString(err.Error())
+	}
+	_ = out
+	return nil
+}
+
 func opts0(raw json.RawMessage) (out []p_options.KeyGenerateOption, done func(), err error) {
 	var dones []func()
 	done = func() {
@@ -3883,4 +4071,100 @@ func dec54(raw json.RawMessage) (p_debug.CrashOptions, error) {
 		return v, err
 	}
 	return v, nil
+}
+
+func opts55(raw json.RawMessage) (out []p_options.PubSubPeersOption, done func(), err error) {
+	var dones []func()
+	done = func() {
+		for _, d := range dones {
+			d()
+		}
+	}
+	defer func() {
+		if err != nil {
+			done()
+		}
+	}()
+	var items []struct {
+		P string
+		A []json.RawMessage
+	}
+	if err := json.Unmarshal(raw, &items); err != nil {
+		return nil, done, err
+	}
+	out = make([]p_options.PubSubPeersOption, 0, len(items))
+	for _, it := range items {
+		switch it.P {
+		case "PubSub.Topic":
+			if err := nargs(it.A, 1); err != nil {
+				return nil, done, fmt.Errorf("%s: %w", it.P, err)
+			}
+			a0, err := jdec[string](it.A[0])
+			if err != nil {
+				return nil, done, err
+			}
+			out = append(out, p_options.PubSub.Topic(a0))
+		default:
+			return nil, done, fmt.Errorf("ipfs_ffi: opção desconhecida %q", it.P)
+		}
+	}
+	return out, done, nil
+}
+
+func enc56(v []p_peer.ID) any {
+	out := make([]any, len(v))
+	for i, e := range v {
+		out[i] = encPeerID(e)
+	}
+	return out
+}
+
+func opts57(raw json.RawMessage) (out []p_options.PubSubSubscribeOption, done func(), err error) {
+	var dones []func()
+	done = func() {
+		for _, d := range dones {
+			d()
+		}
+	}
+	defer func() {
+		if err != nil {
+			done()
+		}
+	}()
+	var items []struct {
+		P string
+		A []json.RawMessage
+	}
+	if err := json.Unmarshal(raw, &items); err != nil {
+		return nil, done, err
+	}
+	out = make([]p_options.PubSubSubscribeOption, 0, len(items))
+	for _, it := range items {
+		switch it.P {
+		case "PubSub.Discover":
+			if err := nargs(it.A, 1); err != nil {
+				return nil, done, fmt.Errorf("%s: %w", it.P, err)
+			}
+			a0, err := jdec[bool](it.A[0])
+			if err != nil {
+				return nil, done, err
+			}
+			out = append(out, p_options.PubSub.Discover(a0))
+		default:
+			return nil, done, fmt.Errorf("ipfs_ffi: opção desconhecida %q", it.P)
+		}
+	}
+	return out, done, nil
+}
+
+func enc58(v p_iface.PubSubMessage) any {
+	if v == nil {
+		return nil
+	}
+	m := map[string]any{}
+	m["Data"] = encBytes(v.Data())
+	m["From"] = encPeerID(v.From())
+	m["Seq"] = encBytes(v.Seq())
+	m["Topics"] = enc8(v.Topics())
+	return m
 }

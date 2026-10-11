@@ -206,7 +206,8 @@ void main() {
           node.BuildCfg(
               repo: fsrepo.open(repoPath),
               online: true,
-              routing: libp2p.dhtServerOption));
+              routing: libp2p.dhtServerOption,
+              extraOpts: {'pubsub': true})); // como Pubsub.Enabled no daemon
       return (n, coreapi.newCoreApi(n));
     }
 
@@ -275,6 +276,38 @@ void main() {
           await Future<void>.delayed(const Duration(milliseconds: 300));
       }
       expect([for (final i in provs) i.id], contains(idA));
+    });
+
+    test('pubsub: A assina, B publica, A recebe', () async {
+      final idA = (await a.key().self(ctx)).id!;
+      final idB = (await b.key().self(ctx)).id!;
+      const topic = 'ipfs-ffi-chat';
+      final sub = await a.pubSub().subscribe(ctx, topic);
+      expect(await a.pubSub().ls(ctx), contains(topic));
+
+      // B só entrega a quem ele já sabe que assina o tópico (gossipsub)
+      final deadline = DateTime.now().add(const Duration(seconds: 30));
+      while (!(await b.pubSub().peers(ctx, [options.pubSub.topic(topic)]))
+              .contains(idA) &&
+          DateTime.now().isBefore(deadline)) {
+        await Future<void>.delayed(const Duration(milliseconds: 200));
+      }
+
+      final (c, cancel) = context.withTimeout(
+          context.background(), const Duration(seconds: 30));
+      try {
+        await b.pubSub().publish(ctx, topic, utf8.encode('olá do B'));
+        final msg = await sub.next(c);
+        expect(utf8.decode(msg.data!), 'olá do B');
+        expect(msg.from, idB);
+        expect(msg.topics, [topic]);
+        expect(msg.seq, isNotEmpty);
+      } finally {
+        cancel();
+        sub.close();
+      }
+      // depois do close, o next falha em vez de esperar para sempre
+      await expectLater(sub.next(ctx), throwsA(isA<IpfsException>()));
     });
 
     test('disconnect', () async {
@@ -465,4 +498,54 @@ void main() {
     expect(text, contains('panic: ipfs_ffi: panic de teste numa goroutine'));
     expect(text, contains('goroutine '));
   }, timeout: const Timeout(Duration(minutes: 2)));
+
+  // Arquivos CAR (ipfs dag export / import)
+  group('CAR', () {
+    test('export, apaga do repo, import de volta (bytes)', () async {
+      final dir = Directory('${tmp.path}/car')..createSync();
+      File('${dir.path}/a.txt').writeAsStringSync('A' * 1000);
+      File('${dir.path}/b.txt')
+          .writeAsStringSync('B' * 300000); // vários blocos
+      final root = await api.unixfs().add(
+          ctx,
+          files.newSerialFile(dir.path, false, os.stat(dir.path)),
+          [options.unixfs.pin(true, '')]);
+
+      final car = await dag.exportCar(n, ctx, root);
+      expect(car.length, greaterThan(300000));
+      final partial = await dag.exportCar(n, ctx, root, localOnly: true);
+      expect(partial, car, reason: 'tudo local: o CAR parcial é o completo');
+
+      // some do repo
+      await api.pin().rm(ctx, root);
+      await corerepo.garbageCollect(n, ctx);
+      await expectLater(
+          api.block().stat(ctx, root), throwsA(isA<IpfsException>()));
+
+      final r = await dag.importCar(n, ctx, car);
+      expect([for (final m in r.roots) (m.cid.value, m.pinErrorMsg)],
+          [(root.value.substring('/ipfs/'.length), '')]);
+      expect(r.blockCount, greaterThan(2));
+      expect(r.blockBytesCount, greaterThan(300000));
+      expect((await api.pin().isPinned(ctx, root)).$2, isTrue);
+      final out = '${tmp.path}/car-out';
+      files.writeTo(await api.unixfs().get(ctx, root), out);
+      expect(File('$out/b.txt').lengthSync(), 300000);
+    });
+
+    test('exportCarFile e importCarFiles (sem pin)', () async {
+      final c =
+          await dag.put(api, ctx, utf8.encode('{"car": true}'), pin: true);
+      final file = '${tmp.path}/obj.car';
+      await dag.exportCarFile(n, ctx, path.Path('/ipfs/$c'), file);
+      expect(File(file).lengthSync(), greaterThan(0));
+
+      final r = await dag.importCarFiles(n, ctx, [file], pinRoots: false);
+      expect(r.roots, isEmpty); // sem --pin-roots, nada é pinado nem listado
+      expect(r.blockCount, 1);
+      await expectLater(
+          dag.importCarFiles(n, ctx, ['${tmp.path}/nao-existe.car']),
+          throwsA(isA<IpfsException>()));
+    });
+  });
 }

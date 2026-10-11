@@ -19,6 +19,13 @@ import (
 	"golang.org/x/tools/go/packages"
 )
 
+// paramNames: nomes para parâmetros que a interface do kubo não nomeia e que
+// o tipo não explica (string, []byte), como na documentação do kubo.
+var paramNames = map[string][]string{
+	"github.com/ipfs/kubo/core/coreiface.PubSubAPI.Publish":   {"ctx", "topic", "data"},
+	"github.com/ipfs/kubo/core/coreiface.PubSubAPI.Subscribe": {"ctx", "topic", "opts"},
+}
+
 // forceAsync: funções sem context que bloqueiam (rede, desligamento).
 var forceAsync = setOf(`github.com/ipfs/kubo/core.IpfsNode.Close`)
 
@@ -281,6 +288,11 @@ func (m *model) resolve(pkgs map[string]*types.Package, line string) (*fn, error
 			p.name = paramName(p.t, i)
 		}
 		f.params = append(f.params, p)
+	}
+	if names, ok := paramNames[line]; ok && len(names) == len(f.params) {
+		for i := range f.params {
+			f.params[i].name = names[i]
+		}
 	}
 	dedupParams(f.params)
 	res, hasErr := splitErr(sig.Results())

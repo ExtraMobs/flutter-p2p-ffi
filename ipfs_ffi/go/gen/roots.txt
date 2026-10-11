@@ -114,3 +114,13 @@ github.com/ipfs/boxo/ipld/merkledag.ProtoNode.Data
 os.Create
 os.File.Close
 runtime/debug.SetCrashOutput
+
+# Pubsub (ipfs pubsub): o nó precisa de BuildCfg.ExtraOpts {"pubsub": true},
+# como o daemon faz com Pubsub.Enabled
+github.com/ipfs/kubo/core/coreiface.CoreAPI.PubSub
+github.com/ipfs/kubo/core/coreiface.PubSubAPI.Ls
+github.com/ipfs/kubo/core/coreiface.PubSubAPI.Peers
+github.com/ipfs/kubo/core/coreiface.PubSubAPI.Publish
+github.com/ipfs/kubo/core/coreiface.PubSubAPI.Subscribe
+github.com/ipfs/kubo/core/coreiface.PubSubSubscription.Next
+github.com/ipfs/kubo/core/coreiface.PubSubSubscription.Close

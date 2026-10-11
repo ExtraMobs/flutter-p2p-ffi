@@ -107,6 +107,13 @@ Cada linha é um símbolo Go exposto e onde ele está no Dart.
 | `func (format.DAGService).Remove(context.Context, cid.Cid) error` | `ApiDagService.remove` | Future |
 | `func (format.DAGService).RemoveMany(context.Context, []cid.Cid) error` | `ApiDagService.removeMany` | Future |
 | `func (iface.APIDagService).Pinning() format.NodeAdder` | `ApiDagService.pinning` | síncrona (direta) |
+| `func (iface.CoreAPI).PubSub() iface.PubSubAPI` | `CoreApi.pubSub` | síncrona (direta) |
+| `func (iface.PubSubAPI).Ls(context.Context) ([]string, error)` | `PubSubApi.ls` | Future |
+| `func (iface.PubSubAPI).Peers(context.Context, ...options.PubSubPeersOption) ([]peer.ID, error)` | `PubSubApi.peers` | Future |
+| `func (iface.PubSubAPI).Publish(context.Context, string, []byte) error` | `PubSubApi.publish` | Future |
+| `func (iface.PubSubAPI).Subscribe(context.Context, string, ...options.PubSubSubscribeOption) (iface.PubSubSubscription, error)` | `PubSubApi.subscribe` | Future |
+| `func (iface.PubSubSubscription).Next(context.Context) (iface.PubSubMessage, error)` | `PubSubSubscription.next` | Future |
+| `func (io.Closer).Close() error` | `PubSubSubscription.close` | síncrona (direta) |
 
 ## `github.com/ipfs/kubo/core/corerepo` → `package:ipfs_ffi/kubo/core/corerepo.dart`
 
@@ -179,6 +186,8 @@ Cada linha é um símbolo Go exposto e onde ele está no Dart.
 - `context` (`package:ipfs_ffi/context.dart`, à mão): `background`, `withCancel`, `withTimeout`, `withDeadline`; `CancelFunc` é chamável (`cancel()`).
 - `config.Profiles` (à mão): `profiles[nome]!.transform(cfg)`; no Go é um mapa de funções.
 - `ipfs dag put`/`ipfs dag get` (`package:ipfs_ffi/kubo/core/commands/dag.dart`, porte à mão em `go/manual_dag.go`): no kubo é o corpo dos comandos, não função de biblioteca; mesmos padrões do CLI (dag-json → dag-cbor, limite de 2 MiB), hash padrão `sha2-256`.
+- `ipfs dag export`/`ipfs dag import` (arquivos CAR; mesma library, porte à mão em `go/manual_car.go`): `exportCar`/`exportCarFile` (CARv1, `localOnly` = `--local-only`) e `importCar`/`importCarFiles` (CARv1/v2, `pinRoots` = `--pin-roots`, devolve raízes e estatísticas); recebem o `IpfsNode`, como o comando. Sem barra de progresso nem fast-provide do DAG inteiro; a raiz é anunciada pelo `Provide` da CoreAPI.
+- Pubsub: o nó precisa de `node.BuildCfg(extraOpts: {'pubsub': true})` (o `Pubsub.Enabled` do daemon); `sub.next(ctx)` entrega uma mensagem por vez (o exemplo 08 a transforma em `Stream`).
 - Handle concreto que implementa uma interface exposta estende a classe dela (`merkledag.RawNode`/`ProtoNode` → `Node`), para valer onde o Go aceita a interface; struct que embute interface é handle, não DTO.
 - Mapa com chave tipo-valor (`map[peer.ID][]Multiaddr`) vira `Map<Id, List<Multiaddr>>`.
 - Canal `chan<- T` passado numa opção (`options.Unixfs.Events`) vira `StreamSink<T>` (`options.unixfs.events(controller.sink)`); o tipo real dos itens de `chan<- any` vem da tabela `chanElem` do gerador (`AddEvent`). Como o `ipfs add`, o canal é fechado quando a chamada volta: todos os eventos chegam e o sink fecha antes do `Future` completar.

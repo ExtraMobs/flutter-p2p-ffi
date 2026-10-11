@@ -318,6 +318,12 @@ class CoreApi extends GoHandle {
         [this, ctx, path]);
     return $go_ipld_format.Node.$h($nn($r) as int);
   }
+
+  /// Go: `func (iface.CoreAPI).PubSub() iface.PubSubAPI`.
+  PubSubApi pubSub() {
+    $check(_d26($h, $out));
+    return PubSubApi.$h($nnH($out.value));
+  }
 }
 
 /// Go: `iface.DirEntry`.
@@ -627,6 +633,92 @@ final class PinStatus {
   final bool ok;
 }
 
+/// Go: `iface.PubSubAPI` (handle).
+class PubSubApi extends GoHandle {
+  PubSubApi.$h(super.$h);
+
+  /// Go: `func (iface.PubSubAPI).Ls(context.Context) ([]string, error)`.
+  ///
+  /// Assíncrona: roda numa goroutine.
+  Future<List<String>> ls($context.Context ctx) async {
+    final $r = await $call(
+        'github.com/ipfs/kubo/core/coreiface.PubSubAPI.Ls', [this, ctx]);
+    return [for (final e0 in $r as List) e0 as String];
+  }
+
+  /// Go: `func (iface.PubSubAPI).Peers(context.Context, ...options.PubSubPeersOption) ([]peer.ID, error)`.
+  ///
+  /// Assíncrona: roda numa goroutine.
+  Future<List<$peer.Id>> peers($context.Context ctx,
+      [List<$options.PubSubPeersOption> opts = const []]) async {
+    final $r = await $call(
+        'github.com/ipfs/kubo/core/coreiface.PubSubAPI.Peers',
+        [this, ctx, opts]);
+    return [for (final e0 in $r as List) $peer.Id(e0 as String)];
+  }
+
+  /// Go: `func (iface.PubSubAPI).Publish(context.Context, string, []byte) error`.
+  ///
+  /// Assíncrona: roda numa goroutine.
+  Future<void> publish(
+      $context.Context ctx, String topic, Uint8List data) async {
+    await $call('github.com/ipfs/kubo/core/coreiface.PubSubAPI.Publish',
+        [this, ctx, topic, data]);
+  }
+
+  /// Go: `func (iface.PubSubAPI).Subscribe(context.Context, string, ...options.PubSubSubscribeOption) (iface.PubSubSubscription, error)`.
+  ///
+  /// Assíncrona: roda numa goroutine.
+  Future<PubSubSubscription> subscribe($context.Context ctx, String topic,
+      [List<$options.PubSubSubscribeOption> opts = const []]) async {
+    final $r = await $call(
+        'github.com/ipfs/kubo/core/coreiface.PubSubAPI.Subscribe',
+        [this, ctx, topic, opts]);
+    return PubSubSubscription.$h($nn($r) as int);
+  }
+}
+
+/// Go: `iface.PubSubMessage` (valores lidos dos métodos).
+final class PubSubMessage {
+  PubSubMessage.$fromJson(Map<String, Object?> j)
+      : data = j['Data'] == null ? null : $bytes(j['Data']),
+        from = j['From'] == null ? null : $peer.Id(j['From'] as String),
+        seq = j['Seq'] == null ? null : $bytes(j['Seq']),
+        topics = [for (final e0 in j['Topics'] as List) e0 as String];
+
+  /// Go: `Data()`.
+  final Uint8List? data;
+
+  /// Go: `From()`.
+  final $peer.Id? from;
+
+  /// Go: `Seq()`.
+  final Uint8List? seq;
+
+  /// Go: `Topics()`.
+  final List<String> topics;
+}
+
+/// Go: `iface.PubSubSubscription` (handle).
+class PubSubSubscription extends $io.Closer {
+  PubSubSubscription.$h(super.$h) : super.$h();
+
+  /// Go: `func (iface.PubSubSubscription).Next(context.Context) (iface.PubSubMessage, error)`.
+  ///
+  /// Assíncrona: roda numa goroutine.
+  Future<PubSubMessage> next($context.Context ctx) async {
+    final $r = await $call(
+        'github.com/ipfs/kubo/core/coreiface.PubSubSubscription.Next',
+        [this, ctx]);
+    return PubSubMessage.$fromJson($nn($r) as Map<String, Object?>);
+  }
+
+  /// Go: `func (io.Closer).Close() error`.
+  void close() {
+    $check(_d27($h, $out));
+  }
+}
+
 /// Go: `iface.RoutingAPI` (handle).
 class RoutingApi extends GoHandle {
   RoutingApi.$h(super.$h);
@@ -793,3 +885,9 @@ final _d19 = $dylib.lookupFunction<
 final _d20 = $dylib.lookupFunction<
     Pointer<Uint8> Function(Int64, Pointer<Int64>),
     Pointer<Uint8> Function(int, Pointer<Int64>)>('IpfsD20');
+final _d26 = $dylib.lookupFunction<
+    Pointer<Uint8> Function(Int64, Pointer<Int64>),
+    Pointer<Uint8> Function(int, Pointer<Int64>)>('IpfsD26');
+final _d27 = $dylib.lookupFunction<
+    Pointer<Uint8> Function(Int64, Pointer<Int64>),
+    Pointer<Uint8> Function(int, Pointer<Int64>)>('IpfsD27');

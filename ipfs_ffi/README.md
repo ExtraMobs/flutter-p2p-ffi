@@ -49,7 +49,14 @@ Exemplos, na ordem em que o kubo monta um nó:
 6. `dart run example/06_ipns_dag.dart [repo]`: IPNS (`name().publish/resolve`), chaves
    (`key().generate/sign/verify`), nós IPLD dag-pb/raw (`merkledag`, `dag().add/get`) e
    DAG-CBOR/JSON (`package:ipfs_ffi/kubo/core/commands/dag.dart`: `dag.put`/`dag.get`,
-   o `ipfs dag put/get` portado à mão, com caminho dentro do nó e links).
+   o `ipfs dag put/get` portado à mão, com caminho dentro do nó e links);
+7. `dart run example/07_car.dart export|import ...`: arquivos CAR (`dag.exportCar`/
+   `exportCarFile`, `dag.importCar`/`importCarFiles`: o `ipfs dag export/import`), para
+   levar um DAG inteiro de um repo para outro;
+8. `dart run example/08_chat.dart <repo> <tópico> [apelido]`: chat em tempo real sobre
+   pubsub (`api.pubSub().subscribe/publish`, `sub.next`); o nó precisa de
+   `extraOpts: {'pubsub': true}`. Duas instâncias (repos diferentes, perfil
+   `randomports`) se acham na rede local pelo mDNS.
 
 ## Como o Go vira Dart
 

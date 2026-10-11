@@ -68,6 +68,16 @@ final class PinUpdateOption extends GoOption {
   PinUpdateOption.$(super.p, super.a);
 }
 
+/// Go: `options.PubSubPeersOption` (opção funcional; construtores nas variáveis do pacote).
+final class PubSubPeersOption extends GoOption {
+  PubSubPeersOption.$(super.p, super.a);
+}
+
+/// Go: `options.PubSubSubscribeOption` (opção funcional; construtores nas variáveis do pacote).
+final class PubSubSubscribeOption extends GoOption {
+  PubSubSubscribeOption.$(super.p, super.a);
+}
+
 /// Go: `options.RoutingFindProvidersOption` (opção funcional; construtores nas variáveis do pacote).
 final class RoutingFindProvidersOption extends GoOption {
   RoutingFindProvidersOption.$(super.p, super.a);
@@ -272,6 +282,21 @@ final class _PinLs {
 
   /// Go: `options.Pin.Ls.Type`.
   PinLsOption type(String typeStr) => PinLsOption.$('Pin.Ls.Type', [typeStr]);
+}
+
+/// Go: `var PubSub`: construtores de opções.
+const pubSub = _PubSub._();
+
+final class _PubSub {
+  const _PubSub._();
+
+  /// Go: `options.PubSub.Discover`.
+  PubSubSubscribeOption discover(bool discover) =>
+      PubSubSubscribeOption.$('PubSub.Discover', [discover]);
+
+  /// Go: `options.PubSub.Topic`.
+  PubSubPeersOption topic(String topic) =>
+      PubSubPeersOption.$('PubSub.Topic', [topic]);
 }
 
 /// Go: `var Put`: construtores de opções.
