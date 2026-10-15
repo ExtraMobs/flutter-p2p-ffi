@@ -17,6 +17,8 @@ library;
 
 export 'service.dart'
     show
+        IpfsCrash,
+        IpfsCrashHandler,
         IpfsException,
         IpfsService,
         IpfsServiceException,

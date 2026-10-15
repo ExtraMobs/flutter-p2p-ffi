@@ -1,9 +1,9 @@
 # Pendências do ipfs_ffi
 
-## Em andamento: o kubo num processo separado (0.9.0)
+## Feito: o kubo num processo separado (0.9.0)
 
-Objetivo: um panic não tratado dentro do kubo/boxo não fecha o app; o serviço
-reinicia e o app recebe uma exceção, com a mesma API gerada. Plano: o mesmo Go
+Objetivo: um panic não tratado dentro do kubo/boxo não fecha o app; o app recebe
+uma exceção e o relatório e decide se relança o serviço, com a mesma API gerada. Plano: o mesmo Go
 compilado também como executável (`ipfs_host`), Unix socket / named pipe só como
 "sininho", chamadas e respostas por memória compartilhada (dois anéis SPSC),
 codificação binária gerada e uma biblioteca C pequena (`ipfs_shm`) no processo do
@@ -18,7 +18,7 @@ dentro do processo saíram com ele no P2; o "outro processo" ficou):
 |---|---|
 | DLL / `.so` no processo do app (plugin) | o processo cai (teste "panic em goroutine do Go") |
 | um Isolate de fundo (`test/crash_isolate.dart`) | o processo inteiro cai: código 2 no Windows, 134 (`SIGABRT`) no linux; o isolate principal não sobrevive |
-| outro processo | só ele cai; quem o lançou segue e o relança (3 vezes no teste) |
+| outro processo | só ele cai; quem o lançou segue e pode relançá-lo |
 
 **P1, o transporte** (feito): `go/shmring` (os dois anéis; layout = contrato com o C),
 `go/host*.go` (o `main()` do executável: memfd + Unix socket + `SCM_RIGHTS` no
@@ -62,16 +62,46 @@ Medido com `dart run tool/bench.dart` (JIT, Windows):
 Linux validado depois da integração (37/37, 3 rodadas), com uma correção de ordem: a
 chamada só completa depois que os ouvintes dos sinks dela receberam o fim.
 
-**P3, queda e reinício** (feito): `IpfsService` relança o host sozinho quando ele cai
-sem `stop()` (espera de 0,2 s a 10 s, dobrando enquanto ele cai em menos de 30 s de
-vida) e emite em `IpfsService.restarts` uma `IpfsServiceException` com o relatório do Go
-(só o trecho novo do `crashLog`, que o host passa a abrir em modo de acréscimo, ou o
-stderr). Teste: o gancho 24 derruba o host; o processo de teste segue, `restarts`
-emite com o panic, o pid muda, um handle antigo dá `IpfsServiceException`, e um nó novo
-(plugins injetados de novo: processo novo) faz `add`/`get`. 37/37 no Windows (2x) e
-no linux (3x).
+**P3, queda** (feito): decisão do dono, a queda é tratada por quem usa o pacote, não
+por um reinício automático. `IpfsService.start(onCrash: ...)` (padrão `null`) recebe um
+`IpfsCrash`: código de saída, relatório do Go (só o trecho novo do `crashLog`, que o
+host abre em modo de acréscimo, ou o stderr), caminho do `crashLog`, pid e tempo de
+pé; o app decide limpar o log e chamar `IpfsService.restart()` (os parâmetros do último
+`start`). Teste: o gancho 24 derruba o host; o processo de teste segue, o `onCrash`
+recebe o panic, o serviço fica fora (`isRunning` falso, chamadas dão
+`IpfsServiceException`) até o `restart()`; depois o pid muda, um handle antigo dá
+`IpfsServiceException` e um nó novo (plugins injetados de novo: processo novo) faz
+`add`/`get`. 38/38 no Windows e no linux (3x).
 
-⏳ P4: Android (o host como `libipfs_host.so` extraída do APK) no emulador.
+**P4, Android** (feito, emulador x86_64 Android 17; o aparelho fica para quando for
+reconectado): `tool/build.dart android` gera `libipfs_host.so` (o host, executável) e
+`libipfs_shm.so` por ABI; o Gradle do app extrai as libs (`useLegacyPackaging`), e o
+host roda da `nativeLibraryDir` com memfd + Unix socket + `SCM_RIGHTS` sem ajuste. O
+app trata a queda no `onCrash` (mostra o relatório, limpa o `crash.log`, `restart()`,
+plugins e nó de novo). Teste de integração 2/2 (verificações locais; panic → só o host
+cai, saída 2, `onCrash`, `restart`, verificações de novo). O app em release: todas as
+verificações (rede pública, DNSLink, dois nós, CAR...) verdes; o crash automático
+derrubou o host (saída 2), o app seguiu no mesmo pid, relançou o host e o nó subiu de
+novo. Achado no caminho: com `spin: 0` a thread que acorda o Dart girava para sempre
+sem entregar a resposta que chegasse entre o giro e o sono (corrigido em
+`shm/ipfs_shm.c`; teste "spin 0" em `test/shm_test.dart`).
+
+**P5, medição** (emulador, app em release/AOT; Noop = função 0, o piso do canal):
+
+| `spin` | Noop síncrono | Noop assíncrono em sequência | 100 mil em voo |
+|---|---|---|---|
+| 0 | 10 ms | 8,2 ms | 3,4 µs/chamada |
+| 2000 | 599 µs | 8,8 ms | 2,8 µs |
+| 20000 (padrão) | 37 µs | 8,4 ms | 3,9 µs (~260 mil/s) |
+| 200000 | 43 µs | 11 ms | 4,1 µs |
+
+No emulador (Windows como hospedeiro) cada thread que dorme leva milissegundos para
+acordar (a vCPU parada): o giro resolve o síncrono, mas o assíncrono em sequência
+depende de acordar a isolate do Dart, onde não se gira. Com o nó online, as
+verificações do app mediram `api.unixfs()` 91 µs, `ctx.err()` 100 µs, `block.stat`
+assíncrono 1,6 ms. ⏳ Medir no aparelho real (lá o acordar custa dezenas de µs).
+Memória com o nó online (emulador, `dumpsys meminfo`): app PSS 84 MB, `ipfs_host` PSS
+137 MB.
 
 ## Feito: exports diretos para assinaturas simples (0.5.0)
 

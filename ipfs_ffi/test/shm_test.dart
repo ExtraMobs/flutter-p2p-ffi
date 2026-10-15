@@ -32,6 +32,23 @@ void main() {
     expect(await ch.exitCode, 0); // o host sai sozinho com o canal fechado
   });
 
+  // sem giro, a thread que acorda o Dart dorme já de cara; a resposta que
+  // chega entre o giro e o sono tem de ser entregue (antes girava para sempre)
+  test('spin 0: só o sininho, sem espera ativa', () async {
+    final ch = await ShmChannel.start(hostPath, spin: 0);
+    try {
+      for (var i = 0; i < 200; i++) {
+        expect(ch.callSync(0), isEmpty);
+        expect(await ch.call(0), isEmpty);
+      }
+      final many =
+          await Future.wait([for (var i = 0; i < 10000; i++) ch.call(0)]);
+      expect(many, hasLength(10000));
+    } finally {
+      await ch.close();
+    }
+  }, timeout: const Timeout(Duration(minutes: 1)));
+
   test('o host morre: as pendentes falham com IpfsServiceException', () async {
     final ch = await ShmChannel.start(hostPath);
     try {

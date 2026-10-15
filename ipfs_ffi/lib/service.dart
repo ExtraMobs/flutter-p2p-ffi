@@ -1,12 +1,16 @@
 /// O serviço: o kubo roda no executável `ipfs_host`, noutro processo; o app
 /// só fala com ele pela `ipfs_shm` (memória compartilhada; protocolo no
 /// `WIRE.md`). Um panic do Go derruba só o serviço: as chamadas pendentes
-/// falham com [IpfsServiceException], o serviço volta sozinho e
-/// [IpfsService.restarts] avisa o app, que refaz os objetos (nó, CoreAPI...),
-/// porque os handles do serviço anterior deixam de valer.
+/// falham com [IpfsServiceException] e o `onCrash` de [IpfsService.start]
+/// recebe o relatório; quem usa o pacote decide o que fazer (limpar o log,
+/// [IpfsService.restart], refazer nó e CoreAPI: os handles do serviço
+/// anterior deixam de valer).
 ///
 /// ```dart
-/// await IpfsService.start();
+/// await IpfsService.start(crashLog: 'crash.log', onCrash: (crash) async {
+///   print(crash.report);
+///   await IpfsService.restart();
+/// });
 /// final ctx = context.background();
 /// // ... a API gerada ...
 /// await IpfsService.stop();
@@ -28,49 +32,94 @@ export 'src/shm.dart' show ipfsShmLibraryPath;
 /// Função Hello (WIRE.md): `u64` hash da tabela → vazio, ou erro.
 const _fnHello = 4;
 
+/// Uma queda do ipfs_host (saiu sem [IpfsService.stop]).
+final class IpfsCrash {
+  IpfsCrash._(this.exitCode, this.report, this.crashLog, this.pid, this.uptime);
+
+  /// O código de saída do host (2 num panic do Go).
+  final int exitCode;
+
+  /// O relatório do Go: o que o host acrescentou ao [crashLog] desde que
+  /// subiu, ou o stderr dele (sem crashLog, ou se o arquivo ficou vazio).
+  final String report;
+
+  /// O arquivo de crash passado ao [IpfsService.start] (null se nenhum); o
+  /// host só acrescenta nele, e limpar fica a cargo de quem usa o pacote.
+  final String? crashLog;
+
+  /// O pid do host que caiu.
+  final int pid;
+
+  /// Quanto tempo ele ficou de pé.
+  final Duration uptime;
+
+  /// A mesma exceção que as chamadas pendentes receberam.
+  IpfsServiceException get exception => IpfsServiceException(
+      'o ipfs_host caiu (saída $exitCode)${report.isEmpty ? '' : ': $report'}');
+
+  @override
+  String toString() => exception.message;
+}
+
+/// O que fazer quando o ipfs_host cai; ver [IpfsService.start].
+typedef IpfsCrashHandler = FutureOr<void> Function(IpfsCrash crash);
+
 /// O serviço desta isolate (um canal por isolate).
 abstract final class IpfsService {
   static ShmChannel? _ch;
-  static ({String hostPath, String? crashLog, int spin})? _params;
-  static var _retry = _minRetry;
+  static ({
+    String hostPath,
+    String? crashLog,
+    int spin,
+    IpfsCrashHandler? onCrash
+  })? _params;
   static var _logStart = 0; // tamanho do crashLog quando o host atual subiu
-  static final _restarts = StreamController<IpfsServiceException>.broadcast();
-
-  static const _minRetry = Duration(milliseconds: 200);
-  static const _maxRetry = Duration(seconds: 10);
-
-  /// Um aviso por reinício automático, depois que o serviço novo já está de
-  /// pé: a exceção traz o motivo da queda (com o relatório do Go). O app
-  /// refaz aqui o que usava (`newNode`, `newCoreApi`...).
-  static Stream<IpfsServiceException> get restarts => _restarts.stream;
 
   /// Lança o ipfs_host ([hostPath]; padrão [defaultHostPath]), conecta, confere
   /// no Hello que app e host vieram do mesmo gerador e liga a API gerada a
-  /// ele. [crashLog]: arquivo onde o Go grava o relatório de um panic que
+  /// ele. [crashLog]: arquivo onde o Go acrescenta o relatório de um panic que
   /// derrube o host. [spin]: voltas da espera ativa antes de dormir no sininho.
-  /// Se o host cair, ele volta sozinho (espera de 0,2 s a 10 s entre
-  /// tentativas, crescendo enquanto ele cai logo depois de subir) e
-  /// [restarts] avisa. Já rodando, é um [StateError].
+  ///
+  /// Se o host cair sem [stop], nada volta sozinho: as chamadas pendentes
+  /// falham com [IpfsServiceException] e [onCrash] (padrão: nenhum) recebe um
+  /// [IpfsCrash] com o relatório; ele decide se limpa o [crashLog], se chama
+  /// [restart] e quando. Já rodando, é um [StateError].
   static Future<void> start(
-      {String? hostPath, String? crashLog, int spin = 20000}) async {
-    if (_ch case final old?) {
-      if (old.deadReason == null) {
-        throw StateError('o IpfsService já está rodando (stop() antes)');
-      }
-      _ch = null;
-      $detach();
-      await old.close();
+      {String? hostPath,
+      String? crashLog,
+      int spin = 20000,
+      IpfsCrashHandler? onCrash}) async {
+    if (isRunning) {
+      throw StateError('o IpfsService já está rodando (stop() antes)');
     }
     _params = (
       hostPath: hostPath ?? defaultHostPath(),
       crashLog: crashLog,
-      spin: spin
+      spin: spin,
+      onCrash: onCrash
     );
-    _retry = _minRetry;
+    await _launch();
+  }
+
+  /// Lança de novo o host com os parâmetros do último [start] (inclusive o
+  /// `onCrash`); para usar depois de uma queda. Sem [start] antes (ou depois
+  /// de [stop]), é um [StateError]; já rodando, também.
+  static Future<void> restart() async {
+    if (_params == null) {
+      throw StateError('o IpfsService não foi iniciado (start() antes)');
+    }
+    if (isRunning) {
+      throw StateError('o IpfsService já está rodando (stop() antes)');
+    }
     await _launch();
   }
 
   static Future<void> _launch() async {
+    if (_ch case final old?) {
+      _ch = null;
+      $detach();
+      await old.close();
+    }
     final p = _params!;
     if (p.crashLog case final f?) {
       final file =
@@ -93,15 +142,14 @@ abstract final class IpfsService {
     unawaited(ch.exitCode.then((code) => _died(ch, code, up.elapsed)));
   }
 
-  /// O host [ch] saiu sem stop(): relança (com espera crescente se ele caiu
-  /// logo depois de subir) e avisa em [restarts].
+  /// O host [ch] saiu sem stop(): solta o canal e entrega a queda ao onCrash.
   static Future<void> _died(ShmChannel ch, int code, Duration lived) async {
     if (!identical(_ch, ch)) return; // parado ou já trocado
-    // o relatório do Go: o arquivo de crash, ou o stderr do host
+    final crashLog = _params?.crashLog;
     var report = '';
-    if (_params?.crashLog case final f?) {
+    if (crashLog != null) {
       try {
-        final all = File(f).readAsBytesSync();
+        final all = File(crashLog).readAsBytesSync();
         report = utf8
             .decode(all.sublist(_logStart.clamp(0, all.length)),
                 allowMalformed: true)
@@ -111,28 +159,15 @@ abstract final class IpfsService {
       }
     }
     if (report.isEmpty) report = ch.hostStderr.trim();
-    final reason = IpfsServiceException(
-        'o ipfs_host caiu (saída $code)${report.isEmpty ? '' : ': $report'}');
+    final crash = IpfsCrash._(code, report, crashLog, ch.hostPid, lived);
     _ch = null;
     $detach();
     await ch.close();
-    _retry = lived > const Duration(seconds: 30)
-        ? _minRetry
-        : (_retry * 2 > _maxRetry ? _maxRetry : _retry * 2);
-    while (_params != null && _ch == null) {
-      await Future<void>.delayed(_retry);
-      if (_params == null || _ch != null) return;
-      try {
-        await _launch();
-        _restarts.add(reason);
-      } catch (_) {
-        _retry = _retry * 2 > _maxRetry ? _maxRetry : _retry * 2;
-      }
-    }
+    // um erro do onCrash vai para a zona de quem chamou start()
+    await _params?.onCrash?.call(crash);
   }
 
-  /// Para o serviço (sem reinício); o host sai sozinho. Os handles do
-  /// serviço deixam de valer.
+  /// Para o serviço; o host sai sozinho. Os handles do serviço deixam de valer.
   static Future<void> stop() async {
     _params = null;
     final ch = _ch;
@@ -142,7 +177,7 @@ abstract final class IpfsService {
     await ch.close();
   }
 
-  /// Se o serviço está de pé (entre uma queda e o reinício, false).
+  /// Se o serviço está de pé (depois de uma queda, false até o [restart]).
   static bool get isRunning => _ch != null && _ch!.deadReason == null;
 
   /// O código de saída do host atual (completa quando ele sai, inclusive por

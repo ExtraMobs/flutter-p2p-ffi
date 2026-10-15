@@ -233,11 +233,11 @@ static void *waker(void *arg) {
       if (!ring_empty(&c->resp)) got = 1;
       else relax();
     }
-    if (!got) {
-      if (ring_prepare_sleep(&c->resp)) {
-        if (!bell_wait(c)) break;
-        atomic_store(c->resp.sleep, 0);
-      }
+    /* sem resposta no giro: dorme; se ela chegou nesse meio tempo, entrega
+     * (com spin 0, voltar ao laço aqui girava para sempre sem entregar) */
+    if (!got && ring_prepare_sleep(&c->resp)) {
+      if (!bell_wait(c)) break;
+      atomic_store(c->resp.sleep, 0);
       continue;
     }
     lock_take(&c->m);

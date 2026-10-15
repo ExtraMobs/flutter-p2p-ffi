@@ -4,8 +4,9 @@ Kubo v0.43.1 (IPFS em Go) usado do Dart sem HTTP: o kubo roda no executável
 `ipfs_host`, noutro processo, e o app fala com ele por memória compartilhada (a
 `ipfs_shm`, em C; protocolo binário no [`WIRE.md`](WIRE.md)). O app não carrega Go:
 um panic do kubo derruba só o serviço, as chamadas pendentes falham com
-`IpfsServiceException`, o serviço volta sozinho e `IpfsService.restarts` avisa o app
-(que refaz plugins, nó e CoreAPI: o processo é novo).
+`IpfsServiceException` e o `onCrash` do app recebe o relatório do Go e decide o que
+fazer (limpar o log, `IpfsService.restart()` e refazer plugins, nó e CoreAPI: o
+processo é novo). Nada volta sozinho.
 Alvos: VM/AOT no Windows, no linux e no Android (não serve para JS/Wasm).
 
 A API Dart é a do próprio Go, gerada: uma library por pacote Go, sem o
@@ -25,7 +26,8 @@ import 'package:ipfs_ffi/kubo/core/node.dart' as node;
 import 'package:ipfs_ffi/kubo/plugin/loader.dart' as loader;
 import 'package:ipfs_ffi/kubo/repo/fsrepo.dart' as fsrepo;
 
-await IpfsService.start(); // lança native/ipfs_host
+// lança native/ipfs_host; numa queda, onCrash decide (padrão: nada)
+await IpfsService.start(onCrash: (crash) => print(crash.report));
 final plugins = loader.PluginLoader('')..initialize()..inject(); // 1x por serviço
 final ctx = context.background();
 final n = await core.newNode(ctx, node.BuildCfg(repo: fsrepo.open('.ipfs-ffi')));
@@ -82,10 +84,11 @@ Exemplos, na ordem em que o kubo monta um nó:
 ## Gerar e compilar
 
 - `dart run tool/build.dart [linux|windows]`: roda o gerador (`go run ./gen` em
-  `go/`) e compila `native/` (`libipfs.so`, `ipfs.dll`; fora do git). Exige Go
-  1.26.5 (`GOTOOLCHAIN=auto` baixa) e um gcc para o cgo: no Windows, o
-  mingw-w64 no PATH (ex. `winget install BrechtSanders.WinLibs.POSIX.UCRT`);
-  no linux, `x86_64-w64-mingw32-gcc` para a DLL.
+  `go/`) e compila em `native/` (fora do git) o host (`ipfs_host`/`ipfs_host.exe`, Go
+  sem cgo) e a `ipfs_shm` (`libipfs_shm.so`/`ipfs_shm.dll`, C). Exige Go 1.26.5
+  (`GOTOOLCHAIN=auto` baixa) e um compilador C só para a `ipfs_shm`: no Windows, o
+  mingw-w64 no PATH (ex. `winget install BrechtSanders.WinLibs.POSIX.UCRT`); no
+  linux, gcc e `x86_64-w64-mingw32-gcc` para a DLL.
 - Para expor mais do kubo/boxo: acrescente o símbolo em `go/gen/roots.txt`
   (`pacote.Função` ou `pacote.Tipo.Método`) e rode o build. O que o gerador
   não exprime vai à mão em `go/runtime.go` e `go/gen/extra/<library>.extra`.
@@ -95,12 +98,14 @@ Exemplos, na ordem em que o kubo monta um nó:
 
 ### Android (validado no emulador e num aparelho, Android 16 e 17)
 
-`dart run tool/build.dart android` gera `native/android/{x86_64,arm64-v8a}/libipfs.so` com o
+`dart run tool/build.dart android` gera em `native/android/{x86_64,arm64-v8a}/` o host
+(`libipfs_host.so`, um executável com nome de lib para o APK levar) e a `libipfs_shm.so`, com o
 NDK (`ANDROID_NDK_HOME`, ou o mais novo em `<Android SDK>/ndk`), alinhadas em 16 KB, com o
 `go-multiaddr` e o `zeroconf` trocados pelo `wlynxg/anet` (no Android 11+ o `net` do Go não
 lista interfaces; sem isso o nó só anuncia 127.0.0.1 e o mDNS não funciona). No
 Android o host padrão (`defaultHostPath()`) é a `libipfs_host.so` na pasta das libs
-nativas do app (o APK precisa extraí-las). O app de
+nativas do app (o APK precisa extraí-las: `packaging.jniLibs.useLegacyPackaging = true`
+no Gradle; o Android só executa da `nativeLibraryDir`). O app de
 validação em [`example/android_app`](example/android_app) mostra como empacotar (o Gradle
 lê direto de `native/android`), sobe o nó, fecha no background e reabre na volta, roda as
 verificações ao abrir (com o log copiável) e tem o teste de integração
@@ -137,9 +142,13 @@ linux o QUIC pede um buffer UDP maior (aviso do quic-go, não erro):
 Relatório de crash: um panic numa chamada ou numa goroutine do próprio ipfs_ffi vira
 `IpfsException`; numa goroutine interna do kubo derruba o `ipfs_host` (não o app):
 `IpfsService.start(crashLog: caminho)` faz o Go gravar o relatório nesse arquivo, e
-`IpfsService.exitCode` completa quando o host sai. O serviço volta sozinho (espera de
-0,2 s a 10 s, crescendo se ele cai logo depois de subir) e `IpfsService.restarts`
-emite uma `IpfsServiceException` com o relatório do Go; os handles do serviço
+`IpfsService.exitCode` completa quando o host sai. O serviço **não** volta sozinho:
+as pendentes falham com `IpfsServiceException` e o `onCrash` passado ao `start`
+(padrão `null`: nada acontece) recebe um `IpfsCrash` com o código de saída, o
+relatório do Go (o que o host acrescentou ao `crashLog` desde que subiu, ou o stderr
+dele), o caminho do `crashLog`, o pid e quanto tempo ficou de pé. Quem usa o pacote
+decide: limpar o arquivo (o host só acrescenta), chamar `IpfsService.restart()` (os
+mesmos parâmetros do `start`), quando, e refazer o que usava; os handles do serviço
 anterior deixam de valer e os plugins do kubo são injetados de novo (é outro
 processo).
 

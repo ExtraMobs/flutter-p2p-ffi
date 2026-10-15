@@ -13,6 +13,7 @@ import 'package:ipfs_ffi/context.dart' as context;
 import 'package:ipfs_ffi/io.dart' as io;
 import 'package:ipfs_ffi/ipfs_ffi.dart'
     show
+        IpfsCrash,
         IpfsException,
         IpfsService,
         IpfsServiceException,
@@ -42,10 +43,12 @@ void main() {
   late iface.CoreApi api;
   late context.Context ctx;
   var hostCrashed = false; // o último teste derruba o host de propósito
+  final crashes = StreamController<IpfsCrash>(); // o onCrash do serviço
 
   setUpAll(() async {
     tmp = Directory.systemTemp.createTempSync('ipfs_ffi_kubo_');
-    await IpfsService.start(crashLog: '${tmp.path}/crash.log');
+    await IpfsService.start(
+        crashLog: '${tmp.path}/crash.log', onCrash: crashes.add);
     ctx = context.background();
     final repoPath = '${tmp.path}/repo';
 
@@ -589,19 +592,29 @@ void main() {
   });
 
   // 0.9.0: um panic numa goroutine do Go (fora de uma chamada) derruba só o
-  // ipfs_host; este processo segue, o serviço volta sozinho e restarts avisa
-  // com o relatório do Go. Por último: o nó dos outros testes cai junto.
-  test('panic numa goroutine do Go: só o host cai e volta sozinho', () async {
+  // ipfs_host; este processo segue e o onCrash recebe o relatório do Go. Nada
+  // volta sozinho: quem usa o pacote chama restart(). Por último: o nó dos
+  // outros testes cai junto.
+  test('panic numa goroutine do Go: só o host cai; onCrash decide', () async {
     final oldPid = IpfsService.hostPid;
-    final restarted = IpfsService.restarts.first;
     $callSync(24); // responde e cai logo depois
     hostCrashed = true;
-    final why = await restarted.timeout(const Duration(seconds: 30));
-    expect(why.message, contains('panic de teste numa goroutine'));
+    final crash =
+        await crashes.stream.first.timeout(const Duration(seconds: 30));
+    expect(crash.report, contains('panic de teste numa goroutine'));
+    expect(crash.exitCode, isNot(0));
+    expect(crash.pid, oldPid);
+    expect(crash.crashLog, '${tmp.path}/crash.log');
+    expect(File(crash.crashLog!).readAsStringSync(),
+        contains('panic de teste numa goroutine'));
+    // sem restart() o serviço fica fora: as chamadas falham
+    expect(IpfsService.isRunning, isFalse);
+    expect(() => context.background(), throwsA(isA<IpfsServiceException>()));
+
+    File(crash.crashLog!).writeAsStringSync(''); // o app decide limpar
+    await IpfsService.restart();
     expect(IpfsService.isRunning, isTrue);
     expect(IpfsService.hostPid, isNot(oldPid));
-    final report = File('${tmp.path}/crash.log').readAsStringSync();
-    expect(report, contains('panic de teste numa goroutine'));
 
     // o serviço novo funciona; os handles do anterior não valem nele
     expect(context.background().err(), isNull);

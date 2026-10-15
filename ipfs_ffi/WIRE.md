@@ -2,7 +2,7 @@
 
 O `ipfs_ffi` roda o kubo **só** num processo separado, o `ipfs_host` (o Go deste
 pacote compilado como executável). Um panic não tratado do kubo derruba esse
-processo, nunca o app: o app recebe `IpfsServiceException` e relança o serviço. O
+processo, nunca o app: o app recebe `IpfsServiceException` e decide se relança o serviço. O
 app não carrega Go; carrega só a `ipfs_shm` (C), o lado dele do canal.
 
 Este documento é o contrato entre os dois lados. O gerador (`go/gen`) emite o Go do
