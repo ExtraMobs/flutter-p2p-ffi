@@ -28,9 +28,9 @@ const (
 	kError
 )
 
-// valueSpec: tipo-valor convertido por funções escritas à mão em runtime.go.
+// valueSpec: tipo-valor convertido por funções escritas à mão em wire.go.
 type valueSpec struct {
-	dec, enc   string // funções Go em runtime.go
+	dec, enc   string // funções Go em wire.go
 	dartClass  string // classe Dart ("" = tipo do dart:core)
 	dartExtend string // classe base Dart (ImmutablePath extends Path)
 	dartDec    string // decodificação Dart de %s (só para tipos do dart:core)
@@ -38,14 +38,14 @@ type valueSpec struct {
 }
 
 var valueTypes = map[string]valueSpec{
-	"github.com/ipfs/go-cid.Cid":                       {dec: "decCid", enc: "encCid", dartClass: "Cid"},
-	"github.com/ipfs/boxo/path.Path":                   {dec: "decPath", enc: "encPath", dartClass: "Path"},
-	"github.com/ipfs/boxo/path.ImmutablePath":          {dec: "decImmutablePath", enc: "encImmutablePath", dartClass: "ImmutablePath", dartExtend: "Path"},
-	"github.com/libp2p/go-libp2p/core/peer.ID":         {dec: "decPeerID", enc: "encPeerID", dartClass: "Id"},
-	"github.com/multiformats/go-multiaddr.Multiaddr":   {dec: "decMultiaddr", enc: "encMultiaddr", dartClass: "Multiaddr"},
-	"time.Time":                                        {dec: "decTime", enc: "encTime", dartDec: "DateTime.parse(%s as String)"},
-	"github.com/ipfs/kubo/config.Config":               {dec: "decConfig", enc: "encConfig", dartClass: "Config", json: true},
-	"github.com/ipfs/boxo/ipns.Name":                   {dec: "decIpnsName", enc: "encIpnsName", dartClass: "Name"},
+	"github.com/ipfs/go-cid.Cid":                     {dec: "decCid", enc: "encCid", dartClass: "Cid"},
+	"github.com/ipfs/boxo/path.Path":                 {dec: "decPath", enc: "encPath", dartClass: "Path"},
+	"github.com/ipfs/boxo/path.ImmutablePath":        {dec: "decImmutablePath", enc: "encImmutablePath", dartClass: "ImmutablePath", dartExtend: "Path"},
+	"github.com/libp2p/go-libp2p/core/peer.ID":       {dec: "decPeerID", enc: "encPeerID", dartClass: "Id"},
+	"github.com/multiformats/go-multiaddr.Multiaddr": {dec: "decMultiaddr", enc: "encMultiaddr", dartClass: "Multiaddr"},
+	"time.Time":                          {dec: "decTime", enc: "encTime", dartDec: "DateTime.parse(%s as String)"},
+	"github.com/ipfs/kubo/config.Config": {dec: "decConfig", enc: "encConfig", dartClass: "Config", json: true},
+	"github.com/ipfs/boxo/ipns.Name":     {dec: "decIpnsName", enc: "encIpnsName", dartClass: "Name"},
 }
 
 // handleTypes: interfaces que parecem só-getters mas são recursos (handle).
@@ -431,4 +431,17 @@ func okOptCtor(c optCtor) (bool, string) {
 		}
 	}
 	return true, ""
+}
+
+// usableCtors: construtores da opção cujos parâmetros atravessam, por caminho
+// (o Dart). No fio vai o índice em t.ctors (WIRE.md), não a posição aqui.
+func usableCtors(t *tinfo) []optCtor {
+	var out []optCtor
+	for _, c := range t.ctors {
+		if ok, _ := okOptCtor(c); ok {
+			out = append(out, c)
+		}
+	}
+	sort.Slice(out, func(i, j int) bool { return strings.Join(out[i].path, ".") < strings.Join(out[j].path, ".") })
+	return out
 }

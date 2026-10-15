@@ -1,12 +1,13 @@
-// O ipfs_host (marco 0.9.0): o mesmo Go da lib, compilado como executável,
-// num processo só dele. Um panic não tratado do kubo derruba este processo, e
+// O ipfs_host (marco 0.9.0): o kubo compilado como executável, num processo
+// só dele. Um panic não tratado do kubo derruba este processo, e
 // o app (lib/service.dart) recebe uma exceção e o relança. O app escreve os
 // pedidos no anel 0 da região compartilhada e lê as respostas no anel 1
 // (go/shmring); o socket/pipe só faz o aperto de mão, o sininho de quem
-// dorme e a detecção de queda. No c-shared o main() nunca roda.
+// dorme e a detecção de queda. O protocolo está em WIRE.md.
 package main
 
 import (
+	"bytes"
 	"encoding/binary"
 	"flag"
 	"fmt"
@@ -20,7 +21,7 @@ import (
 )
 
 // Pedido: u32 id, u32 função, u8 modo, argumentos. Resposta: u32 id, u8
-// tipo (os ev* de runtime.go), dados. No anel, cada mensagem vai em um ou mais
+// tipo (os ev* de wire.go), dados. No anel, cada mensagem vai em um ou mais
 // quadros [u32 continua][pedaço] (u32 para o pedaço ficar alinhado): a que não cabe num quadro é partida, e quem
 // consome junta os pedaços (um produtor por vez, então não se misturam).
 const (
@@ -29,6 +30,8 @@ const (
 	fnNoop     = 0
 	fnSleep    = 1 // teste: responde depois de u32 ms, numa goroutine
 	fnEcho     = 2 // teste: devolve os argumentos
+	fnFree     = 3 // u32 n + n × i64 handles; sem resposta (id 0)
+	fnHello    = 4 // u64 hash da tabela; erro se o host veio de outra tabela
 	frameHead  = 4
 )
 
@@ -119,30 +122,82 @@ func (h *host) idle() bool {
 }
 
 // dispatch trata um pedido; [m] só vale durante a chamada (é o anel), então
-// o que segue numa goroutine copia antes.
+// o que segue numa goroutine copia antes. Síncrona responde aqui, em ordem;
+// assíncrona e stream rodam numa goroutine.
 func (h *host) dispatch(m []byte) {
 	if len(m) < reqHeader {
 		return
 	}
 	id := binary.LittleEndian.Uint32(m)
-	switch fn := binary.LittleEndian.Uint32(m[4:]); fn {
+	fn := binary.LittleEndian.Uint32(m[4:])
+	mode := m[8]
+	args := m[reqHeader:]
+	switch fn {
 	case fnNoop:
 		h.reply(id, evValue, nil)
+		return
 	case fnEcho:
-		h.reply(id, evValue, m[reqHeader:])
+		h.reply(id, evValue, args)
+		return
 	case fnSleep:
-		if len(m) < reqHeader+4 {
+		if len(args) < 4 {
 			h.reply(id, evError, []byte("ipfs_host: Sleep sem os ms"))
 			return
 		}
-		ms := binary.LittleEndian.Uint32(m[reqHeader:])
-		go func() {
+		ms := binary.LittleEndian.Uint32(args)
+		h.spawn(func() {
 			time.Sleep(time.Duration(ms) * time.Millisecond)
 			h.reply(id, evValue, nil)
-		}()
-	default:
-		h.reply(id, evError, fmt.Appendf(nil, "ipfs_host: função %d desconhecida", fn))
+		})
+		return
+	case fnFree:
+		r := &reader{b: args}
+		for range r.count() {
+			hfree(r.i64())
+		}
+		return
+	case fnHello:
+		r := &reader{b: args}
+		got := r.u64()
+		switch {
+		case r.done() != nil:
+			h.reply(id, evError, []byte(r.err.Error()))
+		case got != tableHash:
+			h.reply(id, evError, fmt.Appendf(nil, "ipfs_host: tabela %#x, o app espera %#x (gerados de roots.txt diferentes)", tableHash, got))
+		default:
+			h.reply(id, evValue, nil)
+		}
+		return
 	}
+	e, ok := table[fn]
+	switch {
+	case !ok:
+		h.reply(id, evError, fmt.Appendf(nil, "ipfs_host: função %d desconhecida", fn))
+		return
+	case e.stream != (mode == modeStream):
+		h.reply(id, evError, fmt.Appendf(nil, "ipfs_host: %s (%d) chamada no modo %d", e.key, fn, mode))
+		return
+	case mode == modeSync:
+		kind, data := invoke(e, id, args, h.reply)
+		h.reply(id, kind, data)
+		return
+	}
+	args = bytes.Clone(args)
+	h.spawn(func() {
+		kind, data := invoke(e, id, args, h.reply)
+		h.reply(id, kind, data)
+	})
+}
+
+// spawn roda f numa goroutine com recover: o invoke já transforma o panic
+// da chamada em erro; este pega um no envio, que só vai ao stderr (não há
+// mais como responder).
+func (h *host) spawn(f func()) {
+	go func() {
+		if err := try(func() error { f(); return nil }); err != nil {
+			fmt.Fprintln(os.Stderr, "ipfs_host:", err)
+		}
+	}()
 }
 
 // reply escreve a resposta [id] no anel 1, partida em quadros se preciso

@@ -95,3 +95,20 @@ Tipos nomeados sobre básicos (enums do kubo) vão como o básico. Por tipo do m
 **Handles**: o host guarda os objetos numa tabela (`i64` a partir de 1); o app os
 solta com `Free` (em lote, pelo `Finalizer`). Um handle só vale na vida do serviço
 em que nasceu: depois de um reinício, usá-lo dá `IpfsServiceException`.
+
+## Notas (o que a tabela acima não fixava; o host segue assim)
+
+- `kDTO` sem ponteiro: o host sempre escreve presença `1`; ao ler, presença `0` dá o
+  valor zero da struct. Ponteiro (`*DTO`, `*config.Config`): presença `0` = nil; senão
+  o formato do próprio tipo (que começa com o `1` dele): não há byte extra.
+- `kSnap`: getter com erro que falhou escreve o valor zero do tipo e então o erro.
+- `kMap`: o host escreve `n` (nil = 0, nunca `-1`); ao ler, `-1` = nil.
+- `kOpts`: o índice é a posição em `tinfo.ctors` **com** os construtores que não
+  atravessam (`okOptCtor`); um índice desses, ou fora da lista, é erro da chamada.
+- Bytes sobrando depois do último argumento são erro (`argumentos curtos` para a
+  leitura curta), como argumentos a menos.
+- Modo: uma stream pedida em modo `0`/`1`, ou uma chamada pedida em modo `2`, é erro.
+- `fim` (de stream e de sink) vem sem dados.
+- Um handle é um id novo a cada vez que o host devolve o objeto, mesmo o mesmo objeto:
+  cada um é solto à parte.
+- `dag export` gravando em arquivo devolve `i32 0` (bytes vazios, não nil).

@@ -7,7 +7,6 @@ package main
 import (
 	"bytes"
 	"context"
-	"encoding/json"
 	"fmt"
 
 	"github.com/ipfs/boxo/path"
@@ -127,71 +126,60 @@ func dagGet(ctx context.Context, api iface.CoreAPI, p path.Path, outputCodec str
 		return nil, fmt.Errorf("invalid encoding: %s - %s", codec, err)
 	}
 	var out bytes.Buffer
-	if err := encoder(finalNode, &out); err != nil { // panic do codec: o guard do IpfsCall
+	if err := encoder(finalNode, &out); err != nil { // panic do codec: o guard do invoke
 		return nil, err
 	}
 	return out.Bytes(), nil
 }
 
+// WIRE.md, ids 32 e 33.
 func init() {
-	reg["kubo/core/commands/dag.put"] = entry{call: func(a []json.RawMessage) (any, error) {
-		if err := nargs(a, 8); err != nil {
-			return nil, err
-		}
-		api, err := hdec[iface.CoreAPI](a[0])
+	// CoreAPI, ctx, dados, input-codec, store-codec, hash, pin, allow-big-block → CID
+	table[32] = entry{key: "kubo/core/commands/dag.put", fn: func(_ *req, r *reader, w *writer) error {
+		api, err := decH[iface.CoreAPI](r)
 		if err != nil {
-			return nil, err
+			return err
 		}
-		ctx, err := hdec[context.Context](a[1])
+		ctx, err := decH[context.Context](r)
 		if err != nil {
-			return nil, err
+			return err
 		}
-		data, err := decBytes(a[2])
+		data := r.bytes()
+		inputCodec, storeCodec, hash := r.str(), r.str(), r.str()
+		pin, allowBigBlock := r.bool(), r.bool()
+		if err := r.done(); err != nil {
+			return err
+		}
+		c, err := dagPut(ctx, api, data, inputCodec, storeCodec, hash, pin, allowBigBlock)
 		if err != nil {
-			return nil, err
+			return err
 		}
-		var s [3]string
-		for i := range s {
-			if s[i], err = jdec[string](a[3+i]); err != nil {
-				return nil, err
-			}
-		}
-		var flags [2]bool
-		for i := range flags {
-			if flags[i], err = jdec[bool](a[6+i]); err != nil {
-				return nil, err
-			}
-		}
-		c, err := dagPut(ctx, api, data, s[0], s[1], s[2], flags[0], flags[1])
-		if err != nil {
-			return nil, err
-		}
-		return encCid(c), nil
+		encCid(w, c)
+		return nil
 	}}
-	reg["kubo/core/commands/dag.get"] = entry{call: func(a []json.RawMessage) (any, error) {
-		if err := nargs(a, 4); err != nil {
-			return nil, err
-		}
-		api, err := hdec[iface.CoreAPI](a[0])
+	// CoreAPI, ctx, path, output-codec → bytes
+	table[33] = entry{key: "kubo/core/commands/dag.get", fn: func(_ *req, r *reader, w *writer) error {
+		api, err := decH[iface.CoreAPI](r)
 		if err != nil {
-			return nil, err
+			return err
 		}
-		ctx, err := hdec[context.Context](a[1])
+		ctx, err := decH[context.Context](r)
 		if err != nil {
-			return nil, err
+			return err
 		}
-		p, err := decPath(a[2])
+		p, err := path.NewPath(r.str())
 		if err != nil {
-			return nil, err
+			return err
 		}
-		codec, err := jdec[string](a[3])
-		if err != nil {
-			return nil, err
+		codec := r.str()
+		if err := r.done(); err != nil {
+			return err
 		}
 		out, err := dagGet(ctx, api, p, codec)
 		if err != nil {
-			return nil, err
+			return err
 		}
-		return encBytes(out), nil
+		w.bytes(out)
+		return nil
 	}}
 }

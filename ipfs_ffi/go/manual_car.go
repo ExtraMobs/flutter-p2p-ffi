@@ -9,7 +9,6 @@ package main
 import (
 	"bytes"
 	"context"
-	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
@@ -248,75 +247,64 @@ func dagImport(ctx context.Context, node *core.IpfsNode, cars []io.Reader, pinRo
 	return out, stats, nil
 }
 
+// WIRE.md, ids 34 e 35.
 func init() {
-	// [node, ctx, path, localOnly, arquivo ("" = devolve os bytes)]
-	reg["kubo/core/commands/dag.export"] = entry{call: func(a []json.RawMessage) (any, error) {
-		if err := nargs(a, 5); err != nil {
-			return nil, err
-		}
-		node, err := hdec[*core.IpfsNode](a[0])
+	// IpfsNode, ctx, path, local-only, arquivo ("" = devolve os bytes) → bytes
+	table[34] = entry{key: "kubo/core/commands/dag.export", fn: func(_ *req, r *reader, w *writer) error {
+		node, err := decH[*core.IpfsNode](r)
 		if err != nil {
-			return nil, err
+			return err
 		}
-		ctx, err := hdec[context.Context](a[1])
+		ctx, err := decH[context.Context](r)
 		if err != nil {
-			return nil, err
+			return err
 		}
-		p, err := decPath(a[2])
+		p, err := path.NewPath(r.str())
 		if err != nil {
-			return nil, err
+			return err
 		}
-		localOnly, err := jdec[bool](a[3])
-		if err != nil {
-			return nil, err
-		}
-		file, err := jdec[string](a[4])
-		if err != nil {
-			return nil, err
+		localOnly, file := r.bool(), r.str()
+		if err := r.done(); err != nil {
+			return err
 		}
 		if file == "" {
 			var buf bytes.Buffer
 			if err := dagExport(ctx, node, p, &buf, localOnly); err != nil {
-				return nil, err
+				return err
 			}
-			return encBytes(buf.Bytes()), nil
+			w.bytes(buf.Bytes())
+			return nil
 		}
 		f, err := os.Create(file)
 		if err != nil {
-			return nil, err
+			return err
 		}
 		if err := dagExport(ctx, node, p, f, localOnly); err != nil {
 			f.Close()
-			return nil, err
+			return err
 		}
-		return nil, f.Close()
+		w.bytes([]byte{}) // gravou no arquivo: bytes vazios
+		return f.Close()
 	}}
-	// [node, ctx, arquivos, bytes (ou null), pinRoots, allowBigBlock]
-	reg["kubo/core/commands/dag.import"] = entry{call: func(a []json.RawMessage) (any, error) {
-		if err := nargs(a, 6); err != nil {
-			return nil, err
-		}
-		node, err := hdec[*core.IpfsNode](a[0])
+	// IpfsNode, ctx, arquivos, CAR (nil = só os arquivos), pin-roots,
+	// allow-big-block → raízes (CID, erro do pin), blocos, bytes
+	table[35] = entry{key: "kubo/core/commands/dag.import", fn: func(_ *req, r *reader, w *writer) error {
+		node, err := decH[*core.IpfsNode](r)
 		if err != nil {
-			return nil, err
+			return err
 		}
-		ctx, err := hdec[context.Context](a[1])
+		ctx, err := decH[context.Context](r)
 		if err != nil {
-			return nil, err
+			return err
 		}
-		paths, err := jdec[[]string](a[2])
-		if err != nil {
-			return nil, err
+		paths := make([]string, max(r.count(), 0))
+		for i := range paths {
+			paths[i] = r.str()
 		}
-		data, err := decBytes(a[3])
-		if err != nil {
-			return nil, err
-		}
-		var flags [2]bool
-		for i := range flags {
-			if flags[i], err = jdec[bool](a[4+i]); err != nil {
-				return nil, err
-			}
+		data := r.bytes()
+		pinRoots, allowBigBlock := r.bool(), r.bool()
+		if err := r.done(); err != nil {
+			return err
 		}
 		var cars []io.Reader
 		if data != nil {
@@ -325,19 +313,22 @@ func init() {
 		for _, p := range paths {
 			f, err := os.Open(p)
 			if err != nil {
-				return nil, err
+				return err
 			}
 			defer f.Close()
 			cars = append(cars, f)
 		}
-		roots, stats, err := dagImport(ctx, node, cars, flags[0], flags[1])
+		roots, stats, err := dagImport(ctx, node, cars, pinRoots, allowBigBlock)
 		if err != nil {
-			return nil, err
+			return err
 		}
-		rs := make([]any, len(roots))
-		for i, r := range roots {
-			rs[i] = map[string]any{"Cid": encCid(r.Cid), "PinErrorMsg": r.PinErrorMsg}
+		w.i32(int32(len(roots)))
+		for _, rt := range roots {
+			w.str(rt.Cid.String())
+			w.str(rt.PinErrorMsg)
 		}
-		return map[string]any{"Roots": rs, "BlockCount": stats.BlockCount, "BlockBytesCount": stats.BlockBytesCount}, nil
+		w.i64(int64(stats.BlockCount))
+		w.i64(int64(stats.BlockBytesCount))
+		return nil
 	}}
 }

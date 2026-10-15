@@ -1,86 +1,76 @@
-// O pacote context para o lib/context.dart, escrito à mão e por exports
-// diretos (sem JSON): toda operação com prazo cria um contexto e o cancela.
-// Os dois handles de um WithX saem por out e out2; o erro (ou panic) é o
-// retorno, NULL = ok, como nos exports gerados.
+// O pacote context para o lib/context.dart, escrito à mão (WIRE.md, ids
+// 16–21): toda operação com prazo cria um contexto e o cancela. Os dois
+// handles de um WithX saem em ordem (ctx, cancel).
 package main
-
-/*
-#include <stdint.h>
-*/
-import "C"
 
 import (
 	"context"
 	"time"
 )
 
-//export IpfsCtxBackground
-func IpfsCtxBackground(out *C.int64_t) (cerr *C.char) {
-	defer guardC(&cerr)
-	*out = C.int64_t(hint(context.Background()))
-	return nil
-}
-
-// withCtx: context.WithX sobre o pai [parent], com os handles em out e out2.
-func withCtx(parent C.int64_t, out, out2 *C.int64_t, with func(context.Context) (context.Context, context.CancelFunc)) *C.char {
-	p, err := hget[context.Context](int64(parent))
-	if err != nil {
-		return C.CString(err.Error())
+// withCtx: context.WithX sobre o pai (i64), com os handles do contexto e do
+// cancel na resposta; [hasArg]: lê o prazo (i64) depois do pai. Pai nil é
+// o panic do Go, que vira o erro da chamada.
+func withCtx(with func(p context.Context, arg int64) (context.Context, context.CancelFunc), hasArg bool) func(*req, *reader, *writer) error {
+	return func(_ *req, r *reader, w *writer) error {
+		p, err := decH[context.Context](r)
+		if err != nil {
+			return err
+		}
+		var arg int64
+		if hasArg {
+			arg = r.i64()
+		}
+		if err := r.done(); err != nil {
+			return err
+		}
+		ctx, cancel := with(p, arg)
+		w.i64(hput(ctx))
+		w.i64(hput(cancel))
+		return nil
 	}
-	ctx, cancel := with(p)
-	*out, *out2 = C.int64_t(hint(ctx)), C.int64_t(hint(cancel))
-	return nil
 }
 
-//export IpfsCtxWithCancel
-func IpfsCtxWithCancel(parent C.int64_t, out, out2 *C.int64_t) (cerr *C.char) {
-	defer guardC(&cerr)
-	return withCtx(parent, out, out2, context.WithCancel)
-}
-
-// IpfsCtxWithTimeout: [timeout] em nanossegundos (time.Duration).
-//
-//export IpfsCtxWithTimeout
-func IpfsCtxWithTimeout(parent, timeout C.int64_t, out, out2 *C.int64_t) (cerr *C.char) {
-	defer guardC(&cerr)
-	return withCtx(parent, out, out2, func(p context.Context) (context.Context, context.CancelFunc) {
-		return context.WithTimeout(p, time.Duration(timeout))
-	})
-}
-
-// IpfsCtxWithDeadline: [deadline] em nanossegundos desde a época Unix.
-//
-//export IpfsCtxWithDeadline
-func IpfsCtxWithDeadline(parent, deadline C.int64_t, out, out2 *C.int64_t) (cerr *C.char) {
-	defer guardC(&cerr)
-	return withCtx(parent, out, out2, func(p context.Context) (context.Context, context.CancelFunc) {
-		return context.WithDeadline(p, time.Unix(0, int64(deadline)))
-	})
-}
-
-//export IpfsCtxCancel
-func IpfsCtxCancel(h C.int64_t) (cerr *C.char) {
-	defer guardC(&cerr)
-	cancel, err := hget[context.CancelFunc](int64(h))
-	if err != nil {
-		return C.CString(err.Error())
-	}
-	cancel()
-	return nil
-}
-
-// IpfsCtxErr: a mensagem de ctx.Err() em out, NULL enquanto não cancelado.
-//
-//export IpfsCtxErr
-func IpfsCtxErr(h C.int64_t, out **C.char) (cerr *C.char) {
-	defer guardC(&cerr)
-	ctx, err := hget[context.Context](int64(h))
-	if err != nil {
-		return C.CString(err.Error())
-	}
-	*out = nil
-	if e := ctx.Err(); e != nil {
-		*out = C.CString(e.Error())
-	}
-	return nil
+func init() {
+	table[16] = entry{key: "context.Background", fn: func(_ *req, r *reader, w *writer) error {
+		if err := r.done(); err != nil {
+			return err
+		}
+		w.i64(hput(context.Background()))
+		return nil
+	}}
+	table[17] = entry{key: "context.WithCancel", fn: withCtx(func(p context.Context, _ int64) (context.Context, context.CancelFunc) {
+		return context.WithCancel(p)
+	}, false)}
+	// o prazo em nanossegundos (time.Duration)
+	table[18] = entry{key: "context.WithTimeout", fn: withCtx(func(p context.Context, ns int64) (context.Context, context.CancelFunc) {
+		return context.WithTimeout(p, time.Duration(ns))
+	}, true)}
+	// o prazo em nanossegundos desde a época Unix
+	table[19] = entry{key: "context.WithDeadline", fn: withCtx(func(p context.Context, ns int64) (context.Context, context.CancelFunc) {
+		return context.WithDeadline(p, time.Unix(0, ns))
+	}, true)}
+	table[20] = entry{key: "context.CancelFunc", fn: func(_ *req, r *reader, _ *writer) error {
+		cancel, err := decH[context.CancelFunc](r)
+		if err != nil {
+			return err
+		}
+		if err := r.done(); err != nil {
+			return err
+		}
+		cancel()
+		return nil
+	}}
+	// ctx.Err() como kError: ausente enquanto não cancelado
+	table[21] = entry{key: "context.Context.Err", fn: func(_ *req, r *reader, w *writer) error {
+		ctx, err := decH[context.Context](r)
+		if err != nil {
+			return err
+		}
+		if err := r.done(); err != nil {
+			return err
+		}
+		encErr(w, ctx.Err())
+		return nil
+	}}
 }

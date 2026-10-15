@@ -54,7 +54,8 @@ func listen(base string, size int, init func([]byte)) (hostChan, error) {
 	if err != nil {
 		return nil, fmt.Errorf("MapViewOfFile: %w", err)
 	}
-	mem := unsafe.Slice((*byte)(unsafe.Pointer(addr)), size)
+	// o mapeamento fica fora do GC; a conversão por ponteiro evita o aviso do vet
+	mem := unsafe.Slice((*byte)(*(*unsafe.Pointer)(unsafe.Pointer(&addr))), size)
 	init(mem)
 	req, err := pipe(base+"-req", windows.PIPE_ACCESS_INBOUND)
 	if err != nil {

@@ -1,6 +1,6 @@
 // Command gen gera a ponte FFI do ipfs_ffi a partir das raízes em
-// gen/roots.txt (um símbolo Go por linha): go/zz_generated.go (registro no
-// despacho do IpfsCall), as libraries Dart em lib/ (uma por pacote Go, sem o
+// gen/roots.txt (um símbolo Go por linha): go/zz_generated.go (os
+// despachantes binários do ipfs_host, WIRE.md), as libraries Dart em lib/ (uma por pacote Go, sem o
 // prefixo github.com/<org>/) e o API.md (checklist Go → Dart com omissões).
 //
 // Uso, na pasta go/: go run ./gen [-check]
@@ -49,7 +49,7 @@ type fn struct {
 	async   bool
 	stream  *tinfo // elemento do canal (kChanSend em parâmetro ou kChanRecv no resultado)
 	why     string // motivo da omissão
-	direct  int    // >= 0: export direto IpfsD<n> (sem JSON); -1: só pelo IpfsCall
+	direct  int    // ponytail: sempre -1 (os exports diretos saíram no 0.9.0); sai quando emit_dart.go/emit_api.go pararem de lê-lo
 	id      int    // id da função no protocolo do serviço (WIRE.md); 0 = omitida
 }
 
@@ -74,43 +74,6 @@ func assignIDs(fns []*fn) uint64 {
 		fmt.Fprintf(h, "%d %s\n", f.id, f.key)
 	}
 	return h.Sum64()
-}
-
-// directKind: atravessa um export direto com tipo C (int64, double, char*;
-// bytes como ponteiro + tamanho; tipo-valor como a string dele).
-func directKind(t *tinfo) bool {
-	switch t.k {
-	case kBasic, kBytes:
-		return true
-	case kHandle:
-		return !t.reader // io.Reader em parâmetro aceita bytes: fica no JSON
-	case kValue: // CID, path, peer ID, multiaddr, ipns.Name (não time nem Config)
-		return !t.ptr && t.val.dartClass != "" && !t.val.json
-	}
-	return false
-}
-
-// isDirect: função síncrona só com número, bool, string, bytes, tipo-valor e
-// handle, que ganha export próprio (ipfs_ffi/TODO.md: ~27 µs por chamada no
-// JSON).
-func isDirect(f *fn) bool {
-	if f.why != "" || f.async || f.stream != nil || len(f.results) > 1 {
-		return false
-	}
-	if f.recv != nil && !directKind(f.recv) {
-		return false
-	}
-	for _, p := range f.params {
-		if p.variadic || !directKind(p.t) {
-			return false
-		}
-	}
-	for _, r := range f.results {
-		if !directKind(r) {
-			return false
-		}
-	}
-	return true
 }
 
 func main() {
@@ -177,12 +140,8 @@ func generate(rootsFile string) (map[string][]byte, error) {
 		}
 		fns = append(fns, f)
 	}
-	nd := 0
 	for _, f := range fns {
 		f.direct = -1
-		if isDirect(f) {
-			f.direct, nd = nd, nd+1
-		}
 	}
 	hash := assignIDs(fns) // WIRE.md: os emissores binários usam f.id e o hash
 	out := map[string][]byte{}
@@ -226,7 +185,7 @@ func splitRoot(line string) (pkg, name, method string) {
 	return
 }
 
-// load carrega os pacotes das raízes como o build da DLL os vê (cgo ligado).
+// load carrega os pacotes das raízes como o build do ipfs_host os vê (sem cgo).
 func load(lines []string) (map[string]*types.Package, error) {
 	seen := map[string]bool{}
 	var paths []string
@@ -242,7 +201,7 @@ func load(lines []string) (map[string]*types.Package, error) {
 func loadPaths(paths []string) (map[string]*types.Package, error) {
 	cfg := &packages.Config{
 		Mode: packages.NeedName | packages.NeedTypes,
-		Env:  append(os.Environ(), "CGO_ENABLED=1"),
+		Env:  append(os.Environ(), "CGO_ENABLED=0"),
 	}
 	list, err := packages.Load(cfg, paths...)
 	if err != nil {
