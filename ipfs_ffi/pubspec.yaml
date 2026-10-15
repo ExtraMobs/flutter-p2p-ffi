@@ -1,7 +1,7 @@
 name: ipfs_ffi
 description: IPFS node (kubo) in a separate process, the ipfs_host, with the Go API generated in Dart over shared memory.
 publish_to: none
-version: 0.11.0
+version: 0.12.0
 
 environment:
   sdk: ^3.5.0

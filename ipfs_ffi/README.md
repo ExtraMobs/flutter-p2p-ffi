@@ -11,9 +11,10 @@ CoreAPI: o processo é novo). Nada volta sozinho. No Android, o plugin companhei
 Alvos: VM/AOT no Windows, no linux e no Android (não serve para JS/Wasm).
 
 A API Dart é a do próprio Go, gerada, e organizada em namespaces, um por módulo
-Go: `kubo`, `boxo`, `car` (arquivos CAR), `ipld`, `multiformats` (CID, multiaddr),
-`libp2p` e `go` (o que a API usa da biblioteca padrão do Go: `context`, `io`,
-`os`). Cada namespace tem um arquivo que exporta tudo dele
+Go: `kubo`, `boxo`, `ipld`, `multiformats` (CID, multiaddr), `libp2p` e `go` (o
+que a API usa da biblioteca padrão do Go: `context`, `io`, `os`); o `car` fica
+reservado ao módulo `github.com/ipld/go-car`, e o `ipfs dag export/import` está
+no `kubo`, como no Go. Cada namespace tem um arquivo que exporta tudo dele
 (`package:ipfs_ffi/kubo.dart`); quem prefere seguir a documentação do Go importa
 um pacote por vez, embaixo dele (`package:ipfs_ffi/kubo/repo/fsrepo.dart` as
 `fsrepo`). O que existe, e o que ficou de fora com o motivo, está no
@@ -23,7 +24,6 @@ um pacote por vez, embaixo dele (`package:ipfs_ffi/kubo/repo/fsrepo.dart` as
 import 'dart:convert';
 
 import 'package:ipfs_ffi/boxo.dart' as boxo;
-import 'package:ipfs_ffi/car.dart' as car;
 import 'package:ipfs_ffi/go.dart' as go;
 import 'package:ipfs_ffi/ipfs_ffi.dart';
 import 'package:ipfs_ffi/kubo.dart' as kubo;
@@ -39,7 +39,7 @@ final api = kubo.newCoreApi(n);
 final p = await api.unixfs().add(ctx, boxo.newBytesFile(utf8.encode('oi')),
     [kubo.unixfs.pin(true, '')]);
 print(utf8.decode(go.readAll(boxo.toFile(await api.unixfs().get(ctx, p)))));
-final bytes = await car.export(n, ctx, p); // o DAG como CARv1
+final car = await kubo.dagExport(n, ctx, p); // o DAG como CARv1 (ipfs dag export)
 await n.close();
 await IpfsService.stop();
 ```
@@ -65,8 +65,8 @@ Exemplos, na ordem em que o kubo monta um nó:
    (`key().generate/sign/verify`), nós IPLD dag-pb/raw (`merkledag`, `dag().add/get`) e
    DAG-CBOR/JSON (`package:ipfs_ffi/kubo/core/commands/dag.dart`: `dagPut`/`dagGet`,
    o `ipfs dag put/get` portado à mão, com caminho dentro do nó e links);
-7. `dart run example/07_car.dart export|import ...`: arquivos CAR (`package:ipfs_ffi/car.dart`:
-   `car.export`/`exportFile`, `car.import`/`importFiles`: o `ipfs dag export/import`), para
+7. `dart run example/07_car.dart export|import ...`: arquivos CAR (`dagExport`/`dagExportFile`,
+   `dagImport`/`dagImportFiles` no mesmo `dag.dart`: o `ipfs dag export/import`), para
    levar um DAG inteiro de um repo para outro;
 8. `dart run example/08_chat.dart <repo> <tópico> [apelido]`: chat em tempo real sobre
    pubsub (`api.pubSub().subscribe/publish`, `sub.next`); o nó precisa de

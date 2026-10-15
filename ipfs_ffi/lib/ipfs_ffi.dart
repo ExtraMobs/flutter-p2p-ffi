@@ -3,8 +3,8 @@
 ///
 /// The API is generated from `go/gen/roots.txt` (the list of what exists is in
 /// `API.md`) and grouped in namespaces, one per Go module: `kubo`, `boxo`,
-/// `car`, `ipld`, `multiformats`, `libp2p` and `go` (the Go standard library
-/// pieces it uses). Import a namespace with a prefix, or one Go package at a
+/// `ipld`, `multiformats`, `libp2p` and `go` (the Go standard library pieces
+/// it uses). Import a namespace with a prefix, or one Go package at a
 /// time from under it (`package:ipfs_ffi/kubo/repo/fsrepo.dart`). Start the
 /// service before using it:
 ///

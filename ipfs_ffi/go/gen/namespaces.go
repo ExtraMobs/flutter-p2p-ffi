@@ -23,6 +23,7 @@ var namespaces = []struct{ module, dir string }{
 	{"github.com/ipfs/go-ipld-format", "ipld/format"},
 	{"github.com/ipfs/go-block-format", "ipld/block_format"},
 	{"github.com/libp2p/go-libp2p", "libp2p"},
+	{"github.com/ipld/go-car", "car"},
 }
 
 // nsDocs: o texto de cada namespace (o primeiro segmento do caminho Dart).
@@ -32,6 +33,7 @@ var nsDocs = map[string]string{
 	"multiformats": "Multiformats: CIDs (`github.com/ipfs/go-cid`) and multiaddrs (`github.com/multiformats/go-multiaddr`).",
 	"ipld":         "IPLD: nodes (`github.com/ipfs/go-ipld-format`) and blocks (`github.com/ipfs/go-block-format`).",
 	"libp2p":       "libp2p (`github.com/libp2p/go-libp2p`): peer IDs and addresses.",
+	"car":          "CAR files (`github.com/ipld/go-car`).",
 	"go":           "The Go standard library pieces the API uses: `context`, `io`, `os`, `runtime/debug`.",
 }
 

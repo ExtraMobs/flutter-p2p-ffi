@@ -1,12 +1,23 @@
 # Pendências do ipfs_ffi
 
+## Feito: CAR no namespace kubo (0.12.0)
+
+Decisão do dono: regra estrita, um namespace por módulo Go. O `export`/`import` de CAR é porte
+dos comandos `ipfs dag export/import` do kubo (`go/manual_car.go`), não função do módulo
+`github.com/ipld/go-car`: voltou para `kubo/core/commands/dag.dart`, ao lado do `dagPut`/`dagGet`,
+como `dagExport`, `dagExportFile`, `dagImport`, `dagImportFiles` e `CarImportResult`
+(`kubo.dagExport(...)` no namespace). O `car` ficou reservado ao `go-car` na tabela do
+gerador (`go/gen/namespaces.go`) e só passa a existir quando uma raiz dele for exposta.
+Validado: exemplo 07 de ponta a ponta (export de uma pasta, import noutro repo), desktop e
+integração no emulador.
+
 ## Feito: namespaces (0.11.0)
 
 Decisão do dono: a API em namespaces, um por módulo Go, com os dois jeitos de importar.
 `lib/<namespace>.dart` exporta tudo do namespace (`import 'package:ipfs_ffi/kubo.dart' as
 kubo;`) e as libraries por pacote Go continuam embaixo (`kubo/repo/fsrepo.dart`).
-Namespaces: `kubo`, `boxo`, `car` (o CAR saiu de `kubo/core/commands/dag.dart`: `car.export`,
-`exportFile`, `import`, `importFiles`, `ImportResult`), `ipld` (`go-ipld-format`,
+Namespaces: `kubo`, `boxo`, `car` (na 0.11.0 com o export/import de CAR; na 0.12.0 ele voltou
+ao `kubo`, ver acima), `ipld` (`go-ipld-format`,
 `go-block-format`), `multiformats` (`go-cid`, `go-multiaddr`), `libp2p` e `go` (`context`,
 `io`, `os`, `runtime/debug` da biblioteca padrão). A tabela módulo → namespace fica em
 `go/gen/namespaces.go`; módulo novo sem linha nela é erro do gerador. O gerador escreve os

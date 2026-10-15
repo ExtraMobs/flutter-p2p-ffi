@@ -8,10 +8,11 @@ import 'dart:typed_data';
 import 'dart:io' show Directory, File, InternetAddress;
 
 import 'package:ipfs_ffi/boxo/files.dart' as files;
-import 'package:ipfs_ffi/car.dart' as car;
+import 'package:ipfs_ffi/boxo/ipld/merkledag.dart' as merkledag;
 import 'package:ipfs_ffi/boxo/path.dart' as path;
 import 'package:ipfs_ffi/go/context.dart' as context;
 import 'package:ipfs_ffi/go/io.dart' as io;
+import 'package:ipfs_ffi/go/os.dart' as os;
 import 'package:ipfs_ffi/ipfs_ffi.dart'
     show
         IpfsBackground,
@@ -22,20 +23,18 @@ import 'package:ipfs_ffi/ipfs_ffi.dart'
         IpfsServiceException,
         hasIpv6,
         isGlobalIpv6;
-import 'package:ipfs_ffi/boxo/ipld/merkledag.dart' as merkledag;
 import 'package:ipfs_ffi/kubo/config.dart' as config;
-import 'package:ipfs_ffi/kubo/core/commands/dag.dart' as dag;
 import 'package:ipfs_ffi/kubo/core.dart' as core;
+import 'package:ipfs_ffi/kubo/core/commands/dag.dart' as dag;
 import 'package:ipfs_ffi/kubo/core/coreapi.dart' as coreapi;
 import 'package:ipfs_ffi/kubo/core/coreiface.dart' as iface;
 import 'package:ipfs_ffi/kubo/core/coreiface/options.dart' as options;
 import 'package:ipfs_ffi/kubo/core/corerepo.dart' as corerepo;
 import 'package:ipfs_ffi/kubo/core/node.dart' as node;
 import 'package:ipfs_ffi/kubo/core/node/libp2p.dart' as libp2p;
-import 'package:ipfs_ffi/libp2p/core/peer.dart' as peer;
 import 'package:ipfs_ffi/kubo/plugin/loader.dart' as loader;
 import 'package:ipfs_ffi/kubo/repo/fsrepo.dart' as fsrepo;
-import 'package:ipfs_ffi/go/os.dart' as os;
+import 'package:ipfs_ffi/libp2p/core/peer.dart' as peer;
 import 'package:ipfs_ffi/src/runtime.dart'
     show $W, $call, $callSync, $stream, GoSink;
 import 'package:test/test.dart';
@@ -557,9 +556,9 @@ void main() {
           files.newSerialFile(dir.path, false, os.stat(dir.path)),
           [options.unixfs.pin(true, '')]);
 
-      final bytes = await car.export(n, ctx, root);
+      final bytes = await dag.dagExport(n, ctx, root);
       expect(bytes.length, greaterThan(300000));
-      final partial = await car.export(n, ctx, root, localOnly: true);
+      final partial = await dag.dagExport(n, ctx, root, localOnly: true);
       expect(partial, bytes, reason: 'tudo local: o CAR parcial é o completo');
 
       // some do repo
@@ -568,7 +567,7 @@ void main() {
       await expectLater(
           api.block().stat(ctx, root), throwsA(isA<IpfsException>()));
 
-      final r = await car.import(n, ctx, bytes);
+      final r = await dag.dagImport(n, ctx, bytes);
       expect([for (final m in r.roots) (m.cid.value, m.pinErrorMsg)],
           [(root.value.substring('/ipfs/'.length), '')]);
       expect(r.blockCount, greaterThan(2));
@@ -579,17 +578,18 @@ void main() {
       expect(File('$out/b.txt').lengthSync(), 300000);
     });
 
-    test('car.exportFile e car.importFiles (sem pin)', () async {
+    test('dagExportFile e dagImportFiles (sem pin)', () async {
       final c =
           await dag.dagPut(api, ctx, utf8.encode('{"car": true}'), pin: true);
       final file = '${tmp.path}/obj.car';
-      await car.exportFile(n, ctx, path.Path('/ipfs/$c'), file);
+      await dag.dagExportFile(n, ctx, path.Path('/ipfs/$c'), file);
       expect(File(file).lengthSync(), greaterThan(0));
 
-      final r = await car.importFiles(n, ctx, [file], pinRoots: false);
+      final r = await dag.dagImportFiles(n, ctx, [file], pinRoots: false);
       expect(r.roots, isEmpty); // sem --pin-roots, nada é pinado nem listado
       expect(r.blockCount, 1);
-      await expectLater(car.importFiles(n, ctx, ['${tmp.path}/nao-existe.car']),
+      await expectLater(
+          dag.dagImportFiles(n, ctx, ['${tmp.path}/nao-existe.car']),
           throwsA(isA<IpfsException>()));
     });
   });

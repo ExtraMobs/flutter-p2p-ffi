@@ -8,10 +8,8 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:ipfs_ffi/boxo/files.dart' as files;
-import 'package:ipfs_ffi/car.dart' as car;
 import 'package:ipfs_ffi/boxo/path.dart' as path;
 import 'package:ipfs_ffi/go/context.dart' as context;
-import 'package:ipfs_ffi/libp2p/core/peer.dart' as peer;
 import 'package:ipfs_ffi/go/io.dart' as io;
 import 'package:ipfs_ffi/ipfs_ffi.dart' show IpfsException, hasIpv6;
 import 'package:ipfs_ffi/kubo/config.dart' as config;
@@ -24,6 +22,7 @@ import 'package:ipfs_ffi/kubo/core/corerepo.dart' as corerepo;
 import 'package:ipfs_ffi/kubo/core/node.dart' as node;
 import 'package:ipfs_ffi/kubo/core/node/libp2p.dart' as libp2p;
 import 'package:ipfs_ffi/kubo/repo/fsrepo.dart' as fsrepo;
+import 'package:ipfs_ffi/libp2p/core/peer.dart' as peer;
 import 'package:ipfs_ffi/src/runtime.dart'
     show $W, $call, $callSync, $stream, GoSink;
 
@@ -146,11 +145,11 @@ Future<int> localChecks(Log log) async {
             files.newBytesFile(
                 Uint8List.fromList(List.generate(600000, (i) => i))),
             [options.unixfs.pin(true, '')]);
-        final bytes = await car.export(n, ctx, p);
+        final bytes = await dag.dagExport(n, ctx, p);
         await api.pin().rm(ctx, p);
         await corerepo.garbageCollect(n, ctx);
         await expectThrows(api.block().stat(ctx, p), 'GC levou o arquivo');
-        final r = await car.import(n, ctx, bytes);
+        final r = await dag.dagImport(n, ctx, bytes);
         check(r.roots.single.pinErrorMsg.isEmpty, 'import pinou');
         check((await api.pin().isPinned(ctx, p)).$2, 'pinado após import');
       },

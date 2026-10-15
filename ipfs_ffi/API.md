@@ -183,11 +183,11 @@ Cada linha é um símbolo Go exposto e onde ele está no Dart.
 
 ## Adaptações (regras do gerador e código à mão)
 
-- Namespaces: cada módulo Go num namespace (`kubo`, `boxo`, `car`, `ipld`, `multiformats`, `libp2p`, `go`), com um arquivo `package:ipfs_ffi/<namespace>.dart` que exporta todas as libraries dele (`import 'package:ipfs_ffi/kubo.dart' as kubo;`); as libraries por pacote Go continuam embaixo. A tabela módulo → namespace fica em `go/gen/namespaces.go`.
+- Namespaces: cada módulo Go num namespace (`kubo`, `boxo`, `ipld`, `multiformats`, `libp2p`, `go`; `car` fica para o `github.com/ipld/go-car`), com um arquivo `package:ipfs_ffi/<namespace>.dart` que exporta todas as libraries dele (`import 'package:ipfs_ffi/kubo.dart' as kubo;`); as libraries por pacote Go continuam embaixo. A tabela módulo → namespace fica em `go/gen/namespaces.go`.
 - `context` (`package:ipfs_ffi/go/context.dart`, à mão): `background`, `withCancel`, `withTimeout`, `withDeadline`; `CancelFunc` é chamável (`cancel()`).
 - `config.Profiles` (à mão): `profiles[nome]!.transform(cfg)`; no Go é um mapa de funções.
 - `ipfs dag put`/`ipfs dag get` (`dagPut`/`dagGet` em `package:ipfs_ffi/kubo/core/commands/dag.dart`, porte à mão em `go/manual_dag.go`): no kubo é o corpo dos comandos, não função de biblioteca; mesmos padrões do CLI (dag-json → dag-cbor, limite de 2 MiB), hash padrão `sha2-256`.
-- `ipfs dag export`/`ipfs dag import` (arquivos CAR; namespace `package:ipfs_ffi/car.dart`, porte à mão em `go/manual_car.go`): `export`/`exportFile` (CARv1, `localOnly` = `--local-only`) e `import`/`importFiles` (CARv1/v2, `pinRoots` = `--pin-roots`, devolve raízes e estatísticas); recebem o `IpfsNode`, como o comando. Sem barra de progresso nem fast-provide do DAG inteiro; a raiz é anunciada pelo `Provide` da CoreAPI.
+- `ipfs dag export`/`ipfs dag import` (arquivos CAR; mesma library do `dagPut`/`dagGet`, porte à mão em `go/manual_car.go`): `dagExport`/`dagExportFile` (CARv1, `localOnly` = `--local-only`) e `dagImport`/`dagImportFiles` (CARv1/v2, `pinRoots` = `--pin-roots`, devolve raízes e estatísticas); recebem o `IpfsNode`, como o comando. Sem barra de progresso nem fast-provide do DAG inteiro; a raiz é anunciada pelo `Provide` da CoreAPI.
 - Pubsub: o nó precisa de `node.BuildCfg(extraOpts: {'pubsub': true})` (o `Pubsub.Enabled` do daemon); `sub.next(ctx)` entrega uma mensagem por vez (o exemplo 08 a transforma em `Stream`).
 - Handle concreto que implementa uma interface exposta estende a classe dela (`merkledag.RawNode`/`ProtoNode` → `Node`), para valer onde o Go aceita a interface; struct que embute interface é handle, não DTO.
 - Mapa com chave tipo-valor (`map[peer.ID][]Multiaddr`) vira `Map<Id, List<Multiaddr>>`.
