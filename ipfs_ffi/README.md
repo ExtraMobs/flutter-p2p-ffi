@@ -99,8 +99,8 @@ verificações ao abrir (com o log copiável) e tem o teste de integração
 `DNS.Resolvers` (DNS por HTTPS), como o app faz: o resolvedor do Go não acha o DNS do
 sistema. Para o mDNS, o app segura um `WifiManager.MulticastLock` (ver `MainActivity.kt`).
 Conexões por relay duram até 2 min e não levam pubsub nem bitswap: entre dois aparelhos
-atrás de NAT de operadora, só há troca de dados se o hole punching der certo ou se um deles
-for alcançável. Números e achados
+atrás de NAT de operadora, só há troca de dados se um deles for alcançável ou por IPv6: o
+NAT da operadora medido é simétrico e o hole punching não acontece. Números e achados
 em [`TODO.md`](TODO.md).
 
 ### Linux pelo WSL (validado no Ubuntu 26.04)
