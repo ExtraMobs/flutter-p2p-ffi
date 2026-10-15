@@ -20,4 +20,5 @@ func GoMalloc(n C.size_t) unsafe.Pointer { return C.malloc(n) }
 //export GoFree
 func GoFree(p unsafe.Pointer) { C.free(p) }
 
-func main() {}
+// main só roda no executável (ipfs_host); no c-shared nunca é chamado.
+func main() { runHost() }

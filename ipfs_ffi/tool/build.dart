@@ -1,5 +1,7 @@
 // Compila o Go de ../go em native/: libipfs.so (linux/amd64), ipfs.dll
-// (windows/amd64) e native/android/<abi>/libipfs.so (x86_64 e arm64-v8a).
+// (windows/amd64) e native/android/<abi>/libipfs.so (x86_64 e arm64-v8a);
+// ao lado de cada lib, o ipfs_host (o mesmo Go como executável) e a
+// ipfs_shm (shm/ipfs_shm.c), as peças do modo serviço.
 // Uso: `dart run tool/build.dart [linux|windows|android]...` (sem argumento,
 // linux e windows). Exige Go 1.26.5 (GOTOOLCHAIN=auto baixa) e um compilador C
 // para o cgo: no Windows, o mingw-w64 no PATH; no linux, x86_64-w64-mingw32-gcc
@@ -123,28 +125,59 @@ Future<void> main(List<String> args) async {
         ldflags = '-s -checklinkname=0 -extldflags=-Wl,-z,max-page-size=16384';
       }
       final out = '${native.path}/$lib';
-      File(out).parent.createSync(recursive: true);
+      final dir = File(out).parent..createSync(recursive: true);
+      final goArgs = [
+        'build',
+        '-trimpath',
+        '-ldflags=$ldflags',
+        if (goos == 'android') '-modfile=$modfile',
+      ];
       stdout.writeln('go build ($goos/$goarch) -> $out');
-      final p = await Process.start(
-        'go',
-        [
-          'build',
-          '-trimpath',
-          '-ldflags=$ldflags',
-          if (goos == 'android') '-modfile=$modfile',
-          '-buildmode=c-shared',
-          '-o',
-          out,
-          '.'
-        ],
-        workingDirectory: '${root.path}/go',
-        environment: env,
-        mode: ProcessStartMode.inheritStdio,
-      );
-      if (await p.exitCode != 0) exit(1);
+      await run('go', [...goArgs, '-buildmode=c-shared', '-o', out, '.'],
+          '${root.path}/go', env);
       File(out.replaceFirst(RegExp(r'\.[^.]+$'), '.h')).deleteSync();
+      // Marco 0.9.0: o mesmo Go como executável (o serviço noutro processo)
+      // e a ipfs_shm, o lado C do canal no processo do app. No Android o
+      // executável leva nome de lib para o APK empacotá-lo.
+      final host = '${dir.path}/${switch (goos) {
+        'windows' => 'ipfs_host.exe',
+        'android' => 'libipfs_host.so',
+        _ => 'ipfs_host',
+      }}';
+      stdout.writeln('go build ($goos/$goarch, executável) -> $host');
+      await run('go', [...goArgs, '-o', host, '.'], '${root.path}/go', env);
+      final shm =
+          '${dir.path}/${goos == 'windows' ? 'ipfs_shm.dll' : 'libipfs_shm.so'}';
+      final cc = (env['CC'] ?? 'gcc').split(' ');
+      stdout.writeln('${cc.first} -> $shm');
+      await run(
+          cc.first,
+          [
+            ...cc.skip(1),
+            '-std=c11',
+            '-O2',
+            '-Wall',
+            '-shared',
+            if (goos != 'windows') ...['-fPIC', '-pthread', '-D_GNU_SOURCE'],
+            if (goos == 'android') '-Wl,-z,max-page-size=16384',
+            '-o',
+            shm,
+            'shm/ipfs_shm.c',
+          ],
+          root.path,
+          const {});
     }
   }
+}
+
+/// Roda [exe] e para o build se falhar.
+Future<void> run(
+    String exe, List<String> args, String dir, Map<String, String> env) async {
+  final p = await Process.start(exe, args,
+      workingDirectory: dir,
+      environment: env,
+      mode: ProcessStartMode.inheritStdio);
+  if (await p.exitCode != 0) exit(1);
 }
 
 /// O clang do NDK para [goarch], com o alvo Android na linha (`CC` do cgo).

@@ -19,6 +19,26 @@ processo inteiro, sem gancho), medido em `test/kubo_test.dart`:
 | um Isolate de fundo (`test/crash_isolate.dart`) | o processo inteiro cai: código 2 no Windows, 134 (`SIGABRT`) no linux; o isolate principal não sobrevive |
 | outro processo | só ele cai; quem o lançou segue e o relança (3 vezes no teste) |
 
+**P1, o transporte** (feito): `go/shmring` (os dois anéis; layout = contrato com o C),
+`go/host*.go` (o `main()` do executável: memfd + Unix socket + `SCM_RIGHTS` no
+linux/Android; `CreateFileMapping` + dois named pipes de um sentido no Windows),
+`shm/ipfs_shm.c` (atômicas C11, espera "gira, depois dorme", thread que acorda o
+Dart por `NativeCallable.listener`), `lib/src/shm.dart` (lança o host, `call`/
+`callSync`) e o `tool/build.dart` gerando lib + host + ipfs_shm. Testes:
+`go test -race ./shmring`, `test/shm_test.dart` (o host morto falha as pendentes com
+`IpfsServiceException` na hora: o socket/pipe fecha, sem verificação periódica).
+Medido com a função `Noop` (`tool/bench_shm.dart`, AOT):
+
+| | Windows | linux (WSL) |
+|---|---|---|
+| ida e volta síncrona | 1,39–1,42 µs (~710 mil/s) | 2,49 µs (~400 mil/s) |
+| 1 milhão em voo | 907–944 mil/s | 865 mil/s |
+| só o Dart criando e completando 1 milhão de `Future`s | 940–980 mil/s | — |
+
+O canal fica a ~96% do teto do próprio Dart para `Future`s: passar de 1 milhão por
+segundo pediria uma API em lote (vários pedidos num `Future`), não um transporte
+mais rápido.
+
 ## Feito: exports diretos para assinaturas simples (0.5.0)
 
 Toda chamada passava pelo export único `IpfsCall` com JSON (~27 µs no Windows,
