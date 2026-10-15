@@ -60,7 +60,8 @@ func runHost() {
 		os.Exit(2)
 	}
 	if *crashLog != "" {
-		if f, err := os.Create(*crashLog); err == nil {
+		// acrescenta: o host relançado não apaga o relatório da queda anterior
+		if f, err := os.OpenFile(*crashLog, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0o600); err == nil {
 			_ = debug.SetCrashOutput(f, debug.CrashOptions{})
 			f.Close()
 		}

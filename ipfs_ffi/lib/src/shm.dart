@@ -318,6 +318,9 @@ final class ShmChannel {
   /// Por que o canal morreu (o host caiu ou o canal fechou); null enquanto vivo.
   String? get deadReason => _deadReason;
 
+  /// O que o host escreveu no stderr (o relatório de um panic, se caiu).
+  String get hostStderr => _stderr.toString();
+
   /// O pid do processo do serviço.
   int get hostPid => _process.pid;
 

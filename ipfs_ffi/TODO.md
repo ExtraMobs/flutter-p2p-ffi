@@ -59,7 +59,19 @@ Medido com `dart run tool/bench.dart` (JIT, Windows):
 | `fsrepo.isInitialized` (consulta o disco) | 54 |
 | `resolvePath` / `block.stat` / `unixfs.add` 1 KiB, assíncronos | 80 / 256 / 311 |
 
-⏳ linux e Android (o host como `libipfs_host.so` extraída do APK) não validados.
+Linux validado depois da integração (37/37, 3 rodadas), com uma correção de ordem: a
+chamada só completa depois que os ouvintes dos sinks dela receberam o fim.
+
+**P3, queda e reinício** (feito): `IpfsService` relança o host sozinho quando ele cai
+sem `stop()` (espera de 0,2 s a 10 s, dobrando enquanto ele cai em menos de 30 s de
+vida) e emite em `IpfsService.restarts` uma `IpfsServiceException` com o relatório do Go
+(só o trecho novo do `crashLog`, que o host passa a abrir em modo de acréscimo, ou o
+stderr). Teste: o gancho 24 derruba o host; o processo de teste segue, `restarts`
+emite com o panic, o pid muda, um handle antigo dá `IpfsServiceException`, e um nó novo
+(plugins injetados de novo: processo novo) faz `add`/`get`. 37/37 no Windows (2x) e
+no linux (3x).
+
+⏳ P4: Android (o host como `libipfs_host.so` extraída do APK) no emulador.
 
 ## Feito: exports diretos para assinaturas simples (0.5.0)
 

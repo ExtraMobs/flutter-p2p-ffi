@@ -589,22 +589,43 @@ void main() {
   });
 
   // 0.9.0: um panic numa goroutine do Go (fora de uma chamada) derruba só o
-  // ipfs_host; este processo segue e relança o serviço. Por último: o nó dos
-  // outros testes cai junto.
-  test('panic numa goroutine do Go: só o host cai e é relançado', () async {
-    final exit = IpfsService.exitCode!;
+  // ipfs_host; este processo segue, o serviço volta sozinho e restarts avisa
+  // com o relatório do Go. Por último: o nó dos outros testes cai junto.
+  test('panic numa goroutine do Go: só o host cai e volta sozinho', () async {
+    final oldPid = IpfsService.hostPid;
+    final restarted = IpfsService.restarts.first;
     $callSync(24); // responde e cai logo depois
     hostCrashed = true;
-    expect(await exit.timeout(const Duration(seconds: 30)), isNot(0));
-    expect(IpfsService.isRunning, isFalse);
-    expect(() => context.background(), throwsA(isA<IpfsServiceException>()));
-    expect(() => api.unixfs(), throwsA(isA<IpfsServiceException>()));
+    final why = await restarted.timeout(const Duration(seconds: 30));
+    expect(why.message, contains('panic de teste numa goroutine'));
+    expect(IpfsService.isRunning, isTrue);
+    expect(IpfsService.hostPid, isNot(oldPid));
     final report = File('${tmp.path}/crash.log').readAsStringSync();
     expect(report, contains('panic de teste numa goroutine'));
 
-    await IpfsService.start();
+    // o serviço novo funciona; os handles do anterior não valem nele
     expect(context.background().err(), isNull);
-    // os handles do serviço anterior não valem no novo
     expect(() => ctx.err(), throwsA(isA<IpfsServiceException>()));
+    expect(() => api.unixfs(), throwsA(isA<IpfsServiceException>()));
+    // processo novo: os plugins do kubo são injetados de novo
+    loader.PluginLoader('')
+      ..initialize()
+      ..inject();
+    final repo = '${tmp.path}/depois-do-crash';
+    final cfg = config
+        .initWithIdentity(config.createIdentity([options.key.type('ed25519')]));
+    config.profiles['test']!.transform(cfg);
+    fsrepo.init(repo, cfg);
+    final n2 = await core.newNode(
+        context.background(), node.BuildCfg(repo: fsrepo.open(repo)));
+    final api2 = coreapi.newCoreApi(n2);
+    final p = await api2
+        .unixfs()
+        .add(context.background(), files.newBytesFile(utf8.encode('de volta')));
+    expect(
+        utf8.decode(io.readAll(
+            files.toFile(await api2.unixfs().get(context.background(), p)))),
+        'de volta');
+    await n2.close();
   }, timeout: const Timeout(Duration(minutes: 2)));
 }

@@ -4,7 +4,8 @@ Kubo v0.43.1 (IPFS em Go) usado do Dart sem HTTP: o kubo roda no executável
 `ipfs_host`, noutro processo, e o app fala com ele por memória compartilhada (a
 `ipfs_shm`, em C; protocolo binário no [`WIRE.md`](WIRE.md)). O app não carrega Go:
 um panic do kubo derruba só o serviço, as chamadas pendentes falham com
-`IpfsServiceException` e o app o relança com `IpfsService.start()`.
+`IpfsServiceException`, o serviço volta sozinho e `IpfsService.restarts` avisa o app
+(que refaz plugins, nó e CoreAPI: o processo é novo).
 Alvos: VM/AOT no Windows, no linux e no Android (não serve para JS/Wasm).
 
 A API Dart é a do próprio Go, gerada: uma library por pacote Go, sem o
@@ -136,8 +137,11 @@ linux o QUIC pede um buffer UDP maior (aviso do quic-go, não erro):
 Relatório de crash: um panic numa chamada ou numa goroutine do próprio ipfs_ffi vira
 `IpfsException`; numa goroutine interna do kubo derruba o `ipfs_host` (não o app):
 `IpfsService.start(crashLog: caminho)` faz o Go gravar o relatório nesse arquivo, e
-`IpfsService.exitCode` completa quando o host sai. Relance com `IpfsService.start()`
-(os handles do serviço anterior deixam de valer).
+`IpfsService.exitCode` completa quando o host sai. O serviço volta sozinho (espera de
+0,2 s a 10 s, crescendo se ele cai logo depois de subir) e `IpfsService.restarts`
+emite uma `IpfsServiceException` com o relatório do Go; os handles do serviço
+anterior deixam de valer e os plugins do kubo são injetados de novo (é outro
+processo).
 
 Toda chamada vai em binário pelo canal (`WIRE.md`): síncronas bloqueiam a isolate
 até a resposta, as com `context` são `Future`, canais são `Stream`;
