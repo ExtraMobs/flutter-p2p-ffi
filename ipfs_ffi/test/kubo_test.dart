@@ -13,7 +13,9 @@ import 'package:ipfs_ffi/context.dart' as context;
 import 'package:ipfs_ffi/io.dart' as io;
 import 'package:ipfs_ffi/ipfs_ffi.dart'
     show
-        IpfsCrash,
+        IpfsBackground,
+        IpfsStop,
+        IpfsStopReason,
         IpfsException,
         IpfsService,
         IpfsServiceException,
@@ -43,12 +45,12 @@ void main() {
   late iface.CoreApi api;
   late context.Context ctx;
   var hostCrashed = false; // o último teste derruba o host de propósito
-  final crashes = StreamController<IpfsCrash>(); // o onCrash do serviço
+  final stops = StreamController<IpfsStop>.broadcast(); // o onStop do serviço
 
   setUpAll(() async {
     tmp = Directory.systemTemp.createTempSync('ipfs_ffi_kubo_');
     await IpfsService.start(
-        crashLog: '${tmp.path}/crash.log', onCrash: crashes.add);
+        crashLog: '${tmp.path}/crash.log', onStop: stops.add);
     ctx = context.background();
     final repoPath = '${tmp.path}/repo';
 
@@ -592,15 +594,20 @@ void main() {
   });
 
   // 0.9.0: um panic numa goroutine do Go (fora de uma chamada) derruba só o
-  // ipfs_host; este processo segue e o onCrash recebe o relatório do Go. Nada
+  // ipfs_host; este processo segue e o onStop recebe o relatório do Go. Nada
   // volta sozinho: quem usa o pacote chama restart(). Por último: o nó dos
   // outros testes cai junto.
-  test('panic numa goroutine do Go: só o host cai; onCrash decide', () async {
+  test('panic numa goroutine do Go: só o host cai; onStop decide', () async {
     final oldPid = IpfsService.hostPid;
+    final pending = expectLater(
+        $call(1, $W()..u32(60000)), // Sleep: ainda pendente na queda
+        throwsA(isA<IpfsServiceException>()
+            .having((e) => e.reason, 'reason', IpfsStopReason.crash)));
     $callSync(24); // responde e cai logo depois
     hostCrashed = true;
-    final crash =
-        await crashes.stream.first.timeout(const Duration(seconds: 30));
+    final crash = await stops.stream.first.timeout(const Duration(seconds: 30));
+    await pending;
+    expect(crash.reason, IpfsStopReason.crash);
     expect(crash.report, contains('panic de teste numa goroutine'));
     expect(crash.exitCode, isNot(0));
     expect(crash.pid, oldPid);
@@ -609,7 +616,10 @@ void main() {
         contains('panic de teste numa goroutine'));
     // sem restart() o serviço fica fora: as chamadas falham
     expect(IpfsService.isRunning, isFalse);
-    expect(() => context.background(), throwsA(isA<IpfsServiceException>()));
+    expect(
+        () => context.background(),
+        throwsA(isA<IpfsServiceException>()
+            .having((e) => e.reason, 'reason', IpfsStopReason.crash)));
 
     File(crash.crashLog!).writeAsStringSync(''); // o app decide limpar
     await IpfsService.restart();
@@ -641,4 +651,42 @@ void main() {
         'de volta');
     await n2.close();
   }, timeout: const Timeout(Duration(minutes: 2)));
+
+  // 0.10.0: no modo padrão (IpfsBackground.stop), o app ir para o segundo
+  // plano para o serviço e avisa no onStop; no foregroundService, nada muda.
+  test('segundo plano: stop para e avisa; foregroundService segue', () async {
+    expect(IpfsService.background, IpfsBackground.stop);
+    final oldPid = IpfsService.hostPid;
+    final pending = expectLater(
+        $call(1, $W()..u32(60000)),
+        throwsA(isA<IpfsServiceException>()
+            .having((e) => e.reason, 'reason', IpfsStopReason.background)));
+    final next = stops.stream.first; // o onStop roda antes de retornar
+    await IpfsService.appInBackground();
+    final s = await next.timeout(const Duration(seconds: 30));
+    await pending;
+    expect(s.reason, IpfsStopReason.background);
+    expect(s.pid, oldPid);
+    expect(s.exitCode, 0); // o host sai sozinho com o canal fechado
+    expect(s.report, isEmpty);
+    expect(IpfsService.isRunning, isFalse);
+    expect(
+        () => context.background(),
+        throwsA(isA<IpfsServiceException>()
+            .having((e) => e.reason, 'reason', IpfsStopReason.background)));
+    await IpfsService.appInBackground(); // já parado: nada
+
+    // o app decide subir de novo; o modo é lido na subida
+    IpfsService.background = IpfsBackground.foregroundService;
+    try {
+      await IpfsService.restart();
+      final pid = IpfsService.hostPid;
+      await IpfsService.appInBackground();
+      expect(IpfsService.isRunning, isTrue);
+      expect(IpfsService.hostPid, pid);
+      expect(context.background().err(), isNull);
+    } finally {
+      IpfsService.background = IpfsBackground.stop;
+    }
+  });
 }

@@ -23,11 +23,23 @@ class IpfsException implements Exception {
   String toString() => 'IpfsException: $message';
 }
 
-/// O serviço caiu (o processo do ipfs_host saiu), o canal fechou, o serviço
-/// não foi iniciado ou o handle é de um serviço anterior. Relance com
-/// `IpfsService.start()`.
+/// Por que o serviço parou.
+enum IpfsStopReason {
+  /// O ipfs_host caiu (um panic do Go, ou o sistema o matou).
+  crash,
+
+  /// O app foi para o segundo plano e o pacote parou o serviço
+  /// (`IpfsService.background` = `IpfsBackground.stop`).
+  background,
+}
+
+/// O serviço parou ([reason]: caiu ou foi parado no segundo plano), o canal
+/// fechou, o serviço não foi iniciado ou o handle é de um serviço anterior
+/// ([reason] null nesses dois). Relance com `IpfsService.restart()`.
 class IpfsServiceException extends IpfsException {
-  IpfsServiceException(super.message);
+  IpfsServiceException(super.message, {this.reason});
+
+  final IpfsStopReason? reason;
 
   @override
   String toString() => 'IpfsServiceException: $message';
@@ -47,14 +59,20 @@ ShmChannel? _ch;
 /// nasceu e só vale nela (os objetos do host morrem com o processo).
 var _epoch = 0;
 
+/// Por que o serviço parou (até o próximo [$attach]); null se nunca subiu ou
+/// foi parado pelo app.
+IpfsServiceException? _stopped;
+
 ShmChannel get _channel =>
     _ch ??
-    (throw IpfsServiceException(
-        'o serviço não foi iniciado (await IpfsService.start())'));
+    (throw _stopped ??
+        IpfsServiceException(
+            'o serviço não foi iniciado (await IpfsService.start())'));
 
 /// Liga o runtime a um canal recém-aberto (IpfsService.start, depois do Hello).
 void $attach(ShmChannel ch) {
   _ch = ch;
+  _stopped = null;
   _epoch++;
   _toFree.clear();
   ch
@@ -63,9 +81,11 @@ void $attach(ShmChannel ch) {
 }
 
 /// Desliga o runtime do canal (IpfsService.stop); as pendentes falham quando o
-/// canal fecha.
-void $detach() {
+/// canal fecha. [why]: a parada (queda, segundo plano), que as chamadas novas
+/// recebem até o serviço subir de novo.
+void $detach([IpfsServiceException? why]) {
   _ch = null;
+  _stopped = why;
   _toFree.clear();
 }
 
@@ -158,8 +178,7 @@ void _failSink(Object sink, Object e, [StackTrace? st]) {
   }
 }
 
-void _onDead(String reason) {
-  final e = IpfsServiceException(reason);
+void _onDead(IpfsServiceException e) {
   final all = [..._pending.values];
   _pending.clear();
   _sinkDone.clear();

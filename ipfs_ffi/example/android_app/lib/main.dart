@@ -1,10 +1,13 @@
 // App de validação do ipfs_ffi no Android: sobe o serviço (o kubo no
 // ipfs_host, a libipfs_host.so do APK, noutro processo) e um nó IPFS com repo
-// no diretório de dados do app, mostra peer ID e peers, fecha o nó no
-// background e reabre na volta, roda as verificações (lib/checks.dart) e junta
-// tudo num log que se copia com um toque. Na primeira vez derruba o ipfs_host
-// com um panic do Go: o app segue e o onCrash dele mostra o relatório, limpa
-// o log, relança o serviço (IpfsService.restart) e reabre o nó.
+// no diretório de dados do app, mostra peer ID e peers, roda as verificações
+// (lib/checks.dart) e junta tudo num log que se copia com um toque. No
+// segundo plano (IpfsService.background, por --dart-define=IPFS_BACKGROUND):
+// `stop` (padrão), o plugin ipfs_ffi_flutter para o serviço e o app o sobe de
+// novo na volta; `foregroundService`, o nó segue online com uma notificação.
+// Na primeira vez derruba o ipfs_host com um panic do Go: o app segue e o
+// onStop dele mostra o relatório, limpa o log, relança o serviço
+// (IpfsService.restart) e reabre o nó.
 import 'dart:async';
 import 'dart:io';
 
@@ -12,7 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:ipfs_ffi/context.dart' as gocontext;
 import 'package:ipfs_ffi/ipfs_ffi.dart'
-    show IpfsCrash, IpfsCrashHandler, IpfsService;
+    show IpfsBackground, IpfsService, IpfsStop, IpfsStopHandler, IpfsStopReason;
 import 'package:ipfs_ffi/kubo/config.dart' as config;
 import 'package:ipfs_ffi/kubo/core.dart' as core;
 import 'package:ipfs_ffi/kubo/core/coreapi.dart' as coreapi;
@@ -45,15 +48,15 @@ libp2p.RoutingOption routingFor(config.Config cfg) {
 
 /// Prepara o serviço: lê o relatório de crash de uma execução anterior do app,
 /// lança o ipfs_host (o Go grava o relatório de um panic em [crashLog]; uma
-/// queda chega em [onCrash]) e prepara o serviço ([setupService]). Devolve o
+/// parada chega em [onStop]) e prepara o serviço ([setupService]). Devolve o
 /// relatório anterior, se houver.
 Future<String?> prepare(String repoPath, String crashLog,
-    {IpfsCrashHandler? onCrash}) async {
+    {IpfsStopHandler? onStop}) async {
   final f = File(crashLog);
   final previous =
       f.existsSync() && f.lengthSync() > 0 ? f.readAsStringSync() : null;
   if (previous != null) f.writeAsStringSync(''); // já foi lido
-  await IpfsService.start(crashLog: crashLog, onCrash: onCrash);
+  await IpfsService.start(crashLog: crashLog, onStop: onStop);
   setupService(repoPath);
   return previous;
 }
@@ -116,7 +119,14 @@ void log(String line) {
   Zone.root.print('$t $line');
 }
 
+/// O modo do segundo plano: `flutter run --dart-define=IPFS_BACKGROUND=
+/// foregroundService`; sem nada, o padrão do pacote (parar).
+const backgroundMode = String.fromEnvironment('IPFS_BACKGROUND');
+
 void main() {
+  if (backgroundMode == 'foregroundService') {
+    IpfsService.background = IpfsBackground.foregroundService;
+  }
   runZonedGuarded(() {
     WidgetsFlutterBinding.ensureInitialized();
     FlutterError.onError =
@@ -167,20 +177,20 @@ class _NodePageState extends State<NodePage> {
     super.initState();
     logText.addListener(_syncLog);
     _life = AppLifecycleListener(
-      onPause: () {
-        _foreground = false;
-        _serial(_stop);
-      },
+      // no segundo plano quem decide é o IpfsService.background (o plugin
+      // para o serviço, ou o mantém num serviço em primeiro plano)
+      onPause: () => _foreground = false,
       onResume: () {
         _foreground = true;
-        _serial(_start);
+        _serial(_resume);
       },
     );
 
     _serial(() async {
       log('app: ${Platform.operatingSystemVersion}; Dart ${Platform.version}');
       log('cpus: ${Platform.numberOfProcessors}; bateria: ${battery()}');
-      final crash = await prepare(repoPath, _crashLog, onCrash: _onCrash);
+      log('segundo plano: ${IpfsService.background.name}');
+      final crash = await prepare(repoPath, _crashLog, onStop: _onStop);
       if (crash != null) {
         log('O IPFS_HOST ANTERIOR CAIU (relatório do Go):\n$crash');
       }
@@ -225,7 +235,7 @@ class _NodePageState extends State<NodePage> {
   }
 
   Future<void> _start() async {
-    // fora do ar: o nó volta quando o _onCrash relançar o serviço
+    // fora do ar: o nó volta quando o serviço voltar (_onStop, _resume)
     if (_node != null || !IpfsService.isRunning) return;
     _set(() => _status = 'subindo o nó...');
     final sw = Stopwatch()..start();
@@ -249,17 +259,14 @@ class _NodePageState extends State<NodePage> {
   /// Há quanto tempo o nó está online (zerado a cada subida).
   final _online = Stopwatch();
 
+  /// Fecha o nó e para o serviço (a tela foi descartada).
   Future<void> _stop() async {
     _tick?.cancel();
     final n = _node;
     _node = null;
     _api = null;
-    if (n == null || !IpfsService.isRunning) return;
-    _set(() => _status = 'fechando (background)...');
-    log('fechando o nó (app em background); peers: $_peers');
-    await n.close();
-    log('nó fechado');
-    _set(() => _status = 'fechado');
+    if (n != null && IpfsService.isRunning) await n.close();
+    await IpfsService.stop();
   }
 
   /// As verificações, uma vez ao abrir o app, com o nó recém-online.
@@ -302,7 +309,7 @@ class _NodePageState extends State<NodePage> {
   }
 
   /// Panic numa goroutine solta do Go (função de teste 24 do WIRE.md): só o
-  /// ipfs_host cai; o app segue e o [_onCrash] cuida do resto.
+  /// ipfs_host cai; o app segue e o [_onStop] cuida do resto.
   Future<void> _crashNow() async {
     log('derrubando o ipfs_host (pid ${IpfsService.hostPid}) de propósito '
         '(panic numa goroutine do Go)');
@@ -314,22 +321,40 @@ class _NodePageState extends State<NodePage> {
     log('o ipfs_host saiu (código ${await exit}); o app seguiu no pid $pid');
   }
 
-  /// O ipfs_host caiu (o serviço não volta sozinho): o app mostra o relatório
-  /// do Go, limpa o log, relança o serviço e, em primeiro plano, o nó (os
-  /// handles antigos não valem no serviço novo).
-  void _onCrash(IpfsCrash crash) => _serial(() async {
-        log('O IPFS_HOST CAIU (pid ${crash.pid}, saída ${crash.exitCode}, de '
-            'pé por ${crash.uptime}); o app segue no pid $pid. Relatório do '
-            'Go:\n${crash.report}');
-        if (crash.crashLog case final f?) File(f).writeAsStringSync('');
+  /// O serviço parou sem stop() e não volta sozinho; os handles antigos não
+  /// valem no serviço novo. Queda: o app mostra o relatório do Go, limpa o
+  /// log, relança o serviço e, em primeiro plano, o nó. Segundo plano: só
+  /// solta o nó; a volta ([_resume]) sobe tudo de novo.
+  void _onStop(IpfsStop stop) => _serial(() async {
         _tick?.cancel();
         _node = null;
         _api = null;
-        await IpfsService.restart();
-        setupService(repoPath);
-        log('serviço relançado (pid ${IpfsService.hostPid})');
-        if (_foreground) await _start();
+        switch (stop.reason) {
+          case IpfsStopReason.background:
+            log('serviço parado no segundo plano (pid ${stop.pid}, de pé por '
+                '${stop.uptime}); o app segue no pid $pid');
+            _set(() => _status = 'parado (segundo plano)');
+          case IpfsStopReason.crash:
+            log('O IPFS_HOST CAIU (pid ${stop.pid}, saída ${stop.exitCode}, de '
+                'pé por ${stop.uptime}); o app segue no pid $pid. Relatório do '
+                'Go:\n${stop.report}');
+            if (stop.crashLog case final f?) File(f).writeAsStringSync('');
+            await _relaunch();
+            if (_foreground) await _start();
+        }
       });
+
+  /// Volta ao primeiro plano: se o serviço foi parado, sobe de novo; e o nó.
+  Future<void> _resume() async {
+    if (!IpfsService.isRunning) await _relaunch();
+    await _start();
+  }
+
+  Future<void> _relaunch() async {
+    await IpfsService.restart();
+    setupService(repoPath);
+    log('serviço relançado (pid ${IpfsService.hostPid})');
+  }
 
   @override
   Widget build(BuildContext context) => Scaffold(

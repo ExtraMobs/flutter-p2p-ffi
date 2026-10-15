@@ -1,0 +1,24 @@
+name: ipfs_ffi_flutter
+description: >-
+  Android side of ipfs_ffi: stops the IPFS service when the app goes to the
+  background, or keeps it running under an Android foreground service.
+version: 0.10.0
+publish_to: 'none'
+
+environment:
+  sdk: ^3.5.0
+  flutter: '>=3.24.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  ipfs_ffi:
+    path: ..
+
+flutter:
+  plugin:
+    platforms:
+      android:
+        package: dev.extramobs.ipfs_ffi_flutter
+        pluginClass: IpfsFfiFlutterPlugin
+        dartPluginClass: IpfsFfiFlutter

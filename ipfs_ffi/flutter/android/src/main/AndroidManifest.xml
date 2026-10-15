@@ -1,0 +1,19 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- IpfsBackground.foregroundService: keeps the app (and the ipfs_host,
+         its child process) running in the background -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE"/>
+    <!-- Android 13+: without it (a runtime permission the app asks for) the
+         service still runs, but the notification is not shown -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    <application>
+        <service
+            android:name="dev.extramobs.ipfs_ffi_flutter.IpfsForegroundService"
+            android:exported="false"
+            android:foregroundServiceType="specialUse">
+            <property
+                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="Peer-to-peer IPFS node that stays online while the app is in the background"/>
+        </service>
+    </application>
+</manifest>

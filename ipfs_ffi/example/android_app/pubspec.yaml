@@ -11,6 +11,10 @@ dependencies:
     sdk: flutter
   ipfs_ffi:
     path: ../..
+  # o lado Android do pacote: segundo plano (para o serviço ou o mantém num
+  # serviço em primeiro plano); registra-se sozinho
+  ipfs_ffi_flutter:
+    path: ../../flutter
 
 dev_dependencies:
   flutter_test:

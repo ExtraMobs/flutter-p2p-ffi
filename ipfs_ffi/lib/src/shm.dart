@@ -8,7 +8,7 @@ import 'dart:ffi';
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'runtime.dart' show IpfsException, IpfsServiceException;
+import 'runtime.dart' show IpfsException, IpfsServiceException, IpfsStopReason;
 
 export 'runtime.dart' show IpfsServiceException;
 
@@ -91,7 +91,7 @@ final class ShmChannel {
   final _n = _scratch;
   var _nextId = 0;
   var _closed = false;
-  String? _deadReason;
+  IpfsServiceException? _dead;
 
   static final _scratch = _malloc4();
   static Pointer<Uint32> _malloc4() => _bytes(4).cast();
@@ -157,7 +157,7 @@ final class ShmChannel {
   void Function(int id, int kind, Uint8List data)? onMessage;
 
   /// Avisado uma vez quando o host cai ou o canal fecha.
-  void Function(String reason)? onDead;
+  void Function(IpfsServiceException e)? onDead;
 
   /// Um id novo para [send]/[waitFor].
   int newId() => ++_nextId;
@@ -166,7 +166,7 @@ final class ShmChannel {
   /// `[u32 continua][pedaço]`, partindo o que não cabe num quadro. Um
   /// produtor por vez: o canal é de uma isolate.
   void send(int id, int fn, int mode, [Uint8List? body]) {
-    if (_deadReason case final r?) throw IpfsServiceException(r);
+    if (_dead case final e?) throw e;
     final total = 9 + (body?.length ?? 0);
     final max = _shm.maxMessage(_h) - 4;
     if (total <= max) {
@@ -200,8 +200,7 @@ final class ShmChannel {
 
   Pointer<Uint8> _reserve(int n) {
     final p = _shm.reserve(_h, n);
-    if (p == nullptr)
-      throw IpfsServiceException(_deadReason ?? 'o ipfs_host caiu');
+    if (p == nullptr) throw _crashed;
     return p;
   }
 
@@ -234,7 +233,7 @@ final class ShmChannel {
   (int, Uint8List) waitFor(int id) {
     for (;;) {
       if (_shm.wait(_h) == 0) {
-        throw IpfsServiceException(_deadReason ?? 'o ipfs_host caiu');
+        throw _crashed;
       }
       final p = _shm.peek(_h, _n);
       if (p == nullptr) continue;
@@ -285,7 +284,7 @@ final class ShmChannel {
 
   void _onWake(int v) {
     if (v < 0) {
-      _fail(_deadReason ?? 'o ipfs_host caiu');
+      _fail(_crashed);
       return;
     }
     if (_closed) return;
@@ -301,22 +300,29 @@ final class ShmChannel {
   void _onExit(int code) {
     if (_closed) return;
     final report = _stderr.toString().trim();
-    _fail('o ipfs_host saiu ($code)${report.isEmpty ? '' : ': $report'}');
+    _fail(IpfsServiceException(
+        'o ipfs_host saiu ($code)${report.isEmpty ? '' : ': $report'}',
+        reason: IpfsStopReason.crash));
   }
 
-  void _fail(String reason) {
-    final first = _deadReason == null;
-    _deadReason ??= reason;
-    final e = IpfsServiceException(_deadReason!);
+  /// A queda ainda sem o motivo do processo (o aviso da ipfs_shm chega
+  /// antes do código de saída).
+  IpfsServiceException get _crashed =>
+      _dead ??
+      IpfsServiceException('o ipfs_host caiu', reason: IpfsStopReason.crash);
+
+  void _fail(IpfsServiceException e) {
+    final first = _dead == null;
+    e = _dead ??= e;
     for (final s in _pending.values) {
       if (s case Completer<Uint8List> c) c.completeError(e);
     }
     _pending.clear();
-    if (first) onDead?.call(_deadReason!);
+    if (first) onDead?.call(e);
   }
 
   /// Por que o canal morreu (o host caiu ou o canal fechou); null enquanto vivo.
-  String? get deadReason => _deadReason;
+  String? get deadReason => _dead?.message;
 
   /// O que o host escreveu no stderr (o relatório de um panic, se caiu).
   String get hostStderr => _stderr.toString();
@@ -327,13 +333,18 @@ final class ShmChannel {
   /// O processo do serviço terminou: código de saída.
   Future<int> get exitCode => _process.exitCode;
 
-  /// Fecha o canal; o host sai sozinho ao ver o canal fechado.
-  Future<void> close() async {
+  /// Fecha o canal; o host sai sozinho ao ver o canal fechado. As pendentes
+  /// falham com [reason] (null: fechado pelo app).
+  Future<void> close({IpfsStopReason? reason}) async {
     if (_closed) return;
     _closed = true;
     _shm.close(_h);
     _wake.close();
-    _fail('canal fechado');
+    _fail(IpfsServiceException(
+        reason == IpfsStopReason.background
+            ? 'o serviço foi parado: o app foi para o segundo plano'
+            : 'canal fechado',
+        reason: reason));
     await _process.exitCode.timeout(const Duration(seconds: 5), onTimeout: () {
       _process.kill();
       return -1;

@@ -17,11 +17,14 @@ library;
 
 export 'service.dart'
     show
-        IpfsCrash,
-        IpfsCrashHandler,
+        IpfsBackground,
         IpfsException,
+        IpfsPlatform,
         IpfsService,
         IpfsServiceException,
+        IpfsStop,
+        IpfsStopHandler,
+        IpfsStopReason,
         defaultHostPath,
         ipfsShmLibraryPath;
 export 'src/network.dart' show hasIpv6, isGlobalIpv6;
