@@ -82,12 +82,18 @@ final class _Pending {
 
 final _pending = <int, _Pending>{};
 
+/// Sinks já fechados pelo Go, à espera da resposta da chamada deles: o
+/// `close()` só completa quando o ouvinte recebeu o fim.
+final _sinkDone = <int, Future<void>>{};
+
 void _onMessage(int id, int kind, Uint8List data) {
   final p = _pending[id];
   if (p == null) return; // sink já fechado pelo fim da chamada
   switch ((kind, p.sink)) {
     case (_evValue, Completer<$R> c):
-      c.complete($R(data));
+      final r = $R(data);
+      _finish(id, p).then((_) => c.complete(r));
+      return;
     case (_evItem, StreamController<$R> s):
       s.add($R(data));
       return;
@@ -97,7 +103,14 @@ void _onMessage(int id, int kind, Uint8List data) {
     case (_evEnd, StreamController<$R> s):
       s.close();
     case (_evEnd, GoSink<Object?> s):
-      s.sink.close();
+      _sinkDone[id] = s.sink.close();
+    case (_evError, GoSink<Object?> s):
+      s.sink.addError(IpfsException(utf8.decode(data)));
+      _sinkDone[id] = s.sink.close();
+    case (_evError, Completer<$R> c):
+      final e = IpfsException(utf8.decode(data));
+      _finish(id, p).then((_) => c.completeError(e));
+      return;
     case (_evError, final sink):
       _failSink(sink, IpfsException(utf8.decode(data)));
     default:
@@ -107,17 +120,25 @@ void _onMessage(int id, int kind, Uint8List data) {
 }
 
 /// Fim de uma chamada: os sinks que o Go não fechou fecham agora (o Go os
-/// fecha antes da resposta; WIRE.md).
-void _finish(int id, _Pending p) {
+/// fecha antes da resposta; WIRE.md). Completa quando os ouvintes de todos os
+/// sinks dela já receberam o fim, para a chamada responder depois deles.
+Future<void> _finish(int id, _Pending p) {
   _pending.remove(id);
-  _closeSinks(p.sinks);
+  final done = [
+    for (final s in p.sinks)
+      if (_sinkDone.remove(s) case final f?) f
+  ];
+  _closeSinks(p.sinks, null, done);
+  return done.isEmpty ? Future.value() : Future.wait(done);
 }
 
-void _closeSinks(List<int> sinks, [Object? error]) {
+void _closeSinks(List<int> sinks, [Object? error, List<Future<void>>? done]) {
   for (final s in sinks) {
+    _sinkDone.remove(s);
     if (_pending.remove(s)?.sink case final GoSink<Object?> sink) {
       if (error != null) sink.sink.addError(error);
-      sink.sink.close();
+      final f = sink.sink.close();
+      done?.add(f);
     }
   }
 }
@@ -141,6 +162,7 @@ void _onDead(String reason) {
   final e = IpfsServiceException(reason);
   final all = [..._pending.values];
   _pending.clear();
+  _sinkDone.clear();
   _toFree.clear();
   for (final p in all) {
     _failSink(p.sink, e);

@@ -51,13 +51,16 @@ const androidPatches = {
 Future<String> androidModfile(Directory root) async {
   final goDir = '${root.path}/go';
   Future<String> goList(String module, String field) async {
-    final r = await Process.run('go', [
-      'list',
-      '-m',
-      '-f',
-      field,
-      module,
-    ], workingDirectory: goDir);
+    final r = await Process.run(
+        'go',
+        [
+          'list',
+          '-m',
+          '-f',
+          field,
+          module,
+        ],
+        workingDirectory: goDir);
     if (r.exitCode != 0) throw StateError('go list -m $module: ${r.stderr}');
     return (r.stdout as String).trim();
   }
@@ -159,12 +162,11 @@ Future<void> main(List<String> args) async {
         if (goos == 'android') '-modfile=$modfile',
       ];
       // No Android o executável leva nome de lib para o APK empacotá-lo.
-      final host =
-          '${dir.path}/${switch (goos) {
-            'windows' => 'ipfs_host.exe',
-            'android' => 'libipfs_host.so',
-            _ => 'ipfs_host',
-          }}';
+      final host = '${dir.path}/${switch (goos) {
+        'windows' => 'ipfs_host.exe',
+        'android' => 'libipfs_host.so',
+        _ => 'ipfs_host',
+      }}';
       stdout.writeln('go build ($goos/$goarch) -> $host');
       await run('go', [...goArgs, '-o', host, '.'], '${root.path}/go', env);
       final shm =
@@ -214,8 +216,7 @@ String ndkClang(String goarch) {
   final env = Platform.environment;
   var ndk = env['ANDROID_NDK_HOME'];
   if (ndk == null) {
-    final sdk =
-        env['ANDROID_HOME'] ??
+    final sdk = env['ANDROID_HOME'] ??
         env['ANDROID_SDK_ROOT'] ??
         (Platform.isWindows
             ? '${env['LOCALAPPDATA']}\\Android\\Sdk'
