@@ -1,5 +1,24 @@
 # Pendências do ipfs_ffi
 
+## Em andamento: o kubo num processo separado (0.9.0)
+
+Objetivo: um panic não tratado dentro do kubo/boxo não fecha o app; o serviço
+reinicia e o app recebe uma exceção, com a mesma API gerada. Plano: o mesmo Go
+compilado também como executável (`ipfs_host`), Unix socket / named pipe só como
+"sininho", chamadas e respostas por memória compartilhada (dois anéis SPSC),
+codificação binária gerada e uma biblioteca C pequena (`ipfs_shm`) no processo do
+app para as atômicas (o `dart:ffi` não tem) e a espera "gira, depois dorme".
+
+**P0, onde um panic do Go derruba o quê** (Go 1.26.5: `fatalpanic` termina em
+`exit(2)`, que é `ExitProcess`/`exit_group`, ou em `crash()` = `SIGABRT`; o
+processo inteiro, sem gancho), medido em `test/kubo_test.dart`:
+
+| Onde roda o Go | Resultado |
+|---|---|
+| DLL / `.so` no processo do app (plugin) | o processo cai (teste "panic em goroutine do Go") |
+| um Isolate de fundo (`test/crash_isolate.dart`) | o processo inteiro cai: código 2 no Windows, 134 (`SIGABRT`) no linux; o isolate principal não sobrevive |
+| outro processo | só ele cai; quem o lançou segue e o relança (3 vezes no teste) |
+
 ## Feito: exports diretos para assinaturas simples (0.5.0)
 
 Toda chamada passava pelo export único `IpfsCall` com JSON (~27 µs no Windows,

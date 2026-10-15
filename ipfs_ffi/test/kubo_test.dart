@@ -502,6 +502,29 @@ void main() {
     expect(text, contains('goroutine '));
   }, timeout: const Timeout(Duration(minutes: 2)));
 
+  // Marco do serviço (P0): onde um panic do Go derruba o quê.
+  group('panic do Go fora de uma chamada', () {
+    test('num Isolate de fundo: o processo inteiro cai', () async {
+      final r = await Process.run(
+          Platform.resolvedExecutable, ['run', 'test/crash_isolate.dart']);
+      expect(r.exitCode, isNot(0));
+      expect(r.stdout, isNot(contains('sobreviveu')));
+      expect(
+          r.stderr, contains('panic: ipfs_ffi: panic de teste numa goroutine'));
+    }, timeout: const Timeout(Duration(minutes: 2)));
+
+    test('noutro processo: só ele cai, e quem o lançou o relança', () async {
+      // este processo de teste é o "app"; o filho é o serviço
+      for (var i = 0; i < 3; i++) {
+        final log = '${tmp.path}/crash$i.log';
+        final r = await Process.run(
+            Platform.resolvedExecutable, ['run', 'test/crash_child.dart', log]);
+        expect(r.exitCode, isNot(0));
+        expect(File(log).readAsStringSync(), contains('panic de teste'));
+      }
+    }, timeout: const Timeout(Duration(minutes: 3)));
+  });
+
   // As goroutines do próprio ipfs_ffi (go/runtime.go try/goTry): o panic vira
   // IpfsException e o processo segue.
   group('panic em goroutine do ipfs_ffi vira erro', () {
