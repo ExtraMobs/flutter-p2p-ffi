@@ -36,6 +36,7 @@ Regras fundamentais:
 | `tests/golden/<caso>/` | `<caso>.go` → `.goast.json` → `.dart` esperados (+ `.dartast.json` opcional) | — |
 | `tests/corpus/kubo/` | Corpus real fixado: módulo que só declara `tool github.com/ipfs/kubo/cmd/ipfs` (kubo **v0.43.1**, boxo v0.42.x); `go.mod`/`go.sum` fixam o grafo inteiro | Go |
 | `TODO/` | Backlog: um artefato markdown por problema, com prova real (ver "Processo") | Markdown |
+| `ipfs_ffi/` | Caminho alternativo à transpilação: o kubo compilado como biblioteca (`-buildmode=c-shared`) com binding `dart:ffi` e API Dart gerada (`go/gen`). Só VM/AOT (Windows, linux, Android), não JS/Wasm; independente do g2d, com docs, testes e pendências próprios (`ipfs_ffi/README.md`, `ipfs_ffi/TODO.md`) | Go + Dart |
 | `docs/` | Documentos vivos (ver abaixo) | Markdown |
 
 Branch `archive` (só leitura): a tentativa anterior, o port manual `dart IPFS`
