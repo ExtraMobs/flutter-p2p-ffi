@@ -82,8 +82,8 @@ typedef Utf8Char = Uint8;
 
 final _shm = _Shm(DynamicLibrary.open(ipfsShmLibraryPath));
 
-// Tipos de resposta (os ev* de go/runtime.go).
-const _evValue = 0, _evItem = 1, _evEnd = 2, _evError = 3;
+// Tipos de resposta usados aqui (os ev* de go/runtime.go).
+const _evValue = 0, _evError = 3;
 
 /// Um canal aberto com um processo ipfs_host.
 final class ShmChannel {
@@ -93,7 +93,7 @@ final class ShmChannel {
   final Pointer<Void> _h;
   final NativeCallable<_WakeNative> _wake;
   final StringBuffer _stderr;
-  final _pending = <int, Object>{}; // Completer ou StreamController
+  final _pending = <int, Completer<Uint8List>>{}; // de call()
   final _n = _scratch;
   var _nextId = 0;
   var _closed = false;
@@ -158,33 +158,66 @@ final class ShmChannel {
     return '${Directory.systemTemp.path}/ipfs_ffi_$rnd.sock';
   }
 
-  /// Maior corpo de argumentos que cabe numa mensagem.
-  int get maxArgs => _shm.maxMessage(_h) - 9;
+  /// Mensagens de ids que não são de [call]/[callSync] deste canal (o
+  /// runtime do modo serviço registra o seu).
+  void Function(int id, int kind, Uint8List data)? onMessage;
 
-  void _send(int id, int fn, int mode, Uint8List? args) {
+  /// Avisado uma vez quando o host cai ou o canal fecha.
+  void Function(String reason)? onDead;
+
+  /// Um id novo para [send]/[waitFor].
+  int newId() => ++_nextId;
+
+  /// Envia o pedido [id] (u32 id, u32 [fn], u8 [mode], [body]) em quadros
+  /// `[u32 continua][pedaço]`, partindo o que não cabe num quadro. Um
+  /// produtor por vez: o canal é de uma isolate.
+  void send(int id, int fn, int mode, [Uint8List? body]) {
     if (_deadReason case final r?) throw IpfsServiceException(r);
-    final n = 9 + (args?.length ?? 0);
-    final p = _shm.reserve(_h, n);
-    if (p == nullptr) {
-      throw IpfsServiceException(
-          _deadReason ?? 'mensagem grande demais ($n bytes)');
+    final total = 9 + (body?.length ?? 0);
+    final max = _shm.maxMessage(_h) - 4;
+    if (total <= max) {
+      final p = _reserve(total + 4);
+      p.cast<Uint32>().value = 0;
+      // o corpo do quadro começa em 0 mod 8: os u32 ficam alinhados (todas
+      // as plataformas alvo são little-endian)
+      (p + 4).cast<Uint32>().value = id;
+      (p + 8).cast<Uint32>().value = fn;
+      p[12] = mode;
+      if (body != null && body.isNotEmpty) {
+        p.asTypedList(total + 4).setRange(13, total + 4, body);
+      }
+      _shm.commit(_h, total + 4);
+      return;
     }
-    // o corpo começa em 4 mod 8 no anel: os u32 ficam alinhados (todas as
-    // plataformas alvo são little-endian)
-    p.cast<Uint32>().value = id;
-    (p + 4).cast<Uint32>().value = fn;
-    p[8] = mode;
-    if (args != null && args.isNotEmpty) p.asTypedList(n).setRange(9, n, args);
-    _shm.commit(_h, n);
+    final whole = Uint8List(total);
+    ByteData.sublistView(whole)
+      ..setUint32(0, id, Endian.little)
+      ..setUint32(4, fn, Endian.little);
+    whole[8] = mode;
+    whole.setRange(9, total, body!);
+    for (var off = 0; off < total; off += max) {
+      final n = total - off < max ? total - off : max;
+      final p = _reserve(n + 4);
+      p.cast<Uint32>().value = off + n < total ? 1 : 0;
+      p.asTypedList(n + 4).setRange(4, n + 4, whole, off);
+      _shm.commit(_h, n + 4);
+    }
+  }
+
+  Pointer<Uint8> _reserve(int n) {
+    final p = _shm.reserve(_h, n);
+    if (p == nullptr)
+      throw IpfsServiceException(_deadReason ?? 'o ipfs_host caiu');
+    return p;
   }
 
   /// Chamada assíncrona: a resposta chega pelo callback.
   Future<Uint8List> call(int fn, [Uint8List? args]) {
     final c = Completer<Uint8List>();
-    final id = ++_nextId;
+    final id = newId();
     _pending[id] = c;
     try {
-      _send(id, fn, 1, args);
+      send(id, fn, 1, args);
     } catch (e, st) {
       _pending.remove(id);
       return Future.error(e, st); // assíncrona: falha pelo Future
@@ -195,31 +228,51 @@ final class ShmChannel {
   /// Chamada síncrona: bloqueia a isolate até a resposta (gira, depois
   /// dorme), entregando as outras que chegarem no caminho.
   Uint8List callSync(int fn, [Uint8List? args]) {
-    final id = ++_nextId;
-    _send(id, fn, 0, args);
+    final id = newId();
+    send(id, fn, 0, args);
+    final (kind, data) = waitFor(id);
+    if (kind == _evError) throw IpfsException(utf8.decode(data));
+    return data;
+  }
+
+  /// Espera a resposta [id] (tipo e dados), entregando as outras que
+  /// chegarem no caminho.
+  (int, Uint8List) waitFor(int id) {
     for (;;) {
       if (_shm.wait(_h) == 0) {
         throw IpfsServiceException(_deadReason ?? 'o ipfs_host caiu');
       }
       final p = _shm.peek(_h, _n);
       if (p == nullptr) continue;
-      final (rid, kind, data) = _read(p);
+      final m = _frame(p);
       _shm.advance(_h);
-      if (rid == id) {
-        if (kind == _evError) throw IpfsException(utf8.decode(data));
-        return data;
-      }
+      if (m == null) continue;
+      final (rid, kind, data) = m;
+      if (rid == id) return (kind, data);
       _deliver(rid, kind, data);
     }
   }
 
   static final _empty = Uint8List(0);
+  final _parts = BytesBuilder(copy: true);
 
-  (int, int, Uint8List) _read(Pointer<Uint8> p) {
-    final n = _n.value;
+  /// Lê um quadro; devolve a mensagem quando ela termina.
+  (int, int, Uint8List)? _frame(Pointer<Uint8> p) {
+    final n = _n.value - 4;
+    final body = p + 4;
+    if (p.cast<Uint32>().value == 1) {
+      _parts.add(body.asTypedList(n));
+      return null;
+    }
+    if (_parts.isNotEmpty) {
+      _parts.add(body.asTypedList(n));
+      final m = _parts.takeBytes();
+      final id = ByteData.sublistView(m).getUint32(0, Endian.little);
+      return (id, m[4], Uint8List.sublistView(m, 5));
+    }
     final data =
-        n > 5 ? Uint8List.fromList(p.asTypedList(n).sublist(5)) : _empty;
-    return (p.cast<Uint32>().value, p[4], data);
+        n > 5 ? Uint8List.fromList(body.asTypedList(n).sublist(5)) : _empty;
+    return (body.cast<Uint32>().value, body[4], data);
   }
 
   void _deliver(int id, int kind, Uint8List data) {
@@ -231,16 +284,8 @@ final class ShmChannel {
       case (_evError, Completer<Uint8List> c):
         _pending.remove(id);
         c.completeError(IpfsException(utf8.decode(data)));
-      case (_evItem, StreamController<Uint8List> s):
-        s.add(data);
-      case (_evEnd, StreamController<Uint8List> s):
-        _pending.remove(id);
-        s.close();
-      case (_evError, StreamController<Uint8List> s):
-        _pending.remove(id);
-        s
-          ..addError(IpfsException(utf8.decode(data)))
-          ..close();
+      case (_, null):
+        onMessage?.call(id, kind, data);
     }
   }
 
@@ -252,9 +297,9 @@ final class ShmChannel {
     if (_closed) return;
     do {
       for (var p = _shm.peek(_h, _n); p != nullptr; p = _shm.peek(_h, _n)) {
-        final (id, kind, data) = _read(p);
+        final m = _frame(p);
         _shm.advance(_h);
-        _deliver(id, kind, data);
+        if (m != null) _deliver(m.$1, m.$2, m.$3);
       }
     } while (_shm.rearm(_h) == 1);
   }
@@ -266,19 +311,14 @@ final class ShmChannel {
   }
 
   void _fail(String reason) {
+    final first = _deadReason == null;
     _deadReason ??= reason;
     final e = IpfsServiceException(_deadReason!);
     for (final s in _pending.values) {
-      switch (s) {
-        case Completer<Uint8List> c:
-          c.completeError(e);
-        case StreamController<Uint8List> c:
-          c
-            ..addError(e)
-            ..close();
-      }
+      if (s case Completer<Uint8List> c) c.completeError(e);
     }
     _pending.clear();
+    if (first) onDead?.call(_deadReason!);
   }
 
   /// O pid do processo do serviço.

@@ -20,12 +20,16 @@ import (
 )
 
 // Pedido: u32 id, u32 função, u8 modo, argumentos. Resposta: u32 id, u8
-// tipo (os ev* de runtime.go), dados.
+// tipo (os ev* de runtime.go), dados. No anel, cada mensagem vai em um ou mais
+// quadros [u32 continua][pedaço] (u32 para o pedaço ficar alinhado): a que não cabe num quadro é partida, e quem
+// consome junta os pedaços (um produtor por vez, então não se misturam).
 const (
 	reqHeader  = 9
 	respHeader = 5
 	fnNoop     = 0
 	fnSleep    = 1 // teste: responde depois de u32 ms, numa goroutine
+	fnEcho     = 2 // teste: devolve os argumentos
+	frameHead  = 4
 )
 
 // hostChan: a parte de cada sistema (host_unix.go, host_windows.go).
@@ -74,15 +78,26 @@ func runHost() {
 
 // serve consome os pedidos até o app fechar o canal.
 func (h *host) serve() {
+	var parts []byte // pedaços de uma mensagem partida
 	for {
-		m := h.req.Peek()
-		if m == nil {
+		f := h.req.Peek()
+		if f == nil {
 			if !h.idle() {
 				return
 			}
 			continue
 		}
-		h.dispatch(m)
+		switch {
+		case len(f) < frameHead:
+		case f[0] == 1: // continua no próximo quadro
+			parts = append(parts, f[frameHead:]...)
+		case parts != nil:
+			m := append(parts, f[frameHead:]...)
+			parts = nil
+			h.dispatch(m)
+		default:
+			h.dispatch(f[frameHead:]) // o caso comum, sem cópia
+		}
 		h.req.Advance()
 	}
 }
@@ -103,6 +118,8 @@ func (h *host) idle() bool {
 	return h.ch.bellWait()
 }
 
+// dispatch trata um pedido; [m] só vale durante a chamada (é o anel), então
+// o que segue numa goroutine copia antes.
 func (h *host) dispatch(m []byte) {
 	if len(m) < reqHeader {
 		return
@@ -111,6 +128,8 @@ func (h *host) dispatch(m []byte) {
 	switch fn := binary.LittleEndian.Uint32(m[4:]); fn {
 	case fnNoop:
 		h.reply(id, evValue, nil)
+	case fnEcho:
+		h.reply(id, evValue, m[reqHeader:])
 	case fnSleep:
 		if len(m) < reqHeader+4 {
 			h.reply(id, evError, []byte("ipfs_host: Sleep sem os ms"))
@@ -122,30 +141,60 @@ func (h *host) dispatch(m []byte) {
 			h.reply(id, evValue, nil)
 		}()
 	default:
-		h.reply(id, evError, []byte(fmt.Sprintf("ipfs_host: função %d desconhecida", fn)))
+		h.reply(id, evError, fmt.Appendf(nil, "ipfs_host: função %d desconhecida", fn))
 	}
 }
 
-// reply escreve a resposta [id] no anel 1 (esperando espaço) e toca o
-// sininho se o app dormia.
+// reply escreve a resposta [id] no anel 1, partida em quadros se preciso
+// (esperando espaço), e toca o sininho se o app dormia.
 func (h *host) reply(id uint32, kind byte, data []byte) {
-	n := respHeader + len(data)
+	var head [respHeader]byte
+	binary.LittleEndian.PutUint32(head[:], id)
+	head[4] = kind
 	h.mu.Lock()
-	var b []byte
-	for i := 0; ; i++ {
-		if b = h.resp.Reserve(n); b != nil {
-			break
+	defer h.mu.Unlock()
+	h.send(head[:], data)
+}
+
+// send escreve [head]+[data] no anel 1 em quadros de no máximo MaxMessage.
+// Chamado com h.mu.
+func (h *host) send(head, data []byte) {
+	max := h.resp.MaxMessage() - frameHead
+	total := len(head) + len(data)
+	off := 0
+	for {
+		n := min(total-off, max)
+		var b []byte
+		for i := 0; ; i++ {
+			if b = h.resp.Reserve(n + frameHead); b != nil {
+				break
+			}
+			if i%64 == 63 {
+				runtime.Gosched()
+			}
 		}
-		if i%64 == 63 {
-			runtime.Gosched()
+		more := uint32(0)
+		if off+n < total {
+			more = 1
 		}
-	}
-	binary.LittleEndian.PutUint32(b, id)
-	b[4] = kind
-	copy(b[respHeader:], data)
-	wake := h.resp.Commit(n)
-	h.mu.Unlock()
-	if wake {
-		h.ch.bellRing()
+		binary.LittleEndian.PutUint32(b, more)
+		// copia o pedaço [off, off+n) de head+data
+		w := b[frameHead:]
+		for k := 0; k < n; {
+			pos := off + k
+			if pos < len(head) {
+				k += copy(w[k:], head[pos:])
+			} else {
+				k += copy(w[k:n], data[pos-len(head):])
+			}
+		}
+		wake := h.resp.Commit(n + frameHead)
+		if wake {
+			h.ch.bellRing()
+		}
+		off += n
+		if off == total {
+			return
+		}
 	}
 }

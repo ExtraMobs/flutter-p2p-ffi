@@ -20,6 +20,10 @@ void main() {
       final many =
           await Future.wait([for (var i = 0; i < 10000; i++) ch.call(0)]);
       expect(many, hasLength(10000));
+      // Echo (função 2) maior que um quadro do anel: partida nos dois sentidos
+      final big = Uint8List.fromList(List.generate(9 << 20, (i) => i * 31));
+      expect(ch.callSync(2, big), big);
+      expect(await ch.call(2, big), big);
       expect(() => ch.callSync(999), throwsA(isA<IpfsException>()));
       await expectLater(ch.call(999), throwsA(isA<IpfsException>()));
     } finally {
