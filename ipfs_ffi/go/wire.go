@@ -294,11 +294,11 @@ func hget[T any](id int64) (T, error) {
 	v, ok := handles.m[id]
 	handles.Unlock()
 	if !ok {
-		return zero, fmt.Errorf("ipfs_host: handle %d não existe (já solto, ou de outro serviço)", id)
+		return zero, fmt.Errorf("ipfs_host: handle %d does not exist (already freed, or from another service)", id)
 	}
 	t, ok := v.(T)
 	if !ok {
-		return zero, fmt.Errorf("ipfs_host: handle %d é %T, não %v", id, v, reflect.TypeFor[T]())
+		return zero, fmt.Errorf("ipfs_host: handle %d is %T, not %v", id, v, reflect.TypeFor[T]())
 	}
 	return t, nil
 }

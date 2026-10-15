@@ -1,7 +1,7 @@
-/// Runtime das libraries geradas (go/gen): codifica os argumentos em binário
-/// (ipfs_ffi/WIRE.md), manda o pedido ao ipfs_host pelo canal de memória
-/// compartilhada (shm.dart) e entrega a resposta. O app não carrega Go. Não é
-/// API pública.
+/// Runtime of the generated libraries (go/gen): encodes the arguments in
+/// binary (ipfs_ffi/WIRE.md), sends the request to the ipfs_host through the
+/// shared memory channel (shm.dart) and delivers the response. The app does
+/// not load Go. Not public API.
 library;
 
 import 'dart:async';
@@ -12,8 +12,8 @@ import 'shm.dart';
 
 part 'runtime/codec.dart';
 
-/// Erro devolvido pelo Go (o `error` de um `(T, error)`, ou um panic dentro
-/// de uma chamada).
+/// Error returned by Go (the `error` of a `(T, error)`, or a panic inside a
+/// call).
 class IpfsException implements Exception {
   IpfsException(this.message);
 
@@ -23,19 +23,20 @@ class IpfsException implements Exception {
   String toString() => 'IpfsException: $message';
 }
 
-/// Por que o serviço parou.
+/// Why the service stopped.
 enum IpfsStopReason {
-  /// O ipfs_host caiu (um panic do Go, ou o sistema o matou).
+  /// The ipfs_host crashed (a Go panic, or the system killed it).
   crash,
 
-  /// O app foi para o segundo plano e o pacote parou o serviço
+  /// The app went to the background and the package stopped the service
   /// (`IpfsService.background` = `IpfsBackground.stop`).
   background,
 }
 
-/// O serviço parou ([reason]: caiu ou foi parado no segundo plano), o canal
-/// fechou, o serviço não foi iniciado ou o handle é de um serviço anterior
-/// ([reason] null nesses dois). Relance com `IpfsService.restart()`.
+/// The service stopped ([reason]: crashed or stopped in the background), the
+/// channel closed, the service was not started or the handle belongs to a
+/// previous service ([reason] null in these two). Relaunch with
+/// `IpfsService.restart()`.
 class IpfsServiceException extends IpfsException {
   IpfsServiceException(super.message, {this.reason});
 
@@ -45,31 +46,33 @@ class IpfsServiceException extends IpfsException {
   String toString() => 'IpfsServiceException: $message';
 }
 
-// Modos do pedido e tipos de resposta (WIRE.md).
+// Request modes and response types (WIRE.md).
 const _sync = 0, _async = 1, _streamMode = 2;
 const _evValue = 0, _evItem = 1, _evEnd = 2, _evError = 3;
 
-/// Função Free (WIRE.md): `u32 n` + n × `i64`, sem resposta (id 0).
+/// Free function (WIRE.md): `u32 n` + n × `i64`, no response (id 0).
 const _fnFree = 3;
 
-/// O canal do serviço desta isolate (null = não iniciado ou parado).
+/// This isolate's service channel (null = not started or stopped).
 ShmChannel? _ch;
 
-/// Época do serviço: sobe a cada [$attach]. Um handle guarda a época em que
-/// nasceu e só vale nela (os objetos do host morrem com o processo).
+/// Service epoch: increases on each [$attach]. A handle keeps the epoch it
+/// was born in and is only valid in it (the host's objects die with the
+/// process).
 var _epoch = 0;
 
-/// Por que o serviço parou (até o próximo [$attach]); null se nunca subiu ou
-/// foi parado pelo app.
+/// Why the service stopped (until the next [$attach]); null if it never
+/// started or was stopped by the app.
 IpfsServiceException? _stopped;
 
 ShmChannel get _channel =>
     _ch ??
     (throw _stopped ??
         IpfsServiceException(
-            'o serviço não foi iniciado (await IpfsService.start())'));
+            'the service was not started (await IpfsService.start())'));
 
-/// Liga o runtime a um canal recém-aberto (IpfsService.start, depois do Hello).
+/// Binds the runtime to a freshly opened channel (IpfsService.start, after
+/// the Hello).
 void $attach(ShmChannel ch) {
   _ch = ch;
   _stopped = null;
@@ -80,18 +83,18 @@ void $attach(ShmChannel ch) {
     ..onDead = _onDead;
 }
 
-/// Desliga o runtime do canal (IpfsService.stop); as pendentes falham quando o
-/// canal fecha. [why]: a parada (queda, segundo plano), que as chamadas novas
-/// recebem até o serviço subir de novo.
+/// Unbinds the runtime from the channel (IpfsService.stop); pending calls fail
+/// when the channel closes. [why]: the stop (crash, background), which new
+/// calls receive until the service starts again.
 void $detach([IpfsServiceException? why]) {
   _ch = null;
   _stopped = why;
   _toFree.clear();
 }
 
-/// Chamada pendente: o Completer (assíncrona), StreamController (stream) ou
-/// GoSink; o escritor dos argumentos (mantém vivos os handles enviados até a
-/// resposta, para o Finalizer não soltá-los antes) e os ids dos sinks dela.
+/// Pending call: the Completer (async), StreamController (stream) or GoSink;
+/// the argument writer (keeps the sent handles alive until the response, so
+/// the Finalizer does not release them earlier) and the ids of its sinks.
 final class _Pending {
   _Pending(this.sink, this.keep, this.sinks);
 
@@ -102,13 +105,13 @@ final class _Pending {
 
 final _pending = <int, _Pending>{};
 
-/// Sinks já fechados pelo Go, à espera da resposta da chamada deles: o
-/// `close()` só completa quando o ouvinte recebeu o fim.
+/// Sinks already closed by Go, waiting for the response of their call:
+/// `close()` only completes once the listener has received the end.
 final _sinkDone = <int, Future<void>>{};
 
 void _onMessage(int id, int kind, Uint8List data) {
   final p = _pending[id];
-  if (p == null) return; // sink já fechado pelo fim da chamada
+  if (p == null) return; // sink already closed by the end of the call
   switch ((kind, p.sink)) {
     case (_evValue, Completer<$R> c):
       final r = $R(data);
@@ -134,14 +137,14 @@ void _onMessage(int id, int kind, Uint8List data) {
     case (_evError, final sink):
       _failSink(sink, IpfsException(utf8.decode(data)));
     default:
-      return; // tipo que não cabe nesta pendente: ignora
+      return; // type that does not fit this pending call: ignored
   }
   _finish(id, p);
 }
 
-/// Fim de uma chamada: os sinks que o Go não fechou fecham agora (o Go os
-/// fecha antes da resposta; WIRE.md). Completa quando os ouvintes de todos os
-/// sinks dela já receberam o fim, para a chamada responder depois deles.
+/// End of a call: the sinks Go did not close are closed now (Go closes them
+/// before the response; WIRE.md). Completes when the listeners of all its
+/// sinks have received the end, so the call responds after them.
 Future<void> _finish(int id, _Pending p) {
   _pending.remove(id);
   final done = [
@@ -188,7 +191,7 @@ void _onDead(IpfsServiceException e) {
   }
 }
 
-/// Registra os sinks do escritor como pendentes e devolve os ids.
+/// Registers the writer's sinks as pending and returns their ids.
 List<int> _register($W? w) {
   if (w == null || w._sinks.isEmpty) return const [];
   for (final (id, s) in w._sinks) {
@@ -197,8 +200,8 @@ List<int> _register($W? w) {
   return [for (final (id, _) in w._sinks) id];
 }
 
-/// Chamada síncrona: bloqueia a isolate até o host responder (gira, depois
-/// dorme), entregando no caminho as mensagens das outras.
+/// Synchronous call: blocks the isolate until the host responds (spins, then
+/// sleeps), delivering the other messages along the way.
 $R $callSync(int fn, [$W? w]) {
   final ch = _channel;
   w?._check();
@@ -217,14 +220,14 @@ $R $callSync(int fn, [$W? w]) {
   }
 }
 
-/// Chamada assíncrona: a resposta chega pelo canal.
+/// Asynchronous call: the response arrives through the channel.
 Future<$R> $call(int fn, [$W? w]) {
   final c = Completer<$R>();
   _start(fn, _async, w, c);
   return c.future;
 }
 
-/// Stream: um `item` por valor do canal do Go, até `fim` ou `erro`.
+/// Stream: one `item` per value of the Go channel, until `end` or `error`.
 Stream<$R> $stream(int fn, [$W? w]) {
   final s = StreamController<$R>();
   _start(fn, _streamMode, w, s);
@@ -247,13 +250,13 @@ void _start(int fn, int mode, $W? w, Object sink) {
     }
   } catch (e, st) {
     _closeSinks(sinks, e);
-    _failSink(sink, e, st); // falha pelo Future/Stream, não na hora
+    _failSink(sink, e, st); // fails through the Future/Stream, not right away
   }
 }
 
-/// Canal `chan<- T` que o Go recebe numa opção (options.Unixfs.Events): o
-/// sink é registrado com um id próprio na chamada; os itens vão para [sink],
-/// que fecha quando a chamada termina.
+/// `chan<- T` channel that Go receives in an option (options.Unixfs.Events):
+/// the sink is registered with its own id in the call; the items go to
+/// [sink], which closes when the call ends.
 final class GoSink<T> {
   GoSink(this.sink, this.decode);
 
@@ -263,11 +266,12 @@ final class GoSink<T> {
   void _add($R r) => sink.add(decode(r));
 }
 
-// Handles soltos pelo Finalizer, mandados em lote ao host (função Free).
+// Handles released by the Finalizer, sent in batches to the host (Free
+// function).
 final _toFree = <int>[];
 final _finalizer = Finalizer<(int, int)>((t) {
   final (epoch, h) = t;
-  // o serviço em que o handle nasceu já acabou: o objeto morreu com ele
+  // the service the handle was born in is gone: the object died with it
   if (epoch != _epoch || _ch == null) return;
   if (_toFree.isEmpty) Timer.run(_flushFree);
   _toFree.add(h);
@@ -284,12 +288,13 @@ void _flushFree() {
   try {
     ch.send(0, _fnFree, _sync, w.take());
   } on IpfsServiceException {
-    // o host caiu: os objetos foram com ele
+    // the host crashed: the objects went with it
   }
 }
 
-/// Objeto que vive no host: o Dart guarda o handle e a época do serviço; o
-/// Finalizer o solta (em lote) quando o objeto Dart some.
+/// Object that lives in the host: Dart keeps the handle and the service
+/// epoch; the Finalizer releases it (in batches) when the Dart object goes
+/// away.
 abstract class GoHandle {
   GoHandle(this.$h) : $e = _epoch {
     _finalizer.attach(this, ($e, $h));
@@ -297,11 +302,11 @@ abstract class GoHandle {
 
   final int $h;
 
-  /// A época do serviço em que o handle nasceu.
+  /// The service epoch in which the handle was born.
   final int $e;
 }
 
-/// Tipo-valor do Go (CID, path, peer ID, multiaddr) guardado como string.
+/// Go value type (CID, path, peer ID, multiaddr) stored as a string.
 abstract class GoValue {
   const GoValue(this.value);
 
@@ -320,20 +325,20 @@ abstract class GoValue {
   int get hashCode => Object.hash(runtimeType, value);
 }
 
-/// Valor do Go que atravessa como o JSON do próprio kubo (config.Config).
+/// Go value that crosses as kubo's own JSON (config.Config).
 abstract class GoJsonValue {
   GoJsonValue(this.json);
 
   final Map<String, Object?> json;
 }
 
-/// Struct do Go (DTO): escreve os campos que atravessam, em ordem.
+/// Go struct (DTO): writes the fields that cross, in order.
 abstract interface class GoDto {
   void $enc($W w);
 }
 
-/// Opção funcional do Go: o índice do construtor (em `tinfo.ctors` do
-/// gerador) e quem escreve os parâmetros dele.
+/// Go functional option: the constructor index (in the generator's
+/// `tinfo.ctors`) and the function that writes its parameters.
 abstract class GoOption {
   GoOption(this.$i, this.$a);
 
@@ -341,8 +346,8 @@ abstract class GoOption {
   final void Function($W w) $a;
 }
 
-/// Resultado não nulo: nil do Go vira IpfsException.
-Never $nil() => throw IpfsException('o Go devolveu nil');
+/// Non-null result: a Go nil becomes an IpfsException.
+Never $nil() => throw IpfsException('Go returned nil');
 
-/// Getter de instantâneo com erro: o valor, ou null se o Go deu erro.
+/// Snapshot getter with an error: the value, or null if Go returned an error.
 T? $orErr<T>(T v, String? err) => err == null ? v : null;

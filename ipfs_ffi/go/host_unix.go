@@ -60,7 +60,7 @@ func listen(path string, size int, init func([]byte)) (hostChan, error) {
 	var hs [8]byte
 	binary.LittleEndian.PutUint64(hs[:], uint64(size))
 	if _, _, err := conn.WriteMsgUnix(hs[:], unix.UnixRights(fd), nil); err != nil {
-		return nil, fmt.Errorf("aperto de mão: %w", err)
+		return nil, fmt.Errorf("handshake: %w", err)
 	}
 	unix.Close(fd)
 	return &unixChan{mem: mem, conn: conn}, nil

@@ -1,12 +1,12 @@
-/// O serviço: o kubo roda no executável `ipfs_host`, noutro processo; o app
-/// só fala com ele pela `ipfs_shm` (memória compartilhada; protocolo no
-/// `WIRE.md`). Um panic do Go derruba só o serviço, e no Android o pacote o
-/// para quando o app vai para o segundo plano ([IpfsService.background]):
-/// as chamadas pendentes falham com [IpfsServiceException] (com o
-/// [IpfsStopReason]) e o `onStop` de [IpfsService.start] recebe um
-/// [IpfsStop]; quem usa o pacote decide o que fazer (limpar o log,
-/// [IpfsService.restart], refazer nó e CoreAPI: os handles do serviço
-/// anterior deixam de valer).
+/// The service: kubo runs in the `ipfs_host` executable, in another process;
+/// the app only talks to it through `ipfs_shm` (shared memory; protocol in
+/// `WIRE.md`). A Go panic takes down only the service, and on Android the
+/// package stops it when the app goes to the background
+/// ([IpfsService.background]): pending calls fail with
+/// [IpfsServiceException] (carrying the [IpfsStopReason]) and the `onStop` of
+/// [IpfsService.start] receives an [IpfsStop]; the package user decides what
+/// to do (clear the log, [IpfsService.restart], recreate the node and
+/// CoreAPI: handles from the previous service are no longer valid).
 ///
 /// ```dart
 /// await IpfsService.start(crashLog: 'crash.log', onStop: (stop) async {
@@ -14,7 +14,7 @@
 ///   if (stop.reason == IpfsStopReason.crash) await IpfsService.restart();
 /// });
 /// final ctx = context.background();
-/// // ... a API gerada ...
+/// // ... the generated API ...
 /// await IpfsService.stop();
 /// ```
 library;
@@ -32,68 +32,69 @@ export 'src/runtime.dart'
     show IpfsException, IpfsServiceException, IpfsStopReason;
 export 'src/shm.dart' show ipfsShmLibraryPath;
 
-/// Função Hello (WIRE.md): `u64` hash da tabela → vazio, ou erro.
+/// Hello function (WIRE.md): `u64` table hash → empty, or error.
 const _fnHello = 4;
 
-/// O que acontece com o serviço quando o app vai para o segundo plano (só
-/// conta no Android, com o plugin `ipfs_ffi_flutter`).
+/// What happens to the service when the app goes to the background (only
+/// matters on Android, with the `ipfs_ffi_flutter` plugin).
 enum IpfsBackground {
-  /// O pacote para o serviço (o host sai) e avisa no `onStop` com
-  /// [IpfsStopReason.background]; subir de novo fica com o app. O padrão:
-  /// o Android 12+ mata um processo filho que gaste CPU com o app em segundo
-  /// plano, e o app junto.
+  /// The package stops the service (the host exits) and reports it in
+  /// `onStop` with [IpfsStopReason.background]; starting it again is up to
+  /// the app. The default: Android 12+ kills a child process that uses CPU
+  /// while the app is in the background, and the app along with it.
   stop,
 
-  /// O serviço segue rodando: o plugin mantém um serviço em primeiro plano do
-  /// Android (com notificação) enquanto o host estiver de pé.
+  /// The service keeps running: the plugin keeps an Android foreground
+  /// service (with a notification) while the host is up.
   foregroundService,
 }
 
-/// O lado da plataforma (no Android, o plugin `ipfs_ffi_flutter` instala o
-/// seu ao abrir o app): avisado quando o serviço sobe e quando para.
+/// The platform side (on Android, the `ipfs_ffi_flutter` plugin installs its
+/// own when the app opens): notified when the service starts and when it
+/// stops.
 abstract interface class IpfsPlatform {
-  /// O serviço subiu no modo [mode] (o app está em primeiro plano).
+  /// The service started in mode [mode] (the app is in the foreground).
   Future<void> serviceStarted(IpfsBackground mode);
 
-  /// O serviço parou (stop, queda ou segundo plano).
+  /// The service stopped (stop, crash or background).
   Future<void> serviceStopped();
 }
 
-/// Uma parada do ipfs_host sem [IpfsService.stop]: caiu ou foi parado no
-/// segundo plano ([reason]).
+/// A stop of the ipfs_host without [IpfsService.stop]: it crashed or was
+/// stopped in the background ([reason]).
 final class IpfsStop {
   IpfsStop._(this.reason, this.exitCode, this.report, this.crashLog, this.pid,
       this.uptime);
 
-  /// Caiu ([IpfsStopReason.crash]) ou foi parado com o app em segundo plano
-  /// ([IpfsStopReason.background]).
+  /// Crashed ([IpfsStopReason.crash]) or stopped with the app in the
+  /// background ([IpfsStopReason.background]).
   final IpfsStopReason reason;
 
-  /// O código de saída do host (2 num panic do Go).
+  /// The host's exit code (2 on a Go panic).
   final int exitCode;
 
-  /// O relatório do Go numa queda: o que o host acrescentou ao [crashLog]
-  /// desde que subiu, ou o stderr dele (sem crashLog, ou se o arquivo ficou
-  /// vazio). Vazio no segundo plano.
+  /// Go's report on a crash: what the host appended to [crashLog] since it
+  /// started, or its stderr (without a crashLog, or if the file stayed
+  /// empty). Empty in the background case.
   final String report;
 
-  /// O arquivo de crash passado ao [IpfsService.start] (null se nenhum); o
-  /// host só acrescenta nele, e limpar fica a cargo de quem usa o pacote.
+  /// The crash file passed to [IpfsService.start] (null if none); the host
+  /// only appends to it, and clearing it is up to the package user.
   final String? crashLog;
 
-  /// O pid do host que parou.
+  /// The pid of the host that stopped.
   final int pid;
 
-  /// Quanto tempo ele ficou de pé.
+  /// How long it stayed up.
   final Duration uptime;
 
-  /// A mesma exceção que as chamadas pendentes receberam.
+  /// The same exception the pending calls received.
   IpfsServiceException get exception => IpfsServiceException(
       switch (reason) {
-        IpfsStopReason.crash => 'o ipfs_host caiu (saída $exitCode)'
+        IpfsStopReason.crash => 'ipfs_host crashed (exit $exitCode)'
             '${report.isEmpty ? '' : ': $report'}',
         IpfsStopReason.background =>
-          'o serviço foi parado: o app foi para o segundo plano',
+          'the service was stopped: the app went to the background',
       },
       reason: reason);
 
@@ -101,10 +102,10 @@ final class IpfsStop {
   String toString() => exception.message;
 }
 
-/// O que fazer quando o ipfs_host para; ver [IpfsService.start].
+/// What to do when the ipfs_host stops; see [IpfsService.start].
 typedef IpfsStopHandler = FutureOr<void> Function(IpfsStop stop);
 
-/// O serviço desta isolate (um canal por isolate).
+/// This isolate's service (one channel per isolate).
 abstract final class IpfsService {
   static ShmChannel? _ch;
   static ({
@@ -113,37 +114,39 @@ abstract final class IpfsService {
     int spin,
     IpfsStopHandler? onStop
   })? _params;
-  static var _mode = IpfsBackground.stop; // lido de [background] ao subir
-  static var _logStart = 0; // tamanho do crashLog quando o host atual subiu
+  static var _mode = IpfsBackground.stop; // read from [background] on start
+  static var _logStart = 0; // crashLog size when the current host started
   static final _up = Stopwatch();
 
-  /// O que fazer com o serviço quando o app vai para o segundo plano
-  /// (padrão: parar). Lida a cada [start] e [restart]: mudar com o serviço
-  /// de pé vale na próxima subida.
+  /// What to do with the service when the app goes to the background
+  /// (default: stop). Read on each [start] and [restart]: changing it while
+  /// the service is up takes effect on the next start.
   static IpfsBackground background = IpfsBackground.stop;
 
-  /// O lado da plataforma; no Android, o plugin `ipfs_ffi_flutter` o instala
-  /// ao abrir o app. Sem ele o pacote não sabe do segundo plano (um app sem
-  /// Flutter pode chamar [appInBackground] ele mesmo).
+  /// The platform side; on Android, the `ipfs_ffi_flutter` plugin installs it
+  /// when the app opens. Without it the package does not know about the
+  /// background (an app without Flutter can call [appInBackground] itself).
   static IpfsPlatform? platform;
 
-  /// Lança o ipfs_host ([hostPath]; padrão [defaultHostPath]), conecta, confere
-  /// no Hello que app e host vieram do mesmo gerador e liga a API gerada a
-  /// ele. [crashLog]: arquivo onde o Go acrescenta o relatório de um panic que
-  /// derrube o host. [spin]: voltas da espera ativa antes de dormir no sininho.
+  /// Launches the ipfs_host ([hostPath]; default [defaultHostPath]), connects,
+  /// checks in the Hello that app and host came from the same generator and
+  /// binds the generated API to it. [crashLog]: file where Go appends the
+  /// report of a panic that takes the host down. [spin]: busy-wait iterations
+  /// before sleeping on the bell.
   ///
-  /// Se o host parar sem [stop] (caiu, ou o app foi para o segundo plano no
-  /// modo [IpfsBackground.stop]), nada volta sozinho: as chamadas pendentes
-  /// falham com [IpfsServiceException] e [onStop] (padrão: nenhum) recebe um
-  /// [IpfsStop] com o motivo; ele decide se limpa o [crashLog], se chama
-  /// [restart] e quando. Já rodando, é um [StateError].
+  /// If the host stops without [stop] (crashed, or the app went to the
+  /// background in [IpfsBackground.stop] mode), nothing comes back on its
+  /// own: pending calls fail with [IpfsServiceException] and [onStop]
+  /// (default: none) receives an [IpfsStop] with the reason; it decides
+  /// whether to clear the [crashLog], whether to call [restart] and when.
+  /// Already running, it is a [StateError].
   static Future<void> start(
       {String? hostPath,
       String? crashLog,
       int spin = 20000,
       IpfsStopHandler? onStop}) async {
     if (isRunning) {
-      throw StateError('o IpfsService já está rodando (stop() antes)');
+      throw StateError('IpfsService is already running (stop() first)');
     }
     _params = (
       hostPath: hostPath ?? defaultHostPath(),
@@ -154,16 +157,16 @@ abstract final class IpfsService {
     await _launch();
   }
 
-  /// Lança de novo o host com os parâmetros do último [start] (inclusive o
-  /// `onStop`) e o [background] atual; para usar depois de uma parada. Sem
-  /// [start] antes (ou depois de [stop]), é um [StateError]; já rodando,
-  /// também.
+  /// Launches the host again with the parameters of the last [start]
+  /// (including `onStop`) and the current [background]; for use after a stop.
+  /// Without a [start] before (or after [stop]), it is a [StateError];
+  /// already running, too.
   static Future<void> restart() async {
     if (_params == null) {
-      throw StateError('o IpfsService não foi iniciado (start() antes)');
+      throw StateError('IpfsService was not started (start() first)');
     }
     if (isRunning) {
-      throw StateError('o IpfsService já está rodando (stop() antes)');
+      throw StateError('IpfsService is already running (stop() first)');
     }
     await _launch();
   }
@@ -178,13 +181,13 @@ abstract final class IpfsService {
     if (mode == IpfsBackground.foregroundService &&
         Platform.isAndroid &&
         platform == null) {
-      throw StateError('IpfsBackground.foregroundService no Android pede o '
-          'plugin ipfs_ffi_flutter no app');
+      throw StateError('IpfsBackground.foregroundService on Android requires '
+          'the ipfs_ffi_flutter plugin in the app');
     }
     final p = _params!;
     if (p.crashLog case final f?) {
       final file =
-          File(f); // o host acrescenta: o relatório novo vem depois daqui
+          File(f); // the host appends: the new report comes after this point
       _logStart = file.existsSync() ? file.lengthSync() : 0;
     }
     final ch =
@@ -207,16 +210,17 @@ abstract final class IpfsService {
     try {
       await platform?.serviceStarted(mode);
     } catch (_) {
-      // o lado da plataforma falhou (ex.: o Android negou o serviço em
-      // primeiro plano): o serviço não fica de pé pela metade
+      // the platform side failed (e.g. Android denied the foreground
+      // service): the service is not left half up
       await _stop(true);
       rethrow;
     }
   }
 
-  /// O host [ch] saiu sem stop(): solta o canal e entrega a queda ao onStop.
+  /// The host [ch] exited without stop(): releases the channel and delivers
+  /// the crash to onStop.
   static Future<void> _died(ShmChannel ch, int code) async {
-    if (!identical(_ch, ch)) return; // parado ou já trocado
+    if (!identical(_ch, ch)) return; // stopped or already replaced
     final crashLog = _params?.crashLog;
     var report = '';
     if (crashLog != null) {
@@ -227,7 +231,7 @@ abstract final class IpfsService {
                 allowMalformed: true)
             .trim();
       } on FileSystemException {
-        // sem arquivo: fica o stderr
+        // no file: stderr is used
       }
     }
     if (report.isEmpty) report = ch.hostStderr.trim();
@@ -237,15 +241,16 @@ abstract final class IpfsService {
     $detach(s.exception);
     await ch.close();
     await platform?.serviceStopped();
-    // um erro do onStop vai para a zona de quem chamou start()
+    // an error from onStop goes to the zone of whoever called start()
     await _params?.onStop?.call(s);
   }
 
-  /// O app foi para o segundo plano: no modo [IpfsBackground.stop] (o
-  /// [background] da subida atual), para o serviço e avisa no `onStop` com
-  /// [IpfsStopReason.background]; as pendentes falham com esse motivo e
-  /// [restart] sobe de novo. No [IpfsBackground.foregroundService], ou sem
-  /// serviço, não faz nada. O plugin `ipfs_ffi_flutter` chama sozinho.
+  /// The app went to the background: in [IpfsBackground.stop] mode (the
+  /// [background] of the current start), stops the service and reports it in
+  /// `onStop` with [IpfsStopReason.background]; pending calls fail with that
+  /// reason and [restart] starts it again. In
+  /// [IpfsBackground.foregroundService], or without a service, does nothing.
+  /// The `ipfs_ffi_flutter` plugin calls it on its own.
   static Future<void> appInBackground() async {
     final ch = _ch;
     if (ch == null || !isRunning || _mode != IpfsBackground.stop) return;
@@ -258,8 +263,8 @@ abstract final class IpfsService {
     await _params?.onStop?.call(s);
   }
 
-  /// Para o serviço; o host sai sozinho. Os handles do serviço deixam de
-  /// valer. Não chama o `onStop`.
+  /// Stops the service; the host exits on its own. The service's handles are
+  /// no longer valid. Does not call `onStop`.
   static Future<void> stop() => _stop(false);
 
   static Future<void> _stop(bool keepParams) async {
@@ -272,22 +277,22 @@ abstract final class IpfsService {
     await platform?.serviceStopped();
   }
 
-  /// Se o serviço está de pé (depois de uma parada, false até o [restart]).
+  /// Whether the service is up (after a stop, false until [restart]).
   static bool get isRunning => _ch != null && _ch!.deadReason == null;
 
-  /// O código de saída do host atual (completa quando ele sai, inclusive por
-  /// um panic); null sem serviço.
+  /// The current host's exit code (completes when it exits, including on a
+  /// panic); null without a service.
   static Future<int>? get exitCode => _ch?.exitCode;
 
-  /// O pid do host atual; null sem serviço.
+  /// The current host's pid; null without a service.
   static int? get hostPid => _ch?.hostPid;
 }
 
-/// Caminho padrão do ipfs_host: `native\ipfs_host.exe` (Windows) ou
-/// `native/ipfs_host` relativo ao diretório atual; no Android, a
-/// `libipfs_host.so` na pasta das libs nativas do app (`nativeLibraryDir`),
-/// achada pela `libapp.so`/`libflutter.so` em `/proc/self/maps` (o APK precisa
-/// extrair as libs: um executável não roda de dentro do APK).
+/// Default ipfs_host path: `native\ipfs_host.exe` (Windows) or
+/// `native/ipfs_host` relative to the current directory; on Android, the
+/// `libipfs_host.so` in the app's native library folder (`nativeLibraryDir`),
+/// found through `libapp.so`/`libflutter.so` in `/proc/self/maps` (the APK
+/// must extract the libs: an executable does not run from inside the APK).
 String defaultHostPath() {
   if (Platform.isWindows) return r'native\ipfs_host.exe';
   if (!Platform.isAndroid) return 'native/ipfs_host';
@@ -299,6 +304,6 @@ String defaultHostPath() {
       return '${f.substring(0, f.lastIndexOf('/'))}/libipfs_host.so';
     }
   }
-  throw IpfsServiceException('ipfs_host: a pasta das libs nativas do app não '
-      'apareceu em /proc/self/maps; passe hostPath');
+  throw IpfsServiceException('ipfs_host: the native library folder of the '
+      'app did not appear in /proc/self/maps; pass hostPath');
 }

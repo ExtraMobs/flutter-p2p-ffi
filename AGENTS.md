@@ -36,7 +36,7 @@ Regras fundamentais:
 | `tests/golden/<caso>/` | `<caso>.go` → `.goast.json` → `.dart` esperados (+ `.dartast.json` opcional) | — |
 | `tests/corpus/kubo/` | Corpus real fixado: módulo que só declara `tool github.com/ipfs/kubo/cmd/ipfs` (kubo **v0.43.1**, boxo v0.42.x); `go.mod`/`go.sum` fixam o grafo inteiro | Go |
 | `TODO/` | Backlog: um artefato markdown por problema, com prova real (ver "Processo") | Markdown |
-| `ipfs_ffi/` | Caminho alternativo à transpilação: o kubo compilado como biblioteca (`-buildmode=c-shared`) com binding `dart:ffi` e API Dart gerada (`go/gen`). Só VM/AOT (Windows, linux, Android), não JS/Wasm; independente do g2d, com docs, testes e pendências próprios (`ipfs_ffi/README.md`, `ipfs_ffi/TODO.md`) | Go + Dart |
+| `ipfs_ffi/` | Caminho alternativo à transpilação: o kubo compilado como o executável `ipfs_host` (outro processo; um panic do Go não derruba o app), canal por memória compartilhada (`shm/ipfs_shm.c`, protocolo em `WIRE.md`) e API Dart gerada (`go/gen`); plugin Flutter companheiro em `ipfs_ffi/flutter` (segundo plano do Android). Só VM/AOT (Windows, linux, Android), não JS/Wasm; independente do g2d, com docs, testes e pendências próprios (`ipfs_ffi/README.md`, `ipfs_ffi/TODO.md`) | Go + Dart + C |
 | `docs/` | Documentos vivos (ver abaixo) | Markdown |
 
 Branch `archive` (só leitura): a tentativa anterior, o port manual `dart IPFS`
@@ -109,6 +109,7 @@ dart format out/ && dart analyze out/
 ## Convenções
 
 - **`dart format` antes de todo commit (dono, 2026-10-15):** todo `.dart` escrito à mão que o commit traz passa pelo `dart format` antes do `git commit` (`golib_dart/`, `tools/dartast/`, `ipfs_ffi/` e o app em `ipfs_ffi/example/android_app/`; o gerado já sai formatado). Conferir com `dart format --output=none --set-exit-if-changed <arquivos>`.
+- **Lib do `ipfs_ffi` em inglês (dono, 2026-10-15):** comentários e mensagens da lib publicada (`ipfs_ffi/lib/`, o que o gerador escreve nela, `ipfs_ffi/flutter/`) e as mensagens que o `ipfs_host` e a `ipfs_shm` devolvem ao app ficam em inglês. Testes, ferramentas, comentários internos do Go/C e docs seguem em português.
 - **Sem novas dependências externas sem aprovação explícita do usuário.** As únicas permitidas hoje: `golang.org/x/tools` (goast), `package:analyzer` (dartast), shims Dart pontuais (`package:http`, `package:crypto`) quando um shim exigir.
 - Python: stdlib apenas (`json`, `dataclasses`, `argparse`, `unittest`).
 - Todo dump JSON carrega `schemaVersion`; bump ao mudar o schema. Atual: goast **10** (tipos inline na AST, `bytes`, method sets, `implements` com interfaces anônimas e genéricas, `$inst`, `initOrder`, `otherFiles`/`module`, `fold`, `pkg` de campos/métodos não exportados, `conversions`/`asserts` para o `implements` entre pacotes; ver `tools/goast/README.md`), dartast **1**.

@@ -1,5 +1,5 @@
-/// O pacote `context` do Go (escrito à mão; funções 16–21 do WIRE.md): o
-/// `Context` que os métodos assíncronos recebem e o cancelamento deles.
+/// Go's `context` package (hand-written; functions 16–21 of WIRE.md): the
+/// `Context` that asynchronous methods receive and their cancellation.
 ///
 /// ```dart
 /// import 'package:ipfs_ffi/context.dart' as context;
@@ -19,11 +19,11 @@ import 'package:ipfs_ffi/src/runtime.dart';
 class Context extends GoHandle {
   Context.$h(super.$h);
 
-  /// Go: `func (context.Context).Err() error`: null enquanto não cancelado.
+  /// Go: `func (context.Context).Err() error`: null while not canceled.
   String? err() => $callSync(21, $W()..h(this)).err();
 }
 
-/// Go: `context.CancelFunc`: chame `cancel()` para cancelar.
+/// Go: `context.CancelFunc`: call `cancel()` to cancel.
 class CancelFunc extends GoHandle {
   CancelFunc.$h(super.$h);
 

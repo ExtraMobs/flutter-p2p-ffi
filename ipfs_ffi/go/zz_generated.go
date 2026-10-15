@@ -2310,7 +2310,7 @@ func opts6(q *req, r *reader) (out []p_options.KeyGenerateOption, done func(), e
 			}
 			out = append(out, p_options.Key.Type(a0))
 		default:
-			return nil, done, fmt.Errorf("ipfs_host: opção %d desconhecida de github.com/ipfs/kubo/core/coreiface/options.KeyGenerateOption", i)
+			return nil, done, fmt.Errorf("ipfs_host: unknown option %d of github.com/ipfs/kubo/core/coreiface/options.KeyGenerateOption", i)
 		}
 	}
 	return out, done, r.err
@@ -2434,7 +2434,7 @@ func opts13(q *req, r *reader) (out []p_options.ApiOption, done func(), err erro
 			}
 			out = append(out, p_options.Api.Offline(a0))
 		default:
-			return nil, done, fmt.Errorf("ipfs_host: opção %d desconhecida de github.com/ipfs/kubo/core/coreiface/options.ApiOption", i)
+			return nil, done, fmt.Errorf("ipfs_host: unknown option %d of github.com/ipfs/kubo/core/coreiface/options.ApiOption", i)
 		}
 	}
 	return out, done, r.err
@@ -2521,7 +2521,7 @@ func opts17(q *req, r *reader) (out []p_options.BlockPutOption, done func(), err
 			}
 			out = append(out, p_options.Block.Pin(a0))
 		default:
-			return nil, done, fmt.Errorf("ipfs_host: opção %d desconhecida de github.com/ipfs/kubo/core/coreiface/options.BlockPutOption", i)
+			return nil, done, fmt.Errorf("ipfs_host: unknown option %d of github.com/ipfs/kubo/core/coreiface/options.BlockPutOption", i)
 		}
 	}
 	return out, done, r.err
@@ -2566,7 +2566,7 @@ func opts19(q *req, r *reader) (out []p_options.BlockRmOption, done func(), err 
 			}
 			out = append(out, p_options.Block.Force(a0))
 		default:
-			return nil, done, fmt.Errorf("ipfs_host: opção %d desconhecida de github.com/ipfs/kubo/core/coreiface/options.BlockRmOption", i)
+			return nil, done, fmt.Errorf("ipfs_host: unknown option %d of github.com/ipfs/kubo/core/coreiface/options.BlockRmOption", i)
 		}
 	}
 	return out, done, r.err
@@ -2634,7 +2634,7 @@ func opts23(q *req, r *reader) (out []p_options.KeyRenameOption, done func(), er
 			}
 			out = append(out, p_options.Key.Force(a0))
 		default:
-			return nil, done, fmt.Errorf("ipfs_host: opção %d desconhecida de github.com/ipfs/kubo/core/coreiface/options.KeyRenameOption", i)
+			return nil, done, fmt.Errorf("ipfs_host: unknown option %d of github.com/ipfs/kubo/core/coreiface/options.KeyRenameOption", i)
 		}
 	}
 	return out, done, r.err
@@ -2705,7 +2705,7 @@ func opts24(q *req, r *reader) (out []p_options.NamePublishOption, done func(), 
 			}
 			out = append(out, p_options.Name.ValidTime(a0))
 		default:
-			return nil, done, fmt.Errorf("ipfs_host: opção %d desconhecida de github.com/ipfs/kubo/core/coreiface/options.NamePublishOption", i)
+			return nil, done, fmt.Errorf("ipfs_host: unknown option %d of github.com/ipfs/kubo/core/coreiface/options.NamePublishOption", i)
 		}
 	}
 	return out, done, r.err
@@ -2746,7 +2746,7 @@ func opts25(q *req, r *reader) (out []p_options.NameResolveOption, done func(), 
 			}
 			out = append(out, p_options.Name.ResolveOption(a0))
 		default:
-			return nil, done, fmt.Errorf("ipfs_host: opção %d desconhecida de github.com/ipfs/kubo/core/coreiface/options.NameResolveOption", i)
+			return nil, done, fmt.Errorf("ipfs_host: unknown option %d of github.com/ipfs/kubo/core/coreiface/options.NameResolveOption", i)
 		}
 	}
 	return out, done, r.err
@@ -2793,7 +2793,7 @@ func opts27(q *req, r *reader) (out []p_options.PinAddOption, done func(), err e
 			}
 			out = append(out, p_options.Pin.Recursive(a0))
 		default:
-			return nil, done, fmt.Errorf("ipfs_host: opção %d desconhecida de github.com/ipfs/kubo/core/coreiface/options.PinAddOption", i)
+			return nil, done, fmt.Errorf("ipfs_host: unknown option %d of github.com/ipfs/kubo/core/coreiface/options.PinAddOption", i)
 		}
 	}
 	return out, done, r.err
@@ -2840,7 +2840,7 @@ func opts28(q *req, r *reader) (out []p_options.PinIsPinnedOption, done func(), 
 			}
 			out = append(out, o)
 		default:
-			return nil, done, fmt.Errorf("ipfs_host: opção %d desconhecida de github.com/ipfs/kubo/core/coreiface/options.PinIsPinnedOption", i)
+			return nil, done, fmt.Errorf("ipfs_host: unknown option %d of github.com/ipfs/kubo/core/coreiface/options.PinIsPinnedOption", i)
 		}
 	}
 	return out, done, r.err
@@ -2899,7 +2899,7 @@ func opts29(q *req, r *reader) (out []p_options.PinLsOption, done func(), err er
 			}
 			out = append(out, o)
 		default:
-			return nil, done, fmt.Errorf("ipfs_host: opção %d desconhecida de github.com/ipfs/kubo/core/coreiface/options.PinLsOption", i)
+			return nil, done, fmt.Errorf("ipfs_host: unknown option %d of github.com/ipfs/kubo/core/coreiface/options.PinLsOption", i)
 		}
 	}
 	return out, done, r.err
@@ -2945,7 +2945,7 @@ func opts31(q *req, r *reader) (out []p_options.PinRmOption, done func(), err er
 			}
 			out = append(out, p_options.Pin.RmRecursive(a0))
 		default:
-			return nil, done, fmt.Errorf("ipfs_host: opção %d desconhecida de github.com/ipfs/kubo/core/coreiface/options.PinRmOption", i)
+			return nil, done, fmt.Errorf("ipfs_host: unknown option %d of github.com/ipfs/kubo/core/coreiface/options.PinRmOption", i)
 		}
 	}
 	return out, done, r.err
@@ -2980,7 +2980,7 @@ func opts32(q *req, r *reader) (out []p_options.PinUpdateOption, done func(), er
 			}
 			out = append(out, p_options.Pin.Unpin(a0))
 		default:
-			return nil, done, fmt.Errorf("ipfs_host: opção %d desconhecida de github.com/ipfs/kubo/core/coreiface/options.PinUpdateOption", i)
+			return nil, done, fmt.Errorf("ipfs_host: unknown option %d of github.com/ipfs/kubo/core/coreiface/options.PinUpdateOption", i)
 		}
 	}
 	return out, done, r.err
@@ -3047,7 +3047,7 @@ func opts36(q *req, r *reader) (out []p_options.PubSubPeersOption, done func(), 
 			}
 			out = append(out, p_options.PubSub.Topic(a0))
 		default:
-			return nil, done, fmt.Errorf("ipfs_host: opção %d desconhecida de github.com/ipfs/kubo/core/coreiface/options.PubSubPeersOption", i)
+			return nil, done, fmt.Errorf("ipfs_host: unknown option %d of github.com/ipfs/kubo/core/coreiface/options.PubSubPeersOption", i)
 		}
 	}
 	return out, done, r.err
@@ -3093,7 +3093,7 @@ func opts38(q *req, r *reader) (out []p_options.PubSubSubscribeOption, done func
 			}
 			out = append(out, p_options.PubSub.Discover(a0))
 		default:
-			return nil, done, fmt.Errorf("ipfs_host: opção %d desconhecida de github.com/ipfs/kubo/core/coreiface/options.PubSubSubscribeOption", i)
+			return nil, done, fmt.Errorf("ipfs_host: unknown option %d of github.com/ipfs/kubo/core/coreiface/options.PubSubSubscribeOption", i)
 		}
 	}
 	return out, done, r.err
@@ -3169,7 +3169,7 @@ func opts42(q *req, r *reader) (out []p_options.RoutingFindProvidersOption, done
 			}
 			out = append(out, p_options.Routing.NumProviders(a0))
 		default:
-			return nil, done, fmt.Errorf("ipfs_host: opção %d desconhecida de github.com/ipfs/kubo/core/coreiface/options.RoutingFindProvidersOption", i)
+			return nil, done, fmt.Errorf("ipfs_host: unknown option %d of github.com/ipfs/kubo/core/coreiface/options.RoutingFindProvidersOption", i)
 		}
 	}
 	return out, done, r.err
@@ -3216,7 +3216,7 @@ func opts43(q *req, r *reader) (out []p_options.RoutingProvideOption, done func(
 			}
 			out = append(out, p_options.Routing.Recursive(a0))
 		default:
-			return nil, done, fmt.Errorf("ipfs_host: opção %d desconhecida de github.com/ipfs/kubo/core/coreiface/options.RoutingProvideOption", i)
+			return nil, done, fmt.Errorf("ipfs_host: unknown option %d of github.com/ipfs/kubo/core/coreiface/options.RoutingProvideOption", i)
 		}
 	}
 	return out, done, r.err
@@ -3488,7 +3488,7 @@ func opts50(q *req, r *reader) (out []p_options.UnixfsAddOption, done func(), er
 			}
 			out = append(out, p_options.Unixfs.SizeEstimationMode(a0))
 		default:
-			return nil, done, fmt.Errorf("ipfs_host: opção %d desconhecida de github.com/ipfs/kubo/core/coreiface/options.UnixfsAddOption", i)
+			return nil, done, fmt.Errorf("ipfs_host: unknown option %d of github.com/ipfs/kubo/core/coreiface/options.UnixfsAddOption", i)
 		}
 	}
 	return out, done, r.err
@@ -3529,7 +3529,7 @@ func opts53(q *req, r *reader) (out []p_options.UnixfsLsOption, done func(), err
 			}
 			out = append(out, p_options.Unixfs.UseCumulativeSize(a0))
 		default:
-			return nil, done, fmt.Errorf("ipfs_host: opção %d desconhecida de github.com/ipfs/kubo/core/coreiface/options.UnixfsLsOption", i)
+			return nil, done, fmt.Errorf("ipfs_host: unknown option %d of github.com/ipfs/kubo/core/coreiface/options.UnixfsLsOption", i)
 		}
 	}
 	return out, done, r.err

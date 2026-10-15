@@ -24,14 +24,14 @@ func init() {
 	// test/crash_child.dart: panic numa goroutine fora de qualquer chamada,
 	// como um bug interno do kubo; o guard não o alcança e o host cai.
 	table[24] = entry{key: "ipfs_ffi/test.PanicInGoroutine", fn: noArgs(func(*req, *writer) error {
-		go func() { panic("ipfs_ffi: panic de teste numa goroutine") }()
+		go func() { panic("ipfs_ffi: test panic in a goroutine") }()
 		return nil
 	})}
 	// Como uma função do kubo com chan<- (gerada com goTry): item 1 e o
 	// panic vira o erro da stream.
 	table[25] = entry{key: "ipfs_ffi/test.PanicInChanFunc", stream: true, fn: noArgs(func(q *req, _ *writer) error {
 		ch, errc := make(chan int), make(chan error, 1)
-		goTry(errc, func() error { ch <- 1; panic("ipfs_ffi: panic de teste numa função com canal") })
+		goTry(errc, func() error { ch <- 1; panic("ipfs_ffi: test panic in a function with a channel") })
 		v := <-ch
 		q.item(func(w *writer) { w.i64(int64(v)) })
 		return <-errc
@@ -45,7 +45,7 @@ func init() {
 		}
 		ch, done := chanSink(q, sid, func(w *writer, i int) {
 			if i == 2 {
-				panic("ipfs_ffi: panic de teste no sink")
+				panic("ipfs_ffi: test panic in the sink")
 			}
 			w.i64(int64(i))
 		})
@@ -77,7 +77,7 @@ func init() {
 		}
 		p, ok := config.Profiles[name]
 		if !ok {
-			return fmt.Errorf("perfil de config desconhecido: %q", name)
+			return fmt.Errorf("unknown config profile: %q", name)
 		}
 		var c config.Config
 		if err := json.Unmarshal([]byte(js), &c); err != nil {

@@ -170,7 +170,7 @@ func TestHostDispatch(t *testing.T) {
 	if id, kind, _ := ask(5, fnHello, modeSync, func(w *writer) { w.u64(tableHash) }); id != 5 || kind != evValue {
 		t.Fatalf("Hello certo: %d %d", id, kind)
 	}
-	if _, kind, msg := ask(6, fnHello, modeSync, func(w *writer) { w.u64(tableHash + 1) }); kind != evError || !strings.Contains(msg, "tabela") {
+	if _, kind, msg := ask(6, fnHello, modeSync, func(w *writer) { w.u64(tableHash + 1) }); kind != evError || !strings.Contains(msg, "table") {
 		t.Fatalf("Hello errado: %d %s", kind, msg)
 	}
 	hd := hput(t)

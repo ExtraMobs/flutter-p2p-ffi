@@ -1,10 +1,10 @@
-/// Kubo (IPFS em Go) num processo separado, o `ipfs_host`, com a API do
-/// próprio Go no Dart.
+/// Kubo (IPFS in Go) in a separate process, the `ipfs_host`, with Go's own
+/// API in Dart.
 ///
-/// A API é uma library por pacote (sem o prefixo `github.com/<org>/`), gerada
-/// a partir de `go/gen/roots.txt`; a lista do que existe está no `API.md`.
-/// Inicie o serviço antes de usá-la e importe cada pacote com prefixo, como no
-/// Go:
+/// The API is one library per package (without the `github.com/<org>/`
+/// prefix), generated from `go/gen/roots.txt`; the list of what exists is in
+/// `API.md`. Start the service before using it and import each package with a
+/// prefix, as in Go:
 ///
 /// ```dart
 /// import 'package:ipfs_ffi/context.dart' as context;

@@ -304,7 +304,7 @@ func (g *goEmitter) decOpts(t *tinfo) string {
 				fmt.Fprintf(&b, "\t\t\tout = append(out, %s)\n", call)
 			}
 		}
-		fmt.Fprintf(&b, "\t\tdefault:\n\t\t\treturn nil, done, fmt.Errorf(\"ipfs_host: opção %%d desconhecida de %s\", i)\n\t\t}\n\t}\n\treturn out, done, r.err\n}\n", t.key)
+		fmt.Fprintf(&b, "\t\tdefault:\n\t\t\treturn nil, done, fmt.Errorf(\"ipfs_host: unknown option %%d of %s\", i)\n\t\t}\n\t}\n\treturn out, done, r.err\n}\n", t.key)
 		return b.String()
 	})
 }

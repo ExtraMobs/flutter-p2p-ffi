@@ -261,7 +261,7 @@ static int connect_unix(chan *c, const char *path, char **err) {
   memset(&a, 0, sizeof a);
   a.sun_family = AF_UNIX;
   if (strlen(path) >= sizeof a.sun_path) {
-    *err = dupmsg("caminho do socket longo demais");
+    *err = dupmsg("socket path too long");
     return 0;
   }
   strcpy(a.sun_path, path);
@@ -280,12 +280,12 @@ static int connect_unix(chan *c, const char *path, char **err) {
   msg.msg_control = cbuf;
   msg.msg_controllen = sizeof cbuf;
   if (recvmsg(c->fd, &msg, MSG_WAITALL) != (ssize_t)sizeof size) {
-    *err = dupmsg("aperto de mão");
+    *err = dupmsg("handshake");
     return 0;
   }
   struct cmsghdr *cm = CMSG_FIRSTHDR(&msg);
   if (!cm || cm->cmsg_level != SOL_SOCKET || cm->cmsg_type != SCM_RIGHTS) {
-    *err = dupmsg("o host não mandou a região");
+    *err = dupmsg("the host did not send the region");
     return 0;
   }
   int memfd;
@@ -320,7 +320,7 @@ static int connect_win(chan *c, const char *base, char **err) {
   DWORD got = 0, r;
   while (got < 10) {
     if (!ReadFile(c->resppipe, hs + got, 10 - got, &r, NULL) || !r) {
-      *err = dupmsg("aperto de mão");
+      *err = dupmsg("handshake");
       return 0;
     }
     got += r;
@@ -330,12 +330,12 @@ static int connect_win(chan *c, const char *base, char **err) {
   memcpy(&size, hs, 8);
   memcpy(&n, hs + 8, 2);
   if (n > 255) {
-    *err = dupmsg("nome do mapeamento inválido");
+    *err = dupmsg("invalid mapping name");
     return 0;
   }
   for (got = 0; got < n; got += r)
     if (!ReadFile(c->resppipe, hs + 10 + got, n - got, &r, NULL) || !r) {
-      *err = dupmsg("aperto de mão");
+      *err = dupmsg("handshake");
       return 0;
     }
   char name[257];
@@ -346,7 +346,7 @@ static int connect_win(chan *c, const char *base, char **err) {
                                          0, (SIZE_T)size)
                          : NULL;
   if (!mem) {
-    *err = dupmsg("abrir a região");
+    *err = dupmsg("open the region");
     return 0;
   }
   c->mem = mem;
@@ -389,7 +389,7 @@ SHM_API void *shm_connect(const char *endpoint, int32_t spin, shm_wake_cb cb,
     memcpy(&size, c->mem + 8, 8);
     if (magic != MAGIC || version != VERSION ||
         HEADER + 2 * size > c->memsize) {
-      *err = dupmsg("região com versão ou layout diferente");
+      *err = dupmsg("region with a different version or layout");
       ok = 0;
     }
   }

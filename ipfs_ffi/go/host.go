@@ -51,9 +51,9 @@ type host struct {
 
 func runHost() {
 	endpoint := flag.String("endpoint", "", "Unix socket (linux/Android) ou nome base dos pipes (Windows)")
-	crashLog := flag.String("crash-log", "", "arquivo do relatório de crash do Go")
-	ringSize := flag.Int("ring", 4<<20, "bytes de cada anel")
-	spin := flag.Int("spin", 20000, "voltas antes de dormir no sininho")
+	crashLog := flag.String("crash-log", "", "file for the Go crash report")
+	ringSize := flag.Int("ring", 4<<20, "bytes of each ring")
+	spin := flag.Int("spin", 20000, "spins before sleeping on the bell")
 	flag.Parse()
 	if *endpoint == "" {
 		fmt.Fprintln(os.Stderr, "ipfs_host: falta -endpoint")
@@ -142,7 +142,7 @@ func (h *host) dispatch(m []byte) {
 		return
 	case fnSleep:
 		if len(args) < 4 {
-			h.reply(id, evError, []byte("ipfs_host: Sleep sem os ms"))
+			h.reply(id, evError, []byte("ipfs_host: Sleep without the ms"))
 			return
 		}
 		ms := binary.LittleEndian.Uint32(args)
@@ -164,7 +164,7 @@ func (h *host) dispatch(m []byte) {
 		case r.done() != nil:
 			h.reply(id, evError, []byte(r.err.Error()))
 		case got != tableHash:
-			h.reply(id, evError, fmt.Appendf(nil, "ipfs_host: tabela %#x, o app espera %#x (gerados de roots.txt diferentes)", tableHash, got))
+			h.reply(id, evError, fmt.Appendf(nil, "ipfs_host: table %#x, the app expects %#x (generated from different roots.txt)", tableHash, got))
 		default:
 			h.reply(id, evValue, nil)
 		}
@@ -173,7 +173,7 @@ func (h *host) dispatch(m []byte) {
 	e, ok := table[fn]
 	switch {
 	case !ok:
-		h.reply(id, evError, fmt.Appendf(nil, "ipfs_host: função %d desconhecida", fn))
+		h.reply(id, evError, fmt.Appendf(nil, "ipfs_host: unknown function %d", fn))
 		return
 	case e.stream != (mode == modeStream):
 		h.reply(id, evError, fmt.Appendf(nil, "ipfs_host: %s (%d) chamada no modo %d", e.key, fn, mode))

@@ -1,5 +1,39 @@
 # Pendências do ipfs_ffi
 
+## Feito: o segundo plano do Android (0.10.0)
+
+Achado na 0.9.0: o `ipfs_host` é processo filho do app (mesmo usuário, contexto SELinux e
+cgroup). No emulador, um minuto depois do HOME, o *phantom process killer* do Android 12+
+o matou (`excessive cpu 181590 during 300024 ... limit=25`) e matou o app junto ("Caused by
+child process"), sem `onCrash`. Decisões do dono: os dois caminhos, escolhidos por
+`IpfsService.background` (lido a cada `start`/`restart`), padrão parar; ao parar, o pacote
+só avisa (o tipo de parada no callback e na exceção) e subir de novo fica com o app; o
+código Android num plugin companheiro, `ipfs_ffi/flutter`.
+
+- `IpfsStop`/`onStop` (eram `IpfsCrash`/`onCrash`) com `IpfsStopReason` (`crash`,
+  `background`); `IpfsServiceException.reason`, também nas chamadas novas depois da
+  parada; `IpfsService.appInBackground()`; gancho `IpfsService.platform`.
+- Plugin `ipfs_ffi_flutter` (Java, sem dependências): registra-se sozinho
+  (`dartPluginClass`), chama `appInBackground` no `onPause` e, no modo
+  `foregroundService`, sobe com o host um serviço em primeiro plano `specialUse` com
+  notificação (o Android 12+ não deixa iniciá-lo do segundo plano).
+- App de exemplo: modo por `--dart-define=IPFS_BACKGROUND`; o `_onStop` trata queda e
+  segundo plano; a volta ao primeiro plano relança.
+
+Validado no emulador (Android 17), app em release, HOME por 7 min:
+- `stop`: o serviço parou 5 s depois do HOME, o app seguiu no mesmo pid, nenhum kill; na
+  volta o app relançou o host e o nó subiu.
+- `foregroundService`: `IpfsForegroundService` com `isForeground=true` (tipo
+  `specialUse`), app e host com os mesmos pids depois de 7 min, nenhum kill; na volta,
+  nada a relançar.
+
+Integração 4/4 no emulador; desktop 39/39 no Windows e no linux (3x). ⏳ No aparelho real
+(MIUI pode matar mesmo com o serviço em primeiro plano).
+
+Na mesma versão, decisão do dono: a lib publicada fica em inglês (comentários e
+mensagens de `lib/`, o que o gerador escreve nela, o plugin e as mensagens do `ipfs_host`
+e da `ipfs_shm`); testes e docs seguem em português.
+
 ## Feito: o kubo num processo separado (0.9.0)
 
 Objetivo: um panic não tratado dentro do kubo/boxo não fecha o app; o app recebe

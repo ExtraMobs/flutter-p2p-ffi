@@ -50,7 +50,7 @@ void main() {
     print('app pid $pid; host pid ${crash.pid} caiu (saída ${crash.exitCode})');
     expect(crash.reason, IpfsStopReason.crash);
     expect(crash.pid, hostPid);
-    expect(crash.report, contains('panic de teste numa goroutine'));
+    expect(crash.report, contains('test panic in a goroutine'));
     expect(IpfsService.isRunning, isFalse);
 
     await IpfsService.restart();

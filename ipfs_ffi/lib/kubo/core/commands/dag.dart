@@ -1,8 +1,8 @@
-/// `ipfs dag put/get` e `ipfs dag export/import` (arquivos CAR), escritos à
-/// mão (funções 32–35 do WIRE.md); Go em go/manual_dag.go e go/manual_car.go:
-/// gravar e ler objetos IPLD em DAG-CBOR, DAG-JSON, JSON, CBOR, raw ou dag-pb.
-/// No kubo isso é o corpo dos comandos (core/commands/dag/put.go e get.go),
-/// não uma função de biblioteca. Os padrões são os do CLI.
+/// `ipfs dag put/get` and `ipfs dag export/import` (CAR files), hand-written
+/// (functions 32–35 of WIRE.md); Go in go/manual_dag.go and go/manual_car.go:
+/// store and read IPLD objects in DAG-CBOR, DAG-JSON, JSON, CBOR, raw or
+/// dag-pb. In kubo this is the body of the commands (core/commands/dag/put.go
+/// and get.go), not a library function. The defaults are the CLI's.
 ///
 /// ```dart
 /// import 'package:ipfs_ffi/kubo/core/commands/dag.dart' as dag;
@@ -21,12 +21,13 @@ import 'package:ipfs_ffi/kubo/core.dart' as $core;
 import 'package:ipfs_ffi/kubo/core/coreiface.dart' as $coreiface;
 import 'package:ipfs_ffi/src/runtime.dart';
 
-/// `ipfs dag put`: decodifica [data] com [inputCodec], grava com [storeCodec]
-/// (CIDv1, hash [hash]) e devolve o CID. [pin] pina recursivamente;
-/// [allowBigBlock] libera blocos acima de 2 MiB (`--allow-big-block`).
+/// `ipfs dag put`: decodes [data] with [inputCodec], stores it with
+/// [storeCodec] (CIDv1, hash [hash]) and returns the CID. [pin] pins
+/// recursively; [allowBigBlock] allows blocks above 2 MiB
+/// (`--allow-big-block`).
 ///
-/// O CLI usa `Import.HashFunction` da config como hash padrão; aqui o padrão é
-/// o valor padrão dessa config (`sha2-256`).
+/// The CLI uses `Import.HashFunction` from the config as the default hash;
+/// here the default is that config's default value (`sha2-256`).
 Future<$go_cid.Cid> put(
   $coreiface.CoreApi api,
   $context.Context ctx,
@@ -51,8 +52,8 @@ Future<$go_cid.Cid> put(
   return r.p() ? $go_cid.Cid(r.str()) : $nil();
 }
 
-/// `ipfs dag get`: o nó em [path] (que pode continuar dentro dele, ex.
-/// `/ipfs/<cid>/a/b`) codificado com [outputCodec].
+/// `ipfs dag get`: the node at [path] (which may continue inside it, e.g.
+/// `/ipfs/<cid>/a/b`) encoded with [outputCodec].
 Future<Uint8List> get(
   $coreiface.CoreApi api,
   $context.Context ctx,
@@ -69,9 +70,10 @@ Future<Uint8List> get(
   return r.bytes() ?? Uint8List(0);
 }
 
-/// `ipfs dag export`: o DAG de [path] como CARv1 em memória. [localOnly]
-/// (`--local-only`) não toca a rede e pula o que não estiver no repo (CAR
-/// parcial). Precisa do nó (como o comando do kubo), não só da CoreAPI.
+/// `ipfs dag export`: the DAG of [path] as an in-memory CARv1. [localOnly]
+/// (`--local-only`) does not touch the network and skips what is not in the
+/// repo (partial CAR). Needs the node (like the kubo command), not just the
+/// CoreAPI.
 Future<Uint8List> exportCar(
   $core.IpfsNode node,
   $context.Context ctx,
@@ -82,8 +84,8 @@ Future<Uint8List> exportCar(
   return r.bytes() ?? Uint8List(0);
 }
 
-/// `ipfs dag export > [file]`: grava o CARv1 direto no arquivo (os bytes não
-/// passam pelo Dart; use para DAGs grandes).
+/// `ipfs dag export > [file]`: writes the CARv1 straight to the file (the
+/// bytes do not go through Dart; use it for large DAGs).
 Future<void> exportCarFile(
   $core.IpfsNode node,
   $context.Context ctx,
@@ -103,8 +105,8 @@ $W _export($core.IpfsNode node, $context.Context ctx, $path.Path path,
       ..b(localOnly)
       ..str(file);
 
-/// Raiz de um CAR importado (`RootMeta` do kubo): [pinErrorMsg] vazio quando
-/// o pin deu certo.
+/// Root of an imported CAR (kubo's `RootMeta`): [pinErrorMsg] is empty when
+/// the pin succeeded.
 final class RootMeta {
   RootMeta._(this.cid, this.pinErrorMsg);
 
@@ -112,7 +114,7 @@ final class RootMeta {
   final String pinErrorMsg;
 }
 
-/// Resultado do `ipfs dag import` (raízes pinadas e `--stats`).
+/// Result of `ipfs dag import` (pinned roots and `--stats`).
 final class CarImportResult {
   CarImportResult._(this.roots, this.blockCount, this.blockBytesCount);
 
@@ -121,7 +123,8 @@ final class CarImportResult {
   final int blockBytesCount;
 }
 
-/// Função 35: os CARs vêm de [files] ou, se [car] não for null, dos bytes.
+/// Function 35: the CARs come from [files] or, if [car] is not null, from
+/// the bytes.
 Future<CarImportResult> _import(
     $core.IpfsNode node,
     $context.Context ctx,
@@ -144,9 +147,9 @@ Future<CarImportResult> _import(
       r.i64());
 }
 
-/// `ipfs dag import`: grava os blocos do CAR (v1 ou v2) [car] e, com
-/// [pinRoots] (padrão, `--pin-roots`), pina as raízes. Não usa a rede.
-/// [allowBigBlock] aceita blocos acima de 2 MiB.
+/// `ipfs dag import`: stores the blocks of the CAR (v1 or v2) [car] and, with
+/// [pinRoots] (default, `--pin-roots`), pins the roots. Does not use the
+/// network. [allowBigBlock] accepts blocks above 2 MiB.
 Future<CarImportResult> importCar(
   $core.IpfsNode node,
   $context.Context ctx,
@@ -156,7 +159,7 @@ Future<CarImportResult> importCar(
 }) =>
     _import(node, ctx, const [], car, pinRoots, allowBigBlock);
 
-/// `ipfs dag import [files...]`: lê os CARs direto dos arquivos.
+/// `ipfs dag import [files...]`: reads the CARs straight from the files.
 Future<CarImportResult> importCarFiles(
   $core.IpfsNode node,
   $context.Context ctx,

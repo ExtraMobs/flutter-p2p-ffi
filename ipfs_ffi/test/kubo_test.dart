@@ -137,7 +137,7 @@ void main() {
     await expectLater(
         core.IpfsNode.$h(1 << 40).close(),
         throwsA(isA<IpfsException>()
-            .having((e) => e.message, 'message', contains('não existe'))));
+            .having((e) => e.message, 'message', contains('does not exist'))));
   });
 
   // M2: pins, blocos e GC
@@ -513,7 +513,7 @@ void main() {
       await expectLater(
           $stream(25).map((r) => r.i64()).forEach(events.add),
           throwsA(isA<IpfsException>().having((e) => e.message, 'message',
-              contains('panic de teste numa função com canal'))));
+              contains('test panic in a function with a channel'))));
       expect(events, [1]); // o que saiu antes do panic chega
     });
 
@@ -524,7 +524,7 @@ void main() {
       final check = expectLater(
           c.stream.forEach(got.add),
           throwsA(isA<IpfsException>().having((e) => e.message, 'message',
-              contains('panic de teste no sink'))));
+              contains('test panic in the sink'))));
       await $call(26, $W()..sink(GoSink(c.sink, (r) => r.i64())));
       await check;
       expect(got, [1]);
@@ -608,12 +608,12 @@ void main() {
     final crash = await stops.stream.first.timeout(const Duration(seconds: 30));
     await pending;
     expect(crash.reason, IpfsStopReason.crash);
-    expect(crash.report, contains('panic de teste numa goroutine'));
+    expect(crash.report, contains('test panic in a goroutine'));
     expect(crash.exitCode, isNot(0));
     expect(crash.pid, oldPid);
     expect(crash.crashLog, '${tmp.path}/crash.log');
     expect(File(crash.crashLog!).readAsStringSync(),
-        contains('panic de teste numa goroutine'));
+        contains('test panic in a goroutine'));
     // sem restart() o serviço fica fora: as chamadas falham
     expect(IpfsService.isRunning, isFalse);
     expect(

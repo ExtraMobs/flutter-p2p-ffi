@@ -1,7 +1,8 @@
-// O canal com o ipfs_host (marco 0.9.0): lança o processo do serviço, conecta
-// pela ipfs_shm (shm/ipfs_shm.c: memória compartilhada + sininho) e troca
-// mensagens: pedido = u32 id, u32 função, u8 modo, argumentos; resposta = u32
-// id, u8 tipo (valor, item, fim, erro), dados. O app nunca carrega a libipfs.
+// The channel to the ipfs_host (milestone 0.9.0): launches the service
+// process, connects through ipfs_shm (shm/ipfs_shm.c: shared memory + bell)
+// and exchanges messages: request = u32 id, u32 function, u8 mode, arguments;
+// response = u32 id, u8 type (value, item, end, error), data. The app never
+// loads libipfs.
 import 'dart:async';
 import 'dart:convert';
 import 'dart:ffi';
@@ -12,9 +13,9 @@ import 'runtime.dart' show IpfsException, IpfsServiceException, IpfsStopReason;
 
 export 'runtime.dart' show IpfsServiceException;
 
-/// Caminho da ipfs_shm; padrão `native/libipfs_shm.so` ou
-/// `native\ipfs_shm.dll` relativo ao diretório atual, e no Android
-/// `libipfs_shm.so` (empacotada no APK).
+/// Path of ipfs_shm; default `native/libipfs_shm.so` or
+/// `native\ipfs_shm.dll` relative to the current directory, and on Android
+/// `libipfs_shm.so` (packaged in the APK).
 String ipfsShmLibraryPath = Platform.isAndroid
     ? 'libipfs_shm.so'
     : Platform.isWindows
@@ -23,8 +24,8 @@ String ipfsShmLibraryPath = Platform.isAndroid
 
 typedef _WakeNative = Void Function(Int64);
 
-// Chamadas folha (isLeaf): curtas e sem callback ao Dart, pulam a troca de
-// contexto do dart:ffi. shm_wait e shm_connect bloqueiam: ficam normais.
+// Leaf calls (isLeaf): short and without callbacks into Dart, they skip the
+// dart:ffi context switch. shm_wait and shm_connect block: they stay normal.
 final class _Shm {
   _Shm(DynamicLibrary l)
       : connect = l.lookupFunction<
@@ -71,15 +72,15 @@ final class _Shm {
   final void Function(Pointer<Void>) free;
 }
 
-/// Byte de C (o Dart não tem `Char` portátil no dart:ffi sem package:ffi).
+/// C byte (Dart has no portable `Char` in dart:ffi without package:ffi).
 typedef Utf8Char = Uint8;
 
 final _shm = _Shm(DynamicLibrary.open(ipfsShmLibraryPath));
 
-// Tipos de resposta usados aqui (os ev* de go/runtime.go).
+// Response types used here (the ev* of go/runtime.go).
 const _evValue = 0, _evError = 3;
 
-/// Um canal aberto com um processo ipfs_host.
+/// An open channel to an ipfs_host process.
 final class ShmChannel {
   ShmChannel._(this._process, this._h, this._wake, this._stderr);
 
@@ -87,7 +88,7 @@ final class ShmChannel {
   final Pointer<Void> _h;
   final NativeCallable<_WakeNative> _wake;
   final StringBuffer _stderr;
-  final _pending = <int, Completer<Uint8List>>{}; // de call()
+  final _pending = <int, Completer<Uint8List>>{}; // from call()
   final _n = _scratch;
   var _nextId = 0;
   var _closed = false;
@@ -96,9 +97,9 @@ final class ShmChannel {
   static final _scratch = _malloc4();
   static Pointer<Uint32> _malloc4() => _bytes(4).cast();
 
-  /// Lança [hostPath] (o executável ipfs_host), espera o "ready" e conecta.
-  /// [endpoint]: caminho do Unix socket (linux/Android) ou nome base dos
-  /// pipes no Windows (`\\.\pipe\...`); padrão: um nome aleatório.
+  /// Launches [hostPath] (the ipfs_host executable), waits for "ready" and
+  /// connects. [endpoint]: Unix socket path (linux/Android) or base name of
+  /// the pipes on Windows (`\\.\pipe\...`); default: a random name.
   static Future<ShmChannel> start(String hostPath,
       {String? endpoint, String? crashLog, int spin = 20000}) async {
     endpoint ??= _defaultEndpoint();
@@ -121,7 +122,7 @@ final class ShmChannel {
     unawaited(p.exitCode.then((c) {
       if (!ready.isCompleted) {
         ready.completeError(IpfsServiceException(
-            'o ipfs_host saiu ($c) antes de ficar pronto: $stderr'));
+            'ipfs_host exited ($c) before becoming ready: $stderr'));
       }
     }));
     await ready.future;
@@ -148,23 +149,23 @@ final class ShmChannel {
     final rnd = DateTime.now().microsecondsSinceEpoch.toRadixString(36) +
         pid.toRadixString(36);
     if (Platform.isWindows) return r'\\.\pipe\ipfs_ffi_' + rnd;
-    // caminho curto: sun_path tem 108 bytes
+    // short path: sun_path has 108 bytes
     return '${Directory.systemTemp.path}/ipfs_ffi_$rnd.sock';
   }
 
-  /// Mensagens de ids que não são de [call]/[callSync] deste canal (o
-  /// runtime do modo serviço registra o seu).
+  /// Messages for ids that are not from [call]/[callSync] of this channel
+  /// (the service mode runtime registers its own).
   void Function(int id, int kind, Uint8List data)? onMessage;
 
-  /// Avisado uma vez quando o host cai ou o canal fecha.
+  /// Notified once when the host crashes or the channel closes.
   void Function(IpfsServiceException e)? onDead;
 
-  /// Um id novo para [send]/[waitFor].
+  /// A new id for [send]/[waitFor].
   int newId() => ++_nextId;
 
-  /// Envia o pedido [id] (u32 id, u32 [fn], u8 [mode], [body]) em quadros
-  /// `[u32 continua][pedaço]`, partindo o que não cabe num quadro. Um
-  /// produtor por vez: o canal é de uma isolate.
+  /// Sends request [id] (u32 id, u32 [fn], u8 [mode], [body]) in frames
+  /// `[u32 continues][chunk]`, splitting what does not fit in one frame. One
+  /// producer at a time: the channel belongs to one isolate.
   void send(int id, int fn, int mode, [Uint8List? body]) {
     if (_dead case final e?) throw e;
     final total = 9 + (body?.length ?? 0);
@@ -172,8 +173,8 @@ final class ShmChannel {
     if (total <= max) {
       final p = _reserve(total + 4);
       p.cast<Uint32>().value = 0;
-      // o corpo do quadro começa em 0 mod 8: os u32 ficam alinhados (todas
-      // as plataformas alvo são little-endian)
+      // the frame body starts at 0 mod 8: the u32s stay aligned (all
+      // target platforms are little-endian)
       (p + 4).cast<Uint32>().value = id;
       (p + 8).cast<Uint32>().value = fn;
       p[12] = mode;
@@ -204,7 +205,7 @@ final class ShmChannel {
     return p;
   }
 
-  /// Chamada assíncrona: a resposta chega pelo callback.
+  /// Asynchronous call: the response arrives through the callback.
   Future<Uint8List> call(int fn, [Uint8List? args]) {
     final c = Completer<Uint8List>();
     final id = newId();
@@ -213,13 +214,13 @@ final class ShmChannel {
       send(id, fn, 1, args);
     } catch (e, st) {
       _pending.remove(id);
-      return Future.error(e, st); // assíncrona: falha pelo Future
+      return Future.error(e, st); // async: fails through the Future
     }
     return c.future;
   }
 
-  /// Chamada síncrona: bloqueia a isolate até a resposta (gira, depois
-  /// dorme), entregando as outras que chegarem no caminho.
+  /// Synchronous call: blocks the isolate until the response (spins, then
+  /// sleeps), delivering the others that arrive along the way.
   Uint8List callSync(int fn, [Uint8List? args]) {
     final id = newId();
     send(id, fn, 0, args);
@@ -228,8 +229,8 @@ final class ShmChannel {
     return data;
   }
 
-  /// Espera a resposta [id] (tipo e dados), entregando as outras que
-  /// chegarem no caminho.
+  /// Waits for response [id] (type and data), delivering the others that
+  /// arrive along the way.
   (int, Uint8List) waitFor(int id) {
     for (;;) {
       if (_shm.wait(_h) == 0) {
@@ -249,7 +250,7 @@ final class ShmChannel {
   static final _empty = Uint8List(0);
   final _parts = BytesBuilder(copy: true);
 
-  /// Lê um quadro; devolve a mensagem quando ela termina.
+  /// Reads a frame; returns the message when it is complete.
   (int, int, Uint8List)? _frame(Pointer<Uint8> p) {
     final n = _n.value - 4;
     final body = p + 4;
@@ -301,15 +302,15 @@ final class ShmChannel {
     if (_closed) return;
     final report = _stderr.toString().trim();
     _fail(IpfsServiceException(
-        'o ipfs_host saiu ($code)${report.isEmpty ? '' : ': $report'}',
+        'ipfs_host exited ($code)${report.isEmpty ? '' : ': $report'}',
         reason: IpfsStopReason.crash));
   }
 
-  /// A queda ainda sem o motivo do processo (o aviso da ipfs_shm chega
-  /// antes do código de saída).
+  /// The crash still without the process's reason (the ipfs_shm notice
+  /// arrives before the exit code).
   IpfsServiceException get _crashed =>
       _dead ??
-      IpfsServiceException('o ipfs_host caiu', reason: IpfsStopReason.crash);
+      IpfsServiceException('ipfs_host crashed', reason: IpfsStopReason.crash);
 
   void _fail(IpfsServiceException e) {
     final first = _dead == null;
@@ -321,20 +322,21 @@ final class ShmChannel {
     if (first) onDead?.call(e);
   }
 
-  /// Por que o canal morreu (o host caiu ou o canal fechou); null enquanto vivo.
+  /// Why the channel died (the host crashed or the channel closed); null
+  /// while alive.
   String? get deadReason => _dead?.message;
 
-  /// O que o host escreveu no stderr (o relatório de um panic, se caiu).
+  /// What the host wrote to stderr (the report of a panic, if it crashed).
   String get hostStderr => _stderr.toString();
 
-  /// O pid do processo do serviço.
+  /// The pid of the service process.
   int get hostPid => _process.pid;
 
-  /// O processo do serviço terminou: código de saída.
+  /// The service process ended: exit code.
   Future<int> get exitCode => _process.exitCode;
 
-  /// Fecha o canal; o host sai sozinho ao ver o canal fechado. As pendentes
-  /// falham com [reason] (null: fechado pelo app).
+  /// Closes the channel; the host exits on its own when it sees the channel
+  /// closed. Pending calls fail with [reason] (null: closed by the app).
   Future<void> close({IpfsStopReason? reason}) async {
     if (_closed) return;
     _closed = true;
@@ -342,8 +344,8 @@ final class ShmChannel {
     _wake.close();
     _fail(IpfsServiceException(
         reason == IpfsStopReason.background
-            ? 'o serviço foi parado: o app foi para o segundo plano'
-            : 'canal fechado',
+            ? 'the service was stopped: the app went to the background'
+            : 'channel closed',
         reason: reason));
     await _process.exitCode.timeout(const Duration(seconds: 5), onTimeout: () {
       _process.kill();
@@ -352,7 +354,7 @@ final class ShmChannel {
   }
 }
 
-// Memória C do mesmo runtime da ipfs_shm.
+// C memory from the same runtime as ipfs_shm.
 final _malloc = DynamicLibrary.open(ipfsShmLibraryPath).lookupFunction<
     Pointer<Uint8> Function(Uint64),
     Pointer<Uint8> Function(int)>('shm_malloc');
@@ -368,7 +370,7 @@ Pointer<Utf8Char> _cstr(String s) {
 }
 
 String _take(Pointer<Uint8> p) {
-  if (p == nullptr) return 'ipfs_shm: erro desconhecido';
+  if (p == nullptr) return 'ipfs_shm: unknown error';
   var n = 0;
   while (p[n] != 0) {
     n++;

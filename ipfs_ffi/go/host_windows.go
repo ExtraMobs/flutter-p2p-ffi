@@ -77,7 +77,7 @@ func listen(base string, size int, init func([]byte)) (hostChan, error) {
 	binary.LittleEndian.PutUint16(hs[8:], uint16(len(name)))
 	copy(hs[10:], name)
 	if _, err := c.resp.Write(hs); err != nil {
-		return nil, fmt.Errorf("aperto de mão: %w", err)
+		return nil, fmt.Errorf("handshake: %w", err)
 	}
 	return c, nil
 }

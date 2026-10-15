@@ -4,9 +4,10 @@ Kubo v0.43.1 (IPFS em Go) usado do Dart sem HTTP: o kubo roda no executável
 `ipfs_host`, noutro processo, e o app fala com ele por memória compartilhada (a
 `ipfs_shm`, em C; protocolo binário no [`WIRE.md`](WIRE.md)). O app não carrega Go:
 um panic do kubo derruba só o serviço, as chamadas pendentes falham com
-`IpfsServiceException` e o `onCrash` do app recebe o relatório do Go e decide o que
-fazer (limpar o log, `IpfsService.restart()` e refazer plugins, nó e CoreAPI: o
-processo é novo). Nada volta sozinho.
+`IpfsServiceException` e o `onStop` do app recebe o motivo e o relatório do Go e
+decide o que fazer (limpar o log, `IpfsService.restart()` e refazer plugins, nó e
+CoreAPI: o processo é novo). Nada volta sozinho. No Android, o plugin companheiro
+[`ipfs_ffi_flutter`](flutter) trata o segundo plano (ver abaixo).
 Alvos: VM/AOT no Windows, no linux e no Android (não serve para JS/Wasm).
 
 A API Dart é a do próprio Go, gerada: uma library por pacote Go, sem o
@@ -26,8 +27,9 @@ import 'package:ipfs_ffi/kubo/core/node.dart' as node;
 import 'package:ipfs_ffi/kubo/plugin/loader.dart' as loader;
 import 'package:ipfs_ffi/kubo/repo/fsrepo.dart' as fsrepo;
 
-// lança native/ipfs_host; numa queda, onCrash decide (padrão: nada)
-await IpfsService.start(onCrash: (crash) => print(crash.report));
+// lança native/ipfs_host; numa parada (queda ou segundo plano), onStop decide
+// (padrão: nada)
+await IpfsService.start(onStop: (stop) => print('${stop.reason}: ${stop.report}'));
 final plugins = loader.PluginLoader('')..initialize()..inject(); // 1x por serviço
 final ctx = context.background();
 final n = await core.newNode(ctx, node.BuildCfg(repo: fsrepo.open('.ipfs-ffi')));
@@ -107,7 +109,7 @@ Android o host padrão (`defaultHostPath()`) é a `libipfs_host.so` na pasta das
 nativas do app (o APK precisa extraí-las: `packaging.jniLibs.useLegacyPackaging = true`
 no Gradle; o Android só executa da `nativeLibraryDir`). O app de
 validação em [`example/android_app`](example/android_app) mostra como empacotar (o Gradle
-lê direto de `native/android`), sobe o nó, fecha no background e reabre na volta, roda as
+lê direto de `native/android`), sobe o nó, trata o segundo plano, roda as
 verificações ao abrir (com o log copiável) e tem o teste de integração
 (`flutter test integration_test -d <aparelho>`). Release para aparelho:
 `flutter build apk --release --target-platform android-arm64`. No Android configure
@@ -119,6 +121,25 @@ quando um deles é alcançável; por IPv4 o NAT da operadora medido é simétric
 punching não acontece. `hasIpv6()` (`package:ipfs_ffi/ipfs_ffi.dart`) diz se a rede
 atual entrega IPv6 global. Números e achados
 em [`TODO.md`](TODO.md).
+
+**Segundo plano.** O `ipfs_host` é um processo filho do app (mesmo usuário Linux,
+mesmo contexto SELinux, mesmo cgroup): vale para ele tudo que vale para o app em
+segundo plano. No Android 12+ o *phantom process killer* mata o processo filho que
+gaste CPU com o app em segundo plano, **e o app junto** (medido no emulador: um
+minuto depois do HOME, `excessive cpu ... limit=25`, "Caused by child process").
+Por isso o app adiciona o plugin [`ipfs_ffi_flutter`](flutter) (registra-se sozinho)
+e escolhe em `IpfsService.background`, lido a cada `start`/`restart`:
+- `IpfsBackground.stop` (padrão): ao ir para o segundo plano, o plugin para o
+  serviço; as pendentes falham com `IpfsServiceException(reason: background)` e o
+  `onStop` recebe `IpfsStopReason.background`. Subir de novo (na volta, ou quando
+  quiser) fica com o app: `IpfsService.restart()`.
+- `IpfsBackground.foregroundService`: enquanto o host roda, o plugin mantém um
+  serviço em primeiro plano do Android (tipo `specialUse`, com notificação), e o nó
+  segue online no segundo plano. A notificação no Android 13+ pede a permissão
+  `POST_NOTIFICATIONS`, que o app solicita (sem ela o serviço roda, sem aparecer na
+  gaveta).
+
+Sem Flutter, o app pode chamar `IpfsService.appInBackground()` ele mesmo.
 
 ### Linux pelo WSL (validado no Ubuntu 26.04)
 
@@ -143,8 +164,9 @@ Relatório de crash: um panic numa chamada ou numa goroutine do próprio ipfs_ff
 `IpfsException`; numa goroutine interna do kubo derruba o `ipfs_host` (não o app):
 `IpfsService.start(crashLog: caminho)` faz o Go gravar o relatório nesse arquivo, e
 `IpfsService.exitCode` completa quando o host sai. O serviço **não** volta sozinho:
-as pendentes falham com `IpfsServiceException` e o `onCrash` passado ao `start`
-(padrão `null`: nada acontece) recebe um `IpfsCrash` com o código de saída, o
+as pendentes falham com `IpfsServiceException` (`reason: crash`) e o `onStop`
+passado ao `start` (padrão `null`: nada acontece) recebe um `IpfsStop` com o motivo
+(`IpfsStopReason.crash`), o código de saída, o
 relatório do Go (o que o host acrescentou ao `crashLog` desde que subiu, ou o stderr
 dele), o caminho do `crashLog`, o pid e quanto tempo ficou de pé. Quem usa o pacote
 decide: limpar o arquivo (o host só acrescenta), chamar `IpfsService.restart()` (os

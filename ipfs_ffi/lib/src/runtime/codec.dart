@@ -1,25 +1,25 @@
 part of '../runtime.dart';
 
-// A codificação dos valores do WIRE.md: tudo little-endian; string = u32 n +
-// UTF-8; bytes = i32 n + bytes (-1 = nil); presença = u8 (0/1).
+// The value encoding of WIRE.md: everything little-endian; string = u32 n +
+// UTF-8; bytes = i32 n + bytes (-1 = nil); presence = u8 (0/1).
 
-/// Escritor dos argumentos de um pedido; cresce sozinho. Os métodos seguem os
-/// kinds do gerador e são usados em cascata pelo código gerado
-/// (`$W()..h(this)..str(nome)`).
+/// Writer of a request's arguments; grows on its own. The methods follow the
+/// generator's kinds and are used in cascade by the generated code
+/// (`$W()..h(this)..str(name)`).
 final class $W {
   var _b = Uint8List(64);
   late var _d = ByteData.sublistView(_b);
   var _n = 0;
 
-  /// Handles escritos: ficam vivos enquanto a chamada está pendente.
+  /// Written handles: kept alive while the call is pending.
   final _keep = <Object>[];
 
-  /// Sinks das opções (id, sink), registrados pelo runtime ao enviar.
+  /// Option sinks (id, sink), registered by the runtime when sending.
   final _sinks = <(int, GoSink<Object?>)>[];
 
-  /// Erro adiado (handle de um serviço anterior, argumento que não
-  /// atravessa): a chamada falha com ele, pelo Future/Stream quando é
-  /// assíncrona.
+  /// Deferred error (handle from a previous service, argument that does not
+  /// cross): the call fails with it, through the Future/Stream when it is
+  /// asynchronous.
   Object? _error;
 
   void _check() {
@@ -42,7 +42,7 @@ final class $W {
     _n += v.length;
   }
 
-  /// Os bytes escritos.
+  /// The written bytes.
   Uint8List take() => Uint8List.sublistView(_b, 0, _n);
 
   void u8(int v) {
@@ -62,7 +62,7 @@ final class $W {
     _n += 4;
   }
 
-  /// Também o `u64` (os mesmos 8 bytes): o Dart guarda 64 bits com sinal.
+  /// Also the `u64` (the same 8 bytes): Dart stores 64 bits as signed.
   void i64(int v) {
     _grow(8);
     _d.setInt64(_n, v, Endian.little);
@@ -83,7 +83,7 @@ final class $W {
     _raw(e);
   }
 
-  /// `[]byte`: null é o nil do Go.
+  /// `[]byte`: null is Go's nil.
   void bytes(Uint8List? v) {
     if (v == null) return i32(-1);
     i32(v.length);
@@ -95,34 +95,34 @@ final class $W {
     if (x == null) return i64(0);
     if (x.$e != _epoch) {
       _error ??= IpfsServiceException(
-          'handle de um serviço anterior: o ipfs_host foi reiniciado');
+          'handle from a previous service: the ipfs_host was restarted');
     }
     _keep.add(x);
     i64(x.$h);
   }
 
-  /// Tipo-valor (CID, path, peer ID, multiaddr, ipns.Name).
+  /// Value type (CID, path, peer ID, multiaddr, ipns.Name).
   void val(GoValue? v) {
     if (v == null) return u8(0);
     u8(1);
     str(v.value);
   }
 
-  /// `time.Time`: Unix em nanossegundos.
+  /// `time.Time`: Unix time in nanoseconds.
   void time(DateTime? t) {
     if (t == null) return u8(0);
     u8(1);
     i64(t.microsecondsSinceEpoch * 1000);
   }
 
-  /// `config.Config`: o JSON do próprio kubo.
+  /// `config.Config`: kubo's own JSON.
   void json(GoJsonValue? c) {
     if (c == null) return u8(0);
     u8(1);
     jsonStr(c.json);
   }
 
-  /// Um objeto JSON como string.
+  /// A JSON object as a string.
   void jsonStr(Map<String, Object?> m) => str(jsonEncode(m));
 
   void dto(GoDto? d) {
@@ -131,20 +131,20 @@ final class $W {
     d.$enc(this);
   }
 
-  /// Erro dentro de um valor (`kError`): a mensagem; null = sem erro.
+  /// Error inside a value (`kError`): the message; null = no error.
   void err(String? e) {
     if (e == null) return u8(0);
     u8(1);
     str(e);
   }
 
-  /// Opção funcional: índice do construtor + os parâmetros dele.
+  /// Functional option: constructor index + its parameters.
   void opt(GoOption o) {
     u32(o.$i);
     o.$a(this);
   }
 
-  /// `io.Reader` em parâmetro: os bytes (`u8 0`) ou um handle de leitor (`u8 1`).
+  /// `io.Reader` parameter: the bytes (`u8 0`) or a reader handle (`u8 1`).
   void reader(Object r) {
     switch (r) {
       case Uint8List():
@@ -155,13 +155,13 @@ final class $W {
         h(r);
       default:
         _error ??= ArgumentError.value(
-            r, 'r', 'io.Reader: passe Uint8List ou um handle de leitor');
+            r, 'r', 'io.Reader: pass a Uint8List or a reader handle');
         u8(0);
         bytes(null);
     }
   }
 
-  /// `chan<- T` de uma opção: o id do sink, que recebe os `item`s da chamada.
+  /// `chan<- T` of an option: the sink id, which receives the call's `item`s.
   void sink(GoSink<Object?> s) {
     var id = 0;
     try {
@@ -173,7 +173,7 @@ final class $W {
     u32(id);
   }
 
-  /// `kSlice`: `i32 n` + elementos; null = nil.
+  /// `kSlice`: `i32 n` + elements; null = nil.
   void list<T>(List<T>? xs, void Function($W w, T e) f) {
     if (xs == null) return i32(-1);
     i32(xs.length);
@@ -182,7 +182,7 @@ final class $W {
     }
   }
 
-  /// `kMap`: `i32 n` + pares (chave sem byte de presença).
+  /// `kMap`: `i32 n` + pairs (key without a presence byte).
   void map<K, V>(
       Map<K, V> m, void Function($W w, K k) key, void Function($W w, V v) val) {
     i32(m.length);
@@ -193,7 +193,7 @@ final class $W {
   }
 }
 
-/// Leitor de uma resposta (ou de um item de stream/sink).
+/// Reader of a response (or of a stream/sink item).
 final class $R {
   $R(this._b) : _d = ByteData.sublistView(_b);
 
@@ -229,7 +229,7 @@ final class $R {
 
   bool b() => u8() != 0;
 
-  /// Byte de presença: false = nil do Go.
+  /// Presence byte: false = Go's nil.
   bool p() => u8() != 0;
 
   String str() {
@@ -248,35 +248,35 @@ final class $R {
     return v;
   }
 
-  /// Handle que pode ser nil (0): null, ou o objeto criado por [f].
+  /// Handle that may be nil (0): null, or the object created by [f].
   T? hn<T>(T Function(int h) f) {
     final h = i64();
     return h == 0 ? null : f(h);
   }
 
-  /// Handle não nulo: nil do Go vira IpfsException.
+  /// Non-null handle: a Go nil becomes an IpfsException.
   T hnn<T>(T Function(int h) f) {
     final h = i64();
     return h == 0 ? $nil() : f(h);
   }
 
-  /// `time.Time` (sem a presença): Unix em nanossegundos, em UTC.
+  /// `time.Time` (without presence): Unix time in nanoseconds, in UTC.
   DateTime time() =>
       DateTime.fromMicrosecondsSinceEpoch(i64() ~/ 1000, isUtc: true);
 
-  /// Um objeto JSON vindo como string (`config.Config`, sem a presença).
+  /// A JSON object sent as a string (`config.Config`, without presence).
   Map<String, Object?> json() => jsonDecode(str()) as Map<String, Object?>;
 
-  /// `kError`: a mensagem, ou null.
+  /// `kError`: the message, or null.
   String? err() => p() ? str() : null;
 
-  /// `kSlice`: nil vira lista vazia.
+  /// `kSlice`: nil becomes an empty list.
   List<T> list<T>(T Function() f) {
     final n = i32();
     return [for (var k = 0; k < n; k++) f()];
   }
 
-  /// `kMap`: a chave é lida antes do valor.
+  /// `kMap`: the key is read before the value.
   Map<K, V> map<K, V>(K Function() key, V Function() val) {
     final n = i32();
     return {for (var k = 0; k < n; k++) key(): val()};
