@@ -1,5 +1,5 @@
 name: ipfs_ffi
-description: Nó IPFS (kubo) compilado de Go com -buildmode=c-shared, via dart:ffi.
+description: IPFS node (kubo) in a separate process, the ipfs_host, with the Go API generated in Dart over shared memory.
 publish_to: none
 version: 0.11.0
 

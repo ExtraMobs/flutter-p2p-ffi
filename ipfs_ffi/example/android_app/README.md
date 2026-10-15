@@ -19,6 +19,6 @@ flutter build apk --release --target-platform android-arm64,android-x64
 A tela sobe um nó online (repo no diretório de dados do app, perfis `randomports` e
 `lowpower`, pubsub ligado), mostra o peer ID e os peers, adiciona e lê um texto,
 fecha o nó quando o app vai para o background e reabre na volta, e trata a queda
-do `ipfs_host` (o kubo roda noutro processo): o `onCrash` mostra o relatório do Go,
+do `ipfs_host` (o kubo roda noutro processo): o `onStop` mostra o relatório do Go,
 limpa o `crash.log` e relança o serviço e o nó, sem o app fechar. Na primeira
 abertura ele derruba o host de propósito para mostrar isso.
