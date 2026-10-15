@@ -13,7 +13,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:ipfs_ffi/context.dart' as context;
-import 'package:ipfs_ffi/ipfs_ffi.dart' show IpfsException;
+import 'package:ipfs_ffi/ipfs_ffi.dart' show IpfsException, IpfsService;
 import 'package:ipfs_ffi/kubo/core.dart' as core;
 import 'package:ipfs_ffi/kubo/core/coreapi.dart' as coreapi;
 import 'package:ipfs_ffi/kubo/core/coreiface.dart' as iface;
@@ -44,6 +44,8 @@ Future<void> main(List<String> args) async {
   final (repoPath, topic) = (args[0], args[1]);
   final nick = args.length > 2 ? args[2] : 'anon';
 
+  // O kubo roda no ipfs_host, noutro processo (dart run tool/build.dart).
+  await IpfsService.start();
   loader.PluginLoader('')
     ..initialize()
     ..inject();
@@ -86,4 +88,5 @@ Future<void> main(List<String> args) async {
   sub.close();
   await reading.cancel();
   await n.close();
+  await IpfsService.stop();
 }

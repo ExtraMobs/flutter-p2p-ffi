@@ -12,16 +12,20 @@ class IpfsNode extends GoHandle {
 
   /// Go: `func (*core.IpfsNode).Close() error`.
   ///
-  /// Assíncrona: roda numa goroutine.
+  /// Assíncrona: roda numa goroutine do serviço.
   Future<void> close() async {
-    await $call('github.com/ipfs/kubo/core.IpfsNode.Close', [this]);
+    await $call(82, $W()..h(this));
   }
 }
 
 /// Go: `func core.NewNode(ctx context.Context, cfg *core.BuildCfg) (*core.IpfsNode, error)`.
 ///
-/// Assíncrona: roda numa goroutine.
+/// Assíncrona: roda numa goroutine do serviço.
 Future<IpfsNode> newNode($context.Context ctx, $node.BuildCfg cfg) async {
-  final $r = await $call('github.com/ipfs/kubo/core.NewNode', [ctx, cfg]);
-  return IpfsNode.$h($nn($r) as int);
+  final $r = await $call(
+      83,
+      $W()
+        ..h(ctx)
+        ..dto(cfg));
+  return $r.hnn(IpfsNode.$h);
 }

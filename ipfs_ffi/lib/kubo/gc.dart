@@ -6,16 +6,14 @@ import 'package:ipfs_ffi/src/runtime.dart';
 import 'package:ipfs_ffi/go_cid.dart' as $go_cid;
 
 /// Go: `gc.Result`.
-final class Result implements GoJson {
+final class Result implements GoDto {
   Result({$go_cid.Cid? keyRemoved, String? error})
       : keyRemoved = keyRemoved,
         error = error;
 
-  Result.$fromJson(Map<String, Object?> j)
-      : keyRemoved = j['KeyRemoved'] == null
-            ? null
-            : $go_cid.Cid(j['KeyRemoved'] as String),
-        error = j['Error'] == null ? null : j['Error'] as String;
+  Result.$dec($R r)
+      : keyRemoved = r.p() ? $go_cid.Cid(r.str()) : null,
+        error = r.err();
 
   /// Go: `KeyRemoved`.
   $go_cid.Cid? keyRemoved;
@@ -24,6 +22,9 @@ final class Result implements GoJson {
   String? error;
 
   @override
-  Map<String, Object?> $toJson() =>
-      {'KeyRemoved': $enc(keyRemoved), 'Error': $enc(error)};
+  void $enc($W w) {
+    w
+      ..val(keyRemoved)
+      ..err(error);
+  }
 }

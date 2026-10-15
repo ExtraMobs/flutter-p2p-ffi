@@ -7,7 +7,7 @@ import 'package:ipfs_ffi/kubo/core/node/libp2p.dart' as $libp2p;
 import 'package:ipfs_ffi/kubo/repo.dart' as $repo;
 
 /// Go: `node.BuildCfg`.
-final class BuildCfg implements GoJson {
+final class BuildCfg implements GoDto {
   BuildCfg(
       {bool? online,
       Map<String, bool>? extraOpts,
@@ -26,21 +26,15 @@ final class BuildCfg implements GoJson {
         repo = repo,
         shutdownTimeout = shutdownTimeout ?? 0;
 
-  BuildCfg.$fromJson(Map<String, Object?> j)
-      : online = j['Online'] as bool,
-        extraOpts = {
-          for (final e0 in (j['ExtraOpts'] as Map<String, Object?>).entries)
-            e0.key: e0.value as bool
-        },
-        permanent = j['Permanent'] as bool,
-        disableEncryptedConnections = j['DisableEncryptedConnections'] as bool,
-        routing = j['Routing'] == null
-            ? null
-            : $libp2p.RoutingOption.$h(j['Routing'] as int),
-        host =
-            j['Host'] == null ? null : $libp2p.HostOption.$h(j['Host'] as int),
-        repo = j['Repo'] == null ? null : $repo.Repo.$h(j['Repo'] as int),
-        shutdownTimeout = j['ShutdownTimeout'] as int;
+  BuildCfg.$dec($R r)
+      : online = r.b(),
+        extraOpts = r.map(() => r.str(), () => r.b()),
+        permanent = r.b(),
+        disableEncryptedConnections = r.b(),
+        routing = r.hn($libp2p.RoutingOption.$h),
+        host = r.hn($libp2p.HostOption.$h),
+        repo = r.hn($repo.Repo.$h),
+        shutdownTimeout = r.i64();
 
   /// Go: `Online`.
   bool online;
@@ -67,14 +61,15 @@ final class BuildCfg implements GoJson {
   int shutdownTimeout;
 
   @override
-  Map<String, Object?> $toJson() => {
-        'Online': $enc(online),
-        'ExtraOpts': $enc(extraOpts),
-        'Permanent': $enc(permanent),
-        'DisableEncryptedConnections': $enc(disableEncryptedConnections),
-        'Routing': $enc(routing),
-        'Host': $enc(host),
-        'Repo': $enc(repo),
-        'ShutdownTimeout': $enc(shutdownTimeout)
-      };
+  void $enc($W w) {
+    w
+      ..b(online)
+      ..map(extraOpts, (w0, k0) => w0.str(k0), (w0, v0) => w0.b(v0))
+      ..b(permanent)
+      ..b(disableEncryptedConnections)
+      ..h(routing)
+      ..h(host)
+      ..h(repo)
+      ..i64(shutdownTimeout);
+  }
 }

@@ -9,6 +9,7 @@ import 'dart:io';
 import 'package:ipfs_ffi/boxo/files.dart' as files;
 import 'package:ipfs_ffi/boxo/path.dart' as path;
 import 'package:ipfs_ffi/context.dart' as context;
+import 'package:ipfs_ffi/ipfs_ffi.dart' show IpfsService;
 import 'package:ipfs_ffi/kubo/core.dart' as core;
 import 'package:ipfs_ffi/kubo/core/commands/dag.dart' as dag;
 import 'package:ipfs_ffi/kubo/core/coreapi.dart' as coreapi;
@@ -24,6 +25,8 @@ Future<void> main(List<String> args) async {
         'uso: export <repo> <cid-ou-pasta> <saida.car> | import <repo> <arquivo.car>...');
     exit(64);
   }
+  // O kubo roda no ipfs_host, noutro processo (dart run tool/build.dart).
+  await IpfsService.start();
   loader.PluginLoader('')
     ..initialize()
     ..inject();
@@ -58,4 +61,5 @@ Future<void> main(List<String> args) async {
   } finally {
     await n.close();
   }
+  await IpfsService.stop();
 }

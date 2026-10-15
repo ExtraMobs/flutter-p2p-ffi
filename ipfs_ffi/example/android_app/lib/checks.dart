@@ -24,11 +24,13 @@ import 'package:ipfs_ffi/kubo/core/node.dart' as node;
 import 'package:ipfs_ffi/kubo/core/node/libp2p.dart' as libp2p;
 import 'package:ipfs_ffi/kubo/repo/fsrepo.dart' as fsrepo;
 import 'package:ipfs_ffi/src/runtime.dart'
-    show $call, $callSync, $stream, GoSink;
+    show $W, $call, $callSync, $stream, GoSink;
 
 typedef Log = void Function(String line);
 
-final ctx = context.background();
+/// Um contexto do serviço atual (o handle de um serviço anterior não vale
+/// depois que o ipfs_host é relançado).
+context.Context get ctx => context.background();
 
 void check(bool ok, String what) {
   if (!ok) throw StateError('falhou: $what');
@@ -186,17 +188,15 @@ Future<int> localChecks(Log log) async {
       // as goroutines do próprio ipfs_ffi (try/goTry no go/runtime.go)
       'panic numa goroutine do ipfs_ffi vira IpfsException': () async {
         final items = <Object?>[];
-        await expectThrows(
-            $stream('ipfs_ffi/test.PanicInChanFunc', const [])
-                .forEach(items.add),
+        await expectThrows($stream(25).map((r) => r.i64()).forEach(items.add),
             'função com canal');
         check('$items' == '[1]', 'o item antes do panic chegou');
         final c = StreamController<Object?>();
         final sink = expectThrows(c.stream.drain<void>(), 'sink');
-        await $call('ipfs_ffi/test.PanicInSink', [GoSink(c.sink, (j) => j)]);
+        await $call(26, $W()..sink(GoSink(c.sink, (r) => r.i64())));
         await sink;
       },
-      'custo da ponte (JSON × export direto)': () async {
+      'custo da ponte (canal com o ipfs_host)': () async {
         final repoPath = '${tmp.path}/offline';
         double bench(void Function() f) {
           for (var i = 0; i < 500; i++) {
@@ -223,30 +223,27 @@ Future<int> localChecks(Log log) async {
         }
 
         String us(double v) => '${v.toStringAsFixed(1)} µs';
-        final direct = bench(() => api.unixfs());
+        final getter = bench(() => api.unixfs());
         final stat = bench(() => fsrepo.isInitialized(repoPath));
-        final err = bench(() => ctx.err());
+        final c0 = ctx;
+        final err = bench(() => c0.err());
         final timeout = bench(() {
           final (_, cancel) =
-              context.withTimeout(ctx, const Duration(seconds: 1));
+              context.withTimeout(c0, const Duration(seconds: 1));
           cancel();
         });
-        const noop = 'ipfs_ffi/test.Noop';
-        final json = bench(() => $callSync(noop, const []));
-        final jsonAsync = await benchAsync(() => $call(noop, const []));
+        // Noop (função 0): o piso do canal, sem kubo
+        final noop = bench(() => $callSync(0));
+        final noopAsync = await benchAsync(() => $call(0));
         final p =
             await api.unixfs().add(ctx, files.newBytesFile(utf8.encode('x')));
         final block = api.block();
         final statAsync = await benchAsync(() => block.stat(ctx, p));
-        final statSync = bench(() => $callSync(
-            'github.com/ipfs/kubo/core/coreiface.BlockAPI.Stat',
-            [block, ctx, p]));
-        log('  diretos: api.unixfs() ${us(direct)}; fsrepo.isInitialized '
+        log('  síncronas: api.unixfs() ${us(getter)}; fsrepo.isInitialized '
             '${us(stat)}; ctx.err() ${us(err)}; withTimeout+cancel ${us(timeout)}');
-        log('  JSON (IpfsCall): Noop síncrono ${us(json)}, assíncrono '
-            '${us(jsonAsync)}; block.stat assíncrono ${us(statAsync)}, '
-            'a mesma entrada síncrona ${us(statSync)}');
-        check(direct < json * 2, 'o direto não é pior que o JSON');
+        log('  Noop síncrono ${us(noop)}, assíncrono ${us(noopAsync)}; '
+            'block.stat assíncrono ${us(statAsync)}');
+        check(getter < noop * 20, 'api.unixfs() perto do piso do canal');
       },
     }, log);
   } finally {

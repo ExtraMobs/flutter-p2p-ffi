@@ -6,15 +6,19 @@ import 'package:ipfs_ffi/src/runtime.dart';
 import 'package:ipfs_ffi/os.dart' as $os;
 
 /// Go: `debug.CrashOptions`.
-final class CrashOptions implements GoJson {
+final class CrashOptions implements GoDto {
   CrashOptions();
-  CrashOptions.$fromJson(Map<String, Object?> j);
+  CrashOptions.$dec($R r);
 
   @override
-  Map<String, Object?> $toJson() => {};
+  void $enc($W w) {}
 }
 
 /// Go: `func debug.SetCrashOutput(f *os.File, opts debug.CrashOptions) error`.
 void setCrashOutput($os.File f, CrashOptions opts) {
-  $callSync('runtime/debug.SetCrashOutput', [f, opts]);
+  $callSync(
+      161,
+      $W()
+        ..h(f)
+        ..dto(opts));
 }

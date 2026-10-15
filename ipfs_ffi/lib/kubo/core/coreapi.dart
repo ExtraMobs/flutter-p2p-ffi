@@ -10,7 +10,10 @@ import 'package:ipfs_ffi/kubo/core/coreiface/options.dart' as $options;
 /// Go: `func coreapi.NewCoreAPI(n *core.IpfsNode, opts ...options.ApiOption) (iface.CoreAPI, error)`.
 $coreiface.CoreApi newCoreApi($core.IpfsNode n,
     [List<$options.ApiOption> opts = const []]) {
-  final $r =
-      $callSync('github.com/ipfs/kubo/core/coreapi.NewCoreAPI', [n, opts]);
-  return $coreiface.CoreApi.$h($nn($r) as int);
+  final $r = $callSync(
+      84,
+      $W()
+        ..h(n)
+        ..list(opts, (w0, e0) => w0.opt(e0)));
+  return $r.hnn($coreiface.CoreApi.$h);
 }

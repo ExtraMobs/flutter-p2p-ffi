@@ -2,7 +2,6 @@
 // Go: github.com/ipfs/go-ipld-format
 library;
 
-import 'dart:ffi';
 import 'dart:typed_data';
 
 import 'package:ipfs_ffi/src/runtime.dart';
@@ -16,16 +15,16 @@ class DagService extends NodeGetter {
 }
 
 /// Go: `format.Link`.
-final class Link implements GoJson {
+final class Link implements GoDto {
   Link({String? name, int? size, $go_cid.Cid? cid})
       : name = name ?? '',
         size = size ?? 0,
         cid = cid;
 
-  Link.$fromJson(Map<String, Object?> j)
-      : name = j['Name'] as String,
-        size = j['Size'] as int,
-        cid = j['Cid'] == null ? null : $go_cid.Cid(j['Cid'] as String);
+  Link.$dec($R r)
+      : name = r.str(),
+        size = r.i64(),
+        cid = r.p() ? $go_cid.Cid(r.str()) : null;
 
   /// Go: `Name`.
   String name;
@@ -37,8 +36,12 @@ final class Link implements GoJson {
   $go_cid.Cid? cid;
 
   @override
-  Map<String, Object?> $toJson() =>
-      {'Name': $enc(name), 'Size': $enc(size), 'Cid': $enc(cid)};
+  void $enc($W w) {
+    w
+      ..str(name)
+      ..i64(size)
+      ..val(cid);
+  }
 }
 
 /// Go: `format.Node` (handle).
@@ -47,34 +50,32 @@ class Node extends $go_block_format.Block {
 
   /// Go: `func (blocks.Block).Cid() cid.Cid`.
   $go_cid.Cid cid() {
-    $check(_d23($h, $out.cast<Pointer<Uint8>>()));
-    return $go_cid.Cid($take($nnP($out.cast<Pointer<Uint8>>().value)));
+    final $r = $callSync(73, $W()..h(this));
+    return $r.p() ? $go_cid.Cid($r.str()) : $nil();
   }
 
   /// Go: `func (blocks.Block).RawData() []byte`.
   Uint8List rawData() {
-    $check(_d24($h, $out.cast<Pointer<Uint8>>(), $outN));
-    return $takeBytes($out.cast<Pointer<Uint8>>().value, $outN.value);
+    final $r = $callSync(75, $W()..h(this));
+    return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (format.Node).Links() []*format.Link`.
   List<Link> links() {
-    final $r = $callSync('github.com/ipfs/go-ipld-format.Node.Links', [this]);
-    return [
-      for (final e0 in $r as List) Link.$fromJson(e0 as Map<String, Object?>)
-    ];
+    final $r = $callSync(74, $W()..h(this));
+    return $r.list(() => $r.p() ? Link.$dec($r) : $nil());
   }
 
   /// Go: `func (format.Node).Size() (uint64, error)`.
   int size() {
-    $check(_d25($h, $out));
-    return $out.value;
+    final $r = $callSync(76, $W()..h(this));
+    return $r.i64();
   }
 
   /// Go: `func (format.Node).Stat() (*format.NodeStat, error)`.
   NodeStat stat() {
-    final $r = $callSync('github.com/ipfs/go-ipld-format.Node.Stat', [this]);
-    return NodeStat.$fromJson($nn($r) as Map<String, Object?>);
+    final $r = $callSync(77, $W()..h(this));
+    return $r.p() ? NodeStat.$dec($r) : $nil();
   }
 }
 
@@ -84,18 +85,26 @@ class NodeAdder extends GoHandle {
 
   /// Go: `func (format.NodeAdder).Add(context.Context, format.Node) error`.
   ///
-  /// Assíncrona: roda numa goroutine.
+  /// Assíncrona: roda numa goroutine do serviço.
   Future<void> add($context.Context ctx, Node node) async {
     await $call(
-        'github.com/ipfs/go-ipld-format.NodeAdder.Add', [this, ctx, node]);
+        78,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..h(node));
   }
 
   /// Go: `func (format.NodeAdder).AddMany(context.Context, []format.Node) error`.
   ///
-  /// Assíncrona: roda numa goroutine.
+  /// Assíncrona: roda numa goroutine do serviço.
   Future<void> addMany($context.Context ctx, List<Node> nodes) async {
     await $call(
-        'github.com/ipfs/go-ipld-format.NodeAdder.AddMany', [this, ctx, nodes]);
+        79,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..list(nodes, (w0, e0) => w0.h(e0)));
   }
 }
 
@@ -105,14 +114,14 @@ class NodeGetter extends GoHandle {
 }
 
 /// Go: `format.NodeOption`.
-final class NodeOption implements GoJson {
+final class NodeOption implements GoDto {
   NodeOption({Node? node, String? err})
       : node = node,
         err = err;
 
-  NodeOption.$fromJson(Map<String, Object?> j)
-      : node = j['Node'] == null ? null : Node.$h(j['Node'] as int),
-        err = j['Err'] == null ? null : j['Err'] as String;
+  NodeOption.$dec($R r)
+      : node = r.hn(Node.$h),
+        err = r.err();
 
   /// Go: `Node`.
   Node? node;
@@ -121,11 +130,15 @@ final class NodeOption implements GoJson {
   String? err;
 
   @override
-  Map<String, Object?> $toJson() => {'Node': $enc(node), 'Err': $enc(err)};
+  void $enc($W w) {
+    w
+      ..h(node)
+      ..err(err);
+  }
 }
 
 /// Go: `format.NodeStat`.
-final class NodeStat implements GoJson {
+final class NodeStat implements GoDto {
   NodeStat(
       {String? hash,
       int? numLinks,
@@ -140,13 +153,13 @@ final class NodeStat implements GoJson {
         dataSize = dataSize ?? 0,
         cumulativeSize = cumulativeSize ?? 0;
 
-  NodeStat.$fromJson(Map<String, Object?> j)
-      : hash = j['Hash'] as String,
-        numLinks = j['NumLinks'] as int,
-        blockSize = j['BlockSize'] as int,
-        linksSize = j['LinksSize'] as int,
-        dataSize = j['DataSize'] as int,
-        cumulativeSize = j['CumulativeSize'] as int;
+  NodeStat.$dec($R r)
+      : hash = r.str(),
+        numLinks = r.i64(),
+        blockSize = r.i64(),
+        linksSize = r.i64(),
+        dataSize = r.i64(),
+        cumulativeSize = r.i64();
 
   /// Go: `Hash`.
   String hash;
@@ -167,24 +180,13 @@ final class NodeStat implements GoJson {
   int cumulativeSize;
 
   @override
-  Map<String, Object?> $toJson() => {
-        'Hash': $enc(hash),
-        'NumLinks': $enc(numLinks),
-        'BlockSize': $enc(blockSize),
-        'LinksSize': $enc(linksSize),
-        'DataSize': $enc(dataSize),
-        'CumulativeSize': $enc(cumulativeSize)
-      };
+  void $enc($W w) {
+    w
+      ..str(hash)
+      ..i64(numLinks)
+      ..i64(blockSize)
+      ..i64(linksSize)
+      ..i64(dataSize)
+      ..i64(cumulativeSize);
+  }
 }
-
-// Exports diretos (sem JSON) usados acima.
-final _d23 = $dylib.lookupFunction<
-    Pointer<Uint8> Function(Int64, Pointer<Pointer<Uint8>>),
-    Pointer<Uint8> Function(int, Pointer<Pointer<Uint8>>)>('IpfsD23');
-final _d24 = $dylib.lookupFunction<
-    Pointer<Uint8> Function(Int64, Pointer<Pointer<Uint8>>, Pointer<Int64>),
-    Pointer<Uint8> Function(
-        int, Pointer<Pointer<Uint8>>, Pointer<Int64>)>('IpfsD24');
-final _d25 = $dylib.lookupFunction<
-    Pointer<Uint8> Function(Int64, Pointer<Int64>),
-    Pointer<Uint8> Function(int, Pointer<Int64>)>('IpfsD25');

@@ -36,8 +36,6 @@ func emitAPI(m *model, fns []*fn) []byte {
 				mode = "Stream"
 			case f.async:
 				mode = "Future"
-			case f.direct >= 0:
-				mode = "síncrona (direta)"
 			}
 			fmt.Fprintf(&b, "| `%s` | `%s` | %s |\n", goDoc(f.obj), dart, mode)
 		}
@@ -92,7 +90,8 @@ func emitAPI(m *model, fns []*fn) []byte {
 - Tipos-valor (CID, path, peer ID, multiaddr) guardam a string; a validação acontece no Go, quando atravessam.
 - ` + "`config.Config`" + ` guarda o JSON do kubo (o mesmo do arquivo ` + "`config`" + ` do repo) em ` + "`json`" + `.
 - Resultado ` + "`nil`" + ` do Go onde o Dart espera um objeto vira ` + "`IpfsException`" + `.
-- Handles são soltos por ` + "`NativeFinalizer`" + `; recursos do Go (nó, repo) continuam exigindo o ` + "`Close`" + ` do próprio Go.
+- O kubo roda no ` + "`ipfs_host`" + `, noutro processo (` + "`IpfsService.start()`" + ` antes da API; protocolo no ` + "`WIRE.md`" + `): um panic do Go derruba só o serviço, e as chamadas pendentes falham com ` + "`IpfsServiceException`" + `.
+- Handles são soltos pelo ` + "`Finalizer`" + ` do Dart (em lote, pela função Free do serviço) e só valem no serviço em que nasceram; recursos do Go (nó, repo) continuam exigindo o ` + "`Close`" + ` do próprio Go.
 `)
 	return []byte(b.String())
 }

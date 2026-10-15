@@ -1,9 +1,10 @@
 /// Go: `var config.Profiles map[string]config.Profile`. Escrito à mão
-/// (go/gen/extra): no Go o perfil é uma função `Transform`.
-final Map<String, Profile> profiles = {
-  for (final name in ($callSync('config.Profiles', const []) as List).cast<String>())
-    name: Profile._(name),
-};
+/// (go/gen/extra; funções 40 e 41 do WIRE.md): no Go o perfil é uma função
+/// `Transform`. Lido no primeiro uso, com o serviço já iniciado.
+final Map<String, Profile> profiles = () {
+  final r = $callSync(40);
+  return {for (final name in r.list(r.str)) name: Profile._(name)};
+}();
 
 /// Go: `config.Profile`.
 final class Profile {
@@ -13,7 +14,7 @@ final class Profile {
 
   /// Go: `Transform(c *Config) error`: aplica o perfil a [c].
   void transform(Config c) {
-    final r = $callSync('config.Profile.Transform', [_name, c]) as Map<String, Object?>;
+    final r = $callSync(41, $W()..str(_name)..jsonStr(c.json)).json();
     c.json
       ..clear()
       ..addAll(r);

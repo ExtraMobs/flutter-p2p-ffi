@@ -8,7 +8,9 @@ import 'dart:ffi';
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'runtime.dart' show IpfsException;
+import 'runtime.dart' show IpfsException, IpfsServiceException;
+
+export 'runtime.dart' show IpfsServiceException;
 
 /// Caminho da ipfs_shm; padrão `native/libipfs_shm.so` ou
 /// `native\ipfs_shm.dll` relativo ao diretório atual, e no Android
@@ -18,14 +20,6 @@ String ipfsShmLibraryPath = Platform.isAndroid
     : Platform.isWindows
         ? r'native\ipfs_shm.dll'
         : 'native/libipfs_shm.so';
-
-/// O serviço caiu (o processo do host saiu) ou o canal fechou.
-class IpfsServiceException extends IpfsException {
-  IpfsServiceException(super.message);
-
-  @override
-  String toString() => 'IpfsServiceException: $message';
-}
 
 typedef _WakeNative = Void Function(Int64);
 
@@ -320,6 +314,9 @@ final class ShmChannel {
     _pending.clear();
     if (first) onDead?.call(_deadReason!);
   }
+
+  /// Por que o canal morreu (o host caiu ou o canal fechou); null enquanto vivo.
+  String? get deadReason => _deadReason;
 
   /// O pid do processo do serviço.
   int get hostPid => _process.pid;

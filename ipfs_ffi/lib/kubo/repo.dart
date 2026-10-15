@@ -12,7 +12,7 @@ class Repo extends $io.Closer {
 
   /// Go: `func (repo.Repo).Config() (*config.Config, error)`.
   $config.Config config() {
-    final $r = $callSync('github.com/ipfs/kubo/repo.Repo.Config', [this]);
-    return $config.Config($nn($r) as Map<String, Object?>);
+    final $r = $callSync(151, $W()..h(this));
+    return $r.p() ? $config.Config($r.json()) : $nil();
   }
 }

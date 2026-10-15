@@ -1,17 +1,23 @@
 // A API gerada (go/gen) na ordem em que o kubo monta um nó: plugins →
 // identidade e config → fsrepo.Init/Open → core.NewNode → CoreAPI → Unixfs
-// (M1) → pins, blocos e GC (M2).
+// (M1) → pins, blocos e GC (M2). O kubo roda no ipfs_host, noutro processo
+// (exige `dart run tool/build.dart`: native/ipfs_host e a ipfs_shm).
 import 'dart:async';
 import 'dart:convert';
 import 'dart:typed_data';
-import 'dart:io' show Directory, File, InternetAddress, Platform, Process;
+import 'dart:io' show Directory, File, InternetAddress;
 
 import 'package:ipfs_ffi/boxo/files.dart' as files;
 import 'package:ipfs_ffi/boxo/path.dart' as path;
 import 'package:ipfs_ffi/context.dart' as context;
 import 'package:ipfs_ffi/io.dart' as io;
 import 'package:ipfs_ffi/ipfs_ffi.dart'
-    show IpfsException, hasIpv6, isGlobalIpv6;
+    show
+        IpfsException,
+        IpfsService,
+        IpfsServiceException,
+        hasIpv6,
+        isGlobalIpv6;
 import 'package:ipfs_ffi/boxo/ipld/merkledag.dart' as merkledag;
 import 'package:ipfs_ffi/kubo/config.dart' as config;
 import 'package:ipfs_ffi/kubo/core/commands/dag.dart' as dag;
@@ -26,17 +32,21 @@ import 'package:ipfs_ffi/go_libp2p/core/peer.dart' as peer;
 import 'package:ipfs_ffi/kubo/plugin/loader.dart' as loader;
 import 'package:ipfs_ffi/kubo/repo/fsrepo.dart' as fsrepo;
 import 'package:ipfs_ffi/os.dart' as os;
-import 'package:ipfs_ffi/src/runtime.dart' show $call, $stream, GoSink;
+import 'package:ipfs_ffi/src/runtime.dart'
+    show $W, $call, $callSync, $stream, GoSink;
 import 'package:test/test.dart';
 
 void main() {
   late Directory tmp;
   late core.IpfsNode n;
   late iface.CoreApi api;
-  final ctx = context.background();
+  late context.Context ctx;
+  var hostCrashed = false; // o último teste derruba o host de propósito
 
   setUpAll(() async {
     tmp = Directory.systemTemp.createTempSync('ipfs_ffi_kubo_');
+    await IpfsService.start(crashLog: '${tmp.path}/crash.log');
+    ctx = context.background();
     final repoPath = '${tmp.path}/repo';
 
     // Plugins: uma vez por processo (como o setupPlugins do kubo-as-a-library).
@@ -59,7 +69,8 @@ void main() {
   });
 
   tearDownAll(() async {
-    await n.close();
+    if (!hostCrashed) await n.close();
+    await IpfsService.stop();
     tmp.deleteSync(recursive: true);
   });
 
@@ -489,50 +500,13 @@ void main() {
     });
   });
 
-  // F4a: panic numa goroutine interna derruba o processo (o guard só cobre a
-  // chamada); com debug.setCrashOutput o relatório fica num arquivo.
-  test('panic em goroutine do Go: o processo cai e o relatório fica no arquivo',
-      () async {
-    final log = '${tmp.path}/crash.log';
-    final r = await Process.run(
-        Platform.resolvedExecutable, ['run', 'test/crash_child.dart', log]);
-    expect(r.exitCode, isNot(0));
-    final text = File(log).readAsStringSync();
-    expect(text, contains('panic: ipfs_ffi: panic de teste numa goroutine'));
-    expect(text, contains('goroutine '));
-  }, timeout: const Timeout(Duration(minutes: 2)));
-
-  // Marco do serviço (P0): onde um panic do Go derruba o quê.
-  group('panic do Go fora de uma chamada', () {
-    test('num Isolate de fundo: o processo inteiro cai', () async {
-      final r = await Process.run(
-          Platform.resolvedExecutable, ['run', 'test/crash_isolate.dart']);
-      expect(r.exitCode, isNot(0));
-      expect(r.stdout, isNot(contains('sobreviveu')));
-      expect(
-          r.stderr, contains('panic: ipfs_ffi: panic de teste numa goroutine'));
-    }, timeout: const Timeout(Duration(minutes: 2)));
-
-    test('noutro processo: só ele cai, e quem o lançou o relança', () async {
-      // este processo de teste é o "app"; o filho é o serviço
-      for (var i = 0; i < 3; i++) {
-        final log = '${tmp.path}/crash$i.log';
-        final r = await Process.run(
-            Platform.resolvedExecutable, ['run', 'test/crash_child.dart', log]);
-        expect(r.exitCode, isNot(0));
-        expect(File(log).readAsStringSync(), contains('panic de teste'));
-      }
-    }, timeout: const Timeout(Duration(minutes: 3)));
-  });
-
   // As goroutines do próprio ipfs_ffi (go/runtime.go try/goTry): o panic vira
   // IpfsException e o processo segue.
   group('panic em goroutine do ipfs_ffi vira erro', () {
     test('função do kubo com chan<- (goTry)', () async {
       final events = <Object?>[];
       await expectLater(
-          $stream('ipfs_ffi/test.PanicInChanFunc', const [])
-              .forEach(events.add),
+          $stream(25).map((r) => r.i64()).forEach(events.add),
           throwsA(isA<IpfsException>().having((e) => e.message, 'message',
               contains('panic de teste numa função com canal'))));
       expect(events, [1]); // o que saiu antes do panic chega
@@ -546,7 +520,7 @@ void main() {
           c.stream.forEach(got.add),
           throwsA(isA<IpfsException>().having((e) => e.message, 'message',
               contains('panic de teste no sink'))));
-      await $call('ipfs_ffi/test.PanicInSink', [GoSink(c.sink, (j) => j)]);
+      await $call(26, $W()..sink(GoSink(c.sink, (r) => r.i64())));
       await check;
       expect(got, [1]);
     });
@@ -613,4 +587,24 @@ void main() {
           throwsA(isA<IpfsException>()));
     });
   });
+
+  // 0.9.0: um panic numa goroutine do Go (fora de uma chamada) derruba só o
+  // ipfs_host; este processo segue e relança o serviço. Por último: o nó dos
+  // outros testes cai junto.
+  test('panic numa goroutine do Go: só o host cai e é relançado', () async {
+    final exit = IpfsService.exitCode!;
+    $callSync(24); // responde e cai logo depois
+    hostCrashed = true;
+    expect(await exit.timeout(const Duration(seconds: 30)), isNot(0));
+    expect(IpfsService.isRunning, isFalse);
+    expect(() => context.background(), throwsA(isA<IpfsServiceException>()));
+    expect(() => api.unixfs(), throwsA(isA<IpfsServiceException>()));
+    final report = File('${tmp.path}/crash.log').readAsStringSync();
+    expect(report, contains('panic de teste numa goroutine'));
+
+    await IpfsService.start();
+    expect(context.background().err(), isNull);
+    // os handles do serviço anterior não valem no novo
+    expect(() => ctx.err(), throwsA(isA<IpfsServiceException>()));
+  }, timeout: const Timeout(Duration(minutes: 2)));
 }

@@ -1,7 +1,10 @@
 # ipfs_ffi
 
-Kubo v0.43.1 (IPFS em Go) compilado com `-buildmode=c-shared` e usado do
-Dart por `dart:ffi`: o nó roda nativo dentro do processo Dart, sem HTTP.
+Kubo v0.43.1 (IPFS em Go) usado do Dart sem HTTP: o kubo roda no executável
+`ipfs_host`, noutro processo, e o app fala com ele por memória compartilhada (a
+`ipfs_shm`, em C; protocolo binário no [`WIRE.md`](WIRE.md)). O app não carrega Go:
+um panic do kubo derruba só o serviço, as chamadas pendentes falham com
+`IpfsServiceException` e o app o relança com `IpfsService.start()`.
 Alvos: VM/AOT no Windows, no linux e no Android (não serve para JS/Wasm).
 
 A API Dart é a do próprio Go, gerada: uma library por pacote Go, sem o
@@ -14,19 +17,22 @@ import 'dart:convert';
 import 'package:ipfs_ffi/boxo/files.dart' as files;
 import 'package:ipfs_ffi/context.dart' as context;
 import 'package:ipfs_ffi/io.dart' as io;
+import 'package:ipfs_ffi/ipfs_ffi.dart' show IpfsService;
 import 'package:ipfs_ffi/kubo/core.dart' as core;
 import 'package:ipfs_ffi/kubo/core/coreapi.dart' as coreapi;
 import 'package:ipfs_ffi/kubo/core/node.dart' as node;
 import 'package:ipfs_ffi/kubo/plugin/loader.dart' as loader;
 import 'package:ipfs_ffi/kubo/repo/fsrepo.dart' as fsrepo;
 
-final plugins = loader.PluginLoader('')..initialize()..inject(); // 1x por processo
+await IpfsService.start(); // lança native/ipfs_host
+final plugins = loader.PluginLoader('')..initialize()..inject(); // 1x por serviço
 final ctx = context.background();
 final n = await core.newNode(ctx, node.BuildCfg(repo: fsrepo.open('.ipfs-ffi')));
 final api = coreapi.newCoreApi(n);
 final p = await api.unixfs().add(ctx, files.newBytesFile(utf8.encode('oi')));
 print(utf8.decode(io.readAll(files.toFile(await api.unixfs().get(ctx, p)))));
 await n.close();
+await IpfsService.stop();
 ```
 
 Exemplos, na ordem em que o kubo monta um nó:
@@ -66,7 +72,9 @@ Exemplos, na ordem em que o kubo monta um nó:
   `(T, error)` vira `T` com `IpfsException` (inclusive em panic do Go).
 - Opções funcionais espelham as variáveis do Go:
   `[options.unixfs.cidVersion(1), options.unixfs.rawLeaves(true)]`.
-- Objetos com estado ficam no Go (handle solto por `NativeFinalizer`); o nó e
+- Objetos com estado ficam no Go (handle solto pelo `Finalizer` do Dart, em lote,
+  e válido só no serviço em que nasceu: depois de um reinício, usá-lo dá
+  `IpfsServiceException`); o nó e
   o repo continuam exigindo o `close` do Go. CID, path, peer e multiaddr são
   valores (a string); `config.Config` guarda o JSON do kubo em `json`.
 
@@ -90,7 +98,8 @@ Exemplos, na ordem em que o kubo monta um nó:
 NDK (`ANDROID_NDK_HOME`, ou o mais novo em `<Android SDK>/ndk`), alinhadas em 16 KB, com o
 `go-multiaddr` e o `zeroconf` trocados pelo `wlynxg/anet` (no Android 11+ o `net` do Go não
 lista interfaces; sem isso o nó só anuncia 127.0.0.1 e o mDNS não funciona). No
-Android o `ipfsLibraryPath` padrão é `libipfs.so`: a lib vai dentro do APK. O app de
+Android o host padrão (`defaultHostPath()`) é a `libipfs_host.so` na pasta das libs
+nativas do app (o APK precisa extraí-las). O app de
 validação em [`example/android_app`](example/android_app) mostra como empacotar (o Gradle
 lê direto de `native/android`), sobe o nó, fecha no background e reabre na volta, roda as
 verificações ao abrir (com o log copiável) e tem o teste de integração
@@ -125,17 +134,17 @@ linux o QUIC pede um buffer UDP maior (aviso do quic-go, não erro):
 `sudo sysctl -w net.core.rmem_max=7500000 net.core.wmem_max=7500000`.
 
 Relatório de crash: um panic numa chamada ou numa goroutine do próprio ipfs_ffi vira
-`IpfsException`; numa goroutine interna do kubo derruba o processo (não dá para
-recuperar); grave o relatório com `debug.setCrashOutput(os.create(caminho),
-debug.CrashOptions())` (`package:ipfs_ffi/runtime/debug.dart`, `package:ipfs_ffi/os.dart`)
-e leia o arquivo no próximo início.
+`IpfsException`; numa goroutine interna do kubo derruba o `ipfs_host` (não o app):
+`IpfsService.start(crashLog: caminho)` faz o Go gravar o relatório nesse arquivo, e
+`IpfsService.exitCode` completa quando o host sai. Relance com `IpfsService.start()`
+(os handles do serviço anterior deixam de valer).
 
-Chamadas síncronas só com número, `bool`, string, bytes, tipo-valor (CID, path, peer
-ID, multiaddr, ipns.Name) e handle usam um export C direto, assim como o `context`
-(sem JSON; `dart run tool/bench.dart` mede); o resto passa pelo `IpfsCall`. Nas
-assíncronas o JSON é a menor parte do custo (ver `TODO.md`).
+Toda chamada vai em binário pelo canal (`WIRE.md`): síncronas bloqueiam a isolate
+até a resposta, as com `context` são `Future`, canais são `Stream`;
+`dart run tool/bench.dart` mede.
 
 Pendências e roteiro em [`TODO.md`](TODO.md): o que falta do Android (dois aparelhos conectando direto, uso longo).
 
-Limites: os plugins do kubo são injetados uma vez por processo; um panic em
-goroutine interna do kubo (fora da chamada) derruba o processo (veja o relatório de crash acima).
+Limites: os plugins do kubo são injetados uma vez por processo do serviço; um panic
+em goroutine interna do kubo (fora da chamada) derruba o serviço (veja o relatório de
+crash acima).

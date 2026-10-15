@@ -6,17 +6,14 @@ import 'package:ipfs_ffi/src/runtime.dart';
 import 'package:ipfs_ffi/go_multiaddr.dart' as $go_multiaddr;
 
 /// Go: `peer.AddrInfo`.
-final class AddrInfo implements GoJson {
+final class AddrInfo implements GoDto {
   AddrInfo({Id? id, List<$go_multiaddr.Multiaddr>? addrs})
       : id = id,
         addrs = addrs ?? [];
 
-  AddrInfo.$fromJson(Map<String, Object?> j)
-      : id = j['ID'] == null ? null : Id(j['ID'] as String),
-        addrs = [
-          for (final e0 in j['Addrs'] as List)
-            $go_multiaddr.Multiaddr(e0 as String)
-        ];
+  AddrInfo.$dec($R r)
+      : id = r.p() ? Id(r.str()) : null,
+        addrs = r.list(() => r.p() ? $go_multiaddr.Multiaddr(r.str()) : $nil());
 
   /// Go: `ID`.
   Id? id;
@@ -25,7 +22,11 @@ final class AddrInfo implements GoJson {
   List<$go_multiaddr.Multiaddr> addrs;
 
   @override
-  Map<String, Object?> $toJson() => {'ID': $enc(id), 'Addrs': $enc(addrs)};
+  void $enc($W w) {
+    w
+      ..val(id)
+      ..list(addrs, (w0, e0) => w0.val(e0));
+  }
 }
 
 /// Go: `peer.ID` (valor).
@@ -35,14 +36,12 @@ class Id extends GoValue {
 
 /// Go: `func peer.AddrInfoFromString(s string) (*peer.AddrInfo, error)`.
 AddrInfo addrInfoFromString(String s) {
-  final $r = $callSync(
-      'github.com/libp2p/go-libp2p/core/peer.AddrInfoFromString', [s]);
-  return AddrInfo.$fromJson($nn($r) as Map<String, Object?>);
+  final $r = $callSync(155, $W()..str(s));
+  return $r.p() ? AddrInfo.$dec($r) : $nil();
 }
 
 /// Go: `func peer.AddrInfoToP2pAddrs(pi *peer.AddrInfo) ([]multiaddr.Multiaddr, error)`.
 List<$go_multiaddr.Multiaddr> addrInfoToP2pAddrs(AddrInfo pi) {
-  final $r = $callSync(
-      'github.com/libp2p/go-libp2p/core/peer.AddrInfoToP2pAddrs', [pi]);
-  return [for (final e0 in $r as List) $go_multiaddr.Multiaddr(e0 as String)];
+  final $r = $callSync(156, $W()..dto(pi));
+  return $r.list(() => $r.p() ? $go_multiaddr.Multiaddr($r.str()) : $nil());
 }

@@ -11,14 +11,14 @@ class Config extends GoJsonValue {
 }
 
 /// Go: `config.Identity`.
-final class Identity implements GoJson {
+final class Identity implements GoDto {
   Identity({String? peerId, String? privKey})
       : peerId = peerId ?? '',
         privKey = privKey ?? '';
 
-  Identity.$fromJson(Map<String, Object?> j)
-      : peerId = j['PeerID'] as String,
-        privKey = j['PrivKey'] as String;
+  Identity.$dec($R r)
+      : peerId = r.str(),
+        privKey = r.str();
 
   /// Go: `PeerID`.
   String peerId;
@@ -27,30 +27,32 @@ final class Identity implements GoJson {
   String privKey;
 
   @override
-  Map<String, Object?> $toJson() =>
-      {'PeerID': $enc(peerId), 'PrivKey': $enc(privKey)};
+  void $enc($W w) {
+    w
+      ..str(peerId)
+      ..str(privKey);
+  }
 }
 
 /// Go: `func config.CreateIdentity(out io.Writer, opts []options.KeyGenerateOption) (config.Identity, error)`.
 Identity createIdentity(List<$options.KeyGenerateOption> opts) {
-  final $r = $callSync('github.com/ipfs/kubo/config.CreateIdentity', [opts]);
-  return Identity.$fromJson($nn($r) as Map<String, Object?>);
+  final $r = $callSync(80, $W()..list(opts, (w0, e0) => w0.opt(e0)));
+  return $r.p() ? Identity.$dec($r) : $nil();
 }
 
 /// Go: `func config.InitWithIdentity(identity config.Identity) (*config.Config, error)`.
 Config initWithIdentity(Identity identity) {
-  final $r =
-      $callSync('github.com/ipfs/kubo/config.InitWithIdentity', [identity]);
-  return Config($nn($r) as Map<String, Object?>);
+  final $r = $callSync(81, $W()..dto(identity));
+  return $r.p() ? Config($r.json()) : $nil();
 }
 
 /// Go: `var config.Profiles map[string]config.Profile`. Escrito à mão
-/// (go/gen/extra): no Go o perfil é uma função `Transform`.
-final Map<String, Profile> profiles = {
-  for (final name
-      in ($callSync('config.Profiles', const []) as List).cast<String>())
-    name: Profile._(name),
-};
+/// (go/gen/extra; funções 40 e 41 do WIRE.md): no Go o perfil é uma função
+/// `Transform`. Lido no primeiro uso, com o serviço já iniciado.
+final Map<String, Profile> profiles = () {
+  final r = $callSync(40);
+  return {for (final name in r.list(r.str)) name: Profile._(name)};
+}();
 
 /// Go: `config.Profile`.
 final class Profile {
@@ -60,8 +62,12 @@ final class Profile {
 
   /// Go: `Transform(c *Config) error`: aplica o perfil a [c].
   void transform(Config c) {
-    final r = $callSync('config.Profile.Transform', [_name, c])
-        as Map<String, Object?>;
+    final r = $callSync(
+            41,
+            $W()
+              ..str(_name)
+              ..jsonStr(c.json))
+        .json();
     c.json
       ..clear()
       ..addAll(r);

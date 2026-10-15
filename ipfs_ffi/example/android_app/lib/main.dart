@@ -1,16 +1,16 @@
-// App de validação do ipfs_ffi no Android: sobe um nó IPFS (kubo via
-// dart:ffi) com repo no diretório de dados do app, mostra peer ID e peers,
-// fecha o nó no background e reabre na volta, roda as verificações
-// (lib/checks.dart) e junta tudo num log que se copia com um toque. Mostra o
-// relatório de crash do Go se o processo anterior caiu; na primeira vez
-// derruba o próprio processo para testar esse relatório.
+// App de validação do ipfs_ffi no Android: sobe o serviço (o kubo no
+// ipfs_host, a libipfs_host.so do APK, noutro processo) e um nó IPFS com repo
+// no diretório de dados do app, mostra peer ID e peers, fecha o nó no
+// background e reabre na volta, roda as verificações (lib/checks.dart) e junta
+// tudo num log que se copia com um toque. Na primeira vez derruba o ipfs_host
+// com um panic do Go: o app segue, mostra o relatório e relança o serviço.
 import 'dart:async';
 import 'dart:io';
-import 'dart:isolate';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:ipfs_ffi/context.dart' as gocontext;
+import 'package:ipfs_ffi/ipfs_ffi.dart' show IpfsService;
 import 'package:ipfs_ffi/kubo/config.dart' as config;
 import 'package:ipfs_ffi/kubo/core.dart' as core;
 import 'package:ipfs_ffi/kubo/core/coreapi.dart' as coreapi;
@@ -20,8 +20,6 @@ import 'package:ipfs_ffi/kubo/core/node.dart' as node;
 import 'package:ipfs_ffi/kubo/core/node/libp2p.dart' as libp2p;
 import 'package:ipfs_ffi/kubo/plugin/loader.dart' as loader;
 import 'package:ipfs_ffi/kubo/repo/fsrepo.dart' as fsrepo;
-import 'package:ipfs_ffi/os.dart' as os;
-import 'package:ipfs_ffi/runtime/debug.dart' as debug;
 import 'package:ipfs_ffi/src/runtime.dart' show $callSync;
 
 import 'checks.dart';
@@ -43,24 +41,19 @@ libp2p.RoutingOption routingFor(config.Config cfg) {
   };
 }
 
-var _pluginsInjected = false;
-
-/// Prepara o processo: lê o relatório de crash anterior, aponta o próximo para
-/// [crashLog], injeta os plugins (1x) e cria o repo se preciso. Devolve o
-/// relatório anterior, se houver.
-String? prepare(String repoPath, String crashLog) {
+/// Prepara o serviço: lê o relatório de crash do ipfs_host anterior, lança um
+/// novo (o Go grava o relatório de um panic em [crashLog]), injeta os plugins
+/// (1x por processo do serviço) e cria o repo se preciso. Devolve o relatório
+/// anterior, se houver.
+Future<String?> prepare(String repoPath, String crashLog) async {
   final f = File(crashLog);
   final previous =
       f.existsSync() && f.lengthSync() > 0 ? f.readAsStringSync() : null;
-  final out = os.create(crashLog); // trunca: o anterior já foi lido
-  debug.setCrashOutput(out, debug.CrashOptions());
-  out.close();
-  if (!_pluginsInjected) {
-    loader.PluginLoader('')
-      ..initialize()
-      ..inject();
-    _pluginsInjected = true;
-  }
+  if (previous != null) f.writeAsStringSync(''); // já foi lido
+  await IpfsService.start(crashLog: crashLog);
+  loader.PluginLoader('')
+    ..initialize()
+    ..inject();
   if (!fsrepo.isInitialized(repoPath)) {
     final cfg = config
         .initWithIdentity(config.createIdentity([options.key.type('ed25519')]));
@@ -142,7 +135,10 @@ class NodePage extends StatefulWidget {
 }
 
 class _NodePageState extends State<NodePage> {
-  final ctx = gocontext.background();
+  /// Um contexto do serviço atual (os handles de um ipfs_host anterior não
+  /// valem depois de relançado).
+  gocontext.Context get ctx => gocontext.background();
+  late final String _crashLog = '$appDataDir/crash.log';
   late final String repoPath = '$appDataDir/ipfs';
   late final AppLifecycleListener _life;
   Future<void> _busy = Future.value(); // start/stop/verificações em série
@@ -167,29 +163,20 @@ class _NodePageState extends State<NodePage> {
     _serial(() async {
       log('app: ${Platform.operatingSystemVersion}; Dart ${Platform.version}');
       log('cpus: ${Platform.numberOfProcessors}; bateria: ${battery()}');
-      final crash = prepare(repoPath, '$appDataDir/crash.log');
-      if (_previousLog.existsSync()) {
-        log('--- log da execução anterior ---\n'
-            '${_previousLog.readAsStringSync()}--- fim do anterior ---');
-        _previousLog.deleteSync();
-      }
+      final crash = await prepare(repoPath, _crashLog);
       if (crash != null) {
-        log('O PROCESSO ANTERIOR CAIU (relatório do Go):\n$crash');
+        log('O IPFS_HOST ANTERIOR CAIU (relatório do Go):\n$crash');
       }
       await _start();
       await _checks();
-      // teste de crash automático, uma vez por instalação: o relatório
-      // aparece no próximo início (o log desta execução vai junto)
+      // teste de crash automático, uma vez por instalação
       final done = File('$appDataDir/crash-testado');
       if (!done.existsSync()) {
         done.writeAsStringSync('');
-        _crashNow();
+        await _crashNow();
       }
     });
   }
-
-  /// O log da execução que caiu de propósito, para o próximo início mostrar.
-  final _previousLog = File('$appDataDir/anterior.log');
 
   @override
   void dispose() {
@@ -221,7 +208,16 @@ class _NodePageState extends State<NodePage> {
   }
 
   Future<void> _start() async {
-    if (_node != null) return;
+    if (_node != null && IpfsService.isRunning) return;
+    if (!IpfsService.isRunning) {
+      // o ipfs_host caiu sozinho (panic do kubo): relança o serviço
+      _tick?.cancel();
+      _node = null;
+      _api = null;
+      final crash = await prepare(repoPath, _crashLog);
+      log('o ipfs_host tinha caído; relançado. Relatório do Go:\n'
+          '${crash ?? '(nenhum)'}');
+    }
     _set(() => _status = 'subindo o nó...');
     final sw = Stopwatch()..start();
     final n = await startNode(ctx, repoPath);
@@ -249,7 +245,7 @@ class _NodePageState extends State<NodePage> {
     final n = _node;
     _node = null;
     _api = null;
-    if (n == null) return;
+    if (n == null || !IpfsService.isRunning) return;
     _set(() => _status = 'fechando (background)...');
     log('fechando o nó (app em background); peers: $_peers');
     await n.close();
@@ -283,7 +279,7 @@ class _NodePageState extends State<NodePage> {
         context: context,
         builder: (c) => AlertDialog(
               content: const Text(
-                  'Derruba o app com um panic numa goroutine do Go. Abra o app de novo: o relatório aparece no log.'),
+                  'Derruba o ipfs_host com um panic numa goroutine do Go. O app segue, mostra o relatório no log e relança o serviço.'),
               actions: [
                 TextButton(
                     onPressed: () => Navigator.pop(c, false),
@@ -293,17 +289,23 @@ class _NodePageState extends State<NodePage> {
                     child: const Text('derrubar')),
               ],
             ));
-    if (ok ?? false) _crashNow();
+    if (ok ?? false) _serial(_crashNow);
   }
 
-  /// Panic numa goroutine solta do Go: o processo inteiro cai, e o relatório
-  /// (debug.setCrashOutput) aparece no próximo início.
-  void _crashNow() {
-    log('derrubando o processo de propósito (panic numa goroutine do Go); '
-        'abra o app de novo para ver o relatório');
-    _previousLog.writeAsStringSync(logText.value);
-    $callSync('ipfs_ffi/test.PanicInGoroutine', const []);
-    Isolate.current.pause(); // o panic chega antes
+  /// Panic numa goroutine solta do Go (função de teste 24 do WIRE.md): só o
+  /// ipfs_host cai; o app segue, lê o relatório do Go e relança o serviço e o nó.
+  Future<void> _crashNow() async {
+    log('derrubando o ipfs_host de propósito (panic numa goroutine do Go)');
+    _tick?.cancel();
+    _node = null;
+    _api = null;
+    final exit = IpfsService.exitCode!;
+    $callSync(24); // responde e cai logo depois
+    log('o ipfs_host saiu (código ${await exit}); o app seguiu');
+    final crash = await prepare(repoPath, _crashLog);
+    log('relatório do Go:\n${crash ?? '(nenhum)'}');
+    await _start();
+    log('serviço e nó relançados');
   }
 
   @override

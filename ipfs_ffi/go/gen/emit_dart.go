@@ -28,8 +28,6 @@ type dartLib struct {
 	funcs   []*fn
 	bytes   bool // usa Uint8List
 	async   bool // usa StreamSink (dart:async)
-	ffi     bool // tem exports diretos (dart:ffi)
-	lookups []string
 }
 
 type dclass struct {
@@ -103,7 +101,6 @@ func (e *dartEmitter) collect(t *tinfo) {
 }
 
 func emitDart(m *model, fns []*fn, hash uint64) map[string][]byte {
-	_ = hash // tabela do protocolo (WIRE.md)
 	e := &dartEmitter{m: m, libs: map[string]*dartLib{}}
 	for _, f := range fns {
 		if f.why != "" {
@@ -139,6 +136,14 @@ func emitDart(m *model, fns []*fn, hash uint64) map[string][]byte {
 		}
 		out[path] = formatDart(path, src)
 	}
+	// O hash da tabela vai no Hello do IpfsService (WIRE.md): app e host têm de
+	// vir do mesmo gerador.
+	out["src/table.dart"] = formatDart("src/table.dart", fmt.Sprintf(`// Gerado por ipfs_ffi/go/gen a partir de go/gen/roots.txt; não editar.
+
+/// Hash da tabela de funções geradas (FNV-1a 64 de "id chave" por linha, uma
+/// por função; WIRE.md): vai no Hello logo depois de conectar ao ipfs_host.
+const ipfsTableHash = 0x%016x;
+`, hash))
 	return out
 }
 
@@ -259,61 +264,109 @@ func nullable(t *tinfo) bool {
 	return false
 }
 
-// dd: decodificação Dart do valor JSON [x] (já não nulo).
-func (e *dartEmitter) dd(t *tinfo, x string, from *dartLib, depth int) string {
+// enc: a chamada do escritor ($W do runtime) que codifica [x] do tipo [t]
+// como no WIRE.md, sem o receptor (`str(x)`, `list(x, ...)`): quem chama põe
+// `..` (cascata) ou `w.` na frente. Elementos de lista e de mapa vão por
+// closures (w<n>, e<n>) que recebem o mesmo escritor.
+func (e *dartEmitter) enc(t *tinfo, x string, depth int) string {
 	switch t.k {
 	case kBasic:
 		switch basicDart(t) {
+		case "bool":
+			return "b(" + x + ")"
+		case "int":
+			return "i64(" + x + ")"
 		case "double":
-			return "(" + x + " as num).toDouble()"
-		default:
-			return x + " as " + basicDart(t)
+			return "f64(" + x + ")"
 		}
+		return "str(" + x + ")"
 	case kBytes:
-		from.bytes = true
-		return "$bytes(" + x + ")"
+		return "bytes(" + x + ")"
 	case kError:
-		return x + " as String"
+		return "err(" + x + ")"
 	case kValue:
 		switch {
-		case t.val.dartClass == "":
-			return fmt.Sprintf(t.val.dartDec, x)
-		case t.val.json:
-			return e.ref(t, from) + "(" + x + " as Map<String, Object?>)"
+		case t.val.dartClass == "": // time.Time
+			return "time(" + x + ")"
+		case t.val.json: // config.Config
+			return "json(" + x + ")"
 		}
-		return e.ref(t, from) + "(" + x + " as String)"
-	case kDTO, kSnap:
-		return e.ref(t, from) + ".$fromJson(" + x + " as Map<String, Object?>)"
-	case kHandle:
-		return e.ref(t, from) + ".$h(" + x + " as int)"
+		return "val(" + x + ")"
+	case kHandle, kCtx:
+		return "h(" + x + ")"
+	case kDTO:
+		return "dto(" + x + ")"
+	case kOpts:
+		return "opt(" + x + ")"
 	case kSlice:
-		v := fmt.Sprintf("e%d", depth)
-		return fmt.Sprintf("[for (final %s in %s as List) %s]", v, x, e.dd(t.elem, v, from, depth+1))
+		w, v := fmt.Sprintf("w%d", depth), fmt.Sprintf("e%d", depth)
+		return fmt.Sprintf("list(%s, (%s, %s) => %s.%s)", x, w, v, w, e.enc(t.elem, v, depth+1))
 	case kMap:
-		v := fmt.Sprintf("e%d", depth)
-		key := v + ".key"
-		if t.mkey != nil { // a chave do JSON já é String: só envolve na classe-valor
-			key = e.ref(t.mkey, from) + "(" + key + ")"
+		w, k, v := fmt.Sprintf("w%d", depth), fmt.Sprintf("k%d", depth), fmt.Sprintf("v%d", depth)
+		key := "str(" + k + ")" // chave sem byte de presença, também a tipo-valor
+		if t.mkey != nil {
+			key = "str(" + k + ".value)"
 		}
-		return fmt.Sprintf("{for (final %s in (%s as Map<String, Object?>).entries) %s: %s}", v, x, key, e.dd(t.elem, v+".value", from, depth+1))
+		return fmt.Sprintf("map(%s, (%s, %s) => %s.%s, (%s, %s) => %s.%s)", x, w, k, w, key, w, v, w, e.enc(t.elem, v, depth+1))
+	}
+	panic("gen: sem codificação Dart para " + t.key)
+}
+
+// dec: expressão que lê um [t] do leitor [r] ($R do runtime), como no
+// WIRE.md. [opt]: o Dart aceita null (campo de DTO, getter); senão o nil do Go
+// vira IpfsException ($nil) e bytes nil viram vazio.
+func (e *dartEmitter) dec(t *tinfo, r string, from *dartLib, opt bool) string {
+	absent := "$nil()"
+	if opt {
+		absent = "null"
+	}
+	switch t.k {
+	case kBasic:
+		switch basicDart(t) {
+		case "bool":
+			return r + ".b()"
+		case "int":
+			return r + ".i64()"
+		case "double":
+			return r + ".f64()"
+		}
+		return r + ".str()"
+	case kBytes:
+		if opt {
+			return r + ".bytes()"
+		}
+		from.bytes = true
+		return r + ".bytes() ?? Uint8List(0)"
+	case kError:
+		return r + ".err()"
+	case kValue:
+		var inner string
+		switch {
+		case t.val.dartClass == "": // time.Time: DateTime, sem classe
+			inner = r + ".time()"
+		case t.val.json:
+			inner = e.ref(t, from) + "(" + r + ".json())"
+		default:
+			inner = e.ref(t, from) + "(" + r + ".str())"
+		}
+		return fmt.Sprintf("%s.p() ? %s : %s", r, inner, absent)
+	case kDTO, kSnap:
+		return fmt.Sprintf("%s.p() ? %s.$dec(%s) : %s", r, e.ref(t, from), r, absent)
+	case kHandle:
+		if opt {
+			return fmt.Sprintf("%s.hn(%s.$h)", r, e.ref(t, from))
+		}
+		return fmt.Sprintf("%s.hnn(%s.$h)", r, e.ref(t, from))
+	case kSlice:
+		return fmt.Sprintf("%s.list(() => %s)", r, e.dec(t.elem, r, from, false))
+	case kMap:
+		key := r + ".str()"
+		if t.mkey != nil {
+			key = e.ref(t.mkey, from) + "(" + r + ".str())"
+		}
+		return fmt.Sprintf("%s.map(() => %s, () => %s)", r, key, e.dec(t.elem, r, from, false))
 	}
 	panic("gen: sem decodificação Dart para " + t.key)
-}
-
-// ddn: como dd, mas o JSON pode ser null.
-func (e *dartEmitter) ddn(t *tinfo, x string, from *dartLib) string {
-	if !nullable(t) {
-		return e.dd(t, x, from, 0)
-	}
-	return fmt.Sprintf("%s == null ? null : %s", x, e.dd(t, x, from, 0))
-}
-
-// ddr: resultado de função (não nulo; nil do Go vira IpfsException).
-func (e *dartEmitter) ddr(t *tinfo, x string, from *dartLib) string {
-	if nullable(t) && t.k != kBytes {
-		x = "$nn(" + x + ")"
-	}
-	return e.dd(t, x, from, 0)
 }
 
 func goDoc(o types.Object) string {
@@ -329,24 +382,15 @@ func (e *dartEmitter) emitLib(l *dartLib) string {
 	for _, f := range l.funcs {
 		body.WriteString(e.function(l, f, "", false) + "\n")
 	}
-	if len(l.lookups) > 0 {
-		body.WriteString("// Exports diretos (sem JSON) usados acima.\n")
-		for _, lk := range l.lookups {
-			body.WriteString(lk)
-		}
-	}
 	var b strings.Builder
 	fmt.Fprintf(&b, "// Gerado por ipfs_ffi/go/gen a partir de go/gen/roots.txt; não editar.\n// Go: %s\nlibrary;\n\n", l.goPath)
 	if l.async {
 		b.WriteString("import 'dart:async';\n")
 	}
-	if l.ffi {
-		b.WriteString("import 'dart:ffi';\n")
-	}
 	if l.bytes {
 		b.WriteString("import 'dart:typed_data';\n")
 	}
-	if l.async || l.bytes || l.ffi {
+	if l.async || l.bytes {
 		b.WriteString("\n")
 	}
 	if usesRuntime(body.String()) {
@@ -379,7 +423,7 @@ func (e *dartEmitter) class(l *dartLib, c *dclass) string {
 			fmt.Fprintf(&b, "  const %s(super.value);\n}\n\n", name)
 		}
 	case kOpts:
-		fmt.Fprintf(&b, "/// Go: `%s` (opção funcional; construtores nas variáveis do pacote).\nfinal class %s extends GoOption {\n  %s.$(super.p, super.a);\n}\n\n", docType(t), name, name)
+		fmt.Fprintf(&b, "/// Go: `%s` (opção funcional; construtores nas variáveis do pacote).\nfinal class %s extends GoOption {\n  %s.$(super.$i, super.$a);\n}\n\n", docType(t), name, name)
 	case kDTO:
 		e.dto(l, &b, t, name)
 	case kSnap:
@@ -389,9 +433,9 @@ func (e *dartEmitter) class(l *dartLib, c *dclass) string {
 			inits = append(inits, fmt.Sprintf("%s = %s", memberName(g.name), e.snapDec(l, g)))
 		}
 		if len(inits) == 0 {
-			fmt.Fprintf(&b, "  %s.$fromJson(Map<String, Object?> j);\n", name)
+			fmt.Fprintf(&b, "  %s.$dec($R r);\n", name)
 		} else {
-			fmt.Fprintf(&b, "  %s.$fromJson(Map<String, Object?> j)\n    : %s;\n", name, strings.Join(inits, ",\n      "))
+			fmt.Fprintf(&b, "  %s.$dec($R r)\n    : %s;\n", name, strings.Join(inits, ",\n      "))
 		}
 		for _, g := range t.gets {
 			q := ""
@@ -424,12 +468,13 @@ func (e *dartEmitter) class(l *dartLib, c *dclass) string {
 
 func shortQual(p *types.Package) string { return p.Name() }
 
+// snapDec: um getter do instantâneo; com erro, o valor vem seguido de um
+// kError (WIRE.md) e o campo fica null quando o Go deu erro.
 func (e *dartEmitter) snapDec(l *dartLib, g getter) string {
-	x := fmt.Sprintf("j['%s']", g.name)
-	if g.hasErr && !nullable(g.t) {
-		return fmt.Sprintf("%s == null ? null : %s", x, e.dd(g.t, x, l, 0))
+	if g.hasErr {
+		return fmt.Sprintf("$orErr(%s, r.err())", e.dec(g.t, "r", l, true))
 	}
-	return e.ddn(g.t, x, l)
+	return e.dec(g.t, "r", l, nullable(g.t))
 }
 
 func zero(t *tinfo, dartT string) string {
@@ -463,7 +508,7 @@ func (e *dartEmitter) dto(l *dartLib, b *strings.Builder, t *tinfo, name string)
 	if len(skipped) > 0 {
 		fmt.Fprintf(b, "///\n/// Campos que não atravessam a ponte: %s.\n", strings.Join(skipped, ", "))
 	}
-	fmt.Fprintf(b, "final class %s implements GoJson {\n", name)
+	fmt.Fprintf(b, "final class %s implements GoDto {\n", name)
 	var params, inits, decs, encs []string
 	for _, f := range t.fields {
 		if f.skipped != "" {
@@ -476,14 +521,16 @@ func (e *dartEmitter) dto(l *dartLib, b *strings.Builder, t *tinfo, name string)
 		} else {
 			inits = append(inits, fmt.Sprintf("%s = %s", n, n))
 		}
-		decs = append(decs, fmt.Sprintf("%s = %s", n, e.ddn(f.t, fmt.Sprintf("j['%s']", f.name), l)))
-		encs = append(encs, fmt.Sprintf("'%s': $enc(%s)", f.name, n))
+		decs = append(decs, fmt.Sprintf("%s = %s", n, e.dec(f.t, "r", l, nullable(f.t))))
+		encs = append(encs, ".."+e.enc(f.t, n, 0))
 	}
+	// $dec lê os campos na ordem de tinfo.fields (o initializer list roda em
+	// ordem); a presença do DTO é de quem o contém.
 	if len(params) == 0 {
-		fmt.Fprintf(b, "  %s();\n  %s.$fromJson(Map<String, Object?> j);\n", name, name)
+		fmt.Fprintf(b, "  %s();\n  %s.$dec($R r);\n", name, name)
 	} else {
 		fmt.Fprintf(b, "  %s({%s})\n    : %s;\n\n", name, strings.Join(params, ", "), strings.Join(inits, ",\n      "))
-		fmt.Fprintf(b, "  %s.$fromJson(Map<String, Object?> j)\n    : %s;\n", name, strings.Join(decs, ",\n      "))
+		fmt.Fprintf(b, "  %s.$dec($R r)\n    : %s;\n", name, strings.Join(decs, ",\n      "))
 	}
 	for _, f := range t.fields {
 		if f.skipped != "" {
@@ -495,7 +542,11 @@ func (e *dartEmitter) dto(l *dartLib, b *strings.Builder, t *tinfo, name string)
 		}
 		fmt.Fprintf(b, "\n  /// Go: `%s`.\n  %s%s %s;\n", f.name, e.dt(f.t, l), q, memberName(f.name))
 	}
-	fmt.Fprintf(b, "\n  @override\n  Map<String, Object?> $toJson() => {%s};\n}\n\n", strings.Join(encs, ", "))
+	if len(encs) == 0 {
+		b.WriteString("\n  @override\n  void $enc($W w) {}\n}\n\n")
+	} else {
+		fmt.Fprintf(b, "\n  @override\n  void $enc($W w) {\n    w%s;\n  }\n}\n\n", strings.Join(encs, ""))
+	}
 }
 
 // holders: as variáveis de opções do pacote (options.Unixfs, options.Pin.Ls...),
@@ -519,7 +570,7 @@ func (e *dartEmitter) holders(l *dartLib, b *strings.Builder) {
 				}
 				n = n.kids[seg]
 			}
-			var ps, as []string
+			var ps, segs []string
 			for i, p := range c.params {
 				pn := memberName(c.pnames[i])
 				if pn == "" || pn == "_" {
@@ -529,16 +580,29 @@ func (e *dartEmitter) holders(l *dartLib, b *strings.Builder) {
 					l.async = true
 					E := e.dt(p.elem, l)
 					ps = append(ps, "StreamSink<"+E+"> "+pn)
-					as = append(as, fmt.Sprintf("GoSink<%s>(%s, (j) => %s)", E, pn, e.dd(p.elem, "j", l, 0)))
+					segs = append(segs, fmt.Sprintf("..sink(GoSink<%s>(%s, (r) => %s))", E, pn, e.dec(p.elem, "r", l, false)))
 					continue
 				}
 				ps = append(ps, e.dt(p, l)+" "+pn)
-				as = append(as, pn)
+				segs = append(segs, ".."+e.enc(p, pn, 0))
+			}
+			// WIRE.md: a opção vai como o índice do construtor em tinfo.ctors
+			// (a lista inteira, não só a dos usáveis) + os parâmetros.
+			idx := -1
+			for i, tc := range t.ctors {
+				if strings.Join(tc.path, ".") == strings.Join(c.path, ".") {
+					idx = i
+					break
+				}
+			}
+			args := "(_) {}"
+			if len(segs) > 0 {
+				args = "(w) => w" + strings.Join(segs, "")
 			}
 			opt := className(t)
-			n.ctors = append(n.ctors, fmt.Sprintf("  /// Go: `%s.%s`.\n  %s %s(%s) => %s.$('%s', [%s]);\n",
+			n.ctors = append(n.ctors, fmt.Sprintf("  /// Go: `%s.%s`.\n  %s %s(%s) => %s.$(%d, %s);\n",
 				l.goPath[strings.LastIndex(l.goPath, "/")+1:], strings.Join(c.path, "."), opt, memberName(c.path[len(c.path)-1]),
-				strings.Join(ps, ", "), opt, strings.Join(c.path, "."), strings.Join(as, ", ")))
+				strings.Join(ps, ", "), opt, idx, args))
 		}
 	}
 	var emit func(path []string, n *node)
@@ -564,19 +628,25 @@ func (e *dartEmitter) holders(l *dartLib, b *strings.Builder) {
 }
 
 // function emite uma função de nível de pacote, um método (inClass) ou uma
-// factory (factory).
+// factory (factory): codifica o receptor e os argumentos num $W (WIRE.md),
+// chama a função f.id do host no modo dela e decodifica os resultados do $R.
 func (e *dartEmitter) function(l *dartLib, f *fn, class string, factory bool) string {
-	var params, args []string
+	var params, segs []string
 	if f.recv != nil {
-		args = append(args, "this")
+		segs = append(segs, "h(this)")
 	}
 	opt := ""
 	for _, p := range f.params {
+		// io.Writer não atravessa; chan<- da própria função é o modo stream
 		if p.t.k == kWriter || p.t.k == kChanSend {
 			continue
 		}
 		n := memberName(p.name)
-		args = append(args, n)
+		if p.t.reader {
+			segs = append(segs, "reader("+n+")")
+		} else {
+			segs = append(segs, e.enc(p.t, n, 0))
+		}
 		if p.variadic {
 			opt = fmt.Sprintf("[%s %s = const []]", e.dt(p.t, l), n)
 			continue
@@ -591,7 +661,10 @@ func (e *dartEmitter) function(l *dartLib, f *fn, class string, factory bool) st
 		params = append(params, opt)
 	}
 	sig := "(" + strings.Join(params, ", ") + ")"
-	call := fmt.Sprintf("'%s', [%s]", f.key, strings.Join(args, ", "))
+	call := fmt.Sprintf("%d", f.id)
+	if len(segs) > 0 {
+		call += ", $W().." + strings.Join(segs, "..")
+	}
 	indent := ""
 	if class != "" {
 		indent = "  "
@@ -600,35 +673,22 @@ func (e *dartEmitter) function(l *dartLib, f *fn, class string, factory bool) st
 	var b strings.Builder
 	fmt.Fprintf(&b, "%s/// Go: `%s`.\n", indent, goDoc(f.obj))
 	if f.async && f.stream == nil {
-		fmt.Fprintf(&b, "%s///\n%s/// Assíncrona: roda numa goroutine.\n", indent, indent)
+		fmt.Fprintf(&b, "%s///\n%s/// Assíncrona: roda numa goroutine do serviço.\n", indent, indent)
 	}
 	if f.stream != nil {
-		fmt.Fprintf(&b, "%sStream<%s> %s%s =>\n%s    $stream(%s).map((r) => %s);\n", indent, e.dt(f.stream, l), name, sig, indent, call, e.dd(f.stream, "r", l, 0))
-		return b.String()
-	}
-	if f.direct >= 0 {
-		head := ""
-		switch {
-		case factory:
-			head = "factory " + class + sig
-		case f.isVar:
-			head = e.directRet(f, l) + " get " + name
-		default:
-			head = e.directRet(f, l) + " " + name + sig
-		}
-		b.WriteString(indent + head + " {\n" + e.directBody(l, f, indent+"  ") + indent + "}\n")
+		fmt.Fprintf(&b, "%sStream<%s> %s%s =>\n%s    $stream(%s).map((r) => %s);\n", indent, e.dt(f.stream, l), name, sig, indent, call, e.dec(f.stream, "r", l, false))
 		return b.String()
 	}
 	ret, dec := "void", ""
 	switch len(f.results) {
 	case 0:
 	case 1:
-		ret, dec = e.dt(f.results[0], l), e.ddr(f.results[0], "$r", l)
-	default:
+		ret, dec = e.dt(f.results[0], l), e.dec(f.results[0], "$r", l, false)
+	default: // os campos de um record são avaliados em ordem
 		var ts, ds []string
-		for i, r := range f.results {
+		for _, r := range f.results {
 			ts = append(ts, e.dt(r, l))
-			ds = append(ds, e.ddr(r, fmt.Sprintf("$l[%d]", i), l))
+			ds = append(ds, e.dec(r, "$r", l, false))
 		}
 		ret = "(" + strings.Join(ts, ", ") + ")"
 		dec = "(" + strings.Join(ds, ", ") + ")"
@@ -648,19 +708,16 @@ func (e *dartEmitter) function(l *dartLib, f *fn, class string, factory bool) st
 		head = fmt.Sprintf("Future<%s> %s%s async", ret, name, sig)
 		callExpr = "await $call(" + call + ")"
 	}
-	switch {
-	case dec == "":
+	if dec == "" {
 		fmt.Fprintf(&b, "%s%s {\n%s  %s;\n%s}\n", indent, head, indent, callExpr, indent)
-	case len(f.results) > 1:
-		fmt.Fprintf(&b, "%s%s {\n%s  final $l = %s as List;\n%s  return %s;\n%s}\n", indent, head, indent, callExpr, indent, dec, indent)
-	default:
+	} else {
 		fmt.Fprintf(&b, "%s%s {\n%s  final $r = %s;\n%s  return %s;\n%s}\n", indent, head, indent, callExpr, indent, dec, indent)
 	}
 	return b.String()
 }
 
 func usesRuntime(body string) bool {
-	for _, id := range []string{"GoHandle", "GoValue", "GoJson", "GoOption", "$call", "$stream", "$enc", "$nn", "$bytes"} {
+	for _, id := range []string{"GoHandle", "GoValue", "GoDto", "GoOption", "GoSink", "$call", "$stream", "$W", "$R", "$nil", "$orErr"} {
 		if strings.Contains(body, id) {
 			return true
 		}
@@ -712,112 +769,4 @@ func (e *dartEmitter) linkConcrete() {
 			}
 		}
 	}
-}
-
-func (e *dartEmitter) directRet(f *fn, l *dartLib) string {
-	if len(f.results) == 0 {
-		return "void"
-	}
-	return e.dt(f.results[0], l)
-}
-
-// nativeT: tipo dart:ffi (nativo, Dart) de um tipo direto.
-func nativeT(t *tinfo) (string, string) {
-	switch cat(t) {
-	case "double":
-		return "Double", "double"
-	case "string", "value", "bytes": // bytes: + Int64 do tamanho ao lado
-		return "Pointer<Uint8>", "Pointer<Uint8>"
-	}
-	return "Int64", "int"
-}
-
-// directBody: corpo Dart que chama o export IpfsD<n> (sem JSON) e declara o
-// lookup dele na library.
-func (e *dartEmitter) directBody(l *dartLib, f *fn, in string) string {
-	l.ffi = true
-	var nat, dart, args, pre, post []string
-	if f.recv != nil {
-		nat, dart, args = append(nat, "Int64"), append(dart, "int"), append(args, "$h")
-	}
-	for i, p := range f.params {
-		n, d := nativeT(p.t)
-		nat, dart = append(nat, n), append(dart, d)
-		v := memberName(p.name)
-		switch cat(p.t) {
-		case "handle":
-			args = append(args, v+".$h")
-		case "bool":
-			args = append(args, v+" ? 1 : 0")
-		case "string", "value":
-			s := fmt.Sprintf("$s%d", i)
-			if cat(p.t) == "value" {
-				v += ".value"
-			}
-			pre = append(pre, fmt.Sprintf("final %s = $cstr(%s);", s, v))
-			post = append(post, fmt.Sprintf("$free(%s);", s))
-			args = append(args, s)
-		case "bytes": // buffer C com a cópia; o Go copia de novo
-			s := fmt.Sprintf("$b%d", i)
-			nat, dart = append(nat, "Int64"), append(dart, "int")
-			pre = append(pre, fmt.Sprintf("final %s = $cbytes(%s);", s, v))
-			post = append(post, fmt.Sprintf("$free(%s);", s))
-			args = append(args, s, v+".length")
-		default:
-			args = append(args, v)
-		}
-	}
-	out, ret := "$out", ""
-	if len(f.results) == 1 {
-		r := f.results[0]
-		switch cat(r) {
-		case "handle":
-			ret = e.ref(r, l) + ".$h($nnH($out.value))"
-		case "bool":
-			ret = "$out.value != 0"
-		case "double":
-			out, ret = "$out.cast<Double>()", "$out.cast<Double>().value"
-		case "string":
-			out, ret = "$out.cast<Pointer<Uint8>>()", "$take($out.cast<Pointer<Uint8>>().value)"
-		case "value": // NULL (nil do Go) vira IpfsException, como no JSON
-			out, ret = "$out.cast<Pointer<Uint8>>()", e.ref(r, l)+"($take($nnP($out.cast<Pointer<Uint8>>().value)))"
-		case "bytes": // nil → vazio, como no JSON
-			out, ret = "$out.cast<Pointer<Uint8>>()", "$takeBytes($out.cast<Pointer<Uint8>>().value, $outN.value)"
-		default:
-			ret = "$out.value"
-		}
-	}
-	outNat := "Pointer<Int64>"
-	switch out {
-	case "$out.cast<Double>()":
-		outNat = "Pointer<Double>"
-	case "$out.cast<Pointer<Uint8>>()":
-		outNat = "Pointer<Pointer<Uint8>>"
-	}
-	nat, dart, args = append(nat, outNat), append(dart, outNat), append(args, out)
-	if len(f.results) == 1 && cat(f.results[0]) == "bytes" {
-		nat, dart, args = append(nat, "Pointer<Int64>"), append(dart, "Pointer<Int64>"), append(args, "$outN")
-	}
-	fn := fmt.Sprintf("_d%d", f.direct)
-	l.lookups = append(l.lookups, fmt.Sprintf("final %s = $dylib.lookupFunction<Pointer<Uint8> Function(%s), Pointer<Uint8> Function(%s)>('IpfsD%d');\n",
-		fn, strings.Join(nat, ", "), strings.Join(dart, ", "), f.direct))
-
-	var b strings.Builder
-	callLine := fmt.Sprintf("$check(%s(%s));", fn, strings.Join(args, ", "))
-	if len(pre) == 0 {
-		b.WriteString(in + callLine + "\n")
-	} else {
-		for _, p := range pre {
-			b.WriteString(in + p + "\n")
-		}
-		fmt.Fprintf(&b, "%stry {\n%s  %s\n%s} finally {\n", in, in, callLine, in)
-		for _, p := range post {
-			b.WriteString(in + "  " + p + "\n")
-		}
-		b.WriteString(in + "}\n")
-	}
-	if ret != "" {
-		b.WriteString(in + "return " + ret + ";\n")
-	}
-	return b.String()
 }

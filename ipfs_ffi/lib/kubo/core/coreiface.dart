@@ -2,7 +2,6 @@
 // Go: github.com/ipfs/kubo/core/coreiface
 library;
 
-import 'dart:ffi';
 import 'dart:typed_data';
 
 import 'package:ipfs_ffi/src/runtime.dart';
@@ -23,67 +22,87 @@ class ApiDagService extends $go_ipld_format.DagService {
 
   /// Go: `func (format.NodeGetter).Get(context.Context, cid.Cid) (format.Node, error)`.
   ///
-  /// Assíncrona: roda numa goroutine.
+  /// Assíncrona: roda numa goroutine do serviço.
   Future<$go_ipld_format.Node> get(
       $context.Context ctx, $go_cid.Cid cid) async {
     final $r = await $call(
-        'github.com/ipfs/kubo/core/coreiface.APIDagService.Get',
-        [this, ctx, cid]);
-    return $go_ipld_format.Node.$h($nn($r) as int);
+        87,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(cid));
+    return $r.hnn($go_ipld_format.Node.$h);
   }
 
   /// Go: `func (format.NodeGetter).GetMany(context.Context, []cid.Cid) <-chan *format.NodeOption`.
   Stream<$go_ipld_format.NodeOption> getMany(
           $context.Context ctx, List<$go_cid.Cid> cids) =>
-      $stream('github.com/ipfs/kubo/core/coreiface.APIDagService.GetMany', [
-        this,
-        ctx,
-        cids
-      ]).map((r) =>
-          $go_ipld_format.NodeOption.$fromJson(r as Map<String, Object?>));
+      $stream(
+              88,
+              $W()
+                ..h(this)
+                ..h(ctx)
+                ..list(cids, (w0, e0) => w0.val(e0)))
+          .map((r) => r.p() ? $go_ipld_format.NodeOption.$dec(r) : $nil());
 
   /// Go: `func (format.NodeAdder).Add(context.Context, format.Node) error`.
   ///
-  /// Assíncrona: roda numa goroutine.
+  /// Assíncrona: roda numa goroutine do serviço.
   Future<void> add($context.Context ctx, $go_ipld_format.Node node) async {
-    await $call('github.com/ipfs/kubo/core/coreiface.APIDagService.Add',
-        [this, ctx, node]);
+    await $call(
+        85,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..h(node));
   }
 
   /// Go: `func (format.NodeAdder).AddMany(context.Context, []format.Node) error`.
   ///
-  /// Assíncrona: roda numa goroutine.
+  /// Assíncrona: roda numa goroutine do serviço.
   Future<void> addMany(
       $context.Context ctx, List<$go_ipld_format.Node> nodes) async {
-    await $call('github.com/ipfs/kubo/core/coreiface.APIDagService.AddMany',
-        [this, ctx, nodes]);
+    await $call(
+        86,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..list(nodes, (w0, e0) => w0.h(e0)));
   }
 
   /// Go: `func (format.DAGService).Remove(context.Context, cid.Cid) error`.
   ///
-  /// Assíncrona: roda numa goroutine.
+  /// Assíncrona: roda numa goroutine do serviço.
   Future<void> remove($context.Context ctx, $go_cid.Cid cid) async {
-    await $call('github.com/ipfs/kubo/core/coreiface.APIDagService.Remove',
-        [this, ctx, cid]);
+    await $call(
+        90,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(cid));
   }
 
   /// Go: `func (format.DAGService).RemoveMany(context.Context, []cid.Cid) error`.
   ///
-  /// Assíncrona: roda numa goroutine.
+  /// Assíncrona: roda numa goroutine do serviço.
   Future<void> removeMany($context.Context ctx, List<$go_cid.Cid> cids) async {
-    await $call('github.com/ipfs/kubo/core/coreiface.APIDagService.RemoveMany',
-        [this, ctx, cids]);
+    await $call(
+        91,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..list(cids, (w0, e0) => w0.val(e0)));
   }
 
   /// Go: `func (iface.APIDagService).Pinning() format.NodeAdder`.
   $go_ipld_format.NodeAdder pinning() {
-    $check(_d22($h, $out));
-    return $go_ipld_format.NodeAdder.$h($nnH($out.value));
+    final $r = $callSync(89, $W()..h(this));
+    return $r.hnn($go_ipld_format.NodeAdder.$h);
   }
 }
 
 /// Go: `iface.AddEvent`.
-final class AddEvent implements GoJson {
+final class AddEvent implements GoDto {
   AddEvent(
       {String? name,
       $path.ImmutablePath? path,
@@ -100,15 +119,14 @@ final class AddEvent implements GoJson {
         mtime = mtime ?? 0,
         mtimeNsecs = mtimeNsecs ?? 0;
 
-  AddEvent.$fromJson(Map<String, Object?> j)
-      : name = j['Name'] as String,
-        path =
-            j['Path'] == null ? null : $path.ImmutablePath(j['Path'] as String),
-        bytes = j['Bytes'] as int,
-        size = j['Size'] as String,
-        mode = j['Mode'] as int,
-        mtime = j['Mtime'] as int,
-        mtimeNsecs = j['MtimeNsecs'] as int;
+  AddEvent.$dec($R r)
+      : name = r.str(),
+        path = r.p() ? $path.ImmutablePath(r.str()) : null,
+        bytes = r.i64(),
+        size = r.str(),
+        mode = r.i64(),
+        mtime = r.i64(),
+        mtimeNsecs = r.i64();
 
   /// Go: `Name`.
   String name;
@@ -132,23 +150,23 @@ final class AddEvent implements GoJson {
   int mtimeNsecs;
 
   @override
-  Map<String, Object?> $toJson() => {
-        'Name': $enc(name),
-        'Path': $enc(path),
-        'Bytes': $enc(bytes),
-        'Size': $enc(size),
-        'Mode': $enc(mode),
-        'Mtime': $enc(mtime),
-        'MtimeNsecs': $enc(mtimeNsecs)
-      };
+  void $enc($W w) {
+    w
+      ..str(name)
+      ..val(path)
+      ..i64(bytes)
+      ..str(size)
+      ..i64(mode)
+      ..i64(mtime)
+      ..i64(mtimeNsecs);
+  }
 }
 
 /// Go: `iface.BadPinNode` (valores lidos dos métodos).
 final class BadPinNode {
-  BadPinNode.$fromJson(Map<String, Object?> j)
-      : err = j['Err'] == null ? null : j['Err'] as String,
-        path =
-            j['Path'] == null ? null : $path.ImmutablePath(j['Path'] as String);
+  BadPinNode.$dec($R r)
+      : err = r.err(),
+        path = r.p() ? $path.ImmutablePath(r.str()) : null;
 
   /// Go: `Err()`.
   final String? err;
@@ -163,48 +181,65 @@ class BlockApi extends GoHandle {
 
   /// Go: `func (iface.BlockAPI).Put(context.Context, io.Reader, ...options.BlockPutOption) (iface.BlockStat, error)`.
   ///
-  /// Assíncrona: roda numa goroutine.
+  /// Assíncrona: roda numa goroutine do serviço.
   Future<BlockStat> put($context.Context ctx, Object reader,
       [List<$options.BlockPutOption> opts = const []]) async {
-    final $r = await $call('github.com/ipfs/kubo/core/coreiface.BlockAPI.Put',
-        [this, ctx, reader, opts]);
-    return BlockStat.$fromJson($nn($r) as Map<String, Object?>);
+    final $r = await $call(
+        93,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..reader(reader)
+          ..list(opts, (w0, e0) => w0.opt(e0)));
+    return $r.p() ? BlockStat.$dec($r) : $nil();
   }
 
   /// Go: `func (iface.BlockAPI).Get(context.Context, path.Path) (io.Reader, error)`.
   ///
-  /// Assíncrona: roda numa goroutine.
+  /// Assíncrona: roda numa goroutine do serviço.
   Future<$io.Reader> get($context.Context ctx, $path.Path path) async {
     final $r = await $call(
-        'github.com/ipfs/kubo/core/coreiface.BlockAPI.Get', [this, ctx, path]);
-    return $io.Reader.$h($nn($r) as int);
+        92,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(path));
+    return $r.hnn($io.Reader.$h);
   }
 
   /// Go: `func (iface.BlockAPI).Rm(context.Context, path.Path, ...options.BlockRmOption) error`.
   ///
-  /// Assíncrona: roda numa goroutine.
+  /// Assíncrona: roda numa goroutine do serviço.
   Future<void> rm($context.Context ctx, $path.Path path,
       [List<$options.BlockRmOption> opts = const []]) async {
-    await $call('github.com/ipfs/kubo/core/coreiface.BlockAPI.Rm',
-        [this, ctx, path, opts]);
+    await $call(
+        94,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(path)
+          ..list(opts, (w0, e0) => w0.opt(e0)));
   }
 
   /// Go: `func (iface.BlockAPI).Stat(context.Context, path.Path) (iface.BlockStat, error)`.
   ///
-  /// Assíncrona: roda numa goroutine.
+  /// Assíncrona: roda numa goroutine do serviço.
   Future<BlockStat> stat($context.Context ctx, $path.Path path) async {
     final $r = await $call(
-        'github.com/ipfs/kubo/core/coreiface.BlockAPI.Stat', [this, ctx, path]);
-    return BlockStat.$fromJson($nn($r) as Map<String, Object?>);
+        95,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(path));
+    return $r.p() ? BlockStat.$dec($r) : $nil();
   }
 }
 
 /// Go: `iface.BlockStat` (valores lidos dos métodos).
 final class BlockStat {
-  BlockStat.$fromJson(Map<String, Object?> j)
-      : path =
-            j['Path'] == null ? null : $path.ImmutablePath(j['Path'] as String),
-        size = j['Size'] as int;
+  BlockStat.$dec($R r)
+      : path = r.p() ? $path.ImmutablePath(r.str()) : null,
+        size = r.i64();
 
   /// Go: `Path()`.
   final $path.ImmutablePath? path;
@@ -215,16 +250,12 @@ final class BlockStat {
 
 /// Go: `iface.ConnectionInfo` (valores lidos dos métodos).
 final class ConnectionInfo {
-  ConnectionInfo.$fromJson(Map<String, Object?> j)
-      : address = j['Address'] == null
-            ? null
-            : $go_multiaddr.Multiaddr(j['Address'] as String),
-        direction = j['Direction'] as int,
-        id = j['ID'] == null ? null : $peer.Id(j['ID'] as String),
-        latency = j['Latency'] == null ? null : j['Latency'] as int,
-        streams = j['Streams'] == null
-            ? null
-            : [for (final e0 in j['Streams'] as List) e0 as String];
+  ConnectionInfo.$dec($R r)
+      : address = r.p() ? $go_multiaddr.Multiaddr(r.str()) : null,
+        direction = r.i64(),
+        id = r.p() ? $peer.Id(r.str()) : null,
+        latency = $orErr(r.i64(), r.err()),
+        streams = $orErr(r.list(() => r.str()), r.err());
 
   /// Go: `Address()`.
   final $go_multiaddr.Multiaddr? address;
@@ -248,86 +279,92 @@ class CoreApi extends GoHandle {
 
   /// Go: `func (iface.CoreAPI).Unixfs() iface.UnixfsAPI`.
   UnixfsApi unixfs() {
-    $check(_d5($h, $out));
-    return UnixfsApi.$h($nnH($out.value));
+    final $r = $callSync(106, $W()..h(this));
+    return $r.hnn(UnixfsApi.$h);
   }
 
   /// Go: `func (iface.CoreAPI).ResolvePath(context.Context, path.Path) (path.ImmutablePath, []string, error)`.
   ///
-  /// Assíncrona: roda numa goroutine.
+  /// Assíncrona: roda numa goroutine do serviço.
   Future<($path.ImmutablePath, List<String>)> resolvePath(
       $context.Context ctx, $path.Path path) async {
-    final $l = await $call(
-        'github.com/ipfs/kubo/core/coreiface.CoreAPI.ResolvePath',
-        [this, ctx, path]) as List;
+    final $r = await $call(
+        103,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(path));
     return (
-      $path.ImmutablePath($nn($l[0]) as String),
-      [for (final e0 in $l[1] as List) e0 as String]
+      $r.p() ? $path.ImmutablePath($r.str()) : $nil(),
+      $r.list(() => $r.str())
     );
   }
 
   /// Go: `func (iface.CoreAPI).Pin() iface.PinAPI`.
   PinApi pin() {
-    $check(_d11($h, $out));
-    return PinApi.$h($nnH($out.value));
+    final $r = $callSync(100, $W()..h(this));
+    return $r.hnn(PinApi.$h);
   }
 
   /// Go: `func (iface.CoreAPI).Block() iface.BlockAPI`.
   BlockApi block() {
-    $check(_d12($h, $out));
-    return BlockApi.$h($nnH($out.value));
+    final $r = $callSync(96, $W()..h(this));
+    return $r.hnn(BlockApi.$h);
   }
 
   /// Go: `func (iface.CoreAPI).Key() iface.KeyAPI`.
   KeyApi key() {
-    $check(_d17($h, $out));
-    return KeyApi.$h($nnH($out.value));
+    final $r = $callSync(98, $W()..h(this));
+    return $r.hnn(KeyApi.$h);
   }
 
   /// Go: `func (iface.CoreAPI).Swarm() iface.SwarmAPI`.
   SwarmApi swarm() {
-    $check(_d18($h, $out));
-    return SwarmApi.$h($nnH($out.value));
+    final $r = $callSync(105, $W()..h(this));
+    return $r.hnn(SwarmApi.$h);
   }
 
   /// Go: `func (iface.CoreAPI).Routing() iface.RoutingAPI`.
   RoutingApi routing() {
-    $check(_d19($h, $out));
-    return RoutingApi.$h($nnH($out.value));
+    final $r = $callSync(104, $W()..h(this));
+    return $r.hnn(RoutingApi.$h);
   }
 
   /// Go: `func (iface.CoreAPI).Name() iface.NameAPI`.
   NameApi name() {
-    $check(_d20($h, $out));
-    return NameApi.$h($nnH($out.value));
+    final $r = $callSync(99, $W()..h(this));
+    return $r.hnn(NameApi.$h);
   }
 
   /// Go: `func (iface.CoreAPI).Dag() iface.APIDagService`.
   ApiDagService dag() {
-    $check(_d21($h, $out));
-    return ApiDagService.$h($nnH($out.value));
+    final $r = $callSync(97, $W()..h(this));
+    return $r.hnn(ApiDagService.$h);
   }
 
   /// Go: `func (iface.CoreAPI).ResolveNode(context.Context, path.Path) (format.Node, error)`.
   ///
-  /// Assíncrona: roda numa goroutine.
+  /// Assíncrona: roda numa goroutine do serviço.
   Future<$go_ipld_format.Node> resolveNode(
       $context.Context ctx, $path.Path path) async {
     final $r = await $call(
-        'github.com/ipfs/kubo/core/coreiface.CoreAPI.ResolveNode',
-        [this, ctx, path]);
-    return $go_ipld_format.Node.$h($nn($r) as int);
+        102,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(path));
+    return $r.hnn($go_ipld_format.Node.$h);
   }
 
   /// Go: `func (iface.CoreAPI).PubSub() iface.PubSubAPI`.
   PubSubApi pubSub() {
-    $check(_d33($h, $out));
-    return PubSubApi.$h($nnH($out.value));
+    final $r = $callSync(101, $W()..h(this));
+    return $r.hnn(PubSubApi.$h);
   }
 }
 
 /// Go: `iface.DirEntry`.
-final class DirEntry implements GoJson {
+final class DirEntry implements GoDto {
   DirEntry(
       {String? name,
       $go_cid.Cid? cid,
@@ -344,16 +381,14 @@ final class DirEntry implements GoJson {
         mode = mode ?? 0,
         modTime = modTime;
 
-  DirEntry.$fromJson(Map<String, Object?> j)
-      : name = j['Name'] as String,
-        cid = j['Cid'] == null ? null : $go_cid.Cid(j['Cid'] as String),
-        size = j['Size'] as int,
-        type = j['Type'] as int,
-        target = j['Target'] as String,
-        mode = j['Mode'] as int,
-        modTime = j['ModTime'] == null
-            ? null
-            : DateTime.parse(j['ModTime'] as String);
+  DirEntry.$dec($R r)
+      : name = r.str(),
+        cid = r.p() ? $go_cid.Cid(r.str()) : null,
+        size = r.i64(),
+        type = r.i64(),
+        target = r.str(),
+        mode = r.i64(),
+        modTime = r.p() ? r.time() : null;
 
   /// Go: `Name`.
   String name;
@@ -377,26 +412,27 @@ final class DirEntry implements GoJson {
   DateTime? modTime;
 
   @override
-  Map<String, Object?> $toJson() => {
-        'Name': $enc(name),
-        'Cid': $enc(cid),
-        'Size': $enc(size),
-        'Type': $enc(type),
-        'Target': $enc(target),
-        'Mode': $enc(mode),
-        'ModTime': $enc(modTime)
-      };
+  void $enc($W w) {
+    w
+      ..str(name)
+      ..val(cid)
+      ..i64(size)
+      ..i64(type)
+      ..str(target)
+      ..i64(mode)
+      ..time(modTime);
+  }
 }
 
 /// Go: `iface.IpnsResult`.
-final class IpnsResult implements GoJson {
+final class IpnsResult implements GoDto {
   IpnsResult({$path.Path? path, String? err})
       : path = path,
         err = err;
 
-  IpnsResult.$fromJson(Map<String, Object?> j)
-      : path = j['Path'] == null ? null : $path.Path(j['Path'] as String),
-        err = j['Err'] == null ? null : j['Err'] as String;
+  IpnsResult.$dec($R r)
+      : path = r.p() ? $path.Path(r.str()) : null,
+        err = r.err();
 
   /// Go: `Path`.
   $path.Path? path;
@@ -405,15 +441,19 @@ final class IpnsResult implements GoJson {
   String? err;
 
   @override
-  Map<String, Object?> $toJson() => {'Path': $enc(path), 'Err': $enc(err)};
+  void $enc($W w) {
+    w
+      ..val(path)
+      ..err(err);
+  }
 }
 
 /// Go: `iface.Key` (valores lidos dos métodos).
 final class Key {
-  Key.$fromJson(Map<String, Object?> j)
-      : id = j['ID'] == null ? null : $peer.Id(j['ID'] as String),
-        name = j['Name'] as String,
-        path = j['Path'] == null ? null : $path.Path(j['Path'] as String);
+  Key.$dec($R r)
+      : id = r.p() ? $peer.Id(r.str()) : null,
+        name = r.str(),
+        path = r.p() ? $path.Path(r.str()) : null;
 
   /// Go: `ID()`.
   final $peer.Id? id;
@@ -431,73 +471,102 @@ class KeyApi extends GoHandle {
 
   /// Go: `func (iface.KeyAPI).Self(ctx context.Context) (iface.Key, error)`.
   ///
-  /// Assíncrona: roda numa goroutine.
+  /// Assíncrona: roda numa goroutine do serviço.
   Future<Key> self($context.Context ctx) async {
     final $r = await $call(
-        'github.com/ipfs/kubo/core/coreiface.KeyAPI.Self', [this, ctx]);
-    return Key.$fromJson($nn($r) as Map<String, Object?>);
+        111,
+        $W()
+          ..h(this)
+          ..h(ctx));
+    return $r.p() ? Key.$dec($r) : $nil();
   }
 
   /// Go: `func (iface.KeyAPI).Generate(ctx context.Context, name string, opts ...options.KeyGenerateOption) (iface.Key, error)`.
   ///
-  /// Assíncrona: roda numa goroutine.
+  /// Assíncrona: roda numa goroutine do serviço.
   Future<Key> generate($context.Context ctx, String name,
       [List<$options.KeyGenerateOption> opts = const []]) async {
     final $r = await $call(
-        'github.com/ipfs/kubo/core/coreiface.KeyAPI.Generate',
-        [this, ctx, name, opts]);
-    return Key.$fromJson($nn($r) as Map<String, Object?>);
+        107,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..str(name)
+          ..list(opts, (w0, e0) => w0.opt(e0)));
+    return $r.p() ? Key.$dec($r) : $nil();
   }
 
   /// Go: `func (iface.KeyAPI).Rename(ctx context.Context, oldName string, newName string, opts ...options.KeyRenameOption) (iface.Key, bool, error)`.
   ///
-  /// Assíncrona: roda numa goroutine.
+  /// Assíncrona: roda numa goroutine do serviço.
   Future<(Key, bool)> rename(
       $context.Context ctx, String oldName, String newName,
       [List<$options.KeyRenameOption> opts = const []]) async {
-    final $l = await $call('github.com/ipfs/kubo/core/coreiface.KeyAPI.Rename',
-        [this, ctx, oldName, newName, opts]) as List;
-    return (Key.$fromJson($nn($l[0]) as Map<String, Object?>), $l[1] as bool);
+    final $r = await $call(
+        110,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..str(oldName)
+          ..str(newName)
+          ..list(opts, (w0, e0) => w0.opt(e0)));
+    return ($r.p() ? Key.$dec($r) : $nil(), $r.b());
   }
 
   /// Go: `func (iface.KeyAPI).List(ctx context.Context) ([]iface.Key, error)`.
   ///
-  /// Assíncrona: roda numa goroutine.
+  /// Assíncrona: roda numa goroutine do serviço.
   Future<List<Key>> list($context.Context ctx) async {
     final $r = await $call(
-        'github.com/ipfs/kubo/core/coreiface.KeyAPI.List', [this, ctx]);
-    return [
-      for (final e0 in $r as List) Key.$fromJson(e0 as Map<String, Object?>)
-    ];
+        108,
+        $W()
+          ..h(this)
+          ..h(ctx));
+    return $r.list(() => $r.p() ? Key.$dec($r) : $nil());
   }
 
   /// Go: `func (iface.KeyAPI).Remove(ctx context.Context, name string) (iface.Key, error)`.
   ///
-  /// Assíncrona: roda numa goroutine.
+  /// Assíncrona: roda numa goroutine do serviço.
   Future<Key> remove($context.Context ctx, String name) async {
     final $r = await $call(
-        'github.com/ipfs/kubo/core/coreiface.KeyAPI.Remove', [this, ctx, name]);
-    return Key.$fromJson($nn($r) as Map<String, Object?>);
+        109,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..str(name));
+    return $r.p() ? Key.$dec($r) : $nil();
   }
 
   /// Go: `func (iface.KeyAPI).Sign(ctx context.Context, name string, data []byte) (iface.Key, []byte, error)`.
   ///
-  /// Assíncrona: roda numa goroutine.
+  /// Assíncrona: roda numa goroutine do serviço.
   Future<(Key, Uint8List)> sign(
       $context.Context ctx, String name, Uint8List data) async {
-    final $l = await $call('github.com/ipfs/kubo/core/coreiface.KeyAPI.Sign',
-        [this, ctx, name, data]) as List;
-    return (Key.$fromJson($nn($l[0]) as Map<String, Object?>), $bytes($l[1]));
+    final $r = await $call(
+        112,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..str(name)
+          ..bytes(data));
+    return ($r.p() ? Key.$dec($r) : $nil(), $r.bytes() ?? Uint8List(0));
   }
 
   /// Go: `func (iface.KeyAPI).Verify(ctx context.Context, keyOrName string, signature []byte, data []byte) (iface.Key, bool, error)`.
   ///
-  /// Assíncrona: roda numa goroutine.
+  /// Assíncrona: roda numa goroutine do serviço.
   Future<(Key, bool)> verify($context.Context ctx, String keyOrName,
       Uint8List signature, Uint8List data) async {
-    final $l = await $call('github.com/ipfs/kubo/core/coreiface.KeyAPI.Verify',
-        [this, ctx, keyOrName, signature, data]) as List;
-    return (Key.$fromJson($nn($l[0]) as Map<String, Object?>), $l[1] as bool);
+    final $r = await $call(
+        113,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..str(keyOrName)
+          ..bytes(signature)
+          ..bytes(data));
+    return ($r.p() ? Key.$dec($r) : $nil(), $r.b());
   }
 }
 
@@ -507,44 +576,53 @@ class NameApi extends GoHandle {
 
   /// Go: `func (iface.NameAPI).Publish(ctx context.Context, path path.Path, opts ...options.NamePublishOption) (ipns.Name, error)`.
   ///
-  /// Assíncrona: roda numa goroutine.
+  /// Assíncrona: roda numa goroutine do serviço.
   Future<$ipns.Name> publish($context.Context ctx, $path.Path path,
       [List<$options.NamePublishOption> opts = const []]) async {
     final $r = await $call(
-        'github.com/ipfs/kubo/core/coreiface.NameAPI.Publish',
-        [this, ctx, path, opts]);
-    return $ipns.Name($nn($r) as String);
+        114,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(path)
+          ..list(opts, (w0, e0) => w0.opt(e0)));
+    return $r.p() ? $ipns.Name($r.str()) : $nil();
   }
 
   /// Go: `func (iface.NameAPI).Resolve(ctx context.Context, name string, opts ...options.NameResolveOption) (path.Path, error)`.
   ///
-  /// Assíncrona: roda numa goroutine.
+  /// Assíncrona: roda numa goroutine do serviço.
   Future<$path.Path> resolve($context.Context ctx, String name,
       [List<$options.NameResolveOption> opts = const []]) async {
     final $r = await $call(
-        'github.com/ipfs/kubo/core/coreiface.NameAPI.Resolve',
-        [this, ctx, name, opts]);
-    return $path.Path($nn($r) as String);
+        115,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..str(name)
+          ..list(opts, (w0, e0) => w0.opt(e0)));
+    return $r.p() ? $path.Path($r.str()) : $nil();
   }
 
   /// Go: `func (iface.NameAPI).Search(ctx context.Context, name string, opts ...options.NameResolveOption) (<-chan iface.IpnsResult, error)`.
   Stream<IpnsResult> search($context.Context ctx, String name,
           [List<$options.NameResolveOption> opts = const []]) =>
-      $stream('github.com/ipfs/kubo/core/coreiface.NameAPI.Search', [
-        this,
-        ctx,
-        name,
-        opts
-      ]).map((r) => IpnsResult.$fromJson(r as Map<String, Object?>));
+      $stream(
+              116,
+              $W()
+                ..h(this)
+                ..h(ctx)
+                ..str(name)
+                ..list(opts, (w0, e0) => w0.opt(e0)))
+          .map((r) => r.p() ? IpnsResult.$dec(r) : $nil());
 }
 
 /// Go: `iface.Pin` (valores lidos dos métodos).
 final class Pin {
-  Pin.$fromJson(Map<String, Object?> j)
-      : name = j['Name'] as String,
-        path =
-            j['Path'] == null ? null : $path.ImmutablePath(j['Path'] as String),
-        type = j['Type'] as String;
+  Pin.$dec($R r)
+      : name = r.str(),
+        path = r.p() ? $path.ImmutablePath(r.str()) : null,
+        type = r.str();
 
   /// Go: `Name()`.
   final String name;
@@ -562,66 +640,88 @@ class PinApi extends GoHandle {
 
   /// Go: `func (iface.PinAPI).Add(context.Context, path.Path, ...options.PinAddOption) error`.
   ///
-  /// Assíncrona: roda numa goroutine.
+  /// Assíncrona: roda numa goroutine do serviço.
   Future<void> add($context.Context ctx, $path.Path path,
       [List<$options.PinAddOption> opts = const []]) async {
-    await $call('github.com/ipfs/kubo/core/coreiface.PinAPI.Add',
-        [this, ctx, path, opts]);
+    await $call(
+        117,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(path)
+          ..list(opts, (w0, e0) => w0.opt(e0)));
   }
 
   /// Go: `func (iface.PinAPI).Ls(context.Context, chan<- iface.Pin, ...options.PinLsOption) error`.
   Stream<Pin> ls($context.Context ctx,
           [List<$options.PinLsOption> opts = const []]) =>
-      $stream('github.com/ipfs/kubo/core/coreiface.PinAPI.Ls', [
-        this,
-        ctx,
-        opts
-      ]).map((r) => Pin.$fromJson(r as Map<String, Object?>));
+      $stream(
+              119,
+              $W()
+                ..h(this)
+                ..h(ctx)
+                ..list(opts, (w0, e0) => w0.opt(e0)))
+          .map((r) => r.p() ? Pin.$dec(r) : $nil());
 
   /// Go: `func (iface.PinAPI).IsPinned(context.Context, path.Path, ...options.PinIsPinnedOption) (string, bool, error)`.
   ///
-  /// Assíncrona: roda numa goroutine.
+  /// Assíncrona: roda numa goroutine do serviço.
   Future<(String, bool)> isPinned($context.Context ctx, $path.Path path,
       [List<$options.PinIsPinnedOption> opts = const []]) async {
-    final $l = await $call(
-        'github.com/ipfs/kubo/core/coreiface.PinAPI.IsPinned',
-        [this, ctx, path, opts]) as List;
-    return ($l[0] as String, $l[1] as bool);
+    final $r = await $call(
+        118,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(path)
+          ..list(opts, (w0, e0) => w0.opt(e0)));
+    return ($r.str(), $r.b());
   }
 
   /// Go: `func (iface.PinAPI).Rm(context.Context, path.Path, ...options.PinRmOption) error`.
   ///
-  /// Assíncrona: roda numa goroutine.
+  /// Assíncrona: roda numa goroutine do serviço.
   Future<void> rm($context.Context ctx, $path.Path path,
       [List<$options.PinRmOption> opts = const []]) async {
-    await $call('github.com/ipfs/kubo/core/coreiface.PinAPI.Rm',
-        [this, ctx, path, opts]);
+    await $call(
+        120,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(path)
+          ..list(opts, (w0, e0) => w0.opt(e0)));
   }
 
   /// Go: `func (iface.PinAPI).Update(ctx context.Context, from path.Path, to path.Path, opts ...options.PinUpdateOption) error`.
   ///
-  /// Assíncrona: roda numa goroutine.
+  /// Assíncrona: roda numa goroutine do serviço.
   Future<void> update($context.Context ctx, $path.Path from, $path.Path to,
       [List<$options.PinUpdateOption> opts = const []]) async {
-    await $call('github.com/ipfs/kubo/core/coreiface.PinAPI.Update',
-        [this, ctx, from, to, opts]);
+    await $call(
+        121,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(from)
+          ..val(to)
+          ..list(opts, (w0, e0) => w0.opt(e0)));
   }
 
   /// Go: `func (iface.PinAPI).Verify(context.Context) (<-chan iface.PinStatus, error)`.
-  Stream<PinStatus> verify($context.Context ctx) =>
-      $stream('github.com/ipfs/kubo/core/coreiface.PinAPI.Verify', [this, ctx])
-          .map((r) => PinStatus.$fromJson(r as Map<String, Object?>));
+  Stream<PinStatus> verify($context.Context ctx) => $stream(
+          122,
+          $W()
+            ..h(this)
+            ..h(ctx))
+      .map((r) => r.p() ? PinStatus.$dec(r) : $nil());
 }
 
 /// Go: `iface.PinStatus` (valores lidos dos métodos).
 final class PinStatus {
-  PinStatus.$fromJson(Map<String, Object?> j)
-      : badNodes = [
-          for (final e0 in j['BadNodes'] as List)
-            BadPinNode.$fromJson(e0 as Map<String, Object?>)
-        ],
-        err = j['Err'] == null ? null : j['Err'] as String,
-        ok = j['Ok'] as bool;
+  PinStatus.$dec($R r)
+      : badNodes = r.list(() => r.p() ? BadPinNode.$dec(r) : $nil()),
+        err = r.err(),
+        ok = r.b();
 
   /// Go: `BadNodes()`.
   final List<BadPinNode> badNodes;
@@ -639,52 +739,67 @@ class PubSubApi extends GoHandle {
 
   /// Go: `func (iface.PubSubAPI).Ls(context.Context) ([]string, error)`.
   ///
-  /// Assíncrona: roda numa goroutine.
+  /// Assíncrona: roda numa goroutine do serviço.
   Future<List<String>> ls($context.Context ctx) async {
     final $r = await $call(
-        'github.com/ipfs/kubo/core/coreiface.PubSubAPI.Ls', [this, ctx]);
-    return [for (final e0 in $r as List) e0 as String];
+        123,
+        $W()
+          ..h(this)
+          ..h(ctx));
+    return $r.list(() => $r.str());
   }
 
   /// Go: `func (iface.PubSubAPI).Peers(context.Context, ...options.PubSubPeersOption) ([]peer.ID, error)`.
   ///
-  /// Assíncrona: roda numa goroutine.
+  /// Assíncrona: roda numa goroutine do serviço.
   Future<List<$peer.Id>> peers($context.Context ctx,
       [List<$options.PubSubPeersOption> opts = const []]) async {
     final $r = await $call(
-        'github.com/ipfs/kubo/core/coreiface.PubSubAPI.Peers',
-        [this, ctx, opts]);
-    return [for (final e0 in $r as List) $peer.Id(e0 as String)];
+        124,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..list(opts, (w0, e0) => w0.opt(e0)));
+    return $r.list(() => $r.p() ? $peer.Id($r.str()) : $nil());
   }
 
   /// Go: `func (iface.PubSubAPI).Publish(context.Context, string, []byte) error`.
   ///
-  /// Assíncrona: roda numa goroutine.
+  /// Assíncrona: roda numa goroutine do serviço.
   Future<void> publish(
       $context.Context ctx, String topic, Uint8List data) async {
-    await $call('github.com/ipfs/kubo/core/coreiface.PubSubAPI.Publish',
-        [this, ctx, topic, data]);
+    await $call(
+        125,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..str(topic)
+          ..bytes(data));
   }
 
   /// Go: `func (iface.PubSubAPI).Subscribe(context.Context, string, ...options.PubSubSubscribeOption) (iface.PubSubSubscription, error)`.
   ///
-  /// Assíncrona: roda numa goroutine.
+  /// Assíncrona: roda numa goroutine do serviço.
   Future<PubSubSubscription> subscribe($context.Context ctx, String topic,
       [List<$options.PubSubSubscribeOption> opts = const []]) async {
     final $r = await $call(
-        'github.com/ipfs/kubo/core/coreiface.PubSubAPI.Subscribe',
-        [this, ctx, topic, opts]);
-    return PubSubSubscription.$h($nn($r) as int);
+        126,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..str(topic)
+          ..list(opts, (w0, e0) => w0.opt(e0)));
+    return $r.hnn(PubSubSubscription.$h);
   }
 }
 
 /// Go: `iface.PubSubMessage` (valores lidos dos métodos).
 final class PubSubMessage {
-  PubSubMessage.$fromJson(Map<String, Object?> j)
-      : data = j['Data'] == null ? null : $bytes(j['Data']),
-        from = j['From'] == null ? null : $peer.Id(j['From'] as String),
-        seq = j['Seq'] == null ? null : $bytes(j['Seq']),
-        topics = [for (final e0 in j['Topics'] as List) e0 as String];
+  PubSubMessage.$dec($R r)
+      : data = r.bytes(),
+        from = r.p() ? $peer.Id(r.str()) : null,
+        seq = r.bytes(),
+        topics = r.list(() => r.str());
 
   /// Go: `Data()`.
   final Uint8List? data;
@@ -705,17 +820,19 @@ class PubSubSubscription extends $io.Closer {
 
   /// Go: `func (iface.PubSubSubscription).Next(context.Context) (iface.PubSubMessage, error)`.
   ///
-  /// Assíncrona: roda numa goroutine.
+  /// Assíncrona: roda numa goroutine do serviço.
   Future<PubSubMessage> next($context.Context ctx) async {
     final $r = await $call(
-        'github.com/ipfs/kubo/core/coreiface.PubSubSubscription.Next',
-        [this, ctx]);
-    return PubSubMessage.$fromJson($nn($r) as Map<String, Object?>);
+        128,
+        $W()
+          ..h(this)
+          ..h(ctx));
+    return $r.p() ? PubSubMessage.$dec($r) : $nil();
   }
 
   /// Go: `func (io.Closer).Close() error`.
   void close() {
-    $check(_d34($h, $out));
+    $callSync(127, $W()..h(this));
   }
 }
 
@@ -725,31 +842,41 @@ class RoutingApi extends GoHandle {
 
   /// Go: `func (iface.RoutingAPI).Provide(context.Context, path.Path, ...options.RoutingProvideOption) error`.
   ///
-  /// Assíncrona: roda numa goroutine.
+  /// Assíncrona: roda numa goroutine do serviço.
   Future<void> provide($context.Context ctx, $path.Path path,
       [List<$options.RoutingProvideOption> opts = const []]) async {
-    await $call('github.com/ipfs/kubo/core/coreiface.RoutingAPI.Provide',
-        [this, ctx, path, opts]);
+    await $call(
+        131,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(path)
+          ..list(opts, (w0, e0) => w0.opt(e0)));
   }
 
   /// Go: `func (iface.RoutingAPI).FindProviders(context.Context, path.Path, ...options.RoutingFindProvidersOption) (<-chan peer.AddrInfo, error)`.
   Stream<$peer.AddrInfo> findProviders($context.Context ctx, $path.Path path,
           [List<$options.RoutingFindProvidersOption> opts = const []]) =>
-      $stream('github.com/ipfs/kubo/core/coreiface.RoutingAPI.FindProviders', [
-        this,
-        ctx,
-        path,
-        opts
-      ]).map((r) => $peer.AddrInfo.$fromJson(r as Map<String, Object?>));
+      $stream(
+              130,
+              $W()
+                ..h(this)
+                ..h(ctx)
+                ..val(path)
+                ..list(opts, (w0, e0) => w0.opt(e0)))
+          .map((r) => r.p() ? $peer.AddrInfo.$dec(r) : $nil());
 
   /// Go: `func (iface.RoutingAPI).FindPeer(context.Context, peer.ID) (peer.AddrInfo, error)`.
   ///
-  /// Assíncrona: roda numa goroutine.
+  /// Assíncrona: roda numa goroutine do serviço.
   Future<$peer.AddrInfo> findPeer($context.Context ctx, $peer.Id id) async {
     final $r = await $call(
-        'github.com/ipfs/kubo/core/coreiface.RoutingAPI.FindPeer',
-        [this, ctx, id]);
-    return $peer.AddrInfo.$fromJson($nn($r) as Map<String, Object?>);
+        129,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(id));
+    return $r.p() ? $peer.AddrInfo.$dec($r) : $nil();
   }
 }
 
@@ -759,67 +886,80 @@ class SwarmApi extends GoHandle {
 
   /// Go: `func (iface.SwarmAPI).Connect(context.Context, peer.AddrInfo) error`.
   ///
-  /// Assíncrona: roda numa goroutine.
+  /// Assíncrona: roda numa goroutine do serviço.
   Future<void> connect($context.Context ctx, $peer.AddrInfo addrInfo) async {
-    await $call('github.com/ipfs/kubo/core/coreiface.SwarmAPI.Connect',
-        [this, ctx, addrInfo]);
+    await $call(
+        132,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..dto(addrInfo));
   }
 
   /// Go: `func (iface.SwarmAPI).Disconnect(context.Context, multiaddr.Multiaddr) error`.
   ///
-  /// Assíncrona: roda numa goroutine.
+  /// Assíncrona: roda numa goroutine do serviço.
   Future<void> disconnect(
       $context.Context ctx, $go_multiaddr.Multiaddr multiaddr) async {
-    await $call('github.com/ipfs/kubo/core/coreiface.SwarmAPI.Disconnect',
-        [this, ctx, multiaddr]);
+    await $call(
+        133,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(multiaddr));
   }
 
   /// Go: `func (iface.SwarmAPI).Peers(context.Context) ([]iface.ConnectionInfo, error)`.
   ///
-  /// Assíncrona: roda numa goroutine.
+  /// Assíncrona: roda numa goroutine do serviço.
   Future<List<ConnectionInfo>> peers($context.Context ctx) async {
     final $r = await $call(
-        'github.com/ipfs/kubo/core/coreiface.SwarmAPI.Peers', [this, ctx]);
-    return [
-      for (final e0 in $r as List)
-        ConnectionInfo.$fromJson(e0 as Map<String, Object?>)
-    ];
+        137,
+        $W()
+          ..h(this)
+          ..h(ctx));
+    return $r.list(() => $r.p() ? ConnectionInfo.$dec($r) : $nil());
   }
 
   /// Go: `func (iface.SwarmAPI).ListenAddrs(context.Context) ([]multiaddr.Multiaddr, error)`.
   ///
-  /// Assíncrona: roda numa goroutine.
+  /// Assíncrona: roda numa goroutine do serviço.
   Future<List<$go_multiaddr.Multiaddr>> listenAddrs(
       $context.Context ctx) async {
     final $r = await $call(
-        'github.com/ipfs/kubo/core/coreiface.SwarmAPI.ListenAddrs',
-        [this, ctx]);
-    return [for (final e0 in $r as List) $go_multiaddr.Multiaddr(e0 as String)];
+        135,
+        $W()
+          ..h(this)
+          ..h(ctx));
+    return $r.list(() => $r.p() ? $go_multiaddr.Multiaddr($r.str()) : $nil());
   }
 
   /// Go: `func (iface.SwarmAPI).LocalAddrs(context.Context) ([]multiaddr.Multiaddr, error)`.
   ///
-  /// Assíncrona: roda numa goroutine.
+  /// Assíncrona: roda numa goroutine do serviço.
   Future<List<$go_multiaddr.Multiaddr>> localAddrs($context.Context ctx) async {
     final $r = await $call(
-        'github.com/ipfs/kubo/core/coreiface.SwarmAPI.LocalAddrs', [this, ctx]);
-    return [for (final e0 in $r as List) $go_multiaddr.Multiaddr(e0 as String)];
+        136,
+        $W()
+          ..h(this)
+          ..h(ctx));
+    return $r.list(() => $r.p() ? $go_multiaddr.Multiaddr($r.str()) : $nil());
   }
 
   /// Go: `func (iface.SwarmAPI).KnownAddrs(context.Context) (map[peer.ID][]multiaddr.Multiaddr, error)`.
   ///
-  /// Assíncrona: roda numa goroutine.
+  /// Assíncrona: roda numa goroutine do serviço.
   Future<Map<$peer.Id, List<$go_multiaddr.Multiaddr>>> knownAddrs(
       $context.Context ctx) async {
     final $r = await $call(
-        'github.com/ipfs/kubo/core/coreiface.SwarmAPI.KnownAddrs', [this, ctx]);
-    return {
-      for (final e0 in ($r as Map<String, Object?>).entries)
-        $peer.Id(e0.key): [
-          for (final e1 in e0.value as List)
-            $go_multiaddr.Multiaddr(e1 as String)
-        ]
-    };
+        134,
+        $W()
+          ..h(this)
+          ..h(ctx));
+    return $r.map(
+        () => $peer.Id($r.str()),
+        () =>
+            $r.list(() => $r.p() ? $go_multiaddr.Multiaddr($r.str()) : $nil()));
   }
 }
 
@@ -829,65 +969,41 @@ class UnixfsApi extends GoHandle {
 
   /// Go: `func (iface.UnixfsAPI).Add(context.Context, files.Node, ...options.UnixfsAddOption) (path.ImmutablePath, error)`.
   ///
-  /// Assíncrona: roda numa goroutine.
+  /// Assíncrona: roda numa goroutine do serviço.
   Future<$path.ImmutablePath> add($context.Context ctx, $files.Node node,
       [List<$options.UnixfsAddOption> opts = const []]) async {
-    final $r = await $call('github.com/ipfs/kubo/core/coreiface.UnixfsAPI.Add',
-        [this, ctx, node, opts]);
-    return $path.ImmutablePath($nn($r) as String);
+    final $r = await $call(
+        138,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..h(node)
+          ..list(opts, (w0, e0) => w0.opt(e0)));
+    return $r.p() ? $path.ImmutablePath($r.str()) : $nil();
   }
 
   /// Go: `func (iface.UnixfsAPI).Get(context.Context, path.Path) (files.Node, error)`.
   ///
-  /// Assíncrona: roda numa goroutine.
+  /// Assíncrona: roda numa goroutine do serviço.
   Future<$files.Node> get($context.Context ctx, $path.Path path) async {
     final $r = await $call(
-        'github.com/ipfs/kubo/core/coreiface.UnixfsAPI.Get', [this, ctx, path]);
-    return $files.Node.$h($nn($r) as int);
+        139,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(path));
+    return $r.hnn($files.Node.$h);
   }
 
   /// Go: `func (iface.UnixfsAPI).Ls(context.Context, path.Path, chan<- iface.DirEntry, ...options.UnixfsLsOption) error`.
   Stream<DirEntry> ls($context.Context ctx, $path.Path path,
           [List<$options.UnixfsLsOption> opts = const []]) =>
-      $stream('github.com/ipfs/kubo/core/coreiface.UnixfsAPI.Ls', [
-        this,
-        ctx,
-        path,
-        opts
-      ]).map((r) => DirEntry.$fromJson(r as Map<String, Object?>));
+      $stream(
+              140,
+              $W()
+                ..h(this)
+                ..h(ctx)
+                ..val(path)
+                ..list(opts, (w0, e0) => w0.opt(e0)))
+          .map((r) => r.p() ? DirEntry.$dec(r) : $nil());
 }
-
-// Exports diretos (sem JSON) usados acima.
-final _d22 = $dylib.lookupFunction<
-    Pointer<Uint8> Function(Int64, Pointer<Int64>),
-    Pointer<Uint8> Function(int, Pointer<Int64>)>('IpfsD22');
-final _d5 = $dylib.lookupFunction<
-    Pointer<Uint8> Function(Int64, Pointer<Int64>),
-    Pointer<Uint8> Function(int, Pointer<Int64>)>('IpfsD5');
-final _d11 = $dylib.lookupFunction<
-    Pointer<Uint8> Function(Int64, Pointer<Int64>),
-    Pointer<Uint8> Function(int, Pointer<Int64>)>('IpfsD11');
-final _d12 = $dylib.lookupFunction<
-    Pointer<Uint8> Function(Int64, Pointer<Int64>),
-    Pointer<Uint8> Function(int, Pointer<Int64>)>('IpfsD12');
-final _d17 = $dylib.lookupFunction<
-    Pointer<Uint8> Function(Int64, Pointer<Int64>),
-    Pointer<Uint8> Function(int, Pointer<Int64>)>('IpfsD17');
-final _d18 = $dylib.lookupFunction<
-    Pointer<Uint8> Function(Int64, Pointer<Int64>),
-    Pointer<Uint8> Function(int, Pointer<Int64>)>('IpfsD18');
-final _d19 = $dylib.lookupFunction<
-    Pointer<Uint8> Function(Int64, Pointer<Int64>),
-    Pointer<Uint8> Function(int, Pointer<Int64>)>('IpfsD19');
-final _d20 = $dylib.lookupFunction<
-    Pointer<Uint8> Function(Int64, Pointer<Int64>),
-    Pointer<Uint8> Function(int, Pointer<Int64>)>('IpfsD20');
-final _d21 = $dylib.lookupFunction<
-    Pointer<Uint8> Function(Int64, Pointer<Int64>),
-    Pointer<Uint8> Function(int, Pointer<Int64>)>('IpfsD21');
-final _d33 = $dylib.lookupFunction<
-    Pointer<Uint8> Function(Int64, Pointer<Int64>),
-    Pointer<Uint8> Function(int, Pointer<Int64>)>('IpfsD33');
-final _d34 = $dylib.lookupFunction<
-    Pointer<Uint8> Function(Int64, Pointer<Int64>),
-    Pointer<Uint8> Function(int, Pointer<Int64>)>('IpfsD34');

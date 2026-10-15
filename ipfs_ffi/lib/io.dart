@@ -18,6 +18,6 @@ class Reader extends GoHandle {
 
 /// Go: `func io.ReadAll(r io.Reader) ([]byte, error)`.
 Uint8List readAll(Object r) {
-  final $r = $callSync('io.ReadAll', [r]);
-  return $bytes($r);
+  final $r = $callSync(157, $W()..reader(r));
+  return $r.bytes() ?? Uint8List(0);
 }

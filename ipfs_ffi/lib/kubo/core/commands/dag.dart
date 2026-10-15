@@ -1,5 +1,5 @@
 /// `ipfs dag put/get` e `ipfs dag export/import` (arquivos CAR), escritos à
-/// mão; Go em go/manual_dag.go e go/manual_car.go:
+/// mão (funções 32–35 do WIRE.md); Go em go/manual_dag.go e go/manual_car.go:
 /// gravar e ler objetos IPLD em DAG-CBOR, DAG-JSON, JSON, CBOR, raw ou dag-pb.
 /// No kubo isso é o corpo dos comandos (core/commands/dag/put.go e get.go),
 /// não uma função de biblioteca. Os padrões são os do CLI.
@@ -37,9 +37,18 @@ Future<$go_cid.Cid> put(
   bool pin = false,
   bool allowBigBlock = false,
 }) async {
-  final r = await $call('kubo/core/commands/dag.put',
-      [api, ctx, data, inputCodec, storeCodec, hash, pin, allowBigBlock]);
-  return $go_cid.Cid($nn(r) as String);
+  final r = await $call(
+      32,
+      $W()
+        ..h(api)
+        ..h(ctx)
+        ..bytes(data)
+        ..str(inputCodec)
+        ..str(storeCodec)
+        ..str(hash)
+        ..b(pin)
+        ..b(allowBigBlock));
+  return r.p() ? $go_cid.Cid(r.str()) : $nil();
 }
 
 /// `ipfs dag get`: o nó em [path] (que pode continuar dentro dele, ex.
@@ -50,9 +59,14 @@ Future<Uint8List> get(
   $path.Path path, {
   String outputCodec = 'dag-json',
 }) async {
-  final r =
-      await $call('kubo/core/commands/dag.get', [api, ctx, path, outputCodec]);
-  return $bytes(r);
+  final r = await $call(
+      33,
+      $W()
+        ..h(api)
+        ..h(ctx)
+        ..str(path.value)
+        ..str(outputCodec));
+  return r.bytes() ?? Uint8List(0);
 }
 
 /// `ipfs dag export`: o DAG de [path] como CARv1 em memória. [localOnly]
@@ -64,9 +78,8 @@ Future<Uint8List> exportCar(
   $path.Path path, {
   bool localOnly = false,
 }) async {
-  final r = await $call(
-      'kubo/core/commands/dag.export', [node, ctx, path, localOnly, '']);
-  return $bytes(r);
+  final r = await $call(34, _export(node, ctx, path, localOnly, ''));
+  return r.bytes() ?? Uint8List(0);
 }
 
 /// `ipfs dag export > [file]`: grava o CARv1 direto no arquivo (os bytes não
@@ -78,9 +91,17 @@ Future<void> exportCarFile(
   String file, {
   bool localOnly = false,
 }) async {
-  await $call(
-      'kubo/core/commands/dag.export', [node, ctx, path, localOnly, file]);
+  await $call(34, _export(node, ctx, path, localOnly, file));
 }
+
+$W _export($core.IpfsNode node, $context.Context ctx, $path.Path path,
+        bool localOnly, String file) =>
+    $W()
+      ..h(node)
+      ..h(ctx)
+      ..str(path.value)
+      ..b(localOnly)
+      ..str(file);
 
 /// Raiz de um CAR importado (`RootMeta` do kubo): [pinErrorMsg] vazio quando
 /// o pin deu certo.
@@ -100,13 +121,27 @@ final class CarImportResult {
   final int blockBytesCount;
 }
 
-CarImportResult _importResult(Object? r) {
-  final j = r as Map<String, Object?>;
-  return CarImportResult._([
-    for (final m
-        in (j['Roots'] as List? ?? const []).cast<Map<String, Object?>>())
-      RootMeta._($go_cid.Cid(m['Cid'] as String), m['PinErrorMsg'] as String),
-  ], j['BlockCount'] as int, j['BlockBytesCount'] as int);
+/// Função 35: os CARs vêm de [files] ou, se [car] não for null, dos bytes.
+Future<CarImportResult> _import(
+    $core.IpfsNode node,
+    $context.Context ctx,
+    List<String> files,
+    Uint8List? car,
+    bool pinRoots,
+    bool allowBigBlock) async {
+  final r = await $call(
+      35,
+      $W()
+        ..h(node)
+        ..h(ctx)
+        ..list(files, (w, f) => w.str(f))
+        ..bytes(car)
+        ..b(pinRoots)
+        ..b(allowBigBlock));
+  return CarImportResult._(
+      r.list(() => RootMeta._($go_cid.Cid(r.str()), r.str())),
+      r.i64(),
+      r.i64());
 }
 
 /// `ipfs dag import`: grava os blocos do CAR (v1 ou v2) [car] e, com
@@ -118,9 +153,8 @@ Future<CarImportResult> importCar(
   Uint8List car, {
   bool pinRoots = true,
   bool allowBigBlock = false,
-}) async =>
-    _importResult(await $call('kubo/core/commands/dag.import',
-        [node, ctx, const <String>[], car, pinRoots, allowBigBlock]));
+}) =>
+    _import(node, ctx, const [], car, pinRoots, allowBigBlock);
 
 /// `ipfs dag import [files...]`: lê os CARs direto dos arquivos.
 Future<CarImportResult> importCarFiles(
@@ -129,6 +163,5 @@ Future<CarImportResult> importCarFiles(
   List<String> files, {
   bool pinRoots = true,
   bool allowBigBlock = false,
-}) async =>
-    _importResult(await $call('kubo/core/commands/dag.import',
-        [node, ctx, files, null, pinRoots, allowBigBlock]));
+}) =>
+    _import(node, ctx, files, null, pinRoots, allowBigBlock);

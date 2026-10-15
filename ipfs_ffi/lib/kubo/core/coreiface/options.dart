@@ -10,92 +10,92 @@ import 'package:ipfs_ffi/kubo/core/coreiface.dart' as $coreiface;
 
 /// Go: `options.ApiOption` (opção funcional; construtores nas variáveis do pacote).
 final class ApiOption extends GoOption {
-  ApiOption.$(super.p, super.a);
+  ApiOption.$(super.$i, super.$a);
 }
 
 /// Go: `options.BlockPutOption` (opção funcional; construtores nas variáveis do pacote).
 final class BlockPutOption extends GoOption {
-  BlockPutOption.$(super.p, super.a);
+  BlockPutOption.$(super.$i, super.$a);
 }
 
 /// Go: `options.BlockRmOption` (opção funcional; construtores nas variáveis do pacote).
 final class BlockRmOption extends GoOption {
-  BlockRmOption.$(super.p, super.a);
+  BlockRmOption.$(super.$i, super.$a);
 }
 
 /// Go: `options.KeyGenerateOption` (opção funcional; construtores nas variáveis do pacote).
 final class KeyGenerateOption extends GoOption {
-  KeyGenerateOption.$(super.p, super.a);
+  KeyGenerateOption.$(super.$i, super.$a);
 }
 
 /// Go: `options.KeyRenameOption` (opção funcional; construtores nas variáveis do pacote).
 final class KeyRenameOption extends GoOption {
-  KeyRenameOption.$(super.p, super.a);
+  KeyRenameOption.$(super.$i, super.$a);
 }
 
 /// Go: `options.NamePublishOption` (opção funcional; construtores nas variáveis do pacote).
 final class NamePublishOption extends GoOption {
-  NamePublishOption.$(super.p, super.a);
+  NamePublishOption.$(super.$i, super.$a);
 }
 
 /// Go: `options.NameResolveOption` (opção funcional; construtores nas variáveis do pacote).
 final class NameResolveOption extends GoOption {
-  NameResolveOption.$(super.p, super.a);
+  NameResolveOption.$(super.$i, super.$a);
 }
 
 /// Go: `options.PinAddOption` (opção funcional; construtores nas variáveis do pacote).
 final class PinAddOption extends GoOption {
-  PinAddOption.$(super.p, super.a);
+  PinAddOption.$(super.$i, super.$a);
 }
 
 /// Go: `options.PinIsPinnedOption` (opção funcional; construtores nas variáveis do pacote).
 final class PinIsPinnedOption extends GoOption {
-  PinIsPinnedOption.$(super.p, super.a);
+  PinIsPinnedOption.$(super.$i, super.$a);
 }
 
 /// Go: `options.PinLsOption` (opção funcional; construtores nas variáveis do pacote).
 final class PinLsOption extends GoOption {
-  PinLsOption.$(super.p, super.a);
+  PinLsOption.$(super.$i, super.$a);
 }
 
 /// Go: `options.PinRmOption` (opção funcional; construtores nas variáveis do pacote).
 final class PinRmOption extends GoOption {
-  PinRmOption.$(super.p, super.a);
+  PinRmOption.$(super.$i, super.$a);
 }
 
 /// Go: `options.PinUpdateOption` (opção funcional; construtores nas variáveis do pacote).
 final class PinUpdateOption extends GoOption {
-  PinUpdateOption.$(super.p, super.a);
+  PinUpdateOption.$(super.$i, super.$a);
 }
 
 /// Go: `options.PubSubPeersOption` (opção funcional; construtores nas variáveis do pacote).
 final class PubSubPeersOption extends GoOption {
-  PubSubPeersOption.$(super.p, super.a);
+  PubSubPeersOption.$(super.$i, super.$a);
 }
 
 /// Go: `options.PubSubSubscribeOption` (opção funcional; construtores nas variáveis do pacote).
 final class PubSubSubscribeOption extends GoOption {
-  PubSubSubscribeOption.$(super.p, super.a);
+  PubSubSubscribeOption.$(super.$i, super.$a);
 }
 
 /// Go: `options.RoutingFindProvidersOption` (opção funcional; construtores nas variáveis do pacote).
 final class RoutingFindProvidersOption extends GoOption {
-  RoutingFindProvidersOption.$(super.p, super.a);
+  RoutingFindProvidersOption.$(super.$i, super.$a);
 }
 
 /// Go: `options.RoutingProvideOption` (opção funcional; construtores nas variáveis do pacote).
 final class RoutingProvideOption extends GoOption {
-  RoutingProvideOption.$(super.p, super.a);
+  RoutingProvideOption.$(super.$i, super.$a);
 }
 
 /// Go: `options.UnixfsAddOption` (opção funcional; construtores nas variáveis do pacote).
 final class UnixfsAddOption extends GoOption {
-  UnixfsAddOption.$(super.p, super.a);
+  UnixfsAddOption.$(super.$i, super.$a);
 }
 
 /// Go: `options.UnixfsLsOption` (opção funcional; construtores nas variáveis do pacote).
 final class UnixfsLsOption extends GoOption {
-  UnixfsLsOption.$(super.p, super.a);
+  UnixfsLsOption.$(super.$i, super.$a);
 }
 
 /// Go: `var Api`: construtores de opções.
@@ -105,10 +105,10 @@ final class _Api {
   const _Api._();
 
   /// Go: `options.Api.FetchBlocks`.
-  ApiOption fetchBlocks(bool fetch) => ApiOption.$('Api.FetchBlocks', [fetch]);
+  ApiOption fetchBlocks(bool fetch) => ApiOption.$(0, (w) => w..b(fetch));
 
   /// Go: `options.Api.Offline`.
-  ApiOption offline(bool offline) => ApiOption.$('Api.Offline', [offline]);
+  ApiOption offline(bool offline) => ApiOption.$(1, (w) => w..b(offline));
 }
 
 /// Go: `var Block`: construtores de opções.
@@ -119,21 +119,24 @@ final class _Block {
 
   /// Go: `options.Block.CidCodec`.
   BlockPutOption cidCodec(String codecName) =>
-      BlockPutOption.$('Block.CidCodec', [codecName]);
+      BlockPutOption.$(0, (w) => w..str(codecName));
 
   /// Go: `options.Block.Force`.
-  BlockRmOption force(bool force) => BlockRmOption.$('Block.Force', [force]);
+  BlockRmOption force(bool force) => BlockRmOption.$(0, (w) => w..b(force));
 
   /// Go: `options.Block.Format`.
   BlockPutOption format(String format) =>
-      BlockPutOption.$('Block.Format', [format]);
+      BlockPutOption.$(1, (w) => w..str(format));
 
   /// Go: `options.Block.Hash`.
-  BlockPutOption hash(int mhType, int mhLen) =>
-      BlockPutOption.$('Block.Hash', [mhType, mhLen]);
+  BlockPutOption hash(int mhType, int mhLen) => BlockPutOption.$(
+      2,
+      (w) => w
+        ..i64(mhType)
+        ..i64(mhLen));
 
   /// Go: `options.Block.Pin`.
-  BlockPutOption pin(bool pin) => BlockPutOption.$('Block.Pin', [pin]);
+  BlockPutOption pin(bool pin) => BlockPutOption.$(3, (w) => w..b(pin));
 }
 
 /// Go: `var Dht`: construtores de opções.
@@ -144,11 +147,11 @@ final class _Dht {
 
   /// Go: `options.Dht.NumProviders`.
   RoutingFindProvidersOption numProviders(int numProviders) =>
-      RoutingFindProvidersOption.$('Dht.NumProviders', [numProviders]);
+      RoutingFindProvidersOption.$(0, (w) => w..i64(numProviders));
 
   /// Go: `options.Dht.Recursive`.
   RoutingProvideOption recursive(bool recursive) =>
-      RoutingProvideOption.$('Dht.Recursive', [recursive]);
+      RoutingProvideOption.$(0, (w) => w..b(recursive));
 }
 
 /// Go: `var Key`: construtores de opções.
@@ -158,14 +161,15 @@ final class _Key {
   const _Key._();
 
   /// Go: `options.Key.Force`.
-  KeyRenameOption force(bool force) => KeyRenameOption.$('Key.Force', [force]);
+  KeyRenameOption force(bool force) => KeyRenameOption.$(0, (w) => w..b(force));
 
   /// Go: `options.Key.Size`.
-  KeyGenerateOption size(int size) => KeyGenerateOption.$('Key.Size', [size]);
+  KeyGenerateOption size(int size) =>
+      KeyGenerateOption.$(0, (w) => w..i64(size));
 
   /// Go: `options.Key.Type`.
   KeyGenerateOption type(String algorithm) =>
-      KeyGenerateOption.$('Key.Type', [algorithm]);
+      KeyGenerateOption.$(1, (w) => w..str(algorithm));
 }
 
 /// Go: `var Name`: construtores de opções.
@@ -176,37 +180,38 @@ final class _Name {
 
   /// Go: `options.Name.AllowDelegated`.
   NamePublishOption allowDelegated(bool allowDelegated) =>
-      NamePublishOption.$('Name.AllowDelegated', [allowDelegated]);
+      NamePublishOption.$(0, (w) => w..b(allowDelegated));
 
   /// Go: `options.Name.AllowOffline`.
   NamePublishOption allowOffline(bool allow) =>
-      NamePublishOption.$('Name.AllowOffline', [allow]);
+      NamePublishOption.$(1, (w) => w..b(allow));
 
   /// Go: `options.Name.Cache`.
   NameResolveOption cache(bool cache) =>
-      NameResolveOption.$('Name.Cache', [cache]);
+      NameResolveOption.$(0, (w) => w..b(cache));
 
   /// Go: `options.Name.CompatibleWithV1`.
   NamePublishOption compatibleWithV1(bool compatible) =>
-      NamePublishOption.$('Name.CompatibleWithV1', [compatible]);
+      NamePublishOption.$(2, (w) => w..b(compatible));
 
   /// Go: `options.Name.Key`.
-  NamePublishOption key(String key) => NamePublishOption.$('Name.Key', [key]);
+  NamePublishOption key(String key) =>
+      NamePublishOption.$(3, (w) => w..str(key));
 
   /// Go: `options.Name.ResolveOption`.
   NameResolveOption resolveOption($namesys.ResolveOption opt) =>
-      NameResolveOption.$('Name.ResolveOption', [opt]);
+      NameResolveOption.$(1, (w) => w..h(opt));
 
   /// Go: `options.Name.Sequence`.
   NamePublishOption sequence(int seq) =>
-      NamePublishOption.$('Name.Sequence', [seq]);
+      NamePublishOption.$(4, (w) => w..i64(seq));
 
   /// Go: `options.Name.TTL`.
-  NamePublishOption ttl(int ttl) => NamePublishOption.$('Name.TTL', [ttl]);
+  NamePublishOption ttl(int ttl) => NamePublishOption.$(5, (w) => w..i64(ttl));
 
   /// Go: `options.Name.ValidTime`.
   NamePublishOption validTime(int validTime) =>
-      NamePublishOption.$('Name.ValidTime', [validTime]);
+      NamePublishOption.$(6, (w) => w..i64(validTime));
 }
 
 /// Go: `var Pin`: construtores de opções.
@@ -222,66 +227,64 @@ final class _Pin {
   final ls = const _PinLs._();
 
   /// Go: `options.Pin.Name`.
-  PinAddOption name(String name) => PinAddOption.$('Pin.Name', [name]);
+  PinAddOption name(String name) => PinAddOption.$(0, (w) => w..str(name));
 
   /// Go: `options.Pin.Recursive`.
   PinAddOption recursive(bool recursive) =>
-      PinAddOption.$('Pin.Recursive', [recursive]);
+      PinAddOption.$(1, (w) => w..b(recursive));
 
   /// Go: `options.Pin.RmRecursive`.
   PinRmOption rmRecursive(bool recursive) =>
-      PinRmOption.$('Pin.RmRecursive', [recursive]);
+      PinRmOption.$(0, (w) => w..b(recursive));
 
   /// Go: `options.Pin.Unpin`.
-  PinUpdateOption unpin(bool unpin) => PinUpdateOption.$('Pin.Unpin', [unpin]);
+  PinUpdateOption unpin(bool unpin) => PinUpdateOption.$(0, (w) => w..b(unpin));
 }
 
 final class _PinIsPinned {
   const _PinIsPinned._();
 
   /// Go: `options.Pin.IsPinned.All`.
-  PinIsPinnedOption all() => PinIsPinnedOption.$('Pin.IsPinned.All', []);
+  PinIsPinnedOption all() => PinIsPinnedOption.$(0, (_) {});
 
   /// Go: `options.Pin.IsPinned.Direct`.
-  PinIsPinnedOption direct() => PinIsPinnedOption.$('Pin.IsPinned.Direct', []);
+  PinIsPinnedOption direct() => PinIsPinnedOption.$(1, (_) {});
 
   /// Go: `options.Pin.IsPinned.Indirect`.
-  PinIsPinnedOption indirect() =>
-      PinIsPinnedOption.$('Pin.IsPinned.Indirect', []);
+  PinIsPinnedOption indirect() => PinIsPinnedOption.$(2, (_) {});
 
   /// Go: `options.Pin.IsPinned.Recursive`.
-  PinIsPinnedOption recursive() =>
-      PinIsPinnedOption.$('Pin.IsPinned.Recursive', []);
+  PinIsPinnedOption recursive() => PinIsPinnedOption.$(3, (_) {});
 
   /// Go: `options.Pin.IsPinned.Type`.
   PinIsPinnedOption type(String typeStr) =>
-      PinIsPinnedOption.$('Pin.IsPinned.Type', [typeStr]);
+      PinIsPinnedOption.$(4, (w) => w..str(typeStr));
 }
 
 final class _PinLs {
   const _PinLs._();
 
   /// Go: `options.Pin.Ls.All`.
-  PinLsOption all() => PinLsOption.$('Pin.Ls.All', []);
+  PinLsOption all() => PinLsOption.$(0, (_) {});
 
   /// Go: `options.Pin.Ls.Detailed`.
   PinLsOption detailed(bool detailed) =>
-      PinLsOption.$('Pin.Ls.Detailed', [detailed]);
+      PinLsOption.$(1, (w) => w..b(detailed));
 
   /// Go: `options.Pin.Ls.Direct`.
-  PinLsOption direct() => PinLsOption.$('Pin.Ls.Direct', []);
+  PinLsOption direct() => PinLsOption.$(2, (_) {});
 
   /// Go: `options.Pin.Ls.Indirect`.
-  PinLsOption indirect() => PinLsOption.$('Pin.Ls.Indirect', []);
+  PinLsOption indirect() => PinLsOption.$(3, (_) {});
 
   /// Go: `options.Pin.Ls.Name`.
-  PinLsOption name(String name) => PinLsOption.$('Pin.Ls.Name', [name]);
+  PinLsOption name(String name) => PinLsOption.$(4, (w) => w..str(name));
 
   /// Go: `options.Pin.Ls.Recursive`.
-  PinLsOption recursive() => PinLsOption.$('Pin.Ls.Recursive', []);
+  PinLsOption recursive() => PinLsOption.$(5, (_) {});
 
   /// Go: `options.Pin.Ls.Type`.
-  PinLsOption type(String typeStr) => PinLsOption.$('Pin.Ls.Type', [typeStr]);
+  PinLsOption type(String typeStr) => PinLsOption.$(6, (w) => w..str(typeStr));
 }
 
 /// Go: `var PubSub`: construtores de opções.
@@ -292,11 +295,11 @@ final class _PubSub {
 
   /// Go: `options.PubSub.Discover`.
   PubSubSubscribeOption discover(bool discover) =>
-      PubSubSubscribeOption.$('PubSub.Discover', [discover]);
+      PubSubSubscribeOption.$(0, (w) => w..b(discover));
 
   /// Go: `options.PubSub.Topic`.
   PubSubPeersOption topic(String topic) =>
-      PubSubPeersOption.$('PubSub.Topic', [topic]);
+      PubSubPeersOption.$(0, (w) => w..str(topic));
 }
 
 /// Go: `var Put`: construtores de opções.
@@ -307,11 +310,11 @@ final class _Put {
 
   /// Go: `options.Put.NumProviders`.
   RoutingFindProvidersOption numProviders(int numProviders) =>
-      RoutingFindProvidersOption.$('Put.NumProviders', [numProviders]);
+      RoutingFindProvidersOption.$(1, (w) => w..i64(numProviders));
 
   /// Go: `options.Put.Recursive`.
   RoutingProvideOption recursive(bool recursive) =>
-      RoutingProvideOption.$('Put.Recursive', [recursive]);
+      RoutingProvideOption.$(1, (w) => w..b(recursive));
 }
 
 /// Go: `var Routing`: construtores de opções.
@@ -322,11 +325,11 @@ final class _Routing {
 
   /// Go: `options.Routing.NumProviders`.
   RoutingFindProvidersOption numProviders(int numProviders) =>
-      RoutingFindProvidersOption.$('Routing.NumProviders', [numProviders]);
+      RoutingFindProvidersOption.$(2, (w) => w..i64(numProviders));
 
   /// Go: `options.Routing.Recursive`.
   RoutingProvideOption recursive(bool recursive) =>
-      RoutingProvideOption.$('Routing.Recursive', [recursive]);
+      RoutingProvideOption.$(2, (w) => w..b(recursive));
 }
 
 /// Go: `var Unixfs`: construtores de opções.
@@ -337,103 +340,111 @@ final class _Unixfs {
 
   /// Go: `options.Unixfs.Chunker`.
   UnixfsAddOption chunker(String chunker) =>
-      UnixfsAddOption.$('Unixfs.Chunker', [chunker]);
+      UnixfsAddOption.$(0, (w) => w..str(chunker));
 
   /// Go: `options.Unixfs.CidVersion`.
   UnixfsAddOption cidVersion(int version) =>
-      UnixfsAddOption.$('Unixfs.CidVersion', [version]);
+      UnixfsAddOption.$(1, (w) => w..i64(version));
 
   /// Go: `options.Unixfs.Events`.
-  UnixfsAddOption events(StreamSink<$coreiface.AddEvent> sink) =>
-      UnixfsAddOption.$('Unixfs.Events', [
-        GoSink<$coreiface.AddEvent>(sink,
-            (j) => $coreiface.AddEvent.$fromJson(j as Map<String, Object?>))
-      ]);
+  UnixfsAddOption events(
+          StreamSink<$coreiface.AddEvent> sink) =>
+      UnixfsAddOption.$(
+          2,
+          (w) => w
+            ..sink(GoSink<$coreiface.AddEvent>(
+                sink, (r) => r.p() ? $coreiface.AddEvent.$dec(r) : $nil())));
 
   /// Go: `options.Unixfs.FsCache`.
   UnixfsAddOption fsCache(bool enable) =>
-      UnixfsAddOption.$('Unixfs.FsCache', [enable]);
+      UnixfsAddOption.$(3, (w) => w..b(enable));
 
   /// Go: `options.Unixfs.HashOnly`.
   UnixfsAddOption hashOnly(bool hashOnly) =>
-      UnixfsAddOption.$('Unixfs.HashOnly', [hashOnly]);
+      UnixfsAddOption.$(5, (w) => w..b(hashOnly));
 
   /// Go: `options.Unixfs.Hash`.
   UnixfsAddOption hash(int mhtype) =>
-      UnixfsAddOption.$('Unixfs.Hash', [mhtype]);
+      UnixfsAddOption.$(4, (w) => w..i64(mhtype));
 
   /// Go: `options.Unixfs.IncludeEmptyDirs`.
   UnixfsAddOption includeEmptyDirs(bool include) =>
-      UnixfsAddOption.$('Unixfs.IncludeEmptyDirs', [include]);
+      UnixfsAddOption.$(6, (w) => w..b(include));
 
   /// Go: `options.Unixfs.InlineLimit`.
   UnixfsAddOption inlineLimit(int limit) =>
-      UnixfsAddOption.$('Unixfs.InlineLimit', [limit]);
+      UnixfsAddOption.$(8, (w) => w..i64(limit));
 
   /// Go: `options.Unixfs.Inline`.
   UnixfsAddOption inline(bool enable) =>
-      UnixfsAddOption.$('Unixfs.Inline', [enable]);
+      UnixfsAddOption.$(7, (w) => w..b(enable));
 
   /// Go: `options.Unixfs.Layout`.
   UnixfsAddOption layout(int layout) =>
-      UnixfsAddOption.$('Unixfs.Layout', [layout]);
+      UnixfsAddOption.$(9, (w) => w..i64(layout));
 
   /// Go: `options.Unixfs.MaxDirectoryLinks`.
   UnixfsAddOption maxDirectoryLinks(int n) =>
-      UnixfsAddOption.$('Unixfs.MaxDirectoryLinks', [n]);
+      UnixfsAddOption.$(10, (w) => w..i64(n));
 
   /// Go: `options.Unixfs.MaxFileLinks`.
   UnixfsAddOption maxFileLinks(int n) =>
-      UnixfsAddOption.$('Unixfs.MaxFileLinks', [n]);
+      UnixfsAddOption.$(11, (w) => w..i64(n));
 
   /// Go: `options.Unixfs.MaxHAMTFanout`.
   UnixfsAddOption maxHamtFanout(int n) =>
-      UnixfsAddOption.$('Unixfs.MaxHAMTFanout', [n]);
+      UnixfsAddOption.$(12, (w) => w..i64(n));
 
   /// Go: `options.Unixfs.Mode`.
-  UnixfsAddOption mode(int mode) => UnixfsAddOption.$('Unixfs.Mode', [mode]);
+  UnixfsAddOption mode(int mode) => UnixfsAddOption.$(13, (w) => w..i64(mode));
 
   /// Go: `options.Unixfs.Mtime`.
-  UnixfsAddOption mtime(int seconds, int nsecs) =>
-      UnixfsAddOption.$('Unixfs.Mtime', [seconds, nsecs]);
+  UnixfsAddOption mtime(int seconds, int nsecs) => UnixfsAddOption.$(
+      14,
+      (w) => w
+        ..i64(seconds)
+        ..i64(nsecs));
 
   /// Go: `options.Unixfs.Nocopy`.
   UnixfsAddOption nocopy(bool enable) =>
-      UnixfsAddOption.$('Unixfs.Nocopy', [enable]);
+      UnixfsAddOption.$(15, (w) => w..b(enable));
 
   /// Go: `options.Unixfs.Pin`.
-  UnixfsAddOption pin(bool pin, String pinName) =>
-      UnixfsAddOption.$('Unixfs.Pin', [pin, pinName]);
+  UnixfsAddOption pin(bool pin, String pinName) => UnixfsAddOption.$(
+      16,
+      (w) => w
+        ..b(pin)
+        ..str(pinName));
 
   /// Go: `options.Unixfs.PreserveMode`.
   UnixfsAddOption preserveMode(bool enable) =>
-      UnixfsAddOption.$('Unixfs.PreserveMode', [enable]);
+      UnixfsAddOption.$(17, (w) => w..b(enable));
 
   /// Go: `options.Unixfs.PreserveMtime`.
   UnixfsAddOption preserveMtime(bool enable) =>
-      UnixfsAddOption.$('Unixfs.PreserveMtime', [enable]);
+      UnixfsAddOption.$(18, (w) => w..b(enable));
 
   /// Go: `options.Unixfs.Progress`.
   UnixfsAddOption progress(bool enable) =>
-      UnixfsAddOption.$('Unixfs.Progress', [enable]);
+      UnixfsAddOption.$(19, (w) => w..b(enable));
 
   /// Go: `options.Unixfs.RawLeaves`.
   UnixfsAddOption rawLeaves(bool enable) =>
-      UnixfsAddOption.$('Unixfs.RawLeaves', [enable]);
+      UnixfsAddOption.$(20, (w) => w..b(enable));
 
   /// Go: `options.Unixfs.ResolveChildren`.
   UnixfsLsOption resolveChildren(bool resolve) =>
-      UnixfsLsOption.$('Unixfs.ResolveChildren', [resolve]);
+      UnixfsLsOption.$(0, (w) => w..b(resolve));
 
   /// Go: `options.Unixfs.Silent`.
   UnixfsAddOption silent(bool silent) =>
-      UnixfsAddOption.$('Unixfs.Silent', [silent]);
+      UnixfsAddOption.$(21, (w) => w..b(silent));
 
   /// Go: `options.Unixfs.SizeEstimationMode`.
   UnixfsAddOption sizeEstimationMode(int mode) =>
-      UnixfsAddOption.$('Unixfs.SizeEstimationMode', [mode]);
+      UnixfsAddOption.$(22, (w) => w..i64(mode));
 
   /// Go: `options.Unixfs.UseCumulativeSize`.
   UnixfsLsOption useCumulativeSize(bool use) =>
-      UnixfsLsOption.$('Unixfs.UseCumulativeSize', [use]);
+      UnixfsLsOption.$(1, (w) => w..b(use));
 }

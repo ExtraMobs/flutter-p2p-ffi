@@ -14,7 +14,7 @@ void main() {
   test('verificações locais', () async {
     final tmp = Directory.systemTemp.createTempSync('ipfs_ffi_it_');
     // plugins (1x por processo) e relatório de crash, como o app faz
-    prepare('${tmp.path}/app-repo', '${tmp.path}/crash.log');
+    await prepare('${tmp.path}/app-repo', '${tmp.path}/crash.log');
     final lines = <String>[];
     final failed = await localChecks(lines.add);
     // ignore: avoid_print
