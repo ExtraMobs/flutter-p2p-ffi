@@ -16,7 +16,8 @@ type goEmitter struct {
 	code    []string          // funções auxiliares, na ordem de criação
 }
 
-func emitGo(m *model, fns []*fn) ([]byte, error) {
+func emitGo(m *model, fns []*fn, hash uint64) ([]byte, error) {
+	_ = hash // tabela do protocolo (WIRE.md)
 	g := &goEmitter{m: m, aliases: map[string]string{}, used: map[string]bool{}, helpers: map[string]string{}}
 	var reg, bodies []string
 	for i, f := range fns {

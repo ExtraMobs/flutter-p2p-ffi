@@ -11,6 +11,7 @@ import (
 	"flag"
 	"fmt"
 	"go/types"
+	"hash/fnv"
 	"os"
 	"path/filepath"
 	"sort"
@@ -36,10 +37,10 @@ type param struct {
 }
 
 type fn struct {
-	key     string // a linha da raiz: chave do despacho
+	key     string       // a linha da raiz: chave do despacho
 	obj     types.Object // *types.Func, ou *types.Var de pacote (isVar)
 	isVar   bool
-	conv    types.Type // variável: converter para este tipo nomeado
+	conv    types.Type     // variável: converter para este tipo nomeado
 	pkg     *types.Package // library Dart de destino
 	recv    *tinfo
 	params  []param
@@ -49,6 +50,30 @@ type fn struct {
 	stream  *tinfo // elemento do canal (kChanSend em parâmetro ou kChanRecv no resultado)
 	why     string // motivo da omissão
 	direct  int    // >= 0: export direto IpfsD<n> (sem JSON); -1: só pelo IpfsCall
+	id      int    // id da função no protocolo do serviço (WIRE.md); 0 = omitida
+}
+
+// firstID: os ids abaixo são do runtime e das funções escritas à mão (WIRE.md).
+const firstID = 64
+
+// assignIDs numera as funções expostas (sem as omitidas) em ordem de chave a
+// partir de firstID e devolve o hash da tabela (FNV-1a de "id chave\n" por
+// função), que o app e o host comparam no aperto de mão: os dois lados têm de
+// vir do mesmo gerador.
+func assignIDs(fns []*fn) uint64 {
+	var live []*fn
+	for _, f := range fns {
+		if f.why == "" {
+			live = append(live, f)
+		}
+	}
+	sort.Slice(live, func(i, j int) bool { return live[i].key < live[j].key })
+	h := fnv.New64a()
+	for i, f := range live {
+		f.id = firstID + i
+		fmt.Fprintf(h, "%d %s\n", f.id, f.key)
+	}
+	return h.Sum64()
 }
 
 // directKind: atravessa um export direto com tipo C (int64, double, char*;
@@ -159,13 +184,14 @@ func generate(rootsFile string) (map[string][]byte, error) {
 			f.direct, nd = nd, nd+1
 		}
 	}
+	hash := assignIDs(fns) // WIRE.md: os emissores binários usam f.id e o hash
 	out := map[string][]byte{}
-	goSrc, err := emitGo(m, fns)
+	goSrc, err := emitGo(m, fns, hash)
 	if err != nil {
 		return nil, err
 	}
 	out["zz_generated.go"] = goSrc
-	for path, src := range emitDart(m, fns) {
+	for path, src := range emitDart(m, fns, hash) {
 		out[filepath.ToSlash(filepath.Join("../lib", path))] = src
 	}
 	out["../API.md"] = emitAPI(m, fns)

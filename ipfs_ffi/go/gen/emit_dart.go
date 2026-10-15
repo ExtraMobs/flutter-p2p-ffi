@@ -102,7 +102,8 @@ func (e *dartEmitter) collect(t *tinfo) {
 	}
 }
 
-func emitDart(m *model, fns []*fn) map[string][]byte {
+func emitDart(m *model, fns []*fn, hash uint64) map[string][]byte {
+	_ = hash // tabela do protocolo (WIRE.md)
 	e := &dartEmitter{m: m, libs: map[string]*dartLib{}}
 	for _, f := range fns {
 		if f.why != "" {
