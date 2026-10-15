@@ -42,10 +42,21 @@ Tudo em little-endian.
 | 2 | Echo (teste) | bytes → os mesmos bytes |
 | 3 | Free | `u32 n`, n × `i64` handles → sem resposta (id 0) |
 | 4 | Hello | `u64` hash da tabela → valor vazio, ou erro se o host foi gerado de outra tabela |
-| 16–21 | context: Background, WithCancel, WithTimeout, WithDeadline, CancelFunc, Context.Err | escritas à mão |
-| 24–27 | teste: PanicInGoroutine, PanicInChanFunc, PanicInSink, Noop (gancho) | escritas à mão |
-| 32–35 | dag: put, get, exportCar, importCar | escritas à mão (`go/manual_dag.go`, `go/manual_car.go`) |
-| 40–41 | config: Profiles, Profile.Transform | escritas à mão |
+| 16 | context.Background | — → `i64` ctx |
+| 17 | context.WithCancel | `i64` pai → `i64` ctx, `i64` cancel |
+| 18 | context.WithTimeout | `i64` pai, `i64` ns → `i64` ctx, `i64` cancel |
+| 19 | context.WithDeadline | `i64` pai, `i64` Unix ns → `i64` ctx, `i64` cancel |
+| 20 | context.CancelFunc (chamar) | `i64` cancel → vazio |
+| 21 | context.Context.Err | `i64` ctx → `kError` (`u8` presente + string) |
+| 24 | teste: PanicInGoroutine | — → vazio; o host cai logo depois |
+| 25 | teste: PanicInChanFunc | modo stream: `item` `i64` 1, depois `erro` com o panic |
+| 26 | teste: PanicInSink | `u32` sink → vazio; o sink recebe `item` `i64` 1 e depois `erro` com o panic |
+| 32 | dag put | `i64` CoreAPI, `i64` ctx, `kBytes` dados, string input-codec, string store-codec, string hash, bool pin, bool allow-big-block → `u8` presente + string CID |
+| 33 | dag get | `i64` CoreAPI, `i64` ctx, string path, string output-codec → `kBytes` |
+| 34 | dag export | `i64` IpfsNode, `i64` ctx, string path, bool local-only, string arquivo (`''` = devolve os bytes) → `kBytes` (vazio quando grava no arquivo) |
+| 35 | dag import | `i64` IpfsNode, `i64` ctx, `kSlice` de string arquivos, `kBytes` CAR (`-1` = usa os arquivos), bool pin-roots, bool allow-big-block → `i32 n` raízes × (string CID, string erro do pin), `i64` blocos, `i64` bytes |
+| 40 | config.Profiles | — → `i32 n` × string (nomes em ordem) |
+| 41 | config.Profile.Transform | string nome, string JSON do config → string JSON do config transformado |
 | ≥ 64 | as geradas | id = 64 + posição na lista das funções expostas em ordem de chave (`assignIDs` em `go/gen/main.go`) |
 
 O hash da tabela (FNV-1a 64 de `"id chave\n"` por função gerada) vai no `Hello`
