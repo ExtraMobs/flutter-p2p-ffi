@@ -125,14 +125,14 @@ void main() {
     cancelT();
   });
 
-  test('erros do Go viram IpfsException, inclusive panic', () async {
+  test('erros do Go viram IpfsException (o panic: grupo abaixo)', () async {
     await expectLater(api.resolvePath(ctx, path.Path('não é path')),
         throwsA(isA<IpfsException>()));
-    // handle inválido: o Go entra em panic e o recover vira exceção
+    // handle inválido: a tabela do host responde erro
     await expectLater(
         core.IpfsNode.$h(1 << 40).close(),
         throwsA(isA<IpfsException>()
-            .having((e) => e.message, 'message', contains('panic'))));
+            .having((e) => e.message, 'message', contains('não existe'))));
   });
 
   // M2: pins, blocos e GC

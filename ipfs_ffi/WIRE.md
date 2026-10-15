@@ -112,3 +112,20 @@ em que nasceu: depois de um reinício, usá-lo dá `IpfsServiceException`.
 - Um handle é um id novo a cada vez que o host devolve o objeto, mesmo o mesmo objeto:
   cada um é solto à parte.
 - `dag export` gravando em arquivo devolve `i32 0` (bytes vazios, não nil).
+
+## Notas do lado do app (Dart)
+
+- Todos os ids (chamadas e sinks) saem do mesmo contador do canal (`ShmChannel.newId`);
+  os sinks são registrados quando o pedido é enviado.
+- Modos das escritas à mão: `context` (16–21), Hello, perfis (40–41) e o gancho 24
+  são síncronos (`0`); `dag` (32–35) e o gancho 26 assíncronos (`1`); o 25 stream
+  (`2`). `Free` vai com modo `0` e id `0`.
+- O `u64` do Hello é escrito como `i64` (os mesmos 8 bytes).
+- Resultado de função: presença `0` (ou handle `0`) onde o Dart espera um objeto vira
+  `IpfsException` ("o Go devolveu nil"); `kBytes` nil vira `Uint8List` vazio e
+  `kSlice`/`kMap` nil viram vazios. Em campo de DTO e getter de instantâneo o nil é
+  `null`; getter com erro dá `null` (o valor zero lido antes do erro é descartado).
+- `time.Time` volta como `DateTime` em UTC (microssegundos: o resto dos ns se perde).
+- `io.Reader` dentro de DTO (não em parâmetro) vai como handle simples.
+- Se o pedido nem sai (serviço parado, handle de serviço anterior), a chamada
+  assíncrona falha pelo `Future`/`Stream` e os sinks dela fecham com o mesmo erro.

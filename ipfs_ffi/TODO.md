@@ -11,7 +11,8 @@ app para as atômicas (o `dart:ffi` não tem) e a espera "gira, depois dorme".
 
 **P0, onde um panic do Go derruba o quê** (Go 1.26.5: `fatalpanic` termina em
 `exit(2)`, que é `ExitProcess`/`exit_group`, ou em `crash()` = `SIGABRT`; o
-processo inteiro, sem gancho), medido em `test/kubo_test.dart`:
+processo inteiro, sem gancho), medido em `test/kubo_test.dart` (os testes do modo
+dentro do processo saíram com ele no P2; o "outro processo" ficou):
 
 | Onde roda o Go | Resultado |
 |---|---|
@@ -38,6 +39,27 @@ Medido com a função `Noop` (`tool/bench_shm.dart`, AOT):
 O canal fica a ~96% do teto do próprio Dart para `Future`s: passar de 1 milhão por
 segundo pediria uma API em lote (vários pedidos num `Future`), não um transporte
 mais rápido.
+
+**P2, o protocolo binário** (feito; contrato no `WIRE.md`): o Go do host
+(`go/wire.go`, `go/gen/emit_go.go`, `manual_*.go`) e o Dart do app
+(`lib/src/runtime.dart` + `runtime/codec.dart`, `go/gen/emit_dart.go`,
+`lib/service.dart`: `IpfsService.start()`/`stop()`). O app não carrega mais Go; a API
+gerada não mudou para quem usa (só pede o `start` antes). Handles com época (de um
+serviço anterior: `IpfsServiceException`), soltos em lote pelo `Finalizer`. Testes:
+`test/codec_test.dart` (o codec sem host) e `test/kubo_test.dart` inteiro sobre o host,
+com o host derrubado por um panic numa goroutine e relançado (26/26 no Windows).
+Medido com `dart run tool/bench.dart` (JIT, Windows):
+
+| Chamada | µs |
+|---|---|
+| `Noop` síncrono (piso do canal) / assíncrono | 1,4 / 29 |
+| `ctx.err()` / `withTimeout` + `cancel` | 2,8 / 9,1 |
+| `node.cid()` / `node.rawData()` 1 KiB / `RawNode(1 KiB)` | 3,8 / 4,0 / 7,3 |
+| `api.unixfs()` (handle novo a cada chamada) | 6,4 |
+| `fsrepo.isInitialized` (consulta o disco) | 54 |
+| `resolvePath` / `block.stat` / `unixfs.add` 1 KiB, assíncronos | 80 / 256 / 311 |
+
+⏳ linux e Android (o host como `libipfs_host.so` extraída do APK) não validados.
 
 ## Feito: exports diretos para assinaturas simples (0.5.0)
 
