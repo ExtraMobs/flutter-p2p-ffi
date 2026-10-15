@@ -101,7 +101,8 @@ sistema. Para o mDNS, o app segura um `WifiManager.MulticastLock` (ver `MainActi
 Conexões por relay duram até 2 min e não levam pubsub nem bitswap: entre dois aparelhos
 atrás de NAT de operadora, a conexão direta vem pelo IPv6 (medido: vira direta em ~14 s) ou
 quando um deles é alcançável; por IPv4 o NAT da operadora medido é simétrico e o hole
-punching não acontece. Números e achados
+punching não acontece. `hasIpv6()` (`package:ipfs_ffi/ipfs_ffi.dart`) diz se a rede
+atual entrega IPv6 global. Números e achados
 em [`TODO.md`](TODO.md).
 
 ### Linux pelo WSL (validado no Ubuntu 26.04)

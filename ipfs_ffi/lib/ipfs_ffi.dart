@@ -10,4 +10,5 @@
 /// ```
 library;
 
+export 'src/network.dart' show hasIpv6, isGlobalIpv6;
 export 'src/runtime.dart' show IpfsException, ipfsLibraryPath;

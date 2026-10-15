@@ -4,13 +4,14 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:typed_data';
-import 'dart:io' show Directory, File, Platform, Process;
+import 'dart:io' show Directory, File, InternetAddress, Platform, Process;
 
 import 'package:ipfs_ffi/boxo/files.dart' as files;
 import 'package:ipfs_ffi/boxo/path.dart' as path;
 import 'package:ipfs_ffi/context.dart' as context;
 import 'package:ipfs_ffi/io.dart' as io;
-import 'package:ipfs_ffi/ipfs_ffi.dart' show IpfsException;
+import 'package:ipfs_ffi/ipfs_ffi.dart'
+    show IpfsException, hasIpv6, isGlobalIpv6;
 import 'package:ipfs_ffi/boxo/ipld/merkledag.dart' as merkledag;
 import 'package:ipfs_ffi/kubo/config.dart' as config;
 import 'package:ipfs_ffi/kubo/core/commands/dag.dart' as dag;
@@ -526,6 +527,18 @@ void main() {
       await check;
       expect(got, [1]);
     });
+  });
+
+  test('isGlobalIpv6 / hasIpv6', () async {
+    bool g(String a) => isGlobalIpv6(InternetAddress(a));
+    expect(g('2001:4860:4860::8888'), isTrue); // DNS do Google
+    expect(g('2001:db8::1'), isTrue); // documentação, mas 2000::/3
+    expect(g('fe80::1'), isFalse); // link-local
+    expect(g('fd00::1'), isFalse); // privado (ULA)
+    expect(g('::1'), isFalse);
+    expect(g('ff02::1'), isFalse); // multicast
+    expect(g('192.168.0.10'), isFalse);
+    expect(await hasIpv6(), isA<bool>()); // depende da rede da máquina
   });
 
   // Arquivos CAR (ipfs dag export / import)
