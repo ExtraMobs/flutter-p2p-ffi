@@ -61,7 +61,7 @@ Seguem no JSON as 12 síncronas com structs, opções funcionais, `config.Config
 `constructDefaultRouting`, `Repo.config`, `fsrepo.init`, `addrInfoFromString`,
 `addrInfoToP2pAddrs`, `readAll`, `setCrashOutput`), as assíncronas e os streams.
 
-## Marco final: Android (0.7.0 no emulador; aparelho real em 2026-10-11, dados móveis e Wi-Fi)
+## Marco final: Android (0.7.0 no emulador; 0.8.0 num aparelho real, dados móveis e Wi-Fi)
 
 O mesmo nó mínimo num app Android, com a API Dart gerada sem mudança. Validado em
 2026-10-11 no emulador `sdk_gphone16k_x86_64` (Android 17 / API 37, páginas de 16 KB),
