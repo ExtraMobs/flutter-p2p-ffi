@@ -7,9 +7,9 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:ipfs_ffi/boxo/files.dart' as files;
-import 'package:ipfs_ffi/context.dart' as context;
-import 'package:ipfs_ffi/go_libp2p/core/peer.dart' as peer;
-import 'package:ipfs_ffi/io.dart' as io;
+import 'package:ipfs_ffi/go/context.dart' as context;
+import 'package:ipfs_ffi/libp2p/core/peer.dart' as peer;
+import 'package:ipfs_ffi/go/io.dart' as io;
 import 'package:ipfs_ffi/ipfs_ffi.dart' show IpfsService;
 import 'package:ipfs_ffi/kubo/config.dart' as config;
 import 'package:ipfs_ffi/kubo/core.dart' as core;

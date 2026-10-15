@@ -3,7 +3,7 @@
 library;
 
 import 'package:ipfs_ffi/src/runtime.dart';
-import 'package:ipfs_ffi/context.dart' as $context;
+import 'package:ipfs_ffi/go/context.dart' as $context;
 import 'package:ipfs_ffi/kubo/core/node.dart' as $node;
 
 /// Go: `core.IpfsNode` (handle).

@@ -1,5 +1,20 @@
 # Pendências do ipfs_ffi
 
+## Feito: namespaces (0.11.0)
+
+Decisão do dono: a API em namespaces, um por módulo Go, com os dois jeitos de importar.
+`lib/<namespace>.dart` exporta tudo do namespace (`import 'package:ipfs_ffi/kubo.dart' as
+kubo;`) e as libraries por pacote Go continuam embaixo (`kubo/repo/fsrepo.dart`).
+Namespaces: `kubo`, `boxo`, `car` (o CAR saiu de `kubo/core/commands/dag.dart`: `car.export`,
+`exportFile`, `import`, `importFiles`, `ImportResult`), `ipld` (`go-ipld-format`,
+`go-block-format`), `multiformats` (`go-cid`, `go-multiaddr`), `libp2p` e `go` (`context`,
+`io`, `os`, `runtime/debug` da biblioteca padrão). A tabela módulo → namespace fica em
+`go/gen/namespaces.go`; módulo novo sem linha nela é erro do gerador. O gerador escreve os
+arquivos de namespace (com as libraries escritas à mão da pasta) e remove os gerados que
+sobram (`-check` acusa). Único conflito de nome: `dag put/get` portados à mão contra as
+opções `put` do kubo; viraram `dagPut`/`dagGet`. Validado: o exemplo do README rodado,
+desktop 39/39 (Windows e linux 3x), integração 4/4 no emulador.
+
 ## Feito: o segundo plano do Android (0.10.0)
 
 Achado na 0.9.0: o `ipfs_host` é processo filho do app (mesmo usuário, contexto SELinux e

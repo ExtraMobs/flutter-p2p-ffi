@@ -1,24 +1,24 @@
-/// `ipfs dag put/get` and `ipfs dag export/import` (CAR files), hand-written
-/// (functions 32–35 of WIRE.md); Go in go/manual_dag.go and go/manual_car.go:
-/// store and read IPLD objects in DAG-CBOR, DAG-JSON, JSON, CBOR, raw or
-/// dag-pb. In kubo this is the body of the commands (core/commands/dag/put.go
-/// and get.go), not a library function. The defaults are the CLI's.
+/// `ipfs dag put/get`, hand-written (functions 32 and 33 of WIRE.md; Go in
+/// go/manual_dag.go): store and read IPLD objects in DAG-CBOR, DAG-JSON, JSON,
+/// CBOR, raw or dag-pb. In kubo this is the body of the commands
+/// (core/commands/dag/put.go and get.go), not a library function. The defaults
+/// are the CLI's. CAR files (`ipfs dag export/import`) are in
+/// `package:ipfs_ffi/car.dart`.
 ///
 /// ```dart
-/// import 'package:ipfs_ffi/kubo/core/commands/dag.dart' as dag;
+/// import 'package:ipfs_ffi/kubo.dart' as kubo;
 ///
-/// final c = await dag.put(api, ctx, utf8.encode('{"a": 1}')); // dag-json → dag-cbor
-/// final json = await dag.get(api, ctx, path.Path('/ipfs/$c/a'));
+/// final c = await kubo.dagPut(api, ctx, utf8.encode('{"a": 1}')); // dag-json → dag-cbor
+/// final json = await kubo.dagGet(api, ctx, boxo.Path('/ipfs/$c/a'));
 /// ```
 library;
 
 import 'dart:typed_data';
 
 import 'package:ipfs_ffi/boxo/path.dart' as $path;
-import 'package:ipfs_ffi/context.dart' as $context;
-import 'package:ipfs_ffi/go_cid.dart' as $go_cid;
-import 'package:ipfs_ffi/kubo/core.dart' as $core;
+import 'package:ipfs_ffi/go/context.dart' as $context;
 import 'package:ipfs_ffi/kubo/core/coreiface.dart' as $coreiface;
+import 'package:ipfs_ffi/multiformats/cid.dart' as $cid;
 import 'package:ipfs_ffi/src/runtime.dart';
 
 /// `ipfs dag put`: decodes [data] with [inputCodec], stores it with
@@ -28,7 +28,7 @@ import 'package:ipfs_ffi/src/runtime.dart';
 ///
 /// The CLI uses `Import.HashFunction` from the config as the default hash;
 /// here the default is that config's default value (`sha2-256`).
-Future<$go_cid.Cid> put(
+Future<$cid.Cid> dagPut(
   $coreiface.CoreApi api,
   $context.Context ctx,
   Uint8List data, {
@@ -49,12 +49,12 @@ Future<$go_cid.Cid> put(
         ..str(hash)
         ..b(pin)
         ..b(allowBigBlock));
-  return r.p() ? $go_cid.Cid(r.str()) : $nil();
+  return r.p() ? $cid.Cid(r.str()) : $nil();
 }
 
 /// `ipfs dag get`: the node at [path] (which may continue inside it, e.g.
 /// `/ipfs/<cid>/a/b`) encoded with [outputCodec].
-Future<Uint8List> get(
+Future<Uint8List> dagGet(
   $coreiface.CoreApi api,
   $context.Context ctx,
   $path.Path path, {
@@ -69,102 +69,3 @@ Future<Uint8List> get(
         ..str(outputCodec));
   return r.bytes() ?? Uint8List(0);
 }
-
-/// `ipfs dag export`: the DAG of [path] as an in-memory CARv1. [localOnly]
-/// (`--local-only`) does not touch the network and skips what is not in the
-/// repo (partial CAR). Needs the node (like the kubo command), not just the
-/// CoreAPI.
-Future<Uint8List> exportCar(
-  $core.IpfsNode node,
-  $context.Context ctx,
-  $path.Path path, {
-  bool localOnly = false,
-}) async {
-  final r = await $call(34, _export(node, ctx, path, localOnly, ''));
-  return r.bytes() ?? Uint8List(0);
-}
-
-/// `ipfs dag export > [file]`: writes the CARv1 straight to the file (the
-/// bytes do not go through Dart; use it for large DAGs).
-Future<void> exportCarFile(
-  $core.IpfsNode node,
-  $context.Context ctx,
-  $path.Path path,
-  String file, {
-  bool localOnly = false,
-}) async {
-  await $call(34, _export(node, ctx, path, localOnly, file));
-}
-
-$W _export($core.IpfsNode node, $context.Context ctx, $path.Path path,
-        bool localOnly, String file) =>
-    $W()
-      ..h(node)
-      ..h(ctx)
-      ..str(path.value)
-      ..b(localOnly)
-      ..str(file);
-
-/// Root of an imported CAR (kubo's `RootMeta`): [pinErrorMsg] is empty when
-/// the pin succeeded.
-final class RootMeta {
-  RootMeta._(this.cid, this.pinErrorMsg);
-
-  final $go_cid.Cid cid;
-  final String pinErrorMsg;
-}
-
-/// Result of `ipfs dag import` (pinned roots and `--stats`).
-final class CarImportResult {
-  CarImportResult._(this.roots, this.blockCount, this.blockBytesCount);
-
-  final List<RootMeta> roots;
-  final int blockCount;
-  final int blockBytesCount;
-}
-
-/// Function 35: the CARs come from [files] or, if [car] is not null, from
-/// the bytes.
-Future<CarImportResult> _import(
-    $core.IpfsNode node,
-    $context.Context ctx,
-    List<String> files,
-    Uint8List? car,
-    bool pinRoots,
-    bool allowBigBlock) async {
-  final r = await $call(
-      35,
-      $W()
-        ..h(node)
-        ..h(ctx)
-        ..list(files, (w, f) => w.str(f))
-        ..bytes(car)
-        ..b(pinRoots)
-        ..b(allowBigBlock));
-  return CarImportResult._(
-      r.list(() => RootMeta._($go_cid.Cid(r.str()), r.str())),
-      r.i64(),
-      r.i64());
-}
-
-/// `ipfs dag import`: stores the blocks of the CAR (v1 or v2) [car] and, with
-/// [pinRoots] (default, `--pin-roots`), pins the roots. Does not use the
-/// network. [allowBigBlock] accepts blocks above 2 MiB.
-Future<CarImportResult> importCar(
-  $core.IpfsNode node,
-  $context.Context ctx,
-  Uint8List car, {
-  bool pinRoots = true,
-  bool allowBigBlock = false,
-}) =>
-    _import(node, ctx, const [], car, pinRoots, allowBigBlock);
-
-/// `ipfs dag import [files...]`: reads the CARs straight from the files.
-Future<CarImportResult> importCarFiles(
-  $core.IpfsNode node,
-  $context.Context ctx,
-  List<String> files, {
-  bool pinRoots = true,
-  bool allowBigBlock = false,
-}) =>
-    _import(node, ctx, files, null, pinRoots, allowBigBlock);

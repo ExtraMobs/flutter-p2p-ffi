@@ -22,7 +22,7 @@ Cada linha é um símbolo Go exposto e onde ele está no Dart.
 | `func (*merkledag.ProtoNode).SetData(d []byte)` | `ProtoNode.setData` | síncrona |
 | `func (*merkledag.ProtoNode).Data() []byte` | `ProtoNode.data` | síncrona |
 
-## `github.com/ipfs/go-ipld-format` → `package:ipfs_ffi/go_ipld_format.dart`
+## `github.com/ipfs/go-ipld-format` → `package:ipfs_ffi/ipld/format.dart`
 
 | Go | Dart | Modo |
 |---|---|---|
@@ -154,20 +154,20 @@ Cada linha é um símbolo Go exposto e onde ele está no Dart.
 | `func fsrepo.Init(repoPath string, conf *config.Config) error` | `init` | síncrona |
 | `func fsrepo.Open(repoPath string) (repo.Repo, error)` | `open` | síncrona |
 
-## `github.com/libp2p/go-libp2p/core/peer` → `package:ipfs_ffi/go_libp2p/core/peer.dart`
+## `github.com/libp2p/go-libp2p/core/peer` → `package:ipfs_ffi/libp2p/core/peer.dart`
 
 | Go | Dart | Modo |
 |---|---|---|
 | `func peer.AddrInfoFromString(s string) (*peer.AddrInfo, error)` | `addrInfoFromString` | síncrona |
 | `func peer.AddrInfoToP2pAddrs(pi *peer.AddrInfo) ([]multiaddr.Multiaddr, error)` | `addrInfoToP2pAddrs` | síncrona |
 
-## `io` → `package:ipfs_ffi/io.dart`
+## `io` → `package:ipfs_ffi/go/io.dart`
 
 | Go | Dart | Modo |
 |---|---|---|
 | `func io.ReadAll(r io.Reader) ([]byte, error)` | `readAll` | síncrona |
 
-## `os` → `package:ipfs_ffi/os.dart`
+## `os` → `package:ipfs_ffi/go/os.dart`
 
 | Go | Dart | Modo |
 |---|---|---|
@@ -175,7 +175,7 @@ Cada linha é um símbolo Go exposto e onde ele está no Dart.
 | `func os.Create(name string) (*os.File, error)` | `create` | síncrona |
 | `func (*os.File).Close() error` | `File.close` | síncrona |
 
-## `runtime/debug` → `package:ipfs_ffi/runtime/debug.dart`
+## `runtime/debug` → `package:ipfs_ffi/go/runtime/debug.dart`
 
 | Go | Dart | Modo |
 |---|---|---|
@@ -183,10 +183,11 @@ Cada linha é um símbolo Go exposto e onde ele está no Dart.
 
 ## Adaptações (regras do gerador e código à mão)
 
-- `context` (`package:ipfs_ffi/context.dart`, à mão): `background`, `withCancel`, `withTimeout`, `withDeadline`; `CancelFunc` é chamável (`cancel()`).
+- Namespaces: cada módulo Go num namespace (`kubo`, `boxo`, `car`, `ipld`, `multiformats`, `libp2p`, `go`), com um arquivo `package:ipfs_ffi/<namespace>.dart` que exporta todas as libraries dele (`import 'package:ipfs_ffi/kubo.dart' as kubo;`); as libraries por pacote Go continuam embaixo. A tabela módulo → namespace fica em `go/gen/namespaces.go`.
+- `context` (`package:ipfs_ffi/go/context.dart`, à mão): `background`, `withCancel`, `withTimeout`, `withDeadline`; `CancelFunc` é chamável (`cancel()`).
 - `config.Profiles` (à mão): `profiles[nome]!.transform(cfg)`; no Go é um mapa de funções.
-- `ipfs dag put`/`ipfs dag get` (`package:ipfs_ffi/kubo/core/commands/dag.dart`, porte à mão em `go/manual_dag.go`): no kubo é o corpo dos comandos, não função de biblioteca; mesmos padrões do CLI (dag-json → dag-cbor, limite de 2 MiB), hash padrão `sha2-256`.
-- `ipfs dag export`/`ipfs dag import` (arquivos CAR; mesma library, porte à mão em `go/manual_car.go`): `exportCar`/`exportCarFile` (CARv1, `localOnly` = `--local-only`) e `importCar`/`importCarFiles` (CARv1/v2, `pinRoots` = `--pin-roots`, devolve raízes e estatísticas); recebem o `IpfsNode`, como o comando. Sem barra de progresso nem fast-provide do DAG inteiro; a raiz é anunciada pelo `Provide` da CoreAPI.
+- `ipfs dag put`/`ipfs dag get` (`dagPut`/`dagGet` em `package:ipfs_ffi/kubo/core/commands/dag.dart`, porte à mão em `go/manual_dag.go`): no kubo é o corpo dos comandos, não função de biblioteca; mesmos padrões do CLI (dag-json → dag-cbor, limite de 2 MiB), hash padrão `sha2-256`.
+- `ipfs dag export`/`ipfs dag import` (arquivos CAR; namespace `package:ipfs_ffi/car.dart`, porte à mão em `go/manual_car.go`): `export`/`exportFile` (CARv1, `localOnly` = `--local-only`) e `import`/`importFiles` (CARv1/v2, `pinRoots` = `--pin-roots`, devolve raízes e estatísticas); recebem o `IpfsNode`, como o comando. Sem barra de progresso nem fast-provide do DAG inteiro; a raiz é anunciada pelo `Provide` da CoreAPI.
 - Pubsub: o nó precisa de `node.BuildCfg(extraOpts: {'pubsub': true})` (o `Pubsub.Enabled` do daemon); `sub.next(ctx)` entrega uma mensagem por vez (o exemplo 08 a transforma em `Stream`).
 - Handle concreto que implementa uma interface exposta estende a classe dela (`merkledag.RawNode`/`ProtoNode` → `Node`), para valer onde o Go aceita a interface; struct que embute interface é handle, não DTO.
 - Mapa com chave tipo-valor (`map[peer.ID][]Multiaddr`) vira `Map<Id, List<Multiaddr>>`.

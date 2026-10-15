@@ -12,7 +12,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:ipfs_ffi/context.dart' as context;
+import 'package:ipfs_ffi/go/context.dart' as context;
 import 'package:ipfs_ffi/ipfs_ffi.dart' show IpfsException, IpfsService;
 import 'package:ipfs_ffi/kubo/core.dart' as core;
 import 'package:ipfs_ffi/kubo/core/coreapi.dart' as coreapi;

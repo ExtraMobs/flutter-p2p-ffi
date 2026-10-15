@@ -11,15 +11,6 @@ import (
 	"strings"
 )
 
-// dartPath: library Dart de um pacote Go, sem o prefixo github.com/<org>/.
-func dartPath(pkgPath string) string {
-	p := pkgPath
-	if parts := strings.SplitN(p, "/", 3); len(parts) == 3 && parts[0] == "github.com" {
-		p = parts[2]
-	}
-	return strings.NewReplacer("-", "_", ".", "_").Replace(p) + ".dart"
-}
-
 type dartLib struct {
 	path    string
 	goPath  string
@@ -250,7 +241,7 @@ func (e *dartEmitter) dt(t *tinfo, from *dartLib) string {
 		}
 		return "Map<" + key + ", " + e.dt(t.elem, from) + ">"
 	case kCtx:
-		return e.imp(from, "package:ipfs_ffi/context.dart") + ".Context"
+		return e.imp(from, "package:ipfs_ffi/go/context.dart") + ".Context"
 	case kChanSend, kChanRecv:
 		return "Stream<" + e.dt(t.elem, from) + ">"
 	}

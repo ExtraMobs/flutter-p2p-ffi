@@ -8,10 +8,11 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:ipfs_ffi/boxo/files.dart' as files;
+import 'package:ipfs_ffi/car.dart' as car;
 import 'package:ipfs_ffi/boxo/path.dart' as path;
-import 'package:ipfs_ffi/context.dart' as context;
-import 'package:ipfs_ffi/go_libp2p/core/peer.dart' as peer;
-import 'package:ipfs_ffi/io.dart' as io;
+import 'package:ipfs_ffi/go/context.dart' as context;
+import 'package:ipfs_ffi/libp2p/core/peer.dart' as peer;
+import 'package:ipfs_ffi/go/io.dart' as io;
 import 'package:ipfs_ffi/ipfs_ffi.dart' show IpfsException, hasIpv6;
 import 'package:ipfs_ffi/kubo/config.dart' as config;
 import 'package:ipfs_ffi/kubo/core.dart' as core;
@@ -133,9 +134,10 @@ Future<int> localChecks(Log log) async {
             'assinatura confere');
         await api.key().remove(ctx, k.name);
 
-        final c = await dag.put(api, ctx, utf8.encode('{"a": {"b": [1, 2]}}'));
+        final c =
+            await dag.dagPut(api, ctx, utf8.encode('{"a": {"b": [1, 2]}}'));
         final got = jsonDecode(
-            utf8.decode(await dag.get(api, ctx, path.Path('/ipfs/$c/a/b'))));
+            utf8.decode(await dag.dagGet(api, ctx, path.Path('/ipfs/$c/a/b'))));
         check('$got' == '[1, 2]', 'dag get /a/b');
       },
       'CAR: export, GC, import de volta': () async {
@@ -144,11 +146,11 @@ Future<int> localChecks(Log log) async {
             files.newBytesFile(
                 Uint8List.fromList(List.generate(600000, (i) => i))),
             [options.unixfs.pin(true, '')]);
-        final car = await dag.exportCar(n, ctx, p);
+        final bytes = await car.export(n, ctx, p);
         await api.pin().rm(ctx, p);
         await corerepo.garbageCollect(n, ctx);
         await expectThrows(api.block().stat(ctx, p), 'GC levou o arquivo');
-        final r = await dag.importCar(n, ctx, car);
+        final r = await car.import(n, ctx, bytes);
         check(r.roots.single.pinErrorMsg.isEmpty, 'import pinou');
         check((await api.pin().isPinned(ctx, p)).$2, 'pinado após import');
       },

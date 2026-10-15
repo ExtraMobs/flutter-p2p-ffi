@@ -5,9 +5,9 @@ library;
 import 'dart:typed_data';
 
 import 'package:ipfs_ffi/src/runtime.dart';
-import 'package:ipfs_ffi/context.dart' as $context;
-import 'package:ipfs_ffi/go_block_format.dart' as $go_block_format;
-import 'package:ipfs_ffi/go_cid.dart' as $go_cid;
+import 'package:ipfs_ffi/go/context.dart' as $context;
+import 'package:ipfs_ffi/ipld/block_format.dart' as $block_format;
+import 'package:ipfs_ffi/multiformats/cid.dart' as $cid;
 
 /// Go: `format.DAGService` (handle).
 class DagService extends NodeGetter {
@@ -16,7 +16,7 @@ class DagService extends NodeGetter {
 
 /// Go: `format.Link`.
 final class Link implements GoDto {
-  Link({String? name, int? size, $go_cid.Cid? cid})
+  Link({String? name, int? size, $cid.Cid? cid})
       : name = name ?? '',
         size = size ?? 0,
         cid = cid;
@@ -24,7 +24,7 @@ final class Link implements GoDto {
   Link.$dec($R r)
       : name = r.str(),
         size = r.i64(),
-        cid = r.p() ? $go_cid.Cid(r.str()) : null;
+        cid = r.p() ? $cid.Cid(r.str()) : null;
 
   /// Go: `Name`.
   String name;
@@ -33,7 +33,7 @@ final class Link implements GoDto {
   int size;
 
   /// Go: `Cid`.
-  $go_cid.Cid? cid;
+  $cid.Cid? cid;
 
   @override
   void $enc($W w) {
@@ -45,13 +45,13 @@ final class Link implements GoDto {
 }
 
 /// Go: `format.Node` (handle).
-class Node extends $go_block_format.Block {
+class Node extends $block_format.Block {
   Node.$h(super.$h) : super.$h();
 
   /// Go: `func (blocks.Block).Cid() cid.Cid`.
-  $go_cid.Cid cid() {
+  $cid.Cid cid() {
     final $r = $callSync(73, $W()..h(this));
-    return $r.p() ? $go_cid.Cid($r.str()) : $nil();
+    return $r.p() ? $cid.Cid($r.str()) : $nil();
   }
 
   /// Go: `func (blocks.Block).RawData() []byte`.

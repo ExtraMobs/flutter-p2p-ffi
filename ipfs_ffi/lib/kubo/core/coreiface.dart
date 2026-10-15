@@ -8,47 +8,46 @@ import 'package:ipfs_ffi/src/runtime.dart';
 import 'package:ipfs_ffi/boxo/files.dart' as $files;
 import 'package:ipfs_ffi/boxo/ipns.dart' as $ipns;
 import 'package:ipfs_ffi/boxo/path.dart' as $path;
-import 'package:ipfs_ffi/context.dart' as $context;
-import 'package:ipfs_ffi/go_cid.dart' as $go_cid;
-import 'package:ipfs_ffi/go_ipld_format.dart' as $go_ipld_format;
-import 'package:ipfs_ffi/go_libp2p/core/peer.dart' as $peer;
-import 'package:ipfs_ffi/go_multiaddr.dart' as $go_multiaddr;
-import 'package:ipfs_ffi/io.dart' as $io;
+import 'package:ipfs_ffi/go/context.dart' as $context;
+import 'package:ipfs_ffi/go/io.dart' as $io;
+import 'package:ipfs_ffi/ipld/format.dart' as $format;
 import 'package:ipfs_ffi/kubo/core/coreiface/options.dart' as $options;
+import 'package:ipfs_ffi/libp2p/core/peer.dart' as $peer;
+import 'package:ipfs_ffi/multiformats/cid.dart' as $cid;
+import 'package:ipfs_ffi/multiformats/multiaddr.dart' as $multiaddr;
 
 /// Go: `iface.APIDagService` (handle).
-class ApiDagService extends $go_ipld_format.DagService {
+class ApiDagService extends $format.DagService {
   ApiDagService.$h(super.$h) : super.$h();
 
   /// Go: `func (format.NodeGetter).Get(context.Context, cid.Cid) (format.Node, error)`.
   ///
   /// Asynchronous: runs in a goroutine of the service.
-  Future<$go_ipld_format.Node> get(
-      $context.Context ctx, $go_cid.Cid cid) async {
+  Future<$format.Node> get($context.Context ctx, $cid.Cid cid) async {
     final $r = await $call(
         87,
         $W()
           ..h(this)
           ..h(ctx)
           ..val(cid));
-    return $r.hnn($go_ipld_format.Node.$h);
+    return $r.hnn($format.Node.$h);
   }
 
   /// Go: `func (format.NodeGetter).GetMany(context.Context, []cid.Cid) <-chan *format.NodeOption`.
-  Stream<$go_ipld_format.NodeOption> getMany(
-          $context.Context ctx, List<$go_cid.Cid> cids) =>
+  Stream<$format.NodeOption> getMany(
+          $context.Context ctx, List<$cid.Cid> cids) =>
       $stream(
               88,
               $W()
                 ..h(this)
                 ..h(ctx)
                 ..list(cids, (w0, e0) => w0.val(e0)))
-          .map((r) => r.p() ? $go_ipld_format.NodeOption.$dec(r) : $nil());
+          .map((r) => r.p() ? $format.NodeOption.$dec(r) : $nil());
 
   /// Go: `func (format.NodeAdder).Add(context.Context, format.Node) error`.
   ///
   /// Asynchronous: runs in a goroutine of the service.
-  Future<void> add($context.Context ctx, $go_ipld_format.Node node) async {
+  Future<void> add($context.Context ctx, $format.Node node) async {
     await $call(
         85,
         $W()
@@ -60,8 +59,7 @@ class ApiDagService extends $go_ipld_format.DagService {
   /// Go: `func (format.NodeAdder).AddMany(context.Context, []format.Node) error`.
   ///
   /// Asynchronous: runs in a goroutine of the service.
-  Future<void> addMany(
-      $context.Context ctx, List<$go_ipld_format.Node> nodes) async {
+  Future<void> addMany($context.Context ctx, List<$format.Node> nodes) async {
     await $call(
         86,
         $W()
@@ -73,7 +71,7 @@ class ApiDagService extends $go_ipld_format.DagService {
   /// Go: `func (format.DAGService).Remove(context.Context, cid.Cid) error`.
   ///
   /// Asynchronous: runs in a goroutine of the service.
-  Future<void> remove($context.Context ctx, $go_cid.Cid cid) async {
+  Future<void> remove($context.Context ctx, $cid.Cid cid) async {
     await $call(
         90,
         $W()
@@ -85,7 +83,7 @@ class ApiDagService extends $go_ipld_format.DagService {
   /// Go: `func (format.DAGService).RemoveMany(context.Context, []cid.Cid) error`.
   ///
   /// Asynchronous: runs in a goroutine of the service.
-  Future<void> removeMany($context.Context ctx, List<$go_cid.Cid> cids) async {
+  Future<void> removeMany($context.Context ctx, List<$cid.Cid> cids) async {
     await $call(
         91,
         $W()
@@ -95,9 +93,9 @@ class ApiDagService extends $go_ipld_format.DagService {
   }
 
   /// Go: `func (iface.APIDagService).Pinning() format.NodeAdder`.
-  $go_ipld_format.NodeAdder pinning() {
+  $format.NodeAdder pinning() {
     final $r = $callSync(89, $W()..h(this));
-    return $r.hnn($go_ipld_format.NodeAdder.$h);
+    return $r.hnn($format.NodeAdder.$h);
   }
 }
 
@@ -251,14 +249,14 @@ final class BlockStat {
 /// Go: `iface.ConnectionInfo` (values read from the methods).
 final class ConnectionInfo {
   ConnectionInfo.$dec($R r)
-      : address = r.p() ? $go_multiaddr.Multiaddr(r.str()) : null,
+      : address = r.p() ? $multiaddr.Multiaddr(r.str()) : null,
         direction = r.i64(),
         id = r.p() ? $peer.Id(r.str()) : null,
         latency = $orErr(r.i64(), r.err()),
         streams = $orErr(r.list(() => r.str()), r.err());
 
   /// Go: `Address()`.
-  final $go_multiaddr.Multiaddr? address;
+  final $multiaddr.Multiaddr? address;
 
   /// Go: `Direction()`.
   final int direction;
@@ -345,7 +343,7 @@ class CoreApi extends GoHandle {
   /// Go: `func (iface.CoreAPI).ResolveNode(context.Context, path.Path) (format.Node, error)`.
   ///
   /// Asynchronous: runs in a goroutine of the service.
-  Future<$go_ipld_format.Node> resolveNode(
+  Future<$format.Node> resolveNode(
       $context.Context ctx, $path.Path path) async {
     final $r = await $call(
         102,
@@ -353,7 +351,7 @@ class CoreApi extends GoHandle {
           ..h(this)
           ..h(ctx)
           ..val(path));
-    return $r.hnn($go_ipld_format.Node.$h);
+    return $r.hnn($format.Node.$h);
   }
 
   /// Go: `func (iface.CoreAPI).PubSub() iface.PubSubAPI`.
@@ -367,7 +365,7 @@ class CoreApi extends GoHandle {
 final class DirEntry implements GoDto {
   DirEntry(
       {String? name,
-      $go_cid.Cid? cid,
+      $cid.Cid? cid,
       int? size,
       int? type,
       String? target,
@@ -383,7 +381,7 @@ final class DirEntry implements GoDto {
 
   DirEntry.$dec($R r)
       : name = r.str(),
-        cid = r.p() ? $go_cid.Cid(r.str()) : null,
+        cid = r.p() ? $cid.Cid(r.str()) : null,
         size = r.i64(),
         type = r.i64(),
         target = r.str(),
@@ -394,7 +392,7 @@ final class DirEntry implements GoDto {
   String name;
 
   /// Go: `Cid`.
-  $go_cid.Cid? cid;
+  $cid.Cid? cid;
 
   /// Go: `Size`.
   int size;
@@ -900,7 +898,7 @@ class SwarmApi extends GoHandle {
   ///
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> disconnect(
-      $context.Context ctx, $go_multiaddr.Multiaddr multiaddr) async {
+      $context.Context ctx, $multiaddr.Multiaddr multiaddr) async {
     await $call(
         133,
         $W()
@@ -924,42 +922,39 @@ class SwarmApi extends GoHandle {
   /// Go: `func (iface.SwarmAPI).ListenAddrs(context.Context) ([]multiaddr.Multiaddr, error)`.
   ///
   /// Asynchronous: runs in a goroutine of the service.
-  Future<List<$go_multiaddr.Multiaddr>> listenAddrs(
-      $context.Context ctx) async {
+  Future<List<$multiaddr.Multiaddr>> listenAddrs($context.Context ctx) async {
     final $r = await $call(
         135,
         $W()
           ..h(this)
           ..h(ctx));
-    return $r.list(() => $r.p() ? $go_multiaddr.Multiaddr($r.str()) : $nil());
+    return $r.list(() => $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil());
   }
 
   /// Go: `func (iface.SwarmAPI).LocalAddrs(context.Context) ([]multiaddr.Multiaddr, error)`.
   ///
   /// Asynchronous: runs in a goroutine of the service.
-  Future<List<$go_multiaddr.Multiaddr>> localAddrs($context.Context ctx) async {
+  Future<List<$multiaddr.Multiaddr>> localAddrs($context.Context ctx) async {
     final $r = await $call(
         136,
         $W()
           ..h(this)
           ..h(ctx));
-    return $r.list(() => $r.p() ? $go_multiaddr.Multiaddr($r.str()) : $nil());
+    return $r.list(() => $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil());
   }
 
   /// Go: `func (iface.SwarmAPI).KnownAddrs(context.Context) (map[peer.ID][]multiaddr.Multiaddr, error)`.
   ///
   /// Asynchronous: runs in a goroutine of the service.
-  Future<Map<$peer.Id, List<$go_multiaddr.Multiaddr>>> knownAddrs(
+  Future<Map<$peer.Id, List<$multiaddr.Multiaddr>>> knownAddrs(
       $context.Context ctx) async {
     final $r = await $call(
         134,
         $W()
           ..h(this)
           ..h(ctx));
-    return $r.map(
-        () => $peer.Id($r.str()),
-        () =>
-            $r.list(() => $r.p() ? $go_multiaddr.Multiaddr($r.str()) : $nil()));
+    return $r.map(() => $peer.Id($r.str()),
+        () => $r.list(() => $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil()));
   }
 }
 

@@ -3,7 +3,7 @@
 library;
 
 import 'package:ipfs_ffi/src/runtime.dart';
-import 'package:ipfs_ffi/io.dart' as $io;
+import 'package:ipfs_ffi/go/io.dart' as $io;
 import 'package:ipfs_ffi/kubo/config.dart' as $config;
 
 /// Go: `repo.Repo` (handle).

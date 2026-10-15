@@ -7,17 +7,17 @@
 import 'dart:io';
 
 import 'package:ipfs_ffi/boxo/files.dart' as files;
+import 'package:ipfs_ffi/car.dart' as car;
 import 'package:ipfs_ffi/boxo/path.dart' as path;
-import 'package:ipfs_ffi/context.dart' as context;
+import 'package:ipfs_ffi/go/context.dart' as context;
 import 'package:ipfs_ffi/ipfs_ffi.dart' show IpfsService;
 import 'package:ipfs_ffi/kubo/core.dart' as core;
-import 'package:ipfs_ffi/kubo/core/commands/dag.dart' as dag;
 import 'package:ipfs_ffi/kubo/core/coreapi.dart' as coreapi;
 import 'package:ipfs_ffi/kubo/core/coreiface/options.dart' as options;
 import 'package:ipfs_ffi/kubo/core/node.dart' as node;
 import 'package:ipfs_ffi/kubo/plugin/loader.dart' as loader;
 import 'package:ipfs_ffi/kubo/repo/fsrepo.dart' as fsrepo;
-import 'package:ipfs_ffi/os.dart' as os;
+import 'package:ipfs_ffi/go/os.dart' as os;
 
 Future<void> main(List<String> args) async {
   if (args.length < 3 || !{'export', 'import'}.contains(args[0])) {
@@ -48,10 +48,10 @@ Future<void> main(List<String> args) async {
             [options.unixfs.pin(true, '')]);
         print('add ${args[2]}: $p');
       }
-      await dag.exportCarFile(n, ctx, p, args[3]);
+      await car.exportFile(n, ctx, p, args[3]);
       print('export $p → ${args[3]} (${File(args[3]).lengthSync()} B)');
     } else {
-      final r = await dag.importCarFiles(n, ctx, args.sublist(2));
+      final r = await car.importFiles(n, ctx, args.sublist(2));
       for (final root in r.roots) {
         print(
             'raiz ${root.cid}: ${root.pinErrorMsg.isEmpty ? 'pinada' : root.pinErrorMsg}');

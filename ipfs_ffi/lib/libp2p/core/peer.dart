@@ -3,23 +3,23 @@
 library;
 
 import 'package:ipfs_ffi/src/runtime.dart';
-import 'package:ipfs_ffi/go_multiaddr.dart' as $go_multiaddr;
+import 'package:ipfs_ffi/multiformats/multiaddr.dart' as $multiaddr;
 
 /// Go: `peer.AddrInfo`.
 final class AddrInfo implements GoDto {
-  AddrInfo({Id? id, List<$go_multiaddr.Multiaddr>? addrs})
+  AddrInfo({Id? id, List<$multiaddr.Multiaddr>? addrs})
       : id = id,
         addrs = addrs ?? [];
 
   AddrInfo.$dec($R r)
       : id = r.p() ? Id(r.str()) : null,
-        addrs = r.list(() => r.p() ? $go_multiaddr.Multiaddr(r.str()) : $nil());
+        addrs = r.list(() => r.p() ? $multiaddr.Multiaddr(r.str()) : $nil());
 
   /// Go: `ID`.
   Id? id;
 
   /// Go: `Addrs`.
-  List<$go_multiaddr.Multiaddr> addrs;
+  List<$multiaddr.Multiaddr> addrs;
 
   @override
   void $enc($W w) {
@@ -41,7 +41,7 @@ AddrInfo addrInfoFromString(String s) {
 }
 
 /// Go: `func peer.AddrInfoToP2pAddrs(pi *peer.AddrInfo) ([]multiaddr.Multiaddr, error)`.
-List<$go_multiaddr.Multiaddr> addrInfoToP2pAddrs(AddrInfo pi) {
+List<$multiaddr.Multiaddr> addrInfoToP2pAddrs(AddrInfo pi) {
   final $r = $callSync(156, $W()..dto(pi));
-  return $r.list(() => $r.p() ? $go_multiaddr.Multiaddr($r.str()) : $nil());
+  return $r.list(() => $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil());
 }

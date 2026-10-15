@@ -10,32 +10,36 @@ CoreAPI: o processo é novo). Nada volta sozinho. No Android, o plugin companhei
 [`ipfs_ffi_flutter`](flutter) trata o segundo plano (ver abaixo).
 Alvos: VM/AOT no Windows, no linux e no Android (não serve para JS/Wasm).
 
-A API Dart é a do próprio Go, gerada: uma library por pacote Go, sem o
-prefixo `github.com/<org>/` (`kubo/core.dart`, `boxo/files.dart`...). O que
-existe, e o que ficou de fora com o motivo, está no [`API.md`](API.md).
+A API Dart é a do próprio Go, gerada, e organizada em namespaces, um por módulo
+Go: `kubo`, `boxo`, `car` (arquivos CAR), `ipld`, `multiformats` (CID, multiaddr),
+`libp2p` e `go` (o que a API usa da biblioteca padrão do Go: `context`, `io`,
+`os`). Cada namespace tem um arquivo que exporta tudo dele
+(`package:ipfs_ffi/kubo.dart`); quem prefere seguir a documentação do Go importa
+um pacote por vez, embaixo dele (`package:ipfs_ffi/kubo/repo/fsrepo.dart` as
+`fsrepo`). O que existe, e o que ficou de fora com o motivo, está no
+[`API.md`](API.md); a tabela módulo → namespace, em `go/gen/namespaces.go`.
 
 ```dart
 import 'dart:convert';
 
-import 'package:ipfs_ffi/boxo/files.dart' as files;
-import 'package:ipfs_ffi/context.dart' as context;
-import 'package:ipfs_ffi/io.dart' as io;
-import 'package:ipfs_ffi/ipfs_ffi.dart' show IpfsService;
-import 'package:ipfs_ffi/kubo/core.dart' as core;
-import 'package:ipfs_ffi/kubo/core/coreapi.dart' as coreapi;
-import 'package:ipfs_ffi/kubo/core/node.dart' as node;
-import 'package:ipfs_ffi/kubo/plugin/loader.dart' as loader;
-import 'package:ipfs_ffi/kubo/repo/fsrepo.dart' as fsrepo;
+import 'package:ipfs_ffi/boxo.dart' as boxo;
+import 'package:ipfs_ffi/car.dart' as car;
+import 'package:ipfs_ffi/go.dart' as go;
+import 'package:ipfs_ffi/ipfs_ffi.dart';
+import 'package:ipfs_ffi/kubo.dart' as kubo;
 
 // lança native/ipfs_host; numa parada (queda ou segundo plano), onStop decide
 // (padrão: nada)
 await IpfsService.start(onStop: (stop) => print('${stop.reason}: ${stop.report}'));
-final plugins = loader.PluginLoader('')..initialize()..inject(); // 1x por serviço
-final ctx = context.background();
-final n = await core.newNode(ctx, node.BuildCfg(repo: fsrepo.open('.ipfs-ffi')));
-final api = coreapi.newCoreApi(n);
-final p = await api.unixfs().add(ctx, files.newBytesFile(utf8.encode('oi')));
-print(utf8.decode(io.readAll(files.toFile(await api.unixfs().get(ctx, p)))));
+kubo.PluginLoader('')..initialize()..inject(); // 1x por serviço
+kubo.init(repo, kubo.initWithIdentity(kubo.createIdentity([kubo.key.type('ed25519')])));
+final ctx = go.background();
+final n = await kubo.newNode(ctx, kubo.BuildCfg(repo: kubo.open(repo)));
+final api = kubo.newCoreApi(n);
+final p = await api.unixfs().add(ctx, boxo.newBytesFile(utf8.encode('oi')),
+    [kubo.unixfs.pin(true, '')]);
+print(utf8.decode(go.readAll(boxo.toFile(await api.unixfs().get(ctx, p)))));
+final bytes = await car.export(n, ctx, p); // o DAG como CARv1
 await n.close();
 await IpfsService.stop();
 ```
@@ -59,10 +63,10 @@ Exemplos, na ordem em que o kubo monta um nó:
    logo em seguida pode precisar repetir;
 6. `dart run example/06_ipns_dag.dart [repo]`: IPNS (`name().publish/resolve`), chaves
    (`key().generate/sign/verify`), nós IPLD dag-pb/raw (`merkledag`, `dag().add/get`) e
-   DAG-CBOR/JSON (`package:ipfs_ffi/kubo/core/commands/dag.dart`: `dag.put`/`dag.get`,
+   DAG-CBOR/JSON (`package:ipfs_ffi/kubo/core/commands/dag.dart`: `dagPut`/`dagGet`,
    o `ipfs dag put/get` portado à mão, com caminho dentro do nó e links);
-7. `dart run example/07_car.dart export|import ...`: arquivos CAR (`dag.exportCar`/
-   `exportCarFile`, `dag.importCar`/`importCarFiles`: o `ipfs dag export/import`), para
+7. `dart run example/07_car.dart export|import ...`: arquivos CAR (`package:ipfs_ffi/car.dart`:
+   `car.export`/`exportFile`, `car.import`/`importFiles`: o `ipfs dag export/import`), para
    levar um DAG inteiro de um repo para outro;
 8. `dart run example/08_chat.dart <repo> <tópico> [apelido]`: chat em tempo real sobre
    pubsub (`api.pubSub().subscribe/publish`, `sub.next`); o nó precisa de
@@ -71,7 +75,7 @@ Exemplos, na ordem em que o kubo monta um nó:
 
 ## Como o Go vira Dart
 
-- `context.Context` é o 1º parâmetro, como no Go (`package:ipfs_ffi/context.dart`:
+- `context.Context` é o 1º parâmetro, como no Go (`package:ipfs_ffi/go/context.dart`:
   `background`, `withCancel`, `withTimeout`, `withDeadline`; `cancel()`).
 - Função ou método com `context` é assíncrono (`Future`); canal vira `Stream`;
   `(T, error)` vira `T` com `IpfsException` (inclusive em panic do Go).

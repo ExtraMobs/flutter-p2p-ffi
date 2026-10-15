@@ -7,8 +7,8 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:ipfs_ffi/boxo/files.dart' as files;
-import 'package:ipfs_ffi/context.dart' as context;
-import 'package:ipfs_ffi/io.dart' as io;
+import 'package:ipfs_ffi/go/context.dart' as context;
+import 'package:ipfs_ffi/go/io.dart' as io;
 import 'package:ipfs_ffi/ipfs_ffi.dart' show IpfsService;
 import 'package:ipfs_ffi/kubo/core.dart' as core;
 import 'package:ipfs_ffi/kubo/core/coreapi.dart' as coreapi;
@@ -17,7 +17,7 @@ import 'package:ipfs_ffi/kubo/core/coreiface/options.dart' as options;
 import 'package:ipfs_ffi/kubo/core/node.dart' as node;
 import 'package:ipfs_ffi/kubo/plugin/loader.dart' as loader;
 import 'package:ipfs_ffi/kubo/repo/fsrepo.dart' as fsrepo;
-import 'package:ipfs_ffi/os.dart' as os;
+import 'package:ipfs_ffi/go/os.dart' as os;
 
 Future<void> main(List<String> args) async {
   final repoPath = args.isNotEmpty ? args.first : '.ipfs-ffi';

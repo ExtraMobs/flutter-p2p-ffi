@@ -2,7 +2,7 @@
 /// `Context` that asynchronous methods receive and their cancellation.
 ///
 /// ```dart
-/// import 'package:ipfs_ffi/context.dart' as context;
+/// import 'package:ipfs_ffi/go/context.dart' as context;
 ///
 /// final (ctx, cancel) = context.withTimeout(context.background(), Duration(seconds: 30));
 /// try {

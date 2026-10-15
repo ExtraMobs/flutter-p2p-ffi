@@ -7,7 +7,7 @@ import 'dart:convert';
 import 'package:ipfs_ffi/boxo/files.dart' as files;
 import 'package:ipfs_ffi/boxo/ipld/merkledag.dart' as merkledag;
 import 'package:ipfs_ffi/boxo/path.dart' as path;
-import 'package:ipfs_ffi/context.dart' as context;
+import 'package:ipfs_ffi/go/context.dart' as context;
 import 'package:ipfs_ffi/ipfs_ffi.dart' show IpfsService;
 import 'package:ipfs_ffi/kubo/core.dart' as core;
 import 'package:ipfs_ffi/kubo/core/commands/dag.dart' as dag;
@@ -63,15 +63,15 @@ Future<void> main(List<String> args) async {
     print('dag-pb ${raiz.cid()} → filho ${raiz.links().single.cid}');
 
     // IPLD DAG-CBOR a partir de JSON (ipfs dag put), lido de volta por caminho
-    final post = await dag.put(
+    final post = await dag.dagPut(
         api,
         ctx,
         utf8.encode(
             '{"titulo": "oi", "tags": ["ipfs", "dart"], "anexo": {"/": "${raiz.cid()}"}}'),
         pin: true);
-    final tags = await dag.get(api, ctx, path.Path('/ipfs/$post/tags'));
+    final tags = await dag.dagGet(api, ctx, path.Path('/ipfs/$post/tags'));
     print('dag-cbor $post: tags = ${utf8.decode(tags)}');
-    final viaLink = await dag.get(api, ctx, path.Path('/ipfs/$post/anexo'),
+    final viaLink = await dag.dagGet(api, ctx, path.Path('/ipfs/$post/anexo'),
         outputCodec: 'dag-json');
     print('seguindo o link: ${utf8.decode(viaLink)}');
   } finally {

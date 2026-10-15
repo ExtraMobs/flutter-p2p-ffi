@@ -13,7 +13,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:ipfs_ffi/context.dart' as gocontext;
+import 'package:ipfs_ffi/go/context.dart' as gocontext;
 import 'package:ipfs_ffi/ipfs_ffi.dart'
     show IpfsBackground, IpfsService, IpfsStop, IpfsStopHandler, IpfsStopReason;
 import 'package:ipfs_ffi/kubo/config.dart' as config;

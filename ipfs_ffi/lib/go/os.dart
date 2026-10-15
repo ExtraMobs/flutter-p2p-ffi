@@ -3,7 +3,7 @@
 library;
 
 import 'package:ipfs_ffi/src/runtime.dart';
-import 'package:ipfs_ffi/io/fs.dart' as $fs;
+import 'package:ipfs_ffi/go/io/fs.dart' as $fs;
 
 /// Go: `os.File` (handle).
 class File extends GoHandle {

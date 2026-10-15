@@ -8,9 +8,10 @@ import 'dart:typed_data';
 import 'dart:io' show Directory, File, InternetAddress;
 
 import 'package:ipfs_ffi/boxo/files.dart' as files;
+import 'package:ipfs_ffi/car.dart' as car;
 import 'package:ipfs_ffi/boxo/path.dart' as path;
-import 'package:ipfs_ffi/context.dart' as context;
-import 'package:ipfs_ffi/io.dart' as io;
+import 'package:ipfs_ffi/go/context.dart' as context;
+import 'package:ipfs_ffi/go/io.dart' as io;
 import 'package:ipfs_ffi/ipfs_ffi.dart'
     show
         IpfsBackground,
@@ -31,10 +32,10 @@ import 'package:ipfs_ffi/kubo/core/coreiface/options.dart' as options;
 import 'package:ipfs_ffi/kubo/core/corerepo.dart' as corerepo;
 import 'package:ipfs_ffi/kubo/core/node.dart' as node;
 import 'package:ipfs_ffi/kubo/core/node/libp2p.dart' as libp2p;
-import 'package:ipfs_ffi/go_libp2p/core/peer.dart' as peer;
+import 'package:ipfs_ffi/libp2p/core/peer.dart' as peer;
 import 'package:ipfs_ffi/kubo/plugin/loader.dart' as loader;
 import 'package:ipfs_ffi/kubo/repo/fsrepo.dart' as fsrepo;
-import 'package:ipfs_ffi/os.dart' as os;
+import 'package:ipfs_ffi/go/os.dart' as os;
 import 'package:ipfs_ffi/src/runtime.dart'
     show $W, $call, $callSync, $stream, GoSink;
 import 'package:test/test.dart';
@@ -411,12 +412,12 @@ void main() {
 
     test('dag put/get: DAG-JSON → DAG-CBOR, caminho dentro do nó e link',
         () async {
-      final c = await dag.put(
+      final c = await dag.dagPut(
           api, ctx, utf8.encode('{"a": {"b": [1, 2]}, "t": "oi"}'));
       expect(c.value, startsWith('bafyrei')); // dag-cbor + sha2-256
       expect(
           jsonDecode(
-              utf8.decode(await dag.get(api, ctx, path.Path('/ipfs/$c')))),
+              utf8.decode(await dag.dagGet(api, ctx, path.Path('/ipfs/$c')))),
           {
             'a': {
               'b': [1, 2]
@@ -424,27 +425,28 @@ void main() {
             't': 'oi'
           });
       expect(
-          jsonDecode(
-              utf8.decode(await dag.get(api, ctx, path.Path('/ipfs/$c/a/b')))),
+          jsonDecode(utf8
+              .decode(await dag.dagGet(api, ctx, path.Path('/ipfs/$c/a/b')))),
           [1, 2]);
 
       // link IPLD: {"/": cid} em dag-json
-      final c2 =
-          await dag.put(api, ctx, utf8.encode('{"x": {"/": "$c"}}'), pin: true);
+      final c2 = await dag.dagPut(api, ctx, utf8.encode('{"x": {"/": "$c"}}'),
+          pin: true);
       expect(
-          jsonDecode(
-              utf8.decode(await dag.get(api, ctx, path.Path('/ipfs/$c2/x/t')))),
+          jsonDecode(utf8
+              .decode(await dag.dagGet(api, ctx, path.Path('/ipfs/$c2/x/t')))),
           'oi');
 
       // outro codec de saída: o mesmo nó em dag-cbor tem o próprio CID como hash
-      final cbor = await dag.get(api, ctx, path.Path('/ipfs/$c'),
+      final cbor = await dag.dagGet(api, ctx, path.Path('/ipfs/$c'),
           outputCodec: 'dag-cbor');
       expect(cbor, isNotEmpty);
 
       // bloco acima de 2 MiB: recusado, como no CLI, salvo allowBigBlock
       final big = utf8.encode('{"d": "${'x' * (2 * 1024 * 1024 + 1)}"}');
-      await expectLater(dag.put(api, ctx, big), throwsA(isA<IpfsException>()));
-      expect((await dag.put(api, ctx, big, allowBigBlock: true)).value,
+      await expectLater(
+          dag.dagPut(api, ctx, big), throwsA(isA<IpfsException>()));
+      expect((await dag.dagPut(api, ctx, big, allowBigBlock: true)).value,
           startsWith('bafyrei'));
     });
   });
@@ -555,10 +557,10 @@ void main() {
           files.newSerialFile(dir.path, false, os.stat(dir.path)),
           [options.unixfs.pin(true, '')]);
 
-      final car = await dag.exportCar(n, ctx, root);
-      expect(car.length, greaterThan(300000));
-      final partial = await dag.exportCar(n, ctx, root, localOnly: true);
-      expect(partial, car, reason: 'tudo local: o CAR parcial é o completo');
+      final bytes = await car.export(n, ctx, root);
+      expect(bytes.length, greaterThan(300000));
+      final partial = await car.export(n, ctx, root, localOnly: true);
+      expect(partial, bytes, reason: 'tudo local: o CAR parcial é o completo');
 
       // some do repo
       await api.pin().rm(ctx, root);
@@ -566,7 +568,7 @@ void main() {
       await expectLater(
           api.block().stat(ctx, root), throwsA(isA<IpfsException>()));
 
-      final r = await dag.importCar(n, ctx, car);
+      final r = await car.import(n, ctx, bytes);
       expect([for (final m in r.roots) (m.cid.value, m.pinErrorMsg)],
           [(root.value.substring('/ipfs/'.length), '')]);
       expect(r.blockCount, greaterThan(2));
@@ -577,18 +579,17 @@ void main() {
       expect(File('$out/b.txt').lengthSync(), 300000);
     });
 
-    test('exportCarFile e importCarFiles (sem pin)', () async {
+    test('car.exportFile e car.importFiles (sem pin)', () async {
       final c =
-          await dag.put(api, ctx, utf8.encode('{"car": true}'), pin: true);
+          await dag.dagPut(api, ctx, utf8.encode('{"car": true}'), pin: true);
       final file = '${tmp.path}/obj.car';
-      await dag.exportCarFile(n, ctx, path.Path('/ipfs/$c'), file);
+      await car.exportFile(n, ctx, path.Path('/ipfs/$c'), file);
       expect(File(file).lengthSync(), greaterThan(0));
 
-      final r = await dag.importCarFiles(n, ctx, [file], pinRoots: false);
+      final r = await car.importFiles(n, ctx, [file], pinRoots: false);
       expect(r.roots, isEmpty); // sem --pin-roots, nada é pinado nem listado
       expect(r.blockCount, 1);
-      await expectLater(
-          dag.importCarFiles(n, ctx, ['${tmp.path}/nao-existe.car']),
+      await expectLater(car.importFiles(n, ctx, ['${tmp.path}/nao-existe.car']),
           throwsA(isA<IpfsException>()));
     });
   });

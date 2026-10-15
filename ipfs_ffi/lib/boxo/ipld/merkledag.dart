@@ -5,14 +5,14 @@ library;
 import 'dart:typed_data';
 
 import 'package:ipfs_ffi/src/runtime.dart';
-import 'package:ipfs_ffi/go_ipld_format.dart' as $go_ipld_format;
+import 'package:ipfs_ffi/ipld/format.dart' as $format;
 
 /// Go: `merkledag.ProtoNode` (handle).
-class ProtoNode extends $go_ipld_format.Node {
+class ProtoNode extends $format.Node {
   ProtoNode.$h(super.$h) : super.$h();
 
   /// Go: `func (*merkledag.ProtoNode).AddNodeLink(name string, that format.Node) error`.
-  void addNodeLink(String name, $go_ipld_format.Node that) {
+  void addNodeLink(String name, $format.Node that) {
     $callSync(
         70,
         $W()
@@ -38,7 +38,7 @@ class ProtoNode extends $go_ipld_format.Node {
 }
 
 /// Go: `merkledag.RawNode` (handle).
-class RawNode extends $go_ipld_format.Node {
+class RawNode extends $format.Node {
   RawNode.$h(super.$h) : super.$h();
 
   /// Go: `func merkledag.NewRawNode(data []byte) *merkledag.RawNode`.

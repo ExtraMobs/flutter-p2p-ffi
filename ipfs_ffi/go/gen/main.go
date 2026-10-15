@@ -105,6 +105,18 @@ func main() {
 		}
 		fmt.Println("gerado:", name)
 	}
+	for _, name := range staleGenerated(out) {
+		if *check {
+			fmt.Fprintln(os.Stderr, "sobrando:", name)
+			stale = true
+			continue
+		}
+		if err := os.Remove(name); err != nil {
+			fmt.Fprintln(os.Stderr, "gen:", err)
+			os.Exit(1)
+		}
+		fmt.Println("removido:", name)
+	}
 	if stale {
 		os.Exit(1)
 	}
@@ -154,6 +166,9 @@ func generate(rootsFile string) (map[string][]byte, error) {
 		out[filepath.ToSlash(filepath.Join("../lib", path))] = src
 	}
 	out["../API.md"] = emitAPI(m, fns)
+	if err := emitNamespaces(out); err != nil {
+		return nil, err
+	}
 	return out, nil
 }
 

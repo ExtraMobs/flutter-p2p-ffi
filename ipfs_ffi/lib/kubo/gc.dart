@@ -3,20 +3,20 @@
 library;
 
 import 'package:ipfs_ffi/src/runtime.dart';
-import 'package:ipfs_ffi/go_cid.dart' as $go_cid;
+import 'package:ipfs_ffi/multiformats/cid.dart' as $cid;
 
 /// Go: `gc.Result`.
 final class Result implements GoDto {
-  Result({$go_cid.Cid? keyRemoved, String? error})
+  Result({$cid.Cid? keyRemoved, String? error})
       : keyRemoved = keyRemoved,
         error = error;
 
   Result.$dec($R r)
-      : keyRemoved = r.p() ? $go_cid.Cid(r.str()) : null,
+      : keyRemoved = r.p() ? $cid.Cid(r.str()) : null,
         error = r.err();
 
   /// Go: `KeyRemoved`.
-  $go_cid.Cid? keyRemoved;
+  $cid.Cid? keyRemoved;
 
   /// Go: `Error`.
   String? error;

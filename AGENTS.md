@@ -36,7 +36,7 @@ Regras fundamentais:
 | `tests/golden/<caso>/` | `<caso>.go` → `.goast.json` → `.dart` esperados (+ `.dartast.json` opcional) | — |
 | `tests/corpus/kubo/` | Corpus real fixado: módulo que só declara `tool github.com/ipfs/kubo/cmd/ipfs` (kubo **v0.43.1**, boxo v0.42.x); `go.mod`/`go.sum` fixam o grafo inteiro | Go |
 | `TODO/` | Backlog: um artefato markdown por problema, com prova real (ver "Processo") | Markdown |
-| `ipfs_ffi/` | Caminho alternativo à transpilação: o kubo compilado como o executável `ipfs_host` (outro processo; um panic do Go não derruba o app), canal por memória compartilhada (`shm/ipfs_shm.c`, protocolo em `WIRE.md`) e API Dart gerada (`go/gen`); plugin Flutter companheiro em `ipfs_ffi/flutter` (segundo plano do Android). Só VM/AOT (Windows, linux, Android), não JS/Wasm; independente do g2d, com docs, testes e pendências próprios (`ipfs_ffi/README.md`, `ipfs_ffi/TODO.md`) | Go + Dart + C |
+| `ipfs_ffi/` | Caminho alternativo à transpilação: o kubo compilado como o executável `ipfs_host` (outro processo; um panic do Go não derruba o app), canal por memória compartilhada (`shm/ipfs_shm.c`, protocolo em `WIRE.md`) e API Dart gerada (`go/gen`) em namespaces por módulo Go (`lib/kubo.dart`, `lib/boxo.dart`...; tabela em `go/gen/namespaces.go`); plugin Flutter companheiro em `ipfs_ffi/flutter` (segundo plano do Android). Só VM/AOT (Windows, linux, Android), não JS/Wasm; independente do g2d, com docs, testes e pendências próprios (`ipfs_ffi/README.md`, `ipfs_ffi/TODO.md`) | Go + Dart + C |
 | `docs/` | Documentos vivos (ver abaixo) | Markdown |
 
 Branch `archive` (só leitura): a tentativa anterior, o port manual `dart IPFS`
