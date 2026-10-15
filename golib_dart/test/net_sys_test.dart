@@ -240,10 +240,11 @@ void main() {
       final s = await accepted;
       int opt(int level, int option) {
         final raw = sysGetRawOption(c, level, option, 4)!;
-        return ByteData.view(raw.buffer, raw.offsetInBytes, 4).getInt32(
-          0,
-          Endian.host,
-        );
+        return ByteData.view(
+          raw.buffer,
+          raw.offsetInBytes,
+          4,
+        ).getInt32(0, Endian.host);
       }
 
       (int, int) linger() {

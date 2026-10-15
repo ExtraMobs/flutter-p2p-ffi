@@ -7,11 +7,10 @@ void main() {
   late Map<String, Object?> root;
 
   setUpAll(() async {
-    final result = await Process.run(
-      Platform.resolvedExecutable,
-      ['bin/dartast.dart', '../../tests/golden/hello/hello.dart'],
-      workingDirectory: Directory.current.path,
-    );
+    final result = await Process.run(Platform.resolvedExecutable, [
+      'bin/dartast.dart',
+      '../../tests/golden/hello/hello.dart',
+    ], workingDirectory: Directory.current.path);
     expect(result.exitCode, 0, reason: '${result.stderr}');
     root = jsonDecode(result.stdout as String) as Map<String, Object?>;
   });

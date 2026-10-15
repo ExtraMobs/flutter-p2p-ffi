@@ -122,7 +122,7 @@ Future<SysTcpListener> _listenUnix(String path, int backlog) async {
 /// sorteado aqui no mesmo formato (outro, se ocupado).
 Future<SysTcpListener> _autobindUnix(int backlog) async {
   final rnd = Random();
-  for (var i = 0;; i++) {
+  for (var i = 0; ; i++) {
     final name = '@${rnd.nextInt(0x100000).toRadixString(16).padLeft(5, '0')}';
     try {
       return await _listenUnix(name, backlog);

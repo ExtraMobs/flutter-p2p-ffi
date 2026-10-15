@@ -393,12 +393,14 @@ final scenarios = <String, Future<List<String>> Function()>{
     c.close();
     l.close();
     sysUnlinkUnix(path);
-    out.add('segundo listen no mesmo caminho ${await _try(() async {
-      final l2 = await sysListenUnix(path);
-      l2.close();
-      sysUnlinkUnix(path);
-      return 'ok';
-    })}');
+    out.add(
+      'segundo listen no mesmo caminho ${await _try(() async {
+        final l2 = await sysListenUnix(path);
+        l2.close();
+        sysUnlinkUnix(path);
+        return 'ok';
+      })}',
+    );
     return out;
   },
 

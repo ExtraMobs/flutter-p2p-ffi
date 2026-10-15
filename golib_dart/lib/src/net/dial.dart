@@ -5,7 +5,8 @@ part of '../../net.dart';
 
 // ------------------------------------------------------------ endereços
 
-IP _ipOf(Uint8List b) => IP(Slice.of([for (final x in b) Golang.Uint8(x)], _byteElem));
+IP _ipOf(Uint8List b) =>
+    IP(Slice.of([for (final x in b) Golang.Uint8(x)], _byteElem));
 
 Uint8List _ipBytes(IP? ip) {
   if (ip == null || ip.length == 0) return Uint8List(0);
@@ -31,7 +32,8 @@ bool _sameAddr(sys.SysAddr a, UDPAddr b) {
 (String, GoError?) _network(String network, {required bool packet}) {
   const stream = {'tcp', 'tcp4', 'tcp6'};
   const dgram = {'udp', 'udp4', 'udp6'};
-  if (stream.contains(network) || dgram.contains(network)) return (network, null);
+  if (stream.contains(network) || dgram.contains(network))
+    return (network, null);
   // Sockets Unix: `unix.dart` (sem a rede FFI, `unixgram`/`unixpacket`
   // falham lá com `operation not supported`).
   if (_unixNets.contains(network)) return (network, null);
@@ -76,7 +78,11 @@ Future<(List<sys.SysAddr>, GoError?)> _resolve(
   final family = _family(network);
   final h = host.toString();
   if (h.isEmpty) {
-    final any = family == 'ip6' ? Uint8List(16) : family == 'ip4' ? Uint8List(4) : Uint8List(0);
+    final any = family == 'ip6'
+        ? Uint8List(16)
+        : family == 'ip4'
+        ? Uint8List(4)
+        : Uint8List(0);
     return ([sys.SysAddr(any, p)], null);
   }
   // IP literal, com zona IPv6 opcional (`fe80::1%eth0`).
@@ -85,16 +91,29 @@ Future<(List<sys.SysAddr>, GoError?)> _resolve(
   if (literal.length != 0) {
     final b = _ipBytes(literal);
     if (!_fits(b, family)) {
-      return (const <sys.SysAddr>[], AddrError(err: _s('no suitable address found'), addr: _s(h)) as GoError);
+      return (
+        const <sys.SysAddr>[],
+        AddrError(err: _s('no suitable address found'), addr: _s(h)) as GoError,
+      );
     }
     return ([sys.SysAddr(b, p, pct < 0 ? '' : h.substring(pct + 1))], null);
   }
   // O `Resolver` do Dialer (`d.resolver()`), ou o do sistema.
-  final (ips, lerr) = await (resolver ?? defaultResolver)._lookupIPAddr(ctx, network, h);
+  final (ips, lerr) = await (resolver ?? defaultResolver)._lookupIPAddr(
+    ctx,
+    network,
+    h,
+  );
   if (lerr != null) return (const <sys.SysAddr>[], lerr);
-  final out = [for (final (ip, zone) in ips) if (_fits(ip, family)) sys.SysAddr(ip, p, zone)];
+  final out = [
+    for (final (ip, zone) in ips)
+      if (_fits(ip, family)) sys.SysAddr(ip, p, zone),
+  ];
   if (out.isEmpty) {
-    return (const <sys.SysAddr>[], AddrError(err: _s('no suitable address found'), addr: _s(h)) as GoError);
+    return (
+      const <sys.SysAddr>[],
+      AddrError(err: _s('no suitable address found'), addr: _s(h)) as GoError,
+    );
   }
   // O Go prefere IPv4 quando a rede não diz a família (`forResolve`).
   if (family == 'ip' && op == 'resolve') {
@@ -216,14 +235,18 @@ final class Dialer extends GoStruct<Dialer> {
   ];
 
   /// `Dial(network, address)`.
-  Future<(Conn?, GoError?)> dial(Golang.String network, Golang.String address) =>
-      dialContext(context.background(), network, address);
+  Future<(Conn?, GoError?)> dial(
+    Golang.String network,
+    Golang.String address,
+  ) => dialContext(context.background(), network, address);
 
   /// O prazo mais cedo entre `Deadline`, `Timeout` e o do `ctx`.
   DateTime? _when(context.Context? ctx) {
     DateTime? d = _deadline(deadline);
     if (timeout.toInt() > 0) {
-      final t = DateTime.now().toUtc().add(Duration(microseconds: timeout.toInt() ~/ 1000));
+      final t = DateTime.now().toUtc().add(
+        Duration(microseconds: timeout.toInt() ~/ 1000),
+      );
       if (d == null || t.isBefore(d)) d = t;
     }
     if (ctx != null) {
@@ -244,7 +267,13 @@ final class Dialer extends GoStruct<Dialer> {
   ) async {
     final net = network.toString();
     if (_isIPNetwork(net)) {
-      return _dialIPNetwork(net, address.toString(), localAddr, ctx: ctx, ctrl: _dialerCtrl(this));
+      return _dialIPNetwork(
+        net,
+        address.toString(),
+        localAddr,
+        ctx: ctx,
+        ctrl: _dialerCtrl(this),
+      );
     }
     final (_, nerr) = _network(net, packet: false);
     if (nerr != null) return (null, _opError('dial', net, null, null, nerr));
@@ -272,7 +301,13 @@ final class Dialer extends GoStruct<Dialer> {
         cancel.stop();
       }
     }
-    final (addrs, rerr) = await _resolve(net, address.toString(), op: 'dial', resolver: resolver, ctx: ctx);
+    final (addrs, rerr) = await _resolve(
+      net,
+      address.toString(),
+      op: 'dial',
+      resolver: resolver,
+      ctx: ctx,
+    );
     if (rerr != null) return (null, _opError('dial', net, null, null, rerr));
     final sd = _SysDialer(this, ctx, net, _when(ctx));
     final cancel = _cancelOf(ctx, this.cancel);
@@ -347,7 +382,10 @@ Future<(TCPConn?, GoError?)> dialTCP(
 ) async {
   final net = network.toString();
   if (!const {'tcp', 'tcp4', 'tcp6'}.contains(net)) {
-    return (null, _opError('dial', net, laddr, raddr, UnknownNetworkError(network)));
+    return (
+      null,
+      _opError('dial', net, laddr, raddr, UnknownNetworkError(network)),
+    );
   }
   if (raddr == null) {
     return (null, _opError('dial', net, laddr, null, _errMissingAddress));
@@ -355,7 +393,9 @@ Future<(TCPConn?, GoError?)> dialTCP(
   try {
     final fd = await sys.sysDialTcp(
       _sysAddrOf(raddr.ip, raddr.port.toInt(), raddr.zone),
-      local: laddr == null ? null : _sysAddrOf(laddr.ip, laddr.port.toInt(), laddr.zone),
+      local: laddr == null
+          ? null
+          : _sysAddrOf(laddr.ip, laddr.port.toInt(), laddr.zone),
     );
     return (_newTCPConn(fd, net), null);
   } on Object catch (e) {
@@ -371,7 +411,10 @@ Future<(UDPConn?, GoError?)> dialUDP(
 ) async {
   final net = network.toString();
   if (!const {'udp', 'udp4', 'udp6'}.contains(net)) {
-    return (null, _opError('dial', net, laddr, raddr, UnknownNetworkError(network)));
+    return (
+      null,
+      _opError('dial', net, laddr, raddr, UnknownNetworkError(network)),
+    );
   }
   if (raddr == null) {
     return (null, _opError('dial', net, laddr, null, _errMissingAddress));
@@ -382,12 +425,17 @@ Future<(UDPConn?, GoError?)> dialUDP(
       final fd = await _udpGo(
         context.background(),
         net,
-        laddr == null ? null : _sysAddrOf(laddr.ip, laddr.port.toInt(), laddr.zone),
+        laddr == null
+            ? null
+            : _sysAddrOf(laddr.ip, laddr.port.toInt(), laddr.zone),
         r,
         null,
       );
       final peer = (fd as sys.SysUdpMsg).remote;
-      return (UDPConn._(fd, net, _udpAddrOf(fd.local), _udpAddrOf(peer ?? r)), null);
+      return (
+        UDPConn._(fd, net, _udpAddrOf(fd.local), _udpAddrOf(peer ?? r)),
+        null,
+      );
     } on _GoErr catch (e) {
       return (null, _opError('dial', net, laddr, raddr, e.err));
     } on Object catch (e) {
@@ -459,7 +507,11 @@ final class ListenConfig extends GoStruct<ListenConfig> {
   ) async {
     final net = network.toString();
     if (_isIPNetwork(net)) {
-      final (_, err) = await _listenIPNetwork(net, address.toString(), packet: false);
+      final (_, err) = await _listenIPNetwork(
+        net,
+        address.toString(),
+        packet: false,
+      );
       return (null, err);
     }
     final (_, nerr) = _network(net, packet: false);
@@ -467,12 +519,27 @@ final class ListenConfig extends GoStruct<ListenConfig> {
       // `sl.listenUnix` para as três redes (no `unixgram`, o `Accept`
       // falha como no Go).
       final (ua, uerr) = resolveUnixAddr(network, address);
-      if (uerr != null) return (null, _opError('listen', net, null, null, uerr));
-      final (ln, err) = await _listenUnix(net, ua!, ctx: ctx, ctrl: _listenCtrl(control));
+      if (uerr != null)
+        return (null, _opError('listen', net, null, null, uerr));
+      final (ln, err) = await _listenUnix(
+        net,
+        ua!,
+        ctx: ctx,
+        ctrl: _listenCtrl(control),
+      );
       return (ln, err == null ? null : _opError('listen', net, null, ua, err));
     }
     if (nerr != null || !net.startsWith('tcp')) {
-      return (null, _opError('listen', net, null, null, nerr ?? UnknownNetworkError(network)));
+      return (
+        null,
+        _opError(
+          'listen',
+          net,
+          null,
+          null,
+          nerr ?? UnknownNetworkError(network),
+        ),
+      );
     }
     final (addrs, rerr) = await _resolve(net, address.toString(), op: 'listen');
     if (rerr != null) return (null, _opError('listen', net, null, null, rerr));
@@ -480,10 +547,22 @@ final class ListenConfig extends GoStruct<ListenConfig> {
     final ctrl = _listenCtrl(control);
     try {
       final ln = ctrl != null && sys.sysFfiAvailable
-          ? await _listenTcpGo(ctx, net, a, ctrl, emptyHost: _emptyHost(address.toString()))
+          ? await _listenTcpGo(
+              ctx,
+              net,
+              a,
+              ctrl,
+              emptyHost: _emptyHost(address.toString()),
+            )
           : await sys.sysListenTcp(a);
       return (
-        TCPListener._(ln, net, _tcpAddrOf(ln.local), keepAlive, keepAliveConfig.$copy()) as Listener,
+        TCPListener._(
+          ln,
+          net,
+          _tcpAddrOf(ln.local),
+          keepAlive,
+          keepAliveConfig.$copy(),
+        ) as Listener,
         null,
       );
     } on _GoErr catch (e) {
@@ -501,7 +580,13 @@ final class ListenConfig extends GoStruct<ListenConfig> {
   ) async {
     final net = network.toString();
     if (_isIPNetwork(net)) {
-      final (c, err) = await _listenIPNetwork(net, address.toString(), packet: true, ctx: ctx, ctrl: _listenCtrl(control));
+      final (c, err) = await _listenIPNetwork(
+        net,
+        address.toString(),
+        packet: true,
+        ctx: ctx,
+        ctrl: _listenCtrl(control),
+      );
       return (c as PacketConn?, err);
     }
     final (_, nerr) = _network(net, packet: true);
@@ -509,21 +594,46 @@ final class ListenConfig extends GoStruct<ListenConfig> {
       // `sl.listenUnixgram` para as três redes (`unix`: um `UnixConn` sobre
       // o socket escutando, como no Go).
       final (ua, uerr) = resolveUnixAddr(network, address);
-      if (uerr != null) return (null, _opError('listen', net, null, null, uerr));
-      final (c, err) = await _listenUnixgram(net, ua!, ctx: ctx, ctrl: _listenCtrl(control));
+      if (uerr != null)
+        return (null, _opError('listen', net, null, null, uerr));
+      final (c, err) = await _listenUnixgram(
+        net,
+        ua!,
+        ctx: ctx,
+        ctrl: _listenCtrl(control),
+      );
       return (c, err == null ? null : _opError('listen', net, null, ua, err));
     }
     if (nerr != null || !net.startsWith('udp')) {
-      return (null, _opError('listen', net, null, null, nerr ?? UnknownNetworkError(network)));
+      return (
+        null,
+        _opError(
+          'listen',
+          net,
+          null,
+          null,
+          nerr ?? UnknownNetworkError(network),
+        ),
+      );
     }
     final (addrs, rerr) = await _resolve(net, address.toString(), op: 'listen');
     if (rerr != null) return (null, _opError('listen', net, null, null, rerr));
     final a = addrs.first;
     try {
       final fd = sys.sysFfiAvailable
-          ? await _udpGo(ctx, net, a, null, _listenCtrl(control), emptyHost: _emptyHost(address.toString()))
+          ? await _udpGo(
+              ctx,
+              net,
+              a,
+              null,
+              _listenCtrl(control),
+              emptyHost: _emptyHost(address.toString()),
+            )
           : await sys.sysListenUdp(a);
-      return (UDPConn._(fd, net, _udpAddrOf(fd.local), null) as PacketConn, null);
+      return (
+        UDPConn._(fd, net, _udpAddrOf(fd.local), null) as PacketConn,
+        null,
+      );
     } on _GoErr catch (e) {
       return (null, _opError('listen', net, null, _udpAddrOf(a), e.err));
     } on Object catch (e) {
@@ -533,21 +643,40 @@ final class ListenConfig extends GoStruct<ListenConfig> {
 }
 
 /// `net.Listen(network, address)`.
-Future<(Listener?, GoError?)> listen(Golang.String network, Golang.String address) =>
-    ListenConfig().listen(context.background(), network, address);
+Future<(Listener?, GoError?)> listen(
+  Golang.String network,
+  Golang.String address,
+) => ListenConfig().listen(context.background(), network, address);
 
 /// `net.ListenPacket(network, address)`.
-Future<(PacketConn?, GoError?)> listenPacket(Golang.String network, Golang.String address) =>
-    ListenConfig().listenPacket(context.background(), network, address);
+Future<(PacketConn?, GoError?)> listenPacket(
+  Golang.String network,
+  Golang.String address,
+) => ListenConfig().listenPacket(context.background(), network, address);
 
 /// `net.ListenTCP(network, laddr)`.
-Future<(TCPListener?, GoError?)> listenTCP(Golang.String network, TCPAddr? laddr) async {
+Future<(TCPListener?, GoError?)> listenTCP(
+  Golang.String network,
+  TCPAddr? laddr,
+) async {
   final net = network.toString();
   if (!const {'tcp', 'tcp4', 'tcp6'}.contains(net)) {
-    return (null, _opError('listen', net, null, laddr, UnknownNetworkError(network)));
+    return (
+      null,
+      _opError('listen', net, null, laddr, UnknownNetworkError(network)),
+    );
   }
   final a = laddr == null
-      ? sys.SysAddr(Uint8List(net == 'tcp4' ? 4 : net == 'tcp6' ? 16 : 0), 0)
+      ? sys.SysAddr(
+          Uint8List(
+            net == 'tcp4'
+                ? 4
+                : net == 'tcp6'
+                ? 16
+                : 0,
+          ),
+          0,
+        )
       : _sysAddrOf(laddr.ip, laddr.port.toInt(), laddr.zone);
   try {
     final ln = await sys.sysListenTcp(a);
@@ -558,13 +687,28 @@ Future<(TCPListener?, GoError?)> listenTCP(Golang.String network, TCPAddr? laddr
 }
 
 /// `net.ListenUDP(network, laddr)`.
-Future<(UDPConn?, GoError?)> listenUDP(Golang.String network, UDPAddr? laddr) async {
+Future<(UDPConn?, GoError?)> listenUDP(
+  Golang.String network,
+  UDPAddr? laddr,
+) async {
   final net = network.toString();
   if (!const {'udp', 'udp4', 'udp6'}.contains(net)) {
-    return (null, _opError('listen', net, null, laddr, UnknownNetworkError(network)));
+    return (
+      null,
+      _opError('listen', net, null, laddr, UnknownNetworkError(network)),
+    );
   }
   final a = laddr == null
-      ? sys.SysAddr(Uint8List(net == 'udp4' ? 4 : net == 'udp6' ? 16 : 0), 0)
+      ? sys.SysAddr(
+          Uint8List(
+            net == 'udp4'
+                ? 4
+                : net == 'udp6'
+                ? 16
+                : 0,
+          ),
+          0,
+        )
       : _sysAddrOf(laddr.ip, laddr.port.toInt(), laddr.zone);
   try {
     final fd = sys.sysFfiAvailable
@@ -581,19 +725,35 @@ Future<(UDPConn?, GoError?)> listenUDP(Golang.String network, UDPAddr? laddr) as
 // ------------------------------------------------------------ Resolve*Addr
 
 /// `net.ResolveTCPAddr(network, address)`.
-Future<(TCPAddr?, GoError?)> resolveTCPAddr(Golang.String network, Golang.String address) async {
+Future<(TCPAddr?, GoError?)> resolveTCPAddr(
+  Golang.String network,
+  Golang.String address,
+) async {
   final net = network.toString();
-  if (!const {'tcp', 'tcp4', 'tcp6', ''}.contains(net)) return (null, UnknownNetworkError(network) as GoError);
-  final (addrs, err) = await _resolve(net.isEmpty ? 'tcp' : net, address.toString(), op: 'resolve');
+  if (!const {'tcp', 'tcp4', 'tcp6', ''}.contains(net))
+    return (null, UnknownNetworkError(network) as GoError);
+  final (addrs, err) = await _resolve(
+    net.isEmpty ? 'tcp' : net,
+    address.toString(),
+    op: 'resolve',
+  );
   if (err != null) return (null, err);
   return (_tcpAddrOf(addrs.first), null);
 }
 
 /// `net.ResolveUDPAddr(network, address)`.
-Future<(UDPAddr?, GoError?)> resolveUDPAddr(Golang.String network, Golang.String address) async {
+Future<(UDPAddr?, GoError?)> resolveUDPAddr(
+  Golang.String network,
+  Golang.String address,
+) async {
   final net = network.toString();
-  if (!const {'udp', 'udp4', 'udp6', ''}.contains(net)) return (null, UnknownNetworkError(network) as GoError);
-  final (addrs, err) = await _resolve(net.isEmpty ? 'udp' : net, address.toString(), op: 'resolve');
+  if (!const {'udp', 'udp4', 'udp6', ''}.contains(net))
+    return (null, UnknownNetworkError(network) as GoError);
+  final (addrs, err) = await _resolve(
+    net.isEmpty ? 'udp' : net,
+    address.toString(),
+    op: 'resolve',
+  );
   if (err != null) return (null, err);
   return (_udpAddrOf(addrs.first), null);
 }

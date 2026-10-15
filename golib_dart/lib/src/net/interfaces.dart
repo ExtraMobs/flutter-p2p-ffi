@@ -94,7 +94,13 @@ final class Interface extends GoStruct<Interface> {
   @override
   List<Object?> get $fields => [index, mtu, name, hardwareAddr, flags];
   @override
-  List<String> get $fieldNames => const ['Index', 'MTU', 'Name', 'HardwareAddr', 'Flags'];
+  List<String> get $fieldNames => const [
+    'Index',
+    'MTU',
+    'Name',
+    'HardwareAddr',
+    'Flags',
+  ];
 
   /// `(*Interface).Addrs()`: os endereços como `*IPNet`.
   Future<(Slice<Addr?>, GoError?)> addrs() async {
@@ -106,11 +112,19 @@ final class Interface extends GoStruct<Interface> {
 
 Slice<Addr?> _ipNets(List<(Uint8List, int)> list) => Slice.of([
   for (final (ip, bits) in list)
-    IPNet(ip: _ipOf(ip), mask: cidrMask(Golang.Int(bits), Golang.Int(ip.length * 8))) as Addr?,
+    IPNet(
+      ip: _ipOf(ip),
+      mask: cidrMask(Golang.Int(bits), Golang.Int(ip.length * 8)),
+    ) as Addr?,
 ], _addrElem);
 
 const _addrElem = Elem<Addr?>(16, zeroNull, pointers: true);
-final _ifaceElem = Elem<Interface>(80, Interface.new, pointers: true, value: true);
+final _ifaceElem = Elem<Interface>(
+  80,
+  Interface.new,
+  pointers: true,
+  value: true,
+);
 
 Interface _interfaceOf(sys.SysInterface i) {
   var f = 0;
@@ -127,7 +141,9 @@ Interface _interfaceOf(sys.SysInterface i) {
     hardwareAddr: HardwareAddr(
       i.hardwareAddr.isEmpty
           ? Slice.nil(_byteElem)
-          : Slice.of([for (final b in i.hardwareAddr) Golang.Uint8(b)], _byteElem),
+          : Slice.of([
+              for (final b in i.hardwareAddr) Golang.Uint8(b),
+            ], _byteElem),
     ),
     flags: Flags(f),
   ).._addrs = i.addrs;
@@ -146,7 +162,10 @@ GoError _ifaceOp(GoError err) => _opError('route', 'ip+net', null, null, err);
 Future<(Slice<Interface>, GoError?)> interfaces() async {
   try {
     final list = await sys.sysInterfaces();
-    return (Slice.of([for (final i in list) _interfaceOf(i)], _ifaceElem), null);
+    return (
+      Slice.of([for (final i in list) _interfaceOf(i)], _ifaceElem),
+      null,
+    );
   } on Object catch (e) {
     return (Slice<Interface>.nil(_ifaceElem), _ifaceOp(_sysError(e)));
   }
@@ -163,7 +182,9 @@ Future<(Slice<Addr?>, GoError?)> interfaceAddrs() async {
 }
 
 /// `errNoSuchInterface` do Go.
-final GoError _errNoSuchInterface = ErrorString(_s('no such network interface'));
+final GoError _errNoSuchInterface = ErrorString(
+  _s('no such network interface'),
+);
 
 /// `net.InterfaceByIndex(index)`.
 Future<(Interface?, GoError?)> interfaceByIndex(Golang.Int index) async {
@@ -176,12 +197,17 @@ Future<(Interface?, GoError?)> interfaceByIndex(Golang.Int index) async {
   }
 }
 
-final GoError _errInvalidInterfaceIndex = ErrorString(_s('invalid network interface index'));
-final GoError _errInvalidInterfaceName = ErrorString(_s('invalid network interface name'));
+final GoError _errInvalidInterfaceIndex = ErrorString(
+  _s('invalid network interface index'),
+);
+final GoError _errInvalidInterfaceName = ErrorString(
+  _s('invalid network interface name'),
+);
 
 /// `net.InterfaceByName(name)`.
 Future<(Interface?, GoError?)> interfaceByName(Golang.String name) async {
-  if (name.toString().isEmpty) return (null, _ifaceOp(_errInvalidInterfaceName));
+  if (name.toString().isEmpty)
+    return (null, _ifaceOp(_errInvalidInterfaceName));
   try {
     for (final i in await sys.sysInterfaces()) {
       if (i.name == name.toString()) return (_interfaceOf(i), null);

@@ -63,7 +63,10 @@ void main() {
     });
 
     test('só canais nil: nada pronto', () {
-      final result = go.selectNow([go.RecvCase<int>(null), go.SendCase<int>(null, 1)]);
+      final result = go.selectNow([
+        go.RecvCase<int>(null),
+        go.SendCase<int>(null, 1),
+      ]);
       expect(result.$1, -1);
     });
 
@@ -103,7 +106,10 @@ void main() {
 
     test('canal nil nunca destrava um select bloqueante', () async {
       final real = go.Chan<int>(0, 0);
-      final selectFuture = go.select([go.RecvCase<int>(null), go.RecvCase(real)]);
+      final selectFuture = go.select([
+        go.RecvCase<int>(null),
+        go.RecvCase(real),
+      ]);
       await real.send(3);
       expect(await selectFuture, (1, 3, true));
     });
@@ -124,19 +130,24 @@ void main() {
       );
     });
 
-    test('o caso não escolhido é retirado do canal (não vaza um recv)', () async {
-      final a = go.Chan<int>(0, 0);
-      final b = go.Chan<int>(0, 0);
-      final selectFuture = go.select([go.RecvCase(a), go.RecvCase(b)]);
-      await b.send(1); // escolhe b; a não deveria mais ter um waiter pendente.
-      await selectFuture;
-      // Um send solto em `a` agora não tem receptor nenhum: fica pendente.
-      final loneSend = a.send(2);
-      var delivered = false;
-      loneSend.then((_) => delivered = true);
-      expect(delivered, isFalse);
-      // Consumidor de verdade ainda funciona normalmente.
-      expect(await a.recv(), 2);
-    });
+    test(
+      'o caso não escolhido é retirado do canal (não vaza um recv)',
+      () async {
+        final a = go.Chan<int>(0, 0);
+        final b = go.Chan<int>(0, 0);
+        final selectFuture = go.select([go.RecvCase(a), go.RecvCase(b)]);
+        await b.send(
+          1,
+        ); // escolhe b; a não deveria mais ter um waiter pendente.
+        await selectFuture;
+        // Um send solto em `a` agora não tem receptor nenhum: fica pendente.
+        final loneSend = a.send(2);
+        var delivered = false;
+        loneSend.then((_) => delivered = true);
+        expect(delivered, isFalse);
+        // Consumidor de verdade ainda funciona normalmente.
+        expect(await a.recv(), 2);
+      },
+    );
   });
 }

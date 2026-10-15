@@ -41,17 +41,23 @@ void main() {
       expect(await ch.recv(), 2);
     });
 
-    test('send bloqueia com buffer cheio; recv libera o próximo da fila', () async {
-      final ch = go.Chan<int>(2, 0);
-      await ch.send(1);
-      await ch.send(2);
-      final third = ch.send(3); // buffer cheio: entra na fila de espera.
-      expect(await ch.recv(), 1); // libera espaço e promove o send(3) pendente.
-      await third; // já deve ter completado (valor 3 movido pro buffer).
-      expect(ch.len, 2); // [2, 3]: o buffer continua cheio.
-      expect(await ch.recv(), 2);
-      expect(await ch.recv(), 3);
-    });
+    test(
+      'send bloqueia com buffer cheio; recv libera o próximo da fila',
+      () async {
+        final ch = go.Chan<int>(2, 0);
+        await ch.send(1);
+        await ch.send(2);
+        final third = ch.send(3); // buffer cheio: entra na fila de espera.
+        expect(
+          await ch.recv(),
+          1,
+        ); // libera espaço e promove o send(3) pendente.
+        await third; // já deve ter completado (valor 3 movido pro buffer).
+        expect(ch.len, 2); // [2, 3]: o buffer continua cheio.
+        expect(await ch.recv(), 2);
+        expect(await ch.recv(), 3);
+      },
+    );
 
     test('FIFO', () async {
       final ch = go.Chan<int>(3, 0);
@@ -117,13 +123,16 @@ void main() {
       );
     });
 
-    test('close acorda send bloqueado com panic (não entrega o valor)', () async {
-      final ch = go.Chan<int>(0, 0);
-      final sendFuture = ch.send(1); // bloqueia: sem receptor.
-      ch.close(); // mesmo turno: o send pendente panica, não é entregue.
-      await expectLater(sendFuture, throwsA(isA<go.Panic>()));
-      expect(ch.len, 0);
-    });
+    test(
+      'close acorda send bloqueado com panic (não entrega o valor)',
+      () async {
+        final ch = go.Chan<int>(0, 0);
+        final sendFuture = ch.send(1); // bloqueia: sem receptor.
+        ch.close(); // mesmo turno: o send pendente panica, não é entregue.
+        await expectLater(sendFuture, throwsA(isA<go.Panic>()));
+        expect(ch.len, 0);
+      },
+    );
 
     test('panic de canal fechado é recuperável dentro de um Defers', () async {
       final ch = go.Chan<int>(0, 0);

@@ -6,110 +6,112 @@ import 'package:golib_dart/sync.dart' as sync;
 import 'package:test/test.dart';
 
 void main() {
+  test('Mutex contendido entre goroutines, com await no meio da seção '
+      'crítica', () async {
+    final mu = sync.Mutex();
+    final order = <String>[];
+    final gate = Completer<void>();
+    final aEntered = Completer<void>();
+    final bDone = Completer<void>();
+
+    go.spawn(() async {
+      await mu.lock$async();
+      order.add('A entra');
+      aEntered.complete();
+      await gate.future; // segura a seção crítica até o teste liberar.
+      order.add('A sai');
+      mu.unlock();
+    });
+
+    await aEntered.future;
+
+    go.spawn(() async {
+      order.add('B pede');
+      await mu.lock$async(); // tem que esperar A soltar.
+      order.add('B entra');
+      mu.unlock();
+      order.add('B sai');
+      bDone.complete();
+    });
+
+    await Future<void>.delayed(
+      Duration.zero,
+    ); // dá tempo de B pedir e bloquear.
+    order.add('teste libera A');
+    gate.complete();
+
+    await bDone.future;
+    expect(order, [
+      'A entra',
+      'B pede',
+      'teste libera A',
+      'A sai',
+      'B entra',
+      'B sai',
+    ]);
+  });
+
   test(
-    'Mutex contendido entre goroutines, com await no meio da seção '
-    'crítica',
+    'RWMutex: escritor pendente bloqueia leitor novo (preferência de escritor)',
     () async {
-      final mu = sync.Mutex();
+      final rw = sync.RWMutex();
       final order = <String>[];
-      final gate = Completer<void>();
-      final aEntered = Completer<void>();
-      final bDone = Completer<void>();
+      final readerGate = Completer<void>();
+      final readerIn = Completer<void>();
+      final writerDone = Completer<void>();
+      final newReaderDone = Completer<void>();
 
       go.spawn(() async {
-        await mu.lock$async();
-        order.add('A entra');
-        aEntered.complete();
-        await gate.future; // segura a seção crítica até o teste liberar.
-        order.add('A sai');
-        mu.unlock();
+        await rw.rLock$async();
+        order.add('r1 entra');
+        readerIn.complete();
+        await readerGate.future;
+        order.add('r1 sai');
+        rw.rUnlock();
       });
-
-      await aEntered.future;
+      await readerIn.future;
 
       go.spawn(() async {
-        order.add('B pede');
-        await mu.lock$async(); // tem que esperar A soltar.
-        order.add('B entra');
-        mu.unlock();
-        order.add('B sai');
-        bDone.complete();
+        order.add('w pede');
+        await rw.lock$async(); // espera r1 soltar.
+        order.add('w entra');
+        rw.unlock();
+        order.add('w sai');
+        writerDone.complete();
       });
+      await Future<void>.delayed(Duration.zero);
 
-      await Future<void>.delayed(Duration.zero); // dá tempo de B pedir e bloquear.
-      order.add('teste libera A');
-      gate.complete();
+      go.spawn(() async {
+        order.add('r2 pede');
+        // chegou depois do escritor: tem que esperar ele também, não furar a
+        // fila (preferência de escritor, como o Go).
+        await rw.rLock$async();
+        order.add('r2 entra');
+        rw.rUnlock();
+        order.add('r2 sai');
+        newReaderDone.complete();
+      });
+      await Future<void>.delayed(Duration.zero);
 
-      await bDone.future;
+      order.add('teste libera r1');
+      readerGate.complete();
+
+      await writerDone.future;
+      await newReaderDone.future;
+
       expect(order, [
-        'A entra',
-        'B pede',
-        'teste libera A',
-        'A sai',
-        'B entra',
-        'B sai',
+        'r1 entra',
+        'w pede',
+        'r2 pede',
+        'teste libera r1',
+        'r1 sai',
+        'w entra',
+        'w sai',
+        'r2 entra',
+        'r2 sai',
       ]);
     },
   );
-
-  test('RWMutex: escritor pendente bloqueia leitor novo (preferência de escritor)', () async {
-    final rw = sync.RWMutex();
-    final order = <String>[];
-    final readerGate = Completer<void>();
-    final readerIn = Completer<void>();
-    final writerDone = Completer<void>();
-    final newReaderDone = Completer<void>();
-
-    go.spawn(() async {
-      await rw.rLock$async();
-      order.add('r1 entra');
-      readerIn.complete();
-      await readerGate.future;
-      order.add('r1 sai');
-      rw.rUnlock();
-    });
-    await readerIn.future;
-
-    go.spawn(() async {
-      order.add('w pede');
-      await rw.lock$async(); // espera r1 soltar.
-      order.add('w entra');
-      rw.unlock();
-      order.add('w sai');
-      writerDone.complete();
-    });
-    await Future<void>.delayed(Duration.zero);
-
-    go.spawn(() async {
-      order.add('r2 pede');
-      // chegou depois do escritor: tem que esperar ele também, não furar a
-      // fila (preferência de escritor, como o Go).
-      await rw.rLock$async();
-      order.add('r2 entra');
-      rw.rUnlock();
-      order.add('r2 sai');
-      newReaderDone.complete();
-    });
-    await Future<void>.delayed(Duration.zero);
-
-    order.add('teste libera r1');
-    readerGate.complete();
-
-    await writerDone.future;
-    await newReaderDone.future;
-
-    expect(order, [
-      'r1 entra',
-      'w pede',
-      'r2 pede',
-      'teste libera r1',
-      'r1 sai',
-      'w entra',
-      'w sai',
-      'r2 entra',
-      'r2 sai',
-    ]);
-  });
 
   test('RWMutex: leitores concorrentes não se bloqueiam entre si', () async {
     final rw = sync.RWMutex();
@@ -228,57 +230,56 @@ void main() {
     expect(woke.toSet(), {0, 1, 2});
   });
 
-  test(
-    'Once.do\$async: chamadas concorrentes esperam a primeira terminar '
-    '(sem rodar f de novo)',
-    () async {
-      final once = sync.Once();
-      var runs = 0;
-      final order = <String>[];
-      final gate = Completer<void>();
-      final firstEntered = Completer<void>();
-      final aDone = Completer<void>();
-      final bDone = Completer<void>();
+  test('Once.do\$async: chamadas concorrentes esperam a primeira terminar '
+      '(sem rodar f de novo)', () async {
+    final once = sync.Once();
+    var runs = 0;
+    final order = <String>[];
+    final gate = Completer<void>();
+    final firstEntered = Completer<void>();
+    final aDone = Completer<void>();
+    final bDone = Completer<void>();
 
-      // A e B são goroutines de verdade (go.spawn): duas chamadas
-      // concorrentes a Do vêm sempre de goroutines distintas, nunca da
-      // mesma pilha de chamadas — senão não seriam "concorrentes".
-      go.spawn(() async {
-        await once.do$async(() async {
-          runs++;
-          order.add('A roda f');
-          firstEntered.complete();
-          await gate.future;
-          order.add('A termina f');
-        });
-        order.add('A: Do voltou');
-        aDone.complete();
+    // A e B são goroutines de verdade (go.spawn): duas chamadas
+    // concorrentes a Do vêm sempre de goroutines distintas, nunca da
+    // mesma pilha de chamadas — senão não seriam "concorrentes".
+    go.spawn(() async {
+      await once.do$async(() async {
+        runs++;
+        order.add('A roda f');
+        firstEntered.complete();
+        await gate.future;
+        order.add('A termina f');
       });
+      order.add('A: Do voltou');
+      aDone.complete();
+    });
 
-      await firstEntered.future;
+    await firstEntered.future;
 
-      go.spawn(() async {
-        await once.do$async(() async {
-          runs++;
-          order.add('B roda f'); // não deveria rodar: já era pra estar done.
-        });
-        order.add('B: Do voltou');
-        bDone.complete();
+    go.spawn(() async {
+      await once.do$async(() async {
+        runs++;
+        order.add('B roda f'); // não deveria rodar: já era pra estar done.
       });
+      order.add('B: Do voltou');
+      bDone.complete();
+    });
 
-      await Future<void>.delayed(Duration.zero); // dá tempo de B pedir e bloquear.
-      gate.complete();
+    await Future<void>.delayed(
+      Duration.zero,
+    ); // dá tempo de B pedir e bloquear.
+    gate.complete();
 
-      await aDone.future;
-      await bDone.future;
+    await aDone.future;
+    await bDone.future;
 
-      expect(runs, 1);
-      expect(order.contains('B roda f'), isFalse);
-      expect(
-        order.indexOf('A termina f'),
-        lessThan(order.indexOf('A: Do voltou')),
-      );
-      expect(order.contains('B: Do voltou'), isTrue);
-    },
-  );
+    expect(runs, 1);
+    expect(order.contains('B roda f'), isFalse);
+    expect(
+      order.indexOf('A termina f'),
+      lessThan(order.indexOf('A: Do voltou')),
+    );
+    expect(order.contains('B: Do voltou'), isTrue);
+  });
 }

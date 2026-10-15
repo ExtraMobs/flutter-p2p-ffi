@@ -108,6 +108,7 @@ dart format out/ && dart analyze out/
 
 ## Convenções
 
+- **`dart format` antes de todo commit (dono, 2026-10-15):** todo `.dart` escrito à mão que o commit traz passa pelo `dart format` antes do `git commit` (`golib_dart/`, `tools/dartast/`, `ipfs_ffi/` e o app em `ipfs_ffi/example/android_app/`; o gerado já sai formatado). Conferir com `dart format --output=none --set-exit-if-changed <arquivos>`.
 - **Sem novas dependências externas sem aprovação explícita do usuário.** As únicas permitidas hoje: `golang.org/x/tools` (goast), `package:analyzer` (dartast), shims Dart pontuais (`package:http`, `package:crypto`) quando um shim exigir.
 - Python: stdlib apenas (`json`, `dataclasses`, `argparse`, `unittest`).
 - Todo dump JSON carrega `schemaVersion`; bump ao mudar o schema. Atual: goast **10** (tipos inline na AST, `bytes`, method sets, `implements` com interfaces anônimas e genéricas, `$inst`, `initOrder`, `otherFiles`/`module`, `fold`, `pkg` de campos/métodos não exportados, `conversions`/`asserts` para o `implements` entre pacotes; ver `tools/goast/README.md`), dartast **1**.

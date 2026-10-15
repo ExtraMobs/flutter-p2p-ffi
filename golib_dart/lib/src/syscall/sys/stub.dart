@@ -11,8 +11,7 @@ import 'dart:typed_data';
 const _enoprotoopt = 92;
 const _eopnotsupp = 95;
 
-int sysSetsockopt(int fd, int level, int opt, Uint8List value) =>
-    -_enoprotoopt;
+int sysSetsockopt(int fd, int level, int opt, Uint8List value) => -_enoprotoopt;
 
 int sysGetsockopt(int fd, int level, int opt, Uint8List out) => -_enoprotoopt;
 

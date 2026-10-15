@@ -34,7 +34,10 @@ void main() {
     expect(werr, isNull);
     c.setReadDeadline(time.now().add(time.Duration(1000000000)));
     final (_, rerr) = await c.read$async(Slice.make(8, 8, _b));
-    expect(_clean(rerr, c), 'read udp L->127.0.0.1:9: read: connection refused');
+    expect(
+      _clean(rerr, c),
+      'read udp L->127.0.0.1:9: read: connection refused',
+    );
     c.close();
   });
 
@@ -55,28 +58,38 @@ void main() {
     final err = await raw!.read((_) => called = true);
     expect(called, isFalse);
     expect(
-      err!.error().toString().replaceAll(u.localAddr()!.string().toString(), 'L'),
+      err!.error().toString().replaceAll(
+        u.localAddr()!.string().toString(),
+        'L',
+      ),
       'raw-read udp L: i/o timeout',
     );
     u.close();
   });
 
-  test('descritor virtual: opções pelo dart:io, EBADF depois do Close', () async {
-    final (ln, _) = await net.listen(_s('tcp'), _s('127.0.0.1:0'));
-    final (c, _) = await net.dial(_s('tcp'), ln!.addr$()!.string());
-    final (raw, _) = (c as net.TCPConn).syscallConn();
-    var fd = Golang.Int(-1);
-    raw!.control((f) => fd = Golang.Int.from(f));
-    expect(fd.toInt() >= 1 << 30, isTrue);
-    expect(
-      syscall.setsockoptInt(fd, Golang.Int(1), Golang.Int(9), Golang.Int(0)),
-      isNull,
-    );
-    final (ka, kerr) = syscall.getsockoptInt(fd, Golang.Int(1), Golang.Int(9));
-    expect((ka.toInt(), kerr), (0, null));
-    c.close();
-    final (_, cerr) = syscall.getsockoptInt(fd, Golang.Int(1), Golang.Int(9));
-    expect(cerr, syscall.ebadf);
-    ln.close();
-  });
+  test(
+    'descritor virtual: opções pelo dart:io, EBADF depois do Close',
+    () async {
+      final (ln, _) = await net.listen(_s('tcp'), _s('127.0.0.1:0'));
+      final (c, _) = await net.dial(_s('tcp'), ln!.addr$()!.string());
+      final (raw, _) = (c as net.TCPConn).syscallConn();
+      var fd = Golang.Int(-1);
+      raw!.control((f) => fd = Golang.Int.from(f));
+      expect(fd.toInt() >= 1 << 30, isTrue);
+      expect(
+        syscall.setsockoptInt(fd, Golang.Int(1), Golang.Int(9), Golang.Int(0)),
+        isNull,
+      );
+      final (ka, kerr) = syscall.getsockoptInt(
+        fd,
+        Golang.Int(1),
+        Golang.Int(9),
+      );
+      expect((ka.toInt(), kerr), (0, null));
+      c.close();
+      final (_, cerr) = syscall.getsockoptInt(fd, Golang.Int(1), Golang.Int(9));
+      expect(cerr, syscall.ebadf);
+      ln.close();
+    },
+  );
 }

@@ -24,9 +24,30 @@ class P extends go.GoStruct<P> implements go.Typed {
     zero: P.new,
     nil: () => P.$nil,
     fields: () => [
-      go.rtField('X', '', () => go.rtInt, tag: 'json:"x,omitempty"', get: (o) => (o as P).x, set: (o, v) => (o as P).x = v as Golang.Int),
-      go.rtField('Y', '', () => go.rtString, offset: 8, get: (o) => (o as P).y, set: (o, v) => (o as P).y = v as Golang.String),
-      go.rtField('n', 'main', () => go.rtPtr(P.$rt), offset: 24, get: (o) => (o as P).n, set: (o, v) => (o as P).n = v as P?),
+      go.rtField(
+        'X',
+        '',
+        () => go.rtInt,
+        tag: 'json:"x,omitempty"',
+        get: (o) => (o as P).x,
+        set: (o, v) => (o as P).x = v as Golang.Int,
+      ),
+      go.rtField(
+        'Y',
+        '',
+        () => go.rtString,
+        offset: 8,
+        get: (o) => (o as P).y,
+        set: (o, v) => (o as P).y = v as Golang.String,
+      ),
+      go.rtField(
+        'n',
+        'main',
+        () => go.rtPtr(P.$rt),
+        offset: 24,
+        get: (o) => (o as P).n,
+        set: (o, v) => (o as P).n = v as P?,
+      ),
     ],
   );
   @override
@@ -53,13 +74,21 @@ Golang.String s(String x) => Golang.String.fromDart(x);
 void main() {
   test('TypeOf básicos e compostos', () {
     expect(reflect.typeOf(Golang.Int(3))!.kind().string().toString(), 'int');
-    final ints = go.Slice<Golang.Int>.of([Golang.Int(1)], const go.Elem<Golang.Int>(8, Golang.Int.new));
+    final ints = go.Slice<Golang.Int>.of([
+      Golang.Int(1),
+    ], const go.Elem<Golang.Int>(8, Golang.Int.new));
     final t = reflect.typeOf(ints)!;
     expect(t.string().toString(), '[]int');
     expect(identical(t, reflect.sliceOf(go.rtInt)), isTrue);
-    final m = go.GoMap<Golang.String, Object?>.of({}, const go.Elem<Object?>(16, go.zeroNull));
+    final m = go.GoMap<Golang.String, Object?>.of(
+      {},
+      const go.Elem<Object?>(16, go.zeroNull),
+    );
     expect(reflect.typeOf(m)!.string().toString(), 'map[string]interface {}');
-    expect(reflect.typeOf(go.Box<Golang.Int>(Golang.Int()))!.string().toString(), '*int');
+    expect(
+      reflect.typeOf(go.Box<Golang.Int>(Golang.Int()))!.string().toString(),
+      '*int',
+    );
     expect(reflect.typeOf(true)!.kind().toInt(), go.kBool);
   });
 
@@ -93,16 +122,41 @@ void main() {
     final box = pv.interface();
     expect(box, isA<go.Ptr<Golang.Int>>());
     expect((box as go.Ptr<Golang.Int>).value.toInt(), 7);
-    final sv = reflect.makeSlice(reflect.sliceOf(go.rtString), Golang.Int(0), Golang.Int(0));
-    final out = reflect.append$(sv, go.Slice<reflect.Value>.of([reflect.valueOf(s('x'))], reflect.$valueElem));
+    final sv = reflect.makeSlice(
+      reflect.sliceOf(go.rtString),
+      Golang.Int(0),
+      Golang.Int(0),
+    );
+    final out = reflect.append$(
+      sv,
+      go.Slice<reflect.Value>.of([reflect.valueOf(s('x'))], reflect.$valueElem),
+    );
     expect(out.interface(), isA<go.Slice<Golang.String>>());
     expect(out.len().toInt(), 1);
     final mv = reflect.makeMap(reflect.mapOf(go.rtString, go.rtInt));
     mv.setMapIndex(reflect.valueOf(s('k')), reflect.valueOf(Golang.Int(5)));
-    expect((mv.interface() as go.GoMap<Golang.String, Golang.Int>)[s('k')].toInt(), 5);
-    expect(reflect.typeOf(mv.interface())!.string().toString(), 'map[string]int');
-    expect(reflect.deepEqual(P(x: Golang.Int(1)).$ifaceCopy(), P(x: Golang.Int(1)).$ifaceCopy()), isTrue);
-    expect(reflect.deepEqual(P(x: Golang.Int(1)).$ifaceCopy(), P(x: Golang.Int(2)).$ifaceCopy()), isFalse);
+    expect(
+      (mv.interface() as go.GoMap<Golang.String, Golang.Int>)[s('k')].toInt(),
+      5,
+    );
+    expect(
+      reflect.typeOf(mv.interface())!.string().toString(),
+      'map[string]int',
+    );
+    expect(
+      reflect.deepEqual(
+        P(x: Golang.Int(1)).$ifaceCopy(),
+        P(x: Golang.Int(1)).$ifaceCopy(),
+      ),
+      isTrue,
+    );
+    expect(
+      reflect.deepEqual(
+        P(x: Golang.Int(1)).$ifaceCopy(),
+        P(x: Golang.Int(2)).$ifaceCopy(),
+      ),
+      isFalse,
+    );
     final pp = reflect.new$(P.$rt);
     expect(pp.interface(), isA<P>());
     expect((pp.interface() as P).$isValue, isFalse);

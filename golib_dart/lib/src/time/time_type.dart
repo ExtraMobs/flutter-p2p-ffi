@@ -117,9 +117,7 @@ final class Time extends GoStruct<Time>
         // guarda só o nsec e troca o campo de segundos (guardar o resto
         // deixaria os segundos antigos no OU).
         wall =
-            (wall & _nsecMaskU64) |
-            (dsec.toUint64() << 30) |
-            _hasMonotonicU64;
+            (wall & _nsecMaskU64) | (dsec.toUint64() << 30) | _hasMonotonicU64;
         return;
       }
       _stripMono();

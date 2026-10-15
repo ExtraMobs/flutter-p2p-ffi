@@ -197,12 +197,11 @@ final class _SysDialer {
         );
         return (
           _newTCPConn(
-                fd,
-                net,
-                keepAlive: d.keepAlive,
-                keepAliveConfig: d.keepAliveConfig,
-              )
-              as Conn,
+            fd,
+            net,
+            keepAlive: d.keepAlive,
+            keepAliveConfig: d.keepAliveConfig,
+          ) as Conn,
           null,
         );
       }
