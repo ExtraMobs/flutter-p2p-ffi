@@ -8,6 +8,7 @@ library;
 
 export 'kubo/config.dart';
 export 'kubo/core.dart';
+export 'kubo/core/commands.dart';
 export 'kubo/core/commands/dag.dart';
 export 'kubo/core/coreapi.dart';
 export 'kubo/core/coreiface.dart';

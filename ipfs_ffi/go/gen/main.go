@@ -175,15 +175,25 @@ func generate(rootsFile string) (map[string][]byte, error) {
 	}
 	hash := assignIDs(fns) // WIRE.md: os emissores binários usam f.id e o hash
 	out := map[string][]byte{}
+	dart := emitDart(m, fns, hash)
+	// os comandos do RPC: os DTOs não podem repetir nomes do namespace kubo
+	// (o arquivo dele esconderia um), e o hash do Hello cobre o esquema deles
+	reserved, manual := kuboNames(dart)
+	cmdSrc, cmdAPI, cmdHash := emitCommands(reserved, manual)
+	hf := fnv.New64a()
+	fmt.Fprintf(hf, "%x %x", hash, cmdHash)
+	hash = hf.Sum64()
+	dart["src/table.dart"] = tableDart(hash)
+	dart["kubo/core/commands.dart"] = formatDart("kubo/core/commands.dart", cmdSrc)
 	goSrc, err := emitGo(m, fns, hash)
 	if err != nil {
 		return nil, err
 	}
 	out["zz_generated.go"] = goSrc
-	for path, src := range emitDart(m, fns, hash) {
+	for path, src := range dart {
 		out[filepath.ToSlash(filepath.Join("../lib", path))] = src
 	}
-	out["../API.md"] = emitAPI(m, fns)
+	out["../API.md"] = append(emitAPI(m, fns), cmdAPI...)
 	if err := emitNamespaces(out); err != nil {
 		return nil, err
 	}

@@ -143,7 +143,7 @@ func emitNamespaces(out map[string][]byte) error {
 
 // declRE: uma declaração de nível de library no Dart (gerado e formatado, ou
 // escrito à mão no mesmo estilo): classe, constante, getter ou função.
-var declRE = regexp.MustCompile(`^(?:(?:final |abstract |sealed |base |interface )*class|const|final|var) +([A-Za-z_$][A-Za-z0-9_$]*)|^[A-Za-z_$][A-Za-z0-9_$<>?, ]*? (?:get +)?([A-Za-z_$][A-Za-z0-9_$]*) *(?:\(|\{|=>)`)
+var declRE = regexp.MustCompile(`^(?:(?:final |abstract |sealed |base |interface )*class|const|final|var) +([A-Za-z_$][A-Za-z0-9_$]*)|^[A-Za-z_$][A-Za-z0-9_$<>?, .]*? (?:get +)?([A-Za-z_$][A-Za-z0-9_$]*) *(?:\(|\{|=>)`)
 
 // publicNames: os nomes públicos de nível de library de [src].
 func publicNames(src []byte) []string {

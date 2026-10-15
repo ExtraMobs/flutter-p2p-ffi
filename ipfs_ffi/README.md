@@ -97,7 +97,7 @@ Exemplos, na ordem em que o kubo monta um nó:
 ## Além da CoreAPI: MFS, config e peering (0.13)
 
 O baixo nível do Go, como ele é (o alto nível, `ipfs files/config/bootstrap/swarm
-peering`, vem com os comandos do RPC):
+peering`, está nos comandos do RPC, abaixo):
 
 ```dart
 final root = node.filesRoot;                       // IpfsNode.FilesRoot
@@ -121,6 +121,29 @@ Achado no boxo v0.43.0 (reproduzido em Go puro, sem o binding): anexar no fim
 (`seek(0, 2)` + `write`) de um arquivo do MFS cujo nó guarda os dados embutidos (o nó de
 um `add` pequeno) deixa o tamanho certo, mas a leitura devolve só o trecho anexado.
 Reescrever com `truncate(0)` + `write` antes, e anexar depois, funciona.
+
+## Os comandos do RPC (0.14)
+
+Os comandos do `ipfs` (o RPC `/api/v0`) rodam com o nó do app, sem daemon nem HTTP, pela
+mesma árvore do kubo: um por função em `package:ipfs_ffi/kubo/core/commands.dart` (também
+no `kubo.dart`). O nome é o caminho em lowerCamel; argumentos posicionais; opções nomeadas
+(null = o padrão do kubo); um DTO por retorno:
+
+```dart
+await kubo.filesMkdir(n, ctx, '/docs', parents: true);
+await kubo.filesWrite(n, ctx, '/docs/a.txt', files.newBytesFile(dados), create: true);
+final st = await kubo.filesStat(n, ctx, '/docs/a.txt');      // Future<StatOutput>
+final bytes = kubo.filesRead(n, ctx, '/docs/a.txt');          // Stream<Uint8List>
+await for (final p in kubo.pinLs(n, ctx, [], type: 'recursive')) {} // Stream de DTO
+final cfg = await kubo.configShow(n, ctx);                    // Map<String, Object?>
+```
+
+`Future` quando o comando emite um valor, `Stream` quando emite vários (`refs`, `pin ls`,
+`add`...) e `Stream<Uint8List>` quando emite bytes (`cat`, `get`, `files read`...). A
+lista completa (comando → função → retorno) e os que ficam de fora, com o motivo, estão no
+`API.md`. Os de config (`config`, `bootstrap`) gravam no arquivo do repo e, como no kubo,
+a maior parte só vale ao reiniciar o nó; os que precisam de rede (`swarm peering ls`)
+dão o erro do kubo num nó offline.
 
 ## Gerar e compilar
 

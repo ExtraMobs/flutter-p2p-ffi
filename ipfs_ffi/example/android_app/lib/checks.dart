@@ -14,6 +14,7 @@ import 'package:ipfs_ffi/go/io.dart' as io;
 import 'package:ipfs_ffi/ipfs_ffi.dart' show IpfsException, hasIpv6;
 import 'package:ipfs_ffi/kubo/config.dart' as config;
 import 'package:ipfs_ffi/kubo/core.dart' as core;
+import 'package:ipfs_ffi/kubo/core/commands.dart' as commands;
 import 'package:ipfs_ffi/kubo/core/commands/dag.dart' as dag;
 import 'package:ipfs_ffi/kubo/core/coreapi.dart' as coreapi;
 import 'package:ipfs_ffi/kubo/core/coreiface.dart' as iface;
@@ -152,6 +153,25 @@ Future<int> localChecks(Log log) async {
         final r = await dag.dagImport(n, ctx, bytes);
         check(r.roots.single.pinErrorMsg.isEmpty, 'import pinou');
         check((await api.pin().isPinned(ctx, p)).$2, 'pinado após import');
+      },
+      'comandos do RPC: id e files': () async {
+        final id = await commands.id(n, ctx, null);
+        check(id.id == (await api.key().self(ctx)).id!.value, 'id == self');
+        await commands.filesMkdir(n, ctx, '/app/d', parents: true);
+        await commands.filesWrite(n, ctx, '/app/d/a.txt',
+            files.newBytesFile(utf8.encode('olá files')),
+            create: true);
+        final st = await commands.filesStat(n, ctx, '/app/d/a.txt');
+        check(st.size == utf8.encode('olá files').length, 'files stat');
+        final ls = await commands.filesLs(n, ctx, '/app/d');
+        check(
+            [for (final e in ls.entries) e.name].join() == 'a.txt', 'files ls');
+        final read = await commands.filesRead(n, ctx, '/app/d/a.txt').toList();
+        check(utf8.decode([for (final b in read) ...b]) == 'olá files',
+            'files read');
+        await commands.filesRm(n, ctx, ['/app'], recursive: true).toList();
+        await expectThrows(
+            commands.filesStat(n, ctx, '/app'), 'files rm levou a pasta');
       },
       'dois nós: connect, bitswap, provide/findProviders e pubsub': () =>
           _twoNodes(tmp),

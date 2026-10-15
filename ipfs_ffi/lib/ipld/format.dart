@@ -50,31 +50,31 @@ class Node extends Resolver {
 
   /// Go: `func (blocks.Block).Cid() cid.Cid`.
   $cid.Cid cid() {
-    final $r = $callSync(129, $W()..h(this));
+    final $r = $callSync(130, $W()..h(this));
     return $r.p() ? $cid.Cid($r.str()) : $nil();
   }
 
   /// Go: `func (blocks.Block).RawData() []byte`.
   Uint8List rawData() {
-    final $r = $callSync(131, $W()..h(this));
+    final $r = $callSync(132, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (format.Node).Links() []*format.Link`.
   List<Link> links() {
-    final $r = $callSync(130, $W()..h(this));
+    final $r = $callSync(131, $W()..h(this));
     return $r.list(() => $r.p() ? Link.$dec($r) : $nil());
   }
 
   /// Go: `func (format.Node).Size() (uint64, error)`.
   int size() {
-    final $r = $callSync(132, $W()..h(this));
+    final $r = $callSync(133, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (format.Node).Stat() (*format.NodeStat, error)`.
   NodeStat stat() {
-    final $r = $callSync(133, $W()..h(this));
+    final $r = $callSync(134, $W()..h(this));
     return $r.p() ? NodeStat.$dec($r) : $nil();
   }
 
@@ -100,7 +100,7 @@ class NodeAdder extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> add($context.Context ctx, Node node) async {
     await $call(
-        134,
+        135,
         $W()
           ..h(this)
           ..h(ctx)
@@ -112,7 +112,7 @@ class NodeAdder extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> addMany($context.Context ctx, List<Node> nodes) async {
     await $call(
-        135,
+        136,
         $W()
           ..h(this)
           ..h(ctx)

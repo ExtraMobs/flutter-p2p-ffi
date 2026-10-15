@@ -25,8 +25,9 @@ FsNode lookup(Root r, String path) {
 Future<void> mv(
 RoutingOption get dhtOption {
 Option withMaxLinks(int n) => Option.$(1, (w) => w..i64(n));
+Future<$cid.Cid> dagPut(
 `)
-	want := []string{"File", "tFile", "api", "lookup", "mv", "dhtOption", "withMaxLinks"}
+	want := []string{"File", "tFile", "api", "lookup", "mv", "dhtOption", "withMaxLinks", "dagPut"}
 	if got := publicNames(src); !reflect.DeepEqual(got, want) {
 		t.Errorf("publicNames = %v, quero %v", got, want)
 	}

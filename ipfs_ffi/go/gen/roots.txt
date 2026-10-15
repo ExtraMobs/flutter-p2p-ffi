@@ -144,6 +144,8 @@ github.com/ipfs/kubo/core/coreiface.DiffMod
 github.com/ipfs/kubo/core.IpfsNode.FilesRoot
 github.com/ipfs/boxo/mfs.TFile
 github.com/ipfs/boxo/mfs.TDir
+# o produtor do SplitterGen que o mfs.WithChunker recebe
+github.com/ipfs/boxo/chunker.SizeSplitterGen
 github.com/ipfs/boxo/mfs.Lookup
 github.com/ipfs/boxo/mfs.DirLookup
 github.com/ipfs/boxo/mfs.Mkdir

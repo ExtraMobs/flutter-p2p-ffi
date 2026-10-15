@@ -3,6 +3,12 @@
 Gerado por `go run ./gen` (na pasta `go/`) a partir de `go/gen/roots.txt`; não editar.
 Cada linha é um símbolo Go exposto e onde ele está no Dart.
 
+## `github.com/ipfs/boxo/chunker` → `package:ipfs_ffi/boxo/chunker.dart`
+
+| Go | Dart | Modo |
+|---|---|---|
+| `func chunk.SizeSplitterGen(size int64) chunk.SplitterGen` | `sizeSplitterGen` | síncrona |
+
 ## `github.com/ipfs/boxo/files` → `package:ipfs_ffi/boxo/files.dart`
 
 | Go | Dart | Modo |
@@ -294,3 +300,177 @@ Cada linha é um símbolo Go exposto e onde ele está no Dart.
 - Resultado `nil` do Go onde o Dart espera um objeto vira `IpfsException`.
 - O kubo roda no `ipfs_host`, noutro processo (`IpfsService.start()` antes da API; protocolo no `WIRE.md`): um panic do Go derruba só o serviço, e as chamadas pendentes falham com `IpfsServiceException`.
 - Handles são soltos pelo `Finalizer` do Dart (em lote, pela função Free do serviço) e só valem no serviço em que nasceram; recursos do Go (nó, repo) continuam exigindo o `Close` do próprio Go.
+
+## Comandos do RPC (`ipfs ...`) → `package:ipfs_ffi/kubo/core/commands.dart`
+
+Gerados da árvore de comandos do kubo (`core/commands.Root`); o host os chama como o servidor HTTP do kubo (função 36 do `WIRE.md`).
+
+| Comando | Dart | Retorno |
+|---|---|---|
+| `ipfs add` | `add` | `Stream<CommandsAddEvent>` |
+| `ipfs bitswap ledger` | `bitswapLedger` | `Future<Receipt>` |
+| `ipfs bitswap reprovide` | `bitswapReprovide` | `Future<Object?>` |
+| `ipfs bitswap stat` | `bitswapStat` | `Future<Stat>` |
+| `ipfs bitswap wantlist` | `bitswapWantlist` | `Future<KeyList>` |
+| `ipfs block get` | `blockGet` | `Stream<Uint8List>` |
+| `ipfs block put` | `blockPut` | `Stream<CommandsBlockStat>` |
+| `ipfs block rm` | `blockRm` | `Stream<RemovedBlock>` |
+| `ipfs block stat` | `blockStat` | `Future<CommandsBlockStat>` |
+| `ipfs bootstrap` | `bootstrap` | `Future<BootstrapOutput>` |
+| `ipfs bootstrap add` | `bootstrapAdd` | `Future<BootstrapOutput>` |
+| `ipfs bootstrap list` | `bootstrapList` | `Future<BootstrapOutput>` |
+| `ipfs bootstrap rm` | `bootstrapRm` | `Future<BootstrapOutput>` |
+| `ipfs bootstrap rm all` | `bootstrapRmAll` | `Future<BootstrapOutput>` |
+| `ipfs cat` | `cat` | `Stream<Uint8List>` |
+| `ipfs cid base32` | `cidBase32` | `Stream<CidFormatRes>` |
+| `ipfs cid bases` | `cidBases` | `Future<List<CodeAndName>>` |
+| `ipfs cid codecs` | `cidCodecs` | `Future<List<CodeAndName>>` |
+| `ipfs cid format` | `cidFormat` | `Stream<CidFormatRes>` |
+| `ipfs cid hashes` | `cidHashes` | `Future<List<CodeAndName>>` |
+| `ipfs cid inspect` | `cidInspect` | `Future<CidInspectRes>` |
+| `ipfs config` | `config` | `Future<ConfigField>` |
+| `ipfs config profile apply` | `configProfileApply` | `Future<ConfigUpdateOutput>` |
+| `ipfs config replace` | `configReplace` | `Future<Object?>` |
+| `ipfs config show` | `configShow` | `Future<Map<String, Object?>>` |
+| `ipfs dag resolve` | `dagResolve` | `Future<ResolveOutput>` |
+| `ipfs dag stat` | `dagStat` | `Stream<DagStatSummary>` |
+| `ipfs dht query` | `dhtQuery` | `Stream<QueryEvent>` |
+| `ipfs diag cmds` | `diagCmds` | `Future<List<ReqLogEntry?>>` |
+| `ipfs diag cmds clear` | `diagCmdsClear` | `Future<Object?>` |
+| `ipfs diag cmds set-time` | `diagCmdsSetTime` | `Future<Object?>` |
+| `ipfs diag datastore count` | `diagDatastoreCount` | `Future<DiagDatastoreCountResult>` |
+| `ipfs diag datastore get` | `diagDatastoreGet` | `Future<DiagDatastoreGetResult>` |
+| `ipfs diag datastore put` | `diagDatastorePut` | `Future<Object?>` |
+| `ipfs diag healthy` | `diagHealthy` | `Future<Object?>` |
+| `ipfs diag profile` | `diagProfile` | `Stream<Uint8List>` |
+| `ipfs diag sys` | `diagSys` | `Future<Object?>` |
+| `ipfs files chcid` | `filesChcid` | `Future<Object?>` |
+| `ipfs files chmod` | `filesChmod` | `Future<Object?>` |
+| `ipfs files chroot` | `filesChroot` | `Future<MessageOutput>` |
+| `ipfs files cp` | `filesCp` | `Future<Object?>` |
+| `ipfs files flush` | `filesFlush` | `Future<FlushRes>` |
+| `ipfs files ls` | `filesLs` | `Future<FilesLsOutput>` |
+| `ipfs files mkdir` | `filesMkdir` | `Future<Object?>` |
+| `ipfs files mv` | `filesMv` | `Future<Object?>` |
+| `ipfs files read` | `filesRead` | `Stream<Uint8List>` |
+| `ipfs files rm` | `filesRm` | `Stream<Object?>` |
+| `ipfs files stat` | `filesStat` | `Future<StatOutput>` |
+| `ipfs files touch` | `filesTouch` | `Future<Object?>` |
+| `ipfs files write` | `filesWrite` | `Future<Object?>` |
+| `ipfs filestore dups` | `filestoreDups` | `Stream<RefWrapper>` |
+| `ipfs filestore ls` | `filestoreLs` | `Stream<ListRes>` |
+| `ipfs filestore verify` | `filestoreVerify` | `Stream<ListRes>` |
+| `ipfs get` | `get` | `Stream<Uint8List>` |
+| `ipfs id` | `id` | `Future<IdOutput>` |
+| `ipfs key export` | `keyExport` | `Stream<Uint8List>` |
+| `ipfs key gen` | `keyGen` | `Future<KeyOutput>` |
+| `ipfs key import` | `keyImport` | `Future<KeyOutput>` |
+| `ipfs key list` | `keyList` | `Future<KeyOutputList>` |
+| `ipfs key ls` | `keyLs` | `Future<KeyOutputList>` |
+| `ipfs key rename` | `keyRename` | `Future<KeyRenameOutput>` |
+| `ipfs key rm` | `keyRm` | `Future<KeyOutputList>` |
+| `ipfs key rotate` | `keyRotate` | `Future<Object?>` |
+| `ipfs key sign` | `keySign` | `Stream<KeySignOutput>` |
+| `ipfs key verify` | `keyVerify` | `Stream<KeyVerifyOutput>` |
+| `ipfs log level` | `logLevel` | `Future<LogLevelOutput>` |
+| `ipfs log ls` | `logLs` | `Future<StringList>` |
+| `ipfs log tail` | `logTail` | `Stream<Uint8List>` |
+| `ipfs ls` | `ls` | `Stream<LsOutput>` |
+| `ipfs multibase decode` | `multibaseDecode` | `Stream<Uint8List>` |
+| `ipfs multibase encode` | `multibaseEncode` | `Stream<Uint8List>` |
+| `ipfs multibase list` | `multibaseList` | `Future<List<CodeAndName>>` |
+| `ipfs multibase transcode` | `multibaseTranscode` | `Stream<Uint8List>` |
+| `ipfs name get` | `nameGet` | `Stream<Uint8List>` |
+| `ipfs name inspect` | `nameInspect` | `Future<IpnsInspectResult>` |
+| `ipfs name publish` | `namePublish` | `Future<IpnsEntry>` |
+| `ipfs name pubsub cancel` | `namePubsubCancel` | `Future<IpnsPubsubCancel>` |
+| `ipfs name pubsub state` | `namePubsubState` | `Future<IpnsPubsubState>` |
+| `ipfs name pubsub subs` | `namePubsubSubs` | `Future<NameStringList>` |
+| `ipfs name put` | `namePut` | `Future<IpnsEntry>` |
+| `ipfs name resolve` | `nameResolve` | `Stream<ResolvedPath>` |
+| `ipfs object diff` | `objectDiff` | `Future<Changes>` |
+| `ipfs object patch add-link` | `objectPatchAddLink` | `Future<Object$>` |
+| `ipfs object patch rm-link` | `objectPatchRmLink` | `Future<Object$>` |
+| `ipfs p2p close` | `p2pClose` | `Future<int>` |
+| `ipfs p2p forward` | `p2pForward` | `Stream<P2pForegroundOutput>` |
+| `ipfs p2p listen` | `p2pListen` | `Stream<P2pForegroundOutput>` |
+| `ipfs p2p ls` | `p2pLs` | `Future<P2pLsOutput>` |
+| `ipfs p2p stream close` | `p2pStreamClose` | `Future<Object?>` |
+| `ipfs p2p stream ls` | `p2pStreamLs` | `Future<P2pStreamsOutput>` |
+| `ipfs pin add` | `pinAdd` | `Stream<AddPinOutput>` |
+| `ipfs pin ls` | `pinLs` | `Stream<PinLsOutputWrapper>` |
+| `ipfs pin remote add` | `pinRemoteAdd` | `Stream<RemotePinOutput>` |
+| `ipfs pin remote ls` | `pinRemoteLs` | `Stream<RemotePinOutput>` |
+| `ipfs pin remote rm` | `pinRemoteRm` | `Future<Object?>` |
+| `ipfs pin remote service add` | `pinRemoteServiceAdd` | `Future<Object?>` |
+| `ipfs pin remote service ls` | `pinRemoteServiceLs` | `Future<PinServicesList>` |
+| `ipfs pin remote service rm` | `pinRemoteServiceRm` | `Future<Object?>` |
+| `ipfs pin rm` | `pinRm` | `Future<PinOutput>` |
+| `ipfs pin update` | `pinUpdate` | `Future<PinOutput>` |
+| `ipfs pin verify` | `pinVerify` | `Stream<PinVerifyRes>` |
+| `ipfs ping` | `ping` | `Stream<PingResult>` |
+| `ipfs provide clear` | `provideClear` | `Stream<int>` |
+| `ipfs provide once` | `provideOnce` | `Stream<ProvideOnceEvent>` |
+| `ipfs provide stat` | `provideStat` | `Stream<ProvideStats>` |
+| `ipfs pubsub ls` | `pubsubLs` | `Future<StringList>` |
+| `ipfs pubsub peers` | `pubsubPeers` | `Future<StringList>` |
+| `ipfs pubsub pub` | `pubsubPub` | `Future<Object?>` |
+| `ipfs pubsub reset` | `pubsubReset` | `Future<PubsubResetResult>` |
+| `ipfs pubsub sub` | `pubsubSub` | `Stream<PubsubMessage>` |
+| `ipfs refs` | `refs` | `Stream<RefWrapper>` |
+| `ipfs refs local` | `refsLocal` | `Stream<RefWrapper>` |
+| `ipfs repo gc` | `repoGc` | `Stream<GcResult>` |
+| `ipfs repo ls` | `repoLs` | `Stream<RefWrapper>` |
+| `ipfs repo migrate` | `repoMigrate` | `Future<Object?>` |
+| `ipfs repo stat` | `repoStat` | `Future<CorerepoStat>` |
+| `ipfs repo verify` | `repoVerify` | `Stream<VerifyProgress>` |
+| `ipfs repo version` | `repoVersion` | `Future<RepoVersion>` |
+| `ipfs resolve` | `resolve` | `Future<ResolvedPath>` |
+| `ipfs routing findpeer` | `routingFindpeer` | `Stream<QueryEvent>` |
+| `ipfs routing findprovs` | `routingFindprovs` | `Stream<QueryEvent>` |
+| `ipfs routing get` | `routingGet` | `Stream<QueryEvent>` |
+| `ipfs routing provide` | `routingProvide` | `Stream<QueryEvent>` |
+| `ipfs routing put` | `routingPut` | `Stream<QueryEvent>` |
+| `ipfs routing reprovide` | `routingReprovide` | `Future<Object?>` |
+| `ipfs stats bitswap` | `statsBitswap` | `Future<Stat>` |
+| `ipfs stats bw` | `statsBw` | `Stream<MetricsStats>` |
+| `ipfs stats dht` | `statsDht` | `Stream<DhtStat>` |
+| `ipfs stats provide` | `statsProvide` | `Stream<ProvideStats>` |
+| `ipfs stats repo` | `statsRepo` | `Future<CorerepoStat>` |
+| `ipfs stats reprovide` | `statsReprovide` | `Stream<ProvideStats>` |
+| `ipfs swarm addrs` | `swarmAddrs` | `Future<AddrMap>` |
+| `ipfs swarm addrs autonat` | `swarmAddrsAutonat` | `Future<AutoNatResult>` |
+| `ipfs swarm addrs listen` | `swarmAddrsListen` | `Future<StringList>` |
+| `ipfs swarm addrs local` | `swarmAddrsLocal` | `Future<StringList>` |
+| `ipfs swarm connect` | `swarmConnect` | `Future<StringList>` |
+| `ipfs swarm disconnect` | `swarmDisconnect` | `Future<StringList>` |
+| `ipfs swarm filters` | `swarmFilters` | `Future<StringList>` |
+| `ipfs swarm filters add` | `swarmFiltersAdd` | `Future<StringList>` |
+| `ipfs swarm filters rm` | `swarmFiltersRm` | `Future<StringList>` |
+| `ipfs swarm peering add` | `swarmPeeringAdd` | `Stream<PeeringResult>` |
+| `ipfs swarm peering ls` | `swarmPeeringLs` | `Future<AddrInfos>` |
+| `ipfs swarm peering rm` | `swarmPeeringRm` | `Stream<PeeringResult>` |
+| `ipfs swarm peers` | `swarmPeers` | `Future<ConnInfos>` |
+| `ipfs swarm resources` | `swarmResources` | `Future<LimitsConfigAndUsage>` |
+| `ipfs version` | `version` | `Future<VersionInfo>` |
+| `ipfs version check` | `versionCheck` | `Future<VersionCheckOutput>` |
+| `ipfs version deps` | `versionDeps` | `Stream<Dependency>` |
+
+Fora:
+
+- `ipfs commands`: a ajuda do CLI
+- `ipfs commands completion bash`: a ajuda do CLI
+- `ipfs commands completion fish`: a ajuda do CLI
+- `ipfs commands completion zsh`: a ajuda do CLI
+- `ipfs config edit`: abre o $EDITOR no processo do host
+- `ipfs dag export`: porte à mão com o mesmo nome (`kubo/core/commands/dag.dart`)
+- `ipfs dag get`: porte à mão com o mesmo nome (`kubo/core/commands/dag.dart`)
+- `ipfs dag import`: porte à mão com o mesmo nome (`kubo/core/commands/dag.dart`)
+- `ipfs dag put`: porte à mão com o mesmo nome (`kubo/core/commands/dag.dart`)
+- `ipfs mount`: FUSE: monta no sistema de arquivos do host
+- `ipfs shutdown`: desliga o daemon; no ipfs_ffi é `IpfsNode.close`/`IpfsService.stop`
+- `ipfs update check`: atualiza o binário do kubo (não é o caso do ipfs_host)
+- `ipfs update clean`: atualiza o binário do kubo (não é o caso do ipfs_host)
+- `ipfs update install`: atualiza o binário do kubo (não é o caso do ipfs_host)
+- `ipfs update revert`: atualiza o binário do kubo (não é o caso do ipfs_host)
+- `ipfs update versions`: atualiza o binário do kubo (não é o caso do ipfs_host)

@@ -1,4 +1,4 @@
-# O protocolo do serviço (ipfs_ffi 0.13.0)
+# O protocolo do serviço (ipfs_ffi 0.14.0)
 
 O `ipfs_ffi` roda o kubo **só** num processo separado, o `ipfs_host` (o Go deste
 pacote compilado como executável). Um panic não tratado do kubo derruba esse
@@ -54,13 +54,15 @@ Tudo em little-endian.
 | 32 | dag put | `i64` CoreAPI, `i64` ctx, `kBytes` dados, string input-codec, string store-codec, string hash, bool pin, bool allow-big-block → `u8` presente + string CID |
 | 33 | dag get | `i64` CoreAPI, `i64` ctx, string path, string output-codec → `kBytes` |
 | 34 | dag export | `i64` IpfsNode, `i64` ctx, string path, bool local-only, string arquivo (`''` = devolve os bytes) → `kBytes` (vazio quando grava no arquivo) |
+| 36 | Command (os comandos do RPC) | modo stream: `i64` IpfsNode, `i64` ctx, string caminho (`"files stat"`), `kSlice` de string args, `kSlice` de handles `files.Node` (os `FileArg`), `i32 n` opções × (string nome, `kAny` valor) → `item`s (ver "Comandos") |
 | 35 | dag import | `i64` IpfsNode, `i64` ctx, `kSlice` de string arquivos, `kBytes` CAR (`-1` = usa os arquivos), bool pin-roots, bool allow-big-block → `i32 n` raízes × (string CID, string erro do pin), `i64` blocos, `i64` bytes |
 | 40 | config.Profiles | — → `i32 n` × string (nomes em ordem) |
 | 41 | config.Profile.Transform | string nome, string JSON do config → string JSON do config transformado |
 | ≥ 64 | as geradas | id = 64 + posição na lista das funções expostas em ordem de chave (`assignIDs` em `go/gen/main.go`) |
 
-O hash da tabela (FNV-1a 64 de `"id chave\n"` por função gerada) vai no `Hello`
-logo depois de conectar: app e host têm de vir do mesmo gerador.
+O hash da tabela (FNV-1a 64 de `"id chave\n"` por função gerada, combinado com o hash
+do esquema dos comandos e dos DTOs deles) vai no `Hello` logo depois de conectar: app e
+host têm de vir do mesmo gerador.
 
 ## Codificação dos valores
 
@@ -106,6 +108,36 @@ Tipos nomeados sobre básicos (enums do kubo) vão como o básico. Por tipo do m
 **Handles**: o host guarda os objetos numa tabela (`i64` a partir de 1); o app os
 solta com `Free` (em lote, pelo `Finalizer`). Um handle só vale na vida do serviço
 em que nasceu: depois de um reinício, usá-lo dá `IpfsServiceException`.
+
+## Comandos (função 36)
+
+Os comandos da árvore do kubo (`core/commands.Root`, o `/api/v0` do RPC), gerados em
+`lib/kubo/core/commands.dart` por `go/gen/commands.go`. O host monta a requisição do
+go-ipfs-cmds (`NewRequest` + `FillDefaults`) e chama `Root.Call` como o servidor HTTP do
+kubo (sem o `PreRun` do CLI), com o nó do app no ambiente (`ConstructNode`; `ConfigRoot`
+= a chave com que o `fsrepo.Open` abriu o repo, para os comandos de config reabrirem o
+mesmo).
+
+- Opções: só as passadas (null no Dart = o padrão do kubo); o host converte o `kAny` para o
+  tipo que a opção declara (`int64` → `int`/`uint`..., lista → `[]string`). Nome
+  desconhecido ou tipo errado é erro.
+- Cada valor emitido é um `item`: `u8` etiqueta + valor.
+  - `0` tipado: o valor no tipo `Type` do comando (ponteiros seguidos), codificado pelo
+    esquema de `go/cmdschema` (o mesmo que gerou o DTO Dart): bool `u8`; inteiros e
+    `time.Duration` `i64`; float `f64`; string; `[]byte` `kBytes`; tipos com
+    `MarshalText`/`String` sem campos exportados (CID, peer ID, multiaddr) string;
+    `time.Time` como no `kValue`; slice `i32 n` (`-1` = nil) + itens; mapa `i32 n` (`-1` =
+    nil) + pares (chave string, em ordem) ; struct: os campos de `cmdschema.Fields` em ordem
+    (embutidos achatados, `json:"-"` fora); ponteiro `u8` presente + valor; `any` `kAny`.
+  - `1` dinâmico: um valor de outro tipo (`files rm` emite string; comando sem `Type`), em
+    `kAny`.
+  - `2` bytes: um pedaço (até 256 KiB) de um `io.Reader` emitido (`cat`, `files read`); o
+    `Emit` só volta depois de ler o reader inteiro, porque o comando fecha o que emitiu
+    quando o `Run` volta.
+- O erro do `Run` (ou um panic do comando) vira o `erro` do stream.
+- No Dart: `Future<T>` espera exatamente um item `0` (mais de um é erro, "belongs in a
+  Stream"); `Stream<T>` lê itens `0`; `Stream<Uint8List>` lê itens `2`; `Object?` aceita
+  `1` e `2`.
 
 ## Notas (o que a tabela acima não fixava; o host segue assim)
 

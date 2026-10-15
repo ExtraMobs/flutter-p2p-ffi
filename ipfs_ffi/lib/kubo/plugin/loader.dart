@@ -10,17 +10,17 @@ class PluginLoader extends GoHandle {
 
   /// Go: `func loader.NewPluginLoader(repo string) (*loader.PluginLoader, error)`.
   factory PluginLoader(String repo) {
-    final $r = $callSync(220, $W()..str(repo));
+    final $r = $callSync(221, $W()..str(repo));
     return $r.hnn(PluginLoader.$h);
   }
 
   /// Go: `func (*loader.PluginLoader).Initialize() error`.
   void initialize() {
-    $callSync(221, $W()..h(this));
+    $callSync(222, $W()..h(this));
   }
 
   /// Go: `func (*loader.PluginLoader).Inject() error`.
   void inject() {
-    $callSync(222, $W()..h(this));
+    $callSync(223, $W()..h(this));
   }
 }

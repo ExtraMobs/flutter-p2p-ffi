@@ -8,3 +8,9 @@ import 'package:ipfs_ffi/src/runtime.dart';
 class SplitterGen extends GoHandle {
   SplitterGen.$h(super.$h);
 }
+
+/// Go: `func chunk.SizeSplitterGen(size int64) chunk.SplitterGen`.
+SplitterGen sizeSplitterGen(int size) {
+  final $r = $callSync(68, $W()..i64(size));
+  return $r.hnn(SplitterGen.$h);
+}

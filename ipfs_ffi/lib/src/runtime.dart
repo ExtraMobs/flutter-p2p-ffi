@@ -11,6 +11,7 @@ import 'dart:typed_data';
 import 'shm.dart';
 
 part 'runtime/codec.dart';
+part 'runtime/commands.dart';
 
 /// Error returned by Go (the `error` of a `(T, error)`, or a panic inside a
 /// call).

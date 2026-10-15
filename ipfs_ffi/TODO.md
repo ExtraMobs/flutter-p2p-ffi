@@ -1,5 +1,29 @@
 # Pendências do ipfs_ffi
 
+## Feito: os comandos do RPC (0.14.0)
+
+Decisões do dono: um DTO para cada retorno; `Future`, e `Stream` só nos que emitem vários; os
+portes à mão de `dag` ficam (o gerador não gera outro com o mesmo nome).
+
+- `go/gen/commands.go` percorre `core/commands.Root` (148 comandos) e gera
+  `lib/kubo/core/commands.dart`; a função 36 do host (`go/manual_commands.go`) chama
+  `Root.Call` como o servidor HTTP do kubo, com o nó do app. Esquema dos DTOs e codificador
+  do host saem do mesmo `go/cmdschema`; o hash do Hello cobre o esquema.
+- `Future`/`Stream` sai do fonte do kubo: `cmds.EmitOnce` sem `.Emit(` é `Future`; os que
+  emitem `io.Reader` são `Stream<Uint8List>` (tabela `cmdByteOut`); sem `Type`, `Object?`.
+- Fora, com o motivo no `API.md`: `shutdown`, `mount`, `update`, `commands`, `config edit` e
+  os quatro `dag` à mão.
+- Corrigido no caminho: o `Emit` de um `io.Reader` tem de ler tudo antes de voltar (o
+  `files read` fecha o fd quando o `Run` volta: `read failed: file closed`); no Windows o
+  `fsrepo` só reaproveita o repo aberto pela mesma string do `Open` (`lock is already held
+  by us` nos comandos de config), e o host passa essa chave como `ConfigRoot`.
+- Raiz `chunker.sizeSplitterGen` (o produtor do `SplitterGen` do `mfs.withChunker`).
+- O `go.mod` ganhou as dependências indiretas que o `core/commands` do kubo já trazia; o
+  `ipfs_host` do Windows foi de 57,1 para 60,1 MB.
+
+Desktop 52/52 (Windows, linux 3x); integração 4/4 no emulador, com `id` e `files` pela rota
+dos comandos.
+
 ## Feito: CoreAPI completa e o baixo nível de MFS, config e peering (0.13.0)
 
 Decisões do dono: tudo do kubo, na ordem CoreAPI → baixo nível → comandos; MFS e config nos
@@ -30,7 +54,7 @@ dois níveis; "não refaz nada na mão em Dart, sempre expõe o que existe na ve
 - Achado no boxo v0.43.0, reproduzido em Go puro: anexar no fim de um arquivo do MFS cujo nó
   guarda os dados embutidos deixa a leitura só com o trecho anexado (README).
 
-Desktop 44/44 (Windows 4x, linux 3x); integração 4/4 no emulador. ⏳ 0.14: os comandos do RPC.
+Desktop 44/44 (Windows 4x, linux 3x); integração 4/4 no emulador.
 
 ## Feito: CAR no namespace kubo (0.12.0)
 
