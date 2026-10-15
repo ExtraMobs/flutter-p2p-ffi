@@ -6,5 +6,4 @@
 /// import one Go package at a time from `package:ipfs_ffi/ipld/...`.
 library;
 
-export 'ipld/block_format.dart';
 export 'ipld/format.dart';

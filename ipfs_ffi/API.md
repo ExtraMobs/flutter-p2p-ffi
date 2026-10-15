@@ -22,6 +22,72 @@ Cada linha é um símbolo Go exposto e onde ele está no Dart.
 | `func (*merkledag.ProtoNode).SetData(d []byte)` | `ProtoNode.setData` | síncrona |
 | `func (*merkledag.ProtoNode).Data() []byte` | `ProtoNode.data` | síncrona |
 
+## `github.com/ipfs/boxo/mfs` → `package:ipfs_ffi/boxo/mfs.dart`
+
+| Go | Dart | Modo |
+|---|---|---|
+| `const mfs.TFile mfs.NodeType` | `tFile` | const |
+| `const mfs.TDir mfs.NodeType` | `tDir` | const |
+| `func mfs.Lookup(r *mfs.Root, path string) (mfs.FSNode, error)` | `lookup` | síncrona |
+| `func mfs.DirLookup(d *mfs.Directory, pth string) (mfs.FSNode, error)` | `dirLookup` | síncrona |
+| `func mfs.Mkdir(r *mfs.Root, pth string, opts mfs.MkdirOpts, dirOpts ...mfs.Option) error` | `mkdir` | síncrona |
+| `func mfs.Mv(r *mfs.Root, src string, dst string) error` | `mv` | síncrona |
+| `func mfs.PutNode(r *mfs.Root, path string, nd format.Node) error` | `putNode` | síncrona |
+| `func mfs.FlushPath(ctx context.Context, rt *mfs.Root, pth string) (format.Node, error)` | `flushPath` | Future |
+| `func mfs.Chmod(rt *mfs.Root, pth string, mode os.FileMode) error` | `chmod` | síncrona |
+| `func mfs.Touch(rt *mfs.Root, pth string, ts time.Time) error` | `touch` | síncrona |
+| `func mfs.IsDir(fsn mfs.FSNode) bool` | `isDir` | síncrona |
+| `func mfs.IsFile(fsn mfs.FSNode) bool` | `isFile` | síncrona |
+| `func (*mfs.Root).GetDirectory() *mfs.Directory` | `Root.getDirectory` | síncrona |
+| `func (*mfs.Root).Flush() error` | `Root.flush` | síncrona |
+| `func (*mfs.Root).FlushMemFree(ctx context.Context) error` | `Root.flushMemFree` | Future |
+| `func (mfs.FSNode).GetNode() (format.Node, error)` | `FsNode.getNode` | síncrona |
+| `func (mfs.FSNode).Flush() error` | `FsNode.flush` | síncrona |
+| `func (mfs.FSNode).Type() mfs.NodeType` | `FsNode.type` | síncrona |
+| `func (mfs.FSNode).SetMode(mode os.FileMode) error` | `FsNode.setMode` | síncrona |
+| `func (mfs.FSNode).SetModTime(ts time.Time) error` | `FsNode.setModTime` | síncrona |
+| `func (*mfs.Directory).Child(name string) (mfs.FSNode, error)` | `Directory.child` | síncrona |
+| `func (*mfs.Directory).ListNames(ctx context.Context) ([]string, error)` | `Directory.listNames` | Future |
+| `func (*mfs.Directory).List(ctx context.Context) ([]mfs.NodeListing, error)` | `Directory.list` | Future |
+| `func (*mfs.Directory).Mkdir(name string) (*mfs.Directory, error)` | `Directory.mkdir` | síncrona |
+| `func (*mfs.Directory).MkdirWithOpts(name string, opts ...mfs.Option) (*mfs.Directory, error)` | `Directory.mkdirWithOpts` | síncrona |
+| `func (*mfs.Directory).Unlink(name string) error` | `Directory.unlink` | síncrona |
+| `func (*mfs.Directory).Uncache(name string)` | `Directory.uncache` | síncrona |
+| `func (*mfs.Directory).AddChild(name string, nd format.Node) error` | `Directory.addChild` | síncrona |
+| `func (*mfs.Directory).Flush() error` | `Directory.flush` | síncrona |
+| `func (*mfs.Directory).GetNode() (format.Node, error)` | `Directory.getNode` | síncrona |
+| `func (*mfs.Directory).Path() string` | `Directory.path` | síncrona |
+| `func (*mfs.Directory).Mode() (os.FileMode, error)` | `Directory.mode` | síncrona |
+| `func (*mfs.Directory).ModTime() (time.Time, error)` | `Directory.modTime` | síncrona |
+| `func (*mfs.File).Open(ctx context.Context, flags mfs.Flags) (_ mfs.FileDescriptor, _retErr error)` | `File.open` | Future |
+| `func (*mfs.File).Size() (int64, error)` | `File.size` | síncrona |
+| `func (*mfs.File).GetNode() (format.Node, error)` | `File.getNode` | síncrona |
+| `func (*mfs.File).Flush() error` | `File.flush` | síncrona |
+| `func (*mfs.File).Sync() error` | `File.sync` | síncrona |
+| `func (*mfs.File).Mode() (os.FileMode, error)` | `File.mode` | síncrona |
+| `func (*mfs.File).ModTime() (time.Time, error)` | `File.modTime` | síncrona |
+| `(*mfs.File).RawLeaves bool` | `File.rawLeaves` | campo |
+| `(*mfs.File).RawLeaves bool` | `File.rawLeaves =` | campo |
+| `func (io.Reader).Read(p []byte) (n int, err error)` | `FileDescriptor.read` | síncrona |
+| `func (mfs.FileDescriptor).CtxReadFull(context.Context, []byte) (int, error)` | `FileDescriptor.ctxReadFull` | Future |
+| `func (io.Writer).Write(p []byte) (n int, err error)` | `FileDescriptor.write` | síncrona |
+| `func (io.WriterAt).WriteAt(p []byte, off int64) (n int, err error)` | `FileDescriptor.writeAt` | síncrona |
+| `func (io.Seeker).Seek(offset int64, whence int) (int64, error)` | `FileDescriptor.seek` | síncrona |
+| `func (mfs.FileDescriptor).Truncate(int64) error` | `FileDescriptor.truncate` | síncrona |
+| `func (mfs.FileDescriptor).Size() (int64, error)` | `FileDescriptor.size` | síncrona |
+| `func (mfs.FileDescriptor).Flush() error` | `FileDescriptor.flush` | síncrona |
+| `func (io.Closer).Close() error` | `FileDescriptor.close` | síncrona |
+| `mfs.FSNode → x.(*mfs.Directory)` | `FsNode.asDirectory` | cast |
+| `mfs.FSNode → x.(*mfs.File)` | `FsNode.asFile` | cast |
+
+## `github.com/ipfs/boxo/peering` → `package:ipfs_ffi/boxo/peering.dart`
+
+| Go | Dart | Modo |
+|---|---|---|
+| `func (*peering.PeeringService).AddPeer(info peer.AddrInfo)` | `PeeringService.addPeer` | síncrona |
+| `func (*peering.PeeringService).RemovePeer(id peer.ID)` | `PeeringService.removePeer` | síncrona |
+| `func (*peering.PeeringService).ListPeers() []peer.AddrInfo` | `PeeringService.listPeers` | síncrona |
+
 ## `github.com/ipfs/go-ipld-format` → `package:ipfs_ffi/ipld/format.dart`
 
 | Go | Dart | Modo |
@@ -33,6 +99,8 @@ Cada linha é um símbolo Go exposto e onde ele está no Dart.
 | `func (format.Node).Links() []*format.Link` | `Node.links` | síncrona |
 | `func (format.Node).Size() (uint64, error)` | `Node.size` | síncrona |
 | `func (format.Node).Stat() (*format.NodeStat, error)` | `Node.stat` | síncrona |
+| `format.Node → x.(*merkledag.ProtoNode)` | `Node.asProtoNode` | cast |
+| `format.Node → x.(*merkledag.RawNode)` | `Node.asRawNode` | cast |
 
 ## `github.com/ipfs/kubo/config` → `package:ipfs_ffi/kubo/config.dart`
 
@@ -40,6 +108,8 @@ Cada linha é um símbolo Go exposto e onde ele está no Dart.
 |---|---|---|
 | `func config.CreateIdentity(out io.Writer, opts []options.KeyGenerateOption) (config.Identity, error)` | `createIdentity` | síncrona |
 | `func config.InitWithIdentity(identity config.Identity) (*config.Config, error)` | `initWithIdentity` | síncrona |
+| `func config.ParseBootstrapPeers(addrs []string) ([]peer.AddrInfo, error)` | `parseBootstrapPeers` | síncrona |
+| `func config.BootstrapPeerStrings(bps []peer.AddrInfo) []string` | `bootstrapPeerStrings` | síncrona |
 
 ## `github.com/ipfs/kubo/core` → `package:ipfs_ffi/kubo/core.dart`
 
@@ -47,6 +117,12 @@ Cada linha é um símbolo Go exposto e onde ele está no Dart.
 |---|---|---|
 | `func core.NewNode(ctx context.Context, cfg *core.BuildCfg) (*core.IpfsNode, error)` | `newNode` | Future |
 | `func (*core.IpfsNode).Close() error` | `IpfsNode.close` | Future |
+| `(*core.IpfsNode).FilesRoot *mfs.Root` | `IpfsNode.filesRoot` | campo |
+| `(*core.IpfsNode).FilesRoot *mfs.Root` | `IpfsNode.filesRoot =` | campo |
+| `(*core.IpfsNode).Repo repo.Repo` | `IpfsNode.repo` | campo |
+| `(*core.IpfsNode).Repo repo.Repo` | `IpfsNode.repo =` | campo |
+| `(*core.IpfsNode).Peering *peering.PeeringService` | `IpfsNode.peering` | campo |
+| `(*core.IpfsNode).Peering *peering.PeeringService` | `IpfsNode.peering =` | campo |
 
 ## `github.com/ipfs/kubo/core/coreapi` → `package:ipfs_ffi/kubo/core/coreapi.dart`
 
@@ -87,6 +163,8 @@ Cada linha é um símbolo Go exposto e onde ele está no Dart.
 | `func (iface.RoutingAPI).Provide(context.Context, path.Path, ...options.RoutingProvideOption) error` | `RoutingApi.provide` | Future |
 | `func (iface.RoutingAPI).FindProviders(context.Context, path.Path, ...options.RoutingFindProvidersOption) (<-chan peer.AddrInfo, error)` | `RoutingApi.findProviders` | Stream |
 | `func (iface.RoutingAPI).FindPeer(context.Context, peer.ID) (peer.AddrInfo, error)` | `RoutingApi.findPeer` | Future |
+| `func (iface.RoutingAPI).Get(context.Context, string) ([]byte, error)` | `RoutingApi.get` | Future |
+| `func (iface.RoutingAPI).Put(ctx context.Context, key string, value []byte, opts ...options.RoutingPutOption) error` | `RoutingApi.put` | Future |
 | `func (iface.CoreAPI).Name() iface.NameAPI` | `CoreApi.name` | síncrona |
 | `func (iface.NameAPI).Publish(ctx context.Context, path path.Path, opts ...options.NamePublishOption) (ipns.Name, error)` | `NameApi.publish` | Future |
 | `func (iface.NameAPI).Resolve(ctx context.Context, name string, opts ...options.NameResolveOption) (path.Path, error)` | `NameApi.resolve` | Future |
@@ -114,6 +192,15 @@ Cada linha é um símbolo Go exposto e onde ele está no Dart.
 | `func (iface.PubSubAPI).Subscribe(context.Context, string, ...options.PubSubSubscribeOption) (iface.PubSubSubscription, error)` | `PubSubApi.subscribe` | Future |
 | `func (iface.PubSubSubscription).Next(context.Context) (iface.PubSubMessage, error)` | `PubSubSubscription.next` | Future |
 | `func (io.Closer).Close() error` | `PubSubSubscription.close` | síncrona |
+| `func (iface.CoreAPI).WithOptions(...options.ApiOption) (iface.CoreAPI, error)` | `CoreApi.withOptions` | síncrona |
+| `func (iface.CoreAPI).Object() iface.ObjectAPI` | `CoreApi.object` | síncrona |
+| `func (iface.ObjectAPI).AddLink(ctx context.Context, base path.Path, name string, child path.Path, opts ...options.ObjectAddLinkOption) (path.ImmutablePath, error)` | `ObjectApi.addLink` | Future |
+| `func (iface.ObjectAPI).RmLink(ctx context.Context, base path.Path, link string, opts ...options.ObjectRmLinkOption) (path.ImmutablePath, error)` | `ObjectApi.rmLink` | Future |
+| `func (iface.ObjectAPI).Diff(context.Context, path.Path, path.Path) ([]iface.ObjectChange, error)` | `ObjectApi.diff` | Future |
+| `func (iface.Reader).Size() uint64` | `Reader.size` | síncrona |
+| `const iface.DiffAdd iface.ChangeType` | `diffAdd` | const |
+| `const iface.DiffRemove iface.ChangeType` | `diffRemove` | const |
+| `const iface.DiffMod iface.ChangeType` | `diffMod` | const |
 
 ## `github.com/ipfs/kubo/core/corerepo` → `package:ipfs_ffi/kubo/core/corerepo.dart`
 
@@ -145,6 +232,10 @@ Cada linha é um símbolo Go exposto e onde ele está no Dart.
 | Go | Dart | Modo |
 |---|---|---|
 | `func (repo.Repo).Config() (*config.Config, error)` | `Repo.config` | síncrona |
+| `func (repo.Repo).SetConfig(*config.Config) error` | `Repo.setConfig` | síncrona |
+| `func (repo.Repo).SetConfigKey(key string, value any) error` | `Repo.setConfigKey` | síncrona |
+| `func (repo.Repo).GetConfigKey(key string) (any, error)` | `Repo.getConfigKey` | síncrona |
+| `func (repo.Repo).BackupConfig(prefix string) (string, error)` | `Repo.backupConfig` | síncrona |
 
 ## `github.com/ipfs/kubo/repo/fsrepo` → `package:ipfs_ffi/kubo/repo/fsrepo.dart`
 

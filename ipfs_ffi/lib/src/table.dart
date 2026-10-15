@@ -3,4 +3,4 @@
 /// Hash of the generated function table (FNV-1a 64 of "id key" per line, one
 /// per function; WIRE.md): sent in the Hello right after connecting to the
 /// ipfs_host.
-const ipfsTableHash = 0xaee9320e3f959234;
+const ipfsTableHash = 0xa7024fd52b830511;

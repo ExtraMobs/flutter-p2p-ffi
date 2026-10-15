@@ -10,11 +10,13 @@ import (
 	"bytes"
 	"flag"
 	"fmt"
+	"go/constant"
 	"go/types"
 	"hash/fnv"
 	"os"
 	"path/filepath"
 	"sort"
+	"strconv"
 	"strings"
 
 	"golang.org/x/tools/go/packages"
@@ -25,6 +27,9 @@ import (
 var paramNames = map[string][]string{
 	"github.com/ipfs/kubo/core/coreiface.PubSubAPI.Publish":   {"ctx", "topic", "data"},
 	"github.com/ipfs/kubo/core/coreiface.PubSubAPI.Subscribe": {"ctx", "topic", "opts"},
+	"github.com/ipfs/kubo/core/coreiface.RoutingAPI.Get":      {"ctx", "key"},
+	"github.com/ipfs/kubo/core/coreiface.RoutingAPI.Put":      {"ctx", "key", "value", "opts"},
+	"github.com/ipfs/kubo/core/coreiface.ObjectAPI.Diff":      {"ctx", "before", "after"},
 }
 
 // forceAsync: funções sem context que bloqueiam (rede, desligamento).
@@ -51,7 +56,19 @@ type fn struct {
 	why     string // motivo da omissão
 	direct  int    // ponytail: sempre -1 (os exports diretos saíram no 0.9.0); sai quando emit_dart.go/emit_api.go pararem de lê-lo
 	id      int    // id da função no protocolo do serviço (WIRE.md); 0 = omitida
+
+	constLit string // constante (obj *types.Const): o literal Dart; não vai ao host
+	field    bool   // campo de struct num handle (obj é o *types.Var do campo)
+	setter   bool   // field: a escrita (um parâmetro, sem resultado)
+	cast     *tinfo // type assertion do receptor (interface) para este handle concreto
+	outBuf   int    // índice do []byte que o Go preenche (Read, ReadAt, CtxReadFull); -1 = nenhum
 }
+
+func isConstObj(o types.Object) bool { _, ok := o.(*types.Const); return ok }
+
+// outBufMethods: métodos no formato do io.Reader (o Go preenche o []byte e
+// devolve quantos bytes): no Dart recebem o tamanho e devolvem os bytes lidos.
+var outBufMethods = setOf(`Read ReadAt CtxReadFull`)
 
 // firstID: os ids abaixo são do runtime e das funções escritas à mão (WIRE.md).
 const firstID = 64
@@ -63,7 +80,7 @@ const firstID = 64
 func assignIDs(fns []*fn) uint64 {
 	var live []*fn
 	for _, f := range fns {
-		if f.why == "" {
+		if f.why == "" && !isConstObj(f.obj) { // constantes não vão ao host
 			live = append(live, f)
 		}
 	}
@@ -146,12 +163,13 @@ func generate(rootsFile string) (map[string][]byte, error) {
 	}
 	var fns []*fn
 	for _, line := range lines {
-		f, err := m.resolve(pkgs, line)
+		fs, err := m.resolve(pkgs, line)
 		if err != nil {
 			return nil, err
 		}
-		fns = append(fns, f)
+		fns = append(fns, fs...)
 	}
+	fns = append(fns, m.casts(fns)...)
 	for _, f := range fns {
 		f.direct = -1
 	}
@@ -232,17 +250,26 @@ func loadPaths(paths []string) (map[string]*types.Package, error) {
 	return out, nil
 }
 
-func (m *model) resolve(pkgs map[string]*types.Package, line string) (*fn, error) {
+// resolve: a linha [line] do roots.txt vira uma função (ou duas, num campo:
+// leitura e escrita).
+func (m *model) resolve(pkgs map[string]*types.Package, line string) ([]*fn, error) {
 	pkgPath, name, method := splitRoot(line)
 	pkg := pkgs[pkgPath]
 	if pkg == nil || name == "" {
 		return nil, fmt.Errorf("raiz inválida: %s", line)
 	}
 	obj := pkg.Scope().Lookup(name)
-	f := &fn{key: line, pkg: pkg}
+	f := &fn{key: line, pkg: pkg, outBuf: -1}
 	switch {
 	case method == "":
 		switch o := obj.(type) {
+		case *types.Const: // constante: o valor vai direto no Dart
+			f.obj = o
+			f.results = []*tinfo{m.classify(o.Type())}
+			if f.constLit = dartConstLit(o); f.constLit == "" {
+				f.why = "constante de tipo " + o.Type().String()
+			}
+			return []*fn{f}, nil
 		case *types.Func:
 			f.obj = o
 		case *types.Var: // variável de pacote: getter sem parâmetros
@@ -260,9 +287,9 @@ func (m *model) resolve(pkgs map[string]*types.Package, line string) (*fn, error
 			}
 			f.results = []*tinfo{m.classify(t)}
 			m.check(f)
-			return f, nil
+			return []*fn{f}, nil
 		default:
-			return nil, fmt.Errorf("%s não é função nem variável", line)
+			return nil, fmt.Errorf("%s não é função, variável nem constante", line)
 		}
 	default:
 		tn, ok := obj.(*types.TypeName)
@@ -273,11 +300,15 @@ func (m *model) resolve(pkgs map[string]*types.Package, line string) (*fn, error
 		if !types.IsInterface(recvT) {
 			recvT = types.NewPointer(recvT)
 		}
-		sel := types.NewMethodSet(recvT).Lookup(pkg, method)
-		if sel == nil {
-			return nil, fmt.Errorf("%s: método %s não existe", line, method)
+		sel, _, _ := types.LookupFieldOrMethod(recvT, true, pkg, method)
+		if v, ok := sel.(*types.Var); ok && v.IsField() && v.Exported() {
+			return m.fieldRoot(line, pkg, recvT, v), nil
 		}
-		f.obj = sel.Obj().(*types.Func)
+		fobj, ok := sel.(*types.Func)
+		if !ok {
+			return nil, fmt.Errorf("%s: método ou campo %s não existe", line, method)
+		}
+		f.obj = fobj
 		f.recv = m.classify(recvT)
 		if f.recv.k != kHandle {
 			f.why = "receptor não é handle: " + f.recv.why
@@ -304,8 +335,134 @@ func (m *model) resolve(pkgs map[string]*types.Package, line string) (*fn, error
 	for _, r := range res {
 		f.results = append(f.results, m.classify(r))
 	}
+	markOutBuf(f)
 	m.check(f)
-	return f, nil
+	return []*fn{f}, nil
+}
+
+// markOutBuf: método no formato do io.Reader (um []byte e o resultado
+// `(int, error)`): o []byte é de saída (WIRE.md, "Buffer de saída").
+func markOutBuf(f *fn) {
+	if f.recv == nil || !outBufMethods[f.obj.Name()] || !f.hasErr || len(f.results) != 1 || f.results[0].k != kBasic {
+		return
+	}
+	idx := -1
+	for i, p := range f.params {
+		if p.t.k == kBytes {
+			if idx >= 0 {
+				return
+			}
+			idx = i
+		}
+	}
+	if idx >= 0 {
+		f.outBuf = idx
+		f.params[idx].name = "n"
+	}
+}
+
+// fieldRoot: um campo exportado de struct num handle: a leitura e, se o tipo
+// atravessa como parâmetro, a escrita (a mesma linha com "=").
+func (m *model) fieldRoot(line string, pkg *types.Package, recvT types.Type, v *types.Var) []*fn {
+	recv := m.classify(recvT)
+	ft := m.classify(v.Type())
+	get := &fn{key: line, pkg: pkg, obj: v, field: true, recv: recv, results: []*tinfo{ft}, outBuf: -1}
+	if recv.k != kHandle {
+		get.why = "receptor não é handle: " + recv.why
+	}
+	m.check(get)
+	set := &fn{key: line + "=", pkg: pkg, obj: v, field: true, setter: true, recv: recv,
+		params: []param{{name: dartParamName(v.Name()), t: ft}}, outBuf: -1}
+	set.why = get.why
+	m.check(set)
+	if set.why != "" {
+		return []*fn{get}
+	}
+	return []*fn{get, set}
+}
+
+// casts: para cada interface handle usada e cada handle concreto usado que a
+// implementa, a type assertion (`asDirectory()` no Dart, `v.(*mfs.Directory)`
+// no Go).
+func (m *model) casts(fns []*fn) []*fn {
+	used := map[string]*tinfo{}
+	var walk func(t *tinfo)
+	walk = func(t *tinfo) {
+		if t == nil || used[t.key] != nil {
+			return
+		}
+		used[t.key] = t
+		walk(t.elem)
+		walk(t.mkey)
+		for _, fd := range t.fields {
+			walk(fd.t)
+		}
+		for _, g := range t.gets {
+			walk(g.t)
+		}
+	}
+	for _, f := range fns {
+		if f.why != "" {
+			continue
+		}
+		walk(f.recv)
+		walk(f.stream)
+		for _, p := range f.params {
+			walk(p.t)
+		}
+		for _, r := range f.results {
+			walk(r)
+		}
+	}
+	var ifaces, concretes []*tinfo
+	for _, k := range sortedKeys(used) {
+		t := used[k]
+		if t.k != kHandle || t.reader || t.named == nil {
+			continue
+		}
+		if types.IsInterface(t.named) {
+			ifaces = append(ifaces, t)
+		} else {
+			concretes = append(concretes, t)
+		}
+	}
+	var out []*fn
+	for _, i := range ifaces {
+		it := i.named.Underlying().(*types.Interface)
+		for _, c := range concretes {
+			if !types.Implements(c.t, it) {
+				continue
+			}
+			name := "As" + c.named.Obj().Name()
+			sig := types.NewSignatureType(nil, nil, nil, nil, types.NewTuple(types.NewVar(0, nil, "", c.t)), false)
+			out = append(out, &fn{key: "cast " + i.key + " " + c.key, pkg: i.named.Obj().Pkg(),
+				obj: types.NewFunc(0, i.named.Obj().Pkg(), name, sig), recv: i, results: []*tinfo{c}, cast: c, outBuf: -1})
+		}
+	}
+	return out
+}
+
+// dartConstLit: o literal Dart de uma constante Go de tipo básico.
+func dartConstLit(c *types.Const) string {
+	v := c.Val()
+	switch v.Kind() {
+	case constant.Bool:
+		return strconv.FormatBool(constant.BoolVal(v))
+	case constant.Int:
+		if i, ok := constant.Int64Val(v); ok {
+			return strconv.FormatInt(i, 10)
+		}
+	case constant.Float:
+		f, _ := constant.Float64Val(v)
+		s := strconv.FormatFloat(f, 'g', -1, 64)
+		if !strings.ContainsAny(s, ".eEn") {
+			s += ".0"
+		}
+		return s
+	case constant.String:
+		return strings.ReplaceAll(strconv.Quote(constant.StringVal(v)), "$", `\$`)
+	}
+	return ""
 }
 
 // check decide se a função atravessa e se é assíncrona/stream.
@@ -317,7 +474,7 @@ func (m *model) check(f *fn) {
 	}
 	for _, p := range f.params {
 		switch t := p.t; t.k {
-		case kBasic, kBytes, kValue, kDTO, kHandle, kMap, kCtx, kWriter:
+		case kBasic, kBytes, kValue, kDTO, kHandle, kMap, kCtx, kWriter, kAny:
 		case kSlice:
 			if t.elem.k == kOpts || okElem(t.elem) {
 				break
@@ -337,7 +494,7 @@ func (m *model) check(f *fn) {
 	}
 	for i, r := range f.results {
 		switch r.k {
-		case kBasic, kBytes, kValue, kDTO, kSnap, kHandle, kSlice, kMap:
+		case kBasic, kBytes, kValue, kDTO, kSnap, kHandle, kSlice, kMap, kAny:
 		case kChanRecv:
 			if len(f.results) != 1 || f.stream != nil {
 				fail("canal com outros resultados")
@@ -363,7 +520,7 @@ func (m *model) check(f *fn) {
 
 func okElem(t *tinfo) bool {
 	switch t.k {
-	case kBasic, kBytes, kValue, kDTO, kSnap, kHandle, kSlice, kMap:
+	case kBasic, kBytes, kValue, kDTO, kSnap, kHandle, kSlice, kMap, kAny:
 		return true
 	}
 	return false
@@ -415,7 +572,7 @@ func paramName(t *tinfo, i int) string {
 func dedupParams(ps []param) {
 	seen := map[string]int{}
 	for i := range ps {
-		n := memberName(ps[i].name)
+		n := dartParamName(ps[i].name)
 		if seen[n]++; seen[n] > 1 {
 			ps[i].name = fmt.Sprintf("%s%d", ps[i].name, seen[n])
 		}

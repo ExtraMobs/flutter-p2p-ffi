@@ -312,6 +312,19 @@ func hfree(id int64) {
 func decH[T any](r *reader) (T, error) { return hget[T](r.i64()) }
 func encH(w *writer, v any)            { w.i64(hput(v)) }
 
+// maxOutBuf: o maior buffer de saída que um pedido pode pedir (64 MiB).
+const maxOutBuf = 64 << 20
+
+// decOutBuf: buffer que o Go preenche (Read, CtxReadFull...): o pedido traz o
+// tamanho (`i64 n`), a resposta os bytes lidos (WIRE.md, "Buffer de saída").
+func decOutBuf(r *reader) ([]byte, error) {
+	n := r.i64()
+	if n < 0 || n > maxOutBuf {
+		return nil, fmt.Errorf("ipfs_host: buffer of %d bytes (0 to %d)", n, maxOutBuf)
+	}
+	return make([]byte, n), r.err
+}
+
 // decReader: io.Reader em parâmetro: `u8 0` + bytes, ou `u8 1` + handle.
 func decReader(r *reader) (io.Reader, error) {
 	if r.u8() == 0 {

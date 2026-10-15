@@ -182,6 +182,54 @@ final class $W {
     }
   }
 
+  /// `kAny`, Go's `any` (WIRE.md, "Dynamic value"): `u8` tag + value. Maps
+  /// go with string keys; [DateTime] as ISO 8601 and a [GoValue] as its
+  /// string, like the Go side writes them.
+  void any(Object? v) {
+    switch (v) {
+      case null:
+        u8(0);
+      case bool b:
+        u8(1);
+        this.b(b);
+      case int i:
+        u8(2);
+        i64(i);
+      case double d:
+        u8(3);
+        f64(d);
+      case String s:
+        u8(4);
+        str(s);
+      case Uint8List bs:
+        u8(5);
+        bytes(bs);
+      case List<Object?> xs:
+        u8(6);
+        i32(xs.length);
+        xs.forEach(any);
+      case Map<Object?, Object?> m:
+        u8(7);
+        i32(m.length);
+        for (final e in m.entries) {
+          str('${e.key}');
+          any(e.value);
+        }
+      case DateTime t:
+        u8(4);
+        str(t.toUtc().toIso8601String());
+      case GoValue g:
+        u8(4);
+        str(g.value);
+      default:
+        throw ArgumentError.value(
+            v,
+            'v',
+            'not a dynamic value (null, bool, '
+                'int, double, String, Uint8List, List, Map, DateTime, GoValue)');
+    }
+  }
+
   /// `kMap`: `i32 n` + pairs (key without a presence byte).
   void map<K, V>(
       Map<K, V> m, void Function($W w, K k) key, void Function($W w, V v) val) {
@@ -280,5 +328,32 @@ final class $R {
   Map<K, V> map<K, V>(K Function() key, V Function() val) {
     final n = i32();
     return {for (var k = 0; k < n; k++) key(): val()};
+  }
+
+  /// `kAny`: null, bool, int, double, String, Uint8List, `List<Object?>` or
+  /// `Map<String, Object?>` (the Go side's `any`, WIRE.md).
+  Object? any() {
+    switch (u8()) {
+      case 0:
+        return null;
+      case 1:
+        return b();
+      case 2:
+        return i64();
+      case 3:
+        return f64();
+      case 4:
+        return str();
+      case 5:
+        return bytes();
+      case 6:
+        final n = i32();
+        return [for (var k = 0; k < n; k++) any()];
+      case 7:
+        final n = i32();
+        return {for (var k = 0; k < n; k++) str(): any()};
+      case final t:
+        throw IpfsException('unknown dynamic value tag $t');
+    }
   }
 }

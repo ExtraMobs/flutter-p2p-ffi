@@ -4,7 +4,19 @@ library;
 
 import 'package:ipfs_ffi/src/runtime.dart';
 
-/// Go: `namesys.ResolveOption` (handle).
-class ResolveOption extends GoHandle {
-  ResolveOption.$h(super.$h);
+/// Go: `namesys.ResolveOption` (functional option; constructors in the package).
+final class ResolveOption extends GoOption {
+  ResolveOption.$(super.$i, super.$a);
 }
+
+/// Go: `namesys.ResolveWithDepth`.
+ResolveOption resolveWithDepth(int depth) =>
+    ResolveOption.$(0, (w) => w..i64(depth));
+
+/// Go: `namesys.ResolveWithDhtRecordCount`.
+ResolveOption resolveWithDhtRecordCount(int count) =>
+    ResolveOption.$(1, (w) => w..i64(count));
+
+/// Go: `namesys.ResolveWithDhtTimeout`.
+ResolveOption resolveWithDhtTimeout(int timeout) =>
+    ResolveOption.$(2, (w) => w..i64(timeout));

@@ -6,8 +6,12 @@
 /// import one Go package at a time from `package:ipfs_ffi/boxo/...`.
 library;
 
+export 'boxo/chunker.dart';
 export 'boxo/files.dart';
 export 'boxo/ipld/merkledag.dart';
 export 'boxo/ipns.dart';
+// also in another library of this namespace: import 'package:ipfs_ffi/boxo/mfs.dart' for File
+export 'boxo/mfs.dart' hide File;
 export 'boxo/namesys.dart';
 export 'boxo/path.dart';
+export 'boxo/peering.dart';

@@ -16,8 +16,18 @@ class Reader extends GoHandle {
   Reader.$h(super.$h);
 }
 
+/// Go: `io.Seeker` (handle).
+class Seeker extends GoHandle {
+  Seeker.$h(super.$h);
+}
+
+/// Go: `io.WriterAt` (handle).
+class WriterAt extends GoHandle {
+  WriterAt.$h(super.$h);
+}
+
 /// Go: `func io.ReadAll(r io.Reader) ([]byte, error)`.
 Uint8List readAll(Object r) {
-  final $r = $callSync(157, $W()..reader(r));
+  final $r = $callSync(233, $W()..reader(r));
   return $r.bytes() ?? Uint8List(0);
 }

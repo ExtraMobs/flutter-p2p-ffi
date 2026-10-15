@@ -1,4 +1,4 @@
-# O protocolo do serviço (ipfs_ffi 0.9.0)
+# O protocolo do serviço (ipfs_ffi 0.13.0)
 
 O `ipfs_ffi` roda o kubo **só** num processo separado, o `ipfs_host` (o Go deste
 pacote compilado como executável). Um panic não tratado do kubo derruba esse
@@ -85,12 +85,23 @@ Tipos nomeados sobre básicos (enums do kubo) vão como o básico. Por tipo do m
 | `kError` (erro dentro de um valor) | `u8 presente` + string |
 | `kSlice` | `i32 n` + elementos; `-1` = nil |
 | `kMap` | `i32 n` + pares: chave (string; se `tinfo.mkey`, a string do tipo-valor, **sem** byte de presença) + valor |
-| `kOpts` (opções funcionais, variádicas) | `i32 n` + cada opção: `u32` índice do construtor em `tinfo.ctors` + os parâmetros dele |
+| `kOpts` (opções funcionais, variádicas) | `i32 n` + cada opção: `u32` índice do construtor em `tinfo.ctors` + os parâmetros dele; um parâmetro que é ele mesmo uma opção (`options.Name.ResolveOption(namesys.ResolveWithDepth(1))`) vai como `kOpts` de uma |
+| `kAny` (`any`/`interface{}`, valor dinâmico) | `u8` etiqueta + valor: `0` nulo, `1` bool, `2` `i64`, `3` `f64`, `4` string, `5` `kBytes`, `6` lista (`i32 n` + itens), `7` mapa (`i32 n` + pares string chave + item). No host: ponteiros e interfaces são seguidos; `time.Time` e tipos com `MarshalText` (CID, peer ID, multiaddr) vão como string; structs como mapa dos campos exportados (o nome do `json`); mapas com as chaves em ordem. Ao ler, o host devolve os tipos do `encoding/json` (`int64` para inteiros) |
+| buffer de saída (`[]byte` que o Go preenche: `Read`, `ReadAt`, `CtxReadFull`) | no pedido, `i64` tamanho (até 64 MiB); na resposta, `kBytes` com os bytes lidos. `io.EOF`/`io.ErrUnexpectedEOF` não são erro: voltam os bytes lidos (vazio no fim) |
 | `io.Reader` em parâmetro | `u8 0` + `kBytes`, ou `u8 1` + `i64` handle |
 | `kWriter` (`io.Writer`) | não atravessa (o host usa `io.Discard`) |
 | `kChanSend` dentro de uma opção (sink, ex. `options.Unixfs.Events`) | `u32` id do sink (registrado pelo app); os itens vão como eventos `item` com esse id, e o sink termina com `fim`/`erro` antes da resposta da chamada |
 | `kChanSend` como parâmetro da própria função (ex. `PinAPI.Ls`) | não atravessa: a função é chamada no modo stream e cada valor que o Go põe no canal é um `item` (como `kChanRecv`) |
 | `kChanRecv` (`<-chan T` no resultado) | a função é chamada no modo stream; cada valor do canal é um `item` |
+
+**Raízes que não são funções** (`roots.txt`):
+- constante (`mfs.TFile`, `coreiface.DiffAdd`): só no Dart, como `const`; não tem id;
+- campo exportado de um struct handle (`core.IpfsNode.FilesRoot`): uma função de leitura
+  (receptor → valor) e, se o tipo atravessa como parâmetro, outra de escrita com a chave
+  `<linha>=` (receptor, valor → sem resposta);
+- type assertion de uma interface para um handle concreto que a implementa (gerada sozinha
+  para os tipos usados, chave `cast <interface> <concreto>`): receptor → `i64` handle novo,
+  ou `0` se o objeto não é desse tipo (`FsNode.asDirectory()` no Dart).
 
 **Handles**: o host guarda os objetos numa tabela (`i64` a partir de 1); o app os
 solta com `Free` (em lote, pelo `Finalizer`). Um handle só vale na vida do serviço

@@ -12,7 +12,7 @@ import 'package:ipfs_ffi/kubo/gc.dart' as $gc;
 /// Asynchronous: runs in a goroutine of the service.
 Future<void> garbageCollect($core.IpfsNode n, $context.Context ctx) async {
   await $call(
-      141,
+      213,
       $W()
         ..h(n)
         ..h(ctx));
@@ -22,7 +22,7 @@ Future<void> garbageCollect($core.IpfsNode n, $context.Context ctx) async {
 Stream<$gc.Result> garbageCollectAsync(
         $core.IpfsNode n, $context.Context ctx) =>
     $stream(
-            142,
+            214,
             $W()
               ..h(n)
               ..h(ctx))

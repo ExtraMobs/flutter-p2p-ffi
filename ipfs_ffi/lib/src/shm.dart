@@ -7,6 +7,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:ffi';
 import 'dart:io';
+import 'dart:math' show Random;
 import 'dart:typed_data';
 
 import 'runtime.dart' show IpfsException, IpfsServiceException, IpfsStopReason;
@@ -146,8 +147,13 @@ final class ShmChannel {
   }
 
   static String _defaultEndpoint() {
-    final rnd = DateTime.now().microsecondsSinceEpoch.toRadixString(36) +
-        pid.toRadixString(36);
+    // random: isolates of the same process (same pid) start hosts in the
+    // same clock tick (coarse on Windows), and a repeated name fails with
+    // "All pipe instances are busy"
+    final r = Random.secure();
+    final rnd = [for (var i = 0; i < 4; i++) r.nextInt(1 << 32)]
+        .map((v) => v.toRadixString(36))
+        .join();
     if (Platform.isWindows) return r'\\.\pipe\ipfs_ffi_' + rnd;
     // short path: sun_path has 108 bytes
     return '${Directory.systemTemp.path}/ipfs_ffi_$rnd.sock';

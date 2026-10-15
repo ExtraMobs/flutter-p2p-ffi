@@ -1,5 +1,37 @@
 # Pendências do ipfs_ffi
 
+## Feito: CoreAPI completa e o baixo nível de MFS, config e peering (0.13.0)
+
+Decisões do dono: tudo do kubo, na ordem CoreAPI → baixo nível → comandos; MFS e config nos
+dois níveis; "não refaz nada na mão em Dart, sempre expõe o que existe na versão em Go".
+
+- CoreAPI: `withOptions` (`options.api.offline/fetchBlocks`), `routing().get/put`,
+  `object().addLink/rmLink/diff` (com `diffAdd/diffRemove/diffMod`), `Reader.size`.
+- Peças novas no gerador, todas gerais:
+  - G1: constantes como raiz;
+  - G2: campos de struct como raiz, com leitura e escrita;
+  - G3: casts de interface para cada tipo concreto exposto, como o `switch x.(type)`;
+  - G4: construtores de opção que são funções do pacote, só no formato `func(*T)` ou
+    `func(*T) error` (o `libp2p.RoutingOption` não é opção); uma opção dentro de outra
+    vai como lista de uma;
+  - G5: buffer de saída (`Read`, `ReadAt`, `CtxReadFull` devolvem os bytes lidos);
+  - G6: valor dinâmico `any`/`interface{}` (codec com etiqueta, `Object?` no Dart).
+- Baixo nível: o `boxo/mfs` inteiro de uso (`lookup`, `mkdir`, `mv`, `putNode`,
+  `flushPath`, `Directory`, `File`, `FileDescriptor`); `node.filesRoot`, `node.repo`
+  (`setConfigKey`/`getConfigKey`/`setConfig`/`backupConfig`), `node.peering`
+  (`addPeer`/`removePeer`/`listPeers`), `config.parseBootstrapPeers`/`bootstrapPeerStrings`.
+- Nome repetido entre libraries de um namespace (`files.File` e `mfs.File`): o arquivo do
+  namespace esconde o da segunda (`export 'boxo/mfs.dart' hide File;`), com um comentário;
+  as libraries por pacote mantêm os nomes do Go.
+- Corrigido no caminho: o nome do pipe/socket do canal (hora + pid) colidia entre isolates
+  do mesmo processo no Windows (`All pipe instances are busy`, intermitente nos testes); agora é
+  aleatório (`Random.secure`). O `any` e o `interface{}` caíam na mesma chave do cache do
+  gerador (o alias voltava vazio).
+- Achado no boxo v0.43.0, reproduzido em Go puro: anexar no fim de um arquivo do MFS cujo nó
+  guarda os dados embutidos deixa a leitura só com o trecho anexado (README).
+
+Desktop 44/44 (Windows 4x, linux 3x); integração 4/4 no emulador. ⏳ 0.14: os comandos do RPC.
+
 ## Feito: CAR no namespace kubo (0.12.0)
 
 Decisão do dono: regra estrita, um namespace por módulo Go. O `export`/`import` de CAR é porte

@@ -6,6 +6,7 @@ import (
 	"io/fs"
 	"os"
 	"path/filepath"
+	"regexp"
 	"sort"
 	"strings"
 )
@@ -104,16 +105,63 @@ func emitNamespaces(out map[string][]byte) error {
 			paths = append(paths, p)
 		}
 		sort.Strings(paths)
+		// nome repetido entre libraries do namespace (files.File e mfs.File):
+		// a primeira em ordem fica com ele; as outras o escondem, e quem o
+		// quer importa a library do pacote Go
+		owner := map[string]string{}
+		hide := map[string][]string{}
+		for _, p := range paths {
+			src, ok := out["../lib/"+p]
+			if !ok {
+				src, _ = os.ReadFile(filepath.Join("../lib", p))
+			}
+			for _, n := range publicNames(src) {
+				if o, dup := owner[n]; dup && o != p {
+					hide[p] = append(hide[p], n)
+				} else {
+					owner[n] = p
+				}
+			}
+		}
 		var b strings.Builder
 		fmt.Fprintf(&b, "%s from go/gen/namespaces.go; do not edit.\n\n", generatedHeader)
 		fmt.Fprintf(&b, "/// %s\n///\n/// Import it with a prefix (`import 'package:ipfs_ffi/%s.dart' as %s;`), or\n/// import one Go package at a time from `package:ipfs_ffi/%s/...`.\nlibrary;\n\n", doc, ns, ns, ns)
 		for _, p := range paths {
+			if h := hide[p]; len(h) > 0 {
+				sort.Strings(h)
+				fmt.Fprintf(&b, "// also in another library of this namespace: import 'package:ipfs_ffi/%s' for %s\n", p, strings.Join(h, ", "))
+				fmt.Fprintf(&b, "export '%s' hide %s;\n", p, strings.Join(h, ", "))
+				continue
+			}
 			fmt.Fprintf(&b, "export '%s';\n", p)
 		}
 		name := "../lib/" + ns + ".dart"
 		out[name] = formatDart(ns+".dart", b.String())
 	}
 	return nil
+}
+
+// declRE: uma declaração de nível de library no Dart (gerado e formatado, ou
+// escrito à mão no mesmo estilo): classe, constante, getter ou função.
+var declRE = regexp.MustCompile(`^(?:(?:final |abstract |sealed |base |interface )*class|const|final|var) +([A-Za-z_$][A-Za-z0-9_$]*)|^[A-Za-z_$][A-Za-z0-9_$<>?, ]*? (?:get +)?([A-Za-z_$][A-Za-z0-9_$]*) *(?:\(|\{|=>)`)
+
+// publicNames: os nomes públicos de nível de library de [src].
+func publicNames(src []byte) []string {
+	var out []string
+	for _, line := range strings.Split(string(src), "\n") {
+		if line == "" || line[0] == ' ' || line[0] == '/' || line[0] == '}' || strings.HasPrefix(line, "import ") || strings.HasPrefix(line, "export ") || strings.HasPrefix(line, "library") || strings.HasPrefix(line, "part ") {
+			continue
+		}
+		m := declRE.FindStringSubmatch(line)
+		if m == nil {
+			continue
+		}
+		n := m[1] + m[2]
+		if n != "" && n[0] != '_' {
+			out = append(out, n)
+		}
+	}
+	return out
 }
 
 // staleGenerated: arquivos gerados em lib/ que o gerador não produz mais (o

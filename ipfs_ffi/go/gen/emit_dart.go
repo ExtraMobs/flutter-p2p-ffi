@@ -244,6 +244,8 @@ func (e *dartEmitter) dt(t *tinfo, from *dartLib) string {
 		return e.imp(from, "package:ipfs_ffi/go/context.dart") + ".Context"
 	case kChanSend, kChanRecv:
 		return "Stream<" + e.dt(t.elem, from) + ">"
+	case kAny:
+		return "Object?"
 	}
 	panic("gen: sem tipo Dart para " + t.key)
 }
@@ -290,6 +292,8 @@ func (e *dartEmitter) enc(t *tinfo, x string, depth int) string {
 		return "dto(" + x + ")"
 	case kOpts:
 		return "opt(" + x + ")"
+	case kAny:
+		return "any(" + x + ")"
 	case kSlice:
 		w, v := fmt.Sprintf("w%d", depth), fmt.Sprintf("e%d", depth)
 		return fmt.Sprintf("list(%s, (%s, %s) => %s.%s)", x, w, v, w, e.enc(t.elem, v, depth+1))
@@ -331,6 +335,8 @@ func (e *dartEmitter) dec(t *tinfo, r string, from *dartLib, opt bool) string {
 		return r + ".bytes() ?? Uint8List(0)"
 	case kError:
 		return r + ".err()"
+	case kAny:
+		return r + ".any()"
 	case kValue:
 		var inner string
 		switch {
@@ -415,7 +421,7 @@ func (e *dartEmitter) class(l *dartLib, c *dclass) string {
 			fmt.Fprintf(&b, "  const %s(super.value);\n}\n\n", name)
 		}
 	case kOpts:
-		fmt.Fprintf(&b, "/// Go: `%s` (functional option; constructors in the package variables).\nfinal class %s extends GoOption {\n  %s.$(super.$i, super.$a);\n}\n\n", docType(t), name, name)
+		fmt.Fprintf(&b, "/// Go: `%s` (functional option; constructors in the package).\nfinal class %s extends GoOption {\n  %s.$(super.$i, super.$a);\n}\n\n", docType(t), name, name)
 	case kDTO:
 		e.dto(l, &b, t, name)
 	case kSnap:
@@ -576,6 +582,10 @@ func (e *dartEmitter) holders(l *dartLib, b *strings.Builder) {
 					continue
 				}
 				ps = append(ps, e.dt(p, l)+" "+pn)
+				if p.k == kOpts { // opção dentro de opção: vai como lista de uma
+					segs = append(segs, fmt.Sprintf("..list([%s], (w0, e0) => w0.opt(e0))", pn))
+					continue
+				}
 				segs = append(segs, ".."+e.enc(p, pn, 0))
 			}
 			// WIRE.md: a opção vai como o índice do construtor em tinfo.ctors
@@ -617,23 +627,40 @@ func (e *dartEmitter) holders(l *dartLib, b *strings.Builder) {
 		fmt.Fprintf(b, "/// Go: `var %s`: option constructors.\nconst %s = _%s._();\n\n", k, memberName(k), typeName(k))
 		emit([]string{k}, root.kids[k])
 	}
+	sort.Strings(root.ctors)
+	for _, c := range root.ctors { // funções do pacote: no nível da library
+		b.WriteString(strings.ReplaceAll(strings.TrimPrefix(c, "  "), "\n  ", "\n") + "\n")
+	}
 }
 
 // function emite uma função de nível de pacote, um método (inClass) ou uma
 // factory (factory): codifica o receptor e os argumentos num $W (WIRE.md),
 // chama a função f.id do host no modo dela e decodifica os resultados do $R.
 func (e *dartEmitter) function(l *dartLib, f *fn, class string, factory bool) string {
+	if isConstObj(f.obj) { // constante: o valor do Go, sem ir ao host
+		return fmt.Sprintf("/// Go: `%s`.\nconst %s = %s;\n", goDoc(f.obj), memberName(f.obj.Name()), f.constLit)
+	}
+	if f.cast != nil { // type assertion: um handle novo, ou null
+		C := e.dt(f.cast, l)
+		return fmt.Sprintf("  /// Go: type assertion `x.(%s)`: null if the object is not one.\n  %s? %s() {\n    final $r = $callSync(%d, $W()..h(this));\n    return %s;\n  }\n",
+			types.TypeString(f.cast.t, func(p *types.Package) string { return p.Name() }), C, memberName(f.obj.Name()), f.id, e.dec(f.cast, "$r", l, true))
+	}
 	var params, segs []string
 	if f.recv != nil {
 		segs = append(segs, "h(this)")
 	}
 	opt := ""
-	for _, p := range f.params {
+	for i, p := range f.params {
 		// io.Writer não atravessa; chan<- da própria função é o modo stream
 		if p.t.k == kWriter || p.t.k == kChanSend {
 			continue
 		}
-		n := memberName(p.name)
+		if i == f.outBuf { // o Go preenche o []byte: o Dart manda só o tamanho
+			segs = append(segs, "i64(n)")
+			params = append(params, "int n")
+			continue
+		}
+		n := dartParamName(p.name)
 		if p.t.reader {
 			segs = append(segs, "reader("+n+")")
 		} else {
@@ -672,9 +699,12 @@ func (e *dartEmitter) function(l *dartLib, f *fn, class string, factory bool) st
 		return b.String()
 	}
 	ret, dec := "void", ""
-	switch len(f.results) {
-	case 0:
-	case 1:
+	switch {
+	case f.outBuf >= 0: // os bytes lidos (vazio no fim)
+		l.bytes = true
+		ret, dec = "Uint8List", "$r.bytes() ?? Uint8List(0)"
+	case len(f.results) == 0:
+	case len(f.results) == 1:
 		ret, dec = e.dt(f.results[0], l), e.dec(f.results[0], "$r", l, false)
 	default: // os campos de um record são avaliados em ordem
 		var ts, ds []string
@@ -686,7 +716,10 @@ func (e *dartEmitter) function(l *dartLib, f *fn, class string, factory bool) st
 		dec = "(" + strings.Join(ds, ", ") + ")"
 	}
 	head := fmt.Sprintf("%s %s%s", ret, name, sig)
-	if f.isVar {
+	switch {
+	case f.setter:
+		head = fmt.Sprintf("set %s%s", name, sig)
+	case f.isVar || f.field:
 		head = fmt.Sprintf("%s get %s", ret, name)
 	}
 	if factory {

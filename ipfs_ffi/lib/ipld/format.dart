@@ -5,8 +5,8 @@ library;
 import 'dart:typed_data';
 
 import 'package:ipfs_ffi/src/runtime.dart';
+import 'package:ipfs_ffi/boxo/ipld/merkledag.dart' as $merkledag;
 import 'package:ipfs_ffi/go/context.dart' as $context;
-import 'package:ipfs_ffi/ipld/block_format.dart' as $block_format;
 import 'package:ipfs_ffi/multiformats/cid.dart' as $cid;
 
 /// Go: `format.DAGService` (handle).
@@ -45,37 +45,49 @@ final class Link implements GoDto {
 }
 
 /// Go: `format.Node` (handle).
-class Node extends $block_format.Block {
+class Node extends Resolver {
   Node.$h(super.$h) : super.$h();
 
   /// Go: `func (blocks.Block).Cid() cid.Cid`.
   $cid.Cid cid() {
-    final $r = $callSync(73, $W()..h(this));
+    final $r = $callSync(129, $W()..h(this));
     return $r.p() ? $cid.Cid($r.str()) : $nil();
   }
 
   /// Go: `func (blocks.Block).RawData() []byte`.
   Uint8List rawData() {
-    final $r = $callSync(75, $W()..h(this));
+    final $r = $callSync(131, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (format.Node).Links() []*format.Link`.
   List<Link> links() {
-    final $r = $callSync(74, $W()..h(this));
+    final $r = $callSync(130, $W()..h(this));
     return $r.list(() => $r.p() ? Link.$dec($r) : $nil());
   }
 
   /// Go: `func (format.Node).Size() (uint64, error)`.
   int size() {
-    final $r = $callSync(76, $W()..h(this));
+    final $r = $callSync(132, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (format.Node).Stat() (*format.NodeStat, error)`.
   NodeStat stat() {
-    final $r = $callSync(77, $W()..h(this));
+    final $r = $callSync(133, $W()..h(this));
     return $r.p() ? NodeStat.$dec($r) : $nil();
+  }
+
+  /// Go: type assertion `x.(*merkledag.ProtoNode)`: null if the object is not one.
+  $merkledag.ProtoNode? asProtoNode() {
+    final $r = $callSync(66, $W()..h(this));
+    return $r.hn($merkledag.ProtoNode.$h);
+  }
+
+  /// Go: type assertion `x.(*merkledag.RawNode)`: null if the object is not one.
+  $merkledag.RawNode? asRawNode() {
+    final $r = $callSync(67, $W()..h(this));
+    return $r.hn($merkledag.RawNode.$h);
   }
 }
 
@@ -88,7 +100,7 @@ class NodeAdder extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> add($context.Context ctx, Node node) async {
     await $call(
-        78,
+        134,
         $W()
           ..h(this)
           ..h(ctx)
@@ -100,7 +112,7 @@ class NodeAdder extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> addMany($context.Context ctx, List<Node> nodes) async {
     await $call(
-        79,
+        135,
         $W()
           ..h(this)
           ..h(ctx)
@@ -189,4 +201,9 @@ final class NodeStat implements GoDto {
       ..i64(dataSize)
       ..i64(cumulativeSize);
   }
+}
+
+/// Go: `format.Resolver` (handle).
+class Resolver extends GoHandle {
+  Resolver.$h(super.$h);
 }

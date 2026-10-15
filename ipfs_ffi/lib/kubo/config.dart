@@ -4,6 +4,7 @@ library;
 
 import 'package:ipfs_ffi/src/runtime.dart';
 import 'package:ipfs_ffi/kubo/core/coreiface/options.dart' as $options;
+import 'package:ipfs_ffi/libp2p/core/peer.dart' as $peer;
 
 /// Go: `config.Config` (valor).
 class Config extends GoJsonValue {
@@ -36,14 +37,26 @@ final class Identity implements GoDto {
 
 /// Go: `func config.CreateIdentity(out io.Writer, opts []options.KeyGenerateOption) (config.Identity, error)`.
 Identity createIdentity(List<$options.KeyGenerateOption> opts) {
-  final $r = $callSync(80, $W()..list(opts, (w0, e0) => w0.opt(e0)));
+  final $r = $callSync(137, $W()..list(opts, (w0, e0) => w0.opt(e0)));
   return $r.p() ? Identity.$dec($r) : $nil();
 }
 
 /// Go: `func config.InitWithIdentity(identity config.Identity) (*config.Config, error)`.
 Config initWithIdentity(Identity identity) {
-  final $r = $callSync(81, $W()..dto(identity));
+  final $r = $callSync(138, $W()..dto(identity));
   return $r.p() ? Config($r.json()) : $nil();
+}
+
+/// Go: `func config.ParseBootstrapPeers(addrs []string) ([]peer.AddrInfo, error)`.
+List<$peer.AddrInfo> parseBootstrapPeers(List<String> addrs) {
+  final $r = $callSync(139, $W()..list(addrs, (w0, e0) => w0.str(e0)));
+  return $r.list(() => $r.p() ? $peer.AddrInfo.$dec($r) : $nil());
+}
+
+/// Go: `func config.BootstrapPeerStrings(bps []peer.AddrInfo) []string`.
+List<String> bootstrapPeerStrings(List<$peer.AddrInfo> bps) {
+  final $r = $callSync(136, $W()..list(bps, (w0, e0) => w0.dto(e0)));
+  return $r.list(() => $r.str());
 }
 
 /// Go: `var config.Profiles map[string]config.Profile`. Hand-written

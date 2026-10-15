@@ -26,6 +26,7 @@ const (
 	kChanSend         // chan<- T passado pelo chamador (o kubo fecha)
 	kChanRecv         // <-chan T devolvido
 	kError
+	kAny // any / interface{}: valor dinâmico com etiqueta (WIRE.md)
 )
 
 // valueSpec: tipo-valor convertido por funções escritas à mão em wire.go.
@@ -188,8 +189,21 @@ func (m *model) fill(ti *tinfo) {
 		}
 	case *types.Named:
 		m.fillNamed(ti, t)
+	case *types.Interface:
+		if t.Empty() {
+			ti.k = kAny
+			return
+		}
+		unsupported(ti, "interface sem nome %s", ti.t)
 	case *types.Alias:
-		*ti = *m.classify(types.Unalias(t))
+		// any e interface{} têm a mesma chave: preenche aqui, sem voltar ao
+		// cache (que devolveria este mesmo tinfo, ainda vazio)
+		if u := types.Unalias(t); types.TypeString(u, nil) == ti.key {
+			ti.t = u
+			m.fill(ti)
+		} else {
+			*ti = *m.classify(u)
+		}
 	default:
 		unsupported(ti, "%s", ti.t)
 	}
@@ -343,8 +357,15 @@ func (m *model) optCtors(pkg *types.Package, optKey string) []optCtor {
 		m.optPkgs[pkg] = byType
 		scope := pkg.Scope()
 		for _, name := range scope.Names() {
-			if v, ok := scope.Lookup(name).(*types.Var); ok && v.Exported() {
-				m.walkOpts(pkg, byType, []string{name}, v.Type(), 0)
+			switch o := scope.Lookup(name).(type) {
+			case *types.Var:
+				if o.Exported() {
+					m.walkOpts(pkg, byType, []string{name}, o.Type(), 0)
+				}
+			case *types.Func: // construtor como função do pacote (mfs.WithMaxLinks)
+				if o.Exported() && optShaped(o) {
+					m.addOptCtor(pkg, byType, nil, o)
+				}
 			}
 		}
 	}
@@ -379,34 +400,9 @@ func (m *model) sinkParam(ctorKey string, ch *types.Chan) *tinfo {
 func (m *model) walkOpts(pkg *types.Package, byType map[string][]optCtor, path []string, t types.Type, depth int) {
 	ms := types.NewMethodSet(t)
 	for i := 0; i < ms.Len(); i++ {
-		f := ms.At(i).Obj().(*types.Func)
-		if !f.Exported() {
-			continue
+		if f := ms.At(i).Obj().(*types.Func); f.Exported() {
+			m.addOptCtor(pkg, byType, path, f)
 		}
-		sig := f.Type().(*types.Signature)
-		res, hasErr := splitErr(sig.Results())
-		if len(res) != 1 {
-			continue
-		}
-		rn, ok := res[0].(*types.Named)
-		if !ok {
-			continue
-		}
-		if _, isSig := rn.Underlying().(*types.Signature); !isSig {
-			continue
-		}
-		c := optCtor{path: append(append([]string{}, path...), f.Name()), hasErr: hasErr}
-		for j := 0; j < sig.Params().Len(); j++ {
-			p := sig.Params().At(j)
-			if ch, ok := p.Type().(*types.Chan); ok && ch.Dir() == types.SendOnly {
-				c.params = append(c.params, m.sinkParam(pkg.Path()+"."+strings.Join(c.path, "."), ch))
-			} else {
-				c.params = append(c.params, m.classify(p.Type()))
-			}
-			c.pnames = append(c.pnames, p.Name())
-		}
-		k := objKey(rn.Obj())
-		byType[k] = append(byType[k], c)
 	}
 	if s, ok := t.Underlying().(*types.Struct); ok && depth < 2 {
 		for i := 0; i < s.NumFields(); i++ {
@@ -417,11 +413,60 @@ func (m *model) walkOpts(pkg *types.Package, byType map[string][]optCtor, path [
 	}
 }
 
+// optShaped: [f] devolve uma opção funcional de verdade, `func(*T)` ou
+// `func(*T) error` (mfs.Option, namesys.ResolveOption); uma função que
+// devolve outro tipo func (libp2p.ConstructDefaultRouting → RoutingOption)
+// não é construtor de opção.
+func optShaped(f *types.Func) bool {
+	res, _ := splitErr(f.Type().(*types.Signature).Results())
+	if len(res) != 1 {
+		return false
+	}
+	sig, ok := res[0].Underlying().(*types.Signature)
+	if !ok || sig.Params().Len() != 1 {
+		return false
+	}
+	if _, ok := sig.Params().At(0).Type().(*types.Pointer); !ok {
+		return false
+	}
+	r := sig.Results()
+	return r.Len() == 0 || (r.Len() == 1 && types.TypeString(r.At(0).Type(), nil) == "error")
+}
+
+// addOptCtor registra [f] (método de uma variável em [path], ou função do
+// pacote com path vazio) se ele devolve uma opção funcional (ou opção e erro).
+func (m *model) addOptCtor(pkg *types.Package, byType map[string][]optCtor, path []string, f *types.Func) {
+	sig := f.Type().(*types.Signature)
+	res, hasErr := splitErr(sig.Results())
+	if len(res) != 1 {
+		return
+	}
+	rn, ok := res[0].(*types.Named)
+	if !ok {
+		return
+	}
+	if _, isSig := rn.Underlying().(*types.Signature); !isSig {
+		return
+	}
+	c := optCtor{path: append(append([]string{}, path...), f.Name()), hasErr: hasErr}
+	for j := 0; j < sig.Params().Len(); j++ {
+		p := sig.Params().At(j)
+		if ch, ok := p.Type().(*types.Chan); ok && ch.Dir() == types.SendOnly {
+			c.params = append(c.params, m.sinkParam(pkg.Path()+"."+strings.Join(c.path, "."), ch))
+		} else {
+			c.params = append(c.params, m.classify(p.Type()))
+		}
+		c.pnames = append(c.pnames, p.Name())
+	}
+	k := objKey(rn.Obj())
+	byType[k] = append(byType[k], c)
+}
+
 // okOptCtor: construtor cujos parâmetros atravessam.
 func okOptCtor(c optCtor) (bool, string) {
 	for i, p := range c.params {
 		switch p.k {
-		case kBasic, kBytes, kValue, kSlice, kMap, kHandle, kChanSend:
+		case kBasic, kBytes, kValue, kSlice, kMap, kHandle, kChanSend, kAny, kOpts:
 		default:
 			why := p.why
 			if why == "" {

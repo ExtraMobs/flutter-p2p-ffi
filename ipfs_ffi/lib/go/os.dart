@@ -11,18 +11,18 @@ class File extends GoHandle {
 
   /// Go: `func (*os.File).Close() error`.
   void close() {
-    $callSync(159, $W()..h(this));
+    $callSync(235, $W()..h(this));
   }
 }
 
 /// Go: `func os.Stat(name string) (os.FileInfo, error)`.
 $fs.FileInfo stat(String name) {
-  final $r = $callSync(160, $W()..str(name));
+  final $r = $callSync(236, $W()..str(name));
   return $r.hnn($fs.FileInfo.$h);
 }
 
 /// Go: `func os.Create(name string) (*os.File, error)`.
 File create(String name) {
-  final $r = $callSync(158, $W()..str(name));
+  final $r = $callSync(234, $W()..str(name));
   return $r.hnn(File.$h);
 }

@@ -2,9 +2,13 @@ package main
 
 import (
 	"fmt"
+	"go/types"
 	"sort"
 	"strings"
 )
+
+// pkgName: qualifica um tipo pelo nome curto do pacote (mfs.File).
+func pkgName(p *types.Package) string { return p.Name() }
 
 // emitAPI: checklist Go → Dart por pacote, com omissões e motivos.
 func emitAPI(m *model, fns []*fn) []byte {
@@ -25,6 +29,8 @@ func emitAPI(m *model, fns []*fn) []byte {
 			}
 			dart := memberName(f.obj.Name())
 			switch {
+			case f.setter:
+				dart = className(f.recv) + "." + dart + " ="
 			case f.recv != nil:
 				dart = className(f.recv) + "." + dart
 			case isFactory(f):
@@ -32,12 +38,25 @@ func emitAPI(m *model, fns []*fn) []byte {
 			}
 			mode := "síncrona"
 			switch {
+			case isConstObj(f.obj):
+				mode = "const"
+			case f.cast != nil:
+				mode = "cast"
+			case f.field:
+				mode = "campo"
 			case f.stream != nil:
 				mode = "Stream"
 			case f.async:
 				mode = "Future"
 			}
-			fmt.Fprintf(&b, "| `%s` | `%s` | %s |\n", goDoc(f.obj), dart, mode)
+			doc := goDoc(f.obj)
+			switch {
+			case f.cast != nil:
+				doc = types.TypeString(f.recv.t, pkgName) + " → x.(" + types.TypeString(f.cast.t, pkgName) + ")"
+			case f.field:
+				doc = "(" + types.TypeString(f.recv.t, pkgName) + ")." + f.obj.Name() + " " + types.TypeString(f.obj.Type(), pkgName)
+			}
+			fmt.Fprintf(&b, "| `%s` | `%s` | %s |\n", doc, dart, mode)
 		}
 		if len(omitted) > 0 {
 			b.WriteString("\nOmitidos:\n\n" + strings.Join(omitted, "\n") + "\n")

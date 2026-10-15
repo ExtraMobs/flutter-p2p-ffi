@@ -68,6 +68,8 @@ github.com/ipfs/kubo/core/coreiface.CoreAPI.Routing
 github.com/ipfs/kubo/core/coreiface.RoutingAPI.Provide
 github.com/ipfs/kubo/core/coreiface.RoutingAPI.FindProviders
 github.com/ipfs/kubo/core/coreiface.RoutingAPI.FindPeer
+github.com/ipfs/kubo/core/coreiface.RoutingAPI.Get
+github.com/ipfs/kubo/core/coreiface.RoutingAPI.Put
 github.com/libp2p/go-libp2p/core/peer.AddrInfoFromString
 github.com/libp2p/go-libp2p/core/peer.AddrInfoToP2pAddrs
 
@@ -124,3 +126,83 @@ github.com/ipfs/kubo/core/coreiface.PubSubAPI.Publish
 github.com/ipfs/kubo/core/coreiface.PubSubAPI.Subscribe
 github.com/ipfs/kubo/core/coreiface.PubSubSubscription.Next
 github.com/ipfs/kubo/core/coreiface.PubSubSubscription.Close
+
+# 0.13 o resto da CoreAPI: opções da API (offline, sem buscar blocos), objetos
+# dag-pb (ipfs object patch/diff) e o tamanho de um Reader
+github.com/ipfs/kubo/core/coreiface.CoreAPI.WithOptions
+github.com/ipfs/kubo/core/coreiface.CoreAPI.Object
+github.com/ipfs/kubo/core/coreiface.ObjectAPI.AddLink
+github.com/ipfs/kubo/core/coreiface.ObjectAPI.RmLink
+github.com/ipfs/kubo/core/coreiface.ObjectAPI.Diff
+github.com/ipfs/kubo/core/coreiface.Reader.Size
+github.com/ipfs/kubo/core/coreiface.DiffAdd
+github.com/ipfs/kubo/core/coreiface.DiffRemove
+github.com/ipfs/kubo/core/coreiface.DiffMod
+
+# 0.13 MFS de baixo nível (boxo/mfs; os comandos `ipfs files` vêm no 0.14):
+# a raiz do nó, funções do pacote, pastas, arquivos e descritores
+github.com/ipfs/kubo/core.IpfsNode.FilesRoot
+github.com/ipfs/boxo/mfs.TFile
+github.com/ipfs/boxo/mfs.TDir
+github.com/ipfs/boxo/mfs.Lookup
+github.com/ipfs/boxo/mfs.DirLookup
+github.com/ipfs/boxo/mfs.Mkdir
+github.com/ipfs/boxo/mfs.Mv
+github.com/ipfs/boxo/mfs.PutNode
+github.com/ipfs/boxo/mfs.FlushPath
+github.com/ipfs/boxo/mfs.Chmod
+github.com/ipfs/boxo/mfs.Touch
+github.com/ipfs/boxo/mfs.IsDir
+github.com/ipfs/boxo/mfs.IsFile
+github.com/ipfs/boxo/mfs.Root.GetDirectory
+github.com/ipfs/boxo/mfs.Root.Flush
+github.com/ipfs/boxo/mfs.Root.FlushMemFree
+github.com/ipfs/boxo/mfs.FSNode.GetNode
+github.com/ipfs/boxo/mfs.FSNode.Flush
+github.com/ipfs/boxo/mfs.FSNode.Type
+github.com/ipfs/boxo/mfs.FSNode.SetMode
+github.com/ipfs/boxo/mfs.FSNode.SetModTime
+github.com/ipfs/boxo/mfs.Directory.Child
+github.com/ipfs/boxo/mfs.Directory.ListNames
+github.com/ipfs/boxo/mfs.Directory.List
+github.com/ipfs/boxo/mfs.Directory.Mkdir
+github.com/ipfs/boxo/mfs.Directory.MkdirWithOpts
+github.com/ipfs/boxo/mfs.Directory.Unlink
+github.com/ipfs/boxo/mfs.Directory.Uncache
+github.com/ipfs/boxo/mfs.Directory.AddChild
+github.com/ipfs/boxo/mfs.Directory.Flush
+github.com/ipfs/boxo/mfs.Directory.GetNode
+github.com/ipfs/boxo/mfs.Directory.Path
+github.com/ipfs/boxo/mfs.Directory.Mode
+github.com/ipfs/boxo/mfs.Directory.ModTime
+github.com/ipfs/boxo/mfs.File.Open
+github.com/ipfs/boxo/mfs.File.Size
+github.com/ipfs/boxo/mfs.File.GetNode
+github.com/ipfs/boxo/mfs.File.Flush
+github.com/ipfs/boxo/mfs.File.Sync
+github.com/ipfs/boxo/mfs.File.Mode
+github.com/ipfs/boxo/mfs.File.ModTime
+github.com/ipfs/boxo/mfs.File.RawLeaves
+github.com/ipfs/boxo/mfs.FileDescriptor.Read
+github.com/ipfs/boxo/mfs.FileDescriptor.CtxReadFull
+github.com/ipfs/boxo/mfs.FileDescriptor.Write
+github.com/ipfs/boxo/mfs.FileDescriptor.WriteAt
+github.com/ipfs/boxo/mfs.FileDescriptor.Seek
+github.com/ipfs/boxo/mfs.FileDescriptor.Truncate
+github.com/ipfs/boxo/mfs.FileDescriptor.Size
+github.com/ipfs/boxo/mfs.FileDescriptor.Flush
+github.com/ipfs/boxo/mfs.FileDescriptor.Close
+
+# 0.13 config e peering do nó rodando (os comandos `ipfs config/bootstrap/
+# swarm peering` vêm no 0.14): a maior parte da config só vale ao reiniciar
+github.com/ipfs/kubo/core.IpfsNode.Repo
+github.com/ipfs/kubo/repo.Repo.SetConfig
+github.com/ipfs/kubo/repo.Repo.SetConfigKey
+github.com/ipfs/kubo/repo.Repo.GetConfigKey
+github.com/ipfs/kubo/repo.Repo.BackupConfig
+github.com/ipfs/kubo/config.ParseBootstrapPeers
+github.com/ipfs/kubo/config.BootstrapPeerStrings
+github.com/ipfs/kubo/core.IpfsNode.Peering
+github.com/ipfs/boxo/peering.PeeringService.AddPeer
+github.com/ipfs/boxo/peering.PeeringService.RemovePeer
+github.com/ipfs/boxo/peering.PeeringService.ListPeers

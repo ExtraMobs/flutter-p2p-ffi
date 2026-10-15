@@ -8,92 +8,107 @@ import 'package:ipfs_ffi/src/runtime.dart';
 import 'package:ipfs_ffi/boxo/namesys.dart' as $namesys;
 import 'package:ipfs_ffi/kubo/core/coreiface.dart' as $coreiface;
 
-/// Go: `options.ApiOption` (functional option; constructors in the package variables).
+/// Go: `options.ApiOption` (functional option; constructors in the package).
 final class ApiOption extends GoOption {
   ApiOption.$(super.$i, super.$a);
 }
 
-/// Go: `options.BlockPutOption` (functional option; constructors in the package variables).
+/// Go: `options.BlockPutOption` (functional option; constructors in the package).
 final class BlockPutOption extends GoOption {
   BlockPutOption.$(super.$i, super.$a);
 }
 
-/// Go: `options.BlockRmOption` (functional option; constructors in the package variables).
+/// Go: `options.BlockRmOption` (functional option; constructors in the package).
 final class BlockRmOption extends GoOption {
   BlockRmOption.$(super.$i, super.$a);
 }
 
-/// Go: `options.KeyGenerateOption` (functional option; constructors in the package variables).
+/// Go: `options.KeyGenerateOption` (functional option; constructors in the package).
 final class KeyGenerateOption extends GoOption {
   KeyGenerateOption.$(super.$i, super.$a);
 }
 
-/// Go: `options.KeyRenameOption` (functional option; constructors in the package variables).
+/// Go: `options.KeyRenameOption` (functional option; constructors in the package).
 final class KeyRenameOption extends GoOption {
   KeyRenameOption.$(super.$i, super.$a);
 }
 
-/// Go: `options.NamePublishOption` (functional option; constructors in the package variables).
+/// Go: `options.NamePublishOption` (functional option; constructors in the package).
 final class NamePublishOption extends GoOption {
   NamePublishOption.$(super.$i, super.$a);
 }
 
-/// Go: `options.NameResolveOption` (functional option; constructors in the package variables).
+/// Go: `options.NameResolveOption` (functional option; constructors in the package).
 final class NameResolveOption extends GoOption {
   NameResolveOption.$(super.$i, super.$a);
 }
 
-/// Go: `options.PinAddOption` (functional option; constructors in the package variables).
+/// Go: `options.ObjectAddLinkOption` (functional option; constructors in the package).
+final class ObjectAddLinkOption extends GoOption {
+  ObjectAddLinkOption.$(super.$i, super.$a);
+}
+
+/// Go: `options.ObjectRmLinkOption` (functional option; constructors in the package).
+final class ObjectRmLinkOption extends GoOption {
+  ObjectRmLinkOption.$(super.$i, super.$a);
+}
+
+/// Go: `options.PinAddOption` (functional option; constructors in the package).
 final class PinAddOption extends GoOption {
   PinAddOption.$(super.$i, super.$a);
 }
 
-/// Go: `options.PinIsPinnedOption` (functional option; constructors in the package variables).
+/// Go: `options.PinIsPinnedOption` (functional option; constructors in the package).
 final class PinIsPinnedOption extends GoOption {
   PinIsPinnedOption.$(super.$i, super.$a);
 }
 
-/// Go: `options.PinLsOption` (functional option; constructors in the package variables).
+/// Go: `options.PinLsOption` (functional option; constructors in the package).
 final class PinLsOption extends GoOption {
   PinLsOption.$(super.$i, super.$a);
 }
 
-/// Go: `options.PinRmOption` (functional option; constructors in the package variables).
+/// Go: `options.PinRmOption` (functional option; constructors in the package).
 final class PinRmOption extends GoOption {
   PinRmOption.$(super.$i, super.$a);
 }
 
-/// Go: `options.PinUpdateOption` (functional option; constructors in the package variables).
+/// Go: `options.PinUpdateOption` (functional option; constructors in the package).
 final class PinUpdateOption extends GoOption {
   PinUpdateOption.$(super.$i, super.$a);
 }
 
-/// Go: `options.PubSubPeersOption` (functional option; constructors in the package variables).
+/// Go: `options.PubSubPeersOption` (functional option; constructors in the package).
 final class PubSubPeersOption extends GoOption {
   PubSubPeersOption.$(super.$i, super.$a);
 }
 
-/// Go: `options.PubSubSubscribeOption` (functional option; constructors in the package variables).
+/// Go: `options.PubSubSubscribeOption` (functional option; constructors in the package).
 final class PubSubSubscribeOption extends GoOption {
   PubSubSubscribeOption.$(super.$i, super.$a);
 }
 
-/// Go: `options.RoutingFindProvidersOption` (functional option; constructors in the package variables).
+/// Go: `options.RoutingFindProvidersOption` (functional option; constructors in the package).
 final class RoutingFindProvidersOption extends GoOption {
   RoutingFindProvidersOption.$(super.$i, super.$a);
 }
 
-/// Go: `options.RoutingProvideOption` (functional option; constructors in the package variables).
+/// Go: `options.RoutingProvideOption` (functional option; constructors in the package).
 final class RoutingProvideOption extends GoOption {
   RoutingProvideOption.$(super.$i, super.$a);
 }
 
-/// Go: `options.UnixfsAddOption` (functional option; constructors in the package variables).
+/// Go: `options.RoutingPutOption` (functional option; constructors in the package).
+final class RoutingPutOption extends GoOption {
+  RoutingPutOption.$(super.$i, super.$a);
+}
+
+/// Go: `options.UnixfsAddOption` (functional option; constructors in the package).
 final class UnixfsAddOption extends GoOption {
   UnixfsAddOption.$(super.$i, super.$a);
 }
 
-/// Go: `options.UnixfsLsOption` (functional option; constructors in the package variables).
+/// Go: `options.UnixfsLsOption` (functional option; constructors in the package).
 final class UnixfsLsOption extends GoOption {
   UnixfsLsOption.$(super.$i, super.$a);
 }
@@ -144,6 +159,10 @@ const dht = _Dht._();
 
 final class _Dht {
   const _Dht._();
+
+  /// Go: `options.Dht.AllowOffline`.
+  RoutingPutOption allowOffline(bool allow) =>
+      RoutingPutOption.$(0, (w) => w..b(allow));
 
   /// Go: `options.Dht.NumProviders`.
   RoutingFindProvidersOption numProviders(int numProviders) =>
@@ -200,7 +219,7 @@ final class _Name {
 
   /// Go: `options.Name.ResolveOption`.
   NameResolveOption resolveOption($namesys.ResolveOption opt) =>
-      NameResolveOption.$(1, (w) => w..h(opt));
+      NameResolveOption.$(1, (w) => w..list([opt], (w0, e0) => w0.opt(e0)));
 
   /// Go: `options.Name.Sequence`.
   NamePublishOption sequence(int seq) =>
@@ -212,6 +231,25 @@ final class _Name {
   /// Go: `options.Name.ValidTime`.
   NamePublishOption validTime(int validTime) =>
       NamePublishOption.$(6, (w) => w..i64(validTime));
+}
+
+/// Go: `var Object`: option constructors.
+const object = _Object$._();
+
+final class _Object$ {
+  const _Object$._();
+
+  /// Go: `options.Object.Create`.
+  ObjectAddLinkOption create(bool create) =>
+      ObjectAddLinkOption.$(0, (w) => w..b(create));
+
+  /// Go: `options.Object.RmLinkSkipUnixFSValidation`.
+  ObjectRmLinkOption rmLinkSkipUnixFsValidation(bool skip) =>
+      ObjectRmLinkOption.$(0, (w) => w..b(skip));
+
+  /// Go: `options.Object.SkipUnixFSValidation`.
+  ObjectAddLinkOption skipUnixFsValidation(bool skip) =>
+      ObjectAddLinkOption.$(1, (w) => w..b(skip));
 }
 
 /// Go: `var Pin`: option constructors.
@@ -308,6 +346,10 @@ const put = _Put._();
 final class _Put {
   const _Put._();
 
+  /// Go: `options.Put.AllowOffline`.
+  RoutingPutOption allowOffline(bool allow) =>
+      RoutingPutOption.$(1, (w) => w..b(allow));
+
   /// Go: `options.Put.NumProviders`.
   RoutingFindProvidersOption numProviders(int numProviders) =>
       RoutingFindProvidersOption.$(1, (w) => w..i64(numProviders));
@@ -322,6 +364,10 @@ const routing = _Routing._();
 
 final class _Routing {
   const _Routing._();
+
+  /// Go: `options.Routing.AllowOffline`.
+  RoutingPutOption allowOffline(bool allow) =>
+      RoutingPutOption.$(2, (w) => w..b(allow));
 
   /// Go: `options.Routing.NumProviders`.
   RoutingFindProvidersOption numProviders(int numProviders) =>

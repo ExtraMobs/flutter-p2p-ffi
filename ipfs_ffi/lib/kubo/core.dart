@@ -3,8 +3,11 @@
 library;
 
 import 'package:ipfs_ffi/src/runtime.dart';
+import 'package:ipfs_ffi/boxo/mfs.dart' as $mfs;
+import 'package:ipfs_ffi/boxo/peering.dart' as $peering;
 import 'package:ipfs_ffi/go/context.dart' as $context;
 import 'package:ipfs_ffi/kubo/core/node.dart' as $node;
+import 'package:ipfs_ffi/kubo/repo.dart' as $repo;
 
 /// Go: `core.IpfsNode` (handle).
 class IpfsNode extends GoHandle {
@@ -14,7 +17,52 @@ class IpfsNode extends GoHandle {
   ///
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> close() async {
-    await $call(82, $W()..h(this));
+    await $call(140, $W()..h(this));
+  }
+
+  /// Go: `field FilesRoot *mfs.Root`.
+  $mfs.Root get filesRoot {
+    final $r = $callSync(141, $W()..h(this));
+    return $r.hnn($mfs.Root.$h);
+  }
+
+  /// Go: `field FilesRoot *mfs.Root`.
+  set filesRoot($mfs.Root filesRoot) {
+    $callSync(
+        142,
+        $W()
+          ..h(this)
+          ..h(filesRoot));
+  }
+
+  /// Go: `field Repo repo.Repo`.
+  $repo.Repo get repo {
+    final $r = $callSync(145, $W()..h(this));
+    return $r.hnn($repo.Repo.$h);
+  }
+
+  /// Go: `field Repo repo.Repo`.
+  set repo($repo.Repo repo) {
+    $callSync(
+        146,
+        $W()
+          ..h(this)
+          ..h(repo));
+  }
+
+  /// Go: `field Peering *peering.PeeringService`.
+  $peering.PeeringService get peering {
+    final $r = $callSync(143, $W()..h(this));
+    return $r.hnn($peering.PeeringService.$h);
+  }
+
+  /// Go: `field Peering *peering.PeeringService`.
+  set peering($peering.PeeringService peering) {
+    $callSync(
+        144,
+        $W()
+          ..h(this)
+          ..h(peering));
   }
 }
 
@@ -23,7 +71,7 @@ class IpfsNode extends GoHandle {
 /// Asynchronous: runs in a goroutine of the service.
 Future<IpfsNode> newNode($context.Context ctx, $node.BuildCfg cfg) async {
   final $r = await $call(
-      83,
+      147,
       $W()
         ..h(ctx)
         ..dto(cfg));

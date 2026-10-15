@@ -9,6 +9,7 @@ import 'dart:io' show Directory, File, InternetAddress;
 
 import 'package:ipfs_ffi/boxo/files.dart' as files;
 import 'package:ipfs_ffi/boxo/ipld/merkledag.dart' as merkledag;
+import 'package:ipfs_ffi/boxo/mfs.dart' as mfs;
 import 'package:ipfs_ffi/boxo/path.dart' as path;
 import 'package:ipfs_ffi/go/context.dart' as context;
 import 'package:ipfs_ffi/go/io.dart' as io;
@@ -329,6 +330,17 @@ void main() {
       await expectLater(sub.next(ctx), throwsA(isA<IpfsException>()));
     });
 
+    // 0.13: o serviço de peering do nó (IpfsNode.Peering, campo como raiz)
+    test('peering: addPeer, listPeers e removePeer', () async {
+      final idA = (await a.key().self(ctx)).id!;
+      final addrs = await a.swarm().localAddrs(ctx);
+      final ps = nb.peering;
+      ps.addPeer(peer.AddrInfo(id: idA, addrs: addrs));
+      expect([for (final p in ps.listPeers()) p.id], contains(idA));
+      ps.removePeer(idA);
+      expect([for (final p in ps.listPeers()) p.id], isNot(contains(idA)));
+    });
+
     test('disconnect', () async {
       final idA = (await a.key().self(ctx)).id!;
       // como `ipfs swarm disconnect`: o multiaddr tem de terminar em /p2p/<id>
@@ -545,6 +557,114 @@ void main() {
   });
 
   // Arquivos CAR (ipfs dag export / import)
+  // 0.13: o resto da CoreAPI, o MFS e a config de baixo nível (o que o Go
+  // expõe, sem nada refeito no Dart)
+  group('0.13', () {
+    test('withOptions (offline) e routing get/put sem rede', () async {
+      final off = api.withOptions([options.api.offline(true)]);
+      final p =
+          await off.unixfs().add(ctx, files.newBytesFile(utf8.encode('off')));
+      expect(
+          utf8.decode(io.readAll(files.toFile(await off.unixfs().get(ctx, p)))),
+          'off');
+      await expectLater(off.routing().get(ctx, '/ipns/nao-existe'),
+          throwsA(isA<IpfsException>()));
+      await expectLater(
+          off.routing().put(ctx, '/ipns/nao-existe', Uint8List(1),
+              [options.routing.allowOffline(true)]),
+          throwsA(isA<IpfsException>()));
+    });
+
+    test('object addLink, rmLink e diff (com as constantes)', () async {
+      final empty = Directory('${tmp.path}/vazio')..createSync();
+      final p0 = await api.unixfs().add(
+          ctx, files.newSerialFile(empty.path, false, os.stat(empty.path)));
+      final child =
+          await api.unixfs().add(ctx, files.newBytesFile(utf8.encode('filho')));
+      final obj = api.object();
+      final p1 = await obj.addLink(ctx, p0, 'a', child);
+      final added = await obj.diff(ctx, p0, p1);
+      expect([for (final c in added) (c.type, c.path)], [(iface.diffAdd, 'a')]);
+      final p2 = await obj.rmLink(ctx, p1, 'a');
+      final removed = await obj.diff(ctx, p1, p2);
+      expect([for (final c in removed) (c.type, c.path)],
+          [(iface.diffRemove, 'a')]);
+      expect(p2.value, p0.value);
+    });
+
+    test('MFS: mkdir, casts, escrita, leitura, list, mv e flush', () async {
+      final root = n.filesRoot;
+      mfs.mkdir(root, '/t013/sub', mfs.MkdirOpts(mkparents: true, flush: true));
+      final dirNode = mfs.lookup(root, '/t013');
+      expect(mfs.isDir(dirNode), isTrue);
+      expect(dirNode.type(), mfs.tDir);
+      expect(dirNode.asFile(), isNull);
+      final dir = dirNode.asDirectory()!;
+      expect(dir.path(), '/t013');
+
+      // um arquivo pelo nó unixfs de um add
+      final p = await api
+          .unixfs()
+          .add(ctx, files.newBytesFile(utf8.encode('olá mfs')));
+      mfs.putNode(root, '/t013/a.txt', await api.resolveNode(ctx, p));
+      final file = mfs.lookup(root, '/t013/a.txt').asFile()!;
+      expect(file.size(), utf8.encode('olá mfs').length);
+      expect(file.rawLeaves, isFalse);
+      file.rawLeaves = true; // campo do Go, leitura e escrita
+      expect(file.rawLeaves, isTrue);
+      file.rawLeaves = false;
+
+      final r0 = await file.open(ctx, mfs.Flags(read: true));
+      expect(utf8.decode(await r0.ctxReadFull(ctx, 100)), 'olá mfs');
+      r0.close();
+      // reescreve (truncate + write) e anexa no fim (seek io.SeekEnd)
+      final fw = await file.open(ctx, mfs.Flags(write: true));
+      fw.truncate(0);
+      expect(fw.write(utf8.encode('novo')), 4);
+      expect(fw.seek(0, 2), 4);
+      expect(fw.write(utf8.encode('!')), 1);
+      fw.close();
+      expect(file.size(), 5);
+      final fr = await file.open(ctx, mfs.Flags(read: true));
+      fr.seek(0, 0);
+      expect(utf8.decode(fr.read(2)), 'no');
+      fr.seek(0, 0);
+      // buffer de saída: pede 100, volta o que havia (EOF não é erro)
+      expect(utf8.decode(await fr.ctxReadFull(ctx, 100)), 'novo!');
+      expect(await fr.ctxReadFull(ctx, 10), isEmpty);
+      fr.close();
+
+      expect(await dir.listNames(ctx), unorderedEquals(['a.txt', 'sub']));
+      final list = {for (final e in await dir.list(ctx)) e.name: e};
+      expect(list['a.txt']!.type, mfs.tFile);
+      expect(list['sub']!.type, mfs.tDir);
+
+      mfs.mv(root, '/t013/a.txt', '/t013/sub/b.txt');
+      expect(mfs.isFile(mfs.lookup(root, '/t013/sub/b.txt')), isTrue);
+      expect(
+          () => mfs.lookup(root, '/t013/a.txt'), throwsA(isA<IpfsException>()));
+      final flushed = await mfs.flushPath(ctx, root, '/t013');
+      expect(flushed.cid().value, isNotEmpty);
+    });
+
+    test('config: setConfigKey/getConfigKey, bootstrap e backup', () async {
+      final r = n.repo;
+      r.setConfigKey('Discovery.MDNS.Enabled', false);
+      expect(r.getConfigKey('Discovery.MDNS.Enabled'), false);
+      r.setConfigKey('Discovery.MDNS.Enabled', true);
+      expect(r.getConfigKey('Discovery.MDNS.Enabled'), true);
+      final addresses = r.getConfigKey('Addresses') as Map<String, Object?>;
+      expect(addresses['Swarm'], isA<List<Object?>>());
+
+      final id = (await api.key().self(ctx)).id!;
+      final s = '/ip4/127.0.0.1/tcp/4001/p2p/${id.value}';
+      final infos = config.parseBootstrapPeers([s]);
+      expect(infos.single.id, id);
+      expect(config.bootstrapPeerStrings(infos), [s]);
+      expect(File(r.backupConfig('teste-')).existsSync(), isTrue);
+    });
+  });
+
   group('CAR', () {
     test('export, apaga do repo, import de volta (bytes)', () async {
       final dir = Directory('${tmp.path}/car')..createSync();

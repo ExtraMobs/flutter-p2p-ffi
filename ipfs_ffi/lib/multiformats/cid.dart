@@ -4,6 +4,11 @@ library;
 
 import 'package:ipfs_ffi/src/runtime.dart';
 
+/// Go: `cid.Builder` (handle).
+class Builder extends GoHandle {
+  Builder.$h(super.$h);
+}
+
 /// Go: `cid.Cid` (valor).
 class Cid extends GoValue {
   const Cid(super.value);

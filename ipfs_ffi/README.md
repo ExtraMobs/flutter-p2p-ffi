@@ -86,6 +86,41 @@ Exemplos, na ordem em que o kubo monta um nó:
   `IpfsServiceException`); o nó e
   o repo continuam exigindo o `close` do Go. CID, path, peer e multiaddr são
   valores (a string); `config.Config` guarda o JSON do kubo em `json`.
+- Constantes do Go viram `const` (`mfs.tFile`, `iface.diffAdd`); campos de struct
+  viram getter e setter (`node.filesRoot`, `file.rawLeaves = true`); `any` vira
+  `Object?` (null, bool, int, double, String, Uint8List, List, Map).
+- Uma interface ganha um cast para cada tipo concreto exposto que a implementa, como
+  o `switch x.(type)` do Go: `mfs.lookup(root, '/a').asDirectory()` (null se não for).
+- `Read`, `ReadAt` e `CtxReadFull` (o Go preenche um `[]byte`) recebem o tamanho e
+  devolvem os bytes lidos (`await fd.ctxReadFull(ctx, 4096)`; vazio no fim).
+
+## Além da CoreAPI: MFS, config e peering (0.13)
+
+O baixo nível do Go, como ele é (o alto nível, `ipfs files/config/bootstrap/swarm
+peering`, vem com os comandos do RPC):
+
+```dart
+final root = node.filesRoot;                       // IpfsNode.FilesRoot
+mfs.mkdir(root, '/docs', mfs.MkdirOpts(mkparents: true, flush: true));
+mfs.putNode(root, '/docs/a.txt', await api.resolveNode(ctx, p));
+final file = mfs.lookup(root, '/docs/a.txt').asFile()!;
+final fd = await file.open(ctx, mfs.Flags(write: true));
+fd.truncate(0);
+fd.write(utf8.encode('novo'));
+fd.close();
+await mfs.flushPath(ctx, root, '/docs');            // o CID da pasta
+
+node.repo.setConfigKey('Discovery.MDNS.Enabled', false); // o mesmo que `ipfs config`
+node.peering.addPeer(info);                          // vale na hora, não persiste
+```
+
+A maior parte da config só vale ao reiniciar o nó (o kubo a lê na subida); o peering
+vale na hora mas não vai para a config.
+
+Achado no boxo v0.43.0 (reproduzido em Go puro, sem o binding): anexar no fim
+(`seek(0, 2)` + `write`) de um arquivo do MFS cujo nó guarda os dados embutidos (o nó de
+um `add` pequeno) deixa o tamanho certo, mas a leitura devolve só o trecho anexado.
+Reescrever com `truncate(0)` + `write` antes, e anexar depois, funciona.
 
 ## Gerar e compilar
 
