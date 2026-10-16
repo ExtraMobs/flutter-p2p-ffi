@@ -25,14 +25,17 @@ host e o Dart do app a partir dele; o que é escrito à mão segue as mesmas reg
 Tudo em little-endian.
 
 - **Pedido**: `u32 id`, `u32 função`, `u8 modo`, argumentos. Modo: `0` síncrona
-  (o app bloqueia esperando), `1` assíncrona (`Future`), `2` stream.
+  (o app bloqueia esperando), `1` assíncrona (`Future`), `2` stream; o bit `0x80`
+  (`modeWatch`) pede vigia de impasse (ver "Callback").
 - **Resposta/evento**: `u32 id`, `u8 tipo`, dados. Tipo: `0` valor, `1` item (de
   stream ou de sink), `2` fim, `3` erro (dados = `u8` código + a mensagem em UTF-8).
   Código do sentinela que o erro embrulha (`errors.Is` no host; o Dart lança a subclasse):
   `0` nenhum (`IpfsException`), `1` `io.EOF` (`IpfsEof`), `2` `io.ErrUnexpectedEOF`
   (`IpfsUnexpectedEof`), `3` `context.Canceled` (`IpfsCanceled`), `4`
   `context.DeadlineExceeded` (`IpfsDeadlineExceeded`), `5` não encontrado
-  (`ipld.ErrNotFound`, o `ErrNotFound` do storage do go-car; `IpfsNotFound`).
+  (`ipld.ErrNotFound`, o `ErrNotFound` do storage do go-car; `IpfsNotFound`), `6`
+  impasse com callback (só o host o produz; `IpfsDeadlockException`). Tipo `4`:
+  lote de callback (ver "Callback").
 - Uma chamada responde com um `valor` ou um `erro`; um stream com `item`s e então
   `fim` ou `erro`. Os sinks de uma chamada (abaixo) recebem `item`s e `fim`/`erro`
   com o id do sink, **antes** da resposta da chamada.
@@ -56,6 +59,12 @@ Tudo em little-endian.
 | 24 | teste: PanicInGoroutine | — → vazio; o host cai logo depois |
 | 25 | teste: PanicInChanFunc | modo stream: `item` `i64` 1, depois `erro` com o panic |
 | 26 | teste: PanicInSink | `u32` sink → vazio; o sink recebe `item` `i64` 1 e depois `erro` com o panic |
+| 5 | CallbackAck | `u32` id da chamada, `u8` veredito (`0` segue, `1` a função Dart devolveu false, `2` ela lançou) → sem resposta (id 0) |
+| 27 | teste: CallbackBench | `u32` lote, `i64` n, `i64` bytes por item; callback (`i64` índice, `kBytes`) → `i64` itens produzidos |
+| 28 | teste: BellStats | — → `i64` sininhos tocados pelo host, `i64` despertares do host; zera os dois |
+| 29 | teste: NewLocker | — → `i64` handle de um objeto com mutex |
+| 30 | teste: Locker.Iterate | `i64` locker, `u32` lote, `i64` n; segura o mutex e chama o callback (`i64` índice) n vezes → vazio |
+| 31 | teste: Locker.Touch | `i64` locker → vazio, depois de pegar e soltar o mutex |
 | 32 | dag put | `i64` CoreAPI, `i64` ctx, `kBytes` dados, string input-codec, string store-codec, string hash, bool pin, bool allow-big-block → `u8` presente + string CID |
 | 33 | dag get | `i64` CoreAPI, `i64` ctx, string path, string output-codec → `kBytes` |
 | 34 | dag export | `i64` IpfsNode, `i64` ctx, string path, bool local-only, string arquivo (`''` = devolve os bytes) → `kBytes` (vazio quando grava no arquivo) |
@@ -113,7 +122,34 @@ Tipos nomeados sobre básicos (enums do kubo) vão como o básico. Por tipo do m
 
 **Handles**: o host guarda os objetos numa tabela (`i64` a partir de 1); o app os
 solta com `Free` (em lote, pelo `Finalizer`). Um handle só vale na vida do serviço
-em que nasceu: depois de um reinício, usá-lo dá `IpfsServiceException`.
+em que nasceu: depois de um reinício, usá-lo dá `IpfsServiceException`. O mesmo objeto
+por referência (ponteiro, mapa, canal) tem sempre o mesmo handle, com uma contagem: cada
+vez que o host o devolve conta uma, e cada `Free` desconta; sai da tabela no último.
+
+## Callback
+
+Parâmetro função (`func(...)` que devolve nada, `bool` ou `error`) é um callback sob
+demanda: a chamada é assíncrona, e no lugar dele vai `u32` lote (`0` = o padrão do
+host, 1024; o gerado manda `1` quando o callback recebe handles).
+
+- O host passa à função Go um callback que, a cada invocação, escreve os argumentos
+  (no formato de cada tipo) num lote. O lote fecha com `lote` invocações ou 128 KiB e
+  vai como evento tipo `4` com o id da chamada: `u32 n` + os n conjuntos de argumentos.
+  Fechado o lote, a invocação que o fechou espera o `CallbackAck` (função 5) e devolve o
+  veredito ao Go: `false` (callback `bool`) ou um erro interno (callback `error`) quando o
+  Dart parou; antes disso, as invocações do lote devolvem `true`/`nil`.
+- O app chama a função Dart com cada conjunto, em ordem, um por vez (esperando os
+  `Future`s); depois de um `false` ou de uma exceção, pula o resto. Confirma cada lote
+  com o veredito acumulado. A resposta da chamada só é entregue depois dos lotes; se a
+  função Dart lançou, a chamada lança essa exceção, seja qual for a resposta do Go.
+- Quando a função Go volta, o que sobrou no lote vai sem espera; confirmação que chega
+  depois do fim da chamada é ignorada.
+- Impasse: durante a chamada, os handles que ela levou ficam em uso no app. Um pedido que
+  leva um handle em uso vai com `modeWatch`; o host o roda numa goroutine com o id nos
+  labels do pprof (a síncrona também, com o laço esperando). Se ela fica parada num mutex
+  (`SemacquireMutex`/`SemacquireRWMutex` no perfil de goroutines) por 1 s enquanto algum
+  callback espera um `CallbackAck`, o host responde `erro` código `6` com a pilha, e a
+  resposta tardia da goroutine é descartada.
 
 ## Comandos (função 36)
 
@@ -163,8 +199,9 @@ mesmo).
   leitura curta), como argumentos a menos.
 - Modo: uma stream pedida em modo `0`/`1`, ou uma chamada pedida em modo `2`, é erro.
 - `fim` (de stream e de sink) vem sem dados.
-- Um handle é um id novo a cada vez que o host devolve o objeto, mesmo o mesmo objeto:
-  cada um é solto à parte.
+- O mesmo objeto por referência devolvido duas vezes é o mesmo handle, contado duas
+  vezes: precisa de dois `Free`. Valores (struct por valor, slice) são um handle novo a
+  cada vez; struct por valor (`LinkSystem`) é guardada pelo ponteiro.
 - `dag export` gravando em arquivo devolve `i32 0` (bytes vazios, não nil).
 
 ## Notas do lado do app (Dart)

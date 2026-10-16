@@ -285,6 +285,14 @@ abstract final class IpfsService {
   /// no longer valid. Does not call `onStop`.
   static Future<void> stop() => _stop(false);
 
+  /// The objects in use by calls with a callback (an index iterating, a
+  /// selector builder in `exploreFields`...): one event when each enters and
+  /// leaves use. Calling one from inside its callback may wait for a lock
+  /// that call holds; the host detects it ([IpfsDeadlockException]). For the
+  /// app to show what cannot be touched yet (Riverpod, a `ValueNotifier`...);
+  /// `isBusy` on the object answers the same now.
+  static Stream<IpfsBusy> get busy => $busyChanges;
+
   static Future<void> _stop(bool keepParams) async {
     if (!keepParams) _params = null;
     final ch = _ch;

@@ -1,5 +1,58 @@
 # Pendências do ipfs_ffi
 
+## Feito: callbacks sob demanda, erros do Go e o recorte pelo nó (0.17.0)
+
+Decisões do dono: callback de verdade no Go, com os argumentos levados ao Dart sob demanda;
+o Go produz N à frente, com N padrão medido (chamadas de sistema e Android) e passado como
+argumento opcional da chamada (`batchSize`); "semáforo" dos objetos em uso para o app
+colorir (sem Riverpod na lib); o recorte pelo gateway do boxo e o que for preciso do
+ipld-prime; o `bsadapter` aprovado.
+
+- Sentinelas: o evento de erro leva o código do `errors.Is`; `IpfsEof`,
+  `IpfsUnexpectedEof`, `IpfsCanceled`, `IpfsDeadlineExceeded`, `IpfsNotFound`.
+- Callback (`go/callback.go`, `lib/src/runtime/callback.dart`): o Go chama, o Dart responde
+  por lote; `false` ou exceção param o Go, e a exceção Dart original é a da chamada. O Go
+  espera a confirmação de cada lote (fica no máximo `batchSize - 1` à frente; com 1 é a
+  semântica do Go). Callback que recebe objetos Go tem lote padrão 1: o `exploreFields` do
+  construtor de seletores dava `panic: misuse` com 1024, porque o `fields` só vale durante a
+  invocação.
+- Impasse (`go/deadlock.go`): o app marca o pedido que leva um objeto em uso (`modeWatch`);
+  o host o roda vigiado (labels do pprof) e, parado num mutex por 1 s enquanto um callback
+  espera o Dart, responde `IpfsDeadlockException`; a função Go volta e solta a trava. O
+  laço de despacho roda síncronas em linha, por isso a vigia é do host: um vigia no Dart
+  não veria nada com o laço preso. Para a vigia valer por qualquer objeto Dart do mesmo
+  objeto Go (um cast), o host dá o mesmo handle ao mesmo objeto, com contagem.
+- `isBusy` e `IpfsService.busy` (`IpfsBusy`); Riverpod fica com o app.
+- Recorte: `gateway.BlocksBackend.getCar` (escopo, ordem, duplicatas, faixa de bytes; rede),
+  `bsadapter` sobre o `node.blockstore` (seletor qualquer, blocos locais), go-unixfsnode
+  (seletor por nome de arquivo) com o escolhedor dag-pb do gateway, e o construtor de
+  seletores. Achado com oráculo Go: sem `withTraversalPrototypeChooser(dagpb...)`, o go-car
+  decodifica dag-pb como dado genérico e o seletor UnixFS para na pasta (1 bloco); com ele,
+  os mesmos 4 blocos do `entity` do gateway.
+- Gerador: callback (`kFunc`), ponteiro para básico (`int?`), raiz que é só um tipo struct
+  (construtor vazio), cast para a interface que embute a de origem, `linkConcrete` também
+  para interfaces usadas como parâmetro (a com métodos expostos ganha), construtores de
+  opção omitidos de propósito (`omitCtors`: o Prometheus), func sem nome idêntica a um tipo
+  nomeado de um pacote importado, receptor de E/S por handle simples.
+
+Lote padrão (`dart run tool/bench_callback.dart`; função 27 do host, sem kubo no meio;
+itens/s, com 1 / 64 / 1024 / 4096 itens por lote, mediana de 3):
+
+| item | Windows | linux (WSL) | emulador Android (x86_64) |
+|---|---|---|---|
+| 16 B | 39 mil / 1,56 M / 3,6 M / 4,6 M | 4,6 mil / 383 mil / 791 mil / 1,9 M | 408 / 19,6 mil / 262 mil / 553 mil |
+| 64 B | 42 mil / 1,27 M / 2,7 M / 2,4 M | 9,6 mil / 482 mil / 1,52 M / 1,45 M | 361 / 25,7 mil / 212 mil / 311 mil |
+| 1 KiB | 39 mil / 378 mil / 228 mil / 273 mil | 9,7 mil / 178 mil / 199 mil / 212 mil | 365 / 14 mil / 51 mil / 61 mil |
+| 64 KiB | 602 MB/s com 1; 290–330 MB/s com 16 ou mais | 260 MB/s com 1; 338 com 2; ~190 com mais | 20 MB/s com 1; 54–70 MB/s com 8 ou mais |
+
+O que decide é o tamanho do lote em bytes: acima de ~128 KiB a vazão cai pela metade no
+Windows e no linux, e a espera pelo primeiro item sobe para milissegundos. Sininhos
+(chamadas de sistema) por item: no linux, 0,5 com lote 1 e menos de 0,005 com 64 ou mais;
+no Windows, perto de zero sempre (os dois lados giram antes de dormir). No emulador cada ida
+e volta custa milissegundos (já visto na 0.9.0), e o lote maior sempre ajuda. Padrão: 1024
+itens, até 128 KiB. ⏳ Confirmar no aparelho real (`integration_test/callback_bench_test.dart`
+do app): não estava conectado nesta rodada.
+
 ## Feito: o go-car no namespace car (0.16.0)
 
 Pedido do dono: mais recursos de arquivos CAR, em baixo nível; escolhidos os quatro grupos

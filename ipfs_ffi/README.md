@@ -86,9 +86,13 @@ Exemplos, na ordem em que o kubo monta um nó:
 12. `dart run example/12_car_baixo_nivel.dart`: arquivos CAR sem nó, pelo go-car
    (`openReader`/`inspect`, `BlockReader`, `wrapV1File`, o índice num `bytes.Buffer`, um
    CAR novo bloco a bloco com `openReadWrite` e a travessia seletiva com
-   `traverseToFile`), com o código Go equivalente em cada passo.
+   `traverseToFile`), com o código Go equivalente em cada passo;
+13. `dart run example/13_recorte_e_callbacks.dart`: o recorte de CAR direto do nó (o gateway
+   do boxo por caminho, escopo e faixa de bytes; um seletor IPLD sobre o blockstore, com a
+   camada UnixFS), o construtor de seletores e o índice percorridos com callback, os
+   objetos em uso (`isBusy`, `IpfsService.busy`) e o `IpfsEof`.
 
-Os exemplos 9 a 12 criam o próprio repo temporário e não dependem do 01.
+Os exemplos 9 a 13 criam o próprio repo temporário e não dependem do 01.
 
 ## O boxo do Go e o do Dart, lado a lado
 
@@ -252,6 +256,49 @@ Parâmetros `io.Reader`/`io.ReaderAt`/`io.ReadSeeker` aceitam bytes ou um handle
 `BlockReader.next()` é o `io.EOF` do Go: `IpfsEof`, uma subclasse de `IpfsException` (as
 outras: `IpfsUnexpectedEof`, `IpfsCanceled`, `IpfsDeadlineExceeded`, `IpfsNotFound`), lançada
 como o `errors.Is` do Go a acharia, inclusive com o erro embrulhado.
+
+## Callbacks, erros do Go e o recorte pelo nó (0.17)
+
+Função Go que recebe uma função recebe uma função Dart. O Go chama um callback de verdade,
+que leva os argumentos ao Dart em lotes e espera a resposta; `false` ou uma exceção param o
+Go, e a chamada lança a exceção original:
+
+```dart
+await idx.asIterableIndex()!.forEach((mh, offset) => print(offset));
+await idx.getAll(c, (offset) => offset < limite, batchSize: 1); // 1 = exato como o Go
+final campos = await ssb.exploreFields((f) => f.insert('Links', ssb.matcher()));
+```
+
+- `batchSize` (opcional): quantas invocações o Go manda por vez e, portanto, quantas ele pode
+  adiantar. O padrão, 1024 até 128 KiB, saiu de medida (`tool/bench_callback.dart`; a tabela
+  está no `TODO.md`). Quando o callback recebe objetos Go (o `fields` acima), o padrão é 1:
+  eles podem só valer durante a invocação.
+- Durante a chamada, os objetos dela ficam em uso: `isBusy` no objeto e
+  `IpfsService.busy` (um `Stream` de `IpfsBusy`) para o app pintar a interface (Riverpod,
+  `ValueNotifier`...). Chamá-los de dentro do callback é permitido; se a chamada esperar uma
+  trava que a função Go segura, o host detecta o impasse e ela lança
+  `IpfsDeadlockException` em vez de travar o app.
+- Os erros conhecidos do Go chegam como subclasses de `IpfsException`, como o `errors.Is`
+  os acharia: `IpfsEof`, `IpfsUnexpectedEof`, `IpfsCanceled`, `IpfsDeadlineExceeded`,
+  `IpfsNotFound`.
+
+Recortar um CAR direto do nó (exemplo 13):
+
+```dart
+final (meta, rc) = await boxo.BlocksBackend(node.blocks).getCar(ctx,
+    boxo.ImmutablePath('/ipfs/$pasta/foto.jpg'),
+    boxo.CarParams(scope: boxo.dagScopeEntity, range: boxo.DagByteRange(from: 0, to: 99)));
+go.copy(go.create('recorte.car'), rc);              // o gateway do boxo, com rede
+
+final ls = ipld.defaultLinkSystem();                 // um seletor qualquer, blocos locais
+ipld.addUnixFsReificationToLinkSystem(ls);
+ls.setReadStorage(ipld.Adapter()..wrapped = node.blockstore);
+await car.traverseToFile(ctx, ls, raiz, ipld.unixFsPathSelector('foto.jpg'), 'foto.car',
+    [car.withTraversalPrototypeChooser(ipld.addSupportToChooser(boxo.defaultPrototypeChooser))]);
+```
+
+O escolhedor de protótipo é o que o gateway usa: sem ele o go-car decodifica o dag-pb como
+dado genérico, a camada UnixFS não o reconhece, e o seletor por nome para na pasta.
 
 ## Correções no upstream (0.15)
 

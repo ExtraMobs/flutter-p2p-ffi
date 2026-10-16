@@ -374,7 +374,7 @@ abstract class GoHandle {
   /// In use by a call with a callback that is still running (its receiver
   /// or an argument): calling it from inside the callback may wait for a
   /// lock that call holds (the host detects it: [IpfsDeadlockException]).
-  bool get isBusy => _busy.containsKey(this);
+  bool get isBusy => _busy.containsKey($h);
 }
 
 /// Go value type (CID, path, peer ID, multiaddr) stored as a string.

@@ -10,8 +10,7 @@ import 'dart:io';
 import 'dart:math' show Random;
 import 'dart:typed_data';
 
-import 'runtime.dart'
-    show $goError, IpfsServiceException, IpfsStopReason;
+import 'runtime.dart' show $goError, IpfsServiceException, IpfsStopReason;
 
 export 'runtime.dart' show IpfsServiceException;
 

@@ -9,7 +9,7 @@ import 'package:ipfs_ffi/car.dart' as car;
 import 'package:ipfs_ffi/ipfs_ffi.dart';
 import 'package:ipfs_ffi/multiformats.dart' as mf;
 import 'package:ipfs_ffi/src/runtime.dart'
-    show $W, $busyChanges, $callCb, $callSync, GoHandle;
+    show $W, $callCb, $callSync, GoHandle;
 import 'package:test/test.dart';
 
 /// Função 27: [n] itens de [size] bytes; devolve quantos o Go produziu.
@@ -99,6 +99,9 @@ void main() {
     final offsets = <int>[];
     await it.forEach((mh, offset) {
       expect(mh, hasLength(34)); // sha2-256: 2 de prefixo + 32
+      // o cast é outro objeto Dart do mesmo objeto Go: o mesmo handle, em uso
+      expect(identical(it, idx), isFalse);
+      expect(idx.isBusy, isTrue);
       offsets.add(offset);
     });
     expect(offsets..sort(), [100, 101, 102, 103, 104]);
@@ -129,7 +132,7 @@ void main() {
         () async {
       final l = locker();
       final changes = <(bool, bool)>[];
-      final sub = $busyChanges
+      final sub = IpfsService.busy
           .listen((c) => changes.add((identical(c.handle, l), c.busy)));
       final sw = Stopwatch()..start();
       Object? inside;

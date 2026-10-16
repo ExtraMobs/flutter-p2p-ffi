@@ -297,26 +297,60 @@ func encErr(w *writer, err error) {
 // 0 = nil) e os solta com Free.
 var handles = struct {
 	sync.Mutex
-	m    map[int64]any
-	next int64
-}{m: map[int64]any{}}
+	m     map[int64]*hentry
+	byKey map[hkey]int64 // objetos por referência: o mesmo objeto, o mesmo handle
+	next  int64
+}{m: map[int64]*hentry{}, byKey: map[hkey]int64{}}
+
+// hentry: o valor de um handle e quantos objetos Dart o seguram (cada um o
+// solta pelo Finalizer).
+type hentry struct {
+	v    any
+	refs int
+	key  hkey
+}
+
+// hkey: a identidade de um objeto por referência (ponteiro, mapa, canal): o
+// tipo dinâmico e o endereço. Enquanto está na tabela ele não é coletado, e o
+// endereço não se repete.
+type hkey struct {
+	t reflect.Type
+	p uintptr
+}
 
 // hput guarda [v] e devolve o handle; nil (inclusive ponteiro ou interface
-// nil dentro do any) vira 0.
+// nil dentro do any) vira 0. O mesmo objeto por referência devolve o mesmo
+// handle (um cast, um campo lido de novo): o Dart reconhece o objeto em uso
+// por um callback (deadlock.go) por qualquer um dos seus objetos.
 func hput(v any) int64 {
 	if v == nil {
 		return 0
 	}
+	var key hkey
 	switch rv := reflect.ValueOf(v); rv.Kind() {
-	case reflect.Pointer, reflect.Interface, reflect.Map, reflect.Slice, reflect.Func, reflect.Chan:
+	case reflect.Pointer, reflect.Map, reflect.Chan:
+		if rv.IsNil() {
+			return 0
+		}
+		key = hkey{rv.Type(), rv.Pointer()}
+	case reflect.Interface, reflect.Slice, reflect.Func:
 		if rv.IsNil() {
 			return 0
 		}
 	}
 	handles.Lock()
 	defer handles.Unlock()
+	if key.t != nil {
+		if id, ok := handles.byKey[key]; ok {
+			handles.m[id].refs++
+			return id
+		}
+	}
 	handles.next++
-	handles.m[handles.next] = v
+	handles.m[handles.next] = &hentry{v: v, refs: 1, key: key}
+	if key.t != nil {
+		handles.byKey[key] = handles.next
+	}
 	return handles.next
 }
 
@@ -327,11 +361,12 @@ func hget[T any](id int64) (T, error) {
 		return zero, nil
 	}
 	handles.Lock()
-	v, ok := handles.m[id]
+	e, ok := handles.m[id]
 	handles.Unlock()
 	if !ok {
 		return zero, fmt.Errorf("ipfs_host: handle %d does not exist (already freed, or from another service)", id)
 	}
+	v := e.v
 	t, ok := v.(T)
 	if !ok {
 		return zero, fmt.Errorf("ipfs_host: handle %d is %T, not %v", id, v, reflect.TypeFor[T]())
@@ -339,10 +374,21 @@ func hget[T any](id int64) (T, error) {
 	return t, nil
 }
 
+// hfree: um objeto Dart soltou o handle [id]; o último o tira da tabela.
 func hfree(id int64) {
 	handles.Lock()
+	defer handles.Unlock()
+	e, ok := handles.m[id]
+	if !ok {
+		return
+	}
+	if e.refs--; e.refs > 0 {
+		return
+	}
 	delete(handles.m, id)
-	handles.Unlock()
+	if e.key.t != nil {
+		delete(handles.byKey, e.key)
+	}
 }
 
 func decH[T any](r *reader) (T, error) { return hget[T](r.i64()) }

@@ -38,8 +38,10 @@ final class IpfsBusy {
   final bool busy;
 }
 
-/// Objects in use by calls with callbacks (how many calls hold each one).
-final _busy = Map<GoHandle, int>.identity();
+/// Objects in use by calls with callbacks, by handle (the host gives the
+/// same Go object the same handle, whatever Dart object holds it), and how
+/// many calls hold each one.
+final _busy = <int, int>{};
 final _busyChanges = StreamController<IpfsBusy>.broadcast();
 
 /// The changes of the objects in use (IpfsService.busy).
@@ -47,11 +49,11 @@ Stream<IpfsBusy> get $busyChanges => _busyChanges.stream;
 
 void _setBusy(List<GoHandle> handles, bool busy) {
   for (final h in handles) {
-    final n = (_busy[h] ?? 0) + (busy ? 1 : -1);
+    final n = (_busy[h.$h] ?? 0) + (busy ? 1 : -1);
     if (n > 0) {
-      _busy[h] = n;
+      _busy[h.$h] = n;
     } else {
-      _busy.remove(h);
+      _busy.remove(h.$h);
     }
     if ((busy && n == 1) || (!busy && n == 0)) {
       _busyChanges.add(IpfsBusy(h, busy));
@@ -63,7 +65,7 @@ void _setBusy(List<GoHandle> handles, bool busy) {
 /// watches it for a deadlock.
 int _watch($W? w) => w != null &&
         _busy.isNotEmpty &&
-        w._keep.any((h) => h is GoHandle && _busy.containsKey(h))
+        w._keep.any((h) => h is GoHandle && _busy.containsKey(h.$h))
     ? 0x80
     : 0;
 

@@ -197,3 +197,24 @@ func TestErrData(t *testing.T) {
 		}
 	}
 }
+
+// O mesmo objeto por referência dá o mesmo handle, e ele só sai da tabela
+// quando todos os objetos Dart o soltam.
+func TestHandleDedup(t *testing.T) {
+	buf := &bytes.Buffer{}
+	a, b := hput(buf), hput(io.Writer(buf))
+	if a != b {
+		t.Fatalf("o mesmo ponteiro deu handles %d e %d", a, b)
+	}
+	if c := hput(&bytes.Buffer{}); c == a {
+		t.Fatal("objetos diferentes com o mesmo handle")
+	}
+	hfree(a)
+	if got, err := hget[*bytes.Buffer](a); err != nil || got != buf {
+		t.Fatal("o handle saiu com um objeto Dart ainda segurando:", err)
+	}
+	hfree(b)
+	if _, err := hget[*bytes.Buffer](a); err == nil {
+		t.Fatal("o handle ficou depois do último hfree")
+	}
+}
