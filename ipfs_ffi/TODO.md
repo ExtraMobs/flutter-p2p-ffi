@@ -23,7 +23,9 @@ ipld-prime; o `bsadapter` aprovado.
   não veria nada com o laço preso. Para a vigia valer por qualquer objeto Dart do mesmo
   objeto Go (um cast), o host dá o mesmo handle ao mesmo objeto, com contagem.
 - `isBusy` e `IpfsService.busy` (`IpfsBusy`); Riverpod fica com o app.
-- Recorte: `gateway.BlocksBackend.getCar` (escopo, ordem, duplicatas, faixa de bytes; rede),
+- Recorte: `gateway.BlocksBackend.getCar` (escopo, ordem, duplicatas, faixa de bytes; rede:
+  testado entre dois nós online, B sem os blocos baixa o CAR de A por bitswap e as fatias
+  reconstroem o arquivo e a faixa pedida),
   `bsadapter` sobre o `node.blockstore` (seletor qualquer, blocos locais), go-unixfsnode
   (seletor por nome de arquivo) com o escolhedor dag-pb do gateway, e o construtor de
   seletores. Achado com oráculo Go: sem `withTraversalPrototypeChooser(dagpb...)`, o go-car

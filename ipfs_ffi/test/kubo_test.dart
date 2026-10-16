@@ -4,13 +4,16 @@
 // (exige `dart run tool/build.dart`: native/ipfs_host e a ipfs_shm).
 import 'dart:async';
 import 'dart:convert';
+import 'dart:math' show Random;
 import 'dart:typed_data';
 import 'dart:io' show Directory, File, InternetAddress;
 
 import 'package:ipfs_ffi/boxo/files.dart' as files;
+import 'package:ipfs_ffi/boxo/gateway.dart' as gateway;
 import 'package:ipfs_ffi/boxo/ipld/merkledag.dart' as merkledag;
 import 'package:ipfs_ffi/boxo/mfs.dart' as mfs;
 import 'package:ipfs_ffi/boxo/path.dart' as path;
+import 'package:ipfs_ffi/car/v2.dart' as car;
 import 'package:ipfs_ffi/go/context.dart' as context;
 import 'package:ipfs_ffi/go/io.dart' as io;
 import 'package:ipfs_ffi/go/os.dart' as os;
@@ -20,6 +23,7 @@ import 'package:ipfs_ffi/ipfs_ffi.dart'
         IpfsPlatform,
         IpfsStop,
         IpfsStopReason,
+        IpfsEof,
         IpfsException,
         IpfsService,
         IpfsServiceException,
@@ -280,6 +284,71 @@ void main() {
 
       final found = await b.routing().findPeer(ctx, idA);
       expect(found.addrs, isNotEmpty);
+    });
+
+    // 0.17: o gateway do boxo sobre o nó B busca pela rede (bitswap) os
+    // blocos que só A tem e devolve o CAR verificável do caminho
+    test('B baixa de A pelo gateway (getCar, bitswap)', () async {
+      final rnd = Random(7);
+      final data = Uint8List.fromList(
+          List.generate(600000, (_) => rnd.nextInt(256))); // 3 fatias distintas
+      final dir = Directory('${tmp.path}/gw')..createSync();
+      File('${dir.path}/dados.bin').writeAsBytesSync(data);
+      File('${dir.path}/outro.txt').writeAsStringSync('não pedido');
+      final p = await a
+          .unixfs()
+          .add(ctx, files.newSerialFile(dir.path, false, os.stat(dir.path)), [
+        options.unixfs.cidVersion(1),
+        options.unixfs.chunker('size-262144'),
+        options.unixfs.pin(true, '')
+      ]);
+      // B não tem nada disso: só pela rede
+      final offline = b.withOptions([options.api.offline(true)]);
+      await expectLater(
+          offline.block().stat(ctx, p), throwsA(isA<IpfsException>()));
+
+      final backend = gateway.BlocksBackend(nb.blocks);
+      final (c, cancel) = context.withTimeout(
+          context.background(), const Duration(seconds: 30));
+      try {
+        /// O CAR de [path]: os CIDs e os dados das fatias raw, em ordem.
+        Future<(List<String>, Uint8List)> getCar(
+            String where, gateway.CarParams params) async {
+          final (_, rc) =
+              await backend.getCar(c, path.ImmutablePath(where), params);
+          final br = car.BlockReader(io.readAll(rc));
+          rc.close();
+          final cids = <String>[];
+          final leaves = BytesBuilder();
+          while (true) {
+            try {
+              final blk = br.next();
+              cids.add(blk.cid!.value);
+              if (blk.cid!.value.startsWith('bafk')) leaves.add(blk.rawData!);
+            } on IpfsEof {
+              return (cids, leaves.toBytes());
+            }
+          }
+        }
+
+        final file = '${p.value}/dados.bin';
+        // entity: a pasta (prova do caminho), a raiz do arquivo e 3 fatias
+        final (all, bytes) = await getCar(
+            file, gateway.CarParams(scope: gateway.dagScopeEntity));
+        expect(all, hasLength(5));
+        expect(all.first, p.value.substring('/ipfs/'.length));
+        expect(bytes, data);
+        // faixa: só a fatia que cobre os bytes pedidos
+        final (some, part) = await getCar(
+            file,
+            gateway.CarParams(
+                scope: gateway.dagScopeEntity,
+                range: gateway.DagByteRange(from: 300000, to: 300099)));
+        expect(some, hasLength(3));
+        expect(part, data.sublist(262144, 2 * 262144));
+      } finally {
+        cancel();
+      }
     });
 
     test('B busca por bitswap o que A adicionou', () async {
