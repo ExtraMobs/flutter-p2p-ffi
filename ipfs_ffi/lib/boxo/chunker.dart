@@ -11,6 +11,6 @@ class SplitterGen extends GoHandle {
 
 /// Go: `func chunk.SizeSplitterGen(size int64) chunk.SplitterGen`.
 SplitterGen sizeSplitterGen(int size) {
-  final $r = $callSync(68, $W()..i64(size));
+  final $r = $callSync(72, $W()..i64(size));
   return $r.hnn(SplitterGen.$h);
 }

@@ -321,8 +321,10 @@ func (m *model) resolve(pkgs map[string]*types.Package, line string) ([]*fn, err
 		}
 		f.obj = fobj
 		f.recv = m.classify(recvT)
-		if f.recv.k != kHandle {
-			f.why = "receptor não é handle: " + f.recv.why
+		// receptor DTO (car.Header.HasIndex, cid.Prefix.Sum): vai por valor, e
+		// um método que o altera não volta ao Dart
+		if f.recv.k != kHandle && f.recv.k != kDTO {
+			f.why = "receptor não é handle nem DTO: " + f.recv.why
 		}
 	}
 	sig := f.obj.Type().(*types.Signature)
@@ -485,7 +487,7 @@ func (m *model) check(f *fn) {
 	}
 	for _, p := range f.params {
 		switch t := p.t; t.k {
-		case kBasic, kBytes, kValue, kDTO, kHandle, kMap, kCtx, kWriter, kAny:
+		case kBasic, kBytes, kValue, kDTO, kSnap, kHandle, kMap, kCtx, kWriter, kAny:
 		case kSlice:
 			if t.elem.k == kOpts || okElem(t.elem) {
 				break

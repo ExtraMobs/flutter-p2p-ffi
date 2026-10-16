@@ -27,7 +27,7 @@ Future<void> main(List<String> args) async {
     await IpfsService.stop();
     return;
   }
-  final identity = config.createIdentity([options.key.type('ed25519')]);
+  final identity = config.createIdentity(null, [options.key.type('ed25519')]);
   final cfg = config.initWithIdentity(identity);
   for (final p in profiles) {
     config.profiles[p]!.transform(cfg);

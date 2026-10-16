@@ -22,8 +22,8 @@ void main() {
     kubo.PluginLoader('')
       ..initialize()
       ..inject();
-    final cfg =
-        kubo.initWithIdentity(kubo.createIdentity([kubo.key.type('ed25519')]));
+    final cfg = kubo.initWithIdentity(
+        kubo.createIdentity(null, [kubo.key.type('ed25519')]));
     kubo.profiles['test']!.transform(cfg);
     kubo.init('${tmp.path}/repo', cfg);
     n = await kubo.newNode(

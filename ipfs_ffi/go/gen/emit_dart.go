@@ -157,13 +157,15 @@ func formatDart(path, src string) []byte {
 	return out.Bytes()
 }
 
-// isFactory: NewX síncrono que devolve X do mesmo pacote vira `factory X(...)`.
+// isFactory: NewX síncrono que devolve o handle X do mesmo pacote vira
+// `factory X(...)`.
 func isFactory(f *fn) bool {
 	if f.async || len(f.results) != 1 {
 		return false
 	}
 	r := f.results[0]
-	if (r.k != kHandle && r.k != kDTO) || r.named == nil || r.reader {
+	// DTO não: o construtor dele é o dos campos (car.NewHeader fica função)
+	if r.k != kHandle || r.named == nil || r.reader {
 		return false
 	}
 	return r.named.Obj().Pkg() == f.pkg && f.obj.Name() == "New"+r.named.Obj().Name()
@@ -293,7 +295,7 @@ func (e *dartEmitter) enc(t *tinfo, x string, depth int) string {
 		return "val(" + x + ")"
 	case kHandle, kCtx:
 		return "h(" + x + ")"
-	case kDTO:
+	case kDTO, kSnap:
 		return "dto(" + x + ")"
 	case kOpts:
 		return "opt(" + x + ")"
@@ -305,7 +307,10 @@ func (e *dartEmitter) enc(t *tinfo, x string, depth int) string {
 	case kMap:
 		w, k, v := fmt.Sprintf("w%d", depth), fmt.Sprintf("k%d", depth), fmt.Sprintf("v%d", depth)
 		key := "str(" + k + ")" // chave sem byte de presença, também a tipo-valor
-		if t.mkey != nil {
+		switch {
+		case t.mkey != nil && t.mkey.k == kBasic: // chave inteira
+			key = e.enc(t.mkey, k, depth+1)
+		case t.mkey != nil:
 			key = "str(" + k + ".value)"
 		}
 		return fmt.Sprintf("map(%s, (%s, %s) => %s.%s, (%s, %s) => %s.%s)", x, w, k, w, key, w, v, w, e.enc(t.elem, v, depth+1))
@@ -364,7 +369,10 @@ func (e *dartEmitter) dec(t *tinfo, r string, from *dartLib, opt bool) string {
 		return fmt.Sprintf("%s.list(() => %s)", r, e.dec(t.elem, r, from, false))
 	case kMap:
 		key := r + ".str()"
-		if t.mkey != nil {
+		switch {
+		case t.mkey != nil && t.mkey.k == kBasic: // chave inteira
+			key = e.dec(t.mkey, r, from, false)
+		case t.mkey != nil:
 			key = e.ref(t.mkey, from) + "(" + r + ".str())"
 		}
 		return fmt.Sprintf("%s.map(() => %s, () => %s)", r, key, e.dec(t.elem, r, from, false))
@@ -429,16 +437,38 @@ func (e *dartEmitter) class(l *dartLib, c *dclass) string {
 		fmt.Fprintf(&b, "/// Go: `%s` (functional option; constructors in the package).\nfinal class %s extends GoOption {\n  %s.$(super.$i, super.$a);\n}\n\n", docType(t), name, name)
 	case kDTO:
 		e.dto(l, &b, t, name)
-	case kSnap:
-		fmt.Fprintf(&b, "/// Go: `%s` (values read from the methods).\nfinal class %s {\n", docType(t), name)
-		var inits []string
-		for _, g := range t.gets {
-			inits = append(inits, fmt.Sprintf("%s = %s", memberName(g.name), e.snapDec(l, g)))
+		for _, f := range c.methods {
+			b.WriteString("\n" + e.function(l, f, name, false))
 		}
-		if len(inits) == 0 {
-			fmt.Fprintf(&b, "  %s.$dec($R r);\n", name)
+		b.WriteString("}\n\n")
+	case kSnap:
+		// o Go devolve os valores; o Dart os monta para mandar de volta (um
+		// parâmetro do tipo da interface: o Go recebe uma struct com eles)
+		fmt.Fprintf(&b, "/// Go: `%s` (values read from the methods; built in Dart, it\n/// crosses as a Go value that returns them).\nfinal class %s implements GoDto {\n", docType(t), name)
+		var params, inits, decs, encs []string
+		for _, g := range t.gets {
+			n, dartT := memberName(g.name), e.dt(g.t, l)
+			params = append(params, dartT+"? "+n)
+			if z := zero(g.t, dartT); z != "" && !g.hasErr {
+				inits = append(inits, fmt.Sprintf("%s = %s ?? %s", n, n, z))
+			} else {
+				inits = append(inits, fmt.Sprintf("%s = %s", n, n))
+			}
+			decs = append(decs, fmt.Sprintf("%s = %s", n, e.snapDec(l, g)))
+			x := n
+			if z := zero(g.t, dartT); z != "" && g.hasErr { // valor (zero se o Go deu erro) e o erro
+				x = n + " ?? " + z
+			}
+			encs = append(encs, ".."+e.enc(g.t, x, 0))
+			if g.hasErr {
+				encs = append(encs, "..err(null)")
+			}
+		}
+		if len(params) == 0 {
+			fmt.Fprintf(&b, "  %s();\n  %s.$dec($R r);\n", name, name)
 		} else {
-			fmt.Fprintf(&b, "  %s.$dec($R r)\n    : %s;\n", name, strings.Join(inits, ",\n      "))
+			fmt.Fprintf(&b, "  %s({%s})\n    : %s;\n\n", name, strings.Join(params, ", "), strings.Join(inits, ",\n      "))
+			fmt.Fprintf(&b, "  %s.$dec($R r)\n    : %s;\n", name, strings.Join(decs, ",\n      "))
 		}
 		for _, g := range t.gets {
 			q := ""
@@ -447,7 +477,11 @@ func (e *dartEmitter) class(l *dartLib, c *dclass) string {
 			}
 			fmt.Fprintf(&b, "\n  /// Go: `%s()`.\n  final %s%s %s;\n", g.name, e.dt(g.t, l), q, memberName(g.name))
 		}
-		b.WriteString("}\n\n")
+		if len(encs) == 0 {
+			b.WriteString("\n  @override\n  void $enc($W w) {}\n}\n\n")
+		} else {
+			fmt.Fprintf(&b, "\n  @override\n  void $enc($W w) {\n    w%s;\n  }\n}\n\n", strings.Join(encs, ""))
+		}
 	case kHandle:
 		base := "GoHandle"
 		if t.super != nil {
@@ -545,10 +579,11 @@ func (e *dartEmitter) dto(l *dartLib, b *strings.Builder, t *tinfo, name string)
 		}
 		fmt.Fprintf(b, "\n  /// Go: `%s`.%s\n  %s%s %s;\n", f.name, u64Doc(isU64(f.t.t)), e.dt(f.t, l), q, memberName(f.name))
 	}
+	// sem a chave final: quem chama acrescenta os métodos (receptor DTO)
 	if len(encs) == 0 {
-		b.WriteString("\n  @override\n  void $enc($W w) {}\n}\n\n")
+		b.WriteString("\n  @override\n  void $enc($W w) {}\n")
 	} else {
-		fmt.Fprintf(b, "\n  @override\n  void $enc($W w) {\n    w%s;\n  }\n}\n\n", strings.Join(encs, ""))
+		fmt.Fprintf(b, "\n  @override\n  void $enc($W w) {\n    w%s;\n  }\n", strings.Join(encs, ""))
 	}
 }
 
@@ -666,13 +701,16 @@ func (e *dartEmitter) function(l *dartLib, f *fn, class string, factory bool) st
 			types.TypeString(f.cast.t, func(p *types.Package) string { return p.Name() }), C, memberName(f.obj.Name()), f.id, e.dec(f.cast, "$r", l, true))
 	}
 	var params, segs []string
-	if f.recv != nil {
+	switch {
+	case f.recv != nil && f.recv.k == kDTO: // receptor DTO: vai por valor
+		segs = append(segs, "dto(this)")
+	case f.recv != nil:
 		segs = append(segs, "h(this)")
 	}
 	opt := ""
 	for i, p := range f.params {
-		// io.Writer não atravessa; chan<- da própria função é o modo stream
-		if p.t.k == kWriter || p.t.k == kChanSend {
+		// chan<- da própria função é o modo stream
+		if p.t.k == kChanSend {
 			continue
 		}
 		if i == f.outBuf { // o Go preenche o []byte: o Dart manda só o tamanho
@@ -681,6 +719,11 @@ func (e *dartEmitter) function(l *dartLib, f *fn, class string, factory bool) st
 			continue
 		}
 		n := dartParamName(p.name)
+		if p.t.k == kWriter { // handle de um io.Writer (os.File, bytes.Buffer); null = io.Discard
+			segs = append(segs, "h("+n+")")
+			params = append(params, "GoHandle? "+n)
+			continue
+		}
 		if p.t.reader {
 			segs = append(segs, "reader("+n+")")
 		} else {
@@ -690,9 +733,9 @@ func (e *dartEmitter) function(l *dartLib, f *fn, class string, factory bool) st
 			opt = fmt.Sprintf("[%s %s = const []]", e.dt(p.t, l), n)
 			continue
 		}
-		dartT := e.dt(p.t, l)
-		if p.t.reader {
-			dartT = "Object" // Uint8List ou um handle de io.Reader
+		dartT := "Object" // Uint8List ou um handle (io.Reader, io.ReaderAt...)
+		if !p.t.reader {
+			dartT = e.dt(p.t, l)
 		}
 		params = append(params, dartT+" "+n)
 	}
@@ -761,6 +804,16 @@ func (e *dartEmitter) function(l *dartLib, f *fn, class string, factory bool) st
 	return b.String()
 }
 
+func realMethods(c *dclass) int {
+	n := 0
+	for _, f := range c.methods {
+		if f.cast == nil {
+			n++
+		}
+	}
+	return n
+}
+
 func usesRuntime(body string) bool {
 	for _, id := range []string{"GoHandle", "GoValue", "GoDto", "GoOption", "GoSink", "$call", "$stream", "$W", "$R", "$nil", "$orErr"} {
 		if strings.Contains(body, id) {
@@ -786,8 +839,10 @@ func (e *dartEmitter) linkConcrete() {
 		l := e.libs[path]
 		for _, k := range sortedKeys(l.classes) {
 			c := l.classes[k]
-			// só interfaces com métodos expostos (io.Closer sem métodos gerados não acrescenta nada)
-			if c.t.k == kHandle && !c.t.reader && types.IsInterface(c.t.named) && len(c.methods) > 0 {
+			// só interfaces com métodos expostos (io.Closer sem métodos gerados
+			// não acrescenta nada); os casts (asProtoNode) não contam: senão a
+			// interface que só serve de parâmetro (datamodel.Node) ganharia
+			if c.t.k == kHandle && !c.t.reader && types.IsInterface(c.t.named) && realMethods(c) > 0 {
 				ifaces = append(ifaces, c)
 			}
 		}

@@ -62,7 +62,7 @@ void main() {
     plugins.inject();
 
     // ipfs init
-    final identity = config.createIdentity([options.key.type('ed25519')]);
+    final identity = config.createIdentity(null, [options.key.type('ed25519')]);
     final cfg = config.initWithIdentity(identity);
     config.profiles['test']!.transform(cfg); // portas aleatórias, sem bootstrap
     expect(fsrepo.isInitialized(repoPath), isFalse);
@@ -212,8 +212,8 @@ void main() {
   // upstreamPatches; go/upstream_test.go afirma cada um sem o patch).
   test('upstream corrigido: Routing none fecha e reabre o mesmo repo',
       () async {
-    final cfg = config
-        .initWithIdentity(config.createIdentity([options.key.type('ed25519')]));
+    final cfg = config.initWithIdentity(
+        config.createIdentity(null, [options.key.type('ed25519')]));
     config.profiles['test']!.transform(cfg);
     final repoPath = '${tmp.path}/none';
     fsrepo.init(repoPath, cfg);
@@ -237,7 +237,7 @@ void main() {
 
     Future<(core.IpfsNode, iface.CoreApi)> online(String name) async {
       final cfg = config.initWithIdentity(
-          config.createIdentity([options.key.type('ed25519')]));
+          config.createIdentity(null, [options.key.type('ed25519')]));
       config.profiles['test']!.transform(cfg);
       final repoPath = '${tmp.path}/$name';
       fsrepo.init(repoPath, cfg);
@@ -792,8 +792,8 @@ void main() {
       ..initialize()
       ..inject();
     final repo = '${tmp.path}/depois-do-crash';
-    final cfg = config
-        .initWithIdentity(config.createIdentity([options.key.type('ed25519')]));
+    final cfg = config.initWithIdentity(
+        config.createIdentity(null, [options.key.type('ed25519')]));
     config.profiles['test']!.transform(cfg);
     fsrepo.init(repo, cfg);
     final n2 = await core.newNode(

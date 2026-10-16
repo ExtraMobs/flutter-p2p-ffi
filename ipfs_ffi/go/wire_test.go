@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	"errors"
+	"io"
 	"math"
 	"strings"
 	"testing"
@@ -134,5 +135,40 @@ func TestHandles(t *testing.T) {
 	hfree(h)
 	if _, err := hget[*bytes.Buffer](h); err == nil {
 		t.Fatal("handle solto ainda vale")
+	}
+}
+
+// Interface de E/S em parâmetro (decIO): bytes valem onde o bytes.Reader
+// serve (io.ReaderAt), não onde não serve (io.WriterAt); handle vale pelo
+// tipo do objeto. io.Writer (decWriter): handle 0 é o io.Discard.
+func TestDecIO(t *testing.T) {
+	w := &writer{}
+	w.u8(0)
+	w.bytes([]byte("abc"))
+	ra, err := decIO[io.ReaderAt](&reader{b: w.b})
+	if err != nil {
+		t.Fatal(err)
+	}
+	p := make([]byte, 2)
+	if n, _ := ra.ReadAt(p, 1); n != 2 || string(p) != "bc" {
+		t.Fatalf("ReadAt: %q", p)
+	}
+	if _, err := decIO[io.WriterAt](&reader{b: w.b}); err == nil {
+		t.Fatal("bytes aceitos como io.WriterAt")
+	}
+
+	buf := &bytes.Buffer{}
+	h := hput(buf)
+	defer hfree(h)
+	w = &writer{}
+	w.u8(1)
+	w.i64(h)
+	if got, err := decIO[io.ReadWriter](&reader{b: w.b}); err != nil || got != buf {
+		t.Fatal(got, err)
+	}
+	w = &writer{}
+	w.i64(0)
+	if got, err := decWriter(&reader{b: w.b}); err != nil || got != io.Discard {
+		t.Fatal(got, err)
 	}
 }

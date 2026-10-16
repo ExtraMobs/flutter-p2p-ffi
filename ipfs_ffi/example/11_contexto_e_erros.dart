@@ -45,8 +45,8 @@ Future<void> main() async {
       crashLog: '${tmp.path}/crash.log', // onde o Go grava o relatório
       onStop: (s) => parada.complete(s));
 
-  final cfg =
-      kubo.initWithIdentity(kubo.createIdentity([kubo.key.type('ed25519')]));
+  final cfg = kubo
+      .initWithIdentity(kubo.createIdentity(null, [kubo.key.type('ed25519')]));
   kubo.profiles['test']!.transform(cfg);
   plugins();
   kubo.init(repoPath, cfg);

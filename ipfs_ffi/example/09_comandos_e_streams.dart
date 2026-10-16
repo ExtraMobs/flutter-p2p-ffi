@@ -48,8 +48,8 @@ Future<void> main() async {
 
   // Cria o repo: uma identidade nova (o par de chaves do nó) e a config
   // padrão do kubo, com o perfil `test` (sem rede, portas aleatórias).
-  final cfg =
-      kubo.initWithIdentity(kubo.createIdentity([kubo.key.type('ed25519')]));
+  final cfg = kubo
+      .initWithIdentity(kubo.createIdentity(null, [kubo.key.type('ed25519')]));
   kubo.profiles['test']!.transform(cfg);
   kubo.init(repoPath, cfg);
 

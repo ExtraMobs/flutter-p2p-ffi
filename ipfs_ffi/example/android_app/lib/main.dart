@@ -69,8 +69,8 @@ void setupService(String repoPath) {
     ..initialize()
     ..inject();
   if (!fsrepo.isInitialized(repoPath)) {
-    final cfg = config
-        .initWithIdentity(config.createIdentity([options.key.type('ed25519')]));
+    final cfg = config.initWithIdentity(
+        config.createIdentity(null, [options.key.type('ed25519')]));
     final defaults = ((cfg.json['Addresses'] as Map)['Swarm'] as List)
         .cast<String>()
         .toList();

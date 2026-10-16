@@ -60,7 +60,7 @@ func TestTableRepoFlow(t *testing.T) {
 	value(t, kubo+"plugin/loader.PluginLoader.Initialize", func(w *writer) { w.i64(pl) })
 	value(t, kubo+"plugin/loader.PluginLoader.Inject", func(w *writer) { w.i64(pl) })
 
-	ident := value(t, kubo+"config.CreateIdentity", func(w *writer) { w.i32(0) }) // sem opções
+	ident := value(t, kubo+"config.CreateIdentity", func(w *writer) { w.i64(0); w.i32(0) }) // io.Discard, sem opções
 	identity := ident.b
 	if !ident.present() || ident.str() == "" { // PeerID
 		t.Fatalf("Identity inesperada: %x", identity)

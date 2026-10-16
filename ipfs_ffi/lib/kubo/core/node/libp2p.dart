@@ -17,25 +17,25 @@ class RoutingOption extends GoHandle {
 
 /// Go: `var libp2p.DHTOption libp2p.RoutingOption`.
 RoutingOption get dhtOption {
-  final $r = $callSync(218);
+  final $r = $callSync(225);
   return $r.hnn(RoutingOption.$h);
 }
 
 /// Go: `var libp2p.DHTClientOption libp2p.RoutingOption`.
 RoutingOption get dhtClientOption {
-  final $r = $callSync(217);
+  final $r = $callSync(224);
   return $r.hnn(RoutingOption.$h);
 }
 
 /// Go: `var libp2p.DHTServerOption libp2p.RoutingOption`.
 RoutingOption get dhtServerOption {
-  final $r = $callSync(219);
+  final $r = $callSync(226);
   return $r.hnn(RoutingOption.$h);
 }
 
 /// Go: `var libp2p.NilRouterOption func(_ libp2p.RoutingOptionArgs) (routing.Routing, error)`.
 RoutingOption get nilRouterOption {
-  final $r = $callSync(220);
+  final $r = $callSync(227);
   return $r.hnn(RoutingOption.$h);
 }
 
@@ -43,7 +43,7 @@ RoutingOption get nilRouterOption {
 RoutingOption constructDefaultRouting(
     $config.Config cfg, RoutingOption routingOpt) {
   final $r = $callSync(
-      216,
+      223,
       $W()
         ..json(cfg)
         ..h(routingOpt));

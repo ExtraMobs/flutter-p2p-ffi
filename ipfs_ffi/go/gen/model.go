@@ -49,8 +49,14 @@ var valueTypes = map[string]valueSpec{
 	"github.com/ipfs/boxo/ipns.Name":     {dec: "decIpnsName", enc: "encIpnsName", dartClass: "Name"},
 }
 
-// handleTypes: interfaces que parecem só-getters mas são recursos (handle).
-var handleTypes = setOf(`os.FileInfo`)
+// handleTypes: interfaces que parecem só-getters mas são recursos, e structs
+// só de campos exportados que são objetos (o LinkSystem guarda funções).
+var handleTypes = setOf(`os.FileInfo github.com/ipld/go-ipld-prime/linking.LinkSystem`)
+
+// ioMethods: os métodos de uma interface de E/S (io.ReaderAt, io.ReadSeeker,
+// car.SectionReader...): em parâmetro ela aceita bytes ou qualquer handle,
+// como o io.Reader (tinfo.reader).
+var ioMethods = setOf(`Read ReadAt Seek Write WriteAt Close`)
 
 type tinfo struct {
 	k      kind
@@ -59,14 +65,14 @@ type tinfo struct {
 	named  *types.Named // tipo nomeado (classe Dart) de kValue/kDTO/kSnap/kHandle/kOpts
 	ptr    bool         // kDTO/kValue por ponteiro (*BuildCfg, *config.Config)
 	elem   *tinfo       // kSlice, kMap, kChanSend, kChanRecv
-	mkey   *tinfo       // kMap com chave tipo-valor (nil = chave string)
+	mkey   *tinfo       // kMap com chave tipo-valor ou inteira (nil = chave string)
 	val    valueSpec
 	why    string // kUnsupported
 	fields []field
 	gets   []getter
 	ctors  []optCtor // kOpts
 	super  *tinfo    // kHandle de interface: primeira interface embutida com classe
-	reader bool      // handle de io.Reader: o Dart também pode passar bytes
+	reader bool      // handle de interface de E/S (io.Reader, io.ReaderAt...): o Dart também pode passar bytes
 }
 
 type field struct {
@@ -142,14 +148,20 @@ func (m *model) fill(ti *tinfo) {
 			unsupported(ti, "[]%s", ti.elem.why)
 		}
 	case *types.Map:
-		// chave string (ou nomeado sobre string) vai direto no JSON; chave
-		// tipo-valor (peer.ID) passa pelo conversor da tabela.
-		if b, ok := t.Key().Underlying().(*types.Basic); !ok || b.Kind() != types.String {
+		// chave string (ou nomeado sobre string) vai como string; chave
+		// tipo-valor (peer.ID) passa pelo conversor da tabela; chave inteira
+		// (multicodec.Code) vai como o inteiro.
+		b, ok := t.Key().Underlying().(*types.Basic)
+		switch {
+		case ok && b.Kind() == types.String:
+			if kt := m.classify(t.Key()); kt.k == kValue && !kt.val.json {
+				ti.mkey = kt
+			}
+		case ok && b.Info()&types.IsInteger != 0 && b.Kind() != types.Uintptr:
+			ti.mkey = m.classify(t.Key())
+		default:
 			unsupported(ti, "mapa com chave %s", t.Key())
 			return
-		}
-		if kt := m.classify(t.Key()); kt.k == kValue && !kt.val.json {
-			ti.mkey = kt
 		}
 		ti.k, ti.elem = kMap, m.classify(t.Elem())
 		if ti.elem.k == kUnsupported {
@@ -273,6 +285,10 @@ func (m *model) fillInterface(ti *tinfo, n *types.Named, u *types.Interface) {
 	if handleTypes[objKey(n.Obj())] || u.NumMethods() == 0 {
 		return
 	}
+	if isIO(u) {
+		ti.reader, ti.super = true, nil
+		return
+	}
 	var gets []getter
 	for i := 0; i < u.NumMethods(); i++ {
 		f := u.Method(i)
@@ -304,6 +320,10 @@ func (m *model) fillInterface(ti *tinfo, n *types.Named, u *types.Interface) {
 // Struct com campo não exportado é handle; senão DTO (campos que não
 // atravessam ficam de fora, registrados no API.md).
 func (m *model) fillStruct(ti *tinfo, n *types.Named, u *types.Struct) {
+	if handleTypes[objKey(n.Obj())] {
+		ti.k = kHandle
+		return
+	}
 	for i := 0; i < u.NumFields(); i++ {
 		f := u.Field(i)
 		// campo não exportado, ou interface embutida (merkledag.RawNode embute
@@ -331,6 +351,19 @@ func (m *model) fillStruct(ti *tinfo, n *types.Named, u *types.Struct) {
 		}
 		ti.fields = append(ti.fields, fd)
 	}
+}
+
+// isIO: interface só de métodos de E/S, com ao menos um de dados.
+func isIO(u *types.Interface) bool {
+	data := false
+	for i := 0; i < u.NumMethods(); i++ {
+		name := u.Method(i).Name()
+		if !ioMethods[name] {
+			return false
+		}
+		data = data || (name != "Seek" && name != "Close")
+	}
+	return data
 }
 
 func splitErr(res *types.Tuple) ([]types.Type, bool) {

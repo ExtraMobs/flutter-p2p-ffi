@@ -11,18 +11,47 @@ class File extends GoHandle {
 
   /// Go: `func (*os.File).Close() error`.
   void close() {
-    $callSync(236, $W()..h(this));
+    $callSync(324, $W()..h(this));
   }
 }
 
 /// Go: `func os.Stat(name string) (os.FileInfo, error)`.
 $fs.FileInfo stat(String name) {
-  final $r = $callSync(237, $W()..str(name));
+  final $r = $callSync(327, $W()..str(name));
   return $r.hnn($fs.FileInfo.$h);
 }
 
 /// Go: `func os.Create(name string) (*os.File, error)`.
 File create(String name) {
-  final $r = $callSync(235, $W()..str(name));
+  final $r = $callSync(323, $W()..str(name));
   return $r.hnn(File.$h);
 }
+
+/// Go: `func os.Open(name string) (*os.File, error)`.
+File open(String name) {
+  final $r = $callSync(325, $W()..str(name));
+  return $r.hnn(File.$h);
+}
+
+/// Go: `func os.OpenFile(name string, flag int, perm os.FileMode) (*os.File, error)`.
+File openFile(String name, int flag, int perm) {
+  final $r = $callSync(
+      326,
+      $W()
+        ..str(name)
+        ..i64(flag)
+        ..i64(perm));
+  return $r.hnn(File.$h);
+}
+
+/// Go: `const os.O_RDONLY int`.
+const oRdonly = 0;
+
+/// Go: `const os.O_RDWR int`.
+const oRdwr = 2;
+
+/// Go: `const os.O_CREATE int`.
+const oCreate = 64;
+
+/// Go: `const os.O_TRUNC int`.
+const oTrunc = 512;

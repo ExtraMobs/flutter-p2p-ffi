@@ -26,8 +26,8 @@ final ctx = context.background();
 /// Repo temporário com o perfil `test` (127.0.0.1, portas aleatórias, sem
 /// bootstrap) e nó online com a DHT em modo servidor.
 Future<(core.IpfsNode, iface.CoreApi)> spawn(String dir) async {
-  final cfg = config
-      .initWithIdentity(config.createIdentity([options.key.type('ed25519')]));
+  final cfg = config.initWithIdentity(
+      config.createIdentity(null, [options.key.type('ed25519')]));
   config.profiles['test']!.transform(cfg);
   fsrepo.init(dir, cfg);
   final n = await core.newNode(

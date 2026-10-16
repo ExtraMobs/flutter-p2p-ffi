@@ -83,15 +83,16 @@ Tipos nomeados sobre básicos (enums do kubo) vão como o básico. Por tipo do m
 | `kValue` `config.Config` | `u8 presente` + string com o JSON do próprio kubo (o formato do arquivo `config`, que é o dado em si) |
 | `kHandle`, `kCtx` | `i64` handle; `0` = nil |
 | `kDTO` | `u8 presente` + os campos que atravessam, na ordem de `tinfo.fields` |
-| `kSnap` | `u8 presente` + cada getter na ordem de `tinfo.gets`; getter com erro = o valor seguido de um `kError` |
+| `kSnap` | `u8 presente` + cada getter na ordem de `tinfo.gets`; getter com erro = o valor seguido de um `kError`. Em parâmetro (`ReadWrite.Put(ctx, Block)`), o mesmo formato vindo do Dart; o host monta uma struct que devolve os valores |
 | `kError` (erro dentro de um valor) | `u8 presente` + string |
 | `kSlice` | `i32 n` + elementos; `-1` = nil |
-| `kMap` | `i32 n` + pares: chave (string; se `tinfo.mkey`, a string do tipo-valor, **sem** byte de presença) + valor |
+| `kMap` | `i32 n` + pares: chave (string; se `tinfo.mkey` é tipo-valor, a string dele, **sem** byte de presença; se é inteira, `multicodec.Code`, o `i64`) + valor |
 | `kOpts` (opções funcionais, variádicas) | `i32 n` + cada opção: `u32` índice do construtor em `tinfo.ctors` + os parâmetros dele; um parâmetro que é ele mesmo uma opção (`options.Name.ResolveOption(namesys.ResolveWithDepth(1))`) vai como `kOpts` de uma |
 | `kAny` (`any`/`interface{}`, valor dinâmico) | `u8` etiqueta + valor: `0` nulo, `1` bool, `2` `i64`, `3` `f64`, `4` string, `5` `kBytes`, `6` lista (`i32 n` + itens), `7` mapa (`i32 n` + pares string chave + item). No host: ponteiros e interfaces são seguidos; `time.Time` e tipos com `MarshalText` (CID, peer ID, multiaddr) vão como string; structs como mapa dos campos exportados (o nome do `json`); mapas com as chaves em ordem. Ao ler, o host devolve os tipos do `encoding/json` (`int64` para inteiros) |
 | buffer de saída (`[]byte` que o Go preenche: `Read`, `ReadAt`, `CtxReadFull`) | no pedido, `i64` tamanho (até 64 MiB); na resposta, `kBytes` com os bytes lidos. `io.EOF`/`io.ErrUnexpectedEOF` não são erro: voltam os bytes lidos (vazio no fim) |
-| `io.Reader` em parâmetro | `u8 0` + `kBytes`, ou `u8 1` + `i64` handle |
-| `kWriter` (`io.Writer`) | não atravessa (o host usa `io.Discard`) |
+| interface de E/S em parâmetro (`io.Reader`, `io.ReaderAt`, `io.ReadSeeker`...: só métodos `Read ReadAt Seek Write WriteAt Close`) | `u8 0` + `kBytes` (lidos por um `bytes.Reader`; erro se ele não implementa a interface), ou `u8 1` + `i64` handle de um objeto que a implementa |
+| `kWriter` (`io.Writer`) | `i64` handle de um objeto que o implementa (`os.File`, `bytes.Buffer`); `0` = `io.Discard` |
+| receptor DTO (`car.Header.HasIndex`, `cid.Prefix.Sum`) | `kDTO` no lugar do handle; o que o método altera no receptor não volta |
 | `kChanSend` dentro de uma opção (sink, ex. `options.Unixfs.Events`) | `u32` id do sink (registrado pelo app); os itens vão como eventos `item` com esse id, e o sink termina com `fim`/`erro` antes da resposta da chamada |
 | `kChanSend` como parâmetro da própria função (ex. `PinAPI.Ls`) | não atravessa: a função é chamada no modo stream e cada valor que o Go põe no canal é um `item` (como `kChanRecv`) |
 | `kChanRecv` (`<-chan T` no resultado) | a função é chamada no modo stream; cada valor do canal é um `item` |

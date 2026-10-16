@@ -22,7 +22,7 @@ Future<void> main() async {
   loader.PluginLoader('')
     ..initialize()
     ..inject();
-  final cfg = config.initWithIdentity(config.createIdentity([]));
+  final cfg = config.initWithIdentity(config.createIdentity(null, []));
   config.profiles['test']!.transform(cfg);
   final repoPath = '${tmp.path}/r';
   fsrepo.init(repoPath, cfg);

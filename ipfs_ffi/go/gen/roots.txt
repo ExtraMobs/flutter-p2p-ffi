@@ -208,3 +208,111 @@ github.com/ipfs/kubo/core.IpfsNode.Peering
 github.com/ipfs/boxo/peering.PeeringService.AddPeer
 github.com/ipfs/boxo/peering.PeeringService.RemovePeer
 github.com/ipfs/boxo/peering.PeeringService.ListPeers
+
+# 0.16 go-car (github.com/ipld/go-car/v2): arquivos CAR sem nó. Leitura
+# (versão, raízes, estatísticas, bloco a bloco), conversões v1/v2, índice,
+# blockstore e storage IPLD sobre um CAR e a travessia seletiva CAR → CAR.
+# As opções (car.Option) saem sozinhas, como funções do pacote.
+github.com/ipld/go-car/v2.PragmaSize
+github.com/ipld/go-car/v2.HeaderSize
+github.com/ipld/go-car/v2.CharacteristicsSize
+github.com/ipld/go-car/v2.DefaultMaxAllowedHeaderSize
+github.com/ipld/go-car/v2.DefaultMaxAllowedSectionSize
+github.com/ipld/go-car/v2.DefaultMaxIndexCidSize
+github.com/ipld/go-car/v2.ReadVersion
+github.com/ipld/go-car/v2.OpenReader
+github.com/ipld/go-car/v2.NewReader
+github.com/ipld/go-car/v2.Reader.Header
+github.com/ipld/go-car/v2.Reader.Version
+github.com/ipld/go-car/v2.Reader.Roots
+github.com/ipld/go-car/v2.Reader.Inspect
+github.com/ipld/go-car/v2.Reader.DataReader
+github.com/ipld/go-car/v2.Reader.IndexReader
+github.com/ipld/go-car/v2.Reader.Close
+github.com/ipld/go-car/v2.NewBlockReader
+github.com/ipld/go-car/v2.BlockReader.Version
+github.com/ipld/go-car/v2.BlockReader.Roots
+github.com/ipld/go-car/v2.BlockReader.Next
+github.com/ipld/go-car/v2.BlockReader.NextReader
+github.com/ipld/go-car/v2.BlockReader.SkipNext
+github.com/ipld/go-car/v2.NewHeader
+github.com/ipld/go-car/v2.Header.HasIndex
+github.com/ipld/go-car/v2.Header.WithDataSize
+github.com/ipld/go-car/v2.Header.WithDataPadding
+github.com/ipld/go-car/v2.Header.WithIndexPadding
+github.com/ipld/go-car/v2.Header.WriteTo
+github.com/ipld/go-car/v2.Characteristics.IsFullyIndexed
+github.com/ipld/go-car/v2.ExtractV1File
+github.com/ipld/go-car/v2.WrapV1File
+github.com/ipld/go-car/v2.WrapV1
+github.com/ipld/go-car/v2.ReplaceRootsInFile
+github.com/ipld/go-car/v2.GenerateIndex
+github.com/ipld/go-car/v2.GenerateIndexFromFile
+github.com/ipld/go-car/v2.ReadOrGenerateIndex
+github.com/ipld/go-car/v2.LoadIndex
+github.com/ipld/go-car/v2.AttachIndex
+github.com/ipld/go-car/v2/index.New
+github.com/ipld/go-car/v2/index.ReadFrom
+github.com/ipld/go-car/v2/index.WriteTo
+github.com/ipld/go-car/v2/index.GetFirst
+github.com/ipld/go-car/v2/index.ReadCodec
+github.com/ipld/go-car/v2/index.Index.Codec
+github.com/ipld/go-car/v2/index.Index.Marshal
+github.com/ipld/go-car/v2/index.Index.Unmarshal
+github.com/ipld/go-car/v2/index.Index.Load
+github.com/multiformats/go-multicodec.CarIndexSorted
+github.com/multiformats/go-multicodec.CarMultihashIndexSorted
+# o CID de um bloco novo, sem nó: cid.NewPrefixV1(codec, mhType).sum(dados)
+github.com/ipfs/go-cid.NewPrefixV0
+github.com/ipfs/go-cid.NewPrefixV1
+github.com/ipfs/go-cid.Prefix.Sum
+github.com/ipld/go-car/v2/blockstore.OpenReadOnly
+github.com/ipld/go-car/v2/blockstore.NewReadOnly
+github.com/ipld/go-car/v2/blockstore.ReadOnly.Roots
+github.com/ipld/go-car/v2/blockstore.ReadOnly.Has
+github.com/ipld/go-car/v2/blockstore.ReadOnly.Get
+github.com/ipld/go-car/v2/blockstore.ReadOnly.GetSize
+github.com/ipld/go-car/v2/blockstore.ReadOnly.AllKeysChan
+github.com/ipld/go-car/v2/blockstore.ReadOnly.Index
+github.com/ipld/go-car/v2/blockstore.ReadOnly.HashOnRead
+github.com/ipld/go-car/v2/blockstore.ReadOnly.Close
+github.com/ipld/go-car/v2/blockstore.OpenReadWrite
+github.com/ipld/go-car/v2/blockstore.ReadWrite.Roots
+github.com/ipld/go-car/v2/blockstore.ReadWrite.Put
+github.com/ipld/go-car/v2/blockstore.ReadWrite.PutMany
+github.com/ipld/go-car/v2/blockstore.ReadWrite.Has
+github.com/ipld/go-car/v2/blockstore.ReadWrite.Get
+github.com/ipld/go-car/v2/blockstore.ReadWrite.GetSize
+github.com/ipld/go-car/v2/blockstore.ReadWrite.AllKeysChan
+github.com/ipld/go-car/v2/blockstore.ReadWrite.Index
+github.com/ipld/go-car/v2/blockstore.ReadWrite.HashOnRead
+github.com/ipld/go-car/v2/blockstore.ReadWrite.Finalize
+github.com/ipld/go-car/v2/blockstore.ReadWrite.FinalizeReadOnly
+github.com/ipld/go-car/v2/blockstore.ReadWrite.Discard
+github.com/ipld/go-car/v2/blockstore.ReadWrite.Close
+github.com/ipld/go-car/v2/storage.OpenReadable
+github.com/ipld/go-car/v2/storage.ReadableCar.Roots
+github.com/ipld/go-car/v2/storage.ReadableCar.Index
+# travessia seletiva: o LinkSystem lê de um storage (um CAR aberto) e o
+# seletor diz o que copiar (ParseJSONSelector ou um dos CommonSelector_*).
+# Do storage só o que serve a ela: Has/Get/Put têm como chave o CID binário
+# (KeyString), que o Dart não monta; para escrever, o blockstore.ReadWrite.
+github.com/ipld/go-ipld-prime/linking/cid.DefaultLinkSystem
+github.com/ipld/go-ipld-prime/linking.LinkSystem.SetReadStorage
+github.com/ipld/go-ipld-prime/traversal/selector/parse.ParseJSONSelector
+github.com/ipld/go-ipld-prime/traversal/selector/parse.CommonSelector_MatchPoint
+github.com/ipld/go-ipld-prime/traversal/selector/parse.CommonSelector_MatchChildren
+github.com/ipld/go-ipld-prime/traversal/selector/parse.CommonSelector_ExploreAllRecursively
+github.com/ipld/go-ipld-prime/traversal/selector/parse.CommonSelector_MatchAllRecursively
+github.com/ipld/go-car/v2.TraverseToFile
+github.com/ipld/go-car/v2.TraverseV1
+# arquivos e buffers do Go para as funções de cima (io.ReaderAt, io.Writer);
+# os O_* são iguais no Windows, no linux e no Android
+os.Open
+os.OpenFile
+os.O_RDONLY
+os.O_RDWR
+os.O_CREATE
+os.O_TRUNC
+bytes.NewBuffer
+bytes.Buffer.Bytes

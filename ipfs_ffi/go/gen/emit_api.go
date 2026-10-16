@@ -92,23 +92,26 @@ func emitAPI(m *model, fns []*fn) []byte {
 	b.WriteString(`
 ## Adaptações (regras do gerador e código à mão)
 
-- Namespaces: cada módulo Go num namespace (` + "`kubo`, `boxo`, `ipld`, `multiformats`, `libp2p`, `go`; `car` fica para o `github.com/ipld/go-car`" + `), com um arquivo ` + "`package:ipfs_ffi/<namespace>.dart`" + ` que exporta todas as libraries dele (` + "`import 'package:ipfs_ffi/kubo.dart' as kubo;`" + `); as libraries por pacote Go continuam embaixo. A tabela módulo → namespace fica em ` + "`go/gen/namespaces.go`" + `.
+- Namespaces: cada módulo Go num namespace (` + "`kubo`, `boxo`, `ipld`, `multiformats`, `libp2p`, `car` (o `github.com/ipld/go-car/v2`), `go`" + `), com um arquivo ` + "`package:ipfs_ffi/<namespace>.dart`" + ` que exporta todas as libraries dele (` + "`import 'package:ipfs_ffi/kubo.dart' as kubo;`" + `); as libraries por pacote Go continuam embaixo. A tabela módulo → namespace fica em ` + "`go/gen/namespaces.go`" + `.
 - ` + "`context`" + ` (` + "`package:ipfs_ffi/go/context.dart`" + `, à mão): ` + "`background`" + `, ` + "`withCancel`" + `, ` + "`withTimeout`" + `, ` + "`withDeadline`" + `; ` + "`CancelFunc`" + ` é chamável (` + "`cancel()`" + `).
 - ` + "`config.Profiles`" + ` (à mão): ` + "`profiles[nome]!.transform(cfg)`" + `; no Go é um mapa de funções.
 - ` + "`ipfs dag put`/`ipfs dag get`" + ` (` + "`dagPut`/`dagGet`" + ` em ` + "`package:ipfs_ffi/kubo/core/commands/dag.dart`" + `, porte à mão em ` + "`go/manual_dag.go`" + `): no kubo é o corpo dos comandos, não função de biblioteca; mesmos padrões do CLI (dag-json → dag-cbor, limite de 2 MiB), hash padrão ` + "`sha2-256`" + `.
 - ` + "`ipfs dag export`/`ipfs dag import`" + ` (arquivos CAR; mesma library do ` + "`dagPut`/`dagGet`" + `, porte à mão em ` + "`go/manual_car.go`" + `): ` + "`dagExport`/`dagExportFile`" + ` (CARv1, ` + "`localOnly`" + ` = ` + "`--local-only`" + `) e ` + "`dagImport`/`dagImportFiles`" + ` (CARv1/v2, ` + "`pinRoots`" + ` = ` + "`--pin-roots`" + `, devolve raízes e estatísticas); recebem o ` + "`IpfsNode`" + `, como o comando. Sem barra de progresso nem fast-provide do DAG inteiro; a raiz é anunciada pelo ` + "`Provide`" + ` da CoreAPI.
 - Pubsub: o nó precisa de ` + "`node.BuildCfg(extraOpts: {'pubsub': true})`" + ` (o ` + "`Pubsub.Enabled`" + ` do daemon); ` + "`sub.next(ctx)`" + ` entrega uma mensagem por vez (o exemplo 08 a transforma em ` + "`Stream`" + `).
 - Handle concreto que implementa uma interface exposta estende a classe dela (` + "`merkledag.RawNode`/`ProtoNode` → `Node`" + `), para valer onde o Go aceita a interface; struct que embute interface é handle, não DTO.
-- Mapa com chave tipo-valor (` + "`map[peer.ID][]Multiaddr`" + `) vira ` + "`Map<Id, List<Multiaddr>>`" + `.
+- Mapa com chave tipo-valor (` + "`map[peer.ID][]Multiaddr`" + `) vira ` + "`Map<Id, List<Multiaddr>>`" + `; com chave inteira (` + "`map[multicodec.Code]uint64`" + `), ` + "`Map<int, int>`" + `.
+- Struct de campos exportados que é objeto (` + "`linking.LinkSystem`" + `, tabela ` + "`handleTypes`" + `) é handle; o handle de struct devolvida por valor guarda o ponteiro (vale como ` + "`T`" + ` e ` + "`*T`" + `).
+- Método de DTO (` + "`car.Header.hasIndex`" + `, ` + "`cid.Prefix.sum`" + `): o receptor vai por valor; o que o método altera nele não volta.
+- Interface só de getters (instantâneo, ` + "`blocks.Block`" + `) em parâmetro: o Dart monta a classe (` + "`Block(cid: c, rawData: d)`" + `) e o Go recebe uma struct que devolve esses valores.
 - Canal ` + "`chan<- T`" + ` passado numa opção (` + "`options.Unixfs.Events`" + `) vira ` + "`StreamSink<T>`" + ` (` + "`options.unixfs.events(controller.sink)`" + `); o tipo real dos itens de ` + "`chan<- any`" + ` vem da tabela ` + "`chanElem`" + ` do gerador (` + "`AddEvent`" + `). Como o ` + "`ipfs add`" + `, o canal é fechado quando a chamada volta: todos os eventos chegam e o sink fecha antes do ` + "`Future`" + ` completar.
 - Variável de pacote vira getter; tipo função nomeado (` + "`libp2p.RoutingOption`" + `) é handle opaco, criado só no Go.
 - Métodos e funções com ` + "`context.Context`" + ` são assíncronos (` + "`Future`" + `); canais viram ` + "`Stream`" + `; ` + "`(T, error)`" + ` vira ` + "`T`" + ` com ` + "`IpfsException`" + `.
 - Variádicos viram ` + "`List`" + ` opcional; opções funcionais espelham as variáveis do pacote (` + "`options.unixfs.pin(true, '')`" + `).
-- ` + "`NewX`" + ` síncrono que devolve ` + "`X`" + ` do mesmo pacote vira ` + "`factory X(...)`" + `.
-- ` + "`io.Writer`" + ` em parâmetro não aparece no Dart: o Go usa ` + "`io.Discard`" + `.
+- ` + "`NewX`" + ` síncrono que devolve o handle ` + "`X`" + ` do mesmo pacote vira ` + "`factory X(...)`" + ` (um DTO não: ` + "`car.newHeader`" + ` é função).
+- ` + "`io.Writer`" + ` em parâmetro é ` + "`GoHandle?`" + `: um objeto do Go que o implementa (` + "`os.File`" + `, ` + "`bytes.Buffer`" + `); null = ` + "`io.Discard`" + `.
 - ` + "`fsrepo.Open`" + `: o host limpa o caminho (` + "`repoPath`" + `, a forma que o ` + "`Repo.Path()`" + ` devolve) antes de abrir, para os comandos de config, que reabrem o repo pelo ` + "`Path()`" + `, reaproveitarem o repo aberto (o ` + "`fsrepo`" + ` guarda o aberto pela string crua).
 - Inteiros ` + "`uint64`" + ` vão com os mesmos 64 bits num ` + "`int`" + ` do Dart (como o ` + "`Uint64List`" + `): de 2^63 para cima saem negativos; ` + "`BigInt.from(v).toUnsigned(64)`" + ` os lê sem sinal (a doc de cada campo avisa).
-- ` + "`io.Reader`" + ` em parâmetro aceita ` + "`Uint8List`" + ` ou um handle de leitor (ex. o ` + "`files.File`" + ` devolvido pelo kubo).
+- Interface de E/S em parâmetro (` + "`io.Reader`, `io.ReaderAt`, `io.ReadSeeker`, `car.SectionReader`" + `...) aceita ` + "`Uint8List`" + ` (quando um ` + "`bytes.Reader`" + ` a implementa) ou um handle que a implementa (o ` + "`files.File`" + ` do kubo, ` + "`os.open`" + `).
 - Tipos-valor (CID, path, peer ID, multiaddr) guardam a string; a validação acontece no Go, quando atravessam.
 - ` + "`config.Config`" + ` guarda o JSON do kubo (o mesmo do arquivo ` + "`config`" + ` do repo) em ` + "`json`" + `.
 - Resultado ` + "`nil`" + ` do Go onde o Dart espera um objeto vira ` + "`IpfsException`" + `.

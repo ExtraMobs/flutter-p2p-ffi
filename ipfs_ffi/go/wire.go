@@ -325,12 +325,28 @@ func decOutBuf(r *reader) ([]byte, error) {
 	return make([]byte, n), r.err
 }
 
-// decReader: io.Reader em parâmetro: `u8 0` + bytes, ou `u8 1` + handle.
-func decReader(r *reader) (io.Reader, error) {
+// decIO: interface de E/S em parâmetro (io.Reader, io.ReaderAt,
+// io.ReadSeeker...): `u8 0` + bytes, lidos por um bytes.Reader, ou `u8 1` +
+// handle de um objeto que a implementa (os.File, bytes.Buffer...).
+func decIO[T any](r *reader) (T, error) {
 	if r.u8() == 0 {
-		return bytes.NewReader(r.bytes()), nil
+		if v, ok := any(bytes.NewReader(r.bytes())).(T); ok {
+			return v, r.err
+		}
+		var zero T
+		return zero, fmt.Errorf("ipfs_host: bytes are not a %v; pass a handle (os.File...)", reflect.TypeFor[T]())
 	}
-	return decH[io.Reader](r)
+	return decH[T](r)
+}
+
+// decWriter: io.Writer em parâmetro: handle de um objeto que o implementa
+// (os.File, bytes.Buffer); 0 = io.Discard.
+func decWriter(r *reader) (io.Writer, error) {
+	w, err := decH[io.Writer](r)
+	if w == nil && err == nil {
+		return io.Discard, nil
+	}
+	return w, err
 }
 
 // chanSink: canal que o chamador passa numa opção (options.Unixfs.Events),

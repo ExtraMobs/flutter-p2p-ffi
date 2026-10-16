@@ -25,17 +25,19 @@ var namespaces = []struct{ module, dir string }{
 	{"github.com/ipfs/go-block-format", "ipld/block_format"},
 	{"github.com/libp2p/go-libp2p", "libp2p"},
 	{"github.com/ipld/go-car", "car"},
+	{"github.com/ipld/go-ipld-prime", "ipld/prime"},
+	{"github.com/multiformats/go-multicodec", "multiformats/multicodec"},
 }
 
 // nsDocs: o texto de cada namespace (o primeiro segmento do caminho Dart).
 var nsDocs = map[string]string{
 	"kubo":         "Kubo (`github.com/ipfs/kubo`): node, CoreAPI and its options, config, repo.",
 	"boxo":         "Boxo (`github.com/ipfs/boxo`): files, paths, MerkleDAG, IPNS, name resolution.",
-	"multiformats": "Multiformats: CIDs (`github.com/ipfs/go-cid`) and multiaddrs (`github.com/multiformats/go-multiaddr`).",
-	"ipld":         "IPLD: nodes (`github.com/ipfs/go-ipld-format`) and blocks (`github.com/ipfs/go-block-format`).",
+	"multiformats": "Multiformats: CIDs (`github.com/ipfs/go-cid`), multiaddrs (`github.com/multiformats/go-multiaddr`) and multicodec codes (`github.com/multiformats/go-multicodec`).",
+	"ipld":         "IPLD: nodes (`github.com/ipfs/go-ipld-format`), blocks (`github.com/ipfs/go-block-format`) and the link system and selectors of `github.com/ipld/go-ipld-prime`.",
 	"libp2p":       "libp2p (`github.com/libp2p/go-libp2p`): peer IDs and addresses.",
-	"car":          "CAR files (`github.com/ipld/go-car`).",
-	"go":           "The Go standard library pieces the API uses: `context`, `io`, `os`, `runtime/debug`.",
+	"car":          "CAR files (`github.com/ipld/go-car/v2`): read, inspect, convert, index, blockstore and IPLD storage over a CAR, selective traversal.",
+	"go":           "The Go standard library pieces the API uses: `bytes`, `context`, `io`, `os`, `runtime/debug`.",
 }
 
 // dartPath: library Dart de um pacote Go, no namespace do módulo dele; a

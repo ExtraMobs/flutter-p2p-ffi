@@ -11,10 +11,11 @@ CoreAPI: o processo é novo). Nada volta sozinho. No Android, o plugin companhei
 Alvos: VM/AOT no Windows, no linux e no Android (não serve para JS/Wasm).
 
 A API Dart é a do próprio Go, gerada, e organizada em namespaces, um por módulo
-Go: `kubo`, `boxo`, `ipld`, `multiformats` (CID, multiaddr), `libp2p` e `go` (o
-que a API usa da biblioteca padrão do Go: `context`, `io`, `os`); o `car` fica
-reservado ao módulo `github.com/ipld/go-car`, e o `ipfs dag export/import` está
-no `kubo`, como no Go. Cada namespace tem um arquivo que exporta tudo dele
+Go: `kubo`, `boxo`, `ipld` (também o `LinkSystem` e os seletores do go-ipld-prime),
+`multiformats` (CID, multiaddr, códigos multicodec), `libp2p`, `car` (o
+`github.com/ipld/go-car/v2`: arquivos CAR sem nó) e `go` (o que a API usa da
+biblioteca padrão do Go: `bytes`, `context`, `io`, `os`); o `ipfs dag
+export/import` está no `kubo`, como no Go. Cada namespace tem um arquivo que exporta tudo dele
 (`package:ipfs_ffi/kubo.dart`); quem prefere seguir a documentação do Go importa
 um pacote por vez, embaixo dele (`package:ipfs_ffi/kubo/repo/fsrepo.dart` as
 `fsrepo`). O que existe, e o que ficou de fora com o motivo, está no
@@ -32,7 +33,7 @@ import 'package:ipfs_ffi/kubo.dart' as kubo;
 // (padrão: nada)
 await IpfsService.start(onStop: (stop) => print('${stop.reason}: ${stop.report}'));
 kubo.PluginLoader('')..initialize()..inject(); // 1x por serviço
-kubo.init(repo, kubo.initWithIdentity(kubo.createIdentity([kubo.key.type('ed25519')])));
+kubo.init(repo, kubo.initWithIdentity(kubo.createIdentity(null, [kubo.key.type('ed25519')])));
 final ctx = go.background();
 final n = await kubo.newNode(ctx, kubo.BuildCfg(repo: kubo.open(repo)));
 final api = kubo.newCoreApi(n);
@@ -81,9 +82,13 @@ Exemplos, na ordem em que o kubo monta um nó:
    `ctxReadFull`, `mv`, `list`, `flushPath`), com o código Go equivalente em cada passo;
 11. `dart run example/11_contexto_e_erros.dart`: prazo e cancelamento (`withTimeout`,
    `withCancel`), `IpfsException` (o kubo respondeu erro) × `IpfsServiceException` (o
-   serviço caiu), o `onStop` e o `IpfsService.restart()` depois de uma queda.
+   serviço caiu), o `onStop` e o `IpfsService.restart()` depois de uma queda;
+12. `dart run example/12_car_baixo_nivel.dart`: arquivos CAR sem nó, pelo go-car
+   (`openReader`/`inspect`, `BlockReader`, `wrapV1File`, o índice num `bytes.Buffer`, um
+   CAR novo bloco a bloco com `openReadWrite` e a travessia seletiva com
+   `traverseToFile`), com o código Go equivalente em cada passo.
 
-Os exemplos 9 a 11 criam o próprio repo temporário e não dependem do 01.
+Os exemplos 9 a 12 criam o próprio repo temporário e não dependem do 01.
 
 ## O boxo do Go e o do Dart, lado a lado
 
@@ -215,6 +220,36 @@ node.peering.addPeer(info);                          // vale na hora, não persi
 
 A maior parte da config só vale ao reiniciar o nó (o kubo a lê na subida); o peering
 vale na hora mas não vai para a config.
+
+## Arquivos CAR sem nó: o go-car (0.16)
+
+O `github.com/ipld/go-car/v2` como ele é, no namespace `car`: o arquivo aberto e mexido sem
+nó (o `kubo.dagExport/dagImport` continua para levar um DAG do nó para um CAR e de volta):
+
+```dart
+final r = car.openReader('pasta.car');              // CARv1 ou CARv2
+final st = r.inspect(true);                          // confere cada hash
+print('${r.roots()} ${st.blockCount} ${st.codecCounts}'); // {0x70: 2, 0x55: 3}
+r.close();
+
+car.wrapV1File('pasta.car', 'pasta.v2.car');         // v1 → v2 (com índice)
+final idx = car.generateIndexFromFile('pasta.car');
+final buf = go.Buffer(Uint8List(0));                 // qualquer io.Writer: os.File...
+car.writeTo(idx, buf);
+
+final c = mf.newPrefixV1(0x55, 0x12).sum(dados);     // o CID, sem nó
+final rw = car.openReadWrite('novo.car', [c]);
+await rw.put(ctx, ipld.Block(cid: c, rawData: dados));
+rw.finalize();
+
+final ls = ipld.defaultLinkSystem();                 // recorte por seletor IPLD
+ls.setReadStorage(car.openReadable(go.open('pasta.car')));
+await car.traverseToFile(ctx, ls, raiz, ipld.commonSelectorMatchPoint, 'raiz.car');
+```
+
+Parâmetros `io.Reader`/`io.ReaderAt`/`io.ReadSeeker` aceitam bytes ou um handle (`go.open`);
+`io.Writer` aceita um handle (`go.Buffer`, `go.openFile`) ou null (descarta). O fim do
+`BlockReader.next()` é o `io.EOF` do Go: `IpfsException` com `message == 'EOF'`.
 
 ## Correções no upstream (0.15)
 

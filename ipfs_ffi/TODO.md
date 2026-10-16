@@ -1,5 +1,67 @@
 # Pendências do ipfs_ffi
 
+## Feito: o go-car no namespace car (0.16.0)
+
+Pedido do dono: mais recursos de arquivos CAR, em baixo nível; escolhidos os quatro grupos
+(leitura, blockstore CAR, conversões, travessia seletiva) e o que mais faltasse (índice,
+cabeçalho, leitura por stream). Tudo gerado do `go-car/v2` v2.17.0 pelo `roots.txt`, nada à
+mão: `package:ipfs_ffi/car.dart` (`car/v2.dart`, `car/v2/blockstore.dart`,
+`car/v2/index.dart`, `car/v2/storage.dart`), mais o `LinkSystem` e os seletores do
+`go-ipld-prime` (namespace `ipld`, em `ipld/prime/...`), os códigos do `go-multicodec`
+(`multiformats/multicodec.dart`), o `cid.Prefix` (o CID de um bloco novo, sem nó) e
+`os.Open`/`os.OpenFile`/`bytes.Buffer` no `go`.
+
+Seis regras novas no gerador (API.md, "Adaptações"):
+
+- Interface de E/S em parâmetro (`io.ReaderAt`, `io.ReadSeeker`, `car.SectionReader`...)
+  vale como o `io.Reader`: `Object`, com bytes ou qualquer handle (`decIO[T]` no host).
+- **`io.Writer` em parâmetro passa a existir** (`GoHandle?`, null = `io.Discard`): `os.File`
+  ou `bytes.Buffer`. Quebra a assinatura do `createIdentity`, que vira
+  `createIdentity(null, opts)`; os chamadores (exemplos, testes, app, README) já foram.
+- Mapa com chave inteira (`Stats.CodecCounts`, `map[multicodec.Code]uint64`) vira
+  `Map<int, int>`.
+- Instantâneo em parâmetro (`ReadWrite.put(ctx, Block(cid: c, rawData: d))`): o Dart monta a
+  classe e o host a recebe numa struct que devolve os valores.
+- Método de DTO (`Header.hasIndex`, `withDataSize`, `Prefix.sum`): o receptor vai por valor.
+- Struct de campos exportados que é objeto (`linking.LinkSystem`) é handle (`handleTypes`); o
+  handle de struct devolvida por valor guarda o ponteiro, para valer como `T` e `*T`.
+
+Corrigido no caminho: `NewX` que devolve um DTO virava factory, que a classe DTO não
+emite, e a função sumia sem aviso (agora é função do pacote: `car.newHeader`); o
+`linkConcrete` contava os casts como métodos da interface (o `ProtoNode` passava a estender
+o `datamodel.Node` do ipld-prime).
+
+Fora, com o motivo: `Has`/`Get`/`Put` do `car/v2/storage` (a chave é o CID binário,
+`KeyString`, que uma `String` do Dart não leva pelo fio; para escrever, o
+`blockstore.ReadWrite`); `index.GetAll`/`ForEach` (recebem uma função do Go); a travessia
+seletiva a partir do nó (nenhuma biblioteca dá um `LinkSystem` sobre o blockstore do kubo;
+o caminho coberto é CAR → seletor → CAR; o nó segue com o `dagExport` do DAG inteiro). O
+fim do `BlockReader.next()` é o `io.EOF` do Go: `IpfsException` com `message == 'EOF'`.
+
+Validado: `test/car_test.dart` (leitura e estatísticas, bloco a bloco por bytes e por
+arquivo, wrap/extract/troca de raízes/cabeçalho, índice gerado, serializado e lido de volta,
+ReadWrite → ReadOnly, travessia `MatchPoint`/`ExploreAllRecursively`/JSON), `TestDecIO` no
+Go e o exemplo 12; desktop 67/67 no Windows e no linux (WSL).
+
+Vazão (`dart run tool/bench_car.dart`, 64 MiB por rodada, sem nó; MB/s, e µs por bloco
+entre parênteses; Windows nativo | linux no WSL):
+
+| operação | blocos de 256 KiB | blocos de 4 KiB |
+|---|---|---|
+| `Prefix.sum` (CID; Dart → Go) | 603 \| 268 | 324 (12) \| 190 (21) |
+| `ReadWrite.put`, um por chamada (Dart → Go) | 372 \| 196 | 41 (95) \| 18 (213) |
+| `ReadWrite.putMany`, 64 por chamada | 366 \| 122 | 125 (31) \| 97 (40) |
+| `BlockReader.next` (Go → Dart) | 413 \| 195 | 155 (25) \| 67 (58) |
+| `ReadOnly.get` por CID (Go → Dart) | 470 \| 203 | 64 (62) \| 25 (155) |
+| `io.ReadAll` do arquivo, uma chamada (Go → Dart) | 694 \| 132 | 636 \| 131 |
+| `Reader.inspect(true)` (só no Go, piso do go-car) | 1017 \| 861 | 536 \| 640 |
+| `File.readAsBytesSync` (Dart puro, piso do disco) | 2004 \| 1003 | 2266 \| 1114 |
+
+Com blocos grandes, a ponte entrega de 1/3 a 2/3 do go-car sozinho. Com blocos pequenos
+manda o custo por chamada: as assíncronas (`put`, `get`, com `context`) custam 60–95 µs
+no Windows contra 25 µs da síncrona (`next`), e o `putMany` em lote triplica a vazão do
+`put`. O WSL fica de 2 a 5 vezes abaixo do Windows nativo (é uma VM).
+
 ## Feito: o que quebrava sem aviso e o aparelho real (0.15.0)
 
 Decisões do dono: todo comando é `Stream` (quem usa decide); os bugs do upstream viram

@@ -100,9 +100,8 @@ func (g *goEmitter) function(name string, f *fn) string {
 			fmt.Fprintf(&b, "\t%s, err := decOutBuf(r)\n%s", v, fail)
 			args = append(args, v)
 			continue
-		case p.t.k == kWriter:
-			args = append(args, "io.Discard")
-			continue
+		case p.t.k == kWriter: // handle de um io.Writer (os.File, bytes.Buffer); 0 = io.Discard
+			fmt.Fprintf(&b, "\t%s, err := decWriter(r)\n%s", v, fail)
 		case i == chanIdx:
 			args = append(args, "ch")
 			continue
@@ -236,6 +235,18 @@ func basicFn(t *tinfo) string {
 	return "Str"
 }
 
+// valueStruct: a struct de um handle por valor (linking.LinkSystem, devolvido
+// pelo cidlink.DefaultLinkSystem); nil para ponteiro, interface e o resto. O
+// handle guarda sempre o ponteiro, para o mesmo valor servir ao T e ao *T.
+func valueStruct(t types.Type) *types.Struct {
+	n, ok := types.Unalias(t).(*types.Named)
+	if !ok {
+		return nil
+	}
+	s, _ := n.Underlying().(*types.Struct)
+	return s
+}
+
 // inner: o tipo apontado de um *T de valor ou DTO.
 func inner(t *tinfo) *tinfo {
 	in := *t
@@ -250,14 +261,14 @@ func (g *goEmitter) dec(t *tinfo) string {
 	case t.k == kBasic:
 		return "dec" + basicFn(t) + "[" + g.ts(t.t) + "]"
 	case t.k == kHandle && t.reader:
-		return "decReader"
+		return "decIO[" + g.ts(t.t) + "]"
 	case t.k == kBytes:
 		return "decBytes"
 	case t.k == kError:
 		return "decErr"
 	case t.k == kAny:
 		return "decAny"
-	case t.k == kHandle, t.k == kCtx:
+	case t.k == kHandle && valueStruct(t.t) == nil, t.k == kCtx:
 		return "decH[" + g.ts(t.t) + "]"
 	case t.k == kValue && !t.ptr:
 		return t.val.dec
@@ -266,6 +277,33 @@ func (g *goEmitter) dec(t *tinfo) string {
 		T := g.ts(t.t)
 		var b strings.Builder
 		switch {
+		case t.k == kHandle: // struct por valor (LinkSystem): o handle guarda o ponteiro
+			fmt.Fprintf(&b, "func %s(r *reader) (v %s, err error) {\n\tp, err := decH[*%s](r)\n\tif err != nil || p == nil {\n\t\treturn v, err\n\t}\n\treturn *p, nil\n}\n", name, T, T)
+		case t.k == kSnap: // interface só de getters: uma struct que devolve os valores
+			S := name + "Snap"
+			fmt.Fprintf(&b, "type %s struct {\n", S)
+			for i, gt := range t.gets {
+				fmt.Fprintf(&b, "\tv%d %s\n", i, g.ts(gt.t.t))
+				if gt.hasErr {
+					fmt.Fprintf(&b, "\te%d error\n", i)
+				}
+			}
+			b.WriteString("}\n\n")
+			for i, gt := range t.gets {
+				if gt.hasErr {
+					fmt.Fprintf(&b, "func (s *%s) %s() (%s, error) { return s.v%d, s.e%d }\n", S, gt.name, g.ts(gt.t.t), i, i)
+				} else {
+					fmt.Fprintf(&b, "func (s *%s) %s() %s { return s.v%d }\n", S, gt.name, g.ts(gt.t.t), i)
+				}
+			}
+			fmt.Fprintf(&b, "\nfunc %s(r *reader) (%s, error) {\n\tif !r.present() {\n\t\treturn nil, nil\n\t}\n\ts := &%s{}\n\tvar err error\n", name, T, S)
+			for i, gt := range t.gets {
+				fmt.Fprintf(&b, "\tif s.v%d, err = %s(r); err != nil {\n\t\treturn nil, err\n\t}\n", i, g.dec(gt.t))
+				if gt.hasErr {
+					fmt.Fprintf(&b, "\tif s.e%d, err = decErr(r); err != nil {\n\t\treturn nil, err\n\t}\n", i)
+				}
+			}
+			b.WriteString("\treturn s, nil\n}\n")
 		case t.ptr: // *T: presença 0 = nil; senão o formato do próprio T
 			fmt.Fprintf(&b, "func %s(r *reader) (%s, error) {\n\tif r.absent() {\n\t\treturn nil, nil\n\t}\n\tv, err := %s(r)\n\treturn &v, err\n}\n", name, T, g.dec(inner(t)))
 		case t.k == kDTO:
@@ -280,9 +318,12 @@ func (g *goEmitter) dec(t *tinfo) string {
 			fmt.Fprintf(&b, "func %s(r *reader) (%s, error) {\n\tn := r.count()\n\tif n < 0 {\n\t\treturn nil, nil\n\t}\n\tout := make(%s, n)\n\tfor i := range out {\n\t\tx, err := %s(r)\n\t\tif err != nil {\n\t\t\treturn nil, err\n\t\t}\n\t\tout[i] = x\n\t}\n\treturn out, nil\n}\n", name, T, T, g.dec(t.elem))
 		case t.k == kMap:
 			fmt.Fprintf(&b, "func %s(r *reader) (%s, error) {\n\tn := r.count()\n\tif n < 0 {\n\t\treturn nil, nil\n\t}\n\tout := make(%s, n)\n\tfor range n {\n", name, T, T)
-			if t.mkey != nil { // chave tipo-valor: a string, sem presença, pelo parse do tipo
+			switch {
+			case t.mkey != nil && t.mkey.k == kBasic: // chave inteira: o i64
+				fmt.Fprintf(&b, "\t\tk, _ := %s(r)\n", g.dec(t.mkey))
+			case t.mkey != nil: // chave tipo-valor: a string, sem presença, pelo parse do tipo
 				fmt.Fprintf(&b, "\t\tk, err := parse%s(r.str())\n\t\tif err != nil {\n\t\t\treturn nil, err\n\t\t}\n", strings.TrimPrefix(t.mkey.val.dec, "dec"))
-			} else {
+			default:
 				fmt.Fprintf(&b, "\t\tk := %s(r.str())\n", g.ts(t.t.Underlying().(*types.Map).Key()))
 			}
 			fmt.Fprintf(&b, "\t\tx, err := %s(r)\n\t\tif err != nil {\n\t\t\treturn nil, err\n\t\t}\n\t\tout[k] = x\n\t}\n\treturn out, nil\n}\n", g.dec(t.elem))
@@ -345,7 +386,7 @@ func (g *goEmitter) enc(t *tinfo) string {
 		return "encErr"
 	case t.k == kAny:
 		return "encAny"
-	case t.k == kHandle:
+	case t.k == kHandle && valueStruct(t.t) == nil:
 		return "encH"
 	case t.k == kValue && !t.ptr:
 		return t.val.enc
@@ -355,6 +396,8 @@ func (g *goEmitter) enc(t *tinfo) string {
 		var b strings.Builder
 		fmt.Fprintf(&b, "func %s(w *writer, v %s) {\n", name, T)
 		switch {
+		case t.k == kHandle: // struct por valor: guarda o ponteiro (o mesmo do *T)
+			b.WriteString("\tencH(w, &v)\n}\n")
 		case t.ptr:
 			fmt.Fprintf(&b, "\tif v == nil {\n\t\tw.u8(0)\n\t\treturn\n\t}\n\t%s(w, *v)\n}\n", g.enc(inner(t)))
 		case t.k == kDTO:
@@ -378,11 +421,14 @@ func (g *goEmitter) enc(t *tinfo) string {
 		case t.k == kSlice:
 			fmt.Fprintf(&b, "\tif v == nil {\n\t\tw.i32(-1)\n\t\treturn\n\t}\n\tw.i32(int32(len(v)))\n\tfor _, e := range v {\n\t\t%s(w, e)\n\t}\n}\n", g.enc(t.elem))
 		case t.k == kMap:
-			key := "string(k)"
-			if t.mkey != nil {
-				key = "k.String()"
+			key := "w.str(string(k))"
+			switch {
+			case t.mkey != nil && t.mkey.k == kBasic: // chave inteira
+				key = g.enc(t.mkey) + "(w, k)"
+			case t.mkey != nil:
+				key = "w.str(k.String())"
 			}
-			fmt.Fprintf(&b, "\tw.i32(int32(len(v)))\n\tfor k, e := range v {\n\t\tw.str(%s)\n\t\t%s(w, e)\n\t}\n}\n", key, g.enc(t.elem))
+			fmt.Fprintf(&b, "\tw.i32(int32(len(v)))\n\tfor k, e := range v {\n\t\t%s\n\t\t%s(w, e)\n\t}\n}\n", key, g.enc(t.elem))
 		default:
 			panic("gen: sem codificador para " + t.key)
 		}

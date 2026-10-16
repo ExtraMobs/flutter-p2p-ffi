@@ -36,12 +36,12 @@ class Id extends GoValue {
 
 /// Go: `func peer.AddrInfoFromString(s string) (*peer.AddrInfo, error)`.
 AddrInfo addrInfoFromString(String s) {
-  final $r = $callSync(232, $W()..str(s));
+  final $r = $callSync(320, $W()..str(s));
   return $r.p() ? AddrInfo.$dec($r) : $nil();
 }
 
 /// Go: `func peer.AddrInfoToP2pAddrs(pi *peer.AddrInfo) ([]multiaddr.Multiaddr, error)`.
 List<$multiaddr.Multiaddr> addrInfoToP2pAddrs(AddrInfo pi) {
-  final $r = $callSync(233, $W()..dto(pi));
+  final $r = $callSync(321, $W()..dto(pi));
   return $r.list(() => $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil());
 }

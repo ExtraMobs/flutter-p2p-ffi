@@ -92,8 +92,8 @@ void main() {
 
   Future<(kubo.IpfsNode, kubo.CoreApi)> newNode(String name,
       {bool online = false}) async {
-    final cfg =
-        kubo.initWithIdentity(kubo.createIdentity([kubo.key.type('ed25519')]));
+    final cfg = kubo.initWithIdentity(
+        kubo.createIdentity(null, [kubo.key.type('ed25519')]));
     kubo.profiles['test']!.transform(cfg);
     kubo.init('${tmp.path}/$name', cfg);
     final n = await kubo.newNode(

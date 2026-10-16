@@ -3,6 +3,13 @@
 Gerado por `go run ./gen` (na pasta `go/`) a partir de `go/gen/roots.txt`; não editar.
 Cada linha é um símbolo Go exposto e onde ele está no Dart.
 
+## `bytes` → `package:ipfs_ffi/go/bytes.dart`
+
+| Go | Dart | Modo |
+|---|---|---|
+| `func bytes.NewBuffer(buf []byte) *bytes.Buffer` | `factory Buffer` | síncrona |
+| `func (*bytes.Buffer).Bytes() []byte` | `Buffer.bytes` | síncrona |
+
 ## `github.com/ipfs/boxo/chunker` → `package:ipfs_ffi/boxo/chunker.dart`
 
 | Go | Dart | Modo |
@@ -93,6 +100,14 @@ Cada linha é um símbolo Go exposto e onde ele está no Dart.
 | `func (*peering.PeeringService).AddPeer(info peer.AddrInfo)` | `PeeringService.addPeer` | síncrona |
 | `func (*peering.PeeringService).RemovePeer(id peer.ID)` | `PeeringService.removePeer` | síncrona |
 | `func (*peering.PeeringService).ListPeers() []peer.AddrInfo` | `PeeringService.listPeers` | síncrona |
+
+## `github.com/ipfs/go-cid` → `package:ipfs_ffi/multiformats/cid.dart`
+
+| Go | Dart | Modo |
+|---|---|---|
+| `func cid.NewPrefixV0(mhType uint64) cid.Prefix` | `newPrefixV0` | síncrona |
+| `func cid.NewPrefixV1(codecType uint64, mhType uint64) cid.Prefix` | `newPrefixV1` | síncrona |
+| `func (cid.Prefix).Sum(data []byte) (cid.Cid, error)` | `Prefix.sum` | síncrona |
 
 ## `github.com/ipfs/go-ipld-format` → `package:ipfs_ffi/ipld/format.dart`
 
@@ -251,12 +266,148 @@ Cada linha é um símbolo Go exposto e onde ele está no Dart.
 | `func fsrepo.Init(repoPath string, conf *config.Config) error` | `init` | síncrona |
 | `func fsrepo.Open(repoPath string) (repo.Repo, error)` | `open` | síncrona |
 
+## `github.com/ipld/go-car/v2` → `package:ipfs_ffi/car/v2.dart`
+
+| Go | Dart | Modo |
+|---|---|---|
+| `const car.PragmaSize untyped int` | `pragmaSize` | const |
+| `const car.HeaderSize untyped int` | `headerSize` | const |
+| `const car.CharacteristicsSize untyped int` | `characteristicsSize` | const |
+| `const car.DefaultMaxAllowedHeaderSize uint64` | `defaultMaxAllowedHeaderSize` | const |
+| `const car.DefaultMaxAllowedSectionSize uint64` | `defaultMaxAllowedSectionSize` | const |
+| `const car.DefaultMaxIndexCidSize untyped int` | `defaultMaxIndexCidSize` | const |
+| `func car.ReadVersion(r io.Reader, opts ...car.Option) (uint64, error)` | `readVersion` | síncrona |
+| `func car.OpenReader(path string, opts ...car.Option) (*car.Reader, error)` | `openReader` | síncrona |
+| `func car.NewReader(r io.ReaderAt, opts ...car.Option) (*car.Reader, error)` | `factory Reader` | síncrona |
+| `(*car.Reader).Header car.Header` | `Reader.header` | campo |
+| `(*car.Reader).Header car.Header` | `Reader.header =` | campo |
+| `(*car.Reader).Version uint64` | `Reader.version` | campo |
+| `(*car.Reader).Version uint64` | `Reader.version =` | campo |
+| `func (*car.Reader).Roots() ([]cid.Cid, error)` | `Reader.roots` | síncrona |
+| `func (*car.Reader).Inspect(validateBlockHash bool) (car.Stats, error)` | `Reader.inspect` | síncrona |
+| `func (*car.Reader).DataReader() (car.SectionReader, error)` | `Reader.dataReader` | síncrona |
+| `func (*car.Reader).IndexReader() (io.Reader, error)` | `Reader.indexReader` | síncrona |
+| `func (*car.Reader).Close() error` | `Reader.close` | síncrona |
+| `func car.NewBlockReader(r io.Reader, opts ...car.Option) (*car.BlockReader, error)` | `factory BlockReader` | síncrona |
+| `(*car.BlockReader).Version uint64` | `BlockReader.version` | campo |
+| `(*car.BlockReader).Version uint64` | `BlockReader.version =` | campo |
+| `(*car.BlockReader).Roots []cid.Cid` | `BlockReader.roots` | campo |
+| `(*car.BlockReader).Roots []cid.Cid` | `BlockReader.roots =` | campo |
+| `func (*car.BlockReader).Next() (blocks.Block, error)` | `BlockReader.next` | síncrona |
+| `func (*car.BlockReader).NextReader() (cid.Cid, io.Reader, uint64, error)` | `BlockReader.nextReader` | síncrona |
+| `func (*car.BlockReader).SkipNext() (*car.BlockMetadata, error)` | `BlockReader.skipNext` | síncrona |
+| `func car.NewHeader(dataSize uint64) car.Header` | `newHeader` | síncrona |
+| `func (car.Header).HasIndex() bool` | `Header.hasIndex` | síncrona |
+| `func (car.Header).WithDataSize(size uint64) car.Header` | `Header.withDataSize` | síncrona |
+| `func (car.Header).WithDataPadding(padding uint64) car.Header` | `Header.withDataPadding` | síncrona |
+| `func (car.Header).WithIndexPadding(padding uint64) car.Header` | `Header.withIndexPadding` | síncrona |
+| `func (car.Header).WriteTo(w io.Writer) (n int64, err error)` | `Header.writeTo` | síncrona |
+| `func (*car.Characteristics).IsFullyIndexed() bool` | `Characteristics.isFullyIndexed` | síncrona |
+| `func car.ExtractV1File(srcPath string, dstPath string, opts ...car.Option) (err error)` | `extractV1File` | síncrona |
+| `func car.WrapV1File(srcPath string, dstPath string) error` | `wrapV1File` | síncrona |
+| `func car.WrapV1(src io.ReadSeeker, dst io.Writer, opts ...car.Option) error` | `wrapV1` | síncrona |
+| `func car.ReplaceRootsInFile(path string, roots []cid.Cid, opts ...car.Option) (err error)` | `replaceRootsInFile` | síncrona |
+| `func car.GenerateIndex(v1r io.Reader, opts ...car.Option) (index.Index, error)` | `generateIndex` | síncrona |
+| `func car.GenerateIndexFromFile(path string, opts ...car.Option) (index.Index, error)` | `generateIndexFromFile` | síncrona |
+| `func car.ReadOrGenerateIndex(rs io.ReadSeeker, opts ...car.Option) (index.Index, error)` | `readOrGenerateIndex` | síncrona |
+| `func car.LoadIndex(idx index.Index, r io.Reader, opts ...car.Option) error` | `loadIndex` | síncrona |
+| `func car.AttachIndex(path string, idx index.Index, offset uint64) error` | `attachIndex` | síncrona |
+| `func car.TraverseToFile(ctx context.Context, ls *ipld.LinkSystem, root cid.Cid, selector ipld.Node, destination string, opts ...car.Option) error` | `traverseToFile` | Future |
+| `func car.TraverseV1(ctx context.Context, ls *ipld.LinkSystem, root cid.Cid, selector ipld.Node, writer io.Writer, opts ...car.Option) (uint64, error)` | `traverseV1` | Future |
+
+## `github.com/ipld/go-car/v2/blockstore` → `package:ipfs_ffi/car/v2/blockstore.dart`
+
+| Go | Dart | Modo |
+|---|---|---|
+| `func blockstore.OpenReadOnly(path string, opts ...car.Option) (*blockstore.ReadOnly, error)` | `openReadOnly` | síncrona |
+| `func blockstore.NewReadOnly(backing io.ReaderAt, idx index.Index, opts ...car.Option) (*blockstore.ReadOnly, error)` | `factory ReadOnly` | síncrona |
+| `func (*blockstore.ReadOnly).Roots() ([]cid.Cid, error)` | `ReadOnly.roots` | síncrona |
+| `func (*blockstore.ReadOnly).Has(ctx context.Context, key cid.Cid) (bool, error)` | `ReadOnly.has` | Future |
+| `func (*blockstore.ReadOnly).Get(ctx context.Context, key cid.Cid) (blocks.Block, error)` | `ReadOnly.get` | Future |
+| `func (*blockstore.ReadOnly).GetSize(ctx context.Context, key cid.Cid) (int, error)` | `ReadOnly.getSize` | Future |
+| `func (*blockstore.ReadOnly).AllKeysChan(ctx context.Context) (<-chan cid.Cid, error)` | `ReadOnly.allKeysChan` | Stream |
+| `func (*blockstore.ReadOnly).Index() index.Index` | `ReadOnly.index` | síncrona |
+| `func (*blockstore.ReadOnly).HashOnRead(bool)` | `ReadOnly.hashOnRead` | síncrona |
+| `func (*blockstore.ReadOnly).Close() error` | `ReadOnly.close` | síncrona |
+| `func blockstore.OpenReadWrite(path string, roots []cid.Cid, opts ...car.Option) (*blockstore.ReadWrite, error)` | `openReadWrite` | síncrona |
+| `func (*blockstore.ReadWrite).Roots() ([]cid.Cid, error)` | `ReadWrite.roots` | síncrona |
+| `func (*blockstore.ReadWrite).Put(ctx context.Context, blk blocks.Block) error` | `ReadWrite.put` | Future |
+| `func (*blockstore.ReadWrite).PutMany(ctx context.Context, blks []blocks.Block) error` | `ReadWrite.putMany` | Future |
+| `func (*blockstore.ReadWrite).Has(ctx context.Context, key cid.Cid) (bool, error)` | `ReadWrite.has` | Future |
+| `func (*blockstore.ReadWrite).Get(ctx context.Context, key cid.Cid) (blocks.Block, error)` | `ReadWrite.get` | Future |
+| `func (*blockstore.ReadWrite).GetSize(ctx context.Context, key cid.Cid) (int, error)` | `ReadWrite.getSize` | Future |
+| `func (*blockstore.ReadWrite).AllKeysChan(ctx context.Context) (<-chan cid.Cid, error)` | `ReadWrite.allKeysChan` | Stream |
+| `func (*blockstore.ReadWrite).Index() index.Index` | `ReadWrite.index` | síncrona |
+| `func (*blockstore.ReadWrite).HashOnRead(enable bool)` | `ReadWrite.hashOnRead` | síncrona |
+| `func (*blockstore.ReadWrite).Finalize() error` | `ReadWrite.finalize` | síncrona |
+| `func (*blockstore.ReadWrite).FinalizeReadOnly() error` | `ReadWrite.finalizeReadOnly` | síncrona |
+| `func (*blockstore.ReadWrite).Discard()` | `ReadWrite.discard` | síncrona |
+| `func (*blockstore.ReadWrite).Close() error` | `ReadWrite.close` | síncrona |
+
+## `github.com/ipld/go-car/v2/index` → `package:ipfs_ffi/car/v2/index.dart`
+
+| Go | Dart | Modo |
+|---|---|---|
+| `func index.New(codec multicodec.Code) (index.Index, error)` | `new$` | síncrona |
+| `func index.ReadFrom(r io.Reader) (index.Index, error)` | `readFrom` | síncrona |
+| `func index.WriteTo(idx index.Index, w io.Writer) (uint64, error)` | `writeTo` | síncrona |
+| `func index.GetFirst(idx index.Index, key cid.Cid) (uint64, error)` | `getFirst` | síncrona |
+| `func index.ReadCodec(r io.Reader) (multicodec.Code, error)` | `readCodec` | síncrona |
+| `func (index.Index).Codec() multicodec.Code` | `Index.codec` | síncrona |
+| `func (index.Index).Marshal(w io.Writer) (uint64, error)` | `Index.marshal` | síncrona |
+| `func (index.Index).Unmarshal(r io.Reader) error` | `Index.unmarshal` | síncrona |
+| `func (index.Index).Load([]index.Record) error` | `Index.load` | síncrona |
+
+## `github.com/ipld/go-car/v2/storage` → `package:ipfs_ffi/car/v2/storage.dart`
+
+| Go | Dart | Modo |
+|---|---|---|
+| `func storage.OpenReadable(reader io.ReaderAt, opts ...car.Option) (storage.ReadableCar, error)` | `openReadable` | síncrona |
+| `func (storage.ReadableCar).Roots() []cid.Cid` | `ReadableCar.roots` | síncrona |
+| `func (storage.ReadableCar).Index() index.Index` | `ReadableCar.index` | síncrona |
+
+## `github.com/ipld/go-ipld-prime/datamodel` → `package:ipfs_ffi/ipld/prime/datamodel.dart`
+
+| Go | Dart | Modo |
+|---|---|---|
+| `datamodel.Node → x.(*merkledag.ProtoNode)` | `Node.asProtoNode` | cast |
+| `datamodel.Node → x.(*merkledag.RawNode)` | `Node.asRawNode` | cast |
+
+## `github.com/ipld/go-ipld-prime/linking` → `package:ipfs_ffi/ipld/prime/linking.dart`
+
+| Go | Dart | Modo |
+|---|---|---|
+| `func (*linking.LinkSystem).SetReadStorage(store storage.ReadableStorage)` | `LinkSystem.setReadStorage` | síncrona |
+
+## `github.com/ipld/go-ipld-prime/linking/cid` → `package:ipfs_ffi/ipld/prime/linking/cid.dart`
+
+| Go | Dart | Modo |
+|---|---|---|
+| `func cidlink.DefaultLinkSystem() linking.LinkSystem` | `defaultLinkSystem` | síncrona |
+
+## `github.com/ipld/go-ipld-prime/traversal/selector/parse` → `package:ipfs_ffi/ipld/prime/traversal/selector/parse.dart`
+
+| Go | Dart | Modo |
+|---|---|---|
+| `func selectorparse.ParseJSONSelector(jsonStr string) (datamodel.Node, error)` | `parseJsonSelector` | síncrona |
+| `var selectorparse.CommonSelector_MatchPoint datamodel.Node` | `commonSelectorMatchPoint` | síncrona |
+| `var selectorparse.CommonSelector_MatchChildren datamodel.Node` | `commonSelectorMatchChildren` | síncrona |
+| `var selectorparse.CommonSelector_ExploreAllRecursively datamodel.Node` | `commonSelectorExploreAllRecursively` | síncrona |
+| `var selectorparse.CommonSelector_MatchAllRecursively datamodel.Node` | `commonSelectorMatchAllRecursively` | síncrona |
+
 ## `github.com/libp2p/go-libp2p/core/peer` → `package:ipfs_ffi/libp2p/core/peer.dart`
 
 | Go | Dart | Modo |
 |---|---|---|
 | `func peer.AddrInfoFromString(s string) (*peer.AddrInfo, error)` | `addrInfoFromString` | síncrona |
 | `func peer.AddrInfoToP2pAddrs(pi *peer.AddrInfo) ([]multiaddr.Multiaddr, error)` | `addrInfoToP2pAddrs` | síncrona |
+
+## `github.com/multiformats/go-multicodec` → `package:ipfs_ffi/multiformats/multicodec.dart`
+
+| Go | Dart | Modo |
+|---|---|---|
+| `const multicodec.CarIndexSorted multicodec.Code` | `carIndexSorted` | const |
+| `const multicodec.CarMultihashIndexSorted multicodec.Code` | `carMultihashIndexSorted` | const |
 
 ## `io` → `package:ipfs_ffi/go/io.dart`
 
@@ -271,6 +422,12 @@ Cada linha é um símbolo Go exposto e onde ele está no Dart.
 | `func os.Stat(name string) (os.FileInfo, error)` | `stat` | síncrona |
 | `func os.Create(name string) (*os.File, error)` | `create` | síncrona |
 | `func (*os.File).Close() error` | `File.close` | síncrona |
+| `func os.Open(name string) (*os.File, error)` | `open` | síncrona |
+| `func os.OpenFile(name string, flag int, perm os.FileMode) (*os.File, error)` | `openFile` | síncrona |
+| `const os.O_RDONLY int` | `oRdonly` | const |
+| `const os.O_RDWR int` | `oRdwr` | const |
+| `const os.O_CREATE int` | `oCreate` | const |
+| `const os.O_TRUNC int` | `oTrunc` | const |
 
 ## `runtime/debug` → `package:ipfs_ffi/go/runtime/debug.dart`
 
@@ -280,23 +437,26 @@ Cada linha é um símbolo Go exposto e onde ele está no Dart.
 
 ## Adaptações (regras do gerador e código à mão)
 
-- Namespaces: cada módulo Go num namespace (`kubo`, `boxo`, `ipld`, `multiformats`, `libp2p`, `go`; `car` fica para o `github.com/ipld/go-car`), com um arquivo `package:ipfs_ffi/<namespace>.dart` que exporta todas as libraries dele (`import 'package:ipfs_ffi/kubo.dart' as kubo;`); as libraries por pacote Go continuam embaixo. A tabela módulo → namespace fica em `go/gen/namespaces.go`.
+- Namespaces: cada módulo Go num namespace (`kubo`, `boxo`, `ipld`, `multiformats`, `libp2p`, `car` (o `github.com/ipld/go-car/v2`), `go`), com um arquivo `package:ipfs_ffi/<namespace>.dart` que exporta todas as libraries dele (`import 'package:ipfs_ffi/kubo.dart' as kubo;`); as libraries por pacote Go continuam embaixo. A tabela módulo → namespace fica em `go/gen/namespaces.go`.
 - `context` (`package:ipfs_ffi/go/context.dart`, à mão): `background`, `withCancel`, `withTimeout`, `withDeadline`; `CancelFunc` é chamável (`cancel()`).
 - `config.Profiles` (à mão): `profiles[nome]!.transform(cfg)`; no Go é um mapa de funções.
 - `ipfs dag put`/`ipfs dag get` (`dagPut`/`dagGet` em `package:ipfs_ffi/kubo/core/commands/dag.dart`, porte à mão em `go/manual_dag.go`): no kubo é o corpo dos comandos, não função de biblioteca; mesmos padrões do CLI (dag-json → dag-cbor, limite de 2 MiB), hash padrão `sha2-256`.
 - `ipfs dag export`/`ipfs dag import` (arquivos CAR; mesma library do `dagPut`/`dagGet`, porte à mão em `go/manual_car.go`): `dagExport`/`dagExportFile` (CARv1, `localOnly` = `--local-only`) e `dagImport`/`dagImportFiles` (CARv1/v2, `pinRoots` = `--pin-roots`, devolve raízes e estatísticas); recebem o `IpfsNode`, como o comando. Sem barra de progresso nem fast-provide do DAG inteiro; a raiz é anunciada pelo `Provide` da CoreAPI.
 - Pubsub: o nó precisa de `node.BuildCfg(extraOpts: {'pubsub': true})` (o `Pubsub.Enabled` do daemon); `sub.next(ctx)` entrega uma mensagem por vez (o exemplo 08 a transforma em `Stream`).
 - Handle concreto que implementa uma interface exposta estende a classe dela (`merkledag.RawNode`/`ProtoNode` → `Node`), para valer onde o Go aceita a interface; struct que embute interface é handle, não DTO.
-- Mapa com chave tipo-valor (`map[peer.ID][]Multiaddr`) vira `Map<Id, List<Multiaddr>>`.
+- Mapa com chave tipo-valor (`map[peer.ID][]Multiaddr`) vira `Map<Id, List<Multiaddr>>`; com chave inteira (`map[multicodec.Code]uint64`), `Map<int, int>`.
+- Struct de campos exportados que é objeto (`linking.LinkSystem`, tabela `handleTypes`) é handle; o handle de struct devolvida por valor guarda o ponteiro (vale como `T` e `*T`).
+- Método de DTO (`car.Header.hasIndex`, `cid.Prefix.sum`): o receptor vai por valor; o que o método altera nele não volta.
+- Interface só de getters (instantâneo, `blocks.Block`) em parâmetro: o Dart monta a classe (`Block(cid: c, rawData: d)`) e o Go recebe uma struct que devolve esses valores.
 - Canal `chan<- T` passado numa opção (`options.Unixfs.Events`) vira `StreamSink<T>` (`options.unixfs.events(controller.sink)`); o tipo real dos itens de `chan<- any` vem da tabela `chanElem` do gerador (`AddEvent`). Como o `ipfs add`, o canal é fechado quando a chamada volta: todos os eventos chegam e o sink fecha antes do `Future` completar.
 - Variável de pacote vira getter; tipo função nomeado (`libp2p.RoutingOption`) é handle opaco, criado só no Go.
 - Métodos e funções com `context.Context` são assíncronos (`Future`); canais viram `Stream`; `(T, error)` vira `T` com `IpfsException`.
 - Variádicos viram `List` opcional; opções funcionais espelham as variáveis do pacote (`options.unixfs.pin(true, '')`).
-- `NewX` síncrono que devolve `X` do mesmo pacote vira `factory X(...)`.
-- `io.Writer` em parâmetro não aparece no Dart: o Go usa `io.Discard`.
+- `NewX` síncrono que devolve o handle `X` do mesmo pacote vira `factory X(...)` (um DTO não: `car.newHeader` é função).
+- `io.Writer` em parâmetro é `GoHandle?`: um objeto do Go que o implementa (`os.File`, `bytes.Buffer`); null = `io.Discard`.
 - `fsrepo.Open`: o host limpa o caminho (`repoPath`, a forma que o `Repo.Path()` devolve) antes de abrir, para os comandos de config, que reabrem o repo pelo `Path()`, reaproveitarem o repo aberto (o `fsrepo` guarda o aberto pela string crua).
 - Inteiros `uint64` vão com os mesmos 64 bits num `int` do Dart (como o `Uint64List`): de 2^63 para cima saem negativos; `BigInt.from(v).toUnsigned(64)` os lê sem sinal (a doc de cada campo avisa).
-- `io.Reader` em parâmetro aceita `Uint8List` ou um handle de leitor (ex. o `files.File` devolvido pelo kubo).
+- Interface de E/S em parâmetro (`io.Reader`, `io.ReaderAt`, `io.ReadSeeker`, `car.SectionReader`...) aceita `Uint8List` (quando um `bytes.Reader` a implementa) ou um handle que a implementa (o `files.File` do kubo, `os.open`).
 - Tipos-valor (CID, path, peer ID, multiaddr) guardam a string; a validação acontece no Go, quando atravessam.
 - `config.Config` guarda o JSON do kubo (o mesmo do arquivo `config` do repo) em `json`.
 - Resultado `nil` do Go onde o Dart espera um objeto vira `IpfsException`.

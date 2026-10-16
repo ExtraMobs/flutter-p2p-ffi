@@ -28,8 +28,8 @@ Future<void> main() async {
   kubo.PluginLoader('')
     ..initialize()
     ..inject();
-  final cfg =
-      kubo.initWithIdentity(kubo.createIdentity([kubo.key.type('ed25519')]));
+  final cfg = kubo
+      .initWithIdentity(kubo.createIdentity(null, [kubo.key.type('ed25519')]));
   kubo.profiles['test']!.transform(cfg);
   kubo.init(repoPath, cfg);
   final ctx = context.background();
