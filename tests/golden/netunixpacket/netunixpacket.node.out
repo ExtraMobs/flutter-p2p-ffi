@@ -1,9 +1,0 @@
-endereços: listen unixpacket @SOCK-a: socket: operation not supported
-mensagens: listen unixpacket @SOCK-b: socket: operation not supported
-vazia: listen unixpacket @SOCK-c: socket: operation not supported
-escrita: listen unixpacket @SOCK-d: socket: operation not supported
-fechamento: listen unixpacket @SOCK-e: socket: operation not supported
-listener: listen unixpacket @SOCK-f: socket: operation not supported
-erros: dial unixpacket @SOCK-nada: socket: operation not supported | listen unixpacket @SOCK-g: unknown network unixpacket | listen unixpacket: missing address | dial unixpacket : missing address
-ListenPacket: listen unixpacket @SOCK-h: socket: operation not supported
-fim
