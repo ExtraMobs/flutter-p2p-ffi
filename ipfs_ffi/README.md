@@ -300,6 +300,73 @@ await car.traverseToFile(ctx, ls, raiz, ipld.unixFsPathSelector('foto.jpg'), 'fo
 O escolhedor de protótipo é o que o gateway usa: sem ele o go-car decodifica o dag-pb como
 dado genérico, a camada UnixFS não o reconhece, e o seletor por nome para na pasta.
 
+## Como os blocos chegam: bitswap por libp2p (bsnet) e por HTTP (httpnet)
+
+Todo pedido de bloco que o nó não tem localmente vai ao bitswap: `unixfs().get`, o
+`getCar` do gateway, um `traverseToFile` sobre o block service e os comandos do RPC. O
+bitswap do boxo tem duas camadas de rede, e o kubo liga as duas por padrão. O que segue foi
+lido no código do boxo v0.43.0 (`bitswap/network`) e do kubo v0.43.1
+(`core/node/bitswap.go`, `config/http_retrieval.go`).
+
+**bsnet (libp2p).** O protocolo bitswap original, sobre streams libp2p
+(`/ipfs/bitswap/...`), com qualquer peer conectado (TCP, QUIC, WebTransport, WebRTC, relay).
+Funciona nos dois sentidos: o nó pede blocos e também serve os que tem. É ligado por
+`Bitswap.Libp2pEnabled`, padrão `true`; `Bitswap.ServerEnabled`, também `true`, decide se o
+nó responde aos pedidos dos outros.
+
+**httpnet (HTTP).** Busca blocos por HTTP em provedores que anunciam um endereço HTTP(S)
+(multiaddr como `/dns/exemplo.org/tcp/443/tls/http` ou `/https`), ou seja, servidores no
+modo "trustless gateway". Para cada bloco ele faz:
+
+- `GET /ipfs/<cid>?format=raw` com `Accept: application/vnd.ipld.raw` quando quer o bloco;
+- `HEAD` na mesma URL quando só quer saber se o servidor o tem;
+- antes de usar o servidor, uma sondagem com o CID de identidade `bafkqaaa`, e em HTTPS ele
+  exige HTTP/2.
+
+O bloco recebido é conferido pelo hash do CID, como no bsnet; um servidor HTTP não consegue
+entregar outro conteúdo. O httpnet só baixa: o nó não serve blocos por HTTP.
+
+**Os dois juntos.** O `router` do boxo (`bitswap/network/router.go`) une as duas camadas.
+Quando um provedor tem endereço HTTP, tenta HTTP primeiro e cai no libp2p se falhar.
+Blocos que o nó envia aos outros vão sempre pelo libp2p. Para quem chama a API, nada muda:
+`unixfs().get` e `getCar` não sabem nem dizem por qual camada cada bloco veio.
+
+**A config (`HTTPRetrieval`, lida quando o nó é criado):**
+
+| chave | padrão | o que faz |
+|---|---|---|
+| `HTTPRetrieval.Enabled` | `true` | liga o httpnet |
+| `HTTPRetrieval.Allowlist` | vazio (todos) | só estes nomes de host podem ser usados por HTTP |
+| `HTTPRetrieval.Denylist` | vazio | estes nomes de host nunca são usados |
+| `HTTPRetrieval.NumWorkers` | 16 | pedidos HTTP em paralelo |
+| `HTTPRetrieval.MaxBlockSize` | `2MiB` | maior resposta aceita (o mesmo limite de bloco do bitswap) |
+| `HTTPRetrieval.TLSInsecureSkipVerify` | `false` | só para testes com certificado próprio |
+
+Com `Bitswap.Libp2pEnabled` e `HTTPRetrieval.Enabled` desligados ao mesmo tempo, o nó não
+sobe (o kubo recusa a config).
+
+**No app.** A config é a do repo, mudada antes do `newNode` (o mesmo `ipfs config`):
+
+```dart
+final repo = kubo.open(repoPath);
+repo.setConfigKey('HTTPRetrieval.Enabled', false); // só libp2p; ou, para limitar o HTTP:
+// repo.setConfigKey('HTTPRetrieval.Allowlist', ['meu-gateway.exemplo.org']);
+repo.setConfigKey('Bitswap.ServerEnabled', false); // baixa, mas não serve a ninguém
+final n = await kubo.newNode(ctx, kubo.BuildCfg(repo: repo, online: true, ...));
+```
+
+O que pesa na escolha:
+
+- **Privacidade:** pelo httpnet, cada servidor HTTP vê os CIDs pedidos, o IP do aparelho e o
+  User-Agent do kubo, como um servidor web comum. Pelo bsnet, os peers também veem os
+  pedidos, mas não há um servidor web fixo no meio. `Allowlist`/`Denylist` limitam a quem
+  o nó pede.
+- **Rede móvel:** servidores HTTP costumam estar em datacenter, bem conectados e sem o
+  problema de NAT que os peers do libp2p têm no celular (ver a seção do Android, abaixo). Desligar o
+  httpnet tira essa fonte.
+- **Servir:** `Bitswap.ServerEnabled = false` faz o nó só baixar, o que economiza dados e
+  bateria. O conteúdo do próprio nó deixa então de ser servido por bitswap.
+
 ## Correções no upstream (0.15)
 
 Dois bugs do kubo/boxo, reproduzidos em Go puro, que o `tool/build.dart` corrige por patch

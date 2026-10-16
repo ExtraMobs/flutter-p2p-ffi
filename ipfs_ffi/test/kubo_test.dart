@@ -351,6 +351,33 @@ void main() {
       }
     });
 
+    // README, "Como os blocos chegam": as duas camadas do bitswap pela config
+    test('bitswap só por libp2p e sem servir; sem nenhuma camada, não sobe',
+        () async {
+      final cfg = config.initWithIdentity(
+          config.createIdentity(null, [options.key.type('ed25519')]));
+      config.profiles['test']!.transform(cfg);
+      final repoPath = '${tmp.path}/bitswap-cfg';
+      fsrepo.init(repoPath, cfg);
+      final repo = fsrepo.open(repoPath);
+      repo.setConfigKey('HTTPRetrieval.Enabled', false);
+      repo.setConfigKey('Bitswap.ServerEnabled', false);
+      final c =
+          await core.newNode(ctx, node.BuildCfg(repo: repo, online: true));
+      final api = coreapi.newCoreApi(c);
+      final p =
+          await api.unixfs().add(ctx, files.newBytesFile(utf8.encode('x')));
+      expect((await api.block().stat(ctx, p)).size, greaterThan(0));
+      await c.close();
+
+      final repo2 = fsrepo.open(repoPath);
+      repo2.setConfigKey('Bitswap.Libp2pEnabled', false);
+      await expectLater(
+          core.newNode(ctx, node.BuildCfg(repo: repo2, online: true)),
+          throwsA(isA<IpfsException>().having((e) => e.message, 'message',
+              contains('Libp2pEnabled and HTTPRetrieval.Enabled'))));
+    });
+
     test('B busca por bitswap o que A adicionou', () async {
       final data = utf8.encode('de A para B ${DateTime.now()}');
       final p = await a
