@@ -71,7 +71,106 @@ Exemplos, na ordem em que o kubo monta um nó:
 8. `dart run example/08_chat.dart <repo> <tópico> [apelido]`: chat em tempo real sobre
    pubsub (`api.pubSub().subscribe/publish`, `sub.next`); o nó precisa de
    `extraOpts: {'pubsub': true}`. Duas instâncias (repos diferentes, perfil
-   `randomports`) se acham na rede local pelo mDNS.
+   `randomports`) se acham na rede local pelo mDNS;
+9. `dart run example/09_comandos_e_streams.dart`: os comandos do `ipfs` (`files mkdir/
+   write/stat/ls/read/rm`, `pin ls`, `cat`) e o `Stream` passo a passo: `.drain()`,
+   `.single`, `await for`, `.toList()`, `.listen` (com `onData`/`onError`/`onDone` e
+   `cancel`) e o erro do kubo como exceção. Para quem nunca usou `Future`/`Stream`;
+10. `dart run example/10_mfs_baixo_nivel.dart`: o mesmo trabalho pelo baixo nível do
+   boxo (`mfs.mkdir`, `putNode`, `lookup`/`asFile`, `open`/`seek`/`write`/`close`,
+   `ctxReadFull`, `mv`, `list`, `flushPath`), com o código Go equivalente em cada passo;
+11. `dart run example/11_contexto_e_erros.dart`: prazo e cancelamento (`withTimeout`,
+   `withCancel`), `IpfsException` (o kubo respondeu erro) × `IpfsServiceException` (o
+   serviço caiu), o `onStop` e o `IpfsService.restart()` depois de uma queda.
+
+Os exemplos 9 a 11 criam o próprio repo temporário e não dependem do 01.
+
+## O boxo do Go e o do Dart, lado a lado
+
+Além do kubo, o pacote expõe o baixo nível do boxo (a biblioteca do IPFS em Go que o
+kubo usa por dentro) com as mesmas funções, os mesmos tipos e a mesma ordem de
+argumentos: quem lê a documentação do boxo em pkg.go.dev sabe usar o Dart. Dois
+exemplos, o Go primeiro e o Dart logo abaixo.
+
+Escrever no fim de um arquivo do MFS (o sistema de arquivos do nó) e ler de volta:
+
+```go
+// Go (boxo/mfs)
+root := node.FilesRoot                         // campo da struct IpfsNode
+nd, err := mfs.Lookup(root, "/docs/nota.txt")  // devolve a interface FSNode
+if err != nil {
+    return err
+}
+file := nd.(*mfs.File)                         // type assertion: é arquivo?
+fd, err := file.Open(ctx, mfs.Flags{Write: true, Sync: true})
+if err != nil {
+    return err
+}
+fd.Seek(0, io.SeekEnd)
+fd.Write([]byte("mais uma linha\n"))
+fd.Close()
+
+fd, _ = file.Open(ctx, mfs.Flags{Read: true})
+buf := make([]byte, 1024)                      // o Go lê num buffer seu
+n, _ := fd.CtxReadFull(ctx, buf)
+fmt.Print(string(buf[:n]))
+fd.Close()
+```
+
+```dart
+// Dart (package:ipfs_ffi/boxo/mfs.dart as mfs)
+final root = node.filesRoot;                   // o campo vira getter
+final file = mfs.lookup(root, '/docs/nota.txt') // erro do Go → IpfsException
+    .asFile()!;                                // o type assertion: null se não for
+final fd = await file.open(ctx, mfs.Flags(write: true, sync: true)); // a struct,
+fd.seek(0, 2);                                 // com parâmetros nomeados
+fd.write(utf8.encode('mais uma linha\n'));
+fd.close();
+
+final rd = await file.open(ctx, mfs.Flags(read: true));
+final bytes = await rd.ctxReadFull(ctx, 1024); // pede 1024, recebe os lidos
+print(utf8.decode(bytes));
+rd.close();
+```
+
+Adicionar com opções e procurar um arquivo, o mesmo trabalho em dois níveis (o kubo
+monta as opções do boxo; o comando `ipfs` faz tudo de uma vez):
+
+```go
+// Go (kubo CoreAPI + boxo/files)
+p, err := api.Unixfs().Add(ctx, files.NewBytesFile(data),
+    options.Unixfs.CidVersion(1), options.Unixfs.Pin(true, ""))
+if err != nil {
+    return err
+}
+nd, err := api.ResolveNode(ctx, p)
+if err != nil {
+    return err
+}
+err = mfs.PutNode(root, "/docs/foto.jpg", nd)
+```
+
+```dart
+// Dart: o mesmo baixo nível (as opções do Go viram uma lista)
+final p = await api.unixfs().add(ctx, files.newBytesFile(data),
+    [options.unixfs.cidVersion(1), options.unixfs.pin(true, '')]);
+mfs.putNode(root, '/docs/foto.jpg', await api.resolveNode(ctx, p));
+
+// ou o alto nível, o comando `ipfs files write --create` (um Stream; ver o 09)
+await kubo.filesWrite(n, ctx, '/docs/foto.jpg', files.newBytesFile(data),
+        create: true, cidVersion: 1)
+    .drain<void>();
+```
+
+O que muda de um para o outro (a lista completa na seção abaixo):
+- o `if err != nil { return err }` some: um erro do Go vira `IpfsException`, que se
+  trata com `try`/`catch` (ou deixa subir);
+- o que no Go espera com `ctx` (`Open`, `CtxReadFull`, `Add`) é `Future` no Dart e pede
+  `await`; o resto (`Lookup`, `Seek`, `Write`, `Close`) é síncrono, como no Go;
+- struct de opções (`mfs.Flags{...}`) vira o mesmo tipo com parâmetros nomeados; opções
+  funcionais (`options.Unixfs.Pin(...)`) viram uma lista;
+- type assertion (`nd.(*mfs.File)`) vira `asFile()`, que devolve `null` se não for;
+- o `[]byte` que o Go preenche vira um tamanho pedido e os bytes devolvidos.
 
 ## Como o Go vira Dart
 
