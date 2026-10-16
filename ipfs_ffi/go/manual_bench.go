@@ -1,10 +1,18 @@
-// Escrito à mão (WIRE.md): medidas da ponte. 27 produz itens de um callback
-// sob demanda sem nada do kubo no meio (tool/bench_callback.dart escolhe o
-// lote padrão por ele); 28 lê e zera os contadores de sininho, as escritas no
-// pipe/socket que acordam o outro lado (chamadas de sistema).
+// Escrito à mão (WIRE.md): medidas e testes da ponte. 27 produz itens de um
+// callback sob demanda sem nada do kubo no meio (tool/bench_callback.dart
+// escolhe o lote padrão por ele); 28 lê e zera os contadores de sininho, as
+// escritas no pipe/socket que acordam o outro lado (chamadas de sistema);
+// 29–31 montam um impasse de verdade (deadlock.go): um objeto com mutex, um
+// Iterate que o segura enquanto chama o callback e um Touch que o pede.
 package main
 
-import "sync/atomic"
+import (
+	"sync"
+	"sync/atomic"
+)
+
+// testLocker: o objeto com trava dos testes de impasse.
+type testLocker struct{ mu sync.Mutex }
 
 // bells: sininhos tocados pelo host (o app dormia) e despertares do host (o
 // app tocou o dele).
@@ -29,6 +37,45 @@ func init() {
 			}
 		}
 		w.i64(made)
+		return nil
+	}}
+	table[29] = entry{key: "ipfs_ffi/test.NewLocker", fn: noArgs(func(_ *req, w *writer) error {
+		encH(w, &testLocker{})
+		return nil
+	})}
+	// i64 locker, u32 lote, i64 n → vazio; o callback recebe (i64 índice)
+	// com a trava presa
+	table[30] = entry{key: "ipfs_ffi/test.Locker.Iterate", fn: func(q *req, r *reader, _ *writer) error {
+		l, err := decH[*testLocker](r)
+		if err != nil {
+			return err
+		}
+		batch, n := r.u32(), r.i64()
+		if err := r.done(); err != nil {
+			return err
+		}
+		l.mu.Lock()
+		defer l.mu.Unlock()
+		cb := newCallback(q, batch)
+		defer cb.end()
+		for i := range n {
+			if !cb.item(func(w *writer) { w.i64(i) }) {
+				return errCallbackStopped
+			}
+		}
+		return nil
+	}}
+	// i64 locker → vazio, depois de pegar e soltar a trava
+	table[31] = entry{key: "ipfs_ffi/test.Locker.Touch", fn: func(_ *req, r *reader, _ *writer) error {
+		l, err := decH[*testLocker](r)
+		if err != nil {
+			return err
+		}
+		if err := r.done(); err != nil {
+			return err
+		}
+		l.mu.Lock()
+		l.mu.Unlock()
 		return nil
 	}}
 	// → i64 sininhos tocados pelo host, i64 despertares do host; zera os dois

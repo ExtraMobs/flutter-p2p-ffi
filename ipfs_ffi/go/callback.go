@@ -21,12 +21,16 @@ const (
 	fnCallbackAck = 5
 
 	// defaultCallbackBatch: o lote quando o Dart manda 0 (batchSize omitido).
-	// ponytail: provisório até a medida (tool/bench_callback.dart).
-	defaultCallbackBatch = 64
+	// Medido (tool/bench_callback.dart, ipfs_ffi/TODO.md, 0.17.0): no Windows
+	// e no linux a vazão de itens pequenos sobe até 1024–2048 por lote; no
+	// emulador Android segue subindo (cada ida e volta custa ms lá).
+	// ponytail: falta confirmar num aparelho real.
+	defaultCallbackBatch = 1024
 
-	// maxCallbackBytes: o lote fecha antes deste tamanho mesmo sem completar
-	// os itens, abaixo dos 4 MiB do anel (um quadro só).
-	maxCallbackBytes = 1 << 20
+	// maxCallbackBytes: o lote fecha neste tamanho mesmo sem completar os
+	// itens. Acima de ~128 KiB a vazão cai pela metade no Windows e no linux
+	// (e a espera pelo primeiro item sobe para ms).
+	maxCallbackBytes = 128 << 10
 )
 
 // Vereditos do Dart para um lote (fnCallbackAck).
@@ -85,7 +89,9 @@ func (c *callback) item(enc func(*writer)) bool {
 	c.n++
 	if c.n >= c.batch || len(c.buf) >= maxCallbackBytes {
 		c.flush()
+		waitingCallbacks.Add(1) // deadlock.go
 		c.stop = <-c.acks
+		waitingCallbacks.Add(-1)
 	}
 	return c.stop == verdictContinue
 }

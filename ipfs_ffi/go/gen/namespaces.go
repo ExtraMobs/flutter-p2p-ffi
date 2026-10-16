@@ -26,6 +26,8 @@ var namespaces = []struct{ module, dir string }{
 	{"github.com/libp2p/go-libp2p", "libp2p"},
 	{"github.com/ipld/go-car", "car"},
 	{"github.com/ipld/go-ipld-prime", "ipld/prime"},
+	{"github.com/ipfs/go-unixfsnode", "ipld/unixfsnode"},
+	{"github.com/ipld/go-codec-dagpb", "ipld/dagpb"},
 	{"github.com/multiformats/go-multicodec", "multiformats/multicodec"},
 }
 
@@ -34,7 +36,7 @@ var nsDocs = map[string]string{
 	"kubo":         "Kubo (`github.com/ipfs/kubo`): node, CoreAPI and its options, config, repo.",
 	"boxo":         "Boxo (`github.com/ipfs/boxo`): files, paths, MerkleDAG, IPNS, name resolution.",
 	"multiformats": "Multiformats: CIDs (`github.com/ipfs/go-cid`), multiaddrs (`github.com/multiformats/go-multiaddr`) and multicodec codes (`github.com/multiformats/go-multicodec`).",
-	"ipld":         "IPLD: nodes (`github.com/ipfs/go-ipld-format`), blocks (`github.com/ipfs/go-block-format`) and the link system and selectors of `github.com/ipld/go-ipld-prime`.",
+	"ipld":         "IPLD: nodes (`github.com/ipfs/go-ipld-format`), blocks (`github.com/ipfs/go-block-format`) the link system, selectors and selector builder of `github.com/ipld/go-ipld-prime`, the UnixFS layer of `github.com/ipfs/go-unixfsnode` and the dag-pb codec (`github.com/ipld/go-codec-dagpb`).",
 	"libp2p":       "libp2p (`github.com/libp2p/go-libp2p`): peer IDs and addresses.",
 	"car":          "CAR files (`github.com/ipld/go-car/v2`): read, inspect, convert, index, blockstore and IPLD storage over a CAR, selective traversal.",
 	"go":           "The Go standard library pieces the API uses: `bytes`, `context`, `io`, `os`, `runtime/debug`.",

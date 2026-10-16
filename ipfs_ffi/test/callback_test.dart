@@ -8,7 +8,8 @@ import 'dart:typed_data';
 import 'package:ipfs_ffi/car.dart' as car;
 import 'package:ipfs_ffi/ipfs_ffi.dart';
 import 'package:ipfs_ffi/multiformats.dart' as mf;
-import 'package:ipfs_ffi/src/runtime.dart' show $W, $callCb, $callSync;
+import 'package:ipfs_ffi/src/runtime.dart'
+    show $W, $busyChanges, $callCb, $callSync, GoHandle;
 import 'package:test/test.dart';
 
 /// Função 27: [n] itens de [size] bytes; devolve quantos o Go produziu.
@@ -110,4 +111,63 @@ void main() {
     });
     expect(got, [103]);
   });
+
+  group('impasse (funções 29–31: um mutex que o Iterate segura)', () {
+    // o objeto com trava do host
+    GoHandle locker() => $callSync(29).hnn(_Locker.new);
+    Future<void> iterate(GoHandle l, int n, dynamic Function(int i) f) =>
+        $callCb(
+            30,
+            $W()
+              ..h(l)
+              ..u32(1)
+              ..i64(n),
+            (r) => f(r.i64()));
+    void touch(GoHandle l) => $callSync(31, $W()..h(l));
+
+    test('tocar o objeto travado de dentro do callback: IpfsDeadlockException',
+        () async {
+      final l = locker();
+      final changes = <(bool, bool)>[];
+      final sub = $busyChanges
+          .listen((c) => changes.add((identical(c.handle, l), c.busy)));
+      final sw = Stopwatch()..start();
+      Object? inside;
+      await expectLater(
+          iterate(l, 3, (i) {
+            expect(l.isBusy, isTrue);
+            try {
+              touch(l); // o Go segura a trava esperando este callback
+            } catch (e) {
+              inside = e;
+              rethrow;
+            }
+          }),
+          throwsA(isA<IpfsDeadlockException>()));
+      expect(inside, isA<IpfsDeadlockException>());
+      expect(
+          (inside! as IpfsDeadlockException).message, contains('Locker.Touch'));
+      expect(sw.elapsed, lessThan(const Duration(seconds: 5)));
+      expect(l.isBusy, isFalse);
+      touch(l); // a trava saiu com o Iterate: o host segue respondendo
+      await Future<void>.delayed(Duration.zero);
+      await sub.cancel();
+      expect(changes, [(true, true), (true, false)]);
+    });
+
+    test('outro objeto, de dentro do callback: sem impasse', () async {
+      final a = locker(), b = locker();
+      var touched = 0;
+      await iterate(a, 5, (i) {
+        touch(b);
+        touched++;
+      });
+      expect(touched, 5);
+    });
+  });
+}
+
+/// Handle sem classe gerada (o objeto com trava das funções de teste).
+final class _Locker extends GoHandle {
+  _Locker(super.$h);
 }

@@ -85,7 +85,15 @@ func (g *goEmitter) function(name string, f *fn) string {
 	recv := ""
 	if f.recv != nil {
 		recv = "recv"
-		fmt.Fprintf(&b, "\trecv, err := %s(r)\n%s", g.dec(f.recv), fail)
+		dec := g.dec(f.recv)
+		if f.recv.reader { // receptor de E/S (ReadCloser.Close): só o handle
+			dec = "decH[" + g.ts(f.recv.t) + "]"
+		}
+		fmt.Fprintf(&b, "\trecv, err := %s(r)\n%s", dec, fail)
+	}
+	if f.newT { // construtor vazio: new(T)
+		fmt.Fprintf(&b, "\tif err := r.done(); err != nil {\n\t\treturn err\n\t}\n\tencH(w, new(%s))\n\treturn nil\n}\n", g.ts(f.results[0].t.(*types.Pointer).Elem()))
+		return b.String()
 	}
 	if f.cast != nil { // type assertion: o handle novo, ou 0 se não for desse tipo
 		fmt.Fprintf(&b, "\tif err := r.done(); err != nil {\n\t\treturn err\n\t}\n\tc, _ := recv.(%s)\n\tencH(w, c)\n\treturn nil\n}\n", g.ts(f.cast.t))
@@ -283,7 +291,7 @@ func inner(t *tinfo) *tinfo {
 // dec devolve uma função F tal que F(r) devolve (T, error).
 func (g *goEmitter) dec(t *tinfo) string {
 	switch {
-	case t.k == kBasic:
+	case t.k == kBasic && !t.ptr:
 		return "dec" + basicFn(t) + "[" + g.ts(t.t) + "]"
 	case t.k == kHandle && t.reader:
 		return "decIO[" + g.ts(t.t) + "]"
@@ -329,6 +337,8 @@ func (g *goEmitter) dec(t *tinfo) string {
 				}
 			}
 			b.WriteString("\treturn s, nil\n}\n")
+		case t.ptr && t.k == kBasic: // *int64: presença + o básico
+			fmt.Fprintf(&b, "func %s(r *reader) (%s, error) {\n\tif !r.present() {\n\t\treturn nil, nil\n\t}\n\tv, err := %s(r)\n\treturn &v, err\n}\n", name, T, g.dec(inner(t)))
 		case t.ptr: // *T: presença 0 = nil; senão o formato do próprio T
 			fmt.Fprintf(&b, "func %s(r *reader) (%s, error) {\n\tif r.absent() {\n\t\treturn nil, nil\n\t}\n\tv, err := %s(r)\n\treturn &v, err\n}\n", name, T, g.dec(inner(t)))
 		case t.k == kDTO:
@@ -403,7 +413,7 @@ func (g *goEmitter) decOpts(t *tinfo) string {
 // enc devolve uma função F tal que F(w, v) escreve v.
 func (g *goEmitter) enc(t *tinfo) string {
 	switch {
-	case t.k == kBasic:
+	case t.k == kBasic && !t.ptr:
 		return "enc" + basicFn(t) + "[" + g.ts(t.t) + "]"
 	case t.k == kBytes:
 		return "encBytes"
@@ -423,6 +433,8 @@ func (g *goEmitter) enc(t *tinfo) string {
 		switch {
 		case t.k == kHandle: // struct por valor: guarda o ponteiro (o mesmo do *T)
 			b.WriteString("\tencH(w, &v)\n}\n")
+		case t.ptr && t.k == kBasic:
+			fmt.Fprintf(&b, "\tif v == nil {\n\t\tw.u8(0)\n\t\treturn\n\t}\n\tw.u8(1)\n\t%s(w, *v)\n}\n", g.enc(inner(t)))
 		case t.ptr:
 			fmt.Fprintf(&b, "\tif v == nil {\n\t\tw.u8(0)\n\t\treturn\n\t}\n\t%s(w, *v)\n}\n", g.enc(inner(t)))
 		case t.k == kDTO:

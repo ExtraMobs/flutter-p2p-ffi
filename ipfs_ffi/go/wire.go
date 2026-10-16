@@ -95,6 +95,7 @@ const (
 	errCanceled
 	errDeadline
 	errNotFound
+	errDeadlock // deadlock.go: só o host o produz
 )
 
 // invoke roda a entrada [e] sobre [args] e devolve a resposta final (valor,

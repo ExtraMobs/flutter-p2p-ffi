@@ -4,6 +4,7 @@ library;
 
 import 'package:ipfs_ffi/src/runtime.dart';
 import 'package:ipfs_ffi/boxo/ipld/merkledag.dart' as $merkledag;
+import 'package:ipfs_ffi/ipld/prime/node/basicnode.dart' as $basicnode;
 
 /// Go: `datamodel.Node` (handle).
 class Node extends GoHandle {
@@ -11,13 +12,24 @@ class Node extends GoHandle {
 
   /// Go: type assertion `x.(*merkledag.ProtoNode)`: null if the object is not one.
   $merkledag.ProtoNode? asProtoNode() {
-    final $r = $callSync(73, $W()..h(this));
+    final $r = $callSync(76, $W()..h(this));
     return $r.hn($merkledag.ProtoNode.$h);
   }
 
   /// Go: type assertion `x.(*merkledag.RawNode)`: null if the object is not one.
   $merkledag.RawNode? asRawNode() {
-    final $r = $callSync(74, $W()..h(this));
+    final $r = $callSync(77, $W()..h(this));
     return $r.hn($merkledag.RawNode.$h);
+  }
+}
+
+/// Go: `datamodel.NodePrototype` (handle).
+class NodePrototype extends GoHandle {
+  NodePrototype.$h(super.$h);
+
+  /// Go: type assertion `x.(*basicnode.Prototype__Any)`: null if the object is not one.
+  $basicnode.PrototypeAny? asPrototypeAny() {
+    final $r = $callSync(78, $W()..h(this));
+    return $r.hn($basicnode.PrototypeAny.$h);
   }
 }

@@ -17,7 +17,7 @@ final class CrashOptions implements GoDto {
 /// Go: `func debug.SetCrashOutput(f *os.File, opts debug.CrashOptions) error`.
 void setCrashOutput($os.File f, CrashOptions opts) {
   $callSync(
-      334,
+      375,
       $W()
         ..h(f)
         ..dto(opts));

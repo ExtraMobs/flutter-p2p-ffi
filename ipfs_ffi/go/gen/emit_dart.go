@@ -28,8 +28,9 @@ type dclass struct {
 }
 
 type dartEmitter struct {
-	m    *model
-	libs map[string]*dartLib
+	m           *model
+	libs        map[string]*dartLib
+	paramIfaces map[string]bool // interfaces usadas como parâmetro (linkConcrete)
 }
 
 func (e *dartEmitter) lib(goPath string) *dartLib {
@@ -97,7 +98,7 @@ func (e *dartEmitter) collect(t *tinfo) {
 }
 
 func emitDart(m *model, fns []*fn, hash uint64) map[string][]byte {
-	e := &dartEmitter{m: m, libs: map[string]*dartLib{}}
+	e := &dartEmitter{m: m, libs: map[string]*dartLib{}, paramIfaces: map[string]bool{}}
 	for _, f := range fns {
 		if f.why != "" {
 			continue
@@ -105,6 +106,9 @@ func emitDart(m *model, fns []*fn, hash uint64) map[string][]byte {
 		e.collect(f.recv)
 		for _, p := range f.params {
 			e.collect(p.t)
+			if p.t.k == kHandle && p.t.named != nil && types.IsInterface(p.t.named) {
+				e.paramIfaces[classKey(p.t)] = true
+			}
 		}
 		for _, r := range f.results {
 			e.collect(r)
@@ -215,7 +219,11 @@ func className(t *tinfo) string {
 }
 
 func basicDart(t *tinfo) string {
-	b := t.t.Underlying().(*types.Basic)
+	tt := t.t
+	if p, ok := tt.(*types.Pointer); ok { // *int64: o tipo do básico
+		tt = p.Elem()
+	}
+	b := tt.Underlying().(*types.Basic)
 	switch {
 	case b.Info()&types.IsBoolean != 0:
 		return "bool"
@@ -263,6 +271,9 @@ func (e *dartEmitter) dt(t *tinfo, from *dartLib) string {
 }
 
 func nullable(t *tinfo) bool {
+	if t.k == kBasic {
+		return t.ptr // *int64: null = nil
+	}
 	switch t.k {
 	case kValue, kDTO, kSnap, kHandle, kBytes, kError:
 		return true
@@ -275,6 +286,12 @@ func nullable(t *tinfo) bool {
 // `..` (cascata) ou `w.` na frente. Elementos de lista e de mapa vão por
 // closures (w<n>, e<n>) que recebem o mesmo escritor.
 func (e *dartEmitter) enc(t *tinfo, x string, depth int) string {
+	if t.k == kBasic && t.ptr { // *int64: presença + o básico
+		in := *t
+		in.ptr = false
+		w, v := fmt.Sprintf("w%d", depth), fmt.Sprintf("v%d", depth)
+		return fmt.Sprintf("ptr(%s, (%s, %s) => %s.%s)", x, w, v, w, e.enc(&in, v, depth+1))
+	}
 	switch t.k {
 	case kBasic:
 		switch basicDart(t) {
@@ -330,6 +347,11 @@ func (e *dartEmitter) dec(t *tinfo, r string, from *dartLib, opt bool) string {
 	absent := "$nil()"
 	if opt {
 		absent = "null"
+	}
+	if t.k == kBasic && t.ptr { // *int64: presença + o básico
+		in := *t
+		in.ptr = false
+		return fmt.Sprintf("%s.p() ? %s : %s", r, e.dec(&in, r, from, false), absent)
 	}
 	switch t.k {
 	case kBasic:
@@ -520,6 +542,9 @@ func (e *dartEmitter) snapDec(l *dartLib, g getter) string {
 }
 
 func zero(t *tinfo, dartT string) string {
+	if t.ptr {
+		return "" // *int64: null fica null
+	}
 	switch t.k {
 	case kBasic:
 		switch dartT {
@@ -730,11 +755,11 @@ func (e *dartEmitter) function(l *dartLib, f *fn, class string, factory bool) st
 			continue
 		}
 		if p.t.k == kFunc { // callback sob demanda: a função Dart; no pedido, o tamanho do lote
-			segs = append(segs, "u32(batchSize ?? 0)")
+			segs = append(segs, fmt.Sprintf("u32(batchSize ?? %d)", cbDefaultBatch(p.t)))
 			params = append(params, e.funcType(p.t, l)+" "+n)
 			var decs []string
 			for _, a := range p.t.fargs {
-				decs = append(decs, e.dec(a, "r", l, cbArgOpt(a)))
+				decs = append(decs, e.dec(a, "r", l, false))
 			}
 			cbItem = fmt.Sprintf("(r) => %s(%s)", n, strings.Join(decs, ", "))
 			continue
@@ -751,6 +776,9 @@ func (e *dartEmitter) function(l *dartLib, f *fn, class string, factory bool) st
 		dartT := "Object" // Uint8List ou um handle (io.Reader, io.ReaderAt...)
 		if !p.t.reader {
 			dartT = e.dt(p.t, l)
+		}
+		if p.t.k == kBasic && p.t.ptr { // *int64: null = nil
+			dartT += "?"
 		}
 		params = append(params, dartT+" "+n)
 	}
@@ -778,6 +806,20 @@ func (e *dartEmitter) function(l *dartLib, f *fn, class string, factory bool) st
 	fmt.Fprintf(&b, "%s/// Go: `%s`.\n", indent, goDoc(f.obj))
 	if f.async && f.stream == nil {
 		fmt.Fprintf(&b, "%s///\n%s/// Asynchronous: runs in a goroutine of the service.\n", indent, indent)
+	}
+	if i := funcParamIdx(f); i >= 0 {
+		doc := []string{"[batchSize]: invocations of the callback Go sends at a time (default",
+			"1024, up to 128 KiB). Go runs at most `batchSize - 1` invocations ahead",
+			"of Dart; 1 is exactly Go's semantics."}
+		if cbDefaultBatch(f.params[i].t) == 1 {
+			doc = []string{"[batchSize]: invocations of the callback Go sends at a time (default 1:",
+				"the callback receives Go objects that may only be valid during the",
+				"invocation). Go runs at most `batchSize - 1` invocations ahead of Dart."}
+		}
+		fmt.Fprintf(&b, "%s///\n", indent)
+		for _, d := range doc {
+			fmt.Fprintf(&b, "%s/// %s\n", indent, d)
+		}
 	}
 	if f.stream != nil {
 		fmt.Fprintf(&b, "%sStream<%s> %s%s =>\n%s    $stream(%s).map((r) => %s);\n", indent, e.dt(f.stream, l), name, sig, indent, call, e.dec(f.stream, "r", l, false))
@@ -829,6 +871,14 @@ func (e *dartEmitter) function(l *dartLib, f *fn, class string, factory bool) st
 	return b.String()
 }
 
+// better: a interface [a] é melhor base para um handle concreto que [b].
+func better(a, b *dclass) bool {
+	if ra, rb := realMethods(a) > 0, realMethods(b) > 0; ra != rb {
+		return ra
+	}
+	return a.t.named.Underlying().(*types.Interface).NumMethods() > b.t.named.Underlying().(*types.Interface).NumMethods()
+}
+
 func realMethods(c *dclass) int {
 	n := 0
 	for _, f := range c.methods {
@@ -849,11 +899,7 @@ func (e *dartEmitter) funcType(t *tinfo, l *dartLib) string {
 		if n == "" || n == "_" {
 			n = fmt.Sprintf("arg%d", i)
 		}
-		dt := e.dt(a, l)
-		if cbArgOpt(a) {
-			dt += "?"
-		}
-		ps = append(ps, dt+" "+n)
+		ps = append(ps, e.dt(a, l)+" "+n)
 	}
 	ret := "FutureOr<void>"
 	if t.fret == fretBool {
@@ -862,9 +908,18 @@ func (e *dartEmitter) funcType(t *tinfo, l *dartLib) string {
 	return fmt.Sprintf("%s Function(%s)", ret, strings.Join(ps, ", "))
 }
 
-// cbArgOpt: argumento de callback que pode vir nil do Go (objeto, valor,
-// DTO); bytes nil chegam vazios.
-func cbArgOpt(a *tinfo) bool { return nullable(a) && a.k != kBytes }
+// cbDefaultBatch: o lote quando o Dart não diz (0 = o padrão medido do
+// host, callback.go); 1 quando o callback recebe um objeto Go (handle), que
+// pode só valer durante a invocação (o ExploreFieldsSpecBuilder do
+// exploreFields).
+func cbDefaultBatch(t *tinfo) int {
+	for _, a := range t.fargs {
+		if a.k == kHandle {
+			return 1
+		}
+	}
+	return 0
+}
 
 func usesRuntime(body string) bool {
 	for _, id := range []string{"GoHandle", "GoValue", "GoDto", "GoOption", "GoSink", "$call", "$stream", "$W", "$R", "$nil", "$orErr"} {
@@ -894,7 +949,7 @@ func (e *dartEmitter) linkConcrete() {
 			// só interfaces com métodos expostos (io.Closer sem métodos gerados
 			// não acrescenta nada); os casts (asProtoNode) não contam: senão a
 			// interface que só serve de parâmetro (datamodel.Node) ganharia
-			if c.t.k == kHandle && !c.t.reader && types.IsInterface(c.t.named) && realMethods(c) > 0 {
+			if c.t.k == kHandle && !c.t.reader && types.IsInterface(c.t.named) && (realMethods(c) > 0 || e.paramIfaces[classKey(c.t)]) {
 				ifaces = append(ifaces, c)
 			}
 		}
@@ -912,7 +967,10 @@ func (e *dartEmitter) linkConcrete() {
 				if !types.Implements(types.NewPointer(c.t.named), it) && !types.Implements(c.t.named, it) {
 					continue
 				}
-				if best == nil || it.NumMethods() > best.t.named.Underlying().(*types.Interface).NumMethods() {
+				// a com métodos expostos ganha da usada só como parâmetro
+				// (ProtoNode fica format.Node, não datamodel.Node); entre
+				// iguais, a com mais métodos
+				if best == nil || better(i, best) {
 					best = i
 				}
 			}

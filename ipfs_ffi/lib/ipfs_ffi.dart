@@ -21,8 +21,10 @@ library;
 export 'service.dart'
     show
         IpfsBackground,
+        IpfsBusy,
         IpfsCanceled,
         IpfsDeadlineExceeded,
+        IpfsDeadlockException,
         IpfsEof,
         IpfsException,
         IpfsNotFound,

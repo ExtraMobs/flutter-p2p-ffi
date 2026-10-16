@@ -4,9 +4,19 @@ library;
 
 import 'package:ipfs_ffi/src/runtime.dart';
 
+/// Go: `namesys.NameSystem` (handle).
+class NameSystem extends Resolver {
+  NameSystem.$h(super.$h) : super.$h();
+}
+
 /// Go: `namesys.ResolveOption` (functional option; constructors in the package).
 final class ResolveOption extends GoOption {
   ResolveOption.$(super.$i, super.$a);
+}
+
+/// Go: `namesys.Resolver` (handle).
+class Resolver extends GoHandle {
+  Resolver.$h(super.$h);
 }
 
 /// Go: `namesys.ResolveWithDepth`.

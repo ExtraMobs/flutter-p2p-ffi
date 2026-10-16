@@ -125,6 +125,13 @@ final class $W {
   /// A JSON object as a string.
   void jsonStr(Map<String, Object?> m) => str(jsonEncode(m));
 
+  /// `*T` of a basic type (`*int64`): presence + the value; null = nil.
+  void ptr<T extends Object>(T? x, void Function($W w, T v) f) {
+    if (x == null) return u8(0);
+    u8(1);
+    f(this, x);
+  }
+
   void dto(GoDto? d) {
     if (d == null) return u8(0);
     u8(1);

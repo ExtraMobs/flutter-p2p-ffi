@@ -3,6 +3,7 @@
 library;
 
 import 'package:ipfs_ffi/src/runtime.dart';
+import 'package:ipfs_ffi/boxo/blockstore.dart' as $blockstore;
 import 'package:ipfs_ffi/car/v2.dart' as $v2;
 import 'package:ipfs_ffi/car/v2/index.dart' as $index;
 import 'package:ipfs_ffi/go/context.dart' as $context;
@@ -10,14 +11,14 @@ import 'package:ipfs_ffi/ipld/block_format.dart' as $block_format;
 import 'package:ipfs_ffi/multiformats/cid.dart' as $cid;
 
 /// Go: `blockstore.ReadOnly` (handle).
-class ReadOnly extends GoHandle {
-  ReadOnly.$h(super.$h);
+class ReadOnly extends $blockstore.Blockstore {
+  ReadOnly.$h(super.$h) : super.$h();
 
   /// Go: `func blockstore.NewReadOnly(backing io.ReaderAt, idx index.Index, opts ...car.Option) (*blockstore.ReadOnly, error)`.
   factory ReadOnly(Object backing, $index.Index idx,
       [List<$v2.Option> opts = const []]) {
     final $r = $callSync(
-        281,
+        300,
         $W()
           ..reader(backing)
           ..h(idx)
@@ -27,7 +28,7 @@ class ReadOnly extends GoHandle {
 
   /// Go: `func (*blockstore.ReadOnly).Roots() ([]cid.Cid, error)`.
   List<$cid.Cid> roots() {
-    final $r = $callSync(291, $W()..h(this));
+    final $r = $callSync(310, $W()..h(this));
     return $r.list(() => $r.p() ? $cid.Cid($r.str()) : $nil());
   }
 
@@ -36,7 +37,7 @@ class ReadOnly extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> has($context.Context ctx, $cid.Cid key) async {
     final $r = await $call(
-        288,
+        307,
         $W()
           ..h(this)
           ..h(ctx)
@@ -49,7 +50,7 @@ class ReadOnly extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<$block_format.Block> get($context.Context ctx, $cid.Cid key) async {
     final $r = await $call(
-        286,
+        305,
         $W()
           ..h(this)
           ..h(ctx)
@@ -62,7 +63,7 @@ class ReadOnly extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> getSize($context.Context ctx, $cid.Cid key) async {
     final $r = await $call(
-        287,
+        306,
         $W()
           ..h(this)
           ..h(ctx)
@@ -72,7 +73,7 @@ class ReadOnly extends GoHandle {
 
   /// Go: `func (*blockstore.ReadOnly).AllKeysChan(ctx context.Context) (<-chan cid.Cid, error)`.
   Stream<$cid.Cid> allKeysChan($context.Context ctx) => $stream(
-          284,
+          303,
           $W()
             ..h(this)
             ..h(ctx))
@@ -80,14 +81,14 @@ class ReadOnly extends GoHandle {
 
   /// Go: `func (*blockstore.ReadOnly).Index() index.Index`.
   $index.Index index() {
-    final $r = $callSync(290, $W()..h(this));
+    final $r = $callSync(309, $W()..h(this));
     return $r.hnn($index.Index.$h);
   }
 
   /// Go: `func (*blockstore.ReadOnly).HashOnRead(bool)`.
   void hashOnRead(bool arg0) {
     $callSync(
-        289,
+        308,
         $W()
           ..h(this)
           ..b(arg0));
@@ -95,17 +96,17 @@ class ReadOnly extends GoHandle {
 
   /// Go: `func (*blockstore.ReadOnly).Close() error`.
   void close() {
-    $callSync(285, $W()..h(this));
+    $callSync(304, $W()..h(this));
   }
 }
 
 /// Go: `blockstore.ReadWrite` (handle).
-class ReadWrite extends GoHandle {
-  ReadWrite.$h(super.$h);
+class ReadWrite extends $blockstore.Blockstore {
+  ReadWrite.$h(super.$h) : super.$h();
 
   /// Go: `func (*blockstore.ReadWrite).Roots() ([]cid.Cid, error)`.
   List<$cid.Cid> roots() {
-    final $r = $callSync(304, $W()..h(this));
+    final $r = $callSync(323, $W()..h(this));
     return $r.list(() => $r.p() ? $cid.Cid($r.str()) : $nil());
   }
 
@@ -114,7 +115,7 @@ class ReadWrite extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> put($context.Context ctx, $block_format.Block blk) async {
     await $call(
-        302,
+        321,
         $W()
           ..h(this)
           ..h(ctx)
@@ -127,7 +128,7 @@ class ReadWrite extends GoHandle {
   Future<void> putMany(
       $context.Context ctx, List<$block_format.Block> blks) async {
     await $call(
-        303,
+        322,
         $W()
           ..h(this)
           ..h(ctx)
@@ -139,7 +140,7 @@ class ReadWrite extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> has($context.Context ctx, $cid.Cid key) async {
     final $r = await $call(
-        299,
+        318,
         $W()
           ..h(this)
           ..h(ctx)
@@ -152,7 +153,7 @@ class ReadWrite extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<$block_format.Block> get($context.Context ctx, $cid.Cid key) async {
     final $r = await $call(
-        297,
+        316,
         $W()
           ..h(this)
           ..h(ctx)
@@ -165,7 +166,7 @@ class ReadWrite extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> getSize($context.Context ctx, $cid.Cid key) async {
     final $r = await $call(
-        298,
+        317,
         $W()
           ..h(this)
           ..h(ctx)
@@ -175,7 +176,7 @@ class ReadWrite extends GoHandle {
 
   /// Go: `func (*blockstore.ReadWrite).AllKeysChan(ctx context.Context) (<-chan cid.Cid, error)`.
   Stream<$cid.Cid> allKeysChan($context.Context ctx) => $stream(
-          292,
+          311,
           $W()
             ..h(this)
             ..h(ctx))
@@ -183,14 +184,14 @@ class ReadWrite extends GoHandle {
 
   /// Go: `func (*blockstore.ReadWrite).Index() index.Index`.
   $index.Index index() {
-    final $r = $callSync(301, $W()..h(this));
+    final $r = $callSync(320, $W()..h(this));
     return $r.hnn($index.Index.$h);
   }
 
   /// Go: `func (*blockstore.ReadWrite).HashOnRead(enable bool)`.
   void hashOnRead(bool enable) {
     $callSync(
-        300,
+        319,
         $W()
           ..h(this)
           ..b(enable));
@@ -198,29 +199,29 @@ class ReadWrite extends GoHandle {
 
   /// Go: `func (*blockstore.ReadWrite).Finalize() error`.
   void finalize() {
-    $callSync(295, $W()..h(this));
+    $callSync(314, $W()..h(this));
   }
 
   /// Go: `func (*blockstore.ReadWrite).FinalizeReadOnly() error`.
   void finalizeReadOnly() {
-    $callSync(296, $W()..h(this));
+    $callSync(315, $W()..h(this));
   }
 
   /// Go: `func (*blockstore.ReadWrite).Discard()`.
   void discard() {
-    $callSync(294, $W()..h(this));
+    $callSync(313, $W()..h(this));
   }
 
   /// Go: `func (*blockstore.ReadWrite).Close() error`.
   void close() {
-    $callSync(293, $W()..h(this));
+    $callSync(312, $W()..h(this));
   }
 }
 
 /// Go: `func blockstore.OpenReadOnly(path string, opts ...car.Option) (*blockstore.ReadOnly, error)`.
 ReadOnly openReadOnly(String path, [List<$v2.Option> opts = const []]) {
   final $r = $callSync(
-      282,
+      301,
       $W()
         ..str(path)
         ..list(opts, (w0, e0) => w0.opt(e0)));
@@ -231,7 +232,7 @@ ReadOnly openReadOnly(String path, [List<$v2.Option> opts = const []]) {
 ReadWrite openReadWrite(String path, List<$cid.Cid> roots,
     [List<$v2.Option> opts = const []]) {
   final $r = $callSync(
-      283,
+      302,
       $W()
         ..str(path)
         ..list(roots, (w0, e0) => w0.val(e0))

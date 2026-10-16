@@ -63,7 +63,7 @@ final class Prefix implements GoDto {
   /// Go: `func (cid.Prefix).Sum(data []byte) (cid.Cid, error)`.
   Cid sum(Uint8List data) {
     final $r = $callSync(
-        140,
+        148,
         $W()
           ..dto(this)
           ..bytes(data));
@@ -73,14 +73,14 @@ final class Prefix implements GoDto {
 
 /// Go: `func cid.NewPrefixV0(mhType uint64) cid.Prefix`.
 Prefix newPrefixV0(int mhType) {
-  final $r = $callSync(138, $W()..i64(mhType));
+  final $r = $callSync(146, $W()..i64(mhType));
   return $r.p() ? Prefix.$dec($r) : $nil();
 }
 
 /// Go: `func cid.NewPrefixV1(codecType uint64, mhType uint64) cid.Prefix`.
 Prefix newPrefixV1(int codecType, int mhType) {
   final $r = $callSync(
-      139,
+      147,
       $W()
         ..i64(codecType)
         ..i64(mhType));

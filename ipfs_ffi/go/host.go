@@ -134,6 +134,8 @@ func (h *host) dispatch(m []byte) {
 	id := binary.LittleEndian.Uint32(m)
 	fn := binary.LittleEndian.Uint32(m[4:])
 	mode := m[8]
+	watch := mode&modeWatch != 0 // toca um objeto em uso por um callback (deadlock.go)
+	mode &^= modeWatch
 	args := m[reqHeader:]
 	switch fn {
 	case fnNoop:
@@ -183,6 +185,9 @@ func (h *host) dispatch(m []byte) {
 	case e.stream != (mode == modeStream):
 		h.reply(id, evError, errText(fmt.Sprintf("ipfs_host: %s (%d) chamada no modo %d", e.key, fn, mode)))
 		return
+	case watch && mode == modeSync: // deadlock.go: o laço espera, mas o impasse o solta
+		h.watch(e, id, bytes.Clone(args))
+		return
 	case mode == modeSync:
 		kind, data := invoke(e, id, args, h.reply)
 		h.reply(id, kind, data)
@@ -190,6 +195,10 @@ func (h *host) dispatch(m []byte) {
 	}
 	args = bytes.Clone(args)
 	h.spawn(func() {
+		if watch {
+			h.watch(e, id, args)
+			return
+		}
 		kind, data := invoke(e, id, args, h.reply)
 		h.reply(id, kind, data)
 	})

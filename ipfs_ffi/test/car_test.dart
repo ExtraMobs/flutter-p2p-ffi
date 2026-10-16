@@ -51,6 +51,9 @@ void main() {
     root = mf.Cid(p.value.substring('/ipfs/'.length));
     v1 = '${tmp.path}/base.car';
     await kubo.dagExportFile(n, ctx, p, v1);
+    final r = car.openReader(v1);
+    blocks = r.inspect(false).blockCount;
+    r.close();
   });
 
   tearDownAll(() async {
@@ -65,7 +68,7 @@ void main() {
     expect(r.roots(), [root]);
     final st = r.inspect(true); // confere o hash de cada bloco
     r.close();
-    blocks = st.blockCount;
+    expect(st.blockCount, blocks);
     // pasta + a.txt + b.txt (raiz + 3 fatias, mas as duas primeiras são
     // iguais: o mesmo CID, um bloco só)
     expect(blocks, 5);
@@ -224,5 +227,112 @@ void main() {
     await expectLater(api.unixfs().add(d, boxo.newBytesFile(Uint8List(1))),
         throwsA(isA<IpfsDeadlineExceeded>()));
     cancel2();
+  });
+
+  group('recorte pelo nó', () {
+    /// Os CIDs dos blocos de um CAR em bytes.
+    List<mf.Cid> cids(Uint8List bytes) {
+      final br = car.BlockReader(bytes);
+      final out = <mf.Cid>[];
+      while (true) {
+        try {
+          out.add(br.next().cid!);
+        } on IpfsEof {
+          return out;
+        }
+      }
+    }
+
+    /// O CAR do caminho [p] pelo gateway do boxo sobre o nó.
+    Future<(boxo.ContentPathMetadata, Uint8List)> getCar(
+        String p, boxo.CarParams params) async {
+      final backend = boxo.BlocksBackend(n.blocks);
+      final (meta, rc) =
+          await backend.getCar(ctx, boxo.ImmutablePath(p), params);
+      final bytes = go.readAll(rc);
+      rc.close();
+      return (meta, bytes);
+    }
+
+    /// Quantos blocos o CAR em [file] tem.
+    int count(String file) {
+      final r = car.openReader(file); // mapeia o arquivo: fechar (Windows)
+      try {
+        return r.inspect(true).blockCount;
+      } finally {
+        r.close();
+      }
+    }
+
+    test('gateway.getCar: escopos e faixa de bytes', () async {
+      final (_, all) =
+          await getCar('/ipfs/$root', boxo.CarParams(scope: boxo.dagScopeAll));
+      expect(cids(all), hasLength(blocks));
+      final (_, one) = await getCar(
+          '/ipfs/$root', boxo.CarParams(scope: boxo.dagScopeBlock));
+      expect(cids(one), [root]);
+      // a pasta (para provar o caminho) e o b.txt inteiro: raiz e 2 fatias
+      final (meta, entity) = await getCar(
+          '/ipfs/$root/b.txt', boxo.CarParams(scope: boxo.dagScopeEntity));
+      expect(meta.pathSegmentRoots, [root]);
+      expect(cids(entity), hasLength(4));
+      expect(cids(entity).first, root);
+      // só os primeiros 100 bytes: a primeira fatia
+      final (_, range) = await getCar(
+          '/ipfs/$root/b.txt',
+          boxo.CarParams(
+              scope: boxo.dagScopeEntity,
+              range: boxo.DagByteRange(from: 0, to: 99)));
+      expect(cids(range), hasLength(3));
+    });
+
+    /// LinkSystem sobre o blockstore local do nó (bsadapter).
+    ipld.LinkSystem nodeLinks({bool unixfs = false}) {
+      final ls = ipld.defaultLinkSystem();
+      if (unixfs) ipld.addUnixFsReificationToLinkSystem(ls);
+      ls.setReadStorage(ipld.Adapter()..wrapped = n.blockstore);
+      return ls;
+    }
+
+    test('seletor qualquer sobre o blockstore local (bsadapter)', () async {
+      final out = '${tmp.path}/bs.car';
+      await car.traverseToFile(ctx, nodeLinks(), root,
+          ipld.commonSelectorExploreAllRecursively, out);
+      expect(count(out), blocks);
+    });
+
+    test('seletor UnixFS pelo nome do arquivo', () async {
+      // a reificação UnixFS só pega nós dag-pb tipados: o escolhedor do
+      // gateway (sem ele, o go-car decodifica genérico e o caminho não anda)
+      final chooser = [
+        car.withTraversalPrototypeChooser(
+            ipld.addSupportToChooser(boxo.defaultPrototypeChooser))
+      ];
+      for (final (name, want) in [('b.txt', 4), ('a.txt', 2)]) {
+        final out = '${tmp.path}/$name.car';
+        await car.traverseToFile(ctx, nodeLinks(unixfs: true), root,
+            ipld.unixFsPathSelector(name), out, chooser);
+        expect(count(out), want, reason: name);
+      }
+    });
+
+    test('construtor de seletores, com exploreFields (callback)', () async {
+      final ssb = ipld.SelectorSpecBuilder(ipld.PrototypeAny());
+      final everything = ssb.exploreRecursive(ipld.recursionLimitNone(),
+          ssb.exploreAll(ssb.exploreRecursiveEdge()));
+      // os links da raiz: Links/*/Hash (dag-pb no modelo de dados)
+      final links = await ssb.exploreFields((f) async {
+        f.insert(
+            'Links',
+            ssb.exploreAll(await ssb.exploreFields((g) {
+              g.insert('Hash', ssb.matcher());
+            })));
+      });
+      for (final (spec, want) in [(everything, blocks), (links, 3)]) {
+        final out = '${tmp.path}/sel.car';
+        await car.traverseToFile(ctx, nodeLinks(), root, spec.node(), out);
+        expect(count(out), want);
+      }
+    });
   });
 }

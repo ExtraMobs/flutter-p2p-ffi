@@ -18,9 +18,54 @@ const _cbContinue = 0, _cbStopped = 1, _cbThrew = 2;
 /// and it is what the call throws (the original Dart exception).
 Future<$R> $callCb(int fn, $W w, FutureOr<Object?> Function($R r) item) {
   final cb = _Callback(item);
+  final handles = [
+    for (final h in w._keep)
+      if (h is GoHandle) h
+  ];
   _start(fn, _async, w, cb);
-  return cb.done.future;
+  // em uso só depois de mandar: o próprio pedido não é vigiado
+  _setBusy(handles, true);
+  return cb.done.future.whenComplete(() => _setBusy(handles, false));
 }
+
+/// A change of [IpfsBusy]: [handle] entered or left use by a call with a
+/// callback.
+final class IpfsBusy {
+  const IpfsBusy(this.handle, this.busy);
+
+  /// The object (a generated handle class: an index, a blockstore...).
+  final Object handle;
+  final bool busy;
+}
+
+/// Objects in use by calls with callbacks (how many calls hold each one).
+final _busy = Map<GoHandle, int>.identity();
+final _busyChanges = StreamController<IpfsBusy>.broadcast();
+
+/// The changes of the objects in use (IpfsService.busy).
+Stream<IpfsBusy> get $busyChanges => _busyChanges.stream;
+
+void _setBusy(List<GoHandle> handles, bool busy) {
+  for (final h in handles) {
+    final n = (_busy[h] ?? 0) + (busy ? 1 : -1);
+    if (n > 0) {
+      _busy[h] = n;
+    } else {
+      _busy.remove(h);
+    }
+    if ((busy && n == 1) || (!busy && n == 0)) {
+      _busyChanges.add(IpfsBusy(h, busy));
+    }
+  }
+}
+
+/// `modeWatch` (WIRE.md): the request touches an object in use, and the host
+/// watches it for a deadlock.
+int _watch($W? w) => w != null &&
+        _busy.isNotEmpty &&
+        w._keep.any((h) => h is GoHandle && _busy.containsKey(h))
+    ? 0x80
+    : 0;
 
 final class _Callback {
   _Callback(this.item);

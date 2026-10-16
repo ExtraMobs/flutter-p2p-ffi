@@ -10,11 +10,25 @@ Cada linha é um símbolo Go exposto e onde ele está no Dart.
 | `func bytes.NewBuffer(buf []byte) *bytes.Buffer` | `factory Buffer` | síncrona |
 | `func (*bytes.Buffer).Bytes() []byte` | `Buffer.bytes` | síncrona |
 
+## `github.com/ipfs/boxo/blockstore` → `package:ipfs_ffi/boxo/blockstore.dart`
+
+| Go | Dart | Modo |
+|---|---|---|
+| `blockstore.Blockstore → x.(*blockstore.ReadOnly)` | `Blockstore.asReadOnly` | cast |
+| `blockstore.Blockstore → x.(*blockstore.ReadWrite)` | `Blockstore.asReadWrite` | cast |
+| `blockstore.Blockstore → x.(blockstore.GCBlockstore)` | `Blockstore.asGcBlockstore` | cast |
+
 ## `github.com/ipfs/boxo/chunker` → `package:ipfs_ffi/boxo/chunker.dart`
 
 | Go | Dart | Modo |
 |---|---|---|
 | `func chunk.SizeSplitterGen(size int64) chunk.SplitterGen` | `sizeSplitterGen` | síncrona |
+
+## `github.com/ipfs/boxo/fetcher/impl/blockservice` → `package:ipfs_ffi/boxo/fetcher/impl/blockservice.dart`
+
+| Go | Dart | Modo |
+|---|---|---|
+| `var bsfetcher.DefaultPrototypeChooser func(lnk ipld.Link, lnkCtx ipld.LinkContext) (ipld.NodePrototype, error)` | `defaultPrototypeChooser` | síncrona |
 
 ## `github.com/ipfs/boxo/files` → `package:ipfs_ffi/boxo/files.dart`
 
@@ -25,6 +39,22 @@ Cada linha é um símbolo Go exposto e onde ele está no Dart.
 | `func files.ToFile(n files.Node) files.File` | `toFile` | síncrona |
 | `func files.WriteTo(nd files.Node, fpath string) error` | `writeTo` | síncrona |
 | `files.Node → x.(files.File)` | `Node.asFile` | cast |
+
+## `github.com/ipfs/boxo/gateway` → `package:ipfs_ffi/boxo/gateway.dart`
+
+| Go | Dart | Modo |
+|---|---|---|
+| `func gateway.NewBlocksBackend(blockService blockservice.BlockService, opts ...gateway.BackendOption) (*gateway.BlocksBackend, error)` | `factory BlocksBackend` | síncrona |
+| `func (*gateway.BlocksBackend).GetCAR(ctx context.Context, p path.ImmutablePath, params gateway.CarParams) (gateway.ContentPathMetadata, io.ReadCloser, error)` | `BlocksBackend.getCar` | Future |
+| `const gateway.DagScopeAll gateway.DagScope` | `dagScopeAll` | const |
+| `const gateway.DagScopeEntity gateway.DagScope` | `dagScopeEntity` | const |
+| `const gateway.DagScopeBlock gateway.DagScope` | `dagScopeBlock` | const |
+| `const gateway.DagOrderUnspecified gateway.DagOrder` | `dagOrderUnspecified` | const |
+| `const gateway.DagOrderUnknown gateway.DagOrder` | `dagOrderUnknown` | const |
+| `const gateway.DagOrderDFS gateway.DagOrder` | `dagOrderDfs` | const |
+| `const gateway.DuplicateBlocksUnspecified gateway.DuplicateBlocksPolicy` | `duplicateBlocksUnspecified` | const |
+| `const gateway.DuplicateBlocksIncluded gateway.DuplicateBlocksPolicy` | `duplicateBlocksIncluded` | const |
+| `const gateway.DuplicateBlocksExcluded gateway.DuplicateBlocksPolicy` | `duplicateBlocksExcluded` | const |
 
 ## `github.com/ipfs/boxo/ipld/merkledag` → `package:ipfs_ffi/boxo/ipld/merkledag.dart`
 
@@ -125,6 +155,18 @@ Cada linha é um símbolo Go exposto e onde ele está no Dart.
 | `format.Node → x.(*merkledag.RawNode)` | `Node.asRawNode` | cast |
 | `format.NodeAdder → x.(iface.APIDagService)` | `NodeAdder.asApiDagService` | cast |
 
+## `github.com/ipfs/go-unixfsnode` → `package:ipfs_ffi/ipld/unixfsnode.dart`
+
+| Go | Dart | Modo |
+|---|---|---|
+| `func unixfsnode.AddUnixFSReificationToLinkSystem(lsys *ipld.LinkSystem)` | `addUnixFsReificationToLinkSystem` | síncrona |
+| `func unixfsnode.UnixFSPathSelector(path string) datamodel.Node` | `unixFsPathSelector` | síncrona |
+| `func unixfsnode.UnixFSPathSelectorBuilder(path string, targetSelector builder.SelectorSpec, matchPath bool) ipld.Node` | `unixFsPathSelectorBuilder` | síncrona |
+| `var unixfsnode.MatchUnixFSSelector builder.SelectorSpec` | `matchUnixFsSelector` | síncrona |
+| `var unixfsnode.MatchUnixFSEntitySelector builder.SelectorSpec` | `matchUnixFsEntitySelector` | síncrona |
+| `var unixfsnode.MatchUnixFSPreloadSelector builder.SelectorSpec` | `matchUnixFsPreloadSelector` | síncrona |
+| `var unixfsnode.ExploreAllRecursivelySelector builder.SelectorSpec` | `exploreAllRecursivelySelector` | síncrona |
+
 ## `github.com/ipfs/kubo/config` → `package:ipfs_ffi/kubo/config.dart`
 
 | Go | Dart | Modo |
@@ -146,6 +188,10 @@ Cada linha é um símbolo Go exposto e onde ele está no Dart.
 | `(*core.IpfsNode).Repo repo.Repo` | `IpfsNode.repo =` | campo |
 | `(*core.IpfsNode).Peering *peering.PeeringService` | `IpfsNode.peering` | campo |
 | `(*core.IpfsNode).Peering *peering.PeeringService` | `IpfsNode.peering =` | campo |
+| `(*core.IpfsNode).Blocks blockservice.BlockService` | `IpfsNode.blocks` | campo |
+| `(*core.IpfsNode).Blocks blockservice.BlockService` | `IpfsNode.blocks =` | campo |
+| `(*core.IpfsNode).Blockstore blockstore.GCBlockstore` | `IpfsNode.blockstore` | campo |
+| `(*core.IpfsNode).Blockstore blockstore.GCBlockstore` | `IpfsNode.blockstore =` | campo |
 
 ## `github.com/ipfs/kubo/core/coreapi` → `package:ipfs_ffi/kubo/core/coreapi.dart`
 
@@ -371,12 +417,19 @@ Cada linha é um símbolo Go exposto e onde ele está no Dart.
 | `func (storage.ReadableCar).Roots() []cid.Cid` | `ReadableCar.roots` | síncrona |
 | `func (storage.ReadableCar).Index() index.Index` | `ReadableCar.index` | síncrona |
 
+## `github.com/ipld/go-codec-dagpb` → `package:ipfs_ffi/ipld/dagpb.dart`
+
+| Go | Dart | Modo |
+|---|---|---|
+| `func dagpb.AddSupportToChooser(existing traversal.LinkTargetNodePrototypeChooser) traversal.LinkTargetNodePrototypeChooser` | `addSupportToChooser` | síncrona |
+
 ## `github.com/ipld/go-ipld-prime/datamodel` → `package:ipfs_ffi/ipld/prime/datamodel.dart`
 
 | Go | Dart | Modo |
 |---|---|---|
 | `datamodel.Node → x.(*merkledag.ProtoNode)` | `Node.asProtoNode` | cast |
 | `datamodel.Node → x.(*merkledag.RawNode)` | `Node.asRawNode` | cast |
+| `datamodel.NodePrototype → x.(*basicnode.Prototype__Any)` | `NodePrototype.asPrototypeAny` | cast |
 
 ## `github.com/ipld/go-ipld-prime/linking` → `package:ipfs_ffi/ipld/prime/linking.dart`
 
@@ -390,11 +443,51 @@ Cada linha é um símbolo Go exposto e onde ele está no Dart.
 |---|---|---|
 | `func cidlink.DefaultLinkSystem() linking.LinkSystem` | `defaultLinkSystem` | síncrona |
 
+## `github.com/ipld/go-ipld-prime/node/basicnode` → `package:ipfs_ffi/ipld/prime/node/basicnode.dart`
+
+| Go | Dart | Modo |
+|---|---|---|
+| `func basicnode.NewPrototype__Any() *basicnode.Prototype__Any` | `factory PrototypeAny` | síncrona |
+
 ## `github.com/ipld/go-ipld-prime/storage` → `package:ipfs_ffi/ipld/prime/storage.dart`
 
 | Go | Dart | Modo |
 |---|---|---|
+| `storage.ReadableStorage → x.(*bsadapter.Adapter)` | `ReadableStorage.asAdapter` | cast |
 | `storage.ReadableStorage → x.(storage.ReadableCar)` | `ReadableStorage.asReadableCar` | cast |
+
+## `github.com/ipld/go-ipld-prime/storage/bsadapter` → `package:ipfs_ffi/ipld/prime/storage/bsadapter.dart`
+
+| Go | Dart | Modo |
+|---|---|---|
+| `func bsadapter.NewAdapter() *bsadapter.Adapter` | `factory Adapter` | síncrona |
+| `(*bsadapter.Adapter).Wrapped blockstore.Blockstore` | `Adapter.wrapped` | campo |
+| `(*bsadapter.Adapter).Wrapped blockstore.Blockstore` | `Adapter.wrapped =` | campo |
+
+## `github.com/ipld/go-ipld-prime/traversal/selector` → `package:ipfs_ffi/ipld/prime/traversal/selector.dart`
+
+| Go | Dart | Modo |
+|---|---|---|
+| `func selector.RecursionLimitDepth(depth int64) selector.RecursionLimit` | `recursionLimitDepth` | síncrona |
+| `func selector.RecursionLimitNone() selector.RecursionLimit` | `recursionLimitNone` | síncrona |
+
+## `github.com/ipld/go-ipld-prime/traversal/selector/builder` → `package:ipfs_ffi/ipld/prime/traversal/selector/builder.dart`
+
+| Go | Dart | Modo |
+|---|---|---|
+| `func builder.NewSelectorSpecBuilder(np datamodel.NodePrototype) builder.SelectorSpecBuilder` | `factory SelectorSpecBuilder` | síncrona |
+| `func (builder.SelectorSpecBuilder).ExploreRecursiveEdge() builder.SelectorSpec` | `SelectorSpecBuilder.exploreRecursiveEdge` | síncrona |
+| `func (builder.SelectorSpecBuilder).ExploreRecursive(limit selector.RecursionLimit, sequence builder.SelectorSpec) builder.SelectorSpec` | `SelectorSpecBuilder.exploreRecursive` | síncrona |
+| `func (builder.SelectorSpecBuilder).ExploreUnion(...builder.SelectorSpec) builder.SelectorSpec` | `SelectorSpecBuilder.exploreUnion` | síncrona |
+| `func (builder.SelectorSpecBuilder).ExploreAll(next builder.SelectorSpec) builder.SelectorSpec` | `SelectorSpecBuilder.exploreAll` | síncrona |
+| `func (builder.SelectorSpecBuilder).ExploreIndex(index int64, next builder.SelectorSpec) builder.SelectorSpec` | `SelectorSpecBuilder.exploreIndex` | síncrona |
+| `func (builder.SelectorSpecBuilder).ExploreRange(start int64, end int64, next builder.SelectorSpec) builder.SelectorSpec` | `SelectorSpecBuilder.exploreRange` | síncrona |
+| `func (builder.SelectorSpecBuilder).ExploreFields(builder.ExploreFieldsSpecBuildingClosure) builder.SelectorSpec` | `SelectorSpecBuilder.exploreFields` | Future |
+| `func (builder.SelectorSpecBuilder).ExploreInterpretAs(as string, next builder.SelectorSpec) builder.SelectorSpec` | `SelectorSpecBuilder.exploreInterpretAs` | síncrona |
+| `func (builder.SelectorSpecBuilder).Matcher() builder.SelectorSpec` | `SelectorSpecBuilder.matcher` | síncrona |
+| `func (builder.SelectorSpecBuilder).MatcherSubset(from int64, to int64) builder.SelectorSpec` | `SelectorSpecBuilder.matcherSubset` | síncrona |
+| `func (builder.SelectorSpec).Node() datamodel.Node` | `SelectorSpec.node` | síncrona |
+| `func (builder.ExploreFieldsSpecBuilder).Insert(k string, v builder.SelectorSpec)` | `ExploreFieldsSpecBuilder.insert` | síncrona |
 
 ## `github.com/ipld/go-ipld-prime/traversal/selector/parse` → `package:ipfs_ffi/ipld/prime/traversal/selector/parse.dart`
 
@@ -425,6 +518,8 @@ Cada linha é um símbolo Go exposto e onde ele está no Dart.
 | Go | Dart | Modo |
 |---|---|---|
 | `func io.ReadAll(r io.Reader) ([]byte, error)` | `readAll` | síncrona |
+| `func io.Copy(dst io.Writer, src io.Reader) (written int64, err error)` | `copy` | síncrona |
+| `func (io.Closer).Close() error` | `ReadCloser.close` | síncrona |
 
 ## `os` → `package:ipfs_ffi/go/os.dart`
 
@@ -445,6 +540,10 @@ Cada linha é um símbolo Go exposto e onde ele está no Dart.
 | Go | Dart | Modo |
 |---|---|---|
 | `func debug.SetCrashOutput(f *os.File, opts debug.CrashOptions) error` | `setCrashOutput` | síncrona |
+
+## Construtores de opção omitidos
+
+- `gateway.WithPrometheusRegistry` (BackendOption): métricas do Prometheus (sem namespace; o gateway usa o registro padrão)
 
 ## Adaptações (regras do gerador e código à mão)
 

@@ -320,3 +320,58 @@ os.O_CREATE
 os.O_TRUNC
 bytes.NewBuffer
 bytes.Buffer.Bytes
+
+# 0.17 recorte de CAR pelo nó. O gateway do boxo (o "trustless gateway"):
+# o CAR de um caminho, com escopo (all/entity/block), ordem, duplicatas e
+# faixa de bytes de um arquivo; busca na rede o que faltar
+github.com/ipfs/kubo/core.IpfsNode.Blocks
+github.com/ipfs/boxo/gateway.NewBlocksBackend
+github.com/ipfs/boxo/gateway.BlocksBackend.GetCAR
+github.com/ipfs/boxo/gateway.DagScopeAll
+github.com/ipfs/boxo/gateway.DagScopeEntity
+github.com/ipfs/boxo/gateway.DagScopeBlock
+github.com/ipfs/boxo/gateway.DagOrderUnspecified
+github.com/ipfs/boxo/gateway.DagOrderUnknown
+github.com/ipfs/boxo/gateway.DagOrderDFS
+github.com/ipfs/boxo/gateway.DuplicateBlocksUnspecified
+github.com/ipfs/boxo/gateway.DuplicateBlocksIncluded
+github.com/ipfs/boxo/gateway.DuplicateBlocksExcluded
+io.Copy
+io.ReadCloser.Close
+# a camada UnixFS sobre o LinkSystem (go-unixfsnode): seletores que andam
+# pelos nomes de arquivo de uma pasta
+github.com/ipfs/go-unixfsnode.AddUnixFSReificationToLinkSystem
+github.com/ipfs/go-unixfsnode.UnixFSPathSelector
+github.com/ipfs/go-unixfsnode.UnixFSPathSelectorBuilder
+github.com/ipfs/go-unixfsnode.MatchUnixFSSelector
+github.com/ipfs/go-unixfsnode.MatchUnixFSEntitySelector
+github.com/ipfs/go-unixfsnode.MatchUnixFSPreloadSelector
+github.com/ipfs/go-unixfsnode.ExploreAllRecursivelySelector
+# o go-car decodifica com o protótipo genérico; a reificação UnixFS só pega
+# nós dag-pb tipados: car.withTraversalPrototypeChooser(dagpb.addSupportToChooser(
+# bsfetcher.defaultPrototypeChooser)), como o gateway faz
+github.com/ipld/go-codec-dagpb.AddSupportToChooser
+github.com/ipfs/boxo/fetcher/impl/blockservice.DefaultPrototypeChooser
+# o construtor de seletores do ipld-prime (alternativa ao JSON); o
+# exploreFields recebe um callback (sob demanda)
+github.com/ipld/go-ipld-prime/node/basicnode.Prototype__Any
+github.com/ipld/go-ipld-prime/traversal/selector/builder.NewSelectorSpecBuilder
+github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreRecursiveEdge
+github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreRecursive
+github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreUnion
+github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreAll
+github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreIndex
+github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreRange
+github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreFields
+github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreInterpretAs
+github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.Matcher
+github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.MatcherSubset
+github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpec.Node
+github.com/ipld/go-ipld-prime/traversal/selector/builder.ExploreFieldsSpecBuilder.Insert
+github.com/ipld/go-ipld-prime/traversal/selector.RecursionLimitDepth
+github.com/ipld/go-ipld-prime/traversal/selector.RecursionLimitNone
+# seletor qualquer sobre os blocos locais do nó: o bsadapter faz do
+# blockstore do kubo o storage de um LinkSystem (aprovado pelo dono, 0.17)
+github.com/ipfs/kubo/core.IpfsNode.Blockstore
+github.com/ipld/go-ipld-prime/storage/bsadapter.Adapter
+github.com/ipld/go-ipld-prime/storage/bsadapter.Adapter.Wrapped

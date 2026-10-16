@@ -14,14 +14,14 @@ class Index extends GoHandle {
 
   /// Go: `func (index.Index).Codec() multicodec.Code`.
   int codec() {
-    final $r = $callSync(306, $W()..h(this));
+    final $r = $callSync(325, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (index.Index).Marshal(w io.Writer) (uint64, error)`.
   int marshal(GoHandle? w) {
     final $r = $callSync(
-        309,
+        328,
         $W()
           ..h(this)
           ..h(w));
@@ -31,7 +31,7 @@ class Index extends GoHandle {
   /// Go: `func (index.Index).Unmarshal(r io.Reader) error`.
   void unmarshal(Object r) {
     $callSync(
-        310,
+        329,
         $W()
           ..h(this)
           ..reader(r));
@@ -40,7 +40,7 @@ class Index extends GoHandle {
   /// Go: `func (index.Index).Load([]index.Record) error`.
   void load(List<Record$> records) {
     $callSync(
-        308,
+        327,
         $W()
           ..h(this)
           ..list(records, (w0, e0) => w0.dto(e0)));
@@ -49,11 +49,15 @@ class Index extends GoHandle {
   /// Go: `func (index.Index).GetAll(cid.Cid, func(uint64) bool) error`.
   ///
   /// Asynchronous: runs in a goroutine of the service.
+  ///
+  /// [batchSize]: invocations of the callback Go sends at a time (default
+  /// 1024, up to 128 KiB). Go runs at most `batchSize - 1` invocations ahead
+  /// of Dart; 1 is exactly Go's semantics.
   Future<void> getAll(
       $cid.Cid cid, FutureOr<bool> Function(int offset) callback,
       {int? batchSize}) async {
     await $callCb(
-        307,
+        326,
         $W()
           ..h(this)
           ..val(cid)
@@ -63,7 +67,7 @@ class Index extends GoHandle {
 
   /// Go: type assertion `x.(index.IterableIndex)`: null if the object is not one.
   IterableIndex? asIterableIndex() {
-    final $r = $callSync(72, $W()..h(this));
+    final $r = $callSync(75, $W()..h(this));
     return $r.hn(IterableIndex.$h);
   }
 }
@@ -75,11 +79,15 @@ class IterableIndex extends Index {
   /// Go: `func (index.IterableIndex).ForEach(func(multihash.Multihash, uint64) error) error`.
   ///
   /// Asynchronous: runs in a goroutine of the service.
+  ///
+  /// [batchSize]: invocations of the callback Go sends at a time (default
+  /// 1024, up to 128 KiB). Go runs at most `batchSize - 1` invocations ahead
+  /// of Dart; 1 is exactly Go's semantics.
   Future<void> forEach(
       FutureOr<void> Function(Uint8List multihash, int offset) callback,
       {int? batchSize}) async {
     await $callCb(
-        311,
+        330,
         $W()
           ..h(this)
           ..u32(batchSize ?? 0),
@@ -116,20 +124,20 @@ final class Record$ implements GoDto {
 
 /// Go: `func index.New(codec multicodec.Code) (index.Index, error)`.
 Index new$(int codec) {
-  final $r = $callSync(312, $W()..i64(codec));
+  final $r = $callSync(331, $W()..i64(codec));
   return $r.hnn(Index.$h);
 }
 
 /// Go: `func index.ReadFrom(r io.Reader) (index.Index, error)`.
 Index readFrom(Object r) {
-  final $r = $callSync(314, $W()..reader(r));
+  final $r = $callSync(333, $W()..reader(r));
   return $r.hnn(Index.$h);
 }
 
 /// Go: `func index.WriteTo(idx index.Index, w io.Writer) (uint64, error)`.
 int writeTo(Index idx, GoHandle? w) {
   final $r = $callSync(
-      315,
+      334,
       $W()
         ..h(idx)
         ..h(w));
@@ -139,7 +147,7 @@ int writeTo(Index idx, GoHandle? w) {
 /// Go: `func index.GetFirst(idx index.Index, key cid.Cid) (uint64, error)`.
 int getFirst(Index idx, $cid.Cid key) {
   final $r = $callSync(
-      305,
+      324,
       $W()
         ..h(idx)
         ..val(key));
@@ -148,6 +156,6 @@ int getFirst(Index idx, $cid.Cid key) {
 
 /// Go: `func index.ReadCodec(r io.Reader) (multicodec.Code, error)`.
 int readCodec(Object r) {
-  final $r = $callSync(313, $W()..reader(r));
+  final $r = $callSync(332, $W()..reader(r));
   return $r.i64();
 }

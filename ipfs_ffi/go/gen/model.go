@@ -104,17 +104,25 @@ type optCtor struct {
 	params []*tinfo
 	pnames []string
 	hasErr bool
+	omit   string // omitCtors: o motivo
+}
+
+// omitCtors: construtores de opção que ficam de fora de propósito (o
+// parâmetro é de um módulo que não vale um namespace), com o motivo (API.md).
+var omitCtors = map[string]string{
+	"github.com/ipfs/boxo/gateway.WithPrometheusRegistry": "métricas do Prometheus (sem namespace; o gateway usa o registro padrão)",
 }
 
 type model struct {
-	load    func(path string) *types.Package // pacote completo (dependências vêm parciais)
-	types   map[string]*tinfo
-	optPkgs map[*types.Package]map[string][]optCtor // tipo da opção → construtores
-	omitted []string                                // linhas do API.md
+	load     func(path string) *types.Package // pacote completo (dependências vêm parciais)
+	newTypes map[string]bool                  // structs com construtor vazio (raiz que é só o tipo): handles
+	types    map[string]*tinfo
+	optPkgs  map[*types.Package]map[string][]optCtor // tipo da opção → construtores
+	omitted  []string                                // linhas do API.md
 }
 
 func newModel() *model {
-	return &model{types: map[string]*tinfo{}, optPkgs: map[*types.Package]map[string][]optCtor{}}
+	return &model{types: map[string]*tinfo{}, optPkgs: map[*types.Package]map[string][]optCtor{}, newTypes: map[string]bool{}}
 }
 
 func objKey(o types.Object) string {
@@ -191,6 +199,14 @@ func (m *model) fill(ti *tinfo) {
 			unsupported(ti, "chan bidirecional")
 		}
 	case *types.Pointer:
+		if b, ok := t.Elem().(*types.Basic); ok { // *int64 (DagByteRange.To): o básico ou nil
+			*ti = *m.classify(b)
+			ti.t, ti.key = t, types.TypeString(t, nil)
+			if ti.k == kBasic {
+				ti.ptr = true
+			}
+			return
+		}
 		n, ok := types.Unalias(t.Elem()).(*types.Named)
 		if !ok {
 			unsupported(ti, "ponteiro para %s", t.Elem())
@@ -337,7 +353,7 @@ func (m *model) fillInterface(ti *tinfo, n *types.Named, u *types.Interface) {
 // Struct com campo não exportado é handle; senão DTO (campos que não
 // atravessam ficam de fora, registrados no API.md).
 func (m *model) fillStruct(ti *tinfo, n *types.Named, u *types.Struct) {
-	if handleTypes[objKey(n.Obj())] {
+	if handleTypes[objKey(n.Obj())] || m.newTypes[objKey(n.Obj())] {
 		ti.k = kHandle
 		return
 	}
@@ -538,6 +554,11 @@ func (m *model) addOptCtor(pkg *types.Package, byType map[string][]optCtor, path
 		return
 	}
 	c := optCtor{path: append(append([]string{}, path...), f.Name()), hasErr: hasErr}
+	if why, ok := omitCtors[pkg.Path()+"."+strings.Join(c.path, ".")]; ok {
+		c.omit = why // sem classificar os parâmetros: o tipo deles não entra
+		byType[objKey(rn.Obj())] = append(byType[objKey(rn.Obj())], c)
+		return
+	}
 	for j := 0; j < sig.Params().Len(); j++ {
 		p := sig.Params().At(j)
 		if ch, ok := p.Type().(*types.Chan); ok && ch.Dir() == types.SendOnly {
@@ -553,6 +574,9 @@ func (m *model) addOptCtor(pkg *types.Package, byType map[string][]optCtor, path
 
 // okOptCtor: construtor cujos parâmetros atravessam.
 func okOptCtor(c optCtor) (bool, string) {
+	if c.omit != "" {
+		return false, c.omit
+	}
 	for i, p := range c.params {
 		switch p.k {
 		case kBasic, kBytes, kValue, kSlice, kMap, kHandle, kChanSend, kAny, kOpts:

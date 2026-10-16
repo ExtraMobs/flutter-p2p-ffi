@@ -54,43 +54,43 @@ class Node extends Resolver {
 
   /// Go: `func (blocks.Block).Cid() cid.Cid`.
   $cid.Cid cid() {
-    final $r = $callSync(141, $W()..h(this));
+    final $r = $callSync(149, $W()..h(this));
     return $r.p() ? $cid.Cid($r.str()) : $nil();
   }
 
   /// Go: `func (blocks.Block).RawData() []byte`.
   Uint8List rawData() {
-    final $r = $callSync(143, $W()..h(this));
+    final $r = $callSync(151, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (format.Node).Links() []*format.Link`.
   List<Link> links() {
-    final $r = $callSync(142, $W()..h(this));
+    final $r = $callSync(150, $W()..h(this));
     return $r.list(() => $r.p() ? Link.$dec($r) : $nil());
   }
 
   /// Go: `func (format.Node).Size() (uint64, error)`.
   int size() {
-    final $r = $callSync(144, $W()..h(this));
+    final $r = $callSync(152, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (format.Node).Stat() (*format.NodeStat, error)`.
   NodeStat stat() {
-    final $r = $callSync(145, $W()..h(this));
+    final $r = $callSync(153, $W()..h(this));
     return $r.p() ? NodeStat.$dec($r) : $nil();
   }
 
   /// Go: type assertion `x.(*merkledag.ProtoNode)`: null if the object is not one.
   $merkledag.ProtoNode? asProtoNode() {
-    final $r = $callSync(69, $W()..h(this));
+    final $r = $callSync(72, $W()..h(this));
     return $r.hn($merkledag.ProtoNode.$h);
   }
 
   /// Go: type assertion `x.(*merkledag.RawNode)`: null if the object is not one.
   $merkledag.RawNode? asRawNode() {
-    final $r = $callSync(70, $W()..h(this));
+    final $r = $callSync(73, $W()..h(this));
     return $r.hn($merkledag.RawNode.$h);
   }
 }
@@ -104,7 +104,7 @@ class NodeAdder extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> add($context.Context ctx, Node node) async {
     await $call(
-        146,
+        154,
         $W()
           ..h(this)
           ..h(ctx)
@@ -116,7 +116,7 @@ class NodeAdder extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> addMany($context.Context ctx, List<Node> nodes) async {
     await $call(
-        147,
+        155,
         $W()
           ..h(this)
           ..h(ctx)
@@ -125,7 +125,7 @@ class NodeAdder extends GoHandle {
 
   /// Go: type assertion `x.(iface.APIDagService)`: null if the object is not one.
   $coreiface.ApiDagService? asApiDagService() {
-    final $r = $callSync(71, $W()..h(this));
+    final $r = $callSync(74, $W()..h(this));
     return $r.hn($coreiface.ApiDagService.$h);
   }
 }

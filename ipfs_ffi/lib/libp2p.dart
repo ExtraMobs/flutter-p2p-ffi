@@ -7,3 +7,4 @@
 library;
 
 export 'libp2p/core/peer.dart';
+export 'libp2p/core/routing.dart';

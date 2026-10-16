@@ -19,21 +19,21 @@ class Node extends $io.Closer {
 
   /// Go: type assertion `x.(files.File)`: null if the object is not one.
   File? asFile() {
-    final $r = $callSync(66, $W()..h(this));
+    final $r = $callSync(69, $W()..h(this));
     return $r.hn(File.$h);
   }
 }
 
 /// Go: `func files.NewBytesFile(b []byte) files.File`.
 File newBytesFile(Uint8List b) {
-  final $r = $callSync(77, $W()..bytes(b));
+  final $r = $callSync(83, $W()..bytes(b));
   return $r.hnn(File.$h);
 }
 
 /// Go: `func files.NewSerialFile(path string, includeHidden bool, stat os.FileInfo) (files.Node, error)`.
 Node newSerialFile(String path, bool includeHidden, $fs.FileInfo stat) {
   final $r = $callSync(
-      78,
+      84,
       $W()
         ..str(path)
         ..b(includeHidden)
@@ -43,14 +43,14 @@ Node newSerialFile(String path, bool includeHidden, $fs.FileInfo stat) {
 
 /// Go: `func files.ToFile(n files.Node) files.File`.
 File toFile(Node n) {
-  final $r = $callSync(79, $W()..h(n));
+  final $r = $callSync(85, $W()..h(n));
   return $r.hnn(File.$h);
 }
 
 /// Go: `func files.WriteTo(nd files.Node, fpath string) error`.
 void writeTo(Node nd, String fpath) {
   $callSync(
-      80,
+      86,
       $W()
         ..h(nd)
         ..str(fpath));

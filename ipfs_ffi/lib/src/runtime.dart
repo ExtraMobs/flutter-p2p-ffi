@@ -53,6 +53,14 @@ class IpfsNotFound extends IpfsException {
   IpfsNotFound(super.message);
 }
 
+/// A call made from inside a Dart callback waited for a lock that the Go
+/// function of that callback holds: the host broke the deadlock (WIRE.md,
+/// "Callback"). The message carries the Go stack. Thrown inside the callback;
+/// if it escapes, the call with the callback throws it.
+class IpfsDeadlockException extends IpfsException {
+  IpfsDeadlockException(super.message);
+}
+
 /// The `error` event of the host (WIRE.md): the sentinel code that the Go
 /// error wraps (`errors.Is`) and the message.
 IpfsException $goError(Uint8List data) {
@@ -63,6 +71,7 @@ IpfsException $goError(Uint8List data) {
     3 => IpfsCanceled(message),
     4 => IpfsDeadlineExceeded(message),
     5 => IpfsNotFound(message),
+    6 => IpfsDeadlockException(message),
     _ => IpfsException(message),
   };
 }
@@ -265,7 +274,7 @@ $R $callSync(int fn, [$W? w]) {
   final id = ch.newId();
   final sinks = _register(w);
   try {
-    ch.send(id, fn, _sync, w?.take());
+    ch.send(id, fn, _sync | _watch(w), w?.take());
     final (kind, data) = ch.waitFor(id);
     if (kind == _evError) throw $goError(data);
     return $R(data);
@@ -300,7 +309,7 @@ void _start(int fn, int mode, $W? w, Object sink) {
     sinks = _register(w);
     _pending[id] = _Pending(sink, w, sinks);
     try {
-      ch.send(id, fn, mode, w?.take());
+      ch.send(id, fn, mode | _watch(w), w?.take());
     } catch (_) {
       _pending.remove(id);
       rethrow;
@@ -361,6 +370,11 @@ abstract class GoHandle {
 
   /// The service epoch in which the handle was born.
   final int $e;
+
+  /// In use by a call with a callback that is still running (its receiver
+  /// or an argument): calling it from inside the callback may wait for a
+  /// lock that call holds (the host detects it: [IpfsDeadlockException]).
+  bool get isBusy => _busy.containsKey(this);
 }
 
 /// Go value type (CID, path, peer ID, multiaddr) stored as a string.

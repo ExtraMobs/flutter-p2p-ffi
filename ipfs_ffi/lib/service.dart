@@ -30,8 +30,10 @@ import 'src/table.dart';
 
 export 'src/runtime.dart'
     show
+        IpfsBusy,
         IpfsCanceled,
         IpfsDeadlineExceeded,
+        IpfsDeadlockException,
         IpfsEof,
         IpfsException,
         IpfsNotFound,

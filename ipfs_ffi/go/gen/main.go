@@ -35,8 +35,9 @@ var paramNames = map[string][]string{
 // cbArgNames: nomes dos argumentos de callbacks que o Go não nomeia, por
 // raiz (os do Go, quando há, ficam).
 var cbArgNames = map[string][]string{
-	"github.com/ipld/go-car/v2/index.Index.GetAll":          {"offset"},
-	"github.com/ipld/go-car/v2/index.IterableIndex.ForEach": {"multihash", "offset"},
+	"github.com/ipld/go-car/v2/index.Index.GetAll":                                               {"offset"},
+	"github.com/ipld/go-car/v2/index.IterableIndex.ForEach":                                      {"multihash", "offset"},
+	"github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreFields": {"fields"},
 }
 
 // forceAsync: funções sem context que bloqueiam (rede, desligamento).
@@ -68,6 +69,7 @@ type fn struct {
 	field    bool   // campo de struct num handle (obj é o *types.Var do campo)
 	setter   bool   // field: a escrita (um parâmetro, sem resultado)
 	cast     *tinfo // type assertion do receptor (interface) para este handle concreto
+	newT     bool   // construtor vazio de um tipo struct (raiz que é só o tipo): new(T)
 	outBuf   int    // índice do []byte que o Go preenche (Read, ReadAt, CtxReadFull); -1 = nenhum
 }
 
@@ -167,6 +169,17 @@ func generate(rootsFile string) (map[string][]byte, error) {
 		}
 		pkgs[path] = more[path]
 		return more[path]
+	}
+	// raiz que é só um tipo struct (bsadapter.Adapter): construtor vazio, e o
+	// tipo é handle; marcado antes de qualquer classificação
+	for _, line := range lines {
+		if p, name, method := splitRoot(line); method == "" && pkgs[p] != nil {
+			if tn, ok := pkgs[p].Scope().Lookup(name).(*types.TypeName); ok {
+				if _, isStruct := tn.Type().Underlying().(*types.Struct); isStruct {
+					m.newTypes[objKey(tn)] = true
+				}
+			}
+		}
 	}
 	var fns []*fn
 	for _, line := range lines {
@@ -294,20 +307,30 @@ func (m *model) resolve(pkgs map[string]*types.Package, line string) ([]*fn, err
 			f.obj, f.isVar = o, true
 			t := o.Type()
 			// func sem nome (NilRouterOption = constructNilRouting) idêntica a um
-			// tipo nomeado do pacote (RoutingOption): usa o tipo nomeado.
+			// tipo nomeado do pacote (RoutingOption) ou de um que ele importa
+			// (bsfetcher.DefaultPrototypeChooser → traversal.LinkTargetNodePrototypeChooser):
+			// usa o tipo nomeado.
 			if _, unnamed := t.(*types.Signature); unnamed {
-				for _, n := range pkg.Scope().Names() {
-					if tn, ok := pkg.Scope().Lookup(n).(*types.TypeName); ok && tn.Exported() && types.Identical(tn.Type().Underlying(), t) {
-						t, f.conv = tn.Type(), tn.Type()
-						break
-					}
+				if n := namedFunc(append([]*types.Package{pkg}, pkg.Imports()...), t); n != nil {
+					t, f.conv = n, n
 				}
 			}
 			f.results = []*tinfo{m.classify(t)}
 			m.check(f)
 			return []*fn{f}, nil
+		case *types.TypeName:
+			if !m.newTypes[objKey(o)] {
+				return nil, fmt.Errorf("%s: só tipo struct vira construtor", line)
+			}
+			// new(T): o construtor vazio (o Dart o vê como factory T())
+			pt := types.NewPointer(o.Type())
+			sig := types.NewSignatureType(nil, nil, nil, nil, types.NewTuple(types.NewVar(0, pkg, "", pt)), false)
+			f.obj, f.newT = types.NewFunc(0, pkg, "New"+o.Name(), sig), true
+			f.results = []*tinfo{m.classify(pt)}
+			m.check(f)
+			return []*fn{f}, nil
 		default:
-			return nil, fmt.Errorf("%s não é função, variável nem constante", line)
+			return nil, fmt.Errorf("%s não é função, variável, constante nem tipo", line)
 		}
 	default:
 		tn, ok := obj.(*types.TypeName)
@@ -366,6 +389,19 @@ func (m *model) resolve(pkgs map[string]*types.Package, line string) ([]*fn, err
 	markOutBuf(f)
 	m.check(f)
 	return []*fn{f}, nil
+}
+
+// namedFunc: o primeiro tipo nomeado exportado de [pkgs] cujo tipo é a
+// assinatura [sig].
+func namedFunc(pkgs []*types.Package, sig types.Type) types.Type {
+	for _, p := range pkgs {
+		for _, n := range p.Scope().Names() {
+			if tn, ok := p.Scope().Lookup(n).(*types.TypeName); ok && tn.Exported() && types.Identical(tn.Type().Underlying(), sig) {
+				return tn.Type()
+			}
+		}
+	}
+	return nil
 }
 
 // markOutBuf: método no formato do io.Reader (um []byte e o resultado
