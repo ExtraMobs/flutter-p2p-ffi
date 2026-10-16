@@ -56,9 +56,14 @@ Aparelho real, Android 16 (HyperOS), arm64, Wi-Fi, ~1 h de sessão pela depuraç
   volta.
 - Memória (PSS) com o nó online: release, app 168 MB + `ipfs_host` 196 MB ≈ 364 MB (APK
   arm64 de 27 MB); debug, 321 + 200 MB.
-- ⏳ A verificação "custo da ponte" exige `api.unixfs()` até 20× o Noop: no release do
-  aparelho deu 122 µs × 1,5 µs (80×; no debug, 9×), e no segundo plano (CPU reduzida)
-  também falha. Investigar o getter (handle novo + Finalizer) antes de mexer no limite.
+- "Custo da ponte" (investigado no aparelho, profile, `integration_test/bench_test.dart`):
+  isolada, uma chamada gerada custa 2–4 µs na mediana (Noop 0,9–1,5 µs); `api.unixfs()`
+  4,3 µs mesmo com o nó online (211 peers). A cauda é o acordar de thread: quando o Dart
+  demora mais que a janela de giro do host entre chamadas (~20–50 µs), o host dorme no
+  sininho e a chamada seguinte paga 100–450 µs (p99); um giro 10× maior encurta a cauda,
+  mas não de forma consistente, e o padrão ficou. Os 80× da bateria eram a média, logo
+  depois dos testes pesados (nós ainda fechando no host); a verificação agora compara
+  medianas: `api.unixfs()` 3,6 µs × Noop 1,5 µs (profile, depois dos testes pesados).
 
 Desktop 61/61 (Windows; linux 3x pelo WSL); emulador 4/4.
 

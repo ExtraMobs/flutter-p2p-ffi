@@ -225,16 +225,23 @@ Future<int> localChecks(Log log) async {
       },
       'custo da ponte (canal com o ipfs_host)': () async {
         final repoPath = '${tmp.path}/offline';
+        // a mediana de cada chamada: a média vira refém da cauda (o host
+        // ou a isolate perdendo a CPU logo depois dos testes pesados, no
+        // aparelho centenas de µs; integration_test/bench_test.dart)
         double bench(void Function() f) {
           for (var i = 0; i < 500; i++) {
             f();
           }
           const count = 5000;
           final sw = Stopwatch()..start();
+          final t = List<int>.filled(count, 0);
           for (var i = 0; i < count; i++) {
+            final t0 = sw.elapsedTicks;
             f();
+            t[i] = sw.elapsedTicks - t0;
           }
-          return sw.elapsedMicroseconds / count;
+          t.sort();
+          return t[count ~/ 2] * 1e6 / sw.frequency;
         }
 
         Future<double> benchAsync(Future<Object?> Function() f) async {
@@ -266,9 +273,9 @@ Future<int> localChecks(Log log) async {
             await api.unixfs().add(ctx, files.newBytesFile(utf8.encode('x')));
         final block = api.block();
         final statAsync = await benchAsync(() => block.stat(ctx, p));
-        log('  síncronas: api.unixfs() ${us(getter)}; fsrepo.isInitialized '
+        log('  síncronas (mediana): api.unixfs() ${us(getter)}; fsrepo.isInitialized '
             '${us(stat)}; ctx.err() ${us(err)}; withTimeout+cancel ${us(timeout)}');
-        log('  Noop síncrono ${us(noop)}, assíncrono ${us(noopAsync)}; '
+        log('  Noop síncrono (mediana) ${us(noop)}, assíncrono (média) ${us(noopAsync)}; '
             'block.stat assíncrono ${us(statAsync)}');
         check(getter < noop * 20, 'api.unixfs() perto do piso do canal');
       },
