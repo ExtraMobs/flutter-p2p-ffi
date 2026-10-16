@@ -543,13 +543,28 @@ func (e *dartEmitter) dto(l *dartLib, b *strings.Builder, t *tinfo, name string)
 		if nullable(f.t) {
 			q = "?"
 		}
-		fmt.Fprintf(b, "\n  /// Go: `%s`.\n  %s%s %s;\n", f.name, e.dt(f.t, l), q, memberName(f.name))
+		fmt.Fprintf(b, "\n  /// Go: `%s`.%s\n  %s%s %s;\n", f.name, u64Doc(isU64(f.t.t)), e.dt(f.t, l), q, memberName(f.name))
 	}
 	if len(encs) == 0 {
 		b.WriteString("\n  @override\n  void $enc($W w) {}\n}\n\n")
 	} else {
 		fmt.Fprintf(b, "\n  @override\n  void $enc($W w) {\n    w%s;\n  }\n}\n\n", strings.Join(encs, ""))
 	}
+}
+
+// u64Doc: o aviso dos campos uint64 (WIRE.md: inteiros vão como i64; o Dart
+// só tem int com sinal, então acima de 2^63 o mesmo padrão de bits sai negativo,
+// a convenção do Uint64List do dart:typed_data).
+func u64Doc(u bool) string {
+	if !u {
+		return ""
+	}
+	return "\n  ///\n  /// Go `uint64`: values from 2^63 up arrive negative (same 64 bits);\n  /// `BigInt.from(v).toUnsigned(64)` reads them unsigned."
+}
+
+func isU64(t types.Type) bool {
+	b, ok := types.Unalias(t).Underlying().(*types.Basic)
+	return ok && (b.Kind() == types.Uint || b.Kind() == types.Uint64 || b.Kind() == types.Uintptr)
 }
 
 // holders: as variáveis de opções do pacote (options.Unixfs, options.Pin.Ls...),

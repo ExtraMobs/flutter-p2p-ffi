@@ -1,4 +1,4 @@
-# O protocolo do serviço (ipfs_ffi 0.14.0)
+# O protocolo do serviço (ipfs_ffi 0.15.0)
 
 O `ipfs_ffi` roda o kubo **só** num processo separado, o `ipfs_host` (o Go deste
 pacote compilado como executável). Um panic não tratado do kubo derruba esse
@@ -74,7 +74,7 @@ Tipos nomeados sobre básicos (enums do kubo) vão como o básico. Por tipo do m
 | kind | bytes |
 |---|---|
 | bool | `u8` (0/1) |
-| inteiros (todos os tamanhos e sinais) | `i64` |
+| inteiros (todos os tamanhos e sinais) | `i64`; um `uint64` vai com os mesmos 64 bits (no Dart, de 2^63 para cima, negativo) |
 | float | `f64` |
 | string | `u32 n` + UTF-8 |
 | `kBytes` (`[]byte`) | `i32 n` + bytes; `-1` = nil |
@@ -118,6 +118,9 @@ kubo (sem o `PreRun` do CLI), com o nó do app no ambiente (`ConstructNode`; `Co
 = a chave com que o `fsrepo.Open` abriu o repo, para os comandos de config reabrirem o
 mesmo).
 
+- O `PreRun` é do CLI e não roda, com uma exceção: o `urlArgsEncoder` dos comandos de
+  pubsub (`pubsub pub/sub/peers`), o lado cliente do contrato (o cliente RPC do kubo faz o
+  mesmo); o host o roda, e o Dart passa o tópico cru.
 - Opções: só as passadas (null no Dart = o padrão do kubo); o host converte o `kAny` para o
   tipo que a opção declara (`int64` → `int`/`uint`..., lista → `[]string`). Nome
   desconhecido ou tipo errado é erro.
@@ -130,14 +133,16 @@ mesmo).
     nil) + pares (chave string, em ordem) ; struct: os campos de `cmdschema.Fields` em ordem
     (embutidos achatados, `json:"-"` fora); ponteiro `u8` presente + valor; `any` `kAny`.
   - `1` dinâmico: um valor de outro tipo (`files rm` emite string; comando sem `Type`), em
-    `kAny`.
+    `kAny`. Antes, o host tenta o tipo declarado pelo JSON (o que o cliente HTTP do kubo
+    faz): um valor de outro tipo com o mesmo JSON (o `diag cmds` emite o `ReqLogEntry` do
+    kubo e declara o do go-ipfs-cmds) vai como `0`.
   - `2` bytes: um pedaço (até 256 KiB) de um `io.Reader` emitido (`cat`, `files read`); o
     `Emit` só volta depois de ler o reader inteiro, porque o comando fecha o que emitiu
     quando o `Run` volta.
 - O erro do `Run` (ou um panic do comando) vira o `erro` do stream.
-- No Dart: `Future<T>` espera exatamente um item `0` (mais de um é erro, "belongs in a
-  Stream"); `Stream<T>` lê itens `0`; `Stream<Uint8List>` lê itens `2`; `Object?` aceita
-  `1` e `2`.
+- No Dart todo comando é um `Stream` (quem usa escolhe `.single`, `.first` ou `toList()`):
+  `Stream<T>` lê itens `0`; `Stream<Uint8List>` lê itens `2`; `Stream<Object?>` (comando
+  sem `Type`) aceita `1` e `2`.
 
 ## Notas (o que a tabela acima não fixava; o host segue assim)
 

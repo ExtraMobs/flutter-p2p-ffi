@@ -106,6 +106,8 @@ func emitAPI(m *model, fns []*fn) []byte {
 - Variádicos viram ` + "`List`" + ` opcional; opções funcionais espelham as variáveis do pacote (` + "`options.unixfs.pin(true, '')`" + `).
 - ` + "`NewX`" + ` síncrono que devolve ` + "`X`" + ` do mesmo pacote vira ` + "`factory X(...)`" + `.
 - ` + "`io.Writer`" + ` em parâmetro não aparece no Dart: o Go usa ` + "`io.Discard`" + `.
+- ` + "`fsrepo.Open`" + `: o host limpa o caminho (` + "`repoPath`" + `, a forma que o ` + "`Repo.Path()`" + ` devolve) antes de abrir, para os comandos de config, que reabrem o repo pelo ` + "`Path()`" + `, reaproveitarem o repo aberto (o ` + "`fsrepo`" + ` guarda o aberto pela string crua).
+- Inteiros ` + "`uint64`" + ` vão com os mesmos 64 bits num ` + "`int`" + ` do Dart (como o ` + "`Uint64List`" + `): de 2^63 para cima saem negativos; ` + "`BigInt.from(v).toUnsigned(64)`" + ` os lê sem sinal (a doc de cada campo avisa).
 - ` + "`io.Reader`" + ` em parâmetro aceita ` + "`Uint8List`" + ` ou um handle de leitor (ex. o ` + "`files.File`" + ` devolvido pelo kubo).
 - Tipos-valor (CID, path, peer ID, multiaddr) guardam a string; a validação acontece no Go, quando atravessam.
 - ` + "`config.Config`" + ` guarda o JSON do kubo (o mesmo do arquivo ` + "`config`" + ` do repo) em ` + "`json`" + `.

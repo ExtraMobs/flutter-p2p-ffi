@@ -411,6 +411,9 @@ final class DirEntry implements GoDto {
   $cid.Cid? cid;
 
   /// Go: `Size`.
+  ///
+  /// Go `uint64`: values from 2^63 up arrive negative (same 64 bits);
+  /// `BigInt.from(v).toUnsigned(64)` reads them unsigned.
   int size;
 
   /// Go: `Type`.

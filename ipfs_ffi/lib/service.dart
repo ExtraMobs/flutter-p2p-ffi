@@ -56,7 +56,11 @@ abstract interface class IpfsPlatform {
   /// The service started in mode [mode] (the app is in the foreground).
   Future<void> serviceStarted(IpfsBackground mode);
 
-  /// The service stopped (stop, crash or background).
+  /// The service stopped (stop or background, or a crash outside
+  /// [IpfsBackground.foregroundService]). After a crash in that mode it is
+  /// not called: the platform keeps the app alive in the background so that
+  /// `onStop` can [IpfsService.restart] (Android only starts a foreground
+  /// service from the foreground); [IpfsService.stop] ends it.
   Future<void> serviceStopped();
 }
 
@@ -240,7 +244,11 @@ abstract final class IpfsService {
     _ch = null;
     $detach(s.exception);
     await ch.close();
-    await platform?.serviceStopped();
+    // foregroundService: the platform keeps the app alive for the restart
+    // (see IpfsPlatform.serviceStopped)
+    if (_mode != IpfsBackground.foregroundService) {
+      await platform?.serviceStopped();
+    }
     // an error from onStop goes to the zone of whoever called start()
     await _params?.onStop?.call(s);
   }
@@ -270,7 +278,11 @@ abstract final class IpfsService {
   static Future<void> _stop(bool keepParams) async {
     if (!keepParams) _params = null;
     final ch = _ch;
-    if (ch == null) return;
+    if (ch == null) {
+      // after a crash in foregroundService mode the platform is still up
+      await platform?.serviceStopped();
+      return;
+    }
     _ch = null;
     $detach();
     await ch.close();

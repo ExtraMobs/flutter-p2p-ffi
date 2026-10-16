@@ -155,30 +155,34 @@ Future<int> localChecks(Log log) async {
         check((await api.pin().isPinned(ctx, p)).$2, 'pinado após import');
       },
       'comandos do RPC: id e files': () async {
-        final id = await commands.id(n, ctx, null);
+        final id = await commands.id(n, ctx, null).single;
         check(id.id == (await api.key().self(ctx)).id!.value, 'id == self');
-        await commands.filesMkdir(n, ctx, '/app/d', parents: true);
-        await commands.filesWrite(n, ctx, '/app/d/a.txt',
-            files.newBytesFile(utf8.encode('olá files')),
-            create: true);
-        final st = await commands.filesStat(n, ctx, '/app/d/a.txt');
+        await commands
+            .filesMkdir(n, ctx, '/app/d', parents: true)
+            .drain<void>();
+        await commands
+            .filesWrite(n, ctx, '/app/d/a.txt',
+                files.newBytesFile(utf8.encode('olá files')),
+                create: true)
+            .drain<void>();
+        final st = await commands.filesStat(n, ctx, '/app/d/a.txt').single;
         check(st.size == utf8.encode('olá files').length, 'files stat');
-        final ls = await commands.filesLs(n, ctx, '/app/d');
+        final ls = await commands.filesLs(n, ctx, '/app/d').single;
         check(
             [for (final e in ls.entries) e.name].join() == 'a.txt', 'files ls');
         final read = await commands.filesRead(n, ctx, '/app/d/a.txt').toList();
         check(utf8.decode([for (final b in read) ...b]) == 'olá files',
             'files read');
         await commands.filesRm(n, ctx, ['/app'], recursive: true).toList();
-        await expectThrows(
-            commands.filesStat(n, ctx, '/app'), 'files rm levou a pasta');
+        await expectThrows(commands.filesStat(n, ctx, '/app').single,
+            'files rm levou a pasta');
       },
       'dois nós: connect, bitswap, provide/findProviders e pubsub': () =>
           _twoNodes(tmp),
-      // Com Routing none (nilRouterOption) o kubo 0.43 não fecha o datastore
-      // do provider-keystore no close (o hook pula o provider Noop) e a
-      // reabertura no mesmo processo esbarra no lock: os ciclos usam DHT
-      // cliente, como o app.
+      // Alterna DHT cliente (o do app) e Routing none: no kubo 0.43 o none
+      // deixava o datastore do provider-keystore aberto depois do close, e a
+      // reabertura esbarrava na trava; o build corrige por patch
+      // (tool/build.dart, upstreamPatches).
       'ciclo de vida: 10x newNode → close → fsrepo.open no mesmo repo':
           () async {
         final repoPath = newRepo(tmp, 'ciclos');
@@ -188,7 +192,9 @@ Future<int> localChecks(Log log) async {
               node.BuildCfg(
                   repo: fsrepo.open(repoPath),
                   online: true,
-                  routing: libp2p.dhtClientOption));
+                  routing: i.isEven
+                      ? libp2p.dhtClientOption
+                      : libp2p.nilRouterOption));
           await nn.close();
         }
         final nn =

@@ -26,6 +26,7 @@ func TestWireRoundTrip(t *testing.T) {
 	w.bool(true)
 	encInt(w, int64(math.MinInt64))
 	encInt(w, uint32(math.MaxUint32))
+	encInt(w, uint64(math.MaxUint64)) // i64 com os mesmos bits: o Dart lê -1
 	encFloat(w, 1.5)
 	encStr(w, "olá")
 	encBytes(w, nil)
@@ -56,6 +57,8 @@ func TestWireRoundTrip(t *testing.T) {
 	check("int64", i == math.MinInt64)
 	u, _ := decInt[uint32](r)
 	check("uint32", u == math.MaxUint32)
+	u64, _ := decInt[uint64](r)
+	check("uint64 máximo", u64 == math.MaxUint64)
 	f, _ := decFloat[float64](r)
 	check("f64", f == 1.5)
 	s, _ := decStr[string](r)

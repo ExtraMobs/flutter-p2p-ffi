@@ -1,5 +1,67 @@
 # Pendências do ipfs_ffi
 
+## Feito: o que quebrava sem aviso e o aparelho real (0.15.0)
+
+Decisões do dono: todo comando é `Stream` (quem usa decide); os bugs do upstream viram
+issue, teste do upstream e patch nosso (o build para se o trecho mudar de lugar); a
+notificação do serviço em primeiro plano é do app, o serviço segue com o plugin. Fora:
+linux nativo (fica o WSL), arm64 no emulador x86, `ipfs commands`, chamadas do Go para
+o Dart.
+
+- Comandos: os 148 viram `Stream` (sai a leitura do fonte do kubo); fumaça de todos em
+  `test/commands_smoke_test.dart` (a tabela `test/src/commands_smoke.dart` sai do
+  gerador): 372 valores decodificados, 77 erros do próprio kubo num nó offline, e os de
+  rede em dois nós. A fumaça achou e o host corrige: o `diag cmds` emite um tipo com o
+  mesmo JSON do declarado (vai pelo JSON, como no cliente HTTP); os de pubsub esperam o
+  tópico em multibase (o host roda o `urlArgsEncoder` do CLI).
+- `ConfigRoot` sem reflexão: o host limpa o caminho do `fsrepo.Open` (`argPre`
+  `repoPath`), e reabrir pelo `Path()` reaproveita o repo aberto (teste Go com caminho
+  sujo).
+- `uint64`: os mesmos 64 bits num `int` (como o `Uint64List`); a doc dos campos avisa e
+  os testes cobrem `MaxUint64`.
+- Upstream: [ipfs/boxo#1221](https://github.com/ipfs/boxo/issues/1221) (append no MFS
+  com dados embutidos) e [ipfs/kubo#11477](https://github.com/ipfs/kubo/issues/11477)
+  (Routing none deixa o keystore aberto), com a causa e a correção; `upstreamPatches` no
+  `tool/build.dart` (todas as plataformas), `go/upstream_test.go` (o bug sem patch; com
+  patch, os dois testes falham como devem) e as suítes do boxo (`unixfs/mod`, `mfs`,
+  `trickle`) e do kubo (`core/node`) verdes com os patches. ⏳ PRs: o boxo exige um PR
+  companheiro no kubo com CI verde, e o `ipld/unixfs` é "protocol-frozen" no AGENTS.md
+  dele; esperar a triagem dos issues.
+- Plugin: `requestNotificationPermission()` (o diálogo do Android 13+) e a notificação do
+  app (`IpfsNotification`: título, texto, ícone, canal, importância, toque; o
+  `updateNotification` com o serviço rodando; para controle total, um
+  `NotificationFactory` nativo).
+
+Aparelho real, Android 16 (HyperOS), arm64, Wi-Fi, ~1 h de sessão pela depuração sem fio
+(`example/android_app/tool/device_session.dart`); o primeiro desde o 0.9.0:
+
+- Integração 4/4 (verificações locais, queda do host com o app vivo, segundo plano nos
+  dois modos). Canal (debug): Noop síncrono 4,7 µs, assíncrono 745 µs; `block.stat`
+  1,5 ms. Release: Noop 1,5 µs, assíncrono 258 µs, `block.stat` 818 µs.
+- **Achado: o host arm64 sem cgo** (até o 0.14) ficava sem DNS (o Go puro procura
+  `/etc/resolv.conf`, cai em `[::1]:53`) e sem os endereços de rede (o anet lê o nível de
+  API pelo cgo; sem ele volta ao netlink negado). O emulador x86_64 já tinha cgo (o Go
+  não liga android/amd64 sozinho), por isso passava. Agora as duas ABIs vão com cgo.
+  Depois: 153 peers em menos de 1 s, escuta QUIC/WebTransport/WebRTC, `/ipns/ipfs.tech`
+  em 189 ms, 50 conexões (33 QUIC) e 7 endereços de relay com 2 min online.
+- **Achado: queda em `foregroundService` no segundo plano**: o restart do `onStop` não
+  conseguia recriar o serviço em primeiro plano (`ForegroundServiceStartNotAllowed`, o
+  Android 12+ só o inicia com o app na frente) e o host ficava fora. Agora o serviço do
+  Android fica de pé na queda e o restart o reaproveita (teste desktop com plataforma
+  falsa). No aparelho: queda aos 2 min no segundo plano, host de volta na hora, app no
+  mesmo processo por 6 min.
+- `POST_NOTIFICATIONS`: diálogo, `granted=true`, notificação visível com o serviço em
+  primeiro plano; a do app (título próprio, "online: N peers") atualiza com o serviço
+  rodando. Modo `stop`: o host para em menos de 30 s no HOME, o app segue, e o relança na
+  volta.
+- Memória (PSS) com o nó online: release, app 168 MB + `ipfs_host` 196 MB ≈ 364 MB (APK
+  arm64 de 27 MB); debug, 321 + 200 MB.
+- ⏳ A verificação "custo da ponte" exige `api.unixfs()` até 20× o Noop: no release do
+  aparelho deu 122 µs × 1,5 µs (80×; no debug, 9×), e no segundo plano (CPU reduzida)
+  também falha. Investigar o getter (handle novo + Finalizer) antes de mexer no limite.
+
+Desktop 61/61 (Windows; linux 3x pelo WSL); emulador 4/4.
+
 ## Feito: os comandos do RPC (0.14.0)
 
 Decisões do dono: um DTO para cada retorno; `Future`, e `Stream` só nos que emitem vários; os
@@ -109,8 +171,9 @@ Validado no emulador (Android 17), app em release, HOME por 7 min:
   `specialUse`), app e host com os mesmos pids depois de 7 min, nenhum kill; na volta,
   nada a relançar.
 
-Integração 4/4 no emulador; desktop 39/39 no Windows e no linux (3x). ⏳ No aparelho real
-(MIUI pode matar mesmo com o serviço em primeiro plano).
+Integração 4/4 no emulador; desktop 39/39 no Windows e no linux (3x). No aparelho real
+(0.15.0): o serviço em primeiro plano segurou o host 6 min no segundo plano, com uma
+queda e o reinício no meio.
 
 Na mesma versão, decisão do dono: a lib publicada fica em inglês (comentários e
 mensagens de `lib/`, o que o gerador escreve nela, o plugin e as mensagens do `ipfs_host`
@@ -215,7 +278,8 @@ No emulador (Windows como hospedeiro) cada thread que dorme leva milissegundos p
 acordar (a vCPU parada): o giro resolve o síncrono, mas o assíncrono em sequência
 depende de acordar a isolate do Dart, onde não se gira. Com o nó online, as
 verificações do app mediram `api.unixfs()` 91 µs, `ctx.err()` 100 µs, `block.stat`
-assíncrono 1,6 ms. ⏳ Medir no aparelho real (lá o acordar custa dezenas de µs).
+assíncrono 1,6 ms. No aparelho real (0.15.0, release): Noop síncrono 1,5 µs, assíncrono
+258 µs, `block.stat` 818 µs.
 Memória com o nó online (emulador, `dumpsys meminfo`): app PSS 84 MB, `ipfs_host` PSS
 137 MB.
 
@@ -317,7 +381,7 @@ Achados:
   127.0.0.1/::1 (`addrs_manager.go`) e o mDNS não acha interface. O `wlynxg/anet` (já no
   grafo pelo pion) refaz isso com `RTM_GETADDR` sem `bind()` e `ioctl`. No build do Android
   o `tool/build.dart` copia o `go-multiaddr` e o `zeroconf` do cache de módulos para
-  `.dart_tool/android_mod/`, troca as chamadas pelo anet (o build para se o trecho mudar) e
+  `.dart_tool/patched_mod/android/` (junto com os patches do upstream), troca as chamadas pelo anet (o build para se o trecho mudar) e
   compila com um `-modfile` gerado com os `replace` (o Go recusa `-overlay` em arquivos do
   cache de módulos). O caminho dessas cópias fica no buildinfo da `.so`. Não coberto:
   UPnP/NAT-PMP (`go-netroute` usa netlink de rota) e outros ~10 pontos menores do grafo.

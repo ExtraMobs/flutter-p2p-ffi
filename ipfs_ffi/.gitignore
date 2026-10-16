@@ -4,3 +4,6 @@ pubspec.lock
 .ipfs-ffi/
 .ipfs-online/
 native/
+# cache do Gradle do plugin e o log da sessão no aparelho (dados do aparelho)
+flutter/android/.gradle/
+device_session.log

@@ -45,7 +45,7 @@ var (
 )
 
 // tableHash: o hash da tabela (WIRE.md, Hello), o mesmo do Dart gerado.
-const tableHash uint64 = 0xcaf307f26a5a6687
+const tableHash uint64 = 0x2ce286df42823307
 
 // table: as funções geradas por id (WIRE.md); as escritas à mão entram no init delas.
 var table = map[uint32]entry{
@@ -3637,7 +3637,7 @@ func fn231(q *req, r *reader, w *writer) error {
 	if err := r.done(); err != nil {
 		return err
 	}
-	r0, err := p_fsrepo.Open(p0)
+	r0, err := p_fsrepo.Open(repoPath(p0))
 	if err != nil {
 		return err
 	}

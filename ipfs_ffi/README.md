@@ -117,10 +117,19 @@ node.peering.addPeer(info);                          // vale na hora, não persi
 A maior parte da config só vale ao reiniciar o nó (o kubo a lê na subida); o peering
 vale na hora mas não vai para a config.
 
-Achado no boxo v0.43.0 (reproduzido em Go puro, sem o binding): anexar no fim
-(`seek(0, 2)` + `write`) de um arquivo do MFS cujo nó guarda os dados embutidos (o nó de
-um `add` pequeno) deixa o tamanho certo, mas a leitura devolve só o trecho anexado.
-Reescrever com `truncate(0)` + `write` antes, e anexar depois, funciona.
+## Correções no upstream (0.15)
+
+Dois bugs do kubo/boxo, reproduzidos em Go puro, que o `tool/build.dart` corrige por patch
+em todo build (`upstreamPatches`: o módulo vai copiado do cache com o trecho trocado; se o
+trecho mudar numa versão nova, o build para). O `go/upstream_test.go` afirma cada bug no
+módulo sem patch e falha quando o upstream o corrigir, avisando que o patch sai:
+
+- boxo v0.43.0 ([ipfs/boxo#1221](https://github.com/ipfs/boxo/issues/1221)): anexar no fim
+  de um arquivo do MFS cujo nó guarda os dados embutidos (o nó de um `add` pequeno)
+  deixava o tamanho certo, mas a leitura devolvia só o trecho anexado;
+- kubo v0.43.1 ([ipfs/kubo#11477](https://github.com/ipfs/kubo/issues/11477)): com
+  `Routing.Type` none (`libp2p.nilRouterOption`), o `close` deixava aberto o datastore do
+  `provider-keystore`, e reabrir o repo no mesmo processo esbarrava na trava.
 
 ## Os comandos do RPC (0.14)
 
@@ -130,18 +139,21 @@ no `kubo.dart`). O nome é o caminho em lowerCamel; argumentos posicionais; opç
 (null = o padrão do kubo); um DTO por retorno:
 
 ```dart
-await kubo.filesMkdir(n, ctx, '/docs', parents: true);
-await kubo.filesWrite(n, ctx, '/docs/a.txt', files.newBytesFile(dados), create: true);
-final st = await kubo.filesStat(n, ctx, '/docs/a.txt');      // Future<StatOutput>
-final bytes = kubo.filesRead(n, ctx, '/docs/a.txt');          // Stream<Uint8List>
-await for (final p in kubo.pinLs(n, ctx, [], type: 'recursive')) {} // Stream de DTO
-final cfg = await kubo.configShow(n, ctx);                    // Map<String, Object?>
+await kubo.filesMkdir(n, ctx, '/docs', parents: true).drain<void>();
+await kubo.filesWrite(n, ctx, '/docs/a.txt', files.newBytesFile(dados), create: true)
+    .drain<void>();
+final st = await kubo.filesStat(n, ctx, '/docs/a.txt').single; // StatOutput
+final bytes = kubo.filesRead(n, ctx, '/docs/a.txt');            // Stream<Uint8List>
+await for (final p in kubo.pinLs(n, ctx, [], type: 'recursive')) {} // um DTO por item
+final cfg = await kubo.configShow(n, ctx).single;               // Map<String, Object?>
 ```
 
-`Future` quando o comando emite um valor, `Stream` quando emite vários (`refs`, `pin ls`,
-`add`...) e `Stream<Uint8List>` quando emite bytes (`cat`, `get`, `files read`...). A
-lista completa (comando → função → retorno) e os que ficam de fora, com o motivo, estão no
-`API.md`. Os de config (`config`, `bootstrap`) gravam no arquivo do repo e, como no kubo,
+Todo comando devolve um `Stream` (0.15): quem usa decide entre `.single` (um valor),
+`.first`, `toList()` ou `drain()` (só o efeito); o `Stream` só roda quando é ouvido. O item
+é o DTO do retorno, `Uint8List` nos que emitem bytes (`cat`, `get`, `files read`...) e
+`Object?` nos sem tipo declarado. Nos de pubsub o tópico vai cru: o host o codifica como o
+CLI do kubo. A lista completa (comando → função → retorno) e os que ficam de fora, com o
+motivo, estão no `API.md`; o `test/commands_smoke_test.dart` roda todos. Os de config (`config`, `bootstrap`) gravam no arquivo do repo e, como no kubo,
 a maior parte só vale ao reiniciar o nó; os que precisam de rede (`swarm peering ls`)
 dão o erro do kubo num nó offline.
 
@@ -166,7 +178,10 @@ dão o erro do kubo num nó offline.
 (`libipfs_host.so`, um executável com nome de lib para o APK levar) e a `libipfs_shm.so`, com o
 NDK (`ANDROID_NDK_HOME`, ou o mais novo em `<Android SDK>/ndk`), alinhadas em 16 KB, com o
 `go-multiaddr` e o `zeroconf` trocados pelo `wlynxg/anet` (no Android 11+ o `net` do Go não
-lista interfaces; sem isso o nó só anuncia 127.0.0.1 e o mDNS não funciona). No
+lista interfaces; sem isso o nó só anuncia 127.0.0.1 e o mDNS não funciona). O host do
+Android vai com cgo, ligado pelo clang do NDK: sem ele o Go fica sem o resolvedor de DNS
+do sistema (procura `/etc/resolv.conf`, que o Android não tem) e o anet sem o nível de API
+do aparelho (medido num aparelho arm64 no 0.15). No
 Android o host padrão (`defaultHostPath()`) é a `libipfs_host.so` na pasta das libs
 nativas do app (o APK precisa extraí-las: `packaging.jniLibs.useLegacyPackaging = true`
 no Gradle; o Android só executa da `nativeLibraryDir`). O app de
@@ -198,8 +213,37 @@ e escolhe em `IpfsService.background`, lido a cada `start`/`restart`:
 - `IpfsBackground.foregroundService`: enquanto o host roda, o plugin mantém um
   serviço em primeiro plano do Android (tipo `specialUse`, com notificação), e o nó
   segue online no segundo plano. A notificação no Android 13+ pede a permissão
-  `POST_NOTIFICATIONS`, que o app solicita (sem ela o serviço roda, sem aparecer na
-  gaveta).
+  `POST_NOTIFICATIONS`: o app a pede com
+  `IpfsFfiFlutter.requestNotificationPermission()` (o diálogo do sistema; devolve se
+  ficou permitida) antes de subir o serviço. Sem ela o serviço roda, sem aparecer na
+  gaveta. Numa queda do host nesse modo, o serviço do Android continua de pé, para o
+  `onStop` poder chamar `IpfsService.restart()` do segundo plano (o Android 12+ só
+  inicia um serviço em primeiro plano com o app na frente); o `IpfsService.stop()` o
+  encerra.
+
+A notificação é do app (o plugin cuida do serviço, do manifesto e do ciclo de vida):
+
+```dart
+IpfsFfiFlutter.notification = const IpfsNotification(
+    title: 'Meu app', text: 'conectando...', icon: 'ic_stat_ipfs', // res/drawable
+    channelName: 'Nó IPFS', importance: IpfsNotificationImportance.low);
+// com o serviço rodando, também do segundo plano:
+await IpfsFfiFlutter.updateNotification(
+    IpfsFfiFlutter.notification.copyWith(text: 'online: $n peers'));
+```
+
+Para controle total (ações, estilos, layout próprio), o app registra no código
+nativo quem monta a `Notification`, antes de o serviço subir; o canal já vem criado e
+o `config` traz os campos do `IpfsNotification` e o `extras` (strings livres do Dart):
+
+```kotlin
+IpfsForegroundService.setNotificationFactory { context, channelId, config ->
+    Notification.Builder(context, channelId)
+        .setContentTitle(config.getString("title"))
+        .setSmallIcon(R.drawable.ic_stat_ipfs)
+        .build()
+}
+```
 
 Sem Flutter, o app pode chamar `IpfsService.appInBackground()` ele mesmo.
 

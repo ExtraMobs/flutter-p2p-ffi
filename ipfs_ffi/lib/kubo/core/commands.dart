@@ -106,10 +106,10 @@ Stream<CommandsAddEvent> add(
         (r) => CommandsAddEvent.$dec(r));
 
 /// `ipfs bitswap ledger`: Show the current ledger for a peer.
-Future<Receipt> bitswapLedger(
+Stream<Receipt> bitswapLedger(
         $core.IpfsNode node, $context.Context ctx, String peer,
         {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
-    $cmdOne(
+    $cmdStream(
         node,
         ctx,
         'bitswap ledger',
@@ -124,22 +124,22 @@ Future<Receipt> bitswapLedger(
 
 /// `ipfs bitswap reprovide`: Deprecated command to announce to bitswap. Use 'ipfs routing reprovide' instead.
 @Deprecated('deprecated in kubo')
-Future<Object?> bitswapReprovide($core.IpfsNode node, $context.Context ctx,
+Stream<Object?> bitswapReprovide($core.IpfsNode node, $context.Context ctx,
         {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
-    $cmdDyn(node, ctx, 'bitswap reprovide', [], [], {
+    $cmdDynStream(node, ctx, 'bitswap reprovide', [], [], {
       'offline': offline,
       'cid-base': cidBase,
       'upgrade-cidv0-in-output': upgradeCidv0InOutput
     });
 
 /// `ipfs bitswap stat`: Show some diagnostic information on the bitswap agent.
-Future<Stat> bitswapStat($core.IpfsNode node, $context.Context ctx,
+Stream<Stat> bitswapStat($core.IpfsNode node, $context.Context ctx,
         {bool? verbose,
         bool? human,
         bool? offline,
         String? cidBase,
         bool? upgradeCidv0InOutput}) =>
-    $cmdOne(
+    $cmdStream(
         node,
         ctx,
         'bitswap stat',
@@ -155,12 +155,12 @@ Future<Stat> bitswapStat($core.IpfsNode node, $context.Context ctx,
         (r) => Stat.$dec(r));
 
 /// `ipfs bitswap wantlist`: Show blocks currently on the wantlist.
-Future<KeyList> bitswapWantlist($core.IpfsNode node, $context.Context ctx,
+Stream<KeyList> bitswapWantlist($core.IpfsNode node, $context.Context ctx,
         {String? peer,
         bool? offline,
         String? cidBase,
         bool? upgradeCidv0InOutput}) =>
-    $cmdOne(
+    $cmdStream(
         node,
         ctx,
         'bitswap wantlist',
@@ -241,10 +241,10 @@ Stream<RemovedBlock> blockRm(
         (r) => RemovedBlock.$dec(r));
 
 /// `ipfs block stat`: Print information of a raw IPFS block.
-Future<CommandsBlockStat> blockStat(
+Stream<CommandsBlockStat> blockStat(
         $core.IpfsNode node, $context.Context ctx, String cid,
         {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
-    $cmdOne(
+    $cmdStream(
         node,
         ctx,
         'block stat',
@@ -258,9 +258,9 @@ Future<CommandsBlockStat> blockStat(
         (r) => CommandsBlockStat.$dec(r));
 
 /// `ipfs bootstrap`: Show or edit the list of bootstrap peers.
-Future<BootstrapOutput> bootstrap($core.IpfsNode node, $context.Context ctx,
+Stream<BootstrapOutput> bootstrap($core.IpfsNode node, $context.Context ctx,
         {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
-    $cmdOne(
+    $cmdStream(
         node,
         ctx,
         'bootstrap',
@@ -274,10 +274,10 @@ Future<BootstrapOutput> bootstrap($core.IpfsNode node, $context.Context ctx,
         (r) => BootstrapOutput.$dec(r));
 
 /// `ipfs bootstrap add`: Add peers to the bootstrap list.
-Future<BootstrapOutput> bootstrapAdd(
+Stream<BootstrapOutput> bootstrapAdd(
         $core.IpfsNode node, $context.Context ctx, List<String> peer,
         {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
-    $cmdOne(
+    $cmdStream(
         node,
         ctx,
         'bootstrap add',
@@ -291,12 +291,12 @@ Future<BootstrapOutput> bootstrapAdd(
         (r) => BootstrapOutput.$dec(r));
 
 /// `ipfs bootstrap list`: Show peers in the bootstrap list.
-Future<BootstrapOutput> bootstrapList($core.IpfsNode node, $context.Context ctx,
+Stream<BootstrapOutput> bootstrapList($core.IpfsNode node, $context.Context ctx,
         {bool? expandAuto,
         bool? offline,
         String? cidBase,
         bool? upgradeCidv0InOutput}) =>
-    $cmdOne(
+    $cmdStream(
         node,
         ctx,
         'bootstrap list',
@@ -311,13 +311,13 @@ Future<BootstrapOutput> bootstrapList($core.IpfsNode node, $context.Context ctx,
         (r) => BootstrapOutput.$dec(r));
 
 /// `ipfs bootstrap rm`: Remove peers from the bootstrap list.
-Future<BootstrapOutput> bootstrapRm(
+Stream<BootstrapOutput> bootstrapRm(
         $core.IpfsNode node, $context.Context ctx, List<String> peer,
         {bool? all,
         bool? offline,
         String? cidBase,
         bool? upgradeCidv0InOutput}) =>
-    $cmdOne(
+    $cmdStream(
         node,
         ctx,
         'bootstrap rm',
@@ -332,13 +332,13 @@ Future<BootstrapOutput> bootstrapRm(
         (r) => BootstrapOutput.$dec(r));
 
 /// `ipfs bootstrap rm all`: Remove all peers from the bootstrap list.
-Future<BootstrapOutput> bootstrapRmAll(
+Stream<BootstrapOutput> bootstrapRmAll(
         $core.IpfsNode node, $context.Context ctx,
         {bool? all,
         bool? offline,
         String? cidBase,
         bool? upgradeCidv0InOutput}) =>
-    $cmdOne(
+    $cmdStream(
         node,
         ctx,
         'bootstrap rm all',
@@ -390,13 +390,13 @@ Stream<CidFormatRes> cidBase32(
         (r) => CidFormatRes.$dec(r));
 
 /// `ipfs cid bases`: List available multibase encodings.
-Future<List<CodeAndName>> cidBases($core.IpfsNode node, $context.Context ctx,
+Stream<List<CodeAndName>> cidBases($core.IpfsNode node, $context.Context ctx,
         {bool? prefix,
         bool? numeric,
         bool? offline,
         String? cidBase,
         bool? upgradeCidv0InOutput}) =>
-    $cmdOne(
+    $cmdStream(
         node,
         ctx,
         'cid bases',
@@ -412,13 +412,13 @@ Future<List<CodeAndName>> cidBases($core.IpfsNode node, $context.Context ctx,
         (r) => r.list(() => CodeAndName.$dec(r)));
 
 /// `ipfs cid codecs`: List available CID multicodecs.
-Future<List<CodeAndName>> cidCodecs($core.IpfsNode node, $context.Context ctx,
+Stream<List<CodeAndName>> cidCodecs($core.IpfsNode node, $context.Context ctx,
         {bool? numeric,
         bool? supported,
         bool? offline,
         String? cidBase,
         bool? upgradeCidv0InOutput}) =>
-    $cmdOne(
+    $cmdStream(
         node,
         ctx,
         'cid codecs',
@@ -461,13 +461,13 @@ Stream<CidFormatRes> cidFormat(
         (r) => CidFormatRes.$dec(r));
 
 /// `ipfs cid hashes`: List available multihashes.
-Future<List<CodeAndName>> cidHashes($core.IpfsNode node, $context.Context ctx,
+Stream<List<CodeAndName>> cidHashes($core.IpfsNode node, $context.Context ctx,
         {bool? numeric,
         bool? supported,
         bool? offline,
         String? cidBase,
         bool? upgradeCidv0InOutput}) =>
-    $cmdOne(
+    $cmdStream(
         node,
         ctx,
         'cid hashes',
@@ -483,10 +483,10 @@ Future<List<CodeAndName>> cidHashes($core.IpfsNode node, $context.Context ctx,
         (r) => r.list(() => CodeAndName.$dec(r)));
 
 /// `ipfs cid inspect`: Inspect and display detailed information about a CID.
-Future<CidInspectRes> cidInspect(
+Stream<CidInspectRes> cidInspect(
         $core.IpfsNode node, $context.Context ctx, String cid,
         {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
-    $cmdOne(
+    $cmdStream(
         node,
         ctx,
         'cid inspect',
@@ -500,7 +500,7 @@ Future<CidInspectRes> cidInspect(
         (r) => CidInspectRes.$dec(r));
 
 /// `ipfs config`: Get and set IPFS config values.
-Future<ConfigField> config(
+Stream<ConfigField> config(
         $core.IpfsNode node, $context.Context ctx, String key, String? value,
         {bool? bool,
         bool? json,
@@ -508,7 +508,7 @@ Future<ConfigField> config(
         bool? offline,
         String? cidBase,
         bool? upgradeCidv0InOutput}) =>
-    $cmdOne(
+    $cmdStream(
         node,
         ctx,
         'config',
@@ -525,7 +525,7 @@ Future<ConfigField> config(
         (r) => ConfigField.$dec(r));
 
 /// `ipfs config profile apply`: Apply profile to config.
-Future<ConfigUpdateOutput> configProfileApply(
+Stream<ConfigUpdateOutput> configProfileApply(
         $core.IpfsNode node, $context.Context ctx, String profile,
         {bool? dryRun,
         bool? bool,
@@ -534,7 +534,7 @@ Future<ConfigUpdateOutput> configProfileApply(
         bool? offline,
         String? cidBase,
         bool? upgradeCidv0InOutput}) =>
-    $cmdOne(
+    $cmdStream(
         node,
         ctx,
         'config profile apply',
@@ -552,7 +552,7 @@ Future<ConfigUpdateOutput> configProfileApply(
         (r) => ConfigUpdateOutput.$dec(r));
 
 /// `ipfs config replace`: Replace the config with <file>.
-Future<Object?> configReplace(
+Stream<Object?> configReplace(
         $core.IpfsNode node, $context.Context ctx, $files.Node file,
         {bool? bool,
         bool? expandAuto,
@@ -560,7 +560,7 @@ Future<Object?> configReplace(
         bool? offline,
         String? cidBase,
         bool? upgradeCidv0InOutput}) =>
-    $cmdDyn(node, ctx, 'config replace', [], [
+    $cmdDynStream(node, ctx, 'config replace', [], [
       file
     ], {
       'bool': bool,
@@ -572,7 +572,7 @@ Future<Object?> configReplace(
     });
 
 /// `ipfs config show`: Output config file contents.
-Future<Map<String, Object?>> configShow(
+Stream<Map<String, Object?>> configShow(
         $core.IpfsNode node, $context.Context ctx,
         {bool? bool,
         bool? expandAuto,
@@ -580,7 +580,7 @@ Future<Map<String, Object?>> configShow(
         bool? offline,
         String? cidBase,
         bool? upgradeCidv0InOutput}) =>
-    $cmdOne(
+    $cmdStream(
         node,
         ctx,
         'config show',
@@ -597,10 +597,10 @@ Future<Map<String, Object?>> configShow(
         (r) => r.map(() => r.str(), () => r.any()));
 
 /// `ipfs dag resolve`: Resolve IPLD block.
-Future<ResolveOutput> dagResolve(
+Stream<ResolveOutput> dagResolve(
         $core.IpfsNode node, $context.Context ctx, String ref,
         {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
-    $cmdOne(
+    $cmdStream(
         node,
         ctx,
         'dag resolve',
@@ -657,12 +657,12 @@ Stream<QueryEvent> dhtQuery(
         (r) => QueryEvent.$dec(r));
 
 /// `ipfs diag cmds`: List commands run on this IPFS node.
-Future<List<ReqLogEntry?>> diagCmds($core.IpfsNode node, $context.Context ctx,
+Stream<List<ReqLogEntry?>> diagCmds($core.IpfsNode node, $context.Context ctx,
         {bool? verbose,
         bool? offline,
         String? cidBase,
         bool? upgradeCidv0InOutput}) =>
-    $cmdOne(
+    $cmdStream(
         node,
         ctx,
         'diag cmds',
@@ -677,12 +677,12 @@ Future<List<ReqLogEntry?>> diagCmds($core.IpfsNode node, $context.Context ctx,
         (r) => r.list(() => r.p() ? ReqLogEntry.$dec(r) : null));
 
 /// `ipfs diag cmds clear`: Clear inactive requests from the log.
-Future<Object?> diagCmdsClear($core.IpfsNode node, $context.Context ctx,
+Stream<Object?> diagCmdsClear($core.IpfsNode node, $context.Context ctx,
         {bool? verbose,
         bool? offline,
         String? cidBase,
         bool? upgradeCidv0InOutput}) =>
-    $cmdDyn(node, ctx, 'diag cmds clear', [], [], {
+    $cmdDynStream(node, ctx, 'diag cmds clear', [], [], {
       'verbose': verbose,
       'offline': offline,
       'cid-base': cidBase,
@@ -690,13 +690,13 @@ Future<Object?> diagCmdsClear($core.IpfsNode node, $context.Context ctx,
     });
 
 /// `ipfs diag cmds set-time`: Set how long to keep inactive requests in the log.
-Future<Object?> diagCmdsSetTime(
+Stream<Object?> diagCmdsSetTime(
         $core.IpfsNode node, $context.Context ctx, String time,
         {bool? verbose,
         bool? offline,
         String? cidBase,
         bool? upgradeCidv0InOutput}) =>
-    $cmdDyn(node, ctx, 'diag cmds set-time', [
+    $cmdDynStream(node, ctx, 'diag cmds set-time', [
       time
     ], [], {
       'verbose': verbose,
@@ -708,10 +708,10 @@ Future<Object?> diagCmdsSetTime(
 /// `ipfs diag datastore count`: Count entries matching a datastore prefix.
 ///
 /// Experimental in kubo.
-Future<DiagDatastoreCountResult> diagDatastoreCount(
+Stream<DiagDatastoreCountResult> diagDatastoreCount(
         $core.IpfsNode node, $context.Context ctx, String prefix,
         {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
-    $cmdOne(
+    $cmdStream(
         node,
         ctx,
         'diag datastore count',
@@ -727,13 +727,13 @@ Future<DiagDatastoreCountResult> diagDatastoreCount(
 /// `ipfs diag datastore get`: Read a raw key from the datastore.
 ///
 /// Experimental in kubo.
-Future<DiagDatastoreGetResult> diagDatastoreGet(
+Stream<DiagDatastoreGetResult> diagDatastoreGet(
         $core.IpfsNode node, $context.Context ctx, String key,
         {bool? hex,
         bool? offline,
         String? cidBase,
         bool? upgradeCidv0InOutput}) =>
-    $cmdOne(
+    $cmdStream(
         node,
         ctx,
         'diag datastore get',
@@ -750,10 +750,10 @@ Future<DiagDatastoreGetResult> diagDatastoreGet(
 /// `ipfs diag datastore put`: Write a raw key-value pair to the datastore.
 ///
 /// Experimental in kubo.
-Future<Object?> diagDatastorePut(
+Stream<Object?> diagDatastorePut(
         $core.IpfsNode node, $context.Context ctx, String key, String value,
         {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
-    $cmdDyn(node, ctx, 'diag datastore put', [
+    $cmdDynStream(node, ctx, 'diag datastore put', [
       key,
       value
     ], [], {
@@ -763,9 +763,9 @@ Future<Object?> diagDatastorePut(
     });
 
 /// `ipfs diag healthy`: Report whether the daemon is operational.
-Future<Object?> diagHealthy($core.IpfsNode node, $context.Context ctx,
+Stream<Object?> diagHealthy($core.IpfsNode node, $context.Context ctx,
         {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
-    $cmdDyn(node, ctx, 'diag healthy', [], [], {
+    $cmdDynStream(node, ctx, 'diag healthy', [], [], {
       'offline': offline,
       'cid-base': cidBase,
       'upgrade-cidv0-in-output': upgradeCidv0InOutput
@@ -793,16 +793,16 @@ Stream<Uint8List> diagProfile($core.IpfsNode node, $context.Context ctx,
     });
 
 /// `ipfs diag sys`: Print system diagnostic information.
-Future<Object?> diagSys($core.IpfsNode node, $context.Context ctx,
+Stream<Object?> diagSys($core.IpfsNode node, $context.Context ctx,
         {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
-    $cmdDyn(node, ctx, 'diag sys', [], [], {
+    $cmdDynStream(node, ctx, 'diag sys', [], [], {
       'offline': offline,
       'cid-base': cidBase,
       'upgrade-cidv0-in-output': upgradeCidv0InOutput
     });
 
 /// `ipfs files chcid`: Change the CID version or hash function of the root node of a given path.
-Future<Object?> filesChcid(
+Stream<Object?> filesChcid(
         $core.IpfsNode node, $context.Context ctx, String path,
         {int? cidVersion,
         String? hash,
@@ -810,7 +810,7 @@ Future<Object?> filesChcid(
         bool? offline,
         String? cidBase,
         bool? upgradeCidv0InOutput}) =>
-    $cmdDyn(node, ctx, 'files chcid', [
+    $cmdDynStream(node, ctx, 'files chcid', [
       path
     ], [], {
       'cid-version': cidVersion,
@@ -824,13 +824,13 @@ Future<Object?> filesChcid(
 /// `ipfs files chmod`: Change optional POSIX mode permissions
 ///
 /// Experimental in kubo.
-Future<Object?> filesChmod(
+Stream<Object?> filesChmod(
         $core.IpfsNode node, $context.Context ctx, String mode, String path,
         {bool? flush,
         bool? offline,
         String? cidBase,
         bool? upgradeCidv0InOutput}) =>
-    $cmdDyn(node, ctx, 'files chmod', [
+    $cmdDynStream(node, ctx, 'files chmod', [
       mode,
       path
     ], [], {
@@ -843,14 +843,14 @@ Future<Object?> filesChmod(
 /// `ipfs files chroot`: Change the MFS root CID.
 ///
 /// Experimental in kubo.
-Future<MessageOutput> filesChroot(
+Stream<MessageOutput> filesChroot(
         $core.IpfsNode node, $context.Context ctx, String? cid,
         {bool? confirm,
         bool? flush,
         bool? offline,
         String? cidBase,
         bool? upgradeCidv0InOutput}) =>
-    $cmdOne(
+    $cmdStream(
         node,
         ctx,
         'files chroot',
@@ -866,7 +866,7 @@ Future<MessageOutput> filesChroot(
         (r) => MessageOutput.$dec(r));
 
 /// `ipfs files cp`: Add references to IPFS files and directories in MFS (or copy within MFS).
-Future<Object?> filesCp(
+Stream<Object?> filesCp(
         $core.IpfsNode node, $context.Context ctx, String source, String dest,
         {bool? force,
         bool? parents,
@@ -874,7 +874,7 @@ Future<Object?> filesCp(
         bool? offline,
         String? cidBase,
         bool? upgradeCidv0InOutput}) =>
-    $cmdDyn(node, ctx, 'files cp', [
+    $cmdDynStream(node, ctx, 'files cp', [
       source,
       dest
     ], [], {
@@ -887,13 +887,13 @@ Future<Object?> filesCp(
     });
 
 /// `ipfs files flush`: Flush a given path's data to disk.
-Future<FlushRes> filesFlush(
+Stream<FlushRes> filesFlush(
         $core.IpfsNode node, $context.Context ctx, String? path,
         {bool? flush,
         bool? offline,
         String? cidBase,
         bool? upgradeCidv0InOutput}) =>
-    $cmdOne(
+    $cmdStream(
         node,
         ctx,
         'files flush',
@@ -908,7 +908,7 @@ Future<FlushRes> filesFlush(
         (r) => FlushRes.$dec(r));
 
 /// `ipfs files ls`: List directories in the local mutable namespace.
-Future<FilesLsOutput> filesLs(
+Stream<FilesLsOutput> filesLs(
         $core.IpfsNode node, $context.Context ctx, String? path,
         {bool? long,
         bool? u,
@@ -916,7 +916,7 @@ Future<FilesLsOutput> filesLs(
         bool? offline,
         String? cidBase,
         bool? upgradeCidv0InOutput}) =>
-    $cmdOne(
+    $cmdStream(
         node,
         ctx,
         'files ls',
@@ -933,7 +933,7 @@ Future<FilesLsOutput> filesLs(
         (r) => FilesLsOutput.$dec(r));
 
 /// `ipfs files mkdir`: Make directories.
-Future<Object?> filesMkdir(
+Stream<Object?> filesMkdir(
         $core.IpfsNode node, $context.Context ctx, String path,
         {bool? parents,
         int? cidVersion,
@@ -942,7 +942,7 @@ Future<Object?> filesMkdir(
         bool? offline,
         String? cidBase,
         bool? upgradeCidv0InOutput}) =>
-    $cmdDyn(node, ctx, 'files mkdir', [
+    $cmdDynStream(node, ctx, 'files mkdir', [
       path
     ], [], {
       'parents': parents,
@@ -955,13 +955,13 @@ Future<Object?> filesMkdir(
     });
 
 /// `ipfs files mv`: Move files.
-Future<Object?> filesMv(
+Stream<Object?> filesMv(
         $core.IpfsNode node, $context.Context ctx, String source, String dest,
         {bool? flush,
         bool? offline,
         String? cidBase,
         bool? upgradeCidv0InOutput}) =>
-    $cmdDyn(node, ctx, 'files mv', [
+    $cmdDynStream(node, ctx, 'files mv', [
       source,
       dest
     ], [], {
@@ -1012,7 +1012,7 @@ Stream<Object?> filesRm(
     });
 
 /// `ipfs files stat`: Display file status.
-Future<StatOutput> filesStat(
+Stream<StatOutput> filesStat(
         $core.IpfsNode node, $context.Context ctx, String path,
         {String? format,
         bool? hash,
@@ -1022,7 +1022,7 @@ Future<StatOutput> filesStat(
         bool? offline,
         String? cidBase,
         bool? upgradeCidv0InOutput}) =>
-    $cmdOne(
+    $cmdStream(
         node,
         ctx,
         'files stat',
@@ -1043,7 +1043,7 @@ Future<StatOutput> filesStat(
 /// `ipfs files touch`: Set or change optional POSIX modification times.
 ///
 /// Experimental in kubo.
-Future<Object?> filesTouch(
+Stream<Object?> filesTouch(
         $core.IpfsNode node, $context.Context ctx, String path,
         {int? mtime,
         int? mtimeNsecs,
@@ -1051,7 +1051,7 @@ Future<Object?> filesTouch(
         bool? offline,
         String? cidBase,
         bool? upgradeCidv0InOutput}) =>
-    $cmdDyn(node, ctx, 'files touch', [
+    $cmdDynStream(node, ctx, 'files touch', [
       path
     ], [], {
       'mtime': mtime,
@@ -1063,7 +1063,7 @@ Future<Object?> filesTouch(
     });
 
 /// `ipfs files write`: Append to (modify) a file in MFS.
-Future<Object?> filesWrite($core.IpfsNode node, $context.Context ctx,
+Stream<Object?> filesWrite($core.IpfsNode node, $context.Context ctx,
         String path, $files.Node data,
         {int? offset,
         bool? create,
@@ -1077,7 +1077,7 @@ Future<Object?> filesWrite($core.IpfsNode node, $context.Context ctx,
         bool? offline,
         String? cidBase,
         bool? upgradeCidv0InOutput}) =>
-    $cmdDyn(node, ctx, 'files write', [
+    $cmdDynStream(node, ctx, 'files write', [
       path
     ], [
       data
@@ -1181,13 +1181,13 @@ Stream<Uint8List> get(
     });
 
 /// `ipfs id`: Show IPFS node id info.
-Future<IdOutput> id($core.IpfsNode node, $context.Context ctx, String? peerid,
+Stream<IdOutput> id($core.IpfsNode node, $context.Context ctx, String? peerid,
         {String? format,
         String? peeridBase,
         bool? offline,
         String? cidBase,
         bool? upgradeCidv0InOutput}) =>
-    $cmdOne(
+    $cmdStream(
         node,
         ctx,
         'id',
@@ -1221,14 +1221,14 @@ Stream<Uint8List> keyExport(
     });
 
 /// `ipfs key gen`: Create a new keypair
-Future<KeyOutput> keyGen($core.IpfsNode node, $context.Context ctx, String name,
+Stream<KeyOutput> keyGen($core.IpfsNode node, $context.Context ctx, String name,
         {String? type,
         int? size,
         String? ipnsBase,
         bool? offline,
         String? cidBase,
         bool? upgradeCidv0InOutput}) =>
-    $cmdOne(
+    $cmdStream(
         node,
         ctx,
         'key gen',
@@ -1245,7 +1245,7 @@ Future<KeyOutput> keyGen($core.IpfsNode node, $context.Context ctx, String name,
         (r) => KeyOutput.$dec(r));
 
 /// `ipfs key import`: Import a key and prints imported key id
-Future<KeyOutput> keyImport(
+Stream<KeyOutput> keyImport(
         $core.IpfsNode node, $context.Context ctx, String name, $files.Node key,
         {String? ipnsBase,
         String? format,
@@ -1253,7 +1253,7 @@ Future<KeyOutput> keyImport(
         bool? offline,
         String? cidBase,
         bool? upgradeCidv0InOutput}) =>
-    $cmdOne(
+    $cmdStream(
         node,
         ctx,
         'key import',
@@ -1271,13 +1271,13 @@ Future<KeyOutput> keyImport(
 
 /// `ipfs key list`: Deprecated: use 'ipfs key ls' instead.
 @Deprecated('deprecated in kubo')
-Future<KeyOutputList> keyList($core.IpfsNode node, $context.Context ctx,
+Stream<KeyOutputList> keyList($core.IpfsNode node, $context.Context ctx,
         {bool? l,
         String? ipnsBase,
         bool? offline,
         String? cidBase,
         bool? upgradeCidv0InOutput}) =>
-    $cmdOne(
+    $cmdStream(
         node,
         ctx,
         'key list',
@@ -1293,13 +1293,13 @@ Future<KeyOutputList> keyList($core.IpfsNode node, $context.Context ctx,
         (r) => KeyOutputList.$dec(r));
 
 /// `ipfs key ls`: List all local keypairs.
-Future<KeyOutputList> keyLs($core.IpfsNode node, $context.Context ctx,
+Stream<KeyOutputList> keyLs($core.IpfsNode node, $context.Context ctx,
         {bool? l,
         String? ipnsBase,
         bool? offline,
         String? cidBase,
         bool? upgradeCidv0InOutput}) =>
-    $cmdOne(
+    $cmdStream(
         node,
         ctx,
         'key ls',
@@ -1315,14 +1315,14 @@ Future<KeyOutputList> keyLs($core.IpfsNode node, $context.Context ctx,
         (r) => KeyOutputList.$dec(r));
 
 /// `ipfs key rename`: Rename a keypair.
-Future<KeyRenameOutput> keyRename(
+Stream<KeyRenameOutput> keyRename(
         $core.IpfsNode node, $context.Context ctx, String name, String newName,
         {bool? force,
         String? ipnsBase,
         bool? offline,
         String? cidBase,
         bool? upgradeCidv0InOutput}) =>
-    $cmdOne(
+    $cmdStream(
         node,
         ctx,
         'key rename',
@@ -1338,14 +1338,14 @@ Future<KeyRenameOutput> keyRename(
         (r) => KeyRenameOutput.$dec(r));
 
 /// `ipfs key rm`: Remove a keypair.
-Future<KeyOutputList> keyRm(
+Stream<KeyOutputList> keyRm(
         $core.IpfsNode node, $context.Context ctx, List<String> name,
         {bool? l,
         String? ipnsBase,
         bool? offline,
         String? cidBase,
         bool? upgradeCidv0InOutput}) =>
-    $cmdOne(
+    $cmdStream(
         node,
         ctx,
         'key rm',
@@ -1361,14 +1361,14 @@ Future<KeyOutputList> keyRm(
         (r) => KeyOutputList.$dec(r));
 
 /// `ipfs key rotate`: Rotates the IPFS identity.
-Future<Object?> keyRotate($core.IpfsNode node, $context.Context ctx,
+Stream<Object?> keyRotate($core.IpfsNode node, $context.Context ctx,
         {String? oldkey,
         String? type,
         int? size,
         bool? offline,
         String? cidBase,
         bool? upgradeCidv0InOutput}) =>
-    $cmdDyn(node, ctx, 'key rotate', [], [], {
+    $cmdDynStream(node, ctx, 'key rotate', [], [], {
       'oldkey': oldkey,
       'type': type,
       'size': size,
@@ -1430,10 +1430,10 @@ Stream<KeyVerifyOutput> keyVerify(
         (r) => KeyVerifyOutput.$dec(r));
 
 /// `ipfs log level`: Change or get the logging level.
-Future<LogLevelOutput> logLevel($core.IpfsNode node, $context.Context ctx,
+Stream<LogLevelOutput> logLevel($core.IpfsNode node, $context.Context ctx,
         String? subsystem, String? level,
         {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
-    $cmdOne(
+    $cmdStream(
         node,
         ctx,
         'log level',
@@ -1447,9 +1447,9 @@ Future<LogLevelOutput> logLevel($core.IpfsNode node, $context.Context ctx,
         (r) => LogLevelOutput.$dec(r));
 
 /// `ipfs log ls`: List the logging subsystems.
-Future<StringList> logLs($core.IpfsNode node, $context.Context ctx,
+Stream<StringList> logLs($core.IpfsNode node, $context.Context ctx,
         {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
-    $cmdOne(
+    $cmdStream(
         node,
         ctx,
         'log ls',
@@ -1539,14 +1539,14 @@ Stream<Uint8List> multibaseEncode(
     });
 
 /// `ipfs multibase list`: List available multibase encodings.
-Future<List<CodeAndName>> multibaseList(
+Stream<List<CodeAndName>> multibaseList(
         $core.IpfsNode node, $context.Context ctx,
         {bool? prefix,
         bool? numeric,
         bool? offline,
         String? cidBase,
         bool? upgradeCidv0InOutput}) =>
-    $cmdOne(
+    $cmdStream(
         node,
         ctx,
         'multibase list',
@@ -1594,14 +1594,14 @@ Stream<Uint8List> nameGet(
 /// `ipfs name inspect`: Inspects an IPNS Record
 ///
 /// Experimental in kubo.
-Future<IpnsInspectResult> nameInspect(
+Stream<IpnsInspectResult> nameInspect(
         $core.IpfsNode node, $context.Context ctx, $files.Node record,
         {String? verify,
         bool? dump,
         bool? offline,
         String? cidBase,
         bool? upgradeCidv0InOutput}) =>
-    $cmdOne(
+    $cmdStream(
         node,
         ctx,
         'name inspect',
@@ -1617,7 +1617,7 @@ Future<IpnsInspectResult> nameInspect(
         (r) => IpnsInspectResult.$dec(r));
 
 /// `ipfs name publish`: Publish IPNS names.
-Future<IpnsEntry> namePublish(
+Stream<IpnsEntry> namePublish(
         $core.IpfsNode node, $context.Context ctx, String ipfsPath,
         {String? key,
         bool? resolve,
@@ -1632,7 +1632,7 @@ Future<IpnsEntry> namePublish(
         bool? offline,
         String? cidBase,
         bool? upgradeCidv0InOutput}) =>
-    $cmdOne(
+    $cmdStream(
         node,
         ctx,
         'name publish',
@@ -1658,10 +1658,10 @@ Future<IpnsEntry> namePublish(
 /// `ipfs name pubsub cancel`: Cancel a name subscription.
 ///
 /// Experimental in kubo.
-Future<IpnsPubsubCancel> namePubsubCancel(
+Stream<IpnsPubsubCancel> namePubsubCancel(
         $core.IpfsNode node, $context.Context ctx, String name,
         {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
-    $cmdOne(
+    $cmdStream(
         node,
         ctx,
         'name pubsub cancel',
@@ -1677,10 +1677,10 @@ Future<IpnsPubsubCancel> namePubsubCancel(
 /// `ipfs name pubsub state`: Query the state of IPNS pubsub.
 ///
 /// Experimental in kubo.
-Future<IpnsPubsubState> namePubsubState(
+Stream<IpnsPubsubState> namePubsubState(
         $core.IpfsNode node, $context.Context ctx,
         {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
-    $cmdOne(
+    $cmdStream(
         node,
         ctx,
         'name pubsub state',
@@ -1696,12 +1696,12 @@ Future<IpnsPubsubState> namePubsubState(
 /// `ipfs name pubsub subs`: Show current name subscriptions.
 ///
 /// Experimental in kubo.
-Future<NameStringList> namePubsubSubs($core.IpfsNode node, $context.Context ctx,
+Stream<NameStringList> namePubsubSubs($core.IpfsNode node, $context.Context ctx,
         {String? ipnsBase,
         bool? offline,
         String? cidBase,
         bool? upgradeCidv0InOutput}) =>
-    $cmdOne(
+    $cmdStream(
         node,
         ctx,
         'name pubsub subs',
@@ -1718,7 +1718,7 @@ Future<NameStringList> namePubsubSubs($core.IpfsNode node, $context.Context ctx,
 /// `ipfs name put`: Store a pre-signed IPNS record in the routing system.
 ///
 /// Experimental in kubo.
-Future<IpnsEntry> namePut($core.IpfsNode node, $context.Context ctx,
+Stream<IpnsEntry> namePut($core.IpfsNode node, $context.Context ctx,
         String name, $files.Node record,
         {bool? force,
         bool? allowOffline,
@@ -1727,7 +1727,7 @@ Future<IpnsEntry> namePut($core.IpfsNode node, $context.Context ctx,
         bool? offline,
         String? cidBase,
         bool? upgradeCidv0InOutput}) =>
-    $cmdOne(
+    $cmdStream(
         node,
         ctx,
         'name put',
@@ -1775,13 +1775,13 @@ Stream<ResolvedPath> nameResolve(
 
 /// `ipfs object diff`: Display the diff between two IPFS objects.
 @Deprecated('deprecated in kubo')
-Future<Changes> objectDiff(
+Stream<Changes> objectDiff(
         $core.IpfsNode node, $context.Context ctx, String objA, String objB,
         {bool? verbose,
         bool? offline,
         String? cidBase,
         bool? upgradeCidv0InOutput}) =>
-    $cmdOne(
+    $cmdStream(
         node,
         ctx,
         'object diff',
@@ -1797,7 +1797,7 @@ Future<Changes> objectDiff(
 
 /// `ipfs object patch add-link`: Deprecated way to add a link to a given dag-pb.
 @Deprecated('deprecated in kubo')
-Future<Object$> objectPatchAddLink($core.IpfsNode node, $context.Context ctx,
+Stream<Object$> objectPatchAddLink($core.IpfsNode node, $context.Context ctx,
         String root, String name, String ref,
         {bool? create,
         bool? allowNonUnixfs,
@@ -1805,7 +1805,7 @@ Future<Object$> objectPatchAddLink($core.IpfsNode node, $context.Context ctx,
         bool? offline,
         String? cidBase,
         bool? upgradeCidv0InOutput}) =>
-    $cmdOne(
+    $cmdStream(
         node,
         ctx,
         'object patch add-link',
@@ -1823,14 +1823,14 @@ Future<Object$> objectPatchAddLink($core.IpfsNode node, $context.Context ctx,
 
 /// `ipfs object patch rm-link`: Deprecated way to remove a link from dag-pb object.
 @Deprecated('deprecated in kubo')
-Future<Object$> objectPatchRmLink(
+Stream<Object$> objectPatchRmLink(
         $core.IpfsNode node, $context.Context ctx, String root, String name,
         {bool? allowNonUnixfs,
         bool? allowBigBlock,
         bool? offline,
         String? cidBase,
         bool? upgradeCidv0InOutput}) =>
-    $cmdOne(
+    $cmdStream(
         node,
         ctx,
         'object patch rm-link',
@@ -1848,7 +1848,7 @@ Future<Object$> objectPatchRmLink(
 /// `ipfs p2p close`: Stop listening for new connections to forward.
 ///
 /// Experimental in kubo.
-Future<int> p2pClose($core.IpfsNode node, $context.Context ctx,
+Stream<int> p2pClose($core.IpfsNode node, $context.Context ctx,
         {bool? all,
         String? protocol,
         String? listenAddress,
@@ -1856,7 +1856,7 @@ Future<int> p2pClose($core.IpfsNode node, $context.Context ctx,
         bool? offline,
         String? cidBase,
         bool? upgradeCidv0InOutput}) =>
-    $cmdOne(
+    $cmdStream(
         node,
         ctx,
         'p2p close',
@@ -1932,12 +1932,12 @@ Stream<P2pForegroundOutput> p2pListen($core.IpfsNode node, $context.Context ctx,
 /// `ipfs p2p ls`: List active p2p listeners.
 ///
 /// Experimental in kubo.
-Future<P2pLsOutput> p2pLs($core.IpfsNode node, $context.Context ctx,
+Stream<P2pLsOutput> p2pLs($core.IpfsNode node, $context.Context ctx,
         {bool? headers,
         bool? offline,
         String? cidBase,
         bool? upgradeCidv0InOutput}) =>
-    $cmdOne(
+    $cmdStream(
         node,
         ctx,
         'p2p ls',
@@ -1954,13 +1954,13 @@ Future<P2pLsOutput> p2pLs($core.IpfsNode node, $context.Context ctx,
 /// `ipfs p2p stream close`: Close active p2p stream.
 ///
 /// Experimental in kubo.
-Future<Object?> p2pStreamClose(
+Stream<Object?> p2pStreamClose(
         $core.IpfsNode node, $context.Context ctx, String? id,
         {bool? all,
         bool? offline,
         String? cidBase,
         bool? upgradeCidv0InOutput}) =>
-    $cmdDyn(node, ctx, 'p2p stream close', [
+    $cmdDynStream(node, ctx, 'p2p stream close', [
       if (id != null) id
     ], [], {
       'all': all,
@@ -1972,12 +1972,12 @@ Future<Object?> p2pStreamClose(
 /// `ipfs p2p stream ls`: List active p2p streams.
 ///
 /// Experimental in kubo.
-Future<P2pStreamsOutput> p2pStreamLs($core.IpfsNode node, $context.Context ctx,
+Stream<P2pStreamsOutput> p2pStreamLs($core.IpfsNode node, $context.Context ctx,
         {bool? headers,
         bool? offline,
         String? cidBase,
         bool? upgradeCidv0InOutput}) =>
-    $cmdOne(
+    $cmdStream(
         node,
         ctx,
         'p2p stream ls',
@@ -2103,7 +2103,7 @@ Stream<RemotePinOutput> pinRemoteLs($core.IpfsNode node, $context.Context ctx,
         (r) => RemotePinOutput.$dec(r));
 
 /// `ipfs pin remote rm`: Remove pins from remote pinning service.
-Future<Object?> pinRemoteRm($core.IpfsNode node, $context.Context ctx,
+Stream<Object?> pinRemoteRm($core.IpfsNode node, $context.Context ctx,
         {String? service,
         String? name,
         List<String>? cid,
@@ -2112,7 +2112,7 @@ Future<Object?> pinRemoteRm($core.IpfsNode node, $context.Context ctx,
         bool? offline,
         String? cidBase,
         bool? upgradeCidv0InOutput}) =>
-    $cmdDyn(node, ctx, 'pin remote rm', [], [], {
+    $cmdDynStream(node, ctx, 'pin remote rm', [], [], {
       'service': service,
       'name': name,
       'cid': cid,
@@ -2124,10 +2124,10 @@ Future<Object?> pinRemoteRm($core.IpfsNode node, $context.Context ctx,
     });
 
 /// `ipfs pin remote service add`: Add remote pinning service.
-Future<Object?> pinRemoteServiceAdd($core.IpfsNode node, $context.Context ctx,
+Stream<Object?> pinRemoteServiceAdd($core.IpfsNode node, $context.Context ctx,
         String service, String endpoint, String key,
         {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
-    $cmdDyn(node, ctx, 'pin remote service add', [
+    $cmdDynStream(node, ctx, 'pin remote service add', [
       service,
       endpoint,
       key
@@ -2138,13 +2138,13 @@ Future<Object?> pinRemoteServiceAdd($core.IpfsNode node, $context.Context ctx,
     });
 
 /// `ipfs pin remote service ls`: List remote pinning services.
-Future<PinServicesList> pinRemoteServiceLs(
+Stream<PinServicesList> pinRemoteServiceLs(
         $core.IpfsNode node, $context.Context ctx,
         {bool? stat,
         bool? offline,
         String? cidBase,
         bool? upgradeCidv0InOutput}) =>
-    $cmdOne(
+    $cmdStream(
         node,
         ctx,
         'pin remote service ls',
@@ -2159,10 +2159,10 @@ Future<PinServicesList> pinRemoteServiceLs(
         (r) => PinServicesList.$dec(r));
 
 /// `ipfs pin remote service rm`: Remove remote pinning service.
-Future<Object?> pinRemoteServiceRm(
+Stream<Object?> pinRemoteServiceRm(
         $core.IpfsNode node, $context.Context ctx, String service,
         {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
-    $cmdDyn(node, ctx, 'pin remote service rm', [
+    $cmdDynStream(node, ctx, 'pin remote service rm', [
       service
     ], [], {
       'offline': offline,
@@ -2171,13 +2171,13 @@ Future<Object?> pinRemoteServiceRm(
     });
 
 /// `ipfs pin rm`: Remove object from pin-list.
-Future<PinOutput> pinRm(
+Stream<PinOutput> pinRm(
         $core.IpfsNode node, $context.Context ctx, List<String> ipfsPath,
         {bool? recursive,
         bool? offline,
         String? cidBase,
         bool? upgradeCidv0InOutput}) =>
-    $cmdOne(
+    $cmdStream(
         node,
         ctx,
         'pin rm',
@@ -2192,7 +2192,7 @@ Future<PinOutput> pinRm(
         (r) => PinOutput.$dec(r));
 
 /// `ipfs pin update`: Update a recursive pin.
-Future<PinOutput> pinUpdate($core.IpfsNode node, $context.Context ctx,
+Stream<PinOutput> pinUpdate($core.IpfsNode node, $context.Context ctx,
         String fromPath, String toPath,
         {bool? unpin,
         bool? fastProvideRoot,
@@ -2201,7 +2201,7 @@ Future<PinOutput> pinUpdate($core.IpfsNode node, $context.Context ctx,
         bool? offline,
         String? cidBase,
         bool? upgradeCidv0InOutput}) =>
-    $cmdOne(
+    $cmdStream(
         node,
         ctx,
         'pin update',
@@ -2349,9 +2349,9 @@ Stream<ProvideStats> provideStat($core.IpfsNode node, $context.Context ctx,
 /// `ipfs pubsub ls`: List subscribed topics by name.
 ///
 /// Experimental in kubo.
-Future<StringList> pubsubLs($core.IpfsNode node, $context.Context ctx,
+Stream<StringList> pubsubLs($core.IpfsNode node, $context.Context ctx,
         {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
-    $cmdOne(
+    $cmdStream(
         node,
         ctx,
         'pubsub ls',
@@ -2367,10 +2367,10 @@ Future<StringList> pubsubLs($core.IpfsNode node, $context.Context ctx,
 /// `ipfs pubsub peers`: List peers we are currently pubsubbing with.
 ///
 /// Experimental in kubo.
-Future<StringList> pubsubPeers(
+Stream<StringList> pubsubPeers(
         $core.IpfsNode node, $context.Context ctx, String? topic,
         {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
-    $cmdOne(
+    $cmdStream(
         node,
         ctx,
         'pubsub peers',
@@ -2386,10 +2386,10 @@ Future<StringList> pubsubPeers(
 /// `ipfs pubsub pub`: Publish data to a given pubsub topic.
 ///
 /// Experimental in kubo.
-Future<Object?> pubsubPub($core.IpfsNode node, $context.Context ctx,
+Stream<Object?> pubsubPub($core.IpfsNode node, $context.Context ctx,
         String topic, $files.Node data,
         {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
-    $cmdDyn(node, ctx, 'pubsub pub', [
+    $cmdDynStream(node, ctx, 'pubsub pub', [
       topic
     ], [
       data
@@ -2402,12 +2402,12 @@ Future<Object?> pubsubPub($core.IpfsNode node, $context.Context ctx,
 /// `ipfs pubsub reset`: Reset pubsub validator state.
 ///
 /// Experimental in kubo.
-Future<PubsubResetResult> pubsubReset($core.IpfsNode node, $context.Context ctx,
+Stream<PubsubResetResult> pubsubReset($core.IpfsNode node, $context.Context ctx,
         {String? peer,
         bool? offline,
         String? cidBase,
         bool? upgradeCidv0InOutput}) =>
-    $cmdOne(
+    $cmdStream(
         node,
         ctx,
         'pubsub reset',
@@ -2538,13 +2538,13 @@ Stream<RefWrapper> repoLs($core.IpfsNode node, $context.Context ctx,
         (r) => RefWrapper.$dec(r));
 
 /// `ipfs repo migrate`: Apply repository migrations to a specific version.
-Future<Object?> repoMigrate($core.IpfsNode node, $context.Context ctx,
+Stream<Object?> repoMigrate($core.IpfsNode node, $context.Context ctx,
         {int? to,
         bool? allowDowngrade,
         bool? offline,
         String? cidBase,
         bool? upgradeCidv0InOutput}) =>
-    $cmdDyn(node, ctx, 'repo migrate', [], [], {
+    $cmdDynStream(node, ctx, 'repo migrate', [], [], {
       'to': to,
       'allow-downgrade': allowDowngrade,
       'offline': offline,
@@ -2553,13 +2553,13 @@ Future<Object?> repoMigrate($core.IpfsNode node, $context.Context ctx,
     });
 
 /// `ipfs repo stat`: Get stats for the currently used repo.
-Future<CorerepoStat> repoStat($core.IpfsNode node, $context.Context ctx,
+Stream<CorerepoStat> repoStat($core.IpfsNode node, $context.Context ctx,
         {bool? sizeOnly,
         bool? human,
         bool? offline,
         String? cidBase,
         bool? upgradeCidv0InOutput}) =>
-    $cmdOne(
+    $cmdStream(
         node,
         ctx,
         'repo stat',
@@ -2599,12 +2599,12 @@ Stream<VerifyProgress> repoVerify($core.IpfsNode node, $context.Context ctx,
         (r) => VerifyProgress.$dec(r));
 
 /// `ipfs repo version`: Show the repo version.
-Future<RepoVersion> repoVersion($core.IpfsNode node, $context.Context ctx,
+Stream<RepoVersion> repoVersion($core.IpfsNode node, $context.Context ctx,
         {bool? quiet,
         bool? offline,
         String? cidBase,
         bool? upgradeCidv0InOutput}) =>
-    $cmdOne(
+    $cmdStream(
         node,
         ctx,
         'repo version',
@@ -2619,7 +2619,7 @@ Future<RepoVersion> repoVersion($core.IpfsNode node, $context.Context ctx,
         (r) => RepoVersion.$dec(r));
 
 /// `ipfs resolve`: Resolve the value of names to IPFS.
-Future<ResolvedPath> resolve(
+Stream<ResolvedPath> resolve(
         $core.IpfsNode node, $context.Context ctx, String name,
         {bool? recursive,
         int? dhtRecordCount,
@@ -2627,7 +2627,7 @@ Future<ResolvedPath> resolve(
         bool? offline,
         String? cidBase,
         bool? upgradeCidv0InOutput}) =>
-    $cmdOne(
+    $cmdStream(
         node,
         ctx,
         'resolve',
@@ -2755,22 +2755,22 @@ Stream<QueryEvent> routingPut($core.IpfsNode node, $context.Context ctx,
 
 /// `ipfs routing reprovide`: Trigger a reprovide cycle (legacy provider only).
 @Deprecated('deprecated in kubo')
-Future<Object?> routingReprovide($core.IpfsNode node, $context.Context ctx,
+Stream<Object?> routingReprovide($core.IpfsNode node, $context.Context ctx,
         {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
-    $cmdDyn(node, ctx, 'routing reprovide', [], [], {
+    $cmdDynStream(node, ctx, 'routing reprovide', [], [], {
       'offline': offline,
       'cid-base': cidBase,
       'upgrade-cidv0-in-output': upgradeCidv0InOutput
     });
 
 /// `ipfs stats bitswap`: Show some diagnostic information on the bitswap agent.
-Future<Stat> statsBitswap($core.IpfsNode node, $context.Context ctx,
+Stream<Stat> statsBitswap($core.IpfsNode node, $context.Context ctx,
         {bool? verbose,
         bool? human,
         bool? offline,
         String? cidBase,
         bool? upgradeCidv0InOutput}) =>
-    $cmdOne(
+    $cmdStream(
         node,
         ctx,
         'stats bitswap',
@@ -2868,13 +2868,13 @@ Stream<ProvideStats> statsProvide($core.IpfsNode node, $context.Context ctx,
         (r) => ProvideStats.$dec(r));
 
 /// `ipfs stats repo`: Get stats for the currently used repo.
-Future<CorerepoStat> statsRepo($core.IpfsNode node, $context.Context ctx,
+Stream<CorerepoStat> statsRepo($core.IpfsNode node, $context.Context ctx,
         {bool? sizeOnly,
         bool? human,
         bool? offline,
         String? cidBase,
         bool? upgradeCidv0InOutput}) =>
-    $cmdOne(
+    $cmdStream(
         node,
         ctx,
         'stats repo',
@@ -2929,9 +2929,9 @@ Stream<ProvideStats> statsReprovide($core.IpfsNode node, $context.Context ctx,
         (r) => ProvideStats.$dec(r));
 
 /// `ipfs swarm addrs`: List known addresses. Useful for debugging.
-Future<AddrMap> swarmAddrs($core.IpfsNode node, $context.Context ctx,
+Stream<AddrMap> swarmAddrs($core.IpfsNode node, $context.Context ctx,
         {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
-    $cmdOne(
+    $cmdStream(
         node,
         ctx,
         'swarm addrs',
@@ -2945,10 +2945,10 @@ Future<AddrMap> swarmAddrs($core.IpfsNode node, $context.Context ctx,
         (r) => AddrMap.$dec(r));
 
 /// `ipfs swarm addrs autonat`: Show address reachability as determined by AutoNAT V2.
-Future<AutoNatResult> swarmAddrsAutonat(
+Stream<AutoNatResult> swarmAddrsAutonat(
         $core.IpfsNode node, $context.Context ctx,
         {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
-    $cmdOne(
+    $cmdStream(
         node,
         ctx,
         'swarm addrs autonat',
@@ -2962,9 +2962,9 @@ Future<AutoNatResult> swarmAddrsAutonat(
         (r) => AutoNatResult.$dec(r));
 
 /// `ipfs swarm addrs listen`: List interface listening addresses.
-Future<StringList> swarmAddrsListen($core.IpfsNode node, $context.Context ctx,
+Stream<StringList> swarmAddrsListen($core.IpfsNode node, $context.Context ctx,
         {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
-    $cmdOne(
+    $cmdStream(
         node,
         ctx,
         'swarm addrs listen',
@@ -2978,12 +2978,12 @@ Future<StringList> swarmAddrsListen($core.IpfsNode node, $context.Context ctx,
         (r) => StringList.$dec(r));
 
 /// `ipfs swarm addrs local`: List local addresses.
-Future<StringList> swarmAddrsLocal($core.IpfsNode node, $context.Context ctx,
+Stream<StringList> swarmAddrsLocal($core.IpfsNode node, $context.Context ctx,
         {bool? id,
         bool? offline,
         String? cidBase,
         bool? upgradeCidv0InOutput}) =>
-    $cmdOne(
+    $cmdStream(
         node,
         ctx,
         'swarm addrs local',
@@ -2998,10 +2998,10 @@ Future<StringList> swarmAddrsLocal($core.IpfsNode node, $context.Context ctx,
         (r) => StringList.$dec(r));
 
 /// `ipfs swarm connect`: Open connection to a given peer.
-Future<StringList> swarmConnect(
+Stream<StringList> swarmConnect(
         $core.IpfsNode node, $context.Context ctx, List<String> address,
         {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
-    $cmdOne(
+    $cmdStream(
         node,
         ctx,
         'swarm connect',
@@ -3015,10 +3015,10 @@ Future<StringList> swarmConnect(
         (r) => StringList.$dec(r));
 
 /// `ipfs swarm disconnect`: Close connection to a given address.
-Future<StringList> swarmDisconnect(
+Stream<StringList> swarmDisconnect(
         $core.IpfsNode node, $context.Context ctx, List<String> address,
         {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
-    $cmdOne(
+    $cmdStream(
         node,
         ctx,
         'swarm disconnect',
@@ -3032,9 +3032,9 @@ Future<StringList> swarmDisconnect(
         (r) => StringList.$dec(r));
 
 /// `ipfs swarm filters`: Manipulate address filters.
-Future<StringList> swarmFilters($core.IpfsNode node, $context.Context ctx,
+Stream<StringList> swarmFilters($core.IpfsNode node, $context.Context ctx,
         {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
-    $cmdOne(
+    $cmdStream(
         node,
         ctx,
         'swarm filters',
@@ -3048,10 +3048,10 @@ Future<StringList> swarmFilters($core.IpfsNode node, $context.Context ctx,
         (r) => StringList.$dec(r));
 
 /// `ipfs swarm filters add`: Add an address filter.
-Future<StringList> swarmFiltersAdd(
+Stream<StringList> swarmFiltersAdd(
         $core.IpfsNode node, $context.Context ctx, List<String> address,
         {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
-    $cmdOne(
+    $cmdStream(
         node,
         ctx,
         'swarm filters add',
@@ -3065,10 +3065,10 @@ Future<StringList> swarmFiltersAdd(
         (r) => StringList.$dec(r));
 
 /// `ipfs swarm filters rm`: Remove an address filter.
-Future<StringList> swarmFiltersRm(
+Stream<StringList> swarmFiltersRm(
         $core.IpfsNode node, $context.Context ctx, List<String> address,
         {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
-    $cmdOne(
+    $cmdStream(
         node,
         ctx,
         'swarm filters rm',
@@ -3099,9 +3099,9 @@ Stream<PeeringResult> swarmPeeringAdd(
         (r) => PeeringResult.$dec(r));
 
 /// `ipfs swarm peering ls`: List peers registered in the peering subsystem.
-Future<AddrInfos> swarmPeeringLs($core.IpfsNode node, $context.Context ctx,
+Stream<AddrInfos> swarmPeeringLs($core.IpfsNode node, $context.Context ctx,
         {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
-    $cmdOne(
+    $cmdStream(
         node,
         ctx,
         'swarm peering ls',
@@ -3132,7 +3132,7 @@ Stream<PeeringResult> swarmPeeringRm(
         (r) => PeeringResult.$dec(r));
 
 /// `ipfs swarm peers`: List peers with open connections.
-Future<ConnInfos> swarmPeers($core.IpfsNode node, $context.Context ctx,
+Stream<ConnInfos> swarmPeers($core.IpfsNode node, $context.Context ctx,
         {bool? verbose,
         bool? streams,
         bool? latency,
@@ -3141,7 +3141,7 @@ Future<ConnInfos> swarmPeers($core.IpfsNode node, $context.Context ctx,
         bool? offline,
         String? cidBase,
         bool? upgradeCidv0InOutput}) =>
-    $cmdOne(
+    $cmdStream(
         node,
         ctx,
         'swarm peers',
@@ -3162,10 +3162,10 @@ Future<ConnInfos> swarmPeers($core.IpfsNode node, $context.Context ctx,
 /// `ipfs swarm resources`: Get a summary of all resources accounted for by the libp2p Resource Manager.
 ///
 /// Experimental in kubo.
-Future<LimitsConfigAndUsage> swarmResources(
+Stream<LimitsConfigAndUsage> swarmResources(
         $core.IpfsNode node, $context.Context ctx,
         {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
-    $cmdOne(
+    $cmdStream(
         node,
         ctx,
         'swarm resources',
@@ -3179,7 +3179,7 @@ Future<LimitsConfigAndUsage> swarmResources(
         (r) => LimitsConfigAndUsage.$dec(r));
 
 /// `ipfs version`: Show IPFS version information.
-Future<VersionInfo> version($core.IpfsNode node, $context.Context ctx,
+Stream<VersionInfo> version($core.IpfsNode node, $context.Context ctx,
         {bool? number,
         bool? commit,
         bool? repo,
@@ -3187,7 +3187,7 @@ Future<VersionInfo> version($core.IpfsNode node, $context.Context ctx,
         bool? offline,
         String? cidBase,
         bool? upgradeCidv0InOutput}) =>
-    $cmdOne(
+    $cmdStream(
         node,
         ctx,
         'version',
@@ -3205,7 +3205,7 @@ Future<VersionInfo> version($core.IpfsNode node, $context.Context ctx,
         (r) => VersionInfo.$dec(r));
 
 /// `ipfs version check`: Checks Kubo version against connected peers.
-Future<VersionCheckOutput> versionCheck(
+Stream<VersionCheckOutput> versionCheck(
         $core.IpfsNode node, $context.Context ctx,
         {int? minPercent,
         bool? all,
@@ -3215,7 +3215,7 @@ Future<VersionCheckOutput> versionCheck(
         bool? offline,
         String? cidBase,
         bool? upgradeCidv0InOutput}) =>
-    $cmdOne(
+    $cmdStream(
         node,
         ctx,
         'version check',
@@ -3308,12 +3308,21 @@ final class Receipt {
   final double value$;
 
   /// Go: `Sent`.
+  ///
+  /// Go `uint64`: values from 2^63 up arrive negative (same 64 bits);
+  /// `BigInt.from(v).toUnsigned(64)` reads them unsigned.
   final int sent;
 
   /// Go: `Recv`.
+  ///
+  /// Go `uint64`: values from 2^63 up arrive negative (same 64 bits);
+  /// `BigInt.from(v).toUnsigned(64)` reads them unsigned.
   final int recv;
 
   /// Go: `Exchanged`.
+  ///
+  /// Go `uint64`: values from 2^63 up arrive negative (same 64 bits);
+  /// `BigInt.from(v).toUnsigned(64)` reads them unsigned.
   final int exchanged;
 }
 
@@ -3337,24 +3346,45 @@ final class Stat {
   final List<String> peers;
 
   /// Go: `BlocksReceived`.
+  ///
+  /// Go `uint64`: values from 2^63 up arrive negative (same 64 bits);
+  /// `BigInt.from(v).toUnsigned(64)` reads them unsigned.
   final int blocksReceived;
 
   /// Go: `DataReceived`.
+  ///
+  /// Go `uint64`: values from 2^63 up arrive negative (same 64 bits);
+  /// `BigInt.from(v).toUnsigned(64)` reads them unsigned.
   final int dataReceived;
 
   /// Go: `DupBlksReceived`.
+  ///
+  /// Go `uint64`: values from 2^63 up arrive negative (same 64 bits);
+  /// `BigInt.from(v).toUnsigned(64)` reads them unsigned.
   final int dupBlksReceived;
 
   /// Go: `DupDataReceived`.
+  ///
+  /// Go `uint64`: values from 2^63 up arrive negative (same 64 bits);
+  /// `BigInt.from(v).toUnsigned(64)` reads them unsigned.
   final int dupDataReceived;
 
   /// Go: `MessagesReceived`.
+  ///
+  /// Go `uint64`: values from 2^63 up arrive negative (same 64 bits);
+  /// `BigInt.from(v).toUnsigned(64)` reads them unsigned.
   final int messagesReceived;
 
   /// Go: `BlocksSent`.
+  ///
+  /// Go `uint64`: values from 2^63 up arrive negative (same 64 bits);
+  /// `BigInt.from(v).toUnsigned(64)` reads them unsigned.
   final int blocksSent;
 
   /// Go: `DataSent`.
+  ///
+  /// Go `uint64`: values from 2^63 up arrive negative (same 64 bits);
+  /// `BigInt.from(v).toUnsigned(64)` reads them unsigned.
   final int dataSent;
 }
 
@@ -3487,6 +3517,9 @@ final class CidInspectCodec {
         name = r.str();
 
   /// Go: `Code`.
+  ///
+  /// Go `uint64`: values from 2^63 up arrive negative (same 64 bits);
+  /// `BigInt.from(v).toUnsigned(64)` reads them unsigned.
   final int code;
 
   /// Go: `Name`.
@@ -3502,6 +3535,9 @@ final class CidInspectHash {
         digest = r.str();
 
   /// Go: `Code`.
+  ///
+  /// Go `uint64`: values from 2^63 up arrive negative (same 64 bits);
+  /// `BigInt.from(v).toUnsigned(64)` reads them unsigned.
   final int code;
 
   /// Go: `Name`.
@@ -3566,9 +3602,15 @@ final class DagStatSummary {
   final int uniqueBlocks;
 
   /// Go: `TotalSize`.
+  ///
+  /// Go `uint64`: values from 2^63 up arrive negative (same 64 bits);
+  /// `BigInt.from(v).toUnsigned(64)` reads them unsigned.
   final int totalSize;
 
   /// Go: `SharedSize`.
+  ///
+  /// Go `uint64`: values from 2^63 up arrive negative (same 64 bits);
+  /// `BigInt.from(v).toUnsigned(64)` reads them unsigned.
   final int sharedSize;
 
   /// Go: `Ratio`.
@@ -3589,6 +3631,9 @@ final class DagStat {
   final String cid;
 
   /// Go: `Size`.
+  ///
+  /// Go `uint64`: values from 2^63 up arrive negative (same 64 bits);
+  /// `BigInt.from(v).toUnsigned(64)` reads them unsigned.
   final int size;
 
   /// Go: `NumBlocks`.
@@ -3756,9 +3801,15 @@ final class StatOutput {
   final String hash;
 
   /// Go: `Size`.
+  ///
+  /// Go `uint64`: values from 2^63 up arrive negative (same 64 bits);
+  /// `BigInt.from(v).toUnsigned(64)` reads them unsigned.
   final int size;
 
   /// Go: `CumulativeSize`.
+  ///
+  /// Go `uint64`: values from 2^63 up arrive negative (same 64 bits);
+  /// `BigInt.from(v).toUnsigned(64)` reads them unsigned.
   final int cumulativeSize;
 
   /// Go: `Blocks`.
@@ -3774,6 +3825,9 @@ final class StatOutput {
   final bool local;
 
   /// Go: `SizeLocal`.
+  ///
+  /// Go `uint64`: values from 2^63 up arrive negative (same 64 bits);
+  /// `BigInt.from(v).toUnsigned(64)` reads them unsigned.
   final int sizeLocal;
 
   /// Go: `Mode`.
@@ -3822,9 +3876,15 @@ final class ListRes {
   final String filePath;
 
   /// Go: `Offset`.
+  ///
+  /// Go `uint64`: values from 2^63 up arrive negative (same 64 bits);
+  /// `BigInt.from(v).toUnsigned(64)` reads them unsigned.
   final int offset;
 
   /// Go: `Size`.
+  ///
+  /// Go `uint64`: values from 2^63 up arrive negative (same 64 bits);
+  /// `BigInt.from(v).toUnsigned(64)` reads them unsigned.
   final int size;
 }
 
@@ -3981,6 +4041,9 @@ final class LsLink {
   final String hash;
 
   /// Go: `Size`.
+  ///
+  /// Go `uint64`: values from 2^63 up arrive negative (same 64 bits);
+  /// `BigInt.from(v).toUnsigned(64)` reads them unsigned.
   final int size;
 
   /// Go: `Type`.
@@ -4164,6 +4227,9 @@ final class Link {
   final String hash;
 
   /// Go: `Size`.
+  ///
+  /// Go `uint64`: values from 2^63 up arrive negative (same 64 bits);
+  /// `BigInt.from(v).toUnsigned(64)` reads them unsigned.
   final int size;
 }
 
@@ -4254,6 +4320,9 @@ final class AddPinOutput {
   final int progress;
 
   /// Go: `Bytes`.
+  ///
+  /// Go `uint64`: values from 2^63 up arrive negative (same 64 bits);
+  /// `BigInt.from(v).toUnsigned(64)` reads them unsigned.
   final int bytes;
 }
 
@@ -4721,9 +4790,15 @@ final class ReproviderStats {
         lastRun = r.p() ? r.time() : null;
 
   /// Go: `TotalReprovides`.
+  ///
+  /// Go `uint64`: values from 2^63 up arrive negative (same 64 bits);
+  /// `BigInt.from(v).toUnsigned(64)` reads them unsigned.
   final int totalReprovides;
 
   /// Go: `LastReprovideBatchSize`.
+  ///
+  /// Go `uint64`: values from 2^63 up arrive negative (same 64 bits);
+  /// `BigInt.from(v).toUnsigned(64)` reads them unsigned.
   final int lastReprovideBatchSize;
 
   /// Go: `ReprovideInterval`.
@@ -4791,12 +4866,21 @@ final class CorerepoStat {
         version = r.str();
 
   /// Go: `RepoSize`.
+  ///
+  /// Go `uint64`: values from 2^63 up arrive negative (same 64 bits);
+  /// `BigInt.from(v).toUnsigned(64)` reads them unsigned.
   final int repoSize;
 
   /// Go: `StorageMax`.
+  ///
+  /// Go `uint64`: values from 2^63 up arrive negative (same 64 bits);
+  /// `BigInt.from(v).toUnsigned(64)` reads them unsigned.
   final int storageMax;
 
   /// Go: `NumObjects`.
+  ///
+  /// Go `uint64`: values from 2^63 up arrive negative (same 64 bits);
+  /// `BigInt.from(v).toUnsigned(64)` reads them unsigned.
   final int numObjects;
 
   /// Go: `RepoPath`.

@@ -13,6 +13,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:ipfs_ffi_flutter/ipfs_ffi_flutter.dart';
 import 'package:ipfs_ffi/go/context.dart' as gocontext;
 import 'package:ipfs_ffi/ipfs_ffi.dart'
     show IpfsBackground, IpfsService, IpfsStop, IpfsStopHandler, IpfsStopReason;
@@ -127,6 +128,10 @@ void main() {
   if (backgroundMode == 'foregroundService') {
     IpfsService.background = IpfsBackground.foregroundService;
   }
+  // a notificação do serviço em primeiro plano é do app; o texto muda com o
+  // número de peers (_start)
+  IpfsFfiFlutter.notification = const IpfsNotification(
+      title: 'ipfs_ffi', text: 'subindo o nó...', channelName: 'Nó IPFS');
   runZonedGuarded(() {
     WidgetsFlutterBinding.ensureInitialized();
     FlutterError.onError =
@@ -190,6 +195,12 @@ class _NodePageState extends State<NodePage> {
       log('app: ${Platform.operatingSystemVersion}; Dart ${Platform.version}');
       log('cpus: ${Platform.numberOfProcessors}; bateria: ${battery()}');
       log('segundo plano: ${IpfsService.background.name}');
+      if (IpfsService.background == IpfsBackground.foregroundService) {
+        // a notificação do serviço em primeiro plano só aparece com a
+        // permissão (Android 13+); sem ela o serviço roda, sem a notificação
+        final ok = await IpfsFfiFlutter.requestNotificationPermission();
+        log('permissão de notificação: $ok');
+      }
       final crash = await prepare(repoPath, _crashLog, onStop: _onStop);
       if (crash != null) {
         log('O IPFS_HOST ANTERIOR CAIU (relatório do Go):\n$crash');
@@ -251,6 +262,10 @@ class _NodePageState extends State<NodePage> {
     log('nó online em ${sw.elapsedMilliseconds} ms (subida $_cycles): $_peerId');
     _tick = Timer.periodic(const Duration(seconds: 3), (_) async {
       final peers = await api.swarm().peers(ctx);
+      if (peers.length != _peers) {
+        await IpfsFfiFlutter.updateNotification(IpfsFfiFlutter.notification
+            .copyWith(text: 'online: ${peers.length} peers'));
+      }
       _set(() => _peers = peers.length);
     });
     _set(() => _status = 'online');

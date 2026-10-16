@@ -39,22 +39,24 @@ void main() {
 
   test('id e version (Future com DTO)', () async {
     final self = (await api.key().self(ctx())).id!;
-    final id = await kubo.id(n, ctx(), null);
+    final id = await kubo.id(n, ctx(), null).single;
     expect(id.id, self.value);
     expect(id.agentVersion, startsWith('kubo/'));
-    final v = await kubo.version(n, ctx());
+    final v = await kubo.version(n, ctx()).single;
     expect(v.version, startsWith('0.43.'));
   });
 
   test('files: mkdir, write, stat, ls, read e rm', () async {
-    await kubo.filesMkdir(n, ctx(), '/c/d', parents: true);
-    await kubo.filesWrite(
-        n, ctx(), '/c/d/a.txt', files.newBytesFile(utf8.encode('olá files')),
-        create: true);
-    final st = await kubo.filesStat(n, ctx(), '/c/d/a.txt');
+    await kubo.filesMkdir(n, ctx(), '/c/d', parents: true).drain<void>();
+    await kubo
+        .filesWrite(n, ctx(), '/c/d/a.txt',
+            files.newBytesFile(utf8.encode('olá files')),
+            create: true)
+        .drain<void>();
+    final st = await kubo.filesStat(n, ctx(), '/c/d/a.txt').single;
     expect(st.type, 'file');
     expect(st.size, utf8.encode('olá files').length);
-    final ls = await kubo.filesLs(n, ctx(), '/c/d', long: true);
+    final ls = await kubo.filesLs(n, ctx(), '/c/d', long: true).single;
     expect([for (final e in ls.entries) e.name], ['a.txt']);
     final read = await kubo.filesRead(n, ctx(), '/c/d/a.txt').toList();
     expect(utf8.decode([for (final b in read) ...b]), 'olá files');
@@ -62,37 +64,38 @@ void main() {
         await kubo.filesRead(n, ctx(), '/c/d/a.txt', offset: 5).toList();
     expect(utf8.decode([for (final b in part) ...b]), 'files');
     await kubo.filesRm(n, ctx(), ['/c/d/a.txt']).toList();
-    await expectLater(
-        kubo.filesStat(n, ctx(), '/c/d/a.txt'), throwsA(isA<IpfsException>()));
+    await expectLater(kubo.filesStat(n, ctx(), '/c/d/a.txt').single,
+        throwsA(isA<IpfsException>()));
   });
 
   test('config: valor de uma chave e show (dinâmico)', () async {
-    final f = await kubo.config(n, ctx(), 'Datastore.StorageMax', null);
+    final f = await kubo.config(n, ctx(), 'Datastore.StorageMax', null).single;
     expect(f.key, 'Datastore.StorageMax');
     expect(f.value$, isA<String>());
-    final show = await kubo.configShow(n, ctx());
+    final show = await kubo.configShow(n, ctx()).single;
     expect(show['Identity'], isA<Map<String, Object?>>());
   });
 
   test('bootstrap: add, list e rm', () async {
     final self = (await api.key().self(ctx())).id!;
     final addr = '/ip4/127.0.0.1/tcp/4001/p2p/${self.value}';
-    final added = await kubo.bootstrapAdd(n, ctx(), [addr]);
+    final added = await kubo.bootstrapAdd(n, ctx(), [addr]).single;
     expect(added.peers, [addr]);
-    expect((await kubo.bootstrapList(n, ctx())).peers, contains(addr));
-    await kubo.bootstrapRm(n, ctx(), [addr]);
-    expect((await kubo.bootstrapList(n, ctx())).peers, isNot(contains(addr)));
+    expect((await kubo.bootstrapList(n, ctx()).single).peers, contains(addr));
+    await kubo.bootstrapRm(n, ctx(), [addr]).drain<void>();
+    expect((await kubo.bootstrapList(n, ctx()).single).peers,
+        isNot(contains(addr)));
   });
 
   test('swarm peering ls: offline, o erro do kubo', () async {
     await expectLater(
-        kubo.swarmPeeringLs(n, ctx()),
+        kubo.swarmPeeringLs(n, ctx()).single,
         throwsA(isA<IpfsException>()
             .having((e) => '$e', 'msg', contains('online mode'))));
   });
 
   test('key list, pin ls e refs local (Stream)', () async {
-    final keys = await kubo.keyList(n, ctx());
+    final keys = await kubo.keyList(n, ctx()).single;
     expect([for (final k in keys.keys) k.name], contains('self'));
     final p = await api.unixfs().add(ctx(),
         files.newBytesFile(utf8.encode('pinado')), [kubo.unixfs.pin(true, '')]);
@@ -114,15 +117,15 @@ void main() {
     final f =
         await kubo.cidFormat(n, ctx(), [cid], v: '1', b: 'base32').toList();
     expect(f.single.formatted, startsWith('b'));
-    final st = await kubo.repoStat(n, ctx());
+    final st = await kubo.repoStat(n, ctx()).single;
     expect(st.numObjects, greaterThan(0));
     final out = await kubo.cat(n, ctx(), [p.value]).toList();
     expect(utf8.decode([for (final b in out) ...b]), 'olá cat');
   });
 
   test('erro do comando vira IpfsException', () async {
-    await expectLater(
-        kubo.filesStat(n, ctx(), '/nao/existe'), throwsA(isA<IpfsException>()));
+    await expectLater(kubo.filesStat(n, ctx(), '/nao/existe').single,
+        throwsA(isA<IpfsException>()));
     await expectLater(kubo.cat(n, ctx(), ['/ipfs/nao-e-cid']).toList(),
         throwsA(isA<IpfsException>()));
   });

@@ -33,32 +33,8 @@ Never _unexpected(String path, int tag, $R r) => throw IpfsException(
     'ipfs $path emitted ${tag == _cmdBytes ? 'bytes' : '${r.any()}'}, '
     'not its declared type');
 
-/// A command that emits one value of its declared type.
-Future<T> $cmdOne<T>(
-    GoHandle node,
-    GoHandle ctx,
-    String path,
-    List<String> args,
-    List<GoHandle> files,
-    Map<String, Object?> opts,
-    T Function($R r) dec) async {
-  late T out;
-  var got = false;
-  await for (final r in _command(node, ctx, path, args, files, opts)) {
-    final tag = r.u8();
-    if (tag != _cmdTyped) _unexpected(path, tag, r);
-    if (got) {
-      throw IpfsException('ipfs $path emitted more than one value '
-          '(ipfs_ffi: it belongs in a Stream, see go/gen/commands.go)');
-    }
-    out = dec(r);
-    got = true;
-  }
-  if (!got) throw IpfsException('ipfs $path emitted no value');
-  return out;
-}
-
-/// A command that emits a sequence of values of its declared type.
+/// A command that emits values of its declared type (every command is a
+/// Stream: callers pick `.single`, `.first` or `toList()`).
 Stream<T> $cmdStream<T>(
         GoHandle node,
         GoHandle ctx,
@@ -82,15 +58,7 @@ Stream<Uint8List> $cmdBytes(GoHandle node, GoHandle ctx, String path,
       return r.bytes() ?? Uint8List(0);
     });
 
-/// A command without a declared type: null if it emits nothing, the value
-/// (Object?, or bytes) if it emits one, the list if it emits several.
-Future<Object?> $cmdDyn(GoHandle node, GoHandle ctx, String path,
-    List<String> args, List<GoHandle> files, Map<String, Object?> opts) async {
-  final out = await $cmdDynStream(node, ctx, path, args, files, opts).toList();
-  return switch (out) { [] => null, [final v] => v, _ => out };
-}
-
-/// A command without a declared type that emits a sequence.
+/// A command without a declared type: each value as Object? (or bytes).
 Stream<Object?> $cmdDynStream(GoHandle node, GoHandle ctx, String path,
         List<String> args, List<GoHandle> files, Map<String, Object?> opts) =>
     _command(node, ctx, path, args, files, opts).map((r) => switch (r.u8()) {

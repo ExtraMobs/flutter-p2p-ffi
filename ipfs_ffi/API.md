@@ -294,6 +294,8 @@ Cada linha é um símbolo Go exposto e onde ele está no Dart.
 - Variádicos viram `List` opcional; opções funcionais espelham as variáveis do pacote (`options.unixfs.pin(true, '')`).
 - `NewX` síncrono que devolve `X` do mesmo pacote vira `factory X(...)`.
 - `io.Writer` em parâmetro não aparece no Dart: o Go usa `io.Discard`.
+- `fsrepo.Open`: o host limpa o caminho (`repoPath`, a forma que o `Repo.Path()` devolve) antes de abrir, para os comandos de config, que reabrem o repo pelo `Path()`, reaproveitarem o repo aberto (o `fsrepo` guarda o aberto pela string crua).
+- Inteiros `uint64` vão com os mesmos 64 bits num `int` do Dart (como o `Uint64List`): de 2^63 para cima saem negativos; `BigInt.from(v).toUnsigned(64)` os lê sem sinal (a doc de cada campo avisa).
 - `io.Reader` em parâmetro aceita `Uint8List` ou um handle de leitor (ex. o `files.File` devolvido pelo kubo).
 - Tipos-valor (CID, path, peer ID, multiaddr) guardam a string; a validação acontece no Go, quando atravessam.
 - `config.Config` guarda o JSON do kubo (o mesmo do arquivo `config` do repo) em `json`.
@@ -308,152 +310,152 @@ Gerados da árvore de comandos do kubo (`core/commands.Root`); o host os chama c
 | Comando | Dart | Retorno |
 |---|---|---|
 | `ipfs add` | `add` | `Stream<CommandsAddEvent>` |
-| `ipfs bitswap ledger` | `bitswapLedger` | `Future<Receipt>` |
-| `ipfs bitswap reprovide` | `bitswapReprovide` | `Future<Object?>` |
-| `ipfs bitswap stat` | `bitswapStat` | `Future<Stat>` |
-| `ipfs bitswap wantlist` | `bitswapWantlist` | `Future<KeyList>` |
+| `ipfs bitswap ledger` | `bitswapLedger` | `Stream<Receipt>` |
+| `ipfs bitswap reprovide` | `bitswapReprovide` | `Stream<Object?>` |
+| `ipfs bitswap stat` | `bitswapStat` | `Stream<Stat>` |
+| `ipfs bitswap wantlist` | `bitswapWantlist` | `Stream<KeyList>` |
 | `ipfs block get` | `blockGet` | `Stream<Uint8List>` |
 | `ipfs block put` | `blockPut` | `Stream<CommandsBlockStat>` |
 | `ipfs block rm` | `blockRm` | `Stream<RemovedBlock>` |
-| `ipfs block stat` | `blockStat` | `Future<CommandsBlockStat>` |
-| `ipfs bootstrap` | `bootstrap` | `Future<BootstrapOutput>` |
-| `ipfs bootstrap add` | `bootstrapAdd` | `Future<BootstrapOutput>` |
-| `ipfs bootstrap list` | `bootstrapList` | `Future<BootstrapOutput>` |
-| `ipfs bootstrap rm` | `bootstrapRm` | `Future<BootstrapOutput>` |
-| `ipfs bootstrap rm all` | `bootstrapRmAll` | `Future<BootstrapOutput>` |
+| `ipfs block stat` | `blockStat` | `Stream<CommandsBlockStat>` |
+| `ipfs bootstrap` | `bootstrap` | `Stream<BootstrapOutput>` |
+| `ipfs bootstrap add` | `bootstrapAdd` | `Stream<BootstrapOutput>` |
+| `ipfs bootstrap list` | `bootstrapList` | `Stream<BootstrapOutput>` |
+| `ipfs bootstrap rm` | `bootstrapRm` | `Stream<BootstrapOutput>` |
+| `ipfs bootstrap rm all` | `bootstrapRmAll` | `Stream<BootstrapOutput>` |
 | `ipfs cat` | `cat` | `Stream<Uint8List>` |
 | `ipfs cid base32` | `cidBase32` | `Stream<CidFormatRes>` |
-| `ipfs cid bases` | `cidBases` | `Future<List<CodeAndName>>` |
-| `ipfs cid codecs` | `cidCodecs` | `Future<List<CodeAndName>>` |
+| `ipfs cid bases` | `cidBases` | `Stream<List<CodeAndName>>` |
+| `ipfs cid codecs` | `cidCodecs` | `Stream<List<CodeAndName>>` |
 | `ipfs cid format` | `cidFormat` | `Stream<CidFormatRes>` |
-| `ipfs cid hashes` | `cidHashes` | `Future<List<CodeAndName>>` |
-| `ipfs cid inspect` | `cidInspect` | `Future<CidInspectRes>` |
-| `ipfs config` | `config` | `Future<ConfigField>` |
-| `ipfs config profile apply` | `configProfileApply` | `Future<ConfigUpdateOutput>` |
-| `ipfs config replace` | `configReplace` | `Future<Object?>` |
-| `ipfs config show` | `configShow` | `Future<Map<String, Object?>>` |
-| `ipfs dag resolve` | `dagResolve` | `Future<ResolveOutput>` |
+| `ipfs cid hashes` | `cidHashes` | `Stream<List<CodeAndName>>` |
+| `ipfs cid inspect` | `cidInspect` | `Stream<CidInspectRes>` |
+| `ipfs config` | `config` | `Stream<ConfigField>` |
+| `ipfs config profile apply` | `configProfileApply` | `Stream<ConfigUpdateOutput>` |
+| `ipfs config replace` | `configReplace` | `Stream<Object?>` |
+| `ipfs config show` | `configShow` | `Stream<Map<String, Object?>>` |
+| `ipfs dag resolve` | `dagResolve` | `Stream<ResolveOutput>` |
 | `ipfs dag stat` | `dagStat` | `Stream<DagStatSummary>` |
 | `ipfs dht query` | `dhtQuery` | `Stream<QueryEvent>` |
-| `ipfs diag cmds` | `diagCmds` | `Future<List<ReqLogEntry?>>` |
-| `ipfs diag cmds clear` | `diagCmdsClear` | `Future<Object?>` |
-| `ipfs diag cmds set-time` | `diagCmdsSetTime` | `Future<Object?>` |
-| `ipfs diag datastore count` | `diagDatastoreCount` | `Future<DiagDatastoreCountResult>` |
-| `ipfs diag datastore get` | `diagDatastoreGet` | `Future<DiagDatastoreGetResult>` |
-| `ipfs diag datastore put` | `diagDatastorePut` | `Future<Object?>` |
-| `ipfs diag healthy` | `diagHealthy` | `Future<Object?>` |
+| `ipfs diag cmds` | `diagCmds` | `Stream<List<ReqLogEntry?>>` |
+| `ipfs diag cmds clear` | `diagCmdsClear` | `Stream<Object?>` |
+| `ipfs diag cmds set-time` | `diagCmdsSetTime` | `Stream<Object?>` |
+| `ipfs diag datastore count` | `diagDatastoreCount` | `Stream<DiagDatastoreCountResult>` |
+| `ipfs diag datastore get` | `diagDatastoreGet` | `Stream<DiagDatastoreGetResult>` |
+| `ipfs diag datastore put` | `diagDatastorePut` | `Stream<Object?>` |
+| `ipfs diag healthy` | `diagHealthy` | `Stream<Object?>` |
 | `ipfs diag profile` | `diagProfile` | `Stream<Uint8List>` |
-| `ipfs diag sys` | `diagSys` | `Future<Object?>` |
-| `ipfs files chcid` | `filesChcid` | `Future<Object?>` |
-| `ipfs files chmod` | `filesChmod` | `Future<Object?>` |
-| `ipfs files chroot` | `filesChroot` | `Future<MessageOutput>` |
-| `ipfs files cp` | `filesCp` | `Future<Object?>` |
-| `ipfs files flush` | `filesFlush` | `Future<FlushRes>` |
-| `ipfs files ls` | `filesLs` | `Future<FilesLsOutput>` |
-| `ipfs files mkdir` | `filesMkdir` | `Future<Object?>` |
-| `ipfs files mv` | `filesMv` | `Future<Object?>` |
+| `ipfs diag sys` | `diagSys` | `Stream<Object?>` |
+| `ipfs files chcid` | `filesChcid` | `Stream<Object?>` |
+| `ipfs files chmod` | `filesChmod` | `Stream<Object?>` |
+| `ipfs files chroot` | `filesChroot` | `Stream<MessageOutput>` |
+| `ipfs files cp` | `filesCp` | `Stream<Object?>` |
+| `ipfs files flush` | `filesFlush` | `Stream<FlushRes>` |
+| `ipfs files ls` | `filesLs` | `Stream<FilesLsOutput>` |
+| `ipfs files mkdir` | `filesMkdir` | `Stream<Object?>` |
+| `ipfs files mv` | `filesMv` | `Stream<Object?>` |
 | `ipfs files read` | `filesRead` | `Stream<Uint8List>` |
 | `ipfs files rm` | `filesRm` | `Stream<Object?>` |
-| `ipfs files stat` | `filesStat` | `Future<StatOutput>` |
-| `ipfs files touch` | `filesTouch` | `Future<Object?>` |
-| `ipfs files write` | `filesWrite` | `Future<Object?>` |
+| `ipfs files stat` | `filesStat` | `Stream<StatOutput>` |
+| `ipfs files touch` | `filesTouch` | `Stream<Object?>` |
+| `ipfs files write` | `filesWrite` | `Stream<Object?>` |
 | `ipfs filestore dups` | `filestoreDups` | `Stream<RefWrapper>` |
 | `ipfs filestore ls` | `filestoreLs` | `Stream<ListRes>` |
 | `ipfs filestore verify` | `filestoreVerify` | `Stream<ListRes>` |
 | `ipfs get` | `get` | `Stream<Uint8List>` |
-| `ipfs id` | `id` | `Future<IdOutput>` |
+| `ipfs id` | `id` | `Stream<IdOutput>` |
 | `ipfs key export` | `keyExport` | `Stream<Uint8List>` |
-| `ipfs key gen` | `keyGen` | `Future<KeyOutput>` |
-| `ipfs key import` | `keyImport` | `Future<KeyOutput>` |
-| `ipfs key list` | `keyList` | `Future<KeyOutputList>` |
-| `ipfs key ls` | `keyLs` | `Future<KeyOutputList>` |
-| `ipfs key rename` | `keyRename` | `Future<KeyRenameOutput>` |
-| `ipfs key rm` | `keyRm` | `Future<KeyOutputList>` |
-| `ipfs key rotate` | `keyRotate` | `Future<Object?>` |
+| `ipfs key gen` | `keyGen` | `Stream<KeyOutput>` |
+| `ipfs key import` | `keyImport` | `Stream<KeyOutput>` |
+| `ipfs key list` | `keyList` | `Stream<KeyOutputList>` |
+| `ipfs key ls` | `keyLs` | `Stream<KeyOutputList>` |
+| `ipfs key rename` | `keyRename` | `Stream<KeyRenameOutput>` |
+| `ipfs key rm` | `keyRm` | `Stream<KeyOutputList>` |
+| `ipfs key rotate` | `keyRotate` | `Stream<Object?>` |
 | `ipfs key sign` | `keySign` | `Stream<KeySignOutput>` |
 | `ipfs key verify` | `keyVerify` | `Stream<KeyVerifyOutput>` |
-| `ipfs log level` | `logLevel` | `Future<LogLevelOutput>` |
-| `ipfs log ls` | `logLs` | `Future<StringList>` |
+| `ipfs log level` | `logLevel` | `Stream<LogLevelOutput>` |
+| `ipfs log ls` | `logLs` | `Stream<StringList>` |
 | `ipfs log tail` | `logTail` | `Stream<Uint8List>` |
 | `ipfs ls` | `ls` | `Stream<LsOutput>` |
 | `ipfs multibase decode` | `multibaseDecode` | `Stream<Uint8List>` |
 | `ipfs multibase encode` | `multibaseEncode` | `Stream<Uint8List>` |
-| `ipfs multibase list` | `multibaseList` | `Future<List<CodeAndName>>` |
+| `ipfs multibase list` | `multibaseList` | `Stream<List<CodeAndName>>` |
 | `ipfs multibase transcode` | `multibaseTranscode` | `Stream<Uint8List>` |
 | `ipfs name get` | `nameGet` | `Stream<Uint8List>` |
-| `ipfs name inspect` | `nameInspect` | `Future<IpnsInspectResult>` |
-| `ipfs name publish` | `namePublish` | `Future<IpnsEntry>` |
-| `ipfs name pubsub cancel` | `namePubsubCancel` | `Future<IpnsPubsubCancel>` |
-| `ipfs name pubsub state` | `namePubsubState` | `Future<IpnsPubsubState>` |
-| `ipfs name pubsub subs` | `namePubsubSubs` | `Future<NameStringList>` |
-| `ipfs name put` | `namePut` | `Future<IpnsEntry>` |
+| `ipfs name inspect` | `nameInspect` | `Stream<IpnsInspectResult>` |
+| `ipfs name publish` | `namePublish` | `Stream<IpnsEntry>` |
+| `ipfs name pubsub cancel` | `namePubsubCancel` | `Stream<IpnsPubsubCancel>` |
+| `ipfs name pubsub state` | `namePubsubState` | `Stream<IpnsPubsubState>` |
+| `ipfs name pubsub subs` | `namePubsubSubs` | `Stream<NameStringList>` |
+| `ipfs name put` | `namePut` | `Stream<IpnsEntry>` |
 | `ipfs name resolve` | `nameResolve` | `Stream<ResolvedPath>` |
-| `ipfs object diff` | `objectDiff` | `Future<Changes>` |
-| `ipfs object patch add-link` | `objectPatchAddLink` | `Future<Object$>` |
-| `ipfs object patch rm-link` | `objectPatchRmLink` | `Future<Object$>` |
-| `ipfs p2p close` | `p2pClose` | `Future<int>` |
+| `ipfs object diff` | `objectDiff` | `Stream<Changes>` |
+| `ipfs object patch add-link` | `objectPatchAddLink` | `Stream<Object$>` |
+| `ipfs object patch rm-link` | `objectPatchRmLink` | `Stream<Object$>` |
+| `ipfs p2p close` | `p2pClose` | `Stream<int>` |
 | `ipfs p2p forward` | `p2pForward` | `Stream<P2pForegroundOutput>` |
 | `ipfs p2p listen` | `p2pListen` | `Stream<P2pForegroundOutput>` |
-| `ipfs p2p ls` | `p2pLs` | `Future<P2pLsOutput>` |
-| `ipfs p2p stream close` | `p2pStreamClose` | `Future<Object?>` |
-| `ipfs p2p stream ls` | `p2pStreamLs` | `Future<P2pStreamsOutput>` |
+| `ipfs p2p ls` | `p2pLs` | `Stream<P2pLsOutput>` |
+| `ipfs p2p stream close` | `p2pStreamClose` | `Stream<Object?>` |
+| `ipfs p2p stream ls` | `p2pStreamLs` | `Stream<P2pStreamsOutput>` |
 | `ipfs pin add` | `pinAdd` | `Stream<AddPinOutput>` |
 | `ipfs pin ls` | `pinLs` | `Stream<PinLsOutputWrapper>` |
 | `ipfs pin remote add` | `pinRemoteAdd` | `Stream<RemotePinOutput>` |
 | `ipfs pin remote ls` | `pinRemoteLs` | `Stream<RemotePinOutput>` |
-| `ipfs pin remote rm` | `pinRemoteRm` | `Future<Object?>` |
-| `ipfs pin remote service add` | `pinRemoteServiceAdd` | `Future<Object?>` |
-| `ipfs pin remote service ls` | `pinRemoteServiceLs` | `Future<PinServicesList>` |
-| `ipfs pin remote service rm` | `pinRemoteServiceRm` | `Future<Object?>` |
-| `ipfs pin rm` | `pinRm` | `Future<PinOutput>` |
-| `ipfs pin update` | `pinUpdate` | `Future<PinOutput>` |
+| `ipfs pin remote rm` | `pinRemoteRm` | `Stream<Object?>` |
+| `ipfs pin remote service add` | `pinRemoteServiceAdd` | `Stream<Object?>` |
+| `ipfs pin remote service ls` | `pinRemoteServiceLs` | `Stream<PinServicesList>` |
+| `ipfs pin remote service rm` | `pinRemoteServiceRm` | `Stream<Object?>` |
+| `ipfs pin rm` | `pinRm` | `Stream<PinOutput>` |
+| `ipfs pin update` | `pinUpdate` | `Stream<PinOutput>` |
 | `ipfs pin verify` | `pinVerify` | `Stream<PinVerifyRes>` |
 | `ipfs ping` | `ping` | `Stream<PingResult>` |
 | `ipfs provide clear` | `provideClear` | `Stream<int>` |
 | `ipfs provide once` | `provideOnce` | `Stream<ProvideOnceEvent>` |
 | `ipfs provide stat` | `provideStat` | `Stream<ProvideStats>` |
-| `ipfs pubsub ls` | `pubsubLs` | `Future<StringList>` |
-| `ipfs pubsub peers` | `pubsubPeers` | `Future<StringList>` |
-| `ipfs pubsub pub` | `pubsubPub` | `Future<Object?>` |
-| `ipfs pubsub reset` | `pubsubReset` | `Future<PubsubResetResult>` |
+| `ipfs pubsub ls` | `pubsubLs` | `Stream<StringList>` |
+| `ipfs pubsub peers` | `pubsubPeers` | `Stream<StringList>` |
+| `ipfs pubsub pub` | `pubsubPub` | `Stream<Object?>` |
+| `ipfs pubsub reset` | `pubsubReset` | `Stream<PubsubResetResult>` |
 | `ipfs pubsub sub` | `pubsubSub` | `Stream<PubsubMessage>` |
 | `ipfs refs` | `refs` | `Stream<RefWrapper>` |
 | `ipfs refs local` | `refsLocal` | `Stream<RefWrapper>` |
 | `ipfs repo gc` | `repoGc` | `Stream<GcResult>` |
 | `ipfs repo ls` | `repoLs` | `Stream<RefWrapper>` |
-| `ipfs repo migrate` | `repoMigrate` | `Future<Object?>` |
-| `ipfs repo stat` | `repoStat` | `Future<CorerepoStat>` |
+| `ipfs repo migrate` | `repoMigrate` | `Stream<Object?>` |
+| `ipfs repo stat` | `repoStat` | `Stream<CorerepoStat>` |
 | `ipfs repo verify` | `repoVerify` | `Stream<VerifyProgress>` |
-| `ipfs repo version` | `repoVersion` | `Future<RepoVersion>` |
-| `ipfs resolve` | `resolve` | `Future<ResolvedPath>` |
+| `ipfs repo version` | `repoVersion` | `Stream<RepoVersion>` |
+| `ipfs resolve` | `resolve` | `Stream<ResolvedPath>` |
 | `ipfs routing findpeer` | `routingFindpeer` | `Stream<QueryEvent>` |
 | `ipfs routing findprovs` | `routingFindprovs` | `Stream<QueryEvent>` |
 | `ipfs routing get` | `routingGet` | `Stream<QueryEvent>` |
 | `ipfs routing provide` | `routingProvide` | `Stream<QueryEvent>` |
 | `ipfs routing put` | `routingPut` | `Stream<QueryEvent>` |
-| `ipfs routing reprovide` | `routingReprovide` | `Future<Object?>` |
-| `ipfs stats bitswap` | `statsBitswap` | `Future<Stat>` |
+| `ipfs routing reprovide` | `routingReprovide` | `Stream<Object?>` |
+| `ipfs stats bitswap` | `statsBitswap` | `Stream<Stat>` |
 | `ipfs stats bw` | `statsBw` | `Stream<MetricsStats>` |
 | `ipfs stats dht` | `statsDht` | `Stream<DhtStat>` |
 | `ipfs stats provide` | `statsProvide` | `Stream<ProvideStats>` |
-| `ipfs stats repo` | `statsRepo` | `Future<CorerepoStat>` |
+| `ipfs stats repo` | `statsRepo` | `Stream<CorerepoStat>` |
 | `ipfs stats reprovide` | `statsReprovide` | `Stream<ProvideStats>` |
-| `ipfs swarm addrs` | `swarmAddrs` | `Future<AddrMap>` |
-| `ipfs swarm addrs autonat` | `swarmAddrsAutonat` | `Future<AutoNatResult>` |
-| `ipfs swarm addrs listen` | `swarmAddrsListen` | `Future<StringList>` |
-| `ipfs swarm addrs local` | `swarmAddrsLocal` | `Future<StringList>` |
-| `ipfs swarm connect` | `swarmConnect` | `Future<StringList>` |
-| `ipfs swarm disconnect` | `swarmDisconnect` | `Future<StringList>` |
-| `ipfs swarm filters` | `swarmFilters` | `Future<StringList>` |
-| `ipfs swarm filters add` | `swarmFiltersAdd` | `Future<StringList>` |
-| `ipfs swarm filters rm` | `swarmFiltersRm` | `Future<StringList>` |
+| `ipfs swarm addrs` | `swarmAddrs` | `Stream<AddrMap>` |
+| `ipfs swarm addrs autonat` | `swarmAddrsAutonat` | `Stream<AutoNatResult>` |
+| `ipfs swarm addrs listen` | `swarmAddrsListen` | `Stream<StringList>` |
+| `ipfs swarm addrs local` | `swarmAddrsLocal` | `Stream<StringList>` |
+| `ipfs swarm connect` | `swarmConnect` | `Stream<StringList>` |
+| `ipfs swarm disconnect` | `swarmDisconnect` | `Stream<StringList>` |
+| `ipfs swarm filters` | `swarmFilters` | `Stream<StringList>` |
+| `ipfs swarm filters add` | `swarmFiltersAdd` | `Stream<StringList>` |
+| `ipfs swarm filters rm` | `swarmFiltersRm` | `Stream<StringList>` |
 | `ipfs swarm peering add` | `swarmPeeringAdd` | `Stream<PeeringResult>` |
-| `ipfs swarm peering ls` | `swarmPeeringLs` | `Future<AddrInfos>` |
+| `ipfs swarm peering ls` | `swarmPeeringLs` | `Stream<AddrInfos>` |
 | `ipfs swarm peering rm` | `swarmPeeringRm` | `Stream<PeeringResult>` |
-| `ipfs swarm peers` | `swarmPeers` | `Future<ConnInfos>` |
-| `ipfs swarm resources` | `swarmResources` | `Future<LimitsConfigAndUsage>` |
-| `ipfs version` | `version` | `Future<VersionInfo>` |
-| `ipfs version check` | `versionCheck` | `Future<VersionCheckOutput>` |
+| `ipfs swarm peers` | `swarmPeers` | `Stream<ConnInfos>` |
+| `ipfs swarm resources` | `swarmResources` | `Stream<LimitsConfigAndUsage>` |
+| `ipfs version` | `version` | `Stream<VersionInfo>` |
+| `ipfs version check` | `versionCheck` | `Stream<VersionCheckOutput>` |
 | `ipfs version deps` | `versionDeps` | `Stream<Dependency>` |
 
 Fora:

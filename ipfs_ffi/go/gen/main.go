@@ -179,7 +179,7 @@ func generate(rootsFile string) (map[string][]byte, error) {
 	// os comandos do RPC: os DTOs não podem repetir nomes do namespace kubo
 	// (o arquivo dele esconderia um), e o hash do Hello cobre o esquema deles
 	reserved, manual := kuboNames(dart)
-	cmdSrc, cmdAPI, cmdHash := emitCommands(reserved, manual)
+	cmdSrc, cmdAPI, cmdSmoke, cmdHash := emitCommands(reserved, manual)
 	hf := fnv.New64a()
 	fmt.Fprintf(hf, "%x %x", hash, cmdHash)
 	hash = hf.Sum64()
@@ -194,6 +194,7 @@ func generate(rootsFile string) (map[string][]byte, error) {
 		out[filepath.ToSlash(filepath.Join("../lib", path))] = src
 	}
 	out["../API.md"] = append(emitAPI(m, fns), cmdAPI...)
+	out["../test/src/commands_smoke.dart"] = formatDart("../test/src/commands_smoke.dart", cmdSmoke)
 	if err := emitNamespaces(out); err != nil {
 		return nil, err
 	}

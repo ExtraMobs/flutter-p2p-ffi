@@ -17,6 +17,7 @@ import 'package:ipfs_ffi/go/os.dart' as os;
 import 'package:ipfs_ffi/ipfs_ffi.dart'
     show
         IpfsBackground,
+        IpfsPlatform,
         IpfsStop,
         IpfsStopReason,
         IpfsException,
@@ -205,6 +206,26 @@ void main() {
         api.block().stat(ctx, loose), throwsA(isA<IpfsException>()));
     expect((await api.block().stat(ctx, kept)).size, greaterThan(0));
     await corerepo.garbageCollect(n, ctx); // a versão que só espera
+  });
+
+  // 0.15: os bugs do kubo/boxo que o build corrige por patch (tool/build.dart,
+  // upstreamPatches; go/upstream_test.go afirma cada um sem o patch).
+  test('upstream corrigido: Routing none fecha e reabre o mesmo repo',
+      () async {
+    final cfg = config
+        .initWithIdentity(config.createIdentity([options.key.type('ed25519')]));
+    config.profiles['test']!.transform(cfg);
+    final repoPath = '${tmp.path}/none';
+    fsrepo.init(repoPath, cfg);
+    for (var i = 0; i < 2; i++) {
+      final nn = await core.newNode(
+          ctx,
+          node.BuildCfg(
+              repo: fsrepo.open(repoPath),
+              online: true,
+              routing: libp2p.nilRouterOption));
+      await nn.close();
+    }
   });
 
   // M3: dois nós online no mesmo processo (como o kubo-as-a-library):
@@ -647,6 +668,21 @@ void main() {
       expect(flushed.cid().value, isNotEmpty);
     });
 
+    test('upstream corrigido: append num arquivo pequeno do MFS', () async {
+      final root = n.filesRoot;
+      final p =
+          await api.unixfs().add(ctx, files.newBytesFile(utf8.encode('abc')));
+      mfs.putNode(root, '/t015.txt', await api.resolveNode(ctx, p));
+      final file = mfs.lookup(root, '/t015.txt').asFile()!;
+      final fw = await file.open(ctx, mfs.Flags(write: true));
+      fw.seek(0, 2);
+      fw.write(utf8.encode('def'));
+      fw.close();
+      final fr = await file.open(ctx, mfs.Flags(read: true));
+      expect(utf8.decode(await fr.ctxReadFull(ctx, 100)), 'abcdef');
+      fr.close();
+    });
+
     test('config: setConfigKey/getConfigKey, bootstrap e backup', () async {
       final r = n.repo;
       r.setConfigKey('Discovery.MDNS.Enabled', false);
@@ -810,4 +846,49 @@ void main() {
       IpfsService.background = IpfsBackground.stop;
     }
   });
+
+  // 0.15, achado no aparelho: o Android só inicia um serviço em primeiro plano
+  // com o app na frente; depois de uma queda em foregroundService, o restart
+  // do onStop (no segundo plano) tem de achar a plataforma ainda de pé.
+  test('foregroundService: a queda não para a plataforma; o stop para',
+      () async {
+    final calls = <String>[];
+    final old = IpfsService.platform;
+    Future<void> crash() async {
+      final next = stops.stream.first;
+      $callSync(24); // panic numa goroutine: o host cai
+      expect((await next.timeout(const Duration(seconds: 30))).reason,
+          IpfsStopReason.crash);
+    }
+
+    // o último teste: termina com o serviço parado (o tearDownAll só para)
+    await crash(); // modo stop, plataforma do teste ainda não instalada
+    IpfsService.platform = _Platform(calls);
+    IpfsService.background = IpfsBackground.foregroundService;
+    try {
+      await IpfsService.restart();
+      expect(calls, ['started foregroundService']);
+      await crash();
+      expect(calls, ['started foregroundService'], reason: 'sem stopped');
+      await IpfsService.restart();
+      expect(calls.last, 'started foregroundService');
+      await IpfsService.stop();
+      expect(calls.last, 'stopped');
+    } finally {
+      IpfsService.background = IpfsBackground.stop;
+      IpfsService.platform = old;
+    }
+  });
+}
+
+final class _Platform implements IpfsPlatform {
+  _Platform(this.calls);
+  final List<String> calls;
+
+  @override
+  Future<void> serviceStarted(IpfsBackground mode) async =>
+      calls.add('started ${mode.name}');
+
+  @override
+  Future<void> serviceStopped() async => calls.add('stopped');
 }

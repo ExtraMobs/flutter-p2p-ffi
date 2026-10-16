@@ -10,15 +10,11 @@ package main
 import (
 	"bytes"
 	"fmt"
-	"go/ast"
-	"go/parser"
-	"go/token"
 	"hash/fnv"
 	"io/fs"
 	"os"
 	"path/filepath"
 	"reflect"
-	"runtime"
 	"sort"
 	"strings"
 
@@ -63,7 +59,7 @@ type cmdInfo struct {
 	args    []cmdArg
 	opts    []cmdOpt
 	out     reflect.Type // nil = dinâmico
-	mode    string       // one, stream, bytes, dyn, dynstream
+	mode    string       // typed, bytes, dyn (sempre Stream)
 	skipped string
 }
 
@@ -93,46 +89,6 @@ func walkCommands() []*cmdInfo {
 	}
 	walk(nil, corecmds.Root)
 	return out
-}
-
-// emitsOnce: o Run só usa cmds.EmitOnce (um valor); res.Emit (ou nada
-// visível) pode emitir vários. Lido do fonte do kubo, pelo arquivo e linha
-// da função.
-func emitsOnce(run any) (once, emits bool) {
-	body := funcBody(run)
-	return strings.Contains(body, "EmitOnce(") && !strings.Contains(body, ".Emit("), strings.Contains(body, "Emit")
-}
-
-var parsed = map[string]*ast.File{}
-var cmdFset = token.NewFileSet()
-
-func funcBody(f any) string {
-	pc := reflect.ValueOf(f).Pointer()
-	file, line := runtime.FuncForPC(pc).FileLine(pc)
-	af, ok := parsed[file]
-	if !ok {
-		af, _ = parser.ParseFile(cmdFset, file, nil, 0)
-		parsed[file] = af
-	}
-	src, _ := os.ReadFile(file)
-	best := ""
-	ast.Inspect(af, func(n ast.Node) bool {
-		var b *ast.BlockStmt
-		switch x := n.(type) {
-		case *ast.FuncLit:
-			b = x.Body
-		case *ast.FuncDecl:
-			b = x.Body
-		}
-		if b != nil {
-			s, e := cmdFset.Position(b.Pos()), cmdFset.Position(b.End())
-			if s.Line <= line && line <= e.Line && (best == "" || e.Offset-s.Offset < len(best)) {
-				best = string(src[s.Offset:e.Offset])
-			}
-		}
-		return true
-	})
-	return best
 }
 
 // cmdName: o nome Dart de um nome do kubo ("ipfs-path", "peer ID", "cid-version").
@@ -248,18 +204,15 @@ func (e *cmdEmitter) prepare(cs []*cmdInfo, manual map[string]bool) {
 				ci.out = ci.out.Elem()
 			}
 		}
-		once, emits := emitsOnce(ci.c.Run)
+		// todo comando é Stream (decisão do dono): quem usa decide entre
+		// .single, .first e toList(); o modo só escolhe o tipo do item
 		switch {
 		case cmdByteOut[strings.Join(ci.path, "-")]:
 			ci.mode = "bytes"
-		case ci.out == nil && emits && !once:
-			ci.mode = "dynstream"
 		case ci.out == nil:
 			ci.mode = "dyn"
-		case once:
-			ci.mode = "one"
 		default:
-			ci.mode = "stream"
+			ci.mode = "typed"
 		}
 		if ci.out != nil {
 			e.collect(ci.out, typeName(cmdName(strings.Join(ci.path, "-")))+"Output")
@@ -410,7 +363,7 @@ func optDart(k reflect.Kind) string {
 
 // emitCommands: a library dos comandos, a seção do API.md e o hash do esquema
 // (vai no Hello, com o da tabela).
-func emitCommands(reserved, manual map[string]bool) (src string, api string, hash uint64) {
+func emitCommands(reserved, manual map[string]bool) (src, api, smoke string, hash uint64) {
 	e := &cmdEmitter{names: map[reflect.Type]string{}, taken: map[string]reflect.Type{}, imports: map[string]string{}}
 	for n := range reserved { // nomes de outras libraries do namespace kubo
 		e.taken[n] = reflect.TypeFor[struct{ reserved bool }]()
@@ -418,7 +371,7 @@ func emitCommands(reserved, manual map[string]bool) (src string, api string, has
 	cs := walkCommands()
 	e.prepare(cs, manual)
 	h := fnv.New64a()
-	var body, md strings.Builder
+	var body, md, sm strings.Builder
 	md.WriteString("\n## Comandos do RPC (`ipfs ...`) → `package:ipfs_ffi/kubo/core/commands.dart`\n\n")
 	md.WriteString("Gerados da árvore de comandos do kubo (`core/commands.Root`); o host os chama como o servidor HTTP do kubo (função 36 do `WIRE.md`).\n\n| Comando | Dart | Retorno |\n|---|---|---|\n")
 	var skipped []string
@@ -431,8 +384,20 @@ func emitCommands(reserved, manual map[string]bool) (src string, api string, has
 		ret, call := e.ret(ci)
 		var params []string
 		params = append(params, e.imp("package:ipfs_ffi/kubo/core.dart", "$core")+".IpfsNode node", e.imp("package:ipfs_ffi/go/context.dart", "$context")+".Context ctx")
-		var args, fls []string
+		var args, fls, smArgs []string
 		for _, a := range ci.args {
+			get := fmt.Sprintf("a.s('%s', '%s')", key, a.name)
+			if a.file {
+				get = fmt.Sprintf("a.f('%s', '%s')", key, a.name)
+			}
+			switch {
+			case a.variadic:
+				smArgs = append(smArgs, "["+get+"]")
+			case a.required:
+				smArgs = append(smArgs, get)
+			default:
+				smArgs = append(smArgs, "null")
+			}
 			t := "String"
 			if a.file {
 				t = e.imp("package:ipfs_ffi/boxo/files.dart", "$files") + ".Node"
@@ -480,6 +445,7 @@ func emitCommands(reserved, manual map[string]bool) (src string, api string, has
 		fmt.Fprintf(&body, "%s %s(%s) =>\n    %s(node, ctx, '%s', [%s], [%s], {%s}%s);\n\n",
 			ret, ci.dart, sig, call.fn, key, strings.Join(args, ", "), strings.Join(fls, ", "), strings.Join(optMap, ", "), call.dec)
 		fmt.Fprintf(&md, "| `ipfs %s` | `%s` | `%s` |\n", key, ci.dart, ret)
+		fmt.Fprintf(&sm, "  '%s': (a) => k.%s(%s),\n", key, ci.dart, strings.Join(append([]string{"a.node", "a.ctx"}, smArgs...), ", "))
 		fmt.Fprintf(h, "%s|%s|%v|%v|%s\n", key, sig, ci.args, ci.opts, ret)
 	}
 	for _, t := range e.order {
@@ -497,7 +463,7 @@ func emitCommands(reserved, manual map[string]bool) (src string, api string, has
 	}
 	b.WriteString("import 'package:ipfs_ffi/src/runtime.dart';\n\n")
 	b.WriteString(body.String())
-	return b.String(), md.String(), h.Sum64()
+	return b.String(), md.String(), smokeDart(sm.String()), h.Sum64()
 }
 
 type cmdCall struct{ fn, dec string }
@@ -508,16 +474,9 @@ func (e *cmdEmitter) ret(ci *cmdInfo) (string, cmdCall) {
 	case "bytes":
 		return "Stream<Uint8List>", cmdCall{fn: "$cmdBytes"}
 	case "dyn":
-		return "Future<Object?>", cmdCall{fn: "$cmdDyn"}
-	case "dynstream":
 		return "Stream<Object?>", cmdCall{fn: "$cmdDynStream"}
 	}
-	T := e.dt(ci.out)
-	dec := ", (r) => " + e.dec(ci.out, "r")
-	if ci.mode == "one" {
-		return "Future<" + T + ">", cmdCall{fn: "$cmdOne", dec: dec}
-	}
-	return "Stream<" + T + ">", cmdCall{fn: "$cmdStream", dec: dec}
+	return "Stream<" + e.dt(ci.out) + ">", cmdCall{fn: "$cmdStream", dec: ", (r) => " + e.dec(ci.out, "r")}
 }
 
 // class: o DTO de um struct de saída.
@@ -544,7 +503,8 @@ func (e *cmdEmitter) class(t reflect.Type) string {
 		}
 		used[n] = true
 		inits = append(inits, n+" = "+e.dec(f.Type, "r"))
-		fmt.Fprintf(&decls, "\n  /// Go: `%s`.\n  final %s %s;\n", f.Name, e.dt(f.Type), n)
+		k := f.Type.Kind()
+		fmt.Fprintf(&decls, "\n  /// Go: `%s`.%s\n  final %s %s;\n", f.Name, u64Doc(k == reflect.Uint || k == reflect.Uint64 || k == reflect.Uintptr), e.dt(f.Type), n)
 	}
 	fmt.Fprintf(&b, "  %s.$dec($R r)\n      : %s;\n%s}\n\n", name, strings.Join(inits, ",\n        "), decls.String())
 	return b.String()
@@ -557,4 +517,35 @@ func (e *cmdEmitter) schema(t reflect.Type) string {
 		parts = append(parts, f.Name+":"+e.dt(f.Type))
 	}
 	return strings.Join(parts, ",")
+}
+
+// smokeDart: a tabela do teste de fumaça (test/src/commands_smoke.dart): cada
+// comando gerado chamado com os argumentos obrigatórios que o teste fornece
+// (SmokeArgs), para test/commands_smoke_test.dart rodar todos.
+func smokeDart(entries string) string {
+	return generatedHeader + ` from the kubo command tree; do not edit.
+
+// Every generated kubo command, called with the arguments the smoke test
+// provides (test/commands_smoke_test.dart).
+import 'package:ipfs_ffi/boxo/files.dart' as files;
+import 'package:ipfs_ffi/go/context.dart' as context;
+import 'package:ipfs_ffi/kubo/core.dart' as core;
+import 'package:ipfs_ffi/kubo/core/commands.dart' as k;
+
+/// What a command needs: the node, a ctx, and a value per required argument.
+abstract interface class SmokeArgs {
+  core.IpfsNode get node;
+  context.Context get ctx;
+
+  /// The string for argument [arg] of command [cmd].
+  String s(String cmd, String arg);
+
+  /// The file for argument [arg] of command [cmd].
+  files.Node f(String cmd, String arg);
+}
+
+/// Command path → the call.
+final smokeCommands = <String, Stream<Object?> Function(SmokeArgs a)>{
+` + entries + `};
+`
 }

@@ -6,6 +6,8 @@ import (
 	"testing"
 
 	"github.com/ExtraMobs/transpiled_ipfs/ipfs_ffi/go/shmring"
+	kuborepo "github.com/ipfs/kubo/repo"
+	"github.com/ipfs/kubo/repo/fsrepo"
 )
 
 // ev: um evento mandado durante uma chamada (item de stream, ou de sink).
@@ -82,6 +84,19 @@ func TestTableRepoFlow(t *testing.T) {
 		t.Fatal(err)
 	}
 	hfree(repo)
+
+	// o Open pela tabela normaliza o caminho (argPre "repoPath"): reabrir pelo
+	// Path(), como os comandos de config fazem, reaproveita o mesmo repo em vez
+	// de esbarrar no lock ("lock is already held by us")
+	dirty := value(t, kubo+"repo/fsrepo.Open", func(w *writer) { w.str(dir + "/./") }).i64()
+	rr, _ := hget[kuborepo.Repo](dirty)
+	again, err := fsrepo.Open(rr.Path())
+	if err != nil {
+		t.Fatalf("reabrir pelo Path(): %v", err)
+	}
+	again.Close()
+	rr.Close()
+	hfree(dirty)
 
 	// argumentos errados: erro, não panic
 	if kind, data, _ := call(t, kubo+"repo/fsrepo.Open", nil); kind != evError || !strings.Contains(string(data), "curtos") {

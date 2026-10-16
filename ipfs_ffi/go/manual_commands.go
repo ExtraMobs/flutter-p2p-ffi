@@ -7,9 +7,11 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
+	"path/filepath"
 	"reflect"
 	"sort"
 	"strings"
@@ -22,6 +24,7 @@ import (
 	oldcmds "github.com/ipfs/kubo/commands"
 	"github.com/ipfs/kubo/core"
 	corecmds "github.com/ipfs/kubo/core/commands"
+	"github.com/ipfs/kubo/misc/fsutil"
 )
 
 // fnCommand: a função dos comandos (WIRE.md).
@@ -102,9 +105,17 @@ func callCommand(q *req, r *reader, w *writer) error {
 		return err
 	}
 	env := &oldcmds.Context{
-		ConfigRoot:    configRoot(node),
+		ConfigRoot:    node.Repo.Path(), // o mesmo Open (repoPath)
 		ReqLog:        &oldcmds.ReqLog{},
 		ConstructNode: func() (*core.IpfsNode, error) { return node, nil },
+	}
+	// o PreRun é do CLI e o Root.Call (como o servidor HTTP) não o roda; o
+	// urlArgsEncoder do pubsub é o lado cliente do contrato (o cliente RPC do
+	// kubo faz o mesmo): os args vão em multibase, e o Run os decodifica
+	if sameFunc(cmd.PreRun, urlArgsEncoder) {
+		if err := cmd.PreRun(creq, env); err != nil {
+			return err
+		}
 	}
 	declared := reflect.TypeOf(cmd.Type)
 	if declared != nil && declared.Kind() == reflect.Pointer {
@@ -171,26 +182,40 @@ func (e *cmdEmitter) SetLength(uint64)                  {}
 func (e *cmdEmitter) SetEncodingType(cmds.EncodingType) {}
 func (e *cmdEmitter) SetContentType(string)             {}
 
-// configRoot: a chave com que o fsrepo.Open abriu o repo do nó. Os comandos de
-// config reabrem o repo por ela, como no daemon, e o fsrepo só reaproveita o
-// repo aberto com a mesma string; o Repo.Path() é a forma limpa, que no Windows
-// difere ("C:\x/repo" × "C:\x\repo") e daria "lock is already held by us".
-// ponytail: lê o campo key (não exportado) do repo.ref do kubo por reflexão;
-// se o kubo mudar o tipo, cai no Path().
-func configRoot(node *core.IpfsNode) string {
-	if v := reflect.ValueOf(node.Repo); v.Kind() == reflect.Pointer && v.Elem().Kind() == reflect.Struct {
-		if k := v.Elem().FieldByName("key"); k.IsValid() && k.Kind() == reflect.Interface && k.Elem().Kind() == reflect.String {
-			return k.Elem().String()
-		}
+// repoPath: o caminho do fsrepo.Open na forma que o FSRepo guarda e o
+// Repo.Path() devolve (fsutil.ExpandHome(filepath.Clean(p)), o newFSRepo do
+// kubo); o argPre do gerador o aplica antes do Open.
+func repoPath(p string) string {
+	if e, err := fsutil.ExpandHome(filepath.Clean(p)); err == nil {
+		return e
 	}
-	return node.Repo.Path()
+	return p
+}
+
+// urlArgsEncoder: o PreRun dos comandos de pubsub (pubsub.go do kubo, não
+// exportado), pela referência do `pubsub pub`.
+var urlArgsEncoder = corecmds.Root.Subcommands["pubsub"].Subcommands["pub"].PreRun
+
+func sameFunc(a, b func(*cmds.Request, cmds.Environment) error) bool {
+	return a != nil && b != nil && reflect.ValueOf(a).Pointer() == reflect.ValueOf(b).Pointer()
 }
 
 // emitValue: o valor no tipo declarado (deref de ponteiros), ou dinâmico.
+// Um valor de outro tipo com o mesmo JSON (o `diag cmds` emite o ReqLogEntry
+// do kubo e declara o do go-ipfs-cmds) vai no declarado, pelo JSON: o que o
+// cliente HTTP do kubo recebe.
 func emitValue(q *req, v any, declared reflect.Type) {
 	rv := reflect.ValueOf(v)
 	for rv.IsValid() && rv.Kind() == reflect.Pointer && !rv.IsNil() && rv.Type() != declared {
 		rv = rv.Elem()
+	}
+	if declared != nil && rv.IsValid() && rv.Type() != declared {
+		if b, err := json.Marshal(v); err == nil {
+			nv := reflect.New(declared)
+			if json.Unmarshal(b, nv.Interface()) == nil {
+				rv = nv.Elem()
+			}
+		}
 	}
 	if declared != nil && rv.IsValid() && rv.Type() == declared {
 		q.item(func(w *writer) {

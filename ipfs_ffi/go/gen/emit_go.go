@@ -111,6 +111,9 @@ func (g *goEmitter) function(name string, f *fn) string {
 		default:
 			fmt.Fprintf(&b, "\t%s, err := %s(r)\n%s", v, g.dec(p.t), fail)
 		}
+		if pre, ok := argPre[f.key][i]; ok { // API.md, "Adaptações"
+			v = pre + "(" + v + ")"
+		}
 		if p.variadic {
 			v += "..."
 		}
@@ -388,6 +391,15 @@ func (g *goEmitter) enc(t *tinfo) string {
 }
 
 // cat: categoria de um tipo dos antigos exports diretos.
+// argPre: funções do host (go/*.go) aplicadas a um argumento antes da chamada,
+// por chave de raiz e índice do parâmetro.
+var argPre = map[string]map[int]string{
+	// o fsrepo guarda o repo aberto pela string crua do Open, e os comandos de
+	// config o reabrem pelo Repo.Path() (a forma limpa): com a mesma forma nos
+	// dois, o segundo Open reaproveita o primeiro em vez de esbarrar no lock
+	"github.com/ipfs/kubo/repo/fsrepo.Open": {0: "repoPath"},
+}
+
 // ponytail: só o emit_dart.go ainda a lê; sai com f.direct.
 func cat(t *tinfo) string {
 	switch t.k {

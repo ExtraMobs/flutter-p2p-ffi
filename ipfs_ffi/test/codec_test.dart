@@ -42,6 +42,16 @@ void main() {
     expect(r.str(), 'olá');
   });
 
+  test(
+      'uint64 acima de 2^63: os mesmos bits (int negativo); BigInt lê sem sinal',
+      () {
+    // o Go escreve uint64(math.MaxUint64) como i64 (go/wire_test.go)
+    final r = _back($W()..i64(-1));
+    final v = r.i64();
+    expect(v, -1);
+    expect(BigInt.from(v).toUnsigned(64), (BigInt.one << 64) - BigInt.one);
+  });
+
   test('bytes: nil (-1), vazio e com dados; erro e presença', () {
     final w = $W()
       ..bytes(null)
