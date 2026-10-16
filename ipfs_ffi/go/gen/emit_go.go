@@ -105,6 +105,10 @@ func (g *goEmitter) function(name string, f *fn) string {
 		case i == chanIdx:
 			args = append(args, "ch")
 			continue
+		case p.t.k == kFunc: // callback sob demanda (callback.go): o lote pedido e a função Go que o alimenta
+			b.WriteString("\tcb := newCallback(q, r.u32())\n\tdefer cb.end()\n")
+			args = append(args, g.funcLit(p.t))
+			continue
 		case p.t.k == kSlice && p.t.elem.k == kOpts: // opções: done fecha os sinks delas antes da resposta
 			fmt.Fprintf(&b, "\t%s, done%d, err := %s(q, r)\n\tdefer done%d()\n%s", v, i, g.decOpts(p.t.elem), i, fail)
 		default:
@@ -200,6 +204,27 @@ func (g *goEmitter) function(name string, f *fn) string {
 	}
 	b.WriteString("\treturn nil\n}\n")
 	return b.String()
+}
+
+// funcLit: o callback Go passado à função no lugar do callback do Dart: cada
+// invocação vai ao lote (cb.item) com os argumentos, e o veredito do Dart
+// vira o resultado (false, ou errCallbackStopped).
+func (g *goEmitter) funcLit(t *tinfo) string {
+	sig := t.t.Underlying().(*types.Signature)
+	var ps, encs []string
+	for i, a := range t.fargs {
+		ps = append(ps, fmt.Sprintf("a%d %s", i, g.ts(sig.Params().At(i).Type())))
+		encs = append(encs, fmt.Sprintf("%s(w, a%d)", g.enc(a), i))
+	}
+	item := fmt.Sprintf("cb.item(func(w *writer) {\n%s\n})", strings.Join(encs, "\n"))
+	params := strings.Join(ps, ", ")
+	switch t.fret {
+	case fretBool:
+		return fmt.Sprintf("func(%s) bool {\nreturn %s\n}", params, item)
+	case fretErr:
+		return fmt.Sprintf("func(%s) error {\nif !%s {\nreturn errCallbackStopped\n}\nreturn nil\n}", params, item)
+	}
+	return fmt.Sprintf("func(%s) {\n%s\n}", params, item)
 }
 
 func (g *goEmitter) callee(f *fn, recv string) string {

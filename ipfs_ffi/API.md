@@ -24,6 +24,7 @@ Cada linha é um símbolo Go exposto e onde ele está no Dart.
 | `func files.NewSerialFile(path string, includeHidden bool, stat os.FileInfo) (files.Node, error)` | `newSerialFile` | síncrona |
 | `func files.ToFile(n files.Node) files.File` | `toFile` | síncrona |
 | `func files.WriteTo(nd files.Node, fpath string) error` | `writeTo` | síncrona |
+| `files.Node → x.(files.File)` | `Node.asFile` | cast |
 
 ## `github.com/ipfs/boxo/ipld/merkledag` → `package:ipfs_ffi/boxo/ipld/merkledag.dart`
 
@@ -122,6 +123,7 @@ Cada linha é um símbolo Go exposto e onde ele está no Dart.
 | `func (format.Node).Stat() (*format.NodeStat, error)` | `Node.stat` | síncrona |
 | `format.Node → x.(*merkledag.ProtoNode)` | `Node.asProtoNode` | cast |
 | `format.Node → x.(*merkledag.RawNode)` | `Node.asRawNode` | cast |
+| `format.NodeAdder → x.(iface.APIDagService)` | `NodeAdder.asApiDagService` | cast |
 
 ## `github.com/ipfs/kubo/config` → `package:ipfs_ffi/kubo/config.dart`
 
@@ -357,6 +359,9 @@ Cada linha é um símbolo Go exposto e onde ele está no Dart.
 | `func (index.Index).Marshal(w io.Writer) (uint64, error)` | `Index.marshal` | síncrona |
 | `func (index.Index).Unmarshal(r io.Reader) error` | `Index.unmarshal` | síncrona |
 | `func (index.Index).Load([]index.Record) error` | `Index.load` | síncrona |
+| `func (index.Index).GetAll(cid.Cid, func(uint64) bool) error` | `Index.getAll` | Future |
+| `func (index.IterableIndex).ForEach(func(multihash.Multihash, uint64) error) error` | `IterableIndex.forEach` | Future |
+| `index.Index → x.(index.IterableIndex)` | `Index.asIterableIndex` | cast |
 
 ## `github.com/ipld/go-car/v2/storage` → `package:ipfs_ffi/car/v2/storage.dart`
 
@@ -384,6 +389,12 @@ Cada linha é um símbolo Go exposto e onde ele está no Dart.
 | Go | Dart | Modo |
 |---|---|---|
 | `func cidlink.DefaultLinkSystem() linking.LinkSystem` | `defaultLinkSystem` | síncrona |
+
+## `github.com/ipld/go-ipld-prime/storage` → `package:ipfs_ffi/ipld/prime/storage.dart`
+
+| Go | Dart | Modo |
+|---|---|---|
+| `storage.ReadableStorage → x.(storage.ReadableCar)` | `ReadableStorage.asReadableCar` | cast |
 
 ## `github.com/ipld/go-ipld-prime/traversal/selector/parse` → `package:ipfs_ffi/ipld/prime/traversal/selector/parse.dart`
 

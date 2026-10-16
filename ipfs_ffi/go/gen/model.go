@@ -26,7 +26,15 @@ const (
 	kChanSend         // chan<- T passado pelo chamador (o kubo fecha)
 	kChanRecv         // <-chan T devolvido
 	kError
-	kAny // any / interface{}: valor dinâmico com etiqueta (WIRE.md)
+	kAny  // any / interface{}: valor dinâmico com etiqueta (WIRE.md)
+	kFunc // função passada pelo Dart (callback sob demanda, WIRE.md): só em parâmetro
+)
+
+// Resultado de um callback (kFunc): nada, bool (false para) ou error (para).
+const (
+	fretNone = iota
+	fretBool
+	fretErr
 )
 
 // valueSpec: tipo-valor convertido por funções escritas à mão em wire.go.
@@ -73,6 +81,9 @@ type tinfo struct {
 	ctors  []optCtor // kOpts
 	super  *tinfo    // kHandle de interface: primeira interface embutida com classe
 	reader bool      // handle de interface de E/S (io.Reader, io.ReaderAt...): o Dart também pode passar bytes
+	fargs  []*tinfo  // kFunc: os argumentos do callback
+	fnames []string  // kFunc: os nomes deles ("" se o Go não nomeia)
+	fret   int       // kFunc: fretNone, fretBool ou fretErr
 }
 
 type field struct {
@@ -255,6 +266,12 @@ func (m *model) fillNamed(ti *tinfo, n *types.Named) {
 	case *types.Basic: // nomeado sobre básico: atravessa como o básico
 		b := m.classify(u)
 		ti.k, ti.why, ti.named = b.k, b.why, nil
+	case *types.Slice: // nomeado sobre []byte (multihash.Multihash): bytes
+		if b, ok := u.Elem().(*types.Basic); ok && b.Kind() == types.Byte {
+			ti.k, ti.named = kBytes, nil
+			return
+		}
+		unsupported(ti, "tipo %s", key)
 	case *types.Signature:
 		if ctors := m.optCtors(obj.Pkg(), key); len(ctors) > 0 {
 			ti.k, ti.ctors = kOpts, ctors
@@ -351,6 +368,45 @@ func (m *model) fillStruct(ti *tinfo, n *types.Named, u *types.Struct) {
 		}
 		ti.fields = append(ti.fields, fd)
 	}
+}
+
+// funcParam: parâmetro de tipo função (sem nome, ou nomeado como
+// fetcher.FetchCallback) que o Dart passa: o callback sob demanda (WIRE.md).
+// Só os que devolvem nada, bool ou error; nil se não é um desses (uma função
+// que devolve outra coisa, como libp2p.RoutingOption, segue handle opaco).
+func (m *model) funcParam(t types.Type) *tinfo {
+	sig, ok := t.Underlying().(*types.Signature)
+	if !ok || sig.Variadic() {
+		return nil
+	}
+	ti := &tinfo{k: kFunc, t: t, key: "func:" + types.TypeString(t, nil)}
+	if n, ok := types.Unalias(t).(*types.Named); ok {
+		ti.named = n
+	}
+	switch r := sig.Results(); {
+	case r.Len() == 0:
+	case r.Len() == 1 && types.TypeString(r.At(0).Type(), nil) == "error":
+		ti.fret = fretErr
+	case r.Len() == 1:
+		b, ok := r.At(0).Type().Underlying().(*types.Basic)
+		if !ok || b.Kind() != types.Bool {
+			return nil
+		}
+		ti.fret = fretBool
+	default:
+		return nil
+	}
+	for i := 0; i < sig.Params().Len(); i++ {
+		v := sig.Params().At(i)
+		a := m.classify(v.Type())
+		if !okElem(a) {
+			unsupported(ti, "callback com argumento %s", describe(a))
+			return ti
+		}
+		ti.fargs = append(ti.fargs, a)
+		ti.fnames = append(ti.fnames, v.Name())
+	}
+	return ti
 }
 
 // isIO: interface só de métodos de E/S, com ao menos um de dados.

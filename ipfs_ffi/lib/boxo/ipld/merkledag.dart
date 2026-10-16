@@ -14,7 +14,7 @@ class ProtoNode extends $format.Node {
   /// Go: `func (*merkledag.ProtoNode).AddNodeLink(name string, that format.Node) error`.
   void addNodeLink(String name, $format.Node that) {
     $callSync(
-        79,
+        83,
         $W()
           ..h(this)
           ..str(name)
@@ -24,7 +24,7 @@ class ProtoNode extends $format.Node {
   /// Go: `func (*merkledag.ProtoNode).SetData(d []byte)`.
   void setData(Uint8List d) {
     $callSync(
-        81,
+        85,
         $W()
           ..h(this)
           ..bytes(d));
@@ -32,7 +32,7 @@ class ProtoNode extends $format.Node {
 
   /// Go: `func (*merkledag.ProtoNode).Data() []byte`.
   Uint8List data() {
-    final $r = $callSync(80, $W()..h(this));
+    final $r = $callSync(84, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 }
@@ -43,13 +43,13 @@ class RawNode extends $format.Node {
 
   /// Go: `func merkledag.NewRawNode(data []byte) *merkledag.RawNode`.
   factory RawNode(Uint8List data) {
-    final $r = $callSync(77, $W()..bytes(data));
+    final $r = $callSync(81, $W()..bytes(data));
     return $r.hnn(RawNode.$h);
   }
 }
 
 /// Go: `func merkledag.NodeWithData(d []byte) *merkledag.ProtoNode`.
 ProtoNode nodeWithData(Uint8List d) {
-  final $r = $callSync(78, $W()..bytes(d));
+  final $r = $callSync(82, $W()..bytes(d));
   return $r.hnn(ProtoNode.$h);
 }

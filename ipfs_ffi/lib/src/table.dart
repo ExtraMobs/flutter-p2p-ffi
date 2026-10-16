@@ -3,4 +3,4 @@
 /// Hash of the generated function table (FNV-1a 64 of "id key" per line, one
 /// per function) and of the kubo command schema (WIRE.md): sent in the Hello
 /// right after connecting to the ipfs_host.
-const ipfsTableHash = 0x89f5fecfbceb484c;
+const ipfsTableHash = 0xe9e0dba82f7f62cd;

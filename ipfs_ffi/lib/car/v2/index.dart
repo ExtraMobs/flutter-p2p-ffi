@@ -2,6 +2,9 @@
 // Go: github.com/ipld/go-car/v2/index
 library;
 
+import 'dart:async';
+import 'dart:typed_data';
+
 import 'package:ipfs_ffi/src/runtime.dart';
 import 'package:ipfs_ffi/multiformats/cid.dart' as $cid;
 
@@ -11,14 +14,14 @@ class Index extends GoHandle {
 
   /// Go: `func (index.Index).Codec() multicodec.Code`.
   int codec() {
-    final $r = $callSync(302, $W()..h(this));
+    final $r = $callSync(306, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (index.Index).Marshal(w io.Writer) (uint64, error)`.
   int marshal(GoHandle? w) {
     final $r = $callSync(
-        304,
+        309,
         $W()
           ..h(this)
           ..h(w));
@@ -28,7 +31,7 @@ class Index extends GoHandle {
   /// Go: `func (index.Index).Unmarshal(r io.Reader) error`.
   void unmarshal(Object r) {
     $callSync(
-        305,
+        310,
         $W()
           ..h(this)
           ..reader(r));
@@ -37,10 +40,50 @@ class Index extends GoHandle {
   /// Go: `func (index.Index).Load([]index.Record) error`.
   void load(List<Record$> records) {
     $callSync(
-        303,
+        308,
         $W()
           ..h(this)
           ..list(records, (w0, e0) => w0.dto(e0)));
+  }
+
+  /// Go: `func (index.Index).GetAll(cid.Cid, func(uint64) bool) error`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> getAll(
+      $cid.Cid cid, FutureOr<bool> Function(int offset) callback,
+      {int? batchSize}) async {
+    await $callCb(
+        307,
+        $W()
+          ..h(this)
+          ..val(cid)
+          ..u32(batchSize ?? 0),
+        (r) => callback(r.i64()));
+  }
+
+  /// Go: type assertion `x.(index.IterableIndex)`: null if the object is not one.
+  IterableIndex? asIterableIndex() {
+    final $r = $callSync(72, $W()..h(this));
+    return $r.hn(IterableIndex.$h);
+  }
+}
+
+/// Go: `index.IterableIndex` (handle).
+class IterableIndex extends Index {
+  IterableIndex.$h(super.$h) : super.$h();
+
+  /// Go: `func (index.IterableIndex).ForEach(func(multihash.Multihash, uint64) error) error`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> forEach(
+      FutureOr<void> Function(Uint8List multihash, int offset) callback,
+      {int? batchSize}) async {
+    await $callCb(
+        311,
+        $W()
+          ..h(this)
+          ..u32(batchSize ?? 0),
+        (r) => callback(r.bytes() ?? Uint8List(0), r.i64()));
   }
 }
 
@@ -73,20 +116,20 @@ final class Record$ implements GoDto {
 
 /// Go: `func index.New(codec multicodec.Code) (index.Index, error)`.
 Index new$(int codec) {
-  final $r = $callSync(306, $W()..i64(codec));
+  final $r = $callSync(312, $W()..i64(codec));
   return $r.hnn(Index.$h);
 }
 
 /// Go: `func index.ReadFrom(r io.Reader) (index.Index, error)`.
 Index readFrom(Object r) {
-  final $r = $callSync(308, $W()..reader(r));
+  final $r = $callSync(314, $W()..reader(r));
   return $r.hnn(Index.$h);
 }
 
 /// Go: `func index.WriteTo(idx index.Index, w io.Writer) (uint64, error)`.
 int writeTo(Index idx, GoHandle? w) {
   final $r = $callSync(
-      309,
+      315,
       $W()
         ..h(idx)
         ..h(w));
@@ -96,7 +139,7 @@ int writeTo(Index idx, GoHandle? w) {
 /// Go: `func index.GetFirst(idx index.Index, key cid.Cid) (uint64, error)`.
 int getFirst(Index idx, $cid.Cid key) {
   final $r = $callSync(
-      301,
+      305,
       $W()
         ..h(idx)
         ..val(key));
@@ -105,6 +148,6 @@ int getFirst(Index idx, $cid.Cid key) {
 
 /// Go: `func index.ReadCodec(r io.Reader) (multicodec.Code, error)`.
 int readCodec(Object r) {
-  final $r = $callSync(307, $W()..reader(r));
+  final $r = $callSync(313, $W()..reader(r));
   return $r.i64();
 }

@@ -32,6 +32,13 @@ var paramNames = map[string][]string{
 	"github.com/ipfs/kubo/core/coreiface.ObjectAPI.Diff":      {"ctx", "before", "after"},
 }
 
+// cbArgNames: nomes dos argumentos de callbacks que o Go não nomeia, por
+// raiz (os do Go, quando há, ficam).
+var cbArgNames = map[string][]string{
+	"github.com/ipld/go-car/v2/index.Index.GetAll":          {"offset"},
+	"github.com/ipld/go-car/v2/index.IterableIndex.ForEach": {"multihash", "offset"},
+}
+
 // forceAsync: funções sem context que bloqueiam (rede, desligamento).
 var forceAsync = setOf(`github.com/ipfs/kubo/core.IpfsNode.Close`)
 
@@ -332,6 +339,14 @@ func (m *model) resolve(pkgs map[string]*types.Package, line string) ([]*fn, err
 		v := sig.Params().At(i)
 		p := param{name: v.Name(), variadic: sig.Variadic() && i == sig.Params().Len()-1}
 		p.t = m.classify(v.Type())
+		if p.t.k != kOpts {
+			if ft := m.funcParam(v.Type()); ft != nil {
+				p.t = ft
+				if names := cbArgNames[line]; len(names) == len(ft.fnames) {
+					ft.fnames = names
+				}
+			}
+		}
 		if p.name == "" || p.name == "_" {
 			p.name = paramName(p.t, i)
 		}
@@ -407,6 +422,9 @@ func (m *model) casts(fns []*fn) []*fn {
 		used[t.key] = t
 		walk(t.elem)
 		walk(t.mkey)
+		for _, a := range t.fargs {
+			walk(a)
+		}
 		for _, fd := range t.fields {
 			walk(fd.t)
 		}
@@ -442,8 +460,17 @@ func (m *model) casts(fns []*fn) []*fn {
 	var out []*fn
 	for _, i := range ifaces {
 		it := i.named.Underlying().(*types.Interface)
-		for _, c := range concretes {
-			if !types.Implements(c.t, it) {
+		// e para as interfaces que embutem esta (index.Index →
+		// index.IterableIndex): o `x.(Maior)` do Go; entre interfaces sem
+		// relação, não (seria um cast para cada par)
+		targets := concretes
+		for _, j := range ifaces {
+			if j != i && embeds(j.named, i.named) {
+				targets = append(targets, j)
+			}
+		}
+		for _, c := range targets {
+			if !types.IsInterface(c.named) && !types.Implements(c.t, it) {
 				continue
 			}
 			name := "As" + c.named.Obj().Name()
@@ -453,6 +480,20 @@ func (m *model) casts(fns []*fn) []*fn {
 		}
 	}
 	return out
+}
+
+// embeds: a interface [outer] embute [inner], direta ou indiretamente.
+func embeds(outer, inner *types.Named) bool {
+	u, ok := outer.Underlying().(*types.Interface)
+	if !ok {
+		return false
+	}
+	for k := 0; k < u.NumEmbeddeds(); k++ {
+		if e, ok := types.Unalias(u.EmbeddedType(k)).(*types.Named); ok && (e.Obj() == inner.Obj() || embeds(e, inner)) {
+			return true
+		}
+	}
+	return false
 }
 
 // dartConstLit: o literal Dart de uma constante Go de tipo básico.
@@ -485,7 +526,7 @@ func (m *model) check(f *fn) {
 			f.why = fmt.Sprintf(format, a...)
 		}
 	}
-	for _, p := range f.params {
+	for i, p := range f.params {
 		switch t := p.t; t.k {
 		case kBasic, kBytes, kValue, kDTO, kSnap, kHandle, kMap, kCtx, kWriter, kAny:
 		case kSlice:
@@ -498,6 +539,11 @@ func (m *model) check(f *fn) {
 				fail("dois canais")
 			}
 			f.stream = t.elem
+		case kFunc: // callback sob demanda: a chamada espera o Dart consumir
+			if funcParamIdx(f) != i {
+				fail("dois callbacks")
+			}
+			f.async = true
 		default:
 			fail("parâmetro %s: %s", p.name, describe(t))
 		}
@@ -516,6 +562,9 @@ func (m *model) check(f *fn) {
 		default:
 			fail("resultado %d: %s", i, describe(r))
 		}
+	}
+	if f.stream != nil && funcParamIdx(f) >= 0 {
+		fail("canal e callback")
 	}
 	if f.stream != nil {
 		if s := f.stream; !okElem(s) && s.k != kSnap {
@@ -537,6 +586,16 @@ func okElem(t *tinfo) bool {
 		return true
 	}
 	return false
+}
+
+// funcParamIdx: o índice do primeiro parâmetro callback (kFunc), ou -1.
+func funcParamIdx(f *fn) int {
+	for i, p := range f.params {
+		if p.t.k == kFunc {
+			return i
+		}
+	}
+	return -1
 }
 
 func chanParam(f *fn) int {
@@ -574,6 +633,8 @@ func paramName(t *tinfo, i int) string {
 		return "opts"
 	case t.k == kChanSend:
 		return "out"
+	case t.k == kFunc:
+		return "callback"
 	case t.k == kSlice && t.elem.named != nil: // []cid.Cid → cids, []Node → nodes
 		return t.elem.named.Obj().Name() + "s"
 	case t.named != nil:

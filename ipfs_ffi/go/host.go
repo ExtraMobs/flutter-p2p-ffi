@@ -119,7 +119,9 @@ func (h *host) idle() bool {
 	if !h.req.PrepareSleep() {
 		return true
 	}
-	return h.ch.bellWait()
+	ok := h.ch.bellWait()
+	bells.wakes.Add(1) // o app tocou (manual_bench.go)
+	return ok
 }
 
 // dispatch trata um pedido; [m] só vale durante a chamada (é o anel), então
@@ -156,6 +158,9 @@ func (h *host) dispatch(m []byte) {
 		for range r.count() {
 			hfree(r.i64())
 		}
+		return
+	case fnCallbackAck: // callback.go
+		callbackAck(args)
 		return
 	case fnHello:
 		r := &reader{b: args}
@@ -247,6 +252,7 @@ func (h *host) send(head, data []byte) {
 		wake := h.resp.Commit(n + frameHead)
 		if wake {
 			h.ch.bellRing()
+			bells.rings.Add(1)
 		}
 		off += n
 		if off == total {

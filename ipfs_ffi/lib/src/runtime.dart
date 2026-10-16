@@ -10,6 +10,7 @@ import 'dart:typed_data';
 
 import 'shm.dart';
 
+part 'runtime/callback.dart';
 part 'runtime/codec.dart';
 part 'runtime/commands.dart';
 
@@ -156,6 +157,17 @@ void _onMessage(int id, int kind, Uint8List data) {
   final p = _pending[id];
   if (p == null) return; // sink already closed by the end of the call
   switch ((kind, p.sink)) {
+    case (_evCallback, _Callback cb):
+      cb._batch(id, data);
+      return;
+    case (_evValue, _Callback cb):
+      final r = $R(data);
+      _finish(id, p).then((_) => cb._finish(r));
+      return;
+    case (_evError, _Callback cb):
+      final e = $goError(data);
+      _finish(id, p).then((_) => cb._finish(e));
+      return;
     case (_evValue, Completer<$R> c):
       final r = $R(data);
       _finish(id, p).then((_) => c.complete(r));
@@ -211,6 +223,8 @@ void _closeSinks(List<int> sinks, [Object? error, List<Future<void>>? done]) {
 
 void _failSink(Object sink, Object e, [StackTrace? st]) {
   switch (sink) {
+    case _Callback cb:
+      if (!cb.done.isCompleted) cb.done.completeError(e, st);
     case Completer<$R> c:
       c.completeError(e, st);
     case StreamController<$R> s:

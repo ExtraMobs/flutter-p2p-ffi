@@ -260,6 +260,10 @@ github.com/ipld/go-car/v2/index.Index.Codec
 github.com/ipld/go-car/v2/index.Index.Marshal
 github.com/ipld/go-car/v2/index.Index.Unmarshal
 github.com/ipld/go-car/v2/index.Index.Load
+# 0.17 callbacks sob demanda: o Go chama o callback, o Dart recebe os
+# argumentos em lotes (batchSize) e responde (false/exceção param)
+github.com/ipld/go-car/v2/index.Index.GetAll
+github.com/ipld/go-car/v2/index.IterableIndex.ForEach
 github.com/multiformats/go-multicodec.CarIndexSorted
 github.com/multiformats/go-multicodec.CarMultihashIndexSorted
 # o CID de um bloco novo, sem nó: cid.NewPrefixV1(codec, mhType).sum(dados)

@@ -53,6 +53,11 @@ func (e *dartEmitter) collect(t *tinfo) {
 	case kSlice, kMap, kChanSend, kChanRecv:
 		e.collect(t.elem)
 		return
+	case kFunc:
+		for _, a := range t.fargs {
+			e.collect(a)
+		}
+		return
 	case kValue:
 		if t.val.dartClass == "" {
 			return
@@ -707,7 +712,7 @@ func (e *dartEmitter) function(l *dartLib, f *fn, class string, factory bool) st
 	case f.recv != nil:
 		segs = append(segs, "h(this)")
 	}
-	opt := ""
+	opt, cbItem := "", ""
 	for i, p := range f.params {
 		// chan<- da própria função é o modo stream
 		if p.t.k == kChanSend {
@@ -724,6 +729,16 @@ func (e *dartEmitter) function(l *dartLib, f *fn, class string, factory bool) st
 			params = append(params, "GoHandle? "+n)
 			continue
 		}
+		if p.t.k == kFunc { // callback sob demanda: a função Dart; no pedido, o tamanho do lote
+			segs = append(segs, "u32(batchSize ?? 0)")
+			params = append(params, e.funcType(p.t, l)+" "+n)
+			var decs []string
+			for _, a := range p.t.fargs {
+				decs = append(decs, e.dec(a, "r", l, cbArgOpt(a)))
+			}
+			cbItem = fmt.Sprintf("(r) => %s(%s)", n, strings.Join(decs, ", "))
+			continue
+		}
 		if p.t.reader {
 			segs = append(segs, "reader("+n+")")
 		} else {
@@ -738,6 +753,13 @@ func (e *dartEmitter) function(l *dartLib, f *fn, class string, factory bool) st
 			dartT = e.dt(p.t, l)
 		}
 		params = append(params, dartT+" "+n)
+	}
+	if cbItem != "" { // o lote é opcional; com variádico, no mesmo colchete (o Dart não mistura [] e {})
+		if opt != "" {
+			opt = strings.TrimSuffix(opt, "]") + ", int? batchSize]"
+		} else {
+			params = append(params, "{int? batchSize}")
+		}
 	}
 	if opt != "" {
 		params = append(params, opt)
@@ -795,6 +817,9 @@ func (e *dartEmitter) function(l *dartLib, f *fn, class string, factory bool) st
 		}
 		head = fmt.Sprintf("Future<%s> %s%s async", ret, name, sig)
 		callExpr = "await $call(" + call + ")"
+		if cbItem != "" {
+			callExpr = "await $callCb(" + call + ", " + cbItem + ")"
+		}
 	}
 	if dec == "" {
 		fmt.Fprintf(&b, "%s%s {\n%s  %s;\n%s}\n", indent, head, indent, callExpr, indent)
@@ -813,6 +838,33 @@ func realMethods(c *dclass) int {
 	}
 	return n
 }
+
+// funcType: o tipo Dart da função passada como callback: os argumentos do
+// callback Go e FutureOr<bool> (false para) ou FutureOr<void>.
+func (e *dartEmitter) funcType(t *tinfo, l *dartLib) string {
+	l.async = true // FutureOr
+	var ps []string
+	for i, a := range t.fargs {
+		n := dartParamName(t.fnames[i])
+		if n == "" || n == "_" {
+			n = fmt.Sprintf("arg%d", i)
+		}
+		dt := e.dt(a, l)
+		if cbArgOpt(a) {
+			dt += "?"
+		}
+		ps = append(ps, dt+" "+n)
+	}
+	ret := "FutureOr<void>"
+	if t.fret == fretBool {
+		ret = "FutureOr<bool>"
+	}
+	return fmt.Sprintf("%s Function(%s)", ret, strings.Join(ps, ", "))
+}
+
+// cbArgOpt: argumento de callback que pode vir nil do Go (objeto, valor,
+// DTO); bytes nil chegam vazios.
+func cbArgOpt(a *tinfo) bool { return nullable(a) && a.k != kBytes }
 
 func usesRuntime(body string) bool {
 	for _, id := range []string{"GoHandle", "GoValue", "GoDto", "GoOption", "GoSink", "$call", "$stream", "$W", "$R", "$nil", "$orErr"} {

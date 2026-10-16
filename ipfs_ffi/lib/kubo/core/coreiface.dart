@@ -25,7 +25,7 @@ class ApiDagService extends $format.DagService {
   /// Asynchronous: runs in a goroutine of the service.
   Future<$format.Node> get($context.Context ctx, $cid.Cid cid) async {
     final $r = await $call(
-        159,
+        163,
         $W()
           ..h(this)
           ..h(ctx)
@@ -37,7 +37,7 @@ class ApiDagService extends $format.DagService {
   Stream<$format.NodeOption> getMany(
           $context.Context ctx, List<$cid.Cid> cids) =>
       $stream(
-              160,
+              164,
               $W()
                 ..h(this)
                 ..h(ctx)
@@ -49,7 +49,7 @@ class ApiDagService extends $format.DagService {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> add($context.Context ctx, $format.Node node) async {
     await $call(
-        157,
+        161,
         $W()
           ..h(this)
           ..h(ctx)
@@ -61,7 +61,7 @@ class ApiDagService extends $format.DagService {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> addMany($context.Context ctx, List<$format.Node> nodes) async {
     await $call(
-        158,
+        162,
         $W()
           ..h(this)
           ..h(ctx)
@@ -73,7 +73,7 @@ class ApiDagService extends $format.DagService {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> remove($context.Context ctx, $cid.Cid cid) async {
     await $call(
-        162,
+        166,
         $W()
           ..h(this)
           ..h(ctx)
@@ -85,7 +85,7 @@ class ApiDagService extends $format.DagService {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> removeMany($context.Context ctx, List<$cid.Cid> cids) async {
     await $call(
-        163,
+        167,
         $W()
           ..h(this)
           ..h(ctx)
@@ -94,7 +94,7 @@ class ApiDagService extends $format.DagService {
 
   /// Go: `func (iface.APIDagService).Pinning() format.NodeAdder`.
   $format.NodeAdder pinning() {
-    final $r = $callSync(161, $W()..h(this));
+    final $r = $callSync(165, $W()..h(this));
     return $r.hnn($format.NodeAdder.$h);
   }
 }
@@ -195,7 +195,7 @@ class BlockApi extends GoHandle {
   Future<BlockStat> put($context.Context ctx, Object reader,
       [List<$options.BlockPutOption> opts = const []]) async {
     final $r = await $call(
-        165,
+        169,
         $W()
           ..h(this)
           ..h(ctx)
@@ -209,7 +209,7 @@ class BlockApi extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<$io.Reader> get($context.Context ctx, $path.Path path) async {
     final $r = await $call(
-        164,
+        168,
         $W()
           ..h(this)
           ..h(ctx)
@@ -223,7 +223,7 @@ class BlockApi extends GoHandle {
   Future<void> rm($context.Context ctx, $path.Path path,
       [List<$options.BlockRmOption> opts = const []]) async {
     await $call(
-        166,
+        170,
         $W()
           ..h(this)
           ..h(ctx)
@@ -236,7 +236,7 @@ class BlockApi extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<BlockStat> stat($context.Context ctx, $path.Path path) async {
     final $r = await $call(
-        167,
+        171,
         $W()
           ..h(this)
           ..h(ctx)
@@ -326,7 +326,7 @@ class CoreApi extends GoHandle {
 
   /// Go: `func (iface.CoreAPI).Unixfs() iface.UnixfsAPI`.
   UnixfsApi unixfs() {
-    final $r = $callSync(179, $W()..h(this));
+    final $r = $callSync(183, $W()..h(this));
     return $r.hnn(UnixfsApi.$h);
   }
 
@@ -336,7 +336,7 @@ class CoreApi extends GoHandle {
   Future<($path.ImmutablePath, List<String>)> resolvePath(
       $context.Context ctx, $path.Path path) async {
     final $r = await $call(
-        176,
+        180,
         $W()
           ..h(this)
           ..h(ctx)
@@ -349,43 +349,43 @@ class CoreApi extends GoHandle {
 
   /// Go: `func (iface.CoreAPI).Pin() iface.PinAPI`.
   PinApi pin() {
-    final $r = $callSync(173, $W()..h(this));
+    final $r = $callSync(177, $W()..h(this));
     return $r.hnn(PinApi.$h);
   }
 
   /// Go: `func (iface.CoreAPI).Block() iface.BlockAPI`.
   BlockApi block() {
-    final $r = $callSync(168, $W()..h(this));
+    final $r = $callSync(172, $W()..h(this));
     return $r.hnn(BlockApi.$h);
   }
 
   /// Go: `func (iface.CoreAPI).Key() iface.KeyAPI`.
   KeyApi key() {
-    final $r = $callSync(170, $W()..h(this));
+    final $r = $callSync(174, $W()..h(this));
     return $r.hnn(KeyApi.$h);
   }
 
   /// Go: `func (iface.CoreAPI).Swarm() iface.SwarmAPI`.
   SwarmApi swarm() {
-    final $r = $callSync(178, $W()..h(this));
+    final $r = $callSync(182, $W()..h(this));
     return $r.hnn(SwarmApi.$h);
   }
 
   /// Go: `func (iface.CoreAPI).Routing() iface.RoutingAPI`.
   RoutingApi routing() {
-    final $r = $callSync(177, $W()..h(this));
+    final $r = $callSync(181, $W()..h(this));
     return $r.hnn(RoutingApi.$h);
   }
 
   /// Go: `func (iface.CoreAPI).Name() iface.NameAPI`.
   NameApi name() {
-    final $r = $callSync(171, $W()..h(this));
+    final $r = $callSync(175, $W()..h(this));
     return $r.hnn(NameApi.$h);
   }
 
   /// Go: `func (iface.CoreAPI).Dag() iface.APIDagService`.
   ApiDagService dag() {
-    final $r = $callSync(169, $W()..h(this));
+    final $r = $callSync(173, $W()..h(this));
     return $r.hnn(ApiDagService.$h);
   }
 
@@ -395,7 +395,7 @@ class CoreApi extends GoHandle {
   Future<$format.Node> resolveNode(
       $context.Context ctx, $path.Path path) async {
     final $r = await $call(
-        175,
+        179,
         $W()
           ..h(this)
           ..h(ctx)
@@ -405,14 +405,14 @@ class CoreApi extends GoHandle {
 
   /// Go: `func (iface.CoreAPI).PubSub() iface.PubSubAPI`.
   PubSubApi pubSub() {
-    final $r = $callSync(174, $W()..h(this));
+    final $r = $callSync(178, $W()..h(this));
     return $r.hnn(PubSubApi.$h);
   }
 
   /// Go: `func (iface.CoreAPI).WithOptions(...options.ApiOption) (iface.CoreAPI, error)`.
   CoreApi withOptions([List<$options.ApiOption> opts = const []]) {
     final $r = $callSync(
-        180,
+        184,
         $W()
           ..h(this)
           ..list(opts, (w0, e0) => w0.opt(e0)));
@@ -421,7 +421,7 @@ class CoreApi extends GoHandle {
 
   /// Go: `func (iface.CoreAPI).Object() iface.ObjectAPI`.
   ObjectApi object() {
-    final $r = $callSync(172, $W()..h(this));
+    final $r = $callSync(176, $W()..h(this));
     return $r.hnn(ObjectApi.$h);
   }
 }
@@ -554,7 +554,7 @@ class KeyApi extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<Key> self($context.Context ctx) async {
     final $r = await $call(
-        185,
+        189,
         $W()
           ..h(this)
           ..h(ctx));
@@ -567,7 +567,7 @@ class KeyApi extends GoHandle {
   Future<Key> generate($context.Context ctx, String name,
       [List<$options.KeyGenerateOption> opts = const []]) async {
     final $r = await $call(
-        181,
+        185,
         $W()
           ..h(this)
           ..h(ctx)
@@ -583,7 +583,7 @@ class KeyApi extends GoHandle {
       $context.Context ctx, String oldName, String newName,
       [List<$options.KeyRenameOption> opts = const []]) async {
     final $r = await $call(
-        184,
+        188,
         $W()
           ..h(this)
           ..h(ctx)
@@ -598,7 +598,7 @@ class KeyApi extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<List<Key>> list($context.Context ctx) async {
     final $r = await $call(
-        182,
+        186,
         $W()
           ..h(this)
           ..h(ctx));
@@ -610,7 +610,7 @@ class KeyApi extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<Key> remove($context.Context ctx, String name) async {
     final $r = await $call(
-        183,
+        187,
         $W()
           ..h(this)
           ..h(ctx)
@@ -624,7 +624,7 @@ class KeyApi extends GoHandle {
   Future<(Key, Uint8List)> sign(
       $context.Context ctx, String name, Uint8List data) async {
     final $r = await $call(
-        186,
+        190,
         $W()
           ..h(this)
           ..h(ctx)
@@ -639,7 +639,7 @@ class KeyApi extends GoHandle {
   Future<(Key, bool)> verify($context.Context ctx, String keyOrName,
       Uint8List signature, Uint8List data) async {
     final $r = await $call(
-        187,
+        191,
         $W()
           ..h(this)
           ..h(ctx)
@@ -660,7 +660,7 @@ class NameApi extends GoHandle {
   Future<$ipns.Name> publish($context.Context ctx, $path.Path path,
       [List<$options.NamePublishOption> opts = const []]) async {
     final $r = await $call(
-        188,
+        192,
         $W()
           ..h(this)
           ..h(ctx)
@@ -675,7 +675,7 @@ class NameApi extends GoHandle {
   Future<$path.Path> resolve($context.Context ctx, String name,
       [List<$options.NameResolveOption> opts = const []]) async {
     final $r = await $call(
-        189,
+        193,
         $W()
           ..h(this)
           ..h(ctx)
@@ -688,7 +688,7 @@ class NameApi extends GoHandle {
   Stream<IpnsResult> search($context.Context ctx, String name,
           [List<$options.NameResolveOption> opts = const []]) =>
       $stream(
-              190,
+              194,
               $W()
                 ..h(this)
                 ..h(ctx)
@@ -708,7 +708,7 @@ class ObjectApi extends GoHandle {
       $context.Context ctx, $path.Path base, String name, $path.Path child,
       [List<$options.ObjectAddLinkOption> opts = const []]) async {
     final $r = await $call(
-        191,
+        195,
         $W()
           ..h(this)
           ..h(ctx)
@@ -726,7 +726,7 @@ class ObjectApi extends GoHandle {
       $context.Context ctx, $path.Path base, String link,
       [List<$options.ObjectRmLinkOption> opts = const []]) async {
     final $r = await $call(
-        193,
+        197,
         $W()
           ..h(this)
           ..h(ctx)
@@ -742,7 +742,7 @@ class ObjectApi extends GoHandle {
   Future<List<ObjectChange>> diff(
       $context.Context ctx, $path.Path before, $path.Path after) async {
     final $r = await $call(
-        192,
+        196,
         $W()
           ..h(this)
           ..h(ctx)
@@ -833,7 +833,7 @@ class PinApi extends GoHandle {
   Future<void> add($context.Context ctx, $path.Path path,
       [List<$options.PinAddOption> opts = const []]) async {
     await $call(
-        194,
+        198,
         $W()
           ..h(this)
           ..h(ctx)
@@ -845,7 +845,7 @@ class PinApi extends GoHandle {
   Stream<Pin> ls($context.Context ctx,
           [List<$options.PinLsOption> opts = const []]) =>
       $stream(
-              196,
+              200,
               $W()
                 ..h(this)
                 ..h(ctx)
@@ -858,7 +858,7 @@ class PinApi extends GoHandle {
   Future<(String, bool)> isPinned($context.Context ctx, $path.Path path,
       [List<$options.PinIsPinnedOption> opts = const []]) async {
     final $r = await $call(
-        195,
+        199,
         $W()
           ..h(this)
           ..h(ctx)
@@ -873,7 +873,7 @@ class PinApi extends GoHandle {
   Future<void> rm($context.Context ctx, $path.Path path,
       [List<$options.PinRmOption> opts = const []]) async {
     await $call(
-        197,
+        201,
         $W()
           ..h(this)
           ..h(ctx)
@@ -887,7 +887,7 @@ class PinApi extends GoHandle {
   Future<void> update($context.Context ctx, $path.Path from, $path.Path to,
       [List<$options.PinUpdateOption> opts = const []]) async {
     await $call(
-        198,
+        202,
         $W()
           ..h(this)
           ..h(ctx)
@@ -898,7 +898,7 @@ class PinApi extends GoHandle {
 
   /// Go: `func (iface.PinAPI).Verify(context.Context) (<-chan iface.PinStatus, error)`.
   Stream<PinStatus> verify($context.Context ctx) => $stream(
-          199,
+          203,
           $W()
             ..h(this)
             ..h(ctx))
@@ -945,7 +945,7 @@ class PubSubApi extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<List<String>> ls($context.Context ctx) async {
     final $r = await $call(
-        200,
+        204,
         $W()
           ..h(this)
           ..h(ctx));
@@ -958,7 +958,7 @@ class PubSubApi extends GoHandle {
   Future<List<$peer.Id>> peers($context.Context ctx,
       [List<$options.PubSubPeersOption> opts = const []]) async {
     final $r = await $call(
-        201,
+        205,
         $W()
           ..h(this)
           ..h(ctx)
@@ -972,7 +972,7 @@ class PubSubApi extends GoHandle {
   Future<void> publish(
       $context.Context ctx, String topic, Uint8List data) async {
     await $call(
-        202,
+        206,
         $W()
           ..h(this)
           ..h(ctx)
@@ -986,7 +986,7 @@ class PubSubApi extends GoHandle {
   Future<PubSubSubscription> subscribe($context.Context ctx, String topic,
       [List<$options.PubSubSubscribeOption> opts = const []]) async {
     final $r = await $call(
-        203,
+        207,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1043,7 +1043,7 @@ class PubSubSubscription extends $io.Closer {
   /// Asynchronous: runs in a goroutine of the service.
   Future<PubSubMessage> next($context.Context ctx) async {
     final $r = await $call(
-        205,
+        209,
         $W()
           ..h(this)
           ..h(ctx));
@@ -1052,7 +1052,7 @@ class PubSubSubscription extends $io.Closer {
 
   /// Go: `func (io.Closer).Close() error`.
   void close() {
-    $callSync(204, $W()..h(this));
+    $callSync(208, $W()..h(this));
   }
 }
 
@@ -1067,7 +1067,7 @@ class Reader extends ReadSeekCloser {
 
   /// Go: `func (iface.Reader).Size() uint64`.
   int size() {
-    final $r = $callSync(206, $W()..h(this));
+    final $r = $callSync(210, $W()..h(this));
     return $r.i64();
   }
 }
@@ -1082,7 +1082,7 @@ class RoutingApi extends GoHandle {
   Future<void> provide($context.Context ctx, $path.Path path,
       [List<$options.RoutingProvideOption> opts = const []]) async {
     await $call(
-        210,
+        214,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1094,7 +1094,7 @@ class RoutingApi extends GoHandle {
   Stream<$peer.AddrInfo> findProviders($context.Context ctx, $path.Path path,
           [List<$options.RoutingFindProvidersOption> opts = const []]) =>
       $stream(
-              208,
+              212,
               $W()
                 ..h(this)
                 ..h(ctx)
@@ -1107,7 +1107,7 @@ class RoutingApi extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<$peer.AddrInfo> findPeer($context.Context ctx, $peer.Id id) async {
     final $r = await $call(
-        207,
+        211,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1120,7 +1120,7 @@ class RoutingApi extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<Uint8List> get($context.Context ctx, String key) async {
     final $r = await $call(
-        209,
+        213,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1134,7 +1134,7 @@ class RoutingApi extends GoHandle {
   Future<void> put($context.Context ctx, String key, Uint8List value,
       [List<$options.RoutingPutOption> opts = const []]) async {
     await $call(
-        211,
+        215,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1153,7 +1153,7 @@ class SwarmApi extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> connect($context.Context ctx, $peer.AddrInfo addrInfo) async {
     await $call(
-        212,
+        216,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1166,7 +1166,7 @@ class SwarmApi extends GoHandle {
   Future<void> disconnect(
       $context.Context ctx, $multiaddr.Multiaddr multiaddr) async {
     await $call(
-        213,
+        217,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1178,7 +1178,7 @@ class SwarmApi extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<List<ConnectionInfo>> peers($context.Context ctx) async {
     final $r = await $call(
-        217,
+        221,
         $W()
           ..h(this)
           ..h(ctx));
@@ -1190,7 +1190,7 @@ class SwarmApi extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<List<$multiaddr.Multiaddr>> listenAddrs($context.Context ctx) async {
     final $r = await $call(
-        215,
+        219,
         $W()
           ..h(this)
           ..h(ctx));
@@ -1202,7 +1202,7 @@ class SwarmApi extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<List<$multiaddr.Multiaddr>> localAddrs($context.Context ctx) async {
     final $r = await $call(
-        216,
+        220,
         $W()
           ..h(this)
           ..h(ctx));
@@ -1215,7 +1215,7 @@ class SwarmApi extends GoHandle {
   Future<Map<$peer.Id, List<$multiaddr.Multiaddr>>> knownAddrs(
       $context.Context ctx) async {
     final $r = await $call(
-        214,
+        218,
         $W()
           ..h(this)
           ..h(ctx));
@@ -1234,7 +1234,7 @@ class UnixfsApi extends GoHandle {
   Future<$path.ImmutablePath> add($context.Context ctx, $files.Node node,
       [List<$options.UnixfsAddOption> opts = const []]) async {
     final $r = await $call(
-        218,
+        222,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1248,7 +1248,7 @@ class UnixfsApi extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<$files.Node> get($context.Context ctx, $path.Path path) async {
     final $r = await $call(
-        219,
+        223,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1260,7 +1260,7 @@ class UnixfsApi extends GoHandle {
   Stream<DirEntry> ls($context.Context ctx, $path.Path path,
           [List<$options.UnixfsLsOption> opts = const []]) =>
       $stream(
-              220,
+              224,
               $W()
                 ..h(this)
                 ..h(ctx)

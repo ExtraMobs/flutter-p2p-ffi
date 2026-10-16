@@ -3,10 +3,17 @@
 library;
 
 import 'package:ipfs_ffi/src/runtime.dart';
+import 'package:ipfs_ffi/car/v2/storage.dart' as $storage;
 
 /// Go: `storage.ReadableStorage` (handle).
 class ReadableStorage extends Storage {
   ReadableStorage.$h(super.$h) : super.$h();
+
+  /// Go: type assertion `x.(storage.ReadableCar)`: null if the object is not one.
+  $storage.ReadableCar? asReadableCar() {
+    final $r = $callSync(75, $W()..h(this));
+    return $r.hn($storage.ReadableCar.$h);
+  }
 }
 
 /// Go: `storage.Storage` (handle).

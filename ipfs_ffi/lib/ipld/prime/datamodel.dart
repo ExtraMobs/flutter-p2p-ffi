@@ -11,13 +11,13 @@ class Node extends GoHandle {
 
   /// Go: type assertion `x.(*merkledag.ProtoNode)`: null if the object is not one.
   $merkledag.ProtoNode? asProtoNode() {
-    final $r = $callSync(70, $W()..h(this));
+    final $r = $callSync(73, $W()..h(this));
     return $r.hn($merkledag.ProtoNode.$h);
   }
 
   /// Go: type assertion `x.(*merkledag.RawNode)`: null if the object is not one.
   $merkledag.RawNode? asRawNode() {
-    final $r = $callSync(71, $W()..h(this));
+    final $r = $callSync(74, $W()..h(this));
     return $r.hn($merkledag.RawNode.$h);
   }
 }
