@@ -7,6 +7,7 @@ package main
 
 import (
 	"bytes"
+	"context"
 	"encoding/binary"
 	"encoding/json"
 	"errors"
@@ -20,7 +21,9 @@ import (
 	"github.com/ipfs/boxo/ipns"
 	"github.com/ipfs/boxo/path"
 	"github.com/ipfs/go-cid"
+	format "github.com/ipfs/go-ipld-format"
 	"github.com/ipfs/kubo/config"
+	carstorage "github.com/ipld/go-car/v2/storage"
 	"github.com/libp2p/go-libp2p/core/peer"
 	ma "github.com/multiformats/go-multiaddr"
 )
@@ -62,6 +65,38 @@ func (q *req) item(enc func(*writer)) {
 	q.send(q.id, evItem, w.b)
 }
 
+// errData: os dados do evento `erro` (WIRE.md): o código do sentinela que o
+// erro embrulha (errors.Is), para o Dart lançar a subclasse certa, e a
+// mensagem.
+func errData(err error) []byte {
+	var code byte
+	switch {
+	case errors.Is(err, io.EOF):
+		code = errEOF
+	case errors.Is(err, io.ErrUnexpectedEOF):
+		code = errUnexpectedEOF
+	case errors.Is(err, context.Canceled):
+		code = errCanceled
+	case errors.Is(err, context.DeadlineExceeded):
+		code = errDeadline
+	case errors.Is(err, format.ErrNotFound{}), errors.Is(err, carstorage.ErrNotFound{}):
+		code = errNotFound
+	}
+	return append([]byte{code}, err.Error()...)
+}
+
+// errText: o evento `erro` de uma mensagem do próprio host (sem sentinela).
+func errText(msg string) []byte { return append([]byte{0}, msg...) }
+
+// Códigos de sentinela do evento `erro` (WIRE.md).
+const (
+	errEOF = 1 + iota
+	errUnexpectedEOF
+	errCanceled
+	errDeadline
+	errNotFound
+)
+
 // invoke roda a entrada [e] sobre [args] e devolve a resposta final (valor,
 // fim ou erro); os itens e os eventos de sink saem por [send] antes dela. Um
 // panic da chamada vira o erro.
@@ -70,7 +105,7 @@ func invoke(e entry, id uint32, args []byte, send sendFn) (byte, []byte) {
 	err := try(func() error { return e.fn(&req{id: id, send: send}, &reader{b: args}, w) })
 	switch {
 	case err != nil:
-		return evError, []byte(err.Error())
+		return evError, errData(err)
 	case e.stream:
 		return evEnd, nil
 	}
@@ -373,7 +408,7 @@ func chanSink[T any](q *req, sid uint32, enc func(*writer, T)) (chan any, func()
 			}
 		}
 		if perr != nil {
-			q.send(sid, evError, []byte(perr.Error()))
+			q.send(sid, evError, errData(perr))
 		} else {
 			q.send(sid, evEnd, nil)
 		}

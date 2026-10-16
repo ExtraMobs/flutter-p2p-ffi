@@ -10,7 +10,8 @@ import 'dart:io';
 import 'dart:math' show Random;
 import 'dart:typed_data';
 
-import 'runtime.dart' show IpfsException, IpfsServiceException, IpfsStopReason;
+import 'runtime.dart'
+    show $goError, IpfsServiceException, IpfsStopReason;
 
 export 'runtime.dart' show IpfsServiceException;
 
@@ -231,7 +232,7 @@ final class ShmChannel {
     final id = newId();
     send(id, fn, 0, args);
     final (kind, data) = waitFor(id);
-    if (kind == _evError) throw IpfsException(utf8.decode(data));
+    if (kind == _evError) throw $goError(data);
     return data;
   }
 
@@ -283,7 +284,7 @@ final class ShmChannel {
         c.complete(data);
       case (_evError, Completer<Uint8List> c):
         _pending.remove(id);
-        c.completeError(IpfsException(utf8.decode(data)));
+        c.completeError($goError(data));
       case (_, null):
         onMessage?.call(id, kind, data);
     }

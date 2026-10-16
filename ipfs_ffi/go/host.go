@@ -142,7 +142,7 @@ func (h *host) dispatch(m []byte) {
 		return
 	case fnSleep:
 		if len(args) < 4 {
-			h.reply(id, evError, []byte("ipfs_host: Sleep without the ms"))
+			h.reply(id, evError, errText("ipfs_host: Sleep without the ms"))
 			return
 		}
 		ms := binary.LittleEndian.Uint32(args)
@@ -162,9 +162,9 @@ func (h *host) dispatch(m []byte) {
 		got := r.u64()
 		switch {
 		case r.done() != nil:
-			h.reply(id, evError, []byte(r.err.Error()))
+			h.reply(id, evError, errText(r.err.Error()))
 		case got != tableHash:
-			h.reply(id, evError, fmt.Appendf(nil, "ipfs_host: table %#x, the app expects %#x (generated from different roots.txt)", tableHash, got))
+			h.reply(id, evError, errText(fmt.Sprintf("ipfs_host: table %#x, the app expects %#x (generated from different roots.txt)", tableHash, got)))
 		default:
 			h.reply(id, evValue, nil)
 		}
@@ -173,10 +173,10 @@ func (h *host) dispatch(m []byte) {
 	e, ok := table[fn]
 	switch {
 	case !ok:
-		h.reply(id, evError, fmt.Appendf(nil, "ipfs_host: unknown function %d", fn))
+		h.reply(id, evError, errText(fmt.Sprintf("ipfs_host: unknown function %d", fn)))
 		return
 	case e.stream != (mode == modeStream):
-		h.reply(id, evError, fmt.Appendf(nil, "ipfs_host: %s (%d) chamada no modo %d", e.key, fn, mode))
+		h.reply(id, evError, errText(fmt.Sprintf("ipfs_host: %s (%d) chamada no modo %d", e.key, fn, mode)))
 		return
 	case mode == modeSync:
 		kind, data := invoke(e, id, args, h.reply)

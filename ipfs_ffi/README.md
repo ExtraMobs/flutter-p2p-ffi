@@ -249,7 +249,9 @@ await car.traverseToFile(ctx, ls, raiz, ipld.commonSelectorMatchPoint, 'raiz.car
 
 Parâmetros `io.Reader`/`io.ReaderAt`/`io.ReadSeeker` aceitam bytes ou um handle (`go.open`);
 `io.Writer` aceita um handle (`go.Buffer`, `go.openFile`) ou null (descarta). O fim do
-`BlockReader.next()` é o `io.EOF` do Go: `IpfsException` com `message == 'EOF'`.
+`BlockReader.next()` é o `io.EOF` do Go: `IpfsEof`, uma subclasse de `IpfsException` (as
+outras: `IpfsUnexpectedEof`, `IpfsCanceled`, `IpfsDeadlineExceeded`, `IpfsNotFound`), lançada
+como o `errors.Is` do Go a acharia, inclusive com o erro embrulhado.
 
 ## Correções no upstream (0.15)
 

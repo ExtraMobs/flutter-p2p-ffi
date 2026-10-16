@@ -27,7 +27,12 @@ Tudo em little-endian.
 - **Pedido**: `u32 id`, `u32 função`, `u8 modo`, argumentos. Modo: `0` síncrona
   (o app bloqueia esperando), `1` assíncrona (`Future`), `2` stream.
 - **Resposta/evento**: `u32 id`, `u8 tipo`, dados. Tipo: `0` valor, `1` item (de
-  stream ou de sink), `2` fim, `3` erro (dados = a mensagem em UTF-8).
+  stream ou de sink), `2` fim, `3` erro (dados = `u8` código + a mensagem em UTF-8).
+  Código do sentinela que o erro embrulha (`errors.Is` no host; o Dart lança a subclasse):
+  `0` nenhum (`IpfsException`), `1` `io.EOF` (`IpfsEof`), `2` `io.ErrUnexpectedEOF`
+  (`IpfsUnexpectedEof`), `3` `context.Canceled` (`IpfsCanceled`), `4`
+  `context.DeadlineExceeded` (`IpfsDeadlineExceeded`), `5` não encontrado
+  (`ipld.ErrNotFound`, o `ErrNotFound` do storage do go-car; `IpfsNotFound`).
 - Uma chamada responde com um `valor` ou um `erro`; um stream com `item`s e então
   `fim` ou `erro`. Os sinks de uma chamada (abaixo) recebem `item`s e `fim`/`erro`
   com o id do sink, **antes** da resposta da chamada.

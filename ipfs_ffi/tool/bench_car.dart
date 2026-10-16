@@ -10,7 +10,7 @@ import 'dart:typed_data';
 
 import 'package:ipfs_ffi/car.dart' as car;
 import 'package:ipfs_ffi/go.dart' as go;
-import 'package:ipfs_ffi/ipfs_ffi.dart' show IpfsException, IpfsService;
+import 'package:ipfs_ffi/ipfs_ffi.dart' show IpfsEof, IpfsService;
 import 'package:ipfs_ffi/ipld.dart' as ipld;
 import 'package:ipfs_ffi/multiformats.dart' as mf;
 
@@ -82,9 +82,8 @@ Future<void> main(List<String> args) async {
         while (true) {
           try {
             n += br.next().rawData!.length;
-          } on IpfsException catch (e) {
-            if (e.message != 'EOF') rethrow;
-            break;
+          } on IpfsEof {
+            break; // o io.EOF do Go: acabou
           }
         }
         f.close();

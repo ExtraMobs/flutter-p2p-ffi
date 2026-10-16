@@ -23,6 +23,8 @@ void main() {
   late mf.Cid root;
   late int blocks; // quantos blocos o CAR tem
   late go.Context ctx;
+  late kubo.IpfsNode n; // aberto até o fim: o recorte pelo nó
+  late kubo.CoreApi api;
 
   setUpAll(() async {
     tmp = Directory.systemTemp.createTempSync('ipfs_ffi_car_');
@@ -35,9 +37,9 @@ void main() {
         kubo.createIdentity(null, [kubo.key.type('ed25519')]));
     kubo.profiles['test']!.transform(cfg);
     kubo.init('${tmp.path}/repo', cfg);
-    final n = await kubo.newNode(
+    n = await kubo.newNode(
         ctx, kubo.BuildCfg(repo: kubo.open('${tmp.path}/repo')));
-    final api = kubo.newCoreApi(n);
+    api = kubo.newCoreApi(n);
 
     final dir = Directory('${tmp.path}/pasta')..createSync();
     File('${dir.path}/a.txt').writeAsStringSync('A' * 1000);
@@ -49,10 +51,10 @@ void main() {
     root = mf.Cid(p.value.substring('/ipfs/'.length));
     v1 = '${tmp.path}/base.car';
     await kubo.dagExportFile(n, ctx, p, v1);
-    await n.close();
   });
 
   tearDownAll(() async {
+    await n.close();
     await IpfsService.stop();
     tmp.deleteSync(recursive: true);
   });
@@ -84,9 +86,8 @@ void main() {
         final b = br.next();
         seen.add(b.cid!);
         expect(b.rawData, isNotEmpty);
-      } on IpfsException catch (e) {
-        if (e.message != 'EOF') rethrow; // o io.EOF do Go: acabou
-        break;
+      } on IpfsEof {
+        break; // o io.EOF do Go: acabou
       }
     }
     expect(seen, hasLength(blocks));
@@ -206,5 +207,22 @@ void main() {
     expect(buf.bytes(), hasLength(size));
     expect(car.BlockReader(buf.bytes()).roots, [root]);
     src.close();
+  });
+
+  test('sentinelas do Go viram subclasses de IpfsException', () async {
+    final missing = mf.newPrefixV1(raw, sha256).sum(Uint8List.fromList([9]));
+    final ro = car.openReadOnly(v1);
+    await expectLater(ro.get(ctx, missing), throwsA(isA<IpfsNotFound>()));
+    ro.close();
+
+    // o unixfs.add olha o contexto antes de começar
+    final (c, cancel) = go.withCancel(go.background());
+    cancel();
+    await expectLater(api.unixfs().add(c, boxo.newBytesFile(Uint8List(1))),
+        throwsA(isA<IpfsCanceled>()));
+    final (d, cancel2) = go.withTimeout(go.background(), Duration.zero);
+    await expectLater(api.unixfs().add(d, boxo.newBytesFile(Uint8List(1))),
+        throwsA(isA<IpfsDeadlineExceeded>()));
+    cancel2();
   });
 }

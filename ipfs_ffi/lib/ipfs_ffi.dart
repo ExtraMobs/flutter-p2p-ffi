@@ -21,13 +21,18 @@ library;
 export 'service.dart'
     show
         IpfsBackground,
+        IpfsCanceled,
+        IpfsDeadlineExceeded,
+        IpfsEof,
         IpfsException,
+        IpfsNotFound,
         IpfsPlatform,
         IpfsService,
         IpfsServiceException,
         IpfsStop,
         IpfsStopHandler,
         IpfsStopReason,
+        IpfsUnexpectedEof,
         defaultHostPath,
         ipfsShmLibraryPath;
 export 'src/network.dart' show hasIpv6, isGlobalIpv6;

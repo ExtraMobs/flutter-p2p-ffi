@@ -17,7 +17,7 @@ import 'dart:typed_data';
 import 'package:ipfs_ffi/boxo.dart' as boxo;
 import 'package:ipfs_ffi/car.dart' as car;
 import 'package:ipfs_ffi/go.dart' as go;
-import 'package:ipfs_ffi/ipfs_ffi.dart' show IpfsException, IpfsService;
+import 'package:ipfs_ffi/ipfs_ffi.dart' show IpfsEof, IpfsService;
 import 'package:ipfs_ffi/ipld.dart' as ipld;
 import 'package:ipfs_ffi/kubo.dart' as kubo;
 import 'package:ipfs_ffi/multiformats.dart' as mf;
@@ -69,7 +69,7 @@ Future<void> main() async {
 
     // 2. Bloco a bloco, como o `ipfs dag import` lê: o BlockReader aceita
     // os bytes ou um arquivo aberto (os.Open). O fim é o io.EOF do Go, que
-    // chega como IpfsException('EOF').
+    // chega como IpfsEof (como o errors.Is do Go, vale também embrulhado).
     //   Go:   f, _ := os.Open(path)
     //         br, _ := car.NewBlockReader(f)
     //         for { b, err := br.Next(); if err == io.EOF { break } ... }
@@ -80,9 +80,8 @@ Future<void> main() async {
       try {
         final b = br.next();
         print('2. bloco ${i++}: ${b.cid} (${b.rawData!.length} bytes)');
-      } on IpfsException catch (e) {
-        if (e.message != 'EOF') rethrow;
-        break;
+      } on IpfsEof {
+        break; // o io.EOF do Go: acabou
       }
     }
     f.close();

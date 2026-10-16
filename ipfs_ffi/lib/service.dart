@@ -29,7 +29,15 @@ import 'src/shm.dart';
 import 'src/table.dart';
 
 export 'src/runtime.dart'
-    show IpfsException, IpfsServiceException, IpfsStopReason;
+    show
+        IpfsCanceled,
+        IpfsDeadlineExceeded,
+        IpfsEof,
+        IpfsException,
+        IpfsNotFound,
+        IpfsServiceException,
+        IpfsStopReason,
+        IpfsUnexpectedEof;
 export 'src/shm.dart' show ipfsShmLibraryPath;
 
 /// Hello function (WIRE.md): `u64` table hash → empty, or error.

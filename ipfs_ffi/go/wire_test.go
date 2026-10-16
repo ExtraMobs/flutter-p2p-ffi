@@ -2,7 +2,9 @@ package main
 
 import (
 	"bytes"
+	"context"
 	"errors"
+	"fmt"
 	"io"
 	"math"
 	"strings"
@@ -11,6 +13,7 @@ import (
 
 	"github.com/ipfs/boxo/path"
 	"github.com/ipfs/go-cid"
+	format "github.com/ipfs/go-ipld-format"
 	"github.com/libp2p/go-libp2p/core/peer"
 	ma "github.com/multiformats/go-multiaddr"
 )
@@ -170,5 +173,27 @@ func TestDecIO(t *testing.T) {
 	w.i64(0)
 	if got, err := decWriter(&reader{b: w.b}); err != nil || got != io.Discard {
 		t.Fatal(got, err)
+	}
+}
+
+// O código de sentinela do evento `erro` acha o sentinela embrulhado, como o
+// errors.Is.
+func TestErrData(t *testing.T) {
+	for _, c := range []struct {
+		err  error
+		code byte
+	}{
+		{io.EOF, errEOF},
+		{fmt.Errorf("lendo: %w", io.EOF), errEOF},
+		{io.ErrUnexpectedEOF, errUnexpectedEOF},
+		{context.Canceled, errCanceled},
+		{fmt.Errorf("x: %w", context.DeadlineExceeded), errDeadline},
+		{format.ErrNotFound{}, errNotFound},
+		{errors.New("outro"), 0},
+	} {
+		d := errData(c.err)
+		if d[0] != c.code || string(d[1:]) != c.err.Error() {
+			t.Errorf("%v: código %d, mensagem %q", c.err, d[0], d[1:])
+		}
 	}
 }

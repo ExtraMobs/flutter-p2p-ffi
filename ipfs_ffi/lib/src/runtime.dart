@@ -24,6 +24,48 @@ class IpfsException implements Exception {
   String toString() => 'IpfsException: $message';
 }
 
+/// Go's `io.EOF`: the end of what is being read (`BlockReader.next`). Like
+/// `errors.Is(err, io.EOF)`, it is also thrown when the error wraps it.
+class IpfsEof extends IpfsException {
+  IpfsEof(super.message);
+}
+
+/// Go's `io.ErrUnexpectedEOF`: the data ended in the middle (a truncated CAR).
+class IpfsUnexpectedEof extends IpfsException {
+  IpfsUnexpectedEof(super.message);
+}
+
+/// Go's `context.Canceled`: the context was canceled (`cancel()`).
+class IpfsCanceled extends IpfsException {
+  IpfsCanceled(super.message);
+}
+
+/// Go's `context.DeadlineExceeded`: the context deadline passed
+/// (`withTimeout`, `withDeadline`).
+class IpfsDeadlineExceeded extends IpfsException {
+  IpfsDeadlineExceeded(super.message);
+}
+
+/// Not found (`ipld.ErrNotFound`, the CAR storage's `ErrNotFound`): the block
+/// or node is not in the store.
+class IpfsNotFound extends IpfsException {
+  IpfsNotFound(super.message);
+}
+
+/// The `error` event of the host (WIRE.md): the sentinel code that the Go
+/// error wraps (`errors.Is`) and the message.
+IpfsException $goError(Uint8List data) {
+  final message = utf8.decode(data.length > 1 ? data.sublist(1) : const []);
+  return switch (data.isEmpty ? 0 : data[0]) {
+    1 => IpfsEof(message),
+    2 => IpfsUnexpectedEof(message),
+    3 => IpfsCanceled(message),
+    4 => IpfsDeadlineExceeded(message),
+    5 => IpfsNotFound(message),
+    _ => IpfsException(message),
+  };
+}
+
 /// Why the service stopped.
 enum IpfsStopReason {
   /// The ipfs_host crashed (a Go panic, or the system killed it).
@@ -129,14 +171,14 @@ void _onMessage(int id, int kind, Uint8List data) {
     case (_evEnd, GoSink<Object?> s):
       _sinkDone[id] = s.sink.close();
     case (_evError, GoSink<Object?> s):
-      s.sink.addError(IpfsException(utf8.decode(data)));
+      s.sink.addError($goError(data));
       _sinkDone[id] = s.sink.close();
     case (_evError, Completer<$R> c):
-      final e = IpfsException(utf8.decode(data));
+      final e = $goError(data);
       _finish(id, p).then((_) => c.completeError(e));
       return;
     case (_evError, final sink):
-      _failSink(sink, IpfsException(utf8.decode(data)));
+      _failSink(sink, $goError(data));
     default:
       return; // type that does not fit this pending call: ignored
   }
@@ -211,7 +253,7 @@ $R $callSync(int fn, [$W? w]) {
   try {
     ch.send(id, fn, _sync, w?.take());
     final (kind, data) = ch.waitFor(id);
-    if (kind == _evError) throw IpfsException(utf8.decode(data));
+    if (kind == _evError) throw $goError(data);
     return $R(data);
   } catch (e) {
     _closeSinks(sinks, e);
