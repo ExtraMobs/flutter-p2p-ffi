@@ -64,6 +64,15 @@ Aparelho real, Android 16 (HyperOS), arm64, Wi-Fi, ~1 h de sessão pela depuraç
   mas não de forma consistente, e o padrão ficou. Os 80× da bateria eram a média, logo
   depois dos testes pesados (nós ainda fechando no host); a verificação agora compara
   medianas: `api.unixfs()` 3,6 µs × Noop 1,5 µs (profile, depois dos testes pesados).
+- Dados móveis (LTE, só a rede da operadora, adb por USB): integração 4/4 (a queda do host
+  e os dois modos de segundo plano), a bateria do app inteira verde e a rede: 131–132 peers
+  em menos de 1 s, `/ipns/ipfs.tech` em 0,2–1,6 s. O nó anuncia o IPv4 da operadora (CGNAT
+  `100.x`) e IPv6 globais (no 0.8.0 não anunciava os IPv6). Discando do PC (IPv6 do
+  provedor): direta por IPv6/TCP em ~6 s (ping 166–206 ms); por IPv6/QUIC e pelo IPv4 só
+  pelo relay, em 7–9 s (ping ~310 ms). Em 15/10 o QUIC por IPv6 entrou direto: a operadora
+  tratou o UDP de entrada de outro jeito hoje. A reserva de relay variou: 11 endereços em
+  2 min numa vez, e noutra só 90 s depois disso; a verificação de alcançabilidade espera
+  agora até mais 2 min pelo relay ou por uma conexão de entrada.
 
 Desktop 61/61 (Windows; linux 3x pelo WSL); emulador 4/4.
 

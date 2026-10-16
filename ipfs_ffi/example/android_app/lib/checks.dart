@@ -417,6 +417,19 @@ Future<int> reachabilityChecks(iface.CoreApi api, Stopwatch online, Log log,
           log('  esperando ${rest.inSeconds} s');
           await Future<void>.delayed(rest);
         }
+        // a reserva de relay varia: nos dados móveis já chegou em 2 min (11
+        // endereços) e, noutra vez, só depois; espera até mais `wait`
+        Future<bool> reachable() async =>
+            (await api.swarm().localAddrs(ctx))
+                .any((a) => '$a'.contains('/p2p-circuit')) ||
+            (await api.swarm().peers(ctx)).any((p) => p.direction == 1);
+        final extra = Stopwatch()..start();
+        while (!await reachable() && extra.elapsed < wait) {
+          await Future<void>.delayed(const Duration(seconds: 10));
+        }
+        if (extra.elapsed.inSeconds > 0) {
+          log('  mais ${extra.elapsed.inSeconds} s esperando o relay');
+        }
         final peers = await api.swarm().peers(ctx);
         String transport(String a) => a.contains('/p2p-circuit')
             ? 'relay'
