@@ -4,10 +4,51 @@ library;
 
 import 'package:ipfs_ffi/src/runtime.dart';
 import 'package:ipfs_ffi/car/v2/blockstore.dart' as $blockstore;
+import 'package:ipfs_ffi/go/context.dart' as $context;
+import 'package:ipfs_ffi/ipld/block_format.dart' as $block_format;
+import 'package:ipfs_ffi/multiformats/cid.dart' as $cid;
 
 /// Go: `blockstore.Blockstore` (handle).
 class Blockstore extends GoHandle {
   Blockstore.$h(super.$h);
+
+  /// Go: `func (blockstore.Blockstore).Put(context.Context, blocks.Block) error`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> put($context.Context ctx, $block_format.Block block) async {
+    await $call(
+        88,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..dto(block));
+  }
+
+  /// Go: `func (blockstore.Blockstore).Has(context.Context, cid.Cid) (bool, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<bool> has($context.Context ctx, $cid.Cid cid) async {
+    final $r = await $call(
+        87,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(cid));
+    return $r.b();
+  }
+
+  /// Go: `func (blockstore.Blockstore).Get(context.Context, cid.Cid) (blocks.Block, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<$block_format.Block> get($context.Context ctx, $cid.Cid cid) async {
+    final $r = await $call(
+        86,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(cid));
+    return $r.p() ? $block_format.Block.$dec($r) : $nil();
+  }
 
   /// Go: type assertion `x.(*blockstore.ReadOnly)`: null if the object is not one.
   $blockstore.ReadOnly? asReadOnly() {

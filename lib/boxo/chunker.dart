@@ -4,6 +4,11 @@ library;
 
 import 'package:ipfs_ffi/src/runtime.dart';
 
+/// Go: `chunk.Splitter` (handle).
+class Splitter extends GoHandle {
+  Splitter.$h(super.$h);
+}
+
 /// Go: `chunk.SplitterGen` (handle).
 class SplitterGen extends GoHandle {
   SplitterGen.$h(super.$h);
@@ -11,6 +16,26 @@ class SplitterGen extends GoHandle {
 
 /// Go: `func chunk.SizeSplitterGen(size int64) chunk.SplitterGen`.
 SplitterGen sizeSplitterGen(int size) {
-  final $r = $callSync(81, $W()..i64(size));
+  final $r = $callSync(91, $W()..i64(size));
   return $r.hnn(SplitterGen.$h);
+}
+
+/// Go: `func chunk.NewSizeSplitter(r io.Reader, size int64) chunk.Splitter`.
+Splitter newSizeSplitter(Object r, int size) {
+  final $r = $callSync(
+      90,
+      $W()
+        ..reader(r)
+        ..i64(size));
+  return $r.hnn(Splitter.$h);
+}
+
+/// Go: `func chunk.FromString(r io.Reader, chunker string) (chunk.Splitter, error)`.
+Splitter fromString(Object r, String chunker) {
+  final $r = $callSync(
+      89,
+      $W()
+        ..reader(r)
+        ..str(chunker));
+  return $r.hnn(Splitter.$h);
 }

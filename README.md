@@ -94,6 +94,9 @@ Exemplos, na ordem em que o kubo monta um nó:
 
 Os exemplos 9 a 13 criam o próprio repo temporário e não dependem do 01.
 
+**Everyday CAR operations:** one runnable example per operation, the right way and the
+mistakes to avoid, in [`example/car/`](example/car), indexed in [`DOCS.md`](DOCS.md).
+
 ## O boxo do Go e o do Dart, lado a lado
 
 Além do kubo, o pacote expõe o baixo nível do boxo (a biblioteca do IPFS em Go que o

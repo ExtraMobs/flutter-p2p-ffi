@@ -14,6 +14,7 @@ import (
 	"github.com/ipfs/boxo/path"
 	"github.com/ipfs/go-cid"
 	format "github.com/ipfs/go-ipld-format"
+	carindex "github.com/ipld/go-car/v2/index"
 	"github.com/libp2p/go-libp2p/core/peer"
 	ma "github.com/multiformats/go-multiaddr"
 )
@@ -189,6 +190,7 @@ func TestErrData(t *testing.T) {
 		{context.Canceled, errCanceled},
 		{fmt.Errorf("x: %w", context.DeadlineExceeded), errDeadline},
 		{format.ErrNotFound{}, errNotFound},
+		{carindex.ErrNotFound, errNotFound},
 		{errors.New("outro"), 0},
 	} {
 		d := errData(c.err)

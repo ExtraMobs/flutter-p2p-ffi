@@ -1932,7 +1932,7 @@ Stream<P2pForegroundOutput> p2pListen($core.IpfsNode node, $context.Context ctx,
 /// `ipfs p2p ls`: List active p2p listeners.
 ///
 /// Experimental in kubo.
-Stream<P2pLsOutput> p2pLs($core.IpfsNode node, $context.Context ctx,
+Stream<P2plsOutput> p2pLs($core.IpfsNode node, $context.Context ctx,
         {bool? headers,
         bool? offline,
         String? cidBase,
@@ -1949,7 +1949,7 @@ Stream<P2pLsOutput> p2pLs($core.IpfsNode node, $context.Context ctx,
           'cid-base': cidBase,
           'upgrade-cidv0-in-output': upgradeCidv0InOutput
         },
-        (r) => P2pLsOutput.$dec(r));
+        (r) => P2plsOutput.$dec(r));
 
 /// `ipfs p2p stream close`: Close active p2p stream.
 ///
@@ -4251,8 +4251,8 @@ final class P2pForegroundOutput {
 }
 
 /// Go: `commands.P2PLsOutput` (a kubo command output).
-final class P2pLsOutput {
-  P2pLsOutput.$dec($R r)
+final class P2plsOutput {
+  P2plsOutput.$dec($R r)
       : listeners = r.list(() => P2pListenerInfoOutput.$dec(r));
 
   /// Go: `Listeners`.
@@ -4828,7 +4828,7 @@ final class PubsubMessage {
       : from = r.str(),
         data = r.str(),
         seqno = r.str(),
-        topicIDs = r.list(() => r.str());
+        topicIds = r.list(() => r.str());
 
   /// Go: `From`.
   final String from;
@@ -4840,7 +4840,7 @@ final class PubsubMessage {
   final String seqno;
 
   /// Go: `TopicIDs`.
-  final List<String> topicIDs;
+  final List<String> topicIds;
 }
 
 /// Go: `commands.GcResult` (a kubo command output).

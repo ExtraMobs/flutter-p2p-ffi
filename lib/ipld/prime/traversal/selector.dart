@@ -11,12 +11,12 @@ class RecursionLimit extends GoHandle {
 
 /// Go: `func selector.RecursionLimitDepth(depth int64) selector.RecursionLimit`.
 RecursionLimit recursionLimitDepth(int depth) {
-  final $r = $callSync(345, $W()..i64(depth));
+  final $r = $callSync(364, $W()..i64(depth));
   return $r.hnn(RecursionLimit.$h);
 }
 
 /// Go: `func selector.RecursionLimitNone() selector.RecursionLimit`.
 RecursionLimit recursionLimitNone() {
-  final $r = $callSync(346);
+  final $r = $callSync(365);
   return $r.hnn(RecursionLimit.$h);
 }

@@ -30,6 +30,7 @@ var paramNames = map[string][]string{
 	"github.com/ipfs/kubo/core/coreiface.RoutingAPI.Get":      {"ctx", "key"},
 	"github.com/ipfs/kubo/core/coreiface.RoutingAPI.Put":      {"ctx", "key", "value", "opts"},
 	"github.com/ipfs/kubo/core/coreiface.ObjectAPI.Diff":      {"ctx", "before", "after"},
+	"github.com/ipfs/boxo/ipld/unixfs/io.Directory.AddChild":  {"ctx", "name", "node"},
 }
 
 // cbArgNames: nomes dos argumentos de callbacks que o Go não nomeia, por
@@ -38,6 +39,12 @@ var cbArgNames = map[string][]string{
 	"github.com/ipld/go-car/v2/index.Index.GetAll":                                               {"offset"},
 	"github.com/ipld/go-car/v2/index.IterableIndex.ForEach":                                      {"multihash", "offset"},
 	"github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreFields": {"fields"},
+}
+
+// resultAs: functions that return an unexported type, and the exported
+// interface (package, name) Dart sees it through.
+var resultAs = map[string][2]string{
+	"github.com/ipfs/boxo/ipld/merkledag.NewDAGService": {"github.com/ipfs/go-ipld-format", "DAGService"},
 }
 
 // forceAsync: funções sem context que bloqueiam (rede, desligamento).
@@ -385,6 +392,16 @@ func (m *model) resolve(pkgs map[string]*types.Package, line string) ([]*fn, err
 	f.hasErr = hasErr
 	for _, r := range res {
 		f.results = append(f.results, m.classify(r))
+	}
+	// a result of an unexported type (merkledag's *dagService): Dart sees it
+	// through the exported interface in the table; on the wire it is the
+	// object's handle
+	if ra, ok := resultAs[line]; ok && len(f.results) == 1 {
+		if p := m.load(ra[0]); p != nil {
+			if tn, ok := p.Scope().Lookup(ra[1]).(*types.TypeName); ok {
+				f.results[0] = m.classify(tn.Type())
+			}
+		}
 	}
 	markOutBuf(f)
 	m.check(f)

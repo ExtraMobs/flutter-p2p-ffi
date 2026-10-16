@@ -10,10 +10,19 @@ Cada linha é um símbolo Go exposto e onde ele está no Dart.
 | `func bytes.NewBuffer(buf []byte) *bytes.Buffer` | `factory Buffer` | síncrona |
 | `func (*bytes.Buffer).Bytes() []byte` | `Buffer.bytes` | síncrona |
 
+## `github.com/ipfs/boxo/blockservice` → `package:ipfs_ffi/boxo/blockservice.dart`
+
+| Go | Dart | Modo |
+|---|---|---|
+| `func blockservice.New(bs blockstore.Blockstore, exchange exchange.Interface, opts ...blockservice.Option) blockservice.BlockService` | `new$` | síncrona |
+
 ## `github.com/ipfs/boxo/blockstore` → `package:ipfs_ffi/boxo/blockstore.dart`
 
 | Go | Dart | Modo |
 |---|---|---|
+| `func (blockstore.Blockstore).Put(context.Context, blocks.Block) error` | `Blockstore.put` | Future |
+| `func (blockstore.Blockstore).Has(context.Context, cid.Cid) (bool, error)` | `Blockstore.has` | Future |
+| `func (blockstore.Blockstore).Get(context.Context, cid.Cid) (blocks.Block, error)` | `Blockstore.get` | Future |
 | `blockstore.Blockstore → x.(*blockstore.ReadOnly)` | `Blockstore.asReadOnly` | cast |
 | `blockstore.Blockstore → x.(*blockstore.ReadWrite)` | `Blockstore.asReadWrite` | cast |
 | `blockstore.Blockstore → x.(blockstore.GCBlockstore)` | `Blockstore.asGcBlockstore` | cast |
@@ -23,6 +32,14 @@ Cada linha é um símbolo Go exposto e onde ele está no Dart.
 | Go | Dart | Modo |
 |---|---|---|
 | `func chunk.SizeSplitterGen(size int64) chunk.SplitterGen` | `sizeSplitterGen` | síncrona |
+| `func chunk.NewSizeSplitter(r io.Reader, size int64) chunk.Splitter` | `newSizeSplitter` | síncrona |
+| `func chunk.FromString(r io.Reader, chunker string) (chunk.Splitter, error)` | `fromString` | síncrona |
+
+## `github.com/ipfs/boxo/exchange/offline` → `package:ipfs_ffi/boxo/exchange/offline.dart`
+
+| Go | Dart | Modo |
+|---|---|---|
+| `func offline.Exchange(bs blockstore.Blockstore) exchange.Interface` | `exchange` | síncrona |
 
 ## `github.com/ipfs/boxo/fetcher/impl/blockservice` → `package:ipfs_ffi/boxo/fetcher/impl/blockservice.dart`
 
@@ -65,6 +82,27 @@ Cada linha é um símbolo Go exposto e onde ele está no Dart.
 | `func (*merkledag.ProtoNode).AddNodeLink(name string, that format.Node) error` | `ProtoNode.addNodeLink` | síncrona |
 | `func (*merkledag.ProtoNode).SetData(d []byte)` | `ProtoNode.setData` | síncrona |
 | `func (*merkledag.ProtoNode).Data() []byte` | `ProtoNode.data` | síncrona |
+| `func merkledag.NewDAGService(bs blockservice.BlockService) *merkledag.dagService` | `newDagService` | síncrona |
+
+## `github.com/ipfs/boxo/ipld/unixfs/file` → `package:ipfs_ffi/boxo/ipld/unixfs/file.dart`
+
+| Go | Dart | Modo |
+|---|---|---|
+| `func unixfile.NewUnixfsFile(ctx context.Context, dserv format.DAGService, nd format.Node) (files.Node, error)` | `newUnixfsFile` | Future |
+
+## `github.com/ipfs/boxo/ipld/unixfs/importer` → `package:ipfs_ffi/boxo/ipld/unixfs/importer.dart`
+
+| Go | Dart | Modo |
+|---|---|---|
+| `func importer.BuildDagFromReader(ds format.DAGService, spl chunk.Splitter) (format.Node, error)` | `buildDagFromReader` | síncrona |
+
+## `github.com/ipfs/boxo/ipld/unixfs/io` → `package:ipfs_ffi/boxo/ipld/unixfs/io.dart`
+
+| Go | Dart | Modo |
+|---|---|---|
+| `func io.NewDirectory(dserv format.DAGService, opts ...io.DirectoryOption) (io.Directory, error)` | `factory Directory` | síncrona |
+| `func (io.Directory).AddChild(context.Context, string, format.Node) error` | `Directory.addChild` | Future |
+| `func (io.Directory).GetNode() (format.Node, error)` | `Directory.getNode` | síncrona |
 
 ## `github.com/ipfs/boxo/mfs` → `package:ipfs_ffi/boxo/mfs.dart`
 
@@ -151,9 +189,15 @@ Cada linha é um símbolo Go exposto e onde ele está no Dart.
 | `func (format.Node).Links() []*format.Link` | `Node.links` | síncrona |
 | `func (format.Node).Size() (uint64, error)` | `Node.size` | síncrona |
 | `func (format.Node).Stat() (*format.NodeStat, error)` | `Node.stat` | síncrona |
+| `func (format.NodeGetter).Get(context.Context, cid.Cid) (format.Node, error)` | `NodeGetter.get` | Future |
+| `func (format.NodeAdder).Add(context.Context, format.Node) error` | `DagService.add` | Future |
+| `format.DAGService → x.(iface.APIDagService)` | `DagService.asApiDagService` | cast |
 | `format.Node → x.(*merkledag.ProtoNode)` | `Node.asProtoNode` | cast |
 | `format.Node → x.(*merkledag.RawNode)` | `Node.asRawNode` | cast |
+| `format.NodeAdder → x.(format.DAGService)` | `NodeAdder.asDagService` | cast |
 | `format.NodeAdder → x.(iface.APIDagService)` | `NodeAdder.asApiDagService` | cast |
+| `format.NodeGetter → x.(format.DAGService)` | `NodeGetter.asDagService` | cast |
+| `format.NodeGetter → x.(iface.APIDagService)` | `NodeGetter.asApiDagService` | cast |
 
 ## `github.com/ipfs/go-unixfsnode` → `package:ipfs_ffi/ipld/unixfsnode.dart`
 
@@ -565,6 +609,7 @@ Cada linha é um símbolo Go exposto e onde ele está no Dart.
 - Raiz que é só um tipo struct (`bsadapter.Adapter`, `basicnode.Prototype__Any`) vira construtor vazio (`Adapter()`, o `new(T)` do Go), e os campos dela, getters e setters.
 - Interface que embute outra ganha o cast a partir dela (`idx.asIterableIndex()`, o `x.(index.IterableIndex)` do Go).
 - Ponteiro para básico (`DagByteRange.To *int64`) vira `int?`: null é nil.
+- A function that returns an unexported type is seen in Dart through an exported interface (table `resultAs`: `merkledag.NewDAGService` → `format.DAGService`); on the wire it is the object's handle.
 - O mesmo objeto Go tem sempre o mesmo handle, venha de onde vier (um cast, um campo lido de novo).
 - Métodos e funções com `context.Context` são assíncronos (`Future`); canais viram `Stream`; `(T, error)` vira `T` com `IpfsException`.
 - Variádicos viram `List` opcional; opções funcionais espelham as variáveis do pacote (`options.unixfs.pin(true, '')`).
@@ -672,7 +717,7 @@ Gerados da árvore de comandos do kubo (`core/commands.Root`); o host os chama c
 | `ipfs p2p close` | `p2pClose` | `Stream<int>` |
 | `ipfs p2p forward` | `p2pForward` | `Stream<P2pForegroundOutput>` |
 | `ipfs p2p listen` | `p2pListen` | `Stream<P2pForegroundOutput>` |
-| `ipfs p2p ls` | `p2pLs` | `Stream<P2pLsOutput>` |
+| `ipfs p2p ls` | `p2pLs` | `Stream<P2plsOutput>` |
 | `ipfs p2p stream close` | `p2pStreamClose` | `Stream<Object?>` |
 | `ipfs p2p stream ls` | `p2pStreamLs` | `Stream<P2pStreamsOutput>` |
 | `ipfs pin add` | `pinAdd` | `Stream<AddPinOutput>` |

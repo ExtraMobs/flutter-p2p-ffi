@@ -375,3 +375,24 @@ github.com/ipld/go-ipld-prime/traversal/selector.RecursionLimitNone
 github.com/ipfs/kubo/core.IpfsNode.Blockstore
 github.com/ipld/go-ipld-prime/storage/bsadapter.Adapter
 github.com/ipld/go-ipld-prime/storage/bsadapter.Adapter.Wrapped
+
+# 0.18 everyday CAR operations (example/car/, DOCS.md), without a node: a
+# CAR's blockstore (go-car's ReadOnly/ReadWrite) becomes an offline block
+# service and a DAG service, to create a CAR from files (the UnixFS importer)
+# and to extract the files of a CAR (the UnixFS reader)
+github.com/ipfs/boxo/blockservice.New
+github.com/ipfs/boxo/exchange/offline.Exchange
+github.com/ipfs/boxo/ipld/merkledag.NewDAGService
+github.com/ipfs/go-ipld-format.NodeGetter.Get
+github.com/ipfs/go-ipld-format.DAGService.Add
+github.com/ipfs/boxo/ipld/unixfs/importer.BuildDagFromReader
+github.com/ipfs/boxo/chunker.NewSizeSplitter
+github.com/ipfs/boxo/chunker.FromString
+github.com/ipfs/boxo/ipld/unixfs/io.NewDirectory
+github.com/ipfs/boxo/ipld/unixfs/io.Directory.AddChild
+github.com/ipfs/boxo/ipld/unixfs/io.Directory.GetNode
+github.com/ipfs/boxo/ipld/unixfs/file.NewUnixfsFile
+# importing a CAR into the node block by block: kubo's blockstore (node.blockstore)
+github.com/ipfs/boxo/blockstore.Blockstore.Put
+github.com/ipfs/boxo/blockstore.Blockstore.Has
+github.com/ipfs/boxo/blockstore.Blockstore.Get

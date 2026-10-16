@@ -23,6 +23,7 @@ import (
 	"github.com/ipfs/go-cid"
 	format "github.com/ipfs/go-ipld-format"
 	"github.com/ipfs/kubo/config"
+	carindex "github.com/ipld/go-car/v2/index"
 	carstorage "github.com/ipld/go-car/v2/storage"
 	"github.com/libp2p/go-libp2p/core/peer"
 	ma "github.com/multiformats/go-multiaddr"
@@ -79,7 +80,8 @@ func errData(err error) []byte {
 		code = errCanceled
 	case errors.Is(err, context.DeadlineExceeded):
 		code = errDeadline
-	case errors.Is(err, format.ErrNotFound{}), errors.Is(err, carstorage.ErrNotFound{}):
+	case errors.Is(err, format.ErrNotFound{}), errors.Is(err, carstorage.ErrNotFound{}),
+		errors.Is(err, carindex.ErrNotFound):
 		code = errNotFound
 	}
 	return append([]byte{code}, err.Error()...)

@@ -1,5 +1,47 @@
 # Pendências do ipfs_ffi
 
+## Done: everyday CAR operations as examples; the package at the repository root (0.18.0)
+
+The owner asked to document in code every everyday operation with CAR files (kubo for the
+general functions, boxo / go-car / go-ipld-prime for the low level), with one file for the
+right way and one for the mistakes, indexed in a `DOCS.md`. Also: the package moves to the
+repository root and the unused folders are archived. Names and documentation are English
+from now on (owner's rule).
+
+- **Repository:** the content of `ipfs_ffi/` is at the root. The transpiler (g2d,
+  golib_dart, tools, tests, TODO/, docs/, its AGENTS.md) left `main` and lives whole in the
+  branch `transpilador` and the tag `transpilador-final`. The Go module is
+  `github.com/ExtraMobs/transpiled_ipfs/go`. A new `AGENTS.md` for the package points at
+  the earlier attempts (`transpilador`, `archive`, `claude/*`).
+- **Examples:**
+  - `example/car/`: 14 operations × 2 files (`NN_operation.dart` and
+    `NN_operation_mistakes.dart`), plus `sample.dart`. `DOCS.md` at the root indexes them.
+  - The mistakes run for real: `mustFail` stops the example if the error stops happening;
+    `silentlyWrong` shows a wrong result next to the right one.
+  - Each failure mode was confirmed by running it first.
+- **New API** (roots), for the node-less paths:
+  - `blockservice.New`, `offline.Exchange`, `merkledag.NewDAGService`;
+  - `unixfs/importer.BuildDagFromReader`, `chunker.NewSizeSplitter`/`FromString`;
+  - `unixfs/io.NewDirectory`/`AddChild`/`GetNode`, `unixfs/file.NewUnixfsFile`;
+  - `format.NodeGetter.Get`, `format.DAGService.Add`;
+  - `blockstore.Blockstore.Put`/`Has`/`Get`.
+- **Generator:**
+  - `resultAs`: a function that returns an unexported type is seen through an exported
+    interface (`NewDAGService` → `DAGService`);
+  - plural acronyms stay one word (`UseWholeCIDs` → `useWholeCids`). This renames the 0.16
+    `useWholeCiDs`/`storeIdentityCiDs`, which **breaks** code that used them.
+- **Host:** go-car's `index.ErrNotFound` maps to `IpfsNotFound`.
+- **Findings, confirmed against Go:**
+  - `Directory`-based creation without a node gives the same root as `ipfs add` with the same
+    parameters;
+  - the `BlockReader` and `dag import` check hashes; `Inspect(false)` does not;
+  - go-car's `has` matches multihashes unless `useWholeCids(true)`;
+  - wrapping a CARv2 again is accepted and produces a broken file;
+  - the UnixFS selector needs the dag-pb prototype chooser.
+- **Upstream bug:** go-car v2.17.0's `AttachIndex` always fails (it opens with `O_APPEND`,
+  then writes with `WriteAt`, which Go refuses), and no go-car test covers it. ⏳ Report it
+  upstream if the owner wants (the AI-transparency rule for third-party issues applies).
+
 ## Feito: callbacks sob demanda, erros do Go e o recorte pelo nó (0.17.0)
 
 Decisões do dono: callback de verdade no Go, com os argumentos levados ao Dart sob demanda;

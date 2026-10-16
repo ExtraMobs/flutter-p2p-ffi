@@ -13,6 +13,24 @@ import 'package:ipfs_ffi/multiformats/cid.dart' as $cid;
 /// Go: `format.DAGService` (handle).
 class DagService extends NodeGetter {
   DagService.$h(super.$h) : super.$h();
+
+  /// Go: `func (format.NodeAdder).Add(context.Context, format.Node) error`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> add($context.Context ctx, Node node) async {
+    await $call(
+        166,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..h(node));
+  }
+
+  /// Go: type assertion `x.(iface.APIDagService)`: null if the object is not one.
+  $coreiface.ApiDagService? asApiDagService() {
+    final $r = $callSync(72, $W()..h(this));
+    return $r.hn($coreiface.ApiDagService.$h);
+  }
 }
 
 /// Go: `format.Link`.
@@ -54,43 +72,43 @@ class Node extends Resolver {
 
   /// Go: `func (blocks.Block).Cid() cid.Cid`.
   $cid.Cid cid() {
-    final $r = $callSync(149, $W()..h(this));
+    final $r = $callSync(167, $W()..h(this));
     return $r.p() ? $cid.Cid($r.str()) : $nil();
   }
 
   /// Go: `func (blocks.Block).RawData() []byte`.
   Uint8List rawData() {
-    final $r = $callSync(151, $W()..h(this));
+    final $r = $callSync(169, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (format.Node).Links() []*format.Link`.
   List<Link> links() {
-    final $r = $callSync(150, $W()..h(this));
+    final $r = $callSync(168, $W()..h(this));
     return $r.list(() => $r.p() ? Link.$dec($r) : $nil());
   }
 
   /// Go: `func (format.Node).Size() (uint64, error)`.
   int size() {
-    final $r = $callSync(152, $W()..h(this));
+    final $r = $callSync(170, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (format.Node).Stat() (*format.NodeStat, error)`.
   NodeStat stat() {
-    final $r = $callSync(153, $W()..h(this));
+    final $r = $callSync(171, $W()..h(this));
     return $r.p() ? NodeStat.$dec($r) : $nil();
   }
 
   /// Go: type assertion `x.(*merkledag.ProtoNode)`: null if the object is not one.
   $merkledag.ProtoNode? asProtoNode() {
-    final $r = $callSync(72, $W()..h(this));
+    final $r = $callSync(73, $W()..h(this));
     return $r.hn($merkledag.ProtoNode.$h);
   }
 
   /// Go: type assertion `x.(*merkledag.RawNode)`: null if the object is not one.
   $merkledag.RawNode? asRawNode() {
-    final $r = $callSync(73, $W()..h(this));
+    final $r = $callSync(74, $W()..h(this));
     return $r.hn($merkledag.RawNode.$h);
   }
 }
@@ -104,7 +122,7 @@ class NodeAdder extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> add($context.Context ctx, Node node) async {
     await $call(
-        154,
+        172,
         $W()
           ..h(this)
           ..h(ctx)
@@ -116,16 +134,22 @@ class NodeAdder extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> addMany($context.Context ctx, List<Node> nodes) async {
     await $call(
-        155,
+        173,
         $W()
           ..h(this)
           ..h(ctx)
           ..list(nodes, (w0, e0) => w0.h(e0)));
   }
 
+  /// Go: type assertion `x.(format.DAGService)`: null if the object is not one.
+  DagService? asDagService() {
+    final $r = $callSync(75, $W()..h(this));
+    return $r.hn(DagService.$h);
+  }
+
   /// Go: type assertion `x.(iface.APIDagService)`: null if the object is not one.
   $coreiface.ApiDagService? asApiDagService() {
-    final $r = $callSync(74, $W()..h(this));
+    final $r = $callSync(76, $W()..h(this));
     return $r.hn($coreiface.ApiDagService.$h);
   }
 }
@@ -133,6 +157,31 @@ class NodeAdder extends GoHandle {
 /// Go: `format.NodeGetter` (handle).
 class NodeGetter extends GoHandle {
   NodeGetter.$h(super.$h);
+
+  /// Go: `func (format.NodeGetter).Get(context.Context, cid.Cid) (format.Node, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<Node> get($context.Context ctx, $cid.Cid cid) async {
+    final $r = await $call(
+        174,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(cid));
+    return $r.hnn(Node.$h);
+  }
+
+  /// Go: type assertion `x.(format.DAGService)`: null if the object is not one.
+  DagService? asDagService() {
+    final $r = $callSync(77, $W()..h(this));
+    return $r.hn(DagService.$h);
+  }
+
+  /// Go: type assertion `x.(iface.APIDagService)`: null if the object is not one.
+  $coreiface.ApiDagService? asApiDagService() {
+    final $r = $callSync(78, $W()..h(this));
+    return $r.hn($coreiface.ApiDagService.$h);
+  }
 }
 
 /// Go: `format.NodeOption`.

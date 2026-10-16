@@ -20,6 +20,9 @@ func TestNames(t *testing.T) {
 		{"IsPinned", "IsPinned", "isPinned"},
 		{"Default", "Default", "default$"},
 		{"Value", "Value", "value$"},
+		{"UseWholeCIDs", "UseWholeCids", "useWholeCids"},
+		{"PeerIDs", "PeerIds", "peerIds"},
+		{"CIDsByName", "CidsByName", "cidsByName"},
 	} {
 		if got := typeName(c.goName); got != c.typ {
 			t.Errorf("typeName(%q) = %q, quero %q", c.goName, got, c.typ)

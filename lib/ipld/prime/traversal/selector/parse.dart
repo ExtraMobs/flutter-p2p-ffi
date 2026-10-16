@@ -7,30 +7,30 @@ import 'package:ipfs_ffi/ipld/prime/datamodel.dart' as $datamodel;
 
 /// Go: `func selectorparse.ParseJSONSelector(jsonStr string) (datamodel.Node, error)`.
 $datamodel.Node parseJsonSelector(String jsonStr) {
-  final $r = $callSync(364, $W()..str(jsonStr));
+  final $r = $callSync(383, $W()..str(jsonStr));
   return $r.hnn($datamodel.Node.$h);
 }
 
 /// Go: `var selectorparse.CommonSelector_MatchPoint datamodel.Node`.
 $datamodel.Node get commonSelectorMatchPoint {
-  final $r = $callSync(363);
+  final $r = $callSync(382);
   return $r.hnn($datamodel.Node.$h);
 }
 
 /// Go: `var selectorparse.CommonSelector_MatchChildren datamodel.Node`.
 $datamodel.Node get commonSelectorMatchChildren {
-  final $r = $callSync(362);
+  final $r = $callSync(381);
   return $r.hnn($datamodel.Node.$h);
 }
 
 /// Go: `var selectorparse.CommonSelector_ExploreAllRecursively datamodel.Node`.
 $datamodel.Node get commonSelectorExploreAllRecursively {
-  final $r = $callSync(360);
+  final $r = $callSync(379);
   return $r.hnn($datamodel.Node.$h);
 }
 
 /// Go: `var selectorparse.CommonSelector_MatchAllRecursively datamodel.Node`.
 $datamodel.Node get commonSelectorMatchAllRecursively {
-  final $r = $callSync(361);
+  final $r = $callSync(380);
   return $r.hnn($datamodel.Node.$h);
 }

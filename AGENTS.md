@@ -1,76 +1,75 @@
 # ipfs_ffi
 
-O kubo (IPFS em Go, v0.43.1) usado do Dart sem HTTP. O kubo roda no executável `ipfs_host`,
-noutro processo; o app fala com ele por memória compartilhada (a `ipfs_shm`, em C), num
-protocolo binário (`WIRE.md`). A API Dart é a do próprio Go, gerada a partir de
-`go/gen/roots.txt` e organizada em namespaces por módulo Go (`kubo`, `boxo`, `car`, `ipld`,
-`multiformats`, `libp2p`, `go`). Alvos: VM/AOT no Windows, no linux e no Android (não serve
-para JS/Wasm).
+Kubo (IPFS in Go, v0.43.1) used from Dart without HTTP. Kubo runs in the `ipfs_host`
+executable, in another process; the app talks to it through shared memory (the `ipfs_shm`,
+in C) with a binary protocol (`WIRE.md`). The Dart API is Go's own, generated from
+`go/gen/roots.txt` and organized in namespaces by Go module (`kubo`, `boxo`, `car`, `ipld`,
+`multiformats`, `libp2p`, `go`). Targets: VM/AOT on Windows, linux and Android (not JS/Wasm).
 
-O `README.md` é o guia de uso; o `DOCS.md` indexa os exemplos por operação; o `API.md`
-(gerado) lista cada símbolo exposto e as regras de adaptação; o `TODO.md` guarda o que foi
-feito por versão e o que está pendente.
+`README.md` is the usage guide; `DOCS.md` indexes the CAR examples by operation; `API.md`
+(generated) lists every exposed symbol and the adaptation rules; `TODO.md` keeps what was
+done in each version and what is pending.
 
-## Estrutura
+## Layout
 
-| Caminho | O que é |
+| Path | What it is |
 |---|---|
-| `lib/` | o pacote Dart: o gerado (uma library por pacote Go, nos namespaces) e o runtime em `lib/src/` (`runtime.dart` e partes, `shm.dart`) |
-| `go/` | o `ipfs_host` (`host*.go`, `wire.go`, `callback.go`, `deadlock.go`, os portes à mão `manual_*.go`) e o gerador (`go/gen`, com o `roots.txt` e a tabela de namespaces) |
-| `shm/` | a `ipfs_shm` em C (anéis, sininho, a thread que acorda o Dart) |
-| `tool/` | `build.dart` (gera e compila por plataforma, com os patches do upstream) e as medidas (`bench*.dart`) |
-| `test/` | a suíte Dart (exige o build) |
-| `example/` | exemplos numerados; `example/car/` tem as operações com CAR (ver `DOCS.md`); `example/android_app/` é o app Flutter de validação |
-| `flutter/` | o plugin companheiro `ipfs_ffi_flutter` (o segundo plano do Android) |
+| `lib/` | the Dart package: the generated code (one library per Go package, in the namespaces) and the runtime in `lib/src/` (`runtime.dart` and its parts, `shm.dart`) |
+| `go/` | the `ipfs_host` (`host*.go`, `wire.go`, `callback.go`, `deadlock.go`, the hand ports `manual_*.go`) and the generator (`go/gen`, with `roots.txt` and the namespace table) |
+| `shm/` | the `ipfs_shm` in C (rings, the bell, the thread that wakes Dart) |
+| `tool/` | `build.dart` (generates and builds per platform, with the upstream patches) and the benchmarks (`bench*.dart`) |
+| `test/` | the Dart suite (needs the build) |
+| `example/` | numbered examples; `example/car/` has the CAR operations (see `DOCS.md`); `example/android_app/` is the Flutter validation app |
+| `flutter/` | the companion plugin `ipfs_ffi_flutter` (Android background) |
 
-## Comandos
+## Commands
 
 ```bash
-dart run tool/build.dart [windows|linux|android]   # roda o gerador e compila em native/ (fora do git)
-cd go && go vet ./... && go test ./... && go run ./gen -check   # o host e o gerador
+dart run tool/build.dart [windows|linux|android]   # runs the generator and builds into native/ (not in git)
+cd go && go vet ./... && go test ./... && go run ./gen -check   # the host and the generator
 dart analyze lib test tool example/*.dart example/car/*.dart
-dart test                                          # a suíte inteira (exige o build da plataforma)
+dart test                                          # the whole suite (needs the platform build)
 ```
 
-- Go 1.26.5 (`GOTOOLCHAIN=auto` baixa). Compilador C só para a `ipfs_shm`: mingw-w64 no
-  Windows, gcc no linux, o NDK no Android.
-- Para expor mais do Go: uma linha no `go/gen/roots.txt` e o build. Módulo novo precisa de
-  uma linha em `go/gen/namespaces.go`.
-- linux pelo WSL: o WSL e o Windows regravam o `.dart_tool/package_config.json` um do outro;
-  rodar `dart pub get` no lado em uso antes de analisar ou testar.
-- Android: `dart run tool/build.dart android` e, em `example/android_app/`,
-  `flutter test integration_test/ipfs_test.dart -d <aparelho>`. O resto (emulador, aparelho
-  real, depuração sem fio) está no README.
+- Go 1.26.5 (`GOTOOLCHAIN=auto` downloads it). A C compiler only for the `ipfs_shm`: mingw-w64
+  on Windows, gcc on linux, the NDK for Android.
+- To expose more of Go: one line in `go/gen/roots.txt` and the build. A new module needs a
+  line in `go/gen/namespaces.go`.
+- linux through WSL: WSL and Windows overwrite each other's `.dart_tool/package_config.json`;
+  run `dart pub get` on the side in use before analyzing or testing.
+- Android: `dart run tool/build.dart android`, then in `example/android_app/`
+  `flutter test integration_test/ipfs_test.dart -d <device>`. The rest (emulator, real
+  device, wireless debugging) is in the README.
 
-## Convenções
+## Conventions
 
-- **`dart format` antes de todo commit** em todo `.dart` escrito à mão (o gerado já sai
-  formatado): `dart format --output=none --set-exit-if-changed <arquivos>`.
-- **A lib em inglês, o resto em português:** comentários e mensagens de `lib/`, do que o
-  gerador escreve nela, de `flutter/` e as mensagens que o `ipfs_host` e a `ipfs_shm`
-  devolvem ao app ficam em inglês. Testes, ferramentas, comentários internos do Go e do C e
-  as docs ficam em português.
-- **Expor o que existe em Go,** gerado, sem refazer à mão em Dart. Porte à mão só para corpo
-  de comando do kubo (`ipfs dag export/import/put/get`). Ajuste de desempenho de uma chamada
-  vira argumento opcional dela (ex. `batchSize`), não configuração global.
-- **Sem dependência nova** (Go ou Dart) sem aprovação explícita do dono.
-- **Nada de dados pessoais no git** (IPs, número de série de aparelho, caminhos da máquina);
-  o repositório é público.
-- **Entrega por etapa:** commit do que já está pronto antes de começar a próxima; ao fim,
-  versão nos dois `pubspec.yaml`, "Feito" no `TODO.md`, tag `ipfs_ffi-vX.Y.Z`, push direto
-  no `main` (remoto `github`) e parar para a revisão do dono.
-- **Comportamento do Go conferido com o próprio Go:** quando um resultado surpreende,
-  reproduzir num `go run` (oráculo) antes de concluir que a ponte está errada.
+- **`dart format` before every commit** for every hand-written `.dart` (generated code comes
+  out formatted): `dart format --output=none --set-exit-if-changed <files>`.
+- **English only for names and documentation:** file names, identifiers, comments, example
+  output and docs are written in English (the owner's rule since 2026-10-16). Older docs and
+  tests still in Portuguese stay until the owner decides on translating them.
+- **Expose what exists in Go,** generated, never redone by hand in Dart. Hand ports only for
+  the body of kubo commands (`ipfs dag export/import/put/get`). A performance knob of a call
+  becomes an optional argument of it (e.g. `batchSize`), not a global setting.
+- **No new dependency** (Go or Dart) without the owner's explicit approval.
+- **No personal data in git** (IPs, device serial numbers, machine paths); the repository is
+  public.
+- **Delivery by stage:** commit what is ready before starting the next stage; at the end,
+  the version in both `pubspec.yaml`, a "Done" entry in `TODO.md`, the tag
+  `ipfs_ffi-vX.Y.Z`, a direct push to `main` (remote `github`), then stop for the owner's
+  review.
+- **Go behavior checked against Go itself:** when a result is surprising, reproduce it with
+  a `go run` (oracle) before concluding the bridge is wrong.
 
-## Tentativas anteriores (para consultar abordagens)
+## Earlier attempts (to consult for other approaches)
 
-O repositório já tentou outros caminhos para ter IPFS em Dart. Vale consultá-los antes de
-reinventar algo, ou quando uma abordagem diferente fizer sentido:
+The repository already tried other ways to get IPFS into Dart. Look at them before
+reinventing something, or when a different approach makes sense:
 
-- **branch `transpilador`** (tag `transpilador-final`): o transpilador Go→Dart por AST
-  (`g2d`, com `goast`, `dartast` e os shims da stdlib em `golib_dart`). Chegou a 192 de 1112
-  pacotes do grafo do kubo verdes. Tem o próprio `AGENTS.md`, as decisões D1–D12 (reflexão,
-  I/O que suspende, rede, `goto`...), o backlog em `TODO/` e as docs em `docs/`.
-- **branch `archive`:** o port manual `dart IPFS`, com Bitswap e DHT interoperando com o kubo
-  (inclui o DNS de multiaddr).
-- **branches `claude/*`:** trabalho do transpilador interrompido e não integrado.
+- **branch `transpilador`** (tag `transpilador-final`): the Go→Dart transpiler by AST (`g2d`,
+  with `goast`, `dartast` and the stdlib shims in `golib_dart`). It reached 192 of the 1112
+  packages of kubo's graph. It has its own `AGENTS.md`, the decisions D1–D12 (reflection,
+  suspending I/O, networking, `goto`...), the backlog in `TODO/` and the docs in `docs/`.
+- **branch `archive`:** the hand port `dart IPFS`, with Bitswap and DHT interoperating with
+  kubo (including multiaddr DNS).
+- **branches `claude/*`:** interrupted transpiler work that was never merged.

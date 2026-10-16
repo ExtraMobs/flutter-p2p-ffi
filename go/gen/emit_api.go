@@ -110,6 +110,7 @@ func emitAPI(m *model, fns []*fn) []byte {
 - Raiz que é só um tipo struct (` + "`bsadapter.Adapter`" + `, ` + "`basicnode.Prototype__Any`" + `) vira construtor vazio (` + "`Adapter()`" + `, o ` + "`new(T)`" + ` do Go), e os campos dela, getters e setters.
 - Interface que embute outra ganha o cast a partir dela (` + "`idx.asIterableIndex()`" + `, o ` + "`x.(index.IterableIndex)`" + ` do Go).
 - Ponteiro para básico (` + "`DagByteRange.To *int64`" + `) vira ` + "`int?`" + `: null é nil.
+- A function that returns an unexported type is seen in Dart through an exported interface (table ` + "`resultAs`" + `: ` + "`merkledag.NewDAGService`" + ` → ` + "`format.DAGService`" + `); on the wire it is the object's handle.
 - O mesmo objeto Go tem sempre o mesmo handle, venha de onde vier (um cast, um campo lido de novo).
 - Métodos e funções com ` + "`context.Context`" + ` são assíncronos (` + "`Future`" + `); canais viram ` + "`Stream`" + `; ` + "`(T, error)`" + ` vira ` + "`T`" + ` com ` + "`IpfsException`" + `.
 - Variádicos viram ` + "`List`" + ` opcional; opções funcionais espelham as variáveis do pacote (` + "`options.unixfs.pin(true, '')`" + `).

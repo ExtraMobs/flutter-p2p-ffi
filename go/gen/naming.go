@@ -10,7 +10,8 @@ import (
 // (CoreAPI → CoreApi, PeerID → peerId, HTTPServer → httpServer).
 
 // words quebra um identificador Go em palavras: "CoreAPI" → [Core API],
-// "HTTPServer" → [HTTP Server], "MD5Sum" → [MD5 Sum], "cidV1" → [cid V1].
+// "HTTPServer" → [HTTP Server], "MD5Sum" → [MD5 Sum], "cidV1" → [cid V1],
+// "UseWholeCIDs" → [Use Whole CIDs].
 func words(name string) []string {
 	r := []rune(name)
 	var out []string
@@ -21,9 +22,11 @@ func words(name string) []string {
 		if i+1 < len(r) {
 			next = r[i+1]
 		}
+		// a plural acronym ("CIDs", "IDs"): the final "s" stays with it
+		plural := next == 's' && (i+2 == len(r) || !unicode.IsLower(r[i+2]))
 		boundary := (unicode.IsLower(prev) && unicode.IsUpper(cur)) ||
 			(unicode.IsDigit(prev) && unicode.IsUpper(cur) && unicode.IsLower(next)) ||
-			(unicode.IsUpper(prev) && unicode.IsUpper(cur) && unicode.IsLower(next)) ||
+			(unicode.IsUpper(prev) && unicode.IsUpper(cur) && unicode.IsLower(next) && !plural) ||
 			cur == '_'
 		if boundary {
 			if s := strings.Trim(string(r[start:i]), "_"); s != "" {
