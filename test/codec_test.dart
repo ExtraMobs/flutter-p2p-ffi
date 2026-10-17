@@ -165,4 +165,86 @@ void main() {
     await expectLater(
         $stream(0).toList(), throwsA(isA<IpfsServiceException>()));
   });
+
+  test('release determinístico: idempotente e bloqueia uso posterior', () {
+    final h = _H(99);
+    expect(h.isReleased, isFalse);
+    h.release();
+    expect(h.isReleased, isTrue);
+    // Repeated release calls are a safe no-op.
+    h.release();
+    expect(h.isReleased, isTrue);
+
+    // Passing a released handle into a call fails on the Dart side.
+    expect(
+      () => $callSync(0, $W()..h(h)),
+      throwsA(isA<IpfsException>().having(
+        (e) => e.message,
+        'message',
+        contains('handle already released'),
+      )),
+    );
+  });
+
+  test('use: libera no retorno síncrono, em exceção e após Future', () async {
+    final h1 = _H(101);
+    final v = h1.use((x) {
+      expect(x.isReleased, isFalse);
+      return x.$h * 2;
+    });
+    expect(v, 202);
+    expect(h1.isReleased, isTrue);
+
+    final h2 = _H(102);
+    expect(
+      () => h2.use<void>((_) => throw StateError('boom')),
+      throwsStateError,
+    );
+    expect(h2.isReleased, isTrue);
+
+    final h3 = _H(103);
+    final future = h3.use((x) async {
+      await Future<void>.delayed(Duration.zero);
+      expect(x.isReleased, isFalse);
+      return x.$h;
+    });
+    expect(h3.isReleased, isFalse);
+    expect(await future, 103);
+    expect(h3.isReleased, isTrue);
+  });
+
+  test('withGoScope e GoScope: libera múltiplos handles em ordem reversa',
+      () async {
+    late _H a;
+    late _H b;
+    final sum = withGoScope((scope) {
+      a = scope.manage(_H(10));
+      b = scope.manage(_H(20));
+      expect(a.isReleased, isFalse);
+      expect(b.isReleased, isFalse);
+      return a.$h + b.$h;
+    });
+    expect(sum, 30);
+    expect(a.isReleased, isTrue);
+    expect(b.isReleased, isTrue);
+
+    // Async withGoScope keeps handles alive until the Future completes.
+    late _H c;
+    final asyncFuture = withGoScope((scope) async {
+      c = scope.manage(_H(30));
+      await Future<void>.delayed(Duration.zero);
+      expect(c.isReleased, isFalse);
+      return c.$h;
+    });
+    expect(c.isReleased, isFalse);
+    expect(await asyncFuture, 30);
+    expect(c.isReleased, isTrue);
+
+    // Managing a handle on a closed GoScope releases the handle and throws.
+    final scope = GoScope()..close();
+    expect(scope.isClosed, isTrue);
+    final orphan = _H(40);
+    expect(() => scope.manage(orphan), throwsStateError);
+    expect(orphan.isReleased, isTrue);
+  });
 }

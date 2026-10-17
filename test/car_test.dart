@@ -335,4 +335,35 @@ void main() {
       }
     });
   });
+
+  test('release determinístico no host (use e withGoScope)', () {
+    final bytes = File(v1).readAsBytesSync();
+    late car.BlockReader br;
+    final cids = car.BlockReader(bytes).use((reader) {
+      br = reader;
+      final out = <mf.Cid>[];
+      while (true) {
+        try {
+          out.add(reader.next().cid!);
+        } on IpfsEof {
+          break;
+        }
+      }
+      return out;
+    });
+    expect(cids, hasLength(blocks));
+    expect(br.isReleased, isTrue);
+    expect(() => br.next(), throwsA(isA<IpfsException>()));
+
+    late car.Reader r;
+    final inspected = withGoScope((scope) {
+      r = scope.manage(car.openReader(v1));
+      final st = r.inspect(false);
+      r.close();
+      return st.blockCount;
+    });
+    expect(inspected, blocks);
+    expect(r.isReleased, isTrue);
+    expect(() => r.version, throwsA(isA<IpfsException>()));
+  });
 }

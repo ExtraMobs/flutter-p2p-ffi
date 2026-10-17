@@ -269,8 +269,9 @@ List<int> _register($W? w) {
 /// Synchronous call: blocks the isolate until the host responds (spins, then
 /// sleeps), delivering the other messages along the way.
 $R $callSync(int fn, [$W? w]) {
-  final ch = _channel;
   w?._check();
+  final ch = _channel;
+  if (_toFree.isNotEmpty) _flushFree();
   final id = ch.newId();
   final sinks = _register(w);
   try {
@@ -303,8 +304,9 @@ Stream<$R> $stream(int fn, [$W? w]) {
 void _start(int fn, int mode, $W? w, Object sink) {
   var sinks = const <int>[];
   try {
-    final ch = _channel;
     w?._check();
+    final ch = _channel;
+    if (_toFree.isNotEmpty) _flushFree();
     final id = ch.newId();
     sinks = _register(w);
     _pending[id] = _Pending(sink, w, sinks);
@@ -360,10 +362,10 @@ void _flushFree() {
 
 /// Object that lives in the host: Dart keeps the handle and the service
 /// epoch; the Finalizer releases it (in batches) when the Dart object goes
-/// away.
+/// away, or [release] releases it deterministically.
 abstract class GoHandle {
   GoHandle(this.$h) : $e = _epoch {
-    _finalizer.attach(this, ($e, $h));
+    _finalizer.attach(this, ($e, $h), detach: this);
   }
 
   final int $h;
@@ -371,10 +373,109 @@ abstract class GoHandle {
   /// The service epoch in which the handle was born.
   final int $e;
 
+  bool _released = false;
+
+  /// True if [release] has been called on this handle.
+  bool get isReleased => _released;
+
   /// In use by a call with a callback that is still running (its receiver
   /// or an argument): calling it from inside the callback may wait for a
   /// lock that call holds (the host detects it: [IpfsDeadlockException]).
   bool get isBusy => _busy.containsKey($h);
+
+  /// Deterministically releases this handle in the host without waiting
+  /// for the Dart GC to finalize it.
+  ///
+  /// Detaches the finalizer to prevent double-free, marks the handle as
+  /// released so subsequent calls using it fail immediately on the Dart side,
+  /// and flushes the Free command to the host right away.
+  void release() {
+    if (_erase()) _flushFree();
+  }
+
+  bool _erase() {
+    if (_released) return false;
+    _released = true;
+    _finalizer.detach(this);
+    if ($e == _epoch && _ch != null) {
+      _toFree.add($h);
+      return true;
+    }
+    return false;
+  }
+}
+
+/// Scoped deterministic release for a single [GoHandle].
+extension GoHandleUse<T extends GoHandle> on T {
+  /// Executes [action] with this handle and deterministically calls [release]
+  /// when [action] completes (including on exceptions, or when a returned
+  /// [Future] completes).
+  R use<R>(R Function(T handle) action) {
+    var asyncPending = false;
+    try {
+      final result = action(this);
+      if (result is Future) {
+        asyncPending = true;
+        return result.whenComplete(release) as R;
+      }
+      return result;
+    } finally {
+      if (!asyncPending) {
+        release();
+      }
+    }
+  }
+}
+
+/// A scope that manages deterministic lifetime for multiple [GoHandle]s.
+final class GoScope {
+  final _handles = <GoHandle>[];
+  bool _closed = false;
+
+  /// True if [close] has been called on this scope.
+  bool get isClosed => _closed;
+
+  /// Registers [handle] to be released when this scope closes and returns it.
+  T manage<T extends GoHandle>(T handle) {
+    if (_closed) {
+      handle.release();
+      throw StateError('Cannot manage handle in a closed GoScope');
+    }
+    _handles.add(handle);
+    return handle;
+  }
+
+  /// Releases all registered handles in reverse order of addition in a single
+  /// batch.
+  void close() {
+    if (_closed) return;
+    _closed = true;
+    var any = false;
+    for (var i = _handles.length - 1; i >= 0; i--) {
+      if (_handles[i]._erase()) any = true;
+    }
+    _handles.clear();
+    if (any) _flushFree();
+  }
+}
+
+/// Runs [action] with a fresh [GoScope] and closes it upon exit (or when a
+/// returned [Future] completes).
+R withGoScope<R>(R Function(GoScope scope) action) {
+  final scope = GoScope();
+  var asyncPending = false;
+  try {
+    final result = action(scope);
+    if (result is Future) {
+      asyncPending = true;
+      return result.whenComplete(scope.close) as R;
+    }
+    return result;
+  } finally {
+    if (!asyncPending) {
+      scope.close();
+    }
+  }
 }
 
 /// Go value type (CID, path, peer ID, multiaddr) stored as a string.

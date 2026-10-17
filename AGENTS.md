@@ -19,7 +19,7 @@ done in each version and what is pending.
 | `shm/` | the `ipfs_shm` in C (rings, the bell, the thread that wakes Dart) |
 | `tool/` | `build.dart` (generates and builds per platform, with the upstream patches) and the benchmarks (`bench*.dart`) |
 | `test/` | the Dart suite (needs the build) |
-| `example/` | numbered examples; `example/car/` has the CAR operations (see `DOCS.md`); `example/android_app/` is the Flutter validation app |
+| `example/` | numbered examples; `example/car/` has the CAR operations (see `DOCS.md`); `example/memory/` has the handle memory management guide and examples; `example/android_app/` is the Flutter validation app |
 | `flutter/` | the companion plugin `ipfs_ffi_flutter` (Android background) |
 
 ## Commands
@@ -27,7 +27,7 @@ done in each version and what is pending.
 ```bash
 dart run tool/build.dart [windows|linux|android]   # runs the generator and builds into native/ (not in git)
 cd go && go vet ./... && go test ./... && go run ./gen -check   # the host and the generator
-dart analyze lib test tool example/*.dart example/car/*.dart
+dart analyze lib test tool example/*.dart example/car/*.dart example/memory/*.dart
 dart test                                          # the whole suite (needs the platform build)
 ```
 

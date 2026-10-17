@@ -93,6 +93,10 @@ final class $W {
   /// Handle (`kHandle`, `kCtx`): 0 = nil.
   void h(GoHandle? x) {
     if (x == null) return i64(0);
+    if (x.isReleased) {
+      _error ??= IpfsException(
+          'handle already released: cannot use a released handle');
+    }
     if (x.$e != _epoch) {
       _error ??= IpfsServiceException(
           'handle from a previous service: the ipfs_host was restarted');

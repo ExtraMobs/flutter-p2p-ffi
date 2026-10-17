@@ -30,6 +30,9 @@ import 'src/table.dart';
 
 export 'src/runtime.dart'
     show
+        GoHandle,
+        GoHandleUse,
+        GoScope,
         IpfsBusy,
         IpfsCanceled,
         IpfsDeadlineExceeded,
@@ -39,7 +42,8 @@ export 'src/runtime.dart'
         IpfsNotFound,
         IpfsServiceException,
         IpfsStopReason,
-        IpfsUnexpectedEof;
+        IpfsUnexpectedEof,
+        withGoScope;
 export 'src/shm.dart' show ipfsShmLibraryPath;
 
 /// Hello function (WIRE.md): `u64` table hash → empty, or error.

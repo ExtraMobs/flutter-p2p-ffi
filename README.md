@@ -97,6 +97,10 @@ Os exemplos 9 a 13 criam o próprio repo temporário e não dependem do 01.
 **Everyday CAR operations:** one runnable example per operation, the right way and the
 mistakes to avoid, in [`example/car/`](example/car), indexed in [`DOCS.md`](DOCS.md).
 
+**Memory management (`GoHandle`):** how the bridge manages Go objects, deterministic release
+(`.release()`, `.use()`, `withGoScope()`), `close()` vs. `release()`, and pitfalls to avoid in
+[`example/memory/`](example/memory).
+
 ## O boxo do Go e o do Dart, lado a lado
 
 Além do kubo, o pacote expõe o baixo nível do boxo (a biblioteca do IPFS em Go que o

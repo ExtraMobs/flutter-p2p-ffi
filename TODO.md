@@ -1,5 +1,42 @@
 # Pendências do ipfs_ffi
 
+## Done: deterministic handle release, memory benchmark and examples (0.19.0)
+
+Each `GoHandle` in Dart is ~48 bytes (two `int`s: `$h` and `$e`), while the Go value it pins
+in `ipfs_host`'s `handles.m` can hold megabytes (`go.Buffer`, `ipld.Block`, `car.BlockReader`,
+`ipld.Node`). In loops or batch operations, Dart's heap barely grows so `Finalizer` does not
+run in time, and synchronous loops never yield to the event loop to flush `_toFree`.
+
+- **Deterministic release (`lib/src/runtime.dart`, `lib/src/runtime/codec.dart`):**
+  - `_finalizer.attach(this, ($e, $h), detach: this)` so manual release detaches the
+    `Finalizer` and prevents double-free when the Dart GC runs later;
+  - `GoHandle.release()` and `GoHandle.isReleased`: detaches the finalizer, marks the handle
+    released, and immediately flushes `_fnFree` (`fn == 3`) to `ipfs_host` (idempotent);
+  - `GoHandleUse.use((h) => ...)`: lexical helper for a single handle (sync or `Future`),
+    always calling `release()` in `finally`;
+  - `GoScope` (`scope.manage(h)`, `scope.close()`) and `withGoScope((scope) => ...)`: tracks
+    multiple handles in a block or loop iteration and flushes all of them in a single `_fnFree`
+    batch in reverse registration order (LIFO) on exit;
+  - Use-after-release guard in `$W.h`: passing a released handle throws
+    `IpfsException('handle already released: cannot use a released handle')` before touching
+    shared memory;
+  - `$callSync` and `_start` now flush any pending `_toFree` entries queued by background
+    `Finalizer` callbacks even during purely synchronous loops.
+- **Benchmark (`tool/zz_gc.dart`):** 3 rounds of 100 × 20 MB `go.Buffer`s + 5 s idle + Round 4
+  after Dart GC pressure (`--mode=finalizer|release|scope|all`). `finalizer` climbs to
+  ~6,114 MB RSS in `ipfs_host`, while `release` and `scope` stay flat at ~142–143 MB.
+- **Guide and runnable examples (`example/memory/`):**
+  - `README.md`: how `GoHandle` works across the bridge, `close()` vs. `release()`, decision
+    table (`Finalizer`, `.use()`, `.release()`, `withGoScope()`), and cautions;
+  - `01_how_handles_work.dart`: handle IDs, Go pointer deduplication (`refs` counter in
+    `handles.byKey`), and `close()` vs. `release()`;
+  - `02_single_handle_use.dart`: `.use()` (sync, async, and on exception) and `.release()`;
+  - `03_batch_loops_with_scope.dart`: `withGoScope()` in CAR/IPLD loops and escaping a winning
+    handle outside an inner scope;
+  - `04_pitfalls_and_mistakes.dart`: use-after-release, returning a scope-managed handle,
+    forgetting `.close()` before `.release()`, and releasing one alias of a deduplicated Go
+    pointer.
+
 ## Done: everyday CAR operations as examples; the package at the repository root (0.18.0)
 
 The owner asked to document in code every everyday operation with CAR files (kubo for the

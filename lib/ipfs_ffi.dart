@@ -20,6 +20,9 @@ library;
 
 export 'service.dart'
     show
+        GoHandle,
+        GoHandleUse,
+        GoScope,
         IpfsBackground,
         IpfsBusy,
         IpfsCanceled,
@@ -36,5 +39,6 @@ export 'service.dart'
         IpfsStopReason,
         IpfsUnexpectedEof,
         defaultHostPath,
-        ipfsShmLibraryPath;
+        ipfsShmLibraryPath,
+        withGoScope;
 export 'src/network.dart' show hasIpv6, isGlobalIpv6;
