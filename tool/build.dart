@@ -17,6 +17,8 @@ const targets = {
     ('android', 'amd64', 'android/x86_64'),
     ('android', 'arm64', 'android/arm64-v8a'),
   ],
+  'android-x64': [('android', 'amd64', 'android/x86_64')],
+  'android-arm64': [('android', 'arm64', 'android/arm64-v8a')],
 };
 
 /// API mínima do Android para a ipfs_shm (a do app pode ser maior).
@@ -208,7 +210,7 @@ Future<String> patchedModfile(Directory root, String name, Patches patches,
       );
     }
     replaces.writeln(
-      'replace $module => ${to.absolute.path.replaceAll(r'\', '/')}',
+      'replace $module => ../.dart_tool/patched_mod/$name/$module',
     );
   }
   final mod = File('${dir.path}/go.mod')
@@ -218,20 +220,26 @@ Future<String> patchedModfile(Directory root, String name, Patches patches,
 }
 
 Future<void> main(List<String> args) async {
-  final root = File.fromUri(Platform.script).parent.parent;
-  final native = Directory('${root.path}/native')..createSync();
-  // A ponte gerada (zz_generated.go, lib/, API.md) sai de go/gen/roots.txt.
-  stdout.writeln('go run ./gen');
-  final gen = await Process.start(
-    'go',
-    ['run', './gen'],
-    workingDirectory: '${root.path}/go',
-    mode: ProcessStartMode.inheritStdio,
+  final root = Directory(
+    File.fromUri(Platform.script).parent.parent.resolveSymbolicLinksSync(),
   );
-  if (await gen.exitCode != 0) exit(1);
-  final names = args.isEmpty ? ['linux', 'windows'] : args;
+  final native = Directory('${root.path}/native')..createSync();
+  final noGen = args.contains('--no-gen');
+  final targetArgs = args.where((a) => a != '--no-gen').toList();
+  // A ponte gerada (zz_generated.go, lib/, API.md) sai de go/gen/roots.txt.
+  if (!noGen || !File('${root.path}/go/zz_generated.go').existsSync()) {
+    stdout.writeln('go run ./gen');
+    final gen = await Process.start(
+      'go',
+      ['run', './gen'],
+      workingDirectory: '${root.path}/go',
+      mode: ProcessStartMode.inheritStdio,
+    );
+    if (await gen.exitCode != 0) exit(1);
+  }
+  final names = targetArgs.isEmpty ? ['linux', 'windows'] : targetArgs;
   final modfile = await patchedModfile(root, 'all', upstreamPatches);
-  final androidModfile = names.contains('android')
+  final androidModfile = names.any((n) => n.startsWith('android'))
       ? await patchedModfile(root, 'android', upstreamPatches,
           anet: androidPatches)
       : null;

@@ -14,14 +14,59 @@ import 'runtime.dart' show $goError, IpfsServiceException, IpfsStopReason;
 
 export 'runtime.dart' show IpfsServiceException;
 
-/// Path of ipfs_shm; default `native/libipfs_shm.so` or
-/// `native\ipfs_shm.dll` relative to the current directory, and on Android
-/// `libipfs_shm.so` (packaged in the APK).
-String ipfsShmLibraryPath = Platform.isAndroid
-    ? 'libipfs_shm.so'
-    : Platform.isWindows
-        ? r'native\ipfs_shm.dll'
-        : 'native/libipfs_shm.so';
+/// Path of ipfs_shm; default bundled next to the executable (Flutter
+/// Windows/linux plugin), `native/libipfs_shm.so` or `native\ipfs_shm.dll`
+/// relative to the current directory, and on Android `libipfs_shm.so`
+/// (packaged in the APK).
+String ipfsShmLibraryPath = _defaultShmLibraryPath();
+
+String _defaultShmLibraryPath() {
+  if (Platform.isAndroid) return 'libipfs_shm.so';
+  final dir = File(Platform.resolvedExecutable).parent.path;
+  if (Platform.isWindows) {
+    for (final p in [
+      '$dir\\ipfs_shm.dll',
+      r'native\ipfs_shm.dll',
+      packageNativePath('ipfs_shm.dll'),
+    ]) {
+      if (p != null && File(p).existsSync()) return p;
+    }
+    return r'native\ipfs_shm.dll';
+  }
+  for (final p in [
+    '$dir/lib/libipfs_shm.so',
+    '$dir/libipfs_shm.so',
+    'native/libipfs_shm.so',
+    packageNativePath('libipfs_shm.so'),
+  ]) {
+    if (p != null && File(p).existsSync()) return p;
+  }
+  return 'native/libipfs_shm.so';
+}
+
+/// Resolves `native/[fileName]` inside the `ipfs_ffi` package root from
+/// `.dart_tool/package_config.json` when running `dart run` or `flutter test`
+/// from a consumer package.
+String? packageNativePath(String fileName) {
+  try {
+    final cfgFile = File('.dart_tool/package_config.json');
+    if (!cfgFile.existsSync()) return null;
+    final cfg = jsonDecode(cfgFile.readAsStringSync()) as Map<String, Object?>;
+    final pkgs = cfg['packages'] as List<Object?>?;
+    if (pkgs == null) return null;
+    for (final p in pkgs) {
+      if (p is Map<String, Object?> && p['name'] == 'ipfs_ffi') {
+        final rootUri = p['rootUri'] as String?;
+        if (rootUri == null) return null;
+        final rootDir =
+            Directory.fromUri(cfgFile.absolute.parent.uri.resolve(rootUri));
+        final sep = Platform.pathSeparator;
+        return '${rootDir.path}${sep}native$sep$fileName';
+      }
+    }
+  } catch (_) {}
+  return null;
+}
 
 typedef _WakeNative = Void Function(Int64);
 
@@ -104,6 +149,12 @@ final class ShmChannel {
   static Future<ShmChannel> start(String hostPath,
       {String? endpoint, String? crashLog, int spin = 20000}) async {
     endpoint ??= _defaultEndpoint();
+    if (!Platform.isWindows && !Platform.isAndroid) {
+      final st = FileStat.statSync(hostPath);
+      if (st.type != FileSystemEntityType.notFound && (st.mode & 0x49) == 0) {
+        Process.runSync('chmod', ['+x', hostPath]);
+      }
+    }
     final p = await Process.start(hostPath, [
       '-endpoint',
       endpoint,

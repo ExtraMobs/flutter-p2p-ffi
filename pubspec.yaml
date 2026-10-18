@@ -8,3 +8,13 @@ environment:
 
 dev_dependencies:
   test: ^1.25.0
+
+flutter:
+  plugin:
+    platforms:
+      android:
+        ffiPlugin: true
+      linux:
+        ffiPlugin: true
+      windows:
+        ffiPlugin: true

@@ -8,6 +8,7 @@ pubspec.lock
 # ipfs_host e ipfs_shm compilados (dart run tool/build.dart)
 native/
 # cache do Gradle do plugin e o log da sessão no aparelho (dados do aparelho)
+android/.gradle/
 flutter/android/.gradle/
 device_session.log
 # cache local do transpilador (branch transpilador)

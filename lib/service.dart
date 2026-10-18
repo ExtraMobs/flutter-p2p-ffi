@@ -322,14 +322,36 @@ abstract final class IpfsService {
   static int? get hostPid => _ch?.hostPid;
 }
 
-/// Default ipfs_host path: `native\ipfs_host.exe` (Windows) or
-/// `native/ipfs_host` relative to the current directory; on Android, the
-/// `libipfs_host.so` in the app's native library folder (`nativeLibraryDir`),
-/// found through `libapp.so`/`libflutter.so` in `/proc/self/maps` (the APK
-/// must extract the libs: an executable does not run from inside the APK).
+/// Default ipfs_host path: bundled next to the executable (Flutter Windows/linux
+/// plugin) or `native\ipfs_host.exe` (Windows) / `native/ipfs_host` relative to
+/// the current directory; on Android, the `libipfs_host.so` in the app's native
+/// library folder (`nativeLibraryDir`), found through `libapp.so`/`libflutter.so`
+/// in `/proc/self/maps` (the APK must extract the libs: an executable does not
+/// run from inside the APK).
 String defaultHostPath() {
-  if (Platform.isWindows) return r'native\ipfs_host.exe';
-  if (!Platform.isAndroid) return 'native/ipfs_host';
+  if (Platform.isWindows) {
+    final dir = File(Platform.resolvedExecutable).parent.path;
+    for (final p in [
+      '$dir\\ipfs_host.exe',
+      r'native\ipfs_host.exe',
+      packageNativePath('ipfs_host.exe'),
+    ]) {
+      if (p != null && File(p).existsSync()) return p;
+    }
+    return r'native\ipfs_host.exe';
+  }
+  if (!Platform.isAndroid) {
+    final dir = File(Platform.resolvedExecutable).parent.path;
+    for (final p in [
+      '$dir/lib/ipfs_host',
+      '$dir/ipfs_host',
+      'native/ipfs_host',
+      packageNativePath('ipfs_host'),
+    ]) {
+      if (p != null && File(p).existsSync()) return p;
+    }
+    return 'native/ipfs_host';
+  }
   for (final line in File('/proc/self/maps').readAsLinesSync()) {
     final i = line.indexOf('/');
     if (i < 0) continue;

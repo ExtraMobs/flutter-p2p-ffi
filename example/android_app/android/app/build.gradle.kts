@@ -31,22 +31,9 @@ android {
         versionName = flutter.versionName
     }
 
-    // A libipfs_host.so (o executável ipfs_host com nome de lib) e a
-    // libipfs_shm.so ficam em native/android/<abi>/ (`dart run
-    // tool/build.dart android`); o APK as empacota de lá, sem cópia.
-    sourceSets["main"].jniLibs.srcDirs("../../../../native/android")
-    // O Android só executa da nativeLibraryDir: as libs são extraídas na
-    // instalação (sem isso ficam dentro do APK e o ipfs_host não roda).
-    packaging.jniLibs.useLegacyPackaging = true
-    // Só as libs das ABIs do --target-platform (padrão: todas), para o
-    // APK de um aparelho arm64 não levar a do x86_64.
-    val abiOf = mapOf("android-arm64" to "arm64-v8a", "android-x64" to "x86_64")
-    val targets = (project.findProperty("target-platform") as String?)?.split(",")
-    if (targets != null) {
-        for ((platform, abi) in abiOf) {
-            if (platform !in targets) packaging.jniLibs.excludes += "lib/$abi/**"
-        }
-    }
+    // Native binaries (libipfs_host.so and libipfs_shm.so) and
+    // useLegacyPackaging = true are provided automatically by the ipfs_ffi
+    // plugin (android/build.gradle.kts).
 
     buildTypes {
         release {
