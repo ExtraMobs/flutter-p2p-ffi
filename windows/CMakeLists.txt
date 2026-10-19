@@ -12,6 +12,22 @@ else()
   find_program(DART_EXECUTABLE NAMES dart.exe dart REQUIRED)
 endif()
 
+find_program(GO_EXECUTABLE NAMES go.exe go)
+if(NOT GO_EXECUTABLE)
+  message(FATAL_ERROR
+    "ipfs_ffi: executável 'go' (Golang) não encontrado no PATH. "
+    "Instale o Go (ex.: 'winget install GoLang.Go') e reinicie o terminal/IDE."
+  )
+endif()
+
+find_program(GCC_EXECUTABLE NAMES gcc.exe gcc)
+if(NOT GCC_EXECUTABLE)
+  message(FATAL_ERROR
+    "ipfs_ffi: executável 'gcc' (MinGW-w64) não encontrado no PATH. "
+    "Instale o MinGW-w64 (ex.: 'winget install BrechtSanders.WinLibs.POSIX.UCRT') e reinicie o terminal/IDE."
+  )
+endif()
+
 if(NOT EXISTS "${IPFS_FFI_ROOT}/.dart_tool/package_config.json")
   file(MAKE_DIRECTORY "${IPFS_FFI_ROOT}/.dart_tool")
   file(WRITE "${IPFS_FFI_ROOT}/.dart_tool/package_config.json" "{\"configVersion\":2,\"packages\":[]}\n")

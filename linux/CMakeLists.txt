@@ -12,6 +12,22 @@ else()
   find_program(DART_EXECUTABLE NAMES dart REQUIRED)
 endif()
 
+find_program(GO_EXECUTABLE NAMES go)
+if(NOT GO_EXECUTABLE)
+  message(FATAL_ERROR
+    "ipfs_ffi: executável 'go' (Golang) não encontrado no PATH. "
+    "Instale o Go e reinicie o terminal/IDE."
+  )
+endif()
+
+find_program(GCC_EXECUTABLE NAMES gcc)
+if(NOT GCC_EXECUTABLE)
+  message(FATAL_ERROR
+    "ipfs_ffi: executável 'gcc' não encontrado no PATH. "
+    "Instale o build-essential/gcc (ex.: 'sudo apt-get install build-essential') e reinicie o terminal/IDE."
+  )
+endif()
+
 if(NOT EXISTS "${IPFS_FFI_ROOT}/.dart_tool/package_config.json")
   file(MAKE_DIRECTORY "${IPFS_FFI_ROOT}/.dart_tool")
   file(WRITE "${IPFS_FFI_ROOT}/.dart_tool/package_config.json" "{\"configVersion\":2,\"packages\":[]}\n")

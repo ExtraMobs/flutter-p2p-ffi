@@ -238,6 +238,14 @@ Future<void> main(List<String> args) async {
     if (await gen.exitCode != 0) exit(1);
   }
   final names = targetArgs.isEmpty ? ['linux', 'windows'] : targetArgs;
+  stdout.writeln('go mod download');
+  final dl = await Process.start(
+    'go',
+    ['mod', 'download'],
+    workingDirectory: '${root.path}/go',
+    mode: ProcessStartMode.inheritStdio,
+  );
+  if (await dl.exitCode != 0) exit(1);
   final modfile = await patchedModfile(root, 'all', upstreamPatches);
   final androidModfile = names.any((n) => n.startsWith('android'))
       ? await patchedModfile(root, 'android', upstreamPatches,
