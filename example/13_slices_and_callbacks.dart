@@ -5,7 +5,7 @@
 // blockstore. On the way, the on-demand callback: Go functions that take a
 // function (a CAR's index, the selector builder) take a Dart function.
 //
-//   dart run example/13_recorte_e_callbacks.dart
+//   dart run example/13_slices_and_callbacks.dart
 //
 // As in examples 10 to 12, each step carries the same code in Go.
 import 'dart:io';

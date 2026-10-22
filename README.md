@@ -74,10 +74,10 @@ running against the app's node: one function per command in
 | Path | What it covers |
 |---|---|
 | `example/01_init_repo.dart` … `example/08_chat.dart` | in the order kubo builds a node: init, add/get, pins and GC, online node, two nodes, IPNS and Dag, CAR, pubsub chat |
-| `example/09_comandos_e_streams.dart` | the RPC commands and Dart `Stream`s step by step |
-| `example/10_mfs_baixo_nivel.dart`, `example/12_car_baixo_nivel.dart` | boxo MFS and go-car at the low level, with the equivalent Go |
-| `example/11_contexto_e_erros.dart` | deadlines, cancellation, errors, service crash and restart |
-| `example/13_recorte_e_callbacks.dart` | CAR slices from the node, selectors, callbacks |
+| `example/09_commands_and_streams.dart` | the RPC commands and Dart `Stream`s step by step |
+| `example/10_mfs_low_level.dart`, `example/12_car_low_level.dart` | boxo MFS and go-car at the low level, with the equivalent Go |
+| `example/11_context_and_errors.dart` | deadlines, cancellation, errors, service crash and restart |
+| `example/13_slices_and_callbacks.dart` | CAR slices from the node, selectors, callbacks |
 | [`example/car/`](example/car) | everyday CAR operations, the right way and the mistakes ([`DOCS.md`](DOCS.md)) |
 | [`example/memory/`](example/memory) | how handles work and how to release them |
 | [`example/android_app/`](example/android_app) | the Flutter validation app (packaging, background, integration tests) |

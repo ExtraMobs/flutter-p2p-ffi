@@ -4,7 +4,7 @@
 // control (opening a file, going to a position, writing a piece), more
 // responsibility (closing what you opened, writing to disk with flush).
 //
-//   dart run example/10_mfs_baixo_nivel.dart
+//   dart run example/10_mfs_low_level.dart
 //
 // Each step carries, in a comment, the same code in Go: the Dart API is Go's,
 // generated, with the same functions, in the same argument order. Whoever reads

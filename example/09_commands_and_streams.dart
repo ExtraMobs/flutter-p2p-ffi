@@ -2,7 +2,7 @@
 // `ipfs pin ls`, `ipfs cat`...) called from Dart, and a tour of `Stream`, which
 // is how every command returns its result.
 //
-//   dart run example/09_comandos_e_streams.dart
+//   dart run example/09_commands_and_streams.dart
 //
 // It does not need example 01: it creates a temporary repo and deletes it at the end.
 //

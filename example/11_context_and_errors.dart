@@ -1,7 +1,7 @@
 // Step 11: deadlines and cancellation (Go's `context`), the two kinds of error
 // and what to do when the service goes down.
 //
-//   dart run example/11_contexto_e_erros.dart
+//   dart run example/11_context_and_errors.dart
 //
 // The Future and Stream concepts are explained at the start of example 09.
 import 'dart:async';

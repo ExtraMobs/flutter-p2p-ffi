@@ -6,7 +6,7 @@
 // CARv1 ↔ CARv2, building and saving the index, creating a CAR block by block and
 // slicing a DAG with an IPLD selector.
 //
-//   dart run example/12_car_baixo_nivel.dart
+//   dart run example/12_car_low_level.dart
 //
 // As in examples 10 and 11, each step carries the same code in Go: the functions
 // are go-car's (pkg.go.dev/github.com/ipld/go-car/v2), generated, in the same
