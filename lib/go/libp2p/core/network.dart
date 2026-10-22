@@ -20,7 +20,7 @@ class ResourceManager extends ResourceScopeViewer {
   Future<void> viewSystem(FutureOr<void> Function(ResourceScope arg0) callback,
       {int? batchSize}) async {
     await $callCb(
-        420,
+        422,
         $W()
           ..h(this)
           ..u32(batchSize ?? 1),
@@ -38,7 +38,7 @@ class ResourceManager extends ResourceScopeViewer {
       FutureOr<void> Function(ResourceScope arg0) callback,
       {int? batchSize}) async {
     await $callCb(
-        421,
+        423,
         $W()
           ..h(this)
           ..u32(batchSize ?? 1),
@@ -52,7 +52,7 @@ class ResourceScope extends GoHandle {
 
   /// Go: `func (network.ResourceScope).Stat() network.ScopeStat`.
   ScopeStat stat() {
-    final $r = $callSync(422, $W()..h(this));
+    final $r = $callSync(424, $W()..h(this));
     return $r.p() ? ScopeStat.$dec($r) : $nil();
   }
 }

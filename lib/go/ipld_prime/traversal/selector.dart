@@ -9,14 +9,20 @@ class RecursionLimit extends GoHandle {
   RecursionLimit.$h(super.$h);
 }
 
+/// Go: `func selector.RecursionLimitDepth(depth int64) selector.RecursionLimit`.
+RecursionLimit recursionLimitDepth(int depth) {
+  final $r = $callSync(395, $W()..i64(depth));
+  return $r.hnn(RecursionLimit.$h);
+}
+
+/// Go: `func selector.RecursionLimitNone() selector.RecursionLimit`.
+RecursionLimit recursionLimitNone() {
+  final $r = $callSync(396);
+  return $r.hnn(RecursionLimit.$h);
+}
+
 /// Go: `const selector.ConditionMode_Link selector.ConditionMode`.
 const conditionModeLink = "/";
-
-/// Go: `const selector.RecursionLimit_Depth selector.RecursionLimit_Mode`.
-const recursionLimitDepth = 1;
-
-/// Go: `const selector.RecursionLimit_None selector.RecursionLimit_Mode`.
-const recursionLimitNone = 0;
 
 /// Go: `const selector.SelectorKey_As untyped string`.
 const selectorKeyAs = "as";

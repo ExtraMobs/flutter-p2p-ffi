@@ -948,9 +948,9 @@ Omitted:
 
 | Go | Dart | Mode |
 |---|---|---|
+| `func selector.RecursionLimitDepth(depth int64) selector.RecursionLimit` | `recursionLimitDepth` | sync |
+| `func selector.RecursionLimitNone() selector.RecursionLimit` | `recursionLimitNone` | sync |
 | `const selector.ConditionMode_Link selector.ConditionMode` | `conditionModeLink` | const |
-| `const selector.RecursionLimit_Depth selector.RecursionLimit_Mode` | `recursionLimitDepth` | const |
-| `const selector.RecursionLimit_None selector.RecursionLimit_Mode` | `recursionLimitNone` | const |
 | `const selector.SelectorKey_As untyped string` | `selectorKeyAs` | const |
 | `const selector.SelectorKey_Condition untyped string` | `selectorKeyCondition` | const |
 | `const selector.SelectorKey_End untyped string` | `selectorKeyEnd` | const |
@@ -976,6 +976,11 @@ Omitted:
 | `const selector.SelectorKey_StopAt untyped string` | `selectorKeyStopAt` | const |
 | `const selector.SelectorKey_Subset untyped string` | `selectorKeySubset` | const |
 | `const selector.SelectorKey_To untyped string` | `selectorKeyTo` | const |
+
+Omitted:
+
+- `const selector.RecursionLimit_Depth selector.RecursionLimit_Mode`: constant whose Dart name `recursionLimitDepth` another member of the library has
+- `const selector.RecursionLimit_None selector.RecursionLimit_Mode`: constant whose Dart name `recursionLimitNone` another member of the library has
 
 ## `github.com/ipld/go-ipld-prime/traversal/selector/builder` → `package:ipfs_ffi/go/ipld_prime/traversal/selector/builder.dart`
 

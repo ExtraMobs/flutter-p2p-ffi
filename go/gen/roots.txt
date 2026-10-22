@@ -345,6 +345,8 @@ github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.Mat
 github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.MatcherSubset
 github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpec.Node
 github.com/ipld/go-ipld-prime/traversal/selector/builder.ExploreFieldsSpecBuilder.Insert
+github.com/ipld/go-ipld-prime/traversal/selector.RecursionLimitDepth
+github.com/ipld/go-ipld-prime/traversal/selector.RecursionLimitNone
 # seletor qualquer sobre os blocos locais do nó: o bsadapter faz do
 # blockstore do kubo o storage de um LinkSystem (aprovado pelo dono, 0.17)
 github.com/ipfs/kubo/core.IpfsNode.Blockstore
