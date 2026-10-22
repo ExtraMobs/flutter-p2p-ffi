@@ -3,15 +3,35 @@
 Newest first. Measurements, findings and the reasoning behind each change are in
 [`TODO.md`](TODO.md); the full API, with what was left out and why, in [`API.md`](API.md).
 
-## Unreleased
+## 0.21.0
 
+The package is about peer-to-peer networking from Go, not only IPFS.
+
+- **Breaking: the package is `p2p_ffi`** (was `ipfs_ffi`): `package:ipfs_ffi/...` →
+  `package:p2p_ffi/...`, `ipfs_ffi.dart` → `p2p_ffi.dart`. The Flutter plugin is
+  `p2p_ffi_flutter` (`P2pFfiFlutter`, `P2pNotification`, `P2pNotificationImportance`;
+  Kotlin `P2pFfiFlutterPlugin`, `P2pForegroundService` in `dev.extramobs.p2p_ffi_flutter`,
+  method channel `p2p_ffi_flutter`). Reinstall an app that used the old plugin.
+- **Breaking: native names.** The host is `p2p_host` (`p2p_host.exe`, `libp2p_host.so`) and
+  the channel library `p2p_shm` (`p2p_shm.dll`, `libp2p_shm.so`).
+- **Breaking: runtime names.** `IpfsService` → `P2pService`; `IpfsBackground`, `IpfsStop`,
+  `IpfsStopReason`, `IpfsStopHandler`, `IpfsBusy`, `IpfsPlatform` → `P2p*`;
+  `ipfsShmLibraryPath` → `p2pShmLibraryPath`.
+- **Breaking: exceptions.** `P2pException` is the interface every exception implements;
+  `GolangException` (was `IpfsException`) is the error that comes from Go, with the sentinels
+  `GolangEofException`, `GolangUnexpectedEofException`, `GolangCanceledException`,
+  `GolangDeadlineExceededException`, `GolangNotFoundException`, `GolangDeadlockException`;
+  the service going away is `P2pServiceException`. They all `implements GolangException`, so
+  `on GolangException` still catches the service drop.
+- **Go constants in Dart:** every exported constant of a library's Go package is generated
+  (`options.ed25519Key`, `cid.raw`, the multicodec table, the kubo config defaults...);
+  `time.Duration` constants are `Duration`s.
 - **Breaking: the library paths follow the Go packages.** Each Go package is one library
-  under `package:ipfs_ffi/go/`, at its path in its module: `package:ipfs_ffi/boxo/mfs.dart`
-  → `package:ipfs_ffi/go/boxo/mfs.dart`, `multiformats/cid.dart` → `go/cid.dart`,
+  under `package:p2p_ffi/go/`, at its path in its module: `boxo/mfs.dart`
+  → `go/boxo/mfs.dart`, `multiformats/cid.dart` → `go/cid.dart`,
   `car/v2/index.dart` → `go/car/v2/index.dart`, `ipld/prime/...` → `go/ipld_prime/...`.
   The module files (`kubo.dart`, `boxo.dart`, `go.dart`...) are gone: import each package
-  with its own prefix. `package:ipfs_ffi/service.dart` is gone too: everything it had comes
-  from `package:ipfs_ffi/ipfs_ffi.dart`.
+  with its own prefix. `service.dart` is gone too: everything it had comes from `p2p_ffi.dart`.
 - **Breaking: one class per Go type.** The kubo commands' result types moved from
   `kubo/core/commands.dart` to the library of their Go package (`go/kubo/core/commands/pin.dart`,
   `go/libp2p_kad_dht/provider/stats.dart`...), and the ones the API already had are the same
@@ -23,8 +43,8 @@ Newest first. Measurements, findings and the reasoning behind each change are in
   `metrics.Stats`.
 - The generator refuses a public library that re-exports another, and formats new files with
   the package's language version.
-- The `ipfs_ffi_flutter` plugin is written in Kotlin (was Java); its API is the same,
-  `IpfsForegroundService.setNotificationFactory` included. It compiles with AGP's
+- The Flutter plugin is written in Kotlin (was Java); its API is the same,
+  `P2pForegroundService.setNotificationFactory` included. It compiles with AGP's
   built-in Kotlin (`android.builtInKotlin=true`) and also with the Kotlin plugin that
   Flutter applies when that is off.
 - Fix: stopping the foreground service right after starting it (before its

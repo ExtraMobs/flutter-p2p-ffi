@@ -1,7 +1,7 @@
 name: p2p_ffi
-description: IPFS node (kubo) in a separate process, the p2p_host, with the Go API generated in Dart over shared memory.
+description: Peer-to-peer networking from Go (kubo, boxo, go-libp2p) in a separate process, the p2p_host, with the Go API generated in Dart over shared memory.
 publish_to: none
-version: 0.20.0
+version: 0.21.0
 
 environment:
   sdk: ^3.5.0

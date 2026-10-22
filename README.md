@@ -1,10 +1,12 @@
 # p2p_ffi
 
-Kubo (IPFS in Go, the version pinned in [`go/go.mod`](go/go.mod)) used from Dart without
-HTTP. Kubo runs in the `p2p_host` executable, in another process, and the app talks to it
-through shared memory (the `p2p_shm`, in C; binary protocol in [`WIRE.md`](WIRE.md)). A Go
-panic stops only the service, never the app. Targets: VM/AOT on Windows, linux and Android
-(not JS/Wasm).
+Peer-to-peer networking from Go, used from Dart: [kubo](https://github.com/ipfs/kubo) (an
+IPFS node), [boxo](https://github.com/ipfs/boxo) (its building blocks) and
+[go-libp2p](https://github.com/libp2p/go-libp2p), at the versions pinned in
+[`go/go.mod`](go/go.mod), without HTTP. The Go code runs in the `p2p_host` executable, in
+another process, and the app talks to it through shared memory (the `p2p_shm`, in C; binary
+protocol in [`WIRE.md`](WIRE.md)). A Go panic stops only the service, never the app.
+Targets: VM/AOT on Windows, linux and Android (not JS/Wasm).
 
 The Dart API is Go's own, generated: the same functions, types and argument order as in
 pkg.go.dev, so the Go documentation applies. Each Go package is one library under

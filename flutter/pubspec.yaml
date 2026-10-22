@@ -1,8 +1,8 @@
 name: p2p_ffi_flutter
 description: >-
-  Android side of p2p_ffi: stops the IPFS service when the app goes to the
+  Android side of p2p_ffi: stops the p2p service when the app goes to the
   background, or keeps it running under an Android foreground service.
-version: 0.20.0
+version: 0.21.0
 publish_to: 'none'
 
 environment:

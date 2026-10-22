@@ -1,7 +1,7 @@
 # p2p_ffi
 
-Kubo (IPFS in Go, v0.43.1) used from Dart without HTTP. Kubo runs in the `p2p_host`
-executable, in another process; the app talks to it through shared memory (the `p2p_shm`,
+Peer-to-peer networking from Go (kubo v0.43.1, boxo, go-libp2p) used from Dart without HTTP.
+The Go code runs in the `p2p_host` executable, in another process; the app talks to it through shared memory (the `p2p_shm`,
 in C) with a binary protocol (`WIRE.md`). The Dart API is Go's own, generated from
 `go/gen/roots.txt`: one library per Go package under `lib/go/`, at the package's path in its
 module (`github.com/ipfs/boxo/mfs` → `lib/go/boxo/mfs.dart`, `github.com/ipfs/go-cid` →

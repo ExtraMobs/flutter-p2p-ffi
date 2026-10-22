@@ -1,5 +1,33 @@
 # Pendências do ipfs_ffi
 
+## Done: p2p_ffi, Go constants, paths by Go package (0.21.0)
+
+The owner turned the package towards peer-to-peer networking (kubo, boxo, go-libp2p), not
+only IPFS, and asked for the layout to follow Go. The full list of breaking changes is in
+`CHANGELOG.md`.
+
+- **Names:** the package `p2p_ffi`, the plugin `p2p_ffi_flutter`, the host `p2p_host` and
+  `p2p_shm`; `P2pService` and the other `P2p*`; Go's errors as `Golang<error>Exception`,
+  all implementing `GolangException` (the service drop, `P2pServiceException`, too), under
+  the `P2pException` interface.
+- **Layout:** one library per Go package under `lib/go/`, at its path in its module (from
+  `go list -m all`; a nested module keeps the outer one's path); no module files; the
+  generator refuses a public library that re-exports another; the commands' result types in
+  the library of their Go package, sharing the main generator's class when it exists; the
+  hand-written `dag` library gets its package's generated part (`dag.g.dart`).
+- **Constants:** every exported Go constant of a library's package is generated (about
+  1,100; 605 from go-multicodec); `time.Duration` → `Duration`. A clash with another
+  member's Dart name is omitted with the reason (`RecursionLimit_None` vs the function
+  `RecursionLimitNone`).
+- **Plugin in Kotlin**, with a fix found on the emulator: a stop right after
+  `startForegroundService` made Android kill the app; the stop now waits for
+  `startForeground`.
+- **Generator fixes:** new files formatted with the pubspec's language version; members
+  named like a lowercase Dart type (`cmds.Int`) escaped (`int$`).
+- Checked: go test, gen -check, dart test 93/93, the 37 self-contained examples, the
+  Android integration test 4/4 on the emulator (Android 17), flutter analyze of the plugin
+  and the Android app.
+
 ## Done: low-level resources: GC, storage without caching, connections (0.20.0)
 
 The owner asked for kubo's low-level resource management, in this order.

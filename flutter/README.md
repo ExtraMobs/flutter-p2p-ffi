@@ -1,7 +1,7 @@
 # p2p_ffi_flutter
 
-Android side of [`p2p_ffi`](..). The IPFS node runs in the `p2p_host`, a child
-process of the app. On Android 12+ the system kills a child process that uses CPU
+Android side of [`p2p_ffi`](..). The Go code (an IPFS node, a libp2p host) runs in the
+`p2p_host`, a child process of the app. On Android 12+ the system kills a child process that uses CPU
 while its app is in the background, and the app with it. This plugin handles the
 background according to `P2pService.background`, which is read whenever the service
 starts (`start`/`restart`):

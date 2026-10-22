@@ -1,7 +1,7 @@
 import java.util.Properties
 
 group = "dev.extramobs.p2p_ffi"
-version = "0.20.0"
+version = "0.21.0"
 
 buildscript {
     repositories {
