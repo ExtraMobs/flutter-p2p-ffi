@@ -1,5 +1,33 @@
 # Pendências do ipfs_ffi
 
+## Done: low-level resources: GC, storage without caching, connections (0.20.0)
+
+The owner asked for kubo's low-level resource management, in this order.
+
+- **Finding:** `Datastore.StorageMax`/`StorageGCWatermark`/`GCPeriod` only act through
+  `corerepo.PeriodicGC`, which only the daemon starts (`cmd/ipfs/kubo/daemon.go`,
+  `--enable-gc`); a node from `core.NewNode` never collects on its own.
+- **New API** (roots, one commit per stage):
+  1. `corerepo.PeriodicGC`, `corerepo.ConditionalGC`;
+  2. `go.readerStream` (`lib/go/io_stream.dart`, hand-written, function 42 of WIRE.md):
+     any `io.Reader` handle as a `Stream<Uint8List>` in 256 KiB pieces; the commands'
+     `emitReader` and it share `readChunks`;
+  3. `IpfsNode.Exchange`, `blockstore.NewBlockstore`, go-datastore's `NewNullDatastore`
+     (new `datastore` namespace; the module was already an indirect dependency): reading
+     over bitswap without growing the repo (`blockservice.getBlock` caches what it fetches);
+  4. `Blockstore.DeleteBlock`/`GetSize`/`AllKeysChan`, `IpfsNode.GCLocker` with
+     `GCLock`/`PinLock`/`GCRequested` and `Unlocker.Unlock`;
+  5. `IpfsNode.PeerHost`, `host.Host.ConnManager` and the `ConnManager`'s
+     `Protect`/`Unprotect`/`IsProtected`/`TagPeer`/`UntagPeer`/`TrimOpenConns`;
+  6. `IpfsNode.ResourceManager` with `ViewSystem`/`ViewTransient` and `ResourceScope.Stat`;
+  7. `IpfsNode.BaseBlocks` with its `Blockstore` methods as roots on the type.
+- **Generator:** `go-datastore.NullDatastore` is a handle (`handleTypes`): it has no fields,
+  only the methods of a datastore.
+- **Limits, confirmed against Go:** the resource manager interface cannot change limits at
+  run time (`Swarm.ResourceMgr`, then restart); `Unprotect` returns whether other tags still
+  protect the peer (peering protects its peers too); `node.BaseBlocks` is defined from
+  `blockstore.Blockstore`, which go/types does not keep, hence the roots on the type.
+
 ## Done: deterministic handle release, memory benchmark and examples (0.19.0)
 
 Each `GoHandle` in Dart is ~48 bytes (two `int`s: `$h` and `$e`), while the Go value it pins

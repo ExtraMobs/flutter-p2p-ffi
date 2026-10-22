@@ -374,6 +374,43 @@ O que pesa na escolha:
 - **Servir:** `Bitswap.ServerEnabled = false` faz o nó só baixar, o que economiza dados e
   bateria. O conteúdo do próprio nó deixa então de ser servido por bitswap.
 
+## Low-level resources: GC, storage, connections (0.20)
+
+**GC.** `Datastore.StorageMax`, `StorageGCWatermark` and `GCPeriod` only act through
+`corerepo.PeriodicGC`, which only the daemon starts (`--enable-gc`); a node built with
+`core.newNode` never collects on its own. Start it with a context you cancel on close:
+
+```dart
+final (gcCtx, stopGc) = context.withCancel(ctx);
+unawaited(corerepo.periodicGc(gcCtx, node)); // every GCPeriod, above the watermark
+await corerepo.conditionalGc(ctx, node, bytesAboutToWrite); // once, now
+```
+
+**Reading without storing.** `blockservice.getBlock` caches every block it fetches in its
+blockstore, so `cat`/`get` grow the repo. A block service over a blockstore on the null
+datastore (puts dropped) and the node's exchange (bitswap) does not; `go.readerStream` reads
+any `io.Reader` handle as a `Stream<Uint8List>`:
+
+```dart
+final bs = blockservice.new$(blockstore.Blockstore(datastore.NullDatastore()), node.exchange);
+final dag = merkledag.newDagService(bs);
+final file = files.toFile(await unixfile.newUnixfsFile(ctx, dag, await dag.get(ctx, cid.Cid(root))));
+await for (final chunk in go.readerStream(file)) sink.add(chunk);
+```
+
+Nothing is kept, so the node does not serve those blocks, and blocks already in the repo
+are fetched again.
+
+**The blockstore block by block.** `node.blockstore` has `deleteBlock`, `getSize` and
+`allKeysChan` (an eviction policy of your own instead of a full GC); `node.baseBlocks` is the
+same store without the filestore. `node.gcLocker.pinLock(ctx)` holds the GC off until
+`unlock`; `gcLock` waits for every pin lock; `gcRequested` tells a GC is waiting.
+
+**Connections and resources.** `node.peerHost.connManager()` protects or tags peers so a
+trim above `HighWater` keeps them, and `trimOpenConns` trims on demand.
+`node.resourceManager.viewSystem((scope) => scope.stat())` reads the libp2p resource
+manager's usage; its limits cannot change at run time (`Swarm.ResourceMgr`, then restart).
+
 ## Correções no upstream (0.15)
 
 Dois bugs do kubo/boxo, reproduzidos em Go puro, que o `tool/build.dart` corrige por patch
