@@ -9,7 +9,7 @@ import 'package:ipfs_ffi/ipld/format.dart' as $format;
 /// Go: `func importer.BuildDagFromReader(ds format.DAGService, spl chunk.Splitter) (format.Node, error)`.
 $format.Node buildDagFromReader($format.DagService ds, $chunker.Splitter spl) {
   final $r = $callSync(
-      117,
+      119,
       $W()
         ..h(ds)
         ..h(spl));

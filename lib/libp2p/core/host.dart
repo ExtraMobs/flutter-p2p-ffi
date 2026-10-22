@@ -11,7 +11,7 @@ class Host extends GoHandle {
 
   /// Go: `func (host.Host).ConnManager() connmgr.ConnManager`.
   $connmgr.ConnManager connManager() {
-    final $r = $callSync(411, $W()..h(this));
+    final $r = $callSync(421, $W()..h(this));
     return $r.hnn($connmgr.ConnManager.$h);
   }
 }

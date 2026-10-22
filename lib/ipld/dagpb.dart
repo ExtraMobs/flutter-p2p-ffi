@@ -8,6 +8,6 @@ import 'package:ipfs_ffi/ipld/prime/traversal.dart' as $traversal;
 /// Go: `func dagpb.AddSupportToChooser(existing traversal.LinkTargetNodePrototypeChooser) traversal.LinkTargetNodePrototypeChooser`.
 $traversal.LinkTargetNodePrototypeChooser addSupportToChooser(
     $traversal.LinkTargetNodePrototypeChooser existing) {
-  final $r = $callSync(378, $W()..h(existing));
+  final $r = $callSync(388, $W()..h(existing));
   return $r.hnn($traversal.LinkTargetNodePrototypeChooser.$h);
 }

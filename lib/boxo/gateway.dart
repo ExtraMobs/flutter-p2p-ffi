@@ -25,7 +25,7 @@ class BlocksBackend extends GoHandle {
   factory BlocksBackend($blockservice.BlockService blockService,
       [List<BackendOption> opts = const []]) {
     final $r = $callSync(
-        109,
+        111,
         $W()
           ..h(blockService)
           ..list(opts, (w0, e0) => w0.opt(e0)));
@@ -38,7 +38,7 @@ class BlocksBackend extends GoHandle {
   Future<(ContentPathMetadata, $io.ReadCloser)> getCar(
       $context.Context ctx, $path.ImmutablePath p, CarParams params) async {
     final $r = await $call(
-        108,
+        110,
         $W()
           ..h(this)
           ..h(ctx)

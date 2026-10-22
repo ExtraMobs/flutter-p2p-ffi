@@ -437,3 +437,13 @@ github.com/ipfs/kubo/core.IpfsNode.ResourceManager
 github.com/libp2p/go-libp2p/core/network.ResourceManager.ViewSystem
 github.com/libp2p/go-libp2p/core/network.ResourceManager.ViewTransient
 github.com/libp2p/go-libp2p/core/network.ResourceScope.Stat
+# 0.20 the raw blockstore, without the filestore wrapping (the same as
+# IpfsNode.Blockstore while Experimental.FilestoreEnabled is off); its type is
+# defined from blockstore.Blockstore, so its methods are listed on it
+github.com/ipfs/kubo/core.IpfsNode.BaseBlocks
+github.com/ipfs/kubo/core/node.BaseBlocks.Put
+github.com/ipfs/kubo/core/node.BaseBlocks.Has
+github.com/ipfs/kubo/core/node.BaseBlocks.Get
+github.com/ipfs/kubo/core/node.BaseBlocks.GetSize
+github.com/ipfs/kubo/core/node.BaseBlocks.DeleteBlock
+github.com/ipfs/kubo/core/node.BaseBlocks.AllKeysChan

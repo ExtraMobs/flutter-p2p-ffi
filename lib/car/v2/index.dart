@@ -14,14 +14,14 @@ class Index extends GoHandle {
 
   /// Go: `func (index.Index).Codec() multicodec.Code`.
   int codec() {
-    final $r = $callSync(365, $W()..h(this));
+    final $r = $callSync(375, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (index.Index).Marshal(w io.Writer) (uint64, error)`.
   int marshal(GoHandle? w) {
     final $r = $callSync(
-        368,
+        378,
         $W()
           ..h(this)
           ..h(w));
@@ -31,7 +31,7 @@ class Index extends GoHandle {
   /// Go: `func (index.Index).Unmarshal(r io.Reader) error`.
   void unmarshal(Object r) {
     $callSync(
-        369,
+        379,
         $W()
           ..h(this)
           ..reader(r));
@@ -40,7 +40,7 @@ class Index extends GoHandle {
   /// Go: `func (index.Index).Load([]index.Record) error`.
   void load(List<Record$> records) {
     $callSync(
-        367,
+        377,
         $W()
           ..h(this)
           ..list(records, (w0, e0) => w0.dto(e0)));
@@ -57,7 +57,7 @@ class Index extends GoHandle {
       $cid.Cid cid, FutureOr<bool> Function(int offset) callback,
       {int? batchSize}) async {
     await $callCb(
-        366,
+        376,
         $W()
           ..h(this)
           ..val(cid)
@@ -67,7 +67,7 @@ class Index extends GoHandle {
 
   /// Go: type assertion `x.(index.IterableIndex)`: null if the object is not one.
   IterableIndex? asIterableIndex() {
-    final $r = $callSync(81, $W()..h(this));
+    final $r = $callSync(83, $W()..h(this));
     return $r.hn(IterableIndex.$h);
   }
 }
@@ -87,7 +87,7 @@ class IterableIndex extends Index {
       FutureOr<void> Function(Uint8List multihash, int offset) callback,
       {int? batchSize}) async {
     await $callCb(
-        370,
+        380,
         $W()
           ..h(this)
           ..u32(batchSize ?? 0),
@@ -124,20 +124,20 @@ final class Record$ implements GoDto {
 
 /// Go: `func index.New(codec multicodec.Code) (index.Index, error)`.
 Index new$(int codec) {
-  final $r = $callSync(371, $W()..i64(codec));
+  final $r = $callSync(381, $W()..i64(codec));
   return $r.hnn(Index.$h);
 }
 
 /// Go: `func index.ReadFrom(r io.Reader) (index.Index, error)`.
 Index readFrom(Object r) {
-  final $r = $callSync(373, $W()..reader(r));
+  final $r = $callSync(383, $W()..reader(r));
   return $r.hnn(Index.$h);
 }
 
 /// Go: `func index.WriteTo(idx index.Index, w io.Writer) (uint64, error)`.
 int writeTo(Index idx, GoHandle? w) {
   final $r = $callSync(
-      374,
+      384,
       $W()
         ..h(idx)
         ..h(w));
@@ -147,7 +147,7 @@ int writeTo(Index idx, GoHandle? w) {
 /// Go: `func index.GetFirst(idx index.Index, key cid.Cid) (uint64, error)`.
 int getFirst(Index idx, $cid.Cid key) {
   final $r = $callSync(
-      364,
+      374,
       $W()
         ..h(idx)
         ..val(key));
@@ -156,6 +156,6 @@ int getFirst(Index idx, $cid.Cid key) {
 
 /// Go: `func index.ReadCodec(r io.Reader) (multicodec.Code, error)`.
 int readCodec(Object r) {
-  final $r = $callSync(372, $W()..reader(r));
+  final $r = $callSync(382, $W()..reader(r));
   return $r.i64();
 }

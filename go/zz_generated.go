@@ -35,6 +35,7 @@ import (
 	p_iface "github.com/ipfs/kubo/core/coreiface"
 	p_options "github.com/ipfs/kubo/core/coreiface/options"
 	p_corerepo "github.com/ipfs/kubo/core/corerepo"
+	p_node "github.com/ipfs/kubo/core/node"
 	p_libp2p "github.com/ipfs/kubo/core/node/libp2p"
 	p_gc "github.com/ipfs/kubo/gc"
 	p_loader "github.com/ipfs/kubo/plugin/loader"
@@ -80,7 +81,7 @@ var (
 )
 
 // tableHash: o hash da tabela (WIRE.md, Hello), o mesmo do Dart gerado.
-const tableHash uint64 = 0xbce2e324a13ed9fc
+const tableHash uint64 = 0x18589f66b841c7a2
 
 // table: as funções geradas por id (WIRE.md); as escritas à mão entram no init delas.
 var table = map[uint32]entry{
@@ -101,351 +102,361 @@ var table = map[uint32]entry{
 	78:  {"cast github.com/ipfs/go-ipld-format.NodeAdder github.com/ipfs/kubo/core/coreiface.APIDagService", fn78, false},
 	79:  {"cast github.com/ipfs/go-ipld-format.NodeGetter github.com/ipfs/go-ipld-format.DAGService", fn79, false},
 	80:  {"cast github.com/ipfs/go-ipld-format.NodeGetter github.com/ipfs/kubo/core/coreiface.APIDagService", fn80, false},
-	81:  {"cast github.com/ipld/go-car/v2/index.Index github.com/ipld/go-car/v2/index.IterableIndex", fn81, false},
-	82:  {"cast github.com/ipld/go-ipld-prime/datamodel.Node *github.com/ipfs/boxo/ipld/merkledag.ProtoNode", fn82, false},
-	83:  {"cast github.com/ipld/go-ipld-prime/datamodel.Node *github.com/ipfs/boxo/ipld/merkledag.RawNode", fn83, false},
-	84:  {"cast github.com/ipld/go-ipld-prime/datamodel.NodePrototype *github.com/ipld/go-ipld-prime/node/basicnode.Prototype__Any", fn84, false},
-	85:  {"cast github.com/ipld/go-ipld-prime/storage.ReadableStorage *github.com/ipld/go-ipld-prime/storage/bsadapter.Adapter", fn85, false},
-	86:  {"cast github.com/ipld/go-ipld-prime/storage.ReadableStorage github.com/ipld/go-car/v2/storage.ReadableCar", fn86, false},
-	87:  {"github.com/ipfs/boxo/blockservice.New", fn87, false},
-	88:  {"github.com/ipfs/boxo/blockstore.Blockstore.AllKeysChan", fn88, true},
-	89:  {"github.com/ipfs/boxo/blockstore.Blockstore.DeleteBlock", fn89, false},
-	90:  {"github.com/ipfs/boxo/blockstore.Blockstore.Get", fn90, false},
-	91:  {"github.com/ipfs/boxo/blockstore.Blockstore.GetSize", fn91, false},
-	92:  {"github.com/ipfs/boxo/blockstore.Blockstore.Has", fn92, false},
-	93:  {"github.com/ipfs/boxo/blockstore.Blockstore.Put", fn93, false},
-	94:  {"github.com/ipfs/boxo/blockstore.GCLocker.GCLock", fn94, false},
-	95:  {"github.com/ipfs/boxo/blockstore.GCLocker.GCRequested", fn95, false},
-	96:  {"github.com/ipfs/boxo/blockstore.GCLocker.PinLock", fn96, false},
-	97:  {"github.com/ipfs/boxo/blockstore.NewBlockstore", fn97, false},
-	98:  {"github.com/ipfs/boxo/blockstore.Unlocker.Unlock", fn98, false},
-	99:  {"github.com/ipfs/boxo/chunker.FromString", fn99, false},
-	100: {"github.com/ipfs/boxo/chunker.NewSizeSplitter", fn100, false},
-	101: {"github.com/ipfs/boxo/chunker.SizeSplitterGen", fn101, false},
-	102: {"github.com/ipfs/boxo/exchange/offline.Exchange", fn102, false},
-	103: {"github.com/ipfs/boxo/fetcher/impl/blockservice.DefaultPrototypeChooser", fn103, false},
-	104: {"github.com/ipfs/boxo/files.NewBytesFile", fn104, false},
-	105: {"github.com/ipfs/boxo/files.NewSerialFile", fn105, false},
-	106: {"github.com/ipfs/boxo/files.ToFile", fn106, false},
-	107: {"github.com/ipfs/boxo/files.WriteTo", fn107, false},
-	108: {"github.com/ipfs/boxo/gateway.BlocksBackend.GetCAR", fn108, false},
-	109: {"github.com/ipfs/boxo/gateway.NewBlocksBackend", fn109, false},
-	110: {"github.com/ipfs/boxo/ipld/merkledag.NewDAGService", fn110, false},
-	111: {"github.com/ipfs/boxo/ipld/merkledag.NewRawNode", fn111, false},
-	112: {"github.com/ipfs/boxo/ipld/merkledag.NodeWithData", fn112, false},
-	113: {"github.com/ipfs/boxo/ipld/merkledag.ProtoNode.AddNodeLink", fn113, false},
-	114: {"github.com/ipfs/boxo/ipld/merkledag.ProtoNode.Data", fn114, false},
-	115: {"github.com/ipfs/boxo/ipld/merkledag.ProtoNode.SetData", fn115, false},
-	116: {"github.com/ipfs/boxo/ipld/unixfs/file.NewUnixfsFile", fn116, false},
-	117: {"github.com/ipfs/boxo/ipld/unixfs/importer.BuildDagFromReader", fn117, false},
-	118: {"github.com/ipfs/boxo/ipld/unixfs/io.Directory.AddChild", fn118, false},
-	119: {"github.com/ipfs/boxo/ipld/unixfs/io.Directory.GetNode", fn119, false},
-	120: {"github.com/ipfs/boxo/ipld/unixfs/io.NewDirectory", fn120, false},
-	121: {"github.com/ipfs/boxo/mfs.Chmod", fn121, false},
-	122: {"github.com/ipfs/boxo/mfs.DirLookup", fn122, false},
-	123: {"github.com/ipfs/boxo/mfs.Directory.AddChild", fn123, false},
-	124: {"github.com/ipfs/boxo/mfs.Directory.Child", fn124, false},
-	125: {"github.com/ipfs/boxo/mfs.Directory.Flush", fn125, false},
-	126: {"github.com/ipfs/boxo/mfs.Directory.GetNode", fn126, false},
-	127: {"github.com/ipfs/boxo/mfs.Directory.List", fn127, false},
-	128: {"github.com/ipfs/boxo/mfs.Directory.ListNames", fn128, false},
-	129: {"github.com/ipfs/boxo/mfs.Directory.Mkdir", fn129, false},
-	130: {"github.com/ipfs/boxo/mfs.Directory.MkdirWithOpts", fn130, false},
-	131: {"github.com/ipfs/boxo/mfs.Directory.ModTime", fn131, false},
-	132: {"github.com/ipfs/boxo/mfs.Directory.Mode", fn132, false},
-	133: {"github.com/ipfs/boxo/mfs.Directory.Path", fn133, false},
-	134: {"github.com/ipfs/boxo/mfs.Directory.Uncache", fn134, false},
-	135: {"github.com/ipfs/boxo/mfs.Directory.Unlink", fn135, false},
-	136: {"github.com/ipfs/boxo/mfs.FSNode.Flush", fn136, false},
-	137: {"github.com/ipfs/boxo/mfs.FSNode.GetNode", fn137, false},
-	138: {"github.com/ipfs/boxo/mfs.FSNode.SetModTime", fn138, false},
-	139: {"github.com/ipfs/boxo/mfs.FSNode.SetMode", fn139, false},
-	140: {"github.com/ipfs/boxo/mfs.FSNode.Type", fn140, false},
-	141: {"github.com/ipfs/boxo/mfs.File.Flush", fn141, false},
-	142: {"github.com/ipfs/boxo/mfs.File.GetNode", fn142, false},
-	143: {"github.com/ipfs/boxo/mfs.File.ModTime", fn143, false},
-	144: {"github.com/ipfs/boxo/mfs.File.Mode", fn144, false},
-	145: {"github.com/ipfs/boxo/mfs.File.Open", fn145, false},
-	146: {"github.com/ipfs/boxo/mfs.File.RawLeaves", fn146, false},
-	147: {"github.com/ipfs/boxo/mfs.File.RawLeaves=", fn147, false},
-	148: {"github.com/ipfs/boxo/mfs.File.Size", fn148, false},
-	149: {"github.com/ipfs/boxo/mfs.File.Sync", fn149, false},
-	150: {"github.com/ipfs/boxo/mfs.FileDescriptor.Close", fn150, false},
-	151: {"github.com/ipfs/boxo/mfs.FileDescriptor.CtxReadFull", fn151, false},
-	152: {"github.com/ipfs/boxo/mfs.FileDescriptor.Flush", fn152, false},
-	153: {"github.com/ipfs/boxo/mfs.FileDescriptor.Read", fn153, false},
-	154: {"github.com/ipfs/boxo/mfs.FileDescriptor.Seek", fn154, false},
-	155: {"github.com/ipfs/boxo/mfs.FileDescriptor.Size", fn155, false},
-	156: {"github.com/ipfs/boxo/mfs.FileDescriptor.Truncate", fn156, false},
-	157: {"github.com/ipfs/boxo/mfs.FileDescriptor.Write", fn157, false},
-	158: {"github.com/ipfs/boxo/mfs.FileDescriptor.WriteAt", fn158, false},
-	159: {"github.com/ipfs/boxo/mfs.FlushPath", fn159, false},
-	160: {"github.com/ipfs/boxo/mfs.IsDir", fn160, false},
-	161: {"github.com/ipfs/boxo/mfs.IsFile", fn161, false},
-	162: {"github.com/ipfs/boxo/mfs.Lookup", fn162, false},
-	163: {"github.com/ipfs/boxo/mfs.Mkdir", fn163, false},
-	164: {"github.com/ipfs/boxo/mfs.Mv", fn164, false},
-	165: {"github.com/ipfs/boxo/mfs.PutNode", fn165, false},
-	166: {"github.com/ipfs/boxo/mfs.Root.Flush", fn166, false},
-	167: {"github.com/ipfs/boxo/mfs.Root.FlushMemFree", fn167, false},
-	168: {"github.com/ipfs/boxo/mfs.Root.GetDirectory", fn168, false},
-	169: {"github.com/ipfs/boxo/mfs.Touch", fn169, false},
-	170: {"github.com/ipfs/boxo/peering.PeeringService.AddPeer", fn170, false},
-	171: {"github.com/ipfs/boxo/peering.PeeringService.ListPeers", fn171, false},
-	172: {"github.com/ipfs/boxo/peering.PeeringService.RemovePeer", fn172, false},
-	173: {"github.com/ipfs/go-cid.NewPrefixV0", fn173, false},
-	174: {"github.com/ipfs/go-cid.NewPrefixV1", fn174, false},
-	175: {"github.com/ipfs/go-cid.Prefix.Sum", fn175, false},
-	176: {"github.com/ipfs/go-datastore.NewNullDatastore", fn176, false},
-	177: {"github.com/ipfs/go-ipld-format.DAGService.Add", fn177, false},
-	178: {"github.com/ipfs/go-ipld-format.Node.Cid", fn178, false},
-	179: {"github.com/ipfs/go-ipld-format.Node.Links", fn179, false},
-	180: {"github.com/ipfs/go-ipld-format.Node.RawData", fn180, false},
-	181: {"github.com/ipfs/go-ipld-format.Node.Size", fn181, false},
-	182: {"github.com/ipfs/go-ipld-format.Node.Stat", fn182, false},
-	183: {"github.com/ipfs/go-ipld-format.NodeAdder.Add", fn183, false},
-	184: {"github.com/ipfs/go-ipld-format.NodeAdder.AddMany", fn184, false},
-	185: {"github.com/ipfs/go-ipld-format.NodeGetter.Get", fn185, false},
-	186: {"github.com/ipfs/go-unixfsnode.AddUnixFSReificationToLinkSystem", fn186, false},
-	187: {"github.com/ipfs/go-unixfsnode.ExploreAllRecursivelySelector", fn187, false},
-	188: {"github.com/ipfs/go-unixfsnode.MatchUnixFSEntitySelector", fn188, false},
-	189: {"github.com/ipfs/go-unixfsnode.MatchUnixFSPreloadSelector", fn189, false},
-	190: {"github.com/ipfs/go-unixfsnode.MatchUnixFSSelector", fn190, false},
-	191: {"github.com/ipfs/go-unixfsnode.UnixFSPathSelector", fn191, false},
-	192: {"github.com/ipfs/go-unixfsnode.UnixFSPathSelectorBuilder", fn192, false},
-	193: {"github.com/ipfs/kubo/config.BootstrapPeerStrings", fn193, false},
-	194: {"github.com/ipfs/kubo/config.CreateIdentity", fn194, false},
-	195: {"github.com/ipfs/kubo/config.InitWithIdentity", fn195, false},
-	196: {"github.com/ipfs/kubo/config.ParseBootstrapPeers", fn196, false},
-	197: {"github.com/ipfs/kubo/core.IpfsNode.Blocks", fn197, false},
-	198: {"github.com/ipfs/kubo/core.IpfsNode.Blocks=", fn198, false},
-	199: {"github.com/ipfs/kubo/core.IpfsNode.Blockstore", fn199, false},
-	200: {"github.com/ipfs/kubo/core.IpfsNode.Blockstore=", fn200, false},
-	201: {"github.com/ipfs/kubo/core.IpfsNode.Close", fn201, false},
-	202: {"github.com/ipfs/kubo/core.IpfsNode.Exchange", fn202, false},
-	203: {"github.com/ipfs/kubo/core.IpfsNode.Exchange=", fn203, false},
-	204: {"github.com/ipfs/kubo/core.IpfsNode.FilesRoot", fn204, false},
-	205: {"github.com/ipfs/kubo/core.IpfsNode.FilesRoot=", fn205, false},
-	206: {"github.com/ipfs/kubo/core.IpfsNode.GCLocker", fn206, false},
-	207: {"github.com/ipfs/kubo/core.IpfsNode.GCLocker=", fn207, false},
-	208: {"github.com/ipfs/kubo/core.IpfsNode.PeerHost", fn208, false},
-	209: {"github.com/ipfs/kubo/core.IpfsNode.PeerHost=", fn209, false},
-	210: {"github.com/ipfs/kubo/core.IpfsNode.Peering", fn210, false},
-	211: {"github.com/ipfs/kubo/core.IpfsNode.Peering=", fn211, false},
-	212: {"github.com/ipfs/kubo/core.IpfsNode.Repo", fn212, false},
-	213: {"github.com/ipfs/kubo/core.IpfsNode.Repo=", fn213, false},
-	214: {"github.com/ipfs/kubo/core.IpfsNode.ResourceManager", fn214, false},
-	215: {"github.com/ipfs/kubo/core.IpfsNode.ResourceManager=", fn215, false},
-	216: {"github.com/ipfs/kubo/core.NewNode", fn216, false},
-	217: {"github.com/ipfs/kubo/core/coreapi.NewCoreAPI", fn217, false},
-	218: {"github.com/ipfs/kubo/core/coreiface.APIDagService.Add", fn218, false},
-	219: {"github.com/ipfs/kubo/core/coreiface.APIDagService.AddMany", fn219, false},
-	220: {"github.com/ipfs/kubo/core/coreiface.APIDagService.Get", fn220, false},
-	221: {"github.com/ipfs/kubo/core/coreiface.APIDagService.GetMany", fn221, true},
-	222: {"github.com/ipfs/kubo/core/coreiface.APIDagService.Pinning", fn222, false},
-	223: {"github.com/ipfs/kubo/core/coreiface.APIDagService.Remove", fn223, false},
-	224: {"github.com/ipfs/kubo/core/coreiface.APIDagService.RemoveMany", fn224, false},
-	225: {"github.com/ipfs/kubo/core/coreiface.BlockAPI.Get", fn225, false},
-	226: {"github.com/ipfs/kubo/core/coreiface.BlockAPI.Put", fn226, false},
-	227: {"github.com/ipfs/kubo/core/coreiface.BlockAPI.Rm", fn227, false},
-	228: {"github.com/ipfs/kubo/core/coreiface.BlockAPI.Stat", fn228, false},
-	229: {"github.com/ipfs/kubo/core/coreiface.CoreAPI.Block", fn229, false},
-	230: {"github.com/ipfs/kubo/core/coreiface.CoreAPI.Dag", fn230, false},
-	231: {"github.com/ipfs/kubo/core/coreiface.CoreAPI.Key", fn231, false},
-	232: {"github.com/ipfs/kubo/core/coreiface.CoreAPI.Name", fn232, false},
-	233: {"github.com/ipfs/kubo/core/coreiface.CoreAPI.Object", fn233, false},
-	234: {"github.com/ipfs/kubo/core/coreiface.CoreAPI.Pin", fn234, false},
-	235: {"github.com/ipfs/kubo/core/coreiface.CoreAPI.PubSub", fn235, false},
-	236: {"github.com/ipfs/kubo/core/coreiface.CoreAPI.ResolveNode", fn236, false},
-	237: {"github.com/ipfs/kubo/core/coreiface.CoreAPI.ResolvePath", fn237, false},
-	238: {"github.com/ipfs/kubo/core/coreiface.CoreAPI.Routing", fn238, false},
-	239: {"github.com/ipfs/kubo/core/coreiface.CoreAPI.Swarm", fn239, false},
-	240: {"github.com/ipfs/kubo/core/coreiface.CoreAPI.Unixfs", fn240, false},
-	241: {"github.com/ipfs/kubo/core/coreiface.CoreAPI.WithOptions", fn241, false},
-	242: {"github.com/ipfs/kubo/core/coreiface.KeyAPI.Generate", fn242, false},
-	243: {"github.com/ipfs/kubo/core/coreiface.KeyAPI.List", fn243, false},
-	244: {"github.com/ipfs/kubo/core/coreiface.KeyAPI.Remove", fn244, false},
-	245: {"github.com/ipfs/kubo/core/coreiface.KeyAPI.Rename", fn245, false},
-	246: {"github.com/ipfs/kubo/core/coreiface.KeyAPI.Self", fn246, false},
-	247: {"github.com/ipfs/kubo/core/coreiface.KeyAPI.Sign", fn247, false},
-	248: {"github.com/ipfs/kubo/core/coreiface.KeyAPI.Verify", fn248, false},
-	249: {"github.com/ipfs/kubo/core/coreiface.NameAPI.Publish", fn249, false},
-	250: {"github.com/ipfs/kubo/core/coreiface.NameAPI.Resolve", fn250, false},
-	251: {"github.com/ipfs/kubo/core/coreiface.NameAPI.Search", fn251, true},
-	252: {"github.com/ipfs/kubo/core/coreiface.ObjectAPI.AddLink", fn252, false},
-	253: {"github.com/ipfs/kubo/core/coreiface.ObjectAPI.Diff", fn253, false},
-	254: {"github.com/ipfs/kubo/core/coreiface.ObjectAPI.RmLink", fn254, false},
-	255: {"github.com/ipfs/kubo/core/coreiface.PinAPI.Add", fn255, false},
-	256: {"github.com/ipfs/kubo/core/coreiface.PinAPI.IsPinned", fn256, false},
-	257: {"github.com/ipfs/kubo/core/coreiface.PinAPI.Ls", fn257, true},
-	258: {"github.com/ipfs/kubo/core/coreiface.PinAPI.Rm", fn258, false},
-	259: {"github.com/ipfs/kubo/core/coreiface.PinAPI.Update", fn259, false},
-	260: {"github.com/ipfs/kubo/core/coreiface.PinAPI.Verify", fn260, true},
-	261: {"github.com/ipfs/kubo/core/coreiface.PubSubAPI.Ls", fn261, false},
-	262: {"github.com/ipfs/kubo/core/coreiface.PubSubAPI.Peers", fn262, false},
-	263: {"github.com/ipfs/kubo/core/coreiface.PubSubAPI.Publish", fn263, false},
-	264: {"github.com/ipfs/kubo/core/coreiface.PubSubAPI.Subscribe", fn264, false},
-	265: {"github.com/ipfs/kubo/core/coreiface.PubSubSubscription.Close", fn265, false},
-	266: {"github.com/ipfs/kubo/core/coreiface.PubSubSubscription.Next", fn266, false},
-	267: {"github.com/ipfs/kubo/core/coreiface.Reader.Size", fn267, false},
-	268: {"github.com/ipfs/kubo/core/coreiface.RoutingAPI.FindPeer", fn268, false},
-	269: {"github.com/ipfs/kubo/core/coreiface.RoutingAPI.FindProviders", fn269, true},
-	270: {"github.com/ipfs/kubo/core/coreiface.RoutingAPI.Get", fn270, false},
-	271: {"github.com/ipfs/kubo/core/coreiface.RoutingAPI.Provide", fn271, false},
-	272: {"github.com/ipfs/kubo/core/coreiface.RoutingAPI.Put", fn272, false},
-	273: {"github.com/ipfs/kubo/core/coreiface.SwarmAPI.Connect", fn273, false},
-	274: {"github.com/ipfs/kubo/core/coreiface.SwarmAPI.Disconnect", fn274, false},
-	275: {"github.com/ipfs/kubo/core/coreiface.SwarmAPI.KnownAddrs", fn275, false},
-	276: {"github.com/ipfs/kubo/core/coreiface.SwarmAPI.ListenAddrs", fn276, false},
-	277: {"github.com/ipfs/kubo/core/coreiface.SwarmAPI.LocalAddrs", fn277, false},
-	278: {"github.com/ipfs/kubo/core/coreiface.SwarmAPI.Peers", fn278, false},
-	279: {"github.com/ipfs/kubo/core/coreiface.UnixfsAPI.Add", fn279, false},
-	280: {"github.com/ipfs/kubo/core/coreiface.UnixfsAPI.Get", fn280, false},
-	281: {"github.com/ipfs/kubo/core/coreiface.UnixfsAPI.Ls", fn281, true},
-	282: {"github.com/ipfs/kubo/core/corerepo.ConditionalGC", fn282, false},
-	283: {"github.com/ipfs/kubo/core/corerepo.GarbageCollect", fn283, false},
-	284: {"github.com/ipfs/kubo/core/corerepo.GarbageCollectAsync", fn284, true},
-	285: {"github.com/ipfs/kubo/core/corerepo.PeriodicGC", fn285, false},
-	286: {"github.com/ipfs/kubo/core/node/libp2p.ConstructDefaultRouting", fn286, false},
-	287: {"github.com/ipfs/kubo/core/node/libp2p.DHTClientOption", fn287, false},
-	288: {"github.com/ipfs/kubo/core/node/libp2p.DHTOption", fn288, false},
-	289: {"github.com/ipfs/kubo/core/node/libp2p.DHTServerOption", fn289, false},
-	290: {"github.com/ipfs/kubo/core/node/libp2p.NilRouterOption", fn290, false},
-	291: {"github.com/ipfs/kubo/plugin/loader.NewPluginLoader", fn291, false},
-	292: {"github.com/ipfs/kubo/plugin/loader.PluginLoader.Initialize", fn292, false},
-	293: {"github.com/ipfs/kubo/plugin/loader.PluginLoader.Inject", fn293, false},
-	294: {"github.com/ipfs/kubo/repo.Repo.BackupConfig", fn294, false},
-	295: {"github.com/ipfs/kubo/repo.Repo.Config", fn295, false},
-	296: {"github.com/ipfs/kubo/repo.Repo.GetConfigKey", fn296, false},
-	297: {"github.com/ipfs/kubo/repo.Repo.SetConfig", fn297, false},
-	298: {"github.com/ipfs/kubo/repo.Repo.SetConfigKey", fn298, false},
-	299: {"github.com/ipfs/kubo/repo/fsrepo.Init", fn299, false},
-	300: {"github.com/ipfs/kubo/repo/fsrepo.IsInitialized", fn300, false},
-	301: {"github.com/ipfs/kubo/repo/fsrepo.Open", fn301, false},
-	302: {"github.com/ipld/go-car/v2.AttachIndex", fn302, false},
-	303: {"github.com/ipld/go-car/v2.BlockReader.Next", fn303, false},
-	304: {"github.com/ipld/go-car/v2.BlockReader.NextReader", fn304, false},
-	305: {"github.com/ipld/go-car/v2.BlockReader.Roots", fn305, false},
-	306: {"github.com/ipld/go-car/v2.BlockReader.Roots=", fn306, false},
-	307: {"github.com/ipld/go-car/v2.BlockReader.SkipNext", fn307, false},
-	308: {"github.com/ipld/go-car/v2.BlockReader.Version", fn308, false},
-	309: {"github.com/ipld/go-car/v2.BlockReader.Version=", fn309, false},
-	310: {"github.com/ipld/go-car/v2.Characteristics.IsFullyIndexed", fn310, false},
-	311: {"github.com/ipld/go-car/v2.ExtractV1File", fn311, false},
-	312: {"github.com/ipld/go-car/v2.GenerateIndex", fn312, false},
-	313: {"github.com/ipld/go-car/v2.GenerateIndexFromFile", fn313, false},
-	314: {"github.com/ipld/go-car/v2.Header.HasIndex", fn314, false},
-	315: {"github.com/ipld/go-car/v2.Header.WithDataPadding", fn315, false},
-	316: {"github.com/ipld/go-car/v2.Header.WithDataSize", fn316, false},
-	317: {"github.com/ipld/go-car/v2.Header.WithIndexPadding", fn317, false},
-	318: {"github.com/ipld/go-car/v2.Header.WriteTo", fn318, false},
-	319: {"github.com/ipld/go-car/v2.LoadIndex", fn319, false},
-	320: {"github.com/ipld/go-car/v2.NewBlockReader", fn320, false},
-	321: {"github.com/ipld/go-car/v2.NewHeader", fn321, false},
-	322: {"github.com/ipld/go-car/v2.NewReader", fn322, false},
-	323: {"github.com/ipld/go-car/v2.OpenReader", fn323, false},
-	324: {"github.com/ipld/go-car/v2.ReadOrGenerateIndex", fn324, false},
-	325: {"github.com/ipld/go-car/v2.ReadVersion", fn325, false},
-	326: {"github.com/ipld/go-car/v2.Reader.Close", fn326, false},
-	327: {"github.com/ipld/go-car/v2.Reader.DataReader", fn327, false},
-	328: {"github.com/ipld/go-car/v2.Reader.Header", fn328, false},
-	329: {"github.com/ipld/go-car/v2.Reader.Header=", fn329, false},
-	330: {"github.com/ipld/go-car/v2.Reader.IndexReader", fn330, false},
-	331: {"github.com/ipld/go-car/v2.Reader.Inspect", fn331, false},
-	332: {"github.com/ipld/go-car/v2.Reader.Roots", fn332, false},
-	333: {"github.com/ipld/go-car/v2.Reader.Version", fn333, false},
-	334: {"github.com/ipld/go-car/v2.Reader.Version=", fn334, false},
-	335: {"github.com/ipld/go-car/v2.ReplaceRootsInFile", fn335, false},
-	336: {"github.com/ipld/go-car/v2.TraverseToFile", fn336, false},
-	337: {"github.com/ipld/go-car/v2.TraverseV1", fn337, false},
-	338: {"github.com/ipld/go-car/v2.WrapV1", fn338, false},
-	339: {"github.com/ipld/go-car/v2.WrapV1File", fn339, false},
-	340: {"github.com/ipld/go-car/v2/blockstore.NewReadOnly", fn340, false},
-	341: {"github.com/ipld/go-car/v2/blockstore.OpenReadOnly", fn341, false},
-	342: {"github.com/ipld/go-car/v2/blockstore.OpenReadWrite", fn342, false},
-	343: {"github.com/ipld/go-car/v2/blockstore.ReadOnly.AllKeysChan", fn343, true},
-	344: {"github.com/ipld/go-car/v2/blockstore.ReadOnly.Close", fn344, false},
-	345: {"github.com/ipld/go-car/v2/blockstore.ReadOnly.Get", fn345, false},
-	346: {"github.com/ipld/go-car/v2/blockstore.ReadOnly.GetSize", fn346, false},
-	347: {"github.com/ipld/go-car/v2/blockstore.ReadOnly.Has", fn347, false},
-	348: {"github.com/ipld/go-car/v2/blockstore.ReadOnly.HashOnRead", fn348, false},
-	349: {"github.com/ipld/go-car/v2/blockstore.ReadOnly.Index", fn349, false},
-	350: {"github.com/ipld/go-car/v2/blockstore.ReadOnly.Roots", fn350, false},
-	351: {"github.com/ipld/go-car/v2/blockstore.ReadWrite.AllKeysChan", fn351, true},
-	352: {"github.com/ipld/go-car/v2/blockstore.ReadWrite.Close", fn352, false},
-	353: {"github.com/ipld/go-car/v2/blockstore.ReadWrite.Discard", fn353, false},
-	354: {"github.com/ipld/go-car/v2/blockstore.ReadWrite.Finalize", fn354, false},
-	355: {"github.com/ipld/go-car/v2/blockstore.ReadWrite.FinalizeReadOnly", fn355, false},
-	356: {"github.com/ipld/go-car/v2/blockstore.ReadWrite.Get", fn356, false},
-	357: {"github.com/ipld/go-car/v2/blockstore.ReadWrite.GetSize", fn357, false},
-	358: {"github.com/ipld/go-car/v2/blockstore.ReadWrite.Has", fn358, false},
-	359: {"github.com/ipld/go-car/v2/blockstore.ReadWrite.HashOnRead", fn359, false},
-	360: {"github.com/ipld/go-car/v2/blockstore.ReadWrite.Index", fn360, false},
-	361: {"github.com/ipld/go-car/v2/blockstore.ReadWrite.Put", fn361, false},
-	362: {"github.com/ipld/go-car/v2/blockstore.ReadWrite.PutMany", fn362, false},
-	363: {"github.com/ipld/go-car/v2/blockstore.ReadWrite.Roots", fn363, false},
-	364: {"github.com/ipld/go-car/v2/index.GetFirst", fn364, false},
-	365: {"github.com/ipld/go-car/v2/index.Index.Codec", fn365, false},
-	366: {"github.com/ipld/go-car/v2/index.Index.GetAll", fn366, false},
-	367: {"github.com/ipld/go-car/v2/index.Index.Load", fn367, false},
-	368: {"github.com/ipld/go-car/v2/index.Index.Marshal", fn368, false},
-	369: {"github.com/ipld/go-car/v2/index.Index.Unmarshal", fn369, false},
-	370: {"github.com/ipld/go-car/v2/index.IterableIndex.ForEach", fn370, false},
-	371: {"github.com/ipld/go-car/v2/index.New", fn371, false},
-	372: {"github.com/ipld/go-car/v2/index.ReadCodec", fn372, false},
-	373: {"github.com/ipld/go-car/v2/index.ReadFrom", fn373, false},
-	374: {"github.com/ipld/go-car/v2/index.WriteTo", fn374, false},
-	375: {"github.com/ipld/go-car/v2/storage.OpenReadable", fn375, false},
-	376: {"github.com/ipld/go-car/v2/storage.ReadableCar.Index", fn376, false},
-	377: {"github.com/ipld/go-car/v2/storage.ReadableCar.Roots", fn377, false},
-	378: {"github.com/ipld/go-codec-dagpb.AddSupportToChooser", fn378, false},
-	379: {"github.com/ipld/go-ipld-prime/linking.LinkSystem.SetReadStorage", fn379, false},
-	380: {"github.com/ipld/go-ipld-prime/linking/cid.DefaultLinkSystem", fn380, false},
-	381: {"github.com/ipld/go-ipld-prime/node/basicnode.Prototype__Any", fn381, false},
-	382: {"github.com/ipld/go-ipld-prime/storage/bsadapter.Adapter", fn382, false},
-	383: {"github.com/ipld/go-ipld-prime/storage/bsadapter.Adapter.Wrapped", fn383, false},
-	384: {"github.com/ipld/go-ipld-prime/storage/bsadapter.Adapter.Wrapped=", fn384, false},
-	385: {"github.com/ipld/go-ipld-prime/traversal/selector.RecursionLimitDepth", fn385, false},
-	386: {"github.com/ipld/go-ipld-prime/traversal/selector.RecursionLimitNone", fn386, false},
-	387: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.ExploreFieldsSpecBuilder.Insert", fn387, false},
-	388: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.NewSelectorSpecBuilder", fn388, false},
-	389: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpec.Node", fn389, false},
-	390: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreAll", fn390, false},
-	391: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreFields", fn391, false},
-	392: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreIndex", fn392, false},
-	393: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreInterpretAs", fn393, false},
-	394: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreRange", fn394, false},
-	395: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreRecursive", fn395, false},
-	396: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreRecursiveEdge", fn396, false},
-	397: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreUnion", fn397, false},
-	398: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.Matcher", fn398, false},
-	399: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.MatcherSubset", fn399, false},
-	400: {"github.com/ipld/go-ipld-prime/traversal/selector/parse.CommonSelector_ExploreAllRecursively", fn400, false},
-	401: {"github.com/ipld/go-ipld-prime/traversal/selector/parse.CommonSelector_MatchAllRecursively", fn401, false},
-	402: {"github.com/ipld/go-ipld-prime/traversal/selector/parse.CommonSelector_MatchChildren", fn402, false},
-	403: {"github.com/ipld/go-ipld-prime/traversal/selector/parse.CommonSelector_MatchPoint", fn403, false},
-	404: {"github.com/ipld/go-ipld-prime/traversal/selector/parse.ParseJSONSelector", fn404, false},
-	405: {"github.com/libp2p/go-libp2p/core/connmgr.ConnManager.IsProtected", fn405, false},
-	406: {"github.com/libp2p/go-libp2p/core/connmgr.ConnManager.Protect", fn406, false},
-	407: {"github.com/libp2p/go-libp2p/core/connmgr.ConnManager.TagPeer", fn407, false},
-	408: {"github.com/libp2p/go-libp2p/core/connmgr.ConnManager.TrimOpenConns", fn408, false},
-	409: {"github.com/libp2p/go-libp2p/core/connmgr.ConnManager.Unprotect", fn409, false},
-	410: {"github.com/libp2p/go-libp2p/core/connmgr.ConnManager.UntagPeer", fn410, false},
-	411: {"github.com/libp2p/go-libp2p/core/host.Host.ConnManager", fn411, false},
-	412: {"github.com/libp2p/go-libp2p/core/network.ResourceManager.ViewSystem", fn412, false},
-	413: {"github.com/libp2p/go-libp2p/core/network.ResourceManager.ViewTransient", fn413, false},
-	414: {"github.com/libp2p/go-libp2p/core/network.ResourceScope.Stat", fn414, false},
-	415: {"github.com/libp2p/go-libp2p/core/peer.AddrInfoFromString", fn415, false},
-	416: {"github.com/libp2p/go-libp2p/core/peer.AddrInfoToP2pAddrs", fn416, false},
-	417: {"io.Copy", fn417, false},
-	418: {"io.ReadAll", fn418, false},
-	419: {"io.ReadCloser.Close", fn419, false},
-	420: {"os.Create", fn420, false},
-	421: {"os.File.Close", fn421, false},
-	422: {"os.Open", fn422, false},
-	423: {"os.OpenFile", fn423, false},
-	424: {"os.Stat", fn424, false},
-	425: {"runtime/debug.SetCrashOutput", fn425, false},
+	81:  {"cast github.com/ipfs/kubo/core/node.BaseBlocks *github.com/ipld/go-car/v2/blockstore.ReadOnly", fn81, false},
+	82:  {"cast github.com/ipfs/kubo/core/node.BaseBlocks *github.com/ipld/go-car/v2/blockstore.ReadWrite", fn82, false},
+	83:  {"cast github.com/ipld/go-car/v2/index.Index github.com/ipld/go-car/v2/index.IterableIndex", fn83, false},
+	84:  {"cast github.com/ipld/go-ipld-prime/datamodel.Node *github.com/ipfs/boxo/ipld/merkledag.ProtoNode", fn84, false},
+	85:  {"cast github.com/ipld/go-ipld-prime/datamodel.Node *github.com/ipfs/boxo/ipld/merkledag.RawNode", fn85, false},
+	86:  {"cast github.com/ipld/go-ipld-prime/datamodel.NodePrototype *github.com/ipld/go-ipld-prime/node/basicnode.Prototype__Any", fn86, false},
+	87:  {"cast github.com/ipld/go-ipld-prime/storage.ReadableStorage *github.com/ipld/go-ipld-prime/storage/bsadapter.Adapter", fn87, false},
+	88:  {"cast github.com/ipld/go-ipld-prime/storage.ReadableStorage github.com/ipld/go-car/v2/storage.ReadableCar", fn88, false},
+	89:  {"github.com/ipfs/boxo/blockservice.New", fn89, false},
+	90:  {"github.com/ipfs/boxo/blockstore.Blockstore.AllKeysChan", fn90, true},
+	91:  {"github.com/ipfs/boxo/blockstore.Blockstore.DeleteBlock", fn91, false},
+	92:  {"github.com/ipfs/boxo/blockstore.Blockstore.Get", fn92, false},
+	93:  {"github.com/ipfs/boxo/blockstore.Blockstore.GetSize", fn93, false},
+	94:  {"github.com/ipfs/boxo/blockstore.Blockstore.Has", fn94, false},
+	95:  {"github.com/ipfs/boxo/blockstore.Blockstore.Put", fn95, false},
+	96:  {"github.com/ipfs/boxo/blockstore.GCLocker.GCLock", fn96, false},
+	97:  {"github.com/ipfs/boxo/blockstore.GCLocker.GCRequested", fn97, false},
+	98:  {"github.com/ipfs/boxo/blockstore.GCLocker.PinLock", fn98, false},
+	99:  {"github.com/ipfs/boxo/blockstore.NewBlockstore", fn99, false},
+	100: {"github.com/ipfs/boxo/blockstore.Unlocker.Unlock", fn100, false},
+	101: {"github.com/ipfs/boxo/chunker.FromString", fn101, false},
+	102: {"github.com/ipfs/boxo/chunker.NewSizeSplitter", fn102, false},
+	103: {"github.com/ipfs/boxo/chunker.SizeSplitterGen", fn103, false},
+	104: {"github.com/ipfs/boxo/exchange/offline.Exchange", fn104, false},
+	105: {"github.com/ipfs/boxo/fetcher/impl/blockservice.DefaultPrototypeChooser", fn105, false},
+	106: {"github.com/ipfs/boxo/files.NewBytesFile", fn106, false},
+	107: {"github.com/ipfs/boxo/files.NewSerialFile", fn107, false},
+	108: {"github.com/ipfs/boxo/files.ToFile", fn108, false},
+	109: {"github.com/ipfs/boxo/files.WriteTo", fn109, false},
+	110: {"github.com/ipfs/boxo/gateway.BlocksBackend.GetCAR", fn110, false},
+	111: {"github.com/ipfs/boxo/gateway.NewBlocksBackend", fn111, false},
+	112: {"github.com/ipfs/boxo/ipld/merkledag.NewDAGService", fn112, false},
+	113: {"github.com/ipfs/boxo/ipld/merkledag.NewRawNode", fn113, false},
+	114: {"github.com/ipfs/boxo/ipld/merkledag.NodeWithData", fn114, false},
+	115: {"github.com/ipfs/boxo/ipld/merkledag.ProtoNode.AddNodeLink", fn115, false},
+	116: {"github.com/ipfs/boxo/ipld/merkledag.ProtoNode.Data", fn116, false},
+	117: {"github.com/ipfs/boxo/ipld/merkledag.ProtoNode.SetData", fn117, false},
+	118: {"github.com/ipfs/boxo/ipld/unixfs/file.NewUnixfsFile", fn118, false},
+	119: {"github.com/ipfs/boxo/ipld/unixfs/importer.BuildDagFromReader", fn119, false},
+	120: {"github.com/ipfs/boxo/ipld/unixfs/io.Directory.AddChild", fn120, false},
+	121: {"github.com/ipfs/boxo/ipld/unixfs/io.Directory.GetNode", fn121, false},
+	122: {"github.com/ipfs/boxo/ipld/unixfs/io.NewDirectory", fn122, false},
+	123: {"github.com/ipfs/boxo/mfs.Chmod", fn123, false},
+	124: {"github.com/ipfs/boxo/mfs.DirLookup", fn124, false},
+	125: {"github.com/ipfs/boxo/mfs.Directory.AddChild", fn125, false},
+	126: {"github.com/ipfs/boxo/mfs.Directory.Child", fn126, false},
+	127: {"github.com/ipfs/boxo/mfs.Directory.Flush", fn127, false},
+	128: {"github.com/ipfs/boxo/mfs.Directory.GetNode", fn128, false},
+	129: {"github.com/ipfs/boxo/mfs.Directory.List", fn129, false},
+	130: {"github.com/ipfs/boxo/mfs.Directory.ListNames", fn130, false},
+	131: {"github.com/ipfs/boxo/mfs.Directory.Mkdir", fn131, false},
+	132: {"github.com/ipfs/boxo/mfs.Directory.MkdirWithOpts", fn132, false},
+	133: {"github.com/ipfs/boxo/mfs.Directory.ModTime", fn133, false},
+	134: {"github.com/ipfs/boxo/mfs.Directory.Mode", fn134, false},
+	135: {"github.com/ipfs/boxo/mfs.Directory.Path", fn135, false},
+	136: {"github.com/ipfs/boxo/mfs.Directory.Uncache", fn136, false},
+	137: {"github.com/ipfs/boxo/mfs.Directory.Unlink", fn137, false},
+	138: {"github.com/ipfs/boxo/mfs.FSNode.Flush", fn138, false},
+	139: {"github.com/ipfs/boxo/mfs.FSNode.GetNode", fn139, false},
+	140: {"github.com/ipfs/boxo/mfs.FSNode.SetModTime", fn140, false},
+	141: {"github.com/ipfs/boxo/mfs.FSNode.SetMode", fn141, false},
+	142: {"github.com/ipfs/boxo/mfs.FSNode.Type", fn142, false},
+	143: {"github.com/ipfs/boxo/mfs.File.Flush", fn143, false},
+	144: {"github.com/ipfs/boxo/mfs.File.GetNode", fn144, false},
+	145: {"github.com/ipfs/boxo/mfs.File.ModTime", fn145, false},
+	146: {"github.com/ipfs/boxo/mfs.File.Mode", fn146, false},
+	147: {"github.com/ipfs/boxo/mfs.File.Open", fn147, false},
+	148: {"github.com/ipfs/boxo/mfs.File.RawLeaves", fn148, false},
+	149: {"github.com/ipfs/boxo/mfs.File.RawLeaves=", fn149, false},
+	150: {"github.com/ipfs/boxo/mfs.File.Size", fn150, false},
+	151: {"github.com/ipfs/boxo/mfs.File.Sync", fn151, false},
+	152: {"github.com/ipfs/boxo/mfs.FileDescriptor.Close", fn152, false},
+	153: {"github.com/ipfs/boxo/mfs.FileDescriptor.CtxReadFull", fn153, false},
+	154: {"github.com/ipfs/boxo/mfs.FileDescriptor.Flush", fn154, false},
+	155: {"github.com/ipfs/boxo/mfs.FileDescriptor.Read", fn155, false},
+	156: {"github.com/ipfs/boxo/mfs.FileDescriptor.Seek", fn156, false},
+	157: {"github.com/ipfs/boxo/mfs.FileDescriptor.Size", fn157, false},
+	158: {"github.com/ipfs/boxo/mfs.FileDescriptor.Truncate", fn158, false},
+	159: {"github.com/ipfs/boxo/mfs.FileDescriptor.Write", fn159, false},
+	160: {"github.com/ipfs/boxo/mfs.FileDescriptor.WriteAt", fn160, false},
+	161: {"github.com/ipfs/boxo/mfs.FlushPath", fn161, false},
+	162: {"github.com/ipfs/boxo/mfs.IsDir", fn162, false},
+	163: {"github.com/ipfs/boxo/mfs.IsFile", fn163, false},
+	164: {"github.com/ipfs/boxo/mfs.Lookup", fn164, false},
+	165: {"github.com/ipfs/boxo/mfs.Mkdir", fn165, false},
+	166: {"github.com/ipfs/boxo/mfs.Mv", fn166, false},
+	167: {"github.com/ipfs/boxo/mfs.PutNode", fn167, false},
+	168: {"github.com/ipfs/boxo/mfs.Root.Flush", fn168, false},
+	169: {"github.com/ipfs/boxo/mfs.Root.FlushMemFree", fn169, false},
+	170: {"github.com/ipfs/boxo/mfs.Root.GetDirectory", fn170, false},
+	171: {"github.com/ipfs/boxo/mfs.Touch", fn171, false},
+	172: {"github.com/ipfs/boxo/peering.PeeringService.AddPeer", fn172, false},
+	173: {"github.com/ipfs/boxo/peering.PeeringService.ListPeers", fn173, false},
+	174: {"github.com/ipfs/boxo/peering.PeeringService.RemovePeer", fn174, false},
+	175: {"github.com/ipfs/go-cid.NewPrefixV0", fn175, false},
+	176: {"github.com/ipfs/go-cid.NewPrefixV1", fn176, false},
+	177: {"github.com/ipfs/go-cid.Prefix.Sum", fn177, false},
+	178: {"github.com/ipfs/go-datastore.NewNullDatastore", fn178, false},
+	179: {"github.com/ipfs/go-ipld-format.DAGService.Add", fn179, false},
+	180: {"github.com/ipfs/go-ipld-format.Node.Cid", fn180, false},
+	181: {"github.com/ipfs/go-ipld-format.Node.Links", fn181, false},
+	182: {"github.com/ipfs/go-ipld-format.Node.RawData", fn182, false},
+	183: {"github.com/ipfs/go-ipld-format.Node.Size", fn183, false},
+	184: {"github.com/ipfs/go-ipld-format.Node.Stat", fn184, false},
+	185: {"github.com/ipfs/go-ipld-format.NodeAdder.Add", fn185, false},
+	186: {"github.com/ipfs/go-ipld-format.NodeAdder.AddMany", fn186, false},
+	187: {"github.com/ipfs/go-ipld-format.NodeGetter.Get", fn187, false},
+	188: {"github.com/ipfs/go-unixfsnode.AddUnixFSReificationToLinkSystem", fn188, false},
+	189: {"github.com/ipfs/go-unixfsnode.ExploreAllRecursivelySelector", fn189, false},
+	190: {"github.com/ipfs/go-unixfsnode.MatchUnixFSEntitySelector", fn190, false},
+	191: {"github.com/ipfs/go-unixfsnode.MatchUnixFSPreloadSelector", fn191, false},
+	192: {"github.com/ipfs/go-unixfsnode.MatchUnixFSSelector", fn192, false},
+	193: {"github.com/ipfs/go-unixfsnode.UnixFSPathSelector", fn193, false},
+	194: {"github.com/ipfs/go-unixfsnode.UnixFSPathSelectorBuilder", fn194, false},
+	195: {"github.com/ipfs/kubo/config.BootstrapPeerStrings", fn195, false},
+	196: {"github.com/ipfs/kubo/config.CreateIdentity", fn196, false},
+	197: {"github.com/ipfs/kubo/config.InitWithIdentity", fn197, false},
+	198: {"github.com/ipfs/kubo/config.ParseBootstrapPeers", fn198, false},
+	199: {"github.com/ipfs/kubo/core.IpfsNode.BaseBlocks", fn199, false},
+	200: {"github.com/ipfs/kubo/core.IpfsNode.BaseBlocks=", fn200, false},
+	201: {"github.com/ipfs/kubo/core.IpfsNode.Blocks", fn201, false},
+	202: {"github.com/ipfs/kubo/core.IpfsNode.Blocks=", fn202, false},
+	203: {"github.com/ipfs/kubo/core.IpfsNode.Blockstore", fn203, false},
+	204: {"github.com/ipfs/kubo/core.IpfsNode.Blockstore=", fn204, false},
+	205: {"github.com/ipfs/kubo/core.IpfsNode.Close", fn205, false},
+	206: {"github.com/ipfs/kubo/core.IpfsNode.Exchange", fn206, false},
+	207: {"github.com/ipfs/kubo/core.IpfsNode.Exchange=", fn207, false},
+	208: {"github.com/ipfs/kubo/core.IpfsNode.FilesRoot", fn208, false},
+	209: {"github.com/ipfs/kubo/core.IpfsNode.FilesRoot=", fn209, false},
+	210: {"github.com/ipfs/kubo/core.IpfsNode.GCLocker", fn210, false},
+	211: {"github.com/ipfs/kubo/core.IpfsNode.GCLocker=", fn211, false},
+	212: {"github.com/ipfs/kubo/core.IpfsNode.PeerHost", fn212, false},
+	213: {"github.com/ipfs/kubo/core.IpfsNode.PeerHost=", fn213, false},
+	214: {"github.com/ipfs/kubo/core.IpfsNode.Peering", fn214, false},
+	215: {"github.com/ipfs/kubo/core.IpfsNode.Peering=", fn215, false},
+	216: {"github.com/ipfs/kubo/core.IpfsNode.Repo", fn216, false},
+	217: {"github.com/ipfs/kubo/core.IpfsNode.Repo=", fn217, false},
+	218: {"github.com/ipfs/kubo/core.IpfsNode.ResourceManager", fn218, false},
+	219: {"github.com/ipfs/kubo/core.IpfsNode.ResourceManager=", fn219, false},
+	220: {"github.com/ipfs/kubo/core.NewNode", fn220, false},
+	221: {"github.com/ipfs/kubo/core/coreapi.NewCoreAPI", fn221, false},
+	222: {"github.com/ipfs/kubo/core/coreiface.APIDagService.Add", fn222, false},
+	223: {"github.com/ipfs/kubo/core/coreiface.APIDagService.AddMany", fn223, false},
+	224: {"github.com/ipfs/kubo/core/coreiface.APIDagService.Get", fn224, false},
+	225: {"github.com/ipfs/kubo/core/coreiface.APIDagService.GetMany", fn225, true},
+	226: {"github.com/ipfs/kubo/core/coreiface.APIDagService.Pinning", fn226, false},
+	227: {"github.com/ipfs/kubo/core/coreiface.APIDagService.Remove", fn227, false},
+	228: {"github.com/ipfs/kubo/core/coreiface.APIDagService.RemoveMany", fn228, false},
+	229: {"github.com/ipfs/kubo/core/coreiface.BlockAPI.Get", fn229, false},
+	230: {"github.com/ipfs/kubo/core/coreiface.BlockAPI.Put", fn230, false},
+	231: {"github.com/ipfs/kubo/core/coreiface.BlockAPI.Rm", fn231, false},
+	232: {"github.com/ipfs/kubo/core/coreiface.BlockAPI.Stat", fn232, false},
+	233: {"github.com/ipfs/kubo/core/coreiface.CoreAPI.Block", fn233, false},
+	234: {"github.com/ipfs/kubo/core/coreiface.CoreAPI.Dag", fn234, false},
+	235: {"github.com/ipfs/kubo/core/coreiface.CoreAPI.Key", fn235, false},
+	236: {"github.com/ipfs/kubo/core/coreiface.CoreAPI.Name", fn236, false},
+	237: {"github.com/ipfs/kubo/core/coreiface.CoreAPI.Object", fn237, false},
+	238: {"github.com/ipfs/kubo/core/coreiface.CoreAPI.Pin", fn238, false},
+	239: {"github.com/ipfs/kubo/core/coreiface.CoreAPI.PubSub", fn239, false},
+	240: {"github.com/ipfs/kubo/core/coreiface.CoreAPI.ResolveNode", fn240, false},
+	241: {"github.com/ipfs/kubo/core/coreiface.CoreAPI.ResolvePath", fn241, false},
+	242: {"github.com/ipfs/kubo/core/coreiface.CoreAPI.Routing", fn242, false},
+	243: {"github.com/ipfs/kubo/core/coreiface.CoreAPI.Swarm", fn243, false},
+	244: {"github.com/ipfs/kubo/core/coreiface.CoreAPI.Unixfs", fn244, false},
+	245: {"github.com/ipfs/kubo/core/coreiface.CoreAPI.WithOptions", fn245, false},
+	246: {"github.com/ipfs/kubo/core/coreiface.KeyAPI.Generate", fn246, false},
+	247: {"github.com/ipfs/kubo/core/coreiface.KeyAPI.List", fn247, false},
+	248: {"github.com/ipfs/kubo/core/coreiface.KeyAPI.Remove", fn248, false},
+	249: {"github.com/ipfs/kubo/core/coreiface.KeyAPI.Rename", fn249, false},
+	250: {"github.com/ipfs/kubo/core/coreiface.KeyAPI.Self", fn250, false},
+	251: {"github.com/ipfs/kubo/core/coreiface.KeyAPI.Sign", fn251, false},
+	252: {"github.com/ipfs/kubo/core/coreiface.KeyAPI.Verify", fn252, false},
+	253: {"github.com/ipfs/kubo/core/coreiface.NameAPI.Publish", fn253, false},
+	254: {"github.com/ipfs/kubo/core/coreiface.NameAPI.Resolve", fn254, false},
+	255: {"github.com/ipfs/kubo/core/coreiface.NameAPI.Search", fn255, true},
+	256: {"github.com/ipfs/kubo/core/coreiface.ObjectAPI.AddLink", fn256, false},
+	257: {"github.com/ipfs/kubo/core/coreiface.ObjectAPI.Diff", fn257, false},
+	258: {"github.com/ipfs/kubo/core/coreiface.ObjectAPI.RmLink", fn258, false},
+	259: {"github.com/ipfs/kubo/core/coreiface.PinAPI.Add", fn259, false},
+	260: {"github.com/ipfs/kubo/core/coreiface.PinAPI.IsPinned", fn260, false},
+	261: {"github.com/ipfs/kubo/core/coreiface.PinAPI.Ls", fn261, true},
+	262: {"github.com/ipfs/kubo/core/coreiface.PinAPI.Rm", fn262, false},
+	263: {"github.com/ipfs/kubo/core/coreiface.PinAPI.Update", fn263, false},
+	264: {"github.com/ipfs/kubo/core/coreiface.PinAPI.Verify", fn264, true},
+	265: {"github.com/ipfs/kubo/core/coreiface.PubSubAPI.Ls", fn265, false},
+	266: {"github.com/ipfs/kubo/core/coreiface.PubSubAPI.Peers", fn266, false},
+	267: {"github.com/ipfs/kubo/core/coreiface.PubSubAPI.Publish", fn267, false},
+	268: {"github.com/ipfs/kubo/core/coreiface.PubSubAPI.Subscribe", fn268, false},
+	269: {"github.com/ipfs/kubo/core/coreiface.PubSubSubscription.Close", fn269, false},
+	270: {"github.com/ipfs/kubo/core/coreiface.PubSubSubscription.Next", fn270, false},
+	271: {"github.com/ipfs/kubo/core/coreiface.Reader.Size", fn271, false},
+	272: {"github.com/ipfs/kubo/core/coreiface.RoutingAPI.FindPeer", fn272, false},
+	273: {"github.com/ipfs/kubo/core/coreiface.RoutingAPI.FindProviders", fn273, true},
+	274: {"github.com/ipfs/kubo/core/coreiface.RoutingAPI.Get", fn274, false},
+	275: {"github.com/ipfs/kubo/core/coreiface.RoutingAPI.Provide", fn275, false},
+	276: {"github.com/ipfs/kubo/core/coreiface.RoutingAPI.Put", fn276, false},
+	277: {"github.com/ipfs/kubo/core/coreiface.SwarmAPI.Connect", fn277, false},
+	278: {"github.com/ipfs/kubo/core/coreiface.SwarmAPI.Disconnect", fn278, false},
+	279: {"github.com/ipfs/kubo/core/coreiface.SwarmAPI.KnownAddrs", fn279, false},
+	280: {"github.com/ipfs/kubo/core/coreiface.SwarmAPI.ListenAddrs", fn280, false},
+	281: {"github.com/ipfs/kubo/core/coreiface.SwarmAPI.LocalAddrs", fn281, false},
+	282: {"github.com/ipfs/kubo/core/coreiface.SwarmAPI.Peers", fn282, false},
+	283: {"github.com/ipfs/kubo/core/coreiface.UnixfsAPI.Add", fn283, false},
+	284: {"github.com/ipfs/kubo/core/coreiface.UnixfsAPI.Get", fn284, false},
+	285: {"github.com/ipfs/kubo/core/coreiface.UnixfsAPI.Ls", fn285, true},
+	286: {"github.com/ipfs/kubo/core/corerepo.ConditionalGC", fn286, false},
+	287: {"github.com/ipfs/kubo/core/corerepo.GarbageCollect", fn287, false},
+	288: {"github.com/ipfs/kubo/core/corerepo.GarbageCollectAsync", fn288, true},
+	289: {"github.com/ipfs/kubo/core/corerepo.PeriodicGC", fn289, false},
+	290: {"github.com/ipfs/kubo/core/node.BaseBlocks.AllKeysChan", fn290, true},
+	291: {"github.com/ipfs/kubo/core/node.BaseBlocks.DeleteBlock", fn291, false},
+	292: {"github.com/ipfs/kubo/core/node.BaseBlocks.Get", fn292, false},
+	293: {"github.com/ipfs/kubo/core/node.BaseBlocks.GetSize", fn293, false},
+	294: {"github.com/ipfs/kubo/core/node.BaseBlocks.Has", fn294, false},
+	295: {"github.com/ipfs/kubo/core/node.BaseBlocks.Put", fn295, false},
+	296: {"github.com/ipfs/kubo/core/node/libp2p.ConstructDefaultRouting", fn296, false},
+	297: {"github.com/ipfs/kubo/core/node/libp2p.DHTClientOption", fn297, false},
+	298: {"github.com/ipfs/kubo/core/node/libp2p.DHTOption", fn298, false},
+	299: {"github.com/ipfs/kubo/core/node/libp2p.DHTServerOption", fn299, false},
+	300: {"github.com/ipfs/kubo/core/node/libp2p.NilRouterOption", fn300, false},
+	301: {"github.com/ipfs/kubo/plugin/loader.NewPluginLoader", fn301, false},
+	302: {"github.com/ipfs/kubo/plugin/loader.PluginLoader.Initialize", fn302, false},
+	303: {"github.com/ipfs/kubo/plugin/loader.PluginLoader.Inject", fn303, false},
+	304: {"github.com/ipfs/kubo/repo.Repo.BackupConfig", fn304, false},
+	305: {"github.com/ipfs/kubo/repo.Repo.Config", fn305, false},
+	306: {"github.com/ipfs/kubo/repo.Repo.GetConfigKey", fn306, false},
+	307: {"github.com/ipfs/kubo/repo.Repo.SetConfig", fn307, false},
+	308: {"github.com/ipfs/kubo/repo.Repo.SetConfigKey", fn308, false},
+	309: {"github.com/ipfs/kubo/repo/fsrepo.Init", fn309, false},
+	310: {"github.com/ipfs/kubo/repo/fsrepo.IsInitialized", fn310, false},
+	311: {"github.com/ipfs/kubo/repo/fsrepo.Open", fn311, false},
+	312: {"github.com/ipld/go-car/v2.AttachIndex", fn312, false},
+	313: {"github.com/ipld/go-car/v2.BlockReader.Next", fn313, false},
+	314: {"github.com/ipld/go-car/v2.BlockReader.NextReader", fn314, false},
+	315: {"github.com/ipld/go-car/v2.BlockReader.Roots", fn315, false},
+	316: {"github.com/ipld/go-car/v2.BlockReader.Roots=", fn316, false},
+	317: {"github.com/ipld/go-car/v2.BlockReader.SkipNext", fn317, false},
+	318: {"github.com/ipld/go-car/v2.BlockReader.Version", fn318, false},
+	319: {"github.com/ipld/go-car/v2.BlockReader.Version=", fn319, false},
+	320: {"github.com/ipld/go-car/v2.Characteristics.IsFullyIndexed", fn320, false},
+	321: {"github.com/ipld/go-car/v2.ExtractV1File", fn321, false},
+	322: {"github.com/ipld/go-car/v2.GenerateIndex", fn322, false},
+	323: {"github.com/ipld/go-car/v2.GenerateIndexFromFile", fn323, false},
+	324: {"github.com/ipld/go-car/v2.Header.HasIndex", fn324, false},
+	325: {"github.com/ipld/go-car/v2.Header.WithDataPadding", fn325, false},
+	326: {"github.com/ipld/go-car/v2.Header.WithDataSize", fn326, false},
+	327: {"github.com/ipld/go-car/v2.Header.WithIndexPadding", fn327, false},
+	328: {"github.com/ipld/go-car/v2.Header.WriteTo", fn328, false},
+	329: {"github.com/ipld/go-car/v2.LoadIndex", fn329, false},
+	330: {"github.com/ipld/go-car/v2.NewBlockReader", fn330, false},
+	331: {"github.com/ipld/go-car/v2.NewHeader", fn331, false},
+	332: {"github.com/ipld/go-car/v2.NewReader", fn332, false},
+	333: {"github.com/ipld/go-car/v2.OpenReader", fn333, false},
+	334: {"github.com/ipld/go-car/v2.ReadOrGenerateIndex", fn334, false},
+	335: {"github.com/ipld/go-car/v2.ReadVersion", fn335, false},
+	336: {"github.com/ipld/go-car/v2.Reader.Close", fn336, false},
+	337: {"github.com/ipld/go-car/v2.Reader.DataReader", fn337, false},
+	338: {"github.com/ipld/go-car/v2.Reader.Header", fn338, false},
+	339: {"github.com/ipld/go-car/v2.Reader.Header=", fn339, false},
+	340: {"github.com/ipld/go-car/v2.Reader.IndexReader", fn340, false},
+	341: {"github.com/ipld/go-car/v2.Reader.Inspect", fn341, false},
+	342: {"github.com/ipld/go-car/v2.Reader.Roots", fn342, false},
+	343: {"github.com/ipld/go-car/v2.Reader.Version", fn343, false},
+	344: {"github.com/ipld/go-car/v2.Reader.Version=", fn344, false},
+	345: {"github.com/ipld/go-car/v2.ReplaceRootsInFile", fn345, false},
+	346: {"github.com/ipld/go-car/v2.TraverseToFile", fn346, false},
+	347: {"github.com/ipld/go-car/v2.TraverseV1", fn347, false},
+	348: {"github.com/ipld/go-car/v2.WrapV1", fn348, false},
+	349: {"github.com/ipld/go-car/v2.WrapV1File", fn349, false},
+	350: {"github.com/ipld/go-car/v2/blockstore.NewReadOnly", fn350, false},
+	351: {"github.com/ipld/go-car/v2/blockstore.OpenReadOnly", fn351, false},
+	352: {"github.com/ipld/go-car/v2/blockstore.OpenReadWrite", fn352, false},
+	353: {"github.com/ipld/go-car/v2/blockstore.ReadOnly.AllKeysChan", fn353, true},
+	354: {"github.com/ipld/go-car/v2/blockstore.ReadOnly.Close", fn354, false},
+	355: {"github.com/ipld/go-car/v2/blockstore.ReadOnly.Get", fn355, false},
+	356: {"github.com/ipld/go-car/v2/blockstore.ReadOnly.GetSize", fn356, false},
+	357: {"github.com/ipld/go-car/v2/blockstore.ReadOnly.Has", fn357, false},
+	358: {"github.com/ipld/go-car/v2/blockstore.ReadOnly.HashOnRead", fn358, false},
+	359: {"github.com/ipld/go-car/v2/blockstore.ReadOnly.Index", fn359, false},
+	360: {"github.com/ipld/go-car/v2/blockstore.ReadOnly.Roots", fn360, false},
+	361: {"github.com/ipld/go-car/v2/blockstore.ReadWrite.AllKeysChan", fn361, true},
+	362: {"github.com/ipld/go-car/v2/blockstore.ReadWrite.Close", fn362, false},
+	363: {"github.com/ipld/go-car/v2/blockstore.ReadWrite.Discard", fn363, false},
+	364: {"github.com/ipld/go-car/v2/blockstore.ReadWrite.Finalize", fn364, false},
+	365: {"github.com/ipld/go-car/v2/blockstore.ReadWrite.FinalizeReadOnly", fn365, false},
+	366: {"github.com/ipld/go-car/v2/blockstore.ReadWrite.Get", fn366, false},
+	367: {"github.com/ipld/go-car/v2/blockstore.ReadWrite.GetSize", fn367, false},
+	368: {"github.com/ipld/go-car/v2/blockstore.ReadWrite.Has", fn368, false},
+	369: {"github.com/ipld/go-car/v2/blockstore.ReadWrite.HashOnRead", fn369, false},
+	370: {"github.com/ipld/go-car/v2/blockstore.ReadWrite.Index", fn370, false},
+	371: {"github.com/ipld/go-car/v2/blockstore.ReadWrite.Put", fn371, false},
+	372: {"github.com/ipld/go-car/v2/blockstore.ReadWrite.PutMany", fn372, false},
+	373: {"github.com/ipld/go-car/v2/blockstore.ReadWrite.Roots", fn373, false},
+	374: {"github.com/ipld/go-car/v2/index.GetFirst", fn374, false},
+	375: {"github.com/ipld/go-car/v2/index.Index.Codec", fn375, false},
+	376: {"github.com/ipld/go-car/v2/index.Index.GetAll", fn376, false},
+	377: {"github.com/ipld/go-car/v2/index.Index.Load", fn377, false},
+	378: {"github.com/ipld/go-car/v2/index.Index.Marshal", fn378, false},
+	379: {"github.com/ipld/go-car/v2/index.Index.Unmarshal", fn379, false},
+	380: {"github.com/ipld/go-car/v2/index.IterableIndex.ForEach", fn380, false},
+	381: {"github.com/ipld/go-car/v2/index.New", fn381, false},
+	382: {"github.com/ipld/go-car/v2/index.ReadCodec", fn382, false},
+	383: {"github.com/ipld/go-car/v2/index.ReadFrom", fn383, false},
+	384: {"github.com/ipld/go-car/v2/index.WriteTo", fn384, false},
+	385: {"github.com/ipld/go-car/v2/storage.OpenReadable", fn385, false},
+	386: {"github.com/ipld/go-car/v2/storage.ReadableCar.Index", fn386, false},
+	387: {"github.com/ipld/go-car/v2/storage.ReadableCar.Roots", fn387, false},
+	388: {"github.com/ipld/go-codec-dagpb.AddSupportToChooser", fn388, false},
+	389: {"github.com/ipld/go-ipld-prime/linking.LinkSystem.SetReadStorage", fn389, false},
+	390: {"github.com/ipld/go-ipld-prime/linking/cid.DefaultLinkSystem", fn390, false},
+	391: {"github.com/ipld/go-ipld-prime/node/basicnode.Prototype__Any", fn391, false},
+	392: {"github.com/ipld/go-ipld-prime/storage/bsadapter.Adapter", fn392, false},
+	393: {"github.com/ipld/go-ipld-prime/storage/bsadapter.Adapter.Wrapped", fn393, false},
+	394: {"github.com/ipld/go-ipld-prime/storage/bsadapter.Adapter.Wrapped=", fn394, false},
+	395: {"github.com/ipld/go-ipld-prime/traversal/selector.RecursionLimitDepth", fn395, false},
+	396: {"github.com/ipld/go-ipld-prime/traversal/selector.RecursionLimitNone", fn396, false},
+	397: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.ExploreFieldsSpecBuilder.Insert", fn397, false},
+	398: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.NewSelectorSpecBuilder", fn398, false},
+	399: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpec.Node", fn399, false},
+	400: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreAll", fn400, false},
+	401: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreFields", fn401, false},
+	402: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreIndex", fn402, false},
+	403: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreInterpretAs", fn403, false},
+	404: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreRange", fn404, false},
+	405: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreRecursive", fn405, false},
+	406: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreRecursiveEdge", fn406, false},
+	407: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreUnion", fn407, false},
+	408: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.Matcher", fn408, false},
+	409: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.MatcherSubset", fn409, false},
+	410: {"github.com/ipld/go-ipld-prime/traversal/selector/parse.CommonSelector_ExploreAllRecursively", fn410, false},
+	411: {"github.com/ipld/go-ipld-prime/traversal/selector/parse.CommonSelector_MatchAllRecursively", fn411, false},
+	412: {"github.com/ipld/go-ipld-prime/traversal/selector/parse.CommonSelector_MatchChildren", fn412, false},
+	413: {"github.com/ipld/go-ipld-prime/traversal/selector/parse.CommonSelector_MatchPoint", fn413, false},
+	414: {"github.com/ipld/go-ipld-prime/traversal/selector/parse.ParseJSONSelector", fn414, false},
+	415: {"github.com/libp2p/go-libp2p/core/connmgr.ConnManager.IsProtected", fn415, false},
+	416: {"github.com/libp2p/go-libp2p/core/connmgr.ConnManager.Protect", fn416, false},
+	417: {"github.com/libp2p/go-libp2p/core/connmgr.ConnManager.TagPeer", fn417, false},
+	418: {"github.com/libp2p/go-libp2p/core/connmgr.ConnManager.TrimOpenConns", fn418, false},
+	419: {"github.com/libp2p/go-libp2p/core/connmgr.ConnManager.Unprotect", fn419, false},
+	420: {"github.com/libp2p/go-libp2p/core/connmgr.ConnManager.UntagPeer", fn420, false},
+	421: {"github.com/libp2p/go-libp2p/core/host.Host.ConnManager", fn421, false},
+	422: {"github.com/libp2p/go-libp2p/core/network.ResourceManager.ViewSystem", fn422, false},
+	423: {"github.com/libp2p/go-libp2p/core/network.ResourceManager.ViewTransient", fn423, false},
+	424: {"github.com/libp2p/go-libp2p/core/network.ResourceScope.Stat", fn424, false},
+	425: {"github.com/libp2p/go-libp2p/core/peer.AddrInfoFromString", fn425, false},
+	426: {"github.com/libp2p/go-libp2p/core/peer.AddrInfoToP2pAddrs", fn426, false},
+	427: {"io.Copy", fn427, false},
+	428: {"io.ReadAll", fn428, false},
+	429: {"io.ReadCloser.Close", fn429, false},
+	430: {"os.Create", fn430, false},
+	431: {"os.File.Close", fn431, false},
+	432: {"os.Open", fn432, false},
+	433: {"os.OpenFile", fn433, false},
+	434: {"os.Stat", fn434, false},
+	435: {"runtime/debug.SetCrashOutput", fn435, false},
 }
 
 // bytes.Buffer.Bytes
@@ -686,8 +697,36 @@ func fn80(q *req, r *reader, w *writer) error {
 	return nil
 }
 
-// cast github.com/ipld/go-car/v2/index.Index github.com/ipld/go-car/v2/index.IterableIndex
+// cast github.com/ipfs/kubo/core/node.BaseBlocks *github.com/ipld/go-car/v2/blockstore.ReadOnly
 func fn81(q *req, r *reader, w *writer) error {
+	recv, err := decH[p_node.BaseBlocks](r)
+	if err != nil {
+		return err
+	}
+	if err := r.done(); err != nil {
+		return err
+	}
+	c, _ := recv.(*p_blockstore2.ReadOnly)
+	encH(w, c)
+	return nil
+}
+
+// cast github.com/ipfs/kubo/core/node.BaseBlocks *github.com/ipld/go-car/v2/blockstore.ReadWrite
+func fn82(q *req, r *reader, w *writer) error {
+	recv, err := decH[p_node.BaseBlocks](r)
+	if err != nil {
+		return err
+	}
+	if err := r.done(); err != nil {
+		return err
+	}
+	c, _ := recv.(*p_blockstore2.ReadWrite)
+	encH(w, c)
+	return nil
+}
+
+// cast github.com/ipld/go-car/v2/index.Index github.com/ipld/go-car/v2/index.IterableIndex
+func fn83(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_index.Index](r)
 	if err != nil {
 		return err
@@ -701,7 +740,7 @@ func fn81(q *req, r *reader, w *writer) error {
 }
 
 // cast github.com/ipld/go-ipld-prime/datamodel.Node *github.com/ipfs/boxo/ipld/merkledag.ProtoNode
-func fn82(q *req, r *reader, w *writer) error {
+func fn84(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_datamodel.Node](r)
 	if err != nil {
 		return err
@@ -715,7 +754,7 @@ func fn82(q *req, r *reader, w *writer) error {
 }
 
 // cast github.com/ipld/go-ipld-prime/datamodel.Node *github.com/ipfs/boxo/ipld/merkledag.RawNode
-func fn83(q *req, r *reader, w *writer) error {
+func fn85(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_datamodel.Node](r)
 	if err != nil {
 		return err
@@ -729,7 +768,7 @@ func fn83(q *req, r *reader, w *writer) error {
 }
 
 // cast github.com/ipld/go-ipld-prime/datamodel.NodePrototype *github.com/ipld/go-ipld-prime/node/basicnode.Prototype__Any
-func fn84(q *req, r *reader, w *writer) error {
+func fn86(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_datamodel.NodePrototype](r)
 	if err != nil {
 		return err
@@ -743,7 +782,7 @@ func fn84(q *req, r *reader, w *writer) error {
 }
 
 // cast github.com/ipld/go-ipld-prime/storage.ReadableStorage *github.com/ipld/go-ipld-prime/storage/bsadapter.Adapter
-func fn85(q *req, r *reader, w *writer) error {
+func fn87(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_storage.ReadableStorage](r)
 	if err != nil {
 		return err
@@ -757,7 +796,7 @@ func fn85(q *req, r *reader, w *writer) error {
 }
 
 // cast github.com/ipld/go-ipld-prime/storage.ReadableStorage github.com/ipld/go-car/v2/storage.ReadableCar
-func fn86(q *req, r *reader, w *writer) error {
+func fn88(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_storage.ReadableStorage](r)
 	if err != nil {
 		return err
@@ -771,7 +810,7 @@ func fn86(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/blockservice.New
-func fn87(q *req, r *reader, w *writer) error {
+func fn89(q *req, r *reader, w *writer) error {
 	p0, err := decH[p_blockstore.Blockstore](r)
 	if err != nil {
 		return err
@@ -794,7 +833,7 @@ func fn87(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/blockstore.Blockstore.AllKeysChan
-func fn88(q *req, r *reader, w *writer) error {
+func fn90(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_blockstore.Blockstore](r)
 	if err != nil {
 		return err
@@ -817,7 +856,7 @@ func fn88(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/blockstore.Blockstore.DeleteBlock
-func fn89(q *req, r *reader, w *writer) error {
+func fn91(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_blockstore.Blockstore](r)
 	if err != nil {
 		return err
@@ -840,7 +879,7 @@ func fn89(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/blockstore.Blockstore.Get
-func fn90(q *req, r *reader, w *writer) error {
+func fn92(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_blockstore.Blockstore](r)
 	if err != nil {
 		return err
@@ -865,7 +904,7 @@ func fn90(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/blockstore.Blockstore.GetSize
-func fn91(q *req, r *reader, w *writer) error {
+func fn93(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_blockstore.Blockstore](r)
 	if err != nil {
 		return err
@@ -890,7 +929,7 @@ func fn91(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/blockstore.Blockstore.Has
-func fn92(q *req, r *reader, w *writer) error {
+func fn94(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_blockstore.Blockstore](r)
 	if err != nil {
 		return err
@@ -915,7 +954,7 @@ func fn92(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/blockstore.Blockstore.Put
-func fn93(q *req, r *reader, w *writer) error {
+func fn95(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_blockstore.Blockstore](r)
 	if err != nil {
 		return err
@@ -938,7 +977,7 @@ func fn93(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/blockstore.GCLocker.GCLock
-func fn94(q *req, r *reader, w *writer) error {
+func fn96(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_blockstore.GCLocker](r)
 	if err != nil {
 		return err
@@ -956,7 +995,7 @@ func fn94(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/blockstore.GCLocker.GCRequested
-func fn95(q *req, r *reader, w *writer) error {
+func fn97(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_blockstore.GCLocker](r)
 	if err != nil {
 		return err
@@ -974,7 +1013,7 @@ func fn95(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/blockstore.GCLocker.PinLock
-func fn96(q *req, r *reader, w *writer) error {
+func fn98(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_blockstore.GCLocker](r)
 	if err != nil {
 		return err
@@ -992,7 +1031,7 @@ func fn96(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/blockstore.NewBlockstore
-func fn97(q *req, r *reader, w *writer) error {
+func fn99(q *req, r *reader, w *writer) error {
 	p0, err := decH[p_datastore.Batching](r)
 	if err != nil {
 		return err
@@ -1010,7 +1049,7 @@ func fn97(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/blockstore.Unlocker.Unlock
-func fn98(q *req, r *reader, w *writer) error {
+func fn100(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_blockstore.Unlocker](r)
 	if err != nil {
 		return err
@@ -1027,7 +1066,7 @@ func fn98(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/chunker.FromString
-func fn99(q *req, r *reader, w *writer) error {
+func fn101(q *req, r *reader, w *writer) error {
 	p0, err := decIO[p_io.Reader](r)
 	if err != nil {
 		return err
@@ -1048,7 +1087,7 @@ func fn99(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/chunker.NewSizeSplitter
-func fn100(q *req, r *reader, w *writer) error {
+func fn102(q *req, r *reader, w *writer) error {
 	p0, err := decIO[p_io.Reader](r)
 	if err != nil {
 		return err
@@ -1066,7 +1105,7 @@ func fn100(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/chunker.SizeSplitterGen
-func fn101(q *req, r *reader, w *writer) error {
+func fn103(q *req, r *reader, w *writer) error {
 	p0, err := decInt[int64](r)
 	if err != nil {
 		return err
@@ -1080,7 +1119,7 @@ func fn101(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/exchange/offline.Exchange
-func fn102(q *req, r *reader, w *writer) error {
+func fn104(q *req, r *reader, w *writer) error {
 	p0, err := decH[p_blockstore.Blockstore](r)
 	if err != nil {
 		return err
@@ -1094,7 +1133,7 @@ func fn102(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/fetcher/impl/blockservice.DefaultPrototypeChooser
-func fn103(q *req, r *reader, w *writer) error {
+func fn105(q *req, r *reader, w *writer) error {
 	if err := r.done(); err != nil {
 		return err
 	}
@@ -1104,7 +1143,7 @@ func fn103(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/files.NewBytesFile
-func fn104(q *req, r *reader, w *writer) error {
+func fn106(q *req, r *reader, w *writer) error {
 	p0, err := decBytes(r)
 	if err != nil {
 		return err
@@ -1118,7 +1157,7 @@ func fn104(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/files.NewSerialFile
-func fn105(q *req, r *reader, w *writer) error {
+func fn107(q *req, r *reader, w *writer) error {
 	p0, err := decStr[string](r)
 	if err != nil {
 		return err
@@ -1143,7 +1182,7 @@ func fn105(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/files.ToFile
-func fn106(q *req, r *reader, w *writer) error {
+func fn108(q *req, r *reader, w *writer) error {
 	p0, err := decH[p_files.Node](r)
 	if err != nil {
 		return err
@@ -1157,7 +1196,7 @@ func fn106(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/files.WriteTo
-func fn107(q *req, r *reader, w *writer) error {
+func fn109(q *req, r *reader, w *writer) error {
 	p0, err := decH[p_files.Node](r)
 	if err != nil {
 		return err
@@ -1176,7 +1215,7 @@ func fn107(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/gateway.BlocksBackend.GetCAR
-func fn108(q *req, r *reader, w *writer) error {
+func fn110(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_gateway.BlocksBackend](r)
 	if err != nil {
 		return err
@@ -1206,7 +1245,7 @@ func fn108(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/gateway.NewBlocksBackend
-func fn109(q *req, r *reader, w *writer) error {
+func fn111(q *req, r *reader, w *writer) error {
 	p0, err := decH[p_blockservice.BlockService](r)
 	if err != nil {
 		return err
@@ -1228,7 +1267,7 @@ func fn109(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/ipld/merkledag.NewDAGService
-func fn110(q *req, r *reader, w *writer) error {
+func fn112(q *req, r *reader, w *writer) error {
 	p0, err := decH[p_blockservice.BlockService](r)
 	if err != nil {
 		return err
@@ -1242,7 +1281,7 @@ func fn110(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/ipld/merkledag.NewRawNode
-func fn111(q *req, r *reader, w *writer) error {
+func fn113(q *req, r *reader, w *writer) error {
 	p0, err := decBytes(r)
 	if err != nil {
 		return err
@@ -1256,7 +1295,7 @@ func fn111(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/ipld/merkledag.NodeWithData
-func fn112(q *req, r *reader, w *writer) error {
+func fn114(q *req, r *reader, w *writer) error {
 	p0, err := decBytes(r)
 	if err != nil {
 		return err
@@ -1270,7 +1309,7 @@ func fn112(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/ipld/merkledag.ProtoNode.AddNodeLink
-func fn113(q *req, r *reader, w *writer) error {
+func fn115(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_merkledag.ProtoNode](r)
 	if err != nil {
 		return err
@@ -1293,7 +1332,7 @@ func fn113(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/ipld/merkledag.ProtoNode.Data
-func fn114(q *req, r *reader, w *writer) error {
+func fn116(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_merkledag.ProtoNode](r)
 	if err != nil {
 		return err
@@ -1307,7 +1346,7 @@ func fn114(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/ipld/merkledag.ProtoNode.SetData
-func fn115(q *req, r *reader, w *writer) error {
+func fn117(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_merkledag.ProtoNode](r)
 	if err != nil {
 		return err
@@ -1324,7 +1363,7 @@ func fn115(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/ipld/unixfs/file.NewUnixfsFile
-func fn116(q *req, r *reader, w *writer) error {
+func fn118(q *req, r *reader, w *writer) error {
 	p0, err := decH[p_context.Context](r)
 	if err != nil {
 		return err
@@ -1349,7 +1388,7 @@ func fn116(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/ipld/unixfs/importer.BuildDagFromReader
-func fn117(q *req, r *reader, w *writer) error {
+func fn119(q *req, r *reader, w *writer) error {
 	p0, err := decH[p_format.DAGService](r)
 	if err != nil {
 		return err
@@ -1370,7 +1409,7 @@ func fn117(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/ipld/unixfs/io.Directory.AddChild
-func fn118(q *req, r *reader, w *writer) error {
+func fn120(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_io2.Directory](r)
 	if err != nil {
 		return err
@@ -1397,7 +1436,7 @@ func fn118(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/ipld/unixfs/io.Directory.GetNode
-func fn119(q *req, r *reader, w *writer) error {
+func fn121(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_io2.Directory](r)
 	if err != nil {
 		return err
@@ -1414,7 +1453,7 @@ func fn119(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/ipld/unixfs/io.NewDirectory
-func fn120(q *req, r *reader, w *writer) error {
+func fn122(q *req, r *reader, w *writer) error {
 	p0, err := decH[p_format.DAGService](r)
 	if err != nil {
 		return err
@@ -1435,7 +1474,7 @@ func fn120(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/mfs.Chmod
-func fn121(q *req, r *reader, w *writer) error {
+func fn123(q *req, r *reader, w *writer) error {
 	p0, err := decH[*p_mfs.Root](r)
 	if err != nil {
 		return err
@@ -1458,7 +1497,7 @@ func fn121(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/mfs.DirLookup
-func fn122(q *req, r *reader, w *writer) error {
+func fn124(q *req, r *reader, w *writer) error {
 	p0, err := decH[*p_mfs.Directory](r)
 	if err != nil {
 		return err
@@ -1479,7 +1518,7 @@ func fn122(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/mfs.Directory.AddChild
-func fn123(q *req, r *reader, w *writer) error {
+func fn125(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_mfs.Directory](r)
 	if err != nil {
 		return err
@@ -1502,7 +1541,7 @@ func fn123(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/mfs.Directory.Child
-func fn124(q *req, r *reader, w *writer) error {
+func fn126(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_mfs.Directory](r)
 	if err != nil {
 		return err
@@ -1523,7 +1562,7 @@ func fn124(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/mfs.Directory.Flush
-func fn125(q *req, r *reader, w *writer) error {
+func fn127(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_mfs.Directory](r)
 	if err != nil {
 		return err
@@ -1538,7 +1577,7 @@ func fn125(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/mfs.Directory.GetNode
-func fn126(q *req, r *reader, w *writer) error {
+func fn128(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_mfs.Directory](r)
 	if err != nil {
 		return err
@@ -1555,7 +1594,7 @@ func fn126(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/mfs.Directory.List
-func fn127(q *req, r *reader, w *writer) error {
+func fn129(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_mfs.Directory](r)
 	if err != nil {
 		return err
@@ -1576,7 +1615,7 @@ func fn127(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/mfs.Directory.ListNames
-func fn128(q *req, r *reader, w *writer) error {
+func fn130(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_mfs.Directory](r)
 	if err != nil {
 		return err
@@ -1597,7 +1636,7 @@ func fn128(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/mfs.Directory.Mkdir
-func fn129(q *req, r *reader, w *writer) error {
+func fn131(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_mfs.Directory](r)
 	if err != nil {
 		return err
@@ -1618,7 +1657,7 @@ func fn129(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/mfs.Directory.MkdirWithOpts
-func fn130(q *req, r *reader, w *writer) error {
+func fn132(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_mfs.Directory](r)
 	if err != nil {
 		return err
@@ -1644,7 +1683,7 @@ func fn130(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/mfs.Directory.ModTime
-func fn131(q *req, r *reader, w *writer) error {
+func fn133(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_mfs.Directory](r)
 	if err != nil {
 		return err
@@ -1661,7 +1700,7 @@ func fn131(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/mfs.Directory.Mode
-func fn132(q *req, r *reader, w *writer) error {
+func fn134(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_mfs.Directory](r)
 	if err != nil {
 		return err
@@ -1678,7 +1717,7 @@ func fn132(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/mfs.Directory.Path
-func fn133(q *req, r *reader, w *writer) error {
+func fn135(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_mfs.Directory](r)
 	if err != nil {
 		return err
@@ -1692,7 +1731,7 @@ func fn133(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/mfs.Directory.Uncache
-func fn134(q *req, r *reader, w *writer) error {
+func fn136(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_mfs.Directory](r)
 	if err != nil {
 		return err
@@ -1709,7 +1748,7 @@ func fn134(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/mfs.Directory.Unlink
-func fn135(q *req, r *reader, w *writer) error {
+func fn137(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_mfs.Directory](r)
 	if err != nil {
 		return err
@@ -1728,7 +1767,7 @@ func fn135(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/mfs.FSNode.Flush
-func fn136(q *req, r *reader, w *writer) error {
+func fn138(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_mfs.FSNode](r)
 	if err != nil {
 		return err
@@ -1743,7 +1782,7 @@ func fn136(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/mfs.FSNode.GetNode
-func fn137(q *req, r *reader, w *writer) error {
+func fn139(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_mfs.FSNode](r)
 	if err != nil {
 		return err
@@ -1760,7 +1799,7 @@ func fn137(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/mfs.FSNode.SetModTime
-func fn138(q *req, r *reader, w *writer) error {
+func fn140(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_mfs.FSNode](r)
 	if err != nil {
 		return err
@@ -1779,7 +1818,7 @@ func fn138(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/mfs.FSNode.SetMode
-func fn139(q *req, r *reader, w *writer) error {
+func fn141(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_mfs.FSNode](r)
 	if err != nil {
 		return err
@@ -1798,7 +1837,7 @@ func fn139(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/mfs.FSNode.Type
-func fn140(q *req, r *reader, w *writer) error {
+func fn142(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_mfs.FSNode](r)
 	if err != nil {
 		return err
@@ -1812,7 +1851,7 @@ func fn140(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/mfs.File.Flush
-func fn141(q *req, r *reader, w *writer) error {
+func fn143(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_mfs.File](r)
 	if err != nil {
 		return err
@@ -1827,7 +1866,7 @@ func fn141(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/mfs.File.GetNode
-func fn142(q *req, r *reader, w *writer) error {
+func fn144(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_mfs.File](r)
 	if err != nil {
 		return err
@@ -1844,7 +1883,7 @@ func fn142(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/mfs.File.ModTime
-func fn143(q *req, r *reader, w *writer) error {
+func fn145(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_mfs.File](r)
 	if err != nil {
 		return err
@@ -1861,7 +1900,7 @@ func fn143(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/mfs.File.Mode
-func fn144(q *req, r *reader, w *writer) error {
+func fn146(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_mfs.File](r)
 	if err != nil {
 		return err
@@ -1878,7 +1917,7 @@ func fn144(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/mfs.File.Open
-func fn145(q *req, r *reader, w *writer) error {
+func fn147(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_mfs.File](r)
 	if err != nil {
 		return err
@@ -1903,7 +1942,7 @@ func fn145(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/mfs.File.RawLeaves
-func fn146(q *req, r *reader, w *writer) error {
+func fn148(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_mfs.File](r)
 	if err != nil {
 		return err
@@ -1917,7 +1956,7 @@ func fn146(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/mfs.File.RawLeaves=
-func fn147(q *req, r *reader, w *writer) error {
+func fn149(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_mfs.File](r)
 	if err != nil {
 		return err
@@ -1934,7 +1973,7 @@ func fn147(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/mfs.File.Size
-func fn148(q *req, r *reader, w *writer) error {
+func fn150(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_mfs.File](r)
 	if err != nil {
 		return err
@@ -1951,7 +1990,7 @@ func fn148(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/mfs.File.Sync
-func fn149(q *req, r *reader, w *writer) error {
+func fn151(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_mfs.File](r)
 	if err != nil {
 		return err
@@ -1966,7 +2005,7 @@ func fn149(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/mfs.FileDescriptor.Close
-func fn150(q *req, r *reader, w *writer) error {
+func fn152(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_mfs.FileDescriptor](r)
 	if err != nil {
 		return err
@@ -1981,7 +2020,7 @@ func fn150(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/mfs.FileDescriptor.CtxReadFull
-func fn151(q *req, r *reader, w *writer) error {
+func fn153(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_mfs.FileDescriptor](r)
 	if err != nil {
 		return err
@@ -2006,7 +2045,7 @@ func fn151(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/mfs.FileDescriptor.Flush
-func fn152(q *req, r *reader, w *writer) error {
+func fn154(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_mfs.FileDescriptor](r)
 	if err != nil {
 		return err
@@ -2021,7 +2060,7 @@ func fn152(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/mfs.FileDescriptor.Read
-func fn153(q *req, r *reader, w *writer) error {
+func fn155(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_mfs.FileDescriptor](r)
 	if err != nil {
 		return err
@@ -2042,7 +2081,7 @@ func fn153(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/mfs.FileDescriptor.Seek
-func fn154(q *req, r *reader, w *writer) error {
+func fn156(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_mfs.FileDescriptor](r)
 	if err != nil {
 		return err
@@ -2067,7 +2106,7 @@ func fn154(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/mfs.FileDescriptor.Size
-func fn155(q *req, r *reader, w *writer) error {
+func fn157(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_mfs.FileDescriptor](r)
 	if err != nil {
 		return err
@@ -2084,7 +2123,7 @@ func fn155(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/mfs.FileDescriptor.Truncate
-func fn156(q *req, r *reader, w *writer) error {
+func fn158(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_mfs.FileDescriptor](r)
 	if err != nil {
 		return err
@@ -2103,7 +2142,7 @@ func fn156(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/mfs.FileDescriptor.Write
-func fn157(q *req, r *reader, w *writer) error {
+func fn159(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_mfs.FileDescriptor](r)
 	if err != nil {
 		return err
@@ -2124,7 +2163,7 @@ func fn157(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/mfs.FileDescriptor.WriteAt
-func fn158(q *req, r *reader, w *writer) error {
+func fn160(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_mfs.FileDescriptor](r)
 	if err != nil {
 		return err
@@ -2149,7 +2188,7 @@ func fn158(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/mfs.FlushPath
-func fn159(q *req, r *reader, w *writer) error {
+func fn161(q *req, r *reader, w *writer) error {
 	p0, err := decH[p_context.Context](r)
 	if err != nil {
 		return err
@@ -2174,7 +2213,7 @@ func fn159(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/mfs.IsDir
-func fn160(q *req, r *reader, w *writer) error {
+func fn162(q *req, r *reader, w *writer) error {
 	p0, err := decH[p_mfs.FSNode](r)
 	if err != nil {
 		return err
@@ -2188,7 +2227,7 @@ func fn160(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/mfs.IsFile
-func fn161(q *req, r *reader, w *writer) error {
+func fn163(q *req, r *reader, w *writer) error {
 	p0, err := decH[p_mfs.FSNode](r)
 	if err != nil {
 		return err
@@ -2202,7 +2241,7 @@ func fn161(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/mfs.Lookup
-func fn162(q *req, r *reader, w *writer) error {
+func fn164(q *req, r *reader, w *writer) error {
 	p0, err := decH[*p_mfs.Root](r)
 	if err != nil {
 		return err
@@ -2223,7 +2262,7 @@ func fn162(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/mfs.Mkdir
-func fn163(q *req, r *reader, w *writer) error {
+func fn165(q *req, r *reader, w *writer) error {
 	p0, err := decH[*p_mfs.Root](r)
 	if err != nil {
 		return err
@@ -2251,7 +2290,7 @@ func fn163(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/mfs.Mv
-func fn164(q *req, r *reader, w *writer) error {
+func fn166(q *req, r *reader, w *writer) error {
 	p0, err := decH[*p_mfs.Root](r)
 	if err != nil {
 		return err
@@ -2274,7 +2313,7 @@ func fn164(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/mfs.PutNode
-func fn165(q *req, r *reader, w *writer) error {
+func fn167(q *req, r *reader, w *writer) error {
 	p0, err := decH[*p_mfs.Root](r)
 	if err != nil {
 		return err
@@ -2297,7 +2336,7 @@ func fn165(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/mfs.Root.Flush
-func fn166(q *req, r *reader, w *writer) error {
+func fn168(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_mfs.Root](r)
 	if err != nil {
 		return err
@@ -2312,7 +2351,7 @@ func fn166(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/mfs.Root.FlushMemFree
-func fn167(q *req, r *reader, w *writer) error {
+func fn169(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_mfs.Root](r)
 	if err != nil {
 		return err
@@ -2331,7 +2370,7 @@ func fn167(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/mfs.Root.GetDirectory
-func fn168(q *req, r *reader, w *writer) error {
+func fn170(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_mfs.Root](r)
 	if err != nil {
 		return err
@@ -2345,7 +2384,7 @@ func fn168(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/mfs.Touch
-func fn169(q *req, r *reader, w *writer) error {
+func fn171(q *req, r *reader, w *writer) error {
 	p0, err := decH[*p_mfs.Root](r)
 	if err != nil {
 		return err
@@ -2368,7 +2407,7 @@ func fn169(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/peering.PeeringService.AddPeer
-func fn170(q *req, r *reader, w *writer) error {
+func fn172(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_peering.PeeringService](r)
 	if err != nil {
 		return err
@@ -2385,7 +2424,7 @@ func fn170(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/peering.PeeringService.ListPeers
-func fn171(q *req, r *reader, w *writer) error {
+func fn173(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_peering.PeeringService](r)
 	if err != nil {
 		return err
@@ -2399,7 +2438,7 @@ func fn171(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/boxo/peering.PeeringService.RemovePeer
-func fn172(q *req, r *reader, w *writer) error {
+func fn174(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_peering.PeeringService](r)
 	if err != nil {
 		return err
@@ -2416,7 +2455,7 @@ func fn172(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/go-cid.NewPrefixV0
-func fn173(q *req, r *reader, w *writer) error {
+func fn175(q *req, r *reader, w *writer) error {
 	p0, err := decInt[uint64](r)
 	if err != nil {
 		return err
@@ -2430,7 +2469,7 @@ func fn173(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/go-cid.NewPrefixV1
-func fn174(q *req, r *reader, w *writer) error {
+func fn176(q *req, r *reader, w *writer) error {
 	p0, err := decInt[uint64](r)
 	if err != nil {
 		return err
@@ -2448,7 +2487,7 @@ func fn174(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/go-cid.Prefix.Sum
-func fn175(q *req, r *reader, w *writer) error {
+func fn177(q *req, r *reader, w *writer) error {
 	recv, err := dec27(r)
 	if err != nil {
 		return err
@@ -2469,7 +2508,7 @@ func fn175(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/go-datastore.NewNullDatastore
-func fn176(q *req, r *reader, w *writer) error {
+func fn178(q *req, r *reader, w *writer) error {
 	if err := r.done(); err != nil {
 		return err
 	}
@@ -2479,7 +2518,7 @@ func fn176(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/go-ipld-format.DAGService.Add
-func fn177(q *req, r *reader, w *writer) error {
+func fn179(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_format.DAGService](r)
 	if err != nil {
 		return err
@@ -2502,7 +2541,7 @@ func fn177(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/go-ipld-format.Node.Cid
-func fn178(q *req, r *reader, w *writer) error {
+func fn180(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_format.Node](r)
 	if err != nil {
 		return err
@@ -2516,7 +2555,7 @@ func fn178(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/go-ipld-format.Node.Links
-func fn179(q *req, r *reader, w *writer) error {
+func fn181(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_format.Node](r)
 	if err != nil {
 		return err
@@ -2530,7 +2569,7 @@ func fn179(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/go-ipld-format.Node.RawData
-func fn180(q *req, r *reader, w *writer) error {
+func fn182(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_format.Node](r)
 	if err != nil {
 		return err
@@ -2544,7 +2583,7 @@ func fn180(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/go-ipld-format.Node.Size
-func fn181(q *req, r *reader, w *writer) error {
+func fn183(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_format.Node](r)
 	if err != nil {
 		return err
@@ -2561,7 +2600,7 @@ func fn181(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/go-ipld-format.Node.Stat
-func fn182(q *req, r *reader, w *writer) error {
+func fn184(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_format.Node](r)
 	if err != nil {
 		return err
@@ -2578,7 +2617,7 @@ func fn182(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/go-ipld-format.NodeAdder.Add
-func fn183(q *req, r *reader, w *writer) error {
+func fn185(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_format.NodeAdder](r)
 	if err != nil {
 		return err
@@ -2601,7 +2640,7 @@ func fn183(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/go-ipld-format.NodeAdder.AddMany
-func fn184(q *req, r *reader, w *writer) error {
+func fn186(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_format.NodeAdder](r)
 	if err != nil {
 		return err
@@ -2624,7 +2663,7 @@ func fn184(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/go-ipld-format.NodeGetter.Get
-func fn185(q *req, r *reader, w *writer) error {
+func fn187(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_format.NodeGetter](r)
 	if err != nil {
 		return err
@@ -2649,7 +2688,7 @@ func fn185(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/go-unixfsnode.AddUnixFSReificationToLinkSystem
-func fn186(q *req, r *reader, w *writer) error {
+func fn188(q *req, r *reader, w *writer) error {
 	p0, err := decH[*p_ipld.LinkSystem](r)
 	if err != nil {
 		return err
@@ -2662,7 +2701,7 @@ func fn186(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/go-unixfsnode.ExploreAllRecursivelySelector
-func fn187(q *req, r *reader, w *writer) error {
+func fn189(q *req, r *reader, w *writer) error {
 	if err := r.done(); err != nil {
 		return err
 	}
@@ -2672,7 +2711,7 @@ func fn187(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/go-unixfsnode.MatchUnixFSEntitySelector
-func fn188(q *req, r *reader, w *writer) error {
+func fn190(q *req, r *reader, w *writer) error {
 	if err := r.done(); err != nil {
 		return err
 	}
@@ -2682,7 +2721,7 @@ func fn188(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/go-unixfsnode.MatchUnixFSPreloadSelector
-func fn189(q *req, r *reader, w *writer) error {
+func fn191(q *req, r *reader, w *writer) error {
 	if err := r.done(); err != nil {
 		return err
 	}
@@ -2692,7 +2731,7 @@ func fn189(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/go-unixfsnode.MatchUnixFSSelector
-func fn190(q *req, r *reader, w *writer) error {
+func fn192(q *req, r *reader, w *writer) error {
 	if err := r.done(); err != nil {
 		return err
 	}
@@ -2702,7 +2741,7 @@ func fn190(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/go-unixfsnode.UnixFSPathSelector
-func fn191(q *req, r *reader, w *writer) error {
+func fn193(q *req, r *reader, w *writer) error {
 	p0, err := decStr[string](r)
 	if err != nil {
 		return err
@@ -2716,7 +2755,7 @@ func fn191(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/go-unixfsnode.UnixFSPathSelectorBuilder
-func fn192(q *req, r *reader, w *writer) error {
+func fn194(q *req, r *reader, w *writer) error {
 	p0, err := decStr[string](r)
 	if err != nil {
 		return err
@@ -2738,7 +2777,7 @@ func fn192(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/config.BootstrapPeerStrings
-func fn193(q *req, r *reader, w *writer) error {
+func fn195(q *req, r *reader, w *writer) error {
 	p0, err := dec35(r)
 	if err != nil {
 		return err
@@ -2752,7 +2791,7 @@ func fn193(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/config.CreateIdentity
-func fn194(q *req, r *reader, w *writer) error {
+func fn196(q *req, r *reader, w *writer) error {
 	p0, err := decWriter(r)
 	if err != nil {
 		return err
@@ -2774,7 +2813,7 @@ func fn194(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/config.InitWithIdentity
-func fn195(q *req, r *reader, w *writer) error {
+func fn197(q *req, r *reader, w *writer) error {
 	p0, err := dec38(r)
 	if err != nil {
 		return err
@@ -2791,7 +2830,7 @@ func fn195(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/config.ParseBootstrapPeers
-func fn196(q *req, r *reader, w *writer) error {
+func fn198(q *req, r *reader, w *writer) error {
 	p0, err := dec40(r)
 	if err != nil {
 		return err
@@ -2807,8 +2846,39 @@ func fn196(q *req, r *reader, w *writer) error {
 	return nil
 }
 
+// github.com/ipfs/kubo/core.IpfsNode.BaseBlocks
+func fn199(q *req, r *reader, w *writer) error {
+	recv, err := decH[*p_core.IpfsNode](r)
+	if err != nil {
+		return err
+	}
+	if err := r.done(); err != nil {
+		return err
+	}
+	r0 := recv.BaseBlocks
+	encH(w, r0)
+	return nil
+}
+
+// github.com/ipfs/kubo/core.IpfsNode.BaseBlocks=
+func fn200(q *req, r *reader, w *writer) error {
+	recv, err := decH[*p_core.IpfsNode](r)
+	if err != nil {
+		return err
+	}
+	p0, err := decH[p_node.BaseBlocks](r)
+	if err != nil {
+		return err
+	}
+	if err := r.done(); err != nil {
+		return err
+	}
+	recv.BaseBlocks = p0
+	return nil
+}
+
 // github.com/ipfs/kubo/core.IpfsNode.Blocks
-func fn197(q *req, r *reader, w *writer) error {
+func fn201(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_core.IpfsNode](r)
 	if err != nil {
 		return err
@@ -2822,7 +2892,7 @@ func fn197(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core.IpfsNode.Blocks=
-func fn198(q *req, r *reader, w *writer) error {
+func fn202(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_core.IpfsNode](r)
 	if err != nil {
 		return err
@@ -2839,7 +2909,7 @@ func fn198(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core.IpfsNode.Blockstore
-func fn199(q *req, r *reader, w *writer) error {
+func fn203(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_core.IpfsNode](r)
 	if err != nil {
 		return err
@@ -2853,7 +2923,7 @@ func fn199(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core.IpfsNode.Blockstore=
-func fn200(q *req, r *reader, w *writer) error {
+func fn204(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_core.IpfsNode](r)
 	if err != nil {
 		return err
@@ -2870,7 +2940,7 @@ func fn200(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core.IpfsNode.Close
-func fn201(q *req, r *reader, w *writer) error {
+func fn205(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_core.IpfsNode](r)
 	if err != nil {
 		return err
@@ -2885,7 +2955,7 @@ func fn201(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core.IpfsNode.Exchange
-func fn202(q *req, r *reader, w *writer) error {
+func fn206(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_core.IpfsNode](r)
 	if err != nil {
 		return err
@@ -2899,7 +2969,7 @@ func fn202(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core.IpfsNode.Exchange=
-func fn203(q *req, r *reader, w *writer) error {
+func fn207(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_core.IpfsNode](r)
 	if err != nil {
 		return err
@@ -2916,7 +2986,7 @@ func fn203(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core.IpfsNode.FilesRoot
-func fn204(q *req, r *reader, w *writer) error {
+func fn208(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_core.IpfsNode](r)
 	if err != nil {
 		return err
@@ -2930,7 +3000,7 @@ func fn204(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core.IpfsNode.FilesRoot=
-func fn205(q *req, r *reader, w *writer) error {
+func fn209(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_core.IpfsNode](r)
 	if err != nil {
 		return err
@@ -2947,7 +3017,7 @@ func fn205(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core.IpfsNode.GCLocker
-func fn206(q *req, r *reader, w *writer) error {
+func fn210(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_core.IpfsNode](r)
 	if err != nil {
 		return err
@@ -2961,7 +3031,7 @@ func fn206(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core.IpfsNode.GCLocker=
-func fn207(q *req, r *reader, w *writer) error {
+func fn211(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_core.IpfsNode](r)
 	if err != nil {
 		return err
@@ -2978,7 +3048,7 @@ func fn207(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core.IpfsNode.PeerHost
-func fn208(q *req, r *reader, w *writer) error {
+func fn212(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_core.IpfsNode](r)
 	if err != nil {
 		return err
@@ -2992,7 +3062,7 @@ func fn208(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core.IpfsNode.PeerHost=
-func fn209(q *req, r *reader, w *writer) error {
+func fn213(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_core.IpfsNode](r)
 	if err != nil {
 		return err
@@ -3009,7 +3079,7 @@ func fn209(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core.IpfsNode.Peering
-func fn210(q *req, r *reader, w *writer) error {
+func fn214(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_core.IpfsNode](r)
 	if err != nil {
 		return err
@@ -3023,7 +3093,7 @@ func fn210(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core.IpfsNode.Peering=
-func fn211(q *req, r *reader, w *writer) error {
+func fn215(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_core.IpfsNode](r)
 	if err != nil {
 		return err
@@ -3040,7 +3110,7 @@ func fn211(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core.IpfsNode.Repo
-func fn212(q *req, r *reader, w *writer) error {
+func fn216(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_core.IpfsNode](r)
 	if err != nil {
 		return err
@@ -3054,7 +3124,7 @@ func fn212(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core.IpfsNode.Repo=
-func fn213(q *req, r *reader, w *writer) error {
+func fn217(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_core.IpfsNode](r)
 	if err != nil {
 		return err
@@ -3071,7 +3141,7 @@ func fn213(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core.IpfsNode.ResourceManager
-func fn214(q *req, r *reader, w *writer) error {
+func fn218(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_core.IpfsNode](r)
 	if err != nil {
 		return err
@@ -3085,7 +3155,7 @@ func fn214(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core.IpfsNode.ResourceManager=
-func fn215(q *req, r *reader, w *writer) error {
+func fn219(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_core.IpfsNode](r)
 	if err != nil {
 		return err
@@ -3102,7 +3172,7 @@ func fn215(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core.NewNode
-func fn216(q *req, r *reader, w *writer) error {
+func fn220(q *req, r *reader, w *writer) error {
 	p0, err := decH[p_context.Context](r)
 	if err != nil {
 		return err
@@ -3123,7 +3193,7 @@ func fn216(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/coreapi.NewCoreAPI
-func fn217(q *req, r *reader, w *writer) error {
+func fn221(q *req, r *reader, w *writer) error {
 	p0, err := decH[*p_core.IpfsNode](r)
 	if err != nil {
 		return err
@@ -3145,7 +3215,7 @@ func fn217(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/coreiface.APIDagService.Add
-func fn218(q *req, r *reader, w *writer) error {
+func fn222(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_iface.APIDagService](r)
 	if err != nil {
 		return err
@@ -3168,7 +3238,7 @@ func fn218(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/coreiface.APIDagService.AddMany
-func fn219(q *req, r *reader, w *writer) error {
+func fn223(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_iface.APIDagService](r)
 	if err != nil {
 		return err
@@ -3191,7 +3261,7 @@ func fn219(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/coreiface.APIDagService.Get
-func fn220(q *req, r *reader, w *writer) error {
+func fn224(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_iface.APIDagService](r)
 	if err != nil {
 		return err
@@ -3216,7 +3286,7 @@ func fn220(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/coreiface.APIDagService.GetMany
-func fn221(q *req, r *reader, w *writer) error {
+func fn225(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_iface.APIDagService](r)
 	if err != nil {
 		return err
@@ -3240,7 +3310,7 @@ func fn221(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/coreiface.APIDagService.Pinning
-func fn222(q *req, r *reader, w *writer) error {
+func fn226(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_iface.APIDagService](r)
 	if err != nil {
 		return err
@@ -3254,7 +3324,7 @@ func fn222(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/coreiface.APIDagService.Remove
-func fn223(q *req, r *reader, w *writer) error {
+func fn227(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_iface.APIDagService](r)
 	if err != nil {
 		return err
@@ -3277,7 +3347,7 @@ func fn223(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/coreiface.APIDagService.RemoveMany
-func fn224(q *req, r *reader, w *writer) error {
+func fn228(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_iface.APIDagService](r)
 	if err != nil {
 		return err
@@ -3300,7 +3370,7 @@ func fn224(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/coreiface.BlockAPI.Get
-func fn225(q *req, r *reader, w *writer) error {
+func fn229(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_iface.BlockAPI](r)
 	if err != nil {
 		return err
@@ -3325,7 +3395,7 @@ func fn225(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/coreiface.BlockAPI.Put
-func fn226(q *req, r *reader, w *writer) error {
+func fn230(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_iface.BlockAPI](r)
 	if err != nil {
 		return err
@@ -3355,7 +3425,7 @@ func fn226(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/coreiface.BlockAPI.Rm
-func fn227(q *req, r *reader, w *writer) error {
+func fn231(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_iface.BlockAPI](r)
 	if err != nil {
 		return err
@@ -3383,7 +3453,7 @@ func fn227(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/coreiface.BlockAPI.Stat
-func fn228(q *req, r *reader, w *writer) error {
+func fn232(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_iface.BlockAPI](r)
 	if err != nil {
 		return err
@@ -3408,7 +3478,7 @@ func fn228(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/coreiface.CoreAPI.Block
-func fn229(q *req, r *reader, w *writer) error {
+func fn233(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_iface.CoreAPI](r)
 	if err != nil {
 		return err
@@ -3422,7 +3492,7 @@ func fn229(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/coreiface.CoreAPI.Dag
-func fn230(q *req, r *reader, w *writer) error {
+func fn234(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_iface.CoreAPI](r)
 	if err != nil {
 		return err
@@ -3436,7 +3506,7 @@ func fn230(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/coreiface.CoreAPI.Key
-func fn231(q *req, r *reader, w *writer) error {
+func fn235(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_iface.CoreAPI](r)
 	if err != nil {
 		return err
@@ -3450,7 +3520,7 @@ func fn231(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/coreiface.CoreAPI.Name
-func fn232(q *req, r *reader, w *writer) error {
+func fn236(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_iface.CoreAPI](r)
 	if err != nil {
 		return err
@@ -3464,7 +3534,7 @@ func fn232(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/coreiface.CoreAPI.Object
-func fn233(q *req, r *reader, w *writer) error {
+func fn237(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_iface.CoreAPI](r)
 	if err != nil {
 		return err
@@ -3478,7 +3548,7 @@ func fn233(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/coreiface.CoreAPI.Pin
-func fn234(q *req, r *reader, w *writer) error {
+func fn238(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_iface.CoreAPI](r)
 	if err != nil {
 		return err
@@ -3492,7 +3562,7 @@ func fn234(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/coreiface.CoreAPI.PubSub
-func fn235(q *req, r *reader, w *writer) error {
+func fn239(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_iface.CoreAPI](r)
 	if err != nil {
 		return err
@@ -3506,7 +3576,7 @@ func fn235(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/coreiface.CoreAPI.ResolveNode
-func fn236(q *req, r *reader, w *writer) error {
+func fn240(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_iface.CoreAPI](r)
 	if err != nil {
 		return err
@@ -3531,7 +3601,7 @@ func fn236(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/coreiface.CoreAPI.ResolvePath
-func fn237(q *req, r *reader, w *writer) error {
+func fn241(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_iface.CoreAPI](r)
 	if err != nil {
 		return err
@@ -3557,7 +3627,7 @@ func fn237(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/coreiface.CoreAPI.Routing
-func fn238(q *req, r *reader, w *writer) error {
+func fn242(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_iface.CoreAPI](r)
 	if err != nil {
 		return err
@@ -3571,7 +3641,7 @@ func fn238(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/coreiface.CoreAPI.Swarm
-func fn239(q *req, r *reader, w *writer) error {
+func fn243(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_iface.CoreAPI](r)
 	if err != nil {
 		return err
@@ -3585,7 +3655,7 @@ func fn239(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/coreiface.CoreAPI.Unixfs
-func fn240(q *req, r *reader, w *writer) error {
+func fn244(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_iface.CoreAPI](r)
 	if err != nil {
 		return err
@@ -3599,7 +3669,7 @@ func fn240(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/coreiface.CoreAPI.WithOptions
-func fn241(q *req, r *reader, w *writer) error {
+func fn245(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_iface.CoreAPI](r)
 	if err != nil {
 		return err
@@ -3621,7 +3691,7 @@ func fn241(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/coreiface.KeyAPI.Generate
-func fn242(q *req, r *reader, w *writer) error {
+func fn246(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_iface.KeyAPI](r)
 	if err != nil {
 		return err
@@ -3651,7 +3721,7 @@ func fn242(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/coreiface.KeyAPI.List
-func fn243(q *req, r *reader, w *writer) error {
+func fn247(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_iface.KeyAPI](r)
 	if err != nil {
 		return err
@@ -3672,7 +3742,7 @@ func fn243(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/coreiface.KeyAPI.Remove
-func fn244(q *req, r *reader, w *writer) error {
+func fn248(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_iface.KeyAPI](r)
 	if err != nil {
 		return err
@@ -3697,7 +3767,7 @@ func fn244(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/coreiface.KeyAPI.Rename
-func fn245(q *req, r *reader, w *writer) error {
+func fn249(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_iface.KeyAPI](r)
 	if err != nil {
 		return err
@@ -3732,7 +3802,7 @@ func fn245(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/coreiface.KeyAPI.Self
-func fn246(q *req, r *reader, w *writer) error {
+func fn250(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_iface.KeyAPI](r)
 	if err != nil {
 		return err
@@ -3753,7 +3823,7 @@ func fn246(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/coreiface.KeyAPI.Sign
-func fn247(q *req, r *reader, w *writer) error {
+func fn251(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_iface.KeyAPI](r)
 	if err != nil {
 		return err
@@ -3783,7 +3853,7 @@ func fn247(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/coreiface.KeyAPI.Verify
-func fn248(q *req, r *reader, w *writer) error {
+func fn252(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_iface.KeyAPI](r)
 	if err != nil {
 		return err
@@ -3817,7 +3887,7 @@ func fn248(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/coreiface.NameAPI.Publish
-func fn249(q *req, r *reader, w *writer) error {
+func fn253(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_iface.NameAPI](r)
 	if err != nil {
 		return err
@@ -3847,7 +3917,7 @@ func fn249(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/coreiface.NameAPI.Resolve
-func fn250(q *req, r *reader, w *writer) error {
+func fn254(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_iface.NameAPI](r)
 	if err != nil {
 		return err
@@ -3877,7 +3947,7 @@ func fn250(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/coreiface.NameAPI.Search
-func fn251(q *req, r *reader, w *writer) error {
+func fn255(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_iface.NameAPI](r)
 	if err != nil {
 		return err
@@ -3909,7 +3979,7 @@ func fn251(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/coreiface.ObjectAPI.AddLink
-func fn252(q *req, r *reader, w *writer) error {
+func fn256(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_iface.ObjectAPI](r)
 	if err != nil {
 		return err
@@ -3947,7 +4017,7 @@ func fn252(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/coreiface.ObjectAPI.Diff
-func fn253(q *req, r *reader, w *writer) error {
+func fn257(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_iface.ObjectAPI](r)
 	if err != nil {
 		return err
@@ -3976,7 +4046,7 @@ func fn253(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/coreiface.ObjectAPI.RmLink
-func fn254(q *req, r *reader, w *writer) error {
+func fn258(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_iface.ObjectAPI](r)
 	if err != nil {
 		return err
@@ -4010,7 +4080,7 @@ func fn254(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/coreiface.PinAPI.Add
-func fn255(q *req, r *reader, w *writer) error {
+func fn259(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_iface.PinAPI](r)
 	if err != nil {
 		return err
@@ -4038,7 +4108,7 @@ func fn255(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/coreiface.PinAPI.IsPinned
-func fn256(q *req, r *reader, w *writer) error {
+func fn260(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_iface.PinAPI](r)
 	if err != nil {
 		return err
@@ -4069,7 +4139,7 @@ func fn256(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/coreiface.PinAPI.Ls
-func fn257(q *req, r *reader, w *writer) error {
+func fn261(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_iface.PinAPI](r)
 	if err != nil {
 		return err
@@ -4113,7 +4183,7 @@ func fn257(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/coreiface.PinAPI.Rm
-func fn258(q *req, r *reader, w *writer) error {
+func fn262(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_iface.PinAPI](r)
 	if err != nil {
 		return err
@@ -4141,7 +4211,7 @@ func fn258(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/coreiface.PinAPI.Update
-func fn259(q *req, r *reader, w *writer) error {
+func fn263(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_iface.PinAPI](r)
 	if err != nil {
 		return err
@@ -4173,7 +4243,7 @@ func fn259(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/coreiface.PinAPI.Verify
-func fn260(q *req, r *reader, w *writer) error {
+func fn264(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_iface.PinAPI](r)
 	if err != nil {
 		return err
@@ -4196,7 +4266,7 @@ func fn260(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/coreiface.PubSubAPI.Ls
-func fn261(q *req, r *reader, w *writer) error {
+func fn265(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_iface.PubSubAPI](r)
 	if err != nil {
 		return err
@@ -4217,7 +4287,7 @@ func fn261(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/coreiface.PubSubAPI.Peers
-func fn262(q *req, r *reader, w *writer) error {
+func fn266(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_iface.PubSubAPI](r)
 	if err != nil {
 		return err
@@ -4243,7 +4313,7 @@ func fn262(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/coreiface.PubSubAPI.Publish
-func fn263(q *req, r *reader, w *writer) error {
+func fn267(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_iface.PubSubAPI](r)
 	if err != nil {
 		return err
@@ -4270,7 +4340,7 @@ func fn263(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/coreiface.PubSubAPI.Subscribe
-func fn264(q *req, r *reader, w *writer) error {
+func fn268(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_iface.PubSubAPI](r)
 	if err != nil {
 		return err
@@ -4300,7 +4370,7 @@ func fn264(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/coreiface.PubSubSubscription.Close
-func fn265(q *req, r *reader, w *writer) error {
+func fn269(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_iface.PubSubSubscription](r)
 	if err != nil {
 		return err
@@ -4315,7 +4385,7 @@ func fn265(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/coreiface.PubSubSubscription.Next
-func fn266(q *req, r *reader, w *writer) error {
+func fn270(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_iface.PubSubSubscription](r)
 	if err != nil {
 		return err
@@ -4336,7 +4406,7 @@ func fn266(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/coreiface.Reader.Size
-func fn267(q *req, r *reader, w *writer) error {
+func fn271(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_iface.Reader](r)
 	if err != nil {
 		return err
@@ -4350,7 +4420,7 @@ func fn267(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/coreiface.RoutingAPI.FindPeer
-func fn268(q *req, r *reader, w *writer) error {
+func fn272(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_iface.RoutingAPI](r)
 	if err != nil {
 		return err
@@ -4375,7 +4445,7 @@ func fn268(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/coreiface.RoutingAPI.FindProviders
-func fn269(q *req, r *reader, w *writer) error {
+func fn273(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_iface.RoutingAPI](r)
 	if err != nil {
 		return err
@@ -4407,7 +4477,7 @@ func fn269(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/coreiface.RoutingAPI.Get
-func fn270(q *req, r *reader, w *writer) error {
+func fn274(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_iface.RoutingAPI](r)
 	if err != nil {
 		return err
@@ -4432,7 +4502,7 @@ func fn270(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/coreiface.RoutingAPI.Provide
-func fn271(q *req, r *reader, w *writer) error {
+func fn275(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_iface.RoutingAPI](r)
 	if err != nil {
 		return err
@@ -4460,7 +4530,7 @@ func fn271(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/coreiface.RoutingAPI.Put
-func fn272(q *req, r *reader, w *writer) error {
+func fn276(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_iface.RoutingAPI](r)
 	if err != nil {
 		return err
@@ -4492,7 +4562,7 @@ func fn272(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/coreiface.SwarmAPI.Connect
-func fn273(q *req, r *reader, w *writer) error {
+func fn277(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_iface.SwarmAPI](r)
 	if err != nil {
 		return err
@@ -4515,7 +4585,7 @@ func fn273(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/coreiface.SwarmAPI.Disconnect
-func fn274(q *req, r *reader, w *writer) error {
+func fn278(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_iface.SwarmAPI](r)
 	if err != nil {
 		return err
@@ -4538,7 +4608,7 @@ func fn274(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/coreiface.SwarmAPI.KnownAddrs
-func fn275(q *req, r *reader, w *writer) error {
+func fn279(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_iface.SwarmAPI](r)
 	if err != nil {
 		return err
@@ -4559,7 +4629,7 @@ func fn275(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/coreiface.SwarmAPI.ListenAddrs
-func fn276(q *req, r *reader, w *writer) error {
+func fn280(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_iface.SwarmAPI](r)
 	if err != nil {
 		return err
@@ -4580,7 +4650,7 @@ func fn276(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/coreiface.SwarmAPI.LocalAddrs
-func fn277(q *req, r *reader, w *writer) error {
+func fn281(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_iface.SwarmAPI](r)
 	if err != nil {
 		return err
@@ -4601,7 +4671,7 @@ func fn277(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/coreiface.SwarmAPI.Peers
-func fn278(q *req, r *reader, w *writer) error {
+func fn282(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_iface.SwarmAPI](r)
 	if err != nil {
 		return err
@@ -4622,7 +4692,7 @@ func fn278(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/coreiface.UnixfsAPI.Add
-func fn279(q *req, r *reader, w *writer) error {
+func fn283(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_iface.UnixfsAPI](r)
 	if err != nil {
 		return err
@@ -4652,7 +4722,7 @@ func fn279(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/coreiface.UnixfsAPI.Get
-func fn280(q *req, r *reader, w *writer) error {
+func fn284(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_iface.UnixfsAPI](r)
 	if err != nil {
 		return err
@@ -4677,7 +4747,7 @@ func fn280(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/coreiface.UnixfsAPI.Ls
-func fn281(q *req, r *reader, w *writer) error {
+func fn285(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_iface.UnixfsAPI](r)
 	if err != nil {
 		return err
@@ -4725,7 +4795,7 @@ func fn281(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/corerepo.ConditionalGC
-func fn282(q *req, r *reader, w *writer) error {
+func fn286(q *req, r *reader, w *writer) error {
 	p0, err := decH[p_context.Context](r)
 	if err != nil {
 		return err
@@ -4748,7 +4818,7 @@ func fn282(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/corerepo.GarbageCollect
-func fn283(q *req, r *reader, w *writer) error {
+func fn287(q *req, r *reader, w *writer) error {
 	p0, err := decH[*p_core.IpfsNode](r)
 	if err != nil {
 		return err
@@ -4767,7 +4837,7 @@ func fn283(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/corerepo.GarbageCollectAsync
-func fn284(q *req, r *reader, w *writer) error {
+func fn288(q *req, r *reader, w *writer) error {
 	p0, err := decH[*p_core.IpfsNode](r)
 	if err != nil {
 		return err
@@ -4787,7 +4857,7 @@ func fn284(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/corerepo.PeriodicGC
-func fn285(q *req, r *reader, w *writer) error {
+func fn289(q *req, r *reader, w *writer) error {
 	p0, err := decH[p_context.Context](r)
 	if err != nil {
 		return err
@@ -4805,8 +4875,152 @@ func fn285(q *req, r *reader, w *writer) error {
 	return nil
 }
 
+// github.com/ipfs/kubo/core/node.BaseBlocks.AllKeysChan
+func fn290(q *req, r *reader, w *writer) error {
+	recv, err := decH[p_node.BaseBlocks](r)
+	if err != nil {
+		return err
+	}
+	p0, err := decH[p_context.Context](r)
+	if err != nil {
+		return err
+	}
+	if err := r.done(); err != nil {
+		return err
+	}
+	ch, err := recv.AllKeysChan(p0)
+	if err != nil {
+		return err
+	}
+	for v := range ch {
+		q.item(func(w *writer) { encCid(w, v) })
+	}
+	return nil
+}
+
+// github.com/ipfs/kubo/core/node.BaseBlocks.DeleteBlock
+func fn291(q *req, r *reader, w *writer) error {
+	recv, err := decH[p_node.BaseBlocks](r)
+	if err != nil {
+		return err
+	}
+	p0, err := decH[p_context.Context](r)
+	if err != nil {
+		return err
+	}
+	p1, err := decCid(r)
+	if err != nil {
+		return err
+	}
+	if err := r.done(); err != nil {
+		return err
+	}
+	if err := recv.DeleteBlock(p0, p1); err != nil {
+		return err
+	}
+	return nil
+}
+
+// github.com/ipfs/kubo/core/node.BaseBlocks.Get
+func fn292(q *req, r *reader, w *writer) error {
+	recv, err := decH[p_node.BaseBlocks](r)
+	if err != nil {
+		return err
+	}
+	p0, err := decH[p_context.Context](r)
+	if err != nil {
+		return err
+	}
+	p1, err := decCid(r)
+	if err != nil {
+		return err
+	}
+	if err := r.done(); err != nil {
+		return err
+	}
+	r0, err := recv.Get(p0, p1)
+	if err != nil {
+		return err
+	}
+	enc1(w, r0)
+	return nil
+}
+
+// github.com/ipfs/kubo/core/node.BaseBlocks.GetSize
+func fn293(q *req, r *reader, w *writer) error {
+	recv, err := decH[p_node.BaseBlocks](r)
+	if err != nil {
+		return err
+	}
+	p0, err := decH[p_context.Context](r)
+	if err != nil {
+		return err
+	}
+	p1, err := decCid(r)
+	if err != nil {
+		return err
+	}
+	if err := r.done(); err != nil {
+		return err
+	}
+	r0, err := recv.GetSize(p0, p1)
+	if err != nil {
+		return err
+	}
+	encInt[int](w, r0)
+	return nil
+}
+
+// github.com/ipfs/kubo/core/node.BaseBlocks.Has
+func fn294(q *req, r *reader, w *writer) error {
+	recv, err := decH[p_node.BaseBlocks](r)
+	if err != nil {
+		return err
+	}
+	p0, err := decH[p_context.Context](r)
+	if err != nil {
+		return err
+	}
+	p1, err := decCid(r)
+	if err != nil {
+		return err
+	}
+	if err := r.done(); err != nil {
+		return err
+	}
+	r0, err := recv.Has(p0, p1)
+	if err != nil {
+		return err
+	}
+	encBool[bool](w, r0)
+	return nil
+}
+
+// github.com/ipfs/kubo/core/node.BaseBlocks.Put
+func fn295(q *req, r *reader, w *writer) error {
+	recv, err := decH[p_node.BaseBlocks](r)
+	if err != nil {
+		return err
+	}
+	p0, err := decH[p_context.Context](r)
+	if err != nil {
+		return err
+	}
+	p1, err := dec3(r)
+	if err != nil {
+		return err
+	}
+	if err := r.done(); err != nil {
+		return err
+	}
+	if err := recv.Put(p0, p1); err != nil {
+		return err
+	}
+	return nil
+}
+
 // github.com/ipfs/kubo/core/node/libp2p.ConstructDefaultRouting
-func fn286(q *req, r *reader, w *writer) error {
+func fn296(q *req, r *reader, w *writer) error {
 	p0, err := dec88(r)
 	if err != nil {
 		return err
@@ -4824,7 +5038,7 @@ func fn286(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/node/libp2p.DHTClientOption
-func fn287(q *req, r *reader, w *writer) error {
+func fn297(q *req, r *reader, w *writer) error {
 	if err := r.done(); err != nil {
 		return err
 	}
@@ -4834,7 +5048,7 @@ func fn287(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/node/libp2p.DHTOption
-func fn288(q *req, r *reader, w *writer) error {
+func fn298(q *req, r *reader, w *writer) error {
 	if err := r.done(); err != nil {
 		return err
 	}
@@ -4844,7 +5058,7 @@ func fn288(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/node/libp2p.DHTServerOption
-func fn289(q *req, r *reader, w *writer) error {
+func fn299(q *req, r *reader, w *writer) error {
 	if err := r.done(); err != nil {
 		return err
 	}
@@ -4854,7 +5068,7 @@ func fn289(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/node/libp2p.NilRouterOption
-func fn290(q *req, r *reader, w *writer) error {
+func fn300(q *req, r *reader, w *writer) error {
 	if err := r.done(); err != nil {
 		return err
 	}
@@ -4864,7 +5078,7 @@ func fn290(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/plugin/loader.NewPluginLoader
-func fn291(q *req, r *reader, w *writer) error {
+func fn301(q *req, r *reader, w *writer) error {
 	p0, err := decStr[string](r)
 	if err != nil {
 		return err
@@ -4881,7 +5095,7 @@ func fn291(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/plugin/loader.PluginLoader.Initialize
-func fn292(q *req, r *reader, w *writer) error {
+func fn302(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_loader.PluginLoader](r)
 	if err != nil {
 		return err
@@ -4896,7 +5110,7 @@ func fn292(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/plugin/loader.PluginLoader.Inject
-func fn293(q *req, r *reader, w *writer) error {
+func fn303(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_loader.PluginLoader](r)
 	if err != nil {
 		return err
@@ -4911,7 +5125,7 @@ func fn293(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/repo.Repo.BackupConfig
-func fn294(q *req, r *reader, w *writer) error {
+func fn304(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_repo.Repo](r)
 	if err != nil {
 		return err
@@ -4932,7 +5146,7 @@ func fn294(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/repo.Repo.Config
-func fn295(q *req, r *reader, w *writer) error {
+func fn305(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_repo.Repo](r)
 	if err != nil {
 		return err
@@ -4949,7 +5163,7 @@ func fn295(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/repo.Repo.GetConfigKey
-func fn296(q *req, r *reader, w *writer) error {
+func fn306(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_repo.Repo](r)
 	if err != nil {
 		return err
@@ -4970,7 +5184,7 @@ func fn296(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/repo.Repo.SetConfig
-func fn297(q *req, r *reader, w *writer) error {
+func fn307(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_repo.Repo](r)
 	if err != nil {
 		return err
@@ -4989,7 +5203,7 @@ func fn297(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/repo.Repo.SetConfigKey
-func fn298(q *req, r *reader, w *writer) error {
+func fn308(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_repo.Repo](r)
 	if err != nil {
 		return err
@@ -5012,7 +5226,7 @@ func fn298(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/repo/fsrepo.Init
-func fn299(q *req, r *reader, w *writer) error {
+func fn309(q *req, r *reader, w *writer) error {
 	p0, err := decStr[string](r)
 	if err != nil {
 		return err
@@ -5031,7 +5245,7 @@ func fn299(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/repo/fsrepo.IsInitialized
-func fn300(q *req, r *reader, w *writer) error {
+func fn310(q *req, r *reader, w *writer) error {
 	p0, err := decStr[string](r)
 	if err != nil {
 		return err
@@ -5045,7 +5259,7 @@ func fn300(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/repo/fsrepo.Open
-func fn301(q *req, r *reader, w *writer) error {
+func fn311(q *req, r *reader, w *writer) error {
 	p0, err := decStr[string](r)
 	if err != nil {
 		return err
@@ -5062,7 +5276,7 @@ func fn301(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.AttachIndex
-func fn302(q *req, r *reader, w *writer) error {
+func fn312(q *req, r *reader, w *writer) error {
 	p0, err := decStr[string](r)
 	if err != nil {
 		return err
@@ -5085,7 +5299,7 @@ func fn302(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.BlockReader.Next
-func fn303(q *req, r *reader, w *writer) error {
+func fn313(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_car.BlockReader](r)
 	if err != nil {
 		return err
@@ -5102,7 +5316,7 @@ func fn303(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.BlockReader.NextReader
-func fn304(q *req, r *reader, w *writer) error {
+func fn314(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_car.BlockReader](r)
 	if err != nil {
 		return err
@@ -5121,7 +5335,7 @@ func fn304(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.BlockReader.Roots
-func fn305(q *req, r *reader, w *writer) error {
+func fn315(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_car.BlockReader](r)
 	if err != nil {
 		return err
@@ -5135,7 +5349,7 @@ func fn305(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.BlockReader.Roots=
-func fn306(q *req, r *reader, w *writer) error {
+func fn316(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_car.BlockReader](r)
 	if err != nil {
 		return err
@@ -5152,7 +5366,7 @@ func fn306(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.BlockReader.SkipNext
-func fn307(q *req, r *reader, w *writer) error {
+func fn317(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_car.BlockReader](r)
 	if err != nil {
 		return err
@@ -5169,7 +5383,7 @@ func fn307(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.BlockReader.Version
-func fn308(q *req, r *reader, w *writer) error {
+func fn318(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_car.BlockReader](r)
 	if err != nil {
 		return err
@@ -5183,7 +5397,7 @@ func fn308(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.BlockReader.Version=
-func fn309(q *req, r *reader, w *writer) error {
+func fn319(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_car.BlockReader](r)
 	if err != nil {
 		return err
@@ -5200,7 +5414,7 @@ func fn309(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.Characteristics.IsFullyIndexed
-func fn310(q *req, r *reader, w *writer) error {
+func fn320(q *req, r *reader, w *writer) error {
 	recv, err := dec91(r)
 	if err != nil {
 		return err
@@ -5214,7 +5428,7 @@ func fn310(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.ExtractV1File
-func fn311(q *req, r *reader, w *writer) error {
+func fn321(q *req, r *reader, w *writer) error {
 	p0, err := decStr[string](r)
 	if err != nil {
 		return err
@@ -5238,7 +5452,7 @@ func fn311(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.GenerateIndex
-func fn312(q *req, r *reader, w *writer) error {
+func fn322(q *req, r *reader, w *writer) error {
 	p0, err := decIO[p_io.Reader](r)
 	if err != nil {
 		return err
@@ -5260,7 +5474,7 @@ func fn312(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.GenerateIndexFromFile
-func fn313(q *req, r *reader, w *writer) error {
+func fn323(q *req, r *reader, w *writer) error {
 	p0, err := decStr[string](r)
 	if err != nil {
 		return err
@@ -5282,7 +5496,7 @@ func fn313(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.Header.HasIndex
-func fn314(q *req, r *reader, w *writer) error {
+func fn324(q *req, r *reader, w *writer) error {
 	recv, err := dec94(r)
 	if err != nil {
 		return err
@@ -5296,7 +5510,7 @@ func fn314(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.Header.WithDataPadding
-func fn315(q *req, r *reader, w *writer) error {
+func fn325(q *req, r *reader, w *writer) error {
 	recv, err := dec94(r)
 	if err != nil {
 		return err
@@ -5314,7 +5528,7 @@ func fn315(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.Header.WithDataSize
-func fn316(q *req, r *reader, w *writer) error {
+func fn326(q *req, r *reader, w *writer) error {
 	recv, err := dec94(r)
 	if err != nil {
 		return err
@@ -5332,7 +5546,7 @@ func fn316(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.Header.WithIndexPadding
-func fn317(q *req, r *reader, w *writer) error {
+func fn327(q *req, r *reader, w *writer) error {
 	recv, err := dec94(r)
 	if err != nil {
 		return err
@@ -5350,7 +5564,7 @@ func fn317(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.Header.WriteTo
-func fn318(q *req, r *reader, w *writer) error {
+func fn328(q *req, r *reader, w *writer) error {
 	recv, err := dec94(r)
 	if err != nil {
 		return err
@@ -5371,7 +5585,7 @@ func fn318(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.LoadIndex
-func fn319(q *req, r *reader, w *writer) error {
+func fn329(q *req, r *reader, w *writer) error {
 	p0, err := decH[p_index.Index](r)
 	if err != nil {
 		return err
@@ -5395,7 +5609,7 @@ func fn319(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.NewBlockReader
-func fn320(q *req, r *reader, w *writer) error {
+func fn330(q *req, r *reader, w *writer) error {
 	p0, err := decIO[p_io.Reader](r)
 	if err != nil {
 		return err
@@ -5417,7 +5631,7 @@ func fn320(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.NewHeader
-func fn321(q *req, r *reader, w *writer) error {
+func fn331(q *req, r *reader, w *writer) error {
 	p0, err := decInt[uint64](r)
 	if err != nil {
 		return err
@@ -5431,7 +5645,7 @@ func fn321(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.NewReader
-func fn322(q *req, r *reader, w *writer) error {
+func fn332(q *req, r *reader, w *writer) error {
 	p0, err := decIO[p_io.ReaderAt](r)
 	if err != nil {
 		return err
@@ -5453,7 +5667,7 @@ func fn322(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.OpenReader
-func fn323(q *req, r *reader, w *writer) error {
+func fn333(q *req, r *reader, w *writer) error {
 	p0, err := decStr[string](r)
 	if err != nil {
 		return err
@@ -5475,7 +5689,7 @@ func fn323(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.ReadOrGenerateIndex
-func fn324(q *req, r *reader, w *writer) error {
+func fn334(q *req, r *reader, w *writer) error {
 	p0, err := decIO[p_io.ReadSeeker](r)
 	if err != nil {
 		return err
@@ -5497,7 +5711,7 @@ func fn324(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.ReadVersion
-func fn325(q *req, r *reader, w *writer) error {
+func fn335(q *req, r *reader, w *writer) error {
 	p0, err := decIO[p_io.Reader](r)
 	if err != nil {
 		return err
@@ -5519,7 +5733,7 @@ func fn325(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.Reader.Close
-func fn326(q *req, r *reader, w *writer) error {
+func fn336(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_car.Reader](r)
 	if err != nil {
 		return err
@@ -5534,7 +5748,7 @@ func fn326(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.Reader.DataReader
-func fn327(q *req, r *reader, w *writer) error {
+func fn337(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_car.Reader](r)
 	if err != nil {
 		return err
@@ -5551,7 +5765,7 @@ func fn327(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.Reader.Header
-func fn328(q *req, r *reader, w *writer) error {
+func fn338(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_car.Reader](r)
 	if err != nil {
 		return err
@@ -5565,7 +5779,7 @@ func fn328(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.Reader.Header=
-func fn329(q *req, r *reader, w *writer) error {
+func fn339(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_car.Reader](r)
 	if err != nil {
 		return err
@@ -5582,7 +5796,7 @@ func fn329(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.Reader.IndexReader
-func fn330(q *req, r *reader, w *writer) error {
+func fn340(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_car.Reader](r)
 	if err != nil {
 		return err
@@ -5599,7 +5813,7 @@ func fn330(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.Reader.Inspect
-func fn331(q *req, r *reader, w *writer) error {
+func fn341(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_car.Reader](r)
 	if err != nil {
 		return err
@@ -5620,7 +5834,7 @@ func fn331(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.Reader.Roots
-func fn332(q *req, r *reader, w *writer) error {
+func fn342(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_car.Reader](r)
 	if err != nil {
 		return err
@@ -5637,7 +5851,7 @@ func fn332(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.Reader.Version
-func fn333(q *req, r *reader, w *writer) error {
+func fn343(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_car.Reader](r)
 	if err != nil {
 		return err
@@ -5651,7 +5865,7 @@ func fn333(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.Reader.Version=
-func fn334(q *req, r *reader, w *writer) error {
+func fn344(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_car.Reader](r)
 	if err != nil {
 		return err
@@ -5668,7 +5882,7 @@ func fn334(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.ReplaceRootsInFile
-func fn335(q *req, r *reader, w *writer) error {
+func fn345(q *req, r *reader, w *writer) error {
 	p0, err := decStr[string](r)
 	if err != nil {
 		return err
@@ -5692,7 +5906,7 @@ func fn335(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.TraverseToFile
-func fn336(q *req, r *reader, w *writer) error {
+func fn346(q *req, r *reader, w *writer) error {
 	p0, err := decH[p_context.Context](r)
 	if err != nil {
 		return err
@@ -5728,7 +5942,7 @@ func fn336(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.TraverseV1
-func fn337(q *req, r *reader, w *writer) error {
+func fn347(q *req, r *reader, w *writer) error {
 	p0, err := decH[p_context.Context](r)
 	if err != nil {
 		return err
@@ -5766,7 +5980,7 @@ func fn337(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.WrapV1
-func fn338(q *req, r *reader, w *writer) error {
+func fn348(q *req, r *reader, w *writer) error {
 	p0, err := decIO[p_io.ReadSeeker](r)
 	if err != nil {
 		return err
@@ -5790,7 +6004,7 @@ func fn338(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.WrapV1File
-func fn339(q *req, r *reader, w *writer) error {
+func fn349(q *req, r *reader, w *writer) error {
 	p0, err := decStr[string](r)
 	if err != nil {
 		return err
@@ -5809,7 +6023,7 @@ func fn339(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/blockstore.NewReadOnly
-func fn340(q *req, r *reader, w *writer) error {
+func fn350(q *req, r *reader, w *writer) error {
 	p0, err := decIO[p_io.ReaderAt](r)
 	if err != nil {
 		return err
@@ -5835,7 +6049,7 @@ func fn340(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/blockstore.OpenReadOnly
-func fn341(q *req, r *reader, w *writer) error {
+func fn351(q *req, r *reader, w *writer) error {
 	p0, err := decStr[string](r)
 	if err != nil {
 		return err
@@ -5857,7 +6071,7 @@ func fn341(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/blockstore.OpenReadWrite
-func fn342(q *req, r *reader, w *writer) error {
+func fn352(q *req, r *reader, w *writer) error {
 	p0, err := decStr[string](r)
 	if err != nil {
 		return err
@@ -5883,7 +6097,7 @@ func fn342(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/blockstore.ReadOnly.AllKeysChan
-func fn343(q *req, r *reader, w *writer) error {
+func fn353(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_blockstore2.ReadOnly](r)
 	if err != nil {
 		return err
@@ -5906,7 +6120,7 @@ func fn343(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/blockstore.ReadOnly.Close
-func fn344(q *req, r *reader, w *writer) error {
+func fn354(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_blockstore2.ReadOnly](r)
 	if err != nil {
 		return err
@@ -5921,7 +6135,7 @@ func fn344(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/blockstore.ReadOnly.Get
-func fn345(q *req, r *reader, w *writer) error {
+func fn355(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_blockstore2.ReadOnly](r)
 	if err != nil {
 		return err
@@ -5946,7 +6160,7 @@ func fn345(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/blockstore.ReadOnly.GetSize
-func fn346(q *req, r *reader, w *writer) error {
+func fn356(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_blockstore2.ReadOnly](r)
 	if err != nil {
 		return err
@@ -5971,7 +6185,7 @@ func fn346(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/blockstore.ReadOnly.Has
-func fn347(q *req, r *reader, w *writer) error {
+func fn357(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_blockstore2.ReadOnly](r)
 	if err != nil {
 		return err
@@ -5996,7 +6210,7 @@ func fn347(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/blockstore.ReadOnly.HashOnRead
-func fn348(q *req, r *reader, w *writer) error {
+func fn358(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_blockstore2.ReadOnly](r)
 	if err != nil {
 		return err
@@ -6013,7 +6227,7 @@ func fn348(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/blockstore.ReadOnly.Index
-func fn349(q *req, r *reader, w *writer) error {
+func fn359(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_blockstore2.ReadOnly](r)
 	if err != nil {
 		return err
@@ -6027,7 +6241,7 @@ func fn349(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/blockstore.ReadOnly.Roots
-func fn350(q *req, r *reader, w *writer) error {
+func fn360(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_blockstore2.ReadOnly](r)
 	if err != nil {
 		return err
@@ -6044,7 +6258,7 @@ func fn350(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/blockstore.ReadWrite.AllKeysChan
-func fn351(q *req, r *reader, w *writer) error {
+func fn361(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_blockstore2.ReadWrite](r)
 	if err != nil {
 		return err
@@ -6067,7 +6281,7 @@ func fn351(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/blockstore.ReadWrite.Close
-func fn352(q *req, r *reader, w *writer) error {
+func fn362(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_blockstore2.ReadWrite](r)
 	if err != nil {
 		return err
@@ -6082,7 +6296,7 @@ func fn352(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/blockstore.ReadWrite.Discard
-func fn353(q *req, r *reader, w *writer) error {
+func fn363(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_blockstore2.ReadWrite](r)
 	if err != nil {
 		return err
@@ -6095,7 +6309,7 @@ func fn353(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/blockstore.ReadWrite.Finalize
-func fn354(q *req, r *reader, w *writer) error {
+func fn364(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_blockstore2.ReadWrite](r)
 	if err != nil {
 		return err
@@ -6110,7 +6324,7 @@ func fn354(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/blockstore.ReadWrite.FinalizeReadOnly
-func fn355(q *req, r *reader, w *writer) error {
+func fn365(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_blockstore2.ReadWrite](r)
 	if err != nil {
 		return err
@@ -6125,7 +6339,7 @@ func fn355(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/blockstore.ReadWrite.Get
-func fn356(q *req, r *reader, w *writer) error {
+func fn366(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_blockstore2.ReadWrite](r)
 	if err != nil {
 		return err
@@ -6150,7 +6364,7 @@ func fn356(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/blockstore.ReadWrite.GetSize
-func fn357(q *req, r *reader, w *writer) error {
+func fn367(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_blockstore2.ReadWrite](r)
 	if err != nil {
 		return err
@@ -6175,7 +6389,7 @@ func fn357(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/blockstore.ReadWrite.Has
-func fn358(q *req, r *reader, w *writer) error {
+func fn368(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_blockstore2.ReadWrite](r)
 	if err != nil {
 		return err
@@ -6200,7 +6414,7 @@ func fn358(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/blockstore.ReadWrite.HashOnRead
-func fn359(q *req, r *reader, w *writer) error {
+func fn369(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_blockstore2.ReadWrite](r)
 	if err != nil {
 		return err
@@ -6217,7 +6431,7 @@ func fn359(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/blockstore.ReadWrite.Index
-func fn360(q *req, r *reader, w *writer) error {
+func fn370(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_blockstore2.ReadWrite](r)
 	if err != nil {
 		return err
@@ -6231,7 +6445,7 @@ func fn360(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/blockstore.ReadWrite.Put
-func fn361(q *req, r *reader, w *writer) error {
+func fn371(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_blockstore2.ReadWrite](r)
 	if err != nil {
 		return err
@@ -6254,7 +6468,7 @@ func fn361(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/blockstore.ReadWrite.PutMany
-func fn362(q *req, r *reader, w *writer) error {
+func fn372(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_blockstore2.ReadWrite](r)
 	if err != nil {
 		return err
@@ -6277,7 +6491,7 @@ func fn362(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/blockstore.ReadWrite.Roots
-func fn363(q *req, r *reader, w *writer) error {
+func fn373(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_blockstore2.ReadWrite](r)
 	if err != nil {
 		return err
@@ -6294,7 +6508,7 @@ func fn363(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/index.GetFirst
-func fn364(q *req, r *reader, w *writer) error {
+func fn374(q *req, r *reader, w *writer) error {
 	p0, err := decH[p_index.Index](r)
 	if err != nil {
 		return err
@@ -6315,7 +6529,7 @@ func fn364(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/index.Index.Codec
-func fn365(q *req, r *reader, w *writer) error {
+func fn375(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_index.Index](r)
 	if err != nil {
 		return err
@@ -6329,7 +6543,7 @@ func fn365(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/index.Index.GetAll
-func fn366(q *req, r *reader, w *writer) error {
+func fn376(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_index.Index](r)
 	if err != nil {
 		return err
@@ -6354,7 +6568,7 @@ func fn366(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/index.Index.Load
-func fn367(q *req, r *reader, w *writer) error {
+func fn377(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_index.Index](r)
 	if err != nil {
 		return err
@@ -6373,7 +6587,7 @@ func fn367(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/index.Index.Marshal
-func fn368(q *req, r *reader, w *writer) error {
+func fn378(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_index.Index](r)
 	if err != nil {
 		return err
@@ -6394,7 +6608,7 @@ func fn368(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/index.Index.Unmarshal
-func fn369(q *req, r *reader, w *writer) error {
+func fn379(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_index.Index](r)
 	if err != nil {
 		return err
@@ -6413,7 +6627,7 @@ func fn369(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/index.IterableIndex.ForEach
-func fn370(q *req, r *reader, w *writer) error {
+func fn380(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_index.IterableIndex](r)
 	if err != nil {
 		return err
@@ -6438,7 +6652,7 @@ func fn370(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/index.New
-func fn371(q *req, r *reader, w *writer) error {
+func fn381(q *req, r *reader, w *writer) error {
 	p0, err := decInt[p_multicodec.Code](r)
 	if err != nil {
 		return err
@@ -6455,7 +6669,7 @@ func fn371(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/index.ReadCodec
-func fn372(q *req, r *reader, w *writer) error {
+func fn382(q *req, r *reader, w *writer) error {
 	p0, err := decIO[p_io.Reader](r)
 	if err != nil {
 		return err
@@ -6472,7 +6686,7 @@ func fn372(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/index.ReadFrom
-func fn373(q *req, r *reader, w *writer) error {
+func fn383(q *req, r *reader, w *writer) error {
 	p0, err := decIO[p_io.Reader](r)
 	if err != nil {
 		return err
@@ -6489,7 +6703,7 @@ func fn373(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/index.WriteTo
-func fn374(q *req, r *reader, w *writer) error {
+func fn384(q *req, r *reader, w *writer) error {
 	p0, err := decH[p_index.Index](r)
 	if err != nil {
 		return err
@@ -6510,7 +6724,7 @@ func fn374(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/storage.OpenReadable
-func fn375(q *req, r *reader, w *writer) error {
+func fn385(q *req, r *reader, w *writer) error {
 	p0, err := decIO[p_io.ReaderAt](r)
 	if err != nil {
 		return err
@@ -6532,7 +6746,7 @@ func fn375(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/storage.ReadableCar.Index
-func fn376(q *req, r *reader, w *writer) error {
+func fn386(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_storage2.ReadableCar](r)
 	if err != nil {
 		return err
@@ -6546,7 +6760,7 @@ func fn376(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/storage.ReadableCar.Roots
-func fn377(q *req, r *reader, w *writer) error {
+func fn387(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_storage2.ReadableCar](r)
 	if err != nil {
 		return err
@@ -6560,7 +6774,7 @@ func fn377(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-codec-dagpb.AddSupportToChooser
-func fn378(q *req, r *reader, w *writer) error {
+func fn388(q *req, r *reader, w *writer) error {
 	p0, err := decH[p_traversal.LinkTargetNodePrototypeChooser](r)
 	if err != nil {
 		return err
@@ -6574,7 +6788,7 @@ func fn378(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-ipld-prime/linking.LinkSystem.SetReadStorage
-func fn379(q *req, r *reader, w *writer) error {
+func fn389(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_linking.LinkSystem](r)
 	if err != nil {
 		return err
@@ -6591,7 +6805,7 @@ func fn379(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-ipld-prime/linking/cid.DefaultLinkSystem
-func fn380(q *req, r *reader, w *writer) error {
+func fn390(q *req, r *reader, w *writer) error {
 	if err := r.done(); err != nil {
 		return err
 	}
@@ -6601,7 +6815,7 @@ func fn380(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-ipld-prime/node/basicnode.Prototype__Any
-func fn381(q *req, r *reader, w *writer) error {
+func fn391(q *req, r *reader, w *writer) error {
 	if err := r.done(); err != nil {
 		return err
 	}
@@ -6610,7 +6824,7 @@ func fn381(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-ipld-prime/storage/bsadapter.Adapter
-func fn382(q *req, r *reader, w *writer) error {
+func fn392(q *req, r *reader, w *writer) error {
 	if err := r.done(); err != nil {
 		return err
 	}
@@ -6619,7 +6833,7 @@ func fn382(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-ipld-prime/storage/bsadapter.Adapter.Wrapped
-func fn383(q *req, r *reader, w *writer) error {
+func fn393(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_bsadapter.Adapter](r)
 	if err != nil {
 		return err
@@ -6633,7 +6847,7 @@ func fn383(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-ipld-prime/storage/bsadapter.Adapter.Wrapped=
-func fn384(q *req, r *reader, w *writer) error {
+func fn394(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_bsadapter.Adapter](r)
 	if err != nil {
 		return err
@@ -6650,7 +6864,7 @@ func fn384(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-ipld-prime/traversal/selector.RecursionLimitDepth
-func fn385(q *req, r *reader, w *writer) error {
+func fn395(q *req, r *reader, w *writer) error {
 	p0, err := decInt[int64](r)
 	if err != nil {
 		return err
@@ -6664,7 +6878,7 @@ func fn385(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-ipld-prime/traversal/selector.RecursionLimitNone
-func fn386(q *req, r *reader, w *writer) error {
+func fn396(q *req, r *reader, w *writer) error {
 	if err := r.done(); err != nil {
 		return err
 	}
@@ -6674,7 +6888,7 @@ func fn386(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-ipld-prime/traversal/selector/builder.ExploreFieldsSpecBuilder.Insert
-func fn387(q *req, r *reader, w *writer) error {
+func fn397(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_builder.ExploreFieldsSpecBuilder](r)
 	if err != nil {
 		return err
@@ -6695,7 +6909,7 @@ func fn387(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-ipld-prime/traversal/selector/builder.NewSelectorSpecBuilder
-func fn388(q *req, r *reader, w *writer) error {
+func fn398(q *req, r *reader, w *writer) error {
 	p0, err := decH[p_datamodel.NodePrototype](r)
 	if err != nil {
 		return err
@@ -6709,7 +6923,7 @@ func fn388(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpec.Node
-func fn389(q *req, r *reader, w *writer) error {
+func fn399(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_builder.SelectorSpec](r)
 	if err != nil {
 		return err
@@ -6723,7 +6937,7 @@ func fn389(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreAll
-func fn390(q *req, r *reader, w *writer) error {
+func fn400(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_builder.SelectorSpecBuilder](r)
 	if err != nil {
 		return err
@@ -6741,7 +6955,7 @@ func fn390(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreFields
-func fn391(q *req, r *reader, w *writer) error {
+func fn401(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_builder.SelectorSpecBuilder](r)
 	if err != nil {
 		return err
@@ -6761,7 +6975,7 @@ func fn391(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreIndex
-func fn392(q *req, r *reader, w *writer) error {
+func fn402(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_builder.SelectorSpecBuilder](r)
 	if err != nil {
 		return err
@@ -6783,7 +6997,7 @@ func fn392(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreInterpretAs
-func fn393(q *req, r *reader, w *writer) error {
+func fn403(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_builder.SelectorSpecBuilder](r)
 	if err != nil {
 		return err
@@ -6805,7 +7019,7 @@ func fn393(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreRange
-func fn394(q *req, r *reader, w *writer) error {
+func fn404(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_builder.SelectorSpecBuilder](r)
 	if err != nil {
 		return err
@@ -6831,7 +7045,7 @@ func fn394(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreRecursive
-func fn395(q *req, r *reader, w *writer) error {
+func fn405(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_builder.SelectorSpecBuilder](r)
 	if err != nil {
 		return err
@@ -6853,7 +7067,7 @@ func fn395(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreRecursiveEdge
-func fn396(q *req, r *reader, w *writer) error {
+func fn406(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_builder.SelectorSpecBuilder](r)
 	if err != nil {
 		return err
@@ -6867,7 +7081,7 @@ func fn396(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreUnion
-func fn397(q *req, r *reader, w *writer) error {
+func fn407(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_builder.SelectorSpecBuilder](r)
 	if err != nil {
 		return err
@@ -6885,7 +7099,7 @@ func fn397(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.Matcher
-func fn398(q *req, r *reader, w *writer) error {
+func fn408(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_builder.SelectorSpecBuilder](r)
 	if err != nil {
 		return err
@@ -6899,7 +7113,7 @@ func fn398(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.MatcherSubset
-func fn399(q *req, r *reader, w *writer) error {
+func fn409(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_builder.SelectorSpecBuilder](r)
 	if err != nil {
 		return err
@@ -6921,7 +7135,7 @@ func fn399(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-ipld-prime/traversal/selector/parse.CommonSelector_ExploreAllRecursively
-func fn400(q *req, r *reader, w *writer) error {
+func fn410(q *req, r *reader, w *writer) error {
 	if err := r.done(); err != nil {
 		return err
 	}
@@ -6931,7 +7145,7 @@ func fn400(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-ipld-prime/traversal/selector/parse.CommonSelector_MatchAllRecursively
-func fn401(q *req, r *reader, w *writer) error {
+func fn411(q *req, r *reader, w *writer) error {
 	if err := r.done(); err != nil {
 		return err
 	}
@@ -6941,7 +7155,7 @@ func fn401(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-ipld-prime/traversal/selector/parse.CommonSelector_MatchChildren
-func fn402(q *req, r *reader, w *writer) error {
+func fn412(q *req, r *reader, w *writer) error {
 	if err := r.done(); err != nil {
 		return err
 	}
@@ -6951,7 +7165,7 @@ func fn402(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-ipld-prime/traversal/selector/parse.CommonSelector_MatchPoint
-func fn403(q *req, r *reader, w *writer) error {
+func fn413(q *req, r *reader, w *writer) error {
 	if err := r.done(); err != nil {
 		return err
 	}
@@ -6961,7 +7175,7 @@ func fn403(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-ipld-prime/traversal/selector/parse.ParseJSONSelector
-func fn404(q *req, r *reader, w *writer) error {
+func fn414(q *req, r *reader, w *writer) error {
 	p0, err := decStr[string](r)
 	if err != nil {
 		return err
@@ -6978,7 +7192,7 @@ func fn404(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/connmgr.ConnManager.IsProtected
-func fn405(q *req, r *reader, w *writer) error {
+func fn415(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_connmgr.ConnManager](r)
 	if err != nil {
 		return err
@@ -7000,7 +7214,7 @@ func fn405(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/connmgr.ConnManager.Protect
-func fn406(q *req, r *reader, w *writer) error {
+func fn416(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_connmgr.ConnManager](r)
 	if err != nil {
 		return err
@@ -7021,7 +7235,7 @@ func fn406(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/connmgr.ConnManager.TagPeer
-func fn407(q *req, r *reader, w *writer) error {
+func fn417(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_connmgr.ConnManager](r)
 	if err != nil {
 		return err
@@ -7046,7 +7260,7 @@ func fn407(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/connmgr.ConnManager.TrimOpenConns
-func fn408(q *req, r *reader, w *writer) error {
+func fn418(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_connmgr.ConnManager](r)
 	if err != nil {
 		return err
@@ -7063,7 +7277,7 @@ func fn408(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/connmgr.ConnManager.Unprotect
-func fn409(q *req, r *reader, w *writer) error {
+func fn419(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_connmgr.ConnManager](r)
 	if err != nil {
 		return err
@@ -7085,7 +7299,7 @@ func fn409(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/connmgr.ConnManager.UntagPeer
-func fn410(q *req, r *reader, w *writer) error {
+func fn420(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_connmgr.ConnManager](r)
 	if err != nil {
 		return err
@@ -7106,7 +7320,7 @@ func fn410(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/host.Host.ConnManager
-func fn411(q *req, r *reader, w *writer) error {
+func fn421(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_host.Host](r)
 	if err != nil {
 		return err
@@ -7120,7 +7334,7 @@ func fn411(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/network.ResourceManager.ViewSystem
-func fn412(q *req, r *reader, w *writer) error {
+func fn422(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_network.ResourceManager](r)
 	if err != nil {
 		return err
@@ -7144,7 +7358,7 @@ func fn412(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/network.ResourceManager.ViewTransient
-func fn413(q *req, r *reader, w *writer) error {
+func fn423(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_network.ResourceManager](r)
 	if err != nil {
 		return err
@@ -7168,7 +7382,7 @@ func fn413(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/network.ResourceScope.Stat
-func fn414(q *req, r *reader, w *writer) error {
+func fn424(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_network.ResourceScope](r)
 	if err != nil {
 		return err
@@ -7182,7 +7396,7 @@ func fn414(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/peer.AddrInfoFromString
-func fn415(q *req, r *reader, w *writer) error {
+func fn425(q *req, r *reader, w *writer) error {
 	p0, err := decStr[string](r)
 	if err != nil {
 		return err
@@ -7199,7 +7413,7 @@ func fn415(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/peer.AddrInfoToP2pAddrs
-func fn416(q *req, r *reader, w *writer) error {
+func fn426(q *req, r *reader, w *writer) error {
 	p0, err := dec109(r)
 	if err != nil {
 		return err
@@ -7216,7 +7430,7 @@ func fn416(q *req, r *reader, w *writer) error {
 }
 
 // io.Copy
-func fn417(q *req, r *reader, w *writer) error {
+func fn427(q *req, r *reader, w *writer) error {
 	p0, err := decWriter(r)
 	if err != nil {
 		return err
@@ -7237,7 +7451,7 @@ func fn417(q *req, r *reader, w *writer) error {
 }
 
 // io.ReadAll
-func fn418(q *req, r *reader, w *writer) error {
+func fn428(q *req, r *reader, w *writer) error {
 	p0, err := decIO[p_io.Reader](r)
 	if err != nil {
 		return err
@@ -7254,7 +7468,7 @@ func fn418(q *req, r *reader, w *writer) error {
 }
 
 // io.ReadCloser.Close
-func fn419(q *req, r *reader, w *writer) error {
+func fn429(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_io.ReadCloser](r)
 	if err != nil {
 		return err
@@ -7269,7 +7483,7 @@ func fn419(q *req, r *reader, w *writer) error {
 }
 
 // os.Create
-func fn420(q *req, r *reader, w *writer) error {
+func fn430(q *req, r *reader, w *writer) error {
 	p0, err := decStr[string](r)
 	if err != nil {
 		return err
@@ -7286,7 +7500,7 @@ func fn420(q *req, r *reader, w *writer) error {
 }
 
 // os.File.Close
-func fn421(q *req, r *reader, w *writer) error {
+func fn431(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_os.File](r)
 	if err != nil {
 		return err
@@ -7301,7 +7515,7 @@ func fn421(q *req, r *reader, w *writer) error {
 }
 
 // os.Open
-func fn422(q *req, r *reader, w *writer) error {
+func fn432(q *req, r *reader, w *writer) error {
 	p0, err := decStr[string](r)
 	if err != nil {
 		return err
@@ -7318,7 +7532,7 @@ func fn422(q *req, r *reader, w *writer) error {
 }
 
 // os.OpenFile
-func fn423(q *req, r *reader, w *writer) error {
+func fn433(q *req, r *reader, w *writer) error {
 	p0, err := decStr[string](r)
 	if err != nil {
 		return err
@@ -7343,7 +7557,7 @@ func fn423(q *req, r *reader, w *writer) error {
 }
 
 // os.Stat
-func fn424(q *req, r *reader, w *writer) error {
+func fn434(q *req, r *reader, w *writer) error {
 	p0, err := decStr[string](r)
 	if err != nil {
 		return err
@@ -7360,7 +7574,7 @@ func fn424(q *req, r *reader, w *writer) error {
 }
 
 // runtime/debug.SetCrashOutput
-func fn425(q *req, r *reader, w *writer) error {
+func fn435(q *req, r *reader, w *writer) error {
 	p0, err := decH[*p_os.File](r)
 	if err != nil {
 		return err

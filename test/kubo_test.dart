@@ -258,6 +258,19 @@ void main() {
     expect(collected, isTrue);
   });
 
+  // 0.20: without the filestore, BaseBlocks is the same store as Blockstore
+  test('baseBlocks sees what the blockstore sees', () async {
+    final data = utf8.encode('base ${DateTime.now()}');
+    final st = await api.block().put(ctx, data, [options.block.pin(false)]);
+    final c = cid.Cid(st.path!.value.substring('/ipfs/'.length));
+    final base = n.baseBlocks;
+    expect(await base.has(ctx, c), isTrue);
+    expect(await base.getSize(ctx, c), data.length);
+    expect((await base.get(ctx, c)).rawData, data);
+    await base.deleteBlock(ctx, c);
+    expect(await n.blockstore.has(ctx, c), isFalse);
+  });
+
   // 0.20: only the daemon starts PeriodicGC; a library node has to call it
   test('conditionalGc and periodicGc follow the watermark', () async {
     // offset far beyond StorageMax*watermark: collects now

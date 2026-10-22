@@ -3,8 +3,100 @@
 library;
 
 import 'package:ipfs_ffi/src/runtime.dart';
+import 'package:ipfs_ffi/car/v2/blockstore.dart' as $blockstore;
+import 'package:ipfs_ffi/go/context.dart' as $context;
+import 'package:ipfs_ffi/ipld/block_format.dart' as $block_format;
 import 'package:ipfs_ffi/kubo/core/node/libp2p.dart' as $libp2p;
 import 'package:ipfs_ffi/kubo/repo.dart' as $repo;
+import 'package:ipfs_ffi/multiformats/cid.dart' as $cid;
+
+/// Go: `node.BaseBlocks` (handle).
+class BaseBlocks extends GoHandle {
+  BaseBlocks.$h(super.$h);
+
+  /// Go: `func (node.BaseBlocks).Put(context.Context, blocks.Block) error`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> put($context.Context ctx, $block_format.Block block) async {
+    await $call(
+        295,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..dto(block));
+  }
+
+  /// Go: `func (node.BaseBlocks).Has(context.Context, cid.Cid) (bool, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<bool> has($context.Context ctx, $cid.Cid cid) async {
+    final $r = await $call(
+        294,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(cid));
+    return $r.b();
+  }
+
+  /// Go: `func (node.BaseBlocks).Get(context.Context, cid.Cid) (blocks.Block, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<$block_format.Block> get($context.Context ctx, $cid.Cid cid) async {
+    final $r = await $call(
+        292,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(cid));
+    return $r.p() ? $block_format.Block.$dec($r) : $nil();
+  }
+
+  /// Go: `func (node.BaseBlocks).GetSize(context.Context, cid.Cid) (int, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<int> getSize($context.Context ctx, $cid.Cid cid) async {
+    final $r = await $call(
+        293,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(cid));
+    return $r.i64();
+  }
+
+  /// Go: `func (node.BaseBlocks).DeleteBlock(context.Context, cid.Cid) error`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> deleteBlock($context.Context ctx, $cid.Cid cid) async {
+    await $call(
+        291,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(cid));
+  }
+
+  /// Go: `func (node.BaseBlocks).AllKeysChan(ctx context.Context) (<-chan cid.Cid, error)`.
+  Stream<$cid.Cid> allKeysChan($context.Context ctx) => $stream(
+          290,
+          $W()
+            ..h(this)
+            ..h(ctx))
+      .map((r) => r.p() ? $cid.Cid(r.str()) : $nil());
+
+  /// Go: type assertion `x.(*blockstore.ReadOnly)`: null if the object is not one.
+  $blockstore.ReadOnly? asReadOnly() {
+    final $r = $callSync(81, $W()..h(this));
+    return $r.hn($blockstore.ReadOnly.$h);
+  }
+
+  /// Go: type assertion `x.(*blockstore.ReadWrite)`: null if the object is not one.
+  $blockstore.ReadWrite? asReadWrite() {
+    final $r = $callSync(82, $W()..h(this));
+    return $r.hn($blockstore.ReadWrite.$h);
+  }
+}
 
 /// Go: `node.BuildCfg`.
 final class BuildCfg implements GoDto {

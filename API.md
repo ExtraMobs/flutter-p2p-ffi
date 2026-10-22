@@ -260,6 +260,8 @@ Cada linha é um símbolo Go exposto e onde ele está no Dart.
 | `(*core.IpfsNode).PeerHost host.Host` | `IpfsNode.peerHost =` | campo |
 | `(*core.IpfsNode).ResourceManager network.ResourceManager` | `IpfsNode.resourceManager` | campo |
 | `(*core.IpfsNode).ResourceManager network.ResourceManager` | `IpfsNode.resourceManager =` | campo |
+| `(*core.IpfsNode).BaseBlocks node.BaseBlocks` | `IpfsNode.baseBlocks` | campo |
+| `(*core.IpfsNode).BaseBlocks node.BaseBlocks` | `IpfsNode.baseBlocks =` | campo |
 
 ## `github.com/ipfs/kubo/core/coreapi` → `package:ipfs_ffi/kubo/core/coreapi.dart`
 
@@ -347,6 +349,19 @@ Cada linha é um símbolo Go exposto e onde ele está no Dart.
 | `func corerepo.GarbageCollectAsync(n *core.IpfsNode, ctx context.Context) <-chan gc.Result` | `garbageCollectAsync` | Stream |
 | `func corerepo.PeriodicGC(ctx context.Context, node *core.IpfsNode) error` | `periodicGc` | Future |
 | `func corerepo.ConditionalGC(ctx context.Context, node *core.IpfsNode, offset uint64) error` | `conditionalGc` | Future |
+
+## `github.com/ipfs/kubo/core/node` → `package:ipfs_ffi/kubo/core/node.dart`
+
+| Go | Dart | Modo |
+|---|---|---|
+| `func (node.BaseBlocks).Put(context.Context, blocks.Block) error` | `BaseBlocks.put` | Future |
+| `func (node.BaseBlocks).Has(context.Context, cid.Cid) (bool, error)` | `BaseBlocks.has` | Future |
+| `func (node.BaseBlocks).Get(context.Context, cid.Cid) (blocks.Block, error)` | `BaseBlocks.get` | Future |
+| `func (node.BaseBlocks).GetSize(context.Context, cid.Cid) (int, error)` | `BaseBlocks.getSize` | Future |
+| `func (node.BaseBlocks).DeleteBlock(context.Context, cid.Cid) error` | `BaseBlocks.deleteBlock` | Future |
+| `func (node.BaseBlocks).AllKeysChan(ctx context.Context) (<-chan cid.Cid, error)` | `BaseBlocks.allKeysChan` | Stream |
+| `node.BaseBlocks → x.(*blockstore.ReadOnly)` | `BaseBlocks.asReadOnly` | cast |
+| `node.BaseBlocks → x.(*blockstore.ReadWrite)` | `BaseBlocks.asReadWrite` | cast |
 
 ## `github.com/ipfs/kubo/core/node/libp2p` → `package:ipfs_ffi/kubo/core/node/libp2p.dart`
 

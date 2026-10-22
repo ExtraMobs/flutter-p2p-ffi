@@ -10,12 +10,12 @@ import 'package:ipfs_ffi/ipld/prime/traversal/selector/builder.dart'
 
 /// Go: `func unixfsnode.AddUnixFSReificationToLinkSystem(lsys *ipld.LinkSystem)`.
 void addUnixFsReificationToLinkSystem($linking.LinkSystem lsys) {
-  $callSync(186, $W()..h(lsys));
+  $callSync(188, $W()..h(lsys));
 }
 
 /// Go: `func unixfsnode.UnixFSPathSelector(path string) datamodel.Node`.
 $datamodel.Node unixFsPathSelector(String path) {
-  final $r = $callSync(191, $W()..str(path));
+  final $r = $callSync(193, $W()..str(path));
   return $r.hnn($datamodel.Node.$h);
 }
 
@@ -23,7 +23,7 @@ $datamodel.Node unixFsPathSelector(String path) {
 $datamodel.Node unixFsPathSelectorBuilder(
     String path, $builder.SelectorSpec targetSelector, bool matchPath) {
   final $r = $callSync(
-      192,
+      194,
       $W()
         ..str(path)
         ..h(targetSelector)
@@ -33,24 +33,24 @@ $datamodel.Node unixFsPathSelectorBuilder(
 
 /// Go: `var unixfsnode.MatchUnixFSSelector builder.SelectorSpec`.
 $builder.SelectorSpec get matchUnixFsSelector {
-  final $r = $callSync(190);
+  final $r = $callSync(192);
   return $r.hnn($builder.SelectorSpec.$h);
 }
 
 /// Go: `var unixfsnode.MatchUnixFSEntitySelector builder.SelectorSpec`.
 $builder.SelectorSpec get matchUnixFsEntitySelector {
-  final $r = $callSync(188);
+  final $r = $callSync(190);
   return $r.hnn($builder.SelectorSpec.$h);
 }
 
 /// Go: `var unixfsnode.MatchUnixFSPreloadSelector builder.SelectorSpec`.
 $builder.SelectorSpec get matchUnixFsPreloadSelector {
-  final $r = $callSync(189);
+  final $r = $callSync(191);
   return $r.hnn($builder.SelectorSpec.$h);
 }
 
 /// Go: `var unixfsnode.ExploreAllRecursivelySelector builder.SelectorSpec`.
 $builder.SelectorSpec get exploreAllRecursivelySelector {
-  final $r = $callSync(187);
+  final $r = $callSync(189);
   return $r.hnn($builder.SelectorSpec.$h);
 }
