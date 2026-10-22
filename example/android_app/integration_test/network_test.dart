@@ -1,8 +1,8 @@
-// A rede de verdade, sem tocar na tela: as mesmas verificações de rede e de
-// alcançabilidade do botão do app (lib/checks.dart), com o nó online do app
-// (main.dart). Leva uns 3 min (a alcançabilidade espera o nó estar online há
-// 2 min). Roda com:
-//   flutter test integration_test/network_test.dart -d <aparelho>
+// The real network, without touching the screen: the same network and
+// reachability checks as the app's button (lib/checks.dart), with the app's online
+// node (main.dart). It takes about 3 min (reachability waits for the node to be
+// online for 2 min). Run with:
+//   flutter test integration_test/network_test.dart -d <device>
 import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
@@ -16,7 +16,7 @@ import 'package:ipfs_ffi_android/main.dart' show prepare, startNode;
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  test('rede e alcançabilidade', () async {
+  test('network and reachability', () async {
     final tmp = Directory.systemTemp.createTempSync('ipfs_ffi_net_');
     await prepare('${tmp.path}/repo', '${tmp.path}/crash.log');
     final online = Stopwatch()..start();

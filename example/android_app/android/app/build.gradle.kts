@@ -7,8 +7,8 @@ plugins {
 android {
     namespace = "dev.extramobs.ipfs_ffi_android"
     compileSdk = flutter.compileSdkVersion
-    // O mesmo NDK que compila a libipfs_host.so e a libipfs_shm.so (tool/build.dart
-    // android); o app não compila C, mas o AGP usa o NDK para tratar as .so.
+    // The same NDK that builds libipfs_host.so and libipfs_shm.so (tool/build.dart
+    // android); the app compiles no C, but AGP uses the NDK to handle the .so files.
     ndkVersion = "30.0.16248370"
 
     compileOptions {
@@ -21,7 +21,7 @@ android {
         applicationId = "dev.extramobs.ipfs_ffi_android"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
-        minSdk = maxOf(24, flutter.minSdkVersion) // o ipfs_host e a ipfs_shm são compilados para a API 24
+        minSdk = maxOf(24, flutter.minSdkVersion) // the ipfs_host and the ipfs_shm are built for API 24
         targetSdk = flutter.targetSdkVersion
         // Uses the version code from pubspec.yaml. When using split APKs, 1000 * ABI_VERSION
         // is added automatically by Flutter. (https://developer.android.com/studio/build/configure-apk-splits#configure-APK-versions)

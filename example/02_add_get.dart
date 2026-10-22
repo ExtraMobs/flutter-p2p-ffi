@@ -1,7 +1,7 @@
-// Passo 2 do kubo: abre o repo, sobe o nó (offline) e usa a CoreAPI para
-// adicionar e ler arquivos, sem HTTP. Rode o 01_init_repo.dart antes.
+// Kubo step 2: opens the repo, starts the node (offline) and uses the CoreAPI
+// to add and read files, without HTTP. Run 01_init_repo.dart first.
 //
-//   dart run example/02_add_get.dart [repo] [arquivo-ou-pasta]
+//   dart run example/02_add_get.dart [repo] [file-or-directory]
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
@@ -22,7 +22,7 @@ import 'package:ipfs_ffi/go/os.dart' as os;
 Future<void> main(List<String> args) async {
   final repoPath = args.isNotEmpty ? args.first : '.ipfs-ffi';
 
-  // O kubo roda no ipfs_host, noutro processo (dart run tool/build.dart).
+  // Kubo runs in the ipfs_host, in another process (dart run tool/build.dart).
   await IpfsService.start();
   final plugins = loader.PluginLoader('');
   plugins.initialize();
@@ -33,16 +33,15 @@ Future<void> main(List<String> args) async {
   try {
     final api = coreapi.newCoreApi(n);
 
-    // bytes → CID (o kubo quebra em blocos e monta o DAG; a CoreAPI não pina
-    // por padrão: ver o exemplo 03)
-    final p = await api
-        .unixfs()
-        .add(ctx, files.newBytesFile(utf8.encode('olá do Dart via FFI\n')));
+    // bytes → CID (kubo splits them into blocks and builds the DAG; the CoreAPI
+    // does not pin by default: see example 03)
+    final p = await api.unixfs().add(
+        ctx, files.newBytesFile(utf8.encode('hello from Dart over FFI\n')));
     print('add: $p');
     final file = files.toFile(await api.unixfs().get(ctx, p));
     print('get: ${utf8.decode(io.readAll(file)).trim()}');
 
-    // arquivo ou pasta do disco, com o progresso do kubo (como o `ipfs add`)
+    // a file or directory on disk, with kubo's progress (like `ipfs add`)
     if (args.length > 1) {
       final src = args[1];
       final total = FileSystemEntity.isFileSync(src)
@@ -52,14 +51,13 @@ Future<void> main(List<String> args) async {
               .whereType<File>()
               .fold<int>(0, (s, f) => s + f.lengthSync());
       final events = StreamController<iface.AddEvent>();
-      final porArquivo =
-          <String, int>{}; // `bytes` é o progresso de cada arquivo
+      final perFile = <String, int>{}; // `bytes` is the progress of each file
       events.stream.listen((e) {
         if (e.path == null) {
-          porArquivo[e.name] = e.bytes;
-          final lido = porArquivo.values.fold<int>(0, (s, b) => s + b);
+          perFile[e.name] = e.bytes;
+          final done = perFile.values.fold<int>(0, (s, b) => s + b);
           stdout.write(
-              '\r  ${(100 * lido / (total == 0 ? 1 : total)).clamp(0, 100).toStringAsFixed(0)}%');
+              '\r  ${(100 * done / (total == 0 ? 1 : total)).clamp(0, 100).toStringAsFixed(0)}%');
         } else {
           stdout.write('\r  ${e.name.isEmpty ? src : e.name} → ${e.path}\n');
         }

@@ -1,5 +1,5 @@
-// Passo 6: nomes mutáveis (IPNS), chaves e objetos IPLD (`ipfs name`,
-// `ipfs key`, `ipfs dag`). Nó offline. Rode o 01_init_repo.dart antes.
+// Step 6: mutable names (IPNS), keys and IPLD objects (`ipfs name`,
+// `ipfs key`, `ipfs dag`). Offline node. Run 01_init_repo.dart first.
 //
 //   dart run example/06_ipns_dag.dart [repo]
 import 'dart:convert';
@@ -19,7 +19,7 @@ import 'package:ipfs_ffi/kubo/repo/fsrepo.dart' as fsrepo;
 
 Future<void> main(List<String> args) async {
   final repoPath = args.isNotEmpty ? args.first : '.ipfs-ffi';
-  // O kubo roda no ipfs_host, noutro processo (dart run tool/build.dart).
+  // Kubo runs in the ipfs_host, in another process (dart run tool/build.dart).
   await IpfsService.start();
   loader.PluginLoader('')
     ..initialize()
@@ -29,7 +29,7 @@ Future<void> main(List<String> args) async {
   try {
     final api = coreapi.newCoreApi(n);
 
-    // IPNS: um nome fixo (a chave do nó) apontando para um conteúdo que muda
+    // IPNS: a fixed name (the node's key) pointing to content that changes
     for (final version in ['v1', 'v2']) {
       final p = await api.unixfs().add(
           ctx,
@@ -43,37 +43,37 @@ Future<void> main(List<String> args) async {
       print('/ipns/$name → $now ($version)');
     }
 
-    // chave extra (outro nome IPNS), assinatura e verificação
+    // an extra key (another IPNS name), signing and verifying
     final k = await api.key().generate(
         ctx,
-        'exemplo-06-${DateTime.now().millisecondsSinceEpoch}',
+        'example-06-${DateTime.now().millisecondsSinceEpoch}',
         [options.key.type('ed25519')]);
-    final (_, sig) = await api.key().sign(ctx, k.name, utf8.encode('olá'));
+    final (_, sig) = await api.key().sign(ctx, k.name, utf8.encode('hello'));
     final (_, ok) =
-        await api.key().verify(ctx, k.name, sig, utf8.encode('olá'));
-    print(
-        'chave ${k.name} (${k.id}): assinatura ${ok ? 'válida' : 'inválida'}');
+        await api.key().verify(ctx, k.name, sig, utf8.encode('hello'));
+    print('key ${k.name} (${k.id}): signature ${ok ? 'valid' : 'invalid'}');
     await api.key().remove(ctx, k.name);
 
-    // IPLD dag-pb à mão: um nó com dados e um link para um nó raw
-    final folha = merkledag.RawNode(utf8.encode('folha'));
-    final raiz = merkledag.nodeWithData(utf8.encode('raiz'))
-      ..addNodeLink('filho', folha);
-    await api.dag().addMany(ctx, [folha, raiz]);
-    print('dag-pb ${raiz.cid()} → filho ${raiz.links().single.cid}');
+    // IPLD dag-pb by hand: a node with data and a link to a raw node
+    final leaf = merkledag.RawNode(utf8.encode('leaf'));
+    final root = merkledag.nodeWithData(utf8.encode('root'))
+      ..addNodeLink('child', leaf);
+    await api.dag().addMany(ctx, [leaf, root]);
+    print('dag-pb ${root.cid()} → child ${root.links().single.cid}');
 
-    // IPLD DAG-CBOR a partir de JSON (ipfs dag put), lido de volta por caminho
+    // IPLD DAG-CBOR from JSON (ipfs dag put), read back by path
     final post = await dag.dagPut(
         api,
         ctx,
         utf8.encode(
-            '{"titulo": "oi", "tags": ["ipfs", "dart"], "anexo": {"/": "${raiz.cid()}"}}'),
+            '{"title": "hi", "tags": ["ipfs", "dart"], "attachment": {"/": "${root.cid()}"}}'),
         pin: true);
     final tags = await dag.dagGet(api, ctx, path.Path('/ipfs/$post/tags'));
     print('dag-cbor $post: tags = ${utf8.decode(tags)}');
-    final viaLink = await dag.dagGet(api, ctx, path.Path('/ipfs/$post/anexo'),
+    final viaLink = await dag.dagGet(
+        api, ctx, path.Path('/ipfs/$post/attachment'),
         outputCodec: 'dag-json');
-    print('seguindo o link: ${utf8.decode(viaLink)}');
+    print('following the link: ${utf8.decode(viaLink)}');
   } finally {
     await n.close();
   }

@@ -29,7 +29,7 @@ import (
 	ma "github.com/multiformats/go-multiaddr"
 )
 
-// Modos do pedido e tipos de resposta/evento (WIRE.md, "Mensagens").
+// Modos do pedido e tipos de resposta/evento (WIRE.md, "Messages").
 const (
 	modeSync   = 0
 	modeAsync  = 1
@@ -400,7 +400,7 @@ func encH(w *writer, v any)            { w.i64(hput(v)) }
 const maxOutBuf = 64 << 20
 
 // decOutBuf: buffer que o Go preenche (Read, CtxReadFull...): o pedido traz o
-// tamanho (`i64 n`), a resposta os bytes lidos (WIRE.md, "Buffer de saída").
+// tamanho (`i64 n`), a resposta os bytes lidos (WIRE.md, "Value encoding").
 func decOutBuf(r *reader) ([]byte, error) {
 	n := r.i64()
 	if n < 0 || n > maxOutBuf {

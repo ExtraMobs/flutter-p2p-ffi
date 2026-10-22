@@ -1,11 +1,11 @@
-// A sessão no aparelho real, com tempo contado (o cabo fica ~1 h): roda os
-// passos em ordem e grava tudo num log. Uso (na pasta example/android_app):
-//   dart run tool/device_session.dart <serial> [passo...] [--log=arquivo]
-// Passos (sem nenhum: todos, nesta ordem): info integracao rede memoria
-// notificacao fgs stop. Exige adb no PATH ou em <Android SDK>/platform-tools,
-// flutter no PATH e os binários de `dart run tool/build.dart android`.
-// O log tem dados do aparelho: não versionar (o resumo vai para o TODO.md sem
-// modelo, serial nem IPs).
+// The session on the real device, timed (the cable stays ~1 h): runs the steps
+// in order and writes everything to a log. Usage (in example/android_app):
+//   dart run tool/device_session.dart <serial> [step...] [--log=file]
+// Steps (none: all of them, in this order): info integration network memory
+// notification fgs stop. Needs adb on the PATH or in <Android SDK>/platform-tools,
+// flutter on the PATH and the binaries of `dart run tool/build.dart android`.
+// The log has device data: do not commit it (the summary goes to TODO.md without
+// model, serial or IPs).
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
@@ -14,10 +14,10 @@ const app = 'dev.extramobs.ipfs_ffi_android';
 const host = 'libipfs_host.so';
 const steps = [
   'info',
-  'integracao',
-  'rede',
-  'memoria',
-  'notificacao',
+  'integration',
+  'network',
+  'memory',
+  'notification',
   'fgs',
   'stop'
 ];
@@ -45,7 +45,7 @@ Future<String> sh(String cmd) async {
   return '${r.stdout}${r.stderr}'.trim();
 }
 
-/// Roda e espelha a saída no log; devolve o código de saída.
+/// Runs and mirrors the output to the log; returns the exit code.
 Future<int> run(String exe, List<String> args) async {
   out('\$ $exe ${args.join(' ')}');
   final p = await Process.start(exe, args, runInShell: Platform.isWindows);
@@ -54,19 +54,19 @@ Future<int> run(String exe, List<String> args) async {
       s.transform(utf8.decoder).transform(const LineSplitter()).forEach(out)
   ]);
   final code = await p.exitCode;
-  out('código de saída: $code');
+  out('exit code: $code');
   return code;
 }
 
 Future<String> hostPid() => sh('pidof $host');
 
-/// O --target-platform do aparelho: arm64 num celular, x64 no emulador.
+/// The device's --target-platform: arm64 on a phone, x64 on the emulator.
 Future<String> platform() async =>
     (await sh('getprop ro.product.cpu.abi')) == 'x86_64'
         ? 'android-x64'
         : 'android-arm64';
 
-/// Instala o app com o modo de segundo plano [mode] e o abre.
+/// Installs the app with background mode [mode] and opens it.
 Future<void> launch(String mode) async {
   await run('flutter', [
     'build',
@@ -81,24 +81,24 @@ Future<void> launch(String mode) async {
     serial,
     'install',
     '-r',
-    '-g', // -g dá as permissões de execução, menos no passo de notificação
+    '-g', // -g grants the runtime permissions, except in the notification step
     'build/app/outputs/flutter-apk/app-debug.apk'
   ]);
   await sh('am start -n $app/.MainActivity');
 }
 
-/// Acompanha o host por [d] com o app no segundo plano (HOME).
+/// Watches the host for [d] with the app in the background (HOME).
 Future<void> background(Duration d) async {
   await sh('input keyevent KEYCODE_HOME');
   final sw = Stopwatch()..start();
   while (sw.elapsed < d) {
-    out('${sw.elapsed.inSeconds} s no segundo plano: host pid '
+    out('${sw.elapsed.inSeconds} s in the background: host pid '
         '"${await hostPid()}", app pid "${await sh('pidof $app')}"');
     await Future<void>.delayed(const Duration(seconds: 30));
   }
   await sh('am start -n $app/.MainActivity');
   await Future<void>.delayed(const Duration(seconds: 5));
-  out('de volta: host pid "${await hostPid()}"');
+  out('back: host pid "${await hostPid()}"');
   out((await sh('logcat -d -s flutter | tail -n 40')));
 }
 
@@ -106,7 +106,7 @@ Future<void> main(List<String> args) async {
   final positional = args.where((a) => !a.startsWith('--')).toList();
   if (positional.isEmpty) {
     stderr
-        .writeln('uso: dart run tool/device_session.dart <serial> [passo...]');
+        .writeln('usage: dart run tool/device_session.dart <serial> [step...]');
     exit(64);
   }
   serial = positional.first;
@@ -118,7 +118,7 @@ Future<void> main(List<String> args) async {
   log = File(logPath).openWrite(mode: FileMode.append);
   final total = Stopwatch()..start();
   for (final step in chosen) {
-    out('=== $step (sessão em ${total.elapsed.inMinutes} min) ===');
+    out('=== $step (session at ${total.elapsed.inMinutes} min) ===');
     switch (step) {
       case 'info':
         for (final p in [
@@ -129,16 +129,16 @@ Future<void> main(List<String> args) async {
         ]) {
           out('$p = ${await sh('getprop $p')}');
         }
-        // o MIUI às vezes tira o app do perfil 0 (TODO.md)
+        // MIUI sometimes removes the app from profile 0 (TODO.md)
         out(await sh('cmd package install-existing --user 0 $app'));
-      case 'integracao':
+      case 'integration':
         await run('flutter',
             ['test', 'integration_test/ipfs_test.dart', '-d', serial]);
-      case 'rede':
+      case 'network':
         await run('flutter',
             ['test', 'integration_test/network_test.dart', '-d', serial]);
-      case 'memoria':
-        // o app com o nó online (a tela sobe o nó e roda as verificações)
+      case 'memory':
+        // the app with the node online (the screen starts the node and runs the checks)
         await launch('stop');
         await Future<void>.delayed(const Duration(seconds: 60));
         out(await sh('dumpsys meminfo $app | head -n 30'));
@@ -146,8 +146,8 @@ Future<void> main(List<String> args) async {
         if (pid.isNotEmpty) {
           out(await sh('dumpsys meminfo $pid | head -n 30'));
         }
-      case 'notificacao':
-        // instalação limpa, sem -g: o app pede a permissão (Android 13+)
+      case 'notification':
+        // a clean install, without -g: the app asks for the permission (Android 13+)
         await run(adb, ['-s', serial, 'uninstall', app]);
         await run('flutter', [
           'build',
@@ -164,7 +164,7 @@ Future<void> main(List<String> args) async {
           'build/app/outputs/flutter-apk/app-debug.apk'
         ]);
         await sh('am start -n $app/.MainActivity');
-        out('toque em "Permitir" no aparelho; 30 s');
+        out('tap "Allow" on the device; 30 s');
         await Future<void>.delayed(const Duration(seconds: 30));
         out(await sh('dumpsys package $app | grep POST_NOTIFICATIONS'));
         out(await sh(
@@ -179,10 +179,10 @@ Future<void> main(List<String> args) async {
         await Future<void>.delayed(const Duration(seconds: 20));
         await background(const Duration(minutes: 3));
       default:
-        out('passo desconhecido: $step');
+        out('unknown step: $step');
     }
   }
-  out('=== fim em ${total.elapsed.inMinutes} min ===');
+  out('=== done in ${total.elapsed.inMinutes} min ===');
   await log.close();
 }
 

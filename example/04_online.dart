@@ -1,12 +1,12 @@
-// Passo 4: o nó na rede IPFS pública, como o `ipfs daemon` sem HTTP (sem
-// API RPC nem gateway). O roteamento sai do Routing.Type da config, como no
+// Step 4: the node on the public IPFS network, like `ipfs daemon` without HTTP
+// (no RPC API nor gateway). Routing comes from the config's Routing.Type, as in
 // cmd/ipfs/kubo/daemon.go.
 //
 //   dart run example/01_init_repo.dart .ipfs-online randomports
-//   dart run example/04_online.dart .ipfs-online [segundos] [cid-para-buscar]
+//   dart run example/04_online.dart .ipfs-online [seconds] [cid-to-fetch]
 //
-// `randomports` evita a 4001 (ocupada se o IPFS Desktop estiver aberto).
-// Sem [segundos], roda até o Ctrl-C.
+// `randomports` avoids 4001 (taken while IPFS Desktop is open).
+// Without [seconds], it runs until Ctrl-C.
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
@@ -25,7 +25,7 @@ import 'package:ipfs_ffi/kubo/core/node/libp2p.dart' as libp2p;
 import 'package:ipfs_ffi/kubo/plugin/loader.dart' as loader;
 import 'package:ipfs_ffi/kubo/repo/fsrepo.dart' as fsrepo;
 
-/// O switch do daemon.go sobre Routing.Type.
+/// daemon.go's switch over Routing.Type.
 libp2p.RoutingOption routingFor(config.Config cfg) {
   final type = (cfg.json['Routing'] as Map?)?['Type'] as String? ?? '';
   return switch (type) {
@@ -38,7 +38,8 @@ libp2p.RoutingOption routingFor(config.Config cfg) {
     'dhtclient' => libp2p.dhtClientOption,
     'dhtserver' => libp2p.dhtServerOption,
     'none' => libp2p.nilRouterOption,
-    _ => throw ArgumentError('Routing.Type "$type" não suportado no exemplo'),
+    _ =>
+      throw ArgumentError('Routing.Type "$type" not supported in the example'),
   };
 }
 
@@ -46,7 +47,7 @@ Future<void> main(List<String> args) async {
   final repoPath = args.isNotEmpty ? args.first : '.ipfs-online';
   final seconds = args.length > 1 ? int.parse(args[1]) : null;
 
-  // O kubo roda no ipfs_host, noutro processo (dart run tool/build.dart).
+  // Kubo runs in the ipfs_host, in another process (dart run tool/build.dart).
   await IpfsService.start();
   loader.PluginLoader('')
     ..initialize()
@@ -64,19 +65,20 @@ Future<void> main(List<String> args) async {
     final api = coreapi.newCoreApi(n);
     print('peer: ${(await api.key().self(ctx)).id}');
     for (final a in await api.swarm().listenAddrs(ctx)) {
-      print('  ouvindo $a');
+      print('  listening on $a');
     }
 
-    // conteúdo próprio: pinado e anunciado na DHT
+    // our own content: pinned and announced on the DHT
     final p = await api.unixfs().add(
         ctx,
-        files.newBytesFile(utf8.encode('olá da rede, via Dart FFI\n')),
+        files.newBytesFile(
+            utf8.encode('hello from the network, over Dart FFI\n')),
         [options.unixfs.pin(true, 'exemplo-04')]);
-    print('add: $p (anunciando...)');
+    print('add: $p (announcing...)');
     unawaited(api.routing().provide(ctx, p).then((_) => print('provide: ok'),
         onError: (Object e) => print('provide: $e')));
 
-    // conteúdo de outro peer, pela rede
+    // another peer's content, over the network
     if (args.length > 2) {
       final (c, cancel) = context.withTimeout(ctx, const Duration(seconds: 60));
       try {
@@ -90,12 +92,12 @@ Future<void> main(List<String> args) async {
     }
 
     final ticker = Timer.periodic(const Duration(seconds: 5), (_) async {
-      print('peers conectados: ${(await api.swarm().peers(ctx)).length}');
+      print('connected peers: ${(await api.swarm().peers(ctx)).length}');
     });
     if (seconds != null) {
       await Future<void>.delayed(Duration(seconds: seconds));
     } else {
-      print('rodando; Ctrl-C para parar');
+      print('running; Ctrl-C to stop');
       await ProcessSignal.sigint.watch().first;
     }
     ticker.cancel();

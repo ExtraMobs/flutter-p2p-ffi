@@ -1,24 +1,24 @@
 # ipfs_ffi_android
 
-App Flutter mínimo que valida o `ipfs_ffi` no Android (marco final do roteiro,
-etapas A1–A6 em `../../TODO.md`). O pacote `ipfs_ffi` continua Dart puro; só este
-app usa Flutter.
+A minimal Flutter app that validates `ipfs_ffi` on Android (the final milestone of the
+roadmap, steps A1–A6 in `../../TODO.md`). The `ipfs_ffi` package stays pure Dart; only this
+app uses Flutter.
 
 ```sh
-# na raiz do repositório: libipfs_host.so (o ipfs_host) e libipfs_shm.so, x86_64 e
-# arm64-v8a, em native/android/
+# at the repository root: libipfs_host.so (the ipfs_host) and libipfs_shm.so, x86_64 and
+# arm64-v8a, in native/android/
 dart run tool/build.dart android
-# aqui: o Gradle empacota as libs de ../../native/android (jniLibs.srcDirs) e as
-# extrai na instalação (useLegacyPackaging: o Android só executa o host de lá)
-flutter run -d <emulador-ou-aparelho>
-flutter test integration_test -d <emulador-ou-aparelho>
-# release só com as ABIs compiladas
+# here: Gradle packages the libs from ../../native/android (jniLibs.srcDirs) and extracts
+# them on install (useLegacyPackaging: Android only runs the host from there)
+flutter run -d <emulator-or-device>
+flutter test integration_test -d <emulator-or-device>
+# release with only the built ABIs
 flutter build apk --release --target-platform android-arm64,android-x64
 ```
 
-A tela sobe um nó online (repo no diretório de dados do app, perfis `randomports` e
-`lowpower`, pubsub ligado), mostra o peer ID e os peers, adiciona e lê um texto,
-fecha o nó quando o app vai para o background e reabre na volta, e trata a queda
-do `ipfs_host` (o kubo roda noutro processo): o `onStop` mostra o relatório do Go,
-limpa o `crash.log` e relança o serviço e o nó, sem o app fechar. Na primeira
-abertura ele derruba o host de propósito para mostrar isso.
+The screen starts an online node (repo in the app's data directory, `randomports` and
+`lowpower` profiles, pubsub on), shows the peer ID and the peers, adds and reads a text,
+closes the node when the app goes to the background and reopens it on return, and handles
+an `ipfs_host` crash (kubo runs in another process): `onStop` shows Go's report, clears
+`crash.log` and restarts the service and the node, without the app closing. On the first
+launch it brings the host down on purpose to show this.

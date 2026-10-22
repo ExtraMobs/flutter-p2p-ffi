@@ -1,14 +1,13 @@
-// Passo 13: recortar um CAR direto do nó e os callbacks do Go chamando o
-// Dart. O exemplo 12 recorta de um CAR para outro; aqui o recorte sai dos
-// blocos do próprio nó, de dois jeitos: o gateway do boxo (por caminho, com
-// escopo e faixa de bytes, como o `?dag-scope=` de um gateway HTTP) e um
-// seletor IPLD qualquer sobre o blockstore. No caminho, o callback sob
-// demanda: funções Go que recebem uma função (o índice de um CAR, o construtor
-// de seletores) recebem uma função Dart.
+// Step 13: slicing a CAR straight from the node, and Go callbacks calling Dart.
+// Example 12 slices from one CAR into another; here the slice comes from the
+// node's own blocks, in two ways: boxo's gateway (by path, with scope and byte
+// range, like an HTTP gateway's `?dag-scope=`) and any IPLD selector over the
+// blockstore. On the way, the on-demand callback: Go functions that take a
+// function (a CAR's index, the selector builder) take a Dart function.
 //
 //   dart run example/13_recorte_e_callbacks.dart
 //
-// Como nos exemplos 10 a 12, cada passo traz o mesmo código em Go.
+// As in examples 10 to 12, each step carries the same code in Go.
 import 'dart:io';
 import 'dart:typed_data';
 
@@ -24,7 +23,7 @@ Future<void> main() async {
   final tmp = Directory.systemTemp.createTempSync('ipfs_ffi_ex13_');
   final repoPath = '${tmp.path}/repo';
 
-  // Serviço, plugins e repo novo: igual ao exemplo 09.
+  // Service, plugins and a new repo: the same as example 09.
   await IpfsService.start();
   kubo.PluginLoader('')
     ..initialize()
@@ -37,68 +36,70 @@ Future<void> main() async {
   final n = await kubo.newNode(ctx, kubo.BuildCfg(repo: kubo.open(repoPath)));
 
   try {
-    // Uma pasta com dois arquivos no nó (CIDv1: as fatias viram blocos raw).
-    final dir = Directory('${tmp.path}/pasta')..createSync();
-    File('${dir.path}/oi.txt').writeAsStringSync('oi\n');
-    File('${dir.path}/grande.bin').writeAsBytesSync(
+    // A directory with two files in the node (CIDv1: the chunks become raw blocks).
+    final dir = Directory('${tmp.path}/folder')..createSync();
+    File('${dir.path}/hi.txt').writeAsStringSync('hi\n');
+    File('${dir.path}/big.bin').writeAsBytesSync(
         Uint8List.fromList(List.generate(600000, (i) => i * 7 % 251)));
     final p = await kubo.newCoreApi(n).unixfs().add(
         ctx,
         boxo.newSerialFile(dir.path, false, go.stat(dir.path)),
         [kubo.unixfs.cidVersion(1)]);
     final root = mf.Cid(p.value.substring('/ipfs/'.length));
-    print('0. pasta em $root');
+    print('0. directory at $root');
 
-    // 1. O gateway do boxo sobre o nó: o CAR de um caminho. Escopo `entity`
-    // = os blocos que provam o caminho e o arquivo inteiro; com faixa, só as
-    // fatias dos bytes pedidos. O CAR vem num io.ReadCloser, copiado para um
-    // arquivo (io.Copy). Busca na rede o que faltar, se o nó estiver online.
+    // 1. Boxo's gateway over the node: the CAR of a path. Scope `entity` = the
+    // blocks that prove the path and the whole file; with a range, only the
+    // chunks of the requested bytes. The CAR comes in an io.ReadCloser, copied
+    // into a file (io.Copy). It fetches what is missing from the network, if the
+    // node is online.
     //   Go:   bb, _ := gateway.NewBlocksBackend(node.Blocks)
     //         _, rc, _ := bb.GetCAR(ctx, path, gateway.CarParams{Scope: gateway.DagScopeEntity,
     //             Range: &gateway.DagByteRange{From: 0, To: &to}})
     //         f, _ := os.Create(out); io.Copy(f, rc)
     final backend = boxo.BlocksBackend(n.blocks);
     for (final (name, range) in [
-      ('inteiro', null),
+      ('whole', null),
       ('100 bytes', boxo.DagByteRange(from: 0, to: 99)),
     ]) {
       final (_, rc) = await backend.getCar(
           ctx,
-          boxo.ImmutablePath('/ipfs/$root/grande.bin'),
+          boxo.ImmutablePath('/ipfs/$root/big.bin'),
           boxo.CarParams(scope: boxo.dagScopeEntity, range: range));
       final out = '${tmp.path}/gateway.car';
       final f = go.create(out);
       go.copy(f, rc);
       f.close();
       rc.close();
-      print('1. gateway, grande.bin $name: ${blocks(out)} blocos');
+      print('1. gateway, big.bin $name: ${blocks(out)} blocks');
     }
 
-    // 2. Um seletor IPLD sobre o blockstore local do nó: o bsadapter faz do
-    // blockstore o storage de um LinkSystem. Com a camada UnixFS, o seletor
-    // anda pelos nomes da pasta; o escolhedor de protótipo do gateway faz o
-    // go-car decodificar dag-pb tipado (sem ele, a pasta não tem "oi.txt").
+    // 2. An IPLD selector over the node's local blockstore: bsadapter makes the
+    // blockstore the storage of a LinkSystem. With the UnixFS layer, the
+    // selector walks the directory's names; the gateway's prototype chooser
+    // makes go-car decode typed dag-pb (without it, the directory has no
+    // "hi.txt").
     //   Go:   ls := cidlink.DefaultLinkSystem()
     //         unixfsnode.AddUnixFSReificationToLinkSystem(&ls)
     //         ls.SetReadStorage(&bsadapter.Adapter{Wrapped: node.Blockstore})
-    //         car.TraverseToFile(ctx, &ls, root, unixfsnode.UnixFSPathSelector("oi.txt"), out,
+    //         car.TraverseToFile(ctx, &ls, root, unixfsnode.UnixFSPathSelector("hi.txt"), out,
     //             car.WithTraversalPrototypeChooser(dagpb.AddSupportToChooser(bsfetcher.DefaultPrototypeChooser)))
     final ls = ipld.defaultLinkSystem();
     ipld.addUnixFsReificationToLinkSystem(ls);
     ls.setReadStorage(ipld.Adapter()..wrapped = n.blockstore);
-    final oi = '${tmp.path}/oi.car';
+    final hi = '${tmp.path}/hi.car';
     await car
-        .traverseToFile(ctx, ls, root, ipld.unixFsPathSelector('oi.txt'), oi, [
+        .traverseToFile(ctx, ls, root, ipld.unixFsPathSelector('hi.txt'), hi, [
       car.withTraversalPrototypeChooser(
           ipld.addSupportToChooser(boxo.defaultPrototypeChooser))
     ]);
     print(
-        '2. seletor UnixFS "oi.txt": ${blocks(oi)} blocos (a pasta e o arquivo)');
+        '2. UnixFS selector "hi.txt": ${blocks(hi)} blocks (the directory and the file)');
 
-    // 3. O construtor de seletores, alternativa ao JSON. O exploreFields
-    // recebe uma função Go que monta os campos; no Dart, uma função Dart: o
-    // Go a chama e espera a resposta (callback sob demanda, lote 1 aqui:
-    // o `fields` só vale durante a chamada).
+    // 3. The selector builder, an alternative to JSON. exploreFields takes a Go
+    // function that builds the fields; in Dart, a Dart function: Go calls it and
+    // waits for the answer (an on-demand callback, batch 1 here: `fields` is
+    // only valid during the call).
     //   Go:   ssb := builder.NewSelectorSpecBuilder(basicnode.Prototype.Any)
     //         sel := ssb.ExploreFields(func(f builder.ExploreFieldsSpecBuilder) {
     //             f.Insert("Links", ssb.ExploreAll(ssb.ExploreFields(func(g ...) {
@@ -113,44 +114,44 @@ Future<void> main() async {
     });
     final plain = ipld.defaultLinkSystem()
       ..setReadStorage(ipld.Adapter()..wrapped = n.blockstore);
-    final filhos = '${tmp.path}/filhos.car';
-    await car.traverseToFile(ctx, plain, root, links.node(), filhos);
-    print('3. a raiz e os filhos diretos: ${blocks(filhos)} blocos');
+    final children = '${tmp.path}/children.car';
+    await car.traverseToFile(ctx, plain, root, links.node(), children);
+    print('3. the root and its direct children: ${blocks(children)} blocks');
 
-    // 4. O índice de um CAR, percorrido com callback. O Go manda os
-    // argumentos em lotes (batchSize; padrão 1024, medido) e espera o Dart:
-    // false, ou uma exceção, param o Go. Enquanto o forEach roda, o índice
-    // está "em uso" (isBusy, e o IpfsService.busy avisa): chamá-lo de dentro
-    // do callback pode esperar uma trava que o Go segura; se esperar, o host
-    // detecta e lança IpfsDeadlockException em vez de travar.
+    // 4. A CAR's index, walked with a callback. Go sends the arguments in batches
+    // (batchSize; default 1024, measured) and waits for Dart: false, or an
+    // exception, stop Go. While forEach runs, the index is "in use" (isBusy, and
+    // IpfsService.busy reports it): calling it from inside the callback may wait
+    // on a lock Go holds; if it does, the host detects it and throws
+    // IpfsDeadlockException instead of hanging.
     //   Go:   idx, _ := car.GenerateIndexFromFile(path)
     //         idx.(index.IterableIndex).ForEach(func(mh multihash.Multihash, off uint64) error {...})
     final watch = IpfsService.busy
-        .listen((c) => print('   (índice ${c.busy ? 'em uso' : 'livre'})'));
-    final idx = car.generateIndexFromFile(oi);
-    var vistos = 0;
+        .listen((c) => print('   (index ${c.busy ? 'in use' : 'free'})'));
+    final idx = car.generateIndexFromFile(hi);
+    var seen = 0;
     await idx.asIterableIndex()!.forEach((mh, offset) {
-      vistos++;
-      print('4. entrada: multihash de ${mh.length} bytes no byte $offset '
+      seen++;
+      print('4. entry: multihash of ${mh.length} bytes at byte $offset '
           '(isBusy: ${idx.isBusy})');
     });
     await Future<void>.delayed(
-        Duration.zero); // o aviso de "livre" chega depois
+        Duration.zero); // the "free" notice arrives afterwards
     await watch.cancel();
-    print('4. $vistos entradas');
+    print('4. $seen entries');
 
-    // 5. Os erros conhecidos do Go chegam como subclasses de
-    // IpfsException: o fim de uma leitura é IpfsEof (o io.EOF do Go).
+    // 5. Go's known errors arrive as subclasses of IpfsException: the end of a
+    // read is IpfsEof (Go's io.EOF).
     //   Go:   for { b, err := br.Next(); if errors.Is(err, io.EOF) { break } }
-    final br = car.BlockReader(File(oi).readAsBytesSync());
-    var lidos = 0;
+    final br = car.BlockReader(File(hi).readAsBytesSync());
+    var read = 0;
     try {
       while (true) {
         br.next();
-        lidos++;
+        read++;
       }
     } on IpfsEof {
-      print('5. BlockReader: $lidos blocos, depois IpfsEof');
+      print('5. BlockReader: $read blocks, then IpfsEof');
     }
   } finally {
     await n.close();
@@ -159,7 +160,7 @@ Future<void> main() async {
   }
 }
 
-/// Quantos blocos o CAR em [file] tem (o Reader mapeia o arquivo: fechar).
+/// How many blocks the CAR in [file] has (the Reader maps the file: close it).
 int blocks(String file) {
   final r = car.openReader(file);
   try {

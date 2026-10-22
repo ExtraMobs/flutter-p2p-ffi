@@ -1,4 +1,4 @@
-// O valor dinâmico do protocolo (WIRE.md, "Valor dinâmico"): `any` do Go,
+// O valor dinâmico do protocolo (WIRE.md, "Value encoding"): `any` do Go,
 // num formato com etiqueta que o Dart lê como Object?. Etiquetas: 0 nulo,
 // 1 bool, 2 i64, 3 f64, 4 string, 5 bytes, 6 lista (i32 n + itens), 7 mapa
 // (i32 n + pares str chave + item).

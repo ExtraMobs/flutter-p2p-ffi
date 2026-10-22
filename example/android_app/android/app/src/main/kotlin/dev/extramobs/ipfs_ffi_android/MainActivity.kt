@@ -6,16 +6,16 @@ import android.view.WindowManager
 import io.flutter.embedding.android.FlutterActivity
 
 class MainActivity : FlutterActivity() {
-    // O Android descarta o multicast que chega ao app sem este lock: sem ele o
-    // mDNS do kubo (descoberta na rede local) não recebe resposta.
-    // ponytail: preso enquanto a Activity vive (custa bateria no Wi-Fi); num
-    // app de verdade, só com o nó online.
+    // Android drops the multicast that reaches the app without this lock: without
+    // it, kubo's mDNS (local network discovery) gets no answer.
+    // ponytail: held while the Activity lives (costs battery on Wi-Fi); in a real
+    // app, only with the node online.
     private var multicast: WifiManager.MulticastLock? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // App de validação: a tela fica acesa com ele aberto, para o nó (que
-        // fecha no background) seguir online nas medições longas.
+        // Validation app: the screen stays on while it is open, so the node
+        // (which closes in the background) stays online during long measurements.
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         val wifi = applicationContext.getSystemService(WIFI_SERVICE) as WifiManager
         multicast = wifi.createMulticastLock("ipfs_ffi-mdns").apply {

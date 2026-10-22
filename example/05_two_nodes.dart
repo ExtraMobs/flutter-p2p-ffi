@@ -1,6 +1,6 @@
-// Passo 5: dois nós no mesmo processo (como o docs/examples/kubo-as-a-library
-// do kubo): B conecta em A, busca por bitswap o que A adicionou e acha A
-// como provedor pela DHT. Repos temporários, só em 127.0.0.1.
+// Step 5: two nodes in the same process (like kubo's
+// docs/examples/kubo-as-a-library): B connects to A, fetches over bitswap what A
+// added and finds A as a provider through the DHT. Temporary repos, 127.0.0.1 only.
 //
 //   dart run example/05_two_nodes.dart
 import 'dart:convert';
@@ -23,8 +23,8 @@ import 'package:ipfs_ffi/kubo/repo/fsrepo.dart' as fsrepo;
 
 final ctx = context.background();
 
-/// Repo temporário com o perfil `test` (127.0.0.1, portas aleatórias, sem
-/// bootstrap) e nó online com a DHT em modo servidor.
+/// A temporary repo with the `test` profile (127.0.0.1, random ports, no
+/// bootstrap) and an online node with the DHT in server mode.
 Future<(core.IpfsNode, iface.CoreApi)> spawn(String dir) async {
   final cfg = config.initWithIdentity(
       config.createIdentity(null, [options.key.type('ed25519')]));
@@ -40,7 +40,7 @@ Future<(core.IpfsNode, iface.CoreApi)> spawn(String dir) async {
 }
 
 Future<void> main() async {
-  // O kubo roda no ipfs_host, noutro processo (dart run tool/build.dart).
+  // Kubo runs in the ipfs_host, in another process (dart run tool/build.dart).
   await IpfsService.start();
   loader.PluginLoader('')
     ..initialize()
@@ -55,23 +55,23 @@ Future<void> main() async {
 
     await b.swarm().connect(
         ctx, peer.AddrInfo(id: idA, addrs: await a.swarm().localAddrs(ctx)));
-    print('B conectado a ${(await b.swarm().peers(ctx)).length} peer(s)');
+    print('B connected to ${(await b.swarm().peers(ctx)).length} peer(s)');
 
     final p = await a.unixfs().add(
         ctx,
-        files.newBytesFile(utf8.encode('olá de A\n')),
+        files.newBytesFile(utf8.encode('hello from A\n')),
         [options.unixfs.pin(true, '')]);
     await a.routing().provide(ctx, p);
-    print('A adicionou e anunciou $p');
+    print('A added and announced $p');
 
-    // O Provide do kubo só enfileira o anúncio: B repete a busca até achar.
+    // Kubo's Provide only queues the announcement: B retries the lookup until it finds it.
     for (var i = 0; i < 100; i++) {
       final provs = await b
           .routing()
           .findProviders(ctx, p, [options.routing.numProviders(5)]).toList();
-      // quem baixou o bloco também passa a anunciá-lo: procura A entre eles
+      // whoever downloaded the block announces it too: look for A among them
       if (provs.any((i) => i.id == idA)) {
-        print('B achou A ($idA) entre os provedores na DHT');
+        print('B found A ($idA) among the DHT providers');
         break;
       }
       await Future<void>.delayed(const Duration(milliseconds: 300));
@@ -81,7 +81,7 @@ Future<void> main() async {
     try {
       final got = await b.unixfs().get(c, p);
       print(
-          'B leu por bitswap: ${utf8.decode(io.readAll(files.toFile(got))).trim()}');
+          'B read over bitswap: ${utf8.decode(io.readAll(files.toFile(got))).trim()}');
     } finally {
       cancel();
     }

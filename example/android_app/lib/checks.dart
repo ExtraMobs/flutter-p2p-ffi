@@ -1,7 +1,7 @@
-// Verificações do ipfs_ffi no aparelho: as locais (os fluxos da suíte de
-// desktop que cabem num processo, os ciclos de fechar e reabrir e o custo da
-// ponte) rodam no integration test e ao abrir o app; as de rede pública só
-// no app, sobre o nó dele. Cada uma escreve no log e falha com exceção.
+// ipfs_ffi checks on the device: the local ones (the desktop suite's flows that
+// fit in one process, the close and reopen cycles and the bridge's cost) run in
+// the integration test and when the app opens; the public network ones only in
+// the app, over its node. Each one writes to the log and fails with an exception.
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
@@ -29,12 +29,12 @@ import 'package:ipfs_ffi/src/runtime.dart'
 
 typedef Log = void Function(String line);
 
-/// Um contexto do serviço atual (o handle de um serviço anterior não vale
-/// depois que o ipfs_host é relançado).
+/// A context of the current service (the handle of a previous service is not
+/// valid after the ipfs_host is restarted).
 context.Context get ctx => context.background();
 
 void check(bool ok, String what) {
-  if (!ok) throw StateError('falhou: $what');
+  if (!ok) throw StateError('failed: $what');
 }
 
 Future<void> expectThrows(Future<Object?> f, String what) async {
@@ -43,10 +43,10 @@ Future<void> expectThrows(Future<Object?> f, String what) async {
   } on IpfsException {
     return;
   }
-  throw StateError('falhou: $what (não deu erro)');
+  throw StateError('failed: $what (no error)');
 }
 
-/// Roda [checks] em ordem, cada um isolado; devolve quantos falharam.
+/// Runs [checks] in order, each one isolated; returns how many failed.
 Future<int> runAll(Map<String, Future<void> Function()> checks, Log log) async {
   var failed = 0;
   for (final MapEntry(key: name, value: run) in checks.entries) {
@@ -63,7 +63,7 @@ Future<int> runAll(Map<String, Future<void> Function()> checks, Log log) async {
   return failed;
 }
 
-/// Repo novo com o perfil `test` (127.0.0.1, portas aleatórias, sem bootstrap).
+/// A new repo with the `test` profile (127.0.0.1, random ports, no bootstrap).
 String newRepo(Directory tmp, String name) {
   final repoPath = '${tmp.path}/$name';
   final cfg = config.initWithIdentity(
@@ -73,8 +73,8 @@ String newRepo(Directory tmp, String name) {
   return repoPath;
 }
 
-/// As verificações locais, num diretório temporário próprio (os plugins já
-/// têm de estar injetados). Devolve quantas falharam.
+/// The local checks, in their own temporary directory (the plugins must already
+/// be injected). Returns how many failed.
 Future<int> localChecks(Log log) async {
   final tmp = Directory.systemTemp.createTempSync('ipfs_ffi_chk_');
   final n = await core.newNode(
@@ -82,21 +82,22 @@ Future<int> localChecks(Log log) async {
   final api = coreapi.newCoreApi(n);
   try {
     return await runAll({
-      'add/get, opções e pins + GC': () async {
+      'add/get, options and pins + GC': () async {
         final p = await api.unixfs().add(
             ctx,
-            files.newBytesFile(utf8.encode('olá do Android')),
+            files.newBytesFile(utf8.encode('hello from Android')),
             [options.unixfs.pin(true, '')]);
         final got = files.toFile(await api.unixfs().get(ctx, p));
-        check(utf8.decode(io.readAll(got)) == 'olá do Android', 'get == add');
+        check(
+            utf8.decode(io.readAll(got)) == 'hello from Android', 'get == add');
         final loose = await api.unixfs().add(
-            ctx, files.newBytesFile(utf8.encode('solto ${DateTime.now()}')));
+            ctx, files.newBytesFile(utf8.encode('loose ${DateTime.now()}')));
         final removed = await corerepo.garbageCollectAsync(n, ctx).toList();
-        check(removed.isNotEmpty, 'GC removeu algo');
-        await expectThrows(api.block().stat(ctx, loose), 'bloco solto sumiu');
-        check((await api.block().stat(ctx, p)).size > 0, 'pinado ficou');
+        check(removed.isNotEmpty, 'GC removed something');
+        await expectThrows(api.block().stat(ctx, loose), 'loose block is gone');
+        check((await api.block().stat(ctx, p)).size > 0, 'pinned one stayed');
       },
-      'progresso do add (events + progress)': () async {
+      'add progress (events + progress)': () async {
         final data = Uint8List.fromList(List.generate(2 << 20, (i) => i * 7));
         final events = StreamController<iface.AddEvent>();
         final got = events.stream.toList();
@@ -111,10 +112,10 @@ Future<int> localChecks(Log log) async {
                     if (e.path == null) e.bytes
                 ].last ==
                 data.length,
-            'último progresso == tamanho');
-        check(list.last.path?.value == p.value, 'último evento traz o CID');
+            'last progress == size');
+        check(list.last.path?.value == p.value, 'last event carries the CID');
       },
-      'IPNS, chaves e dag put/get': () async {
+      'IPNS, keys and dag put/get': () async {
         final p = await api.unixfs().add(
             ctx,
             files.newBytesFile(utf8.encode('ipns ${DateTime.now()}')),
@@ -131,7 +132,7 @@ Future<int> localChecks(Log log) async {
             .generate(ctx, 'k-android', [options.key.type('ed25519')]);
         final (_, sig) = await api.key().sign(ctx, k.name, utf8.encode('x'));
         check((await api.key().verify(ctx, k.name, sig, utf8.encode('x'))).$2,
-            'assinatura confere');
+            'signature matches');
         await api.key().remove(ctx, k.name);
 
         final c =
@@ -140,7 +141,7 @@ Future<int> localChecks(Log log) async {
             utf8.decode(await dag.dagGet(api, ctx, path.Path('/ipfs/$c/a/b'))));
         check('$got' == '[1, 2]', 'dag get /a/b');
       },
-      'CAR: export, GC, import de volta': () async {
+      'CAR: export, GC, import back': () async {
         final p = await api.unixfs().add(
             ctx,
             files.newBytesFile(
@@ -149,12 +150,12 @@ Future<int> localChecks(Log log) async {
         final bytes = await dag.dagExport(n, ctx, p);
         await api.pin().rm(ctx, p);
         await corerepo.garbageCollect(n, ctx);
-        await expectThrows(api.block().stat(ctx, p), 'GC levou o arquivo');
+        await expectThrows(api.block().stat(ctx, p), 'GC took the file');
         final r = await dag.dagImport(n, ctx, bytes);
-        check(r.roots.single.pinErrorMsg.isEmpty, 'import pinou');
-        check((await api.pin().isPinned(ctx, p)).$2, 'pinado após import');
+        check(r.roots.single.pinErrorMsg.isEmpty, 'import pinned');
+        check((await api.pin().isPinned(ctx, p)).$2, 'pinned after import');
       },
-      'comandos do RPC: id e files': () async {
+      'RPC commands: id and files': () async {
         final id = await commands.id(n, ctx, null).single;
         check(id.id == (await api.key().self(ctx)).id!.value, 'id == self');
         await commands
@@ -162,30 +163,30 @@ Future<int> localChecks(Log log) async {
             .drain<void>();
         await commands
             .filesWrite(n, ctx, '/app/d/a.txt',
-                files.newBytesFile(utf8.encode('olá files')),
+                files.newBytesFile(utf8.encode('hello files')),
                 create: true)
             .drain<void>();
         final st = await commands.filesStat(n, ctx, '/app/d/a.txt').single;
-        check(st.size == utf8.encode('olá files').length, 'files stat');
+        check(st.size == utf8.encode('hello files').length, 'files stat');
         final ls = await commands.filesLs(n, ctx, '/app/d').single;
         check(
             [for (final e in ls.entries) e.name].join() == 'a.txt', 'files ls');
         final read = await commands.filesRead(n, ctx, '/app/d/a.txt').toList();
-        check(utf8.decode([for (final b in read) ...b]) == 'olá files',
+        check(utf8.decode([for (final b in read) ...b]) == 'hello files',
             'files read');
         await commands.filesRm(n, ctx, ['/app'], recursive: true).toList();
         await expectThrows(commands.filesStat(n, ctx, '/app').single,
-            'files rm levou a pasta');
+            'files rm took the directory');
       },
-      'dois nós: connect, bitswap, provide/findProviders e pubsub': () =>
+      'two nodes: connect, bitswap, provide/findProviders and pubsub': () =>
           _twoNodes(tmp),
-      // Alterna DHT cliente (o do app) e Routing none: no kubo 0.43 o none
-      // deixava o datastore do provider-keystore aberto depois do close, e a
-      // reabertura esbarrava na trava; o build corrige por patch
-      // (tool/build.dart, upstreamPatches).
-      'ciclo de vida: 10x newNode → close → fsrepo.open no mesmo repo':
+      // Alternates DHT client (the app's) and Routing none: in kubo 0.43, none
+      // left the provider-keystore datastore open after close, and reopening hit
+      // the lock; the build fixes it with a patch (tool/build.dart,
+      // upstreamPatches).
+      'life cycle: 10x newNode → close → fsrepo.open on the same repo':
           () async {
-        final repoPath = newRepo(tmp, 'ciclos');
+        final repoPath = newRepo(tmp, 'cycles');
         for (var i = 0; i < 10; i++) {
           final nn = await core.newNode(
               ctx,
@@ -202,32 +203,32 @@ Future<int> localChecks(Log log) async {
         try {
           final a = coreapi.newCoreApi(nn);
           final p =
-              await a.unixfs().add(ctx, files.newBytesFile(utf8.encode('fim')));
+              await a.unixfs().add(ctx, files.newBytesFile(utf8.encode('end')));
           check(
               utf8.decode(
                       io.readAll(files.toFile(await a.unixfs().get(ctx, p)))) ==
-                  'fim',
-              'add/get após os ciclos');
+                  'end',
+              'add/get after the cycles');
         } finally {
           await nn.close();
         }
       },
-      // as goroutines do próprio ipfs_ffi (try/goTry no go/runtime.go)
-      'panic numa goroutine do ipfs_ffi vira IpfsException': () async {
+      // ipfs_ffi's own goroutines (try/goTry in go/runtime.go)
+      'a panic in an ipfs_ffi goroutine becomes IpfsException': () async {
         final items = <Object?>[];
         await expectThrows($stream(25).map((r) => r.i64()).forEach(items.add),
-            'função com canal');
-        check('$items' == '[1]', 'o item antes do panic chegou');
+            'function with a channel');
+        check('$items' == '[1]', 'the item before the panic arrived');
         final c = StreamController<Object?>();
         final sink = expectThrows(c.stream.drain<void>(), 'sink');
         await $call(26, $W()..sink(GoSink(c.sink, (r) => r.i64())));
         await sink;
       },
-      'custo da ponte (canal com o ipfs_host)': () async {
+      'bridge cost (channel to the ipfs_host)': () async {
         final repoPath = '${tmp.path}/offline';
-        // a mediana de cada chamada: a média vira refém da cauda (o host
-        // ou a isolate perdendo a CPU logo depois dos testes pesados, no
-        // aparelho centenas de µs; integration_test/bench_test.dart)
+        // the median of each call: the mean becomes hostage to the tail (the
+        // host or the isolate losing the CPU right after the heavy tests,
+        // hundreds of µs on the device; integration_test/bench_test.dart)
         double bench(void Function() f) {
           for (var i = 0; i < 500; i++) {
             f();
@@ -266,18 +267,18 @@ Future<int> localChecks(Log log) async {
               context.withTimeout(c0, const Duration(seconds: 1));
           cancel();
         });
-        // Noop (função 0): o piso do canal, sem kubo
+        // Noop (function 0): the channel's floor, without kubo
         final noop = bench(() => $callSync(0));
         final noopAsync = await benchAsync(() => $call(0));
         final p =
             await api.unixfs().add(ctx, files.newBytesFile(utf8.encode('x')));
         final block = api.block();
         final statAsync = await benchAsync(() => block.stat(ctx, p));
-        log('  síncronas (mediana): api.unixfs() ${us(getter)}; fsrepo.isInitialized '
+        log('  synchronous (median): api.unixfs() ${us(getter)}; fsrepo.isInitialized '
             '${us(stat)}; ctx.err() ${us(err)}; withTimeout+cancel ${us(timeout)}');
-        log('  Noop síncrono (mediana) ${us(noop)}, assíncrono (média) ${us(noopAsync)}; '
-            'block.stat assíncrono ${us(statAsync)}');
-        check(getter < noop * 20, 'api.unixfs() perto do piso do canal');
+        log('  Noop synchronous (median) ${us(noop)}, asynchronous (mean) ${us(noopAsync)}; '
+            'block.stat asynchronous ${us(statAsync)}');
+        check(getter < noop * 20, "api.unixfs() close to the channel's floor");
       },
     }, log);
   } finally {
@@ -307,15 +308,15 @@ Future<void> _twoNodes(Directory tmp) async {
 
     final p = await a.unixfs().add(
         ctx,
-        files.newBytesFile(utf8.encode('de A ${DateTime.now()}')),
+        files.newBytesFile(utf8.encode('from A ${DateTime.now()}')),
         [options.unixfs.pin(true, '')]);
     final (c, cancel) = context.withTimeout(ctx, const Duration(seconds: 30));
     try {
       check(
           utf8
               .decode(io.readAll(files.toFile(await b.unixfs().get(c, p))))
-              .startsWith('de A'),
-          'B leu por bitswap');
+              .startsWith('from A'),
+          'B read over bitswap');
     } finally {
       cancel();
     }
@@ -332,7 +333,7 @@ Future<void> _twoNodes(Directory tmp) async {
         await Future<void>.delayed(const Duration(milliseconds: 300));
       }
     }
-    check(provs.any((i) => i.id == idA), 'B achou A como provedor');
+    check(provs.any((i) => i.id == idA), 'B found A as a provider');
 
     const topic = 'ipfs-ffi-android';
     final sub = await a.pubSub().subscribe(ctx, topic);
@@ -341,11 +342,11 @@ Future<void> _twoNodes(Directory tmp) async {
         DateTime.now().isBefore(deadline.add(const Duration(seconds: 30)))) {
       await Future<void>.delayed(const Duration(milliseconds: 200));
     }
-    await b.pubSub().publish(ctx, topic, utf8.encode('oi do B'));
+    await b.pubSub().publish(ctx, topic, utf8.encode('hi from B'));
     final (c2, cancel2) = context.withTimeout(ctx, const Duration(seconds: 30));
     try {
-      check(utf8.decode((await sub.next(c2)).data!) == 'oi do B',
-          'A recebeu a mensagem do B');
+      check(utf8.decode((await sub.next(c2)).data!) == 'hi from B',
+          "A got B's message");
     } finally {
       cancel2();
       sub.close();
@@ -356,11 +357,11 @@ Future<void> _twoNodes(Directory tmp) async {
   }
 }
 
-/// As verificações de rede pública sobre o nó online do app [api]: interfaces
-/// (wlan* = Wi-Fi, rmnet*/ccmni* = dados móveis), peers (entrada × saída indica
-/// se o NAT deixa entrar), endereços, DNS (DNSLink) e um bloco da rede.
+/// The public network checks over the app's online node [api]: interfaces
+/// (wlan* = Wi-Fi, rmnet*/ccmni* = mobile data), peers (inbound × outbound tells
+/// whether the NAT lets in), addresses, DNS (DNSLink) and a block from the network.
 Future<int> networkChecks(iface.CoreApi api, Log log) => runAll({
-      'interfaces de rede': () async {
+      'network interfaces': () async {
         for (final i in await NetworkInterface.list()) {
           log('  ${i.name}: ${[
             for (final a in i.addresses) a.address
@@ -368,7 +369,7 @@ Future<int> networkChecks(iface.CoreApi api, Log log) => runAll({
         }
         log('  hasIpv6(): ${await hasIpv6()}');
       },
-      'peers da rede pública (até 60 s)': () async {
+      'public network peers (up to 60 s)': () async {
         final sw = Stopwatch()..start();
         var peers = await api.swarm().peers(ctx);
         while (peers.isEmpty && sw.elapsed < const Duration(seconds: 60)) {
@@ -376,49 +377,51 @@ Future<int> networkChecks(iface.CoreApi api, Log log) => runAll({
           peers = await api.swarm().peers(ctx);
         }
         final inbound = peers.where((p) => p.direction == 1).length;
-        log('  ${peers.length} peers (entrada $inbound, '
-            'saída ${peers.length - inbound}) em ${sw.elapsed.inSeconds} s');
-        check(peers.isNotEmpty, 'algum peer');
+        log('  ${peers.length} peers (inbound $inbound, '
+            'outbound ${peers.length - inbound}) in ${sw.elapsed.inSeconds} s');
+        check(peers.isNotEmpty, 'some peer');
       },
-      'endereços do nó': () async {
-        log('  locais: ${(await api.swarm().localAddrs(ctx)).join(' ')}');
+      "the node's addresses": () async {
+        log('  local: ${(await api.swarm().localAddrs(ctx)).join(' ')}');
         final listen = [
           for (final a in await api.swarm().listenAddrs(ctx)) '$a'
         ];
-        log('  escuta: ${listen.join(' ')}');
-        // o repo do app escuta também em UDP (QUIC): sem isso não há hole punching
+        log('  listening: ${listen.join(' ')}');
+        // the app's repo also listens on UDP (QUIC): without it there is no hole punching
         check(listen.any((a) => a.contains('/udp/') && a.contains('/quic-v1')),
-            'escuta em UDP (QUIC)');
+            'listening on UDP (QUIC)');
       },
-      'DNSLink + bloco da rede (/ipns/ipfs.tech, até 60 s)': () async {
+      'DNSLink + a block from the network (/ipns/ipfs.tech, up to 60 s)':
+          () async {
         final (c, cancel) =
             context.withTimeout(ctx, const Duration(seconds: 60));
         try {
           final sw = Stopwatch()..start();
           final p = await api.name().resolve(c, '/ipns/ipfs.tech');
-          log('  resolveu em ${sw.elapsedMilliseconds} ms: $p');
+          log('  resolved in ${sw.elapsedMilliseconds} ms: $p');
           final st = await api.block().stat(c, p);
-          log('  bloco raiz (${st.size} bytes) em ${sw.elapsedMilliseconds} ms');
+          log('  root block (${st.size} bytes) in ${sw.elapsedMilliseconds} ms');
         } finally {
           cancel();
         }
       },
     }, log);
 
-/// Alcançabilidade, com o nó online há [wait] (AutoRelay e hole punching
-/// levam um tempo): os transportes das conexões, quem entrou (direto ou por
-/// relay) e se o nó tem endereço de relay (/p2p-circuit) para anunciar.
+/// Reachability, with the node online for [wait] (AutoRelay and hole punching
+/// take a while): the connections' transports, who came in (directly or through a
+/// relay) and whether the node has a relay address (/p2p-circuit) to announce.
 Future<int> reachabilityChecks(iface.CoreApi api, Stopwatch online, Log log,
         {Duration wait = const Duration(minutes: 2)}) =>
     runAll({
-      'alcançabilidade (nó online há ${wait.inMinutes} min)': () async {
+      'reachability (node online for ${wait.inMinutes} min)': () async {
         final rest = wait - online.elapsed;
         if (rest > Duration.zero) {
-          log('  esperando ${rest.inSeconds} s');
+          log('  waiting ${rest.inSeconds} s');
           await Future<void>.delayed(rest);
         }
-        // a reserva de relay varia: nos dados móveis já chegou em 2 min (11
-        // endereços) e, noutra vez, só depois; espera até mais `wait`
+        // the relay reservation varies: on mobile data it once arrived within
+        // 2 min (11 addresses) and, another time, only later; wait up to `wait`
+        // more
         Future<bool> reachable() async =>
             (await api.swarm().localAddrs(ctx))
                 .any((a) => '$a'.contains('/p2p-circuit')) ||
@@ -428,7 +431,7 @@ Future<int> reachabilityChecks(iface.CoreApi api, Stopwatch online, Log log,
           await Future<void>.delayed(const Duration(seconds: 10));
         }
         if (extra.elapsed.inSeconds > 0) {
-          log('  mais ${extra.elapsed.inSeconds} s esperando o relay');
+          log('  ${extra.elapsed.inSeconds} s more waiting for the relay');
         }
         final peers = await api.swarm().peers(ctx);
         String transport(String a) => a.contains('/p2p-circuit')
@@ -447,33 +450,33 @@ Future<int> reachabilityChecks(iface.CoreApi api, Stopwatch online, Log log,
           final t = transport('${p.address}');
           byTransport[t] = (byTransport[t] ?? 0) + 1;
         }
-        // network.Direction do libp2p: 1 = entrada, 2 = saída
+        // libp2p's network.Direction: 1 = inbound, 2 = outbound
         final inbound = [
           for (final p in peers)
             if (p.direction == 1) '${p.address}'
         ];
-        log('  ${peers.length} peers; transportes $byTransport; '
-            'entrada ${inbound.length}');
+        log('  ${peers.length} peers; transports $byTransport; '
+            'inbound ${inbound.length}');
         for (final a in inbound.take(5)) {
-          log('  entrou por $a');
+          log('  came in through $a');
         }
-        // conexões diretas na rede local (mDNS ou o IP local anunciado)
+        // direct connections on the local network (mDNS or the announced local IP)
         final lan = RegExp(r'/ip4/(10\.|192\.168\.|172\.(1[6-9]|2\d|3[01])\.)');
         final local = [
           for (final p in peers)
-            if (lan.hasMatch('${p.address}')) '${p.id} por ${p.address}'
+            if (lan.hasMatch('${p.address}')) '${p.id} through ${p.address}'
         ];
-        log('  ${local.length} conexões na rede local');
+        log('  ${local.length} connections on the local network');
         for (final a in local.take(5)) {
           log('    $a');
         }
         final addrs = [for (final a in await api.swarm().localAddrs(ctx)) '$a'];
         final relay = addrs.where((a) => a.contains('/p2p-circuit')).length;
-        log('  ${addrs.length} endereços anunciados ($relay de relay):');
+        log('  ${addrs.length} announced addresses ($relay relay):');
         for (final a in addrs) {
           log('    $a');
         }
         check(relay > 0 || inbound.isNotEmpty,
-            'alcançável (endereço de relay ou conexão de entrada)');
+            'reachable (a relay address or an inbound connection)');
       },
     }, log);

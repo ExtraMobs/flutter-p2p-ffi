@@ -1,16 +1,16 @@
-// Passo 12: arquivos CAR pelo baixo nível, o go-car do Go
-// (github.com/ipld/go-car/v2) chamado direto do Dart, no namespace `car`.
-// O exemplo 07 usa o `ipfs dag export/import` (o nó lê e grava o CAR inteiro);
-// aqui o arquivo é aberto e mexido sem nó: ler a versão e as raízes, contar
-// os blocos, percorrer bloco a bloco, converter CARv1 ↔ CARv2, montar e
-// guardar o índice, criar um CAR bloco a bloco e recortar um DAG com um
-// seletor IPLD.
+// Step 12: CAR files at the low level, Go's go-car
+// (github.com/ipld/go-car/v2) called straight from Dart, in the `car` namespace.
+// Example 07 uses `ipfs dag export/import` (the node reads and writes the whole
+// CAR); here the file is opened and handled without a node: reading the version
+// and the roots, counting the blocks, walking block by block, converting
+// CARv1 ↔ CARv2, building and saving the index, creating a CAR block by block and
+// slicing a DAG with an IPLD selector.
 //
 //   dart run example/12_car_baixo_nivel.dart
 //
-// Como nos exemplos 10 e 11, cada passo traz o mesmo código em Go: as funções
-// são as do go-car (pkg.go.dev/github.com/ipld/go-car/v2), geradas, na mesma
-// ordem de argumentos.
+// As in examples 10 and 11, each step carries the same code in Go: the functions
+// are go-car's (pkg.go.dev/github.com/ipld/go-car/v2), generated, in the same
+// argument order.
 import 'dart:io';
 import 'dart:typed_data';
 
@@ -26,7 +26,7 @@ Future<void> main() async {
   final tmp = Directory.systemTemp.createTempSync('ipfs_ffi_ex12_');
   final repoPath = '${tmp.path}/repo';
 
-  // Serviço, plugins e repo novo: igual ao exemplo 09.
+  // Service, plugins and a new repo: the same as example 09.
   await IpfsService.start();
   kubo.PluginLoader('')
     ..initialize()
@@ -38,38 +38,38 @@ Future<void> main() async {
   final ctx = go.background();
 
   try {
-    // O nó só entra para fazer um CAR de exemplo: uma pasta com dois
-    // arquivos, exportada pelo `ipfs dag export` (exemplo 07). Daqui para
-    // baixo, nada usa o nó.
+    // The node only comes in to make a sample CAR: a directory with two files,
+    // exported by `ipfs dag export` (example 07). From here down, nothing uses
+    // the node.
     final n = await kubo.newNode(ctx, kubo.BuildCfg(repo: kubo.open(repoPath)));
-    final dir = Directory('${tmp.path}/pasta')..createSync();
-    File('${dir.path}/oi.txt').writeAsStringSync('oi, CAR\n');
-    File('${dir.path}/grande.bin').writeAsBytesSync(
+    final dir = Directory('${tmp.path}/folder')..createSync();
+    File('${dir.path}/hi.txt').writeAsStringSync('hi, CAR\n');
+    File('${dir.path}/big.bin').writeAsBytesSync(
         Uint8List.fromList(List.generate(400000, (i) => i * 7 % 251)));
     final p = await kubo.newCoreApi(n).unixfs().add(
         ctx,
         boxo.newSerialFile(dir.path, false, go.stat(dir.path)),
         [kubo.unixfs.cidVersion(1)]);
     final root = mf.Cid(p.value.substring('/ipfs/'.length));
-    final v1 = '${tmp.path}/pasta.car';
+    final v1 = '${tmp.path}/folder.car';
     await kubo.dagExportFile(n, ctx, p, v1);
     await n.close();
-    print('0. ${File(v1).lengthSync()} bytes em $v1, raiz $root');
+    print('0. ${File(v1).lengthSync()} bytes in $v1, root $root');
 
-    // 1. Abrir e inspecionar. O Inspect lê o arquivo inteiro (e, com true,
-    // confere o hash de cada bloco). Os contadores são mapas de código
-    // multicodec (0x70 dag-pb, 0x55 raw, 0x12 sha2-256) para quantidade.
+    // 1. Open and inspect. Inspect reads the whole file (and, with true, checks
+    // each block's hash). The counters are maps from multicodec code (0x70
+    // dag-pb, 0x55 raw, 0x12 sha2-256) to count.
     //   Go:   r, _ := car.OpenReader(path)
     //         st, _ := r.Inspect(true)
     final r = car.openReader(v1);
     final st = r.inspect(true);
-    print('1. CARv${r.version}, raízes ${r.roots()}, ${st.blockCount} blocos, '
-        'codecs ${st.codecCounts}, maior bloco ${st.maxBlockLength} bytes');
+    print('1. CARv${r.version}, roots ${r.roots()}, ${st.blockCount} blocks, '
+        'codecs ${st.codecCounts}, largest block ${st.maxBlockLength} bytes');
     r.close();
 
-    // 2. Bloco a bloco, como o `ipfs dag import` lê: o BlockReader aceita
-    // os bytes ou um arquivo aberto (os.Open). O fim é o io.EOF do Go, que
-    // chega como IpfsEof (como o errors.Is do Go, vale também embrulhado).
+    // 2. Block by block, the way `ipfs dag import` reads: the BlockReader takes
+    // the bytes or an open file (os.Open). The end is Go's io.EOF, which arrives
+    // as IpfsEof (like Go's errors.Is, it also works when wrapped).
     //   Go:   f, _ := os.Open(path)
     //         br, _ := car.NewBlockReader(f)
     //         for { b, err := br.Next(); if err == io.EOF { break } ... }
@@ -79,30 +79,30 @@ Future<void> main() async {
     while (true) {
       try {
         final b = br.next();
-        print('2. bloco ${i++}: ${b.cid} (${b.rawData!.length} bytes)');
+        print('2. block ${i++}: ${b.cid} (${b.rawData!.length} bytes)');
       } on IpfsEof {
-        break; // o io.EOF do Go: acabou
+        break; // Go's io.EOF: done
       }
     }
     f.close();
 
-    // 3. CARv1 → CARv2: o v2 põe um cabeçalho na frente e o índice no fim
-    // (achar um bloco sem ler o arquivo todo). O Header é uma struct do Go;
-    // os métodos dele vêm junto (hasIndex).
+    // 3. CARv1 → CARv2: v2 puts a header in front and the index at the end
+    // (finding a block without reading the whole file). The Header is a Go
+    // struct; its methods come along (hasIndex).
     //   Go:   car.WrapV1File(v1, v2)
     //         r2, _ := car.OpenReader(v2); r2.Header.HasIndex()
-    final v2 = '${tmp.path}/pasta.v2.car';
+    final v2 = '${tmp.path}/folder.v2.car';
     car.wrapV1File(v1, v2);
     final r2 = car.openReader(v2);
     final h = r2.header;
-    print('3. CARv${r2.version}: dados em ${h.dataOffset}..'
-        '${h.dataOffset + h.dataSize}, índice em ${h.indexOffset} '
+    print('3. CARv${r2.version}: data at ${h.dataOffset}..'
+        '${h.dataOffset + h.dataSize}, index at ${h.indexOffset} '
         '(hasIndex: ${h.hasIndex()})');
     r2.close();
 
-    // 4. O índice à parte: gerar de um CARv1, consultar o deslocamento de
-    // um bloco e guardar os bytes num bytes.Buffer do Go (qualquer
-    // io.Writer serve: um os.File grava direto no disco).
+    // 4. The index on its own: generate it from a CARv1, look up a block's
+    // offset and save the bytes in a Go bytes.Buffer (any io.Writer works: an
+    // os.File writes straight to disk).
     //   Go:   idx, _ := car.GenerateIndexFromFile(v1)
     //         off, _ := index.GetFirst(idx, root)
     //         var buf bytes.Buffer; index.WriteTo(idx, &buf)
@@ -110,53 +110,53 @@ Future<void> main() async {
     final buf = go.Buffer(Uint8List(0));
     car.writeTo(idx, buf);
     print(
-        '4. índice ${idx.codec() == mf.carMultihashIndexSorted ? 'multihash-sorted' : idx.codec()}: '
-        'raiz no byte ${car.getFirst(idx, root)}, ${buf.bytes().length} bytes serializado');
+        '4. index ${idx.codec() == mf.carMultihashIndexSorted ? 'multihash-sorted' : idx.codec()}: '
+        'root at byte ${car.getFirst(idx, root)}, ${buf.bytes().length} bytes serialized');
 
-    // 5. Um CAR novo, bloco a bloco, sem nó. O CID sai do prefixo (versão
-    // 1, codec raw, sha2-256) aplicado aos bytes; o Block do Go é montado no
-    // Dart (cid + dados). Finalize grava o índice e fecha.
+    // 5. A new CAR, block by block, without a node. The CID comes from the
+    // prefix (version 1, raw codec, sha2-256) applied to the bytes; Go's Block
+    // is built in Dart (cid + data). Finalize writes the index and closes.
     //   Go:   pre := cid.NewPrefixV1(cid.Raw, multihash.SHA2_256)
     //         c, _ := pre.Sum(data)
     //         rw, _ := blockstore.OpenReadWrite(path, []cid.Cid{c})
     //         rw.Put(ctx, blocks.NewBlockWithCid(data, c)); rw.Finalize()
     final pre = mf.newPrefixV1(0x55, 0x12);
-    final novo = '${tmp.path}/novo.car';
+    final created = '${tmp.path}/new.car';
     final datas = [
-      for (final s in ['um', 'dois', 'três']) Uint8List.fromList(s.codeUnits)
+      for (final s in ['one', 'two', 'three']) Uint8List.fromList(s.codeUnits)
     ];
     final cids = [for (final d in datas) pre.sum(d)];
-    final rw = car.openReadWrite(novo, [cids.first]);
+    final rw = car.openReadWrite(created, [cids.first]);
     for (var k = 0; k < datas.length; k++) {
       await rw.put(ctx, ipld.Block(cid: cids[k], rawData: datas[k]));
     }
     rw.finalize();
-    // e lido de volta pelo blockstore só de leitura (usa o índice)
-    final ro = car.openReadOnly(novo);
+    // and read back through the read-only blockstore (it uses the index)
+    final ro = car.openReadOnly(created);
     final keys = await ro.allKeysChan(ctx).toList();
-    print('5. $novo: ${keys.length} blocos, '
-        '"${String.fromCharCodes((await ro.get(ctx, cids[1])).rawData!)}" pelo CID');
+    print('5. $created: ${keys.length} blocks, '
+        '"${String.fromCharCodes((await ro.get(ctx, cids[1])).rawData!)}" by CID');
     ro.close();
 
-    // 6. Recortar com um seletor IPLD: o LinkSystem lê do CAR aberto e só
-    // o que o seletor alcança vai para o arquivo novo. MatchPoint = só a
-    // raiz; ExploreAllRecursively = o DAG inteiro; ou um seletor em JSON.
+    // 6. Slicing with an IPLD selector: the LinkSystem reads from the open CAR
+    // and only what the selector reaches goes to the new file. MatchPoint = just
+    // the root; ExploreAllRecursively = the whole DAG; or a selector in JSON.
     //   Go:   ls := cidlink.DefaultLinkSystem()
     //         src, _ := storage.OpenReadable(f); ls.SetReadStorage(src)
     //         car.TraverseToFile(ctx, &ls, root, selectorparse.CommonSelector_MatchPoint, out)
     final ls = ipld.defaultLinkSystem();
     final src = go.open(v1);
     ls.setReadStorage(car.openReadable(src));
-    final soRaiz = '${tmp.path}/raiz.car';
+    final rootOnly = '${tmp.path}/root.car';
     await car.traverseToFile(
-        ctx, ls, root, ipld.commonSelectorMatchPoint, soRaiz);
-    final inteiro = '${tmp.path}/inteiro.car';
+        ctx, ls, root, ipld.commonSelectorMatchPoint, rootOnly);
+    final whole = '${tmp.path}/whole.car';
     await car.traverseToFile(
-        ctx, ls, root, ipld.commonSelectorExploreAllRecursively, inteiro);
+        ctx, ls, root, ipld.commonSelectorExploreAllRecursively, whole);
     src.close();
-    final a = car.openReader(soRaiz), b = car.openReader(inteiro);
-    print('6. só a raiz: ${a.inspect(false).blockCount} bloco; '
-        'o DAG inteiro: ${b.inspect(false).blockCount} blocos');
+    final a = car.openReader(rootOnly), b = car.openReader(whole);
+    print('6. just the root: ${a.inspect(false).blockCount} block; '
+        'the whole DAG: ${b.inspect(false).blockCount} blocks');
     a.close();
     b.close();
   } finally {

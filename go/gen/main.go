@@ -305,7 +305,7 @@ func (m *model) resolve(pkgs map[string]*types.Package, line string) ([]*fn, err
 			f.obj = o
 			f.results = []*tinfo{m.classify(o.Type())}
 			if f.constLit = dartConstLit(o); f.constLit == "" {
-				f.why = "constante de tipo " + o.Type().String()
+				f.why = "constant of type " + o.Type().String()
 			}
 			return []*fn{f}, nil
 		case *types.Func:
@@ -361,7 +361,7 @@ func (m *model) resolve(pkgs map[string]*types.Package, line string) ([]*fn, err
 		// receptor DTO (car.Header.HasIndex, cid.Prefix.Sum): vai por valor, e
 		// um método que o altera não volta ao Dart
 		if f.recv.k != kHandle && f.recv.k != kDTO {
-			f.why = "receptor não é handle nem DTO: " + f.recv.why
+			f.why = "receiver is neither a handle nor a DTO: " + f.recv.why
 		}
 	}
 	sig := f.obj.Type().(*types.Signature)
@@ -422,7 +422,7 @@ func namedFunc(pkgs []*types.Package, sig types.Type) types.Type {
 }
 
 // markOutBuf: método no formato do io.Reader (um []byte e o resultado
-// `(int, error)`): o []byte é de saída (WIRE.md, "Buffer de saída").
+// `(int, error)`): o []byte é de saída (WIRE.md, "Value encoding").
 func markOutBuf(f *fn) {
 	if f.recv == nil || !outBufMethods[f.obj.Name()] || !f.hasErr || len(f.results) != 1 || f.results[0].k != kBasic {
 		return
@@ -449,7 +449,7 @@ func (m *model) fieldRoot(line string, pkg *types.Package, recvT types.Type, v *
 	ft := m.classify(v.Type())
 	get := &fn{key: line, pkg: pkg, obj: v, field: true, recv: recv, results: []*tinfo{ft}, outBuf: -1}
 	if recv.k != kHandle {
-		get.why = "receptor não é handle: " + recv.why
+		get.why = "receiver is not a handle: " + recv.why
 	}
 	m.check(get)
 	set := &fn{key: line + "=", pkg: pkg, obj: v, field: true, setter: true, recv: recv,
@@ -586,19 +586,19 @@ func (m *model) check(f *fn) {
 			if t.elem.k == kOpts || okElem(t.elem) {
 				break
 			}
-			fail("parâmetro %s: %s", p.name, describe(t))
+			fail("parameter %s: %s", p.name, describe(t))
 		case kChanSend:
 			if f.stream != nil {
-				fail("dois canais")
+				fail("two channels")
 			}
 			f.stream = t.elem
 		case kFunc: // callback sob demanda: a chamada espera o Dart consumir
 			if funcParamIdx(f) != i {
-				fail("dois callbacks")
+				fail("two callbacks")
 			}
 			f.async = true
 		default:
-			fail("parâmetro %s: %s", p.name, describe(t))
+			fail("parameter %s: %s", p.name, describe(t))
 		}
 		if p.t.k == kCtx {
 			f.async = true
@@ -609,22 +609,22 @@ func (m *model) check(f *fn) {
 		case kBasic, kBytes, kValue, kDTO, kSnap, kHandle, kSlice, kMap, kAny:
 		case kChanRecv:
 			if len(f.results) != 1 || f.stream != nil {
-				fail("canal com outros resultados")
+				fail("channel with other results")
 			}
 			f.stream = r.elem
 		default:
-			fail("resultado %d: %s", i, describe(r))
+			fail("result %d: %s", i, describe(r))
 		}
 	}
 	if f.stream != nil && funcParamIdx(f) >= 0 {
-		fail("canal e callback")
+		fail("channel and callback")
 	}
 	if f.stream != nil {
 		if s := f.stream; !okElem(s) && s.k != kSnap {
-			fail("canal de %s", describe(s))
+			fail("channel of %s", describe(s))
 		}
 		if pc := chanParam(f); pc >= 0 && len(f.results) > 0 {
-			fail("canal passado e resultados")
+			fail("channel passed and results")
 		}
 		f.async = true
 	}

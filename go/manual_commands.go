@@ -1,5 +1,5 @@
 // Os comandos do RPC do kubo (`ipfs files stat`, `ipfs config`...) pelo canal
-// (WIRE.md, "Comandos", função 36): o host monta a requisição do go-ipfs-cmds e
+// (WIRE.md, "Commands", função 36): o host monta a requisição do go-ipfs-cmds e
 // chama a árvore do kubo como o servidor HTTP dele (Root.Call, sem o PreRun do
 // CLI), com o nó do app; cada valor emitido vai como item do stream, codificado
 // pelo esquema de cmdschema (o mesmo que gerou o DTO Dart).
@@ -30,7 +30,7 @@ import (
 // fnCommand: a função dos comandos (WIRE.md).
 const fnCommand = 36
 
-// Etiquetas de cada item emitido (WIRE.md, "Comandos").
+// Etiquetas de cada item emitido (WIRE.md, "Commands").
 const (
 	cmdTyped   = 0 // o tipo declarado do comando (o DTO)
 	cmdDynamic = 1 // outro tipo: o valor dinâmico (kAny)

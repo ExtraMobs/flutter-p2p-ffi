@@ -193,7 +193,7 @@ final class $W {
     }
   }
 
-  /// `kAny`, Go's `any` (WIRE.md, "Dynamic value"): `u8` tag + value. Maps
+  /// `kAny`, Go's `any` (WIRE.md, "Value encoding"): `u8` tag + value. Maps
   /// go with string keys; [DateTime] as ISO 8601 and a [GoValue] as its
   /// string, like the Go side writes them.
   void any(Object? v) {

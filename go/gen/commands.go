@@ -25,11 +25,11 @@ import (
 
 // cmdSkip: comandos que não atravessam, com o motivo (API.md).
 var cmdSkip = map[string]string{
-	"shutdown":    "desliga o daemon; no ipfs_ffi é `IpfsNode.close`/`IpfsService.stop`",
-	"mount":       "FUSE: monta no sistema de arquivos do host",
-	"update":      "atualiza o binário do kubo (não é o caso do ipfs_host)",
-	"commands":    "a ajuda do CLI",
-	"config edit": "abre o $EDITOR no processo do host",
+	"shutdown":    "stops the daemon; in ipfs_ffi it is `IpfsNode.close`/`IpfsService.stop`",
+	"mount":       "FUSE: mounts on the host's file system",
+	"update":      "updates the kubo binary (not the case of ipfs_host)",
+	"commands":    "the CLI help",
+	"config edit": "opens $EDITOR in the host process",
 }
 
 // cmdByteOut: comandos que emitem um io.Reader (bytes, Stream<Uint8List>).
@@ -142,7 +142,7 @@ func (e *cmdEmitter) prepare(cs []*cmdInfo, manual map[string]bool) {
 		} else if why, ok := cmdSkip[key]; ok {
 			ci.skipped = why
 		} else if manual[ci.dart] {
-			ci.skipped = "porte à mão com o mesmo nome (`kubo/core/commands/dag.dart`)"
+			ci.skipped = "hand port with the same name (`kubo/core/commands/dag.dart`)"
 		} else if _, clash := e.taken[ci.dart]; clash {
 			panic("gen: o comando ipfs " + key + " repete o nome Dart " + ci.dart + " do namespace kubo")
 		}
@@ -372,8 +372,8 @@ func emitCommands(reserved, manual map[string]bool) (src, api, smoke string, has
 	e.prepare(cs, manual)
 	h := fnv.New64a()
 	var body, md, sm strings.Builder
-	md.WriteString("\n## Comandos do RPC (`ipfs ...`) → `package:ipfs_ffi/kubo/core/commands.dart`\n\n")
-	md.WriteString("Gerados da árvore de comandos do kubo (`core/commands.Root`); o host os chama como o servidor HTTP do kubo (função 36 do `WIRE.md`).\n\n| Comando | Dart | Retorno |\n|---|---|---|\n")
+	md.WriteString("\n## RPC commands (`ipfs ...`) → `package:ipfs_ffi/kubo/core/commands.dart`\n\n")
+	md.WriteString("Generated from the kubo command tree (`core/commands.Root`); the host calls them like the kubo HTTP server (function 36 of `WIRE.md`).\n\n| Command | Dart | Returns |\n|---|---|---|\n")
 	var skipped []string
 	for _, ci := range cs {
 		key := strings.Join(ci.path, " ")
@@ -453,7 +453,7 @@ func emitCommands(reserved, manual map[string]bool) (src, api, smoke string, has
 		fmt.Fprintf(h, "%s=%s\n", e.names[t], e.schema(t))
 	}
 	if len(skipped) > 0 {
-		md.WriteString("\nFora:\n\n" + strings.Join(skipped, "\n") + "\n")
+		md.WriteString("\nLeft out:\n\n" + strings.Join(skipped, "\n") + "\n")
 	}
 	var b strings.Builder
 	b.WriteString(generatedHeader + " from the kubo command tree (core/commands); do not edit.\n// Go: github.com/ipfs/kubo/core/commands\nlibrary;\n\n")

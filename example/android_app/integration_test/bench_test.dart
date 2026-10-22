@@ -1,9 +1,9 @@
-// Diagnóstico do custo de uma chamada síncrona no aparelho: a bateria do app
-// mediu api.unixfs() ~80× o Noop. Mede cada chamada (média e percentis), com
-// pausas no Dart entre as chamadas, com giros diferentes e com um nó offline
-// e online no host. Em profile (AOT, como o release):
+// Diagnosing the cost of a synchronous call on the device: the app's checks
+// measured api.unixfs() at ~80× Noop. It measures each call (mean and
+// percentiles), with Dart pauses between calls, with different spins and with an
+// offline and an online node in the host. In profile (AOT, like release):
 //   flutter drive --profile --driver=test_driver/integration_test.dart \
-//     --target=integration_test/bench_test.dart -d <aparelho>
+//     --target=integration_test/bench_test.dart -d <device>
 import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
@@ -27,7 +27,7 @@ void main() {
     String at(double p) =>
         us(ticks[(p * (ticks.length - 1)).round()]).toStringAsFixed(1);
     final mean = us(ticks.reduce((a, b) => a + b)) / ticks.length;
-    return 'média ${mean.toStringAsFixed(1)} | p10 ${at(.1)} p50 ${at(.5)} '
+    return 'mean ${mean.toStringAsFixed(1)} | p10 ${at(.1)} p50 ${at(.5)} '
         'p90 ${at(.9)} p99 ${at(.99)} µs';
   }
 
@@ -53,7 +53,7 @@ void main() {
     return out;
   }
 
-  test('custo de uma chamada síncrona', () async {
+  test('cost of a synchronous call', () async {
     final lines = <String>[];
     for (final spin in [20000, 200000]) {
       await IpfsService.start(spin: spin);
@@ -65,7 +65,7 @@ void main() {
       lines.add('ctx.err():     ${pct(measure(() => ctx.err()))}');
       lines.add('background():  ${pct(measure(() => context.background()))}');
       for (final gap in [20, 50, 100]) {
-        lines.add('Noop + $gap µs de Dart: '
+        lines.add('Noop + $gap µs of Dart: '
             '${pct(measure(() => $callSync(0), gapUs: gap, n: 1000))}');
       }
       await IpfsService.stop();
@@ -74,13 +74,13 @@ void main() {
     print(lines.join('\n'));
   }, timeout: const Timeout(Duration(minutes: 5)));
 
-  test('com um nó no host: offline × online', () async {
+  test('with a node in the host: offline × online', () async {
     final lines = <String>[];
     final tmp = Directory.systemTemp.createTempSync('ipfs_ffi_bench_');
     final repo = '${tmp.path}/repo';
     for (final spin in [20000, 200000]) {
       await IpfsService.start(spin: spin);
-      setupService(repo); // plugins (1x por host) e o repo do app
+      setupService(repo); // plugins (once per host) and the app's repo
       final ctx = context.background();
       for (final online in [false, true]) {
         final n = online
@@ -90,11 +90,11 @@ void main() {
         if (online) await Future<void>.delayed(const Duration(seconds: 20));
         final peers = online ? (await api.swarm().peers(ctx)).length : 0;
         lines.add(
-            '--- spin $spin, nó ${online ? 'online ($peers peers)' : 'offline'}');
+            '--- spin $spin, node ${online ? 'online ($peers peers)' : 'offline'}');
         lines.add('Noop:          ${pct(measure(() => $callSync(0)))}');
         lines.add('ctx.err():     ${pct(measure(() => ctx.err()))}');
         lines.add('api.unixfs():  ${pct(measure(() => api.unixfs()))}');
-        lines.add('Noop de novo:  ${pct(measure(() => $callSync(0)))}');
+        lines.add('Noop again:    ${pct(measure(() => $callSync(0)))}');
         await n.close();
       }
       await IpfsService.stop();

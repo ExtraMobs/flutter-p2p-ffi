@@ -1,14 +1,14 @@
-// Passo 10: o MFS (o "sistema de arquivos" do nó IPFS) pelo baixo nível, as
-// funções do `boxo/mfs` do Go, chamadas direto do Dart. É a mesma camada que o
-// `ipfs files` (exemplo 09) usa por dentro, só que sem a casca do comando:
-// mais controle (abrir um arquivo, ir a uma posição, escrever um pedaço), mais
-// responsabilidade (fechar o que abriu, gravar no disco com flush).
+// Step 10: MFS (the IPFS node's "file system") at the low level, Go's
+// `boxo/mfs` functions, called straight from Dart. It is the same layer that
+// `ipfs files` (example 09) uses inside, only without the command's shell: more
+// control (opening a file, going to a position, writing a piece), more
+// responsibility (closing what you opened, writing to disk with flush).
 //
 //   dart run example/10_mfs_baixo_nivel.dart
 //
-// Cada passo traz, num comentário, o mesmo código em Go: a API do Dart é a do
-// Go, gerada, com as mesmas funções, na mesma ordem de argumentos. Quem lê a
-// documentação do boxo (pkg.go.dev/github.com/ipfs/boxo/mfs) sabe usar esta.
+// Each step carries, in a comment, the same code in Go: the Dart API is Go's,
+// generated, with the same functions, in the same argument order. Whoever reads
+// boxo's documentation (pkg.go.dev/github.com/ipfs/boxo/mfs) knows how to use this.
 import 'dart:convert';
 import 'dart:io';
 
@@ -22,8 +22,8 @@ Future<void> main() async {
   final tmp = Directory.systemTemp.createTempSync('ipfs_ffi_ex10_');
   final repoPath = '${tmp.path}/repo';
 
-  // Serviço, plugins e repo novo: igual ao exemplo 09 (lá cada linha está
-  // explicada).
+  // Service, plugins and a new repo: the same as example 09 (every line is
+  // explained there).
   await IpfsService.start();
   kubo.PluginLoader('')
     ..initialize()
@@ -37,103 +37,104 @@ Future<void> main() async {
   final api = kubo.newCoreApi(n);
 
   try {
-    // A raiz do MFS do nó. No Go é um CAMPO da struct IpfsNode; no Dart vira
-    // um getter (lê-se como um campo, sem parênteses).
+    // The node's MFS root. In Go it is a FIELD of the IpfsNode struct; in Dart
+    // it becomes a getter (read like a field, without parentheses).
     //   Go:   root := node.FilesRoot
     final root = n.filesRoot;
 
-    // Cria /docs/rascunhos (e o /docs no caminho, o "-p" do mkdir).
-    // As opções do Go são uma struct (MkdirOpts); no Dart a mesma struct,
-    // com os campos como parâmetros nomeados (o nome dentro dos parênteses).
-    //   Go:   mfs.Mkdir(root, "/docs/rascunhos", mfs.MkdirOpts{Mkparents: true, Flush: true})
+    // Creates /docs/drafts (and /docs on the way, mkdir's "-p").
+    // Go's options are a struct (MkdirOpts); in Dart the same struct, with the
+    // fields as named parameters (the name inside the parentheses).
+    //   Go:   mfs.Mkdir(root, "/docs/drafts", mfs.MkdirOpts{Mkparents: true, Flush: true})
     mfs.mkdir(
-        root, '/docs/rascunhos', mfs.MkdirOpts(mkparents: true, flush: true));
-    print('1. criei /docs/rascunhos');
+        root, '/docs/drafts', mfs.MkdirOpts(mkparents: true, flush: true));
+    print('1. created /docs/drafts');
 
-    // Coloca no MFS um arquivo que já está no IPFS: adiciona os bytes (o
-    // `ipfs add`), pega o nó IPLD (o bloco que o CID aponta) e o pendura
-    // num caminho do MFS. Nada é copiado: o MFS só aponta para o CID.
-    //   Go:   p, _ := api.Unixfs().Add(ctx, files.NewBytesFile([]byte("primeira linha\n")))
+    // Puts into MFS a file that is already in IPFS: adds the bytes (`ipfs
+    // add`), gets the IPLD node (the block the CID points to) and hangs it on an
+    // MFS path. Nothing is copied: MFS only points to the CID.
+    //   Go:   p, _ := api.Unixfs().Add(ctx, files.NewBytesFile([]byte("first line\n")))
     //         nd, _ := api.ResolveNode(ctx, p)
-    //         mfs.PutNode(root, "/docs/nota.txt", nd)
+    //         mfs.PutNode(root, "/docs/note.txt", nd)
     final p = await api
         .unixfs()
-        .add(ctx, files.newBytesFile(utf8.encode('primeira linha\n')));
-    mfs.putNode(root, '/docs/nota.txt', await api.resolveNode(ctx, p));
-    print('2. pendurei $p em /docs/nota.txt');
+        .add(ctx, files.newBytesFile(utf8.encode('first line\n')));
+    mfs.putNode(root, '/docs/note.txt', await api.resolveNode(ctx, p));
+    print('2. hung $p on /docs/note.txt');
 
-    // Procura um caminho. O Go devolve a interface FSNode (pode ser pasta ou
-    // arquivo) e o código faz um "type assertion" para descobrir qual é. No
-    // Dart, o mesmo vira `asFile()`/`asDirectory()`, que devolvem `null`
-    // quando o nó não é daquele tipo; o `!` diz ao Dart "tenho certeza de que
-    // não é null" (se for, dá erro ali mesmo).
-    //   Go:   nd, _ := mfs.Lookup(root, "/docs/nota.txt")
+    // Looks up a path. Go returns the FSNode interface (it may be a directory or
+    // a file) and the code does a "type assertion" to find out which. In Dart
+    // the same becomes `asFile()`/`asDirectory()`, which return `null` when the
+    // node is not of that type; the `!` tells Dart "I am sure it is not null"
+    // (if it is, it fails right there).
+    //   Go:   nd, _ := mfs.Lookup(root, "/docs/note.txt")
     //         file := nd.(*mfs.File)
-    final file = mfs.lookup(root, '/docs/nota.txt').asFile()!;
-    print('3. /docs/nota.txt tem ${file.size()} bytes');
+    final file = mfs.lookup(root, '/docs/note.txt').asFile()!;
+    print('3. /docs/note.txt has ${file.size()} bytes');
 
-    // Abre para escrever, vai para o fim e anexa uma linha. `seek(0, 2)`: o
-    // 2 é o io.SeekEnd do Go ("a partir do fim"); 0 é "do começo", 1 é "da
-    // posição atual". Feche SEMPRE o que abriu: o close é o que grava a
-    // alteração no MFS (e libera o arquivo para outro escritor).
+    // Opens for writing, goes to the end and appends a line. `seek(0, 2)`: 2 is
+    // Go's io.SeekEnd ("from the end"); 0 is "from the start", 1 is "from the
+    // current position". ALWAYS close what you opened: close is what writes the
+    // change into MFS (and frees the file for another writer).
     //   Go:   fd, _ := file.Open(ctx, mfs.Flags{Write: true, Sync: true})
     //         fd.Seek(0, io.SeekEnd)
-    //         fd.Write([]byte("segunda linha\n"))
+    //         fd.Write([]byte("second line\n"))
     //         fd.Close()
-    final escrita = await file.open(ctx, mfs.Flags(write: true, sync: true));
-    escrita.seek(0, 2);
-    escrita.write(utf8.encode('segunda linha\n'));
-    escrita.close();
-    // (este é o caso do bug ipfs/boxo#1221, que o build do ipfs_ffi corrige
-    // por patch: sem a correção, a leitura abaixo traria só a segunda linha)
+    final writer = await file.open(ctx, mfs.Flags(write: true, sync: true));
+    writer.seek(0, 2);
+    writer.write(utf8.encode('second line\n'));
+    writer.close();
+    // (this is the case of bug ipfs/boxo#1221, which the ipfs_ffi build fixes
+    // with a patch: without the fix, the read below would bring only the second
+    // line)
 
-    // Abre para ler. O Go lê num buffer que você passa ([]byte); no Dart
-    // você diz quantos bytes quer e recebe os bytes lidos (menos, se o
-    // arquivo acabar antes; vazio no fim).
+    // Opens for reading. Go reads into a buffer you pass ([]byte); in Dart you
+    // say how many bytes you want and get the bytes read (fewer, if the file
+    // ends first; empty at the end).
     //   Go:   fd, _ := file.Open(ctx, mfs.Flags{Read: true})
     //         buf := make([]byte, 1024)
     //         n, _ := fd.CtxReadFull(ctx, buf)
     //         fmt.Print(string(buf[:n]))
     //         fd.Close()
-    final leitura = await file.open(ctx, mfs.Flags(read: true));
-    final bytes = await leitura.ctxReadFull(ctx, 1024);
-    leitura.close();
-    print('4. conteúdo agora:\n${utf8.decode(bytes)}');
+    final reader = await file.open(ctx, mfs.Flags(read: true));
+    final bytes = await reader.ctxReadFull(ctx, 1024);
+    reader.close();
+    print('4. content now:\n${utf8.decode(bytes)}');
 
-    // Move o arquivo para outra pasta (o `ipfs files mv`).
-    //   Go:   mfs.Mv(root, "/docs/nota.txt", "/docs/rascunhos/nota.txt")
-    mfs.mv(root, '/docs/nota.txt', '/docs/rascunhos/nota.txt');
+    // Moves the file to another directory (`ipfs files mv`).
+    //   Go:   mfs.Mv(root, "/docs/note.txt", "/docs/drafts/note.txt")
+    mfs.mv(root, '/docs/note.txt', '/docs/drafts/note.txt');
 
-    // Lista uma pasta: procurar, converter para pasta, listar.
-    //   Go:   nd, _ := mfs.Lookup(root, "/docs/rascunhos")
+    // Lists a directory: look up, convert to a directory, list.
+    //   Go:   nd, _ := mfs.Lookup(root, "/docs/drafts")
     //         dir := nd.(*mfs.Directory)
     //         entries, _ := dir.List(ctx)
-    final pasta = mfs.lookup(root, '/docs/rascunhos').asDirectory()!;
-    for (final e in await pasta.list(ctx)) {
-      print('5. /docs/rascunhos/${e.name}: ${e.size} bytes, CID ${e.hash}');
+    final dir = mfs.lookup(root, '/docs/drafts').asDirectory()!;
+    for (final e in await dir.list(ctx)) {
+      print('5. /docs/drafts/${e.name}: ${e.size} bytes, CID ${e.hash}');
     }
 
-    // Grava as alterações até a raiz e pega o CID novo da pasta: cada
-    // mudança no MFS gera CIDs novos, da folha até a raiz (o conteúdo mudou,
-    // então o endereço muda).
+    // Writes the changes up to the root and gets the directory's new CID: each
+    // change in MFS produces new CIDs, from the leaf up to the root (the content
+    // changed, so the address changes).
     //   Go:   nd, _ := mfs.FlushPath(ctx, root, "/docs")
     //         fmt.Println(nd.Cid())
     final docs = await mfs.flushPath(ctx, root, '/docs');
-    print('6. /docs agora é o CID ${docs.cid()}');
+    print('6. /docs is now CID ${docs.cid()}');
 
-    // Para comparar, a mesma leitura pelo alto nível (exemplo 09): um
-    // comando, sem abrir nem fechar nada, com o resultado em Stream de
-    // pedaços de bytes. `.fold` percorre os itens do Stream acumulando num
-    // valor: começa com `[]` (uma lista vazia) e, a cada pedaço que chega,
-    // chama a função com (o acumulado até aqui, o pedaço novo); o que a
-    // função devolve vira o novo acumulado. No fim, devolve um Future com o
-    // valor final. `junto..addAll(pedaco)` adiciona os bytes do pedaço à
-    // lista e devolve a própria lista (o `..` devolve o objeto, não o
-    // resultado do addAll).
-    final viaComando = await kubo
-        .filesRead(n, ctx, '/docs/rascunhos/nota.txt')
-        .fold<List<int>>([], (junto, pedaco) => junto..addAll(pedaco));
-    print('7. pelo comando ipfs files read: ${viaComando.length} bytes');
+    // For comparison, the same read through the high level (example 09): a
+    // command, without opening or closing anything, with the result as a Stream
+    // of byte pieces. `.fold` walks the Stream's items accumulating into a
+    // value: it starts with `[]` (an empty list) and, for each piece that
+    // arrives, calls the function with (what was accumulated so far, the new
+    // piece); what the function returns becomes the new accumulated value. At
+    // the end, it returns a Future with the final value. `all..addAll(chunk)`
+    // adds the piece's bytes to the list and returns the list itself (`..`
+    // returns the object, not the result of addAll).
+    final viaCommand = await kubo
+        .filesRead(n, ctx, '/docs/drafts/note.txt')
+        .fold<List<int>>([], (all, chunk) => all..addAll(chunk));
+    print('7. through the ipfs files read command: ${viaCommand.length} bytes');
   } finally {
     await n.close();
     await IpfsService.stop();

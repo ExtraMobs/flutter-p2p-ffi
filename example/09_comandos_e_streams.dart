@@ -1,25 +1,25 @@
-// Passo 9: os comandos do `ipfs` (os mesmos do terminal: `ipfs files mkdir`,
-// `ipfs pin ls`, `ipfs cat`...) chamados do Dart, e um tour pelo `Stream`, que
-// é como todo comando devolve o resultado.
+// Step 9: the `ipfs` commands (the same as in the terminal: `ipfs files mkdir`,
+// `ipfs pin ls`, `ipfs cat`...) called from Dart, and a tour of `Stream`, which
+// is how every command returns its result.
 //
 //   dart run example/09_comandos_e_streams.dart
 //
-// Não precisa do 01: o exemplo cria um repo temporário e o apaga no fim.
+// It does not need example 01: it creates a temporary repo and deletes it at the end.
 //
-// Antes de começar, dois conceitos do Dart que aparecem em todo o arquivo:
+// Before starting, two Dart concepts that show up in the whole file:
 //
-// - `Future<T>`: a promessa de UM valor do tipo T que fica pronto mais tarde
-//   (a resposta do nó IPFS leva um tempo). `await f` pausa esta função até o
-//   valor ficar pronto e devolve o valor; enquanto isso, o resto do programa
-//   continua rodando. Só dá para usar `await` dentro de uma função `async`.
+// - `Future<T>`: the promise of ONE value of type T that is ready later (the
+//   IPFS node's answer takes a while). `await f` pauses this function until the
+//   value is ready and returns it; meanwhile, the rest of the program keeps
+//   running. `await` can only be used inside an `async` function.
 //
-// - `Stream<T>`: uma SEQUÊNCIA de valores do tipo T que vão chegando ao longo
-//   do tempo (zero, um ou vários), e que no fim termina, com ou sem erro. Pense
-//   numa esteira: os itens chegam um de cada vez. Um ponto importante: o
-//   Stream é "preguiçoso". Criar o Stream não faz nada; o comando só roda no
-//   nó quando alguém começa a ouvir o Stream (com `await for`, `.listen`,
-//   `.single`, `.toList()`, `.drain()`...). Esquecer de ouvir = o comando
-//   nunca roda.
+// - `Stream<T>`: a SEQUENCE of values of type T that arrive over time (zero, one
+//   or many), and that ends at some point, with or without an error. Think of a
+//   conveyor belt: the items arrive one at a time. An important point: a Stream
+//   is "lazy". Creating the Stream does nothing; the command only runs in the
+//   node when someone starts listening to the Stream (with `await for`,
+//   `.listen`, `.single`, `.toList()`, `.drain()`...). Forgetting to listen = the
+//   command never runs.
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
@@ -31,170 +31,173 @@ import 'package:ipfs_ffi/ipfs_ffi.dart' show IpfsException, IpfsService;
 import 'package:ipfs_ffi/kubo.dart' as kubo;
 
 Future<void> main() async {
-  // Uma pasta temporária só para este exemplo (o repo do IPFS mora nela).
+  // A temporary directory just for this example (the IPFS repo lives in it).
   final tmp = Directory.systemTemp.createTempSync('ipfs_ffi_ex09_');
   final repoPath = '${tmp.path}/repo';
 
-  // Liga o serviço: lança o ipfs_host (o kubo, em outro processo; compile
-  // antes com `dart run tool/build.dart`). Tudo abaixo conversa com ele.
+  // Starts the service: launches the ipfs_host (kubo, in another process; build
+  // it first with `dart run tool/build.dart`). Everything below talks to it.
   await IpfsService.start();
 
-  // Os plugins do kubo (tipos de banco de dados do repo etc.): uma vez por
-  // serviço, antes de abrir qualquer repo. Os `..` chamam dois métodos no
-  // mesmo objeto, um depois do outro.
+  // Kubo's plugins (the repo's database types etc.): once per service, before
+  // opening any repo. The `..` call two methods on the same object, one after
+  // the other.
   kubo.PluginLoader('')
     ..initialize()
     ..inject();
 
-  // Cria o repo: uma identidade nova (o par de chaves do nó) e a config
-  // padrão do kubo, com o perfil `test` (sem rede, portas aleatórias).
+  // Creates the repo: a new identity (the node's key pair) and kubo's default
+  // config, with the `test` profile (no network, random ports).
   final cfg = kubo
       .initWithIdentity(kubo.createIdentity(null, [kubo.key.type('ed25519')]));
   kubo.profiles['test']!.transform(cfg);
   kubo.init(repoPath, cfg);
 
-  // O "contexto" do Go: toda chamada que pode demorar recebe um. O
-  // `background()` é o contexto que nunca vence nem é cancelado (o exemplo 11
-  // mostra prazos e cancelamento).
+  // Go's "context": every call that may take a while gets one. `background()`
+  // is the context that never expires nor is canceled (example 11 shows
+  // deadlines and cancellation).
   final ctx = context.background();
 
-  // Sobe o nó IPFS (offline: sem `online: true` ele não fala com a rede).
-  // `newNode` devolve um Future, então esperamos com `await`.
+  // Starts the IPFS node (offline: without `online: true` it does not talk to
+  // the network). `newNode` returns a Future, so we wait with `await`.
   final n = await kubo.newNode(ctx, kubo.BuildCfg(repo: kubo.open(repoPath)));
 
-  // `try { ... } finally { ... }`: o bloco do `finally` roda SEMPRE no fim,
-  // dando certo ou dando erro, e é onde fechamos o nó e o serviço.
+  // `try { ... } finally { ... }`: the `finally` block ALWAYS runs at the end,
+  // whether it worked or failed, and it is where we close the node and the
+  // service.
   try {
     // ------------------------------------------------------------------
-    // 1. Comando sem resultado útil: `.drain()`
+    // 1. A command without a useful result: `.drain()`
     // ------------------------------------------------------------------
-    // `ipfs files mkdir -p /docs`. O comando devolve um Stream, mas aqui só
-    // importa o efeito (criar a pasta). `.drain()` ouve o Stream até o fim
-    // jogando fora os itens, e devolve um Future que completa quando o
-    // comando termina. Sem o `.drain()`, a pasta NÃO seria criada (o Stream
-    // é preguiçoso: ninguém ouviu, nada rodou).
+    // `ipfs files mkdir -p /docs`. The command returns a Stream, but here only
+    // the effect matters (creating the directory). `.drain()` listens to the
+    // Stream until the end, throwing the items away, and returns a Future that
+    // completes when the command ends. Without `.drain()`, the directory would
+    // NOT be created (the Stream is lazy: nobody listened, nothing ran).
     await kubo.filesMkdir(n, ctx, '/docs', parents: true).drain<void>();
-    print('1. criei /docs');
+    print('1. created /docs');
 
-    // `ipfs files write --create /docs/nota.txt`: grava bytes num arquivo do
-    // MFS (o "sistema de arquivos" do nó IPFS). `utf8.encode` transforma o
-    // texto em bytes; `files.newBytesFile` embrulha os bytes como arquivo.
+    // `ipfs files write --create /docs/note.txt`: writes bytes to a file in the
+    // MFS (the IPFS node's "file system"). `utf8.encode` turns the text into
+    // bytes; `files.newBytesFile` wraps the bytes as a file.
     await kubo
-        .filesWrite(n, ctx, '/docs/nota.txt',
-            files.newBytesFile(utf8.encode('olá, IPFS!\n')),
+        .filesWrite(n, ctx, '/docs/note.txt',
+            files.newBytesFile(utf8.encode('hello, IPFS!\n')),
             create: true)
         .drain<void>();
-    print('   gravei /docs/nota.txt');
+    print('   wrote /docs/note.txt');
 
     // ------------------------------------------------------------------
-    // 2. Comando que devolve UM valor: `.single`
+    // 2. A command that returns ONE value: `.single`
     // ------------------------------------------------------------------
-    // `ipfs files stat /docs/nota.txt` emite um único item (um StatOutput).
-    // `.single` ouve o Stream inteiro e devolve um Future com o único item.
-    // Cuidado: se o Stream vier vazio, ou com mais de um item, `.single` dá
-    // erro (StateError). Use quando o comando, por natureza, responde uma vez.
-    final st = await kubo.filesStat(n, ctx, '/docs/nota.txt').single;
+    // `ipfs files stat /docs/note.txt` emits a single item (a StatOutput).
+    // `.single` listens to the whole Stream and returns a Future with the only
+    // item. Careful: if the Stream comes empty, or with more than one item,
+    // `.single` fails (StateError). Use it when the command, by nature, answers
+    // once.
+    final st = await kubo.filesStat(n, ctx, '/docs/note.txt').single;
     print('2. stat: ${st.type}, ${st.size} bytes, CID ${st.hash}');
 
-    // `ipfs files ls /docs`: também um item só, que traz a lista `entries`.
+    // `ipfs files ls /docs`: also a single item, which carries the `entries` list.
     final ls = await kubo.filesLs(n, ctx, '/docs', long: true).single;
     for (final e in ls.entries) {
       print('   ls: ${e.name} (${e.size} bytes)');
     }
 
     // ------------------------------------------------------------------
-    // 3. Comando que devolve BYTES em pedaços: `await for`
+    // 3. A command that returns BYTES in pieces: `await for`
     // ------------------------------------------------------------------
-    // `ipfs files read` emite o conteúdo em pedaços (Uint8List, uma lista de
-    // bytes); um arquivo grande chega em vários pedaços. `await for` é um
-    // laço `for` que espera cada item do Stream chegar: o corpo roda uma vez
-    // por pedaço, e o laço termina quando o Stream termina.
-    final conteudo = BytesBuilder(); // junta os pedaços num buffer só
-    await for (final pedaco in kubo.filesRead(n, ctx, '/docs/nota.txt')) {
-      print('3. chegou um pedaço de ${pedaco.length} bytes');
-      conteudo.add(pedaco);
+    // `ipfs files read` emits the content in pieces (Uint8List, a list of
+    // bytes); a large file arrives in several pieces. `await for` is a `for`
+    // loop that waits for each item of the Stream: the body runs once per piece,
+    // and the loop ends when the Stream ends.
+    final content = BytesBuilder(); // joins the pieces into a single buffer
+    await for (final chunk in kubo.filesRead(n, ctx, '/docs/note.txt')) {
+      print('3. a piece of ${chunk.length} bytes arrived');
+      content.add(chunk);
     }
-    print('   conteúdo: ${utf8.decode(conteudo.takeBytes()).trim()}');
+    print('   content: ${utf8.decode(content.takeBytes()).trim()}');
 
     // ------------------------------------------------------------------
-    // 4. Juntar todos os itens: `.toList()`
+    // 4. Collecting every item: `.toList()`
     // ------------------------------------------------------------------
-    // Um arquivo pinado (o pin impede o coletor de lixo de apagá-lo).
+    // A pinned file (the pin keeps the garbage collector from deleting it).
     final p = await kubo.newCoreApi(n).unixfs().add(
         ctx,
-        files.newBytesFile(utf8.encode('fica guardado')),
+        files.newBytesFile(utf8.encode('kept around')),
         [kubo.unixfs.pin(true, '')]);
-    // `ipfs pin ls --type=recursive` emite os pins (pode ser muitos).
-    // `.toList()` espera o Stream terminar e devolve todos os itens numa
-    // lista. Prático, mas só use quando sabe que a lista cabe na memória.
+    // `ipfs pin ls --type=recursive` emits the pins (there may be many).
+    // `.toList()` waits for the Stream to end and returns every item in a list.
+    // Handy, but only use it when you know the list fits in memory.
     final pins = await kubo.pinLs(n, ctx, [], type: 'recursive').toList();
     for (final w in pins) {
-      // cada item traz um mapa: CID → tipo do pin
+      // each item carries a map: CID → pin type
       w.keys.forEach((cid, info) => print('4. pin: $cid (${info.type})'));
     }
 
     // ------------------------------------------------------------------
-    // 5. Ouvir com `.listen`: callbacks, em vez de esperar
+    // 5. Listening with `.listen`: callbacks, instead of waiting
     // ------------------------------------------------------------------
-    // `await for` pausa a função até o Stream acabar. `.listen` NÃO pausa:
-    // ele registra funções (callbacks) que o Dart chama mais tarde, e o
-    // código logo abaixo do `.listen` segue imediatamente. É o jeito certo
-    // quando a tela (ou outra tarefa) precisa continuar viva enquanto os
-    // itens chegam, como as mensagens de um chat.
+    // `await for` pauses the function until the Stream ends. `.listen` does NOT
+    // pause: it registers functions (callbacks) that Dart calls later, and the
+    // code right below `.listen` goes on immediately. It is the right way when
+    // the screen (or another task) must stay alive while the items arrive, like
+    // a chat's messages.
     //
-    //   onData:  chamada uma vez para CADA item que chega
-    //   onError: chamada se o comando falhar (aqui, uma IpfsException)
-    //   onDone:  chamada uma vez, quando o Stream termina
+    //   onData:  called once for EACH item that arrives
+    //   onError: called if the command fails (here, an IpfsException)
+    //   onDone:  called once, when the Stream ends
     //
-    // `.listen` devolve uma StreamSubscription: o "controle remoto" da
-    // assinatura, com `.cancel()` (parar de ouvir) e `.pause()/.resume()`.
-    final terminou = Completer<void>(); // um Future que completamos à mão
+    // `.listen` returns a StreamSubscription: the subscription's "remote
+    // control", with `.cancel()` (stop listening) and `.pause()/.resume()`.
+    final done = Completer<void>(); // a Future we complete by hand
     var total = 0;
-    final assinatura = kubo.cat(n, ctx, [p.value]).listen(
-      (pedaco) {
-        // onData: roda para cada pedaço de bytes do `ipfs cat`
-        total += pedaco.length;
+    final subscription = kubo.cat(n, ctx, [p.value]).listen(
+      (chunk) {
+        // onData: runs for each piece of bytes of `ipfs cat`
+        total += chunk.length;
       },
       onError: (Object e) {
-        // onError: o comando falhou; sem este callback o erro iria para o
-        // tratador de erros não capturados da zona e derrubaria o programa
-        print('5. erro no cat: $e');
-        if (!terminou.isCompleted) terminou.complete();
+        // onError: the command failed; without this callback the error would go
+        // to the zone's uncaught error handler and bring the program down
+        print('5. cat error: $e');
+        if (!done.isCompleted) done.complete();
       },
       onDone: () {
-        // onDone: o Stream terminou (todos os pedaços chegaram)
-        print('5. cat terminou: $total bytes');
-        terminou.complete();
+        // onDone: the Stream ended (every piece arrived)
+        print('5. cat finished: $total bytes');
+        done.complete();
       },
-      cancelOnError: true, // parar de ouvir no primeiro erro
+      cancelOnError: true, // stop listening on the first error
     );
     print(
-        '5. (esta linha aparece ANTES do "cat terminou": o listen não espera)');
-    await terminou.future; // agora sim esperamos o onDone
-    // Depois do onDone a assinatura já acabou; o cancel() aqui não faz nada,
-    // mas é o que se chama para parar ANTES do fim (ex.: o usuário saiu da
-    // tela), e liberar o comando no nó.
-    await assinatura.cancel();
+        '5. (this line shows up BEFORE "cat finished": listen does not wait)');
+    await done.future; // now we do wait for onDone
+    // After onDone the subscription is already over; cancel() here does nothing,
+    // but it is what you call to stop listening BEFORE the end (e.g. the user
+    // left the screen). It does not stop the command in the node: to stop it,
+    // cancel the context it was given.
+    await subscription.cancel();
 
     // ------------------------------------------------------------------
-    // 6. Erros: o comando falha → IpfsException
+    // 6. Errors: the command fails → IpfsException
     // ------------------------------------------------------------------
-    // Quando o kubo devolve erro (aqui: o caminho não existe), o Stream
-    // termina com erro. Com `await` (incluindo `.single`, `.toList()`,
-    // `await for`), o erro vira uma exceção que o `try/catch` pega.
+    // When kubo returns an error (here: the path does not exist), the Stream ends
+    // with an error. With `await` (including `.single`, `.toList()`,
+    // `await for`), the error becomes an exception that `try/catch` catches.
     try {
-      await kubo.filesStat(n, ctx, '/nao/existe').single;
+      await kubo.filesStat(n, ctx, '/does/not/exist').single;
     } on IpfsException catch (e) {
-      print('6. erro esperado do kubo: $e');
+      print('6. expected error from kubo: $e');
     }
 
-    // `ipfs files rm -r /docs` e conferir que sumiu
+    // `ipfs files rm -r /docs` and check that it is gone
     await kubo.filesRm(n, ctx, ['/docs'], recursive: true).drain<void>();
-    final raiz = await kubo.filesLs(n, ctx, '/').single;
-    print('   depois do rm, a raiz tem ${raiz.entries.length} entradas');
+    final root = await kubo.filesLs(n, ctx, '/').single;
+    print('   after rm, the root has ${root.entries.length} entries');
   } finally {
-    await n.close(); // fecha o nó (libera o repo)
-    await IpfsService.stop(); // encerra o ipfs_host
-    tmp.deleteSync(recursive: true); // apaga a pasta temporária
+    await n.close(); // closes the node (releases the repo)
+    await IpfsService.stop(); // ends the ipfs_host
+    tmp.deleteSync(recursive: true); // deletes the temporary directory
   }
 }

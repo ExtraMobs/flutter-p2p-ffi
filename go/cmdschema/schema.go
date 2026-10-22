@@ -1,5 +1,5 @@
 // Package cmdschema decide como o valor que um comando do kubo emite atravessa
-// o canal (WIRE.md, "Comandos"): o gerador (go/gen) o usa para escrever os
+// o canal (WIRE.md, "Commands"): o gerador (go/gen) o usa para escrever os
 // DTOs Dart e o host para codificar o valor, pelo mesmo reflect.Type. Os dois
 // lados leem daqui o tipo de cada campo e a ordem deles, e por isso não
 // divergem.

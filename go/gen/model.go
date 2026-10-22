@@ -111,7 +111,7 @@ type optCtor struct {
 // omitCtors: construtores de opção que ficam de fora de propósito (o
 // parâmetro é de um módulo que não vale um namespace), com o motivo (API.md).
 var omitCtors = map[string]string{
-	"github.com/ipfs/boxo/gateway.WithPrometheusRegistry": "métricas do Prometheus (sem namespace; o gateway usa o registro padrão)",
+	"github.com/ipfs/boxo/gateway.WithPrometheusRegistry": "Prometheus metrics (no namespace; the gateway uses the default registry)",
 }
 
 type model struct {
@@ -156,7 +156,7 @@ func (m *model) fill(ti *tinfo) {
 		case t.Info()&(types.IsBoolean|types.IsInteger|types.IsFloat|types.IsString) != 0 && t.Kind() != types.UnsafePointer && t.Kind() != types.Uintptr:
 			ti.k = kBasic
 		default:
-			unsupported(ti, "tipo básico %s", t)
+			unsupported(ti, "basic type %s", t)
 		}
 	case *types.Slice:
 		if b, ok := t.Elem().(*types.Basic); ok && b.Kind() == types.Byte {
@@ -180,7 +180,7 @@ func (m *model) fill(ti *tinfo) {
 		case ok && b.Info()&types.IsInteger != 0 && b.Kind() != types.Uintptr:
 			ti.mkey = m.classify(t.Key())
 		default:
-			unsupported(ti, "mapa com chave %s", t.Key())
+			unsupported(ti, "map keyed by %s", t.Key())
 			return
 		}
 		ti.k, ti.elem = kMap, m.classify(t.Elem())
@@ -191,13 +191,13 @@ func (m *model) fill(ti *tinfo) {
 		ti.elem = m.classify(t.Elem())
 		switch {
 		case ti.elem.k == kUnsupported:
-			unsupported(ti, "chan de %s", ti.elem.why)
+			unsupported(ti, "chan of %s", ti.elem.why)
 		case t.Dir() == types.SendOnly:
 			ti.k = kChanSend
 		case t.Dir() == types.RecvOnly:
 			ti.k = kChanRecv
 		default:
-			unsupported(ti, "chan bidirecional")
+			unsupported(ti, "bidirectional chan")
 		}
 	case *types.Pointer:
 		if b, ok := t.Elem().(*types.Basic); ok { // *int64 (DagByteRange.To): o básico ou nil
@@ -210,7 +210,7 @@ func (m *model) fill(ti *tinfo) {
 		}
 		n, ok := types.Unalias(t.Elem()).(*types.Named)
 		if !ok {
-			unsupported(ti, "ponteiro para %s", t.Elem())
+			unsupported(ti, "pointer to %s", t.Elem())
 			return
 		}
 		inner := m.classify(n)
@@ -224,7 +224,7 @@ func (m *model) fill(ti *tinfo) {
 			if inner.k == kUnsupported {
 				unsupported(ti, "*%s", inner.why)
 			} else {
-				unsupported(ti, "ponteiro para %s", n)
+				unsupported(ti, "pointer to %s", n)
 			}
 		}
 	case *types.Named:
@@ -234,7 +234,7 @@ func (m *model) fill(ti *tinfo) {
 			ti.k = kAny
 			return
 		}
-		unsupported(ti, "interface sem nome %s", ti.t)
+		unsupported(ti, "unnamed interface %s", ti.t)
 	case *types.Alias:
 		// any e interface{} têm a mesma chave: preenche aqui, sem voltar ao
 		// cache (que devolveria este mesmo tinfo, ainda vazio)
@@ -272,11 +272,11 @@ func (m *model) fillNamed(ti *tinfo, n *types.Named) {
 		return
 	}
 	if obj.Pkg() == nil || !obj.Exported() || strings.Contains(obj.Pkg().Path()+"/", "/internal/") {
-		unsupported(ti, "tipo não exportável %s", key)
+		unsupported(ti, "unexported type %s", key)
 		return
 	}
 	if n.TypeArgs().Len() > 0 {
-		unsupported(ti, "genérico %s", ti.key)
+		unsupported(ti, "generic %s", ti.key)
 		return
 	}
 	switch u := n.Underlying().(type) {
@@ -375,12 +375,12 @@ func (m *model) fillStruct(ti *tinfo, n *types.Named, u *types.Struct) {
 		switch ft.k {
 		case kBasic, kBytes, kValue, kDTO, kSnap, kHandle, kSlice, kMap, kError:
 			if ft.k == kSnap {
-				fd.skipped = "interface só de leitura"
+				fd.skipped = "read-only interface"
 			}
 		default:
 			fd.skipped = ft.why
 			if fd.skipped == "" {
-				fd.skipped = "tipo " + types.TypeString(f.Type(), nil)
+				fd.skipped = "type " + types.TypeString(f.Type(), nil)
 			}
 		}
 		ti.fields = append(ti.fields, fd)
@@ -417,7 +417,7 @@ func (m *model) funcParam(t types.Type) *tinfo {
 		v := sig.Params().At(i)
 		a := m.classify(v.Type())
 		if !okElem(a) {
-			unsupported(ti, "callback com argumento %s", describe(a))
+			unsupported(ti, "callback with argument %s", describe(a))
 			return ti
 		}
 		ti.fargs = append(ti.fargs, a)
@@ -498,7 +498,7 @@ func (m *model) sinkParam(ctorKey string, ch *types.Chan) *tinfo {
 	}
 	ti.elem = m.classify(elem)
 	if !okElem(ti.elem) {
-		unsupported(ti, "canal de %s", describe(ti.elem))
+		unsupported(ti, "channel of %s", describe(ti.elem))
 	}
 	return ti
 }
@@ -586,7 +586,7 @@ func okOptCtor(c optCtor) (bool, string) {
 			if why == "" {
 				why = types.TypeString(p.t, nil)
 			}
-			return false, fmt.Sprintf("parâmetro %s: %s", c.pnames[i], why)
+			return false, fmt.Sprintf("parameter %s: %s", c.pnames[i], why)
 		}
 	}
 	return true, ""

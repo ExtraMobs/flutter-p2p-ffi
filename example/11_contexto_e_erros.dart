@@ -1,9 +1,9 @@
-// Passo 11: prazos e cancelamento (o `context` do Go), os dois tipos de erro e
-// o que fazer quando o serviço cai.
+// Step 11: deadlines and cancellation (Go's `context`), the two kinds of error
+// and what to do when the service goes down.
 //
 //   dart run example/11_contexto_e_erros.dart
 //
-// Os conceitos de Future e Stream estão explicados no início do exemplo 09.
+// The Future and Stream concepts are explained at the start of example 09.
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
@@ -13,20 +13,20 @@ import 'package:ipfs_ffi/go/context.dart' as context;
 import 'package:ipfs_ffi/ipfs_ffi.dart'
     show IpfsException, IpfsService, IpfsServiceException, IpfsStop;
 import 'package:ipfs_ffi/kubo.dart' as kubo;
-// Só para o passo 4: uma função de TESTE do pacote, que derruba o ipfs_host de
-// propósito. Não use num app; ela existe para provar a recuperação.
+// Only for step 4: a TEST function of the package, which brings the ipfs_host
+// down on purpose. Do not use it in an app; it exists to prove the recovery.
 import 'package:ipfs_ffi/src/runtime.dart' show $callSync;
 
-/// Os plugins do kubo: uma vez por serviço (o kubo recusa a segunda vez no
-/// mesmo processo, e um serviço relançado é um processo novo, sem eles).
+/// Kubo's plugins: once per service (kubo refuses a second time in the same
+/// process, and a restarted service is a new process, without them).
 void plugins() => kubo.PluginLoader('')
   ..initialize()
   ..inject();
 
-/// O nó sobre [repoPath]. Online, porque o pubsub do passo 1 só existe num
-/// nó online (o `Pubsub.Enabled` do daemon); com o perfil `test` do repo, ele
-/// escuta só em 127.0.0.1 e não sai para a internet.
-Future<kubo.IpfsNode> abrirNo(String repoPath) => kubo.newNode(
+/// The node over [repoPath]. Online, because step 1's pubsub only exists in an
+/// online node (the daemon's `Pubsub.Enabled`); with the repo's `test` profile,
+/// it listens only on 127.0.0.1 and does not go out to the internet.
+Future<kubo.IpfsNode> openNode(String repoPath) => kubo.newNode(
     context.background(),
     kubo.BuildCfg(
         repo: kubo.open(repoPath), online: true, extraOpts: {'pubsub': true}));
@@ -35,119 +35,116 @@ Future<void> main() async {
   final tmp = Directory.systemTemp.createTempSync('ipfs_ffi_ex11_');
   final repoPath = '${tmp.path}/repo';
 
-  // `onStop` é chamado quando o serviço para sem você ter pedido (uma queda
-  // do kubo, ou o app indo para o segundo plano no Android). O pacote NUNCA
-  // relança sozinho: quem decide é você, aqui. Guardamos cada parada num
-  // Completer (um Future que completamos à mão) para o passo 4 esperar por
-  // ela.
-  var parada = Completer<IpfsStop>();
+  // `onStop` is called when the service stops without you asking (a kubo crash,
+  // or the app going to the background on Android). The package NEVER restarts
+  // on its own: you decide, here. We keep each stop in a Completer (a Future we
+  // complete by hand) for step 4 to wait for it.
+  var stopped = Completer<IpfsStop>();
   await IpfsService.start(
-      crashLog: '${tmp.path}/crash.log', // onde o Go grava o relatório
-      onStop: (s) => parada.complete(s));
+      crashLog: '${tmp.path}/crash.log', // where Go writes the report
+      onStop: (s) => stopped.complete(s));
 
   final cfg = kubo
       .initWithIdentity(kubo.createIdentity(null, [kubo.key.type('ed25519')]));
   kubo.profiles['test']!.transform(cfg);
   plugins();
   kubo.init(repoPath, cfg);
-  var n = await abrirNo(repoPath);
+  var n = await openNode(repoPath);
 
   try {
     // ------------------------------------------------------------------
-    // 1. Prazo: withTimeout
+    // 1. A deadline: withTimeout
     // ------------------------------------------------------------------
-    // `withTimeout` cria um contexto filho que vence sozinho depois do
-    // prazo, e devolve DOIS valores (um "record" do Dart): o contexto e a
-    // função `cancel`. Chame o cancel sempre que terminar, mesmo que o prazo
-    // já tenha vencido: é o que libera o contexto no Go.
-    final (comPrazo, cancelaPrazo) =
+    // `withTimeout` creates a child context that expires on its own after the
+    // deadline, and returns TWO values (a Dart "record"): the context and the
+    // `cancel` function. Always call cancel when you are done, even if the
+    // deadline already passed: it is what releases the context in Go.
+    final (withDeadline, cancelDeadline) =
         context.withTimeout(context.background(), const Duration(seconds: 2));
     final sw = Stopwatch()..start();
     try {
-      // `ipfs pubsub sub` nunca termina sozinho: fica esperando mensagens.
-      // Com o prazo de 2 s, o kubo encerra o Stream com um erro de prazo
-      // vencido, que o `await for` transforma em exceção.
-      await for (final m in kubo.pubsubSub(n, comPrazo, 'sala-11')) {
-        print('mensagem: ${m.data}'); // ninguém publica: não vai aparecer
+      // `ipfs pubsub sub` never ends on its own: it keeps waiting for messages.
+      // With the 2 s deadline, kubo ends the Stream with a deadline-exceeded
+      // error, which `await for` turns into an exception.
+      await for (final m in kubo.pubsubSub(n, withDeadline, 'room-11')) {
+        print('message: ${m.data}'); // nobody publishes: it will not show up
       }
     } on IpfsException catch (e) {
-      print('1. depois de ${sw.elapsed.inMilliseconds} ms: $e');
+      print('1. after ${sw.elapsed.inMilliseconds} ms: $e');
     } finally {
-      cancelaPrazo();
+      cancelDeadline();
     }
 
     // ------------------------------------------------------------------
-    // 2. Cancelar na hora: withCancel
+    // 2. Canceling right away: withCancel
     // ------------------------------------------------------------------
-    // Igual, mas sem prazo: o contexto só termina quando você chama o
-    // cancel (ex.: o usuário saiu da tela do chat). Aqui ouvimos com
-    // `.listen` (não pausa o código) e cancelamos depois de 1 s.
-    final (cancelavel, cancela) = context.withCancel(context.background());
-    final fim = Completer<String>();
-    kubo.pubsubSub(n, cancelavel, 'sala-11').listen(
-          (m) {}, // onData: cada mensagem (não vem nenhuma)
-          onError: (Object e) => fim.complete('erro: $e'),
+    // The same, but without a deadline: the context only ends when you call
+    // cancel (e.g. the user left the chat screen). Here we listen with `.listen`
+    // (it does not pause the code) and cancel after 1 s.
+    final (cancelable, cancel) = context.withCancel(context.background());
+    final end = Completer<String>();
+    kubo.pubsubSub(n, cancelable, 'room-11').listen(
+          (m) {}, // onData: each message (none comes)
+          onError: (Object e) => end.complete('error: $e'),
           onDone: () {
-            // Depois de um erro, o Stream ainda avisa o fim (onDone), a menos
-            // que se peça `cancelOnError: true` (abaixo). Por isso conferimos:
-            // completar o mesmo Completer duas vezes é erro.
-            if (!fim.isCompleted) fim.complete('terminou sem erro');
+            // After an error, the Stream still reports the end (onDone), unless
+            // you ask for `cancelOnError: true` (below). That is why we check:
+            // completing the same Completer twice is an error.
+            if (!end.isCompleted) end.complete('ended without an error');
           },
-          cancelOnError: true, // parar de ouvir no primeiro erro
+          cancelOnError: true, // stop listening on the first error
         );
     await Future<void>.delayed(const Duration(seconds: 1));
-    // O kubo vê o contexto cancelado e fecha a assinatura. Repare na saída:
-    // no `pubsub sub`, o cancelamento termina o Stream SEM erro (onDone),
-    // diferente do prazo do passo 1, que terminou com erro.
-    cancela();
-    print('2. depois do cancel: ${await fim.future}');
+    // Kubo sees the canceled context and closes the subscription. Note the
+    // output: in `pubsub sub`, cancellation ends the Stream WITHOUT an error
+    // (onDone), unlike step 1's deadline, which ended with an error.
+    cancel();
+    print('2. after cancel: ${await end.future}');
 
     // ------------------------------------------------------------------
-    // 3. Erro do kubo: IpfsException
+    // 3. A kubo error: IpfsException
     // ------------------------------------------------------------------
-    // A chamada chegou ao kubo, e ele respondeu com erro (no Go, o `error`
-    // que a função devolveu). O serviço continua de pé; dá para seguir.
+    // The call reached kubo, and it answered with an error (in Go, the `error`
+    // the function returned). The service is still up; you can go on.
     try {
-      await kubo.filesStat(n, context.background(), '/nao/existe').single;
+      await kubo.filesStat(n, context.background(), '/does/not/exist').single;
     } on IpfsServiceException {
-      rethrow; // (é subclasse de IpfsException: trate antes, se precisar)
+      rethrow; // (it is a subclass of IpfsException: handle it first, if needed)
     } on IpfsException catch (e) {
-      print('3. erro do kubo, o serviço segue: $e');
+      print('3. kubo error, the service goes on: $e');
     }
 
     // ------------------------------------------------------------------
-    // 4. O serviço caiu: IpfsServiceException e onStop
+    // 4. The service went down: IpfsServiceException and onStop
     // ------------------------------------------------------------------
-    // Um panic do Go que ninguém trata (uma goroutine interna do kubo, por
-    // exemplo) derruba o processo do ipfs_host. O app continua vivo: as
-    // chamadas pendentes falham com IpfsServiceException, e o onStop recebe
-    // o motivo e o relatório do Go. Aqui provocamos a queda de propósito.
-    $callSync(24); // SÓ PARA TESTE: panic numa goroutine do host
-    final s = await parada.future; // espera o onStop
-    print('4. o serviço parou: ${s.reason}, saída ${s.exitCode}, '
-        'de pé por ${s.uptime.inSeconds} s');
-    print('   relatório do Go: ${s.report.split('\n').first}');
+    // A Go panic nobody handles (one of kubo's internal goroutines, for example)
+    // brings the ipfs_host process down. The app stays alive: pending calls fail
+    // with IpfsServiceException, and onStop gets the reason and Go's report.
+    // Here we cause the crash on purpose.
+    $callSync(24); // TEST ONLY: a panic in a host goroutine
+    final s = await stopped.future; // waits for onStop
+    print('4. the service stopped: ${s.reason}, exit ${s.exitCode}, '
+        'up for ${s.uptime.inSeconds} s');
+    print("   Go's report: ${s.report.split('\n').first}");
 
-    // Tudo que veio do serviço anterior (nó, CoreAPI, contextos...) morreu
-    // com ele: usar agora dá IpfsServiceException.
+    // Everything that came from the previous service (node, CoreAPI,
+    // contexts...) died with it: using it now gives IpfsServiceException.
     try {
       kubo.newCoreApi(n);
     } on IpfsServiceException catch (e) {
-      // (a mensagem traz o relatório inteiro do Go; aqui, só a 1ª linha)
-      print('   o nó antigo não vale mais: ${'$e'.split('\n').first}');
+      // (the message carries Go's whole report; here, only the first line)
+      print('   the old node is no longer valid: ${'$e'.split('\n').first}');
     }
 
-    // Relançar é decisão sua: aqui, sim. O processo é novo, então refazemos
-    // plugins e nó; os dados do repo estão no disco e continuam lá.
-    parada = Completer<IpfsStop>();
+    // Restarting is your decision: here, yes. The process is new, so we redo
+    // plugins and node; the repo's data is on disk and stays there.
+    stopped = Completer<IpfsStop>();
     await IpfsService.restart();
     plugins();
-    n = await abrirNo(repoPath);
-    final p = await kubo
-        .newCoreApi(n)
-        .unixfs()
-        .add(context.background(), files.newBytesFile(utf8.encode('de volta')));
-    print('5. de volta: o serviço novo já adicionou $p');
+    n = await openNode(repoPath);
+    final p = await kubo.newCoreApi(n).unixfs().add(
+        context.background(), files.newBytesFile(utf8.encode('back again')));
+    print('5. back: the new service already added $p');
   } finally {
     if (IpfsService.isRunning) await n.close();
     await IpfsService.stop();
