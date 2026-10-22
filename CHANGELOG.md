@@ -3,6 +3,23 @@
 Newest first. Measurements, findings and the reasoning behind each change are in
 [`TODO.md`](TODO.md); the full API, with what was left out and why, in [`API.md`](API.md).
 
+## Unreleased
+
+- The `ipfs_ffi_flutter` plugin is written in Kotlin (was Java); its API is the same,
+  `IpfsForegroundService.setNotificationFactory` included. It compiles with AGP's
+  built-in Kotlin (`android.builtInKotlin=true`) and also with the Kotlin plugin that
+  Flutter applies when that is off.
+- Fix: stopping the foreground service right after starting it (before its
+  `startForeground`) made Android kill the app
+  (`ForegroundServiceDidNotStartInTimeException`); such a stop now waits and the service
+  stops itself once in the foreground.
+- Gradle: both plugins configure `LibraryExtension` instead of the deprecated `android {}`
+  accessor, and the jniLibs directory goes through `directories`; the validation app
+  sets `android.builtInKotlin=true`. Only `android.newDsl=false` is still deprecated:
+  Flutter's Gradle plugin does not build with the new DSL yet.
+- Docs in English: `WIRE.md`, `API.md` (from the generator) and the examples, whose
+  files 09–13 are renamed (`09_commands_and_streams.dart`...).
+
 ## 0.20.0
 
 Low-level resource management of the running node.

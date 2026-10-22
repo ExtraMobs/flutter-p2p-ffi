@@ -177,6 +177,10 @@ running against the app's node: one function per command in
   (DNS over HTTPS).
 - **Packaging:** the host must be extracted from the APK
   (`packaging.jniLibs.useLegacyPackaging = true`); mDNS needs a `WifiManager.MulticastLock`.
+- **Gradle flags:** set `android.builtInKotlin=true` in the app's `gradle.properties`
+  (Flutter's migrator writes `false` only when the key is missing) to drop the Kotlin
+  plugin deprecations; keep `android.newDsl=false`, because Flutter's Gradle plugin does
+  not build with the new DSL yet.
 - **NAT:** relay connections last up to 2 minutes and carry neither pubsub nor bitswap.
   Between two devices behind carrier NAT the direct connection comes over IPv6 or when one
   side is reachable; `hasIpv6()` tells whether the network delivers global IPv6.

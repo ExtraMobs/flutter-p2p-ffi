@@ -1,7 +1,7 @@
 import java.util.Properties
 
 group = "dev.extramobs.ipfs_ffi"
-version = "0.19.0"
+version = "0.20.0"
 
 buildscript {
     repositories {
@@ -100,7 +100,7 @@ tasks.named("preBuild") {
     dependsOn(buildIpfsFfiAndroid)
 }
 
-android {
+extensions.configure<com.android.build.api.dsl.LibraryExtension> {
     namespace = "dev.extramobs.ipfs_ffi"
     compileSdk = 36
 
@@ -108,7 +108,7 @@ android {
         minSdk = 24
     }
 
-    sourceSets["main"].jniLibs.srcDirs(nativeAndroidDir)
+    sourceSets["main"].jniLibs.directories.add(nativeAndroidDir.path)
 
     val abiOf = mapOf("android-arm64" to "arm64-v8a", "android-x64" to "x86_64")
     if (targetPlatformProp != null) {
