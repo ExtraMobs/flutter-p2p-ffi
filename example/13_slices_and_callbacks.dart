@@ -13,7 +13,8 @@ import 'dart:typed_data';
 
 import 'package:ipfs_ffi/go/boxo/gateway.dart' as gateway;
 import 'package:ipfs_ffi/go/boxo/path.dart' as path;
-import 'package:ipfs_ffi/go/boxo/fetcher/impl/blockservice.dart' as blockservice;
+import 'package:ipfs_ffi/go/boxo/fetcher/impl/blockservice.dart'
+    as blockservice;
 import 'package:ipfs_ffi/go/boxo/files.dart' as files;
 import 'package:ipfs_ffi/go/car/v2.dart' as car;
 import 'package:ipfs_ffi/go/context.dart' as context;
@@ -21,7 +22,8 @@ import 'package:ipfs_ffi/go/io.dart' as io;
 import 'package:ipfs_ffi/go/os.dart' as os;
 import 'package:ipfs_ffi/go/ipld_prime/storage/bsadapter.dart' as bsadapter;
 import 'package:ipfs_ffi/go/ipld_prime/node/basicnode.dart' as basicnode;
-import 'package:ipfs_ffi/go/ipld_prime/traversal/selector/builder.dart' as builder;
+import 'package:ipfs_ffi/go/ipld_prime/traversal/selector/builder.dart'
+    as builder;
 import 'package:ipfs_ffi/go/codec_dagpb.dart' as codec_dagpb;
 import 'package:ipfs_ffi/go/unixfsnode.dart' as unixfsnode;
 import 'package:ipfs_ffi/go/ipld_prime/linking/cid.dart' as cid;
@@ -44,8 +46,8 @@ Future<void> main() async {
   loader.PluginLoader('')
     ..initialize()
     ..inject();
-  final cfg = config
-      .initWithIdentity(config.createIdentity(null, [options.key.type('ed25519')]));
+  final cfg = config.initWithIdentity(
+      config.createIdentity(null, [options.key.type('ed25519')]));
   config.profiles['test']!.transform(cfg);
   fsrepo.init(repoPath, cfg);
   final ctx = context.background();
@@ -104,8 +106,8 @@ Future<void> main() async {
     unixfsnode.addUnixFsReificationToLinkSystem(ls);
     ls.setReadStorage(bsadapter.Adapter()..wrapped = n.blockstore);
     final hi = '${tmp.path}/hi.car';
-    await car
-        .traverseToFile(ctx, ls, root, unixfsnode.unixFsPathSelector('hi.txt'), hi, [
+    await car.traverseToFile(
+        ctx, ls, root, unixfsnode.unixFsPathSelector('hi.txt'), hi, [
       car.withTraversalPrototypeChooser(
           codec_dagpb.addSupportToChooser(blockservice.defaultPrototypeChooser))
     ]);

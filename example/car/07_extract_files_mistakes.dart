@@ -34,7 +34,8 @@ Future<void> main() async {
             'rest from the network', action: () async {
       final ro = blockstore.openReadOnly(partial);
       try {
-        final ds = merkledag.newDagService(blockservice.new$(ro, offline.exchange(ro)));
+        final ds = merkledag
+            .newDagService(blockservice.new$(ro, offline.exchange(ro)));
         final f =
             await file.newUnixfsFile(s.ctx, ds, await ds.get(s.ctx, s.root));
         files.writeTo(f, s.path('out'));

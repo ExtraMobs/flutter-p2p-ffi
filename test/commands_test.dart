@@ -77,7 +77,8 @@ void main() {
   });
 
   test('config: valor de uma chave e show (dinâmico)', () async {
-    final f = await commands.config(n, ctx(), 'Datastore.StorageMax', null).single;
+    final f =
+        await commands.config(n, ctx(), 'Datastore.StorageMax', null).single;
     expect(f.key, 'Datastore.StorageMax');
     expect(f.value$, isA<String>());
     final show = await commands.configShow(n, ctx()).single;
@@ -89,7 +90,8 @@ void main() {
     final addr = '/ip4/127.0.0.1/tcp/4001/p2p/${self.value}';
     final added = await commands.bootstrapAdd(n, ctx(), [addr]).single;
     expect(added.peers, [addr]);
-    expect((await commands.bootstrapList(n, ctx()).single).peers, contains(addr));
+    expect(
+        (await commands.bootstrapList(n, ctx()).single).peers, contains(addr));
     await commands.bootstrapRm(n, ctx(), [addr]).drain<void>();
     expect((await commands.bootstrapList(n, ctx()).single).peers,
         isNot(contains(addr)));
@@ -105,8 +107,10 @@ void main() {
   test('key list, pin ls e refs local (Stream)', () async {
     final keys = await commands.keyList(n, ctx()).single;
     expect([for (final k in keys.keys) k.name], contains('self'));
-    final p = await api.unixfs().add(ctx(),
-        files.newBytesFile(utf8.encode('pinado')), [options.unixfs.pin(true, '')]);
+    final p = await api.unixfs().add(
+        ctx(),
+        files.newBytesFile(utf8.encode('pinado')),
+        [options.unixfs.pin(true, '')]);
     final pins = await commands.pinLs(n, ctx(), [], type: 'recursive').toList();
     final cid = p.value.substring('/ipfs/'.length);
     expect(pins.expand((w) => w.keys.keys), contains(cid));

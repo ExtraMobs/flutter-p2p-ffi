@@ -12,7 +12,6 @@ import 'dart:typed_data';
 
 import 'runtime.dart' show $goError, IpfsServiceException, IpfsStopReason;
 
-
 /// Path of ipfs_shm; default bundled next to the executable (Flutter
 /// Windows/linux plugin), `native/libipfs_shm.so` or `native\ipfs_shm.dll`
 /// relative to the current directory, and on Android `libipfs_shm.so`

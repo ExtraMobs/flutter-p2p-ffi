@@ -36,7 +36,9 @@ void plugins() => loader.PluginLoader('')
 Future<core.IpfsNode> openNode(String repoPath) => core.newNode(
     context.background(),
     node.BuildCfg(
-        repo: fsrepo.open(repoPath), online: true, extraOpts: {'pubsub': true}));
+        repo: fsrepo.open(repoPath),
+        online: true,
+        extraOpts: {'pubsub': true}));
 
 Future<void> main() async {
   final tmp = Directory.systemTemp.createTempSync('ipfs_ffi_ex11_');
@@ -51,8 +53,8 @@ Future<void> main() async {
       crashLog: '${tmp.path}/crash.log', // where Go writes the report
       onStop: (s) => stopped.complete(s));
 
-  final cfg = config
-      .initWithIdentity(config.createIdentity(null, [options.key.type('ed25519')]));
+  final cfg = config.initWithIdentity(
+      config.createIdentity(null, [options.key.type('ed25519')]));
   config.profiles['test']!.transform(cfg);
   plugins();
   fsrepo.init(repoPath, cfg);
@@ -114,7 +116,9 @@ Future<void> main() async {
     // The call reached kubo, and it answered with an error (in Go, the `error`
     // the function returned). The service is still up; you can go on.
     try {
-      await commands.filesStat(n, context.background(), '/does/not/exist').single;
+      await commands
+          .filesStat(n, context.background(), '/does/not/exist')
+          .single;
     } on IpfsServiceException {
       rethrow; // (it is a subclass of IpfsException: handle it first, if needed)
     } on IpfsException catch (e) {

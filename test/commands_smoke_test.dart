@@ -117,8 +117,10 @@ void main() {
 
   test('todos os comandos num nó offline: nenhum erro de protocolo', () async {
     (n, api) = await newNode('offline');
-    final p = await api.unixfs().add(ctx(),
-        files.newBytesFile(utf8.encode('smoke')), [options.unixfs.pin(true, '')]);
+    final p = await api.unixfs().add(
+        ctx(),
+        files.newBytesFile(utf8.encode('smoke')),
+        [options.unixfs.pin(true, '')]);
     final cid = p.value.substring('/ipfs/'.length);
     final self = (await api.key().self(ctx())).id!.value;
     await commands.filesMkdir(n, ctx(), '/smoke').drain<void>();
@@ -203,8 +205,9 @@ void main() {
       final (c, cancel) =
           context.withTimeout(ctx(), const Duration(seconds: 30));
       try {
-        final events =
-            await commands.routingFindprovs(nb, c, [cid], numProviders: 1).toList();
+        final events = await commands
+            .routingFindprovs(nb, c, [cid], numProviders: 1)
+            .toList();
         expect([
           for (final e in events)
             for (final r in e.responses) r?.id?.value

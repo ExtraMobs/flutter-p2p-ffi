@@ -19,7 +19,8 @@ Future<void> main() async {
   try {
     print('== 1. Synchronous .use() on a memory buffer ==');
     final length =
-        go_bytes.Buffer(Uint8List.fromList(utf8.encode('hello ipfs_ffi'))).use((buf) {
+        go_bytes.Buffer(Uint8List.fromList(utf8.encode('hello ipfs_ffi')))
+            .use((buf) {
       final len = buf.bytes().length;
       print('inside use(): buf.bytes().length = $len, '
           'isReleased = ${buf.isReleased}');

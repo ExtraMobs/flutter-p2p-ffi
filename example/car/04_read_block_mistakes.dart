@@ -7,7 +7,6 @@ import 'package:ipfs_ffi/go/car/v2.dart' as car;
 import 'package:ipfs_ffi/go/cid.dart' as cid;
 import 'dart:typed_data';
 
-
 import 'sample.dart';
 
 Future<void> main() async {
@@ -34,7 +33,8 @@ Future<void> main() async {
         instead: 'open with car.useWholeCids(true) when the exact CID matters',
         wrong: () => ro.has(s.ctx, v0),
         right: () async {
-          final exact = blockstore.openReadOnly(s.car, [car.useWholeCids(true)]);
+          final exact =
+              blockstore.openReadOnly(s.car, [car.useWholeCids(true)]);
           try {
             return await exact.has(s.ctx, v0);
           } finally {

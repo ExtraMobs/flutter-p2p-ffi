@@ -8,7 +8,6 @@ import 'package:ipfs_ffi/go/car/v2.dart' as car;
 import 'package:ipfs_ffi/go/block_format.dart' as block_format;
 import 'package:ipfs_ffi/go/cid.dart' as cid;
 
-
 import 'sample.dart';
 
 Future<void> main() async {
@@ -28,7 +27,8 @@ Future<void> main() async {
         instead: 'compute the CID from the exact bytes (prefix.sum(bytes)) '
             'right before the Put', wrong: () async {
       final rw = blockstore.openReadWrite(bad, [c]);
-      await rw.put(s.ctx, block_format.Block(cid: c, rawData: Uint8List.fromList([2])));
+      await rw.put(
+          s.ctx, block_format.Block(cid: c, rawData: Uint8List.fromList([2])));
       rw.finalize();
       return 'Put accepted it';
     }, right: () {
@@ -60,7 +60,8 @@ Future<void> main() async {
         why: 'Finalize closes the blockstore',
         instead: 'add every block before finalize(); to add more later, open '
             'the file again with openReadWrite (same roots)',
-        action: () => done.put(s.ctx, block_format.Block(cid: c, rawData: data)));
+        action: () =>
+            done.put(s.ctx, block_format.Block(cid: c, rawData: data)));
   } finally {
     await s.close();
   }

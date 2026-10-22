@@ -28,7 +28,6 @@ import 'package:ipfs_ffi/go/kubo/core/coreiface/options.dart' as options;
 import 'package:ipfs_ffi/go/cid.dart' as cid;
 import 'dart:typed_data';
 
-
 import 'sample.dart';
 
 Future<void> main() async {
@@ -44,14 +43,16 @@ Future<void> main() async {
     //         bs := blockservice.New(rw, offline.Exchange(rw))
     //         ds := merkledag.NewDAGService(bs)
     final rw = blockstore.openReadWrite(out, [placeholder]);
-    final ds = merkledag.newDagService(blockservice.new$(rw, offline.exchange(rw)));
+    final ds =
+        merkledag.newDagService(blockservice.new$(rw, offline.exchange(rw)));
 
     // One file: chunked and written into the DAG service (the CAR).
     //   Go:   nd, _ := importer.BuildDagFromReader(ds, chunker.NewSizeSplitter(f, 262144))
     ipld_format.Node file(String path) {
       final f = os.open(path);
       try {
-        return importer.buildDagFromReader(ds, chunker.newSizeSplitter(f, 262144));
+        return importer.buildDagFromReader(
+            ds, chunker.newSizeSplitter(f, 262144));
       } finally {
         f.close();
       }

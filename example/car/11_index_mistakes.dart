@@ -9,7 +9,6 @@ import 'package:ipfs_ffi/go/os.dart' as os;
 import 'package:ipfs_ffi/go/block_format.dart' as block_format;
 import 'package:ipfs_ffi/go/cid.dart' as cid;
 
-
 import 'sample.dart';
 
 Future<void> main() async {
@@ -25,8 +24,8 @@ Future<void> main() async {
     // The index of another CAR, used to read this one.
     final otherCar = s.path('other.car');
     final rw = blockstore.openReadWrite(otherCar, [c]);
-    await rw.put(
-        s.ctx, block_format.Block(cid: c, rawData: Uint8List.fromList([1, 2, 3])));
+    await rw.put(s.ctx,
+        block_format.Block(cid: c, rawData: Uint8List.fromList([1, 2, 3])));
     rw.finalize();
     final wrongIdx = car.generateIndexFromFile(otherCar);
     await silentlyWrong('read a CAR with an index built from another CAR',

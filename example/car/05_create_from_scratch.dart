@@ -19,7 +19,6 @@ import 'package:ipfs_ffi/go/cid.dart' as cid;
 import 'dart:convert';
 import 'dart:typed_data';
 
-
 import 'sample.dart';
 
 Future<void> main() async {
@@ -63,8 +62,7 @@ Future<void> main() async {
     final second = await dag.dagPut(s.api, s.ctx,
         Uint8List.fromList(utf8.encode('{"n": 2, "prev": {"/": "$first"}}')));
     final objects = s.path('objects.car');
-    await dag.dagExportFile(
-        s.node, s.ctx, path.Path('/ipfs/$second'), objects);
+    await dag.dagExportFile(s.node, s.ctx, path.Path('/ipfs/$second'), objects);
     print('$objects: ${blockCount(objects)} blocks (the object and the one it '
         'links to)');
   } finally {

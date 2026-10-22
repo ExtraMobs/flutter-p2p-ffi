@@ -8,7 +8,8 @@ import 'dart:typed_data';
 
 import 'package:ipfs_ffi/go/boxo/gateway.dart' as gateway;
 import 'package:ipfs_ffi/go/boxo/path.dart' as path;
-import 'package:ipfs_ffi/go/boxo/fetcher/impl/blockservice.dart' as blockservice;
+import 'package:ipfs_ffi/go/boxo/fetcher/impl/blockservice.dart'
+    as blockservice;
 import 'package:ipfs_ffi/go/boxo/files.dart' as files;
 import 'package:ipfs_ffi/go/car/v2.dart' as car;
 import 'package:ipfs_ffi/go/car/v2/index.dart' as index;
@@ -22,7 +23,8 @@ import 'package:ipfs_ffi/go/ipld_prime/storage/bsadapter.dart' as bsadapter;
 import 'package:ipfs_ffi/go/block_format.dart' as block_format;
 import 'package:ipfs_ffi/go/ipld_prime/linking.dart' as linking;
 import 'package:ipfs_ffi/go/ipld_prime/node/basicnode.dart' as basicnode;
-import 'package:ipfs_ffi/go/ipld_prime/traversal/selector/builder.dart' as builder;
+import 'package:ipfs_ffi/go/ipld_prime/traversal/selector/builder.dart'
+    as builder;
 import 'package:ipfs_ffi/go/codec_dagpb.dart' as codec_dagpb;
 import 'package:ipfs_ffi/go/unixfsnode.dart' as unixfsnode;
 import 'package:ipfs_ffi/go/ipld_prime/traversal/selector/parse.dart' as parse;
@@ -197,7 +199,8 @@ void main() {
     final rw = blockstore.openReadWrite(file, [cids.first]);
     await rw.put(ctx, block_format.Block(cid: cids[0], rawData: datas[0]));
     await rw.putMany(ctx, [
-      for (var i = 1; i < 3; i++) block_format.Block(cid: cids[i], rawData: datas[i])
+      for (var i = 1; i < 3; i++)
+        block_format.Block(cid: cids[i], rawData: datas[i])
     ]);
     expect(await rw.has(ctx, cids[2]), isTrue);
     expect((await rw.get(ctx, cids[1])).rawData, datas[1]);
@@ -240,7 +243,8 @@ void main() {
   });
 
   test('sentinelas do Go viram subclasses de IpfsException', () async {
-    final missing = go_cid.newPrefixV1(raw, sha256).sum(Uint8List.fromList([9]));
+    final missing =
+        go_cid.newPrefixV1(raw, sha256).sum(Uint8List.fromList([9]));
     final ro = blockstore.openReadOnly(v1);
     await expectLater(ro.get(ctx, missing), throwsA(isA<IpfsNotFound>()));
     ro.close();
@@ -250,7 +254,8 @@ void main() {
     cancel();
     await expectLater(api.unixfs().add(c, files.newBytesFile(Uint8List(1))),
         throwsA(isA<IpfsCanceled>()));
-    final (d, cancel2) = context.withTimeout(context.background(), Duration.zero);
+    final (d, cancel2) =
+        context.withTimeout(context.background(), Duration.zero);
     await expectLater(api.unixfs().add(d, files.newBytesFile(Uint8List(1))),
         throwsA(isA<IpfsDeadlineExceeded>()));
     cancel2();
@@ -292,15 +297,15 @@ void main() {
     }
 
     test('gateway.getCar: escopos e faixa de bytes', () async {
-      final (_, all) =
-          await getCar('/ipfs/$root', gateway.CarParams(scope: gateway.dagScopeAll));
+      final (_, all) = await getCar(
+          '/ipfs/$root', gateway.CarParams(scope: gateway.dagScopeAll));
       expect(cids(all), hasLength(blocks));
       final (_, one) = await getCar(
           '/ipfs/$root', gateway.CarParams(scope: gateway.dagScopeBlock));
       expect(cids(one), [root]);
       // a pasta (para provar o caminho) e o b.txt inteiro: raiz e 2 fatias
-      final (meta, entity) = await getCar(
-          '/ipfs/$root/b.txt', gateway.CarParams(scope: gateway.dagScopeEntity));
+      final (meta, entity) = await getCar('/ipfs/$root/b.txt',
+          gateway.CarParams(scope: gateway.dagScopeEntity));
       expect(meta.pathSegmentRoots, [root]);
       expect(cids(entity), hasLength(4));
       expect(cids(entity).first, root);
@@ -332,8 +337,8 @@ void main() {
       // a reificação UnixFS só pega nós dag-pb tipados: o escolhedor do
       // gateway (sem ele, o go-car decodifica genérico e o caminho não anda)
       final chooser = [
-        car.withTraversalPrototypeChooser(
-            codec_dagpb.addSupportToChooser(blockservice.defaultPrototypeChooser))
+        car.withTraversalPrototypeChooser(codec_dagpb
+            .addSupportToChooser(blockservice.defaultPrototypeChooser))
       ];
       for (final (name, want) in [('b.txt', 4), ('a.txt', 2)]) {
         final out = '${tmp.path}/$name.car';

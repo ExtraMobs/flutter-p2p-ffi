@@ -6,7 +6,6 @@
 import 'dart:io';
 import 'package:ipfs_ffi/go/car/v2.dart' as car;
 
-
 import 'sample.dart';
 
 Future<void> main() async {

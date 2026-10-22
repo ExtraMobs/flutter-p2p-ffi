@@ -67,8 +67,8 @@ Future<void> main() async {
 
     print('\n== Kubo (high level)');
     //   CLI:  ipfs dag import --pin-roots folder.car second.car
-    final imported = await dag.dagImportFiles(other, s.ctx, [s.car, second],
-        pinRoots: true);
+    final imported =
+        await dag.dagImportFiles(other, s.ctx, [s.car, second], pinRoots: true);
     print('imported ${imported.blockCount} blocks, '
         '${imported.roots.length} roots pinned');
   } finally {

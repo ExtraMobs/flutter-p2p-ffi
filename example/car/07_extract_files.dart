@@ -21,7 +21,6 @@ import 'package:ipfs_ffi/go/car/v2/blockstore.dart' as blockstore;
 import 'package:ipfs_ffi/go/kubo/core/commands/dag.dart' as dag;
 import 'package:ipfs_ffi/go/kubo/core/coreapi.dart' as coreapi;
 
-
 import 'sample.dart';
 
 Future<void> main() async {
@@ -40,7 +39,8 @@ Future<void> main() async {
     //         files.WriteTo(f, out)
     final ro = blockstore.openReadOnly(s.car);
     try {
-      final ds = merkledag.newDagService(blockservice.new$(ro, offline.exchange(ro)));
+      final ds =
+          merkledag.newDagService(blockservice.new$(ro, offline.exchange(ro)));
       final root = ro.roots().single;
       final f = await file.newUnixfsFile(s.ctx, ds, await ds.get(s.ctx, root));
       final out = s.path('extracted');

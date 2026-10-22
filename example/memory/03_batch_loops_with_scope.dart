@@ -36,7 +36,8 @@ Future<void> main() async {
     await withGoScope((s) async {
       final rw = s.manage(blockstore.openReadWrite(carPath, [cids.first]));
       for (var i = 0; i < payloads.length; i++) {
-        await rw.put(ctx, block_format.Block(cid: cids[i], rawData: payloads[i]));
+        await rw.put(
+            ctx, block_format.Block(cid: cids[i], rawData: payloads[i]));
       }
       rw.finalize();
     });

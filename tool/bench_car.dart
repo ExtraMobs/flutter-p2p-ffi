@@ -54,7 +54,8 @@ Future<void> main(List<String> args) async {
       final rw = blockstore.openReadWrite(file, [cids.first]);
       await run('ReadWrite.put, um por chamada (Dart → Go)', () async {
         for (var i = 0; i < count; i++) {
-          await rw.put(ctx, block_format.Block(cid: cids[i], rawData: datas[i]));
+          await rw.put(
+              ctx, block_format.Block(cid: cids[i], rawData: datas[i]));
         }
       });
       rw.finalize();

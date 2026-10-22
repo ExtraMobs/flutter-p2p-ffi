@@ -46,8 +46,8 @@ Future<void> main() async {
   loader.PluginLoader('')
     ..initialize()
     ..inject();
-  final cfg = config
-      .initWithIdentity(config.createIdentity(null, [options.key.type('ed25519')]));
+  final cfg = config.initWithIdentity(
+      config.createIdentity(null, [options.key.type('ed25519')]));
   config.profiles['test']!.transform(cfg);
   fsrepo.init(repoPath, cfg);
   final ctx = context.background();
@@ -56,7 +56,8 @@ Future<void> main() async {
     // The node only comes in to make a sample CAR: a directory with two files,
     // exported by `ipfs dag export` (example 07). From here down, nothing uses
     // the node.
-    final n = await core.newNode(ctx, node.BuildCfg(repo: fsrepo.open(repoPath)));
+    final n =
+        await core.newNode(ctx, node.BuildCfg(repo: fsrepo.open(repoPath)));
     final dir = Directory('${tmp.path}/folder')..createSync();
     File('${dir.path}/hi.txt').writeAsStringSync('hi, CAR\n');
     File('${dir.path}/big.bin').writeAsBytesSync(

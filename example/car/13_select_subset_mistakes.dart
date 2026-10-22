@@ -6,12 +6,14 @@
 import 'sample.dart';
 import 'package:ipfs_ffi/go/boxo/gateway.dart' as gateway;
 import 'package:ipfs_ffi/go/boxo/path.dart' as path;
-import 'package:ipfs_ffi/go/boxo/fetcher/impl/blockservice.dart' as blockservice;
+import 'package:ipfs_ffi/go/boxo/fetcher/impl/blockservice.dart'
+    as blockservice;
 import 'package:ipfs_ffi/go/car/v2.dart' as car;
 import 'package:ipfs_ffi/go/car/v2/storage.dart' as storage;
 import 'package:ipfs_ffi/go/os.dart' as os;
 import 'package:ipfs_ffi/go/ipld_prime/node/basicnode.dart' as basicnode;
-import 'package:ipfs_ffi/go/ipld_prime/traversal/selector/builder.dart' as builder;
+import 'package:ipfs_ffi/go/ipld_prime/traversal/selector/builder.dart'
+    as builder;
 import 'package:ipfs_ffi/go/codec_dagpb.dart' as codec_dagpb;
 import 'package:ipfs_ffi/go/unixfsnode.dart' as unixfsnode;
 import 'package:ipfs_ffi/go/ipld_prime/linking/cid.dart' as cid;
@@ -27,8 +29,8 @@ Future<void> main() async {
         unixfsnode.addUnixFsReificationToLinkSystem(ls);
         ls.setReadStorage(storage.openReadable(f));
         final out = s.path('out.car');
-        await car.traverseToFile(
-            s.ctx, ls, s.root, unixfsnode.unixFsPathSelector('hello.txt'), out, opts);
+        await car.traverseToFile(s.ctx, ls, s.root,
+            unixfsnode.unixFsPathSelector('hello.txt'), out, opts);
         return blockCount(out);
       } finally {
         f.close();
@@ -46,7 +48,8 @@ Future<void> main() async {
         wrong: () async => '${await select([])} block(s)',
         right: () async => '${await select([
                   car.withTraversalPrototypeChooser(
-                      codec_dagpb.addSupportToChooser(blockservice.defaultPrototypeChooser))
+                      codec_dagpb.addSupportToChooser(
+                          blockservice.defaultPrototypeChooser))
                 ])} block(s)');
 
     // exploreFields with a large batch: the `fields` object Go hands to the
@@ -66,8 +69,8 @@ Future<void> main() async {
             'start with /ipfs/',
         instead: 'resolve the name first (api.name().resolve or '
             'api.resolvePath) and pass the /ipfs/ path',
-        action: () => gateway.BlocksBackend(s.node.blocks).getCar(
-            s.ctx, path.ImmutablePath('/ipns/example.org'), gateway.CarParams()));
+        action: () => gateway.BlocksBackend(s.node.blocks).getCar(s.ctx,
+            path.ImmutablePath('/ipns/example.org'), gateway.CarParams()));
   } finally {
     await s.close();
   }

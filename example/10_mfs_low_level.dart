@@ -35,8 +35,8 @@ Future<void> main() async {
   loader.PluginLoader('')
     ..initialize()
     ..inject();
-  final cfg = config
-      .initWithIdentity(config.createIdentity(null, [options.key.type('ed25519')]));
+  final cfg = config.initWithIdentity(
+      config.createIdentity(null, [options.key.type('ed25519')]));
   config.profiles['test']!.transform(cfg);
   fsrepo.init(repoPath, cfg);
   final ctx = context.background();

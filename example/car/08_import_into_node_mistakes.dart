@@ -12,7 +12,6 @@ import 'package:ipfs_ffi/go/cid.dart' as go_cid;
 //   dart run example/car/08_import_into_node_mistakes.dart
 import 'dart:typed_data';
 
-
 import 'sample.dart';
 
 Future<void> main() async {
@@ -39,8 +38,7 @@ Future<void> main() async {
       ..setReadStorage(bsadapter.Adapter()..wrapped = s.node.blockstore);
     await car.traverseToFile(
         s.ctx, ls, s.root, parse.commonSelectorMatchPoint, partial);
-    final r =
-        await dag.dagImportFiles(other, s.ctx, [partial], pinRoots: true);
+    final r = await dag.dagImportFiles(other, s.ctx, [partial], pinRoots: true);
     await silentlyWrong(
         'assume pinRoots pinned everything because no exception came',
         why: 'pinning is opportunistic: a root whose blocks are missing is '

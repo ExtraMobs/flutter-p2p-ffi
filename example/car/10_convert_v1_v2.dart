@@ -15,7 +15,6 @@ import 'package:ipfs_ffi/go/car/v2.dart' as car;
 import 'package:ipfs_ffi/go/bytes.dart' as bytes;
 import 'dart:typed_data';
 
-
 import 'sample.dart';
 
 Future<void> main() async {

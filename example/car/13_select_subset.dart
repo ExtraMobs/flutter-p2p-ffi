@@ -15,7 +15,8 @@
 import 'sample.dart';
 import 'package:ipfs_ffi/go/boxo/gateway.dart' as gateway;
 import 'package:ipfs_ffi/go/boxo/path.dart' as boxo_path;
-import 'package:ipfs_ffi/go/boxo/fetcher/impl/blockservice.dart' as blockservice;
+import 'package:ipfs_ffi/go/boxo/fetcher/impl/blockservice.dart'
+    as blockservice;
 import 'package:ipfs_ffi/go/car/v2/storage.dart' as storage;
 import 'package:ipfs_ffi/go/car/v2.dart' as car;
 import 'package:ipfs_ffi/go/os.dart' as os;
@@ -63,10 +64,10 @@ Future<void> main() async {
       unixfsnode.addUnixFsReificationToLinkSystem(ls);
       ls.setReadStorage(storage.openReadable(f));
       final out = s.path('note.car');
-      await car.traverseToFile(
-          s.ctx, ls, s.root, unixfsnode.unixFsPathSelector('sub/note.md'), out, [
-        car.withTraversalPrototypeChooser(
-            codec_dagpb.addSupportToChooser(blockservice.defaultPrototypeChooser))
+      await car.traverseToFile(s.ctx, ls, s.root,
+          unixfsnode.unixFsPathSelector('sub/note.md'), out, [
+        car.withTraversalPrototypeChooser(codec_dagpb
+            .addSupportToChooser(blockservice.defaultPrototypeChooser))
       ]);
       print(
           'sub/note.md: ${blockCount(out)} blocks (the folder, sub, the file)');
