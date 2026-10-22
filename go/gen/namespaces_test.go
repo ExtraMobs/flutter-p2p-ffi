@@ -41,7 +41,7 @@ func TestCheckPublicExports(t *testing.T) {
 			t.Fatal(err)
 		}
 	}
-	write("ipfs_ffi.dart", "library;\n\nexport 'src/service.dart' show IpfsService;\n")
+	write("ipfs_ffi.dart", "library;\n\nexport 'src/service.dart' show P2pService;\n")
 	write("src/service.dart", "export 'runtime.dart';\n") // privado: pode
 	write("go/hand.dart", "library;\n\nint x() => 1;\n")
 	if err := checkPublicExports(dir, nil); err != nil {

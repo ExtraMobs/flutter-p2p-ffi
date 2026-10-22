@@ -98,7 +98,7 @@ void main() {
     final r = _back(w);
     expect(r.hn(_H.new)!.$h, 42);
     expect(r.hn(_H.new), isNull);
-    expect(() => r.hnn(_H.new), throwsA(isA<IpfsException>()));
+    expect(() => r.hnn(_H.new), throwsA(isA<GolangException>()));
   });
 
   test('listas (nil = -1, lido como vazio) e mapas sem presença na chave', () {
@@ -160,10 +160,9 @@ void main() {
   });
 
   test('sem o serviço: síncrona lança, assíncrona falha pelo Future', () async {
-    expect(() => $callSync(0), throwsA(isA<IpfsServiceException>()));
-    await expectLater($call(0), throwsA(isA<IpfsServiceException>()));
-    await expectLater(
-        $stream(0).toList(), throwsA(isA<IpfsServiceException>()));
+    expect(() => $callSync(0), throwsA(isA<P2pServiceException>()));
+    await expectLater($call(0), throwsA(isA<P2pServiceException>()));
+    await expectLater($stream(0).toList(), throwsA(isA<P2pServiceException>()));
   });
 
   test('release determinístico: idempotente e bloqueia uso posterior', () {
@@ -178,7 +177,7 @@ void main() {
     // Passing a released handle into a call fails on the Dart side.
     expect(
       () => $callSync(0, $W()..h(h)),
-      throwsA(isA<IpfsException>().having(
+      throwsA(isA<GolangException>().having(
         (e) => e.message,
         'message',
         contains('handle already released'),

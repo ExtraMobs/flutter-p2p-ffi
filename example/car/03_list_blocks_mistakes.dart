@@ -6,7 +6,8 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:ipfs_ffi/go/car/v2.dart' as car;
-import 'package:ipfs_ffi/ipfs_ffi.dart' show IpfsEof, IpfsException;
+import 'package:ipfs_ffi/ipfs_ffi.dart'
+    show GolangEofException, GolangException;
 
 import 'sample.dart';
 
@@ -25,13 +26,13 @@ Future<void> main() async {
         try {
           br.next();
           n++;
-        } on IpfsException {
+        } on GolangException {
           return '$n blocks, no error'; // swallows the cut
         }
       }
     }
 
-    // The right loop: only IpfsEof is the end; IpfsUnexpectedEof goes up.
+    // The right loop: only GolangEofException is the end; GolangUnexpectedEofException goes up.
     String rightLoop() {
       final br = car.BlockReader(truncated);
       var n = 0;
@@ -40,20 +41,21 @@ Future<void> main() async {
           try {
             br.next();
             n++;
-          } on IpfsEof {
+          } on GolangEofException {
             return '$n blocks';
           }
         }
-      } on IpfsException catch (e) {
+      } on GolangException catch (e) {
         return 'error after $n blocks: ${e.runtimeType}';
       }
     }
 
-    await silentlyWrong('treat any IpfsException as the end of the reading',
-        why: 'a truncated CAR gives IpfsUnexpectedEof, and the loop counts '
+    await silentlyWrong('treat any GolangException as the end of the reading',
+        why:
+            'a truncated CAR gives GolangUnexpectedEofException, and the loop counts '
             'fewer blocks as if the file were complete',
         instead:
-            'stop only on IpfsEof (Go\'s io.EOF); anything else is an error',
+            'stop only on GolangEofException (Go\'s io.EOF); anything else is an error',
         wrong: wrongLoop,
         right: rightLoop);
   } finally {

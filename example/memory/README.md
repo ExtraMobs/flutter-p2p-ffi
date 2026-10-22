@@ -45,7 +45,7 @@ Many Go types have a `Close()` method (`io.Closer`, `car.Reader.Close()`, `os.Fi
 
 ## 4. Cautions to Keep in Mind
 
-1. **No use-after-free:** Once `release()` is called (directly or when `.use()` / `withGoScope()` exits), `handle.isReleased` becomes `true`. Passing that handle to any Go call throws an immediate `IpfsException('handle already released: cannot use a released handle')` on the Dart side.
+1. **No use-after-free:** Once `release()` is called (directly or when `.use()` / `withGoScope()` exits), `handle.isReleased` becomes `true`. Passing that handle to any Go call throws an immediate `GolangException('handle already released: cannot use a released handle')` on the Dart side.
 2. **Do not let a `s.manage(...)` handle escape `withGoScope`:** Return a Dart value (`Uint8List`, `String`, `Cid`, DTO, `int`) from `withGoScope`, not a handle registered in `s`.
 3. **Always `await` async work inside `.use()` or `withGoScope()`:** Both `.use()` and `withGoScope()` automatically detect when the callback returns a `Future` and wait for it to complete before releasing. However, if you start an async Go call inside a synchronous block *without* returning or `await`ing its `Future`, the scope will close while the call is still running.
 4. **Pointer deduplication (`refs` count):** If Go returns the exact same pointer twice (for example, calling `node.blockstore()` twice), `ipfs_host` returns the same handle ID (`$h`) and increments `refs` in `handles.m`. Each Dart `GoHandle` wrapper decrements `refs` once when released; the Go object leaves `handles.m` when the last wrapper is released.

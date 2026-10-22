@@ -155,7 +155,7 @@ func emitDart(m *model, fns []*fn, hash uint64, more func(*dartEmitter)) (map[st
 		}
 		out[path] = formatDart(path, src)
 	}
-	// O hash da tabela vai no Hello do IpfsService (WIRE.md): app e host têm de
+	// O hash da tabela vai no Hello do P2pService (WIRE.md): app e host têm de
 	// vir do mesmo gerador.
 	out["src/table.dart"] = tableDart(hash)
 	return out, consts
@@ -207,7 +207,7 @@ func tableDart(hash uint64) []byte {
 /// Hash of the generated function table (FNV-1a 64 of "id key" per line, one
 /// per function) and of the kubo command schema (WIRE.md): sent in the Hello
 /// right after connecting to the ipfs_host.
-const ipfsTableHash = 0x%016x;
+const p2pTableHash = 0x%016x;
 `, hash))
 }
 
@@ -421,7 +421,7 @@ func (e *dartEmitter) enc(t *tinfo, x string, depth int) string {
 
 // dec: expressão que lê um [t] do leitor [r] ($R do runtime), como no
 // WIRE.md. [opt]: o Dart aceita null (campo de DTO, getter); senão o nil do Go
-// vira IpfsException ($nil) e bytes nil viram vazio.
+// vira GolangException ($nil) e bytes nil viram vazio.
 func (e *dartEmitter) dec(t *tinfo, r string, from *dartLib, opt bool) string {
 	absent := "$nil()"
 	if opt {

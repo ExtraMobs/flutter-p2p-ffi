@@ -25,7 +25,7 @@ import (
 
 // cmdSkip: comandos que não atravessam, com o motivo (API.md).
 var cmdSkip = map[string]string{
-	"shutdown":    "stops the daemon; in ipfs_ffi it is `IpfsNode.close`/`IpfsService.stop`",
+	"shutdown":    "stops the daemon; in ipfs_ffi it is `IpfsNode.close`/`P2pService.stop`",
 	"mount":       "FUSE: mounts on the host's file system",
 	"update":      "updates the kubo binary (not the case of ipfs_host)",
 	"commands":    "the CLI help",

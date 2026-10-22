@@ -48,7 +48,7 @@ import 'package:ipfs_ffi/go/kubo/plugin/loader.dart' as loader;
 import 'package:ipfs_ffi/go/kubo/repo/fsrepo.dart' as fsrepo;
 import 'package:ipfs_ffi/ipfs_ffi.dart';
 
-await IpfsService.start(onStop: (stop) => print('${stop.reason}: ${stop.report}'));
+await P2pService.start(onStop: (stop) => print('${stop.reason}: ${stop.report}'));
 loader.PluginLoader('')..initialize()..inject(); // once per service
 fsrepo.init(repo, config.initWithIdentity(config.createIdentity(null, [options.key.type('ed25519')])));
 final ctx = context.background();
@@ -58,7 +58,7 @@ final p = await api.unixfs().add(ctx, files.newBytesFile(utf8.encode('hi')),
     [options.unixfs.pin(true, '')]);
 print(utf8.decode(io.readAll(files.toFile(await api.unixfs().get(ctx, p)))));
 await n.close();
-await IpfsService.stop();
+await P2pService.stop();
 ```
 
 ## How Go becomes Dart
@@ -66,9 +66,9 @@ await IpfsService.stop();
 - `context.Context` is the first parameter, as in Go (`background`, `withCancel`,
   `withTimeout`, `withDeadline`; call `cancel()`).
 - A function with a `context` is asynchronous (`Future`); a channel is a `Stream`;
-  `(T, error)` is `T`, and the error is thrown as `IpfsException`.
+  `(T, error)` is `T`, and the error is thrown as `GolangException`.
 - `if err != nil` disappears: Go errors are exceptions. Known Go sentinels are subclasses:
-  `IpfsEof`, `IpfsUnexpectedEof`, `IpfsCanceled`, `IpfsDeadlineExceeded`, `IpfsNotFound`.
+  `GolangEofException`, `GolangUnexpectedEofException`, `GolangCanceledException`, `GolangDeadlineExceededException`, `GolangNotFoundException`.
 - Functional options are a list (`[options.unixfs.cidVersion(1), options.unixfs.pin(true, '')]`);
   option structs take named parameters (`mfs.Flags(write: true)`).
 - Struct fields are getters and setters (`node.filesRoot`); constants are `const`;
@@ -147,11 +147,11 @@ are in the libraries of their Go packages
 ### The service and handles
 
 - **The service does not come back on its own.** After a crash (or a stop in the Android
-  background) pending calls fail with `IpfsServiceException` and `onStop` gets the reason
-  and Go's report. `IpfsService.restart()` starts a new process: inject the plugins again
+  background) pending calls fail with `P2pServiceException` and `onStop` gets the reason
+  and Go's report. `P2pService.restart()` starts a new process: inject the plugins again
   and rebuild node and CoreAPI; handles from the old service are no longer valid.
 - **A panic inside a kubo goroutine** (outside a call) stops the host. Pass
-  `IpfsService.start(crashLog: path)` to get Go's report; the host only appends to it.
+  `P2pService.start(crashLog: path)` to get Go's report; the host only appends to it.
 - **Release handles in loops.** The Dart `Finalizer` frees Go objects late, while each
   handle may pin megabytes in the host. Use `.release()`, `.use()` or `withGoScope()`
   ([`example/memory/`](example/memory)). The node and the repo still need `close()`.
@@ -162,7 +162,7 @@ are in the libraries of their Go packages
   Go; cancel the context instead.
 - **Objects a callback receives are valid only during the invocation** (that is why their
   default `batchSize` is 1). Calling into Go from a callback is allowed; if it waits on a lock
-  the Go function holds, the call throws `IpfsDeadlockException` instead of hanging.
+  the Go function holds, the call throws `GolangDeadlockException` instead of hanging.
 - **`uint64` values travel in an `int`**: the same 64 bits, so values above `2^63` read as
   negative.
 
@@ -187,8 +187,8 @@ are in the libraries of their Go packages
 
 - **Background:** the host is a child process of the app; on Android 12+ the phantom
   process killer kills it, and the app with it, if it uses CPU in the background. Choose
-  `IpfsService.background`: `IpfsBackground.stop` (default; restart on return) or
-  `IpfsBackground.foregroundService` (a foreground service with a notification; ask for
+  `P2pService.background`: `P2pBackground.stop` (default; restart on return) or
+  `P2pBackground.foregroundService` (a foreground service with a notification; ask for
   `POST_NOTIFICATIONS` with `IpfsFfiFlutter.requestNotificationPermission()`). The
   [`ipfs_ffi_flutter`](flutter) plugin registers itself.
 - **DNS:** Go cannot find the system resolver on Android; configure `DNS.Resolvers`

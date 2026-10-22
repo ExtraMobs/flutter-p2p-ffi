@@ -9,7 +9,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:ipfs_ffi/go/context.dart' as context;
 import 'package:ipfs_ffi/go/kubo/core/coreapi.dart' as coreapi;
-import 'package:ipfs_ffi/ipfs_ffi.dart' show IpfsService;
+import 'package:ipfs_ffi/ipfs_ffi.dart' show P2pService;
 import 'package:ipfs_ffi_android/checks.dart';
 import 'package:ipfs_ffi_android/main.dart' show prepare, startNode;
 
@@ -31,7 +31,7 @@ void main() {
       expect(failed, 0, reason: lines.join('\n'));
     } finally {
       await n.close();
-      await IpfsService.stop();
+      await P2pService.stop();
       tmp.deleteSync(recursive: true);
     }
   }, timeout: const Timeout(Duration(minutes: 8)));

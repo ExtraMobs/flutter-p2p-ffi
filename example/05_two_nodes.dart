@@ -19,7 +19,7 @@ import 'package:ipfs_ffi/go/kubo/core/node.dart' as node;
 import 'package:ipfs_ffi/go/kubo/core/node/libp2p.dart' as libp2p;
 import 'package:ipfs_ffi/go/kubo/plugin/loader.dart' as loader;
 import 'package:ipfs_ffi/go/kubo/repo/fsrepo.dart' as fsrepo;
-import 'package:ipfs_ffi/ipfs_ffi.dart' show IpfsService;
+import 'package:ipfs_ffi/ipfs_ffi.dart' show P2pService;
 
 final ctx = context.background();
 
@@ -41,7 +41,7 @@ Future<(core.IpfsNode, iface.CoreApi)> spawn(String dir) async {
 
 Future<void> main() async {
   // Kubo runs in the ipfs_host, in another process (dart run tool/build.dart).
-  await IpfsService.start();
+  await P2pService.start();
   loader.PluginLoader('')
     ..initialize()
     ..inject();
@@ -90,5 +90,5 @@ Future<void> main() async {
     await nb.close();
     tmp.deleteSync(recursive: true);
   }
-  await IpfsService.stop();
+  await P2pService.stop();
 }

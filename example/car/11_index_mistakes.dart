@@ -17,8 +17,9 @@ Future<void> main() async {
     final idx = car.generateIndexFromFile(s.car);
     final c = cid.newPrefixV1(0x55, 0x12).sum(Uint8List.fromList([1, 2, 3]));
     await mustFail('look up a CID that is not in the index without handling it',
-        why: 'the index has no offset for it: IpfsNotFound',
-        instead: 'handle IpfsNotFound (the block is not in this CAR)',
+        why: 'the index has no offset for it: GolangNotFoundException',
+        instead:
+            'handle GolangNotFoundException (the block is not in this CAR)',
         action: () => index.getFirst(idx, c));
 
     // The index of another CAR, used to read this one.

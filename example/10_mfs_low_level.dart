@@ -23,7 +23,7 @@ import 'package:ipfs_ffi/go/kubo/core/coreiface/options.dart' as options;
 import 'package:ipfs_ffi/go/kubo/core/coreapi.dart' as coreapi;
 import 'package:ipfs_ffi/go/kubo/core.dart' as core;
 import 'package:ipfs_ffi/go/kubo/core/commands.dart' as commands;
-import 'package:ipfs_ffi/ipfs_ffi.dart' show IpfsService;
+import 'package:ipfs_ffi/ipfs_ffi.dart' show P2pService;
 
 Future<void> main() async {
   final tmp = Directory.systemTemp.createTempSync('ipfs_ffi_ex10_');
@@ -31,7 +31,7 @@ Future<void> main() async {
 
   // Service, plugins and a new repo: the same as example 09 (every line is
   // explained there).
-  await IpfsService.start();
+  await P2pService.start();
   loader.PluginLoader('')
     ..initialize()
     ..inject();
@@ -144,7 +144,7 @@ Future<void> main() async {
     print('7. through the ipfs files read command: ${viaCommand.length} bytes');
   } finally {
     await n.close();
-    await IpfsService.stop();
+    await P2pService.stop();
     tmp.deleteSync(recursive: true);
   }
 }

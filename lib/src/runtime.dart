@@ -14,89 +14,137 @@ part 'runtime/callback.dart';
 part 'runtime/codec.dart';
 part 'runtime/commands.dart';
 
-/// Error returned by Go (the `error` of a `(T, error)`, or a panic inside a
-/// call).
-class IpfsException implements Exception {
-  IpfsException(this.message);
+/// Every exception the package throws. Catch it to handle anything that comes
+/// from the bridge; catch [GolangException] for what comes from Go.
+abstract interface class P2pException implements Exception {
+  String get message;
+}
 
+/// Error that comes from Go: the `error` of a `(T, error)`, a panic inside a
+/// call, or the Go process (the service) going away. The Go sentinels below,
+/// and [P2pServiceException], implement it.
+class GolangException implements P2pException {
+  GolangException(this.message);
+
+  @override
   final String message;
 
   @override
-  String toString() => 'IpfsException: $message';
+  String toString() => 'GolangException: $message';
 }
 
 /// Go's `io.EOF`: the end of what is being read (`BlockReader.next`). Like
 /// `errors.Is(err, io.EOF)`, it is also thrown when the error wraps it.
-class IpfsEof extends IpfsException {
-  IpfsEof(super.message);
+class GolangEofException implements GolangException {
+  GolangEofException(this.message);
+
+  @override
+  final String message;
+
+  @override
+  String toString() => 'GolangEofException: $message';
 }
 
 /// Go's `io.ErrUnexpectedEOF`: the data ended in the middle (a truncated CAR).
-class IpfsUnexpectedEof extends IpfsException {
-  IpfsUnexpectedEof(super.message);
+class GolangUnexpectedEofException implements GolangException {
+  GolangUnexpectedEofException(this.message);
+
+  @override
+  final String message;
+
+  @override
+  String toString() => 'GolangUnexpectedEofException: $message';
 }
 
 /// Go's `context.Canceled`: the context was canceled (`cancel()`).
-class IpfsCanceled extends IpfsException {
-  IpfsCanceled(super.message);
+class GolangCanceledException implements GolangException {
+  GolangCanceledException(this.message);
+
+  @override
+  final String message;
+
+  @override
+  String toString() => 'GolangCanceledException: $message';
 }
 
 /// Go's `context.DeadlineExceeded`: the context deadline passed
 /// (`withTimeout`, `withDeadline`).
-class IpfsDeadlineExceeded extends IpfsException {
-  IpfsDeadlineExceeded(super.message);
+class GolangDeadlineExceededException implements GolangException {
+  GolangDeadlineExceededException(this.message);
+
+  @override
+  final String message;
+
+  @override
+  String toString() => 'GolangDeadlineExceededException: $message';
 }
 
 /// Not found (`ipld.ErrNotFound`, the CAR storage's `ErrNotFound`): the block
 /// or node is not in the store.
-class IpfsNotFound extends IpfsException {
-  IpfsNotFound(super.message);
+class GolangNotFoundException implements GolangException {
+  GolangNotFoundException(this.message);
+
+  @override
+  final String message;
+
+  @override
+  String toString() => 'GolangNotFoundException: $message';
 }
 
 /// A call made from inside a Dart callback waited for a lock that the Go
 /// function of that callback holds: the host broke the deadlock (WIRE.md,
 /// "Callback"). The message carries the Go stack. Thrown inside the callback;
 /// if it escapes, the call with the callback throws it.
-class IpfsDeadlockException extends IpfsException {
-  IpfsDeadlockException(super.message);
+class GolangDeadlockException implements GolangException {
+  GolangDeadlockException(this.message);
+
+  @override
+  final String message;
+
+  @override
+  String toString() => 'GolangDeadlockException: $message';
 }
 
 /// The `error` event of the host (WIRE.md): the sentinel code that the Go
 /// error wraps (`errors.Is`) and the message.
-IpfsException $goError(Uint8List data) {
+GolangException $goError(Uint8List data) {
   final message = utf8.decode(data.length > 1 ? data.sublist(1) : const []);
   return switch (data.isEmpty ? 0 : data[0]) {
-    1 => IpfsEof(message),
-    2 => IpfsUnexpectedEof(message),
-    3 => IpfsCanceled(message),
-    4 => IpfsDeadlineExceeded(message),
-    5 => IpfsNotFound(message),
-    6 => IpfsDeadlockException(message),
-    _ => IpfsException(message),
+    1 => GolangEofException(message),
+    2 => GolangUnexpectedEofException(message),
+    3 => GolangCanceledException(message),
+    4 => GolangDeadlineExceededException(message),
+    5 => GolangNotFoundException(message),
+    6 => GolangDeadlockException(message),
+    _ => GolangException(message),
   };
 }
 
 /// Why the service stopped.
-enum IpfsStopReason {
+enum P2pStopReason {
   /// The ipfs_host crashed (a Go panic, or the system killed it).
   crash,
 
   /// The app went to the background and the package stopped the service
-  /// (`IpfsService.background` = `IpfsBackground.stop`).
+  /// (`P2pService.background` = `P2pBackground.stop`).
   background,
 }
 
-/// The service stopped ([reason]: crashed or stopped in the background), the
-/// channel closed, the service was not started or the handle belongs to a
-/// previous service ([reason] null in these two). Relaunch with
-/// `IpfsService.restart()`.
-class IpfsServiceException extends IpfsException {
-  IpfsServiceException(super.message, {this.reason});
-
-  final IpfsStopReason? reason;
+/// The service (the Go process) stopped ([reason]: crashed or stopped in the
+/// background), the channel closed, the service was not started or the handle
+/// belongs to a previous service ([reason] null in these two). Relaunch with
+/// `P2pService.restart()`. It is a [GolangException], since the service is
+/// Go's process.
+class P2pServiceException implements GolangException {
+  P2pServiceException(this.message, {this.reason});
 
   @override
-  String toString() => 'IpfsServiceException: $message';
+  final String message;
+
+  final P2pStopReason? reason;
+
+  @override
+  String toString() => 'P2pServiceException: $message';
 }
 
 // Request modes and response types (WIRE.md).
@@ -116,15 +164,15 @@ var _epoch = 0;
 
 /// Why the service stopped (until the next [$attach]); null if it never
 /// started or was stopped by the app.
-IpfsServiceException? _stopped;
+P2pServiceException? _stopped;
 
 ShmChannel get _channel =>
     _ch ??
     (throw _stopped ??
-        IpfsServiceException(
-            'the service was not started (await IpfsService.start())'));
+        P2pServiceException(
+            'the service was not started (await P2pService.start())'));
 
-/// Binds the runtime to a freshly opened channel (IpfsService.start, after
+/// Binds the runtime to a freshly opened channel (P2pService.start, after
 /// the Hello).
 void $attach(ShmChannel ch) {
   _ch = ch;
@@ -136,10 +184,10 @@ void $attach(ShmChannel ch) {
     ..onDead = _onDead;
 }
 
-/// Unbinds the runtime from the channel (IpfsService.stop); pending calls fail
+/// Unbinds the runtime from the channel (P2pService.stop); pending calls fail
 /// when the channel closes. [why]: the stop (crash, background), which new
 /// calls receive until the service starts again.
-void $detach([IpfsServiceException? why]) {
+void $detach([P2pServiceException? why]) {
   _ch = null;
   _stopped = why;
   _toFree.clear();
@@ -247,7 +295,7 @@ void _failSink(Object sink, Object e, [StackTrace? st]) {
   }
 }
 
-void _onDead(IpfsServiceException e) {
+void _onDead(P2pServiceException e) {
   final all = [..._pending.values];
   _pending.clear();
   _sinkDone.clear();
@@ -355,7 +403,7 @@ void _flushFree() {
   _toFree.clear();
   try {
     ch.send(0, _fnFree, _sync, w.take());
-  } on IpfsServiceException {
+  } on P2pServiceException {
     // the host crashed: the objects went with it
   }
 }
@@ -380,7 +428,7 @@ abstract class GoHandle {
 
   /// In use by a call with a callback that is still running (its receiver
   /// or an argument): calling it from inside the callback may wait for a
-  /// lock that call holds (the host detects it: [IpfsDeadlockException]).
+  /// lock that call holds (the host detects it: [GolangDeadlockException]).
   bool get isBusy => _busy.containsKey($h);
 
   /// Deterministically releases this handle in the host without waiting
@@ -518,8 +566,8 @@ abstract class GoOption {
   final void Function($W w) $a;
 }
 
-/// Non-null result: a Go nil becomes an IpfsException.
-Never $nil() => throw IpfsException('Go returned nil');
+/// Non-null result: a Go nil becomes an GolangException.
+Never $nil() => throw GolangException('Go returned nil');
 
 /// Snapshot getter with an error: the value, or null if Go returned an error.
 T? $orErr<T>(T v, String? err) => err == null ? v : null;

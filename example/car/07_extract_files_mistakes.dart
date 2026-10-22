@@ -28,7 +28,7 @@ Future<void> main() async {
 
     await mustFail('extract the files of a partial CAR',
         why: 'the files are made of blocks the CAR does not have: '
-            'IpfsNotFound for the first missing one',
+            'GolangNotFoundException for the first missing one',
         instead: 'check the CAR first (operations 01/03: which roots and '
             'blocks it has), or extract through a node that can fetch the '
             'rest from the network', action: () async {

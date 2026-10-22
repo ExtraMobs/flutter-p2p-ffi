@@ -2,12 +2,12 @@
 // ipfs_host, the APK's libipfs_host.so, in another process) and an IPFS node with
 // its repo in the app's data directory, shows the peer ID and peers, runs the
 // checks (lib/checks.dart) and gathers everything in a log copied with one tap.
-// In the background (IpfsService.background, through
+// In the background (P2pService.background, through
 // --dart-define=IPFS_BACKGROUND): `stop` (default), the ipfs_ffi_flutter plugin
 // stops the service and the app starts it again on return; `foregroundService`,
 // the node stays online with a notification. The first time it brings the
 // ipfs_host down with a Go panic: the app goes on and its onStop shows the
-// report, clears the log, restarts the service (IpfsService.restart) and reopens
+// report, clears the log, restarts the service (P2pService.restart) and reopens
 // the node.
 import 'dart:async';
 import 'dart:io';
@@ -26,7 +26,7 @@ import 'package:ipfs_ffi/go/kubo/core/node/libp2p.dart' as libp2p;
 import 'package:ipfs_ffi/go/kubo/plugin/loader.dart' as loader;
 import 'package:ipfs_ffi/go/kubo/repo/fsrepo.dart' as fsrepo;
 import 'package:ipfs_ffi/ipfs_ffi.dart'
-    show IpfsBackground, IpfsService, IpfsStop, IpfsStopHandler, IpfsStopReason;
+    show P2pBackground, P2pService, P2pStop, P2pStopHandler, P2pStopReason;
 import 'package:ipfs_ffi/src/runtime.dart' show $callSync;
 
 import 'checks.dart';
@@ -53,12 +53,12 @@ libp2p.RoutingOption routingFor(config.Config cfg) {
 /// arrives at [onStop]) and sets the service up ([setupService]). Returns the
 /// previous report, if any.
 Future<String?> prepare(String repoPath, String crashLog,
-    {IpfsStopHandler? onStop}) async {
+    {P2pStopHandler? onStop}) async {
   final f = File(crashLog);
   final previous =
       f.existsSync() && f.lengthSync() > 0 ? f.readAsStringSync() : null;
   if (previous != null) f.writeAsStringSync(''); // already read
-  await IpfsService.start(crashLog: crashLog, onStop: onStop);
+  await P2pService.start(crashLog: crashLog, onStop: onStop);
   setupService(repoPath);
   return previous;
 }
@@ -127,7 +127,7 @@ const backgroundMode = String.fromEnvironment('IPFS_BACKGROUND');
 
 void main() {
   if (backgroundMode == 'foregroundService') {
-    IpfsService.background = IpfsBackground.foregroundService;
+    P2pService.background = P2pBackground.foregroundService;
   }
   // the foreground service's notification belongs to the app; the text
   // changes with the number of peers (_start)
@@ -185,7 +185,7 @@ class _NodePageState extends State<NodePage> {
     super.initState();
     logText.addListener(_syncLog);
     _life = AppLifecycleListener(
-      // in the background IpfsService.background decides (the plugin stops
+      // in the background P2pService.background decides (the plugin stops
       // the service, or keeps it in a foreground service)
       onPause: () => _foreground = false,
       onResume: () {
@@ -197,8 +197,8 @@ class _NodePageState extends State<NodePage> {
     _serial(() async {
       log('app: ${Platform.operatingSystemVersion}; Dart ${Platform.version}');
       log('cpus: ${Platform.numberOfProcessors}; battery: ${battery()}');
-      log('background: ${IpfsService.background.name}');
-      if (IpfsService.background == IpfsBackground.foregroundService) {
+      log('background: ${P2pService.background.name}');
+      if (P2pService.background == P2pBackground.foregroundService) {
         // the foreground service's notification only shows with the
         // permission (Android 13+); without it the service runs, without the
         // notification
@@ -251,7 +251,7 @@ class _NodePageState extends State<NodePage> {
 
   Future<void> _start() async {
     // service down: the node comes back when the service does (_onStop, _resume)
-    if (_node != null || !IpfsService.isRunning) return;
+    if (_node != null || !P2pService.isRunning) return;
     _set(() => _status = 'starting the node...');
     final sw = Stopwatch()..start();
     final n = await startNode(ctx, repoPath);
@@ -284,8 +284,8 @@ class _NodePageState extends State<NodePage> {
     final n = _node;
     _node = null;
     _api = null;
-    if (n != null && IpfsService.isRunning) await n.close();
-    await IpfsService.stop();
+    if (n != null && P2pService.isRunning) await n.close();
+    await P2pService.stop();
   }
 
   /// The checks, once when the app opens, with the node just online.
@@ -330,12 +330,12 @@ class _NodePageState extends State<NodePage> {
   /// A panic in a stray Go goroutine (test function 24 of WIRE.md): only the
   /// ipfs_host goes down; the app goes on and [_onStop] handles the rest.
   Future<void> _crashNow() async {
-    log('bringing the ipfs_host (pid ${IpfsService.hostPid}) down on purpose '
+    log('bringing the ipfs_host (pid ${P2pService.hostPid}) down on purpose '
         '(a panic in a Go goroutine)');
     _tick?.cancel();
     _node = null;
     _api = null;
-    final exit = IpfsService.exitCode!;
+    final exit = P2pService.exitCode!;
     $callSync(24); // answers and goes down right after
     log('the ipfs_host exited (code ${await exit}); the app went on in pid $pid');
   }
@@ -345,16 +345,16 @@ class _NodePageState extends State<NodePage> {
   /// report, clears the log, restarts the service and, in the foreground, the
   /// node. Background: it only drops the node; the return ([_resume]) starts
   /// everything again.
-  void _onStop(IpfsStop stop) => _serial(() async {
+  void _onStop(P2pStop stop) => _serial(() async {
         _tick?.cancel();
         _node = null;
         _api = null;
         switch (stop.reason) {
-          case IpfsStopReason.background:
+          case P2pStopReason.background:
             log('service stopped in the background (pid ${stop.pid}, up for '
                 '${stop.uptime}); the app goes on in pid $pid');
             _set(() => _status = 'stopped (background)');
-          case IpfsStopReason.crash:
+          case P2pStopReason.crash:
             log('THE IPFS_HOST CRASHED (pid ${stop.pid}, exit ${stop.exitCode}, up '
                 'for ${stop.uptime}); the app goes on in pid $pid. Go\'s '
                 'report:\n${stop.report}');
@@ -366,14 +366,14 @@ class _NodePageState extends State<NodePage> {
 
   /// Back to the foreground: if the service was stopped, start it again; and the node.
   Future<void> _resume() async {
-    if (!IpfsService.isRunning) await _relaunch();
+    if (!P2pService.isRunning) await _relaunch();
     await _start();
   }
 
   Future<void> _relaunch() async {
-    await IpfsService.restart();
+    await P2pService.restart();
     setupService(repoPath);
-    log('service restarted (pid ${IpfsService.hostPid})');
+    log('service restarted (pid ${P2pService.hostPid})');
   }
 
   @override

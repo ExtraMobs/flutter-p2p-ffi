@@ -1,11 +1,11 @@
 /// Android side of `ipfs_ffi`. Flutter registers it as
-/// `IpfsService.platform` when the app starts; there is nothing to call.
+/// `P2pService.platform` when the app starts; there is nothing to call.
 ///
-/// While the service runs, it follows `IpfsService.background` (read when the
+/// While the service runs, it follows `P2pService.background` (read when the
 /// service starts):
-/// - `IpfsBackground.stop` (default): when the app goes to the background,
-///   the service stops and `onStop` gets `IpfsStopReason.background`;
-/// - `IpfsBackground.foregroundService`: an Android foreground service keeps
+/// - `P2pBackground.stop` (default): when the app goes to the background,
+///   the service stops and `onStop` gets `P2pStopReason.background`;
+/// - `P2pBackground.foregroundService`: an Android foreground service keeps
 ///   the app, and the service, running in the background. Android requires
 ///   a notification for it; the app builds it: [IpfsFfiFlutter.notification]
 ///   (an [IpfsNotification]: title, text, icon, channel...), updated while
@@ -19,12 +19,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:ipfs_ffi/ipfs_ffi.dart';
 
-/// The Android [IpfsPlatform].
-final class IpfsFfiFlutter implements IpfsPlatform {
+/// The Android [P2pPlatform].
+final class IpfsFfiFlutter implements P2pPlatform {
   IpfsFfiFlutter._();
 
   /// Called by Flutter when the app starts.
-  static void registerWith() => IpfsService.platform = IpfsFfiFlutter._();
+  static void registerWith() => P2pService.platform = IpfsFfiFlutter._();
 
   /// The foreground service notification, read when the service starts.
   static IpfsNotification notification = const IpfsNotification();
@@ -33,7 +33,7 @@ final class IpfsFfiFlutter implements IpfsPlatform {
   /// notification it shows (allowed from the background).
   static Future<void> updateNotification(IpfsNotification n) async {
     notification = n;
-    final p = IpfsService.platform;
+    final p = P2pService.platform;
     if (p is IpfsFfiFlutter && p._foreground) {
       await _channel.invokeMethod<void>('updateNotification', n._toMap());
     }
@@ -45,7 +45,7 @@ final class IpfsFfiFlutter implements IpfsPlatform {
   /// dialog when needed. Returns true when notifications are allowed (or
   /// Android is older than 13), false when denied or when there is no
   /// Activity to ask from. Call it from the foreground before starting
-  /// with `IpfsBackground.foregroundService`.
+  /// with `P2pBackground.foregroundService`.
   static Future<bool> requestNotificationPermission() async =>
       await _channel.invokeMethod<bool>('requestNotificationPermission') ??
       false;
@@ -55,11 +55,11 @@ final class IpfsFfiFlutter implements IpfsPlatform {
   var _foreground = false;
 
   @override
-  Future<void> serviceStarted(IpfsBackground mode) async {
+  Future<void> serviceStarted(P2pBackground mode) async {
     WidgetsFlutterBinding.ensureInitialized();
     _lifecycle ??= AppLifecycleListener(
-        onPause: () => unawaited(IpfsService.appInBackground()));
-    if (mode != IpfsBackground.foregroundService) {
+        onPause: () => unawaited(P2pService.appInBackground()));
+    if (mode != P2pBackground.foregroundService) {
       await serviceStopped(); // a restart in the other mode
       return;
     }

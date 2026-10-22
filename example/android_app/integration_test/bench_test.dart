@@ -13,7 +13,7 @@ import 'package:ipfs_ffi/go/kubo/core.dart' as core;
 import 'package:ipfs_ffi/go/kubo/core/coreapi.dart' as coreapi;
 import 'package:ipfs_ffi/go/kubo/core/node.dart' as node;
 import 'package:ipfs_ffi/go/kubo/repo/fsrepo.dart' as fsrepo;
-import 'package:ipfs_ffi/ipfs_ffi.dart' show IpfsService;
+import 'package:ipfs_ffi/ipfs_ffi.dart' show P2pService;
 import 'package:ipfs_ffi/src/runtime.dart' show $callSync, $W;
 import 'package:ipfs_ffi_android/main.dart' show setupService, startNode;
 
@@ -56,7 +56,7 @@ void main() {
   test('cost of a synchronous call', () async {
     final lines = <String>[];
     for (final spin in [20000, 200000]) {
-      await IpfsService.start(spin: spin);
+      await P2pService.start(spin: spin);
       final ctx = context.background();
       lines.add('--- spin $spin');
       lines.add('Noop:          ${pct(measure(() => $callSync(0)))}');
@@ -68,7 +68,7 @@ void main() {
         lines.add('Noop + $gap µs of Dart: '
             '${pct(measure(() => $callSync(0), gapUs: gap, n: 1000))}');
       }
-      await IpfsService.stop();
+      await P2pService.stop();
     }
     // ignore: avoid_print
     print(lines.join('\n'));
@@ -79,7 +79,7 @@ void main() {
     final tmp = Directory.systemTemp.createTempSync('ipfs_ffi_bench_');
     final repo = '${tmp.path}/repo';
     for (final spin in [20000, 200000]) {
-      await IpfsService.start(spin: spin);
+      await P2pService.start(spin: spin);
       setupService(repo); // plugins (once per host) and the app's repo
       final ctx = context.background();
       for (final online in [false, true]) {
@@ -97,7 +97,7 @@ void main() {
         lines.add('Noop again:    ${pct(measure(() => $callSync(0)))}');
         await n.close();
       }
-      await IpfsService.stop();
+      await P2pService.stop();
     }
     tmp.deleteSync(recursive: true);
     // ignore: avoid_print

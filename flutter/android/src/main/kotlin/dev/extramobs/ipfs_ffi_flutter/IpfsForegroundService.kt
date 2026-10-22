@@ -14,7 +14,7 @@ import android.os.IBinder
 
 /**
  * Foreground service that keeps the app process, and the ipfs_host child
- * process, out of the background limits (IpfsBackground.foregroundService).
+ * process, out of the background limits (P2pBackground.foregroundService).
  * It runs nothing itself: the IPFS node lives in the ipfs_host.
  *
  * Its notification (Android requires one) is the app's: built from the

@@ -57,7 +57,7 @@ void main() {
 
   setUpAll(() async {
     tmp = Directory.systemTemp.createTempSync('ipfs_ffi_car_');
-    await IpfsService.start();
+    await P2pService.start();
     ctx = context.background();
     loader.PluginLoader('')
       ..initialize()
@@ -87,7 +87,7 @@ void main() {
 
   tearDownAll(() async {
     await n.close();
-    await IpfsService.stop();
+    await P2pService.stop();
     tmp.deleteSync(recursive: true);
   });
 
@@ -118,7 +118,7 @@ void main() {
         final b = br.next();
         seen.add(b.cid!);
         expect(b.rawData, isNotEmpty);
-      } on IpfsEof {
+      } on GolangEofException {
         break; // o io.EOF do Go: acabou
       }
     }
@@ -242,22 +242,23 @@ void main() {
     src.close();
   });
 
-  test('sentinelas do Go viram subclasses de IpfsException', () async {
+  test('sentinelas do Go viram subclasses de GolangException', () async {
     final missing =
         go_cid.newPrefixV1(raw, sha256).sum(Uint8List.fromList([9]));
     final ro = blockstore.openReadOnly(v1);
-    await expectLater(ro.get(ctx, missing), throwsA(isA<IpfsNotFound>()));
+    await expectLater(
+        ro.get(ctx, missing), throwsA(isA<GolangNotFoundException>()));
     ro.close();
 
     // o unixfs.add olha o contexto antes de começar
     final (c, cancel) = context.withCancel(context.background());
     cancel();
     await expectLater(api.unixfs().add(c, files.newBytesFile(Uint8List(1))),
-        throwsA(isA<IpfsCanceled>()));
+        throwsA(isA<GolangCanceledException>()));
     final (d, cancel2) =
         context.withTimeout(context.background(), Duration.zero);
     await expectLater(api.unixfs().add(d, files.newBytesFile(Uint8List(1))),
-        throwsA(isA<IpfsDeadlineExceeded>()));
+        throwsA(isA<GolangDeadlineExceededException>()));
     cancel2();
   });
 
@@ -269,7 +270,7 @@ void main() {
       while (true) {
         try {
           out.add(br.next().cid!);
-        } on IpfsEof {
+        } on GolangEofException {
           return out;
         }
       }
@@ -377,7 +378,7 @@ void main() {
       while (true) {
         try {
           out.add(reader.next().cid!);
-        } on IpfsEof {
+        } on GolangEofException {
           break;
         }
       }
@@ -385,7 +386,7 @@ void main() {
     });
     expect(cids, hasLength(blocks));
     expect(br.isReleased, isTrue);
-    expect(() => br.next(), throwsA(isA<IpfsException>()));
+    expect(() => br.next(), throwsA(isA<GolangException>()));
 
     late car.Reader r;
     final inspected = withGoScope((scope) {
@@ -396,6 +397,6 @@ void main() {
     });
     expect(inspected, blocks);
     expect(r.isReleased, isTrue);
-    expect(() => r.version, throwsA(isA<IpfsException>()));
+    expect(() => r.version, throwsA(isA<GolangException>()));
   });
 }

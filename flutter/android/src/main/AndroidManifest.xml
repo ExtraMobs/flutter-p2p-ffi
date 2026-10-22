@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- IpfsBackground.foregroundService: keeps the app (and the ipfs_host,
+    <!-- P2pBackground.foregroundService: keeps the app (and the ipfs_host,
          its child process) running in the background -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE"/>

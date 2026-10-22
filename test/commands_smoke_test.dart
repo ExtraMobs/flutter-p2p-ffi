@@ -1,6 +1,6 @@
 // Fumaça de todos os comandos do RPC (0.15.0): cada comando gerado
 // (test/src/commands_smoke.dart, saída do go/gen) roda num nó offline com
-// argumentos plausíveis. Erro do próprio kubo (IpfsException: "online mode",
+// argumentos plausíveis. Erro do próprio kubo (GolangException: "online mode",
 // argumento inválido...) é resposta válida; falha é erro de protocolo: um DTO
 // que não decodifica, um item de outro tipo, o host que cai ou um comando que
 // não termina nem pelo prazo do ctx. Por fim, os comandos de rede em dois nós
@@ -88,14 +88,14 @@ void main() {
 
   setUpAll(() async {
     tmp = Directory.systemTemp.createTempSync('ipfs_ffi_smoke_');
-    await IpfsService.start();
+    await P2pService.start();
     loader.PluginLoader('')
       ..initialize()
       ..inject();
   });
 
   tearDownAll(() async {
-    await IpfsService.stop();
+    await P2pService.stop();
     tmp.deleteSync(recursive: true);
   });
 
@@ -146,10 +146,10 @@ void main() {
             .toList()
             .timeout(const Duration(seconds: 30));
         values += out.length;
-      } on IpfsServiceException catch (e) {
+      } on P2pServiceException catch (e) {
         failures.add('$name: o host caiu: $e');
         break;
-      } on IpfsException catch (e) {
+      } on GolangException catch (e) {
         final m = '$e';
         if (m.contains('not its declared type')) {
           failures.add('$name: $m');

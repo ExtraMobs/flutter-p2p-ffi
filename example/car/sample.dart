@@ -60,7 +60,7 @@ final class Sample {
 
   /// Starts the service and builds everything.
   static Future<Sample> open() async {
-    await IpfsService.start();
+    await P2pService.start();
     loader.PluginLoader('') // once per service
       ..initialize()
       ..inject();
@@ -100,7 +100,7 @@ final class Sample {
 
   Future<void> close() async {
     await node.close();
-    await IpfsService.stop();
+    await P2pService.stop();
     tmp.deleteSync(recursive: true);
   }
 }
@@ -123,7 +123,7 @@ List<cid.Cid> cidsOf(Uint8List bytes) {
   while (true) {
     try {
       out.add(br.next().cid!);
-    } on IpfsEof {
+    } on GolangEofException {
       return out;
     }
   }
@@ -170,6 +170,6 @@ Future<void> silentlyWrong(String done,
 
 /// The first line of [e]'s message, shortened.
 String brief(Object e) {
-  final m = (e is IpfsException ? e.message : '$e').split('\n').first;
+  final m = (e is GolangException ? e.message : '$e').split('\n').first;
   return m.length > 160 ? '${m.substring(0, 157)}...' : m;
 }

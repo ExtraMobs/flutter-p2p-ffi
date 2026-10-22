@@ -35,14 +35,14 @@ import 'package:ipfs_ffi/go/kubo/core/coreiface/options.dart' as options;
 import 'package:ipfs_ffi/go/kubo/core/coreapi.dart' as coreapi;
 import 'package:ipfs_ffi/go/kubo/core.dart' as core;
 import 'package:ipfs_ffi/go/cid.dart' as go_cid;
-import 'package:ipfs_ffi/ipfs_ffi.dart' show IpfsEof, IpfsService;
+import 'package:ipfs_ffi/ipfs_ffi.dart' show GolangEofException, P2pService;
 
 Future<void> main() async {
   final tmp = Directory.systemTemp.createTempSync('ipfs_ffi_ex13_');
   final repoPath = '${tmp.path}/repo';
 
   // Service, plugins and a new repo: the same as example 09.
-  await IpfsService.start();
+  await P2pService.start();
   loader.PluginLoader('')
     ..initialize()
     ..inject();
@@ -139,12 +139,12 @@ Future<void> main() async {
     // 4. A CAR's index, walked with a callback. Go sends the arguments in batches
     // (batchSize; default 1024, measured) and waits for Dart: false, or an
     // exception, stop Go. While forEach runs, the index is "in use" (isBusy, and
-    // IpfsService.busy reports it): calling it from inside the callback may wait
+    // P2pService.busy reports it): calling it from inside the callback may wait
     // on a lock Go holds; if it does, the host detects it and throws
-    // IpfsDeadlockException instead of hanging.
+    // GolangDeadlockException instead of hanging.
     //   Go:   idx, _ := car.GenerateIndexFromFile(path)
     //         idx.(index.IterableIndex).ForEach(func(mh multihash.Multihash, off uint64) error {...})
-    final watch = IpfsService.busy
+    final watch = P2pService.busy
         .listen((c) => print('   (index ${c.busy ? 'in use' : 'free'})'));
     final idx = car.generateIndexFromFile(hi);
     var seen = 0;
@@ -158,8 +158,8 @@ Future<void> main() async {
     await watch.cancel();
     print('4. $seen entries');
 
-    // 5. Go's known errors arrive as subclasses of IpfsException: the end of a
-    // read is IpfsEof (Go's io.EOF).
+    // 5. Go's known errors arrive as subclasses of GolangException: the end of a
+    // read is GolangEofException (Go's io.EOF).
     //   Go:   for { b, err := br.Next(); if errors.Is(err, io.EOF) { break } }
     final br = car.BlockReader(File(hi).readAsBytesSync());
     var read = 0;
@@ -168,12 +168,12 @@ Future<void> main() async {
         br.next();
         read++;
       }
-    } on IpfsEof {
-      print('5. BlockReader: $read blocks, then IpfsEof');
+    } on GolangEofException {
+      print('5. BlockReader: $read blocks, then GolangEofException');
     }
   } finally {
     await n.close();
-    await IpfsService.stop();
+    await P2pService.stop();
     tmp.deleteSync(recursive: true);
   }
 }

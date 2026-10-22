@@ -23,7 +23,7 @@ import 'package:ipfs_ffi/go/kubo/core/node.dart' as node;
 import 'package:ipfs_ffi/go/kubo/core/node/libp2p.dart' as libp2p;
 import 'package:ipfs_ffi/go/kubo/repo/fsrepo.dart' as fsrepo;
 import 'package:ipfs_ffi/go/libp2p/core/peer.dart' as peer;
-import 'package:ipfs_ffi/ipfs_ffi.dart' show IpfsException, hasIpv6;
+import 'package:ipfs_ffi/ipfs_ffi.dart' show GolangException, hasIpv6;
 import 'package:ipfs_ffi/src/runtime.dart'
     show $W, $call, $callSync, $stream, GoSink;
 
@@ -40,7 +40,7 @@ void check(bool ok, String what) {
 Future<void> expectThrows(Future<Object?> f, String what) async {
   try {
     await f;
-  } on IpfsException {
+  } on GolangException {
     return;
   }
   throw StateError('failed: $what (no error)');
@@ -214,7 +214,7 @@ Future<int> localChecks(Log log) async {
         }
       },
       // ipfs_ffi's own goroutines (try/goTry in go/runtime.go)
-      'a panic in an ipfs_ffi goroutine becomes IpfsException': () async {
+      'a panic in an ipfs_ffi goroutine becomes GolangException': () async {
         final items = <Object?>[];
         await expectThrows($stream(25).map((r) => r.i64()).forEach(items.add),
             'function with a channel');

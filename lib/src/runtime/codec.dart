@@ -94,11 +94,11 @@ final class $W {
   void h(GoHandle? x) {
     if (x == null) return i64(0);
     if (x.isReleased) {
-      _error ??= IpfsException(
+      _error ??= GolangException(
           'handle already released: cannot use a released handle');
     }
     if (x.$e != _epoch) {
-      _error ??= IpfsServiceException(
+      _error ??= P2pServiceException(
           'handle from a previous service: the ipfs_host was restarted');
     }
     _keep.add(x);
@@ -178,7 +178,7 @@ final class $W {
     try {
       id = _channel.newId();
       _sinks.add((id, s));
-    } on IpfsServiceException catch (e) {
+    } on P2pServiceException catch (e) {
       _error ??= e;
     }
     u32(id);
@@ -313,7 +313,7 @@ final class $R {
     return h == 0 ? null : f(h);
   }
 
-  /// Non-null handle: a Go nil becomes an IpfsException.
+  /// Non-null handle: a Go nil becomes an GolangException.
   T hnn<T>(T Function(int h) f) {
     final h = i64();
     return h == 0 ? $nil() : f(h);
@@ -364,7 +364,7 @@ final class $R {
         final n = i32();
         return {for (var k = 0; k < n; k++) str(): any()};
       case final t:
-        throw IpfsException('unknown dynamic value tag $t');
+        throw GolangException('unknown dynamic value tag $t');
     }
   }
 }

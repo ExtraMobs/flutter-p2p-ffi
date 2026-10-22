@@ -18,8 +18,9 @@ Future<void> main() async {
         cid.newPrefixV1(0x55, 0x12).sum(Uint8List.fromList([1, 2, 3]));
     await mustFail(
         'get a CID that is not in the CAR without handling the error',
-        why: 'the blockstore does not make the block up: IpfsNotFound',
-        instead: 'call has() first, or handle IpfsNotFound',
+        why:
+            'the blockstore does not make the block up: GolangNotFoundException',
+        instead: 'call has() first, or handle GolangNotFoundException',
         action: () => ro.get(s.ctx, missing));
 
     // The same content under another CID (CIDv0 vs CIDv1): go-car's index

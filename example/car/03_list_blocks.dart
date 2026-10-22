@@ -10,7 +10,7 @@
 import 'package:ipfs_ffi/go/car/v2.dart' as car;
 import 'package:ipfs_ffi/go/car/v2/blockstore.dart' as blockstore;
 import 'package:ipfs_ffi/go/os.dart' as os;
-import 'package:ipfs_ffi/ipfs_ffi.dart' show IpfsEof;
+import 'package:ipfs_ffi/ipfs_ffi.dart' show GolangEofException;
 
 import 'sample.dart';
 
@@ -19,7 +19,7 @@ Future<void> main() async {
   try {
     print('== Low level (go-car)');
     // BlockReader: reads in order, from an open file (os.Open) or from bytes,
-    // checking the hash of every block. The end is Go's io.EOF (IpfsEof); any
+    // checking the hash of every block. The end is Go's io.EOF (GolangEofException); any
     // other error is a real error.
     //   Go:   br, _ := car.NewBlockReader(f)
     //         for { b, err := br.Next(); if errors.Is(err, io.EOF) { break } }
@@ -32,7 +32,7 @@ Future<void> main() async {
         try {
           final b = br.next();
           print('  block ${n++}: ${b.cid} (${b.rawData!.length} bytes)');
-        } on IpfsEof {
+        } on GolangEofException {
           break;
         }
       }

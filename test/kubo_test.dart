@@ -38,14 +38,14 @@ import 'package:ipfs_ffi/go/libp2p/core/peer.dart' as peer;
 import 'package:ipfs_ffi/go/cid.dart' as cid;
 import 'package:ipfs_ffi/ipfs_ffi.dart'
     show
-        IpfsBackground,
-        IpfsPlatform,
-        IpfsStop,
-        IpfsStopReason,
-        IpfsEof,
-        IpfsException,
-        IpfsService,
-        IpfsServiceException,
+        P2pBackground,
+        P2pPlatform,
+        P2pStop,
+        P2pStopReason,
+        GolangEofException,
+        GolangException,
+        P2pService,
+        P2pServiceException,
         hasIpv6,
         isGlobalIpv6;
 import 'package:ipfs_ffi/src/runtime.dart'
@@ -58,11 +58,11 @@ void main() {
   late iface.CoreApi api;
   late context.Context ctx;
   var hostCrashed = false; // o último teste derruba o host de propósito
-  final stops = StreamController<IpfsStop>.broadcast(); // o onStop do serviço
+  final stops = StreamController<P2pStop>.broadcast(); // o onStop do serviço
 
   setUpAll(() async {
     tmp = Directory.systemTemp.createTempSync('ipfs_ffi_kubo_');
-    await IpfsService.start(
+    await P2pService.start(
         crashLog: '${tmp.path}/crash.log', onStop: stops.add);
     ctx = context.background();
     final repoPath = '${tmp.path}/repo';
@@ -88,7 +88,7 @@ void main() {
 
   tearDownAll(() async {
     if (!hostCrashed) await n.close();
-    await IpfsService.stop();
+    await P2pService.stop();
     tmp.deleteSync(recursive: true);
   });
 
@@ -146,7 +146,7 @@ void main() {
     cancel();
     expect(c.err(), 'context canceled');
     await expectLater(api.unixfs().add(c, files.newBytesFile(utf8.encode('y'))),
-        throwsA(isA<IpfsException>()));
+        throwsA(isA<GolangException>()));
 
     final (t, cancelT) =
         context.withTimeout(context.background(), Duration.zero);
@@ -154,13 +154,13 @@ void main() {
     cancelT();
   });
 
-  test('erros do Go viram IpfsException (o panic: grupo abaixo)', () async {
+  test('erros do Go viram GolangException (o panic: grupo abaixo)', () async {
     await expectLater(api.resolvePath(ctx, path.Path('não é path')),
-        throwsA(isA<IpfsException>()));
+        throwsA(isA<GolangException>()));
     // handle inválido: a tabela do host responde erro
     await expectLater(
         core.IpfsNode.$h(1 << 40).close(),
-        throwsA(isA<IpfsException>()
+        throwsA(isA<GolangException>()
             .having((e) => e.message, 'message', contains('does not exist'))));
   });
 
@@ -207,7 +207,7 @@ void main() {
 
     await api.block().rm(ctx, st.path!);
     await expectLater(
-        api.block().stat(ctx, st.path!), throwsA(isA<IpfsException>()));
+        api.block().stat(ctx, st.path!), throwsA(isA<GolangException>()));
   });
 
   test('GC apaga o que não está pinado e mantém o pinado', () async {
@@ -225,7 +225,7 @@ void main() {
     expect([for (final r in removed) r.error], everyElement(isNull));
 
     await expectLater(
-        api.block().stat(ctx, loose), throwsA(isA<IpfsException>()));
+        api.block().stat(ctx, loose), throwsA(isA<GolangException>()));
     expect((await api.block().stat(ctx, kept)).size, greaterThan(0));
     await corerepo.garbageCollect(n, ctx); // a versão que só espera
   });
@@ -277,7 +277,7 @@ void main() {
     var loose = await addUnpinned('conditional ${DateTime.now()}');
     await corerepo.conditionalGc(ctx, n, 1 << 50);
     await expectLater(
-        api.block().stat(ctx, loose), throwsA(isA<IpfsException>()));
+        api.block().stat(ctx, loose), throwsA(isA<GolangException>()));
     // below the watermark: nothing happens
     loose = await addUnpinned('kept ${DateTime.now()}');
     await corerepo.conditionalGc(ctx, n, 0);
@@ -294,7 +294,7 @@ void main() {
       while (true) {
         try {
           await api.block().stat(ctx, loose);
-        } on IpfsException {
+        } on GolangException {
           break; // collected
         }
         if (DateTime.now().isAfter(deadline)) fail('periodicGc did not run');
@@ -401,7 +401,7 @@ void main() {
       // B não tem nada disso: só pela rede
       final offline = b.withOptions([options.api.offline(true)]);
       await expectLater(
-          offline.block().stat(ctx, p), throwsA(isA<IpfsException>()));
+          offline.block().stat(ctx, p), throwsA(isA<GolangException>()));
 
       final backend = gateway.BlocksBackend(nb.blocks);
       final (c, cancel) = context.withTimeout(
@@ -421,7 +421,7 @@ void main() {
               final blk = br.next();
               cids.add(blk.cid!.value);
               if (blk.cid!.value.startsWith('bafk')) leaves.add(blk.rawData!);
-            } on IpfsEof {
+            } on GolangEofException {
               return (cids, leaves.toBytes());
             }
           }
@@ -499,7 +499,7 @@ void main() {
       repo2.setConfigKey('Bitswap.Libp2pEnabled', false);
       await expectLater(
           core.newNode(ctx, node.BuildCfg(repo: repo2, online: true)),
-          throwsA(isA<IpfsException>().having((e) => e.message, 'message',
+          throwsA(isA<GolangException>().having((e) => e.message, 'message',
               contains('Libp2pEnabled and HTTPRetrieval.Enabled'))));
     });
 
@@ -569,7 +569,7 @@ void main() {
         sub.close();
       }
       // depois do close, o next falha em vez de esperar para sempre
-      await expectLater(sub.next(ctx), throwsA(isA<IpfsException>()));
+      await expectLater(sub.next(ctx), throwsA(isA<GolangException>()));
     });
 
     // 0.13: o serviço de peering do nó (IpfsNode.Peering, campo como raiz)
@@ -689,7 +689,7 @@ void main() {
 
       await api.dag().remove(ctx, raw.cid());
       await expectLater(api.block().stat(ctx, path.Path('/ipfs/${raw.cid()}')),
-          throwsA(isA<IpfsException>()));
+          throwsA(isA<GolangException>()));
     });
 
     test('dag put/get: DAG-JSON → DAG-CBOR, caminho dentro do nó e link',
@@ -727,7 +727,7 @@ void main() {
       // bloco acima de 2 MiB: recusado, como no CLI, salvo allowBigBlock
       final big = utf8.encode('{"d": "${'x' * (2 * 1024 * 1024 + 1)}"}');
       await expectLater(
-          dag.dagPut(api, ctx, big), throwsA(isA<IpfsException>()));
+          dag.dagPut(api, ctx, big), throwsA(isA<GolangException>()));
       expect((await dag.dagPut(api, ctx, big, allowBigBlock: true)).value,
           startsWith('bafyrei'));
     });
@@ -784,19 +784,19 @@ void main() {
             options.unixfs.events(events.sink),
             options.unixfs.progress(true)
           ]),
-          throwsA(isA<IpfsException>()));
+          throwsA(isA<GolangException>()));
       await done.timeout(const Duration(seconds: 5));
     });
   });
 
   // As goroutines do próprio ipfs_ffi (go/runtime.go try/goTry): o panic vira
-  // IpfsException e o processo segue.
+  // GolangException e o processo segue.
   group('panic em goroutine do ipfs_ffi vira erro', () {
     test('função do kubo com chan<- (goTry)', () async {
       final events = <Object?>[];
       await expectLater(
           $stream(25).map((r) => r.i64()).forEach(events.add),
-          throwsA(isA<IpfsException>().having((e) => e.message, 'message',
+          throwsA(isA<GolangException>().having((e) => e.message, 'message',
               contains('test panic in a function with a channel'))));
       expect(events, [1]); // o que saiu antes do panic chega
     });
@@ -807,7 +807,7 @@ void main() {
       // o erro chega ao sink antes de a chamada voltar
       final check = expectLater(
           c.stream.forEach(got.add),
-          throwsA(isA<IpfsException>().having((e) => e.message, 'message',
+          throwsA(isA<GolangException>().having((e) => e.message, 'message',
               contains('test panic in the sink'))));
       await $call(26, $W()..sink(GoSink(c.sink, (r) => r.i64())));
       await check;
@@ -839,11 +839,11 @@ void main() {
           utf8.decode(io.readAll(files.toFile(await off.unixfs().get(ctx, p)))),
           'off');
       await expectLater(off.routing().get(ctx, '/ipns/nao-existe'),
-          throwsA(isA<IpfsException>()));
+          throwsA(isA<GolangException>()));
       await expectLater(
           off.routing().put(ctx, '/ipns/nao-existe', Uint8List(1),
               [options.routing.allowOffline(true)]),
-          throwsA(isA<IpfsException>()));
+          throwsA(isA<GolangException>()));
     });
 
     test('object addLink, rmLink e diff (com as constantes)', () async {
@@ -912,8 +912,8 @@ void main() {
 
       mfs.mv(root, '/t013/a.txt', '/t013/sub/b.txt');
       expect(mfs.isFile(mfs.lookup(root, '/t013/sub/b.txt')), isTrue);
-      expect(
-          () => mfs.lookup(root, '/t013/a.txt'), throwsA(isA<IpfsException>()));
+      expect(() => mfs.lookup(root, '/t013/a.txt'),
+          throwsA(isA<GolangException>()));
       final flushed = await mfs.flushPath(ctx, root, '/t013');
       expect(flushed.cid().value, isNotEmpty);
     });
@@ -971,7 +971,7 @@ void main() {
       await api.pin().rm(ctx, root);
       await corerepo.garbageCollect(n, ctx);
       await expectLater(
-          api.block().stat(ctx, root), throwsA(isA<IpfsException>()));
+          api.block().stat(ctx, root), throwsA(isA<GolangException>()));
 
       final r = await dag.dagImport(n, ctx, bytes);
       expect([for (final m in r.roots) (m.cid.value, m.pinErrorMsg)],
@@ -996,7 +996,7 @@ void main() {
       expect(r.blockCount, 1);
       await expectLater(
           dag.dagImportFiles(n, ctx, ['${tmp.path}/nao-existe.car']),
-          throwsA(isA<IpfsException>()));
+          throwsA(isA<GolangException>()));
     });
   });
 
@@ -1005,16 +1005,16 @@ void main() {
   // volta sozinho: quem usa o pacote chama restart(). Por último: o nó dos
   // outros testes cai junto.
   test('panic numa goroutine do Go: só o host cai; onStop decide', () async {
-    final oldPid = IpfsService.hostPid;
+    final oldPid = P2pService.hostPid;
     final pending = expectLater(
         $call(1, $W()..u32(60000)), // Sleep: ainda pendente na queda
-        throwsA(isA<IpfsServiceException>()
-            .having((e) => e.reason, 'reason', IpfsStopReason.crash)));
+        throwsA(isA<P2pServiceException>()
+            .having((e) => e.reason, 'reason', P2pStopReason.crash)));
     $callSync(24); // responde e cai logo depois
     hostCrashed = true;
     final crash = await stops.stream.first.timeout(const Duration(seconds: 30));
     await pending;
-    expect(crash.reason, IpfsStopReason.crash);
+    expect(crash.reason, P2pStopReason.crash);
     expect(crash.report, contains('test panic in a goroutine'));
     expect(crash.exitCode, isNot(0));
     expect(crash.pid, oldPid);
@@ -1022,21 +1022,21 @@ void main() {
     expect(File(crash.crashLog!).readAsStringSync(),
         contains('test panic in a goroutine'));
     // sem restart() o serviço fica fora: as chamadas falham
-    expect(IpfsService.isRunning, isFalse);
+    expect(P2pService.isRunning, isFalse);
     expect(
         () => context.background(),
-        throwsA(isA<IpfsServiceException>()
-            .having((e) => e.reason, 'reason', IpfsStopReason.crash)));
+        throwsA(isA<P2pServiceException>()
+            .having((e) => e.reason, 'reason', P2pStopReason.crash)));
 
     File(crash.crashLog!).writeAsStringSync(''); // o app decide limpar
-    await IpfsService.restart();
-    expect(IpfsService.isRunning, isTrue);
-    expect(IpfsService.hostPid, isNot(oldPid));
+    await P2pService.restart();
+    expect(P2pService.isRunning, isTrue);
+    expect(P2pService.hostPid, isNot(oldPid));
 
     // o serviço novo funciona; os handles do anterior não valem nele
     expect(context.background().err(), isNull);
-    expect(() => ctx.err(), throwsA(isA<IpfsServiceException>()));
-    expect(() => api.unixfs(), throwsA(isA<IpfsServiceException>()));
+    expect(() => ctx.err(), throwsA(isA<P2pServiceException>()));
+    expect(() => api.unixfs(), throwsA(isA<P2pServiceException>()));
     // processo novo: os plugins do kubo são injetados de novo
     loader.PluginLoader('')
       ..initialize()
@@ -1059,41 +1059,41 @@ void main() {
     await n2.close();
   }, timeout: const Timeout(Duration(minutes: 2)));
 
-  // 0.10.0: no modo padrão (IpfsBackground.stop), o app ir para o segundo
+  // 0.10.0: no modo padrão (P2pBackground.stop), o app ir para o segundo
   // plano para o serviço e avisa no onStop; no foregroundService, nada muda.
   test('segundo plano: stop para e avisa; foregroundService segue', () async {
-    expect(IpfsService.background, IpfsBackground.stop);
-    final oldPid = IpfsService.hostPid;
+    expect(P2pService.background, P2pBackground.stop);
+    final oldPid = P2pService.hostPid;
     final pending = expectLater(
         $call(1, $W()..u32(60000)),
-        throwsA(isA<IpfsServiceException>()
-            .having((e) => e.reason, 'reason', IpfsStopReason.background)));
+        throwsA(isA<P2pServiceException>()
+            .having((e) => e.reason, 'reason', P2pStopReason.background)));
     final next = stops.stream.first; // o onStop roda antes de retornar
-    await IpfsService.appInBackground();
+    await P2pService.appInBackground();
     final s = await next.timeout(const Duration(seconds: 30));
     await pending;
-    expect(s.reason, IpfsStopReason.background);
+    expect(s.reason, P2pStopReason.background);
     expect(s.pid, oldPid);
     expect(s.exitCode, 0); // o host sai sozinho com o canal fechado
     expect(s.report, isEmpty);
-    expect(IpfsService.isRunning, isFalse);
+    expect(P2pService.isRunning, isFalse);
     expect(
         () => context.background(),
-        throwsA(isA<IpfsServiceException>()
-            .having((e) => e.reason, 'reason', IpfsStopReason.background)));
-    await IpfsService.appInBackground(); // já parado: nada
+        throwsA(isA<P2pServiceException>()
+            .having((e) => e.reason, 'reason', P2pStopReason.background)));
+    await P2pService.appInBackground(); // já parado: nada
 
     // o app decide subir de novo; o modo é lido na subida
-    IpfsService.background = IpfsBackground.foregroundService;
+    P2pService.background = P2pBackground.foregroundService;
     try {
-      await IpfsService.restart();
-      final pid = IpfsService.hostPid;
-      await IpfsService.appInBackground();
-      expect(IpfsService.isRunning, isTrue);
-      expect(IpfsService.hostPid, pid);
+      await P2pService.restart();
+      final pid = P2pService.hostPid;
+      await P2pService.appInBackground();
+      expect(P2pService.isRunning, isTrue);
+      expect(P2pService.hostPid, pid);
       expect(context.background().err(), isNull);
     } finally {
-      IpfsService.background = IpfsBackground.stop;
+      P2pService.background = P2pBackground.stop;
     }
   });
 
@@ -1103,40 +1103,40 @@ void main() {
   test('foregroundService: a queda não para a plataforma; o stop para',
       () async {
     final calls = <String>[];
-    final old = IpfsService.platform;
+    final old = P2pService.platform;
     Future<void> crash() async {
       final next = stops.stream.first;
       $callSync(24); // panic numa goroutine: o host cai
       expect((await next.timeout(const Duration(seconds: 30))).reason,
-          IpfsStopReason.crash);
+          P2pStopReason.crash);
     }
 
     // o último teste: termina com o serviço parado (o tearDownAll só para)
     await crash(); // modo stop, plataforma do teste ainda não instalada
-    IpfsService.platform = _Platform(calls);
-    IpfsService.background = IpfsBackground.foregroundService;
+    P2pService.platform = _Platform(calls);
+    P2pService.background = P2pBackground.foregroundService;
     try {
-      await IpfsService.restart();
+      await P2pService.restart();
       expect(calls, ['started foregroundService']);
       await crash();
       expect(calls, ['started foregroundService'], reason: 'sem stopped');
-      await IpfsService.restart();
+      await P2pService.restart();
       expect(calls.last, 'started foregroundService');
-      await IpfsService.stop();
+      await P2pService.stop();
       expect(calls.last, 'stopped');
     } finally {
-      IpfsService.background = IpfsBackground.stop;
-      IpfsService.platform = old;
+      P2pService.background = P2pBackground.stop;
+      P2pService.platform = old;
     }
   });
 }
 
-final class _Platform implements IpfsPlatform {
+final class _Platform implements P2pPlatform {
   _Platform(this.calls);
   final List<String> calls;
 
   @override
-  Future<void> serviceStarted(IpfsBackground mode) async =>
+  Future<void> serviceStarted(P2pBackground mode) async =>
       calls.add('started ${mode.name}');
 
   @override

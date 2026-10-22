@@ -35,7 +35,7 @@ import 'package:ipfs_ffi/go/kubo/repo/fsrepo.dart' as fsrepo;
 import 'package:ipfs_ffi/go/kubo/core/coreiface/options.dart' as options;
 import 'package:ipfs_ffi/go/kubo/core/coreapi.dart' as coreapi;
 import 'package:ipfs_ffi/go/kubo/core.dart' as core;
-import 'package:ipfs_ffi/ipfs_ffi.dart' show IpfsException, IpfsService;
+import 'package:ipfs_ffi/ipfs_ffi.dart' show GolangException, P2pService;
 
 Future<void> main() async {
   // A temporary directory just for this example (the IPFS repo lives in it).
@@ -44,7 +44,7 @@ Future<void> main() async {
 
   // Starts the service: launches the ipfs_host (kubo, in another process; build
   // it first with `dart run tool/build.dart`). Everything below talks to it.
-  await IpfsService.start();
+  await P2pService.start();
 
   // Kubo's plugins (the repo's database types etc.): once per service, before
   // opening any repo. The `..` call two methods on the same object, one after
@@ -152,7 +152,7 @@ Future<void> main() async {
     // a chat's messages.
     //
     //   onData:  called once for EACH item that arrives
-    //   onError: called if the command fails (here, an IpfsException)
+    //   onError: called if the command fails (here, an GolangException)
     //   onDone:  called once, when the Stream ends
     //
     // `.listen` returns a StreamSubscription: the subscription's "remote
@@ -187,14 +187,14 @@ Future<void> main() async {
     await subscription.cancel();
 
     // ------------------------------------------------------------------
-    // 6. Errors: the command fails → IpfsException
+    // 6. Errors: the command fails → GolangException
     // ------------------------------------------------------------------
     // When kubo returns an error (here: the path does not exist), the Stream ends
     // with an error. With `await` (including `.single`, `.toList()`,
     // `await for`), the error becomes an exception that `try/catch` catches.
     try {
       await commands.filesStat(n, ctx, '/does/not/exist').single;
-    } on IpfsException catch (e) {
+    } on GolangException catch (e) {
       print('6. expected error from kubo: $e');
     }
 
@@ -204,7 +204,7 @@ Future<void> main() async {
     print('   after rm, the root has ${root.entries.length} entries');
   } finally {
     await n.close(); // closes the node (releases the repo)
-    await IpfsService.stop(); // ends the ipfs_host
+    await P2pService.stop(); // ends the ipfs_host
     tmp.deleteSync(recursive: true); // deletes the temporary directory
   }
 }

@@ -15,12 +15,12 @@ import 'package:ipfs_ffi/go/os.dart' as os;
 import 'package:ipfs_ffi/go/io.dart' as io;
 import 'package:ipfs_ffi/go/block_format.dart' as block_format;
 import 'package:ipfs_ffi/go/cid.dart' as cid;
-import 'package:ipfs_ffi/ipfs_ffi.dart' show IpfsEof, IpfsService;
+import 'package:ipfs_ffi/ipfs_ffi.dart' show GolangEofException, P2pService;
 
 Future<void> main(List<String> args) async {
   final mib = args.isEmpty ? 64 : int.parse(args.first);
   final tmp = Directory.systemTemp.createTempSync('bench_car_');
-  await IpfsService.start();
+  await P2pService.start();
   final ctx = context.background();
   final prefix = cid.newPrefixV1(0x55, 0x12); // raw, sha2-256
   final rnd = Random(1);
@@ -86,7 +86,7 @@ Future<void> main(List<String> args) async {
         while (true) {
           try {
             n += br.next().rawData!.length;
-          } on IpfsEof {
+          } on GolangEofException {
             break; // o io.EOF do Go: acabou
           }
         }
@@ -109,7 +109,7 @@ Future<void> main(List<String> args) async {
           () async => File(file).readAsBytesSync());
     }
   } finally {
-    await IpfsService.stop();
+    await P2pService.stop();
     tmp.deleteSync(recursive: true);
   }
 }

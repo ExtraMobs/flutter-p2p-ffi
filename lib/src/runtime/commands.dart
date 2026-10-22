@@ -29,7 +29,7 @@ Stream<$R> _command(GoHandle node, GoHandle ctx, String path, List<String> args,
   return $stream(_fnCommand, w);
 }
 
-Never _unexpected(String path, int tag, $R r) => throw IpfsException(
+Never _unexpected(String path, int tag, $R r) => throw GolangException(
     'ipfs $path emitted ${tag == _cmdBytes ? 'bytes' : '${r.any()}'}, '
     'not its declared type');
 

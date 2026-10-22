@@ -10,13 +10,13 @@ import 'dart:io';
 import 'dart:math' show Random;
 import 'dart:typed_data';
 
-import 'runtime.dart' show $goError, IpfsServiceException, IpfsStopReason;
+import 'runtime.dart' show $goError, P2pServiceException, P2pStopReason;
 
 /// Path of ipfs_shm; default bundled next to the executable (Flutter
 /// Windows/linux plugin), `native/libipfs_shm.so` or `native\ipfs_shm.dll`
 /// relative to the current directory, and on Android `libipfs_shm.so`
 /// (packaged in the APK).
-String ipfsShmLibraryPath = _defaultShmLibraryPath();
+String p2pShmLibraryPath = _defaultShmLibraryPath();
 
 String _defaultShmLibraryPath() {
   if (Platform.isAndroid) return 'libipfs_shm.so';
@@ -119,7 +119,7 @@ final class _Shm {
 /// C byte (Dart has no portable `Char` in dart:ffi without package:ffi).
 typedef Utf8Char = Uint8;
 
-final _shm = _Shm(DynamicLibrary.open(ipfsShmLibraryPath));
+final _shm = _Shm(DynamicLibrary.open(p2pShmLibraryPath));
 
 // Response types used here (the ev* of go/runtime.go).
 const _evValue = 0, _evError = 3;
@@ -136,7 +136,7 @@ final class ShmChannel {
   final _n = _scratch;
   var _nextId = 0;
   var _closed = false;
-  IpfsServiceException? _dead;
+  P2pServiceException? _dead;
 
   static final _scratch = _malloc4();
   static Pointer<Uint32> _malloc4() => _bytes(4).cast();
@@ -171,7 +171,7 @@ final class ShmChannel {
     });
     unawaited(p.exitCode.then((c) {
       if (!ready.isCompleted) {
-        ready.completeError(IpfsServiceException(
+        ready.completeError(P2pServiceException(
             'ipfs_host exited ($c) before becoming ready: $stderr'));
       }
     }));
@@ -187,7 +187,7 @@ final class ShmChannel {
       _shm.free(err.cast());
       wake.close();
       p.kill();
-      throw IpfsServiceException(msg);
+      throw P2pServiceException(msg);
     }
     _shm.free(err.cast());
     ch = ShmChannel._(p, h, wake, stderr);
@@ -213,7 +213,7 @@ final class ShmChannel {
   void Function(int id, int kind, Uint8List data)? onMessage;
 
   /// Notified once when the host crashes or the channel closes.
-  void Function(IpfsServiceException e)? onDead;
+  void Function(P2pServiceException e)? onDead;
 
   /// A new id for [send]/[waitFor].
   int newId() => ++_nextId;
@@ -356,18 +356,18 @@ final class ShmChannel {
   void _onExit(int code) {
     if (_closed) return;
     final report = _stderr.toString().trim();
-    _fail(IpfsServiceException(
+    _fail(P2pServiceException(
         'ipfs_host exited ($code)${report.isEmpty ? '' : ': $report'}',
-        reason: IpfsStopReason.crash));
+        reason: P2pStopReason.crash));
   }
 
   /// The crash still without the process's reason (the ipfs_shm notice
   /// arrives before the exit code).
-  IpfsServiceException get _crashed =>
+  P2pServiceException get _crashed =>
       _dead ??
-      IpfsServiceException('ipfs_host crashed', reason: IpfsStopReason.crash);
+      P2pServiceException('ipfs_host crashed', reason: P2pStopReason.crash);
 
-  void _fail(IpfsServiceException e) {
+  void _fail(P2pServiceException e) {
     final first = _dead == null;
     e = _dead ??= e;
     for (final s in _pending.values) {
@@ -392,13 +392,13 @@ final class ShmChannel {
 
   /// Closes the channel; the host exits on its own when it sees the channel
   /// closed. Pending calls fail with [reason] (null: closed by the app).
-  Future<void> close({IpfsStopReason? reason}) async {
+  Future<void> close({P2pStopReason? reason}) async {
     if (_closed) return;
     _closed = true;
     _shm.close(_h);
     _wake.close();
-    _fail(IpfsServiceException(
-        reason == IpfsStopReason.background
+    _fail(P2pServiceException(
+        reason == P2pStopReason.background
             ? 'the service was stopped: the app went to the background'
             : 'channel closed',
         reason: reason));
@@ -410,7 +410,7 @@ final class ShmChannel {
 }
 
 // C memory from the same runtime as ipfs_shm.
-final _malloc = DynamicLibrary.open(ipfsShmLibraryPath).lookupFunction<
+final _malloc = DynamicLibrary.open(p2pShmLibraryPath).lookupFunction<
     Pointer<Uint8> Function(Uint64),
     Pointer<Uint8> Function(int)>('shm_malloc');
 Pointer<Uint8> _bytes(int n) => _malloc(n);

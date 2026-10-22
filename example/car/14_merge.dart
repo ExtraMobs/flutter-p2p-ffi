@@ -18,7 +18,7 @@ import 'package:ipfs_ffi/go/os.dart' as os;
 import 'package:ipfs_ffi/go/block_format.dart' as block_format;
 import 'package:ipfs_ffi/go/kubo/core/commands/dag.dart' as dag;
 import 'package:ipfs_ffi/go/cid.dart' as cid;
-import 'package:ipfs_ffi/ipfs_ffi.dart' show IpfsEof;
+import 'package:ipfs_ffi/ipfs_ffi.dart' show GolangEofException;
 
 import 'sample.dart';
 
@@ -48,7 +48,7 @@ Future<void> main() async {
         while (true) {
           try {
             batch.add(br.next());
-          } on IpfsEof {
+          } on GolangEofException {
             break;
           }
         }

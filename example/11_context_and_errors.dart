@@ -19,7 +19,7 @@ import 'package:ipfs_ffi/go/kubo/repo/fsrepo.dart' as fsrepo;
 import 'package:ipfs_ffi/go/kubo/core/coreiface/options.dart' as options;
 import 'package:ipfs_ffi/go/kubo/core/coreapi.dart' as coreapi;
 import 'package:ipfs_ffi/ipfs_ffi.dart'
-    show IpfsException, IpfsService, IpfsServiceException, IpfsStop;
+    show GolangException, P2pService, P2pServiceException, P2pStop;
 // Only for step 4: a TEST function of the package, which brings the ipfs_host
 // down on purpose. Do not use it in an app; it exists to prove the recovery.
 import 'package:ipfs_ffi/src/runtime.dart' show $callSync;
@@ -48,8 +48,8 @@ Future<void> main() async {
   // or the app going to the background on Android). The package NEVER restarts
   // on its own: you decide, here. We keep each stop in a Completer (a Future we
   // complete by hand) for step 4 to wait for it.
-  var stopped = Completer<IpfsStop>();
-  await IpfsService.start(
+  var stopped = Completer<P2pStop>();
+  await P2pService.start(
       crashLog: '${tmp.path}/crash.log', // where Go writes the report
       onStop: (s) => stopped.complete(s));
 
@@ -78,7 +78,7 @@ Future<void> main() async {
       await for (final m in commands.pubsubSub(n, withDeadline, 'room-11')) {
         print('message: ${m.data}'); // nobody publishes: it will not show up
       }
-    } on IpfsException catch (e) {
+    } on GolangException catch (e) {
       print('1. after ${sw.elapsed.inMilliseconds} ms: $e');
     } finally {
       cancelDeadline();
@@ -111,7 +111,7 @@ Future<void> main() async {
     print('2. after cancel: ${await end.future}');
 
     // ------------------------------------------------------------------
-    // 3. A kubo error: IpfsException
+    // 3. A kubo error: GolangException
     // ------------------------------------------------------------------
     // The call reached kubo, and it answered with an error (in Go, the `error`
     // the function returned). The service is still up; you can go on.
@@ -119,18 +119,18 @@ Future<void> main() async {
       await commands
           .filesStat(n, context.background(), '/does/not/exist')
           .single;
-    } on IpfsServiceException {
-      rethrow; // (it is a subclass of IpfsException: handle it first, if needed)
-    } on IpfsException catch (e) {
+    } on P2pServiceException {
+      rethrow; // (it is a subclass of GolangException: handle it first, if needed)
+    } on GolangException catch (e) {
       print('3. kubo error, the service goes on: $e');
     }
 
     // ------------------------------------------------------------------
-    // 4. The service went down: IpfsServiceException and onStop
+    // 4. The service went down: P2pServiceException and onStop
     // ------------------------------------------------------------------
     // A Go panic nobody handles (one of kubo's internal goroutines, for example)
     // brings the ipfs_host process down. The app stays alive: pending calls fail
-    // with IpfsServiceException, and onStop gets the reason and Go's report.
+    // with P2pServiceException, and onStop gets the reason and Go's report.
     // Here we cause the crash on purpose.
     $callSync(24); // TEST ONLY: a panic in a host goroutine
     final s = await stopped.future; // waits for onStop
@@ -139,26 +139,26 @@ Future<void> main() async {
     print("   Go's report: ${s.report.split('\n').first}");
 
     // Everything that came from the previous service (node, CoreAPI,
-    // contexts...) died with it: using it now gives IpfsServiceException.
+    // contexts...) died with it: using it now gives P2pServiceException.
     try {
       coreapi.newCoreApi(n);
-    } on IpfsServiceException catch (e) {
+    } on P2pServiceException catch (e) {
       // (the message carries Go's whole report; here, only the first line)
       print('   the old node is no longer valid: ${'$e'.split('\n').first}');
     }
 
     // Restarting is your decision: here, yes. The process is new, so we redo
     // plugins and node; the repo's data is on disk and stays there.
-    stopped = Completer<IpfsStop>();
-    await IpfsService.restart();
+    stopped = Completer<P2pStop>();
+    await P2pService.restart();
     plugins();
     n = await openNode(repoPath);
     final p = await coreapi.newCoreApi(n).unixfs().add(
         context.background(), files.newBytesFile(utf8.encode('back again')));
     print('5. back: the new service already added $p');
   } finally {
-    if (IpfsService.isRunning) await n.close();
-    await IpfsService.stop();
+    if (P2pService.isRunning) await n.close();
+    await P2pService.stop();
     tmp.deleteSync(recursive: true);
   }
 }

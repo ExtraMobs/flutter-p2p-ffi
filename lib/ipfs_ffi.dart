@@ -16,7 +16,7 @@
 /// import 'package:ipfs_ffi/go/kubo/repo/fsrepo.dart' as fsrepo;
 /// import 'package:ipfs_ffi/ipfs_ffi.dart';
 ///
-/// await IpfsService.start();
+/// await P2pService.start();
 /// final n = await core.newNode(context.background(), node.BuildCfg(repo: fsrepo.open(repo)));
 /// ```
 library;
@@ -26,22 +26,22 @@ export 'src/service.dart'
         GoHandle,
         GoHandleUse,
         GoScope,
-        IpfsBackground,
-        IpfsBusy,
-        IpfsCanceled,
-        IpfsDeadlineExceeded,
-        IpfsDeadlockException,
-        IpfsEof,
-        IpfsException,
-        IpfsNotFound,
-        IpfsPlatform,
-        IpfsService,
-        IpfsServiceException,
-        IpfsStop,
-        IpfsStopHandler,
-        IpfsStopReason,
-        IpfsUnexpectedEof,
+        P2pBackground,
+        P2pBusy,
+        GolangCanceledException,
+        GolangDeadlineExceededException,
+        GolangDeadlockException,
+        GolangEofException,
+        GolangException,
+        GolangNotFoundException,
+        P2pPlatform,
+        P2pService,
+        P2pServiceException,
+        P2pStop,
+        P2pStopHandler,
+        P2pStopReason,
+        GolangUnexpectedEofException,
         defaultHostPath,
-        ipfsShmLibraryPath,
+        p2pShmLibraryPath,
         withGoScope;
 export 'src/network.dart' show hasIpv6, isGlobalIpv6;

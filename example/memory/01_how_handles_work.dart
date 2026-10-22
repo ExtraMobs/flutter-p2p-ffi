@@ -15,7 +15,7 @@ import 'package:ipfs_ffi/go/os.dart' as os;
 import 'package:ipfs_ffi/ipfs_ffi.dart';
 
 int hostRssMb() {
-  final pid = IpfsService.hostPid;
+  final pid = P2pService.hostPid;
   if (Platform.isWindows) {
     final out = Process.runSync(
       'tasklist',
@@ -36,7 +36,7 @@ Future<void> main() async {
   final tmp = Directory.systemTemp.createTempSync('ipfs_ffi_mem01_');
   final big = '${tmp.path}/8mib.bin';
   File(big).writeAsBytesSync(Uint8List(8 << 20)); // 8 MiB
-  await IpfsService.start();
+  await P2pService.start();
   try {
     print('== 1. Anatomy of a GoHandle ==');
     final buf = bytes.Buffer(Uint8List.fromList([1, 2, 3, 4]));
@@ -90,7 +90,7 @@ Future<void> main() async {
     print('After 20 x 8 MiB without release() (floating garbage): '
         'host RSS = ${hostRssMb()} MB');
   } finally {
-    await IpfsService.stop();
+    await P2pService.stop();
     tmp.deleteSync(recursive: true);
   }
 }

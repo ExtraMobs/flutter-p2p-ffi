@@ -15,7 +15,7 @@ import 'package:ipfs_ffi/ipfs_ffi.dart';
 
 Future<void> main() async {
   final tmp = Directory.systemTemp.createTempSync('ipfs_ffi_mem02_');
-  await IpfsService.start();
+  await P2pService.start();
   try {
     print('== 1. Synchronous .use() on a memory buffer ==');
     final length =
@@ -64,7 +64,7 @@ Future<void> main() async {
         '(new length: ${current.bytes().length})');
     current.release();
   } finally {
-    await IpfsService.stop();
+    await P2pService.stop();
     tmp.deleteSync(recursive: true);
   }
 }

@@ -26,7 +26,7 @@ void main() {
 
   setUpAll(() async {
     tmp = Directory.systemTemp.createTempSync('ipfs_ffi_cmds_');
-    await IpfsService.start();
+    await P2pService.start();
     loader.PluginLoader('')
       ..initialize()
       ..inject();
@@ -41,7 +41,7 @@ void main() {
 
   tearDownAll(() async {
     await n.close();
-    await IpfsService.stop();
+    await P2pService.stop();
     tmp.deleteSync(recursive: true);
   });
 
@@ -73,7 +73,7 @@ void main() {
     expect(utf8.decode([for (final b in part) ...b]), 'files');
     await commands.filesRm(n, ctx(), ['/c/d/a.txt']).toList();
     await expectLater(commands.filesStat(n, ctx(), '/c/d/a.txt').single,
-        throwsA(isA<IpfsException>()));
+        throwsA(isA<GolangException>()));
   });
 
   test('config: valor de uma chave e show (dinâmico)', () async {
@@ -100,7 +100,7 @@ void main() {
   test('swarm peering ls: offline, o erro do kubo', () async {
     await expectLater(
         commands.swarmPeeringLs(n, ctx()).single,
-        throwsA(isA<IpfsException>()
+        throwsA(isA<GolangException>()
             .having((e) => '$e', 'msg', contains('online mode'))));
   });
 
@@ -135,10 +135,10 @@ void main() {
     expect(utf8.decode([for (final b in out) ...b]), 'olá cat');
   });
 
-  test('erro do comando vira IpfsException', () async {
+  test('erro do comando vira GolangException', () async {
     await expectLater(commands.filesStat(n, ctx(), '/nao/existe').single,
-        throwsA(isA<IpfsException>()));
+        throwsA(isA<GolangException>()));
     await expectLater(commands.cat(n, ctx(), ['/ipfs/nao-e-cid']).toList(),
-        throwsA(isA<IpfsException>()));
+        throwsA(isA<GolangException>()));
   });
 }

@@ -35,14 +35,14 @@ import 'package:ipfs_ffi/go/kubo/core/coreapi.dart' as coreapi;
 import 'package:ipfs_ffi/go/kubo/core.dart' as core;
 import 'package:ipfs_ffi/go/cid.dart' as go_cid;
 import 'package:ipfs_ffi/go/multicodec.dart' as multicodec;
-import 'package:ipfs_ffi/ipfs_ffi.dart' show IpfsEof, IpfsService;
+import 'package:ipfs_ffi/ipfs_ffi.dart' show GolangEofException, P2pService;
 
 Future<void> main() async {
   final tmp = Directory.systemTemp.createTempSync('ipfs_ffi_ex12_');
   final repoPath = '${tmp.path}/repo';
 
   // Service, plugins and a new repo: the same as example 09.
-  await IpfsService.start();
+  await P2pService.start();
   loader.PluginLoader('')
     ..initialize()
     ..inject();
@@ -85,7 +85,7 @@ Future<void> main() async {
 
     // 2. Block by block, the way `ipfs dag import` reads: the BlockReader takes
     // the bytes or an open file (os.Open). The end is Go's io.EOF, which arrives
-    // as IpfsEof (like Go's errors.Is, it also works when wrapped).
+    // as GolangEofException (like Go's errors.Is, it also works when wrapped).
     //   Go:   f, _ := os.Open(path)
     //         br, _ := car.NewBlockReader(f)
     //         for { b, err := br.Next(); if err == io.EOF { break } ... }
@@ -96,7 +96,7 @@ Future<void> main() async {
       try {
         final b = br.next();
         print('2. block ${i++}: ${b.cid} (${b.rawData!.length} bytes)');
-      } on IpfsEof {
+      } on GolangEofException {
         break; // Go's io.EOF: done
       }
     }
@@ -176,7 +176,7 @@ Future<void> main() async {
     a.close();
     b.close();
   } finally {
-    await IpfsService.stop();
+    await P2pService.stop();
     tmp.deleteSync(recursive: true);
   }
 }

@@ -27,8 +27,8 @@ Future<int> bench(int n, int size, dynamic Function(int i, Uint8List b) f,
 }
 
 void main() {
-  setUpAll(IpfsService.start);
-  tearDownAll(IpfsService.stop);
+  setUpAll(P2pService.start);
+  tearDownAll(P2pService.stop);
 
   test('todos os itens, em ordem, com os argumentos', () async {
     for (final batch in [1, 7, 64, 1000]) {
@@ -129,11 +129,12 @@ void main() {
             (r) => f(r.i64()));
     void touch(GoHandle l) => $callSync(31, $W()..h(l));
 
-    test('tocar o objeto travado de dentro do callback: IpfsDeadlockException',
+    test(
+        'tocar o objeto travado de dentro do callback: GolangDeadlockException',
         () async {
       final l = locker();
       final changes = <(bool, bool)>[];
-      final sub = IpfsService.busy
+      final sub = P2pService.busy
           .listen((c) => changes.add((identical(c.handle, l), c.busy)));
       final sw = Stopwatch()..start();
       Object? inside;
@@ -147,10 +148,10 @@ void main() {
               rethrow;
             }
           }),
-          throwsA(isA<IpfsDeadlockException>()));
-      expect(inside, isA<IpfsDeadlockException>());
-      expect(
-          (inside! as IpfsDeadlockException).message, contains('Locker.Touch'));
+          throwsA(isA<GolangDeadlockException>()));
+      expect(inside, isA<GolangDeadlockException>());
+      expect((inside! as GolangDeadlockException).message,
+          contains('Locker.Touch'));
       expect(sw.elapsed, lessThan(const Duration(seconds: 5)));
       expect(l.isBusy, isFalse);
       touch(l); // a trava saiu com o Iterate: o host segue respondendo

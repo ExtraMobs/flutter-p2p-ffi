@@ -2,7 +2,7 @@
 
 `ipfs_ffi` runs kubo **only** in a separate process, the `ipfs_host` (this package's Go
 built as an executable). An unhandled kubo panic stops that process, never the app: the
-app gets `IpfsServiceException` and decides whether to restart the service. The app does
+app gets `P2pServiceException` and decides whether to restart the service. The app does
 not load Go; it loads only the `ipfs_shm` (C), its side of the channel.
 
 This document is the contract between the two sides. The generator (`go/gen`) emits the
@@ -30,11 +30,11 @@ Everything is little-endian.
 - **Response/event**: `u32 id`, `u8 kind`, data. Kind: `0` value, `1` item (of a stream or
   of a sink), `2` end, `3` error (data = `u8` code + the UTF-8 message). Code of the
   sentinel the error wraps (`errors.Is` in the host; Dart throws the subclass): `0` none
-  (`IpfsException`), `1` `io.EOF` (`IpfsEof`), `2` `io.ErrUnexpectedEOF`
-  (`IpfsUnexpectedEof`), `3` `context.Canceled` (`IpfsCanceled`), `4`
-  `context.DeadlineExceeded` (`IpfsDeadlineExceeded`), `5` not found (`ipld.ErrNotFound`,
-  the `ErrNotFound` of go-car's storage; `IpfsNotFound`), `6` deadlock with a callback (only
-  the host produces it; `IpfsDeadlockException`). Kind `4`: a callback batch (see
+  (`GolangException`), `1` `io.EOF` (`GolangEofException`), `2` `io.ErrUnexpectedEOF`
+  (`GolangUnexpectedEofException`), `3` `context.Canceled` (`GolangCanceledException`), `4`
+  `context.DeadlineExceeded` (`GolangDeadlineExceededException`), `5` not found (`ipld.ErrNotFound`,
+  the `ErrNotFound` of go-car's storage; `GolangNotFoundException`), `6` deadlock with a callback (only
+  the host produces it; `GolangDeadlockException`). Kind `4`: a callback batch (see
   "Callback").
 - A call answers with a `value` or an `error`; a stream with `item`s and then `end` or
   `error`. A call's sinks (below) get `item`s and `end`/`error` with the sink's id,
@@ -122,7 +122,7 @@ over basic types (kubo's enums) go as the basic type. By model kind (`go/gen/mod
 
 **Handles**: the host keeps the objects in a table (`i64` from 1); the app frees them with
 `Free` (in batches, through the `Finalizer`). A handle is only valid during the life of the
-service it was born in: after a restart, using it gives `IpfsServiceException`. The same
+service it was born in: after a restart, using it gives `P2pServiceException`. The same
 object by reference (pointer, map, channel) always has the same handle, with a count: each
 time the host returns it counts one, and each `Free` takes one off; it leaves the table on
 the last one.
@@ -218,7 +218,7 @@ the same one).
   `Free` goes with mode `0` and id `0`.
 - The Hello's `u64` is written as an `i64` (the same 8 bytes).
 - A function result: presence `0` (or handle `0`) where Dart expects an object becomes
-  `IpfsException` ("Go returned nil"); a nil `kBytes` becomes an empty `Uint8List` and a nil
+  `GolangException` ("Go returned nil"); a nil `kBytes` becomes an empty `Uint8List` and a nil
   `kSlice`/`kMap` become empty. In a DTO field and a snapshot getter, nil is `null`; a getter
   with an error gives `null` (the zero value read before the error is discarded).
 - `time.Time` comes back as a `DateTime` in UTC (microseconds: the rest of the ns is lost).

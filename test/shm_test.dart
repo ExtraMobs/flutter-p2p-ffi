@@ -4,7 +4,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:ipfs_ffi/ipfs_ffi.dart'
-    show IpfsException, IpfsServiceException;
+    show GolangException, P2pServiceException;
 import 'package:ipfs_ffi/src/shm.dart';
 import 'package:test/test.dart';
 
@@ -25,8 +25,8 @@ void main() {
       final big = Uint8List.fromList(List.generate(9 << 20, (i) => i * 31));
       expect(ch.callSync(2, big), big);
       expect(await ch.call(2, big), big);
-      expect(() => ch.callSync(999), throwsA(isA<IpfsException>()));
-      await expectLater(ch.call(999), throwsA(isA<IpfsException>()));
+      expect(() => ch.callSync(999), throwsA(isA<GolangException>()));
+      await expectLater(ch.call(999), throwsA(isA<GolangException>()));
     } finally {
       await ch.close();
     }
@@ -50,7 +50,7 @@ void main() {
     }
   }, timeout: const Timeout(Duration(minutes: 1)));
 
-  test('o host morre: as pendentes falham com IpfsServiceException', () async {
+  test('o host morre: as pendentes falham com P2pServiceException', () async {
     final ch = await ShmChannel.start(hostPath);
     try {
       // Sleep (função 1) de 30 s: fica pendente até o host morrer
@@ -58,10 +58,10 @@ void main() {
           Uint8List(4)..buffer.asByteData().setUint32(0, 30000, Endian.little));
       expect(ch.callSync(0), isEmpty); // o host segue respondendo o resto
       Process.killPid(ch.hostPid, ProcessSignal.sigkill);
-      await expectLater(pending, throwsA(isA<IpfsServiceException>()));
+      await expectLater(pending, throwsA(isA<P2pServiceException>()));
       await ch.exitCode;
-      await expectLater(ch.call(0), throwsA(isA<IpfsServiceException>()));
-      expect(() => ch.callSync(0), throwsA(isA<IpfsServiceException>()));
+      await expectLater(ch.call(0), throwsA(isA<P2pServiceException>()));
+      expect(() => ch.callSync(0), throwsA(isA<P2pServiceException>()));
     } finally {
       await ch.close();
     }

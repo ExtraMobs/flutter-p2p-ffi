@@ -15,7 +15,7 @@ import 'package:ipfs_ffi/go/car/v2.dart' as car;
 import 'package:ipfs_ffi/go/os.dart' as os;
 import 'package:ipfs_ffi/go/kubo/core/commands/dag.dart' as dag;
 import 'package:ipfs_ffi/go/kubo/core/coreapi.dart' as coreapi;
-import 'package:ipfs_ffi/ipfs_ffi.dart' show IpfsEof;
+import 'package:ipfs_ffi/ipfs_ffi.dart' show GolangEofException;
 
 import 'sample.dart';
 
@@ -46,7 +46,7 @@ Future<void> main() async {
         try {
           await b.blockstore.put(s.ctx, br.next());
           n++;
-        } on IpfsEof {
+        } on GolangEofException {
           break;
         }
       }

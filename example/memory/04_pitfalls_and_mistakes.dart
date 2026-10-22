@@ -31,7 +31,7 @@ Future<void> mustFail(
 
 Future<void> main() async {
   final tmp = Directory.systemTemp.createTempSync('ipfs_ffi_mem04_');
-  await IpfsService.start();
+  await P2pService.start();
   try {
     // 1. Calling a method on a handle after .release()
     final buf = bytes.Buffer(Uint8List.fromList([1, 2, 3]));
@@ -87,7 +87,7 @@ Future<void> main() async {
       );
     }
   } finally {
-    await IpfsService.stop();
+    await P2pService.stop();
     tmp.deleteSync(recursive: true);
   }
 }

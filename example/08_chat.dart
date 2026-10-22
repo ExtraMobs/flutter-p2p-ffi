@@ -21,7 +21,7 @@ import 'package:ipfs_ffi/go/kubo/core/node.dart' as node;
 import 'package:ipfs_ffi/go/kubo/core/node/libp2p.dart' as libp2p;
 import 'package:ipfs_ffi/go/kubo/plugin/loader.dart' as loader;
 import 'package:ipfs_ffi/go/kubo/repo/fsrepo.dart' as fsrepo;
-import 'package:ipfs_ffi/ipfs_ffi.dart' show IpfsException, IpfsService;
+import 'package:ipfs_ffi/ipfs_ffi.dart' show GolangException, P2pService;
 
 /// The messages of a subscription as a Stream (Go delivers one per `next`).
 Stream<iface.PubSubMessage> messages(
@@ -29,7 +29,7 @@ Stream<iface.PubSubMessage> messages(
   while (true) {
     try {
       yield await sub.next(ctx);
-    } on IpfsException {
+    } on GolangException {
       return; // subscription closed or context canceled
     }
   }
@@ -45,7 +45,7 @@ Future<void> main(List<String> args) async {
   final nick = args.length > 2 ? args[2] : 'anon';
 
   // Kubo runs in the ipfs_host, in another process (dart run tool/build.dart).
-  await IpfsService.start();
+  await P2pService.start();
   loader.PluginLoader('')
     ..initialize()
     ..inject();
@@ -88,5 +88,5 @@ Future<void> main(List<String> args) async {
   sub.close();
   await reading.cancel();
   await n.close();
-  await IpfsService.stop();
+  await P2pService.stop();
 }

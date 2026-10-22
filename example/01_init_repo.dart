@@ -8,14 +8,14 @@ import 'package:ipfs_ffi/go/kubo/config.dart' as config;
 import 'package:ipfs_ffi/go/kubo/core/coreiface/options.dart' as options;
 import 'package:ipfs_ffi/go/kubo/plugin/loader.dart' as loader;
 import 'package:ipfs_ffi/go/kubo/repo/fsrepo.dart' as fsrepo;
-import 'package:ipfs_ffi/ipfs_ffi.dart' show IpfsService;
+import 'package:ipfs_ffi/ipfs_ffi.dart' show P2pService;
 
 Future<void> main(List<String> args) async {
   final repoPath = args.isNotEmpty ? args.first : '.ipfs-ffi';
   final profiles = args.length > 1 ? args.sublist(1) : ['test'];
 
   // Kubo runs in the ipfs_host, in another process (dart run tool/build.dart).
-  await IpfsService.start();
+  await P2pService.start();
   // Plugins (flatfs/leveldb/pebble datastores...): once per service
   // process, before any repo.
   final plugins = loader.PluginLoader('');
@@ -24,7 +24,7 @@ Future<void> main(List<String> args) async {
 
   if (fsrepo.isInitialized(repoPath)) {
     print('a repo already exists at $repoPath');
-    await IpfsService.stop();
+    await P2pService.stop();
     return;
   }
   final identity = config.createIdentity(null, [options.key.type('ed25519')]);
@@ -36,5 +36,5 @@ Future<void> main(List<String> args) async {
   print('repo created at $repoPath');
   print('peer: ${identity.peerId}');
   print('profiles: ${profiles.join(', ')}');
-  await IpfsService.stop();
+  await P2pService.stop();
 }

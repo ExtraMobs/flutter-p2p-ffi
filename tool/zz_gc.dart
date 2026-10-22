@@ -7,10 +7,10 @@ import 'package:ipfs_ffi/go/bytes.dart' as bytes;
 import 'package:ipfs_ffi/go/io.dart' as io;
 import 'package:ipfs_ffi/go/os.dart' as os;
 import 'package:ipfs_ffi/ipfs_ffi.dart'
-    show GoHandleUse, IpfsService, withGoScope;
+    show GoHandleUse, P2pService, withGoScope;
 
 int hostMb() {
-  final pid = IpfsService.hostPid;
+  final pid = P2pService.hostPid;
   if (Platform.isWindows) {
     final out = Process.runSync(
       'tasklist',
@@ -71,7 +71,7 @@ Future<({int start, List<int> rounds, int idle, int round4AfterGc})> runMode(
   String mode,
   String big,
 ) async {
-  await IpfsService.start();
+  await P2pService.start();
   try {
     final startMb = hostMb();
     print('\n[$mode] start: host $startMb MB');
@@ -103,7 +103,7 @@ Future<({int start, List<int> rounds, int idle, int round4AfterGc})> runMode(
       round4AfterGc: round4Mb,
     );
   } finally {
-    await IpfsService.stop();
+    await P2pService.stop();
   }
 }
 

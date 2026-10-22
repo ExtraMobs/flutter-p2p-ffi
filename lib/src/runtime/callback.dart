@@ -28,10 +28,10 @@ Future<$R> $callCb(int fn, $W w, FutureOr<Object?> Function($R r) item) {
   return cb.done.future.whenComplete(() => _setBusy(handles, false));
 }
 
-/// A change of [IpfsBusy]: [handle] entered or left use by a call with a
+/// A change of [P2pBusy]: [handle] entered or left use by a call with a
 /// callback.
-final class IpfsBusy {
-  const IpfsBusy(this.handle, this.busy);
+final class P2pBusy {
+  const P2pBusy(this.handle, this.busy);
 
   /// The object (a generated handle class: an index, a blockstore...).
   final Object handle;
@@ -42,10 +42,10 @@ final class IpfsBusy {
 /// same Go object the same handle, whatever Dart object holds it), and how
 /// many calls hold each one.
 final _busy = <int, int>{};
-final _busyChanges = StreamController<IpfsBusy>.broadcast();
+final _busyChanges = StreamController<P2pBusy>.broadcast();
 
-/// The changes of the objects in use (IpfsService.busy).
-Stream<IpfsBusy> get $busyChanges => _busyChanges.stream;
+/// The changes of the objects in use (P2pService.busy).
+Stream<P2pBusy> get $busyChanges => _busyChanges.stream;
 
 void _setBusy(List<GoHandle> handles, bool busy) {
   for (final h in handles) {
@@ -56,7 +56,7 @@ void _setBusy(List<GoHandle> handles, bool busy) {
       _busy.remove(h.$h);
     }
     if ((busy && n == 1) || (!busy && n == 0)) {
-      _busyChanges.add(IpfsBusy(h, busy));
+      _busyChanges.add(P2pBusy(h, busy));
     }
   }
 }
@@ -108,7 +108,7 @@ final class _Callback {
                 ..u32(id)
                 ..u8(_verdict))
               .take());
-    } on IpfsServiceException {
+    } on P2pServiceException {
       // the service fell: the call fails through _onDead
     }
   }

@@ -21,7 +21,7 @@ import 'package:ipfs_ffi/ipfs_ffi.dart';
 
 Future<void> main() async {
   final tmp = Directory.systemTemp.createTempSync('ipfs_ffi_mem03_');
-  await IpfsService.start();
+  await P2pService.start();
   try {
     final ctx = context.background();
     final prefix = cid.newPrefixV1(0x55, 0x12); // raw + sha2-256
@@ -57,7 +57,7 @@ Future<void> main() async {
             try {
               final block = br.next();
               bytesRead += block.rawData!.length;
-            } on IpfsEof {
+            } on GolangEofException {
               break;
             }
           }
@@ -82,7 +82,7 @@ Future<void> main() async {
     print('after scope.close():  b1.isReleased=${b1.isReleased}, '
         'b2.isReleased=${b2.isReleased}, scope.isClosed=${scope.isClosed}');
   } finally {
-    await IpfsService.stop();
+    await P2pService.stop();
     tmp.deleteSync(recursive: true);
   }
 }

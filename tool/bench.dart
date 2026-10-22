@@ -13,12 +13,12 @@ import 'package:ipfs_ffi/go/kubo/core/coreapi.dart' as coreapi;
 import 'package:ipfs_ffi/go/kubo/core/node.dart' as node;
 import 'package:ipfs_ffi/go/kubo/plugin/loader.dart' as loader;
 import 'package:ipfs_ffi/go/kubo/repo/fsrepo.dart' as fsrepo;
-import 'package:ipfs_ffi/ipfs_ffi.dart' show IpfsService;
+import 'package:ipfs_ffi/ipfs_ffi.dart' show P2pService;
 import 'package:ipfs_ffi/src/runtime.dart' show $call, $callSync;
 
 Future<void> main() async {
   final tmp = Directory.systemTemp.createTempSync('bench_');
-  await IpfsService.start();
+  await P2pService.start();
   loader.PluginLoader('')
     ..initialize()
     ..inject();
@@ -83,6 +83,6 @@ Future<void> main() async {
       () => unixfs.add(ctx, files.newBytesFile(kib)));
 
   await n.close();
-  await IpfsService.stop();
+  await P2pService.stop();
   tmp.deleteSync(recursive: true);
 }

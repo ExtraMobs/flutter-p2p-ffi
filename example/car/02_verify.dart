@@ -12,7 +12,7 @@ import 'dart:typed_data';
 
 import 'package:ipfs_ffi/go/car/v2.dart' as car;
 import 'package:ipfs_ffi/go/kubo/core/commands/dag.dart' as dag;
-import 'package:ipfs_ffi/ipfs_ffi.dart' show IpfsException;
+import 'package:ipfs_ffi/ipfs_ffi.dart' show GolangException;
 
 import 'sample.dart';
 
@@ -32,7 +32,7 @@ Future<void> main() async {
       final r = car.openReader(file);
       try {
         print('$name: ${r.inspect(true).blockCount} blocks checked');
-      } on IpfsException catch (e) {
+      } on GolangException catch (e) {
         print('$name: rejected: ${brief(e)}');
       } finally {
         r.close();
@@ -44,7 +44,7 @@ Future<void> main() async {
     //   CLI:  ipfs dag import corrupted.car
     try {
       await dag.dagImportFiles(other, s.ctx, [corrupted]);
-    } on IpfsException catch (e) {
+    } on GolangException catch (e) {
       print('dagImport rejected it: ${brief(e)}');
     }
     final ok = await dag.dagImportFiles(other, s.ctx, [s.car]);

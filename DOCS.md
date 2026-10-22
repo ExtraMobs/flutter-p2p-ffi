@@ -85,10 +85,10 @@ dart run example/car/01_inspect_mistakes.dart
 - **What it shows:** reading a CAR block by block from a file or from bytes, only the
   metadata (`skipNext`), or only the CIDs.
 - **Kubo:** none.
-- **Low level:** `car.BlockReader` (`next`, `skipNext`, the end is `IpfsEof`) and
+- **Low level:** `car.BlockReader` (`next`, `skipNext`, the end is `GolangEofException`) and
   `openReadOnly(...).allKeysChan` (a `Stream`).
-- **Mistake (silent):** treating any `IpfsException` as the end: a truncated CAR
-  (`IpfsUnexpectedEof`) then looks complete with fewer blocks.
+- **Mistake (silent):** treating any `GolangException` as the end: a truncated CAR
+  (`GolangUnexpectedEofException`) then looks complete with fewer blocks.
 
 ### 04 read a block
 
@@ -99,7 +99,7 @@ dart run example/car/01_inspect_mistakes.dart
 - **Kubo:** `dagImportFiles` + `api.block().get`.
 - **Low level:** `blockstore.openReadOnly`.
 - **Mistakes:**
-  - `get` of a CID that is not in the CAR (`IpfsNotFound`);
+  - `get` of a CID that is not in the CAR (`GolangNotFoundException`);
   - (silent) using the default `has` to know whether the CAR holds *exactly* a CID: the
     index matches multihashes, so a CIDv0 of the same content "exists" in a CAR that only
     has the CIDv1 (`car.useWholeCids(true)` fixes it).
@@ -148,7 +148,7 @@ dart run example/car/01_inspect_mistakes.dart
 - **Kubo:** `dagImportFiles` + `api.unixfs().get` + `files.writeTo`.
 - **Low level, without a node:** `blockstore.openReadOnly` → offline block service →
   `merkledag.newDagService` → `file.newUnixfsFile` → `files.writeTo`.
-- **Mistake:** extracting a partial CAR (`IpfsNotFound` for the first missing block).
+- **Mistake:** extracting a partial CAR (`GolangNotFoundException` for the first missing block).
 
 ### 08 import into a node
 
@@ -209,7 +209,7 @@ dart run example/car/01_inspect_mistakes.dart
 - **Low level:** `car.generateIndexFromFile`, `index.getFirst`, `index.writeTo`/`index.readFrom`,
   `asIterableIndex()!.forEach`.
 - **Mistakes:**
-  - looking up a CID that is not indexed (`IpfsNotFound`);
+  - looking up a CID that is not indexed (`GolangNotFoundException`);
   - (silent) reading a CAR with another CAR's index: its blocks look absent.
 - **Known upstream bug:** `car.attachIndex` always fails in go-car v2.17.0. It opens the file
   with `O_APPEND` and writes with `WriteAt`, which Go refuses. Use `wrapV1File` instead.

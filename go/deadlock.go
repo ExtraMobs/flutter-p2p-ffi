@@ -5,7 +5,7 @@
 // callback; o host roda esse pedido numa goroutine com o id dele nos labels
 // do pprof e o vigia. Parado num mutex por deadlockAfter enquanto um callback
 // espera o Dart, é impasse: o pedido responde errDeadlock na hora, o Dart
-// lança IpfsDeadlockException dentro da função dele, o callback Go para, a
+// lança GolangDeadlockException dentro da função dele, o callback Go para, a
 // função Go volta e solta a trava; a goroutine presa termina depois, e a
 // resposta tardia dela é descartada.
 package main

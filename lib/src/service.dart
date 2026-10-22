@@ -2,20 +2,20 @@
 /// the app only talks to it through `ipfs_shm` (shared memory; protocol in
 /// `WIRE.md`). A Go panic takes down only the service, and on Android the
 /// package stops it when the app goes to the background
-/// ([IpfsService.background]): pending calls fail with
-/// [IpfsServiceException] (carrying the [IpfsStopReason]) and the `onStop` of
-/// [IpfsService.start] receives an [IpfsStop]; the package user decides what
-/// to do (clear the log, [IpfsService.restart], recreate the node and
+/// ([P2pService.background]): pending calls fail with
+/// [P2pServiceException] (carrying the [P2pStopReason]) and the `onStop` of
+/// [P2pService.start] receives an [P2pStop]; the package user decides what
+/// to do (clear the log, [P2pService.restart], recreate the node and
 /// CoreAPI: handles from the previous service are no longer valid).
 ///
 /// ```dart
-/// await IpfsService.start(crashLog: 'crash.log', onStop: (stop) async {
+/// await P2pService.start(crashLog: 'crash.log', onStop: (stop) async {
 ///   print('${stop.reason}: ${stop.report}');
-///   if (stop.reason == IpfsStopReason.crash) await IpfsService.restart();
+///   if (stop.reason == P2pStopReason.crash) await P2pService.restart();
 /// });
 /// final ctx = context.background();
 /// // ... the generated API ...
-/// await IpfsService.stop();
+/// await P2pService.stop();
 /// ```
 library;
 
@@ -33,27 +33,27 @@ export 'runtime.dart'
         GoHandle,
         GoHandleUse,
         GoScope,
-        IpfsBusy,
-        IpfsCanceled,
-        IpfsDeadlineExceeded,
-        IpfsDeadlockException,
-        IpfsEof,
-        IpfsException,
-        IpfsNotFound,
-        IpfsServiceException,
-        IpfsStopReason,
-        IpfsUnexpectedEof,
+        P2pBusy,
+        GolangCanceledException,
+        GolangDeadlineExceededException,
+        GolangDeadlockException,
+        GolangEofException,
+        GolangException,
+        GolangNotFoundException,
+        P2pServiceException,
+        P2pStopReason,
+        GolangUnexpectedEofException,
         withGoScope;
-export 'shm.dart' show ipfsShmLibraryPath;
+export 'shm.dart' show p2pShmLibraryPath;
 
 /// Hello function (WIRE.md): `u64` table hash → empty, or error.
 const _fnHello = 4;
 
 /// What happens to the service when the app goes to the background (only
 /// matters on Android, with the `ipfs_ffi_flutter` plugin).
-enum IpfsBackground {
+enum P2pBackground {
   /// The package stops the service (the host exits) and reports it in
-  /// `onStop` with [IpfsStopReason.background]; starting it again is up to
+  /// `onStop` with [P2pStopReason.background]; starting it again is up to
   /// the app. The default: Android 12+ kills a child process that uses CPU
   /// while the app is in the background, and the app along with it.
   stop,
@@ -66,27 +66,27 @@ enum IpfsBackground {
 /// The platform side (on Android, the `ipfs_ffi_flutter` plugin installs its
 /// own when the app opens): notified when the service starts and when it
 /// stops.
-abstract interface class IpfsPlatform {
+abstract interface class P2pPlatform {
   /// The service started in mode [mode] (the app is in the foreground).
-  Future<void> serviceStarted(IpfsBackground mode);
+  Future<void> serviceStarted(P2pBackground mode);
 
   /// The service stopped (stop or background, or a crash outside
-  /// [IpfsBackground.foregroundService]). After a crash in that mode it is
+  /// [P2pBackground.foregroundService]). After a crash in that mode it is
   /// not called: the platform keeps the app alive in the background so that
-  /// `onStop` can [IpfsService.restart] (Android only starts a foreground
-  /// service from the foreground); [IpfsService.stop] ends it.
+  /// `onStop` can [P2pService.restart] (Android only starts a foreground
+  /// service from the foreground); [P2pService.stop] ends it.
   Future<void> serviceStopped();
 }
 
-/// A stop of the ipfs_host without [IpfsService.stop]: it crashed or was
+/// A stop of the ipfs_host without [P2pService.stop]: it crashed or was
 /// stopped in the background ([reason]).
-final class IpfsStop {
-  IpfsStop._(this.reason, this.exitCode, this.report, this.crashLog, this.pid,
+final class P2pStop {
+  P2pStop._(this.reason, this.exitCode, this.report, this.crashLog, this.pid,
       this.uptime);
 
-  /// Crashed ([IpfsStopReason.crash]) or stopped with the app in the
-  /// background ([IpfsStopReason.background]).
-  final IpfsStopReason reason;
+  /// Crashed ([P2pStopReason.crash]) or stopped with the app in the
+  /// background ([P2pStopReason.background]).
+  final P2pStopReason reason;
 
   /// The host's exit code (2 on a Go panic).
   final int exitCode;
@@ -96,7 +96,7 @@ final class IpfsStop {
   /// empty). Empty in the background case.
   final String report;
 
-  /// The crash file passed to [IpfsService.start] (null if none); the host
+  /// The crash file passed to [P2pService.start] (null if none); the host
   /// only appends to it, and clearing it is up to the package user.
   final String? crashLog;
 
@@ -107,11 +107,11 @@ final class IpfsStop {
   final Duration uptime;
 
   /// The same exception the pending calls received.
-  IpfsServiceException get exception => IpfsServiceException(
+  P2pServiceException get exception => P2pServiceException(
       switch (reason) {
-        IpfsStopReason.crash => 'ipfs_host crashed (exit $exitCode)'
+        P2pStopReason.crash => 'ipfs_host crashed (exit $exitCode)'
             '${report.isEmpty ? '' : ': $report'}',
-        IpfsStopReason.background =>
+        P2pStopReason.background =>
           'the service was stopped: the app went to the background',
       },
       reason: reason);
@@ -120,31 +120,31 @@ final class IpfsStop {
   String toString() => exception.message;
 }
 
-/// What to do when the ipfs_host stops; see [IpfsService.start].
-typedef IpfsStopHandler = FutureOr<void> Function(IpfsStop stop);
+/// What to do when the ipfs_host stops; see [P2pService.start].
+typedef P2pStopHandler = FutureOr<void> Function(P2pStop stop);
 
 /// This isolate's service (one channel per isolate).
-abstract final class IpfsService {
+abstract final class P2pService {
   static ShmChannel? _ch;
   static ({
     String hostPath,
     String? crashLog,
     int spin,
-    IpfsStopHandler? onStop
+    P2pStopHandler? onStop
   })? _params;
-  static var _mode = IpfsBackground.stop; // read from [background] on start
+  static var _mode = P2pBackground.stop; // read from [background] on start
   static var _logStart = 0; // crashLog size when the current host started
   static final _up = Stopwatch();
 
   /// What to do with the service when the app goes to the background
   /// (default: stop). Read on each [start] and [restart]: changing it while
   /// the service is up takes effect on the next start.
-  static IpfsBackground background = IpfsBackground.stop;
+  static P2pBackground background = P2pBackground.stop;
 
   /// The platform side; on Android, the `ipfs_ffi_flutter` plugin installs it
   /// when the app opens. Without it the package does not know about the
   /// background (an app without Flutter can call [appInBackground] itself).
-  static IpfsPlatform? platform;
+  static P2pPlatform? platform;
 
   /// Launches the ipfs_host ([hostPath]; default [defaultHostPath]), connects,
   /// checks in the Hello that app and host came from the same generator and
@@ -153,18 +153,18 @@ abstract final class IpfsService {
   /// before sleeping on the bell.
   ///
   /// If the host stops without [stop] (crashed, or the app went to the
-  /// background in [IpfsBackground.stop] mode), nothing comes back on its
-  /// own: pending calls fail with [IpfsServiceException] and [onStop]
-  /// (default: none) receives an [IpfsStop] with the reason; it decides
+  /// background in [P2pBackground.stop] mode), nothing comes back on its
+  /// own: pending calls fail with [P2pServiceException] and [onStop]
+  /// (default: none) receives an [P2pStop] with the reason; it decides
   /// whether to clear the [crashLog], whether to call [restart] and when.
   /// Already running, it is a [StateError].
   static Future<void> start(
       {String? hostPath,
       String? crashLog,
       int spin = 20000,
-      IpfsStopHandler? onStop}) async {
+      P2pStopHandler? onStop}) async {
     if (isRunning) {
-      throw StateError('IpfsService is already running (stop() first)');
+      throw StateError('P2pService is already running (stop() first)');
     }
     _params = (
       hostPath: hostPath ?? defaultHostPath(),
@@ -181,10 +181,10 @@ abstract final class IpfsService {
   /// already running, too.
   static Future<void> restart() async {
     if (_params == null) {
-      throw StateError('IpfsService was not started (start() first)');
+      throw StateError('P2pService was not started (start() first)');
     }
     if (isRunning) {
-      throw StateError('IpfsService is already running (stop() first)');
+      throw StateError('P2pService is already running (stop() first)');
     }
     await _launch();
   }
@@ -196,10 +196,10 @@ abstract final class IpfsService {
       await old.close();
     }
     final mode = background;
-    if (mode == IpfsBackground.foregroundService &&
+    if (mode == P2pBackground.foregroundService &&
         Platform.isAndroid &&
         platform == null) {
-      throw StateError('IpfsBackground.foregroundService on Android requires '
+      throw StateError('P2pBackground.foregroundService on Android requires '
           'the ipfs_ffi_flutter plugin in the app');
     }
     final p = _params!;
@@ -212,7 +212,7 @@ abstract final class IpfsService {
         await ShmChannel.start(p.hostPath, crashLog: p.crashLog, spin: p.spin);
     try {
       final hello = Uint8List(8)
-        ..buffer.asByteData().setInt64(0, ipfsTableHash, Endian.little);
+        ..buffer.asByteData().setInt64(0, p2pTableHash, Endian.little);
       ch.callSync(_fnHello, hello);
     } catch (_) {
       await ch.close();
@@ -253,32 +253,32 @@ abstract final class IpfsService {
       }
     }
     if (report.isEmpty) report = ch.hostStderr.trim();
-    final s = IpfsStop._(
-        IpfsStopReason.crash, code, report, crashLog, ch.hostPid, _up.elapsed);
+    final s = P2pStop._(
+        P2pStopReason.crash, code, report, crashLog, ch.hostPid, _up.elapsed);
     _ch = null;
     $detach(s.exception);
     await ch.close();
     // foregroundService: the platform keeps the app alive for the restart
-    // (see IpfsPlatform.serviceStopped)
-    if (_mode != IpfsBackground.foregroundService) {
+    // (see P2pPlatform.serviceStopped)
+    if (_mode != P2pBackground.foregroundService) {
       await platform?.serviceStopped();
     }
     // an error from onStop goes to the zone of whoever called start()
     await _params?.onStop?.call(s);
   }
 
-  /// The app went to the background: in [IpfsBackground.stop] mode (the
+  /// The app went to the background: in [P2pBackground.stop] mode (the
   /// [background] of the current start), stops the service and reports it in
-  /// `onStop` with [IpfsStopReason.background]; pending calls fail with that
+  /// `onStop` with [P2pStopReason.background]; pending calls fail with that
   /// reason and [restart] starts it again. In
-  /// [IpfsBackground.foregroundService], or without a service, does nothing.
+  /// [P2pBackground.foregroundService], or without a service, does nothing.
   /// The `ipfs_ffi_flutter` plugin calls it on its own.
   static Future<void> appInBackground() async {
     final ch = _ch;
-    if (ch == null || !isRunning || _mode != IpfsBackground.stop) return;
+    if (ch == null || !isRunning || _mode != P2pBackground.stop) return;
     _ch = null;
-    await ch.close(reason: IpfsStopReason.background);
-    final s = IpfsStop._(IpfsStopReason.background, await ch.exitCode, '',
+    await ch.close(reason: P2pStopReason.background);
+    final s = P2pStop._(P2pStopReason.background, await ch.exitCode, '',
         _params?.crashLog, ch.hostPid, _up.elapsed);
     $detach(s.exception);
     await platform?.serviceStopped();
@@ -292,10 +292,10 @@ abstract final class IpfsService {
   /// The objects in use by calls with a callback (an index iterating, a
   /// selector builder in `exploreFields`...): one event when each enters and
   /// leaves use. Calling one from inside its callback may wait for a lock
-  /// that call holds; the host detects it ([IpfsDeadlockException]). For the
+  /// that call holds; the host detects it ([GolangDeadlockException]). For the
   /// app to show what cannot be touched yet (Riverpod, a `ValueNotifier`...);
   /// `isBusy` on the object answers the same now.
-  static Stream<IpfsBusy> get busy => $busyChanges;
+  static Stream<P2pBusy> get busy => $busyChanges;
 
   static Future<void> _stop(bool keepParams) async {
     if (!keepParams) _params = null;
@@ -360,6 +360,6 @@ String defaultHostPath() {
       return '${f.substring(0, f.lastIndexOf('/'))}/libipfs_host.so';
     }
   }
-  throw IpfsServiceException('ipfs_host: the native library folder of the '
+  throw P2pServiceException('ipfs_host: the native library folder of the '
       'app did not appear in /proc/self/maps; pass hostPath');
 }
