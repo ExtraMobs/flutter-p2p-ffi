@@ -72,6 +72,7 @@ Tudo em little-endian.
 | 35 | dag import | `i64` IpfsNode, `i64` ctx, `kSlice` de string arquivos, `kBytes` CAR (`-1` = usa os arquivos), bool pin-roots, bool allow-big-block → `i32 n` raízes × (string CID, string erro do pin), `i64` blocos, `i64` bytes |
 | 40 | config.Profiles | — → `i32 n` × string (nomes em ordem) |
 | 41 | config.Profile.Transform | string nome, string JSON do config → string JSON do config transformado |
+| 42 | io.Reader.Stream | modo stream: `i64` handle de um `io.Reader` → um `item` `kBytes` por pedaço (até 256 KiB), até o EOF; fecha o reader se for `io.Closer` |
 | ≥ 64 | as geradas | id = 64 + posição na lista das funções expostas em ordem de chave (`assignIDs` em `go/gen/main.go`) |
 
 O hash da tabela (FNV-1a 64 de `"id chave\n"` por função gerada, combinado com o hash
@@ -209,7 +210,7 @@ mesmo).
 - Todos os ids (chamadas e sinks) saem do mesmo contador do canal (`ShmChannel.newId`);
   os sinks são registrados quando o pedido é enviado.
 - Modos das escritas à mão: `context` (16–21), Hello, perfis (40–41) e o gancho 24
-  são síncronos (`0`); `dag` (32–35) e o gancho 26 assíncronos (`1`); o 25 stream
+  são síncronos (`0`); `dag` (32–35) e o gancho 26 assíncronos (`1`); o 25 e o 42 stream
   (`2`). `Free` vai com modo `0` e id `0`.
 - O `u64` do Hello é escrito como `i64` (os mesmos 8 bytes).
 - Resultado de função: presença `0` (ou handle `0`) onde o Dart espera um objeto vira

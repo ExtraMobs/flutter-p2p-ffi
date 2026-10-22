@@ -232,6 +232,17 @@ func emitValue(q *req, v any, declared reflect.Type) {
 
 // emitReader: um io.Reader emitido (cat, files read...) em pedaços.
 func emitReader(q *req, rd io.Reader) error {
+	return readChunks(rd, func(chunk []byte) {
+		q.item(func(w *writer) {
+			w.u8(cmdBytes)
+			w.bytes(chunk)
+		})
+	})
+}
+
+// readChunks: reads [rd] to the end in cmdChunk pieces, each one a fresh
+// slice handed to [each]; closes [rd] when it is an io.Closer.
+func readChunks(rd io.Reader, each func([]byte)) error {
 	if c, ok := rd.(io.Closer); ok {
 		defer c.Close()
 	}
@@ -239,11 +250,7 @@ func emitReader(q *req, rd io.Reader) error {
 	for {
 		n, err := rd.Read(buf)
 		if n > 0 {
-			chunk := append([]byte(nil), buf[:n]...)
-			q.item(func(w *writer) {
-				w.u8(cmdBytes)
-				w.bytes(chunk)
-			})
+			each(append([]byte(nil), buf[:n]...))
 		}
 		if err == io.EOF {
 			return nil

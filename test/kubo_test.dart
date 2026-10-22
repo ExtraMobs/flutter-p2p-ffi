@@ -16,6 +16,7 @@ import 'package:ipfs_ffi/boxo/path.dart' as path;
 import 'package:ipfs_ffi/car/v2.dart' as car;
 import 'package:ipfs_ffi/go/context.dart' as context;
 import 'package:ipfs_ffi/go/io.dart' as io;
+import 'package:ipfs_ffi/go/io_stream.dart' as iostream;
 import 'package:ipfs_ffi/go/os.dart' as os;
 import 'package:ipfs_ffi/ipfs_ffi.dart'
     show
@@ -92,6 +93,17 @@ void main() {
     expect(p.value, startsWith('/ipfs/Qm')); // padrão do kubo: CIDv0
     final got = await api.unixfs().get(ctx, p);
     expect(utf8.decode(io.readAll(files.toFile(got))), 'olá ipfs');
+  });
+
+  // 0.20: any io.Reader handle as a Stream, in 256 KiB pieces
+  test('readerStream reads a Go reader to the end in pieces', () async {
+    final rnd = Random(3);
+    final data =
+        Uint8List.fromList(List.generate(1 << 20, (_) => rnd.nextInt(256)));
+    final pieces =
+        await iostream.readerStream(files.newBytesFile(data)).toList();
+    expect(pieces.length, 4);
+    expect(Uint8List.fromList([for (final p in pieces) ...p]), data);
   });
 
   test('opções do add (CIDv1, raw leaves)', () async {
