@@ -16,7 +16,7 @@ class Blockstore extends GoHandle {
   /// Go: `func blockstore.NewBlockstore(d datastore.Batching, opts ...blockstore.Option) blockstore.Blockstore`.
   factory Blockstore($datastore.Batching d, [List<Option> opts = const []]) {
     final $r = $callSync(
-        90,
+        97,
         $W()
           ..h(d)
           ..list(opts, (w0, e0) => w0.h(e0)));
@@ -28,7 +28,7 @@ class Blockstore extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> put($context.Context ctx, $block_format.Block block) async {
     await $call(
-        89,
+        93,
         $W()
           ..h(this)
           ..h(ctx)
@@ -40,7 +40,7 @@ class Blockstore extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> has($context.Context ctx, $cid.Cid cid) async {
     final $r = await $call(
-        88,
+        92,
         $W()
           ..h(this)
           ..h(ctx)
@@ -53,13 +53,46 @@ class Blockstore extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<$block_format.Block> get($context.Context ctx, $cid.Cid cid) async {
     final $r = await $call(
-        87,
+        90,
         $W()
           ..h(this)
           ..h(ctx)
           ..val(cid));
     return $r.p() ? $block_format.Block.$dec($r) : $nil();
   }
+
+  /// Go: `func (blockstore.Blockstore).DeleteBlock(context.Context, cid.Cid) error`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> deleteBlock($context.Context ctx, $cid.Cid cid) async {
+    await $call(
+        89,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(cid));
+  }
+
+  /// Go: `func (blockstore.Blockstore).GetSize(context.Context, cid.Cid) (int, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<int> getSize($context.Context ctx, $cid.Cid cid) async {
+    final $r = await $call(
+        91,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(cid));
+    return $r.i64();
+  }
+
+  /// Go: `func (blockstore.Blockstore).AllKeysChan(ctx context.Context) (<-chan cid.Cid, error)`.
+  Stream<$cid.Cid> allKeysChan($context.Context ctx) => $stream(
+          88,
+          $W()
+            ..h(this)
+            ..h(ctx))
+      .map((r) => r.p() ? $cid.Cid(r.str()) : $nil());
 
   /// Go: type assertion `x.(*blockstore.ReadOnly)`: null if the object is not one.
   $blockstore.ReadOnly? asReadOnly() {
@@ -85,7 +118,70 @@ class GcBlockstore extends Blockstore {
   GcBlockstore.$h(super.$h) : super.$h();
 }
 
+/// Go: `blockstore.GCLocker` (handle).
+class GcLocker extends GoHandle {
+  GcLocker.$h(super.$h);
+
+  /// Go: `func (blockstore.GCLocker).GCLock(context.Context) blockstore.Unlocker`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<Unlocker> gcLock($context.Context ctx) async {
+    final $r = await $call(
+        94,
+        $W()
+          ..h(this)
+          ..h(ctx));
+    return $r.hnn(Unlocker.$h);
+  }
+
+  /// Go: `func (blockstore.GCLocker).PinLock(context.Context) blockstore.Unlocker`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<Unlocker> pinLock($context.Context ctx) async {
+    final $r = await $call(
+        96,
+        $W()
+          ..h(this)
+          ..h(ctx));
+    return $r.hnn(Unlocker.$h);
+  }
+
+  /// Go: `func (blockstore.GCLocker).GCRequested(context.Context) bool`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<bool> gcRequested($context.Context ctx) async {
+    final $r = await $call(
+        95,
+        $W()
+          ..h(this)
+          ..h(ctx));
+    return $r.b();
+  }
+
+  /// Go: type assertion `x.(blockstore.GCBlockstore)`: null if the object is not one.
+  GcBlockstore? asGcBlockstore() {
+    final $r = $callSync(69, $W()..h(this));
+    return $r.hn(GcBlockstore.$h);
+  }
+}
+
 /// Go: `blockstore.Option` (handle).
 class Option extends GoHandle {
   Option.$h(super.$h);
+}
+
+/// Go: `blockstore.Unlocker` (handle).
+class Unlocker extends GoHandle {
+  Unlocker.$h(super.$h);
+
+  /// Go: `func (blockstore.Unlocker).Unlock(context.Context)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> unlock($context.Context ctx) async {
+    await $call(
+        98,
+        $W()
+          ..h(this)
+          ..h(ctx));
+  }
 }

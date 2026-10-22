@@ -19,7 +19,7 @@ class DagService extends NodeGetter {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> add($context.Context ctx, Node node) async {
     await $call(
-        169,
+        177,
         $W()
           ..h(this)
           ..h(ctx)
@@ -28,7 +28,7 @@ class DagService extends NodeGetter {
 
   /// Go: type assertion `x.(iface.APIDagService)`: null if the object is not one.
   $coreiface.ApiDagService? asApiDagService() {
-    final $r = $callSync(73, $W()..h(this));
+    final $r = $callSync(74, $W()..h(this));
     return $r.hn($coreiface.ApiDagService.$h);
   }
 }
@@ -72,43 +72,43 @@ class Node extends Resolver {
 
   /// Go: `func (blocks.Block).Cid() cid.Cid`.
   $cid.Cid cid() {
-    final $r = $callSync(170, $W()..h(this));
+    final $r = $callSync(178, $W()..h(this));
     return $r.p() ? $cid.Cid($r.str()) : $nil();
   }
 
   /// Go: `func (blocks.Block).RawData() []byte`.
   Uint8List rawData() {
-    final $r = $callSync(172, $W()..h(this));
+    final $r = $callSync(180, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (format.Node).Links() []*format.Link`.
   List<Link> links() {
-    final $r = $callSync(171, $W()..h(this));
+    final $r = $callSync(179, $W()..h(this));
     return $r.list(() => $r.p() ? Link.$dec($r) : $nil());
   }
 
   /// Go: `func (format.Node).Size() (uint64, error)`.
   int size() {
-    final $r = $callSync(173, $W()..h(this));
+    final $r = $callSync(181, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (format.Node).Stat() (*format.NodeStat, error)`.
   NodeStat stat() {
-    final $r = $callSync(174, $W()..h(this));
+    final $r = $callSync(182, $W()..h(this));
     return $r.p() ? NodeStat.$dec($r) : $nil();
   }
 
   /// Go: type assertion `x.(*merkledag.ProtoNode)`: null if the object is not one.
   $merkledag.ProtoNode? asProtoNode() {
-    final $r = $callSync(74, $W()..h(this));
+    final $r = $callSync(75, $W()..h(this));
     return $r.hn($merkledag.ProtoNode.$h);
   }
 
   /// Go: type assertion `x.(*merkledag.RawNode)`: null if the object is not one.
   $merkledag.RawNode? asRawNode() {
-    final $r = $callSync(75, $W()..h(this));
+    final $r = $callSync(76, $W()..h(this));
     return $r.hn($merkledag.RawNode.$h);
   }
 }
@@ -122,7 +122,7 @@ class NodeAdder extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> add($context.Context ctx, Node node) async {
     await $call(
-        175,
+        183,
         $W()
           ..h(this)
           ..h(ctx)
@@ -134,7 +134,7 @@ class NodeAdder extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> addMany($context.Context ctx, List<Node> nodes) async {
     await $call(
-        176,
+        184,
         $W()
           ..h(this)
           ..h(ctx)
@@ -143,13 +143,13 @@ class NodeAdder extends GoHandle {
 
   /// Go: type assertion `x.(format.DAGService)`: null if the object is not one.
   DagService? asDagService() {
-    final $r = $callSync(76, $W()..h(this));
+    final $r = $callSync(77, $W()..h(this));
     return $r.hn(DagService.$h);
   }
 
   /// Go: type assertion `x.(iface.APIDagService)`: null if the object is not one.
   $coreiface.ApiDagService? asApiDagService() {
-    final $r = $callSync(77, $W()..h(this));
+    final $r = $callSync(78, $W()..h(this));
     return $r.hn($coreiface.ApiDagService.$h);
   }
 }
@@ -163,7 +163,7 @@ class NodeGetter extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<Node> get($context.Context ctx, $cid.Cid cid) async {
     final $r = await $call(
-        177,
+        185,
         $W()
           ..h(this)
           ..h(ctx)
@@ -173,13 +173,13 @@ class NodeGetter extends GoHandle {
 
   /// Go: type assertion `x.(format.DAGService)`: null if the object is not one.
   DagService? asDagService() {
-    final $r = $callSync(78, $W()..h(this));
+    final $r = $callSync(79, $W()..h(this));
     return $r.hn(DagService.$h);
   }
 
   /// Go: type assertion `x.(iface.APIDagService)`: null if the object is not one.
   $coreiface.ApiDagService? asApiDagService() {
-    final $r = $callSync(79, $W()..h(this));
+    final $r = $callSync(80, $W()..h(this));
     return $r.hn($coreiface.ApiDagService.$h);
   }
 }

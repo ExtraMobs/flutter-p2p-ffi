@@ -229,6 +229,34 @@ void main() {
     await corerepo.garbageCollect(n, ctx); // a versão que só espera
   });
 
+  // 0.20: the node's blockstore block by block, and the GC locks
+  test('blockstore deleteBlock/getSize/allKeysChan; PinLock holds the GC',
+      () async {
+    final data = utf8.encode('evict me ${DateTime.now()}');
+    final st = await api.block().put(ctx, data, [options.block.pin(false)]);
+    final c = cid.Cid(st.path!.value.substring('/ipfs/'.length)); // raw
+    final bs = n.blockstore;
+    expect(await bs.getSize(ctx, c), data.length);
+    expect(await bs.allKeysChan(ctx).map((k) => k.value).toList(),
+        contains(c.value));
+    await bs.deleteBlock(ctx, c);
+    expect(await bs.has(ctx, c), isFalse);
+
+    final pin = await n.gcLocker.pinLock(ctx);
+    var collected = false;
+    final gc = corerepo.garbageCollect(n, ctx).then((_) => collected = true);
+    final deadline = DateTime.now().add(const Duration(seconds: 10));
+    while (!await n.gcLocker.gcRequested(ctx)) {
+      if (DateTime.now().isAfter(deadline)) fail('the GC never asked');
+      await Future<void>.delayed(const Duration(milliseconds: 20));
+    }
+    await Future<void>.delayed(const Duration(milliseconds: 200));
+    expect(collected, isFalse); // waiting for the PinLock
+    await pin.unlock(ctx);
+    await gc;
+    expect(collected, isTrue);
+  });
+
   // 0.20: only the daemon starts PeriodicGC; a library node has to call it
   test('conditionalGc and periodicGc follow the watermark', () async {
     // offset far beyond StorageMax*watermark: collects now

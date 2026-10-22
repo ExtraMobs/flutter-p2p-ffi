@@ -8,6 +8,6 @@ import 'package:ipfs_ffi/boxo/exchange.dart' as $exchange;
 
 /// Go: `func offline.Exchange(bs blockstore.Blockstore) exchange.Interface`.
 $exchange.Interface exchange($blockstore.Blockstore bs) {
-  final $r = $callSync(94, $W()..h(bs));
+  final $r = $callSync(102, $W()..h(bs));
   return $r.hnn($exchange.Interface.$h);
 }

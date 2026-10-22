@@ -12,20 +12,20 @@ class Adapter extends $storage.ReadableStorage {
 
   /// Go: `func bsadapter.NewAdapter() *bsadapter.Adapter`.
   factory Adapter() {
-    final $r = $callSync(368);
+    final $r = $callSync(378);
     return $r.hnn(Adapter.$h);
   }
 
   /// Go: `field Wrapped blockstore.Blockstore`.
   $blockstore.Blockstore get wrapped {
-    final $r = $callSync(369, $W()..h(this));
+    final $r = $callSync(379, $W()..h(this));
     return $r.hnn($blockstore.Blockstore.$h);
   }
 
   /// Go: `field Wrapped blockstore.Blockstore`.
   set wrapped($blockstore.Blockstore wrapped) {
     $callSync(
-        370,
+        380,
         $W()
           ..h(this)
           ..h(wrapped));

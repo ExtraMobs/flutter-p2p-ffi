@@ -24,9 +24,17 @@ Cada linha é um símbolo Go exposto e onde ele está no Dart.
 | `func (blockstore.Blockstore).Has(context.Context, cid.Cid) (bool, error)` | `Blockstore.has` | Future |
 | `func (blockstore.Blockstore).Get(context.Context, cid.Cid) (blocks.Block, error)` | `Blockstore.get` | Future |
 | `func blockstore.NewBlockstore(d datastore.Batching, opts ...blockstore.Option) blockstore.Blockstore` | `factory Blockstore` | síncrona |
+| `func (blockstore.Blockstore).DeleteBlock(context.Context, cid.Cid) error` | `Blockstore.deleteBlock` | Future |
+| `func (blockstore.Blockstore).GetSize(context.Context, cid.Cid) (int, error)` | `Blockstore.getSize` | Future |
+| `func (blockstore.Blockstore).AllKeysChan(ctx context.Context) (<-chan cid.Cid, error)` | `Blockstore.allKeysChan` | Stream |
+| `func (blockstore.GCLocker).GCLock(context.Context) blockstore.Unlocker` | `GcLocker.gcLock` | Future |
+| `func (blockstore.GCLocker).PinLock(context.Context) blockstore.Unlocker` | `GcLocker.pinLock` | Future |
+| `func (blockstore.GCLocker).GCRequested(context.Context) bool` | `GcLocker.gcRequested` | Future |
+| `func (blockstore.Unlocker).Unlock(context.Context)` | `Unlocker.unlock` | Future |
 | `blockstore.Blockstore → x.(*blockstore.ReadOnly)` | `Blockstore.asReadOnly` | cast |
 | `blockstore.Blockstore → x.(*blockstore.ReadWrite)` | `Blockstore.asReadWrite` | cast |
 | `blockstore.Blockstore → x.(blockstore.GCBlockstore)` | `Blockstore.asGcBlockstore` | cast |
+| `blockstore.GCLocker → x.(blockstore.GCBlockstore)` | `GcLocker.asGcBlockstore` | cast |
 
 ## `github.com/ipfs/boxo/chunker` → `package:ipfs_ffi/boxo/chunker.dart`
 
@@ -246,6 +254,8 @@ Cada linha é um símbolo Go exposto e onde ele está no Dart.
 | `(*core.IpfsNode).Blockstore blockstore.GCBlockstore` | `IpfsNode.blockstore =` | campo |
 | `(*core.IpfsNode).Exchange exchange.Interface` | `IpfsNode.exchange` | campo |
 | `(*core.IpfsNode).Exchange exchange.Interface` | `IpfsNode.exchange =` | campo |
+| `(*core.IpfsNode).GCLocker blockstore.GCLocker` | `IpfsNode.gcLocker` | campo |
+| `(*core.IpfsNode).GCLocker blockstore.GCLocker` | `IpfsNode.gcLocker =` | campo |
 
 ## `github.com/ipfs/kubo/core/coreapi` → `package:ipfs_ffi/kubo/core/coreapi.dart`
 

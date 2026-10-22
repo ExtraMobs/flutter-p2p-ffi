@@ -12,7 +12,7 @@ class PeeringService extends GoHandle {
   /// Go: `func (*peering.PeeringService).AddPeer(info peer.AddrInfo)`.
   void addPeer($peer.AddrInfo info) {
     $callSync(
-        162,
+        170,
         $W()
           ..h(this)
           ..dto(info));
@@ -21,7 +21,7 @@ class PeeringService extends GoHandle {
   /// Go: `func (*peering.PeeringService).RemovePeer(id peer.ID)`.
   void removePeer($peer.Id id) {
     $callSync(
-        164,
+        172,
         $W()
           ..h(this)
           ..val(id));
@@ -29,7 +29,7 @@ class PeeringService extends GoHandle {
 
   /// Go: `func (*peering.PeeringService).ListPeers() []peer.AddrInfo`.
   List<$peer.AddrInfo> listPeers() {
-    final $r = $callSync(163, $W()..h(this));
+    final $r = $callSync(171, $W()..h(this));
     return $r.list(() => $r.p() ? $peer.AddrInfo.$dec($r) : $nil());
   }
 }

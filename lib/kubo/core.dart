@@ -20,19 +20,19 @@ class IpfsNode extends GoHandle {
   ///
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> close() async {
-    await $call(193, $W()..h(this));
+    await $call(201, $W()..h(this));
   }
 
   /// Go: `field FilesRoot *mfs.Root`.
   $mfs.Root get filesRoot {
-    final $r = $callSync(196, $W()..h(this));
+    final $r = $callSync(204, $W()..h(this));
     return $r.hnn($mfs.Root.$h);
   }
 
   /// Go: `field FilesRoot *mfs.Root`.
   set filesRoot($mfs.Root filesRoot) {
     $callSync(
-        197,
+        205,
         $W()
           ..h(this)
           ..h(filesRoot));
@@ -40,14 +40,14 @@ class IpfsNode extends GoHandle {
 
   /// Go: `field Repo repo.Repo`.
   $repo.Repo get repo {
-    final $r = $callSync(200, $W()..h(this));
+    final $r = $callSync(210, $W()..h(this));
     return $r.hnn($repo.Repo.$h);
   }
 
   /// Go: `field Repo repo.Repo`.
   set repo($repo.Repo repo) {
     $callSync(
-        201,
+        211,
         $W()
           ..h(this)
           ..h(repo));
@@ -55,14 +55,14 @@ class IpfsNode extends GoHandle {
 
   /// Go: `field Peering *peering.PeeringService`.
   $peering.PeeringService get peering {
-    final $r = $callSync(198, $W()..h(this));
+    final $r = $callSync(208, $W()..h(this));
     return $r.hnn($peering.PeeringService.$h);
   }
 
   /// Go: `field Peering *peering.PeeringService`.
   set peering($peering.PeeringService peering) {
     $callSync(
-        199,
+        209,
         $W()
           ..h(this)
           ..h(peering));
@@ -70,14 +70,14 @@ class IpfsNode extends GoHandle {
 
   /// Go: `field Blocks blockservice.BlockService`.
   $blockservice.BlockService get blocks {
-    final $r = $callSync(189, $W()..h(this));
+    final $r = $callSync(197, $W()..h(this));
     return $r.hnn($blockservice.BlockService.$h);
   }
 
   /// Go: `field Blocks blockservice.BlockService`.
   set blocks($blockservice.BlockService blocks) {
     $callSync(
-        190,
+        198,
         $W()
           ..h(this)
           ..h(blocks));
@@ -85,14 +85,14 @@ class IpfsNode extends GoHandle {
 
   /// Go: `field Blockstore blockstore.GCBlockstore`.
   $blockstore.GcBlockstore get blockstore {
-    final $r = $callSync(191, $W()..h(this));
+    final $r = $callSync(199, $W()..h(this));
     return $r.hnn($blockstore.GcBlockstore.$h);
   }
 
   /// Go: `field Blockstore blockstore.GCBlockstore`.
   set blockstore($blockstore.GcBlockstore blockstore) {
     $callSync(
-        192,
+        200,
         $W()
           ..h(this)
           ..h(blockstore));
@@ -100,17 +100,32 @@ class IpfsNode extends GoHandle {
 
   /// Go: `field Exchange exchange.Interface`.
   $exchange.Interface get exchange {
-    final $r = $callSync(194, $W()..h(this));
+    final $r = $callSync(202, $W()..h(this));
     return $r.hnn($exchange.Interface.$h);
   }
 
   /// Go: `field Exchange exchange.Interface`.
   set exchange($exchange.Interface exchange) {
     $callSync(
-        195,
+        203,
         $W()
           ..h(this)
           ..h(exchange));
+  }
+
+  /// Go: `field GCLocker blockstore.GCLocker`.
+  $blockstore.GcLocker get gcLocker {
+    final $r = $callSync(206, $W()..h(this));
+    return $r.hnn($blockstore.GcLocker.$h);
+  }
+
+  /// Go: `field GCLocker blockstore.GCLocker`.
+  set gcLocker($blockstore.GcLocker gcLocker) {
+    $callSync(
+        207,
+        $W()
+          ..h(this)
+          ..h(gcLocker));
   }
 }
 
@@ -119,7 +134,7 @@ class IpfsNode extends GoHandle {
 /// Asynchronous: runs in a goroutine of the service.
 Future<IpfsNode> newNode($context.Context ctx, $node.BuildCfg cfg) async {
   final $r = await $call(
-      202,
+      212,
       $W()
         ..h(ctx)
         ..dto(cfg));

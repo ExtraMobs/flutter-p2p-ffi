@@ -29,7 +29,7 @@ Option writeThrough(bool enabled) => Option.$(1, (w) => w..b(enabled));
 BlockService new$($blockstore.Blockstore bs, $exchange.Interface exchange,
     [List<Option> opts = const []]) {
   final $r = $callSync(
-      86,
+      87,
       $W()
         ..h(bs)
         ..h(exchange)

@@ -10,7 +10,7 @@ class Batching extends Datastore {
 
   /// Go: type assertion `x.(*datastore.NullDatastore)`: null if the object is not one.
   NullDatastore? asNullDatastore() {
-    final $r = $callSync(72, $W()..h(this));
+    final $r = $callSync(73, $W()..h(this));
     return $r.hn(NullDatastore.$h);
   }
 }
@@ -26,7 +26,7 @@ class NullDatastore extends Batching {
 
   /// Go: `func datastore.NewNullDatastore() *datastore.NullDatastore`.
   factory NullDatastore() {
-    final $r = $callSync(168);
+    final $r = $callSync(176);
     return $r.hnn(NullDatastore.$h);
   }
 }

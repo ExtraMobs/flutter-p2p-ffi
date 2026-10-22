@@ -408,3 +408,14 @@ github.com/ipfs/kubo/core/corerepo.ConditionalGC
 github.com/ipfs/kubo/core.IpfsNode.Exchange
 github.com/ipfs/boxo/blockstore.NewBlockstore
 github.com/ipfs/go-datastore.NewNullDatastore
+# 0.20 the node's blockstore block by block (an eviction policy of one's own
+# instead of a full GC) and the GC locker: PinLock holds the GC off while a
+# put->pin sequence runs; GCLock waits for every PinLock
+github.com/ipfs/boxo/blockstore.Blockstore.DeleteBlock
+github.com/ipfs/boxo/blockstore.Blockstore.GetSize
+github.com/ipfs/boxo/blockstore.Blockstore.AllKeysChan
+github.com/ipfs/kubo/core.IpfsNode.GCLocker
+github.com/ipfs/boxo/blockstore.GCLocker.GCLock
+github.com/ipfs/boxo/blockstore.GCLocker.PinLock
+github.com/ipfs/boxo/blockstore.GCLocker.GCRequested
+github.com/ipfs/boxo/blockstore.Unlocker.Unlock
