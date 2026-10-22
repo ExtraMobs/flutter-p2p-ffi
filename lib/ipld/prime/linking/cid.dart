@@ -7,6 +7,6 @@ import 'package:ipfs_ffi/ipld/prime/linking.dart' as $linking;
 
 /// Go: `func cidlink.DefaultLinkSystem() linking.LinkSystem`.
 $linking.LinkSystem defaultLinkSystem() {
-  final $r = $callSync(361);
+  final $r = $callSync(366);
   return $r.hnn($linking.LinkSystem.$h);
 }

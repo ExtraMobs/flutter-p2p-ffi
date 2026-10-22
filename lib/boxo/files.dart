@@ -26,14 +26,14 @@ class Node extends $io.Closer {
 
 /// Go: `func files.NewBytesFile(b []byte) files.File`.
 File newBytesFile(Uint8List b) {
-  final $r = $callSync(94, $W()..bytes(b));
+  final $r = $callSync(96, $W()..bytes(b));
   return $r.hnn(File.$h);
 }
 
 /// Go: `func files.NewSerialFile(path string, includeHidden bool, stat os.FileInfo) (files.Node, error)`.
 Node newSerialFile(String path, bool includeHidden, $fs.FileInfo stat) {
   final $r = $callSync(
-      95,
+      97,
       $W()
         ..str(path)
         ..b(includeHidden)
@@ -43,14 +43,14 @@ Node newSerialFile(String path, bool includeHidden, $fs.FileInfo stat) {
 
 /// Go: `func files.ToFile(n files.Node) files.File`.
 File toFile(Node n) {
-  final $r = $callSync(96, $W()..h(n));
+  final $r = $callSync(98, $W()..h(n));
   return $r.hnn(File.$h);
 }
 
 /// Go: `func files.WriteTo(nd files.Node, fpath string) error`.
 void writeTo(Node nd, String fpath) {
   $callSync(
-      97,
+      99,
       $W()
         ..h(nd)
         ..str(fpath));

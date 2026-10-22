@@ -58,8 +58,9 @@ var valueTypes = map[string]valueSpec{
 }
 
 // handleTypes: interfaces que parecem só-getters mas são recursos, e structs
-// só de campos exportados que são objetos (o LinkSystem guarda funções).
-var handleTypes = setOf(`os.FileInfo github.com/ipld/go-ipld-prime/linking.LinkSystem`)
+// só de campos exportados que são objetos (o LinkSystem guarda funções; the
+// NullDatastore has no fields, only the methods of a datastore).
+var handleTypes = setOf(`os.FileInfo github.com/ipld/go-ipld-prime/linking.LinkSystem github.com/ipfs/go-datastore.NullDatastore`)
 
 // ioMethods: os métodos de uma interface de E/S (io.ReaderAt, io.ReadSeeker,
 // car.SectionReader...): em parâmetro ela aceita bytes ou qualquer handle,

@@ -11,7 +11,7 @@ class PrototypeAny extends $datamodel.NodePrototype {
 
   /// Go: `func basicnode.NewPrototype__Any() *basicnode.Prototype__Any`.
   factory PrototypeAny() {
-    final $r = $callSync(362);
+    final $r = $callSync(367);
     return $r.hnn(PrototypeAny.$h);
   }
 }

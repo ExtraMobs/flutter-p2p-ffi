@@ -4,6 +4,7 @@ library;
 
 import 'package:ipfs_ffi/src/runtime.dart';
 import 'package:ipfs_ffi/car/v2/blockstore.dart' as $blockstore;
+import 'package:ipfs_ffi/datastore.dart' as $datastore;
 import 'package:ipfs_ffi/go/context.dart' as $context;
 import 'package:ipfs_ffi/ipld/block_format.dart' as $block_format;
 import 'package:ipfs_ffi/multiformats/cid.dart' as $cid;
@@ -12,12 +13,22 @@ import 'package:ipfs_ffi/multiformats/cid.dart' as $cid;
 class Blockstore extends GoHandle {
   Blockstore.$h(super.$h);
 
+  /// Go: `func blockstore.NewBlockstore(d datastore.Batching, opts ...blockstore.Option) blockstore.Blockstore`.
+  factory Blockstore($datastore.Batching d, [List<Option> opts = const []]) {
+    final $r = $callSync(
+        90,
+        $W()
+          ..h(d)
+          ..list(opts, (w0, e0) => w0.h(e0)));
+    return $r.hnn(Blockstore.$h);
+  }
+
   /// Go: `func (blockstore.Blockstore).Put(context.Context, blocks.Block) error`.
   ///
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> put($context.Context ctx, $block_format.Block block) async {
     await $call(
-        88,
+        89,
         $W()
           ..h(this)
           ..h(ctx)
@@ -29,7 +40,7 @@ class Blockstore extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> has($context.Context ctx, $cid.Cid cid) async {
     final $r = await $call(
-        87,
+        88,
         $W()
           ..h(this)
           ..h(ctx)
@@ -42,7 +53,7 @@ class Blockstore extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<$block_format.Block> get($context.Context ctx, $cid.Cid cid) async {
     final $r = await $call(
-        86,
+        87,
         $W()
           ..h(this)
           ..h(ctx)
@@ -72,4 +83,9 @@ class Blockstore extends GoHandle {
 /// Go: `blockstore.GCBlockstore` (handle).
 class GcBlockstore extends Blockstore {
   GcBlockstore.$h(super.$h) : super.$h();
+}
+
+/// Go: `blockstore.Option` (handle).
+class Option extends GoHandle {
+  Option.$h(super.$h);
 }

@@ -10,5 +10,6 @@ export 'go/bytes.dart';
 export 'go/context.dart';
 export 'go/io.dart';
 export 'go/io/fs.dart';
+export 'go/io_stream.dart';
 export 'go/os.dart';
 export 'go/runtime/debug.dart';

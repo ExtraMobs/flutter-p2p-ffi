@@ -6,6 +6,7 @@ require (
 	github.com/ipfs/boxo v0.43.0
 	github.com/ipfs/go-block-format v0.2.4
 	github.com/ipfs/go-cid v0.6.2
+	github.com/ipfs/go-datastore v0.9.2
 	github.com/ipfs/go-ipfs-cmds v0.16.1
 	github.com/ipfs/go-ipld-format v0.6.4
 	github.com/ipfs/go-ipld-legacy v0.3.0
@@ -92,7 +93,6 @@ require (
 	github.com/ipfs/bbloom v0.1.0 // indirect
 	github.com/ipfs/go-bitfield v1.1.0 // indirect
 	github.com/ipfs/go-cidutil v0.1.2 // indirect
-	github.com/ipfs/go-datastore v0.9.2 // indirect
 	github.com/ipfs/go-ds-badger v0.3.4 // indirect
 	github.com/ipfs/go-ds-flatfs v0.6.1 // indirect
 	github.com/ipfs/go-ds-leveldb v0.5.3 // indirect

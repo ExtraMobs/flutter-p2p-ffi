@@ -8,12 +8,16 @@ import 'dart:math' show Random;
 import 'dart:typed_data';
 import 'dart:io' show Directory, File, InternetAddress;
 
+import 'package:ipfs_ffi/boxo/blockservice.dart' as blockservice;
+import 'package:ipfs_ffi/boxo/blockstore.dart' as blockstore;
 import 'package:ipfs_ffi/boxo/files.dart' as files;
 import 'package:ipfs_ffi/boxo/gateway.dart' as gateway;
 import 'package:ipfs_ffi/boxo/ipld/merkledag.dart' as merkledag;
+import 'package:ipfs_ffi/boxo/ipld/unixfs/file.dart' as unixfile;
 import 'package:ipfs_ffi/boxo/mfs.dart' as mfs;
 import 'package:ipfs_ffi/boxo/path.dart' as path;
 import 'package:ipfs_ffi/car/v2.dart' as car;
+import 'package:ipfs_ffi/datastore.dart' as datastore;
 import 'package:ipfs_ffi/go/context.dart' as context;
 import 'package:ipfs_ffi/go/io.dart' as io;
 import 'package:ipfs_ffi/go/io_stream.dart' as iostream;
@@ -42,6 +46,7 @@ import 'package:ipfs_ffi/kubo/core/node/libp2p.dart' as libp2p;
 import 'package:ipfs_ffi/kubo/plugin/loader.dart' as loader;
 import 'package:ipfs_ffi/kubo/repo/fsrepo.dart' as fsrepo;
 import 'package:ipfs_ffi/libp2p/core/peer.dart' as peer;
+import 'package:ipfs_ffi/multiformats/cid.dart' as cid;
 import 'package:ipfs_ffi/src/runtime.dart'
     show $W, $call, $callSync, $stream, GoSink;
 import 'package:test/test.dart';
@@ -395,6 +400,35 @@ void main() {
                 range: gateway.DagByteRange(from: 300000, to: 300099)));
         expect(some, hasLength(3));
         expect(part, data.sublist(262144, 2 * 262144));
+      } finally {
+        cancel();
+      }
+    });
+
+    // 0.20: blockservice.getBlock caches what it fetches; over the null
+    // datastore the puts are dropped, so B reads A's file and keeps nothing
+    test('B reads from A without storing (null datastore)', () async {
+      final rnd = Random(11);
+      final data =
+          Uint8List.fromList(List.generate(600000, (_) => rnd.nextInt(256)));
+      final p = await a.unixfs().add(ctx, files.newBytesFile(data), [
+        options.unixfs.cidVersion(1),
+        options.unixfs.pin(true, ''),
+      ]);
+      final root = cid.Cid(p.value.substring('/ipfs/'.length));
+      final (c, cancel) = context.withTimeout(
+          context.background(), const Duration(seconds: 30));
+      try {
+        final bs = blockservice.new$(
+            blockstore.Blockstore(datastore.NullDatastore()), nb.exchange);
+        final dag = merkledag.newDagService(bs);
+        final nd = await unixfile.newUnixfsFile(c, dag, await dag.get(c, root));
+        final got = BytesBuilder();
+        await for (final chunk in iostream.readerStream(files.toFile(nd))) {
+          got.add(chunk);
+        }
+        expect(got.toBytes(), data);
+        expect(await nb.blockstore.has(c, root), isFalse);
       } finally {
         cancel();
       }

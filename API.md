@@ -23,6 +23,7 @@ Cada linha é um símbolo Go exposto e onde ele está no Dart.
 | `func (blockstore.Blockstore).Put(context.Context, blocks.Block) error` | `Blockstore.put` | Future |
 | `func (blockstore.Blockstore).Has(context.Context, cid.Cid) (bool, error)` | `Blockstore.has` | Future |
 | `func (blockstore.Blockstore).Get(context.Context, cid.Cid) (blocks.Block, error)` | `Blockstore.get` | Future |
+| `func blockstore.NewBlockstore(d datastore.Batching, opts ...blockstore.Option) blockstore.Blockstore` | `factory Blockstore` | síncrona |
 | `blockstore.Blockstore → x.(*blockstore.ReadOnly)` | `Blockstore.asReadOnly` | cast |
 | `blockstore.Blockstore → x.(*blockstore.ReadWrite)` | `Blockstore.asReadWrite` | cast |
 | `blockstore.Blockstore → x.(blockstore.GCBlockstore)` | `Blockstore.asGcBlockstore` | cast |
@@ -178,6 +179,13 @@ Cada linha é um símbolo Go exposto e onde ele está no Dart.
 | `func cid.NewPrefixV1(codecType uint64, mhType uint64) cid.Prefix` | `newPrefixV1` | síncrona |
 | `func (cid.Prefix).Sum(data []byte) (cid.Cid, error)` | `Prefix.sum` | síncrona |
 
+## `github.com/ipfs/go-datastore` → `package:ipfs_ffi/datastore.dart`
+
+| Go | Dart | Modo |
+|---|---|---|
+| `func datastore.NewNullDatastore() *datastore.NullDatastore` | `factory NullDatastore` | síncrona |
+| `datastore.Batching → x.(*datastore.NullDatastore)` | `Batching.asNullDatastore` | cast |
+
 ## `github.com/ipfs/go-ipld-format` → `package:ipfs_ffi/ipld/format.dart`
 
 | Go | Dart | Modo |
@@ -236,6 +244,8 @@ Cada linha é um símbolo Go exposto e onde ele está no Dart.
 | `(*core.IpfsNode).Blocks blockservice.BlockService` | `IpfsNode.blocks =` | campo |
 | `(*core.IpfsNode).Blockstore blockstore.GCBlockstore` | `IpfsNode.blockstore` | campo |
 | `(*core.IpfsNode).Blockstore blockstore.GCBlockstore` | `IpfsNode.blockstore =` | campo |
+| `(*core.IpfsNode).Exchange exchange.Interface` | `IpfsNode.exchange` | campo |
+| `(*core.IpfsNode).Exchange exchange.Interface` | `IpfsNode.exchange =` | campo |
 
 ## `github.com/ipfs/kubo/core/coreapi` → `package:ipfs_ffi/kubo/core/coreapi.dart`
 

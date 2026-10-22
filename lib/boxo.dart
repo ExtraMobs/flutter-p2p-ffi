@@ -7,7 +7,8 @@
 library;
 
 export 'boxo/blockservice.dart';
-export 'boxo/blockstore.dart';
+// also in another library of this namespace: import 'package:ipfs_ffi/boxo/blockstore.dart' for Option
+export 'boxo/blockstore.dart' hide Option;
 export 'boxo/chunker.dart';
 export 'boxo/exchange.dart';
 export 'boxo/exchange/offline.dart';

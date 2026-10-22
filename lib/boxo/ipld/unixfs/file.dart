@@ -13,7 +13,7 @@ import 'package:ipfs_ffi/ipld/format.dart' as $format;
 Future<$files.Node> newUnixfsFile(
     $context.Context ctx, $format.DagService dserv, $format.Node nd) async {
   final $r = await $call(
-      106,
+      108,
       $W()
         ..h(ctx)
         ..h(dserv)
