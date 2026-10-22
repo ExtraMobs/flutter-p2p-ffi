@@ -12,7 +12,7 @@ import 'package:ipfs_ffi/kubo/gc.dart' as $gc;
 /// Asynchronous: runs in a goroutine of the service.
 Future<void> garbageCollect($core.IpfsNode n, $context.Context ctx) async {
   await $call(
-      263,
+      264,
       $W()
         ..h(n)
         ..h(ctx));
@@ -22,8 +22,32 @@ Future<void> garbageCollect($core.IpfsNode n, $context.Context ctx) async {
 Stream<$gc.Result> garbageCollectAsync(
         $core.IpfsNode n, $context.Context ctx) =>
     $stream(
-            264,
+            265,
             $W()
               ..h(n)
               ..h(ctx))
         .map((r) => r.p() ? $gc.Result.$dec(r) : $nil());
+
+/// Go: `func corerepo.PeriodicGC(ctx context.Context, node *core.IpfsNode) error`.
+///
+/// Asynchronous: runs in a goroutine of the service.
+Future<void> periodicGc($context.Context ctx, $core.IpfsNode node) async {
+  await $call(
+      266,
+      $W()
+        ..h(ctx)
+        ..h(node));
+}
+
+/// Go: `func corerepo.ConditionalGC(ctx context.Context, node *core.IpfsNode, offset uint64) error`.
+///
+/// Asynchronous: runs in a goroutine of the service.
+Future<void> conditionalGc(
+    $context.Context ctx, $core.IpfsNode node, int offset) async {
+  await $call(
+      263,
+      $W()
+        ..h(ctx)
+        ..h(node)
+        ..i64(offset));
+}

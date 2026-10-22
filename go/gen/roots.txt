@@ -396,3 +396,8 @@ github.com/ipfs/boxo/ipld/unixfs/file.NewUnixfsFile
 github.com/ipfs/boxo/blockstore.Blockstore.Put
 github.com/ipfs/boxo/blockstore.Blockstore.Has
 github.com/ipfs/boxo/blockstore.Blockstore.Get
+# 0.20 automatic GC: Datastore.StorageMax/StorageGCWatermark/GCPeriod only act
+# through PeriodicGC, which only the daemon (--enable-gc) starts; a node built
+# with core.NewNode never collects on its own
+github.com/ipfs/kubo/core/corerepo.PeriodicGC
+github.com/ipfs/kubo/core/corerepo.ConditionalGC

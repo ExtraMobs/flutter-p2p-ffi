@@ -321,6 +321,8 @@ Cada linha é um símbolo Go exposto e onde ele está no Dart.
 |---|---|---|
 | `func corerepo.GarbageCollect(n *core.IpfsNode, ctx context.Context) error` | `garbageCollect` | Future |
 | `func corerepo.GarbageCollectAsync(n *core.IpfsNode, ctx context.Context) <-chan gc.Result` | `garbageCollectAsync` | Stream |
+| `func corerepo.PeriodicGC(ctx context.Context, node *core.IpfsNode) error` | `periodicGc` | Future |
+| `func corerepo.ConditionalGC(ctx context.Context, node *core.IpfsNode, offset uint64) error` | `conditionalGc` | Future |
 
 ## `github.com/ipfs/kubo/core/node/libp2p` → `package:ipfs_ffi/kubo/core/node/libp2p.dart`
 

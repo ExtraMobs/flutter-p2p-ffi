@@ -77,7 +77,7 @@ var (
 )
 
 // tableHash: o hash da tabela (WIRE.md, Hello), o mesmo do Dart gerado.
-const tableHash uint64 = 0x924b4b384e1aa5d4
+const tableHash uint64 = 0x6eceda302cc054b7
 
 // table: as funções geradas por id (WIRE.md); as escritas à mão entram no init delas.
 var table = map[uint32]entry{
@@ -280,138 +280,140 @@ var table = map[uint32]entry{
 	260: {"github.com/ipfs/kubo/core/coreiface.UnixfsAPI.Add", fn260, false},
 	261: {"github.com/ipfs/kubo/core/coreiface.UnixfsAPI.Get", fn261, false},
 	262: {"github.com/ipfs/kubo/core/coreiface.UnixfsAPI.Ls", fn262, true},
-	263: {"github.com/ipfs/kubo/core/corerepo.GarbageCollect", fn263, false},
-	264: {"github.com/ipfs/kubo/core/corerepo.GarbageCollectAsync", fn264, true},
-	265: {"github.com/ipfs/kubo/core/node/libp2p.ConstructDefaultRouting", fn265, false},
-	266: {"github.com/ipfs/kubo/core/node/libp2p.DHTClientOption", fn266, false},
-	267: {"github.com/ipfs/kubo/core/node/libp2p.DHTOption", fn267, false},
-	268: {"github.com/ipfs/kubo/core/node/libp2p.DHTServerOption", fn268, false},
-	269: {"github.com/ipfs/kubo/core/node/libp2p.NilRouterOption", fn269, false},
-	270: {"github.com/ipfs/kubo/plugin/loader.NewPluginLoader", fn270, false},
-	271: {"github.com/ipfs/kubo/plugin/loader.PluginLoader.Initialize", fn271, false},
-	272: {"github.com/ipfs/kubo/plugin/loader.PluginLoader.Inject", fn272, false},
-	273: {"github.com/ipfs/kubo/repo.Repo.BackupConfig", fn273, false},
-	274: {"github.com/ipfs/kubo/repo.Repo.Config", fn274, false},
-	275: {"github.com/ipfs/kubo/repo.Repo.GetConfigKey", fn275, false},
-	276: {"github.com/ipfs/kubo/repo.Repo.SetConfig", fn276, false},
-	277: {"github.com/ipfs/kubo/repo.Repo.SetConfigKey", fn277, false},
-	278: {"github.com/ipfs/kubo/repo/fsrepo.Init", fn278, false},
-	279: {"github.com/ipfs/kubo/repo/fsrepo.IsInitialized", fn279, false},
-	280: {"github.com/ipfs/kubo/repo/fsrepo.Open", fn280, false},
-	281: {"github.com/ipld/go-car/v2.AttachIndex", fn281, false},
-	282: {"github.com/ipld/go-car/v2.BlockReader.Next", fn282, false},
-	283: {"github.com/ipld/go-car/v2.BlockReader.NextReader", fn283, false},
-	284: {"github.com/ipld/go-car/v2.BlockReader.Roots", fn284, false},
-	285: {"github.com/ipld/go-car/v2.BlockReader.Roots=", fn285, false},
-	286: {"github.com/ipld/go-car/v2.BlockReader.SkipNext", fn286, false},
-	287: {"github.com/ipld/go-car/v2.BlockReader.Version", fn287, false},
-	288: {"github.com/ipld/go-car/v2.BlockReader.Version=", fn288, false},
-	289: {"github.com/ipld/go-car/v2.Characteristics.IsFullyIndexed", fn289, false},
-	290: {"github.com/ipld/go-car/v2.ExtractV1File", fn290, false},
-	291: {"github.com/ipld/go-car/v2.GenerateIndex", fn291, false},
-	292: {"github.com/ipld/go-car/v2.GenerateIndexFromFile", fn292, false},
-	293: {"github.com/ipld/go-car/v2.Header.HasIndex", fn293, false},
-	294: {"github.com/ipld/go-car/v2.Header.WithDataPadding", fn294, false},
-	295: {"github.com/ipld/go-car/v2.Header.WithDataSize", fn295, false},
-	296: {"github.com/ipld/go-car/v2.Header.WithIndexPadding", fn296, false},
-	297: {"github.com/ipld/go-car/v2.Header.WriteTo", fn297, false},
-	298: {"github.com/ipld/go-car/v2.LoadIndex", fn298, false},
-	299: {"github.com/ipld/go-car/v2.NewBlockReader", fn299, false},
-	300: {"github.com/ipld/go-car/v2.NewHeader", fn300, false},
-	301: {"github.com/ipld/go-car/v2.NewReader", fn301, false},
-	302: {"github.com/ipld/go-car/v2.OpenReader", fn302, false},
-	303: {"github.com/ipld/go-car/v2.ReadOrGenerateIndex", fn303, false},
-	304: {"github.com/ipld/go-car/v2.ReadVersion", fn304, false},
-	305: {"github.com/ipld/go-car/v2.Reader.Close", fn305, false},
-	306: {"github.com/ipld/go-car/v2.Reader.DataReader", fn306, false},
-	307: {"github.com/ipld/go-car/v2.Reader.Header", fn307, false},
-	308: {"github.com/ipld/go-car/v2.Reader.Header=", fn308, false},
-	309: {"github.com/ipld/go-car/v2.Reader.IndexReader", fn309, false},
-	310: {"github.com/ipld/go-car/v2.Reader.Inspect", fn310, false},
-	311: {"github.com/ipld/go-car/v2.Reader.Roots", fn311, false},
-	312: {"github.com/ipld/go-car/v2.Reader.Version", fn312, false},
-	313: {"github.com/ipld/go-car/v2.Reader.Version=", fn313, false},
-	314: {"github.com/ipld/go-car/v2.ReplaceRootsInFile", fn314, false},
-	315: {"github.com/ipld/go-car/v2.TraverseToFile", fn315, false},
-	316: {"github.com/ipld/go-car/v2.TraverseV1", fn316, false},
-	317: {"github.com/ipld/go-car/v2.WrapV1", fn317, false},
-	318: {"github.com/ipld/go-car/v2.WrapV1File", fn318, false},
-	319: {"github.com/ipld/go-car/v2/blockstore.NewReadOnly", fn319, false},
-	320: {"github.com/ipld/go-car/v2/blockstore.OpenReadOnly", fn320, false},
-	321: {"github.com/ipld/go-car/v2/blockstore.OpenReadWrite", fn321, false},
-	322: {"github.com/ipld/go-car/v2/blockstore.ReadOnly.AllKeysChan", fn322, true},
-	323: {"github.com/ipld/go-car/v2/blockstore.ReadOnly.Close", fn323, false},
-	324: {"github.com/ipld/go-car/v2/blockstore.ReadOnly.Get", fn324, false},
-	325: {"github.com/ipld/go-car/v2/blockstore.ReadOnly.GetSize", fn325, false},
-	326: {"github.com/ipld/go-car/v2/blockstore.ReadOnly.Has", fn326, false},
-	327: {"github.com/ipld/go-car/v2/blockstore.ReadOnly.HashOnRead", fn327, false},
-	328: {"github.com/ipld/go-car/v2/blockstore.ReadOnly.Index", fn328, false},
-	329: {"github.com/ipld/go-car/v2/blockstore.ReadOnly.Roots", fn329, false},
-	330: {"github.com/ipld/go-car/v2/blockstore.ReadWrite.AllKeysChan", fn330, true},
-	331: {"github.com/ipld/go-car/v2/blockstore.ReadWrite.Close", fn331, false},
-	332: {"github.com/ipld/go-car/v2/blockstore.ReadWrite.Discard", fn332, false},
-	333: {"github.com/ipld/go-car/v2/blockstore.ReadWrite.Finalize", fn333, false},
-	334: {"github.com/ipld/go-car/v2/blockstore.ReadWrite.FinalizeReadOnly", fn334, false},
-	335: {"github.com/ipld/go-car/v2/blockstore.ReadWrite.Get", fn335, false},
-	336: {"github.com/ipld/go-car/v2/blockstore.ReadWrite.GetSize", fn336, false},
-	337: {"github.com/ipld/go-car/v2/blockstore.ReadWrite.Has", fn337, false},
-	338: {"github.com/ipld/go-car/v2/blockstore.ReadWrite.HashOnRead", fn338, false},
-	339: {"github.com/ipld/go-car/v2/blockstore.ReadWrite.Index", fn339, false},
-	340: {"github.com/ipld/go-car/v2/blockstore.ReadWrite.Put", fn340, false},
-	341: {"github.com/ipld/go-car/v2/blockstore.ReadWrite.PutMany", fn341, false},
-	342: {"github.com/ipld/go-car/v2/blockstore.ReadWrite.Roots", fn342, false},
-	343: {"github.com/ipld/go-car/v2/index.GetFirst", fn343, false},
-	344: {"github.com/ipld/go-car/v2/index.Index.Codec", fn344, false},
-	345: {"github.com/ipld/go-car/v2/index.Index.GetAll", fn345, false},
-	346: {"github.com/ipld/go-car/v2/index.Index.Load", fn346, false},
-	347: {"github.com/ipld/go-car/v2/index.Index.Marshal", fn347, false},
-	348: {"github.com/ipld/go-car/v2/index.Index.Unmarshal", fn348, false},
-	349: {"github.com/ipld/go-car/v2/index.IterableIndex.ForEach", fn349, false},
-	350: {"github.com/ipld/go-car/v2/index.New", fn350, false},
-	351: {"github.com/ipld/go-car/v2/index.ReadCodec", fn351, false},
-	352: {"github.com/ipld/go-car/v2/index.ReadFrom", fn352, false},
-	353: {"github.com/ipld/go-car/v2/index.WriteTo", fn353, false},
-	354: {"github.com/ipld/go-car/v2/storage.OpenReadable", fn354, false},
-	355: {"github.com/ipld/go-car/v2/storage.ReadableCar.Index", fn355, false},
-	356: {"github.com/ipld/go-car/v2/storage.ReadableCar.Roots", fn356, false},
-	357: {"github.com/ipld/go-codec-dagpb.AddSupportToChooser", fn357, false},
-	358: {"github.com/ipld/go-ipld-prime/linking.LinkSystem.SetReadStorage", fn358, false},
-	359: {"github.com/ipld/go-ipld-prime/linking/cid.DefaultLinkSystem", fn359, false},
-	360: {"github.com/ipld/go-ipld-prime/node/basicnode.Prototype__Any", fn360, false},
-	361: {"github.com/ipld/go-ipld-prime/storage/bsadapter.Adapter", fn361, false},
-	362: {"github.com/ipld/go-ipld-prime/storage/bsadapter.Adapter.Wrapped", fn362, false},
-	363: {"github.com/ipld/go-ipld-prime/storage/bsadapter.Adapter.Wrapped=", fn363, false},
-	364: {"github.com/ipld/go-ipld-prime/traversal/selector.RecursionLimitDepth", fn364, false},
-	365: {"github.com/ipld/go-ipld-prime/traversal/selector.RecursionLimitNone", fn365, false},
-	366: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.ExploreFieldsSpecBuilder.Insert", fn366, false},
-	367: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.NewSelectorSpecBuilder", fn367, false},
-	368: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpec.Node", fn368, false},
-	369: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreAll", fn369, false},
-	370: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreFields", fn370, false},
-	371: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreIndex", fn371, false},
-	372: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreInterpretAs", fn372, false},
-	373: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreRange", fn373, false},
-	374: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreRecursive", fn374, false},
-	375: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreRecursiveEdge", fn375, false},
-	376: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreUnion", fn376, false},
-	377: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.Matcher", fn377, false},
-	378: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.MatcherSubset", fn378, false},
-	379: {"github.com/ipld/go-ipld-prime/traversal/selector/parse.CommonSelector_ExploreAllRecursively", fn379, false},
-	380: {"github.com/ipld/go-ipld-prime/traversal/selector/parse.CommonSelector_MatchAllRecursively", fn380, false},
-	381: {"github.com/ipld/go-ipld-prime/traversal/selector/parse.CommonSelector_MatchChildren", fn381, false},
-	382: {"github.com/ipld/go-ipld-prime/traversal/selector/parse.CommonSelector_MatchPoint", fn382, false},
-	383: {"github.com/ipld/go-ipld-prime/traversal/selector/parse.ParseJSONSelector", fn383, false},
-	384: {"github.com/libp2p/go-libp2p/core/peer.AddrInfoFromString", fn384, false},
-	385: {"github.com/libp2p/go-libp2p/core/peer.AddrInfoToP2pAddrs", fn385, false},
-	386: {"io.Copy", fn386, false},
-	387: {"io.ReadAll", fn387, false},
-	388: {"io.ReadCloser.Close", fn388, false},
-	389: {"os.Create", fn389, false},
-	390: {"os.File.Close", fn390, false},
-	391: {"os.Open", fn391, false},
-	392: {"os.OpenFile", fn392, false},
-	393: {"os.Stat", fn393, false},
-	394: {"runtime/debug.SetCrashOutput", fn394, false},
+	263: {"github.com/ipfs/kubo/core/corerepo.ConditionalGC", fn263, false},
+	264: {"github.com/ipfs/kubo/core/corerepo.GarbageCollect", fn264, false},
+	265: {"github.com/ipfs/kubo/core/corerepo.GarbageCollectAsync", fn265, true},
+	266: {"github.com/ipfs/kubo/core/corerepo.PeriodicGC", fn266, false},
+	267: {"github.com/ipfs/kubo/core/node/libp2p.ConstructDefaultRouting", fn267, false},
+	268: {"github.com/ipfs/kubo/core/node/libp2p.DHTClientOption", fn268, false},
+	269: {"github.com/ipfs/kubo/core/node/libp2p.DHTOption", fn269, false},
+	270: {"github.com/ipfs/kubo/core/node/libp2p.DHTServerOption", fn270, false},
+	271: {"github.com/ipfs/kubo/core/node/libp2p.NilRouterOption", fn271, false},
+	272: {"github.com/ipfs/kubo/plugin/loader.NewPluginLoader", fn272, false},
+	273: {"github.com/ipfs/kubo/plugin/loader.PluginLoader.Initialize", fn273, false},
+	274: {"github.com/ipfs/kubo/plugin/loader.PluginLoader.Inject", fn274, false},
+	275: {"github.com/ipfs/kubo/repo.Repo.BackupConfig", fn275, false},
+	276: {"github.com/ipfs/kubo/repo.Repo.Config", fn276, false},
+	277: {"github.com/ipfs/kubo/repo.Repo.GetConfigKey", fn277, false},
+	278: {"github.com/ipfs/kubo/repo.Repo.SetConfig", fn278, false},
+	279: {"github.com/ipfs/kubo/repo.Repo.SetConfigKey", fn279, false},
+	280: {"github.com/ipfs/kubo/repo/fsrepo.Init", fn280, false},
+	281: {"github.com/ipfs/kubo/repo/fsrepo.IsInitialized", fn281, false},
+	282: {"github.com/ipfs/kubo/repo/fsrepo.Open", fn282, false},
+	283: {"github.com/ipld/go-car/v2.AttachIndex", fn283, false},
+	284: {"github.com/ipld/go-car/v2.BlockReader.Next", fn284, false},
+	285: {"github.com/ipld/go-car/v2.BlockReader.NextReader", fn285, false},
+	286: {"github.com/ipld/go-car/v2.BlockReader.Roots", fn286, false},
+	287: {"github.com/ipld/go-car/v2.BlockReader.Roots=", fn287, false},
+	288: {"github.com/ipld/go-car/v2.BlockReader.SkipNext", fn288, false},
+	289: {"github.com/ipld/go-car/v2.BlockReader.Version", fn289, false},
+	290: {"github.com/ipld/go-car/v2.BlockReader.Version=", fn290, false},
+	291: {"github.com/ipld/go-car/v2.Characteristics.IsFullyIndexed", fn291, false},
+	292: {"github.com/ipld/go-car/v2.ExtractV1File", fn292, false},
+	293: {"github.com/ipld/go-car/v2.GenerateIndex", fn293, false},
+	294: {"github.com/ipld/go-car/v2.GenerateIndexFromFile", fn294, false},
+	295: {"github.com/ipld/go-car/v2.Header.HasIndex", fn295, false},
+	296: {"github.com/ipld/go-car/v2.Header.WithDataPadding", fn296, false},
+	297: {"github.com/ipld/go-car/v2.Header.WithDataSize", fn297, false},
+	298: {"github.com/ipld/go-car/v2.Header.WithIndexPadding", fn298, false},
+	299: {"github.com/ipld/go-car/v2.Header.WriteTo", fn299, false},
+	300: {"github.com/ipld/go-car/v2.LoadIndex", fn300, false},
+	301: {"github.com/ipld/go-car/v2.NewBlockReader", fn301, false},
+	302: {"github.com/ipld/go-car/v2.NewHeader", fn302, false},
+	303: {"github.com/ipld/go-car/v2.NewReader", fn303, false},
+	304: {"github.com/ipld/go-car/v2.OpenReader", fn304, false},
+	305: {"github.com/ipld/go-car/v2.ReadOrGenerateIndex", fn305, false},
+	306: {"github.com/ipld/go-car/v2.ReadVersion", fn306, false},
+	307: {"github.com/ipld/go-car/v2.Reader.Close", fn307, false},
+	308: {"github.com/ipld/go-car/v2.Reader.DataReader", fn308, false},
+	309: {"github.com/ipld/go-car/v2.Reader.Header", fn309, false},
+	310: {"github.com/ipld/go-car/v2.Reader.Header=", fn310, false},
+	311: {"github.com/ipld/go-car/v2.Reader.IndexReader", fn311, false},
+	312: {"github.com/ipld/go-car/v2.Reader.Inspect", fn312, false},
+	313: {"github.com/ipld/go-car/v2.Reader.Roots", fn313, false},
+	314: {"github.com/ipld/go-car/v2.Reader.Version", fn314, false},
+	315: {"github.com/ipld/go-car/v2.Reader.Version=", fn315, false},
+	316: {"github.com/ipld/go-car/v2.ReplaceRootsInFile", fn316, false},
+	317: {"github.com/ipld/go-car/v2.TraverseToFile", fn317, false},
+	318: {"github.com/ipld/go-car/v2.TraverseV1", fn318, false},
+	319: {"github.com/ipld/go-car/v2.WrapV1", fn319, false},
+	320: {"github.com/ipld/go-car/v2.WrapV1File", fn320, false},
+	321: {"github.com/ipld/go-car/v2/blockstore.NewReadOnly", fn321, false},
+	322: {"github.com/ipld/go-car/v2/blockstore.OpenReadOnly", fn322, false},
+	323: {"github.com/ipld/go-car/v2/blockstore.OpenReadWrite", fn323, false},
+	324: {"github.com/ipld/go-car/v2/blockstore.ReadOnly.AllKeysChan", fn324, true},
+	325: {"github.com/ipld/go-car/v2/blockstore.ReadOnly.Close", fn325, false},
+	326: {"github.com/ipld/go-car/v2/blockstore.ReadOnly.Get", fn326, false},
+	327: {"github.com/ipld/go-car/v2/blockstore.ReadOnly.GetSize", fn327, false},
+	328: {"github.com/ipld/go-car/v2/blockstore.ReadOnly.Has", fn328, false},
+	329: {"github.com/ipld/go-car/v2/blockstore.ReadOnly.HashOnRead", fn329, false},
+	330: {"github.com/ipld/go-car/v2/blockstore.ReadOnly.Index", fn330, false},
+	331: {"github.com/ipld/go-car/v2/blockstore.ReadOnly.Roots", fn331, false},
+	332: {"github.com/ipld/go-car/v2/blockstore.ReadWrite.AllKeysChan", fn332, true},
+	333: {"github.com/ipld/go-car/v2/blockstore.ReadWrite.Close", fn333, false},
+	334: {"github.com/ipld/go-car/v2/blockstore.ReadWrite.Discard", fn334, false},
+	335: {"github.com/ipld/go-car/v2/blockstore.ReadWrite.Finalize", fn335, false},
+	336: {"github.com/ipld/go-car/v2/blockstore.ReadWrite.FinalizeReadOnly", fn336, false},
+	337: {"github.com/ipld/go-car/v2/blockstore.ReadWrite.Get", fn337, false},
+	338: {"github.com/ipld/go-car/v2/blockstore.ReadWrite.GetSize", fn338, false},
+	339: {"github.com/ipld/go-car/v2/blockstore.ReadWrite.Has", fn339, false},
+	340: {"github.com/ipld/go-car/v2/blockstore.ReadWrite.HashOnRead", fn340, false},
+	341: {"github.com/ipld/go-car/v2/blockstore.ReadWrite.Index", fn341, false},
+	342: {"github.com/ipld/go-car/v2/blockstore.ReadWrite.Put", fn342, false},
+	343: {"github.com/ipld/go-car/v2/blockstore.ReadWrite.PutMany", fn343, false},
+	344: {"github.com/ipld/go-car/v2/blockstore.ReadWrite.Roots", fn344, false},
+	345: {"github.com/ipld/go-car/v2/index.GetFirst", fn345, false},
+	346: {"github.com/ipld/go-car/v2/index.Index.Codec", fn346, false},
+	347: {"github.com/ipld/go-car/v2/index.Index.GetAll", fn347, false},
+	348: {"github.com/ipld/go-car/v2/index.Index.Load", fn348, false},
+	349: {"github.com/ipld/go-car/v2/index.Index.Marshal", fn349, false},
+	350: {"github.com/ipld/go-car/v2/index.Index.Unmarshal", fn350, false},
+	351: {"github.com/ipld/go-car/v2/index.IterableIndex.ForEach", fn351, false},
+	352: {"github.com/ipld/go-car/v2/index.New", fn352, false},
+	353: {"github.com/ipld/go-car/v2/index.ReadCodec", fn353, false},
+	354: {"github.com/ipld/go-car/v2/index.ReadFrom", fn354, false},
+	355: {"github.com/ipld/go-car/v2/index.WriteTo", fn355, false},
+	356: {"github.com/ipld/go-car/v2/storage.OpenReadable", fn356, false},
+	357: {"github.com/ipld/go-car/v2/storage.ReadableCar.Index", fn357, false},
+	358: {"github.com/ipld/go-car/v2/storage.ReadableCar.Roots", fn358, false},
+	359: {"github.com/ipld/go-codec-dagpb.AddSupportToChooser", fn359, false},
+	360: {"github.com/ipld/go-ipld-prime/linking.LinkSystem.SetReadStorage", fn360, false},
+	361: {"github.com/ipld/go-ipld-prime/linking/cid.DefaultLinkSystem", fn361, false},
+	362: {"github.com/ipld/go-ipld-prime/node/basicnode.Prototype__Any", fn362, false},
+	363: {"github.com/ipld/go-ipld-prime/storage/bsadapter.Adapter", fn363, false},
+	364: {"github.com/ipld/go-ipld-prime/storage/bsadapter.Adapter.Wrapped", fn364, false},
+	365: {"github.com/ipld/go-ipld-prime/storage/bsadapter.Adapter.Wrapped=", fn365, false},
+	366: {"github.com/ipld/go-ipld-prime/traversal/selector.RecursionLimitDepth", fn366, false},
+	367: {"github.com/ipld/go-ipld-prime/traversal/selector.RecursionLimitNone", fn367, false},
+	368: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.ExploreFieldsSpecBuilder.Insert", fn368, false},
+	369: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.NewSelectorSpecBuilder", fn369, false},
+	370: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpec.Node", fn370, false},
+	371: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreAll", fn371, false},
+	372: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreFields", fn372, false},
+	373: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreIndex", fn373, false},
+	374: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreInterpretAs", fn374, false},
+	375: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreRange", fn375, false},
+	376: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreRecursive", fn376, false},
+	377: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreRecursiveEdge", fn377, false},
+	378: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreUnion", fn378, false},
+	379: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.Matcher", fn379, false},
+	380: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.MatcherSubset", fn380, false},
+	381: {"github.com/ipld/go-ipld-prime/traversal/selector/parse.CommonSelector_ExploreAllRecursively", fn381, false},
+	382: {"github.com/ipld/go-ipld-prime/traversal/selector/parse.CommonSelector_MatchAllRecursively", fn382, false},
+	383: {"github.com/ipld/go-ipld-prime/traversal/selector/parse.CommonSelector_MatchChildren", fn383, false},
+	384: {"github.com/ipld/go-ipld-prime/traversal/selector/parse.CommonSelector_MatchPoint", fn384, false},
+	385: {"github.com/ipld/go-ipld-prime/traversal/selector/parse.ParseJSONSelector", fn385, false},
+	386: {"github.com/libp2p/go-libp2p/core/peer.AddrInfoFromString", fn386, false},
+	387: {"github.com/libp2p/go-libp2p/core/peer.AddrInfoToP2pAddrs", fn387, false},
+	388: {"io.Copy", fn388, false},
+	389: {"io.ReadAll", fn389, false},
+	390: {"io.ReadCloser.Close", fn390, false},
+	391: {"os.Create", fn391, false},
+	392: {"os.File.Close", fn392, false},
+	393: {"os.Open", fn393, false},
+	394: {"os.OpenFile", fn394, false},
+	395: {"os.Stat", fn395, false},
+	396: {"runtime/debug.SetCrashOutput", fn396, false},
 }
 
 // bytes.Buffer.Bytes
@@ -4368,8 +4370,31 @@ func fn262(q *req, r *reader, w *writer) error {
 	}
 }
 
-// github.com/ipfs/kubo/core/corerepo.GarbageCollect
+// github.com/ipfs/kubo/core/corerepo.ConditionalGC
 func fn263(q *req, r *reader, w *writer) error {
+	p0, err := decH[p_context.Context](r)
+	if err != nil {
+		return err
+	}
+	p1, err := decH[*p_core.IpfsNode](r)
+	if err != nil {
+		return err
+	}
+	p2, err := decInt[uint64](r)
+	if err != nil {
+		return err
+	}
+	if err := r.done(); err != nil {
+		return err
+	}
+	if err := p_corerepo.ConditionalGC(p0, p1, p2); err != nil {
+		return err
+	}
+	return nil
+}
+
+// github.com/ipfs/kubo/core/corerepo.GarbageCollect
+func fn264(q *req, r *reader, w *writer) error {
 	p0, err := decH[*p_core.IpfsNode](r)
 	if err != nil {
 		return err
@@ -4388,7 +4413,7 @@ func fn263(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/corerepo.GarbageCollectAsync
-func fn264(q *req, r *reader, w *writer) error {
+func fn265(q *req, r *reader, w *writer) error {
 	p0, err := decH[*p_core.IpfsNode](r)
 	if err != nil {
 		return err
@@ -4407,8 +4432,27 @@ func fn264(q *req, r *reader, w *writer) error {
 	return nil
 }
 
+// github.com/ipfs/kubo/core/corerepo.PeriodicGC
+func fn266(q *req, r *reader, w *writer) error {
+	p0, err := decH[p_context.Context](r)
+	if err != nil {
+		return err
+	}
+	p1, err := decH[*p_core.IpfsNode](r)
+	if err != nil {
+		return err
+	}
+	if err := r.done(); err != nil {
+		return err
+	}
+	if err := p_corerepo.PeriodicGC(p0, p1); err != nil {
+		return err
+	}
+	return nil
+}
+
 // github.com/ipfs/kubo/core/node/libp2p.ConstructDefaultRouting
-func fn265(q *req, r *reader, w *writer) error {
+func fn267(q *req, r *reader, w *writer) error {
 	p0, err := dec86(r)
 	if err != nil {
 		return err
@@ -4426,7 +4470,7 @@ func fn265(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/node/libp2p.DHTClientOption
-func fn266(q *req, r *reader, w *writer) error {
+func fn268(q *req, r *reader, w *writer) error {
 	if err := r.done(); err != nil {
 		return err
 	}
@@ -4436,7 +4480,7 @@ func fn266(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/node/libp2p.DHTOption
-func fn267(q *req, r *reader, w *writer) error {
+func fn269(q *req, r *reader, w *writer) error {
 	if err := r.done(); err != nil {
 		return err
 	}
@@ -4446,7 +4490,7 @@ func fn267(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/node/libp2p.DHTServerOption
-func fn268(q *req, r *reader, w *writer) error {
+func fn270(q *req, r *reader, w *writer) error {
 	if err := r.done(); err != nil {
 		return err
 	}
@@ -4456,7 +4500,7 @@ func fn268(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/core/node/libp2p.NilRouterOption
-func fn269(q *req, r *reader, w *writer) error {
+func fn271(q *req, r *reader, w *writer) error {
 	if err := r.done(); err != nil {
 		return err
 	}
@@ -4466,7 +4510,7 @@ func fn269(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/plugin/loader.NewPluginLoader
-func fn270(q *req, r *reader, w *writer) error {
+func fn272(q *req, r *reader, w *writer) error {
 	p0, err := decStr[string](r)
 	if err != nil {
 		return err
@@ -4483,7 +4527,7 @@ func fn270(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/plugin/loader.PluginLoader.Initialize
-func fn271(q *req, r *reader, w *writer) error {
+func fn273(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_loader.PluginLoader](r)
 	if err != nil {
 		return err
@@ -4498,7 +4542,7 @@ func fn271(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/plugin/loader.PluginLoader.Inject
-func fn272(q *req, r *reader, w *writer) error {
+func fn274(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_loader.PluginLoader](r)
 	if err != nil {
 		return err
@@ -4513,7 +4557,7 @@ func fn272(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/repo.Repo.BackupConfig
-func fn273(q *req, r *reader, w *writer) error {
+func fn275(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_repo.Repo](r)
 	if err != nil {
 		return err
@@ -4534,7 +4578,7 @@ func fn273(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/repo.Repo.Config
-func fn274(q *req, r *reader, w *writer) error {
+func fn276(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_repo.Repo](r)
 	if err != nil {
 		return err
@@ -4551,7 +4595,7 @@ func fn274(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/repo.Repo.GetConfigKey
-func fn275(q *req, r *reader, w *writer) error {
+func fn277(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_repo.Repo](r)
 	if err != nil {
 		return err
@@ -4572,7 +4616,7 @@ func fn275(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/repo.Repo.SetConfig
-func fn276(q *req, r *reader, w *writer) error {
+func fn278(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_repo.Repo](r)
 	if err != nil {
 		return err
@@ -4591,7 +4635,7 @@ func fn276(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/repo.Repo.SetConfigKey
-func fn277(q *req, r *reader, w *writer) error {
+func fn279(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_repo.Repo](r)
 	if err != nil {
 		return err
@@ -4614,7 +4658,7 @@ func fn277(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/repo/fsrepo.Init
-func fn278(q *req, r *reader, w *writer) error {
+func fn280(q *req, r *reader, w *writer) error {
 	p0, err := decStr[string](r)
 	if err != nil {
 		return err
@@ -4633,7 +4677,7 @@ func fn278(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/repo/fsrepo.IsInitialized
-func fn279(q *req, r *reader, w *writer) error {
+func fn281(q *req, r *reader, w *writer) error {
 	p0, err := decStr[string](r)
 	if err != nil {
 		return err
@@ -4647,7 +4691,7 @@ func fn279(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipfs/kubo/repo/fsrepo.Open
-func fn280(q *req, r *reader, w *writer) error {
+func fn282(q *req, r *reader, w *writer) error {
 	p0, err := decStr[string](r)
 	if err != nil {
 		return err
@@ -4664,7 +4708,7 @@ func fn280(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.AttachIndex
-func fn281(q *req, r *reader, w *writer) error {
+func fn283(q *req, r *reader, w *writer) error {
 	p0, err := decStr[string](r)
 	if err != nil {
 		return err
@@ -4687,7 +4731,7 @@ func fn281(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.BlockReader.Next
-func fn282(q *req, r *reader, w *writer) error {
+func fn284(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_car.BlockReader](r)
 	if err != nil {
 		return err
@@ -4704,7 +4748,7 @@ func fn282(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.BlockReader.NextReader
-func fn283(q *req, r *reader, w *writer) error {
+func fn285(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_car.BlockReader](r)
 	if err != nil {
 		return err
@@ -4723,7 +4767,7 @@ func fn283(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.BlockReader.Roots
-func fn284(q *req, r *reader, w *writer) error {
+func fn286(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_car.BlockReader](r)
 	if err != nil {
 		return err
@@ -4737,7 +4781,7 @@ func fn284(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.BlockReader.Roots=
-func fn285(q *req, r *reader, w *writer) error {
+func fn287(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_car.BlockReader](r)
 	if err != nil {
 		return err
@@ -4754,7 +4798,7 @@ func fn285(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.BlockReader.SkipNext
-func fn286(q *req, r *reader, w *writer) error {
+func fn288(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_car.BlockReader](r)
 	if err != nil {
 		return err
@@ -4771,7 +4815,7 @@ func fn286(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.BlockReader.Version
-func fn287(q *req, r *reader, w *writer) error {
+func fn289(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_car.BlockReader](r)
 	if err != nil {
 		return err
@@ -4785,7 +4829,7 @@ func fn287(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.BlockReader.Version=
-func fn288(q *req, r *reader, w *writer) error {
+func fn290(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_car.BlockReader](r)
 	if err != nil {
 		return err
@@ -4802,7 +4846,7 @@ func fn288(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.Characteristics.IsFullyIndexed
-func fn289(q *req, r *reader, w *writer) error {
+func fn291(q *req, r *reader, w *writer) error {
 	recv, err := dec89(r)
 	if err != nil {
 		return err
@@ -4816,7 +4860,7 @@ func fn289(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.ExtractV1File
-func fn290(q *req, r *reader, w *writer) error {
+func fn292(q *req, r *reader, w *writer) error {
 	p0, err := decStr[string](r)
 	if err != nil {
 		return err
@@ -4840,7 +4884,7 @@ func fn290(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.GenerateIndex
-func fn291(q *req, r *reader, w *writer) error {
+func fn293(q *req, r *reader, w *writer) error {
 	p0, err := decIO[p_io.Reader](r)
 	if err != nil {
 		return err
@@ -4862,7 +4906,7 @@ func fn291(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.GenerateIndexFromFile
-func fn292(q *req, r *reader, w *writer) error {
+func fn294(q *req, r *reader, w *writer) error {
 	p0, err := decStr[string](r)
 	if err != nil {
 		return err
@@ -4884,7 +4928,7 @@ func fn292(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.Header.HasIndex
-func fn293(q *req, r *reader, w *writer) error {
+func fn295(q *req, r *reader, w *writer) error {
 	recv, err := dec92(r)
 	if err != nil {
 		return err
@@ -4898,7 +4942,7 @@ func fn293(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.Header.WithDataPadding
-func fn294(q *req, r *reader, w *writer) error {
+func fn296(q *req, r *reader, w *writer) error {
 	recv, err := dec92(r)
 	if err != nil {
 		return err
@@ -4916,7 +4960,7 @@ func fn294(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.Header.WithDataSize
-func fn295(q *req, r *reader, w *writer) error {
+func fn297(q *req, r *reader, w *writer) error {
 	recv, err := dec92(r)
 	if err != nil {
 		return err
@@ -4934,7 +4978,7 @@ func fn295(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.Header.WithIndexPadding
-func fn296(q *req, r *reader, w *writer) error {
+func fn298(q *req, r *reader, w *writer) error {
 	recv, err := dec92(r)
 	if err != nil {
 		return err
@@ -4952,7 +4996,7 @@ func fn296(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.Header.WriteTo
-func fn297(q *req, r *reader, w *writer) error {
+func fn299(q *req, r *reader, w *writer) error {
 	recv, err := dec92(r)
 	if err != nil {
 		return err
@@ -4973,7 +5017,7 @@ func fn297(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.LoadIndex
-func fn298(q *req, r *reader, w *writer) error {
+func fn300(q *req, r *reader, w *writer) error {
 	p0, err := decH[p_index.Index](r)
 	if err != nil {
 		return err
@@ -4997,7 +5041,7 @@ func fn298(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.NewBlockReader
-func fn299(q *req, r *reader, w *writer) error {
+func fn301(q *req, r *reader, w *writer) error {
 	p0, err := decIO[p_io.Reader](r)
 	if err != nil {
 		return err
@@ -5019,7 +5063,7 @@ func fn299(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.NewHeader
-func fn300(q *req, r *reader, w *writer) error {
+func fn302(q *req, r *reader, w *writer) error {
 	p0, err := decInt[uint64](r)
 	if err != nil {
 		return err
@@ -5033,7 +5077,7 @@ func fn300(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.NewReader
-func fn301(q *req, r *reader, w *writer) error {
+func fn303(q *req, r *reader, w *writer) error {
 	p0, err := decIO[p_io.ReaderAt](r)
 	if err != nil {
 		return err
@@ -5055,7 +5099,7 @@ func fn301(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.OpenReader
-func fn302(q *req, r *reader, w *writer) error {
+func fn304(q *req, r *reader, w *writer) error {
 	p0, err := decStr[string](r)
 	if err != nil {
 		return err
@@ -5077,7 +5121,7 @@ func fn302(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.ReadOrGenerateIndex
-func fn303(q *req, r *reader, w *writer) error {
+func fn305(q *req, r *reader, w *writer) error {
 	p0, err := decIO[p_io.ReadSeeker](r)
 	if err != nil {
 		return err
@@ -5099,7 +5143,7 @@ func fn303(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.ReadVersion
-func fn304(q *req, r *reader, w *writer) error {
+func fn306(q *req, r *reader, w *writer) error {
 	p0, err := decIO[p_io.Reader](r)
 	if err != nil {
 		return err
@@ -5121,7 +5165,7 @@ func fn304(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.Reader.Close
-func fn305(q *req, r *reader, w *writer) error {
+func fn307(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_car.Reader](r)
 	if err != nil {
 		return err
@@ -5136,7 +5180,7 @@ func fn305(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.Reader.DataReader
-func fn306(q *req, r *reader, w *writer) error {
+func fn308(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_car.Reader](r)
 	if err != nil {
 		return err
@@ -5153,7 +5197,7 @@ func fn306(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.Reader.Header
-func fn307(q *req, r *reader, w *writer) error {
+func fn309(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_car.Reader](r)
 	if err != nil {
 		return err
@@ -5167,7 +5211,7 @@ func fn307(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.Reader.Header=
-func fn308(q *req, r *reader, w *writer) error {
+func fn310(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_car.Reader](r)
 	if err != nil {
 		return err
@@ -5184,7 +5228,7 @@ func fn308(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.Reader.IndexReader
-func fn309(q *req, r *reader, w *writer) error {
+func fn311(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_car.Reader](r)
 	if err != nil {
 		return err
@@ -5201,7 +5245,7 @@ func fn309(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.Reader.Inspect
-func fn310(q *req, r *reader, w *writer) error {
+func fn312(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_car.Reader](r)
 	if err != nil {
 		return err
@@ -5222,7 +5266,7 @@ func fn310(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.Reader.Roots
-func fn311(q *req, r *reader, w *writer) error {
+func fn313(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_car.Reader](r)
 	if err != nil {
 		return err
@@ -5239,7 +5283,7 @@ func fn311(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.Reader.Version
-func fn312(q *req, r *reader, w *writer) error {
+func fn314(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_car.Reader](r)
 	if err != nil {
 		return err
@@ -5253,7 +5297,7 @@ func fn312(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.Reader.Version=
-func fn313(q *req, r *reader, w *writer) error {
+func fn315(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_car.Reader](r)
 	if err != nil {
 		return err
@@ -5270,7 +5314,7 @@ func fn313(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.ReplaceRootsInFile
-func fn314(q *req, r *reader, w *writer) error {
+func fn316(q *req, r *reader, w *writer) error {
 	p0, err := decStr[string](r)
 	if err != nil {
 		return err
@@ -5294,7 +5338,7 @@ func fn314(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.TraverseToFile
-func fn315(q *req, r *reader, w *writer) error {
+func fn317(q *req, r *reader, w *writer) error {
 	p0, err := decH[p_context.Context](r)
 	if err != nil {
 		return err
@@ -5330,7 +5374,7 @@ func fn315(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.TraverseV1
-func fn316(q *req, r *reader, w *writer) error {
+func fn318(q *req, r *reader, w *writer) error {
 	p0, err := decH[p_context.Context](r)
 	if err != nil {
 		return err
@@ -5368,7 +5412,7 @@ func fn316(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.WrapV1
-func fn317(q *req, r *reader, w *writer) error {
+func fn319(q *req, r *reader, w *writer) error {
 	p0, err := decIO[p_io.ReadSeeker](r)
 	if err != nil {
 		return err
@@ -5392,7 +5436,7 @@ func fn317(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2.WrapV1File
-func fn318(q *req, r *reader, w *writer) error {
+func fn320(q *req, r *reader, w *writer) error {
 	p0, err := decStr[string](r)
 	if err != nil {
 		return err
@@ -5411,7 +5455,7 @@ func fn318(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/blockstore.NewReadOnly
-func fn319(q *req, r *reader, w *writer) error {
+func fn321(q *req, r *reader, w *writer) error {
 	p0, err := decIO[p_io.ReaderAt](r)
 	if err != nil {
 		return err
@@ -5437,7 +5481,7 @@ func fn319(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/blockstore.OpenReadOnly
-func fn320(q *req, r *reader, w *writer) error {
+func fn322(q *req, r *reader, w *writer) error {
 	p0, err := decStr[string](r)
 	if err != nil {
 		return err
@@ -5459,7 +5503,7 @@ func fn320(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/blockstore.OpenReadWrite
-func fn321(q *req, r *reader, w *writer) error {
+func fn323(q *req, r *reader, w *writer) error {
 	p0, err := decStr[string](r)
 	if err != nil {
 		return err
@@ -5485,7 +5529,7 @@ func fn321(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/blockstore.ReadOnly.AllKeysChan
-func fn322(q *req, r *reader, w *writer) error {
+func fn324(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_blockstore2.ReadOnly](r)
 	if err != nil {
 		return err
@@ -5508,7 +5552,7 @@ func fn322(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/blockstore.ReadOnly.Close
-func fn323(q *req, r *reader, w *writer) error {
+func fn325(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_blockstore2.ReadOnly](r)
 	if err != nil {
 		return err
@@ -5523,7 +5567,7 @@ func fn323(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/blockstore.ReadOnly.Get
-func fn324(q *req, r *reader, w *writer) error {
+func fn326(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_blockstore2.ReadOnly](r)
 	if err != nil {
 		return err
@@ -5548,7 +5592,7 @@ func fn324(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/blockstore.ReadOnly.GetSize
-func fn325(q *req, r *reader, w *writer) error {
+func fn327(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_blockstore2.ReadOnly](r)
 	if err != nil {
 		return err
@@ -5573,7 +5617,7 @@ func fn325(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/blockstore.ReadOnly.Has
-func fn326(q *req, r *reader, w *writer) error {
+func fn328(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_blockstore2.ReadOnly](r)
 	if err != nil {
 		return err
@@ -5598,7 +5642,7 @@ func fn326(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/blockstore.ReadOnly.HashOnRead
-func fn327(q *req, r *reader, w *writer) error {
+func fn329(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_blockstore2.ReadOnly](r)
 	if err != nil {
 		return err
@@ -5615,7 +5659,7 @@ func fn327(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/blockstore.ReadOnly.Index
-func fn328(q *req, r *reader, w *writer) error {
+func fn330(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_blockstore2.ReadOnly](r)
 	if err != nil {
 		return err
@@ -5629,7 +5673,7 @@ func fn328(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/blockstore.ReadOnly.Roots
-func fn329(q *req, r *reader, w *writer) error {
+func fn331(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_blockstore2.ReadOnly](r)
 	if err != nil {
 		return err
@@ -5646,7 +5690,7 @@ func fn329(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/blockstore.ReadWrite.AllKeysChan
-func fn330(q *req, r *reader, w *writer) error {
+func fn332(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_blockstore2.ReadWrite](r)
 	if err != nil {
 		return err
@@ -5669,7 +5713,7 @@ func fn330(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/blockstore.ReadWrite.Close
-func fn331(q *req, r *reader, w *writer) error {
+func fn333(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_blockstore2.ReadWrite](r)
 	if err != nil {
 		return err
@@ -5684,7 +5728,7 @@ func fn331(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/blockstore.ReadWrite.Discard
-func fn332(q *req, r *reader, w *writer) error {
+func fn334(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_blockstore2.ReadWrite](r)
 	if err != nil {
 		return err
@@ -5697,7 +5741,7 @@ func fn332(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/blockstore.ReadWrite.Finalize
-func fn333(q *req, r *reader, w *writer) error {
+func fn335(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_blockstore2.ReadWrite](r)
 	if err != nil {
 		return err
@@ -5712,7 +5756,7 @@ func fn333(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/blockstore.ReadWrite.FinalizeReadOnly
-func fn334(q *req, r *reader, w *writer) error {
+func fn336(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_blockstore2.ReadWrite](r)
 	if err != nil {
 		return err
@@ -5727,7 +5771,7 @@ func fn334(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/blockstore.ReadWrite.Get
-func fn335(q *req, r *reader, w *writer) error {
+func fn337(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_blockstore2.ReadWrite](r)
 	if err != nil {
 		return err
@@ -5752,7 +5796,7 @@ func fn335(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/blockstore.ReadWrite.GetSize
-func fn336(q *req, r *reader, w *writer) error {
+func fn338(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_blockstore2.ReadWrite](r)
 	if err != nil {
 		return err
@@ -5777,7 +5821,7 @@ func fn336(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/blockstore.ReadWrite.Has
-func fn337(q *req, r *reader, w *writer) error {
+func fn339(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_blockstore2.ReadWrite](r)
 	if err != nil {
 		return err
@@ -5802,7 +5846,7 @@ func fn337(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/blockstore.ReadWrite.HashOnRead
-func fn338(q *req, r *reader, w *writer) error {
+func fn340(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_blockstore2.ReadWrite](r)
 	if err != nil {
 		return err
@@ -5819,7 +5863,7 @@ func fn338(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/blockstore.ReadWrite.Index
-func fn339(q *req, r *reader, w *writer) error {
+func fn341(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_blockstore2.ReadWrite](r)
 	if err != nil {
 		return err
@@ -5833,7 +5877,7 @@ func fn339(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/blockstore.ReadWrite.Put
-func fn340(q *req, r *reader, w *writer) error {
+func fn342(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_blockstore2.ReadWrite](r)
 	if err != nil {
 		return err
@@ -5856,7 +5900,7 @@ func fn340(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/blockstore.ReadWrite.PutMany
-func fn341(q *req, r *reader, w *writer) error {
+func fn343(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_blockstore2.ReadWrite](r)
 	if err != nil {
 		return err
@@ -5879,7 +5923,7 @@ func fn341(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/blockstore.ReadWrite.Roots
-func fn342(q *req, r *reader, w *writer) error {
+func fn344(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_blockstore2.ReadWrite](r)
 	if err != nil {
 		return err
@@ -5896,7 +5940,7 @@ func fn342(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/index.GetFirst
-func fn343(q *req, r *reader, w *writer) error {
+func fn345(q *req, r *reader, w *writer) error {
 	p0, err := decH[p_index.Index](r)
 	if err != nil {
 		return err
@@ -5917,7 +5961,7 @@ func fn343(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/index.Index.Codec
-func fn344(q *req, r *reader, w *writer) error {
+func fn346(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_index.Index](r)
 	if err != nil {
 		return err
@@ -5931,7 +5975,7 @@ func fn344(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/index.Index.GetAll
-func fn345(q *req, r *reader, w *writer) error {
+func fn347(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_index.Index](r)
 	if err != nil {
 		return err
@@ -5956,7 +6000,7 @@ func fn345(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/index.Index.Load
-func fn346(q *req, r *reader, w *writer) error {
+func fn348(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_index.Index](r)
 	if err != nil {
 		return err
@@ -5975,7 +6019,7 @@ func fn346(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/index.Index.Marshal
-func fn347(q *req, r *reader, w *writer) error {
+func fn349(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_index.Index](r)
 	if err != nil {
 		return err
@@ -5996,7 +6040,7 @@ func fn347(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/index.Index.Unmarshal
-func fn348(q *req, r *reader, w *writer) error {
+func fn350(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_index.Index](r)
 	if err != nil {
 		return err
@@ -6015,7 +6059,7 @@ func fn348(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/index.IterableIndex.ForEach
-func fn349(q *req, r *reader, w *writer) error {
+func fn351(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_index.IterableIndex](r)
 	if err != nil {
 		return err
@@ -6040,7 +6084,7 @@ func fn349(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/index.New
-func fn350(q *req, r *reader, w *writer) error {
+func fn352(q *req, r *reader, w *writer) error {
 	p0, err := decInt[p_multicodec.Code](r)
 	if err != nil {
 		return err
@@ -6057,7 +6101,7 @@ func fn350(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/index.ReadCodec
-func fn351(q *req, r *reader, w *writer) error {
+func fn353(q *req, r *reader, w *writer) error {
 	p0, err := decIO[p_io.Reader](r)
 	if err != nil {
 		return err
@@ -6074,7 +6118,7 @@ func fn351(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/index.ReadFrom
-func fn352(q *req, r *reader, w *writer) error {
+func fn354(q *req, r *reader, w *writer) error {
 	p0, err := decIO[p_io.Reader](r)
 	if err != nil {
 		return err
@@ -6091,7 +6135,7 @@ func fn352(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/index.WriteTo
-func fn353(q *req, r *reader, w *writer) error {
+func fn355(q *req, r *reader, w *writer) error {
 	p0, err := decH[p_index.Index](r)
 	if err != nil {
 		return err
@@ -6112,7 +6156,7 @@ func fn353(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/storage.OpenReadable
-func fn354(q *req, r *reader, w *writer) error {
+func fn356(q *req, r *reader, w *writer) error {
 	p0, err := decIO[p_io.ReaderAt](r)
 	if err != nil {
 		return err
@@ -6134,7 +6178,7 @@ func fn354(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/storage.ReadableCar.Index
-func fn355(q *req, r *reader, w *writer) error {
+func fn357(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_storage2.ReadableCar](r)
 	if err != nil {
 		return err
@@ -6148,7 +6192,7 @@ func fn355(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-car/v2/storage.ReadableCar.Roots
-func fn356(q *req, r *reader, w *writer) error {
+func fn358(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_storage2.ReadableCar](r)
 	if err != nil {
 		return err
@@ -6162,7 +6206,7 @@ func fn356(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-codec-dagpb.AddSupportToChooser
-func fn357(q *req, r *reader, w *writer) error {
+func fn359(q *req, r *reader, w *writer) error {
 	p0, err := decH[p_traversal.LinkTargetNodePrototypeChooser](r)
 	if err != nil {
 		return err
@@ -6176,7 +6220,7 @@ func fn357(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-ipld-prime/linking.LinkSystem.SetReadStorage
-func fn358(q *req, r *reader, w *writer) error {
+func fn360(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_linking.LinkSystem](r)
 	if err != nil {
 		return err
@@ -6193,7 +6237,7 @@ func fn358(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-ipld-prime/linking/cid.DefaultLinkSystem
-func fn359(q *req, r *reader, w *writer) error {
+func fn361(q *req, r *reader, w *writer) error {
 	if err := r.done(); err != nil {
 		return err
 	}
@@ -6203,7 +6247,7 @@ func fn359(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-ipld-prime/node/basicnode.Prototype__Any
-func fn360(q *req, r *reader, w *writer) error {
+func fn362(q *req, r *reader, w *writer) error {
 	if err := r.done(); err != nil {
 		return err
 	}
@@ -6212,7 +6256,7 @@ func fn360(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-ipld-prime/storage/bsadapter.Adapter
-func fn361(q *req, r *reader, w *writer) error {
+func fn363(q *req, r *reader, w *writer) error {
 	if err := r.done(); err != nil {
 		return err
 	}
@@ -6221,7 +6265,7 @@ func fn361(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-ipld-prime/storage/bsadapter.Adapter.Wrapped
-func fn362(q *req, r *reader, w *writer) error {
+func fn364(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_bsadapter.Adapter](r)
 	if err != nil {
 		return err
@@ -6235,7 +6279,7 @@ func fn362(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-ipld-prime/storage/bsadapter.Adapter.Wrapped=
-func fn363(q *req, r *reader, w *writer) error {
+func fn365(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_bsadapter.Adapter](r)
 	if err != nil {
 		return err
@@ -6252,7 +6296,7 @@ func fn363(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-ipld-prime/traversal/selector.RecursionLimitDepth
-func fn364(q *req, r *reader, w *writer) error {
+func fn366(q *req, r *reader, w *writer) error {
 	p0, err := decInt[int64](r)
 	if err != nil {
 		return err
@@ -6266,7 +6310,7 @@ func fn364(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-ipld-prime/traversal/selector.RecursionLimitNone
-func fn365(q *req, r *reader, w *writer) error {
+func fn367(q *req, r *reader, w *writer) error {
 	if err := r.done(); err != nil {
 		return err
 	}
@@ -6276,7 +6320,7 @@ func fn365(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-ipld-prime/traversal/selector/builder.ExploreFieldsSpecBuilder.Insert
-func fn366(q *req, r *reader, w *writer) error {
+func fn368(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_builder.ExploreFieldsSpecBuilder](r)
 	if err != nil {
 		return err
@@ -6297,7 +6341,7 @@ func fn366(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-ipld-prime/traversal/selector/builder.NewSelectorSpecBuilder
-func fn367(q *req, r *reader, w *writer) error {
+func fn369(q *req, r *reader, w *writer) error {
 	p0, err := decH[p_datamodel.NodePrototype](r)
 	if err != nil {
 		return err
@@ -6311,7 +6355,7 @@ func fn367(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpec.Node
-func fn368(q *req, r *reader, w *writer) error {
+func fn370(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_builder.SelectorSpec](r)
 	if err != nil {
 		return err
@@ -6325,7 +6369,7 @@ func fn368(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreAll
-func fn369(q *req, r *reader, w *writer) error {
+func fn371(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_builder.SelectorSpecBuilder](r)
 	if err != nil {
 		return err
@@ -6343,7 +6387,7 @@ func fn369(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreFields
-func fn370(q *req, r *reader, w *writer) error {
+func fn372(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_builder.SelectorSpecBuilder](r)
 	if err != nil {
 		return err
@@ -6363,7 +6407,7 @@ func fn370(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreIndex
-func fn371(q *req, r *reader, w *writer) error {
+func fn373(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_builder.SelectorSpecBuilder](r)
 	if err != nil {
 		return err
@@ -6385,7 +6429,7 @@ func fn371(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreInterpretAs
-func fn372(q *req, r *reader, w *writer) error {
+func fn374(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_builder.SelectorSpecBuilder](r)
 	if err != nil {
 		return err
@@ -6407,7 +6451,7 @@ func fn372(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreRange
-func fn373(q *req, r *reader, w *writer) error {
+func fn375(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_builder.SelectorSpecBuilder](r)
 	if err != nil {
 		return err
@@ -6433,7 +6477,7 @@ func fn373(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreRecursive
-func fn374(q *req, r *reader, w *writer) error {
+func fn376(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_builder.SelectorSpecBuilder](r)
 	if err != nil {
 		return err
@@ -6455,7 +6499,7 @@ func fn374(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreRecursiveEdge
-func fn375(q *req, r *reader, w *writer) error {
+func fn377(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_builder.SelectorSpecBuilder](r)
 	if err != nil {
 		return err
@@ -6469,7 +6513,7 @@ func fn375(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreUnion
-func fn376(q *req, r *reader, w *writer) error {
+func fn378(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_builder.SelectorSpecBuilder](r)
 	if err != nil {
 		return err
@@ -6487,7 +6531,7 @@ func fn376(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.Matcher
-func fn377(q *req, r *reader, w *writer) error {
+func fn379(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_builder.SelectorSpecBuilder](r)
 	if err != nil {
 		return err
@@ -6501,7 +6545,7 @@ func fn377(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.MatcherSubset
-func fn378(q *req, r *reader, w *writer) error {
+func fn380(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_builder.SelectorSpecBuilder](r)
 	if err != nil {
 		return err
@@ -6523,7 +6567,7 @@ func fn378(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-ipld-prime/traversal/selector/parse.CommonSelector_ExploreAllRecursively
-func fn379(q *req, r *reader, w *writer) error {
+func fn381(q *req, r *reader, w *writer) error {
 	if err := r.done(); err != nil {
 		return err
 	}
@@ -6533,7 +6577,7 @@ func fn379(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-ipld-prime/traversal/selector/parse.CommonSelector_MatchAllRecursively
-func fn380(q *req, r *reader, w *writer) error {
+func fn382(q *req, r *reader, w *writer) error {
 	if err := r.done(); err != nil {
 		return err
 	}
@@ -6543,7 +6587,7 @@ func fn380(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-ipld-prime/traversal/selector/parse.CommonSelector_MatchChildren
-func fn381(q *req, r *reader, w *writer) error {
+func fn383(q *req, r *reader, w *writer) error {
 	if err := r.done(); err != nil {
 		return err
 	}
@@ -6553,7 +6597,7 @@ func fn381(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-ipld-prime/traversal/selector/parse.CommonSelector_MatchPoint
-func fn382(q *req, r *reader, w *writer) error {
+func fn384(q *req, r *reader, w *writer) error {
 	if err := r.done(); err != nil {
 		return err
 	}
@@ -6563,7 +6607,7 @@ func fn382(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-ipld-prime/traversal/selector/parse.ParseJSONSelector
-func fn383(q *req, r *reader, w *writer) error {
+func fn385(q *req, r *reader, w *writer) error {
 	p0, err := decStr[string](r)
 	if err != nil {
 		return err
@@ -6580,7 +6624,7 @@ func fn383(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/peer.AddrInfoFromString
-func fn384(q *req, r *reader, w *writer) error {
+func fn386(q *req, r *reader, w *writer) error {
 	p0, err := decStr[string](r)
 	if err != nil {
 		return err
@@ -6597,7 +6641,7 @@ func fn384(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/peer.AddrInfoToP2pAddrs
-func fn385(q *req, r *reader, w *writer) error {
+func fn387(q *req, r *reader, w *writer) error {
 	p0, err := dec106(r)
 	if err != nil {
 		return err
@@ -6614,7 +6658,7 @@ func fn385(q *req, r *reader, w *writer) error {
 }
 
 // io.Copy
-func fn386(q *req, r *reader, w *writer) error {
+func fn388(q *req, r *reader, w *writer) error {
 	p0, err := decWriter(r)
 	if err != nil {
 		return err
@@ -6635,7 +6679,7 @@ func fn386(q *req, r *reader, w *writer) error {
 }
 
 // io.ReadAll
-func fn387(q *req, r *reader, w *writer) error {
+func fn389(q *req, r *reader, w *writer) error {
 	p0, err := decIO[p_io.Reader](r)
 	if err != nil {
 		return err
@@ -6652,7 +6696,7 @@ func fn387(q *req, r *reader, w *writer) error {
 }
 
 // io.ReadCloser.Close
-func fn388(q *req, r *reader, w *writer) error {
+func fn390(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_io.ReadCloser](r)
 	if err != nil {
 		return err
@@ -6667,7 +6711,7 @@ func fn388(q *req, r *reader, w *writer) error {
 }
 
 // os.Create
-func fn389(q *req, r *reader, w *writer) error {
+func fn391(q *req, r *reader, w *writer) error {
 	p0, err := decStr[string](r)
 	if err != nil {
 		return err
@@ -6684,7 +6728,7 @@ func fn389(q *req, r *reader, w *writer) error {
 }
 
 // os.File.Close
-func fn390(q *req, r *reader, w *writer) error {
+func fn392(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_os.File](r)
 	if err != nil {
 		return err
@@ -6699,7 +6743,7 @@ func fn390(q *req, r *reader, w *writer) error {
 }
 
 // os.Open
-func fn391(q *req, r *reader, w *writer) error {
+func fn393(q *req, r *reader, w *writer) error {
 	p0, err := decStr[string](r)
 	if err != nil {
 		return err
@@ -6716,7 +6760,7 @@ func fn391(q *req, r *reader, w *writer) error {
 }
 
 // os.OpenFile
-func fn392(q *req, r *reader, w *writer) error {
+func fn394(q *req, r *reader, w *writer) error {
 	p0, err := decStr[string](r)
 	if err != nil {
 		return err
@@ -6741,7 +6785,7 @@ func fn392(q *req, r *reader, w *writer) error {
 }
 
 // os.Stat
-func fn393(q *req, r *reader, w *writer) error {
+func fn395(q *req, r *reader, w *writer) error {
 	p0, err := decStr[string](r)
 	if err != nil {
 		return err
@@ -6758,7 +6802,7 @@ func fn393(q *req, r *reader, w *writer) error {
 }
 
 // runtime/debug.SetCrashOutput
-func fn394(q *req, r *reader, w *writer) error {
+func fn396(q *req, r *reader, w *writer) error {
 	p0, err := decH[*p_os.File](r)
 	if err != nil {
 		return err

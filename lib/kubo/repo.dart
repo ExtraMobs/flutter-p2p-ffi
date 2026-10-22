@@ -12,14 +12,14 @@ class Repo extends $io.Closer {
 
   /// Go: `func (repo.Repo).Config() (*config.Config, error)`.
   $config.Config config() {
-    final $r = $callSync(274, $W()..h(this));
+    final $r = $callSync(276, $W()..h(this));
     return $r.p() ? $config.Config($r.json()) : $nil();
   }
 
   /// Go: `func (repo.Repo).SetConfig(*config.Config) error`.
   void setConfig($config.Config config) {
     $callSync(
-        276,
+        278,
         $W()
           ..h(this)
           ..json(config));
@@ -28,7 +28,7 @@ class Repo extends $io.Closer {
   /// Go: `func (repo.Repo).SetConfigKey(key string, value any) error`.
   void setConfigKey(String key, Object? value) {
     $callSync(
-        277,
+        279,
         $W()
           ..h(this)
           ..str(key)
@@ -38,7 +38,7 @@ class Repo extends $io.Closer {
   /// Go: `func (repo.Repo).GetConfigKey(key string) (any, error)`.
   Object? getConfigKey(String key) {
     final $r = $callSync(
-        275,
+        277,
         $W()
           ..h(this)
           ..str(key));
@@ -48,7 +48,7 @@ class Repo extends $io.Closer {
   /// Go: `func (repo.Repo).BackupConfig(prefix string) (string, error)`.
   String backupConfig(String prefix) {
     final $r = $callSync(
-        273,
+        275,
         $W()
           ..h(this)
           ..str(prefix));

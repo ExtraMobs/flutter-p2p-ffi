@@ -212,6 +212,43 @@ void main() {
     await corerepo.garbageCollect(n, ctx); // a versão que só espera
   });
 
+  // 0.20: only the daemon starts PeriodicGC; a library node has to call it
+  test('conditionalGc and periodicGc follow the watermark', () async {
+    // offset far beyond StorageMax*watermark: collects now
+    var loose = await addUnpinned('conditional ${DateTime.now()}');
+    await corerepo.conditionalGc(ctx, n, 1 << 50);
+    await expectLater(
+        api.block().stat(ctx, loose), throwsA(isA<IpfsException>()));
+    // below the watermark: nothing happens
+    loose = await addUnpinned('kept ${DateTime.now()}');
+    await corerepo.conditionalGc(ctx, n, 0);
+    expect((await api.block().stat(ctx, loose)).size, greaterThan(0));
+
+    // a tiny StorageMax and a short period: the loop collects on its own
+    final repo = n.repo;
+    repo.setConfigKey('Datastore.StorageMax', '1KB');
+    repo.setConfigKey('Datastore.GCPeriod', '100ms');
+    final (gcCtx, cancel) = context.withCancel(ctx);
+    final loop = corerepo.periodicGc(gcCtx, n);
+    try {
+      final deadline = DateTime.now().add(const Duration(seconds: 10));
+      while (true) {
+        try {
+          await api.block().stat(ctx, loose);
+        } on IpfsException {
+          break; // collected
+        }
+        if (DateTime.now().isAfter(deadline)) fail('periodicGc did not run');
+        await Future<void>.delayed(const Duration(milliseconds: 100));
+      }
+    } finally {
+      cancel();
+      await loop; // returns nil once the context is done
+      repo.setConfigKey('Datastore.StorageMax', '10GB');
+      repo.setConfigKey('Datastore.GCPeriod', '1h');
+    }
+  });
+
   // 0.15: os bugs do kubo/boxo que o build corrige por patch (tool/build.dart,
   // upstreamPatches; go/upstream_test.go afirma cada um sem o patch).
   test('upstream corrigido: Routing none fecha e reabre o mesmo repo',
