@@ -81,7 +81,7 @@ var (
 )
 
 // tableHash: o hash da tabela (WIRE.md, Hello), o mesmo do Dart gerado.
-const tableHash uint64 = 0x783facdaccf8362e
+const tableHash uint64 = 0xeb7681994a888854
 
 // table: as funções geradas por id (WIRE.md); as escritas à mão entram no init delas.
 var table = map[uint32]entry{
@@ -416,47 +416,45 @@ var table = map[uint32]entry{
 	392: {"github.com/ipld/go-ipld-prime/storage/bsadapter.Adapter", fn392, false},
 	393: {"github.com/ipld/go-ipld-prime/storage/bsadapter.Adapter.Wrapped", fn393, false},
 	394: {"github.com/ipld/go-ipld-prime/storage/bsadapter.Adapter.Wrapped=", fn394, false},
-	395: {"github.com/ipld/go-ipld-prime/traversal/selector.RecursionLimitDepth", fn395, false},
-	396: {"github.com/ipld/go-ipld-prime/traversal/selector.RecursionLimitNone", fn396, false},
-	397: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.ExploreFieldsSpecBuilder.Insert", fn397, false},
-	398: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.NewSelectorSpecBuilder", fn398, false},
-	399: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpec.Node", fn399, false},
-	400: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreAll", fn400, false},
-	401: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreFields", fn401, false},
-	402: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreIndex", fn402, false},
-	403: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreInterpretAs", fn403, false},
-	404: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreRange", fn404, false},
-	405: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreRecursive", fn405, false},
-	406: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreRecursiveEdge", fn406, false},
-	407: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreUnion", fn407, false},
-	408: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.Matcher", fn408, false},
-	409: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.MatcherSubset", fn409, false},
-	410: {"github.com/ipld/go-ipld-prime/traversal/selector/parse.CommonSelector_ExploreAllRecursively", fn410, false},
-	411: {"github.com/ipld/go-ipld-prime/traversal/selector/parse.CommonSelector_MatchAllRecursively", fn411, false},
-	412: {"github.com/ipld/go-ipld-prime/traversal/selector/parse.CommonSelector_MatchChildren", fn412, false},
-	413: {"github.com/ipld/go-ipld-prime/traversal/selector/parse.CommonSelector_MatchPoint", fn413, false},
-	414: {"github.com/ipld/go-ipld-prime/traversal/selector/parse.ParseJSONSelector", fn414, false},
-	415: {"github.com/libp2p/go-libp2p/core/connmgr.ConnManager.IsProtected", fn415, false},
-	416: {"github.com/libp2p/go-libp2p/core/connmgr.ConnManager.Protect", fn416, false},
-	417: {"github.com/libp2p/go-libp2p/core/connmgr.ConnManager.TagPeer", fn417, false},
-	418: {"github.com/libp2p/go-libp2p/core/connmgr.ConnManager.TrimOpenConns", fn418, false},
-	419: {"github.com/libp2p/go-libp2p/core/connmgr.ConnManager.Unprotect", fn419, false},
-	420: {"github.com/libp2p/go-libp2p/core/connmgr.ConnManager.UntagPeer", fn420, false},
-	421: {"github.com/libp2p/go-libp2p/core/host.Host.ConnManager", fn421, false},
-	422: {"github.com/libp2p/go-libp2p/core/network.ResourceManager.ViewSystem", fn422, false},
-	423: {"github.com/libp2p/go-libp2p/core/network.ResourceManager.ViewTransient", fn423, false},
-	424: {"github.com/libp2p/go-libp2p/core/network.ResourceScope.Stat", fn424, false},
-	425: {"github.com/libp2p/go-libp2p/core/peer.AddrInfoFromString", fn425, false},
-	426: {"github.com/libp2p/go-libp2p/core/peer.AddrInfoToP2pAddrs", fn426, false},
-	427: {"io.Copy", fn427, false},
-	428: {"io.ReadAll", fn428, false},
-	429: {"io.ReadCloser.Close", fn429, false},
-	430: {"os.Create", fn430, false},
-	431: {"os.File.Close", fn431, false},
-	432: {"os.Open", fn432, false},
-	433: {"os.OpenFile", fn433, false},
-	434: {"os.Stat", fn434, false},
-	435: {"runtime/debug.SetCrashOutput", fn435, false},
+	395: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.ExploreFieldsSpecBuilder.Insert", fn395, false},
+	396: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.NewSelectorSpecBuilder", fn396, false},
+	397: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpec.Node", fn397, false},
+	398: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreAll", fn398, false},
+	399: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreFields", fn399, false},
+	400: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreIndex", fn400, false},
+	401: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreInterpretAs", fn401, false},
+	402: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreRange", fn402, false},
+	403: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreRecursive", fn403, false},
+	404: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreRecursiveEdge", fn404, false},
+	405: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreUnion", fn405, false},
+	406: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.Matcher", fn406, false},
+	407: {"github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.MatcherSubset", fn407, false},
+	408: {"github.com/ipld/go-ipld-prime/traversal/selector/parse.CommonSelector_ExploreAllRecursively", fn408, false},
+	409: {"github.com/ipld/go-ipld-prime/traversal/selector/parse.CommonSelector_MatchAllRecursively", fn409, false},
+	410: {"github.com/ipld/go-ipld-prime/traversal/selector/parse.CommonSelector_MatchChildren", fn410, false},
+	411: {"github.com/ipld/go-ipld-prime/traversal/selector/parse.CommonSelector_MatchPoint", fn411, false},
+	412: {"github.com/ipld/go-ipld-prime/traversal/selector/parse.ParseJSONSelector", fn412, false},
+	413: {"github.com/libp2p/go-libp2p/core/connmgr.ConnManager.IsProtected", fn413, false},
+	414: {"github.com/libp2p/go-libp2p/core/connmgr.ConnManager.Protect", fn414, false},
+	415: {"github.com/libp2p/go-libp2p/core/connmgr.ConnManager.TagPeer", fn415, false},
+	416: {"github.com/libp2p/go-libp2p/core/connmgr.ConnManager.TrimOpenConns", fn416, false},
+	417: {"github.com/libp2p/go-libp2p/core/connmgr.ConnManager.Unprotect", fn417, false},
+	418: {"github.com/libp2p/go-libp2p/core/connmgr.ConnManager.UntagPeer", fn418, false},
+	419: {"github.com/libp2p/go-libp2p/core/host.Host.ConnManager", fn419, false},
+	420: {"github.com/libp2p/go-libp2p/core/network.ResourceManager.ViewSystem", fn420, false},
+	421: {"github.com/libp2p/go-libp2p/core/network.ResourceManager.ViewTransient", fn421, false},
+	422: {"github.com/libp2p/go-libp2p/core/network.ResourceScope.Stat", fn422, false},
+	423: {"github.com/libp2p/go-libp2p/core/peer.AddrInfoFromString", fn423, false},
+	424: {"github.com/libp2p/go-libp2p/core/peer.AddrInfoToP2pAddrs", fn424, false},
+	425: {"io.Copy", fn425, false},
+	426: {"io.ReadAll", fn426, false},
+	427: {"io.ReadCloser.Close", fn427, false},
+	428: {"os.Create", fn428, false},
+	429: {"os.File.Close", fn429, false},
+	430: {"os.Open", fn430, false},
+	431: {"os.OpenFile", fn431, false},
+	432: {"os.Stat", fn432, false},
+	433: {"runtime/debug.SetCrashOutput", fn433, false},
 }
 
 // bytes.Buffer.Bytes
@@ -6863,32 +6861,8 @@ func fn394(q *req, r *reader, w *writer) error {
 	return nil
 }
 
-// github.com/ipld/go-ipld-prime/traversal/selector.RecursionLimitDepth
-func fn395(q *req, r *reader, w *writer) error {
-	p0, err := decInt[int64](r)
-	if err != nil {
-		return err
-	}
-	if err := r.done(); err != nil {
-		return err
-	}
-	r0 := p_selector.RecursionLimitDepth(p0)
-	enc104(w, r0)
-	return nil
-}
-
-// github.com/ipld/go-ipld-prime/traversal/selector.RecursionLimitNone
-func fn396(q *req, r *reader, w *writer) error {
-	if err := r.done(); err != nil {
-		return err
-	}
-	r0 := p_selector.RecursionLimitNone()
-	enc104(w, r0)
-	return nil
-}
-
 // github.com/ipld/go-ipld-prime/traversal/selector/builder.ExploreFieldsSpecBuilder.Insert
-func fn397(q *req, r *reader, w *writer) error {
+func fn395(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_builder.ExploreFieldsSpecBuilder](r)
 	if err != nil {
 		return err
@@ -6909,7 +6883,7 @@ func fn397(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-ipld-prime/traversal/selector/builder.NewSelectorSpecBuilder
-func fn398(q *req, r *reader, w *writer) error {
+func fn396(q *req, r *reader, w *writer) error {
 	p0, err := decH[p_datamodel.NodePrototype](r)
 	if err != nil {
 		return err
@@ -6923,7 +6897,7 @@ func fn398(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpec.Node
-func fn399(q *req, r *reader, w *writer) error {
+func fn397(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_builder.SelectorSpec](r)
 	if err != nil {
 		return err
@@ -6937,7 +6911,7 @@ func fn399(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreAll
-func fn400(q *req, r *reader, w *writer) error {
+func fn398(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_builder.SelectorSpecBuilder](r)
 	if err != nil {
 		return err
@@ -6955,7 +6929,7 @@ func fn400(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreFields
-func fn401(q *req, r *reader, w *writer) error {
+func fn399(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_builder.SelectorSpecBuilder](r)
 	if err != nil {
 		return err
@@ -6975,7 +6949,7 @@ func fn401(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreIndex
-func fn402(q *req, r *reader, w *writer) error {
+func fn400(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_builder.SelectorSpecBuilder](r)
 	if err != nil {
 		return err
@@ -6997,7 +6971,7 @@ func fn402(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreInterpretAs
-func fn403(q *req, r *reader, w *writer) error {
+func fn401(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_builder.SelectorSpecBuilder](r)
 	if err != nil {
 		return err
@@ -7019,7 +6993,7 @@ func fn403(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreRange
-func fn404(q *req, r *reader, w *writer) error {
+func fn402(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_builder.SelectorSpecBuilder](r)
 	if err != nil {
 		return err
@@ -7045,12 +7019,12 @@ func fn404(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreRecursive
-func fn405(q *req, r *reader, w *writer) error {
+func fn403(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_builder.SelectorSpecBuilder](r)
 	if err != nil {
 		return err
 	}
-	p0, err := dec105(r)
+	p0, err := dec104(r)
 	if err != nil {
 		return err
 	}
@@ -7067,7 +7041,7 @@ func fn405(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreRecursiveEdge
-func fn406(q *req, r *reader, w *writer) error {
+func fn404(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_builder.SelectorSpecBuilder](r)
 	if err != nil {
 		return err
@@ -7081,12 +7055,12 @@ func fn406(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreUnion
-func fn407(q *req, r *reader, w *writer) error {
+func fn405(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_builder.SelectorSpecBuilder](r)
 	if err != nil {
 		return err
 	}
-	p0, err := dec106(r)
+	p0, err := dec105(r)
 	if err != nil {
 		return err
 	}
@@ -7099,7 +7073,7 @@ func fn407(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.Matcher
-func fn408(q *req, r *reader, w *writer) error {
+func fn406(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_builder.SelectorSpecBuilder](r)
 	if err != nil {
 		return err
@@ -7113,7 +7087,7 @@ func fn408(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.MatcherSubset
-func fn409(q *req, r *reader, w *writer) error {
+func fn407(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_builder.SelectorSpecBuilder](r)
 	if err != nil {
 		return err
@@ -7135,7 +7109,7 @@ func fn409(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-ipld-prime/traversal/selector/parse.CommonSelector_ExploreAllRecursively
-func fn410(q *req, r *reader, w *writer) error {
+func fn408(q *req, r *reader, w *writer) error {
 	if err := r.done(); err != nil {
 		return err
 	}
@@ -7145,7 +7119,7 @@ func fn410(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-ipld-prime/traversal/selector/parse.CommonSelector_MatchAllRecursively
-func fn411(q *req, r *reader, w *writer) error {
+func fn409(q *req, r *reader, w *writer) error {
 	if err := r.done(); err != nil {
 		return err
 	}
@@ -7155,7 +7129,7 @@ func fn411(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-ipld-prime/traversal/selector/parse.CommonSelector_MatchChildren
-func fn412(q *req, r *reader, w *writer) error {
+func fn410(q *req, r *reader, w *writer) error {
 	if err := r.done(); err != nil {
 		return err
 	}
@@ -7165,7 +7139,7 @@ func fn412(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-ipld-prime/traversal/selector/parse.CommonSelector_MatchPoint
-func fn413(q *req, r *reader, w *writer) error {
+func fn411(q *req, r *reader, w *writer) error {
 	if err := r.done(); err != nil {
 		return err
 	}
@@ -7175,7 +7149,7 @@ func fn413(q *req, r *reader, w *writer) error {
 }
 
 // github.com/ipld/go-ipld-prime/traversal/selector/parse.ParseJSONSelector
-func fn414(q *req, r *reader, w *writer) error {
+func fn412(q *req, r *reader, w *writer) error {
 	p0, err := decStr[string](r)
 	if err != nil {
 		return err
@@ -7192,7 +7166,7 @@ func fn414(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/connmgr.ConnManager.IsProtected
-func fn415(q *req, r *reader, w *writer) error {
+func fn413(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_connmgr.ConnManager](r)
 	if err != nil {
 		return err
@@ -7214,7 +7188,7 @@ func fn415(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/connmgr.ConnManager.Protect
-func fn416(q *req, r *reader, w *writer) error {
+func fn414(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_connmgr.ConnManager](r)
 	if err != nil {
 		return err
@@ -7235,7 +7209,7 @@ func fn416(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/connmgr.ConnManager.TagPeer
-func fn417(q *req, r *reader, w *writer) error {
+func fn415(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_connmgr.ConnManager](r)
 	if err != nil {
 		return err
@@ -7260,7 +7234,7 @@ func fn417(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/connmgr.ConnManager.TrimOpenConns
-func fn418(q *req, r *reader, w *writer) error {
+func fn416(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_connmgr.ConnManager](r)
 	if err != nil {
 		return err
@@ -7277,7 +7251,7 @@ func fn418(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/connmgr.ConnManager.Unprotect
-func fn419(q *req, r *reader, w *writer) error {
+func fn417(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_connmgr.ConnManager](r)
 	if err != nil {
 		return err
@@ -7299,7 +7273,7 @@ func fn419(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/connmgr.ConnManager.UntagPeer
-func fn420(q *req, r *reader, w *writer) error {
+func fn418(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_connmgr.ConnManager](r)
 	if err != nil {
 		return err
@@ -7320,7 +7294,7 @@ func fn420(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/host.Host.ConnManager
-func fn421(q *req, r *reader, w *writer) error {
+func fn419(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_host.Host](r)
 	if err != nil {
 		return err
@@ -7334,7 +7308,7 @@ func fn421(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/network.ResourceManager.ViewSystem
-func fn422(q *req, r *reader, w *writer) error {
+func fn420(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_network.ResourceManager](r)
 	if err != nil {
 		return err
@@ -7358,7 +7332,7 @@ func fn422(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/network.ResourceManager.ViewTransient
-func fn423(q *req, r *reader, w *writer) error {
+func fn421(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_network.ResourceManager](r)
 	if err != nil {
 		return err
@@ -7382,7 +7356,7 @@ func fn423(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/network.ResourceScope.Stat
-func fn424(q *req, r *reader, w *writer) error {
+func fn422(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_network.ResourceScope](r)
 	if err != nil {
 		return err
@@ -7391,12 +7365,12 @@ func fn424(q *req, r *reader, w *writer) error {
 		return err
 	}
 	r0 := recv.Stat()
-	enc107(w, r0)
+	enc106(w, r0)
 	return nil
 }
 
 // github.com/libp2p/go-libp2p/core/peer.AddrInfoFromString
-func fn425(q *req, r *reader, w *writer) error {
+func fn423(q *req, r *reader, w *writer) error {
 	p0, err := decStr[string](r)
 	if err != nil {
 		return err
@@ -7408,13 +7382,13 @@ func fn425(q *req, r *reader, w *writer) error {
 	if err != nil {
 		return err
 	}
-	enc108(w, r0)
+	enc107(w, r0)
 	return nil
 }
 
 // github.com/libp2p/go-libp2p/core/peer.AddrInfoToP2pAddrs
-func fn426(q *req, r *reader, w *writer) error {
-	p0, err := dec109(r)
+func fn424(q *req, r *reader, w *writer) error {
+	p0, err := dec108(r)
 	if err != nil {
 		return err
 	}
@@ -7430,7 +7404,7 @@ func fn426(q *req, r *reader, w *writer) error {
 }
 
 // io.Copy
-func fn427(q *req, r *reader, w *writer) error {
+func fn425(q *req, r *reader, w *writer) error {
 	p0, err := decWriter(r)
 	if err != nil {
 		return err
@@ -7451,7 +7425,7 @@ func fn427(q *req, r *reader, w *writer) error {
 }
 
 // io.ReadAll
-func fn428(q *req, r *reader, w *writer) error {
+func fn426(q *req, r *reader, w *writer) error {
 	p0, err := decIO[p_io.Reader](r)
 	if err != nil {
 		return err
@@ -7468,7 +7442,7 @@ func fn428(q *req, r *reader, w *writer) error {
 }
 
 // io.ReadCloser.Close
-func fn429(q *req, r *reader, w *writer) error {
+func fn427(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_io.ReadCloser](r)
 	if err != nil {
 		return err
@@ -7483,7 +7457,7 @@ func fn429(q *req, r *reader, w *writer) error {
 }
 
 // os.Create
-func fn430(q *req, r *reader, w *writer) error {
+func fn428(q *req, r *reader, w *writer) error {
 	p0, err := decStr[string](r)
 	if err != nil {
 		return err
@@ -7500,7 +7474,7 @@ func fn430(q *req, r *reader, w *writer) error {
 }
 
 // os.File.Close
-func fn431(q *req, r *reader, w *writer) error {
+func fn429(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_os.File](r)
 	if err != nil {
 		return err
@@ -7515,7 +7489,7 @@ func fn431(q *req, r *reader, w *writer) error {
 }
 
 // os.Open
-func fn432(q *req, r *reader, w *writer) error {
+func fn430(q *req, r *reader, w *writer) error {
 	p0, err := decStr[string](r)
 	if err != nil {
 		return err
@@ -7532,7 +7506,7 @@ func fn432(q *req, r *reader, w *writer) error {
 }
 
 // os.OpenFile
-func fn433(q *req, r *reader, w *writer) error {
+func fn431(q *req, r *reader, w *writer) error {
 	p0, err := decStr[string](r)
 	if err != nil {
 		return err
@@ -7557,7 +7531,7 @@ func fn433(q *req, r *reader, w *writer) error {
 }
 
 // os.Stat
-func fn434(q *req, r *reader, w *writer) error {
+func fn432(q *req, r *reader, w *writer) error {
 	p0, err := decStr[string](r)
 	if err != nil {
 		return err
@@ -7574,12 +7548,12 @@ func fn434(q *req, r *reader, w *writer) error {
 }
 
 // runtime/debug.SetCrashOutput
-func fn435(q *req, r *reader, w *writer) error {
+func fn433(q *req, r *reader, w *writer) error {
 	p0, err := decH[*p_os.File](r)
 	if err != nil {
 		return err
 	}
-	p1, err := dec110(r)
+	p1, err := dec109(r)
 	if err != nil {
 		return err
 	}
@@ -9883,11 +9857,7 @@ func enc103(w *writer, v p_linking.LinkSystem) {
 	encH(w, &v)
 }
 
-func enc104(w *writer, v p_selector.RecursionLimit) {
-	encH(w, &v)
-}
-
-func dec105(r *reader) (v p_selector.RecursionLimit, err error) {
+func dec104(r *reader) (v p_selector.RecursionLimit, err error) {
 	p, err := decH[*p_selector.RecursionLimit](r)
 	if err != nil || p == nil {
 		return v, err
@@ -9895,7 +9865,7 @@ func dec105(r *reader) (v p_selector.RecursionLimit, err error) {
 	return *p, nil
 }
 
-func dec106(r *reader) ([]p_builder.SelectorSpec, error) {
+func dec105(r *reader) ([]p_builder.SelectorSpec, error) {
 	n := r.count()
 	if n < 0 {
 		return nil, nil
@@ -9911,7 +9881,7 @@ func dec106(r *reader) ([]p_builder.SelectorSpec, error) {
 	return out, nil
 }
 
-func enc107(w *writer, v p_network.ScopeStat) {
+func enc106(w *writer, v p_network.ScopeStat) {
 	w.u8(1)
 	encInt[int](w, v.NumStreamsInbound)
 	encInt[int](w, v.NumStreamsOutbound)
@@ -9921,7 +9891,7 @@ func enc107(w *writer, v p_network.ScopeStat) {
 	encInt[int64](w, v.Memory)
 }
 
-func enc108(w *writer, v *p_peer.AddrInfo) {
+func enc107(w *writer, v *p_peer.AddrInfo) {
 	if v == nil {
 		w.u8(0)
 		return
@@ -9929,7 +9899,7 @@ func enc108(w *writer, v *p_peer.AddrInfo) {
 	enc24(w, *v)
 }
 
-func dec109(r *reader) (*p_peer.AddrInfo, error) {
+func dec108(r *reader) (*p_peer.AddrInfo, error) {
 	if r.absent() {
 		return nil, nil
 	}
@@ -9937,7 +9907,7 @@ func dec109(r *reader) (*p_peer.AddrInfo, error) {
 	return &v, err
 }
 
-func dec110(r *reader) (v p_debug.CrashOptions, err error) {
+func dec109(r *reader) (v p_debug.CrashOptions, err error) {
 	if !r.present() {
 		return v, nil
 	}

@@ -20,7 +20,7 @@ class ResourceManager extends ResourceScopeViewer {
   Future<void> viewSystem(FutureOr<void> Function(ResourceScope arg0) callback,
       {int? batchSize}) async {
     await $callCb(
-        422,
+        420,
         $W()
           ..h(this)
           ..u32(batchSize ?? 1),
@@ -38,7 +38,7 @@ class ResourceManager extends ResourceScopeViewer {
       FutureOr<void> Function(ResourceScope arg0) callback,
       {int? batchSize}) async {
     await $callCb(
-        423,
+        421,
         $W()
           ..h(this)
           ..u32(batchSize ?? 1),
@@ -52,7 +52,7 @@ class ResourceScope extends GoHandle {
 
   /// Go: `func (network.ResourceScope).Stat() network.ScopeStat`.
   ScopeStat stat() {
-    final $r = $callSync(424, $W()..h(this));
+    final $r = $callSync(422, $W()..h(this));
     return $r.p() ? ScopeStat.$dec($r) : $nil();
   }
 }
@@ -115,3 +115,132 @@ final class ScopeStat implements GoDto {
       ..i64(memory);
   }
 }
+
+/// Go: `const network.CanConnect network.Connectedness`.
+const canConnect = 2;
+
+/// Go: `const network.CannotConnect network.Connectedness`.
+const cannotConnect = 3;
+
+/// Go: `const network.ConnCodeOutOfRange network.ConnErrorCode`.
+const connCodeOutOfRange = 4104;
+
+/// Go: `const network.ConnGarbageCollected network.ConnErrorCode`.
+const connGarbageCollected = 4101;
+
+/// Go: `const network.ConnGated network.ConnErrorCode`.
+const connGated = 4103;
+
+/// Go: `const network.ConnNoError network.ConnErrorCode`.
+const connNoError = 0;
+
+/// Go: `const network.ConnProtocolNegotiationFailed network.ConnErrorCode`.
+const connProtocolNegotiationFailed = 4096;
+
+/// Go: `const network.ConnProtocolViolation network.ConnErrorCode`.
+const connProtocolViolation = 4099;
+
+/// Go: `const network.ConnRateLimited network.ConnErrorCode`.
+const connRateLimited = 4098;
+
+/// Go: `const network.ConnResourceLimitExceeded network.ConnErrorCode`.
+const connResourceLimitExceeded = 4097;
+
+/// Go: `const network.ConnShutdown network.ConnErrorCode`.
+const connShutdown = 4102;
+
+/// Go: `const network.ConnSupplanted network.ConnErrorCode`.
+const connSupplanted = 4100;
+
+/// Go: `const network.Connected network.Connectedness`.
+const connected = 1;
+
+/// Go: `const network.DirInbound network.Direction`.
+const dirInbound = 1;
+
+/// Go: `const network.DirOutbound network.Direction`.
+const dirOutbound = 2;
+
+/// Go: `const network.DirUnknown network.Direction`.
+const dirUnknown = 0;
+
+/// Go: `const network.Limited network.Connectedness`.
+const limited = 4;
+
+/// Go: `const network.MessageSizeMax untyped int`.
+const messageSizeMax = 4194304;
+
+/// Go: `const network.NATDeviceTypeCone network.NATDeviceType`.
+const natDeviceTypeCone = 1;
+
+/// Go: `const network.NATDeviceTypeEndpointDependent network.NATDeviceType`.
+const natDeviceTypeEndpointDependent = 2;
+
+/// Go: `const network.NATDeviceTypeEndpointIndependent network.NATDeviceType`.
+const natDeviceTypeEndpointIndependent = 1;
+
+/// Go: `const network.NATDeviceTypeSymmetric network.NATDeviceType`.
+const natDeviceTypeSymmetric = 2;
+
+/// Go: `const network.NATDeviceTypeUnknown network.NATDeviceType`.
+const natDeviceTypeUnknown = 0;
+
+/// Go: `const network.NATTransportTCP network.NATTransportProtocol`.
+const natTransportTcp = 1;
+
+/// Go: `const network.NATTransportUDP network.NATTransportProtocol`.
+const natTransportUdp = 0;
+
+/// Go: `const network.NotConnected network.Connectedness`.
+const notConnected = 0;
+
+/// Go: `const network.ReachabilityPrivate network.Reachability`.
+const reachabilityPrivate = 2;
+
+/// Go: `const network.ReachabilityPublic network.Reachability`.
+const reachabilityPublic = 1;
+
+/// Go: `const network.ReachabilityUnknown network.Reachability`.
+const reachabilityUnknown = 0;
+
+/// Go: `const network.ReservationPriorityAlways uint8`.
+const reservationPriorityAlways = 255;
+
+/// Go: `const network.ReservationPriorityHigh uint8`.
+const reservationPriorityHigh = 203;
+
+/// Go: `const network.ReservationPriorityLow uint8`.
+const reservationPriorityLow = 101;
+
+/// Go: `const network.ReservationPriorityMedium uint8`.
+const reservationPriorityMedium = 152;
+
+/// Go: `const network.StreamCodeOutOfRange network.StreamErrorCode`.
+const streamCodeOutOfRange = 4105;
+
+/// Go: `const network.StreamGarbageCollected network.StreamErrorCode`.
+const streamGarbageCollected = 4102;
+
+/// Go: `const network.StreamGated network.StreamErrorCode`.
+const streamGated = 4104;
+
+/// Go: `const network.StreamNoError network.StreamErrorCode`.
+const streamNoError = 0;
+
+/// Go: `const network.StreamProtocolNegotiationFailed network.StreamErrorCode`.
+const streamProtocolNegotiationFailed = 4097;
+
+/// Go: `const network.StreamProtocolViolation network.StreamErrorCode`.
+const streamProtocolViolation = 4100;
+
+/// Go: `const network.StreamRateLimited network.StreamErrorCode`.
+const streamRateLimited = 4099;
+
+/// Go: `const network.StreamResourceLimitExceeded network.StreamErrorCode`.
+const streamResourceLimitExceeded = 4098;
+
+/// Go: `const network.StreamShutdown network.StreamErrorCode`.
+const streamShutdown = 4103;
+
+/// Go: `const network.StreamSupplanted network.StreamErrorCode`.
+const streamSupplanted = 4101;

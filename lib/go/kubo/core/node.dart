@@ -165,3 +165,30 @@ final class BuildCfg implements GoDto {
       ..i64(shutdownTimeout);
   }
 }
+
+/// Go: `const node.DefaultEngineBlockstoreWorkerCount untyped int`.
+const defaultEngineBlockstoreWorkerCount = 128;
+
+/// Go: `const node.DefaultEngineTaskWorkerCount untyped int`.
+const defaultEngineTaskWorkerCount = 8;
+
+/// Go: `const node.DefaultIpnsCacheSize untyped int`.
+const defaultIpnsCacheSize = 128;
+
+/// Go: `const node.DefaultMaxOutstandingBytesPerPeer untyped int`.
+const defaultMaxOutstandingBytesPerPeer = 1048576;
+
+/// Go: `const node.DefaultMaxProviders untyped int`.
+const defaultMaxProviders = 10;
+
+/// Go: `const node.DefaultProviderSearchDelay time.Duration`.
+const defaultProviderSearchDelay = Duration(microseconds: 1000000);
+
+/// Go: `const node.DefaultTaskWorkerCount untyped int`.
+const defaultTaskWorkerCount = 8;
+
+/// Go: `const node.DefaultWantHaveReplaceSize untyped int`.
+const defaultWantHaveReplaceSize = 1024;
+
+/// Go: `const node.KeystoreDatastorePath untyped string`.
+const keystoreDatastorePath = "provider-keystore";

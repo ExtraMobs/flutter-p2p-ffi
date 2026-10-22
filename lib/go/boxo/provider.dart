@@ -4,6 +4,9 @@ library;
 
 import 'package:ipfs_ffi/src/runtime.dart';
 
+/// Go: `const provider.DefaultReproviderInterval time.Duration`.
+const defaultReproviderInterval = Duration(microseconds: 79200000000);
+
 /// Go: `provider.ReproviderStats` (a kubo command output).
 final class ReproviderStats {
   ReproviderStats.$dec($R r)

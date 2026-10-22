@@ -481,12 +481,6 @@ Option withMode(int mode) => Option.$(7, (w) => w..i64(mode));
 /// Go: `mfs.WithSizeEstimationMode`.
 Option withSizeEstimationMode(int mode) => Option.$(8, (w) => w..i64(mode));
 
-/// Go: `const mfs.TFile mfs.NodeType`.
-const tFile = 0;
-
-/// Go: `const mfs.TDir mfs.NodeType`.
-const tDir = 1;
-
 /// Go: `func mfs.Lookup(r *mfs.Root, path string) (mfs.FSNode, error)`.
 FsNode lookup(Root r, String path) {
   final $r = $callSync(
@@ -584,3 +578,12 @@ bool isFile(FsNode fsn) {
   final $r = $callSync(163, $W()..h(fsn));
   return $r.b();
 }
+
+/// Go: `const mfs.DefaultFetchTimeout time.Duration`.
+const defaultFetchTimeout = Duration(microseconds: 300000000);
+
+/// Go: `const mfs.TDir mfs.NodeType`.
+const tDir = 1;
+
+/// Go: `const mfs.TFile mfs.NodeType`.
+const tFile = 0;

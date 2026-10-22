@@ -26,3 +26,6 @@ $repo.Repo open(String repoPath) {
   final $r = $callSync(311, $W()..str(repoPath));
   return $r.hnn($repo.Repo.$h);
 }
+
+/// Go: `const fsrepo.LockFile untyped string`.
+const lockFile = "repo.lock";

@@ -4,6 +4,138 @@ library;
 
 import 'package:ipfs_ffi/src/runtime.dart';
 
+/// Go: `const cmds.Active cmds.Status`.
+const active = 0;
+
+/// Go: `const cmds.ArgFile cmds.ArgumentType`.
+const argFile = 1;
+
+/// Go: `const cmds.ArgString cmds.ArgumentType`.
+const argString = 0;
+
+/// Go: `const cmds.Bool reflect.Kind`.
+const bool$ = 1;
+
+/// Go: `const cmds.CLI untyped string`.
+const cli = "cli";
+
+/// Go: `const cmds.ChanOpt untyped string`.
+const chanOpt = "stream-channels";
+
+/// Go: `const cmds.DefaultOutputEncoding untyped string`.
+const defaultOutputEncoding = "json";
+
+/// Go: `const cmds.Deprecated cmds.Status`.
+const deprecated = 2;
+
+/// Go: `const cmds.DerefLong untyped string`.
+const derefLong = "dereference-args";
+
+/// Go: `const cmds.DerefSymlinks untyped string`.
+const derefSymlinks = "dereference-symlinks";
+
+/// Go: `const cmds.EncLong untyped string`.
+const encLong = "encoding";
+
+/// Go: `const cmds.EncShort untyped string`.
+const encShort = "enc";
+
+/// Go: `const cmds.ErrClient cmds.ErrorType`.
+const errClient = 1;
+
+/// Go: `const cmds.ErrForbidden cmds.ErrorType`.
+const errForbidden = 4;
+
+/// Go: `const cmds.ErrImplementation cmds.ErrorType`.
+const errImplementation = 2;
+
+/// Go: `const cmds.ErrNormal cmds.ErrorType`.
+const errNormal = 0;
+
+/// Go: `const cmds.ErrRateLimited cmds.ErrorType`.
+const errRateLimited = 3;
+
+/// Go: `const cmds.Experimental cmds.Status`.
+const experimental = 1;
+
+/// Go: `const cmds.Float reflect.Kind`.
+const float = 14;
+
+/// Go: `const cmds.Hidden untyped string`.
+const hidden = "hidden";
+
+/// Go: `const cmds.HiddenShort untyped string`.
+const hiddenShort = "H";
+
+/// Go: `const cmds.Ignore untyped string`.
+const ignore = "ignore";
+
+/// Go: `const cmds.IgnoreRules untyped string`.
+const ignoreRules = "ignore-rules-path";
+
+/// Go: `const cmds.Int reflect.Kind`.
+const int$ = 2;
+
+/// Go: `const cmds.Int64 reflect.Kind`.
+const int64 = 6;
+
+/// Go: `const cmds.Invalid reflect.Kind`.
+const invalid = 0;
+
+/// Go: `const cmds.JSON untyped string`.
+const json = "json";
+
+/// Go: `const cmds.OctetStream untyped string`.
+const octetStream = "octet-stream";
+
+/// Go: `const cmds.OptLongHelp untyped string`.
+const optLongHelp = "help";
+
+/// Go: `const cmds.OptShortHelp untyped string`.
+const optShortHelp = "h";
+
+/// Go: `const cmds.Protobuf untyped string`.
+const protobuf = "protobuf";
+
+/// Go: `const cmds.RecLong untyped string`.
+const recLong = "recursive";
+
+/// Go: `const cmds.RecShort untyped string`.
+const recShort = "r";
+
+/// Go: `const cmds.Removed cmds.Status`.
+const removed = 3;
+
+/// Go: `const cmds.StdinName untyped string`.
+const stdinName = "stdin-name";
+
+/// Go: `const cmds.String reflect.Kind`.
+const string = 24;
+
+/// Go: `const cmds.Strings reflect.Kind`.
+const strings = 17;
+
+/// Go: `const cmds.Text untyped string`.
+const text = "text";
+
+/// Go: `const cmds.TextNewline untyped string`.
+const textNewline = "textnl";
+
+/// Go: `const cmds.TimeoutOpt untyped string`.
+const timeoutOpt = "timeout";
+
+/// Go: `const cmds.Uint reflect.Kind`.
+const uint = 7;
+
+/// Go: `const cmds.Uint64 reflect.Kind`.
+const uint64 = 11;
+
+/// Go: `const cmds.Undefined untyped string`.
+const undefined = "";
+
+/// Go: `const cmds.XML untyped string`.
+const xml = "xml";
+
 /// Go: `cmds.ReqLogEntry` (a kubo command output).
 final class ReqLogEntry {
   ReqLogEntry.$dec($R r)

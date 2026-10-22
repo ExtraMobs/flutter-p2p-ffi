@@ -2,8 +2,1817 @@
 // Go: github.com/multiformats/go-multicodec
 library;
 
+/// Go: `const multicodec.CarMultihashIndexSorted multicodec.Code`.
+const carMultihashIndexSorted = 1025;
+
+/// Go: `const multicodec.Aes128 multicodec.Code`.
+const aes128 = 160;
+
+/// Go: `const multicodec.Aes192 multicodec.Code`.
+const aes192 = 161;
+
+/// Go: `const multicodec.Aes256 multicodec.Code`.
+const aes256 = 162;
+
+/// Go: `const multicodec.AesGcm256 multicodec.Code`.
+const aesGcm256 = 8192;
+
+/// Go: `const multicodec.ArweaveNs multicodec.Code`.
+const arweaveNs = 11704592;
+
+/// Go: `const multicodec.BcryptPbkdf multicodec.Code`.
+const bcryptPbkdf = 53261;
+
+/// Go: `const multicodec.Beeson multicodec.Code`.
+const beeson = 252;
+
+/// Go: `const multicodec.Bencode multicodec.Code`.
+const bencode = 99;
+
+/// Go: `const multicodec.BitcoinBlock multicodec.Code`.
+const bitcoinBlock = 176;
+
+/// Go: `const multicodec.BitcoinTx multicodec.Code`.
+const bitcoinTx = 177;
+
+/// Go: `const multicodec.BitcoinWitnessCommitment multicodec.Code`.
+const bitcoinWitnessCommitment = 178;
+
+/// Go: `const multicodec.BittorrentPiecesRoot multicodec.Code`.
+const bittorrentPiecesRoot = 46850;
+
+/// Go: `const multicodec.Blake2b104 multicodec.Code`.
+const blake2b104 = 45581;
+
+/// Go: `const multicodec.Blake2b112 multicodec.Code`.
+const blake2b112 = 45582;
+
+/// Go: `const multicodec.Blake2b120 multicodec.Code`.
+const blake2b120 = 45583;
+
+/// Go: `const multicodec.Blake2b128 multicodec.Code`.
+const blake2b128 = 45584;
+
+/// Go: `const multicodec.Blake2b136 multicodec.Code`.
+const blake2b136 = 45585;
+
+/// Go: `const multicodec.Blake2b144 multicodec.Code`.
+const blake2b144 = 45586;
+
+/// Go: `const multicodec.Blake2b152 multicodec.Code`.
+const blake2b152 = 45587;
+
+/// Go: `const multicodec.Blake2b16 multicodec.Code`.
+const blake2b16 = 45570;
+
+/// Go: `const multicodec.Blake2b160 multicodec.Code`.
+const blake2b160 = 45588;
+
+/// Go: `const multicodec.Blake2b168 multicodec.Code`.
+const blake2b168 = 45589;
+
+/// Go: `const multicodec.Blake2b176 multicodec.Code`.
+const blake2b176 = 45590;
+
+/// Go: `const multicodec.Blake2b184 multicodec.Code`.
+const blake2b184 = 45591;
+
+/// Go: `const multicodec.Blake2b192 multicodec.Code`.
+const blake2b192 = 45592;
+
+/// Go: `const multicodec.Blake2b200 multicodec.Code`.
+const blake2b200 = 45593;
+
+/// Go: `const multicodec.Blake2b208 multicodec.Code`.
+const blake2b208 = 45594;
+
+/// Go: `const multicodec.Blake2b216 multicodec.Code`.
+const blake2b216 = 45595;
+
+/// Go: `const multicodec.Blake2b224 multicodec.Code`.
+const blake2b224 = 45596;
+
+/// Go: `const multicodec.Blake2b232 multicodec.Code`.
+const blake2b232 = 45597;
+
+/// Go: `const multicodec.Blake2b24 multicodec.Code`.
+const blake2b24 = 45571;
+
+/// Go: `const multicodec.Blake2b240 multicodec.Code`.
+const blake2b240 = 45598;
+
+/// Go: `const multicodec.Blake2b248 multicodec.Code`.
+const blake2b248 = 45599;
+
+/// Go: `const multicodec.Blake2b256 multicodec.Code`.
+const blake2b256 = 45600;
+
+/// Go: `const multicodec.Blake2b264 multicodec.Code`.
+const blake2b264 = 45601;
+
+/// Go: `const multicodec.Blake2b272 multicodec.Code`.
+const blake2b272 = 45602;
+
+/// Go: `const multicodec.Blake2b280 multicodec.Code`.
+const blake2b280 = 45603;
+
+/// Go: `const multicodec.Blake2b288 multicodec.Code`.
+const blake2b288 = 45604;
+
+/// Go: `const multicodec.Blake2b296 multicodec.Code`.
+const blake2b296 = 45605;
+
+/// Go: `const multicodec.Blake2b304 multicodec.Code`.
+const blake2b304 = 45606;
+
+/// Go: `const multicodec.Blake2b312 multicodec.Code`.
+const blake2b312 = 45607;
+
+/// Go: `const multicodec.Blake2b32 multicodec.Code`.
+const blake2b32 = 45572;
+
+/// Go: `const multicodec.Blake2b320 multicodec.Code`.
+const blake2b320 = 45608;
+
+/// Go: `const multicodec.Blake2b328 multicodec.Code`.
+const blake2b328 = 45609;
+
+/// Go: `const multicodec.Blake2b336 multicodec.Code`.
+const blake2b336 = 45610;
+
+/// Go: `const multicodec.Blake2b344 multicodec.Code`.
+const blake2b344 = 45611;
+
+/// Go: `const multicodec.Blake2b352 multicodec.Code`.
+const blake2b352 = 45612;
+
+/// Go: `const multicodec.Blake2b360 multicodec.Code`.
+const blake2b360 = 45613;
+
+/// Go: `const multicodec.Blake2b368 multicodec.Code`.
+const blake2b368 = 45614;
+
+/// Go: `const multicodec.Blake2b376 multicodec.Code`.
+const blake2b376 = 45615;
+
+/// Go: `const multicodec.Blake2b384 multicodec.Code`.
+const blake2b384 = 45616;
+
+/// Go: `const multicodec.Blake2b392 multicodec.Code`.
+const blake2b392 = 45617;
+
+/// Go: `const multicodec.Blake2b40 multicodec.Code`.
+const blake2b40 = 45573;
+
+/// Go: `const multicodec.Blake2b400 multicodec.Code`.
+const blake2b400 = 45618;
+
+/// Go: `const multicodec.Blake2b408 multicodec.Code`.
+const blake2b408 = 45619;
+
+/// Go: `const multicodec.Blake2b416 multicodec.Code`.
+const blake2b416 = 45620;
+
+/// Go: `const multicodec.Blake2b424 multicodec.Code`.
+const blake2b424 = 45621;
+
+/// Go: `const multicodec.Blake2b432 multicodec.Code`.
+const blake2b432 = 45622;
+
+/// Go: `const multicodec.Blake2b440 multicodec.Code`.
+const blake2b440 = 45623;
+
+/// Go: `const multicodec.Blake2b448 multicodec.Code`.
+const blake2b448 = 45624;
+
+/// Go: `const multicodec.Blake2b456 multicodec.Code`.
+const blake2b456 = 45625;
+
+/// Go: `const multicodec.Blake2b464 multicodec.Code`.
+const blake2b464 = 45626;
+
+/// Go: `const multicodec.Blake2b472 multicodec.Code`.
+const blake2b472 = 45627;
+
+/// Go: `const multicodec.Blake2b48 multicodec.Code`.
+const blake2b48 = 45574;
+
+/// Go: `const multicodec.Blake2b480 multicodec.Code`.
+const blake2b480 = 45628;
+
+/// Go: `const multicodec.Blake2b488 multicodec.Code`.
+const blake2b488 = 45629;
+
+/// Go: `const multicodec.Blake2b496 multicodec.Code`.
+const blake2b496 = 45630;
+
+/// Go: `const multicodec.Blake2b504 multicodec.Code`.
+const blake2b504 = 45631;
+
+/// Go: `const multicodec.Blake2b512 multicodec.Code`.
+const blake2b512 = 45632;
+
+/// Go: `const multicodec.Blake2b56 multicodec.Code`.
+const blake2b56 = 45575;
+
+/// Go: `const multicodec.Blake2b64 multicodec.Code`.
+const blake2b64 = 45576;
+
+/// Go: `const multicodec.Blake2b72 multicodec.Code`.
+const blake2b72 = 45577;
+
+/// Go: `const multicodec.Blake2b8 multicodec.Code`.
+const blake2b8 = 45569;
+
+/// Go: `const multicodec.Blake2b80 multicodec.Code`.
+const blake2b80 = 45578;
+
+/// Go: `const multicodec.Blake2b88 multicodec.Code`.
+const blake2b88 = 45579;
+
+/// Go: `const multicodec.Blake2b96 multicodec.Code`.
+const blake2b96 = 45580;
+
+/// Go: `const multicodec.Blake2s104 multicodec.Code`.
+const blake2s104 = 45645;
+
+/// Go: `const multicodec.Blake2s112 multicodec.Code`.
+const blake2s112 = 45646;
+
+/// Go: `const multicodec.Blake2s120 multicodec.Code`.
+const blake2s120 = 45647;
+
+/// Go: `const multicodec.Blake2s128 multicodec.Code`.
+const blake2s128 = 45648;
+
+/// Go: `const multicodec.Blake2s136 multicodec.Code`.
+const blake2s136 = 45649;
+
+/// Go: `const multicodec.Blake2s144 multicodec.Code`.
+const blake2s144 = 45650;
+
+/// Go: `const multicodec.Blake2s152 multicodec.Code`.
+const blake2s152 = 45651;
+
+/// Go: `const multicodec.Blake2s16 multicodec.Code`.
+const blake2s16 = 45634;
+
+/// Go: `const multicodec.Blake2s160 multicodec.Code`.
+const blake2s160 = 45652;
+
+/// Go: `const multicodec.Blake2s168 multicodec.Code`.
+const blake2s168 = 45653;
+
+/// Go: `const multicodec.Blake2s176 multicodec.Code`.
+const blake2s176 = 45654;
+
+/// Go: `const multicodec.Blake2s184 multicodec.Code`.
+const blake2s184 = 45655;
+
+/// Go: `const multicodec.Blake2s192 multicodec.Code`.
+const blake2s192 = 45656;
+
+/// Go: `const multicodec.Blake2s200 multicodec.Code`.
+const blake2s200 = 45657;
+
+/// Go: `const multicodec.Blake2s208 multicodec.Code`.
+const blake2s208 = 45658;
+
+/// Go: `const multicodec.Blake2s216 multicodec.Code`.
+const blake2s216 = 45659;
+
+/// Go: `const multicodec.Blake2s224 multicodec.Code`.
+const blake2s224 = 45660;
+
+/// Go: `const multicodec.Blake2s232 multicodec.Code`.
+const blake2s232 = 45661;
+
+/// Go: `const multicodec.Blake2s24 multicodec.Code`.
+const blake2s24 = 45635;
+
+/// Go: `const multicodec.Blake2s240 multicodec.Code`.
+const blake2s240 = 45662;
+
+/// Go: `const multicodec.Blake2s248 multicodec.Code`.
+const blake2s248 = 45663;
+
+/// Go: `const multicodec.Blake2s256 multicodec.Code`.
+const blake2s256 = 45664;
+
+/// Go: `const multicodec.Blake2s32 multicodec.Code`.
+const blake2s32 = 45636;
+
+/// Go: `const multicodec.Blake2s40 multicodec.Code`.
+const blake2s40 = 45637;
+
+/// Go: `const multicodec.Blake2s48 multicodec.Code`.
+const blake2s48 = 45638;
+
+/// Go: `const multicodec.Blake2s56 multicodec.Code`.
+const blake2s56 = 45639;
+
+/// Go: `const multicodec.Blake2s64 multicodec.Code`.
+const blake2s64 = 45640;
+
+/// Go: `const multicodec.Blake2s72 multicodec.Code`.
+const blake2s72 = 45641;
+
+/// Go: `const multicodec.Blake2s8 multicodec.Code`.
+const blake2s8 = 45633;
+
+/// Go: `const multicodec.Blake2s80 multicodec.Code`.
+const blake2s80 = 45642;
+
+/// Go: `const multicodec.Blake2s88 multicodec.Code`.
+const blake2s88 = 45643;
+
+/// Go: `const multicodec.Blake2s96 multicodec.Code`.
+const blake2s96 = 45644;
+
+/// Go: `const multicodec.Blake3 multicodec.Code`.
+const blake3 = 30;
+
+/// Go: `const multicodec.Blake3Hashseq multicodec.Code`.
+const blake3Hashseq = 128;
+
+/// Go: `const multicodec.Bls12_381G1Msig multicodec.Code`.
+const bls12381g1Msig = 13636353;
+
+/// Go: `const multicodec.Bls12_381G1Priv multicodec.Code`.
+const bls12381g1Priv = 4873;
+
+/// Go: `const multicodec.Bls12_381G1PrivShare multicodec.Code`.
+const bls12381g1PrivShare = 4878;
+
+/// Go: `const multicodec.Bls12_381G1Pub multicodec.Code`.
+const bls12381g1Pub = 234;
+
+/// Go: `const multicodec.Bls12_381G1PubShare multicodec.Code`.
+const bls12381g1PubShare = 4876;
+
+/// Go: `const multicodec.Bls12_381G1ShareMsig multicodec.Code`.
+const bls12381g1ShareMsig = 13636356;
+
+/// Go: `const multicodec.Bls12_381G1Sig multicodec.Code`.
+const bls12381g1Sig = 53482;
+
+/// Go: `const multicodec.Bls12_381G1g2Priv multicodec.Code`.
+const bls12381g1g2Priv = 4875;
+
+/// Go: `const multicodec.Bls12_381G1g2Pub multicodec.Code`.
+const bls12381g1g2Pub = 238;
+
+/// Go: `const multicodec.Bls12_381G2Msig multicodec.Code`.
+const bls12381g2Msig = 13636354;
+
+/// Go: `const multicodec.Bls12_381G2Priv multicodec.Code`.
+const bls12381g2Priv = 4874;
+
+/// Go: `const multicodec.Bls12_381G2PrivShare multicodec.Code`.
+const bls12381g2PrivShare = 4879;
+
+/// Go: `const multicodec.Bls12_381G2Pub multicodec.Code`.
+const bls12381g2Pub = 235;
+
+/// Go: `const multicodec.Bls12_381G2PubShare multicodec.Code`.
+const bls12381g2PubShare = 4877;
+
+/// Go: `const multicodec.Bls12_381G2ShareMsig multicodec.Code`.
+const bls12381g2ShareMsig = 13636357;
+
+/// Go: `const multicodec.Bls12_381G2Sig multicodec.Code`.
+const bls12381g2Sig = 53483;
+
+/// Go: `const multicodec.Caip50 multicodec.Code`.
+const caip50 = 202;
+
+/// Go: `const multicodec.Car multicodec.Code`.
+const car = 514;
+
 /// Go: `const multicodec.CarIndexSorted multicodec.Code`.
 const carIndexSorted = 1024;
 
-/// Go: `const multicodec.CarMultihashIndexSorted multicodec.Code`.
-const carMultihashIndexSorted = 1025;
+/// Go: `const multicodec.Cbor multicodec.Code`.
+const cbor = 81;
+
+/// Go: `const multicodec.Certhash multicodec.Code`.
+const certhash = 466;
+
+/// Go: `const multicodec.Chacha128 multicodec.Code`.
+const chacha128 = 163;
+
+/// Go: `const multicodec.Chacha20Poly1305 multicodec.Code`.
+const chacha20Poly1305 = 40960;
+
+/// Go: `const multicodec.Chacha256 multicodec.Code`.
+const chacha256 = 164;
+
+/// Go: `const multicodec.Cidv1 multicodec.Code`.
+const cidv1 = 1;
+
+/// Go: `const multicodec.Cidv2 multicodec.Code`.
+const cidv2 = 2;
+
+/// Go: `const multicodec.Cidv3 multicodec.Code`.
+const cidv3 = 3;
+
+/// Go: `const multicodec.Crc32 multicodec.Code`.
+const crc32 = 306;
+
+/// Go: `const multicodec.Crc64Ecma multicodec.Code`.
+const crc64Ecma = 356;
+
+/// Go: `const multicodec.Crc64Nvme multicodec.Code`.
+const crc64Nvme = 357;
+
+/// Go: `const multicodec.DagCbor multicodec.Code`.
+const dagCbor = 113;
+
+/// Go: `const multicodec.DagCose multicodec.Code`.
+const dagCose = 134;
+
+/// Go: `const multicodec.DagJose multicodec.Code`.
+const dagJose = 133;
+
+/// Go: `const multicodec.DagJson multicodec.Code`.
+const dagJson = 297;
+
+/// Go: `const multicodec.DagPb multicodec.Code`.
+const dagPb = 112;
+
+/// Go: `const multicodec.DashBlock multicodec.Code`.
+const dashBlock = 240;
+
+/// Go: `const multicodec.DashTx multicodec.Code`.
+const dashTx = 241;
+
+/// Go: `const multicodec.DblSha2_256 multicodec.Code`.
+const dblSha2256 = 86;
+
+/// Go: `const multicodec.Dccp multicodec.Code`.
+const dccp = 33;
+
+/// Go: `const multicodec.DecredBlock multicodec.Code`.
+const decredBlock = 224;
+
+/// Go: `const multicodec.DecredTx multicodec.Code`.
+const decredTx = 225;
+
+/// Go: `const multicodec.Dns multicodec.Code`.
+const dns = 53;
+
+/// Go: `const multicodec.Dns4 multicodec.Code`.
+const dns4 = 54;
+
+/// Go: `const multicodec.Dns6 multicodec.Code`.
+const dns6 = 55;
+
+/// Go: `const multicodec.Dnsaddr multicodec.Code`.
+const dnsaddr = 56;
+
+/// Go: `const multicodec.Dnslink multicodec.Code`.
+const dnslink = 232;
+
+/// Go: `const multicodec.Ed25519Priv multicodec.Code`.
+const ed25519Priv = 4864;
+
+/// Go: `const multicodec.Ed25519Pub multicodec.Code`.
+const ed25519Pub = 237;
+
+/// Go: `const multicodec.Ed2k multicodec.Code`.
+const ed2k = 60704;
+
+/// Go: `const multicodec.Ed448Priv multicodec.Code`.
+const ed448Priv = 4881;
+
+/// Go: `const multicodec.Ed448Pub multicodec.Code`.
+const ed448Pub = 4611;
+
+/// Go: `const multicodec.Eddsa multicodec.Code`.
+const eddsa = 53485;
+
+/// Go: `const multicodec.EddsaMsig multicodec.Code`.
+const eddsaMsig = 13636355;
+
+/// Go: `const multicodec.Eip191 multicodec.Code`.
+const eip191 = 53649;
+
+/// Go: `const multicodec.Es256 multicodec.Code`.
+const es256 = 13636096;
+
+/// Go: `const multicodec.Es256Msig multicodec.Code`.
+const es256Msig = 13636360;
+
+/// Go: `const multicodec.Es256k multicodec.Code`.
+const es256k = 53479;
+
+/// Go: `const multicodec.Es256kMsig multicodec.Code`.
+const es256kMsig = 13636352;
+
+/// Go: `const multicodec.Es384 multicodec.Code`.
+const es384 = 13636097;
+
+/// Go: `const multicodec.Es384Msig multicodec.Code`.
+const es384Msig = 13636361;
+
+/// Go: `const multicodec.Es512 multicodec.Code`.
+const es512 = 13636098;
+
+/// Go: `const multicodec.Es521Msig multicodec.Code`.
+const es521Msig = 13636362;
+
+/// Go: `const multicodec.EthAccountSnapshot multicodec.Code`.
+const ethAccountSnapshot = 151;
+
+/// Go: `const multicodec.EthBlock multicodec.Code`.
+const ethBlock = 144;
+
+/// Go: `const multicodec.EthBlockList multicodec.Code`.
+const ethBlockList = 145;
+
+/// Go: `const multicodec.EthReceiptLog multicodec.Code`.
+const ethReceiptLog = 154;
+
+/// Go: `const multicodec.EthReceiptLogTrie multicodec.Code`.
+const ethReceiptLogTrie = 153;
+
+/// Go: `const multicodec.EthStateTrie multicodec.Code`.
+const ethStateTrie = 150;
+
+/// Go: `const multicodec.EthStorageTrie multicodec.Code`.
+const ethStorageTrie = 152;
+
+/// Go: `const multicodec.EthTx multicodec.Code`.
+const ethTx = 147;
+
+/// Go: `const multicodec.EthTxReceipt multicodec.Code`.
+const ethTxReceipt = 149;
+
+/// Go: `const multicodec.EthTxReceiptTrie multicodec.Code`.
+const ethTxReceiptTrie = 148;
+
+/// Go: `const multicodec.EthTxTrie multicodec.Code`.
+const ethTxTrie = 146;
+
+/// Go: `const multicodec.FilCommitmentSealed multicodec.Code`.
+const filCommitmentSealed = 61698;
+
+/// Go: `const multicodec.FilCommitmentUnsealed multicodec.Code`.
+const filCommitmentUnsealed = 61697;
+
+/// Go: `const multicodec.Fr32Sha256Trunc254Padbintree multicodec.Code`.
+const fr32Sha256Trunc254Padbintree = 4113;
+
+/// Go: `const multicodec.Garlic32 multicodec.Code`.
+const garlic32 = 447;
+
+/// Go: `const multicodec.Garlic64 multicodec.Code`.
+const garlic64 = 446;
+
+/// Go: `const multicodec.GitRaw multicodec.Code`.
+const gitRaw = 120;
+
+/// Go: `const multicodec.HolochainAdrV0 multicodec.Code`.
+const holochainAdrV0 = 8417572;
+
+/// Go: `const multicodec.HolochainAdrV1 multicodec.Code`.
+const holochainAdrV1 = 8483108;
+
+/// Go: `const multicodec.HolochainKeyV0 multicodec.Code`.
+const holochainKeyV0 = 9728292;
+
+/// Go: `const multicodec.HolochainKeyV1 multicodec.Code`.
+const holochainKeyV1 = 9793828;
+
+/// Go: `const multicodec.HolochainSigV0 multicodec.Code`.
+const holochainSigV0 = 10645796;
+
+/// Go: `const multicodec.HolochainSigV1 multicodec.Code`.
+const holochainSigV1 = 10711332;
+
+/// Go: `const multicodec.Http multicodec.Code`.
+const http = 480;
+
+/// Go: `const multicodec.HttpPath multicodec.Code`.
+const httpPath = 481;
+
+/// Go: `const multicodec.Https multicodec.Code`.
+const https = 443;
+
+/// Go: `const multicodec.Identity multicodec.Code`.
+const identity = 0;
+
+/// Go: `const multicodec.Ip4 multicodec.Code`.
+const ip4 = 4;
+
+/// Go: `const multicodec.Ip6 multicodec.Code`.
+const ip6 = 41;
+
+/// Go: `const multicodec.Ip6zone multicodec.Code`.
+const ip6zone = 42;
+
+/// Go: `const multicodec.Ipcidr multicodec.Code`.
+const ipcidr = 43;
+
+/// Go: `const multicodec.Ipfs multicodec.Code`.
+const ipfs = 227;
+
+/// Go: `const multicodec.Ipld multicodec.Code`.
+const ipld = 226;
+
+/// Go: `const multicodec.Ipns multicodec.Code`.
+const ipns = 229;
+
+/// Go: `const multicodec.IpnsRecord multicodec.Code`.
+const ipnsRecord = 768;
+
+/// Go: `const multicodec.Iscc multicodec.Code`.
+const iscc = 52225;
+
+/// Go: `const multicodec.Json multicodec.Code`.
+const json = 512;
+
+/// Go: `const multicodec.JsonJcs multicodec.Code`.
+const jsonJcs = 46593;
+
+/// Go: `const multicodec.Jwk_jcsPriv multicodec.Code`.
+const jwkJcsPriv = 4886;
+
+/// Go: `const multicodec.Jwk_jcsPub multicodec.Code`.
+const jwkJcsPub = 60241;
+
+/// Go: `const multicodec.Kangarootwelve multicodec.Code`.
+const kangarootwelve = 7425;
+
+/// Go: `const multicodec.Keccak224 multicodec.Code`.
+const keccak224 = 26;
+
+/// Go: `const multicodec.Keccak256 multicodec.Code`.
+const keccak256 = 27;
+
+/// Go: `const multicodec.Keccak384 multicodec.Code`.
+const keccak384 = 28;
+
+/// Go: `const multicodec.Keccak512 multicodec.Code`.
+const keccak512 = 29;
+
+/// Go: `const multicodec.KumandraNs multicodec.Code`.
+const kumandraNs = 11835664;
+
+/// Go: `const multicodec.LamportMsig multicodec.Code`.
+const lamportMsig = 13636358;
+
+/// Go: `const multicodec.LamportSha3_256Priv multicodec.Code`.
+const lamportSha3256Priv = 6694;
+
+/// Go: `const multicodec.LamportSha3_256PrivShare multicodec.Code`.
+const lamportSha3256PrivShare = 6710;
+
+/// Go: `const multicodec.LamportSha3_256Pub multicodec.Code`.
+const lamportSha3256Pub = 6678;
+
+/// Go: `const multicodec.LamportSha3_256Sig multicodec.Code`.
+const lamportSha3256Sig = 6726;
+
+/// Go: `const multicodec.LamportSha3_256SigShare multicodec.Code`.
+const lamportSha3256SigShare = 6742;
+
+/// Go: `const multicodec.LamportSha3_384Priv multicodec.Code`.
+const lamportSha3384Priv = 6693;
+
+/// Go: `const multicodec.LamportSha3_384PrivShare multicodec.Code`.
+const lamportSha3384PrivShare = 6709;
+
+/// Go: `const multicodec.LamportSha3_384Pub multicodec.Code`.
+const lamportSha3384Pub = 6677;
+
+/// Go: `const multicodec.LamportSha3_384Sig multicodec.Code`.
+const lamportSha3384Sig = 6725;
+
+/// Go: `const multicodec.LamportSha3_384SigShare multicodec.Code`.
+const lamportSha3384SigShare = 6741;
+
+/// Go: `const multicodec.LamportSha3_512Priv multicodec.Code`.
+const lamportSha3512Priv = 6692;
+
+/// Go: `const multicodec.LamportSha3_512PrivShare multicodec.Code`.
+const lamportSha3512PrivShare = 6708;
+
+/// Go: `const multicodec.LamportSha3_512Pub multicodec.Code`.
+const lamportSha3512Pub = 6676;
+
+/// Go: `const multicodec.LamportSha3_512Sig multicodec.Code`.
+const lamportSha3512Sig = 6724;
+
+/// Go: `const multicodec.LamportSha3_512SigShare multicodec.Code`.
+const lamportSha3512SigShare = 6740;
+
+/// Go: `const multicodec.LamportShareMsig multicodec.Code`.
+const lamportShareMsig = 13636359;
+
+/// Go: `const multicodec.Lbry multicodec.Code`.
+const lbry = 140;
+
+/// Go: `const multicodec.LeofcoinBlock multicodec.Code`.
+const leofcoinBlock = 129;
+
+/// Go: `const multicodec.LeofcoinPr multicodec.Code`.
+const leofcoinPr = 131;
+
+/// Go: `const multicodec.LeofcoinTx multicodec.Code`.
+const leofcoinTx = 130;
+
+/// Go: `const multicodec.Libp2pKey multicodec.Code`.
+const libp2pKey = 114;
+
+/// Go: `const multicodec.Libp2pPeerRecord multicodec.Code`.
+const libp2pPeerRecord = 769;
+
+/// Go: `const multicodec.Libp2pRelayRsvp multicodec.Code`.
+const libp2pRelayRsvp = 770;
+
+/// Go: `const multicodec.Md4 multicodec.Code`.
+const md4 = 212;
+
+/// Go: `const multicodec.Md5 multicodec.Code`.
+const md5 = 213;
+
+/// Go: `const multicodec.Memorytransport multicodec.Code`.
+const memorytransport = 777;
+
+/// Go: `const multicodec.Messagepack multicodec.Code`.
+const messagepack = 513;
+
+/// Go: `const multicodec.Mlkem1024Priv multicodec.Code`.
+const mlkem1024Priv = 4885;
+
+/// Go: `const multicodec.Mlkem1024Pub multicodec.Code`.
+const mlkem1024Pub = 4621;
+
+/// Go: `const multicodec.Mlkem512Priv multicodec.Code`.
+const mlkem512Priv = 4883;
+
+/// Go: `const multicodec.Mlkem512Pub multicodec.Code`.
+const mlkem512Pub = 4619;
+
+/// Go: `const multicodec.Mlkem768Priv multicodec.Code`.
+const mlkem768Priv = 4884;
+
+/// Go: `const multicodec.Mlkem768Pub multicodec.Code`.
+const mlkem768Pub = 4620;
+
+/// Go: `const multicodec.Multiaddr multicodec.Code`.
+const multiaddr = 50;
+
+/// Go: `const multicodec.Multibase multicodec.Code`.
+const multibase = 51;
+
+/// Go: `const multicodec.Multicodec multicodec.Code`.
+const multicodec = 48;
+
+/// Go: `const multicodec.Multidid multicodec.Code`.
+const multidid = 3357;
+
+/// Go: `const multicodec.Multihash multicodec.Code`.
+const multihash = 49;
+
+/// Go: `const multicodec.Multikey multicodec.Code`.
+const multikey = 4666;
+
+/// Go: `const multicodec.Multisig multicodec.Code`.
+const multisig = 4665;
+
+/// Go: `const multicodec.Murmur3X64_128 multicodec.Code`.
+const murmur3x64128 = 4130;
+
+/// Go: `const multicodec.Murmur3X64_64 multicodec.Code`.
+const murmur3x6464 = 34;
+
+/// Go: `const multicodec.Murmur3_32 multicodec.Code`.
+const murmur332 = 35;
+
+/// Go: `const multicodec.Noise multicodec.Code`.
+const noise = 454;
+
+/// Go: `const multicodec.Nonce multicodec.Code`.
+const nonce = 4667;
+
+/// Go: `const multicodec.NonstandardSig multicodec.Code`.
+const nonstandardSig = 53248;
+
+/// Go: `const multicodec.Onion multicodec.Code`.
+const onion = 444;
+
+/// Go: `const multicodec.Onion3 multicodec.Code`.
+const onion3 = 445;
+
+/// Go: `const multicodec.P256Priv multicodec.Code`.
+const p256Priv = 4870;
+
+/// Go: `const multicodec.P256Pub multicodec.Code`.
+const p256Pub = 4608;
+
+/// Go: `const multicodec.P2p multicodec.Code`.
+const p2p = 421;
+
+/// Go: `const multicodec.P2pCircuit multicodec.Code`.
+const p2pCircuit = 290;
+
+/// Go: `const multicodec.P2pStardust multicodec.Code`.
+const p2pStardust = 277;
+
+/// Go: `const multicodec.P2pWebrtcDirect multicodec.Code`.
+const p2pWebrtcDirect = 276;
+
+/// Go: `const multicodec.P2pWebrtcStar multicodec.Code`.
+const p2pWebrtcStar = 275;
+
+/// Go: `const multicodec.P2pWebsocketStar multicodec.Code`.
+const p2pWebsocketStar = 479;
+
+/// Go: `const multicodec.P384Priv multicodec.Code`.
+const p384Priv = 4871;
+
+/// Go: `const multicodec.P384Pub multicodec.Code`.
+const p384Pub = 4609;
+
+/// Go: `const multicodec.P521Priv multicodec.Code`.
+const p521Priv = 4872;
+
+/// Go: `const multicodec.P521Pub multicodec.Code`.
+const p521Pub = 4610;
+
+/// Go: `const multicodec.Path multicodec.Code`.
+const path = 47;
+
+/// Go: `const multicodec.Plaintextv2 multicodec.Code`.
+const plaintextv2 = 7367777;
+
+/// Go: `const multicodec.PoseidonBls12_381A2Fc1 multicodec.Code`.
+const poseidonBls12381a2Fc1 = 46081;
+
+/// Go: `const multicodec.PoseidonBls12_381A2Fc1Sc multicodec.Code`.
+const poseidonBls12381a2Fc1Sc = 46082;
+
+/// Go: `const multicodec.Protobuf multicodec.Code`.
+const protobuf = 80;
+
+/// Go: `const multicodec.ProvenanceLog multicodec.Code`.
+const provenanceLog = 4616;
+
+/// Go: `const multicodec.ProvenanceLogEntry multicodec.Code`.
+const provenanceLogEntry = 4617;
+
+/// Go: `const multicodec.ProvenanceLogScript multicodec.Code`.
+const provenanceLogScript = 4618;
+
+/// Go: `const multicodec.Quic multicodec.Code`.
+const quic = 460;
+
+/// Go: `const multicodec.QuicV1 multicodec.Code`.
+const quicV1 = 461;
+
+/// Go: `const multicodec.Raw multicodec.Code`.
+const raw = 85;
+
+/// Go: `const multicodec.Rdfc1 multicodec.Code`.
+const rdfc1 = 46083;
+
+/// Go: `const multicodec.ReservedEnd untyped int`.
+const reservedEnd = 4194303;
+
+/// Go: `const multicodec.ReservedStart untyped int`.
+const reservedStart = 3145728;
+
+/// Go: `const multicodec.Ripemd128 multicodec.Code`.
+const ripemd128 = 4178;
+
+/// Go: `const multicodec.Ripemd160 multicodec.Code`.
+const ripemd160 = 4179;
+
+/// Go: `const multicodec.Ripemd256 multicodec.Code`.
+const ripemd256 = 4180;
+
+/// Go: `const multicodec.Ripemd320 multicodec.Code`.
+const ripemd320 = 4181;
+
+/// Go: `const multicodec.Rlp multicodec.Code`.
+const rlp = 96;
+
+/// Go: `const multicodec.Rs256 multicodec.Code`.
+const rs256 = 13636101;
+
+/// Go: `const multicodec.Rs256Msig multicodec.Code`.
+const rs256Msig = 13636363;
+
+/// Go: `const multicodec.RsaPriv multicodec.Code`.
+const rsaPriv = 4869;
+
+/// Go: `const multicodec.RsaPub multicodec.Code`.
+const rsaPub = 4613;
+
+/// Go: `const multicodec.Scion multicodec.Code`.
+const scion = 13639680;
+
+/// Go: `const multicodec.Sctp multicodec.Code`.
+const sctp = 132;
+
+/// Go: `const multicodec.Secp256k1Priv multicodec.Code`.
+const secp256k1Priv = 4865;
+
+/// Go: `const multicodec.Secp256k1Pub multicodec.Code`.
+const secp256k1Pub = 231;
+
+/// Go: `const multicodec.Sha1 multicodec.Code`.
+const sha1 = 17;
+
+/// Go: `const multicodec.Sha256a multicodec.Code`.
+const sha256a = 28690;
+
+/// Go: `const multicodec.Sha2_224 multicodec.Code`.
+const sha2224 = 4115;
+
+/// Go: `const multicodec.Sha2_256 multicodec.Code`.
+const sha2256 = 18;
+
+/// Go: `const multicodec.Sha2_256Chunked multicodec.Code`.
+const sha2256Chunked = 46352;
+
+/// Go: `const multicodec.Sha2_256Trunc254Padded multicodec.Code`.
+const sha2256Trunc254Padded = 4114;
+
+/// Go: `const multicodec.Sha2_384 multicodec.Code`.
+const sha2384 = 32;
+
+/// Go: `const multicodec.Sha2_512 multicodec.Code`.
+const sha2512 = 19;
+
+/// Go: `const multicodec.Sha2_512_224 multicodec.Code`.
+const sha2512224 = 4116;
+
+/// Go: `const multicodec.Sha2_512_256 multicodec.Code`.
+const sha2512256 = 4117;
+
+/// Go: `const multicodec.Sha3_224 multicodec.Code`.
+const sha3224 = 23;
+
+/// Go: `const multicodec.Sha3_256 multicodec.Code`.
+const sha3256 = 22;
+
+/// Go: `const multicodec.Sha3_384 multicodec.Code`.
+const sha3384 = 21;
+
+/// Go: `const multicodec.Sha3_512 multicodec.Code`.
+const sha3512 = 20;
+
+/// Go: `const multicodec.Shake128 multicodec.Code`.
+const shake128 = 24;
+
+/// Go: `const multicodec.Shake256 multicodec.Code`.
+const shake256 = 25;
+
+/// Go: `const multicodec.ShelterContractData multicodec.Code`.
+const shelterContractData = 5316098;
+
+/// Go: `const multicodec.ShelterContractManifest multicodec.Code`.
+const shelterContractManifest = 5316096;
+
+/// Go: `const multicodec.ShelterContractText multicodec.Code`.
+const shelterContractText = 5316097;
+
+/// Go: `const multicodec.ShelterFileChunk multicodec.Code`.
+const shelterFileChunk = 5316100;
+
+/// Go: `const multicodec.ShelterFileManifest multicodec.Code`.
+const shelterFileManifest = 5316099;
+
+/// Go: `const multicodec.Shs multicodec.Code`.
+const shs = 456;
+
+/// Go: `const multicodec.Silverpine multicodec.Code`.
+const silverpine = 16194;
+
+/// Go: `const multicodec.Skein1024_1000 multicodec.Code`.
+const skein10241000 = 46045;
+
+/// Go: `const multicodec.Skein1024_1008 multicodec.Code`.
+const skein10241008 = 46046;
+
+/// Go: `const multicodec.Skein1024_1016 multicodec.Code`.
+const skein10241016 = 46047;
+
+/// Go: `const multicodec.Skein1024_1024 multicodec.Code`.
+const skein10241024 = 46048;
+
+/// Go: `const multicodec.Skein1024_104 multicodec.Code`.
+const skein1024104 = 45933;
+
+/// Go: `const multicodec.Skein1024_112 multicodec.Code`.
+const skein1024112 = 45934;
+
+/// Go: `const multicodec.Skein1024_120 multicodec.Code`.
+const skein1024120 = 45935;
+
+/// Go: `const multicodec.Skein1024_128 multicodec.Code`.
+const skein1024128 = 45936;
+
+/// Go: `const multicodec.Skein1024_136 multicodec.Code`.
+const skein1024136 = 45937;
+
+/// Go: `const multicodec.Skein1024_144 multicodec.Code`.
+const skein1024144 = 45938;
+
+/// Go: `const multicodec.Skein1024_152 multicodec.Code`.
+const skein1024152 = 45939;
+
+/// Go: `const multicodec.Skein1024_16 multicodec.Code`.
+const skein102416 = 45922;
+
+/// Go: `const multicodec.Skein1024_160 multicodec.Code`.
+const skein1024160 = 45940;
+
+/// Go: `const multicodec.Skein1024_168 multicodec.Code`.
+const skein1024168 = 45941;
+
+/// Go: `const multicodec.Skein1024_176 multicodec.Code`.
+const skein1024176 = 45942;
+
+/// Go: `const multicodec.Skein1024_184 multicodec.Code`.
+const skein1024184 = 45943;
+
+/// Go: `const multicodec.Skein1024_192 multicodec.Code`.
+const skein1024192 = 45944;
+
+/// Go: `const multicodec.Skein1024_200 multicodec.Code`.
+const skein1024200 = 45945;
+
+/// Go: `const multicodec.Skein1024_208 multicodec.Code`.
+const skein1024208 = 45946;
+
+/// Go: `const multicodec.Skein1024_216 multicodec.Code`.
+const skein1024216 = 45947;
+
+/// Go: `const multicodec.Skein1024_224 multicodec.Code`.
+const skein1024224 = 45948;
+
+/// Go: `const multicodec.Skein1024_232 multicodec.Code`.
+const skein1024232 = 45949;
+
+/// Go: `const multicodec.Skein1024_24 multicodec.Code`.
+const skein102424 = 45923;
+
+/// Go: `const multicodec.Skein1024_240 multicodec.Code`.
+const skein1024240 = 45950;
+
+/// Go: `const multicodec.Skein1024_248 multicodec.Code`.
+const skein1024248 = 45951;
+
+/// Go: `const multicodec.Skein1024_256 multicodec.Code`.
+const skein1024256 = 45952;
+
+/// Go: `const multicodec.Skein1024_264 multicodec.Code`.
+const skein1024264 = 45953;
+
+/// Go: `const multicodec.Skein1024_272 multicodec.Code`.
+const skein1024272 = 45954;
+
+/// Go: `const multicodec.Skein1024_280 multicodec.Code`.
+const skein1024280 = 45955;
+
+/// Go: `const multicodec.Skein1024_288 multicodec.Code`.
+const skein1024288 = 45956;
+
+/// Go: `const multicodec.Skein1024_296 multicodec.Code`.
+const skein1024296 = 45957;
+
+/// Go: `const multicodec.Skein1024_304 multicodec.Code`.
+const skein1024304 = 45958;
+
+/// Go: `const multicodec.Skein1024_312 multicodec.Code`.
+const skein1024312 = 45959;
+
+/// Go: `const multicodec.Skein1024_32 multicodec.Code`.
+const skein102432 = 45924;
+
+/// Go: `const multicodec.Skein1024_320 multicodec.Code`.
+const skein1024320 = 45960;
+
+/// Go: `const multicodec.Skein1024_328 multicodec.Code`.
+const skein1024328 = 45961;
+
+/// Go: `const multicodec.Skein1024_336 multicodec.Code`.
+const skein1024336 = 45962;
+
+/// Go: `const multicodec.Skein1024_344 multicodec.Code`.
+const skein1024344 = 45963;
+
+/// Go: `const multicodec.Skein1024_352 multicodec.Code`.
+const skein1024352 = 45964;
+
+/// Go: `const multicodec.Skein1024_360 multicodec.Code`.
+const skein1024360 = 45965;
+
+/// Go: `const multicodec.Skein1024_368 multicodec.Code`.
+const skein1024368 = 45966;
+
+/// Go: `const multicodec.Skein1024_376 multicodec.Code`.
+const skein1024376 = 45967;
+
+/// Go: `const multicodec.Skein1024_384 multicodec.Code`.
+const skein1024384 = 45968;
+
+/// Go: `const multicodec.Skein1024_392 multicodec.Code`.
+const skein1024392 = 45969;
+
+/// Go: `const multicodec.Skein1024_40 multicodec.Code`.
+const skein102440 = 45925;
+
+/// Go: `const multicodec.Skein1024_400 multicodec.Code`.
+const skein1024400 = 45970;
+
+/// Go: `const multicodec.Skein1024_408 multicodec.Code`.
+const skein1024408 = 45971;
+
+/// Go: `const multicodec.Skein1024_416 multicodec.Code`.
+const skein1024416 = 45972;
+
+/// Go: `const multicodec.Skein1024_424 multicodec.Code`.
+const skein1024424 = 45973;
+
+/// Go: `const multicodec.Skein1024_432 multicodec.Code`.
+const skein1024432 = 45974;
+
+/// Go: `const multicodec.Skein1024_440 multicodec.Code`.
+const skein1024440 = 45975;
+
+/// Go: `const multicodec.Skein1024_448 multicodec.Code`.
+const skein1024448 = 45976;
+
+/// Go: `const multicodec.Skein1024_456 multicodec.Code`.
+const skein1024456 = 45977;
+
+/// Go: `const multicodec.Skein1024_464 multicodec.Code`.
+const skein1024464 = 45978;
+
+/// Go: `const multicodec.Skein1024_472 multicodec.Code`.
+const skein1024472 = 45979;
+
+/// Go: `const multicodec.Skein1024_48 multicodec.Code`.
+const skein102448 = 45926;
+
+/// Go: `const multicodec.Skein1024_480 multicodec.Code`.
+const skein1024480 = 45980;
+
+/// Go: `const multicodec.Skein1024_488 multicodec.Code`.
+const skein1024488 = 45981;
+
+/// Go: `const multicodec.Skein1024_496 multicodec.Code`.
+const skein1024496 = 45982;
+
+/// Go: `const multicodec.Skein1024_504 multicodec.Code`.
+const skein1024504 = 45983;
+
+/// Go: `const multicodec.Skein1024_512 multicodec.Code`.
+const skein1024512 = 45984;
+
+/// Go: `const multicodec.Skein1024_520 multicodec.Code`.
+const skein1024520 = 45985;
+
+/// Go: `const multicodec.Skein1024_528 multicodec.Code`.
+const skein1024528 = 45986;
+
+/// Go: `const multicodec.Skein1024_536 multicodec.Code`.
+const skein1024536 = 45987;
+
+/// Go: `const multicodec.Skein1024_544 multicodec.Code`.
+const skein1024544 = 45988;
+
+/// Go: `const multicodec.Skein1024_552 multicodec.Code`.
+const skein1024552 = 45989;
+
+/// Go: `const multicodec.Skein1024_56 multicodec.Code`.
+const skein102456 = 45927;
+
+/// Go: `const multicodec.Skein1024_560 multicodec.Code`.
+const skein1024560 = 45990;
+
+/// Go: `const multicodec.Skein1024_568 multicodec.Code`.
+const skein1024568 = 45991;
+
+/// Go: `const multicodec.Skein1024_576 multicodec.Code`.
+const skein1024576 = 45992;
+
+/// Go: `const multicodec.Skein1024_584 multicodec.Code`.
+const skein1024584 = 45993;
+
+/// Go: `const multicodec.Skein1024_592 multicodec.Code`.
+const skein1024592 = 45994;
+
+/// Go: `const multicodec.Skein1024_600 multicodec.Code`.
+const skein1024600 = 45995;
+
+/// Go: `const multicodec.Skein1024_608 multicodec.Code`.
+const skein1024608 = 45996;
+
+/// Go: `const multicodec.Skein1024_616 multicodec.Code`.
+const skein1024616 = 45997;
+
+/// Go: `const multicodec.Skein1024_624 multicodec.Code`.
+const skein1024624 = 45998;
+
+/// Go: `const multicodec.Skein1024_632 multicodec.Code`.
+const skein1024632 = 45999;
+
+/// Go: `const multicodec.Skein1024_64 multicodec.Code`.
+const skein102464 = 45928;
+
+/// Go: `const multicodec.Skein1024_640 multicodec.Code`.
+const skein1024640 = 46000;
+
+/// Go: `const multicodec.Skein1024_648 multicodec.Code`.
+const skein1024648 = 46001;
+
+/// Go: `const multicodec.Skein1024_656 multicodec.Code`.
+const skein1024656 = 46002;
+
+/// Go: `const multicodec.Skein1024_664 multicodec.Code`.
+const skein1024664 = 46003;
+
+/// Go: `const multicodec.Skein1024_672 multicodec.Code`.
+const skein1024672 = 46004;
+
+/// Go: `const multicodec.Skein1024_680 multicodec.Code`.
+const skein1024680 = 46005;
+
+/// Go: `const multicodec.Skein1024_688 multicodec.Code`.
+const skein1024688 = 46006;
+
+/// Go: `const multicodec.Skein1024_696 multicodec.Code`.
+const skein1024696 = 46007;
+
+/// Go: `const multicodec.Skein1024_704 multicodec.Code`.
+const skein1024704 = 46008;
+
+/// Go: `const multicodec.Skein1024_712 multicodec.Code`.
+const skein1024712 = 46009;
+
+/// Go: `const multicodec.Skein1024_72 multicodec.Code`.
+const skein102472 = 45929;
+
+/// Go: `const multicodec.Skein1024_720 multicodec.Code`.
+const skein1024720 = 46010;
+
+/// Go: `const multicodec.Skein1024_728 multicodec.Code`.
+const skein1024728 = 46011;
+
+/// Go: `const multicodec.Skein1024_736 multicodec.Code`.
+const skein1024736 = 46012;
+
+/// Go: `const multicodec.Skein1024_744 multicodec.Code`.
+const skein1024744 = 46013;
+
+/// Go: `const multicodec.Skein1024_752 multicodec.Code`.
+const skein1024752 = 46014;
+
+/// Go: `const multicodec.Skein1024_760 multicodec.Code`.
+const skein1024760 = 46015;
+
+/// Go: `const multicodec.Skein1024_768 multicodec.Code`.
+const skein1024768 = 46016;
+
+/// Go: `const multicodec.Skein1024_776 multicodec.Code`.
+const skein1024776 = 46017;
+
+/// Go: `const multicodec.Skein1024_784 multicodec.Code`.
+const skein1024784 = 46018;
+
+/// Go: `const multicodec.Skein1024_792 multicodec.Code`.
+const skein1024792 = 46019;
+
+/// Go: `const multicodec.Skein1024_8 multicodec.Code`.
+const skein10248 = 45921;
+
+/// Go: `const multicodec.Skein1024_80 multicodec.Code`.
+const skein102480 = 45930;
+
+/// Go: `const multicodec.Skein1024_800 multicodec.Code`.
+const skein1024800 = 46020;
+
+/// Go: `const multicodec.Skein1024_808 multicodec.Code`.
+const skein1024808 = 46021;
+
+/// Go: `const multicodec.Skein1024_816 multicodec.Code`.
+const skein1024816 = 46022;
+
+/// Go: `const multicodec.Skein1024_824 multicodec.Code`.
+const skein1024824 = 46023;
+
+/// Go: `const multicodec.Skein1024_832 multicodec.Code`.
+const skein1024832 = 46024;
+
+/// Go: `const multicodec.Skein1024_840 multicodec.Code`.
+const skein1024840 = 46025;
+
+/// Go: `const multicodec.Skein1024_848 multicodec.Code`.
+const skein1024848 = 46026;
+
+/// Go: `const multicodec.Skein1024_856 multicodec.Code`.
+const skein1024856 = 46027;
+
+/// Go: `const multicodec.Skein1024_864 multicodec.Code`.
+const skein1024864 = 46028;
+
+/// Go: `const multicodec.Skein1024_872 multicodec.Code`.
+const skein1024872 = 46029;
+
+/// Go: `const multicodec.Skein1024_88 multicodec.Code`.
+const skein102488 = 45931;
+
+/// Go: `const multicodec.Skein1024_880 multicodec.Code`.
+const skein1024880 = 46030;
+
+/// Go: `const multicodec.Skein1024_888 multicodec.Code`.
+const skein1024888 = 46031;
+
+/// Go: `const multicodec.Skein1024_896 multicodec.Code`.
+const skein1024896 = 46032;
+
+/// Go: `const multicodec.Skein1024_904 multicodec.Code`.
+const skein1024904 = 46033;
+
+/// Go: `const multicodec.Skein1024_912 multicodec.Code`.
+const skein1024912 = 46034;
+
+/// Go: `const multicodec.Skein1024_920 multicodec.Code`.
+const skein1024920 = 46035;
+
+/// Go: `const multicodec.Skein1024_928 multicodec.Code`.
+const skein1024928 = 46036;
+
+/// Go: `const multicodec.Skein1024_936 multicodec.Code`.
+const skein1024936 = 46037;
+
+/// Go: `const multicodec.Skein1024_944 multicodec.Code`.
+const skein1024944 = 46038;
+
+/// Go: `const multicodec.Skein1024_952 multicodec.Code`.
+const skein1024952 = 46039;
+
+/// Go: `const multicodec.Skein1024_96 multicodec.Code`.
+const skein102496 = 45932;
+
+/// Go: `const multicodec.Skein1024_960 multicodec.Code`.
+const skein1024960 = 46040;
+
+/// Go: `const multicodec.Skein1024_968 multicodec.Code`.
+const skein1024968 = 46041;
+
+/// Go: `const multicodec.Skein1024_976 multicodec.Code`.
+const skein1024976 = 46042;
+
+/// Go: `const multicodec.Skein1024_984 multicodec.Code`.
+const skein1024984 = 46043;
+
+/// Go: `const multicodec.Skein1024_992 multicodec.Code`.
+const skein1024992 = 46044;
+
+/// Go: `const multicodec.Skein256_104 multicodec.Code`.
+const skein256104 = 45837;
+
+/// Go: `const multicodec.Skein256_112 multicodec.Code`.
+const skein256112 = 45838;
+
+/// Go: `const multicodec.Skein256_120 multicodec.Code`.
+const skein256120 = 45839;
+
+/// Go: `const multicodec.Skein256_128 multicodec.Code`.
+const skein256128 = 45840;
+
+/// Go: `const multicodec.Skein256_136 multicodec.Code`.
+const skein256136 = 45841;
+
+/// Go: `const multicodec.Skein256_144 multicodec.Code`.
+const skein256144 = 45842;
+
+/// Go: `const multicodec.Skein256_152 multicodec.Code`.
+const skein256152 = 45843;
+
+/// Go: `const multicodec.Skein256_16 multicodec.Code`.
+const skein25616 = 45826;
+
+/// Go: `const multicodec.Skein256_160 multicodec.Code`.
+const skein256160 = 45844;
+
+/// Go: `const multicodec.Skein256_168 multicodec.Code`.
+const skein256168 = 45845;
+
+/// Go: `const multicodec.Skein256_176 multicodec.Code`.
+const skein256176 = 45846;
+
+/// Go: `const multicodec.Skein256_184 multicodec.Code`.
+const skein256184 = 45847;
+
+/// Go: `const multicodec.Skein256_192 multicodec.Code`.
+const skein256192 = 45848;
+
+/// Go: `const multicodec.Skein256_200 multicodec.Code`.
+const skein256200 = 45849;
+
+/// Go: `const multicodec.Skein256_208 multicodec.Code`.
+const skein256208 = 45850;
+
+/// Go: `const multicodec.Skein256_216 multicodec.Code`.
+const skein256216 = 45851;
+
+/// Go: `const multicodec.Skein256_224 multicodec.Code`.
+const skein256224 = 45852;
+
+/// Go: `const multicodec.Skein256_232 multicodec.Code`.
+const skein256232 = 45853;
+
+/// Go: `const multicodec.Skein256_24 multicodec.Code`.
+const skein25624 = 45827;
+
+/// Go: `const multicodec.Skein256_240 multicodec.Code`.
+const skein256240 = 45854;
+
+/// Go: `const multicodec.Skein256_248 multicodec.Code`.
+const skein256248 = 45855;
+
+/// Go: `const multicodec.Skein256_256 multicodec.Code`.
+const skein256256 = 45856;
+
+/// Go: `const multicodec.Skein256_32 multicodec.Code`.
+const skein25632 = 45828;
+
+/// Go: `const multicodec.Skein256_40 multicodec.Code`.
+const skein25640 = 45829;
+
+/// Go: `const multicodec.Skein256_48 multicodec.Code`.
+const skein25648 = 45830;
+
+/// Go: `const multicodec.Skein256_56 multicodec.Code`.
+const skein25656 = 45831;
+
+/// Go: `const multicodec.Skein256_64 multicodec.Code`.
+const skein25664 = 45832;
+
+/// Go: `const multicodec.Skein256_72 multicodec.Code`.
+const skein25672 = 45833;
+
+/// Go: `const multicodec.Skein256_8 multicodec.Code`.
+const skein2568 = 45825;
+
+/// Go: `const multicodec.Skein256_80 multicodec.Code`.
+const skein25680 = 45834;
+
+/// Go: `const multicodec.Skein256_88 multicodec.Code`.
+const skein25688 = 45835;
+
+/// Go: `const multicodec.Skein256_96 multicodec.Code`.
+const skein25696 = 45836;
+
+/// Go: `const multicodec.Skein512_104 multicodec.Code`.
+const skein512104 = 45869;
+
+/// Go: `const multicodec.Skein512_112 multicodec.Code`.
+const skein512112 = 45870;
+
+/// Go: `const multicodec.Skein512_120 multicodec.Code`.
+const skein512120 = 45871;
+
+/// Go: `const multicodec.Skein512_128 multicodec.Code`.
+const skein512128 = 45872;
+
+/// Go: `const multicodec.Skein512_136 multicodec.Code`.
+const skein512136 = 45873;
+
+/// Go: `const multicodec.Skein512_144 multicodec.Code`.
+const skein512144 = 45874;
+
+/// Go: `const multicodec.Skein512_152 multicodec.Code`.
+const skein512152 = 45875;
+
+/// Go: `const multicodec.Skein512_16 multicodec.Code`.
+const skein51216 = 45858;
+
+/// Go: `const multicodec.Skein512_160 multicodec.Code`.
+const skein512160 = 45876;
+
+/// Go: `const multicodec.Skein512_168 multicodec.Code`.
+const skein512168 = 45877;
+
+/// Go: `const multicodec.Skein512_176 multicodec.Code`.
+const skein512176 = 45878;
+
+/// Go: `const multicodec.Skein512_184 multicodec.Code`.
+const skein512184 = 45879;
+
+/// Go: `const multicodec.Skein512_192 multicodec.Code`.
+const skein512192 = 45880;
+
+/// Go: `const multicodec.Skein512_200 multicodec.Code`.
+const skein512200 = 45881;
+
+/// Go: `const multicodec.Skein512_208 multicodec.Code`.
+const skein512208 = 45882;
+
+/// Go: `const multicodec.Skein512_216 multicodec.Code`.
+const skein512216 = 45883;
+
+/// Go: `const multicodec.Skein512_224 multicodec.Code`.
+const skein512224 = 45884;
+
+/// Go: `const multicodec.Skein512_232 multicodec.Code`.
+const skein512232 = 45885;
+
+/// Go: `const multicodec.Skein512_24 multicodec.Code`.
+const skein51224 = 45859;
+
+/// Go: `const multicodec.Skein512_240 multicodec.Code`.
+const skein512240 = 45886;
+
+/// Go: `const multicodec.Skein512_248 multicodec.Code`.
+const skein512248 = 45887;
+
+/// Go: `const multicodec.Skein512_256 multicodec.Code`.
+const skein512256 = 45888;
+
+/// Go: `const multicodec.Skein512_264 multicodec.Code`.
+const skein512264 = 45889;
+
+/// Go: `const multicodec.Skein512_272 multicodec.Code`.
+const skein512272 = 45890;
+
+/// Go: `const multicodec.Skein512_280 multicodec.Code`.
+const skein512280 = 45891;
+
+/// Go: `const multicodec.Skein512_288 multicodec.Code`.
+const skein512288 = 45892;
+
+/// Go: `const multicodec.Skein512_296 multicodec.Code`.
+const skein512296 = 45893;
+
+/// Go: `const multicodec.Skein512_304 multicodec.Code`.
+const skein512304 = 45894;
+
+/// Go: `const multicodec.Skein512_312 multicodec.Code`.
+const skein512312 = 45895;
+
+/// Go: `const multicodec.Skein512_32 multicodec.Code`.
+const skein51232 = 45860;
+
+/// Go: `const multicodec.Skein512_320 multicodec.Code`.
+const skein512320 = 45896;
+
+/// Go: `const multicodec.Skein512_328 multicodec.Code`.
+const skein512328 = 45897;
+
+/// Go: `const multicodec.Skein512_336 multicodec.Code`.
+const skein512336 = 45898;
+
+/// Go: `const multicodec.Skein512_344 multicodec.Code`.
+const skein512344 = 45899;
+
+/// Go: `const multicodec.Skein512_352 multicodec.Code`.
+const skein512352 = 45900;
+
+/// Go: `const multicodec.Skein512_360 multicodec.Code`.
+const skein512360 = 45901;
+
+/// Go: `const multicodec.Skein512_368 multicodec.Code`.
+const skein512368 = 45902;
+
+/// Go: `const multicodec.Skein512_376 multicodec.Code`.
+const skein512376 = 45903;
+
+/// Go: `const multicodec.Skein512_384 multicodec.Code`.
+const skein512384 = 45904;
+
+/// Go: `const multicodec.Skein512_392 multicodec.Code`.
+const skein512392 = 45905;
+
+/// Go: `const multicodec.Skein512_40 multicodec.Code`.
+const skein51240 = 45861;
+
+/// Go: `const multicodec.Skein512_400 multicodec.Code`.
+const skein512400 = 45906;
+
+/// Go: `const multicodec.Skein512_408 multicodec.Code`.
+const skein512408 = 45907;
+
+/// Go: `const multicodec.Skein512_416 multicodec.Code`.
+const skein512416 = 45908;
+
+/// Go: `const multicodec.Skein512_424 multicodec.Code`.
+const skein512424 = 45909;
+
+/// Go: `const multicodec.Skein512_432 multicodec.Code`.
+const skein512432 = 45910;
+
+/// Go: `const multicodec.Skein512_440 multicodec.Code`.
+const skein512440 = 45911;
+
+/// Go: `const multicodec.Skein512_448 multicodec.Code`.
+const skein512448 = 45912;
+
+/// Go: `const multicodec.Skein512_456 multicodec.Code`.
+const skein512456 = 45913;
+
+/// Go: `const multicodec.Skein512_464 multicodec.Code`.
+const skein512464 = 45914;
+
+/// Go: `const multicodec.Skein512_472 multicodec.Code`.
+const skein512472 = 45915;
+
+/// Go: `const multicodec.Skein512_48 multicodec.Code`.
+const skein51248 = 45862;
+
+/// Go: `const multicodec.Skein512_480 multicodec.Code`.
+const skein512480 = 45916;
+
+/// Go: `const multicodec.Skein512_488 multicodec.Code`.
+const skein512488 = 45917;
+
+/// Go: `const multicodec.Skein512_496 multicodec.Code`.
+const skein512496 = 45918;
+
+/// Go: `const multicodec.Skein512_504 multicodec.Code`.
+const skein512504 = 45919;
+
+/// Go: `const multicodec.Skein512_512 multicodec.Code`.
+const skein512512 = 45920;
+
+/// Go: `const multicodec.Skein512_56 multicodec.Code`.
+const skein51256 = 45863;
+
+/// Go: `const multicodec.Skein512_64 multicodec.Code`.
+const skein51264 = 45864;
+
+/// Go: `const multicodec.Skein512_72 multicodec.Code`.
+const skein51272 = 45865;
+
+/// Go: `const multicodec.Skein512_8 multicodec.Code`.
+const skein5128 = 45857;
+
+/// Go: `const multicodec.Skein512_80 multicodec.Code`.
+const skein51280 = 45866;
+
+/// Go: `const multicodec.Skein512_88 multicodec.Code`.
+const skein51288 = 45867;
+
+/// Go: `const multicodec.Skein512_96 multicodec.Code`.
+const skein51296 = 45868;
+
+/// Go: `const multicodec.SkynetNs multicodec.Code`.
+const skynetNs = 11639056;
+
+/// Go: `const multicodec.Sm2Priv multicodec.Code`.
+const sm2Priv = 4880;
+
+/// Go: `const multicodec.Sm2Pub multicodec.Code`.
+const sm2Pub = 4614;
+
+/// Go: `const multicodec.Sm3_256 multicodec.Code`.
+const sm3256 = 21325;
+
+/// Go: `const multicodec.Sni multicodec.Code`.
+const sni = 449;
+
+/// Go: `const multicodec.Sr25519Priv multicodec.Code`.
+const sr25519Priv = 4867;
+
+/// Go: `const multicodec.Sr25519Pub multicodec.Code`.
+const sr25519Pub = 239;
+
+/// Go: `const multicodec.Ssz multicodec.Code`.
+const ssz = 46337;
+
+/// Go: `const multicodec.SszSha2_256Bmt multicodec.Code`.
+const sszSha2256Bmt = 46338;
+
+/// Go: `const multicodec.StellarBlock multicodec.Code`.
+const stellarBlock = 208;
+
+/// Go: `const multicodec.StellarTx multicodec.Code`.
+const stellarTx = 209;
+
+/// Go: `const multicodec.Streamid multicodec.Code`.
+const streamid = 206;
+
+/// Go: `const multicodec.SubspaceNs multicodec.Code`.
+const subspaceNs = 11770128;
+
+/// Go: `const multicodec.Swarm multicodec.Code`.
+const swarm = 228;
+
+/// Go: `const multicodec.SwarmFeed multicodec.Code`.
+const swarmFeed = 251;
+
+/// Go: `const multicodec.SwarmManifest multicodec.Code`.
+const swarmManifest = 250;
+
+/// Go: `const multicodec.Swhid1Snp multicodec.Code`.
+const swhid1Snp = 496;
+
+/// Go: `const multicodec.Tcp multicodec.Code`.
+const tcp = 6;
+
+/// Go: `const multicodec.Thread multicodec.Code`.
+const thread = 406;
+
+/// Go: `const multicodec.Tls multicodec.Code`.
+const tls = 448;
+
+/// Go: `const multicodec.TorrentFile multicodec.Code`.
+const torrentFile = 124;
+
+/// Go: `const multicodec.TorrentInfo multicodec.Code`.
+const torrentInfo = 123;
+
+/// Go: `const multicodec.TransportBitswap multicodec.Code`.
+const transportBitswap = 2304;
+
+/// Go: `const multicodec.TransportFilecoinPieceHttp multicodec.Code`.
+const transportFilecoinPieceHttp = 2352;
+
+/// Go: `const multicodec.TransportGraphsyncFilecoinv1 multicodec.Code`.
+const transportGraphsyncFilecoinv1 = 2320;
+
+/// Go: `const multicodec.TransportIpfsGatewayHttp multicodec.Code`.
+const transportIpfsGatewayHttp = 2336;
+
+/// Go: `const multicodec.Udp multicodec.Code`.
+const udp = 273;
+
+/// Go: `const multicodec.Udt multicodec.Code`.
+const udt = 301;
+
+/// Go: `const multicodec.Unix multicodec.Code`.
+const unix = 400;
+
+/// Go: `const multicodec.Utp multicodec.Code`.
+const utp = 302;
+
+/// Go: `const multicodec.Varsig multicodec.Code`.
+const varsig = 52;
+
+/// Go: `const multicodec.Vlad multicodec.Code`.
+const vlad = 4615;
+
+/// Go: `const multicodec.Webrtc multicodec.Code`.
+const webrtc = 281;
+
+/// Go: `const multicodec.WebrtcDirect multicodec.Code`.
+const webrtcDirect = 280;
+
+/// Go: `const multicodec.Webtransport multicodec.Code`.
+const webtransport = 465;
+
+/// Go: `const multicodec.Ws multicodec.Code`.
+const ws = 477;
+
+/// Go: `const multicodec.Wss multicodec.Code`.
+const wss = 478;
+
+/// Go: `const multicodec.X11 multicodec.Code`.
+const x11 = 4352;
+
+/// Go: `const multicodec.X25519Priv multicodec.Code`.
+const x25519Priv = 4866;
+
+/// Go: `const multicodec.X25519Pub multicodec.Code`.
+const x25519Pub = 236;
+
+/// Go: `const multicodec.X448Priv multicodec.Code`.
+const x448Priv = 4882;
+
+/// Go: `const multicodec.X448Pub multicodec.Code`.
+const x448Pub = 4612;
+
+/// Go: `const multicodec.X509Certificate multicodec.Code`.
+const x509Certificate = 528;
+
+/// Go: `const multicodec.Xxh32 multicodec.Code`.
+const xxh32 = 46049;
+
+/// Go: `const multicodec.Xxh3_128 multicodec.Code`.
+const xxh3128 = 46052;
+
+/// Go: `const multicodec.Xxh3_64 multicodec.Code`.
+const xxh364 = 46051;
+
+/// Go: `const multicodec.Xxh64 multicodec.Code`.
+const xxh64 = 46050;
+
+/// Go: `const multicodec.ZcashBlock multicodec.Code`.
+const zcashBlock = 192;
+
+/// Go: `const multicodec.ZcashTx multicodec.Code`.
+const zcashTx = 193;
+
+/// Go: `const multicodec.Zeronet multicodec.Code`.
+const zeronet = 230;
+
+/// Go: `const multicodec.ZeroxcertImprint256 multicodec.Code`.
+const zeroxcertImprint256 = 52753;

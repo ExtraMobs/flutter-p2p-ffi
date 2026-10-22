@@ -13,3 +13,12 @@ class ImmutablePath extends Path {
 class Path extends GoValue {
   const Path(super.value);
 }
+
+/// Go: `const path.IPFSNamespace untyped string`.
+const ipfsNamespace = "ipfs";
+
+/// Go: `const path.IPLDNamespace untyped string`.
+const ipldNamespace = "ipld";
+
+/// Go: `const path.IPNSNamespace untyped string`.
+const ipnsNamespace = "ipns";

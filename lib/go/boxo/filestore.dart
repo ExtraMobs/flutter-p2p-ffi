@@ -5,6 +5,24 @@ library;
 import 'package:ipfs_ffi/src/runtime.dart';
 import 'package:ipfs_ffi/go/cid.dart' as $cid;
 
+/// Go: `const filestore.StatusFileChanged filestore.Status`.
+const statusFileChanged = 12;
+
+/// Go: `const filestore.StatusFileError filestore.Status`.
+const statusFileError = 10;
+
+/// Go: `const filestore.StatusFileNotFound filestore.Status`.
+const statusFileNotFound = 11;
+
+/// Go: `const filestore.StatusKeyNotFound filestore.Status`.
+const statusKeyNotFound = 30;
+
+/// Go: `const filestore.StatusOk filestore.Status`.
+const statusOk = 0;
+
+/// Go: `const filestore.StatusOtherError filestore.Status`.
+const statusOtherError = 20;
+
 /// Go: `filestore.ListRes` (a kubo command output).
 final class ListRes {
   ListRes.$dec($R r)

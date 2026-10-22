@@ -207,7 +207,7 @@ func generate(rootsFile string) (map[string][]byte, error) {
 	// esquema deles
 	var cmdAPI, cmdSmoke string
 	var cmdHash uint64
-	dart := emitDart(m, fns, hash, func(de *dartEmitter) {
+	dart, consts := emitDart(m, fns, hash, func(de *dartEmitter) {
 		cmdAPI, cmdSmoke, cmdHash = emitCommands(de, manualNames())
 	})
 	hf := fnv.New64a()
@@ -222,7 +222,7 @@ func generate(rootsFile string) (map[string][]byte, error) {
 	for path, src := range dart {
 		out[filepath.ToSlash(filepath.Join("../lib", path))] = src
 	}
-	out["../API.md"] = append(emitAPI(m, fns), cmdAPI...)
+	out["../API.md"] = append(emitAPI(m, append(fns, consts...)), cmdAPI...)
 	out["../test/src/commands_smoke.dart"] = formatDart("../test/src/commands_smoke.dart", cmdSmoke)
 	if err := checkPublicExports("../lib", out); err != nil {
 		return nil, err
@@ -554,6 +554,14 @@ func embeds(outer, inner *types.Named) bool {
 // dartConstLit: o literal Dart de uma constante Go de tipo básico.
 func dartConstLit(c *types.Const) string {
 	v := c.Val()
+	// time.Duration (nanossegundos) vira o Duration do Dart, que guarda
+	// microssegundos: o resto abaixo de 1 µs se perde
+	if n, ok := c.Type().(*types.Named); ok && n.Obj().Pkg() != nil && n.Obj().Pkg().Path() == "time" && n.Obj().Name() == "Duration" {
+		if i, ok := constant.Int64Val(v); ok {
+			return fmt.Sprintf("Duration(microseconds: %d)", i/1000)
+		}
+		return ""
+	}
 	switch v.Kind() {
 	case constant.Bool:
 		return strconv.FormatBool(constant.BoolVal(v))

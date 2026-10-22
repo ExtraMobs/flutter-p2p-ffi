@@ -494,3 +494,21 @@ final class _Unixfs {
   UnixfsLsOption useCumulativeSize(bool use) =>
       UnixfsLsOption.$(1, (w) => w..b(use));
 }
+
+/// Go: `const options.BalancedLayout options.Layout`.
+const balancedLayout = 0;
+
+/// Go: `const options.DefaultNameValidTime time.Duration`.
+const defaultNameValidTime = Duration(microseconds: 86400000000);
+
+/// Go: `const options.DefaultRSALen untyped int`.
+const defaultRsaLen = 2048;
+
+/// Go: `const options.Ed25519Key untyped string`.
+const ed25519Key = "ed25519";
+
+/// Go: `const options.RSAKey untyped string`.
+const rsaKey = "rsa";
+
+/// Go: `const options.TrickleLayout options.Layout`.
+const trickleLayout = 1;

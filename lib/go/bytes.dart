@@ -22,3 +22,6 @@ class Buffer extends GoHandle {
     return $r.bytes() ?? Uint8List(0);
   }
 }
+
+/// Go: `const bytes.MinRead untyped int`.
+const minRead = 512;

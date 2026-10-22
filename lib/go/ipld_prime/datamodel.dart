@@ -33,3 +33,33 @@ class NodePrototype extends GoHandle {
     return $r.hn($basicnode.PrototypeAny.$h);
   }
 }
+
+/// Go: `const datamodel.Kind_Bool datamodel.Kind`.
+const kindBool = 98;
+
+/// Go: `const datamodel.Kind_Bytes datamodel.Kind`.
+const kindBytes = 120;
+
+/// Go: `const datamodel.Kind_Float datamodel.Kind`.
+const kindFloat = 102;
+
+/// Go: `const datamodel.Kind_Int datamodel.Kind`.
+const kindInt = 105;
+
+/// Go: `const datamodel.Kind_Invalid datamodel.Kind`.
+const kindInvalid = 0;
+
+/// Go: `const datamodel.Kind_Link datamodel.Kind`.
+const kindLink = 47;
+
+/// Go: `const datamodel.Kind_List datamodel.Kind`.
+const kindList = 91;
+
+/// Go: `const datamodel.Kind_Map datamodel.Kind`.
+const kindMap = 123;
+
+/// Go: `const datamodel.Kind_Null datamodel.Kind`.
+const kindNull = 48;
+
+/// Go: `const datamodel.Kind_String datamodel.Kind`.
+const kindString = 115;

@@ -92,8 +92,12 @@ func dartParamName(goName string) string {
 	return n
 }
 
+// dartBuiltinTypes: tipos do Dart com nome minúsculo, que um membro de nível de
+// library com o mesmo nome (a constante cmds.Int vira `int`) esconderia.
+var dartBuiltinTypes = setOf(`int double bool num dynamic`)
+
 func escapeMember(s string) string {
-	if dartReserved[s] || dartBaseMembers[s] {
+	if dartReserved[s] || dartBaseMembers[s] || dartBuiltinTypes[s] {
 		return s + "$"
 	}
 	return s

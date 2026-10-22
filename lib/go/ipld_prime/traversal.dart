@@ -8,3 +8,12 @@ import 'package:ipfs_ffi/src/runtime.dart';
 class LinkTargetNodePrototypeChooser extends GoHandle {
   LinkTargetNodePrototypeChooser.$h(super.$h);
 }
+
+/// Go: `const traversal.VisitReason_SelectionCandidate traversal.VisitReason`.
+const visitReasonSelectionCandidate = 120;
+
+/// Go: `const traversal.VisitReason_SelectionMatch traversal.VisitReason`.
+const visitReasonSelectionMatch = 109;
+
+/// Go: `const traversal.VisitReason_SelectionParent traversal.VisitReason`.
+const visitReasonSelectionParent = 112;

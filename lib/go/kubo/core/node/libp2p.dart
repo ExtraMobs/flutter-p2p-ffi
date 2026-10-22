@@ -50,6 +50,12 @@ RoutingOption constructDefaultRouting(
   return $r.hnn(RoutingOption.$h);
 }
 
+/// Go: `const libp2p.NetLimitTraceFilename untyped string`.
+const netLimitTraceFilename = "rcmgr.json.gz";
+
+/// Go: `const libp2p.SeqnoStorePrefix untyped string`.
+const seqnoStorePrefix = "/pubsub/seqno/";
+
 /// Go: `libp2p.LimitsConfigAndUsage` (a kubo command output).
 final class LimitsConfigAndUsage {
   LimitsConfigAndUsage.$dec($R r)

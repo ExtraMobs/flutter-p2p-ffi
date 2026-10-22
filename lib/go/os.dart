@@ -11,32 +11,32 @@ class File extends GoHandle {
 
   /// Go: `func (*os.File).Close() error`.
   void close() {
-    $callSync(431, $W()..h(this));
+    $callSync(429, $W()..h(this));
   }
 }
 
 /// Go: `func os.Stat(name string) (os.FileInfo, error)`.
 $fs.FileInfo stat(String name) {
-  final $r = $callSync(434, $W()..str(name));
+  final $r = $callSync(432, $W()..str(name));
   return $r.hnn($fs.FileInfo.$h);
 }
 
 /// Go: `func os.Create(name string) (*os.File, error)`.
 File create(String name) {
-  final $r = $callSync(430, $W()..str(name));
+  final $r = $callSync(428, $W()..str(name));
   return $r.hnn(File.$h);
 }
 
 /// Go: `func os.Open(name string) (*os.File, error)`.
 File open(String name) {
-  final $r = $callSync(432, $W()..str(name));
+  final $r = $callSync(430, $W()..str(name));
   return $r.hnn(File.$h);
 }
 
 /// Go: `func os.OpenFile(name string, flag int, perm os.FileMode) (*os.File, error)`.
 File openFile(String name, int flag, int perm) {
   final $r = $callSync(
-      433,
+      431,
       $W()
         ..str(name)
         ..i64(flag)
@@ -44,14 +44,89 @@ File openFile(String name, int flag, int perm) {
   return $r.hnn(File.$h);
 }
 
+/// Go: `const os.DevNull untyped string`.
+const devNull = "NUL";
+
+/// Go: `const os.ModeAppend fs.FileMode`.
+const modeAppend = 1073741824;
+
+/// Go: `const os.ModeCharDevice fs.FileMode`.
+const modeCharDevice = 2097152;
+
+/// Go: `const os.ModeDevice fs.FileMode`.
+const modeDevice = 67108864;
+
+/// Go: `const os.ModeDir fs.FileMode`.
+const modeDir = 2147483648;
+
+/// Go: `const os.ModeExclusive fs.FileMode`.
+const modeExclusive = 536870912;
+
+/// Go: `const os.ModeIrregular fs.FileMode`.
+const modeIrregular = 524288;
+
+/// Go: `const os.ModeNamedPipe fs.FileMode`.
+const modeNamedPipe = 33554432;
+
+/// Go: `const os.ModePerm fs.FileMode`.
+const modePerm = 511;
+
+/// Go: `const os.ModeSetgid fs.FileMode`.
+const modeSetgid = 4194304;
+
+/// Go: `const os.ModeSetuid fs.FileMode`.
+const modeSetuid = 8388608;
+
+/// Go: `const os.ModeSocket fs.FileMode`.
+const modeSocket = 16777216;
+
+/// Go: `const os.ModeSticky fs.FileMode`.
+const modeSticky = 1048576;
+
+/// Go: `const os.ModeSymlink fs.FileMode`.
+const modeSymlink = 134217728;
+
+/// Go: `const os.ModeTemporary fs.FileMode`.
+const modeTemporary = 268435456;
+
+/// Go: `const os.ModeType fs.FileMode`.
+const modeType = 2401763328;
+
+/// Go: `const os.O_APPEND int`.
+const oAppend = 1024;
+
+/// Go: `const os.O_CREATE int`.
+const oCreate = 64;
+
+/// Go: `const os.O_EXCL int`.
+const oExcl = 128;
+
 /// Go: `const os.O_RDONLY int`.
 const oRdonly = 0;
 
 /// Go: `const os.O_RDWR int`.
 const oRdwr = 2;
 
-/// Go: `const os.O_CREATE int`.
-const oCreate = 64;
+/// Go: `const os.O_SYNC int`.
+const oSync = 4096;
 
 /// Go: `const os.O_TRUNC int`.
 const oTrunc = 512;
+
+/// Go: `const os.O_WRONLY int`.
+const oWronly = 1;
+
+/// Go: `const os.PathListSeparator untyped rune`.
+const pathListSeparator = 59;
+
+/// Go: `const os.PathSeparator untyped rune`.
+const pathSeparator = 92;
+
+/// Go: `const os.SEEK_CUR int`.
+const seekCur = 1;
+
+/// Go: `const os.SEEK_END int`.
+const seekEnd = 2;
+
+/// Go: `const os.SEEK_SET int`.
+const seekSet = 0;

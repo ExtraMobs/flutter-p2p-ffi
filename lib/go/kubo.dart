@@ -4,6 +4,15 @@ library;
 
 import 'package:ipfs_ffi/src/runtime.dart';
 
+/// Go: `const ipfs.ApiVersion untyped string`.
+const apiVersion = "/kubo/0.43.1/";
+
+/// Go: `const ipfs.CurrentVersionNumber untyped string`.
+const currentVersionNumber = "0.43.1";
+
+/// Go: `const ipfs.RepoVersion untyped int`.
+const repoVersion = 18;
+
 /// Go: `ipfs.VersionInfo` (a kubo command output).
 final class VersionInfo {
   VersionInfo.$dec($R r)

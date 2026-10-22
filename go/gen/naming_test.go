@@ -23,6 +23,8 @@ func TestNames(t *testing.T) {
 		{"UseWholeCIDs", "UseWholeCids", "useWholeCids"},
 		{"PeerIDs", "PeerIds", "peerIds"},
 		{"CIDsByName", "CidsByName", "cidsByName"},
+		{"Int", "Int", "int$"}, // cmds.Int: um membro `int` esconderia o tipo
+		{"Bool", "Bool", "bool$"},
 	} {
 		if got := typeName(c.goName); got != c.typ {
 			t.Errorf("typeName(%q) = %q, quero %q", c.goName, got, c.typ)

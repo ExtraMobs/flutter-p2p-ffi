@@ -30,3 +30,18 @@ ResolveOption resolveWithDhtRecordCount(int count) =>
 /// Go: `namesys.ResolveWithDhtTimeout`.
 ResolveOption resolveWithDhtTimeout(int timeout) =>
     ResolveOption.$(2, (w) => w..i64(timeout));
+
+/// Go: `const namesys.DefaultDepthLimit untyped int`.
+const defaultDepthLimit = 32;
+
+/// Go: `const namesys.DefaultResolverCacheTTL time.Duration`.
+const defaultResolverCacheTtl = Duration(microseconds: 60000000);
+
+/// Go: `const namesys.DefaultResolverDhtRecordCount untyped int`.
+const defaultResolverDhtRecordCount = 16;
+
+/// Go: `const namesys.DefaultResolverDhtTimeout time.Duration`.
+const defaultResolverDhtTimeout = Duration(microseconds: 60000000);
+
+/// Go: `const namesys.UnlimitedDepth untyped int`.
+const unlimitedDepth = 0;

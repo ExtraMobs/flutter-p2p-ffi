@@ -9,6 +9,7 @@ Each line is an exposed Go symbol and where it is in Dart.
 |---|---|---|
 | `func bytes.NewBuffer(buf []byte) *bytes.Buffer` | `factory Buffer` | sync |
 | `func (*bytes.Buffer).Bytes() []byte` | `Buffer.bytes` | sync |
+| `const bytes.MinRead untyped int` | `minRead` | const |
 
 ## `github.com/ipfs/boxo/blockservice` → `package:ipfs_ffi/go/boxo/blockservice.dart`
 
@@ -43,6 +44,9 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `func chunk.SizeSplitterGen(size int64) chunk.SplitterGen` | `sizeSplitterGen` | sync |
 | `func chunk.NewSizeSplitter(r io.Reader, size int64) chunk.Splitter` | `newSizeSplitter` | sync |
 | `func chunk.FromString(r io.Reader, chunker string) (chunk.Splitter, error)` | `fromString` | sync |
+| `const chunk.BlockSizeLimit int` | `blockSizeLimit` | const |
+| `const chunk.ChunkOverheadBudget int` | `chunkOverheadBudget` | const |
+| `const chunk.ChunkSizeLimit int` | `chunkSizeLimit` | const |
 
 ## `github.com/ipfs/boxo/exchange/offline` → `package:ipfs_ffi/go/boxo/exchange/offline.dart`
 
@@ -65,6 +69,19 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `func files.ToFile(n files.Node) files.File` | `toFile` | sync |
 | `func files.WriteTo(nd files.Node, fpath string) error` | `writeTo` | sync |
 | `files.Node → x.(files.File)` | `Node.asFile` | cast |
+| `const files.FileModeHeaderName untyped string` | `fileModeHeaderName` | const |
+| `const files.LastModifiedHeaderName untyped string` | `lastModifiedHeaderName` | const |
+
+## `github.com/ipfs/boxo/filestore` → `package:ipfs_ffi/go/boxo/filestore.dart`
+
+| Go | Dart | Mode |
+|---|---|---|
+| `const filestore.StatusFileChanged filestore.Status` | `statusFileChanged` | const |
+| `const filestore.StatusFileError filestore.Status` | `statusFileError` | const |
+| `const filestore.StatusFileNotFound filestore.Status` | `statusFileNotFound` | const |
+| `const filestore.StatusKeyNotFound filestore.Status` | `statusKeyNotFound` | const |
+| `const filestore.StatusOk filestore.Status` | `statusOk` | const |
+| `const filestore.StatusOtherError filestore.Status` | `statusOtherError` | const |
 
 ## `github.com/ipfs/boxo/gateway` → `package:ipfs_ffi/go/boxo/gateway.dart`
 
@@ -72,15 +89,27 @@ Each line is an exposed Go symbol and where it is in Dart.
 |---|---|---|
 | `func gateway.NewBlocksBackend(blockService blockservice.BlockService, opts ...gateway.BackendOption) (*gateway.BlocksBackend, error)` | `factory BlocksBackend` | sync |
 | `func (*gateway.BlocksBackend).GetCAR(ctx context.Context, p path.ImmutablePath, params gateway.CarParams) (gateway.ContentPathMetadata, io.ReadCloser, error)` | `BlocksBackend.getCar` | Future |
-| `const gateway.DagScopeAll gateway.DagScope` | `dagScopeAll` | const |
-| `const gateway.DagScopeEntity gateway.DagScope` | `dagScopeEntity` | const |
-| `const gateway.DagScopeBlock gateway.DagScope` | `dagScopeBlock` | const |
-| `const gateway.DagOrderUnspecified gateway.DagOrder` | `dagOrderUnspecified` | const |
-| `const gateway.DagOrderUnknown gateway.DagOrder` | `dagOrderUnknown` | const |
+| `const gateway.ContentPathKey gateway.RequestContextKey` | `contentPathKey` | const |
+| `const gateway.DNSLinkHostnameKey gateway.RequestContextKey` | `dnsLinkHostnameKey` | const |
 | `const gateway.DagOrderDFS gateway.DagOrder` | `dagOrderDfs` | const |
-| `const gateway.DuplicateBlocksUnspecified gateway.DuplicateBlocksPolicy` | `duplicateBlocksUnspecified` | const |
-| `const gateway.DuplicateBlocksIncluded gateway.DuplicateBlocksPolicy` | `duplicateBlocksIncluded` | const |
+| `const gateway.DagOrderUnknown gateway.DagOrder` | `dagOrderUnknown` | const |
+| `const gateway.DagOrderUnspecified gateway.DagOrder` | `dagOrderUnspecified` | const |
+| `const gateway.DagScopeAll gateway.DagScope` | `dagScopeAll` | const |
+| `const gateway.DagScopeBlock gateway.DagScope` | `dagScopeBlock` | const |
+| `const gateway.DagScopeEntity gateway.DagScope` | `dagScopeEntity` | const |
+| `const gateway.DefaultDiagnosticServiceURL untyped string` | `defaultDiagnosticServiceUrl` | const |
+| `const gateway.DefaultGetBlockTimeout time.Duration` | `defaultGetBlockTimeout` | const |
+| `const gateway.DefaultMaxConcurrentRequests untyped int` | `defaultMaxConcurrentRequests` | const |
+| `const gateway.DefaultMaxRequestDuration time.Duration` | `defaultMaxRequestDuration` | const |
+| `const gateway.DefaultMaxTraversalDepth untyped int` | `defaultMaxTraversalDepth` | const |
+| `const gateway.DefaultRetrievalTimeout time.Duration` | `defaultRetrievalTimeout` | const |
 | `const gateway.DuplicateBlocksExcluded gateway.DuplicateBlocksPolicy` | `duplicateBlocksExcluded` | const |
+| `const gateway.DuplicateBlocksIncluded gateway.DuplicateBlocksPolicy` | `duplicateBlocksIncluded` | const |
+| `const gateway.DuplicateBlocksUnspecified gateway.DuplicateBlocksPolicy` | `duplicateBlocksUnspecified` | const |
+| `const gateway.EmptyIdentityCIDString untyped string` | `emptyIdentityCidString` | const |
+| `const gateway.GatewayHostnameKey gateway.RequestContextKey` | `gatewayHostnameKey` | const |
+| `const gateway.OriginalPathKey gateway.RequestContextKey` | `originalPathKey` | const |
+| `const gateway.SubdomainHostnameKey gateway.RequestContextKey` | `subdomainHostnameKey` | const |
 
 ## `github.com/ipfs/boxo/ipld/merkledag` → `package:ipfs_ffi/go/boxo/ipld/merkledag.dart`
 
@@ -92,6 +121,16 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `func (*merkledag.ProtoNode).SetData(d []byte)` | `ProtoNode.setData` | sync |
 | `func (*merkledag.ProtoNode).Data() []byte` | `ProtoNode.data` | sync |
 | `func merkledag.NewDAGService(bs blockservice.BlockService) *merkledag.dagService` | `newDagService` | sync |
+| `const merkledag.PBNodeDataFirst merkledag.PBNodeFieldOrder` | `pbNodeDataFirst` | const |
+| `const merkledag.PBNodeLinksFirst merkledag.PBNodeFieldOrder` | `pbNodeLinksFirst` | const |
+
+## `github.com/ipfs/boxo/ipld/merkledag/dagutils` → `package:ipfs_ffi/go/boxo/ipld/merkledag/dagutils.dart`
+
+| Go | Dart | Mode |
+|---|---|---|
+| `const dagutils.Add dagutils.ChangeType` | `add` | const |
+| `const dagutils.Mod dagutils.ChangeType` | `mod` | const |
+| `const dagutils.Remove dagutils.ChangeType` | `remove` | const |
 
 ## `github.com/ipfs/boxo/ipld/unixfs/file` → `package:ipfs_ffi/go/boxo/ipld/unixfs/file.dart`
 
@@ -112,13 +151,30 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `func io.NewDirectory(dserv format.DAGService, opts ...io.DirectoryOption) (io.Directory, error)` | `factory Directory` | sync |
 | `func (io.Directory).AddChild(context.Context, string, format.Node) error` | `Directory.addChild` | Future |
 | `func (io.Directory).GetNode() (format.Node, error)` | `Directory.getNode` | sync |
+| `const io.SizeEstimationBlock io.SizeEstimationMode` | `sizeEstimationBlock` | const |
+| `const io.SizeEstimationDisabled io.SizeEstimationMode` | `sizeEstimationDisabled` | const |
+| `const io.SizeEstimationLinks io.SizeEstimationMode` | `sizeEstimationLinks` | const |
+
+## `github.com/ipfs/boxo/ipns` → `package:ipfs_ffi/go/boxo/ipns.dart`
+
+| Go | Dart | Mode |
+|---|---|---|
+| `const ipns.DefaultRecordLifetime time.Duration` | `defaultRecordLifetime` | const |
+| `const ipns.DefaultRecordTTL time.Duration` | `defaultRecordTtl` | const |
+| `const ipns.MaxRecordSize int` | `maxRecordSize` | const |
+| `const ipns.MetadataKindBool ipns.MetadataKind` | `metadataKindBool` | const |
+| `const ipns.MetadataKindBytes ipns.MetadataKind` | `metadataKindBytes` | const |
+| `const ipns.MetadataKindInt ipns.MetadataKind` | `metadataKindInt` | const |
+| `const ipns.MetadataKindInvalid ipns.MetadataKind` | `metadataKindInvalid` | const |
+| `const ipns.MetadataKindString ipns.MetadataKind` | `metadataKindString` | const |
+| `const ipns.NamespacePrefix untyped string` | `namespacePrefix` | const |
+| `const ipns.NoopValue untyped string` | `noopValue` | const |
+| `const ipns.ValidityEOL ipns.ValidityType` | `validityEol` | const |
 
 ## `github.com/ipfs/boxo/mfs` → `package:ipfs_ffi/go/boxo/mfs.dart`
 
 | Go | Dart | Mode |
 |---|---|---|
-| `const mfs.TFile mfs.NodeType` | `tFile` | const |
-| `const mfs.TDir mfs.NodeType` | `tDir` | const |
 | `func mfs.Lookup(r *mfs.Root, path string) (mfs.FSNode, error)` | `lookup` | sync |
 | `func mfs.DirLookup(d *mfs.Directory, pth string) (mfs.FSNode, error)` | `dirLookup` | sync |
 | `func mfs.Mkdir(r *mfs.Root, pth string, opts mfs.MkdirOpts, dirOpts ...mfs.Option) error` | `mkdir` | sync |
@@ -170,6 +226,27 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `func (io.Closer).Close() error` | `FileDescriptor.close` | sync |
 | `mfs.FSNode → x.(*mfs.Directory)` | `FsNode.asDirectory` | cast |
 | `mfs.FSNode → x.(*mfs.File)` | `FsNode.asFile` | cast |
+| `const mfs.DefaultFetchTimeout time.Duration` | `defaultFetchTimeout` | const |
+| `const mfs.TDir mfs.NodeType` | `tDir` | const |
+| `const mfs.TFile mfs.NodeType` | `tFile` | const |
+
+## `github.com/ipfs/boxo/namesys` → `package:ipfs_ffi/go/boxo/namesys.dart`
+
+| Go | Dart | Mode |
+|---|---|---|
+| `const namesys.DefaultDepthLimit untyped int` | `defaultDepthLimit` | const |
+| `const namesys.DefaultResolverCacheTTL time.Duration` | `defaultResolverCacheTtl` | const |
+| `const namesys.DefaultResolverDhtRecordCount untyped int` | `defaultResolverDhtRecordCount` | const |
+| `const namesys.DefaultResolverDhtTimeout time.Duration` | `defaultResolverDhtTimeout` | const |
+| `const namesys.UnlimitedDepth untyped int` | `unlimitedDepth` | const |
+
+## `github.com/ipfs/boxo/path` → `package:ipfs_ffi/go/boxo/path.dart`
+
+| Go | Dart | Mode |
+|---|---|---|
+| `const path.IPFSNamespace untyped string` | `ipfsNamespace` | const |
+| `const path.IPLDNamespace untyped string` | `ipldNamespace` | const |
+| `const path.IPNSNamespace untyped string` | `ipnsNamespace` | const |
 
 ## `github.com/ipfs/boxo/peering` → `package:ipfs_ffi/go/boxo/peering.dart`
 
@@ -178,6 +255,24 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `func (*peering.PeeringService).AddPeer(info peer.AddrInfo)` | `PeeringService.addPeer` | sync |
 | `func (*peering.PeeringService).RemovePeer(id peer.ID)` | `PeeringService.removePeer` | sync |
 | `func (*peering.PeeringService).ListPeers() []peer.AddrInfo` | `PeeringService.listPeers` | sync |
+| `const peering.ConnmgrTag untyped string` | `connmgrTag` | const |
+| `const peering.StateInit peering.State` | `stateInit` | const |
+| `const peering.StateRunning peering.State` | `stateRunning` | const |
+| `const peering.StateStopped peering.State` | `stateStopped` | const |
+
+## `github.com/ipfs/boxo/provider` → `package:ipfs_ffi/go/boxo/provider.dart`
+
+| Go | Dart | Mode |
+|---|---|---|
+| `const provider.DefaultReproviderInterval time.Duration` | `defaultReproviderInterval` | const |
+
+## `github.com/ipfs/boxo/verifcid` → `package:ipfs_ffi/go/boxo/verifcid.dart`
+
+| Go | Dart | Mode |
+|---|---|---|
+| `const verifcid.DefaultMaxDigestSize untyped int` | `defaultMaxDigestSize` | const |
+| `const verifcid.DefaultMaxIdentityDigestSize untyped int` | `defaultMaxIdentityDigestSize` | const |
+| `const verifcid.DefaultMinDigestSize untyped int` | `defaultMinDigestSize` | const |
 
 ## `github.com/ipfs/go-cid` → `package:ipfs_ffi/go/cid.dart`
 
@@ -186,6 +281,33 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `func cid.NewPrefixV0(mhType uint64) cid.Prefix` | `newPrefixV0` | sync |
 | `func cid.NewPrefixV1(codecType uint64, mhType uint64) cid.Prefix` | `newPrefixV1` | sync |
 | `func (cid.Prefix).Sum(data []byte) (cid.Cid, error)` | `Prefix.sum` | sync |
+| `const cid.BitcoinBlock untyped int` | `bitcoinBlock` | const |
+| `const cid.BitcoinTx untyped int` | `bitcoinTx` | const |
+| `const cid.DagCBOR untyped int` | `dagCbor` | const |
+| `const cid.DagJOSE untyped int` | `dagJose` | const |
+| `const cid.DagJSON untyped int` | `dagJson` | const |
+| `const cid.DagProtobuf untyped int` | `dagProtobuf` | const |
+| `const cid.DashBlock untyped int` | `dashBlock` | const |
+| `const cid.DashTx untyped int` | `dashTx` | const |
+| `const cid.DecredBlock untyped int` | `decredBlock` | const |
+| `const cid.DecredTx untyped int` | `decredTx` | const |
+| `const cid.EthAccountSnapshot untyped int` | `ethAccountSnapshot` | const |
+| `const cid.EthBlock untyped int` | `ethBlock` | const |
+| `const cid.EthBlockList untyped int` | `ethBlockList` | const |
+| `const cid.EthStateTrie untyped int` | `ethStateTrie` | const |
+| `const cid.EthStorageTrie untyped int` | `ethStorageTrie` | const |
+| `const cid.EthTx untyped int` | `ethTx` | const |
+| `const cid.EthTxReceipt untyped int` | `ethTxReceipt` | const |
+| `const cid.EthTxReceiptTrie untyped int` | `ethTxReceiptTrie` | const |
+| `const cid.EthTxTrie untyped int` | `ethTxTrie` | const |
+| `const cid.FilCommitmentSealed untyped int` | `filCommitmentSealed` | const |
+| `const cid.FilCommitmentUnsealed untyped int` | `filCommitmentUnsealed` | const |
+| `const cid.GitRaw untyped int` | `gitRaw` | const |
+| `const cid.Libp2pKey untyped int` | `libp2pKey` | const |
+| `const cid.Raw untyped int` | `raw` | const |
+| `const cid.UnsupportedVersionString untyped string` | `unsupportedVersionString` | const |
+| `const cid.ZcashBlock untyped int` | `zcashBlock` | const |
+| `const cid.ZcashTx untyped int` | `zcashTx` | const |
 
 ## `github.com/ipfs/go-datastore` → `package:ipfs_ffi/go/datastore.dart`
 
@@ -193,6 +315,62 @@ Each line is an exposed Go symbol and where it is in Dart.
 |---|---|---|
 | `func datastore.NewNullDatastore() *datastore.NullDatastore` | `factory NullDatastore` | sync |
 | `datastore.Batching → x.(*datastore.NullDatastore)` | `Batching.asNullDatastore` | cast |
+| `const datastore.FeatureNameBatching untyped string` | `featureNameBatching` | const |
+| `const datastore.FeatureNameChecked untyped string` | `featureNameChecked` | const |
+| `const datastore.FeatureNameGC untyped string` | `featureNameGc` | const |
+| `const datastore.FeatureNamePersistent untyped string` | `featureNamePersistent` | const |
+| `const datastore.FeatureNameScrubbed untyped string` | `featureNameScrubbed` | const |
+| `const datastore.FeatureNameTTL untyped string` | `featureNameTtl` | const |
+| `const datastore.FeatureNameTransaction untyped string` | `featureNameTransaction` | const |
+
+## `github.com/ipfs/go-ipfs-cmds` → `package:ipfs_ffi/go/ipfs_cmds.dart`
+
+| Go | Dart | Mode |
+|---|---|---|
+| `const cmds.Active cmds.Status` | `active` | const |
+| `const cmds.ArgFile cmds.ArgumentType` | `argFile` | const |
+| `const cmds.ArgString cmds.ArgumentType` | `argString` | const |
+| `const cmds.Bool reflect.Kind` | `bool$` | const |
+| `const cmds.CLI untyped string` | `cli` | const |
+| `const cmds.ChanOpt untyped string` | `chanOpt` | const |
+| `const cmds.DefaultOutputEncoding untyped string` | `defaultOutputEncoding` | const |
+| `const cmds.Deprecated cmds.Status` | `deprecated` | const |
+| `const cmds.DerefLong untyped string` | `derefLong` | const |
+| `const cmds.DerefSymlinks untyped string` | `derefSymlinks` | const |
+| `const cmds.EncLong untyped string` | `encLong` | const |
+| `const cmds.EncShort untyped string` | `encShort` | const |
+| `const cmds.ErrClient cmds.ErrorType` | `errClient` | const |
+| `const cmds.ErrForbidden cmds.ErrorType` | `errForbidden` | const |
+| `const cmds.ErrImplementation cmds.ErrorType` | `errImplementation` | const |
+| `const cmds.ErrNormal cmds.ErrorType` | `errNormal` | const |
+| `const cmds.ErrRateLimited cmds.ErrorType` | `errRateLimited` | const |
+| `const cmds.Experimental cmds.Status` | `experimental` | const |
+| `const cmds.Float reflect.Kind` | `float` | const |
+| `const cmds.Hidden untyped string` | `hidden` | const |
+| `const cmds.HiddenShort untyped string` | `hiddenShort` | const |
+| `const cmds.Ignore untyped string` | `ignore` | const |
+| `const cmds.IgnoreRules untyped string` | `ignoreRules` | const |
+| `const cmds.Int reflect.Kind` | `int$` | const |
+| `const cmds.Int64 reflect.Kind` | `int64` | const |
+| `const cmds.Invalid reflect.Kind` | `invalid` | const |
+| `const cmds.JSON untyped string` | `json` | const |
+| `const cmds.OctetStream untyped string` | `octetStream` | const |
+| `const cmds.OptLongHelp untyped string` | `optLongHelp` | const |
+| `const cmds.OptShortHelp untyped string` | `optShortHelp` | const |
+| `const cmds.Protobuf untyped string` | `protobuf` | const |
+| `const cmds.RecLong untyped string` | `recLong` | const |
+| `const cmds.RecShort untyped string` | `recShort` | const |
+| `const cmds.Removed cmds.Status` | `removed` | const |
+| `const cmds.StdinName untyped string` | `stdinName` | const |
+| `const cmds.String reflect.Kind` | `string` | const |
+| `const cmds.Strings reflect.Kind` | `strings` | const |
+| `const cmds.Text untyped string` | `text` | const |
+| `const cmds.TextNewline untyped string` | `textNewline` | const |
+| `const cmds.TimeoutOpt untyped string` | `timeoutOpt` | const |
+| `const cmds.Uint reflect.Kind` | `uint` | const |
+| `const cmds.Uint64 reflect.Kind` | `uint64` | const |
+| `const cmds.Undefined untyped string` | `undefined` | const |
+| `const cmds.XML untyped string` | `xml` | const |
 
 ## `github.com/ipfs/go-ipld-format` → `package:ipfs_ffi/go/ipld_format.dart`
 
@@ -227,6 +405,14 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `var unixfsnode.MatchUnixFSPreloadSelector builder.SelectorSpec` | `matchUnixFsPreloadSelector` | sync |
 | `var unixfsnode.ExploreAllRecursivelySelector builder.SelectorSpec` | `exploreAllRecursivelySelector` | sync |
 
+## `github.com/ipfs/kubo` → `package:ipfs_ffi/go/kubo.dart`
+
+| Go | Dart | Mode |
+|---|---|---|
+| `const ipfs.ApiVersion untyped string` | `apiVersion` | const |
+| `const ipfs.CurrentVersionNumber untyped string` | `currentVersionNumber` | const |
+| `const ipfs.RepoVersion untyped int` | `repoVersion` | const |
+
 ## `github.com/ipfs/kubo/config` → `package:ipfs_ffi/go/kubo/config.dart`
 
 | Go | Dart | Mode |
@@ -235,6 +421,150 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `func config.InitWithIdentity(identity config.Identity) (*config.Config, error)` | `initWithIdentity` | sync |
 | `func config.ParseBootstrapPeers(addrs []string) ([]peer.AddrInfo, error)` | `parseBootstrapPeers` | sync |
 | `func config.BootstrapPeerStrings(bps []peer.AddrInfo) []string` | `bootstrapPeerStrings` | sync |
+| `const config.APITag untyped string` | `apiTag` | const |
+| `const config.AuthorizationTag untyped string` | `authorizationTag` | const |
+| `const config.AutoNATServiceDisabled config.AutoNATServiceMode` | `autoNatServiceDisabled` | const |
+| `const config.AutoNATServiceEnabled config.AutoNATServiceMode` | `autoNatServiceEnabled` | const |
+| `const config.AutoNATServiceEnabledV1Only config.AutoNATServiceMode` | `autoNatServiceEnabledV1Only` | const |
+| `const config.AutoNATServiceUnset config.AutoNATServiceMode` | `autoNatServiceUnset` | const |
+| `const config.AutoPlaceholder untyped string` | `autoPlaceholder` | const |
+| `const config.CidContactRoutingURL untyped string` | `cidContactRoutingUrl` | const |
+| `const config.DAGLayoutBalanced untyped string` | `dagLayoutBalanced` | const |
+| `const config.DAGLayoutTrickle untyped string` | `dagLayoutTrickle` | const |
+| `const config.DHTModeAuto config.DHTMode` | `dhtModeAuto` | const |
+| `const config.DHTModeClient config.DHTMode` | `dhtModeClient` | const |
+| `const config.DHTModeServer config.DHTMode` | `dhtModeServer` | const |
+| `const config.Default config.Flag` | `default$` | const |
+| `const config.DefaultAcceleratedDHTClient untyped bool` | `defaultAcceleratedDhtClient` | const |
+| `const config.DefaultAllowCodecConversion untyped bool` | `defaultAllowCodecConversion` | const |
+| `const config.DefaultAutoConfCacheSize untyped int` | `defaultAutoConfCacheSize` | const |
+| `const config.DefaultAutoConfEnabled untyped bool` | `defaultAutoConfEnabled` | const |
+| `const config.DefaultAutoConfRefreshInterval time.Duration` | `defaultAutoConfRefreshInterval` | const |
+| `const config.DefaultAutoConfTimeout time.Duration` | `defaultAutoConfTimeout` | const |
+| `const config.DefaultAutoConfURL untyped string` | `defaultAutoConfUrl` | const |
+| `const config.DefaultAutoTLSEnabled untyped bool` | `defaultAutoTlsEnabled` | const |
+| `const config.DefaultAutoTLSRegistrationDelay time.Duration` | `defaultAutoTlsRegistrationDelay` | const |
+| `const config.DefaultAutoTLSShortAddrs untyped bool` | `defaultAutoTlsShortAddrs` | const |
+| `const config.DefaultAutoTLSSkipDNSLookup untyped bool` | `defaultAutoTlsSkipDnsLookup` | const |
+| `const config.DefaultAutoWSS untyped bool` | `defaultAutoWss` | const |
+| `const config.DefaultBatchMaxNodes untyped int` | `defaultBatchMaxNodes` | const |
+| `const config.DefaultBatchMaxSize untyped int` | `defaultBatchMaxSize` | const |
+| `const config.DefaultBitswapLibp2pEnabled untyped bool` | `defaultBitswapLibp2pEnabled` | const |
+| `const config.DefaultBitswapServerEnabled untyped bool` | `defaultBitswapServerEnabled` | const |
+| `const config.DefaultBlockKeyCacheSize untyped int` | `defaultBlockKeyCacheSize` | const |
+| `const config.DefaultBroadcastControlEnable untyped bool` | `defaultBroadcastControlEnable` | const |
+| `const config.DefaultBroadcastControlLocalPeers untyped bool` | `defaultBroadcastControlLocalPeers` | const |
+| `const config.DefaultBroadcastControlMaxPeers untyped int` | `defaultBroadcastControlMaxPeers` | const |
+| `const config.DefaultBroadcastControlMaxRandomPeers untyped int` | `defaultBroadcastControlMaxRandomPeers` | const |
+| `const config.DefaultBroadcastControlPeeredPeers untyped bool` | `defaultBroadcastControlPeeredPeers` | const |
+| `const config.DefaultBroadcastControlSendToPendingPeers untyped bool` | `defaultBroadcastControlSendToPendingPeers` | const |
+| `const config.DefaultCAEndpoint untyped string` | `defaultCaEndpoint` | const |
+| `const config.DefaultCGNATCheck untyped bool` | `defaultCgnatCheck` | const |
+| `const config.DefaultCidVersion untyped int` | `defaultCidVersion` | const |
+| `const config.DefaultConfigFile untyped string` | `defaultConfigFile` | const |
+| `const config.DefaultConnMgrGracePeriod time.Duration` | `defaultConnMgrGracePeriod` | const |
+| `const config.DefaultConnMgrHighWater untyped int` | `defaultConnMgrHighWater` | const |
+| `const config.DefaultConnMgrLowWater untyped int` | `defaultConnMgrLowWater` | const |
+| `const config.DefaultConnMgrSilencePeriod time.Duration` | `defaultConnMgrSilencePeriod` | const |
+| `const config.DefaultConnMgrType untyped string` | `defaultConnMgrType` | const |
+| `const config.DefaultDataStoreDirectory untyped string` | `defaultDataStoreDirectory` | const |
+| `const config.DefaultDeadListenerCheck untyped bool` | `defaultDeadListenerCheck` | const |
+| `const config.DefaultDeprecatedXIpfsPath untyped bool` | `defaultDeprecatedXIpfsPath` | const |
+| `const config.DefaultDeserializedResponses untyped bool` | `defaultDeserializedResponses` | const |
+| `const config.DefaultDiagnosticServiceURL untyped string` | `defaultDiagnosticServiceUrl` | const |
+| `const config.DefaultDisableHTMLErrors untyped bool` | `defaultDisableHtmlErrors` | const |
+| `const config.DefaultDomainSuffix untyped string` | `defaultDomainSuffix` | const |
+| `const config.DefaultExposeRoutingAPI untyped bool` | `defaultExposeRoutingApi` | const |
+| `const config.DefaultFastProvideDAG untyped bool` | `defaultFastProvideDag` | const |
+| `const config.DefaultFastProvideRoot untyped bool` | `defaultFastProvideRoot` | const |
+| `const config.DefaultFastProvideTimeout time.Duration` | `defaultFastProvideTimeout` | const |
+| `const config.DefaultFastProvideWait untyped bool` | `defaultFastProvideWait` | const |
+| `const config.DefaultFuseAllowOther untyped bool` | `defaultFuseAllowOther` | const |
+| `const config.DefaultHTTPRetrievalEnabled untyped bool` | `defaultHttpRetrievalEnabled` | const |
+| `const config.DefaultHTTPRetrievalMaxBlockSize untyped string` | `defaultHttpRetrievalMaxBlockSize` | const |
+| `const config.DefaultHTTPRetrievalNumWorkers untyped int` | `defaultHttpRetrievalNumWorkers` | const |
+| `const config.DefaultHTTPRetrievalTLSInsecureSkipVerify untyped bool` | `defaultHttpRetrievalTlsInsecureSkipVerify` | const |
+| `const config.DefaultHashFunction untyped string` | `defaultHashFunction` | const |
+| `const config.DefaultInlineDNSLink untyped bool` | `defaultInlineDnsLink` | const |
+| `const config.DefaultIpnsMaxCacheTTL time.Duration` | `defaultIpnsMaxCacheTtl` | const |
+| `const config.DefaultLoopbackAddressesOnLanDHT untyped bool` | `defaultLoopbackAddressesOnLanDht` | const |
+| `const config.DefaultMFSFetchTimeout time.Duration` | `defaultMfsFetchTimeout` | const |
+| `const config.DefaultMFSNoFlushLimit untyped int` | `defaultMfsNoFlushLimit` | const |
+| `const config.DefaultMaxConcurrentRequests untyped int` | `defaultMaxConcurrentRequests` | const |
+| `const config.DefaultMaxRangeRequestFileSize untyped int` | `defaultMaxRangeRequestFileSize` | const |
+| `const config.DefaultMaxRequestDuration time.Duration` | `defaultMaxRequestDuration` | const |
+| `const config.DefaultMigrationKeep untyped string` | `defaultMigrationKeep` | const |
+| `const config.DefaultPathName untyped string` | `defaultPathName` | const |
+| `const config.DefaultPathRoot untyped string` | `defaultPathRoot` | const |
+| `const config.DefaultPriority config.Priority` | `defaultPriority` | const |
+| `const config.DefaultProvideBloomFPRate untyped int` | `defaultProvideBloomFpRate` | const |
+| `const config.DefaultProvideDHTDedicatedBurstWorkers untyped int` | `defaultProvideDhtDedicatedBurstWorkers` | const |
+| `const config.DefaultProvideDHTDedicatedPeriodicWorkers untyped int` | `defaultProvideDhtDedicatedPeriodicWorkers` | const |
+| `const config.DefaultProvideDHTInterval time.Duration` | `defaultProvideDhtInterval` | const |
+| `const config.DefaultProvideDHTKeystoreBatchSize untyped int` | `defaultProvideDhtKeystoreBatchSize` | const |
+| `const config.DefaultProvideDHTMaxProvideConnsPerWorker untyped int` | `defaultProvideDhtMaxProvideConnsPerWorker` | const |
+| `const config.DefaultProvideDHTMaxWorkers untyped int` | `defaultProvideDhtMaxWorkers` | const |
+| `const config.DefaultProvideDHTOfflineDelay time.Duration` | `defaultProvideDhtOfflineDelay` | const |
+| `const config.DefaultProvideDHTResumeEnabled untyped bool` | `defaultProvideDhtResumeEnabled` | const |
+| `const config.DefaultProvideDHTSendProviderRecordTimeout time.Duration` | `defaultProvideDhtSendProviderRecordTimeout` | const |
+| `const config.DefaultProvideDHTSweepEnabled untyped bool` | `defaultProvideDhtSweepEnabled` | const |
+| `const config.DefaultProvideEnabled untyped bool` | `defaultProvideEnabled` | const |
+| `const config.DefaultProvideStrategy untyped string` | `defaultProvideStrategy` | const |
+| `const config.DefaultRegistrationEndpoint untyped string` | `defaultRegistrationEndpoint` | const |
+| `const config.DefaultResourceMgrMinInboundConns untyped int` | `defaultResourceMgrMinInboundConns` | const |
+| `const config.DefaultRetrievalTimeout time.Duration` | `defaultRetrievalTimeout` | const |
+| `const config.DefaultRoutingType untyped string` | `defaultRoutingType` | const |
+| `const config.DefaultSeenMessagesStrategy untyped string` | `defaultSeenMessagesStrategy` | const |
+| `const config.DefaultShutdownTimeout time.Duration` | `defaultShutdownTimeout` | const |
+| `const config.DefaultStoreMode untyped bool` | `defaultStoreMode` | const |
+| `const config.DefaultStoreMtime untyped bool` | `defaultStoreMtime` | const |
+| `const config.DefaultSwarmCheckPercentThreshold untyped int` | `defaultSwarmCheckPercentThreshold` | const |
+| `const config.DefaultUnixFSChunker untyped string` | `defaultUnixFsChunker` | const |
+| `const config.DefaultUnixFSDAGLayout untyped string` | `defaultUnixFsdagLayout` | const |
+| `const config.DefaultUnixFSHAMTDirectorySizeEstimation untyped string` | `defaultUnixFshamtDirectorySizeEstimation` | const |
+| `const config.DefaultUnixFSHAMTDirectorySizeThreshold untyped int` | `defaultUnixFshamtDirectorySizeThreshold` | const |
+| `const config.DefaultUnixFSIncludeEmptyDirs untyped bool` | `defaultUnixFsIncludeEmptyDirs` | const |
+| `const config.DefaultUnixFSPBNodeFieldOrder untyped string` | `defaultUnixFspbNodeFieldOrder` | const |
+| `const config.DefaultUnixFSRawLeaves untyped bool` | `defaultUnixFsRawLeaves` | const |
+| `const config.DefaultWriteThrough bool` | `defaultWriteThrough` | const |
+| `const config.Disabled config.Priority` | `disabled` | const |
+| `const config.EnvDir untyped string` | `envDir` | const |
+| `const config.EnvHTTPRouters untyped string` | `envHttpRouters` | const |
+| `const config.EnvHTTPRoutersFilterProtocols untyped string` | `envHttpRoutersFilterProtocols` | const |
+| `const config.False config.Flag` | `false$` | const |
+| `const config.FirstSeenMessagesStrategy untyped string` | `firstSeenMessagesStrategy` | const |
+| `const config.HAMTSizeEstimationBlock untyped string` | `hamtSizeEstimationBlock` | const |
+| `const config.HAMTSizeEstimationDisabled untyped string` | `hamtSizeEstimationDisabled` | const |
+| `const config.HAMTSizeEstimationLinks untyped string` | `hamtSizeEstimationLinks` | const |
+| `const config.IdentityTag untyped string` | `identityTag` | const |
+| `const config.LastSeenMessagesStrategy untyped string` | `lastSeenMessagesStrategy` | const |
+| `const config.MethodNameFindPeers config.MethodName` | `methodNameFindPeers` | const |
+| `const config.MethodNameFindProviders config.MethodName` | `methodNameFindProviders` | const |
+| `const config.MethodNameGetIPNS config.MethodName` | `methodNameGetIpns` | const |
+| `const config.MethodNameProvide config.MethodName` | `methodNameProvide` | const |
+| `const config.MethodNamePutIPNS config.MethodName` | `methodNamePutIpns` | const |
+| `const config.MinProvideBloomFPRate untyped int` | `minProvideBloomFpRate` | const |
+| `const config.PBNodeFieldOrderDataFirst untyped string` | `pbNodeFieldOrderDataFirst` | const |
+| `const config.PBNodeFieldOrderLinksFirst untyped string` | `pbNodeFieldOrderLinksFirst` | const |
+| `const config.PrivKeySelector untyped string` | `privKeySelector` | const |
+| `const config.PrivKeyTag untyped string` | `privKeyTag` | const |
+| `const config.ProvideStrategyAll config.ProvideStrategy` | `provideStrategyAll` | const |
+| `const config.ProvideStrategyEntities config.ProvideStrategy` | `provideStrategyEntities` | const |
+| `const config.ProvideStrategyMFS config.ProvideStrategy` | `provideStrategyMfs` | const |
+| `const config.ProvideStrategyPinned config.ProvideStrategy` | `provideStrategyPinned` | const |
+| `const config.ProvideStrategyRoots config.ProvideStrategy` | `provideStrategyRoots` | const |
+| `const config.ProvideStrategyUnique config.ProvideStrategy` | `provideStrategyUnique` | const |
+| `const config.PublicGoodDelegatedRoutingURL untyped string` | `publicGoodDelegatedRoutingUrl` | const |
+| `const config.ResourceMgrPeerScopePrefix untyped string` | `resourceMgrPeerScopePrefix` | const |
+| `const config.ResourceMgrProtocolScopePrefix untyped string` | `resourceMgrProtocolScopePrefix` | const |
+| `const config.ResourceMgrServiceScopePrefix untyped string` | `resourceMgrServiceScopePrefix` | const |
+| `const config.ResourceMgrSystemScope untyped string` | `resourceMgrSystemScope` | const |
+| `const config.ResourceMgrTransientScope untyped string` | `resourceMgrTransientScope` | const |
+| `const config.RouterTypeDHT config.RouterType` | `routerTypeDht` | const |
+| `const config.RouterTypeHTTP config.RouterType` | `routerTypeHttp` | const |
+| `const config.RouterTypeParallel config.RouterType` | `routerTypeParallel` | const |
+| `const config.RouterTypeSequential config.RouterType` | `routerTypeSequential` | const |
+| `const config.True config.Flag` | `true$` | const |
 
 ## `github.com/ipfs/kubo/core` → `package:ipfs_ffi/go/kubo/core.dart`
 
@@ -262,6 +592,21 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `(*core.IpfsNode).ResourceManager network.ResourceManager` | `IpfsNode.resourceManager =` | field |
 | `(*core.IpfsNode).BaseBlocks node.BaseBlocks` | `IpfsNode.baseBlocks` | field |
 | `(*core.IpfsNode).BaseBlocks node.BaseBlocks` | `IpfsNode.baseBlocks =` | field |
+
+## `github.com/ipfs/kubo/core/commands` → `package:ipfs_ffi/go/kubo/core/commands.dart`
+
+| Go | Dart | Mode |
+|---|---|---|
+| `const commands.ApiAuthOption untyped string` | `apiAuthOption` | const |
+| `const commands.ApiOption untyped string` | `apiOption` | const |
+| `const commands.ConfigFileOption untyped string` | `configFileOption` | const |
+| `const commands.ConfigOption untyped string` | `configOption` | const |
+| `const commands.DebugOption untyped string` | `debugOption` | const |
+| `const commands.DefaultMinimalVersionFraction untyped float` | `defaultMinimalVersionFraction` | const |
+| `const commands.LocalOption untyped string` | `localOption` | const |
+| `const commands.OfflineOption untyped string` | `offlineOption` | const |
+| `const commands.P2PProtoPrefix untyped string` | `p2pProtoPrefix` | const |
+| `const commands.RepoDirOption untyped string` | `repoDirOption` | const |
 
 ## `github.com/ipfs/kubo/core/coreapi` → `package:ipfs_ffi/go/kubo/core/coreapi.dart`
 
@@ -338,8 +683,23 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `func (iface.ObjectAPI).Diff(context.Context, path.Path, path.Path) ([]iface.ObjectChange, error)` | `ObjectApi.diff` | Future |
 | `func (iface.Reader).Size() uint64` | `Reader.size` | sync |
 | `const iface.DiffAdd iface.ChangeType` | `diffAdd` | const |
-| `const iface.DiffRemove iface.ChangeType` | `diffRemove` | const |
 | `const iface.DiffMod iface.ChangeType` | `diffMod` | const |
+| `const iface.DiffRemove iface.ChangeType` | `diffRemove` | const |
+| `const iface.TDirectory iface.FileType` | `tDirectory` | const |
+| `const iface.TFile iface.FileType` | `tFile` | const |
+| `const iface.TSymlink iface.FileType` | `tSymlink` | const |
+| `const iface.TUnknown iface.FileType` | `tUnknown` | const |
+
+## `github.com/ipfs/kubo/core/coreiface/options` → `package:ipfs_ffi/go/kubo/core/coreiface/options.dart`
+
+| Go | Dart | Mode |
+|---|---|---|
+| `const options.BalancedLayout options.Layout` | `balancedLayout` | const |
+| `const options.DefaultNameValidTime time.Duration` | `defaultNameValidTime` | const |
+| `const options.DefaultRSALen untyped int` | `defaultRsaLen` | const |
+| `const options.Ed25519Key untyped string` | `ed25519Key` | const |
+| `const options.RSAKey untyped string` | `rsaKey` | const |
+| `const options.TrickleLayout options.Layout` | `trickleLayout` | const |
 
 ## `github.com/ipfs/kubo/core/corerepo` → `package:ipfs_ffi/go/kubo/core/corerepo.dart`
 
@@ -349,6 +709,10 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `func corerepo.GarbageCollectAsync(n *core.IpfsNode, ctx context.Context) <-chan gc.Result` | `garbageCollectAsync` | Stream |
 | `func corerepo.PeriodicGC(ctx context.Context, node *core.IpfsNode) error` | `periodicGc` | Future |
 | `func corerepo.ConditionalGC(ctx context.Context, node *core.IpfsNode, offset uint64) error` | `conditionalGc` | Future |
+
+Omitted:
+
+- `const corerepo.NoLimit uint64`: constant of type uint64
 
 ## `github.com/ipfs/kubo/core/node` → `package:ipfs_ffi/go/kubo/core/node.dart`
 
@@ -362,6 +726,15 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `func (node.BaseBlocks).AllKeysChan(ctx context.Context) (<-chan cid.Cid, error)` | `BaseBlocks.allKeysChan` | Stream |
 | `node.BaseBlocks → x.(*blockstore.ReadOnly)` | `BaseBlocks.asReadOnly` | cast |
 | `node.BaseBlocks → x.(*blockstore.ReadWrite)` | `BaseBlocks.asReadWrite` | cast |
+| `const node.DefaultEngineBlockstoreWorkerCount untyped int` | `defaultEngineBlockstoreWorkerCount` | const |
+| `const node.DefaultEngineTaskWorkerCount untyped int` | `defaultEngineTaskWorkerCount` | const |
+| `const node.DefaultIpnsCacheSize untyped int` | `defaultIpnsCacheSize` | const |
+| `const node.DefaultMaxOutstandingBytesPerPeer untyped int` | `defaultMaxOutstandingBytesPerPeer` | const |
+| `const node.DefaultMaxProviders untyped int` | `defaultMaxProviders` | const |
+| `const node.DefaultProviderSearchDelay time.Duration` | `defaultProviderSearchDelay` | const |
+| `const node.DefaultTaskWorkerCount untyped int` | `defaultTaskWorkerCount` | const |
+| `const node.DefaultWantHaveReplaceSize untyped int` | `defaultWantHaveReplaceSize` | const |
+| `const node.KeystoreDatastorePath untyped string` | `keystoreDatastorePath` | const |
 
 ## `github.com/ipfs/kubo/core/node/libp2p` → `package:ipfs_ffi/go/kubo/core/node/libp2p.dart`
 
@@ -372,6 +745,8 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `var libp2p.DHTServerOption libp2p.RoutingOption` | `dhtServerOption` | sync |
 | `var libp2p.NilRouterOption func(_ libp2p.RoutingOptionArgs) (routing.Routing, error)` | `nilRouterOption` | sync |
 | `func libp2p.ConstructDefaultRouting(cfg *config.Config, routingOpt libp2p.RoutingOption) libp2p.RoutingOption` | `constructDefaultRouting` | sync |
+| `const libp2p.NetLimitTraceFilename untyped string` | `netLimitTraceFilename` | const |
+| `const libp2p.SeqnoStorePrefix untyped string` | `seqnoStorePrefix` | const |
 
 ## `github.com/ipfs/kubo/plugin/loader` → `package:ipfs_ffi/go/kubo/plugin/loader.dart`
 
@@ -398,17 +773,12 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `func fsrepo.IsInitialized(path string) bool` | `isInitialized` | sync |
 | `func fsrepo.Init(repoPath string, conf *config.Config) error` | `init` | sync |
 | `func fsrepo.Open(repoPath string) (repo.Repo, error)` | `open` | sync |
+| `const fsrepo.LockFile untyped string` | `lockFile` | const |
 
 ## `github.com/ipld/go-car/v2` → `package:ipfs_ffi/go/car/v2.dart`
 
 | Go | Dart | Mode |
 |---|---|---|
-| `const car.PragmaSize untyped int` | `pragmaSize` | const |
-| `const car.HeaderSize untyped int` | `headerSize` | const |
-| `const car.CharacteristicsSize untyped int` | `characteristicsSize` | const |
-| `const car.DefaultMaxAllowedHeaderSize uint64` | `defaultMaxAllowedHeaderSize` | const |
-| `const car.DefaultMaxAllowedSectionSize uint64` | `defaultMaxAllowedSectionSize` | const |
-| `const car.DefaultMaxIndexCidSize untyped int` | `defaultMaxIndexCidSize` | const |
 | `func car.ReadVersion(r io.Reader, opts ...car.Option) (uint64, error)` | `readVersion` | sync |
 | `func car.OpenReader(path string, opts ...car.Option) (*car.Reader, error)` | `openReader` | sync |
 | `func car.NewReader(r io.ReaderAt, opts ...car.Option) (*car.Reader, error)` | `factory Reader` | sync |
@@ -447,6 +817,12 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `func car.AttachIndex(path string, idx index.Index, offset uint64) error` | `attachIndex` | sync |
 | `func car.TraverseToFile(ctx context.Context, ls *ipld.LinkSystem, root cid.Cid, selector ipld.Node, destination string, opts ...car.Option) error` | `traverseToFile` | Future |
 | `func car.TraverseV1(ctx context.Context, ls *ipld.LinkSystem, root cid.Cid, selector ipld.Node, writer io.Writer, opts ...car.Option) (uint64, error)` | `traverseV1` | Future |
+| `const car.CharacteristicsSize untyped int` | `characteristicsSize` | const |
+| `const car.DefaultMaxAllowedHeaderSize uint64` | `defaultMaxAllowedHeaderSize` | const |
+| `const car.DefaultMaxAllowedSectionSize uint64` | `defaultMaxAllowedSectionSize` | const |
+| `const car.DefaultMaxIndexCidSize untyped int` | `defaultMaxIndexCidSize` | const |
+| `const car.HeaderSize untyped int` | `headerSize` | const |
+| `const car.PragmaSize untyped int` | `pragmaSize` | const |
 
 ## `github.com/ipld/go-car/v2/blockstore` → `package:ipfs_ffi/go/car/v2/blockstore.dart`
 
@@ -493,6 +869,7 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `func (index.Index).GetAll(cid.Cid, func(uint64) bool) error` | `Index.getAll` | Future |
 | `func (index.IterableIndex).ForEach(func(multihash.Multihash, uint64) error) error` | `IterableIndex.forEach` | Future |
 | `index.Index → x.(index.IterableIndex)` | `Index.asIterableIndex` | cast |
+| `const index.CarIndexNone untyped int` | `carIndexNone` | const |
 
 ## `github.com/ipld/go-car/v2/storage` → `package:ipfs_ffi/go/car/v2/storage.dart`
 
@@ -515,6 +892,16 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `datamodel.Node → x.(*merkledag.ProtoNode)` | `Node.asProtoNode` | cast |
 | `datamodel.Node → x.(*merkledag.RawNode)` | `Node.asRawNode` | cast |
 | `datamodel.NodePrototype → x.(*basicnode.Prototype__Any)` | `NodePrototype.asPrototypeAny` | cast |
+| `const datamodel.Kind_Bool datamodel.Kind` | `kindBool` | const |
+| `const datamodel.Kind_Bytes datamodel.Kind` | `kindBytes` | const |
+| `const datamodel.Kind_Float datamodel.Kind` | `kindFloat` | const |
+| `const datamodel.Kind_Int datamodel.Kind` | `kindInt` | const |
+| `const datamodel.Kind_Invalid datamodel.Kind` | `kindInvalid` | const |
+| `const datamodel.Kind_Link datamodel.Kind` | `kindLink` | const |
+| `const datamodel.Kind_List datamodel.Kind` | `kindList` | const |
+| `const datamodel.Kind_Map datamodel.Kind` | `kindMap` | const |
+| `const datamodel.Kind_Null datamodel.Kind` | `kindNull` | const |
+| `const datamodel.Kind_String datamodel.Kind` | `kindString` | const |
 
 ## `github.com/ipld/go-ipld-prime/linking` → `package:ipfs_ffi/go/ipld_prime/linking.dart`
 
@@ -549,12 +936,46 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `(*bsadapter.Adapter).Wrapped blockstore.Blockstore` | `Adapter.wrapped` | field |
 | `(*bsadapter.Adapter).Wrapped blockstore.Blockstore` | `Adapter.wrapped =` | field |
 
+## `github.com/ipld/go-ipld-prime/traversal` → `package:ipfs_ffi/go/ipld_prime/traversal.dart`
+
+| Go | Dart | Mode |
+|---|---|---|
+| `const traversal.VisitReason_SelectionCandidate traversal.VisitReason` | `visitReasonSelectionCandidate` | const |
+| `const traversal.VisitReason_SelectionMatch traversal.VisitReason` | `visitReasonSelectionMatch` | const |
+| `const traversal.VisitReason_SelectionParent traversal.VisitReason` | `visitReasonSelectionParent` | const |
+
 ## `github.com/ipld/go-ipld-prime/traversal/selector` → `package:ipfs_ffi/go/ipld_prime/traversal/selector.dart`
 
 | Go | Dart | Mode |
 |---|---|---|
-| `func selector.RecursionLimitDepth(depth int64) selector.RecursionLimit` | `recursionLimitDepth` | sync |
-| `func selector.RecursionLimitNone() selector.RecursionLimit` | `recursionLimitNone` | sync |
+| `const selector.ConditionMode_Link selector.ConditionMode` | `conditionModeLink` | const |
+| `const selector.RecursionLimit_Depth selector.RecursionLimit_Mode` | `recursionLimitDepth` | const |
+| `const selector.RecursionLimit_None selector.RecursionLimit_Mode` | `recursionLimitNone` | const |
+| `const selector.SelectorKey_As untyped string` | `selectorKeyAs` | const |
+| `const selector.SelectorKey_Condition untyped string` | `selectorKeyCondition` | const |
+| `const selector.SelectorKey_End untyped string` | `selectorKeyEnd` | const |
+| `const selector.SelectorKey_ExploreAll untyped string` | `selectorKeyExploreAll` | const |
+| `const selector.SelectorKey_ExploreConditional untyped string` | `selectorKeyExploreConditional` | const |
+| `const selector.SelectorKey_ExploreFields untyped string` | `selectorKeyExploreFields` | const |
+| `const selector.SelectorKey_ExploreIndex untyped string` | `selectorKeyExploreIndex` | const |
+| `const selector.SelectorKey_ExploreInterpretAs untyped string` | `selectorKeyExploreInterpretAs` | const |
+| `const selector.SelectorKey_ExploreRange untyped string` | `selectorKeyExploreRange` | const |
+| `const selector.SelectorKey_ExploreRecursive untyped string` | `selectorKeyExploreRecursive` | const |
+| `const selector.SelectorKey_ExploreRecursiveEdge untyped string` | `selectorKeyExploreRecursiveEdge` | const |
+| `const selector.SelectorKey_ExploreUnion untyped string` | `selectorKeyExploreUnion` | const |
+| `const selector.SelectorKey_Fields untyped string` | `selectorKeyFields` | const |
+| `const selector.SelectorKey_From untyped string` | `selectorKeyFrom` | const |
+| `const selector.SelectorKey_Index untyped string` | `selectorKeyIndex` | const |
+| `const selector.SelectorKey_Limit untyped string` | `selectorKeyLimit` | const |
+| `const selector.SelectorKey_LimitDepth untyped string` | `selectorKeyLimitDepth` | const |
+| `const selector.SelectorKey_LimitNone untyped string` | `selectorKeyLimitNone` | const |
+| `const selector.SelectorKey_Matcher untyped string` | `selectorKeyMatcher` | const |
+| `const selector.SelectorKey_Next untyped string` | `selectorKeyNext` | const |
+| `const selector.SelectorKey_Sequence untyped string` | `selectorKeySequence` | const |
+| `const selector.SelectorKey_Start untyped string` | `selectorKeyStart` | const |
+| `const selector.SelectorKey_StopAt untyped string` | `selectorKeyStopAt` | const |
+| `const selector.SelectorKey_Subset untyped string` | `selectorKeySubset` | const |
+| `const selector.SelectorKey_To untyped string` | `selectorKeyTo` | const |
 
 ## `github.com/ipld/go-ipld-prime/traversal/selector/builder` → `package:ipfs_ffi/go/ipld_prime/traversal/selector/builder.dart`
 
@@ -608,6 +1029,49 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `func (network.ResourceScopeViewer).ViewSystem(func(network.ResourceScope) error) error` | `ResourceManager.viewSystem` | Future |
 | `func (network.ResourceScopeViewer).ViewTransient(func(network.ResourceScope) error) error` | `ResourceManager.viewTransient` | Future |
 | `func (network.ResourceScope).Stat() network.ScopeStat` | `ResourceScope.stat` | sync |
+| `const network.CanConnect network.Connectedness` | `canConnect` | const |
+| `const network.CannotConnect network.Connectedness` | `cannotConnect` | const |
+| `const network.ConnCodeOutOfRange network.ConnErrorCode` | `connCodeOutOfRange` | const |
+| `const network.ConnGarbageCollected network.ConnErrorCode` | `connGarbageCollected` | const |
+| `const network.ConnGated network.ConnErrorCode` | `connGated` | const |
+| `const network.ConnNoError network.ConnErrorCode` | `connNoError` | const |
+| `const network.ConnProtocolNegotiationFailed network.ConnErrorCode` | `connProtocolNegotiationFailed` | const |
+| `const network.ConnProtocolViolation network.ConnErrorCode` | `connProtocolViolation` | const |
+| `const network.ConnRateLimited network.ConnErrorCode` | `connRateLimited` | const |
+| `const network.ConnResourceLimitExceeded network.ConnErrorCode` | `connResourceLimitExceeded` | const |
+| `const network.ConnShutdown network.ConnErrorCode` | `connShutdown` | const |
+| `const network.ConnSupplanted network.ConnErrorCode` | `connSupplanted` | const |
+| `const network.Connected network.Connectedness` | `connected` | const |
+| `const network.DirInbound network.Direction` | `dirInbound` | const |
+| `const network.DirOutbound network.Direction` | `dirOutbound` | const |
+| `const network.DirUnknown network.Direction` | `dirUnknown` | const |
+| `const network.Limited network.Connectedness` | `limited` | const |
+| `const network.MessageSizeMax untyped int` | `messageSizeMax` | const |
+| `const network.NATDeviceTypeCone network.NATDeviceType` | `natDeviceTypeCone` | const |
+| `const network.NATDeviceTypeEndpointDependent network.NATDeviceType` | `natDeviceTypeEndpointDependent` | const |
+| `const network.NATDeviceTypeEndpointIndependent network.NATDeviceType` | `natDeviceTypeEndpointIndependent` | const |
+| `const network.NATDeviceTypeSymmetric network.NATDeviceType` | `natDeviceTypeSymmetric` | const |
+| `const network.NATDeviceTypeUnknown network.NATDeviceType` | `natDeviceTypeUnknown` | const |
+| `const network.NATTransportTCP network.NATTransportProtocol` | `natTransportTcp` | const |
+| `const network.NATTransportUDP network.NATTransportProtocol` | `natTransportUdp` | const |
+| `const network.NotConnected network.Connectedness` | `notConnected` | const |
+| `const network.ReachabilityPrivate network.Reachability` | `reachabilityPrivate` | const |
+| `const network.ReachabilityPublic network.Reachability` | `reachabilityPublic` | const |
+| `const network.ReachabilityUnknown network.Reachability` | `reachabilityUnknown` | const |
+| `const network.ReservationPriorityAlways uint8` | `reservationPriorityAlways` | const |
+| `const network.ReservationPriorityHigh uint8` | `reservationPriorityHigh` | const |
+| `const network.ReservationPriorityLow uint8` | `reservationPriorityLow` | const |
+| `const network.ReservationPriorityMedium uint8` | `reservationPriorityMedium` | const |
+| `const network.StreamCodeOutOfRange network.StreamErrorCode` | `streamCodeOutOfRange` | const |
+| `const network.StreamGarbageCollected network.StreamErrorCode` | `streamGarbageCollected` | const |
+| `const network.StreamGated network.StreamErrorCode` | `streamGated` | const |
+| `const network.StreamNoError network.StreamErrorCode` | `streamNoError` | const |
+| `const network.StreamProtocolNegotiationFailed network.StreamErrorCode` | `streamProtocolNegotiationFailed` | const |
+| `const network.StreamProtocolViolation network.StreamErrorCode` | `streamProtocolViolation` | const |
+| `const network.StreamRateLimited network.StreamErrorCode` | `streamRateLimited` | const |
+| `const network.StreamResourceLimitExceeded network.StreamErrorCode` | `streamResourceLimitExceeded` | const |
+| `const network.StreamShutdown network.StreamErrorCode` | `streamShutdown` | const |
+| `const network.StreamSupplanted network.StreamErrorCode` | `streamSupplanted` | const |
 
 ## `github.com/libp2p/go-libp2p/core/peer` → `package:ipfs_ffi/go/libp2p/core/peer.dart`
 
@@ -615,13 +1079,678 @@ Each line is an exposed Go symbol and where it is in Dart.
 |---|---|---|
 | `func peer.AddrInfoFromString(s string) (*peer.AddrInfo, error)` | `addrInfoFromString` | sync |
 | `func peer.AddrInfoToP2pAddrs(pi *peer.AddrInfo) ([]multiaddr.Multiaddr, error)` | `addrInfoToP2pAddrs` | sync |
+| `const peer.PeerRecordEnvelopeDomain untyped string` | `peerRecordEnvelopeDomain` | const |
+
+## `github.com/libp2p/go-libp2p/core/routing` → `package:ipfs_ffi/go/libp2p/core/routing.dart`
+
+| Go | Dart | Mode |
+|---|---|---|
+| `const routing.AddingPeer routing.QueryEventType` | `addingPeer` | const |
+| `const routing.DialingPeer routing.QueryEventType` | `dialingPeer` | const |
+| `const routing.FinalPeer routing.QueryEventType` | `finalPeer` | const |
+| `const routing.PeerResponse routing.QueryEventType` | `peerResponse` | const |
+| `const routing.Provider routing.QueryEventType` | `provider` | const |
+| `const routing.QueryError routing.QueryEventType` | `queryError` | const |
+| `const routing.SendingQuery routing.QueryEventType` | `sendingQuery` | const |
+| `const routing.Value routing.QueryEventType` | `value$` | const |
+
+## `github.com/multiformats/go-multiaddr` → `package:ipfs_ffi/go/multiaddr.dart`
+
+| Go | Dart | Mode |
+|---|---|---|
+| `const multiaddr.ActionAccept multiaddr.Action` | `actionAccept` | const |
+| `const multiaddr.ActionDeny multiaddr.Action` | `actionDeny` | const |
+| `const multiaddr.ActionNone multiaddr.Action` | `actionNone` | const |
+| `const multiaddr.LengthPrefixedVarSize untyped int` | `lengthPrefixedVarSize` | const |
+| `const multiaddr.P_CERTHASH untyped int` | `pCerthash` | const |
+| `const multiaddr.P_CIRCUIT untyped int` | `pCircuit` | const |
+| `const multiaddr.P_DCCP untyped int` | `pDccp` | const |
+| `const multiaddr.P_DNS untyped int` | `pDns` | const |
+| `const multiaddr.P_DNS4 untyped int` | `pDns4` | const |
+| `const multiaddr.P_DNS6 untyped int` | `pDns6` | const |
+| `const multiaddr.P_DNSADDR untyped int` | `pDnsaddr` | const |
+| `const multiaddr.P_GARLIC32 untyped int` | `pGarlic32` | const |
+| `const multiaddr.P_GARLIC64 untyped int` | `pGarlic64` | const |
+| `const multiaddr.P_HTTP untyped int` | `pHttp` | const |
+| `const multiaddr.P_HTTPS untyped int` | `pHttps` | const |
+| `const multiaddr.P_HTTP_PATH untyped int` | `pHttpPath` | const |
+| `const multiaddr.P_IP4 untyped int` | `pIp4` | const |
+| `const multiaddr.P_IP6 untyped int` | `pIp6` | const |
+| `const multiaddr.P_IP6ZONE untyped int` | `pIp6zone` | const |
+| `const multiaddr.P_IPCIDR untyped int` | `pIpcidr` | const |
+| `const multiaddr.P_IPFS untyped int` | `pIpfs` | const |
+| `const multiaddr.P_MEMORY untyped int` | `pMemory` | const |
+| `const multiaddr.P_NOISE untyped int` | `pNoise` | const |
+| `const multiaddr.P_ONION untyped int` | `pOnion` | const |
+| `const multiaddr.P_ONION3 untyped int` | `pOnion3` | const |
+| `const multiaddr.P_P2P untyped int` | `pP2p` | const |
+| `const multiaddr.P_P2P_WEBRTC_DIRECT untyped int` | `pP2pWebrtcDirect` | const |
+| `const multiaddr.P_PLAINTEXTV2 untyped int` | `pPlaintextv2` | const |
+| `const multiaddr.P_QUIC untyped int` | `pQuic` | const |
+| `const multiaddr.P_QUIC_V1 untyped int` | `pQuicV1` | const |
+| `const multiaddr.P_SCTP untyped int` | `pSctp` | const |
+| `const multiaddr.P_SNI untyped int` | `pSni` | const |
+| `const multiaddr.P_TCP untyped int` | `pTcp` | const |
+| `const multiaddr.P_TLS untyped int` | `pTls` | const |
+| `const multiaddr.P_UDP untyped int` | `pUdp` | const |
+| `const multiaddr.P_UDT untyped int` | `pUdt` | const |
+| `const multiaddr.P_UNIX untyped int` | `pUnix` | const |
+| `const multiaddr.P_UTP untyped int` | `pUtp` | const |
+| `const multiaddr.P_WEBRTC untyped int` | `pWebrtc` | const |
+| `const multiaddr.P_WEBRTC_DIRECT untyped int` | `pWebrtcDirect` | const |
+| `const multiaddr.P_WEBTRANSPORT untyped int` | `pWebtransport` | const |
+| `const multiaddr.P_WS untyped int` | `pWs` | const |
+| `const multiaddr.P_WSS untyped int` | `pWss` | const |
 
 ## `github.com/multiformats/go-multicodec` → `package:ipfs_ffi/go/multicodec.dart`
 
 | Go | Dart | Mode |
 |---|---|---|
-| `const multicodec.CarIndexSorted multicodec.Code` | `carIndexSorted` | const |
 | `const multicodec.CarMultihashIndexSorted multicodec.Code` | `carMultihashIndexSorted` | const |
+| `const multicodec.Aes128 multicodec.Code` | `aes128` | const |
+| `const multicodec.Aes192 multicodec.Code` | `aes192` | const |
+| `const multicodec.Aes256 multicodec.Code` | `aes256` | const |
+| `const multicodec.AesGcm256 multicodec.Code` | `aesGcm256` | const |
+| `const multicodec.ArweaveNs multicodec.Code` | `arweaveNs` | const |
+| `const multicodec.BcryptPbkdf multicodec.Code` | `bcryptPbkdf` | const |
+| `const multicodec.Beeson multicodec.Code` | `beeson` | const |
+| `const multicodec.Bencode multicodec.Code` | `bencode` | const |
+| `const multicodec.BitcoinBlock multicodec.Code` | `bitcoinBlock` | const |
+| `const multicodec.BitcoinTx multicodec.Code` | `bitcoinTx` | const |
+| `const multicodec.BitcoinWitnessCommitment multicodec.Code` | `bitcoinWitnessCommitment` | const |
+| `const multicodec.BittorrentPiecesRoot multicodec.Code` | `bittorrentPiecesRoot` | const |
+| `const multicodec.Blake2b104 multicodec.Code` | `blake2b104` | const |
+| `const multicodec.Blake2b112 multicodec.Code` | `blake2b112` | const |
+| `const multicodec.Blake2b120 multicodec.Code` | `blake2b120` | const |
+| `const multicodec.Blake2b128 multicodec.Code` | `blake2b128` | const |
+| `const multicodec.Blake2b136 multicodec.Code` | `blake2b136` | const |
+| `const multicodec.Blake2b144 multicodec.Code` | `blake2b144` | const |
+| `const multicodec.Blake2b152 multicodec.Code` | `blake2b152` | const |
+| `const multicodec.Blake2b16 multicodec.Code` | `blake2b16` | const |
+| `const multicodec.Blake2b160 multicodec.Code` | `blake2b160` | const |
+| `const multicodec.Blake2b168 multicodec.Code` | `blake2b168` | const |
+| `const multicodec.Blake2b176 multicodec.Code` | `blake2b176` | const |
+| `const multicodec.Blake2b184 multicodec.Code` | `blake2b184` | const |
+| `const multicodec.Blake2b192 multicodec.Code` | `blake2b192` | const |
+| `const multicodec.Blake2b200 multicodec.Code` | `blake2b200` | const |
+| `const multicodec.Blake2b208 multicodec.Code` | `blake2b208` | const |
+| `const multicodec.Blake2b216 multicodec.Code` | `blake2b216` | const |
+| `const multicodec.Blake2b224 multicodec.Code` | `blake2b224` | const |
+| `const multicodec.Blake2b232 multicodec.Code` | `blake2b232` | const |
+| `const multicodec.Blake2b24 multicodec.Code` | `blake2b24` | const |
+| `const multicodec.Blake2b240 multicodec.Code` | `blake2b240` | const |
+| `const multicodec.Blake2b248 multicodec.Code` | `blake2b248` | const |
+| `const multicodec.Blake2b256 multicodec.Code` | `blake2b256` | const |
+| `const multicodec.Blake2b264 multicodec.Code` | `blake2b264` | const |
+| `const multicodec.Blake2b272 multicodec.Code` | `blake2b272` | const |
+| `const multicodec.Blake2b280 multicodec.Code` | `blake2b280` | const |
+| `const multicodec.Blake2b288 multicodec.Code` | `blake2b288` | const |
+| `const multicodec.Blake2b296 multicodec.Code` | `blake2b296` | const |
+| `const multicodec.Blake2b304 multicodec.Code` | `blake2b304` | const |
+| `const multicodec.Blake2b312 multicodec.Code` | `blake2b312` | const |
+| `const multicodec.Blake2b32 multicodec.Code` | `blake2b32` | const |
+| `const multicodec.Blake2b320 multicodec.Code` | `blake2b320` | const |
+| `const multicodec.Blake2b328 multicodec.Code` | `blake2b328` | const |
+| `const multicodec.Blake2b336 multicodec.Code` | `blake2b336` | const |
+| `const multicodec.Blake2b344 multicodec.Code` | `blake2b344` | const |
+| `const multicodec.Blake2b352 multicodec.Code` | `blake2b352` | const |
+| `const multicodec.Blake2b360 multicodec.Code` | `blake2b360` | const |
+| `const multicodec.Blake2b368 multicodec.Code` | `blake2b368` | const |
+| `const multicodec.Blake2b376 multicodec.Code` | `blake2b376` | const |
+| `const multicodec.Blake2b384 multicodec.Code` | `blake2b384` | const |
+| `const multicodec.Blake2b392 multicodec.Code` | `blake2b392` | const |
+| `const multicodec.Blake2b40 multicodec.Code` | `blake2b40` | const |
+| `const multicodec.Blake2b400 multicodec.Code` | `blake2b400` | const |
+| `const multicodec.Blake2b408 multicodec.Code` | `blake2b408` | const |
+| `const multicodec.Blake2b416 multicodec.Code` | `blake2b416` | const |
+| `const multicodec.Blake2b424 multicodec.Code` | `blake2b424` | const |
+| `const multicodec.Blake2b432 multicodec.Code` | `blake2b432` | const |
+| `const multicodec.Blake2b440 multicodec.Code` | `blake2b440` | const |
+| `const multicodec.Blake2b448 multicodec.Code` | `blake2b448` | const |
+| `const multicodec.Blake2b456 multicodec.Code` | `blake2b456` | const |
+| `const multicodec.Blake2b464 multicodec.Code` | `blake2b464` | const |
+| `const multicodec.Blake2b472 multicodec.Code` | `blake2b472` | const |
+| `const multicodec.Blake2b48 multicodec.Code` | `blake2b48` | const |
+| `const multicodec.Blake2b480 multicodec.Code` | `blake2b480` | const |
+| `const multicodec.Blake2b488 multicodec.Code` | `blake2b488` | const |
+| `const multicodec.Blake2b496 multicodec.Code` | `blake2b496` | const |
+| `const multicodec.Blake2b504 multicodec.Code` | `blake2b504` | const |
+| `const multicodec.Blake2b512 multicodec.Code` | `blake2b512` | const |
+| `const multicodec.Blake2b56 multicodec.Code` | `blake2b56` | const |
+| `const multicodec.Blake2b64 multicodec.Code` | `blake2b64` | const |
+| `const multicodec.Blake2b72 multicodec.Code` | `blake2b72` | const |
+| `const multicodec.Blake2b8 multicodec.Code` | `blake2b8` | const |
+| `const multicodec.Blake2b80 multicodec.Code` | `blake2b80` | const |
+| `const multicodec.Blake2b88 multicodec.Code` | `blake2b88` | const |
+| `const multicodec.Blake2b96 multicodec.Code` | `blake2b96` | const |
+| `const multicodec.Blake2s104 multicodec.Code` | `blake2s104` | const |
+| `const multicodec.Blake2s112 multicodec.Code` | `blake2s112` | const |
+| `const multicodec.Blake2s120 multicodec.Code` | `blake2s120` | const |
+| `const multicodec.Blake2s128 multicodec.Code` | `blake2s128` | const |
+| `const multicodec.Blake2s136 multicodec.Code` | `blake2s136` | const |
+| `const multicodec.Blake2s144 multicodec.Code` | `blake2s144` | const |
+| `const multicodec.Blake2s152 multicodec.Code` | `blake2s152` | const |
+| `const multicodec.Blake2s16 multicodec.Code` | `blake2s16` | const |
+| `const multicodec.Blake2s160 multicodec.Code` | `blake2s160` | const |
+| `const multicodec.Blake2s168 multicodec.Code` | `blake2s168` | const |
+| `const multicodec.Blake2s176 multicodec.Code` | `blake2s176` | const |
+| `const multicodec.Blake2s184 multicodec.Code` | `blake2s184` | const |
+| `const multicodec.Blake2s192 multicodec.Code` | `blake2s192` | const |
+| `const multicodec.Blake2s200 multicodec.Code` | `blake2s200` | const |
+| `const multicodec.Blake2s208 multicodec.Code` | `blake2s208` | const |
+| `const multicodec.Blake2s216 multicodec.Code` | `blake2s216` | const |
+| `const multicodec.Blake2s224 multicodec.Code` | `blake2s224` | const |
+| `const multicodec.Blake2s232 multicodec.Code` | `blake2s232` | const |
+| `const multicodec.Blake2s24 multicodec.Code` | `blake2s24` | const |
+| `const multicodec.Blake2s240 multicodec.Code` | `blake2s240` | const |
+| `const multicodec.Blake2s248 multicodec.Code` | `blake2s248` | const |
+| `const multicodec.Blake2s256 multicodec.Code` | `blake2s256` | const |
+| `const multicodec.Blake2s32 multicodec.Code` | `blake2s32` | const |
+| `const multicodec.Blake2s40 multicodec.Code` | `blake2s40` | const |
+| `const multicodec.Blake2s48 multicodec.Code` | `blake2s48` | const |
+| `const multicodec.Blake2s56 multicodec.Code` | `blake2s56` | const |
+| `const multicodec.Blake2s64 multicodec.Code` | `blake2s64` | const |
+| `const multicodec.Blake2s72 multicodec.Code` | `blake2s72` | const |
+| `const multicodec.Blake2s8 multicodec.Code` | `blake2s8` | const |
+| `const multicodec.Blake2s80 multicodec.Code` | `blake2s80` | const |
+| `const multicodec.Blake2s88 multicodec.Code` | `blake2s88` | const |
+| `const multicodec.Blake2s96 multicodec.Code` | `blake2s96` | const |
+| `const multicodec.Blake3 multicodec.Code` | `blake3` | const |
+| `const multicodec.Blake3Hashseq multicodec.Code` | `blake3Hashseq` | const |
+| `const multicodec.Bls12_381G1Msig multicodec.Code` | `bls12381g1Msig` | const |
+| `const multicodec.Bls12_381G1Priv multicodec.Code` | `bls12381g1Priv` | const |
+| `const multicodec.Bls12_381G1PrivShare multicodec.Code` | `bls12381g1PrivShare` | const |
+| `const multicodec.Bls12_381G1Pub multicodec.Code` | `bls12381g1Pub` | const |
+| `const multicodec.Bls12_381G1PubShare multicodec.Code` | `bls12381g1PubShare` | const |
+| `const multicodec.Bls12_381G1ShareMsig multicodec.Code` | `bls12381g1ShareMsig` | const |
+| `const multicodec.Bls12_381G1Sig multicodec.Code` | `bls12381g1Sig` | const |
+| `const multicodec.Bls12_381G1g2Priv multicodec.Code` | `bls12381g1g2Priv` | const |
+| `const multicodec.Bls12_381G1g2Pub multicodec.Code` | `bls12381g1g2Pub` | const |
+| `const multicodec.Bls12_381G2Msig multicodec.Code` | `bls12381g2Msig` | const |
+| `const multicodec.Bls12_381G2Priv multicodec.Code` | `bls12381g2Priv` | const |
+| `const multicodec.Bls12_381G2PrivShare multicodec.Code` | `bls12381g2PrivShare` | const |
+| `const multicodec.Bls12_381G2Pub multicodec.Code` | `bls12381g2Pub` | const |
+| `const multicodec.Bls12_381G2PubShare multicodec.Code` | `bls12381g2PubShare` | const |
+| `const multicodec.Bls12_381G2ShareMsig multicodec.Code` | `bls12381g2ShareMsig` | const |
+| `const multicodec.Bls12_381G2Sig multicodec.Code` | `bls12381g2Sig` | const |
+| `const multicodec.Caip50 multicodec.Code` | `caip50` | const |
+| `const multicodec.Car multicodec.Code` | `car` | const |
+| `const multicodec.CarIndexSorted multicodec.Code` | `carIndexSorted` | const |
+| `const multicodec.Cbor multicodec.Code` | `cbor` | const |
+| `const multicodec.Certhash multicodec.Code` | `certhash` | const |
+| `const multicodec.Chacha128 multicodec.Code` | `chacha128` | const |
+| `const multicodec.Chacha20Poly1305 multicodec.Code` | `chacha20Poly1305` | const |
+| `const multicodec.Chacha256 multicodec.Code` | `chacha256` | const |
+| `const multicodec.Cidv1 multicodec.Code` | `cidv1` | const |
+| `const multicodec.Cidv2 multicodec.Code` | `cidv2` | const |
+| `const multicodec.Cidv3 multicodec.Code` | `cidv3` | const |
+| `const multicodec.Crc32 multicodec.Code` | `crc32` | const |
+| `const multicodec.Crc64Ecma multicodec.Code` | `crc64Ecma` | const |
+| `const multicodec.Crc64Nvme multicodec.Code` | `crc64Nvme` | const |
+| `const multicodec.DagCbor multicodec.Code` | `dagCbor` | const |
+| `const multicodec.DagCose multicodec.Code` | `dagCose` | const |
+| `const multicodec.DagJose multicodec.Code` | `dagJose` | const |
+| `const multicodec.DagJson multicodec.Code` | `dagJson` | const |
+| `const multicodec.DagPb multicodec.Code` | `dagPb` | const |
+| `const multicodec.DashBlock multicodec.Code` | `dashBlock` | const |
+| `const multicodec.DashTx multicodec.Code` | `dashTx` | const |
+| `const multicodec.DblSha2_256 multicodec.Code` | `dblSha2256` | const |
+| `const multicodec.Dccp multicodec.Code` | `dccp` | const |
+| `const multicodec.DecredBlock multicodec.Code` | `decredBlock` | const |
+| `const multicodec.DecredTx multicodec.Code` | `decredTx` | const |
+| `const multicodec.Dns multicodec.Code` | `dns` | const |
+| `const multicodec.Dns4 multicodec.Code` | `dns4` | const |
+| `const multicodec.Dns6 multicodec.Code` | `dns6` | const |
+| `const multicodec.Dnsaddr multicodec.Code` | `dnsaddr` | const |
+| `const multicodec.Dnslink multicodec.Code` | `dnslink` | const |
+| `const multicodec.Ed25519Priv multicodec.Code` | `ed25519Priv` | const |
+| `const multicodec.Ed25519Pub multicodec.Code` | `ed25519Pub` | const |
+| `const multicodec.Ed2k multicodec.Code` | `ed2k` | const |
+| `const multicodec.Ed448Priv multicodec.Code` | `ed448Priv` | const |
+| `const multicodec.Ed448Pub multicodec.Code` | `ed448Pub` | const |
+| `const multicodec.Eddsa multicodec.Code` | `eddsa` | const |
+| `const multicodec.EddsaMsig multicodec.Code` | `eddsaMsig` | const |
+| `const multicodec.Eip191 multicodec.Code` | `eip191` | const |
+| `const multicodec.Es256 multicodec.Code` | `es256` | const |
+| `const multicodec.Es256Msig multicodec.Code` | `es256Msig` | const |
+| `const multicodec.Es256k multicodec.Code` | `es256k` | const |
+| `const multicodec.Es256kMsig multicodec.Code` | `es256kMsig` | const |
+| `const multicodec.Es384 multicodec.Code` | `es384` | const |
+| `const multicodec.Es384Msig multicodec.Code` | `es384Msig` | const |
+| `const multicodec.Es512 multicodec.Code` | `es512` | const |
+| `const multicodec.Es521Msig multicodec.Code` | `es521Msig` | const |
+| `const multicodec.EthAccountSnapshot multicodec.Code` | `ethAccountSnapshot` | const |
+| `const multicodec.EthBlock multicodec.Code` | `ethBlock` | const |
+| `const multicodec.EthBlockList multicodec.Code` | `ethBlockList` | const |
+| `const multicodec.EthReceiptLog multicodec.Code` | `ethReceiptLog` | const |
+| `const multicodec.EthReceiptLogTrie multicodec.Code` | `ethReceiptLogTrie` | const |
+| `const multicodec.EthStateTrie multicodec.Code` | `ethStateTrie` | const |
+| `const multicodec.EthStorageTrie multicodec.Code` | `ethStorageTrie` | const |
+| `const multicodec.EthTx multicodec.Code` | `ethTx` | const |
+| `const multicodec.EthTxReceipt multicodec.Code` | `ethTxReceipt` | const |
+| `const multicodec.EthTxReceiptTrie multicodec.Code` | `ethTxReceiptTrie` | const |
+| `const multicodec.EthTxTrie multicodec.Code` | `ethTxTrie` | const |
+| `const multicodec.FilCommitmentSealed multicodec.Code` | `filCommitmentSealed` | const |
+| `const multicodec.FilCommitmentUnsealed multicodec.Code` | `filCommitmentUnsealed` | const |
+| `const multicodec.Fr32Sha256Trunc254Padbintree multicodec.Code` | `fr32Sha256Trunc254Padbintree` | const |
+| `const multicodec.Garlic32 multicodec.Code` | `garlic32` | const |
+| `const multicodec.Garlic64 multicodec.Code` | `garlic64` | const |
+| `const multicodec.GitRaw multicodec.Code` | `gitRaw` | const |
+| `const multicodec.HolochainAdrV0 multicodec.Code` | `holochainAdrV0` | const |
+| `const multicodec.HolochainAdrV1 multicodec.Code` | `holochainAdrV1` | const |
+| `const multicodec.HolochainKeyV0 multicodec.Code` | `holochainKeyV0` | const |
+| `const multicodec.HolochainKeyV1 multicodec.Code` | `holochainKeyV1` | const |
+| `const multicodec.HolochainSigV0 multicodec.Code` | `holochainSigV0` | const |
+| `const multicodec.HolochainSigV1 multicodec.Code` | `holochainSigV1` | const |
+| `const multicodec.Http multicodec.Code` | `http` | const |
+| `const multicodec.HttpPath multicodec.Code` | `httpPath` | const |
+| `const multicodec.Https multicodec.Code` | `https` | const |
+| `const multicodec.Identity multicodec.Code` | `identity` | const |
+| `const multicodec.Ip4 multicodec.Code` | `ip4` | const |
+| `const multicodec.Ip6 multicodec.Code` | `ip6` | const |
+| `const multicodec.Ip6zone multicodec.Code` | `ip6zone` | const |
+| `const multicodec.Ipcidr multicodec.Code` | `ipcidr` | const |
+| `const multicodec.Ipfs multicodec.Code` | `ipfs` | const |
+| `const multicodec.Ipld multicodec.Code` | `ipld` | const |
+| `const multicodec.Ipns multicodec.Code` | `ipns` | const |
+| `const multicodec.IpnsRecord multicodec.Code` | `ipnsRecord` | const |
+| `const multicodec.Iscc multicodec.Code` | `iscc` | const |
+| `const multicodec.Json multicodec.Code` | `json` | const |
+| `const multicodec.JsonJcs multicodec.Code` | `jsonJcs` | const |
+| `const multicodec.Jwk_jcsPriv multicodec.Code` | `jwkJcsPriv` | const |
+| `const multicodec.Jwk_jcsPub multicodec.Code` | `jwkJcsPub` | const |
+| `const multicodec.Kangarootwelve multicodec.Code` | `kangarootwelve` | const |
+| `const multicodec.Keccak224 multicodec.Code` | `keccak224` | const |
+| `const multicodec.Keccak256 multicodec.Code` | `keccak256` | const |
+| `const multicodec.Keccak384 multicodec.Code` | `keccak384` | const |
+| `const multicodec.Keccak512 multicodec.Code` | `keccak512` | const |
+| `const multicodec.KumandraNs multicodec.Code` | `kumandraNs` | const |
+| `const multicodec.LamportMsig multicodec.Code` | `lamportMsig` | const |
+| `const multicodec.LamportSha3_256Priv multicodec.Code` | `lamportSha3256Priv` | const |
+| `const multicodec.LamportSha3_256PrivShare multicodec.Code` | `lamportSha3256PrivShare` | const |
+| `const multicodec.LamportSha3_256Pub multicodec.Code` | `lamportSha3256Pub` | const |
+| `const multicodec.LamportSha3_256Sig multicodec.Code` | `lamportSha3256Sig` | const |
+| `const multicodec.LamportSha3_256SigShare multicodec.Code` | `lamportSha3256SigShare` | const |
+| `const multicodec.LamportSha3_384Priv multicodec.Code` | `lamportSha3384Priv` | const |
+| `const multicodec.LamportSha3_384PrivShare multicodec.Code` | `lamportSha3384PrivShare` | const |
+| `const multicodec.LamportSha3_384Pub multicodec.Code` | `lamportSha3384Pub` | const |
+| `const multicodec.LamportSha3_384Sig multicodec.Code` | `lamportSha3384Sig` | const |
+| `const multicodec.LamportSha3_384SigShare multicodec.Code` | `lamportSha3384SigShare` | const |
+| `const multicodec.LamportSha3_512Priv multicodec.Code` | `lamportSha3512Priv` | const |
+| `const multicodec.LamportSha3_512PrivShare multicodec.Code` | `lamportSha3512PrivShare` | const |
+| `const multicodec.LamportSha3_512Pub multicodec.Code` | `lamportSha3512Pub` | const |
+| `const multicodec.LamportSha3_512Sig multicodec.Code` | `lamportSha3512Sig` | const |
+| `const multicodec.LamportSha3_512SigShare multicodec.Code` | `lamportSha3512SigShare` | const |
+| `const multicodec.LamportShareMsig multicodec.Code` | `lamportShareMsig` | const |
+| `const multicodec.Lbry multicodec.Code` | `lbry` | const |
+| `const multicodec.LeofcoinBlock multicodec.Code` | `leofcoinBlock` | const |
+| `const multicodec.LeofcoinPr multicodec.Code` | `leofcoinPr` | const |
+| `const multicodec.LeofcoinTx multicodec.Code` | `leofcoinTx` | const |
+| `const multicodec.Libp2pKey multicodec.Code` | `libp2pKey` | const |
+| `const multicodec.Libp2pPeerRecord multicodec.Code` | `libp2pPeerRecord` | const |
+| `const multicodec.Libp2pRelayRsvp multicodec.Code` | `libp2pRelayRsvp` | const |
+| `const multicodec.Md4 multicodec.Code` | `md4` | const |
+| `const multicodec.Md5 multicodec.Code` | `md5` | const |
+| `const multicodec.Memorytransport multicodec.Code` | `memorytransport` | const |
+| `const multicodec.Messagepack multicodec.Code` | `messagepack` | const |
+| `const multicodec.Mlkem1024Priv multicodec.Code` | `mlkem1024Priv` | const |
+| `const multicodec.Mlkem1024Pub multicodec.Code` | `mlkem1024Pub` | const |
+| `const multicodec.Mlkem512Priv multicodec.Code` | `mlkem512Priv` | const |
+| `const multicodec.Mlkem512Pub multicodec.Code` | `mlkem512Pub` | const |
+| `const multicodec.Mlkem768Priv multicodec.Code` | `mlkem768Priv` | const |
+| `const multicodec.Mlkem768Pub multicodec.Code` | `mlkem768Pub` | const |
+| `const multicodec.Multiaddr multicodec.Code` | `multiaddr` | const |
+| `const multicodec.Multibase multicodec.Code` | `multibase` | const |
+| `const multicodec.Multicodec multicodec.Code` | `multicodec` | const |
+| `const multicodec.Multidid multicodec.Code` | `multidid` | const |
+| `const multicodec.Multihash multicodec.Code` | `multihash` | const |
+| `const multicodec.Multikey multicodec.Code` | `multikey` | const |
+| `const multicodec.Multisig multicodec.Code` | `multisig` | const |
+| `const multicodec.Murmur3X64_128 multicodec.Code` | `murmur3x64128` | const |
+| `const multicodec.Murmur3X64_64 multicodec.Code` | `murmur3x6464` | const |
+| `const multicodec.Murmur3_32 multicodec.Code` | `murmur332` | const |
+| `const multicodec.Noise multicodec.Code` | `noise` | const |
+| `const multicodec.Nonce multicodec.Code` | `nonce` | const |
+| `const multicodec.NonstandardSig multicodec.Code` | `nonstandardSig` | const |
+| `const multicodec.Onion multicodec.Code` | `onion` | const |
+| `const multicodec.Onion3 multicodec.Code` | `onion3` | const |
+| `const multicodec.P256Priv multicodec.Code` | `p256Priv` | const |
+| `const multicodec.P256Pub multicodec.Code` | `p256Pub` | const |
+| `const multicodec.P2p multicodec.Code` | `p2p` | const |
+| `const multicodec.P2pCircuit multicodec.Code` | `p2pCircuit` | const |
+| `const multicodec.P2pStardust multicodec.Code` | `p2pStardust` | const |
+| `const multicodec.P2pWebrtcDirect multicodec.Code` | `p2pWebrtcDirect` | const |
+| `const multicodec.P2pWebrtcStar multicodec.Code` | `p2pWebrtcStar` | const |
+| `const multicodec.P2pWebsocketStar multicodec.Code` | `p2pWebsocketStar` | const |
+| `const multicodec.P384Priv multicodec.Code` | `p384Priv` | const |
+| `const multicodec.P384Pub multicodec.Code` | `p384Pub` | const |
+| `const multicodec.P521Priv multicodec.Code` | `p521Priv` | const |
+| `const multicodec.P521Pub multicodec.Code` | `p521Pub` | const |
+| `const multicodec.Path multicodec.Code` | `path` | const |
+| `const multicodec.Plaintextv2 multicodec.Code` | `plaintextv2` | const |
+| `const multicodec.PoseidonBls12_381A2Fc1 multicodec.Code` | `poseidonBls12381a2Fc1` | const |
+| `const multicodec.PoseidonBls12_381A2Fc1Sc multicodec.Code` | `poseidonBls12381a2Fc1Sc` | const |
+| `const multicodec.Protobuf multicodec.Code` | `protobuf` | const |
+| `const multicodec.ProvenanceLog multicodec.Code` | `provenanceLog` | const |
+| `const multicodec.ProvenanceLogEntry multicodec.Code` | `provenanceLogEntry` | const |
+| `const multicodec.ProvenanceLogScript multicodec.Code` | `provenanceLogScript` | const |
+| `const multicodec.Quic multicodec.Code` | `quic` | const |
+| `const multicodec.QuicV1 multicodec.Code` | `quicV1` | const |
+| `const multicodec.Raw multicodec.Code` | `raw` | const |
+| `const multicodec.Rdfc1 multicodec.Code` | `rdfc1` | const |
+| `const multicodec.ReservedEnd untyped int` | `reservedEnd` | const |
+| `const multicodec.ReservedStart untyped int` | `reservedStart` | const |
+| `const multicodec.Ripemd128 multicodec.Code` | `ripemd128` | const |
+| `const multicodec.Ripemd160 multicodec.Code` | `ripemd160` | const |
+| `const multicodec.Ripemd256 multicodec.Code` | `ripemd256` | const |
+| `const multicodec.Ripemd320 multicodec.Code` | `ripemd320` | const |
+| `const multicodec.Rlp multicodec.Code` | `rlp` | const |
+| `const multicodec.Rs256 multicodec.Code` | `rs256` | const |
+| `const multicodec.Rs256Msig multicodec.Code` | `rs256Msig` | const |
+| `const multicodec.RsaPriv multicodec.Code` | `rsaPriv` | const |
+| `const multicodec.RsaPub multicodec.Code` | `rsaPub` | const |
+| `const multicodec.Scion multicodec.Code` | `scion` | const |
+| `const multicodec.Sctp multicodec.Code` | `sctp` | const |
+| `const multicodec.Secp256k1Priv multicodec.Code` | `secp256k1Priv` | const |
+| `const multicodec.Secp256k1Pub multicodec.Code` | `secp256k1Pub` | const |
+| `const multicodec.Sha1 multicodec.Code` | `sha1` | const |
+| `const multicodec.Sha256a multicodec.Code` | `sha256a` | const |
+| `const multicodec.Sha2_224 multicodec.Code` | `sha2224` | const |
+| `const multicodec.Sha2_256 multicodec.Code` | `sha2256` | const |
+| `const multicodec.Sha2_256Chunked multicodec.Code` | `sha2256Chunked` | const |
+| `const multicodec.Sha2_256Trunc254Padded multicodec.Code` | `sha2256Trunc254Padded` | const |
+| `const multicodec.Sha2_384 multicodec.Code` | `sha2384` | const |
+| `const multicodec.Sha2_512 multicodec.Code` | `sha2512` | const |
+| `const multicodec.Sha2_512_224 multicodec.Code` | `sha2512224` | const |
+| `const multicodec.Sha2_512_256 multicodec.Code` | `sha2512256` | const |
+| `const multicodec.Sha3_224 multicodec.Code` | `sha3224` | const |
+| `const multicodec.Sha3_256 multicodec.Code` | `sha3256` | const |
+| `const multicodec.Sha3_384 multicodec.Code` | `sha3384` | const |
+| `const multicodec.Sha3_512 multicodec.Code` | `sha3512` | const |
+| `const multicodec.Shake128 multicodec.Code` | `shake128` | const |
+| `const multicodec.Shake256 multicodec.Code` | `shake256` | const |
+| `const multicodec.ShelterContractData multicodec.Code` | `shelterContractData` | const |
+| `const multicodec.ShelterContractManifest multicodec.Code` | `shelterContractManifest` | const |
+| `const multicodec.ShelterContractText multicodec.Code` | `shelterContractText` | const |
+| `const multicodec.ShelterFileChunk multicodec.Code` | `shelterFileChunk` | const |
+| `const multicodec.ShelterFileManifest multicodec.Code` | `shelterFileManifest` | const |
+| `const multicodec.Shs multicodec.Code` | `shs` | const |
+| `const multicodec.Silverpine multicodec.Code` | `silverpine` | const |
+| `const multicodec.Skein1024_1000 multicodec.Code` | `skein10241000` | const |
+| `const multicodec.Skein1024_1008 multicodec.Code` | `skein10241008` | const |
+| `const multicodec.Skein1024_1016 multicodec.Code` | `skein10241016` | const |
+| `const multicodec.Skein1024_1024 multicodec.Code` | `skein10241024` | const |
+| `const multicodec.Skein1024_104 multicodec.Code` | `skein1024104` | const |
+| `const multicodec.Skein1024_112 multicodec.Code` | `skein1024112` | const |
+| `const multicodec.Skein1024_120 multicodec.Code` | `skein1024120` | const |
+| `const multicodec.Skein1024_128 multicodec.Code` | `skein1024128` | const |
+| `const multicodec.Skein1024_136 multicodec.Code` | `skein1024136` | const |
+| `const multicodec.Skein1024_144 multicodec.Code` | `skein1024144` | const |
+| `const multicodec.Skein1024_152 multicodec.Code` | `skein1024152` | const |
+| `const multicodec.Skein1024_16 multicodec.Code` | `skein102416` | const |
+| `const multicodec.Skein1024_160 multicodec.Code` | `skein1024160` | const |
+| `const multicodec.Skein1024_168 multicodec.Code` | `skein1024168` | const |
+| `const multicodec.Skein1024_176 multicodec.Code` | `skein1024176` | const |
+| `const multicodec.Skein1024_184 multicodec.Code` | `skein1024184` | const |
+| `const multicodec.Skein1024_192 multicodec.Code` | `skein1024192` | const |
+| `const multicodec.Skein1024_200 multicodec.Code` | `skein1024200` | const |
+| `const multicodec.Skein1024_208 multicodec.Code` | `skein1024208` | const |
+| `const multicodec.Skein1024_216 multicodec.Code` | `skein1024216` | const |
+| `const multicodec.Skein1024_224 multicodec.Code` | `skein1024224` | const |
+| `const multicodec.Skein1024_232 multicodec.Code` | `skein1024232` | const |
+| `const multicodec.Skein1024_24 multicodec.Code` | `skein102424` | const |
+| `const multicodec.Skein1024_240 multicodec.Code` | `skein1024240` | const |
+| `const multicodec.Skein1024_248 multicodec.Code` | `skein1024248` | const |
+| `const multicodec.Skein1024_256 multicodec.Code` | `skein1024256` | const |
+| `const multicodec.Skein1024_264 multicodec.Code` | `skein1024264` | const |
+| `const multicodec.Skein1024_272 multicodec.Code` | `skein1024272` | const |
+| `const multicodec.Skein1024_280 multicodec.Code` | `skein1024280` | const |
+| `const multicodec.Skein1024_288 multicodec.Code` | `skein1024288` | const |
+| `const multicodec.Skein1024_296 multicodec.Code` | `skein1024296` | const |
+| `const multicodec.Skein1024_304 multicodec.Code` | `skein1024304` | const |
+| `const multicodec.Skein1024_312 multicodec.Code` | `skein1024312` | const |
+| `const multicodec.Skein1024_32 multicodec.Code` | `skein102432` | const |
+| `const multicodec.Skein1024_320 multicodec.Code` | `skein1024320` | const |
+| `const multicodec.Skein1024_328 multicodec.Code` | `skein1024328` | const |
+| `const multicodec.Skein1024_336 multicodec.Code` | `skein1024336` | const |
+| `const multicodec.Skein1024_344 multicodec.Code` | `skein1024344` | const |
+| `const multicodec.Skein1024_352 multicodec.Code` | `skein1024352` | const |
+| `const multicodec.Skein1024_360 multicodec.Code` | `skein1024360` | const |
+| `const multicodec.Skein1024_368 multicodec.Code` | `skein1024368` | const |
+| `const multicodec.Skein1024_376 multicodec.Code` | `skein1024376` | const |
+| `const multicodec.Skein1024_384 multicodec.Code` | `skein1024384` | const |
+| `const multicodec.Skein1024_392 multicodec.Code` | `skein1024392` | const |
+| `const multicodec.Skein1024_40 multicodec.Code` | `skein102440` | const |
+| `const multicodec.Skein1024_400 multicodec.Code` | `skein1024400` | const |
+| `const multicodec.Skein1024_408 multicodec.Code` | `skein1024408` | const |
+| `const multicodec.Skein1024_416 multicodec.Code` | `skein1024416` | const |
+| `const multicodec.Skein1024_424 multicodec.Code` | `skein1024424` | const |
+| `const multicodec.Skein1024_432 multicodec.Code` | `skein1024432` | const |
+| `const multicodec.Skein1024_440 multicodec.Code` | `skein1024440` | const |
+| `const multicodec.Skein1024_448 multicodec.Code` | `skein1024448` | const |
+| `const multicodec.Skein1024_456 multicodec.Code` | `skein1024456` | const |
+| `const multicodec.Skein1024_464 multicodec.Code` | `skein1024464` | const |
+| `const multicodec.Skein1024_472 multicodec.Code` | `skein1024472` | const |
+| `const multicodec.Skein1024_48 multicodec.Code` | `skein102448` | const |
+| `const multicodec.Skein1024_480 multicodec.Code` | `skein1024480` | const |
+| `const multicodec.Skein1024_488 multicodec.Code` | `skein1024488` | const |
+| `const multicodec.Skein1024_496 multicodec.Code` | `skein1024496` | const |
+| `const multicodec.Skein1024_504 multicodec.Code` | `skein1024504` | const |
+| `const multicodec.Skein1024_512 multicodec.Code` | `skein1024512` | const |
+| `const multicodec.Skein1024_520 multicodec.Code` | `skein1024520` | const |
+| `const multicodec.Skein1024_528 multicodec.Code` | `skein1024528` | const |
+| `const multicodec.Skein1024_536 multicodec.Code` | `skein1024536` | const |
+| `const multicodec.Skein1024_544 multicodec.Code` | `skein1024544` | const |
+| `const multicodec.Skein1024_552 multicodec.Code` | `skein1024552` | const |
+| `const multicodec.Skein1024_56 multicodec.Code` | `skein102456` | const |
+| `const multicodec.Skein1024_560 multicodec.Code` | `skein1024560` | const |
+| `const multicodec.Skein1024_568 multicodec.Code` | `skein1024568` | const |
+| `const multicodec.Skein1024_576 multicodec.Code` | `skein1024576` | const |
+| `const multicodec.Skein1024_584 multicodec.Code` | `skein1024584` | const |
+| `const multicodec.Skein1024_592 multicodec.Code` | `skein1024592` | const |
+| `const multicodec.Skein1024_600 multicodec.Code` | `skein1024600` | const |
+| `const multicodec.Skein1024_608 multicodec.Code` | `skein1024608` | const |
+| `const multicodec.Skein1024_616 multicodec.Code` | `skein1024616` | const |
+| `const multicodec.Skein1024_624 multicodec.Code` | `skein1024624` | const |
+| `const multicodec.Skein1024_632 multicodec.Code` | `skein1024632` | const |
+| `const multicodec.Skein1024_64 multicodec.Code` | `skein102464` | const |
+| `const multicodec.Skein1024_640 multicodec.Code` | `skein1024640` | const |
+| `const multicodec.Skein1024_648 multicodec.Code` | `skein1024648` | const |
+| `const multicodec.Skein1024_656 multicodec.Code` | `skein1024656` | const |
+| `const multicodec.Skein1024_664 multicodec.Code` | `skein1024664` | const |
+| `const multicodec.Skein1024_672 multicodec.Code` | `skein1024672` | const |
+| `const multicodec.Skein1024_680 multicodec.Code` | `skein1024680` | const |
+| `const multicodec.Skein1024_688 multicodec.Code` | `skein1024688` | const |
+| `const multicodec.Skein1024_696 multicodec.Code` | `skein1024696` | const |
+| `const multicodec.Skein1024_704 multicodec.Code` | `skein1024704` | const |
+| `const multicodec.Skein1024_712 multicodec.Code` | `skein1024712` | const |
+| `const multicodec.Skein1024_72 multicodec.Code` | `skein102472` | const |
+| `const multicodec.Skein1024_720 multicodec.Code` | `skein1024720` | const |
+| `const multicodec.Skein1024_728 multicodec.Code` | `skein1024728` | const |
+| `const multicodec.Skein1024_736 multicodec.Code` | `skein1024736` | const |
+| `const multicodec.Skein1024_744 multicodec.Code` | `skein1024744` | const |
+| `const multicodec.Skein1024_752 multicodec.Code` | `skein1024752` | const |
+| `const multicodec.Skein1024_760 multicodec.Code` | `skein1024760` | const |
+| `const multicodec.Skein1024_768 multicodec.Code` | `skein1024768` | const |
+| `const multicodec.Skein1024_776 multicodec.Code` | `skein1024776` | const |
+| `const multicodec.Skein1024_784 multicodec.Code` | `skein1024784` | const |
+| `const multicodec.Skein1024_792 multicodec.Code` | `skein1024792` | const |
+| `const multicodec.Skein1024_8 multicodec.Code` | `skein10248` | const |
+| `const multicodec.Skein1024_80 multicodec.Code` | `skein102480` | const |
+| `const multicodec.Skein1024_800 multicodec.Code` | `skein1024800` | const |
+| `const multicodec.Skein1024_808 multicodec.Code` | `skein1024808` | const |
+| `const multicodec.Skein1024_816 multicodec.Code` | `skein1024816` | const |
+| `const multicodec.Skein1024_824 multicodec.Code` | `skein1024824` | const |
+| `const multicodec.Skein1024_832 multicodec.Code` | `skein1024832` | const |
+| `const multicodec.Skein1024_840 multicodec.Code` | `skein1024840` | const |
+| `const multicodec.Skein1024_848 multicodec.Code` | `skein1024848` | const |
+| `const multicodec.Skein1024_856 multicodec.Code` | `skein1024856` | const |
+| `const multicodec.Skein1024_864 multicodec.Code` | `skein1024864` | const |
+| `const multicodec.Skein1024_872 multicodec.Code` | `skein1024872` | const |
+| `const multicodec.Skein1024_88 multicodec.Code` | `skein102488` | const |
+| `const multicodec.Skein1024_880 multicodec.Code` | `skein1024880` | const |
+| `const multicodec.Skein1024_888 multicodec.Code` | `skein1024888` | const |
+| `const multicodec.Skein1024_896 multicodec.Code` | `skein1024896` | const |
+| `const multicodec.Skein1024_904 multicodec.Code` | `skein1024904` | const |
+| `const multicodec.Skein1024_912 multicodec.Code` | `skein1024912` | const |
+| `const multicodec.Skein1024_920 multicodec.Code` | `skein1024920` | const |
+| `const multicodec.Skein1024_928 multicodec.Code` | `skein1024928` | const |
+| `const multicodec.Skein1024_936 multicodec.Code` | `skein1024936` | const |
+| `const multicodec.Skein1024_944 multicodec.Code` | `skein1024944` | const |
+| `const multicodec.Skein1024_952 multicodec.Code` | `skein1024952` | const |
+| `const multicodec.Skein1024_96 multicodec.Code` | `skein102496` | const |
+| `const multicodec.Skein1024_960 multicodec.Code` | `skein1024960` | const |
+| `const multicodec.Skein1024_968 multicodec.Code` | `skein1024968` | const |
+| `const multicodec.Skein1024_976 multicodec.Code` | `skein1024976` | const |
+| `const multicodec.Skein1024_984 multicodec.Code` | `skein1024984` | const |
+| `const multicodec.Skein1024_992 multicodec.Code` | `skein1024992` | const |
+| `const multicodec.Skein256_104 multicodec.Code` | `skein256104` | const |
+| `const multicodec.Skein256_112 multicodec.Code` | `skein256112` | const |
+| `const multicodec.Skein256_120 multicodec.Code` | `skein256120` | const |
+| `const multicodec.Skein256_128 multicodec.Code` | `skein256128` | const |
+| `const multicodec.Skein256_136 multicodec.Code` | `skein256136` | const |
+| `const multicodec.Skein256_144 multicodec.Code` | `skein256144` | const |
+| `const multicodec.Skein256_152 multicodec.Code` | `skein256152` | const |
+| `const multicodec.Skein256_16 multicodec.Code` | `skein25616` | const |
+| `const multicodec.Skein256_160 multicodec.Code` | `skein256160` | const |
+| `const multicodec.Skein256_168 multicodec.Code` | `skein256168` | const |
+| `const multicodec.Skein256_176 multicodec.Code` | `skein256176` | const |
+| `const multicodec.Skein256_184 multicodec.Code` | `skein256184` | const |
+| `const multicodec.Skein256_192 multicodec.Code` | `skein256192` | const |
+| `const multicodec.Skein256_200 multicodec.Code` | `skein256200` | const |
+| `const multicodec.Skein256_208 multicodec.Code` | `skein256208` | const |
+| `const multicodec.Skein256_216 multicodec.Code` | `skein256216` | const |
+| `const multicodec.Skein256_224 multicodec.Code` | `skein256224` | const |
+| `const multicodec.Skein256_232 multicodec.Code` | `skein256232` | const |
+| `const multicodec.Skein256_24 multicodec.Code` | `skein25624` | const |
+| `const multicodec.Skein256_240 multicodec.Code` | `skein256240` | const |
+| `const multicodec.Skein256_248 multicodec.Code` | `skein256248` | const |
+| `const multicodec.Skein256_256 multicodec.Code` | `skein256256` | const |
+| `const multicodec.Skein256_32 multicodec.Code` | `skein25632` | const |
+| `const multicodec.Skein256_40 multicodec.Code` | `skein25640` | const |
+| `const multicodec.Skein256_48 multicodec.Code` | `skein25648` | const |
+| `const multicodec.Skein256_56 multicodec.Code` | `skein25656` | const |
+| `const multicodec.Skein256_64 multicodec.Code` | `skein25664` | const |
+| `const multicodec.Skein256_72 multicodec.Code` | `skein25672` | const |
+| `const multicodec.Skein256_8 multicodec.Code` | `skein2568` | const |
+| `const multicodec.Skein256_80 multicodec.Code` | `skein25680` | const |
+| `const multicodec.Skein256_88 multicodec.Code` | `skein25688` | const |
+| `const multicodec.Skein256_96 multicodec.Code` | `skein25696` | const |
+| `const multicodec.Skein512_104 multicodec.Code` | `skein512104` | const |
+| `const multicodec.Skein512_112 multicodec.Code` | `skein512112` | const |
+| `const multicodec.Skein512_120 multicodec.Code` | `skein512120` | const |
+| `const multicodec.Skein512_128 multicodec.Code` | `skein512128` | const |
+| `const multicodec.Skein512_136 multicodec.Code` | `skein512136` | const |
+| `const multicodec.Skein512_144 multicodec.Code` | `skein512144` | const |
+| `const multicodec.Skein512_152 multicodec.Code` | `skein512152` | const |
+| `const multicodec.Skein512_16 multicodec.Code` | `skein51216` | const |
+| `const multicodec.Skein512_160 multicodec.Code` | `skein512160` | const |
+| `const multicodec.Skein512_168 multicodec.Code` | `skein512168` | const |
+| `const multicodec.Skein512_176 multicodec.Code` | `skein512176` | const |
+| `const multicodec.Skein512_184 multicodec.Code` | `skein512184` | const |
+| `const multicodec.Skein512_192 multicodec.Code` | `skein512192` | const |
+| `const multicodec.Skein512_200 multicodec.Code` | `skein512200` | const |
+| `const multicodec.Skein512_208 multicodec.Code` | `skein512208` | const |
+| `const multicodec.Skein512_216 multicodec.Code` | `skein512216` | const |
+| `const multicodec.Skein512_224 multicodec.Code` | `skein512224` | const |
+| `const multicodec.Skein512_232 multicodec.Code` | `skein512232` | const |
+| `const multicodec.Skein512_24 multicodec.Code` | `skein51224` | const |
+| `const multicodec.Skein512_240 multicodec.Code` | `skein512240` | const |
+| `const multicodec.Skein512_248 multicodec.Code` | `skein512248` | const |
+| `const multicodec.Skein512_256 multicodec.Code` | `skein512256` | const |
+| `const multicodec.Skein512_264 multicodec.Code` | `skein512264` | const |
+| `const multicodec.Skein512_272 multicodec.Code` | `skein512272` | const |
+| `const multicodec.Skein512_280 multicodec.Code` | `skein512280` | const |
+| `const multicodec.Skein512_288 multicodec.Code` | `skein512288` | const |
+| `const multicodec.Skein512_296 multicodec.Code` | `skein512296` | const |
+| `const multicodec.Skein512_304 multicodec.Code` | `skein512304` | const |
+| `const multicodec.Skein512_312 multicodec.Code` | `skein512312` | const |
+| `const multicodec.Skein512_32 multicodec.Code` | `skein51232` | const |
+| `const multicodec.Skein512_320 multicodec.Code` | `skein512320` | const |
+| `const multicodec.Skein512_328 multicodec.Code` | `skein512328` | const |
+| `const multicodec.Skein512_336 multicodec.Code` | `skein512336` | const |
+| `const multicodec.Skein512_344 multicodec.Code` | `skein512344` | const |
+| `const multicodec.Skein512_352 multicodec.Code` | `skein512352` | const |
+| `const multicodec.Skein512_360 multicodec.Code` | `skein512360` | const |
+| `const multicodec.Skein512_368 multicodec.Code` | `skein512368` | const |
+| `const multicodec.Skein512_376 multicodec.Code` | `skein512376` | const |
+| `const multicodec.Skein512_384 multicodec.Code` | `skein512384` | const |
+| `const multicodec.Skein512_392 multicodec.Code` | `skein512392` | const |
+| `const multicodec.Skein512_40 multicodec.Code` | `skein51240` | const |
+| `const multicodec.Skein512_400 multicodec.Code` | `skein512400` | const |
+| `const multicodec.Skein512_408 multicodec.Code` | `skein512408` | const |
+| `const multicodec.Skein512_416 multicodec.Code` | `skein512416` | const |
+| `const multicodec.Skein512_424 multicodec.Code` | `skein512424` | const |
+| `const multicodec.Skein512_432 multicodec.Code` | `skein512432` | const |
+| `const multicodec.Skein512_440 multicodec.Code` | `skein512440` | const |
+| `const multicodec.Skein512_448 multicodec.Code` | `skein512448` | const |
+| `const multicodec.Skein512_456 multicodec.Code` | `skein512456` | const |
+| `const multicodec.Skein512_464 multicodec.Code` | `skein512464` | const |
+| `const multicodec.Skein512_472 multicodec.Code` | `skein512472` | const |
+| `const multicodec.Skein512_48 multicodec.Code` | `skein51248` | const |
+| `const multicodec.Skein512_480 multicodec.Code` | `skein512480` | const |
+| `const multicodec.Skein512_488 multicodec.Code` | `skein512488` | const |
+| `const multicodec.Skein512_496 multicodec.Code` | `skein512496` | const |
+| `const multicodec.Skein512_504 multicodec.Code` | `skein512504` | const |
+| `const multicodec.Skein512_512 multicodec.Code` | `skein512512` | const |
+| `const multicodec.Skein512_56 multicodec.Code` | `skein51256` | const |
+| `const multicodec.Skein512_64 multicodec.Code` | `skein51264` | const |
+| `const multicodec.Skein512_72 multicodec.Code` | `skein51272` | const |
+| `const multicodec.Skein512_8 multicodec.Code` | `skein5128` | const |
+| `const multicodec.Skein512_80 multicodec.Code` | `skein51280` | const |
+| `const multicodec.Skein512_88 multicodec.Code` | `skein51288` | const |
+| `const multicodec.Skein512_96 multicodec.Code` | `skein51296` | const |
+| `const multicodec.SkynetNs multicodec.Code` | `skynetNs` | const |
+| `const multicodec.Sm2Priv multicodec.Code` | `sm2Priv` | const |
+| `const multicodec.Sm2Pub multicodec.Code` | `sm2Pub` | const |
+| `const multicodec.Sm3_256 multicodec.Code` | `sm3256` | const |
+| `const multicodec.Sni multicodec.Code` | `sni` | const |
+| `const multicodec.Sr25519Priv multicodec.Code` | `sr25519Priv` | const |
+| `const multicodec.Sr25519Pub multicodec.Code` | `sr25519Pub` | const |
+| `const multicodec.Ssz multicodec.Code` | `ssz` | const |
+| `const multicodec.SszSha2_256Bmt multicodec.Code` | `sszSha2256Bmt` | const |
+| `const multicodec.StellarBlock multicodec.Code` | `stellarBlock` | const |
+| `const multicodec.StellarTx multicodec.Code` | `stellarTx` | const |
+| `const multicodec.Streamid multicodec.Code` | `streamid` | const |
+| `const multicodec.SubspaceNs multicodec.Code` | `subspaceNs` | const |
+| `const multicodec.Swarm multicodec.Code` | `swarm` | const |
+| `const multicodec.SwarmFeed multicodec.Code` | `swarmFeed` | const |
+| `const multicodec.SwarmManifest multicodec.Code` | `swarmManifest` | const |
+| `const multicodec.Swhid1Snp multicodec.Code` | `swhid1Snp` | const |
+| `const multicodec.Tcp multicodec.Code` | `tcp` | const |
+| `const multicodec.Thread multicodec.Code` | `thread` | const |
+| `const multicodec.Tls multicodec.Code` | `tls` | const |
+| `const multicodec.TorrentFile multicodec.Code` | `torrentFile` | const |
+| `const multicodec.TorrentInfo multicodec.Code` | `torrentInfo` | const |
+| `const multicodec.TransportBitswap multicodec.Code` | `transportBitswap` | const |
+| `const multicodec.TransportFilecoinPieceHttp multicodec.Code` | `transportFilecoinPieceHttp` | const |
+| `const multicodec.TransportGraphsyncFilecoinv1 multicodec.Code` | `transportGraphsyncFilecoinv1` | const |
+| `const multicodec.TransportIpfsGatewayHttp multicodec.Code` | `transportIpfsGatewayHttp` | const |
+| `const multicodec.Udp multicodec.Code` | `udp` | const |
+| `const multicodec.Udt multicodec.Code` | `udt` | const |
+| `const multicodec.Unix multicodec.Code` | `unix` | const |
+| `const multicodec.Utp multicodec.Code` | `utp` | const |
+| `const multicodec.Varsig multicodec.Code` | `varsig` | const |
+| `const multicodec.Vlad multicodec.Code` | `vlad` | const |
+| `const multicodec.Webrtc multicodec.Code` | `webrtc` | const |
+| `const multicodec.WebrtcDirect multicodec.Code` | `webrtcDirect` | const |
+| `const multicodec.Webtransport multicodec.Code` | `webtransport` | const |
+| `const multicodec.Ws multicodec.Code` | `ws` | const |
+| `const multicodec.Wss multicodec.Code` | `wss` | const |
+| `const multicodec.X11 multicodec.Code` | `x11` | const |
+| `const multicodec.X25519Priv multicodec.Code` | `x25519Priv` | const |
+| `const multicodec.X25519Pub multicodec.Code` | `x25519Pub` | const |
+| `const multicodec.X448Priv multicodec.Code` | `x448Priv` | const |
+| `const multicodec.X448Pub multicodec.Code` | `x448Pub` | const |
+| `const multicodec.X509Certificate multicodec.Code` | `x509Certificate` | const |
+| `const multicodec.Xxh32 multicodec.Code` | `xxh32` | const |
+| `const multicodec.Xxh3_128 multicodec.Code` | `xxh3128` | const |
+| `const multicodec.Xxh3_64 multicodec.Code` | `xxh364` | const |
+| `const multicodec.Xxh64 multicodec.Code` | `xxh64` | const |
+| `const multicodec.ZcashBlock multicodec.Code` | `zcashBlock` | const |
+| `const multicodec.ZcashTx multicodec.Code` | `zcashTx` | const |
+| `const multicodec.Zeronet multicodec.Code` | `zeronet` | const |
+| `const multicodec.ZeroxcertImprint256 multicodec.Code` | `zeroxcertImprint256` | const |
 
 ## `io` → `package:ipfs_ffi/go/io.dart`
 
@@ -630,6 +1759,29 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `func io.ReadAll(r io.Reader) ([]byte, error)` | `readAll` | sync |
 | `func io.Copy(dst io.Writer, src io.Reader) (written int64, err error)` | `copy` | sync |
 | `func (io.Closer).Close() error` | `ReadCloser.close` | sync |
+| `const io.SeekCurrent untyped int` | `seekCurrent` | const |
+| `const io.SeekEnd untyped int` | `seekEnd` | const |
+| `const io.SeekStart untyped int` | `seekStart` | const |
+
+## `io/fs` → `package:ipfs_ffi/go/io/fs.dart`
+
+| Go | Dart | Mode |
+|---|---|---|
+| `const fs.ModeAppend fs.FileMode` | `modeAppend` | const |
+| `const fs.ModeCharDevice fs.FileMode` | `modeCharDevice` | const |
+| `const fs.ModeDevice fs.FileMode` | `modeDevice` | const |
+| `const fs.ModeDir fs.FileMode` | `modeDir` | const |
+| `const fs.ModeExclusive fs.FileMode` | `modeExclusive` | const |
+| `const fs.ModeIrregular fs.FileMode` | `modeIrregular` | const |
+| `const fs.ModeNamedPipe fs.FileMode` | `modeNamedPipe` | const |
+| `const fs.ModePerm fs.FileMode` | `modePerm` | const |
+| `const fs.ModeSetgid fs.FileMode` | `modeSetgid` | const |
+| `const fs.ModeSetuid fs.FileMode` | `modeSetuid` | const |
+| `const fs.ModeSocket fs.FileMode` | `modeSocket` | const |
+| `const fs.ModeSticky fs.FileMode` | `modeSticky` | const |
+| `const fs.ModeSymlink fs.FileMode` | `modeSymlink` | const |
+| `const fs.ModeTemporary fs.FileMode` | `modeTemporary` | const |
+| `const fs.ModeType fs.FileMode` | `modeType` | const |
 
 ## `os` → `package:ipfs_ffi/go/os.dart`
 
@@ -640,10 +1792,35 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `func (*os.File).Close() error` | `File.close` | sync |
 | `func os.Open(name string) (*os.File, error)` | `open` | sync |
 | `func os.OpenFile(name string, flag int, perm os.FileMode) (*os.File, error)` | `openFile` | sync |
+| `const os.DevNull untyped string` | `devNull` | const |
+| `const os.ModeAppend fs.FileMode` | `modeAppend` | const |
+| `const os.ModeCharDevice fs.FileMode` | `modeCharDevice` | const |
+| `const os.ModeDevice fs.FileMode` | `modeDevice` | const |
+| `const os.ModeDir fs.FileMode` | `modeDir` | const |
+| `const os.ModeExclusive fs.FileMode` | `modeExclusive` | const |
+| `const os.ModeIrregular fs.FileMode` | `modeIrregular` | const |
+| `const os.ModeNamedPipe fs.FileMode` | `modeNamedPipe` | const |
+| `const os.ModePerm fs.FileMode` | `modePerm` | const |
+| `const os.ModeSetgid fs.FileMode` | `modeSetgid` | const |
+| `const os.ModeSetuid fs.FileMode` | `modeSetuid` | const |
+| `const os.ModeSocket fs.FileMode` | `modeSocket` | const |
+| `const os.ModeSticky fs.FileMode` | `modeSticky` | const |
+| `const os.ModeSymlink fs.FileMode` | `modeSymlink` | const |
+| `const os.ModeTemporary fs.FileMode` | `modeTemporary` | const |
+| `const os.ModeType fs.FileMode` | `modeType` | const |
+| `const os.O_APPEND int` | `oAppend` | const |
+| `const os.O_CREATE int` | `oCreate` | const |
+| `const os.O_EXCL int` | `oExcl` | const |
 | `const os.O_RDONLY int` | `oRdonly` | const |
 | `const os.O_RDWR int` | `oRdwr` | const |
-| `const os.O_CREATE int` | `oCreate` | const |
+| `const os.O_SYNC int` | `oSync` | const |
 | `const os.O_TRUNC int` | `oTrunc` | const |
+| `const os.O_WRONLY int` | `oWronly` | const |
+| `const os.PathListSeparator untyped rune` | `pathListSeparator` | const |
+| `const os.PathSeparator untyped rune` | `pathSeparator` | const |
+| `const os.SEEK_CUR int` | `seekCur` | const |
+| `const os.SEEK_END int` | `seekEnd` | const |
+| `const os.SEEK_SET int` | `seekSet` | const |
 
 ## `runtime/debug` → `package:ipfs_ffi/go/runtime/debug.dart`
 

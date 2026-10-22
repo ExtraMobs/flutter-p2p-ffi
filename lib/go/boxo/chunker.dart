@@ -39,3 +39,12 @@ Splitter fromString(Object r, String chunker) {
         ..str(chunker));
   return $r.hnn(Splitter.$h);
 }
+
+/// Go: `const chunk.BlockSizeLimit int`.
+const blockSizeLimit = 2097152;
+
+/// Go: `const chunk.ChunkOverheadBudget int`.
+const chunkOverheadBudget = 256;
+
+/// Go: `const chunk.ChunkSizeLimit int`.
+const chunkSizeLimit = 2096896;

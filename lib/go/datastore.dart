@@ -35,3 +35,24 @@ class NullDatastore extends Batching {
 class Read extends GoHandle {
   Read.$h(super.$h);
 }
+
+/// Go: `const datastore.FeatureNameBatching untyped string`.
+const featureNameBatching = "Batching";
+
+/// Go: `const datastore.FeatureNameChecked untyped string`.
+const featureNameChecked = "Checked";
+
+/// Go: `const datastore.FeatureNameGC untyped string`.
+const featureNameGc = "GC";
+
+/// Go: `const datastore.FeatureNamePersistent untyped string`.
+const featureNamePersistent = "Persistent";
+
+/// Go: `const datastore.FeatureNameScrubbed untyped string`.
+const featureNameScrubbed = "Scrubbed";
+
+/// Go: `const datastore.FeatureNameTTL untyped string`.
+const featureNameTtl = "TTL";
+
+/// Go: `const datastore.FeatureNameTransaction untyped string`.
+const featureNameTransaction = "Transaction";

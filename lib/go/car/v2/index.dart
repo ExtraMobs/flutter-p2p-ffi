@@ -159,3 +159,6 @@ int readCodec(Object r) {
   final $r = $callSync(382, $W()..reader(r));
   return $r.i64();
 }
+
+/// Go: `const index.CarIndexNone untyped int`.
+const carIndexNone = 3145728;

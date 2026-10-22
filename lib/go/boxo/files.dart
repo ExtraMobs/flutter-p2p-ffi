@@ -55,3 +55,9 @@ void writeTo(Node nd, String fpath) {
         ..h(nd)
         ..str(fpath));
 }
+
+/// Go: `const files.FileModeHeaderName untyped string`.
+const fileModeHeaderName = "File-Mode";
+
+/// Go: `const files.LastModifiedHeaderName untyped string`.
+const lastModifiedHeaderName = "Last-Modified";

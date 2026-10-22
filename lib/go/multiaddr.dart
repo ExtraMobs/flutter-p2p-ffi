@@ -8,3 +8,132 @@ import 'package:ipfs_ffi/src/runtime.dart';
 class Multiaddr extends GoValue {
   const Multiaddr(super.value);
 }
+
+/// Go: `const multiaddr.ActionAccept multiaddr.Action`.
+const actionAccept = 1;
+
+/// Go: `const multiaddr.ActionDeny multiaddr.Action`.
+const actionDeny = 2;
+
+/// Go: `const multiaddr.ActionNone multiaddr.Action`.
+const actionNone = 0;
+
+/// Go: `const multiaddr.LengthPrefixedVarSize untyped int`.
+const lengthPrefixedVarSize = -1;
+
+/// Go: `const multiaddr.P_CERTHASH untyped int`.
+const pCerthash = 466;
+
+/// Go: `const multiaddr.P_CIRCUIT untyped int`.
+const pCircuit = 290;
+
+/// Go: `const multiaddr.P_DCCP untyped int`.
+const pDccp = 33;
+
+/// Go: `const multiaddr.P_DNS untyped int`.
+const pDns = 53;
+
+/// Go: `const multiaddr.P_DNS4 untyped int`.
+const pDns4 = 54;
+
+/// Go: `const multiaddr.P_DNS6 untyped int`.
+const pDns6 = 55;
+
+/// Go: `const multiaddr.P_DNSADDR untyped int`.
+const pDnsaddr = 56;
+
+/// Go: `const multiaddr.P_GARLIC32 untyped int`.
+const pGarlic32 = 447;
+
+/// Go: `const multiaddr.P_GARLIC64 untyped int`.
+const pGarlic64 = 446;
+
+/// Go: `const multiaddr.P_HTTP untyped int`.
+const pHttp = 480;
+
+/// Go: `const multiaddr.P_HTTPS untyped int`.
+const pHttps = 443;
+
+/// Go: `const multiaddr.P_HTTP_PATH untyped int`.
+const pHttpPath = 481;
+
+/// Go: `const multiaddr.P_IP4 untyped int`.
+const pIp4 = 4;
+
+/// Go: `const multiaddr.P_IP6 untyped int`.
+const pIp6 = 41;
+
+/// Go: `const multiaddr.P_IP6ZONE untyped int`.
+const pIp6zone = 42;
+
+/// Go: `const multiaddr.P_IPCIDR untyped int`.
+const pIpcidr = 43;
+
+/// Go: `const multiaddr.P_IPFS untyped int`.
+const pIpfs = 421;
+
+/// Go: `const multiaddr.P_MEMORY untyped int`.
+const pMemory = 777;
+
+/// Go: `const multiaddr.P_NOISE untyped int`.
+const pNoise = 454;
+
+/// Go: `const multiaddr.P_ONION untyped int`.
+const pOnion = 444;
+
+/// Go: `const multiaddr.P_ONION3 untyped int`.
+const pOnion3 = 445;
+
+/// Go: `const multiaddr.P_P2P untyped int`.
+const pP2p = 421;
+
+/// Go: `const multiaddr.P_P2P_WEBRTC_DIRECT untyped int`.
+const pP2pWebrtcDirect = 276;
+
+/// Go: `const multiaddr.P_PLAINTEXTV2 untyped int`.
+const pPlaintextv2 = 7367777;
+
+/// Go: `const multiaddr.P_QUIC untyped int`.
+const pQuic = 460;
+
+/// Go: `const multiaddr.P_QUIC_V1 untyped int`.
+const pQuicV1 = 461;
+
+/// Go: `const multiaddr.P_SCTP untyped int`.
+const pSctp = 132;
+
+/// Go: `const multiaddr.P_SNI untyped int`.
+const pSni = 449;
+
+/// Go: `const multiaddr.P_TCP untyped int`.
+const pTcp = 6;
+
+/// Go: `const multiaddr.P_TLS untyped int`.
+const pTls = 448;
+
+/// Go: `const multiaddr.P_UDP untyped int`.
+const pUdp = 273;
+
+/// Go: `const multiaddr.P_UDT untyped int`.
+const pUdt = 301;
+
+/// Go: `const multiaddr.P_UNIX untyped int`.
+const pUnix = 400;
+
+/// Go: `const multiaddr.P_UTP untyped int`.
+const pUtp = 302;
+
+/// Go: `const multiaddr.P_WEBRTC untyped int`.
+const pWebrtc = 281;
+
+/// Go: `const multiaddr.P_WEBRTC_DIRECT untyped int`.
+const pWebrtcDirect = 280;
+
+/// Go: `const multiaddr.P_WEBTRANSPORT untyped int`.
+const pWebtransport = 465;
+
+/// Go: `const multiaddr.P_WS untyped int`.
+const pWs = 477;
+
+/// Go: `const multiaddr.P_WSS untyped int`.
+const pWss = 478;

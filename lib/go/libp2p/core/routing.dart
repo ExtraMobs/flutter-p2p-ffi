@@ -11,6 +11,30 @@ class ValueStore extends GoHandle {
   ValueStore.$h(super.$h);
 }
 
+/// Go: `const routing.AddingPeer routing.QueryEventType`.
+const addingPeer = 6;
+
+/// Go: `const routing.DialingPeer routing.QueryEventType`.
+const dialingPeer = 7;
+
+/// Go: `const routing.FinalPeer routing.QueryEventType`.
+const finalPeer = 2;
+
+/// Go: `const routing.PeerResponse routing.QueryEventType`.
+const peerResponse = 1;
+
+/// Go: `const routing.Provider routing.QueryEventType`.
+const provider = 4;
+
+/// Go: `const routing.QueryError routing.QueryEventType`.
+const queryError = 3;
+
+/// Go: `const routing.SendingQuery routing.QueryEventType`.
+const sendingQuery = 0;
+
+/// Go: `const routing.Value routing.QueryEventType`.
+const value$ = 5;
+
 /// Go: `routing.QueryEvent` (a kubo command output).
 final class QueryEvent {
   QueryEvent.$dec($R r)

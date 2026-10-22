@@ -528,24 +528,6 @@ Option writeAsCarV1(bool asCarV1) => Option.$(13, (w) => w..b(asCarV1));
 /// Go: `v2.ZeroLengthSectionAsEOF`.
 Option zeroLengthSectionAsEof(bool enable) => Option.$(14, (w) => w..b(enable));
 
-/// Go: `const car.PragmaSize untyped int`.
-const pragmaSize = 11;
-
-/// Go: `const car.HeaderSize untyped int`.
-const headerSize = 40;
-
-/// Go: `const car.CharacteristicsSize untyped int`.
-const characteristicsSize = 16;
-
-/// Go: `const car.DefaultMaxAllowedHeaderSize uint64`.
-const defaultMaxAllowedHeaderSize = 33554432;
-
-/// Go: `const car.DefaultMaxAllowedSectionSize uint64`.
-const defaultMaxAllowedSectionSize = 8388608;
-
-/// Go: `const car.DefaultMaxIndexCidSize untyped int`.
-const defaultMaxIndexCidSize = 2048;
-
 /// Go: `func car.ReadVersion(r io.Reader, opts ...car.Option) (uint64, error)`.
 int readVersion(Object r, [List<Option> opts = const []]) {
   final $r = $callSync(
@@ -698,3 +680,21 @@ Future<int> traverseV1($context.Context ctx, $linking.LinkSystem ls,
         ..list(opts, (w0, e0) => w0.opt(e0)));
   return $r.i64();
 }
+
+/// Go: `const car.CharacteristicsSize untyped int`.
+const characteristicsSize = 16;
+
+/// Go: `const car.DefaultMaxAllowedHeaderSize uint64`.
+const defaultMaxAllowedHeaderSize = 33554432;
+
+/// Go: `const car.DefaultMaxAllowedSectionSize uint64`.
+const defaultMaxAllowedSectionSize = 8388608;
+
+/// Go: `const car.DefaultMaxIndexCidSize untyped int`.
+const defaultMaxIndexCidSize = 2048;
+
+/// Go: `const car.HeaderSize untyped int`.
+const headerSize = 40;
+
+/// Go: `const car.PragmaSize untyped int`.
+const pragmaSize = 11;

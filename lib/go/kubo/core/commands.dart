@@ -29,6 +29,36 @@ import 'package:ipfs_ffi/go/libp2p/core/routing.dart' as $routing;
 import 'package:ipfs_ffi/go/libp2p_kad_dht/provider/stats.dart' as $stats;
 import 'package:ipfs_ffi/go/multiaddr.dart' as $multiaddr;
 
+/// Go: `const commands.ApiAuthOption untyped string`.
+const apiAuthOption = "api-auth";
+
+/// Go: `const commands.ApiOption untyped string`.
+const apiOption = "api";
+
+/// Go: `const commands.ConfigFileOption untyped string`.
+const configFileOption = "config-file";
+
+/// Go: `const commands.ConfigOption untyped string`.
+const configOption = "config";
+
+/// Go: `const commands.DebugOption untyped string`.
+const debugOption = "debug";
+
+/// Go: `const commands.DefaultMinimalVersionFraction untyped float`.
+const defaultMinimalVersionFraction = 0.05;
+
+/// Go: `const commands.LocalOption untyped string`.
+const localOption = "local";
+
+/// Go: `const commands.OfflineOption untyped string`.
+const offlineOption = "offline";
+
+/// Go: `const commands.P2PProtoPrefix untyped string`.
+const p2pProtoPrefix = "/x/";
+
+/// Go: `const commands.RepoDirOption untyped string`.
+const repoDirOption = "repo-dir";
+
 /// `ipfs add`: Add a file or directory to IPFS.
 Stream<AddEvent> add(
         $core.IpfsNode node, $context.Context ctx, List<$files.Node> path,

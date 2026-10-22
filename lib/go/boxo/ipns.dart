@@ -8,3 +8,36 @@ import 'package:ipfs_ffi/src/runtime.dart';
 class Name extends GoValue {
   const Name(super.value);
 }
+
+/// Go: `const ipns.DefaultRecordLifetime time.Duration`.
+const defaultRecordLifetime = Duration(microseconds: 172800000000);
+
+/// Go: `const ipns.DefaultRecordTTL time.Duration`.
+const defaultRecordTtl = Duration(microseconds: 300000000);
+
+/// Go: `const ipns.MaxRecordSize int`.
+const maxRecordSize = 10240;
+
+/// Go: `const ipns.MetadataKindBool ipns.MetadataKind`.
+const metadataKindBool = 4;
+
+/// Go: `const ipns.MetadataKindBytes ipns.MetadataKind`.
+const metadataKindBytes = 2;
+
+/// Go: `const ipns.MetadataKindInt ipns.MetadataKind`.
+const metadataKindInt = 3;
+
+/// Go: `const ipns.MetadataKindInvalid ipns.MetadataKind`.
+const metadataKindInvalid = 0;
+
+/// Go: `const ipns.MetadataKindString ipns.MetadataKind`.
+const metadataKindString = 1;
+
+/// Go: `const ipns.NamespacePrefix untyped string`.
+const namespacePrefix = "/ipns/";
+
+/// Go: `const ipns.NoopValue untyped string`.
+const noopValue = "/ipfs/bafkqaaa";
+
+/// Go: `const ipns.ValidityEOL ipns.ValidityType`.
+const validityEol = 0;

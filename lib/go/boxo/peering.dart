@@ -33,3 +33,15 @@ class PeeringService extends GoHandle {
     return $r.list(() => $r.p() ? $peer.AddrInfo.$dec($r) : $nil());
   }
 }
+
+/// Go: `const peering.ConnmgrTag untyped string`.
+const connmgrTag = "ipfs-peering";
+
+/// Go: `const peering.StateInit peering.State`.
+const stateInit = 0;
+
+/// Go: `const peering.StateRunning peering.State`.
+const stateRunning = 1;
+
+/// Go: `const peering.StateStopped peering.State`.
+const stateStopped = 2;

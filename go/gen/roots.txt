@@ -135,15 +135,10 @@ github.com/ipfs/kubo/core/coreiface.ObjectAPI.AddLink
 github.com/ipfs/kubo/core/coreiface.ObjectAPI.RmLink
 github.com/ipfs/kubo/core/coreiface.ObjectAPI.Diff
 github.com/ipfs/kubo/core/coreiface.Reader.Size
-github.com/ipfs/kubo/core/coreiface.DiffAdd
-github.com/ipfs/kubo/core/coreiface.DiffRemove
-github.com/ipfs/kubo/core/coreiface.DiffMod
 
 # 0.13 MFS de baixo nível (boxo/mfs; os comandos `ipfs files` vêm no 0.14):
 # a raiz do nó, funções do pacote, pastas, arquivos e descritores
 github.com/ipfs/kubo/core.IpfsNode.FilesRoot
-github.com/ipfs/boxo/mfs.TFile
-github.com/ipfs/boxo/mfs.TDir
 # o produtor do SplitterGen que o mfs.WithChunker recebe
 github.com/ipfs/boxo/chunker.SizeSplitterGen
 github.com/ipfs/boxo/mfs.Lookup
@@ -213,12 +208,6 @@ github.com/ipfs/boxo/peering.PeeringService.ListPeers
 # (versão, raízes, estatísticas, bloco a bloco), conversões v1/v2, índice,
 # blockstore e storage IPLD sobre um CAR e a travessia seletiva CAR → CAR.
 # As opções (car.Option) saem sozinhas, como funções do pacote.
-github.com/ipld/go-car/v2.PragmaSize
-github.com/ipld/go-car/v2.HeaderSize
-github.com/ipld/go-car/v2.CharacteristicsSize
-github.com/ipld/go-car/v2.DefaultMaxAllowedHeaderSize
-github.com/ipld/go-car/v2.DefaultMaxAllowedSectionSize
-github.com/ipld/go-car/v2.DefaultMaxIndexCidSize
 github.com/ipld/go-car/v2.ReadVersion
 github.com/ipld/go-car/v2.OpenReader
 github.com/ipld/go-car/v2.NewReader
@@ -264,7 +253,8 @@ github.com/ipld/go-car/v2/index.Index.Load
 # argumentos em lotes (batchSize) e responde (false/exceção param)
 github.com/ipld/go-car/v2/index.Index.GetAll
 github.com/ipld/go-car/v2/index.IterableIndex.ForEach
-github.com/multiformats/go-multicodec.CarIndexSorted
+# the multicodec code table: one root makes the library, and every constant of
+# the package comes with it (CarMultihashIndexSorted, the codecs, the hashes)
 github.com/multiformats/go-multicodec.CarMultihashIndexSorted
 # o CID de um bloco novo, sem nó: cid.NewPrefixV1(codec, mhType).sum(dados)
 github.com/ipfs/go-cid.NewPrefixV0
@@ -314,10 +304,6 @@ github.com/ipld/go-car/v2.TraverseV1
 # os O_* são iguais no Windows, no linux e no Android
 os.Open
 os.OpenFile
-os.O_RDONLY
-os.O_RDWR
-os.O_CREATE
-os.O_TRUNC
 bytes.NewBuffer
 bytes.Buffer.Bytes
 
@@ -327,15 +313,6 @@ bytes.Buffer.Bytes
 github.com/ipfs/kubo/core.IpfsNode.Blocks
 github.com/ipfs/boxo/gateway.NewBlocksBackend
 github.com/ipfs/boxo/gateway.BlocksBackend.GetCAR
-github.com/ipfs/boxo/gateway.DagScopeAll
-github.com/ipfs/boxo/gateway.DagScopeEntity
-github.com/ipfs/boxo/gateway.DagScopeBlock
-github.com/ipfs/boxo/gateway.DagOrderUnspecified
-github.com/ipfs/boxo/gateway.DagOrderUnknown
-github.com/ipfs/boxo/gateway.DagOrderDFS
-github.com/ipfs/boxo/gateway.DuplicateBlocksUnspecified
-github.com/ipfs/boxo/gateway.DuplicateBlocksIncluded
-github.com/ipfs/boxo/gateway.DuplicateBlocksExcluded
 io.Copy
 io.ReadCloser.Close
 # a camada UnixFS sobre o LinkSystem (go-unixfsnode): seletores que andam
@@ -368,8 +345,6 @@ github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.Mat
 github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.MatcherSubset
 github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpec.Node
 github.com/ipld/go-ipld-prime/traversal/selector/builder.ExploreFieldsSpecBuilder.Insert
-github.com/ipld/go-ipld-prime/traversal/selector.RecursionLimitDepth
-github.com/ipld/go-ipld-prime/traversal/selector.RecursionLimitNone
 # seletor qualquer sobre os blocos locais do nó: o bsadapter faz do
 # blockstore do kubo o storage de um LinkSystem (aprovado pelo dono, 0.17)
 github.com/ipfs/kubo/core.IpfsNode.Blockstore

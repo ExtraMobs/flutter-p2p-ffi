@@ -8,3 +8,12 @@ import 'package:ipfs_ffi/src/runtime.dart';
 class Allowlist extends GoHandle {
   Allowlist.$h(super.$h);
 }
+
+/// Go: `const verifcid.DefaultMaxDigestSize untyped int`.
+const defaultMaxDigestSize = 128;
+
+/// Go: `const verifcid.DefaultMaxIdentityDigestSize untyped int`.
+const defaultMaxIdentityDigestSize = 128;
+
+/// Go: `const verifcid.DefaultMinDigestSize untyped int`.
+const defaultMinDigestSize = 20;

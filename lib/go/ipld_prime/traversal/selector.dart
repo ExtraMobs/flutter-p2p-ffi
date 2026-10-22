@@ -9,14 +9,86 @@ class RecursionLimit extends GoHandle {
   RecursionLimit.$h(super.$h);
 }
 
-/// Go: `func selector.RecursionLimitDepth(depth int64) selector.RecursionLimit`.
-RecursionLimit recursionLimitDepth(int depth) {
-  final $r = $callSync(395, $W()..i64(depth));
-  return $r.hnn(RecursionLimit.$h);
-}
+/// Go: `const selector.ConditionMode_Link selector.ConditionMode`.
+const conditionModeLink = "/";
 
-/// Go: `func selector.RecursionLimitNone() selector.RecursionLimit`.
-RecursionLimit recursionLimitNone() {
-  final $r = $callSync(396);
-  return $r.hnn(RecursionLimit.$h);
-}
+/// Go: `const selector.RecursionLimit_Depth selector.RecursionLimit_Mode`.
+const recursionLimitDepth = 1;
+
+/// Go: `const selector.RecursionLimit_None selector.RecursionLimit_Mode`.
+const recursionLimitNone = 0;
+
+/// Go: `const selector.SelectorKey_As untyped string`.
+const selectorKeyAs = "as";
+
+/// Go: `const selector.SelectorKey_Condition untyped string`.
+const selectorKeyCondition = "&";
+
+/// Go: `const selector.SelectorKey_End untyped string`.
+const selectorKeyEnd = "\$";
+
+/// Go: `const selector.SelectorKey_ExploreAll untyped string`.
+const selectorKeyExploreAll = "a";
+
+/// Go: `const selector.SelectorKey_ExploreConditional untyped string`.
+const selectorKeyExploreConditional = "&";
+
+/// Go: `const selector.SelectorKey_ExploreFields untyped string`.
+const selectorKeyExploreFields = "f";
+
+/// Go: `const selector.SelectorKey_ExploreIndex untyped string`.
+const selectorKeyExploreIndex = "i";
+
+/// Go: `const selector.SelectorKey_ExploreInterpretAs untyped string`.
+const selectorKeyExploreInterpretAs = "~";
+
+/// Go: `const selector.SelectorKey_ExploreRange untyped string`.
+const selectorKeyExploreRange = "r";
+
+/// Go: `const selector.SelectorKey_ExploreRecursive untyped string`.
+const selectorKeyExploreRecursive = "R";
+
+/// Go: `const selector.SelectorKey_ExploreRecursiveEdge untyped string`.
+const selectorKeyExploreRecursiveEdge = "@";
+
+/// Go: `const selector.SelectorKey_ExploreUnion untyped string`.
+const selectorKeyExploreUnion = "|";
+
+/// Go: `const selector.SelectorKey_Fields untyped string`.
+const selectorKeyFields = "f>";
+
+/// Go: `const selector.SelectorKey_From untyped string`.
+const selectorKeyFrom = "[";
+
+/// Go: `const selector.SelectorKey_Index untyped string`.
+const selectorKeyIndex = "i";
+
+/// Go: `const selector.SelectorKey_Limit untyped string`.
+const selectorKeyLimit = "l";
+
+/// Go: `const selector.SelectorKey_LimitDepth untyped string`.
+const selectorKeyLimitDepth = "depth";
+
+/// Go: `const selector.SelectorKey_LimitNone untyped string`.
+const selectorKeyLimitNone = "none";
+
+/// Go: `const selector.SelectorKey_Matcher untyped string`.
+const selectorKeyMatcher = ".";
+
+/// Go: `const selector.SelectorKey_Next untyped string`.
+const selectorKeyNext = ">";
+
+/// Go: `const selector.SelectorKey_Sequence untyped string`.
+const selectorKeySequence = ":>";
+
+/// Go: `const selector.SelectorKey_Start untyped string`.
+const selectorKeyStart = "^";
+
+/// Go: `const selector.SelectorKey_StopAt untyped string`.
+const selectorKeyStopAt = "!";
+
+/// Go: `const selector.SelectorKey_Subset untyped string`.
+const selectorKeySubset = "subset";
+
+/// Go: `const selector.SelectorKey_To untyped string`.
+const selectorKeyTo = "]";

@@ -1273,8 +1273,20 @@ class UnixfsApi extends GoHandle {
 /// Go: `const iface.DiffAdd iface.ChangeType`.
 const diffAdd = 0;
 
+/// Go: `const iface.DiffMod iface.ChangeType`.
+const diffMod = 2;
+
 /// Go: `const iface.DiffRemove iface.ChangeType`.
 const diffRemove = 1;
 
-/// Go: `const iface.DiffMod iface.ChangeType`.
-const diffMod = 2;
+/// Go: `const iface.TDirectory iface.FileType`.
+const tDirectory = 2;
+
+/// Go: `const iface.TFile iface.FileType`.
+const tFile = 1;
+
+/// Go: `const iface.TSymlink iface.FileType`.
+const tSymlink = 3;
+
+/// Go: `const iface.TUnknown iface.FileType`.
+const tUnknown = 0;

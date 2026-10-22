@@ -46,3 +46,12 @@ class Directory extends GoHandle {
 class DirectoryOption extends GoHandle {
   DirectoryOption.$h(super.$h);
 }
+
+/// Go: `const io.SizeEstimationBlock io.SizeEstimationMode`.
+const sizeEstimationBlock = 1;
+
+/// Go: `const io.SizeEstimationDisabled io.SizeEstimationMode`.
+const sizeEstimationDisabled = 2;
+
+/// Go: `const io.SizeEstimationLinks io.SizeEstimationMode`.
+const sizeEstimationLinks = 0;

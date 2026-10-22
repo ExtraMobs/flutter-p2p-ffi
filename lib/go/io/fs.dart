@@ -8,3 +8,48 @@ import 'package:ipfs_ffi/src/runtime.dart';
 class FileInfo extends GoHandle {
   FileInfo.$h(super.$h);
 }
+
+/// Go: `const fs.ModeAppend fs.FileMode`.
+const modeAppend = 1073741824;
+
+/// Go: `const fs.ModeCharDevice fs.FileMode`.
+const modeCharDevice = 2097152;
+
+/// Go: `const fs.ModeDevice fs.FileMode`.
+const modeDevice = 67108864;
+
+/// Go: `const fs.ModeDir fs.FileMode`.
+const modeDir = 2147483648;
+
+/// Go: `const fs.ModeExclusive fs.FileMode`.
+const modeExclusive = 536870912;
+
+/// Go: `const fs.ModeIrregular fs.FileMode`.
+const modeIrregular = 524288;
+
+/// Go: `const fs.ModeNamedPipe fs.FileMode`.
+const modeNamedPipe = 33554432;
+
+/// Go: `const fs.ModePerm fs.FileMode`.
+const modePerm = 511;
+
+/// Go: `const fs.ModeSetgid fs.FileMode`.
+const modeSetgid = 4194304;
+
+/// Go: `const fs.ModeSetuid fs.FileMode`.
+const modeSetuid = 8388608;
+
+/// Go: `const fs.ModeSocket fs.FileMode`.
+const modeSocket = 16777216;
+
+/// Go: `const fs.ModeSticky fs.FileMode`.
+const modeSticky = 1048576;
+
+/// Go: `const fs.ModeSymlink fs.FileMode`.
+const modeSymlink = 134217728;
+
+/// Go: `const fs.ModeTemporary fs.FileMode`.
+const modeTemporary = 268435456;
+
+/// Go: `const fs.ModeType fs.FileMode`.
+const modeType = 2401763328;

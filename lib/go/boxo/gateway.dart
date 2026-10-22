@@ -179,29 +179,65 @@ BackendOption withResolver($resolver.Resolver r) =>
 BackendOption withValueStore($routing.ValueStore vs) =>
     BackendOption.$(5, (w) => w..h(vs));
 
-/// Go: `const gateway.DagScopeAll gateway.DagScope`.
-const dagScopeAll = "all";
+/// Go: `const gateway.ContentPathKey gateway.RequestContextKey`.
+const contentPathKey = "content-path";
 
-/// Go: `const gateway.DagScopeEntity gateway.DagScope`.
-const dagScopeEntity = "entity";
-
-/// Go: `const gateway.DagScopeBlock gateway.DagScope`.
-const dagScopeBlock = "block";
-
-/// Go: `const gateway.DagOrderUnspecified gateway.DagOrder`.
-const dagOrderUnspecified = "";
-
-/// Go: `const gateway.DagOrderUnknown gateway.DagOrder`.
-const dagOrderUnknown = "unk";
+/// Go: `const gateway.DNSLinkHostnameKey gateway.RequestContextKey`.
+const dnsLinkHostnameKey = "dnslink-hostname";
 
 /// Go: `const gateway.DagOrderDFS gateway.DagOrder`.
 const dagOrderDfs = "dfs";
 
-/// Go: `const gateway.DuplicateBlocksUnspecified gateway.DuplicateBlocksPolicy`.
-const duplicateBlocksUnspecified = 0;
+/// Go: `const gateway.DagOrderUnknown gateway.DagOrder`.
+const dagOrderUnknown = "unk";
+
+/// Go: `const gateway.DagOrderUnspecified gateway.DagOrder`.
+const dagOrderUnspecified = "";
+
+/// Go: `const gateway.DagScopeAll gateway.DagScope`.
+const dagScopeAll = "all";
+
+/// Go: `const gateway.DagScopeBlock gateway.DagScope`.
+const dagScopeBlock = "block";
+
+/// Go: `const gateway.DagScopeEntity gateway.DagScope`.
+const dagScopeEntity = "entity";
+
+/// Go: `const gateway.DefaultDiagnosticServiceURL untyped string`.
+const defaultDiagnosticServiceUrl = "https://check.ipfs.network";
+
+/// Go: `const gateway.DefaultGetBlockTimeout time.Duration`.
+const defaultGetBlockTimeout = Duration(microseconds: 60000000);
+
+/// Go: `const gateway.DefaultMaxConcurrentRequests untyped int`.
+const defaultMaxConcurrentRequests = 4096;
+
+/// Go: `const gateway.DefaultMaxRequestDuration time.Duration`.
+const defaultMaxRequestDuration = Duration(microseconds: 3600000000);
+
+/// Go: `const gateway.DefaultMaxTraversalDepth untyped int`.
+const defaultMaxTraversalDepth = 1024;
+
+/// Go: `const gateway.DefaultRetrievalTimeout time.Duration`.
+const defaultRetrievalTimeout = Duration(microseconds: 30000000);
+
+/// Go: `const gateway.DuplicateBlocksExcluded gateway.DuplicateBlocksPolicy`.
+const duplicateBlocksExcluded = 2;
 
 /// Go: `const gateway.DuplicateBlocksIncluded gateway.DuplicateBlocksPolicy`.
 const duplicateBlocksIncluded = 1;
 
-/// Go: `const gateway.DuplicateBlocksExcluded gateway.DuplicateBlocksPolicy`.
-const duplicateBlocksExcluded = 2;
+/// Go: `const gateway.DuplicateBlocksUnspecified gateway.DuplicateBlocksPolicy`.
+const duplicateBlocksUnspecified = 0;
+
+/// Go: `const gateway.EmptyIdentityCIDString untyped string`.
+const emptyIdentityCidString = "bafkqaaa";
+
+/// Go: `const gateway.GatewayHostnameKey gateway.RequestContextKey`.
+const gatewayHostnameKey = "gw-hostname";
+
+/// Go: `const gateway.OriginalPathKey gateway.RequestContextKey`.
+const originalPathKey = "original-path-key";
+
+/// Go: `const gateway.SubdomainHostnameKey gateway.RequestContextKey`.
+const subdomainHostnameKey = "subdomain-hostname";

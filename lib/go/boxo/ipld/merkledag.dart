@@ -60,3 +60,9 @@ $ipld_format.DagService newDagService($blockservice.BlockService bs) {
   final $r = $callSync(112, $W()..h(bs));
   return $r.hnn($ipld_format.DagService.$h);
 }
+
+/// Go: `const merkledag.PBNodeDataFirst merkledag.PBNodeFieldOrder`.
+const pbNodeDataFirst = 1;
+
+/// Go: `const merkledag.PBNodeLinksFirst merkledag.PBNodeFieldOrder`.
+const pbNodeLinksFirst = 0;

@@ -5,6 +5,15 @@ library;
 import 'package:ipfs_ffi/src/runtime.dart';
 import 'package:ipfs_ffi/go/cid.dart' as $cid;
 
+/// Go: `const dagutils.Add dagutils.ChangeType`.
+const add = 0;
+
+/// Go: `const dagutils.Mod dagutils.ChangeType`.
+const mod = 2;
+
+/// Go: `const dagutils.Remove dagutils.ChangeType`.
+const remove = 1;
+
 /// Go: `dagutils.Change` (a kubo command output).
 final class Change {
   Change.$dec($R r)

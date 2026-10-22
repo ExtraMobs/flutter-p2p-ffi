@@ -103,8 +103,9 @@ func (e *dartEmitter) collect(t *tinfo) {
 }
 
 // emitDart: as libraries de [fns]; [more] acrescenta código às libraries dos
-// pacotes (os comandos do RPC e os DTOs deles) antes de serem escritas.
-func emitDart(m *model, fns []*fn, hash uint64, more func(*dartEmitter)) map[string][]byte {
+// pacotes (os comandos do RPC e os DTOs deles) antes de serem escritas. Devolve
+// também as constantes que entraram sozinhas (consts), para o API.md.
+func emitDart(m *model, fns []*fn, hash uint64, more func(*dartEmitter)) (map[string][]byte, []*fn) {
 	e := &dartEmitter{m: m, libs: map[string]*dartLib{}, paramIfaces: map[string]bool{}}
 	for _, f := range fns {
 		if f.why != "" {
@@ -137,6 +138,7 @@ func emitDart(m *model, fns []*fn, hash uint64, more func(*dartEmitter)) map[str
 	if more != nil {
 		more(e)
 	}
+	consts := e.constants()
 	out := map[string][]byte{}
 	for path, l := range e.libs {
 		// o pacote já tem uma library escrita à mão (o porte do `ipfs dag`): o
@@ -156,6 +158,45 @@ func emitDart(m *model, fns []*fn, hash uint64, more func(*dartEmitter)) map[str
 	// O hash da tabela vai no Hello do IpfsService (WIRE.md): app e host têm de
 	// vir do mesmo gerador.
 	out["src/table.dart"] = tableDart(hash)
+	return out, consts
+}
+
+// constants: toda constante exportada de tipo básico do pacote de cada library
+// entra nela sozinha (sem linha no roots.txt): é só um `const` no Dart, que não
+// vai ao host. A que não tem literal Dart, ou cujo nome Dart já é de outro
+// membro da library, fica de fora com o motivo (API.md).
+func (e *dartEmitter) constants() []*fn {
+	var out []*fn
+	for _, path := range sortedKeys(e.libs) {
+		l := e.libs[path]
+		pkg := e.m.load(l.goPath)
+		if pkg == nil {
+			continue
+		}
+		taken, rooted := map[string]bool{}, map[string]bool{}
+		for _, f := range l.funcs {
+			taken[memberName(f.obj.Name())] = true
+			rooted[f.key] = true
+		}
+		for _, name := range pkg.Scope().Names() {
+			c, ok := pkg.Scope().Lookup(name).(*types.Const)
+			if !ok || !c.Exported() || rooted[l.goPath+"."+name] {
+				continue
+			}
+			f := &fn{key: l.goPath + "." + name, pkg: pkg, obj: c, outBuf: -1, constLit: dartConstLit(c)}
+			n := memberName(name)
+			switch {
+			case f.constLit == "":
+				f.why = "constant of type " + c.Type().String()
+			case taken[n]:
+				f.why = "constant whose Dart name `" + n + "` another member of the library has"
+			default:
+				taken[n] = true
+				l.funcs = append(l.funcs, f)
+			}
+			out = append(out, f)
+		}
+	}
 	return out
 }
 

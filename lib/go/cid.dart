@@ -86,3 +86,84 @@ Prefix newPrefixV1(int codecType, int mhType) {
         ..i64(mhType));
   return $r.p() ? Prefix.$dec($r) : $nil();
 }
+
+/// Go: `const cid.BitcoinBlock untyped int`.
+const bitcoinBlock = 176;
+
+/// Go: `const cid.BitcoinTx untyped int`.
+const bitcoinTx = 177;
+
+/// Go: `const cid.DagCBOR untyped int`.
+const dagCbor = 113;
+
+/// Go: `const cid.DagJOSE untyped int`.
+const dagJose = 133;
+
+/// Go: `const cid.DagJSON untyped int`.
+const dagJson = 297;
+
+/// Go: `const cid.DagProtobuf untyped int`.
+const dagProtobuf = 112;
+
+/// Go: `const cid.DashBlock untyped int`.
+const dashBlock = 240;
+
+/// Go: `const cid.DashTx untyped int`.
+const dashTx = 241;
+
+/// Go: `const cid.DecredBlock untyped int`.
+const decredBlock = 224;
+
+/// Go: `const cid.DecredTx untyped int`.
+const decredTx = 225;
+
+/// Go: `const cid.EthAccountSnapshot untyped int`.
+const ethAccountSnapshot = 151;
+
+/// Go: `const cid.EthBlock untyped int`.
+const ethBlock = 144;
+
+/// Go: `const cid.EthBlockList untyped int`.
+const ethBlockList = 145;
+
+/// Go: `const cid.EthStateTrie untyped int`.
+const ethStateTrie = 150;
+
+/// Go: `const cid.EthStorageTrie untyped int`.
+const ethStorageTrie = 152;
+
+/// Go: `const cid.EthTx untyped int`.
+const ethTx = 147;
+
+/// Go: `const cid.EthTxReceipt untyped int`.
+const ethTxReceipt = 149;
+
+/// Go: `const cid.EthTxReceiptTrie untyped int`.
+const ethTxReceiptTrie = 148;
+
+/// Go: `const cid.EthTxTrie untyped int`.
+const ethTxTrie = 146;
+
+/// Go: `const cid.FilCommitmentSealed untyped int`.
+const filCommitmentSealed = 61698;
+
+/// Go: `const cid.FilCommitmentUnsealed untyped int`.
+const filCommitmentUnsealed = 61697;
+
+/// Go: `const cid.GitRaw untyped int`.
+const gitRaw = 120;
+
+/// Go: `const cid.Libp2pKey untyped int`.
+const libp2pKey = 114;
+
+/// Go: `const cid.Raw untyped int`.
+const raw = 85;
+
+/// Go: `const cid.UnsupportedVersionString untyped string`.
+const unsupportedVersionString = "<unsupported cid version>";
+
+/// Go: `const cid.ZcashBlock untyped int`.
+const zcashBlock = 192;
+
+/// Go: `const cid.ZcashTx untyped int`.
+const zcashTx = 193;
