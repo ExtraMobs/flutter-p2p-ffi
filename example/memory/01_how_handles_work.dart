@@ -44,7 +44,7 @@ Future<void> main() async {
         'isReleased: ${buf.isReleased}');
     print('bytes in Go buffer: ${buf.bytes().length}');
 
-    // Release immediately sends Free (_fnFree) to ipfs_host and detaches
+    // Release immediately sends Free (_fnFree) to p2p_host and detaches
     // the Dart Finalizer so it will never double-free when GC runs later.
     buf.release();
     print('after buf.release() -> isReleased: ${buf.isReleased}');
@@ -52,9 +52,9 @@ Future<void> main() async {
     // Calling release() again is a safe no-op (idempotent).
     buf.release();
 
-    print('\n== 2. Same Go pointer = ref-counted handle in ipfs_host ==');
+    print('\n== 2. Same Go pointer = ref-counted handle in p2p_host ==');
     // Casting or re-reading the same Go pointer returns the same handle ID
-    // ($h) and increments its reference count in ipfs_host's handle table.
+    // ($h) and increments its reference count in p2p_host's handle table.
     final f1 = files.newBytesFile(Uint8List.fromList([7, 8, 9]));
     final f2 = f1.asFile()!;
     print('f1.\$h = ${f1.$h}, f2.\$h = ${f2.$h} '

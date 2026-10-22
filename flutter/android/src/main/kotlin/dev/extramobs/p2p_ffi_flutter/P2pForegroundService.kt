@@ -13,9 +13,9 @@ import android.os.Bundle
 import android.os.IBinder
 
 /**
- * Foreground service that keeps the app process, and the ipfs_host child
+ * Foreground service that keeps the app process, and the p2p_host child
  * process, out of the background limits (P2pBackground.foregroundService).
- * It runs nothing itself: the IPFS node lives in the ipfs_host.
+ * It runs nothing itself: the IPFS node lives in the p2p_host.
  *
  * Its notification (Android requires one) is the app's: built from the
  * `P2pNotification` set in Dart, or by a [NotificationFactory] registered from
@@ -46,7 +46,7 @@ class P2pForegroundService : Service() {
             stopPending = false
             stopSelf()
         }
-        // if the system kills the app, the ipfs_host goes with it: do not
+        // if the system kills the app, the p2p_host goes with it: do not
         // recreate the service alone
         return START_NOT_STICKY
     }

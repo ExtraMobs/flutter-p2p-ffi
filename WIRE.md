@@ -1,9 +1,9 @@
 # The service protocol
 
-`p2p_ffi` runs kubo **only** in a separate process, the `ipfs_host` (this package's Go
+`p2p_ffi` runs kubo **only** in a separate process, the `p2p_host` (this package's Go
 built as an executable). An unhandled kubo panic stops that process, never the app: the
 app gets `P2pServiceException` and decides whether to restart the service. The app does
-not load Go; it loads only the `ipfs_shm` (C), its side of the channel.
+not load Go; it loads only the `p2p_shm` (C), its side of the channel.
 
 This document is the contract between the two sides. The generator (`go/gen`) emits the
 host's Go and the app's Dart from it; what is hand-written follows the same rules.

@@ -1,7 +1,7 @@
 // A API gerada (go/gen) na ordem em que o kubo monta um nó: plugins →
 // identidade e config → fsrepo.Init/Open → core.NewNode → CoreAPI → Unixfs
-// (M1) → pins, blocos e GC (M2). O kubo roda no ipfs_host, noutro processo
-// (exige `dart run tool/build.dart`: native/ipfs_host e a ipfs_shm).
+// (M1) → pins, blocos e GC (M2). O kubo roda no p2p_host, noutro processo
+// (exige `dart run tool/build.dart`: native/p2p_host e a p2p_shm).
 import 'dart:async';
 import 'dart:convert';
 import 'dart:math' show Random;
@@ -1001,7 +1001,7 @@ void main() {
   });
 
   // 0.9.0: um panic numa goroutine do Go (fora de uma chamada) derruba só o
-  // ipfs_host; este processo segue e o onStop recebe o relatório do Go. Nada
+  // p2p_host; este processo segue e o onStop recebe o relatório do Go. Nada
   // volta sozinho: quem usa o pacote chama restart(). Por último: o nó dos
   // outros testes cai junto.
   test('panic numa goroutine do Go: só o host cai; onStop decide', () async {

@@ -40,7 +40,7 @@ Future<(core.IpfsNode, iface.CoreApi)> spawn(String dir) async {
 }
 
 Future<void> main() async {
-  // Kubo runs in the ipfs_host, in another process (dart run tool/build.dart).
+  // Kubo runs in the p2p_host, in another process (dart run tool/build.dart).
   await P2pService.start();
   loader.PluginLoader('')
     ..initialize()

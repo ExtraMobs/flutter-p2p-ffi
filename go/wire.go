@@ -144,7 +144,7 @@ type reader struct {
 	err error
 }
 
-var errShort = errors.New("ipfs_host: argumentos curtos")
+var errShort = errors.New("p2p_host: argumentos curtos")
 
 func (r *reader) take(n int) []byte {
 	if r.err != nil {
@@ -228,7 +228,7 @@ func (r *reader) count() int {
 // done: o erro pegajoso, ou bytes que sobraram depois do último argumento.
 func (r *reader) done() error {
 	if r.err == nil && len(r.b) > 0 {
-		r.err = fmt.Errorf("ipfs_host: %d bytes sobrando nos argumentos", len(r.b))
+		r.err = fmt.Errorf("p2p_host: %d bytes sobrando nos argumentos", len(r.b))
 	}
 	return r.err
 }
@@ -366,12 +366,12 @@ func hget[T any](id int64) (T, error) {
 	e, ok := handles.m[id]
 	handles.Unlock()
 	if !ok {
-		return zero, fmt.Errorf("ipfs_host: handle %d does not exist (already freed, or from another service)", id)
+		return zero, fmt.Errorf("p2p_host: handle %d does not exist (already freed, or from another service)", id)
 	}
 	v := e.v
 	t, ok := v.(T)
 	if !ok {
-		return zero, fmt.Errorf("ipfs_host: handle %d is %T, not %v", id, v, reflect.TypeFor[T]())
+		return zero, fmt.Errorf("p2p_host: handle %d is %T, not %v", id, v, reflect.TypeFor[T]())
 	}
 	return t, nil
 }
@@ -404,7 +404,7 @@ const maxOutBuf = 64 << 20
 func decOutBuf(r *reader) ([]byte, error) {
 	n := r.i64()
 	if n < 0 || n > maxOutBuf {
-		return nil, fmt.Errorf("ipfs_host: buffer of %d bytes (0 to %d)", n, maxOutBuf)
+		return nil, fmt.Errorf("p2p_host: buffer of %d bytes (0 to %d)", n, maxOutBuf)
 	}
 	return make([]byte, n), r.err
 }
@@ -418,7 +418,7 @@ func decIO[T any](r *reader) (T, error) {
 			return v, r.err
 		}
 		var zero T
-		return zero, fmt.Errorf("ipfs_host: bytes are not a %v; pass a handle (os.File...)", reflect.TypeFor[T]())
+		return zero, fmt.Errorf("p2p_host: bytes are not a %v; pass a handle (os.File...)", reflect.TypeFor[T]())
 	}
 	return decH[T](r)
 }

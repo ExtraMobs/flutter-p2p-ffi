@@ -1,7 +1,7 @@
 part of '../runtime.dart';
 
 /// Function 36 (WIRE.md, "Commands"): runs a command of kubo's command tree
-/// (the RPC's `/api/v0`) in the ipfs_host, with the app's node.
+/// (the RPC's `/api/v0`) in the p2p_host, with the app's node.
 const _fnCommand = 36;
 
 // Tag of each emitted item (WIRE.md, "Commands").

@@ -1,6 +1,6 @@
 // Command gen gera a ponte FFI do p2p_ffi a partir das raízes em
 // gen/roots.txt (um símbolo Go por linha): go/zz_generated.go (os
-// despachantes binários do ipfs_host, WIRE.md), as libraries Dart em lib/ (uma por pacote Go, sem o
+// despachantes binários do p2p_host, WIRE.md), as libraries Dart em lib/ (uma por pacote Go, sem o
 // prefixo github.com/<org>/) e o API.md (checklist Go → Dart com omissões).
 //
 // Uso, na pasta go/: go run ./gen [-check]
@@ -258,7 +258,7 @@ func splitRoot(line string) (pkg, name, method string) {
 	return
 }
 
-// load carrega os pacotes das raízes como o build do ipfs_host os vê (sem cgo).
+// load carrega os pacotes das raízes como o build do p2p_host os vê (sem cgo).
 func load(lines []string) (map[string]*types.Package, error) {
 	seen := map[string]bool{}
 	var paths []string

@@ -1,5 +1,5 @@
 // p2p_ffi inside an Android app: the app's local checks (lib/checks.dart),
-// the same as the "run tests" button, an ipfs_host crash (only it goes down;
+// the same as the "run tests" button, an p2p_host crash (only it goes down;
 // onStop gets the report and restarts) and the background in both modes of
 // P2pService.background. Run with:
 //   flutter test integration_test -d <emulator-or-device>
@@ -41,7 +41,7 @@ void main() {
     expect(failed, 0, reason: lines.join('\n'));
   }, timeout: const Timeout(Duration(minutes: 5)));
 
-  test('a Go panic stops only the ipfs_host; onStop restarts', () async {
+  test('a Go panic stops only the p2p_host; onStop restarts', () async {
     final hostPid = P2pService.hostPid;
     final next = stops.stream.first;
     $callSync(

@@ -27,7 +27,7 @@ Every example starts from [`sample.dart`](example/car/sample.dart):
 ## Running
 
 ```bash
-dart run tool/build.dart windows      # or linux; builds native/ (the ipfs_host and the ipfs_shm)
+dart run tool/build.dart windows      # or linux; builds native/ (the p2p_host and the p2p_shm)
 dart run example/car/01_inspect.dart
 dart run example/car/01_inspect_mistakes.dart
 ```

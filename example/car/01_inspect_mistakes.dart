@@ -27,7 +27,7 @@ Future<void> main() async {
       File(s.car).copySync(copy);
       final r = car.openReader(copy);
       await mustFail('overwrite a CAR while its Reader is still open',
-          why: 'the file is mapped in the memory of the ipfs_host',
+          why: 'the file is mapped in the memory of the p2p_host',
           instead: 'close the Reader (r.close(), in a finally) before '
               'touching the file',
           action: () => File(copy).writeAsStringSync('other content'));

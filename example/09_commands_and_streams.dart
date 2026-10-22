@@ -42,7 +42,7 @@ Future<void> main() async {
   final tmp = Directory.systemTemp.createTempSync('p2p_ffi_ex09_');
   final repoPath = '${tmp.path}/repo';
 
-  // Starts the service: launches the ipfs_host (kubo, in another process; build
+  // Starts the service: launches the p2p_host (kubo, in another process; build
   // it first with `dart run tool/build.dart`). Everything below talks to it.
   await P2pService.start();
 
@@ -204,7 +204,7 @@ Future<void> main() async {
     print('   after rm, the root has ${root.entries.length} entries');
   } finally {
     await n.close(); // closes the node (releases the repo)
-    await P2pService.stop(); // ends the ipfs_host
+    await P2pService.stop(); // ends the p2p_host
     tmp.deleteSync(recursive: true); // deletes the temporary directory
   }
 }

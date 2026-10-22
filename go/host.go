@@ -1,4 +1,4 @@
-// O ipfs_host (marco 0.9.0): o kubo compilado como executável, num processo
+// O p2p_host (marco 0.9.0): o kubo compilado como executável, num processo
 // só dele. Um panic não tratado do kubo derruba este processo, e
 // o app (lib/service.dart) recebe uma exceção e o relança. O app escreve os
 // pedidos no anel 0 da região compartilhada e lê as respostas no anel 1
@@ -56,7 +56,7 @@ func runHost() {
 	spin := flag.Int("spin", 20000, "spins before sleeping on the bell")
 	flag.Parse()
 	if *endpoint == "" {
-		fmt.Fprintln(os.Stderr, "ipfs_host: falta -endpoint")
+		fmt.Fprintln(os.Stderr, "p2p_host: falta -endpoint")
 		os.Exit(2)
 	}
 	if *crashLog != "" {
@@ -70,7 +70,7 @@ func runHost() {
 		shmring.Init(mem, *ringSize)
 	})
 	if err != nil {
-		fmt.Fprintln(os.Stderr, "ipfs_host:", err)
+		fmt.Fprintln(os.Stderr, "p2p_host:", err)
 		os.Exit(1)
 	}
 	h := &host{ch: ch, spin: *spin}
@@ -146,7 +146,7 @@ func (h *host) dispatch(m []byte) {
 		return
 	case fnSleep:
 		if len(args) < 4 {
-			h.reply(id, evError, errText("ipfs_host: Sleep without the ms"))
+			h.reply(id, evError, errText("p2p_host: Sleep without the ms"))
 			return
 		}
 		ms := binary.LittleEndian.Uint32(args)
@@ -171,7 +171,7 @@ func (h *host) dispatch(m []byte) {
 		case r.done() != nil:
 			h.reply(id, evError, errText(r.err.Error()))
 		case got != tableHash:
-			h.reply(id, evError, errText(fmt.Sprintf("ipfs_host: table %#x, the app expects %#x (generated from different roots.txt)", tableHash, got)))
+			h.reply(id, evError, errText(fmt.Sprintf("p2p_host: table %#x, the app expects %#x (generated from different roots.txt)", tableHash, got)))
 		default:
 			h.reply(id, evValue, nil)
 		}
@@ -180,10 +180,10 @@ func (h *host) dispatch(m []byte) {
 	e, ok := table[fn]
 	switch {
 	case !ok:
-		h.reply(id, evError, errText(fmt.Sprintf("ipfs_host: unknown function %d", fn)))
+		h.reply(id, evError, errText(fmt.Sprintf("p2p_host: unknown function %d", fn)))
 		return
 	case e.stream != (mode == modeStream):
-		h.reply(id, evError, errText(fmt.Sprintf("ipfs_host: %s (%d) chamada no modo %d", e.key, fn, mode)))
+		h.reply(id, evError, errText(fmt.Sprintf("p2p_host: %s (%d) chamada no modo %d", e.key, fn, mode)))
 		return
 	case watch && mode == modeSync: // deadlock.go: o laço espera, mas o impasse o solta
 		h.watch(e, id, bytes.Clone(args))
@@ -210,7 +210,7 @@ func (h *host) dispatch(m []byte) {
 func (h *host) spawn(f func()) {
 	go func() {
 		if err := try(func() error { f(); return nil }); err != nil {
-			fmt.Fprintln(os.Stderr, "ipfs_host:", err)
+			fmt.Fprintln(os.Stderr, "p2p_host:", err)
 		}
 	}()
 }

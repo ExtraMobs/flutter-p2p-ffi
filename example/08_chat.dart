@@ -44,7 +44,7 @@ Future<void> main(List<String> args) async {
   final (repoPath, topic) = (args[0], args[1]);
   final nick = args.length > 2 ? args[2] : 'anon';
 
-  // Kubo runs in the ipfs_host, in another process (dart run tool/build.dart).
+  // Kubo runs in the p2p_host, in another process (dart run tool/build.dart).
   await P2pService.start();
   loader.PluginLoader('')
     ..initialize()

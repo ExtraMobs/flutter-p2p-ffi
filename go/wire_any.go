@@ -192,6 +192,6 @@ func decAny(r *reader) (any, error) {
 		}
 		return out, r.err
 	default:
-		return nil, fmt.Errorf("ipfs_host: unknown dynamic value tag %d", t)
+		return nil, fmt.Errorf("p2p_host: unknown dynamic value tag %d", t)
 	}
 }

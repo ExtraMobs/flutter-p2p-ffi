@@ -99,7 +99,7 @@ final class $W {
     }
     if (x.$e != _epoch) {
       _error ??= P2pServiceException(
-          'handle from a previous service: the ipfs_host was restarted');
+          'handle from a previous service: the p2p_host was restarted');
     }
     _keep.add(x);
     i64(x.$h);

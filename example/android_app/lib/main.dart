@@ -1,12 +1,12 @@
 // The p2p_ffi validation app on Android: starts the service (kubo in the
-// ipfs_host, the APK's libipfs_host.so, in another process) and an IPFS node with
+// p2p_host, the APK's libp2p_host.so, in another process) and an IPFS node with
 // its repo in the app's data directory, shows the peer ID and peers, runs the
 // checks (lib/checks.dart) and gathers everything in a log copied with one tap.
 // In the background (P2pService.background, through
-// --dart-define=IPFS_BACKGROUND): `stop` (default), the p2p_ffi_flutter plugin
+// --dart-define=P2P_BACKGROUND): `stop` (default), the p2p_ffi_flutter plugin
 // stops the service and the app starts it again on return; `foregroundService`,
 // the node stays online with a notification. The first time it brings the
-// ipfs_host down with a Go panic: the app goes on and its onStop shows the
+// p2p_host down with a Go panic: the app goes on and its onStop shows the
 // report, clears the log, restarts the service (P2pService.restart) and reopens
 // the node.
 import 'dart:async';
@@ -49,7 +49,7 @@ libp2p.RoutingOption routingFor(config.Config cfg) {
 }
 
 /// Prepares the service: reads the crash report of a previous run of the app,
-/// launches the ipfs_host (Go writes a panic's report to [crashLog]; a stop
+/// launches the p2p_host (Go writes a panic's report to [crashLog]; a stop
 /// arrives at [onStop]) and sets the service up ([setupService]). Returns the
 /// previous report, if any.
 Future<String?> prepare(String repoPath, String crashLog,
@@ -64,7 +64,7 @@ Future<String?> prepare(String repoPath, String crashLog,
 }
 
 /// What each service process needs before the node: injects the plugins (once
-/// per ipfs_host; again after a restart) and creates the repo if needed.
+/// per p2p_host; again after a restart) and creates the repo if needed.
 void setupService(String repoPath) {
   loader.PluginLoader('')
     ..initialize()
@@ -121,9 +121,9 @@ void log(String line) {
   Zone.root.print('$t $line');
 }
 
-/// The background mode: `flutter run --dart-define=IPFS_BACKGROUND=
+/// The background mode: `flutter run --dart-define=P2P_BACKGROUND=
 /// foregroundService`; with nothing, the package's default (stop).
-const backgroundMode = String.fromEnvironment('IPFS_BACKGROUND');
+const backgroundMode = String.fromEnvironment('P2P_BACKGROUND');
 
 void main() {
   if (backgroundMode == 'foregroundService') {
@@ -160,7 +160,7 @@ class NodePage extends StatefulWidget {
 }
 
 class _NodePageState extends State<NodePage> {
-  /// A context of the current service (the handles of a previous ipfs_host are
+  /// A context of the current service (the handles of a previous p2p_host are
   /// not valid after a restart).
   go_context.Context get ctx => go_context.background();
   late final String _crashLog = '$appDataDir/crash.log';
@@ -205,7 +205,7 @@ class _NodePageState extends State<NodePage> {
       }
       final crash = await prepare(repoPath, _crashLog, onStop: _onStop);
       if (crash != null) {
-        log("THE PREVIOUS IPFS_HOST CRASHED (Go's report):\n$crash");
+        log("THE PREVIOUS P2P_HOST CRASHED (Go's report):\n$crash");
       }
       await _start();
       await _checks();
@@ -312,7 +312,7 @@ class _NodePageState extends State<NodePage> {
         context: context,
         builder: (c) => AlertDialog(
               content: const Text(
-                  'Brings the ipfs_host down with a panic in a Go goroutine. The app goes on, shows the report in the log and restarts the service.'),
+                  'Brings the p2p_host down with a panic in a Go goroutine. The app goes on, shows the report in the log and restarts the service.'),
               actions: [
                 TextButton(
                     onPressed: () => Navigator.pop(c, false),
@@ -326,16 +326,16 @@ class _NodePageState extends State<NodePage> {
   }
 
   /// A panic in a stray Go goroutine (test function 24 of WIRE.md): only the
-  /// ipfs_host goes down; the app goes on and [_onStop] handles the rest.
+  /// p2p_host goes down; the app goes on and [_onStop] handles the rest.
   Future<void> _crashNow() async {
-    log('bringing the ipfs_host (pid ${P2pService.hostPid}) down on purpose '
+    log('bringing the p2p_host (pid ${P2pService.hostPid}) down on purpose '
         '(a panic in a Go goroutine)');
     _tick?.cancel();
     _node = null;
     _api = null;
     final exit = P2pService.exitCode!;
     $callSync(24); // answers and goes down right after
-    log('the ipfs_host exited (code ${await exit}); the app went on in pid $pid');
+    log('the p2p_host exited (code ${await exit}); the app went on in pid $pid');
   }
 
   /// The service stopped without stop() and does not come back on its own; the
@@ -353,7 +353,7 @@ class _NodePageState extends State<NodePage> {
                 '${stop.uptime}); the app goes on in pid $pid');
             _set(() => _status = 'stopped (background)');
           case P2pStopReason.crash:
-            log('THE IPFS_HOST CRASHED (pid ${stop.pid}, exit ${stop.exitCode}, up '
+            log('THE P2P_HOST CRASHED (pid ${stop.pid}, exit ${stop.exitCode}, up '
                 'for ${stop.uptime}); the app goes on in pid $pid. Go\'s '
                 'report:\n${stop.report}');
             if (stop.crashLog case final f?) File(f).writeAsStringSync('');

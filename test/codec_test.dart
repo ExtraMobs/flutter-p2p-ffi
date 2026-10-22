@@ -1,5 +1,5 @@
 // A codificação binária do WIRE.md no lado Dart (src/runtime/codec.dart),
-// ida e volta de cada tipo, sem o ipfs_host.
+// ida e volta de cada tipo, sem o p2p_host.
 import 'dart:typed_data';
 
 import 'package:p2p_ffi/go/cid.dart' as cid;

@@ -1,8 +1,8 @@
 # p2p_ffi
 
 Kubo (IPFS in Go, the version pinned in [`go/go.mod`](go/go.mod)) used from Dart without
-HTTP. Kubo runs in the `ipfs_host` executable, in another process, and the app talks to it
-through shared memory (the `ipfs_shm`, in C; binary protocol in [`WIRE.md`](WIRE.md)). A Go
+HTTP. Kubo runs in the `p2p_host` executable, in another process, and the app talks to it
+through shared memory (the `p2p_shm`, in C; binary protocol in [`WIRE.md`](WIRE.md)). A Go
 panic stops only the service, never the app. Targets: VM/AOT on Windows, linux and Android
 (not JS/Wasm).
 
@@ -206,8 +206,8 @@ are in the libraries of their Go packages
 ## Build
 
 - `dart run tool/build.dart [windows|linux|android]`: runs the generator and builds the host
-  and the `ipfs_shm` into `native/` (not in git). Needs Go (`GOTOOLCHAIN=auto` downloads the
-  pinned one) and a C compiler for the `ipfs_shm`: mingw-w64 on Windows, gcc on linux, the NDK
+  and the `p2p_shm` into `native/` (not in git). Needs Go (`GOTOOLCHAIN=auto` downloads the
+  pinned one) and a C compiler for the `p2p_shm`: mingw-w64 on Windows, gcc on linux, the NDK
   for Android.
 - **To expose more of Go:** add the symbol to `go/gen/roots.txt` (`package.Function` or
   `package.Type.Method`) and build. A new Go module also needs a line in

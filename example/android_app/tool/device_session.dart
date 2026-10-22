@@ -11,7 +11,7 @@ import 'dart:convert';
 import 'dart:io';
 
 const app = 'dev.extramobs.p2p_ffi_android';
-const host = 'libipfs_host.so';
+const host = 'libp2p_host.so';
 const steps = [
   'info',
   'integration',
@@ -74,7 +74,7 @@ Future<void> launch(String mode) async {
     '--debug',
     '--target-platform',
     await platform(),
-    '--dart-define=IPFS_BACKGROUND=$mode'
+    '--dart-define=P2P_BACKGROUND=$mode'
   ]);
   await run(adb, [
     '-s',
@@ -155,7 +155,7 @@ Future<void> main(List<String> args) async {
           '--debug',
           '--target-platform',
           await platform(),
-          '--dart-define=IPFS_BACKGROUND=foregroundService'
+          '--dart-define=P2P_BACKGROUND=foregroundService'
         ]);
         await run(adb, [
           '-s',

@@ -20,7 +20,7 @@ import 'package:p2p_ffi/go/kubo/core/coreiface/options.dart' as options;
 import 'package:p2p_ffi/go/kubo/core/coreapi.dart' as coreapi;
 import 'package:p2p_ffi/p2p_ffi.dart'
     show GolangException, P2pService, P2pServiceException, P2pStop;
-// Only for step 4: a TEST function of the package, which brings the ipfs_host
+// Only for step 4: a TEST function of the package, which brings the p2p_host
 // down on purpose. Do not use it in an app; it exists to prove the recovery.
 import 'package:p2p_ffi/src/runtime.dart' show $callSync;
 
@@ -129,7 +129,7 @@ Future<void> main() async {
     // 4. The service went down: P2pServiceException and onStop
     // ------------------------------------------------------------------
     // A Go panic nobody handles (one of kubo's internal goroutines, for example)
-    // brings the ipfs_host process down. The app stays alive: pending calls fail
+    // brings the p2p_host process down. The app stays alive: pending calls fail
     // with P2pServiceException, and onStop gets the reason and Go's report.
     // Here we cause the crash on purpose.
     $callSync(24); // TEST ONLY: a panic in a host goroutine

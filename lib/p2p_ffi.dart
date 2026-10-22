@@ -1,4 +1,4 @@
-/// Kubo (IPFS in Go) in a separate process, the `ipfs_host`, with Go's own
+/// Kubo (IPFS in Go) in a separate process, the `p2p_host`, with Go's own
 /// API in Dart.
 ///
 /// This library is the entry point of the runtime: the service, its errors and

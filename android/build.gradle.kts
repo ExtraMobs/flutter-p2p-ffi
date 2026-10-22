@@ -63,18 +63,18 @@ val buildIpfsFfiAndroid = tasks.register("buildIpfsFfiAndroid") {
     val goFiles = fileTree(File(pluginRoot, "go")) { include("*.go") }
     inputs.files(
         File(pluginRoot, "tool/build.dart"),
-        File(pluginRoot, "shm/ipfs_shm.c"),
-        File(pluginRoot, "shm/ipfs_shm.h"),
+        File(pluginRoot, "shm/p2p_shm.c"),
+        File(pluginRoot, "shm/p2p_shm.h"),
         goFiles,
     )
     val expectedOutputs = mutableListOf<File>()
     if (wantX64) {
-        expectedOutputs.add(File(nativeAndroidDir, "x86_64/libipfs_host.so"))
-        expectedOutputs.add(File(nativeAndroidDir, "x86_64/libipfs_shm.so"))
+        expectedOutputs.add(File(nativeAndroidDir, "x86_64/libp2p_host.so"))
+        expectedOutputs.add(File(nativeAndroidDir, "x86_64/libp2p_shm.so"))
     }
     if (wantArm64) {
-        expectedOutputs.add(File(nativeAndroidDir, "arm64-v8a/libipfs_host.so"))
-        expectedOutputs.add(File(nativeAndroidDir, "arm64-v8a/libipfs_shm.so"))
+        expectedOutputs.add(File(nativeAndroidDir, "arm64-v8a/libp2p_host.so"))
+        expectedOutputs.add(File(nativeAndroidDir, "arm64-v8a/libp2p_shm.so"))
     }
     outputs.files(expectedOutputs)
 
@@ -120,7 +120,7 @@ extensions.configure<com.android.build.api.dsl.LibraryExtension> {
     }
 }
 
-// Ensure the host application extracts libipfs_host.so to nativeLibraryDir on
+// Ensure the host application extracts libp2p_host.so to nativeLibraryDir on
 // installation (Android only executes binaries from nativeLibraryDir, not from
 // inside the APK). Because Flutter's root build.gradle.kts evaluates :app
 // before plugin subprojects, we configure the manifest and asset-compression

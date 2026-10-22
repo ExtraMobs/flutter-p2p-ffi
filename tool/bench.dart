@@ -1,4 +1,4 @@
-// Mede o custo da ponte com o kubo no ipfs_host (TODO.md, 0.9.0):
+// Mede o custo da ponte com o kubo no p2p_host (TODO.md, 0.9.0):
 // `dart run tool/bench.dart` (exige `dart run tool/build.dart`). Chamadas
 // síncronas e assíncronas reais da API gerada, com o Noop (função 0) de piso.
 import 'dart:io';

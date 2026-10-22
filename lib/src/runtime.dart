@@ -1,5 +1,5 @@
 /// Runtime of the generated libraries (go/gen): encodes the arguments in
-/// binary (WIRE.md), sends the request to the ipfs_host through the
+/// binary (WIRE.md), sends the request to the p2p_host through the
 /// shared memory channel (shm.dart) and delivers the response. The app does
 /// not load Go. Not public API.
 library;
@@ -122,7 +122,7 @@ GolangException $goError(Uint8List data) {
 
 /// Why the service stopped.
 enum P2pStopReason {
-  /// The ipfs_host crashed (a Go panic, or the system killed it).
+  /// The p2p_host crashed (a Go panic, or the system killed it).
   crash,
 
   /// The app went to the background and the package stopped the service

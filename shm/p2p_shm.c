@@ -1,8 +1,8 @@
-/* ipfs_shm: ver ipfs_shm.h. Os anéis seguem go/shmring/ring.go à risca:
+/* p2p_shm: ver p2p_shm.h. Os anéis seguem go/shmring/ring.go à risca:
  * head/tail com acquire/release, e seq_cst no par "publica tail / lê
  * sleeping" × "marca sleeping / lê tail", para nenhum lado dormir com
  * mensagem esperando. */
-#include "ipfs_shm.h"
+#include "p2p_shm.h"
 
 #include <stdatomic.h>
 #include <stdio.h>
@@ -176,10 +176,10 @@ typedef struct {
 static char *dupmsg(const char *what) {
   char buf[256];
 #ifdef _WIN32
-  snprintf(buf, sizeof buf, "ipfs_shm: %s (erro %lu)", what,
+  snprintf(buf, sizeof buf, "p2p_shm: %s (erro %lu)", what,
            (unsigned long)GetLastError());
 #else
-  snprintf(buf, sizeof buf, "ipfs_shm: %s (%s)", what, strerror(errno));
+  snprintf(buf, sizeof buf, "p2p_shm: %s (%s)", what, strerror(errno));
 #endif
   char *s = malloc(strlen(buf) + 1);
   if (s) strcpy(s, buf);

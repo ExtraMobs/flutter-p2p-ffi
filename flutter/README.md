@@ -1,6 +1,6 @@
 # p2p_ffi_flutter
 
-Android side of [`p2p_ffi`](..). The IPFS node runs in the `ipfs_host`, a child
+Android side of [`p2p_ffi`](..). The IPFS node runs in the `p2p_host`, a child
 process of the app. On Android 12+ the system kills a child process that uses CPU
 while its app is in the background, and the app with it. This plugin handles the
 background according to `P2pService.background`, which is read whenever the service
@@ -13,9 +13,9 @@ starts (`start`/`restart`):
   (`P2pService.restart()`).
 - `P2pBackground.foregroundService`: while the service runs, an Android foreground
   service (type `specialUse`, with a notification) keeps the app, and the
-  `ipfs_host`, running in the background. It starts with the service, while the app
+  `p2p_host`, running in the background. It starts with the service, while the app
   is in the foreground (Android 12+ does not allow starting it from the background).
-  When the `ipfs_host` crashes in this mode the Android service stays up, so `onStop`
+  When the `p2p_host` crashes in this mode the Android service stays up, so `onStop`
   can call `P2pService.restart()` from the background; `P2pService.stop()` ends it.
 
 ```yaml

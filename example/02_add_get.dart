@@ -22,7 +22,7 @@ import 'package:p2p_ffi/p2p_ffi.dart' show P2pService;
 Future<void> main(List<String> args) async {
   final repoPath = args.isNotEmpty ? args.first : '.ipfs-ffi';
 
-  // Kubo runs in the ipfs_host, in another process (dart run tool/build.dart).
+  // Kubo runs in the p2p_host, in another process (dart run tool/build.dart).
   await P2pService.start();
   final plugins = loader.PluginLoader('');
   plugins.initialize();

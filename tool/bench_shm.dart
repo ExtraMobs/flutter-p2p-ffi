@@ -1,6 +1,6 @@
-// Mede o canal com o ipfs_host (marco 0.9.0, P1): latência síncrona de ida e
+// Mede o canal com o p2p_host (marco 0.9.0, P1): latência síncrona de ida e
 // volta e vazão com chamadas em voo, só com a função Noop.
-// Uso: dart run tool/bench_shm.dart [caminho do ipfs_host]
+// Uso: dart run tool/bench_shm.dart [caminho do p2p_host]
 import 'dart:io';
 
 import 'package:p2p_ffi/src/shm.dart';
@@ -9,8 +9,8 @@ Future<void> main(List<String> args) async {
   final host = args.isNotEmpty
       ? args.first
       : Platform.isWindows
-          ? r'native\ipfs_host.exe'
-          : 'native/ipfs_host';
+          ? r'native\p2p_host.exe'
+          : 'native/p2p_host';
   final ch = await ShmChannel.start(host);
   try {
     for (var i = 0; i < 20000; i++) {

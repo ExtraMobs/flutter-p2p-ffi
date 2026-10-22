@@ -1,5 +1,5 @@
-// O canal com o ipfs_host (marco 0.9.0, P1): só a função Noop (0). Exige
-// `dart run tool/build.dart` (native/ipfs_host e a ipfs_shm).
+// O canal com o p2p_host (marco 0.9.0, P1): só a função Noop (0). Exige
+// `dart run tool/build.dart` (native/p2p_host e a p2p_shm).
 import 'dart:io';
 import 'dart:typed_data';
 
@@ -8,7 +8,7 @@ import 'package:p2p_ffi/src/shm.dart';
 import 'package:test/test.dart';
 
 final hostPath =
-    Platform.isWindows ? r'native\ipfs_host.exe' : 'native/ipfs_host';
+    Platform.isWindows ? r'native\p2p_host.exe' : 'native/p2p_host';
 
 void main() {
   test('Noop síncrona e assíncrona; função desconhecida vira exceção',

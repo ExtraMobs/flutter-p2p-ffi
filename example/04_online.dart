@@ -47,7 +47,7 @@ Future<void> main(List<String> args) async {
   final repoPath = args.isNotEmpty ? args.first : '.ipfs-online';
   final seconds = args.length > 1 ? int.parse(args[1]) : null;
 
-  // Kubo runs in the ipfs_host, in another process (dart run tool/build.dart).
+  // Kubo runs in the p2p_host, in another process (dart run tool/build.dart).
   await P2pService.start();
   loader.PluginLoader('')
     ..initialize()

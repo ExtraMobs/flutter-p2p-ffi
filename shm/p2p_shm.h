@@ -1,10 +1,10 @@
-/* ipfs_shm: o lado do app do canal com o ipfs_host (marco 0.9.0). Mapeia a
+/* p2p_shm: o lado do app do canal com o p2p_host (marco 0.9.0). Mapeia a
  * região compartilhada que o host cria, escreve pedidos no anel 0, lê
  * respostas do anel 1 e espera "girando um pouco, depois dormindo" no
  * sininho (Unix socket no linux/Android, dois pipes no Windows). Sem Go:
  * um panic do Go nunca roda neste processo. Layout: go/shmring/ring.go. */
-#ifndef IPFS_SHM_H
-#define IPFS_SHM_H
+#ifndef P2P_SHM_H
+#define P2P_SHM_H
 
 #include <stdint.h>
 
@@ -49,7 +49,7 @@ SHM_API int32_t shm_max_message(void *h);
 
 /* Fecha o canal (o host sai) e solta tudo. */
 SHM_API void shm_close(void *h);
-/* Memória do mesmo runtime C da ipfs_shm (o Dart aloca com shm_malloc). */
+/* Memória do mesmo runtime C da p2p_shm (o Dart aloca com shm_malloc). */
 SHM_API void *shm_malloc(uint64_t n);
 SHM_API void shm_free(void *p);
 

@@ -33,26 +33,26 @@ if(NOT EXISTS "${P2P_FFI_ROOT}/.dart_tool/package_config.json")
   file(WRITE "${P2P_FFI_ROOT}/.dart_tool/package_config.json" "{\"configVersion\":2,\"packages\":[]}\n")
 endif()
 
-set(IPFS_HOST_EXE "${P2P_FFI_ROOT}/native/ipfs_host.exe")
-set(IPFS_SHM_DLL "${P2P_FFI_ROOT}/native/ipfs_shm.dll")
+set(P2P_HOST_EXE "${P2P_FFI_ROOT}/native/p2p_host.exe")
+set(P2P_SHM_DLL "${P2P_FFI_ROOT}/native/p2p_shm.dll")
 
 file(GLOB IPFS_GO_SOURCES "${P2P_FFI_ROOT}/go/*.go")
 
 add_custom_command(
-  OUTPUT "${IPFS_HOST_EXE}" "${IPFS_SHM_DLL}"
+  OUTPUT "${P2P_HOST_EXE}" "${P2P_SHM_DLL}"
   COMMAND "${DART_EXECUTABLE}" "${P2P_FFI_ROOT}/tool/build.dart" --no-gen windows
   WORKING_DIRECTORY "${P2P_FFI_ROOT}"
   DEPENDS
     "${P2P_FFI_ROOT}/tool/build.dart"
-    "${P2P_FFI_ROOT}/shm/ipfs_shm.c"
-    "${P2P_FFI_ROOT}/shm/ipfs_shm.h"
+    "${P2P_FFI_ROOT}/shm/p2p_shm.c"
+    "${P2P_FFI_ROOT}/shm/p2p_shm.h"
     ${IPFS_GO_SOURCES}
-  COMMENT "Building p2p_ffi native binaries for Windows (ipfs_host.exe, ipfs_shm.dll)..."
+  COMMENT "Building p2p_ffi native binaries for Windows (p2p_host.exe, p2p_shm.dll)..."
   VERBATIM
 )
 
 add_custom_target(p2p_ffi_native ALL
-  DEPENDS "${IPFS_HOST_EXE}" "${IPFS_SHM_DLL}"
+  DEPENDS "${P2P_HOST_EXE}" "${P2P_SHM_DLL}"
 )
 
 if(DEFINED BINARY_NAME AND TARGET ${BINARY_NAME})
@@ -60,7 +60,7 @@ if(DEFINED BINARY_NAME AND TARGET ${BINARY_NAME})
 endif()
 
 set(p2p_ffi_bundled_libraries
-  "${IPFS_HOST_EXE}"
-  "${IPFS_SHM_DLL}"
+  "${P2P_HOST_EXE}"
+  "${P2P_SHM_DLL}"
   PARENT_SCOPE
 )

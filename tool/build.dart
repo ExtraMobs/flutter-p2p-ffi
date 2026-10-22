@@ -1,12 +1,12 @@
-// Compila em native/ o ipfs_host (o Go de ../go como executável, sem cgo
-// menos no Android: o kubo num processo só dele) e a ipfs_shm (shm/ipfs_shm.c, o lado C do canal
+// Compila em native/ o p2p_host (o Go de ../go como executável, sem cgo
+// menos no Android: o kubo num processo só dele) e a p2p_shm (shm/p2p_shm.c, o lado C do canal
 // no processo do app), em native/ (linux/amd64 e windows/amd64) e em
 // native/android/<abi>/ (x86_64 e arm64-v8a).
 // Uso: `dart run tool/build.dart [linux|windows|android]...` (sem argumento,
 // linux e windows). Exige Go 1.26.5 (GOTOOLCHAIN=auto baixa) e um compilador C
-// só para a ipfs_shm: no Windows, o mingw-w64 no PATH; no linux, gcc e
+// só para a p2p_shm: no Windows, o mingw-w64 no PATH; no linux, gcc e
 // x86_64-w64-mingw32-gcc para a DLL; para o Android, o NDK (ANDROID_NDK_HOME,
-// ou o mais novo em <Android SDK>/ndk), que também liga o ipfs_host.
+// ou o mais novo em <Android SDK>/ndk), que também liga o p2p_host.
 import 'dart:io';
 
 /// Alvo → (GOOS, GOARCH, pasta relativa a native/).
@@ -21,7 +21,7 @@ const targets = {
   'android-arm64': [('android', 'arm64', 'android/arm64-v8a')],
 };
 
-/// API mínima do Android para a ipfs_shm (a do app pode ser maior).
+/// API mínima do Android para a p2p_shm (a do app pode ser maior).
 const androidApi = 24;
 
 /// Trecho → troca, por arquivo, por módulo. Os módulos vão copiados do cache
@@ -260,7 +260,7 @@ Future<void> main(List<String> args) async {
       var ldflags = '-s';
       String? cc;
       if (goos == 'windows' && !Platform.isWindows) {
-        cc = 'x86_64-w64-mingw32-gcc'; // a ipfs_shm.dll fora do Windows
+        cc = 'x86_64-w64-mingw32-gcc'; // a p2p_shm.dll fora do Windows
       }
       if (goos == 'android') {
         cc = ndkClang(goarch);
@@ -291,14 +291,14 @@ Future<void> main(List<String> args) async {
       ];
       // No Android o executável leva nome de lib para o APK empacotá-lo.
       final host = '${dir.path}/${switch (goos) {
-        'windows' => 'ipfs_host.exe',
-        'android' => 'libipfs_host.so',
-        _ => 'ipfs_host',
+        'windows' => 'p2p_host.exe',
+        'android' => 'libp2p_host.so',
+        _ => 'p2p_host',
       }}';
       stdout.writeln('go build ($goos/$goarch) -> $host');
       await run('go', [...goArgs, '-o', host, '.'], '${root.path}/go', env);
       final shm =
-          '${dir.path}/${goos == 'windows' ? 'ipfs_shm.dll' : 'libipfs_shm.so'}';
+          '${dir.path}/${goos == 'windows' ? 'p2p_shm.dll' : 'libp2p_shm.so'}';
       final ccArgs = (cc ?? 'gcc').split(' ');
       stdout.writeln('${ccArgs.first} -> $shm');
       await run(
@@ -313,7 +313,7 @@ Future<void> main(List<String> args) async {
           if (goos == 'android') '-Wl,-z,max-page-size=16384',
           '-o',
           shm,
-          'shm/ipfs_shm.c',
+          'shm/p2p_shm.c',
         ],
         root.path,
         const {},
@@ -339,7 +339,7 @@ Future<void> run(
   if (await p.exitCode != 0) exit(1);
 }
 
-/// O clang do NDK para [goarch], com o alvo Android na linha (para a ipfs_shm).
+/// O clang do NDK para [goarch], com o alvo Android na linha (para a p2p_shm).
 String ndkClang(String goarch) {
   final env = Platform.environment;
   var ndk = env['ANDROID_NDK_HOME'];

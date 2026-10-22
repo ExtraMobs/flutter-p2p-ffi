@@ -27,7 +27,7 @@ import (
 var cmdSkip = map[string]string{
 	"shutdown":    "stops the daemon; in p2p_ffi it is `IpfsNode.close`/`P2pService.stop`",
 	"mount":       "FUSE: mounts on the host's file system",
-	"update":      "updates the kubo binary (not the case of ipfs_host)",
+	"update":      "updates the kubo binary (not the case of p2p_host)",
 	"commands":    "the CLI help",
 	"config edit": "opens $EDITOR in the host process",
 }

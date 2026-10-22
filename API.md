@@ -1871,7 +1871,7 @@ Omitted:
 - Value types (CID, path, peer ID, multiaddr) keep the string; validation happens in Go, when they cross.
 - `config.Config` keeps kubo's JSON (the same as the repo's `config` file) in `json`.
 - A Go `nil` result where Dart expects an object becomes `GolangException`.
-- Kubo runs in `ipfs_host`, in another process (`P2pService.start()` before the API; protocol in `WIRE.md`): a Go panic stops only the service, and pending calls fail with `P2pServiceException`.
+- Kubo runs in `p2p_host`, in another process (`P2pService.start()` before the API; protocol in `WIRE.md`): a Go panic stops only the service, and pending calls fail with `P2pServiceException`.
 - Handles are freed by the Dart `Finalizer` (in batches, through the service's Free function) and are only valid in the service they were born in; Go resources (node, repo) still need Go's own `Close`.
 
 ## RPC commands (`ipfs ...`) → `package:p2p_ffi/go/kubo/core/commands.dart`
@@ -2042,8 +2042,8 @@ Left out:
 - `ipfs dag put`: hand port with the same name (`go/kubo/core/commands/dag.dart`)
 - `ipfs mount`: FUSE: mounts on the host's file system
 - `ipfs shutdown`: stops the daemon; in p2p_ffi it is `IpfsNode.close`/`P2pService.stop`
-- `ipfs update check`: updates the kubo binary (not the case of ipfs_host)
-- `ipfs update clean`: updates the kubo binary (not the case of ipfs_host)
-- `ipfs update install`: updates the kubo binary (not the case of ipfs_host)
-- `ipfs update revert`: updates the kubo binary (not the case of ipfs_host)
-- `ipfs update versions`: updates the kubo binary (not the case of ipfs_host)
+- `ipfs update check`: updates the kubo binary (not the case of p2p_host)
+- `ipfs update clean`: updates the kubo binary (not the case of p2p_host)
+- `ipfs update install`: updates the kubo binary (not the case of p2p_host)
+- `ipfs update revert`: updates the kubo binary (not the case of p2p_host)
+- `ipfs update versions`: updates the kubo binary (not the case of p2p_host)

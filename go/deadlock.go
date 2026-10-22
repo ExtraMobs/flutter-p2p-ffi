@@ -68,7 +68,7 @@ func (h *host) watch(e entry, id uint32, args []byte) {
 			}
 			if stack, ok := blockedOnLock(label); ok {
 				abandoned.Store(true)
-				final(evError, append([]byte{errDeadlock}, "ipfs_host: deadlock: "+e.key+
+				final(evError, append([]byte{errDeadlock}, "p2p_host: deadlock: "+e.key+
 					" waits for a lock held by a Go call whose Dart callback is running; Go stack:\n"+stack...))
 				return
 			}

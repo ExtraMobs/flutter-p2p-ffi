@@ -1,6 +1,6 @@
 //go:build linux
 
-// O canal do ipfs_host no linux e no Android (o GOOS android também é
+// O canal do p2p_host no linux e no Android (o GOOS android também é
 // linux): região num memfd passado por SCM_RIGHTS no Unix socket, que depois
 // é o sininho dos dois sentidos.
 package main

@@ -30,7 +30,7 @@ import 'package:p2p_ffi/src/runtime.dart'
 typedef Log = void Function(String line);
 
 /// A context of the current service (the handle of a previous service is not
-/// valid after the ipfs_host is restarted).
+/// valid after the p2p_host is restarted).
 context.Context get ctx => context.background();
 
 void check(bool ok, String what) {
@@ -224,7 +224,7 @@ Future<int> localChecks(Log log) async {
         await $call(26, $W()..sink(GoSink(c.sink, (r) => r.i64())));
         await sink;
       },
-      'bridge cost (channel to the ipfs_host)': () async {
+      'bridge cost (channel to the p2p_host)': () async {
         final repoPath = '${tmp.path}/offline';
         // the median of each call: the mean becomes hostage to the tail (the
         // host or the isolate losing the CPU right after the heavy tests,

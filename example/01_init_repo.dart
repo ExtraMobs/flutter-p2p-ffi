@@ -14,7 +14,7 @@ Future<void> main(List<String> args) async {
   final repoPath = args.isNotEmpty ? args.first : '.ipfs-ffi';
   final profiles = args.length > 1 ? args.sublist(1) : ['test'];
 
-  // Kubo runs in the ipfs_host, in another process (dart run tool/build.dart).
+  // Kubo runs in the p2p_host, in another process (dart run tool/build.dart).
   await P2pService.start();
   // Plugins (flatfs/leveldb/pebble datastores...): once per service
   // process, before any repo.

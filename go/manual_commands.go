@@ -82,7 +82,7 @@ func callCommand(q *req, r *reader, w *writer) error {
 		return err
 	}
 	if node == nil {
-		return errors.New("ipfs_host: command without a node")
+		return errors.New("p2p_host: command without a node")
 	}
 
 	cmd, err := corecmds.Root.Get(path)
@@ -126,7 +126,7 @@ func callCommand(q *req, r *reader, w *writer) error {
 		// o Call não se protege de um panic do comando
 		defer func() {
 			if p := recover(); p != nil {
-				re.err = fmt.Errorf("ipfs_host: panic in command %q: %v", strings.Join(path, " "), p)
+				re.err = fmt.Errorf("p2p_host: panic in command %q: %v", strings.Join(path, " "), p)
 			}
 		}()
 		corecmds.Root.Call(creq, re, env) // fecha re com o erro do Run
@@ -272,11 +272,11 @@ func cmdOptions(path []string, raw map[string]any) (cmds.OptMap, error) {
 	for k, v := range raw {
 		def, ok := defs[k]
 		if !ok {
-			return nil, fmt.Errorf("ipfs_host: unknown option %q for %q", k, strings.Join(path, " "))
+			return nil, fmt.Errorf("p2p_host: unknown option %q for %q", k, strings.Join(path, " "))
 		}
 		c, err := convOption(def.Type(), v)
 		if err != nil {
-			return nil, fmt.Errorf("ipfs_host: option %q: %w", k, err)
+			return nil, fmt.Errorf("p2p_host: option %q: %w", k, err)
 		}
 		out[k] = c
 	}

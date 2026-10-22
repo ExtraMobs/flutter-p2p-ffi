@@ -1,5 +1,5 @@
-/// The service: kubo runs in the `ipfs_host` executable, in another process;
-/// the app only talks to it through `ipfs_shm` (shared memory; protocol in
+/// The service: kubo runs in the `p2p_host` executable, in another process;
+/// the app only talks to it through `p2p_shm` (shared memory; protocol in
 /// `WIRE.md`). A Go panic takes down only the service, and on Android the
 /// package stops it when the app goes to the background
 /// ([P2pService.background]): pending calls fail with
@@ -78,7 +78,7 @@ abstract interface class P2pPlatform {
   Future<void> serviceStopped();
 }
 
-/// A stop of the ipfs_host without [P2pService.stop]: it crashed or was
+/// A stop of the p2p_host without [P2pService.stop]: it crashed or was
 /// stopped in the background ([reason]).
 final class P2pStop {
   P2pStop._(this.reason, this.exitCode, this.report, this.crashLog, this.pid,
@@ -109,7 +109,7 @@ final class P2pStop {
   /// The same exception the pending calls received.
   P2pServiceException get exception => P2pServiceException(
       switch (reason) {
-        P2pStopReason.crash => 'ipfs_host crashed (exit $exitCode)'
+        P2pStopReason.crash => 'p2p_host crashed (exit $exitCode)'
             '${report.isEmpty ? '' : ': $report'}',
         P2pStopReason.background =>
           'the service was stopped: the app went to the background',
@@ -120,7 +120,7 @@ final class P2pStop {
   String toString() => exception.message;
 }
 
-/// What to do when the ipfs_host stops; see [P2pService.start].
+/// What to do when the p2p_host stops; see [P2pService.start].
 typedef P2pStopHandler = FutureOr<void> Function(P2pStop stop);
 
 /// This isolate's service (one channel per isolate).
@@ -146,7 +146,7 @@ abstract final class P2pService {
   /// background (an app without Flutter can call [appInBackground] itself).
   static P2pPlatform? platform;
 
-  /// Launches the ipfs_host ([hostPath]; default [defaultHostPath]), connects,
+  /// Launches the p2p_host ([hostPath]; default [defaultHostPath]), connects,
   /// checks in the Hello that app and host came from the same generator and
   /// binds the generated API to it. [crashLog]: file where Go appends the
   /// report of a panic that takes the host down. [spin]: busy-wait iterations
@@ -322,9 +322,9 @@ abstract final class P2pService {
   static int? get hostPid => _ch?.hostPid;
 }
 
-/// Default ipfs_host path: bundled next to the executable (Flutter Windows/linux
-/// plugin) or `native\ipfs_host.exe` (Windows) / `native/ipfs_host` relative to
-/// the current directory; on Android, the `libipfs_host.so` in the app's native
+/// Default p2p_host path: bundled next to the executable (Flutter Windows/linux
+/// plugin) or `native\p2p_host.exe` (Windows) / `native/p2p_host` relative to
+/// the current directory; on Android, the `libp2p_host.so` in the app's native
 /// library folder (`nativeLibraryDir`), found through `libapp.so`/`libflutter.so`
 /// in `/proc/self/maps` (the APK must extract the libs: an executable does not
 /// run from inside the APK).
@@ -332,34 +332,34 @@ String defaultHostPath() {
   if (Platform.isWindows) {
     final dir = File(Platform.resolvedExecutable).parent.path;
     for (final p in [
-      '$dir\\ipfs_host.exe',
-      r'native\ipfs_host.exe',
-      packageNativePath('ipfs_host.exe'),
+      '$dir\\p2p_host.exe',
+      r'native\p2p_host.exe',
+      packageNativePath('p2p_host.exe'),
     ]) {
       if (p != null && File(p).existsSync()) return p;
     }
-    return r'native\ipfs_host.exe';
+    return r'native\p2p_host.exe';
   }
   if (!Platform.isAndroid) {
     final dir = File(Platform.resolvedExecutable).parent.path;
     for (final p in [
-      '$dir/lib/ipfs_host',
-      '$dir/ipfs_host',
-      'native/ipfs_host',
-      packageNativePath('ipfs_host'),
+      '$dir/lib/p2p_host',
+      '$dir/p2p_host',
+      'native/p2p_host',
+      packageNativePath('p2p_host'),
     ]) {
       if (p != null && File(p).existsSync()) return p;
     }
-    return 'native/ipfs_host';
+    return 'native/p2p_host';
   }
   for (final line in File('/proc/self/maps').readAsLinesSync()) {
     final i = line.indexOf('/');
     if (i < 0) continue;
     final f = line.substring(i);
     if (f.endsWith('/libapp.so') || f.endsWith('/libflutter.so')) {
-      return '${f.substring(0, f.lastIndexOf('/'))}/libipfs_host.so';
+      return '${f.substring(0, f.lastIndexOf('/'))}/libp2p_host.so';
     }
   }
-  throw P2pServiceException('ipfs_host: the native library folder of the '
+  throw P2pServiceException('p2p_host: the native library folder of the '
       'app did not appear in /proc/self/maps; pass hostPath');
 }

@@ -25,7 +25,7 @@ Future<void> main(List<String> args) async {
         'usage: export <repo> <cid-or-path> <out.car> | import <repo> <file.car>...');
     exit(64);
   }
-  // Kubo runs in the ipfs_host, in another process (dart run tool/build.dart).
+  // Kubo runs in the p2p_host, in another process (dart run tool/build.dart).
   await P2pService.start();
   loader.PluginLoader('')
     ..initialize()

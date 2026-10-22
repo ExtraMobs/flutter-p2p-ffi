@@ -1,5 +1,5 @@
-// The channel to the ipfs_host (milestone 0.9.0): launches the service
-// process, connects through ipfs_shm (shm/ipfs_shm.c: shared memory + bell)
+// The channel to the p2p_host (milestone 0.9.0): launches the service
+// process, connects through p2p_shm (shm/p2p_shm.c: shared memory + bell)
 // and exchanges messages: request = u32 id, u32 function, u8 mode, arguments;
 // response = u32 id, u8 type (value, item, end, error), data. The app never
 // loads libipfs.
@@ -12,34 +12,34 @@ import 'dart:typed_data';
 
 import 'runtime.dart' show $goError, P2pServiceException, P2pStopReason;
 
-/// Path of ipfs_shm; default bundled next to the executable (Flutter
-/// Windows/linux plugin), `native/libipfs_shm.so` or `native\ipfs_shm.dll`
-/// relative to the current directory, and on Android `libipfs_shm.so`
+/// Path of p2p_shm; default bundled next to the executable (Flutter
+/// Windows/linux plugin), `native/libp2p_shm.so` or `native\p2p_shm.dll`
+/// relative to the current directory, and on Android `libp2p_shm.so`
 /// (packaged in the APK).
 String p2pShmLibraryPath = _defaultShmLibraryPath();
 
 String _defaultShmLibraryPath() {
-  if (Platform.isAndroid) return 'libipfs_shm.so';
+  if (Platform.isAndroid) return 'libp2p_shm.so';
   final dir = File(Platform.resolvedExecutable).parent.path;
   if (Platform.isWindows) {
     for (final p in [
-      '$dir\\ipfs_shm.dll',
-      r'native\ipfs_shm.dll',
-      packageNativePath('ipfs_shm.dll'),
+      '$dir\\p2p_shm.dll',
+      r'native\p2p_shm.dll',
+      packageNativePath('p2p_shm.dll'),
     ]) {
       if (p != null && File(p).existsSync()) return p;
     }
-    return r'native\ipfs_shm.dll';
+    return r'native\p2p_shm.dll';
   }
   for (final p in [
-    '$dir/lib/libipfs_shm.so',
-    '$dir/libipfs_shm.so',
-    'native/libipfs_shm.so',
-    packageNativePath('libipfs_shm.so'),
+    '$dir/lib/libp2p_shm.so',
+    '$dir/libp2p_shm.so',
+    'native/libp2p_shm.so',
+    packageNativePath('libp2p_shm.so'),
   ]) {
     if (p != null && File(p).existsSync()) return p;
   }
-  return 'native/libipfs_shm.so';
+  return 'native/libp2p_shm.so';
 }
 
 /// Resolves `native/[fileName]` inside the `p2p_ffi` package root from
@@ -124,7 +124,7 @@ final _shm = _Shm(DynamicLibrary.open(p2pShmLibraryPath));
 // Response types used here (the ev* of go/runtime.go).
 const _evValue = 0, _evError = 3;
 
-/// An open channel to an ipfs_host process.
+/// An open channel to an p2p_host process.
 final class ShmChannel {
   ShmChannel._(this._process, this._h, this._wake, this._stderr);
 
@@ -141,7 +141,7 @@ final class ShmChannel {
   static final _scratch = _malloc4();
   static Pointer<Uint32> _malloc4() => _bytes(4).cast();
 
-  /// Launches [hostPath] (the ipfs_host executable), waits for "ready" and
+  /// Launches [hostPath] (the p2p_host executable), waits for "ready" and
   /// connects. [endpoint]: Unix socket path (linux/Android) or base name of
   /// the pipes on Windows (`\\.\pipe\...`); default: a random name.
   static Future<ShmChannel> start(String hostPath,
@@ -172,7 +172,7 @@ final class ShmChannel {
     unawaited(p.exitCode.then((c) {
       if (!ready.isCompleted) {
         ready.completeError(P2pServiceException(
-            'ipfs_host exited ($c) before becoming ready: $stderr'));
+            'p2p_host exited ($c) before becoming ready: $stderr'));
       }
     }));
     await ready.future;
@@ -357,15 +357,15 @@ final class ShmChannel {
     if (_closed) return;
     final report = _stderr.toString().trim();
     _fail(P2pServiceException(
-        'ipfs_host exited ($code)${report.isEmpty ? '' : ': $report'}',
+        'p2p_host exited ($code)${report.isEmpty ? '' : ': $report'}',
         reason: P2pStopReason.crash));
   }
 
-  /// The crash still without the process's reason (the ipfs_shm notice
+  /// The crash still without the process's reason (the p2p_shm notice
   /// arrives before the exit code).
   P2pServiceException get _crashed =>
       _dead ??
-      P2pServiceException('ipfs_host crashed', reason: P2pStopReason.crash);
+      P2pServiceException('p2p_host crashed', reason: P2pStopReason.crash);
 
   void _fail(P2pServiceException e) {
     final first = _dead == null;
@@ -409,7 +409,7 @@ final class ShmChannel {
   }
 }
 
-// C memory from the same runtime as ipfs_shm.
+// C memory from the same runtime as p2p_shm.
 final _malloc = DynamicLibrary.open(p2pShmLibraryPath).lookupFunction<
     Pointer<Uint8> Function(Uint64),
     Pointer<Uint8> Function(int)>('shm_malloc');
@@ -425,7 +425,7 @@ Pointer<Utf8Char> _cstr(String s) {
 }
 
 String _take(Pointer<Uint8> p) {
-  if (p == nullptr) return 'ipfs_shm: unknown error';
+  if (p == nullptr) return 'p2p_shm: unknown error';
   var n = 0;
   while (p[n] != 0) {
     n++;

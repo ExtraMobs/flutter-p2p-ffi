@@ -121,7 +121,7 @@ Future<void> main(List<String> args) async {
     }
 
     if (results.length > 1) {
-      print('\n=== Summary (ipfs_host RSS in MB, 640 MiB per round) ===');
+      print('\n=== Summary (p2p_host RSS in MB, 640 MiB per round) ===');
       print(
         '${'Mode'.padRight(14)}'
         '${'Start'.padLeft(8)}'

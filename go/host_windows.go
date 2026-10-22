@@ -1,4 +1,4 @@
-// O canal do ipfs_host no Windows: a região num mapeamento com nome aleatório
+// O canal do p2p_host no Windows: a região num mapeamento com nome aleatório
 // e dois named pipes de um sentido cada (<base>-req: o app toca o sininho do
 // host; <base>-resp: aperto de mão e o sininho do app). Um pipe de cada
 // sentido evita que uma leitura bloqueante trave a escrita no mesmo handle.

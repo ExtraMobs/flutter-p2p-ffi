@@ -392,7 +392,7 @@ func (g *goEmitter) decOpts(t *tinfo) string {
 				if pt.k == kChanSend { // canal do chamador: vai ao sink do app (u32 id)
 					fmt.Fprintf(&b, "\t\t\ta%d, d%d := chanSink(q, r.u32(), %s)\n\t\t\tdones = append(dones, d%d)\n", i, i, g.enc(pt.elem), i)
 				} else if pt.k == kOpts { // opção dentro de opção: uma lista de uma (namesys.ResolveOption)
-					fmt.Fprintf(&b, "\t\t\tl%d, d%d, err := %s(q, r)\n\t\t\tdones = append(dones, d%d)\n\t\t\tif err != nil || len(l%d) != 1 {\n\t\t\t\treturn nil, done, errors.Join(err, fmt.Errorf(\"ipfs_host: one nested option expected\"))\n\t\t\t}\n\t\t\ta%d := l%d[0]\n", i, i, g.decOpts(pt), i, i, i, i)
+					fmt.Fprintf(&b, "\t\t\tl%d, d%d, err := %s(q, r)\n\t\t\tdones = append(dones, d%d)\n\t\t\tif err != nil || len(l%d) != 1 {\n\t\t\t\treturn nil, done, errors.Join(err, fmt.Errorf(\"p2p_host: one nested option expected\"))\n\t\t\t}\n\t\t\ta%d := l%d[0]\n", i, i, g.decOpts(pt), i, i, i, i)
 				} else {
 					fmt.Fprintf(&b, "\t\t\ta%d, err := %s(r)\n\t\t\tif err != nil {\n\t\t\t\treturn nil, done, err\n\t\t\t}\n", i, g.dec(pt))
 				}
@@ -405,7 +405,7 @@ func (g *goEmitter) decOpts(t *tinfo) string {
 				fmt.Fprintf(&b, "\t\t\tout = append(out, %s)\n", call)
 			}
 		}
-		fmt.Fprintf(&b, "\t\tdefault:\n\t\t\treturn nil, done, fmt.Errorf(\"ipfs_host: unknown option %%d of %s\", i)\n\t\t}\n\t}\n\treturn out, done, r.err\n}\n", t.key)
+		fmt.Fprintf(&b, "\t\tdefault:\n\t\t\treturn nil, done, fmt.Errorf(\"p2p_host: unknown option %%d of %s\", i)\n\t\t}\n\t}\n\treturn out, done, r.err\n}\n", t.key)
 		return b.String()
 	})
 }

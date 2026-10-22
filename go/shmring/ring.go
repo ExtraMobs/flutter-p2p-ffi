@@ -1,5 +1,5 @@
 // Package shmring: os dois anéis da região de memória compartilhada entre o
-// app (shm/ipfs_shm.c) e o ipfs_host. O layout abaixo é o contrato com o C;
+// app (shm/p2p_shm.c) e o p2p_host. O layout abaixo é o contrato com o C;
 // mudar aqui exige mudar lá (e o Version).
 //
 // Região (tamanho = HeaderSize + 2*ringSize):

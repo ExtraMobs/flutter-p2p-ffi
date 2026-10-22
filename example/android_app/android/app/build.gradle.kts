@@ -8,7 +8,7 @@ plugins {
 extensions.configure<com.android.build.api.dsl.ApplicationExtension> {
     namespace = "dev.extramobs.p2p_ffi_android"
     compileSdk = flutter.compileSdkVersion
-    // The same NDK that builds libipfs_host.so and libipfs_shm.so (tool/build.dart
+    // The same NDK that builds libp2p_host.so and libp2p_shm.so (tool/build.dart
     // android); the app compiles no C, but AGP uses the NDK to handle the .so files.
     ndkVersion = "30.0.16248370"
 
@@ -22,7 +22,7 @@ extensions.configure<com.android.build.api.dsl.ApplicationExtension> {
         applicationId = "dev.extramobs.p2p_ffi_android"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
-        minSdk = maxOf(24, flutter.minSdkVersion) // the ipfs_host and the ipfs_shm are built for API 24
+        minSdk = maxOf(24, flutter.minSdkVersion) // the p2p_host and the p2p_shm are built for API 24
         targetSdk = flutter.targetSdkVersion
         // Uses the version code from pubspec.yaml. When using split APKs, 1000 * ABI_VERSION
         // is added automatically by Flutter. (https://developer.android.com/studio/build/configure-apk-splits#configure-APK-versions)
@@ -32,7 +32,7 @@ extensions.configure<com.android.build.api.dsl.ApplicationExtension> {
         versionName = flutter.versionName
     }
 
-    // Native binaries (libipfs_host.so and libipfs_shm.so) and
+    // Native binaries (libp2p_host.so and libp2p_shm.so) and
     // useLegacyPackaging = true are provided automatically by the p2p_ffi
     // plugin (android/build.gradle.kts).
 
