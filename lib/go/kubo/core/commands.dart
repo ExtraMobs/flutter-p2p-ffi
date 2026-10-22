@@ -4,30 +4,30 @@ library;
 
 import 'dart:typed_data';
 
-import 'package:ipfs_ffi/src/runtime.dart';
-import 'package:ipfs_ffi/go/boxo/bitswap.dart' as $bitswap;
-import 'package:ipfs_ffi/go/boxo/bitswap/server/internal/decision.dart'
+import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/boxo/bitswap.dart' as $bitswap;
+import 'package:p2p_ffi/go/boxo/bitswap/server/internal/decision.dart'
     as $decision;
-import 'package:ipfs_ffi/go/boxo/files.dart' as $files;
-import 'package:ipfs_ffi/go/boxo/filestore.dart' as $filestore;
-import 'package:ipfs_ffi/go/boxo/mfs.dart' as $mfs;
-import 'package:ipfs_ffi/go/boxo/provider.dart' as $provider;
-import 'package:ipfs_ffi/go/cid.dart' as $cid;
-import 'package:ipfs_ffi/go/context.dart' as $context;
-import 'package:ipfs_ffi/go/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:ipfs_ffi/go/kubo.dart' as $kubo;
-import 'package:ipfs_ffi/go/kubo/core.dart' as $core;
-import 'package:ipfs_ffi/go/kubo/core/commands/dag.dart' as $dag;
-import 'package:ipfs_ffi/go/kubo/core/commands/name.dart' as $name;
-import 'package:ipfs_ffi/go/kubo/core/commands/object.dart' as $object;
-import 'package:ipfs_ffi/go/kubo/core/commands/pin.dart' as $pin;
-import 'package:ipfs_ffi/go/kubo/core/corerepo.dart' as $corerepo;
-import 'package:ipfs_ffi/go/kubo/core/node/libp2p.dart' as $libp2p;
-import 'package:ipfs_ffi/go/libp2p/core/metrics.dart' as $metrics;
-import 'package:ipfs_ffi/go/libp2p/core/peer.dart' as $peer;
-import 'package:ipfs_ffi/go/libp2p/core/routing.dart' as $routing;
-import 'package:ipfs_ffi/go/libp2p_kad_dht/provider/stats.dart' as $stats;
-import 'package:ipfs_ffi/go/multiaddr.dart' as $multiaddr;
+import 'package:p2p_ffi/go/boxo/files.dart' as $files;
+import 'package:p2p_ffi/go/boxo/filestore.dart' as $filestore;
+import 'package:p2p_ffi/go/boxo/mfs.dart' as $mfs;
+import 'package:p2p_ffi/go/boxo/provider.dart' as $provider;
+import 'package:p2p_ffi/go/cid.dart' as $cid;
+import 'package:p2p_ffi/go/context.dart' as $context;
+import 'package:p2p_ffi/go/ipfs_cmds.dart' as $ipfs_cmds;
+import 'package:p2p_ffi/go/kubo.dart' as $kubo;
+import 'package:p2p_ffi/go/kubo/core.dart' as $core;
+import 'package:p2p_ffi/go/kubo/core/commands/dag.dart' as $dag;
+import 'package:p2p_ffi/go/kubo/core/commands/name.dart' as $name;
+import 'package:p2p_ffi/go/kubo/core/commands/object.dart' as $object;
+import 'package:p2p_ffi/go/kubo/core/commands/pin.dart' as $pin;
+import 'package:p2p_ffi/go/kubo/core/corerepo.dart' as $corerepo;
+import 'package:p2p_ffi/go/kubo/core/node/libp2p.dart' as $libp2p;
+import 'package:p2p_ffi/go/libp2p/core/metrics.dart' as $metrics;
+import 'package:p2p_ffi/go/libp2p/core/peer.dart' as $peer;
+import 'package:p2p_ffi/go/libp2p/core/routing.dart' as $routing;
+import 'package:p2p_ffi/go/libp2p_kad_dht/provider/stats.dart' as $stats;
+import 'package:p2p_ffi/go/multiaddr.dart' as $multiaddr;
 
 /// Go: `const commands.ApiAuthOption untyped string`.
 const apiAuthOption = "api-auth";

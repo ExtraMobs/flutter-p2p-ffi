@@ -12,13 +12,13 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:ipfs_ffi/go/car/v2.dart' as car;
-import 'package:ipfs_ffi/go/car/v2/blockstore.dart' as blockstore;
-import 'package:ipfs_ffi/go/os.dart' as os;
-import 'package:ipfs_ffi/go/block_format.dart' as block_format;
-import 'package:ipfs_ffi/go/kubo/core/commands/dag.dart' as dag;
-import 'package:ipfs_ffi/go/cid.dart' as cid;
-import 'package:ipfs_ffi/ipfs_ffi.dart' show GolangEofException;
+import 'package:p2p_ffi/go/car/v2.dart' as car;
+import 'package:p2p_ffi/go/car/v2/blockstore.dart' as blockstore;
+import 'package:p2p_ffi/go/os.dart' as os;
+import 'package:p2p_ffi/go/block_format.dart' as block_format;
+import 'package:p2p_ffi/go/kubo/core/commands/dag.dart' as dag;
+import 'package:p2p_ffi/go/cid.dart' as cid;
+import 'package:p2p_ffi/p2p_ffi.dart' show GolangEofException;
 
 import 'sample.dart';
 

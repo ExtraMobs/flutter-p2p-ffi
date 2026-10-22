@@ -25,7 +25,7 @@ import (
 
 // cmdSkip: comandos que não atravessam, com o motivo (API.md).
 var cmdSkip = map[string]string{
-	"shutdown":    "stops the daemon; in ipfs_ffi it is `IpfsNode.close`/`P2pService.stop`",
+	"shutdown":    "stops the daemon; in p2p_ffi it is `IpfsNode.close`/`P2pService.stop`",
 	"mount":       "FUSE: mounts on the host's file system",
 	"update":      "updates the kubo binary (not the case of ipfs_host)",
 	"commands":    "the CLI help",
@@ -36,7 +36,7 @@ var cmdSkip = map[string]string{
 var cmdByteOut = setOf(`cat get files-read block-get key-export log-tail name-get diag-profile
 multibase-decode multibase-encode multibase-transcode dag-get dag-export`)
 
-// cmdRootOpts: as opções globais do Root que valem num comando no ipfs_ffi
+// cmdRootOpts: as opções globais do Root que valem num comando no p2p_ffi
 // (as outras são do CLI ou do HTTP).
 var cmdRootOpts = []string{"offline", "cid-base", "upgrade-cidv0-in-output"}
 
@@ -82,7 +82,7 @@ type cmdEmitter struct {
 }
 
 func (e *cmdEmitter) imp(goPkg string) string {
-	return e.de.imp(e.cur, "package:ipfs_ffi/"+dartPath(goPkg))
+	return e.de.imp(e.cur, pkgPrefix+dartPath(goPkg))
 }
 
 // walkCommands: os comandos executáveis, em ordem de caminho.
@@ -270,7 +270,7 @@ func (e *cmdEmitter) ref(t reflect.Type) string {
 		return e.de.ref(ti, e.cur)
 	}
 	if l := e.libs[t]; l != e.cur {
-		return e.de.imp(e.cur, "package:ipfs_ffi/"+l.path) + "." + e.names[t]
+		return e.de.imp(e.cur, pkgPrefix+l.path) + "." + e.names[t]
 	}
 	return e.names[t]
 }
@@ -316,7 +316,7 @@ func (e *cmdEmitter) textRef(t reflect.Type) string {
 	if !ok {
 		return ""
 	}
-	if "package:ipfs_ffi/"+dartPath(t.PkgPath()) == "package:ipfs_ffi/"+e.cur.path {
+	if pkgPrefix+dartPath(t.PkgPath()) == pkgPrefix+e.cur.path {
 		return c
 	}
 	return e.imp(t.PkgPath()) + "." + c
@@ -428,7 +428,7 @@ func emitCommands(de *dartEmitter, manual map[string]bool) (api, smoke string, h
 	e.prepare(cs, manual)
 	h := fnv.New64a()
 	var body, md, sm strings.Builder
-	fmt.Fprintf(&md, "\n## RPC commands (`ipfs ...`) → `package:ipfs_ffi/%s`\n\n", cmdsLib.path)
+	fmt.Fprintf(&md, "\n## RPC commands (`ipfs ...`) → `package:p2p_ffi/%s`\n\n", cmdsLib.path)
 	md.WriteString("Generated from the kubo command tree (`core/commands.Root`); the host calls them like the kubo HTTP server (function 36 of `WIRE.md`). Each result type lives in the library of its Go package.\n\n| Command | Dart | Returns |\n|---|---|---|\n")
 	var skipped []string
 	for _, ci := range cs {
@@ -440,7 +440,7 @@ func emitCommands(de *dartEmitter, manual map[string]bool) (api, smoke string, h
 		e.cur = cmdsLib
 		ret, call := e.ret(ci)
 		var params []string
-		params = append(params, e.imp("github.com/ipfs/kubo/core")+".IpfsNode node", e.de.imp(cmdsLib, "package:ipfs_ffi/go/context.dart")+".Context ctx")
+		params = append(params, e.imp("github.com/ipfs/kubo/core")+".IpfsNode node", e.de.imp(cmdsLib, pkgPrefix+"go/context.dart")+".Context ctx")
 		var args, fls, smArgs []string
 		for _, a := range ci.args {
 			get := fmt.Sprintf("a.s('%s', '%s')", key, a.name)
@@ -582,10 +582,10 @@ func smokeDart(entries, cmdsPath string) string {
 
 // Every generated kubo command, called with the arguments the smoke test
 // provides (test/commands_smoke_test.dart).
-import 'package:ipfs_ffi/` + dartPath("github.com/ipfs/boxo/files") + `' as files;
-import 'package:ipfs_ffi/` + dartPath("context") + `' as context;
-import 'package:ipfs_ffi/` + dartPath("github.com/ipfs/kubo/core") + `' as core;
-import 'package:ipfs_ffi/` + cmdsPath + `' as k;
+import '` + pkgPrefix + dartPath("github.com/ipfs/boxo/files") + `' as files;
+import '` + pkgPrefix + dartPath("context") + `' as context;
+import '` + pkgPrefix + dartPath("github.com/ipfs/kubo/core") + `' as core;
+import '` + pkgPrefix + cmdsPath + `' as k;
 
 /// What a command needs: the node, a ctx, and a value per required argument.
 abstract interface class SmokeArgs {

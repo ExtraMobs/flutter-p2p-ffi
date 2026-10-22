@@ -3,7 +3,7 @@
 // Uso: dart run tool/bench_shm.dart [caminho do ipfs_host]
 import 'dart:io';
 
-import 'package:ipfs_ffi/src/shm.dart';
+import 'package:p2p_ffi/src/shm.dart';
 
 Future<void> main(List<String> args) async {
   final host = args.isNotEmpty

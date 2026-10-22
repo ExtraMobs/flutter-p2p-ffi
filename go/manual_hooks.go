@@ -23,29 +23,29 @@ func noArgs(f func(q *req, w *writer) error) func(*req, *reader, *writer) error 
 func init() {
 	// test/crash_child.dart: panic numa goroutine fora de qualquer chamada,
 	// como um bug interno do kubo; o guard não o alcança e o host cai.
-	table[24] = entry{key: "ipfs_ffi/test.PanicInGoroutine", fn: noArgs(func(*req, *writer) error {
-		go func() { panic("ipfs_ffi: test panic in a goroutine") }()
+	table[24] = entry{key: "p2p_ffi/test.PanicInGoroutine", fn: noArgs(func(*req, *writer) error {
+		go func() { panic("p2p_ffi: test panic in a goroutine") }()
 		return nil
 	})}
 	// Como uma função do kubo com chan<- (gerada com goTry): item 1 e o
 	// panic vira o erro da stream.
-	table[25] = entry{key: "ipfs_ffi/test.PanicInChanFunc", stream: true, fn: noArgs(func(q *req, _ *writer) error {
+	table[25] = entry{key: "p2p_ffi/test.PanicInChanFunc", stream: true, fn: noArgs(func(q *req, _ *writer) error {
 		ch, errc := make(chan int), make(chan error, 1)
-		goTry(errc, func() error { ch <- 1; panic("ipfs_ffi: test panic in a function with a channel") })
+		goTry(errc, func() error { ch <- 1; panic("p2p_ffi: test panic in a function with a channel") })
 		v := <-ch
 		q.item(func(w *writer) { w.i64(int64(v)) })
 		return <-errc
 	})}
 	// O codificador do sink entra em panic no 2º item de 3: o sink recebe o
 	// item 1 e o erro; a chamada responde vazio.
-	table[26] = entry{key: "ipfs_ffi/test.PanicInSink", fn: func(q *req, r *reader, _ *writer) error {
+	table[26] = entry{key: "p2p_ffi/test.PanicInSink", fn: func(q *req, r *reader, _ *writer) error {
 		sid := r.u32()
 		if err := r.done(); err != nil {
 			return err
 		}
 		ch, done := chanSink(q, sid, func(w *writer, i int) {
 			if i == 2 {
-				panic("ipfs_ffi: test panic in the sink")
+				panic("p2p_ffi: test panic in the sink")
 			}
 			w.i64(int64(i))
 		})

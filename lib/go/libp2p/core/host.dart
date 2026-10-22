@@ -2,8 +2,8 @@
 // Go: github.com/libp2p/go-libp2p/core/host
 library;
 
-import 'package:ipfs_ffi/src/runtime.dart';
-import 'package:ipfs_ffi/go/libp2p/core/connmgr.dart' as $connmgr;
+import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/libp2p/core/connmgr.dart' as $connmgr;
 
 /// Go: `host.Host` (handle).
 class Host extends GoHandle {

@@ -21,7 +21,7 @@ var bells struct{ rings, wakes atomic.Uint64 }
 func init() {
 	// u32 lote, i64 n, i64 bytes por item → i64 itens produzidos; o callback
 	// recebe (i64 índice, bytes) e para no false
-	table[27] = entry{key: "ipfs_ffi/test.CallbackBench", fn: func(q *req, r *reader, w *writer) error {
+	table[27] = entry{key: "p2p_ffi/test.CallbackBench", fn: func(q *req, r *reader, w *writer) error {
 		batch, n, size := r.u32(), r.i64(), r.i64()
 		if err := r.done(); err != nil {
 			return err
@@ -39,13 +39,13 @@ func init() {
 		w.i64(made)
 		return nil
 	}}
-	table[29] = entry{key: "ipfs_ffi/test.NewLocker", fn: noArgs(func(_ *req, w *writer) error {
+	table[29] = entry{key: "p2p_ffi/test.NewLocker", fn: noArgs(func(_ *req, w *writer) error {
 		encH(w, &testLocker{})
 		return nil
 	})}
 	// i64 locker, u32 lote, i64 n → vazio; o callback recebe (i64 índice)
 	// com a trava presa
-	table[30] = entry{key: "ipfs_ffi/test.Locker.Iterate", fn: func(q *req, r *reader, _ *writer) error {
+	table[30] = entry{key: "p2p_ffi/test.Locker.Iterate", fn: func(q *req, r *reader, _ *writer) error {
 		l, err := decH[*testLocker](r)
 		if err != nil {
 			return err
@@ -66,7 +66,7 @@ func init() {
 		return nil
 	}}
 	// i64 locker → vazio, depois de pegar e soltar a trava
-	table[31] = entry{key: "ipfs_ffi/test.Locker.Touch", fn: func(_ *req, r *reader, _ *writer) error {
+	table[31] = entry{key: "p2p_ffi/test.Locker.Touch", fn: func(_ *req, r *reader, _ *writer) error {
 		l, err := decH[*testLocker](r)
 		if err != nil {
 			return err
@@ -79,7 +79,7 @@ func init() {
 		return nil
 	}}
 	// → i64 sininhos tocados pelo host, i64 despertares do host; zera os dois
-	table[28] = entry{key: "ipfs_ffi/test.BellStats", fn: noArgs(func(_ *req, w *writer) error {
+	table[28] = entry{key: "p2p_ffi/test.BellStats", fn: noArgs(func(_ *req, w *writer) error {
 		w.i64(int64(bells.rings.Swap(0)))
 		w.i64(int64(bells.wakes.Swap(0)))
 		return nil

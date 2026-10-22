@@ -5,8 +5,8 @@
 //     --target=integration_test/callback_bench_test.dart -d <device>
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
-import 'package:ipfs_ffi/ipfs_ffi.dart' show P2pService;
-import 'package:ipfs_ffi/src/callback_bench.dart' show callbackBench;
+import 'package:p2p_ffi/p2p_ffi.dart' show P2pService;
+import 'package:p2p_ffi/src/callback_bench.dart' show callbackBench;
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();

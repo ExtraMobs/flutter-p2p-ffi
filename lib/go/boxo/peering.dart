@@ -2,8 +2,8 @@
 // Go: github.com/ipfs/boxo/peering
 library;
 
-import 'package:ipfs_ffi/src/runtime.dart';
-import 'package:ipfs_ffi/go/libp2p/core/peer.dart' as $peer;
+import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/libp2p/core/peer.dart' as $peer;
 
 /// Go: `peering.PeeringService` (handle).
 class PeeringService extends GoHandle {

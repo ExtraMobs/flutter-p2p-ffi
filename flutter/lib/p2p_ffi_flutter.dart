@@ -1,4 +1,4 @@
-/// Android side of `ipfs_ffi`. Flutter registers it as
+/// Android side of `p2p_ffi`. Flutter registers it as
 /// `P2pService.platform` when the app starts; there is nothing to call.
 ///
 /// While the service runs, it follows `P2pService.background` (read when the
@@ -7,34 +7,34 @@
 ///   the service stops and `onStop` gets `P2pStopReason.background`;
 /// - `P2pBackground.foregroundService`: an Android foreground service keeps
 ///   the app, and the service, running in the background. Android requires
-///   a notification for it; the app builds it: [IpfsFfiFlutter.notification]
-///   (an [IpfsNotification]: title, text, icon, channel...), updated while
-///   it runs with [IpfsFfiFlutter.updateNotification], or, for full control,
-///   a native `IpfsForegroundService.setNotificationFactory` (README).
+///   a notification for it; the app builds it: [P2pFfiFlutter.notification]
+///   (an [P2pNotification]: title, text, icon, channel...), updated while
+///   it runs with [P2pFfiFlutter.updateNotification], or, for full control,
+///   a native `P2pForegroundService.setNotificationFactory` (README).
 library;
 
 import 'dart:async';
 
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'package:ipfs_ffi/ipfs_ffi.dart';
+import 'package:p2p_ffi/p2p_ffi.dart';
 
 /// The Android [P2pPlatform].
-final class IpfsFfiFlutter implements P2pPlatform {
-  IpfsFfiFlutter._();
+final class P2pFfiFlutter implements P2pPlatform {
+  P2pFfiFlutter._();
 
   /// Called by Flutter when the app starts.
-  static void registerWith() => P2pService.platform = IpfsFfiFlutter._();
+  static void registerWith() => P2pService.platform = P2pFfiFlutter._();
 
   /// The foreground service notification, read when the service starts.
-  static IpfsNotification notification = const IpfsNotification();
+  static P2pNotification notification = const P2pNotification();
 
   /// Replaces [notification] and, while the foreground service runs, the
   /// notification it shows (allowed from the background).
-  static Future<void> updateNotification(IpfsNotification n) async {
+  static Future<void> updateNotification(P2pNotification n) async {
     notification = n;
     final p = P2pService.platform;
-    if (p is IpfsFfiFlutter && p._foreground) {
+    if (p is P2pFfiFlutter && p._foreground) {
       await _channel.invokeMethod<void>('updateNotification', n._toMap());
     }
   }
@@ -50,7 +50,7 @@ final class IpfsFfiFlutter implements P2pPlatform {
       await _channel.invokeMethod<bool>('requestNotificationPermission') ??
       false;
 
-  static const _channel = MethodChannel('ipfs_ffi_flutter');
+  static const _channel = MethodChannel('p2p_ffi_flutter');
   AppLifecycleListener? _lifecycle;
   var _foreground = false;
 
@@ -81,31 +81,31 @@ final class IpfsFfiFlutter implements P2pPlatform {
 
 /// The importance of the notification channel (Android 8+). Android fixes it
 /// when the channel is first created: to change it, use another [channelId].
-enum IpfsNotificationImportance {
+enum P2pNotificationImportance {
   min(1),
   low(2),
   normal(3),
   high(4);
 
-  const IpfsNotificationImportance(this.value);
+  const P2pNotificationImportance(this.value);
 
   /// The `NotificationManager.IMPORTANCE_*` value.
   final int value;
 }
 
 /// The notification of the Android foreground service that keeps the app in
-/// the background ([IpfsFfiFlutter.notification]). Android requires one; the
+/// the background ([P2pFfiFlutter.notification]). Android requires one; the
 /// app decides what it says and looks like.
-final class IpfsNotification {
-  const IpfsNotification({
+final class P2pNotification {
+  const P2pNotification({
     this.title = 'IPFS',
     this.text = 'IPFS node running',
     this.subText,
     this.icon,
-    this.channelId = 'ipfs_ffi',
+    this.channelId = 'p2p_ffi',
     this.channelName = 'IPFS',
     this.channelDescription,
-    this.importance = IpfsNotificationImportance.low,
+    this.importance = P2pNotificationImportance.low,
     this.tapOpensApp = true,
     this.showWhen = false,
     this.extras = const {},
@@ -127,7 +127,7 @@ final class IpfsNotification {
   /// The channel name the user sees in the app's notification settings.
   final String channelName;
   final String? channelDescription;
-  final IpfsNotificationImportance importance;
+  final P2pNotificationImportance importance;
 
   /// Whether tapping the notification opens the app.
   final bool tapOpensApp;
@@ -139,13 +139,13 @@ final class IpfsNotification {
   final Map<String, String> extras;
 
   /// A copy with the given fields replaced.
-  IpfsNotification copyWith({
+  P2pNotification copyWith({
     String? title,
     String? text,
     String? subText,
     Map<String, String>? extras,
   }) =>
-      IpfsNotification(
+      P2pNotification(
         title: title ?? this.title,
         text: text ?? this.text,
         subText: subText ?? this.subText,

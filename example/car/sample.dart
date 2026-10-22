@@ -10,21 +10,21 @@ import 'dart:io';
 import 'dart:math';
 import 'dart:typed_data';
 
-import 'package:ipfs_ffi/go/boxo/files.dart' as files;
-import 'package:ipfs_ffi/go/car/v2.dart' as car;
-import 'package:ipfs_ffi/go/context.dart' as context;
-import 'package:ipfs_ffi/go/os.dart' as os;
-import 'package:ipfs_ffi/go/kubo/core/node.dart' as core_node;
-import 'package:ipfs_ffi/go/kubo/core/coreiface.dart' as coreiface;
-import 'package:ipfs_ffi/go/kubo/core.dart' as core;
-import 'package:ipfs_ffi/go/kubo/plugin/loader.dart' as loader;
-import 'package:ipfs_ffi/go/kubo/config.dart' as config;
-import 'package:ipfs_ffi/go/kubo/core/commands/dag.dart' as dag;
-import 'package:ipfs_ffi/go/kubo/repo/fsrepo.dart' as fsrepo;
-import 'package:ipfs_ffi/go/kubo/core/coreiface/options.dart' as options;
-import 'package:ipfs_ffi/go/kubo/core/coreapi.dart' as coreapi;
-import 'package:ipfs_ffi/go/cid.dart' as cid;
-import 'package:ipfs_ffi/ipfs_ffi.dart';
+import 'package:p2p_ffi/go/boxo/files.dart' as files;
+import 'package:p2p_ffi/go/car/v2.dart' as car;
+import 'package:p2p_ffi/go/context.dart' as context;
+import 'package:p2p_ffi/go/os.dart' as os;
+import 'package:p2p_ffi/go/kubo/core/node.dart' as core_node;
+import 'package:p2p_ffi/go/kubo/core/coreiface.dart' as coreiface;
+import 'package:p2p_ffi/go/kubo/core.dart' as core;
+import 'package:p2p_ffi/go/kubo/plugin/loader.dart' as loader;
+import 'package:p2p_ffi/go/kubo/config.dart' as config;
+import 'package:p2p_ffi/go/kubo/core/commands/dag.dart' as dag;
+import 'package:p2p_ffi/go/kubo/repo/fsrepo.dart' as fsrepo;
+import 'package:p2p_ffi/go/kubo/core/coreiface/options.dart' as options;
+import 'package:p2p_ffi/go/kubo/core/coreapi.dart' as coreapi;
+import 'package:p2p_ffi/go/cid.dart' as cid;
+import 'package:p2p_ffi/p2p_ffi.dart';
 
 /// What the examples use: the context, an offline node with the sample
 /// folder added, and the CARv1 of that folder.

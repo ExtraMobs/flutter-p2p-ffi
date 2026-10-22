@@ -2,9 +2,9 @@
 // Go: github.com/ipld/go-ipld-prime/storage
 library;
 
-import 'package:ipfs_ffi/src/runtime.dart';
-import 'package:ipfs_ffi/go/car/v2/storage.dart' as $storage;
-import 'package:ipfs_ffi/go/ipld_prime/storage/bsadapter.dart' as $bsadapter;
+import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/car/v2/storage.dart' as $storage;
+import 'package:p2p_ffi/go/ipld_prime/storage/bsadapter.dart' as $bsadapter;
 
 /// Go: `storage.ReadableStorage` (handle).
 class ReadableStorage extends Storage {

@@ -2,8 +2,8 @@
 // Go: github.com/ipld/go-ipld-prime/linking/cid
 library;
 
-import 'package:ipfs_ffi/src/runtime.dart';
-import 'package:ipfs_ffi/go/ipld_prime/linking.dart' as $linking;
+import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/ipld_prime/linking.dart' as $linking;
 
 /// Go: `func cidlink.DefaultLinkSystem() linking.LinkSystem`.
 $linking.LinkSystem defaultLinkSystem() {

@@ -3,11 +3,10 @@
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:ipfs_ffi/go/bytes.dart' as bytes;
-import 'package:ipfs_ffi/go/io.dart' as io;
-import 'package:ipfs_ffi/go/os.dart' as os;
-import 'package:ipfs_ffi/ipfs_ffi.dart'
-    show GoHandleUse, P2pService, withGoScope;
+import 'package:p2p_ffi/go/bytes.dart' as bytes;
+import 'package:p2p_ffi/go/io.dart' as io;
+import 'package:p2p_ffi/go/os.dart' as os;
+import 'package:p2p_ffi/p2p_ffi.dart' show GoHandleUse, P2pService, withGoScope;
 
 int hostMb() {
   final pid = P2pService.hostPid;

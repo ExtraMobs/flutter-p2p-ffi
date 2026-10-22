@@ -2,8 +2,8 @@
 // Go: github.com/ipfs/boxo/filestore
 library;
 
-import 'package:ipfs_ffi/src/runtime.dart';
-import 'package:ipfs_ffi/go/cid.dart' as $cid;
+import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/cid.dart' as $cid;
 
 /// Go: `const filestore.StatusFileChanged filestore.Status`.
 const statusFileChanged = 12;

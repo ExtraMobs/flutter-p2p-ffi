@@ -11,8 +11,8 @@
 /// the `dag.g.dart` part.
 ///
 /// ```dart
-/// import 'package:ipfs_ffi/go/boxo/path.dart' as path;
-/// import 'package:ipfs_ffi/go/kubo/core/commands/dag.dart' as dag;
+/// import 'package:p2p_ffi/go/boxo/path.dart' as path;
+/// import 'package:p2p_ffi/go/kubo/core/commands/dag.dart' as dag;
 ///
 /// final c = await dag.dagPut(api, ctx, utf8.encode('{"a": 1}')); // dag-json → dag-cbor
 /// final json = await dag.dagGet(api, ctx, path.Path('/ipfs/$c/a'));
@@ -23,12 +23,12 @@ library;
 
 import 'dart:typed_data';
 
-import 'package:ipfs_ffi/go/boxo/path.dart' as $path;
-import 'package:ipfs_ffi/go/context.dart' as $context;
-import 'package:ipfs_ffi/go/kubo/core.dart' as $core;
-import 'package:ipfs_ffi/go/kubo/core/coreiface.dart' as $coreiface;
-import 'package:ipfs_ffi/go/cid.dart' as $cid;
-import 'package:ipfs_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/boxo/path.dart' as $path;
+import 'package:p2p_ffi/go/context.dart' as $context;
+import 'package:p2p_ffi/go/kubo/core.dart' as $core;
+import 'package:p2p_ffi/go/kubo/core/coreiface.dart' as $coreiface;
+import 'package:p2p_ffi/go/cid.dart' as $cid;
+import 'package:p2p_ffi/src/runtime.dart';
 
 part 'dag.g.dart';
 

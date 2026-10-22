@@ -2,15 +2,15 @@
 // Go: github.com/ipfs/boxo/gateway
 library;
 
-import 'package:ipfs_ffi/src/runtime.dart';
-import 'package:ipfs_ffi/go/boxo/blockservice.dart' as $blockservice;
-import 'package:ipfs_ffi/go/boxo/namesys.dart' as $namesys;
-import 'package:ipfs_ffi/go/boxo/path.dart' as $path;
-import 'package:ipfs_ffi/go/boxo/path/resolver.dart' as $resolver;
-import 'package:ipfs_ffi/go/cid.dart' as $cid;
-import 'package:ipfs_ffi/go/context.dart' as $context;
-import 'package:ipfs_ffi/go/io.dart' as $io;
-import 'package:ipfs_ffi/go/libp2p/core/routing.dart' as $routing;
+import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/boxo/blockservice.dart' as $blockservice;
+import 'package:p2p_ffi/go/boxo/namesys.dart' as $namesys;
+import 'package:p2p_ffi/go/boxo/path.dart' as $path;
+import 'package:p2p_ffi/go/boxo/path/resolver.dart' as $resolver;
+import 'package:p2p_ffi/go/cid.dart' as $cid;
+import 'package:p2p_ffi/go/context.dart' as $context;
+import 'package:p2p_ffi/go/io.dart' as $io;
+import 'package:p2p_ffi/go/libp2p/core/routing.dart' as $routing;
 
 /// Go: `gateway.BackendOption` (functional option; constructors in the package).
 final class BackendOption extends GoOption {

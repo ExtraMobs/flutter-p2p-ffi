@@ -8,11 +8,11 @@
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:ipfs_ffi/go/boxo/files.dart' as files;
-import 'package:ipfs_ffi/go/bytes.dart' as bytes;
-import 'package:ipfs_ffi/go/io.dart' as io;
-import 'package:ipfs_ffi/go/os.dart' as os;
-import 'package:ipfs_ffi/ipfs_ffi.dart';
+import 'package:p2p_ffi/go/boxo/files.dart' as files;
+import 'package:p2p_ffi/go/bytes.dart' as bytes;
+import 'package:p2p_ffi/go/io.dart' as io;
+import 'package:p2p_ffi/go/os.dart' as os;
+import 'package:p2p_ffi/p2p_ffi.dart';
 
 int hostRssMb() {
   final pid = P2pService.hostPid;
@@ -33,7 +33,7 @@ int hostRssMb() {
 }
 
 Future<void> main() async {
-  final tmp = Directory.systemTemp.createTempSync('ipfs_ffi_mem01_');
+  final tmp = Directory.systemTemp.createTempSync('p2p_ffi_mem01_');
   final big = '${tmp.path}/8mib.bin';
   File(big).writeAsBytesSync(Uint8List(8 << 20)); // 8 MiB
   await P2pService.start();

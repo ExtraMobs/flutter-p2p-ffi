@@ -1,5 +1,5 @@
-name: ipfs_ffi_android
-description: App de validação do ipfs_ffi no Android (nó IPFS do kubo via dart:ffi).
+name: p2p_ffi_android
+description: App de validação do p2p_ffi no Android (nó IPFS do kubo via dart:ffi).
 publish_to: 'none'
 version: 1.0.0+1
 
@@ -9,11 +9,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  ipfs_ffi:
+  p2p_ffi:
     path: ../..
   # o lado Android do pacote: segundo plano (para o serviço ou o mantém num
   # serviço em primeiro plano); registra-se sozinho
-  ipfs_ffi_flutter:
+  p2p_ffi_flutter:
     path: ../../flutter
 
 dev_dependencies:

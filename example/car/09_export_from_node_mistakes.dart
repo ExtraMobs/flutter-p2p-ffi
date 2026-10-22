@@ -4,12 +4,12 @@
 //   dart run example/car/09_export_from_node_mistakes.dart
 
 import 'sample.dart';
-import 'package:ipfs_ffi/go/boxo/path.dart' as boxo_path;
-import 'package:ipfs_ffi/go/car/v2.dart' as car;
-import 'package:ipfs_ffi/go/ipld_prime/storage/bsadapter.dart' as bsadapter;
-import 'package:ipfs_ffi/go/ipld_prime/traversal/selector/parse.dart' as parse;
-import 'package:ipfs_ffi/go/ipld_prime/linking/cid.dart' as cid;
-import 'package:ipfs_ffi/go/kubo/core/commands/dag.dart' as dag;
+import 'package:p2p_ffi/go/boxo/path.dart' as boxo_path;
+import 'package:p2p_ffi/go/car/v2.dart' as car;
+import 'package:p2p_ffi/go/ipld_prime/storage/bsadapter.dart' as bsadapter;
+import 'package:p2p_ffi/go/ipld_prime/traversal/selector/parse.dart' as parse;
+import 'package:p2p_ffi/go/ipld_prime/linking/cid.dart' as cid;
+import 'package:p2p_ffi/go/kubo/core/commands/dag.dart' as dag;
 
 Future<void> main() async {
   final s = await Sample.open();

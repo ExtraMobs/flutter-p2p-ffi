@@ -2,7 +2,7 @@
 // Go: github.com/ipfs/boxo/exchange
 library;
 
-import 'package:ipfs_ffi/src/runtime.dart';
+import 'package:p2p_ffi/src/runtime.dart';
 
 /// Go: `exchange.Fetcher` (handle).
 class Fetcher extends GoHandle {

@@ -2,10 +2,10 @@
 // Go: github.com/ipfs/kubo/core/coreapi
 library;
 
-import 'package:ipfs_ffi/src/runtime.dart';
-import 'package:ipfs_ffi/go/kubo/core.dart' as $core;
-import 'package:ipfs_ffi/go/kubo/core/coreiface.dart' as $coreiface;
-import 'package:ipfs_ffi/go/kubo/core/coreiface/options.dart' as $options;
+import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/kubo/core.dart' as $core;
+import 'package:p2p_ffi/go/kubo/core/coreiface.dart' as $coreiface;
+import 'package:p2p_ffi/go/kubo/core/coreiface/options.dart' as $options;
 
 /// Go: `func coreapi.NewCoreAPI(n *core.IpfsNode, opts ...options.ApiOption) (iface.CoreAPI, error)`.
 $coreiface.CoreApi newCoreApi($core.IpfsNode n,

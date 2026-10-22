@@ -2,7 +2,7 @@
 // Go: github.com/ipfs/kubo/core/commands/name
 library;
 
-import 'package:ipfs_ffi/src/runtime.dart';
+import 'package:p2p_ffi/src/runtime.dart';
 
 /// Go: `name.IpnsInspectResult` (a kubo command output).
 final class IpnsInspectResult {

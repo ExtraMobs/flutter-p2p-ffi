@@ -2,7 +2,7 @@
 // Go: github.com/ipfs/go-ipfs-cmds
 library;
 
-import 'package:ipfs_ffi/src/runtime.dart';
+import 'package:p2p_ffi/src/runtime.dart';
 
 /// Go: `const cmds.Active cmds.Status`.
 const active = 0;

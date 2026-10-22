@@ -2,8 +2,8 @@
 // Go: github.com/ipfs/kubo/core/node/libp2p
 library;
 
-import 'package:ipfs_ffi/src/runtime.dart';
-import 'package:ipfs_ffi/go/kubo/config.dart' as $config;
+import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/kubo/config.dart' as $config;
 
 /// Go: `libp2p.HostOption` (handle).
 class HostOption extends GoHandle {

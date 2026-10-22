@@ -1,7 +1,7 @@
-# ipfs_ffi_android
+# p2p_ffi_android
 
-A minimal Flutter app that validates `ipfs_ffi` on Android (the final milestone of the
-roadmap, steps A1–A6 in `../../TODO.md`). The `ipfs_ffi` package stays pure Dart; only this
+A minimal Flutter app that validates `p2p_ffi` on Android (the final milestone of the
+roadmap, steps A1–A6 in `../../TODO.md`). The `p2p_ffi` package stays pure Dart; only this
 app uses Flutter.
 
 ```sh

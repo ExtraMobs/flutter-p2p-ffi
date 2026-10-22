@@ -1,6 +1,6 @@
-# ipfs_ffi_flutter
+# p2p_ffi_flutter
 
-Android side of [`ipfs_ffi`](..). The IPFS node runs in the `ipfs_host`, a child
+Android side of [`p2p_ffi`](..). The IPFS node runs in the `ipfs_host`, a child
 process of the app. On Android 12+ the system kills a child process that uses CPU
 while its app is in the background, and the app with it. This plugin handles the
 background according to `P2pService.background`, which is read whenever the service
@@ -20,34 +20,34 @@ starts (`start`/`restart`):
 
 ```yaml
 dependencies:
-  ipfs_ffi:
+  p2p_ffi:
     path: <repository root>
-  ipfs_ffi_flutter:
+  p2p_ffi_flutter:
     path: <repository root>/flutter
 ```
 
 ```dart
 P2pService.background = P2pBackground.foregroundService; // or keep the default
-IpfsFfiFlutter.notification = const IpfsNotification(
+P2pFfiFlutter.notification = const P2pNotification(
     title: 'My app', text: 'connecting...', icon: 'ic_stat_ipfs', // res/drawable
     channelName: 'IPFS node');
-await IpfsFfiFlutter.requestNotificationPermission(); // Android 13+
+await P2pFfiFlutter.requestNotificationPermission(); // Android 13+
 await P2pService.start(onStop: (stop) { /* crash or background */ });
 // while it runs, from the background too:
-await IpfsFfiFlutter.updateNotification(
-    IpfsFfiFlutter.notification.copyWith(text: 'online: $n peers'));
+await P2pFfiFlutter.updateNotification(
+    P2pFfiFlutter.notification.copyWith(text: 'online: $n peers'));
 ```
 
-The notification is the app's: `IpfsNotification` sets its title, text, sub text,
+The notification is the app's: `P2pNotification` sets its title, text, sub text,
 small icon (a drawable or mipmap name; the app icon by default), channel (id, name,
 description, importance: Android fixes a channel's importance when it is first
 created) and whether a tap opens the app. For full control (actions, styles, custom
 layouts) register a native builder before the service starts; the channel is already
-created and `config` holds the `IpfsNotification` fields plus `extras` (free strings
+created and `config` holds the `P2pNotification` fields plus `extras` (free strings
 from Dart):
 
 ```kotlin
-IpfsForegroundService.setNotificationFactory { context, channelId, config ->
+P2pForegroundService.setNotificationFactory { context, channelId, config ->
     Notification.Builder(context, channelId)
         .setContentTitle(config.getString("title"))
         .setSmallIcon(R.drawable.ic_stat_ipfs)
@@ -55,7 +55,7 @@ IpfsForegroundService.setNotificationFactory { context, channelId, config ->
 }
 ```
 
-There is nothing to register: Flutter calls `IpfsFfiFlutter.registerWith()` when the
+There is nothing to register: Flutter calls `P2pFfiFlutter.registerWith()` when the
 app starts. The plugin's manifest adds `FOREGROUND_SERVICE`,
 `FOREGROUND_SERVICE_SPECIAL_USE` and `POST_NOTIFICATIONS`. On Android 13+ the app
 asks for the notification permission (`requestNotificationPermission()` shows the

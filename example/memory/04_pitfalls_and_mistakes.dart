@@ -1,16 +1,16 @@
 // Memory 04 · Pitfalls and mistakes to avoid.
 //
 // What: each mistake below is made on purpose to show the exact exception
-// thrown by ipfs_ffi and the right way to write the code.
+// thrown by p2p_ffi and the right way to write the code.
 //
 //   dart run example/memory/04_pitfalls_and_mistakes.dart
 import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:ipfs_ffi/go/bytes.dart' as bytes;
-import 'package:ipfs_ffi/go/os.dart' as os;
-import 'package:ipfs_ffi/ipfs_ffi.dart';
+import 'package:p2p_ffi/go/bytes.dart' as bytes;
+import 'package:p2p_ffi/go/os.dart' as os;
+import 'package:p2p_ffi/p2p_ffi.dart';
 
 Future<void> mustFail(
   String what, {
@@ -30,7 +30,7 @@ Future<void> mustFail(
 }
 
 Future<void> main() async {
-  final tmp = Directory.systemTemp.createTempSync('ipfs_ffi_mem04_');
+  final tmp = Directory.systemTemp.createTempSync('p2p_ffi_mem04_');
   await P2pService.start();
   try {
     // 1. Calling a method on a handle after .release()

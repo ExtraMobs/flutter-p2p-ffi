@@ -12,20 +12,20 @@
 //
 //   dart run example/car/06_create_from_files.dart
 import 'dart:io';
-import 'package:ipfs_ffi/go/boxo/ipld/unixfs/io.dart' as io;
-import 'package:ipfs_ffi/go/boxo/ipld/unixfs/importer.dart' as importer;
-import 'package:ipfs_ffi/go/boxo/exchange/offline.dart' as offline;
-import 'package:ipfs_ffi/go/boxo/ipld/merkledag.dart' as merkledag;
-import 'package:ipfs_ffi/go/boxo/files.dart' as files;
-import 'package:ipfs_ffi/go/boxo/chunker.dart' as chunker;
-import 'package:ipfs_ffi/go/boxo/blockservice.dart' as blockservice;
-import 'package:ipfs_ffi/go/car/v2/blockstore.dart' as blockstore;
-import 'package:ipfs_ffi/go/car/v2.dart' as car;
-import 'package:ipfs_ffi/go/os.dart' as os;
-import 'package:ipfs_ffi/go/ipld_format.dart' as ipld_format;
-import 'package:ipfs_ffi/go/kubo/core/commands/dag.dart' as dag;
-import 'package:ipfs_ffi/go/kubo/core/coreiface/options.dart' as options;
-import 'package:ipfs_ffi/go/cid.dart' as cid;
+import 'package:p2p_ffi/go/boxo/ipld/unixfs/io.dart' as io;
+import 'package:p2p_ffi/go/boxo/ipld/unixfs/importer.dart' as importer;
+import 'package:p2p_ffi/go/boxo/exchange/offline.dart' as offline;
+import 'package:p2p_ffi/go/boxo/ipld/merkledag.dart' as merkledag;
+import 'package:p2p_ffi/go/boxo/files.dart' as files;
+import 'package:p2p_ffi/go/boxo/chunker.dart' as chunker;
+import 'package:p2p_ffi/go/boxo/blockservice.dart' as blockservice;
+import 'package:p2p_ffi/go/car/v2/blockstore.dart' as blockstore;
+import 'package:p2p_ffi/go/car/v2.dart' as car;
+import 'package:p2p_ffi/go/os.dart' as os;
+import 'package:p2p_ffi/go/ipld_format.dart' as ipld_format;
+import 'package:p2p_ffi/go/kubo/core/commands/dag.dart' as dag;
+import 'package:p2p_ffi/go/kubo/core/coreiface/options.dart' as options;
+import 'package:p2p_ffi/go/cid.dart' as cid;
 import 'dart:typed_data';
 
 import 'sample.dart';

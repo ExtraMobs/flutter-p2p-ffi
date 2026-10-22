@@ -4,12 +4,12 @@
 // What: write your own blocks (bytes you produced) into a new CAR file.
 // When: packaging data that did not come from IPFS (records, messages,
 // objects) to hand to someone or to import later.
-import 'package:ipfs_ffi/go/boxo/path.dart' as path;
-import 'package:ipfs_ffi/go/car/v2/blockstore.dart' as blockstore;
-import 'package:ipfs_ffi/go/car/v2.dart' as car;
-import 'package:ipfs_ffi/go/block_format.dart' as block_format;
-import 'package:ipfs_ffi/go/kubo/core/commands/dag.dart' as dag;
-import 'package:ipfs_ffi/go/cid.dart' as cid;
+import 'package:p2p_ffi/go/boxo/path.dart' as path;
+import 'package:p2p_ffi/go/car/v2/blockstore.dart' as blockstore;
+import 'package:p2p_ffi/go/car/v2.dart' as car;
+import 'package:p2p_ffi/go/block_format.dart' as block_format;
+import 'package:p2p_ffi/go/kubo/core/commands/dag.dart' as dag;
+import 'package:p2p_ffi/go/cid.dart' as cid;
 // Kubo: store IPLD objects in the node (`ipfs dag put`) and export them
 // (`ipfs dag export`).
 // Low level: go-car's read-write blockstore; each CID is computed in Go from

@@ -2,7 +2,7 @@
 // Go: io/fs
 library;
 
-import 'package:ipfs_ffi/src/runtime.dart';
+import 'package:p2p_ffi/src/runtime.dart';
 
 /// Go: `fs.FileInfo` (handle).
 class FileInfo extends GoHandle {

@@ -2,17 +2,17 @@
 // Go: github.com/ipfs/kubo/core
 library;
 
-import 'package:ipfs_ffi/src/runtime.dart';
-import 'package:ipfs_ffi/go/boxo/blockservice.dart' as $blockservice;
-import 'package:ipfs_ffi/go/boxo/blockstore.dart' as $blockstore;
-import 'package:ipfs_ffi/go/boxo/exchange.dart' as $exchange;
-import 'package:ipfs_ffi/go/boxo/mfs.dart' as $mfs;
-import 'package:ipfs_ffi/go/boxo/peering.dart' as $peering;
-import 'package:ipfs_ffi/go/context.dart' as $context;
-import 'package:ipfs_ffi/go/kubo/core/node.dart' as $node;
-import 'package:ipfs_ffi/go/kubo/repo.dart' as $repo;
-import 'package:ipfs_ffi/go/libp2p/core/host.dart' as $host;
-import 'package:ipfs_ffi/go/libp2p/core/network.dart' as $network;
+import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/boxo/blockservice.dart' as $blockservice;
+import 'package:p2p_ffi/go/boxo/blockstore.dart' as $blockstore;
+import 'package:p2p_ffi/go/boxo/exchange.dart' as $exchange;
+import 'package:p2p_ffi/go/boxo/mfs.dart' as $mfs;
+import 'package:p2p_ffi/go/boxo/peering.dart' as $peering;
+import 'package:p2p_ffi/go/context.dart' as $context;
+import 'package:p2p_ffi/go/kubo/core/node.dart' as $node;
+import 'package:p2p_ffi/go/kubo/repo.dart' as $repo;
+import 'package:p2p_ffi/go/libp2p/core/host.dart' as $host;
+import 'package:p2p_ffi/go/libp2p/core/network.dart' as $network;
 
 /// Go: `core.IpfsNode` (handle).
 class IpfsNode extends GoHandle {

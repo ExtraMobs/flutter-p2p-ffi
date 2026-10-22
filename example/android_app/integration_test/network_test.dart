@@ -7,17 +7,17 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
-import 'package:ipfs_ffi/go/context.dart' as context;
-import 'package:ipfs_ffi/go/kubo/core/coreapi.dart' as coreapi;
-import 'package:ipfs_ffi/ipfs_ffi.dart' show P2pService;
-import 'package:ipfs_ffi_android/checks.dart';
-import 'package:ipfs_ffi_android/main.dart' show prepare, startNode;
+import 'package:p2p_ffi/go/context.dart' as context;
+import 'package:p2p_ffi/go/kubo/core/coreapi.dart' as coreapi;
+import 'package:p2p_ffi/p2p_ffi.dart' show P2pService;
+import 'package:p2p_ffi_android/checks.dart';
+import 'package:p2p_ffi_android/main.dart' show prepare, startNode;
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   test('network and reachability', () async {
-    final tmp = Directory.systemTemp.createTempSync('ipfs_ffi_net_');
+    final tmp = Directory.systemTemp.createTempSync('p2p_ffi_net_');
     await prepare('${tmp.path}/repo', '${tmp.path}/crash.log');
     final online = Stopwatch()..start();
     final n = await startNode(context.background(), '${tmp.path}/repo');

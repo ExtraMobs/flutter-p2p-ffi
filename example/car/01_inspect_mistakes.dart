@@ -4,7 +4,7 @@
 //
 //   dart run example/car/01_inspect_mistakes.dart
 import 'dart:io';
-import 'package:ipfs_ffi/go/car/v2.dart' as car;
+import 'package:p2p_ffi/go/car/v2.dart' as car;
 
 import 'sample.dart';
 

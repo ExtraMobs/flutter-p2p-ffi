@@ -43,7 +43,7 @@ const (
 // errCallbackStopped: o que um callback `func(...) error` devolve ao Go
 // quando o Dart parou; a chamada termina com ele, e o Dart o troca pelo que
 // aconteceu do lado dele.
-var errCallbackStopped = errors.New("ipfs_ffi: the Dart callback stopped the iteration")
+var errCallbackStopped = errors.New("p2p_ffi: the Dart callback stopped the iteration")
 
 // callback: o lado Go de um callback do Dart numa chamada em curso.
 type callback struct {

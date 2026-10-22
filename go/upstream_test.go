@@ -1,6 +1,6 @@
 package main
 
-// Bugs do kubo/boxo que o ipfs_ffi corrige por patch no build (tool/build.dart,
+// Bugs do kubo/boxo que o p2p_ffi corrige por patch no build (tool/build.dart,
 // "patches"; README, "Build" › "Upstream patches"). Estes testes rodam contra os
 // módulos sem patch (o go.mod) e afirmam o bug como ele é: quando uma versão
 // nova o corrigir, o teste falha, e o patch e a nota do README saem.
@@ -92,7 +92,7 @@ func TestUpstreamKuboNilRoutingKeystoreLeak(t *testing.T) {
 	ctx := context.Background()
 	// não t.TempDir(): o datastore que vaza segue aberto e, no Windows, a
 	// limpeza do TempDir falharia o teste
-	dir, err := os.MkdirTemp("", "ipfs_ffi_upstream_")
+	dir, err := os.MkdirTemp("", "p2p_ffi_upstream_")
 	if err != nil {
 		t.Fatal(err)
 	}

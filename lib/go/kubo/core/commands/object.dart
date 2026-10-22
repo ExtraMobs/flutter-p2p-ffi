@@ -2,8 +2,8 @@
 // Go: github.com/ipfs/kubo/core/commands/object
 library;
 
-import 'package:ipfs_ffi/src/runtime.dart';
-import 'package:ipfs_ffi/go/boxo/ipld/merkledag/dagutils.dart' as $dagutils;
+import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/boxo/ipld/merkledag/dagutils.dart' as $dagutils;
 
 /// Go: `objectcmd.Changes` (a kubo command output).
 final class Changes {

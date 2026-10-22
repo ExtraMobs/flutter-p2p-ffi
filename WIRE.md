@@ -1,6 +1,6 @@
 # The service protocol
 
-`ipfs_ffi` runs kubo **only** in a separate process, the `ipfs_host` (this package's Go
+`p2p_ffi` runs kubo **only** in a separate process, the `ipfs_host` (this package's Go
 built as an executable). An unhandled kubo panic stops that process, never the app: the
 app gets `P2pServiceException` and decides whether to restart the service. The app does
 not load Go; it loads only the `ipfs_shm` (C), its side of the channel.

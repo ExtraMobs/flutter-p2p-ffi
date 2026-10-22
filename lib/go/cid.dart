@@ -4,7 +4,7 @@ library;
 
 import 'dart:typed_data';
 
-import 'package:ipfs_ffi/src/runtime.dart';
+import 'package:p2p_ffi/src/runtime.dart';
 
 /// Go: `cid.Builder` (handle).
 class Builder extends GoHandle {

@@ -4,9 +4,9 @@ library;
 
 import 'dart:async';
 
-import 'package:ipfs_ffi/src/runtime.dart';
-import 'package:ipfs_ffi/go/ipld_prime/datamodel.dart' as $datamodel;
-import 'package:ipfs_ffi/go/ipld_prime/traversal/selector.dart' as $selector;
+import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/ipld_prime/datamodel.dart' as $datamodel;
+import 'package:p2p_ffi/go/ipld_prime/traversal/selector.dart' as $selector;
 
 /// Go: `builder.ExploreFieldsSpecBuilder` (handle).
 class ExploreFieldsSpecBuilder extends GoHandle {

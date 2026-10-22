@@ -2,8 +2,8 @@
 // Go: github.com/ipld/go-codec-dagpb
 library;
 
-import 'package:ipfs_ffi/src/runtime.dart';
-import 'package:ipfs_ffi/go/ipld_prime/traversal.dart' as $traversal;
+import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/ipld_prime/traversal.dart' as $traversal;
 
 /// Go: `func dagpb.AddSupportToChooser(existing traversal.LinkTargetNodePrototypeChooser) traversal.LinkTargetNodePrototypeChooser`.
 $traversal.LinkTargetNodePrototypeChooser addSupportToChooser(

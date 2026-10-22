@@ -11,15 +11,15 @@
 //
 //   dart run example/car/07_extract_files.dart
 import 'dart:io';
-import 'package:ipfs_ffi/go/boxo/path.dart' as path;
-import 'package:ipfs_ffi/go/boxo/exchange/offline.dart' as offline;
-import 'package:ipfs_ffi/go/boxo/ipld/merkledag.dart' as merkledag;
-import 'package:ipfs_ffi/go/boxo/ipld/unixfs/file.dart' as file;
-import 'package:ipfs_ffi/go/boxo/files.dart' as files;
-import 'package:ipfs_ffi/go/boxo/blockservice.dart' as blockservice;
-import 'package:ipfs_ffi/go/car/v2/blockstore.dart' as blockstore;
-import 'package:ipfs_ffi/go/kubo/core/commands/dag.dart' as dag;
-import 'package:ipfs_ffi/go/kubo/core/coreapi.dart' as coreapi;
+import 'package:p2p_ffi/go/boxo/path.dart' as path;
+import 'package:p2p_ffi/go/boxo/exchange/offline.dart' as offline;
+import 'package:p2p_ffi/go/boxo/ipld/merkledag.dart' as merkledag;
+import 'package:p2p_ffi/go/boxo/ipld/unixfs/file.dart' as file;
+import 'package:p2p_ffi/go/boxo/files.dart' as files;
+import 'package:p2p_ffi/go/boxo/blockservice.dart' as blockservice;
+import 'package:p2p_ffi/go/car/v2/blockstore.dart' as blockstore;
+import 'package:p2p_ffi/go/kubo/core/commands/dag.dart' as dag;
+import 'package:p2p_ffi/go/kubo/core/coreapi.dart' as coreapi;
 
 import 'sample.dart';
 

@@ -5,9 +5,8 @@
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:ipfs_ffi/go/car/v2.dart' as car;
-import 'package:ipfs_ffi/ipfs_ffi.dart'
-    show GolangEofException, GolangException;
+import 'package:p2p_ffi/go/car/v2.dart' as car;
+import 'package:p2p_ffi/p2p_ffi.dart' show GolangEofException, GolangException;
 
 import 'sample.dart';
 

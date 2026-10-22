@@ -10,9 +10,9 @@
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:ipfs_ffi/go/car/v2.dart' as car;
-import 'package:ipfs_ffi/go/kubo/core/commands/dag.dart' as dag;
-import 'package:ipfs_ffi/ipfs_ffi.dart' show GolangException;
+import 'package:p2p_ffi/go/car/v2.dart' as car;
+import 'package:p2p_ffi/go/kubo/core/commands/dag.dart' as dag;
+import 'package:p2p_ffi/p2p_ffi.dart' show GolangException;
 
 import 'sample.dart';
 

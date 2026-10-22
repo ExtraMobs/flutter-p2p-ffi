@@ -6,42 +6,41 @@
 import 'dart:io' show Directory, File;
 import 'dart:typed_data';
 
-import 'package:ipfs_ffi/go/boxo/gateway.dart' as gateway;
-import 'package:ipfs_ffi/go/boxo/path.dart' as path;
-import 'package:ipfs_ffi/go/boxo/fetcher/impl/blockservice.dart'
-    as blockservice;
-import 'package:ipfs_ffi/go/boxo/files.dart' as files;
-import 'package:ipfs_ffi/go/car/v2.dart' as car;
-import 'package:ipfs_ffi/go/car/v2/index.dart' as index;
-import 'package:ipfs_ffi/go/car/v2/blockstore.dart' as blockstore;
-import 'package:ipfs_ffi/go/car/v2/storage.dart' as storage;
-import 'package:ipfs_ffi/go/bytes.dart' as go_bytes;
-import 'package:ipfs_ffi/go/context.dart' as context;
-import 'package:ipfs_ffi/go/os.dart' as os;
-import 'package:ipfs_ffi/go/io.dart' as io;
-import 'package:ipfs_ffi/go/ipld_prime/storage/bsadapter.dart' as bsadapter;
-import 'package:ipfs_ffi/go/block_format.dart' as block_format;
-import 'package:ipfs_ffi/go/ipld_prime/linking.dart' as linking;
-import 'package:ipfs_ffi/go/ipld_prime/node/basicnode.dart' as basicnode;
-import 'package:ipfs_ffi/go/ipld_prime/traversal/selector/builder.dart'
+import 'package:p2p_ffi/go/boxo/gateway.dart' as gateway;
+import 'package:p2p_ffi/go/boxo/path.dart' as path;
+import 'package:p2p_ffi/go/boxo/fetcher/impl/blockservice.dart' as blockservice;
+import 'package:p2p_ffi/go/boxo/files.dart' as files;
+import 'package:p2p_ffi/go/car/v2.dart' as car;
+import 'package:p2p_ffi/go/car/v2/index.dart' as index;
+import 'package:p2p_ffi/go/car/v2/blockstore.dart' as blockstore;
+import 'package:p2p_ffi/go/car/v2/storage.dart' as storage;
+import 'package:p2p_ffi/go/bytes.dart' as go_bytes;
+import 'package:p2p_ffi/go/context.dart' as context;
+import 'package:p2p_ffi/go/os.dart' as os;
+import 'package:p2p_ffi/go/io.dart' as io;
+import 'package:p2p_ffi/go/ipld_prime/storage/bsadapter.dart' as bsadapter;
+import 'package:p2p_ffi/go/block_format.dart' as block_format;
+import 'package:p2p_ffi/go/ipld_prime/linking.dart' as linking;
+import 'package:p2p_ffi/go/ipld_prime/node/basicnode.dart' as basicnode;
+import 'package:p2p_ffi/go/ipld_prime/traversal/selector/builder.dart'
     as builder;
-import 'package:ipfs_ffi/go/codec_dagpb.dart' as codec_dagpb;
-import 'package:ipfs_ffi/go/unixfsnode.dart' as unixfsnode;
-import 'package:ipfs_ffi/go/ipld_prime/traversal/selector/parse.dart' as parse;
-import 'package:ipfs_ffi/go/ipld_prime/linking/cid.dart' as cid;
-import 'package:ipfs_ffi/go/ipld_prime/traversal/selector.dart' as selector;
-import 'package:ipfs_ffi/go/kubo/core/node.dart' as node;
-import 'package:ipfs_ffi/go/kubo/core/coreiface.dart' as coreiface;
-import 'package:ipfs_ffi/go/kubo/core.dart' as core;
-import 'package:ipfs_ffi/go/kubo/plugin/loader.dart' as loader;
-import 'package:ipfs_ffi/go/kubo/config.dart' as config;
-import 'package:ipfs_ffi/go/kubo/core/commands/dag.dart' as dag;
-import 'package:ipfs_ffi/go/kubo/repo/fsrepo.dart' as fsrepo;
-import 'package:ipfs_ffi/go/kubo/core/coreiface/options.dart' as options;
-import 'package:ipfs_ffi/go/kubo/core/coreapi.dart' as coreapi;
-import 'package:ipfs_ffi/go/cid.dart' as go_cid;
-import 'package:ipfs_ffi/go/multicodec.dart' as multicodec;
-import 'package:ipfs_ffi/ipfs_ffi.dart';
+import 'package:p2p_ffi/go/codec_dagpb.dart' as codec_dagpb;
+import 'package:p2p_ffi/go/unixfsnode.dart' as unixfsnode;
+import 'package:p2p_ffi/go/ipld_prime/traversal/selector/parse.dart' as parse;
+import 'package:p2p_ffi/go/ipld_prime/linking/cid.dart' as cid;
+import 'package:p2p_ffi/go/ipld_prime/traversal/selector.dart' as selector;
+import 'package:p2p_ffi/go/kubo/core/node.dart' as node;
+import 'package:p2p_ffi/go/kubo/core/coreiface.dart' as coreiface;
+import 'package:p2p_ffi/go/kubo/core.dart' as core;
+import 'package:p2p_ffi/go/kubo/plugin/loader.dart' as loader;
+import 'package:p2p_ffi/go/kubo/config.dart' as config;
+import 'package:p2p_ffi/go/kubo/core/commands/dag.dart' as dag;
+import 'package:p2p_ffi/go/kubo/repo/fsrepo.dart' as fsrepo;
+import 'package:p2p_ffi/go/kubo/core/coreiface/options.dart' as options;
+import 'package:p2p_ffi/go/kubo/core/coreapi.dart' as coreapi;
+import 'package:p2p_ffi/go/cid.dart' as go_cid;
+import 'package:p2p_ffi/go/multicodec.dart' as multicodec;
+import 'package:p2p_ffi/p2p_ffi.dart';
 import 'package:test/test.dart';
 
 const dagPb = 0x70, raw = 0x55, sha256 = 0x12;
@@ -56,7 +55,7 @@ void main() {
   late coreiface.CoreApi api;
 
   setUpAll(() async {
-    tmp = Directory.systemTemp.createTempSync('ipfs_ffi_car_');
+    tmp = Directory.systemTemp.createTempSync('p2p_ffi_car_');
     await P2pService.start();
     ctx = context.background();
     loader.PluginLoader('')

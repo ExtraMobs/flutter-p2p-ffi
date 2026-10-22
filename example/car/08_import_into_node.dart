@@ -10,12 +10,12 @@
 // blockstore (boxo), then pin the root through the CoreAPI.
 //
 //   dart run example/car/08_import_into_node.dart
-import 'package:ipfs_ffi/go/boxo/path.dart' as boxo_path;
-import 'package:ipfs_ffi/go/car/v2.dart' as car;
-import 'package:ipfs_ffi/go/os.dart' as os;
-import 'package:ipfs_ffi/go/kubo/core/commands/dag.dart' as dag;
-import 'package:ipfs_ffi/go/kubo/core/coreapi.dart' as coreapi;
-import 'package:ipfs_ffi/ipfs_ffi.dart' show GolangEofException;
+import 'package:p2p_ffi/go/boxo/path.dart' as boxo_path;
+import 'package:p2p_ffi/go/car/v2.dart' as car;
+import 'package:p2p_ffi/go/os.dart' as os;
+import 'package:p2p_ffi/go/kubo/core/commands/dag.dart' as dag;
+import 'package:p2p_ffi/go/kubo/core/coreapi.dart' as coreapi;
+import 'package:p2p_ffi/p2p_ffi.dart' show GolangEofException;
 
 import 'sample.dart';
 

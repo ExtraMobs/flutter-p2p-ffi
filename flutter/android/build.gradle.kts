@@ -1,4 +1,4 @@
-group = "dev.extramobs.ipfs_ffi_flutter"
+group = "dev.extramobs.p2p_ffi_flutter"
 version = "0.20.0"
 
 buildscript {
@@ -28,7 +28,7 @@ plugins {
 // The Kotlin sources are compiled by AGP's built-in Kotlin (android.builtInKotlin
 // in the app) or, with it off, by the Kotlin plugin Flutter applies.
 extensions.configure<com.android.build.api.dsl.LibraryExtension> {
-    namespace = "dev.extramobs.ipfs_ffi_flutter"
+    namespace = "dev.extramobs.p2p_ffi_flutter"
 
     // FOREGROUND_SERVICE_TYPE_SPECIAL_USE: API 34
     compileSdk = 36

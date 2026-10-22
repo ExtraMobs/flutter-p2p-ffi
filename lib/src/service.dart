@@ -50,7 +50,7 @@ export 'shm.dart' show p2pShmLibraryPath;
 const _fnHello = 4;
 
 /// What happens to the service when the app goes to the background (only
-/// matters on Android, with the `ipfs_ffi_flutter` plugin).
+/// matters on Android, with the `p2p_ffi_flutter` plugin).
 enum P2pBackground {
   /// The package stops the service (the host exits) and reports it in
   /// `onStop` with [P2pStopReason.background]; starting it again is up to
@@ -63,7 +63,7 @@ enum P2pBackground {
   foregroundService,
 }
 
-/// The platform side (on Android, the `ipfs_ffi_flutter` plugin installs its
+/// The platform side (on Android, the `p2p_ffi_flutter` plugin installs its
 /// own when the app opens): notified when the service starts and when it
 /// stops.
 abstract interface class P2pPlatform {
@@ -141,7 +141,7 @@ abstract final class P2pService {
   /// the service is up takes effect on the next start.
   static P2pBackground background = P2pBackground.stop;
 
-  /// The platform side; on Android, the `ipfs_ffi_flutter` plugin installs it
+  /// The platform side; on Android, the `p2p_ffi_flutter` plugin installs it
   /// when the app opens. Without it the package does not know about the
   /// background (an app without Flutter can call [appInBackground] itself).
   static P2pPlatform? platform;
@@ -200,7 +200,7 @@ abstract final class P2pService {
         Platform.isAndroid &&
         platform == null) {
       throw StateError('P2pBackground.foregroundService on Android requires '
-          'the ipfs_ffi_flutter plugin in the app');
+          'the p2p_ffi_flutter plugin in the app');
     }
     final p = _params!;
     if (p.crashLog case final f?) {
@@ -272,7 +272,7 @@ abstract final class P2pService {
   /// `onStop` with [P2pStopReason.background]; pending calls fail with that
   /// reason and [restart] starts it again. In
   /// [P2pBackground.foregroundService], or without a service, does nothing.
-  /// The `ipfs_ffi_flutter` plugin calls it on its own.
+  /// The `p2p_ffi_flutter` plugin calls it on its own.
   static Future<void> appInBackground() async {
     final ch = _ch;
     if (ch == null || !isRunning || _mode != P2pBackground.stop) return;

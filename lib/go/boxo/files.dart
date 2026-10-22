@@ -4,9 +4,9 @@ library;
 
 import 'dart:typed_data';
 
-import 'package:ipfs_ffi/src/runtime.dart';
-import 'package:ipfs_ffi/go/io.dart' as $io;
-import 'package:ipfs_ffi/go/io/fs.dart' as $fs;
+import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/io.dart' as $io;
+import 'package:p2p_ffi/go/io/fs.dart' as $fs;
 
 /// Go: `files.File` (handle).
 class File extends Node {

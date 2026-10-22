@@ -1,12 +1,12 @@
 // CAR 08 · import into a node: what not to do. The right way:
-import 'package:ipfs_ffi/go/car/v2/blockstore.dart' as blockstore;
-import 'package:ipfs_ffi/go/car/v2.dart' as car;
-import 'package:ipfs_ffi/go/ipld_prime/storage/bsadapter.dart' as bsadapter;
-import 'package:ipfs_ffi/go/block_format.dart' as block_format;
-import 'package:ipfs_ffi/go/ipld_prime/traversal/selector/parse.dart' as parse;
-import 'package:ipfs_ffi/go/ipld_prime/linking/cid.dart' as cid;
-import 'package:ipfs_ffi/go/kubo/core/commands/dag.dart' as dag;
-import 'package:ipfs_ffi/go/cid.dart' as go_cid;
+import 'package:p2p_ffi/go/car/v2/blockstore.dart' as blockstore;
+import 'package:p2p_ffi/go/car/v2.dart' as car;
+import 'package:p2p_ffi/go/ipld_prime/storage/bsadapter.dart' as bsadapter;
+import 'package:p2p_ffi/go/block_format.dart' as block_format;
+import 'package:p2p_ffi/go/ipld_prime/traversal/selector/parse.dart' as parse;
+import 'package:p2p_ffi/go/ipld_prime/linking/cid.dart' as cid;
+import 'package:p2p_ffi/go/kubo/core/commands/dag.dart' as dag;
+import 'package:p2p_ffi/go/cid.dart' as go_cid;
 // 08_import_into_node.dart.
 //
 //   dart run example/car/08_import_into_node_mistakes.dart

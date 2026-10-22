@@ -3,9 +3,8 @@
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:ipfs_ffi/ipfs_ffi.dart'
-    show GolangException, P2pServiceException;
-import 'package:ipfs_ffi/src/shm.dart';
+import 'package:p2p_ffi/p2p_ffi.dart' show GolangException, P2pServiceException;
+import 'package:p2p_ffi/src/shm.dart';
 import 'package:test/test.dart';
 
 final hostPath =

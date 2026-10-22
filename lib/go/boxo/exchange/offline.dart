@@ -2,9 +2,9 @@
 // Go: github.com/ipfs/boxo/exchange/offline
 library;
 
-import 'package:ipfs_ffi/src/runtime.dart';
-import 'package:ipfs_ffi/go/boxo/blockstore.dart' as $blockstore;
-import 'package:ipfs_ffi/go/boxo/exchange.dart' as $exchange;
+import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/boxo/blockstore.dart' as $blockstore;
+import 'package:p2p_ffi/go/boxo/exchange.dart' as $exchange;
 
 /// Go: `func offline.Exchange(bs blockstore.Blockstore) exchange.Interface`.
 $exchange.Interface exchange($blockstore.Blockstore bs) {

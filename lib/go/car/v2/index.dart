@@ -5,8 +5,8 @@ library;
 import 'dart:async';
 import 'dart:typed_data';
 
-import 'package:ipfs_ffi/src/runtime.dart';
-import 'package:ipfs_ffi/go/cid.dart' as $cid;
+import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/cid.dart' as $cid;
 
 /// Go: `index.Index` (handle).
 class Index extends GoHandle {

@@ -44,7 +44,7 @@ const upstreamPatches = <String, Map<String, Map<String, String>>>{
 		// ProtoNode can be directly passed to trickle.Append
 ''': r'''	switch nd := nd.(type) {
 	case *mdag.ProtoNode:
-		// ipfs_ffi (tool/build.dart): a leaf that keeps its file data inline
+		// p2p_ffi (tool/build.dart): a leaf that keeps its file data inline
 		// (a small file) would become an internal node in trickle.Append,
 		// and readers skip the data of internal nodes: move it into a first
 		// leaf, as the RawNode case below does.
@@ -55,7 +55,7 @@ const upstreamPatches = <String, Map<String, Map<String, String>>>{
 		// ProtoNode can be directly passed to trickle.Append
 ''',
       r'''func (dm *DagModifier) appendData(nd ipld.Node, spl chunker.Splitter) (ipld.Node, error) {
-''': r'''// inlineDataToLeaf: ipfs_ffi (tool/build.dart), see appendData. A file node
+''': r'''// inlineDataToLeaf: p2p_ffi (tool/build.dart), see appendData. A file node
 // without links whose data is inline becomes a node with that data as its
 // only leaf (raw if RawLeaves), keeping mode and mtime.
 func (dm *DagModifier) inlineDataToLeaf(nd *mdag.ProtoNode, dagserv ipld.DAGService) (*mdag.ProtoNode, error) {
@@ -110,7 +110,7 @@ func (dm *DagModifier) appendData(nd ipld.Node, spl chunker.Splitter) (ipld.Node
 			return &NoopProvider{}, nil, nil
 		}
 ''': r'''		if impl == nil {
-			// ipfs_ffi (tool/build.dart): no DHT to provide with; the
+			// p2p_ffi (tool/build.dart): no DHT to provide with; the
 			// keystore opened above goes unused and nothing closes it (the
 			// shutdown hooks skip the NoopProvider), leaving its datastore
 			// locked: reopening the repo in the same process fails.

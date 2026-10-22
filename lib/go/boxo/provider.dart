@@ -2,7 +2,7 @@
 // Go: github.com/ipfs/boxo/provider
 library;
 
-import 'package:ipfs_ffi/src/runtime.dart';
+import 'package:p2p_ffi/src/runtime.dart';
 
 /// Go: `const provider.DefaultReproviderInterval time.Duration`.
 const defaultReproviderInterval = Duration(microseconds: 79200000000);

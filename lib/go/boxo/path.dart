@@ -2,7 +2,7 @@
 // Go: github.com/ipfs/boxo/path
 library;
 
-import 'package:ipfs_ffi/src/runtime.dart';
+import 'package:p2p_ffi/src/runtime.dart';
 
 /// Go: `path.ImmutablePath` (valor).
 class ImmutablePath extends Path {

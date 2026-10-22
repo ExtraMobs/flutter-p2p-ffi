@@ -2,9 +2,9 @@
 // Go: github.com/ipfs/kubo/config
 library;
 
-import 'package:ipfs_ffi/src/runtime.dart';
-import 'package:ipfs_ffi/go/kubo/core/coreiface/options.dart' as $options;
-import 'package:ipfs_ffi/go/libp2p/core/peer.dart' as $peer;
+import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/kubo/core/coreiface/options.dart' as $options;
+import 'package:p2p_ffi/go/libp2p/core/peer.dart' as $peer;
 
 /// Go: `config.Config` (valor).
 class Config extends GoJsonValue {

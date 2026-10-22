@@ -2,7 +2,7 @@
 // Go: github.com/ipfs/kubo/plugin/loader
 library;
 
-import 'package:ipfs_ffi/src/runtime.dart';
+import 'package:p2p_ffi/src/runtime.dart';
 
 /// Go: `loader.PluginLoader` (handle).
 class PluginLoader extends GoHandle {

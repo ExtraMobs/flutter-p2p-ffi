@@ -2,15 +2,15 @@
 // Go: github.com/ipld/go-car/v2
 library;
 
-import 'package:ipfs_ffi/src/runtime.dart';
-import 'package:ipfs_ffi/go/block_format.dart' as $block_format;
-import 'package:ipfs_ffi/go/car/v2/index.dart' as $index;
-import 'package:ipfs_ffi/go/cid.dart' as $cid;
-import 'package:ipfs_ffi/go/context.dart' as $context;
-import 'package:ipfs_ffi/go/io.dart' as $io;
-import 'package:ipfs_ffi/go/ipld_prime/datamodel.dart' as $datamodel;
-import 'package:ipfs_ffi/go/ipld_prime/linking.dart' as $linking;
-import 'package:ipfs_ffi/go/ipld_prime/traversal.dart' as $traversal;
+import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/block_format.dart' as $block_format;
+import 'package:p2p_ffi/go/car/v2/index.dart' as $index;
+import 'package:p2p_ffi/go/cid.dart' as $cid;
+import 'package:p2p_ffi/go/context.dart' as $context;
+import 'package:p2p_ffi/go/io.dart' as $io;
+import 'package:p2p_ffi/go/ipld_prime/datamodel.dart' as $datamodel;
+import 'package:p2p_ffi/go/ipld_prime/linking.dart' as $linking;
+import 'package:p2p_ffi/go/ipld_prime/traversal.dart' as $traversal;
 
 /// Go: `car.BlockMetadata`.
 final class BlockMetadata implements GoDto {

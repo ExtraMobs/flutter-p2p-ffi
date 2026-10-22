@@ -2,7 +2,7 @@
 // Go: github.com/ipfs/boxo/namesys
 library;
 
-import 'package:ipfs_ffi/src/runtime.dart';
+import 'package:p2p_ffi/src/runtime.dart';
 
 /// Go: `namesys.NameSystem` (handle).
 class NameSystem extends Resolver {

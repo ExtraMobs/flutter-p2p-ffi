@@ -2,10 +2,10 @@
 // Go: github.com/ipfs/go-unixfsnode
 library;
 
-import 'package:ipfs_ffi/src/runtime.dart';
-import 'package:ipfs_ffi/go/ipld_prime/datamodel.dart' as $datamodel;
-import 'package:ipfs_ffi/go/ipld_prime/linking.dart' as $linking;
-import 'package:ipfs_ffi/go/ipld_prime/traversal/selector/builder.dart'
+import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/ipld_prime/datamodel.dart' as $datamodel;
+import 'package:p2p_ffi/go/ipld_prime/linking.dart' as $linking;
+import 'package:p2p_ffi/go/ipld_prime/traversal/selector/builder.dart'
     as $builder;
 
 /// Go: `func unixfsnode.AddUnixFSReificationToLinkSystem(lsys *ipld.LinkSystem)`.

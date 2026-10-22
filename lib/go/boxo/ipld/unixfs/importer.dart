@@ -2,9 +2,9 @@
 // Go: github.com/ipfs/boxo/ipld/unixfs/importer
 library;
 
-import 'package:ipfs_ffi/src/runtime.dart';
-import 'package:ipfs_ffi/go/boxo/chunker.dart' as $chunker;
-import 'package:ipfs_ffi/go/ipld_format.dart' as $ipld_format;
+import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/boxo/chunker.dart' as $chunker;
+import 'package:p2p_ffi/go/ipld_format.dart' as $ipld_format;
 
 /// Go: `func importer.BuildDagFromReader(ds format.DAGService, spl chunk.Splitter) (format.Node, error)`.
 $ipld_format.Node buildDagFromReader(

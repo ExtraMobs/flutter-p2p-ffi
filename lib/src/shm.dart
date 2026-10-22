@@ -42,7 +42,7 @@ String _defaultShmLibraryPath() {
   return 'native/libipfs_shm.so';
 }
 
-/// Resolves `native/[fileName]` inside the `ipfs_ffi` package root from
+/// Resolves `native/[fileName]` inside the `p2p_ffi` package root from
 /// `.dart_tool/package_config.json` when running `dart run` or `flutter test`
 /// from a consumer package.
 String? packageNativePath(String fileName) {
@@ -53,7 +53,7 @@ String? packageNativePath(String fileName) {
     final pkgs = cfg['packages'] as List<Object?>?;
     if (pkgs == null) return null;
     for (final p in pkgs) {
-      if (p is Map<String, Object?> && p['name'] == 'ipfs_ffi') {
+      if (p is Map<String, Object?> && p['name'] == 'p2p_ffi') {
         final rootUri = p['rootUri'] as String?;
         if (rootUri == null) return null;
         final rootDir =
@@ -203,9 +203,9 @@ final class ShmChannel {
     final rnd = [for (var i = 0; i < 4; i++) r.nextInt(1 << 32)]
         .map((v) => v.toRadixString(36))
         .join();
-    if (Platform.isWindows) return r'\\.\pipe\ipfs_ffi_' + rnd;
+    if (Platform.isWindows) return r'\\.\pipe\p2p_ffi_' + rnd;
     // short path: sun_path has 108 bytes
-    return '${Directory.systemTemp.path}/ipfs_ffi_$rnd.sock';
+    return '${Directory.systemTemp.path}/p2p_ffi_$rnd.sock';
   }
 
   /// Messages for ids that are not from [call]/[callSync] of this channel

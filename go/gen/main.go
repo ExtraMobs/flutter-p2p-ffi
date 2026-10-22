@@ -1,4 +1,4 @@
-// Command gen gera a ponte FFI do ipfs_ffi a partir das raízes em
+// Command gen gera a ponte FFI do p2p_ffi a partir das raízes em
 // gen/roots.txt (um símbolo Go por linha): go/zz_generated.go (os
 // despachantes binários do ipfs_host, WIRE.md), as libraries Dart em lib/ (uma por pacote Go, sem o
 // prefixo github.com/<org>/) e o API.md (checklist Go → Dart com omissões).

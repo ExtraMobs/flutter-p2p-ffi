@@ -10,11 +10,11 @@
 //   dart run example/car/04_read_block.dart
 
 import 'sample.dart';
-import 'package:ipfs_ffi/go/boxo/path.dart' as path;
-import 'package:ipfs_ffi/go/car/v2/blockstore.dart' as blockstore;
-import 'package:ipfs_ffi/go/io.dart' as io;
-import 'package:ipfs_ffi/go/kubo/core/commands/dag.dart' as dag;
-import 'package:ipfs_ffi/go/kubo/core/coreapi.dart' as coreapi;
+import 'package:p2p_ffi/go/boxo/path.dart' as path;
+import 'package:p2p_ffi/go/car/v2/blockstore.dart' as blockstore;
+import 'package:p2p_ffi/go/io.dart' as io;
+import 'package:p2p_ffi/go/kubo/core/commands/dag.dart' as dag;
+import 'package:p2p_ffi/go/kubo/core/coreapi.dart' as coreapi;
 
 Future<void> main() async {
   final s = await Sample.open();

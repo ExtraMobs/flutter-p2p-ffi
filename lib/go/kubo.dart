@@ -2,7 +2,7 @@
 // Go: github.com/ipfs/kubo
 library;
 
-import 'package:ipfs_ffi/src/runtime.dart';
+import 'package:p2p_ffi/src/runtime.dart';
 
 /// Go: `const ipfs.ApiVersion untyped string`.
 const apiVersion = "/kubo/0.43.1/";

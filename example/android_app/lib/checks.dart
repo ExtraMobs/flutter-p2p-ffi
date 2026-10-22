@@ -1,4 +1,4 @@
-// ipfs_ffi checks on the device: the local ones (the desktop suite's flows that
+// p2p_ffi checks on the device: the local ones (the desktop suite's flows that
 // fit in one process, the close and reopen cycles and the bridge's cost) run in
 // the integration test and when the app opens; the public network ones only in
 // the app, over its node. Each one writes to the log and fails with an exception.
@@ -7,24 +7,24 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:ipfs_ffi/go/boxo/files.dart' as files;
-import 'package:ipfs_ffi/go/boxo/path.dart' as path;
-import 'package:ipfs_ffi/go/context.dart' as context;
-import 'package:ipfs_ffi/go/io.dart' as io;
-import 'package:ipfs_ffi/go/kubo/config.dart' as config;
-import 'package:ipfs_ffi/go/kubo/core.dart' as core;
-import 'package:ipfs_ffi/go/kubo/core/commands.dart' as commands;
-import 'package:ipfs_ffi/go/kubo/core/commands/dag.dart' as dag;
-import 'package:ipfs_ffi/go/kubo/core/coreapi.dart' as coreapi;
-import 'package:ipfs_ffi/go/kubo/core/coreiface.dart' as iface;
-import 'package:ipfs_ffi/go/kubo/core/coreiface/options.dart' as options;
-import 'package:ipfs_ffi/go/kubo/core/corerepo.dart' as corerepo;
-import 'package:ipfs_ffi/go/kubo/core/node.dart' as node;
-import 'package:ipfs_ffi/go/kubo/core/node/libp2p.dart' as libp2p;
-import 'package:ipfs_ffi/go/kubo/repo/fsrepo.dart' as fsrepo;
-import 'package:ipfs_ffi/go/libp2p/core/peer.dart' as peer;
-import 'package:ipfs_ffi/ipfs_ffi.dart' show GolangException, hasIpv6;
-import 'package:ipfs_ffi/src/runtime.dart'
+import 'package:p2p_ffi/go/boxo/files.dart' as files;
+import 'package:p2p_ffi/go/boxo/path.dart' as path;
+import 'package:p2p_ffi/go/context.dart' as context;
+import 'package:p2p_ffi/go/io.dart' as io;
+import 'package:p2p_ffi/go/kubo/config.dart' as config;
+import 'package:p2p_ffi/go/kubo/core.dart' as core;
+import 'package:p2p_ffi/go/kubo/core/commands.dart' as commands;
+import 'package:p2p_ffi/go/kubo/core/commands/dag.dart' as dag;
+import 'package:p2p_ffi/go/kubo/core/coreapi.dart' as coreapi;
+import 'package:p2p_ffi/go/kubo/core/coreiface.dart' as iface;
+import 'package:p2p_ffi/go/kubo/core/coreiface/options.dart' as options;
+import 'package:p2p_ffi/go/kubo/core/corerepo.dart' as corerepo;
+import 'package:p2p_ffi/go/kubo/core/node.dart' as node;
+import 'package:p2p_ffi/go/kubo/core/node/libp2p.dart' as libp2p;
+import 'package:p2p_ffi/go/kubo/repo/fsrepo.dart' as fsrepo;
+import 'package:p2p_ffi/go/libp2p/core/peer.dart' as peer;
+import 'package:p2p_ffi/p2p_ffi.dart' show GolangException, hasIpv6;
+import 'package:p2p_ffi/src/runtime.dart'
     show $W, $call, $callSync, $stream, GoSink;
 
 typedef Log = void Function(String line);
@@ -76,7 +76,7 @@ String newRepo(Directory tmp, String name) {
 /// The local checks, in their own temporary directory (the plugins must already
 /// be injected). Returns how many failed.
 Future<int> localChecks(Log log) async {
-  final tmp = Directory.systemTemp.createTempSync('ipfs_ffi_chk_');
+  final tmp = Directory.systemTemp.createTempSync('p2p_ffi_chk_');
   final n = await core.newNode(
       ctx, node.BuildCfg(repo: fsrepo.open(newRepo(tmp, 'offline'))));
   final api = coreapi.newCoreApi(n);
@@ -213,8 +213,8 @@ Future<int> localChecks(Log log) async {
           await nn.close();
         }
       },
-      // ipfs_ffi's own goroutines (try/goTry in go/runtime.go)
-      'a panic in an ipfs_ffi goroutine becomes GolangException': () async {
+      // p2p_ffi's own goroutines (try/goTry in go/runtime.go)
+      'a panic in an p2p_ffi goroutine becomes GolangException': () async {
         final items = <Object?>[];
         await expectThrows($stream(25).map((r) => r.i64()).forEach(items.add),
             'function with a channel');

@@ -1,11 +1,11 @@
-# ipfs_ffi
+# p2p_ffi
 
 Kubo (IPFS in Go, v0.43.1) used from Dart without HTTP. Kubo runs in the `ipfs_host`
 executable, in another process; the app talks to it through shared memory (the `ipfs_shm`,
 in C) with a binary protocol (`WIRE.md`). The Dart API is Go's own, generated from
 `go/gen/roots.txt`: one library per Go package under `lib/go/`, at the package's path in its
 module (`github.com/ipfs/boxo/mfs` → `lib/go/boxo/mfs.dart`, `github.com/ipfs/go-cid` →
-`lib/go/cid.dart`); `lib/ipfs_ffi.dart` is the runtime's entry point. Targets: VM/AOT on Windows, linux and Android (not JS/Wasm).
+`lib/go/cid.dart`); `lib/p2p_ffi.dart` is the runtime's entry point. Targets: VM/AOT on Windows, linux and Android (not JS/Wasm).
 
 `README.md` is the usage guide; `DOCS.md` indexes the CAR examples by operation; `API.md`
 (generated) lists every exposed symbol and the adaptation rules; `TODO.md` keeps what was
@@ -15,13 +15,13 @@ done in each version and what is pending.
 
 | Path | What it is |
 |---|---|
-| `lib/` | the Dart package: the generated code (`lib/go/`, one library per Go package) and the runtime in `lib/src/` (`runtime.dart` and its parts, `service.dart`, `shm.dart`), exported only by `lib/ipfs_ffi.dart` |
+| `lib/` | the Dart package: the generated code (`lib/go/`, one library per Go package) and the runtime in `lib/src/` (`runtime.dart` and its parts, `service.dart`, `shm.dart`), exported only by `lib/p2p_ffi.dart` |
 | `go/` | the `ipfs_host` (`host*.go`, `wire.go`, `callback.go`, `deadlock.go`, the hand ports `manual_*.go`) and the generator (`go/gen`, with `roots.txt`; the Dart paths in `go/gen/namespaces.go`) |
 | `shm/` | the `ipfs_shm` in C (rings, the bell, the thread that wakes Dart) |
 | `tool/` | `build.dart` (generates and builds per platform, with the upstream patches) and the benchmarks (`bench*.dart`) |
 | `test/` | the Dart suite (needs the build) |
 | `example/` | numbered examples; `example/car/` has the CAR operations (see `DOCS.md`); `example/memory/` has the handle memory management guide and examples; `example/android_app/` is the Flutter validation app |
-| `flutter/` | the companion plugin `ipfs_ffi_flutter` (Android background) |
+| `flutter/` | the companion plugin `p2p_ffi_flutter` (Android background) |
 
 ## Commands
 
@@ -46,7 +46,7 @@ dart test                                          # the whole suite (needs the 
 
 - **One library per Go type:** a Go type lives only in the library of its Go package, and
   no public library re-exports another (the generator refuses an `export` outside
-  `lib/src/`, except in `lib/ipfs_ffi.dart`). A hand-written library of a Go package gets
+  `lib/src/`, except in `lib/p2p_ffi.dart`). A hand-written library of a Go package gets
   the generated part of that package as `<name>.g.dart`.
 
 - **`dart format` before every commit** for every hand-written `.dart` (generated code comes
@@ -62,7 +62,7 @@ dart test                                          # the whole suite (needs the 
   public.
 - **Delivery by stage:** commit what is ready before starting the next stage; at the end,
   the version in both `pubspec.yaml`, a "Done" entry in `TODO.md`, the tag
-  `ipfs_ffi-vX.Y.Z`, a direct push to `main` (remote `github`), then stop for the owner's
+  `p2p_ffi-vX.Y.Z`, a direct push to `main` (remote `github`), then stop for the owner's
   review.
 - **Go behavior checked against Go itself:** when a result is surprising, reproduce it with
   a `go run` (oracle) before concluding the bridge is wrong.

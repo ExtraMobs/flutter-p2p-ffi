@@ -2,11 +2,11 @@
 // Go: github.com/ipfs/boxo/blockservice
 library;
 
-import 'package:ipfs_ffi/src/runtime.dart';
-import 'package:ipfs_ffi/go/boxo/blockstore.dart' as $blockstore;
-import 'package:ipfs_ffi/go/boxo/exchange.dart' as $exchange;
-import 'package:ipfs_ffi/go/boxo/verifcid.dart' as $verifcid;
-import 'package:ipfs_ffi/go/io.dart' as $io;
+import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/boxo/blockstore.dart' as $blockstore;
+import 'package:p2p_ffi/go/boxo/exchange.dart' as $exchange;
+import 'package:p2p_ffi/go/boxo/verifcid.dart' as $verifcid;
+import 'package:p2p_ffi/go/io.dart' as $io;
 
 /// Go: `blockservice.BlockService` (handle).
 class BlockService extends $io.Closer {

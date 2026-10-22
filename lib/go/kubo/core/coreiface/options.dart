@@ -4,9 +4,9 @@ library;
 
 import 'dart:async';
 
-import 'package:ipfs_ffi/src/runtime.dart';
-import 'package:ipfs_ffi/go/boxo/namesys.dart' as $namesys;
-import 'package:ipfs_ffi/go/kubo/core/coreiface.dart' as $coreiface;
+import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/boxo/namesys.dart' as $namesys;
+import 'package:p2p_ffi/go/kubo/core/coreiface.dart' as $coreiface;
 
 /// Go: `options.ApiOption` (functional option; constructors in the package).
 final class ApiOption extends GoOption {

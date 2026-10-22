@@ -2,8 +2,8 @@
 // Go: runtime/debug
 library;
 
-import 'package:ipfs_ffi/src/runtime.dart';
-import 'package:ipfs_ffi/go/os.dart' as $os;
+import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/os.dart' as $os;
 
 /// Go: `debug.CrashOptions`.
 final class CrashOptions implements GoDto {

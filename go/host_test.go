@@ -106,12 +106,12 @@ func TestTableRepoFlow(t *testing.T) {
 
 func TestPanicHooks(t *testing.T) {
 	// stream: item 1 e o panic como erro
-	kind, data, evs := call(t, "ipfs_ffi/test.PanicInChanFunc", nil)
+	kind, data, evs := call(t, "p2p_ffi/test.PanicInChanFunc", nil)
 	if kind != evError || !strings.Contains(string(data), "panic") || len(evs) != 1 || evs[0].kind != evItem {
 		t.Fatalf("PanicInChanFunc: %d %s %v", kind, data, evs)
 	}
 	// sink 9: item 1 e o erro, antes da resposta vazia
-	kind, data, evs = call(t, "ipfs_ffi/test.PanicInSink", func(w *writer) { w.u32(9) })
+	kind, data, evs = call(t, "p2p_ffi/test.PanicInSink", func(w *writer) { w.u32(9) })
 	if kind != evValue || len(data) != 0 || len(evs) != 2 {
 		t.Fatalf("PanicInSink: %d %s %v", kind, data, evs)
 	}

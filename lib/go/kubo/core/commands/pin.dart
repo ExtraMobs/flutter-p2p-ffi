@@ -2,7 +2,7 @@
 // Go: github.com/ipfs/kubo/core/commands/pin
 library;
 
-import 'package:ipfs_ffi/src/runtime.dart';
+import 'package:p2p_ffi/src/runtime.dart';
 
 /// Go: `pin.AddPinOutput` (a kubo command output).
 final class AddPinOutput {

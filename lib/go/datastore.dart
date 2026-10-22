@@ -2,7 +2,7 @@
 // Go: github.com/ipfs/go-datastore
 library;
 
-import 'package:ipfs_ffi/src/runtime.dart';
+import 'package:p2p_ffi/src/runtime.dart';
 
 /// Go: `datastore.Batching` (handle).
 class Batching extends Datastore {

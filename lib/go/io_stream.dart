@@ -2,7 +2,7 @@
 /// WIRE.md).
 ///
 /// ```dart
-/// import 'package:ipfs_ffi/go/io_stream.dart' as io;
+/// import 'package:p2p_ffi/go/io_stream.dart' as io;
 ///
 /// final file = files.toFile(await unixfile.newUnixfsFile(ctx, dag, root));
 /// await for (final chunk in io.readerStream(file)) {
@@ -13,7 +13,7 @@ library;
 
 import 'dart:typed_data';
 
-import 'package:ipfs_ffi/src/runtime.dart';
+import 'package:p2p_ffi/src/runtime.dart';
 
 /// Reads [reader] to the end in pieces of up to 256 KiB, in order. The host
 /// closes it when it is an `io.Closer`. Cancel through the context the reader

@@ -4,7 +4,7 @@
     <!-- MulticastLock do mDNS (MainActivity.kt) -->
     <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE"/>
     <application
-        android:label="ipfs_ffi_android"
+        android:label="p2p_ffi_android"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

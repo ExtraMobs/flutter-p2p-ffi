@@ -2,8 +2,8 @@
 // Go: github.com/ipld/go-ipld-prime/linking
 library;
 
-import 'package:ipfs_ffi/src/runtime.dart';
-import 'package:ipfs_ffi/go/ipld_prime/storage.dart' as $storage;
+import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/ipld_prime/storage.dart' as $storage;
 
 /// Go: `linking.LinkSystem` (handle).
 class LinkSystem extends GoHandle {

@@ -1,4 +1,4 @@
-package dev.extramobs.ipfs_ffi_flutter
+package dev.extramobs.p2p_ffi_flutter
 
 import android.app.Notification
 import android.app.NotificationChannel
@@ -18,13 +18,13 @@ import android.os.IBinder
  * It runs nothing itself: the IPFS node lives in the ipfs_host.
  *
  * Its notification (Android requires one) is the app's: built from the
- * `IpfsNotification` set in Dart, or by a [NotificationFactory] registered from
+ * `P2pNotification` set in Dart, or by a [NotificationFactory] registered from
  * native code for full control (actions, styles, layouts).
  */
-class IpfsForegroundService : Service() {
+class P2pForegroundService : Service() {
     /**
      * Builds the service notification. Called on the main thread with the
-     * channel already created and `config` holding the Dart `IpfsNotification`
+     * channel already created and `config` holding the Dart `P2pNotification`
      * ("title", "text", "channelId", "extras", a Bundle of the developer's own
      * strings...).
      */
@@ -89,7 +89,7 @@ class IpfsForegroundService : Service() {
             if (starting) {
                 stopPending = true
             } else {
-                context.stopService(Intent(context, IpfsForegroundService::class.java))
+                context.stopService(Intent(context, P2pForegroundService::class.java))
             }
         }
 
@@ -110,7 +110,7 @@ class IpfsForegroundService : Service() {
         }
 
         internal fun build(context: Context, config: Bundle): Notification {
-            val channel = config.getString("channelId", "ipfs_ffi")
+            val channel = config.getString("channelId", "p2p_ffi")
             if (Build.VERSION.SDK_INT >= 26) {
                 // the importance of an existing channel cannot change (Android)
                 val c = NotificationChannel(

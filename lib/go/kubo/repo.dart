@@ -2,9 +2,9 @@
 // Go: github.com/ipfs/kubo/repo
 library;
 
-import 'package:ipfs_ffi/src/runtime.dart';
-import 'package:ipfs_ffi/go/io.dart' as $io;
-import 'package:ipfs_ffi/go/kubo/config.dart' as $config;
+import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/io.dart' as $io;
+import 'package:p2p_ffi/go/kubo/config.dart' as $config;
 
 /// Go: `repo.Repo` (handle).
 class Repo extends $io.Closer {

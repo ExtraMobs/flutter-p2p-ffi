@@ -4,19 +4,18 @@
 //   dart run example/car/13_select_subset_mistakes.dart
 
 import 'sample.dart';
-import 'package:ipfs_ffi/go/boxo/gateway.dart' as gateway;
-import 'package:ipfs_ffi/go/boxo/path.dart' as path;
-import 'package:ipfs_ffi/go/boxo/fetcher/impl/blockservice.dart'
-    as blockservice;
-import 'package:ipfs_ffi/go/car/v2.dart' as car;
-import 'package:ipfs_ffi/go/car/v2/storage.dart' as storage;
-import 'package:ipfs_ffi/go/os.dart' as os;
-import 'package:ipfs_ffi/go/ipld_prime/node/basicnode.dart' as basicnode;
-import 'package:ipfs_ffi/go/ipld_prime/traversal/selector/builder.dart'
+import 'package:p2p_ffi/go/boxo/gateway.dart' as gateway;
+import 'package:p2p_ffi/go/boxo/path.dart' as path;
+import 'package:p2p_ffi/go/boxo/fetcher/impl/blockservice.dart' as blockservice;
+import 'package:p2p_ffi/go/car/v2.dart' as car;
+import 'package:p2p_ffi/go/car/v2/storage.dart' as storage;
+import 'package:p2p_ffi/go/os.dart' as os;
+import 'package:p2p_ffi/go/ipld_prime/node/basicnode.dart' as basicnode;
+import 'package:p2p_ffi/go/ipld_prime/traversal/selector/builder.dart'
     as builder;
-import 'package:ipfs_ffi/go/codec_dagpb.dart' as codec_dagpb;
-import 'package:ipfs_ffi/go/unixfsnode.dart' as unixfsnode;
-import 'package:ipfs_ffi/go/ipld_prime/linking/cid.dart' as cid;
+import 'package:p2p_ffi/go/codec_dagpb.dart' as codec_dagpb;
+import 'package:p2p_ffi/go/unixfsnode.dart' as unixfsnode;
+import 'package:p2p_ffi/go/ipld_prime/linking/cid.dart' as cid;
 
 Future<void> main() async {
   final s = await Sample.open();

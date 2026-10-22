@@ -14,11 +14,11 @@
 //   dart run example/car/11_index.dart
 
 import 'sample.dart';
-import 'package:ipfs_ffi/go/car/v2.dart' as car;
-import 'package:ipfs_ffi/go/car/v2/index.dart' as v2_index;
-import 'package:ipfs_ffi/go/car/v2/blockstore.dart' as blockstore;
-import 'package:ipfs_ffi/go/os.dart' as os;
-import 'package:ipfs_ffi/go/multicodec.dart' as multicodec;
+import 'package:p2p_ffi/go/car/v2.dart' as car;
+import 'package:p2p_ffi/go/car/v2/index.dart' as v2_index;
+import 'package:p2p_ffi/go/car/v2/blockstore.dart' as blockstore;
+import 'package:p2p_ffi/go/os.dart' as os;
+import 'package:p2p_ffi/go/multicodec.dart' as multicodec;
 
 Future<void> main() async {
   final s = await Sample.open();

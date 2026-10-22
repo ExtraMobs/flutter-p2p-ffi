@@ -8,14 +8,14 @@ import 'dart:io';
 import 'dart:math';
 import 'dart:typed_data';
 
-import 'package:ipfs_ffi/go/car/v2.dart' as car;
-import 'package:ipfs_ffi/go/car/v2/blockstore.dart' as blockstore;
-import 'package:ipfs_ffi/go/context.dart' as context;
-import 'package:ipfs_ffi/go/os.dart' as os;
-import 'package:ipfs_ffi/go/io.dart' as io;
-import 'package:ipfs_ffi/go/block_format.dart' as block_format;
-import 'package:ipfs_ffi/go/cid.dart' as cid;
-import 'package:ipfs_ffi/ipfs_ffi.dart' show GolangEofException, P2pService;
+import 'package:p2p_ffi/go/car/v2.dart' as car;
+import 'package:p2p_ffi/go/car/v2/blockstore.dart' as blockstore;
+import 'package:p2p_ffi/go/context.dart' as context;
+import 'package:p2p_ffi/go/os.dart' as os;
+import 'package:p2p_ffi/go/io.dart' as io;
+import 'package:p2p_ffi/go/block_format.dart' as block_format;
+import 'package:p2p_ffi/go/cid.dart' as cid;
+import 'package:p2p_ffi/p2p_ffi.dart' show GolangEofException, P2pService;
 
 Future<void> main(List<String> args) async {
   final mib = args.isEmpty ? 64 : int.parse(args.first);

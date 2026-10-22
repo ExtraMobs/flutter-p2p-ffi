@@ -4,9 +4,9 @@ library;
 
 import 'dart:typed_data';
 
-import 'package:ipfs_ffi/src/runtime.dart';
-import 'package:ipfs_ffi/go/boxo/blockservice.dart' as $blockservice;
-import 'package:ipfs_ffi/go/ipld_format.dart' as $ipld_format;
+import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/boxo/blockservice.dart' as $blockservice;
+import 'package:p2p_ffi/go/ipld_format.dart' as $ipld_format;
 
 /// Go: `merkledag.ProtoNode` (handle).
 class ProtoNode extends $ipld_format.Node {

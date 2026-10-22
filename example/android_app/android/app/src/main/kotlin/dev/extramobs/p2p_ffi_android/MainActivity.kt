@@ -1,4 +1,4 @@
-package dev.extramobs.ipfs_ffi_android
+package dev.extramobs.p2p_ffi_android
 
 import android.net.wifi.WifiManager
 import android.os.Bundle
@@ -18,7 +18,7 @@ class MainActivity : FlutterActivity() {
         // (which closes in the background) stays online during long measurements.
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         val wifi = applicationContext.getSystemService(WIFI_SERVICE) as WifiManager
-        multicast = wifi.createMulticastLock("ipfs_ffi-mdns").apply {
+        multicast = wifi.createMulticastLock("p2p_ffi-mdns").apply {
             setReferenceCounted(false)
             acquire()
         }

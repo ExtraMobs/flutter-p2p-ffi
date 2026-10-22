@@ -2,7 +2,7 @@
 // Go: github.com/libp2p/go-libp2p/core/metrics
 library;
 
-import 'package:ipfs_ffi/src/runtime.dart';
+import 'package:p2p_ffi/src/runtime.dart';
 
 /// Go: `metrics.Stats` (a kubo command output).
 final class Stats {

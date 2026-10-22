@@ -1,9 +1,9 @@
-// The ipfs_ffi validation app on Android: starts the service (kubo in the
+// The p2p_ffi validation app on Android: starts the service (kubo in the
 // ipfs_host, the APK's libipfs_host.so, in another process) and an IPFS node with
 // its repo in the app's data directory, shows the peer ID and peers, runs the
 // checks (lib/checks.dart) and gathers everything in a log copied with one tap.
 // In the background (P2pService.background, through
-// --dart-define=IPFS_BACKGROUND): `stop` (default), the ipfs_ffi_flutter plugin
+// --dart-define=IPFS_BACKGROUND): `stop` (default), the p2p_ffi_flutter plugin
 // stops the service and the app starts it again on return; `foregroundService`,
 // the node stays online with a notification. The first time it brings the
 // ipfs_host down with a Go panic: the app goes on and its onStop shows the
@@ -14,20 +14,20 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:ipfs_ffi_flutter/ipfs_ffi_flutter.dart';
-import 'package:ipfs_ffi/go/context.dart' as go_context;
-import 'package:ipfs_ffi/go/kubo/config.dart' as config;
-import 'package:ipfs_ffi/go/kubo/core.dart' as core;
-import 'package:ipfs_ffi/go/kubo/core/coreapi.dart' as coreapi;
-import 'package:ipfs_ffi/go/kubo/core/coreiface.dart' as iface;
-import 'package:ipfs_ffi/go/kubo/core/coreiface/options.dart' as options;
-import 'package:ipfs_ffi/go/kubo/core/node.dart' as node;
-import 'package:ipfs_ffi/go/kubo/core/node/libp2p.dart' as libp2p;
-import 'package:ipfs_ffi/go/kubo/plugin/loader.dart' as loader;
-import 'package:ipfs_ffi/go/kubo/repo/fsrepo.dart' as fsrepo;
-import 'package:ipfs_ffi/ipfs_ffi.dart'
+import 'package:p2p_ffi_flutter/p2p_ffi_flutter.dart';
+import 'package:p2p_ffi/go/context.dart' as go_context;
+import 'package:p2p_ffi/go/kubo/config.dart' as config;
+import 'package:p2p_ffi/go/kubo/core.dart' as core;
+import 'package:p2p_ffi/go/kubo/core/coreapi.dart' as coreapi;
+import 'package:p2p_ffi/go/kubo/core/coreiface.dart' as iface;
+import 'package:p2p_ffi/go/kubo/core/coreiface/options.dart' as options;
+import 'package:p2p_ffi/go/kubo/core/node.dart' as node;
+import 'package:p2p_ffi/go/kubo/core/node/libp2p.dart' as libp2p;
+import 'package:p2p_ffi/go/kubo/plugin/loader.dart' as loader;
+import 'package:p2p_ffi/go/kubo/repo/fsrepo.dart' as fsrepo;
+import 'package:p2p_ffi/p2p_ffi.dart'
     show P2pBackground, P2pService, P2pStop, P2pStopHandler, P2pStopReason;
-import 'package:ipfs_ffi/src/runtime.dart' show $callSync;
+import 'package:p2p_ffi/src/runtime.dart' show $callSync;
 
 import 'checks.dart';
 
@@ -131,10 +131,8 @@ void main() {
   }
   // the foreground service's notification belongs to the app; the text
   // changes with the number of peers (_start)
-  IpfsFfiFlutter.notification = const IpfsNotification(
-      title: 'ipfs_ffi',
-      text: 'starting the node...',
-      channelName: 'IPFS node');
+  P2pFfiFlutter.notification = const P2pNotification(
+      title: 'p2p_ffi', text: 'starting the node...', channelName: 'IPFS node');
   runZonedGuarded(() {
     WidgetsFlutterBinding.ensureInitialized();
     FlutterError.onError =
@@ -202,7 +200,7 @@ class _NodePageState extends State<NodePage> {
         // the foreground service's notification only shows with the
         // permission (Android 13+); without it the service runs, without the
         // notification
-        final ok = await IpfsFfiFlutter.requestNotificationPermission();
+        final ok = await P2pFfiFlutter.requestNotificationPermission();
         log('notification permission: $ok');
       }
       final crash = await prepare(repoPath, _crashLog, onStop: _onStop);
@@ -267,7 +265,7 @@ class _NodePageState extends State<NodePage> {
     _tick = Timer.periodic(const Duration(seconds: 3), (_) async {
       final peers = await api.swarm().peers(ctx);
       if (peers.length != _peers) {
-        await IpfsFfiFlutter.updateNotification(IpfsFfiFlutter.notification
+        await P2pFfiFlutter.updateNotification(P2pFfiFlutter.notification
             .copyWith(text: 'online: ${peers.length} peers'));
       }
       _set(() => _peers = peers.length);
@@ -378,7 +376,7 @@ class _NodePageState extends State<NodePage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(title: const Text('ipfs_ffi'), actions: [
+        appBar: AppBar(title: const Text('p2p_ffi'), actions: [
           IconButton(
               tooltip: 'crash it (crash test)',
               onPressed: _crash,

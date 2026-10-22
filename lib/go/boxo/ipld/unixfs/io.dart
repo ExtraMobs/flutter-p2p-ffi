@@ -2,9 +2,9 @@
 // Go: github.com/ipfs/boxo/ipld/unixfs/io
 library;
 
-import 'package:ipfs_ffi/src/runtime.dart';
-import 'package:ipfs_ffi/go/context.dart' as $context;
-import 'package:ipfs_ffi/go/ipld_format.dart' as $ipld_format;
+import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/context.dart' as $context;
+import 'package:p2p_ffi/go/ipld_format.dart' as $ipld_format;
 
 /// Go: `io.Directory` (handle).
 class Directory extends GoHandle {

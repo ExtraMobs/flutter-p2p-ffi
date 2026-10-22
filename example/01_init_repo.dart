@@ -4,11 +4,11 @@
 //
 // Default: ./.ipfs-ffi with the `test` profile (random ports, no
 // bootstrap). Kubo profiles: server, lowpower, randomports, flatfs...
-import 'package:ipfs_ffi/go/kubo/config.dart' as config;
-import 'package:ipfs_ffi/go/kubo/core/coreiface/options.dart' as options;
-import 'package:ipfs_ffi/go/kubo/plugin/loader.dart' as loader;
-import 'package:ipfs_ffi/go/kubo/repo/fsrepo.dart' as fsrepo;
-import 'package:ipfs_ffi/ipfs_ffi.dart' show P2pService;
+import 'package:p2p_ffi/go/kubo/config.dart' as config;
+import 'package:p2p_ffi/go/kubo/core/coreiface/options.dart' as options;
+import 'package:p2p_ffi/go/kubo/plugin/loader.dart' as loader;
+import 'package:p2p_ffi/go/kubo/repo/fsrepo.dart' as fsrepo;
+import 'package:p2p_ffi/p2p_ffi.dart' show P2pService;
 
 Future<void> main(List<String> args) async {
   final repoPath = args.isNotEmpty ? args.first : '.ipfs-ffi';

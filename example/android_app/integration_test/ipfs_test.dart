@@ -1,4 +1,4 @@
-// ipfs_ffi inside an Android app: the app's local checks (lib/checks.dart),
+// p2p_ffi inside an Android app: the app's local checks (lib/checks.dart),
 // the same as the "run tests" button, an ipfs_host crash (only it goes down;
 // onStop gets the report and restarts) and the background in both modes of
 // P2pService.background. Run with:
@@ -8,11 +8,11 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
-import 'package:ipfs_ffi/ipfs_ffi.dart'
+import 'package:p2p_ffi/p2p_ffi.dart'
     show P2pBackground, P2pService, P2pStop, P2pStopReason;
-import 'package:ipfs_ffi/src/runtime.dart' show $callSync;
-import 'package:ipfs_ffi_android/checks.dart';
-import 'package:ipfs_ffi_android/main.dart' show prepare, setupService;
+import 'package:p2p_ffi/src/runtime.dart' show $callSync;
+import 'package:p2p_ffi_android/checks.dart';
+import 'package:p2p_ffi_android/main.dart' show prepare, setupService;
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
@@ -22,7 +22,7 @@ void main() {
   final stops = StreamController<P2pStop>.broadcast();
 
   setUpAll(() async {
-    tmp = Directory.systemTemp.createTempSync('ipfs_ffi_it_');
+    tmp = Directory.systemTemp.createTempSync('p2p_ffi_it_');
     repo = '${tmp.path}/app-repo';
     // plugins (once per service process) and the crash report, like the app
     await prepare(repo, '${tmp.path}/crash.log', onStop: stops.add);
@@ -63,7 +63,7 @@ void main() {
     expect(failed, 0, reason: lines.join('\n'));
   }, timeout: const Timeout(Duration(minutes: 5)));
 
-  // the ipfs_ffi_flutter plugin calls appInBackground on onPause; here directly
+  // the p2p_ffi_flutter plugin calls appInBackground on onPause; here directly
   test('background, stop mode: the service stops and the app decides',
       () async {
     expect(P2pService.background, P2pBackground.stop);

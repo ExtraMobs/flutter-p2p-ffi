@@ -2,9 +2,9 @@
 // Go: github.com/ipld/go-ipld-prime/storage/bsadapter
 library;
 
-import 'package:ipfs_ffi/src/runtime.dart';
-import 'package:ipfs_ffi/go/boxo/blockstore.dart' as $blockstore;
-import 'package:ipfs_ffi/go/ipld_prime/storage.dart' as $storage;
+import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/boxo/blockstore.dart' as $blockstore;
+import 'package:p2p_ffi/go/ipld_prime/storage.dart' as $storage;
 
 /// Go: `bsadapter.Adapter` (handle).
 class Adapter extends $storage.ReadableStorage {

@@ -11,34 +11,33 @@
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:ipfs_ffi/go/boxo/gateway.dart' as gateway;
-import 'package:ipfs_ffi/go/boxo/path.dart' as path;
-import 'package:ipfs_ffi/go/boxo/fetcher/impl/blockservice.dart'
-    as blockservice;
-import 'package:ipfs_ffi/go/boxo/files.dart' as files;
-import 'package:ipfs_ffi/go/car/v2.dart' as car;
-import 'package:ipfs_ffi/go/context.dart' as context;
-import 'package:ipfs_ffi/go/io.dart' as io;
-import 'package:ipfs_ffi/go/os.dart' as os;
-import 'package:ipfs_ffi/go/ipld_prime/storage/bsadapter.dart' as bsadapter;
-import 'package:ipfs_ffi/go/ipld_prime/node/basicnode.dart' as basicnode;
-import 'package:ipfs_ffi/go/ipld_prime/traversal/selector/builder.dart'
+import 'package:p2p_ffi/go/boxo/gateway.dart' as gateway;
+import 'package:p2p_ffi/go/boxo/path.dart' as path;
+import 'package:p2p_ffi/go/boxo/fetcher/impl/blockservice.dart' as blockservice;
+import 'package:p2p_ffi/go/boxo/files.dart' as files;
+import 'package:p2p_ffi/go/car/v2.dart' as car;
+import 'package:p2p_ffi/go/context.dart' as context;
+import 'package:p2p_ffi/go/io.dart' as io;
+import 'package:p2p_ffi/go/os.dart' as os;
+import 'package:p2p_ffi/go/ipld_prime/storage/bsadapter.dart' as bsadapter;
+import 'package:p2p_ffi/go/ipld_prime/node/basicnode.dart' as basicnode;
+import 'package:p2p_ffi/go/ipld_prime/traversal/selector/builder.dart'
     as builder;
-import 'package:ipfs_ffi/go/codec_dagpb.dart' as codec_dagpb;
-import 'package:ipfs_ffi/go/unixfsnode.dart' as unixfsnode;
-import 'package:ipfs_ffi/go/ipld_prime/linking/cid.dart' as cid;
-import 'package:ipfs_ffi/go/kubo/core/node.dart' as node;
-import 'package:ipfs_ffi/go/kubo/plugin/loader.dart' as loader;
-import 'package:ipfs_ffi/go/kubo/config.dart' as config;
-import 'package:ipfs_ffi/go/kubo/repo/fsrepo.dart' as fsrepo;
-import 'package:ipfs_ffi/go/kubo/core/coreiface/options.dart' as options;
-import 'package:ipfs_ffi/go/kubo/core/coreapi.dart' as coreapi;
-import 'package:ipfs_ffi/go/kubo/core.dart' as core;
-import 'package:ipfs_ffi/go/cid.dart' as go_cid;
-import 'package:ipfs_ffi/ipfs_ffi.dart' show GolangEofException, P2pService;
+import 'package:p2p_ffi/go/codec_dagpb.dart' as codec_dagpb;
+import 'package:p2p_ffi/go/unixfsnode.dart' as unixfsnode;
+import 'package:p2p_ffi/go/ipld_prime/linking/cid.dart' as cid;
+import 'package:p2p_ffi/go/kubo/core/node.dart' as node;
+import 'package:p2p_ffi/go/kubo/plugin/loader.dart' as loader;
+import 'package:p2p_ffi/go/kubo/config.dart' as config;
+import 'package:p2p_ffi/go/kubo/repo/fsrepo.dart' as fsrepo;
+import 'package:p2p_ffi/go/kubo/core/coreiface/options.dart' as options;
+import 'package:p2p_ffi/go/kubo/core/coreapi.dart' as coreapi;
+import 'package:p2p_ffi/go/kubo/core.dart' as core;
+import 'package:p2p_ffi/go/cid.dart' as go_cid;
+import 'package:p2p_ffi/p2p_ffi.dart' show GolangEofException, P2pService;
 
 Future<void> main() async {
-  final tmp = Directory.systemTemp.createTempSync('ipfs_ffi_ex13_');
+  final tmp = Directory.systemTemp.createTempSync('p2p_ffi_ex13_');
   final repoPath = '${tmp.path}/repo';
 
   // Service, plugins and a new repo: the same as example 09.

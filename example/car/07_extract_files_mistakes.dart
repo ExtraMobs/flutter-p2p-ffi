@@ -4,16 +4,16 @@
 //   dart run example/car/07_extract_files_mistakes.dart
 
 import 'sample.dart';
-import 'package:ipfs_ffi/go/boxo/exchange/offline.dart' as offline;
-import 'package:ipfs_ffi/go/boxo/ipld/merkledag.dart' as merkledag;
-import 'package:ipfs_ffi/go/boxo/ipld/unixfs/file.dart' as file;
-import 'package:ipfs_ffi/go/boxo/files.dart' as files;
-import 'package:ipfs_ffi/go/boxo/blockservice.dart' as blockservice;
-import 'package:ipfs_ffi/go/car/v2/blockstore.dart' as blockstore;
-import 'package:ipfs_ffi/go/car/v2.dart' as car;
-import 'package:ipfs_ffi/go/ipld_prime/storage/bsadapter.dart' as bsadapter;
-import 'package:ipfs_ffi/go/ipld_prime/traversal/selector/parse.dart' as parse;
-import 'package:ipfs_ffi/go/ipld_prime/linking/cid.dart' as cid;
+import 'package:p2p_ffi/go/boxo/exchange/offline.dart' as offline;
+import 'package:p2p_ffi/go/boxo/ipld/merkledag.dart' as merkledag;
+import 'package:p2p_ffi/go/boxo/ipld/unixfs/file.dart' as file;
+import 'package:p2p_ffi/go/boxo/files.dart' as files;
+import 'package:p2p_ffi/go/boxo/blockservice.dart' as blockservice;
+import 'package:p2p_ffi/go/car/v2/blockstore.dart' as blockstore;
+import 'package:p2p_ffi/go/car/v2.dart' as car;
+import 'package:p2p_ffi/go/ipld_prime/storage/bsadapter.dart' as bsadapter;
+import 'package:p2p_ffi/go/ipld_prime/traversal/selector/parse.dart' as parse;
+import 'package:p2p_ffi/go/ipld_prime/linking/cid.dart' as cid;
 
 Future<void> main() async {
   final s = await Sample.open();

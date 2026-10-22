@@ -2,7 +2,7 @@
 // Go: github.com/ipfs/boxo/verifcid
 library;
 
-import 'package:ipfs_ffi/src/runtime.dart';
+import 'package:p2p_ffi/src/runtime.dart';
 
 /// Go: `verifcid.Allowlist` (handle).
 class Allowlist extends GoHandle {

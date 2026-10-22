@@ -8,9 +8,9 @@
 //
 //   dart run example/car/12_replace_roots.dart
 import 'dart:io';
-import 'package:ipfs_ffi/go/boxo/path.dart' as path;
-import 'package:ipfs_ffi/go/car/v2.dart' as car;
-import 'package:ipfs_ffi/go/cid.dart' as cid;
+import 'package:p2p_ffi/go/boxo/path.dart' as path;
+import 'package:p2p_ffi/go/car/v2.dart' as car;
+import 'package:p2p_ffi/go/cid.dart' as cid;
 
 import 'sample.dart';
 

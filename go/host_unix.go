@@ -32,7 +32,7 @@ func (c *unixChan) bellRing() { _, _ = c.conn.Write([]byte{1}) }
 // listen cria a região, escuta em [path], avisa "ready" no stdout e espera o
 // app conectar; então manda o tamanho e o descritor da região.
 func listen(path string, size int, init func([]byte)) (hostChan, error) {
-	fd, err := unix.MemfdCreate("ipfs_ffi", unix.MFD_CLOEXEC)
+	fd, err := unix.MemfdCreate("p2p_ffi", unix.MFD_CLOEXEC)
 	if err != nil {
 		return nil, fmt.Errorf("memfd: %w", err)
 	}

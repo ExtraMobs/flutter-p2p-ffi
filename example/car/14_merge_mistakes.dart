@@ -2,7 +2,7 @@
 //
 //   dart run example/car/14_merge_mistakes.dart
 import 'dart:io';
-import 'package:ipfs_ffi/go/car/v2/blockstore.dart' as blockstore;
+import 'package:p2p_ffi/go/car/v2/blockstore.dart' as blockstore;
 
 import 'sample.dart';
 

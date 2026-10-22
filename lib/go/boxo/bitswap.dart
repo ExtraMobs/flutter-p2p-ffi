@@ -2,8 +2,8 @@
 // Go: github.com/ipfs/boxo/bitswap
 library;
 
-import 'package:ipfs_ffi/src/runtime.dart';
-import 'package:ipfs_ffi/go/cid.dart' as $cid;
+import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/cid.dart' as $cid;
 
 /// Go: `bitswap.Stat` (a kubo command output).
 final class Stat {

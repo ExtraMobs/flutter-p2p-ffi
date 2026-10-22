@@ -2,7 +2,7 @@
 // Go: github.com/ipld/go-ipld-prime/traversal/selector
 library;
 
-import 'package:ipfs_ffi/src/runtime.dart';
+import 'package:p2p_ffi/src/runtime.dart';
 
 /// Go: `selector.RecursionLimit` (handle).
 class RecursionLimit extends GoHandle {

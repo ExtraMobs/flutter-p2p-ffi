@@ -6,7 +6,7 @@ plugins {
 
 // The extension through the new DSL type: the `android {}` accessor is deprecated in AGP 9
 extensions.configure<com.android.build.api.dsl.ApplicationExtension> {
-    namespace = "dev.extramobs.ipfs_ffi_android"
+    namespace = "dev.extramobs.p2p_ffi_android"
     compileSdk = flutter.compileSdkVersion
     // The same NDK that builds libipfs_host.so and libipfs_shm.so (tool/build.dart
     // android); the app compiles no C, but AGP uses the NDK to handle the .so files.
@@ -19,7 +19,7 @@ extensions.configure<com.android.build.api.dsl.ApplicationExtension> {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId = "dev.extramobs.ipfs_ffi_android"
+        applicationId = "dev.extramobs.p2p_ffi_android"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = maxOf(24, flutter.minSdkVersion) // the ipfs_host and the ipfs_shm are built for API 24
@@ -33,7 +33,7 @@ extensions.configure<com.android.build.api.dsl.ApplicationExtension> {
     }
 
     // Native binaries (libipfs_host.so and libipfs_shm.so) and
-    // useLegacyPackaging = true are provided automatically by the ipfs_ffi
+    // useLegacyPackaging = true are provided automatically by the p2p_ffi
     // plugin (android/build.gradle.kts).
 
     buildTypes {

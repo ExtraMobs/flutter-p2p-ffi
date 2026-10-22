@@ -2,7 +2,7 @@
 // Go: github.com/ipfs/boxo/path/resolver
 library;
 
-import 'package:ipfs_ffi/src/runtime.dart';
+import 'package:p2p_ffi/src/runtime.dart';
 
 /// Go: `resolver.Resolver` (handle).
 class Resolver extends GoHandle {

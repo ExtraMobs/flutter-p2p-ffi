@@ -8,35 +8,35 @@ import 'dart:math' show Random;
 import 'dart:typed_data';
 import 'dart:io' show Directory, File, InternetAddress;
 
-import 'package:ipfs_ffi/go/boxo/blockservice.dart' as blockservice;
-import 'package:ipfs_ffi/go/boxo/blockstore.dart' as blockstore;
-import 'package:ipfs_ffi/go/boxo/files.dart' as files;
-import 'package:ipfs_ffi/go/boxo/gateway.dart' as gateway;
-import 'package:ipfs_ffi/go/boxo/ipld/merkledag.dart' as merkledag;
-import 'package:ipfs_ffi/go/boxo/ipld/unixfs/file.dart' as unixfile;
-import 'package:ipfs_ffi/go/boxo/mfs.dart' as mfs;
-import 'package:ipfs_ffi/go/boxo/path.dart' as path;
-import 'package:ipfs_ffi/go/car/v2.dart' as car;
-import 'package:ipfs_ffi/go/datastore.dart' as datastore;
-import 'package:ipfs_ffi/go/context.dart' as context;
-import 'package:ipfs_ffi/go/io.dart' as io;
-import 'package:ipfs_ffi/go/io_stream.dart' as io_stream;
-import 'package:ipfs_ffi/go/os.dart' as os;
-import 'package:ipfs_ffi/go/kubo/config.dart' as config;
-import 'package:ipfs_ffi/go/kubo/core.dart' as core;
-import 'package:ipfs_ffi/go/kubo/core/commands/dag.dart' as dag;
-import 'package:ipfs_ffi/go/kubo/core/coreapi.dart' as coreapi;
-import 'package:ipfs_ffi/go/kubo/core/coreiface.dart' as iface;
-import 'package:ipfs_ffi/go/kubo/core/coreiface/options.dart' as options;
-import 'package:ipfs_ffi/go/kubo/core/corerepo.dart' as corerepo;
-import 'package:ipfs_ffi/go/kubo/core/node.dart' as node;
-import 'package:ipfs_ffi/go/kubo/core/node/libp2p.dart' as libp2p;
-import 'package:ipfs_ffi/go/kubo/plugin/loader.dart' as loader;
-import 'package:ipfs_ffi/go/kubo/repo/fsrepo.dart' as fsrepo;
-import 'package:ipfs_ffi/go/libp2p/core/network.dart' as network;
-import 'package:ipfs_ffi/go/libp2p/core/peer.dart' as peer;
-import 'package:ipfs_ffi/go/cid.dart' as cid;
-import 'package:ipfs_ffi/ipfs_ffi.dart'
+import 'package:p2p_ffi/go/boxo/blockservice.dart' as blockservice;
+import 'package:p2p_ffi/go/boxo/blockstore.dart' as blockstore;
+import 'package:p2p_ffi/go/boxo/files.dart' as files;
+import 'package:p2p_ffi/go/boxo/gateway.dart' as gateway;
+import 'package:p2p_ffi/go/boxo/ipld/merkledag.dart' as merkledag;
+import 'package:p2p_ffi/go/boxo/ipld/unixfs/file.dart' as unixfile;
+import 'package:p2p_ffi/go/boxo/mfs.dart' as mfs;
+import 'package:p2p_ffi/go/boxo/path.dart' as path;
+import 'package:p2p_ffi/go/car/v2.dart' as car;
+import 'package:p2p_ffi/go/datastore.dart' as datastore;
+import 'package:p2p_ffi/go/context.dart' as context;
+import 'package:p2p_ffi/go/io.dart' as io;
+import 'package:p2p_ffi/go/io_stream.dart' as io_stream;
+import 'package:p2p_ffi/go/os.dart' as os;
+import 'package:p2p_ffi/go/kubo/config.dart' as config;
+import 'package:p2p_ffi/go/kubo/core.dart' as core;
+import 'package:p2p_ffi/go/kubo/core/commands/dag.dart' as dag;
+import 'package:p2p_ffi/go/kubo/core/coreapi.dart' as coreapi;
+import 'package:p2p_ffi/go/kubo/core/coreiface.dart' as iface;
+import 'package:p2p_ffi/go/kubo/core/coreiface/options.dart' as options;
+import 'package:p2p_ffi/go/kubo/core/corerepo.dart' as corerepo;
+import 'package:p2p_ffi/go/kubo/core/node.dart' as node;
+import 'package:p2p_ffi/go/kubo/core/node/libp2p.dart' as libp2p;
+import 'package:p2p_ffi/go/kubo/plugin/loader.dart' as loader;
+import 'package:p2p_ffi/go/kubo/repo/fsrepo.dart' as fsrepo;
+import 'package:p2p_ffi/go/libp2p/core/network.dart' as network;
+import 'package:p2p_ffi/go/libp2p/core/peer.dart' as peer;
+import 'package:p2p_ffi/go/cid.dart' as cid;
+import 'package:p2p_ffi/p2p_ffi.dart'
     show
         P2pBackground,
         P2pPlatform,
@@ -48,7 +48,7 @@ import 'package:ipfs_ffi/ipfs_ffi.dart'
         P2pServiceException,
         hasIpv6,
         isGlobalIpv6;
-import 'package:ipfs_ffi/src/runtime.dart'
+import 'package:p2p_ffi/src/runtime.dart'
     show $W, $call, $callSync, $stream, GoSink;
 import 'package:test/test.dart';
 
@@ -61,7 +61,7 @@ void main() {
   final stops = StreamController<P2pStop>.broadcast(); // o onStop do serviço
 
   setUpAll(() async {
-    tmp = Directory.systemTemp.createTempSync('ipfs_ffi_kubo_');
+    tmp = Directory.systemTemp.createTempSync('p2p_ffi_kubo_');
     await P2pService.start(
         crashLog: '${tmp.path}/crash.log', onStop: stops.add);
     ctx = context.background();
@@ -789,9 +789,9 @@ void main() {
     });
   });
 
-  // As goroutines do próprio ipfs_ffi (go/runtime.go try/goTry): o panic vira
+  // As goroutines do próprio p2p_ffi (go/runtime.go try/goTry): o panic vira
   // GolangException e o processo segue.
-  group('panic em goroutine do ipfs_ffi vira erro', () {
+  group('panic em goroutine do p2p_ffi vira erro', () {
     test('função do kubo com chan<- (goTry)', () async {
       final events = <Object?>[];
       await expectLater(

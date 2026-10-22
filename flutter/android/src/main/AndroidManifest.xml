@@ -8,7 +8,7 @@
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
     <application>
         <service
-            android:name="dev.extramobs.ipfs_ffi_flutter.IpfsForegroundService"
+            android:name="dev.extramobs.p2p_ffi_flutter.P2pForegroundService"
             android:exported="false"
             android:foregroundServiceType="specialUse">
             <property

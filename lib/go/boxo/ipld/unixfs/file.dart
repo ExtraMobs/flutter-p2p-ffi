@@ -2,10 +2,10 @@
 // Go: github.com/ipfs/boxo/ipld/unixfs/file
 library;
 
-import 'package:ipfs_ffi/src/runtime.dart';
-import 'package:ipfs_ffi/go/boxo/files.dart' as $files;
-import 'package:ipfs_ffi/go/context.dart' as $context;
-import 'package:ipfs_ffi/go/ipld_format.dart' as $ipld_format;
+import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/boxo/files.dart' as $files;
+import 'package:p2p_ffi/go/context.dart' as $context;
+import 'package:p2p_ffi/go/ipld_format.dart' as $ipld_format;
 
 /// Go: `func unixfile.NewUnixfsFile(ctx context.Context, dserv format.DAGService, nd format.Node) (files.Node, error)`.
 ///

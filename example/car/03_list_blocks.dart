@@ -7,10 +7,10 @@
 // Kubo: none (the import stores everything in the node). Layer: go-car.
 //
 //   dart run example/car/03_list_blocks.dart
-import 'package:ipfs_ffi/go/car/v2.dart' as car;
-import 'package:ipfs_ffi/go/car/v2/blockstore.dart' as blockstore;
-import 'package:ipfs_ffi/go/os.dart' as os;
-import 'package:ipfs_ffi/ipfs_ffi.dart' show GolangEofException;
+import 'package:p2p_ffi/go/car/v2.dart' as car;
+import 'package:p2p_ffi/go/car/v2/blockstore.dart' as blockstore;
+import 'package:p2p_ffi/go/os.dart' as os;
+import 'package:p2p_ffi/p2p_ffi.dart' show GolangEofException;
 
 import 'sample.dart';
 

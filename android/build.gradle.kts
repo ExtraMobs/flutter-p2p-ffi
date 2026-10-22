@@ -1,6 +1,6 @@
 import java.util.Properties
 
-group = "dev.extramobs.ipfs_ffi"
+group = "dev.extramobs.p2p_ffi"
 version = "0.20.0"
 
 buildscript {
@@ -91,7 +91,7 @@ val buildIpfsFfiAndroid = tasks.register("buildIpfsFfiAndroid") {
             .inheritIO()
         val exitCode = pb.start().waitFor()
         if (exitCode != 0) {
-            throw GradleException("ipfs_ffi native Android build failed with exit code $exitCode")
+            throw GradleException("p2p_ffi native Android build failed with exit code $exitCode")
         }
     }
 }
@@ -101,7 +101,7 @@ tasks.named("preBuild") {
 }
 
 extensions.configure<com.android.build.api.dsl.LibraryExtension> {
-    namespace = "dev.extramobs.ipfs_ffi"
+    namespace = "dev.extramobs.p2p_ffi"
     compileSdk = 36
 
     defaultConfig {

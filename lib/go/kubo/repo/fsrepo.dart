@@ -2,9 +2,9 @@
 // Go: github.com/ipfs/kubo/repo/fsrepo
 library;
 
-import 'package:ipfs_ffi/src/runtime.dart';
-import 'package:ipfs_ffi/go/kubo/config.dart' as $config;
-import 'package:ipfs_ffi/go/kubo/repo.dart' as $repo;
+import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/kubo/config.dart' as $config;
+import 'package:p2p_ffi/go/kubo/repo.dart' as $repo;
 
 /// Go: `func fsrepo.IsInitialized(path string) bool`.
 bool isInitialized(String path) {

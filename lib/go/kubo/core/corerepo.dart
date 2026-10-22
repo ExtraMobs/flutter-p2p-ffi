@@ -2,10 +2,10 @@
 // Go: github.com/ipfs/kubo/core/corerepo
 library;
 
-import 'package:ipfs_ffi/src/runtime.dart';
-import 'package:ipfs_ffi/go/context.dart' as $context;
-import 'package:ipfs_ffi/go/kubo/core.dart' as $core;
-import 'package:ipfs_ffi/go/kubo/gc.dart' as $gc;
+import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/context.dart' as $context;
+import 'package:p2p_ffi/go/kubo/core.dart' as $core;
+import 'package:p2p_ffi/go/kubo/gc.dart' as $gc;
 
 /// Go: `func corerepo.GarbageCollect(n *core.IpfsNode, ctx context.Context) error`.
 ///

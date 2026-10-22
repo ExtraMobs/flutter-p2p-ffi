@@ -2,8 +2,8 @@
 // Go: github.com/ipfs/boxo/fetcher/impl/blockservice
 library;
 
-import 'package:ipfs_ffi/src/runtime.dart';
-import 'package:ipfs_ffi/go/ipld_prime/traversal.dart' as $traversal;
+import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/ipld_prime/traversal.dart' as $traversal;
 
 /// Go: `var bsfetcher.DefaultPrototypeChooser func(lnk ipld.Link, lnkCtx ipld.LinkContext) (ipld.NodePrototype, error)`.
 $traversal.LinkTargetNodePrototypeChooser get defaultPrototypeChooser {

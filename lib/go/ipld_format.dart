@@ -4,11 +4,11 @@ library;
 
 import 'dart:typed_data';
 
-import 'package:ipfs_ffi/src/runtime.dart';
-import 'package:ipfs_ffi/go/boxo/ipld/merkledag.dart' as $merkledag;
-import 'package:ipfs_ffi/go/cid.dart' as $cid;
-import 'package:ipfs_ffi/go/context.dart' as $context;
-import 'package:ipfs_ffi/go/kubo/core/coreiface.dart' as $coreiface;
+import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/boxo/ipld/merkledag.dart' as $merkledag;
+import 'package:p2p_ffi/go/cid.dart' as $cid;
+import 'package:p2p_ffi/go/context.dart' as $context;
+import 'package:p2p_ffi/go/kubo/core/coreiface.dart' as $coreiface;
 
 /// Go: `format.DAGService` (handle).
 class DagService extends NodeGetter {

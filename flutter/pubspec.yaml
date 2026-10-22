@@ -1,6 +1,6 @@
-name: ipfs_ffi_flutter
+name: p2p_ffi_flutter
 description: >-
-  Android side of ipfs_ffi: stops the IPFS service when the app goes to the
+  Android side of p2p_ffi: stops the IPFS service when the app goes to the
   background, or keeps it running under an Android foreground service.
 version: 0.20.0
 publish_to: 'none'
@@ -12,13 +12,13 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  ipfs_ffi:
+  p2p_ffi:
     path: ..
 
 flutter:
   plugin:
     platforms:
       android:
-        package: dev.extramobs.ipfs_ffi_flutter
-        pluginClass: IpfsFfiFlutterPlugin
-        dartPluginClass: IpfsFfiFlutter
+        package: dev.extramobs.p2p_ffi_flutter
+        pluginClass: P2pFfiFlutterPlugin
+        dartPluginClass: P2pFfiFlutter

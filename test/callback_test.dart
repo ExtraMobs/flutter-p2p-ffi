@@ -5,12 +5,11 @@
 // kubo no meio. Exige `dart run tool/build.dart`.
 import 'dart:typed_data';
 
-import 'package:ipfs_ffi/go/car/v2/index.dart' as index;
-import 'package:ipfs_ffi/go/multicodec.dart' as multicodec;
-import 'package:ipfs_ffi/go/cid.dart' as cid;
-import 'package:ipfs_ffi/ipfs_ffi.dart';
-import 'package:ipfs_ffi/src/runtime.dart'
-    show $W, $callCb, $callSync, GoHandle;
+import 'package:p2p_ffi/go/car/v2/index.dart' as index;
+import 'package:p2p_ffi/go/multicodec.dart' as multicodec;
+import 'package:p2p_ffi/go/cid.dart' as cid;
+import 'package:p2p_ffi/p2p_ffi.dart';
+import 'package:p2p_ffi/src/runtime.dart' show $W, $callCb, $callSync, GoHandle;
 import 'package:test/test.dart';
 
 /// Função 27: [n] itens de [size] bytes; devolve quantos o Go produziu.

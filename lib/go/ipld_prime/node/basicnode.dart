@@ -2,8 +2,8 @@
 // Go: github.com/ipld/go-ipld-prime/node/basicnode
 library;
 
-import 'package:ipfs_ffi/src/runtime.dart';
-import 'package:ipfs_ffi/go/ipld_prime/datamodel.dart' as $datamodel;
+import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/ipld_prime/datamodel.dart' as $datamodel;
 
 /// Go: `basicnode.Prototype__Any` (handle).
 class PrototypeAny extends $datamodel.NodePrototype {

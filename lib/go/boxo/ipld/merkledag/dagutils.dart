@@ -2,8 +2,8 @@
 // Go: github.com/ipfs/boxo/ipld/merkledag/dagutils
 library;
 
-import 'package:ipfs_ffi/src/runtime.dart';
-import 'package:ipfs_ffi/go/cid.dart' as $cid;
+import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/cid.dart' as $cid;
 
 /// Go: `const dagutils.Add dagutils.ChangeType`.
 const add = 0;

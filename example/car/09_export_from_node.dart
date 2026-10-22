@@ -13,15 +13,15 @@
 //   dart run example/car/09_export_from_node.dart
 
 import 'sample.dart';
-import 'package:ipfs_ffi/go/boxo/gateway.dart' as gateway;
-import 'package:ipfs_ffi/go/boxo/path.dart' as path;
-import 'package:ipfs_ffi/go/car/v2.dart' as car;
-import 'package:ipfs_ffi/go/io.dart' as io;
-import 'package:ipfs_ffi/go/os.dart' as os;
-import 'package:ipfs_ffi/go/ipld_prime/storage/bsadapter.dart' as bsadapter;
-import 'package:ipfs_ffi/go/ipld_prime/traversal/selector/parse.dart' as parse;
-import 'package:ipfs_ffi/go/ipld_prime/linking/cid.dart' as cid;
-import 'package:ipfs_ffi/go/kubo/core/commands/dag.dart' as dag;
+import 'package:p2p_ffi/go/boxo/gateway.dart' as gateway;
+import 'package:p2p_ffi/go/boxo/path.dart' as path;
+import 'package:p2p_ffi/go/car/v2.dart' as car;
+import 'package:p2p_ffi/go/io.dart' as io;
+import 'package:p2p_ffi/go/os.dart' as os;
+import 'package:p2p_ffi/go/ipld_prime/storage/bsadapter.dart' as bsadapter;
+import 'package:p2p_ffi/go/ipld_prime/traversal/selector/parse.dart' as parse;
+import 'package:p2p_ffi/go/ipld_prime/linking/cid.dart' as cid;
+import 'package:p2p_ffi/go/kubo/core/commands/dag.dart' as dag;
 
 Future<void> main() async {
   final s = await Sample.open();

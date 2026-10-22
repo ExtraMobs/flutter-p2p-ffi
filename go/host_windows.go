@@ -43,7 +43,7 @@ func pipe(name string, dir uint32) (windows.Handle, error) {
 func listen(base string, size int, init func([]byte)) (hostChan, error) {
 	var rnd [16]byte
 	_, _ = rand.Read(rnd[:])
-	name := `Local\ipfs_ffi_` + hex.EncodeToString(rnd[:])
+	name := `Local\p2p_ffi_` + hex.EncodeToString(rnd[:])
 	np, _ := windows.UTF16PtrFromString(name)
 	m, err := windows.CreateFileMapping(windows.InvalidHandle, nil, windows.PAGE_READWRITE,
 		uint32(uint64(size)>>32), uint32(size), np)

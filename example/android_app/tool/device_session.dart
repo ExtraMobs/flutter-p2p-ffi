@@ -10,7 +10,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-const app = 'dev.extramobs.ipfs_ffi_android';
+const app = 'dev.extramobs.p2p_ffi_android';
 const host = 'libipfs_host.so';
 const steps = [
   'info',

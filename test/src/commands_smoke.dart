@@ -2,10 +2,10 @@
 
 // Every generated kubo command, called with the arguments the smoke test
 // provides (test/commands_smoke_test.dart).
-import 'package:ipfs_ffi/go/boxo/files.dart' as files;
-import 'package:ipfs_ffi/go/context.dart' as context;
-import 'package:ipfs_ffi/go/kubo/core.dart' as core;
-import 'package:ipfs_ffi/go/kubo/core/commands.dart' as k;
+import 'package:p2p_ffi/go/boxo/files.dart' as files;
+import 'package:p2p_ffi/go/context.dart' as context;
+import 'package:p2p_ffi/go/kubo/core.dart' as core;
+import 'package:p2p_ffi/go/kubo/core/commands.dart' as k;
 
 /// What a command needs: the node, a ctx, and a value per required argument.
 abstract interface class SmokeArgs {

@@ -2,9 +2,9 @@
 // Go: github.com/ipld/go-ipld-prime/datamodel
 library;
 
-import 'package:ipfs_ffi/src/runtime.dart';
-import 'package:ipfs_ffi/go/boxo/ipld/merkledag.dart' as $merkledag;
-import 'package:ipfs_ffi/go/ipld_prime/node/basicnode.dart' as $basicnode;
+import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/boxo/ipld/merkledag.dart' as $merkledag;
+import 'package:p2p_ffi/go/ipld_prime/node/basicnode.dart' as $basicnode;
 
 /// Go: `datamodel.Node` (handle).
 class Node extends GoHandle {

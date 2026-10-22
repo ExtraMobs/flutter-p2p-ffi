@@ -1,6 +1,6 @@
 # Memory & Handle Lifecycle (`example/memory/`)
 
-In `ipfs_ffi`, Kubo and its Go libraries (`boxo`, `go-car`, `go-ipld-prime`, `go`) run in a separate process (`ipfs_host`), communicating with Dart over shared memory (`ipfs_shm`).
+In `p2p_ffi`, Kubo and its Go libraries (`boxo`, `go-car`, `go-ipld-prime`, `go`) run in a separate process (`ipfs_host`), communicating with Dart over shared memory (`ipfs_shm`).
 
 Values that cross by value — primitives, `Uint8List`, `String`, `Cid`, `Path`, `PeerId`, `Multiaddr`, `Config` and generated DTO structs (`BlockStat`, `Stats`, `Link`, ...) — live entirely in Dart once decoded and need no special lifecycle care.
 

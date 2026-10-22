@@ -2,9 +2,9 @@
 // Go: github.com/libp2p/go-libp2p/core/routing
 library;
 
-import 'package:ipfs_ffi/src/runtime.dart';
-import 'package:ipfs_ffi/go/libp2p/core/peer.dart' as $peer;
-import 'package:ipfs_ffi/go/multiaddr.dart' as $multiaddr;
+import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/libp2p/core/peer.dart' as $peer;
+import 'package:p2p_ffi/go/multiaddr.dart' as $multiaddr;
 
 /// Go: `routing.ValueStore` (handle).
 class ValueStore extends GoHandle {

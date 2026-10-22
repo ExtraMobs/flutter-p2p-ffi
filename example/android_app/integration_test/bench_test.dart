@@ -8,14 +8,14 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
-import 'package:ipfs_ffi/go/context.dart' as context;
-import 'package:ipfs_ffi/go/kubo/core.dart' as core;
-import 'package:ipfs_ffi/go/kubo/core/coreapi.dart' as coreapi;
-import 'package:ipfs_ffi/go/kubo/core/node.dart' as node;
-import 'package:ipfs_ffi/go/kubo/repo/fsrepo.dart' as fsrepo;
-import 'package:ipfs_ffi/ipfs_ffi.dart' show P2pService;
-import 'package:ipfs_ffi/src/runtime.dart' show $callSync, $W;
-import 'package:ipfs_ffi_android/main.dart' show setupService, startNode;
+import 'package:p2p_ffi/go/context.dart' as context;
+import 'package:p2p_ffi/go/kubo/core.dart' as core;
+import 'package:p2p_ffi/go/kubo/core/coreapi.dart' as coreapi;
+import 'package:p2p_ffi/go/kubo/core/node.dart' as node;
+import 'package:p2p_ffi/go/kubo/repo/fsrepo.dart' as fsrepo;
+import 'package:p2p_ffi/p2p_ffi.dart' show P2pService;
+import 'package:p2p_ffi/src/runtime.dart' show $callSync, $W;
+import 'package:p2p_ffi_android/main.dart' show setupService, startNode;
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
@@ -76,7 +76,7 @@ void main() {
 
   test('with a node in the host: offline × online', () async {
     final lines = <String>[];
-    final tmp = Directory.systemTemp.createTempSync('ipfs_ffi_bench_');
+    final tmp = Directory.systemTemp.createTempSync('p2p_ffi_bench_');
     final repo = '${tmp.path}/repo';
     for (final spin in [20000, 200000]) {
       await P2pService.start(spin: spin);

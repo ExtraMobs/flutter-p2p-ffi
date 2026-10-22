@@ -2,9 +2,9 @@
 // Go: github.com/libp2p/go-libp2p/core/connmgr
 library;
 
-import 'package:ipfs_ffi/src/runtime.dart';
-import 'package:ipfs_ffi/go/context.dart' as $context;
-import 'package:ipfs_ffi/go/libp2p/core/peer.dart' as $peer;
+import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/context.dart' as $context;
+import 'package:p2p_ffi/go/libp2p/core/peer.dart' as $peer;
 
 /// Go: `connmgr.ConnManager` (handle).
 class ConnManager extends GoHandle {

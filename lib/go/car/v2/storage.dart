@@ -2,11 +2,11 @@
 // Go: github.com/ipld/go-car/v2/storage
 library;
 
-import 'package:ipfs_ffi/src/runtime.dart';
-import 'package:ipfs_ffi/go/car/v2.dart' as $v2;
-import 'package:ipfs_ffi/go/car/v2/index.dart' as $index;
-import 'package:ipfs_ffi/go/cid.dart' as $cid;
-import 'package:ipfs_ffi/go/ipld_prime/storage.dart' as $storage;
+import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/car/v2.dart' as $v2;
+import 'package:p2p_ffi/go/car/v2/index.dart' as $index;
+import 'package:p2p_ffi/go/cid.dart' as $cid;
+import 'package:p2p_ffi/go/ipld_prime/storage.dart' as $storage;
 
 /// Go: `storage.ReadableCar` (handle).
 class ReadableCar extends $storage.ReadableStorage {

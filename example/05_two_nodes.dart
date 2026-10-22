@@ -6,20 +6,20 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:ipfs_ffi/go/boxo/files.dart' as files;
-import 'package:ipfs_ffi/go/context.dart' as context;
-import 'package:ipfs_ffi/go/libp2p/core/peer.dart' as peer;
-import 'package:ipfs_ffi/go/io.dart' as io;
-import 'package:ipfs_ffi/go/kubo/config.dart' as config;
-import 'package:ipfs_ffi/go/kubo/core.dart' as core;
-import 'package:ipfs_ffi/go/kubo/core/coreapi.dart' as coreapi;
-import 'package:ipfs_ffi/go/kubo/core/coreiface.dart' as iface;
-import 'package:ipfs_ffi/go/kubo/core/coreiface/options.dart' as options;
-import 'package:ipfs_ffi/go/kubo/core/node.dart' as node;
-import 'package:ipfs_ffi/go/kubo/core/node/libp2p.dart' as libp2p;
-import 'package:ipfs_ffi/go/kubo/plugin/loader.dart' as loader;
-import 'package:ipfs_ffi/go/kubo/repo/fsrepo.dart' as fsrepo;
-import 'package:ipfs_ffi/ipfs_ffi.dart' show P2pService;
+import 'package:p2p_ffi/go/boxo/files.dart' as files;
+import 'package:p2p_ffi/go/context.dart' as context;
+import 'package:p2p_ffi/go/libp2p/core/peer.dart' as peer;
+import 'package:p2p_ffi/go/io.dart' as io;
+import 'package:p2p_ffi/go/kubo/config.dart' as config;
+import 'package:p2p_ffi/go/kubo/core.dart' as core;
+import 'package:p2p_ffi/go/kubo/core/coreapi.dart' as coreapi;
+import 'package:p2p_ffi/go/kubo/core/coreiface.dart' as iface;
+import 'package:p2p_ffi/go/kubo/core/coreiface/options.dart' as options;
+import 'package:p2p_ffi/go/kubo/core/node.dart' as node;
+import 'package:p2p_ffi/go/kubo/core/node/libp2p.dart' as libp2p;
+import 'package:p2p_ffi/go/kubo/plugin/loader.dart' as loader;
+import 'package:p2p_ffi/go/kubo/repo/fsrepo.dart' as fsrepo;
+import 'package:p2p_ffi/p2p_ffi.dart' show P2pService;
 
 final ctx = context.background();
 
@@ -45,7 +45,7 @@ Future<void> main() async {
   loader.PluginLoader('')
     ..initialize()
     ..inject();
-  final tmp = Directory.systemTemp.createTempSync('ipfs_ffi_dois_');
+  final tmp = Directory.systemTemp.createTempSync('p2p_ffi_dois_');
   final (na, a) = await spawn('${tmp.path}/a');
   final (nb, b) = await spawn('${tmp.path}/b');
   try {

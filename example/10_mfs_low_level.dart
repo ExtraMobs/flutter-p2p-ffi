@@ -12,21 +12,21 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:ipfs_ffi/go/boxo/files.dart' as files;
-import 'package:ipfs_ffi/go/boxo/mfs.dart' as mfs;
-import 'package:ipfs_ffi/go/context.dart' as context;
-import 'package:ipfs_ffi/go/kubo/core/node.dart' as node;
-import 'package:ipfs_ffi/go/kubo/plugin/loader.dart' as loader;
-import 'package:ipfs_ffi/go/kubo/config.dart' as config;
-import 'package:ipfs_ffi/go/kubo/repo/fsrepo.dart' as fsrepo;
-import 'package:ipfs_ffi/go/kubo/core/coreiface/options.dart' as options;
-import 'package:ipfs_ffi/go/kubo/core/coreapi.dart' as coreapi;
-import 'package:ipfs_ffi/go/kubo/core.dart' as core;
-import 'package:ipfs_ffi/go/kubo/core/commands.dart' as commands;
-import 'package:ipfs_ffi/ipfs_ffi.dart' show P2pService;
+import 'package:p2p_ffi/go/boxo/files.dart' as files;
+import 'package:p2p_ffi/go/boxo/mfs.dart' as mfs;
+import 'package:p2p_ffi/go/context.dart' as context;
+import 'package:p2p_ffi/go/kubo/core/node.dart' as node;
+import 'package:p2p_ffi/go/kubo/plugin/loader.dart' as loader;
+import 'package:p2p_ffi/go/kubo/config.dart' as config;
+import 'package:p2p_ffi/go/kubo/repo/fsrepo.dart' as fsrepo;
+import 'package:p2p_ffi/go/kubo/core/coreiface/options.dart' as options;
+import 'package:p2p_ffi/go/kubo/core/coreapi.dart' as coreapi;
+import 'package:p2p_ffi/go/kubo/core.dart' as core;
+import 'package:p2p_ffi/go/kubo/core/commands.dart' as commands;
+import 'package:p2p_ffi/p2p_ffi.dart' show P2pService;
 
 Future<void> main() async {
-  final tmp = Directory.systemTemp.createTempSync('ipfs_ffi_ex10_');
+  final tmp = Directory.systemTemp.createTempSync('p2p_ffi_ex10_');
   final repoPath = '${tmp.path}/repo';
 
   // Service, plugins and a new repo: the same as example 09 (every line is
@@ -91,7 +91,7 @@ Future<void> main() async {
     writer.seek(0, 2);
     writer.write(utf8.encode('second line\n'));
     writer.close();
-    // (this is the case of bug ipfs/boxo#1221, which the ipfs_ffi build fixes
+    // (this is the case of bug ipfs/boxo#1221, which the p2p_ffi build fixes
     // with a patch: without the fix, the read below would bring only the second
     // line)
 

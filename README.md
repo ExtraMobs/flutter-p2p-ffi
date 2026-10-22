@@ -1,4 +1,4 @@
-# ipfs_ffi
+# p2p_ffi
 
 Kubo (IPFS in Go, the version pinned in [`go/go.mod`](go/go.mod)) used from Dart without
 HTTP. Kubo runs in the `ipfs_host` executable, in another process, and the app talks to it
@@ -8,20 +8,20 @@ panic stops only the service, never the app. Targets: VM/AOT on Windows, linux a
 
 The Dart API is Go's own, generated: the same functions, types and argument order as in
 pkg.go.dev, so the Go documentation applies. Each Go package is one library under
-`package:ipfs_ffi/go/`, at the package's path in its module (the module named without
+`package:p2p_ffi/go/`, at the package's path in its module (the module named without
 `go-` and the major version), with the Go standard library beside the modules:
 
 | Go package | Dart library |
 |---|---|
-| `github.com/ipfs/boxo/mfs` | `package:ipfs_ffi/go/boxo/mfs.dart` |
-| `github.com/ipfs/kubo/repo/fsrepo` | `package:ipfs_ffi/go/kubo/repo/fsrepo.dart` |
-| `github.com/ipfs/go-cid` | `package:ipfs_ffi/go/cid.dart` |
-| `github.com/ipld/go-car/v2/index` | `package:ipfs_ffi/go/car/v2/index.dart` |
-| `context` | `package:ipfs_ffi/go/context.dart` |
+| `github.com/ipfs/boxo/mfs` | `package:p2p_ffi/go/boxo/mfs.dart` |
+| `github.com/ipfs/kubo/repo/fsrepo` | `package:p2p_ffi/go/kubo/repo/fsrepo.dart` |
+| `github.com/ipfs/go-cid` | `package:p2p_ffi/go/cid.dart` |
+| `github.com/ipld/go-car/v2/index` | `package:p2p_ffi/go/car/v2/index.dart` |
+| `context` | `package:p2p_ffi/go/context.dart` |
 
 Import each package with its last segment as the prefix (`as mfs`), like Go code reads.
 Each type lives only in the library of its Go package, and no library re-exports another.
-The service, its errors and the handles come from `package:ipfs_ffi/ipfs_ffi.dart`.
+The service, its errors and the handles come from `package:p2p_ffi/p2p_ffi.dart`.
 
 | Document | What it has |
 |---|---|
@@ -36,17 +36,17 @@ The service, its errors and the handles come from `package:ipfs_ffi/ipfs_ffi.dar
 ```dart
 import 'dart:convert';
 
-import 'package:ipfs_ffi/go/boxo/files.dart' as files;
-import 'package:ipfs_ffi/go/context.dart' as context;
-import 'package:ipfs_ffi/go/io.dart' as io;
-import 'package:ipfs_ffi/go/kubo/config.dart' as config;
-import 'package:ipfs_ffi/go/kubo/core.dart' as core;
-import 'package:ipfs_ffi/go/kubo/core/coreapi.dart' as coreapi;
-import 'package:ipfs_ffi/go/kubo/core/coreiface/options.dart' as options;
-import 'package:ipfs_ffi/go/kubo/core/node.dart' as node;
-import 'package:ipfs_ffi/go/kubo/plugin/loader.dart' as loader;
-import 'package:ipfs_ffi/go/kubo/repo/fsrepo.dart' as fsrepo;
-import 'package:ipfs_ffi/ipfs_ffi.dart';
+import 'package:p2p_ffi/go/boxo/files.dart' as files;
+import 'package:p2p_ffi/go/context.dart' as context;
+import 'package:p2p_ffi/go/io.dart' as io;
+import 'package:p2p_ffi/go/kubo/config.dart' as config;
+import 'package:p2p_ffi/go/kubo/core.dart' as core;
+import 'package:p2p_ffi/go/kubo/core/coreapi.dart' as coreapi;
+import 'package:p2p_ffi/go/kubo/core/coreiface/options.dart' as options;
+import 'package:p2p_ffi/go/kubo/core/node.dart' as node;
+import 'package:p2p_ffi/go/kubo/plugin/loader.dart' as loader;
+import 'package:p2p_ffi/go/kubo/repo/fsrepo.dart' as fsrepo;
+import 'package:p2p_ffi/p2p_ffi.dart';
 
 await P2pService.start(onStop: (stop) => print('${stop.reason}: ${stop.report}'));
 loader.PluginLoader('')..initialize()..inject(); // once per service
@@ -83,7 +83,7 @@ await P2pService.stop();
 
 The kubo RPC commands (`ipfs files ...`, `ipfs pin ls`, `ipfs cat`...) are also available,
 running against the app's node: one function per command in
-`package:ipfs_ffi/go/kubo/core/commands.dart`, each returning a `Stream`; their result types
+`package:p2p_ffi/go/kubo/core/commands.dart`, each returning a `Stream`; their result types
 are in the libraries of their Go packages
 (`await commands.filesStat(n, ctx, '/a').single`).
 
@@ -189,8 +189,8 @@ are in the libraries of their Go packages
   process killer kills it, and the app with it, if it uses CPU in the background. Choose
   `P2pService.background`: `P2pBackground.stop` (default; restart on return) or
   `P2pBackground.foregroundService` (a foreground service with a notification; ask for
-  `POST_NOTIFICATIONS` with `IpfsFfiFlutter.requestNotificationPermission()`). The
-  [`ipfs_ffi_flutter`](flutter) plugin registers itself.
+  `POST_NOTIFICATIONS` with `P2pFfiFlutter.requestNotificationPermission()`). The
+  [`p2p_ffi_flutter`](flutter) plugin registers itself.
 - **DNS:** Go cannot find the system resolver on Android; configure `DNS.Resolvers`
   (DNS over HTTPS).
 - **Packaging:** the host must be extracted from the APK

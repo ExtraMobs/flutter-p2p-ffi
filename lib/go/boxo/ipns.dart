@@ -2,7 +2,7 @@
 // Go: github.com/ipfs/boxo/ipns
 library;
 
-import 'package:ipfs_ffi/src/runtime.dart';
+import 'package:p2p_ffi/src/runtime.dart';
 
 /// Go: `ipns.Name` (valor).
 class Name extends GoValue {

@@ -2,7 +2,7 @@
 /// `Context` that asynchronous methods receive and their cancellation.
 ///
 /// ```dart
-/// import 'package:ipfs_ffi/go/context.dart' as context;
+/// import 'package:p2p_ffi/go/context.dart' as context;
 ///
 /// final (ctx, cancel) = context.withTimeout(context.background(), Duration(seconds: 30));
 /// try {
@@ -13,7 +13,7 @@
 /// ```
 library;
 
-import 'package:ipfs_ffi/src/runtime.dart';
+import 'package:p2p_ffi/src/runtime.dart';
 
 /// Go: `context.Context` (handle).
 class Context extends GoHandle {

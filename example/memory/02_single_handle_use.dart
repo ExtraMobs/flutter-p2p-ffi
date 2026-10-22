@@ -8,18 +8,18 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:ipfs_ffi/go/bytes.dart' as go_bytes;
-import 'package:ipfs_ffi/go/os.dart' as os;
-import 'package:ipfs_ffi/go/io.dart' as io;
-import 'package:ipfs_ffi/ipfs_ffi.dart';
+import 'package:p2p_ffi/go/bytes.dart' as go_bytes;
+import 'package:p2p_ffi/go/os.dart' as os;
+import 'package:p2p_ffi/go/io.dart' as io;
+import 'package:p2p_ffi/p2p_ffi.dart';
 
 Future<void> main() async {
-  final tmp = Directory.systemTemp.createTempSync('ipfs_ffi_mem02_');
+  final tmp = Directory.systemTemp.createTempSync('p2p_ffi_mem02_');
   await P2pService.start();
   try {
     print('== 1. Synchronous .use() on a memory buffer ==');
     final length =
-        go_bytes.Buffer(Uint8List.fromList(utf8.encode('hello ipfs_ffi')))
+        go_bytes.Buffer(Uint8List.fromList(utf8.encode('hello p2p_ffi')))
             .use((buf) {
       final len = buf.bytes().length;
       print('inside use(): buf.bytes().length = $len, '

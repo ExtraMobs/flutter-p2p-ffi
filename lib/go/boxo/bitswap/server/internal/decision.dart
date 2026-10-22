@@ -2,7 +2,7 @@
 // Go: github.com/ipfs/boxo/bitswap/server/internal/decision
 library;
 
-import 'package:ipfs_ffi/src/runtime.dart';
+import 'package:p2p_ffi/src/runtime.dart';
 
 /// Go: `decision.Receipt` (a kubo command output).
 final class Receipt {

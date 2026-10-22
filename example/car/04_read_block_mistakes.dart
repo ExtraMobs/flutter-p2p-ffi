@@ -2,9 +2,9 @@
 //
 //   dart run example/car/04_read_block_mistakes.dart
 import 'dart:io';
-import 'package:ipfs_ffi/go/car/v2/blockstore.dart' as blockstore;
-import 'package:ipfs_ffi/go/car/v2.dart' as car;
-import 'package:ipfs_ffi/go/cid.dart' as cid;
+import 'package:p2p_ffi/go/car/v2/blockstore.dart' as blockstore;
+import 'package:p2p_ffi/go/car/v2.dart' as car;
+import 'package:p2p_ffi/go/cid.dart' as cid;
 import 'dart:typed_data';
 
 import 'sample.dart';

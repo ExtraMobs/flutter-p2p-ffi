@@ -4,12 +4,12 @@ library;
 
 import 'dart:typed_data';
 
-import 'package:ipfs_ffi/src/runtime.dart';
-import 'package:ipfs_ffi/go/boxo/chunker.dart' as $chunker;
-import 'package:ipfs_ffi/go/cid.dart' as $cid;
-import 'package:ipfs_ffi/go/context.dart' as $context;
-import 'package:ipfs_ffi/go/io.dart' as $io;
-import 'package:ipfs_ffi/go/ipld_format.dart' as $ipld_format;
+import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/boxo/chunker.dart' as $chunker;
+import 'package:p2p_ffi/go/cid.dart' as $cid;
+import 'package:p2p_ffi/go/context.dart' as $context;
+import 'package:p2p_ffi/go/io.dart' as $io;
+import 'package:p2p_ffi/go/ipld_format.dart' as $ipld_format;
 
 /// Go: `mfs.Directory` (handle).
 class Directory extends FsNode {

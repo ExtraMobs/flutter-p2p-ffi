@@ -1,4 +1,4 @@
-package dev.extramobs.ipfs_ffi_flutter
+package dev.extramobs.p2p_ffi_flutter
 
 import android.content.Context
 import android.content.Intent
@@ -13,10 +13,10 @@ import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.PluginRegistry
 
 /**
- * Starts and stops [IpfsForegroundService] for the Dart side, and asks for the
+ * Starts and stops [P2pForegroundService] for the Dart side, and asks for the
  * notification permission its notification needs (Android 13+).
  */
-class IpfsFfiFlutterPlugin :
+class P2pFfiFlutterPlugin :
     FlutterPlugin,
     ActivityAware,
     MethodChannel.MethodCallHandler,
@@ -28,17 +28,17 @@ class IpfsFfiFlutterPlugin :
 
     override fun onAttachedToEngine(binding: FlutterPlugin.FlutterPluginBinding) {
         context = binding.applicationContext
-        channel = MethodChannel(binding.binaryMessenger, "ipfs_ffi_flutter")
+        channel = MethodChannel(binding.binaryMessenger, "p2p_ffi_flutter")
         channel.setMethodCallHandler(this)
     }
 
     override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
         when (call.method) {
             "startForeground" -> {
-                val intent = Intent(context, IpfsForegroundService::class.java)
+                val intent = Intent(context, P2pForegroundService::class.java)
                     .putExtra("config", bundle(call.arguments))
                 try {
-                    IpfsForegroundService.start(context, intent)
+                    P2pForegroundService.start(context, intent)
                     result.success(null)
                 } catch (e: RuntimeException) {
                     // e.g. ForegroundServiceStartNotAllowedException (app in
@@ -47,11 +47,11 @@ class IpfsFfiFlutterPlugin :
                 }
             }
             "stopForeground" -> {
-                IpfsForegroundService.stop(context)
+                P2pForegroundService.stop(context)
                 result.success(null)
             }
             "updateNotification" -> {
-                IpfsForegroundService.update(context, bundle(call.arguments))
+                P2pForegroundService.update(context, bundle(call.arguments))
                 result.success(null)
             }
             "requestNotificationPermission" -> requestNotificationPermission(result)
@@ -114,7 +114,7 @@ class IpfsFfiFlutterPlugin :
         const val NOTIFICATIONS = "android.permission.POST_NOTIFICATIONS"
         const val REQUEST_NOTIFICATIONS = 0x1f5
 
-        // the Dart IpfsNotification (a map of strings, ints, bools and the
+        // the Dart P2pNotification (a map of strings, ints, bools and the
         // extras map) as the Bundle the service reads
         fun bundle(args: Any?): Bundle {
             val b = Bundle()

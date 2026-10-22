@@ -41,7 +41,7 @@ func TestCheckPublicExports(t *testing.T) {
 			t.Fatal(err)
 		}
 	}
-	write("ipfs_ffi.dart", "library;\n\nexport 'src/service.dart' show P2pService;\n")
+	write("p2p_ffi.dart", "library;\n\nexport 'src/service.dart' show P2pService;\n")
 	write("src/service.dart", "export 'runtime.dart';\n") // privado: pode
 	write("go/hand.dart", "library;\n\nint x() => 1;\n")
 	if err := checkPublicExports(dir, nil); err != nil {
@@ -52,18 +52,18 @@ func TestCheckPublicExports(t *testing.T) {
 	if err == nil || !strings.Contains(err.Error(), "lib/go/boxo.dart:3 re-exports 'boxo/mfs.dart'") {
 		t.Fatalf("reexport aceito: %v", err)
 	}
-	// e o ipfs_ffi.dart só reexporta o que é de src/
+	// e o p2p_ffi.dart só reexporta o que é de src/
 	write("go/boxo.dart", "library;\n")
-	write("ipfs_ffi.dart", "library;\n\nexport 'go/boxo/mfs.dart';\n")
+	write("p2p_ffi.dart", "library;\n\nexport 'go/boxo/mfs.dart';\n")
 	if err := checkPublicExports(dir, nil); err == nil {
-		t.Fatal("ipfs_ffi.dart reexportando uma library pública foi aceito")
+		t.Fatal("p2p_ffi.dart reexportando uma library pública foi aceito")
 	}
 }
 
 func TestPublicNames(t *testing.T) {
 	src := []byte(`library;
 
-import 'package:ipfs_ffi/src/runtime.dart';
+import 'package:p2p_ffi/src/runtime.dart';
 
 /// Go: x.
 class File extends GoHandle {

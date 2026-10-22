@@ -266,7 +266,7 @@ func (e *dartEmitter) ref(t *tinfo, from *dartLib) string {
 	if l == from {
 		return name
 	}
-	return e.imp(from, "package:ipfs_ffi/"+l.path) + "." + name
+	return e.imp(from, pkgPrefix+l.path) + "." + name
 }
 
 func (e *dartEmitter) imp(from *dartLib, uri string) string {
@@ -340,7 +340,7 @@ func (e *dartEmitter) dt(t *tinfo, from *dartLib) string {
 		}
 		return "Map<" + key + ", " + e.dt(t.elem, from) + ">"
 	case kCtx:
-		return e.imp(from, "package:ipfs_ffi/go/context.dart") + ".Context"
+		return e.imp(from, pkgPrefix+"go/context.dart") + ".Context"
 	case kChanSend, kChanRecv:
 		return "Stream<" + e.dt(t.elem, from) + ">"
 	case kAny:
@@ -526,7 +526,7 @@ func (e *dartEmitter) emitPart(l *dartLib, hand []byte) (string, string) {
 		need["import 'dart:async';"] = true
 	}
 	if usesRuntime(body) {
-		need["import 'package:ipfs_ffi/src/runtime.dart';"] = true
+		need["import '"+pkgPrefix+"src/runtime.dart';"] = true
 	}
 	for uri, p := range l.prefix {
 		need[fmt.Sprintf("import '%s' as %s;", uri, p)] = true
@@ -556,7 +556,7 @@ func (e *dartEmitter) emitLib(l *dartLib) string {
 		b.WriteString("\n")
 	}
 	if usesRuntime(body) {
-		b.WriteString("import 'package:ipfs_ffi/src/runtime.dart';\n")
+		b.WriteString("import '" + pkgPrefix + "src/runtime.dart';\n")
 	}
 	uris := sortedKeys(l.prefix)
 	for _, uri := range uris {
