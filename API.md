@@ -258,6 +258,8 @@ Cada linha é um símbolo Go exposto e onde ele está no Dart.
 | `(*core.IpfsNode).GCLocker blockstore.GCLocker` | `IpfsNode.gcLocker =` | campo |
 | `(*core.IpfsNode).PeerHost host.Host` | `IpfsNode.peerHost` | campo |
 | `(*core.IpfsNode).PeerHost host.Host` | `IpfsNode.peerHost =` | campo |
+| `(*core.IpfsNode).ResourceManager network.ResourceManager` | `IpfsNode.resourceManager` | campo |
+| `(*core.IpfsNode).ResourceManager network.ResourceManager` | `IpfsNode.resourceManager =` | campo |
 
 ## `github.com/ipfs/kubo/core/coreapi` → `package:ipfs_ffi/kubo/core/coreapi.dart`
 
@@ -583,6 +585,14 @@ Cada linha é um símbolo Go exposto e onde ele está no Dart.
 | Go | Dart | Modo |
 |---|---|---|
 | `func (host.Host).ConnManager() connmgr.ConnManager` | `Host.connManager` | síncrona |
+
+## `github.com/libp2p/go-libp2p/core/network` → `package:ipfs_ffi/libp2p/core/network.dart`
+
+| Go | Dart | Modo |
+|---|---|---|
+| `func (network.ResourceScopeViewer).ViewSystem(func(network.ResourceScope) error) error` | `ResourceManager.viewSystem` | Future |
+| `func (network.ResourceScopeViewer).ViewTransient(func(network.ResourceScope) error) error` | `ResourceManager.viewTransient` | Future |
+| `func (network.ResourceScope).Stat() network.ScopeStat` | `ResourceScope.stat` | síncrona |
 
 ## `github.com/libp2p/go-libp2p/core/peer` → `package:ipfs_ffi/libp2p/core/peer.dart`
 

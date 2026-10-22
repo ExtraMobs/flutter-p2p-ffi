@@ -8,5 +8,6 @@ library;
 
 export 'libp2p/core/connmgr.dart';
 export 'libp2p/core/host.dart';
+export 'libp2p/core/network.dart';
 export 'libp2p/core/peer.dart';
 export 'libp2p/core/routing.dart';

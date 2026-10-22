@@ -64,7 +64,7 @@ class BlockReader extends GoHandle {
   /// Go: `func car.NewBlockReader(r io.Reader, opts ...car.Option) (*car.BlockReader, error)`.
   factory BlockReader(Object r, [List<Option> opts = const []]) {
     final $r = $callSync(
-        318,
+        320,
         $W()
           ..reader(r)
           ..list(opts, (w0, e0) => w0.opt(e0)));
@@ -73,14 +73,14 @@ class BlockReader extends GoHandle {
 
   /// Go: `field Version uint64`.
   int get version {
-    final $r = $callSync(306, $W()..h(this));
+    final $r = $callSync(308, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `field Version uint64`.
   set version(int version) {
     $callSync(
-        307,
+        309,
         $W()
           ..h(this)
           ..i64(version));
@@ -88,14 +88,14 @@ class BlockReader extends GoHandle {
 
   /// Go: `field Roots []cid.Cid`.
   List<$cid.Cid> get roots {
-    final $r = $callSync(303, $W()..h(this));
+    final $r = $callSync(305, $W()..h(this));
     return $r.list(() => $r.p() ? $cid.Cid($r.str()) : $nil());
   }
 
   /// Go: `field Roots []cid.Cid`.
   set roots(List<$cid.Cid> roots) {
     $callSync(
-        304,
+        306,
         $W()
           ..h(this)
           ..list(roots, (w0, e0) => w0.val(e0)));
@@ -103,13 +103,13 @@ class BlockReader extends GoHandle {
 
   /// Go: `func (*car.BlockReader).Next() (blocks.Block, error)`.
   $block_format.Block next() {
-    final $r = $callSync(301, $W()..h(this));
+    final $r = $callSync(303, $W()..h(this));
     return $r.p() ? $block_format.Block.$dec($r) : $nil();
   }
 
   /// Go: `func (*car.BlockReader).NextReader() (cid.Cid, io.Reader, uint64, error)`.
   ($cid.Cid, $io.Reader, int) nextReader() {
-    final $r = $callSync(302, $W()..h(this));
+    final $r = $callSync(304, $W()..h(this));
     return (
       $r.p() ? $cid.Cid($r.str()) : $nil(),
       $r.hnn($io.Reader.$h),
@@ -119,7 +119,7 @@ class BlockReader extends GoHandle {
 
   /// Go: `func (*car.BlockReader).SkipNext() (*car.BlockMetadata, error)`.
   BlockMetadata skipNext() {
-    final $r = $callSync(305, $W()..h(this));
+    final $r = $callSync(307, $W()..h(this));
     return $r.p() ? BlockMetadata.$dec($r) : $nil();
   }
 }
@@ -155,7 +155,7 @@ final class Characteristics implements GoDto {
 
   /// Go: `func (*car.Characteristics).IsFullyIndexed() bool`.
   bool isFullyIndexed() {
-    final $r = $callSync(308, $W()..dto(this));
+    final $r = $callSync(310, $W()..dto(this));
     return $r.b();
   }
 }
@@ -210,14 +210,14 @@ final class Header implements GoDto {
 
   /// Go: `func (car.Header).HasIndex() bool`.
   bool hasIndex() {
-    final $r = $callSync(312, $W()..dto(this));
+    final $r = $callSync(314, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (car.Header).WithDataSize(size uint64) car.Header`.
   Header withDataSize(int size) {
     final $r = $callSync(
-        314,
+        316,
         $W()
           ..dto(this)
           ..i64(size));
@@ -227,7 +227,7 @@ final class Header implements GoDto {
   /// Go: `func (car.Header).WithDataPadding(padding uint64) car.Header`.
   Header withDataPadding(int padding) {
     final $r = $callSync(
-        313,
+        315,
         $W()
           ..dto(this)
           ..i64(padding));
@@ -237,7 +237,7 @@ final class Header implements GoDto {
   /// Go: `func (car.Header).WithIndexPadding(padding uint64) car.Header`.
   Header withIndexPadding(int padding) {
     final $r = $callSync(
-        315,
+        317,
         $W()
           ..dto(this)
           ..i64(padding));
@@ -247,7 +247,7 @@ final class Header implements GoDto {
   /// Go: `func (car.Header).WriteTo(w io.Writer) (n int64, err error)`.
   int writeTo(GoHandle? w) {
     final $r = $callSync(
-        316,
+        318,
         $W()
           ..dto(this)
           ..h(w));
@@ -267,7 +267,7 @@ class Reader extends GoHandle {
   /// Go: `func car.NewReader(r io.ReaderAt, opts ...car.Option) (*car.Reader, error)`.
   factory Reader(Object r, [List<Option> opts = const []]) {
     final $r = $callSync(
-        320,
+        322,
         $W()
           ..reader(r)
           ..list(opts, (w0, e0) => w0.opt(e0)));
@@ -276,14 +276,14 @@ class Reader extends GoHandle {
 
   /// Go: `field Header car.Header`.
   Header get header {
-    final $r = $callSync(326, $W()..h(this));
+    final $r = $callSync(328, $W()..h(this));
     return $r.p() ? Header.$dec($r) : $nil();
   }
 
   /// Go: `field Header car.Header`.
   set header(Header header) {
     $callSync(
-        327,
+        329,
         $W()
           ..h(this)
           ..dto(header));
@@ -291,14 +291,14 @@ class Reader extends GoHandle {
 
   /// Go: `field Version uint64`.
   int get version {
-    final $r = $callSync(331, $W()..h(this));
+    final $r = $callSync(333, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `field Version uint64`.
   set version(int version) {
     $callSync(
-        332,
+        334,
         $W()
           ..h(this)
           ..i64(version));
@@ -306,14 +306,14 @@ class Reader extends GoHandle {
 
   /// Go: `func (*car.Reader).Roots() ([]cid.Cid, error)`.
   List<$cid.Cid> roots() {
-    final $r = $callSync(330, $W()..h(this));
+    final $r = $callSync(332, $W()..h(this));
     return $r.list(() => $r.p() ? $cid.Cid($r.str()) : $nil());
   }
 
   /// Go: `func (*car.Reader).Inspect(validateBlockHash bool) (car.Stats, error)`.
   Stats inspect(bool validateBlockHash) {
     final $r = $callSync(
-        329,
+        331,
         $W()
           ..h(this)
           ..b(validateBlockHash));
@@ -322,19 +322,19 @@ class Reader extends GoHandle {
 
   /// Go: `func (*car.Reader).DataReader() (car.SectionReader, error)`.
   SectionReader dataReader() {
-    final $r = $callSync(325, $W()..h(this));
+    final $r = $callSync(327, $W()..h(this));
     return $r.hnn(SectionReader.$h);
   }
 
   /// Go: `func (*car.Reader).IndexReader() (io.Reader, error)`.
   $io.Reader indexReader() {
-    final $r = $callSync(328, $W()..h(this));
+    final $r = $callSync(330, $W()..h(this));
     return $r.hnn($io.Reader.$h);
   }
 
   /// Go: `func (*car.Reader).Close() error`.
   void close() {
-    $callSync(324, $W()..h(this));
+    $callSync(326, $W()..h(this));
   }
 }
 
@@ -549,7 +549,7 @@ const defaultMaxIndexCidSize = 2048;
 /// Go: `func car.ReadVersion(r io.Reader, opts ...car.Option) (uint64, error)`.
 int readVersion(Object r, [List<Option> opts = const []]) {
   final $r = $callSync(
-      323,
+      325,
       $W()
         ..reader(r)
         ..list(opts, (w0, e0) => w0.opt(e0)));
@@ -559,7 +559,7 @@ int readVersion(Object r, [List<Option> opts = const []]) {
 /// Go: `func car.OpenReader(path string, opts ...car.Option) (*car.Reader, error)`.
 Reader openReader(String path, [List<Option> opts = const []]) {
   final $r = $callSync(
-      321,
+      323,
       $W()
         ..str(path)
         ..list(opts, (w0, e0) => w0.opt(e0)));
@@ -568,7 +568,7 @@ Reader openReader(String path, [List<Option> opts = const []]) {
 
 /// Go: `func car.NewHeader(dataSize uint64) car.Header`.
 Header newHeader(int dataSize) {
-  final $r = $callSync(319, $W()..i64(dataSize));
+  final $r = $callSync(321, $W()..i64(dataSize));
   return $r.p() ? Header.$dec($r) : $nil();
 }
 
@@ -576,7 +576,7 @@ Header newHeader(int dataSize) {
 void extractV1File(String srcPath, String dstPath,
     [List<Option> opts = const []]) {
   $callSync(
-      309,
+      311,
       $W()
         ..str(srcPath)
         ..str(dstPath)
@@ -586,7 +586,7 @@ void extractV1File(String srcPath, String dstPath,
 /// Go: `func car.WrapV1File(srcPath string, dstPath string) error`.
 void wrapV1File(String srcPath, String dstPath) {
   $callSync(
-      337,
+      339,
       $W()
         ..str(srcPath)
         ..str(dstPath));
@@ -595,7 +595,7 @@ void wrapV1File(String srcPath, String dstPath) {
 /// Go: `func car.WrapV1(src io.ReadSeeker, dst io.Writer, opts ...car.Option) error`.
 void wrapV1(Object src, GoHandle? dst, [List<Option> opts = const []]) {
   $callSync(
-      336,
+      338,
       $W()
         ..reader(src)
         ..h(dst)
@@ -606,7 +606,7 @@ void wrapV1(Object src, GoHandle? dst, [List<Option> opts = const []]) {
 void replaceRootsInFile(String path, List<$cid.Cid> roots,
     [List<Option> opts = const []]) {
   $callSync(
-      333,
+      335,
       $W()
         ..str(path)
         ..list(roots, (w0, e0) => w0.val(e0))
@@ -616,7 +616,7 @@ void replaceRootsInFile(String path, List<$cid.Cid> roots,
 /// Go: `func car.GenerateIndex(v1r io.Reader, opts ...car.Option) (index.Index, error)`.
 $index.Index generateIndex(Object v1r, [List<Option> opts = const []]) {
   final $r = $callSync(
-      310,
+      312,
       $W()
         ..reader(v1r)
         ..list(opts, (w0, e0) => w0.opt(e0)));
@@ -627,7 +627,7 @@ $index.Index generateIndex(Object v1r, [List<Option> opts = const []]) {
 $index.Index generateIndexFromFile(String path,
     [List<Option> opts = const []]) {
   final $r = $callSync(
-      311,
+      313,
       $W()
         ..str(path)
         ..list(opts, (w0, e0) => w0.opt(e0)));
@@ -637,7 +637,7 @@ $index.Index generateIndexFromFile(String path,
 /// Go: `func car.ReadOrGenerateIndex(rs io.ReadSeeker, opts ...car.Option) (index.Index, error)`.
 $index.Index readOrGenerateIndex(Object rs, [List<Option> opts = const []]) {
   final $r = $callSync(
-      322,
+      324,
       $W()
         ..reader(rs)
         ..list(opts, (w0, e0) => w0.opt(e0)));
@@ -647,7 +647,7 @@ $index.Index readOrGenerateIndex(Object rs, [List<Option> opts = const []]) {
 /// Go: `func car.LoadIndex(idx index.Index, r io.Reader, opts ...car.Option) error`.
 void loadIndex($index.Index idx, Object r, [List<Option> opts = const []]) {
   $callSync(
-      317,
+      319,
       $W()
         ..h(idx)
         ..reader(r)
@@ -657,7 +657,7 @@ void loadIndex($index.Index idx, Object r, [List<Option> opts = const []]) {
 /// Go: `func car.AttachIndex(path string, idx index.Index, offset uint64) error`.
 void attachIndex(String path, $index.Index idx, int offset) {
   $callSync(
-      300,
+      302,
       $W()
         ..str(path)
         ..h(idx)
@@ -671,7 +671,7 @@ Future<void> traverseToFile($context.Context ctx, $linking.LinkSystem ls,
     $cid.Cid root, $datamodel.Node selector, String destination,
     [List<Option> opts = const []]) async {
   await $call(
-      334,
+      336,
       $W()
         ..h(ctx)
         ..h(ls)
@@ -688,7 +688,7 @@ Future<int> traverseV1($context.Context ctx, $linking.LinkSystem ls,
     $cid.Cid root, $datamodel.Node selector, GoHandle? writer,
     [List<Option> opts = const []]) async {
   final $r = await $call(
-      335,
+      337,
       $W()
         ..h(ctx)
         ..h(ls)

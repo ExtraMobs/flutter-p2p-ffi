@@ -430,3 +430,10 @@ github.com/libp2p/go-libp2p/core/connmgr.ConnManager.IsProtected
 github.com/libp2p/go-libp2p/core/connmgr.ConnManager.TagPeer
 github.com/libp2p/go-libp2p/core/connmgr.ConnManager.UntagPeer
 github.com/libp2p/go-libp2p/core/connmgr.ConnManager.TrimOpenConns
+# 0.20 the libp2p resource manager, read-only: the interface has no way to
+# change limits at run time (Swarm.ResourceMgr in the config, then restart);
+# the scope is valid only inside the callback
+github.com/ipfs/kubo/core.IpfsNode.ResourceManager
+github.com/libp2p/go-libp2p/core/network.ResourceManager.ViewSystem
+github.com/libp2p/go-libp2p/core/network.ResourceManager.ViewTransient
+github.com/libp2p/go-libp2p/core/network.ResourceScope.Stat

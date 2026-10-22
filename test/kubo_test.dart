@@ -45,6 +45,7 @@ import 'package:ipfs_ffi/kubo/core/node.dart' as node;
 import 'package:ipfs_ffi/kubo/core/node/libp2p.dart' as libp2p;
 import 'package:ipfs_ffi/kubo/plugin/loader.dart' as loader;
 import 'package:ipfs_ffi/kubo/repo/fsrepo.dart' as fsrepo;
+import 'package:ipfs_ffi/libp2p/core/network.dart' as network;
 import 'package:ipfs_ffi/libp2p/core/peer.dart' as peer;
 import 'package:ipfs_ffi/multiformats/cid.dart' as cid;
 import 'package:ipfs_ffi/src/runtime.dart'
@@ -584,6 +585,18 @@ void main() {
       // peering test above protects the same one), so only this tag is checked
       cm.unprotect(idA, 'download');
       expect(cm.isProtected(idA, 'download'), isFalse);
+    });
+
+    // 0.20: the resource manager's scopes, read inside the callback
+    test('resourceManager: system and transient scope stats', () async {
+      final rm = nb.resourceManager;
+      network.ScopeStat? system, transient;
+      await rm.viewSystem((scope) => system = scope.stat());
+      await rm.viewTransient((scope) => transient = scope.stat());
+      expect(system!.numConnsInbound + system!.numConnsOutbound,
+          greaterThanOrEqualTo(1)); // A is connected
+      expect(system!.memory, greaterThanOrEqualTo(0));
+      expect(transient, isNotNull);
     });
 
     test('disconnect', () async {

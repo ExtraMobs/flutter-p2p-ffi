@@ -12,6 +12,7 @@ import 'package:ipfs_ffi/go/context.dart' as $context;
 import 'package:ipfs_ffi/kubo/core/node.dart' as $node;
 import 'package:ipfs_ffi/kubo/repo.dart' as $repo;
 import 'package:ipfs_ffi/libp2p/core/host.dart' as $host;
+import 'package:ipfs_ffi/libp2p/core/network.dart' as $network;
 
 /// Go: `core.IpfsNode` (handle).
 class IpfsNode extends GoHandle {
@@ -143,6 +144,21 @@ class IpfsNode extends GoHandle {
           ..h(this)
           ..h(peerHost));
   }
+
+  /// Go: `field ResourceManager network.ResourceManager`.
+  $network.ResourceManager get resourceManager {
+    final $r = $callSync(214, $W()..h(this));
+    return $r.hnn($network.ResourceManager.$h);
+  }
+
+  /// Go: `field ResourceManager network.ResourceManager`.
+  set resourceManager($network.ResourceManager resourceManager) {
+    $callSync(
+        215,
+        $W()
+          ..h(this)
+          ..h(resourceManager));
+  }
 }
 
 /// Go: `func core.NewNode(ctx context.Context, cfg *core.BuildCfg) (*core.IpfsNode, error)`.
@@ -150,7 +166,7 @@ class IpfsNode extends GoHandle {
 /// Asynchronous: runs in a goroutine of the service.
 Future<IpfsNode> newNode($context.Context ctx, $node.BuildCfg cfg) async {
   final $r = await $call(
-      214,
+      216,
       $W()
         ..h(ctx)
         ..dto(cfg));
