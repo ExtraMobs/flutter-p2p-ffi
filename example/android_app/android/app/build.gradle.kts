@@ -4,7 +4,8 @@ plugins {
     id("dev.flutter.flutter-gradle-plugin")
 }
 
-android {
+// The extension through the new DSL type: the `android {}` accessor is deprecated in AGP 9
+extensions.configure<com.android.build.api.dsl.ApplicationExtension> {
     namespace = "dev.extramobs.ipfs_ffi_android"
     compileSdk = flutter.compileSdkVersion
     // The same NDK that builds libipfs_host.so and libipfs_shm.so (tool/build.dart
@@ -36,7 +37,7 @@ android {
     // plugin (android/build.gradle.kts).
 
     buildTypes {
-        release {
+        getByName("release") {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig = signingConfigs.getByName("debug")
