@@ -256,6 +256,8 @@ Cada linha é um símbolo Go exposto e onde ele está no Dart.
 | `(*core.IpfsNode).Exchange exchange.Interface` | `IpfsNode.exchange =` | campo |
 | `(*core.IpfsNode).GCLocker blockstore.GCLocker` | `IpfsNode.gcLocker` | campo |
 | `(*core.IpfsNode).GCLocker blockstore.GCLocker` | `IpfsNode.gcLocker =` | campo |
+| `(*core.IpfsNode).PeerHost host.Host` | `IpfsNode.peerHost` | campo |
+| `(*core.IpfsNode).PeerHost host.Host` | `IpfsNode.peerHost =` | campo |
 
 ## `github.com/ipfs/kubo/core/coreapi` → `package:ipfs_ffi/kubo/core/coreapi.dart`
 
@@ -564,6 +566,23 @@ Cada linha é um símbolo Go exposto e onde ele está no Dart.
 | `var selectorparse.CommonSelector_MatchChildren datamodel.Node` | `commonSelectorMatchChildren` | síncrona |
 | `var selectorparse.CommonSelector_ExploreAllRecursively datamodel.Node` | `commonSelectorExploreAllRecursively` | síncrona |
 | `var selectorparse.CommonSelector_MatchAllRecursively datamodel.Node` | `commonSelectorMatchAllRecursively` | síncrona |
+
+## `github.com/libp2p/go-libp2p/core/connmgr` → `package:ipfs_ffi/libp2p/core/connmgr.dart`
+
+| Go | Dart | Modo |
+|---|---|---|
+| `func (connmgr.ConnManager).Protect(id peer.ID, tag string)` | `ConnManager.protect` | síncrona |
+| `func (connmgr.ConnManager).Unprotect(id peer.ID, tag string) (protected bool)` | `ConnManager.unprotect` | síncrona |
+| `func (connmgr.ConnManager).IsProtected(id peer.ID, tag string) (protected bool)` | `ConnManager.isProtected` | síncrona |
+| `func (connmgr.ConnManager).TagPeer(peer.ID, string, int)` | `ConnManager.tagPeer` | síncrona |
+| `func (connmgr.ConnManager).UntagPeer(p peer.ID, tag string)` | `ConnManager.untagPeer` | síncrona |
+| `func (connmgr.ConnManager).TrimOpenConns(ctx context.Context)` | `ConnManager.trimOpenConns` | Future |
+
+## `github.com/libp2p/go-libp2p/core/host` → `package:ipfs_ffi/libp2p/core/host.dart`
+
+| Go | Dart | Modo |
+|---|---|---|
+| `func (host.Host).ConnManager() connmgr.ConnManager` | `Host.connManager` | síncrona |
 
 ## `github.com/libp2p/go-libp2p/core/peer` → `package:ipfs_ffi/libp2p/core/peer.dart`
 

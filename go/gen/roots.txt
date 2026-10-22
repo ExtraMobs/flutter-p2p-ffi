@@ -419,3 +419,14 @@ github.com/ipfs/boxo/blockstore.GCLocker.GCLock
 github.com/ipfs/boxo/blockstore.GCLocker.PinLock
 github.com/ipfs/boxo/blockstore.GCLocker.GCRequested
 github.com/ipfs/boxo/blockstore.Unlocker.Unlock
+# 0.20 the connection manager of the running node: protect or tag the peers
+# that matter (the ones serving a download) so trimming above HighWater keeps
+# them, and trim on demand (the app going to background)
+github.com/ipfs/kubo/core.IpfsNode.PeerHost
+github.com/libp2p/go-libp2p/core/host.Host.ConnManager
+github.com/libp2p/go-libp2p/core/connmgr.ConnManager.Protect
+github.com/libp2p/go-libp2p/core/connmgr.ConnManager.Unprotect
+github.com/libp2p/go-libp2p/core/connmgr.ConnManager.IsProtected
+github.com/libp2p/go-libp2p/core/connmgr.ConnManager.TagPeer
+github.com/libp2p/go-libp2p/core/connmgr.ConnManager.UntagPeer
+github.com/libp2p/go-libp2p/core/connmgr.ConnManager.TrimOpenConns

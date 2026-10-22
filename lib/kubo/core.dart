@@ -11,6 +11,7 @@ import 'package:ipfs_ffi/boxo/peering.dart' as $peering;
 import 'package:ipfs_ffi/go/context.dart' as $context;
 import 'package:ipfs_ffi/kubo/core/node.dart' as $node;
 import 'package:ipfs_ffi/kubo/repo.dart' as $repo;
+import 'package:ipfs_ffi/libp2p/core/host.dart' as $host;
 
 /// Go: `core.IpfsNode` (handle).
 class IpfsNode extends GoHandle {
@@ -40,14 +41,14 @@ class IpfsNode extends GoHandle {
 
   /// Go: `field Repo repo.Repo`.
   $repo.Repo get repo {
-    final $r = $callSync(210, $W()..h(this));
+    final $r = $callSync(212, $W()..h(this));
     return $r.hnn($repo.Repo.$h);
   }
 
   /// Go: `field Repo repo.Repo`.
   set repo($repo.Repo repo) {
     $callSync(
-        211,
+        213,
         $W()
           ..h(this)
           ..h(repo));
@@ -55,14 +56,14 @@ class IpfsNode extends GoHandle {
 
   /// Go: `field Peering *peering.PeeringService`.
   $peering.PeeringService get peering {
-    final $r = $callSync(208, $W()..h(this));
+    final $r = $callSync(210, $W()..h(this));
     return $r.hnn($peering.PeeringService.$h);
   }
 
   /// Go: `field Peering *peering.PeeringService`.
   set peering($peering.PeeringService peering) {
     $callSync(
-        209,
+        211,
         $W()
           ..h(this)
           ..h(peering));
@@ -127,6 +128,21 @@ class IpfsNode extends GoHandle {
           ..h(this)
           ..h(gcLocker));
   }
+
+  /// Go: `field PeerHost host.Host`.
+  $host.Host get peerHost {
+    final $r = $callSync(208, $W()..h(this));
+    return $r.hnn($host.Host.$h);
+  }
+
+  /// Go: `field PeerHost host.Host`.
+  set peerHost($host.Host peerHost) {
+    $callSync(
+        209,
+        $W()
+          ..h(this)
+          ..h(peerHost));
+  }
 }
 
 /// Go: `func core.NewNode(ctx context.Context, cfg *core.BuildCfg) (*core.IpfsNode, error)`.
@@ -134,7 +150,7 @@ class IpfsNode extends GoHandle {
 /// Asynchronous: runs in a goroutine of the service.
 Future<IpfsNode> newNode($context.Context ctx, $node.BuildCfg cfg) async {
   final $r = await $call(
-      212,
+      214,
       $W()
         ..h(ctx)
         ..dto(cfg));

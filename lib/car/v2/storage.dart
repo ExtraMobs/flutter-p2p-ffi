@@ -14,13 +14,13 @@ class ReadableCar extends $storage.ReadableStorage {
 
   /// Go: `func (storage.ReadableCar).Roots() []cid.Cid`.
   List<$cid.Cid> roots() {
-    final $r = $callSync(373, $W()..h(this));
+    final $r = $callSync(375, $W()..h(this));
     return $r.list(() => $r.p() ? $cid.Cid($r.str()) : $nil());
   }
 
   /// Go: `func (storage.ReadableCar).Index() index.Index`.
   $index.Index index() {
-    final $r = $callSync(372, $W()..h(this));
+    final $r = $callSync(374, $W()..h(this));
     return $r.hnn($index.Index.$h);
   }
 }
@@ -28,7 +28,7 @@ class ReadableCar extends $storage.ReadableStorage {
 /// Go: `func storage.OpenReadable(reader io.ReaderAt, opts ...car.Option) (storage.ReadableCar, error)`.
 ReadableCar openReadable(Object reader, [List<$v2.Option> opts = const []]) {
   final $r = $callSync(
-      371,
+      373,
       $W()
         ..reader(reader)
         ..list(opts, (w0, e0) => w0.opt(e0)));

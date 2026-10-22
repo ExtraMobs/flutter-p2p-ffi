@@ -569,6 +569,23 @@ void main() {
       expect([for (final p in ps.listPeers()) p.id], isNot(contains(idA)));
     });
 
+    // 0.20: the connection manager of the running node
+    test('connManager: protect, tag and trim keep the protected peer',
+        () async {
+      final idA = (await a.key().self(ctx)).id!;
+      final cm = nb.peerHost.connManager();
+      cm.protect(idA, 'download');
+      expect(cm.isProtected(idA, 'download'), isTrue);
+      cm.tagPeer(idA, 'download-weight', 50);
+      await cm.trimOpenConns(ctx);
+      expect([for (final p in await b.swarm().peers(ctx)) p.id], contains(idA));
+      cm.untagPeer(idA, 'download-weight');
+      // unprotect returns whether other tags still protect the peer (the
+      // peering test above protects the same one), so only this tag is checked
+      cm.unprotect(idA, 'download');
+      expect(cm.isProtected(idA, 'download'), isFalse);
+    });
+
     test('disconnect', () async {
       final idA = (await a.key().self(ctx)).id!;
       // como `ipfs swarm disconnect`: o multiaddr tem de terminar em /p2p/<id>

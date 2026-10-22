@@ -6,5 +6,7 @@
 /// import one Go package at a time from `package:ipfs_ffi/libp2p/...`.
 library;
 
+export 'libp2p/core/connmgr.dart';
+export 'libp2p/core/host.dart';
 export 'libp2p/core/peer.dart';
 export 'libp2p/core/routing.dart';
