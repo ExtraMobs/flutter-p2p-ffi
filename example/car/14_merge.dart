@@ -12,12 +12,13 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:ipfs_ffi/car.dart' as car;
-import 'package:ipfs_ffi/go.dart' as go;
+import 'package:ipfs_ffi/go/car/v2.dart' as car;
+import 'package:ipfs_ffi/go/car/v2/blockstore.dart' as blockstore;
+import 'package:ipfs_ffi/go/os.dart' as os;
+import 'package:ipfs_ffi/go/block_format.dart' as block_format;
+import 'package:ipfs_ffi/go/kubo/core/commands/dag.dart' as dag;
+import 'package:ipfs_ffi/go/cid.dart' as cid;
 import 'package:ipfs_ffi/ipfs_ffi.dart' show IpfsEof;
-import 'package:ipfs_ffi/ipld.dart' as ipld;
-import 'package:ipfs_ffi/kubo.dart' as kubo;
-import 'package:ipfs_ffi/multiformats.dart' as mf;
 
 import 'sample.dart';
 
@@ -27,10 +28,10 @@ Future<void> main() async {
   try {
     // A second CAR: one raw block (operation 05).
     final note = Uint8List.fromList(utf8.encode('a second CAR'));
-    final noteCid = mf.newPrefixV1(0x55, 0x12).sum(note);
+    final noteCid = cid.newPrefixV1(0x55, 0x12).sum(note);
     final second = s.path('second.car');
-    final w = car.openReadWrite(second, [noteCid]);
-    await w.put(s.ctx, ipld.Block(cid: noteCid, rawData: note));
+    final w = blockstore.openReadWrite(second, [noteCid]);
+    await w.put(s.ctx, block_format.Block(cid: noteCid, rawData: note));
     w.finalize();
 
     print('== Low level (go-car)');
@@ -38,12 +39,12 @@ Future<void> main() async {
     //         for each CAR: br, _ := car.NewBlockReader(f); for { blk, _ := br.Next(); rw.Put(ctx, blk) }
     //         rw.Finalize()
     final out = s.path('merged.car');
-    final rw = car.openReadWrite(out, [s.root, noteCid]);
+    final rw = blockstore.openReadWrite(out, [s.root, noteCid]);
     for (final source in [s.car, second]) {
-      final f = go.open(source);
+      final f = os.open(source);
       try {
         final br = car.BlockReader(f);
-        final batch = <ipld.Block>[];
+        final batch = <block_format.Block>[];
         while (true) {
           try {
             batch.add(br.next());
@@ -66,7 +67,7 @@ Future<void> main() async {
 
     print('\n== Kubo (high level)');
     //   CLI:  ipfs dag import --pin-roots folder.car second.car
-    final imported = await kubo.dagImportFiles(other, s.ctx, [s.car, second],
+    final imported = await dag.dagImportFiles(other, s.ctx, [s.car, second],
         pinRoots: true);
     print('imported ${imported.blockCount} blocks, '
         '${imported.roots.length} roots pinned');

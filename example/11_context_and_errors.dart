@@ -8,28 +8,35 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:ipfs_ffi/boxo/files.dart' as files;
+import 'package:ipfs_ffi/go/boxo/files.dart' as files;
 import 'package:ipfs_ffi/go/context.dart' as context;
+import 'package:ipfs_ffi/go/kubo/core/node.dart' as node;
+import 'package:ipfs_ffi/go/kubo/core.dart' as core;
+import 'package:ipfs_ffi/go/kubo/plugin/loader.dart' as loader;
+import 'package:ipfs_ffi/go/kubo/config.dart' as config;
+import 'package:ipfs_ffi/go/kubo/core/commands.dart' as commands;
+import 'package:ipfs_ffi/go/kubo/repo/fsrepo.dart' as fsrepo;
+import 'package:ipfs_ffi/go/kubo/core/coreiface/options.dart' as options;
+import 'package:ipfs_ffi/go/kubo/core/coreapi.dart' as coreapi;
 import 'package:ipfs_ffi/ipfs_ffi.dart'
     show IpfsException, IpfsService, IpfsServiceException, IpfsStop;
-import 'package:ipfs_ffi/kubo.dart' as kubo;
 // Only for step 4: a TEST function of the package, which brings the ipfs_host
 // down on purpose. Do not use it in an app; it exists to prove the recovery.
 import 'package:ipfs_ffi/src/runtime.dart' show $callSync;
 
 /// Kubo's plugins: once per service (kubo refuses a second time in the same
 /// process, and a restarted service is a new process, without them).
-void plugins() => kubo.PluginLoader('')
+void plugins() => loader.PluginLoader('')
   ..initialize()
   ..inject();
 
 /// The node over [repoPath]. Online, because step 1's pubsub only exists in an
 /// online node (the daemon's `Pubsub.Enabled`); with the repo's `test` profile,
 /// it listens only on 127.0.0.1 and does not go out to the internet.
-Future<kubo.IpfsNode> openNode(String repoPath) => kubo.newNode(
+Future<core.IpfsNode> openNode(String repoPath) => core.newNode(
     context.background(),
-    kubo.BuildCfg(
-        repo: kubo.open(repoPath), online: true, extraOpts: {'pubsub': true}));
+    node.BuildCfg(
+        repo: fsrepo.open(repoPath), online: true, extraOpts: {'pubsub': true}));
 
 Future<void> main() async {
   final tmp = Directory.systemTemp.createTempSync('ipfs_ffi_ex11_');
@@ -44,11 +51,11 @@ Future<void> main() async {
       crashLog: '${tmp.path}/crash.log', // where Go writes the report
       onStop: (s) => stopped.complete(s));
 
-  final cfg = kubo
-      .initWithIdentity(kubo.createIdentity(null, [kubo.key.type('ed25519')]));
-  kubo.profiles['test']!.transform(cfg);
+  final cfg = config
+      .initWithIdentity(config.createIdentity(null, [options.key.type('ed25519')]));
+  config.profiles['test']!.transform(cfg);
   plugins();
-  kubo.init(repoPath, cfg);
+  fsrepo.init(repoPath, cfg);
   var n = await openNode(repoPath);
 
   try {
@@ -66,7 +73,7 @@ Future<void> main() async {
       // `ipfs pubsub sub` never ends on its own: it keeps waiting for messages.
       // With the 2 s deadline, kubo ends the Stream with a deadline-exceeded
       // error, which `await for` turns into an exception.
-      await for (final m in kubo.pubsubSub(n, withDeadline, 'room-11')) {
+      await for (final m in commands.pubsubSub(n, withDeadline, 'room-11')) {
         print('message: ${m.data}'); // nobody publishes: it will not show up
       }
     } on IpfsException catch (e) {
@@ -83,7 +90,7 @@ Future<void> main() async {
     // (it does not pause the code) and cancel after 1 s.
     final (cancelable, cancel) = context.withCancel(context.background());
     final end = Completer<String>();
-    kubo.pubsubSub(n, cancelable, 'room-11').listen(
+    commands.pubsubSub(n, cancelable, 'room-11').listen(
           (m) {}, // onData: each message (none comes)
           onError: (Object e) => end.complete('error: $e'),
           onDone: () {
@@ -107,7 +114,7 @@ Future<void> main() async {
     // The call reached kubo, and it answered with an error (in Go, the `error`
     // the function returned). The service is still up; you can go on.
     try {
-      await kubo.filesStat(n, context.background(), '/does/not/exist').single;
+      await commands.filesStat(n, context.background(), '/does/not/exist').single;
     } on IpfsServiceException {
       rethrow; // (it is a subclass of IpfsException: handle it first, if needed)
     } on IpfsException catch (e) {
@@ -130,7 +137,7 @@ Future<void> main() async {
     // Everything that came from the previous service (node, CoreAPI,
     // contexts...) died with it: using it now gives IpfsServiceException.
     try {
-      kubo.newCoreApi(n);
+      coreapi.newCoreApi(n);
     } on IpfsServiceException catch (e) {
       // (the message carries Go's whole report; here, only the first line)
       print('   the old node is no longer valid: ${'$e'.split('\n').first}');
@@ -142,7 +149,7 @@ Future<void> main() async {
     await IpfsService.restart();
     plugins();
     n = await openNode(repoPath);
-    final p = await kubo.newCoreApi(n).unixfs().add(
+    final p = await coreapi.newCoreApi(n).unixfs().add(
         context.background(), files.newBytesFile(utf8.encode('back again')));
     print('5. back: the new service already added $p');
   } finally {

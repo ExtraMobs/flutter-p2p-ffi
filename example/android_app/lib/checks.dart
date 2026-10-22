@@ -7,23 +7,23 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:ipfs_ffi/boxo/files.dart' as files;
-import 'package:ipfs_ffi/boxo/path.dart' as path;
+import 'package:ipfs_ffi/go/boxo/files.dart' as files;
+import 'package:ipfs_ffi/go/boxo/path.dart' as path;
 import 'package:ipfs_ffi/go/context.dart' as context;
 import 'package:ipfs_ffi/go/io.dart' as io;
+import 'package:ipfs_ffi/go/kubo/config.dart' as config;
+import 'package:ipfs_ffi/go/kubo/core.dart' as core;
+import 'package:ipfs_ffi/go/kubo/core/commands.dart' as commands;
+import 'package:ipfs_ffi/go/kubo/core/commands/dag.dart' as dag;
+import 'package:ipfs_ffi/go/kubo/core/coreapi.dart' as coreapi;
+import 'package:ipfs_ffi/go/kubo/core/coreiface.dart' as iface;
+import 'package:ipfs_ffi/go/kubo/core/coreiface/options.dart' as options;
+import 'package:ipfs_ffi/go/kubo/core/corerepo.dart' as corerepo;
+import 'package:ipfs_ffi/go/kubo/core/node.dart' as node;
+import 'package:ipfs_ffi/go/kubo/core/node/libp2p.dart' as libp2p;
+import 'package:ipfs_ffi/go/kubo/repo/fsrepo.dart' as fsrepo;
+import 'package:ipfs_ffi/go/libp2p/core/peer.dart' as peer;
 import 'package:ipfs_ffi/ipfs_ffi.dart' show IpfsException, hasIpv6;
-import 'package:ipfs_ffi/kubo/config.dart' as config;
-import 'package:ipfs_ffi/kubo/core.dart' as core;
-import 'package:ipfs_ffi/kubo/core/commands.dart' as commands;
-import 'package:ipfs_ffi/kubo/core/commands/dag.dart' as dag;
-import 'package:ipfs_ffi/kubo/core/coreapi.dart' as coreapi;
-import 'package:ipfs_ffi/kubo/core/coreiface.dart' as iface;
-import 'package:ipfs_ffi/kubo/core/coreiface/options.dart' as options;
-import 'package:ipfs_ffi/kubo/core/corerepo.dart' as corerepo;
-import 'package:ipfs_ffi/kubo/core/node.dart' as node;
-import 'package:ipfs_ffi/kubo/core/node/libp2p.dart' as libp2p;
-import 'package:ipfs_ffi/kubo/repo/fsrepo.dart' as fsrepo;
-import 'package:ipfs_ffi/libp2p/core/peer.dart' as peer;
 import 'package:ipfs_ffi/src/runtime.dart'
     show $W, $call, $callSync, $stream, GoSink;
 

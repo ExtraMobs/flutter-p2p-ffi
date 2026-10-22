@@ -10,11 +10,12 @@
 // blockstore (boxo), then pin the root through the CoreAPI.
 //
 //   dart run example/car/08_import_into_node.dart
-import 'package:ipfs_ffi/boxo.dart' as boxo;
-import 'package:ipfs_ffi/car.dart' as car;
-import 'package:ipfs_ffi/go.dart' as go;
+import 'package:ipfs_ffi/go/boxo/path.dart' as boxo_path;
+import 'package:ipfs_ffi/go/car/v2.dart' as car;
+import 'package:ipfs_ffi/go/os.dart' as os;
+import 'package:ipfs_ffi/go/kubo/core/commands/dag.dart' as dag;
+import 'package:ipfs_ffi/go/kubo/core/coreapi.dart' as coreapi;
 import 'package:ipfs_ffi/ipfs_ffi.dart' show IpfsEof;
-import 'package:ipfs_ffi/kubo.dart' as kubo;
 
 import 'sample.dart';
 
@@ -22,11 +23,11 @@ Future<void> main() async {
   final s = await Sample.open();
   final a = await s.newNode('a'), b = await s.newNode('b');
   try {
-    final path = boxo.Path('/ipfs/${s.root}');
+    final path = boxo_path.Path('/ipfs/${s.root}');
 
     print('== Kubo (high level)');
     //   CLI:  ipfs dag import --pin-roots folder.car
-    final r = await kubo.dagImportFiles(a, s.ctx, [s.car], pinRoots: true);
+    final r = await dag.dagImportFiles(a, s.ctx, [s.car], pinRoots: true);
     print('imported ${r.blockCount} blocks (${r.blockBytesCount} bytes); '
         'roots: ${[
       for (final m in r.roots)
@@ -37,7 +38,7 @@ Future<void> main() async {
     //   Go:   br, _ := car.NewBlockReader(f)
     //         for { blk, err := br.Next(); ...; node.Blockstore.Put(ctx, blk) }
     //         api.Pin().Add(ctx, path.FromCid(root))
-    final f = go.open(s.car);
+    final f = os.open(s.car);
     var n = 0;
     try {
       final br = car.BlockReader(f);
@@ -52,7 +53,7 @@ Future<void> main() async {
     } finally {
       f.close();
     }
-    final api = kubo.newCoreApi(b);
+    final api = coreapi.newCoreApi(b);
     await api.pin().add(s.ctx, path);
     final (_, pinned) = await api.pin().isPinned(s.ctx, path);
     print('put $n blocks; root pinned: $pinned');

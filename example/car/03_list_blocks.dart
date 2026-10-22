@@ -7,8 +7,9 @@
 // Kubo: none (the import stores everything in the node). Layer: go-car.
 //
 //   dart run example/car/03_list_blocks.dart
-import 'package:ipfs_ffi/car.dart' as car;
-import 'package:ipfs_ffi/go.dart' as go;
+import 'package:ipfs_ffi/go/car/v2.dart' as car;
+import 'package:ipfs_ffi/go/car/v2/blockstore.dart' as blockstore;
+import 'package:ipfs_ffi/go/os.dart' as os;
 import 'package:ipfs_ffi/ipfs_ffi.dart' show IpfsEof;
 
 import 'sample.dart';
@@ -22,7 +23,7 @@ Future<void> main() async {
     // other error is a real error.
     //   Go:   br, _ := car.NewBlockReader(f)
     //         for { b, err := br.Next(); if errors.Is(err, io.EOF) { break } }
-    final f = go.open(s.car);
+    final f = os.open(s.car);
     try {
       final br = car.BlockReader(f);
       print('version ${br.version}, roots ${br.roots}');
@@ -42,7 +43,7 @@ Future<void> main() async {
     // Only the metadata, without bringing the data to Dart (where each block
     // is).
     //   Go:   meta, _ := br.SkipNext()
-    final f2 = go.open(s.car);
+    final f2 = os.open(s.car);
     try {
       final meta = car.BlockReader(f2).skipNext();
       print('first block: ${meta.cid}, ${meta.size} bytes at byte '
@@ -53,7 +54,7 @@ Future<void> main() async {
 
     // Only the CIDs, from the index of the read-only blockstore (a Stream).
     //   Go:   ro, _ := blockstore.OpenReadOnly(path); ch, _ := ro.AllKeysChan(ctx)
-    final ro = car.openReadOnly(s.car);
+    final ro = blockstore.openReadOnly(s.car);
     try {
       final all = await ro.allKeysChan(s.ctx).toList();
       print('CIDs from the index: ${all.length}');

@@ -157,7 +157,7 @@ host's default, 1024; the generated code sends `1` when the callback receives ha
 ## Commands (function 36)
 
 The commands of kubo's tree (`core/commands.Root`, the RPC's `/api/v0`), generated into
-`lib/kubo/core/commands.dart` by `go/gen/commands.go`. The host builds the go-ipfs-cmds
+`lib/go/kubo/core/commands.dart` (each result type in the library of its Go package) by `go/gen/commands.go`. The host builds the go-ipfs-cmds
 request (`NewRequest` + `FillDefaults`) and calls `Root.Call` like the kubo HTTP server
 (without the CLI's `PreRun`), with the app's node in the environment (`ConstructNode`;
 `ConfigRoot` = the key `fsrepo.Open` opened the repo with, so the config commands reopen

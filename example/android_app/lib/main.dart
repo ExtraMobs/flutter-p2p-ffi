@@ -15,18 +15,18 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:ipfs_ffi_flutter/ipfs_ffi_flutter.dart';
-import 'package:ipfs_ffi/go/context.dart' as gocontext;
+import 'package:ipfs_ffi/go/context.dart' as go_context;
+import 'package:ipfs_ffi/go/kubo/config.dart' as config;
+import 'package:ipfs_ffi/go/kubo/core.dart' as core;
+import 'package:ipfs_ffi/go/kubo/core/coreapi.dart' as coreapi;
+import 'package:ipfs_ffi/go/kubo/core/coreiface.dart' as iface;
+import 'package:ipfs_ffi/go/kubo/core/coreiface/options.dart' as options;
+import 'package:ipfs_ffi/go/kubo/core/node.dart' as node;
+import 'package:ipfs_ffi/go/kubo/core/node/libp2p.dart' as libp2p;
+import 'package:ipfs_ffi/go/kubo/plugin/loader.dart' as loader;
+import 'package:ipfs_ffi/go/kubo/repo/fsrepo.dart' as fsrepo;
 import 'package:ipfs_ffi/ipfs_ffi.dart'
     show IpfsBackground, IpfsService, IpfsStop, IpfsStopHandler, IpfsStopReason;
-import 'package:ipfs_ffi/kubo/config.dart' as config;
-import 'package:ipfs_ffi/kubo/core.dart' as core;
-import 'package:ipfs_ffi/kubo/core/coreapi.dart' as coreapi;
-import 'package:ipfs_ffi/kubo/core/coreiface.dart' as iface;
-import 'package:ipfs_ffi/kubo/core/coreiface/options.dart' as options;
-import 'package:ipfs_ffi/kubo/core/node.dart' as node;
-import 'package:ipfs_ffi/kubo/core/node/libp2p.dart' as libp2p;
-import 'package:ipfs_ffi/kubo/plugin/loader.dart' as loader;
-import 'package:ipfs_ffi/kubo/repo/fsrepo.dart' as fsrepo;
 import 'package:ipfs_ffi/src/runtime.dart' show $callSync;
 
 import 'checks.dart';
@@ -99,7 +99,7 @@ void setupService(String repoPath) {
 }
 
 /// Starts the online node over [repoPath], with pubsub on.
-Future<core.IpfsNode> startNode(gocontext.Context ctx, String repoPath) {
+Future<core.IpfsNode> startNode(go_context.Context ctx, String repoPath) {
   final repo = fsrepo.open(repoPath);
   return core.newNode(
       ctx,
@@ -164,7 +164,7 @@ class NodePage extends StatefulWidget {
 class _NodePageState extends State<NodePage> {
   /// A context of the current service (the handles of a previous ipfs_host are
   /// not valid after a restart).
-  gocontext.Context get ctx => gocontext.background();
+  go_context.Context get ctx => go_context.background();
   late final String _crashLog = '$appDataDir/crash.log';
   late final String repoPath = '$appDataDir/ipfs';
   late final AppLifecycleListener _life;

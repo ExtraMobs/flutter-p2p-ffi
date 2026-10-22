@@ -11,13 +11,17 @@
 // (go-ipld-prime's bsadapter + go-car).
 //
 //   dart run example/car/09_export_from_node.dart
-import 'package:ipfs_ffi/boxo.dart' as boxo;
-import 'package:ipfs_ffi/car.dart' as car;
-import 'package:ipfs_ffi/go.dart' as go;
-import 'package:ipfs_ffi/ipld.dart' as ipld;
-import 'package:ipfs_ffi/kubo.dart' as kubo;
 
 import 'sample.dart';
+import 'package:ipfs_ffi/go/boxo/gateway.dart' as gateway;
+import 'package:ipfs_ffi/go/boxo/path.dart' as path;
+import 'package:ipfs_ffi/go/car/v2.dart' as car;
+import 'package:ipfs_ffi/go/io.dart' as io;
+import 'package:ipfs_ffi/go/os.dart' as os;
+import 'package:ipfs_ffi/go/ipld_prime/storage/bsadapter.dart' as bsadapter;
+import 'package:ipfs_ffi/go/ipld_prime/traversal/selector/parse.dart' as parse;
+import 'package:ipfs_ffi/go/ipld_prime/linking/cid.dart' as cid;
+import 'package:ipfs_ffi/go/kubo/core/commands/dag.dart' as dag;
 
 Future<void> main() async {
   final s = await Sample.open();
@@ -25,20 +29,20 @@ Future<void> main() async {
     print('== Kubo (high level)');
     //   CLI:  ipfs dag export <cid> > out.car
     final out = s.path('export.car');
-    await kubo.dagExportFile(s.node, s.ctx, boxo.Path('/ipfs/${s.root}'), out);
+    await dag.dagExportFile(s.node, s.ctx, path.Path('/ipfs/${s.root}'), out);
     print('dagExportFile: ${blockCount(out)} blocks');
 
     print('\n== Low level (boxo gateway backend)');
     //   Go:   bb, _ := gateway.NewBlocksBackend(node.Blocks)
     //         _, rc, _ := bb.GetCAR(ctx, path, gateway.CarParams{Scope: gateway.DagScopeAll})
     //         io.Copy(f, rc)
-    final (_, rc) = await boxo.BlocksBackend(s.node.blocks).getCar(
+    final (_, rc) = await gateway.BlocksBackend(s.node.blocks).getCar(
         s.ctx,
-        boxo.ImmutablePath('/ipfs/${s.root}'),
-        boxo.CarParams(scope: boxo.dagScopeAll));
+        path.ImmutablePath('/ipfs/${s.root}'),
+        gateway.CarParams(scope: gateway.dagScopeAll));
     final viaGateway = s.path('gateway.car');
-    final f = go.create(viaGateway);
-    go.copy(f, rc);
+    final f = os.create(viaGateway);
+    io.copy(f, rc);
     f.close();
     rc.close();
     print('gateway getCar: ${blockCount(viaGateway)} blocks');
@@ -47,11 +51,11 @@ Future<void> main() async {
     //   Go:   ls := cidlink.DefaultLinkSystem()
     //         ls.SetReadStorage(&bsadapter.Adapter{Wrapped: node.Blockstore})
     //         car.TraverseToFile(ctx, &ls, root, selectorparse.CommonSelector_ExploreAllRecursively, out)
-    final ls = ipld.defaultLinkSystem()
-      ..setReadStorage(ipld.Adapter()..wrapped = s.node.blockstore);
+    final ls = cid.defaultLinkSystem()
+      ..setReadStorage(bsadapter.Adapter()..wrapped = s.node.blockstore);
     final viaSelector = s.path('selector.car');
     await car.traverseToFile(s.ctx, ls, s.root,
-        ipld.commonSelectorExploreAllRecursively, viaSelector);
+        parse.commonSelectorExploreAllRecursively, viaSelector);
     print('traverseToFile: ${blockCount(viaSelector)} blocks');
   } finally {
     await s.close();

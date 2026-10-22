@@ -9,18 +9,22 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:ipfs_ffi/car.dart' as car;
-import 'package:ipfs_ffi/go.dart' as go;
+import 'package:ipfs_ffi/go/car/v2.dart' as car;
+import 'package:ipfs_ffi/go/car/v2/blockstore.dart' as blockstore;
+import 'package:ipfs_ffi/go/bytes.dart' as bytes;
+import 'package:ipfs_ffi/go/context.dart' as context;
+import 'package:ipfs_ffi/go/io.dart' as io;
+import 'package:ipfs_ffi/go/os.dart' as os;
+import 'package:ipfs_ffi/go/block_format.dart' as block_format;
+import 'package:ipfs_ffi/go/cid.dart' as cid;
 import 'package:ipfs_ffi/ipfs_ffi.dart';
-import 'package:ipfs_ffi/ipld.dart' as ipld;
-import 'package:ipfs_ffi/multiformats.dart' as mf;
 
 Future<void> main() async {
   final tmp = Directory.systemTemp.createTempSync('ipfs_ffi_mem03_');
   await IpfsService.start();
   try {
-    final ctx = go.background();
-    final prefix = mf.newPrefixV1(0x55, 0x12); // raw + sha2-256
+    final ctx = context.background();
+    final prefix = cid.newPrefixV1(0x55, 0x12); // raw + sha2-256
 
     // Build a small CAR file with 5 blocks to iterate over.
     final carPath = '${tmp.path}/blocks.car';
@@ -30,9 +34,9 @@ Future<void> main() async {
     final cids = [for (final p in payloads) prefix.sum(p)];
 
     await withGoScope((s) async {
-      final rw = s.manage(car.openReadWrite(carPath, [cids.first]));
+      final rw = s.manage(blockstore.openReadWrite(carPath, [cids.first]));
       for (var i = 0; i < payloads.length; i++) {
-        await rw.put(ctx, ipld.Block(cid: cids[i], rawData: payloads[i]));
+        await rw.put(ctx, block_format.Block(cid: cids[i], rawData: payloads[i]));
       }
       rw.finalize();
     });
@@ -43,10 +47,10 @@ Future<void> main() async {
     // (buf -> br -> f) in one batch at the end of each iteration.
     for (var round = 1; round <= 3; round++) {
       final totalBytes = withGoScope((s) {
-        final f = s.manage(go.open(carPath));
+        final f = s.manage(os.open(carPath));
         try {
           final br = s.manage(car.BlockReader(f));
-          final scratch = s.manage(go.Buffer(Uint8List(0)));
+          final scratch = s.manage(bytes.Buffer(Uint8List(0)));
           var bytesRead = 0;
           while (true) {
             try {
@@ -56,8 +60,8 @@ Future<void> main() async {
               break;
             }
           }
-          go.Buffer(Uint8List.fromList([1, 2, 3]))
-              .use((b) => go.copy(scratch, b));
+          bytes.Buffer(Uint8List.fromList([1, 2, 3]))
+              .use((b) => io.copy(scratch, b));
           return bytesRead;
         } finally {
           f.close();
@@ -69,8 +73,8 @@ Future<void> main() async {
 
     print('\n== 2. Explicit GoScope for custom lifespans ==');
     final scope = GoScope();
-    final b1 = scope.manage(go.Buffer(Uint8List(4096)));
-    final b2 = scope.manage(go.Buffer(Uint8List(8192)));
+    final b1 = scope.manage(bytes.Buffer(Uint8List(4096)));
+    final b2 = scope.manage(bytes.Buffer(Uint8List(8192)));
     print('before scope.close(): b1.isReleased=${b1.isReleased}, '
         'b2.isReleased=${b2.isReleased}');
     scope.close();

@@ -97,7 +97,7 @@ dart run example/car/01_inspect_mistakes.dart
 
 - **What it shows:** `has`, `getSize` and `get` of one block by CID, through the index.
 - **Kubo:** `dagImportFiles` + `api.block().get`.
-- **Low level:** `car.openReadOnly`.
+- **Low level:** `blockstore.openReadOnly`.
 - **Mistakes:**
   - `get` of a CID that is not in the CAR (`IpfsNotFound`);
   - (silent) using the default `has` to know whether the CAR holds *exactly* a CID: the
@@ -112,7 +112,7 @@ dart run example/car/01_inspect_mistakes.dart
 - **What it shows:** writing your own blocks into a new CAR, with each CID computed from the
   bytes.
 - **Kubo:** `dagPut` of linked IPLD objects + `dagExportFile`.
-- **Low level:** `mf.newPrefixV1(...).sum(bytes)`, `car.openReadWrite`, `put`/`putMany`,
+- **Low level:** `cid.newPrefixV1(...).sum(bytes)`, `blockstore.openReadWrite`, `put`/`putMany`,
   `finalize`.
 - **Mistakes:**
   - (silent) a `Block` whose CID does not match its bytes: `put` accepts it, and only a
@@ -130,9 +130,9 @@ dart run example/car/01_inspect_mistakes.dart
 - **Kubo:** `api.unixfs().add` + `dagExportFile`.
 - **Low level, without a node:**
   - the CAR's own `ReadWrite` becomes an offline block service and DAG service
-    (`blockservice.new$`, `boxo.exchange`, `boxo.newDagService`);
-  - `boxo.buildDagFromReader` with `boxo.newSizeSplitter` chunks each file, and a
-    `boxo.Directory` ties them together;
+    (`blockservice.new$`, `offline.exchange`, `merkledag.newDagService`);
+  - `importer.buildDagFromReader` with `chunker.newSizeSplitter` chunks each file, and a
+    `io.Directory` ties them together;
   - the root is only known at the end, so the CAR opens with a placeholder root of the same
     size, replaced after `finalize`.
 - **Both ways give the same root** with the same parameters (CIDv0, 256 KiB chunks).
@@ -145,9 +145,9 @@ dart run example/car/01_inspect_mistakes.dart
 [`07_extract_files_mistakes.dart`](example/car/07_extract_files_mistakes.dart)
 
 - **What it shows:** the files and folders of a CAR written back to disk, byte for byte.
-- **Kubo:** `dagImportFiles` + `api.unixfs().get` + `boxo.writeTo`.
-- **Low level, without a node:** `car.openReadOnly` → offline block service →
-  `boxo.newDagService` → `boxo.newUnixfsFile` → `boxo.writeTo`.
+- **Kubo:** `dagImportFiles` + `api.unixfs().get` + `files.writeTo`.
+- **Low level, without a node:** `blockstore.openReadOnly` → offline block service →
+  `merkledag.newDagService` → `file.newUnixfsFile` → `files.writeTo`.
 - **Mistake:** extracting a partial CAR (`IpfsNotFound` for the first missing block).
 
 ### 08 import into a node
@@ -173,9 +173,9 @@ dart run example/car/01_inspect_mistakes.dart
   blocks.
 - **Kubo:** `dagExportFile` (`ipfs dag export`).
 - **Low level:**
-  - boxo's gateway backend: `boxo.BlocksBackend(node.blocks).getCar` with
-    `dagScopeAll`, copied to a file with `go.copy`; it fetches from the network if needed;
-  - a selector over the node's blockstore (`ipld.Adapter` + `car.traverseToFile`), local
+  - boxo's gateway backend: `gateway.BlocksBackend(node.blocks).getCar` with
+    `dagScopeAll`, copied to a file with `io.copy`; it fetches from the network if needed;
+  - a selector over the node's blockstore (`bsadapter.Adapter` + `car.traverseToFile`), local
     blocks only.
 - **Mistakes:**
   - exporting a DAG the offline node does not fully have;
@@ -187,7 +187,7 @@ dart run example/car/01_inspect_mistakes.dart
 [`10_convert_v1_v2_mistakes.dart`](example/car/10_convert_v1_v2_mistakes.dart)
 
 - **What it shows:** CARv1 → CARv2 (with an index) and back, byte for byte, and the same
-  in memory (bytes → `go.Buffer`).
+  in memory (bytes → `bytes.Buffer`).
 - **Kubo:** none.
 - **Low level:** `car.wrapV1File`, `car.extractV1File`, `car.wrapV1`.
 - **Mistakes:**
@@ -206,7 +206,7 @@ dart run example/car/01_inspect_mistakes.dart
   - going through every entry with a callback (`forEach`);
   - the index a CARv2 already carries.
 - **Kubo:** none.
-- **Low level:** `car.generateIndexFromFile`, `car.getFirst`, `car.writeTo`/`car.readFrom`,
+- **Low level:** `car.generateIndexFromFile`, `index.getFirst`, `index.writeTo`/`index.readFrom`,
   `asIterableIndex()!.forEach`.
 - **Mistakes:**
   - looking up a CID that is not indexed (`IpfsNotFound`);
@@ -242,9 +242,9 @@ dart run example/car/01_inspect_mistakes.dart
 - **Low level:**
   - boxo's gateway backend (`getCar`), from the node and fetching from the network if
     needed;
-  - an IPLD selector with the UnixFS layer (`ipld.addUnixFsReificationToLinkSystem`,
-    `ipld.unixFsPathSelector`) and the dag-pb prototype chooser
-    (`car.withTraversalPrototypeChooser(ipld.addSupportToChooser(boxo.defaultPrototypeChooser))`).
+  - an IPLD selector with the UnixFS layer (`unixfsnode.addUnixFsReificationToLinkSystem`,
+    `unixfsnode.unixFsPathSelector`) and the dag-pb prototype chooser
+    (`car.withTraversalPrototypeChooser(codec_dagpb.addSupportToChooser(blockservice.defaultPrototypeChooser))`).
 - **Mistakes:**
   - (silent) the UnixFS selector without the dag-pb chooser: the walk stops at the root;
   - `exploreFields(batchSize: 1024)`: `panic: misuse`, because the callback's object is only
@@ -258,6 +258,6 @@ dart run example/car/01_inspect_mistakes.dart
 
 - **What it shows:** one CAR with the blocks and the roots of two (duplicates stored once).
 - **Kubo:** `dagImportFiles` of both into a node (kubo exports one root per CAR).
-- **Low level:** `car.openReadWrite` with all the roots, fed by the `BlockReader` of each
+- **Low level:** `blockstore.openReadWrite` with all the roots, fed by the `BlockReader` of each
   CAR.
 - **Mistake:** using one of the source CARs as the destination (a CARv1 cannot be resumed).

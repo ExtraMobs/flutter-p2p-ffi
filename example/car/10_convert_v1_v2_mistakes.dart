@@ -2,9 +2,9 @@
 // 10_convert_v1_v2.dart.
 //
 //   dart run example/car/10_convert_v1_v2_mistakes.dart
-import 'package:ipfs_ffi/car.dart' as car;
 
 import 'sample.dart';
+import 'package:ipfs_ffi/go/car/v2.dart' as car;
 
 Future<void> main() async {
   final s = await Sample.open();

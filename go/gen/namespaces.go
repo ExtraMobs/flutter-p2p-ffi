@@ -5,144 +5,128 @@ import (
 	"fmt"
 	"io/fs"
 	"os"
+	"os/exec"
 	"path/filepath"
 	"regexp"
 	"sort"
 	"strings"
+	"sync"
 )
 
-// Namespaces do Dart (decisão do dono, 0.11.0): cada módulo Go vai para um
-// namespace, uma pasta em lib/ com um arquivo lib/<namespace>.dart que exporta
-// todas as libraries dela; as libraries por pacote Go continuam embaixo
-// (lib/kubo/repo/fsrepo.dart). Módulo novo nas raízes sem linha aqui é erro do
-// gerador: a escolha do namespace é de quem o adiciona.
-var namespaces = []struct{ module, dir string }{
-	{"github.com/ipfs/kubo", "kubo"},
-	{"github.com/ipfs/boxo", "boxo"},
-	{"github.com/ipfs/go-cid", "multiformats/cid"},
-	{"github.com/multiformats/go-multiaddr", "multiformats/multiaddr"},
-	{"github.com/ipfs/go-ipld-format", "ipld/format"},
-	{"github.com/ipfs/go-block-format", "ipld/block_format"},
-	{"github.com/libp2p/go-libp2p", "libp2p"},
-	{"github.com/ipld/go-car", "car"},
-	{"github.com/ipld/go-ipld-prime", "ipld/prime"},
-	{"github.com/ipfs/go-unixfsnode", "ipld/unixfsnode"},
-	{"github.com/ipld/go-codec-dagpb", "ipld/dagpb"},
-	{"github.com/multiformats/go-multicodec", "multiformats/multicodec"},
-	{"github.com/ipfs/go-datastore", "datastore"},
-}
+// Dart paths (owner's decision): every Go package is one library under
+// lib/go/, at the package's path inside its module. The module is named by the
+// last segment of its path without the `go-` prefix and the major version
+// (github.com/ipfs/go-cid → go/cid.dart, github.com/ipld/go-car/v2/index →
+// go/car/v2/index.dart, github.com/ipfs/boxo/mfs → go/boxo/mfs.dart); the Go
+// standard library sits beside the modules (context → go/context.dart). Each Go
+// type lives only in the library of its package, and no public library
+// re-exports another (checkPublicExports).
 
-// nsDocs: o texto de cada namespace (o primeiro segmento do caminho Dart).
-var nsDocs = map[string]string{
-	"kubo":         "Kubo (`github.com/ipfs/kubo`): node, CoreAPI and its options, config, repo.",
-	"boxo":         "Boxo (`github.com/ipfs/boxo`): files, paths, MerkleDAG, IPNS, name resolution.",
-	"multiformats": "Multiformats: CIDs (`github.com/ipfs/go-cid`), multiaddrs (`github.com/multiformats/go-multiaddr`) and multicodec codes (`github.com/multiformats/go-multicodec`).",
-	"ipld":         "IPLD: nodes (`github.com/ipfs/go-ipld-format`), blocks (`github.com/ipfs/go-block-format`) the link system, selectors and selector builder of `github.com/ipld/go-ipld-prime`, the UnixFS layer of `github.com/ipfs/go-unixfsnode` and the dag-pb codec (`github.com/ipld/go-codec-dagpb`).",
-	"libp2p":       "libp2p (`github.com/libp2p/go-libp2p`): peer IDs and addresses.",
-	"car":          "CAR files (`github.com/ipld/go-car/v2`): read, inspect, convert, index, blockstore and IPLD storage over a CAR, selective traversal.",
-	"datastore":    "Datastores (`github.com/ipfs/go-datastore`): the key-value stores under a blockstore.",
-	"go":           "The Go standard library pieces the API uses: `bytes`, `context`, `io`, `os`, `runtime/debug`.",
-}
+var (
+	modulesOnce sync.Once
+	modules     []string // the go.mod modules, longest path first
+)
 
-// dartPath: library Dart de um pacote Go, no namespace do módulo dele; a
-// biblioteca padrão do Go (sem ponto no primeiro segmento) vai em go/.
-func dartPath(pkgPath string) string {
-	p := ""
-	if first, _, _ := strings.Cut(pkgPath, "/"); !strings.Contains(first, ".") {
-		p = "go/" + pkgPath
-	}
-	for _, ns := range namespaces {
-		if p == "" && (pkgPath == ns.module || strings.HasPrefix(pkgPath, ns.module+"/")) {
-			p = ns.dir + strings.TrimPrefix(pkgPath, ns.module)
+// goModules: the modules of the build (`go list -m all`), so a package path
+// maps to its module without a hand-kept table.
+func goModules() []string {
+	modulesOnce.Do(func() {
+		out, err := exec.Command("go", "list", "-m", "-f", "{{.Path}}", "all").Output()
+		if err != nil {
+			panic(fmt.Sprintf("gen: go list -m all: %v", err))
 		}
-	}
-	if p == "" {
-		panic("gen: módulo sem namespace (acrescente em gen/namespaces.go): " + pkgPath)
+		modules = strings.Fields(string(out))
+		sort.Slice(modules, func(i, j int) bool { return len(modules[i]) > len(modules[j]) })
+	})
+	return modules
+}
+
+var majorRE = regexp.MustCompile(`/v[0-9]+$`)
+
+// dartPath: the library of a Go package, relative to lib/.
+func dartPath(pkgPath string) string {
+	var p string
+	if first, _, _ := strings.Cut(pkgPath, "/"); !strings.Contains(first, ".") {
+		p = "go/" + pkgPath // the standard library
+	} else {
+		mod := ""
+		for _, m := range goModules() {
+			if pkgPath == m || strings.HasPrefix(pkgPath, m+"/") {
+				mod = m
+				break
+			}
+		}
+		if mod == "" {
+			panic("gen: package outside the modules of go.mod: " + pkgPath)
+		}
+		p = "go/" + moduleDir(mod) + strings.TrimPrefix(pkgPath, majorRE.ReplaceAllString(mod, ""))
 	}
 	return strings.NewReplacer("-", "_", ".", "_").Replace(p) + ".dart"
 }
 
+// moduleDir: the folder of a module under lib/go/. A module nested in another
+// (github.com/ipld/go-ipld-prime/storage/bsadapter) keeps the outer one's path
+// (ipld_prime/storage/bsadapter).
+func moduleDir(mod string) string {
+	base := majorRE.ReplaceAllString(mod, "")
+	for _, outer := range goModules() { // longest first: the closest outer module
+		if outer != mod && strings.HasPrefix(base, majorRE.ReplaceAllString(outer, "")+"/") {
+			return moduleDir(outer) + strings.TrimPrefix(base, majorRE.ReplaceAllString(outer, ""))
+		}
+	}
+	return strings.TrimPrefix(base[strings.LastIndex(base, "/")+1:], "go-")
+}
+
 const generatedHeader = "// Generated by go/gen"
 
-// emitNamespaces acrescenta a [out] (caminhos relativos a go/) o
-// lib/<namespace>.dart de cada namespace: exporta as libraries geradas e as
-// escritas à mão que estão na pasta dele.
-func emitNamespaces(out map[string][]byte) error {
-	libs := map[string]map[string]bool{} // namespace → caminhos em lib/
-	add := func(rel string) {
-		ns, _, ok := strings.Cut(rel, "/")
-		if !ok {
-			return
-		}
-		if libs[ns] == nil {
-			libs[ns] = map[string]bool{}
-		}
-		libs[ns][rel] = true
-	}
-	for name := range out {
-		if rel, ok := strings.CutPrefix(name, "../lib/"); ok && !strings.HasPrefix(rel, "src/") {
-			add(rel)
+// checkPublicExports: no public library (lib/ outside lib/src/) re-exports
+// another, so each type has a single public library. The only exception is
+// lib/ipfs_ffi.dart, the entry point of the runtime, which may export what lives
+// in lib/src/ (the service, the errors, GoHandle). [out] holds the generated
+// files (paths relative to go/), checked with the hand-written ones in [libDir].
+func checkPublicExports(libDir string, out map[string][]byte) error {
+	files := map[string][]byte{}
+	for name, src := range out {
+		if rel, ok := strings.CutPrefix(name, "../lib/"); ok {
+			files[rel] = src
 		}
 	}
-	// as escritas à mão (sem o cabeçalho do gerador) também entram
-	err := filepath.WalkDir("../lib", func(path string, d fs.DirEntry, err error) error {
+	err := filepath.WalkDir(libDir, func(path string, d fs.DirEntry, err error) error {
 		if err != nil || d.IsDir() || !strings.HasSuffix(path, ".dart") {
 			return err
 		}
-		rel := filepath.ToSlash(strings.TrimPrefix(path, filepath.Clean("../lib")+string(filepath.Separator)))
-		if strings.HasPrefix(rel, "src/") || !strings.Contains(rel, "/") {
+		rel := filepath.ToSlash(strings.TrimPrefix(path, filepath.Clean(libDir)+string(filepath.Separator)))
+		if _, generated := files[rel]; generated {
 			return nil
 		}
-		if src, err := os.ReadFile(path); err == nil && !bytes.HasPrefix(src, []byte(generatedHeader)) {
-			add(rel)
+		src, err := os.ReadFile(path)
+		if err == nil && !bytes.HasPrefix(src, []byte(generatedHeader)) {
+			files[rel] = src
 		}
-		return nil
+		return err
 	})
 	if err != nil {
 		return err
 	}
-	for ns, set := range libs {
-		doc, ok := nsDocs[ns]
-		if !ok {
-			return fmt.Errorf("namespace %s sem texto em nsDocs", ns)
+	var bad []string
+	for _, rel := range sortedKeys(files) {
+		if strings.HasPrefix(rel, "src/") {
+			continue
 		}
-		paths := make([]string, 0, len(set))
-		for p := range set {
-			paths = append(paths, p)
-		}
-		sort.Strings(paths)
-		// nome repetido entre libraries do namespace (files.File e mfs.File):
-		// a primeira em ordem fica com ele; as outras o escondem, e quem o
-		// quer importa a library do pacote Go
-		owner := map[string]string{}
-		hide := map[string][]string{}
-		for _, p := range paths {
-			src, ok := out["../lib/"+p]
+		for i, line := range strings.Split(string(files[rel]), "\n") {
+			target, ok := strings.CutPrefix(line, "export '")
 			if !ok {
-				src, _ = os.ReadFile(filepath.Join("../lib", p))
-			}
-			for _, n := range publicNames(src) {
-				if o, dup := owner[n]; dup && o != p {
-					hide[p] = append(hide[p], n)
-				} else {
-					owner[n] = p
-				}
-			}
-		}
-		var b strings.Builder
-		fmt.Fprintf(&b, "%s from go/gen/namespaces.go; do not edit.\n\n", generatedHeader)
-		fmt.Fprintf(&b, "/// %s\n///\n/// Import it with a prefix (`import 'package:ipfs_ffi/%s.dart' as %s;`), or\n/// import one Go package at a time from `package:ipfs_ffi/%s/...`.\nlibrary;\n\n", doc, ns, ns, ns)
-		for _, p := range paths {
-			if h := hide[p]; len(h) > 0 {
-				sort.Strings(h)
-				fmt.Fprintf(&b, "// also in another library of this namespace: import 'package:ipfs_ffi/%s' for %s\n", p, strings.Join(h, ", "))
-				fmt.Fprintf(&b, "export '%s' hide %s;\n", p, strings.Join(h, ", "))
 				continue
 			}
-			fmt.Fprintf(&b, "export '%s';\n", p)
+			target, _, _ = strings.Cut(target, "'")
+			if rel == "ipfs_ffi.dart" && (strings.HasPrefix(target, "src/") || strings.HasPrefix(target, "package:ipfs_ffi/src/")) {
+				continue
+			}
+			bad = append(bad, fmt.Sprintf("lib/%s:%d re-exports '%s'", rel, i+1, target))
 		}
-		name := "../lib/" + ns + ".dart"
-		out[name] = formatDart(ns+".dart", b.String())
+	}
+	if len(bad) > 0 {
+		return fmt.Errorf("a public library re-exports another (each type has a single public library; only lib/ipfs_ffi.dart may export lib/src/):\n  %s", strings.Join(bad, "\n  "))
 	}
 	return nil
 }
@@ -171,7 +155,7 @@ func publicNames(src []byte) []string {
 }
 
 // staleGenerated: arquivos gerados em lib/ que o gerador não produz mais (o
-// pacote saiu das raízes ou mudou de namespace).
+// pacote saiu das raízes ou mudou de lugar).
 func staleGenerated(out map[string][]byte) []string {
 	var stale []string
 	_ = filepath.WalkDir("../lib", func(path string, d fs.DirEntry, err error) error {

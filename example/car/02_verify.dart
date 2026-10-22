@@ -10,9 +10,9 @@
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:ipfs_ffi/car.dart' as car;
+import 'package:ipfs_ffi/go/car/v2.dart' as car;
+import 'package:ipfs_ffi/go/kubo/core/commands/dag.dart' as dag;
 import 'package:ipfs_ffi/ipfs_ffi.dart' show IpfsException;
-import 'package:ipfs_ffi/kubo.dart' as kubo;
 
 import 'sample.dart';
 
@@ -43,11 +43,11 @@ Future<void> main() async {
     // The import checks every block and stores nothing of a corrupted CAR.
     //   CLI:  ipfs dag import corrupted.car
     try {
-      await kubo.dagImportFiles(other, s.ctx, [corrupted]);
+      await dag.dagImportFiles(other, s.ctx, [corrupted]);
     } on IpfsException catch (e) {
       print('dagImport rejected it: ${brief(e)}');
     }
-    final ok = await kubo.dagImportFiles(other, s.ctx, [s.car]);
+    final ok = await dag.dagImportFiles(other, s.ctx, [s.car]);
     print('dagImport of the intact one: ${ok.blockCount} blocks');
   } finally {
     await other.close();

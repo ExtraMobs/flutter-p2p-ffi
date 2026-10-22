@@ -7,8 +7,10 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"regexp"
 	"sort"
 	"strings"
+	"sync"
 )
 
 type dartLib struct {
@@ -17,8 +19,9 @@ type dartLib struct {
 	prefix  map[string]string // library importada → prefixo
 	classes map[string]*dclass
 	funcs   []*fn
-	bytes   bool // usa Uint8List
-	async   bool // usa StreamSink (dart:async)
+	extra   []string // código de outro emissor (os comandos e os DTOs deles)
+	bytes   bool     // usa Uint8List
+	async   bool     // usa StreamSink (dart:async)
 }
 
 type dclass struct {
@@ -39,6 +42,8 @@ func (e *dartEmitter) lib(goPath string) *dartLib {
 	if !ok {
 		l = &dartLib{path: path, goPath: goPath, prefix: map[string]string{}, classes: map[string]*dclass{}}
 		e.libs[path] = l
+	} else if l.goPath != goPath {
+		panic(fmt.Sprintf("gen: %s e %s caem na mesma library %s", l.goPath, goPath, path))
 	}
 	return l
 }
@@ -97,7 +102,9 @@ func (e *dartEmitter) collect(t *tinfo) {
 	}
 }
 
-func emitDart(m *model, fns []*fn, hash uint64) map[string][]byte {
+// emitDart: as libraries de [fns]; [more] acrescenta código às libraries dos
+// pacotes (os comandos do RPC e os DTOs deles) antes de serem escritas.
+func emitDart(m *model, fns []*fn, hash uint64, more func(*dartEmitter)) map[string][]byte {
 	e := &dartEmitter{m: m, libs: map[string]*dartLib{}, paramIfaces: map[string]bool{}}
 	for _, f := range fns {
 		if f.why != "" {
@@ -127,8 +134,18 @@ func emitDart(m *model, fns []*fn, hash uint64) map[string][]byte {
 		}
 	}
 	e.linkConcrete()
+	if more != nil {
+		more(e)
+	}
 	out := map[string][]byte{}
 	for path, l := range e.libs {
+		// o pacote já tem uma library escrita à mão (o porte do `ipfs dag`): o
+		// gerado vai num part dela, para o pacote Go seguir com uma library só
+		if hand, err := os.ReadFile(filepath.Join("..", "lib", path)); err == nil && !bytes.HasPrefix(hand, []byte(generatedHeader)) {
+			part, src := e.emitPart(l, hand)
+			out[part] = formatDart(part, src)
+			continue
+		}
 		src := e.emitLib(l)
 		// Código escrito à mão que o gerador não exprime (ex. config.Profiles).
 		if extra, err := os.ReadFile(filepath.Join("gen", "extra", path+".extra")); err == nil {
@@ -153,9 +170,30 @@ const ipfsTableHash = 0x%016x;
 `, hash))
 }
 
+var (
+	langOnce sync.Once
+	langVer  string
+)
+
+// languageVersion: a versão mínima do SDK no pubspec.yaml (`sdk: ^3.5.0` →
+// 3.5). Passada ao dart format: sem ela, ele a procura pelo pacote a partir do
+// caminho, e num arquivo novo (pasta ainda inexistente) não acha e formata no
+// estilo da versão mais nova.
+func languageVersion() string {
+	langOnce.Do(func() {
+		src, err := os.ReadFile("../pubspec.yaml")
+		m := regexp.MustCompile(`(?m)^\s*sdk:\s*["']?\^?(\d+\.\d+)`).FindSubmatch(src)
+		if err != nil || m == nil {
+			panic("gen: sem a versão do SDK no pubspec.yaml")
+		}
+		langVer = string(m[1])
+	})
+	return langVer
+}
+
 // formatDart passa a library pelo dart format (estilo da versão do pubspec).
 func formatDart(path, src string) []byte {
-	cmd := exec.Command("dart", "format", "--output=show", "--stdin-name=lib/"+path)
+	cmd := exec.Command("dart", "format", "--output=show", "--language-version="+languageVersion(), "--stdin-name=lib/"+path)
 	cmd.Dir = ".."
 	cmd.Stdin = strings.NewReader(src)
 	var out, errb bytes.Buffer
@@ -411,7 +449,7 @@ func goDoc(o types.Object) string {
 	return types.ObjectString(o, func(p *types.Package) string { return p.Name() })
 }
 
-func (e *dartEmitter) emitLib(l *dartLib) string {
+func (e *dartEmitter) body(l *dartLib) string {
 	var body strings.Builder
 	for _, k := range sortedKeys(l.classes) {
 		body.WriteString(e.class(l, l.classes[k]))
@@ -420,6 +458,51 @@ func (e *dartEmitter) emitLib(l *dartLib) string {
 	for _, f := range l.funcs {
 		body.WriteString(e.function(l, f, "", false) + "\n")
 	}
+	for _, x := range l.extra {
+		body.WriteString(x)
+	}
+	return body.String()
+}
+
+// emitPart: o gerado de [l] como part da library escrita à mão [hand] do mesmo
+// pacote (`<nome>.g.dart`). Um part não importa nada: [hand] tem de declarar o
+// part e os imports, com os prefixos, que o gerado usa.
+func (e *dartEmitter) emitPart(l *dartLib, hand []byte) (string, string) {
+	body := e.body(l)
+	base := l.path[strings.LastIndex(l.path, "/")+1:]
+	part := strings.TrimSuffix(l.path, ".dart") + ".g.dart"
+	partName := strings.TrimSuffix(base, ".dart") + ".g.dart"
+	src := string(hand)
+	var missing []string
+	if !strings.Contains(src, "part '"+partName+"';") {
+		missing = append(missing, "part '"+partName+"';")
+	}
+	need := map[string]bool{}
+	if l.bytes {
+		need["import 'dart:typed_data';"] = true
+	}
+	if l.async {
+		need["import 'dart:async';"] = true
+	}
+	if usesRuntime(body) {
+		need["import 'package:ipfs_ffi/src/runtime.dart';"] = true
+	}
+	for uri, p := range l.prefix {
+		need[fmt.Sprintf("import '%s' as %s;", uri, p)] = true
+	}
+	for _, line := range sortedKeys(need) {
+		if !strings.Contains(src, line) {
+			missing = append(missing, line)
+		}
+	}
+	if len(missing) > 0 {
+		panic(fmt.Sprintf("gen: lib/%s (escrita à mão) recebe o gerado de %s em %s e precisa de:\n  %s", l.path, l.goPath, partName, strings.Join(missing, "\n  ")))
+	}
+	return part, fmt.Sprintf("// Generated by go/gen; do not edit.\n// Go: %s (generated part)\npart of '%s';\n\n%s", l.goPath, base, body)
+}
+
+func (e *dartEmitter) emitLib(l *dartLib) string {
+	body := e.body(l)
 	var b strings.Builder
 	fmt.Fprintf(&b, "// Generated by go/gen from go/gen/roots.txt; do not edit.\n// Go: %s\nlibrary;\n\n", l.goPath)
 	if l.async {
@@ -431,14 +514,14 @@ func (e *dartEmitter) emitLib(l *dartLib) string {
 	if l.async || l.bytes {
 		b.WriteString("\n")
 	}
-	if usesRuntime(body.String()) {
+	if usesRuntime(body) {
 		b.WriteString("import 'package:ipfs_ffi/src/runtime.dart';\n")
 	}
 	uris := sortedKeys(l.prefix)
 	for _, uri := range uris {
 		fmt.Fprintf(&b, "import '%s' as %s;\n", uri, l.prefix[uri])
 	}
-	b.WriteString("\n" + body.String())
+	b.WriteString("\n" + body)
 	return strings.TrimRight(b.String(), "\n") + "\n"
 }
 

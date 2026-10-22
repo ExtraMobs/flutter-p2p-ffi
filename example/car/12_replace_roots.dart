@@ -8,10 +8,10 @@
 //
 //   dart run example/car/12_replace_roots.dart
 import 'dart:io';
+import 'package:ipfs_ffi/go/boxo/path.dart' as path;
+import 'package:ipfs_ffi/go/car/v2.dart' as car;
+import 'package:ipfs_ffi/go/cid.dart' as cid;
 
-import 'package:ipfs_ffi/boxo.dart' as boxo;
-import 'package:ipfs_ffi/car.dart' as car;
-import 'package:ipfs_ffi/multiformats.dart' as mf;
 
 import 'sample.dart';
 
@@ -22,8 +22,8 @@ Future<void> main() async {
     // The new root: the `sub` folder, which the CAR already contains (a
     // CIDv1 dag-pb, the same size as the old root).
     final (sub, _) =
-        await s.api.resolvePath(s.ctx, boxo.Path('/ipfs/${s.root}/sub'));
-    final subCid = mf.Cid(sub.value.substring('/ipfs/'.length));
+        await s.api.resolvePath(s.ctx, path.Path('/ipfs/${s.root}/sub'));
+    final subCid = cid.Cid(sub.value.substring('/ipfs/'.length));
 
     final copy = s.path('copy.car');
     File(s.car).copySync(copy);

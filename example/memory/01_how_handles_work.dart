@@ -8,8 +8,10 @@
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:ipfs_ffi/boxo.dart' as boxo;
-import 'package:ipfs_ffi/go.dart' as go;
+import 'package:ipfs_ffi/go/boxo/files.dart' as files;
+import 'package:ipfs_ffi/go/bytes.dart' as bytes;
+import 'package:ipfs_ffi/go/io.dart' as io;
+import 'package:ipfs_ffi/go/os.dart' as os;
 import 'package:ipfs_ffi/ipfs_ffi.dart';
 
 int hostRssMb() {
@@ -37,7 +39,7 @@ Future<void> main() async {
   await IpfsService.start();
   try {
     print('== 1. Anatomy of a GoHandle ==');
-    final buf = go.Buffer(Uint8List.fromList([1, 2, 3, 4]));
+    final buf = bytes.Buffer(Uint8List.fromList([1, 2, 3, 4]));
     print('handle ID (\$h): ${buf.$h}, epoch (\$e): ${buf.$e}, '
         'isReleased: ${buf.isReleased}');
     print('bytes in Go buffer: ${buf.bytes().length}');
@@ -53,13 +55,13 @@ Future<void> main() async {
     print('\n== 2. Same Go pointer = ref-counted handle in ipfs_host ==');
     // Casting or re-reading the same Go pointer returns the same handle ID
     // ($h) and increments its reference count in ipfs_host's handle table.
-    final f1 = boxo.newBytesFile(Uint8List.fromList([7, 8, 9]));
+    final f1 = files.newBytesFile(Uint8List.fromList([7, 8, 9]));
     final f2 = f1.asFile()!;
     print('f1.\$h = ${f1.$h}, f2.\$h = ${f2.$h} '
         '(same Go pointer -> same handle ID, refs = 2)');
     f1.release();
     print('f1 released (isReleased=${f1.isReleased}), '
-        'but f2 still holds refs = 1 in Go: readAll=${go.readAll(f2)}');
+        'but f2 still holds refs = 1 in Go: readAll=${io.readAll(f2)}');
     f2.release();
 
     print('\n== 3. Why Finalizer alone accumulates Go memory in loops ==');
@@ -67,9 +69,9 @@ Future<void> main() async {
 
     // Allocate 20 Go buffers of 8 MiB each (160 MiB) WITH deterministic use():
     for (var i = 0; i < 20; i++) {
-      go.Buffer(Uint8List(0)).use((b) {
-        go.open(big).use((f) {
-          go.copy(b, f);
+      bytes.Buffer(Uint8List(0)).use((b) {
+        os.open(big).use((f) {
+          io.copy(b, f);
           f.close();
         });
       });
@@ -80,9 +82,9 @@ Future<void> main() async {
     // Allocate 20 Go buffers of 8 MiB each WITHOUT release() (waiting for
     // Dart's Finalizer, which feels no pressure from 20 tiny Dart wrappers):
     for (var i = 0; i < 20; i++) {
-      final b = go.Buffer(Uint8List(0));
-      final f = go.open(big);
-      go.copy(b, f);
+      final b = bytes.Buffer(Uint8List(0));
+      final f = os.open(big);
+      io.copy(b, f);
       f.close();
     }
     print('After 20 x 8 MiB without release() (floating garbage): '

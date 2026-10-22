@@ -12,11 +12,18 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:ipfs_ffi/boxo/files.dart' as files;
-import 'package:ipfs_ffi/boxo/mfs.dart' as mfs;
+import 'package:ipfs_ffi/go/boxo/files.dart' as files;
+import 'package:ipfs_ffi/go/boxo/mfs.dart' as mfs;
 import 'package:ipfs_ffi/go/context.dart' as context;
+import 'package:ipfs_ffi/go/kubo/core/node.dart' as node;
+import 'package:ipfs_ffi/go/kubo/plugin/loader.dart' as loader;
+import 'package:ipfs_ffi/go/kubo/config.dart' as config;
+import 'package:ipfs_ffi/go/kubo/repo/fsrepo.dart' as fsrepo;
+import 'package:ipfs_ffi/go/kubo/core/coreiface/options.dart' as options;
+import 'package:ipfs_ffi/go/kubo/core/coreapi.dart' as coreapi;
+import 'package:ipfs_ffi/go/kubo/core.dart' as core;
+import 'package:ipfs_ffi/go/kubo/core/commands.dart' as commands;
 import 'package:ipfs_ffi/ipfs_ffi.dart' show IpfsService;
-import 'package:ipfs_ffi/kubo.dart' as kubo;
 
 Future<void> main() async {
   final tmp = Directory.systemTemp.createTempSync('ipfs_ffi_ex10_');
@@ -25,16 +32,16 @@ Future<void> main() async {
   // Service, plugins and a new repo: the same as example 09 (every line is
   // explained there).
   await IpfsService.start();
-  kubo.PluginLoader('')
+  loader.PluginLoader('')
     ..initialize()
     ..inject();
-  final cfg = kubo
-      .initWithIdentity(kubo.createIdentity(null, [kubo.key.type('ed25519')]));
-  kubo.profiles['test']!.transform(cfg);
-  kubo.init(repoPath, cfg);
+  final cfg = config
+      .initWithIdentity(config.createIdentity(null, [options.key.type('ed25519')]));
+  config.profiles['test']!.transform(cfg);
+  fsrepo.init(repoPath, cfg);
   final ctx = context.background();
-  final n = await kubo.newNode(ctx, kubo.BuildCfg(repo: kubo.open(repoPath)));
-  final api = kubo.newCoreApi(n);
+  final n = await core.newNode(ctx, node.BuildCfg(repo: fsrepo.open(repoPath)));
+  final api = coreapi.newCoreApi(n);
 
   try {
     // The node's MFS root. In Go it is a FIELD of the IpfsNode struct; in Dart
@@ -131,7 +138,7 @@ Future<void> main() async {
     // the end, it returns a Future with the final value. `all..addAll(chunk)`
     // adds the piece's bytes to the list and returns the list itself (`..`
     // returns the object, not the result of addAll).
-    final viaCommand = await kubo
+    final viaCommand = await commands
         .filesRead(n, ctx, '/docs/drafts/note.txt')
         .fold<List<int>>([], (all, chunk) => all..addAll(chunk));
     print('7. through the ipfs files read command: ${viaCommand.length} bytes');

@@ -8,7 +8,8 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:ipfs_ffi/go.dart' as go;
+import 'package:ipfs_ffi/go/bytes.dart' as bytes;
+import 'package:ipfs_ffi/go/os.dart' as os;
 import 'package:ipfs_ffi/ipfs_ffi.dart';
 
 Future<void> mustFail(
@@ -33,7 +34,7 @@ Future<void> main() async {
   await IpfsService.start();
   try {
     // 1. Calling a method on a handle after .release()
-    final buf = go.Buffer(Uint8List.fromList([1, 2, 3]));
+    final buf = bytes.Buffer(Uint8List.fromList([1, 2, 3]));
     buf.release();
     await mustFail(
       'use a GoHandle after calling .release()',
@@ -43,7 +44,7 @@ Future<void> main() async {
     );
 
     // 2. Returning a scoped GoHandle out of withGoScope()
-    final escaped = withGoScope((s) => s.manage(go.Buffer(Uint8List(16))));
+    final escaped = withGoScope((s) => s.manage(bytes.Buffer(Uint8List(16))));
     await mustFail(
       'return a managed GoHandle from withGoScope() and use it outside',
       why: 'withGoScope() releases every handle registered in `s` on exit',
@@ -54,14 +55,14 @@ Future<void> main() async {
 
     // 3. Registering a handle on an already closed GoScope
     final closedScope = GoScope()..close();
-    late go.Buffer orphan;
+    late bytes.Buffer orphan;
     await mustFail(
       'call scope.manage() after scope.close()',
       why: 'a closed GoScope cannot accept new handles (it immediately '
           'releases the passed handle so it does not leak, and throws)',
       instead: 'create a new GoScope or use withGoScope()',
       action: () {
-        orphan = go.Buffer(Uint8List(8));
+        orphan = bytes.Buffer(Uint8List(8));
         closedScope.manage(orphan);
       },
     );
@@ -72,7 +73,7 @@ Future<void> main() async {
     if (Platform.isWindows) {
       final path = '${tmp.path}/locked.bin';
       File(path).writeAsBytesSync(Uint8List(64));
-      final f = go.open(path);
+      final f = os.open(path);
       // Calling ONLY f.release() removes the handle from Go's table, but
       // does NOT call os.File.Close() in Go!
       f.release();

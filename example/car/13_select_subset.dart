@@ -11,12 +11,18 @@
 // UnixFS layer (from any CAR or blockstore).
 //
 //   dart run example/car/13_select_subset.dart
-import 'package:ipfs_ffi/boxo.dart' as boxo;
-import 'package:ipfs_ffi/car.dart' as car;
-import 'package:ipfs_ffi/go.dart' as go;
-import 'package:ipfs_ffi/ipld.dart' as ipld;
 
 import 'sample.dart';
+import 'package:ipfs_ffi/go/boxo/gateway.dart' as gateway;
+import 'package:ipfs_ffi/go/boxo/path.dart' as boxo_path;
+import 'package:ipfs_ffi/go/boxo/fetcher/impl/blockservice.dart' as blockservice;
+import 'package:ipfs_ffi/go/car/v2/storage.dart' as storage;
+import 'package:ipfs_ffi/go/car/v2.dart' as car;
+import 'package:ipfs_ffi/go/os.dart' as os;
+import 'package:ipfs_ffi/go/io.dart' as io;
+import 'package:ipfs_ffi/go/codec_dagpb.dart' as codec_dagpb;
+import 'package:ipfs_ffi/go/unixfsnode.dart' as unixfsnode;
+import 'package:ipfs_ffi/go/ipld_prime/linking/cid.dart' as cid;
 
 Future<void> main() async {
   final s = await Sample.open();
@@ -24,24 +30,24 @@ Future<void> main() async {
     print('== Low level (boxo gateway backend, from the node)');
     //   Go:   _, rc, _ := bb.GetCAR(ctx, path, gateway.CarParams{Scope: gateway.DagScopeEntity,
     //             Range: &gateway.DagByteRange{From: 0, To: &to}})
-    final backend = boxo.BlocksBackend(s.node.blocks);
-    Future<int> blocksOf(String path, boxo.CarParams params) async {
+    final backend = gateway.BlocksBackend(s.node.blocks);
+    Future<int> blocksOf(String path, gateway.CarParams params) async {
       final (_, rc) =
-          await backend.getCar(s.ctx, boxo.ImmutablePath(path), params);
-      final n = cidsOf(go.readAll(rc)).length;
+          await backend.getCar(s.ctx, boxo_path.ImmutablePath(path), params);
+      final n = cidsOf(io.readAll(rc)).length;
       rc.close();
       return n;
     }
 
     final file = '/ipfs/${s.root}/data.bin';
     print('data.bin, whole file (entity): '
-        '${await blocksOf(file, boxo.CarParams(scope: boxo.dagScopeEntity))} '
+        '${await blocksOf(file, gateway.CarParams(scope: gateway.dagScopeEntity))} '
         'blocks (the folder, the file root, 3 chunks)');
     print(
-        'data.bin, first 100 bytes: ${await blocksOf(file, boxo.CarParams(scope: boxo.dagScopeEntity, range: boxo.DagByteRange(from: 0, to: 99)))} '
+        'data.bin, first 100 bytes: ${await blocksOf(file, gateway.CarParams(scope: gateway.dagScopeEntity, range: gateway.DagByteRange(from: 0, to: 99)))} '
         'blocks (the folder, the file root, 1 chunk)');
     print('only the root block (block): '
-        '${await blocksOf('/ipfs/${s.root}', boxo.CarParams(scope: boxo.dagScopeBlock))} block');
+        '${await blocksOf('/ipfs/${s.root}', gateway.CarParams(scope: gateway.dagScopeBlock))} block');
 
     print('\n== Low level (IPLD selector with UnixFS, from a CAR file)');
     // The source is a CAR on disk; the UnixFS layer lets the selector walk
@@ -51,16 +57,16 @@ Future<void> main() async {
     //         src, _ := storage.OpenReadable(f); ls.SetReadStorage(src)
     //         car.TraverseToFile(ctx, &ls, root, unixfsnode.UnixFSPathSelector("sub/note.md"), out,
     //             car.WithTraversalPrototypeChooser(dagpb.AddSupportToChooser(bsfetcher.DefaultPrototypeChooser)))
-    final f = go.open(s.car);
+    final f = os.open(s.car);
     try {
-      final ls = ipld.defaultLinkSystem();
-      ipld.addUnixFsReificationToLinkSystem(ls);
-      ls.setReadStorage(car.openReadable(f));
+      final ls = cid.defaultLinkSystem();
+      unixfsnode.addUnixFsReificationToLinkSystem(ls);
+      ls.setReadStorage(storage.openReadable(f));
       final out = s.path('note.car');
       await car.traverseToFile(
-          s.ctx, ls, s.root, ipld.unixFsPathSelector('sub/note.md'), out, [
+          s.ctx, ls, s.root, unixfsnode.unixFsPathSelector('sub/note.md'), out, [
         car.withTraversalPrototypeChooser(
-            ipld.addSupportToChooser(boxo.defaultPrototypeChooser))
+            codec_dagpb.addSupportToChooser(blockservice.defaultPrototypeChooser))
       ]);
       print(
           'sub/note.md: ${blockCount(out)} blocks (the folder, sub, the file)');

@@ -8,12 +8,13 @@
 // one, or one built in memory for a CARv1).
 //
 //   dart run example/car/04_read_block.dart
-import 'package:ipfs_ffi/boxo.dart' as boxo;
-import 'package:ipfs_ffi/car.dart' as car;
-import 'package:ipfs_ffi/go.dart' as go;
-import 'package:ipfs_ffi/kubo.dart' as kubo;
 
 import 'sample.dart';
+import 'package:ipfs_ffi/go/boxo/path.dart' as path;
+import 'package:ipfs_ffi/go/car/v2/blockstore.dart' as blockstore;
+import 'package:ipfs_ffi/go/io.dart' as io;
+import 'package:ipfs_ffi/go/kubo/core/commands/dag.dart' as dag;
+import 'package:ipfs_ffi/go/kubo/core/coreapi.dart' as coreapi;
 
 Future<void> main() async {
   final s = await Sample.open();
@@ -24,7 +25,7 @@ Future<void> main() async {
     print('== Low level (go-car)');
     //   Go:   ro, _ := blockstore.OpenReadOnly(path); defer ro.Close()
     //         ok, _ := ro.Has(ctx, c); n, _ := ro.GetSize(ctx, c); b, _ := ro.Get(ctx, c)
-    final ro = car.openReadOnly(s.car);
+    final ro = blockstore.openReadOnly(s.car);
     try {
       print('has it: ${await ro.has(s.ctx, target)}');
       print('size: ${await ro.getSize(s.ctx, target)} bytes');
@@ -36,10 +37,10 @@ Future<void> main() async {
 
     print('\n== Kubo (high level)');
     //   CLI:  ipfs dag import folder.car && ipfs block get <cid>
-    await kubo.dagImportFiles(other, s.ctx, [s.car]);
-    final api = kubo.newCoreApi(other);
+    await dag.dagImportFiles(other, s.ctx, [s.car]);
+    final api = coreapi.newCoreApi(other);
     final data =
-        go.readAll(await api.block().get(s.ctx, boxo.Path('/ipfs/$target')));
+        io.readAll(await api.block().get(s.ctx, path.Path('/ipfs/$target')));
     print('the same block from the node: ${data.length} bytes');
   } finally {
     await other.close();

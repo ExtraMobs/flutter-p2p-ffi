@@ -81,7 +81,7 @@ var (
 )
 
 // tableHash: o hash da tabela (WIRE.md, Hello), o mesmo do Dart gerado.
-const tableHash uint64 = 0x18589f66b841c7a2
+const tableHash uint64 = 0x783facdaccf8362e
 
 // table: as funções geradas por id (WIRE.md); as escritas à mão entram no init delas.
 var table = map[uint32]entry{

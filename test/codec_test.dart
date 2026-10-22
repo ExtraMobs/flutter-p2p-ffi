@@ -2,10 +2,10 @@
 // ida e volta de cada tipo, sem o ipfs_host.
 import 'dart:typed_data';
 
-import 'package:ipfs_ffi/multiformats/cid.dart' as cid;
-import 'package:ipfs_ffi/ipld/format.dart' as format;
-import 'package:ipfs_ffi/kubo/config.dart' as config;
-import 'package:ipfs_ffi/kubo/core/coreiface/options.dart' as options;
+import 'package:ipfs_ffi/go/cid.dart' as cid;
+import 'package:ipfs_ffi/go/ipld_format.dart' as format;
+import 'package:ipfs_ffi/go/kubo/config.dart' as config;
+import 'package:ipfs_ffi/go/kubo/core/coreiface/options.dart' as options;
 import 'package:ipfs_ffi/src/runtime.dart';
 import 'package:test/test.dart';
 

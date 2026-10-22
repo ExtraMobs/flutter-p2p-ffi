@@ -25,10 +25,17 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:ipfs_ffi/boxo/files.dart' as files;
+import 'package:ipfs_ffi/go/boxo/files.dart' as files;
 import 'package:ipfs_ffi/go/context.dart' as context;
+import 'package:ipfs_ffi/go/kubo/core/node.dart' as node;
+import 'package:ipfs_ffi/go/kubo/plugin/loader.dart' as loader;
+import 'package:ipfs_ffi/go/kubo/core/commands.dart' as commands;
+import 'package:ipfs_ffi/go/kubo/config.dart' as config;
+import 'package:ipfs_ffi/go/kubo/repo/fsrepo.dart' as fsrepo;
+import 'package:ipfs_ffi/go/kubo/core/coreiface/options.dart' as options;
+import 'package:ipfs_ffi/go/kubo/core/coreapi.dart' as coreapi;
+import 'package:ipfs_ffi/go/kubo/core.dart' as core;
 import 'package:ipfs_ffi/ipfs_ffi.dart' show IpfsException, IpfsService;
-import 'package:ipfs_ffi/kubo.dart' as kubo;
 
 Future<void> main() async {
   // A temporary directory just for this example (the IPFS repo lives in it).
@@ -42,16 +49,16 @@ Future<void> main() async {
   // Kubo's plugins (the repo's database types etc.): once per service, before
   // opening any repo. The `..` call two methods on the same object, one after
   // the other.
-  kubo.PluginLoader('')
+  loader.PluginLoader('')
     ..initialize()
     ..inject();
 
   // Creates the repo: a new identity (the node's key pair) and kubo's default
   // config, with the `test` profile (no network, random ports).
-  final cfg = kubo
-      .initWithIdentity(kubo.createIdentity(null, [kubo.key.type('ed25519')]));
-  kubo.profiles['test']!.transform(cfg);
-  kubo.init(repoPath, cfg);
+  final cfg = config.initWithIdentity(
+      config.createIdentity(null, [options.key.type('ed25519')]));
+  config.profiles['test']!.transform(cfg);
+  fsrepo.init(repoPath, cfg);
 
   // Go's "context": every call that may take a while gets one. `background()`
   // is the context that never expires nor is canceled (example 11 shows
@@ -60,7 +67,7 @@ Future<void> main() async {
 
   // Starts the IPFS node (offline: without `online: true` it does not talk to
   // the network). `newNode` returns a Future, so we wait with `await`.
-  final n = await kubo.newNode(ctx, kubo.BuildCfg(repo: kubo.open(repoPath)));
+  final n = await core.newNode(ctx, node.BuildCfg(repo: fsrepo.open(repoPath)));
 
   // `try { ... } finally { ... }`: the `finally` block ALWAYS runs at the end,
   // whether it worked or failed, and it is where we close the node and the
@@ -74,13 +81,13 @@ Future<void> main() async {
     // Stream until the end, throwing the items away, and returns a Future that
     // completes when the command ends. Without `.drain()`, the directory would
     // NOT be created (the Stream is lazy: nobody listened, nothing ran).
-    await kubo.filesMkdir(n, ctx, '/docs', parents: true).drain<void>();
+    await commands.filesMkdir(n, ctx, '/docs', parents: true).drain<void>();
     print('1. created /docs');
 
     // `ipfs files write --create /docs/note.txt`: writes bytes to a file in the
     // MFS (the IPFS node's "file system"). `utf8.encode` turns the text into
     // bytes; `files.newBytesFile` wraps the bytes as a file.
-    await kubo
+    await commands
         .filesWrite(n, ctx, '/docs/note.txt',
             files.newBytesFile(utf8.encode('hello, IPFS!\n')),
             create: true)
@@ -95,11 +102,11 @@ Future<void> main() async {
     // item. Careful: if the Stream comes empty, or with more than one item,
     // `.single` fails (StateError). Use it when the command, by nature, answers
     // once.
-    final st = await kubo.filesStat(n, ctx, '/docs/note.txt').single;
+    final st = await commands.filesStat(n, ctx, '/docs/note.txt').single;
     print('2. stat: ${st.type}, ${st.size} bytes, CID ${st.hash}');
 
     // `ipfs files ls /docs`: also a single item, which carries the `entries` list.
-    final ls = await kubo.filesLs(n, ctx, '/docs', long: true).single;
+    final ls = await commands.filesLs(n, ctx, '/docs', long: true).single;
     for (final e in ls.entries) {
       print('   ls: ${e.name} (${e.size} bytes)');
     }
@@ -112,7 +119,7 @@ Future<void> main() async {
     // loop that waits for each item of the Stream: the body runs once per piece,
     // and the loop ends when the Stream ends.
     final content = BytesBuilder(); // joins the pieces into a single buffer
-    await for (final chunk in kubo.filesRead(n, ctx, '/docs/note.txt')) {
+    await for (final chunk in commands.filesRead(n, ctx, '/docs/note.txt')) {
       print('3. a piece of ${chunk.length} bytes arrived');
       content.add(chunk);
     }
@@ -122,14 +129,14 @@ Future<void> main() async {
     // 4. Collecting every item: `.toList()`
     // ------------------------------------------------------------------
     // A pinned file (the pin keeps the garbage collector from deleting it).
-    final p = await kubo.newCoreApi(n).unixfs().add(
+    final p = await coreapi.newCoreApi(n).unixfs().add(
         ctx,
         files.newBytesFile(utf8.encode('kept around')),
-        [kubo.unixfs.pin(true, '')]);
+        [options.unixfs.pin(true, '')]);
     // `ipfs pin ls --type=recursive` emits the pins (there may be many).
     // `.toList()` waits for the Stream to end and returns every item in a list.
     // Handy, but only use it when you know the list fits in memory.
-    final pins = await kubo.pinLs(n, ctx, [], type: 'recursive').toList();
+    final pins = await commands.pinLs(n, ctx, [], type: 'recursive').toList();
     for (final w in pins) {
       // each item carries a map: CID → pin type
       w.keys.forEach((cid, info) => print('4. pin: $cid (${info.type})'));
@@ -152,7 +159,7 @@ Future<void> main() async {
     // control", with `.cancel()` (stop listening) and `.pause()/.resume()`.
     final done = Completer<void>(); // a Future we complete by hand
     var total = 0;
-    final subscription = kubo.cat(n, ctx, [p.value]).listen(
+    final subscription = commands.cat(n, ctx, [p.value]).listen(
       (chunk) {
         // onData: runs for each piece of bytes of `ipfs cat`
         total += chunk.length;
@@ -186,14 +193,14 @@ Future<void> main() async {
     // with an error. With `await` (including `.single`, `.toList()`,
     // `await for`), the error becomes an exception that `try/catch` catches.
     try {
-      await kubo.filesStat(n, ctx, '/does/not/exist').single;
+      await commands.filesStat(n, ctx, '/does/not/exist').single;
     } on IpfsException catch (e) {
       print('6. expected error from kubo: $e');
     }
 
     // `ipfs files rm -r /docs` and check that it is gone
-    await kubo.filesRm(n, ctx, ['/docs'], recursive: true).drain<void>();
-    final root = await kubo.filesLs(n, ctx, '/').single;
+    await commands.filesRm(n, ctx, ['/docs'], recursive: true).drain<void>();
+    final root = await commands.filesLs(n, ctx, '/').single;
     print('   after rm, the root has ${root.entries.length} entries');
   } finally {
     await n.close(); // closes the node (releases the repo)

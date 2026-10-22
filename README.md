@@ -7,11 +7,21 @@ panic stops only the service, never the app. Targets: VM/AOT on Windows, linux a
 (not JS/Wasm).
 
 The Dart API is Go's own, generated: the same functions, types and argument order as in
-pkg.go.dev, so the Go documentation applies. It is organized in namespaces, one per Go
-module: `kubo`, `boxo`, `ipld`, `multiformats`, `libp2p`, `car`, `datastore` and `go` (the
-standard library pieces the API uses). Import a whole namespace
-(`package:ipfs_ffi/kubo.dart`) or one Go package at a time
-(`package:ipfs_ffi/kubo/repo/fsrepo.dart`).
+pkg.go.dev, so the Go documentation applies. Each Go package is one library under
+`package:ipfs_ffi/go/`, at the package's path in its module (the module named without
+`go-` and the major version), with the Go standard library beside the modules:
+
+| Go package | Dart library |
+|---|---|
+| `github.com/ipfs/boxo/mfs` | `package:ipfs_ffi/go/boxo/mfs.dart` |
+| `github.com/ipfs/kubo/repo/fsrepo` | `package:ipfs_ffi/go/kubo/repo/fsrepo.dart` |
+| `github.com/ipfs/go-cid` | `package:ipfs_ffi/go/cid.dart` |
+| `github.com/ipld/go-car/v2/index` | `package:ipfs_ffi/go/car/v2/index.dart` |
+| `context` | `package:ipfs_ffi/go/context.dart` |
+
+Import each package with its last segment as the prefix (`as mfs`), like Go code reads.
+Each type lives only in the library of its Go package, and no library re-exports another.
+The service, its errors and the handles come from `package:ipfs_ffi/ipfs_ffi.dart`.
 
 | Document | What it has |
 |---|---|
@@ -26,20 +36,27 @@ standard library pieces the API uses). Import a whole namespace
 ```dart
 import 'dart:convert';
 
-import 'package:ipfs_ffi/boxo.dart' as boxo;
-import 'package:ipfs_ffi/go.dart' as go;
+import 'package:ipfs_ffi/go/boxo/files.dart' as files;
+import 'package:ipfs_ffi/go/context.dart' as context;
+import 'package:ipfs_ffi/go/io.dart' as io;
+import 'package:ipfs_ffi/go/kubo/config.dart' as config;
+import 'package:ipfs_ffi/go/kubo/core.dart' as core;
+import 'package:ipfs_ffi/go/kubo/core/coreapi.dart' as coreapi;
+import 'package:ipfs_ffi/go/kubo/core/coreiface/options.dart' as options;
+import 'package:ipfs_ffi/go/kubo/core/node.dart' as node;
+import 'package:ipfs_ffi/go/kubo/plugin/loader.dart' as loader;
+import 'package:ipfs_ffi/go/kubo/repo/fsrepo.dart' as fsrepo;
 import 'package:ipfs_ffi/ipfs_ffi.dart';
-import 'package:ipfs_ffi/kubo.dart' as kubo;
 
 await IpfsService.start(onStop: (stop) => print('${stop.reason}: ${stop.report}'));
-kubo.PluginLoader('')..initialize()..inject(); // once per service
-kubo.init(repo, kubo.initWithIdentity(kubo.createIdentity(null, [kubo.key.type('ed25519')])));
-final ctx = go.background();
-final n = await kubo.newNode(ctx, kubo.BuildCfg(repo: kubo.open(repo)));
-final api = kubo.newCoreApi(n);
-final p = await api.unixfs().add(ctx, boxo.newBytesFile(utf8.encode('hi')),
-    [kubo.unixfs.pin(true, '')]);
-print(utf8.decode(go.readAll(boxo.toFile(await api.unixfs().get(ctx, p)))));
+loader.PluginLoader('')..initialize()..inject(); // once per service
+fsrepo.init(repo, config.initWithIdentity(config.createIdentity(null, [options.key.type('ed25519')])));
+final ctx = context.background();
+final n = await core.newNode(ctx, node.BuildCfg(repo: fsrepo.open(repo)));
+final api = coreapi.newCoreApi(n);
+final p = await api.unixfs().add(ctx, files.newBytesFile(utf8.encode('hi')),
+    [options.unixfs.pin(true, '')]);
+print(utf8.decode(io.readAll(files.toFile(await api.unixfs().get(ctx, p)))));
 await n.close();
 await IpfsService.stop();
 ```
@@ -66,8 +83,9 @@ await IpfsService.stop();
 
 The kubo RPC commands (`ipfs files ...`, `ipfs pin ls`, `ipfs cat`...) are also available,
 running against the app's node: one function per command in
-`package:ipfs_ffi/kubo/core/commands.dart`, each returning a `Stream`
-(`await kubo.filesStat(n, ctx, '/a').single`).
+`package:ipfs_ffi/go/kubo/core/commands.dart`, each returning a `Stream`; their result types
+are in the libraries of their Go packages
+(`await commands.filesStat(n, ctx, '/a').single`).
 
 ## Examples
 
@@ -104,7 +122,7 @@ running against the app's node: one function per command in
   final dag = merkledag.newDagService(blockservice.new$(
       blockstore.Blockstore(datastore.NullDatastore()), node.exchange));
   final file = files.toFile(await unixfile.newUnixfsFile(ctx, dag, await dag.get(ctx, cid)));
-  await for (final chunk in go.readerStream(file)) sink.add(chunk);
+  await for (final chunk in io_stream.readerStream(file)) sink.add(chunk);
   ```
 
   Nothing is kept, so the node does not serve those blocks, and blocks already in the repo
@@ -137,10 +155,10 @@ running against the app's node: one function per command in
 - **Release handles in loops.** The Dart `Finalizer` frees Go objects late, while each
   handle may pin megabytes in the host. Use `.release()`, `.use()` or `withGoScope()`
   ([`example/memory/`](example/memory)). The node and the repo still need `close()`.
-- **Synchronous calls block the isolate** until the host answers (`go.copy` of a large file,
+- **Synchronous calls block the isolate** until the host answers (`io.copy` of a large file,
   for example); calls with a `context` are `Future`s.
 - **A command `Stream` only runs when listened to**: `.single`, `.first`, `toList()` or
-  `drain()`. Cancelling the subscription of `go.readerStream` or of a command does not stop
+  `drain()`. Cancelling the subscription of `io_stream.readerStream` or of a command does not stop
   Go; cancel the context instead.
 - **Objects a callback receives are valid only during the invocation** (that is why their
   default `batchSize` is 1). Calling into Go from a callback is allowed; if it waits on a lock
@@ -161,7 +179,7 @@ running against the app's node: one function per command in
 - go-car's `has` matches multihashes unless `useWholeCids(true)`.
 - Wrapping a CARv2 again is accepted and produces a broken file.
 - UnixFS selectors need the dag-pb prototype chooser
-  (`car.withTraversalPrototypeChooser(ipld.addSupportToChooser(boxo.defaultPrototypeChooser))`),
+  (`car.withTraversalPrototypeChooser(codec_dagpb.addSupportToChooser(blockservice.defaultPrototypeChooser))`),
   or the traversal stops at the directory.
 - go-car's `AttachIndex` always fails (upstream bug).
 

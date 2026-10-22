@@ -12,15 +12,22 @@
 //
 //   dart run example/car/06_create_from_files.dart
 import 'dart:io';
+import 'package:ipfs_ffi/go/boxo/ipld/unixfs/io.dart' as io;
+import 'package:ipfs_ffi/go/boxo/ipld/unixfs/importer.dart' as importer;
+import 'package:ipfs_ffi/go/boxo/exchange/offline.dart' as offline;
+import 'package:ipfs_ffi/go/boxo/ipld/merkledag.dart' as merkledag;
+import 'package:ipfs_ffi/go/boxo/files.dart' as files;
+import 'package:ipfs_ffi/go/boxo/chunker.dart' as chunker;
+import 'package:ipfs_ffi/go/boxo/blockservice.dart' as blockservice;
+import 'package:ipfs_ffi/go/car/v2/blockstore.dart' as blockstore;
+import 'package:ipfs_ffi/go/car/v2.dart' as car;
+import 'package:ipfs_ffi/go/os.dart' as os;
+import 'package:ipfs_ffi/go/ipld_format.dart' as ipld_format;
+import 'package:ipfs_ffi/go/kubo/core/commands/dag.dart' as dag;
+import 'package:ipfs_ffi/go/kubo/core/coreiface/options.dart' as options;
+import 'package:ipfs_ffi/go/cid.dart' as cid;
 import 'dart:typed_data';
 
-import 'package:ipfs_ffi/boxo.dart' as boxo;
-import 'package:ipfs_ffi/boxo/blockservice.dart' as blockservice;
-import 'package:ipfs_ffi/car.dart' as car;
-import 'package:ipfs_ffi/go.dart' as go;
-import 'package:ipfs_ffi/ipld.dart' as ipld;
-import 'package:ipfs_ffi/kubo.dart' as kubo;
-import 'package:ipfs_ffi/multiformats.dart' as mf;
 
 import 'sample.dart';
 
@@ -31,20 +38,20 @@ Future<void> main() async {
     // The importer defaults: CIDv0, dag-pb leaves, 256 KiB chunks. The
     // placeholder root is a CIDv0 too, so it has the same size as the real
     // one (ReplaceRootsInFile needs that).
-    final placeholder = mf.newPrefixV0(0x12).sum(Uint8List(0));
+    final placeholder = cid.newPrefixV0(0x12).sum(Uint8List(0));
     final out = s.path('files.car');
     //   Go:   rw, _ := blockstore.OpenReadWrite(out, []cid.Cid{placeholder})
     //         bs := blockservice.New(rw, offline.Exchange(rw))
     //         ds := merkledag.NewDAGService(bs)
-    final rw = car.openReadWrite(out, [placeholder]);
-    final ds = boxo.newDagService(blockservice.new$(rw, boxo.exchange(rw)));
+    final rw = blockstore.openReadWrite(out, [placeholder]);
+    final ds = merkledag.newDagService(blockservice.new$(rw, offline.exchange(rw)));
 
     // One file: chunked and written into the DAG service (the CAR).
     //   Go:   nd, _ := importer.BuildDagFromReader(ds, chunker.NewSizeSplitter(f, 262144))
-    ipld.Node file(String path) {
-      final f = go.open(path);
+    ipld_format.Node file(String path) {
+      final f = os.open(path);
       try {
-        return boxo.buildDagFromReader(ds, boxo.newSizeSplitter(f, 262144));
+        return importer.buildDagFromReader(ds, chunker.newSizeSplitter(f, 262144));
       } finally {
         f.close();
       }
@@ -54,8 +61,8 @@ Future<void> main() async {
     // added to the DAG service too.
     //   Go:   dir, _ := uio.NewDirectory(ds); dir.AddChild(ctx, name, nd)
     //         nd, _ := dir.GetNode(); ds.Add(ctx, nd)
-    Future<ipld.Node> folder(String path) async {
-      final dir = boxo.Directory(ds);
+    Future<ipld_format.Node> folder(String path) async {
+      final dir = io.Directory(ds);
       final entries = Directory(path).listSync()
         ..sort((a, b) => a.path.compareTo(b.path));
       for (final e in entries) {
@@ -80,12 +87,12 @@ Future<void> main() async {
     //   CLI:  ipfs add -r --chunker=size-262144 folder && ipfs dag export <cid>
     final p = await s.api
         .unixfs()
-        .add(s.ctx, boxo.newSerialFile(s.folder, false, go.stat(s.folder)), [
-      kubo.unixfs.cidVersion(0),
-      kubo.unixfs.chunker('size-262144'),
+        .add(s.ctx, files.newSerialFile(s.folder, false, os.stat(s.folder)), [
+      options.unixfs.cidVersion(0),
+      options.unixfs.chunker('size-262144'),
     ]);
     final viaKubo = s.path('files.kubo.car');
-    await kubo.dagExportFile(s.node, s.ctx, p, viaKubo);
+    await dag.dagExportFile(s.node, s.ctx, p, viaKubo);
     print('$viaKubo: ${blockCount(viaKubo)} blocks, root '
         '${p.value.substring('/ipfs/'.length)}');
     print('same root both ways: ${p.value == '/ipfs/$root'}');

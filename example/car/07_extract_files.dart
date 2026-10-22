@@ -11,11 +11,16 @@
 //
 //   dart run example/car/07_extract_files.dart
 import 'dart:io';
+import 'package:ipfs_ffi/go/boxo/path.dart' as path;
+import 'package:ipfs_ffi/go/boxo/exchange/offline.dart' as offline;
+import 'package:ipfs_ffi/go/boxo/ipld/merkledag.dart' as merkledag;
+import 'package:ipfs_ffi/go/boxo/ipld/unixfs/file.dart' as file;
+import 'package:ipfs_ffi/go/boxo/files.dart' as files;
+import 'package:ipfs_ffi/go/boxo/blockservice.dart' as blockservice;
+import 'package:ipfs_ffi/go/car/v2/blockstore.dart' as blockstore;
+import 'package:ipfs_ffi/go/kubo/core/commands/dag.dart' as dag;
+import 'package:ipfs_ffi/go/kubo/core/coreapi.dart' as coreapi;
 
-import 'package:ipfs_ffi/boxo.dart' as boxo;
-import 'package:ipfs_ffi/boxo/blockservice.dart' as blockservice;
-import 'package:ipfs_ffi/car.dart' as car;
-import 'package:ipfs_ffi/kubo.dart' as kubo;
 
 import 'sample.dart';
 
@@ -33,13 +38,13 @@ Future<void> main() async {
     //         ds := merkledag.NewDAGService(blockservice.New(ro, offline.Exchange(ro)))
     //         nd, _ := ds.Get(ctx, root); f, _ := unixfile.NewUnixfsFile(ctx, ds, nd)
     //         files.WriteTo(f, out)
-    final ro = car.openReadOnly(s.car);
+    final ro = blockstore.openReadOnly(s.car);
     try {
-      final ds = boxo.newDagService(blockservice.new$(ro, boxo.exchange(ro)));
+      final ds = merkledag.newDagService(blockservice.new$(ro, offline.exchange(ro)));
       final root = ro.roots().single;
-      final f = await boxo.newUnixfsFile(s.ctx, ds, await ds.get(s.ctx, root));
+      final f = await file.newUnixfsFile(s.ctx, ds, await ds.get(s.ctx, root));
       final out = s.path('extracted');
-      boxo.writeTo(f, out);
+      files.writeTo(f, out);
       print('$out: the same files: ${same(out)}');
     } finally {
       ro.close();
@@ -47,11 +52,11 @@ Future<void> main() async {
 
     print('\n== Kubo (high level)');
     //   CLI:  ipfs dag import folder.car && ipfs get <cid> -o out
-    final r = await kubo.dagImportFiles(other, s.ctx, [s.car]);
-    final api = kubo.newCoreApi(other);
+    final r = await dag.dagImportFiles(other, s.ctx, [s.car]);
+    final api = coreapi.newCoreApi(other);
     final out = s.path('extracted.kubo');
-    boxo.writeTo(
-        await api.unixfs().get(s.ctx, boxo.Path('/ipfs/${s.root}')), out);
+    files.writeTo(
+        await api.unixfs().get(s.ctx, path.Path('/ipfs/${s.root}')), out);
     print(
         'imported ${r.blockCount} blocks; $out: the same files: ${same(out)}');
   } finally {

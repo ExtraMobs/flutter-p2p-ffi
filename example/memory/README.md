@@ -4,7 +4,7 @@ In `ipfs_ffi`, Kubo and its Go libraries (`boxo`, `go-car`, `go-ipld-prime`, `go
 
 Values that cross by value — primitives, `Uint8List`, `String`, `Cid`, `Path`, `PeerId`, `Multiaddr`, `Config` and generated DTO structs (`BlockStat`, `Stats`, `Link`, ...) — live entirely in Dart once decoded and need no special lifecycle care.
 
-Objects that stay in Go — `IpfsNode`, `CoreApi`, `car.Reader`, `car.BlockReader`, `go.Buffer`, `go.File`, `mfs.Directory`, `ipld.Node`, etc. — are represented in Dart as subclasses of [`GoHandle`](../../lib/src/runtime.dart).
+Objects that stay in Go — `IpfsNode`, `CoreApi`, `car.Reader`, `car.BlockReader`, `bytes.Buffer`, `os.File`, `mfs.Directory`, `ipld_format.Node`, etc. — are represented in Dart as subclasses of [`GoHandle`](../../lib/src/runtime.dart).
 
 ---
 
@@ -36,8 +36,8 @@ Many Go types have a `Close()` method (`io.Closer`, `car.Reader.Close()`, `os.Fi
 
 | Mechanism | When to use it | Example |
 |---|---|---|
-| **Automatic `Finalizer`** (do nothing) | Long-lived singletons (`IpfsNode`, `CoreApi`, `Context`) or occasional one-off calls with small objects. | `final api = kubo.newCoreApi(node);` |
-| **`handle.use((h) => ...)`** | Single handle that holds a large buffer, file, or CAR reader for one block of work (sync or `async`). | `go.Buffer(bytes).use((buf) => ...)` |
+| **Automatic `Finalizer`** (do nothing) | Long-lived singletons (`IpfsNode`, `CoreApi`, `Context`) or occasional one-off calls with small objects. | `final api = coreapi.newCoreApi(node);` |
+| **`handle.use((h) => ...)`** | Single handle that holds a large buffer, file, or CAR reader for one block of work (sync or `async`). | `bytes.Buffer(bytes).use((buf) => ...)` |
 | **`withGoScope((s) => ...)`** | Loops or multi-step pipelines that create **2 or more handles** per iteration. Releases all registered handles in reverse order in a **single shared-memory batch**. | `withGoScope((s) { final f = s.manage(...); final br = s.manage(...); })` |
 | **`handle.release()`** | When lifetime cannot be expressed as a lexical block (e.g., a handle stored in a state field and replaced later). | `oldHandle?.release();` |
 

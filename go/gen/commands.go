@@ -63,16 +63,26 @@ type cmdInfo struct {
 	skipped string
 }
 
+// cmdsPkg: o pacote Go dos comandos; as funções Dart ficam na library dele.
+const cmdsPkg = "github.com/ipfs/kubo/core/commands"
+
+// cmdEmitter escreve através do emissor principal: as funções dos comandos na
+// library de core/commands e cada DTO na library do pacote Go dele, a mesma em
+// que o gerador principal põe as classes daquele pacote. Um tipo que o gerador
+// principal já escreve (peer.AddrInfo, mfs.NodeListing) não ganha outra classe:
+// o comando monta a dele.
 type cmdEmitter struct {
-	names   map[reflect.Type]string // struct → classe Dart
-	taken   map[string]reflect.Type
-	order   []reflect.Type
-	imports map[string]string // uri → prefixo
+	de     *dartEmitter
+	cur    *dartLib                  // a library sendo escrita (os imports vão para ela)
+	names  map[reflect.Type]string   // struct → classe Dart
+	libs   map[reflect.Type]*dartLib // struct → library dela
+	shared map[reflect.Type]*tinfo   // struct que o gerador principal já escreve
+	taken  map[*dartLib]map[string]reflect.Type
+	order  []reflect.Type
 }
 
-func (e *cmdEmitter) imp(uri, prefix string) string {
-	e.imports[uri] = prefix
-	return prefix
+func (e *cmdEmitter) imp(goPkg string) string {
+	return e.de.imp(e.cur, "package:ipfs_ffi/"+dartPath(goPkg))
 }
 
 // walkCommands: os comandos executáveis, em ordem de caminho.
@@ -106,30 +116,22 @@ func cmdName(s string) string {
 	return b.String()
 }
 
-// kuboNames: os nomes públicos das libraries do namespace kubo já geradas
-// ([dart], caminho → fonte) e os das escritas à mão (dag.dart), que os
-// comandos não podem repetir.
-func kuboNames(dart map[string][]byte) (reserved, manual map[string]bool) {
-	reserved, manual = map[string]bool{}, map[string]bool{}
-	for p, src := range dart {
-		if strings.HasPrefix(p, "kubo/") {
-			for _, n := range publicNames(src) {
-				reserved[n] = true
-			}
-		}
-	}
-	_ = filepath.WalkDir("../lib/kubo", func(path string, d fs.DirEntry, err error) error {
+// manualNames: os nomes públicos das libraries escritas à mão do kubo (o porte
+// do `ipfs dag`): o comando com o mesmo nome Dart fica de fora (API.md).
+func manualNames() map[string]bool {
+	manual := map[string]bool{}
+	_ = filepath.WalkDir("../lib/"+strings.TrimSuffix(dartPath("github.com/ipfs/kubo"), ".dart"), func(path string, d fs.DirEntry, err error) error {
 		if err != nil || d.IsDir() || !strings.HasSuffix(path, ".dart") {
 			return err
 		}
-		if src, err := os.ReadFile(path); err == nil && !bytes.HasPrefix(src, []byte(generatedHeader)) {
+		if src, err := os.ReadFile(path); err == nil && !bytes.HasPrefix(src, []byte(generatedHeader)) && !bytes.Contains(src, []byte("\npart of ")) {
 			for _, n := range publicNames(src) {
-				reserved[n], manual[n] = true, true
+				manual[n] = true
 			}
 		}
 		return nil
 	})
-	return reserved, manual
+	return manual
 }
 
 // prepare: argumentos, opções, retorno e modo de cada comando.
@@ -142,9 +144,7 @@ func (e *cmdEmitter) prepare(cs []*cmdInfo, manual map[string]bool) {
 		} else if why, ok := cmdSkip[key]; ok {
 			ci.skipped = why
 		} else if manual[ci.dart] {
-			ci.skipped = "hand port with the same name (`kubo/core/commands/dag.dart`)"
-		} else if _, clash := e.taken[ci.dart]; clash {
-			panic("gen: o comando ipfs " + key + " repete o nome Dart " + ci.dart + " do namespace kubo")
+			ci.skipped = "hand port with the same name (`" + dartPath(cmdsPkg+"/dag") + "`)"
 		}
 		if ci.skipped != "" {
 			continue
@@ -220,31 +220,83 @@ func (e *cmdEmitter) prepare(cs []*cmdInfo, manual map[string]bool) {
 	}
 }
 
-// collect registra as classes dos structs alcançáveis de [t].
+// collect registra as classes dos structs alcançáveis de [t], cada uma na
+// library do pacote Go dela.
 func (e *cmdEmitter) collect(t reflect.Type, hint string) {
 	switch cmdschema.Of(t) {
 	case cmdschema.List, cmdschema.Map, cmdschema.Ptr:
 		e.collect(t.Elem(), hint)
 	case cmdschema.Struct:
-		if _, ok := e.names[t]; ok {
+		if _, ok := e.libs[t]; ok {
 			return
 		}
-		name := typeName(t.Name())
-		if t.Name() == "" {
-			name = hint
+		pkg := t.PkgPath()
+		if pkg == "" {
+			pkg = cmdsPkg // struct sem nome: fica com os comandos
 		}
-		if other, ok := e.taken[name]; ok && other != t {
-			name = typeName(pkgOf(t)) + name
+		l := e.de.lib(pkg)
+		e.libs[t] = l
+		if c, ok := l.classes[pkg+"."+t.Name()]; ok && t.Name() != "" && c.t.k == kDTO {
+			e.shared[t] = c.t
+			e.names[t] = className(c.t)
+		} else {
+			name := typeName(t.Name())
+			if t.Name() == "" {
+				name = hint
+			}
+			for _, c := range l.classes {
+				if className(c.t) == name {
+					panic(fmt.Sprintf("gen: o DTO de comando %v repete a classe %s de lib/%s", t, name, l.path))
+				}
+			}
+			if e.taken[l] == nil {
+				e.taken[l] = map[string]reflect.Type{}
+			}
+			if other, ok := e.taken[l][name]; ok && other != t {
+				panic(fmt.Sprintf("gen: dois tipos de comando com o nome Dart %s em lib/%s: %v e %v", name, l.path, other, t))
+			}
+			e.names[t], e.taken[l][name] = name, t
+			e.order = append(e.order, t)
 		}
-		if other, ok := e.taken[name]; ok && other != t {
-			panic(fmt.Sprintf("gen: dois tipos de comando com o nome Dart %s: %v e %v", name, other, t))
-		}
-		e.names[t], e.taken[name] = name, t
-		e.order = append(e.order, t)
 		for _, f := range cmdschema.Fields(t) {
-			e.collect(f.Type, name+f.Name)
+			e.collect(f.Type, e.names[t]+f.Name)
 		}
 	}
+}
+
+// ref: a classe Dart de um struct, com o prefixo se for de outra library.
+func (e *cmdEmitter) ref(t reflect.Type) string {
+	if ti, ok := e.shared[t]; ok {
+		return e.de.ref(ti, e.cur)
+	}
+	if l := e.libs[t]; l != e.cur {
+		return e.de.imp(e.cur, "package:ipfs_ffi/"+l.path) + "." + e.names[t]
+	}
+	return e.names[t]
+}
+
+// decStruct: lê um struct; o compartilhado com o gerador principal é montado
+// pelo construtor da classe dele, campo a campo, na ordem do esquema.
+func (e *cmdEmitter) decStruct(t reflect.Type, r string) string {
+	ti, ok := e.shared[t]
+	if !ok {
+		return e.ref(t) + ".$dec(" + r + ")"
+	}
+	have := map[string]bool{}
+	for _, f := range ti.fields {
+		if f.skipped == "" {
+			have[memberName(f.name)] = true
+		}
+	}
+	var args []string
+	for _, f := range cmdschema.Fields(t) {
+		n := memberName(f.Name)
+		if !have[n] {
+			panic(fmt.Sprintf("gen: o campo %s.%s do comando não existe na classe %s", t, f.Name, className(ti)))
+		}
+		args = append(args, n+": "+e.dec(f.Type, r))
+	}
+	return e.ref(t) + "(" + strings.Join(args, ", ") + ")"
 }
 
 func pkgOf(t reflect.Type) string {
@@ -252,19 +304,22 @@ func pkgOf(t reflect.Type) string {
 	return p[strings.LastIndex(p, "/")+1:]
 }
 
-// textClass: tipos-valor do Dart para os Text conhecidos.
-var textClass = map[string][2]string{
-	"github.com/ipfs/go-cid.Cid":                     {"package:ipfs_ffi/multiformats/cid.dart", "Cid"},
-	"github.com/libp2p/go-libp2p/core/peer.ID":       {"package:ipfs_ffi/libp2p/core/peer.dart", "Id"},
-	"github.com/multiformats/go-multiaddr.Multiaddr": {"package:ipfs_ffi/multiformats/multiaddr.dart", "Multiaddr"},
+// textClass: as classes-valor do Dart (no pacote Go delas) dos Text conhecidos.
+var textClass = map[string]string{
+	"github.com/ipfs/go-cid.Cid":                     "Cid",
+	"github.com/libp2p/go-libp2p/core/peer.ID":       "Id",
+	"github.com/multiformats/go-multiaddr.Multiaddr": "Multiaddr",
 }
 
 func (e *cmdEmitter) textRef(t reflect.Type) string {
-	if c, ok := textClass[t.PkgPath()+"."+t.Name()]; ok {
-		p := "$" + strings.TrimSuffix(c[0][strings.LastIndex(c[0], "/")+1:], ".dart")
-		return e.imp(c[0], p) + "." + c[1]
+	c, ok := textClass[t.PkgPath()+"."+t.Name()]
+	if !ok {
+		return ""
 	}
-	return ""
+	if "package:ipfs_ffi/"+dartPath(t.PkgPath()) == "package:ipfs_ffi/"+e.cur.path {
+		return c
+	}
+	return e.imp(t.PkgPath()) + "." + c
 }
 
 // dt: o tipo Dart de [t].
@@ -294,7 +349,7 @@ func (e *cmdEmitter) dt(t reflect.Type) string {
 	case cmdschema.Map:
 		return "Map<String, " + e.dt(t.Elem()) + ">"
 	case cmdschema.Struct:
-		return e.names[t]
+		return e.ref(t)
 	case cmdschema.Ptr:
 		inner := e.dt(t.Elem())
 		if strings.HasSuffix(inner, "?") {
@@ -334,7 +389,7 @@ func (e *cmdEmitter) dec(t reflect.Type, r string) string {
 	case cmdschema.Map:
 		return r + ".map(() => " + r + ".str(), () => " + e.dec(t.Elem(), r) + ")"
 	case cmdschema.Struct:
-		return e.names[t] + ".$dec(" + r + ")"
+		return e.decStruct(t, r)
 	case cmdschema.Ptr:
 		inner := e.dec(t.Elem(), r)
 		if strings.Contains(inner, " ? ") { // já com presença própria (time)
@@ -361,19 +416,20 @@ func optDart(k reflect.Kind) string {
 	return "String?"
 }
 
-// emitCommands: a library dos comandos, a seção do API.md e o hash do esquema
-// (vai no Hello, com o da tabela).
-func emitCommands(reserved, manual map[string]bool) (src, api, smoke string, hash uint64) {
-	e := &cmdEmitter{names: map[reflect.Type]string{}, taken: map[string]reflect.Type{}, imports: map[string]string{}}
-	for n := range reserved { // nomes de outras libraries do namespace kubo
-		e.taken[n] = reflect.TypeFor[struct{ reserved bool }]()
-	}
+// emitCommands: as funções dos comandos (na library de core/commands) e os DTOs
+// (cada um na library do pacote Go dele), a seção do API.md, o teste de fumaça
+// e o hash do esquema (vai no Hello, com o da tabela).
+func emitCommands(de *dartEmitter, manual map[string]bool) (api, smoke string, hash uint64) {
+	e := &cmdEmitter{de: de, names: map[reflect.Type]string{}, libs: map[reflect.Type]*dartLib{},
+		shared: map[reflect.Type]*tinfo{}, taken: map[*dartLib]map[string]reflect.Type{}}
+	cmdsLib := de.lib(cmdsPkg)
+	e.cur = cmdsLib
 	cs := walkCommands()
 	e.prepare(cs, manual)
 	h := fnv.New64a()
 	var body, md, sm strings.Builder
-	md.WriteString("\n## RPC commands (`ipfs ...`) → `package:ipfs_ffi/kubo/core/commands.dart`\n\n")
-	md.WriteString("Generated from the kubo command tree (`core/commands.Root`); the host calls them like the kubo HTTP server (function 36 of `WIRE.md`).\n\n| Command | Dart | Returns |\n|---|---|---|\n")
+	fmt.Fprintf(&md, "\n## RPC commands (`ipfs ...`) → `package:ipfs_ffi/%s`\n\n", cmdsLib.path)
+	md.WriteString("Generated from the kubo command tree (`core/commands.Root`); the host calls them like the kubo HTTP server (function 36 of `WIRE.md`). Each result type lives in the library of its Go package.\n\n| Command | Dart | Returns |\n|---|---|---|\n")
 	var skipped []string
 	for _, ci := range cs {
 		key := strings.Join(ci.path, " ")
@@ -381,9 +437,10 @@ func emitCommands(reserved, manual map[string]bool) (src, api, smoke string, has
 			skipped = append(skipped, fmt.Sprintf("- `ipfs %s`: %s", key, ci.skipped))
 			continue
 		}
+		e.cur = cmdsLib
 		ret, call := e.ret(ci)
 		var params []string
-		params = append(params, e.imp("package:ipfs_ffi/kubo/core.dart", "$core")+".IpfsNode node", e.imp("package:ipfs_ffi/go/context.dart", "$context")+".Context ctx")
+		params = append(params, e.imp("github.com/ipfs/kubo/core")+".IpfsNode node", e.de.imp(cmdsLib, "package:ipfs_ffi/go/context.dart")+".Context ctx")
 		var args, fls, smArgs []string
 		for _, a := range ci.args {
 			get := fmt.Sprintf("a.s('%s', '%s')", key, a.name)
@@ -400,7 +457,7 @@ func emitCommands(reserved, manual map[string]bool) (src, api, smoke string, has
 			}
 			t := "String"
 			if a.file {
-				t = e.imp("package:ipfs_ffi/boxo/files.dart", "$files") + ".Node"
+				t = e.imp("github.com/ipfs/boxo/files") + ".Node"
 			}
 			switch {
 			case a.variadic:
@@ -448,22 +505,20 @@ func emitCommands(reserved, manual map[string]bool) (src, api, smoke string, has
 		fmt.Fprintf(&sm, "  '%s': (a) => k.%s(%s),\n", key, ci.dart, strings.Join(append([]string{"a.node", "a.ctx"}, smArgs...), ", "))
 		fmt.Fprintf(h, "%s|%s|%v|%v|%s\n", key, sig, ci.args, ci.opts, ret)
 	}
+	cmdsLib.extra = append(cmdsLib.extra, body.String())
+	cmdsLib.bytes = cmdsLib.bytes || strings.Contains(body.String(), "Uint8List")
 	for _, t := range e.order {
-		body.WriteString(e.class(t))
-		fmt.Fprintf(h, "%s=%s\n", e.names[t], e.schema(t))
+		l := e.libs[t]
+		e.cur = l
+		src := e.class(t)
+		l.extra = append(l.extra, src)
+		l.bytes = l.bytes || strings.Contains(src, "Uint8List")
+		fmt.Fprintf(h, "%s.%s=%s\n", t.PkgPath(), e.names[t], e.schema(t))
 	}
 	if len(skipped) > 0 {
 		md.WriteString("\nLeft out:\n\n" + strings.Join(skipped, "\n") + "\n")
 	}
-	var b strings.Builder
-	b.WriteString(generatedHeader + " from the kubo command tree (core/commands); do not edit.\n// Go: github.com/ipfs/kubo/core/commands\nlibrary;\n\n")
-	b.WriteString("import 'dart:typed_data';\n\n")
-	for _, uri := range sortedKeys(e.imports) {
-		fmt.Fprintf(&b, "import '%s' as %s;\n", uri, e.imports[uri])
-	}
-	b.WriteString("import 'package:ipfs_ffi/src/runtime.dart';\n\n")
-	b.WriteString(body.String())
-	return b.String(), md.String(), smokeDart(sm.String()), h.Sum64()
+	return md.String(), smokeDart(sm.String(), cmdsLib.path), h.Sum64()
 }
 
 type cmdCall struct{ fn, dec string }
@@ -510,11 +565,11 @@ func (e *cmdEmitter) class(t reflect.Type) string {
 	return b.String()
 }
 
-// schema: a forma de [t] para o hash (nomes e tipos, em ordem).
+// schema: a forma de [t] para o hash (nomes e tipos Go dos campos, em ordem).
 func (e *cmdEmitter) schema(t reflect.Type) string {
 	var parts []string
 	for _, f := range cmdschema.Fields(t) {
-		parts = append(parts, f.Name+":"+e.dt(f.Type))
+		parts = append(parts, f.Name+":"+f.Type.String())
 	}
 	return strings.Join(parts, ",")
 }
@@ -522,15 +577,15 @@ func (e *cmdEmitter) schema(t reflect.Type) string {
 // smokeDart: a tabela do teste de fumaça (test/src/commands_smoke.dart): cada
 // comando gerado chamado com os argumentos obrigatórios que o teste fornece
 // (SmokeArgs), para test/commands_smoke_test.dart rodar todos.
-func smokeDart(entries string) string {
+func smokeDart(entries, cmdsPath string) string {
 	return generatedHeader + ` from the kubo command tree; do not edit.
 
 // Every generated kubo command, called with the arguments the smoke test
 // provides (test/commands_smoke_test.dart).
-import 'package:ipfs_ffi/boxo/files.dart' as files;
-import 'package:ipfs_ffi/go/context.dart' as context;
-import 'package:ipfs_ffi/kubo/core.dart' as core;
-import 'package:ipfs_ffi/kubo/core/commands.dart' as k;
+import 'package:ipfs_ffi/` + dartPath("github.com/ipfs/boxo/files") + `' as files;
+import 'package:ipfs_ffi/` + dartPath("context") + `' as context;
+import 'package:ipfs_ffi/` + dartPath("github.com/ipfs/kubo/core") + `' as core;
+import 'package:ipfs_ffi/` + cmdsPath + `' as k;
 
 /// What a command needs: the node, a ctx, and a value per required argument.
 abstract interface class SmokeArgs {

@@ -2,9 +2,9 @@
 //
 //   dart run example/car/02_verify_mistakes.dart
 import 'dart:io';
+import 'package:ipfs_ffi/go/car/v2.dart' as car;
 import 'dart:typed_data';
 
-import 'package:ipfs_ffi/car.dart' as car;
 
 import 'sample.dart';
 

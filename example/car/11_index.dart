@@ -12,11 +12,13 @@
 // with its index inside, use wrapV1File (operation 10).
 //
 //   dart run example/car/11_index.dart
-import 'package:ipfs_ffi/car.dart' as car;
-import 'package:ipfs_ffi/go.dart' as go;
-import 'package:ipfs_ffi/multiformats.dart' as mf;
 
 import 'sample.dart';
+import 'package:ipfs_ffi/go/car/v2.dart' as car;
+import 'package:ipfs_ffi/go/car/v2/index.dart' as v2_index;
+import 'package:ipfs_ffi/go/car/v2/blockstore.dart' as blockstore;
+import 'package:ipfs_ffi/go/os.dart' as os;
+import 'package:ipfs_ffi/go/multicodec.dart' as multicodec;
 
 Future<void> main() async {
   final s = await Sample.open();
@@ -26,23 +28,23 @@ Future<void> main() async {
     //   Go:   idx, _ := car.GenerateIndexFromFile(path)
     final idx = car.generateIndexFromFile(s.car);
     print(
-        'codec: ${idx.codec() == mf.carMultihashIndexSorted ? 'car-multihash-index-sorted' : idx.codec()}');
+        'codec: ${idx.codec() == multicodec.carMultihashIndexSorted ? 'car-multihash-index-sorted' : idx.codec()}');
     // Where a block is.
     //   Go:   off, _ := index.GetFirst(idx, c)
-    print('the root block is at byte ${car.getFirst(idx, s.root)}');
+    print('the root block is at byte ${v2_index.getFirst(idx, s.root)}');
 
     // Save it next to the CAR and load it back.
     //   Go:   f, _ := os.Create(path + ".idx"); index.WriteTo(idx, f)
     //         idx2, _ := index.ReadFrom(f2)
     final file = '${s.car}.idx';
-    final out = go.create(file);
-    final n = car.writeTo(idx, out);
+    final out = os.create(file);
+    final n = v2_index.writeTo(idx, out);
     out.close();
-    final input = go.open(file);
-    final loaded = car.readFrom(input);
+    final input = os.open(file);
+    final loaded = v2_index.readFrom(input);
     input.close();
     print('saved $n bytes to $file; loaded back: '
-        'root at byte ${car.getFirst(loaded, s.root)}');
+        'root at byte ${v2_index.getFirst(loaded, s.root)}');
 
     // Go through every entry with a callback (Go calls it; the Dart function
     // receives each multihash and offset, in batches).
@@ -54,7 +56,7 @@ Future<void> main() async {
     // A CARv2 carries its index: the read-only blockstore uses it directly.
     final v2 = s.path('folder.v2.car');
     car.wrapV1File(s.car, v2);
-    final ro = car.openReadOnly(v2);
+    final ro = blockstore.openReadOnly(v2);
     try {
       print('CARv2 with index: has the root: ${await ro.has(s.ctx, s.root)}');
     } finally {

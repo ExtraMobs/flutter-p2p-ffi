@@ -5,6 +5,24 @@ Newest first. Measurements, findings and the reasoning behind each change are in
 
 ## Unreleased
 
+- **Breaking: the library paths follow the Go packages.** Each Go package is one library
+  under `package:ipfs_ffi/go/`, at its path in its module: `package:ipfs_ffi/boxo/mfs.dart`
+  → `package:ipfs_ffi/go/boxo/mfs.dart`, `multiformats/cid.dart` → `go/cid.dart`,
+  `car/v2/index.dart` → `go/car/v2/index.dart`, `ipld/prime/...` → `go/ipld_prime/...`.
+  The module files (`kubo.dart`, `boxo.dart`, `go.dart`...) are gone: import each package
+  with its own prefix. `package:ipfs_ffi/service.dart` is gone too: everything it had comes
+  from `package:ipfs_ffi/ipfs_ffi.dart`.
+- **Breaking: one class per Go type.** The kubo commands' result types moved from
+  `kubo/core/commands.dart` to the library of their Go package (`go/kubo/core/commands/pin.dart`,
+  `go/libp2p_kad_dht/provider/stats.dart`...), and the ones the API already had are the same
+  class now: `swarmPeeringLs` gives `peer.AddrInfo` (its `id` is nullable) and the
+  `filesLs` entries are `mfs.NodeListing`. The names that carried a package prefix to avoid
+  clashes in the single file use Go's name in their own library: `CommandsAddEvent` →
+  `commands.AddEvent`, `CommandsBlockStat` → `commands.BlockStat`, `NameStringList` →
+  `name.StringList`, `PinStat` → `pin.Stat`, `CorerepoStat` → `corerepo.Stat`, `MetricsStats` →
+  `metrics.Stats`.
+- The generator refuses a public library that re-exports another, and formats new files with
+  the package's language version.
 - The `ipfs_ffi_flutter` plugin is written in Kotlin (was Java); its API is the same,
   `IpfsForegroundService.setNotificationFactory` included. It compiles with AGP's
   built-in Kotlin (`android.builtInKotlin=true`) and also with the Kotlin plugin that

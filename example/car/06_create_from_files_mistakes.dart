@@ -3,10 +3,10 @@
 //
 //   dart run example/car/06_create_from_files_mistakes.dart
 import 'dart:io';
+import 'package:ipfs_ffi/go/car/v2.dart' as car;
+import 'package:ipfs_ffi/go/cid.dart' as cid;
 import 'dart:typed_data';
 
-import 'package:ipfs_ffi/car.dart' as car;
-import 'package:ipfs_ffi/multiformats.dart' as mf;
 
 import 'sample.dart';
 
@@ -17,7 +17,7 @@ Future<void> main() async {
     // DAG was built with CIDv0 (34 bytes): the header no longer fits.
     final copy = s.path('copy.car');
     File(s.car).copySync(copy); // its root is a CIDv1
-    final v0 = mf.newPrefixV0(0x12).sum(Uint8List(0));
+    final v0 = cid.newPrefixV0(0x12).sum(Uint8List(0));
     await mustFail('replace the placeholder root with a CID of another size',
         why: 'ReplaceRootsInFile rewrites the header in place: the new roots '
             'must take exactly the same bytes',

@@ -3,7 +3,9 @@
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:ipfs_ffi/go.dart' as go;
+import 'package:ipfs_ffi/go/bytes.dart' as bytes;
+import 'package:ipfs_ffi/go/io.dart' as io;
+import 'package:ipfs_ffi/go/os.dart' as os;
 import 'package:ipfs_ffi/ipfs_ffi.dart'
     show GoHandleUse, IpfsService, withGoScope;
 
@@ -31,22 +33,22 @@ void round(String mode, String big) {
   for (var i = 0; i < 40; i++) {
     switch (mode) {
       case 'finalizer':
-        final buf = go.Buffer(Uint8List(0));
-        final f = go.open(big);
-        go.copy(buf, f);
+        final buf = bytes.Buffer(Uint8List(0));
+        final f = os.open(big);
+        io.copy(buf, f);
         f.close();
       case 'release':
-        go.Buffer(Uint8List(0)).use((buf) {
-          go.open(big).use((f) {
-            go.copy(buf, f);
+        bytes.Buffer(Uint8List(0)).use((buf) {
+          os.open(big).use((f) {
+            io.copy(buf, f);
             f.close();
           });
         });
       case 'scope':
         withGoScope((s) {
-          final buf = s.manage(go.Buffer(Uint8List(0)));
-          final f = s.manage(go.open(big));
-          go.copy(buf, f);
+          final buf = s.manage(bytes.Buffer(Uint8List(0)));
+          final f = s.manage(os.open(big));
+          io.copy(buf, f);
           f.close();
         });
       default:

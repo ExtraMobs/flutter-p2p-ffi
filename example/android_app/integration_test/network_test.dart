@@ -7,9 +7,9 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
-import 'package:ipfs_ffi/go/context.dart' as gocontext;
+import 'package:ipfs_ffi/go/context.dart' as context;
+import 'package:ipfs_ffi/go/kubo/core/coreapi.dart' as coreapi;
 import 'package:ipfs_ffi/ipfs_ffi.dart' show IpfsService;
-import 'package:ipfs_ffi/kubo/core/coreapi.dart' as coreapi;
 import 'package:ipfs_ffi_android/checks.dart';
 import 'package:ipfs_ffi_android/main.dart' show prepare, startNode;
 
@@ -20,7 +20,7 @@ void main() {
     final tmp = Directory.systemTemp.createTempSync('ipfs_ffi_net_');
     await prepare('${tmp.path}/repo', '${tmp.path}/crash.log');
     final online = Stopwatch()..start();
-    final n = await startNode(gocontext.background(), '${tmp.path}/repo');
+    final n = await startNode(context.background(), '${tmp.path}/repo');
     final api = coreapi.newCoreApi(n);
     final lines = <String>[];
     try {

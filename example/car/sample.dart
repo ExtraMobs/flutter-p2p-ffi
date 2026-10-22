@@ -10,12 +10,21 @@ import 'dart:io';
 import 'dart:math';
 import 'dart:typed_data';
 
-import 'package:ipfs_ffi/boxo.dart' as boxo;
-import 'package:ipfs_ffi/car.dart' as car;
-import 'package:ipfs_ffi/go.dart' as go;
+import 'package:ipfs_ffi/go/boxo/files.dart' as files;
+import 'package:ipfs_ffi/go/car/v2.dart' as car;
+import 'package:ipfs_ffi/go/context.dart' as context;
+import 'package:ipfs_ffi/go/os.dart' as os;
+import 'package:ipfs_ffi/go/kubo/core/node.dart' as core_node;
+import 'package:ipfs_ffi/go/kubo/core/coreiface.dart' as coreiface;
+import 'package:ipfs_ffi/go/kubo/core.dart' as core;
+import 'package:ipfs_ffi/go/kubo/plugin/loader.dart' as loader;
+import 'package:ipfs_ffi/go/kubo/config.dart' as config;
+import 'package:ipfs_ffi/go/kubo/core/commands/dag.dart' as dag;
+import 'package:ipfs_ffi/go/kubo/repo/fsrepo.dart' as fsrepo;
+import 'package:ipfs_ffi/go/kubo/core/coreiface/options.dart' as options;
+import 'package:ipfs_ffi/go/kubo/core/coreapi.dart' as coreapi;
+import 'package:ipfs_ffi/go/cid.dart' as cid;
 import 'package:ipfs_ffi/ipfs_ffi.dart';
-import 'package:ipfs_ffi/kubo.dart' as kubo;
-import 'package:ipfs_ffi/multiformats.dart' as mf;
 
 /// What the examples use: the context, an offline node with the sample
 /// folder added, and the CARv1 of that folder.
@@ -24,11 +33,11 @@ final class Sample {
 
   /// The example's temporary directory (deleted by [close]).
   final Directory tmp;
-  final go.Context ctx;
+  final context.Context ctx;
 
   /// The offline node (`test` profile) and its CoreAPI.
-  late final kubo.IpfsNode node;
-  late final kubo.CoreApi api;
+  late final core.IpfsNode node;
+  late final coreiface.CoreApi api;
 
   /// The sample folder on disk: `hello.txt`, `data.bin` (600 000 bytes, 3
   /// distinct 256 KiB chunks) and `sub/note.md`.
@@ -38,27 +47,27 @@ final class Sample {
   late final Uint8List data;
 
   /// The root of the folder in the node (CIDv1, 256 KiB chunks).
-  late final mf.Cid root;
+  late final cid.Cid root;
 
   /// The CARv1 of the whole folder (what `ipfs dag export` writes).
   late final String car;
 
   /// The sample's add options: CIDv1 (raw leaves) and 256 KiB chunks.
   static final addOptions = [
-    kubo.unixfs.cidVersion(1),
-    kubo.unixfs.chunker('size-262144'),
+    options.unixfs.cidVersion(1),
+    options.unixfs.chunker('size-262144'),
   ];
 
   /// Starts the service and builds everything.
   static Future<Sample> open() async {
     await IpfsService.start();
-    kubo.PluginLoader('') // once per service
+    loader.PluginLoader('') // once per service
       ..initialize()
       ..inject();
     final s = Sample._(
-        Directory.systemTemp.createTempSync('ipfs_car_'), go.background());
+        Directory.systemTemp.createTempSync('ipfs_car_'), context.background());
     s.node = await s.newNode('repo');
-    s.api = kubo.newCoreApi(s.node);
+    s.api = coreapi.newCoreApi(s.node);
 
     s.folder = s.path('folder');
     Directory('${s.folder}/sub').createSync(recursive: true);
@@ -69,21 +78,21 @@ final class Sample {
     File('${s.folder}/sub/note.md').writeAsStringSync('# note\n');
 
     final p = await s.api.unixfs().add(s.ctx,
-        boxo.newSerialFile(s.folder, false, go.stat(s.folder)), addOptions);
-    s.root = mf.Cid(p.value.substring('/ipfs/'.length));
+        files.newSerialFile(s.folder, false, os.stat(s.folder)), addOptions);
+    s.root = cid.Cid(p.value.substring('/ipfs/'.length));
     s.car = s.path('folder.car');
-    await kubo.dagExportFile(s.node, s.ctx, p, s.car);
+    await dag.dagExportFile(s.node, s.ctx, p, s.car);
     return s;
   }
 
   /// An offline node in a new repo [name] inside the temporary directory
   /// (whoever opens it closes it).
-  Future<kubo.IpfsNode> newNode(String name) async {
-    final cfg = kubo.initWithIdentity(
-        kubo.createIdentity(null, [kubo.key.type('ed25519')]));
-    kubo.profiles['test']!.transform(cfg);
-    kubo.init(path(name), cfg);
-    return kubo.newNode(ctx, kubo.BuildCfg(repo: kubo.open(path(name))));
+  Future<core.IpfsNode> newNode(String name) async {
+    final cfg = config.initWithIdentity(
+        config.createIdentity(null, [options.key.type('ed25519')]));
+    config.profiles['test']!.transform(cfg);
+    fsrepo.init(path(name), cfg);
+    return core.newNode(ctx, core_node.BuildCfg(repo: fsrepo.open(path(name))));
   }
 
   /// A path inside the temporary directory.
@@ -108,9 +117,9 @@ int blockCount(String file) {
 }
 
 /// The CIDs of a CAR in bytes, in file order.
-List<mf.Cid> cidsOf(Uint8List bytes) {
+List<cid.Cid> cidsOf(Uint8List bytes) {
   final br = car.BlockReader(bytes);
-  final out = <mf.Cid>[];
+  final out = <cid.Cid>[];
   while (true) {
     try {
       out.add(br.next().cid!);

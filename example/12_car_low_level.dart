@@ -14,13 +14,28 @@
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:ipfs_ffi/boxo.dart' as boxo;
-import 'package:ipfs_ffi/car.dart' as car;
-import 'package:ipfs_ffi/go.dart' as go;
+import 'package:ipfs_ffi/go/boxo/files.dart' as files;
+import 'package:ipfs_ffi/go/car/v2.dart' as car;
+import 'package:ipfs_ffi/go/car/v2/index.dart' as index;
+import 'package:ipfs_ffi/go/car/v2/blockstore.dart' as blockstore;
+import 'package:ipfs_ffi/go/car/v2/storage.dart' as storage;
+import 'package:ipfs_ffi/go/bytes.dart' as bytes;
+import 'package:ipfs_ffi/go/context.dart' as context;
+import 'package:ipfs_ffi/go/os.dart' as os;
+import 'package:ipfs_ffi/go/block_format.dart' as block_format;
+import 'package:ipfs_ffi/go/ipld_prime/traversal/selector/parse.dart' as parse;
+import 'package:ipfs_ffi/go/ipld_prime/linking/cid.dart' as cid;
+import 'package:ipfs_ffi/go/kubo/core/node.dart' as node;
+import 'package:ipfs_ffi/go/kubo/plugin/loader.dart' as loader;
+import 'package:ipfs_ffi/go/kubo/config.dart' as config;
+import 'package:ipfs_ffi/go/kubo/core/commands/dag.dart' as dag;
+import 'package:ipfs_ffi/go/kubo/repo/fsrepo.dart' as fsrepo;
+import 'package:ipfs_ffi/go/kubo/core/coreiface/options.dart' as options;
+import 'package:ipfs_ffi/go/kubo/core/coreapi.dart' as coreapi;
+import 'package:ipfs_ffi/go/kubo/core.dart' as core;
+import 'package:ipfs_ffi/go/cid.dart' as go_cid;
+import 'package:ipfs_ffi/go/multicodec.dart' as multicodec;
 import 'package:ipfs_ffi/ipfs_ffi.dart' show IpfsEof, IpfsService;
-import 'package:ipfs_ffi/ipld.dart' as ipld;
-import 'package:ipfs_ffi/kubo.dart' as kubo;
-import 'package:ipfs_ffi/multiformats.dart' as mf;
 
 Future<void> main() async {
   final tmp = Directory.systemTemp.createTempSync('ipfs_ffi_ex12_');
@@ -28,31 +43,31 @@ Future<void> main() async {
 
   // Service, plugins and a new repo: the same as example 09.
   await IpfsService.start();
-  kubo.PluginLoader('')
+  loader.PluginLoader('')
     ..initialize()
     ..inject();
-  final cfg = kubo
-      .initWithIdentity(kubo.createIdentity(null, [kubo.key.type('ed25519')]));
-  kubo.profiles['test']!.transform(cfg);
-  kubo.init(repoPath, cfg);
-  final ctx = go.background();
+  final cfg = config
+      .initWithIdentity(config.createIdentity(null, [options.key.type('ed25519')]));
+  config.profiles['test']!.transform(cfg);
+  fsrepo.init(repoPath, cfg);
+  final ctx = context.background();
 
   try {
     // The node only comes in to make a sample CAR: a directory with two files,
     // exported by `ipfs dag export` (example 07). From here down, nothing uses
     // the node.
-    final n = await kubo.newNode(ctx, kubo.BuildCfg(repo: kubo.open(repoPath)));
+    final n = await core.newNode(ctx, node.BuildCfg(repo: fsrepo.open(repoPath)));
     final dir = Directory('${tmp.path}/folder')..createSync();
     File('${dir.path}/hi.txt').writeAsStringSync('hi, CAR\n');
     File('${dir.path}/big.bin').writeAsBytesSync(
         Uint8List.fromList(List.generate(400000, (i) => i * 7 % 251)));
-    final p = await kubo.newCoreApi(n).unixfs().add(
+    final p = await coreapi.newCoreApi(n).unixfs().add(
         ctx,
-        boxo.newSerialFile(dir.path, false, go.stat(dir.path)),
-        [kubo.unixfs.cidVersion(1)]);
-    final root = mf.Cid(p.value.substring('/ipfs/'.length));
+        files.newSerialFile(dir.path, false, os.stat(dir.path)),
+        [options.unixfs.cidVersion(1)]);
+    final root = go_cid.Cid(p.value.substring('/ipfs/'.length));
     final v1 = '${tmp.path}/folder.car';
-    await kubo.dagExportFile(n, ctx, p, v1);
+    await dag.dagExportFile(n, ctx, p, v1);
     await n.close();
     print('0. ${File(v1).lengthSync()} bytes in $v1, root $root');
 
@@ -73,7 +88,7 @@ Future<void> main() async {
     //   Go:   f, _ := os.Open(path)
     //         br, _ := car.NewBlockReader(f)
     //         for { b, err := br.Next(); if err == io.EOF { break } ... }
-    final f = go.open(v1);
+    final f = os.open(v1);
     final br = car.BlockReader(f);
     var i = 0;
     while (true) {
@@ -107,11 +122,11 @@ Future<void> main() async {
     //         off, _ := index.GetFirst(idx, root)
     //         var buf bytes.Buffer; index.WriteTo(idx, &buf)
     final idx = car.generateIndexFromFile(v1);
-    final buf = go.Buffer(Uint8List(0));
-    car.writeTo(idx, buf);
+    final buf = bytes.Buffer(Uint8List(0));
+    index.writeTo(idx, buf);
     print(
-        '4. index ${idx.codec() == mf.carMultihashIndexSorted ? 'multihash-sorted' : idx.codec()}: '
-        'root at byte ${car.getFirst(idx, root)}, ${buf.bytes().length} bytes serialized');
+        '4. index ${idx.codec() == multicodec.carMultihashIndexSorted ? 'multihash-sorted' : idx.codec()}: '
+        'root at byte ${index.getFirst(idx, root)}, ${buf.bytes().length} bytes serialized');
 
     // 5. A new CAR, block by block, without a node. The CID comes from the
     // prefix (version 1, raw codec, sha2-256) applied to the bytes; Go's Block
@@ -120,19 +135,19 @@ Future<void> main() async {
     //         c, _ := pre.Sum(data)
     //         rw, _ := blockstore.OpenReadWrite(path, []cid.Cid{c})
     //         rw.Put(ctx, blocks.NewBlockWithCid(data, c)); rw.Finalize()
-    final pre = mf.newPrefixV1(0x55, 0x12);
+    final pre = go_cid.newPrefixV1(0x55, 0x12);
     final created = '${tmp.path}/new.car';
     final datas = [
       for (final s in ['one', 'two', 'three']) Uint8List.fromList(s.codeUnits)
     ];
     final cids = [for (final d in datas) pre.sum(d)];
-    final rw = car.openReadWrite(created, [cids.first]);
+    final rw = blockstore.openReadWrite(created, [cids.first]);
     for (var k = 0; k < datas.length; k++) {
-      await rw.put(ctx, ipld.Block(cid: cids[k], rawData: datas[k]));
+      await rw.put(ctx, block_format.Block(cid: cids[k], rawData: datas[k]));
     }
     rw.finalize();
     // and read back through the read-only blockstore (it uses the index)
-    final ro = car.openReadOnly(created);
+    final ro = blockstore.openReadOnly(created);
     final keys = await ro.allKeysChan(ctx).toList();
     print('5. $created: ${keys.length} blocks, '
         '"${String.fromCharCodes((await ro.get(ctx, cids[1])).rawData!)}" by CID');
@@ -144,15 +159,15 @@ Future<void> main() async {
     //   Go:   ls := cidlink.DefaultLinkSystem()
     //         src, _ := storage.OpenReadable(f); ls.SetReadStorage(src)
     //         car.TraverseToFile(ctx, &ls, root, selectorparse.CommonSelector_MatchPoint, out)
-    final ls = ipld.defaultLinkSystem();
-    final src = go.open(v1);
-    ls.setReadStorage(car.openReadable(src));
+    final ls = cid.defaultLinkSystem();
+    final src = os.open(v1);
+    ls.setReadStorage(storage.openReadable(src));
     final rootOnly = '${tmp.path}/root.car';
     await car.traverseToFile(
-        ctx, ls, root, ipld.commonSelectorMatchPoint, rootOnly);
+        ctx, ls, root, parse.commonSelectorMatchPoint, rootOnly);
     final whole = '${tmp.path}/whole.car';
     await car.traverseToFile(
-        ctx, ls, root, ipld.commonSelectorExploreAllRecursively, whole);
+        ctx, ls, root, parse.commonSelectorExploreAllRecursively, whole);
     src.close();
     final a = car.openReader(rootOnly), b = car.openReader(whole);
     print('6. just the root: ${a.inspect(false).blockCount} block; '

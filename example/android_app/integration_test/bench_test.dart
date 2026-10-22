@@ -9,11 +9,11 @@ import 'dart:io';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:ipfs_ffi/go/context.dart' as context;
+import 'package:ipfs_ffi/go/kubo/core.dart' as core;
+import 'package:ipfs_ffi/go/kubo/core/coreapi.dart' as coreapi;
+import 'package:ipfs_ffi/go/kubo/core/node.dart' as node;
+import 'package:ipfs_ffi/go/kubo/repo/fsrepo.dart' as fsrepo;
 import 'package:ipfs_ffi/ipfs_ffi.dart' show IpfsService;
-import 'package:ipfs_ffi/kubo/core.dart' as core;
-import 'package:ipfs_ffi/kubo/core/coreapi.dart' as coreapi;
-import 'package:ipfs_ffi/kubo/core/node.dart' as node;
-import 'package:ipfs_ffi/kubo/repo/fsrepo.dart' as fsrepo;
 import 'package:ipfs_ffi/src/runtime.dart' show $callSync, $W;
 import 'package:ipfs_ffi_android/main.dart' show setupService, startNode;
 

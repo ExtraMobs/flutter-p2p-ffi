@@ -10,13 +10,13 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `func bytes.NewBuffer(buf []byte) *bytes.Buffer` | `factory Buffer` | sync |
 | `func (*bytes.Buffer).Bytes() []byte` | `Buffer.bytes` | sync |
 
-## `github.com/ipfs/boxo/blockservice` → `package:ipfs_ffi/boxo/blockservice.dart`
+## `github.com/ipfs/boxo/blockservice` → `package:ipfs_ffi/go/boxo/blockservice.dart`
 
 | Go | Dart | Mode |
 |---|---|---|
 | `func blockservice.New(bs blockstore.Blockstore, exchange exchange.Interface, opts ...blockservice.Option) blockservice.BlockService` | `new$` | sync |
 
-## `github.com/ipfs/boxo/blockstore` → `package:ipfs_ffi/boxo/blockstore.dart`
+## `github.com/ipfs/boxo/blockstore` → `package:ipfs_ffi/go/boxo/blockstore.dart`
 
 | Go | Dart | Mode |
 |---|---|---|
@@ -36,7 +36,7 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `blockstore.Blockstore → x.(blockstore.GCBlockstore)` | `Blockstore.asGcBlockstore` | cast |
 | `blockstore.GCLocker → x.(blockstore.GCBlockstore)` | `GcLocker.asGcBlockstore` | cast |
 
-## `github.com/ipfs/boxo/chunker` → `package:ipfs_ffi/boxo/chunker.dart`
+## `github.com/ipfs/boxo/chunker` → `package:ipfs_ffi/go/boxo/chunker.dart`
 
 | Go | Dart | Mode |
 |---|---|---|
@@ -44,19 +44,19 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `func chunk.NewSizeSplitter(r io.Reader, size int64) chunk.Splitter` | `newSizeSplitter` | sync |
 | `func chunk.FromString(r io.Reader, chunker string) (chunk.Splitter, error)` | `fromString` | sync |
 
-## `github.com/ipfs/boxo/exchange/offline` → `package:ipfs_ffi/boxo/exchange/offline.dart`
+## `github.com/ipfs/boxo/exchange/offline` → `package:ipfs_ffi/go/boxo/exchange/offline.dart`
 
 | Go | Dart | Mode |
 |---|---|---|
 | `func offline.Exchange(bs blockstore.Blockstore) exchange.Interface` | `exchange` | sync |
 
-## `github.com/ipfs/boxo/fetcher/impl/blockservice` → `package:ipfs_ffi/boxo/fetcher/impl/blockservice.dart`
+## `github.com/ipfs/boxo/fetcher/impl/blockservice` → `package:ipfs_ffi/go/boxo/fetcher/impl/blockservice.dart`
 
 | Go | Dart | Mode |
 |---|---|---|
 | `var bsfetcher.DefaultPrototypeChooser func(lnk ipld.Link, lnkCtx ipld.LinkContext) (ipld.NodePrototype, error)` | `defaultPrototypeChooser` | sync |
 
-## `github.com/ipfs/boxo/files` → `package:ipfs_ffi/boxo/files.dart`
+## `github.com/ipfs/boxo/files` → `package:ipfs_ffi/go/boxo/files.dart`
 
 | Go | Dart | Mode |
 |---|---|---|
@@ -66,7 +66,7 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `func files.WriteTo(nd files.Node, fpath string) error` | `writeTo` | sync |
 | `files.Node → x.(files.File)` | `Node.asFile` | cast |
 
-## `github.com/ipfs/boxo/gateway` → `package:ipfs_ffi/boxo/gateway.dart`
+## `github.com/ipfs/boxo/gateway` → `package:ipfs_ffi/go/boxo/gateway.dart`
 
 | Go | Dart | Mode |
 |---|---|---|
@@ -82,7 +82,7 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `const gateway.DuplicateBlocksIncluded gateway.DuplicateBlocksPolicy` | `duplicateBlocksIncluded` | const |
 | `const gateway.DuplicateBlocksExcluded gateway.DuplicateBlocksPolicy` | `duplicateBlocksExcluded` | const |
 
-## `github.com/ipfs/boxo/ipld/merkledag` → `package:ipfs_ffi/boxo/ipld/merkledag.dart`
+## `github.com/ipfs/boxo/ipld/merkledag` → `package:ipfs_ffi/go/boxo/ipld/merkledag.dart`
 
 | Go | Dart | Mode |
 |---|---|---|
@@ -93,19 +93,19 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `func (*merkledag.ProtoNode).Data() []byte` | `ProtoNode.data` | sync |
 | `func merkledag.NewDAGService(bs blockservice.BlockService) *merkledag.dagService` | `newDagService` | sync |
 
-## `github.com/ipfs/boxo/ipld/unixfs/file` → `package:ipfs_ffi/boxo/ipld/unixfs/file.dart`
+## `github.com/ipfs/boxo/ipld/unixfs/file` → `package:ipfs_ffi/go/boxo/ipld/unixfs/file.dart`
 
 | Go | Dart | Mode |
 |---|---|---|
 | `func unixfile.NewUnixfsFile(ctx context.Context, dserv format.DAGService, nd format.Node) (files.Node, error)` | `newUnixfsFile` | Future |
 
-## `github.com/ipfs/boxo/ipld/unixfs/importer` → `package:ipfs_ffi/boxo/ipld/unixfs/importer.dart`
+## `github.com/ipfs/boxo/ipld/unixfs/importer` → `package:ipfs_ffi/go/boxo/ipld/unixfs/importer.dart`
 
 | Go | Dart | Mode |
 |---|---|---|
 | `func importer.BuildDagFromReader(ds format.DAGService, spl chunk.Splitter) (format.Node, error)` | `buildDagFromReader` | sync |
 
-## `github.com/ipfs/boxo/ipld/unixfs/io` → `package:ipfs_ffi/boxo/ipld/unixfs/io.dart`
+## `github.com/ipfs/boxo/ipld/unixfs/io` → `package:ipfs_ffi/go/boxo/ipld/unixfs/io.dart`
 
 | Go | Dart | Mode |
 |---|---|---|
@@ -113,7 +113,7 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `func (io.Directory).AddChild(context.Context, string, format.Node) error` | `Directory.addChild` | Future |
 | `func (io.Directory).GetNode() (format.Node, error)` | `Directory.getNode` | sync |
 
-## `github.com/ipfs/boxo/mfs` → `package:ipfs_ffi/boxo/mfs.dart`
+## `github.com/ipfs/boxo/mfs` → `package:ipfs_ffi/go/boxo/mfs.dart`
 
 | Go | Dart | Mode |
 |---|---|---|
@@ -171,7 +171,7 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `mfs.FSNode → x.(*mfs.Directory)` | `FsNode.asDirectory` | cast |
 | `mfs.FSNode → x.(*mfs.File)` | `FsNode.asFile` | cast |
 
-## `github.com/ipfs/boxo/peering` → `package:ipfs_ffi/boxo/peering.dart`
+## `github.com/ipfs/boxo/peering` → `package:ipfs_ffi/go/boxo/peering.dart`
 
 | Go | Dart | Mode |
 |---|---|---|
@@ -179,7 +179,7 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `func (*peering.PeeringService).RemovePeer(id peer.ID)` | `PeeringService.removePeer` | sync |
 | `func (*peering.PeeringService).ListPeers() []peer.AddrInfo` | `PeeringService.listPeers` | sync |
 
-## `github.com/ipfs/go-cid` → `package:ipfs_ffi/multiformats/cid.dart`
+## `github.com/ipfs/go-cid` → `package:ipfs_ffi/go/cid.dart`
 
 | Go | Dart | Mode |
 |---|---|---|
@@ -187,14 +187,14 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `func cid.NewPrefixV1(codecType uint64, mhType uint64) cid.Prefix` | `newPrefixV1` | sync |
 | `func (cid.Prefix).Sum(data []byte) (cid.Cid, error)` | `Prefix.sum` | sync |
 
-## `github.com/ipfs/go-datastore` → `package:ipfs_ffi/datastore.dart`
+## `github.com/ipfs/go-datastore` → `package:ipfs_ffi/go/datastore.dart`
 
 | Go | Dart | Mode |
 |---|---|---|
 | `func datastore.NewNullDatastore() *datastore.NullDatastore` | `factory NullDatastore` | sync |
 | `datastore.Batching → x.(*datastore.NullDatastore)` | `Batching.asNullDatastore` | cast |
 
-## `github.com/ipfs/go-ipld-format` → `package:ipfs_ffi/ipld/format.dart`
+## `github.com/ipfs/go-ipld-format` → `package:ipfs_ffi/go/ipld_format.dart`
 
 | Go | Dart | Mode |
 |---|---|---|
@@ -215,7 +215,7 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `format.NodeGetter → x.(format.DAGService)` | `NodeGetter.asDagService` | cast |
 | `format.NodeGetter → x.(iface.APIDagService)` | `NodeGetter.asApiDagService` | cast |
 
-## `github.com/ipfs/go-unixfsnode` → `package:ipfs_ffi/ipld/unixfsnode.dart`
+## `github.com/ipfs/go-unixfsnode` → `package:ipfs_ffi/go/unixfsnode.dart`
 
 | Go | Dart | Mode |
 |---|---|---|
@@ -227,7 +227,7 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `var unixfsnode.MatchUnixFSPreloadSelector builder.SelectorSpec` | `matchUnixFsPreloadSelector` | sync |
 | `var unixfsnode.ExploreAllRecursivelySelector builder.SelectorSpec` | `exploreAllRecursivelySelector` | sync |
 
-## `github.com/ipfs/kubo/config` → `package:ipfs_ffi/kubo/config.dart`
+## `github.com/ipfs/kubo/config` → `package:ipfs_ffi/go/kubo/config.dart`
 
 | Go | Dart | Mode |
 |---|---|---|
@@ -236,7 +236,7 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `func config.ParseBootstrapPeers(addrs []string) ([]peer.AddrInfo, error)` | `parseBootstrapPeers` | sync |
 | `func config.BootstrapPeerStrings(bps []peer.AddrInfo) []string` | `bootstrapPeerStrings` | sync |
 
-## `github.com/ipfs/kubo/core` → `package:ipfs_ffi/kubo/core.dart`
+## `github.com/ipfs/kubo/core` → `package:ipfs_ffi/go/kubo/core.dart`
 
 | Go | Dart | Mode |
 |---|---|---|
@@ -263,13 +263,13 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `(*core.IpfsNode).BaseBlocks node.BaseBlocks` | `IpfsNode.baseBlocks` | field |
 | `(*core.IpfsNode).BaseBlocks node.BaseBlocks` | `IpfsNode.baseBlocks =` | field |
 
-## `github.com/ipfs/kubo/core/coreapi` → `package:ipfs_ffi/kubo/core/coreapi.dart`
+## `github.com/ipfs/kubo/core/coreapi` → `package:ipfs_ffi/go/kubo/core/coreapi.dart`
 
 | Go | Dart | Mode |
 |---|---|---|
 | `func coreapi.NewCoreAPI(n *core.IpfsNode, opts ...options.ApiOption) (iface.CoreAPI, error)` | `newCoreApi` | sync |
 
-## `github.com/ipfs/kubo/core/coreiface` → `package:ipfs_ffi/kubo/core/coreiface.dart`
+## `github.com/ipfs/kubo/core/coreiface` → `package:ipfs_ffi/go/kubo/core/coreiface.dart`
 
 | Go | Dart | Mode |
 |---|---|---|
@@ -341,7 +341,7 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `const iface.DiffRemove iface.ChangeType` | `diffRemove` | const |
 | `const iface.DiffMod iface.ChangeType` | `diffMod` | const |
 
-## `github.com/ipfs/kubo/core/corerepo` → `package:ipfs_ffi/kubo/core/corerepo.dart`
+## `github.com/ipfs/kubo/core/corerepo` → `package:ipfs_ffi/go/kubo/core/corerepo.dart`
 
 | Go | Dart | Mode |
 |---|---|---|
@@ -350,7 +350,7 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `func corerepo.PeriodicGC(ctx context.Context, node *core.IpfsNode) error` | `periodicGc` | Future |
 | `func corerepo.ConditionalGC(ctx context.Context, node *core.IpfsNode, offset uint64) error` | `conditionalGc` | Future |
 
-## `github.com/ipfs/kubo/core/node` → `package:ipfs_ffi/kubo/core/node.dart`
+## `github.com/ipfs/kubo/core/node` → `package:ipfs_ffi/go/kubo/core/node.dart`
 
 | Go | Dart | Mode |
 |---|---|---|
@@ -363,7 +363,7 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `node.BaseBlocks → x.(*blockstore.ReadOnly)` | `BaseBlocks.asReadOnly` | cast |
 | `node.BaseBlocks → x.(*blockstore.ReadWrite)` | `BaseBlocks.asReadWrite` | cast |
 
-## `github.com/ipfs/kubo/core/node/libp2p` → `package:ipfs_ffi/kubo/core/node/libp2p.dart`
+## `github.com/ipfs/kubo/core/node/libp2p` → `package:ipfs_ffi/go/kubo/core/node/libp2p.dart`
 
 | Go | Dart | Mode |
 |---|---|---|
@@ -373,7 +373,7 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `var libp2p.NilRouterOption func(_ libp2p.RoutingOptionArgs) (routing.Routing, error)` | `nilRouterOption` | sync |
 | `func libp2p.ConstructDefaultRouting(cfg *config.Config, routingOpt libp2p.RoutingOption) libp2p.RoutingOption` | `constructDefaultRouting` | sync |
 
-## `github.com/ipfs/kubo/plugin/loader` → `package:ipfs_ffi/kubo/plugin/loader.dart`
+## `github.com/ipfs/kubo/plugin/loader` → `package:ipfs_ffi/go/kubo/plugin/loader.dart`
 
 | Go | Dart | Mode |
 |---|---|---|
@@ -381,7 +381,7 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `func (*loader.PluginLoader).Initialize() error` | `PluginLoader.initialize` | sync |
 | `func (*loader.PluginLoader).Inject() error` | `PluginLoader.inject` | sync |
 
-## `github.com/ipfs/kubo/repo` → `package:ipfs_ffi/kubo/repo.dart`
+## `github.com/ipfs/kubo/repo` → `package:ipfs_ffi/go/kubo/repo.dart`
 
 | Go | Dart | Mode |
 |---|---|---|
@@ -391,7 +391,7 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `func (repo.Repo).GetConfigKey(key string) (any, error)` | `Repo.getConfigKey` | sync |
 | `func (repo.Repo).BackupConfig(prefix string) (string, error)` | `Repo.backupConfig` | sync |
 
-## `github.com/ipfs/kubo/repo/fsrepo` → `package:ipfs_ffi/kubo/repo/fsrepo.dart`
+## `github.com/ipfs/kubo/repo/fsrepo` → `package:ipfs_ffi/go/kubo/repo/fsrepo.dart`
 
 | Go | Dart | Mode |
 |---|---|---|
@@ -399,7 +399,7 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `func fsrepo.Init(repoPath string, conf *config.Config) error` | `init` | sync |
 | `func fsrepo.Open(repoPath string) (repo.Repo, error)` | `open` | sync |
 
-## `github.com/ipld/go-car/v2` → `package:ipfs_ffi/car/v2.dart`
+## `github.com/ipld/go-car/v2` → `package:ipfs_ffi/go/car/v2.dart`
 
 | Go | Dart | Mode |
 |---|---|---|
@@ -448,7 +448,7 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `func car.TraverseToFile(ctx context.Context, ls *ipld.LinkSystem, root cid.Cid, selector ipld.Node, destination string, opts ...car.Option) error` | `traverseToFile` | Future |
 | `func car.TraverseV1(ctx context.Context, ls *ipld.LinkSystem, root cid.Cid, selector ipld.Node, writer io.Writer, opts ...car.Option) (uint64, error)` | `traverseV1` | Future |
 
-## `github.com/ipld/go-car/v2/blockstore` → `package:ipfs_ffi/car/v2/blockstore.dart`
+## `github.com/ipld/go-car/v2/blockstore` → `package:ipfs_ffi/go/car/v2/blockstore.dart`
 
 | Go | Dart | Mode |
 |---|---|---|
@@ -477,7 +477,7 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `func (*blockstore.ReadWrite).Discard()` | `ReadWrite.discard` | sync |
 | `func (*blockstore.ReadWrite).Close() error` | `ReadWrite.close` | sync |
 
-## `github.com/ipld/go-car/v2/index` → `package:ipfs_ffi/car/v2/index.dart`
+## `github.com/ipld/go-car/v2/index` → `package:ipfs_ffi/go/car/v2/index.dart`
 
 | Go | Dart | Mode |
 |---|---|---|
@@ -494,7 +494,7 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `func (index.IterableIndex).ForEach(func(multihash.Multihash, uint64) error) error` | `IterableIndex.forEach` | Future |
 | `index.Index → x.(index.IterableIndex)` | `Index.asIterableIndex` | cast |
 
-## `github.com/ipld/go-car/v2/storage` → `package:ipfs_ffi/car/v2/storage.dart`
+## `github.com/ipld/go-car/v2/storage` → `package:ipfs_ffi/go/car/v2/storage.dart`
 
 | Go | Dart | Mode |
 |---|---|---|
@@ -502,13 +502,13 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `func (storage.ReadableCar).Roots() []cid.Cid` | `ReadableCar.roots` | sync |
 | `func (storage.ReadableCar).Index() index.Index` | `ReadableCar.index` | sync |
 
-## `github.com/ipld/go-codec-dagpb` → `package:ipfs_ffi/ipld/dagpb.dart`
+## `github.com/ipld/go-codec-dagpb` → `package:ipfs_ffi/go/codec_dagpb.dart`
 
 | Go | Dart | Mode |
 |---|---|---|
 | `func dagpb.AddSupportToChooser(existing traversal.LinkTargetNodePrototypeChooser) traversal.LinkTargetNodePrototypeChooser` | `addSupportToChooser` | sync |
 
-## `github.com/ipld/go-ipld-prime/datamodel` → `package:ipfs_ffi/ipld/prime/datamodel.dart`
+## `github.com/ipld/go-ipld-prime/datamodel` → `package:ipfs_ffi/go/ipld_prime/datamodel.dart`
 
 | Go | Dart | Mode |
 |---|---|---|
@@ -516,32 +516,32 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `datamodel.Node → x.(*merkledag.RawNode)` | `Node.asRawNode` | cast |
 | `datamodel.NodePrototype → x.(*basicnode.Prototype__Any)` | `NodePrototype.asPrototypeAny` | cast |
 
-## `github.com/ipld/go-ipld-prime/linking` → `package:ipfs_ffi/ipld/prime/linking.dart`
+## `github.com/ipld/go-ipld-prime/linking` → `package:ipfs_ffi/go/ipld_prime/linking.dart`
 
 | Go | Dart | Mode |
 |---|---|---|
 | `func (*linking.LinkSystem).SetReadStorage(store storage.ReadableStorage)` | `LinkSystem.setReadStorage` | sync |
 
-## `github.com/ipld/go-ipld-prime/linking/cid` → `package:ipfs_ffi/ipld/prime/linking/cid.dart`
+## `github.com/ipld/go-ipld-prime/linking/cid` → `package:ipfs_ffi/go/ipld_prime/linking/cid.dart`
 
 | Go | Dart | Mode |
 |---|---|---|
 | `func cidlink.DefaultLinkSystem() linking.LinkSystem` | `defaultLinkSystem` | sync |
 
-## `github.com/ipld/go-ipld-prime/node/basicnode` → `package:ipfs_ffi/ipld/prime/node/basicnode.dart`
+## `github.com/ipld/go-ipld-prime/node/basicnode` → `package:ipfs_ffi/go/ipld_prime/node/basicnode.dart`
 
 | Go | Dart | Mode |
 |---|---|---|
 | `func basicnode.NewPrototype__Any() *basicnode.Prototype__Any` | `factory PrototypeAny` | sync |
 
-## `github.com/ipld/go-ipld-prime/storage` → `package:ipfs_ffi/ipld/prime/storage.dart`
+## `github.com/ipld/go-ipld-prime/storage` → `package:ipfs_ffi/go/ipld_prime/storage.dart`
 
 | Go | Dart | Mode |
 |---|---|---|
 | `storage.ReadableStorage → x.(*bsadapter.Adapter)` | `ReadableStorage.asAdapter` | cast |
 | `storage.ReadableStorage → x.(storage.ReadableCar)` | `ReadableStorage.asReadableCar` | cast |
 
-## `github.com/ipld/go-ipld-prime/storage/bsadapter` → `package:ipfs_ffi/ipld/prime/storage/bsadapter.dart`
+## `github.com/ipld/go-ipld-prime/storage/bsadapter` → `package:ipfs_ffi/go/ipld_prime/storage/bsadapter.dart`
 
 | Go | Dart | Mode |
 |---|---|---|
@@ -549,14 +549,14 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `(*bsadapter.Adapter).Wrapped blockstore.Blockstore` | `Adapter.wrapped` | field |
 | `(*bsadapter.Adapter).Wrapped blockstore.Blockstore` | `Adapter.wrapped =` | field |
 
-## `github.com/ipld/go-ipld-prime/traversal/selector` → `package:ipfs_ffi/ipld/prime/traversal/selector.dart`
+## `github.com/ipld/go-ipld-prime/traversal/selector` → `package:ipfs_ffi/go/ipld_prime/traversal/selector.dart`
 
 | Go | Dart | Mode |
 |---|---|---|
 | `func selector.RecursionLimitDepth(depth int64) selector.RecursionLimit` | `recursionLimitDepth` | sync |
 | `func selector.RecursionLimitNone() selector.RecursionLimit` | `recursionLimitNone` | sync |
 
-## `github.com/ipld/go-ipld-prime/traversal/selector/builder` → `package:ipfs_ffi/ipld/prime/traversal/selector/builder.dart`
+## `github.com/ipld/go-ipld-prime/traversal/selector/builder` → `package:ipfs_ffi/go/ipld_prime/traversal/selector/builder.dart`
 
 | Go | Dart | Mode |
 |---|---|---|
@@ -574,7 +574,7 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `func (builder.SelectorSpec).Node() datamodel.Node` | `SelectorSpec.node` | sync |
 | `func (builder.ExploreFieldsSpecBuilder).Insert(k string, v builder.SelectorSpec)` | `ExploreFieldsSpecBuilder.insert` | sync |
 
-## `github.com/ipld/go-ipld-prime/traversal/selector/parse` → `package:ipfs_ffi/ipld/prime/traversal/selector/parse.dart`
+## `github.com/ipld/go-ipld-prime/traversal/selector/parse` → `package:ipfs_ffi/go/ipld_prime/traversal/selector/parse.dart`
 
 | Go | Dart | Mode |
 |---|---|---|
@@ -584,7 +584,7 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `var selectorparse.CommonSelector_ExploreAllRecursively datamodel.Node` | `commonSelectorExploreAllRecursively` | sync |
 | `var selectorparse.CommonSelector_MatchAllRecursively datamodel.Node` | `commonSelectorMatchAllRecursively` | sync |
 
-## `github.com/libp2p/go-libp2p/core/connmgr` → `package:ipfs_ffi/libp2p/core/connmgr.dart`
+## `github.com/libp2p/go-libp2p/core/connmgr` → `package:ipfs_ffi/go/libp2p/core/connmgr.dart`
 
 | Go | Dart | Mode |
 |---|---|---|
@@ -595,13 +595,13 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `func (connmgr.ConnManager).UntagPeer(p peer.ID, tag string)` | `ConnManager.untagPeer` | sync |
 | `func (connmgr.ConnManager).TrimOpenConns(ctx context.Context)` | `ConnManager.trimOpenConns` | Future |
 
-## `github.com/libp2p/go-libp2p/core/host` → `package:ipfs_ffi/libp2p/core/host.dart`
+## `github.com/libp2p/go-libp2p/core/host` → `package:ipfs_ffi/go/libp2p/core/host.dart`
 
 | Go | Dart | Mode |
 |---|---|---|
 | `func (host.Host).ConnManager() connmgr.ConnManager` | `Host.connManager` | sync |
 
-## `github.com/libp2p/go-libp2p/core/network` → `package:ipfs_ffi/libp2p/core/network.dart`
+## `github.com/libp2p/go-libp2p/core/network` → `package:ipfs_ffi/go/libp2p/core/network.dart`
 
 | Go | Dart | Mode |
 |---|---|---|
@@ -609,14 +609,14 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `func (network.ResourceScopeViewer).ViewTransient(func(network.ResourceScope) error) error` | `ResourceManager.viewTransient` | Future |
 | `func (network.ResourceScope).Stat() network.ScopeStat` | `ResourceScope.stat` | sync |
 
-## `github.com/libp2p/go-libp2p/core/peer` → `package:ipfs_ffi/libp2p/core/peer.dart`
+## `github.com/libp2p/go-libp2p/core/peer` → `package:ipfs_ffi/go/libp2p/core/peer.dart`
 
 | Go | Dart | Mode |
 |---|---|---|
 | `func peer.AddrInfoFromString(s string) (*peer.AddrInfo, error)` | `addrInfoFromString` | sync |
 | `func peer.AddrInfoToP2pAddrs(pi *peer.AddrInfo) ([]multiaddr.Multiaddr, error)` | `addrInfoToP2pAddrs` | sync |
 
-## `github.com/multiformats/go-multicodec` → `package:ipfs_ffi/multiformats/multicodec.dart`
+## `github.com/multiformats/go-multicodec` → `package:ipfs_ffi/go/multicodec.dart`
 
 | Go | Dart | Mode |
 |---|---|---|
@@ -657,11 +657,11 @@ Each line is an exposed Go symbol and where it is in Dart.
 
 ## Adaptations (generator rules and hand-written code)
 
-- Namespaces: each Go module in a namespace (`kubo`, `boxo`, `ipld`, `multiformats`, `libp2p`, `car` (`github.com/ipld/go-car/v2`), `datastore`, `go`), with a `package:ipfs_ffi/<namespace>.dart` file that exports all of its libraries (`import 'package:ipfs_ffi/kubo.dart' as kubo;`); the per-package libraries stay underneath. The module → namespace table is in `go/gen/namespaces.go`.
+- Paths: each Go package is one library under `lib/go/`, at its path inside its module; the module is named by the last segment of its path without `go-` and the major version, a nested module keeps the outer one's path, and the Go standard library sits beside the modules (`github.com/ipfs/boxo/mfs` → `package:ipfs_ffi/go/boxo/mfs.dart`, `github.com/ipfs/go-cid` → `go/cid.dart`, `github.com/ipld/go-car/v2/index` → `go/car/v2/index.dart`, `context` → `go/context.dart`). Each Go type has a single library, the one of its package (the kubo commands' result types too), and no public library re-exports another: the generator refuses an `export` outside `lib/src/`, except in `lib/ipfs_ffi.dart`, the entry point of the runtime.
 - `context` (`package:ipfs_ffi/go/context.dart`, hand-written): `background`, `withCancel`, `withTimeout`, `withDeadline`; `CancelFunc` is callable (`cancel()`).
 - `go.readerStream` (`package:ipfs_ffi/go/io_stream.dart`, hand-written): any `io.Reader` handle as a `Stream<Uint8List>`, in 256 KiB pieces; cancel through the reader's context.
 - `config.Profiles` (hand-written): `profiles[name]!.transform(cfg)`; in Go it is a map of functions.
-- `ipfs dag put`/`ipfs dag get` (`dagPut`/`dagGet` in `package:ipfs_ffi/kubo/core/commands/dag.dart`, hand port in `go/manual_dag.go`): in kubo they are the body of the commands, not a library function; same defaults as the CLI (dag-json → dag-cbor, 2 MiB limit), default hash `sha2-256`.
+- `ipfs dag put`/`ipfs dag get` (`dagPut`/`dagGet` in `package:ipfs_ffi/go/kubo/core/commands/dag.dart`, with the generated result types of the other `ipfs dag` commands in its `dag.g.dart` part, hand port in `go/manual_dag.go`): in kubo they are the body of the commands, not a library function; same defaults as the CLI (dag-json → dag-cbor, 2 MiB limit), default hash `sha2-256`.
 - `ipfs dag export`/`ipfs dag import` (CAR files; same library as `dagPut`/`dagGet`, hand port in `go/manual_car.go`): `dagExport`/`dagExportFile` (CARv1, `localOnly` = `--local-only`) and `dagImport`/`dagImportFiles` (CARv1/v2, `pinRoots` = `--pin-roots`, returns roots and statistics); they take the `IpfsNode`, like the command. No progress bar nor fast-provide of the whole DAG; the root is announced by the CoreAPI's `Provide`.
 - Pubsub: the node needs `node.BuildCfg(extraOpts: {'pubsub': true})` (the daemon's `Pubsub.Enabled`); `sub.next(ctx)` delivers one message at a time (example 08 turns it into a `Stream`).
 - A concrete handle that implements an exposed interface extends its class (`merkledag.RawNode`/`ProtoNode` → `Node`), to be accepted where Go accepts the interface; a struct that embeds an interface is a handle, not a DTO.
@@ -692,21 +692,21 @@ Each line is an exposed Go symbol and where it is in Dart.
 - Kubo runs in `ipfs_host`, in another process (`IpfsService.start()` before the API; protocol in `WIRE.md`): a Go panic stops only the service, and pending calls fail with `IpfsServiceException`.
 - Handles are freed by the Dart `Finalizer` (in batches, through the service's Free function) and are only valid in the service they were born in; Go resources (node, repo) still need Go's own `Close`.
 
-## RPC commands (`ipfs ...`) → `package:ipfs_ffi/kubo/core/commands.dart`
+## RPC commands (`ipfs ...`) → `package:ipfs_ffi/go/kubo/core/commands.dart`
 
-Generated from the kubo command tree (`core/commands.Root`); the host calls them like the kubo HTTP server (function 36 of `WIRE.md`).
+Generated from the kubo command tree (`core/commands.Root`); the host calls them like the kubo HTTP server (function 36 of `WIRE.md`). Each result type lives in the library of its Go package.
 
 | Command | Dart | Returns |
 |---|---|---|
-| `ipfs add` | `add` | `Stream<CommandsAddEvent>` |
-| `ipfs bitswap ledger` | `bitswapLedger` | `Stream<Receipt>` |
+| `ipfs add` | `add` | `Stream<AddEvent>` |
+| `ipfs bitswap ledger` | `bitswapLedger` | `Stream<$decision.Receipt>` |
 | `ipfs bitswap reprovide` | `bitswapReprovide` | `Stream<Object?>` |
-| `ipfs bitswap stat` | `bitswapStat` | `Stream<Stat>` |
+| `ipfs bitswap stat` | `bitswapStat` | `Stream<$bitswap.Stat>` |
 | `ipfs bitswap wantlist` | `bitswapWantlist` | `Stream<KeyList>` |
 | `ipfs block get` | `blockGet` | `Stream<Uint8List>` |
-| `ipfs block put` | `blockPut` | `Stream<CommandsBlockStat>` |
+| `ipfs block put` | `blockPut` | `Stream<BlockStat>` |
 | `ipfs block rm` | `blockRm` | `Stream<RemovedBlock>` |
-| `ipfs block stat` | `blockStat` | `Stream<CommandsBlockStat>` |
+| `ipfs block stat` | `blockStat` | `Stream<BlockStat>` |
 | `ipfs bootstrap` | `bootstrap` | `Stream<BootstrapOutput>` |
 | `ipfs bootstrap add` | `bootstrapAdd` | `Stream<BootstrapOutput>` |
 | `ipfs bootstrap list` | `bootstrapList` | `Stream<BootstrapOutput>` |
@@ -723,10 +723,10 @@ Generated from the kubo command tree (`core/commands.Root`); the host calls them
 | `ipfs config profile apply` | `configProfileApply` | `Stream<ConfigUpdateOutput>` |
 | `ipfs config replace` | `configReplace` | `Stream<Object?>` |
 | `ipfs config show` | `configShow` | `Stream<Map<String, Object?>>` |
-| `ipfs dag resolve` | `dagResolve` | `Stream<ResolveOutput>` |
-| `ipfs dag stat` | `dagStat` | `Stream<DagStatSummary>` |
-| `ipfs dht query` | `dhtQuery` | `Stream<QueryEvent>` |
-| `ipfs diag cmds` | `diagCmds` | `Stream<List<ReqLogEntry?>>` |
+| `ipfs dag resolve` | `dagResolve` | `Stream<$dag.ResolveOutput>` |
+| `ipfs dag stat` | `dagStat` | `Stream<$dag.DagStatSummary>` |
+| `ipfs dht query` | `dhtQuery` | `Stream<$routing.QueryEvent>` |
+| `ipfs diag cmds` | `diagCmds` | `Stream<List<$ipfs_cmds.ReqLogEntry?>>` |
 | `ipfs diag cmds clear` | `diagCmdsClear` | `Stream<Object?>` |
 | `ipfs diag cmds set-time` | `diagCmdsSetTime` | `Stream<Object?>` |
 | `ipfs diag datastore count` | `diagDatastoreCount` | `Stream<DiagDatastoreCountResult>` |
@@ -749,8 +749,8 @@ Generated from the kubo command tree (`core/commands.Root`); the host calls them
 | `ipfs files touch` | `filesTouch` | `Stream<Object?>` |
 | `ipfs files write` | `filesWrite` | `Stream<Object?>` |
 | `ipfs filestore dups` | `filestoreDups` | `Stream<RefWrapper>` |
-| `ipfs filestore ls` | `filestoreLs` | `Stream<ListRes>` |
-| `ipfs filestore verify` | `filestoreVerify` | `Stream<ListRes>` |
+| `ipfs filestore ls` | `filestoreLs` | `Stream<$filestore.ListRes>` |
+| `ipfs filestore verify` | `filestoreVerify` | `Stream<$filestore.ListRes>` |
 | `ipfs get` | `get` | `Stream<Uint8List>` |
 | `ipfs id` | `id` | `Stream<IdOutput>` |
 | `ipfs key export` | `keyExport` | `Stream<Uint8List>` |
@@ -772,33 +772,33 @@ Generated from the kubo command tree (`core/commands.Root`); the host calls them
 | `ipfs multibase list` | `multibaseList` | `Stream<List<CodeAndName>>` |
 | `ipfs multibase transcode` | `multibaseTranscode` | `Stream<Uint8List>` |
 | `ipfs name get` | `nameGet` | `Stream<Uint8List>` |
-| `ipfs name inspect` | `nameInspect` | `Stream<IpnsInspectResult>` |
-| `ipfs name publish` | `namePublish` | `Stream<IpnsEntry>` |
-| `ipfs name pubsub cancel` | `namePubsubCancel` | `Stream<IpnsPubsubCancel>` |
-| `ipfs name pubsub state` | `namePubsubState` | `Stream<IpnsPubsubState>` |
-| `ipfs name pubsub subs` | `namePubsubSubs` | `Stream<NameStringList>` |
-| `ipfs name put` | `namePut` | `Stream<IpnsEntry>` |
-| `ipfs name resolve` | `nameResolve` | `Stream<ResolvedPath>` |
-| `ipfs object diff` | `objectDiff` | `Stream<Changes>` |
-| `ipfs object patch add-link` | `objectPatchAddLink` | `Stream<Object$>` |
-| `ipfs object patch rm-link` | `objectPatchRmLink` | `Stream<Object$>` |
+| `ipfs name inspect` | `nameInspect` | `Stream<$name.IpnsInspectResult>` |
+| `ipfs name publish` | `namePublish` | `Stream<$name.IpnsEntry>` |
+| `ipfs name pubsub cancel` | `namePubsubCancel` | `Stream<$name.IpnsPubsubCancel>` |
+| `ipfs name pubsub state` | `namePubsubState` | `Stream<$name.IpnsPubsubState>` |
+| `ipfs name pubsub subs` | `namePubsubSubs` | `Stream<$name.StringList>` |
+| `ipfs name put` | `namePut` | `Stream<$name.IpnsEntry>` |
+| `ipfs name resolve` | `nameResolve` | `Stream<$name.ResolvedPath>` |
+| `ipfs object diff` | `objectDiff` | `Stream<$object.Changes>` |
+| `ipfs object patch add-link` | `objectPatchAddLink` | `Stream<$object.Object$>` |
+| `ipfs object patch rm-link` | `objectPatchRmLink` | `Stream<$object.Object$>` |
 | `ipfs p2p close` | `p2pClose` | `Stream<int>` |
 | `ipfs p2p forward` | `p2pForward` | `Stream<P2pForegroundOutput>` |
 | `ipfs p2p listen` | `p2pListen` | `Stream<P2pForegroundOutput>` |
 | `ipfs p2p ls` | `p2pLs` | `Stream<P2plsOutput>` |
 | `ipfs p2p stream close` | `p2pStreamClose` | `Stream<Object?>` |
 | `ipfs p2p stream ls` | `p2pStreamLs` | `Stream<P2pStreamsOutput>` |
-| `ipfs pin add` | `pinAdd` | `Stream<AddPinOutput>` |
-| `ipfs pin ls` | `pinLs` | `Stream<PinLsOutputWrapper>` |
-| `ipfs pin remote add` | `pinRemoteAdd` | `Stream<RemotePinOutput>` |
-| `ipfs pin remote ls` | `pinRemoteLs` | `Stream<RemotePinOutput>` |
+| `ipfs pin add` | `pinAdd` | `Stream<$pin.AddPinOutput>` |
+| `ipfs pin ls` | `pinLs` | `Stream<$pin.PinLsOutputWrapper>` |
+| `ipfs pin remote add` | `pinRemoteAdd` | `Stream<$pin.RemotePinOutput>` |
+| `ipfs pin remote ls` | `pinRemoteLs` | `Stream<$pin.RemotePinOutput>` |
 | `ipfs pin remote rm` | `pinRemoteRm` | `Stream<Object?>` |
 | `ipfs pin remote service add` | `pinRemoteServiceAdd` | `Stream<Object?>` |
-| `ipfs pin remote service ls` | `pinRemoteServiceLs` | `Stream<PinServicesList>` |
+| `ipfs pin remote service ls` | `pinRemoteServiceLs` | `Stream<$pin.PinServicesList>` |
 | `ipfs pin remote service rm` | `pinRemoteServiceRm` | `Stream<Object?>` |
-| `ipfs pin rm` | `pinRm` | `Stream<PinOutput>` |
-| `ipfs pin update` | `pinUpdate` | `Stream<PinOutput>` |
-| `ipfs pin verify` | `pinVerify` | `Stream<PinVerifyRes>` |
+| `ipfs pin rm` | `pinRm` | `Stream<$pin.PinOutput>` |
+| `ipfs pin update` | `pinUpdate` | `Stream<$pin.PinOutput>` |
+| `ipfs pin verify` | `pinVerify` | `Stream<$pin.PinVerifyRes>` |
 | `ipfs ping` | `ping` | `Stream<PingResult>` |
 | `ipfs provide clear` | `provideClear` | `Stream<int>` |
 | `ipfs provide once` | `provideOnce` | `Stream<ProvideOnceEvent>` |
@@ -813,21 +813,21 @@ Generated from the kubo command tree (`core/commands.Root`); the host calls them
 | `ipfs repo gc` | `repoGc` | `Stream<GcResult>` |
 | `ipfs repo ls` | `repoLs` | `Stream<RefWrapper>` |
 | `ipfs repo migrate` | `repoMigrate` | `Stream<Object?>` |
-| `ipfs repo stat` | `repoStat` | `Stream<CorerepoStat>` |
+| `ipfs repo stat` | `repoStat` | `Stream<$corerepo.Stat>` |
 | `ipfs repo verify` | `repoVerify` | `Stream<VerifyProgress>` |
 | `ipfs repo version` | `repoVersion` | `Stream<RepoVersion>` |
-| `ipfs resolve` | `resolve` | `Stream<ResolvedPath>` |
-| `ipfs routing findpeer` | `routingFindpeer` | `Stream<QueryEvent>` |
-| `ipfs routing findprovs` | `routingFindprovs` | `Stream<QueryEvent>` |
-| `ipfs routing get` | `routingGet` | `Stream<QueryEvent>` |
-| `ipfs routing provide` | `routingProvide` | `Stream<QueryEvent>` |
-| `ipfs routing put` | `routingPut` | `Stream<QueryEvent>` |
+| `ipfs resolve` | `resolve` | `Stream<$name.ResolvedPath>` |
+| `ipfs routing findpeer` | `routingFindpeer` | `Stream<$routing.QueryEvent>` |
+| `ipfs routing findprovs` | `routingFindprovs` | `Stream<$routing.QueryEvent>` |
+| `ipfs routing get` | `routingGet` | `Stream<$routing.QueryEvent>` |
+| `ipfs routing provide` | `routingProvide` | `Stream<$routing.QueryEvent>` |
+| `ipfs routing put` | `routingPut` | `Stream<$routing.QueryEvent>` |
 | `ipfs routing reprovide` | `routingReprovide` | `Stream<Object?>` |
-| `ipfs stats bitswap` | `statsBitswap` | `Stream<Stat>` |
-| `ipfs stats bw` | `statsBw` | `Stream<MetricsStats>` |
+| `ipfs stats bitswap` | `statsBitswap` | `Stream<$bitswap.Stat>` |
+| `ipfs stats bw` | `statsBw` | `Stream<$metrics.Stats>` |
 | `ipfs stats dht` | `statsDht` | `Stream<DhtStat>` |
 | `ipfs stats provide` | `statsProvide` | `Stream<ProvideStats>` |
-| `ipfs stats repo` | `statsRepo` | `Stream<CorerepoStat>` |
+| `ipfs stats repo` | `statsRepo` | `Stream<$corerepo.Stat>` |
 | `ipfs stats reprovide` | `statsReprovide` | `Stream<ProvideStats>` |
 | `ipfs swarm addrs` | `swarmAddrs` | `Stream<AddrMap>` |
 | `ipfs swarm addrs autonat` | `swarmAddrsAutonat` | `Stream<AutoNatResult>` |
@@ -842,8 +842,8 @@ Generated from the kubo command tree (`core/commands.Root`); the host calls them
 | `ipfs swarm peering ls` | `swarmPeeringLs` | `Stream<AddrInfos>` |
 | `ipfs swarm peering rm` | `swarmPeeringRm` | `Stream<PeeringResult>` |
 | `ipfs swarm peers` | `swarmPeers` | `Stream<ConnInfos>` |
-| `ipfs swarm resources` | `swarmResources` | `Stream<LimitsConfigAndUsage>` |
-| `ipfs version` | `version` | `Stream<VersionInfo>` |
+| `ipfs swarm resources` | `swarmResources` | `Stream<$libp2p.LimitsConfigAndUsage>` |
+| `ipfs version` | `version` | `Stream<$kubo.VersionInfo>` |
 | `ipfs version check` | `versionCheck` | `Stream<VersionCheckOutput>` |
 | `ipfs version deps` | `versionDeps` | `Stream<Dependency>` |
 
@@ -854,10 +854,10 @@ Left out:
 - `ipfs commands completion fish`: the CLI help
 - `ipfs commands completion zsh`: the CLI help
 - `ipfs config edit`: opens $EDITOR in the host process
-- `ipfs dag export`: hand port with the same name (`kubo/core/commands/dag.dart`)
-- `ipfs dag get`: hand port with the same name (`kubo/core/commands/dag.dart`)
-- `ipfs dag import`: hand port with the same name (`kubo/core/commands/dag.dart`)
-- `ipfs dag put`: hand port with the same name (`kubo/core/commands/dag.dart`)
+- `ipfs dag export`: hand port with the same name (`go/kubo/core/commands/dag.dart`)
+- `ipfs dag get`: hand port with the same name (`go/kubo/core/commands/dag.dart`)
+- `ipfs dag import`: hand port with the same name (`go/kubo/core/commands/dag.dart`)
+- `ipfs dag put`: hand port with the same name (`go/kubo/core/commands/dag.dart`)
 - `ipfs mount`: FUSE: mounts on the host's file system
 - `ipfs shutdown`: stops the daemon; in ipfs_ffi it is `IpfsNode.close`/`IpfsService.stop`
 - `ipfs update check`: updates the kubo binary (not the case of ipfs_host)

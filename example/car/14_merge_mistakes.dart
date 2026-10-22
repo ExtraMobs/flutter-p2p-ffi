@@ -2,8 +2,8 @@
 //
 //   dart run example/car/14_merge_mistakes.dart
 import 'dart:io';
+import 'package:ipfs_ffi/go/car/v2/blockstore.dart' as blockstore;
 
-import 'package:ipfs_ffi/car.dart' as car;
 
 import 'sample.dart';
 
@@ -17,7 +17,7 @@ Future<void> main() async {
         why: 'openReadWrite on an existing file resumes it, and only a CARv2 '
             'it wrote itself (same roots) can be resumed; a v1 is refused',
         instead: 'write to a new file, then replace the source if needed',
-        action: () => car.openReadWrite(source, [s.root]).discard());
+        action: () => blockstore.openReadWrite(source, [s.root]).discard());
   } finally {
     await s.close();
   }

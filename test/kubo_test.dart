@@ -8,20 +8,34 @@ import 'dart:math' show Random;
 import 'dart:typed_data';
 import 'dart:io' show Directory, File, InternetAddress;
 
-import 'package:ipfs_ffi/boxo/blockservice.dart' as blockservice;
-import 'package:ipfs_ffi/boxo/blockstore.dart' as blockstore;
-import 'package:ipfs_ffi/boxo/files.dart' as files;
-import 'package:ipfs_ffi/boxo/gateway.dart' as gateway;
-import 'package:ipfs_ffi/boxo/ipld/merkledag.dart' as merkledag;
-import 'package:ipfs_ffi/boxo/ipld/unixfs/file.dart' as unixfile;
-import 'package:ipfs_ffi/boxo/mfs.dart' as mfs;
-import 'package:ipfs_ffi/boxo/path.dart' as path;
-import 'package:ipfs_ffi/car/v2.dart' as car;
-import 'package:ipfs_ffi/datastore.dart' as datastore;
+import 'package:ipfs_ffi/go/boxo/blockservice.dart' as blockservice;
+import 'package:ipfs_ffi/go/boxo/blockstore.dart' as blockstore;
+import 'package:ipfs_ffi/go/boxo/files.dart' as files;
+import 'package:ipfs_ffi/go/boxo/gateway.dart' as gateway;
+import 'package:ipfs_ffi/go/boxo/ipld/merkledag.dart' as merkledag;
+import 'package:ipfs_ffi/go/boxo/ipld/unixfs/file.dart' as unixfile;
+import 'package:ipfs_ffi/go/boxo/mfs.dart' as mfs;
+import 'package:ipfs_ffi/go/boxo/path.dart' as path;
+import 'package:ipfs_ffi/go/car/v2.dart' as car;
+import 'package:ipfs_ffi/go/datastore.dart' as datastore;
 import 'package:ipfs_ffi/go/context.dart' as context;
 import 'package:ipfs_ffi/go/io.dart' as io;
-import 'package:ipfs_ffi/go/io_stream.dart' as iostream;
+import 'package:ipfs_ffi/go/io_stream.dart' as io_stream;
 import 'package:ipfs_ffi/go/os.dart' as os;
+import 'package:ipfs_ffi/go/kubo/config.dart' as config;
+import 'package:ipfs_ffi/go/kubo/core.dart' as core;
+import 'package:ipfs_ffi/go/kubo/core/commands/dag.dart' as dag;
+import 'package:ipfs_ffi/go/kubo/core/coreapi.dart' as coreapi;
+import 'package:ipfs_ffi/go/kubo/core/coreiface.dart' as iface;
+import 'package:ipfs_ffi/go/kubo/core/coreiface/options.dart' as options;
+import 'package:ipfs_ffi/go/kubo/core/corerepo.dart' as corerepo;
+import 'package:ipfs_ffi/go/kubo/core/node.dart' as node;
+import 'package:ipfs_ffi/go/kubo/core/node/libp2p.dart' as libp2p;
+import 'package:ipfs_ffi/go/kubo/plugin/loader.dart' as loader;
+import 'package:ipfs_ffi/go/kubo/repo/fsrepo.dart' as fsrepo;
+import 'package:ipfs_ffi/go/libp2p/core/network.dart' as network;
+import 'package:ipfs_ffi/go/libp2p/core/peer.dart' as peer;
+import 'package:ipfs_ffi/go/cid.dart' as cid;
 import 'package:ipfs_ffi/ipfs_ffi.dart'
     show
         IpfsBackground,
@@ -34,20 +48,6 @@ import 'package:ipfs_ffi/ipfs_ffi.dart'
         IpfsServiceException,
         hasIpv6,
         isGlobalIpv6;
-import 'package:ipfs_ffi/kubo/config.dart' as config;
-import 'package:ipfs_ffi/kubo/core.dart' as core;
-import 'package:ipfs_ffi/kubo/core/commands/dag.dart' as dag;
-import 'package:ipfs_ffi/kubo/core/coreapi.dart' as coreapi;
-import 'package:ipfs_ffi/kubo/core/coreiface.dart' as iface;
-import 'package:ipfs_ffi/kubo/core/coreiface/options.dart' as options;
-import 'package:ipfs_ffi/kubo/core/corerepo.dart' as corerepo;
-import 'package:ipfs_ffi/kubo/core/node.dart' as node;
-import 'package:ipfs_ffi/kubo/core/node/libp2p.dart' as libp2p;
-import 'package:ipfs_ffi/kubo/plugin/loader.dart' as loader;
-import 'package:ipfs_ffi/kubo/repo/fsrepo.dart' as fsrepo;
-import 'package:ipfs_ffi/libp2p/core/network.dart' as network;
-import 'package:ipfs_ffi/libp2p/core/peer.dart' as peer;
-import 'package:ipfs_ffi/multiformats/cid.dart' as cid;
 import 'package:ipfs_ffi/src/runtime.dart'
     show $W, $call, $callSync, $stream, GoSink;
 import 'package:test/test.dart';
@@ -107,7 +107,7 @@ void main() {
     final data =
         Uint8List.fromList(List.generate(1 << 20, (_) => rnd.nextInt(256)));
     final pieces =
-        await iostream.readerStream(files.newBytesFile(data)).toList();
+        await io_stream.readerStream(files.newBytesFile(data)).toList();
     expect(pieces.length, 4);
     expect(Uint8List.fromList([for (final p in pieces) ...p]), data);
   });
@@ -466,7 +466,7 @@ void main() {
         final dag = merkledag.newDagService(bs);
         final nd = await unixfile.newUnixfsFile(c, dag, await dag.get(c, root));
         final got = BytesBuilder();
-        await for (final chunk in iostream.readerStream(files.toFile(nd))) {
+        await for (final chunk in io_stream.readerStream(files.toFile(nd))) {
           got.add(chunk);
         }
         expect(got.toBytes(), data);

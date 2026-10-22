@@ -202,16 +202,18 @@ func generate(rootsFile string) (map[string][]byte, error) {
 	}
 	hash := assignIDs(fns) // WIRE.md: os emissores binários usam f.id e o hash
 	out := map[string][]byte{}
-	dart := emitDart(m, fns, hash)
-	// os comandos do RPC: os DTOs não podem repetir nomes do namespace kubo
-	// (o arquivo dele esconderia um), e o hash do Hello cobre o esquema deles
-	reserved, manual := kuboNames(dart)
-	cmdSrc, cmdAPI, cmdSmoke, cmdHash := emitCommands(reserved, manual)
+	// os comandos do RPC entram nas libraries dos pacotes deles (as funções na
+	// de core/commands, cada DTO na do seu pacote Go); o hash do Hello cobre o
+	// esquema deles
+	var cmdAPI, cmdSmoke string
+	var cmdHash uint64
+	dart := emitDart(m, fns, hash, func(de *dartEmitter) {
+		cmdAPI, cmdSmoke, cmdHash = emitCommands(de, manualNames())
+	})
 	hf := fnv.New64a()
 	fmt.Fprintf(hf, "%x %x", hash, cmdHash)
 	hash = hf.Sum64()
 	dart["src/table.dart"] = tableDart(hash)
-	dart["kubo/core/commands.dart"] = formatDart("kubo/core/commands.dart", cmdSrc)
 	goSrc, err := emitGo(m, fns, hash)
 	if err != nil {
 		return nil, err
@@ -222,7 +224,7 @@ func generate(rootsFile string) (map[string][]byte, error) {
 	}
 	out["../API.md"] = append(emitAPI(m, fns), cmdAPI...)
 	out["../test/src/commands_smoke.dart"] = formatDart("../test/src/commands_smoke.dart", cmdSmoke)
-	if err := emitNamespaces(out); err != nil {
+	if err := checkPublicExports("../lib", out); err != nil {
 		return nil, err
 	}
 	return out, nil

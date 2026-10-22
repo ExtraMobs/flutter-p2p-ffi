@@ -11,13 +11,29 @@
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:ipfs_ffi/boxo.dart' as boxo;
-import 'package:ipfs_ffi/car.dart' as car;
-import 'package:ipfs_ffi/go.dart' as go;
+import 'package:ipfs_ffi/go/boxo/gateway.dart' as gateway;
+import 'package:ipfs_ffi/go/boxo/path.dart' as path;
+import 'package:ipfs_ffi/go/boxo/fetcher/impl/blockservice.dart' as blockservice;
+import 'package:ipfs_ffi/go/boxo/files.dart' as files;
+import 'package:ipfs_ffi/go/car/v2.dart' as car;
+import 'package:ipfs_ffi/go/context.dart' as context;
+import 'package:ipfs_ffi/go/io.dart' as io;
+import 'package:ipfs_ffi/go/os.dart' as os;
+import 'package:ipfs_ffi/go/ipld_prime/storage/bsadapter.dart' as bsadapter;
+import 'package:ipfs_ffi/go/ipld_prime/node/basicnode.dart' as basicnode;
+import 'package:ipfs_ffi/go/ipld_prime/traversal/selector/builder.dart' as builder;
+import 'package:ipfs_ffi/go/codec_dagpb.dart' as codec_dagpb;
+import 'package:ipfs_ffi/go/unixfsnode.dart' as unixfsnode;
+import 'package:ipfs_ffi/go/ipld_prime/linking/cid.dart' as cid;
+import 'package:ipfs_ffi/go/kubo/core/node.dart' as node;
+import 'package:ipfs_ffi/go/kubo/plugin/loader.dart' as loader;
+import 'package:ipfs_ffi/go/kubo/config.dart' as config;
+import 'package:ipfs_ffi/go/kubo/repo/fsrepo.dart' as fsrepo;
+import 'package:ipfs_ffi/go/kubo/core/coreiface/options.dart' as options;
+import 'package:ipfs_ffi/go/kubo/core/coreapi.dart' as coreapi;
+import 'package:ipfs_ffi/go/kubo/core.dart' as core;
+import 'package:ipfs_ffi/go/cid.dart' as go_cid;
 import 'package:ipfs_ffi/ipfs_ffi.dart' show IpfsEof, IpfsService;
-import 'package:ipfs_ffi/ipld.dart' as ipld;
-import 'package:ipfs_ffi/kubo.dart' as kubo;
-import 'package:ipfs_ffi/multiformats.dart' as mf;
 
 Future<void> main() async {
   final tmp = Directory.systemTemp.createTempSync('ipfs_ffi_ex13_');
@@ -25,15 +41,15 @@ Future<void> main() async {
 
   // Service, plugins and a new repo: the same as example 09.
   await IpfsService.start();
-  kubo.PluginLoader('')
+  loader.PluginLoader('')
     ..initialize()
     ..inject();
-  final cfg = kubo
-      .initWithIdentity(kubo.createIdentity(null, [kubo.key.type('ed25519')]));
-  kubo.profiles['test']!.transform(cfg);
-  kubo.init(repoPath, cfg);
-  final ctx = go.background();
-  final n = await kubo.newNode(ctx, kubo.BuildCfg(repo: kubo.open(repoPath)));
+  final cfg = config
+      .initWithIdentity(config.createIdentity(null, [options.key.type('ed25519')]));
+  config.profiles['test']!.transform(cfg);
+  fsrepo.init(repoPath, cfg);
+  final ctx = context.background();
+  final n = await core.newNode(ctx, node.BuildCfg(repo: fsrepo.open(repoPath)));
 
   try {
     // A directory with two files in the node (CIDv1: the chunks become raw blocks).
@@ -41,11 +57,11 @@ Future<void> main() async {
     File('${dir.path}/hi.txt').writeAsStringSync('hi\n');
     File('${dir.path}/big.bin').writeAsBytesSync(
         Uint8List.fromList(List.generate(600000, (i) => i * 7 % 251)));
-    final p = await kubo.newCoreApi(n).unixfs().add(
+    final p = await coreapi.newCoreApi(n).unixfs().add(
         ctx,
-        boxo.newSerialFile(dir.path, false, go.stat(dir.path)),
-        [kubo.unixfs.cidVersion(1)]);
-    final root = mf.Cid(p.value.substring('/ipfs/'.length));
+        files.newSerialFile(dir.path, false, os.stat(dir.path)),
+        [options.unixfs.cidVersion(1)]);
+    final root = go_cid.Cid(p.value.substring('/ipfs/'.length));
     print('0. directory at $root');
 
     // 1. Boxo's gateway over the node: the CAR of a path. Scope `entity` = the
@@ -57,18 +73,18 @@ Future<void> main() async {
     //         _, rc, _ := bb.GetCAR(ctx, path, gateway.CarParams{Scope: gateway.DagScopeEntity,
     //             Range: &gateway.DagByteRange{From: 0, To: &to}})
     //         f, _ := os.Create(out); io.Copy(f, rc)
-    final backend = boxo.BlocksBackend(n.blocks);
+    final backend = gateway.BlocksBackend(n.blocks);
     for (final (name, range) in [
       ('whole', null),
-      ('100 bytes', boxo.DagByteRange(from: 0, to: 99)),
+      ('100 bytes', gateway.DagByteRange(from: 0, to: 99)),
     ]) {
       final (_, rc) = await backend.getCar(
           ctx,
-          boxo.ImmutablePath('/ipfs/$root/big.bin'),
-          boxo.CarParams(scope: boxo.dagScopeEntity, range: range));
+          path.ImmutablePath('/ipfs/$root/big.bin'),
+          gateway.CarParams(scope: gateway.dagScopeEntity, range: range));
       final out = '${tmp.path}/gateway.car';
-      final f = go.create(out);
-      go.copy(f, rc);
+      final f = os.create(out);
+      io.copy(f, rc);
       f.close();
       rc.close();
       print('1. gateway, big.bin $name: ${blocks(out)} blocks');
@@ -84,14 +100,14 @@ Future<void> main() async {
     //         ls.SetReadStorage(&bsadapter.Adapter{Wrapped: node.Blockstore})
     //         car.TraverseToFile(ctx, &ls, root, unixfsnode.UnixFSPathSelector("hi.txt"), out,
     //             car.WithTraversalPrototypeChooser(dagpb.AddSupportToChooser(bsfetcher.DefaultPrototypeChooser)))
-    final ls = ipld.defaultLinkSystem();
-    ipld.addUnixFsReificationToLinkSystem(ls);
-    ls.setReadStorage(ipld.Adapter()..wrapped = n.blockstore);
+    final ls = cid.defaultLinkSystem();
+    unixfsnode.addUnixFsReificationToLinkSystem(ls);
+    ls.setReadStorage(bsadapter.Adapter()..wrapped = n.blockstore);
     final hi = '${tmp.path}/hi.car';
     await car
-        .traverseToFile(ctx, ls, root, ipld.unixFsPathSelector('hi.txt'), hi, [
+        .traverseToFile(ctx, ls, root, unixfsnode.unixFsPathSelector('hi.txt'), hi, [
       car.withTraversalPrototypeChooser(
-          ipld.addSupportToChooser(boxo.defaultPrototypeChooser))
+          codec_dagpb.addSupportToChooser(blockservice.defaultPrototypeChooser))
     ]);
     print(
         '2. UnixFS selector "hi.txt": ${blocks(hi)} blocks (the directory and the file)');
@@ -104,7 +120,7 @@ Future<void> main() async {
     //         sel := ssb.ExploreFields(func(f builder.ExploreFieldsSpecBuilder) {
     //             f.Insert("Links", ssb.ExploreAll(ssb.ExploreFields(func(g ...) {
     //                 g.Insert("Hash", ssb.Matcher()) }))) })
-    final ssb = ipld.SelectorSpecBuilder(ipld.PrototypeAny());
+    final ssb = builder.SelectorSpecBuilder(basicnode.PrototypeAny());
     final links = await ssb.exploreFields((f) async {
       f.insert(
           'Links',
@@ -112,8 +128,8 @@ Future<void> main() async {
             g.insert('Hash', ssb.matcher());
           })));
     });
-    final plain = ipld.defaultLinkSystem()
-      ..setReadStorage(ipld.Adapter()..wrapped = n.blockstore);
+    final plain = cid.defaultLinkSystem()
+      ..setReadStorage(bsadapter.Adapter()..wrapped = n.blockstore);
     final children = '${tmp.path}/children.car';
     await car.traverseToFile(ctx, plain, root, links.node(), children);
     print('3. the root and its direct children: ${blocks(children)} blocks');

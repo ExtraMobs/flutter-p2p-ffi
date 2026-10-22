@@ -2,20 +2,21 @@
 //
 //   dart run example/car/04_read_block_mistakes.dart
 import 'dart:io';
+import 'package:ipfs_ffi/go/car/v2/blockstore.dart' as blockstore;
+import 'package:ipfs_ffi/go/car/v2.dart' as car;
+import 'package:ipfs_ffi/go/cid.dart' as cid;
 import 'dart:typed_data';
 
-import 'package:ipfs_ffi/car.dart' as car;
-import 'package:ipfs_ffi/multiformats.dart' as mf;
 
 import 'sample.dart';
 
 Future<void> main() async {
   final s = await Sample.open();
-  final ro = car.openReadOnly(s.car);
+  final ro = blockstore.openReadOnly(s.car);
   try {
     // Asking for a block the CAR does not have.
     final missing =
-        mf.newPrefixV1(0x55, 0x12).sum(Uint8List.fromList([1, 2, 3]));
+        cid.newPrefixV1(0x55, 0x12).sum(Uint8List.fromList([1, 2, 3]));
     await mustFail(
         'get a CID that is not in the CAR without handling the error',
         why: 'the blockstore does not make the block up: IpfsNotFound',
@@ -25,7 +26,7 @@ Future<void> main() async {
     // The same content under another CID (CIDv0 vs CIDv1): go-car's index
     // compares multihashes, so it finds the block even with a different CID.
     final hello = File('${s.folder}/hello.txt').readAsBytesSync();
-    final v0 = mf.newPrefixV0(0x12).sum(hello); // the CAR holds the raw CIDv1
+    final v0 = cid.newPrefixV0(0x12).sum(hello); // the CAR holds the raw CIDv1
     await silentlyWrong(
         'use the default has() to know whether the CAR holds exactly this CID',
         why: 'by default the index matches multihashes: a CIDv0 of the same '
@@ -33,7 +34,7 @@ Future<void> main() async {
         instead: 'open with car.useWholeCids(true) when the exact CID matters',
         wrong: () => ro.has(s.ctx, v0),
         right: () async {
-          final exact = car.openReadOnly(s.car, [car.useWholeCids(true)]);
+          final exact = blockstore.openReadOnly(s.car, [car.useWholeCids(true)]);
           try {
             return await exact.has(s.ctx, v0);
           } finally {

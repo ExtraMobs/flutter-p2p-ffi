@@ -11,10 +11,10 @@
 //
 //   dart run example/car/10_convert_v1_v2.dart
 import 'dart:io';
+import 'package:ipfs_ffi/go/car/v2.dart' as car;
+import 'package:ipfs_ffi/go/bytes.dart' as bytes;
 import 'dart:typed_data';
 
-import 'package:ipfs_ffi/car.dart' as car;
-import 'package:ipfs_ffi/go.dart' as go;
 
 import 'sample.dart';
 
@@ -38,7 +38,7 @@ Future<void> main() async {
 
     // In memory: from bytes (an io.ReadSeeker) to a buffer (an io.Writer).
     //   Go:   var buf bytes.Buffer; car.WrapV1(bytes.NewReader(v1), &buf)
-    final buf = go.Buffer(Uint8List(0));
+    final buf = bytes.Buffer(Uint8List(0));
     car.wrapV1(File(s.car).readAsBytesSync(), buf);
     print('wrapV1 in memory: ${buf.bytes().length} bytes, version '
         '${car.readVersion(buf.bytes())}');

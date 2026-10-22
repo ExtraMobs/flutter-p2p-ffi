@@ -3,7 +3,8 @@
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:ipfs_ffi/ipfs_ffi.dart' show IpfsException;
+import 'package:ipfs_ffi/ipfs_ffi.dart'
+    show IpfsException, IpfsServiceException;
 import 'package:ipfs_ffi/src/shm.dart';
 import 'package:test/test.dart';
 

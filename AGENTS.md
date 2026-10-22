@@ -3,8 +3,9 @@
 Kubo (IPFS in Go, v0.43.1) used from Dart without HTTP. Kubo runs in the `ipfs_host`
 executable, in another process; the app talks to it through shared memory (the `ipfs_shm`,
 in C) with a binary protocol (`WIRE.md`). The Dart API is Go's own, generated from
-`go/gen/roots.txt` and organized in namespaces by Go module (`kubo`, `boxo`, `car`, `ipld`,
-`multiformats`, `libp2p`, `go`). Targets: VM/AOT on Windows, linux and Android (not JS/Wasm).
+`go/gen/roots.txt`: one library per Go package under `lib/go/`, at the package's path in its
+module (`github.com/ipfs/boxo/mfs` → `lib/go/boxo/mfs.dart`, `github.com/ipfs/go-cid` →
+`lib/go/cid.dart`); `lib/ipfs_ffi.dart` is the runtime's entry point. Targets: VM/AOT on Windows, linux and Android (not JS/Wasm).
 
 `README.md` is the usage guide; `DOCS.md` indexes the CAR examples by operation; `API.md`
 (generated) lists every exposed symbol and the adaptation rules; `TODO.md` keeps what was
@@ -14,8 +15,8 @@ done in each version and what is pending.
 
 | Path | What it is |
 |---|---|
-| `lib/` | the Dart package: the generated code (one library per Go package, in the namespaces) and the runtime in `lib/src/` (`runtime.dart` and its parts, `shm.dart`) |
-| `go/` | the `ipfs_host` (`host*.go`, `wire.go`, `callback.go`, `deadlock.go`, the hand ports `manual_*.go`) and the generator (`go/gen`, with `roots.txt` and the namespace table) |
+| `lib/` | the Dart package: the generated code (`lib/go/`, one library per Go package) and the runtime in `lib/src/` (`runtime.dart` and its parts, `service.dart`, `shm.dart`), exported only by `lib/ipfs_ffi.dart` |
+| `go/` | the `ipfs_host` (`host*.go`, `wire.go`, `callback.go`, `deadlock.go`, the hand ports `manual_*.go`) and the generator (`go/gen`, with `roots.txt`; the Dart paths in `go/gen/namespaces.go`) |
 | `shm/` | the `ipfs_shm` in C (rings, the bell, the thread that wakes Dart) |
 | `tool/` | `build.dart` (generates and builds per platform, with the upstream patches) and the benchmarks (`bench*.dart`) |
 | `test/` | the Dart suite (needs the build) |
@@ -33,8 +34,8 @@ dart test                                          # the whole suite (needs the 
 
 - Go 1.26.5 (`GOTOOLCHAIN=auto` downloads it). A C compiler only for the `ipfs_shm`: mingw-w64
   on Windows, gcc on linux, the NDK for Android.
-- To expose more of Go: one line in `go/gen/roots.txt` and the build. A new module needs a
-  line in `go/gen/namespaces.go`.
+- To expose more of Go: one line in `go/gen/roots.txt` and the build; the library path comes
+  from the package's module (`go list -m all`), no table to edit.
 - linux through WSL: WSL and Windows overwrite each other's `.dart_tool/package_config.json`;
   run `dart pub get` on the side in use before analyzing or testing.
 - Android: `dart run tool/build.dart android`, then in `example/android_app/`
@@ -42,6 +43,11 @@ dart test                                          # the whole suite (needs the 
   device, wireless debugging) is in `TODO.md`.
 
 ## Conventions
+
+- **One library per Go type:** a Go type lives only in the library of its Go package, and
+  no public library re-exports another (the generator refuses an `export` outside
+  `lib/src/`, except in `lib/ipfs_ffi.dart`). A hand-written library of a Go package gets
+  the generated part of that package as `<name>.g.dart`.
 
 - **`dart format` before every commit** for every hand-written `.dart` (generated code comes
   out formatted): `dart format --output=none --set-exit-if-changed <files>`.

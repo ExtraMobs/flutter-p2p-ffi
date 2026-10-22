@@ -5,9 +5,10 @@
 // kubo no meio. Exige `dart run tool/build.dart`.
 import 'dart:typed_data';
 
-import 'package:ipfs_ffi/car.dart' as car;
+import 'package:ipfs_ffi/go/car/v2/index.dart' as index;
+import 'package:ipfs_ffi/go/multicodec.dart' as multicodec;
+import 'package:ipfs_ffi/go/cid.dart' as cid;
 import 'package:ipfs_ffi/ipfs_ffi.dart';
-import 'package:ipfs_ffi/multiformats.dart' as mf;
 import 'package:ipfs_ffi/src/runtime.dart'
     show $W, $callCb, $callSync, GoHandle;
 import 'package:test/test.dart';
@@ -88,11 +89,11 @@ void main() {
   });
 
   test('index: forEach e getAll', () async {
-    final idx = car.new$(mf.carMultihashIndexSorted);
+    final idx = index.new$(multicodec.carMultihashIndexSorted);
     idx.load([
       for (var i = 0; i < 5; i++)
-        car.Record$(
-            cid: mf.newPrefixV1(0x55, 0x12).sum(Uint8List.fromList([i])),
+        index.Record$(
+            cid: cid.newPrefixV1(0x55, 0x12).sum(Uint8List.fromList([i])),
             offset: 100 + i)
     ]);
     final it = idx.asIterableIndex()!;
@@ -106,7 +107,7 @@ void main() {
     });
     expect(offsets..sort(), [100, 101, 102, 103, 104]);
 
-    final c = mf.newPrefixV1(0x55, 0x12).sum(Uint8List.fromList([3]));
+    final c = cid.newPrefixV1(0x55, 0x12).sum(Uint8List.fromList([3]));
     final got = <int>[];
     await idx.getAll(c, (offset) {
       got.add(offset);

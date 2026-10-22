@@ -5,7 +5,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:ipfs_ffi/car.dart' as car;
+import 'package:ipfs_ffi/go/car/v2.dart' as car;
 import 'package:ipfs_ffi/ipfs_ffi.dart' show IpfsEof, IpfsException;
 
 import 'sample.dart';

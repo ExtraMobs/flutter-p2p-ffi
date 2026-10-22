@@ -3,10 +3,10 @@
 //
 //   dart run example/car/12_replace_roots_mistakes.dart
 import 'dart:io';
+import 'package:ipfs_ffi/go/car/v2.dart' as car;
+import 'package:ipfs_ffi/go/cid.dart' as cid;
 import 'dart:typed_data';
 
-import 'package:ipfs_ffi/car.dart' as car;
-import 'package:ipfs_ffi/multiformats.dart' as mf;
 
 import 'sample.dart';
 
@@ -22,7 +22,7 @@ Future<void> main() async {
         instead: 'use CIDs of the same version and codec, or rewrite the CAR '
             '(operation 14 copies the blocks into a new one)',
         action: () => car.replaceRootsInFile(
-            copy, [mf.newPrefixV0(0x12).sum(Uint8List(0))]));
+            copy, [cid.newPrefixV0(0x12).sum(Uint8List(0))]));
 
     bool rootsPresent(String file) {
       final r = car.openReader(file);
@@ -34,7 +34,7 @@ Future<void> main() async {
     }
 
     // A same-size CID that is not in the CAR: go-car accepts it.
-    final foreign = mf.newPrefixV1(0x70, 0x12).sum(Uint8List.fromList([7]));
+    final foreign = cid.newPrefixV1(0x70, 0x12).sum(Uint8List.fromList([7]));
     await silentlyWrong('replace the root with a CID that is not in the CAR',
         why: 'go-car does not check: the CAR now names a root nobody can '
             'resolve from it',
