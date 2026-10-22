@@ -476,7 +476,7 @@ void main() {
       }
     });
 
-    // README, "Como os blocos chegam": as duas camadas do bitswap pela config
+    // README, "Points of attention" › "Config": as duas camadas do bitswap pela config
     test('bitswap só por libp2p e sem servir; sem nenhuma camada, não sobe',
         () async {
       final cfg = config.initWithIdentity(

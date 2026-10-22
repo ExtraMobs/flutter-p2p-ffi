@@ -32,7 +32,7 @@ const androidApi = 24;
 typedef Patches = Map<String, Map<String, Map<String, String>>>;
 
 /// Bugs do kubo e do boxo corrigidos em todo build, até o upstream integrar
-/// (README, "Correções no upstream"; go/upstream_test.go afirma cada bug no
+/// (README, "Build" › "Upstream patches"; go/upstream_test.go afirma cada bug no
 /// módulo sem patch e falha quando uma versão nova o corrigir).
 const upstreamPatches = <String, Map<String, Map<String, String>>>{
   // boxo v0.43.0: append no fim de um arquivo do MFS com os dados embutidos

@@ -39,7 +39,7 @@ dart test                                          # the whole suite (needs the 
   run `dart pub get` on the side in use before analyzing or testing.
 - Android: `dart run tool/build.dart android`, then in `example/android_app/`
   `flutter test integration_test/ipfs_test.dart -d <device>`. The rest (emulator, real
-  device, wireless debugging) is in the README.
+  device, wireless debugging) is in `TODO.md`.
 
 ## Conventions
 

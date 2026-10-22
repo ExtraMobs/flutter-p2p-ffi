@@ -1,25 +1,27 @@
 # ipfs_ffi
 
-Kubo v0.43.1 (IPFS em Go) usado do Dart sem HTTP: o kubo roda no executável
-`ipfs_host`, noutro processo, e o app fala com ele por memória compartilhada (a
-`ipfs_shm`, em C; protocolo binário no [`WIRE.md`](WIRE.md)). O app não carrega Go:
-um panic do kubo derruba só o serviço, as chamadas pendentes falham com
-`IpfsServiceException` e o `onStop` do app recebe o motivo e o relatório do Go e
-decide o que fazer (limpar o log, `IpfsService.restart()` e refazer plugins, nó e
-CoreAPI: o processo é novo). Nada volta sozinho. No Android, o plugin companheiro
-[`ipfs_ffi_flutter`](flutter) trata o segundo plano (ver abaixo).
-Alvos: VM/AOT no Windows, no linux e no Android (não serve para JS/Wasm).
+Kubo (IPFS in Go, the version pinned in [`go/go.mod`](go/go.mod)) used from Dart without
+HTTP. Kubo runs in the `ipfs_host` executable, in another process, and the app talks to it
+through shared memory (the `ipfs_shm`, in C; binary protocol in [`WIRE.md`](WIRE.md)). A Go
+panic stops only the service, never the app. Targets: VM/AOT on Windows, linux and Android
+(not JS/Wasm).
 
-A API Dart é a do próprio Go, gerada, e organizada em namespaces, um por módulo
-Go: `kubo`, `boxo`, `ipld` (também o `LinkSystem` e os seletores do go-ipld-prime),
-`multiformats` (CID, multiaddr, códigos multicodec), `libp2p`, `car` (o
-`github.com/ipld/go-car/v2`: arquivos CAR sem nó) e `go` (o que a API usa da
-biblioteca padrão do Go: `bytes`, `context`, `io`, `os`); o `ipfs dag
-export/import` está no `kubo`, como no Go. Cada namespace tem um arquivo que exporta tudo dele
-(`package:ipfs_ffi/kubo.dart`); quem prefere seguir a documentação do Go importa
-um pacote por vez, embaixo dele (`package:ipfs_ffi/kubo/repo/fsrepo.dart` as
-`fsrepo`). O que existe, e o que ficou de fora com o motivo, está no
-[`API.md`](API.md); a tabela módulo → namespace, em `go/gen/namespaces.go`.
+The Dart API is Go's own, generated: the same functions, types and argument order as in
+pkg.go.dev, so the Go documentation applies. It is organized in namespaces, one per Go
+module: `kubo`, `boxo`, `ipld`, `multiformats`, `libp2p`, `car`, `datastore` and `go` (the
+standard library pieces the API uses). Import a whole namespace
+(`package:ipfs_ffi/kubo.dart`) or one Go package at a time
+(`package:ipfs_ffi/kubo/repo/fsrepo.dart`).
+
+| Document | What it has |
+|---|---|
+| [`API.md`](API.md) | every exposed symbol, and what was left out and why (generated) |
+| [`DOCS.md`](DOCS.md) | the CAR examples, indexed by operation |
+| [`CHANGELOG.md`](CHANGELOG.md) | what changed in each version |
+| [`TODO.md`](TODO.md) | measurements, findings and what is pending |
+| [`WIRE.md`](WIRE.md) | the binary protocol between the app and the host |
+
+## Quick start
 
 ```dart
 import 'dart:convert';
@@ -29,557 +31,175 @@ import 'package:ipfs_ffi/go.dart' as go;
 import 'package:ipfs_ffi/ipfs_ffi.dart';
 import 'package:ipfs_ffi/kubo.dart' as kubo;
 
-// lança native/ipfs_host; numa parada (queda ou segundo plano), onStop decide
-// (padrão: nada)
 await IpfsService.start(onStop: (stop) => print('${stop.reason}: ${stop.report}'));
-kubo.PluginLoader('')..initialize()..inject(); // 1x por serviço
+kubo.PluginLoader('')..initialize()..inject(); // once per service
 kubo.init(repo, kubo.initWithIdentity(kubo.createIdentity(null, [kubo.key.type('ed25519')])));
 final ctx = go.background();
 final n = await kubo.newNode(ctx, kubo.BuildCfg(repo: kubo.open(repo)));
 final api = kubo.newCoreApi(n);
-final p = await api.unixfs().add(ctx, boxo.newBytesFile(utf8.encode('oi')),
+final p = await api.unixfs().add(ctx, boxo.newBytesFile(utf8.encode('hi')),
     [kubo.unixfs.pin(true, '')]);
 print(utf8.decode(go.readAll(boxo.toFile(await api.unixfs().get(ctx, p)))));
-final car = await kubo.dagExport(n, ctx, p); // o DAG como CARv1 (ipfs dag export)
 await n.close();
 await IpfsService.stop();
 ```
 
-Exemplos, na ordem em que o kubo monta um nó:
-
-1. `dart run example/01_init_repo.dart [repo]`: `ipfs init` (plugins, identidade, config, repo);
-2. `dart run example/02_add_get.dart [repo] [arquivo-ou-pasta]`: nó sem HTTP, `add`/`get`/`ls`,
-   com o progresso do `add` (`options.unixfs.events(controller.sink)` + `progress(true)`:
-   eventos `AddEvent` com os `bytes` de cada arquivo e, no fim, o `path`);
-3. `dart run example/03_pins_gc.dart [repo]`: pins, blocos crus e GC (`ipfs pin`,
-   `ipfs block`, `ipfs repo gc`). A CoreAPI não pina por padrão: passe
-   `options.unixfs.pin(true, nome)` no `add` (o `ipfs add` do CLI faz isso);
-4. `dart run example/04_online.dart [repo] [segundos] [cid]`: o nó na rede pública,
-   como o `ipfs daemon` sem HTTP; o roteamento sai do `Routing.Type` da config como
-   no `daemon.go` (`libp2p.constructDefaultRouting(cfg, libp2p.dhtOption)`...).
-   Inicialize o repo com `randomports` se a 4001 estiver ocupada (IPFS Desktop);
-5. `dart run example/05_two_nodes.dart`: dois nós no mesmo processo; B conecta em A
-   (`swarm().connect`), acha A como provedor (`routing().findProviders`) e lê por
-   bitswap. O `routing().provide` do kubo 0.43 só enfileira o anúncio: quem busca
-   logo em seguida pode precisar repetir;
-6. `dart run example/06_ipns_dag.dart [repo]`: IPNS (`name().publish/resolve`), chaves
-   (`key().generate/sign/verify`), nós IPLD dag-pb/raw (`merkledag`, `dag().add/get`) e
-   DAG-CBOR/JSON (`package:ipfs_ffi/kubo/core/commands/dag.dart`: `dagPut`/`dagGet`,
-   o `ipfs dag put/get` portado à mão, com caminho dentro do nó e links);
-7. `dart run example/07_car.dart export|import ...`: arquivos CAR (`dagExport`/`dagExportFile`,
-   `dagImport`/`dagImportFiles` no mesmo `dag.dart`: o `ipfs dag export/import`), para
-   levar um DAG inteiro de um repo para outro;
-8. `dart run example/08_chat.dart <repo> <tópico> [apelido]`: chat em tempo real sobre
-   pubsub (`api.pubSub().subscribe/publish`, `sub.next`); o nó precisa de
-   `extraOpts: {'pubsub': true}`. Duas instâncias (repos diferentes, perfil
-   `randomports`) se acham na rede local pelo mDNS;
-9. `dart run example/09_comandos_e_streams.dart`: os comandos do `ipfs` (`files mkdir/
-   write/stat/ls/read/rm`, `pin ls`, `cat`) e o `Stream` passo a passo: `.drain()`,
-   `.single`, `await for`, `.toList()`, `.listen` (com `onData`/`onError`/`onDone` e
-   `cancel`) e o erro do kubo como exceção. Para quem nunca usou `Future`/`Stream`;
-10. `dart run example/10_mfs_baixo_nivel.dart`: o mesmo trabalho pelo baixo nível do
-   boxo (`mfs.mkdir`, `putNode`, `lookup`/`asFile`, `open`/`seek`/`write`/`close`,
-   `ctxReadFull`, `mv`, `list`, `flushPath`), com o código Go equivalente em cada passo;
-11. `dart run example/11_contexto_e_erros.dart`: prazo e cancelamento (`withTimeout`,
-   `withCancel`), `IpfsException` (o kubo respondeu erro) × `IpfsServiceException` (o
-   serviço caiu), o `onStop` e o `IpfsService.restart()` depois de uma queda;
-12. `dart run example/12_car_baixo_nivel.dart`: arquivos CAR sem nó, pelo go-car
-   (`openReader`/`inspect`, `BlockReader`, `wrapV1File`, o índice num `bytes.Buffer`, um
-   CAR novo bloco a bloco com `openReadWrite` e a travessia seletiva com
-   `traverseToFile`), com o código Go equivalente em cada passo;
-13. `dart run example/13_recorte_e_callbacks.dart`: o recorte de CAR direto do nó (o gateway
-   do boxo por caminho, escopo e faixa de bytes; um seletor IPLD sobre o blockstore, com a
-   camada UnixFS), o construtor de seletores e o índice percorridos com callback, os
-   objetos em uso (`isBusy`, `IpfsService.busy`) e o `IpfsEof`.
-
-Os exemplos 9 a 13 criam o próprio repo temporário e não dependem do 01.
-
-**Everyday CAR operations:** one runnable example per operation, the right way and the
-mistakes to avoid, in [`example/car/`](example/car), indexed in [`DOCS.md`](DOCS.md).
-
-**Memory management (`GoHandle`):** how the bridge manages Go objects, deterministic release
-(`.release()`, `.use()`, `withGoScope()`), `close()` vs. `release()`, and pitfalls to avoid in
-[`example/memory/`](example/memory).
-
-## O boxo do Go e o do Dart, lado a lado
-
-Além do kubo, o pacote expõe o baixo nível do boxo (a biblioteca do IPFS em Go que o
-kubo usa por dentro) com as mesmas funções, os mesmos tipos e a mesma ordem de
-argumentos: quem lê a documentação do boxo em pkg.go.dev sabe usar o Dart. Dois
-exemplos, o Go primeiro e o Dart logo abaixo.
-
-Escrever no fim de um arquivo do MFS (o sistema de arquivos do nó) e ler de volta:
-
-```go
-// Go (boxo/mfs)
-root := node.FilesRoot                         // campo da struct IpfsNode
-nd, err := mfs.Lookup(root, "/docs/nota.txt")  // devolve a interface FSNode
-if err != nil {
-    return err
-}
-file := nd.(*mfs.File)                         // type assertion: é arquivo?
-fd, err := file.Open(ctx, mfs.Flags{Write: true, Sync: true})
-if err != nil {
-    return err
-}
-fd.Seek(0, io.SeekEnd)
-fd.Write([]byte("mais uma linha\n"))
-fd.Close()
-
-fd, _ = file.Open(ctx, mfs.Flags{Read: true})
-buf := make([]byte, 1024)                      // o Go lê num buffer seu
-n, _ := fd.CtxReadFull(ctx, buf)
-fmt.Print(string(buf[:n]))
-fd.Close()
-```
-
-```dart
-// Dart (package:ipfs_ffi/boxo/mfs.dart as mfs)
-final root = node.filesRoot;                   // o campo vira getter
-final file = mfs.lookup(root, '/docs/nota.txt') // erro do Go → IpfsException
-    .asFile()!;                                // o type assertion: null se não for
-final fd = await file.open(ctx, mfs.Flags(write: true, sync: true)); // a struct,
-fd.seek(0, 2);                                 // com parâmetros nomeados
-fd.write(utf8.encode('mais uma linha\n'));
-fd.close();
-
-final rd = await file.open(ctx, mfs.Flags(read: true));
-final bytes = await rd.ctxReadFull(ctx, 1024); // pede 1024, recebe os lidos
-print(utf8.decode(bytes));
-rd.close();
-```
-
-Adicionar com opções e procurar um arquivo, o mesmo trabalho em dois níveis (o kubo
-monta as opções do boxo; o comando `ipfs` faz tudo de uma vez):
-
-```go
-// Go (kubo CoreAPI + boxo/files)
-p, err := api.Unixfs().Add(ctx, files.NewBytesFile(data),
-    options.Unixfs.CidVersion(1), options.Unixfs.Pin(true, ""))
-if err != nil {
-    return err
-}
-nd, err := api.ResolveNode(ctx, p)
-if err != nil {
-    return err
-}
-err = mfs.PutNode(root, "/docs/foto.jpg", nd)
-```
-
-```dart
-// Dart: o mesmo baixo nível (as opções do Go viram uma lista)
-final p = await api.unixfs().add(ctx, files.newBytesFile(data),
-    [options.unixfs.cidVersion(1), options.unixfs.pin(true, '')]);
-mfs.putNode(root, '/docs/foto.jpg', await api.resolveNode(ctx, p));
-
-// ou o alto nível, o comando `ipfs files write --create` (um Stream; ver o 09)
-await kubo.filesWrite(n, ctx, '/docs/foto.jpg', files.newBytesFile(data),
-        create: true, cidVersion: 1)
-    .drain<void>();
-```
-
-O que muda de um para o outro (a lista completa na seção abaixo):
-- o `if err != nil { return err }` some: um erro do Go vira `IpfsException`, que se
-  trata com `try`/`catch` (ou deixa subir);
-- o que no Go espera com `ctx` (`Open`, `CtxReadFull`, `Add`) é `Future` no Dart e pede
-  `await`; o resto (`Lookup`, `Seek`, `Write`, `Close`) é síncrono, como no Go;
-- struct de opções (`mfs.Flags{...}`) vira o mesmo tipo com parâmetros nomeados; opções
-  funcionais (`options.Unixfs.Pin(...)`) viram uma lista;
-- type assertion (`nd.(*mfs.File)`) vira `asFile()`, que devolve `null` se não for;
-- o `[]byte` que o Go preenche vira um tamanho pedido e os bytes devolvidos.
-
-## Como o Go vira Dart
-
-- `context.Context` é o 1º parâmetro, como no Go (`package:ipfs_ffi/go/context.dart`:
-  `background`, `withCancel`, `withTimeout`, `withDeadline`; `cancel()`).
-- Função ou método com `context` é assíncrono (`Future`); canal vira `Stream`;
-  `(T, error)` vira `T` com `IpfsException` (inclusive em panic do Go).
-- Opções funcionais espelham as variáveis do Go:
-  `[options.unixfs.cidVersion(1), options.unixfs.rawLeaves(true)]`.
-- Objetos com estado ficam no Go (handle solto pelo `Finalizer` do Dart, em lote,
-  e válido só no serviço em que nasceu: depois de um reinício, usá-lo dá
-  `IpfsServiceException`); o nó e
-  o repo continuam exigindo o `close` do Go. CID, path, peer e multiaddr são
-  valores (a string); `config.Config` guarda o JSON do kubo em `json`.
-- Constantes do Go viram `const` (`mfs.tFile`, `iface.diffAdd`); campos de struct
-  viram getter e setter (`node.filesRoot`, `file.rawLeaves = true`); `any` vira
-  `Object?` (null, bool, int, double, String, Uint8List, List, Map).
-- Uma interface ganha um cast para cada tipo concreto exposto que a implementa, como
-  o `switch x.(type)` do Go: `mfs.lookup(root, '/a').asDirectory()` (null se não for).
-- `Read`, `ReadAt` e `CtxReadFull` (o Go preenche um `[]byte`) recebem o tamanho e
-  devolvem os bytes lidos (`await fd.ctxReadFull(ctx, 4096)`; vazio no fim).
-
-## Além da CoreAPI: MFS, config e peering (0.13)
-
-O baixo nível do Go, como ele é (o alto nível, `ipfs files/config/bootstrap/swarm
-peering`, está nos comandos do RPC, abaixo):
-
-```dart
-final root = node.filesRoot;                       // IpfsNode.FilesRoot
-mfs.mkdir(root, '/docs', mfs.MkdirOpts(mkparents: true, flush: true));
-mfs.putNode(root, '/docs/a.txt', await api.resolveNode(ctx, p));
-final file = mfs.lookup(root, '/docs/a.txt').asFile()!;
-final fd = await file.open(ctx, mfs.Flags(write: true));
-fd.truncate(0);
-fd.write(utf8.encode('novo'));
-fd.close();
-await mfs.flushPath(ctx, root, '/docs');            // o CID da pasta
-
-node.repo.setConfigKey('Discovery.MDNS.Enabled', false); // o mesmo que `ipfs config`
-node.peering.addPeer(info);                          // vale na hora, não persiste
-```
-
-A maior parte da config só vale ao reiniciar o nó (o kubo a lê na subida); o peering
-vale na hora mas não vai para a config.
-
-## Arquivos CAR sem nó: o go-car (0.16)
-
-O `github.com/ipld/go-car/v2` como ele é, no namespace `car`: o arquivo aberto e mexido sem
-nó (o `kubo.dagExport/dagImport` continua para levar um DAG do nó para um CAR e de volta):
-
-```dart
-final r = car.openReader('pasta.car');              // CARv1 ou CARv2
-final st = r.inspect(true);                          // confere cada hash
-print('${r.roots()} ${st.blockCount} ${st.codecCounts}'); // {0x70: 2, 0x55: 3}
-r.close();
-
-car.wrapV1File('pasta.car', 'pasta.v2.car');         // v1 → v2 (com índice)
-final idx = car.generateIndexFromFile('pasta.car');
-final buf = go.Buffer(Uint8List(0));                 // qualquer io.Writer: os.File...
-car.writeTo(idx, buf);
-
-final c = mf.newPrefixV1(0x55, 0x12).sum(dados);     // o CID, sem nó
-final rw = car.openReadWrite('novo.car', [c]);
-await rw.put(ctx, ipld.Block(cid: c, rawData: dados));
-rw.finalize();
-
-final ls = ipld.defaultLinkSystem();                 // recorte por seletor IPLD
-ls.setReadStorage(car.openReadable(go.open('pasta.car')));
-await car.traverseToFile(ctx, ls, raiz, ipld.commonSelectorMatchPoint, 'raiz.car');
-```
-
-Parâmetros `io.Reader`/`io.ReaderAt`/`io.ReadSeeker` aceitam bytes ou um handle (`go.open`);
-`io.Writer` aceita um handle (`go.Buffer`, `go.openFile`) ou null (descarta). O fim do
-`BlockReader.next()` é o `io.EOF` do Go: `IpfsEof`, uma subclasse de `IpfsException` (as
-outras: `IpfsUnexpectedEof`, `IpfsCanceled`, `IpfsDeadlineExceeded`, `IpfsNotFound`), lançada
-como o `errors.Is` do Go a acharia, inclusive com o erro embrulhado.
-
-## Callbacks, erros do Go e o recorte pelo nó (0.17)
-
-Função Go que recebe uma função recebe uma função Dart. O Go chama um callback de verdade,
-que leva os argumentos ao Dart em lotes e espera a resposta; `false` ou uma exceção param o
-Go, e a chamada lança a exceção original:
-
-```dart
-await idx.asIterableIndex()!.forEach((mh, offset) => print(offset));
-await idx.getAll(c, (offset) => offset < limite, batchSize: 1); // 1 = exato como o Go
-final campos = await ssb.exploreFields((f) => f.insert('Links', ssb.matcher()));
-```
-
-- `batchSize` (opcional): quantas invocações o Go manda por vez e, portanto, quantas ele pode
-  adiantar. O padrão, 1024 até 128 KiB, saiu de medida (`tool/bench_callback.dart`; a tabela
-  está no `TODO.md`). Quando o callback recebe objetos Go (o `fields` acima), o padrão é 1:
-  eles podem só valer durante a invocação.
-- Durante a chamada, os objetos dela ficam em uso: `isBusy` no objeto e
-  `IpfsService.busy` (um `Stream` de `IpfsBusy`) para o app pintar a interface (Riverpod,
-  `ValueNotifier`...). Chamá-los de dentro do callback é permitido; se a chamada esperar uma
-  trava que a função Go segura, o host detecta o impasse e ela lança
-  `IpfsDeadlockException` em vez de travar o app.
-- Os erros conhecidos do Go chegam como subclasses de `IpfsException`, como o `errors.Is`
-  os acharia: `IpfsEof`, `IpfsUnexpectedEof`, `IpfsCanceled`, `IpfsDeadlineExceeded`,
-  `IpfsNotFound`.
-
-Recortar um CAR direto do nó (exemplo 13):
-
-```dart
-final (meta, rc) = await boxo.BlocksBackend(node.blocks).getCar(ctx,
-    boxo.ImmutablePath('/ipfs/$pasta/foto.jpg'),
-    boxo.CarParams(scope: boxo.dagScopeEntity, range: boxo.DagByteRange(from: 0, to: 99)));
-go.copy(go.create('recorte.car'), rc);              // o gateway do boxo, com rede
-
-final ls = ipld.defaultLinkSystem();                 // um seletor qualquer, blocos locais
-ipld.addUnixFsReificationToLinkSystem(ls);
-ls.setReadStorage(ipld.Adapter()..wrapped = node.blockstore);
-await car.traverseToFile(ctx, ls, raiz, ipld.unixFsPathSelector('foto.jpg'), 'foto.car',
-    [car.withTraversalPrototypeChooser(ipld.addSupportToChooser(boxo.defaultPrototypeChooser))]);
-```
-
-O escolhedor de protótipo é o que o gateway usa: sem ele o go-car decodifica o dag-pb como
-dado genérico, a camada UnixFS não o reconhece, e o seletor por nome para na pasta.
-
-## Como os blocos chegam: bitswap por libp2p (bsnet) e por HTTP (httpnet)
-
-Todo pedido de bloco que o nó não tem localmente vai ao bitswap: `unixfs().get`, o
-`getCar` do gateway, um `traverseToFile` sobre o block service e os comandos do RPC. O
-bitswap do boxo tem duas camadas de rede, e o kubo liga as duas por padrão. O que segue foi
-lido no código do boxo v0.43.0 (`bitswap/network`) e do kubo v0.43.1
-(`core/node/bitswap.go`, `config/http_retrieval.go`).
-
-**bsnet (libp2p).** O protocolo bitswap original, sobre streams libp2p
-(`/ipfs/bitswap/...`), com qualquer peer conectado (TCP, QUIC, WebTransport, WebRTC, relay).
-Funciona nos dois sentidos: o nó pede blocos e também serve os que tem. É ligado por
-`Bitswap.Libp2pEnabled`, padrão `true`; `Bitswap.ServerEnabled`, também `true`, decide se o
-nó responde aos pedidos dos outros.
-
-**httpnet (HTTP).** Busca blocos por HTTP em provedores que anunciam um endereço HTTP(S)
-(multiaddr como `/dns/exemplo.org/tcp/443/tls/http` ou `/https`), ou seja, servidores no
-modo "trustless gateway". Para cada bloco ele faz:
-
-- `GET /ipfs/<cid>?format=raw` com `Accept: application/vnd.ipld.raw` quando quer o bloco;
-- `HEAD` na mesma URL quando só quer saber se o servidor o tem;
-- antes de usar o servidor, uma sondagem com o CID de identidade `bafkqaaa`, e em HTTPS ele
-  exige HTTP/2.
-
-O bloco recebido é conferido pelo hash do CID, como no bsnet; um servidor HTTP não consegue
-entregar outro conteúdo. O httpnet só baixa: o nó não serve blocos por HTTP.
-
-**Os dois juntos.** O `router` do boxo (`bitswap/network/router.go`) une as duas camadas.
-Quando um provedor tem endereço HTTP, tenta HTTP primeiro e cai no libp2p se falhar.
-Blocos que o nó envia aos outros vão sempre pelo libp2p. Para quem chama a API, nada muda:
-`unixfs().get` e `getCar` não sabem nem dizem por qual camada cada bloco veio.
-
-**A config (`HTTPRetrieval`, lida quando o nó é criado):**
-
-| chave | padrão | o que faz |
-|---|---|---|
-| `HTTPRetrieval.Enabled` | `true` | liga o httpnet |
-| `HTTPRetrieval.Allowlist` | vazio (todos) | só estes nomes de host podem ser usados por HTTP |
-| `HTTPRetrieval.Denylist` | vazio | estes nomes de host nunca são usados |
-| `HTTPRetrieval.NumWorkers` | 16 | pedidos HTTP em paralelo |
-| `HTTPRetrieval.MaxBlockSize` | `2MiB` | maior resposta aceita (o mesmo limite de bloco do bitswap) |
-| `HTTPRetrieval.TLSInsecureSkipVerify` | `false` | só para testes com certificado próprio |
-
-Com `Bitswap.Libp2pEnabled` e `HTTPRetrieval.Enabled` desligados ao mesmo tempo, o nó não
-sobe (o kubo recusa a config).
-
-**No app.** A config é a do repo, mudada antes do `newNode` (o mesmo `ipfs config`):
-
-```dart
-final repo = kubo.open(repoPath);
-repo.setConfigKey('HTTPRetrieval.Enabled', false); // só libp2p; ou, para limitar o HTTP:
-// repo.setConfigKey('HTTPRetrieval.Allowlist', ['meu-gateway.exemplo.org']);
-repo.setConfigKey('Bitswap.ServerEnabled', false); // baixa, mas não serve a ninguém
-final n = await kubo.newNode(ctx, kubo.BuildCfg(repo: repo, online: true, ...));
-```
-
-O que pesa na escolha:
-
-- **Privacidade:** pelo httpnet, cada servidor HTTP vê os CIDs pedidos, o IP do aparelho e o
-  User-Agent do kubo, como um servidor web comum. Pelo bsnet, os peers também veem os
-  pedidos, mas não há um servidor web fixo no meio. `Allowlist`/`Denylist` limitam a quem
-  o nó pede.
-- **Rede móvel:** servidores HTTP costumam estar em datacenter, bem conectados e sem o
-  problema de NAT que os peers do libp2p têm no celular (ver a seção do Android, abaixo). Desligar o
-  httpnet tira essa fonte.
-- **Servir:** `Bitswap.ServerEnabled = false` faz o nó só baixar, o que economiza dados e
-  bateria. O conteúdo do próprio nó deixa então de ser servido por bitswap.
-
-## Low-level resources: GC, storage, connections (0.20)
-
-**GC.** `Datastore.StorageMax`, `StorageGCWatermark` and `GCPeriod` only act through
-`corerepo.PeriodicGC`, which only the daemon starts (`--enable-gc`); a node built with
-`core.newNode` never collects on its own. Start it with a context you cancel on close:
-
-```dart
-final (gcCtx, stopGc) = context.withCancel(ctx);
-unawaited(corerepo.periodicGc(gcCtx, node)); // every GCPeriod, above the watermark
-await corerepo.conditionalGc(ctx, node, bytesAboutToWrite); // once, now
-```
-
-**Reading without storing.** `blockservice.getBlock` caches every block it fetches in its
-blockstore, so `cat`/`get` grow the repo. A block service over a blockstore on the null
-datastore (puts dropped) and the node's exchange (bitswap) does not; `go.readerStream` reads
-any `io.Reader` handle as a `Stream<Uint8List>`:
-
-```dart
-final bs = blockservice.new$(blockstore.Blockstore(datastore.NullDatastore()), node.exchange);
-final dag = merkledag.newDagService(bs);
-final file = files.toFile(await unixfile.newUnixfsFile(ctx, dag, await dag.get(ctx, cid.Cid(root))));
-await for (final chunk in go.readerStream(file)) sink.add(chunk);
-```
-
-Nothing is kept, so the node does not serve those blocks, and blocks already in the repo
-are fetched again.
-
-**The blockstore block by block.** `node.blockstore` has `deleteBlock`, `getSize` and
-`allKeysChan` (an eviction policy of your own instead of a full GC); `node.baseBlocks` is the
-same store without the filestore. `node.gcLocker.pinLock(ctx)` holds the GC off until
-`unlock`; `gcLock` waits for every pin lock; `gcRequested` tells a GC is waiting.
-
-**Connections and resources.** `node.peerHost.connManager()` protects or tags peers so a
-trim above `HighWater` keeps them, and `trimOpenConns` trims on demand.
-`node.resourceManager.viewSystem((scope) => scope.stat())` reads the libp2p resource
-manager's usage; its limits cannot change at run time (`Swarm.ResourceMgr`, then restart).
-
-## Correções no upstream (0.15)
-
-Dois bugs do kubo/boxo, reproduzidos em Go puro, que o `tool/build.dart` corrige por patch
-em todo build (`upstreamPatches`: o módulo vai copiado do cache com o trecho trocado; se o
-trecho mudar numa versão nova, o build para). O `go/upstream_test.go` afirma cada bug no
-módulo sem patch e falha quando o upstream o corrigir, avisando que o patch sai:
-
-- boxo v0.43.0 ([ipfs/boxo#1221](https://github.com/ipfs/boxo/issues/1221)): anexar no fim
-  de um arquivo do MFS cujo nó guarda os dados embutidos (o nó de um `add` pequeno)
-  deixava o tamanho certo, mas a leitura devolvia só o trecho anexado;
-- kubo v0.43.1 ([ipfs/kubo#11477](https://github.com/ipfs/kubo/issues/11477)): com
-  `Routing.Type` none (`libp2p.nilRouterOption`), o `close` deixava aberto o datastore do
-  `provider-keystore`, e reabrir o repo no mesmo processo esbarrava na trava.
-
-## Os comandos do RPC (0.14)
-
-Os comandos do `ipfs` (o RPC `/api/v0`) rodam com o nó do app, sem daemon nem HTTP, pela
-mesma árvore do kubo: um por função em `package:ipfs_ffi/kubo/core/commands.dart` (também
-no `kubo.dart`). O nome é o caminho em lowerCamel; argumentos posicionais; opções nomeadas
-(null = o padrão do kubo); um DTO por retorno:
-
-```dart
-await kubo.filesMkdir(n, ctx, '/docs', parents: true).drain<void>();
-await kubo.filesWrite(n, ctx, '/docs/a.txt', files.newBytesFile(dados), create: true)
-    .drain<void>();
-final st = await kubo.filesStat(n, ctx, '/docs/a.txt').single; // StatOutput
-final bytes = kubo.filesRead(n, ctx, '/docs/a.txt');            // Stream<Uint8List>
-await for (final p in kubo.pinLs(n, ctx, [], type: 'recursive')) {} // um DTO por item
-final cfg = await kubo.configShow(n, ctx).single;               // Map<String, Object?>
-```
-
-Todo comando devolve um `Stream` (0.15): quem usa decide entre `.single` (um valor),
-`.first`, `toList()` ou `drain()` (só o efeito); o `Stream` só roda quando é ouvido. O item
-é o DTO do retorno, `Uint8List` nos que emitem bytes (`cat`, `get`, `files read`...) e
-`Object?` nos sem tipo declarado. Nos de pubsub o tópico vai cru: o host o codifica como o
-CLI do kubo. A lista completa (comando → função → retorno) e os que ficam de fora, com o
-motivo, estão no `API.md`; o `test/commands_smoke_test.dart` roda todos. Os de config (`config`, `bootstrap`) gravam no arquivo do repo e, como no kubo,
-a maior parte só vale ao reiniciar o nó; os que precisam de rede (`swarm peering ls`)
-dão o erro do kubo num nó offline.
-
-## Gerar e compilar
-
-- `dart run tool/build.dart [linux|windows]`: roda o gerador (`go run ./gen` em
-  `go/`) e compila em `native/` (fora do git) o host (`ipfs_host`/`ipfs_host.exe`, Go
-  sem cgo) e a `ipfs_shm` (`libipfs_shm.so`/`ipfs_shm.dll`, C). Exige Go 1.26.5
-  (`GOTOOLCHAIN=auto` baixa) e um compilador C só para a `ipfs_shm`: no Windows, o
-  mingw-w64 no PATH (ex. `winget install BrechtSanders.WinLibs.POSIX.UCRT`); no
-  linux, gcc e `x86_64-w64-mingw32-gcc` para a DLL.
-- Para expor mais do kubo/boxo: acrescente o símbolo em `go/gen/roots.txt`
-  (`pacote.Função` ou `pacote.Tipo.Método`) e rode o build. O que o gerador
-  não exprime vai à mão em `go/runtime.go` e `go/gen/extra/<library>.extra`.
-- `go run ./gen -check` (em `go/`) falha se os arquivos gerados estão
-  desatualizados.
-- Testes: `dart test` nesta pasta.
-
-### Android (validado no emulador e num aparelho, Android 16 e 17)
-
-`dart run tool/build.dart android` gera em `native/android/{x86_64,arm64-v8a}/` o host
-(`libipfs_host.so`, um executável com nome de lib para o APK levar) e a `libipfs_shm.so`, com o
-NDK (`ANDROID_NDK_HOME`, ou o mais novo em `<Android SDK>/ndk`), alinhadas em 16 KB, com o
-`go-multiaddr` e o `zeroconf` trocados pelo `wlynxg/anet` (no Android 11+ o `net` do Go não
-lista interfaces; sem isso o nó só anuncia 127.0.0.1 e o mDNS não funciona). O host do
-Android vai com cgo, ligado pelo clang do NDK: sem ele o Go fica sem o resolvedor de DNS
-do sistema (procura `/etc/resolv.conf`, que o Android não tem) e o anet sem o nível de API
-do aparelho (medido num aparelho arm64 no 0.15). No
-Android o host padrão (`defaultHostPath()`) é a `libipfs_host.so` na pasta das libs
-nativas do app (o APK precisa extraí-las: `packaging.jniLibs.useLegacyPackaging = true`
-no Gradle; o Android só executa da `nativeLibraryDir`). O app de
-validação em [`example/android_app`](example/android_app) mostra como empacotar (o Gradle
-lê direto de `native/android`), sobe o nó, trata o segundo plano, roda as
-verificações ao abrir (com o log copiável) e tem o teste de integração
-(`flutter test integration_test -d <aparelho>`). Release para aparelho:
-`flutter build apk --release --target-platform android-arm64`. No Android configure
-`DNS.Resolvers` (DNS por HTTPS), como o app faz: o resolvedor do Go não acha o DNS do
-sistema. Para o mDNS, o app segura um `WifiManager.MulticastLock` (ver `MainActivity.kt`).
-Conexões por relay duram até 2 min e não levam pubsub nem bitswap: entre dois aparelhos
-atrás de NAT de operadora, a conexão direta vem pelo IPv6 (medido: vira direta em ~14 s) ou
-quando um deles é alcançável; por IPv4 o NAT da operadora medido é simétrico e o hole
-punching não acontece. `hasIpv6()` (`package:ipfs_ffi/ipfs_ffi.dart`) diz se a rede
-atual entrega IPv6 global. Números e achados
-em [`TODO.md`](TODO.md).
-
-**Segundo plano.** O `ipfs_host` é um processo filho do app (mesmo usuário Linux,
-mesmo contexto SELinux, mesmo cgroup): vale para ele tudo que vale para o app em
-segundo plano. No Android 12+ o *phantom process killer* mata o processo filho que
-gaste CPU com o app em segundo plano, **e o app junto** (medido no emulador: um
-minuto depois do HOME, `excessive cpu ... limit=25`, "Caused by child process").
-Por isso o app adiciona o plugin [`ipfs_ffi_flutter`](flutter) (registra-se sozinho)
-e escolhe em `IpfsService.background`, lido a cada `start`/`restart`:
-- `IpfsBackground.stop` (padrão): ao ir para o segundo plano, o plugin para o
-  serviço; as pendentes falham com `IpfsServiceException(reason: background)` e o
-  `onStop` recebe `IpfsStopReason.background`. Subir de novo (na volta, ou quando
-  quiser) fica com o app: `IpfsService.restart()`.
-- `IpfsBackground.foregroundService`: enquanto o host roda, o plugin mantém um
-  serviço em primeiro plano do Android (tipo `specialUse`, com notificação), e o nó
-  segue online no segundo plano. A notificação no Android 13+ pede a permissão
-  `POST_NOTIFICATIONS`: o app a pede com
-  `IpfsFfiFlutter.requestNotificationPermission()` (o diálogo do sistema; devolve se
-  ficou permitida) antes de subir o serviço. Sem ela o serviço roda, sem aparecer na
-  gaveta. Numa queda do host nesse modo, o serviço do Android continua de pé, para o
-  `onStop` poder chamar `IpfsService.restart()` do segundo plano (o Android 12+ só
-  inicia um serviço em primeiro plano com o app na frente); o `IpfsService.stop()` o
-  encerra.
-
-A notificação é do app (o plugin cuida do serviço, do manifesto e do ciclo de vida):
-
-```dart
-IpfsFfiFlutter.notification = const IpfsNotification(
-    title: 'Meu app', text: 'conectando...', icon: 'ic_stat_ipfs', // res/drawable
-    channelName: 'Nó IPFS', importance: IpfsNotificationImportance.low);
-// com o serviço rodando, também do segundo plano:
-await IpfsFfiFlutter.updateNotification(
-    IpfsFfiFlutter.notification.copyWith(text: 'online: $n peers'));
-```
-
-Para controle total (ações, estilos, layout próprio), o app registra no código
-nativo quem monta a `Notification`, antes de o serviço subir; o canal já vem criado e
-o `config` traz os campos do `IpfsNotification` e o `extras` (strings livres do Dart):
-
-```kotlin
-IpfsForegroundService.setNotificationFactory { context, channelId, config ->
-    Notification.Builder(context, channelId)
-        .setContentTitle(config.getString("title"))
-        .setSmallIcon(R.drawable.ic_stat_ipfs)
-        .build()
-}
-```
-
-Sem Flutter, o app pode chamar `IpfsService.appInBackground()` ele mesmo.
-
-### Linux pelo WSL (validado no Ubuntu 26.04)
-
-Instale as ferramentas do linux no Ubuntu do WSL (o `dart` do Windows vaza pelo
-PATH do WSL; use o do linux):
-
-```bash
-sudo apt-get install -y build-essential curl gpg
-# Dart: repositório apt oficial (storage.googleapis.com/download.dartlang.org, "stable main")
-sudo apt-get install -y dart
-# Go 1.26.5 no diretório do usuário
-mkdir -p ~/go-sdk && curl -fsSL https://go.dev/dl/go1.26.5.linux-amd64.tar.gz | tar -xz -C ~/go-sdk
-export PATH="$HOME/go-sdk/go/bin:/usr/lib/dart/bin:/usr/sbin:/usr/bin:/sbin:/bin"
-```
-
-Depois, na mesma pasta do repo (`/mnt/<drive>/...`): `dart run tool/build.dart linux`
-e `dart test`. O gerador produz exatamente os mesmos arquivos nos dois sistemas. No
-linux o QUIC pede um buffer UDP maior (aviso do quic-go, não erro):
-`sudo sysctl -w net.core.rmem_max=7500000 net.core.wmem_max=7500000`.
-
-Relatório de crash: um panic numa chamada ou numa goroutine do próprio ipfs_ffi vira
-`IpfsException`; numa goroutine interna do kubo derruba o `ipfs_host` (não o app):
-`IpfsService.start(crashLog: caminho)` faz o Go gravar o relatório nesse arquivo, e
-`IpfsService.exitCode` completa quando o host sai. O serviço **não** volta sozinho:
-as pendentes falham com `IpfsServiceException` (`reason: crash`) e o `onStop`
-passado ao `start` (padrão `null`: nada acontece) recebe um `IpfsStop` com o motivo
-(`IpfsStopReason.crash`), o código de saída, o
-relatório do Go (o que o host acrescentou ao `crashLog` desde que subiu, ou o stderr
-dele), o caminho do `crashLog`, o pid e quanto tempo ficou de pé. Quem usa o pacote
-decide: limpar o arquivo (o host só acrescenta), chamar `IpfsService.restart()` (os
-mesmos parâmetros do `start`), quando, e refazer o que usava; os handles do serviço
-anterior deixam de valer e os plugins do kubo são injetados de novo (é outro
-processo).
-
-Toda chamada vai em binário pelo canal (`WIRE.md`): síncronas bloqueiam a isolate
-até a resposta, as com `context` são `Future`, canais são `Stream`;
-`dart run tool/bench.dart` mede.
-
-Pendências e roteiro em [`TODO.md`](TODO.md): o que falta do Android (dois aparelhos conectando direto, uso longo).
-
-Limites: os plugins do kubo são injetados uma vez por processo do serviço; um panic
-em goroutine interna do kubo (fora da chamada) derruba o serviço (veja o relatório de
-crash acima).
+## How Go becomes Dart
+
+- `context.Context` is the first parameter, as in Go (`background`, `withCancel`,
+  `withTimeout`, `withDeadline`; call `cancel()`).
+- A function with a `context` is asynchronous (`Future`); a channel is a `Stream`;
+  `(T, error)` is `T`, and the error is thrown as `IpfsException`.
+- `if err != nil` disappears: Go errors are exceptions. Known Go sentinels are subclasses:
+  `IpfsEof`, `IpfsUnexpectedEof`, `IpfsCanceled`, `IpfsDeadlineExceeded`, `IpfsNotFound`.
+- Functional options are a list (`[options.unixfs.cidVersion(1), options.unixfs.pin(true, '')]`);
+  option structs take named parameters (`mfs.Flags(write: true)`).
+- Struct fields are getters and setters (`node.filesRoot`); constants are `const`;
+  `any` is `Object?`.
+- A type assertion is a cast that returns null when it does not match
+  (`mfs.lookup(root, '/a').asFile()`).
+- `Read`/`ReadAt`/`CtxReadFull` take a size and return the bytes read.
+- A Go function that takes a function takes a Dart function (a callback; returning `false`
+  or throwing stops Go).
+- CID, path, peer ID and multiaddr are values (their text form); objects with state stay in
+  Go, behind a handle.
+
+The kubo RPC commands (`ipfs files ...`, `ipfs pin ls`, `ipfs cat`...) are also available,
+running against the app's node: one function per command in
+`package:ipfs_ffi/kubo/core/commands.dart`, each returning a `Stream`
+(`await kubo.filesStat(n, ctx, '/a').single`).
+
+## Examples
+
+| Path | What it covers |
+|---|---|
+| `example/01_init_repo.dart` … `example/08_chat.dart` | in the order kubo builds a node: init, add/get, pins and GC, online node, two nodes, IPNS and Dag, CAR, pubsub chat |
+| `example/09_comandos_e_streams.dart` | the RPC commands and Dart `Stream`s step by step |
+| `example/10_mfs_baixo_nivel.dart`, `example/12_car_baixo_nivel.dart` | boxo MFS and go-car at the low level, with the equivalent Go |
+| `example/11_contexto_e_erros.dart` | deadlines, cancellation, errors, service crash and restart |
+| `example/13_recorte_e_callbacks.dart` | CAR slices from the node, selectors, callbacks |
+| [`example/car/`](example/car) | everyday CAR operations, the right way and the mistakes ([`DOCS.md`](DOCS.md)) |
+| [`example/memory/`](example/memory) | how handles work and how to release them |
+| [`example/android_app/`](example/android_app) | the Flutter validation app (packaging, background, integration tests) |
+
+## Points of attention
+
+### Storage and GC
+
+- **The GC never runs on its own.** `Datastore.StorageMax`, `StorageGCWatermark` and
+  `GCPeriod` only act through `PeriodicGC`, which kubo starts only in the daemon. Start it
+  yourself with a context you cancel on close:
+
+  ```dart
+  final (gcCtx, stopGc) = context.withCancel(ctx);
+  unawaited(corerepo.periodicGc(gcCtx, node));
+  ```
+- **The GC removes everything that is not pinned**, not the oldest blocks. The CoreAPI does
+  not pin by default: pass `options.unixfs.pin(true, name)` on `add` (the CLI does that).
+- **`cat`/`get` keep every block they fetch** in the repo (the block service caches them).
+  To read without storing, use a block service over the null datastore and the node's
+  exchange:
+
+  ```dart
+  final dag = merkledag.newDagService(blockservice.new$(
+      blockstore.Blockstore(datastore.NullDatastore()), node.exchange));
+  final file = files.toFile(await unixfile.newUnixfsFile(ctx, dag, await dag.get(ctx, cid)));
+  await for (final chunk in go.readerStream(file)) sink.add(chunk);
+  ```
+
+  Nothing is kept, so the node does not serve those blocks, and blocks already in the repo
+  are fetched again.
+- **A pin lock holds the GC off.** `node.gcLocker.pinLock(ctx)` keeps the GC waiting until
+  `unlock`, for put → pin sequences that must not race it. `node.blockstore.deleteBlock`
+  removes single blocks without a full GC.
+
+### Config
+
+- **Most config only applies when the node starts.** Change it before `newNode`
+  (`repo.setConfigKey`); the config passed to `init` only matters for a new repo. Peering
+  (`node.peering.addPeer`) applies at once but is not saved.
+- **The resource manager's limits are fixed at run time**: set `Swarm.ResourceMgr` and
+  restart. `node.resourceManager.viewSystem` only reads the usage.
+- **Bitswap fetches over libp2p and over HTTP** (trustless gateways) by default. Over HTTP the
+  server sees the CIDs, the device IP and the User-Agent; limit it with
+  `HTTPRetrieval.Allowlist`/`Denylist` or turn it off with `HTTPRetrieval.Enabled`. With both
+  `Bitswap.Libp2pEnabled` and `HTTPRetrieval.Enabled` off, the node does not start.
+  `Bitswap.ServerEnabled = false` downloads without serving anyone.
+
+### The service and handles
+
+- **The service does not come back on its own.** After a crash (or a stop in the Android
+  background) pending calls fail with `IpfsServiceException` and `onStop` gets the reason
+  and Go's report. `IpfsService.restart()` starts a new process: inject the plugins again
+  and rebuild node and CoreAPI; handles from the old service are no longer valid.
+- **A panic inside a kubo goroutine** (outside a call) stops the host. Pass
+  `IpfsService.start(crashLog: path)` to get Go's report; the host only appends to it.
+- **Release handles in loops.** The Dart `Finalizer` frees Go objects late, while each
+  handle may pin megabytes in the host. Use `.release()`, `.use()` or `withGoScope()`
+  ([`example/memory/`](example/memory)). The node and the repo still need `close()`.
+- **Synchronous calls block the isolate** until the host answers (`go.copy` of a large file,
+  for example); calls with a `context` are `Future`s.
+- **A command `Stream` only runs when listened to**: `.single`, `.first`, `toList()` or
+  `drain()`. Cancelling the subscription of `go.readerStream` or of a command does not stop
+  Go; cancel the context instead.
+- **Objects a callback receives are valid only during the invocation** (that is why their
+  default `batchSize` is 1). Calling into Go from a callback is allowed; if it waits on a lock
+  the Go function holds, the call throws `IpfsDeadlockException` instead of hanging.
+- **`uint64` values travel in an `int`**: the same 64 bits, so values above `2^63` read as
+  negative.
+
+### Network
+
+- **`routing().provide` only queues the announcement**: a lookup right after may need a retry.
+- **`Unprotect` returns whether other tags still protect the peer**, not whether it was
+  protected; peering protects its own peers too.
+- **On linux, QUIC asks for bigger UDP buffers** (a warning, not an error):
+  `sudo sysctl -w net.core.rmem_max=7500000 net.core.wmem_max=7500000`.
+
+### CAR files
+
+- go-car's `has` matches multihashes unless `useWholeCids(true)`.
+- Wrapping a CARv2 again is accepted and produces a broken file.
+- UnixFS selectors need the dag-pb prototype chooser
+  (`car.withTraversalPrototypeChooser(ipld.addSupportToChooser(boxo.defaultPrototypeChooser))`),
+  or the traversal stops at the directory.
+- go-car's `AttachIndex` always fails (upstream bug).
+
+### Android
+
+- **Background:** the host is a child process of the app; on Android 12+ the phantom
+  process killer kills it, and the app with it, if it uses CPU in the background. Choose
+  `IpfsService.background`: `IpfsBackground.stop` (default; restart on return) or
+  `IpfsBackground.foregroundService` (a foreground service with a notification; ask for
+  `POST_NOTIFICATIONS` with `IpfsFfiFlutter.requestNotificationPermission()`). The
+  [`ipfs_ffi_flutter`](flutter) plugin registers itself.
+- **DNS:** Go cannot find the system resolver on Android; configure `DNS.Resolvers`
+  (DNS over HTTPS).
+- **Packaging:** the host must be extracted from the APK
+  (`packaging.jniLibs.useLegacyPackaging = true`); mDNS needs a `WifiManager.MulticastLock`.
+- **NAT:** relay connections last up to 2 minutes and carry neither pubsub nor bitswap.
+  Between two devices behind carrier NAT the direct connection comes over IPv6 or when one
+  side is reachable; `hasIpv6()` tells whether the network delivers global IPv6.
+
+## Build
+
+- `dart run tool/build.dart [windows|linux|android]`: runs the generator and builds the host
+  and the `ipfs_shm` into `native/` (not in git). Needs Go (`GOTOOLCHAIN=auto` downloads the
+  pinned one) and a C compiler for the `ipfs_shm`: mingw-w64 on Windows, gcc on linux, the NDK
+  for Android.
+- **To expose more of Go:** add the symbol to `go/gen/roots.txt` (`package.Function` or
+  `package.Type.Method`) and build. A new Go module also needs a line in
+  `go/gen/namespaces.go`.
+- `go run ./gen -check` (in `go/`) fails when the generated files are out of date.
+- **Upstream patches:** the build patches two kubo/boxo bugs and stops if the patched code
+  moves in a new version; `go/upstream_test.go` fails once upstream fixes them, and then the
+  patch and its line here go:
+  - [ipfs/boxo#1221](https://github.com/ipfs/boxo/issues/1221): appending to an MFS file
+    whose node keeps its data inline (a small `add`) left the right size, but reading
+    returned only the appended part;
+  - [ipfs/kubo#11477](https://github.com/ipfs/kubo/issues/11477): with `Routing.Type` none,
+    `close` left the `provider-keystore` datastore open, and reopening the repo in the same
+    process hit the lock.
+- Tests: `dart test` (needs the build). Android: `flutter test integration_test -d <device>` in
+  `example/android_app/`. Linux through WSL works with the linux `dart` and Go installed inside
+  WSL (the Windows `dart` leaks into the WSL `PATH`).

@@ -1,7 +1,7 @@
 package main
 
 // Bugs do kubo/boxo que o ipfs_ffi corrige por patch no build (tool/build.dart,
-// "patches"; README, "Correções no upstream"). Estes testes rodam contra os
+// "patches"; README, "Build" › "Upstream patches"). Estes testes rodam contra os
 // módulos sem patch (o go.mod) e afirmam o bug como ele é: quando uma versão
 // nova o corrigir, o teste falha, e o patch e a nota do README saem.
 
