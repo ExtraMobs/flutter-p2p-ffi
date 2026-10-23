@@ -195,6 +195,12 @@ are in the libraries of their Go packages
 - **A pubsub validator runs per message and Go waits for it**: keep it fast, and do not let
   a synchronous call wait on a publish while it runs. Validation is parallel, so messages
   may arrive out of order; an exception rejects the message.
+- **Do not wait synchronously on what a retained callback holds.** Pubsub's methods that
+  go through its event loop are `Future`s for that reason (the loop runs the subscription
+  filter and waits for Dart).
+- **A function given to an option runs per message or per peer** (`withMessageFilter`,
+  `withMessageIdFn`, `withPeerFilter`, the DHT's `queryFilter`...): Go waits for Dart each
+  time (tens of µs on Windows, ms on an Android emulator).
 - **The event bus channel must be drained** (`sub.out()` listened to, or `sub.close()`):
   libp2p's publishers block on a full subscription.
 - **On linux, QUIC asks for bigger UDP buffers** (a warning, not an error):

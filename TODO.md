@@ -1,5 +1,29 @@
 # Pendências do ipfs_ffi
 
+## Done: structs and functions in options (0.24.0)
+
+The owner asked for the two general gaps of the option constructors.
+
+- `okOptCtor` takes a DTO, as a function's parameter does; `ctorParams` makes a function
+  parameter a retained callback (an option keeps what it gets). An option-shaped function
+  type (`namesys.ResolveOption`) stays an option: the first try turned it into a callback.
+- Six opaque handles of Go function types became Dart functions (listed in `CHANGELOG.md`).
+- **Found repeating the tests: a deadlock with the subscription filter.** Pubsub runs the
+  filter inside its event loop and waits for Dart; `sub.cancel()` (synchronous then) waited
+  on the same loop, so the isolate could not run the filter: 5 min, then the host was
+  stopped. The deadlock watcher only sees mutexes, not channels. The pubsub methods that go
+  through the loop are `forceAsync` now (the isolate keeps running while they wait). The
+  same risk stays for a synchronous call into anything a Dart callback holds by a channel;
+  by a mutex, the watcher answers `GolangDeadlockException` only for handles in use by an
+  on-demand callback, not by a retained one.
+- The validator test waited for the exception only after two accepted messages; the
+  exception may come later (validation is parallel): it now waits for it.
+- Still out: options whose function returns something composite (`dht.AddressFilter`,
+  `BootstrapPeersFunc`, `WithProtocolMatchFn`, `quicreuse.ConnContext`,
+  `OverrideSourceIPSelector`, `WithCustomMessageSender`) and the ones in 0.23's list.
+- Checked: dart test (12 libp2p tests: a struct option, an invalid one refused, a relay
+  service with its limits, a subscription filter), go test, gen -check.
+
 ## Done: types Go reflects on (0.23.0)
 
 The owner asked for the three stages: pubsub validators, the event bus, transport and

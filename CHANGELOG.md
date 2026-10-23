@@ -3,6 +3,30 @@
 Newest first. Measurements, findings and the reasoning behind each change are in
 [`TODO.md`](TODO.md); the full API, with what was left out and why, in [`API.md`](API.md).
 
+## 0.24.0
+
+Options take structs and keep functions.
+
+- **Structs in options:** `pubsub.withGossipSubParams`, `withPeerGater`, `withPeerScore`,
+  `relay.withLimit`, `relay.withResources`, with their defaults
+  (`pubsub.defaultGossipSubParams`, `relay.defaultResources`, `relay.defaultLimit`).
+  `PeerScoreParams` has function fields (`AppSpecificScore`) that do not cross: they arrive
+  nil, and pubsub refuses it.
+- **Functions in options** (retained callbacks): `pubsub.withMessageFilter`,
+  `withGossipSubProtocols`, `withAppSpecificRpcInspector`, `dht.onRequestHook`,
+  `quicreuse.verifySourceAddress`.
+- **Breaking: the pubsub methods that go through its event loop are asynchronous**
+  (`Future`): `PubSub.join`, `getTopics`, `listPeers`, `blacklistPeer`, `addDirectPeer`,
+  `removeDirectPeer`, `registerTopicValidator`, `unregisterTopicValidator`,
+  `Topic.subscribe`, `listPeers`, `eventHandler`, `close`, `Subscription.cancel`,
+  `TopicEventHandler.cancel`. The loop runs a subscription filter or a message ID
+  function and waits for Dart; a synchronous call waiting on the same loop deadlocked the
+  isolate (found repeating the filter test).
+- **Breaking:** six libp2p options that took an opaque handle of a Go function type (which
+  only Go could create) take a Dart function: `pubsub.withMessageIdFn`,
+  `withTopicMessageIdFn`, `withPeerFilter`, `dht.queryFilter`, `routingTableFilter`,
+  `relay.withReservationAddressFilter`.
+
 ## 0.23.0
 
 Where Go reflects on an `any`, the generator fixes the type.
