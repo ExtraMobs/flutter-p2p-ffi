@@ -9,11 +9,15 @@ import 'package:p2p_ffi/go/context.dart' as context;
 import 'package:p2p_ffi/go/io_stream.dart' as io;
 import 'package:p2p_ffi/go/libp2p.dart' as libp2p;
 import 'package:p2p_ffi/go/libp2p/core/crypto.dart' as crypto;
+import 'package:p2p_ffi/go/libp2p/core/event.dart' as event;
 import 'package:p2p_ffi/go/libp2p/core/host.dart' as host;
 import 'package:p2p_ffi/go/libp2p/core/network.dart' as network;
 import 'package:p2p_ffi/go/libp2p/core/peer.dart' as peer;
 import 'package:p2p_ffi/go/libp2p/p2p/discovery/routing.dart' as routing;
+import 'package:p2p_ffi/go/libp2p/p2p/muxer/yamux.dart' as yamux;
 import 'package:p2p_ffi/go/libp2p/p2p/protocol/ping.dart' as ping;
+import 'package:p2p_ffi/go/libp2p/p2p/security/noise.dart' as noise;
+import 'package:p2p_ffi/go/libp2p/p2p/transport/tcp.dart' as tcp;
 import 'package:p2p_ffi/go/libp2p_kad_dht.dart' as dht;
 import 'package:p2p_ffi/go/libp2p_pubsub.dart' as pubsub;
 import 'package:p2p_ffi/p2p_ffi.dart';
@@ -157,5 +161,81 @@ void main() {
         .findPeers(ctx, 'p2p-ffi-room')
         .toList();
     expect(peers.map((p) => p.id), contains(a.id()));
+  });
+
+  test('a topic validator: Go asks Dart, and an exception rejects', () async {
+    final psA = await pubsub.newGossipSub(ctx, a);
+    final psB = await pubsub.newGossipSub(ctx, b);
+    final thrown = <Object>[];
+    runZonedGuarded(() {
+      psB.registerTopicValidator('checked', (vctx, from, msg) {
+        final text = utf8.decode(msg.message!.getData());
+        if (text == 'boom') throw StateError('a bug in the validator');
+        return text.startsWith('ok')
+            ? pubsub.validationAccept
+            : pubsub.validationReject;
+      }, [pubsub.withValidatorTimeout(const Duration(seconds: 5))]);
+    }, (e, _) => thrown.add(e));
+    final topicA = psA.join('checked');
+    final sub = psB.join('checked').subscribe();
+    while (!topicA.listPeers().contains(b.id())) {
+      await Future<void>.delayed(const Duration(milliseconds: 50));
+    }
+    for (final text in ['ok 1', 'bad', 'boom', 'ok 2']) {
+      await topicA.publish(ctx, Uint8List.fromList(utf8.encode(text)));
+    }
+    final got = <String>[];
+    for (var i = 0; i < 2; i++) {
+      final (nextCtx, cancel) =
+          context.withTimeout(ctx, const Duration(seconds: 10));
+      got.add(utf8.decode((await sub.next(nextCtx)).message!.getData()));
+      cancel();
+    }
+    // validation runs in parallel in pubsub: the order may change
+    expect(got, unorderedEquals(['ok 1', 'ok 2']));
+    expect(thrown.single, isA<StateError>());
+    sub.cancel();
+    psB.unregisterTopicValidator('checked');
+  });
+
+  test('the event bus: events arrive as their classes', () async {
+    final c = await newHost();
+    addTearDown(c.close);
+    final sub = c.eventBus().subscribe([
+      event.EvtPeerConnectednessChanged.$type,
+      event.EvtLocalReachabilityChanged.$type,
+    ]);
+    final connected = sub.out().firstWhere((e) =>
+        e is event.EvtPeerConnectednessChanged &&
+        e.connectedness == network.connected);
+    await c.connect(ctx, host.infoFromHost(a));
+    final e = await connected.timeout(const Duration(seconds: 10))
+        as event.EvtPeerConnectednessChanged;
+    expect(e.peer, a.id());
+    sub.close();
+  });
+
+  test("a stack of one's own: TCP, Noise and yamux, from Go functions",
+      () async {
+    final opts = [
+      libp2p.transport(tcp.newTcpTransportFunc),
+      libp2p.security(noise.id, noise.newFunc),
+      libp2p.muxer(yamux.id, yamux.defaultTransport),
+      libp2p.listenAddrStrings(['/ip4/127.0.0.1/tcp/0']),
+    ];
+    final x = await libp2p.new$(opts), y = await libp2p.new$(opts);
+    addTearDown(() async {
+      await x.close();
+      await y.close();
+    });
+    await x.connect(ctx, host.infoFromHost(y));
+    expect(x.network().connsToPeer(y.id()), isNotEmpty);
+    // without the QUIC transport the host refuses a QUIC address
+    await expectLater(
+        libp2p.new$([
+          ...opts.take(3),
+          libp2p.listenAddrStrings(['/ip4/127.0.0.1/udp/0/quic-v1']),
+        ]),
+        throwsA(isA<GolangException>()));
   });
 }

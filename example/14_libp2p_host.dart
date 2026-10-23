@@ -1,7 +1,8 @@
 // Step 14: a libp2p host of one's own, without kubo. Two hosts in the same
-// p2p_host: an identity that survives a restart, a connection, ping, a
-// protocol of one's own served by a Dart handler, connection events, and
-// discovery on the local network (mDNS).
+// p2p_host: an identity that survives a restart, a transport stack of one's
+// own, a connection, ping, a protocol of one's own served by a Dart handler,
+// connection events (a Dart Notifiee and the event bus), and discovery on the
+// local network (mDNS).
 //
 //   dart run example/14_libp2p_host.dart
 //
@@ -14,10 +15,14 @@ import 'package:p2p_ffi/go/context.dart' as context;
 import 'package:p2p_ffi/go/io_stream.dart' as io;
 import 'package:p2p_ffi/go/libp2p.dart' as libp2p;
 import 'package:p2p_ffi/go/libp2p/core/crypto.dart' as crypto;
+import 'package:p2p_ffi/go/libp2p/core/event.dart' as event;
 import 'package:p2p_ffi/go/libp2p/core/host.dart' as host;
 import 'package:p2p_ffi/go/libp2p/core/network.dart' as network;
 import 'package:p2p_ffi/go/libp2p/p2p/discovery/mdns.dart' as mdns;
+import 'package:p2p_ffi/go/libp2p/p2p/muxer/yamux.dart' as yamux;
 import 'package:p2p_ffi/go/libp2p/p2p/protocol/ping.dart' as ping;
+import 'package:p2p_ffi/go/libp2p/p2p/security/noise.dart' as noise;
+import 'package:p2p_ffi/go/libp2p/p2p/transport/tcp.dart' as tcp;
 import 'package:p2p_ffi/p2p_ffi.dart';
 
 const greet = '/example/greet/1.0.0';
@@ -40,8 +45,14 @@ Future<void> main() async {
       libp2p.identity(crypto.unmarshalPrivateKey(saved)),
       libp2p.listenAddrStrings(['/ip4/127.0.0.1/tcp/0']),
     ]);
+    //    b: only TCP, Noise and yamux. The constructors are Go functions,
+    //    passed as tokens (Go gets the function itself).
+    //    libp2p.New(libp2p.Transport(tcp.NewTCPTransport), libp2p.Security(noise.ID, noise.New), ...)
     final b = await libp2p.new$([
-      libp2p.listenAddrStrings(['/ip4/127.0.0.1/tcp/0'])
+      libp2p.transport(tcp.newTcpTransportFunc),
+      libp2p.security(noise.id, noise.newFunc),
+      libp2p.muxer(yamux.id, yamux.defaultTransport),
+      libp2p.listenAddrStrings(['/ip4/127.0.0.1/tcp/0']),
     ]);
     print('a: ${a.id()} ${a.addrs()}');
     print('b: ${b.id()} ${b.addrs()}');
@@ -53,6 +64,14 @@ Future<void> main() async {
       disconnected: (_, c) => print('a disconnected from ${c.remotePeer()}'),
     );
     a.network().notify(events);
+    //    The same from b's event bus: the event type goes by example.
+    //    sub, _ := b.EventBus().Subscribe(new(event.EvtPeerConnectednessChanged))
+    final bus = b.eventBus().subscribe(event.EvtPeerConnectednessChanged.$type);
+    final busDone = bus.out().forEach((e) {
+      if (e is event.EvtPeerConnectednessChanged) {
+        print('b event bus: ${e.peer} connectedness ${e.connectedness}');
+      }
+    });
 
     // 4. Connect and ping.
     //    a.Connect(ctx, *host.InfoFromHost(b)); <-ping.Ping(ctx, a, b.ID())
@@ -98,6 +117,8 @@ Future<void> main() async {
     announce.close();
 
     a.network().stopNotify(events);
+    bus.close();
+    await busDone;
     await a.close();
     await b.close();
   } finally {

@@ -1,7 +1,8 @@
 // Step 15: gossipsub and a DHT on libp2p hosts of one's own, without kubo.
 // Three hosts on loopback: a private Kademlia DHT (its own protocol prefix,
 // so it never mixes with the IPFS one), rendezvous by name over it, and a chat
-// topic. Pubsub is pulled (Subscription.next), so it needs no callback.
+// topic with a validator. Pubsub is pulled (Subscription.next); the validator
+// is a Dart function Go asks for each message.
 //
 //   dart run example/15_libp2p_pubsub_dht.dart
 //
@@ -60,14 +61,23 @@ Future<void> main() async {
 
     // 3. A chat topic: everyone joins, c listens, a and b talk.
     //    ps, _ := pubsub.NewGossipSub(ctx, h); t, _ := ps.Join("chat")
-    final topics = [
-      for (final h in hosts) (await pubsub.newGossipSub(ctx, h)).join('chat'),
-    ];
+    final pss = [for (final h in hosts) await pubsub.newGossipSub(ctx, h)];
+    final psC = pss[2];
+    final topics = [for (final ps in pss) ps.join('chat')];
+    //    c accepts only short messages; an exception would reject too.
+    //    ps.RegisterTopicValidator("chat", func(ctx, from, m) ValidationResult {...})
+    psC.registerTopicValidator(
+        'chat',
+        (_, from, m) => m.message!.getData().length <= 64
+            ? pubsub.validationAccept
+            : pubsub.validationReject);
     final sub = topics[2].subscribe();
     while (topics[0].listPeers().isEmpty || topics[1].listPeers().isEmpty) {
       await Future<void>.delayed(const Duration(milliseconds: 50));
     }
     await topics[0].publish(ctx, Uint8List.fromList(utf8.encode('hi from a')));
+    await topics[1].publish(
+        ctx, Uint8List.fromList(utf8.encode('${'x' * 100} (c rejects it)')));
     await topics[1].publish(ctx, Uint8List.fromList(utf8.encode('hi from b')));
     for (var i = 0; i < 2; i++) {
       final (nextCtx, cancel) =
