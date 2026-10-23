@@ -1,5 +1,27 @@
 # Pendências do ipfs_ffi
 
+## Done: the pending checks on a real phone (2026-10-23)
+
+Android 16 (HyperOS), arm64, by USB. HyperOS asks to confirm every install by USB: an
+unanswered prompt fails `flutter test` with `INSTALL_FAILED_USER_RESTRICTED` (the first
+`device_session` run failed every step for that).
+
+- **Integration 4/4** after the 0.21 renames (`libp2p_host.so`, `p2p_shm`), the Kotlin plugin
+  and the foreground-service fix: local checks, Go panic → restart, both background modes.
+  Bridge: sync Noop 1.5 µs, async 788 µs, `block.stat` 1.5 ms.
+- **libp2p without kubo** (`integration_test/libp2p_test.dart`, new): TCP + Noise + yamux
+  from function tokens, the event bus, a stream handler. A message through a Dart validator
+  and a subscription filter, one at a time: 6.6–6.9 ms. A burst of 200: the validator ran 200
+  times but 39 arrived; the subscription's queue (32 by default) dropped the rest, since
+  Dart pulls with `next()`. With `withBufferSize(256)`, 200 of 200 (README).
+- **On-demand callback batch** (pending since 0.17, profile): 16-byte items rise up to
+  2048 per batch (861k/s; 1024: 705k/s) and 4096 gets slower to the first item (6 ms);
+  1 KiB items level off at 128–256 (~86 MB/s), 64 KiB at 2–4 (~130 MB/s). The default
+  (1024 items, up to 128 KiB) holds.
+- **Network:** interfaces, peers, the node's addresses, DNSLink + a block (2.7 s) passed;
+  reachability failed because the app went to the background during its 2 min (the default
+  mode stops the service): not run to the end.
+
 ## Done: structs and functions in options (0.24.0)
 
 The owner asked for the two general gaps of the option constructors.

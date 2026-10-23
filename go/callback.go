@@ -23,8 +23,10 @@ const (
 	// defaultCallbackBatch: o lote quando o Dart manda 0 (batchSize omitido).
 	// Medido (tool/bench_callback.dart, TODO.md, 0.17.0): no Windows
 	// e no linux a vazão de itens pequenos sobe até 1024–2048 por lote; no
-	// emulador Android segue subindo (cada ida e volta custa ms lá).
-	// ponytail: falta confirmar num aparelho real.
+	// emulador Android segue subindo (cada ida e volta custa ms lá). On a real
+	// arm64 phone (profile, 2026-10-23) small items rise up to 2048 (1024 is
+	// within 20%), and 1 KiB and 64 KiB items level off at 128–256 KiB per
+	// batch: the default holds.
 	defaultCallbackBatch = 1024
 
 	// maxCallbackBytes: o lote fecha neste tamanho mesmo sem completar os

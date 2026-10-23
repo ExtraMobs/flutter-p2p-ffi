@@ -198,6 +198,9 @@ are in the libraries of their Go packages
 - **Do not wait synchronously on what a retained callback holds.** Pubsub's methods that
   go through its event loop are `Future`s for that reason (the loop runs the subscription
   filter and waits for Dart).
+- **A subscription keeps 32 messages by default** (`pubsub.withBufferSize`): Dart pulls them
+  one at a time with `next()`, so a burst beyond that is dropped. On a phone, 39 of a burst
+  of 200 arrived with the default and 200 of 200 with `withBufferSize(256)`.
 - **A function given to an option runs per message or per peer** (`withMessageFilter`,
   `withMessageIdFn`, `withPeerFilter`, the DHT's `queryFilter`...): Go waits for Dart each
   time (tens of µs on Windows, ms on an Android emulator).
