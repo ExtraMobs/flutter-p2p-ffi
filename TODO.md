@@ -18,9 +18,11 @@ unanswered prompt fails `flutter test` with `INSTALL_FAILED_USER_RESTRICTED` (th
   2048 per batch (861k/s; 1024: 705k/s) and 4096 gets slower to the first item (6 ms);
   1 KiB items level off at 128–256 (~86 MB/s), 64 KiB at 2–4 (~130 MB/s). The default
   (1024 items, up to 128 KiB) holds.
-- **Network:** interfaces, peers, the node's addresses, DNSLink + a block (2.7 s) passed;
-  reachability failed because the app went to the background during its 2 min (the default
-  mode stops the service): not run to the end.
+- **Network 5/5** (mobile data behind the carrier's CGNAT, the screen kept on with
+  `svc power stayon usb`: the first run lost reachability when the app went to the
+  background, which stops the service by default): 19 peers right away, DNSLink resolved in
+  211 ms, after 2 min online 69 peers (50 QUIC, 17 TCP, 2 WebRTC), 0 inbound, 9 relay
+  addresses announced.
 
 ## Done: structs and functions in options (0.24.0)
 
