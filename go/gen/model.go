@@ -85,6 +85,10 @@ type tinfo struct {
 	fargs  []*tinfo  // kFunc: os argumentos do callback
 	fnames []string  // kFunc: os nomes deles ("" se o Go não nomeia)
 	fret   int       // kFunc: fretNone, fretBool ou fretErr
+	dur    bool      // kBasic time.Duration: Duration in Dart (nanoseconds on the wire)
+	// kFunc: Go keeps the function past the call (retainedFuncs, a Dart
+	// implementation of an interface): WIRE.md, "Retained callback"
+	retained bool
 }
 
 type field struct {
@@ -101,17 +105,27 @@ type getter struct {
 
 // optCtor: construtor de opção, ex. path [Unixfs Pin] → options.Unixfs.Pin(...).
 type optCtor struct {
-	path   []string
-	params []*tinfo
-	pnames []string
-	hasErr bool
-	omit   string // omitCtors: o motivo
+	pkg      *types.Package // the package of the constructor (libp2p's options build config.Option)
+	path     []string
+	params   []*tinfo
+	pnames   []string
+	hasErr   bool
+	variadic bool // the last parameter is variadic (libp2p.EnableHolePunching(opts ...holepunch.Option))
+	isVar    bool // a package variable of the option type (libp2p.NoListenAddrs): no call
+	varSig   *types.Signature
+	omit     string // omitCtors: o motivo
 }
 
 // omitCtors: construtores de opção que ficam de fora de propósito (o
 // parâmetro é de um módulo que não vale um namespace), com o motivo (API.md).
 var omitCtors = map[string]string{
-	"github.com/ipfs/boxo/gateway.WithPrometheusRegistry": "Prometheus metrics (no namespace; the gateway uses the default registry)",
+	"github.com/ipfs/boxo/gateway.WithPrometheusRegistry":     "Prometheus metrics (no namespace; the gateway uses the default registry)",
+	"github.com/libp2p/go-libp2p.PrometheusRegisterer":        "Prometheus metrics (no namespace; libp2p uses the default registerer)",
+	"github.com/libp2p/go-libp2p.DefaultPrometheusRegisterer": "Prometheus metrics (no namespace; libp2p uses the default registerer)",
+	"github.com/libp2p/go-libp2p.WithFxOption":                "the fx dependency injection inside libp2p (Go values only)",
+	"github.com/libp2p/go-libp2p.Transport":                   "takes a Go constructor function (DefaultTransports holds the usual ones)",
+	"github.com/libp2p/go-libp2p.Security":                    "takes a Go constructor function (DefaultSecurity holds the usual ones)",
+	"github.com/libp2p/go-libp2p.QUICReuse":                   "takes a Go constructor function",
 }
 
 type model struct {
@@ -120,10 +134,27 @@ type model struct {
 	types    map[string]*tinfo
 	optPkgs  map[*types.Package]map[string][]optCtor // tipo da opção → construtores
 	omitted  []string                                // linhas do API.md
+	// optAlias: the packages that declare an alias of an option type
+	// (libp2p.Option = config.Option): its constructors live there.
+	optAlias map[string][]*types.Package
+	// via: an internal package reached through an exported alias of the same
+	// name (dht.Option = internal/config.Option): its types are spelled, and
+	// their Dart class lives, in the alias's package.
+	via map[string]*types.Package
 }
 
 func newModel() *model {
-	return &model{types: map[string]*tinfo{}, optPkgs: map[*types.Package]map[string][]optCtor{}, newTypes: map[string]bool{}}
+	return &model{types: map[string]*tinfo{}, optPkgs: map[*types.Package]map[string][]optCtor{}, newTypes: map[string]bool{},
+		optAlias: map[string][]*types.Package{}, via: map[string]*types.Package{}}
+}
+
+// home: the package where [p]'s types are seen from outside (its own, or the
+// exported one that aliases an internal package's type).
+func (m *model) home(p *types.Package) *types.Package {
+	if v, ok := m.via[p.Path()]; ok {
+		return v
+	}
+	return p
 }
 
 func objKey(o types.Object) string {
@@ -242,6 +273,14 @@ func (m *model) fill(ti *tinfo) {
 			ti.t = u
 			m.fill(ti)
 		} else {
+			if n, ok := u.(*types.Named); ok && t.Obj().Exported() && t.Obj().Pkg() != nil {
+				if _, isSig := n.Underlying().(*types.Signature); isSig {
+					m.optAlias[objKey(n.Obj())] = append(m.optAlias[objKey(n.Obj())], t.Obj().Pkg())
+				}
+				if tp := n.Obj().Pkg(); tp != nil && isInternal(tp.Path()) && n.Obj().Name() == t.Obj().Name() {
+					m.via[tp.Path()] = t.Obj().Pkg()
+				}
+			}
 			*ti = *m.classify(u)
 		}
 	default:
@@ -271,7 +310,7 @@ func (m *model) fillNamed(ti *tinfo, n *types.Named) {
 		ti.k, ti.reader = kHandle, true
 		return
 	}
-	if obj.Pkg() == nil || !obj.Exported() || strings.Contains(obj.Pkg().Path()+"/", "/internal/") {
+	if obj.Pkg() == nil || !obj.Exported() || (isInternal(obj.Pkg().Path()) && m.via[obj.Pkg().Path()] == nil) {
 		unsupported(ti, "unexported type %s", key)
 		return
 	}
@@ -282,15 +321,21 @@ func (m *model) fillNamed(ti *tinfo, n *types.Named) {
 	switch u := n.Underlying().(type) {
 	case *types.Basic: // nomeado sobre básico: atravessa como o básico
 		b := m.classify(u)
-		ti.k, ti.why, ti.named = b.k, b.why, nil
+		ti.k, ti.why, ti.named, ti.dur = b.k, b.why, nil, key == "time.Duration"
 	case *types.Slice: // nomeado sobre []byte (multihash.Multihash): bytes
 		if b, ok := u.Elem().(*types.Basic); ok && b.Kind() == types.Byte {
 			ti.k, ti.named = kBytes, nil
 			return
 		}
-		unsupported(ti, "tipo %s", key)
+		// a named slice (peer.IDSlice) crosses as the slice
+		s := m.classify(u)
+		ti.k, ti.why, ti.elem, ti.named = s.k, s.why, s.elem, nil
 	case *types.Signature:
-		if ctors := m.optCtors(obj.Pkg(), key); len(ctors) > 0 {
+		ctors := m.optCtors(obj.Pkg(), n)
+		for _, p := range m.optAlias[key] {
+			ctors = append(ctors, m.optCtors(p, n)...)
+		}
+		if len(ctors) > 0 {
 			ti.k, ti.ctors = kOpts, ctors
 			return
 		}
@@ -453,7 +498,7 @@ func splitErr(res *types.Tuple) ([]types.Type, bool) {
 // optCtors acha os construtores de uma opção funcional: métodos (exportados)
 // de variáveis do pacote, até dois níveis de campos (options.Pin.Ls.All),
 // que devolvem a opção (ou opção e erro).
-func (m *model) optCtors(pkg *types.Package, optKey string) []optCtor {
+func (m *model) optCtors(pkg *types.Package, opt *types.Named) []optCtor {
 	if full := m.load(pkg.Path()); full != nil {
 		pkg = full
 	}
@@ -465,9 +510,22 @@ func (m *model) optCtors(pkg *types.Package, optKey string) []optCtor {
 		for _, name := range scope.Names() {
 			switch o := scope.Lookup(name).(type) {
 			case *types.Var:
-				if o.Exported() {
-					m.walkOpts(pkg, byType, []string{name}, o.Type(), 0)
+				if !o.Exported() {
+					continue
 				}
+				// a variable that is an option (libp2p.NoListenAddrs, of the
+				// option's type or of its unnamed func type)
+				if sig, ok := o.Type().Underlying().(*types.Signature); ok {
+					if optSig(sig) {
+						c := optCtor{pkg: pkg, path: []string{name}, isVar: true, varSig: sig}
+						if why, ok := omitCtors[pkg.Path()+"."+name]; ok {
+							c.omit = why
+						}
+						byType[varCtors] = append(byType[varCtors], c)
+					}
+					continue
+				}
+				m.walkOpts(pkg, byType, []string{name}, o.Type(), 0)
 			case *types.Func: // construtor como função do pacote (mfs.WithMaxLinks)
 				if o.Exported() && optShaped(o) {
 					m.addOptCtor(pkg, byType, nil, o)
@@ -475,8 +533,20 @@ func (m *model) optCtors(pkg *types.Package, optKey string) []optCtor {
 			}
 		}
 	}
-	return byType[optKey]
+	out := append([]optCtor{}, byType[objKey(opt.Obj())]...)
+	for _, c := range byType[varCtors] {
+		if types.Identical(c.varSig, opt.Underlying()) {
+			out = append(out, c)
+		}
+	}
+	return out
 }
+
+// varCtors: the key of a package's option variables in optPkgs (matched to
+// an option type by signature: libp2p.NoListenAddrs is a bare func literal).
+const varCtors = "vars"
+
+func isInternal(path string) bool { return strings.Contains(path+"/", "/internal/") }
 
 // chanElem: o tipo real dos itens de um canal `chan<- any` passado numa opção
 // (o kubo documenta o que envia; o tipo Go não diz).
@@ -529,7 +599,12 @@ func optShaped(f *types.Func) bool {
 		return false
 	}
 	sig, ok := res[0].Underlying().(*types.Signature)
-	if !ok || sig.Params().Len() != 1 {
+	return ok && optSig(sig)
+}
+
+// optSig: `func(*T)` or `func(*T) error`.
+func optSig(sig *types.Signature) bool {
+	if sig.Params().Len() != 1 {
 		return false
 	}
 	if _, ok := sig.Params().At(0).Type().(*types.Pointer); !ok {
@@ -547,14 +622,14 @@ func (m *model) addOptCtor(pkg *types.Package, byType map[string][]optCtor, path
 	if len(res) != 1 {
 		return
 	}
-	rn, ok := res[0].(*types.Named)
+	rn, ok := types.Unalias(res[0]).(*types.Named)
 	if !ok {
 		return
 	}
 	if _, isSig := rn.Underlying().(*types.Signature); !isSig {
 		return
 	}
-	c := optCtor{path: append(append([]string{}, path...), f.Name()), hasErr: hasErr}
+	c := optCtor{pkg: pkg, path: append(append([]string{}, path...), f.Name()), hasErr: hasErr, variadic: sig.Variadic()}
 	if why, ok := omitCtors[pkg.Path()+"."+strings.Join(c.path, ".")]; ok {
 		c.omit = why // sem classificar os parâmetros: o tipo deles não entra
 		byType[objKey(rn.Obj())] = append(byType[objKey(rn.Obj())], c)
@@ -580,7 +655,12 @@ func okOptCtor(c optCtor) (bool, string) {
 	}
 	for i, p := range c.params {
 		switch p.k {
-		case kBasic, kBytes, kValue, kSlice, kMap, kHandle, kChanSend, kAny, kOpts:
+		case kBasic, kBytes, kValue, kMap, kHandle, kChanSend, kAny, kOpts:
+		case kSlice:
+			if p.elem.k == kOpts || okElem(p.elem) {
+				break
+			}
+			return false, fmt.Sprintf("parameter %s: %s", c.pnames[i], describe(p))
 		default:
 			why := p.why
 			if why == "" {

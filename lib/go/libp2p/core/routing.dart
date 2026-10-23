@@ -4,7 +4,36 @@ library;
 
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/libp2p/core/peer.dart' as $peer;
+import 'package:p2p_ffi/go/libp2p/p2p/discovery/routing.dart' as $routing;
+import 'package:p2p_ffi/go/libp2p_kad_dht.dart' as $libp2p_kad_dht;
 import 'package:p2p_ffi/go/multiaddr.dart' as $multiaddr;
+
+/// Go: `routing.ContentProviding` (handle).
+class ContentProviding extends GoHandle {
+  ContentProviding.$h(super.$h);
+}
+
+/// Go: `routing.ContentRouting` (handle).
+class ContentRouting extends ContentProviding {
+  ContentRouting.$h(super.$h) : super.$h();
+
+  /// Go: type assertion `x.(*dht.IpfsDHT)`: null if the object is not one.
+  $libp2p_kad_dht.IpfsDht? asIpfsDht() {
+    final $r = $callSync(89, $W()..h(this));
+    return $r.hn($libp2p_kad_dht.IpfsDht.$h);
+  }
+
+  /// Go: type assertion `x.(*routing.RoutingDiscovery)`: null if the object is not one.
+  $routing.RoutingDiscovery? asRoutingDiscovery() {
+    final $r = $callSync(90, $W()..h(this));
+    return $r.hn($routing.RoutingDiscovery.$h);
+  }
+}
+
+/// Go: `routing.Option` (handle).
+class Option extends GoHandle {
+  Option.$h(super.$h);
+}
 
 /// Go: `routing.ValueStore` (handle).
 class ValueStore extends GoHandle {

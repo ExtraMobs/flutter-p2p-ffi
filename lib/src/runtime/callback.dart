@@ -126,3 +126,39 @@ final class _Callback {
         }
       });
 }
+
+/// A retained callback (WIRE.md, "Retained callback"): a Dart function Go
+/// keeps past the call (a stream handler, a method of a Dart implementation
+/// of an interface). Each invocation runs on the event loop, never inside a
+/// synchronous call; an exception goes to the zone (like a Timer's), and,
+/// when Go waits for the verdict ([asks]), it also answers Go as `false`.
+final class _Retained {
+  _Retained(this.item, this.asks);
+
+  final FutureOr<Object?> Function($R r) item;
+  final bool asks;
+
+  void _invoke(int id, Uint8List data) => Timer.run(() async {
+        final r = $R(data)..u32(); // always one invocation
+        var verdict = _cbContinue;
+        try {
+          if (await item(r) == false) verdict = _cbStopped;
+        } catch (e, st) {
+          verdict = _cbThrew;
+          Zone.current.handleUncaughtError(e, st);
+        }
+        if (!asks) return;
+        try {
+          _channel.send(
+              0,
+              _fnCallbackAck,
+              _sync,
+              ($W()
+                    ..u32(id)
+                    ..u8(verdict))
+                  .take());
+        } on P2pServiceException {
+          // the service fell: Go is gone with it
+        }
+      });
+}

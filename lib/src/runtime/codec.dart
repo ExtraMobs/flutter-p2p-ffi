@@ -184,6 +184,22 @@ final class $W {
     u32(id);
   }
 
+  /// A retained callback (WIRE.md): a Dart id of its own, which Go invokes
+  /// for as long as it holds the function; null = nil (id 0). [asks]: Go
+  /// waits for the verdict (the function returns bool or error).
+  void cb(FutureOr<Object?> Function($R r)? item, bool asks) {
+    var id = 0;
+    if (item != null) {
+      try {
+        id = _channel.newId();
+        _pending[id] = _Pending(_Retained(item, asks), null, const []);
+      } on P2pServiceException catch (e) {
+        _error ??= e;
+      }
+    }
+    u32(id);
+  }
+
   /// `kSlice`: `i32 n` + elements; null = nil.
   void list<T>(List<T>? xs, void Function($W w, T e) f) {
     if (xs == null) return i32(-1);
@@ -291,9 +307,12 @@ final class $R {
   /// Presence byte: false = Go's nil.
   bool p() => u8() != 0;
 
+  /// A Go string is any bytes (pubsub's message ID is binary): what is not
+  /// UTF-8 becomes U+FFFD instead of failing the whole response.
   String str() {
     final n = u32();
-    final s = utf8.decode(Uint8List.sublistView(_b, _i, _i + n));
+    final s = utf8.decode(Uint8List.sublistView(_b, _i, _i + n),
+        allowMalformed: true);
     _i += n;
     return s;
   }

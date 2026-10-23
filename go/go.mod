@@ -3,6 +3,7 @@ module github.com/ExtraMobs/transpiled_ipfs/go
 go 1.26.5
 
 require (
+	github.com/hashicorp/golang-lru v1.0.2
 	github.com/ipfs/boxo v0.43.0
 	github.com/ipfs/go-block-format v0.2.4
 	github.com/ipfs/go-cid v0.6.2
@@ -17,6 +18,10 @@ require (
 	github.com/ipld/go-ipld-prime v0.24.0
 	github.com/ipld/go-ipld-prime/storage/bsadapter v0.0.0-20250821084354-a425e60cd714
 	github.com/libp2p/go-libp2p v0.49.0
+	github.com/libp2p/go-libp2p-kad-dht v0.42.2
+	github.com/libp2p/go-libp2p-kbucket v0.9.0
+	github.com/libp2p/go-libp2p-pubsub v0.17.0
+	github.com/libp2p/go-libp2p-record v0.3.1
 	github.com/multiformats/go-multiaddr v0.16.1
 	github.com/multiformats/go-multicodec v0.10.0
 	github.com/multiformats/go-multihash v0.2.3
@@ -85,7 +90,6 @@ require (
 	github.com/guillaumemichel/reservedpool v0.3.0 // indirect
 	github.com/hanwen/go-fuse/v2 v2.10.1 // indirect
 	github.com/hashicorp/go-version v1.9.0 // indirect
-	github.com/hashicorp/golang-lru v1.0.2 // indirect
 	github.com/hashicorp/golang-lru/v2 v2.0.7 // indirect
 	github.com/huin/goupnp v1.3.0 // indirect
 	github.com/ipfs-shipyard/nopfs v0.0.14 // indirect
@@ -123,11 +127,7 @@ require (
 	github.com/libp2p/go-doh-resolver v0.6.0 // indirect
 	github.com/libp2p/go-flow-metrics v0.3.0 // indirect
 	github.com/libp2p/go-libp2p-asn-util v0.4.1 // indirect
-	github.com/libp2p/go-libp2p-kad-dht v0.42.2 // indirect
-	github.com/libp2p/go-libp2p-kbucket v0.9.0 // indirect
-	github.com/libp2p/go-libp2p-pubsub v0.17.0 // indirect
 	github.com/libp2p/go-libp2p-pubsub-router v0.6.0 // indirect
-	github.com/libp2p/go-libp2p-record v0.3.1 // indirect
 	github.com/libp2p/go-libp2p-routing-helpers v0.7.5 // indirect
 	github.com/libp2p/go-libp2p-xor v0.1.0 // indirect
 	github.com/libp2p/go-msgio v0.3.0 // indirect

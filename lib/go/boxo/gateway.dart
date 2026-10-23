@@ -25,7 +25,7 @@ class BlocksBackend extends GoHandle {
   factory BlocksBackend($blockservice.BlockService blockService,
       [List<BackendOption> opts = const []]) {
     final $r = $callSync(
-        111,
+        113,
         $W()
           ..h(blockService)
           ..list(opts, (w0, e0) => w0.opt(e0)));
@@ -38,7 +38,7 @@ class BlocksBackend extends GoHandle {
   Future<(ContentPathMetadata, $io.ReadCloser)> getCar(
       $context.Context ctx, $path.ImmutablePath p, CarParams params) async {
     final $r = await $call(
-        110,
+        112,
         $W()
           ..h(this)
           ..h(ctx)
@@ -160,8 +160,8 @@ final class DagByteRange implements GoDto {
 }
 
 /// Go: `gateway.WithGetBlockTimeout`.
-BackendOption withGetBlockTimeout(int dur) =>
-    BackendOption.$(0, (w) => w..i64(dur));
+BackendOption withGetBlockTimeout(Duration dur) =>
+    BackendOption.$(0, (w) => w..i64((dur).inMicroseconds * 1000));
 
 /// Go: `gateway.WithMaxTraversalDepth`.
 BackendOption withMaxTraversalDepth(int depth) =>

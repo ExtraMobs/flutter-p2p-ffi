@@ -16,14 +16,14 @@ class SplitterGen extends GoHandle {
 
 /// Go: `func chunk.SizeSplitterGen(size int64) chunk.SplitterGen`.
 SplitterGen sizeSplitterGen(int size) {
-  final $r = $callSync(103, $W()..i64(size));
+  final $r = $callSync(105, $W()..i64(size));
   return $r.hnn(SplitterGen.$h);
 }
 
 /// Go: `func chunk.NewSizeSplitter(r io.Reader, size int64) chunk.Splitter`.
 Splitter newSizeSplitter(Object r, int size) {
   final $r = $callSync(
-      102,
+      104,
       $W()
         ..reader(r)
         ..i64(size));
@@ -33,7 +33,7 @@ Splitter newSizeSplitter(Object r, int size) {
 /// Go: `func chunk.FromString(r io.Reader, chunker string) (chunk.Splitter, error)`.
 Splitter fromString(Object r, String chunker) {
   final $r = $callSync(
-      101,
+      103,
       $W()
         ..reader(r)
         ..str(chunker));

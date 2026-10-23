@@ -25,12 +25,13 @@ import (
 // paramNames: nomes para parâmetros que a interface do kubo não nomeia e que
 // o tipo não explica (string, []byte), como na documentação do kubo.
 var paramNames = map[string][]string{
-	"github.com/ipfs/kubo/core/coreiface.PubSubAPI.Publish":   {"ctx", "topic", "data"},
-	"github.com/ipfs/kubo/core/coreiface.PubSubAPI.Subscribe": {"ctx", "topic", "opts"},
-	"github.com/ipfs/kubo/core/coreiface.RoutingAPI.Get":      {"ctx", "key"},
-	"github.com/ipfs/kubo/core/coreiface.RoutingAPI.Put":      {"ctx", "key", "value", "opts"},
-	"github.com/ipfs/kubo/core/coreiface.ObjectAPI.Diff":      {"ctx", "before", "after"},
-	"github.com/ipfs/boxo/ipld/unixfs/io.Directory.AddChild":  {"ctx", "name", "node"},
+	"github.com/ipfs/kubo/core/coreiface.PubSubAPI.Publish":            {"ctx", "topic", "data"},
+	"github.com/ipfs/kubo/core/coreiface.PubSubAPI.Subscribe":          {"ctx", "topic", "opts"},
+	"github.com/ipfs/kubo/core/coreiface.RoutingAPI.Get":               {"ctx", "key"},
+	"github.com/ipfs/kubo/core/coreiface.RoutingAPI.Put":               {"ctx", "key", "value", "opts"},
+	"github.com/ipfs/kubo/core/coreiface.ObjectAPI.Diff":               {"ctx", "before", "after"},
+	"github.com/ipfs/boxo/ipld/unixfs/io.Directory.AddChild":           {"ctx", "name", "node"},
+	"github.com/libp2p/go-libp2p/core/host.Host.SetStreamHandlerMatch": {"pid", "match", "handler"},
 }
 
 // cbArgNames: nomes dos argumentos de callbacks que o Go não nomeia, por
@@ -44,11 +45,26 @@ var cbArgNames = map[string][]string{
 // resultAs: functions that return an unexported type, and the exported
 // interface (package, name) Dart sees it through.
 var resultAs = map[string][2]string{
-	"github.com/ipfs/boxo/ipld/merkledag.NewDAGService": {"github.com/ipfs/go-ipld-format", "DAGService"},
+	"github.com/ipfs/boxo/ipld/merkledag.NewDAGService":             {"github.com/ipfs/go-ipld-format", "DAGService"},
+	"github.com/libp2p/go-libp2p/p2p/discovery/mdns.NewMdnsService": {"github.com/libp2p/go-libp2p/p2p/discovery/mdns", "Service"},
 }
 
+// retainedFuncs: functions that keep the func they receive past the call
+// (a handler): it becomes a retained callback (WIRE.md, "Retained
+// callback"), called by Go for as long as it holds it.
+var retainedFuncs = setOf(`github.com/libp2p/go-libp2p/core/host.Host.SetStreamHandler
+github.com/libp2p/go-libp2p/core/host.Host.SetStreamHandlerMatch`)
+
 // forceAsync: funções sem context que bloqueiam (rede, desligamento).
-var forceAsync = setOf(`github.com/ipfs/kubo/core.IpfsNode.Close`)
+var forceAsync = setOf(`github.com/ipfs/kubo/core.IpfsNode.Close
+github.com/libp2p/go-libp2p.New
+github.com/libp2p/go-libp2p/core/host.Host.Close
+github.com/libp2p/go-libp2p/core/network.Conn.Close
+github.com/libp2p/go-libp2p/core/network.Stream.Read
+github.com/libp2p/go-libp2p/core/network.Stream.Write
+github.com/libp2p/go-libp2p/core/network.Stream.Close
+github.com/libp2p/go-libp2p/core/network.Stream.CloseWrite
+github.com/libp2p/go-libp2p-kad-dht.IpfsDHT.Close`)
 
 type param struct {
 	name     string
@@ -72,12 +88,13 @@ type fn struct {
 	direct  int    // ponytail: sempre -1 (os exports diretos saíram no 0.9.0); sai quando emit_dart.go/emit_api.go pararem de lê-lo
 	id      int    // id da função no protocolo do serviço (WIRE.md); 0 = omitida
 
-	constLit string // constante (obj *types.Const): o literal Dart; não vai ao host
-	field    bool   // campo de struct num handle (obj é o *types.Var do campo)
-	setter   bool   // field: a escrita (um parâmetro, sem resultado)
-	cast     *tinfo // type assertion do receptor (interface) para este handle concreto
-	newT     bool   // construtor vazio de um tipo struct (raiz que é só o tipo): new(T)
-	outBuf   int    // índice do []byte que o Go preenche (Read, ReadAt, CtxReadFull); -1 = nenhum
+	constLit string           // constante (obj *types.Const): o literal Dart; não vai ao host
+	field    bool             // campo de struct num handle (obj é o *types.Var do campo)
+	setter   bool             // field: a escrita (um parâmetro, sem resultado)
+	cast     *tinfo           // type assertion do receptor (interface) para este handle concreto
+	newT     bool             // construtor vazio de um tipo struct (raiz que é só o tipo): new(T)
+	impl     *types.Interface // a root that is an interface type: a Dart implementation of it (params: one retained callback per method)
+	outBuf   int              // índice do []byte que o Go preenche (Read, ReadAt, CtxReadFull); -1 = nenhum
 }
 
 func isConstObj(o types.Object) bool { _, ok := o.(*types.Const); return ok }
@@ -328,6 +345,9 @@ func (m *model) resolve(pkgs map[string]*types.Package, line string) ([]*fn, err
 			m.check(f)
 			return []*fn{f}, nil
 		case *types.TypeName:
+			if iface, ok := o.Type().Underlying().(*types.Interface); ok {
+				return []*fn{m.implRoot(f, o, iface)}, nil
+			}
 			if !m.newTypes[objKey(o)] {
 				return nil, fmt.Errorf("%s: só tipo struct vira construtor", line)
 			}
@@ -373,6 +393,7 @@ func (m *model) resolve(pkgs map[string]*types.Package, line string) ([]*fn, err
 		p.t = m.classify(v.Type())
 		if p.t.k != kOpts {
 			if ft := m.funcParam(v.Type()); ft != nil {
+				ft.retained = retainedFuncs[line]
 				p.t = ft
 				if names := cbArgNames[line]; len(names) == len(ft.fnames) {
 					ft.fnames = names
@@ -603,6 +624,9 @@ func (m *model) check(f *fn) {
 			}
 			f.stream = t.elem
 		case kFunc: // callback sob demanda: a chamada espera o Dart consumir
+			if t.retained { // kept by Go: invoked later, not during the call
+				break
+			}
 			if funcParamIdx(f) != i {
 				fail("two callbacks")
 			}
@@ -654,11 +678,42 @@ func okElem(t *tinfo) bool {
 // funcParamIdx: o índice do primeiro parâmetro callback (kFunc), ou -1.
 func funcParamIdx(f *fn) int {
 	for i, p := range f.params {
-		if p.t.k == kFunc {
+		if p.t.k == kFunc && !p.t.retained {
 			return i
 		}
 	}
 	return -1
+}
+
+// implRoot: a root that is an interface type (mdns.Notifee): Dart implements
+// it with one function per method, each a retained callback; the Dart
+// factory builds the Go object (a struct of the generator) that calls them.
+func (m *model) implRoot(f *fn, tn *types.TypeName, iface *types.Interface) *fn {
+	it := m.classify(tn.Type())
+	sig := types.NewSignatureType(nil, nil, nil, nil, types.NewTuple(types.NewVar(0, f.pkg, "", tn.Type())), false)
+	f.obj, f.impl, f.results = types.NewFunc(0, f.pkg, "New"+tn.Name(), sig), iface, []*tinfo{it}
+	if it.k != kHandle {
+		f.why = "interface is not a handle: " + describe(it)
+	}
+	for i := 0; i < iface.NumMethods(); i++ {
+		meth := iface.Method(i)
+		ft := m.funcParam(meth.Type())
+		switch {
+		case !meth.Exported():
+			f.why = "unexported method " + meth.Name()
+		case ft == nil:
+			f.why = "method " + meth.Name() + ": results other than nothing, bool or error"
+		case ft.k == kUnsupported:
+			f.why = "method " + meth.Name() + ": " + ft.why
+		}
+		if f.why != "" {
+			break
+		}
+		ft.retained = true
+		f.params = append(f.params, param{name: meth.Name(), t: ft})
+	}
+	m.check(f)
+	return f
 }
 
 func chanParam(f *fn) int {

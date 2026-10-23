@@ -51,6 +51,8 @@ func emitAPI(m *model, fns []*fn) []byte {
 			}
 			doc := goDoc(f.obj)
 			switch {
+			case f.impl != nil:
+				doc = "Dart implementation of " + types.TypeString(f.results[0].t, pkgName)
 			case f.cast != nil:
 				doc = types.TypeString(f.recv.t, pkgName) + " → x.(" + types.TypeString(f.cast.t, pkgName) + ")"
 			case f.field:
@@ -74,10 +76,10 @@ func emitAPI(m *model, fns []*fn) []byte {
 				fields = append(fields, fmt.Sprintf("- `%s.%s`: %s", key, f.name, f.skipped))
 			}
 		}
-		if t.k == kOpts {
+		if t.k == kOpts && key == types.TypeString(t.t, nil) { // not again under an alias (libp2p.Option)
 			for _, c := range t.ctors {
 				if ok, why := okOptCtor(c); !ok {
-					opts = append(opts, fmt.Sprintf("- `%s.%s` (%s): %s", t.named.Obj().Pkg().Name(), strings.Join(c.path, "."), t.named.Obj().Name(), why))
+					opts = append(opts, fmt.Sprintf("- `%s.%s` (%s.%s): %s", m.home(c.pkg).Name(), strings.Join(c.path, "."), m.home(t.named.Obj().Pkg()).Name(), t.named.Obj().Name(), why))
 				}
 			}
 		}
@@ -114,6 +116,9 @@ var adaptations = []string{
 	"A `chan<- T` channel passed in an option (`options.Unixfs.Events`) becomes a `StreamSink<T>` (`options.unixfs.events(controller.sink)`); the real item type of a `chan<- any` comes from the generator's `chanElem` table (`AddEvent`). Like `ipfs add`, the channel is closed when the call returns: every event arrives and the sink closes before the `Future` completes.",
 	"A package variable becomes a getter; a named function type (`libp2p.RoutingOption`) is an opaque handle, created only in Go; an unnamed func identical to a named type of the package, or of one it imports, uses the named type (`bsfetcher.DefaultPrototypeChooser`).",
 	"A function parameter that returns nothing, `bool` or `error` (a callback) becomes a Dart function (`idx.forEach((mh, offset) {...})`): Go calls a real callback, which takes the arguments to Dart in batches and waits for the verdict; `false` or an exception stops Go, and the call throws the original Dart exception. `batchSize` (optional): invocations per batch, default 1024 (up to 128 KiB, measured) or 1 when the callback receives Go objects; Go stays at most `batchSize - 1` ahead. The call's objects are in use (`isBusy`, `P2pService.busy`); a call to them from inside the callback that waits on a lock the Go function holds becomes `GolangDeadlockException` (WIRE.md, \"Callback\").",
+	"A function Go keeps past the call (a handler; table `retainedFuncs`: `host.setStreamHandler`) is a retained callback (WIRE.md): Go calls it, on the Dart event loop, for as long as it holds it, and Dart drops it when Go's garbage collector frees it. A root that is an interface type (`network.Notifiee`, `mdns.Notifee`) becomes a factory with one optional function per method (`Notifee(handlePeerFound: (pi) {...})`), each a retained callback. An exception in a retained callback goes to the zone (like a `Timer`'s).",
+	"Functional options built in another package come with it: libp2p's (`libp2p.listenAddrStrings(...)`) build a `config.Option` (`libp2p.Option` is its alias), and a package variable of the option's type is a getter (`libp2p.noListenAddrs`). The type of an internal package seen through an exported alias of the same name lives in the alias's library (`dht.Option`).",
+	"`time.Duration` is a Dart `Duration` (nanoseconds on the wire, rounded to microseconds in Dart).",
 	"Errors that wrap `io.EOF`, `io.ErrUnexpectedEOF`, `context.Canceled`, `context.DeadlineExceeded` or IPLD's not found become `GolangEofException`, `GolangUnexpectedEofException`, `GolangCanceledException`, `GolangDeadlineExceededException` and `GolangNotFoundException` (subclasses of `GolangException`), as Go's `errors.Is` would find them.",
 	"A root that is only a struct type (`bsadapter.Adapter`, `basicnode.Prototype__Any`) becomes an empty constructor (`Adapter()`, Go's `new(T)`), and its fields, getters and setters.",
 	"An interface that embeds another gets the cast from it (`idx.asIterableIndex()`, Go's `x.(index.IterableIndex)`).",

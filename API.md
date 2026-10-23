@@ -1010,6 +1010,149 @@ Omitted:
 | `var selectorparse.CommonSelector_ExploreAllRecursively datamodel.Node` | `commonSelectorExploreAllRecursively` | sync |
 | `var selectorparse.CommonSelector_MatchAllRecursively datamodel.Node` | `commonSelectorMatchAllRecursively` | sync |
 
+## `github.com/libp2p/go-libp2p` → `package:p2p_ffi/go/libp2p.dart`
+
+| Go | Dart | Mode |
+|---|---|---|
+| `func libp2p.New(opts ...libp2p.Option) (host.Host, error)` | `new$` | Future |
+
+## `github.com/libp2p/go-libp2p-kad-dht` → `package:p2p_ffi/go/libp2p_kad_dht.dart`
+
+| Go | Dart | Mode |
+|---|---|---|
+| `func dht.New(h host.Host, options ...dht.Option) (_ *dht.IpfsDHT, err error)` | `new$` | sync |
+| `var dht.DefaultBootstrapPeers []multiaddr.Multiaddr` | `defaultBootstrapPeers` | sync |
+| `func (*dht.IpfsDHT).Bootstrap(ctx context.Context) (err error)` | `IpfsDht.bootstrap` | Future |
+| `func (*dht.IpfsDHT).FindPeer(ctx context.Context, id peer.ID) (pi peer.AddrInfo, err error)` | `IpfsDht.findPeer` | Future |
+| `func (*dht.IpfsDHT).Provide(ctx context.Context, key cid.Cid, brdcst bool) (err error)` | `IpfsDht.provide` | Future |
+| `func (*dht.IpfsDHT).FindProviders(ctx context.Context, c cid.Cid) ([]peer.AddrInfo, error)` | `IpfsDht.findProviders` | Future |
+| `func (*dht.IpfsDHT).FindProvidersAsync(ctx context.Context, key cid.Cid, count int) (ch <-chan peer.AddrInfo)` | `IpfsDht.findProvidersAsync` | Stream |
+| `func (*dht.IpfsDHT).GetClosestPeers(ctx context.Context, key string) ([]peer.ID, error)` | `IpfsDht.getClosestPeers` | Future |
+| `func (*dht.IpfsDHT).PutValue(ctx context.Context, key string, value []byte, opts ...routing.Option) (err error)` | `IpfsDht.putValue` | Future |
+| `func (*dht.IpfsDHT).GetValue(ctx context.Context, key string, opts ...routing.Option) (result []byte, err error)` | `IpfsDht.getValue` | Future |
+| `func (*dht.IpfsDHT).Ping(ctx context.Context, p peer.ID) error` | `IpfsDht.ping` | Future |
+| `func (*dht.IpfsDHT).Mode() dht.ModeOpt` | `IpfsDht.mode` | sync |
+| `func (*dht.IpfsDHT).RoutingTable() *kbucket.RoutingTable` | `IpfsDht.routingTable` | sync |
+| `func (*dht.IpfsDHT).Close() error` | `IpfsDht.close` | Future |
+| `const dht.DefaultPrefix protocol.ID` | `defaultPrefix` | const |
+| `const dht.LookupCancelled dht.LookupTerminationReason` | `lookupCancelled` | const |
+| `const dht.LookupCompleted dht.LookupTerminationReason` | `lookupCompleted` | const |
+| `const dht.LookupStarvation dht.LookupTerminationReason` | `lookupStarvation` | const |
+| `const dht.LookupStopped dht.LookupTerminationReason` | `lookupStopped` | const |
+| `const dht.ModeAuto dht.ModeOpt` | `modeAuto` | const |
+| `const dht.ModeAutoServer dht.ModeOpt` | `modeAutoServer` | const |
+| `const dht.ModeClient dht.ModeOpt` | `modeClient` | const |
+| `const dht.ModeServer dht.ModeOpt` | `modeServer` | const |
+
+## `github.com/libp2p/go-libp2p-kad-dht/records` → `package:p2p_ffi/go/libp2p_kad_dht/records.dart`
+
+| Go | Dart | Mode |
+|---|---|---|
+| `const records.ProvidersKeyPrefix untyped string` | `providersKeyPrefix` | const |
+
+## `github.com/libp2p/go-libp2p-kbucket` → `package:p2p_ffi/go/libp2p_kbucket.dart`
+
+| Go | Dart | Mode |
+|---|---|---|
+| `func (*kbucket.RoutingTable).Size() int` | `RoutingTable.size` | sync |
+| `func (*kbucket.RoutingTable).ListPeers() []peer.ID` | `RoutingTable.listPeers` | sync |
+| `const kbucket.PeerIDPreimageMaxCpl uint` | `peerIdPreimageMaxCpl` | const |
+
+## `github.com/libp2p/go-libp2p-pubsub` → `package:p2p_ffi/go/libp2p_pubsub.dart`
+
+| Go | Dart | Mode |
+|---|---|---|
+| `func pubsub.NewGossipSub(ctx context.Context, h host.Host, opts ...pubsub.Option) (*pubsub.PubSub, error)` | `newGossipSub` | Future |
+| `func (*pubsub.PubSub).Join(topic string, opts ...pubsub.TopicOpt) (*pubsub.Topic, error)` | `PubSub.join` | sync |
+| `func (*pubsub.PubSub).GetTopics() []string` | `PubSub.getTopics` | sync |
+| `func (*pubsub.PubSub).ListPeers(topic string) []peer.ID` | `PubSub.listPeers` | sync |
+| `func (*pubsub.PubSub).AddDirectPeer(pInfo peer.AddrInfo) error` | `PubSub.addDirectPeer` | sync |
+| `func (*pubsub.PubSub).RemoveDirectPeer(pid peer.ID) error` | `PubSub.removeDirectPeer` | sync |
+| `func (*pubsub.PubSub).BlacklistPeer(pid peer.ID)` | `PubSub.blacklistPeer` | sync |
+| `func (*pubsub.Topic).Publish(ctx context.Context, data []byte, opts ...pubsub.PubOpt) error` | `Topic.publish` | Future |
+| `func (*pubsub.Topic).Subscribe(opts ...pubsub.SubOpt) (*pubsub.Subscription, error)` | `Topic.subscribe` | sync |
+| `func (*pubsub.Topic).ListPeers() []peer.ID` | `Topic.listPeers` | sync |
+| `func (*pubsub.Topic).EventHandler(opts ...pubsub.TopicEventHandlerOpt) (*pubsub.TopicEventHandler, error)` | `Topic.eventHandler` | sync |
+| `func (*pubsub.Topic).String() string` | `Topic.string` | sync |
+| `func (*pubsub.Topic).Close() error` | `Topic.close` | sync |
+| `func (*pubsub.Subscription).Next(ctx context.Context) (*pubsub.Message, error)` | `Subscription.next` | Future |
+| `func (*pubsub.Subscription).Topic() string` | `Subscription.topic` | sync |
+| `func (*pubsub.Subscription).Cancel()` | `Subscription.cancel` | sync |
+| `func (*pubsub.Message).GetFrom() peer.ID` | `Message.getFrom` | sync |
+| `func (*pubsub.TopicEventHandler).NextPeerEvent(ctx context.Context) (pubsub.PeerEvent, error)` | `TopicEventHandler.nextPeerEvent` | Future |
+| `func (*pubsub.TopicEventHandler).Cancel()` | `TopicEventHandler.cancel` | sync |
+| `const pubsub.AcceptAll pubsub.AcceptStatus` | `acceptAll` | const |
+| `const pubsub.AcceptControl pubsub.AcceptStatus` | `acceptControl` | const |
+| `const pubsub.AcceptNone pubsub.AcceptStatus` | `acceptNone` | const |
+| `const pubsub.BackoffCleanupInterval time.Duration` | `backoffCleanupInterval` | const |
+| `const pubsub.BackoffMultiplier untyped int` | `backoffMultiplier` | const |
+| `const pubsub.DefaultDecayInterval time.Duration` | `defaultDecayInterval` | const |
+| `const pubsub.DefaultDecayToZero untyped float` | `defaultDecayToZero` | const |
+| `const pubsub.DefaultMaxControlMessageSize untyped int` | `defaultMaxControlMessageSize` | const |
+| `const pubsub.DefaultMaxMessageSize untyped int` | `defaultMaxMessageSize` | const |
+| `const pubsub.FloodSubID protocol.ID` | `floodSubId` | const |
+| `const pubsub.FloodSubTopicSearchSize untyped int` | `floodSubTopicSearchSize` | const |
+| `const pubsub.GossipSubFeatureExtensions untyped int` | `gossipSubFeatureExtensions` | const |
+| `const pubsub.GossipSubFeatureIdontwant untyped int` | `gossipSubFeatureIdontwant` | const |
+| `const pubsub.GossipSubFeatureMesh untyped int` | `gossipSubFeatureMesh` | const |
+| `const pubsub.GossipSubFeaturePX untyped int` | `gossipSubFeaturePx` | const |
+| `const pubsub.GossipSubID_v10 protocol.ID` | `gossipSubIdV10` | const |
+| `const pubsub.GossipSubID_v11 protocol.ID` | `gossipSubIdV11` | const |
+| `const pubsub.GossipSubID_v12 protocol.ID` | `gossipSubIdV12` | const |
+| `const pubsub.GossipSubID_v13 protocol.ID` | `gossipSubIdV13` | const |
+| `const pubsub.LaxNoSign untyped int` | `laxNoSign` | const |
+| `const pubsub.LaxSign pubsub.MessageSignaturePolicy` | `laxSign` | const |
+| `const pubsub.MaxBackoffAttempts untyped int` | `maxBackoffAttempts` | const |
+| `const pubsub.MaxBackoffDelay time.Duration` | `maxBackoffDelay` | const |
+| `const pubsub.MaxBackoffJitterCoff untyped int` | `maxBackoffJitterCoff` | const |
+| `const pubsub.MinBackoffDelay time.Duration` | `minBackoffDelay` | const |
+| `const pubsub.PeerFeedbackInvalidMessage pubsub.PeerFeedbackKind` | `peerFeedbackInvalidMessage` | const |
+| `const pubsub.PeerFeedbackUsefulMessage pubsub.PeerFeedbackKind` | `peerFeedbackUsefulMessage` | const |
+| `const pubsub.PeerJoin pubsub.EventType` | `peerJoin` | const |
+| `const pubsub.PeerLeave pubsub.EventType` | `peerLeave` | const |
+| `const pubsub.RandomSubID protocol.ID` | `randomSubId` | const |
+| `const pubsub.RejectBlacklistedSource untyped string` | `rejectBlacklistedSource` | const |
+| `const pubsub.RejectBlacklstedPeer untyped string` | `rejectBlacklstedPeer` | const |
+| `const pubsub.RejectInvalidSignature untyped string` | `rejectInvalidSignature` | const |
+| `const pubsub.RejectMissingSignature untyped string` | `rejectMissingSignature` | const |
+| `const pubsub.RejectSelfOrigin untyped string` | `rejectSelfOrigin` | const |
+| `const pubsub.RejectUnexpectedAuthInfo untyped string` | `rejectUnexpectedAuthInfo` | const |
+| `const pubsub.RejectUnexpectedSignature untyped string` | `rejectUnexpectedSignature` | const |
+| `const pubsub.RejectValidationFailed untyped string` | `rejectValidationFailed` | const |
+| `const pubsub.RejectValidationIgnored untyped string` | `rejectValidationIgnored` | const |
+| `const pubsub.RejectValidationQueueFull untyped string` | `rejectValidationQueueFull` | const |
+| `const pubsub.RejectValidationThrottled untyped string` | `rejectValidationThrottled` | const |
+| `const pubsub.RemoteTracerProtoID protocol.ID` | `remoteTracerProtoId` | const |
+| `const pubsub.SignPrefix untyped string` | `signPrefix` | const |
+| `const pubsub.StrictNoSign pubsub.MessageSignaturePolicy` | `strictNoSign` | const |
+| `const pubsub.StrictSign pubsub.MessageSignaturePolicy` | `strictSign` | const |
+| `const pubsub.TimeToLive time.Duration` | `timeToLive` | const |
+| `const pubsub.ValidationAccept pubsub.ValidationResult` | `validationAccept` | const |
+| `const pubsub.ValidationIgnore pubsub.ValidationResult` | `validationIgnore` | const |
+| `const pubsub.ValidationReject pubsub.ValidationResult` | `validationReject` | const |
+
+## `github.com/libp2p/go-libp2p-pubsub/pb` → `package:p2p_ffi/go/libp2p_pubsub/pb.dart`
+
+| Go | Dart | Mode |
+|---|---|---|
+| `func (*pubsub_pb.Message).GetData() []byte` | `Message.getData` | sync |
+| `func (*pubsub_pb.Message).GetFrom() []byte` | `Message.getFrom` | sync |
+| `func (*pubsub_pb.Message).GetSeqno() []byte` | `Message.getSeqno` | sync |
+| `func (*pubsub_pb.Message).GetTopic() string` | `Message.getTopic` | sync |
+| `const pubsub_pb.TraceEvent_DELIVER_MESSAGE pubsub_pb.TraceEvent_Type` | `traceEventDeliverMessage` | const |
+| `const pubsub_pb.TraceEvent_DROP_RPC pubsub_pb.TraceEvent_Type` | `traceEventDropRpc` | const |
+| `const pubsub_pb.TraceEvent_DUPLICATE_MESSAGE pubsub_pb.TraceEvent_Type` | `traceEventDuplicateMessage` | const |
+| `const pubsub_pb.TraceEvent_GRAFT pubsub_pb.TraceEvent_Type` | `traceEventGraft` | const |
+| `const pubsub_pb.TraceEvent_JOIN pubsub_pb.TraceEvent_Type` | `traceEventJoin` | const |
+| `const pubsub_pb.TraceEvent_LEAVE pubsub_pb.TraceEvent_Type` | `traceEventLeave` | const |
+| `const pubsub_pb.TraceEvent_ON_CLOSED_OUTBOUND_STREAM pubsub_pb.TraceEvent_Type` | `traceEventOnClosedOutboundStream` | const |
+| `const pubsub_pb.TraceEvent_ON_NEW_OUTBOUND_STREAM pubsub_pb.TraceEvent_Type` | `traceEventOnNewOutboundStream` | const |
+| `const pubsub_pb.TraceEvent_PRUNE pubsub_pb.TraceEvent_Type` | `traceEventPrune` | const |
+| `const pubsub_pb.TraceEvent_PUBLISH_MESSAGE pubsub_pb.TraceEvent_Type` | `traceEventPublishMessage` | const |
+| `const pubsub_pb.TraceEvent_RECV_RPC pubsub_pb.TraceEvent_Type` | `traceEventRecvRpc` | const |
+| `const pubsub_pb.TraceEvent_REJECT_MESSAGE pubsub_pb.TraceEvent_Type` | `traceEventRejectMessage` | const |
+| `const pubsub_pb.TraceEvent_SEND_RPC pubsub_pb.TraceEvent_Type` | `traceEventSendRpc` | const |
+
 ## `github.com/libp2p/go-libp2p/core/connmgr` → `package:p2p_ffi/go/libp2p/core/connmgr.dart`
 
 | Go | Dart | Mode |
@@ -1021,11 +1164,40 @@ Omitted:
 | `func (connmgr.ConnManager).UntagPeer(p peer.ID, tag string)` | `ConnManager.untagPeer` | sync |
 | `func (connmgr.ConnManager).TrimOpenConns(ctx context.Context)` | `ConnManager.trimOpenConns` | Future |
 
+## `github.com/libp2p/go-libp2p/core/crypto` → `package:p2p_ffi/go/libp2p/core/crypto.dart`
+
+| Go | Dart | Mode |
+|---|---|---|
+| `func crypto.GenerateKeyPair(typ int, bits int) (crypto.PrivKey, crypto.PubKey, error)` | `generateKeyPair` | sync |
+| `func crypto.MarshalPrivateKey(k crypto.PrivKey) ([]byte, error)` | `marshalPrivateKey` | sync |
+| `func crypto.UnmarshalPrivateKey(data []byte) (crypto.PrivKey, error)` | `unmarshalPrivateKey` | sync |
+| `func crypto.MarshalPublicKey(k crypto.PubKey) ([]byte, error)` | `marshalPublicKey` | sync |
+| `func crypto.UnmarshalPublicKey(data []byte) (crypto.PubKey, error)` | `unmarshalPublicKey` | sync |
+| `func (crypto.PrivKey).GetPublic() crypto.PubKey` | `PrivKey.getPublic` | sync |
+| `func (crypto.PrivKey).Sign([]byte) ([]byte, error)` | `PrivKey.sign` | sync |
+| `func (crypto.PubKey).Verify(data []byte, sig []byte) (bool, error)` | `PubKey.verify` | sync |
+| `const crypto.ECDSA untyped int` | `ecdsa` | const |
+| `const crypto.Ed25519 untyped int` | `ed25519` | const |
+| `const crypto.RSA untyped int` | `rsa` | const |
+| `const crypto.Secp256k1 untyped int` | `secp256k1` | const |
+| `const crypto.WeakRsaKeyEnv untyped string` | `weakRsaKeyEnv` | const |
+
 ## `github.com/libp2p/go-libp2p/core/host` → `package:p2p_ffi/go/libp2p/core/host.dart`
 
 | Go | Dart | Mode |
 |---|---|---|
 | `func (host.Host).ConnManager() connmgr.ConnManager` | `Host.connManager` | sync |
+| `func (host.Host).ID() peer.ID` | `Host.id` | sync |
+| `func (host.Host).Addrs() []multiaddr.Multiaddr` | `Host.addrs` | sync |
+| `func (host.Host).Connect(ctx context.Context, pi peer.AddrInfo) error` | `Host.connect` | Future |
+| `func (host.Host).Network() network.Network` | `Host.network` | sync |
+| `func (host.Host).Peerstore() peerstore.Peerstore` | `Host.peerstore` | sync |
+| `func (host.Host).Close() error` | `Host.close` | Future |
+| `func host.InfoFromHost(h host.Host) *peer.AddrInfo` | `infoFromHost` | sync |
+| `func (host.Host).NewStream(ctx context.Context, p peer.ID, pids ...protocol.ID) (network.Stream, error)` | `Host.newStream` | Future |
+| `func (host.Host).SetStreamHandler(pid protocol.ID, handler network.StreamHandler)` | `Host.setStreamHandler` | sync |
+| `func (host.Host).SetStreamHandlerMatch(protocol.ID, func(protocol.ID) bool, network.StreamHandler)` | `Host.setStreamHandlerMatch` | sync |
+| `func (host.Host).RemoveStreamHandler(pid protocol.ID)` | `Host.removeStreamHandler` | sync |
 
 ## `github.com/libp2p/go-libp2p/core/network` → `package:p2p_ffi/go/libp2p/core/network.dart`
 
@@ -1034,6 +1206,35 @@ Omitted:
 | `func (network.ResourceScopeViewer).ViewSystem(func(network.ResourceScope) error) error` | `ResourceManager.viewSystem` | Future |
 | `func (network.ResourceScopeViewer).ViewTransient(func(network.ResourceScope) error) error` | `ResourceManager.viewTransient` | Future |
 | `func (network.ResourceScope).Stat() network.ScopeStat` | `ResourceScope.stat` | sync |
+| `func (network.Dialer).Peers() []peer.ID` | `Network.peers` | sync |
+| `func (network.Dialer).Conns() []network.Conn` | `Network.conns` | sync |
+| `func (network.Dialer).ConnsToPeer(p peer.ID) []network.Conn` | `Network.connsToPeer` | sync |
+| `func (network.Dialer).Connectedness(peer.ID) network.Connectedness` | `Network.connectedness` | sync |
+| `func (network.Dialer).ClosePeer(peer.ID) error` | `Network.closePeer` | sync |
+| `func (network.Network).ListenAddresses() []multiaddr.Multiaddr` | `Network.listenAddresses` | sync |
+| `func (network.Network).InterfaceListenAddresses() ([]multiaddr.Multiaddr, error)` | `Network.interfaceListenAddresses` | sync |
+| `func (network.Conn).ID() string` | `Conn.id` | sync |
+| `func (network.ConnSecurity).RemotePeer() peer.ID` | `Conn.remotePeer` | sync |
+| `func (network.ConnMultiaddrs).RemoteMultiaddr() multiaddr.Multiaddr` | `Conn.remoteMultiaddr` | sync |
+| `func (network.ConnMultiaddrs).LocalMultiaddr() multiaddr.Multiaddr` | `Conn.localMultiaddr` | sync |
+| `func (network.ConnStat).Stat() network.ConnStats` | `Conn.stat` | sync |
+| `func (network.Conn).IsClosed() bool` | `Conn.isClosed` | sync |
+| `func (io.Closer).Close() error` | `Conn.close` | Future |
+| `func (io.Reader).Read(p []byte) (n int, err error)` | `Stream$.read` | Future |
+| `func (io.Writer).Write(p []byte) (n int, err error)` | `Stream$.write` | Future |
+| `func (io.Closer).Close() error` | `Stream$.close` | Future |
+| `func (network.MuxedStream).CloseWrite() error` | `Stream$.closeWrite` | Future |
+| `func (network.MuxedStream).CloseRead() error` | `Stream$.closeRead` | sync |
+| `func (network.MuxedStream).Reset() error` | `Stream$.reset` | sync |
+| `func (network.MuxedStream).SetDeadline(time.Time) error` | `Stream$.setDeadline` | sync |
+| `func (network.MuxedStream).SetReadDeadline(time.Time) error` | `Stream$.setReadDeadline` | sync |
+| `func (network.MuxedStream).SetWriteDeadline(time.Time) error` | `Stream$.setWriteDeadline` | sync |
+| `func (network.Stream).ID() string` | `Stream$.id` | sync |
+| `func (network.Stream).Protocol() protocol.ID` | `Stream$.protocol` | sync |
+| `func (network.Stream).Conn() network.Conn` | `Stream$.conn` | sync |
+| `Dart implementation of network.Notifiee` | `factory Notifiee` | sync |
+| `func (network.Dialer).Notify(network.Notifiee)` | `Network.notify` | sync |
+| `func (network.Dialer).StopNotify(network.Notifiee)` | `Network.stopNotify` | sync |
 | `const network.CanConnect network.Connectedness` | `canConnect` | const |
 | `const network.CannotConnect network.Connectedness` | `cannotConnect` | const |
 | `const network.ConnCodeOutOfRange network.ConnErrorCode` | `connCodeOutOfRange` | const |
@@ -1084,12 +1285,34 @@ Omitted:
 |---|---|---|
 | `func peer.AddrInfoFromString(s string) (*peer.AddrInfo, error)` | `addrInfoFromString` | sync |
 | `func peer.AddrInfoToP2pAddrs(pi *peer.AddrInfo) ([]multiaddr.Multiaddr, error)` | `addrInfoToP2pAddrs` | sync |
+| `func peer.IDFromPrivateKey(sk crypto.PrivKey) (peer.ID, error)` | `idFromPrivateKey` | sync |
+| `func peer.IDFromPublicKey(pk crypto.PubKey) (peer.ID, error)` | `idFromPublicKey` | sync |
+| `func peer.AddrInfoFromP2pAddr(m multiaddr.Multiaddr) (*peer.AddrInfo, error)` | `addrInfoFromP2pAddr` | sync |
+| `func peer.AddrInfosFromP2pAddrs(maddrs ...multiaddr.Multiaddr) ([]peer.AddrInfo, error)` | `addrInfosFromP2pAddrs` | sync |
 | `const peer.PeerRecordEnvelopeDomain untyped string` | `peerRecordEnvelopeDomain` | const |
+
+## `github.com/libp2p/go-libp2p/core/peerstore` → `package:p2p_ffi/go/libp2p/core/peerstore.dart`
+
+| Go | Dart | Mode |
+|---|---|---|
+| `func (peerstore.AddrBook).AddAddrs(p peer.ID, addrs []multiaddr.Multiaddr, ttl time.Duration)` | `Peerstore.addAddrs` | sync |
+| `func (peerstore.AddrBook).Addrs(p peer.ID) []multiaddr.Multiaddr` | `Peerstore.addrs` | sync |
+| `func (peerstore.AddrBook).ClearAddrs(p peer.ID)` | `Peerstore.clearAddrs` | sync |
+| `func (peerstore.Peerstore).PeerInfo(peer.ID) peer.AddrInfo` | `Peerstore.peerInfo` | sync |
+| `func (peerstore.Peerstore).Peers() peer.IDSlice` | `Peerstore.peers` | sync |
+| `func (peerstore.AddrBook).PeersWithAddrs() peer.IDSlice` | `Peerstore.peersWithAddrs` | sync |
+| `func (peerstore.ProtoBook).GetProtocols(peer.ID) ([]protocol.ID, error)` | `Peerstore.getProtocols` | sync |
+| `func (peerstore.PeerMetadata).Get(p peer.ID, key string) (any, error)` | `Peerstore.get` | sync |
+| `func (peerstore.Metrics).LatencyEWMA(peer.ID) time.Duration` | `Peerstore.latencyEwma` | sync |
+| `const peerstore.ConnectedAddrTTL untyped int` | `connectedAddrTtl` | const |
+| `const peerstore.PermanentAddrTTL untyped int` | `permanentAddrTtl` | const |
 
 ## `github.com/libp2p/go-libp2p/core/routing` → `package:p2p_ffi/go/libp2p/core/routing.dart`
 
 | Go | Dart | Mode |
 |---|---|---|
+| `routing.ContentRouting → x.(*dht.IpfsDHT)` | `ContentRouting.asIpfsDht` | cast |
+| `routing.ContentRouting → x.(*routing.RoutingDiscovery)` | `ContentRouting.asRoutingDiscovery` | cast |
 | `const routing.AddingPeer routing.QueryEventType` | `addingPeer` | const |
 | `const routing.DialingPeer routing.QueryEventType` | `dialingPeer` | const |
 | `const routing.FinalPeer routing.QueryEventType` | `finalPeer` | const |
@@ -1098,6 +1321,69 @@ Omitted:
 | `const routing.QueryError routing.QueryEventType` | `queryError` | const |
 | `const routing.SendingQuery routing.QueryEventType` | `sendingQuery` | const |
 | `const routing.Value routing.QueryEventType` | `value$` | const |
+
+## `github.com/libp2p/go-libp2p/p2p/discovery/mdns` → `package:p2p_ffi/go/libp2p/p2p/discovery/mdns.dart`
+
+| Go | Dart | Mode |
+|---|---|---|
+| `Dart implementation of mdns.Notifee` | `factory Notifee` | sync |
+| `func mdns.NewMdnsService(host host.Host, serviceName string, notifee mdns.Notifee) *mdns.mdnsService` | `newMdnsService` | sync |
+| `func (mdns.Service).Start() error` | `Service.start` | sync |
+| `func (io.Closer).Close() error` | `Service.close` | sync |
+| `const mdns.ServiceName untyped string` | `serviceName` | const |
+
+## `github.com/libp2p/go-libp2p/p2p/discovery/routing` → `package:p2p_ffi/go/libp2p/p2p/discovery/routing.dart`
+
+| Go | Dart | Mode |
+|---|---|---|
+| `func routing.NewRoutingDiscovery(router routing.ContentRouting) *routing.RoutingDiscovery` | `factory RoutingDiscovery` | sync |
+| `func (*routing.RoutingDiscovery).Advertise(ctx context.Context, ns string, opts ...discovery.Option) (time.Duration, error)` | `RoutingDiscovery.advertise` | Future |
+| `func (*routing.RoutingDiscovery).FindPeers(ctx context.Context, ns string, opts ...discovery.Option) (<-chan peer.AddrInfo, error)` | `RoutingDiscovery.findPeers` | Stream |
+
+## `github.com/libp2p/go-libp2p/p2p/net/swarm` → `package:p2p_ffi/go/libp2p/p2p/net/swarm.dart`
+
+| Go | Dart | Mode |
+|---|---|---|
+| `const swarm.ConcurrentFdDials untyped int` | `concurrentFdDials` | const |
+| `const swarm.DialAttempts untyped int` | `dialAttempts` | const |
+| `const swarm.PrivateOtherDelay time.Duration` | `privateOtherDelay` | const |
+| `const swarm.PrivateQUICDelay time.Duration` | `privateQuicDelay` | const |
+| `const swarm.PrivateTCPDelay time.Duration` | `privateTcpDelay` | const |
+| `const swarm.PublicOtherDelay time.Duration` | `publicOtherDelay` | const |
+| `const swarm.PublicQUICDelay time.Duration` | `publicQuicDelay` | const |
+| `const swarm.PublicTCPDelay time.Duration` | `publicTcpDelay` | const |
+| `const swarm.RelayDelay time.Duration` | `relayDelay` | const |
+
+## `github.com/libp2p/go-libp2p/p2p/protocol/circuitv2/relay` → `package:p2p_ffi/go/libp2p/p2p/protocol/circuitv2/relay.dart`
+
+| Go | Dart | Mode |
+|---|---|---|
+| `const relay.ConnectTimeout time.Duration` | `connectTimeout` | const |
+| `const relay.HandshakeTimeout time.Duration` | `handshakeTimeout` | const |
+| `const relay.ReservationTagWeight untyped int` | `reservationTagWeight` | const |
+| `const relay.ServiceName untyped string` | `serviceName` | const |
+| `const relay.StreamTimeout time.Duration` | `streamTimeout` | const |
+
+## `github.com/libp2p/go-libp2p/p2p/protocol/holepunch` → `package:p2p_ffi/go/libp2p/p2p/protocol/holepunch.dart`
+
+| Go | Dart | Mode |
+|---|---|---|
+| `const holepunch.DirectDialEvtT untyped string` | `directDialEvtT` | const |
+| `const holepunch.EndHolePunchEvtT untyped string` | `endHolePunchEvtT` | const |
+| `const holepunch.HolePunchAttemptEvtT untyped string` | `holePunchAttemptEvtT` | const |
+| `const holepunch.Protocol protocol.ID` | `protocol` | const |
+| `const holepunch.ProtocolErrorEvtT untyped string` | `protocolErrorEvtT` | const |
+| `const holepunch.ServiceName untyped string` | `serviceName` | const |
+| `const holepunch.StartHolePunchEvtT untyped string` | `startHolePunchEvtT` | const |
+
+## `github.com/libp2p/go-libp2p/p2p/protocol/ping` → `package:p2p_ffi/go/libp2p/p2p/protocol/ping.dart`
+
+| Go | Dart | Mode |
+|---|---|---|
+| `func ping.Ping(ctx context.Context, h host.Host, p peer.ID) <-chan ping.Result` | `ping` | Stream |
+| `const ping.ID untyped string` | `id` | const |
+| `const ping.PingSize untyped int` | `pingSize` | const |
+| `const ping.ServiceName untyped string` | `serviceName` | const |
 
 ## `github.com/multiformats/go-multiaddr` → `package:p2p_ffi/go/multiaddr.dart`
 
@@ -1788,6 +2074,29 @@ Omitted:
 | `const fs.ModeTemporary fs.FileMode` | `modeTemporary` | const |
 | `const fs.ModeType fs.FileMode` | `modeType` | const |
 
+## `log/slog` → `package:p2p_ffi/go/log/slog.dart`
+
+| Go | Dart | Mode |
+|---|---|---|
+| `const slog.KindAny slog.Kind` | `kindAny` | const |
+| `const slog.KindBool slog.Kind` | `kindBool` | const |
+| `const slog.KindDuration slog.Kind` | `kindDuration` | const |
+| `const slog.KindFloat64 slog.Kind` | `kindFloat64` | const |
+| `const slog.KindGroup slog.Kind` | `kindGroup` | const |
+| `const slog.KindInt64 slog.Kind` | `kindInt64` | const |
+| `const slog.KindLogValuer slog.Kind` | `kindLogValuer` | const |
+| `const slog.KindString slog.Kind` | `kindString` | const |
+| `const slog.KindTime slog.Kind` | `kindTime` | const |
+| `const slog.KindUint64 slog.Kind` | `kindUint64` | const |
+| `const slog.LevelDebug slog.Level` | `levelDebug` | const |
+| `const slog.LevelError slog.Level` | `levelError` | const |
+| `const slog.LevelInfo slog.Level` | `levelInfo` | const |
+| `const slog.LevelKey untyped string` | `levelKey` | const |
+| `const slog.LevelWarn slog.Level` | `levelWarn` | const |
+| `const slog.MessageKey untyped string` | `messageKey` | const |
+| `const slog.SourceKey untyped string` | `sourceKey` | const |
+| `const slog.TimeKey untyped string` | `timeKey` | const |
+
 ## `os` → `package:p2p_ffi/go/os.dart`
 
 | Go | Dart | Mode |
@@ -1833,9 +2142,37 @@ Omitted:
 |---|---|---|
 | `func debug.SetCrashOutput(f *os.File, opts debug.CrashOptions) error` | `setCrashOutput` | sync |
 
+## Struct fields that do not cross the bridge
+
+- `github.com/libp2p/go-libp2p-pubsub.Message.ValidatorData`: type any
+- `github.com/libp2p/go-libp2p-pubsub.PeerScoreParams.AppSpecificScore`: func(p github.com/libp2p/go-libp2p/core/peer.ID) float64
+- `github.com/libp2p/go-libp2p-pubsub.TestExtensionConfig.OnReceiveTestExtension`: func(from github.com/libp2p/go-libp2p/core/peer.ID)
+- `github.com/libp2p/go-libp2p/core/network.Stats.Extra`: map keyed by any
+
 ## Omitted option constructors
 
-- `gateway.WithPrometheusRegistry` (BackendOption): Prometheus metrics (no namespace; the gateway uses the default registry)
+- `dht.AddressFilter` (dht.Option): parameter f: func([]github.com/multiformats/go-multiaddr.Multiaddr) []github.com/multiformats/go-multiaddr.Multiaddr
+- `dht.BootstrapPeersFunc` (dht.Option): parameter getBootstrapPeers: func() []github.com/libp2p/go-libp2p/core/peer.AddrInfo
+- `dht.OnRequestHook` (dht.Option): parameter f: func(ctx context.Context, s github.com/libp2p/go-libp2p/core/network.Stream, req *github.com/libp2p/go-libp2p-kad-dht/pb.Message)
+- `dht.WithCustomMessageSender` (dht.Option): parameter messageSenderBuilder: func(h github.com/libp2p/go-libp2p/core/host.Host, protos []github.com/libp2p/go-libp2p/core/protocol.ID) github.com/libp2p/go-libp2p-kad-dht/pb.MessageSenderWithDisconnect
+- `gateway.WithPrometheusRegistry` (gateway.BackendOption): Prometheus metrics (no namespace; the gateway uses the default registry)
+- `libp2p.DefaultPrometheusRegisterer` (config.Option): Prometheus metrics (no namespace; libp2p uses the default registerer)
+- `libp2p.PrometheusRegisterer` (config.Option): Prometheus metrics (no namespace; libp2p uses the default registerer)
+- `libp2p.QUICReuse` (config.Option): takes a Go constructor function
+- `libp2p.Security` (config.Option): takes a Go constructor function (DefaultSecurity holds the usual ones)
+- `libp2p.Transport` (config.Option): takes a Go constructor function (DefaultTransports holds the usual ones)
+- `libp2p.WithFxOption` (config.Option): the fx dependency injection inside libp2p (Go values only)
+- `pubsub.WithAppSpecificRpcInspector` (pubsub.Option): parameter inspector: func(github.com/libp2p/go-libp2p/core/peer.ID, *github.com/libp2p/go-libp2p-pubsub.RPC) error
+- `pubsub.WithGossipSubParams` (pubsub.Option): parameter cfg: github.com/libp2p/go-libp2p-pubsub.GossipSubParams
+- `pubsub.WithGossipSubProtocols` (pubsub.Option): parameter feature: func(github.com/libp2p/go-libp2p-pubsub.GossipSubFeature, github.com/libp2p/go-libp2p/core/protocol.ID) bool
+- `pubsub.WithMessageFilter` (pubsub.SubOpt): parameter filter: func(*github.com/libp2p/go-libp2p-pubsub.Message) bool
+- `pubsub.WithPartialMessagesExtension` (pubsub.Option): parameter pm: *generic github.com/libp2p/go-libp2p-pubsub/partialmessages.PartialMessagesExtension[PeerState]
+- `pubsub.WithPeerGater` (pubsub.Option): parameter params: *github.com/libp2p/go-libp2p-pubsub.PeerGaterParams
+- `pubsub.WithPeerScore` (pubsub.Option): parameter params: *github.com/libp2p/go-libp2p-pubsub.PeerScoreParams
+- `pubsub.WithProtocolMatchFn` (pubsub.Option): parameter m: func(github.com/libp2p/go-libp2p/core/protocol.ID) func(github.com/libp2p/go-libp2p/core/protocol.ID) bool
+- `pubsub.WithTestExtension` (pubsub.Option): parameter c: github.com/libp2p/go-libp2p-pubsub.TestExtensionConfig
+- `relay.WithLimit` (relay.Option): parameter limit: *github.com/libp2p/go-libp2p/p2p/protocol/circuitv2/relay.RelayLimit
+- `relay.WithResources` (relay.Option): parameter rc: github.com/libp2p/go-libp2p/p2p/protocol/circuitv2/relay.Resources
 
 ## Adaptations (generator rules and hand-written code)
 
@@ -1854,6 +2191,9 @@ Omitted:
 - A `chan<- T` channel passed in an option (`options.Unixfs.Events`) becomes a `StreamSink<T>` (`options.unixfs.events(controller.sink)`); the real item type of a `chan<- any` comes from the generator's `chanElem` table (`AddEvent`). Like `ipfs add`, the channel is closed when the call returns: every event arrives and the sink closes before the `Future` completes.
 - A package variable becomes a getter; a named function type (`libp2p.RoutingOption`) is an opaque handle, created only in Go; an unnamed func identical to a named type of the package, or of one it imports, uses the named type (`bsfetcher.DefaultPrototypeChooser`).
 - A function parameter that returns nothing, `bool` or `error` (a callback) becomes a Dart function (`idx.forEach((mh, offset) {...})`): Go calls a real callback, which takes the arguments to Dart in batches and waits for the verdict; `false` or an exception stops Go, and the call throws the original Dart exception. `batchSize` (optional): invocations per batch, default 1024 (up to 128 KiB, measured) or 1 when the callback receives Go objects; Go stays at most `batchSize - 1` ahead. The call's objects are in use (`isBusy`, `P2pService.busy`); a call to them from inside the callback that waits on a lock the Go function holds becomes `GolangDeadlockException` (WIRE.md, "Callback").
+- A function Go keeps past the call (a handler; table `retainedFuncs`: `host.setStreamHandler`) is a retained callback (WIRE.md): Go calls it, on the Dart event loop, for as long as it holds it, and Dart drops it when Go's garbage collector frees it. A root that is an interface type (`network.Notifiee`, `mdns.Notifee`) becomes a factory with one optional function per method (`Notifee(handlePeerFound: (pi) {...})`), each a retained callback. An exception in a retained callback goes to the zone (like a `Timer`'s).
+- Functional options built in another package come with it: libp2p's (`libp2p.listenAddrStrings(...)`) build a `config.Option` (`libp2p.Option` is its alias), and a package variable of the option's type is a getter (`libp2p.noListenAddrs`). The type of an internal package seen through an exported alias of the same name lives in the alias's library (`dht.Option`).
+- `time.Duration` is a Dart `Duration` (nanoseconds on the wire, rounded to microseconds in Dart).
 - Errors that wrap `io.EOF`, `io.ErrUnexpectedEOF`, `context.Canceled`, `context.DeadlineExceeded` or IPLD's not found become `GolangEofException`, `GolangUnexpectedEofException`, `GolangCanceledException`, `GolangDeadlineExceededException` and `GolangNotFoundException` (subclasses of `GolangException`), as Go's `errors.Is` would find them.
 - A root that is only a struct type (`bsadapter.Adapter`, `basicnode.Prototype__Any`) becomes an empty constructor (`Adapter()`, Go's `new(T)`), and its fields, getters and setters.
 - An interface that embeds another gets the cast from it (`idx.asIterableIndex()`, Go's `x.(index.IterableIndex)`).

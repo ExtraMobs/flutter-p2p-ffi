@@ -19,7 +19,7 @@ class BaseBlocks extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> put($context.Context ctx, $block_format.Block block) async {
     await $call(
-        295,
+        297,
         $W()
           ..h(this)
           ..h(ctx)
@@ -31,7 +31,7 @@ class BaseBlocks extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> has($context.Context ctx, $cid.Cid cid) async {
     final $r = await $call(
-        294,
+        296,
         $W()
           ..h(this)
           ..h(ctx)
@@ -44,7 +44,7 @@ class BaseBlocks extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<$block_format.Block> get($context.Context ctx, $cid.Cid cid) async {
     final $r = await $call(
-        292,
+        294,
         $W()
           ..h(this)
           ..h(ctx)
@@ -57,7 +57,7 @@ class BaseBlocks extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> getSize($context.Context ctx, $cid.Cid cid) async {
     final $r = await $call(
-        293,
+        295,
         $W()
           ..h(this)
           ..h(ctx)
@@ -70,7 +70,7 @@ class BaseBlocks extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> deleteBlock($context.Context ctx, $cid.Cid cid) async {
     await $call(
-        291,
+        293,
         $W()
           ..h(this)
           ..h(ctx)
@@ -79,7 +79,7 @@ class BaseBlocks extends GoHandle {
 
   /// Go: `func (node.BaseBlocks).AllKeysChan(ctx context.Context) (<-chan cid.Cid, error)`.
   Stream<$cid.Cid> allKeysChan($context.Context ctx) => $stream(
-          290,
+          292,
           $W()
             ..h(this)
             ..h(ctx))
@@ -108,7 +108,7 @@ final class BuildCfg implements GoDto {
       $libp2p.RoutingOption? routing,
       $libp2p.HostOption? host,
       $repo.Repo? repo,
-      int? shutdownTimeout})
+      Duration? shutdownTimeout})
       : online = online ?? false,
         extraOpts = extraOpts ?? {},
         permanent = permanent ?? false,
@@ -116,7 +116,7 @@ final class BuildCfg implements GoDto {
         routing = routing,
         host = host,
         repo = repo,
-        shutdownTimeout = shutdownTimeout ?? 0;
+        shutdownTimeout = shutdownTimeout ?? Duration.zero;
 
   BuildCfg.$dec($R r)
       : online = r.b(),
@@ -126,7 +126,7 @@ final class BuildCfg implements GoDto {
         routing = r.hn($libp2p.RoutingOption.$h),
         host = r.hn($libp2p.HostOption.$h),
         repo = r.hn($repo.Repo.$h),
-        shutdownTimeout = r.i64();
+        shutdownTimeout = Duration(microseconds: r.i64() ~/ 1000);
 
   /// Go: `Online`.
   bool online;
@@ -150,7 +150,7 @@ final class BuildCfg implements GoDto {
   $repo.Repo? repo;
 
   /// Go: `ShutdownTimeout`.
-  int shutdownTimeout;
+  Duration shutdownTimeout;
 
   @override
   void $enc($W w) {
@@ -162,7 +162,7 @@ final class BuildCfg implements GoDto {
       ..h(routing)
       ..h(host)
       ..h(repo)
-      ..i64(shutdownTimeout);
+      ..i64((shutdownTimeout).inMicroseconds * 1000);
   }
 }
 

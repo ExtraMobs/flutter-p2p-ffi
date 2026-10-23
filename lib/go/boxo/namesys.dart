@@ -28,8 +28,8 @@ ResolveOption resolveWithDhtRecordCount(int count) =>
     ResolveOption.$(1, (w) => w..i64(count));
 
 /// Go: `namesys.ResolveWithDhtTimeout`.
-ResolveOption resolveWithDhtTimeout(int timeout) =>
-    ResolveOption.$(2, (w) => w..i64(timeout));
+ResolveOption resolveWithDhtTimeout(Duration timeout) =>
+    ResolveOption.$(2, (w) => w..i64((timeout).inMicroseconds * 1000));
 
 /// Go: `const namesys.DefaultDepthLimit untyped int`.
 const defaultDepthLimit = 32;

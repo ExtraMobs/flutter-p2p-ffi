@@ -60,6 +60,7 @@ func emitGo(m *model, fns []*fn, hash uint64) ([]byte, error) {
 }
 
 func (g *goEmitter) qual(p *types.Package) string {
+	p = g.m.home(p) // an internal package is spelled through its alias (dht.Option)
 	if a, ok := g.aliases[p.Path()]; ok {
 		return a
 	}
@@ -95,6 +96,16 @@ func (g *goEmitter) function(name string, f *fn) string {
 		fmt.Fprintf(&b, "\tif err := r.done(); err != nil {\n\t\treturn err\n\t}\n\tencH(w, new(%s))\n\treturn nil\n}\n", g.ts(f.results[0].t.(*types.Pointer).Elem()))
 		return b.String()
 	}
+	if f.impl != nil { // a Dart implementation of an interface: the generator's struct over the retained callbacks
+		T := g.implType(f)
+		var fields []string
+		for i, p := range f.params {
+			fmt.Fprintf(&b, "\tvar p%d %s\n\tif rc := newRetained(q, r.u32()); rc != nil {\n\t\tp%d = %s\n\t}\n", i, g.ts(p.t.t), i, g.funcLit(p.t, "rc"))
+			fields = append(fields, fmt.Sprintf("p%d", i))
+		}
+		fmt.Fprintf(&b, "\tif err := r.done(); err != nil {\n\t\treturn err\n\t}\n\tvar v %s = &%s{%s}\n\tencH(w, v)\n\treturn nil\n}\n", g.ts(f.results[0].t), T, strings.Join(fields, ", "))
+		return b.String()
+	}
 	if f.cast != nil { // type assertion: o handle novo, ou 0 se não for desse tipo
 		fmt.Fprintf(&b, "\tif err := r.done(); err != nil {\n\t\treturn err\n\t}\n\tc, _ := recv.(%s)\n\tencH(w, c)\n\treturn nil\n}\n", g.ts(f.cast.t))
 		return b.String()
@@ -113,9 +124,11 @@ func (g *goEmitter) function(name string, f *fn) string {
 		case i == chanIdx:
 			args = append(args, "ch")
 			continue
+		case p.t.k == kFunc && p.t.retained: // kept by Go (retained.go): the Dart id; 0 = nil
+			fmt.Fprintf(&b, "\tvar %s %s\n\tif rc := newRetained(q, r.u32()); rc != nil {\n\t\t%s = %s\n\t}\n", v, g.ts(p.t.t), v, g.funcLit(p.t, "rc"))
 		case p.t.k == kFunc: // callback sob demanda (callback.go): o lote pedido e a função Go que o alimenta
 			b.WriteString("\tcb := newCallback(q, r.u32())\n\tdefer cb.end()\n")
-			args = append(args, g.funcLit(p.t))
+			args = append(args, g.funcLit(p.t, "cb"))
 			continue
 		case p.t.k == kSlice && p.t.elem.k == kOpts: // opções: done fecha os sinks delas antes da resposta
 			fmt.Fprintf(&b, "\t%s, done%d, err := %s(q, r)\n\tdefer done%d()\n%s", v, i, g.decOpts(p.t.elem), i, fail)
@@ -217,14 +230,21 @@ func (g *goEmitter) function(name string, f *fn) string {
 // funcLit: o callback Go passado à função no lugar do callback do Dart: cada
 // invocação vai ao lote (cb.item) com os argumentos, e o veredito do Dart
 // vira o resultado (false, ou errCallbackStopped).
-func (g *goEmitter) funcLit(t *tinfo) string {
+func (g *goEmitter) funcLit(t *tinfo, cb string) string {
 	sig := t.t.Underlying().(*types.Signature)
 	var ps, encs []string
 	for i, a := range t.fargs {
 		ps = append(ps, fmt.Sprintf("a%d %s", i, g.ts(sig.Params().At(i).Type())))
 		encs = append(encs, fmt.Sprintf("%s(w, a%d)", g.enc(a), i))
 	}
-	item := fmt.Sprintf("cb.item(func(w *writer) {\n%s\n})", strings.Join(encs, "\n"))
+	call := cb + ".item"
+	if t.retained { // retained.go: ask waits for the verdict, call does not
+		call = cb + ".ask"
+		if t.fret == fretNone {
+			call = cb + ".call"
+		}
+	}
+	item := fmt.Sprintf("%s(func(w *writer) {\n%s\n})", call, strings.Join(encs, "\n"))
 	params := strings.Join(ps, ", ")
 	switch t.fret {
 	case fretBool:
@@ -233,6 +253,36 @@ func (g *goEmitter) funcLit(t *tinfo) string {
 		return fmt.Sprintf("func(%s) error {\nif !%s {\nreturn errCallbackStopped\n}\nreturn nil\n}", params, item)
 	}
 	return fmt.Sprintf("func(%s) {\n%s\n}", params, item)
+}
+
+// implType: the struct that implements [f.impl] over one function per method
+// (nil = the method does nothing and returns the zero value).
+func (g *goEmitter) implType(f *fn) string {
+	return g.helper("impl:"+f.key, "impl", func(name string) string {
+		var b strings.Builder
+		fmt.Fprintf(&b, "// %s: %s implemented by Dart.\ntype %s struct {\n", name, f.key, name)
+		for i, p := range f.params {
+			fmt.Fprintf(&b, "\tf%d %s\n", i, g.ts(p.t.t))
+		}
+		b.WriteString("}\n")
+		for i := 0; i < f.impl.NumMethods(); i++ {
+			sig := f.impl.Method(i).Type().(*types.Signature)
+			var ps, as []string
+			for j := 0; j < sig.Params().Len(); j++ {
+				ps = append(ps, fmt.Sprintf("a%d %s", j, g.ts(sig.Params().At(j).Type())))
+				as = append(as, fmt.Sprintf("a%d", j))
+			}
+			res, ret, zero := "", "", ""
+			switch f.params[i].t.fret {
+			case fretBool:
+				res, ret, zero = " bool", "return ", "\n\treturn false"
+			case fretErr:
+				res, ret, zero = " error", "return ", "\n\treturn nil"
+			}
+			fmt.Fprintf(&b, "\nfunc (x *%s) %s(%s)%s {\n\tif x.f%d != nil {\n\t\t%sx.f%d(%s)\n\t}%s\n}\n", name, f.impl.Method(i).Name(), strings.Join(ps, ", "), res, i, ret, i, strings.Join(as, ", "), zero)
+		}
+		return b.String()
+	})
 }
 
 func (g *goEmitter) callee(f *fn, recv string) string {
@@ -381,7 +431,6 @@ func (g *goEmitter) decOpts(t *tinfo) string {
 		b.WriteString("\tdefer func() {\n\t\tif err != nil {\n\t\t\tdone()\n\t\t}\n\t}()\n")
 		fmt.Fprintf(&b, "\tn := r.count()\n\tif n < 0 {\n\t\treturn nil, done, nil\n\t}\n\tout = make([]%s, 0, n)\n", T)
 		b.WriteString("\tfor range n {\n\t\tif r.err != nil {\n\t\t\tbreak\n\t\t}\n\t\tswitch i := r.u32(); i {\n")
-		pkg := g.qual(t.named.Obj().Pkg())
 		for idx, c := range t.ctors {
 			if ok, _ := okOptCtor(c); !ok {
 				continue
@@ -391,6 +440,8 @@ func (g *goEmitter) decOpts(t *tinfo) string {
 			for i, pt := range c.params {
 				if pt.k == kChanSend { // canal do chamador: vai ao sink do app (u32 id)
 					fmt.Fprintf(&b, "\t\t\ta%d, d%d := chanSink(q, r.u32(), %s)\n\t\t\tdones = append(dones, d%d)\n", i, i, g.enc(pt.elem), i)
+				} else if pt.k == kSlice && pt.elem.k == kOpts { // a list of options (libp2p.EnableHolePunching)
+					fmt.Fprintf(&b, "\t\t\ta%d, d%d, err := %s(q, r)\n\t\t\tdones = append(dones, d%d)\n\t\t\tif err != nil {\n\t\t\t\treturn nil, done, err\n\t\t\t}\n", i, i, g.decOpts(pt.elem), i)
 				} else if pt.k == kOpts { // opção dentro de opção: uma lista de uma (namesys.ResolveOption)
 					fmt.Fprintf(&b, "\t\t\tl%d, d%d, err := %s(q, r)\n\t\t\tdones = append(dones, d%d)\n\t\t\tif err != nil || len(l%d) != 1 {\n\t\t\t\treturn nil, done, errors.Join(err, fmt.Errorf(\"p2p_host: one nested option expected\"))\n\t\t\t}\n\t\t\ta%d := l%d[0]\n", i, i, g.decOpts(pt), i, i, i, i)
 				} else {
@@ -398,7 +449,13 @@ func (g *goEmitter) decOpts(t *tinfo) string {
 				}
 				args = append(args, fmt.Sprintf("a%d", i))
 			}
-			call := fmt.Sprintf("%s.%s(%s)", pkg, strings.Join(c.path, "."), strings.Join(args, ", "))
+			if c.variadic && len(args) > 0 {
+				args[len(args)-1] += "..."
+			}
+			call := fmt.Sprintf("%s.%s(%s)", g.qual(c.pkg), strings.Join(c.path, "."), strings.Join(args, ", "))
+			if c.isVar {
+				call = g.qual(c.pkg) + "." + c.path[0]
+			}
 			if c.hasErr {
 				fmt.Fprintf(&b, "\t\t\to, err := %s\n\t\t\tif err != nil {\n\t\t\t\treturn nil, done, err\n\t\t\t}\n\t\t\tout = append(out, o)\n", call)
 			} else {

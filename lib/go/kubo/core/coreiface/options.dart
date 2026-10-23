@@ -226,11 +226,12 @@ final class _Name {
       NamePublishOption.$(4, (w) => w..i64(seq));
 
   /// Go: `options.Name.TTL`.
-  NamePublishOption ttl(int ttl) => NamePublishOption.$(5, (w) => w..i64(ttl));
+  NamePublishOption ttl(Duration ttl) =>
+      NamePublishOption.$(5, (w) => w..i64((ttl).inMicroseconds * 1000));
 
   /// Go: `options.Name.ValidTime`.
-  NamePublishOption validTime(int validTime) =>
-      NamePublishOption.$(6, (w) => w..i64(validTime));
+  NamePublishOption validTime(Duration validTime) =>
+      NamePublishOption.$(6, (w) => w..i64((validTime).inMicroseconds * 1000));
 }
 
 /// Go: `var Object`: option constructors.

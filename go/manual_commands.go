@@ -243,7 +243,10 @@ func emitReader(q *req, rd io.Reader) error {
 // readChunks: reads [rd] to the end in cmdChunk pieces, each one a fresh
 // slice handed to [each]; closes [rd] when it is an io.Closer.
 func readChunks(rd io.Reader, each func([]byte)) error {
-	if c, ok := rd.(io.Closer); ok {
+	switch c := rd.(type) {
+	case interface{ CloseRead() error }: // a stream (network.Stream): its write side stays open
+		defer c.CloseRead()
+	case io.Closer:
 		defer c.Close()
 	}
 	buf := make([]byte, cmdChunk)

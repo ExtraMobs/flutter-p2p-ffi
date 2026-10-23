@@ -14,7 +14,7 @@ class Directory extends GoHandle {
   factory Directory($ipld_format.DagService dserv,
       [List<DirectoryOption> opts = const []]) {
     final $r = $callSync(
-        122,
+        124,
         $W()
           ..h(dserv)
           ..list(opts, (w0, e0) => w0.h(e0)));
@@ -27,7 +27,7 @@ class Directory extends GoHandle {
   Future<void> addChild(
       $context.Context ctx, String name, $ipld_format.Node node) async {
     await $call(
-        120,
+        122,
         $W()
           ..h(this)
           ..h(ctx)
@@ -37,7 +37,7 @@ class Directory extends GoHandle {
 
   /// Go: `func (io.Directory).GetNode() (format.Node, error)`.
   $ipld_format.Node getNode() {
-    final $r = $callSync(121, $W()..h(this));
+    final $r = $callSync(123, $W()..h(this));
     return $r.hnn($ipld_format.Node.$h);
   }
 }

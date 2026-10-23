@@ -35,7 +35,8 @@ Everything is little-endian.
   `context.DeadlineExceeded` (`GolangDeadlineExceededException`), `5` not found (`ipld.ErrNotFound`,
   the `ErrNotFound` of go-car's storage; `GolangNotFoundException`), `6` deadlock with a callback (only
   the host produces it; `GolangDeadlockException`). Kind `4`: a callback batch (see
-  "Callback").
+  "Callback"), or one invocation of a retained callback (see "Retained callback"), whose
+  end is a kind `2` with its id.
 - A call answers with a `value` or an `error`; a stream with `item`s and then `end` or
   `error`. A call's sinks (below) get `item`s and `end`/`error` with the sink's id,
   **before** the call's response.
@@ -153,6 +154,29 @@ host's default, 1024; the generated code sends `1` when the callback receives ha
   on a mutex (`SemacquireMutex`/`SemacquireRWMutex` in the goroutine profile) for 1 s while
   some callback waits for a `CallbackAck`, the host answers `error` code `6` with the stack,
   and the goroutine's late response is discarded.
+
+## Retained callback
+
+A function Go keeps past the call (a handler: the generator's `retainedFuncs` table,
+`host.Host.SetStreamHandler`), and each method of a Dart implementation of an interface (a
+root that is an interface type, `mdns.Notifee`), is a retained callback. In its place goes
+a `u32` id the app takes from its own counter, the same as a call's (`0` = nil: a method the
+Dart implementation leaves out). The call itself stays synchronous or asynchronous as it
+is.
+
+- Each invocation goes as a kind `4` event with that id and one set of arguments (`u32 1`
+  + the arguments), from whatever goroutine Go calls it on. The app runs the Dart function
+  on its event loop, never inside a synchronous call.
+- A function that returns nothing does not wait. One that returns `bool` or `error` waits
+  for the `CallbackAck` (function 5) of that id, one invocation at a time: verdict `0` is
+  `true`/`nil`, the others `false`/an internal error. A Dart exception goes to the zone
+  and answers `2`.
+- When Go's garbage collector frees the function (the handler removed, the host closed and
+  dropped), the host sends `end` with the id, and the app drops its side. While Go holds
+  it, the app keeps the Dart function; a stop of the service drops them all.
+- A Dart implementation is a synchronous function of the generator (the factory of the
+  interface's class): the ids of the methods, in the interface's method order, return the
+  handle of a Go object that calls them.
 
 ## Commands (function 36)
 

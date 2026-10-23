@@ -72,7 +72,7 @@ func (e *dartEmitter) collect(t *tinfo) {
 	default:
 		return
 	}
-	l := e.lib(t.named.Obj().Pkg().Path())
+	l := e.lib(e.m.home(t.named.Obj().Pkg()).Path())
 	if _, ok := l.classes[classKey(t)]; ok {
 		return
 	}
@@ -89,6 +89,7 @@ func (e *dartEmitter) collect(t *tinfo) {
 	}
 	e.collect(t.super)
 	for _, c := range usableCtors(t) {
+		e.lib(e.m.home(c.pkg).Path()) // the constructors live in their package's library
 		for _, p := range c.params {
 			e.collect(p)
 		}
@@ -262,7 +263,7 @@ func isFactory(f *fn) bool {
 // ref: nome (qualificado, se de outra library) da classe de [t].
 func (e *dartEmitter) ref(t *tinfo, from *dartLib) string {
 	name := className(t)
-	l := e.lib(t.named.Obj().Pkg().Path())
+	l := e.lib(e.m.home(t.named.Obj().Pkg()).Path())
 	if l == from {
 		return name
 	}
@@ -304,6 +305,8 @@ func basicDart(t *tinfo) string {
 	}
 	b := tt.Underlying().(*types.Basic)
 	switch {
+	case t.dur:
+		return "Duration"
 	case b.Info()&types.IsBoolean != 0:
 		return "bool"
 	case b.Info()&types.IsInteger != 0:
@@ -378,6 +381,8 @@ func (e *dartEmitter) enc(t *tinfo, x string, depth int) string {
 			return "b(" + x + ")"
 		case "int":
 			return "i64(" + x + ")"
+		case "Duration": // nanoseconds on the wire
+			return "i64((" + x + ").inMicroseconds * 1000)"
 		case "double":
 			return "f64(" + x + ")"
 		}
@@ -439,6 +444,8 @@ func (e *dartEmitter) dec(t *tinfo, r string, from *dartLib, opt bool) string {
 			return r + ".b()"
 		case "int":
 			return r + ".i64()"
+		case "Duration":
+			return "Duration(microseconds: " + r + ".i64() ~/ 1000)"
 		case "double":
 			return r + ".f64()"
 		}
@@ -676,6 +683,8 @@ func zero(t *tinfo, dartT string) string {
 			return "false"
 		case "int":
 			return "0"
+		case "Duration":
+			return "Duration.zero"
 		case "double":
 			return "0.0"
 		}
@@ -764,12 +773,21 @@ func (e *dartEmitter) holders(l *dartLib, b *strings.Builder) {
 		ctors []string
 	}
 	root := &node{kids: map[string]*node{}}
-	for _, k := range sortedKeys(l.classes) {
-		t := l.classes[k].t
-		if t.k != kOpts {
-			continue
+	// the option types of every library: a constructor goes to the library
+	// of its package (libp2p.ListenAddrStrings builds a config.Option)
+	var opts []*tinfo
+	for _, path := range sortedKeys(e.libs) {
+		for _, k := range sortedKeys(e.libs[path].classes) {
+			if t := e.libs[path].classes[k].t; t.k == kOpts {
+				opts = append(opts, t)
+			}
 		}
+	}
+	for _, t := range opts {
 		for _, c := range usableCtors(t) {
+			if e.m.home(c.pkg).Path() != l.goPath {
+				continue
+			}
 			n := root
 			for _, seg := range c.path[:len(c.path)-1] {
 				if n.kids[seg] == nil {
@@ -810,7 +828,15 @@ func (e *dartEmitter) holders(l *dartLib, b *strings.Builder) {
 			if len(segs) > 0 {
 				args = "(w) => w" + strings.Join(segs, "")
 			}
-			opt := className(t)
+			opt := e.ref(t, l)
+			if c.isVar {
+				n.ctors = append(n.ctors, fmt.Sprintf("  /// Go: `var %s.%s`.\n  %s get %s => %s.$(%d, %s);\n",
+					l.goPath[strings.LastIndex(l.goPath, "/")+1:], c.path[0], opt, memberName(c.path[0]), opt, idx, args))
+				continue
+			}
+			if c.variadic && len(ps) > 0 {
+				ps[len(ps)-1] = "[" + ps[len(ps)-1] + " = const []]"
+			}
 			n.ctors = append(n.ctors, fmt.Sprintf("  /// Go: `%s.%s`.\n  %s %s(%s) => %s.$(%d, %s);\n",
 				l.goPath[strings.LastIndex(l.goPath, "/")+1:], strings.Join(c.path, "."), opt, memberName(c.path[len(c.path)-1]),
 				strings.Join(ps, ", "), opt, idx, args))
@@ -878,6 +904,21 @@ func (e *dartEmitter) function(l *dartLib, f *fn, class string, factory bool) st
 			params = append(params, "GoHandle? "+n)
 			continue
 		}
+		if p.t.k == kFunc && p.t.retained { // kept by Go: a retained callback (WIRE.md); a Dart implementation leaves methods out with null
+			var decs []string
+			for _, a := range p.t.fargs {
+				decs = append(decs, e.dec(a, "r", l, false))
+			}
+			call := fmt.Sprintf("(r) => %s(%s)", n, strings.Join(decs, ", "))
+			if f.impl != nil {
+				call = fmt.Sprintf("%s == null ? null : (r) => %s(%s)", n, n, strings.Join(decs, ", "))
+				params = append(params, e.funcType(p.t, l)+"? "+n)
+			} else {
+				params = append(params, e.funcType(p.t, l)+" "+n)
+			}
+			segs = append(segs, fmt.Sprintf("cb(%s, %v)", call, p.t.fret != fretNone))
+			continue
+		}
 		if p.t.k == kFunc { // callback sob demanda: a função Dart; no pedido, o tamanho do lote
 			segs = append(segs, fmt.Sprintf("u32(batchSize ?? %d)", cbDefaultBatch(p.t)))
 			params = append(params, e.funcType(p.t, l)+" "+n)
@@ -916,6 +957,9 @@ func (e *dartEmitter) function(l *dartLib, f *fn, class string, factory bool) st
 	if opt != "" {
 		params = append(params, opt)
 	}
+	if f.impl != nil && len(params) > 0 { // a Dart implementation: the methods by name
+		params = []string{"{" + strings.Join(params, ", ") + "}"}
+	}
 	sig := "(" + strings.Join(params, ", ") + ")"
 	call := fmt.Sprintf("%d", f.id)
 	if len(segs) > 0 {
@@ -927,9 +971,24 @@ func (e *dartEmitter) function(l *dartLib, f *fn, class string, factory bool) st
 	}
 	name := memberName(f.obj.Name())
 	var b strings.Builder
-	fmt.Fprintf(&b, "%s/// Go: `%s`.\n", indent, goDoc(f.obj))
+	if f.impl != nil {
+		fmt.Fprintf(&b, "%s/// A Dart implementation of Go's `%s`.\n", indent, docType(f.results[0]))
+	} else {
+		fmt.Fprintf(&b, "%s/// Go: `%s`.\n", indent, goDoc(f.obj))
+	}
 	if f.async && f.stream == nil {
 		fmt.Fprintf(&b, "%s///\n%s/// Asynchronous: runs in a goroutine of the service.\n", indent, indent)
+	}
+	for _, p := range f.params {
+		if p.t.k == kFunc && p.t.retained {
+			what := "Go keeps [" + dartParamName(p.name) + "] and calls it on the Dart event loop for as\n/// long as it holds it"
+			if f.impl != nil {
+				what = "Go keeps the functions and calls them on the Dart event loop for as\n/// long as it holds the object; a method left out does nothing"
+			}
+			what = strings.ReplaceAll(what, "\n", "\n"+indent)
+			fmt.Fprintf(&b, "%s///\n%s/// %s (a retained callback, WIRE.md).\n", indent, indent, what)
+			break
+		}
 	}
 	if i := funcParamIdx(f); i >= 0 {
 		doc := []string{"[batchSize]: invocations of the callback Go sends at a time (default",
@@ -1021,7 +1080,7 @@ func (e *dartEmitter) funcType(t *tinfo, l *dartLib) string {
 	for i, a := range t.fargs {
 		n := dartParamName(t.fnames[i])
 		if n == "" || n == "_" {
-			n = fmt.Sprintf("arg%d", i)
+			n = dartParamName(paramName(a, i)) // the type's name (stream, conn), as for parameters
 		}
 		ps = append(ps, e.dt(a, l)+" "+n)
 	}

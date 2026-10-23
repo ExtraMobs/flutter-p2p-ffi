@@ -19,7 +19,7 @@ class DagService extends NodeGetter {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> add($context.Context ctx, Node node) async {
     await $call(
-        179,
+        181,
         $W()
           ..h(this)
           ..h(ctx)
@@ -72,31 +72,31 @@ class Node extends Resolver {
 
   /// Go: `func (blocks.Block).Cid() cid.Cid`.
   $cid.Cid cid() {
-    final $r = $callSync(180, $W()..h(this));
+    final $r = $callSync(182, $W()..h(this));
     return $r.p() ? $cid.Cid($r.str()) : $nil();
   }
 
   /// Go: `func (blocks.Block).RawData() []byte`.
   Uint8List rawData() {
-    final $r = $callSync(182, $W()..h(this));
+    final $r = $callSync(184, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (format.Node).Links() []*format.Link`.
   List<Link> links() {
-    final $r = $callSync(181, $W()..h(this));
+    final $r = $callSync(183, $W()..h(this));
     return $r.list(() => $r.p() ? Link.$dec($r) : $nil());
   }
 
   /// Go: `func (format.Node).Size() (uint64, error)`.
   int size() {
-    final $r = $callSync(183, $W()..h(this));
+    final $r = $callSync(185, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (format.Node).Stat() (*format.NodeStat, error)`.
   NodeStat stat() {
-    final $r = $callSync(184, $W()..h(this));
+    final $r = $callSync(186, $W()..h(this));
     return $r.p() ? NodeStat.$dec($r) : $nil();
   }
 
@@ -122,7 +122,7 @@ class NodeAdder extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> add($context.Context ctx, Node node) async {
     await $call(
-        185,
+        187,
         $W()
           ..h(this)
           ..h(ctx)
@@ -134,7 +134,7 @@ class NodeAdder extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> addMany($context.Context ctx, List<Node> nodes) async {
     await $call(
-        186,
+        188,
         $W()
           ..h(this)
           ..h(ctx)
@@ -163,7 +163,7 @@ class NodeGetter extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<Node> get($context.Context ctx, $cid.Cid cid) async {
     final $r = await $call(
-        187,
+        189,
         $W()
           ..h(this)
           ..h(ctx)

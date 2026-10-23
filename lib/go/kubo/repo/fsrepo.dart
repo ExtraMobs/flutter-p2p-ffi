@@ -8,14 +8,14 @@ import 'package:p2p_ffi/go/kubo/repo.dart' as $repo;
 
 /// Go: `func fsrepo.IsInitialized(path string) bool`.
 bool isInitialized(String path) {
-  final $r = $callSync(310, $W()..str(path));
+  final $r = $callSync(312, $W()..str(path));
   return $r.b();
 }
 
 /// Go: `func fsrepo.Init(repoPath string, conf *config.Config) error`.
 void init(String repoPath, $config.Config conf) {
   $callSync(
-      309,
+      311,
       $W()
         ..str(repoPath)
         ..json(conf));
@@ -23,7 +23,7 @@ void init(String repoPath, $config.Config conf) {
 
 /// Go: `func fsrepo.Open(repoPath string) (repo.Repo, error)`.
 $repo.Repo open(String repoPath) {
-  final $r = $callSync(311, $W()..str(repoPath));
+  final $r = $callSync(313, $W()..str(repoPath));
   return $r.hnn($repo.Repo.$h);
 }
 

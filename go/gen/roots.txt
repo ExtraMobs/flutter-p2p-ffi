@@ -424,3 +424,130 @@ github.com/ipfs/kubo/core/node.BaseBlocks.Get
 github.com/ipfs/kubo/core/node.BaseBlocks.GetSize
 github.com/ipfs/kubo/core/node.BaseBlocks.DeleteBlock
 github.com/ipfs/kubo/core/node.BaseBlocks.AllKeysChan
+
+# 0.22 a libp2p host without kubo: libp2p.New with its options (they come with
+# the function, like car.Option), the identity key, and the host itself
+github.com/libp2p/go-libp2p.New
+github.com/libp2p/go-libp2p/core/crypto.GenerateKeyPair
+github.com/libp2p/go-libp2p/core/crypto.MarshalPrivateKey
+github.com/libp2p/go-libp2p/core/crypto.UnmarshalPrivateKey
+github.com/libp2p/go-libp2p/core/crypto.MarshalPublicKey
+github.com/libp2p/go-libp2p/core/crypto.UnmarshalPublicKey
+github.com/libp2p/go-libp2p/core/crypto.PrivKey.GetPublic
+github.com/libp2p/go-libp2p/core/crypto.PrivKey.Sign
+github.com/libp2p/go-libp2p/core/crypto.PubKey.Verify
+github.com/libp2p/go-libp2p/core/peer.IDFromPrivateKey
+github.com/libp2p/go-libp2p/core/peer.IDFromPublicKey
+github.com/libp2p/go-libp2p/core/host.Host.ID
+github.com/libp2p/go-libp2p/core/host.Host.Addrs
+github.com/libp2p/go-libp2p/core/host.Host.Connect
+github.com/libp2p/go-libp2p/core/host.Host.Network
+github.com/libp2p/go-libp2p/core/host.Host.Peerstore
+github.com/libp2p/go-libp2p/core/host.Host.Close
+github.com/libp2p/go-libp2p/core/host.InfoFromHost
+github.com/libp2p/go-libp2p/core/network.Network.Peers
+github.com/libp2p/go-libp2p/core/network.Network.Conns
+github.com/libp2p/go-libp2p/core/network.Network.ConnsToPeer
+github.com/libp2p/go-libp2p/core/network.Network.Connectedness
+github.com/libp2p/go-libp2p/core/network.Network.ClosePeer
+github.com/libp2p/go-libp2p/core/network.Network.ListenAddresses
+github.com/libp2p/go-libp2p/core/network.Network.InterfaceListenAddresses
+github.com/libp2p/go-libp2p/core/network.Conn.ID
+github.com/libp2p/go-libp2p/core/network.Conn.RemotePeer
+github.com/libp2p/go-libp2p/core/network.Conn.RemoteMultiaddr
+github.com/libp2p/go-libp2p/core/network.Conn.LocalMultiaddr
+github.com/libp2p/go-libp2p/core/network.Conn.Stat
+github.com/libp2p/go-libp2p/core/network.Conn.IsClosed
+github.com/libp2p/go-libp2p/core/network.Conn.Close
+github.com/libp2p/go-libp2p/core/peerstore.Peerstore.AddAddrs
+github.com/libp2p/go-libp2p/core/peerstore.Peerstore.Addrs
+github.com/libp2p/go-libp2p/core/peerstore.Peerstore.ClearAddrs
+github.com/libp2p/go-libp2p/core/peerstore.Peerstore.PeerInfo
+github.com/libp2p/go-libp2p/core/peerstore.Peerstore.Peers
+github.com/libp2p/go-libp2p/core/peerstore.Peerstore.PeersWithAddrs
+github.com/libp2p/go-libp2p/core/peerstore.Peerstore.GetProtocols
+github.com/libp2p/go-libp2p/core/peerstore.Peerstore.Get
+github.com/libp2p/go-libp2p/core/peerstore.Peerstore.LatencyEWMA
+github.com/libp2p/go-libp2p/p2p/protocol/ping.Ping
+github.com/libp2p/go-libp2p/core/peer.AddrInfoFromP2pAddr
+github.com/libp2p/go-libp2p/core/peer.AddrInfosFromP2pAddrs
+
+# 0.22 streams we open: a protocol of one's own over a connection. Read, Write
+# and Close block without a context (forceAsync); io_stream.readerStream reads
+# a stream to its end
+github.com/libp2p/go-libp2p/core/host.Host.NewStream
+github.com/libp2p/go-libp2p/core/network.Stream.Read
+github.com/libp2p/go-libp2p/core/network.Stream.Write
+github.com/libp2p/go-libp2p/core/network.Stream.Close
+github.com/libp2p/go-libp2p/core/network.Stream.CloseWrite
+github.com/libp2p/go-libp2p/core/network.Stream.CloseRead
+github.com/libp2p/go-libp2p/core/network.Stream.Reset
+github.com/libp2p/go-libp2p/core/network.Stream.SetDeadline
+github.com/libp2p/go-libp2p/core/network.Stream.SetReadDeadline
+github.com/libp2p/go-libp2p/core/network.Stream.SetWriteDeadline
+github.com/libp2p/go-libp2p/core/network.Stream.ID
+github.com/libp2p/go-libp2p/core/network.Stream.Protocol
+github.com/libp2p/go-libp2p/core/network.Stream.Conn
+
+# 0.22 gossipsub on a host of one's own: the subscription is pulled
+# (Subscription.Next), so no callback is needed
+github.com/libp2p/go-libp2p-pubsub.NewGossipSub
+github.com/libp2p/go-libp2p-pubsub.PubSub.Join
+github.com/libp2p/go-libp2p-pubsub.PubSub.GetTopics
+github.com/libp2p/go-libp2p-pubsub.PubSub.ListPeers
+github.com/libp2p/go-libp2p-pubsub.PubSub.AddDirectPeer
+github.com/libp2p/go-libp2p-pubsub.PubSub.RemoveDirectPeer
+github.com/libp2p/go-libp2p-pubsub.PubSub.BlacklistPeer
+github.com/libp2p/go-libp2p-pubsub.Topic.Publish
+github.com/libp2p/go-libp2p-pubsub.Topic.Subscribe
+github.com/libp2p/go-libp2p-pubsub.Topic.ListPeers
+github.com/libp2p/go-libp2p-pubsub.Topic.EventHandler
+github.com/libp2p/go-libp2p-pubsub.Topic.String
+github.com/libp2p/go-libp2p-pubsub.Topic.Close
+github.com/libp2p/go-libp2p-pubsub.Subscription.Next
+github.com/libp2p/go-libp2p-pubsub.Subscription.Topic
+github.com/libp2p/go-libp2p-pubsub.Subscription.Cancel
+github.com/libp2p/go-libp2p-pubsub.Message.GetFrom
+github.com/libp2p/go-libp2p-pubsub/pb.Message.GetData
+github.com/libp2p/go-libp2p-pubsub/pb.Message.GetFrom
+github.com/libp2p/go-libp2p-pubsub/pb.Message.GetSeqno
+github.com/libp2p/go-libp2p-pubsub/pb.Message.GetTopic
+github.com/libp2p/go-libp2p-pubsub.TopicEventHandler.NextPeerEvent
+github.com/libp2p/go-libp2p-pubsub.TopicEventHandler.Cancel
+
+# 0.22 a Kademlia DHT on a host of one's own (amino, the IPFS one, by default;
+# ProtocolPrefix makes a private one) and rendezvous by name over it
+github.com/libp2p/go-libp2p-kad-dht.New
+github.com/libp2p/go-libp2p-kad-dht.DefaultBootstrapPeers
+github.com/libp2p/go-libp2p-kad-dht.IpfsDHT.Bootstrap
+github.com/libp2p/go-libp2p-kad-dht.IpfsDHT.FindPeer
+github.com/libp2p/go-libp2p-kad-dht.IpfsDHT.Provide
+github.com/libp2p/go-libp2p-kad-dht.IpfsDHT.FindProviders
+github.com/libp2p/go-libp2p-kad-dht.IpfsDHT.FindProvidersAsync
+github.com/libp2p/go-libp2p-kad-dht.IpfsDHT.GetClosestPeers
+github.com/libp2p/go-libp2p-kad-dht.IpfsDHT.PutValue
+github.com/libp2p/go-libp2p-kad-dht.IpfsDHT.GetValue
+github.com/libp2p/go-libp2p-kad-dht.IpfsDHT.Ping
+github.com/libp2p/go-libp2p-kad-dht.IpfsDHT.Mode
+github.com/libp2p/go-libp2p-kad-dht.IpfsDHT.RoutingTable
+github.com/libp2p/go-libp2p-kad-dht.IpfsDHT.Close
+github.com/libp2p/go-libp2p-kbucket.RoutingTable.Size
+github.com/libp2p/go-libp2p-kbucket.RoutingTable.ListPeers
+github.com/libp2p/go-libp2p/p2p/discovery/routing.NewRoutingDiscovery
+github.com/libp2p/go-libp2p/p2p/discovery/routing.RoutingDiscovery.Advertise
+github.com/libp2p/go-libp2p/p2p/discovery/routing.RoutingDiscovery.FindPeers
+
+# 0.22 retained callbacks (WIRE.md): functions Go keeps past the call. The
+# stream handler serves a protocol of one's own; a root that is an interface
+# type (mdns.Notifee, network.Notifiee) makes Dart implement it, one function
+# per method
+github.com/libp2p/go-libp2p/core/host.Host.SetStreamHandler
+github.com/libp2p/go-libp2p/core/host.Host.SetStreamHandlerMatch
+github.com/libp2p/go-libp2p/core/host.Host.RemoveStreamHandler
+github.com/libp2p/go-libp2p/core/network.Notifiee
+github.com/libp2p/go-libp2p/core/network.Network.Notify
+github.com/libp2p/go-libp2p/core/network.Network.StopNotify
+github.com/libp2p/go-libp2p/p2p/discovery/mdns.Notifee
+github.com/libp2p/go-libp2p/p2p/discovery/mdns.NewMdnsService
+github.com/libp2p/go-libp2p/p2p/discovery/mdns.Service.Start
+github.com/libp2p/go-libp2p/p2p/discovery/mdns.Service.Close

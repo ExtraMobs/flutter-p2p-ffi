@@ -2,8 +2,15 @@
 // Go: github.com/libp2p/go-libp2p/core/host
 library;
 
+import 'dart:async';
+
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/libp2p/core/connmgr.dart' as $connmgr;
+import 'package:p2p_ffi/go/libp2p/core/network.dart' as $network;
+import 'package:p2p_ffi/go/libp2p/core/peer.dart' as $peer;
+import 'package:p2p_ffi/go/libp2p/core/peerstore.dart' as $peerstore;
+import 'package:p2p_ffi/go/multiaddr.dart' as $multiaddr;
 
 /// Go: `host.Host` (handle).
 class Host extends GoHandle {
@@ -11,7 +18,111 @@ class Host extends GoHandle {
 
   /// Go: `func (host.Host).ConnManager() connmgr.ConnManager`.
   $connmgr.ConnManager connManager() {
-    final $r = $callSync(421, $W()..h(this));
+    final $r = $callSync(473, $W()..h(this));
     return $r.hnn($connmgr.ConnManager.$h);
   }
+
+  /// Go: `func (host.Host).ID() peer.ID`.
+  $peer.Id id() {
+    final $r = $callSync(475, $W()..h(this));
+    return $r.p() ? $peer.Id($r.str()) : $nil();
+  }
+
+  /// Go: `func (host.Host).Addrs() []multiaddr.Multiaddr`.
+  List<$multiaddr.Multiaddr> addrs() {
+    final $r = $callSync(471, $W()..h(this));
+    return $r.list(() => $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil());
+  }
+
+  /// Go: `func (host.Host).Connect(ctx context.Context, pi peer.AddrInfo) error`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> connect($context.Context ctx, $peer.AddrInfo pi) async {
+    await $call(
+        474,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..dto(pi));
+  }
+
+  /// Go: `func (host.Host).Network() network.Network`.
+  $network.Network network() {
+    final $r = $callSync(476, $W()..h(this));
+    return $r.hnn($network.Network.$h);
+  }
+
+  /// Go: `func (host.Host).Peerstore() peerstore.Peerstore`.
+  $peerstore.Peerstore peerstore() {
+    final $r = $callSync(478, $W()..h(this));
+    return $r.hnn($peerstore.Peerstore.$h);
+  }
+
+  /// Go: `func (host.Host).Close() error`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> close() async {
+    await $call(472, $W()..h(this));
+  }
+
+  /// Go: `func (host.Host).NewStream(ctx context.Context, p peer.ID, pids ...protocol.ID) (network.Stream, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<$network.Stream$> newStream($context.Context ctx, $peer.Id p,
+      [List<String> pids = const []]) async {
+    final $r = await $call(
+        477,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(p)
+          ..list(pids, (w0, e0) => w0.str(e0)));
+    return $r.hnn($network.Stream$.$h);
+  }
+
+  /// Go: `func (host.Host).SetStreamHandler(pid protocol.ID, handler network.StreamHandler)`.
+  ///
+  /// Go keeps [handler] and calls it on the Dart event loop for as
+  /// long as it holds it (a retained callback, WIRE.md).
+  void setStreamHandler(
+      String pid, FutureOr<void> Function($network.Stream$ stream) handler) {
+    $callSync(
+        480,
+        $W()
+          ..h(this)
+          ..str(pid)
+          ..cb((r) => handler(r.hnn($network.Stream$.$h)), false));
+  }
+
+  /// Go: `func (host.Host).SetStreamHandlerMatch(protocol.ID, func(protocol.ID) bool, network.StreamHandler)`.
+  ///
+  /// Go keeps [match] and calls it on the Dart event loop for as
+  /// long as it holds it (a retained callback, WIRE.md).
+  void setStreamHandlerMatch(
+      String pid,
+      FutureOr<bool> Function(String arg0) match,
+      FutureOr<void> Function($network.Stream$ stream) handler) {
+    $callSync(
+        481,
+        $W()
+          ..h(this)
+          ..str(pid)
+          ..cb((r) => match(r.str()), true)
+          ..cb((r) => handler(r.hnn($network.Stream$.$h)), false));
+  }
+
+  /// Go: `func (host.Host).RemoveStreamHandler(pid protocol.ID)`.
+  void removeStreamHandler(String pid) {
+    $callSync(
+        479,
+        $W()
+          ..h(this)
+          ..str(pid));
+  }
+}
+
+/// Go: `func host.InfoFromHost(h host.Host) *peer.AddrInfo`.
+$peer.AddrInfo infoFromHost(Host h) {
+  final $r = $callSync(482, $W()..h(h));
+  return $r.p() ? $peer.AddrInfo.$dec($r) : $nil();
 }

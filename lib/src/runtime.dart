@@ -214,6 +214,12 @@ void _onMessage(int id, int kind, Uint8List data) {
   final p = _pending[id];
   if (p == null) return; // sink already closed by the end of the call
   switch ((kind, p.sink)) {
+    case (_evCallback, _Retained rc):
+      rc._invoke(id, data);
+      return;
+    case (_evEnd, _Retained _): // Go no longer holds the function
+      _pending.remove(id);
+      return;
     case (_evCallback, _Callback cb):
       cb._batch(id, data);
       return;
