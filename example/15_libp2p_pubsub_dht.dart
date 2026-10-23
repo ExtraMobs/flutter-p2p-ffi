@@ -63,16 +63,17 @@ Future<void> main() async {
     //    ps, _ := pubsub.NewGossipSub(ctx, h); t, _ := ps.Join("chat")
     final pss = [for (final h in hosts) await pubsub.newGossipSub(ctx, h)];
     final psC = pss[2];
-    final topics = [for (final ps in pss) ps.join('chat')];
+    final topics = [for (final ps in pss) await ps.join('chat')];
     //    c accepts only short messages; an exception would reject too.
     //    ps.RegisterTopicValidator("chat", func(ctx, from, m) ValidationResult {...})
-    psC.registerTopicValidator(
+    await psC.registerTopicValidator(
         'chat',
         (_, from, m) => m.message!.getData().length <= 64
             ? pubsub.validationAccept
             : pubsub.validationReject);
-    final sub = topics[2].subscribe();
-    while (topics[0].listPeers().isEmpty || topics[1].listPeers().isEmpty) {
+    final sub = await topics[2].subscribe();
+    while ((await topics[0].listPeers()).isEmpty ||
+        (await topics[1].listPeers()).isEmpty) {
       await Future<void>.delayed(const Duration(milliseconds: 50));
     }
     await topics[0].publish(ctx, Uint8List.fromList(utf8.encode('hi from a')));
@@ -87,7 +88,7 @@ Future<void> main() async {
       print(
           'c got "${utf8.decode(m.message!.getData())}" from ${m.receivedFrom}');
     }
-    sub.cancel();
+    await sub.cancel();
 
     for (final d in dhts) {
       await d.close();

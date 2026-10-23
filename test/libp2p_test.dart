@@ -15,6 +15,7 @@ import 'package:p2p_ffi/go/libp2p/core/network.dart' as network;
 import 'package:p2p_ffi/go/libp2p/core/peer.dart' as peer;
 import 'package:p2p_ffi/go/libp2p/p2p/discovery/routing.dart' as routing;
 import 'package:p2p_ffi/go/libp2p/p2p/muxer/yamux.dart' as yamux;
+import 'package:p2p_ffi/go/libp2p/p2p/protocol/circuitv2/relay.dart' as relay;
 import 'package:p2p_ffi/go/libp2p/p2p/protocol/ping.dart' as ping;
 import 'package:p2p_ffi/go/libp2p/p2p/security/noise.dart' as noise;
 import 'package:p2p_ffi/go/libp2p/p2p/transport/tcp.dart' as tcp;
@@ -118,11 +119,11 @@ void main() {
   test('gossipsub between the two hosts', () async {
     final psA = await pubsub.newGossipSub(ctx, a);
     final psB = await pubsub.newGossipSub(ctx, b);
-    final topicA = psA.join('p2p-ffi-test');
-    final topicB = psB.join('p2p-ffi-test');
-    final sub = topicB.subscribe();
+    final topicA = await psA.join('p2p-ffi-test');
+    final topicB = await psB.join('p2p-ffi-test');
+    final sub = await topicB.subscribe();
     // the mesh forms after the subscription is announced
-    while (!topicA.listPeers().contains(b.id())) {
+    while (!(await topicA.listPeers()).contains(b.id())) {
       await Future<void>.delayed(const Duration(milliseconds: 50));
     }
     await topicA.publish(ctx, Uint8List.fromList(utf8.encode('news')));
@@ -132,7 +133,7 @@ void main() {
     cancel();
     expect(utf8.decode(msg.message!.getData()), 'news');
     expect(msg.receivedFrom, a.id());
-    sub.cancel();
+    await sub.cancel();
   });
 
   test('a private DHT: provide on one host, find it from the other', () async {
@@ -167,8 +168,8 @@ void main() {
     final psA = await pubsub.newGossipSub(ctx, a);
     final psB = await pubsub.newGossipSub(ctx, b);
     final thrown = <Object>[];
-    runZonedGuarded(() {
-      psB.registerTopicValidator('checked', (vctx, from, msg) {
+    await runZonedGuarded(() {
+      return psB.registerTopicValidator('checked', (vctx, from, msg) {
         final text = utf8.decode(msg.message!.getData());
         if (text == 'boom') throw StateError('a bug in the validator');
         return text.startsWith('ok')
@@ -176,9 +177,9 @@ void main() {
             : pubsub.validationReject;
       }, [pubsub.withValidatorTimeout(const Duration(seconds: 5))]);
     }, (e, _) => thrown.add(e));
-    final topicA = psA.join('checked');
-    final sub = psB.join('checked').subscribe();
-    while (!topicA.listPeers().contains(b.id())) {
+    final topicA = await psA.join('checked');
+    final sub = await (await psB.join('checked')).subscribe();
+    while (!(await topicA.listPeers()).contains(b.id())) {
       await Future<void>.delayed(const Duration(milliseconds: 50));
     }
     for (final text in ['ok 1', 'bad', 'boom', 'ok 2']) {
@@ -193,9 +194,12 @@ void main() {
     }
     // validation runs in parallel in pubsub: the order may change
     expect(got, unorderedEquals(['ok 1', 'ok 2']));
+    while (thrown.isEmpty) {
+      await Future<void>.delayed(const Duration(milliseconds: 20));
+    }
     expect(thrown.single, isA<StateError>());
-    sub.cancel();
-    psB.unregisterTopicValidator('checked');
+    await sub.cancel();
+    await psB.unregisterTopicValidator('checked');
   });
 
   test('the event bus: events arrive as their classes', () async {
@@ -237,5 +241,47 @@ void main() {
           libp2p.listenAddrStrings(['/ip4/127.0.0.1/udp/0/quic-v1']),
         ]),
         throwsA(isA<GolangException>()));
+  });
+
+  test('an option that takes a struct: the gossipsub parameters cross',
+      () async {
+    final params = pubsub.defaultGossipSubParams();
+    expect(params.d, greaterThan(0));
+    expect(params.heartbeatInterval, greaterThan(Duration.zero));
+    await pubsub.newGossipSub(ctx, a, [pubsub.withGossipSubParams(params)]);
+    // invalid on purpose (Dlo above D): gossipsub refuses what arrived
+    params.dlo = params.d + 1;
+    await expectLater(
+        pubsub.newGossipSub(ctx, b, [pubsub.withGossipSubParams(params)]),
+        throwsA(isA<GolangException>()));
+    final r = await libp2p.new$([
+      libp2p.listenAddrStrings(['/ip4/127.0.0.1/tcp/0']),
+      libp2p.enableRelayService([
+        relay.withResources(
+            relay.defaultResources()..limit = relay.defaultLimit()),
+      ]),
+    ]);
+    await r.close();
+  });
+
+  test('an option that keeps a function: a subscription filter', () async {
+    final psA = await pubsub.newGossipSub(ctx, a);
+    final psB = await pubsub.newGossipSub(ctx, b);
+    final topicA = await psA.join('filtered');
+    final sub = await (await psB.join('filtered')).subscribe([
+      pubsub.withMessageFilter(
+          (m) => !utf8.decode(m.message!.getData()).startsWith('skip')),
+    ]);
+    while (!(await topicA.listPeers()).contains(b.id())) {
+      await Future<void>.delayed(const Duration(milliseconds: 50));
+    }
+    await topicA.publish(ctx, Uint8List.fromList(utf8.encode('skip me')));
+    await topicA.publish(ctx, Uint8List.fromList(utf8.encode('keep me')));
+    final (nextCtx, cancel) =
+        context.withTimeout(ctx, const Duration(seconds: 10));
+    final m = await sub.next(nextCtx);
+    cancel();
+    expect(utf8.decode(m.message!.getData()), 'keep me');
+    await sub.cancel();
   });
 }
