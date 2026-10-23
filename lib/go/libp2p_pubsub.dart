@@ -2,6 +2,7 @@
 // Go: github.com/libp2p/go-libp2p-pubsub
 library;
 
+import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:p2p_ffi/src/runtime.dart';
@@ -170,7 +171,7 @@ class PubSub extends GoHandle {
   /// Go: `func (*pubsub.PubSub).RemoveDirectPeer(pid peer.ID) error`.
   void removeDirectPeer($peer.Id pid) {
     $callSync(
-        440,
+        441,
         $W()
           ..h(this)
           ..val(pid));
@@ -183,6 +184,39 @@ class PubSub extends GoHandle {
         $W()
           ..h(this)
           ..val(pid));
+  }
+
+  /// Go: `func (*pubsub.PubSub).RegisterTopicValidator(topic string, val any, opts ...pubsub.ValidatorOpt) error`.
+  ///
+  /// Go keeps [val] and calls it on the Dart event loop for as
+  /// long as it holds it (a retained callback, WIRE.md).
+  void registerTopicValidator(
+      String topic,
+      FutureOr<int> Function($context.Context ctx, $peer.Id id, Message message)
+          val,
+      [List<ValidatorOpt> opts = const []]) {
+    $callSync(
+        440,
+        $W()
+          ..h(this)
+          ..str(topic)
+          ..cb(
+              (r) => val(
+                  r.hnn($context.Context.$h),
+                  r.p() ? $peer.Id(r.str()) : $nil(),
+                  r.p() ? Message.$dec(r) : $nil()),
+              true,
+              (w, v) => w.i64(v as int))
+          ..list(opts, (w0, e0) => w0.opt(e0)));
+  }
+
+  /// Go: `func (*pubsub.PubSub).UnregisterTopicValidator(topic string) error`.
+  void unregisterTopicValidator(String topic) {
+    $callSync(
+        442,
+        $W()
+          ..h(this)
+          ..str(topic));
   }
 }
 
@@ -210,7 +244,7 @@ class Subscription extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<Message> next($context.Context ctx) async {
     final $r = await $call(
-        442,
+        444,
         $W()
           ..h(this)
           ..h(ctx));
@@ -219,13 +253,13 @@ class Subscription extends GoHandle {
 
   /// Go: `func (*pubsub.Subscription).Topic() string`.
   String topic() {
-    final $r = $callSync(443, $W()..h(this));
+    final $r = $callSync(445, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*pubsub.Subscription).Cancel()`.
   void cancel() {
-    $callSync(441, $W()..h(this));
+    $callSync(443, $W()..h(this));
   }
 }
 
@@ -244,7 +278,7 @@ class Topic extends GoHandle {
   Future<void> publish($context.Context ctx, Uint8List data,
       [List<PubOpt> opts = const []]) async {
     await $call(
-        447,
+        449,
         $W()
           ..h(this)
           ..h(ctx)
@@ -255,7 +289,7 @@ class Topic extends GoHandle {
   /// Go: `func (*pubsub.Topic).Subscribe(opts ...pubsub.SubOpt) (*pubsub.Subscription, error)`.
   Subscription subscribe([List<SubOpt> opts = const []]) {
     final $r = $callSync(
-        449,
+        451,
         $W()
           ..h(this)
           ..list(opts, (w0, e0) => w0.opt(e0)));
@@ -264,14 +298,14 @@ class Topic extends GoHandle {
 
   /// Go: `func (*pubsub.Topic).ListPeers() []peer.ID`.
   List<$peer.Id> listPeers() {
-    final $r = $callSync(446, $W()..h(this));
+    final $r = $callSync(448, $W()..h(this));
     return $r.list(() => $r.p() ? $peer.Id($r.str()) : $nil());
   }
 
   /// Go: `func (*pubsub.Topic).EventHandler(opts ...pubsub.TopicEventHandlerOpt) (*pubsub.TopicEventHandler, error)`.
   TopicEventHandler eventHandler([List<TopicEventHandlerOpt> opts = const []]) {
     final $r = $callSync(
-        445,
+        447,
         $W()
           ..h(this)
           ..list(opts, (w0, e0) => w0.h(e0)));
@@ -280,13 +314,13 @@ class Topic extends GoHandle {
 
   /// Go: `func (*pubsub.Topic).String() string`.
   String string() {
-    final $r = $callSync(448, $W()..h(this));
+    final $r = $callSync(450, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*pubsub.Topic).Close() error`.
   void close() {
-    $callSync(444, $W()..h(this));
+    $callSync(446, $W()..h(this));
   }
 }
 
@@ -299,7 +333,7 @@ class TopicEventHandler extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<PeerEvent> nextPeerEvent($context.Context ctx) async {
     final $r = await $call(
-        451,
+        453,
         $W()
           ..h(this)
           ..h(ctx));
@@ -308,7 +342,7 @@ class TopicEventHandler extends GoHandle {
 
   /// Go: `func (*pubsub.TopicEventHandler).Cancel()`.
   void cancel() {
-    $callSync(450, $W()..h(this));
+    $callSync(452, $W()..h(this));
   }
 }
 
@@ -322,9 +356,9 @@ final class TopicOpt extends GoOption {
   TopicOpt.$(super.$i, super.$a);
 }
 
-/// Go: `pubsub.ValidatorOpt` (handle).
-class ValidatorOpt extends GoHandle {
-  ValidatorOpt.$h(super.$h);
+/// Go: `pubsub.ValidatorOpt` (functional option; constructors in the package).
+final class ValidatorOpt extends GoOption {
+  ValidatorOpt.$(super.$i, super.$a);
 }
 
 /// Go: `go-libp2p-pubsub.FanoutOnly`.
@@ -356,7 +390,7 @@ Option withDefaultValidator(Object? val,
         4,
         (w) => w
           ..any(val)
-          ..list(opts, (w0, e0) => w0.h(e0)));
+          ..list(opts, (w0, e0) => w0.opt(e0)));
 
 /// Go: `go-libp2p-pubsub.WithDirectConnectTicks`.
 Option withDirectConnectTicks(int t) => Option.$(5, (w) => w..i64(t));
@@ -368,6 +402,10 @@ Option withDirectPeers(List<$peer.AddrInfo> pis) =>
 /// Go: `go-libp2p-pubsub.WithDiscoverConnector`.
 DiscoverOpt withDiscoverConnector(BackoffConnectorFactory connFactory) =>
     DiscoverOpt.$(0, (w) => w..h(connFactory));
+
+/// Go: `go-libp2p-pubsub.WithDiscoveryOpts`.
+DiscoverOpt withDiscoveryOpts([List<$discovery.Option> opts = const []]) =>
+    DiscoverOpt.$(1, (w) => w..list(opts, (w0, e0) => w0.opt(e0)));
 
 /// Go: `go-libp2p-pubsub.WithDiscovery`.
 Option withDiscovery($discovery.Discovery d,
@@ -477,8 +515,20 @@ Option withValidateThrottle(int n) => Option.$(36, (w) => w..i64(n));
 /// Go: `go-libp2p-pubsub.WithValidateWorkers`.
 Option withValidateWorkers(int n) => Option.$(37, (w) => w..i64(n));
 
+/// Go: `go-libp2p-pubsub.WithValidatorConcurrency`.
+ValidatorOpt withValidatorConcurrency(int n) =>
+    ValidatorOpt.$(0, (w) => w..i64(n));
+
 /// Go: `go-libp2p-pubsub.WithValidatorData`.
 PubOpt withValidatorData(Object? data) => PubOpt.$(3, (w) => w..any(data));
+
+/// Go: `go-libp2p-pubsub.WithValidatorInline`.
+ValidatorOpt withValidatorInline(bool inline) =>
+    ValidatorOpt.$(1, (w) => w..b(inline));
+
+/// Go: `go-libp2p-pubsub.WithValidatorTimeout`.
+ValidatorOpt withValidatorTimeout(Duration timeout) =>
+    ValidatorOpt.$(2, (w) => w..i64((timeout).inMicroseconds * 1000));
 
 /// Go: `func pubsub.NewGossipSub(ctx context.Context, h host.Host, opts ...pubsub.Option) (*pubsub.PubSub, error)`.
 ///

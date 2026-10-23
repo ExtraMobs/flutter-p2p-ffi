@@ -1081,6 +1081,8 @@ Omitted:
 | `func (*pubsub.Message).GetFrom() peer.ID` | `Message.getFrom` | sync |
 | `func (*pubsub.TopicEventHandler).NextPeerEvent(ctx context.Context) (pubsub.PeerEvent, error)` | `TopicEventHandler.nextPeerEvent` | Future |
 | `func (*pubsub.TopicEventHandler).Cancel()` | `TopicEventHandler.cancel` | sync |
+| `func (*pubsub.PubSub).RegisterTopicValidator(topic string, val any, opts ...pubsub.ValidatorOpt) error` | `PubSub.registerTopicValidator` | sync |
+| `func (*pubsub.PubSub).UnregisterTopicValidator(topic string) error` | `PubSub.unregisterTopicValidator` | sync |
 | `const pubsub.AcceptAll pubsub.AcceptStatus` | `acceptAll` | const |
 | `const pubsub.AcceptControl pubsub.AcceptStatus` | `acceptControl` | const |
 | `const pubsub.AcceptNone pubsub.AcceptStatus` | `acceptNone` | const |
@@ -1182,6 +1184,23 @@ Omitted:
 | `const crypto.Secp256k1 untyped int` | `secp256k1` | const |
 | `const crypto.WeakRsaKeyEnv untyped string` | `weakRsaKeyEnv` | const |
 
+## `github.com/libp2p/go-libp2p/core/event` → `package:p2p_ffi/go/libp2p/core/event.dart`
+
+| Go | Dart | Mode |
+|---|---|---|
+| `func (event.Bus).Subscribe(eventType any, opts ...event.SubscriptionOpt) (event.Subscription, error)` | `Bus.subscribe` | sync |
+| `func (event.Subscription).Out() <-chan any` | `Subscription.out` | Stream |
+| `func (event.Subscription).Name() string` | `Subscription.name` | sync |
+| `func (io.Closer).Close() error` | `Subscription.close` | sync |
+| `const event.Added event.AddrAction` | `added` | const |
+| `const event.Maintained event.AddrAction` | `maintained` | const |
+| `const event.Removed event.AddrAction` | `removed` | const |
+| `const event.Unknown event.AddrAction` | `unknown` | const |
+
+Omitted:
+
+- `func (event.Bus).Subscribe(eventType any, opts ...event.SubscriptionOpt) (event.Subscription, error)`: called without `opts: []func(any) error`
+
 ## `github.com/libp2p/go-libp2p/core/host` → `package:p2p_ffi/go/libp2p/core/host.dart`
 
 | Go | Dart | Mode |
@@ -1198,6 +1217,7 @@ Omitted:
 | `func (host.Host).SetStreamHandler(pid protocol.ID, handler network.StreamHandler)` | `Host.setStreamHandler` | sync |
 | `func (host.Host).SetStreamHandlerMatch(protocol.ID, func(protocol.ID) bool, network.StreamHandler)` | `Host.setStreamHandlerMatch` | sync |
 | `func (host.Host).RemoveStreamHandler(pid protocol.ID)` | `Host.removeStreamHandler` | sync |
+| `func (host.Host).EventBus() event.Bus` | `Host.eventBus` | sync |
 
 ## `github.com/libp2p/go-libp2p/core/network` → `package:p2p_ffi/go/libp2p/core/network.dart`
 
@@ -1340,6 +1360,13 @@ Omitted:
 | `func (*routing.RoutingDiscovery).Advertise(ctx context.Context, ns string, opts ...discovery.Option) (time.Duration, error)` | `RoutingDiscovery.advertise` | Future |
 | `func (*routing.RoutingDiscovery).FindPeers(ctx context.Context, ns string, opts ...discovery.Option) (<-chan peer.AddrInfo, error)` | `RoutingDiscovery.findPeers` | Stream |
 
+## `github.com/libp2p/go-libp2p/p2p/muxer/yamux` → `package:p2p_ffi/go/libp2p/p2p/muxer/yamux.dart`
+
+| Go | Dart | Mode |
+|---|---|---|
+| `var yamux.DefaultTransport *yamux.Transport` | `defaultTransport` | sync |
+| `const yamux.ID untyped string` | `id` | const |
+
 ## `github.com/libp2p/go-libp2p/p2p/net/swarm` → `package:p2p_ffi/go/libp2p/p2p/net/swarm.dart`
 
 | Go | Dart | Mode |
@@ -1384,6 +1411,36 @@ Omitted:
 | `const ping.ID untyped string` | `id` | const |
 | `const ping.PingSize untyped int` | `pingSize` | const |
 | `const ping.ServiceName untyped string` | `serviceName` | const |
+
+## `github.com/libp2p/go-libp2p/p2p/security/noise` → `package:p2p_ffi/go/libp2p/p2p/security/noise.dart`
+
+| Go | Dart | Mode |
+|---|---|---|
+| `const noise.ID untyped string` | `id` | const |
+| `const noise.LengthPrefixLength untyped int` | `lengthPrefixLength` | const |
+| `const noise.MaxPlaintextLength untyped int` | `maxPlaintextLength` | const |
+| `const noise.MaxTransportMsgLength untyped int` | `maxTransportMsgLength` | const |
+
+## `github.com/libp2p/go-libp2p/p2p/security/tls` → `package:p2p_ffi/go/libp2p/p2p/security/tls.dart`
+
+| Go | Dart | Mode |
+|---|---|---|
+| `const libp2ptls.ID untyped string` | `id` | const |
+
+## `github.com/libp2p/go-libp2p/p2p/transport/quic` → `package:p2p_ffi/go/libp2p/p2p/transport/quic.dart`
+
+| Go | Dart | Mode |
+|---|---|---|
+| `const libp2pquic.ListenOrder untyped int` | `listenOrder` | const |
+
+## `github.com/libp2p/go-libp2p/p2p/transport/webrtc` → `package:p2p_ffi/go/libp2p/p2p/transport/webrtc.dart`
+
+| Go | Dart | Mode |
+|---|---|---|
+| `const libp2pwebrtc.DefaultDisconnectedTimeout time.Duration` | `defaultDisconnectedTimeout` | const |
+| `const libp2pwebrtc.DefaultFailedTimeout time.Duration` | `defaultFailedTimeout` | const |
+| `const libp2pwebrtc.DefaultKeepaliveTimeout time.Duration` | `defaultKeepaliveTimeout` | const |
+| `const libp2pwebrtc.DefaultMaxInFlightConnections untyped int` | `defaultMaxInFlightConnections` | const |
 
 ## `github.com/multiformats/go-multiaddr` → `package:p2p_ffi/go/multiaddr.dart`
 
@@ -2043,6 +2100,20 @@ Omitted:
 | `const multicodec.Zeronet multicodec.Code` | `zeronet` | const |
 | `const multicodec.ZeroxcertImprint256 multicodec.Code` | `zeroxcertImprint256` | const |
 
+## `github.com/prometheus/client_golang/prometheus` → `package:p2p_ffi/go/client_golang/prometheus.dart`
+
+| Go | Dart | Mode |
+|---|---|---|
+| `const prometheus.CounterValue prometheus.ValueType` | `counterValue` | const |
+| `const prometheus.DefAgeBuckets untyped int` | `defAgeBuckets` | const |
+| `const prometheus.DefBufCap untyped int` | `defBufCap` | const |
+| `const prometheus.DefMaxAge time.Duration` | `defMaxAge` | const |
+| `const prometheus.DefNativeHistogramZeroThreshold untyped float` | `defNativeHistogramZeroThreshold` | const |
+| `const prometheus.ExemplarMaxRunes untyped int` | `exemplarMaxRunes` | const |
+| `const prometheus.GaugeValue prometheus.ValueType` | `gaugeValue` | const |
+| `const prometheus.NativeHistogramZeroThresholdZero untyped int` | `nativeHistogramZeroThresholdZero` | const |
+| `const prometheus.UntypedValue prometheus.ValueType` | `untypedValue` | const |
+
 ## `io` → `package:p2p_ffi/go/io.dart`
 
 | Go | Dart | Mode |
@@ -2158,9 +2229,6 @@ Omitted:
 - `gateway.WithPrometheusRegistry` (gateway.BackendOption): Prometheus metrics (no namespace; the gateway uses the default registry)
 - `libp2p.DefaultPrometheusRegisterer` (config.Option): Prometheus metrics (no namespace; libp2p uses the default registerer)
 - `libp2p.PrometheusRegisterer` (config.Option): Prometheus metrics (no namespace; libp2p uses the default registerer)
-- `libp2p.QUICReuse` (config.Option): takes a Go constructor function
-- `libp2p.Security` (config.Option): takes a Go constructor function (DefaultSecurity holds the usual ones)
-- `libp2p.Transport` (config.Option): takes a Go constructor function (DefaultTransports holds the usual ones)
 - `libp2p.WithFxOption` (config.Option): the fx dependency injection inside libp2p (Go values only)
 - `pubsub.WithAppSpecificRpcInspector` (pubsub.Option): parameter inspector: func(github.com/libp2p/go-libp2p/core/peer.ID, *github.com/libp2p/go-libp2p-pubsub.RPC) error
 - `pubsub.WithGossipSubParams` (pubsub.Option): parameter cfg: github.com/libp2p/go-libp2p-pubsub.GossipSubParams
@@ -2171,6 +2239,10 @@ Omitted:
 - `pubsub.WithPeerScore` (pubsub.Option): parameter params: *github.com/libp2p/go-libp2p-pubsub.PeerScoreParams
 - `pubsub.WithProtocolMatchFn` (pubsub.Option): parameter m: func(github.com/libp2p/go-libp2p/core/protocol.ID) func(github.com/libp2p/go-libp2p/core/protocol.ID) bool
 - `pubsub.WithTestExtension` (pubsub.Option): parameter c: github.com/libp2p/go-libp2p-pubsub.TestExtensionConfig
+- `quicreuse.ConnContext` (quicreuse.Option): parameter f: func(ctx context.Context, clientInfo *github.com/quic-go/quic-go.ClientInfo) (context.Context, error)
+- `quicreuse.OverrideListenUDP` (quicreuse.Option): parameter f: unexported type github.com/libp2p/go-libp2p/p2p/transport/quicreuse.listenUDP
+- `quicreuse.OverrideSourceIPSelector` (quicreuse.Option): parameter f: func() (github.com/libp2p/go-libp2p/p2p/transport/quicreuse.SourceIPSelector, error)
+- `quicreuse.VerifySourceAddress` (quicreuse.Option): parameter f: func(addr net.Addr) bool
 - `relay.WithLimit` (relay.Option): parameter limit: *github.com/libp2p/go-libp2p/p2p/protocol/circuitv2/relay.RelayLimit
 - `relay.WithResources` (relay.Option): parameter rc: github.com/libp2p/go-libp2p/p2p/protocol/circuitv2/relay.Resources
 
@@ -2193,6 +2265,9 @@ Omitted:
 - A function parameter that returns nothing, `bool` or `error` (a callback) becomes a Dart function (`idx.forEach((mh, offset) {...})`): Go calls a real callback, which takes the arguments to Dart in batches and waits for the verdict; `false` or an exception stops Go, and the call throws the original Dart exception. `batchSize` (optional): invocations per batch, default 1024 (up to 128 KiB, measured) or 1 when the callback receives Go objects; Go stays at most `batchSize - 1` ahead. The call's objects are in use (`isBusy`, `P2pService.busy`); a call to them from inside the callback that waits on a lock the Go function holds becomes `GolangDeadlockException` (WIRE.md, "Callback").
 - A function Go keeps past the call (a handler; table `retainedFuncs`: `host.setStreamHandler`) is a retained callback (WIRE.md): Go calls it, on the Dart event loop, for as long as it holds it, and Dart drops it when Go's garbage collector frees it. A root that is an interface type (`network.Notifiee`, `mdns.Notifee`) becomes a factory with one optional function per method (`Notifee(handlePeerFound: (pi) {...})`), each a retained callback. An exception in a retained callback goes to the zone (like a `Timer`'s).
 - Functional options built in another package come with it: libp2p's (`libp2p.listenAddrStrings(...)`) build a `config.Option` (`libp2p.Option` is its alias), and a package variable of the option's type is a getter (`libp2p.noListenAddrs`). The type of an internal package seen through an exported alias of the same name lives in the alias's library (`dht.Option`).
+- An `any` parameter that takes one Go type (table `anyAs`: `pubsub.registerTopicValidator`'s `val` is a `ValidatorEx`) crosses as that type; a retained callback may return a basic value (`pubsub.validationAccept`), and `cbOnThrow` says what Go gets when the Dart function throws (`validationReject`).
+- Tokens (`go/gen/tokens.go`, WIRE.md tag 9): a listed struct type has `static const $type`, which Go turns into `new(T)` where a parameter takes the type by example (`bus.subscribe(event.EvtPeerConnectednessChanged.$type)`, or a list of them), and its values come out of a dynamic value as the class (`sub.out()`); a listed Go function is a `<name>Func` constant that Go gets as the function itself (`libp2p.transport(tcp.newTcpTransportFunc)`).
+- A trailing variadic whose type does not cross is left out: Go gets none (`event.Bus.Subscribe`'s `opts`), noted under the package.
 - `time.Duration` is a Dart `Duration` (nanoseconds on the wire, rounded to microseconds in Dart).
 - Errors that wrap `io.EOF`, `io.ErrUnexpectedEOF`, `context.Canceled`, `context.DeadlineExceeded` or IPLD's not found become `GolangEofException`, `GolangUnexpectedEofException`, `GolangCanceledException`, `GolangDeadlineExceededException` and `GolangNotFoundException` (subclasses of `GolangException`), as Go's `errors.Is` would find them.
 - A root that is only a struct type (`bsadapter.Adapter`, `basicnode.Prototype__Any`) becomes an empty constructor (`Adapter()`, Go's `new(T)`), and its fields, getters and setters.

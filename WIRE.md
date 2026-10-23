@@ -51,7 +51,7 @@ Everything is little-endian.
 | 2 | Echo (test) | bytes → the same bytes |
 | 3 | Free | `u32 n`, n × `i64` handles → no response (id 0) |
 | 4 | Hello | `u64` table hash → empty value, or an error if the host was generated from another table |
-| 5 | CallbackAck | `u32` call id, `u8` verdict (`0` go on, `1` the Dart function returned false, `2` it threw) → no response (id 0) |
+| 5 | CallbackAck | `u32` call id, `u8` verdict (`0` go on, `1` the Dart function returned false, `2` it threw); for a retained callback that returns a value, the value after a verdict `0` → no response (id 0) |
 | 16 | context.Background | — → `i64` ctx |
 | 17 | context.WithCancel | `i64` parent → `i64` ctx, `i64` cancel |
 | 18 | context.WithTimeout | `i64` parent, `i64` ns → `i64` ctx, `i64` cancel |
@@ -103,7 +103,7 @@ over basic types (kubo's enums) go as the basic type. By model kind (`go/gen/mod
 | `kSlice` | `i32 n` + elements; `-1` = nil |
 | `kMap` | `i32 n` + pairs: key (string; if `tinfo.mkey` is a value type, its string, **without** a presence byte; if it is an integer, `multicodec.Code`, the `i64`) + value |
 | `kOpts` (functional options, variadic) | `i32 n` + each option: `u32` index of the constructor in `tinfo.ctors` + its parameters; a parameter that is itself an option (`options.Name.ResolveOption(namesys.ResolveWithDepth(1))`) goes as a `kOpts` of one |
-| `kAny` (`any`/`interface{}`, a dynamic value) | `u8` tag + value: `0` null, `1` bool, `2` `i64`, `3` `f64`, `4` string, `5` `kBytes`, `6` list (`i32 n` + items), `7` map (`i32 n` + pairs of string key + item). In the host: pointers and interfaces are followed; `time.Time` and types with `MarshalText` (CID, peer ID, multiaddr) go as a string; structs as a map of the exported fields (the `json` name); maps with the keys in order. When reading, the host returns the `encoding/json` types (`int64` for integers) |
+| `kAny` (`any`/`interface{}`, a dynamic value) | `u8` tag + value: `0` null, `1` bool, `2` `i64`, `3` `f64`, `4` string, `5` `kBytes`, `6` list (`i32 n` + items), `7` map (`i32 n` + pairs of string key + item), `8` a value of a type the generator lists (`go/gen/tokens.go`: `u32` token + the type's encoding; host → app, the app builds the class), `9` a token (`u32`; app → host: `new(T)` of a listed type, or a listed Go function itself). In the host: pointers and interfaces are followed; `time.Time` and types with `MarshalText` (CID, peer ID, multiaddr) go as a string; structs as a map of the exported fields (the `json` name); maps with the keys in order. When reading, the host returns the `encoding/json` types (`int64` for integers) |
 | output buffer (a `[]byte` Go fills: `Read`, `ReadAt`, `CtxReadFull`) | in the request, `i64` size (up to 64 MiB); in the response, `kBytes` with the bytes read. `io.EOF`/`io.ErrUnexpectedEOF` are not errors: the bytes read come back (empty at the end) |
 | I/O interface parameter (`io.Reader`, `io.ReaderAt`, `io.ReadSeeker`...: only `Read ReadAt Seek Write WriteAt Close` methods) | `u8 0` + `kBytes` (read by a `bytes.Reader`; an error if it does not implement the interface), or `u8 1` + `i64` handle of an object that implements it |
 | `kWriter` (`io.Writer`) | `i64` handle of an object that implements it (`os.File`, `bytes.Buffer`); `0` = `io.Discard` |
@@ -169,8 +169,11 @@ is.
   on its event loop, never inside a synchronous call.
 - A function that returns nothing does not wait. One that returns `bool` or `error` waits
   for the `CallbackAck` (function 5) of that id, one invocation at a time: verdict `0` is
-  `true`/`nil`, the others `false`/an internal error. A Dart exception goes to the zone
-  and answers `2`.
+  `true`/`nil`, the others `false`/an internal error. One that returns a basic value
+  (`pubsub.ValidatorEx`) gets it in the same `CallbackAck`, after verdict `0`; with another
+  verdict Go returns the generator's `cbOnThrow` constant for that function type
+  (`ValidationReject`), or the zero value. The app runs the function in the zone it was
+  given in; a Dart exception goes to that zone and answers `2`.
 - When Go's garbage collector frees the function (the handler removed, the host closed and
   dropped), the host sends `end` with the id, and the app drops its side. While Go holds
   it, the app keeps the Dart function; a stop of the service drops them all.

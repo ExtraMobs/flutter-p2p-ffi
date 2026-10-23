@@ -17,14 +17,14 @@ class PrivKey extends Key {
 
   /// Go: `func (crypto.PrivKey).GetPublic() crypto.PubKey`.
   PubKey getPublic() {
-    final $r = $callSync(466, $W()..h(this));
+    final $r = $callSync(468, $W()..h(this));
     return $r.hnn(PubKey.$h);
   }
 
   /// Go: `func (crypto.PrivKey).Sign([]byte) ([]byte, error)`.
   Uint8List sign(Uint8List arg0) {
     final $r = $callSync(
-        467,
+        469,
         $W()
           ..h(this)
           ..bytes(arg0));
@@ -39,7 +39,7 @@ class PubKey extends Key {
   /// Go: `func (crypto.PubKey).Verify(data []byte, sig []byte) (bool, error)`.
   bool verify(Uint8List data, Uint8List sig) {
     final $r = $callSync(
-        468,
+        470,
         $W()
           ..h(this)
           ..bytes(data)
@@ -51,7 +51,7 @@ class PubKey extends Key {
 /// Go: `func crypto.GenerateKeyPair(typ int, bits int) (crypto.PrivKey, crypto.PubKey, error)`.
 (PrivKey, PubKey) generateKeyPair(int typ, int bits) {
   final $r = $callSync(
-      463,
+      465,
       $W()
         ..i64(typ)
         ..i64(bits));
@@ -60,25 +60,25 @@ class PubKey extends Key {
 
 /// Go: `func crypto.MarshalPrivateKey(k crypto.PrivKey) ([]byte, error)`.
 Uint8List marshalPrivateKey(PrivKey k) {
-  final $r = $callSync(464, $W()..h(k));
+  final $r = $callSync(466, $W()..h(k));
   return $r.bytes() ?? Uint8List(0);
 }
 
 /// Go: `func crypto.UnmarshalPrivateKey(data []byte) (crypto.PrivKey, error)`.
 PrivKey unmarshalPrivateKey(Uint8List data) {
-  final $r = $callSync(469, $W()..bytes(data));
+  final $r = $callSync(471, $W()..bytes(data));
   return $r.hnn(PrivKey.$h);
 }
 
 /// Go: `func crypto.MarshalPublicKey(k crypto.PubKey) ([]byte, error)`.
 Uint8List marshalPublicKey(PubKey k) {
-  final $r = $callSync(465, $W()..h(k));
+  final $r = $callSync(467, $W()..h(k));
   return $r.bytes() ?? Uint8List(0);
 }
 
 /// Go: `func crypto.UnmarshalPublicKey(data []byte) (crypto.PubKey, error)`.
 PubKey unmarshalPublicKey(Uint8List data) {
-  final $r = $callSync(470, $W()..bytes(data));
+  final $r = $callSync(472, $W()..bytes(data));
   return $r.hnn(PubKey.$h);
 }
 

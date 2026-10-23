@@ -65,7 +65,7 @@ func TestRetainedCallback(t *testing.T) {
 			if id != 9 {
 				t.Fatalf("end for %d", id)
 			}
-			if retainedAck(9, 0) {
+			if retainedAck(9, []byte{0}) {
 				t.Error("still registered after the end")
 			}
 			return

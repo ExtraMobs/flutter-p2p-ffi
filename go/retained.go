@@ -16,15 +16,15 @@ type retained struct {
 	id   uint32
 	send sendFn
 	mu   sync.Mutex // one invocation waits for its verdict at a time
-	acks chan byte
+	acks chan []byte // the CallbackAck after the id: the verdict, then the value (askValue)
 }
 
 // retainedAcks: the verdict channel of each live retained callback, for
 // callbackAck. It holds the channel, not the callback, so the cleanup can run.
 var retainedAcks = struct {
 	sync.Mutex
-	m map[uint32]chan byte
-}{m: map[uint32]chan byte{}}
+	m map[uint32]chan []byte
+}{m: map[uint32]chan []byte{}}
 
 // newRetained: the retained callback [id] of the call [q], or nil for id 0
 // (a method a Dart implementation leaves out).
@@ -32,7 +32,7 @@ func newRetained(q *req, id uint32) *retained {
 	if id == 0 {
 		return nil
 	}
-	rc := &retained{id: id, send: q.send, acks: make(chan byte, 1)}
+	rc := &retained{id: id, send: q.send, acks: make(chan []byte, 1)}
 	retainedAcks.Lock()
 	retainedAcks.m[id] = rc.acks
 	retainedAcks.Unlock()
@@ -57,24 +57,32 @@ func (rc *retained) call(enc func(*writer)) {
 // ask: an invocation whose result Go needs (bool or error): waits for the
 // Dart verdict; true = go on (Dart returned true, or nothing).
 func (rc *retained) ask(enc func(*writer)) bool {
+	_, ok := rc.askValue(enc)
+	return ok
+}
+
+// askValue: like ask, for a function that returns a value: the reader of the
+// value Dart returned, after the verdict; ok = false if Dart threw.
+func (rc *retained) askValue(enc func(*writer)) (*reader, bool) {
 	rc.mu.Lock()
 	defer rc.mu.Unlock()
 	rc.call(enc)
 	waitingCallbacks.Add(1) // deadlock.go
-	v := <-rc.acks
+	ack := <-rc.acks
 	waitingCallbacks.Add(-1)
-	return v == verdictContinue
+	r := &reader{b: ack}
+	return r, r.u8() == verdictContinue && r.err == nil
 }
 
-// retainedAck: the verdict [verdict] for the retained callback [id]; false if
-// [id] is not one.
-func retainedAck(id uint32, verdict byte) bool {
+// retainedAck: the CallbackAck [ack] (after the id) for the retained callback
+// [id]; false if [id] is not one.
+func retainedAck(id uint32, ack []byte) bool {
 	retainedAcks.Lock()
 	acks, ok := retainedAcks.m[id]
 	retainedAcks.Unlock()
 	if ok {
 		select {
-		case acks <- verdict:
+		case acks <- append([]byte(nil), ack...):
 		default:
 		}
 	}

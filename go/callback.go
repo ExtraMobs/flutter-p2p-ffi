@@ -125,7 +125,7 @@ func (c *callback) end() {
 func callbackAck(args []byte) {
 	r := &reader{b: args}
 	id, verdict := r.u32(), r.u8()
-	if r.err != nil || retainedAck(id, verdict) {
+	if r.err != nil || retainedAck(id, args[4:]) {
 		return
 	}
 	callbacks.Lock()

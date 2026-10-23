@@ -18,6 +18,7 @@ import 'package:p2p_ffi/go/libp2p/p2p/host/basic.dart' as $basic;
 import 'package:p2p_ffi/go/libp2p/p2p/net/swarm.dart' as $swarm;
 import 'package:p2p_ffi/go/libp2p/p2p/protocol/circuitv2/relay.dart' as $relay;
 import 'package:p2p_ffi/go/libp2p/p2p/protocol/holepunch.dart' as $holepunch;
+import 'package:p2p_ffi/go/libp2p/p2p/transport/quicreuse.dart' as $quicreuse;
 import 'package:p2p_ffi/go/multiaddr.dart' as $multiaddr;
 
 /// Go: `go-libp2p.AddrsFactory`.
@@ -162,6 +163,15 @@ $config.Option privateNetwork(Uint8List psk) =>
 $config.Option protocolVersion(String s) =>
     $config.Option.$(33, (w) => w..str(s));
 
+/// Go: `go-libp2p.QUICReuse`.
+$config.Option quicReuse(Object? constructor,
+        [List<$quicreuse.Option> opts = const []]) =>
+    $config.Option.$(
+        34,
+        (w) => w
+          ..any(constructor)
+          ..list(opts, (w0, e0) => w0.opt(e0)));
+
 /// Go: `go-libp2p.ResourceManager`.
 $config.Option resourceManager($network.ResourceManager rcmgr) =>
     $config.Option.$(35, (w) => w..h(rcmgr));
@@ -170,12 +180,28 @@ $config.Option resourceManager($network.ResourceManager rcmgr) =>
 $config.Option routing($config.RoutingC rt) =>
     $config.Option.$(36, (w) => w..h(rt));
 
+/// Go: `go-libp2p.Security`.
+$config.Option security(String name, Object? constructor) => $config.Option.$(
+    37,
+    (w) => w
+      ..str(name)
+      ..any(constructor));
+
 /// Go: `go-libp2p.ShareTCPListener`.
 $config.Option shareTcpListener() => $config.Option.$(38, (_) {});
 
 /// Go: `go-libp2p.SwarmOpts`.
 $config.Option swarmOpts([List<$swarm.Option> opts = const []]) =>
     $config.Option.$(39, (w) => w..list(opts, (w0, e0) => w0.opt(e0)));
+
+/// Go: `go-libp2p.Transport`.
+$config.Option transport(Object? constructor,
+        [List<Object?> opts = const []]) =>
+    $config.Option.$(
+        40,
+        (w) => w
+          ..any(constructor)
+          ..list(opts, (w0, e0) => w0.any(e0)));
 
 /// Go: `go-libp2p.UDPBlackHoleSuccessCounter`.
 $config.Option udpBlackHoleSuccessCounter($swarm.BlackHoleSuccessCounter f) =>
@@ -238,6 +264,6 @@ $config.Option get randomIdentity => $config.Option.$(60, (_) {});
 ///
 /// Asynchronous: runs in a goroutine of the service.
 Future<$host.Host> new$([List<$config.Option> opts = const []]) async {
-  final $r = await $call(456, $W()..list(opts, (w0, e0) => w0.opt(e0)));
+  final $r = await $call(458, $W()..list(opts, (w0, e0) => w0.opt(e0)));
   return $r.hnn($host.Host.$h);
 }

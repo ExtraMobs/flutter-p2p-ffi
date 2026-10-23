@@ -1,11 +1,14 @@
 // O valor dinâmico do protocolo (WIRE.md, "Value encoding"): `any` do Go,
 // num formato com etiqueta que o Dart lê como Object?. Etiquetas: 0 nulo,
 // 1 bool, 2 i64, 3 f64, 4 string, 5 bytes, 6 lista (i32 n + itens), 7 mapa
-// (i32 n + pares str chave + item).
+// (i32 n + pares str chave + item), 8 a value of a type of the generator's
+// anyTypes (u32 token + the type's encoding; Go → Dart), 9 a token (u32;
+// Dart → Go: new(T) of a type, or a Go function value).
 package main
 
 import (
 	"encoding"
+	"errors"
 	"fmt"
 	"reflect"
 	"sort"
@@ -22,7 +25,16 @@ const (
 	anyBytes
 	anyList
 	anyMap
+	anyTyped
+	anyToken
 )
+
+// anyType: a type of the generator's anyTypes (zz_generated.go), whose
+// values cross a dynamic value as the Dart class.
+type anyType struct {
+	id  uint32
+	enc func(*writer, any)
+}
 
 func encAny(w *writer, v any) { encAnyValue(w, reflect.ValueOf(v)) }
 
@@ -42,6 +54,12 @@ func encAnyValue(w *writer, v reflect.Value) {
 	}
 	if !v.IsValid() {
 		w.u8(anyNull)
+		return
+	}
+	if t, ok := anyTypes[v.Type()]; ok && v.CanInterface() { // an event of the event bus
+		w.u8(anyTyped)
+		w.u32(t.id)
+		t.enc(w, v.Interface())
 		return
 	}
 	if v.CanInterface() {
@@ -191,6 +209,12 @@ func decAny(r *reader) (any, error) {
 			out[k] = v
 		}
 		return out, r.err
+	case anyToken:
+		id := r.u32()
+		if f, ok := tokens[id]; ok && r.err == nil {
+			return f(), nil
+		}
+		return nil, errors.Join(r.err, fmt.Errorf("p2p_host: unknown token %d", id))
 	default:
 		return nil, fmt.Errorf("p2p_host: unknown dynamic value tag %d", t)
 	}

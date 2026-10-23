@@ -186,13 +186,15 @@ final class $W {
 
   /// A retained callback (WIRE.md): a Dart id of its own, which Go invokes
   /// for as long as it holds the function; null = nil (id 0). [asks]: Go
-  /// waits for the verdict (the function returns bool or error).
-  void cb(FutureOr<Object?> Function($R r)? item, bool asks) {
+  /// waits for the verdict (the function returns bool, error or a value);
+  /// [value] writes the value the function returned into the CallbackAck.
+  void cb(FutureOr<Object?> Function($R r)? item, bool asks,
+      [void Function($W w, Object? v)? value]) {
     var id = 0;
     if (item != null) {
       try {
         id = _channel.newId();
-        _pending[id] = _Pending(_Retained(item, asks), null, const []);
+        _pending[id] = _Pending(_Retained(item, asks, value), null, const []);
       } on P2pServiceException catch (e) {
         _error ??= e;
       }
@@ -248,6 +250,9 @@ final class $W {
       case GoValue g:
         u8(4);
         str(g.value);
+      case GoToken t:
+        u8(9);
+        u32(t.id);
       default:
         throw ArgumentError.value(
             v,
@@ -382,6 +387,11 @@ final class $R {
       case 7:
         final n = i32();
         return {for (var k = 0; k < n; k++) str(): any()};
+      case 8: // a value of a type the generator lists (an event of the event bus)
+        final id = u32();
+        final dec = $anyTypes[id] ??
+            (throw GolangException('unknown dynamic value type $id'));
+        return dec(this);
       case final t:
         throw GolangException('unknown dynamic value tag $t');
     }

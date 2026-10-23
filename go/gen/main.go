@@ -53,7 +53,15 @@ var resultAs = map[string][2]string{
 // (a handler): it becomes a retained callback (WIRE.md, "Retained
 // callback"), called by Go for as long as it holds it.
 var retainedFuncs = setOf(`github.com/libp2p/go-libp2p/core/host.Host.SetStreamHandler
-github.com/libp2p/go-libp2p/core/host.Host.SetStreamHandlerMatch`)
+github.com/libp2p/go-libp2p/core/host.Host.SetStreamHandlerMatch
+github.com/libp2p/go-libp2p-pubsub.PubSub.RegisterTopicValidator`)
+
+// anyAs: an `any` parameter that only accepts one Go type, by root and
+// parameter index (the package reflects on it: pubsub takes a ValidatorEx as
+// `val any`): it crosses as that type.
+var anyAs = map[string]map[int][2]string{
+	"github.com/libp2p/go-libp2p-pubsub.PubSub.RegisterTopicValidator": {1: {"github.com/libp2p/go-libp2p-pubsub", "ValidatorEx"}},
+}
 
 // forceAsync: funções sem context que bloqueiam (rede, desligamento).
 var forceAsync = setOf(`github.com/ipfs/kubo/core.IpfsNode.Close
@@ -95,6 +103,7 @@ type fn struct {
 	newT     bool             // construtor vazio de um tipo struct (raiz que é só o tipo): new(T)
 	impl     *types.Interface // a root that is an interface type: a Dart implementation of it (params: one retained callback per method)
 	outBuf   int              // índice do []byte que o Go preenche (Read, ReadAt, CtxReadFull); -1 = nenhum
+	dropped  string           // a trailing variadic that does not cross, left out (Go gets none): its name and why
 }
 
 func isConstObj(o types.Object) bool { _, ok := o.(*types.Const); return ok }
@@ -214,6 +223,9 @@ func generate(rootsFile string) (map[string][]byte, error) {
 		fns = append(fns, fs...)
 	}
 	fns = append(fns, m.casts(fns)...)
+	if m.toks, err = m.tokens(); err != nil {
+		return nil, err
+	}
 	for _, f := range fns {
 		f.direct = -1
 	}
@@ -229,6 +241,9 @@ func generate(rootsFile string) (map[string][]byte, error) {
 	})
 	hf := fnv.New64a()
 	fmt.Fprintf(hf, "%x %x", hash, cmdHash)
+	for _, t := range m.toks { // the tokens' numbers are on the wire too
+		fmt.Fprintf(hf, " %d %s", t.id, t.key)
+	}
 	hash = hf.Sum64()
 	dart["src/table.dart"] = tableDart(hash)
 	goSrc, err := emitGo(m, fns, hash)
@@ -390,9 +405,17 @@ func (m *model) resolve(pkgs map[string]*types.Package, line string) ([]*fn, err
 	for i := 0; i < sig.Params().Len(); i++ {
 		v := sig.Params().At(i)
 		p := param{name: v.Name(), variadic: sig.Variadic() && i == sig.Params().Len()-1}
-		p.t = m.classify(v.Type())
+		vt := v.Type()
+		if as, ok := anyAs[line][i]; ok {
+			if pk := m.load(as[0]); pk != nil {
+				if tn, ok := pk.Scope().Lookup(as[1]).(*types.TypeName); ok {
+					vt = tn.Type()
+				}
+			}
+		}
+		p.t = m.classify(vt)
 		if p.t.k != kOpts {
-			if ft := m.funcParam(v.Type()); ft != nil {
+			if ft := m.funcParam(vt); ft != nil && (ft.fret != fretVal || retainedFuncs[line]) {
 				ft.retained = retainedFuncs[line]
 				p.t = ft
 				if names := cbArgNames[line]; len(names) == len(ft.fnames) {
@@ -402,6 +425,10 @@ func (m *model) resolve(pkgs map[string]*types.Package, line string) ([]*fn, err
 		}
 		if p.name == "" || p.name == "_" {
 			p.name = paramName(p.t, i)
+		}
+		if p.variadic && p.t.k == kUnsupported { // Go gets none (event.Bus.Subscribe's opts)
+			f.dropped = p.name + ": " + p.t.why
+			continue
 		}
 		f.params = append(f.params, p)
 	}

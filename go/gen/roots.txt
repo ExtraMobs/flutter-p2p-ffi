@@ -551,3 +551,24 @@ github.com/libp2p/go-libp2p/p2p/discovery/mdns.Notifee
 github.com/libp2p/go-libp2p/p2p/discovery/mdns.NewMdnsService
 github.com/libp2p/go-libp2p/p2p/discovery/mdns.Service.Start
 github.com/libp2p/go-libp2p/p2p/discovery/mdns.Service.Close
+
+# 0.23 pubsub validators: RegisterTopicValidator takes `val any` and reflects
+# on it; the generator's anyAs table makes it a ValidatorEx, a retained
+# callback that returns a value (an exception rejects: cbOnThrow)
+github.com/libp2p/go-libp2p-pubsub.PubSub.RegisterTopicValidator
+github.com/libp2p/go-libp2p-pubsub.PubSub.UnregisterTopicValidator
+
+# 0.23 the host's event bus: Subscribe takes the event type by example
+# (event.EvtX.$type, a token: new(T) in Go) and Out delivers the events as
+# their classes (gen/tokens.go)
+github.com/libp2p/go-libp2p/core/host.Host.EventBus
+github.com/libp2p/go-libp2p/core/event.Bus.Subscribe
+github.com/libp2p/go-libp2p/core/event.Subscription.Out
+github.com/libp2p/go-libp2p/core/event.Subscription.Name
+github.com/libp2p/go-libp2p/core/event.Subscription.Close
+
+# 0.23 a transport and security stack of one's own: libp2p.Transport and
+# Security take Go constructors, which cross as function tokens
+# (tcp.newTcpTransportFunc, noise.newFunc...; gen/tokens.go); the muxer is
+# a value
+github.com/libp2p/go-libp2p/p2p/muxer/yamux.DefaultTransport

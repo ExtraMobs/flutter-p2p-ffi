@@ -130,35 +130,40 @@ final class _Callback {
 /// A retained callback (WIRE.md, "Retained callback"): a Dart function Go
 /// keeps past the call (a stream handler, a method of a Dart implementation
 /// of an interface). Each invocation runs on the event loop, never inside a
-/// synchronous call; an exception goes to the zone (like a Timer's), and,
-/// when Go waits for the verdict ([asks]), it also answers Go as `false`.
+/// synchronous call, in the zone the function was given in; an exception goes
+/// to that zone (like a Timer's), and, when Go waits for the verdict
+/// ([asks]), it also answers Go as a failure.
 final class _Retained {
-  _Retained(this.item, this.asks);
+  _Retained(this.item, this.asks, this.value);
+
+  final _zone = Zone.current;
 
   final FutureOr<Object?> Function($R r) item;
   final bool asks;
 
-  void _invoke(int id, Uint8List data) => Timer.run(() async {
+  /// The function returns a value (WIRE.md): it goes after the verdict.
+  final void Function($W w, Object? v)? value;
+
+  void _invoke(int id, Uint8List data) => _zone.run(() => Timer.run(() async {
         final r = $R(data)..u32(); // always one invocation
         var verdict = _cbContinue;
+        Object? result;
         try {
-          if (await item(r) == false) verdict = _cbStopped;
+          result = await item(r);
+          if (value == null && result == false) verdict = _cbStopped;
         } catch (e, st) {
           verdict = _cbThrew;
-          Zone.current.handleUncaughtError(e, st);
+          _zone.handleUncaughtError(e, st);
         }
         if (!asks) return;
+        final w = $W()
+          ..u32(id)
+          ..u8(verdict);
+        if (verdict == _cbContinue) value?.call(w, result);
         try {
-          _channel.send(
-              0,
-              _fnCallbackAck,
-              _sync,
-              ($W()
-                    ..u32(id)
-                    ..u8(verdict))
-                  .take());
+          _channel.send(0, _fnCallbackAck, _sync, w.take());
         } on P2pServiceException {
           // the service fell: Go is gone with it
         }
-      });
+      }));
 }

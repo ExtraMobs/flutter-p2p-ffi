@@ -8,6 +8,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:typed_data';
 
+import 'any_types.dart';
 import 'shm.dart';
 
 part 'runtime/callback.dart';
@@ -559,6 +560,16 @@ abstract class GoJsonValue {
 }
 
 /// Go struct (DTO): writes the fields that cross, in order.
+/// A Go type or function as a value (WIRE.md, "Value encoding", tag 9): Go
+/// gets `new(T)` of the type (`bus.subscribe(event.EvtX.$type)`) or the
+/// function itself (`libp2p.transport(tcp.newTcpTransportFunc)`). The
+/// generated libraries declare them.
+final class GoToken {
+  const GoToken(this.id);
+
+  final int id;
+}
+
 abstract interface class GoDto {
   void $enc($W w);
 }

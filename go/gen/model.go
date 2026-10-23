@@ -30,11 +30,13 @@ const (
 	kFunc // função passada pelo Dart (callback sob demanda, WIRE.md): só em parâmetro
 )
 
-// Resultado de um callback (kFunc): nada, bool (false para) ou error (para).
+// Resultado de um callback (kFunc): nada, bool (false para) ou error (para);
+// fretVal: a basic value (pubsub.ValidationResult), only for a retained one.
 const (
 	fretNone = iota
 	fretBool
 	fretErr
+	fretVal
 )
 
 // valueSpec: tipo-valor convertido por funções escritas à mão em wire.go.
@@ -60,7 +62,8 @@ var valueTypes = map[string]valueSpec{
 // handleTypes: interfaces que parecem só-getters mas são recursos, e structs
 // só de campos exportados que são objetos (o LinkSystem guarda funções; the
 // NullDatastore has no fields, only the methods of a datastore).
-var handleTypes = setOf(`os.FileInfo github.com/ipld/go-ipld-prime/linking.LinkSystem github.com/ipfs/go-datastore.NullDatastore`)
+var handleTypes = setOf(`os.FileInfo github.com/ipld/go-ipld-prime/linking.LinkSystem github.com/ipfs/go-datastore.NullDatastore
+github.com/libp2p/go-libp2p/p2p/muxer/yamux.Transport`)
 
 // ioMethods: os métodos de uma interface de E/S (io.ReaderAt, io.ReadSeeker,
 // car.SectionReader...): em parâmetro ela aceita bytes ou qualquer handle,
@@ -89,6 +92,8 @@ type tinfo struct {
 	// kFunc: Go keeps the function past the call (retainedFuncs, a Dart
 	// implementation of an interface): WIRE.md, "Retained callback"
 	retained bool
+	fres     *tinfo    // kFunc fretVal: the type of the value
+	fthrow   [2]string // kFunc fretVal: the Go constant (package, name) when Dart throws (cbOnThrow); "" = the zero value
 }
 
 type field struct {
@@ -113,7 +118,8 @@ type optCtor struct {
 	variadic bool // the last parameter is variadic (libp2p.EnableHolePunching(opts ...holepunch.Option))
 	isVar    bool // a package variable of the option type (libp2p.NoListenAddrs): no call
 	varSig   *types.Signature
-	omit     string // omitCtors: o motivo
+	fn       *types.Func // the constructor (its parameters: ctorParams)
+	omit     string      // omitCtors: o motivo
 }
 
 // omitCtors: construtores de opção que ficam de fora de propósito (o
@@ -123,9 +129,6 @@ var omitCtors = map[string]string{
 	"github.com/libp2p/go-libp2p.PrometheusRegisterer":        "Prometheus metrics (no namespace; libp2p uses the default registerer)",
 	"github.com/libp2p/go-libp2p.DefaultPrometheusRegisterer": "Prometheus metrics (no namespace; libp2p uses the default registerer)",
 	"github.com/libp2p/go-libp2p.WithFxOption":                "the fx dependency injection inside libp2p (Go values only)",
-	"github.com/libp2p/go-libp2p.Transport":                   "takes a Go constructor function (DefaultTransports holds the usual ones)",
-	"github.com/libp2p/go-libp2p.Security":                    "takes a Go constructor function (DefaultSecurity holds the usual ones)",
-	"github.com/libp2p/go-libp2p.QUICReuse":                   "takes a Go constructor function",
 }
 
 type model struct {
@@ -141,6 +144,8 @@ type model struct {
 	// name (dht.Option = internal/config.Option): its types are spelled, and
 	// their Dart class lives, in the alias's package.
 	via map[string]*types.Package
+	// toks: the type and function tokens (tokens.go)
+	toks []*token
 }
 
 func newModel() *model {
@@ -451,17 +456,25 @@ func (m *model) funcParam(t types.Type) *tinfo {
 		ti.fret = fretErr
 	case r.Len() == 1:
 		b, ok := r.At(0).Type().Underlying().(*types.Basic)
-		if !ok || b.Kind() != types.Bool {
+		switch {
+		case ok && b.Kind() == types.Bool:
+			ti.fret = fretBool
+		case ok:
+			if ti.fres = m.classify(r.At(0).Type()); ti.fres.k != kBasic {
+				return nil
+			}
+			ti.fret = fretVal
+			ti.fthrow = cbOnThrow[types.TypeString(t, nil)]
+		default:
 			return nil
 		}
-		ti.fret = fretBool
 	default:
 		return nil
 	}
 	for i := 0; i < sig.Params().Len(); i++ {
 		v := sig.Params().At(i)
 		a := m.classify(v.Type())
-		if !okElem(a) {
+		if !okElem(a) && a.k != kCtx { // a context arrives as its handle (pubsub's validators)
 			unsupported(ti, "callback with argument %s", describe(a))
 			return ti
 		}
@@ -469,6 +482,13 @@ func (m *model) funcParam(t types.Type) *tinfo {
 		ti.fnames = append(ti.fnames, v.Name())
 	}
 	return ti
+}
+
+// cbOnThrow: what a retained callback that returns a value answers Go when
+// the Dart function throws, by the callback's Go type (the zero value would
+// accept a message: ValidationAccept is 0).
+var cbOnThrow = map[string][2]string{
+	"github.com/libp2p/go-libp2p-pubsub.ValidatorEx": {"github.com/libp2p/go-libp2p-pubsub", "ValidationReject"},
 }
 
 // isIO: interface só de métodos de E/S, com ao menos um de dados.
@@ -533,7 +553,10 @@ func (m *model) optCtors(pkg *types.Package, opt *types.Named) []optCtor {
 			}
 		}
 	}
-	out := append([]optCtor{}, byType[objKey(opt.Obj())]...)
+	var out []optCtor
+	for _, c := range byType[objKey(opt.Obj())] {
+		out = append(out, m.ctorParams(c))
+	}
 	for _, c := range byType[varCtors] {
 		if types.Identical(c.varSig, opt.Underlying()) {
 			out = append(out, c)
@@ -629,23 +652,33 @@ func (m *model) addOptCtor(pkg *types.Package, byType map[string][]optCtor, path
 	if _, isSig := rn.Underlying().(*types.Signature); !isSig {
 		return
 	}
-	c := optCtor{pkg: pkg, path: append(append([]string{}, path...), f.Name()), hasErr: hasErr, variadic: sig.Variadic()}
+	c := optCtor{pkg: pkg, path: append(append([]string{}, path...), f.Name()), hasErr: hasErr, variadic: sig.Variadic(), fn: f}
 	if why, ok := omitCtors[pkg.Path()+"."+strings.Join(c.path, ".")]; ok {
 		c.omit = why // sem classificar os parâmetros: o tipo deles não entra
-		byType[objKey(rn.Obj())] = append(byType[objKey(rn.Obj())], c)
-		return
 	}
+	k := objKey(rn.Obj())
+	byType[k] = append(byType[k], c)
+}
+
+// ctorParams: the parameters of [c], classified only when its option type is
+// asked for, after the whole package was scanned (a parameter may be another
+// option of the same package: pubsub.WithDefaultValidator takes ValidatorOpt).
+func (m *model) ctorParams(c optCtor) optCtor {
+	if c.fn == nil || c.omit != "" {
+		return c
+	}
+	sig := c.fn.Type().(*types.Signature)
+	c.params, c.pnames = nil, nil
 	for j := 0; j < sig.Params().Len(); j++ {
 		p := sig.Params().At(j)
 		if ch, ok := p.Type().(*types.Chan); ok && ch.Dir() == types.SendOnly {
-			c.params = append(c.params, m.sinkParam(pkg.Path()+"."+strings.Join(c.path, "."), ch))
+			c.params = append(c.params, m.sinkParam(c.pkg.Path()+"."+strings.Join(c.path, "."), ch))
 		} else {
 			c.params = append(c.params, m.classify(p.Type()))
 		}
 		c.pnames = append(c.pnames, p.Name())
 	}
-	k := objKey(rn.Obj())
-	byType[k] = append(byType[k], c)
+	return c
 }
 
 // okOptCtor: construtor cujos parâmetros atravessam.

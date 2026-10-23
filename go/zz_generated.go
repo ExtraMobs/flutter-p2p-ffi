@@ -71,6 +71,7 @@ import (
 	p_connmgr "github.com/libp2p/go-libp2p/core/connmgr"
 	p_crypto "github.com/libp2p/go-libp2p/core/crypto"
 	p_discovery "github.com/libp2p/go-libp2p/core/discovery"
+	p_event "github.com/libp2p/go-libp2p/core/event"
 	p_host "github.com/libp2p/go-libp2p/core/host"
 	p_metrics "github.com/libp2p/go-libp2p/core/metrics"
 	p_network "github.com/libp2p/go-libp2p/core/network"
@@ -82,18 +83,29 @@ import (
 	p_routing2 "github.com/libp2p/go-libp2p/p2p/discovery/routing"
 	p_autorelay "github.com/libp2p/go-libp2p/p2p/host/autorelay"
 	p_basichost "github.com/libp2p/go-libp2p/p2p/host/basic"
+	p_yamux "github.com/libp2p/go-libp2p/p2p/muxer/yamux"
 	p_swarm "github.com/libp2p/go-libp2p/p2p/net/swarm"
 	p_relay "github.com/libp2p/go-libp2p/p2p/protocol/circuitv2/relay"
 	p_holepunch "github.com/libp2p/go-libp2p/p2p/protocol/holepunch"
 	p_ping "github.com/libp2p/go-libp2p/p2p/protocol/ping"
+	p_noise "github.com/libp2p/go-libp2p/p2p/security/noise"
+	p_libp2ptls "github.com/libp2p/go-libp2p/p2p/security/tls"
+	p_libp2pquic "github.com/libp2p/go-libp2p/p2p/transport/quic"
+	p_quicreuse "github.com/libp2p/go-libp2p/p2p/transport/quicreuse"
+	p_tcp "github.com/libp2p/go-libp2p/p2p/transport/tcp"
+	p_libp2pwebrtc "github.com/libp2p/go-libp2p/p2p/transport/webrtc"
+	p_websocket "github.com/libp2p/go-libp2p/p2p/transport/websocket"
+	p_libp2pwebtransport "github.com/libp2p/go-libp2p/p2p/transport/webtransport"
 	p_multiaddr "github.com/multiformats/go-multiaddr"
 	p_multicodec "github.com/multiformats/go-multicodec"
 	p_multihash "github.com/multiformats/go-multihash"
+	p_prometheus "github.com/prometheus/client_golang/prometheus"
 	"io"
 	p_io "io"
 	p_fs "io/fs"
 	p_slog "log/slog"
 	p_os "os"
+	"reflect"
 	p_debug "runtime/debug"
 	p_time "time"
 )
@@ -105,7 +117,7 @@ var (
 )
 
 // tableHash: o hash da tabela (WIRE.md, Hello), o mesmo do Dart gerado.
-const tableHash uint64 = 0x9b23e3f7964b4600
+const tableHash uint64 = 0xe3a17500fb445324
 
 // table: as funções geradas por id (WIRE.md); as escritas à mão entram no init delas.
 var table = map[uint32]entry{
@@ -485,113 +497,157 @@ var table = map[uint32]entry{
 	437: {"github.com/libp2p/go-libp2p-pubsub.PubSub.GetTopics", fn437, false},
 	438: {"github.com/libp2p/go-libp2p-pubsub.PubSub.Join", fn438, false},
 	439: {"github.com/libp2p/go-libp2p-pubsub.PubSub.ListPeers", fn439, false},
-	440: {"github.com/libp2p/go-libp2p-pubsub.PubSub.RemoveDirectPeer", fn440, false},
-	441: {"github.com/libp2p/go-libp2p-pubsub.Subscription.Cancel", fn441, false},
-	442: {"github.com/libp2p/go-libp2p-pubsub.Subscription.Next", fn442, false},
-	443: {"github.com/libp2p/go-libp2p-pubsub.Subscription.Topic", fn443, false},
-	444: {"github.com/libp2p/go-libp2p-pubsub.Topic.Close", fn444, false},
-	445: {"github.com/libp2p/go-libp2p-pubsub.Topic.EventHandler", fn445, false},
-	446: {"github.com/libp2p/go-libp2p-pubsub.Topic.ListPeers", fn446, false},
-	447: {"github.com/libp2p/go-libp2p-pubsub.Topic.Publish", fn447, false},
-	448: {"github.com/libp2p/go-libp2p-pubsub.Topic.String", fn448, false},
-	449: {"github.com/libp2p/go-libp2p-pubsub.Topic.Subscribe", fn449, false},
-	450: {"github.com/libp2p/go-libp2p-pubsub.TopicEventHandler.Cancel", fn450, false},
-	451: {"github.com/libp2p/go-libp2p-pubsub.TopicEventHandler.NextPeerEvent", fn451, false},
-	452: {"github.com/libp2p/go-libp2p-pubsub/pb.Message.GetData", fn452, false},
-	453: {"github.com/libp2p/go-libp2p-pubsub/pb.Message.GetFrom", fn453, false},
-	454: {"github.com/libp2p/go-libp2p-pubsub/pb.Message.GetSeqno", fn454, false},
-	455: {"github.com/libp2p/go-libp2p-pubsub/pb.Message.GetTopic", fn455, false},
-	456: {"github.com/libp2p/go-libp2p.New", fn456, false},
-	457: {"github.com/libp2p/go-libp2p/core/connmgr.ConnManager.IsProtected", fn457, false},
-	458: {"github.com/libp2p/go-libp2p/core/connmgr.ConnManager.Protect", fn458, false},
-	459: {"github.com/libp2p/go-libp2p/core/connmgr.ConnManager.TagPeer", fn459, false},
-	460: {"github.com/libp2p/go-libp2p/core/connmgr.ConnManager.TrimOpenConns", fn460, false},
-	461: {"github.com/libp2p/go-libp2p/core/connmgr.ConnManager.Unprotect", fn461, false},
-	462: {"github.com/libp2p/go-libp2p/core/connmgr.ConnManager.UntagPeer", fn462, false},
-	463: {"github.com/libp2p/go-libp2p/core/crypto.GenerateKeyPair", fn463, false},
-	464: {"github.com/libp2p/go-libp2p/core/crypto.MarshalPrivateKey", fn464, false},
-	465: {"github.com/libp2p/go-libp2p/core/crypto.MarshalPublicKey", fn465, false},
-	466: {"github.com/libp2p/go-libp2p/core/crypto.PrivKey.GetPublic", fn466, false},
-	467: {"github.com/libp2p/go-libp2p/core/crypto.PrivKey.Sign", fn467, false},
-	468: {"github.com/libp2p/go-libp2p/core/crypto.PubKey.Verify", fn468, false},
-	469: {"github.com/libp2p/go-libp2p/core/crypto.UnmarshalPrivateKey", fn469, false},
-	470: {"github.com/libp2p/go-libp2p/core/crypto.UnmarshalPublicKey", fn470, false},
-	471: {"github.com/libp2p/go-libp2p/core/host.Host.Addrs", fn471, false},
-	472: {"github.com/libp2p/go-libp2p/core/host.Host.Close", fn472, false},
-	473: {"github.com/libp2p/go-libp2p/core/host.Host.ConnManager", fn473, false},
-	474: {"github.com/libp2p/go-libp2p/core/host.Host.Connect", fn474, false},
-	475: {"github.com/libp2p/go-libp2p/core/host.Host.ID", fn475, false},
-	476: {"github.com/libp2p/go-libp2p/core/host.Host.Network", fn476, false},
-	477: {"github.com/libp2p/go-libp2p/core/host.Host.NewStream", fn477, false},
-	478: {"github.com/libp2p/go-libp2p/core/host.Host.Peerstore", fn478, false},
-	479: {"github.com/libp2p/go-libp2p/core/host.Host.RemoveStreamHandler", fn479, false},
-	480: {"github.com/libp2p/go-libp2p/core/host.Host.SetStreamHandler", fn480, false},
-	481: {"github.com/libp2p/go-libp2p/core/host.Host.SetStreamHandlerMatch", fn481, false},
-	482: {"github.com/libp2p/go-libp2p/core/host.InfoFromHost", fn482, false},
-	483: {"github.com/libp2p/go-libp2p/core/network.Conn.Close", fn483, false},
-	484: {"github.com/libp2p/go-libp2p/core/network.Conn.ID", fn484, false},
-	485: {"github.com/libp2p/go-libp2p/core/network.Conn.IsClosed", fn485, false},
-	486: {"github.com/libp2p/go-libp2p/core/network.Conn.LocalMultiaddr", fn486, false},
-	487: {"github.com/libp2p/go-libp2p/core/network.Conn.RemoteMultiaddr", fn487, false},
-	488: {"github.com/libp2p/go-libp2p/core/network.Conn.RemotePeer", fn488, false},
-	489: {"github.com/libp2p/go-libp2p/core/network.Conn.Stat", fn489, false},
-	490: {"github.com/libp2p/go-libp2p/core/network.Network.ClosePeer", fn490, false},
-	491: {"github.com/libp2p/go-libp2p/core/network.Network.Connectedness", fn491, false},
-	492: {"github.com/libp2p/go-libp2p/core/network.Network.Conns", fn492, false},
-	493: {"github.com/libp2p/go-libp2p/core/network.Network.ConnsToPeer", fn493, false},
-	494: {"github.com/libp2p/go-libp2p/core/network.Network.InterfaceListenAddresses", fn494, false},
-	495: {"github.com/libp2p/go-libp2p/core/network.Network.ListenAddresses", fn495, false},
-	496: {"github.com/libp2p/go-libp2p/core/network.Network.Notify", fn496, false},
-	497: {"github.com/libp2p/go-libp2p/core/network.Network.Peers", fn497, false},
-	498: {"github.com/libp2p/go-libp2p/core/network.Network.StopNotify", fn498, false},
-	499: {"github.com/libp2p/go-libp2p/core/network.Notifiee", fn499, false},
-	500: {"github.com/libp2p/go-libp2p/core/network.ResourceManager.ViewSystem", fn500, false},
-	501: {"github.com/libp2p/go-libp2p/core/network.ResourceManager.ViewTransient", fn501, false},
-	502: {"github.com/libp2p/go-libp2p/core/network.ResourceScope.Stat", fn502, false},
-	503: {"github.com/libp2p/go-libp2p/core/network.Stream.Close", fn503, false},
-	504: {"github.com/libp2p/go-libp2p/core/network.Stream.CloseRead", fn504, false},
-	505: {"github.com/libp2p/go-libp2p/core/network.Stream.CloseWrite", fn505, false},
-	506: {"github.com/libp2p/go-libp2p/core/network.Stream.Conn", fn506, false},
-	507: {"github.com/libp2p/go-libp2p/core/network.Stream.ID", fn507, false},
-	508: {"github.com/libp2p/go-libp2p/core/network.Stream.Protocol", fn508, false},
-	509: {"github.com/libp2p/go-libp2p/core/network.Stream.Read", fn509, false},
-	510: {"github.com/libp2p/go-libp2p/core/network.Stream.Reset", fn510, false},
-	511: {"github.com/libp2p/go-libp2p/core/network.Stream.SetDeadline", fn511, false},
-	512: {"github.com/libp2p/go-libp2p/core/network.Stream.SetReadDeadline", fn512, false},
-	513: {"github.com/libp2p/go-libp2p/core/network.Stream.SetWriteDeadline", fn513, false},
-	514: {"github.com/libp2p/go-libp2p/core/network.Stream.Write", fn514, false},
-	515: {"github.com/libp2p/go-libp2p/core/peer.AddrInfoFromP2pAddr", fn515, false},
-	516: {"github.com/libp2p/go-libp2p/core/peer.AddrInfoFromString", fn516, false},
-	517: {"github.com/libp2p/go-libp2p/core/peer.AddrInfoToP2pAddrs", fn517, false},
-	518: {"github.com/libp2p/go-libp2p/core/peer.AddrInfosFromP2pAddrs", fn518, false},
-	519: {"github.com/libp2p/go-libp2p/core/peer.IDFromPrivateKey", fn519, false},
-	520: {"github.com/libp2p/go-libp2p/core/peer.IDFromPublicKey", fn520, false},
-	521: {"github.com/libp2p/go-libp2p/core/peerstore.Peerstore.AddAddrs", fn521, false},
-	522: {"github.com/libp2p/go-libp2p/core/peerstore.Peerstore.Addrs", fn522, false},
-	523: {"github.com/libp2p/go-libp2p/core/peerstore.Peerstore.ClearAddrs", fn523, false},
-	524: {"github.com/libp2p/go-libp2p/core/peerstore.Peerstore.Get", fn524, false},
-	525: {"github.com/libp2p/go-libp2p/core/peerstore.Peerstore.GetProtocols", fn525, false},
-	526: {"github.com/libp2p/go-libp2p/core/peerstore.Peerstore.LatencyEWMA", fn526, false},
-	527: {"github.com/libp2p/go-libp2p/core/peerstore.Peerstore.PeerInfo", fn527, false},
-	528: {"github.com/libp2p/go-libp2p/core/peerstore.Peerstore.Peers", fn528, false},
-	529: {"github.com/libp2p/go-libp2p/core/peerstore.Peerstore.PeersWithAddrs", fn529, false},
-	530: {"github.com/libp2p/go-libp2p/p2p/discovery/mdns.NewMdnsService", fn530, false},
-	531: {"github.com/libp2p/go-libp2p/p2p/discovery/mdns.Notifee", fn531, false},
-	532: {"github.com/libp2p/go-libp2p/p2p/discovery/mdns.Service.Close", fn532, false},
-	533: {"github.com/libp2p/go-libp2p/p2p/discovery/mdns.Service.Start", fn533, false},
-	534: {"github.com/libp2p/go-libp2p/p2p/discovery/routing.NewRoutingDiscovery", fn534, false},
-	535: {"github.com/libp2p/go-libp2p/p2p/discovery/routing.RoutingDiscovery.Advertise", fn535, false},
-	536: {"github.com/libp2p/go-libp2p/p2p/discovery/routing.RoutingDiscovery.FindPeers", fn536, true},
-	537: {"github.com/libp2p/go-libp2p/p2p/protocol/ping.Ping", fn537, true},
-	538: {"io.Copy", fn538, false},
-	539: {"io.ReadAll", fn539, false},
-	540: {"io.ReadCloser.Close", fn540, false},
-	541: {"os.Create", fn541, false},
-	542: {"os.File.Close", fn542, false},
-	543: {"os.Open", fn543, false},
-	544: {"os.OpenFile", fn544, false},
-	545: {"os.Stat", fn545, false},
-	546: {"runtime/debug.SetCrashOutput", fn546, false},
+	440: {"github.com/libp2p/go-libp2p-pubsub.PubSub.RegisterTopicValidator", fn440, false},
+	441: {"github.com/libp2p/go-libp2p-pubsub.PubSub.RemoveDirectPeer", fn441, false},
+	442: {"github.com/libp2p/go-libp2p-pubsub.PubSub.UnregisterTopicValidator", fn442, false},
+	443: {"github.com/libp2p/go-libp2p-pubsub.Subscription.Cancel", fn443, false},
+	444: {"github.com/libp2p/go-libp2p-pubsub.Subscription.Next", fn444, false},
+	445: {"github.com/libp2p/go-libp2p-pubsub.Subscription.Topic", fn445, false},
+	446: {"github.com/libp2p/go-libp2p-pubsub.Topic.Close", fn446, false},
+	447: {"github.com/libp2p/go-libp2p-pubsub.Topic.EventHandler", fn447, false},
+	448: {"github.com/libp2p/go-libp2p-pubsub.Topic.ListPeers", fn448, false},
+	449: {"github.com/libp2p/go-libp2p-pubsub.Topic.Publish", fn449, false},
+	450: {"github.com/libp2p/go-libp2p-pubsub.Topic.String", fn450, false},
+	451: {"github.com/libp2p/go-libp2p-pubsub.Topic.Subscribe", fn451, false},
+	452: {"github.com/libp2p/go-libp2p-pubsub.TopicEventHandler.Cancel", fn452, false},
+	453: {"github.com/libp2p/go-libp2p-pubsub.TopicEventHandler.NextPeerEvent", fn453, false},
+	454: {"github.com/libp2p/go-libp2p-pubsub/pb.Message.GetData", fn454, false},
+	455: {"github.com/libp2p/go-libp2p-pubsub/pb.Message.GetFrom", fn455, false},
+	456: {"github.com/libp2p/go-libp2p-pubsub/pb.Message.GetSeqno", fn456, false},
+	457: {"github.com/libp2p/go-libp2p-pubsub/pb.Message.GetTopic", fn457, false},
+	458: {"github.com/libp2p/go-libp2p.New", fn458, false},
+	459: {"github.com/libp2p/go-libp2p/core/connmgr.ConnManager.IsProtected", fn459, false},
+	460: {"github.com/libp2p/go-libp2p/core/connmgr.ConnManager.Protect", fn460, false},
+	461: {"github.com/libp2p/go-libp2p/core/connmgr.ConnManager.TagPeer", fn461, false},
+	462: {"github.com/libp2p/go-libp2p/core/connmgr.ConnManager.TrimOpenConns", fn462, false},
+	463: {"github.com/libp2p/go-libp2p/core/connmgr.ConnManager.Unprotect", fn463, false},
+	464: {"github.com/libp2p/go-libp2p/core/connmgr.ConnManager.UntagPeer", fn464, false},
+	465: {"github.com/libp2p/go-libp2p/core/crypto.GenerateKeyPair", fn465, false},
+	466: {"github.com/libp2p/go-libp2p/core/crypto.MarshalPrivateKey", fn466, false},
+	467: {"github.com/libp2p/go-libp2p/core/crypto.MarshalPublicKey", fn467, false},
+	468: {"github.com/libp2p/go-libp2p/core/crypto.PrivKey.GetPublic", fn468, false},
+	469: {"github.com/libp2p/go-libp2p/core/crypto.PrivKey.Sign", fn469, false},
+	470: {"github.com/libp2p/go-libp2p/core/crypto.PubKey.Verify", fn470, false},
+	471: {"github.com/libp2p/go-libp2p/core/crypto.UnmarshalPrivateKey", fn471, false},
+	472: {"github.com/libp2p/go-libp2p/core/crypto.UnmarshalPublicKey", fn472, false},
+	473: {"github.com/libp2p/go-libp2p/core/event.Bus.Subscribe", fn473, false},
+	474: {"github.com/libp2p/go-libp2p/core/event.Subscription.Close", fn474, false},
+	475: {"github.com/libp2p/go-libp2p/core/event.Subscription.Name", fn475, false},
+	476: {"github.com/libp2p/go-libp2p/core/event.Subscription.Out", fn476, true},
+	477: {"github.com/libp2p/go-libp2p/core/host.Host.Addrs", fn477, false},
+	478: {"github.com/libp2p/go-libp2p/core/host.Host.Close", fn478, false},
+	479: {"github.com/libp2p/go-libp2p/core/host.Host.ConnManager", fn479, false},
+	480: {"github.com/libp2p/go-libp2p/core/host.Host.Connect", fn480, false},
+	481: {"github.com/libp2p/go-libp2p/core/host.Host.EventBus", fn481, false},
+	482: {"github.com/libp2p/go-libp2p/core/host.Host.ID", fn482, false},
+	483: {"github.com/libp2p/go-libp2p/core/host.Host.Network", fn483, false},
+	484: {"github.com/libp2p/go-libp2p/core/host.Host.NewStream", fn484, false},
+	485: {"github.com/libp2p/go-libp2p/core/host.Host.Peerstore", fn485, false},
+	486: {"github.com/libp2p/go-libp2p/core/host.Host.RemoveStreamHandler", fn486, false},
+	487: {"github.com/libp2p/go-libp2p/core/host.Host.SetStreamHandler", fn487, false},
+	488: {"github.com/libp2p/go-libp2p/core/host.Host.SetStreamHandlerMatch", fn488, false},
+	489: {"github.com/libp2p/go-libp2p/core/host.InfoFromHost", fn489, false},
+	490: {"github.com/libp2p/go-libp2p/core/network.Conn.Close", fn490, false},
+	491: {"github.com/libp2p/go-libp2p/core/network.Conn.ID", fn491, false},
+	492: {"github.com/libp2p/go-libp2p/core/network.Conn.IsClosed", fn492, false},
+	493: {"github.com/libp2p/go-libp2p/core/network.Conn.LocalMultiaddr", fn493, false},
+	494: {"github.com/libp2p/go-libp2p/core/network.Conn.RemoteMultiaddr", fn494, false},
+	495: {"github.com/libp2p/go-libp2p/core/network.Conn.RemotePeer", fn495, false},
+	496: {"github.com/libp2p/go-libp2p/core/network.Conn.Stat", fn496, false},
+	497: {"github.com/libp2p/go-libp2p/core/network.Network.ClosePeer", fn497, false},
+	498: {"github.com/libp2p/go-libp2p/core/network.Network.Connectedness", fn498, false},
+	499: {"github.com/libp2p/go-libp2p/core/network.Network.Conns", fn499, false},
+	500: {"github.com/libp2p/go-libp2p/core/network.Network.ConnsToPeer", fn500, false},
+	501: {"github.com/libp2p/go-libp2p/core/network.Network.InterfaceListenAddresses", fn501, false},
+	502: {"github.com/libp2p/go-libp2p/core/network.Network.ListenAddresses", fn502, false},
+	503: {"github.com/libp2p/go-libp2p/core/network.Network.Notify", fn503, false},
+	504: {"github.com/libp2p/go-libp2p/core/network.Network.Peers", fn504, false},
+	505: {"github.com/libp2p/go-libp2p/core/network.Network.StopNotify", fn505, false},
+	506: {"github.com/libp2p/go-libp2p/core/network.Notifiee", fn506, false},
+	507: {"github.com/libp2p/go-libp2p/core/network.ResourceManager.ViewSystem", fn507, false},
+	508: {"github.com/libp2p/go-libp2p/core/network.ResourceManager.ViewTransient", fn508, false},
+	509: {"github.com/libp2p/go-libp2p/core/network.ResourceScope.Stat", fn509, false},
+	510: {"github.com/libp2p/go-libp2p/core/network.Stream.Close", fn510, false},
+	511: {"github.com/libp2p/go-libp2p/core/network.Stream.CloseRead", fn511, false},
+	512: {"github.com/libp2p/go-libp2p/core/network.Stream.CloseWrite", fn512, false},
+	513: {"github.com/libp2p/go-libp2p/core/network.Stream.Conn", fn513, false},
+	514: {"github.com/libp2p/go-libp2p/core/network.Stream.ID", fn514, false},
+	515: {"github.com/libp2p/go-libp2p/core/network.Stream.Protocol", fn515, false},
+	516: {"github.com/libp2p/go-libp2p/core/network.Stream.Read", fn516, false},
+	517: {"github.com/libp2p/go-libp2p/core/network.Stream.Reset", fn517, false},
+	518: {"github.com/libp2p/go-libp2p/core/network.Stream.SetDeadline", fn518, false},
+	519: {"github.com/libp2p/go-libp2p/core/network.Stream.SetReadDeadline", fn519, false},
+	520: {"github.com/libp2p/go-libp2p/core/network.Stream.SetWriteDeadline", fn520, false},
+	521: {"github.com/libp2p/go-libp2p/core/network.Stream.Write", fn521, false},
+	522: {"github.com/libp2p/go-libp2p/core/peer.AddrInfoFromP2pAddr", fn522, false},
+	523: {"github.com/libp2p/go-libp2p/core/peer.AddrInfoFromString", fn523, false},
+	524: {"github.com/libp2p/go-libp2p/core/peer.AddrInfoToP2pAddrs", fn524, false},
+	525: {"github.com/libp2p/go-libp2p/core/peer.AddrInfosFromP2pAddrs", fn525, false},
+	526: {"github.com/libp2p/go-libp2p/core/peer.IDFromPrivateKey", fn526, false},
+	527: {"github.com/libp2p/go-libp2p/core/peer.IDFromPublicKey", fn527, false},
+	528: {"github.com/libp2p/go-libp2p/core/peerstore.Peerstore.AddAddrs", fn528, false},
+	529: {"github.com/libp2p/go-libp2p/core/peerstore.Peerstore.Addrs", fn529, false},
+	530: {"github.com/libp2p/go-libp2p/core/peerstore.Peerstore.ClearAddrs", fn530, false},
+	531: {"github.com/libp2p/go-libp2p/core/peerstore.Peerstore.Get", fn531, false},
+	532: {"github.com/libp2p/go-libp2p/core/peerstore.Peerstore.GetProtocols", fn532, false},
+	533: {"github.com/libp2p/go-libp2p/core/peerstore.Peerstore.LatencyEWMA", fn533, false},
+	534: {"github.com/libp2p/go-libp2p/core/peerstore.Peerstore.PeerInfo", fn534, false},
+	535: {"github.com/libp2p/go-libp2p/core/peerstore.Peerstore.Peers", fn535, false},
+	536: {"github.com/libp2p/go-libp2p/core/peerstore.Peerstore.PeersWithAddrs", fn536, false},
+	537: {"github.com/libp2p/go-libp2p/p2p/discovery/mdns.NewMdnsService", fn537, false},
+	538: {"github.com/libp2p/go-libp2p/p2p/discovery/mdns.Notifee", fn538, false},
+	539: {"github.com/libp2p/go-libp2p/p2p/discovery/mdns.Service.Close", fn539, false},
+	540: {"github.com/libp2p/go-libp2p/p2p/discovery/mdns.Service.Start", fn540, false},
+	541: {"github.com/libp2p/go-libp2p/p2p/discovery/routing.NewRoutingDiscovery", fn541, false},
+	542: {"github.com/libp2p/go-libp2p/p2p/discovery/routing.RoutingDiscovery.Advertise", fn542, false},
+	543: {"github.com/libp2p/go-libp2p/p2p/discovery/routing.RoutingDiscovery.FindPeers", fn543, true},
+	544: {"github.com/libp2p/go-libp2p/p2p/muxer/yamux.DefaultTransport", fn544, false},
+	545: {"github.com/libp2p/go-libp2p/p2p/protocol/ping.Ping", fn545, true},
+	546: {"io.Copy", fn546, false},
+	547: {"io.ReadAll", fn547, false},
+	548: {"io.ReadCloser.Close", fn548, false},
+	549: {"os.Create", fn549, false},
+	550: {"os.File.Close", fn550, false},
+	551: {"os.Open", fn551, false},
+	552: {"os.OpenFile", fn552, false},
+	553: {"os.Stat", fn553, false},
+	554: {"runtime/debug.SetCrashOutput", fn554, false},
+}
+
+// anyTypes: the types whose values cross a dynamic value as their Dart class (gen/tokens.go).
+var anyTypes = map[reflect.Type]anyType{
+	reflect.TypeFor[p_event.EvtAutoRelayAddrsUpdated]():       {1, func(w *writer, v any) { enc142(w, v.(p_event.EvtAutoRelayAddrsUpdated)) }},
+	reflect.TypeFor[p_event.EvtHostReachableAddrsChanged]():   {2, func(w *writer, v any) { enc143(w, v.(p_event.EvtHostReachableAddrsChanged)) }},
+	reflect.TypeFor[p_event.EvtLocalAddressesUpdated]():       {3, func(w *writer, v any) { enc144(w, v.(p_event.EvtLocalAddressesUpdated)) }},
+	reflect.TypeFor[p_event.EvtLocalProtocolsUpdated]():       {4, func(w *writer, v any) { enc147(w, v.(p_event.EvtLocalProtocolsUpdated)) }},
+	reflect.TypeFor[p_event.EvtLocalReachabilityChanged]():    {5, func(w *writer, v any) { enc148(w, v.(p_event.EvtLocalReachabilityChanged)) }},
+	reflect.TypeFor[p_event.EvtNATDeviceTypeChanged]():        {6, func(w *writer, v any) { enc149(w, v.(p_event.EvtNATDeviceTypeChanged)) }},
+	reflect.TypeFor[p_event.EvtPeerConnectednessChanged]():    {7, func(w *writer, v any) { enc150(w, v.(p_event.EvtPeerConnectednessChanged)) }},
+	reflect.TypeFor[p_event.EvtPeerIdentificationCompleted](): {8, func(w *writer, v any) { enc151(w, v.(p_event.EvtPeerIdentificationCompleted)) }},
+	reflect.TypeFor[p_event.EvtPeerIdentificationFailed]():    {9, func(w *writer, v any) { enc152(w, v.(p_event.EvtPeerIdentificationFailed)) }},
+	reflect.TypeFor[p_event.EvtPeerProtocolsUpdated]():        {10, func(w *writer, v any) { enc153(w, v.(p_event.EvtPeerProtocolsUpdated)) }},
+}
+
+// tokens: what each token from Dart stands for: new(T) of a type, or a Go function.
+var tokens = map[uint32]func() any{
+	1:  func() any { return new(p_event.EvtAutoRelayAddrsUpdated) },
+	2:  func() any { return new(p_event.EvtHostReachableAddrsChanged) },
+	3:  func() any { return new(p_event.EvtLocalAddressesUpdated) },
+	4:  func() any { return new(p_event.EvtLocalProtocolsUpdated) },
+	5:  func() any { return new(p_event.EvtLocalReachabilityChanged) },
+	6:  func() any { return new(p_event.EvtNATDeviceTypeChanged) },
+	7:  func() any { return new(p_event.EvtPeerConnectednessChanged) },
+	8:  func() any { return new(p_event.EvtPeerIdentificationCompleted) },
+	9:  func() any { return new(p_event.EvtPeerIdentificationFailed) },
+	10: func() any { return new(p_event.EvtPeerProtocolsUpdated) },
+	11: func() any { return p_noise.New },
+	12: func() any { return p_libp2ptls.New },
+	13: func() any { return p_libp2pquic.NewTransport },
+	14: func() any { return p_quicreuse.NewConnManager },
+	15: func() any { return p_tcp.NewTCPTransport },
+	16: func() any { return p_libp2pwebrtc.New },
+	17: func() any { return p_websocket.New },
+	18: func() any { return p_libp2pwebtransport.New },
 }
 
 // bytes.Buffer.Bytes
@@ -7789,7 +7845,7 @@ func fn438(q *req, r *reader, w *writer) error {
 	if err != nil {
 		return err
 	}
-	p1, done1, err := opts115(q, r)
+	p1, done1, err := opts116(q, r)
 	defer done1()
 	if err != nil {
 		return err
@@ -7823,8 +7879,50 @@ func fn439(q *req, r *reader, w *writer) error {
 	return nil
 }
 
-// github.com/libp2p/go-libp2p-pubsub.PubSub.RemoveDirectPeer
+// github.com/libp2p/go-libp2p-pubsub.PubSub.RegisterTopicValidator
 func fn440(q *req, r *reader, w *writer) error {
+	recv, err := decH[*p_pubsub.PubSub](r)
+	if err != nil {
+		return err
+	}
+	p0, err := decStr[string](r)
+	if err != nil {
+		return err
+	}
+	var p1 p_pubsub.ValidatorEx
+	if rc := newRetained(q, r.u32()); rc != nil {
+		p1 = func(a0 p_context.Context, a1 p_peer.ID, a2 *p_pubsub.Message) p_pubsub.ValidationResult {
+			r, ok := rc.askValue(func(w *writer) {
+				encH(w, a0)
+				encPeerID(w, a1)
+				enc117(w, a2)
+			})
+			if !ok {
+				return p_pubsub.ValidationReject
+			}
+			v, err := decInt[p_pubsub.ValidationResult](r)
+			if err != nil {
+				return p_pubsub.ValidationReject
+			}
+			return p_pubsub.ValidationResult(v)
+		}
+	}
+	p2, done2, err := opts113(q, r)
+	defer done2()
+	if err != nil {
+		return err
+	}
+	if err := r.done(); err != nil {
+		return err
+	}
+	if err := recv.RegisterTopicValidator(p0, p1, p2...); err != nil {
+		return err
+	}
+	return nil
+}
+
+// github.com/libp2p/go-libp2p-pubsub.PubSub.RemoveDirectPeer
+func fn441(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_pubsub.PubSub](r)
 	if err != nil {
 		return err
@@ -7842,8 +7940,27 @@ func fn440(q *req, r *reader, w *writer) error {
 	return nil
 }
 
+// github.com/libp2p/go-libp2p-pubsub.PubSub.UnregisterTopicValidator
+func fn442(q *req, r *reader, w *writer) error {
+	recv, err := decH[*p_pubsub.PubSub](r)
+	if err != nil {
+		return err
+	}
+	p0, err := decStr[string](r)
+	if err != nil {
+		return err
+	}
+	if err := r.done(); err != nil {
+		return err
+	}
+	if err := recv.UnregisterTopicValidator(p0); err != nil {
+		return err
+	}
+	return nil
+}
+
 // github.com/libp2p/go-libp2p-pubsub.Subscription.Cancel
-func fn441(q *req, r *reader, w *writer) error {
+func fn443(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_pubsub.Subscription](r)
 	if err != nil {
 		return err
@@ -7856,7 +7973,7 @@ func fn441(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p-pubsub.Subscription.Next
-func fn442(q *req, r *reader, w *writer) error {
+func fn444(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_pubsub.Subscription](r)
 	if err != nil {
 		return err
@@ -7872,12 +7989,12 @@ func fn442(q *req, r *reader, w *writer) error {
 	if err != nil {
 		return err
 	}
-	enc116(w, r0)
+	enc117(w, r0)
 	return nil
 }
 
 // github.com/libp2p/go-libp2p-pubsub.Subscription.Topic
-func fn443(q *req, r *reader, w *writer) error {
+func fn445(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_pubsub.Subscription](r)
 	if err != nil {
 		return err
@@ -7891,7 +8008,7 @@ func fn443(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p-pubsub.Topic.Close
-func fn444(q *req, r *reader, w *writer) error {
+func fn446(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_pubsub.Topic](r)
 	if err != nil {
 		return err
@@ -7906,12 +8023,12 @@ func fn444(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p-pubsub.Topic.EventHandler
-func fn445(q *req, r *reader, w *writer) error {
+func fn447(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_pubsub.Topic](r)
 	if err != nil {
 		return err
 	}
-	p0, err := dec118(r)
+	p0, err := dec119(r)
 	if err != nil {
 		return err
 	}
@@ -7927,7 +8044,7 @@ func fn445(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p-pubsub.Topic.ListPeers
-func fn446(q *req, r *reader, w *writer) error {
+func fn448(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_pubsub.Topic](r)
 	if err != nil {
 		return err
@@ -7941,7 +8058,7 @@ func fn446(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p-pubsub.Topic.Publish
-func fn447(q *req, r *reader, w *writer) error {
+func fn449(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_pubsub.Topic](r)
 	if err != nil {
 		return err
@@ -7954,7 +8071,7 @@ func fn447(q *req, r *reader, w *writer) error {
 	if err != nil {
 		return err
 	}
-	p2, done2, err := opts119(q, r)
+	p2, done2, err := opts120(q, r)
 	defer done2()
 	if err != nil {
 		return err
@@ -7969,7 +8086,7 @@ func fn447(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p-pubsub.Topic.String
-func fn448(q *req, r *reader, w *writer) error {
+func fn450(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_pubsub.Topic](r)
 	if err != nil {
 		return err
@@ -7983,12 +8100,12 @@ func fn448(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p-pubsub.Topic.Subscribe
-func fn449(q *req, r *reader, w *writer) error {
+func fn451(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_pubsub.Topic](r)
 	if err != nil {
 		return err
 	}
-	p0, done0, err := opts120(q, r)
+	p0, done0, err := opts121(q, r)
 	defer done0()
 	if err != nil {
 		return err
@@ -8005,7 +8122,7 @@ func fn449(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p-pubsub.TopicEventHandler.Cancel
-func fn450(q *req, r *reader, w *writer) error {
+func fn452(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_pubsub.TopicEventHandler](r)
 	if err != nil {
 		return err
@@ -8018,7 +8135,7 @@ func fn450(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p-pubsub.TopicEventHandler.NextPeerEvent
-func fn451(q *req, r *reader, w *writer) error {
+func fn453(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_pubsub.TopicEventHandler](r)
 	if err != nil {
 		return err
@@ -8034,12 +8151,12 @@ func fn451(q *req, r *reader, w *writer) error {
 	if err != nil {
 		return err
 	}
-	enc121(w, r0)
+	enc122(w, r0)
 	return nil
 }
 
 // github.com/libp2p/go-libp2p-pubsub/pb.Message.GetData
-func fn452(q *req, r *reader, w *writer) error {
+func fn454(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_pubsub_pb.Message](r)
 	if err != nil {
 		return err
@@ -8053,7 +8170,7 @@ func fn452(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p-pubsub/pb.Message.GetFrom
-func fn453(q *req, r *reader, w *writer) error {
+func fn455(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_pubsub_pb.Message](r)
 	if err != nil {
 		return err
@@ -8067,7 +8184,7 @@ func fn453(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p-pubsub/pb.Message.GetSeqno
-func fn454(q *req, r *reader, w *writer) error {
+func fn456(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_pubsub_pb.Message](r)
 	if err != nil {
 		return err
@@ -8081,7 +8198,7 @@ func fn454(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p-pubsub/pb.Message.GetTopic
-func fn455(q *req, r *reader, w *writer) error {
+func fn457(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_pubsub_pb.Message](r)
 	if err != nil {
 		return err
@@ -8095,8 +8212,8 @@ func fn455(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p.New
-func fn456(q *req, r *reader, w *writer) error {
-	p0, done0, err := opts122(q, r)
+func fn458(q *req, r *reader, w *writer) error {
+	p0, done0, err := opts123(q, r)
 	defer done0()
 	if err != nil {
 		return err
@@ -8113,7 +8230,7 @@ func fn456(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/connmgr.ConnManager.IsProtected
-func fn457(q *req, r *reader, w *writer) error {
+func fn459(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_connmgr.ConnManager](r)
 	if err != nil {
 		return err
@@ -8135,7 +8252,7 @@ func fn457(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/connmgr.ConnManager.Protect
-func fn458(q *req, r *reader, w *writer) error {
+func fn460(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_connmgr.ConnManager](r)
 	if err != nil {
 		return err
@@ -8156,7 +8273,7 @@ func fn458(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/connmgr.ConnManager.TagPeer
-func fn459(q *req, r *reader, w *writer) error {
+func fn461(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_connmgr.ConnManager](r)
 	if err != nil {
 		return err
@@ -8181,7 +8298,7 @@ func fn459(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/connmgr.ConnManager.TrimOpenConns
-func fn460(q *req, r *reader, w *writer) error {
+func fn462(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_connmgr.ConnManager](r)
 	if err != nil {
 		return err
@@ -8198,7 +8315,7 @@ func fn460(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/connmgr.ConnManager.Unprotect
-func fn461(q *req, r *reader, w *writer) error {
+func fn463(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_connmgr.ConnManager](r)
 	if err != nil {
 		return err
@@ -8220,7 +8337,7 @@ func fn461(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/connmgr.ConnManager.UntagPeer
-func fn462(q *req, r *reader, w *writer) error {
+func fn464(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_connmgr.ConnManager](r)
 	if err != nil {
 		return err
@@ -8241,7 +8358,7 @@ func fn462(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/crypto.GenerateKeyPair
-func fn463(q *req, r *reader, w *writer) error {
+func fn465(q *req, r *reader, w *writer) error {
 	p0, err := decInt[int](r)
 	if err != nil {
 		return err
@@ -8263,7 +8380,7 @@ func fn463(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/crypto.MarshalPrivateKey
-func fn464(q *req, r *reader, w *writer) error {
+func fn466(q *req, r *reader, w *writer) error {
 	p0, err := decH[p_crypto.PrivKey](r)
 	if err != nil {
 		return err
@@ -8280,7 +8397,7 @@ func fn464(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/crypto.MarshalPublicKey
-func fn465(q *req, r *reader, w *writer) error {
+func fn467(q *req, r *reader, w *writer) error {
 	p0, err := decH[p_crypto.PubKey](r)
 	if err != nil {
 		return err
@@ -8297,7 +8414,7 @@ func fn465(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/crypto.PrivKey.GetPublic
-func fn466(q *req, r *reader, w *writer) error {
+func fn468(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_crypto.PrivKey](r)
 	if err != nil {
 		return err
@@ -8311,7 +8428,7 @@ func fn466(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/crypto.PrivKey.Sign
-func fn467(q *req, r *reader, w *writer) error {
+func fn469(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_crypto.PrivKey](r)
 	if err != nil {
 		return err
@@ -8332,7 +8449,7 @@ func fn467(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/crypto.PubKey.Verify
-func fn468(q *req, r *reader, w *writer) error {
+func fn470(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_crypto.PubKey](r)
 	if err != nil {
 		return err
@@ -8357,7 +8474,7 @@ func fn468(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/crypto.UnmarshalPrivateKey
-func fn469(q *req, r *reader, w *writer) error {
+func fn471(q *req, r *reader, w *writer) error {
 	p0, err := decBytes(r)
 	if err != nil {
 		return err
@@ -8374,7 +8491,7 @@ func fn469(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/crypto.UnmarshalPublicKey
-func fn470(q *req, r *reader, w *writer) error {
+func fn472(q *req, r *reader, w *writer) error {
 	p0, err := decBytes(r)
 	if err != nil {
 		return err
@@ -8390,8 +8507,74 @@ func fn470(q *req, r *reader, w *writer) error {
 	return nil
 }
 
+// github.com/libp2p/go-libp2p/core/event.Bus.Subscribe
+func fn473(q *req, r *reader, w *writer) error {
+	recv, err := decH[p_event.Bus](r)
+	if err != nil {
+		return err
+	}
+	p0, err := decAny(r)
+	if err != nil {
+		return err
+	}
+	if err := r.done(); err != nil {
+		return err
+	}
+	r0, err := recv.Subscribe(p0)
+	if err != nil {
+		return err
+	}
+	encH(w, r0)
+	return nil
+}
+
+// github.com/libp2p/go-libp2p/core/event.Subscription.Close
+func fn474(q *req, r *reader, w *writer) error {
+	recv, err := decH[p_event.Subscription](r)
+	if err != nil {
+		return err
+	}
+	if err := r.done(); err != nil {
+		return err
+	}
+	if err := recv.Close(); err != nil {
+		return err
+	}
+	return nil
+}
+
+// github.com/libp2p/go-libp2p/core/event.Subscription.Name
+func fn475(q *req, r *reader, w *writer) error {
+	recv, err := decH[p_event.Subscription](r)
+	if err != nil {
+		return err
+	}
+	if err := r.done(); err != nil {
+		return err
+	}
+	r0 := recv.Name()
+	encStr[string](w, r0)
+	return nil
+}
+
+// github.com/libp2p/go-libp2p/core/event.Subscription.Out
+func fn476(q *req, r *reader, w *writer) error {
+	recv, err := decH[p_event.Subscription](r)
+	if err != nil {
+		return err
+	}
+	if err := r.done(); err != nil {
+		return err
+	}
+	ch := recv.Out()
+	for v := range ch {
+		q.item(func(w *writer) { encAny(w, v) })
+	}
+	return nil
+}
+
 // github.com/libp2p/go-libp2p/core/host.Host.Addrs
-func fn471(q *req, r *reader, w *writer) error {
+func fn477(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_host.Host](r)
 	if err != nil {
 		return err
@@ -8405,7 +8588,7 @@ func fn471(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/host.Host.Close
-func fn472(q *req, r *reader, w *writer) error {
+func fn478(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_host.Host](r)
 	if err != nil {
 		return err
@@ -8420,7 +8603,7 @@ func fn472(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/host.Host.ConnManager
-func fn473(q *req, r *reader, w *writer) error {
+func fn479(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_host.Host](r)
 	if err != nil {
 		return err
@@ -8434,7 +8617,7 @@ func fn473(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/host.Host.Connect
-func fn474(q *req, r *reader, w *writer) error {
+func fn480(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_host.Host](r)
 	if err != nil {
 		return err
@@ -8456,8 +8639,22 @@ func fn474(q *req, r *reader, w *writer) error {
 	return nil
 }
 
+// github.com/libp2p/go-libp2p/core/host.Host.EventBus
+func fn481(q *req, r *reader, w *writer) error {
+	recv, err := decH[p_host.Host](r)
+	if err != nil {
+		return err
+	}
+	if err := r.done(); err != nil {
+		return err
+	}
+	r0 := recv.EventBus()
+	encH(w, r0)
+	return nil
+}
+
 // github.com/libp2p/go-libp2p/core/host.Host.ID
-func fn475(q *req, r *reader, w *writer) error {
+func fn482(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_host.Host](r)
 	if err != nil {
 		return err
@@ -8471,7 +8668,7 @@ func fn475(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/host.Host.Network
-func fn476(q *req, r *reader, w *writer) error {
+func fn483(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_host.Host](r)
 	if err != nil {
 		return err
@@ -8485,7 +8682,7 @@ func fn476(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/host.Host.NewStream
-func fn477(q *req, r *reader, w *writer) error {
+func fn484(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_host.Host](r)
 	if err != nil {
 		return err
@@ -8498,7 +8695,7 @@ func fn477(q *req, r *reader, w *writer) error {
 	if err != nil {
 		return err
 	}
-	p2, err := dec127(r)
+	p2, err := dec130(r)
 	if err != nil {
 		return err
 	}
@@ -8514,7 +8711,7 @@ func fn477(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/host.Host.Peerstore
-func fn478(q *req, r *reader, w *writer) error {
+func fn485(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_host.Host](r)
 	if err != nil {
 		return err
@@ -8528,7 +8725,7 @@ func fn478(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/host.Host.RemoveStreamHandler
-func fn479(q *req, r *reader, w *writer) error {
+func fn486(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_host.Host](r)
 	if err != nil {
 		return err
@@ -8545,7 +8742,7 @@ func fn479(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/host.Host.SetStreamHandler
-func fn480(q *req, r *reader, w *writer) error {
+func fn487(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_host.Host](r)
 	if err != nil {
 		return err
@@ -8570,7 +8767,7 @@ func fn480(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/host.Host.SetStreamHandlerMatch
-func fn481(q *req, r *reader, w *writer) error {
+func fn488(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_host.Host](r)
 	if err != nil {
 		return err
@@ -8603,7 +8800,7 @@ func fn481(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/host.InfoFromHost
-func fn482(q *req, r *reader, w *writer) error {
+func fn489(q *req, r *reader, w *writer) error {
 	p0, err := decH[p_host.Host](r)
 	if err != nil {
 		return err
@@ -8612,12 +8809,12 @@ func fn482(q *req, r *reader, w *writer) error {
 		return err
 	}
 	r0 := p_host.InfoFromHost(p0)
-	enc128(w, r0)
+	enc131(w, r0)
 	return nil
 }
 
 // github.com/libp2p/go-libp2p/core/network.Conn.Close
-func fn483(q *req, r *reader, w *writer) error {
+func fn490(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_network.Conn](r)
 	if err != nil {
 		return err
@@ -8632,7 +8829,7 @@ func fn483(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/network.Conn.ID
-func fn484(q *req, r *reader, w *writer) error {
+func fn491(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_network.Conn](r)
 	if err != nil {
 		return err
@@ -8646,7 +8843,7 @@ func fn484(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/network.Conn.IsClosed
-func fn485(q *req, r *reader, w *writer) error {
+func fn492(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_network.Conn](r)
 	if err != nil {
 		return err
@@ -8660,7 +8857,7 @@ func fn485(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/network.Conn.LocalMultiaddr
-func fn486(q *req, r *reader, w *writer) error {
+func fn493(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_network.Conn](r)
 	if err != nil {
 		return err
@@ -8674,7 +8871,7 @@ func fn486(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/network.Conn.RemoteMultiaddr
-func fn487(q *req, r *reader, w *writer) error {
+func fn494(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_network.Conn](r)
 	if err != nil {
 		return err
@@ -8688,7 +8885,7 @@ func fn487(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/network.Conn.RemotePeer
-func fn488(q *req, r *reader, w *writer) error {
+func fn495(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_network.Conn](r)
 	if err != nil {
 		return err
@@ -8702,7 +8899,7 @@ func fn488(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/network.Conn.Stat
-func fn489(q *req, r *reader, w *writer) error {
+func fn496(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_network.Conn](r)
 	if err != nil {
 		return err
@@ -8711,12 +8908,12 @@ func fn489(q *req, r *reader, w *writer) error {
 		return err
 	}
 	r0 := recv.Stat()
-	enc129(w, r0)
+	enc132(w, r0)
 	return nil
 }
 
 // github.com/libp2p/go-libp2p/core/network.Network.ClosePeer
-func fn490(q *req, r *reader, w *writer) error {
+func fn497(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_network.Network](r)
 	if err != nil {
 		return err
@@ -8735,7 +8932,7 @@ func fn490(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/network.Network.Connectedness
-func fn491(q *req, r *reader, w *writer) error {
+func fn498(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_network.Network](r)
 	if err != nil {
 		return err
@@ -8753,7 +8950,7 @@ func fn491(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/network.Network.Conns
-func fn492(q *req, r *reader, w *writer) error {
+func fn499(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_network.Network](r)
 	if err != nil {
 		return err
@@ -8762,12 +8959,12 @@ func fn492(q *req, r *reader, w *writer) error {
 		return err
 	}
 	r0 := recv.Conns()
-	enc131(w, r0)
+	enc134(w, r0)
 	return nil
 }
 
 // github.com/libp2p/go-libp2p/core/network.Network.ConnsToPeer
-func fn493(q *req, r *reader, w *writer) error {
+func fn500(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_network.Network](r)
 	if err != nil {
 		return err
@@ -8780,12 +8977,12 @@ func fn493(q *req, r *reader, w *writer) error {
 		return err
 	}
 	r0 := recv.ConnsToPeer(p0)
-	enc131(w, r0)
+	enc134(w, r0)
 	return nil
 }
 
 // github.com/libp2p/go-libp2p/core/network.Network.InterfaceListenAddresses
-func fn494(q *req, r *reader, w *writer) error {
+func fn501(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_network.Network](r)
 	if err != nil {
 		return err
@@ -8802,7 +8999,7 @@ func fn494(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/network.Network.ListenAddresses
-func fn495(q *req, r *reader, w *writer) error {
+func fn502(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_network.Network](r)
 	if err != nil {
 		return err
@@ -8816,7 +9013,7 @@ func fn495(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/network.Network.Notify
-func fn496(q *req, r *reader, w *writer) error {
+func fn503(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_network.Network](r)
 	if err != nil {
 		return err
@@ -8833,7 +9030,7 @@ func fn496(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/network.Network.Peers
-func fn497(q *req, r *reader, w *writer) error {
+func fn504(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_network.Network](r)
 	if err != nil {
 		return err
@@ -8847,7 +9044,7 @@ func fn497(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/network.Network.StopNotify
-func fn498(q *req, r *reader, w *writer) error {
+func fn505(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_network.Network](r)
 	if err != nil {
 		return err
@@ -8864,7 +9061,7 @@ func fn498(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/network.Notifiee
-func fn499(q *req, r *reader, w *writer) error {
+func fn506(q *req, r *reader, w *writer) error {
 	var p0 func(p_network.Network, p_network.Conn)
 	if rc := newRetained(q, r.u32()); rc != nil {
 		p0 = func(a0 p_network.Network, a1 p_network.Conn) {
@@ -8904,13 +9101,13 @@ func fn499(q *req, r *reader, w *writer) error {
 	if err := r.done(); err != nil {
 		return err
 	}
-	var v p_network.Notifiee = &impl132{p0, p1, p2, p3}
+	var v p_network.Notifiee = &impl135{p0, p1, p2, p3}
 	encH(w, v)
 	return nil
 }
 
 // github.com/libp2p/go-libp2p/core/network.ResourceManager.ViewSystem
-func fn500(q *req, r *reader, w *writer) error {
+func fn507(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_network.ResourceManager](r)
 	if err != nil {
 		return err
@@ -8934,7 +9131,7 @@ func fn500(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/network.ResourceManager.ViewTransient
-func fn501(q *req, r *reader, w *writer) error {
+func fn508(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_network.ResourceManager](r)
 	if err != nil {
 		return err
@@ -8958,7 +9155,7 @@ func fn501(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/network.ResourceScope.Stat
-func fn502(q *req, r *reader, w *writer) error {
+func fn509(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_network.ResourceScope](r)
 	if err != nil {
 		return err
@@ -8967,12 +9164,12 @@ func fn502(q *req, r *reader, w *writer) error {
 		return err
 	}
 	r0 := recv.Stat()
-	enc133(w, r0)
+	enc136(w, r0)
 	return nil
 }
 
 // github.com/libp2p/go-libp2p/core/network.Stream.Close
-func fn503(q *req, r *reader, w *writer) error {
+func fn510(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_network.Stream](r)
 	if err != nil {
 		return err
@@ -8987,7 +9184,7 @@ func fn503(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/network.Stream.CloseRead
-func fn504(q *req, r *reader, w *writer) error {
+func fn511(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_network.Stream](r)
 	if err != nil {
 		return err
@@ -9002,7 +9199,7 @@ func fn504(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/network.Stream.CloseWrite
-func fn505(q *req, r *reader, w *writer) error {
+func fn512(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_network.Stream](r)
 	if err != nil {
 		return err
@@ -9017,7 +9214,7 @@ func fn505(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/network.Stream.Conn
-func fn506(q *req, r *reader, w *writer) error {
+func fn513(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_network.Stream](r)
 	if err != nil {
 		return err
@@ -9031,7 +9228,7 @@ func fn506(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/network.Stream.ID
-func fn507(q *req, r *reader, w *writer) error {
+func fn514(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_network.Stream](r)
 	if err != nil {
 		return err
@@ -9045,7 +9242,7 @@ func fn507(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/network.Stream.Protocol
-func fn508(q *req, r *reader, w *writer) error {
+func fn515(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_network.Stream](r)
 	if err != nil {
 		return err
@@ -9059,7 +9256,7 @@ func fn508(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/network.Stream.Read
-func fn509(q *req, r *reader, w *writer) error {
+func fn516(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_network.Stream](r)
 	if err != nil {
 		return err
@@ -9080,7 +9277,7 @@ func fn509(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/network.Stream.Reset
-func fn510(q *req, r *reader, w *writer) error {
+func fn517(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_network.Stream](r)
 	if err != nil {
 		return err
@@ -9095,7 +9292,7 @@ func fn510(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/network.Stream.SetDeadline
-func fn511(q *req, r *reader, w *writer) error {
+func fn518(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_network.Stream](r)
 	if err != nil {
 		return err
@@ -9114,7 +9311,7 @@ func fn511(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/network.Stream.SetReadDeadline
-func fn512(q *req, r *reader, w *writer) error {
+func fn519(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_network.Stream](r)
 	if err != nil {
 		return err
@@ -9133,7 +9330,7 @@ func fn512(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/network.Stream.SetWriteDeadline
-func fn513(q *req, r *reader, w *writer) error {
+func fn520(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_network.Stream](r)
 	if err != nil {
 		return err
@@ -9152,7 +9349,7 @@ func fn513(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/network.Stream.Write
-func fn514(q *req, r *reader, w *writer) error {
+func fn521(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_network.Stream](r)
 	if err != nil {
 		return err
@@ -9173,7 +9370,7 @@ func fn514(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/peer.AddrInfoFromP2pAddr
-func fn515(q *req, r *reader, w *writer) error {
+func fn522(q *req, r *reader, w *writer) error {
 	p0, err := decMultiaddr(r)
 	if err != nil {
 		return err
@@ -9185,12 +9382,12 @@ func fn515(q *req, r *reader, w *writer) error {
 	if err != nil {
 		return err
 	}
-	enc128(w, r0)
+	enc131(w, r0)
 	return nil
 }
 
 // github.com/libp2p/go-libp2p/core/peer.AddrInfoFromString
-func fn516(q *req, r *reader, w *writer) error {
+func fn523(q *req, r *reader, w *writer) error {
 	p0, err := decStr[string](r)
 	if err != nil {
 		return err
@@ -9202,13 +9399,13 @@ func fn516(q *req, r *reader, w *writer) error {
 	if err != nil {
 		return err
 	}
-	enc128(w, r0)
+	enc131(w, r0)
 	return nil
 }
 
 // github.com/libp2p/go-libp2p/core/peer.AddrInfoToP2pAddrs
-func fn517(q *req, r *reader, w *writer) error {
-	p0, err := dec134(r)
+func fn524(q *req, r *reader, w *writer) error {
+	p0, err := dec137(r)
 	if err != nil {
 		return err
 	}
@@ -9224,7 +9421,7 @@ func fn517(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/peer.AddrInfosFromP2pAddrs
-func fn518(q *req, r *reader, w *writer) error {
+func fn525(q *req, r *reader, w *writer) error {
 	p0, err := dec22(r)
 	if err != nil {
 		return err
@@ -9241,7 +9438,7 @@ func fn518(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/peer.IDFromPrivateKey
-func fn519(q *req, r *reader, w *writer) error {
+func fn526(q *req, r *reader, w *writer) error {
 	p0, err := decH[p_crypto.PrivKey](r)
 	if err != nil {
 		return err
@@ -9258,7 +9455,7 @@ func fn519(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/peer.IDFromPublicKey
-func fn520(q *req, r *reader, w *writer) error {
+func fn527(q *req, r *reader, w *writer) error {
 	p0, err := decH[p_crypto.PubKey](r)
 	if err != nil {
 		return err
@@ -9275,7 +9472,7 @@ func fn520(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/peerstore.Peerstore.AddAddrs
-func fn521(q *req, r *reader, w *writer) error {
+func fn528(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_peerstore.Peerstore](r)
 	if err != nil {
 		return err
@@ -9300,7 +9497,7 @@ func fn521(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/peerstore.Peerstore.Addrs
-func fn522(q *req, r *reader, w *writer) error {
+func fn529(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_peerstore.Peerstore](r)
 	if err != nil {
 		return err
@@ -9318,7 +9515,7 @@ func fn522(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/peerstore.Peerstore.ClearAddrs
-func fn523(q *req, r *reader, w *writer) error {
+func fn530(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_peerstore.Peerstore](r)
 	if err != nil {
 		return err
@@ -9335,7 +9532,7 @@ func fn523(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/peerstore.Peerstore.Get
-func fn524(q *req, r *reader, w *writer) error {
+func fn531(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_peerstore.Peerstore](r)
 	if err != nil {
 		return err
@@ -9360,7 +9557,7 @@ func fn524(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/peerstore.Peerstore.GetProtocols
-func fn525(q *req, r *reader, w *writer) error {
+func fn532(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_peerstore.Peerstore](r)
 	if err != nil {
 		return err
@@ -9381,7 +9578,7 @@ func fn525(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/peerstore.Peerstore.LatencyEWMA
-func fn526(q *req, r *reader, w *writer) error {
+func fn533(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_peerstore.Peerstore](r)
 	if err != nil {
 		return err
@@ -9399,7 +9596,7 @@ func fn526(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/peerstore.Peerstore.PeerInfo
-func fn527(q *req, r *reader, w *writer) error {
+func fn534(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_peerstore.Peerstore](r)
 	if err != nil {
 		return err
@@ -9417,7 +9614,7 @@ func fn527(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/core/peerstore.Peerstore.Peers
-func fn528(q *req, r *reader, w *writer) error {
+func fn535(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_peerstore.Peerstore](r)
 	if err != nil {
 		return err
@@ -9426,12 +9623,12 @@ func fn528(q *req, r *reader, w *writer) error {
 		return err
 	}
 	r0 := recv.Peers()
-	enc135(w, r0)
+	enc138(w, r0)
 	return nil
 }
 
 // github.com/libp2p/go-libp2p/core/peerstore.Peerstore.PeersWithAddrs
-func fn529(q *req, r *reader, w *writer) error {
+func fn536(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_peerstore.Peerstore](r)
 	if err != nil {
 		return err
@@ -9440,12 +9637,12 @@ func fn529(q *req, r *reader, w *writer) error {
 		return err
 	}
 	r0 := recv.PeersWithAddrs()
-	enc135(w, r0)
+	enc138(w, r0)
 	return nil
 }
 
 // github.com/libp2p/go-libp2p/p2p/discovery/mdns.NewMdnsService
-func fn530(q *req, r *reader, w *writer) error {
+func fn537(q *req, r *reader, w *writer) error {
 	p0, err := decH[p_host.Host](r)
 	if err != nil {
 		return err
@@ -9467,7 +9664,7 @@ func fn530(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/p2p/discovery/mdns.Notifee
-func fn531(q *req, r *reader, w *writer) error {
+func fn538(q *req, r *reader, w *writer) error {
 	var p0 func(p_peer.AddrInfo)
 	if rc := newRetained(q, r.u32()); rc != nil {
 		p0 = func(a0 p_peer.AddrInfo) {
@@ -9479,13 +9676,13 @@ func fn531(q *req, r *reader, w *writer) error {
 	if err := r.done(); err != nil {
 		return err
 	}
-	var v p_mdns.Notifee = &impl136{p0}
+	var v p_mdns.Notifee = &impl139{p0}
 	encH(w, v)
 	return nil
 }
 
 // github.com/libp2p/go-libp2p/p2p/discovery/mdns.Service.Close
-func fn532(q *req, r *reader, w *writer) error {
+func fn539(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_mdns.Service](r)
 	if err != nil {
 		return err
@@ -9500,7 +9697,7 @@ func fn532(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/p2p/discovery/mdns.Service.Start
-func fn533(q *req, r *reader, w *writer) error {
+func fn540(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_mdns.Service](r)
 	if err != nil {
 		return err
@@ -9515,7 +9712,7 @@ func fn533(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/p2p/discovery/routing.NewRoutingDiscovery
-func fn534(q *req, r *reader, w *writer) error {
+func fn541(q *req, r *reader, w *writer) error {
 	p0, err := decH[p_routing.ContentRouting](r)
 	if err != nil {
 		return err
@@ -9529,7 +9726,7 @@ func fn534(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/p2p/discovery/routing.RoutingDiscovery.Advertise
-func fn535(q *req, r *reader, w *writer) error {
+func fn542(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_routing2.RoutingDiscovery](r)
 	if err != nil {
 		return err
@@ -9542,7 +9739,7 @@ func fn535(q *req, r *reader, w *writer) error {
 	if err != nil {
 		return err
 	}
-	p2, done2, err := opts137(q, r)
+	p2, done2, err := opts115(q, r)
 	defer done2()
 	if err != nil {
 		return err
@@ -9559,7 +9756,7 @@ func fn535(q *req, r *reader, w *writer) error {
 }
 
 // github.com/libp2p/go-libp2p/p2p/discovery/routing.RoutingDiscovery.FindPeers
-func fn536(q *req, r *reader, w *writer) error {
+func fn543(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_routing2.RoutingDiscovery](r)
 	if err != nil {
 		return err
@@ -9572,7 +9769,7 @@ func fn536(q *req, r *reader, w *writer) error {
 	if err != nil {
 		return err
 	}
-	p2, done2, err := opts137(q, r)
+	p2, done2, err := opts115(q, r)
 	defer done2()
 	if err != nil {
 		return err
@@ -9590,8 +9787,18 @@ func fn536(q *req, r *reader, w *writer) error {
 	return nil
 }
 
+// github.com/libp2p/go-libp2p/p2p/muxer/yamux.DefaultTransport
+func fn544(q *req, r *reader, w *writer) error {
+	if err := r.done(); err != nil {
+		return err
+	}
+	r0 := p_yamux.DefaultTransport
+	encH(w, r0)
+	return nil
+}
+
 // github.com/libp2p/go-libp2p/p2p/protocol/ping.Ping
-func fn537(q *req, r *reader, w *writer) error {
+func fn545(q *req, r *reader, w *writer) error {
 	p0, err := decH[p_context.Context](r)
 	if err != nil {
 		return err
@@ -9609,13 +9816,13 @@ func fn537(q *req, r *reader, w *writer) error {
 	}
 	ch := p_ping.Ping(p0, p1, p2)
 	for v := range ch {
-		q.item(func(w *writer) { enc138(w, v) })
+		q.item(func(w *writer) { enc140(w, v) })
 	}
 	return nil
 }
 
 // io.Copy
-func fn538(q *req, r *reader, w *writer) error {
+func fn546(q *req, r *reader, w *writer) error {
 	p0, err := decWriter(r)
 	if err != nil {
 		return err
@@ -9636,7 +9843,7 @@ func fn538(q *req, r *reader, w *writer) error {
 }
 
 // io.ReadAll
-func fn539(q *req, r *reader, w *writer) error {
+func fn547(q *req, r *reader, w *writer) error {
 	p0, err := decIO[p_io.Reader](r)
 	if err != nil {
 		return err
@@ -9653,7 +9860,7 @@ func fn539(q *req, r *reader, w *writer) error {
 }
 
 // io.ReadCloser.Close
-func fn540(q *req, r *reader, w *writer) error {
+func fn548(q *req, r *reader, w *writer) error {
 	recv, err := decH[p_io.ReadCloser](r)
 	if err != nil {
 		return err
@@ -9668,7 +9875,7 @@ func fn540(q *req, r *reader, w *writer) error {
 }
 
 // os.Create
-func fn541(q *req, r *reader, w *writer) error {
+func fn549(q *req, r *reader, w *writer) error {
 	p0, err := decStr[string](r)
 	if err != nil {
 		return err
@@ -9685,7 +9892,7 @@ func fn541(q *req, r *reader, w *writer) error {
 }
 
 // os.File.Close
-func fn542(q *req, r *reader, w *writer) error {
+func fn550(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_os.File](r)
 	if err != nil {
 		return err
@@ -9700,7 +9907,7 @@ func fn542(q *req, r *reader, w *writer) error {
 }
 
 // os.Open
-func fn543(q *req, r *reader, w *writer) error {
+func fn551(q *req, r *reader, w *writer) error {
 	p0, err := decStr[string](r)
 	if err != nil {
 		return err
@@ -9717,7 +9924,7 @@ func fn543(q *req, r *reader, w *writer) error {
 }
 
 // os.OpenFile
-func fn544(q *req, r *reader, w *writer) error {
+func fn552(q *req, r *reader, w *writer) error {
 	p0, err := decStr[string](r)
 	if err != nil {
 		return err
@@ -9742,7 +9949,7 @@ func fn544(q *req, r *reader, w *writer) error {
 }
 
 // os.Stat
-func fn545(q *req, r *reader, w *writer) error {
+func fn553(q *req, r *reader, w *writer) error {
 	p0, err := decStr[string](r)
 	if err != nil {
 		return err
@@ -9759,12 +9966,12 @@ func fn545(q *req, r *reader, w *writer) error {
 }
 
 // runtime/debug.SetCrashOutput
-func fn546(q *req, r *reader, w *writer) error {
+func fn554(q *req, r *reader, w *writer) error {
 	p0, err := decH[*p_os.File](r)
 	if err != nil {
 		return err
 	}
-	p1, err := dec139(r)
+	p1, err := dec141(r)
 	if err != nil {
 		return err
 	}
@@ -12378,20 +12585,92 @@ func dec110(r *reader) (*p_pubsub.Message, error) {
 	return &v, err
 }
 
-func dec113(r *reader) ([]p_pubsub.ValidatorOpt, error) {
+func opts113(q *req, r *reader) (out []p_pubsub.ValidatorOpt, done func(), err error) {
+	var dones []func()
+	done = func() {
+		for _, d := range dones {
+			d()
+		}
+	}
+	defer func() {
+		if err != nil {
+			done()
+		}
+	}()
 	n := r.count()
 	if n < 0 {
-		return nil, nil
+		return nil, done, nil
 	}
-	out := make([]p_pubsub.ValidatorOpt, n)
-	for i := range out {
-		x, err := decH[p_pubsub.ValidatorOpt](r)
-		if err != nil {
-			return nil, err
+	out = make([]p_pubsub.ValidatorOpt, 0, n)
+	for range n {
+		if r.err != nil {
+			break
 		}
-		out[i] = x
+		switch i := r.u32(); i {
+		case 0: // WithValidatorConcurrency
+			a0, err := decInt[int](r)
+			if err != nil {
+				return nil, done, err
+			}
+			out = append(out, p_pubsub.WithValidatorConcurrency(a0))
+		case 1: // WithValidatorInline
+			a0, err := decBool[bool](r)
+			if err != nil {
+				return nil, done, err
+			}
+			out = append(out, p_pubsub.WithValidatorInline(a0))
+		case 2: // WithValidatorTimeout
+			a0, err := decInt[p_time.Duration](r)
+			if err != nil {
+				return nil, done, err
+			}
+			out = append(out, p_pubsub.WithValidatorTimeout(a0))
+		default:
+			return nil, done, fmt.Errorf("p2p_host: unknown option %d of github.com/libp2p/go-libp2p-pubsub.ValidatorOpt", i)
+		}
 	}
-	return out, nil
+	return out, done, r.err
+}
+
+func opts115(q *req, r *reader) (out []p_discovery.Option, done func(), err error) {
+	var dones []func()
+	done = func() {
+		for _, d := range dones {
+			d()
+		}
+	}
+	defer func() {
+		if err != nil {
+			done()
+		}
+	}()
+	n := r.count()
+	if n < 0 {
+		return nil, done, nil
+	}
+	out = make([]p_discovery.Option, 0, n)
+	for range n {
+		if r.err != nil {
+			break
+		}
+		switch i := r.u32(); i {
+		case 0: // Limit
+			a0, err := decInt[int](r)
+			if err != nil {
+				return nil, done, err
+			}
+			out = append(out, p_discovery.Limit(a0))
+		case 1: // TTL
+			a0, err := decInt[p_time.Duration](r)
+			if err != nil {
+				return nil, done, err
+			}
+			out = append(out, p_discovery.TTL(a0))
+		default:
+			return nil, done, fmt.Errorf("p2p_host: unknown option %d of github.com/libp2p/go-libp2p/core/discovery.Option", i)
+		}
+	}
+	return out, done, r.err
 }
 
 func opts114(q *req, r *reader) (out []p_pubsub.DiscoverOpt, done func(), err error) {
@@ -12422,6 +12701,13 @@ func opts114(q *req, r *reader) (out []p_pubsub.DiscoverOpt, done func(), err er
 				return nil, done, err
 			}
 			out = append(out, p_pubsub.WithDiscoverConnector(a0))
+		case 1: // WithDiscoveryOpts
+			a0, d0, err := opts115(q, r)
+			dones = append(dones, d0)
+			if err != nil {
+				return nil, done, err
+			}
+			out = append(out, p_pubsub.WithDiscoveryOpts(a0...))
 		default:
 			return nil, done, fmt.Errorf("p2p_host: unknown option %d of github.com/libp2p/go-libp2p-pubsub.DiscoverOpt", i)
 		}
@@ -12470,7 +12756,8 @@ func opts112(q *req, r *reader) (out []p_pubsub.Option, done func(), err error) 
 			if err != nil {
 				return nil, done, err
 			}
-			a1, err := dec113(r)
+			a1, d1, err := opts113(q, r)
+			dones = append(dones, d1)
 			if err != nil {
 				return nil, done, err
 			}
@@ -12643,7 +12930,7 @@ func opts112(q *req, r *reader) (out []p_pubsub.Option, done func(), err error) 
 	return out, done, r.err
 }
 
-func opts115(q *req, r *reader) (out []p_pubsub.TopicOpt, done func(), err error) {
+func opts116(q *req, r *reader) (out []p_pubsub.TopicOpt, done func(), err error) {
 	var dones []func()
 	done = func() {
 		for _, d := range dones {
@@ -12684,7 +12971,7 @@ func opts115(q *req, r *reader) (out []p_pubsub.TopicOpt, done func(), err error
 	return out, done, r.err
 }
 
-func enc117(w *writer, v p_pubsub.Message) {
+func enc118(w *writer, v p_pubsub.Message) {
 	w.u8(1)
 	encH(w, v.Message)
 	encStr[string](w, v.ID)
@@ -12692,15 +12979,15 @@ func enc117(w *writer, v p_pubsub.Message) {
 	encBool[bool](w, v.Local)
 }
 
-func enc116(w *writer, v *p_pubsub.Message) {
+func enc117(w *writer, v *p_pubsub.Message) {
 	if v == nil {
 		w.u8(0)
 		return
 	}
-	enc117(w, *v)
+	enc118(w, *v)
 }
 
-func dec118(r *reader) ([]p_pubsub.TopicEventHandlerOpt, error) {
+func dec119(r *reader) ([]p_pubsub.TopicEventHandlerOpt, error) {
 	n := r.count()
 	if n < 0 {
 		return nil, nil
@@ -12716,7 +13003,7 @@ func dec118(r *reader) ([]p_pubsub.TopicEventHandlerOpt, error) {
 	return out, nil
 }
 
-func opts119(q *req, r *reader) (out []p_pubsub.PubOpt, done func(), err error) {
+func opts120(q *req, r *reader) (out []p_pubsub.PubOpt, done func(), err error) {
 	var dones []func()
 	done = func() {
 		for _, d := range dones {
@@ -12773,7 +13060,7 @@ func opts119(q *req, r *reader) (out []p_pubsub.PubOpt, done func(), err error) 
 	return out, done, r.err
 }
 
-func opts120(q *req, r *reader) (out []p_pubsub.SubOpt, done func(), err error) {
+func opts121(q *req, r *reader) (out []p_pubsub.SubOpt, done func(), err error) {
 	var dones []func()
 	done = func() {
 		for _, d := range dones {
@@ -12808,13 +13095,13 @@ func opts120(q *req, r *reader) (out []p_pubsub.SubOpt, done func(), err error) 
 	return out, done, r.err
 }
 
-func enc121(w *writer, v p_pubsub.PeerEvent) {
+func enc122(w *writer, v p_pubsub.PeerEvent) {
 	w.u8(1)
 	encInt[p_pubsub.EventType](w, v.Type)
 	encPeerID(w, v.Peer)
 }
 
-func opts123(q *req, r *reader) (out []p_autorelay.Option, done func(), err error) {
+func opts124(q *req, r *reader) (out []p_autorelay.Option, done func(), err error) {
 	var dones []func()
 	done = func() {
 		for _, d := range dones {
@@ -12909,7 +13196,7 @@ func opts123(q *req, r *reader) (out []p_autorelay.Option, done func(), err erro
 	return out, done, r.err
 }
 
-func opts124(q *req, r *reader) (out []p_holepunch.Option, done func(), err error) {
+func opts125(q *req, r *reader) (out []p_holepunch.Option, done func(), err error) {
 	var dones []func()
 	done = func() {
 		for _, d := range dones {
@@ -12972,7 +13259,7 @@ func opts124(q *req, r *reader) (out []p_holepunch.Option, done func(), err erro
 	return out, done, r.err
 }
 
-func opts125(q *req, r *reader) (out []p_relay.Option, done func(), err error) {
+func opts126(q *req, r *reader) (out []p_relay.Option, done func(), err error) {
 	var dones []func()
 	done = func() {
 		for _, d := range dones {
@@ -13021,7 +13308,50 @@ func opts125(q *req, r *reader) (out []p_relay.Option, done func(), err error) {
 	return out, done, r.err
 }
 
-func opts126(q *req, r *reader) (out []p_swarm.Option, done func(), err error) {
+func opts127(q *req, r *reader) (out []p_quicreuse.Option, done func(), err error) {
+	var dones []func()
+	done = func() {
+		for _, d := range dones {
+			d()
+		}
+	}
+	defer func() {
+		if err != nil {
+			done()
+		}
+	}()
+	n := r.count()
+	if n < 0 {
+		return nil, done, nil
+	}
+	out = make([]p_quicreuse.Option, 0, n)
+	for range n {
+		if r.err != nil {
+			break
+		}
+		switch i := r.u32(); i {
+		case 1: // DisableReuseport
+			out = append(out, p_quicreuse.DisableReuseport())
+		case 2: // EnableMetrics
+			a0, err := decH[p_prometheus.Registerer](r)
+			if err != nil {
+				return nil, done, err
+			}
+			out = append(out, p_quicreuse.EnableMetrics(a0))
+		case 6: // WithQlogTracerDir
+			a0, err := decStr[string](r)
+			if err != nil {
+				return nil, done, err
+			}
+			out = append(out, p_quicreuse.WithQlogTracerDir(a0))
+		default:
+			return nil, done, fmt.Errorf("p2p_host: unknown option %d of github.com/libp2p/go-libp2p/p2p/transport/quicreuse.Option", i)
+		}
+	}
+	return out, done, r.err
+}
+
+func opts128(q *req, r *reader) (out []p_swarm.Option, done func(), err error) {
 	var dones []func()
 	done = func() {
 		for _, d := range dones {
@@ -13112,7 +13442,23 @@ func opts126(q *req, r *reader) (out []p_swarm.Option, done func(), err error) {
 	return out, done, r.err
 }
 
-func opts122(q *req, r *reader) (out []p_config2.Option, done func(), err error) {
+func dec129(r *reader) ([]any, error) {
+	n := r.count()
+	if n < 0 {
+		return nil, nil
+	}
+	out := make([]any, n)
+	for i := range out {
+		x, err := decAny(r)
+		if err != nil {
+			return nil, err
+		}
+		out[i] = x
+	}
+	return out, nil
+}
+
+func opts123(q *req, r *reader) (out []p_config2.Option, done func(), err error) {
 	var dones []func()
 	done = func() {
 		for _, d := range dones {
@@ -13161,7 +13507,7 @@ func opts122(q *req, r *reader) (out []p_config2.Option, done func(), err error)
 			}
 			out = append(out, p_libp2p2.BandwidthReporter(a0))
 		case 3: // ChainOptions
-			a0, d0, err := opts122(q, r)
+			a0, d0, err := opts123(q, r)
 			dones = append(dones, d0)
 			if err != nil {
 				return nil, done, err
@@ -13194,7 +13540,7 @@ func opts122(q *req, r *reader) (out []p_config2.Option, done func(), err error)
 		case 10: // EnableAutoNATv2
 			out = append(out, p_libp2p2.EnableAutoNATv2())
 		case 11: // EnableAutoRelay
-			a0, d0, err := opts123(q, r)
+			a0, d0, err := opts124(q, r)
 			dones = append(dones, d0)
 			if err != nil {
 				return nil, done, err
@@ -13205,7 +13551,7 @@ func opts122(q *req, r *reader) (out []p_config2.Option, done func(), err error)
 			if err != nil {
 				return nil, done, err
 			}
-			a1, d1, err := opts123(q, r)
+			a1, d1, err := opts124(q, r)
 			dones = append(dones, d1)
 			if err != nil {
 				return nil, done, err
@@ -13216,14 +13562,14 @@ func opts122(q *req, r *reader) (out []p_config2.Option, done func(), err error)
 			if err != nil {
 				return nil, done, err
 			}
-			a1, d1, err := opts123(q, r)
+			a1, d1, err := opts124(q, r)
 			dones = append(dones, d1)
 			if err != nil {
 				return nil, done, err
 			}
 			out = append(out, p_libp2p2.EnableAutoRelayWithStaticRelays(a0, a1...))
 		case 14: // EnableHolePunching
-			a0, d0, err := opts124(q, r)
+			a0, d0, err := opts125(q, r)
 			dones = append(dones, d0)
 			if err != nil {
 				return nil, done, err
@@ -13234,7 +13580,7 @@ func opts122(q *req, r *reader) (out []p_config2.Option, done func(), err error)
 		case 16: // EnableRelay
 			out = append(out, p_libp2p2.EnableRelay())
 		case 17: // EnableRelayService
-			a0, d0, err := opts125(q, r)
+			a0, d0, err := opts126(q, r)
 			dones = append(dones, d0)
 			if err != nil {
 				return nil, done, err
@@ -13322,6 +13668,17 @@ func opts122(q *req, r *reader) (out []p_config2.Option, done func(), err error)
 				return nil, done, err
 			}
 			out = append(out, p_libp2p2.ProtocolVersion(a0))
+		case 34: // QUICReuse
+			a0, err := decAny(r)
+			if err != nil {
+				return nil, done, err
+			}
+			a1, d1, err := opts127(q, r)
+			dones = append(dones, d1)
+			if err != nil {
+				return nil, done, err
+			}
+			out = append(out, p_libp2p2.QUICReuse(a0, a1...))
 		case 35: // ResourceManager
 			a0, err := decH[p_network.ResourceManager](r)
 			if err != nil {
@@ -13334,15 +13691,35 @@ func opts122(q *req, r *reader) (out []p_config2.Option, done func(), err error)
 				return nil, done, err
 			}
 			out = append(out, p_libp2p2.Routing(a0))
+		case 37: // Security
+			a0, err := decStr[string](r)
+			if err != nil {
+				return nil, done, err
+			}
+			a1, err := decAny(r)
+			if err != nil {
+				return nil, done, err
+			}
+			out = append(out, p_libp2p2.Security(a0, a1))
 		case 38: // ShareTCPListener
 			out = append(out, p_libp2p2.ShareTCPListener())
 		case 39: // SwarmOpts
-			a0, d0, err := opts126(q, r)
+			a0, d0, err := opts128(q, r)
 			dones = append(dones, d0)
 			if err != nil {
 				return nil, done, err
 			}
 			out = append(out, p_libp2p2.SwarmOpts(a0...))
+		case 40: // Transport
+			a0, err := decAny(r)
+			if err != nil {
+				return nil, done, err
+			}
+			a1, err := dec129(r)
+			if err != nil {
+				return nil, done, err
+			}
+			out = append(out, p_libp2p2.Transport(a0, a1...))
 		case 41: // UDPBlackHoleSuccessCounter
 			a0, err := decH[*p_swarm.BlackHoleSuccessCounter](r)
 			if err != nil {
@@ -13398,7 +13775,7 @@ func opts122(q *req, r *reader) (out []p_config2.Option, done func(), err error)
 	return out, done, r.err
 }
 
-func dec127(r *reader) ([]p_protocol.ID, error) {
+func dec130(r *reader) ([]p_protocol.ID, error) {
 	n := r.count()
 	if n < 0 {
 		return nil, nil
@@ -13414,7 +13791,7 @@ func dec127(r *reader) ([]p_protocol.ID, error) {
 	return out, nil
 }
 
-func enc128(w *writer, v *p_peer.AddrInfo) {
+func enc131(w *writer, v *p_peer.AddrInfo) {
 	if v == nil {
 		w.u8(0)
 		return
@@ -13422,20 +13799,20 @@ func enc128(w *writer, v *p_peer.AddrInfo) {
 	enc24(w, *v)
 }
 
-func enc130(w *writer, v p_network.Stats) {
+func enc133(w *writer, v p_network.Stats) {
 	w.u8(1)
 	encInt[p_network.Direction](w, v.Direction)
 	encTime(w, v.Opened)
 	encBool[bool](w, v.Limited)
 }
 
-func enc129(w *writer, v p_network.ConnStats) {
+func enc132(w *writer, v p_network.ConnStats) {
 	w.u8(1)
-	enc130(w, v.Stats)
+	enc133(w, v.Stats)
 	encInt[int](w, v.NumStreams)
 }
 
-func enc131(w *writer, v []p_network.Conn) {
+func enc134(w *writer, v []p_network.Conn) {
 	if v == nil {
 		w.i32(-1)
 		return
@@ -13446,39 +13823,39 @@ func enc131(w *writer, v []p_network.Conn) {
 	}
 }
 
-// impl132: github.com/libp2p/go-libp2p/core/network.Notifiee implemented by Dart.
-type impl132 struct {
+// impl135: github.com/libp2p/go-libp2p/core/network.Notifiee implemented by Dart.
+type impl135 struct {
 	f0 func(p_network.Network, p_network.Conn)
 	f1 func(p_network.Network, p_network.Conn)
 	f2 func(p_network.Network, p_multiaddr.Multiaddr)
 	f3 func(p_network.Network, p_multiaddr.Multiaddr)
 }
 
-func (x *impl132) Connected(a0 p_network.Network, a1 p_network.Conn) {
+func (x *impl135) Connected(a0 p_network.Network, a1 p_network.Conn) {
 	if x.f0 != nil {
 		x.f0(a0, a1)
 	}
 }
 
-func (x *impl132) Disconnected(a0 p_network.Network, a1 p_network.Conn) {
+func (x *impl135) Disconnected(a0 p_network.Network, a1 p_network.Conn) {
 	if x.f1 != nil {
 		x.f1(a0, a1)
 	}
 }
 
-func (x *impl132) Listen(a0 p_network.Network, a1 p_multiaddr.Multiaddr) {
+func (x *impl135) Listen(a0 p_network.Network, a1 p_multiaddr.Multiaddr) {
 	if x.f2 != nil {
 		x.f2(a0, a1)
 	}
 }
 
-func (x *impl132) ListenClose(a0 p_network.Network, a1 p_multiaddr.Multiaddr) {
+func (x *impl135) ListenClose(a0 p_network.Network, a1 p_multiaddr.Multiaddr) {
 	if x.f3 != nil {
 		x.f3(a0, a1)
 	}
 }
 
-func enc133(w *writer, v p_network.ScopeStat) {
+func enc136(w *writer, v p_network.ScopeStat) {
 	w.u8(1)
 	encInt[int](w, v.NumStreamsInbound)
 	encInt[int](w, v.NumStreamsOutbound)
@@ -13488,7 +13865,7 @@ func enc133(w *writer, v p_network.ScopeStat) {
 	encInt[int64](w, v.Memory)
 }
 
-func dec134(r *reader) (*p_peer.AddrInfo, error) {
+func dec137(r *reader) (*p_peer.AddrInfo, error) {
 	if r.absent() {
 		return nil, nil
 	}
@@ -13496,7 +13873,7 @@ func dec134(r *reader) (*p_peer.AddrInfo, error) {
 	return &v, err
 }
 
-func enc135(w *writer, v p_peer.IDSlice) {
+func enc138(w *writer, v p_peer.IDSlice) {
 	if v == nil {
 		w.i32(-1)
 		return
@@ -13507,67 +13884,111 @@ func enc135(w *writer, v p_peer.IDSlice) {
 	}
 }
 
-// impl136: github.com/libp2p/go-libp2p/p2p/discovery/mdns.Notifee implemented by Dart.
-type impl136 struct {
+// impl139: github.com/libp2p/go-libp2p/p2p/discovery/mdns.Notifee implemented by Dart.
+type impl139 struct {
 	f0 func(p_peer.AddrInfo)
 }
 
-func (x *impl136) HandlePeerFound(a0 p_peer.AddrInfo) {
+func (x *impl139) HandlePeerFound(a0 p_peer.AddrInfo) {
 	if x.f0 != nil {
 		x.f0(a0)
 	}
 }
 
-func opts137(q *req, r *reader) (out []p_discovery.Option, done func(), err error) {
-	var dones []func()
-	done = func() {
-		for _, d := range dones {
-			d()
-		}
-	}
-	defer func() {
-		if err != nil {
-			done()
-		}
-	}()
-	n := r.count()
-	if n < 0 {
-		return nil, done, nil
-	}
-	out = make([]p_discovery.Option, 0, n)
-	for range n {
-		if r.err != nil {
-			break
-		}
-		switch i := r.u32(); i {
-		case 0: // Limit
-			a0, err := decInt[int](r)
-			if err != nil {
-				return nil, done, err
-			}
-			out = append(out, p_discovery.Limit(a0))
-		case 1: // TTL
-			a0, err := decInt[p_time.Duration](r)
-			if err != nil {
-				return nil, done, err
-			}
-			out = append(out, p_discovery.TTL(a0))
-		default:
-			return nil, done, fmt.Errorf("p2p_host: unknown option %d of github.com/libp2p/go-libp2p/core/discovery.Option", i)
-		}
-	}
-	return out, done, r.err
-}
-
-func enc138(w *writer, v p_ping.Result) {
+func enc140(w *writer, v p_ping.Result) {
 	w.u8(1)
 	encInt[p_time.Duration](w, v.RTT)
 	encErr(w, v.Error)
 }
 
-func dec139(r *reader) (v p_debug.CrashOptions, err error) {
+func dec141(r *reader) (v p_debug.CrashOptions, err error) {
 	if !r.present() {
 		return v, nil
 	}
 	return v, nil
+}
+
+func enc142(w *writer, v p_event.EvtAutoRelayAddrsUpdated) {
+	w.u8(1)
+	enc25(w, v.RelayAddrs)
+}
+
+func enc143(w *writer, v p_event.EvtHostReachableAddrsChanged) {
+	w.u8(1)
+	enc25(w, v.Reachable)
+	enc25(w, v.Unreachable)
+	enc25(w, v.Unknown)
+}
+
+func enc146(w *writer, v p_event.UpdatedAddress) {
+	w.u8(1)
+	encMultiaddr(w, v.Address)
+	encInt[p_event.AddrAction](w, v.Action)
+}
+
+func enc145(w *writer, v []p_event.UpdatedAddress) {
+	if v == nil {
+		w.i32(-1)
+		return
+	}
+	w.i32(int32(len(v)))
+	for _, e := range v {
+		enc146(w, e)
+	}
+}
+
+func enc144(w *writer, v p_event.EvtLocalAddressesUpdated) {
+	w.u8(1)
+	encBool[bool](w, v.Diffs)
+	enc145(w, v.Current)
+	enc145(w, v.Removed)
+	encH(w, v.SignedPeerRecord)
+}
+
+func enc147(w *writer, v p_event.EvtLocalProtocolsUpdated) {
+	w.u8(1)
+	enc81(w, v.Added)
+	enc81(w, v.Removed)
+}
+
+func enc148(w *writer, v p_event.EvtLocalReachabilityChanged) {
+	w.u8(1)
+	encInt[p_network.Reachability](w, v.Reachability)
+}
+
+func enc149(w *writer, v p_event.EvtNATDeviceTypeChanged) {
+	w.u8(1)
+	encInt[p_network.NATTransportProtocol](w, v.TransportProtocol)
+	encInt[p_network.NATDeviceType](w, v.NatDeviceType)
+}
+
+func enc150(w *writer, v p_event.EvtPeerConnectednessChanged) {
+	w.u8(1)
+	encPeerID(w, v.Peer)
+	encInt[p_network.Connectedness](w, v.Connectedness)
+}
+
+func enc151(w *writer, v p_event.EvtPeerIdentificationCompleted) {
+	w.u8(1)
+	encPeerID(w, v.Peer)
+	encH(w, v.Conn)
+	enc25(w, v.ListenAddrs)
+	enc81(w, v.Protocols)
+	encH(w, v.SignedPeerRecord)
+	encStr[string](w, v.AgentVersion)
+	encStr[string](w, v.ProtocolVersion)
+	encMultiaddr(w, v.ObservedAddr)
+}
+
+func enc152(w *writer, v p_event.EvtPeerIdentificationFailed) {
+	w.u8(1)
+	encPeerID(w, v.Peer)
+	encErr(w, v.Reason)
+}
+
+func enc153(w *writer, v p_event.EvtPeerProtocolsUpdated) {
+	w.u8(1)
+	encPeerID(w, v.Peer)
+	enc81(w, v.Added)
+	enc81(w, v.Removed)
 }
