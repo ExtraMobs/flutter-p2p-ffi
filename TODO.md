@@ -1,5 +1,40 @@
 # Pendências do ipfs_ffi
 
+## Done: types Go reflects on (0.23.0)
+
+The owner asked for the three stages: pubsub validators, the event bus, transport and
+security constructors. All general pieces of the generator (tables like `chanElem`), no
+hand adapter.
+
+- **`anyAs`:** an `any` parameter that takes one documented type crosses as it. The
+  validator is a retained callback that returns a value; `CallbackAck` carries it.
+  `ValidationAccept` is 0, so the zero value on a Dart exception would accept a message:
+  `cbOnThrow` makes it `ValidationReject`.
+- **Tokens (`go/gen/tokens.go`):** listed types and functions, numbered in key order and
+  folded into the table hash. Go → Dart, a listed type in an `any` goes as tag 8 and Dart
+  builds the class from `lib/src/any_types.dart` (generated, imported by the runtime); Dart
+  → Go, tag 9 becomes `new(T)` or the function. `Subscribe([A.$type, B.$type])` is Go's
+  `[]any{new(A), new(B)}`.
+- **Found: option constructors classified half-way.** The scan of a package's options
+  classified each constructor's parameters as it went; `WithDefaultValidator` takes
+  `...ValidatorOpt`, so `ValidatorOpt` was classified (and cached) before its own
+  constructors (`WithValidator*`) were scanned, and became an opaque handle. The parameters
+  are now classified when the option type is asked for (`ctorParams`); nothing else in the
+  API changed.
+- **Retained callbacks run in their zone** (the zone of the call that gave them): the test
+  catches the validator's exception with `runZonedGuarded`.
+- **Found:** pubsub validates in parallel, so under load (the whole suite) two accepted
+  messages arrived in the other order; the test compares without order.
+- **`yamux.Transport`** is `type Transport yamux.Config` (a struct of exported fields), so
+  it was a DTO: now in `handleTypes`, and it extends `network.Multiplexer`. Marking the
+  interfaces of option parameters for `linkConcrete` first moved `IpfsDht` to
+  `ValueStore` and `RoutingDiscovery` to `Discovery`; they are now the last choice.
+- Not exposed yet: `event.WildcardSubscription` (a pointer to an unexported type), the
+  options of a transport (`tcp.WithConnectionTimeout`... are Go values in `opts ...any`),
+  `eventbus.BufSize` (`SubscriptionOpt` is an unnamed func).
+- Checked: go test, gen -check, dart test 103/103 (twice in a row; 3 new: validator with
+  exception, event bus, TCP+Noise+yamux stack refusing QUIC), examples 14 and 15.
+
 ## Done: libp2p without kubo (0.22.0)
 
 The owner asked for libp2p usable on its own, in five stages: host and identity, streams,

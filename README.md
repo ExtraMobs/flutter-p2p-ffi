@@ -83,6 +83,9 @@ await P2pService.stop();
   loop for as long as Go holds it; an interface root (`mdns.Notifee`) is implemented in
   Dart with one function per method (`mdns.Notifee(handlePeerFound: (pi) {...})`).
 - `time.Duration` is a `Duration`.
+- Where Go reflects on an `any`, the generator fixes the type: a pubsub validator is a Dart
+  function, an event type goes by example as `EvtX.$type`, and a Go constructor as a token
+  (`libp2p.transport(tcp.newTcpTransportFunc)`).
 - CID, path, peer ID and multiaddr are values (their text form); objects with state stay in
   Go, behind a handle.
 
@@ -189,6 +192,11 @@ are in the libraries of their Go packages
 - **A stream handler runs on the Dart event loop**, one call per incoming stream; it is never
   waited for by Go, so close the stream when done.
 - **mDNS listens on `0.0.0.0:5353`** even for a loopback host.
+- **A pubsub validator runs per message and Go waits for it**: keep it fast, and do not let
+  a synchronous call wait on a publish while it runs. Validation is parallel, so messages
+  may arrive out of order; an exception rejects the message.
+- **The event bus channel must be drained** (`sub.out()` listened to, or `sub.close()`):
+  libp2p's publishers block on a full subscription.
 - **On linux, QUIC asks for bigger UDP buffers** (a warning, not an error):
   `sudo sysctl -w net.core.rmem_max=7500000 net.core.wmem_max=7500000`.
 

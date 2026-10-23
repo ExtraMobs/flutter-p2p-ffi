@@ -3,6 +3,32 @@
 Newest first. Measurements, findings and the reasoning behind each change are in
 [`TODO.md`](TODO.md); the full API, with what was left out and why, in [`API.md`](API.md).
 
+## 0.23.0
+
+Where Go reflects on an `any`, the generator fixes the type.
+
+- **Pubsub validators:** `ps.registerTopicValidator(topic, (ctx, from, msg) => ...)`
+  returns `pubsub.validationAccept`/`Reject`/`Ignore` (the `ValidatorEx` the `any` takes;
+  table `anyAs`); an exception rejects. `unregisterTopicValidator`; `withValidatorTimeout`,
+  `withValidatorConcurrency`, `withValidatorInline`.
+- **The event bus:** `h.eventBus().subscribe(event.EvtPeerConnectednessChanged.$type)` (or
+  a list of types); `sub.out()` delivers the events as their classes. The ten `event.Evt*`
+  types of go-libp2p are listed.
+- **A stack of one's own:** `libp2p.transport(tcp.newTcpTransportFunc)`,
+  `security(noise.id, noise.newFunc)`, `muxer(yamux.id, yamux.defaultTransport)`,
+  `quicReuse(quicreuse.newConnManagerFunc)`; the tokens of QUIC, WebSocket, WebTransport,
+  WebRTC and TLS too.
+- **Runtime:** a retained callback returns a basic value (in the `CallbackAck`) and
+  receives a `context.Context`; it runs in the zone it was given in (an exception goes
+  there); `GoToken`; dynamic values with tags 8 (a typed value) and 9 (a token).
+- **Fix (generator):** an option type that another option of its package takes
+  (`pubsub.WithDefaultValidator(..., opts ...ValidatorOpt)`) was scanned half-way and came
+  out as an opaque handle, without constructors; the parameters are now classified after
+  the package's scan.
+- **Generator:** a trailing variadic that does not cross is left out (Go gets none); a
+  concrete handle that implements an interface only an option takes extends it, as the last
+  choice (`yamux.Transport` is a `network.Multiplexer`).
+
 ## 0.22.0
 
 libp2p on its own, without kubo.
