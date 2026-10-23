@@ -3,6 +3,39 @@
 Newest first. Measurements, findings and the reasoning behind each change are in
 [`TODO.md`](TODO.md); the full API, with what was left out and why, in [`API.md`](API.md).
 
+## 0.22.0
+
+libp2p on its own, without kubo.
+
+- **libp2p hosts:** `libp2p.new$` with its options (`listenAddrStrings`, `identity`,
+  `natPortMap`, `enableRelay`, `enableHolePunching`, `enableAutoRelayWithStaticRelays`,
+  `connectionManager`, `noListenAddrs`, `defaultTransports`...); identity keys in
+  `crypto` (`generateKeyPair`, `marshalPrivateKey`/`unmarshalPrivateKey`, `sign`/`verify`,
+  `peer.idFromPrivateKey`); the host, its network, connections and peerstore; `ping.ping`.
+- **Streams:** `host.newStream`, `Stream.read`/`write`/`closeWrite`/`reset`/deadlines;
+  `io_stream.readerStream` on a stream closes only its read side (`CloseRead`).
+- **Pubsub on a host of one's own:** `pubsub.newGossipSub`, topics, `Subscription.next`,
+  topic peer events.
+- **DHT and discovery:** `dht.new$` with its options (`mode`, `protocolPrefix`,
+  `bootstrapPeers`...), `provide`, `findProviders(Async)`, `findPeer`, values, the routing
+  table; `routing.RoutingDiscovery` (`advertise`, `findPeers`).
+- **Retained callbacks** (WIRE.md): a function Go keeps past the call is called by Go for as
+  long as it holds it (`host.setStreamHandler`, `setStreamHandlerMatch`), and Dart drops it
+  when Go's garbage collector frees it. A root that is an interface type is implemented in
+  Dart, one function per method: `network.Notifiee(connected: ..., disconnected: ...)`,
+  `mdns.Notifee(handlePeerFound: ...)` with `mdns.newMdnsService`.
+- **Generator:** functional options built in another package (libp2p's build a
+  `config.Option`) and package variables that are options; an internal package's type seen
+  through an exported alias (`dht.Option`); a named slice (`peer.IDSlice`) is a `List`.
+- **Breaking: `time.Duration` is a Dart `Duration`** everywhere (it was an `int` of
+  nanoseconds outside constants): `options.name.ttl(...)`, `validTime`,
+  `gateway.withGetBlockTimeout`, `mfs.withFetchTimeout`, `ConnectionInfo.latency`,
+  `node.BuildCfg.shutdownTimeout`...
+- **Fix:** the host's standard log never blocks a call (mDNS's `Close` hung while the app
+  waited on it synchronously and the stderr pipe was full).
+- **Fix:** a Go string that is not UTF-8 (pubsub's message ID) decodes with U+FFFD instead of
+  failing the response.
+
 ## 0.21.0
 
 The package is about peer-to-peer networking from Go, not only IPFS.

@@ -1,5 +1,38 @@
 # Pendências do ipfs_ffi
 
+## Done: libp2p without kubo (0.22.0)
+
+The owner asked for libp2p usable on its own, in five stages: host and identity, streams,
+pubsub, DHT and discovery, and the retained callbacks (approved as a general piece of the
+generator and of WIRE.md, not one hand adapter per handler). The list is in `CHANGELOG.md`.
+
+- **Retained callback:** the Dart id goes in the request; each invocation is a one-item
+  `callback` event; `ask` (bool/error) waits for a `CallbackAck`, `call` does not; a
+  `runtime.AddCleanup` on the Go side sends `end` when the function is collected (checked in
+  `go/retained_test.go`, forcing GCs). The verdict map holds the channel, not the callback,
+  so the cleanup can run.
+- **Interface roots:** the generator's struct over one function per method; the Dart factory
+  takes them by name, a method left out is a no-op. `StopNotify` gets the same object back
+  because it is a handle.
+- **Found on the way:** mDNS's `Close` hung the app: zeroconf warns with `log.Printf`, the app
+  drains the host's stderr on its event loop, which does not run during a synchronous call,
+  and `Close` waits for the goroutine blocked on the full pipe (seen in a goroutine dump).
+  The standard log now goes through a queue (`go/logpump.go`); go-log still writes to stderr
+  directly (error level by default).
+- **Go itself measures `ping` RTT as 0 s on Windows loopback** (a go test with two hosts);
+  the test only checks it is not negative.
+- **A TCP dial between two hosts that both just bootstrapped the DHT can fail with "dial
+  backoff"** on Windows loopback (simultaneous dial); example 15 does not depend on that
+  connection.
+- **Not exposed:** pubsub validators (`RegisterTopicValidator` takes `any`, the Go side picks
+  the function type by reflection), the event bus (`Subscribe` takes a pointer to the event
+  type), `Topic.Relay` (returns a Go func), `util.Advertise` (Dart's `RoutingDiscovery` is a
+  `ContentRouting`, not an `Advertiser`; loop `advertise` with its TTL instead).
+- Checked: go test, gen -check, dart test 100/100 (7 new with two hosts: identity, ping,
+  echo stream, match function, Notifiee, gossipsub, private DHT and rendezvous), examples 14
+  and 15, `go vet` for android/arm64. Not run: the Android integration test (nothing
+  Android-specific changed).
+
 ## Done: p2p_ffi, Go constants, paths by Go package (0.21.0)
 
 The owner turned the package towards peer-to-peer networking (kubo, boxo, go-libp2p), not

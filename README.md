@@ -79,7 +79,10 @@ await P2pService.stop();
   (`mfs.lookup(root, '/a').asFile()`).
 - `Read`/`ReadAt`/`CtxReadFull` take a size and return the bytes read.
 - A Go function that takes a function takes a Dart function (a callback; returning `false`
-  or throwing stops Go).
+  or throwing stops Go). A function Go keeps, like a stream handler, is called on the event
+  loop for as long as Go holds it; an interface root (`mdns.Notifee`) is implemented in
+  Dart with one function per method (`mdns.Notifee(handlePeerFound: (pi) {...})`).
+- `time.Duration` is a `Duration`.
 - CID, path, peer ID and multiaddr are values (their text form); objects with state stay in
   Go, behind a handle.
 
@@ -98,6 +101,8 @@ are in the libraries of their Go packages
 | `example/10_mfs_low_level.dart`, `example/12_car_low_level.dart` | boxo MFS and go-car at the low level, with the equivalent Go |
 | `example/11_context_and_errors.dart` | deadlines, cancellation, errors, service crash and restart |
 | `example/13_slices_and_callbacks.dart` | CAR slices from the node, selectors, callbacks |
+| `example/14_libp2p_host.dart` | libp2p without kubo: identity, ping, a protocol of one's own, connection events, mDNS |
+| `example/15_libp2p_pubsub_dht.dart` | gossipsub, a private DHT and rendezvous by name on hosts of one's own |
 | [`example/car/`](example/car) | everyday CAR operations, the right way and the mistakes ([`DOCS.md`](DOCS.md)) |
 | [`example/memory/`](example/memory) | how handles work and how to release them |
 | [`example/android_app/`](example/android_app) | the Flutter validation app (packaging, background, integration tests) |
@@ -173,6 +178,17 @@ are in the libraries of their Go packages
 - **`routing().provide` only queues the announcement**: a lookup right after may need a retry.
 - **`Unprotect` returns whether other tags still protect the peer**, not whether it was
   protected; peering protects its own peers too.
+- **libp2p without kubo** (`libp2p.new$([...])`): a host has only what its options give it.
+  Without `libp2p.identity(key)` the peer ID changes at each start (keep
+  `crypto.marshalPrivateKey`); there is no DHT, pubsub or mDNS until you create them on the
+  host, and the default listen addresses are on every interface (Windows asks for the
+  firewall; `listenAddrStrings(['/ip4/127.0.0.1/tcp/0'])` stays local).
+- **`newStream` negotiates the protocol lazily**: a peer without the handler fails on the
+  first read, not on `newStream`. `io_stream.readerStream` on a stream closes only its read
+  side, so it can still answer.
+- **A stream handler runs on the Dart event loop**, one call per incoming stream; it is never
+  waited for by Go, so close the stream when done.
+- **mDNS listens on `0.0.0.0:5353`** even for a loopback host.
 - **On linux, QUIC asks for bigger UDP buffers** (a warning, not an error):
   `sudo sysctl -w net.core.rmem_max=7500000 net.core.wmem_max=7500000`.
 

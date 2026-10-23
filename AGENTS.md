@@ -16,7 +16,7 @@ done in each version and what is pending.
 | Path | What it is |
 |---|---|
 | `lib/` | the Dart package: the generated code (`lib/go/`, one library per Go package) and the runtime in `lib/src/` (`runtime.dart` and its parts, `service.dart`, `shm.dart`), exported only by `lib/p2p_ffi.dart` |
-| `go/` | the `p2p_host` (`host*.go`, `wire.go`, `callback.go`, `deadlock.go`, the hand ports `manual_*.go`) and the generator (`go/gen`, with `roots.txt`; the Dart paths in `go/gen/namespaces.go`) |
+| `go/` | the `p2p_host` (`host*.go`, `wire.go`, `callback.go`, `retained.go`, `deadlock.go`, `logpump.go`, the hand ports `manual_*.go`) and the generator (`go/gen`, with `roots.txt`; the Dart paths in `go/gen/namespaces.go`) |
 | `shm/` | the `p2p_shm` in C (rings, the bell, the thread that wakes Dart) |
 | `tool/` | `build.dart` (generates and builds per platform, with the upstream patches) and the benchmarks (`bench*.dart`) |
 | `test/` | the Dart suite (needs the build) |
