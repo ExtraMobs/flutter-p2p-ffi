@@ -14,7 +14,7 @@ class Peerstore extends $io.Closer {
   /// Go: `func (peerstore.AddrBook).AddAddrs(p peer.ID, addrs []multiaddr.Multiaddr, ttl time.Duration)`.
   void addAddrs($peer.Id p, List<$multiaddr.Multiaddr> addrs, Duration ttl) {
     $callSync(
-        528,
+        529,
         $W()
           ..h(this)
           ..val(p)
@@ -25,7 +25,7 @@ class Peerstore extends $io.Closer {
   /// Go: `func (peerstore.AddrBook).Addrs(p peer.ID) []multiaddr.Multiaddr`.
   List<$multiaddr.Multiaddr> addrs($peer.Id p) {
     final $r = $callSync(
-        529,
+        530,
         $W()
           ..h(this)
           ..val(p));
@@ -35,7 +35,7 @@ class Peerstore extends $io.Closer {
   /// Go: `func (peerstore.AddrBook).ClearAddrs(p peer.ID)`.
   void clearAddrs($peer.Id p) {
     $callSync(
-        530,
+        531,
         $W()
           ..h(this)
           ..val(p));
@@ -44,7 +44,7 @@ class Peerstore extends $io.Closer {
   /// Go: `func (peerstore.Peerstore).PeerInfo(peer.ID) peer.AddrInfo`.
   $peer.AddrInfo peerInfo($peer.Id id) {
     final $r = $callSync(
-        534,
+        535,
         $W()
           ..h(this)
           ..val(id));
@@ -53,20 +53,20 @@ class Peerstore extends $io.Closer {
 
   /// Go: `func (peerstore.Peerstore).Peers() peer.IDSlice`.
   List<$peer.Id> peers() {
-    final $r = $callSync(535, $W()..h(this));
+    final $r = $callSync(536, $W()..h(this));
     return $r.list(() => $r.p() ? $peer.Id($r.str()) : $nil());
   }
 
   /// Go: `func (peerstore.AddrBook).PeersWithAddrs() peer.IDSlice`.
   List<$peer.Id> peersWithAddrs() {
-    final $r = $callSync(536, $W()..h(this));
+    final $r = $callSync(537, $W()..h(this));
     return $r.list(() => $r.p() ? $peer.Id($r.str()) : $nil());
   }
 
   /// Go: `func (peerstore.ProtoBook).GetProtocols(peer.ID) ([]protocol.ID, error)`.
   List<String> getProtocols($peer.Id id) {
     final $r = $callSync(
-        532,
+        533,
         $W()
           ..h(this)
           ..val(id));
@@ -76,7 +76,7 @@ class Peerstore extends $io.Closer {
   /// Go: `func (peerstore.PeerMetadata).Get(p peer.ID, key string) (any, error)`.
   Object? get($peer.Id p, String key) {
     final $r = $callSync(
-        531,
+        532,
         $W()
           ..h(this)
           ..val(p)
@@ -87,7 +87,7 @@ class Peerstore extends $io.Closer {
   /// Go: `func (peerstore.Metrics).LatencyEWMA(peer.ID) time.Duration`.
   Duration latencyEwma($peer.Id id) {
     final $r = $callSync(
-        533,
+        534,
         $W()
           ..h(this)
           ..val(id));

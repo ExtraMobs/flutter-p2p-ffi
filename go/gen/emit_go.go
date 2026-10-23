@@ -472,6 +472,8 @@ func (g *goEmitter) decOpts(t *tinfo) string {
 			for i, pt := range c.params {
 				if pt.k == kChanSend { // canal do chamador: vai ao sink do app (u32 id)
 					fmt.Fprintf(&b, "\t\t\ta%d, d%d := chanSink(q, r.u32(), %s)\n\t\t\tdones = append(dones, d%d)\n", i, i, g.enc(pt.elem), i)
+				} else if pt.k == kFunc { // a function the option keeps (retained.go); 0 = nil
+					fmt.Fprintf(&b, "\t\t\tvar a%d %s\n\t\t\tif rc := newRetained(q, r.u32()); rc != nil {\n\t\t\t\ta%d = %s\n\t\t\t}\n", i, g.ts(pt.t), i, g.funcLit(pt, "rc"))
 				} else if pt.k == kSlice && pt.elem.k == kOpts { // a list of options (libp2p.EnableHolePunching)
 					fmt.Fprintf(&b, "\t\t\ta%d, d%d, err := %s(q, r)\n\t\t\tdones = append(dones, d%d)\n\t\t\tif err != nil {\n\t\t\t\treturn nil, done, err\n\t\t\t}\n", i, i, g.decOpts(pt.elem), i)
 				} else if pt.k == kOpts { // opção dentro de opção: uma lista de uma (namesys.ResolveOption)

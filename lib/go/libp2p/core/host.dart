@@ -19,19 +19,19 @@ class Host extends GoHandle {
 
   /// Go: `func (host.Host).ConnManager() connmgr.ConnManager`.
   $connmgr.ConnManager connManager() {
-    final $r = $callSync(479, $W()..h(this));
+    final $r = $callSync(480, $W()..h(this));
     return $r.hnn($connmgr.ConnManager.$h);
   }
 
   /// Go: `func (host.Host).ID() peer.ID`.
   $peer.Id id() {
-    final $r = $callSync(482, $W()..h(this));
+    final $r = $callSync(483, $W()..h(this));
     return $r.p() ? $peer.Id($r.str()) : $nil();
   }
 
   /// Go: `func (host.Host).Addrs() []multiaddr.Multiaddr`.
   List<$multiaddr.Multiaddr> addrs() {
-    final $r = $callSync(477, $W()..h(this));
+    final $r = $callSync(478, $W()..h(this));
     return $r.list(() => $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil());
   }
 
@@ -40,7 +40,7 @@ class Host extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> connect($context.Context ctx, $peer.AddrInfo pi) async {
     await $call(
-        480,
+        481,
         $W()
           ..h(this)
           ..h(ctx)
@@ -49,13 +49,13 @@ class Host extends GoHandle {
 
   /// Go: `func (host.Host).Network() network.Network`.
   $network.Network network() {
-    final $r = $callSync(483, $W()..h(this));
+    final $r = $callSync(484, $W()..h(this));
     return $r.hnn($network.Network.$h);
   }
 
   /// Go: `func (host.Host).Peerstore() peerstore.Peerstore`.
   $peerstore.Peerstore peerstore() {
-    final $r = $callSync(485, $W()..h(this));
+    final $r = $callSync(486, $W()..h(this));
     return $r.hnn($peerstore.Peerstore.$h);
   }
 
@@ -63,7 +63,7 @@ class Host extends GoHandle {
   ///
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> close() async {
-    await $call(478, $W()..h(this));
+    await $call(479, $W()..h(this));
   }
 
   /// Go: `func (host.Host).NewStream(ctx context.Context, p peer.ID, pids ...protocol.ID) (network.Stream, error)`.
@@ -72,7 +72,7 @@ class Host extends GoHandle {
   Future<$network.Stream$> newStream($context.Context ctx, $peer.Id p,
       [List<String> pids = const []]) async {
     final $r = await $call(
-        484,
+        485,
         $W()
           ..h(this)
           ..h(ctx)
@@ -88,7 +88,7 @@ class Host extends GoHandle {
   void setStreamHandler(
       String pid, FutureOr<void> Function($network.Stream$ stream) handler) {
     $callSync(
-        487,
+        488,
         $W()
           ..h(this)
           ..str(pid)
@@ -104,7 +104,7 @@ class Host extends GoHandle {
       FutureOr<bool> Function(String arg0) match,
       FutureOr<void> Function($network.Stream$ stream) handler) {
     $callSync(
-        488,
+        489,
         $W()
           ..h(this)
           ..str(pid)
@@ -115,7 +115,7 @@ class Host extends GoHandle {
   /// Go: `func (host.Host).RemoveStreamHandler(pid protocol.ID)`.
   void removeStreamHandler(String pid) {
     $callSync(
-        486,
+        487,
         $W()
           ..h(this)
           ..str(pid));
@@ -123,13 +123,13 @@ class Host extends GoHandle {
 
   /// Go: `func (host.Host).EventBus() event.Bus`.
   $event.Bus eventBus() {
-    final $r = $callSync(481, $W()..h(this));
+    final $r = $callSync(482, $W()..h(this));
     return $r.hnn($event.Bus.$h);
   }
 }
 
 /// Go: `func host.InfoFromHost(h host.Host) *peer.AddrInfo`.
 $peer.AddrInfo infoFromHost(Host h) {
-  final $r = $callSync(489, $W()..h(h));
+  final $r = $callSync(490, $W()..h(h));
   return $r.p() ? $peer.AddrInfo.$dec($r) : $nil();
 }

@@ -671,9 +671,17 @@ func (m *model) ctorParams(c optCtor) optCtor {
 	c.params, c.pnames = nil, nil
 	for j := 0; j < sig.Params().Len(); j++ {
 		p := sig.Params().At(j)
-		if ch, ok := p.Type().(*types.Chan); ok && ch.Dir() == types.SendOnly {
+		ch, isChan := p.Type().(*types.Chan)
+		switch ft := m.funcParam(p.Type()); {
+		case isChan && ch.Dir() == types.SendOnly:
 			c.params = append(c.params, m.sinkParam(c.pkg.Path()+"."+strings.Join(c.path, "."), ch))
-		} else {
+		case ft != nil && ft.k != kUnsupported && m.classify(p.Type()).k != kOpts: // an option inside an option stays one (namesys.ResolveOption)
+			// a function the option keeps (pubsub.WithMessageFilter): a
+			// retained callback, called for as long as Go holds the option's
+			// result
+			ft.retained = true
+			c.params = append(c.params, ft)
+		default:
 			c.params = append(c.params, m.classify(p.Type()))
 		}
 		c.pnames = append(c.pnames, p.Name())
@@ -688,7 +696,8 @@ func okOptCtor(c optCtor) (bool, string) {
 	}
 	for i, p := range c.params {
 		switch p.k {
-		case kBasic, kBytes, kValue, kMap, kHandle, kChanSend, kAny, kOpts:
+		case kBasic, kBytes, kValue, kDTO, kMap, kHandle, kChanSend, kAny, kOpts:
+		case kFunc: // retained (ctorParams): the option keeps it
 		case kSlice:
 			if p.elem.k == kOpts || okElem(p.elem) {
 				break

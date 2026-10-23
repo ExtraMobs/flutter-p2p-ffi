@@ -848,6 +848,11 @@ func (e *dartEmitter) holders(l *dartLib, b *strings.Builder) {
 					segs = append(segs, fmt.Sprintf("..sink(GoSink<%s>(%s, (r) => %s))", E, pn, e.dec(p.elem, "r", l, false)))
 					continue
 				}
+				if p.k == kFunc { // a function the option keeps: a retained callback (WIRE.md)
+					ps = append(ps, e.funcType(p, l)+" "+pn)
+					segs = append(segs, ".."+e.retainedCb(p, pn, l, false))
+					continue
+				}
 				ps = append(ps, e.dt(p, l)+" "+pn)
 				if p.k == kOpts { // opção dentro de opção: vai como lista de uma
 					segs = append(segs, fmt.Sprintf("..list([%s], (w0, e0) => w0.opt(e0))", pn))
@@ -945,22 +950,12 @@ func (e *dartEmitter) function(l *dartLib, f *fn, class string, factory bool) st
 			continue
 		}
 		if p.t.k == kFunc && p.t.retained { // kept by Go: a retained callback (WIRE.md); a Dart implementation leaves methods out with null
-			var decs []string
-			for _, a := range p.t.fargs {
-				decs = append(decs, e.dec(a, "r", l, false))
-			}
-			call := fmt.Sprintf("(r) => %s(%s)", n, strings.Join(decs, ", "))
 			if f.impl != nil {
-				call = fmt.Sprintf("%s == null ? null : (r) => %s(%s)", n, n, strings.Join(decs, ", "))
 				params = append(params, e.funcType(p.t, l)+"? "+n)
 			} else {
 				params = append(params, e.funcType(p.t, l)+" "+n)
 			}
-			if p.t.fret == fretVal { // the value goes back in the CallbackAck
-				segs = append(segs, fmt.Sprintf("cb(%s, true, (w, v) => w.%s)", call, e.enc(p.t.fres, "v as "+e.dt(p.t.fres, l), 0)))
-			} else {
-				segs = append(segs, fmt.Sprintf("cb(%s, %v)", call, p.t.fret != fretNone))
-			}
+			segs = append(segs, e.retainedCb(p.t, n, l, f.impl != nil))
 			continue
 		}
 		if p.t.k == kFunc { // callback sob demanda: a função Dart; no pedido, o tamanho do lote
@@ -1104,6 +1099,24 @@ func (e *dartEmitter) weaker(a, b *dclass) bool {
 		return e.optIfaces[classKey(c.t)] && realMethods(c) == 0 && !e.paramIfaces[classKey(c.t)]
 	}
 	return only(a) && !only(b)
+}
+
+// retainedCb: the writer call of the retained callback [n] of type [t]
+// (WIRE.md): its decoder and, for a value result, the value's encoder;
+// [nullable]: null sends nil.
+func (e *dartEmitter) retainedCb(t *tinfo, n string, l *dartLib, nullable bool) string {
+	var decs []string
+	for _, a := range t.fargs {
+		decs = append(decs, e.dec(a, "r", l, false))
+	}
+	call := fmt.Sprintf("(r) => %s(%s)", n, strings.Join(decs, ", "))
+	if nullable {
+		call = fmt.Sprintf("%s == null ? null : %s", n, call)
+	}
+	if t.fret == fretVal { // the value goes back in the CallbackAck
+		return fmt.Sprintf("cb(%s, true, (w, v) => w.%s)", call, e.enc(t.fres, "v as "+e.dt(t.fres, l), 0))
+	}
+	return fmt.Sprintf("cb(%s, %v)", call, t.fret != fretNone)
 }
 
 // better: a interface [a] é melhor base para um handle concreto que [b].

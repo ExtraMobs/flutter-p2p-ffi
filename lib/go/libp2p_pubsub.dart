@@ -13,6 +13,7 @@ import 'package:p2p_ffi/go/libp2p/core/host.dart' as $host;
 import 'package:p2p_ffi/go/libp2p/core/peer.dart' as $peer;
 import 'package:p2p_ffi/go/libp2p_pubsub/pb.dart' as $pb;
 import 'package:p2p_ffi/go/log/slog.dart' as $slog;
+import 'package:p2p_ffi/go/net.dart' as $net;
 
 /// Go: `pubsub.BackoffConnectorFactory` (handle).
 class BackoffConnectorFactory extends GoHandle {
@@ -32,6 +33,248 @@ final class DiscoverOpt extends GoOption {
 /// Go: `pubsub.EventTracer` (handle).
 class EventTracer extends GoHandle {
   EventTracer.$h(super.$h);
+}
+
+/// Go: `pubsub.GossipSubParams`.
+final class GossipSubParams implements GoDto {
+  GossipSubParams(
+      {int? d,
+      int? dlo,
+      int? dhi,
+      int? dscore,
+      int? dout,
+      int? historyLength,
+      int? historyGossip,
+      int? dlazy,
+      double? gossipFactor,
+      int? gossipRetransmission,
+      Duration? heartbeatInitialDelay,
+      Duration? heartbeatInterval,
+      double? slowHeartbeatWarning,
+      Duration? fanoutTtl,
+      int? prunePeers,
+      Duration? pruneBackoff,
+      Duration? unsubscribeBackoff,
+      int? connectors,
+      int? maxPendingConnections,
+      Duration? connectionTimeout,
+      int? directConnectTicks,
+      Duration? directConnectInitialDelay,
+      int? opportunisticGraftTicks,
+      int? opportunisticGraftPeers,
+      Duration? graftFloodThreshold,
+      int? maxIHaveLength,
+      int? maxIHaveMessages,
+      int? maxIDontWantLength,
+      int? maxIDontWantMessages,
+      Duration? iWantFollowupTime,
+      int? iDontWantMessageThreshold,
+      int? iDontWantMessageTtl})
+      : d = d ?? 0,
+        dlo = dlo ?? 0,
+        dhi = dhi ?? 0,
+        dscore = dscore ?? 0,
+        dout = dout ?? 0,
+        historyLength = historyLength ?? 0,
+        historyGossip = historyGossip ?? 0,
+        dlazy = dlazy ?? 0,
+        gossipFactor = gossipFactor ?? 0.0,
+        gossipRetransmission = gossipRetransmission ?? 0,
+        heartbeatInitialDelay = heartbeatInitialDelay ?? Duration.zero,
+        heartbeatInterval = heartbeatInterval ?? Duration.zero,
+        slowHeartbeatWarning = slowHeartbeatWarning ?? 0.0,
+        fanoutTtl = fanoutTtl ?? Duration.zero,
+        prunePeers = prunePeers ?? 0,
+        pruneBackoff = pruneBackoff ?? Duration.zero,
+        unsubscribeBackoff = unsubscribeBackoff ?? Duration.zero,
+        connectors = connectors ?? 0,
+        maxPendingConnections = maxPendingConnections ?? 0,
+        connectionTimeout = connectionTimeout ?? Duration.zero,
+        directConnectTicks = directConnectTicks ?? 0,
+        directConnectInitialDelay = directConnectInitialDelay ?? Duration.zero,
+        opportunisticGraftTicks = opportunisticGraftTicks ?? 0,
+        opportunisticGraftPeers = opportunisticGraftPeers ?? 0,
+        graftFloodThreshold = graftFloodThreshold ?? Duration.zero,
+        maxIHaveLength = maxIHaveLength ?? 0,
+        maxIHaveMessages = maxIHaveMessages ?? 0,
+        maxIDontWantLength = maxIDontWantLength ?? 0,
+        maxIDontWantMessages = maxIDontWantMessages ?? 0,
+        iWantFollowupTime = iWantFollowupTime ?? Duration.zero,
+        iDontWantMessageThreshold = iDontWantMessageThreshold ?? 0,
+        iDontWantMessageTtl = iDontWantMessageTtl ?? 0;
+
+  GossipSubParams.$dec($R r)
+      : d = r.i64(),
+        dlo = r.i64(),
+        dhi = r.i64(),
+        dscore = r.i64(),
+        dout = r.i64(),
+        historyLength = r.i64(),
+        historyGossip = r.i64(),
+        dlazy = r.i64(),
+        gossipFactor = r.f64(),
+        gossipRetransmission = r.i64(),
+        heartbeatInitialDelay = Duration(microseconds: r.i64() ~/ 1000),
+        heartbeatInterval = Duration(microseconds: r.i64() ~/ 1000),
+        slowHeartbeatWarning = r.f64(),
+        fanoutTtl = Duration(microseconds: r.i64() ~/ 1000),
+        prunePeers = r.i64(),
+        pruneBackoff = Duration(microseconds: r.i64() ~/ 1000),
+        unsubscribeBackoff = Duration(microseconds: r.i64() ~/ 1000),
+        connectors = r.i64(),
+        maxPendingConnections = r.i64(),
+        connectionTimeout = Duration(microseconds: r.i64() ~/ 1000),
+        directConnectTicks = r.i64(),
+        directConnectInitialDelay = Duration(microseconds: r.i64() ~/ 1000),
+        opportunisticGraftTicks = r.i64(),
+        opportunisticGraftPeers = r.i64(),
+        graftFloodThreshold = Duration(microseconds: r.i64() ~/ 1000),
+        maxIHaveLength = r.i64(),
+        maxIHaveMessages = r.i64(),
+        maxIDontWantLength = r.i64(),
+        maxIDontWantMessages = r.i64(),
+        iWantFollowupTime = Duration(microseconds: r.i64() ~/ 1000),
+        iDontWantMessageThreshold = r.i64(),
+        iDontWantMessageTtl = r.i64();
+
+  /// Go: `D`.
+  int d;
+
+  /// Go: `Dlo`.
+  int dlo;
+
+  /// Go: `Dhi`.
+  int dhi;
+
+  /// Go: `Dscore`.
+  int dscore;
+
+  /// Go: `Dout`.
+  int dout;
+
+  /// Go: `HistoryLength`.
+  int historyLength;
+
+  /// Go: `HistoryGossip`.
+  int historyGossip;
+
+  /// Go: `Dlazy`.
+  int dlazy;
+
+  /// Go: `GossipFactor`.
+  double gossipFactor;
+
+  /// Go: `GossipRetransmission`.
+  int gossipRetransmission;
+
+  /// Go: `HeartbeatInitialDelay`.
+  Duration heartbeatInitialDelay;
+
+  /// Go: `HeartbeatInterval`.
+  Duration heartbeatInterval;
+
+  /// Go: `SlowHeartbeatWarning`.
+  double slowHeartbeatWarning;
+
+  /// Go: `FanoutTTL`.
+  Duration fanoutTtl;
+
+  /// Go: `PrunePeers`.
+  int prunePeers;
+
+  /// Go: `PruneBackoff`.
+  Duration pruneBackoff;
+
+  /// Go: `UnsubscribeBackoff`.
+  Duration unsubscribeBackoff;
+
+  /// Go: `Connectors`.
+  int connectors;
+
+  /// Go: `MaxPendingConnections`.
+  int maxPendingConnections;
+
+  /// Go: `ConnectionTimeout`.
+  Duration connectionTimeout;
+
+  /// Go: `DirectConnectTicks`.
+  ///
+  /// Go `uint64`: values from 2^63 up arrive negative (same 64 bits);
+  /// `BigInt.from(v).toUnsigned(64)` reads them unsigned.
+  int directConnectTicks;
+
+  /// Go: `DirectConnectInitialDelay`.
+  Duration directConnectInitialDelay;
+
+  /// Go: `OpportunisticGraftTicks`.
+  ///
+  /// Go `uint64`: values from 2^63 up arrive negative (same 64 bits);
+  /// `BigInt.from(v).toUnsigned(64)` reads them unsigned.
+  int opportunisticGraftTicks;
+
+  /// Go: `OpportunisticGraftPeers`.
+  int opportunisticGraftPeers;
+
+  /// Go: `GraftFloodThreshold`.
+  Duration graftFloodThreshold;
+
+  /// Go: `MaxIHaveLength`.
+  int maxIHaveLength;
+
+  /// Go: `MaxIHaveMessages`.
+  int maxIHaveMessages;
+
+  /// Go: `MaxIDontWantLength`.
+  int maxIDontWantLength;
+
+  /// Go: `MaxIDontWantMessages`.
+  int maxIDontWantMessages;
+
+  /// Go: `IWantFollowupTime`.
+  Duration iWantFollowupTime;
+
+  /// Go: `IDontWantMessageThreshold`.
+  int iDontWantMessageThreshold;
+
+  /// Go: `IDontWantMessageTTL`.
+  int iDontWantMessageTtl;
+
+  @override
+  void $enc($W w) {
+    w
+      ..i64(d)
+      ..i64(dlo)
+      ..i64(dhi)
+      ..i64(dscore)
+      ..i64(dout)
+      ..i64(historyLength)
+      ..i64(historyGossip)
+      ..i64(dlazy)
+      ..f64(gossipFactor)
+      ..i64(gossipRetransmission)
+      ..i64((heartbeatInitialDelay).inMicroseconds * 1000)
+      ..i64((heartbeatInterval).inMicroseconds * 1000)
+      ..f64(slowHeartbeatWarning)
+      ..i64((fanoutTtl).inMicroseconds * 1000)
+      ..i64(prunePeers)
+      ..i64((pruneBackoff).inMicroseconds * 1000)
+      ..i64((unsubscribeBackoff).inMicroseconds * 1000)
+      ..i64(connectors)
+      ..i64(maxPendingConnections)
+      ..i64((connectionTimeout).inMicroseconds * 1000)
+      ..i64(directConnectTicks)
+      ..i64((directConnectInitialDelay).inMicroseconds * 1000)
+      ..i64(opportunisticGraftTicks)
+      ..i64(opportunisticGraftPeers)
+      ..i64((graftFloodThreshold).inMicroseconds * 1000)
+      ..i64(maxIHaveLength)
+      ..i64(maxIHaveMessages)
+      ..i64(maxIDontWantLength)
+      ..i64(maxIDontWantMessages)
+      ..i64((iWantFollowupTime).inMicroseconds * 1000)
+      ..i64(iDontWantMessageThreshold)
+      ..i64(iDontWantMessageTtl);
+  }
 }
 
 /// Go: `pubsub.Message`.
@@ -74,14 +317,9 @@ final class Message implements GoDto {
 
   /// Go: `func (*pubsub.Message).GetFrom() peer.ID`.
   $peer.Id getFrom() {
-    final $r = $callSync(433, $W()..dto(this));
+    final $r = $callSync(434, $W()..dto(this));
     return $r.p() ? $peer.Id($r.str()) : $nil();
   }
-}
-
-/// Go: `pubsub.MsgIdFunction` (handle).
-class MsgIdFunction extends GoHandle {
-  MsgIdFunction.$h(super.$h);
 }
 
 /// Go: `pubsub.Option` (functional option; constructors in the package).
@@ -118,9 +356,262 @@ final class PeerEvent implements GoDto {
   }
 }
 
-/// Go: `pubsub.PeerFilter` (handle).
-class PeerFilter extends GoHandle {
-  PeerFilter.$h(super.$h);
+/// Go: `pubsub.PeerGaterParams`.
+final class PeerGaterParams implements GoDto {
+  PeerGaterParams(
+      {double? threshold,
+      double? globalDecay,
+      double? sourceDecay,
+      Duration? decayInterval,
+      double? decayToZero,
+      Duration? retainStats,
+      Duration? quiet,
+      double? duplicateWeight,
+      double? ignoreWeight,
+      double? rejectWeight,
+      Map<String, double>? topicDeliveryWeights})
+      : threshold = threshold ?? 0.0,
+        globalDecay = globalDecay ?? 0.0,
+        sourceDecay = sourceDecay ?? 0.0,
+        decayInterval = decayInterval ?? Duration.zero,
+        decayToZero = decayToZero ?? 0.0,
+        retainStats = retainStats ?? Duration.zero,
+        quiet = quiet ?? Duration.zero,
+        duplicateWeight = duplicateWeight ?? 0.0,
+        ignoreWeight = ignoreWeight ?? 0.0,
+        rejectWeight = rejectWeight ?? 0.0,
+        topicDeliveryWeights = topicDeliveryWeights ?? {};
+
+  PeerGaterParams.$dec($R r)
+      : threshold = r.f64(),
+        globalDecay = r.f64(),
+        sourceDecay = r.f64(),
+        decayInterval = Duration(microseconds: r.i64() ~/ 1000),
+        decayToZero = r.f64(),
+        retainStats = Duration(microseconds: r.i64() ~/ 1000),
+        quiet = Duration(microseconds: r.i64() ~/ 1000),
+        duplicateWeight = r.f64(),
+        ignoreWeight = r.f64(),
+        rejectWeight = r.f64(),
+        topicDeliveryWeights = r.map(() => r.str(), () => r.f64());
+
+  /// Go: `Threshold`.
+  double threshold;
+
+  /// Go: `GlobalDecay`.
+  double globalDecay;
+
+  /// Go: `SourceDecay`.
+  double sourceDecay;
+
+  /// Go: `DecayInterval`.
+  Duration decayInterval;
+
+  /// Go: `DecayToZero`.
+  double decayToZero;
+
+  /// Go: `RetainStats`.
+  Duration retainStats;
+
+  /// Go: `Quiet`.
+  Duration quiet;
+
+  /// Go: `DuplicateWeight`.
+  double duplicateWeight;
+
+  /// Go: `IgnoreWeight`.
+  double ignoreWeight;
+
+  /// Go: `RejectWeight`.
+  double rejectWeight;
+
+  /// Go: `TopicDeliveryWeights`.
+  Map<String, double> topicDeliveryWeights;
+
+  @override
+  void $enc($W w) {
+    w
+      ..f64(threshold)
+      ..f64(globalDecay)
+      ..f64(sourceDecay)
+      ..i64((decayInterval).inMicroseconds * 1000)
+      ..f64(decayToZero)
+      ..i64((retainStats).inMicroseconds * 1000)
+      ..i64((quiet).inMicroseconds * 1000)
+      ..f64(duplicateWeight)
+      ..f64(ignoreWeight)
+      ..f64(rejectWeight)
+      ..map(
+          topicDeliveryWeights, (w0, k0) => w0.str(k0), (w0, v0) => w0.f64(v0));
+  }
+}
+
+/// Go: `pubsub.PeerScoreParams`.
+///
+/// Fields that do not cross the bridge: `AppSpecificScore` (func(p github.com/libp2p/go-libp2p/core/peer.ID) float64).
+final class PeerScoreParams implements GoDto {
+  PeerScoreParams(
+      {bool? skipAtomicValidation,
+      Map<String, TopicScoreParams>? topics,
+      double? topicScoreCap,
+      double? appSpecificWeight,
+      double? ipColocationFactorWeight,
+      int? ipColocationFactorThreshold,
+      List<$net.IpNet>? ipColocationFactorWhitelist,
+      double? behaviourPenaltyWeight,
+      double? behaviourPenaltyThreshold,
+      double? behaviourPenaltyDecay,
+      Duration? decayInterval,
+      double? decayToZero,
+      Duration? retainScore,
+      Duration? seenMsgTtl})
+      : skipAtomicValidation = skipAtomicValidation ?? false,
+        topics = topics ?? {},
+        topicScoreCap = topicScoreCap ?? 0.0,
+        appSpecificWeight = appSpecificWeight ?? 0.0,
+        ipColocationFactorWeight = ipColocationFactorWeight ?? 0.0,
+        ipColocationFactorThreshold = ipColocationFactorThreshold ?? 0,
+        ipColocationFactorWhitelist = ipColocationFactorWhitelist ?? [],
+        behaviourPenaltyWeight = behaviourPenaltyWeight ?? 0.0,
+        behaviourPenaltyThreshold = behaviourPenaltyThreshold ?? 0.0,
+        behaviourPenaltyDecay = behaviourPenaltyDecay ?? 0.0,
+        decayInterval = decayInterval ?? Duration.zero,
+        decayToZero = decayToZero ?? 0.0,
+        retainScore = retainScore ?? Duration.zero,
+        seenMsgTtl = seenMsgTtl ?? Duration.zero;
+
+  PeerScoreParams.$dec($R r)
+      : skipAtomicValidation = r.b(),
+        topics = r.map(
+            () => r.str(), () => r.p() ? TopicScoreParams.$dec(r) : $nil()),
+        topicScoreCap = r.f64(),
+        appSpecificWeight = r.f64(),
+        ipColocationFactorWeight = r.f64(),
+        ipColocationFactorThreshold = r.i64(),
+        ipColocationFactorWhitelist =
+            r.list(() => r.p() ? $net.IpNet.$dec(r) : $nil()),
+        behaviourPenaltyWeight = r.f64(),
+        behaviourPenaltyThreshold = r.f64(),
+        behaviourPenaltyDecay = r.f64(),
+        decayInterval = Duration(microseconds: r.i64() ~/ 1000),
+        decayToZero = r.f64(),
+        retainScore = Duration(microseconds: r.i64() ~/ 1000),
+        seenMsgTtl = Duration(microseconds: r.i64() ~/ 1000);
+
+  /// Go: `SkipAtomicValidation`.
+  bool skipAtomicValidation;
+
+  /// Go: `Topics`.
+  Map<String, TopicScoreParams> topics;
+
+  /// Go: `TopicScoreCap`.
+  double topicScoreCap;
+
+  /// Go: `AppSpecificWeight`.
+  double appSpecificWeight;
+
+  /// Go: `IPColocationFactorWeight`.
+  double ipColocationFactorWeight;
+
+  /// Go: `IPColocationFactorThreshold`.
+  int ipColocationFactorThreshold;
+
+  /// Go: `IPColocationFactorWhitelist`.
+  List<$net.IpNet> ipColocationFactorWhitelist;
+
+  /// Go: `BehaviourPenaltyWeight`.
+  double behaviourPenaltyWeight;
+
+  /// Go: `BehaviourPenaltyThreshold`.
+  double behaviourPenaltyThreshold;
+
+  /// Go: `BehaviourPenaltyDecay`.
+  double behaviourPenaltyDecay;
+
+  /// Go: `DecayInterval`.
+  Duration decayInterval;
+
+  /// Go: `DecayToZero`.
+  double decayToZero;
+
+  /// Go: `RetainScore`.
+  Duration retainScore;
+
+  /// Go: `SeenMsgTTL`.
+  Duration seenMsgTtl;
+
+  @override
+  void $enc($W w) {
+    w
+      ..b(skipAtomicValidation)
+      ..map(topics, (w0, k0) => w0.str(k0), (w0, v0) => w0.dto(v0))
+      ..f64(topicScoreCap)
+      ..f64(appSpecificWeight)
+      ..f64(ipColocationFactorWeight)
+      ..i64(ipColocationFactorThreshold)
+      ..list(ipColocationFactorWhitelist, (w0, e0) => w0.dto(e0))
+      ..f64(behaviourPenaltyWeight)
+      ..f64(behaviourPenaltyThreshold)
+      ..f64(behaviourPenaltyDecay)
+      ..i64((decayInterval).inMicroseconds * 1000)
+      ..f64(decayToZero)
+      ..i64((retainScore).inMicroseconds * 1000)
+      ..i64((seenMsgTtl).inMicroseconds * 1000);
+  }
+}
+
+/// Go: `pubsub.PeerScoreThresholds`.
+final class PeerScoreThresholds implements GoDto {
+  PeerScoreThresholds(
+      {bool? skipAtomicValidation,
+      double? gossipThreshold,
+      double? publishThreshold,
+      double? graylistThreshold,
+      double? acceptPxThreshold,
+      double? opportunisticGraftThreshold})
+      : skipAtomicValidation = skipAtomicValidation ?? false,
+        gossipThreshold = gossipThreshold ?? 0.0,
+        publishThreshold = publishThreshold ?? 0.0,
+        graylistThreshold = graylistThreshold ?? 0.0,
+        acceptPxThreshold = acceptPxThreshold ?? 0.0,
+        opportunisticGraftThreshold = opportunisticGraftThreshold ?? 0.0;
+
+  PeerScoreThresholds.$dec($R r)
+      : skipAtomicValidation = r.b(),
+        gossipThreshold = r.f64(),
+        publishThreshold = r.f64(),
+        graylistThreshold = r.f64(),
+        acceptPxThreshold = r.f64(),
+        opportunisticGraftThreshold = r.f64();
+
+  /// Go: `SkipAtomicValidation`.
+  bool skipAtomicValidation;
+
+  /// Go: `GossipThreshold`.
+  double gossipThreshold;
+
+  /// Go: `PublishThreshold`.
+  double publishThreshold;
+
+  /// Go: `GraylistThreshold`.
+  double graylistThreshold;
+
+  /// Go: `AcceptPXThreshold`.
+  double acceptPxThreshold;
+
+  /// Go: `OpportunisticGraftThreshold`.
+  double opportunisticGraftThreshold;
+
+  @override
+  void $enc($W w) {
+    w
+      ..b(skipAtomicValidation)
+      ..f64(gossipThreshold)
+      ..f64(publishThreshold)
+      ..f64(graylistThreshold)
+      ..f64(acceptPxThreshold)
+      ..f64(opportunisticGraftThreshold);
+  }
 }
 
 /// Go: `pubsub.PubOpt` (functional option; constructors in the package).
@@ -133,9 +624,11 @@ class PubSub extends GoHandle {
   PubSub.$h(super.$h);
 
   /// Go: `func (*pubsub.PubSub).Join(topic string, opts ...pubsub.TopicOpt) (*pubsub.Topic, error)`.
-  Topic join(String topic, [List<TopicOpt> opts = const []]) {
-    final $r = $callSync(
-        438,
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<Topic> join(String topic, [List<TopicOpt> opts = const []]) async {
+    final $r = await $call(
+        439,
         $W()
           ..h(this)
           ..str(topic)
@@ -144,15 +637,19 @@ class PubSub extends GoHandle {
   }
 
   /// Go: `func (*pubsub.PubSub).GetTopics() []string`.
-  List<String> getTopics() {
-    final $r = $callSync(437, $W()..h(this));
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<List<String>> getTopics() async {
+    final $r = await $call(438, $W()..h(this));
     return $r.list(() => $r.str());
   }
 
   /// Go: `func (*pubsub.PubSub).ListPeers(topic string) []peer.ID`.
-  List<$peer.Id> listPeers(String topic) {
-    final $r = $callSync(
-        439,
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<List<$peer.Id>> listPeers(String topic) async {
+    final $r = await $call(
+        440,
         $W()
           ..h(this)
           ..str(topic));
@@ -160,27 +657,33 @@ class PubSub extends GoHandle {
   }
 
   /// Go: `func (*pubsub.PubSub).AddDirectPeer(pInfo peer.AddrInfo) error`.
-  void addDirectPeer($peer.AddrInfo pInfo) {
-    $callSync(
-        435,
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> addDirectPeer($peer.AddrInfo pInfo) async {
+    await $call(
+        436,
         $W()
           ..h(this)
           ..dto(pInfo));
   }
 
   /// Go: `func (*pubsub.PubSub).RemoveDirectPeer(pid peer.ID) error`.
-  void removeDirectPeer($peer.Id pid) {
-    $callSync(
-        441,
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> removeDirectPeer($peer.Id pid) async {
+    await $call(
+        442,
         $W()
           ..h(this)
           ..val(pid));
   }
 
   /// Go: `func (*pubsub.PubSub).BlacklistPeer(pid peer.ID)`.
-  void blacklistPeer($peer.Id pid) {
-    $callSync(
-        436,
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> blacklistPeer($peer.Id pid) async {
+    await $call(
+        437,
         $W()
           ..h(this)
           ..val(pid));
@@ -188,15 +691,17 @@ class PubSub extends GoHandle {
 
   /// Go: `func (*pubsub.PubSub).RegisterTopicValidator(topic string, val any, opts ...pubsub.ValidatorOpt) error`.
   ///
+  /// Asynchronous: runs in a goroutine of the service.
+  ///
   /// Go keeps [val] and calls it on the Dart event loop for as
   /// long as it holds it (a retained callback, WIRE.md).
-  void registerTopicValidator(
+  Future<void> registerTopicValidator(
       String topic,
       FutureOr<int> Function($context.Context ctx, $peer.Id id, Message message)
           val,
-      [List<ValidatorOpt> opts = const []]) {
-    $callSync(
-        440,
+      [List<ValidatorOpt> opts = const []]) async {
+    await $call(
+        441,
         $W()
           ..h(this)
           ..str(topic)
@@ -211,13 +716,20 @@ class PubSub extends GoHandle {
   }
 
   /// Go: `func (*pubsub.PubSub).UnregisterTopicValidator(topic string) error`.
-  void unregisterTopicValidator(String topic) {
-    $callSync(
-        442,
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> unregisterTopicValidator(String topic) async {
+    await $call(
+        443,
         $W()
           ..h(this)
           ..str(topic));
   }
+}
+
+/// Go: `pubsub.RPC` (handle).
+class Rpc extends GoHandle {
+  Rpc.$h(super.$h);
 }
 
 /// Go: `pubsub.RawTracer` (handle).
@@ -244,7 +756,7 @@ class Subscription extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<Message> next($context.Context ctx) async {
     final $r = await $call(
-        444,
+        445,
         $W()
           ..h(this)
           ..h(ctx));
@@ -253,19 +765,32 @@ class Subscription extends GoHandle {
 
   /// Go: `func (*pubsub.Subscription).Topic() string`.
   String topic() {
-    final $r = $callSync(445, $W()..h(this));
+    final $r = $callSync(446, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*pubsub.Subscription).Cancel()`.
-  void cancel() {
-    $callSync(443, $W()..h(this));
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> cancel() async {
+    await $call(444, $W()..h(this));
   }
 }
 
 /// Go: `pubsub.SubscriptionFilter` (handle).
 class SubscriptionFilter extends GoHandle {
   SubscriptionFilter.$h(super.$h);
+}
+
+/// Go: `pubsub.TestExtensionConfig`.
+///
+/// Fields that do not cross the bridge: `OnReceiveTestExtension` (func(from github.com/libp2p/go-libp2p/core/peer.ID)).
+final class TestExtensionConfig implements GoDto {
+  TestExtensionConfig();
+  TestExtensionConfig.$dec($R r);
+
+  @override
+  void $enc($W w) {}
 }
 
 /// Go: `pubsub.Topic` (handle).
@@ -278,7 +803,7 @@ class Topic extends GoHandle {
   Future<void> publish($context.Context ctx, Uint8List data,
       [List<PubOpt> opts = const []]) async {
     await $call(
-        449,
+        450,
         $W()
           ..h(this)
           ..h(ctx)
@@ -287,9 +812,11 @@ class Topic extends GoHandle {
   }
 
   /// Go: `func (*pubsub.Topic).Subscribe(opts ...pubsub.SubOpt) (*pubsub.Subscription, error)`.
-  Subscription subscribe([List<SubOpt> opts = const []]) {
-    final $r = $callSync(
-        451,
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<Subscription> subscribe([List<SubOpt> opts = const []]) async {
+    final $r = await $call(
+        452,
         $W()
           ..h(this)
           ..list(opts, (w0, e0) => w0.opt(e0)));
@@ -297,15 +824,20 @@ class Topic extends GoHandle {
   }
 
   /// Go: `func (*pubsub.Topic).ListPeers() []peer.ID`.
-  List<$peer.Id> listPeers() {
-    final $r = $callSync(448, $W()..h(this));
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<List<$peer.Id>> listPeers() async {
+    final $r = await $call(449, $W()..h(this));
     return $r.list(() => $r.p() ? $peer.Id($r.str()) : $nil());
   }
 
   /// Go: `func (*pubsub.Topic).EventHandler(opts ...pubsub.TopicEventHandlerOpt) (*pubsub.TopicEventHandler, error)`.
-  TopicEventHandler eventHandler([List<TopicEventHandlerOpt> opts = const []]) {
-    final $r = $callSync(
-        447,
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<TopicEventHandler> eventHandler(
+      [List<TopicEventHandlerOpt> opts = const []]) async {
+    final $r = await $call(
+        448,
         $W()
           ..h(this)
           ..list(opts, (w0, e0) => w0.h(e0)));
@@ -314,13 +846,15 @@ class Topic extends GoHandle {
 
   /// Go: `func (*pubsub.Topic).String() string`.
   String string() {
-    final $r = $callSync(450, $W()..h(this));
+    final $r = $callSync(451, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*pubsub.Topic).Close() error`.
-  void close() {
-    $callSync(446, $W()..h(this));
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> close() async {
+    await $call(447, $W()..h(this));
   }
 }
 
@@ -333,7 +867,7 @@ class TopicEventHandler extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<PeerEvent> nextPeerEvent($context.Context ctx) async {
     final $r = await $call(
-        453,
+        454,
         $W()
           ..h(this)
           ..h(ctx));
@@ -341,8 +875,10 @@ class TopicEventHandler extends GoHandle {
   }
 
   /// Go: `func (*pubsub.TopicEventHandler).Cancel()`.
-  void cancel() {
-    $callSync(452, $W()..h(this));
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> cancel() async {
+    await $call(453, $W()..h(this));
   }
 }
 
@@ -354,6 +890,147 @@ class TopicEventHandlerOpt extends GoHandle {
 /// Go: `pubsub.TopicOpt` (functional option; constructors in the package).
 final class TopicOpt extends GoOption {
   TopicOpt.$(super.$i, super.$a);
+}
+
+/// Go: `pubsub.TopicScoreParams`.
+final class TopicScoreParams implements GoDto {
+  TopicScoreParams(
+      {bool? skipAtomicValidation,
+      double? topicWeight,
+      double? timeInMeshWeight,
+      Duration? timeInMeshQuantum,
+      double? timeInMeshCap,
+      double? firstMessageDeliveriesWeight,
+      double? firstMessageDeliveriesDecay,
+      double? firstMessageDeliveriesCap,
+      double? meshMessageDeliveriesWeight,
+      double? meshMessageDeliveriesDecay,
+      double? meshMessageDeliveriesCap,
+      double? meshMessageDeliveriesThreshold,
+      Duration? meshMessageDeliveriesWindow,
+      Duration? meshMessageDeliveriesActivation,
+      double? meshFailurePenaltyWeight,
+      double? meshFailurePenaltyDecay,
+      double? invalidMessageDeliveriesWeight,
+      double? invalidMessageDeliveriesDecay})
+      : skipAtomicValidation = skipAtomicValidation ?? false,
+        topicWeight = topicWeight ?? 0.0,
+        timeInMeshWeight = timeInMeshWeight ?? 0.0,
+        timeInMeshQuantum = timeInMeshQuantum ?? Duration.zero,
+        timeInMeshCap = timeInMeshCap ?? 0.0,
+        firstMessageDeliveriesWeight = firstMessageDeliveriesWeight ?? 0.0,
+        firstMessageDeliveriesDecay = firstMessageDeliveriesDecay ?? 0.0,
+        firstMessageDeliveriesCap = firstMessageDeliveriesCap ?? 0.0,
+        meshMessageDeliveriesWeight = meshMessageDeliveriesWeight ?? 0.0,
+        meshMessageDeliveriesDecay = meshMessageDeliveriesDecay ?? 0.0,
+        meshMessageDeliveriesCap = meshMessageDeliveriesCap ?? 0.0,
+        meshMessageDeliveriesThreshold = meshMessageDeliveriesThreshold ?? 0.0,
+        meshMessageDeliveriesWindow =
+            meshMessageDeliveriesWindow ?? Duration.zero,
+        meshMessageDeliveriesActivation =
+            meshMessageDeliveriesActivation ?? Duration.zero,
+        meshFailurePenaltyWeight = meshFailurePenaltyWeight ?? 0.0,
+        meshFailurePenaltyDecay = meshFailurePenaltyDecay ?? 0.0,
+        invalidMessageDeliveriesWeight = invalidMessageDeliveriesWeight ?? 0.0,
+        invalidMessageDeliveriesDecay = invalidMessageDeliveriesDecay ?? 0.0;
+
+  TopicScoreParams.$dec($R r)
+      : skipAtomicValidation = r.b(),
+        topicWeight = r.f64(),
+        timeInMeshWeight = r.f64(),
+        timeInMeshQuantum = Duration(microseconds: r.i64() ~/ 1000),
+        timeInMeshCap = r.f64(),
+        firstMessageDeliveriesWeight = r.f64(),
+        firstMessageDeliveriesDecay = r.f64(),
+        firstMessageDeliveriesCap = r.f64(),
+        meshMessageDeliveriesWeight = r.f64(),
+        meshMessageDeliveriesDecay = r.f64(),
+        meshMessageDeliveriesCap = r.f64(),
+        meshMessageDeliveriesThreshold = r.f64(),
+        meshMessageDeliveriesWindow = Duration(microseconds: r.i64() ~/ 1000),
+        meshMessageDeliveriesActivation =
+            Duration(microseconds: r.i64() ~/ 1000),
+        meshFailurePenaltyWeight = r.f64(),
+        meshFailurePenaltyDecay = r.f64(),
+        invalidMessageDeliveriesWeight = r.f64(),
+        invalidMessageDeliveriesDecay = r.f64();
+
+  /// Go: `SkipAtomicValidation`.
+  bool skipAtomicValidation;
+
+  /// Go: `TopicWeight`.
+  double topicWeight;
+
+  /// Go: `TimeInMeshWeight`.
+  double timeInMeshWeight;
+
+  /// Go: `TimeInMeshQuantum`.
+  Duration timeInMeshQuantum;
+
+  /// Go: `TimeInMeshCap`.
+  double timeInMeshCap;
+
+  /// Go: `FirstMessageDeliveriesWeight`.
+  double firstMessageDeliveriesWeight;
+
+  /// Go: `FirstMessageDeliveriesDecay`.
+  double firstMessageDeliveriesDecay;
+
+  /// Go: `FirstMessageDeliveriesCap`.
+  double firstMessageDeliveriesCap;
+
+  /// Go: `MeshMessageDeliveriesWeight`.
+  double meshMessageDeliveriesWeight;
+
+  /// Go: `MeshMessageDeliveriesDecay`.
+  double meshMessageDeliveriesDecay;
+
+  /// Go: `MeshMessageDeliveriesCap`.
+  double meshMessageDeliveriesCap;
+
+  /// Go: `MeshMessageDeliveriesThreshold`.
+  double meshMessageDeliveriesThreshold;
+
+  /// Go: `MeshMessageDeliveriesWindow`.
+  Duration meshMessageDeliveriesWindow;
+
+  /// Go: `MeshMessageDeliveriesActivation`.
+  Duration meshMessageDeliveriesActivation;
+
+  /// Go: `MeshFailurePenaltyWeight`.
+  double meshFailurePenaltyWeight;
+
+  /// Go: `MeshFailurePenaltyDecay`.
+  double meshFailurePenaltyDecay;
+
+  /// Go: `InvalidMessageDeliveriesWeight`.
+  double invalidMessageDeliveriesWeight;
+
+  /// Go: `InvalidMessageDeliveriesDecay`.
+  double invalidMessageDeliveriesDecay;
+
+  @override
+  void $enc($W w) {
+    w
+      ..b(skipAtomicValidation)
+      ..f64(topicWeight)
+      ..f64(timeInMeshWeight)
+      ..i64((timeInMeshQuantum).inMicroseconds * 1000)
+      ..f64(timeInMeshCap)
+      ..f64(firstMessageDeliveriesWeight)
+      ..f64(firstMessageDeliveriesDecay)
+      ..f64(firstMessageDeliveriesCap)
+      ..f64(meshMessageDeliveriesWeight)
+      ..f64(meshMessageDeliveriesDecay)
+      ..f64(meshMessageDeliveriesCap)
+      ..f64(meshMessageDeliveriesThreshold)
+      ..i64((meshMessageDeliveriesWindow).inMicroseconds * 1000)
+      ..i64((meshMessageDeliveriesActivation).inMicroseconds * 1000)
+      ..f64(meshFailurePenaltyWeight)
+      ..f64(meshFailurePenaltyDecay)
+      ..f64(invalidMessageDeliveriesWeight)
+      ..f64(invalidMessageDeliveriesDecay);
+  }
 }
 
 /// Go: `pubsub.ValidatorOpt` (functional option; constructors in the package).
@@ -372,6 +1049,17 @@ TopicOpt requestPartialMessages() => TopicOpt.$(1, (_) {});
 
 /// Go: `go-libp2p-pubsub.SupportsPartialMessages`.
 TopicOpt supportsPartialMessages() => TopicOpt.$(2, (_) {});
+
+/// Go: `go-libp2p-pubsub.WithAppSpecificRpcInspector`.
+Option withAppSpecificRpcInspector(
+        FutureOr<void> Function($peer.Id id, Rpc rpc) inspector) =>
+    Option.$(
+        1,
+        (w) => w
+          ..cb(
+              (r) =>
+                  inspector(r.p() ? $peer.Id(r.str()) : $nil(), r.hnn(Rpc.$h)),
+              true));
 
 /// Go: `go-libp2p-pubsub.WithBlacklist`.
 Option withBlacklist(Blacklist b) => Option.$(2, (w) => w..h(b));
@@ -423,6 +1111,19 @@ Option withEventTracer(EventTracer tracer) => Option.$(8, (w) => w..h(tracer));
 Option withFloodPublish(bool floodPublish) =>
     Option.$(9, (w) => w..b(floodPublish));
 
+/// Go: `go-libp2p-pubsub.WithGossipSubParams`.
+Option withGossipSubParams(GossipSubParams cfg) =>
+    Option.$(10, (w) => w..dto(cfg));
+
+/// Go: `go-libp2p-pubsub.WithGossipSubProtocols`.
+Option withGossipSubProtocols(List<String> protos,
+        FutureOr<bool> Function(int arg0, String arg1) feature) =>
+    Option.$(
+        11,
+        (w) => w
+          ..list(protos, (w0, e0) => w0.str(e0))
+          ..cb((r) => feature(r.i64(), r.str()), true));
+
 /// Go: `go-libp2p-pubsub.WithLocalPublication`.
 PubOpt withLocalPublication(bool local) => PubOpt.$(0, (w) => w..b(local));
 
@@ -441,8 +1142,18 @@ Option withMaxMessageSize(int maxMessageSize) =>
 Option withMessageAuthor($peer.Id author) =>
     Option.$(15, (w) => w..val(author));
 
+/// Go: `go-libp2p-pubsub.WithMessageFilter`.
+SubOpt withMessageFilter(FutureOr<bool> Function(Message message) filter) =>
+    SubOpt.$(
+        1, (w) => w..cb((r) => filter(r.p() ? Message.$dec(r) : $nil()), true));
+
 /// Go: `go-libp2p-pubsub.WithMessageIdFn`.
-Option withMessageIdFn(MsgIdFunction fn) => Option.$(16, (w) => w..h(fn));
+Option withMessageIdFn(FutureOr<String> Function($pb.Message pmsg) fn) =>
+    Option.$(
+        16,
+        (w) => w
+          ..cb((r) => fn(r.hnn($pb.Message.$h)), true,
+              (w, v) => w.str(v as String)));
 
 /// Go: `go-libp2p-pubsub.WithMessageSignaturePolicy`.
 Option withMessageSignaturePolicy(int policy) =>
@@ -458,7 +1169,17 @@ Option withNoAuthor() => Option.$(19, (_) {});
 Option withPeerExchange(bool doPx) => Option.$(21, (w) => w..b(doPx));
 
 /// Go: `go-libp2p-pubsub.WithPeerFilter`.
-Option withPeerFilter(PeerFilter filter) => Option.$(22, (w) => w..h(filter));
+Option withPeerFilter(
+        FutureOr<bool> Function($peer.Id pid, String topic) filter) =>
+    Option.$(
+        22,
+        (w) => w
+          ..cb((r) => filter(r.p() ? $peer.Id(r.str()) : $nil(), r.str()),
+              true));
+
+/// Go: `go-libp2p-pubsub.WithPeerGater`.
+Option withPeerGater(PeerGaterParams params) =>
+    Option.$(23, (w) => w..dto(params));
 
 /// Go: `go-libp2p-pubsub.WithPeerOutboundQueueSize`.
 Option withPeerOutboundQueueSize(int size) => Option.$(24, (w) => w..i64(size));
@@ -469,6 +1190,14 @@ Option withPeerScoreInspect(Object? inspect, Duration period) => Option.$(
     (w) => w
       ..any(inspect)
       ..i64((period).inMicroseconds * 1000));
+
+/// Go: `go-libp2p-pubsub.WithPeerScore`.
+Option withPeerScore(PeerScoreParams params, PeerScoreThresholds thresholds) =>
+    Option.$(
+        25,
+        (w) => w
+          ..dto(params)
+          ..dto(thresholds));
 
 /// Go: `go-libp2p-pubsub.WithRPCLogger`.
 Option withRpcLogger($slog.Logger logger) => Option.$(28, (w) => w..h(logger));
@@ -502,9 +1231,18 @@ Option withStrictSignatureVerification(bool required) =>
 Option withSubscriptionFilter(SubscriptionFilter subFilter) =>
     Option.$(33, (w) => w..h(subFilter));
 
+/// Go: `go-libp2p-pubsub.WithTestExtension`.
+Option withTestExtension(TestExtensionConfig c) =>
+    Option.$(34, (w) => w..dto(c));
+
 /// Go: `go-libp2p-pubsub.WithTopicMessageIdFn`.
-TopicOpt withTopicMessageIdFn(MsgIdFunction msgId) =>
-    TopicOpt.$(3, (w) => w..h(msgId));
+TopicOpt withTopicMessageIdFn(
+        FutureOr<String> Function($pb.Message pmsg) msgId) =>
+    TopicOpt.$(
+        3,
+        (w) => w
+          ..cb((r) => msgId(r.hnn($pb.Message.$h)), true,
+              (w, v) => w.str(v as String)));
 
 /// Go: `go-libp2p-pubsub.WithValidateQueueSize`.
 Option withValidateQueueSize(int n) => Option.$(35, (w) => w..i64(n));
@@ -536,12 +1274,18 @@ ValidatorOpt withValidatorTimeout(Duration timeout) =>
 Future<PubSub> newGossipSub($context.Context ctx, $host.Host h,
     [List<Option> opts = const []]) async {
   final $r = await $call(
-      434,
+      435,
       $W()
         ..h(ctx)
         ..h(h)
         ..list(opts, (w0, e0) => w0.opt(e0)));
   return $r.hnn(PubSub.$h);
+}
+
+/// Go: `func pubsub.DefaultGossipSubParams() pubsub.GossipSubParams`.
+GossipSubParams defaultGossipSubParams() {
+  final $r = $callSync(433);
+  return $r.p() ? GossipSubParams.$dec($r) : $nil();
 }
 
 /// Go: `const pubsub.AcceptAll pubsub.AcceptStatus`.

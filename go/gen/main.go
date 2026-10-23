@@ -63,7 +63,10 @@ var anyAs = map[string]map[int][2]string{
 	"github.com/libp2p/go-libp2p-pubsub.PubSub.RegisterTopicValidator": {1: {"github.com/libp2p/go-libp2p-pubsub", "ValidatorEx"}},
 }
 
-// forceAsync: funções sem context que bloqueiam (rede, desligamento).
+// forceAsync: funções sem context que bloqueiam (rede, desligamento). The
+// pubsub methods wait on its event loop, which waits on Dart while it runs a
+// subscription filter or a message ID function: synchronous, they would
+// deadlock the isolate.
 var forceAsync = setOf(`github.com/ipfs/kubo/core.IpfsNode.Close
 github.com/libp2p/go-libp2p.New
 github.com/libp2p/go-libp2p/core/host.Host.Close
@@ -72,7 +75,21 @@ github.com/libp2p/go-libp2p/core/network.Stream.Read
 github.com/libp2p/go-libp2p/core/network.Stream.Write
 github.com/libp2p/go-libp2p/core/network.Stream.Close
 github.com/libp2p/go-libp2p/core/network.Stream.CloseWrite
-github.com/libp2p/go-libp2p-kad-dht.IpfsDHT.Close`)
+github.com/libp2p/go-libp2p-kad-dht.IpfsDHT.Close
+github.com/libp2p/go-libp2p-pubsub.PubSub.Join
+github.com/libp2p/go-libp2p-pubsub.PubSub.GetTopics
+github.com/libp2p/go-libp2p-pubsub.PubSub.ListPeers
+github.com/libp2p/go-libp2p-pubsub.PubSub.BlacklistPeer
+github.com/libp2p/go-libp2p-pubsub.PubSub.AddDirectPeer
+github.com/libp2p/go-libp2p-pubsub.PubSub.RemoveDirectPeer
+github.com/libp2p/go-libp2p-pubsub.PubSub.RegisterTopicValidator
+github.com/libp2p/go-libp2p-pubsub.PubSub.UnregisterTopicValidator
+github.com/libp2p/go-libp2p-pubsub.Topic.Subscribe
+github.com/libp2p/go-libp2p-pubsub.Topic.ListPeers
+github.com/libp2p/go-libp2p-pubsub.Topic.EventHandler
+github.com/libp2p/go-libp2p-pubsub.Topic.Close
+github.com/libp2p/go-libp2p-pubsub.Subscription.Cancel
+github.com/libp2p/go-libp2p-pubsub.TopicEventHandler.Cancel`)
 
 type param struct {
 	name     string

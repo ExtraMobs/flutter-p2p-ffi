@@ -33,7 +33,7 @@ final class Result implements GoDto {
 
 /// Go: `func ping.Ping(ctx context.Context, h host.Host, p peer.ID) <-chan ping.Result`.
 Stream<Result> ping($context.Context ctx, $host.Host h, $peer.Id p) => $stream(
-        545,
+        548,
         $W()
           ..h(ctx)
           ..h(h)

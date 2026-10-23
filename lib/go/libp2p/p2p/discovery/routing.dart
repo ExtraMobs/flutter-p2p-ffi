@@ -14,7 +14,7 @@ class RoutingDiscovery extends $routing.ContentRouting {
 
   /// Go: `func routing.NewRoutingDiscovery(router routing.ContentRouting) *routing.RoutingDiscovery`.
   factory RoutingDiscovery($routing.ContentRouting router) {
-    final $r = $callSync(541, $W()..h(router));
+    final $r = $callSync(542, $W()..h(router));
     return $r.hnn(RoutingDiscovery.$h);
   }
 
@@ -24,7 +24,7 @@ class RoutingDiscovery extends $routing.ContentRouting {
   Future<Duration> advertise($context.Context ctx, String ns,
       [List<$discovery.Option> opts = const []]) async {
     final $r = await $call(
-        542,
+        543,
         $W()
           ..h(this)
           ..h(ctx)
@@ -37,7 +37,7 @@ class RoutingDiscovery extends $routing.ContentRouting {
   Stream<$peer.AddrInfo> findPeers($context.Context ctx, String ns,
           [List<$discovery.Option> opts = const []]) =>
       $stream(
-              543,
+              544,
               $W()
                 ..h(this)
                 ..h(ctx)

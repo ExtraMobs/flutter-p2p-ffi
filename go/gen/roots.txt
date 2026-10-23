@@ -572,3 +572,9 @@ github.com/libp2p/go-libp2p/core/event.Subscription.Close
 # (tcp.newTcpTransportFunc, noise.newFunc...; gen/tokens.go); the muxer is
 # a value
 github.com/libp2p/go-libp2p/p2p/muxer/yamux.DefaultTransport
+
+# 0.24 the defaults of the structs the options take (an option may now take a
+# struct, and keep a function: a retained callback)
+github.com/libp2p/go-libp2p-pubsub.DefaultGossipSubParams
+github.com/libp2p/go-libp2p/p2p/protocol/circuitv2/relay.DefaultResources
+github.com/libp2p/go-libp2p/p2p/protocol/circuitv2/relay.DefaultLimit

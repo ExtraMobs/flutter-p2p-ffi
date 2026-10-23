@@ -2,8 +2,11 @@
 // Go: github.com/libp2p/go-libp2p/p2p/transport/quicreuse
 library;
 
+import 'dart:async';
+
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/client_golang/prometheus.dart' as $prometheus;
+import 'package:p2p_ffi/go/net.dart' as $net;
 
 /// Go: `quicreuse.Option` (functional option; constructors in the package).
 final class Option extends GoOption {
@@ -16,6 +19,11 @@ Option disableReuseport() => Option.$(1, (_) {});
 /// Go: `quicreuse.EnableMetrics`.
 Option enableMetrics($prometheus.Registerer reg) =>
     Option.$(2, (w) => w..h(reg));
+
+/// Go: `quicreuse.VerifySourceAddress`.
+Option verifySourceAddress(FutureOr<bool> Function($net.Addr addr) f) =>
+    Option.$(
+        5, (w) => w..cb((r) => f(r.p() ? $net.Addr.$dec(r) : $nil()), true));
 
 /// Go: `quicreuse.WithQlogTracerDir`.
 Option withQlogTracerDir(String dir) => Option.$(6, (w) => w..str(dir));

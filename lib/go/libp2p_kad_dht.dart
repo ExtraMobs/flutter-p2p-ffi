@@ -2,6 +2,7 @@
 // Go: github.com/libp2p/go-libp2p-kad-dht
 library;
 
+import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:p2p_ffi/src/runtime.dart';
@@ -9,8 +10,10 @@ import 'package:p2p_ffi/go/cid.dart' as $cid;
 import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/datastore.dart' as $datastore;
 import 'package:p2p_ffi/go/libp2p/core/host.dart' as $host;
+import 'package:p2p_ffi/go/libp2p/core/network.dart' as $network;
 import 'package:p2p_ffi/go/libp2p/core/peer.dart' as $peer;
 import 'package:p2p_ffi/go/libp2p/core/routing.dart' as $routing;
+import 'package:p2p_ffi/go/libp2p_kad_dht/pb.dart' as $pb;
 import 'package:p2p_ffi/go/libp2p_kad_dht/records.dart' as $records;
 import 'package:p2p_ffi/go/libp2p_kbucket.dart' as $libp2p_kbucket;
 import 'package:p2p_ffi/go/libp2p_kbucket/peerdiversity.dart' as $peerdiversity;
@@ -165,16 +168,6 @@ final class Option extends GoOption {
   Option.$(super.$i, super.$a);
 }
 
-/// Go: `config.QueryFilterFunc` (handle).
-class QueryFilterFunc extends GoHandle {
-  QueryFilterFunc.$h(super.$h);
-}
-
-/// Go: `config.RouteTableFilterFunc` (handle).
-class RouteTableFilterFunc extends GoHandle {
-  RouteTableFilterFunc.$h(super.$h);
-}
-
 /// Go: `go-libp2p-kad-dht.BootstrapPeers`.
 Option bootstrapPeers([List<$peer.AddrInfo> bootstrappers = const []]) =>
     Option.$(1, (w) => w..list(bootstrappers, (w0, e0) => w0.dto(e0)));
@@ -217,6 +210,19 @@ Option namespacedValidator(String ns, $libp2p_record.Validator v) => Option.$(
       ..str(ns)
       ..h(v));
 
+/// Go: `go-libp2p-kad-dht.OnRequestHook`.
+Option onRequestHook(
+        FutureOr<void> Function(
+                $context.Context ctx, $network.Stream$ s, $pb.Message req)
+            f) =>
+    Option.$(
+        14,
+        (w) => w
+          ..cb(
+              (r) => f(r.hnn($context.Context.$h), r.hnn($network.Stream$.$h),
+                  r.hnn($pb.Message.$h)),
+              false));
+
 /// Go: `go-libp2p-kad-dht.OptimisticProvideJobsPoolSize`.
 Option optimisticProvideJobsPoolSize(int size) =>
     Option.$(15, (w) => w..i64(size));
@@ -236,14 +242,25 @@ Option providerManagerOpts([List<$records.Option> opts = const []]) =>
     Option.$(19, (w) => w..list(opts, (w0, e0) => w0.opt(e0)));
 
 /// Go: `go-libp2p-kad-dht.QueryFilter`.
-Option queryFilter(QueryFilterFunc filter) => Option.$(20, (w) => w..h(filter));
+Option queryFilter(
+        FutureOr<bool> Function(Object? dht, $peer.AddrInfo ai) filter) =>
+    Option.$(
+        20,
+        (w) => w
+          ..cb((r) => filter(r.any(), r.p() ? $peer.AddrInfo.$dec(r) : $nil()),
+              true));
 
 /// Go: `go-libp2p-kad-dht.Resiliency`.
 Option resiliency(int beta) => Option.$(21, (w) => w..i64(beta));
 
 /// Go: `go-libp2p-kad-dht.RoutingTableFilter`.
-Option routingTableFilter(RouteTableFilterFunc filter) =>
-    Option.$(22, (w) => w..h(filter));
+Option routingTableFilter(
+        FutureOr<bool> Function(Object? dht, $peer.Id p) filter) =>
+    Option.$(
+        22,
+        (w) => w
+          ..cb((r) => filter(r.any(), r.p() ? $peer.Id(r.str()) : $nil()),
+              true));
 
 /// Go: `go-libp2p-kad-dht.RoutingTableLatencyTolerance`.
 Option routingTableLatencyTolerance(Duration latency) =>

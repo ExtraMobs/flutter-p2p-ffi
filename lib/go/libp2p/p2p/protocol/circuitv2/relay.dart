@@ -2,7 +2,10 @@
 // Go: github.com/libp2p/go-libp2p/p2p/protocol/circuitv2/relay
 library;
 
+import 'dart:async';
+
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/multiaddr.dart' as $multiaddr;
 
 /// Go: `relay.ACLFilter` (handle).
 class AclFilter extends GoHandle {
@@ -19,9 +22,96 @@ final class Option extends GoOption {
   Option.$(super.$i, super.$a);
 }
 
-/// Go: `relay.ReservationAddressFilterFunc` (handle).
-class ReservationAddressFilterFunc extends GoHandle {
-  ReservationAddressFilterFunc.$h(super.$h);
+/// Go: `relay.RelayLimit`.
+final class RelayLimit implements GoDto {
+  RelayLimit({Duration? duration, int? data})
+      : duration = duration ?? Duration.zero,
+        data = data ?? 0;
+
+  RelayLimit.$dec($R r)
+      : duration = Duration(microseconds: r.i64() ~/ 1000),
+        data = r.i64();
+
+  /// Go: `Duration`.
+  Duration duration;
+
+  /// Go: `Data`.
+  int data;
+
+  @override
+  void $enc($W w) {
+    w
+      ..i64((duration).inMicroseconds * 1000)
+      ..i64(data);
+  }
+}
+
+/// Go: `relay.Resources`.
+final class Resources implements GoDto {
+  Resources(
+      {RelayLimit? limit,
+      Duration? reservationTtl,
+      int? maxReservations,
+      int? maxCircuits,
+      int? bufferSize,
+      int? maxReservationsPerPeer,
+      int? maxReservationsPerIp,
+      int? maxReservationsPerAsn})
+      : limit = limit,
+        reservationTtl = reservationTtl ?? Duration.zero,
+        maxReservations = maxReservations ?? 0,
+        maxCircuits = maxCircuits ?? 0,
+        bufferSize = bufferSize ?? 0,
+        maxReservationsPerPeer = maxReservationsPerPeer ?? 0,
+        maxReservationsPerIp = maxReservationsPerIp ?? 0,
+        maxReservationsPerAsn = maxReservationsPerAsn ?? 0;
+
+  Resources.$dec($R r)
+      : limit = r.p() ? RelayLimit.$dec(r) : null,
+        reservationTtl = Duration(microseconds: r.i64() ~/ 1000),
+        maxReservations = r.i64(),
+        maxCircuits = r.i64(),
+        bufferSize = r.i64(),
+        maxReservationsPerPeer = r.i64(),
+        maxReservationsPerIp = r.i64(),
+        maxReservationsPerAsn = r.i64();
+
+  /// Go: `Limit`.
+  RelayLimit? limit;
+
+  /// Go: `ReservationTTL`.
+  Duration reservationTtl;
+
+  /// Go: `MaxReservations`.
+  int maxReservations;
+
+  /// Go: `MaxCircuits`.
+  int maxCircuits;
+
+  /// Go: `BufferSize`.
+  int bufferSize;
+
+  /// Go: `MaxReservationsPerPeer`.
+  int maxReservationsPerPeer;
+
+  /// Go: `MaxReservationsPerIP`.
+  int maxReservationsPerIp;
+
+  /// Go: `MaxReservationsPerASN`.
+  int maxReservationsPerAsn;
+
+  @override
+  void $enc($W w) {
+    w
+      ..dto(limit)
+      ..i64((reservationTtl).inMicroseconds * 1000)
+      ..i64(maxReservations)
+      ..i64(maxCircuits)
+      ..i64(bufferSize)
+      ..i64(maxReservationsPerPeer)
+      ..i64(maxReservationsPerIp)
+      ..i64(maxReservationsPerAsn);
+  }
 }
 
 /// Go: `relay.WithACL`.
@@ -30,12 +120,35 @@ Option withAcl(AclFilter acl) => Option.$(0, (w) => w..h(acl));
 /// Go: `relay.WithInfiniteLimits`.
 Option withInfiniteLimits() => Option.$(1, (_) {});
 
+/// Go: `relay.WithLimit`.
+Option withLimit(RelayLimit limit) => Option.$(2, (w) => w..dto(limit));
+
 /// Go: `relay.WithMetricsTracer`.
 Option withMetricsTracer(MetricsTracer mt) => Option.$(3, (w) => w..h(mt));
 
 /// Go: `relay.WithReservationAddressFilter`.
-Option withReservationAddressFilter(ReservationAddressFilterFunc filter) =>
-    Option.$(4, (w) => w..h(filter));
+Option withReservationAddressFilter(
+        FutureOr<bool> Function($multiaddr.Multiaddr addr) filter) =>
+    Option.$(
+        4,
+        (w) => w
+          ..cb((r) => filter(r.p() ? $multiaddr.Multiaddr(r.str()) : $nil()),
+              true));
+
+/// Go: `relay.WithResources`.
+Option withResources(Resources rc) => Option.$(5, (w) => w..dto(rc));
+
+/// Go: `func relay.DefaultResources() relay.Resources`.
+Resources defaultResources() {
+  final $r = $callSync(547);
+  return $r.p() ? Resources.$dec($r) : $nil();
+}
+
+/// Go: `func relay.DefaultLimit() *relay.RelayLimit`.
+RelayLimit defaultLimit() {
+  final $r = $callSync(546);
+  return $r.p() ? RelayLimit.$dec($r) : $nil();
+}
 
 /// Go: `const relay.ConnectTimeout time.Duration`.
 const connectTimeout = Duration(microseconds: 30000000);

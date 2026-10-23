@@ -1044,6 +1044,22 @@ Omitted:
 | `const dht.ModeClient dht.ModeOpt` | `modeClient` | const |
 | `const dht.ModeServer dht.ModeOpt` | `modeServer` | const |
 
+## `github.com/libp2p/go-libp2p-kad-dht/pb` → `package:p2p_ffi/go/libp2p_kad_dht/pb.dart`
+
+| Go | Dart | Mode |
+|---|---|---|
+| `const dht_pb.MaxPeerRecordSize untyped int` | `maxPeerRecordSize` | const |
+| `const dht_pb.Message_ADD_PROVIDER dht_pb.Message_MessageType` | `messageAddProvider` | const |
+| `const dht_pb.Message_CANNOT_CONNECT dht_pb.Message_ConnectionType` | `messageCannotConnect` | const |
+| `const dht_pb.Message_CAN_CONNECT dht_pb.Message_ConnectionType` | `messageCanConnect` | const |
+| `const dht_pb.Message_CONNECTED dht_pb.Message_ConnectionType` | `messageConnected` | const |
+| `const dht_pb.Message_FIND_NODE dht_pb.Message_MessageType` | `messageFindNode` | const |
+| `const dht_pb.Message_GET_PROVIDERS dht_pb.Message_MessageType` | `messageGetProviders` | const |
+| `const dht_pb.Message_GET_VALUE dht_pb.Message_MessageType` | `messageGetValue` | const |
+| `const dht_pb.Message_NOT_CONNECTED dht_pb.Message_ConnectionType` | `messageNotConnected` | const |
+| `const dht_pb.Message_PING dht_pb.Message_MessageType` | `messagePing` | const |
+| `const dht_pb.Message_PUT_VALUE dht_pb.Message_MessageType` | `messagePutValue` | const |
+
 ## `github.com/libp2p/go-libp2p-kad-dht/records` → `package:p2p_ffi/go/libp2p_kad_dht/records.dart`
 
 | Go | Dart | Mode |
@@ -1063,26 +1079,27 @@ Omitted:
 | Go | Dart | Mode |
 |---|---|---|
 | `func pubsub.NewGossipSub(ctx context.Context, h host.Host, opts ...pubsub.Option) (*pubsub.PubSub, error)` | `newGossipSub` | Future |
-| `func (*pubsub.PubSub).Join(topic string, opts ...pubsub.TopicOpt) (*pubsub.Topic, error)` | `PubSub.join` | sync |
-| `func (*pubsub.PubSub).GetTopics() []string` | `PubSub.getTopics` | sync |
-| `func (*pubsub.PubSub).ListPeers(topic string) []peer.ID` | `PubSub.listPeers` | sync |
-| `func (*pubsub.PubSub).AddDirectPeer(pInfo peer.AddrInfo) error` | `PubSub.addDirectPeer` | sync |
-| `func (*pubsub.PubSub).RemoveDirectPeer(pid peer.ID) error` | `PubSub.removeDirectPeer` | sync |
-| `func (*pubsub.PubSub).BlacklistPeer(pid peer.ID)` | `PubSub.blacklistPeer` | sync |
+| `func (*pubsub.PubSub).Join(topic string, opts ...pubsub.TopicOpt) (*pubsub.Topic, error)` | `PubSub.join` | Future |
+| `func (*pubsub.PubSub).GetTopics() []string` | `PubSub.getTopics` | Future |
+| `func (*pubsub.PubSub).ListPeers(topic string) []peer.ID` | `PubSub.listPeers` | Future |
+| `func (*pubsub.PubSub).AddDirectPeer(pInfo peer.AddrInfo) error` | `PubSub.addDirectPeer` | Future |
+| `func (*pubsub.PubSub).RemoveDirectPeer(pid peer.ID) error` | `PubSub.removeDirectPeer` | Future |
+| `func (*pubsub.PubSub).BlacklistPeer(pid peer.ID)` | `PubSub.blacklistPeer` | Future |
 | `func (*pubsub.Topic).Publish(ctx context.Context, data []byte, opts ...pubsub.PubOpt) error` | `Topic.publish` | Future |
-| `func (*pubsub.Topic).Subscribe(opts ...pubsub.SubOpt) (*pubsub.Subscription, error)` | `Topic.subscribe` | sync |
-| `func (*pubsub.Topic).ListPeers() []peer.ID` | `Topic.listPeers` | sync |
-| `func (*pubsub.Topic).EventHandler(opts ...pubsub.TopicEventHandlerOpt) (*pubsub.TopicEventHandler, error)` | `Topic.eventHandler` | sync |
+| `func (*pubsub.Topic).Subscribe(opts ...pubsub.SubOpt) (*pubsub.Subscription, error)` | `Topic.subscribe` | Future |
+| `func (*pubsub.Topic).ListPeers() []peer.ID` | `Topic.listPeers` | Future |
+| `func (*pubsub.Topic).EventHandler(opts ...pubsub.TopicEventHandlerOpt) (*pubsub.TopicEventHandler, error)` | `Topic.eventHandler` | Future |
 | `func (*pubsub.Topic).String() string` | `Topic.string` | sync |
-| `func (*pubsub.Topic).Close() error` | `Topic.close` | sync |
+| `func (*pubsub.Topic).Close() error` | `Topic.close` | Future |
 | `func (*pubsub.Subscription).Next(ctx context.Context) (*pubsub.Message, error)` | `Subscription.next` | Future |
 | `func (*pubsub.Subscription).Topic() string` | `Subscription.topic` | sync |
-| `func (*pubsub.Subscription).Cancel()` | `Subscription.cancel` | sync |
+| `func (*pubsub.Subscription).Cancel()` | `Subscription.cancel` | Future |
 | `func (*pubsub.Message).GetFrom() peer.ID` | `Message.getFrom` | sync |
 | `func (*pubsub.TopicEventHandler).NextPeerEvent(ctx context.Context) (pubsub.PeerEvent, error)` | `TopicEventHandler.nextPeerEvent` | Future |
-| `func (*pubsub.TopicEventHandler).Cancel()` | `TopicEventHandler.cancel` | sync |
-| `func (*pubsub.PubSub).RegisterTopicValidator(topic string, val any, opts ...pubsub.ValidatorOpt) error` | `PubSub.registerTopicValidator` | sync |
-| `func (*pubsub.PubSub).UnregisterTopicValidator(topic string) error` | `PubSub.unregisterTopicValidator` | sync |
+| `func (*pubsub.TopicEventHandler).Cancel()` | `TopicEventHandler.cancel` | Future |
+| `func (*pubsub.PubSub).RegisterTopicValidator(topic string, val any, opts ...pubsub.ValidatorOpt) error` | `PubSub.registerTopicValidator` | Future |
+| `func (*pubsub.PubSub).UnregisterTopicValidator(topic string) error` | `PubSub.unregisterTopicValidator` | Future |
+| `func pubsub.DefaultGossipSubParams() pubsub.GossipSubParams` | `defaultGossipSubParams` | sync |
 | `const pubsub.AcceptAll pubsub.AcceptStatus` | `acceptAll` | const |
 | `const pubsub.AcceptControl pubsub.AcceptStatus` | `acceptControl` | const |
 | `const pubsub.AcceptNone pubsub.AcceptStatus` | `acceptNone` | const |
@@ -1385,6 +1402,8 @@ Omitted:
 
 | Go | Dart | Mode |
 |---|---|---|
+| `func relay.DefaultResources() relay.Resources` | `defaultResources` | sync |
+| `func relay.DefaultLimit() *relay.RelayLimit` | `defaultLimit` | sync |
 | `const relay.ConnectTimeout time.Duration` | `connectTimeout` | const |
 | `const relay.HandshakeTimeout time.Duration` | `handshakeTimeout` | const |
 | `const relay.ReservationTagWeight untyped int` | `reservationTagWeight` | const |
@@ -2168,6 +2187,19 @@ Omitted:
 | `const slog.SourceKey untyped string` | `sourceKey` | const |
 | `const slog.TimeKey untyped string` | `timeKey` | const |
 
+## `net` → `package:p2p_ffi/go/net.dart`
+
+| Go | Dart | Mode |
+|---|---|---|
+| `const net.FlagBroadcast net.Flags` | `flagBroadcast` | const |
+| `const net.FlagLoopback net.Flags` | `flagLoopback` | const |
+| `const net.FlagMulticast net.Flags` | `flagMulticast` | const |
+| `const net.FlagPointToPoint net.Flags` | `flagPointToPoint` | const |
+| `const net.FlagRunning net.Flags` | `flagRunning` | const |
+| `const net.FlagUp net.Flags` | `flagUp` | const |
+| `const net.IPv4len untyped int` | `iPv4len` | const |
+| `const net.IPv6len untyped int` | `iPv6len` | const |
+
 ## `os` → `package:p2p_ffi/go/os.dart`
 
 | Go | Dart | Mode |
@@ -2224,27 +2256,16 @@ Omitted:
 
 - `dht.AddressFilter` (dht.Option): parameter f: func([]github.com/multiformats/go-multiaddr.Multiaddr) []github.com/multiformats/go-multiaddr.Multiaddr
 - `dht.BootstrapPeersFunc` (dht.Option): parameter getBootstrapPeers: func() []github.com/libp2p/go-libp2p/core/peer.AddrInfo
-- `dht.OnRequestHook` (dht.Option): parameter f: func(ctx context.Context, s github.com/libp2p/go-libp2p/core/network.Stream, req *github.com/libp2p/go-libp2p-kad-dht/pb.Message)
 - `dht.WithCustomMessageSender` (dht.Option): parameter messageSenderBuilder: func(h github.com/libp2p/go-libp2p/core/host.Host, protos []github.com/libp2p/go-libp2p/core/protocol.ID) github.com/libp2p/go-libp2p-kad-dht/pb.MessageSenderWithDisconnect
 - `gateway.WithPrometheusRegistry` (gateway.BackendOption): Prometheus metrics (no namespace; the gateway uses the default registry)
 - `libp2p.DefaultPrometheusRegisterer` (config.Option): Prometheus metrics (no namespace; libp2p uses the default registerer)
 - `libp2p.PrometheusRegisterer` (config.Option): Prometheus metrics (no namespace; libp2p uses the default registerer)
 - `libp2p.WithFxOption` (config.Option): the fx dependency injection inside libp2p (Go values only)
-- `pubsub.WithAppSpecificRpcInspector` (pubsub.Option): parameter inspector: func(github.com/libp2p/go-libp2p/core/peer.ID, *github.com/libp2p/go-libp2p-pubsub.RPC) error
-- `pubsub.WithGossipSubParams` (pubsub.Option): parameter cfg: github.com/libp2p/go-libp2p-pubsub.GossipSubParams
-- `pubsub.WithGossipSubProtocols` (pubsub.Option): parameter feature: func(github.com/libp2p/go-libp2p-pubsub.GossipSubFeature, github.com/libp2p/go-libp2p/core/protocol.ID) bool
-- `pubsub.WithMessageFilter` (pubsub.SubOpt): parameter filter: func(*github.com/libp2p/go-libp2p-pubsub.Message) bool
 - `pubsub.WithPartialMessagesExtension` (pubsub.Option): parameter pm: *generic github.com/libp2p/go-libp2p-pubsub/partialmessages.PartialMessagesExtension[PeerState]
-- `pubsub.WithPeerGater` (pubsub.Option): parameter params: *github.com/libp2p/go-libp2p-pubsub.PeerGaterParams
-- `pubsub.WithPeerScore` (pubsub.Option): parameter params: *github.com/libp2p/go-libp2p-pubsub.PeerScoreParams
 - `pubsub.WithProtocolMatchFn` (pubsub.Option): parameter m: func(github.com/libp2p/go-libp2p/core/protocol.ID) func(github.com/libp2p/go-libp2p/core/protocol.ID) bool
-- `pubsub.WithTestExtension` (pubsub.Option): parameter c: github.com/libp2p/go-libp2p-pubsub.TestExtensionConfig
 - `quicreuse.ConnContext` (quicreuse.Option): parameter f: func(ctx context.Context, clientInfo *github.com/quic-go/quic-go.ClientInfo) (context.Context, error)
 - `quicreuse.OverrideListenUDP` (quicreuse.Option): parameter f: unexported type github.com/libp2p/go-libp2p/p2p/transport/quicreuse.listenUDP
 - `quicreuse.OverrideSourceIPSelector` (quicreuse.Option): parameter f: func() (github.com/libp2p/go-libp2p/p2p/transport/quicreuse.SourceIPSelector, error)
-- `quicreuse.VerifySourceAddress` (quicreuse.Option): parameter f: func(addr net.Addr) bool
-- `relay.WithLimit` (relay.Option): parameter limit: *github.com/libp2p/go-libp2p/p2p/protocol/circuitv2/relay.RelayLimit
-- `relay.WithResources` (relay.Option): parameter rc: github.com/libp2p/go-libp2p/p2p/protocol/circuitv2/relay.Resources
 
 ## Adaptations (generator rules and hand-written code)
 
@@ -2267,6 +2288,7 @@ Omitted:
 - Functional options built in another package come with it: libp2p's (`libp2p.listenAddrStrings(...)`) build a `config.Option` (`libp2p.Option` is its alias), and a package variable of the option's type is a getter (`libp2p.noListenAddrs`). The type of an internal package seen through an exported alias of the same name lives in the alias's library (`dht.Option`).
 - An `any` parameter that takes one Go type (table `anyAs`: `pubsub.registerTopicValidator`'s `val` is a `ValidatorEx`) crosses as that type; a retained callback may return a basic value (`pubsub.validationAccept`), and `cbOnThrow` says what Go gets when the Dart function throws (`validationReject`).
 - Tokens (`go/gen/tokens.go`, WIRE.md tag 9): a listed struct type has `static const $type`, which Go turns into `new(T)` where a parameter takes the type by example (`bus.subscribe(event.EvtPeerConnectednessChanged.$type)`, or a list of them), and its values come out of a dynamic value as the class (`sub.out()`); a listed Go function is a `<name>Func` constant that Go gets as the function itself (`libp2p.transport(tcp.newTcpTransportFunc)`).
+- An option constructor takes what a function takes: a struct (`pubsub.withGossipSubParams(pubsub.defaultGossipSubParams()..d = 8)`), and a function it keeps becomes a retained callback (`pubsub.withMessageFilter((m) => ...)`, `dht.onRequestHook`); an option inside an option stays one (`namesys.ResolveOption`).
 - A trailing variadic whose type does not cross is left out: Go gets none (`event.Bus.Subscribe`'s `opts`), noted under the package.
 - `time.Duration` is a Dart `Duration` (nanoseconds on the wire, rounded to microseconds in Dart).
 - Errors that wrap `io.EOF`, `io.ErrUnexpectedEOF`, `context.Canceled`, `context.DeadlineExceeded` or IPLD's not found become `GolangEofException`, `GolangUnexpectedEofException`, `GolangCanceledException`, `GolangDeadlineExceededException` and `GolangNotFoundException` (subclasses of `GolangException`), as Go's `errors.Is` would find them.
