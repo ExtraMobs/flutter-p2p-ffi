@@ -1,5 +1,30 @@
 # Pendências do ipfs_ffi
 
+## Done: package functions and value type methods (0.25.0)
+
+The owner asked for the package functions that were missing (`cid.Parse` and others).
+
+- A census with the generator itself (a temporary test over `resolve`/`check`), over the
+  packages of `roots.txt`: 868 exported functions, 108 exposed, 509 more it accepted; 2363
+  methods, 310 exposed, 1892 more. Most of it is noise (`bytes`/`os`/`io`, the protobuf
+  getters of `pubsub/pb`, the `coreapi` implementation behind `coreiface`, `datastore`
+  internals), and the ~130 functions that return an option are already the option
+  constructors. 66 curated roots: building and converting CIDs, peer IDs, multiaddrs,
+  paths and IPNS names; the keys of each type; dag-pb links; the repo's paths and lock.
+- The real gap was the methods of the value types (`Cid`, `peer.ID`, `Multiaddr`, `Path`,
+  `ipns.Name`): the generator refused a receiver that is not a handle or a DTO (79 of the
+  refusals). Now the receiver of a value type with a Dart class crosses as its string
+  (the `dec` of `wire.go`), and the method lives in the class: 30 roots. Go's `String()` is
+  the class's `value`, so it is not listed.
+- Left out: `Multiaddr.Protocols` (each `Protocol` carries a `Transcoder` handle to
+  release), `cid.MustParse` and `multiaddr.StringCast`/`Cast` (they panic; `parse` and
+  `newMultiaddr` answer with an error), `cid.Set` (Dart's `Set<Cid>`), `Cid.KeyString`
+  (binary in a string), IPNS records (`ipns.NewRecord`, `Validate`).
+- `multiaddr.join`/`encapsulate` take `Multiaddrer`, a snapshot class:
+  `Multiaddrer(multiaddr: a)`.
+- Checked: dart test (`test/package_funcs_test.dart`, 8 tests; the whole suite, 113),
+  go vet, go test, gen -check, on Windows; linux and Android not rebuilt.
+
 ## Done: the pending checks on a real phone (2026-10-23)
 
 Android 16 (HyperOS), arm64, by USB. HyperOS asks to confirm every install by USB: an

@@ -3,6 +3,29 @@
 Newest first. Measurements, findings and the reasoning behind each change are in
 [`TODO.md`](TODO.md); the full API, with what was left out and why, in [`API.md`](API.md).
 
+## 0.25.0
+
+Package functions and value type methods, to build and read values without a node.
+
+- **Package functions** (66): `cid.decode`, `parse`, `cast`, `cidFromBytes`, `newCidV0`,
+  `newCidV1`, `prefixFromBytes`, `extractEncoding`, `Prefix.bytes`; `peer.decode`,
+  `idFromBytes`, `fromCid`, `toCid`, `idFromP2pAddr`, `splitAddr`, `addrInfosToIds`;
+  `multiaddr.newMultiaddr`, `newMultiaddrBytes`, `join`, `contains`, `unique`;
+  `path.newPath`, `newPathFromSegments`, `join`, `fromCid`, `newImmutablePath`,
+  `segmentsToString`, `stringToSegments`; `ipns.nameFromString`, `nameFromPeer`,
+  `nameFromCid`, `nameFromRoutingKey`; the `crypto.unmarshal*` of each key type,
+  `keyEqual`, `configEncodeKey`/`configDecodeKey`, `Key.raw`/`type`/`equals`;
+  `peerstore.addrInfos`; `merkledag.decodeProtobuf`, `v0CidPrefix`, `v1CidPrefix`,
+  `prefixForCidVersion`, the links of a `ProtoNode`; `format.makeLink`, `getLinks`, `copy`;
+  `config.pathRoot`, `fsrepo.bestKnownPath`, `lockedByOtherProcess`, `apiAddr`.
+- **Methods of the value types** (30; the generator takes a value type as a receiver):
+  `Cid.version`, `type`, `hash`, `bytes`, `byteLen`, `prefix`, `equals`, `defined`,
+  `stringOfBase`; `Id.validate`, `marshal`, `extractPublicKey`, `matchesPrivateKey`,
+  `matchesPublicKey`, `shortString`; `Multiaddr.bytes`, `equal`, `compare`, `encapsulate`,
+  `decapsulate`, `valueForProtocol`; `Path.namespace`, `mutable`, `segments`,
+  `ImmutablePath.rootCid`; `Name.peer`, `cid`, `asPath`, `routingKey`, `equal`. Each one is
+  a call to the host (synchronous), like any other function.
+
 ## 0.24.0
 
 Options take structs and keep functions.
