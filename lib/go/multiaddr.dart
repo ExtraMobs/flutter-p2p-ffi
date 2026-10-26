@@ -2,11 +2,63 @@
 // Go: github.com/multiformats/go-multiaddr
 library;
 
+import 'dart:typed_data';
+
 import 'package:p2p_ffi/src/runtime.dart';
 
 /// Go: `multiaddr.Multiaddr` (valor).
 class Multiaddr extends GoValue {
   const Multiaddr(super.value);
+}
+
+/// Go: `multiaddr.Multiaddrer` (values read from the methods; built in Dart, it
+/// crosses as a Go value that returns them).
+final class Multiaddrer implements GoDto {
+  Multiaddrer({Multiaddr? multiaddr}) : multiaddr = multiaddr;
+
+  Multiaddrer.$dec($R r) : multiaddr = r.p() ? Multiaddr(r.str()) : null;
+
+  /// Go: `Multiaddr()`.
+  final Multiaddr? multiaddr;
+
+  @override
+  void $enc($W w) {
+    w..val(multiaddr);
+  }
+}
+
+/// Go: `func multiaddr.NewMultiaddr(s string) (a multiaddr.Multiaddr, err error)`.
+Multiaddr newMultiaddr(String s) {
+  final $r = $callSync(612, $W()..str(s));
+  return $r.p() ? Multiaddr($r.str()) : $nil();
+}
+
+/// Go: `func multiaddr.NewMultiaddrBytes(b []byte) (a multiaddr.Multiaddr, err error)`.
+Multiaddr newMultiaddrBytes(Uint8List b) {
+  final $r = $callSync(613, $W()..bytes(b));
+  return $r.p() ? Multiaddr($r.str()) : $nil();
+}
+
+/// Go: `func multiaddr.Join(msInterfaces ...multiaddr.Multiaddrer) multiaddr.Multiaddr`.
+Multiaddr join([List<Multiaddrer> msInterfaces = const []]) {
+  final $r = $callSync(611, $W()..list(msInterfaces, (w0, e0) => w0.dto(e0)));
+  return $r.p() ? Multiaddr($r.str()) : $nil();
+}
+
+/// Go: `func multiaddr.Contains(addrs []multiaddr.Multiaddr, addr multiaddr.Multiaddr) bool`.
+bool contains(List<Multiaddr> addrs, Multiaddr addr) {
+  final $r = $callSync(
+      610,
+      $W()
+        ..list(addrs, (w0, e0) => w0.val(e0))
+        ..val(addr));
+  return $r.b();
+}
+
+/// Go: `func multiaddr.Unique(addrs []multiaddr.Multiaddr) []multiaddr.Multiaddr`.
+List<Multiaddr> unique(List<Multiaddr> addrs) {
+  final $r = $callSync(614, $W()..list(addrs, (w0, e0) => w0.val(e0)));
+  return $r.list(() => $r.p() ? Multiaddr($r.str()) : $nil());
 }
 
 /// Go: `const multiaddr.ActionAccept multiaddr.Action`.

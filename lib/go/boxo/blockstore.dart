@@ -16,7 +16,7 @@ class Blockstore extends GoHandle {
   /// Go: `func blockstore.NewBlockstore(d datastore.Batching, opts ...blockstore.Option) blockstore.Blockstore`.
   factory Blockstore($datastore.Batching d, [List<Option> opts = const []]) {
     final $r = $callSync(
-        101,
+        103,
         $W()
           ..h(d)
           ..list(opts, (w0, e0) => w0.h(e0)));
@@ -28,7 +28,7 @@ class Blockstore extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> put($context.Context ctx, $block_format.Block block) async {
     await $call(
-        97,
+        99,
         $W()
           ..h(this)
           ..h(ctx)
@@ -40,7 +40,7 @@ class Blockstore extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> has($context.Context ctx, $cid.Cid cid) async {
     final $r = await $call(
-        96,
+        98,
         $W()
           ..h(this)
           ..h(ctx)
@@ -53,7 +53,7 @@ class Blockstore extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<$block_format.Block> get($context.Context ctx, $cid.Cid cid) async {
     final $r = await $call(
-        94,
+        96,
         $W()
           ..h(this)
           ..h(ctx)
@@ -66,7 +66,7 @@ class Blockstore extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> deleteBlock($context.Context ctx, $cid.Cid cid) async {
     await $call(
-        93,
+        95,
         $W()
           ..h(this)
           ..h(ctx)
@@ -78,7 +78,7 @@ class Blockstore extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> getSize($context.Context ctx, $cid.Cid cid) async {
     final $r = await $call(
-        95,
+        97,
         $W()
           ..h(this)
           ..h(ctx)
@@ -88,7 +88,7 @@ class Blockstore extends GoHandle {
 
   /// Go: `func (blockstore.Blockstore).AllKeysChan(ctx context.Context) (<-chan cid.Cid, error)`.
   Stream<$cid.Cid> allKeysChan($context.Context ctx) => $stream(
-          92,
+          94,
           $W()
             ..h(this)
             ..h(ctx))
@@ -127,7 +127,7 @@ class GcLocker extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<Unlocker> gcLock($context.Context ctx) async {
     final $r = await $call(
-        98,
+        100,
         $W()
           ..h(this)
           ..h(ctx));
@@ -139,7 +139,7 @@ class GcLocker extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<Unlocker> pinLock($context.Context ctx) async {
     final $r = await $call(
-        100,
+        102,
         $W()
           ..h(this)
           ..h(ctx));
@@ -151,7 +151,7 @@ class GcLocker extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> gcRequested($context.Context ctx) async {
     final $r = await $call(
-        99,
+        101,
         $W()
           ..h(this)
           ..h(ctx));
@@ -179,7 +179,7 @@ class Unlocker extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> unlock($context.Context ctx) async {
     await $call(
-        102,
+        104,
         $W()
           ..h(this)
           ..h(ctx));

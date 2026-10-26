@@ -19,7 +19,7 @@ class DagService extends NodeGetter {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> add($context.Context ctx, Node node) async {
     await $call(
-        181,
+        214,
         $W()
           ..h(this)
           ..h(ctx)
@@ -72,31 +72,31 @@ class Node extends Resolver {
 
   /// Go: `func (blocks.Block).Cid() cid.Cid`.
   $cid.Cid cid() {
-    final $r = $callSync(182, $W()..h(this));
+    final $r = $callSync(217, $W()..h(this));
     return $r.p() ? $cid.Cid($r.str()) : $nil();
   }
 
   /// Go: `func (blocks.Block).RawData() []byte`.
   Uint8List rawData() {
-    final $r = $callSync(184, $W()..h(this));
+    final $r = $callSync(219, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (format.Node).Links() []*format.Link`.
   List<Link> links() {
-    final $r = $callSync(183, $W()..h(this));
+    final $r = $callSync(218, $W()..h(this));
     return $r.list(() => $r.p() ? Link.$dec($r) : $nil());
   }
 
   /// Go: `func (format.Node).Size() (uint64, error)`.
   int size() {
-    final $r = $callSync(185, $W()..h(this));
+    final $r = $callSync(220, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (format.Node).Stat() (*format.NodeStat, error)`.
   NodeStat stat() {
-    final $r = $callSync(186, $W()..h(this));
+    final $r = $callSync(221, $W()..h(this));
     return $r.p() ? NodeStat.$dec($r) : $nil();
   }
 
@@ -122,7 +122,7 @@ class NodeAdder extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> add($context.Context ctx, Node node) async {
     await $call(
-        187,
+        222,
         $W()
           ..h(this)
           ..h(ctx)
@@ -134,7 +134,7 @@ class NodeAdder extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> addMany($context.Context ctx, List<Node> nodes) async {
     await $call(
-        188,
+        223,
         $W()
           ..h(this)
           ..h(ctx)
@@ -163,7 +163,7 @@ class NodeGetter extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<Node> get($context.Context ctx, $cid.Cid cid) async {
     final $r = await $call(
-        189,
+        224,
         $W()
           ..h(this)
           ..h(ctx)
@@ -265,4 +265,38 @@ final class NodeStat implements GoDto {
 /// Go: `format.Resolver` (handle).
 class Resolver extends GoHandle {
   Resolver.$h(super.$h);
+}
+
+/// Go: `func format.MakeLink(n format.Node) (*format.Link, error)`.
+Link makeLink(Node n) {
+  final $r = $callSync(216, $W()..h(n));
+  return $r.p() ? Link.$dec($r) : $nil();
+}
+
+/// Go: `func format.GetLinks(ctx context.Context, ng format.NodeGetter, c cid.Cid) ([]*format.Link, error)`.
+///
+/// Asynchronous: runs in a goroutine of the service.
+Future<List<Link>> getLinks(
+    $context.Context ctx, NodeGetter ng, $cid.Cid c) async {
+  final $r = await $call(
+      215,
+      $W()
+        ..h(ctx)
+        ..h(ng)
+        ..val(c));
+  return $r.list(() => $r.p() ? Link.$dec($r) : $nil());
+}
+
+/// Go: `func format.Copy(ctx context.Context, from format.DAGService, to format.DAGService, root cid.Cid) error`.
+///
+/// Asynchronous: runs in a goroutine of the service.
+Future<void> copy(
+    $context.Context ctx, DagService from, DagService to, $cid.Cid root) async {
+  await $call(
+      213,
+      $W()
+        ..h(ctx)
+        ..h(from)
+        ..h(to)
+        ..val(root));
 }

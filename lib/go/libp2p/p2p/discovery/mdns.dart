@@ -20,7 +20,7 @@ class Notifee extends GoHandle {
   factory Notifee(
       {FutureOr<void> Function($peer.AddrInfo addrInfo)? handlePeerFound}) {
     final $r = $callSync(
-        539,
+        600,
         $W()
           ..cb(
               handlePeerFound == null
@@ -38,19 +38,19 @@ class Service extends $io.Closer {
 
   /// Go: `func (mdns.Service).Start() error`.
   void start() {
-    $callSync(541, $W()..h(this));
+    $callSync(602, $W()..h(this));
   }
 
   /// Go: `func (io.Closer).Close() error`.
   void close() {
-    $callSync(540, $W()..h(this));
+    $callSync(601, $W()..h(this));
   }
 }
 
 /// Go: `func mdns.NewMdnsService(host host.Host, serviceName string, notifee mdns.Notifee) *mdns.mdnsService`.
 Service newMdnsService($host.Host host, String serviceName, Notifee notifee) {
   final $r = $callSync(
-      538,
+      599,
       $W()
         ..h(host)
         ..str(serviceName)

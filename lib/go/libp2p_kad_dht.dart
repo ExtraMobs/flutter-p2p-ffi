@@ -29,7 +29,7 @@ class IpfsDht extends $routing.ContentRouting {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> bootstrap($context.Context ctx) async {
     await $call(
-        418,
+        457,
         $W()
           ..h(this)
           ..h(ctx));
@@ -40,7 +40,7 @@ class IpfsDht extends $routing.ContentRouting {
   /// Asynchronous: runs in a goroutine of the service.
   Future<$peer.AddrInfo> findPeer($context.Context ctx, $peer.Id id) async {
     final $r = await $call(
-        420,
+        459,
         $W()
           ..h(this)
           ..h(ctx)
@@ -53,7 +53,7 @@ class IpfsDht extends $routing.ContentRouting {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> provide($context.Context ctx, $cid.Cid key, bool brdcst) async {
     await $call(
-        427,
+        466,
         $W()
           ..h(this)
           ..h(ctx)
@@ -67,7 +67,7 @@ class IpfsDht extends $routing.ContentRouting {
   Future<List<$peer.AddrInfo>> findProviders(
       $context.Context ctx, $cid.Cid c) async {
     final $r = await $call(
-        421,
+        460,
         $W()
           ..h(this)
           ..h(ctx)
@@ -79,7 +79,7 @@ class IpfsDht extends $routing.ContentRouting {
   Stream<$peer.AddrInfo> findProvidersAsync(
           $context.Context ctx, $cid.Cid key, int count) =>
       $stream(
-              422,
+              461,
               $W()
                 ..h(this)
                 ..h(ctx)
@@ -93,7 +93,7 @@ class IpfsDht extends $routing.ContentRouting {
   Future<List<$peer.Id>> getClosestPeers(
       $context.Context ctx, String key) async {
     final $r = await $call(
-        423,
+        462,
         $W()
           ..h(this)
           ..h(ctx)
@@ -107,7 +107,7 @@ class IpfsDht extends $routing.ContentRouting {
   Future<void> putValue($context.Context ctx, String key, Uint8List value,
       [List<$routing.Option> opts = const []]) async {
     await $call(
-        428,
+        467,
         $W()
           ..h(this)
           ..h(ctx)
@@ -122,7 +122,7 @@ class IpfsDht extends $routing.ContentRouting {
   Future<Uint8List> getValue($context.Context ctx, String key,
       [List<$routing.Option> opts = const []]) async {
     final $r = await $call(
-        424,
+        463,
         $W()
           ..h(this)
           ..h(ctx)
@@ -136,7 +136,7 @@ class IpfsDht extends $routing.ContentRouting {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> ping($context.Context ctx, $peer.Id p) async {
     await $call(
-        426,
+        465,
         $W()
           ..h(this)
           ..h(ctx)
@@ -145,13 +145,13 @@ class IpfsDht extends $routing.ContentRouting {
 
   /// Go: `func (*dht.IpfsDHT).Mode() dht.ModeOpt`.
   int mode() {
-    final $r = $callSync(425, $W()..h(this));
+    final $r = $callSync(464, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*dht.IpfsDHT).RoutingTable() *kbucket.RoutingTable`.
   $libp2p_kbucket.RoutingTable routingTable() {
-    final $r = $callSync(429, $W()..h(this));
+    final $r = $callSync(468, $W()..h(this));
     return $r.hnn($libp2p_kbucket.RoutingTable.$h);
   }
 
@@ -159,7 +159,7 @@ class IpfsDht extends $routing.ContentRouting {
   ///
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> close() async {
-    await $call(419, $W()..h(this));
+    await $call(458, $W()..h(this));
   }
 }
 
@@ -295,7 +295,7 @@ Option valueGcInterval(Duration interval) =>
 /// Go: `func dht.New(h host.Host, options ...dht.Option) (_ *dht.IpfsDHT, err error)`.
 IpfsDht new$($host.Host h, [List<Option> options = const []]) {
   final $r = $callSync(
-      430,
+      469,
       $W()
         ..h(h)
         ..list(options, (w0, e0) => w0.opt(e0)));
@@ -304,7 +304,7 @@ IpfsDht new$($host.Host h, [List<Option> options = const []]) {
 
 /// Go: `var dht.DefaultBootstrapPeers []multiaddr.Multiaddr`.
 List<$multiaddr.Multiaddr> get defaultBootstrapPeers {
-  final $r = $callSync(417);
+  final $r = $callSync(456);
   return $r.list(() => $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil());
 }
 

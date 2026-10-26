@@ -121,6 +121,16 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `func (*merkledag.ProtoNode).SetData(d []byte)` | `ProtoNode.setData` | sync |
 | `func (*merkledag.ProtoNode).Data() []byte` | `ProtoNode.data` | sync |
 | `func merkledag.NewDAGService(bs blockservice.BlockService) *merkledag.dagService` | `newDagService` | sync |
+| `func merkledag.DecodeProtobuf(encoded []byte) (*merkledag.ProtoNode, error)` | `decodeProtobuf` | sync |
+| `func merkledag.PrefixForCidVersion(version int) (cid.Prefix, error)` | `prefixForCidVersion` | sync |
+| `func merkledag.V0CidPrefix() cid.Prefix` | `v0CidPrefix` | sync |
+| `func merkledag.V1CidPrefix() cid.Prefix` | `v1CidPrefix` | sync |
+| `func (*merkledag.ProtoNode).Links() []*format.Link` | `ProtoNode.links` | sync |
+| `func (*merkledag.ProtoNode).GetNodeLink(name string) (*format.Link, error)` | `ProtoNode.getNodeLink` | sync |
+| `func (*merkledag.ProtoNode).RemoveNodeLink(name string) error` | `ProtoNode.removeNodeLink` | sync |
+| `func (*merkledag.ProtoNode).UpdateNodeLink(name string, that *merkledag.ProtoNode) (*merkledag.ProtoNode, error)` | `ProtoNode.updateNodeLink` | sync |
+| `func (*merkledag.ProtoNode).EncodeProtobuf(force bool) ([]byte, error)` | `ProtoNode.encodeProtobuf` | sync |
+| `func (*merkledag.ProtoNode).Copy() format.Node` | `ProtoNode.copy` | sync |
 | `const merkledag.PBNodeDataFirst merkledag.PBNodeFieldOrder` | `pbNodeDataFirst` | const |
 | `const merkledag.PBNodeLinksFirst merkledag.PBNodeFieldOrder` | `pbNodeLinksFirst` | const |
 
@@ -159,6 +169,10 @@ Each line is an exposed Go symbol and where it is in Dart.
 
 | Go | Dart | Mode |
 |---|---|---|
+| `func ipns.NameFromString(str string) (ipns.Name, error)` | `nameFromString` | sync |
+| `func ipns.NameFromPeer(pid peer.ID) ipns.Name` | `nameFromPeer` | sync |
+| `func ipns.NameFromCid(c cid.Cid) (ipns.Name, error)` | `nameFromCid` | sync |
+| `func ipns.NameFromRoutingKey(data []byte) (ipns.Name, error)` | `nameFromRoutingKey` | sync |
 | `const ipns.DefaultRecordLifetime time.Duration` | `defaultRecordLifetime` | const |
 | `const ipns.DefaultRecordTTL time.Duration` | `defaultRecordTtl` | const |
 | `const ipns.MaxRecordSize int` | `maxRecordSize` | const |
@@ -244,6 +258,13 @@ Each line is an exposed Go symbol and where it is in Dart.
 
 | Go | Dart | Mode |
 |---|---|---|
+| `func path.NewPath(str string) (path.Path, error)` | `newPath` | sync |
+| `func path.NewPathFromSegments(segments ...string) (path.Path, error)` | `newPathFromSegments` | sync |
+| `func path.Join(p path.Path, segments ...string) (path.Path, error)` | `join` | sync |
+| `func path.FromCid(cid cid.Cid) path.ImmutablePath` | `fromCid` | sync |
+| `func path.NewImmutablePath(p path.Path) (path.ImmutablePath, error)` | `newImmutablePath` | sync |
+| `func path.SegmentsToString(segments ...string) string` | `segmentsToString` | sync |
+| `func path.StringToSegments(str string) []string` | `stringToSegments` | sync |
 | `const path.IPFSNamespace untyped string` | `ipfsNamespace` | const |
 | `const path.IPLDNamespace untyped string` | `ipldNamespace` | const |
 | `const path.IPNSNamespace untyped string` | `ipnsNamespace` | const |
@@ -281,6 +302,15 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `func cid.NewPrefixV0(mhType uint64) cid.Prefix` | `newPrefixV0` | sync |
 | `func cid.NewPrefixV1(codecType uint64, mhType uint64) cid.Prefix` | `newPrefixV1` | sync |
 | `func (cid.Prefix).Sum(data []byte) (cid.Cid, error)` | `Prefix.sum` | sync |
+| `func cid.Decode(v string) (cid.Cid, error)` | `decode` | sync |
+| `func cid.Parse(v any) (cid.Cid, error)` | `parse` | sync |
+| `func cid.Cast(data []byte) (cid.Cid, error)` | `cast` | sync |
+| `func cid.CidFromBytes(data []byte) (int, cid.Cid, error)` | `cidFromBytes` | sync |
+| `func cid.NewCidV0(mhash multihash.Multihash) cid.Cid` | `newCidV0` | sync |
+| `func cid.NewCidV1(codecType uint64, mhash multihash.Multihash) cid.Cid` | `newCidV1` | sync |
+| `func cid.PrefixFromBytes(buf []byte) (cid.Prefix, error)` | `prefixFromBytes` | sync |
+| `func cid.ExtractEncoding(v string) (multibase.Encoding, error)` | `extractEncoding` | sync |
+| `func (cid.Prefix).Bytes() []byte` | `Prefix.bytes` | sync |
 | `const cid.BitcoinBlock untyped int` | `bitcoinBlock` | const |
 | `const cid.BitcoinTx untyped int` | `bitcoinTx` | const |
 | `const cid.DagCBOR untyped int` | `dagCbor` | const |
@@ -385,6 +415,9 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `func (format.Node).Stat() (*format.NodeStat, error)` | `Node.stat` | sync |
 | `func (format.NodeGetter).Get(context.Context, cid.Cid) (format.Node, error)` | `NodeGetter.get` | Future |
 | `func (format.NodeAdder).Add(context.Context, format.Node) error` | `DagService.add` | Future |
+| `func format.MakeLink(n format.Node) (*format.Link, error)` | `makeLink` | sync |
+| `func format.GetLinks(ctx context.Context, ng format.NodeGetter, c cid.Cid) ([]*format.Link, error)` | `getLinks` | Future |
+| `func format.Copy(ctx context.Context, from format.DAGService, to format.DAGService, root cid.Cid) error` | `copy` | Future |
 | `format.DAGService → x.(iface.APIDagService)` | `DagService.asApiDagService` | cast |
 | `format.Node → x.(*merkledag.ProtoNode)` | `Node.asProtoNode` | cast |
 | `format.Node → x.(*merkledag.RawNode)` | `Node.asRawNode` | cast |
@@ -421,6 +454,7 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `func config.InitWithIdentity(identity config.Identity) (*config.Config, error)` | `initWithIdentity` | sync |
 | `func config.ParseBootstrapPeers(addrs []string) ([]peer.AddrInfo, error)` | `parseBootstrapPeers` | sync |
 | `func config.BootstrapPeerStrings(bps []peer.AddrInfo) []string` | `bootstrapPeerStrings` | sync |
+| `func config.PathRoot() (string, error)` | `pathRoot` | sync |
 | `const config.APITag untyped string` | `apiTag` | const |
 | `const config.AuthorizationTag untyped string` | `authorizationTag` | const |
 | `const config.AutoNATServiceDisabled config.AutoNATServiceMode` | `autoNatServiceDisabled` | const |
@@ -773,6 +807,9 @@ Omitted:
 | `func fsrepo.IsInitialized(path string) bool` | `isInitialized` | sync |
 | `func fsrepo.Init(repoPath string, conf *config.Config) error` | `init` | sync |
 | `func fsrepo.Open(repoPath string) (repo.Repo, error)` | `open` | sync |
+| `func fsrepo.BestKnownPath() (string, error)` | `bestKnownPath` | sync |
+| `func fsrepo.LockedByOtherProcess(repoPath string) (bool, error)` | `lockedByOtherProcess` | sync |
+| `func fsrepo.APIAddr(repoPath string) (multiaddr.Multiaddr, error)` | `apiAddr` | sync |
 | `const fsrepo.LockFile untyped string` | `lockFile` | const |
 
 ## `github.com/ipld/go-car/v2` → `package:p2p_ffi/go/car/v2.dart`
@@ -1195,6 +1232,22 @@ Omitted:
 | `func (crypto.PrivKey).GetPublic() crypto.PubKey` | `PrivKey.getPublic` | sync |
 | `func (crypto.PrivKey).Sign([]byte) ([]byte, error)` | `PrivKey.sign` | sync |
 | `func (crypto.PubKey).Verify(data []byte, sig []byte) (bool, error)` | `PubKey.verify` | sync |
+| `func crypto.KeyEqual(k1 crypto.Key, k2 crypto.Key) bool` | `keyEqual` | sync |
+| `func crypto.ConfigEncodeKey(b []byte) string` | `configEncodeKey` | sync |
+| `func crypto.ConfigDecodeKey(b string) ([]byte, error)` | `configDecodeKey` | sync |
+| `func crypto.UnmarshalEd25519PrivateKey(data []byte) (crypto.PrivKey, error)` | `unmarshalEd25519PrivateKey` | sync |
+| `func crypto.UnmarshalEd25519PublicKey(data []byte) (crypto.PubKey, error)` | `unmarshalEd25519PublicKey` | sync |
+| `func crypto.UnmarshalSecp256k1PrivateKey(data []byte) (k crypto.PrivKey, err error)` | `unmarshalSecp256k1PrivateKey` | sync |
+| `func crypto.UnmarshalSecp256k1PublicKey(data []byte) (_k crypto.PubKey, err error)` | `unmarshalSecp256k1PublicKey` | sync |
+| `func crypto.UnmarshalRsaPrivateKey(b []byte) (key crypto.PrivKey, err error)` | `unmarshalRsaPrivateKey` | sync |
+| `func crypto.UnmarshalRsaPublicKey(b []byte) (key crypto.PubKey, err error)` | `unmarshalRsaPublicKey` | sync |
+| `func crypto.UnmarshalECDSAPrivateKey(data []byte) (res crypto.PrivKey, err error)` | `unmarshalEcdsaPrivateKey` | sync |
+| `func crypto.UnmarshalECDSAPublicKey(data []byte) (key crypto.PubKey, err error)` | `unmarshalEcdsaPublicKey` | sync |
+| `func (crypto.Key).Raw() ([]byte, error)` | `Key.raw` | sync |
+| `func (crypto.Key).Type() pb.KeyType` | `Key.type` | sync |
+| `func (crypto.Key).Equals(crypto.Key) bool` | `Key.equals` | sync |
+| `crypto.Key → x.(crypto.PrivKey)` | `Key.asPrivKey` | cast |
+| `crypto.Key → x.(crypto.PubKey)` | `Key.asPubKey` | cast |
 | `const crypto.ECDSA untyped int` | `ecdsa` | const |
 | `const crypto.Ed25519 untyped int` | `ed25519` | const |
 | `const crypto.RSA untyped int` | `rsa` | const |
@@ -1326,6 +1379,13 @@ Omitted:
 | `func peer.IDFromPublicKey(pk crypto.PubKey) (peer.ID, error)` | `idFromPublicKey` | sync |
 | `func peer.AddrInfoFromP2pAddr(m multiaddr.Multiaddr) (*peer.AddrInfo, error)` | `addrInfoFromP2pAddr` | sync |
 | `func peer.AddrInfosFromP2pAddrs(maddrs ...multiaddr.Multiaddr) ([]peer.AddrInfo, error)` | `addrInfosFromP2pAddrs` | sync |
+| `func peer.Decode(s string) (peer.ID, error)` | `decode` | sync |
+| `func peer.IDFromBytes(b []byte) (peer.ID, error)` | `idFromBytes` | sync |
+| `func peer.FromCid(c cid.Cid) (peer.ID, error)` | `fromCid` | sync |
+| `func peer.ToCid(id peer.ID) cid.Cid` | `toCid` | sync |
+| `func peer.IDFromP2PAddr(m multiaddr.Multiaddr) (peer.ID, error)` | `idFromP2pAddr` | sync |
+| `func peer.SplitAddr(m multiaddr.Multiaddr) (transport multiaddr.Multiaddr, id peer.ID)` | `splitAddr` | sync |
+| `func peer.AddrInfosToIDs(pis []peer.AddrInfo) []peer.ID` | `addrInfosToIds` | sync |
 | `const peer.PeerRecordEnvelopeDomain untyped string` | `peerRecordEnvelopeDomain` | const |
 
 ## `github.com/libp2p/go-libp2p/core/peerstore` → `package:p2p_ffi/go/libp2p/core/peerstore.dart`
@@ -1341,6 +1401,7 @@ Omitted:
 | `func (peerstore.ProtoBook).GetProtocols(peer.ID) ([]protocol.ID, error)` | `Peerstore.getProtocols` | sync |
 | `func (peerstore.PeerMetadata).Get(p peer.ID, key string) (any, error)` | `Peerstore.get` | sync |
 | `func (peerstore.Metrics).LatencyEWMA(peer.ID) time.Duration` | `Peerstore.latencyEwma` | sync |
+| `func peerstore.AddrInfos(ps peerstore.Peerstore, peers []peer.ID) []peer.AddrInfo` | `addrInfos` | sync |
 | `const peerstore.ConnectedAddrTTL untyped int` | `connectedAddrTtl` | const |
 | `const peerstore.PermanentAddrTTL untyped int` | `permanentAddrTtl` | const |
 
@@ -1465,6 +1526,11 @@ Omitted:
 
 | Go | Dart | Mode |
 |---|---|---|
+| `func multiaddr.NewMultiaddr(s string) (a multiaddr.Multiaddr, err error)` | `newMultiaddr` | sync |
+| `func multiaddr.NewMultiaddrBytes(b []byte) (a multiaddr.Multiaddr, err error)` | `newMultiaddrBytes` | sync |
+| `func multiaddr.Join(msInterfaces ...multiaddr.Multiaddrer) multiaddr.Multiaddr` | `join` | sync |
+| `func multiaddr.Contains(addrs []multiaddr.Multiaddr, addr multiaddr.Multiaddr) bool` | `contains` | sync |
+| `func multiaddr.Unique(addrs []multiaddr.Multiaddr) []multiaddr.Multiaddr` | `unique` | sync |
 | `const multiaddr.ActionAccept multiaddr.Action` | `actionAccept` | const |
 | `const multiaddr.ActionDeny multiaddr.Action` | `actionDeny` | const |
 | `const multiaddr.ActionNone multiaddr.Action` | `actionNone` | const |

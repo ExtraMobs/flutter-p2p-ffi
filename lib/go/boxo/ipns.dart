@@ -2,11 +2,39 @@
 // Go: github.com/ipfs/boxo/ipns
 library;
 
+import 'dart:typed_data';
+
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/cid.dart' as $cid;
+import 'package:p2p_ffi/go/libp2p/core/peer.dart' as $peer;
 
 /// Go: `ipns.Name` (valor).
 class Name extends GoValue {
   const Name(super.value);
+}
+
+/// Go: `func ipns.NameFromString(str string) (ipns.Name, error)`.
+Name nameFromString(String str) {
+  final $r = $callSync(140, $W()..str(str));
+  return $r.p() ? Name($r.str()) : $nil();
+}
+
+/// Go: `func ipns.NameFromPeer(pid peer.ID) ipns.Name`.
+Name nameFromPeer($peer.Id pid) {
+  final $r = $callSync(138, $W()..val(pid));
+  return $r.p() ? Name($r.str()) : $nil();
+}
+
+/// Go: `func ipns.NameFromCid(c cid.Cid) (ipns.Name, error)`.
+Name nameFromCid($cid.Cid c) {
+  final $r = $callSync(137, $W()..val(c));
+  return $r.p() ? Name($r.str()) : $nil();
+}
+
+/// Go: `func ipns.NameFromRoutingKey(data []byte) (ipns.Name, error)`.
+Name nameFromRoutingKey(Uint8List data) {
+  final $r = $callSync(139, $W()..bytes(data));
+  return $r.p() ? Name($r.str()) : $nil();
 }
 
 /// Go: `const ipns.DefaultRecordLifetime time.Duration`.

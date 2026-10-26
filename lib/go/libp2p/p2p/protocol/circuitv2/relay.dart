@@ -140,13 +140,13 @@ Option withResources(Resources rc) => Option.$(5, (w) => w..dto(rc));
 
 /// Go: `func relay.DefaultResources() relay.Resources`.
 Resources defaultResources() {
-  final $r = $callSync(547);
+  final $r = $callSync(608);
   return $r.p() ? Resources.$dec($r) : $nil();
 }
 
 /// Go: `func relay.DefaultLimit() *relay.RelayLimit`.
 RelayLimit defaultLimit() {
-  final $r = $callSync(546);
+  final $r = $callSync(607);
   return $r.p() ? RelayLimit.$dec($r) : $nil();
 }
 
