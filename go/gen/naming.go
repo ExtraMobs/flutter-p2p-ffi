@@ -81,9 +81,9 @@ Comparable Iterator Invocation Expando`)
 // Membros que toda classe gerada já tem (Object, GoHandle, GoValue).
 var dartBaseMembers = setOf(`hashCode runtimeType toString noSuchMethod value`)
 
-// dartParamName: parâmetro Dart. Só as palavras reservadas escapam: o receptor é
-// sempre um handle, sem os membros de GoValue (value) que um parâmetro
-// esconderia.
+// dartParamName: parâmetro Dart. Só as palavras reservadas escapam: um
+// parâmetro `value` num método de tipo-valor esconde o GoValue.value, mas o
+// código gerado manda o receptor por `this`.
 func dartParamName(goName string) string {
 	n := strings.TrimSuffix(memberName(goName), "$")
 	if dartReserved[n] {

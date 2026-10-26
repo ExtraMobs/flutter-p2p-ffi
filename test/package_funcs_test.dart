@@ -1,4 +1,4 @@
-// Package functions that build and convert without a node (0.25.0): CIDs,
+// Package functions and value type methods without a node (0.25.0): CIDs,
 // peer IDs, multiaddrs, paths, IPNS names, keys and dag-pb links. Needs
 // `dart run tool/build.dart`.
 import 'dart:typed_data';
@@ -112,6 +112,62 @@ void main() {
     expect(merkledag.v1CidPrefix().version, 1);
     for (final n in [child, root, decoded]) {
       n.release();
+    }
+  });
+
+  test('value type methods: Cid', () {
+    final v0 = cid.newCidV0(mhash);
+    final v1 = cid.newCidV1(cid.raw, mhash);
+    expect((v0.version(), v0.type()), (0, cid.dagProtobuf));
+    expect((v1.version(), v1.type()), (1, cid.raw));
+    expect(v1.hash(), mhash);
+    expect(v0.bytes(), mhash);
+    expect(cid.cast(v1.bytes()), v1);
+    expect(v1.byteLen(), v1.bytes().length);
+    expect(v1.prefix().codec, cid.raw);
+    expect(v1.equals(cid.decode(v1.value)), isTrue);
+    expect(v1.equals(v0), isFalse);
+    expect(v1.defined(), isTrue);
+    expect(v1.stringOfBase(0x7a), startsWith('z')); // base58btc
+  });
+
+  test('value type methods: peer ID, multiaddr, path, IPNS name', () {
+    final (sk, pk) = crypto.generateKeyPair(crypto.ed25519, -1);
+    final id = peer.idFromPublicKey(pk);
+    id.validate();
+    expect(peer.idFromBytes(id.marshal()), id);
+    // an ed25519 ID inlines the key
+    final pk2 = id.extractPublicKey();
+    expect(pk2.equals(pk), isTrue);
+    expect(id.matchesPrivateKey(sk), isTrue);
+    expect(id.matchesPublicKey(pk), isTrue);
+    expect(id.shortString(),
+        '<peer.ID ${id.value.substring(0, 2)}*${id.value.substring(id.value.length - 6)}>');
+
+    final ip = ma.newMultiaddr('/ip4/10.0.0.1');
+    final tcp = ma.newMultiaddr('/tcp/80');
+    final full = ip.encapsulate(ma.Multiaddrer(multiaddr: tcp));
+    expect(full.value, '/ip4/10.0.0.1/tcp/80');
+    expect(full.decapsulate(ma.Multiaddrer(multiaddr: tcp)), ip);
+    expect(full.valueForProtocol(6), '80'); // P_TCP
+    expect(ma.newMultiaddrBytes(full.bytes()).equal(full), isTrue);
+    expect(full.compare(full), 0);
+
+    final c = cid.newCidV1(cid.raw, mhash);
+    final p = path.fromCid(c);
+    expect(p.namespace(), 'ipfs');
+    expect(p.mutable(), isFalse);
+    expect(path.join(p, ['a']).segments(), ['ipfs', '$c', 'a']);
+    expect(p.rootCid(), c);
+
+    final name = ipns.nameFromPeer(id);
+    expect(name.peer(), id);
+    expect(name.asPath().value, '/ipns/$name');
+    expect(name.asPath().mutable(), isTrue);
+    expect(name.equal(ipns.nameFromCid(name.cid())), isTrue);
+    expect(ipns.nameFromRoutingKey(name.routingKey()), name);
+    for (final k in [sk, pk, pk2]) {
+      k.release();
     }
   });
 }

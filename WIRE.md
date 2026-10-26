@@ -108,6 +108,7 @@ over basic types (kubo's enums) go as the basic type. By model kind (`go/gen/mod
 | I/O interface parameter (`io.Reader`, `io.ReaderAt`, `io.ReadSeeker`...: only `Read ReadAt Seek Write WriteAt Close` methods) | `u8 0` + `kBytes` (read by a `bytes.Reader`; an error if it does not implement the interface), or `u8 1` + `i64` handle of an object that implements it |
 | `kWriter` (`io.Writer`) | `i64` handle of an object that implements it (`os.File`, `bytes.Buffer`); `0` = `io.Discard` |
 | DTO receiver (`car.Header.HasIndex`, `cid.Prefix.Sum`) | `kDTO` instead of the handle; what the method changes in the receiver does not come back |
+| value type receiver (`cid.Cid.Version`, `peer.ID.ExtractPublicKey`) | `kValue` instead of the handle (the string, decoded by the type's `dec` in `wire.go`) |
 | `kChanSend` inside an option (sink, e.g. `options.Unixfs.Events`) | `u32` sink id (registered by the app); the items go as `item` events with that id, and the sink ends with `end`/`error` before the call's response |
 | `kChanSend` as a parameter of the function itself (e.g. `PinAPI.Ls`) | does not cross: the function is called in stream mode and each value Go puts in the channel is an `item` (like `kChanRecv`) |
 | `kChanRecv` (`<-chan T` in the result) | the function is called in stream mode; each value of the channel is an `item` |

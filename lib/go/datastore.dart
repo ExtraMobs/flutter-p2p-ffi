@@ -26,7 +26,7 @@ class NullDatastore extends Batching {
 
   /// Go: `func datastore.NewNullDatastore() *datastore.NullDatastore`.
   factory NullDatastore() {
-    final $r = $callSync(212);
+    final $r = $callSync(230);
     return $r.hnn(NullDatastore.$h);
   }
 }

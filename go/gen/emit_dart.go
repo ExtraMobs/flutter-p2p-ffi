@@ -626,7 +626,11 @@ func (e *dartEmitter) class(l *dartLib, c *dclass) string {
 		if t.val.json {
 			fmt.Fprintf(&b, "  %s(super.json);\n}\n\n", name)
 		} else {
-			fmt.Fprintf(&b, "  const %s(super.value);\n}\n\n", name)
+			fmt.Fprintf(&b, "  const %s(super.value);\n", name)
+			for _, f := range c.methods {
+				b.WriteString("\n" + e.function(l, f, name, false))
+			}
+			b.WriteString("}\n\n")
 		}
 	case kOpts:
 		fmt.Fprintf(&b, "/// Go: `%s` (functional option; constructors in the package).\nfinal class %s extends GoOption {\n  %s.$(super.$i, super.$a);\n}\n\n", docType(t), name, name)
@@ -929,6 +933,8 @@ func (e *dartEmitter) function(l *dartLib, f *fn, class string, factory bool) st
 	switch {
 	case f.recv != nil && f.recv.k == kDTO: // receptor DTO: vai por valor
 		segs = append(segs, "dto(this)")
+	case f.recv != nil && f.recv.k == kValue: // value type: its string
+		segs = append(segs, "val(this)")
 	case f.recv != nil:
 		segs = append(segs, "h(this)")
 	}

@@ -12,25 +12,25 @@ class Message extends GoHandle {
 
   /// Go: `func (*pubsub_pb.Message).GetData() []byte`.
   Uint8List getData() {
-    final $r = $callSync(494, $W()..h(this));
+    final $r = $callSync(512, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pubsub_pb.Message).GetFrom() []byte`.
   Uint8List getFrom() {
-    final $r = $callSync(495, $W()..h(this));
+    final $r = $callSync(513, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pubsub_pb.Message).GetSeqno() []byte`.
   Uint8List getSeqno() {
-    final $r = $callSync(496, $W()..h(this));
+    final $r = $callSync(514, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*pubsub_pb.Message).GetTopic() string`.
   String getTopic() {
-    final $r = $callSync(497, $W()..h(this));
+    final $r = $callSync(515, $W()..h(this));
     return $r.str();
   }
 }

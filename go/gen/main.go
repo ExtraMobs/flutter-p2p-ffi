@@ -399,7 +399,8 @@ func (m *model) resolve(pkgs map[string]*types.Package, line string) ([]*fn, err
 			return nil, fmt.Errorf("%s: %s não é tipo", line, name)
 		}
 		recvT := tn.Type()
-		if !types.IsInterface(recvT) {
+		// a value type (cid.Cid.Version) is the receiver itself, by value
+		if _, isVal := valueTypes[objKey(tn)]; !isVal && !types.IsInterface(recvT) {
 			recvT = types.NewPointer(recvT)
 		}
 		sel, _, _ := types.LookupFieldOrMethod(recvT, true, pkg, method)
@@ -413,9 +414,11 @@ func (m *model) resolve(pkgs map[string]*types.Package, line string) ([]*fn, err
 		f.obj = fobj
 		f.recv = m.classify(recvT)
 		// receptor DTO (car.Header.HasIndex, cid.Prefix.Sum): vai por valor, e
-		// um método que o altera não volta ao Dart
-		if f.recv.k != kHandle && f.recv.k != kDTO {
-			f.why = "receiver is neither a handle nor a DTO: " + f.recv.why
+		// um método que o altera não volta ao Dart; a value type with a Dart
+		// class (cid.Cid.Version) goes as its string
+		isVal := f.recv.k == kValue && f.recv.val.dartClass != "" && !f.recv.val.json
+		if f.recv.k != kHandle && f.recv.k != kDTO && !isVal {
+			f.why = "receiver is neither a handle, a DTO nor a value type: " + f.recv.why
 		}
 	}
 	sig := f.obj.Type().(*types.Signature)

@@ -646,3 +646,37 @@ github.com/ipfs/kubo/config.PathRoot
 github.com/ipfs/kubo/repo/fsrepo.BestKnownPath
 github.com/ipfs/kubo/repo/fsrepo.LockedByOtherProcess
 github.com/ipfs/kubo/repo/fsrepo.APIAddr
+
+# 0.25 methods of the value types (the receiver crosses as its string, like a
+# parameter): what a CID, a peer ID, a multiaddr, a path and an IPNS name hold.
+# Go's String() is the Dart class's value
+github.com/ipfs/go-cid.Cid.Version
+github.com/ipfs/go-cid.Cid.Type
+github.com/ipfs/go-cid.Cid.Hash
+github.com/ipfs/go-cid.Cid.Bytes
+github.com/ipfs/go-cid.Cid.ByteLen
+github.com/ipfs/go-cid.Cid.Prefix
+github.com/ipfs/go-cid.Cid.Equals
+github.com/ipfs/go-cid.Cid.Defined
+github.com/ipfs/go-cid.Cid.StringOfBase
+github.com/libp2p/go-libp2p/core/peer.ID.Validate
+github.com/libp2p/go-libp2p/core/peer.ID.Marshal
+github.com/libp2p/go-libp2p/core/peer.ID.ExtractPublicKey
+github.com/libp2p/go-libp2p/core/peer.ID.MatchesPrivateKey
+github.com/libp2p/go-libp2p/core/peer.ID.MatchesPublicKey
+github.com/libp2p/go-libp2p/core/peer.ID.ShortString
+github.com/multiformats/go-multiaddr.Multiaddr.Bytes
+github.com/multiformats/go-multiaddr.Multiaddr.Equal
+github.com/multiformats/go-multiaddr.Multiaddr.Compare
+github.com/multiformats/go-multiaddr.Multiaddr.Encapsulate
+github.com/multiformats/go-multiaddr.Multiaddr.Decapsulate
+github.com/multiformats/go-multiaddr.Multiaddr.ValueForProtocol
+github.com/ipfs/boxo/path.Path.Namespace
+github.com/ipfs/boxo/path.Path.Mutable
+github.com/ipfs/boxo/path.Path.Segments
+github.com/ipfs/boxo/path.ImmutablePath.RootCid
+github.com/ipfs/boxo/ipns.Name.Peer
+github.com/ipfs/boxo/ipns.Name.Cid
+github.com/ipfs/boxo/ipns.Name.AsPath
+github.com/ipfs/boxo/ipns.Name.RoutingKey
+github.com/ipfs/boxo/ipns.Name.Equal

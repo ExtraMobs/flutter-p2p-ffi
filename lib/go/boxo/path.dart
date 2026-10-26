@@ -8,29 +8,53 @@ import 'package:p2p_ffi/go/cid.dart' as $cid;
 /// Go: `path.ImmutablePath` (valor).
 class ImmutablePath extends Path {
   const ImmutablePath(super.value);
+
+  /// Go: `func (path.ImmutablePath).RootCid() cid.Cid`.
+  $cid.Cid rootCid() {
+    final $r = $callSync(196, $W()..val(this));
+    return $r.p() ? $cid.Cid($r.str()) : $nil();
+  }
 }
 
 /// Go: `path.Path` (valor).
 class Path extends GoValue {
   const Path(super.value);
+
+  /// Go: `func (path.Path).Namespace() string`.
+  String namespace() {
+    final $r = $callSync(202, $W()..val(this));
+    return $r.str();
+  }
+
+  /// Go: `func (path.Path).Mutable() bool`.
+  bool mutable() {
+    final $r = $callSync(201, $W()..val(this));
+    return $r.b();
+  }
+
+  /// Go: `func (path.Path).Segments() []string`.
+  List<String> segments() {
+    final $r = $callSync(203, $W()..val(this));
+    return $r.list(() => $r.str());
+  }
 }
 
 /// Go: `func path.NewPath(str string) (path.Path, error)`.
 Path newPath(String str) {
-  final $r = $callSync(193, $W()..str(str));
+  final $r = $callSync(199, $W()..str(str));
   return $r.p() ? Path($r.str()) : $nil();
 }
 
 /// Go: `func path.NewPathFromSegments(segments ...string) (path.Path, error)`.
 Path newPathFromSegments([List<String> segments = const []]) {
-  final $r = $callSync(194, $W()..list(segments, (w0, e0) => w0.str(e0)));
+  final $r = $callSync(200, $W()..list(segments, (w0, e0) => w0.str(e0)));
   return $r.p() ? Path($r.str()) : $nil();
 }
 
 /// Go: `func path.Join(p path.Path, segments ...string) (path.Path, error)`.
 Path join(Path p, [List<String> segments = const []]) {
   final $r = $callSync(
-      191,
+      197,
       $W()
         ..val(p)
         ..list(segments, (w0, e0) => w0.str(e0)));
@@ -39,25 +63,25 @@ Path join(Path p, [List<String> segments = const []]) {
 
 /// Go: `func path.FromCid(cid cid.Cid) path.ImmutablePath`.
 ImmutablePath fromCid($cid.Cid cid) {
-  final $r = $callSync(190, $W()..val(cid));
+  final $r = $callSync(195, $W()..val(cid));
   return $r.p() ? ImmutablePath($r.str()) : $nil();
 }
 
 /// Go: `func path.NewImmutablePath(p path.Path) (path.ImmutablePath, error)`.
 ImmutablePath newImmutablePath(Path p) {
-  final $r = $callSync(192, $W()..val(p));
+  final $r = $callSync(198, $W()..val(p));
   return $r.p() ? ImmutablePath($r.str()) : $nil();
 }
 
 /// Go: `func path.SegmentsToString(segments ...string) string`.
 String segmentsToString([List<String> segments = const []]) {
-  final $r = $callSync(195, $W()..list(segments, (w0, e0) => w0.str(e0)));
+  final $r = $callSync(204, $W()..list(segments, (w0, e0) => w0.str(e0)));
   return $r.str();
 }
 
 /// Go: `func path.StringToSegments(str string) []string`.
 List<String> stringToSegments(String str) {
-  final $r = $callSync(196, $W()..str(str));
+  final $r = $callSync(205, $W()..str(str));
   return $r.list(() => $r.str());
 }
 

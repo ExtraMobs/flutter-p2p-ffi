@@ -36,78 +36,121 @@ final class AddrInfo implements GoDto {
 /// Go: `peer.ID` (valor).
 class Id extends GoValue {
   const Id(super.value);
+
+  /// Go: `func (peer.ID).Validate() error`.
+  void validate() {
+    $callSync(606, $W()..val(this));
+  }
+
+  /// Go: `func (peer.ID).Marshal() ([]byte, error)`.
+  Uint8List marshal() {
+    final $r = $callSync(602, $W()..val(this));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (peer.ID).ExtractPublicKey() (crypto.PubKey, error)`.
+  $crypto.PubKey extractPublicKey() {
+    final $r = $callSync(601, $W()..val(this));
+    return $r.hnn($crypto.PubKey.$h);
+  }
+
+  /// Go: `func (peer.ID).MatchesPrivateKey(sk crypto.PrivKey) bool`.
+  bool matchesPrivateKey($crypto.PrivKey sk) {
+    final $r = $callSync(
+        603,
+        $W()
+          ..val(this)
+          ..h(sk));
+    return $r.b();
+  }
+
+  /// Go: `func (peer.ID).MatchesPublicKey(pk crypto.PubKey) bool`.
+  bool matchesPublicKey($crypto.PubKey pk) {
+    final $r = $callSync(
+        604,
+        $W()
+          ..val(this)
+          ..h(pk));
+    return $r.b();
+  }
+
+  /// Go: `func (peer.ID).ShortString() string`.
+  String shortString() {
+    final $r = $callSync(605, $W()..val(this));
+    return $r.str();
+  }
 }
 
 /// Go: `func peer.AddrInfoFromString(s string) (*peer.AddrInfo, error)`.
 AddrInfo addrInfoFromString(String s) {
-  final $r = $callSync(577, $W()..str(s));
+  final $r = $callSync(595, $W()..str(s));
   return $r.p() ? AddrInfo.$dec($r) : $nil();
 }
 
 /// Go: `func peer.AddrInfoToP2pAddrs(pi *peer.AddrInfo) ([]multiaddr.Multiaddr, error)`.
 List<$multiaddr.Multiaddr> addrInfoToP2pAddrs(AddrInfo pi) {
-  final $r = $callSync(578, $W()..dto(pi));
+  final $r = $callSync(596, $W()..dto(pi));
   return $r.list(() => $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil());
 }
 
 /// Go: `func peer.IDFromPrivateKey(sk crypto.PrivKey) (peer.ID, error)`.
 Id idFromPrivateKey($crypto.PrivKey sk) {
-  final $r = $callSync(585, $W()..h(sk));
+  final $r = $callSync(609, $W()..h(sk));
   return $r.p() ? Id($r.str()) : $nil();
 }
 
 /// Go: `func peer.IDFromPublicKey(pk crypto.PubKey) (peer.ID, error)`.
 Id idFromPublicKey($crypto.PubKey pk) {
-  final $r = $callSync(586, $W()..h(pk));
+  final $r = $callSync(610, $W()..h(pk));
   return $r.p() ? Id($r.str()) : $nil();
 }
 
 /// Go: `func peer.AddrInfoFromP2pAddr(m multiaddr.Multiaddr) (*peer.AddrInfo, error)`.
 AddrInfo addrInfoFromP2pAddr($multiaddr.Multiaddr m) {
-  final $r = $callSync(576, $W()..val(m));
+  final $r = $callSync(594, $W()..val(m));
   return $r.p() ? AddrInfo.$dec($r) : $nil();
 }
 
 /// Go: `func peer.AddrInfosFromP2pAddrs(maddrs ...multiaddr.Multiaddr) ([]peer.AddrInfo, error)`.
 List<AddrInfo> addrInfosFromP2pAddrs(
     [List<$multiaddr.Multiaddr> maddrs = const []]) {
-  final $r = $callSync(579, $W()..list(maddrs, (w0, e0) => w0.val(e0)));
+  final $r = $callSync(597, $W()..list(maddrs, (w0, e0) => w0.val(e0)));
   return $r.list(() => $r.p() ? AddrInfo.$dec($r) : $nil());
 }
 
 /// Go: `func peer.Decode(s string) (peer.ID, error)`.
 Id decode(String s) {
-  final $r = $callSync(581, $W()..str(s));
+  final $r = $callSync(599, $W()..str(s));
   return $r.p() ? Id($r.str()) : $nil();
 }
 
 /// Go: `func peer.IDFromBytes(b []byte) (peer.ID, error)`.
 Id idFromBytes(Uint8List b) {
-  final $r = $callSync(583, $W()..bytes(b));
+  final $r = $callSync(607, $W()..bytes(b));
   return $r.p() ? Id($r.str()) : $nil();
 }
 
 /// Go: `func peer.FromCid(c cid.Cid) (peer.ID, error)`.
 Id fromCid($cid.Cid c) {
-  final $r = $callSync(582, $W()..val(c));
+  final $r = $callSync(600, $W()..val(c));
   return $r.p() ? Id($r.str()) : $nil();
 }
 
 /// Go: `func peer.ToCid(id peer.ID) cid.Cid`.
 $cid.Cid toCid(Id id) {
-  final $r = $callSync(588, $W()..val(id));
+  final $r = $callSync(612, $W()..val(id));
   return $r.p() ? $cid.Cid($r.str()) : $nil();
 }
 
 /// Go: `func peer.IDFromP2PAddr(m multiaddr.Multiaddr) (peer.ID, error)`.
 Id idFromP2pAddr($multiaddr.Multiaddr m) {
-  final $r = $callSync(584, $W()..val(m));
+  final $r = $callSync(608, $W()..val(m));
   return $r.p() ? Id($r.str()) : $nil();
 }
 
 /// Go: `func peer.SplitAddr(m multiaddr.Multiaddr) (transport multiaddr.Multiaddr, id peer.ID)`.
 ($multiaddr.Multiaddr, Id) splitAddr($multiaddr.Multiaddr m) {
-  final $r = $callSync(587, $W()..val(m));
+  final $r = $callSync(611, $W()..val(m));
   return (
     $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil(),
     $r.p() ? Id($r.str()) : $nil()
@@ -116,7 +159,7 @@ Id idFromP2pAddr($multiaddr.Multiaddr m) {
 
 /// Go: `func peer.AddrInfosToIDs(pis []peer.AddrInfo) []peer.ID`.
 List<Id> addrInfosToIds(List<AddrInfo> pis) {
-  final $r = $callSync(580, $W()..list(pis, (w0, e0) => w0.dto(e0)));
+  final $r = $callSync(598, $W()..list(pis, (w0, e0) => w0.dto(e0)));
   return $r.list(() => $r.p() ? Id($r.str()) : $nil());
 }
 

@@ -19,7 +19,7 @@ class BaseBlocks extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> put($context.Context ctx, $block_format.Block block) async {
     await $call(
-        333,
+        351,
         $W()
           ..h(this)
           ..h(ctx)
@@ -31,7 +31,7 @@ class BaseBlocks extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> has($context.Context ctx, $cid.Cid cid) async {
     final $r = await $call(
-        332,
+        350,
         $W()
           ..h(this)
           ..h(ctx)
@@ -44,7 +44,7 @@ class BaseBlocks extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<$block_format.Block> get($context.Context ctx, $cid.Cid cid) async {
     final $r = await $call(
-        330,
+        348,
         $W()
           ..h(this)
           ..h(ctx)
@@ -57,7 +57,7 @@ class BaseBlocks extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> getSize($context.Context ctx, $cid.Cid cid) async {
     final $r = await $call(
-        331,
+        349,
         $W()
           ..h(this)
           ..h(ctx)
@@ -70,7 +70,7 @@ class BaseBlocks extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> deleteBlock($context.Context ctx, $cid.Cid cid) async {
     await $call(
-        329,
+        347,
         $W()
           ..h(this)
           ..h(ctx)
@@ -79,7 +79,7 @@ class BaseBlocks extends GoHandle {
 
   /// Go: `func (node.BaseBlocks).AllKeysChan(ctx context.Context) (<-chan cid.Cid, error)`.
   Stream<$cid.Cid> allKeysChan($context.Context ctx) => $stream(
-          328,
+          346,
           $W()
             ..h(this)
             ..h(ctx))

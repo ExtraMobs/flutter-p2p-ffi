@@ -16,7 +16,7 @@ class Bus extends GoHandle {
   /// Go: `func (event.Bus).Subscribe(eventType any, opts ...event.SubscriptionOpt) (event.Subscription, error)`.
   Subscription subscribe(Object? eventType) {
     final $r = $callSync(
-        527,
+        545,
         $W()
           ..h(this)
           ..any(eventType));
@@ -374,17 +374,17 @@ class Subscription extends $io.Closer {
   Subscription.$h(super.$h) : super.$h();
 
   /// Go: `func (event.Subscription).Out() <-chan any`.
-  Stream<Object?> out() => $stream(530, $W()..h(this)).map((r) => r.any());
+  Stream<Object?> out() => $stream(548, $W()..h(this)).map((r) => r.any());
 
   /// Go: `func (event.Subscription).Name() string`.
   String name() {
-    final $r = $callSync(529, $W()..h(this));
+    final $r = $callSync(547, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (io.Closer).Close() error`.
   void close() {
-    $callSync(528, $W()..h(this));
+    $callSync(546, $W()..h(this));
   }
 }
 

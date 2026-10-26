@@ -11,13 +11,13 @@ class RoutingTable extends GoHandle {
 
   /// Go: `func (*kbucket.RoutingTable).Size() int`.
   int size() {
-    final $r = $callSync(471, $W()..h(this));
+    final $r = $callSync(489, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*kbucket.RoutingTable).ListPeers() []peer.ID`.
   List<$peer.Id> listPeers() {
-    final $r = $callSync(470, $W()..h(this));
+    final $r = $callSync(488, $W()..h(this));
     return $r.list(() => $r.p() ? $peer.Id($r.str()) : $nil());
   }
 }

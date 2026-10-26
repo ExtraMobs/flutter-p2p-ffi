@@ -5,35 +5,70 @@ library;
 import 'dart:typed_data';
 
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/boxo/path.dart' as $path;
 import 'package:p2p_ffi/go/cid.dart' as $cid;
 import 'package:p2p_ffi/go/libp2p/core/peer.dart' as $peer;
 
 /// Go: `ipns.Name` (valor).
 class Name extends GoValue {
   const Name(super.value);
+
+  /// Go: `func (ipns.Name).Peer() peer.ID`.
+  $peer.Id peer() {
+    final $r = $callSync(140, $W()..val(this));
+    return $r.p() ? $peer.Id($r.str()) : $nil();
+  }
+
+  /// Go: `func (ipns.Name).Cid() cid.Cid`.
+  $cid.Cid cid() {
+    final $r = $callSync(138, $W()..val(this));
+    return $r.p() ? $cid.Cid($r.str()) : $nil();
+  }
+
+  /// Go: `func (ipns.Name).AsPath() path.Path`.
+  $path.Path asPath() {
+    final $r = $callSync(137, $W()..val(this));
+    return $r.p() ? $path.Path($r.str()) : $nil();
+  }
+
+  /// Go: `func (ipns.Name).RoutingKey() []byte`.
+  Uint8List routingKey() {
+    final $r = $callSync(141, $W()..val(this));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (ipns.Name).Equal(other ipns.Name) bool`.
+  bool equal(Name other) {
+    final $r = $callSync(
+        139,
+        $W()
+          ..val(this)
+          ..val(other));
+    return $r.b();
+  }
 }
 
 /// Go: `func ipns.NameFromString(str string) (ipns.Name, error)`.
 Name nameFromString(String str) {
-  final $r = $callSync(140, $W()..str(str));
+  final $r = $callSync(145, $W()..str(str));
   return $r.p() ? Name($r.str()) : $nil();
 }
 
 /// Go: `func ipns.NameFromPeer(pid peer.ID) ipns.Name`.
 Name nameFromPeer($peer.Id pid) {
-  final $r = $callSync(138, $W()..val(pid));
+  final $r = $callSync(143, $W()..val(pid));
   return $r.p() ? Name($r.str()) : $nil();
 }
 
 /// Go: `func ipns.NameFromCid(c cid.Cid) (ipns.Name, error)`.
 Name nameFromCid($cid.Cid c) {
-  final $r = $callSync(137, $W()..val(c));
+  final $r = $callSync(142, $W()..val(c));
   return $r.p() ? Name($r.str()) : $nil();
 }
 
 /// Go: `func ipns.NameFromRoutingKey(data []byte) (ipns.Name, error)`.
 Name nameFromRoutingKey(Uint8List data) {
-  final $r = $callSync(139, $W()..bytes(data));
+  final $r = $callSync(144, $W()..bytes(data));
   return $r.p() ? Name($r.str()) : $nil();
 }
 

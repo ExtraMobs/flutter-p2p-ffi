@@ -173,6 +173,11 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `func ipns.NameFromPeer(pid peer.ID) ipns.Name` | `nameFromPeer` | sync |
 | `func ipns.NameFromCid(c cid.Cid) (ipns.Name, error)` | `nameFromCid` | sync |
 | `func ipns.NameFromRoutingKey(data []byte) (ipns.Name, error)` | `nameFromRoutingKey` | sync |
+| `func (ipns.Name).Peer() peer.ID` | `Name.peer` | sync |
+| `func (ipns.Name).Cid() cid.Cid` | `Name.cid` | sync |
+| `func (ipns.Name).AsPath() path.Path` | `Name.asPath` | sync |
+| `func (ipns.Name).RoutingKey() []byte` | `Name.routingKey` | sync |
+| `func (ipns.Name).Equal(other ipns.Name) bool` | `Name.equal` | sync |
 | `const ipns.DefaultRecordLifetime time.Duration` | `defaultRecordLifetime` | const |
 | `const ipns.DefaultRecordTTL time.Duration` | `defaultRecordTtl` | const |
 | `const ipns.MaxRecordSize int` | `maxRecordSize` | const |
@@ -265,6 +270,10 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `func path.NewImmutablePath(p path.Path) (path.ImmutablePath, error)` | `newImmutablePath` | sync |
 | `func path.SegmentsToString(segments ...string) string` | `segmentsToString` | sync |
 | `func path.StringToSegments(str string) []string` | `stringToSegments` | sync |
+| `func (path.Path).Namespace() string` | `Path.namespace` | sync |
+| `func (path.Path).Mutable() bool` | `Path.mutable` | sync |
+| `func (path.Path).Segments() []string` | `Path.segments` | sync |
+| `func (path.ImmutablePath).RootCid() cid.Cid` | `ImmutablePath.rootCid` | sync |
 | `const path.IPFSNamespace untyped string` | `ipfsNamespace` | const |
 | `const path.IPLDNamespace untyped string` | `ipldNamespace` | const |
 | `const path.IPNSNamespace untyped string` | `ipnsNamespace` | const |
@@ -311,6 +320,15 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `func cid.PrefixFromBytes(buf []byte) (cid.Prefix, error)` | `prefixFromBytes` | sync |
 | `func cid.ExtractEncoding(v string) (multibase.Encoding, error)` | `extractEncoding` | sync |
 | `func (cid.Prefix).Bytes() []byte` | `Prefix.bytes` | sync |
+| `func (cid.Cid).Version() uint64` | `Cid.version` | sync |
+| `func (cid.Cid).Type() uint64` | `Cid.type` | sync |
+| `func (cid.Cid).Hash() multihash.Multihash` | `Cid.hash` | sync |
+| `func (cid.Cid).Bytes() []byte` | `Cid.bytes` | sync |
+| `func (cid.Cid).ByteLen() int` | `Cid.byteLen` | sync |
+| `func (cid.Cid).Prefix() cid.Prefix` | `Cid.prefix` | sync |
+| `func (cid.Cid).Equals(o cid.Cid) bool` | `Cid.equals` | sync |
+| `func (cid.Cid).Defined() bool` | `Cid.defined` | sync |
+| `func (cid.Cid).StringOfBase(base multibase.Encoding) (string, error)` | `Cid.stringOfBase` | sync |
 | `const cid.BitcoinBlock untyped int` | `bitcoinBlock` | const |
 | `const cid.BitcoinTx untyped int` | `bitcoinTx` | const |
 | `const cid.DagCBOR untyped int` | `dagCbor` | const |
@@ -1386,6 +1404,12 @@ Omitted:
 | `func peer.IDFromP2PAddr(m multiaddr.Multiaddr) (peer.ID, error)` | `idFromP2pAddr` | sync |
 | `func peer.SplitAddr(m multiaddr.Multiaddr) (transport multiaddr.Multiaddr, id peer.ID)` | `splitAddr` | sync |
 | `func peer.AddrInfosToIDs(pis []peer.AddrInfo) []peer.ID` | `addrInfosToIds` | sync |
+| `func (peer.ID).Validate() error` | `Id.validate` | sync |
+| `func (peer.ID).Marshal() ([]byte, error)` | `Id.marshal` | sync |
+| `func (peer.ID).ExtractPublicKey() (crypto.PubKey, error)` | `Id.extractPublicKey` | sync |
+| `func (peer.ID).MatchesPrivateKey(sk crypto.PrivKey) bool` | `Id.matchesPrivateKey` | sync |
+| `func (peer.ID).MatchesPublicKey(pk crypto.PubKey) bool` | `Id.matchesPublicKey` | sync |
+| `func (peer.ID).ShortString() string` | `Id.shortString` | sync |
 | `const peer.PeerRecordEnvelopeDomain untyped string` | `peerRecordEnvelopeDomain` | const |
 
 ## `github.com/libp2p/go-libp2p/core/peerstore` → `package:p2p_ffi/go/libp2p/core/peerstore.dart`
@@ -1531,6 +1555,12 @@ Omitted:
 | `func multiaddr.Join(msInterfaces ...multiaddr.Multiaddrer) multiaddr.Multiaddr` | `join` | sync |
 | `func multiaddr.Contains(addrs []multiaddr.Multiaddr, addr multiaddr.Multiaddr) bool` | `contains` | sync |
 | `func multiaddr.Unique(addrs []multiaddr.Multiaddr) []multiaddr.Multiaddr` | `unique` | sync |
+| `func (multiaddr.Multiaddr).Bytes() []byte` | `Multiaddr.bytes` | sync |
+| `func (multiaddr.Multiaddr).Equal(m2 multiaddr.Multiaddr) bool` | `Multiaddr.equal` | sync |
+| `func (multiaddr.Multiaddr).Compare(o multiaddr.Multiaddr) int` | `Multiaddr.compare` | sync |
+| `func (multiaddr.Multiaddr).Encapsulate(other multiaddr.Multiaddrer) multiaddr.Multiaddr` | `Multiaddr.encapsulate` | sync |
+| `func (multiaddr.Multiaddr).Decapsulate(rightPartsAny multiaddr.Multiaddrer) multiaddr.Multiaddr` | `Multiaddr.decapsulate` | sync |
+| `func (multiaddr.Multiaddr).ValueForProtocol(code int) (value string, err error)` | `Multiaddr.valueForProtocol` | sync |
 | `const multiaddr.ActionAccept multiaddr.Action` | `actionAccept` | const |
 | `const multiaddr.ActionDeny multiaddr.Action` | `actionDeny` | const |
 | `const multiaddr.ActionNone multiaddr.Action` | `actionNone` | const |
@@ -2346,6 +2376,7 @@ Omitted:
 - A map keyed by a value type (`map[peer.ID][]Multiaddr`) becomes `Map<Id, List<Multiaddr>>`; keyed by an integer (`map[multicodec.Code]uint64`), `Map<int, int>`.
 - A struct of exported fields that is an object (`linking.LinkSystem`, `go-datastore.NullDatastore`, table `handleTypes`) is a handle; the handle of a struct returned by value keeps the pointer (it is valid as `T` and `*T`).
 - DTO method (`car.Header.hasIndex`, `cid.Prefix.sum`): the receiver goes by value; what the method changes in it does not come back.
+- Value type method (`cid.Cid.version`, `peer.Id.extractPublicKey`, `multiaddr.Multiaddr.encapsulate`): the receiver goes as its string, like a value parameter; Go's `String()` is the class's `value`, so it is not listed.
 - A getters-only interface (snapshot, `blocks.Block`) as a parameter: Dart builds the class (`Block(cid: c, rawData: d)`) and Go receives a struct that returns those values.
 - A `chan<- T` channel passed in an option (`options.Unixfs.Events`) becomes a `StreamSink<T>` (`options.unixfs.events(controller.sink)`); the real item type of a `chan<- any` comes from the generator's `chanElem` table (`AddEvent`). Like `ipfs add`, the channel is closed when the call returns: every event arrives and the sink closes before the `Future` completes.
 - A package variable becomes a getter; a named function type (`libp2p.RoutingOption`) is an opaque handle, created only in Go; an unnamed func identical to a named type of the package, or of one it imports, uses the named type (`bsfetcher.DefaultPrototypeChooser`).

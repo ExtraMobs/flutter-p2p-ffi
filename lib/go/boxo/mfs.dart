@@ -18,7 +18,7 @@ class Directory extends FsNode {
   /// Go: `func (*mfs.Directory).Child(name string) (mfs.FSNode, error)`.
   FsNode child(String name) {
     final $r = $callSync(
-        144,
+        149,
         $W()
           ..h(this)
           ..str(name));
@@ -30,7 +30,7 @@ class Directory extends FsNode {
   /// Asynchronous: runs in a goroutine of the service.
   Future<List<String>> listNames($context.Context ctx) async {
     final $r = await $call(
-        148,
+        153,
         $W()
           ..h(this)
           ..h(ctx));
@@ -42,7 +42,7 @@ class Directory extends FsNode {
   /// Asynchronous: runs in a goroutine of the service.
   Future<List<NodeListing>> list($context.Context ctx) async {
     final $r = await $call(
-        147,
+        152,
         $W()
           ..h(this)
           ..h(ctx));
@@ -52,7 +52,7 @@ class Directory extends FsNode {
   /// Go: `func (*mfs.Directory).Mkdir(name string) (*mfs.Directory, error)`.
   Directory mkdir(String name) {
     final $r = $callSync(
-        149,
+        154,
         $W()
           ..h(this)
           ..str(name));
@@ -62,7 +62,7 @@ class Directory extends FsNode {
   /// Go: `func (*mfs.Directory).MkdirWithOpts(name string, opts ...mfs.Option) (*mfs.Directory, error)`.
   Directory mkdirWithOpts(String name, [List<Option> opts = const []]) {
     final $r = $callSync(
-        150,
+        155,
         $W()
           ..h(this)
           ..str(name)
@@ -73,7 +73,7 @@ class Directory extends FsNode {
   /// Go: `func (*mfs.Directory).Unlink(name string) error`.
   void unlink(String name) {
     $callSync(
-        155,
+        160,
         $W()
           ..h(this)
           ..str(name));
@@ -82,7 +82,7 @@ class Directory extends FsNode {
   /// Go: `func (*mfs.Directory).Uncache(name string)`.
   void uncache(String name) {
     $callSync(
-        154,
+        159,
         $W()
           ..h(this)
           ..str(name));
@@ -91,7 +91,7 @@ class Directory extends FsNode {
   /// Go: `func (*mfs.Directory).AddChild(name string, nd format.Node) error`.
   void addChild(String name, $ipld_format.Node nd) {
     $callSync(
-        143,
+        148,
         $W()
           ..h(this)
           ..str(name)
@@ -100,30 +100,30 @@ class Directory extends FsNode {
 
   /// Go: `func (*mfs.Directory).Flush() error`.
   void flush() {
-    $callSync(145, $W()..h(this));
+    $callSync(150, $W()..h(this));
   }
 
   /// Go: `func (*mfs.Directory).GetNode() (format.Node, error)`.
   $ipld_format.Node getNode() {
-    final $r = $callSync(146, $W()..h(this));
+    final $r = $callSync(151, $W()..h(this));
     return $r.hnn($ipld_format.Node.$h);
   }
 
   /// Go: `func (*mfs.Directory).Path() string`.
   String path() {
-    final $r = $callSync(153, $W()..h(this));
+    final $r = $callSync(158, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*mfs.Directory).Mode() (os.FileMode, error)`.
   int mode() {
-    final $r = $callSync(152, $W()..h(this));
+    final $r = $callSync(157, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*mfs.Directory).ModTime() (time.Time, error)`.
   DateTime modTime() {
-    final $r = $callSync(151, $W()..h(this));
+    final $r = $callSync(156, $W()..h(this));
     return $r.p() ? $r.time() : $nil();
   }
 }
@@ -134,25 +134,25 @@ class FsNode extends GoHandle {
 
   /// Go: `func (mfs.FSNode).GetNode() (format.Node, error)`.
   $ipld_format.Node getNode() {
-    final $r = $callSync(157, $W()..h(this));
+    final $r = $callSync(162, $W()..h(this));
     return $r.hnn($ipld_format.Node.$h);
   }
 
   /// Go: `func (mfs.FSNode).Flush() error`.
   void flush() {
-    $callSync(156, $W()..h(this));
+    $callSync(161, $W()..h(this));
   }
 
   /// Go: `func (mfs.FSNode).Type() mfs.NodeType`.
   int type() {
-    final $r = $callSync(160, $W()..h(this));
+    final $r = $callSync(165, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (mfs.FSNode).SetMode(mode os.FileMode) error`.
   void setMode(int mode) {
     $callSync(
-        159,
+        164,
         $W()
           ..h(this)
           ..i64(mode));
@@ -161,7 +161,7 @@ class FsNode extends GoHandle {
   /// Go: `func (mfs.FSNode).SetModTime(ts time.Time) error`.
   void setModTime(DateTime ts) {
     $callSync(
-        158,
+        163,
         $W()
           ..h(this)
           ..time(ts));
@@ -189,7 +189,7 @@ class File extends FsNode {
   /// Asynchronous: runs in a goroutine of the service.
   Future<FileDescriptor> open($context.Context ctx, Flags flags) async {
     final $r = await $call(
-        165,
+        170,
         $W()
           ..h(this)
           ..h(ctx)
@@ -199,48 +199,48 @@ class File extends FsNode {
 
   /// Go: `func (*mfs.File).Size() (int64, error)`.
   int size() {
-    final $r = $callSync(168, $W()..h(this));
+    final $r = $callSync(173, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*mfs.File).GetNode() (format.Node, error)`.
   $ipld_format.Node getNode() {
-    final $r = $callSync(162, $W()..h(this));
+    final $r = $callSync(167, $W()..h(this));
     return $r.hnn($ipld_format.Node.$h);
   }
 
   /// Go: `func (*mfs.File).Flush() error`.
   void flush() {
-    $callSync(161, $W()..h(this));
+    $callSync(166, $W()..h(this));
   }
 
   /// Go: `func (*mfs.File).Sync() error`.
   void sync() {
-    $callSync(169, $W()..h(this));
+    $callSync(174, $W()..h(this));
   }
 
   /// Go: `func (*mfs.File).Mode() (os.FileMode, error)`.
   int mode() {
-    final $r = $callSync(164, $W()..h(this));
+    final $r = $callSync(169, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*mfs.File).ModTime() (time.Time, error)`.
   DateTime modTime() {
-    final $r = $callSync(163, $W()..h(this));
+    final $r = $callSync(168, $W()..h(this));
     return $r.p() ? $r.time() : $nil();
   }
 
   /// Go: `field RawLeaves bool`.
   bool get rawLeaves {
-    final $r = $callSync(166, $W()..h(this));
+    final $r = $callSync(171, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `field RawLeaves bool`.
   set rawLeaves(bool rawLeaves) {
     $callSync(
-        167,
+        172,
         $W()
           ..h(this)
           ..b(rawLeaves));
@@ -254,7 +254,7 @@ class FileDescriptor extends $io.Closer {
   /// Go: `func (io.Reader).Read(p []byte) (n int, err error)`.
   Uint8List read(int n) {
     final $r = $callSync(
-        173,
+        178,
         $W()
           ..h(this)
           ..i64(n));
@@ -266,7 +266,7 @@ class FileDescriptor extends $io.Closer {
   /// Asynchronous: runs in a goroutine of the service.
   Future<Uint8List> ctxReadFull($context.Context ctx, int n) async {
     final $r = await $call(
-        171,
+        176,
         $W()
           ..h(this)
           ..h(ctx)
@@ -277,7 +277,7 @@ class FileDescriptor extends $io.Closer {
   /// Go: `func (io.Writer).Write(p []byte) (n int, err error)`.
   int write(Uint8List p) {
     final $r = $callSync(
-        177,
+        182,
         $W()
           ..h(this)
           ..bytes(p));
@@ -287,7 +287,7 @@ class FileDescriptor extends $io.Closer {
   /// Go: `func (io.WriterAt).WriteAt(p []byte, off int64) (n int, err error)`.
   int writeAt(Uint8List p, int off) {
     final $r = $callSync(
-        178,
+        183,
         $W()
           ..h(this)
           ..bytes(p)
@@ -298,7 +298,7 @@ class FileDescriptor extends $io.Closer {
   /// Go: `func (io.Seeker).Seek(offset int64, whence int) (int64, error)`.
   int seek(int offset, int whence) {
     final $r = $callSync(
-        174,
+        179,
         $W()
           ..h(this)
           ..i64(offset)
@@ -309,7 +309,7 @@ class FileDescriptor extends $io.Closer {
   /// Go: `func (mfs.FileDescriptor).Truncate(int64) error`.
   void truncate(int arg0) {
     $callSync(
-        176,
+        181,
         $W()
           ..h(this)
           ..i64(arg0));
@@ -317,18 +317,18 @@ class FileDescriptor extends $io.Closer {
 
   /// Go: `func (mfs.FileDescriptor).Size() (int64, error)`.
   int size() {
-    final $r = $callSync(175, $W()..h(this));
+    final $r = $callSync(180, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (mfs.FileDescriptor).Flush() error`.
   void flush() {
-    $callSync(172, $W()..h(this));
+    $callSync(177, $W()..h(this));
   }
 
   /// Go: `func (io.Closer).Close() error`.
   void close() {
-    $callSync(170, $W()..h(this));
+    $callSync(175, $W()..h(this));
   }
 }
 
@@ -433,13 +433,13 @@ class Root extends GoHandle {
 
   /// Go: `func (*mfs.Root).GetDirectory() *mfs.Directory`.
   Directory getDirectory() {
-    final $r = $callSync(188, $W()..h(this));
+    final $r = $callSync(193, $W()..h(this));
     return $r.hnn(Directory.$h);
   }
 
   /// Go: `func (*mfs.Root).Flush() error`.
   void flush() {
-    $callSync(186, $W()..h(this));
+    $callSync(191, $W()..h(this));
   }
 
   /// Go: `func (*mfs.Root).FlushMemFree(ctx context.Context) error`.
@@ -447,7 +447,7 @@ class Root extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> flushMemFree($context.Context ctx) async {
     await $call(
-        187,
+        192,
         $W()
           ..h(this)
           ..h(ctx));
@@ -485,7 +485,7 @@ Option withSizeEstimationMode(int mode) => Option.$(8, (w) => w..i64(mode));
 /// Go: `func mfs.Lookup(r *mfs.Root, path string) (mfs.FSNode, error)`.
 FsNode lookup(Root r, String path) {
   final $r = $callSync(
-      182,
+      187,
       $W()
         ..h(r)
         ..str(path));
@@ -495,7 +495,7 @@ FsNode lookup(Root r, String path) {
 /// Go: `func mfs.DirLookup(d *mfs.Directory, pth string) (mfs.FSNode, error)`.
 FsNode dirLookup(Directory d, String pth) {
   final $r = $callSync(
-      142,
+      147,
       $W()
         ..h(d)
         ..str(pth));
@@ -506,7 +506,7 @@ FsNode dirLookup(Directory d, String pth) {
 void mkdir(Root r, String pth, MkdirOpts opts,
     [List<Option> dirOpts = const []]) {
   $callSync(
-      183,
+      188,
       $W()
         ..h(r)
         ..str(pth)
@@ -517,7 +517,7 @@ void mkdir(Root r, String pth, MkdirOpts opts,
 /// Go: `func mfs.Mv(r *mfs.Root, src string, dst string) error`.
 void mv(Root r, String src, String dst) {
   $callSync(
-      184,
+      189,
       $W()
         ..h(r)
         ..str(src)
@@ -527,7 +527,7 @@ void mv(Root r, String src, String dst) {
 /// Go: `func mfs.PutNode(r *mfs.Root, path string, nd format.Node) error`.
 void putNode(Root r, String path, $ipld_format.Node nd) {
   $callSync(
-      185,
+      190,
       $W()
         ..h(r)
         ..str(path)
@@ -540,7 +540,7 @@ void putNode(Root r, String path, $ipld_format.Node nd) {
 Future<$ipld_format.Node> flushPath(
     $context.Context ctx, Root rt, String pth) async {
   final $r = await $call(
-      179,
+      184,
       $W()
         ..h(ctx)
         ..h(rt)
@@ -551,7 +551,7 @@ Future<$ipld_format.Node> flushPath(
 /// Go: `func mfs.Chmod(rt *mfs.Root, pth string, mode os.FileMode) error`.
 void chmod(Root rt, String pth, int mode) {
   $callSync(
-      141,
+      146,
       $W()
         ..h(rt)
         ..str(pth)
@@ -561,7 +561,7 @@ void chmod(Root rt, String pth, int mode) {
 /// Go: `func mfs.Touch(rt *mfs.Root, pth string, ts time.Time) error`.
 void touch(Root rt, String pth, DateTime ts) {
   $callSync(
-      189,
+      194,
       $W()
         ..h(rt)
         ..str(pth)
@@ -570,13 +570,13 @@ void touch(Root rt, String pth, DateTime ts) {
 
 /// Go: `func mfs.IsDir(fsn mfs.FSNode) bool`.
 bool isDir(FsNode fsn) {
-  final $r = $callSync(180, $W()..h(fsn));
+  final $r = $callSync(185, $W()..h(fsn));
   return $r.b();
 }
 
 /// Go: `func mfs.IsFile(fsn mfs.FSNode) bool`.
 bool isFile(FsNode fsn) {
-  final $r = $callSync(181, $W()..h(fsn));
+  final $r = $callSync(186, $W()..h(fsn));
   return $r.b();
 }
 
