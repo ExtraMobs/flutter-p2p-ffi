@@ -23,7 +23,12 @@ The owner asked for the package functions that were missing (`cid.Parse` and oth
 - `multiaddr.join`/`encapsulate` take `Multiaddrer`, a snapshot class:
   `Multiaddrer(multiaddr: a)`.
 - Checked: dart test (`test/package_funcs_test.dart`, 8 tests; the whole suite, 113),
-  go vet, go test, gen -check, on Windows; linux and Android not rebuilt.
+  go vet, go test, gen -check, on Windows; linux (WSL) 113/113; the Android integration
+  tests (`ipfs_test`, `libp2p_test`, `network_test`) on the emulator (Android 17, x86_64)
+  and on a real phone (Android 16, HyperOS, arm64). On the phone the first `network_test`
+  failed with "the app went to the background": the screen turned off after 60 s and
+  stopped the service. With `adb shell svc power stayon usb` it passed 5/5 (restore with
+  `svc power stayon false`). DNSLink took 58 s there, close to the timeout.
 
 ## Done: the pending checks on a real phone (2026-10-23)
 
