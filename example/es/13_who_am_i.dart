@@ -36,6 +36,7 @@ import 'package:p2p_ffi/go/libp2p/p2p/muxer/yamux.dart' as yamux;
 import 'package:p2p_ffi/go/libp2p/p2p/security/noise.dart' as noise;
 import 'package:p2p_ffi/go/libp2p/p2p/transport/tcp.dart' as tcp;
 import 'package:p2p_ffi/go/multiaddr.dart' as multiaddr;
+import 'package:p2p_ffi/go/multibase.dart' as multibase;
 import 'package:p2p_ffi/go/multicodec.dart' as multicodec;
 import 'package:p2p_ffi/p2p_ffi.dart';
 
@@ -56,7 +57,7 @@ Future<void> main() async {
     // El mismo ID como CID (codec libp2p-key): es lo que es un nombre IPNS
     // (lección 11).
     final asCid = peer.toCid(id);
-    say('  como CID: ${asCid.stringOfBase(0x6b)} (codec 0x'
+    say('  como CID: ${asCid.stringOfBase(multibase.base36)} (codec 0x'
         '${asCid.type().toRadixString(16)}, libp2p-key: '
         '${asCid.type() == multicodec.libp2pKey})');
 

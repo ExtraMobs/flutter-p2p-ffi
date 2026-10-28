@@ -50,6 +50,7 @@ import 'package:p2p_ffi/go/io/fs.dart' as fs;
 import 'package:p2p_ffi/go/kubo/core/commands.dart' as commands;
 import 'package:p2p_ffi/go/kubo/core/coreapi.dart' as coreapi;
 import 'package:p2p_ffi/go/multicodec.dart' as multicodec;
+import 'package:p2p_ffi/go/multihash.dart' as multihash;
 import 'package:p2p_ffi/go/os.dart' as os;
 import 'package:p2p_ffi/p2p_ffi.dart';
 // ignore: implementation_imports
@@ -68,7 +69,7 @@ Future<void> main() async {
   // a CID nobody has waits forever, the perfect thing to put a limit on.
   var n = await newNode(bg, '${tmp.path}/repo', online: true);
   final nowhere = path.Path('/ipfs/'
-      '${cid.newPrefixV1(multicodec.raw, multicodec.sha2256).sum(utf8.encode('nobody has this'))}');
+      '${cid.newPrefixV1(multicodec.raw, multihash.sha2256).sum(utf8.encode('nobody has this'))}');
   try {
     var api = coreapi.newCoreApi(n);
 
@@ -138,7 +139,8 @@ Future<void> main() async {
     // 4. A crash of the service (TEST ONLY: a hook that panics in a Go
     //    goroutine, like a bug inside kubo). Only the p2p_host goes; this
     //    program goes on, told by onStop.
-    $callSync(24);
+    const panicInGoroutineHook = 24; // WIRE.md
+    $callSync(panicInGoroutineHook);
     final s = await stopped.future;
     say('\n4. the service stopped: ${s.reason}, exit code ${s.exitCode}, up '
         '${s.uptime.inSeconds} s');

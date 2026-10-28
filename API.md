@@ -56,6 +56,7 @@ Each line is an exposed Go symbol and where it is in Dart.
 | Go | Dart | Mode |
 |---|---|---|
 | `func chunk.SizeSplitterGen(size int64) chunk.SplitterGen` | `sizeSplitterGen` | sync |
+| `var chunk.DefaultBlockSize int64` | `defaultBlockSize` | sync |
 | `func chunk.NewSizeSplitter(r io.Reader, size int64) chunk.Splitter` | `newSizeSplitter` | sync |
 | `func chunk.FromString(r io.Reader, chunker string) (chunk.Splitter, error)` | `fromString` | sync |
 | `const chunk.BlockSizeLimit int` | `blockSizeLimit` | const |
@@ -1642,6 +1643,43 @@ Omitted:
 | `const multiaddr.P_WS untyped int` | `pWs` | const |
 | `const multiaddr.P_WSS untyped int` | `pWss` | const |
 
+## `github.com/multiformats/go-multibase` → `package:p2p_ffi/go/multibase.dart`
+
+| Go | Dart | Mode |
+|---|---|---|
+| `func multibase.Encode(base multibase.Encoding, data []byte) (string, error)` | `encode` | sync |
+| `func multibase.Decode(data string) (multibase.Encoding, []byte, error)` | `decode` | sync |
+| `func multibase.EncoderByName(str string) (multibase.Encoder, error)` | `encoderByName` | sync |
+| `func multibase.NewEncoder(base multibase.Encoding) (multibase.Encoder, error)` | `factory Encoder` | sync |
+| `func (multibase.Encoder).Encode(data []byte) string` | `Encoder.encode` | sync |
+| `func (multibase.Encoder).Encoding() multibase.Encoding` | `Encoder.encoding` | sync |
+| `var multibase.EncodingToStr map[multibase.Encoding]string` | `encodingToStr` | sync |
+| `var multibase.Encodings map[string]multibase.Encoding` | `encodings` | sync |
+| `const multibase.Base10 untyped rune` | `base10` | const |
+| `const multibase.Base16 untyped rune` | `base16` | const |
+| `const multibase.Base16Upper untyped rune` | `base16Upper` | const |
+| `const multibase.Base2 untyped rune` | `base2` | const |
+| `const multibase.Base256Emoji untyped rune` | `base256Emoji` | const |
+| `const multibase.Base32 untyped rune` | `base32` | const |
+| `const multibase.Base32Upper untyped rune` | `base32Upper` | const |
+| `const multibase.Base32hex untyped rune` | `base32hex` | const |
+| `const multibase.Base32hexPad untyped rune` | `base32hexPad` | const |
+| `const multibase.Base32hexPadUpper untyped rune` | `base32hexPadUpper` | const |
+| `const multibase.Base32hexUpper untyped rune` | `base32hexUpper` | const |
+| `const multibase.Base32pad untyped rune` | `base32pad` | const |
+| `const multibase.Base32padUpper untyped rune` | `base32padUpper` | const |
+| `const multibase.Base36 untyped rune` | `base36` | const |
+| `const multibase.Base36Upper untyped rune` | `base36Upper` | const |
+| `const multibase.Base45 untyped rune` | `base45` | const |
+| `const multibase.Base58BTC untyped rune` | `base58btc` | const |
+| `const multibase.Base58Flickr untyped rune` | `base58Flickr` | const |
+| `const multibase.Base64 untyped rune` | `base64` | const |
+| `const multibase.Base64pad untyped rune` | `base64pad` | const |
+| `const multibase.Base64url untyped rune` | `base64url` | const |
+| `const multibase.Base64urlPad untyped rune` | `base64urlPad` | const |
+| `const multibase.Base8 untyped rune` | `base8` | const |
+| `const multibase.Identity untyped int` | `identity` | const |
+
 ## `github.com/multiformats/go-multicodec` → `package:p2p_ffi/go/multicodec.dart`
 
 | Go | Dart | Mode |
@@ -2252,6 +2290,71 @@ Omitted:
 | `const multicodec.Zeronet multicodec.Code` | `zeronet` | const |
 | `const multicodec.ZeroxcertImprint256 multicodec.Code` | `zeroxcertImprint256` | const |
 
+## `github.com/multiformats/go-multihash` → `package:p2p_ffi/go/multihash.dart`
+
+| Go | Dart | Mode |
+|---|---|---|
+| `func multihash.Sum(data []byte, code uint64, length int) (multihash.Multihash, error)` | `sum` | sync |
+| `func multihash.SumStream(r io.Reader, code uint64, length int) (multihash.Multihash, error)` | `sumStream` | sync |
+| `func multihash.Encode(buf []byte, code uint64) ([]byte, error)` | `encode` | sync |
+| `func multihash.EncodeName(buf []byte, name string) ([]byte, error)` | `encodeName` | sync |
+| `func multihash.Decode(buf []byte) (*multihash.DecodedMultihash, error)` | `decode` | sync |
+| `func multihash.Cast(buf []byte) (multihash.Multihash, error)` | `cast` | sync |
+| `func multihash.MHFromBytes(buf []byte) (int, multihash.Multihash, error)` | `mhFromBytes` | sync |
+| `func multihash.FromB58String(s string) (m multihash.Multihash, err error)` | `fromB58String` | sync |
+| `func multihash.FromHexString(s string) (multihash.Multihash, error)` | `fromHexString` | sync |
+| `var multihash.Names map[string]uint64` | `names` | sync |
+| `var multihash.Codes map[uint64]string` | `codes` | sync |
+| `var multihash.DefaultLengths map[uint64]int` | `defaultLengths` | sync |
+| `func multihash.GetHasher(indicator uint64) (hash.Hash, error)` | `getHasher` | sync |
+| `func multihash.NewSet() *multihash.Set` | `factory Set$` | sync |
+| `func (*multihash.Set).Add(m multihash.Multihash)` | `Set$.add` | sync |
+| `func (*multihash.Set).All() []multihash.Multihash` | `Set$.all` | sync |
+| `func (*multihash.Set).ForEach(f func(m multihash.Multihash) error) error` | `Set$.forEach` | Future |
+| `func (*multihash.Set).Has(m multihash.Multihash) bool` | `Set$.has` | sync |
+| `func (*multihash.Set).Len() int` | `Set$.len` | sync |
+| `func (*multihash.Set).Remove(m multihash.Multihash)` | `Set$.remove` | sync |
+| `func (*multihash.Set).Visit(m multihash.Multihash) bool` | `Set$.visit` | sync |
+| `func multihash.NewReader(r io.Reader) multihash.Reader` | `factory Reader` | sync |
+| `func (multihash.Reader).ReadMultihash() (multihash.Multihash, error)` | `Reader.readMultihash` | sync |
+| `func multihash.NewWriter(w io.Writer) multihash.Writer` | `factory Writer` | sync |
+| `func (multihash.Writer).WriteMultihash(multihash.Multihash) error` | `Writer.writeMultihash` | sync |
+| `const multihash.BLAKE2B_MAX untyped int` | `blake2bMax` | const |
+| `const multihash.BLAKE2B_MIN untyped int` | `blake2bMin` | const |
+| `const multihash.BLAKE2S_MAX untyped int` | `blake2sMax` | const |
+| `const multihash.BLAKE2S_MIN untyped int` | `blake2sMin` | const |
+| `const multihash.BLAKE3 untyped int` | `blake3` | const |
+| `const multihash.DBL_SHA2_256 untyped int` | `dblSha2256` | const |
+| `const multihash.ID untyped int` | `id` | const |
+| `const multihash.IDENTITY untyped int` | `identity` | const |
+| `const multihash.KECCAK_224 untyped int` | `keccak224` | const |
+| `const multihash.KECCAK_256 untyped int` | `keccak256` | const |
+| `const multihash.KECCAK_384 untyped int` | `keccak384` | const |
+| `const multihash.KECCAK_512 untyped int` | `keccak512` | const |
+| `const multihash.MD5 untyped int` | `md5` | const |
+| `const multihash.MURMUR3 untyped int` | `murmur3` | const |
+| `const multihash.MURMUR3X64_64 untyped int` | `murmur3x6464` | const |
+| `const multihash.POSEIDON_BLS12_381_A1_FC1 untyped int` | `poseidonBls12381A1Fc1` | const |
+| `const multihash.SHA1 untyped int` | `sha1` | const |
+| `const multihash.SHA2_256 untyped int` | `sha2256` | const |
+| `const multihash.SHA2_256_TRUNC254_PADDED untyped int` | `sha2256Trunc254Padded` | const |
+| `const multihash.SHA2_512 untyped int` | `sha2512` | const |
+| `const multihash.SHA3 untyped int` | `sha3` | const |
+| `const multihash.SHA3_224 untyped int` | `sha3224` | const |
+| `const multihash.SHA3_256 untyped int` | `sha3256` | const |
+| `const multihash.SHA3_384 untyped int` | `sha3384` | const |
+| `const multihash.SHA3_512 untyped int` | `sha3512` | const |
+| `const multihash.SHAKE_128 untyped int` | `shake128` | const |
+| `const multihash.SHAKE_256 untyped int` | `shake256` | const |
+| `const multihash.X11 untyped int` | `x11` | const |
+
+Omitted:
+
+- `func (multihash.Multihash).B58String() string`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/multiformats/go-multihash.Multihash
+- `func (multihash.Multihash).HexString() string`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/multiformats/go-multihash.Multihash
+- `func (multihash.Multihash).String() string`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/multiformats/go-multihash.Multihash
+- `func multihash.Register(indicator uint64, hasherFactory func() hash.Hash)`: parameter hasherFactory: func() hash.Hash
+
 ## `github.com/prometheus/client_golang/prometheus` → `package:p2p_ffi/go/client_golang/prometheus.dart`
 
 | Go | Dart | Mode |
@@ -2662,6 +2765,17 @@ of the chain.
 | `record.ErrBetterRecord` | `ErrBetterRecord` in `package:p2p_ffi/go/libp2p_record.dart` | key, value$ |
 | `var record.ErrInvalidRecordType error` | `ErrInvalidRecordType` in `package:p2p_ffi/go/libp2p_record.dart` |  |
 | `var multiaddr.ErrProtocolNotFound error` | `ErrProtocolNotFound` in `package:p2p_ffi/go/multiaddr.dart` |  |
+| `var multibase.ErrUnsupportedEncoding error` | `ErrUnsupportedEncoding` in `package:p2p_ffi/go/multibase.dart` |  |
+| `multihash.ErrInconsistentLen` | `ErrInconsistentLen` in `package:p2p_ffi/go/multihash.dart` |  |
+| `var multihash.ErrInvalidMultihash error` | `ErrInvalidMultihash` in `package:p2p_ffi/go/multihash.dart` |  |
+| `var multihash.ErrLenNotSupported error` | `ErrLenNotSupported` in `package:p2p_ffi/go/multihash.dart` |  |
+| `var multihash.ErrLenTooLarge error` | `ErrLenTooLarge` in `package:p2p_ffi/go/multihash.dart` |  |
+| `var multihash.ErrSumNotSupported error` | `ErrSumNotSupported` in `package:p2p_ffi/go/multihash.dart` |  |
+| `var multihash.ErrTooLong error` | `ErrTooLong` in `package:p2p_ffi/go/multihash.dart` |  |
+| `var multihash.ErrTooShort error` | `ErrTooShort` in `package:p2p_ffi/go/multihash.dart` |  |
+| `var multihash.ErrUnknownCode error` | `ErrUnknownCode` in `package:p2p_ffi/go/multihash.dart` |  |
+| `var multihash.ErrVarintBufferShort error` | `ErrVarintBufferShort` in `package:p2p_ffi/go/multihash.dart` |  |
+| `var multihash.ErrVarintTooLong error` | `ErrVarintTooLong` in `package:p2p_ffi/go/multihash.dart` |  |
 | `net.AddrError` | `AddrError` in `package:p2p_ffi/go/net.dart` | err, addr |
 | `net.DNSConfigError` | `DnsConfigError` in `package:p2p_ffi/go/net.dart` | (not crossing: Err (the next link of the chain)) |
 | `net.DNSError` | `DnsError` in `package:p2p_ffi/go/net.dart` | err, name, server, isTimeout, isTemporary, isNotFound (not crossing: UnwrapErr (the next link of the chain)) |

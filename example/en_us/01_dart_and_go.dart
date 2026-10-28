@@ -30,6 +30,7 @@ import 'package:p2p_ffi/go/cid.dart' as cid;
 import 'package:p2p_ffi/go/context.dart' as context;
 import 'package:p2p_ffi/go/datastore.dart' as datastore;
 import 'package:p2p_ffi/go/datastore/sync.dart' as sync;
+import 'package:p2p_ffi/go/multihash.dart' as multihash;
 import 'package:p2p_ffi/p2p_ffi.dart';
 
 import 'lesson.dart';
@@ -65,7 +66,8 @@ Future<void> main() async {
   final bs = blockstore.Blockstore(ds);
   final data = utf8.encode('hello');
   final block = blocks.Block(
-      cid: cid.newPrefixV1(cid.raw, 0x12).sum(data), rawData: data);
+      cid: cid.newPrefixV1(cid.raw, multihash.sha2256).sum(data),
+      rawData: data);
   await bs.put(ctx, block);
   say('\nasync: put a block, has it: ${await bs.has(ctx, block.cid!)}');
 

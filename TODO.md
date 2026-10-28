@@ -1,6 +1,32 @@
 # Pendências do ipfs_ffi
 
-## Done (unreleased): typed Go errors
+## Done: go-multihash, go-multibase and the lessons' constants (0.27.0)
+
+The owner asked what the `0x12` in lesson 01 is: the multihash code of sha2-256. A
+package's library (and so its constants) exists only when a root names one of its
+symbols; go-multihash never had one, because `multihash.Multihash` crosses as bytes.
+
+- Roots for all of go-multihash and go-multibase (both were already in the module graph:
+  go-multibase was `// indirect`), and for the var `chunker.DefaultBlockSize`.
+- Not generated: the methods on `Multihash` (`B58String`, `HexString`, `String`): the
+  generator does not take a named `[]byte` as a receiver. `Register` either (a
+  `func() hash.Hash`). Both stay in roots.txt, with the reason in API.md.
+- Go has the hash codes twice: go-multihash (`SHA2_256 = 0x12`, untyped, only the hashes)
+  and go-multicodec (`Sha2_256 Code`, the whole multiformats table). The lessons use
+  go-multihash for a CID's hash, like Go code does (`cid.NewPrefixV1(cid.Raw, mh.SHA2_256)`).
+- In the lessons: 01 and the `newPrefixV1/V0` calls → `multihash.*`; 02 and 13 →
+  `multibase.*` (02 had its own consts); 12 → `multicodec.dagCbor`; 03/04 →
+  `chunker.defaultBlockSize` (a getter, so 03's `importBytes` takes `[int? size]`); 19
+  names the test hook `panicInGoroutineHook`.
+- Checked on Windows: go vet, go test, gen -check, dart analyze, the whole suite (118,
+  with the new multihash/multibase test in `package_funcs_test.dart`), and the 10 changed
+  lessons in all three languages.
+- Next (planned with the owner): in every lesson, the true Go line directly above each Dart
+  line, and every step that exists only in Dart says why. Lesson 01's
+  `bs.Put(ctx, blocks.NewBlock(data))` is wrong: `NewBlock` makes a CIDv0, while the lesson
+  makes a CIDv1 raw (`NewBlockWithCid`).
+
+## Done: typed Go errors (0.27.0)
 
 The owner asked for real typed errors (a Dart class thrown per Go error) and, for the
 errors that are only text, the errno and the error texts in the `GolangException`

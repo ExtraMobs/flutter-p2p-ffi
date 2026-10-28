@@ -15,32 +15,32 @@ class Name extends GoValue {
 
   /// Go: `func (ipns.Name).Peer() peer.ID`.
   $peer.Id peer() {
-    final $r = $callSync(154, $W()..val(this));
+    final $r = $callSync(155, $W()..val(this));
     return $r.p() ? $peer.Id($r.str()) : $nil();
   }
 
   /// Go: `func (ipns.Name).Cid() cid.Cid`.
   $cid.Cid cid() {
-    final $r = $callSync(152, $W()..val(this));
+    final $r = $callSync(153, $W()..val(this));
     return $r.p() ? $cid.Cid($r.str()) : $nil();
   }
 
   /// Go: `func (ipns.Name).AsPath() path.Path`.
   $path.Path asPath() {
-    final $r = $callSync(151, $W()..val(this));
+    final $r = $callSync(152, $W()..val(this));
     return $r.p() ? $path.Path($r.str()) : $nil();
   }
 
   /// Go: `func (ipns.Name).RoutingKey() []byte`.
   Uint8List routingKey() {
-    final $r = $callSync(155, $W()..val(this));
+    final $r = $callSync(156, $W()..val(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (ipns.Name).Equal(other ipns.Name) bool`.
   bool equal(Name other) {
     final $r = $callSync(
-        153,
+        154,
         $W()
           ..val(this)
           ..val(other));
@@ -50,25 +50,25 @@ class Name extends GoValue {
 
 /// Go: `func ipns.NameFromString(str string) (ipns.Name, error)`.
 Name nameFromString(String str) {
-  final $r = $callSync(159, $W()..str(str));
+  final $r = $callSync(160, $W()..str(str));
   return $r.p() ? Name($r.str()) : $nil();
 }
 
 /// Go: `func ipns.NameFromPeer(pid peer.ID) ipns.Name`.
 Name nameFromPeer($peer.Id pid) {
-  final $r = $callSync(157, $W()..val(pid));
+  final $r = $callSync(158, $W()..val(pid));
   return $r.p() ? Name($r.str()) : $nil();
 }
 
 /// Go: `func ipns.NameFromCid(c cid.Cid) (ipns.Name, error)`.
 Name nameFromCid($cid.Cid c) {
-  final $r = $callSync(156, $W()..val(c));
+  final $r = $callSync(157, $W()..val(c));
   return $r.p() ? Name($r.str()) : $nil();
 }
 
 /// Go: `func ipns.NameFromRoutingKey(data []byte) (ipns.Name, error)`.
 Name nameFromRoutingKey(Uint8List data) {
-  final $r = $callSync(158, $W()..bytes(data));
+  final $r = $callSync(159, $W()..bytes(data));
   return $r.p() ? Name($r.str()) : $nil();
 }
 

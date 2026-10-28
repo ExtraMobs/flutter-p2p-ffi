@@ -317,7 +317,7 @@ final class Message implements GoDto {
 
   /// Go: `func (*pubsub.Message).GetFrom() peer.ID`.
   $peer.Id getFrom() {
-    final $r = $callSync(508, $W()..dto(this));
+    final $r = $callSync(509, $W()..dto(this));
     return $r.p() ? $peer.Id($r.str()) : $nil();
   }
 }
@@ -628,7 +628,7 @@ class PubSub extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<Topic> join(String topic, [List<TopicOpt> opts = const []]) async {
     final $r = await $call(
-        513,
+        514,
         $W()
           ..h(this)
           ..str(topic)
@@ -640,7 +640,7 @@ class PubSub extends GoHandle {
   ///
   /// Asynchronous: runs in a goroutine of the service.
   Future<List<String>> getTopics() async {
-    final $r = await $call(512, $W()..h(this));
+    final $r = await $call(513, $W()..h(this));
     return $r.list(() => $r.str());
   }
 
@@ -649,7 +649,7 @@ class PubSub extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<List<$peer.Id>> listPeers(String topic) async {
     final $r = await $call(
-        514,
+        515,
         $W()
           ..h(this)
           ..str(topic));
@@ -661,7 +661,7 @@ class PubSub extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> addDirectPeer($peer.AddrInfo pInfo) async {
     await $call(
-        510,
+        511,
         $W()
           ..h(this)
           ..dto(pInfo));
@@ -672,7 +672,7 @@ class PubSub extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> removeDirectPeer($peer.Id pid) async {
     await $call(
-        516,
+        517,
         $W()
           ..h(this)
           ..val(pid));
@@ -683,7 +683,7 @@ class PubSub extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> blacklistPeer($peer.Id pid) async {
     await $call(
-        511,
+        512,
         $W()
           ..h(this)
           ..val(pid));
@@ -701,7 +701,7 @@ class PubSub extends GoHandle {
           val,
       [List<ValidatorOpt> opts = const []]) async {
     await $call(
-        515,
+        516,
         $W()
           ..h(this)
           ..str(topic)
@@ -720,7 +720,7 @@ class PubSub extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> unregisterTopicValidator(String topic) async {
     await $call(
-        517,
+        518,
         $W()
           ..h(this)
           ..str(topic));
@@ -756,7 +756,7 @@ class Subscription extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<Message> next($context.Context ctx) async {
     final $r = await $call(
-        519,
+        520,
         $W()
           ..h(this)
           ..h(ctx));
@@ -765,7 +765,7 @@ class Subscription extends GoHandle {
 
   /// Go: `func (*pubsub.Subscription).Topic() string`.
   String topic() {
-    final $r = $callSync(520, $W()..h(this));
+    final $r = $callSync(521, $W()..h(this));
     return $r.str();
   }
 
@@ -773,7 +773,7 @@ class Subscription extends GoHandle {
   ///
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> cancel() async {
-    await $call(518, $W()..h(this));
+    await $call(519, $W()..h(this));
   }
 }
 
@@ -803,7 +803,7 @@ class Topic extends GoHandle {
   Future<void> publish($context.Context ctx, Uint8List data,
       [List<PubOpt> opts = const []]) async {
     await $call(
-        524,
+        525,
         $W()
           ..h(this)
           ..h(ctx)
@@ -816,7 +816,7 @@ class Topic extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<Subscription> subscribe([List<SubOpt> opts = const []]) async {
     final $r = await $call(
-        526,
+        527,
         $W()
           ..h(this)
           ..list(opts, (w0, e0) => w0.opt(e0)));
@@ -827,7 +827,7 @@ class Topic extends GoHandle {
   ///
   /// Asynchronous: runs in a goroutine of the service.
   Future<List<$peer.Id>> listPeers() async {
-    final $r = await $call(523, $W()..h(this));
+    final $r = await $call(524, $W()..h(this));
     return $r.list(() => $r.p() ? $peer.Id($r.str()) : $nil());
   }
 
@@ -837,7 +837,7 @@ class Topic extends GoHandle {
   Future<TopicEventHandler> eventHandler(
       [List<TopicEventHandlerOpt> opts = const []]) async {
     final $r = await $call(
-        522,
+        523,
         $W()
           ..h(this)
           ..list(opts, (w0, e0) => w0.h(e0)));
@@ -846,7 +846,7 @@ class Topic extends GoHandle {
 
   /// Go: `func (*pubsub.Topic).String() string`.
   String string() {
-    final $r = $callSync(525, $W()..h(this));
+    final $r = $callSync(526, $W()..h(this));
     return $r.str();
   }
 
@@ -854,7 +854,7 @@ class Topic extends GoHandle {
   ///
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> close() async {
-    await $call(521, $W()..h(this));
+    await $call(522, $W()..h(this));
   }
 }
 
@@ -867,7 +867,7 @@ class TopicEventHandler extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<PeerEvent> nextPeerEvent($context.Context ctx) async {
     final $r = await $call(
-        528,
+        529,
         $W()
           ..h(this)
           ..h(ctx));
@@ -878,7 +878,7 @@ class TopicEventHandler extends GoHandle {
   ///
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> cancel() async {
-    await $call(527, $W()..h(this));
+    await $call(528, $W()..h(this));
   }
 }
 
@@ -1274,7 +1274,7 @@ ValidatorOpt withValidatorTimeout(Duration timeout) =>
 Future<PubSub> newGossipSub($context.Context ctx, $host.Host h,
     [List<Option> opts = const []]) async {
   final $r = await $call(
-      509,
+      510,
       $W()
         ..h(ctx)
         ..h(h)
@@ -1284,7 +1284,7 @@ Future<PubSub> newGossipSub($context.Context ctx, $host.Host h,
 
 /// Go: `func pubsub.DefaultGossipSubParams() pubsub.GossipSubParams`.
 GossipSubParams defaultGossipSubParams() {
-  final $r = $callSync(507);
+  final $r = $callSync(508);
   return $r.p() ? GossipSubParams.$dec($r) : $nil();
 }
 

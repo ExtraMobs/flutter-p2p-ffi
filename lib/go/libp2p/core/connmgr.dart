@@ -13,7 +13,7 @@ class ConnManager extends GoHandle {
   /// Go: `func (connmgr.ConnManager).Protect(id peer.ID, tag string)`.
   void protect($peer.Id id, String tag) {
     $callSync(
-        535,
+        536,
         $W()
           ..h(this)
           ..val(id)
@@ -23,7 +23,7 @@ class ConnManager extends GoHandle {
   /// Go: `func (connmgr.ConnManager).Unprotect(id peer.ID, tag string) (protected bool)`.
   bool unprotect($peer.Id id, String tag) {
     final $r = $callSync(
-        538,
+        539,
         $W()
           ..h(this)
           ..val(id)
@@ -34,7 +34,7 @@ class ConnManager extends GoHandle {
   /// Go: `func (connmgr.ConnManager).IsProtected(id peer.ID, tag string) (protected bool)`.
   bool isProtected($peer.Id id, String tag) {
     final $r = $callSync(
-        534,
+        535,
         $W()
           ..h(this)
           ..val(id)
@@ -45,7 +45,7 @@ class ConnManager extends GoHandle {
   /// Go: `func (connmgr.ConnManager).TagPeer(peer.ID, string, int)`.
   void tagPeer($peer.Id id, String arg1, int arg2) {
     $callSync(
-        536,
+        537,
         $W()
           ..h(this)
           ..val(id)
@@ -56,7 +56,7 @@ class ConnManager extends GoHandle {
   /// Go: `func (connmgr.ConnManager).UntagPeer(p peer.ID, tag string)`.
   void untagPeer($peer.Id p, String tag) {
     $callSync(
-        539,
+        540,
         $W()
           ..h(this)
           ..val(p)
@@ -68,7 +68,7 @@ class ConnManager extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> trimOpenConns($context.Context ctx) async {
     await $call(
-        537,
+        538,
         $W()
           ..h(this)
           ..h(ctx));

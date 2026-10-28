@@ -43,6 +43,7 @@ import 'package:p2p_ffi/go/datastore/sync.dart' as sync;
 import 'package:p2p_ffi/go/io.dart' as io;
 import 'package:p2p_ffi/go/ipld_format.dart' as ipld_format;
 import 'package:p2p_ffi/go/multicodec.dart' as multicodec;
+import 'package:p2p_ffi/go/multihash.dart' as multihash;
 import 'package:p2p_ffi/p2p_ffi.dart';
 
 import 'lesson.dart';
@@ -61,7 +62,7 @@ Future<void> main() async {
     ipld_format.Node importBytes(List<int> data) => importer.buildDagFromReader(
         dag,
         chunker.newSizeSplitter(
-            bytes.Buffer(Uint8List.fromList(data)), 256 * 1024));
+            bytes.Buffer(Uint8List.fromList(data)), chunker.defaultBlockSize));
     final rnd = Random(42);
     final data =
         Uint8List.fromList(List.generate(600000, (_) => rnd.nextInt(256)));
@@ -135,7 +136,7 @@ Future<void> main() async {
 
     say('\n== Errores comunes\n');
     final never = cid
-        .newPrefixV1(multicodec.raw, multicodec.sha2256)
+        .newPrefixV1(multicodec.raw, multihash.sha2256)
         .sum(utf8.encode('never stored'));
     await mistake('obtener un CID que nunca se guardó',
         why: 'offline, "no está aquí" es definitivo: no hay nadie más a quien '

@@ -39,6 +39,7 @@ import 'package:p2p_ffi/go/context.dart' as context;
 import 'package:p2p_ffi/go/kubo/core/commands.dart' as commands;
 import 'package:p2p_ffi/go/kubo/core/commands/dag.dart' as dag;
 import 'package:p2p_ffi/go/kubo/core/coreapi.dart' as coreapi;
+import 'package:p2p_ffi/go/multicodec.dart' as multicodec;
 import 'package:p2p_ffi/go/os.dart' as os;
 import 'package:p2p_ffi/p2p_ffi.dart';
 
@@ -103,7 +104,7 @@ Future<void> main() async {
         utf8.encode('{"title": "hi", "tags": ["ipfs", "dart"], '
             '"author": {"/": "$author"}}'),
         pin: true);
-    say('\nipfs dag put: post $post (dag-cbor: ${post.type() == 0x71})');
+    say('\nipfs dag put: post $post (dag-cbor: ${post.type() == multicodec.dagCbor})');
     final tags = await dag.dagGet(api, ctx, path.Path('/ipfs/$post/tags'));
     final name =
         await dag.dagGet(api, ctx, path.Path('/ipfs/$post/author/name'));

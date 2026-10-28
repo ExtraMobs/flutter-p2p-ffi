@@ -15,7 +15,7 @@ class ExploreFieldsSpecBuilder extends GoHandle {
   /// Go: `func (builder.ExploreFieldsSpecBuilder).Insert(k string, v builder.SelectorSpec)`.
   void insert(String k, SelectorSpec v) {
     $callSync(
-        473,
+        474,
         $W()
           ..h(this)
           ..str(k)
@@ -29,7 +29,7 @@ class SelectorSpec extends GoHandle {
 
   /// Go: `func (builder.SelectorSpec).Node() datamodel.Node`.
   $datamodel.Node node() {
-    final $r = $callSync(475, $W()..h(this));
+    final $r = $callSync(476, $W()..h(this));
     return $r.hnn($datamodel.Node.$h);
   }
 }
@@ -40,13 +40,13 @@ class SelectorSpecBuilder extends GoHandle {
 
   /// Go: `func builder.NewSelectorSpecBuilder(np datamodel.NodePrototype) builder.SelectorSpecBuilder`.
   factory SelectorSpecBuilder($datamodel.NodePrototype np) {
-    final $r = $callSync(474, $W()..h(np));
+    final $r = $callSync(475, $W()..h(np));
     return $r.hnn(SelectorSpecBuilder.$h);
   }
 
   /// Go: `func (builder.SelectorSpecBuilder).ExploreRecursiveEdge() builder.SelectorSpec`.
   SelectorSpec exploreRecursiveEdge() {
-    final $r = $callSync(482, $W()..h(this));
+    final $r = $callSync(483, $W()..h(this));
     return $r.hnn(SelectorSpec.$h);
   }
 
@@ -54,7 +54,7 @@ class SelectorSpecBuilder extends GoHandle {
   SelectorSpec exploreRecursive(
       $selector.RecursionLimit limit, SelectorSpec sequence) {
     final $r = $callSync(
-        481,
+        482,
         $W()
           ..h(this)
           ..h(limit)
@@ -65,7 +65,7 @@ class SelectorSpecBuilder extends GoHandle {
   /// Go: `func (builder.SelectorSpecBuilder).ExploreUnion(...builder.SelectorSpec) builder.SelectorSpec`.
   SelectorSpec exploreUnion([List<SelectorSpec> selectorSpecs = const []]) {
     final $r = $callSync(
-        483,
+        484,
         $W()
           ..h(this)
           ..list(selectorSpecs, (w0, e0) => w0.h(e0)));
@@ -75,7 +75,7 @@ class SelectorSpecBuilder extends GoHandle {
   /// Go: `func (builder.SelectorSpecBuilder).ExploreAll(next builder.SelectorSpec) builder.SelectorSpec`.
   SelectorSpec exploreAll(SelectorSpec next) {
     final $r = $callSync(
-        476,
+        477,
         $W()
           ..h(this)
           ..h(next));
@@ -85,7 +85,7 @@ class SelectorSpecBuilder extends GoHandle {
   /// Go: `func (builder.SelectorSpecBuilder).ExploreIndex(index int64, next builder.SelectorSpec) builder.SelectorSpec`.
   SelectorSpec exploreIndex(int index, SelectorSpec next) {
     final $r = $callSync(
-        478,
+        479,
         $W()
           ..h(this)
           ..i64(index)
@@ -96,7 +96,7 @@ class SelectorSpecBuilder extends GoHandle {
   /// Go: `func (builder.SelectorSpecBuilder).ExploreRange(start int64, end int64, next builder.SelectorSpec) builder.SelectorSpec`.
   SelectorSpec exploreRange(int start, int end, SelectorSpec next) {
     final $r = $callSync(
-        480,
+        481,
         $W()
           ..h(this)
           ..i64(start)
@@ -116,7 +116,7 @@ class SelectorSpecBuilder extends GoHandle {
       FutureOr<void> Function(ExploreFieldsSpecBuilder fields) callback,
       {int? batchSize}) async {
     final $r = await $callCb(
-        477,
+        478,
         $W()
           ..h(this)
           ..u32(batchSize ?? 1),
@@ -127,7 +127,7 @@ class SelectorSpecBuilder extends GoHandle {
   /// Go: `func (builder.SelectorSpecBuilder).ExploreInterpretAs(as string, next builder.SelectorSpec) builder.SelectorSpec`.
   SelectorSpec exploreInterpretAs(String as, SelectorSpec next) {
     final $r = $callSync(
-        479,
+        480,
         $W()
           ..h(this)
           ..str(as)
@@ -137,14 +137,14 @@ class SelectorSpecBuilder extends GoHandle {
 
   /// Go: `func (builder.SelectorSpecBuilder).Matcher() builder.SelectorSpec`.
   SelectorSpec matcher() {
-    final $r = $callSync(484, $W()..h(this));
+    final $r = $callSync(485, $W()..h(this));
     return $r.hnn(SelectorSpec.$h);
   }
 
   /// Go: `func (builder.SelectorSpecBuilder).MatcherSubset(from int64, to int64) builder.SelectorSpec`.
   SelectorSpec matcherSubset(int from, int to) {
     final $r = $callSync(
-        485,
+        486,
         $W()
           ..h(this)
           ..i64(from)

@@ -53,6 +53,7 @@ import 'package:p2p_ffi/go/io/fs.dart' as fs;
 import 'package:p2p_ffi/go/kubo/core/commands.dart' as commands;
 import 'package:p2p_ffi/go/kubo/core/coreapi.dart' as coreapi;
 import 'package:p2p_ffi/go/multicodec.dart' as multicodec;
+import 'package:p2p_ffi/go/multihash.dart' as multihash;
 import 'package:p2p_ffi/go/os.dart' as os;
 import 'package:p2p_ffi/p2p_ffi.dart';
 // ignore: implementation_imports
@@ -71,7 +72,7 @@ Future<void> main() async {
   // que nadie tiene espera para siempre, lo ideal para ponerle un límite.
   var n = await newNode(bg, '${tmp.path}/repo', online: true);
   final nowhere = path.Path('/ipfs/'
-      '${cid.newPrefixV1(multicodec.raw, multicodec.sha2256).sum(utf8.encode('nobody has this'))}');
+      '${cid.newPrefixV1(multicodec.raw, multihash.sha2256).sum(utf8.encode('nobody has this'))}');
   try {
     var api = coreapi.newCoreApi(n);
 
@@ -141,7 +142,8 @@ Future<void> main() async {
     // 4. Una caída del servicio (SOLO PARA PRUEBAS: un gancho que hace panic
     //    en una goroutine de Go, como un bug dentro de kubo). Solo se cae el
     //    p2p_host; este programa sigue, avisado por onStop.
-    $callSync(24);
+    const panicInGoroutineHook = 24; // WIRE.md
+    $callSync(panicInGoroutineHook);
     final s = await stopped.future;
     say('\n4. el servicio se detuvo: ${s.reason}, código de salida '
         '${s.exitCode}, activo ${s.uptime.inSeconds} s');

@@ -260,6 +260,48 @@ github.com/multiformats/go-multicodec.CarMultihashIndexSorted
 github.com/ipfs/go-cid.NewPrefixV0
 github.com/ipfs/go-cid.NewPrefixV1
 github.com/ipfs/go-cid.Prefix.Sum
+# go-multihash: the hash functions' codes (SHA2_256...) and the hash of a CID as a
+# value of its own (sum without a CID, decode, base58/hex, streams)
+github.com/multiformats/go-multihash.Sum
+github.com/multiformats/go-multihash.SumStream
+github.com/multiformats/go-multihash.Encode
+github.com/multiformats/go-multihash.EncodeName
+github.com/multiformats/go-multihash.Decode
+github.com/multiformats/go-multihash.Cast
+github.com/multiformats/go-multihash.MHFromBytes
+github.com/multiformats/go-multihash.FromB58String
+github.com/multiformats/go-multihash.FromHexString
+github.com/multiformats/go-multihash.Multihash.B58String
+github.com/multiformats/go-multihash.Multihash.HexString
+github.com/multiformats/go-multihash.Multihash.String
+github.com/multiformats/go-multihash.Names
+github.com/multiformats/go-multihash.Codes
+github.com/multiformats/go-multihash.DefaultLengths
+github.com/multiformats/go-multihash.GetHasher
+github.com/multiformats/go-multihash.Register
+github.com/multiformats/go-multihash.NewSet
+github.com/multiformats/go-multihash.Set.Add
+github.com/multiformats/go-multihash.Set.All
+github.com/multiformats/go-multihash.Set.ForEach
+github.com/multiformats/go-multihash.Set.Has
+github.com/multiformats/go-multihash.Set.Len
+github.com/multiformats/go-multihash.Set.Remove
+github.com/multiformats/go-multihash.Set.Visit
+github.com/multiformats/go-multihash.NewReader
+github.com/multiformats/go-multihash.Reader.ReadMultihash
+github.com/multiformats/go-multihash.NewWriter
+github.com/multiformats/go-multihash.Writer.WriteMultihash
+# go-multibase: the bases of a CID's text (Base32 'b', Base58BTC 'z', Base36 'k')
+github.com/multiformats/go-multibase.Encode
+github.com/multiformats/go-multibase.Decode
+github.com/multiformats/go-multibase.EncoderByName
+github.com/multiformats/go-multibase.NewEncoder
+github.com/multiformats/go-multibase.Encoder.Encode
+github.com/multiformats/go-multibase.Encoder.Encoding
+github.com/multiformats/go-multibase.EncodingToStr
+github.com/multiformats/go-multibase.Encodings
+# the chunk size the splitters aim at (a var: read from Go, not a const)
+github.com/ipfs/boxo/chunker.DefaultBlockSize
 github.com/ipld/go-car/v2/blockstore.OpenReadOnly
 github.com/ipld/go-car/v2/blockstore.NewReadOnly
 github.com/ipld/go-car/v2/blockstore.ReadOnly.Roots

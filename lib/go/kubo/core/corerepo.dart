@@ -12,7 +12,7 @@ import 'package:p2p_ffi/go/kubo/gc.dart' as $gc;
 /// Asynchronous: runs in a goroutine of the service.
 Future<void> garbageCollect($core.IpfsNode n, $context.Context ctx) async {
   await $call(
-      359,
+      360,
       $W()
         ..h(n)
         ..h(ctx));
@@ -22,7 +22,7 @@ Future<void> garbageCollect($core.IpfsNode n, $context.Context ctx) async {
 Stream<$gc.Result> garbageCollectAsync(
         $core.IpfsNode n, $context.Context ctx) =>
     $stream(
-            360,
+            361,
             $W()
               ..h(n)
               ..h(ctx))
@@ -33,7 +33,7 @@ Stream<$gc.Result> garbageCollectAsync(
 /// Asynchronous: runs in a goroutine of the service.
 Future<void> periodicGc($context.Context ctx, $core.IpfsNode node) async {
   await $call(
-      361,
+      362,
       $W()
         ..h(ctx)
         ..h(node));
@@ -45,7 +45,7 @@ Future<void> periodicGc($context.Context ctx, $core.IpfsNode node) async {
 Future<void> conditionalGc(
     $context.Context ctx, $core.IpfsNode node, int offset) async {
   await $call(
-      358,
+      359,
       $W()
         ..h(ctx)
         ..h(node)

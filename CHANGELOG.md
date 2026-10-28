@@ -3,9 +3,20 @@
 Newest first. Measurements, findings and the reasoning behind each change are in
 [`TODO.md`](TODO.md); the full API, with what was left out and why, in [`API.md`](API.md).
 
-## Unreleased
+## 0.27.0
 
-Typed Go errors.
+Typed Go errors; go-multihash and go-multibase; the lessons use Go's constants.
+
+- **go-multihash** (`lib/go/multihash.dart`): the hash functions' codes (`sha2256`,
+  `blake3`...), `sum`/`sumStream` (a multihash without a CID), `decode` (code, name,
+  length, digest), `encode`, `cast`, `fromB58String`/`fromHexString`, the `names`/`codes`
+  tables, `Set$`, `Reader`/`Writer`. Left out (API.md): the methods of `Multihash` (a
+  named `[]byte` receiver) and `Register` (takes a `func() hash.Hash`).
+- **go-multibase** (`lib/go/multibase.dart`): the bases of a CID's text (`base32`,
+  `base58btc`, `base36`...), `encode`, `decode`, `Encoder`.
+- **`chunker.defaultBlockSize`**: the Go var, read from Go.
+- **The lessons** write Go's constants instead of numbers: `multihash.sha2256` for the hash
+  of a CID, `multibase.base36` for a base, `multicodec.dagCbor`, `chunker.defaultBlockSize`.
 
 - **A class per Go error:** every exported error sentinel (`var ErrX = errors.New(...)`)
   and error type of a package with a library is a `GolangException` subclass there

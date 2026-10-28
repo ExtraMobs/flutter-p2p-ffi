@@ -63,7 +63,7 @@ class MapDatastore extends Batching {
 
   /// Go: `func datastore.NewMapDatastore() (d *datastore.MapDatastore)`.
   factory MapDatastore() {
-    final $r = $callSync(244);
+    final $r = $callSync(245);
     return $r.hnn(MapDatastore.$h);
   }
 }
@@ -74,7 +74,7 @@ class NullDatastore extends Batching {
 
   /// Go: `func datastore.NewNullDatastore() *datastore.NullDatastore`.
   factory NullDatastore() {
-    final $r = $callSync(245);
+    final $r = $callSync(246);
     return $r.hnn(NullDatastore.$h);
   }
 }

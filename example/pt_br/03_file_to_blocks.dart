@@ -47,8 +47,6 @@ import 'package:p2p_ffi/p2p_ffi.dart';
 
 import 'lesson.dart';
 
-const chunk = 256 * 1024; // o tamanho de pedaço padrão do `ipfs add`
-
 Future<void> main() async {
   await P2pService.start();
   try {
@@ -67,10 +65,12 @@ Future<void> main() async {
 
     // 2. Um arquivo de 600 000 bytes, cortado em pedaços de 256 KiB.
     //    Go:  nd, _ := importer.BuildDagFromReader(dag,
-    //             chunker.NewSizeSplitter(bytes.NewBuffer(data), 262144))
-    ipld_format.Node importBytes(Uint8List data, [int size = chunk]) =>
+    //             chunker.NewSizeSplitter(bytes.NewBuffer(data), chunker.DefaultBlockSize))
+    final chunk =
+        chunker.defaultBlockSize; // o tamanho de pedaço padrão do `ipfs add`
+    ipld_format.Node importBytes(Uint8List data, [int? size]) =>
         importer.buildDagFromReader(
-            dag, chunker.newSizeSplitter(bytes.Buffer(data), size));
+            dag, chunker.newSizeSplitter(bytes.Buffer(data), size ?? chunk));
     final rnd = Random(42);
     final data =
         Uint8List.fromList(List.generate(600000, (_) => rnd.nextInt(256)));

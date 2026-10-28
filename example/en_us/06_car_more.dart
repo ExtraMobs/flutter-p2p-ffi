@@ -45,6 +45,7 @@ import 'package:p2p_ffi/go/ipld_prime/datamodel.dart' as datamodel;
 import 'package:p2p_ffi/go/ipld_prime/linking/cid.dart' as cidlink;
 import 'package:p2p_ffi/go/ipld_prime/traversal/selector/parse.dart' as parse;
 import 'package:p2p_ffi/go/multicodec.dart' as multicodec;
+import 'package:p2p_ffi/go/multihash.dart' as multihash;
 import 'package:p2p_ffi/go/os.dart' as os;
 import 'package:p2p_ffi/go/unixfsnode.dart' as unixfsnode;
 import 'package:p2p_ffi/p2p_ffi.dart';
@@ -166,7 +167,7 @@ Future<void> main() async {
     //         rw.Finalize()
     final note = Uint8List.fromList(utf8.encode('a second CAR'));
     final noteCid =
-        cid.newPrefixV1(multicodec.raw, multicodec.sha2256).sum(note);
+        cid.newPrefixV1(multicodec.raw, multihash.sha2256).sum(note);
     final second = at('second.car');
     final sw = car_blockstore.openReadWrite(second, [noteCid]);
     await sw.put(ctx, blocks.Block(cid: noteCid, rawData: note));

@@ -12,14 +12,14 @@ class Repo extends $io.Closer {
 
   /// Go: `func (repo.Repo).Config() (*config.Config, error)`.
   $config.Config config() {
-    final $r = $callSync(378, $W()..h(this));
+    final $r = $callSync(379, $W()..h(this));
     return $r.p() ? $config.Config($r.json()) : $nil();
   }
 
   /// Go: `func (repo.Repo).SetConfig(*config.Config) error`.
   void setConfig($config.Config config) {
     $callSync(
-        380,
+        381,
         $W()
           ..h(this)
           ..json(config));
@@ -28,7 +28,7 @@ class Repo extends $io.Closer {
   /// Go: `func (repo.Repo).SetConfigKey(key string, value any) error`.
   void setConfigKey(String key, Object? value) {
     $callSync(
-        381,
+        382,
         $W()
           ..h(this)
           ..str(key)
@@ -38,7 +38,7 @@ class Repo extends $io.Closer {
   /// Go: `func (repo.Repo).GetConfigKey(key string) (any, error)`.
   Object? getConfigKey(String key) {
     final $r = $callSync(
-        379,
+        380,
         $W()
           ..h(this)
           ..str(key));
@@ -48,7 +48,7 @@ class Repo extends $io.Closer {
   /// Go: `func (repo.Repo).BackupConfig(prefix string) (string, error)`.
   String backupConfig(String prefix) {
     final $r = $callSync(
-        376,
+        377,
         $W()
           ..h(this)
           ..str(prefix));
@@ -57,7 +57,7 @@ class Repo extends $io.Closer {
 
   /// Go: `func (io.Closer).Close() error`.
   void close() {
-    $callSync(377, $W()..h(this));
+    $callSync(378, $W()..h(this));
   }
 }
 

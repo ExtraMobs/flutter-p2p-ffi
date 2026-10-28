@@ -39,6 +39,7 @@ import 'package:p2p_ffi/go/kubo/core/coreiface/options.dart' as options;
 import 'package:p2p_ffi/go/kubo/core/node.dart' as node;
 import 'package:p2p_ffi/go/kubo/repo/fsrepo.dart' as fsrepo;
 import 'package:p2p_ffi/go/multicodec.dart' as multicodec;
+import 'package:p2p_ffi/go/multihash.dart' as multihash;
 import 'package:p2p_ffi/p2p_ffi.dart';
 
 import 'lesson.dart';
@@ -114,7 +115,7 @@ Future<void> main() async {
 
     say('\n== Common mistakes\n');
     final never = path.Path(
-        '/ipfs/${cid.newPrefixV1(multicodec.raw, multicodec.sha2256).sum(utf8.encode('never added'))}');
+        '/ipfs/${cid.newPrefixV1(multicodec.raw, multihash.sha2256).sum(utf8.encode('never added'))}');
     await mistake('getting, offline, a CID the node never had',
         why: 'an offline node has the offline exchange of lesson 04: nobody '
             'to ask',

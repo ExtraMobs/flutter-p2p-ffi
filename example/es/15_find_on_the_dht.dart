@@ -39,6 +39,7 @@ import 'package:p2p_ffi/go/libp2p/core/host.dart' as host;
 import 'package:p2p_ffi/go/libp2p/p2p/discovery/routing.dart' as discovery;
 import 'package:p2p_ffi/go/libp2p_kad_dht.dart' as dht;
 import 'package:p2p_ffi/go/multicodec.dart' as multicodec;
+import 'package:p2p_ffi/go/multihash.dart' as multihash;
 import 'package:p2p_ffi/p2p_ffi.dart';
 
 import 'lesson.dart';
@@ -98,7 +99,7 @@ Future<void> main() async {
     //    averigua quién lo tiene.
     //    Go:  d.Provide(ctx, c, true); provs, _ := d.FindProviders(ctx, c)
     final content = cid
-        .newPrefixV1(multicodec.raw, multicodec.sha2256)
+        .newPrefixV1(multicodec.raw, multihash.sha2256)
         .sum(utf8.encode('something host 1 has'));
     await dhts[1].provide(ctx, content, true);
     final providers = await dhts[4].findProviders(ctx, content);

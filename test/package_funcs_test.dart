@@ -10,6 +10,8 @@ import 'package:p2p_ffi/go/cid.dart' as cid;
 import 'package:p2p_ffi/go/libp2p/core/crypto.dart' as crypto;
 import 'package:p2p_ffi/go/libp2p/core/peer.dart' as peer;
 import 'package:p2p_ffi/go/multiaddr.dart' as ma;
+import 'package:p2p_ffi/go/multibase.dart' as multibase;
+import 'package:p2p_ffi/go/multihash.dart' as multihash;
 import 'package:p2p_ffi/p2p_ffi.dart';
 import 'package:test/test.dart';
 
@@ -39,6 +41,32 @@ void main() {
     final p = cid.newPrefixV1(cid.dagCbor, 0x12);
     final back = cid.prefixFromBytes(p.bytes());
     expect((back.version, back.codec, back.mhType), (1, cid.dagCbor, 0x12));
+  });
+
+  test('multihash and multibase: the hash and the text of a CID', () {
+    final data = Uint8List.fromList([1, 2, 3]);
+    final c = cid.newPrefixV1(cid.raw, multihash.sha2256).sum(data);
+    final m = multihash.sum(data, multihash.sha2256, -1);
+    expect(m, c.hash());
+
+    final d = multihash.decode(m);
+    expect((d.code, d.name, d.length), (0x12, 'sha2-256', 32));
+    expect(d.digest!.length, 32);
+    expect(multihash.encode(d.digest!, multihash.sha2256), m);
+    expect(multihash.names['sha2-256'], multihash.sha2256);
+    expect(multihash.codes[multihash.sha2256], 'sha2-256');
+    expect(() => multihash.cast(Uint8List(3)), throwsA(isA<GolangException>()));
+
+    final set = multihash.Set$()..add(m);
+    expect((set.has(m), set.len()), (true, 1));
+    set.release();
+
+    final text = multibase.encode(multibase.base36, data);
+    expect(text, startsWith('k'));
+    final (base, back) = multibase.decode(text);
+    expect(base, multibase.base36);
+    expect(back, data);
+    expect(cid.extractEncoding(c.value), multibase.base32);
   });
 
   test('peer: ID from a CID and from a /p2p multiaddr', () {

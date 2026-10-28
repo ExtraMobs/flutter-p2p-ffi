@@ -12,14 +12,14 @@ class Multiaddr extends GoValue {
 
   /// Go: `func (multiaddr.Multiaddr).Bytes() []byte`.
   Uint8List bytes() {
-    final $r = $callSync(653, $W()..val(this));
+    final $r = $callSync(654, $W()..val(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (multiaddr.Multiaddr).Equal(m2 multiaddr.Multiaddr) bool`.
   bool equal(Multiaddr m2) {
     final $r = $callSync(
-        657,
+        658,
         $W()
           ..val(this)
           ..val(m2));
@@ -29,7 +29,7 @@ class Multiaddr extends GoValue {
   /// Go: `func (multiaddr.Multiaddr).Compare(o multiaddr.Multiaddr) int`.
   int compare(Multiaddr o) {
     final $r = $callSync(
-        654,
+        655,
         $W()
           ..val(this)
           ..val(o));
@@ -39,7 +39,7 @@ class Multiaddr extends GoValue {
   /// Go: `func (multiaddr.Multiaddr).Encapsulate(other multiaddr.Multiaddrer) multiaddr.Multiaddr`.
   Multiaddr encapsulate(Multiaddrer other) {
     final $r = $callSync(
-        656,
+        657,
         $W()
           ..val(this)
           ..dto(other));
@@ -49,7 +49,7 @@ class Multiaddr extends GoValue {
   /// Go: `func (multiaddr.Multiaddr).Decapsulate(rightPartsAny multiaddr.Multiaddrer) multiaddr.Multiaddr`.
   Multiaddr decapsulate(Multiaddrer rightPartsAny) {
     final $r = $callSync(
-        655,
+        656,
         $W()
           ..val(this)
           ..dto(rightPartsAny));
@@ -59,7 +59,7 @@ class Multiaddr extends GoValue {
   /// Go: `func (multiaddr.Multiaddr).ValueForProtocol(code int) (value string, err error)`.
   String valueForProtocol(int code) {
     final $r = $callSync(
-        658,
+        659,
         $W()
           ..val(this)
           ..i64(code));
@@ -85,26 +85,26 @@ final class Multiaddrer implements GoDto {
 
 /// Go: `func multiaddr.NewMultiaddr(s string) (a multiaddr.Multiaddr, err error)`.
 Multiaddr newMultiaddr(String s) {
-  final $r = $callSync(659, $W()..str(s));
+  final $r = $callSync(660, $W()..str(s));
   return $r.p() ? Multiaddr($r.str()) : $nil();
 }
 
 /// Go: `func multiaddr.NewMultiaddrBytes(b []byte) (a multiaddr.Multiaddr, err error)`.
 Multiaddr newMultiaddrBytes(Uint8List b) {
-  final $r = $callSync(660, $W()..bytes(b));
+  final $r = $callSync(661, $W()..bytes(b));
   return $r.p() ? Multiaddr($r.str()) : $nil();
 }
 
 /// Go: `func multiaddr.Join(msInterfaces ...multiaddr.Multiaddrer) multiaddr.Multiaddr`.
 Multiaddr join([List<Multiaddrer> msInterfaces = const []]) {
-  final $r = $callSync(652, $W()..list(msInterfaces, (w0, e0) => w0.dto(e0)));
+  final $r = $callSync(653, $W()..list(msInterfaces, (w0, e0) => w0.dto(e0)));
   return $r.p() ? Multiaddr($r.str()) : $nil();
 }
 
 /// Go: `func multiaddr.Contains(addrs []multiaddr.Multiaddr, addr multiaddr.Multiaddr) bool`.
 bool contains(List<Multiaddr> addrs, Multiaddr addr) {
   final $r = $callSync(
-      651,
+      652,
       $W()
         ..list(addrs, (w0, e0) => w0.val(e0))
         ..val(addr));
@@ -113,7 +113,7 @@ bool contains(List<Multiaddr> addrs, Multiaddr addr) {
 
 /// Go: `func multiaddr.Unique(addrs []multiaddr.Multiaddr) []multiaddr.Multiaddr`.
 List<Multiaddr> unique(List<Multiaddr> addrs) {
-  final $r = $callSync(661, $W()..list(addrs, (w0, e0) => w0.val(e0)));
+  final $r = $callSync(662, $W()..list(addrs, (w0, e0) => w0.val(e0)));
   return $r.list(() => $r.p() ? Multiaddr($r.str()) : $nil());
 }
 

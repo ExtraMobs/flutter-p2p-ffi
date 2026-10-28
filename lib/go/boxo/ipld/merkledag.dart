@@ -16,7 +16,7 @@ class ProtoNode extends $ipld_format.Node {
   /// Go: `func (*merkledag.ProtoNode).AddNodeLink(name string, that format.Node) error`.
   void addNodeLink(String name, $ipld_format.Node that) {
     $callSync(
-        135,
+        136,
         $W()
           ..h(this)
           ..str(name)
@@ -26,7 +26,7 @@ class ProtoNode extends $ipld_format.Node {
   /// Go: `func (*merkledag.ProtoNode).SetData(d []byte)`.
   void setData(Uint8List d) {
     $callSync(
-        142,
+        143,
         $W()
           ..h(this)
           ..bytes(d));
@@ -34,20 +34,20 @@ class ProtoNode extends $ipld_format.Node {
 
   /// Go: `func (*merkledag.ProtoNode).Data() []byte`.
   Uint8List data() {
-    final $r = $callSync(137, $W()..h(this));
+    final $r = $callSync(138, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*merkledag.ProtoNode).Links() []*format.Link`.
   List<$ipld_format.Link> links() {
-    final $r = $callSync(140, $W()..h(this));
+    final $r = $callSync(141, $W()..h(this));
     return $r.list(() => $r.p() ? $ipld_format.Link.$dec($r) : $nil());
   }
 
   /// Go: `func (*merkledag.ProtoNode).GetNodeLink(name string) (*format.Link, error)`.
   $ipld_format.Link getNodeLink(String name) {
     final $r = $callSync(
-        139,
+        140,
         $W()
           ..h(this)
           ..str(name));
@@ -57,7 +57,7 @@ class ProtoNode extends $ipld_format.Node {
   /// Go: `func (*merkledag.ProtoNode).RemoveNodeLink(name string) error`.
   void removeNodeLink(String name) {
     $callSync(
-        141,
+        142,
         $W()
           ..h(this)
           ..str(name));
@@ -66,7 +66,7 @@ class ProtoNode extends $ipld_format.Node {
   /// Go: `func (*merkledag.ProtoNode).UpdateNodeLink(name string, that *merkledag.ProtoNode) (*merkledag.ProtoNode, error)`.
   ProtoNode updateNodeLink(String name, ProtoNode that) {
     final $r = $callSync(
-        143,
+        144,
         $W()
           ..h(this)
           ..str(name)
@@ -77,7 +77,7 @@ class ProtoNode extends $ipld_format.Node {
   /// Go: `func (*merkledag.ProtoNode).EncodeProtobuf(force bool) ([]byte, error)`.
   Uint8List encodeProtobuf(bool force) {
     final $r = $callSync(
-        138,
+        139,
         $W()
           ..h(this)
           ..b(force));
@@ -86,7 +86,7 @@ class ProtoNode extends $ipld_format.Node {
 
   /// Go: `func (*merkledag.ProtoNode).Copy() format.Node`.
   $ipld_format.Node copy() {
-    final $r = $callSync(136, $W()..h(this));
+    final $r = $callSync(137, $W()..h(this));
     return $r.hnn($ipld_format.Node.$h);
   }
 }
@@ -97,44 +97,44 @@ class RawNode extends $ipld_format.Node {
 
   /// Go: `func merkledag.NewRawNode(data []byte) *merkledag.RawNode`.
   factory RawNode(Uint8List data) {
-    final $r = $callSync(132, $W()..bytes(data));
+    final $r = $callSync(133, $W()..bytes(data));
     return $r.hnn(RawNode.$h);
   }
 }
 
 /// Go: `func merkledag.NodeWithData(d []byte) *merkledag.ProtoNode`.
 ProtoNode nodeWithData(Uint8List d) {
-  final $r = $callSync(133, $W()..bytes(d));
+  final $r = $callSync(134, $W()..bytes(d));
   return $r.hnn(ProtoNode.$h);
 }
 
 /// Go: `func merkledag.NewDAGService(bs blockservice.BlockService) *merkledag.dagService`.
 $ipld_format.DagService newDagService($blockservice.BlockService bs) {
-  final $r = $callSync(131, $W()..h(bs));
+  final $r = $callSync(132, $W()..h(bs));
   return $r.hnn($ipld_format.DagService.$h);
 }
 
 /// Go: `func merkledag.DecodeProtobuf(encoded []byte) (*merkledag.ProtoNode, error)`.
 ProtoNode decodeProtobuf(Uint8List encoded) {
-  final $r = $callSync(130, $W()..bytes(encoded));
+  final $r = $callSync(131, $W()..bytes(encoded));
   return $r.hnn(ProtoNode.$h);
 }
 
 /// Go: `func merkledag.PrefixForCidVersion(version int) (cid.Prefix, error)`.
 $cid.Prefix prefixForCidVersion(int version) {
-  final $r = $callSync(134, $W()..i64(version));
+  final $r = $callSync(135, $W()..i64(version));
   return $r.p() ? $cid.Prefix.$dec($r) : $nil();
 }
 
 /// Go: `func merkledag.V0CidPrefix() cid.Prefix`.
 $cid.Prefix v0CidPrefix() {
-  final $r = $callSync(144);
+  final $r = $callSync(145);
   return $r.p() ? $cid.Prefix.$dec($r) : $nil();
 }
 
 /// Go: `func merkledag.V1CidPrefix() cid.Prefix`.
 $cid.Prefix v1CidPrefix() {
-  final $r = $callSync(145);
+  final $r = $callSync(146);
   return $r.p() ? $cid.Prefix.$dec($r) : $nil();
 }
 
