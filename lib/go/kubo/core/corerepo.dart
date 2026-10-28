@@ -85,3 +85,21 @@ final class Stat {
   /// Go: `Version`.
   final String version;
 }
+
+/// Go: `var corerepo.ErrMaxStorageExceeded error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrMaxStorageExceeded extends GolangException {
+  ErrMaxStorageExceeded.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'corerepo.ErrMaxStorageExceeded: $message';
+}
+
+/// Go: `corerepo.MultiError`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class MultiError extends GolangException {
+  MultiError.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'corerepo.MultiError: $message';
+}

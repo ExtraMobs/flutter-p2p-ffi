@@ -185,3 +185,12 @@ class Unlocker extends GoHandle {
           ..h(ctx));
   }
 }
+
+/// Go: `var blockstore.ErrHashMismatch error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrHashMismatch extends GolangException {
+  ErrHashMismatch.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'blockstore.ErrHashMismatch: $message';
+}

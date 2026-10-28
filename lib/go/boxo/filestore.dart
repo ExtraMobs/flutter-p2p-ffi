@@ -57,3 +57,35 @@ final class ListRes {
   /// `BigInt.from(v).toUnsigned(64)` reads them unsigned.
   final int size;
 }
+
+/// Go: `filestore.CorruptReferenceError`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class CorruptReferenceError extends GolangException {
+  CorruptReferenceError.$(super.base, $R r)
+      : code = r.i64(),
+        super.$from();
+
+  /// Go: `Code`.
+  final int code;
+
+  @override
+  String toString() => 'filestore.CorruptReferenceError: $message';
+}
+
+/// Go: `var filestore.ErrFilestoreNotEnabled error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrFilestoreNotEnabled extends GolangException {
+  ErrFilestoreNotEnabled.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'filestore.ErrFilestoreNotEnabled: $message';
+}
+
+/// Go: `var filestore.ErrUrlstoreNotEnabled error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrUrlstoreNotEnabled extends GolangException {
+  ErrUrlstoreNotEnabled.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'filestore.ErrUrlstoreNotEnabled: $message';
+}

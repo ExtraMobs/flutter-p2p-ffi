@@ -149,3 +149,12 @@ final class ResourceLimitsAndUsage {
   /// Go: `StreamsOutboundUsage`.
   final int streamsOutboundUsage;
 }
+
+/// Go: `var libp2p.ErrNoResourceMgr error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrNoResourceMgr extends GolangException {
+  ErrNoResourceMgr.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'libp2p.ErrNoResourceMgr: $message';
+}

@@ -28,15 +28,26 @@ Everything is little-endian.
   app blocks waiting), `1` asynchronous (`Future`), `2` stream; bit `0x80` (`modeWatch`)
   asks for deadlock watching (see "Callback").
 - **Response/event**: `u32 id`, `u8 kind`, data. Kind: `0` value, `1` item (of a stream or
-  of a sink), `2` end, `3` error (data = `u8` code + the UTF-8 message). Code of the
-  sentinel the error wraps (`errors.Is` in the host; Dart throws the subclass): `0` none
-  (`GolangException`), `1` `io.EOF` (`GolangEofException`), `2` `io.ErrUnexpectedEOF`
-  (`GolangUnexpectedEofException`), `3` `context.Canceled` (`GolangCanceledException`), `4`
-  `context.DeadlineExceeded` (`GolangDeadlineExceededException`), `5` not found (`ipld.ErrNotFound`,
-  the `ErrNotFound` of go-car's storage; `GolangNotFoundException`), `6` deadlock with a callback (only
-  the host produces it; `GolangDeadlockException`). Kind `4`: a callback batch (see
-  "Callback"), or one invocation of a retained callback (see "Retained callback"), whose
-  end is a kind `2` with its id.
+  of a sink), `2` end, `3` error. Kind `4`: a callback batch (see "Callback"), or one
+  invocation of a retained callback (see "Retained callback"), whose end is a kind `2`
+  with its id.
+- **Error data** (kind `3`): `u8 code`, `str message` (`err.Error()`), `i64 errno` (the
+  `syscall.Errno` of the chain, `errors.As`; `0` none), `u32 n` + n × `str` (the text of
+  each link of the chain, from the outside in, through `Unwrap() error` and
+  `Unwrap() []error`; at most 32), `u32 m` + m × (`u32 class`, `u32 link`, the class's
+  fields): the links with a generated class (`errClass` in `zz_generated.go`, ids in the
+  table hash; a link equal to several sentinels, like `os.ErrNotExist` and
+  `fs.ErrNotExist`, comes once per class). Code of the fixed sentinel the error wraps
+  (`errors.Is` in the host): `0` none, `1` `io.EOF` (`GolangEofException`), `2`
+  `io.ErrUnexpectedEOF` (`GolangUnexpectedEofException`), `3` `context.Canceled`
+  (`GolangCanceledException`), `4` `context.DeadlineExceeded`
+  (`GolangDeadlineExceededException`), `5` not found (`ipld.ErrNotFound`, the `ErrNotFound`
+  of go-car's storage; `GolangNotFoundException`), `6` deadlock with a callback (only the
+  host produces it; `GolangDeadlockException`). Dart throws the fixed sentinel's class,
+  or else the class of the first link with one, or else `GolangException`; all of them
+  carry the message, the errno, the texts and the links (`causes`). The host's own
+  messages (unknown function, table mismatch) use the same layout with one text and no
+  link.
 - A call answers with a `value` or an `error`; a stream with `item`s and then `end` or
   `error`. A call's sinks (below) get `item`s and `end`/`error` with the sink's id,
   **before** the call's response.

@@ -65,3 +65,39 @@ const seekEnd = 2;
 
 /// Go: `const io.SeekStart untyped int`.
 const seekStart = 0;
+
+/// Go: `var io.ErrClosedPipe error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrClosedPipe extends GolangException {
+  ErrClosedPipe.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'io.ErrClosedPipe: $message';
+}
+
+/// Go: `var io.ErrNoProgress error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrNoProgress extends GolangException {
+  ErrNoProgress.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'io.ErrNoProgress: $message';
+}
+
+/// Go: `var io.ErrShortBuffer error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrShortBuffer extends GolangException {
+  ErrShortBuffer.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'io.ErrShortBuffer: $message';
+}
+
+/// Go: `var io.ErrShortWrite error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrShortWrite extends GolangException {
+  ErrShortWrite.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'io.ErrShortWrite: $message';
+}

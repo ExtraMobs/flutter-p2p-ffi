@@ -1434,3 +1434,107 @@ const validationIgnore = 2;
 
 /// Go: `const pubsub.ValidationReject pubsub.ValidationResult`.
 const validationReject = 1;
+
+/// Go: `var pubsub.ErrEmptyPeerID error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrEmptyPeerId extends GolangException {
+  ErrEmptyPeerId.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'pubsub.ErrEmptyPeerID: $message';
+}
+
+/// Go: `var pubsub.ErrFanoutOnlyTopic error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrFanoutOnlyTopic extends GolangException {
+  ErrFanoutOnlyTopic.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'pubsub.ErrFanoutOnlyTopic: $message';
+}
+
+/// Go: `var pubsub.ErrNilSignKey error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrNilSignKey extends GolangException {
+  ErrNilSignKey.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'pubsub.ErrNilSignKey: $message';
+}
+
+/// Go: `var pubsub.ErrQueueCancelled error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrQueueCancelled extends GolangException {
+  ErrQueueCancelled.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'pubsub.ErrQueueCancelled: $message';
+}
+
+/// Go: `var pubsub.ErrQueueClosed error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrQueueClosed extends GolangException {
+  ErrQueueClosed.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'pubsub.ErrQueueClosed: $message';
+}
+
+/// Go: `var pubsub.ErrQueueFull error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrQueueFull extends GolangException {
+  ErrQueueFull.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'pubsub.ErrQueueFull: $message';
+}
+
+/// Go: `var pubsub.ErrQueuePushOnClosed error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrQueuePushOnClosed extends GolangException {
+  ErrQueuePushOnClosed.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'pubsub.ErrQueuePushOnClosed: $message';
+}
+
+/// Go: `var pubsub.ErrSubscriptionCancelled error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrSubscriptionCancelled extends GolangException {
+  ErrSubscriptionCancelled.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'pubsub.ErrSubscriptionCancelled: $message';
+}
+
+/// Go: `var pubsub.ErrTooManySubscriptions error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrTooManySubscriptions extends GolangException {
+  ErrTooManySubscriptions.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'pubsub.ErrTooManySubscriptions: $message';
+}
+
+/// Go: `var pubsub.ErrTopicClosed error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrTopicClosed extends GolangException {
+  ErrTopicClosed.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'pubsub.ErrTopicClosed: $message';
+}
+
+/// Go: `pubsub.ValidationError`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ValidationError extends GolangException {
+  ValidationError.$(super.base, $R r)
+      : reason = r.str(),
+        super.$from();
+
+  /// Go: `Reason`.
+  final String reason;
+
+  @override
+  String toString() => 'pubsub.ValidationError: $message';
+}

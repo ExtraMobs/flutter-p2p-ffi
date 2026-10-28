@@ -2425,7 +2425,7 @@ Omitted:
 - An option constructor takes what a function takes: a struct (`pubsub.withGossipSubParams(pubsub.defaultGossipSubParams()..d = 8)`), and a function it keeps becomes a retained callback (`pubsub.withMessageFilter((m) => ...)`, `dht.onRequestHook`); an option inside an option stays one (`namesys.ResolveOption`).
 - A trailing variadic whose type does not cross is left out: Go gets none (`event.Bus.Subscribe`'s `opts`), noted under the package.
 - `time.Duration` is a Dart `Duration` (nanoseconds on the wire, rounded to microseconds in Dart).
-- Errors that wrap `io.EOF`, `io.ErrUnexpectedEOF`, `context.Canceled`, `context.DeadlineExceeded` or IPLD's not found become `GolangEofException`, `GolangUnexpectedEofException`, `GolangCanceledException`, `GolangDeadlineExceededException` and `GolangNotFoundException` (subclasses of `GolangException`), as Go's `errors.Is` would find them.
+- Errors that wrap `io.EOF`, `io.ErrUnexpectedEOF`, `context.Canceled`, `context.DeadlineExceeded` or IPLD's not found become `GolangEofException`, `GolangUnexpectedEofException`, `GolangCanceledException`, `GolangDeadlineExceededException` and `GolangNotFoundException` (subclasses of `GolangException`), as Go's `errors.Is` would find them. Every other exported error sentinel or error type of a package with a library has a `GolangException` subclass there (section "Go errors with a Dart class"): the host walks the error chain (`Unwrap`, `errors.Join`) and Dart throws the class of the outermost link that has one. Every `GolangException` carries `errTexts` (the text of each link, outside in), `errText` (the innermost), `errno` (the chain's `syscall.Errno`: POSIX numbers on linux and Android, Win32 on Windows) and `causes` (the links with a class); `isA<T>()`/`find<T>()` are `errors.Is`/`errors.As`.
 - A root that is only a struct type (`bsadapter.Adapter`, `basicnode.Prototype__Any`) becomes an empty constructor (`Adapter()`, Go's `new(T)`), and its fields, getters and setters.
 - An interface that embeds another gets the cast from it (`idx.asIterableIndex()`, Go's `x.(index.IterableIndex)`).
 - A pointer to a basic type (`DagByteRange.To *int64`) becomes `int?`: null is nil.
@@ -2444,6 +2444,254 @@ Omitted:
 - A Go `nil` result where Dart expects an object becomes `GolangException`.
 - Kubo runs in `p2p_host`, in another process (`P2pService.start()` before the API; protocol in `WIRE.md`): a Go panic stops only the service, and pending calls fail with `P2pServiceException`.
 - Handles are freed by the Dart `Finalizer` (in batches, through the service's Free function) and are only valid in the service they were born in; Go resources (node, repo) still need Go's own `Close`.
+
+## Go errors with a Dart class
+
+Each is a `GolangException` subclass in the library of its package: thrown when it is
+the outermost link of the error chain with a class, otherwise in `causes`
+(`isA`, `find`). Fields that are another `error` are the next link
+of the chain.
+
+| Go | Dart | Fields |
+|---|---|---|
+| `var blocks.ErrWrongHash error` | `ErrWrongHash` in `package:p2p_ffi/go/block_format.dart` |  |
+| `var blockstore.ErrHashMismatch error` | `ErrHashMismatch` in `package:p2p_ffi/go/boxo/blockstore.dart` |  |
+| `var chunk.ErrRabinMin error` | `ErrRabinMin` in `package:p2p_ffi/go/boxo/chunker.dart` |  |
+| `var chunk.ErrSize error` | `ErrSize` in `package:p2p_ffi/go/boxo/chunker.dart` |  |
+| `var chunk.ErrSizeMax error` | `ErrSizeMax` in `package:p2p_ffi/go/boxo/chunker.dart` |  |
+| `var files.ErrInvalidDirectoryEntry error` | `ErrInvalidDirectoryEntry` in `package:p2p_ffi/go/boxo/files.dart` |  |
+| `var files.ErrNotDirectory error` | `ErrNotDirectory` in `package:p2p_ffi/go/boxo/files.dart` |  |
+| `var files.ErrNotReader error` | `ErrNotReader` in `package:p2p_ffi/go/boxo/files.dart` |  |
+| `var files.ErrNotSupported error` | `ErrNotSupported` in `package:p2p_ffi/go/boxo/files.dart` |  |
+| `var files.ErrPathExistsOverwrite error` | `ErrPathExistsOverwrite` in `package:p2p_ffi/go/boxo/files.dart` |  |
+| `var files.ErrUnixFSPathOutsideRoot error` | `ErrUnixFsPathOutsideRoot` in `package:p2p_ffi/go/boxo/files.dart` |  |
+| `filestore.CorruptReferenceError` | `CorruptReferenceError` in `package:p2p_ffi/go/boxo/filestore.dart` | code (not crossing: Err (the next link of the chain)) |
+| `var filestore.ErrFilestoreNotEnabled error` | `ErrFilestoreNotEnabled` in `package:p2p_ffi/go/boxo/filestore.dart` |  |
+| `var filestore.ErrUrlstoreNotEnabled error` | `ErrUrlstoreNotEnabled` in `package:p2p_ffi/go/boxo/filestore.dart` |  |
+| `var gateway.ErrFetcherUnexpectedEOF error` | `ErrFetcherUnexpectedEof` in `package:p2p_ffi/go/boxo/gateway.dart` |  |
+| `gateway.ErrInvalidResponse` | `ErrInvalidResponse` in `package:p2p_ffi/go/boxo/gateway.dart` | message |
+| `gateway.ErrPartialResponse` | `ErrPartialResponse` in `package:p2p_ffi/go/boxo/gateway.dart` | (not crossing: StillNeed) |
+| `var gateway.ErrRetrievalTimeout error` | `ErrRetrievalTimeout` in `package:p2p_ffi/go/boxo/gateway.dart` |  |
+| `var gateway.ErrTraversalTooDeep error` | `ErrTraversalTooDeep` in `package:p2p_ffi/go/boxo/gateway.dart` |  |
+| `gateway.ErrorRetryAfter` | `ErrorRetryAfter` in `package:p2p_ffi/go/boxo/gateway.dart` | retryAfter (not crossing: Err (the next link of the chain)) |
+| `gateway.ErrorStatusCode` | `ErrorStatusCode` in `package:p2p_ffi/go/boxo/gateway.dart` | statusCode (not crossing: Err (the next link of the chain)) |
+| `var merkledag.ErrLinkNotFound error` | `ErrLinkNotFound` in `package:p2p_ffi/go/boxo/ipld/merkledag.dart` |  |
+| `var merkledag.ErrNotProtobuf error` | `ErrNotProtobuf` in `package:p2p_ffi/go/boxo/ipld/merkledag.dart` |  |
+| `var merkledag.ErrNotRawNode error` | `ErrNotRawNode` in `package:p2p_ffi/go/boxo/ipld/merkledag.dart` |  |
+| `var merkledag.ErrReadOnly error` | `ErrReadOnly` in `package:p2p_ffi/go/boxo/ipld/merkledag.dart` |  |
+| `var io.ErrCantReadSymlinks error` | `ErrCantReadSymlinks` in `package:p2p_ffi/go/boxo/ipld/unixfs/io.dart` |  |
+| `var io.ErrInvalidHAMTFanout error` | `ErrInvalidHamtFanout` in `package:p2p_ffi/go/boxo/ipld/unixfs/io.dart` |  |
+| `var io.ErrIsDir error` | `ErrIsDir` in `package:p2p_ffi/go/boxo/ipld/unixfs/io.dart` |  |
+| `var io.ErrNotADir error` | `ErrNotADir` in `package:p2p_ffi/go/boxo/ipld/unixfs/io.dart` |  |
+| `var io.ErrSeekNotSupported error` | `ErrSeekNotSupported` in `package:p2p_ffi/go/boxo/ipld/unixfs/io.dart` |  |
+| `var io.ErrUnkownNodeType error` | `ErrUnkownNodeType` in `package:p2p_ffi/go/boxo/ipld/unixfs/io.dart` |  |
+| `var ipns.ErrDataMissing error` | `ErrDataMissing` in `package:p2p_ffi/go/boxo/ipns.dart` |  |
+| `var ipns.ErrExpiredRecord error` | `ErrExpiredRecord` in `package:p2p_ffi/go/boxo/ipns.dart` |  |
+| `var ipns.ErrInvalidName error` | `ErrInvalidName` in `package:p2p_ffi/go/boxo/ipns.dart` |  |
+| `var ipns.ErrInvalidPath error` | `ErrInvalidPath` in `package:p2p_ffi/go/boxo/ipns.dart` |  |
+| `var ipns.ErrInvalidPublicKey error` | `ErrInvalidPublicKey` in `package:p2p_ffi/go/boxo/ipns.dart` |  |
+| `var ipns.ErrInvalidRecord error` | `ErrInvalidRecord` in `package:p2p_ffi/go/boxo/ipns.dart` |  |
+| `var ipns.ErrInvalidValidity error` | `ErrInvalidValidity` in `package:p2p_ffi/go/boxo/ipns.dart` |  |
+| `var ipns.ErrMetadataConflict error` | `ErrMetadataConflict` in `package:p2p_ffi/go/boxo/ipns.dart` |  |
+| `var ipns.ErrMetadataEmptyKey error` | `ErrMetadataEmptyKey` in `package:p2p_ffi/go/boxo/ipns.dart` |  |
+| `var ipns.ErrMetadataNotFound error` | `ErrMetadataNotFound` in `package:p2p_ffi/go/boxo/ipns.dart` |  |
+| `var ipns.ErrMetadataUnsupportedType error` | `ErrMetadataUnsupportedType` in `package:p2p_ffi/go/boxo/ipns.dart` |  |
+| `var ipns.ErrMetadataValueNotSet error` | `ErrMetadataValueNotSet` in `package:p2p_ffi/go/boxo/ipns.dart` |  |
+| `var ipns.ErrPublicKeyMismatch error` | `ErrPublicKeyMismatch` in `package:p2p_ffi/go/boxo/ipns.dart` |  |
+| `var ipns.ErrPublicKeyNotFound error` | `ErrPublicKeyNotFound` in `package:p2p_ffi/go/boxo/ipns.dart` |  |
+| `var ipns.ErrRecordSize error` | `ErrRecordSize` in `package:p2p_ffi/go/boxo/ipns.dart` |  |
+| `var ipns.ErrSignature error` | `ErrSignature` in `package:p2p_ffi/go/boxo/ipns.dart` |  |
+| `var ipns.ErrUnrecognizedValidity error` | `ErrUnrecognizedValidity` in `package:p2p_ffi/go/boxo/ipns.dart` |  |
+| `var mfs.ErrClosed error` | `ErrClosed` in `package:p2p_ffi/go/boxo/mfs.dart` |  |
+| `var mfs.ErrDirExists error` | `ErrDirExists` in `package:p2p_ffi/go/boxo/mfs.dart` |  |
+| `var mfs.ErrInvalidChild error` | `ErrInvalidChild` in `package:p2p_ffi/go/boxo/mfs.dart` |  |
+| `var mfs.ErrIsDirectory error` | `ErrIsDirectory` in `package:p2p_ffi/go/boxo/mfs.dart` |  |
+| `var mfs.ErrNotExist error` | `ErrNotExist` in `package:p2p_ffi/go/boxo/mfs.dart` |  |
+| `var mfs.ErrNotYetImplemented error` | `ErrNotYetImplemented` in `package:p2p_ffi/go/boxo/mfs.dart` |  |
+| `var namesys.ErrInvalidSequence error` | `ErrInvalidSequence` in `package:p2p_ffi/go/boxo/namesys.dart` |  |
+| `var namesys.ErrMissingDNSLinkRecord error` | `ErrMissingDnsLinkRecord` in `package:p2p_ffi/go/boxo/namesys.dart` |  |
+| `var namesys.ErrMultipleDNSLinkRecords error` | `ErrMultipleDnsLinkRecords` in `package:p2p_ffi/go/boxo/namesys.dart` |  |
+| `var namesys.ErrNoNamesys error` | `ErrNoNamesys` in `package:p2p_ffi/go/boxo/namesys.dart` |  |
+| `var namesys.ErrResolveFailed error` | `ErrResolveFailed` in `package:p2p_ffi/go/boxo/namesys.dart` |  |
+| `var namesys.ErrResolveRecursion error` | `ErrResolveRecursion` in `package:p2p_ffi/go/boxo/namesys.dart` |  |
+| `var path.ErrExpectedImmutable error` | `ErrExpectedImmutable` in `package:p2p_ffi/go/boxo/path.dart` |  |
+| `var path.ErrInsufficientComponents error` | `ErrInsufficientComponents` in `package:p2p_ffi/go/boxo/path.dart` |  |
+| `path.ErrInvalidPath` | `ErrInvalidPath` in `package:p2p_ffi/go/boxo/path.dart` |  |
+| `var path.ErrUnknownNamespace error` | `ErrUnknownNamespace` in `package:p2p_ffi/go/boxo/path.dart` |  |
+| `resolver.ErrNoLink` | `ErrNoLink` in `package:p2p_ffi/go/boxo/path/resolver.dart` | name, node |
+| `var verifcid.ErrAboveMaximumHashLength error` | `ErrAboveMaximumHashLength` in `package:p2p_ffi/go/boxo/verifcid.dart` |  |
+| `var verifcid.ErrBelowMinimumHashLength error` | `ErrBelowMinimumHashLength` in `package:p2p_ffi/go/boxo/verifcid.dart` |  |
+| `var verifcid.ErrDigestTooLarge error` | `ErrDigestTooLarge` in `package:p2p_ffi/go/boxo/verifcid.dart` |  |
+| `var verifcid.ErrDigestTooSmall error` | `ErrDigestTooSmall` in `package:p2p_ffi/go/boxo/verifcid.dart` |  |
+| `var verifcid.ErrPossiblyInsecureHashFunction error` | `ErrPossiblyInsecureHashFunction` in `package:p2p_ffi/go/boxo/verifcid.dart` |  |
+| `var bytes.ErrTooLarge error` | `ErrTooLarge` in `package:p2p_ffi/go/bytes.dart` |  |
+| `var car.ErrAlreadyV1 error` | `ErrAlreadyV1` in `package:p2p_ffi/go/car/v2.dart` |  |
+| `car.ErrCidTooLarge` | `ErrCidTooLarge` in `package:p2p_ffi/go/car/v2.dart` | maxSize, currentSize |
+| `var car.ErrOffsetImpossible error` | `ErrOffsetImpossible` in `package:p2p_ffi/go/car/v2.dart` |  |
+| `var car.ErrSizeMismatch error` | `ErrSizeMismatch` in `package:p2p_ffi/go/car/v2.dart` |  |
+| `var storage.ErrClosed error` | `ErrClosed` in `package:p2p_ffi/go/car/v2/storage.dart` |  |
+| `cid.ErrInvalidCid` | `ErrInvalidCid` in `package:p2p_ffi/go/cid.dart` | (not crossing: Err (the next link of the chain)) |
+| `var cid.ErrInvalidEncoding error` | `ErrInvalidEncoding` in `package:p2p_ffi/go/cid.dart` |  |
+| `prometheus.AlreadyRegisteredError` | `AlreadyRegisteredError` in `package:p2p_ffi/go/client_golang/prometheus.dart` | (not crossing: ExistingCollector, NewCollector) |
+| `prometheus.MultiError` | `MultiError` in `package:p2p_ffi/go/client_golang/prometheus.dart` |  |
+| `var dagpb.ErrIntOverflow error` | `ErrIntOverflow` in `package:p2p_ffi/go/codec_dagpb.dart` |  |
+| `var datastore.ErrBatchUnsupported error` | `ErrBatchUnsupported` in `package:p2p_ffi/go/datastore.dart` |  |
+| `var datastore.ErrNotFound error` | `ErrNotFound` in `package:p2p_ffi/go/datastore.dart` |  |
+| `var io.ErrClosedPipe error` | `ErrClosedPipe` in `package:p2p_ffi/go/io.dart` |  |
+| `var io.ErrNoProgress error` | `ErrNoProgress` in `package:p2p_ffi/go/io.dart` |  |
+| `var io.ErrShortBuffer error` | `ErrShortBuffer` in `package:p2p_ffi/go/io.dart` |  |
+| `var io.ErrShortWrite error` | `ErrShortWrite` in `package:p2p_ffi/go/io.dart` |  |
+| `var fs.ErrClosed error` | `ErrClosed` in `package:p2p_ffi/go/io/fs.dart` |  |
+| `var fs.ErrExist error` | `ErrExist` in `package:p2p_ffi/go/io/fs.dart` |  |
+| `var fs.ErrInvalid error` | `ErrInvalid` in `package:p2p_ffi/go/io/fs.dart` |  |
+| `var fs.ErrNotExist error` | `ErrNotExist` in `package:p2p_ffi/go/io/fs.dart` |  |
+| `var fs.ErrPermission error` | `ErrPermission` in `package:p2p_ffi/go/io/fs.dart` |  |
+| `fs.PathError` | `PathError` in `package:p2p_ffi/go/io/fs.dart` | op, path (not crossing: Err (the next link of the chain)) |
+| `var fs.SkipAll error` | `SkipAll` in `package:p2p_ffi/go/io/fs.dart` |  |
+| `var fs.SkipDir error` | `SkipDir` in `package:p2p_ffi/go/io/fs.dart` |  |
+| `var cmds.ErrClosedEmitter error` | `ErrClosedEmitter` in `package:p2p_ffi/go/ipfs_cmds.dart` |  |
+| `var cmds.ErrClosingClosedEmitter error` | `ErrClosingClosedEmitter` in `package:p2p_ffi/go/ipfs_cmds.dart` |  |
+| `var cmds.ErrIncorrectType error` | `ErrIncorrectType` in `package:p2p_ffi/go/ipfs_cmds.dart` |  |
+| `var cmds.ErrNoFormatter error` | `ErrNoFormatter` in `package:p2p_ffi/go/ipfs_cmds.dart` |  |
+| `var cmds.ErrNotCallable error` | `ErrNotCallable` in `package:p2p_ffi/go/ipfs_cmds.dart` |  |
+| `cmds.Error` | `Error$` in `package:p2p_ffi/go/ipfs_cmds.dart` | message, code |
+| `cmds.ErrorType` | `ErrorType` in `package:p2p_ffi/go/ipfs_cmds.dart` |  |
+| `var format.EndOfDag error` | `EndOfDag` in `package:p2p_ffi/go/ipld_format.dart` |  |
+| `var format.ErrClosed error` | `ErrClosed` in `package:p2p_ffi/go/ipld_format.dart` |  |
+| `var format.ErrDownNoChild error` | `ErrDownNoChild` in `package:p2p_ffi/go/ipld_format.dart` |  |
+| `var format.ErrNextNoChild error` | `ErrNextNoChild` in `package:p2p_ffi/go/ipld_format.dart` |  |
+| `var format.ErrNilVisitor error` | `ErrNilVisitor` in `package:p2p_ffi/go/ipld_format.dart` |  |
+| `var format.ErrNotCommited error` | `ErrNotCommited` in `package:p2p_ffi/go/ipld_format.dart` |  |
+| `datamodel.ErrInvalidSegmentForList` | `ErrInvalidSegmentForList` in `package:p2p_ffi/go/ipld_prime/datamodel.dart` | typeName (not crossing: TroubleSegment, Reason (the next link of the chain)) |
+| `datamodel.ErrIteratorOverread` | `ErrIteratorOverread` in `package:p2p_ffi/go/ipld_prime/datamodel.dart` |  |
+| `datamodel.ErrNotExists` | `ErrNotExists` in `package:p2p_ffi/go/ipld_prime/datamodel.dart` | (not crossing: Segment) |
+| `datamodel.ErrRepeatedMapKey` | `ErrRepeatedMapKey` in `package:p2p_ffi/go/ipld_prime/datamodel.dart` | (not crossing: Key) |
+| `datamodel.ErrWrongKind` | `ErrWrongKind` in `package:p2p_ffi/go/ipld_prime/datamodel.dart` | typeName, methodName, actualKind (not crossing: AppropriateKind) |
+| `linking.ErrHashMismatch` | `ErrHashMismatch` in `package:p2p_ffi/go/ipld_prime/linking.dart` | (not crossing: Actual, Expected) |
+| `linking.ErrLinkingSetup` | `ErrLinkingSetup` in `package:p2p_ffi/go/ipld_prime/linking.dart` | detail (not crossing: Cause (the next link of the chain)) |
+| `traversal.ErrBudgetExceeded` | `ErrBudgetExceeded` in `package:p2p_ffi/go/ipld_prime/traversal.dart` | budgetKind (not crossing: Path, Link) |
+| `traversal.SkipMe` | `SkipMe` in `package:p2p_ffi/go/ipld_prime/traversal.dart` |  |
+| `var config.ErrInvalidPeerAddr error` | `ErrInvalidPeerAddr` in `package:p2p_ffi/go/kubo/config.dart` |  |
+| `var commands.ErrDepthLimitExceeded error` | `ErrDepthLimitExceeded` in `package:p2p_ffi/go/kubo/core/commands.dart` |  |
+| `var commands.ErrInvalidCompressionLevel error` | `ErrInvalidCompressionLevel` in `package:p2p_ffi/go/kubo/core/commands.dart` |  |
+| `var commands.ErrNotDHT error` | `ErrNotDht` in `package:p2p_ffi/go/kubo/core/commands.dart` |  |
+| `var commands.ErrNotOnline error` | `ErrNotOnline` in `package:p2p_ffi/go/kubo/core/commands.dart` |  |
+| `var commands.ErrPingSelf error` | `ErrPingSelf` in `package:p2p_ffi/go/kubo/core/commands.dart` |  |
+| `var commands.ErrSelfUnsupported error` | `ErrSelfUnsupported` in `package:p2p_ffi/go/kubo/core/commands.dart` |  |
+| `var objectcmd.ErrDataEncoding error` | `ErrDataEncoding` in `package:p2p_ffi/go/kubo/core/commands/object.dart` |  |
+| `var iface.ErrConnNotFound error` | `ErrConnNotFound` in `package:p2p_ffi/go/kubo/core/coreiface.dart` |  |
+| `var iface.ErrIsDir error` | `ErrIsDir` in `package:p2p_ffi/go/kubo/core/coreiface.dart` |  |
+| `var iface.ErrNotConnected error` | `ErrNotConnected` in `package:p2p_ffi/go/kubo/core/coreiface.dart` |  |
+| `var iface.ErrNotFile error` | `ErrNotFile` in `package:p2p_ffi/go/kubo/core/coreiface.dart` |  |
+| `var iface.ErrNotSupported error` | `ErrNotSupported` in `package:p2p_ffi/go/kubo/core/coreiface.dart` |  |
+| `var iface.ErrOffline error` | `ErrOffline` in `package:p2p_ffi/go/kubo/core/coreiface.dart` |  |
+| `var iface.ErrResolveFailed error` | `ErrResolveFailed` in `package:p2p_ffi/go/kubo/core/coreiface.dart` |  |
+| `var corerepo.ErrMaxStorageExceeded error` | `ErrMaxStorageExceeded` in `package:p2p_ffi/go/kubo/core/corerepo.dart` |  |
+| `corerepo.MultiError` | `MultiError` in `package:p2p_ffi/go/kubo/core/corerepo.dart` | (not crossing: Errors, Summary (the next link of the chain)) |
+| `var libp2p.ErrNoResourceMgr error` | `ErrNoResourceMgr` in `package:p2p_ffi/go/kubo/core/node/libp2p.dart` |  |
+| `gc.CannotDeleteBlockError` | `CannotDeleteBlockError` in `package:p2p_ffi/go/kubo/gc.dart` | key (not crossing: Err (the next link of the chain)) |
+| `gc.CannotFetchLinksError` | `CannotFetchLinksError` in `package:p2p_ffi/go/kubo/gc.dart` | key (not crossing: Err (the next link of the chain)) |
+| `var gc.ErrCannotDeleteSomeBlocks error` | `ErrCannotDeleteSomeBlocks` in `package:p2p_ffi/go/kubo/gc.dart` |  |
+| `var gc.ErrCannotFetchAllLinks error` | `ErrCannotFetchAllLinks` in `package:p2p_ffi/go/kubo/gc.dart` |  |
+| `var repo.ErrApiNotRunning error` | `ErrApiNotRunning` in `package:p2p_ffi/go/kubo/repo.dart` |  |
+| `var fsrepo.ErrNeedMigration error` | `ErrNeedMigration` in `package:p2p_ffi/go/kubo/repo/fsrepo.dart` |  |
+| `var fsrepo.ErrNoVersion error` | `ErrNoVersion` in `package:p2p_ffi/go/kubo/repo/fsrepo.dart` |  |
+| `var fsrepo.ErrOldRepo error` | `ErrOldRepo` in `package:p2p_ffi/go/kubo/repo/fsrepo.dart` |  |
+| `fsrepo.NoRepoError` | `NoRepoError` in `package:p2p_ffi/go/kubo/repo/fsrepo.dart` | path |
+| `var crypto.ErrBadKeyType error` | `ErrBadKeyType` in `package:p2p_ffi/go/libp2p/core/crypto.dart` |  |
+| `var crypto.ErrNilPrivateKey error` | `ErrNilPrivateKey` in `package:p2p_ffi/go/libp2p/core/crypto.dart` |  |
+| `var crypto.ErrNilPublicKey error` | `ErrNilPublicKey` in `package:p2p_ffi/go/libp2p/core/crypto.dart` |  |
+| `var crypto.ErrNilSig error` | `ErrNilSig` in `package:p2p_ffi/go/libp2p/core/crypto.dart` |  |
+| `var crypto.ErrNotECDSAPubKey error` | `ErrNotEcdsaPubKey` in `package:p2p_ffi/go/libp2p/core/crypto.dart` |  |
+| `var crypto.ErrRsaKeyTooBig error` | `ErrRsaKeyTooBig` in `package:p2p_ffi/go/libp2p/core/crypto.dart` |  |
+| `var crypto.ErrRsaKeyTooSmall error` | `ErrRsaKeyTooSmall` in `package:p2p_ffi/go/libp2p/core/crypto.dart` |  |
+| `network.ConnError` | `ConnError` in `package:p2p_ffi/go/libp2p/core/network.dart` | remote, errorCode (not crossing: TransportError (the next link of the chain)) |
+| `var network.ErrLimitedConn error` | `ErrLimitedConn` in `package:p2p_ffi/go/libp2p/core/network.dart` |  |
+| `var network.ErrNoConn error` | `ErrNoConn` in `package:p2p_ffi/go/libp2p/core/network.dart` |  |
+| `var network.ErrNoRemoteAddrs error` | `ErrNoRemoteAddrs` in `package:p2p_ffi/go/libp2p/core/network.dart` |  |
+| `var network.ErrReset error` | `ErrReset` in `package:p2p_ffi/go/libp2p/core/network.dart` |  |
+| `var network.ErrResourceScopeClosed error` | `ErrResourceScopeClosed` in `package:p2p_ffi/go/libp2p/core/network.dart` |  |
+| `var network.ErrTransientConn error` | `ErrTransientConn` in `package:p2p_ffi/go/libp2p/core/network.dart` |  |
+| `network.StreamError` | `StreamError` in `package:p2p_ffi/go/libp2p/core/network.dart` | errorCode, remote (not crossing: TransportError (the next link of the chain)) |
+| `var peer.ErrEmptyPeerID error` | `ErrEmptyPeerId` in `package:p2p_ffi/go/libp2p/core/peer.dart` |  |
+| `var peer.ErrInvalidAddr error` | `ErrInvalidAddr` in `package:p2p_ffi/go/libp2p/core/peer.dart` |  |
+| `var peer.ErrNoPublicKey error` | `ErrNoPublicKey` in `package:p2p_ffi/go/libp2p/core/peer.dart` |  |
+| `var peerstore.ErrNotFound error` | `ErrNotFound` in `package:p2p_ffi/go/libp2p/core/peerstore.dart` |  |
+| `var record.ErrEmptyDomain error` | `ErrEmptyDomain` in `package:p2p_ffi/go/libp2p/core/record.dart` |  |
+| `var record.ErrEmptyPayloadType error` | `ErrEmptyPayloadType` in `package:p2p_ffi/go/libp2p/core/record.dart` |  |
+| `var record.ErrInvalidSignature error` | `ErrInvalidSignature` in `package:p2p_ffi/go/libp2p/core/record.dart` |  |
+| `var record.ErrPayloadTypeNotRegistered error` | `ErrPayloadTypeNotRegistered` in `package:p2p_ffi/go/libp2p/core/record.dart` |  |
+| `var routing.ErrNotFound error` | `ErrNotFound` in `package:p2p_ffi/go/libp2p/core/routing.dart` |  |
+| `var routing.ErrNotSupported error` | `ErrNotSupported` in `package:p2p_ffi/go/libp2p/core/routing.dart` |  |
+| `swarm.DialError` | `DialError` in `package:p2p_ffi/go/libp2p/p2p/net/swarm.dart` | peer, skipped (not crossing: DialErrors, Cause (the next link of the chain)) |
+| `var swarm.ErrAddrFiltered error` | `ErrAddrFiltered` in `package:p2p_ffi/go/libp2p/p2p/net/swarm.dart` |  |
+| `var swarm.ErrAllDialsFailed error` | `ErrAllDialsFailed` in `package:p2p_ffi/go/libp2p/p2p/net/swarm.dart` |  |
+| `var swarm.ErrConnClosed error` | `ErrConnClosed` in `package:p2p_ffi/go/libp2p/p2p/net/swarm.dart` |  |
+| `var swarm.ErrDialBackoff error` | `ErrDialBackoff` in `package:p2p_ffi/go/libp2p/p2p/net/swarm.dart` |  |
+| `var swarm.ErrDialRefusedBlackHole error` | `ErrDialRefusedBlackHole` in `package:p2p_ffi/go/libp2p/p2p/net/swarm.dart` |  |
+| `var swarm.ErrDialTimeout error` | `ErrDialTimeout` in `package:p2p_ffi/go/libp2p/p2p/net/swarm.dart` |  |
+| `var swarm.ErrDialToSelf error` | `ErrDialToSelf` in `package:p2p_ffi/go/libp2p/p2p/net/swarm.dart` |  |
+| `var swarm.ErrGaterDisallowedConnection error` | `ErrGaterDisallowedConnection` in `package:p2p_ffi/go/libp2p/p2p/net/swarm.dart` |  |
+| `var swarm.ErrNoAddresses error` | `ErrNoAddresses` in `package:p2p_ffi/go/libp2p/p2p/net/swarm.dart` |  |
+| `var swarm.ErrNoGoodAddresses error` | `ErrNoGoodAddresses` in `package:p2p_ffi/go/libp2p/p2p/net/swarm.dart` |  |
+| `var swarm.ErrNoTransport error` | `ErrNoTransport` in `package:p2p_ffi/go/libp2p/p2p/net/swarm.dart` |  |
+| `var swarm.ErrSwarmClosed error` | `ErrSwarmClosed` in `package:p2p_ffi/go/libp2p/p2p/net/swarm.dart` |  |
+| `swarm.TransportError` | `TransportError` in `package:p2p_ffi/go/libp2p/p2p/net/swarm.dart` | address (not crossing: Cause (the next link of the chain)) |
+| `var holepunch.ErrClosed error` | `ErrClosed` in `package:p2p_ffi/go/libp2p/p2p/protocol/holepunch.dart` |  |
+| `var holepunch.ErrHolePunchActive error` | `ErrHolePunchActive` in `package:p2p_ffi/go/libp2p/p2p/protocol/holepunch.dart` |  |
+| `var libp2pquic.ErrHolePunching error` | `ErrHolePunching` in `package:p2p_ffi/go/libp2p/p2p/transport/quic.dart` |  |
+| `libp2pwebtransport.ErrCertHashMismatch` | `ErrCertHashMismatch` in `package:p2p_ffi/go/libp2p/p2p/transport/webtransport.dart` | expected (not crossing: Actual) |
+| `var dht.ErrNoPeersQueried error` | `ErrNoPeersQueried` in `package:p2p_ffi/go/libp2p_kad_dht.dart` |  |
+| `var dht.ErrReadTimeout error` | `ErrReadTimeout` in `package:p2p_ffi/go/libp2p_kad_dht.dart` |  |
+| `var records.ErrClosed error` | `ErrClosed` in `package:p2p_ffi/go/libp2p_kad_dht/records.dart` |  |
+| `var records.ErrOldRecord error` | `ErrOldRecord` in `package:p2p_ffi/go/libp2p_kad_dht/records.dart` |  |
+| `var kbucket.ErrLookupFailure error` | `ErrLookupFailure` in `package:p2p_ffi/go/libp2p_kbucket.dart` |  |
+| `var kbucket.ErrPeerRejectedHighLatency error` | `ErrPeerRejectedHighLatency` in `package:p2p_ffi/go/libp2p_kbucket.dart` |  |
+| `var kbucket.ErrPeerRejectedNoCapacity error` | `ErrPeerRejectedNoCapacity` in `package:p2p_ffi/go/libp2p_kbucket.dart` |  |
+| `var pubsub.ErrEmptyPeerID error` | `ErrEmptyPeerId` in `package:p2p_ffi/go/libp2p_pubsub.dart` |  |
+| `var pubsub.ErrFanoutOnlyTopic error` | `ErrFanoutOnlyTopic` in `package:p2p_ffi/go/libp2p_pubsub.dart` |  |
+| `var pubsub.ErrNilSignKey error` | `ErrNilSignKey` in `package:p2p_ffi/go/libp2p_pubsub.dart` |  |
+| `var pubsub.ErrQueueCancelled error` | `ErrQueueCancelled` in `package:p2p_ffi/go/libp2p_pubsub.dart` |  |
+| `var pubsub.ErrQueueClosed error` | `ErrQueueClosed` in `package:p2p_ffi/go/libp2p_pubsub.dart` |  |
+| `var pubsub.ErrQueueFull error` | `ErrQueueFull` in `package:p2p_ffi/go/libp2p_pubsub.dart` |  |
+| `var pubsub.ErrQueuePushOnClosed error` | `ErrQueuePushOnClosed` in `package:p2p_ffi/go/libp2p_pubsub.dart` |  |
+| `var pubsub.ErrSubscriptionCancelled error` | `ErrSubscriptionCancelled` in `package:p2p_ffi/go/libp2p_pubsub.dart` |  |
+| `var pubsub.ErrTooManySubscriptions error` | `ErrTooManySubscriptions` in `package:p2p_ffi/go/libp2p_pubsub.dart` |  |
+| `var pubsub.ErrTopicClosed error` | `ErrTopicClosed` in `package:p2p_ffi/go/libp2p_pubsub.dart` |  |
+| `pubsub.ValidationError` | `ValidationError` in `package:p2p_ffi/go/libp2p_pubsub.dart` | reason |
+| `record.ErrBetterRecord` | `ErrBetterRecord` in `package:p2p_ffi/go/libp2p_record.dart` | key, value$ |
+| `var record.ErrInvalidRecordType error` | `ErrInvalidRecordType` in `package:p2p_ffi/go/libp2p_record.dart` |  |
+| `var multiaddr.ErrProtocolNotFound error` | `ErrProtocolNotFound` in `package:p2p_ffi/go/multiaddr.dart` |  |
+| `net.AddrError` | `AddrError` in `package:p2p_ffi/go/net.dart` | err, addr |
+| `net.DNSConfigError` | `DnsConfigError` in `package:p2p_ffi/go/net.dart` | (not crossing: Err (the next link of the chain)) |
+| `net.DNSError` | `DnsError` in `package:p2p_ffi/go/net.dart` | err, name, server, isTimeout, isTemporary, isNotFound (not crossing: UnwrapErr (the next link of the chain)) |
+| `var net.ErrClosed error` | `ErrClosed` in `package:p2p_ffi/go/net.dart` |  |
+| `var net.ErrWriteToConnected error` | `ErrWriteToConnected` in `package:p2p_ffi/go/net.dart` |  |
+| `net.InvalidAddrError` | `InvalidAddrError` in `package:p2p_ffi/go/net.dart` |  |
+| `net.OpError` | `OpError` in `package:p2p_ffi/go/net.dart` | op, net (not crossing: Source, Addr, Err (the next link of the chain)) |
+| `net.ParseError` | `ParseError` in `package:p2p_ffi/go/net.dart` | type, text |
+| `net.UnknownNetworkError` | `UnknownNetworkError` in `package:p2p_ffi/go/net.dart` |  |
+| `var os.ErrClosed error` | `ErrClosed` in `package:p2p_ffi/go/os.dart` |  |
+| `var os.ErrDeadlineExceeded error` | `ErrDeadlineExceeded` in `package:p2p_ffi/go/os.dart` |  |
+| `var os.ErrExist error` | `ErrExist` in `package:p2p_ffi/go/os.dart` |  |
+| `var os.ErrInvalid error` | `ErrInvalid` in `package:p2p_ffi/go/os.dart` |  |
+| `var os.ErrNoDeadline error` | `ErrNoDeadline` in `package:p2p_ffi/go/os.dart` |  |
+| `var os.ErrNoHandle error` | `ErrNoHandle` in `package:p2p_ffi/go/os.dart` |  |
+| `var os.ErrNotExist error` | `ErrNotExist` in `package:p2p_ffi/go/os.dart` |  |
+| `var os.ErrPermission error` | `ErrPermission` in `package:p2p_ffi/go/os.dart` |  |
+| `var os.ErrProcessDone error` | `ErrProcessDone` in `package:p2p_ffi/go/os.dart` |  |
+| `os.LinkError` | `LinkError` in `package:p2p_ffi/go/os.dart` | op, old, new$ (not crossing: Err (the next link of the chain)) |
+| `os.SyscallError` | `SyscallError` in `package:p2p_ffi/go/os.dart` | syscall (not crossing: Err (the next link of the chain)) |
+
+Without a class (they cross as `GolangException`, with the message and the chain's
+texts):
+
+- `var index.ErrNotFound error`: has its runtime class (`GolangEofException`, `GolangNotFoundException`...)
+- `type storage.ErrNotFound struct{Cid cid.Cid}`: has its runtime class (`GolangEofException`, `GolangNotFoundException`...)
+- `var io.EOF error`: has its runtime class (`GolangEofException`, `GolangNotFoundException`...)
+- `var io.ErrUnexpectedEOF error`: has its runtime class (`GolangEofException`, `GolangNotFoundException`...)
+- `type format.ErrNotFound struct{Cid cid.Cid}`: has its runtime class (`GolangEofException`, `GolangNotFoundException`...)
+
 
 ## RPC commands (`ipfs ...`) → `package:p2p_ffi/go/kubo/core/commands.dart`
 

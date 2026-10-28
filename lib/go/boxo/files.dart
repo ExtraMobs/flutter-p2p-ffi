@@ -61,3 +61,57 @@ const fileModeHeaderName = "File-Mode";
 
 /// Go: `const files.LastModifiedHeaderName untyped string`.
 const lastModifiedHeaderName = "Last-Modified";
+
+/// Go: `var files.ErrInvalidDirectoryEntry error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrInvalidDirectoryEntry extends GolangException {
+  ErrInvalidDirectoryEntry.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'files.ErrInvalidDirectoryEntry: $message';
+}
+
+/// Go: `var files.ErrNotDirectory error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrNotDirectory extends GolangException {
+  ErrNotDirectory.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'files.ErrNotDirectory: $message';
+}
+
+/// Go: `var files.ErrNotReader error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrNotReader extends GolangException {
+  ErrNotReader.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'files.ErrNotReader: $message';
+}
+
+/// Go: `var files.ErrNotSupported error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrNotSupported extends GolangException {
+  ErrNotSupported.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'files.ErrNotSupported: $message';
+}
+
+/// Go: `var files.ErrPathExistsOverwrite error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrPathExistsOverwrite extends GolangException {
+  ErrPathExistsOverwrite.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'files.ErrPathExistsOverwrite: $message';
+}
+
+/// Go: `var files.ErrUnixFSPathOutsideRoot error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrUnixFsPathOutsideRoot extends GolangException {
+  ErrUnixFsPathOutsideRoot.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'files.ErrUnixFSPathOutsideRoot: $message';
+}

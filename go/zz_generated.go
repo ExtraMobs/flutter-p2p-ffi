@@ -18,6 +18,7 @@ import (
 	p_offline "github.com/ipfs/boxo/exchange/offline"
 	p_bsfetcher "github.com/ipfs/boxo/fetcher/impl/blockservice"
 	p_files "github.com/ipfs/boxo/files"
+	p_filestore "github.com/ipfs/boxo/filestore"
 	p_gateway "github.com/ipfs/boxo/gateway"
 	p_merkledag "github.com/ipfs/boxo/ipld/merkledag"
 	p_unixfile "github.com/ipfs/boxo/ipld/unixfs/file"
@@ -34,10 +35,13 @@ import (
 	p_cid "github.com/ipfs/go-cid"
 	p_datastore "github.com/ipfs/go-datastore"
 	p_sync "github.com/ipfs/go-datastore/sync"
+	p_cmds "github.com/ipfs/go-ipfs-cmds"
 	p_format "github.com/ipfs/go-ipld-format"
 	p_unixfsnode "github.com/ipfs/go-unixfsnode"
 	p_config "github.com/ipfs/kubo/config"
 	p_core "github.com/ipfs/kubo/core"
+	p_commands "github.com/ipfs/kubo/core/commands"
+	p_objectcmd "github.com/ipfs/kubo/core/commands/object"
 	p_coreapi "github.com/ipfs/kubo/core/coreapi"
 	p_iface "github.com/ipfs/kubo/core/coreiface"
 	p_options "github.com/ipfs/kubo/core/coreiface/options"
@@ -86,6 +90,7 @@ import (
 	p_peer "github.com/libp2p/go-libp2p/core/peer"
 	p_peerstore "github.com/libp2p/go-libp2p/core/peerstore"
 	p_protocol "github.com/libp2p/go-libp2p/core/protocol"
+	p_record2 "github.com/libp2p/go-libp2p/core/record"
 	p_routing "github.com/libp2p/go-libp2p/core/routing"
 	p_mdns "github.com/libp2p/go-libp2p/p2p/discovery/mdns"
 	p_routing2 "github.com/libp2p/go-libp2p/p2p/discovery/routing"
@@ -127,7 +132,7 @@ var (
 )
 
 // tableHash: o hash da tabela (WIRE.md, Hello), o mesmo do Dart gerado.
-const tableHash uint64 = 0x4355c0e2d9e2c58a
+const tableHash uint64 = 0xb9cff36276458404
 
 // table: as funções geradas por id (WIRE.md); as escritas à mão entram no init delas.
 var table = map[uint32]entry{
@@ -774,6 +779,524 @@ var tokens = map[uint32]func() any{
 	16: func() any { return p_libp2pwebrtc.New },
 	17: func() any { return p_websocket.New },
 	18: func() any { return p_libp2pwebtransport.New },
+}
+
+// errSentinels: as sentinelas com classe Dart (WIRE.md, evento `erro`).
+// Um mesmo valor pode ter mais de um nome (os.ErrNotExist é fs.ErrNotExist):
+// o elo ganha todas as classes dele.
+var errSentinels = []struct {
+	err error
+	id  uint32
+}{
+	{p_blocks.ErrWrongHash, 1},
+	{p_blockstore.ErrHashMismatch, 2},
+	{p_chunk.ErrRabinMin, 3},
+	{p_chunk.ErrSize, 4},
+	{p_chunk.ErrSizeMax, 5},
+	{p_files.ErrInvalidDirectoryEntry, 6},
+	{p_files.ErrNotDirectory, 7},
+	{p_files.ErrNotReader, 8},
+	{p_files.ErrNotSupported, 9},
+	{p_files.ErrPathExistsOverwrite, 10},
+	{p_files.ErrUnixFSPathOutsideRoot, 11},
+	{p_filestore.ErrFilestoreNotEnabled, 13},
+	{p_filestore.ErrUrlstoreNotEnabled, 14},
+	{p_gateway.ErrFetcherUnexpectedEOF, 15},
+	{p_gateway.ErrRetrievalTimeout, 18},
+	{p_gateway.ErrTraversalTooDeep, 19},
+	{p_merkledag.ErrLinkNotFound, 22},
+	{p_merkledag.ErrNotProtobuf, 23},
+	{p_merkledag.ErrNotRawNode, 24},
+	{p_merkledag.ErrReadOnly, 25},
+	{p_io2.ErrCantReadSymlinks, 26},
+	{p_io2.ErrInvalidHAMTFanout, 27},
+	{p_io2.ErrIsDir, 28},
+	{p_io2.ErrNotADir, 29},
+	{p_io2.ErrSeekNotSupported, 30},
+	{p_io2.ErrUnkownNodeType, 31},
+	{p_ipns.ErrDataMissing, 32},
+	{p_ipns.ErrExpiredRecord, 33},
+	{p_ipns.ErrInvalidName, 34},
+	{p_ipns.ErrInvalidPath, 35},
+	{p_ipns.ErrInvalidPublicKey, 36},
+	{p_ipns.ErrInvalidRecord, 37},
+	{p_ipns.ErrInvalidValidity, 38},
+	{p_ipns.ErrMetadataConflict, 39},
+	{p_ipns.ErrMetadataEmptyKey, 40},
+	{p_ipns.ErrMetadataNotFound, 41},
+	{p_ipns.ErrMetadataUnsupportedType, 42},
+	{p_ipns.ErrMetadataValueNotSet, 43},
+	{p_ipns.ErrPublicKeyMismatch, 44},
+	{p_ipns.ErrPublicKeyNotFound, 45},
+	{p_ipns.ErrRecordSize, 46},
+	{p_ipns.ErrSignature, 47},
+	{p_ipns.ErrUnrecognizedValidity, 48},
+	{p_mfs.ErrClosed, 49},
+	{p_mfs.ErrDirExists, 50},
+	{p_mfs.ErrInvalidChild, 51},
+	{p_mfs.ErrIsDirectory, 52},
+	{p_mfs.ErrNotExist, 53},
+	{p_mfs.ErrNotYetImplemented, 54},
+	{p_namesys.ErrInvalidSequence, 55},
+	{p_namesys.ErrMissingDNSLinkRecord, 56},
+	{p_namesys.ErrMultipleDNSLinkRecords, 57},
+	{p_namesys.ErrNoNamesys, 58},
+	{p_namesys.ErrResolveFailed, 59},
+	{p_namesys.ErrResolveRecursion, 60},
+	{p_path.ErrExpectedImmutable, 61},
+	{p_path.ErrInsufficientComponents, 62},
+	{p_path.ErrUnknownNamespace, 64},
+	{p_verifcid.ErrAboveMaximumHashLength, 66},
+	{p_verifcid.ErrBelowMinimumHashLength, 67},
+	{p_verifcid.ErrDigestTooLarge, 68},
+	{p_verifcid.ErrDigestTooSmall, 69},
+	{p_verifcid.ErrPossiblyInsecureHashFunction, 70},
+	{p_bytes.ErrTooLarge, 71},
+	{p_car.ErrAlreadyV1, 72},
+	{p_car.ErrOffsetImpossible, 74},
+	{p_car.ErrSizeMismatch, 75},
+	{p_storage2.ErrClosed, 76},
+	{p_cid.ErrInvalidEncoding, 78},
+	{p_dagpb.ErrIntOverflow, 81},
+	{p_datastore.ErrBatchUnsupported, 82},
+	{p_datastore.ErrNotFound, 83},
+	{p_io.ErrClosedPipe, 84},
+	{p_io.ErrNoProgress, 85},
+	{p_io.ErrShortBuffer, 86},
+	{p_io.ErrShortWrite, 87},
+	{p_fs.ErrClosed, 88},
+	{p_fs.ErrExist, 89},
+	{p_fs.ErrInvalid, 90},
+	{p_fs.ErrNotExist, 91},
+	{p_fs.ErrPermission, 92},
+	{p_fs.SkipAll, 94},
+	{p_fs.SkipDir, 95},
+	{p_cmds.ErrClosedEmitter, 96},
+	{p_cmds.ErrClosingClosedEmitter, 97},
+	{p_cmds.ErrIncorrectType, 98},
+	{p_cmds.ErrNoFormatter, 99},
+	{p_cmds.ErrNotCallable, 100},
+	{p_format.EndOfDag, 103},
+	{p_format.ErrClosed, 104},
+	{p_format.ErrDownNoChild, 105},
+	{p_format.ErrNextNoChild, 106},
+	{p_format.ErrNilVisitor, 107},
+	{p_format.ErrNotCommited, 108},
+	{p_config.ErrInvalidPeerAddr, 118},
+	{p_commands.ErrDepthLimitExceeded, 119},
+	{p_commands.ErrInvalidCompressionLevel, 120},
+	{p_commands.ErrNotDHT, 121},
+	{p_commands.ErrNotOnline, 122},
+	{p_commands.ErrPingSelf, 123},
+	{p_commands.ErrSelfUnsupported, 124},
+	{p_objectcmd.ErrDataEncoding, 125},
+	{p_iface.ErrConnNotFound, 126},
+	{p_iface.ErrIsDir, 127},
+	{p_iface.ErrNotConnected, 128},
+	{p_iface.ErrNotFile, 129},
+	{p_iface.ErrNotSupported, 130},
+	{p_iface.ErrOffline, 131},
+	{p_iface.ErrResolveFailed, 132},
+	{p_corerepo.ErrMaxStorageExceeded, 133},
+	{p_libp2p.ErrNoResourceMgr, 135},
+	{p_gc.ErrCannotDeleteSomeBlocks, 138},
+	{p_gc.ErrCannotFetchAllLinks, 139},
+	{p_repo.ErrApiNotRunning, 140},
+	{p_fsrepo.ErrNeedMigration, 141},
+	{p_fsrepo.ErrNoVersion, 142},
+	{p_fsrepo.ErrOldRepo, 143},
+	{p_crypto.ErrBadKeyType, 145},
+	{p_crypto.ErrNilPrivateKey, 146},
+	{p_crypto.ErrNilPublicKey, 147},
+	{p_crypto.ErrNilSig, 148},
+	{p_crypto.ErrNotECDSAPubKey, 149},
+	{p_crypto.ErrRsaKeyTooBig, 150},
+	{p_crypto.ErrRsaKeyTooSmall, 151},
+	{p_network2.ErrLimitedConn, 153},
+	{p_network2.ErrNoConn, 154},
+	{p_network2.ErrNoRemoteAddrs, 155},
+	{p_network2.ErrReset, 156},
+	{p_network2.ErrResourceScopeClosed, 157},
+	{p_network2.ErrTransientConn, 158},
+	{p_peer.ErrEmptyPeerID, 160},
+	{p_peer.ErrInvalidAddr, 161},
+	{p_peer.ErrNoPublicKey, 162},
+	{p_peerstore.ErrNotFound, 163},
+	{p_record2.ErrEmptyDomain, 164},
+	{p_record2.ErrEmptyPayloadType, 165},
+	{p_record2.ErrInvalidSignature, 166},
+	{p_record2.ErrPayloadTypeNotRegistered, 167},
+	{p_routing.ErrNotFound, 168},
+	{p_routing.ErrNotSupported, 169},
+	{p_swarm.ErrAddrFiltered, 171},
+	{p_swarm.ErrAllDialsFailed, 172},
+	{p_swarm.ErrConnClosed, 173},
+	{p_swarm.ErrDialBackoff, 174},
+	{p_swarm.ErrDialRefusedBlackHole, 175},
+	{p_swarm.ErrDialTimeout, 176},
+	{p_swarm.ErrDialToSelf, 177},
+	{p_swarm.ErrGaterDisallowedConnection, 178},
+	{p_swarm.ErrNoAddresses, 179},
+	{p_swarm.ErrNoGoodAddresses, 180},
+	{p_swarm.ErrNoTransport, 181},
+	{p_swarm.ErrSwarmClosed, 182},
+	{p_holepunch.ErrClosed, 184},
+	{p_holepunch.ErrHolePunchActive, 185},
+	{p_libp2pquic.ErrHolePunching, 186},
+	{p_dht.ErrNoPeersQueried, 188},
+	{p_dht.ErrReadTimeout, 189},
+	{p_records.ErrClosed, 190},
+	{p_records.ErrOldRecord, 191},
+	{p_kbucket.ErrLookupFailure, 192},
+	{p_kbucket.ErrPeerRejectedHighLatency, 193},
+	{p_kbucket.ErrPeerRejectedNoCapacity, 194},
+	{p_pubsub.ErrEmptyPeerID, 195},
+	{p_pubsub.ErrFanoutOnlyTopic, 196},
+	{p_pubsub.ErrNilSignKey, 197},
+	{p_pubsub.ErrQueueCancelled, 198},
+	{p_pubsub.ErrQueueClosed, 199},
+	{p_pubsub.ErrQueueFull, 200},
+	{p_pubsub.ErrQueuePushOnClosed, 201},
+	{p_pubsub.ErrSubscriptionCancelled, 202},
+	{p_pubsub.ErrTooManySubscriptions, 203},
+	{p_pubsub.ErrTopicClosed, 204},
+	{p_record.ErrInvalidRecordType, 207},
+	{p_multiaddr.ErrProtocolNotFound, 208},
+	{p_net.ErrClosed, 212},
+	{p_net.ErrWriteToConnected, 213},
+	{p_os.ErrClosed, 218},
+	{p_os.ErrDeadlineExceeded, 219},
+	{p_os.ErrExist, 220},
+	{p_os.ErrInvalid, 221},
+	{p_os.ErrNoDeadline, 222},
+	{p_os.ErrNoHandle, 223},
+	{p_os.ErrNotExist, 224},
+	{p_os.ErrPermission, 225},
+	{p_os.ErrProcessDone, 226},
+}
+
+// errClass: as classes Dart do elo de erro e e o codificador dos campos de
+// cada uma (WIRE.md, evento `erro`); nenhuma quando ele não tem classe.
+func errClass(e error) (out []errLink) {
+	for _, s := range errSentinels {
+		if sameErr(e, s.err) {
+			out = append(out, errLink{id: s.id})
+		}
+	}
+	switch v := e.(type) {
+	case *p_filestore.CorruptReferenceError:
+		if v != nil {
+			out = append(out, errLink{id: 12, enc: func(w *writer) {
+				encInt[p_filestore.Status](w, v.Code)
+			}})
+		}
+	case p_filestore.CorruptReferenceError:
+		out = append(out, errLink{id: 12, enc: func(w *writer) {
+			encInt[p_filestore.Status](w, v.Code)
+		}})
+	case *p_gateway.ErrInvalidResponse:
+		if v != nil {
+			out = append(out, errLink{id: 16, enc: func(w *writer) {
+				encStr[string](w, v.Message)
+			}})
+		}
+	case p_gateway.ErrInvalidResponse:
+		out = append(out, errLink{id: 16, enc: func(w *writer) {
+			encStr[string](w, v.Message)
+		}})
+	case *p_gateway.ErrPartialResponse:
+		if v != nil {
+			out = append(out, errLink{id: 17, enc: nil})
+		}
+	case p_gateway.ErrPartialResponse:
+		out = append(out, errLink{id: 17, enc: nil})
+	case *p_gateway.ErrorRetryAfter:
+		if v != nil {
+			out = append(out, errLink{id: 20, enc: func(w *writer) {
+				encInt[p_time.Duration](w, v.RetryAfter)
+			}})
+		}
+	case *p_gateway.ErrorStatusCode:
+		if v != nil {
+			out = append(out, errLink{id: 21, enc: func(w *writer) {
+				encInt[int](w, v.StatusCode)
+			}})
+		}
+	case *p_path.ErrInvalidPath:
+		if v != nil {
+			out = append(out, errLink{id: 63, enc: nil})
+		}
+	case *p_resolver.ErrNoLink:
+		if v != nil {
+			out = append(out, errLink{id: 65, enc: func(w *writer) {
+				encStr[string](w, v.Name)
+				encCid(w, v.Node)
+			}})
+		}
+	case *p_car.ErrCidTooLarge:
+		if v != nil {
+			out = append(out, errLink{id: 73, enc: func(w *writer) {
+				encInt[uint64](w, v.MaxSize)
+				encInt[uint64](w, v.CurrentSize)
+			}})
+		}
+	case *p_cid.ErrInvalidCid:
+		if v != nil {
+			out = append(out, errLink{id: 77, enc: nil})
+		}
+	case p_cid.ErrInvalidCid:
+		out = append(out, errLink{id: 77, enc: nil})
+	case *p_prometheus.AlreadyRegisteredError:
+		if v != nil {
+			out = append(out, errLink{id: 79, enc: nil})
+		}
+	case p_prometheus.AlreadyRegisteredError:
+		out = append(out, errLink{id: 79, enc: nil})
+	case *p_prometheus.MultiError:
+		if v != nil {
+			out = append(out, errLink{id: 80, enc: nil})
+		}
+	case p_prometheus.MultiError:
+		out = append(out, errLink{id: 80, enc: nil})
+	case *p_fs.PathError:
+		if v != nil {
+			out = append(out, errLink{id: 93, enc: func(w *writer) {
+				encStr[string](w, v.Op)
+				encStr[string](w, v.Path)
+			}})
+		}
+	case *p_cmds.Error:
+		if v != nil {
+			out = append(out, errLink{id: 101, enc: func(w *writer) {
+				encStr[string](w, v.Message)
+				encInt[p_cmds.ErrorType](w, v.Code)
+			}})
+		}
+	case p_cmds.Error:
+		out = append(out, errLink{id: 101, enc: func(w *writer) {
+			encStr[string](w, v.Message)
+			encInt[p_cmds.ErrorType](w, v.Code)
+		}})
+	case *p_cmds.ErrorType:
+		if v != nil {
+			out = append(out, errLink{id: 102, enc: nil})
+		}
+	case p_cmds.ErrorType:
+		out = append(out, errLink{id: 102, enc: nil})
+	case *p_datamodel.ErrInvalidSegmentForList:
+		if v != nil {
+			out = append(out, errLink{id: 109, enc: func(w *writer) {
+				encStr[string](w, v.TypeName)
+			}})
+		}
+	case p_datamodel.ErrInvalidSegmentForList:
+		out = append(out, errLink{id: 109, enc: func(w *writer) {
+			encStr[string](w, v.TypeName)
+		}})
+	case *p_datamodel.ErrIteratorOverread:
+		if v != nil {
+			out = append(out, errLink{id: 110, enc: nil})
+		}
+	case p_datamodel.ErrIteratorOverread:
+		out = append(out, errLink{id: 110, enc: nil})
+	case *p_datamodel.ErrNotExists:
+		if v != nil {
+			out = append(out, errLink{id: 111, enc: nil})
+		}
+	case p_datamodel.ErrNotExists:
+		out = append(out, errLink{id: 111, enc: nil})
+	case *p_datamodel.ErrRepeatedMapKey:
+		if v != nil {
+			out = append(out, errLink{id: 112, enc: nil})
+		}
+	case p_datamodel.ErrRepeatedMapKey:
+		out = append(out, errLink{id: 112, enc: nil})
+	case *p_datamodel.ErrWrongKind:
+		if v != nil {
+			out = append(out, errLink{id: 113, enc: func(w *writer) {
+				encStr[string](w, v.TypeName)
+				encStr[string](w, v.MethodName)
+				encInt[p_datamodel.Kind](w, v.ActualKind)
+			}})
+		}
+	case p_datamodel.ErrWrongKind:
+		out = append(out, errLink{id: 113, enc: func(w *writer) {
+			encStr[string](w, v.TypeName)
+			encStr[string](w, v.MethodName)
+			encInt[p_datamodel.Kind](w, v.ActualKind)
+		}})
+	case *p_linking.ErrHashMismatch:
+		if v != nil {
+			out = append(out, errLink{id: 114, enc: nil})
+		}
+	case p_linking.ErrHashMismatch:
+		out = append(out, errLink{id: 114, enc: nil})
+	case *p_linking.ErrLinkingSetup:
+		if v != nil {
+			out = append(out, errLink{id: 115, enc: func(w *writer) {
+				encStr[string](w, v.Detail)
+			}})
+		}
+	case p_linking.ErrLinkingSetup:
+		out = append(out, errLink{id: 115, enc: func(w *writer) {
+			encStr[string](w, v.Detail)
+		}})
+	case *p_traversal.ErrBudgetExceeded:
+		if v != nil {
+			out = append(out, errLink{id: 116, enc: func(w *writer) {
+				encStr[string](w, v.BudgetKind)
+			}})
+		}
+	case *p_traversal.SkipMe:
+		if v != nil {
+			out = append(out, errLink{id: 117, enc: nil})
+		}
+	case p_traversal.SkipMe:
+		out = append(out, errLink{id: 117, enc: nil})
+	case *p_corerepo.MultiError:
+		if v != nil {
+			out = append(out, errLink{id: 134, enc: nil})
+		}
+	case *p_gc.CannotDeleteBlockError:
+		if v != nil {
+			out = append(out, errLink{id: 136, enc: func(w *writer) {
+				encCid(w, v.Key)
+			}})
+		}
+	case *p_gc.CannotFetchLinksError:
+		if v != nil {
+			out = append(out, errLink{id: 137, enc: func(w *writer) {
+				encCid(w, v.Key)
+			}})
+		}
+	case *p_fsrepo.NoRepoError:
+		if v != nil {
+			out = append(out, errLink{id: 144, enc: func(w *writer) {
+				encStr[string](w, v.Path)
+			}})
+		}
+	case p_fsrepo.NoRepoError:
+		out = append(out, errLink{id: 144, enc: func(w *writer) {
+			encStr[string](w, v.Path)
+		}})
+	case *p_network2.ConnError:
+		if v != nil {
+			out = append(out, errLink{id: 152, enc: func(w *writer) {
+				encBool[bool](w, v.Remote)
+				encInt[p_network2.ConnErrorCode](w, v.ErrorCode)
+			}})
+		}
+	case *p_network2.StreamError:
+		if v != nil {
+			out = append(out, errLink{id: 159, enc: func(w *writer) {
+				encInt[p_network2.StreamErrorCode](w, v.ErrorCode)
+				encBool[bool](w, v.Remote)
+			}})
+		}
+	case *p_swarm.DialError:
+		if v != nil {
+			out = append(out, errLink{id: 170, enc: func(w *writer) {
+				encPeerID(w, v.Peer)
+				encInt[int](w, v.Skipped)
+			}})
+		}
+	case *p_swarm.TransportError:
+		if v != nil {
+			out = append(out, errLink{id: 183, enc: func(w *writer) {
+				encMultiaddr(w, v.Address)
+			}})
+		}
+	case *p_libp2pwebtransport.ErrCertHashMismatch:
+		if v != nil {
+			out = append(out, errLink{id: 187, enc: func(w *writer) {
+				encBytes(w, v.Expected)
+			}})
+		}
+	case p_libp2pwebtransport.ErrCertHashMismatch:
+		out = append(out, errLink{id: 187, enc: func(w *writer) {
+			encBytes(w, v.Expected)
+		}})
+	case *p_pubsub.ValidationError:
+		if v != nil {
+			out = append(out, errLink{id: 205, enc: func(w *writer) {
+				encStr[string](w, v.Reason)
+			}})
+		}
+	case p_pubsub.ValidationError:
+		out = append(out, errLink{id: 205, enc: func(w *writer) {
+			encStr[string](w, v.Reason)
+		}})
+	case *p_record.ErrBetterRecord:
+		if v != nil {
+			out = append(out, errLink{id: 206, enc: func(w *writer) {
+				encStr[string](w, v.Key)
+				encBytes(w, v.Value)
+			}})
+		}
+	case *p_net.AddrError:
+		if v != nil {
+			out = append(out, errLink{id: 209, enc: func(w *writer) {
+				encStr[string](w, v.Err)
+				encStr[string](w, v.Addr)
+			}})
+		}
+	case *p_net.DNSConfigError:
+		if v != nil {
+			out = append(out, errLink{id: 210, enc: nil})
+		}
+	case *p_net.DNSError:
+		if v != nil {
+			out = append(out, errLink{id: 211, enc: func(w *writer) {
+				encStr[string](w, v.Err)
+				encStr[string](w, v.Name)
+				encStr[string](w, v.Server)
+				encBool[bool](w, v.IsTimeout)
+				encBool[bool](w, v.IsTemporary)
+				encBool[bool](w, v.IsNotFound)
+			}})
+		}
+	case *p_net.InvalidAddrError:
+		if v != nil {
+			out = append(out, errLink{id: 214, enc: nil})
+		}
+	case p_net.InvalidAddrError:
+		out = append(out, errLink{id: 214, enc: nil})
+	case *p_net.OpError:
+		if v != nil {
+			out = append(out, errLink{id: 215, enc: func(w *writer) {
+				encStr[string](w, v.Op)
+				encStr[string](w, v.Net)
+			}})
+		}
+	case *p_net.ParseError:
+		if v != nil {
+			out = append(out, errLink{id: 216, enc: func(w *writer) {
+				encStr[string](w, v.Type)
+				encStr[string](w, v.Text)
+			}})
+		}
+	case *p_net.UnknownNetworkError:
+		if v != nil {
+			out = append(out, errLink{id: 217, enc: nil})
+		}
+	case p_net.UnknownNetworkError:
+		out = append(out, errLink{id: 217, enc: nil})
+	case *p_os.LinkError:
+		if v != nil {
+			out = append(out, errLink{id: 227, enc: func(w *writer) {
+				encStr[string](w, v.Op)
+				encStr[string](w, v.Old)
+				encStr[string](w, v.New)
+			}})
+		}
+	case *p_os.SyscallError:
+		if v != nil {
+			out = append(out, errLink{id: 228, enc: func(w *writer) {
+				encStr[string](w, v.Syscall)
+			}})
+		}
+	}
+	return out
 }
 
 // bytes.Buffer.Bytes

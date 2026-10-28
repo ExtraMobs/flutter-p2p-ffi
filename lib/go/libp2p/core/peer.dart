@@ -165,3 +165,30 @@ List<Id> addrInfosToIds(List<AddrInfo> pis) {
 
 /// Go: `const peer.PeerRecordEnvelopeDomain untyped string`.
 const peerRecordEnvelopeDomain = "libp2p-peer-record";
+
+/// Go: `var peer.ErrEmptyPeerID error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrEmptyPeerId extends GolangException {
+  ErrEmptyPeerId.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'peer.ErrEmptyPeerID: $message';
+}
+
+/// Go: `var peer.ErrInvalidAddr error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrInvalidAddr extends GolangException {
+  ErrInvalidAddr.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'peer.ErrInvalidAddr: $message';
+}
+
+/// Go: `var peer.ErrNoPublicKey error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrNoPublicKey extends GolangException {
+  ErrNoPublicKey.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'peer.ErrNoPublicKey: $message';
+}

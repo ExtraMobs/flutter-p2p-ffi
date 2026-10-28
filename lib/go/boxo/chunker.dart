@@ -48,3 +48,30 @@ const chunkOverheadBudget = 256;
 
 /// Go: `const chunk.ChunkSizeLimit int`.
 const chunkSizeLimit = 2096896;
+
+/// Go: `var chunk.ErrRabinMin error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrRabinMin extends GolangException {
+  ErrRabinMin.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'chunk.ErrRabinMin: $message';
+}
+
+/// Go: `var chunk.ErrSize error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrSize extends GolangException {
+  ErrSize.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'chunk.ErrSize: $message';
+}
+
+/// Go: `var chunk.ErrSizeMax error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrSizeMax extends GolangException {
+  ErrSizeMax.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'chunk.ErrSizeMax: $message';
+}

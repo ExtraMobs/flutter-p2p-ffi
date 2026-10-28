@@ -8,3 +8,39 @@ import 'package:p2p_ffi/src/runtime.dart';
 class Envelope extends GoHandle {
   Envelope.$h(super.$h);
 }
+
+/// Go: `var record.ErrEmptyDomain error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrEmptyDomain extends GolangException {
+  ErrEmptyDomain.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'record.ErrEmptyDomain: $message';
+}
+
+/// Go: `var record.ErrEmptyPayloadType error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrEmptyPayloadType extends GolangException {
+  ErrEmptyPayloadType.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'record.ErrEmptyPayloadType: $message';
+}
+
+/// Go: `var record.ErrInvalidSignature error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrInvalidSignature extends GolangException {
+  ErrInvalidSignature.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'record.ErrInvalidSignature: $message';
+}
+
+/// Go: `var record.ErrPayloadTypeNotRegistered error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrPayloadTypeNotRegistered extends GolangException {
+  ErrPayloadTypeNotRegistered.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'record.ErrPayloadTypeNotRegistered: $message';
+}

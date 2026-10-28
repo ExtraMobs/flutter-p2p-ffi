@@ -46,3 +46,12 @@ final class Link {
   /// `BigInt.from(v).toUnsigned(64)` reads them unsigned.
   final int size;
 }
+
+/// Go: `var objectcmd.ErrDataEncoding error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrDataEncoding extends GolangException {
+  ErrDataEncoding.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'objectcmd.ErrDataEncoding: $message';
+}

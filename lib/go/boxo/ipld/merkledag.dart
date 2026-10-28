@@ -143,3 +143,39 @@ const pbNodeDataFirst = 1;
 
 /// Go: `const merkledag.PBNodeLinksFirst merkledag.PBNodeFieldOrder`.
 const pbNodeLinksFirst = 0;
+
+/// Go: `var merkledag.ErrLinkNotFound error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrLinkNotFound extends GolangException {
+  ErrLinkNotFound.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'merkledag.ErrLinkNotFound: $message';
+}
+
+/// Go: `var merkledag.ErrNotProtobuf error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrNotProtobuf extends GolangException {
+  ErrNotProtobuf.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'merkledag.ErrNotProtobuf: $message';
+}
+
+/// Go: `var merkledag.ErrNotRawNode error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrNotRawNode extends GolangException {
+  ErrNotRawNode.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'merkledag.ErrNotRawNode: $message';
+}
+
+/// Go: `var merkledag.ErrReadOnly error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrReadOnly extends GolangException {
+  ErrReadOnly.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'merkledag.ErrReadOnly: $message';
+}

@@ -35,3 +35,21 @@ const nativeHistogramZeroThresholdZero = -1;
 
 /// Go: `const prometheus.UntypedValue prometheus.ValueType`.
 const untypedValue = 3;
+
+/// Go: `prometheus.AlreadyRegisteredError`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class AlreadyRegisteredError extends GolangException {
+  AlreadyRegisteredError.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'prometheus.AlreadyRegisteredError: $message';
+}
+
+/// Go: `prometheus.MultiError`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class MultiError extends GolangException {
+  MultiError.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'prometheus.MultiError: $message';
+}

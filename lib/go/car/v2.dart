@@ -698,3 +698,48 @@ const headerSize = 40;
 
 /// Go: `const car.PragmaSize untyped int`.
 const pragmaSize = 11;
+
+/// Go: `var car.ErrAlreadyV1 error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrAlreadyV1 extends GolangException {
+  ErrAlreadyV1.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'car.ErrAlreadyV1: $message';
+}
+
+/// Go: `car.ErrCidTooLarge`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrCidTooLarge extends GolangException {
+  ErrCidTooLarge.$(super.base, $R r)
+      : maxSize = r.i64(),
+        currentSize = r.i64(),
+        super.$from();
+
+  /// Go: `MaxSize`.
+  final int maxSize;
+
+  /// Go: `CurrentSize`.
+  final int currentSize;
+
+  @override
+  String toString() => 'car.ErrCidTooLarge: $message';
+}
+
+/// Go: `var car.ErrOffsetImpossible error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrOffsetImpossible extends GolangException {
+  ErrOffsetImpossible.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'car.ErrOffsetImpossible: $message';
+}
+
+/// Go: `var car.ErrSizeMismatch error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrSizeMismatch extends GolangException {
+  ErrSizeMismatch.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'car.ErrSizeMismatch: $message';
+}

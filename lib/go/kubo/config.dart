@@ -502,6 +502,15 @@ const routerTypeSequential = "sequential";
 /// Go: `const config.True config.Flag`.
 const true$ = 1;
 
+/// Go: `var config.ErrInvalidPeerAddr error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrInvalidPeerAddr extends GolangException {
+  ErrInvalidPeerAddr.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'config.ErrInvalidPeerAddr: $message';
+}
+
 /// Go: `var config.Profiles map[string]config.Profile`. Hand-written
 /// (go/gen/extra; functions 40 and 41 of WIRE.md): in Go a profile is a
 /// `Transform` function. Read on first use, with the service already started.

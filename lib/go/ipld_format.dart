@@ -300,3 +300,57 @@ Future<void> copy(
         ..h(to)
         ..val(root));
 }
+
+/// Go: `var format.EndOfDag error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class EndOfDag extends GolangException {
+  EndOfDag.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'format.EndOfDag: $message';
+}
+
+/// Go: `var format.ErrClosed error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrClosed extends GolangException {
+  ErrClosed.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'format.ErrClosed: $message';
+}
+
+/// Go: `var format.ErrDownNoChild error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrDownNoChild extends GolangException {
+  ErrDownNoChild.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'format.ErrDownNoChild: $message';
+}
+
+/// Go: `var format.ErrNextNoChild error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrNextNoChild extends GolangException {
+  ErrNextNoChild.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'format.ErrNextNoChild: $message';
+}
+
+/// Go: `var format.ErrNilVisitor error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrNilVisitor extends GolangException {
+  ErrNilVisitor.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'format.ErrNilVisitor: $message';
+}
+
+/// Go: `var format.ErrNotCommited error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrNotCommited extends GolangException {
+  ErrNotCommited.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'format.ErrNotCommited: $message';
+}

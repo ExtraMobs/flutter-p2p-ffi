@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"io"
 	"math"
+	"os"
 	"strings"
 	"testing"
 	"time"
@@ -193,10 +194,83 @@ func TestErrData(t *testing.T) {
 		{carindex.ErrNotFound, errNotFound},
 		{errors.New("outro"), 0},
 	} {
-		d := errData(c.err)
-		if d[0] != c.code || string(d[1:]) != c.err.Error() {
-			t.Errorf("%v: código %d, mensagem %q", c.err, d[0], d[1:])
+		e := readErr(t, errData(c.err))
+		if e.code != c.code || e.msg != c.err.Error() {
+			t.Errorf("%v: código %d, mensagem %q", c.err, e.code, e.msg)
 		}
+	}
+}
+
+// decodedErr: o evento `erro` lido de volta (WIRE.md).
+type decodedErr struct {
+	code  byte
+	msg   string
+	errno int64
+	texts []string
+	links [][2]uint32 // id, índice do elo
+}
+
+// readErr lê o evento `erro` cujos elos com classe não têm campos (os
+// campos de um elo vêm logo depois dele; aqui não se usam).
+func readErr(t *testing.T, d []byte) decodedErr {
+	t.Helper()
+	r := &reader{b: d}
+	e := decodedErr{code: r.u8(), msg: r.str(), errno: r.i64()}
+	for n := r.u32(); n > 0; n-- {
+		e.texts = append(e.texts, r.str())
+	}
+	for n := r.u32(); n > 0; n-- {
+		e.links = append(e.links, [2]uint32{r.u32(), r.u32()})
+	}
+	if r.err != nil || len(r.b) != 0 {
+		t.Fatalf("evento `erro` mal formado: %v, sobram %d bytes", r.err, len(r.b))
+	}
+	return e
+}
+
+// A corrente vai inteira (%w e errors.Join), com o errno do Errno que
+// houver, e cada elo com classe vai com o id e o índice; um mesmo valor
+// com dois nomes (os.ErrNotExist é fs.ErrNotExist) vai com as duas classes.
+func TestErrDataChain(t *testing.T) {
+	joined := errors.Join(errors.New("a"), fmt.Errorf("b: %w", os.ErrNotExist))
+	e := readErr(t, errData(fmt.Errorf("top: %w", joined)))
+	want := []string{"top: a\nb: file does not exist", "a\nb: file does not exist", "a", "b: file does not exist", "file does not exist"}
+	if strings.Join(e.texts, "|") != strings.Join(want, "|") {
+		t.Fatalf("textos %q", e.texts)
+	}
+	if e.errno != 0 || len(e.links) != 2 || e.links[0][1] != 4 || e.links[1][1] != 4 {
+		t.Fatalf("errno %d, elos %v", e.errno, e.links)
+	}
+	// *fs.PathError com Errno: a classe do PathError (com Op e Path) e o errno
+	_, err := os.Open("/does/not/exist/p2p_ffi")
+	r := &reader{b: errData(err)}
+	r.u8()
+	r.str()
+	if r.i64() == 0 {
+		t.Fatal("sem errno:", err)
+	}
+	for n := r.u32(); n > 0; n-- {
+		r.str()
+	}
+	if n := r.u32(); n == 0 {
+		t.Fatal("o PathError não veio como elo com classe")
+	}
+	r.u32() // id
+	if at := r.u32(); at != 0 {
+		t.Fatal("o PathError não é o primeiro elo:", at)
+	}
+	if op, path := r.str(), r.str(); op != "open" || path != "/does/not/exist/p2p_ffi" {
+		t.Fatalf("campos %q %q", op, path)
+	}
+	// só texto: nenhum elo com classe, a mensagem como o único texto
+	e = readErr(t, errData(errors.New("só texto")))
+	if len(e.links) != 0 || len(e.texts) != 1 || e.texts[0] != "só texto" {
+		t.Fatalf("%+v", e)
+	}
+	// a mensagem do próprio host (errText): o mesmo formato, sem corrente
+	e = readErr(t, errText("p2p_host: x"))
+	if e.code != 0 || e.msg != "p2p_host: x" || len(e.texts) != 1 || len(e.links) != 0 {
+		t.Fatalf("%+v", e)
 	}
 }
 

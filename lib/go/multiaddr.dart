@@ -245,3 +245,12 @@ const pWs = 477;
 
 /// Go: `const multiaddr.P_WSS untyped int`.
 const pWss = 478;
+
+/// Go: `var multiaddr.ErrProtocolNotFound error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrProtocolNotFound extends GolangException {
+  ErrProtocolNotFound.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'multiaddr.ErrProtocolNotFound: $message';
+}

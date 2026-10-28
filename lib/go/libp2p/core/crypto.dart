@@ -200,3 +200,66 @@ const secp256k1 = 2;
 
 /// Go: `const crypto.WeakRsaKeyEnv untyped string`.
 const weakRsaKeyEnv = "LIBP2P_ALLOW_WEAK_RSA_KEYS";
+
+/// Go: `var crypto.ErrBadKeyType error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrBadKeyType extends GolangException {
+  ErrBadKeyType.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'crypto.ErrBadKeyType: $message';
+}
+
+/// Go: `var crypto.ErrNilPrivateKey error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrNilPrivateKey extends GolangException {
+  ErrNilPrivateKey.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'crypto.ErrNilPrivateKey: $message';
+}
+
+/// Go: `var crypto.ErrNilPublicKey error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrNilPublicKey extends GolangException {
+  ErrNilPublicKey.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'crypto.ErrNilPublicKey: $message';
+}
+
+/// Go: `var crypto.ErrNilSig error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrNilSig extends GolangException {
+  ErrNilSig.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'crypto.ErrNilSig: $message';
+}
+
+/// Go: `var crypto.ErrNotECDSAPubKey error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrNotEcdsaPubKey extends GolangException {
+  ErrNotEcdsaPubKey.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'crypto.ErrNotECDSAPubKey: $message';
+}
+
+/// Go: `var crypto.ErrRsaKeyTooBig error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrRsaKeyTooBig extends GolangException {
+  ErrRsaKeyTooBig.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'crypto.ErrRsaKeyTooBig: $message';
+}
+
+/// Go: `var crypto.ErrRsaKeyTooSmall error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrRsaKeyTooSmall extends GolangException {
+  ErrRsaKeyTooSmall.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'crypto.ErrRsaKeyTooSmall: $message';
+}

@@ -111,3 +111,21 @@ final class QueryEvent {
   /// Go: `Extra`.
   final String extra;
 }
+
+/// Go: `var routing.ErrNotFound error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrNotFound extends GolangException {
+  ErrNotFound.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'routing.ErrNotFound: $message';
+}
+
+/// Go: `var routing.ErrNotSupported error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrNotSupported extends GolangException {
+  ErrNotSupported.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'routing.ErrNotSupported: $message';
+}

@@ -2,9 +2,38 @@
 // Go: github.com/libp2p/go-libp2p-record
 library;
 
+import 'dart:typed_data';
+
 import 'package:p2p_ffi/src/runtime.dart';
 
 /// Go: `record.Validator` (handle).
 class Validator extends GoHandle {
   Validator.$h(super.$h);
+}
+
+/// Go: `record.ErrBetterRecord`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrBetterRecord extends GolangException {
+  ErrBetterRecord.$(super.base, $R r)
+      : key = r.str(),
+        value$ = r.bytes() ?? Uint8List(0),
+        super.$from();
+
+  /// Go: `Key`.
+  final String key;
+
+  /// Go: `Value`.
+  final Uint8List value$;
+
+  @override
+  String toString() => 'record.ErrBetterRecord: $message';
+}
+
+/// Go: `var record.ErrInvalidRecordType error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrInvalidRecordType extends GolangException {
+  ErrInvalidRecordType.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'record.ErrInvalidRecordType: $message';
 }

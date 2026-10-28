@@ -64,3 +64,21 @@ const serviceName = "libp2p.holepunch";
 
 /// Go: `const holepunch.StartHolePunchEvtT untyped string`.
 const startHolePunchEvtT = "StartHolePunch";
+
+/// Go: `var holepunch.ErrClosed error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrClosed extends GolangException {
+  ErrClosed.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'holepunch.ErrClosed: $message';
+}
+
+/// Go: `var holepunch.ErrHolePunchActive error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrHolePunchActive extends GolangException {
+  ErrHolePunchActive.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'holepunch.ErrHolePunchActive: $message';
+}

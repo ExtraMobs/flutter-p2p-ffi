@@ -55,3 +55,57 @@ const sizeEstimationDisabled = 2;
 
 /// Go: `const io.SizeEstimationLinks io.SizeEstimationMode`.
 const sizeEstimationLinks = 0;
+
+/// Go: `var io.ErrCantReadSymlinks error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrCantReadSymlinks extends GolangException {
+  ErrCantReadSymlinks.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'io.ErrCantReadSymlinks: $message';
+}
+
+/// Go: `var io.ErrInvalidHAMTFanout error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrInvalidHamtFanout extends GolangException {
+  ErrInvalidHamtFanout.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'io.ErrInvalidHAMTFanout: $message';
+}
+
+/// Go: `var io.ErrIsDir error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrIsDir extends GolangException {
+  ErrIsDir.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'io.ErrIsDir: $message';
+}
+
+/// Go: `var io.ErrNotADir error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrNotADir extends GolangException {
+  ErrNotADir.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'io.ErrNotADir: $message';
+}
+
+/// Go: `var io.ErrSeekNotSupported error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrSeekNotSupported extends GolangException {
+  ErrSeekNotSupported.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'io.ErrSeekNotSupported: $message';
+}
+
+/// Go: `var io.ErrUnkownNodeType error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrUnkownNodeType extends GolangException {
+  ErrUnkownNodeType.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'io.ErrUnkownNodeType: $message';
+}

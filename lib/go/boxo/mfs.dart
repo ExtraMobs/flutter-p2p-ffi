@@ -588,3 +588,57 @@ const tDir = 1;
 
 /// Go: `const mfs.TFile mfs.NodeType`.
 const tFile = 0;
+
+/// Go: `var mfs.ErrClosed error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrClosed extends GolangException {
+  ErrClosed.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'mfs.ErrClosed: $message';
+}
+
+/// Go: `var mfs.ErrDirExists error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrDirExists extends GolangException {
+  ErrDirExists.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'mfs.ErrDirExists: $message';
+}
+
+/// Go: `var mfs.ErrInvalidChild error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrInvalidChild extends GolangException {
+  ErrInvalidChild.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'mfs.ErrInvalidChild: $message';
+}
+
+/// Go: `var mfs.ErrIsDirectory error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrIsDirectory extends GolangException {
+  ErrIsDirectory.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'mfs.ErrIsDirectory: $message';
+}
+
+/// Go: `var mfs.ErrNotExist error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrNotExist extends GolangException {
+  ErrNotExist.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'mfs.ErrNotExist: $message';
+}
+
+/// Go: `var mfs.ErrNotYetImplemented error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrNotYetImplemented extends GolangException {
+  ErrNotYetImplemented.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'mfs.ErrNotYetImplemented: $message';
+}

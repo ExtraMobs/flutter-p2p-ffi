@@ -111,7 +111,7 @@ func (e *dartEmitter) collect(t *tinfo) {
 // emitDart: as libraries de [fns]; [more] acrescenta código às libraries dos
 // pacotes (os comandos do RPC e os DTOs deles) antes de serem escritas. Devolve
 // também as constantes que entraram sozinhas (consts), para o API.md.
-func emitDart(m *model, fns []*fn, hash uint64, more func(*dartEmitter)) (map[string][]byte, []*fn) {
+func emitDart(m *model, fns []*fn, hash uint64, more func(*dartEmitter)) (map[string][]byte, []*fn, []*goError) {
 	e := &dartEmitter{m: m, libs: map[string]*dartLib{}, paramIfaces: map[string]bool{}, optIfaces: map[string]bool{}}
 	for _, f := range fns {
 		if f.why != "" {
@@ -147,6 +147,8 @@ func emitDart(m *model, fns []*fn, hash uint64, more func(*dartEmitter)) (map[st
 		more(e)
 	}
 	consts := e.constants()
+	errs := e.errorClasses()
+	errorTypes := e.emitErrorClasses(errs)
 	out := map[string][]byte{}
 	for path, l := range e.libs {
 		// o pacote já tem uma library escrita à mão (o porte do `ipfs dag`): o
@@ -164,10 +166,11 @@ func emitDart(m *model, fns []*fn, hash uint64, more func(*dartEmitter)) (map[st
 		out[path] = formatDart(path, src)
 	}
 	out["src/any_types.dart"] = formatDart("src/any_types.dart", anyTypes)
+	out["src/error_types.dart"] = formatDart("src/error_types.dart", errorTypes)
 	// O hash da tabela vai no Hello do P2pService (WIRE.md): app e host têm de
 	// vir do mesmo gerador.
 	out["src/table.dart"] = tableDart(hash)
-	return out, consts
+	return out, consts, errs
 }
 
 // tokens: the classes of the type tokens get `static const $type`, the
@@ -1180,7 +1183,7 @@ func cbDefaultBatch(t *tinfo) int {
 }
 
 func usesRuntime(body string) bool {
-	for _, id := range []string{"GoHandle", "GoValue", "GoDto", "GoOption", "GoSink", "GoToken", "$call", "$stream", "$W", "$R", "$nil", "$orErr"} {
+	for _, id := range []string{"GoHandle", "GoValue", "GoDto", "GoOption", "GoSink", "GoToken", "GolangException", "$call", "$stream", "$W", "$R", "$nil", "$orErr"} {
 		if strings.Contains(body, id) {
 			return true
 		}

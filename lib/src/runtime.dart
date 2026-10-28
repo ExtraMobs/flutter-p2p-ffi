@@ -9,6 +9,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'any_types.dart';
+import 'error_types.dart';
 import 'shm.dart';
 
 part 'runtime/callback.dart';
@@ -23,12 +24,63 @@ abstract interface class P2pException implements Exception {
 
 /// Error that comes from Go: the `error` of a `(T, error)`, a panic inside a
 /// call, or the Go process (the service) going away. The Go sentinels below,
-/// and [P2pServiceException], implement it.
+/// the classes generated for the errors of each Go package
+/// (`mfs.ErrNotExist`, `os.PathError`...) and [P2pServiceException] extend
+/// it.
+///
+/// Besides [message] (the whole `err.Error()`), it carries what Go knows
+/// about the error: the text of each link of the chain ([errTexts], from
+/// the outside in, through `%w` and `errors.Join`), the operating system
+/// error number when the chain has a `syscall.Errno` ([errno]), and the
+/// links that have a class ([causes]); [isA] and [find] are Go's
+/// `errors.Is`/`errors.As` over them.
 class GolangException implements P2pException {
-  GolangException(this.message);
+  GolangException(this.message,
+      {this.errno, List<String>? errTexts, List<GolangException>? causes})
+      : errTexts = errTexts ?? [message],
+        causes = causes ?? const [];
+
+  /// The same Go error as [base], as a subclass (the generated classes).
+  GolangException.$from(GolangException base)
+      : message = base.message,
+        errno = base.errno,
+        errTexts = base.errTexts,
+        causes = base.causes;
 
   @override
   final String message;
+
+  /// The operating system error number of the chain's `syscall.Errno`
+  /// (POSIX on linux and Android, Win32 on Windows: 2 is "file not found"
+  /// on both); null when the chain has none.
+  final int? errno;
+
+  /// The text of each link of the error chain, from the outside in: the
+  /// first is [message], the last the original cause ([errText]).
+  final List<String> errTexts;
+
+  /// The text of the innermost error: the original cause, without what each
+  /// layer added in front.
+  String get errText => errTexts.last;
+
+  /// The links of the chain that have a generated class, from the outside
+  /// in; the thrown exception is the first of them when the error is not
+  /// one of the sentinels below.
+  final List<GolangException> causes;
+
+  /// Whether this error, or a link of its chain, is a [T] (Go's
+  /// `errors.Is` / `errors.As`).
+  bool isA<T extends GolangException>() => find<T>() != null;
+
+  /// This error or the first link of its chain that is a [T] (Go's
+  /// `errors.As`); null if none is.
+  T? find<T extends GolangException>() {
+    if (this is T) return this as T;
+    for (final c in causes) {
+      if (c is T) return c;
+    }
+    return null;
+  }
 
   @override
   String toString() => 'GolangException: $message';
@@ -36,33 +88,27 @@ class GolangException implements P2pException {
 
 /// Go's `io.EOF`: the end of what is being read (`BlockReader.next`). Like
 /// `errors.Is(err, io.EOF)`, it is also thrown when the error wraps it.
-class GolangEofException implements GolangException {
-  GolangEofException(this.message);
-
-  @override
-  final String message;
+class GolangEofException extends GolangException {
+  GolangEofException(super.message,
+      {super.errno, super.errTexts, super.causes});
 
   @override
   String toString() => 'GolangEofException: $message';
 }
 
 /// Go's `io.ErrUnexpectedEOF`: the data ended in the middle (a truncated CAR).
-class GolangUnexpectedEofException implements GolangException {
-  GolangUnexpectedEofException(this.message);
-
-  @override
-  final String message;
+class GolangUnexpectedEofException extends GolangException {
+  GolangUnexpectedEofException(super.message,
+      {super.errno, super.errTexts, super.causes});
 
   @override
   String toString() => 'GolangUnexpectedEofException: $message';
 }
 
 /// Go's `context.Canceled`: the context was canceled (`cancel()`).
-class GolangCanceledException implements GolangException {
-  GolangCanceledException(this.message);
-
-  @override
-  final String message;
+class GolangCanceledException extends GolangException {
+  GolangCanceledException(super.message,
+      {super.errno, super.errTexts, super.causes});
 
   @override
   String toString() => 'GolangCanceledException: $message';
@@ -70,11 +116,9 @@ class GolangCanceledException implements GolangException {
 
 /// Go's `context.DeadlineExceeded`: the context deadline passed
 /// (`withTimeout`, `withDeadline`).
-class GolangDeadlineExceededException implements GolangException {
-  GolangDeadlineExceededException(this.message);
-
-  @override
-  final String message;
+class GolangDeadlineExceededException extends GolangException {
+  GolangDeadlineExceededException(super.message,
+      {super.errno, super.errTexts, super.causes});
 
   @override
   String toString() => 'GolangDeadlineExceededException: $message';
@@ -82,11 +126,9 @@ class GolangDeadlineExceededException implements GolangException {
 
 /// Not found (`ipld.ErrNotFound`, the CAR storage's `ErrNotFound`): the block
 /// or node is not in the store.
-class GolangNotFoundException implements GolangException {
-  GolangNotFoundException(this.message);
-
-  @override
-  final String message;
+class GolangNotFoundException extends GolangException {
+  GolangNotFoundException(super.message,
+      {super.errno, super.errTexts, super.causes});
 
   @override
   String toString() => 'GolangNotFoundException: $message';
@@ -96,28 +138,57 @@ class GolangNotFoundException implements GolangException {
 /// function of that callback holds: the host broke the deadlock (WIRE.md,
 /// "Callback"). The message carries the Go stack. Thrown inside the callback;
 /// if it escapes, the call with the callback throws it.
-class GolangDeadlockException implements GolangException {
-  GolangDeadlockException(this.message);
-
-  @override
-  final String message;
+class GolangDeadlockException extends GolangException {
+  GolangDeadlockException(super.message,
+      {super.errno, super.errTexts, super.causes});
 
   @override
   String toString() => 'GolangDeadlockException: $message';
 }
 
-/// The `error` event of the host (WIRE.md): the sentinel code that the Go
-/// error wraps (`errors.Is`) and the message.
+/// The `error` event of the host (WIRE.md): the fixed sentinel code
+/// (`errors.Is`), the message, the errno, the text of each link of the chain
+/// and the links that have a generated class. The exception thrown is the
+/// class of the fixed sentinel, or else of the outermost link with a class.
 GolangException $goError(Uint8List data) {
-  final message = utf8.decode(data.length > 1 ? data.sublist(1) : const []);
-  return switch (data.isEmpty ? 0 : data[0]) {
-    1 => GolangEofException(message),
-    2 => GolangUnexpectedEofException(message),
-    3 => GolangCanceledException(message),
-    4 => GolangDeadlineExceededException(message),
-    5 => GolangNotFoundException(message),
-    6 => GolangDeadlockException(message),
-    _ => GolangException(message),
+  if (data.isEmpty) return GolangException('');
+  final r = $R(data);
+  final code = r.u8();
+  final message = r.str();
+  final errnoRaw = r.i64();
+  final errno = errnoRaw == 0 ? null : errnoRaw;
+  final texts = r.list(r.str);
+  final errTexts = texts.isEmpty ? [message] : texts;
+  final causes = <GolangException>[];
+  final whole = GolangException(message,
+      errno: errno, errTexts: errTexts, causes: causes);
+  final n = r.u32();
+  for (var i = 0; i < n; i++) {
+    final id = r.u32(), at = r.u32();
+    // The outermost link with a class, when there is no fixed sentinel, is
+    // the thrown exception: it gets the whole error; the others, their link.
+    final base = code == 0 && i == 0
+        ? whole
+        : GolangException(errTexts[at],
+            errno: errno, errTexts: errTexts.sublist(at));
+    final make = $errorTypes[id];
+    if (make == null) throw StateError('p2p_ffi: unknown Go error class $id');
+    causes.add(make(base, r));
+  }
+  return switch (code) {
+    1 => GolangEofException(message,
+        errno: errno, errTexts: errTexts, causes: causes),
+    2 => GolangUnexpectedEofException(message,
+        errno: errno, errTexts: errTexts, causes: causes),
+    3 => GolangCanceledException(message,
+        errno: errno, errTexts: errTexts, causes: causes),
+    4 => GolangDeadlineExceededException(message,
+        errno: errno, errTexts: errTexts, causes: causes),
+    5 => GolangNotFoundException(message,
+        errno: errno, errTexts: errTexts, causes: causes),
+    6 => GolangDeadlockException(message,
+        errno: errno, errTexts: errTexts, causes: causes),
+    _ => causes.isNotEmpty ? causes.first : whole,
   };
 }
 
@@ -136,11 +207,8 @@ enum P2pStopReason {
 /// belongs to a previous service ([reason] null in these two). Relaunch with
 /// `P2pService.restart()`. It is a [GolangException], since the service is
 /// Go's process.
-class P2pServiceException implements GolangException {
-  P2pServiceException(this.message, {this.reason});
-
-  @override
-  final String message;
+class P2pServiceException extends GolangException {
+  P2pServiceException(super.message, {this.reason});
 
   final P2pStopReason? reason;
 

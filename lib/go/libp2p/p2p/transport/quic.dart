@@ -10,3 +10,12 @@ const listenOrder = 1;
 /// Go: the function `libp2pquic.NewTransport` as a value (a token: Go gets the function
 /// itself, as in `libp2p.Transport(tcp.NewTCPTransport)`).
 const newTransportFunc = GoToken(13);
+
+/// Go: `var libp2pquic.ErrHolePunching error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrHolePunching extends GolangException {
+  ErrHolePunching.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'libp2pquic.ErrHolePunching: $message';
+}

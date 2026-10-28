@@ -45,3 +45,57 @@ const defaultResolverDhtTimeout = Duration(microseconds: 60000000);
 
 /// Go: `const namesys.UnlimitedDepth untyped int`.
 const unlimitedDepth = 0;
+
+/// Go: `var namesys.ErrInvalidSequence error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrInvalidSequence extends GolangException {
+  ErrInvalidSequence.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'namesys.ErrInvalidSequence: $message';
+}
+
+/// Go: `var namesys.ErrMissingDNSLinkRecord error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrMissingDnsLinkRecord extends GolangException {
+  ErrMissingDnsLinkRecord.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'namesys.ErrMissingDNSLinkRecord: $message';
+}
+
+/// Go: `var namesys.ErrMultipleDNSLinkRecords error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrMultipleDnsLinkRecords extends GolangException {
+  ErrMultipleDnsLinkRecords.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'namesys.ErrMultipleDNSLinkRecords: $message';
+}
+
+/// Go: `var namesys.ErrNoNamesys error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrNoNamesys extends GolangException {
+  ErrNoNamesys.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'namesys.ErrNoNamesys: $message';
+}
+
+/// Go: `var namesys.ErrResolveFailed error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrResolveFailed extends GolangException {
+  ErrResolveFailed.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'namesys.ErrResolveFailed: $message';
+}
+
+/// Go: `var namesys.ErrResolveRecursion error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrResolveRecursion extends GolangException {
+  ErrResolveRecursion.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'namesys.ErrResolveRecursion: $message';
+}

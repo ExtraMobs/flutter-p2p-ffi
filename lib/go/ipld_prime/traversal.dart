@@ -17,3 +17,26 @@ const visitReasonSelectionMatch = 109;
 
 /// Go: `const traversal.VisitReason_SelectionParent traversal.VisitReason`.
 const visitReasonSelectionParent = 112;
+
+/// Go: `traversal.ErrBudgetExceeded`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrBudgetExceeded extends GolangException {
+  ErrBudgetExceeded.$(super.base, $R r)
+      : budgetKind = r.str(),
+        super.$from();
+
+  /// Go: `BudgetKind`.
+  final String budgetKind;
+
+  @override
+  String toString() => 'traversal.ErrBudgetExceeded: $message';
+}
+
+/// Go: `traversal.SkipMe`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class SkipMe extends GolangException {
+  SkipMe.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'traversal.SkipMe: $message';
+}

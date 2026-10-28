@@ -60,3 +60,12 @@ class Repo extends $io.Closer {
     $callSync(377, $W()..h(this));
   }
 }
+
+/// Go: `var repo.ErrApiNotRunning error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrApiNotRunning extends GolangException {
+  ErrApiNotRunning.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'repo.ErrApiNotRunning: $message';
+}

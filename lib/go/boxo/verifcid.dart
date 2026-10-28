@@ -17,3 +17,48 @@ const defaultMaxIdentityDigestSize = 128;
 
 /// Go: `const verifcid.DefaultMinDigestSize untyped int`.
 const defaultMinDigestSize = 20;
+
+/// Go: `var verifcid.ErrAboveMaximumHashLength error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrAboveMaximumHashLength extends GolangException {
+  ErrAboveMaximumHashLength.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'verifcid.ErrAboveMaximumHashLength: $message';
+}
+
+/// Go: `var verifcid.ErrBelowMinimumHashLength error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrBelowMinimumHashLength extends GolangException {
+  ErrBelowMinimumHashLength.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'verifcid.ErrBelowMinimumHashLength: $message';
+}
+
+/// Go: `var verifcid.ErrDigestTooLarge error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrDigestTooLarge extends GolangException {
+  ErrDigestTooLarge.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'verifcid.ErrDigestTooLarge: $message';
+}
+
+/// Go: `var verifcid.ErrDigestTooSmall error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrDigestTooSmall extends GolangException {
+  ErrDigestTooSmall.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'verifcid.ErrDigestTooSmall: $message';
+}
+
+/// Go: `var verifcid.ErrPossiblyInsecureHashFunction error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrPossiblyInsecureHashFunction extends GolangException {
+  ErrPossiblyInsecureHashFunction.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'verifcid.ErrPossiblyInsecureHashFunction: $message';
+}

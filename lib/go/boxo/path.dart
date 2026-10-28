@@ -93,3 +93,39 @@ const ipldNamespace = "ipld";
 
 /// Go: `const path.IPNSNamespace untyped string`.
 const ipnsNamespace = "ipns";
+
+/// Go: `var path.ErrExpectedImmutable error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrExpectedImmutable extends GolangException {
+  ErrExpectedImmutable.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'path.ErrExpectedImmutable: $message';
+}
+
+/// Go: `var path.ErrInsufficientComponents error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrInsufficientComponents extends GolangException {
+  ErrInsufficientComponents.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'path.ErrInsufficientComponents: $message';
+}
+
+/// Go: `path.ErrInvalidPath`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrInvalidPath extends GolangException {
+  ErrInvalidPath.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'path.ErrInvalidPath: $message';
+}
+
+/// Go: `var path.ErrUnknownNamespace error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrUnknownNamespace extends GolangException {
+  ErrUnknownNamespace.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'path.ErrUnknownNamespace: $message';
+}

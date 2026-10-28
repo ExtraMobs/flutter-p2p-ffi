@@ -34,3 +34,12 @@ ReadableCar openReadable(Object reader, [List<$v2.Option> opts = const []]) {
         ..list(opts, (w0, e0) => w0.opt(e0)));
   return $r.hnn(ReadableCar.$h);
 }
+
+/// Go: `var storage.ErrClosed error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrClosed extends GolangException {
+  ErrClosed.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'storage.ErrClosed: $message';
+}

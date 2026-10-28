@@ -78,3 +78,136 @@ const iPv4len = 4;
 
 /// Go: `const net.IPv6len untyped int`.
 const iPv6len = 16;
+
+/// Go: `net.AddrError`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class AddrError extends GolangException {
+  AddrError.$(super.base, $R r)
+      : err = r.str(),
+        addr = r.str(),
+        super.$from();
+
+  /// Go: `Err`.
+  final String err;
+
+  /// Go: `Addr`.
+  final String addr;
+
+  @override
+  String toString() => 'net.AddrError: $message';
+}
+
+/// Go: `net.DNSConfigError`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class DnsConfigError extends GolangException {
+  DnsConfigError.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'net.DNSConfigError: $message';
+}
+
+/// Go: `net.DNSError`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class DnsError extends GolangException {
+  DnsError.$(super.base, $R r)
+      : err = r.str(),
+        name = r.str(),
+        server = r.str(),
+        isTimeout = r.b(),
+        isTemporary = r.b(),
+        isNotFound = r.b(),
+        super.$from();
+
+  /// Go: `Err`.
+  final String err;
+
+  /// Go: `Name`.
+  final String name;
+
+  /// Go: `Server`.
+  final String server;
+
+  /// Go: `IsTimeout`.
+  final bool isTimeout;
+
+  /// Go: `IsTemporary`.
+  final bool isTemporary;
+
+  /// Go: `IsNotFound`.
+  final bool isNotFound;
+
+  @override
+  String toString() => 'net.DNSError: $message';
+}
+
+/// Go: `var net.ErrClosed error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrClosed extends GolangException {
+  ErrClosed.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'net.ErrClosed: $message';
+}
+
+/// Go: `var net.ErrWriteToConnected error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrWriteToConnected extends GolangException {
+  ErrWriteToConnected.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'net.ErrWriteToConnected: $message';
+}
+
+/// Go: `net.InvalidAddrError`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class InvalidAddrError extends GolangException {
+  InvalidAddrError.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'net.InvalidAddrError: $message';
+}
+
+/// Go: `net.OpError`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class OpError extends GolangException {
+  OpError.$(super.base, $R r)
+      : op = r.str(),
+        net = r.str(),
+        super.$from();
+
+  /// Go: `Op`.
+  final String op;
+
+  /// Go: `Net`.
+  final String net;
+
+  @override
+  String toString() => 'net.OpError: $message';
+}
+
+/// Go: `net.ParseError`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ParseError extends GolangException {
+  ParseError.$(super.base, $R r)
+      : type = r.str(),
+        text = r.str(),
+        super.$from();
+
+  /// Go: `Type`.
+  final String type;
+
+  /// Go: `Text`.
+  final String text;
+
+  @override
+  String toString() => 'net.ParseError: $message';
+}
+
+/// Go: `net.UnknownNetworkError`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class UnknownNetworkError extends GolangException {
+  UnknownNetworkError.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'net.UnknownNetworkError: $message';
+}

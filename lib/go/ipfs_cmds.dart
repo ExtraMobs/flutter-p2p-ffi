@@ -168,3 +168,75 @@ final class ReqLogEntry {
   /// Go: `ID`.
   final int id;
 }
+
+/// Go: `var cmds.ErrClosedEmitter error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrClosedEmitter extends GolangException {
+  ErrClosedEmitter.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'cmds.ErrClosedEmitter: $message';
+}
+
+/// Go: `var cmds.ErrClosingClosedEmitter error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrClosingClosedEmitter extends GolangException {
+  ErrClosingClosedEmitter.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'cmds.ErrClosingClosedEmitter: $message';
+}
+
+/// Go: `var cmds.ErrIncorrectType error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrIncorrectType extends GolangException {
+  ErrIncorrectType.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'cmds.ErrIncorrectType: $message';
+}
+
+/// Go: `var cmds.ErrNoFormatter error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrNoFormatter extends GolangException {
+  ErrNoFormatter.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'cmds.ErrNoFormatter: $message';
+}
+
+/// Go: `var cmds.ErrNotCallable error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrNotCallable extends GolangException {
+  ErrNotCallable.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'cmds.ErrNotCallable: $message';
+}
+
+/// Go: `cmds.Error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class Error$ extends GolangException {
+  Error$.$(super.base, $R r)
+      : message = r.str(),
+        code = r.i64(),
+        super.$from();
+
+  /// Go: `Message`.
+  final String message;
+
+  /// Go: `Code`.
+  final int code;
+
+  @override
+  String toString() => 'cmds.Error: $message';
+}
+
+/// Go: `cmds.ErrorType`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrorType extends GolangException {
+  ErrorType.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'cmds.ErrorType: $message';
+}

@@ -253,7 +253,7 @@ func generate(rootsFile string) (map[string][]byte, error) {
 	// esquema deles
 	var cmdAPI, cmdSmoke string
 	var cmdHash uint64
-	dart, consts := emitDart(m, fns, hash, func(de *dartEmitter) {
+	dart, consts, errs := emitDart(m, fns, hash, func(de *dartEmitter) {
 		cmdAPI, cmdSmoke, cmdHash = emitCommands(de, manualNames())
 	})
 	hf := fnv.New64a()
@@ -261,9 +261,12 @@ func generate(rootsFile string) (map[string][]byte, error) {
 	for _, t := range m.toks { // the tokens' numbers are on the wire too
 		fmt.Fprintf(hf, " %d %s", t.id, t.key)
 	}
+	for _, ge := range errs { // and the error classes' (WIRE.md, `error` event)
+		fmt.Fprintf(hf, " e%d %s", ge.id, ge.key)
+	}
 	hash = hf.Sum64()
 	dart["src/table.dart"] = tableDart(hash)
-	goSrc, err := emitGo(m, fns, hash)
+	goSrc, err := emitGo(m, fns, errs, hash)
 	if err != nil {
 		return nil, err
 	}
@@ -271,7 +274,7 @@ func generate(rootsFile string) (map[string][]byte, error) {
 	for path, src := range dart {
 		out[filepath.ToSlash(filepath.Join("../lib", path))] = src
 	}
-	out["../API.md"] = append(emitAPI(m, append(fns, consts...)), cmdAPI...)
+	out["../API.md"] = append(append(emitAPI(m, append(fns, consts...)), errorsAPI(errs)...), cmdAPI...)
 	out["../test/src/commands_smoke.dart"] = formatDart("../test/src/commands_smoke.dart", cmdSmoke)
 	if err := checkPublicExports("../lib", out); err != nil {
 		return nil, err

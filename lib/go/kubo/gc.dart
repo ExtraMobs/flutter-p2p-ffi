@@ -28,3 +28,49 @@ final class Result implements GoDto {
       ..err(error);
   }
 }
+
+/// Go: `gc.CannotDeleteBlockError`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class CannotDeleteBlockError extends GolangException {
+  CannotDeleteBlockError.$(super.base, $R r)
+      : key = r.p() ? $cid.Cid(r.str()) : $nil(),
+        super.$from();
+
+  /// Go: `Key`.
+  final $cid.Cid key;
+
+  @override
+  String toString() => 'gc.CannotDeleteBlockError: $message';
+}
+
+/// Go: `gc.CannotFetchLinksError`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class CannotFetchLinksError extends GolangException {
+  CannotFetchLinksError.$(super.base, $R r)
+      : key = r.p() ? $cid.Cid(r.str()) : $nil(),
+        super.$from();
+
+  /// Go: `Key`.
+  final $cid.Cid key;
+
+  @override
+  String toString() => 'gc.CannotFetchLinksError: $message';
+}
+
+/// Go: `var gc.ErrCannotDeleteSomeBlocks error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrCannotDeleteSomeBlocks extends GolangException {
+  ErrCannotDeleteSomeBlocks.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'gc.ErrCannotDeleteSomeBlocks: $message';
+}
+
+/// Go: `var gc.ErrCannotFetchAllLinks error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrCannotFetchAllLinks extends GolangException {
+  ErrCannotFetchAllLinks.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'gc.ErrCannotFetchAllLinks: $message';
+}

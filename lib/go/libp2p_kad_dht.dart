@@ -334,3 +334,21 @@ const modeClient = 1;
 
 /// Go: `const dht.ModeServer dht.ModeOpt`.
 const modeServer = 2;
+
+/// Go: `var dht.ErrNoPeersQueried error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrNoPeersQueried extends GolangException {
+  ErrNoPeersQueried.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'dht.ErrNoPeersQueried: $message';
+}
+
+/// Go: `var dht.ErrReadTimeout error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrReadTimeout extends GolangException {
+  ErrReadTimeout.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'dht.ErrReadTimeout: $message';
+}

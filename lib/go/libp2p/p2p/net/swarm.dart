@@ -6,6 +6,8 @@ import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/libp2p/core/connmgr.dart' as $connmgr;
 import 'package:p2p_ffi/go/libp2p/core/metrics.dart' as $metrics;
 import 'package:p2p_ffi/go/libp2p/core/network.dart' as $network;
+import 'package:p2p_ffi/go/libp2p/core/peer.dart' as $peer;
+import 'package:p2p_ffi/go/multiaddr.dart' as $multiaddr;
 
 /// Go: `swarm.BlackHoleSuccessCounter` (handle).
 class BlackHoleSuccessCounter extends GoHandle {
@@ -89,3 +91,143 @@ const publicTcpDelay = Duration(microseconds: 250000);
 
 /// Go: `const swarm.RelayDelay time.Duration`.
 const relayDelay = Duration(microseconds: 500000);
+
+/// Go: `swarm.DialError`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class DialError extends GolangException {
+  DialError.$(super.base, $R r)
+      : peer = r.p() ? $peer.Id(r.str()) : $nil(),
+        skipped = r.i64(),
+        super.$from();
+
+  /// Go: `Peer`.
+  final $peer.Id peer;
+
+  /// Go: `Skipped`.
+  final int skipped;
+
+  @override
+  String toString() => 'swarm.DialError: $message';
+}
+
+/// Go: `var swarm.ErrAddrFiltered error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrAddrFiltered extends GolangException {
+  ErrAddrFiltered.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'swarm.ErrAddrFiltered: $message';
+}
+
+/// Go: `var swarm.ErrAllDialsFailed error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrAllDialsFailed extends GolangException {
+  ErrAllDialsFailed.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'swarm.ErrAllDialsFailed: $message';
+}
+
+/// Go: `var swarm.ErrConnClosed error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrConnClosed extends GolangException {
+  ErrConnClosed.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'swarm.ErrConnClosed: $message';
+}
+
+/// Go: `var swarm.ErrDialBackoff error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrDialBackoff extends GolangException {
+  ErrDialBackoff.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'swarm.ErrDialBackoff: $message';
+}
+
+/// Go: `var swarm.ErrDialRefusedBlackHole error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrDialRefusedBlackHole extends GolangException {
+  ErrDialRefusedBlackHole.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'swarm.ErrDialRefusedBlackHole: $message';
+}
+
+/// Go: `var swarm.ErrDialTimeout error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrDialTimeout extends GolangException {
+  ErrDialTimeout.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'swarm.ErrDialTimeout: $message';
+}
+
+/// Go: `var swarm.ErrDialToSelf error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrDialToSelf extends GolangException {
+  ErrDialToSelf.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'swarm.ErrDialToSelf: $message';
+}
+
+/// Go: `var swarm.ErrGaterDisallowedConnection error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrGaterDisallowedConnection extends GolangException {
+  ErrGaterDisallowedConnection.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'swarm.ErrGaterDisallowedConnection: $message';
+}
+
+/// Go: `var swarm.ErrNoAddresses error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrNoAddresses extends GolangException {
+  ErrNoAddresses.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'swarm.ErrNoAddresses: $message';
+}
+
+/// Go: `var swarm.ErrNoGoodAddresses error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrNoGoodAddresses extends GolangException {
+  ErrNoGoodAddresses.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'swarm.ErrNoGoodAddresses: $message';
+}
+
+/// Go: `var swarm.ErrNoTransport error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrNoTransport extends GolangException {
+  ErrNoTransport.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'swarm.ErrNoTransport: $message';
+}
+
+/// Go: `var swarm.ErrSwarmClosed error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrSwarmClosed extends GolangException {
+  ErrSwarmClosed.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'swarm.ErrSwarmClosed: $message';
+}
+
+/// Go: `swarm.TransportError`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class TransportError extends GolangException {
+  TransportError.$(super.base, $R r)
+      : address = r.p() ? $multiaddr.Multiaddr(r.str()) : $nil(),
+        super.$from();
+
+  /// Go: `Address`.
+  final $multiaddr.Multiaddr address;
+
+  @override
+  String toString() => 'swarm.TransportError: $message';
+}

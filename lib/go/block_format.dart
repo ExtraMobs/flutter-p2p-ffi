@@ -47,3 +47,12 @@ final class Block implements GoDto {
       ..str(string);
   }
 }
+
+/// Go: `var blocks.ErrWrongHash error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrWrongHash extends GolangException {
+  ErrWrongHash.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'blocks.ErrWrongHash: $message';
+}

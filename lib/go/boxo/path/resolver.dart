@@ -3,8 +3,27 @@
 library;
 
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/cid.dart' as $cid;
 
 /// Go: `resolver.Resolver` (handle).
 class Resolver extends GoHandle {
   Resolver.$h(super.$h);
+}
+
+/// Go: `resolver.ErrNoLink`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrNoLink extends GolangException {
+  ErrNoLink.$(super.base, $R r)
+      : name = r.str(),
+        node = r.p() ? $cid.Cid(r.str()) : $nil(),
+        super.$from();
+
+  /// Go: `Name`.
+  final String name;
+
+  /// Go: `Node`.
+  final $cid.Cid node;
+
+  @override
+  String toString() => 'resolver.ErrNoLink: $message';
 }

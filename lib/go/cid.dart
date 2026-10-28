@@ -287,3 +287,21 @@ const zcashBlock = 192;
 
 /// Go: `const cid.ZcashTx untyped int`.
 const zcashTx = 193;
+
+/// Go: `cid.ErrInvalidCid`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrInvalidCid extends GolangException {
+  ErrInvalidCid.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'cid.ErrInvalidCid: $message';
+}
+
+/// Go: `var cid.ErrInvalidEncoding error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrInvalidEncoding extends GolangException {
+  ErrInvalidEncoding.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'cid.ErrInvalidEncoding: $message';
+}

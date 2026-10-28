@@ -53,3 +53,84 @@ const modeTemporary = 268435456;
 
 /// Go: `const fs.ModeType fs.FileMode`.
 const modeType = 2401763328;
+
+/// Go: `var fs.ErrClosed error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrClosed extends GolangException {
+  ErrClosed.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'fs.ErrClosed: $message';
+}
+
+/// Go: `var fs.ErrExist error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrExist extends GolangException {
+  ErrExist.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'fs.ErrExist: $message';
+}
+
+/// Go: `var fs.ErrInvalid error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrInvalid extends GolangException {
+  ErrInvalid.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'fs.ErrInvalid: $message';
+}
+
+/// Go: `var fs.ErrNotExist error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrNotExist extends GolangException {
+  ErrNotExist.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'fs.ErrNotExist: $message';
+}
+
+/// Go: `var fs.ErrPermission error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrPermission extends GolangException {
+  ErrPermission.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'fs.ErrPermission: $message';
+}
+
+/// Go: `fs.PathError`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class PathError extends GolangException {
+  PathError.$(super.base, $R r)
+      : op = r.str(),
+        path = r.str(),
+        super.$from();
+
+  /// Go: `Op`.
+  final String op;
+
+  /// Go: `Path`.
+  final String path;
+
+  @override
+  String toString() => 'fs.PathError: $message';
+}
+
+/// Go: `var fs.SkipAll error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class SkipAll extends GolangException {
+  SkipAll.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'fs.SkipAll: $message';
+}
+
+/// Go: `var fs.SkipDir error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class SkipDir extends GolangException {
+  SkipDir.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'fs.SkipDir: $message';
+}

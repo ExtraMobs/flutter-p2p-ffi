@@ -18,3 +18,26 @@ class LinkSystem extends GoHandle {
           ..h(store));
   }
 }
+
+/// Go: `linking.ErrHashMismatch`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrHashMismatch extends GolangException {
+  ErrHashMismatch.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'linking.ErrHashMismatch: $message';
+}
+
+/// Go: `linking.ErrLinkingSetup`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrLinkingSetup extends GolangException {
+  ErrLinkingSetup.$(super.base, $R r)
+      : detail = r.str(),
+        super.$from();
+
+  /// Go: `Detail`.
+  final String detail;
+
+  @override
+  String toString() => 'linking.ErrLinkingSetup: $message';
+}

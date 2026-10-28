@@ -11,3 +11,12 @@ $traversal.LinkTargetNodePrototypeChooser addSupportToChooser(
   final $r = $callSync(464, $W()..h(existing));
   return $r.hnn($traversal.LinkTargetNodePrototypeChooser.$h);
 }
+
+/// Go: `var dagpb.ErrIntOverflow error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrIntOverflow extends GolangException {
+  ErrIntOverflow.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'dagpb.ErrIntOverflow: $message';
+}

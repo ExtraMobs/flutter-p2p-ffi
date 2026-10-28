@@ -110,3 +110,12 @@ const connectedAddrTtl = 9223372036854775806;
 
 /// Go: `const peerstore.PermanentAddrTTL untyped int`.
 const permanentAddrTtl = 9223372036854775807;
+
+/// Go: `var peerstore.ErrNotFound error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrNotFound extends GolangException {
+  ErrNotFound.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'peerstore.ErrNotFound: $message';
+}

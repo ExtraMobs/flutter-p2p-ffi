@@ -25,3 +25,12 @@ class Buffer extends GoHandle {
 
 /// Go: `const bytes.MinRead untyped int`.
 const minRead = 512;
+
+/// Go: `var bytes.ErrTooLarge error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrTooLarge extends GolangException {
+  ErrTooLarge.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'bytes.ErrTooLarge: $message';
+}

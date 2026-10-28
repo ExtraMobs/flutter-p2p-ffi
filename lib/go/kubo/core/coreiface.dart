@@ -1290,3 +1290,66 @@ const tSymlink = 3;
 
 /// Go: `const iface.TUnknown iface.FileType`.
 const tUnknown = 0;
+
+/// Go: `var iface.ErrConnNotFound error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrConnNotFound extends GolangException {
+  ErrConnNotFound.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'iface.ErrConnNotFound: $message';
+}
+
+/// Go: `var iface.ErrIsDir error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrIsDir extends GolangException {
+  ErrIsDir.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'iface.ErrIsDir: $message';
+}
+
+/// Go: `var iface.ErrNotConnected error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrNotConnected extends GolangException {
+  ErrNotConnected.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'iface.ErrNotConnected: $message';
+}
+
+/// Go: `var iface.ErrNotFile error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrNotFile extends GolangException {
+  ErrNotFile.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'iface.ErrNotFile: $message';
+}
+
+/// Go: `var iface.ErrNotSupported error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrNotSupported extends GolangException {
+  ErrNotSupported.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'iface.ErrNotSupported: $message';
+}
+
+/// Go: `var iface.ErrOffline error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrOffline extends GolangException {
+  ErrOffline.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'iface.ErrOffline: $message';
+}
+
+/// Go: `var iface.ErrResolveFailed error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrResolveFailed extends GolangException {
+  ErrResolveFailed.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'iface.ErrResolveFailed: $message';
+}

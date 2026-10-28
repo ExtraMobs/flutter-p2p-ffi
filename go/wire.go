@@ -16,6 +16,7 @@ import (
 	"math"
 	"reflect"
 	"sync"
+	"syscall"
 	"time"
 
 	"github.com/ipfs/boxo/ipns"
@@ -66,9 +67,11 @@ func (q *req) item(enc func(*writer)) {
 	q.send(q.id, evItem, w.b)
 }
 
-// errData: os dados do evento `erro` (WIRE.md): o código do sentinela que o
-// erro embrulha (errors.Is), para o Dart lançar a subclasse certa, e a
-// mensagem.
+// errData: os dados do evento `erro` (WIRE.md): o código do sentinela fixo
+// que o erro embrulha (errors.Is), a mensagem, o errno da corrente, o texto
+// de cada elo (de fora para dentro) e os elos com classe gerada (errClass,
+// zz_generated.go), com os campos. O Dart lança a classe do sentinela fixo
+// ou, sem ele, a do elo reconhecido mais de fora.
 func errData(err error) []byte {
 	var code byte
 	switch {
@@ -84,11 +87,95 @@ func errData(err error) []byte {
 		errors.Is(err, carindex.ErrNotFound):
 		code = errNotFound
 	}
-	return append([]byte{code}, err.Error()...)
+	chain := errChain(err)
+	w := &writer{}
+	w.u8(code)
+	w.str(err.Error())
+	var errno syscall.Errno
+	if errors.As(err, &errno) {
+		w.i64(int64(errno))
+	} else {
+		w.i64(0)
+	}
+	w.u32(uint32(len(chain)))
+	for _, e := range chain {
+		w.str(e.Error())
+	}
+	var links []errLink
+	for i, e := range chain {
+		for _, l := range errClass(e) {
+			l.at = uint32(i)
+			links = append(links, l)
+		}
+	}
+	w.u32(uint32(len(links)))
+	for _, l := range links {
+		w.u32(l.id)
+		w.u32(l.at)
+		if l.enc != nil {
+			l.enc(w)
+		}
+	}
+	return w.b
+}
+
+// errLink: um elo da corrente com classe Dart (errClass, zz_generated.go):
+// o id da classe, o codificador dos campos (nil = nenhum) e o índice do elo.
+type errLink struct {
+	id  uint32
+	enc func(*writer)
+	at  uint32
+}
+
+// sameErr: a == b, sem o panic de quando o tipo dinâmico não é comparável.
+func sameErr(a, b error) (eq bool) {
+	defer func() {
+		if recover() != nil {
+			eq = false
+		}
+	}()
+	return a == b
+}
+
+// errChain: os elos do erro, de fora para dentro, em profundidade pelo
+// Unwrap (fmt.Errorf com %w) e pelo Unwrap() []error (errors.Join); no
+// máximo 32.
+func errChain(err error) []error {
+	var out []error
+	var walk func(error)
+	walk = func(e error) {
+		if e == nil || len(out) >= 32 {
+			return
+		}
+		out = append(out, e)
+		switch u := e.(type) {
+		case interface{ Unwrap() error }:
+			walk(u.Unwrap())
+		case interface{ Unwrap() []error }:
+			for _, x := range u.Unwrap() {
+				walk(x)
+			}
+		}
+	}
+	walk(err)
+	return out
+}
+
+// errPayload: o evento `erro` de uma mensagem do próprio host: o código, a
+// mensagem, nenhum errno, um elo só (o texto) e nenhum elo com classe.
+func errPayload(code byte, msg string) []byte {
+	w := &writer{}
+	w.u8(code)
+	w.str(msg)
+	w.i64(0)
+	w.u32(1)
+	w.str(msg)
+	w.u32(0)
+	return w.b
 }
 
 // errText: o evento `erro` de uma mensagem do próprio host (sem sentinela).
-func errText(msg string) []byte { return append([]byte{0}, msg...) }
+func errText(msg string) []byte { return errPayload(0, msg) }
 
 // Códigos de sentinela do evento `erro` (WIRE.md).
 const (

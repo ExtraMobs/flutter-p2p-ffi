@@ -130,3 +130,120 @@ const seekEnd = 2;
 
 /// Go: `const os.SEEK_SET int`.
 const seekSet = 0;
+
+/// Go: `var os.ErrClosed error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrClosed extends GolangException {
+  ErrClosed.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'os.ErrClosed: $message';
+}
+
+/// Go: `var os.ErrDeadlineExceeded error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrDeadlineExceeded extends GolangException {
+  ErrDeadlineExceeded.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'os.ErrDeadlineExceeded: $message';
+}
+
+/// Go: `var os.ErrExist error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrExist extends GolangException {
+  ErrExist.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'os.ErrExist: $message';
+}
+
+/// Go: `var os.ErrInvalid error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrInvalid extends GolangException {
+  ErrInvalid.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'os.ErrInvalid: $message';
+}
+
+/// Go: `var os.ErrNoDeadline error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrNoDeadline extends GolangException {
+  ErrNoDeadline.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'os.ErrNoDeadline: $message';
+}
+
+/// Go: `var os.ErrNoHandle error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrNoHandle extends GolangException {
+  ErrNoHandle.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'os.ErrNoHandle: $message';
+}
+
+/// Go: `var os.ErrNotExist error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrNotExist extends GolangException {
+  ErrNotExist.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'os.ErrNotExist: $message';
+}
+
+/// Go: `var os.ErrPermission error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrPermission extends GolangException {
+  ErrPermission.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'os.ErrPermission: $message';
+}
+
+/// Go: `var os.ErrProcessDone error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrProcessDone extends GolangException {
+  ErrProcessDone.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'os.ErrProcessDone: $message';
+}
+
+/// Go: `os.LinkError`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class LinkError extends GolangException {
+  LinkError.$(super.base, $R r)
+      : op = r.str(),
+        old = r.str(),
+        new$ = r.str(),
+        super.$from();
+
+  /// Go: `Op`.
+  final String op;
+
+  /// Go: `Old`.
+  final String old;
+
+  /// Go: `New`.
+  final String new$;
+
+  @override
+  String toString() => 'os.LinkError: $message';
+}
+
+/// Go: `os.SyscallError`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class SyscallError extends GolangException {
+  SyscallError.$(super.base, $R r)
+      : syscall = r.str(),
+        super.$from();
+
+  /// Go: `Syscall`.
+  final String syscall;
+
+  @override
+  String toString() => 'os.SyscallError: $message';
+}

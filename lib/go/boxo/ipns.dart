@@ -104,3 +104,156 @@ const noopValue = "/ipfs/bafkqaaa";
 
 /// Go: `const ipns.ValidityEOL ipns.ValidityType`.
 const validityEol = 0;
+
+/// Go: `var ipns.ErrDataMissing error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrDataMissing extends GolangException {
+  ErrDataMissing.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'ipns.ErrDataMissing: $message';
+}
+
+/// Go: `var ipns.ErrExpiredRecord error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrExpiredRecord extends GolangException {
+  ErrExpiredRecord.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'ipns.ErrExpiredRecord: $message';
+}
+
+/// Go: `var ipns.ErrInvalidName error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrInvalidName extends GolangException {
+  ErrInvalidName.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'ipns.ErrInvalidName: $message';
+}
+
+/// Go: `var ipns.ErrInvalidPath error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrInvalidPath extends GolangException {
+  ErrInvalidPath.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'ipns.ErrInvalidPath: $message';
+}
+
+/// Go: `var ipns.ErrInvalidPublicKey error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrInvalidPublicKey extends GolangException {
+  ErrInvalidPublicKey.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'ipns.ErrInvalidPublicKey: $message';
+}
+
+/// Go: `var ipns.ErrInvalidRecord error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrInvalidRecord extends GolangException {
+  ErrInvalidRecord.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'ipns.ErrInvalidRecord: $message';
+}
+
+/// Go: `var ipns.ErrInvalidValidity error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrInvalidValidity extends GolangException {
+  ErrInvalidValidity.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'ipns.ErrInvalidValidity: $message';
+}
+
+/// Go: `var ipns.ErrMetadataConflict error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrMetadataConflict extends GolangException {
+  ErrMetadataConflict.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'ipns.ErrMetadataConflict: $message';
+}
+
+/// Go: `var ipns.ErrMetadataEmptyKey error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrMetadataEmptyKey extends GolangException {
+  ErrMetadataEmptyKey.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'ipns.ErrMetadataEmptyKey: $message';
+}
+
+/// Go: `var ipns.ErrMetadataNotFound error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrMetadataNotFound extends GolangException {
+  ErrMetadataNotFound.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'ipns.ErrMetadataNotFound: $message';
+}
+
+/// Go: `var ipns.ErrMetadataUnsupportedType error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrMetadataUnsupportedType extends GolangException {
+  ErrMetadataUnsupportedType.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'ipns.ErrMetadataUnsupportedType: $message';
+}
+
+/// Go: `var ipns.ErrMetadataValueNotSet error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrMetadataValueNotSet extends GolangException {
+  ErrMetadataValueNotSet.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'ipns.ErrMetadataValueNotSet: $message';
+}
+
+/// Go: `var ipns.ErrPublicKeyMismatch error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrPublicKeyMismatch extends GolangException {
+  ErrPublicKeyMismatch.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'ipns.ErrPublicKeyMismatch: $message';
+}
+
+/// Go: `var ipns.ErrPublicKeyNotFound error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrPublicKeyNotFound extends GolangException {
+  ErrPublicKeyNotFound.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'ipns.ErrPublicKeyNotFound: $message';
+}
+
+/// Go: `var ipns.ErrRecordSize error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrRecordSize extends GolangException {
+  ErrRecordSize.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'ipns.ErrRecordSize: $message';
+}
+
+/// Go: `var ipns.ErrSignature error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrSignature extends GolangException {
+  ErrSignature.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'ipns.ErrSignature: $message';
+}
+
+/// Go: `var ipns.ErrUnrecognizedValidity error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrUnrecognizedValidity extends GolangException {
+  ErrUnrecognizedValidity.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'ipns.ErrUnrecognizedValidity: $message';
+}

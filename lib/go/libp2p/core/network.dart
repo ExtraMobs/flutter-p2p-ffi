@@ -596,3 +596,93 @@ const streamShutdown = 4103;
 
 /// Go: `const network.StreamSupplanted network.StreamErrorCode`.
 const streamSupplanted = 4101;
+
+/// Go: `network.ConnError`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ConnError extends GolangException {
+  ConnError.$(super.base, $R r)
+      : remote = r.b(),
+        errorCode = r.i64(),
+        super.$from();
+
+  /// Go: `Remote`.
+  final bool remote;
+
+  /// Go: `ErrorCode`.
+  final int errorCode;
+
+  @override
+  String toString() => 'network.ConnError: $message';
+}
+
+/// Go: `var network.ErrLimitedConn error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrLimitedConn extends GolangException {
+  ErrLimitedConn.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'network.ErrLimitedConn: $message';
+}
+
+/// Go: `var network.ErrNoConn error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrNoConn extends GolangException {
+  ErrNoConn.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'network.ErrNoConn: $message';
+}
+
+/// Go: `var network.ErrNoRemoteAddrs error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrNoRemoteAddrs extends GolangException {
+  ErrNoRemoteAddrs.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'network.ErrNoRemoteAddrs: $message';
+}
+
+/// Go: `var network.ErrReset error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrReset extends GolangException {
+  ErrReset.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'network.ErrReset: $message';
+}
+
+/// Go: `var network.ErrResourceScopeClosed error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrResourceScopeClosed extends GolangException {
+  ErrResourceScopeClosed.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'network.ErrResourceScopeClosed: $message';
+}
+
+/// Go: `var network.ErrTransientConn error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrTransientConn extends GolangException {
+  ErrTransientConn.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'network.ErrTransientConn: $message';
+}
+
+/// Go: `network.StreamError`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class StreamError extends GolangException {
+  StreamError.$(super.base, $R r)
+      : errorCode = r.i64(),
+        remote = r.b(),
+        super.$from();
+
+  /// Go: `ErrorCode`.
+  final int errorCode;
+
+  /// Go: `Remote`.
+  final bool remote;
+
+  @override
+  String toString() => 'network.StreamError: $message';
+}

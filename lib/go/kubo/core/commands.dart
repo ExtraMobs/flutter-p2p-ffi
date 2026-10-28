@@ -4227,3 +4227,57 @@ final class Dependency {
   /// Go: `Sum`.
   final String sum;
 }
+
+/// Go: `var commands.ErrDepthLimitExceeded error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrDepthLimitExceeded extends GolangException {
+  ErrDepthLimitExceeded.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'commands.ErrDepthLimitExceeded: $message';
+}
+
+/// Go: `var commands.ErrInvalidCompressionLevel error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrInvalidCompressionLevel extends GolangException {
+  ErrInvalidCompressionLevel.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'commands.ErrInvalidCompressionLevel: $message';
+}
+
+/// Go: `var commands.ErrNotDHT error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrNotDht extends GolangException {
+  ErrNotDht.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'commands.ErrNotDHT: $message';
+}
+
+/// Go: `var commands.ErrNotOnline error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrNotOnline extends GolangException {
+  ErrNotOnline.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'commands.ErrNotOnline: $message';
+}
+
+/// Go: `var commands.ErrPingSelf error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrPingSelf extends GolangException {
+  ErrPingSelf.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'commands.ErrPingSelf: $message';
+}
+
+/// Go: `var commands.ErrSelfUnsupported error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrSelfUnsupported extends GolangException {
+  ErrSelfUnsupported.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'commands.ErrSelfUnsupported: $message';
+}

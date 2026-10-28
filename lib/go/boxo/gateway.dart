@@ -241,3 +241,81 @@ const originalPathKey = "original-path-key";
 
 /// Go: `const gateway.SubdomainHostnameKey gateway.RequestContextKey`.
 const subdomainHostnameKey = "subdomain-hostname";
+
+/// Go: `var gateway.ErrFetcherUnexpectedEOF error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrFetcherUnexpectedEof extends GolangException {
+  ErrFetcherUnexpectedEof.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'gateway.ErrFetcherUnexpectedEOF: $message';
+}
+
+/// Go: `gateway.ErrInvalidResponse`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrInvalidResponse extends GolangException {
+  ErrInvalidResponse.$(super.base, $R r)
+      : message = r.str(),
+        super.$from();
+
+  /// Go: `Message`.
+  final String message;
+
+  @override
+  String toString() => 'gateway.ErrInvalidResponse: $message';
+}
+
+/// Go: `gateway.ErrPartialResponse`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrPartialResponse extends GolangException {
+  ErrPartialResponse.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'gateway.ErrPartialResponse: $message';
+}
+
+/// Go: `var gateway.ErrRetrievalTimeout error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrRetrievalTimeout extends GolangException {
+  ErrRetrievalTimeout.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'gateway.ErrRetrievalTimeout: $message';
+}
+
+/// Go: `var gateway.ErrTraversalTooDeep error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrTraversalTooDeep extends GolangException {
+  ErrTraversalTooDeep.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'gateway.ErrTraversalTooDeep: $message';
+}
+
+/// Go: `gateway.ErrorRetryAfter`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrorRetryAfter extends GolangException {
+  ErrorRetryAfter.$(super.base, $R r)
+      : retryAfter = Duration(microseconds: r.i64() ~/ 1000),
+        super.$from();
+
+  /// Go: `RetryAfter`.
+  final Duration retryAfter;
+
+  @override
+  String toString() => 'gateway.ErrorRetryAfter: $message';
+}
+
+/// Go: `gateway.ErrorStatusCode`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrorStatusCode extends GolangException {
+  ErrorStatusCode.$(super.base, $R r)
+      : statusCode = r.i64(),
+        super.$from();
+
+  /// Go: `StatusCode`.
+  final int statusCode;
+
+  @override
+  String toString() => 'gateway.ErrorStatusCode: $message';
+}

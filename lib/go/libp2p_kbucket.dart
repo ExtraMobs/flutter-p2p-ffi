@@ -24,3 +24,30 @@ class RoutingTable extends GoHandle {
 
 /// Go: `const kbucket.PeerIDPreimageMaxCpl uint`.
 const peerIdPreimageMaxCpl = 15;
+
+/// Go: `var kbucket.ErrLookupFailure error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrLookupFailure extends GolangException {
+  ErrLookupFailure.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'kbucket.ErrLookupFailure: $message';
+}
+
+/// Go: `var kbucket.ErrPeerRejectedHighLatency error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrPeerRejectedHighLatency extends GolangException {
+  ErrPeerRejectedHighLatency.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'kbucket.ErrPeerRejectedHighLatency: $message';
+}
+
+/// Go: `var kbucket.ErrPeerRejectedNoCapacity error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrPeerRejectedNoCapacity extends GolangException {
+  ErrPeerRejectedNoCapacity.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'kbucket.ErrPeerRejectedNoCapacity: $message';
+}

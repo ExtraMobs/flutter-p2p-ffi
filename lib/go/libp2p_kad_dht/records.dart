@@ -27,3 +27,21 @@ Option providerAddrTtl(Duration d) =>
 
 /// Go: `const records.ProvidersKeyPrefix untyped string`.
 const providersKeyPrefix = "/providers/";
+
+/// Go: `var records.ErrClosed error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrClosed extends GolangException {
+  ErrClosed.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'records.ErrClosed: $message';
+}
+
+/// Go: `var records.ErrOldRecord error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrOldRecord extends GolangException {
+  ErrOldRecord.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'records.ErrOldRecord: $message';
+}

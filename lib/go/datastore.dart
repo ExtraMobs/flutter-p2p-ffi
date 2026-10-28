@@ -104,3 +104,21 @@ const featureNameTtl = "TTL";
 
 /// Go: `const datastore.FeatureNameTransaction untyped string`.
 const featureNameTransaction = "Transaction";
+
+/// Go: `var datastore.ErrBatchUnsupported error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrBatchUnsupported extends GolangException {
+  ErrBatchUnsupported.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'datastore.ErrBatchUnsupported: $message';
+}
+
+/// Go: `var datastore.ErrNotFound error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrNotFound extends GolangException {
+  ErrNotFound.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'datastore.ErrNotFound: $message';
+}

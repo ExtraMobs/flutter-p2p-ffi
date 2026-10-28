@@ -48,3 +48,44 @@ $multiaddr.Multiaddr apiAddr(String repoPath) {
 
 /// Go: `const fsrepo.LockFile untyped string`.
 const lockFile = "repo.lock";
+
+/// Go: `var fsrepo.ErrNeedMigration error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrNeedMigration extends GolangException {
+  ErrNeedMigration.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'fsrepo.ErrNeedMigration: $message';
+}
+
+/// Go: `var fsrepo.ErrNoVersion error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrNoVersion extends GolangException {
+  ErrNoVersion.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'fsrepo.ErrNoVersion: $message';
+}
+
+/// Go: `var fsrepo.ErrOldRepo error`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrOldRepo extends GolangException {
+  ErrOldRepo.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'fsrepo.ErrOldRepo: $message';
+}
+
+/// Go: `fsrepo.NoRepoError`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class NoRepoError extends GolangException {
+  NoRepoError.$(super.base, $R r)
+      : path = r.str(),
+        super.$from();
+
+  /// Go: `Path`.
+  final String path;
+
+  @override
+  String toString() => 'fsrepo.NoRepoError: $message';
+}

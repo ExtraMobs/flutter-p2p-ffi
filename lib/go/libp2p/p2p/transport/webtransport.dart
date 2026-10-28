@@ -2,8 +2,24 @@
 // Go: github.com/libp2p/go-libp2p/p2p/transport/webtransport
 library;
 
+import 'dart:typed_data';
+
 import 'package:p2p_ffi/src/runtime.dart';
 
 /// Go: the function `libp2pwebtransport.New` as a value (a token: Go gets the function
 /// itself, as in `libp2p.Transport(tcp.NewTCPTransport)`).
 const newFunc = GoToken(18);
+
+/// Go: `libp2pwebtransport.ErrCertHashMismatch`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrCertHashMismatch extends GolangException {
+  ErrCertHashMismatch.$(super.base, $R r)
+      : expected = r.bytes() ?? Uint8List(0),
+        super.$from();
+
+  /// Go: `Expected`.
+  final Uint8List expected;
+
+  @override
+  String toString() => 'libp2pwebtransport.ErrCertHashMismatch: $message';
+}

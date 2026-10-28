@@ -63,3 +63,66 @@ const kindNull = 48;
 
 /// Go: `const datamodel.Kind_String datamodel.Kind`.
 const kindString = 115;
+
+/// Go: `datamodel.ErrInvalidSegmentForList`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrInvalidSegmentForList extends GolangException {
+  ErrInvalidSegmentForList.$(super.base, $R r)
+      : typeName = r.str(),
+        super.$from();
+
+  /// Go: `TypeName`.
+  final String typeName;
+
+  @override
+  String toString() => 'datamodel.ErrInvalidSegmentForList: $message';
+}
+
+/// Go: `datamodel.ErrIteratorOverread`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrIteratorOverread extends GolangException {
+  ErrIteratorOverread.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'datamodel.ErrIteratorOverread: $message';
+}
+
+/// Go: `datamodel.ErrNotExists`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrNotExists extends GolangException {
+  ErrNotExists.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'datamodel.ErrNotExists: $message';
+}
+
+/// Go: `datamodel.ErrRepeatedMapKey`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrRepeatedMapKey extends GolangException {
+  ErrRepeatedMapKey.$(super.base) : super.$from();
+
+  @override
+  String toString() => 'datamodel.ErrRepeatedMapKey: $message';
+}
+
+/// Go: `datamodel.ErrWrongKind`: an error. Thrown as this class when it is the outermost
+/// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
+class ErrWrongKind extends GolangException {
+  ErrWrongKind.$(super.base, $R r)
+      : typeName = r.str(),
+        methodName = r.str(),
+        actualKind = r.i64(),
+        super.$from();
+
+  /// Go: `TypeName`.
+  final String typeName;
+
+  /// Go: `MethodName`.
+  final String methodName;
+
+  /// Go: `ActualKind`.
+  final int actualKind;
+
+  @override
+  String toString() => 'datamodel.ErrWrongKind: $message';
+}
