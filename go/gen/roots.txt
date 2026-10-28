@@ -353,7 +353,7 @@ github.com/ipfs/kubo/core.IpfsNode.Blockstore
 github.com/ipld/go-ipld-prime/storage/bsadapter.Adapter
 github.com/ipld/go-ipld-prime/storage/bsadapter.Adapter.Wrapped
 
-# 0.18 everyday CAR operations (example/car/, DOCS.md), without a node: a
+# 0.18 everyday CAR operations (lessons 05-06 of the course), without a node: a
 # CAR's blockstore (go-car's ReadOnly/ReadWrite) becomes an offline block
 # service and a DAG service, to create a CAR from files (the UnixFS importer)
 # and to extract the files of a CAR (the UnixFS reader)

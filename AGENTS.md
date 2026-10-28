@@ -8,8 +8,7 @@ module (`github.com/ipfs/boxo/mfs` → `lib/go/boxo/mfs.dart`, `github.com/ipfs/
 `lib/go/cid.dart`); `lib/p2p_ffi.dart` is the runtime's entry point. Targets: VM/AOT on Windows, linux and Android (not JS/Wasm).
 
 `README.md` is the usage guide; `example/README.md` opens the course (one lesson per
-question) in `example/en_us/`, `example/pt_br/` and `example/es/`; `DOCS.md` indexes the CAR
-examples by operation; `API.md`
+question) in `example/en_us/`, `example/pt_br/` and `example/es/`; `API.md`
 (generated) lists every exposed symbol and the adaptation rules; `TODO.md` keeps what was
 done in each version and what is pending.
 
@@ -22,7 +21,7 @@ done in each version and what is pending.
 | `shm/` | the `p2p_shm` in C (rings, the bell, the thread that wakes Dart) |
 | `tool/` | `build.dart` (generates and builds per platform, with the upstream patches) and the benchmarks (`bench*.dart`) |
 | `test/` | the Dart suite (needs the build) |
-| `example/` | the course in `example/en_us/`, `example/pt_br/` and `example/es/` (in each: the lessons `NN_<topic>.dart`, the roadmap `README.md`, the shared helpers `lesson.dart`); `example/README.md` picks the language; until the course covers them, the older numbered examples (`01_init_repo.dart`...), `example/car/` (the CAR operations, see `DOCS.md`) and `example/memory/` (handle memory management); `example/android_app/` is the Flutter validation app |
+| `example/` | the course in `example/en_us/`, `example/pt_br/` and `example/es/` (in each: the lessons `NN_<topic>.dart`, the roadmap `README.md`, the shared helpers `lesson.dart`); `example/README.md` picks the language; `example/android_app/` is the Flutter validation app |
 | `flutter/` | the companion plugin `p2p_ffi_flutter` (Android background) |
 
 ## Commands
@@ -30,7 +29,7 @@ done in each version and what is pending.
 ```bash
 dart run tool/build.dart [windows|linux|android]   # runs the generator and builds into native/ (not in git)
 cd go && go vet ./... && go test ./... && go run ./gen -check   # the host and the generator
-dart analyze lib test tool example/*.dart example/en_us example/pt_br example/es example/car/*.dart example/memory/*.dart
+dart analyze lib test tool example/en_us example/pt_br example/es
 dart test                                          # the whole suite (needs the platform build)
 ```
 

@@ -28,7 +28,6 @@ The service, its errors and the handles come from `package:p2p_ffi/p2p_ffi.dart`
 | Document | What it has |
 |---|---|
 | [`API.md`](API.md) | every exposed symbol, and what was left out and why (generated) |
-| [`DOCS.md`](DOCS.md) | the CAR examples, indexed by operation |
 | [`CHANGELOG.md`](CHANGELOG.md) | what changed in each version |
 | [`TODO.md`](TODO.md) | measurements, findings and what is pending |
 | [`WIRE.md`](WIRE.md) | the binary protocol between the app and the host |
@@ -100,15 +99,6 @@ are in the libraries of their Go packages
 | Path | What it covers |
 |---|---|
 | [`example/en_us/`](example/en_us/README.md) | the course for Dart developers new to IPFS, one lesson per question (part A so far: the bridge, CIDs, blocks, CAR); also in [Português (Brasil)](example/pt_br/README.md) and [Español](example/es/README.md) |
-| `example/01_init_repo.dart` … `example/08_chat.dart` | in the order kubo builds a node: init, add/get, pins and GC, online node, two nodes, IPNS and Dag, CAR, pubsub chat |
-| `example/09_commands_and_streams.dart` | the RPC commands and Dart `Stream`s step by step |
-| `example/10_mfs_low_level.dart`, `example/12_car_low_level.dart` | boxo MFS and go-car at the low level, with the equivalent Go |
-| `example/11_context_and_errors.dart` | deadlines, cancellation, errors, service crash and restart |
-| `example/13_slices_and_callbacks.dart` | CAR slices from the node, selectors, callbacks |
-| `example/14_libp2p_host.dart` | libp2p without kubo: identity, ping, a protocol of one's own, connection events, mDNS |
-| `example/15_libp2p_pubsub_dht.dart` | gossipsub, a private DHT and rendezvous by name on hosts of one's own |
-| [`example/car/`](example/car) | everyday CAR operations, the right way and the mistakes ([`DOCS.md`](DOCS.md)) |
-| [`example/memory/`](example/memory) | how handles work and how to release them |
 | [`example/android_app/`](example/android_app) | the Flutter validation app (packaging, background, integration tests) |
 
 ## Points of attention
@@ -165,7 +155,7 @@ are in the libraries of their Go packages
   `P2pService.start(crashLog: path)` to get Go's report; the host only appends to it.
 - **Release handles in loops.** The Dart `Finalizer` frees Go objects late, while each
   handle may pin megabytes in the host. Use `.release()`, `.use()` or `withGoScope()`
-  ([`example/memory/`](example/memory)). The node and the repo still need `close()`.
+  (lesson 20 of the course). The node and the repo still need `close()`.
 - **Synchronous calls block the isolate** until the host answers (`io.copy` of a large file,
   for example); calls with a `context` are `Future`s.
 - **A command `Stream` only runs when listened to**: `.single`, `.first`, `toList()` or
