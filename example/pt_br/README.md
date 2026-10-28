@@ -53,35 +53,35 @@ Cada lição acrescenta uma camada; cada camada precisa das que estão abaixo.
 | 05 | Como levo blocos sem rede? (arquivos CAR) | [`05_car_files.dart`](05_car_files.dart) |
 | 06 | CARv1 ou v2, o índice, raízes, uma parte, juntar? | [`06_car_more.dart`](06_car_more.dart) |
 
-### Parte B · o nó kubo, em disco (a seguir)
+### Parte B · o nó kubo, em disco
 
-| # | Pergunta |
-|---|---|
-| 07 | O que é um repositório, e por que `init`? |
-| 08 | O que o nó monta para mim? |
-| 09 | Por que os meus blocos somem? (pins e GC) |
-| 10 | Como trabalho com pastas que mudam? (MFS) |
-| 11 | Como dou um nome fixo a algo que muda? (chaves e IPNS) |
-| 12 | Como uso os comandos `ipfs` que já conheço? |
+| # | Pergunta | Lição |
+|---|---|---|
+| 07 | O que é um repositório, e por que `init`? | [`07_repo_and_init.dart`](07_repo_and_init.dart) |
+| 08 | O que o nó monta para mim? | [`08_the_node.dart`](08_the_node.dart) |
+| 09 | Por que os meus blocos somem? (pins e GC) | [`09_pins_and_gc.dart`](09_pins_and_gc.dart) |
+| 10 | Como trabalho com pastas que mudam? (MFS) | [`10_mfs.dart`](10_mfs.dart) |
+| 11 | Como dou um nome fixo a algo que muda? (chaves e IPNS) | [`11_ipns_and_keys.dart`](11_ipns_and_keys.dart) |
+| 12 | Como uso os comandos `ipfs` que já conheço? | [`12_ipfs_commands.dart`](12_ipfs_commands.dart) |
 
-### Parte C · a rede (em breve)
+### Parte C · a rede
 
-| # | Pergunta |
-|---|---|
-| 13 | Quem sou eu na rede? (chaves, peer ID, multiaddr, transportes) |
-| 14 | Como dois peers conversam? (conectar, ping, um protocolo meu, mDNS) |
-| 15 | Como acho quem tem um conteúdo? (DHT) |
-| 16 | O que o boxo precisa para baixar um CID? |
-| 17 | Como entro na rede IPFS pública? |
-| 18 | Como mando mensagens em tempo real? (pubsub) |
+| # | Pergunta | Lição |
+|---|---|---|
+| 13 | Quem sou eu na rede? (chaves, peer ID, multiaddr, transportes) | [`13_who_am_i.dart`](13_who_am_i.dart) |
+| 14 | Como dois peers conversam? (conectar, ping, um protocolo meu, mDNS) | [`14_two_peers_talk.dart`](14_two_peers_talk.dart) |
+| 15 | Como acho quem tem um conteúdo? (DHT) | [`15_find_on_the_dht.dart`](15_find_on_the_dht.dart) |
+| 16 | O que o boxo precisa para baixar um CID? | [`16_fetch_a_cid.dart`](16_fetch_a_cid.dart) |
+| 17 | Como entro na rede IPFS pública? (precisa de internet) | [`17_public_network.dart`](17_public_network.dart) |
+| 18 | Como mando mensagens em tempo real? (pubsub) | [`18_pubsub.dart`](18_pubsub.dart) |
 
-### Parte D · usar a ponte direito (em breve)
+### Parte D · usar a ponte direito
 
-| # | Pergunta |
-|---|---|
-| 19 | Como ponho prazo e cancelo? Que erros podem vir? |
-| 20 | Quando preciso liberar memória? (handles) |
-| 21 | Como o Go chama o meu código Dart? (callbacks) |
+| # | Pergunta | Lição |
+|---|---|---|
+| 19 | Como ponho prazo e cancelo? Que erros podem vir? | [`19_deadlines_and_errors.dart`](19_deadlines_and_errors.dart) |
+| 20 | Quando preciso liberar memória? (handles) | [`20_handles_and_memory.dart`](20_handles_and_memory.dart) |
+| 21 | Como o Go chama o meu código Dart? (callbacks) | [`21_callbacks.dart`](21_callbacks.dart) |
 
 ## Respostas rápidas
 
@@ -96,3 +96,15 @@ Cada lição acrescenta uma camada; cada camada precisa das que estão abaixo.
   `allKeysChan()`, que perde o codec: lição 05, erros comuns.
 - **"Nada aparece no terminal com `dev.log`."** O `dart run` não imprime o log
   do `dart:developer`; as lições também imprimem (veja `say()` acima).
+- **"O `init` não mudou o meu repositório."** `init` numa pasta que já é
+  repositório não faz nada: lição 07, erros comuns.
+- **"O meu arquivo sumiu do nó."** Nada o fixava e o GC rodou: lição 09.
+- **"Quero um endereço que sempre mostre a versão mais nova."** IPNS:
+  lição 11.
+- **"O meu download nunca termina."** Ninguém conectado tem o conteúdo e
+  ninguém o anunciou, ou o nó não tem roteamento: lições 16 e 17; ponha um
+  prazo: lição 19.
+- **"O p2p_host não para de crescer."** Handles deixados ao Finalizer num
+  laço: lição 20.
+- **"Dois hosts escutam na mesma porta sem erro."** O libp2p reaproveita
+  portas de propósito (para atravessar NAT): lição 13.

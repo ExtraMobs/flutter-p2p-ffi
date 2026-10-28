@@ -50,35 +50,35 @@ Every lesson adds one layer; each layer needs the ones below it.
 | 05 | How do I carry blocks without a network? (CAR files) | [`05_car_files.dart`](05_car_files.dart) |
 | 06 | CARv1 or v2, the index, roots, a subset, a merge? | [`06_car_more.dart`](06_car_more.dart) |
 
-### Part B · the kubo node, on disk (coming next)
+### Part B · the kubo node, on disk
 
-| # | Question |
-|---|---|
-| 07 | What is a repo, and why `init`? |
-| 08 | What does the node build for me? |
-| 09 | Why do my blocks disappear? (pins and GC) |
-| 10 | How do I work with folders that change? (MFS) |
-| 11 | How do I give a fixed name to something that changes? (keys and IPNS) |
-| 12 | How do I use the `ipfs` commands I already know? |
+| # | Question | Lesson |
+|---|---|---|
+| 07 | What is a repo, and why `init`? | [`07_repo_and_init.dart`](07_repo_and_init.dart) |
+| 08 | What does the node build for me? | [`08_the_node.dart`](08_the_node.dart) |
+| 09 | Why do my blocks disappear? (pins and GC) | [`09_pins_and_gc.dart`](09_pins_and_gc.dart) |
+| 10 | How do I work with folders that change? (MFS) | [`10_mfs.dart`](10_mfs.dart) |
+| 11 | How do I give a fixed name to something that changes? (keys and IPNS) | [`11_ipns_and_keys.dart`](11_ipns_and_keys.dart) |
+| 12 | How do I use the `ipfs` commands I already know? | [`12_ipfs_commands.dart`](12_ipfs_commands.dart) |
 
-### Part C · the network (coming)
+### Part C · the network
 
-| # | Question |
-|---|---|
-| 13 | Who am I on the network? (keys, peer ID, multiaddr, transports) |
-| 14 | How do two peers talk? (connect, ping, a protocol of my own, mDNS) |
-| 15 | How do I find who has some content? (DHT) |
-| 16 | What does boxo need to download a CID? |
-| 17 | How do I join the public IPFS network? |
-| 18 | How do I send messages in real time? (pubsub) |
+| # | Question | Lesson |
+|---|---|---|
+| 13 | Who am I on the network? (keys, peer ID, multiaddr, transports) | [`13_who_am_i.dart`](13_who_am_i.dart) |
+| 14 | How do two peers talk? (connect, ping, a protocol of my own, mDNS) | [`14_two_peers_talk.dart`](14_two_peers_talk.dart) |
+| 15 | How do I find who has some content? (DHT) | [`15_find_on_the_dht.dart`](15_find_on_the_dht.dart) |
+| 16 | What does boxo need to download a CID? | [`16_fetch_a_cid.dart`](16_fetch_a_cid.dart) |
+| 17 | How do I join the public IPFS network? (needs the internet) | [`17_public_network.dart`](17_public_network.dart) |
+| 18 | How do I send messages in real time? (pubsub) | [`18_pubsub.dart`](18_pubsub.dart) |
 
-### Part D · using the bridge well (coming)
+### Part D · using the bridge well
 
-| # | Question |
-|---|---|
-| 19 | How do I set a deadline and cancel? What errors can come? |
-| 20 | When do I need to release memory? (handles) |
-| 21 | How does Go call my Dart code? (callbacks) |
+| # | Question | Lesson |
+|---|---|---|
+| 19 | How do I set a deadline and cancel? What errors can come? | [`19_deadlines_and_errors.dart`](19_deadlines_and_errors.dart) |
+| 20 | When do I need to release memory? (handles) | [`20_handles_and_memory.dart`](20_handles_and_memory.dart) |
+| 21 | How does Go call my Dart code? (callbacks) | [`21_callbacks.dart`](21_callbacks.dart) |
 
 ## Quick answers
 
@@ -93,3 +93,16 @@ Every lesson adds one layer; each layer needs the ones below it.
   `allKeysChan()`, which loses the codec: lesson 05, common mistakes.
 - **"Nothing shows in the terminal with `dev.log`."** `dart run` does not print
   `dart:developer`'s log; the lessons also print (see `say()` above).
+- **"`init` did not change my repo."** `init` on a folder that already is a
+  repo does nothing: lesson 07, common mistakes.
+- **"My file vanished from the node."** Nothing pinned it and GC ran:
+  lesson 09.
+- **"I want one address that always shows the latest version."** IPNS:
+  lesson 11.
+- **"My download never finishes."** Nobody connected has it and nobody
+  announced it, or the node has no routing: lessons 16 and 17; put a deadline
+  on it: lesson 19.
+- **"The p2p_host keeps growing."** Handles left to the Finalizer in a loop:
+  lesson 20.
+- **"Two hosts listen on the same port without error."** libp2p reuses ports
+  on purpose (for NAT traversal): lesson 13.

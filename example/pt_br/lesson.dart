@@ -26,6 +26,12 @@ import 'package:p2p_ffi/go/context.dart' as context;
 import 'package:p2p_ffi/go/datastore.dart' as datastore;
 import 'package:p2p_ffi/go/datastore/sync.dart' as sync;
 import 'package:p2p_ffi/go/ipld_format.dart' as ipld_format;
+import 'package:p2p_ffi/go/kubo/config.dart' as config;
+import 'package:p2p_ffi/go/kubo/core.dart' as core;
+import 'package:p2p_ffi/go/kubo/core/coreiface/options.dart' as options;
+import 'package:p2p_ffi/go/kubo/core/node.dart' as node;
+import 'package:p2p_ffi/go/kubo/plugin/loader.dart' as loader;
+import 'package:p2p_ffi/go/kubo/repo/fsrepo.dart' as fsrepo;
 import 'package:p2p_ffi/p2p_ffi.dart';
 
 /// O exemplo das lições 03 e 04, montado em memória com a mesma pilha
@@ -79,6 +85,54 @@ final class Sample {
     await rw.putMany(ctx, await blocksOf(ctx, root));
     rw.finalize();
   }
+}
+
+/// Os plugins do kubo (os datastores flatfs, leveldb, pebble...):
+/// carregados uma vez por processo do serviço, antes de abrir qualquer
+/// repositório (lição 07).
+void loadPlugins() {
+  if (_pluginsFor == P2pService.hostPid) return;
+  loader.PluginLoader('')
+    ..initialize()
+    ..inject();
+  _pluginsFor = P2pService.hostPid;
+}
+
+int? _pluginsFor;
+
+/// As lições 07 e 08 numa chamada só: os plugins, um repositório novo em
+/// [dir] com os [profiles] do kubo (`test`: portas aleatórias, sem peers de
+/// bootstrap, só endereços locais) e um nó sobre ele, offline a menos que
+/// [online].
+Future<core.IpfsNode> newNode(context.Context ctx, String dir,
+    {bool online = false, List<String> profiles = const ['test']}) async {
+  loadPlugins();
+  final cfg = config.initWithIdentity(
+      config.createIdentity(null, [options.key.type('ed25519')]));
+  for (final p in profiles) {
+    config.profiles[p]!.transform(cfg);
+  }
+  fsrepo.init(dir, cfg);
+  return openNode(ctx, dir, online: online);
+}
+
+/// Um nó sobre o repositório que já existe em [dir] (depois de reiniciar o
+/// serviço, por exemplo): os plugins, depois o nó, offline a menos que
+/// [online].
+Future<core.IpfsNode> openNode(context.Context ctx, String dir,
+    {bool online = false}) {
+  loadPlugins();
+  return core.newNode(
+      ctx, node.BuildCfg(repo: fsrepo.open(dir), online: online));
+}
+
+/// Se [a] e [b] têm os mesmos bytes.
+bool sameBytes(List<int> a, List<int> b) {
+  if (a.length != b.length) return false;
+  for (var i = 0; i < a.length; i++) {
+    if (a[i] != b[i]) return false;
+  }
+  return true;
 }
 
 /// Um erro comum: executa [action], que tem de falhar, e mostra o que foi

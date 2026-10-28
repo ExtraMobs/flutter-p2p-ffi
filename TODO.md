@@ -1,5 +1,41 @@
 # Pendências do ipfs_ffi
 
+## Done: the course, in three languages (0.26.0)
+
+The owner asked for better examples: a course for Dart developers who do not know IPFS,
+one lesson per question, saying what each step needs underneath (what boxo needs to
+fetch a CID, for one), in English, Brazilian Portuguese and Spanish, and with the old
+examples removed.
+
+- 21 lessons per language (`example/en_us/`, `example/pt_br/`, `example/es/`), the same
+  code and identifiers, comments and output translated. Each ends with the next
+  question; the common mistakes run on purpose through `mistake()`/`silentlyWrong()`,
+  which stop the lesson if the behavior changes. Output through `say()`
+  (`dart:developer`'s log, which `dart run` does not print, plus the terminal).
+- Roots: `go-datastore.NewMapDatastore`, `sync.MutexWrap` (an in-memory blockstore),
+  `repo.Repo.Close`, `bitswap.New`, `Bitswap.Close`/`Stat`, `bsnet.NewFromIpfsHost`.
+  `io.Closer.Close` was tried first and reverted: the generator gives each type one Dart
+  superclass, and with `io.Closer` exposed it chose `Closer` for `MapDatastore`,
+  `IpfsNode`, `IpfsDht`... (breaking code that passed them as their real interfaces).
+- Generator (`linkInterfaces`): an interface that embeds several takes, as its Dart
+  superclass, one that some function receives, not just the first embedded:
+  `routing.ContentRouting` extends `ContentDiscovery` (not `ContentProviding`), so an
+  `IpfsDht` is accepted by `bitswap.New`. The only class that changed.
+- Findings that became lesson content: a blockstore keys by multihash, so `AllKeysChan`
+  returns raw CIDv1s and a CAR written from it cannot find its dag-pb root (lesson 05);
+  `fsrepo.Init` on an initialized folder returns nil and changes nothing (07); libp2p
+  hosts may listen on the same TCP port (port reuse, 13, 17); a canceled context reaches
+  kubo's `unixfs get` as "could not resolve name", not `context.Canceled` (19); after
+  `P2pService.restart()` the old `context.background()` is a stale handle too (19); on
+  Windows Go's monotonic clock reads a loopback ping as 0 µs (14).
+- Pending: in lesson 10's sequence, a second `mfs.File.open(write)` while a writer is
+  open (in Go it waits for the lock) ended with the p2p_host gone (exit code 143, empty
+  crash log). An isolated repro (`open` twice with a Dart `.timeout`) does not crash.
+  The lesson no longer does it; to look into.
+- Checked on Windows: the 63 lessons run; dart analyze, dart test (113), go vet, go test,
+  gen -check. The public-network lesson fetched a CID published by the IPFS gateway
+  checker (the same CID was checked through a local IPFS Desktop first).
+
 ## Done: package functions and value type methods (0.25.0)
 
 The owner asked for the package functions that were missing (`cid.Parse` and others).

@@ -98,7 +98,7 @@ are in the libraries of their Go packages
 
 | Path | What it covers |
 |---|---|
-| [`example/en_us/`](example/en_us/README.md) | the course for Dart developers new to IPFS, one lesson per question (part A so far: the bridge, CIDs, blocks, CAR); also in [Português (Brasil)](example/pt_br/README.md) and [Español](example/es/README.md) |
+| [`example/en_us/`](example/en_us/README.md) | the course for Dart developers new to IPFS, one lesson per question (21 lessons: the bridge, CIDs, blocks and CAR; the kubo node; the network, DHT and bitswap; deadlines, handles and callbacks); also in [Português (Brasil)](example/pt_br/README.md) and [Español](example/es/README.md) |
 | [`example/android_app/`](example/android_app) | the Flutter validation app (packaging, background, integration tests) |
 
 ## Points of attention

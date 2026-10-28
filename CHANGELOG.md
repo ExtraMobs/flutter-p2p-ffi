@@ -3,6 +3,28 @@
 Newest first. Measurements, findings and the reasoning behind each change are in
 [`TODO.md`](TODO.md); the full API, with what was left out and why, in [`API.md`](API.md).
 
+## 0.26.0
+
+The examples became a course, one lesson per question, in English, Brazilian Portuguese
+and Spanish.
+
+- **The course** ([`example/README.md`](example/README.md)): 21 lessons in `example/en_us/`,
+  `example/pt_br/` and `example/es/`, in four parts: content without a node (the bridge,
+  CIDs, files as blocks, CAR), the kubo node (repo, node, pins and GC, MFS, IPNS and keys,
+  the `ipfs` commands), the network (identity, connections, the DHT, what fetching a CID
+  needs, the public network, pubsub) and the bridge (deadlines and errors, handles,
+  callbacks). Each lesson says what it needs underneath and runs the common mistakes on
+  purpose; output goes to `dart:developer`'s log and the terminal.
+- **Removed:** the old numbered examples, `example/car/`, `example/memory/` and `DOCS.md`;
+  the course covers them.
+- **Bitswap by hand:** `bitswap.New`, `Bitswap.Close`/`Stat` and
+  `bsnet.NewFromIpfsHost`, so an exchange can be built over a libp2p host (lesson 16).
+- **`repo.Repo.close()`**, for a repo opened without a node; **`datastore.MapDatastore`**
+  and **`sync.mutexWrap`**, for an in-memory blockstore.
+- **Generator:** an interface that embeds several others extends, in Dart, one that some
+  function takes as a parameter: `routing.ContentRouting` now extends `ContentDiscovery`
+  (so an `IpfsDht` goes where `bitswap.New` wants a provider finder).
+
 ## 0.25.0
 
 Package functions and value type methods, to build and read values without a node.

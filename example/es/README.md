@@ -54,35 +54,35 @@ Cada lección añade una capa; cada capa necesita las de debajo.
 | 05 | ¿Cómo llevo bloques sin red? (archivos CAR) | [`05_car_files.dart`](05_car_files.dart) |
 | 06 | ¿CARv1 o v2, el índice, raíces, una parte, juntar? | [`06_car_more.dart`](06_car_more.dart) |
 
-### Parte B · el nodo kubo, en disco (lo siguiente)
+### Parte B · el nodo kubo, en disco
 
-| # | Pregunta |
-|---|---|
-| 07 | ¿Qué es un repositorio, y por qué `init`? |
-| 08 | ¿Qué arma el nodo por mí? |
-| 09 | ¿Por qué desaparecen mis bloques? (pins y GC) |
-| 10 | ¿Cómo trabajo con carpetas que cambian? (MFS) |
-| 11 | ¿Cómo doy un nombre fijo a algo que cambia? (claves e IPNS) |
-| 12 | ¿Cómo uso los comandos `ipfs` que ya conozco? |
+| # | Pregunta | Lección |
+|---|---|---|
+| 07 | ¿Qué es un repositorio, y por qué `init`? | [`07_repo_and_init.dart`](07_repo_and_init.dart) |
+| 08 | ¿Qué arma el nodo por mí? | [`08_the_node.dart`](08_the_node.dart) |
+| 09 | ¿Por qué desaparecen mis bloques? (pins y GC) | [`09_pins_and_gc.dart`](09_pins_and_gc.dart) |
+| 10 | ¿Cómo trabajo con carpetas que cambian? (MFS) | [`10_mfs.dart`](10_mfs.dart) |
+| 11 | ¿Cómo doy un nombre fijo a algo que cambia? (claves e IPNS) | [`11_ipns_and_keys.dart`](11_ipns_and_keys.dart) |
+| 12 | ¿Cómo uso los comandos `ipfs` que ya conozco? | [`12_ipfs_commands.dart`](12_ipfs_commands.dart) |
 
-### Parte C · la red (próximamente)
+### Parte C · la red
 
-| # | Pregunta |
-|---|---|
-| 13 | ¿Quién soy en la red? (claves, peer ID, multiaddr, transportes) |
-| 14 | ¿Cómo hablan dos peers? (conectar, ping, un protocolo propio, mDNS) |
-| 15 | ¿Cómo encuentro quién tiene un contenido? (DHT) |
-| 16 | ¿Qué necesita boxo para descargar un CID? |
-| 17 | ¿Cómo entro en la red IPFS pública? |
-| 18 | ¿Cómo envío mensajes en tiempo real? (pubsub) |
+| # | Pregunta | Lección |
+|---|---|---|
+| 13 | ¿Quién soy en la red? (claves, peer ID, multiaddr, transportes) | [`13_who_am_i.dart`](13_who_am_i.dart) |
+| 14 | ¿Cómo hablan dos peers? (conectar, ping, un protocolo propio, mDNS) | [`14_two_peers_talk.dart`](14_two_peers_talk.dart) |
+| 15 | ¿Cómo encuentro quién tiene un contenido? (DHT) | [`15_find_on_the_dht.dart`](15_find_on_the_dht.dart) |
+| 16 | ¿Qué necesita boxo para descargar un CID? | [`16_fetch_a_cid.dart`](16_fetch_a_cid.dart) |
+| 17 | ¿Cómo entro en la red IPFS pública? (necesita internet) | [`17_public_network.dart`](17_public_network.dart) |
+| 18 | ¿Cómo envío mensajes en tiempo real? (pubsub) | [`18_pubsub.dart`](18_pubsub.dart) |
 
-### Parte D · usar bien el puente (próximamente)
+### Parte D · usar bien el puente
 
-| # | Pregunta |
-|---|---|
-| 19 | ¿Cómo pongo un plazo y cancelo? ¿Qué errores pueden llegar? |
-| 20 | ¿Cuándo tengo que liberar memoria? (handles) |
-| 21 | ¿Cómo llama Go a mi código Dart? (callbacks) |
+| # | Pregunta | Lección |
+|---|---|---|
+| 19 | ¿Cómo pongo un plazo y cancelo? ¿Qué errores pueden llegar? | [`19_deadlines_and_errors.dart`](19_deadlines_and_errors.dart) |
+| 20 | ¿Cuándo tengo que liberar memoria? (handles) | [`20_handles_and_memory.dart`](20_handles_and_memory.dart) |
+| 21 | ¿Cómo llama Go a mi código Dart? (callbacks) | [`21_callbacks.dart`](21_callbacks.dart) |
 
 ## Respuestas rápidas
 
@@ -97,3 +97,16 @@ Cada lección añade una capa; cada capa necesita las de debajo.
   `allKeysChan()`, que pierde el codec: lección 05, errores comunes.
 - **"No aparece nada en la terminal con `dev.log`."** `dart run` no imprime el
   log de `dart:developer`; las lecciones también imprimen (ver `say()` arriba).
+- **"`init` no cambió mi repositorio."** `init` sobre una carpeta que ya es
+  repositorio no hace nada: lección 07, errores comunes.
+- **"Mi archivo desapareció del nodo."** Nada lo fijaba y corrió el GC:
+  lección 09.
+- **"Quiero una dirección que siempre muestre la versión más nueva."** IPNS:
+  lección 11.
+- **"Mi descarga nunca termina."** Nadie conectado tiene el contenido y nadie
+  lo anunció, o el nodo no tiene enrutamiento: lecciones 16 y 17; ponle un
+  plazo: lección 19.
+- **"El p2p_host no para de crecer."** Handles dejados al Finalizer en un
+  bucle: lección 20.
+- **"Dos hosts escuchan en el mismo puerto sin error."** libp2p reutiliza
+  puertos a propósito (para atravesar NAT): lección 13.
