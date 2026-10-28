@@ -68,8 +68,16 @@ await P2pService.stop();
   `withTimeout`, `withDeadline`; call `cancel()`).
 - A function with a `context` is asynchronous (`Future`); a channel is a `Stream`;
   `(T, error)` is `T`, and the error is thrown as `GolangException`.
-- `if err != nil` disappears: Go errors are exceptions. Known Go sentinels are subclasses:
-  `GolangEofException`, `GolangUnexpectedEofException`, `GolangCanceledException`, `GolangDeadlineExceededException`, `GolangNotFoundException`.
+- `if err != nil` disappears: Go errors are exceptions. Every exported error sentinel and
+  error type of an exposed package has its class, in the library of its package
+  (`on fs.ErrNotExist`, `on fs.PathError catch (e) { e.path }`); `io.EOF`,
+  `io.ErrUnexpectedEOF`, `context.Canceled`, `context.DeadlineExceeded` and IPLD's not
+  found keep `GolangEofException`, `GolangUnexpectedEofException`,
+  `GolangCanceledException`, `GolangDeadlineExceededException`, `GolangNotFoundException`.
+  Any `GolangException`, the text-only ones too, carries `errTexts` (the chain's texts,
+  from the outside in; `errText` is the original cause), `errno` (the `syscall.Errno` of
+  the chain, if any) and `causes`; `e.isA<T>()` and `e.find<T>()` are Go's `errors.Is`
+  and `errors.As`.
 - Functional options are a list (`[options.unixfs.cidVersion(1), options.unixfs.pin(true, '')]`);
   option structs take named parameters (`mfs.Flags(write: true)`).
 - Struct fields are getters and setters (`node.filesRoot`); constants are `const`;

@@ -19,7 +19,14 @@
 // concretos):
 //   - GolangNotFoundException, GolangEofException, GolangCanceledException,
 //     GolangDeadlineExceededException...: los errores conocidos de Go;
+//   - la clase de cada error exportado de un paquete Go, en la biblioteca
+//     de ese paquete: fs.ErrNotExist, fs.PathError (con op y path),
+//     cid.ErrInvalidCid...;
 //   - GolangException: cualquier otro error de Go, con el mensaje de Go;
+// Todas llevan la cadena: errTexts (el texto de cada eslabón envuelto, de
+// fuera hacia dentro; errText es la causa original), errno (el número del
+// sistema operativo, cuando lo hay) e isA<T>() / find<T>(), el errors.Is /
+// errors.As de Go.
 //   - P2pServiceException: el propio servicio no está (no arrancado,
 //     detenido, o se cayó). También cuenta como GolangException, así que
 //     captúrala antes.
@@ -42,9 +49,11 @@ import 'package:p2p_ffi/go/boxo/files.dart' as files;
 import 'package:p2p_ffi/go/boxo/path.dart' as path;
 import 'package:p2p_ffi/go/cid.dart' as cid;
 import 'package:p2p_ffi/go/context.dart' as context;
+import 'package:p2p_ffi/go/io/fs.dart' as fs;
 import 'package:p2p_ffi/go/kubo/core/commands.dart' as commands;
 import 'package:p2p_ffi/go/kubo/core/coreapi.dart' as coreapi;
 import 'package:p2p_ffi/go/multicodec.dart' as multicodec;
+import 'package:p2p_ffi/go/os.dart' as os;
 import 'package:p2p_ffi/p2p_ffi.dart';
 // ignore: implementation_imports
 import 'package:p2p_ffi/src/runtime.dart' show $callSync;
@@ -100,8 +109,10 @@ Future<void> main() async {
         return 'P2pServiceException (el servicio): ${brief(e)}';
       } on GolangNotFoundException catch (e) {
         return 'GolangNotFoundException: ${brief(e)}';
+      } on fs.PathError catch (e) {
+        return 'fs.PathError: op "${e.op}", errno ${e.errno}';
       } on GolangException catch (e) {
-        return 'GolangException: ${brief(e)}';
+        return '${className(e)}: ${brief(e)}';
       }
     }
 
@@ -112,6 +123,20 @@ Future<void> main() async {
         '${await kindOf(() => n.blockstore.get(bg, cid.decode(nowhere.value.substring(6))))}');
     say('  un CID que no lo es → '
         '${await kindOf(() async => cid.decode('not-a-cid'))}');
+    say('  un archivo que no existe (os.open) → '
+        '${await kindOf(() async => os.open('${tmp.path}/nope.bin'))}');
+
+    //    La cadena de un error: lo que añadió cada capa, hasta la causa.
+    try {
+      os.open('${tmp.path}/nope.bin');
+    } on GolangException catch (e) {
+      say('  la cadena de un error de os.open, de fuera hacia dentro:');
+      for (final t in e.errTexts) {
+        say('    - ${t.replaceAll(tmp.path, '<tmp>')}');
+      }
+      say('    la causa: "${e.errText}", errno ${e.errno}, lanzado como '
+          '${className(e)}');
+    }
 
     // 4. Una caída del servicio (SOLO PARA PRUEBAS: un gancho que hace panic
     //    en una goroutine de Go, como un bug dentro de kubo). Solo se cae el
@@ -158,3 +183,7 @@ Future<void> main() async {
     tmp.deleteSync(recursive: true);
   }
 }
+
+/// El nombre de la clase de una excepción de Go, con su paquete Go
+/// (`fs.ErrNotExist`, `GolangNotFoundException`): el principio de su toString.
+String className(Object e) => '$e'.split(': ').first;

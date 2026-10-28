@@ -1,5 +1,31 @@
 # Pendências do ipfs_ffi
 
+## Done (unreleased): typed Go errors
+
+The owner asked for real typed errors (a Dart class thrown per Go error) and, for the
+errors that are only text, the errno and the error texts in the `GolangException`
+classes; for the texts, the whole chain.
+
+- Collection, like the constants: the exported `error` variables and the exported types
+  implementing `error` (by value or pointer) of each package with a library; 228 classes.
+  Left out (API.md): generic types, names another class of the library has, and the seven
+  with a runtime class (`io.EOF`... keep `GolangEofException`...).
+- A sentinel is matched per link with `==` (guarded: a non-comparable dynamic type
+  panics), against all sentinels: `os.ErrNotExist` and `fs.ErrNotExist` are one value,
+  so a link gets both classes (a `switch` would give only the first, and
+  `on os.ErrNotExist` would never match). A type, by type switch (`*T`, and `T` when the
+  method is on the value); its fields that cross as values go along (`PathError.op`,
+  `path`); an `error` field is the next link.
+- The thrown class: the fixed sentinel's when there is one (compatibility), else the
+  outermost link with a class, else `GolangException`. Each link in `causes` is built
+  with its own text; the thrown one with the whole error.
+- errno: the raw `syscall.Errno` (Win32 on Windows, POSIX on linux/Android; "file not
+  found" is 2 on both).
+- Python on Windows writes CRLF: generator files touched by it went through `gofmt -w`.
+- Checked on Windows: `test/errors_test.dart` (4: a sentinel with two names, `PathError`
+  with fields and errno, a typed error without fields, text only), the whole suite,
+  go vet, go test (`TestErrDataChain`), gen -check, the 63 lessons.
+
 ## Done: the course, in three languages (0.26.0)
 
 The owner asked for better examples: a course for Dart developers who do not know IPFS,

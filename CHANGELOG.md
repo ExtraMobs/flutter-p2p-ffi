@@ -3,6 +3,29 @@
 Newest first. Measurements, findings and the reasoning behind each change are in
 [`TODO.md`](TODO.md); the full API, with what was left out and why, in [`API.md`](API.md).
 
+## Unreleased
+
+Typed Go errors.
+
+- **A class per Go error:** every exported error sentinel (`var ErrX = errors.New(...)`)
+  and error type of a package with a library is a `GolangException` subclass there
+  (228 of them: `fs.ErrNotExist`, `fs.PathError` with `op` and `path`,
+  `cid.ErrInvalidCid`, `mfs.ErrNotExist`, the `ipns`, `gateway`, `pubsub`... errors).
+  The host walks the error chain (`Unwrap`, `errors.Join`) and Dart throws the class of
+  the outermost link that has one; a value with two names (`os.ErrNotExist` is
+  `fs.ErrNotExist`) gets both classes. API.md lists them, and the ones left out.
+- **Every `GolangException`**, the text-only ones too: `errTexts` (the text of each link
+  of the chain, outside in), `errText` (the original cause), `errno` (the chain's
+  `syscall.Errno`), `causes` (the links with a class), `isA<T>()` / `find<T>()` (Go's
+  `errors.Is` / `errors.As`). The runtime's subclasses (`GolangEofException`...,
+  `P2pServiceException`) now `extend` it.
+- **Protocol** (WIRE.md): the `error` event carries the code, the message, the errno, the
+  chain's texts and the links with a class, with their fields; the class ids are in the
+  table hash.
+- **Generator:** `go/gen/errors.go` (collection, the Dart classes, `src/error_types.dart`,
+  `errClass` in `zz_generated.go`), written with `text/template`.
+- Lesson 19, in the three languages, shows them.
+
 ## 0.26.0
 
 The examples became a course, one lesson per question, in English, Brazilian Portuguese
