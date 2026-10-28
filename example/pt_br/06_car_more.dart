@@ -24,7 +24,7 @@
 // arquivo) e do prototype chooser dag-pb (para os blocos dag-pb serem
 // decodificados como nós UnixFS).
 //
-//   dart run example/pt/06_car_more.dart
+//   dart run example/pt_br/06_car_more.dart
 //
 // Próxima pergunta: "Fazer tudo isso à mão é muita pilha; um nó IPFS me dá a
 // pilha pronta, em disco?" → lição 07.

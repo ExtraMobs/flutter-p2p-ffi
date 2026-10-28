@@ -1,6 +1,6 @@
 # Aprender p2p_ffi, una pregunta a la vez
 
-[English](../README.md) · [Português](../pt/README.md) · **Español**
+[English](../en_us/README.md) · [Português](../pt_br/README.md) · **Español**
 
 Un curso para quien programa en Dart y nunca usó IPFS. Cada lección es un
 archivo ejecutable que responde una pregunta, dice qué necesita (las lecciones

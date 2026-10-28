@@ -99,7 +99,7 @@ are in the libraries of their Go packages
 
 | Path | What it covers |
 |---|---|
-| [`example/README.md`](example/README.md) | the course for Dart developers new to IPFS, one lesson per question (part A so far: the bridge, CIDs, blocks, CAR); in [Português](example/pt/README.md) and [Español](example/es/README.md) |
+| [`example/en_us/`](example/en_us/README.md) | the course for Dart developers new to IPFS, one lesson per question (part A so far: the bridge, CIDs, blocks, CAR); also in [Português (Brasil)](example/pt_br/README.md) and [Español](example/es/README.md) |
 | `example/01_init_repo.dart` … `example/08_chat.dart` | in the order kubo builds a node: init, add/get, pins and GC, online node, two nodes, IPNS and Dag, CAR, pubsub chat |
 | `example/09_commands_and_streams.dart` | the RPC commands and Dart `Stream`s step by step |
 | `example/10_mfs_low_level.dart`, `example/12_car_low_level.dart` | boxo MFS and go-car at the low level, with the equivalent Go |

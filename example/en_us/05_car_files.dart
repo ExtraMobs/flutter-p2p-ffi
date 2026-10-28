@@ -1,26 +1,27 @@
-// Lição 05 · Como levo blocos sem rede?
+// Lesson 05 · How do I carry blocks without a network?
 //
-// Pergunta: os meus blocos estão num blockstore (lições 03-04). Como mando um
-// DAG inteiro para outra máquina, ou o guardo num arquivo só, sem a rede do
-// IPFS?
+// Question: my blocks are in a blockstore (lessons 03-04). How do I send a
+// whole DAG to another machine, or keep it as one file, without IPFS
+// networking?
 //
-// Resposta: um arquivo CAR (Content-Addressed aRchive): um cabeçalho com as
-// raízes, depois os blocos um atrás do outro, cada um com o seu CID. Um CAR é
-// um blockstore num arquivo: gravado com o blockstore de leitura e escrita do
-// CAR, lido com o de só leitura, que se encaixa na mesma pilha da lição 03 no
-// lugar do blockstore em memória. Quem recebe não confia em nada: cada bloco é
-// conferido com o seu CID (lição 02). É o que o `ipfs dag export` grava, o que
-// os gateways servem com `?format=car` e o que o `ipfs dag import` lê.
+// Answer: a CAR file (Content-Addressed aRchive): a header naming the roots,
+// then the blocks one after the other, each with its CID. A CAR is a
+// blockstore in a file: written with the CAR's read-write blockstore, read
+// with its read-only one, which plugs into the same stack of lesson 03 in
+// place of the in-memory blockstore. Whoever receives it trusts nothing: each
+// block is checked against its CID (lesson 02). It is what `ipfs dag export`
+// writes, what gateways serve with `?format=car`, and what `ipfs dag import`
+// reads.
 //
-// Precisa de: lições 03-04 (o DAG de exemplo e a pilha). Para gravar um CAR:
-// as raízes na abertura (os CIDs por onde quem recebe deve começar) e todos os
-// blocos do DAG. Para extrair arquivos dele: um blockservice e um DAGService
-// sobre o CAR (offline, então todo bloco tem de estar no CAR).
+// Needs: lessons 03-04 (the sample DAG and the stack). To write a CAR: the
+// roots at open time (the CIDs the receiver should start from) and every
+// block of the DAG. To extract files from it: a blockservice and a DAGService
+// over the CAR (offline, so every block has to be in the CAR).
 //
-//   dart run example/pt/05_car_files.dart
+//   dart run example/en_us/05_car_files.dart
 //
-// Próxima pergunta: "CARv1, CARv2, índice, raízes... e se eu quiser só uma
-// parte do DAG, ou juntar dois CARs?" → lição 06.
+// Next question: "CARv1, CARv2, index, roots... and if I only want part of
+// the DAG, or to join two CARs?" → lesson 06.
 import 'dart:io';
 import 'dart:typed_data';
 
@@ -46,19 +47,19 @@ Future<void> main() async {
   try {
     final ctx = context.background();
     final s = await Sample.build(ctx);
-    say('a pasta de exemplo: ${s.root}');
+    say('the sample folder: ${s.root}');
 
-    // 1. Quais blocos: percorra o DAG a partir da raiz, o pai antes dos
-    //    filhos (a ordem em que o `ipfs dag export` grava). Cada Get pelo CID
-    //    de um link devolve o bloco sob aquele CID exato, codec incluído.
+    // 1. Which blocks: walk the DAG from the root, parent before children
+    //    (the order `ipfs dag export` writes). Each Get by the CID of a link
+    //    returns the block under that exact CID, codec included.
     Future<List<blocks.Block>> dagBlocks(cid.Cid c) async => [
           await s.store.get(ctx, c),
           for (final l in await ipld_format.getLinks(ctx, s.dag, c))
             ...await dagBlocks(l.cid!),
         ];
 
-    // 2. Gravar: abra o CAR com as raízes, ponha os blocos, finalize.
-    //    O Finalize grava o cabeçalho (CARv2) e um índice (lição 06).
+    // 2. Write: open the CAR with its roots, put the blocks, finalize.
+    //    Finalize writes the header (CARv2) and an index (lesson 06).
     //    Go:  rw, _ := blockstore.OpenReadWrite(out, []cid.Cid{root})
     //         rw.PutMany(ctx, blks); rw.Finalize()
     final out = '${tmp.path}/folder.car';
@@ -70,30 +71,30 @@ Future<void> main() async {
 
     final all = await dagBlocks(s.root);
     await writeCar(out, all);
-    say('\ngravei $out: ${all.length} blocos, ${File(out).lengthSync()} bytes');
+    say('\nwrote $out: ${all.length} blocks, ${File(out).lengthSync()} bytes');
 
-    // 3. Inspecionar: versão, raízes, quantos blocos, as raízes estão dentro.
-    //    O Reader mapeia o arquivo: feche-o sempre.
+    // 3. Inspect: version, roots, how many blocks, are the roots inside.
+    //    The Reader maps the file: always close it.
     //    Go:  r, _ := car.OpenReader(out); defer r.Close(); st, _ := r.Inspect(false)
     final r = car.openReader(out);
     try {
       final st = r.inspect(false);
-      say('CARv${r.version}, raízes ${r.roots()}, ${st.blockCount} blocos '
-          '(as raízes estão nele: ${st.rootsPresent})');
-      say('  por codec ${st.codecCounts} (0x70 dag-pb), tamanhos '
+      say('CARv${r.version}, roots ${r.roots()}, ${st.blockCount} blocks '
+          '(the roots are in it: ${st.rootsPresent})');
+      say('  by codec ${st.codecCounts} (0x70 dag-pb), sizes '
           '${st.minBlockLength}..${st.maxBlockLength} bytes');
     } finally {
       r.close();
     }
 
-    // 4. Listar os blocos na ordem do arquivo. O BlockReader confere o hash
-    //    de cada bloco ao ler; o fim é o io.EOF do Go.
+    // 4. List the blocks in file order. The BlockReader checks the hash of
+    //    each block as it reads; the end is Go's io.EOF.
     //    Go:  br, _ := car.NewBlockReader(f)
     //         for { b, err := br.Next(); if errors.Is(err, io.EOF) { break } }
     final f = os.open(out);
     try {
       final br = car.BlockReader(f);
-      say('\nos blocos no arquivo:');
+      say('\nblocks in the file:');
       while (true) {
         try {
           final b = br.next();
@@ -106,8 +107,8 @@ Future<void> main() async {
       f.close();
     }
 
-    // 5. O CAR como blockstore: pegar um bloco pelo CID (pelo índice), e
-    //    extrair os arquivos pondo-o debaixo da pilha da lição 04.
+    // 5. The CAR as a blockstore: Get one block by CID (through the index),
+    //    and extract the files by putting it under the stack of lesson 04.
     //    Go:  ro, _ := blockstore.OpenReadOnly(out); defer ro.Close()
     //         dag := merkledag.NewDAGService(blockservice.New(ro, offline.Exchange(ro)))
     //         nd, _ := dag.Get(ctx, root); f, _ := unixfile.NewUnixfsFile(ctx, dag, nd)
@@ -129,26 +130,25 @@ Future<void> main() async {
     final ro = car_blockstore.openReadOnly(out);
     try {
       final b = await ro.get(ctx, s.root);
-      say('\no bloco raiz, lido do CAR: ${b.rawData!.length} bytes');
+      say('\nthe root block, read from the CAR: ${b.rawData!.length} bytes');
     } finally {
       ro.close();
     }
     final dir = '${tmp.path}/extracted';
     await extract(out, dir);
     final back = File('$dir/data.bin').readAsBytesSync();
-    say('extraí para $dir: ${Directory(dir).listSync().length} entradas; '
-        'data.bin é igual: ${_same(back, s.data)}');
+    say('extracted to $dir: ${Directory(dir).listSync().length} entries; '
+        'data.bin is the same: ${_same(back, s.data)}');
 
-    say('\n== Erros comuns\n');
+    say('\n== Common mistakes\n');
     final notCar = '${tmp.path}/not_a_car.car';
     File(notCar).writeAsStringSync('{"this": "is not a CAR"}');
-    await mistake('abrir um arquivo que não é um CAR',
-        why: 'o go-car confere o cabeçalho e o recusa',
-        instead: 'trate o erro: um CAR que você recebe pode vir de qualquer '
-            'lugar',
+    await mistake('opening a file that is not a CAR',
+        why: 'go-car checks the header and rejects it',
+        instead: 'handle the error: a CAR you receive may come from anywhere',
         action: () => car.openReader(notCar).close());
 
-    // Um byte invertido perto do fim, nos dados de uma folha.
+    // One byte flipped near the end, in the data of a leaf.
     final good = File(out).readAsBytesSync();
     final corrupted = '${tmp.path}/corrupted.car';
     File(corrupted).writeAsBytesSync(
@@ -156,49 +156,48 @@ Future<void> main() async {
     String inspect(String path, bool check) {
       final r = car.openReader(path);
       try {
-        return '${r.inspect(check).blockCount} blocos, sem erro';
+        return '${r.inspect(check).blockCount} blocks, no error';
       } on GolangException catch (e) {
-        return 'erro: ${brief(e)}';
+        return 'error: ${brief(e)}';
       } finally {
         r.close();
       }
     }
 
-    await silentlyWrong('confiar num CAR porque o inspect(false) o contou',
-        why: 'o inspect(false) só lê a estrutura, não os hashes',
-        instead: 'inspect(true), o BlockReader ou o `ipfs dag import`, que '
-            'conferem cada bloco',
+    await silentlyWrong('trusting a CAR because inspect(false) counted it',
+        why: 'inspect(false) reads only the structure, not the hashes',
+        instead: 'inspect(true), the BlockReader or `ipfs dag import`, which '
+            'check every block',
         wrong: () => inspect(corrupted, false),
         right: () => inspect(corrupted, true));
 
     final unfinished = '${tmp.path}/unfinished.car';
     final rw = car_blockstore.openReadWrite(unfinished, [s.root]);
     await rw.put(ctx, await s.store.get(ctx, s.root));
-    await mistake('ler um CAR cujo gravador nunca foi finalizado',
-        why: 'o cabeçalho só é gravado pelo finalize()',
-        instead: 'finalize() ao terminar (ou discard() para desistir)',
+    await mistake('reading a CAR whose writer was never finalized',
+        why: 'the header is only written by finalize()',
+        instead: 'finalize() when done (or discard() to give up)',
         action: () => car.openReader(unfinished).close());
     rw.discard();
 
-    // Copiar "todos os blocos do blockstore" em vez de percorrer o DAG. Um
-    // blockstore guarda os blocos só pelo multihash: o AllKeysChan devolve
-    // cada um como um CIDv1 raw, sem o codec com que foi guardado.
+    // Copying "every block of the blockstore" instead of walking the DAG.
+    // A blockstore keys blocks by multihash only: AllKeysChan gives each
+    // one back as a raw CIDv1, without the codec it was stored under.
     String rootsInside(String path) {
       final r = car.openReader(path);
       try {
         final st = r.inspect(false);
-        return 'raízes no CAR: ${st.rootsPresent}, codecs ${st.codecCounts}';
+        return 'roots in the CAR: ${st.rootsPresent}, codecs ${st.codecCounts}';
       } finally {
         r.close();
       }
     }
 
     final byKeys = '${tmp.path}/by_keys.car';
-    await silentlyWrong('gravar um CAR a partir do blockstore.allKeysChan()',
-        why: 'o blockstore guarda multihashes, não CIDs: todo bloco volta '
-            'como raw (0x55), e a raiz dag-pb não é encontrada',
-        instead: 'percorra o DAG a partir da raiz (passo 1), ou use o '
-            '`ipfs dag export`',
+    await silentlyWrong('writing a CAR from blockstore.allKeysChan()',
+        why: 'the blockstore keeps multihashes, not CIDs: every block comes '
+            'back as raw (0x55), so the dag-pb root is not found',
+        instead: 'walk the DAG from the root (step 1), or `ipfs dag export`',
         wrong: () async {
           await writeCar(byKeys, [
             await for (final c in s.store.allKeysChan(ctx))
@@ -208,7 +207,7 @@ Future<void> main() async {
         },
         right: () => rootsInside(out));
 
-    // Um CAR sem a 2ª folha de data.bin.
+    // A CAR with the 2nd leaf of data.bin left out.
     final dataBin = (await s.dag.get(ctx, s.root)).links().first.cid!;
     final missing = (await s.dag.get(ctx, dataBin)).links()[1].cid!;
     final partial = '${tmp.path}/partial.car';
@@ -216,10 +215,10 @@ Future<void> main() async {
       for (final b in all)
         if (b.cid != missing) b,
     ]);
-    await mistake('extrair os arquivos de um CAR parcial',
-        why: 'offline, todo bloco tem de estar no CAR; um não está',
-        instead: 'confira antes o que o CAR tem (passos 3-4), ou importe-o '
-            'num nó que consiga buscar o resto (lição 16)',
+    await mistake('extracting the files of a partial CAR',
+        why: 'offline, every block must be in the CAR; one is not',
+        instead: 'check what the CAR has first (steps 3-4), or import it into '
+            'a node that can fetch the rest (lesson 16)',
         action: () => extract(partial, '${tmp.path}/out'));
   } finally {
     await P2pService.stop();

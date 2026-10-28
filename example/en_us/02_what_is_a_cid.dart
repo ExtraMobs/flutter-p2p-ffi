@@ -18,7 +18,7 @@
 // Needs: lesson 01 (the service). No repo, no network: a CID is pure
 // computation.
 //
-//   dart run example/02_what_is_a_cid.dart
+//   dart run example/en_us/02_what_is_a_cid.dart
 //
 // Next question: "A CID names some bytes; how does a whole file, too big for
 // one block, get a CID?" → lesson 03.

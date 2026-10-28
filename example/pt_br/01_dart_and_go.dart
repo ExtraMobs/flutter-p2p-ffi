@@ -18,7 +18,7 @@
 //
 // Precisa de: só o build. Sem repositório, sem rede.
 //
-//   dart run example/pt/01_dart_and_go.dart
+//   dart run example/pt_br/01_dart_and_go.dart
 //
 // Próxima pergunta: "O que é aquele CID que acabei de ver?" → lição 02.
 import 'dart:convert';

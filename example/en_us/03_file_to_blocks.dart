@@ -26,7 +26,7 @@
 //   chunker       cuts the bytes into chunks.
 //   importer      chunks → leaves → parents, written into the DAGService.
 //
-//   dart run example/03_file_to_blocks.dart
+//   dart run example/en_us/03_file_to_blocks.dart
 //
 // Next question: "How do I get my file back out of those blocks, and what
 // if one of them is missing?" → lesson 04.

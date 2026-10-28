@@ -23,7 +23,7 @@
 // CAR, the UnixFS layer (so a selector can walk by file names) and the
 // dag-pb prototype chooser (so dag-pb blocks are decoded as UnixFS nodes).
 //
-//   dart run example/06_car_more.dart
+//   dart run example/en_us/06_car_more.dart
 //
 // Next question: "Doing all of this by hand is a lot of stack; does an IPFS
 // node give me the stack ready, on disk?" → lesson 07.

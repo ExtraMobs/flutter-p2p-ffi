@@ -1,6 +1,6 @@
 # Aprendendo p2p_ffi, uma pergunta de cada vez
 
-[English](../README.md) · **Português** · [Español](../es/README.md)
+[English](../en_us/README.md) · **Português** · [Español](../es/README.md)
 
 Um curso para quem programa em Dart e nunca usou IPFS. Cada lição é um
 arquivo executável que responde uma pergunta, diz do que precisa (as lições
@@ -10,7 +10,7 @@ pergunta que ela levanta. Leia na ordem, ou vá direto à pergunta que você tem
 
 ```bash
 dart run tool/build.dart windows   # ou linux; uma vez, compila o p2p_host
-dart run example/pt/01_dart_and_go.dart
+dart run example/pt_br/01_dart_and_go.dart
 ```
 
 As lições escrevem com `say()` (em [`lesson.dart`](lesson.dart)): cada linha

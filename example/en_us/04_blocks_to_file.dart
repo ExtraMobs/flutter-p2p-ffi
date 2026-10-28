@@ -1,26 +1,26 @@
-// Lição 04 · Como leio de volta? E se faltar um bloco?
+// Lesson 04 · How do I read it back? And if a block is missing?
 //
-// Pergunta: a lição 03 transformou uma pasta em blocos sob um CID. Como
-// recupero os bytes de um arquivo, como `<cid-da-pasta>/data.bin` encontra o
-// arquivo, e o que acontece quando um dos blocos não está aqui?
+// Question: lesson 03 turned a folder into blocks under one CID. How do I get
+// the bytes of a file back, how does `<folder-cid>/data.bin` find the file,
+// and what happens when one of the blocks is not here?
 //
-// Resposta: ler é percorrer o DAG a partir da raiz: pegar o nó raiz, seguir os
-// links, pegar cada filho, até as folhas; o arquivo são as folhas em ordem. Um
-// nome dentro de uma pasta é só um link com esse nome. Todo "get" vai para o
-// blockservice: ele procura no blockstore e, se o bloco não estiver lá,
-// pergunta ao exchange. Com o exchange offline não há a quem perguntar, então
-// um bloco faltando é um erro; só os blocos do caminho que você lê são
-// necessários, o resto do DAG pode estar ausente.
+// Answer: reading walks the DAG from the root: get the root node, follow its
+// links, get each child, until the leaves; the file is the leaves in order.
+// A name inside a folder is just a link with that name. Every "get" goes
+// to the blockservice: it looks in the blockstore and, if the block is not
+// there, asks the exchange. With the offline exchange there is nobody to ask,
+// so a missing block is an error; only the blocks on the path you read are
+// needed, the rest of the DAG can be absent.
 //
-// Precisa de: lição 03 (a mesma pilha: datastore → blockstore → exchange
-// offline → blockservice → DAGService, e o importer para montar o exemplo).
-// Para ler um arquivo, o leitor UnixFS também precisa do DAGService, para
-// buscar os filhos.
+// Needs: lesson 03 (the same stack: datastore → blockstore → offline exchange
+// → blockservice → DAGService, and the importer to build the sample). To read
+// a file the UnixFS reader also needs the DAGService, to fetch the children.
 //
-//   dart run example/pt/04_blocks_to_file.dart
+//   dart run example/en_us/04_blocks_to_file.dart
 //
-// Próxima pergunta: "Posso levar esses blocos para outra máquina sem rede?"
-// → lição 05 (arquivos CAR). E "a quem o exchange perguntaria?" → lição 16.
+// Next question: "Can I take those blocks to another machine without a
+// network?" → lesson 05 (CAR files). And "who would the exchange ask?" →
+// lesson 16.
 import 'dart:convert';
 import 'dart:math';
 import 'dart:typed_data';
@@ -51,8 +51,8 @@ Future<void> main() async {
   try {
     final ctx = context.background();
 
-    // A pilha e o exemplo da lição 03: uma pasta com data.bin (600 000
-    // bytes, 3 folhas) e hello.txt (um bloco).
+    // The stack and the sample of lesson 03: a folder with data.bin
+    // (600 000 bytes, 3 leaves) and hello.txt (one block).
     final ds = sync.mutexWrap(datastore.MapDatastore());
     final bs = blockstore.Blockstore(ds);
     final dag =
@@ -70,11 +70,11 @@ Future<void> main() async {
     final folderNode = dir.getNode();
     await dag.add(ctx, folderNode);
     final root = folderNode.cid();
-    say('a pasta: $root');
+    say('the folder: $root');
 
-    // 1. Um nome dentro de uma pasta é um link: pegue o nó da pasta, ache o
-    //    link pelo nome, pegue o nó para onde ele aponta. É o que faz
-    //    resolver o caminho /ipfs/<raiz>/data.bin.
+    // 1. A name inside a folder is a link: get the folder node, find the
+    //    link by name, get the node it points to. This is what resolving
+    //    the path /ipfs/<root>/data.bin does.
     //    Go:  nd, _ := dag.Get(ctx, root)
     //         lnk, _, _ := nd.ResolveLink([]string{"data.bin"})
     Future<ipld_format.Node> resolve(String name) async {
@@ -83,8 +83,8 @@ Future<void> main() async {
       return dag.get(ctx, link.cid!);
     }
 
-    // 2. Ler um arquivo: o leitor UnixFS percorre a árvore dele e junta as
-    //    folhas, pegando cada bloco pelo DAGService à medida que avança.
+    // 2. Reading a file: the UnixFS reader walks its tree and joins the
+    //    leaves, getting each block through the DAGService as it goes.
     //    Go:  f, _ := unixfile.NewUnixfsFile(ctx, dag, nd)
     //         data, _ := io.ReadAll(files.ToFile(f))
     Future<Uint8List> read(String name) async {
@@ -93,51 +93,50 @@ Future<void> main() async {
     }
 
     final back = await read('data.bin');
-    say('\nli data.bin: ${back.length} bytes, iguais aos gravados: '
+    say('\nread data.bin: ${back.length} bytes, the same as written: '
         '${_same(back, data)}');
-    say('li hello.txt: "${utf8.decode(await read('hello.txt')).trim()}"');
+    say('read hello.txt: "${utf8.decode(await read('hello.txt')).trim()}"');
 
-    // 3. Os blocos de que uma leitura precisa: o caminho da raiz às folhas.
+    // 3. The blocks a read needs: the path from the root to the leaves.
     Future<void> walk(cid.Cid c, String name, String indent) async {
       say('$indent$c  ${await bs.getSize(ctx, c)} bytes  $name');
       for (final l in await ipld_format.getLinks(ctx, dag, c)) {
-        await walk(l.cid!, l.name.isEmpty ? '(folha)' : l.name, '$indent  ');
+        await walk(l.cid!, l.name.isEmpty ? '(leaf)' : l.name, '$indent  ');
       }
     }
 
-    say('\no DAG inteiro, bloco a bloco:');
-    await walk(root, '(pasta)', '  ');
+    say('\nthe whole DAG, block by block:');
+    await walk(root, '(folder)', '  ');
 
-    // 4. Tire uma folha de data.bin, como se ela nunca tivesse chegado.
+    // 4. Take away one leaf of data.bin, as if it never arrived.
     final dataNode = await resolve('data.bin');
     final leaf = dataNode.links()[1].cid!;
     final saved = await bs.get(ctx, leaf);
     await bs.deleteBlock(ctx, leaf);
-    say('\napaguei a 2ª folha de data.bin: $leaf');
-    say('  hello.txt ainda se lê (outro galho): '
+    say('\ndeleted the 2nd leaf of data.bin: $leaf');
+    say('  hello.txt still reads (another branch): '
         '"${utf8.decode(await read('hello.txt')).trim()}"');
-    await mistake('ler data.bin com uma folha faltando',
-        why: 'o blockstore não tem o bloco e o exchange offline não tem a '
-            'quem perguntar',
-        instead: 'traga o bloco (um CAR, lição 05) ou use um exchange que '
-            'busca de outros peers (bitswap, lição 16)',
+    await mistake('reading data.bin with a leaf missing',
+        why: 'the blockstore does not have the block and the offline '
+            'exchange has nobody to ask',
+        instead: 'bring the block (a CAR, lesson 05) or use an exchange that '
+            'fetches from peers (bitswap, lesson 16)',
         action: () => read('data.bin'));
 
-    // 5. Devolva o bloco (aqui, a cópia guardada acima): volta a ler.
-    //    O bloco pode vir de qualquer lugar; o CID prova que é o certo.
+    // 5. Put the block back (here, the copy saved above): it reads again.
+    //    The block came from anywhere; its CID proves it is the right one.
     final again = leaf.prefix().sum(saved.rawData!).equals(leaf);
     await bs.put(ctx, saved);
-    say('devolvi a folha (os bytes batem com o CID: $again): '
-        'data.bin lê ${(await read('data.bin')).length} bytes');
+    say('put the leaf back (its bytes hash to its CID: $again): '
+        'data.bin reads ${(await read('data.bin')).length} bytes');
 
-    say('\n== Erros comuns\n');
+    say('\n== Common mistakes\n');
     final never = cid
         .newPrefixV1(multicodec.raw, multicodec.sha2256)
         .sum(utf8.encode('never stored'));
-    await mistake('pegar um CID que nunca foi guardado',
-        why: 'offline, "não está aqui" é definitivo: não há mais a quem '
-            'perguntar',
-        instead: 'confira bs.has(ctx, c) antes, ou fique online (lição 16)',
+    await mistake('getting a CID that was never stored',
+        why: 'offline, "not here" is final: there is no one else to ask',
+        instead: 'check bs.has(ctx, c) first, or go online (lesson 16)',
         action: () => dag.get(ctx, never));
   } finally {
     await P2pService.stop();

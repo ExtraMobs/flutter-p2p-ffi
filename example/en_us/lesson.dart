@@ -1,13 +1,12 @@
-// Compartilhado pelas lições (o roteiro está em example/pt/README.md): o DAG
-// de exemplo das lições 03-06, os auxiliares que executam um erro comum de
-// propósito e mostram o que acontece de verdade, e say(), que escreve a saída
-// da lição.
+// Shared by the lessons (the roadmap is in example/en_us/README.md): the sample DAG
+// of lessons 03-06, the helpers that run a common mistake on purpose and show
+// what really happens, and say(), which writes the lesson's output.
 library;
 
 import 'dart:async';
-import 'dart:convert';
 import 'dart:developer' as dev;
 import 'dart:io';
+import 'dart:convert';
 import 'dart:math';
 import 'dart:typed_data';
 
@@ -28,23 +27,23 @@ import 'package:p2p_ffi/go/datastore/sync.dart' as sync;
 import 'package:p2p_ffi/go/ipld_format.dart' as ipld_format;
 import 'package:p2p_ffi/p2p_ffi.dart';
 
-/// O exemplo das lições 03 e 04, montado em memória com a mesma pilha
-/// (datastore → blockstore → exchange offline → blockservice → DAGService):
-/// uma pasta com `data.bin` (600 000 bytes, 3 folhas de 256 KiB) e
+/// The sample of lessons 03 and 04, built in memory with the same stack
+/// (datastore → blockstore → offline exchange → blockservice → DAGService):
+/// a folder with `data.bin` (600 000 bytes, 3 leaves of 256 KiB) and
 /// `hello.txt`.
 final class Sample {
   Sample._(this.store, this.dag, this.root, this.data);
 
-  /// Onde os blocos estão.
+  /// Where the blocks are.
   final blockstore.Blockstore store;
 
-  /// O DAGService sobre [store].
+  /// The DAGService over [store].
   final ipld_format.DagService dag;
 
-  /// O CID da pasta.
+  /// The folder's CID.
   final cid.Cid root;
 
-  /// Os bytes de `data.bin`.
+  /// The bytes of `data.bin`.
   final Uint8List data;
 
   static Future<Sample> build(context.Context ctx) async {
@@ -66,14 +65,14 @@ final class Sample {
     return Sample._(bs, dag, folder.cid(), data);
   }
 
-  /// Os blocos do DAG abaixo de [c], o pai antes dos filhos (lição 05).
+  /// The blocks of the DAG under [c], parent before children (lesson 05).
   Future<List<blocks.Block>> blocksOf(context.Context ctx, cid.Cid c) async => [
         await store.get(ctx, c),
         for (final l in await ipld_format.getLinks(ctx, dag, c))
           ...await blocksOf(ctx, l.cid!),
       ];
 
-  /// Grava o exemplo inteiro como um CARv2 em [path] (lição 05).
+  /// Writes the whole sample as a CARv2 at [path] (lesson 05).
   Future<void> writeCar(context.Context ctx, String path) async {
     final rw = car_blockstore.openReadWrite(path, [root]);
     await rw.putMany(ctx, await blocksOf(ctx, root));
@@ -81,9 +80,9 @@ final class Sample {
   }
 }
 
-/// Um erro comum: executa [action], que tem de falhar, e mostra o que foi
-/// feito, o erro, o porquê e o que fazer no lugar. Se não falhar, a lição
-/// para: o comportamento que ela ensina mudou.
+/// A common mistake: runs [action], which has to fail, and prints what was
+/// done, the error, why and what to do instead. If it does not fail, the
+/// lesson stops: the behavior it teaches changed.
 Future<void> mistake(String done,
     {required String why,
     required String instead,
@@ -92,17 +91,17 @@ Future<void> mistake(String done,
     await action();
   } on Object catch (e) {
     say('✗ $done\n'
-        '    erro:       ${e.runtimeType}: ${brief(e)}\n'
-        '    por quê:    $why\n'
-        '    no lugar:   $instead\n');
+        '    error:   ${e.runtimeType}: ${brief(e)}\n'
+        '    why:     $why\n'
+        '    instead: $instead\n');
     return;
   }
-  throw StateError('esperava um erro e não houve nenhum: "$done" '
-      '(o comportamento que esta lição ensina mudou)');
+  throw StateError('expected an error and got none: "$done" '
+      '(the behavior this lesson teaches changed)');
 }
 
-/// Um erro silencioso: nada falha, mas o resultado está errado. Mostra o
-/// resultado errado ao lado do certo; se os dois forem iguais, a lição para.
+/// A silent mistake: nothing fails, but the result is wrong. Prints the wrong
+/// result next to the right one; if both are the same, the lesson stops.
 Future<void> silentlyWrong(String done,
     {required String why,
     required String instead,
@@ -110,29 +109,29 @@ Future<void> silentlyWrong(String done,
     required FutureOr<Object?> Function() right}) async {
   final w = '${await wrong()}', r = '${await right()}';
   if (w == r) {
-    throw StateError('"$done" deu o mesmo que o jeito certo ($w): '
-        'o comportamento que esta lição ensina mudou');
+    throw StateError('"$done" gave the same as the right way ($w): '
+        'the behavior this lesson teaches changed');
   }
-  say('✗ $done (sem erro nenhum)\n'
-      '    resultado:  $w\n'
-      '    o certo:    $r\n'
-      '    por quê:    $why\n'
-      '    no lugar:   $instead\n');
+  say('✗ $done (no error at all)\n'
+      '    result:    $w\n'
+      '    right way: $r\n'
+      '    why:       $why\n'
+      '    instead:   $instead\n');
 }
 
-/// A primeira linha da mensagem de [e], encurtada.
+/// The first line of [e]'s message, shortened.
 String brief(Object e) {
   final m = (e is GolangException ? e.message : '$e').split('\n').first;
   return m.length > 160 ? '${m.substring(0, 157)}...' : m;
 }
 
-/// Bytes em hexadecimal (`1220ab...`), para mostrar hashes e CIDs.
+/// Bytes as hex (`1220ab...`), for showing hashes and CIDs.
 String hex(List<int> bytes) =>
     bytes.map((b) => b.toRadixString(16).padLeft(2, '0')).join();
 
-/// Escreve uma linha da lição: no log do `dart:developer`, com o nome do
-/// arquivo da lição (filtrável no DevTools e no console de depuração da IDE),
-/// e no terminal, onde o `dart run` não mostra esse log.
+/// Writes a line of the lesson: to `dart:developer`'s log, named after the
+/// lesson file (filterable in DevTools and in the IDE's debug console), and
+/// to the terminal, where `dart run` does not show that log.
 void say(Object? message) {
   dev.log('$message', name: Platform.script.pathSegments.last);
   print(message);

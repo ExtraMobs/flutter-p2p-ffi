@@ -18,7 +18,7 @@
 // Precisa de: lição 01 (o serviço). Sem repositório, sem rede: um CID é só
 // cálculo.
 //
-//   dart run example/pt/02_what_is_a_cid.dart
+//   dart run example/pt_br/02_what_is_a_cid.dart
 //
 // Próxima pergunta: "Um CID dá nome a alguns bytes; como um arquivo inteiro,
 // grande demais para um bloco, ganha um CID?" → lição 03.

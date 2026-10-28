@@ -24,7 +24,7 @@
 //   chunker       corta os bytes em pedaços.
 //   importer      pedaços → folhas → pais, gravados no DAGService.
 //
-//   dart run example/pt/03_file_to_blocks.dart
+//   dart run example/pt_br/03_file_to_blocks.dart
 //
 // Próxima pergunta: "Como recupero o meu arquivo desses blocos, e se faltar
 // um deles?" → lição 04.
