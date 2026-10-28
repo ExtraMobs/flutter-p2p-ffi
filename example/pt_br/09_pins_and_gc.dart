@@ -46,11 +46,16 @@ Future<void> main() async {
     Future<path.Path> add(String text,
             [List<options.UnixfsAddOption> o = const []]) =>
         api.unixfs().add(ctx, files.newBytesFile(utf8.encode(text)), o);
+    // Não encontrado é o ErrNotFound do ipld, lançado como
+    // GolangNotFoundException; qualquer outro erro (um store quebrado, um nó
+    // fechado) sobe.
+    //    Go:  _, err := api.Block().Stat(ctx, p)
+    //         return !ipld.IsNotFound(err)
     Future<bool> here(path.Path p) async {
       try {
         await api.block().stat(ctx, p);
         return true;
-      } on GolangException {
+      } on GolangNotFoundException {
         return false;
       }
     }

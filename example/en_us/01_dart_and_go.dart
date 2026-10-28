@@ -12,7 +12,8 @@
 //     it lives on without Go;
 //   - a handle (a datastore, a node, an open file): the object stays in Go,
 //     Dart holds a number that points to it;
-//   - an error: Go's `error` is thrown as a GolangException.
+//   - an error: Go's `error` is thrown as a GolangException, or as the
+//     subclass of that Go error when it has one (`cid.ErrInvalidCid`...).
 // A Go function that takes a `context.Context` may block (disk, network), so
 // in Dart it returns a Future; the others answer right away.
 //
@@ -51,6 +52,7 @@ Future<void> main() async {
   final c = cid.decode('bafkqaaa');
   say('\na value: ${c.runtimeType} "$c" (just its text, kept in Dart)');
   // A method of a value is still Go: the text goes there and the answer back.
+  //    Go:  c.Version()
   say('  its version, computed by Go: ${c.version()}');
 
   // 3. A handle: the map lives in Go; Dart only holds its number.
@@ -60,21 +62,35 @@ Future<void> main() async {
 
   // 4. A function with a context returns a Future: it runs in a goroutine of
   //    the p2p_host while Dart's event loop goes on.
-  //    Go:  bs := blockstore.NewBlockstore(ds)
-  //         err := bs.Put(ctx, blocks.NewBlock(data))
+  //    Go:  ctx := context.Background()
   final ctx = context.background();
+  //    Go:  bs := blockstore.NewBlockstore(ds)
   final bs = blockstore.Blockstore(ds);
+  //    Go:  data := []byte("hello")
   final data = utf8.encode('hello');
-  final block = blocks.Block(
-      cid: cid.newPrefixV1(cid.raw, multihash.sha2256).sum(data),
-      rawData: data);
+  // Sum is a checksum, not an addition: it hashes data with sha2-256 and
+  // wraps the hash in a CIDv1 of codec raw. The CID is the block's name,
+  // computed from its content.
+  //    Go:  key, err := cid.NewPrefixV1(cid.Raw, mh.SHA2_256).Sum(data)
+  final key = cid.newPrefixV1(cid.raw, multihash.sha2256).sum(data);
+  // Dart only: blocks.Block is a Go interface (Cid(), RawData()...), which
+  // has no constructor. Dart builds it from what its methods return, and Go
+  // gets a value that answers them. In Go you would call
+  // blocks.NewBlockWithCid(data, key), which is not exposed.
+  final block = blocks.Block(cid: key, rawData: data);
+  //    Go:  err = bs.Put(ctx, block)
   await bs.put(ctx, block);
-  say('\nasync: put a block, has it: ${await bs.has(ctx, block.cid!)}');
+  //    Go:  has, err := bs.Has(ctx, key)
+  say('\nasync: put a block, has it: ${await bs.has(ctx, key)}');
 
-  // 5. A Go error is an exception, with Go's message.
+  // 5. A Go error is an exception, with Go's message. Each exported Go error
+  //    has its own class (here cid.ErrInvalidCid), so you catch just it.
+  //    Go:  _, err := cid.Decode("not-a-cid")
+  //         errors.Is(err, cid.ErrInvalidCid{})
   await mistake('decoding a CID from text that is not one',
       why: 'Go returned an error; in Dart it is thrown (no `err != nil`)',
-      instead: 'catch GolangException where bad input is expected',
+      instead: 'catch the class of the error you expect, here '
+          '`on cid.ErrInvalidCid` (lesson 19)',
       action: () => cid.decode('not-a-cid'));
 
   // 6. Done with a handle: release it, so Go can free the object now

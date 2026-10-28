@@ -34,8 +34,10 @@ import 'package:p2p_ffi/go/cid.dart' as cid;
 import 'package:p2p_ffi/go/context.dart' as context;
 import 'package:p2p_ffi/go/libp2p.dart' as libp2p;
 import 'package:p2p_ffi/go/libp2p/core/host.dart' as host;
+import 'package:p2p_ffi/go/libp2p/core/routing.dart' as routing;
 import 'package:p2p_ffi/go/libp2p/p2p/discovery/routing.dart' as discovery;
 import 'package:p2p_ffi/go/libp2p_kad_dht.dart' as dht;
+import 'package:p2p_ffi/go/libp2p_kbucket.dart' as kbucket;
 import 'package:p2p_ffi/go/multicodec.dart' as multicodec;
 import 'package:p2p_ffi/go/multihash.dart' as multihash;
 import 'package:p2p_ffi/p2p_ffi.dart';
@@ -83,10 +85,14 @@ Future<void> main() async {
       for (var i = 1;; i++) {
         try {
           return await dhts[4].findPeer(ctx, target);
-        } on GolangException {
-          // Num DHT tão pequeno uma busca pode falhar enquanto as tabelas enchem:
-          // tente de novo.
-          if (i == 5) rethrow;
+        } on GolangException catch (e) {
+          // Num DHT tão pequeno uma busca pode falhar enquanto as tabelas
+          // enchem (kb.ErrLookupFailure, routing.ErrNotFound): tente de novo
+          // só nesses casos.
+          if (i == 5 ||
+              (e is! kbucket.ErrLookupFailure && e is! routing.ErrNotFound)) {
+            rethrow;
+          }
           await Future<void>.delayed(const Duration(milliseconds: 300));
         }
       }

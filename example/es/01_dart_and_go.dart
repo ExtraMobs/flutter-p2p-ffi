@@ -12,7 +12,8 @@
 //     Dart, sigue existiendo sin Go;
 //   - un handle (un datastore, un nodo, un archivo abierto): el objeto se
 //     queda en Go, y Dart guarda un número que apunta a él;
-//   - un error: el `error` de Go se lanza como GolangException.
+//   - un error: el `error` de Go se lanza como GolangException, o como la
+//     subclase de ese error Go cuando tiene una (`cid.ErrInvalidCid`...).
 // Una función Go que recibe un `context.Context` puede bloquear (disco, red),
 // así que en Dart devuelve un Future; las demás responden enseguida.
 //
@@ -51,6 +52,7 @@ Future<void> main() async {
   final c = cid.decode('bafkqaaa');
   say('\nun valor: ${c.runtimeType} "$c" (solo su texto, guardado en Dart)');
   // Un método de un valor sigue siendo Go: el texto va y la respuesta vuelve.
+  //    Go:  c.Version()
   say('  su versión, calculada por Go: ${c.version()}');
 
   // 3. Un handle: el mapa vive en Go; Dart solo guarda su número.
@@ -60,22 +62,37 @@ Future<void> main() async {
 
   // 4. Una función con context devuelve un Future: se ejecuta en una
   //    goroutine del p2p_host mientras el event loop de Dart sigue.
-  //    Go:  bs := blockstore.NewBlockstore(ds)
-  //         err := bs.Put(ctx, blocks.NewBlock(data))
+  //    Go:  ctx := context.Background()
   final ctx = context.background();
+  //    Go:  bs := blockstore.NewBlockstore(ds)
   final bs = blockstore.Blockstore(ds);
+  //    Go:  data := []byte("hello")
   final data = utf8.encode('hello');
-  final block = blocks.Block(
-      cid: cid.newPrefixV1(cid.raw, multihash.sha2256).sum(data),
-      rawData: data);
+  // Sum es un checksum, no una suma: calcula el hash sha2-256 de data y lo
+  // envuelve en un CIDv1 de codec raw. El CID es el nombre del bloque,
+  // calculado a partir de su contenido.
+  //    Go:  key, err := cid.NewPrefixV1(cid.Raw, mh.SHA2_256).Sum(data)
+  final key = cid.newPrefixV1(cid.raw, multihash.sha2256).sum(data);
+  // Solo en Dart: blocks.Block es una interfaz Go (Cid(), RawData()...), que
+  // no tiene constructor. Dart la arma con lo que devuelven sus métodos, y Go
+  // recibe un valor que los responde. En Go llamarías a
+  // blocks.NewBlockWithCid(data, key), que no está expuesta.
+  final block = blocks.Block(cid: key, rawData: data);
+  //    Go:  err = bs.Put(ctx, block)
   await bs.put(ctx, block);
+  //    Go:  has, err := bs.Has(ctx, key)
   say('\nasíncrono: guardé un bloque, está ahí: '
-      '${await bs.has(ctx, block.cid!)}');
+      '${await bs.has(ctx, key)}');
 
-  // 5. Un error de Go es una excepción, con el mensaje de Go.
+  // 5. Un error de Go es una excepción, con el mensaje de Go. Cada error Go
+  //    exportado tiene su clase (aquí cid.ErrInvalidCid), así que capturas
+  //    solo ese.
+  //    Go:  _, err := cid.Decode("not-a-cid")
+  //         errors.Is(err, cid.ErrInvalidCid{})
   await mistake('decodificar un CID a partir de un texto que no lo es',
       why: 'Go devolvió un error; en Dart se lanza (sin `err != nil`)',
-      instead: 'captura GolangException donde se espera una entrada mala',
+      instead: 'captura la clase del error que esperas, aquí '
+          '`on cid.ErrInvalidCid` (lección 19)',
       action: () => cid.decode('not-a-cid'));
 
   // 6. Terminaste con un handle: libéralo, para que Go suelte el objeto ya
