@@ -1,0 +1,153 @@
+// Lição 04 · Como leio de volta? E se faltar um bloco?
+//
+// Pergunta: a lição 03 transformou uma pasta em blocos sob um CID. Como
+// recupero os bytes de um arquivo, como `<cid-da-pasta>/data.bin` encontra o
+// arquivo, e o que acontece quando um dos blocos não está aqui?
+//
+// Resposta: ler é percorrer o DAG a partir da raiz: pegar o nó raiz, seguir os
+// links, pegar cada filho, até as folhas; o arquivo são as folhas em ordem. Um
+// nome dentro de uma pasta é só um link com esse nome. Todo "get" vai para o
+// blockservice: ele procura no blockstore e, se o bloco não estiver lá,
+// pergunta ao exchange. Com o exchange offline não há a quem perguntar, então
+// um bloco faltando é um erro; só os blocos do caminho que você lê são
+// necessários, o resto do DAG pode estar ausente.
+//
+// Precisa de: lição 03 (a mesma pilha: datastore → blockstore → exchange
+// offline → blockservice → DAGService, e o importer para montar o exemplo).
+// Para ler um arquivo, o leitor UnixFS também precisa do DAGService, para
+// buscar os filhos.
+//
+//   dart run example/pt/04_blocks_to_file.dart
+//
+// Próxima pergunta: "Posso levar esses blocos para outra máquina sem rede?"
+// → lição 05 (arquivos CAR). E "a quem o exchange perguntaria?" → lição 16.
+import 'dart:convert';
+import 'dart:math';
+import 'dart:typed_data';
+
+import 'package:p2p_ffi/go/boxo/blockservice.dart' as blockservice;
+import 'package:p2p_ffi/go/boxo/blockstore.dart' as blockstore;
+import 'package:p2p_ffi/go/boxo/chunker.dart' as chunker;
+import 'package:p2p_ffi/go/boxo/exchange/offline.dart' as offline;
+import 'package:p2p_ffi/go/boxo/files.dart' as files;
+import 'package:p2p_ffi/go/boxo/ipld/merkledag.dart' as merkledag;
+import 'package:p2p_ffi/go/boxo/ipld/unixfs/file.dart' as unixfs_file;
+import 'package:p2p_ffi/go/boxo/ipld/unixfs/importer.dart' as importer;
+import 'package:p2p_ffi/go/boxo/ipld/unixfs/io.dart' as unixfs_io;
+import 'package:p2p_ffi/go/bytes.dart' as bytes;
+import 'package:p2p_ffi/go/cid.dart' as cid;
+import 'package:p2p_ffi/go/context.dart' as context;
+import 'package:p2p_ffi/go/datastore.dart' as datastore;
+import 'package:p2p_ffi/go/datastore/sync.dart' as sync;
+import 'package:p2p_ffi/go/io.dart' as io;
+import 'package:p2p_ffi/go/ipld_format.dart' as ipld_format;
+import 'package:p2p_ffi/go/multicodec.dart' as multicodec;
+import 'package:p2p_ffi/p2p_ffi.dart';
+
+import 'lesson.dart';
+
+Future<void> main() async {
+  await P2pService.start();
+  try {
+    final ctx = context.background();
+
+    // A pilha e o exemplo da lição 03: uma pasta com data.bin (600 000
+    // bytes, 3 folhas) e hello.txt (um bloco).
+    final ds = sync.mutexWrap(datastore.MapDatastore());
+    final bs = blockstore.Blockstore(ds);
+    final dag =
+        merkledag.newDagService(blockservice.new$(bs, offline.exchange(bs)));
+    ipld_format.Node importBytes(List<int> data) => importer.buildDagFromReader(
+        dag,
+        chunker.newSizeSplitter(
+            bytes.Buffer(Uint8List.fromList(data)), 256 * 1024));
+    final rnd = Random(42);
+    final data =
+        Uint8List.fromList(List.generate(600000, (_) => rnd.nextInt(256)));
+    final dir = unixfs_io.Directory(dag);
+    await dir.addChild(ctx, 'data.bin', importBytes(data));
+    await dir.addChild(ctx, 'hello.txt', importBytes(utf8.encode('hello\n')));
+    final folderNode = dir.getNode();
+    await dag.add(ctx, folderNode);
+    final root = folderNode.cid();
+    say('a pasta: $root');
+
+    // 1. Um nome dentro de uma pasta é um link: pegue o nó da pasta, ache o
+    //    link pelo nome, pegue o nó para onde ele aponta. É o que faz
+    //    resolver o caminho /ipfs/<raiz>/data.bin.
+    //    Go:  nd, _ := dag.Get(ctx, root)
+    //         lnk, _, _ := nd.ResolveLink([]string{"data.bin"})
+    Future<ipld_format.Node> resolve(String name) async {
+      final folder = await dag.get(ctx, root);
+      final link = folder.links().firstWhere((l) => l.name == name);
+      return dag.get(ctx, link.cid!);
+    }
+
+    // 2. Ler um arquivo: o leitor UnixFS percorre a árvore dele e junta as
+    //    folhas, pegando cada bloco pelo DAGService à medida que avança.
+    //    Go:  f, _ := unixfile.NewUnixfsFile(ctx, dag, nd)
+    //         data, _ := io.ReadAll(files.ToFile(f))
+    Future<Uint8List> read(String name) async {
+      final f = await unixfs_file.newUnixfsFile(ctx, dag, await resolve(name));
+      return io.readAll(files.toFile(f));
+    }
+
+    final back = await read('data.bin');
+    say('\nli data.bin: ${back.length} bytes, iguais aos gravados: '
+        '${_same(back, data)}');
+    say('li hello.txt: "${utf8.decode(await read('hello.txt')).trim()}"');
+
+    // 3. Os blocos de que uma leitura precisa: o caminho da raiz às folhas.
+    Future<void> walk(cid.Cid c, String name, String indent) async {
+      say('$indent$c  ${await bs.getSize(ctx, c)} bytes  $name');
+      for (final l in await ipld_format.getLinks(ctx, dag, c)) {
+        await walk(l.cid!, l.name.isEmpty ? '(folha)' : l.name, '$indent  ');
+      }
+    }
+
+    say('\no DAG inteiro, bloco a bloco:');
+    await walk(root, '(pasta)', '  ');
+
+    // 4. Tire uma folha de data.bin, como se ela nunca tivesse chegado.
+    final dataNode = await resolve('data.bin');
+    final leaf = dataNode.links()[1].cid!;
+    final saved = await bs.get(ctx, leaf);
+    await bs.deleteBlock(ctx, leaf);
+    say('\napaguei a 2ª folha de data.bin: $leaf');
+    say('  hello.txt ainda se lê (outro galho): '
+        '"${utf8.decode(await read('hello.txt')).trim()}"');
+    await mistake('ler data.bin com uma folha faltando',
+        why: 'o blockstore não tem o bloco e o exchange offline não tem a '
+            'quem perguntar',
+        instead: 'traga o bloco (um CAR, lição 05) ou use um exchange que '
+            'busca de outros peers (bitswap, lição 16)',
+        action: () => read('data.bin'));
+
+    // 5. Devolva o bloco (aqui, a cópia guardada acima): volta a ler.
+    //    O bloco pode vir de qualquer lugar; o CID prova que é o certo.
+    final again = leaf.prefix().sum(saved.rawData!).equals(leaf);
+    await bs.put(ctx, saved);
+    say('devolvi a folha (os bytes batem com o CID: $again): '
+        'data.bin lê ${(await read('data.bin')).length} bytes');
+
+    say('\n== Erros comuns\n');
+    final never = cid
+        .newPrefixV1(multicodec.raw, multicodec.sha2256)
+        .sum(utf8.encode('never stored'));
+    await mistake('pegar um CID que nunca foi guardado',
+        why: 'offline, "não está aqui" é definitivo: não há mais a quem '
+            'perguntar',
+        instead: 'confira bs.has(ctx, c) antes, ou fique online (lição 16)',
+        action: () => dag.get(ctx, never));
+  } finally {
+    await P2pService.stop();
+  }
+}
+
+bool _same(Uint8List a, Uint8List b) {
+  if (a.length != b.length) return false;
+  for (var i = 0; i < a.length; i++) {
+    if (a[i] != b[i]) return false;
+  }
+  return true;
+}

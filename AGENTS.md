@@ -7,7 +7,9 @@ in C) with a binary protocol (`WIRE.md`). The Dart API is Go's own, generated fr
 module (`github.com/ipfs/boxo/mfs` → `lib/go/boxo/mfs.dart`, `github.com/ipfs/go-cid` →
 `lib/go/cid.dart`); `lib/p2p_ffi.dart` is the runtime's entry point. Targets: VM/AOT on Windows, linux and Android (not JS/Wasm).
 
-`README.md` is the usage guide; `DOCS.md` indexes the CAR examples by operation; `API.md`
+`README.md` is the usage guide; `example/README.md` is the course (one lesson per question,
+in English, with translations in `example/pt/` and `example/es/`); `DOCS.md` indexes the CAR
+examples by operation; `API.md`
 (generated) lists every exposed symbol and the adaptation rules; `TODO.md` keeps what was
 done in each version and what is pending.
 
@@ -20,7 +22,7 @@ done in each version and what is pending.
 | `shm/` | the `p2p_shm` in C (rings, the bell, the thread that wakes Dart) |
 | `tool/` | `build.dart` (generates and builds per platform, with the upstream patches) and the benchmarks (`bench*.dart`) |
 | `test/` | the Dart suite (needs the build) |
-| `example/` | numbered examples; `example/car/` has the CAR operations (see `DOCS.md`); `example/memory/` has the handle memory management guide and examples; `example/android_app/` is the Flutter validation app |
+| `example/` | the lessons (`NN_<topic>.dart`, roadmap in `example/README.md`, shared helpers in `example/lesson.dart`) and their translations in `example/pt/` and `example/es/`; until the course covers them, the older numbered examples (`01_init_repo.dart`...), `example/car/` (the CAR operations, see `DOCS.md`) and `example/memory/` (handle memory management); `example/android_app/` is the Flutter validation app |
 | `flutter/` | the companion plugin `p2p_ffi_flutter` (Android background) |
 
 ## Commands
@@ -28,7 +30,7 @@ done in each version and what is pending.
 ```bash
 dart run tool/build.dart [windows|linux|android]   # runs the generator and builds into native/ (not in git)
 cd go && go vet ./... && go test ./... && go run ./gen -check   # the host and the generator
-dart analyze lib test tool example/*.dart example/car/*.dart example/memory/*.dart
+dart analyze lib test tool example/*.dart example/pt example/es example/car/*.dart example/memory/*.dart
 dart test                                          # the whole suite (needs the platform build)
 ```
 
@@ -53,7 +55,17 @@ dart test                                          # the whole suite (needs the 
   out formatted): `dart format --output=none --set-exit-if-changed <files>`.
 - **English only for names and documentation:** file names, identifiers, comments, example
   output and docs are written in English (the owner's rule since 2026-10-16). Older docs and
-  tests still in Portuguese stay until the owner decides on translating them.
+  tests still in Portuguese stay until the owner decides on translating them. The one
+  exception is the course's translations (below).
+- **The lessons, in three languages:** each lesson in `example/` has a Portuguese copy in
+  `example/pt/` and a Spanish one in `example/es/` (the owner's decision, 2026-10-28), with
+  the same file name, the same code and the same identifiers; only comments and output are
+  translated (`lesson.dart` and `README.md` too). A change to a lesson goes to all three in
+  the same commit, and all three are run before it. Each lesson answers one question: its
+  header has the question, the answer, what it needs (the earlier lessons and the layers
+  underneath) and the next question; the common mistakes run on purpose through `mistake()`
+  and `silentlyWrong()`, which stop the lesson if the behavior changes. Lessons write with
+  `say()` (`dart:developer`'s log plus the terminal, which `dart run` needs), not `print`.
 - **Expose what exists in Go,** generated, never redone by hand in Dart. Hand ports only for
   the body of kubo commands (`ipfs dag export/import/put/get`). A performance knob of a call
   becomes an optional argument of it (e.g. `batchSize`), not a global setting.
