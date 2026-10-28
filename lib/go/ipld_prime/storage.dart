@@ -12,13 +12,13 @@ class ReadableStorage extends Storage {
 
   /// Go: type assertion `x.(*bsadapter.Adapter)`: null if the object is not one.
   $bsadapter.Adapter? asAdapter() {
-    final $r = $callSync(87, $W()..h(this));
+    final $r = $callSync(93, $W()..h(this));
     return $r.hn($bsadapter.Adapter.$h);
   }
 
   /// Go: type assertion `x.(storage.ReadableCar)`: null if the object is not one.
   $storage.ReadableCar? asReadableCar() {
-    final $r = $callSync(88, $W()..h(this));
+    final $r = $callSync(94, $W()..h(this));
     return $r.hn($storage.ReadableCar.$h);
   }
 }

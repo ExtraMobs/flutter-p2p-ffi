@@ -7,6 +7,6 @@ import 'package:p2p_ffi/go/ipld_prime/traversal.dart' as $traversal;
 
 /// Go: `var bsfetcher.DefaultPrototypeChooser func(lnk ipld.Link, lnkCtx ipld.LinkContext) (ipld.NodePrototype, error)`.
 $traversal.LinkTargetNodePrototypeChooser get defaultPrototypeChooser {
-  final $r = $callSync(109);
+  final $r = $callSync(115);
   return $r.hnn($traversal.LinkTargetNodePrototypeChooser.$h);
 }

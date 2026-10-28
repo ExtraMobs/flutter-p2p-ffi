@@ -3,21 +3,69 @@
 library;
 
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/datastore/sync.dart' as $sync;
 
 /// Go: `datastore.Batching` (handle).
 class Batching extends Datastore {
   Batching.$h(super.$h) : super.$h();
 
+  /// Go: type assertion `x.(*datastore.MapDatastore)`: null if the object is not one.
+  MapDatastore? asMapDatastore() {
+    final $r = $callSync(73, $W()..h(this));
+    return $r.hn(MapDatastore.$h);
+  }
+
   /// Go: type assertion `x.(*datastore.NullDatastore)`: null if the object is not one.
   NullDatastore? asNullDatastore() {
-    final $r = $callSync(73, $W()..h(this));
+    final $r = $callSync(74, $W()..h(this));
     return $r.hn(NullDatastore.$h);
+  }
+
+  /// Go: type assertion `x.(*sync.MutexDatastore)`: null if the object is not one.
+  $sync.MutexDatastore? asMutexDatastore() {
+    final $r = $callSync(75, $W()..h(this));
+    return $r.hn($sync.MutexDatastore.$h);
   }
 }
 
 /// Go: `datastore.Datastore` (handle).
 class Datastore extends Read {
   Datastore.$h(super.$h) : super.$h();
+
+  /// Go: type assertion `x.(*datastore.MapDatastore)`: null if the object is not one.
+  MapDatastore? asMapDatastore() {
+    final $r = $callSync(76, $W()..h(this));
+    return $r.hn(MapDatastore.$h);
+  }
+
+  /// Go: type assertion `x.(*datastore.NullDatastore)`: null if the object is not one.
+  NullDatastore? asNullDatastore() {
+    final $r = $callSync(77, $W()..h(this));
+    return $r.hn(NullDatastore.$h);
+  }
+
+  /// Go: type assertion `x.(*sync.MutexDatastore)`: null if the object is not one.
+  $sync.MutexDatastore? asMutexDatastore() {
+    final $r = $callSync(78, $W()..h(this));
+    return $r.hn($sync.MutexDatastore.$h);
+  }
+
+  /// Go: type assertion `x.(datastore.Batching)`: null if the object is not one.
+  Batching? asBatching() {
+    final $r = $callSync(79, $W()..h(this));
+    return $r.hn(Batching.$h);
+  }
+}
+
+/// Go: `datastore.MapDatastore` (handle).
+class MapDatastore extends Batching {
+  MapDatastore.$h(super.$h) : super.$h();
+
+  /// Go: `func datastore.NewMapDatastore() (d *datastore.MapDatastore)`.
+  factory MapDatastore() {
+    final $r = $callSync(236);
+    return $r.hnn(MapDatastore.$h);
+  }
 }
 
 /// Go: `datastore.NullDatastore` (handle).
@@ -26,7 +74,7 @@ class NullDatastore extends Batching {
 
   /// Go: `func datastore.NewNullDatastore() *datastore.NullDatastore`.
   factory NullDatastore() {
-    final $r = $callSync(230);
+    final $r = $callSync(237);
     return $r.hnn(NullDatastore.$h);
   }
 }

@@ -16,37 +16,37 @@ class Conn extends $io.Closer {
 
   /// Go: `func (network.Conn).ID() string`.
   String id() {
-    final $r = $callSync(563, $W()..h(this));
+    final $r = $callSync(571, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (network.ConnSecurity).RemotePeer() peer.ID`.
   $peer.Id remotePeer() {
-    final $r = $callSync(567, $W()..h(this));
+    final $r = $callSync(575, $W()..h(this));
     return $r.p() ? $peer.Id($r.str()) : $nil();
   }
 
   /// Go: `func (network.ConnMultiaddrs).RemoteMultiaddr() multiaddr.Multiaddr`.
   $multiaddr.Multiaddr remoteMultiaddr() {
-    final $r = $callSync(566, $W()..h(this));
+    final $r = $callSync(574, $W()..h(this));
     return $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil();
   }
 
   /// Go: `func (network.ConnMultiaddrs).LocalMultiaddr() multiaddr.Multiaddr`.
   $multiaddr.Multiaddr localMultiaddr() {
-    final $r = $callSync(565, $W()..h(this));
+    final $r = $callSync(573, $W()..h(this));
     return $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil();
   }
 
   /// Go: `func (network.ConnStat).Stat() network.ConnStats`.
   ConnStats stat() {
-    final $r = $callSync(568, $W()..h(this));
+    final $r = $callSync(576, $W()..h(this));
     return $r.p() ? ConnStats.$dec($r) : $nil();
   }
 
   /// Go: `func (network.Conn).IsClosed() bool`.
   bool isClosed() {
-    final $r = $callSync(564, $W()..h(this));
+    final $r = $callSync(572, $W()..h(this));
     return $r.b();
   }
 
@@ -54,7 +54,7 @@ class Conn extends $io.Closer {
   ///
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> close() async {
-    await $call(562, $W()..h(this));
+    await $call(570, $W()..h(this));
   }
 }
 
@@ -113,20 +113,20 @@ class Network extends Dialer {
 
   /// Go: `func (network.Dialer).Peers() []peer.ID`.
   List<$peer.Id> peers() {
-    final $r = $callSync(576, $W()..h(this));
+    final $r = $callSync(584, $W()..h(this));
     return $r.list(() => $r.p() ? $peer.Id($r.str()) : $nil());
   }
 
   /// Go: `func (network.Dialer).Conns() []network.Conn`.
   List<Conn> conns() {
-    final $r = $callSync(571, $W()..h(this));
+    final $r = $callSync(579, $W()..h(this));
     return $r.list(() => $r.hnn(Conn.$h));
   }
 
   /// Go: `func (network.Dialer).ConnsToPeer(p peer.ID) []network.Conn`.
   List<Conn> connsToPeer($peer.Id p) {
     final $r = $callSync(
-        572,
+        580,
         $W()
           ..h(this)
           ..val(p));
@@ -136,7 +136,7 @@ class Network extends Dialer {
   /// Go: `func (network.Dialer).Connectedness(peer.ID) network.Connectedness`.
   int connectedness($peer.Id id) {
     final $r = $callSync(
-        570,
+        578,
         $W()
           ..h(this)
           ..val(id));
@@ -146,7 +146,7 @@ class Network extends Dialer {
   /// Go: `func (network.Dialer).ClosePeer(peer.ID) error`.
   void closePeer($peer.Id id) {
     $callSync(
-        569,
+        577,
         $W()
           ..h(this)
           ..val(id));
@@ -154,20 +154,20 @@ class Network extends Dialer {
 
   /// Go: `func (network.Network).ListenAddresses() []multiaddr.Multiaddr`.
   List<$multiaddr.Multiaddr> listenAddresses() {
-    final $r = $callSync(574, $W()..h(this));
+    final $r = $callSync(582, $W()..h(this));
     return $r.list(() => $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil());
   }
 
   /// Go: `func (network.Network).InterfaceListenAddresses() ([]multiaddr.Multiaddr, error)`.
   List<$multiaddr.Multiaddr> interfaceListenAddresses() {
-    final $r = $callSync(573, $W()..h(this));
+    final $r = $callSync(581, $W()..h(this));
     return $r.list(() => $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil());
   }
 
   /// Go: `func (network.Dialer).Notify(network.Notifiee)`.
   void notify(Notifiee notifiee) {
     $callSync(
-        575,
+        583,
         $W()
           ..h(this)
           ..h(notifiee));
@@ -176,7 +176,7 @@ class Network extends Dialer {
   /// Go: `func (network.Dialer).StopNotify(network.Notifiee)`.
   void stopNotify(Notifiee notifiee) {
     $callSync(
-        577,
+        585,
         $W()
           ..h(this)
           ..h(notifiee));
@@ -199,7 +199,7 @@ class Notifiee extends GoHandle {
       FutureOr<void> Function(Network network, $multiaddr.Multiaddr multiaddr)?
           listenClose}) {
     final $r = $callSync(
-        578,
+        586,
         $W()
           ..cb(
               connected == null
@@ -242,7 +242,7 @@ class ResourceManager extends ResourceScopeViewer {
       FutureOr<void> Function(ResourceScope resourceScope) callback,
       {int? batchSize}) async {
     await $callCb(
-        579,
+        587,
         $W()
           ..h(this)
           ..u32(batchSize ?? 1),
@@ -260,7 +260,7 @@ class ResourceManager extends ResourceScopeViewer {
       FutureOr<void> Function(ResourceScope resourceScope) callback,
       {int? batchSize}) async {
     await $callCb(
-        580,
+        588,
         $W()
           ..h(this)
           ..u32(batchSize ?? 1),
@@ -274,7 +274,7 @@ class ResourceScope extends GoHandle {
 
   /// Go: `func (network.ResourceScope).Stat() network.ScopeStat`.
   ScopeStat stat() {
-    final $r = $callSync(581, $W()..h(this));
+    final $r = $callSync(589, $W()..h(this));
     return $r.p() ? ScopeStat.$dec($r) : $nil();
   }
 }
@@ -379,7 +379,7 @@ class Stream$ extends MuxedStream {
   /// Asynchronous: runs in a goroutine of the service.
   Future<Uint8List> read(int n) async {
     final $r = await $call(
-        588,
+        596,
         $W()
           ..h(this)
           ..i64(n));
@@ -391,7 +391,7 @@ class Stream$ extends MuxedStream {
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> write(Uint8List p) async {
     final $r = await $call(
-        593,
+        601,
         $W()
           ..h(this)
           ..bytes(p));
@@ -402,30 +402,30 @@ class Stream$ extends MuxedStream {
   ///
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> close() async {
-    await $call(582, $W()..h(this));
+    await $call(590, $W()..h(this));
   }
 
   /// Go: `func (network.MuxedStream).CloseWrite() error`.
   ///
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> closeWrite() async {
-    await $call(584, $W()..h(this));
+    await $call(592, $W()..h(this));
   }
 
   /// Go: `func (network.MuxedStream).CloseRead() error`.
   void closeRead() {
-    $callSync(583, $W()..h(this));
+    $callSync(591, $W()..h(this));
   }
 
   /// Go: `func (network.MuxedStream).Reset() error`.
   void reset() {
-    $callSync(589, $W()..h(this));
+    $callSync(597, $W()..h(this));
   }
 
   /// Go: `func (network.MuxedStream).SetDeadline(time.Time) error`.
   void setDeadline(DateTime time) {
     $callSync(
-        590,
+        598,
         $W()
           ..h(this)
           ..time(time));
@@ -434,7 +434,7 @@ class Stream$ extends MuxedStream {
   /// Go: `func (network.MuxedStream).SetReadDeadline(time.Time) error`.
   void setReadDeadline(DateTime time) {
     $callSync(
-        591,
+        599,
         $W()
           ..h(this)
           ..time(time));
@@ -443,7 +443,7 @@ class Stream$ extends MuxedStream {
   /// Go: `func (network.MuxedStream).SetWriteDeadline(time.Time) error`.
   void setWriteDeadline(DateTime time) {
     $callSync(
-        592,
+        600,
         $W()
           ..h(this)
           ..time(time));
@@ -451,19 +451,19 @@ class Stream$ extends MuxedStream {
 
   /// Go: `func (network.Stream).ID() string`.
   String id() {
-    final $r = $callSync(586, $W()..h(this));
+    final $r = $callSync(594, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (network.Stream).Protocol() protocol.ID`.
   String protocol() {
-    final $r = $callSync(587, $W()..h(this));
+    final $r = $callSync(595, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (network.Stream).Conn() network.Conn`.
   Conn conn() {
-    final $r = $callSync(585, $W()..h(this));
+    final $r = $callSync(593, $W()..h(this));
     return $r.hnn(Conn.$h);
   }
 }

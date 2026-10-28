@@ -11,7 +11,7 @@ import 'package:p2p_ffi/go/kubo/core/coreiface/options.dart' as $options;
 $coreiface.CoreApi newCoreApi($core.IpfsNode n,
     [List<$options.ApiOption> opts = const []]) {
   final $r = $callSync(
-      277,
+      285,
       $W()
         ..h(n)
         ..list(opts, (w0, e0) => w0.opt(e0)));

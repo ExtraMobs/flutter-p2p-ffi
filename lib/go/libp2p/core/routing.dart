@@ -19,13 +19,13 @@ class ContentRouting extends ContentProviding {
 
   /// Go: type assertion `x.(*dht.IpfsDHT)`: null if the object is not one.
   $libp2p_kad_dht.IpfsDht? asIpfsDht() {
-    final $r = $callSync(91, $W()..h(this));
+    final $r = $callSync(97, $W()..h(this));
     return $r.hn($libp2p_kad_dht.IpfsDht.$h);
   }
 
   /// Go: type assertion `x.(*routing.RoutingDiscovery)`: null if the object is not one.
   $routing.RoutingDiscovery? asRoutingDiscovery() {
-    final $r = $callSync(92, $W()..h(this));
+    final $r = $callSync(98, $W()..h(this));
     return $r.hn($routing.RoutingDiscovery.$h);
   }
 }

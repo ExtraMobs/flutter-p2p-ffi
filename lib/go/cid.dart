@@ -17,44 +17,44 @@ class Cid extends GoValue {
 
   /// Go: `func (cid.Cid).Version() uint64`.
   int version() {
-    final $r = $callSync(218, $W()..val(this));
+    final $r = $callSync(224, $W()..val(this));
     return $r.i64();
   }
 
   /// Go: `func (cid.Cid).Type() uint64`.
   int type() {
-    final $r = $callSync(217, $W()..val(this));
+    final $r = $callSync(223, $W()..val(this));
     return $r.i64();
   }
 
   /// Go: `func (cid.Cid).Hash() multihash.Multihash`.
   Uint8List hash() {
-    final $r = $callSync(214, $W()..val(this));
+    final $r = $callSync(220, $W()..val(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (cid.Cid).Bytes() []byte`.
   Uint8List bytes() {
-    final $r = $callSync(211, $W()..val(this));
+    final $r = $callSync(217, $W()..val(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (cid.Cid).ByteLen() int`.
   int byteLen() {
-    final $r = $callSync(210, $W()..val(this));
+    final $r = $callSync(216, $W()..val(this));
     return $r.i64();
   }
 
   /// Go: `func (cid.Cid).Prefix() cid.Prefix`.
   Prefix prefix() {
-    final $r = $callSync(215, $W()..val(this));
+    final $r = $callSync(221, $W()..val(this));
     return $r.p() ? Prefix.$dec($r) : $nil();
   }
 
   /// Go: `func (cid.Cid).Equals(o cid.Cid) bool`.
   bool equals(Cid o) {
     final $r = $callSync(
-        213,
+        219,
         $W()
           ..val(this)
           ..val(o));
@@ -63,14 +63,14 @@ class Cid extends GoValue {
 
   /// Go: `func (cid.Cid).Defined() bool`.
   bool defined() {
-    final $r = $callSync(212, $W()..val(this));
+    final $r = $callSync(218, $W()..val(this));
     return $r.b();
   }
 
   /// Go: `func (cid.Cid).StringOfBase(base multibase.Encoding) (string, error)`.
   String stringOfBase(int base) {
     final $r = $callSync(
-        216,
+        222,
         $W()
           ..val(this)
           ..i64(base));
@@ -125,7 +125,7 @@ final class Prefix implements GoDto {
   /// Go: `func (cid.Prefix).Sum(data []byte) (cid.Cid, error)`.
   Cid sum(Uint8List data) {
     final $r = $callSync(
-        228,
+        234,
         $W()
           ..dto(this)
           ..bytes(data));
@@ -134,21 +134,21 @@ final class Prefix implements GoDto {
 
   /// Go: `func (cid.Prefix).Bytes() []byte`.
   Uint8List bytes() {
-    final $r = $callSync(227, $W()..dto(this));
+    final $r = $callSync(233, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 }
 
 /// Go: `func cid.NewPrefixV0(mhType uint64) cid.Prefix`.
 Prefix newPrefixV0(int mhType) {
-  final $r = $callSync(224, $W()..i64(mhType));
+  final $r = $callSync(230, $W()..i64(mhType));
   return $r.p() ? Prefix.$dec($r) : $nil();
 }
 
 /// Go: `func cid.NewPrefixV1(codecType uint64, mhType uint64) cid.Prefix`.
 Prefix newPrefixV1(int codecType, int mhType) {
   final $r = $callSync(
-      225,
+      231,
       $W()
         ..i64(codecType)
         ..i64(mhType));
@@ -157,38 +157,38 @@ Prefix newPrefixV1(int codecType, int mhType) {
 
 /// Go: `func cid.Decode(v string) (cid.Cid, error)`.
 Cid decode(String v) {
-  final $r = $callSync(220, $W()..str(v));
+  final $r = $callSync(226, $W()..str(v));
   return $r.p() ? Cid($r.str()) : $nil();
 }
 
 /// Go: `func cid.Parse(v any) (cid.Cid, error)`.
 Cid parse(Object? v) {
-  final $r = $callSync(226, $W()..any(v));
+  final $r = $callSync(232, $W()..any(v));
   return $r.p() ? Cid($r.str()) : $nil();
 }
 
 /// Go: `func cid.Cast(data []byte) (cid.Cid, error)`.
 Cid cast(Uint8List data) {
-  final $r = $callSync(209, $W()..bytes(data));
+  final $r = $callSync(215, $W()..bytes(data));
   return $r.p() ? Cid($r.str()) : $nil();
 }
 
 /// Go: `func cid.CidFromBytes(data []byte) (int, cid.Cid, error)`.
 (int, Cid) cidFromBytes(Uint8List data) {
-  final $r = $callSync(219, $W()..bytes(data));
+  final $r = $callSync(225, $W()..bytes(data));
   return ($r.i64(), $r.p() ? Cid($r.str()) : $nil());
 }
 
 /// Go: `func cid.NewCidV0(mhash multihash.Multihash) cid.Cid`.
 Cid newCidV0(Uint8List mhash) {
-  final $r = $callSync(222, $W()..bytes(mhash));
+  final $r = $callSync(228, $W()..bytes(mhash));
   return $r.p() ? Cid($r.str()) : $nil();
 }
 
 /// Go: `func cid.NewCidV1(codecType uint64, mhash multihash.Multihash) cid.Cid`.
 Cid newCidV1(int codecType, Uint8List mhash) {
   final $r = $callSync(
-      223,
+      229,
       $W()
         ..i64(codecType)
         ..bytes(mhash));
@@ -197,13 +197,13 @@ Cid newCidV1(int codecType, Uint8List mhash) {
 
 /// Go: `func cid.PrefixFromBytes(buf []byte) (cid.Prefix, error)`.
 Prefix prefixFromBytes(Uint8List buf) {
-  final $r = $callSync(229, $W()..bytes(buf));
+  final $r = $callSync(235, $W()..bytes(buf));
   return $r.p() ? Prefix.$dec($r) : $nil();
 }
 
 /// Go: `func cid.ExtractEncoding(v string) (multibase.Encoding, error)`.
 int extractEncoding(String v) {
-  final $r = $callSync(221, $W()..str(v));
+  final $r = $callSync(227, $W()..str(v));
   return $r.i64();
 }
 

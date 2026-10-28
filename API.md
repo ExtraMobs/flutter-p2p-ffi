@@ -362,7 +362,14 @@ Each line is an exposed Go symbol and where it is in Dart.
 | Go | Dart | Mode |
 |---|---|---|
 | `func datastore.NewNullDatastore() *datastore.NullDatastore` | `factory NullDatastore` | sync |
+| `func datastore.NewMapDatastore() (d *datastore.MapDatastore)` | `factory MapDatastore` | sync |
+| `datastore.Batching → x.(*datastore.MapDatastore)` | `Batching.asMapDatastore` | cast |
 | `datastore.Batching → x.(*datastore.NullDatastore)` | `Batching.asNullDatastore` | cast |
+| `datastore.Batching → x.(*sync.MutexDatastore)` | `Batching.asMutexDatastore` | cast |
+| `datastore.Datastore → x.(*datastore.MapDatastore)` | `Datastore.asMapDatastore` | cast |
+| `datastore.Datastore → x.(*datastore.NullDatastore)` | `Datastore.asNullDatastore` | cast |
+| `datastore.Datastore → x.(*sync.MutexDatastore)` | `Datastore.asMutexDatastore` | cast |
+| `datastore.Datastore → x.(datastore.Batching)` | `Datastore.asBatching` | cast |
 | `const datastore.FeatureNameBatching untyped string` | `featureNameBatching` | const |
 | `const datastore.FeatureNameChecked untyped string` | `featureNameChecked` | const |
 | `const datastore.FeatureNameGC untyped string` | `featureNameGc` | const |
@@ -370,6 +377,12 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `const datastore.FeatureNameScrubbed untyped string` | `featureNameScrubbed` | const |
 | `const datastore.FeatureNameTTL untyped string` | `featureNameTtl` | const |
 | `const datastore.FeatureNameTransaction untyped string` | `featureNameTransaction` | const |
+
+## `github.com/ipfs/go-datastore/sync` → `package:p2p_ffi/go/datastore/sync.dart`
+
+| Go | Dart | Mode |
+|---|---|---|
+| `func sync.MutexWrap(d datastore.Datastore) *sync.MutexDatastore` | `mutexWrap` | sync |
 
 ## `github.com/ipfs/go-ipfs-cmds` → `package:p2p_ffi/go/ipfs_cmds.dart`
 

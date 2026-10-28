@@ -264,6 +264,6 @@ $config.Option get randomIdentity => $config.Option.$(60, (_) {});
 ///
 /// Asynchronous: runs in a goroutine of the service.
 Future<$host.Host> new$([List<$config.Option> opts = const []]) async {
-  final $r = await $call(516, $W()..list(opts, (w0, e0) => w0.opt(e0)));
+  final $r = await $call(524, $W()..list(opts, (w0, e0) => w0.opt(e0)));
   return $r.hnn($host.Host.$h);
 }

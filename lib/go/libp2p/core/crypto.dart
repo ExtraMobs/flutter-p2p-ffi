@@ -12,20 +12,20 @@ class Key extends GoHandle {
 
   /// Go: `func (crypto.Key).Raw() ([]byte, error)`.
   Uint8List raw() {
-    final $r = $callSync(527, $W()..h(this));
+    final $r = $callSync(535, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (crypto.Key).Type() pb.KeyType`.
   int type() {
-    final $r = $callSync(528, $W()..h(this));
+    final $r = $callSync(536, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (crypto.Key).Equals(crypto.Key) bool`.
   bool equals(Key key) {
     final $r = $callSync(
-        526,
+        534,
         $W()
           ..h(this)
           ..h(key));
@@ -34,13 +34,13 @@ class Key extends GoHandle {
 
   /// Go: type assertion `x.(crypto.PrivKey)`: null if the object is not one.
   PrivKey? asPrivKey() {
-    final $r = $callSync(89, $W()..h(this));
+    final $r = $callSync(95, $W()..h(this));
     return $r.hn(PrivKey.$h);
   }
 
   /// Go: type assertion `x.(crypto.PubKey)`: null if the object is not one.
   PubKey? asPubKey() {
-    final $r = $callSync(90, $W()..h(this));
+    final $r = $callSync(96, $W()..h(this));
     return $r.hn(PubKey.$h);
   }
 }
@@ -51,14 +51,14 @@ class PrivKey extends Key {
 
   /// Go: `func (crypto.PrivKey).GetPublic() crypto.PubKey`.
   PubKey getPublic() {
-    final $r = $callSync(532, $W()..h(this));
+    final $r = $callSync(540, $W()..h(this));
     return $r.hnn(PubKey.$h);
   }
 
   /// Go: `func (crypto.PrivKey).Sign([]byte) ([]byte, error)`.
   Uint8List sign(Uint8List arg0) {
     final $r = $callSync(
-        533,
+        541,
         $W()
           ..h(this)
           ..bytes(arg0));
@@ -73,7 +73,7 @@ class PubKey extends Key {
   /// Go: `func (crypto.PubKey).Verify(data []byte, sig []byte) (bool, error)`.
   bool verify(Uint8List data, Uint8List sig) {
     final $r = $callSync(
-        534,
+        542,
         $W()
           ..h(this)
           ..bytes(data)
@@ -85,7 +85,7 @@ class PubKey extends Key {
 /// Go: `func crypto.GenerateKeyPair(typ int, bits int) (crypto.PrivKey, crypto.PubKey, error)`.
 (PrivKey, PubKey) generateKeyPair(int typ, int bits) {
   final $r = $callSync(
-      525,
+      533,
       $W()
         ..i64(typ)
         ..i64(bits));
@@ -94,32 +94,32 @@ class PubKey extends Key {
 
 /// Go: `func crypto.MarshalPrivateKey(k crypto.PrivKey) ([]byte, error)`.
 Uint8List marshalPrivateKey(PrivKey k) {
-  final $r = $callSync(530, $W()..h(k));
+  final $r = $callSync(538, $W()..h(k));
   return $r.bytes() ?? Uint8List(0);
 }
 
 /// Go: `func crypto.UnmarshalPrivateKey(data []byte) (crypto.PrivKey, error)`.
 PrivKey unmarshalPrivateKey(Uint8List data) {
-  final $r = $callSync(539, $W()..bytes(data));
+  final $r = $callSync(547, $W()..bytes(data));
   return $r.hnn(PrivKey.$h);
 }
 
 /// Go: `func crypto.MarshalPublicKey(k crypto.PubKey) ([]byte, error)`.
 Uint8List marshalPublicKey(PubKey k) {
-  final $r = $callSync(531, $W()..h(k));
+  final $r = $callSync(539, $W()..h(k));
   return $r.bytes() ?? Uint8List(0);
 }
 
 /// Go: `func crypto.UnmarshalPublicKey(data []byte) (crypto.PubKey, error)`.
 PubKey unmarshalPublicKey(Uint8List data) {
-  final $r = $callSync(540, $W()..bytes(data));
+  final $r = $callSync(548, $W()..bytes(data));
   return $r.hnn(PubKey.$h);
 }
 
 /// Go: `func crypto.KeyEqual(k1 crypto.Key, k2 crypto.Key) bool`.
 bool keyEqual(Key k1, Key k2) {
   final $r = $callSync(
-      529,
+      537,
       $W()
         ..h(k1)
         ..h(k2));
@@ -128,61 +128,61 @@ bool keyEqual(Key k1, Key k2) {
 
 /// Go: `func crypto.ConfigEncodeKey(b []byte) string`.
 String configEncodeKey(Uint8List b) {
-  final $r = $callSync(524, $W()..bytes(b));
+  final $r = $callSync(532, $W()..bytes(b));
   return $r.str();
 }
 
 /// Go: `func crypto.ConfigDecodeKey(b string) ([]byte, error)`.
 Uint8List configDecodeKey(String b) {
-  final $r = $callSync(523, $W()..str(b));
+  final $r = $callSync(531, $W()..str(b));
   return $r.bytes() ?? Uint8List(0);
 }
 
 /// Go: `func crypto.UnmarshalEd25519PrivateKey(data []byte) (crypto.PrivKey, error)`.
 PrivKey unmarshalEd25519PrivateKey(Uint8List data) {
-  final $r = $callSync(537, $W()..bytes(data));
+  final $r = $callSync(545, $W()..bytes(data));
   return $r.hnn(PrivKey.$h);
 }
 
 /// Go: `func crypto.UnmarshalEd25519PublicKey(data []byte) (crypto.PubKey, error)`.
 PubKey unmarshalEd25519PublicKey(Uint8List data) {
-  final $r = $callSync(538, $W()..bytes(data));
+  final $r = $callSync(546, $W()..bytes(data));
   return $r.hnn(PubKey.$h);
 }
 
 /// Go: `func crypto.UnmarshalSecp256k1PrivateKey(data []byte) (k crypto.PrivKey, err error)`.
 PrivKey unmarshalSecp256k1PrivateKey(Uint8List data) {
-  final $r = $callSync(543, $W()..bytes(data));
+  final $r = $callSync(551, $W()..bytes(data));
   return $r.hnn(PrivKey.$h);
 }
 
 /// Go: `func crypto.UnmarshalSecp256k1PublicKey(data []byte) (_k crypto.PubKey, err error)`.
 PubKey unmarshalSecp256k1PublicKey(Uint8List data) {
-  final $r = $callSync(544, $W()..bytes(data));
+  final $r = $callSync(552, $W()..bytes(data));
   return $r.hnn(PubKey.$h);
 }
 
 /// Go: `func crypto.UnmarshalRsaPrivateKey(b []byte) (key crypto.PrivKey, err error)`.
 PrivKey unmarshalRsaPrivateKey(Uint8List b) {
-  final $r = $callSync(541, $W()..bytes(b));
+  final $r = $callSync(549, $W()..bytes(b));
   return $r.hnn(PrivKey.$h);
 }
 
 /// Go: `func crypto.UnmarshalRsaPublicKey(b []byte) (key crypto.PubKey, err error)`.
 PubKey unmarshalRsaPublicKey(Uint8List b) {
-  final $r = $callSync(542, $W()..bytes(b));
+  final $r = $callSync(550, $W()..bytes(b));
   return $r.hnn(PubKey.$h);
 }
 
 /// Go: `func crypto.UnmarshalECDSAPrivateKey(data []byte) (res crypto.PrivKey, err error)`.
 PrivKey unmarshalEcdsaPrivateKey(Uint8List data) {
-  final $r = $callSync(535, $W()..bytes(data));
+  final $r = $callSync(543, $W()..bytes(data));
   return $r.hnn(PrivKey.$h);
 }
 
 /// Go: `func crypto.UnmarshalECDSAPublicKey(data []byte) (key crypto.PubKey, err error)`.
 PubKey unmarshalEcdsaPublicKey(Uint8List data) {
-  final $r = $callSync(536, $W()..bytes(data));
+  final $r = $callSync(544, $W()..bytes(data));
   return $r.hnn(PubKey.$h);
 }
 

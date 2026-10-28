@@ -8,6 +8,6 @@ import 'package:p2p_ffi/go/boxo/exchange.dart' as $exchange;
 
 /// Go: `func offline.Exchange(bs blockstore.Blockstore) exchange.Interface`.
 $exchange.Interface exchange($blockstore.Blockstore bs) {
-  final $r = $callSync(108, $W()..h(bs));
+  final $r = $callSync(114, $W()..h(bs));
   return $r.hnn($exchange.Interface.$h);
 }

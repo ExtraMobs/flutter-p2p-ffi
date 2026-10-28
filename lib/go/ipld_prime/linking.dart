@@ -12,7 +12,7 @@ class LinkSystem extends GoHandle {
   /// Go: `func (*linking.LinkSystem).SetReadStorage(store storage.ReadableStorage)`.
   void setReadStorage($storage.ReadableStorage store) {
     $callSync(
-        448,
+        456,
         $W()
           ..h(this)
           ..h(store));

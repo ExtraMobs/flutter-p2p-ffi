@@ -385,6 +385,8 @@ github.com/ipfs/kubo/core/corerepo.ConditionalGC
 github.com/ipfs/kubo/core.IpfsNode.Exchange
 github.com/ipfs/boxo/blockstore.NewBlockstore
 github.com/ipfs/go-datastore.NewNullDatastore
+github.com/ipfs/go-datastore.NewMapDatastore
+github.com/ipfs/go-datastore/sync.MutexWrap
 # 0.20 the node's blockstore block by block (an eviction policy of one's own
 # instead of a full GC) and the GC locker: PinLock holds the GC off while a
 # put->pin sequence runs; GCLock waits for every PinLock

@@ -19,7 +19,7 @@ class BaseBlocks extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> put($context.Context ctx, $block_format.Block block) async {
     await $call(
-        351,
+        359,
         $W()
           ..h(this)
           ..h(ctx)
@@ -31,7 +31,7 @@ class BaseBlocks extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> has($context.Context ctx, $cid.Cid cid) async {
     final $r = await $call(
-        350,
+        358,
         $W()
           ..h(this)
           ..h(ctx)
@@ -44,7 +44,7 @@ class BaseBlocks extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<$block_format.Block> get($context.Context ctx, $cid.Cid cid) async {
     final $r = await $call(
-        348,
+        356,
         $W()
           ..h(this)
           ..h(ctx)
@@ -57,7 +57,7 @@ class BaseBlocks extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> getSize($context.Context ctx, $cid.Cid cid) async {
     final $r = await $call(
-        349,
+        357,
         $W()
           ..h(this)
           ..h(ctx)
@@ -70,7 +70,7 @@ class BaseBlocks extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> deleteBlock($context.Context ctx, $cid.Cid cid) async {
     await $call(
-        347,
+        355,
         $W()
           ..h(this)
           ..h(ctx)
@@ -79,7 +79,7 @@ class BaseBlocks extends GoHandle {
 
   /// Go: `func (node.BaseBlocks).AllKeysChan(ctx context.Context) (<-chan cid.Cid, error)`.
   Stream<$cid.Cid> allKeysChan($context.Context ctx) => $stream(
-          346,
+          354,
           $W()
             ..h(this)
             ..h(ctx))
@@ -87,13 +87,13 @@ class BaseBlocks extends GoHandle {
 
   /// Go: type assertion `x.(*blockstore.ReadOnly)`: null if the object is not one.
   $blockstore.ReadOnly? asReadOnly() {
-    final $r = $callSync(81, $W()..h(this));
+    final $r = $callSync(87, $W()..h(this));
     return $r.hn($blockstore.ReadOnly.$h);
   }
 
   /// Go: type assertion `x.(*blockstore.ReadWrite)`: null if the object is not one.
   $blockstore.ReadWrite? asReadWrite() {
-    final $r = $callSync(82, $W()..h(this));
+    final $r = $callSync(88, $W()..h(this));
     return $r.hn($blockstore.ReadWrite.$h);
   }
 }

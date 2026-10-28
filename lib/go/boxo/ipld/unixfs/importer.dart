@@ -10,7 +10,7 @@ import 'package:p2p_ffi/go/ipld_format.dart' as $ipld_format;
 $ipld_format.Node buildDagFromReader(
     $ipld_format.DagService ds, $chunker.Splitter spl) {
   final $r = $callSync(
-      133,
+      139,
       $W()
         ..h(ds)
         ..h(spl));
