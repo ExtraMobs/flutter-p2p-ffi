@@ -11,19 +11,19 @@ class Batching extends Datastore {
 
   /// Go: type assertion `x.(*datastore.MapDatastore)`: null if the object is not one.
   MapDatastore? asMapDatastore() {
-    final $r = $callSync(73, $W()..h(this));
+    final $r = $callSync(74, $W()..h(this));
     return $r.hn(MapDatastore.$h);
   }
 
   /// Go: type assertion `x.(*datastore.NullDatastore)`: null if the object is not one.
   NullDatastore? asNullDatastore() {
-    final $r = $callSync(74, $W()..h(this));
+    final $r = $callSync(75, $W()..h(this));
     return $r.hn(NullDatastore.$h);
   }
 
   /// Go: type assertion `x.(*sync.MutexDatastore)`: null if the object is not one.
   $sync.MutexDatastore? asMutexDatastore() {
-    final $r = $callSync(75, $W()..h(this));
+    final $r = $callSync(76, $W()..h(this));
     return $r.hn($sync.MutexDatastore.$h);
   }
 }
@@ -34,25 +34,25 @@ class Datastore extends Read {
 
   /// Go: type assertion `x.(*datastore.MapDatastore)`: null if the object is not one.
   MapDatastore? asMapDatastore() {
-    final $r = $callSync(76, $W()..h(this));
+    final $r = $callSync(77, $W()..h(this));
     return $r.hn(MapDatastore.$h);
   }
 
   /// Go: type assertion `x.(*datastore.NullDatastore)`: null if the object is not one.
   NullDatastore? asNullDatastore() {
-    final $r = $callSync(77, $W()..h(this));
+    final $r = $callSync(78, $W()..h(this));
     return $r.hn(NullDatastore.$h);
   }
 
   /// Go: type assertion `x.(*sync.MutexDatastore)`: null if the object is not one.
   $sync.MutexDatastore? asMutexDatastore() {
-    final $r = $callSync(78, $W()..h(this));
+    final $r = $callSync(79, $W()..h(this));
     return $r.hn($sync.MutexDatastore.$h);
   }
 
   /// Go: type assertion `x.(datastore.Batching)`: null if the object is not one.
   Batching? asBatching() {
-    final $r = $callSync(79, $W()..h(this));
+    final $r = $callSync(80, $W()..h(this));
     return $r.hn(Batching.$h);
   }
 }
@@ -63,7 +63,7 @@ class MapDatastore extends Batching {
 
   /// Go: `func datastore.NewMapDatastore() (d *datastore.MapDatastore)`.
   factory MapDatastore() {
-    final $r = $callSync(236);
+    final $r = $callSync(244);
     return $r.hnn(MapDatastore.$h);
   }
 }
@@ -74,7 +74,7 @@ class NullDatastore extends Batching {
 
   /// Go: `func datastore.NewNullDatastore() *datastore.NullDatastore`.
   factory NullDatastore() {
-    final $r = $callSync(237);
+    final $r = $callSync(245);
     return $r.hnn(NullDatastore.$h);
   }
 }

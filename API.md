@@ -11,6 +11,20 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `func (*bytes.Buffer).Bytes() []byte` | `Buffer.bytes` | sync |
 | `const bytes.MinRead untyped int` | `minRead` | const |
 
+## `github.com/ipfs/boxo/bitswap` → `package:p2p_ffi/go/boxo/bitswap.dart`
+
+| Go | Dart | Mode |
+|---|---|---|
+| `func bitswap.New(ctx context.Context, net network.BitSwapNetwork, providerFinder routing.ContentDiscovery, bstore blockstore.Blockstore, options ...bitswap.Option) *bitswap.Bitswap` | `new$` | Future |
+| `func (*bitswap.Bitswap).Close() error` | `Bitswap.close` | sync |
+| `func (*bitswap.Bitswap).Stat() (*bitswap.Stat, error)` | `Bitswap.stat` | sync |
+
+## `github.com/ipfs/boxo/bitswap/network/bsnet` → `package:p2p_ffi/go/boxo/bitswap/network/bsnet.dart`
+
+| Go | Dart | Mode |
+|---|---|---|
+| `func bsnet.NewFromIpfsHost(host host.Host, opts ...bsnet.NetOpt) network.BitSwapNetwork` | `newFromIpfsHost` | sync |
+
 ## `github.com/ipfs/boxo/blockservice` → `package:p2p_ffi/go/boxo/blockservice.dart`
 
 | Go | Dart | Mode |
@@ -47,6 +61,12 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `const chunk.BlockSizeLimit int` | `blockSizeLimit` | const |
 | `const chunk.ChunkOverheadBudget int` | `chunkOverheadBudget` | const |
 | `const chunk.ChunkSizeLimit int` | `chunkSizeLimit` | const |
+
+## `github.com/ipfs/boxo/exchange` → `package:p2p_ffi/go/boxo/exchange.dart`
+
+| Go | Dart | Mode |
+|---|---|---|
+| `exchange.Interface → x.(*bitswap.Bitswap)` | `Interface.asBitswap` | cast |
 
 ## `github.com/ipfs/boxo/exchange/offline` → `package:p2p_ffi/go/boxo/exchange/offline.dart`
 
@@ -830,6 +850,7 @@ Omitted:
 | `func (repo.Repo).SetConfigKey(key string, value any) error` | `Repo.setConfigKey` | sync |
 | `func (repo.Repo).GetConfigKey(key string) (any, error)` | `Repo.getConfigKey` | sync |
 | `func (repo.Repo).BackupConfig(prefix string) (string, error)` | `Repo.backupConfig` | sync |
+| `func (io.Closer).Close() error` | `Repo.close` | sync |
 
 ## `github.com/ipfs/kubo/repo/fsrepo` → `package:p2p_ffi/go/kubo/repo/fsrepo.dart`
 
@@ -1446,6 +1467,9 @@ Omitted:
 
 | Go | Dart | Mode |
 |---|---|---|
+| `routing.ContentDiscovery → x.(*dht.IpfsDHT)` | `ContentDiscovery.asIpfsDht` | cast |
+| `routing.ContentDiscovery → x.(*routing.RoutingDiscovery)` | `ContentDiscovery.asRoutingDiscovery` | cast |
+| `routing.ContentDiscovery → x.(routing.ContentRouting)` | `ContentDiscovery.asContentRouting` | cast |
 | `routing.ContentRouting → x.(*dht.IpfsDHT)` | `ContentRouting.asIpfsDht` | cast |
 | `routing.ContentRouting → x.(*routing.RoutingDiscovery)` | `ContentRouting.asRoutingDiscovery` | cast |
 | `const routing.AddingPeer routing.QueryEventType` | `addingPeer` | const |

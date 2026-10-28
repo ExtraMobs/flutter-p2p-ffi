@@ -682,3 +682,11 @@ github.com/ipfs/boxo/ipns.Name.Cid
 github.com/ipfs/boxo/ipns.Name.AsPath
 github.com/ipfs/boxo/ipns.Name.RoutingKey
 github.com/ipfs/boxo/ipns.Name.Equal
+# 0.26 the course (example/en_us): closing a repo opened by hand (lesson 07),
+# and bitswap built by hand over a libp2p host, to show what fetching a CID
+# from others needs (lesson 16)
+github.com/ipfs/kubo/repo.Repo.Close
+github.com/ipfs/boxo/bitswap.New
+github.com/ipfs/boxo/bitswap.Bitswap.Close
+github.com/ipfs/boxo/bitswap.Bitswap.Stat
+github.com/ipfs/boxo/bitswap/network/bsnet.NewFromIpfsHost

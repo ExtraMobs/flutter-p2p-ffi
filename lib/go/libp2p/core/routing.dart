@@ -8,24 +8,47 @@ import 'package:p2p_ffi/go/libp2p/p2p/discovery/routing.dart' as $routing;
 import 'package:p2p_ffi/go/libp2p_kad_dht.dart' as $libp2p_kad_dht;
 import 'package:p2p_ffi/go/multiaddr.dart' as $multiaddr;
 
+/// Go: `routing.ContentDiscovery` (handle).
+class ContentDiscovery extends GoHandle {
+  ContentDiscovery.$h(super.$h);
+
+  /// Go: type assertion `x.(*dht.IpfsDHT)`: null if the object is not one.
+  $libp2p_kad_dht.IpfsDht? asIpfsDht() {
+    final $r = $callSync(98, $W()..h(this));
+    return $r.hn($libp2p_kad_dht.IpfsDht.$h);
+  }
+
+  /// Go: type assertion `x.(*routing.RoutingDiscovery)`: null if the object is not one.
+  $routing.RoutingDiscovery? asRoutingDiscovery() {
+    final $r = $callSync(99, $W()..h(this));
+    return $r.hn($routing.RoutingDiscovery.$h);
+  }
+
+  /// Go: type assertion `x.(routing.ContentRouting)`: null if the object is not one.
+  ContentRouting? asContentRouting() {
+    final $r = $callSync(100, $W()..h(this));
+    return $r.hn(ContentRouting.$h);
+  }
+}
+
 /// Go: `routing.ContentProviding` (handle).
 class ContentProviding extends GoHandle {
   ContentProviding.$h(super.$h);
 }
 
 /// Go: `routing.ContentRouting` (handle).
-class ContentRouting extends ContentProviding {
+class ContentRouting extends ContentDiscovery {
   ContentRouting.$h(super.$h) : super.$h();
 
   /// Go: type assertion `x.(*dht.IpfsDHT)`: null if the object is not one.
   $libp2p_kad_dht.IpfsDht? asIpfsDht() {
-    final $r = $callSync(97, $W()..h(this));
+    final $r = $callSync(101, $W()..h(this));
     return $r.hn($libp2p_kad_dht.IpfsDht.$h);
   }
 
   /// Go: type assertion `x.(*routing.RoutingDiscovery)`: null if the object is not one.
   $routing.RoutingDiscovery? asRoutingDiscovery() {
-    final $r = $callSync(98, $W()..h(this));
+    final $r = $callSync(102, $W()..h(this));
     return $r.hn($routing.RoutingDiscovery.$h);
   }
 }

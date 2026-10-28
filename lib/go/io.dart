@@ -17,7 +17,7 @@ class ReadCloser extends GoHandle {
 
   /// Go: `func (io.Closer).Close() error`.
   void close() {
-    $callSync(655, $W()..h(this));
+    $callSync(664, $W()..h(this));
   }
 }
 
@@ -43,14 +43,14 @@ class Seeker extends GoHandle {
 
 /// Go: `func io.ReadAll(r io.Reader) ([]byte, error)`.
 Uint8List readAll(Object r) {
-  final $r = $callSync(654, $W()..reader(r));
+  final $r = $callSync(663, $W()..reader(r));
   return $r.bytes() ?? Uint8List(0);
 }
 
 /// Go: `func io.Copy(dst io.Writer, src io.Reader) (written int64, err error)`.
 int copy(GoHandle? dst, Object src) {
   final $r = $callSync(
-      653,
+      662,
       $W()
         ..h(dst)
         ..reader(src));

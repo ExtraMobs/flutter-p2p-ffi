@@ -9,14 +9,14 @@ import 'package:p2p_ffi/go/multiaddr.dart' as $multiaddr;
 
 /// Go: `func fsrepo.IsInitialized(path string) bool`.
 bool isInitialized(String path) {
-  final $r = $callSync(376, $W()..str(path));
+  final $r = $callSync(385, $W()..str(path));
   return $r.b();
 }
 
 /// Go: `func fsrepo.Init(repoPath string, conf *config.Config) error`.
 void init(String repoPath, $config.Config conf) {
   $callSync(
-      375,
+      384,
       $W()
         ..str(repoPath)
         ..json(conf));
@@ -24,25 +24,25 @@ void init(String repoPath, $config.Config conf) {
 
 /// Go: `func fsrepo.Open(repoPath string) (repo.Repo, error)`.
 $repo.Repo open(String repoPath) {
-  final $r = $callSync(378, $W()..str(repoPath));
+  final $r = $callSync(387, $W()..str(repoPath));
   return $r.hnn($repo.Repo.$h);
 }
 
 /// Go: `func fsrepo.BestKnownPath() (string, error)`.
 String bestKnownPath() {
-  final $r = $callSync(374);
+  final $r = $callSync(383);
   return $r.str();
 }
 
 /// Go: `func fsrepo.LockedByOtherProcess(repoPath string) (bool, error)`.
 bool lockedByOtherProcess(String repoPath) {
-  final $r = $callSync(377, $W()..str(repoPath));
+  final $r = $callSync(386, $W()..str(repoPath));
   return $r.b();
 }
 
 /// Go: `func fsrepo.APIAddr(repoPath string) (multiaddr.Multiaddr, error)`.
 $multiaddr.Multiaddr apiAddr(String repoPath) {
-  final $r = $callSync(373, $W()..str(repoPath));
+  final $r = $callSync(382, $W()..str(repoPath));
   return $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil();
 }
 

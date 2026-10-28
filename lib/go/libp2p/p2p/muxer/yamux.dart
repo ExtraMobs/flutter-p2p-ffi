@@ -12,7 +12,7 @@ class Transport extends $network.Multiplexer {
 
 /// Go: `var yamux.DefaultTransport *yamux.Transport`.
 Transport get defaultTransport {
-  final $r = $callSync(638);
+  final $r = $callSync(647);
   return $r.hnn(Transport.$h);
 }
 

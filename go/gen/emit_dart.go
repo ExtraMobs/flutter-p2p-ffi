@@ -140,6 +140,7 @@ func emitDart(m *model, fns []*fn, hash uint64, more func(*dartEmitter)) (map[st
 			l.funcs = append(l.funcs, f)
 		}
 	}
+	e.linkInterfaces()
 	e.linkConcrete()
 	anyTypes := e.tokens()
 	if more != nil {
@@ -1192,6 +1193,31 @@ func docType(t *tinfo) string {
 		return types.TypeString(t.named, shortQual)
 	}
 	return types.TypeString(t.t, shortQual)
+}
+
+// linkInterfaces: uma interface que embute várias (routing.ContentRouting:
+// ContentProviding e ContentDiscovery) estende no Dart só uma, a primeira;
+// se essa nenhuma função recebe e outra embutida sim (bitswap.New pede
+// ContentDiscovery), estende a recebida, para ser aceita onde o Go a aceita.
+func (e *dartEmitter) linkInterfaces() {
+	for _, path := range sortedKeys(e.libs) {
+		l := e.libs[path]
+		for _, k := range sortedKeys(l.classes) {
+			t := l.classes[k].t
+			if t.k != kHandle || t.named == nil || !types.IsInterface(t.named) || t.super == nil || e.paramIfaces[classKey(t.super)] {
+				continue
+			}
+			u := t.named.Underlying().(*types.Interface)
+			for i := 0; i < u.NumEmbeddeds(); i++ {
+				if en, ok := u.EmbeddedType(i).(*types.Named); ok {
+					if s := e.m.classify(en); s.k == kHandle && !s.reader && e.paramIfaces[classKey(s)] {
+						t.super = s
+						break
+					}
+				}
+			}
+		}
+	}
 }
 
 // linkConcrete: handle concreto (*merkledag.RawNode) que implementa uma

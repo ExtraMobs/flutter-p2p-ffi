@@ -12,6 +12,6 @@ class MutexDatastore extends $datastore.Batching {
 
 /// Go: `func sync.MutexWrap(d datastore.Datastore) *sync.MutexDatastore`.
 MutexDatastore mutexWrap($datastore.Datastore d) {
-  final $r = $callSync(238, $W()..h(d));
+  final $r = $callSync(246, $W()..h(d));
   return $r.hnn(MutexDatastore.$h);
 }

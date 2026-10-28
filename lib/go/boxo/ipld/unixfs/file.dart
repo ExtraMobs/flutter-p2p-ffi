@@ -13,7 +13,7 @@ import 'package:p2p_ffi/go/ipld_format.dart' as $ipld_format;
 Future<$files.Node> newUnixfsFile($context.Context ctx,
     $ipld_format.DagService dserv, $ipld_format.Node nd) async {
   final $r = await $call(
-      138,
+      146,
       $W()
         ..h(ctx)
         ..h(dserv)

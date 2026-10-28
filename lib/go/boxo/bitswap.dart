@@ -3,12 +3,58 @@
 library;
 
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/boxo/bitswap/network.dart' as $network;
+import 'package:p2p_ffi/go/boxo/blockstore.dart' as $blockstore;
+import 'package:p2p_ffi/go/boxo/exchange.dart' as $exchange;
 import 'package:p2p_ffi/go/cid.dart' as $cid;
+import 'package:p2p_ffi/go/context.dart' as $context;
+import 'package:p2p_ffi/go/libp2p/core/routing.dart' as $routing;
 
-/// Go: `bitswap.Stat` (a kubo command output).
-final class Stat {
+/// Go: `bitswap.Bitswap` (handle).
+class Bitswap extends $exchange.Interface {
+  Bitswap.$h(super.$h) : super.$h();
+
+  /// Go: `func (*bitswap.Bitswap).Close() error`.
+  void close() {
+    $callSync(103, $W()..h(this));
+  }
+
+  /// Go: `func (*bitswap.Bitswap).Stat() (*bitswap.Stat, error)`.
+  Stat stat() {
+    final $r = $callSync(104, $W()..h(this));
+    return $r.p() ? Stat.$dec($r) : $nil();
+  }
+}
+
+/// Go: `bitswap.Option` (handle).
+class Option extends GoHandle {
+  Option.$h(super.$h);
+}
+
+/// Go: `bitswap.Stat`.
+final class Stat implements GoDto {
+  Stat(
+      {List<$cid.Cid>? wantlist,
+      List<String>? peers,
+      int? blocksReceived,
+      int? dataReceived,
+      int? dupBlksReceived,
+      int? dupDataReceived,
+      int? messagesReceived,
+      int? blocksSent,
+      int? dataSent})
+      : wantlist = wantlist ?? [],
+        peers = peers ?? [],
+        blocksReceived = blocksReceived ?? 0,
+        dataReceived = dataReceived ?? 0,
+        dupBlksReceived = dupBlksReceived ?? 0,
+        dupDataReceived = dupDataReceived ?? 0,
+        messagesReceived = messagesReceived ?? 0,
+        blocksSent = blocksSent ?? 0,
+        dataSent = dataSent ?? 0;
+
   Stat.$dec($R r)
-      : wantlist = r.list(() => $cid.Cid(r.str())),
+      : wantlist = r.list(() => r.p() ? $cid.Cid(r.str()) : $nil()),
         peers = r.list(() => r.str()),
         blocksReceived = r.i64(),
         dataReceived = r.i64(),
@@ -19,50 +65,81 @@ final class Stat {
         dataSent = r.i64();
 
   /// Go: `Wantlist`.
-  final List<$cid.Cid> wantlist;
+  List<$cid.Cid> wantlist;
 
   /// Go: `Peers`.
-  final List<String> peers;
+  List<String> peers;
 
   /// Go: `BlocksReceived`.
   ///
   /// Go `uint64`: values from 2^63 up arrive negative (same 64 bits);
   /// `BigInt.from(v).toUnsigned(64)` reads them unsigned.
-  final int blocksReceived;
+  int blocksReceived;
 
   /// Go: `DataReceived`.
   ///
   /// Go `uint64`: values from 2^63 up arrive negative (same 64 bits);
   /// `BigInt.from(v).toUnsigned(64)` reads them unsigned.
-  final int dataReceived;
+  int dataReceived;
 
   /// Go: `DupBlksReceived`.
   ///
   /// Go `uint64`: values from 2^63 up arrive negative (same 64 bits);
   /// `BigInt.from(v).toUnsigned(64)` reads them unsigned.
-  final int dupBlksReceived;
+  int dupBlksReceived;
 
   /// Go: `DupDataReceived`.
   ///
   /// Go `uint64`: values from 2^63 up arrive negative (same 64 bits);
   /// `BigInt.from(v).toUnsigned(64)` reads them unsigned.
-  final int dupDataReceived;
+  int dupDataReceived;
 
   /// Go: `MessagesReceived`.
   ///
   /// Go `uint64`: values from 2^63 up arrive negative (same 64 bits);
   /// `BigInt.from(v).toUnsigned(64)` reads them unsigned.
-  final int messagesReceived;
+  int messagesReceived;
 
   /// Go: `BlocksSent`.
   ///
   /// Go `uint64`: values from 2^63 up arrive negative (same 64 bits);
   /// `BigInt.from(v).toUnsigned(64)` reads them unsigned.
-  final int blocksSent;
+  int blocksSent;
 
   /// Go: `DataSent`.
   ///
   /// Go `uint64`: values from 2^63 up arrive negative (same 64 bits);
   /// `BigInt.from(v).toUnsigned(64)` reads them unsigned.
-  final int dataSent;
+  int dataSent;
+
+  @override
+  void $enc($W w) {
+    w
+      ..list(wantlist, (w0, e0) => w0.val(e0))
+      ..list(peers, (w0, e0) => w0.str(e0))
+      ..i64(blocksReceived)
+      ..i64(dataReceived)
+      ..i64(dupBlksReceived)
+      ..i64(dupDataReceived)
+      ..i64(messagesReceived)
+      ..i64(blocksSent)
+      ..i64(dataSent);
+  }
+}
+
+/// Go: `func bitswap.New(ctx context.Context, net network.BitSwapNetwork, providerFinder routing.ContentDiscovery, bstore blockstore.Blockstore, options ...bitswap.Option) *bitswap.Bitswap`.
+///
+/// Asynchronous: runs in a goroutine of the service.
+Future<Bitswap> new$($context.Context ctx, $network.BitSwapNetwork net,
+    $routing.ContentDiscovery providerFinder, $blockstore.Blockstore bstore,
+    [List<Option> options = const []]) async {
+  final $r = await $call(
+      105,
+      $W()
+        ..h(ctx)
+        ..h(net)
+        ..h(providerFinder)
+        ..h(bstore)
+        ..list(options, (w0, e0) => w0.h(e0)));
+  return $r.hnn(Bitswap.$h);
 }

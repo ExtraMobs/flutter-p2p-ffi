@@ -199,7 +199,16 @@ Stream<$bitswap.Stat> bitswapStat($core.IpfsNode node, $context.Context ctx,
           'cid-base': cidBase,
           'upgrade-cidv0-in-output': upgradeCidv0InOutput
         },
-        (r) => $bitswap.Stat.$dec(r));
+        (r) => $bitswap.Stat(
+            wantlist: r.list(() => $cid.Cid(r.str())),
+            peers: r.list(() => r.str()),
+            blocksReceived: r.i64(),
+            dataReceived: r.i64(),
+            dupBlksReceived: r.i64(),
+            dupDataReceived: r.i64(),
+            messagesReceived: r.i64(),
+            blocksSent: r.i64(),
+            dataSent: r.i64()));
 
 /// `ipfs bitswap wantlist`: Show blocks currently on the wantlist.
 Stream<KeyList> bitswapWantlist($core.IpfsNode node, $context.Context ctx,
@@ -2833,7 +2842,16 @@ Stream<$bitswap.Stat> statsBitswap($core.IpfsNode node, $context.Context ctx,
           'cid-base': cidBase,
           'upgrade-cidv0-in-output': upgradeCidv0InOutput
         },
-        (r) => $bitswap.Stat.$dec(r));
+        (r) => $bitswap.Stat(
+            wantlist: r.list(() => $cid.Cid(r.str())),
+            peers: r.list(() => r.str()),
+            blocksReceived: r.i64(),
+            dataReceived: r.i64(),
+            dupBlksReceived: r.i64(),
+            dupDataReceived: r.i64(),
+            messagesReceived: r.i64(),
+            blocksSent: r.i64(),
+            dataSent: r.i64()));
 
 /// `ipfs stats bw`: Print IPFS bandwidth information.
 Stream<$metrics.Stats> statsBw($core.IpfsNode node, $context.Context ctx,
