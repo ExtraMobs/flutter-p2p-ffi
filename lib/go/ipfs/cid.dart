@@ -5,7 +5,7 @@ library;
 import 'dart:async';
 import 'dart:typed_data';
 
-import 'package:p2p_ffi/src/go.dart' show GoIpfsCid;
+import 'package:p2p_ffi/src/go.dart' show GoIpfsCid, GoIpfsCidConsts;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
@@ -554,7 +554,10 @@ extension GoIpfsCidApi on GoIpfsCid {
     final $r = $callSync(1096);
     return $r.p() ? Cid($r.str()) : $nil();
   }
+}
 
+/// Go: the constants of `github.com/ipfs/go-cid` (`go.ipfs.cid.consts`).
+extension GoIpfsCidConstsApi on GoIpfsCidConsts {
   /// Go: `const cid.BitcoinBlock untyped int`.
   int get bitcoinBlock => 176;
 

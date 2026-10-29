@@ -2,7 +2,7 @@
 // Go: github.com/ipfs/go-log/v2
 library;
 
-import 'package:p2p_ffi/src/go.dart' show GoIpfsLogV2;
+import 'package:p2p_ffi/src/go.dart' show GoIpfsLogV2Consts, GoIpfsLogV2Enums;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
@@ -23,13 +23,16 @@ class LogV2ErrNoSuchLogger extends GolangException {
   String toString() => 'log.ErrNoSuchLogger: $message';
 }
 
-/// Go: the package-level members of `github.com/ipfs/go-log/v2` (`go.ipfs.log.v2`).
-extension GoIpfsLogV2Api on GoIpfsLogV2 {
-  /// Go: `const log.ColorizedOutput log.LogFormat`.
-  int get colorizedOutput => 0;
-
+/// Go: the constants of `github.com/ipfs/go-log/v2` (`go.ipfs.log.v2.consts`).
+extension GoIpfsLogV2ConstsApi on GoIpfsLogV2Consts {
   /// Go: `const log.DefaultName untyped string`.
   String get defaultName => "";
+}
+
+/// Go: the constants of a named type of `github.com/ipfs/go-log/v2` (`go.ipfs.log.v2.enums`).
+extension GoIpfsLogV2EnumsApi on GoIpfsLogV2Enums {
+  /// Go: `const log.ColorizedOutput log.LogFormat`.
+  int get colorizedOutput => 0;
 
   /// Go: `const log.JSONOutput log.LogFormat`.
   int get jsonOutput => 2;

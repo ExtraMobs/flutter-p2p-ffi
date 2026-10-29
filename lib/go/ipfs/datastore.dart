@@ -4,7 +4,8 @@ library;
 
 import 'dart:typed_data';
 
-import 'package:p2p_ffi/src/go.dart' show GoIpfsDatastore;
+import 'package:p2p_ffi/src/go.dart'
+    show GoIpfsDatastore, GoIpfsDatastoreConsts;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
@@ -1603,7 +1604,10 @@ extension GoIpfsDatastoreApi on GoIpfsDatastore {
     final $r = $callSync(1188, $W()..str(s));
     return $r.hnn(DatastoreKey.$h);
   }
+}
 
+/// Go: the constants of `github.com/ipfs/go-datastore` (`go.ipfs.datastore.consts`).
+extension GoIpfsDatastoreConstsApi on GoIpfsDatastoreConsts {
   /// Go: `const datastore.FeatureNameBatching untyped string`.
   String get featureNameBatching => "Batching";
 

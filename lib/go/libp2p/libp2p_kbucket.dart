@@ -4,7 +4,8 @@ library;
 
 import 'dart:typed_data';
 
-import 'package:p2p_ffi/src/go.dart' show GoLibp2pLibp2pKbucket;
+import 'package:p2p_ffi/src/go.dart'
+    show GoLibp2pLibp2pKbucket, GoLibp2pLibp2pKbucketConsts;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
@@ -313,7 +314,10 @@ extension GoLibp2pLibp2pKbucketApi on GoLibp2pLibp2pKbucket {
           ..bytes(b));
     return $r.bytes() ?? Uint8List(0);
   }
+}
 
+/// Go: the constants of `github.com/libp2p/go-libp2p-kbucket` (`go.libp2p.libp2pKbucket.consts`).
+extension GoLibp2pLibp2pKbucketConstsApi on GoLibp2pLibp2pKbucketConsts {
   /// Go: `const kbucket.PeerIDPreimageMaxCpl uint`.
   int get peerIdPreimageMaxCpl => 15;
 }

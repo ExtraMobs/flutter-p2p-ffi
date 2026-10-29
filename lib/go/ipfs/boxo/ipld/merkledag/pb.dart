@@ -2,7 +2,7 @@
 // Go: github.com/ipfs/boxo/ipld/merkledag/pb
 library;
 
-import 'package:p2p_ffi/src/go.dart' show GoIpfsBoxoIpldMerkledagPb;
+import 'package:p2p_ffi/src/go.dart' show GoIpfsBoxoIpldMerkledagPbConsts;
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
 
@@ -13,8 +13,9 @@ class BoxoIpldMerkledagPbNode extends $crypto.CryptoPrivateKey
   BoxoIpldMerkledagPbNode.$h(super.$h) : super.$h();
 }
 
-/// Go: the package-level members of `github.com/ipfs/boxo/ipld/merkledag/pb` (`go.ipfs.boxo.ipld.merkledag.pb`).
-extension GoIpfsBoxoIpldMerkledagPbApi on GoIpfsBoxoIpldMerkledagPb {
+/// Go: the constants of `github.com/ipfs/boxo/ipld/merkledag/pb` (`go.ipfs.boxo.ipld.merkledag.pb.consts`).
+extension GoIpfsBoxoIpldMerkledagPbConstsApi
+    on GoIpfsBoxoIpldMerkledagPbConsts {
   /// Go: `const pb.DoNotUpgradeFileEverItWillChangeYourHashes untyped string`.
   String get doNotUpgradeFileEverItWillChangeYourHashes =>
       "\nThis file does not produce canonical protobufs. Unfortunately, if we change it,\nwe'll change the hashes of the files we produce.\n\nDo *not regenerate this file.\n";

@@ -5,7 +5,8 @@ library;
 import 'dart:async';
 import 'dart:typed_data';
 
-import 'package:p2p_ffi/src/go.dart' show GoIpfsBoxoFiles;
+import 'package:p2p_ffi/src/go.dart'
+    show GoIpfsBoxoFiles, GoIpfsBoxoFilesConsts;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/crackcomm/gitignore.dart' as $gitignore;
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
@@ -921,7 +922,10 @@ extension GoIpfsBoxoFilesApi on GoIpfsBoxoFiles {
           ..h(nd)
           ..str(fpath));
   }
+}
 
+/// Go: the constants of `github.com/ipfs/boxo/files` (`go.ipfs.boxo.files.consts`).
+extension GoIpfsBoxoFilesConstsApi on GoIpfsBoxoFilesConsts {
   /// Go: `const files.FileModeHeaderName untyped string`.
   String get fileModeHeaderName => "File-Mode";
 

@@ -114,7 +114,8 @@ void main() {
     expect(r.version, 2);
     final h = r.header;
     expect(h.hasIndex(), isTrue); // o wrap gera o índice
-    expect(h.dataOffset, go.ipld.car.v2.pragmaSize + go.ipld.car.v2.headerSize);
+    expect(h.dataOffset,
+        go.ipld.car.v2.consts.pragmaSize + go.ipld.car.v2.consts.headerSize);
     expect(h.characteristics!.isFullyIndexed(), isFalse);
     expect(h.withDataSize(7).dataSize, 7); // método de DTO: cópia nova
     expect(h.dataSize, isNot(7));
@@ -141,7 +142,8 @@ void main() {
 
   test('índice: gera, consulta, serializa e anexa', () {
     final idx = go.ipld.car.v2.generateIndexFromFile(v1);
-    expect(idx.codec(), go.multiformats.multicodec.carMultihashIndexSorted);
+    expect(
+        idx.codec(), go.multiformats.multicodec.enums.carMultihashIndexSorted);
     final at = go.ipld.car.v2.index.getFirst(idx, root);
     expect(at, greaterThan(0));
 
@@ -151,15 +153,15 @@ void main() {
     final bytes = buf.bytes();
     expect(bytes, hasLength(n));
     expect(go.ipld.car.v2.index.readCodec(bytes),
-        go.multiformats.multicodec.carMultihashIndexSorted);
+        go.multiformats.multicodec.enums.carMultihashIndexSorted);
     expect(
         go.ipld.car.v2.index
             .getFirst(go.ipld.car.v2.index.readFrom(bytes), root),
         at);
 
     // outro codec, carregado de registros
-    final sorted =
-        go.ipld.car.v2.index.new$(go.multiformats.multicodec.carIndexSorted);
+    final sorted = go.ipld.car.v2.index
+        .new$(go.multiformats.multicodec.enums.carIndexSorted);
     sorted.load([CarV2IndexRecord(cid: root, offset: 42)]);
     expect(go.ipld.car.v2.index.getFirst(sorted, root), 42);
   });
@@ -292,14 +294,18 @@ void main() {
 
     test('gateway.getCar: escopos e faixa de bytes', () async {
       final (_, all) = await getCar('/ipfs/$root',
-          BoxoGatewayCarParams(scope: go.ipfs.boxo.gateway.dagScopeAll));
+          BoxoGatewayCarParams(scope: go.ipfs.boxo.gateway.enums.dagScopeAll));
       expect(cids(all), hasLength(blocks));
-      final (_, one) = await getCar('/ipfs/$root',
-          BoxoGatewayCarParams(scope: go.ipfs.boxo.gateway.dagScopeBlock));
+      final (_, one) = await getCar(
+          '/ipfs/$root',
+          BoxoGatewayCarParams(
+              scope: go.ipfs.boxo.gateway.enums.dagScopeBlock));
       expect(cids(one), [root]);
       // a pasta (para provar o caminho) e o b.txt inteiro: raiz e 2 fatias
-      final (meta, entity) = await getCar('/ipfs/$root/b.txt',
-          BoxoGatewayCarParams(scope: go.ipfs.boxo.gateway.dagScopeEntity));
+      final (meta, entity) = await getCar(
+          '/ipfs/$root/b.txt',
+          BoxoGatewayCarParams(
+              scope: go.ipfs.boxo.gateway.enums.dagScopeEntity));
       expect(meta.pathSegmentRoots, [root]);
       expect(cids(entity), hasLength(4));
       expect(cids(entity).first, root);
@@ -307,7 +313,7 @@ void main() {
       final (_, range) = await getCar(
           '/ipfs/$root/b.txt',
           BoxoGatewayCarParams(
-              scope: go.ipfs.boxo.gateway.dagScopeEntity,
+              scope: go.ipfs.boxo.gateway.enums.dagScopeEntity,
               range: BoxoGatewayDagByteRange(from: 0, to: 99)));
       expect(cids(range), hasLength(3));
     });

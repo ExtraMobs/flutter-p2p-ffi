@@ -2,7 +2,7 @@
 // Go: github.com/ipfs/kubo
 library;
 
-import 'package:p2p_ffi/src/go.dart' show GoIpfsKubo;
+import 'package:p2p_ffi/src/go.dart' show GoIpfsKubo, GoIpfsKuboConsts;
 import 'package:p2p_ffi/src/runtime.dart';
 
 /// Go: `ipfs.VersionInfo`.
@@ -82,7 +82,10 @@ extension GoIpfsKuboApi on GoIpfsKubo {
   void setUserAgentSuffix(String suffix) {
     $callSync(1370, $W()..str(suffix));
   }
+}
 
+/// Go: the constants of `github.com/ipfs/kubo` (`go.ipfs.kubo.consts`).
+extension GoIpfsKuboConstsApi on GoIpfsKuboConsts {
   /// Go: `const ipfs.ApiVersion untyped string`.
   String get apiVersion => "/kubo/0.43.1/";
 

@@ -2,7 +2,8 @@
 // Go: github.com/libp2p/go-libp2p/p2p/protocol/ping
 library;
 
-import 'package:p2p_ffi/src/go.dart' show GoLibp2pLibp2pP2pProtocolPing;
+import 'package:p2p_ffi/src/go.dart'
+    show GoLibp2pLibp2pP2pProtocolPing, GoLibp2pLibp2pP2pProtocolPingConsts;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/host.dart' as $host;
@@ -87,7 +88,11 @@ extension GoLibp2pLibp2pP2pProtocolPingApi on GoLibp2pLibp2pP2pProtocolPing {
                 ..h(h)
                 ..val(p))
           .map((r) => r.p() ? Libp2pP2pProtocolPingResult.$dec(r) : $nil());
+}
 
+/// Go: the constants of `github.com/libp2p/go-libp2p/p2p/protocol/ping` (`go.libp2p.libp2p.p2p.protocol.ping.consts`).
+extension GoLibp2pLibp2pP2pProtocolPingConstsApi
+    on GoLibp2pLibp2pP2pProtocolPingConsts {
   /// Go: `const ping.ID untyped string`.
   String get id => "/ipfs/ping/1.0.0";
 

@@ -2,7 +2,7 @@
 // Go: github.com/libp2p/go-libp2p/core/protocol
 library;
 
-import 'package:p2p_ffi/src/go.dart' show GoLibp2pLibp2pCoreProtocol;
+import 'package:p2p_ffi/src/go.dart' show GoLibp2pLibp2pCoreProtocolEnums;
 import 'package:p2p_ffi/src/runtime.dart';
 
 /// Go: `protocol.Router` (handle).
@@ -22,8 +22,9 @@ class Libp2pCoreProtocolSwitch extends Libp2pCoreProtocolRouter
 /// The methods of [Libp2pCoreProtocolSwitch], mixed into every class Go also accepts as one.
 mixin Libp2pCoreProtocolSwitch$ on GoHandle {}
 
-/// Go: the package-level members of `github.com/libp2p/go-libp2p/core/protocol` (`go.libp2p.libp2p.core.protocol`).
-extension GoLibp2pLibp2pCoreProtocolApi on GoLibp2pLibp2pCoreProtocol {
+/// Go: the constants of a named type of `github.com/libp2p/go-libp2p/core/protocol` (`go.libp2p.libp2p.core.protocol.enums`).
+extension GoLibp2pLibp2pCoreProtocolEnumsApi
+    on GoLibp2pLibp2pCoreProtocolEnums {
   /// Go: `const protocol.TestingID protocol.ID`.
   String get testingId => "/p2p/_testing";
 }

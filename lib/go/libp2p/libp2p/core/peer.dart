@@ -4,7 +4,8 @@ library;
 
 import 'dart:typed_data';
 
-import 'package:p2p_ffi/src/go.dart' show GoLibp2pLibp2pCorePeer;
+import 'package:p2p_ffi/src/go.dart'
+    show GoLibp2pLibp2pCorePeer, GoLibp2pLibp2pCorePeerConsts;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/ipfs/cid.dart' as $cid;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/crypto.dart' as $crypto;
@@ -417,7 +418,10 @@ extension GoLibp2pLibp2pCorePeerApi on GoLibp2pLibp2pCorePeer {
     final $r = $callSync(3158, $W()..val(id));
     return $r.p() ? $cid.Cid($r.str()) : $nil();
   }
+}
 
+/// Go: the constants of `github.com/libp2p/go-libp2p/core/peer` (`go.libp2p.libp2p.core.peer.consts`).
+extension GoLibp2pLibp2pCorePeerConstsApi on GoLibp2pLibp2pCorePeerConsts {
   /// Go: `const peer.PeerRecordEnvelopeDomain untyped string`.
   String get peerRecordEnvelopeDomain => "libp2p-peer-record";
 }

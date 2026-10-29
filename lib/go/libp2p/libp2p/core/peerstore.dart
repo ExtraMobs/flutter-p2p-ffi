@@ -2,7 +2,8 @@
 // Go: github.com/libp2p/go-libp2p/core/peerstore
 library;
 
-import 'package:p2p_ffi/src/go.dart' show GoLibp2pLibp2pCorePeerstore;
+import 'package:p2p_ffi/src/go.dart'
+    show GoLibp2pLibp2pCorePeerstore, GoLibp2pLibp2pCorePeerstoreConsts;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/crypto.dart' as $crypto;
@@ -568,7 +569,11 @@ extension GoLibp2pLibp2pCorePeerstoreApi on GoLibp2pLibp2pCorePeerstore {
     final $r = $callSync(3204);
     return Duration(microseconds: $r.i64() ~/ 1000);
   }
+}
 
+/// Go: the constants of `github.com/libp2p/go-libp2p/core/peerstore` (`go.libp2p.libp2p.core.peerstore.consts`).
+extension GoLibp2pLibp2pCorePeerstoreConstsApi
+    on GoLibp2pLibp2pCorePeerstoreConsts {
   /// Go: `const peerstore.ConnectedAddrTTL untyped int`.
   int get connectedAddrTtl => 9223372036854775806;
 

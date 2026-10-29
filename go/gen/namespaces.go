@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	"fmt"
+	"go/types"
 	"io/fs"
 	"os"
 	"os/exec"
@@ -180,6 +181,36 @@ func nsPath(path string) string {
 // nsRootConst: the top-level constant at the root of the tree.
 const nsRootConst = "go"
 
+// Constant layers (owner's decision, 2026-10-29): a package's constants are not
+// members of its namespace but of one of two layers under it, so a constant
+// does not hide a sub-package (crypto.MD5 and crypto/md5): `enums`, a constant
+// of a named type (`go.crypto.enums.md5`, `go.multiformats.multicodec.enums.raw`),
+// and `consts`, the others (`go.ipfs.cid.consts.raw`, `go.os.consts.devNull`).
+// Variables and functions stay members of the namespace.
+var constLayers = []string{"consts", "enums"}
+
+var constLayerDoc = map[string]string{"consts": "constants", "enums": "constants of a named type"}
+
+// constLayer: the layer of a package-level object ("" when it is not a
+// constant).
+func constLayer(o types.Object) string {
+	c, ok := o.(*types.Const)
+	if !ok {
+		return ""
+	}
+	if _, named := types.Unalias(c.Type()).(*types.Named); named {
+		return "enums"
+	}
+	return "consts"
+}
+
+// layerPath: the path of a library's layer, as if it were a library under it
+// (go/ipfs/cid.dart, consts → go/ipfs/cid/consts.dart): nsClass and nsPath
+// name it (GoIpfsCidConsts, go.ipfs.cid.consts).
+func layerPath(path, layer string) string {
+	return strings.TrimSuffix(path, ".dart") + "/" + layer + ".dart"
+}
+
 // nsMember: the getter of a path segment (libp2p_kad_dht → libp2pKadDht).
 func nsMember(seg string) string { return memberName(seg) }
 
@@ -273,14 +304,15 @@ var memberRE = regexp.MustCompile(`^  (?:static )?(?:[A-Za-z_$(][A-Za-z0-9_$<>?,
 // extMembers: the names [src]'s extensions declare (`goX.<name>`). A
 // declaration dart format broke after its type continues on the lines
 // indented further.
-func extMembers(src []byte) []string {
+// [on]: only the extensions on that class ("": all of them).
+func extMembers(src []byte, on string) []string {
 	var out []string
 	in := false
 	lines := strings.Split(string(src), "\n")
 	for i, line := range lines {
 		switch {
 		case strings.HasPrefix(line, "extension "):
-			in = true
+			in = on == "" || strings.HasSuffix(line, " on "+on+" {")
 		case line == "}":
 			in = false
 		case in && strings.HasPrefix(line, "  ") && !strings.HasPrefix(line, "   ") && !strings.HasPrefix(line, "  /") && !strings.HasPrefix(line, "  @") && !strings.HasPrefix(line, "  }"):
@@ -305,9 +337,33 @@ func extMembers(src []byte) []string {
 // ones, with the generated part of a hand-written one appended; [goPaths]: the
 // Go package of each library, when known. It fails when two exported names
 // are the same, or a member of a library's namespace hides a sub-namespace.
+// A library's constant layers (consts, enums) are leaves under it.
 func goTree(libs map[string][]byte, goPaths map[string]string, runtime []string) ([]byte, error) {
-	kids := map[string]map[string]bool{} // folder ("" = the modules) → its child segments
-	for path := range libs {
+	layers := map[string]string{} // a constant layer, as a library path → its doc
+	for path, src := range libs {
+		for _, layer := range constLayers {
+			if lp := layerPath(path, layer); bytes.Contains(src, []byte(" on "+nsClass(lp)+" {")) {
+				layers[lp] = "The " + constLayerDoc[layer] + " of `" + nsPath(path) + "`"
+			}
+		}
+	}
+	doc := func(path string) (string, bool) { // a package's or a layer's
+		if gp, ok := goPaths[path]; ok {
+			return "Go: package `" + gp + "`", true
+		}
+		d, ok := layers[path]
+		return d, ok
+	}
+	kids := map[string]map[string]bool{} // folder ("" = the root) → its child segments
+	nodes := sortedKeys(libs)            // the libraries and the layers
+	for _, lp := range sortedKeys(layers) {
+		if _, ok := libs[lp]; ok {
+			return nil, fmt.Errorf("lib/%s: a package with the name of a constant layer", lp)
+		}
+		nodes = append(nodes, lp)
+	}
+	sort.Strings(nodes)
+	for _, path := range nodes {
 		p := strings.TrimSuffix(strings.TrimPrefix(path, "go/"), ".dart")
 		segs := strings.Split(p, "/")
 		for i := range segs {
@@ -335,7 +391,7 @@ func goTree(libs map[string][]byte, goPaths map[string]string, runtime []string)
 			claim(n, "lib/"+path)
 		}
 		dir := strings.TrimSuffix(strings.TrimPrefix(path, "go/"), ".dart")
-		for _, n := range extMembers(libs[path]) {
+		for _, n := range extMembers(libs[path], nsClass(path)) {
 			if kids[dir][n] || kids[dir][strings.TrimSuffix(n, "$")] {
 				dup = append(dup, fmt.Sprintf("%s.%s: a member of lib/%s and a sub-namespace", nsPath(path), n, path))
 			}
@@ -357,11 +413,11 @@ library;
 		var g strings.Builder
 		for _, seg := range sortedKeys(kids[dir]) {
 			sub := strings.TrimPrefix(dir+"/"+seg, "/")
-			doc := "`" + sub + "`"
-			if gp, ok := goPaths["go/"+sub+".dart"]; ok {
-				doc = "Go: package `" + gp + "`"
+			d, ok := doc("go/" + sub + ".dart")
+			if !ok {
+				d = "`" + sub + "`"
 			}
-			fmt.Fprintf(&g, "\n  /// %s.\n  %s get %s => const %s._();\n", doc, nsClass(sub), nsMember(seg), nsClass(sub))
+			fmt.Fprintf(&g, "\n  /// %s.\n  %s get %s => const %s._();\n", d, nsClass(sub), nsMember(seg), nsClass(sub))
 		}
 		return g.String()
 	}
@@ -380,17 +436,17 @@ library;
 		}
 		fmt.Fprintf(&b, "\n/// %s.\nfinal class %s {\n  const %s._();\n%s}\n", doc, nsClass(dir), nsClass(dir), getters(dir))
 	}
-	for _, path := range sortedKeys(libs) { // a library without a folder of its own
+	for _, path := range nodes { // a library or a layer without a folder of its own
 		dir := strings.TrimSuffix(strings.TrimPrefix(path, "go/"), ".dart")
 		if _, ok := kids[dir]; ok {
 			continue
 		}
 		claim(nsClass(dir), "lib/src/go.dart")
-		doc := "`" + nsPath(dir) + "`"
-		if gp, ok := goPaths[path]; ok {
-			doc = "Go: package `" + gp + "`, as `" + nsPath(dir) + "`"
+		d := "`" + nsPath(dir) + "`"
+		if pd, ok := doc(path); ok {
+			d = pd + ", as `" + nsPath(dir) + "`"
 		}
-		fmt.Fprintf(&b, "\n/// %s.\nfinal class %s {\n  const %s._();\n}\n", doc, nsClass(dir), nsClass(dir))
+		fmt.Fprintf(&b, "\n/// %s.\nfinal class %s {\n  const %s._();\n}\n", d, nsClass(dir), nsClass(dir))
 	}
 	if len(dup) > 0 {
 		sort.Strings(dup)

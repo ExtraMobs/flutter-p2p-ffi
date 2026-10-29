@@ -2,7 +2,7 @@
 // Go: go.uber.org/fx
 library;
 
-import 'package:p2p_ffi/src/go.dart' show GoFx;
+import 'package:p2p_ffi/src/go.dart' show GoFxConsts, GoFxEnums;
 import 'package:p2p_ffi/src/runtime.dart';
 
 /// Go: `fx.Lifecycle` (handle).
@@ -21,11 +21,14 @@ class FxOption extends GoHandle with FxOption$ {
 /// The methods of [FxOption], mixed into every class Go also accepts as one.
 mixin FxOption$ on GoHandle {}
 
-/// Go: the package-level members of `go.uber.org/fx` (`go.fx`).
-extension GoFxApi on GoFx {
-  /// Go: `const fx.DefaultTimeout time.Duration`.
-  Duration get defaultTimeout => Duration(microseconds: 15000000);
-
+/// Go: the constants of `go.uber.org/fx` (`go.fx.consts`).
+extension GoFxConstsApi on GoFxConsts {
   /// Go: `const fx.Version untyped string`.
   String get version => "1.24.0";
+}
+
+/// Go: the constants of a named type of `go.uber.org/fx` (`go.fx.enums`).
+extension GoFxEnumsApi on GoFxEnums {
+  /// Go: `const fx.DefaultTimeout time.Duration`.
+  Duration get defaultTimeout => Duration(microseconds: 15000000);
 }

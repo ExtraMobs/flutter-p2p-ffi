@@ -2,7 +2,8 @@
 // Go: github.com/libp2p/go-libp2p/p2p/security/tls
 library;
 
-import 'package:p2p_ffi/src/go.dart' show GoLibp2pLibp2pP2pSecurityTls;
+import 'package:p2p_ffi/src/go.dart'
+    show GoLibp2pLibp2pP2pSecurityTls, GoLibp2pLibp2pP2pSecurityTlsConsts;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
@@ -120,10 +121,14 @@ extension GoLibp2pLibp2pP2pSecurityTlsApi on GoLibp2pLibp2pP2pSecurityTls {
     return $r.hnn($crypto2.Libp2pCoreCryptoPubKey.$h);
   }
 
-  /// Go: `const libp2ptls.ID untyped string`.
-  String get id => "/tls/1.0.0";
-
   /// Go: the function `libp2ptls.New` as a value (a token: Go gets the function
   /// itself, as in `libp2p.Transport(tcp.NewTCPTransport)`).
   GoToken get newFunc => const GoToken(12);
+}
+
+/// Go: the constants of `github.com/libp2p/go-libp2p/p2p/security/tls` (`go.libp2p.libp2p.p2p.security.tls.consts`).
+extension GoLibp2pLibp2pP2pSecurityTlsConstsApi
+    on GoLibp2pLibp2pP2pSecurityTlsConsts {
+  /// Go: `const libp2ptls.ID untyped string`.
+  String get id => "/tls/1.0.0";
 }

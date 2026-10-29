@@ -5,7 +5,8 @@ library;
 import 'dart:async';
 import 'dart:typed_data';
 
-import 'package:p2p_ffi/src/go.dart' show GoIpfsBoxoIpldMerkledag;
+import 'package:p2p_ffi/src/go.dart'
+    show GoIpfsBoxoIpldMerkledag, GoIpfsBoxoIpldMerkledagEnums;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
@@ -1057,7 +1058,10 @@ extension GoIpfsBoxoIpldMerkledagApi on GoIpfsBoxoIpldMerkledag {
     final $r = $callSync(771, $W()..h(s));
     return $r.hnn($ipld_format.IpldFormatNodeGetter.$h);
   }
+}
 
+/// Go: the constants of a named type of `github.com/ipfs/boxo/ipld/merkledag` (`go.ipfs.boxo.ipld.merkledag.enums`).
+extension GoIpfsBoxoIpldMerkledagEnumsApi on GoIpfsBoxoIpldMerkledagEnums {
   /// Go: `const merkledag.PBNodeDataFirst merkledag.PBNodeFieldOrder`.
   int get pbNodeDataFirst => 1;
 

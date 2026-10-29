@@ -2,7 +2,8 @@
 // Go: github.com/ipfs/boxo/peering
 library;
 
-import 'package:p2p_ffi/src/go.dart' show GoIpfsBoxoPeering;
+import 'package:p2p_ffi/src/go.dart'
+    show GoIpfsBoxoPeeringConsts, GoIpfsBoxoPeeringEnums;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
@@ -63,11 +64,14 @@ class BoxoPeeringService extends $crypto.CryptoPrivateKey
   }
 }
 
-/// Go: the package-level members of `github.com/ipfs/boxo/peering` (`go.ipfs.boxo.peering`).
-extension GoIpfsBoxoPeeringApi on GoIpfsBoxoPeering {
+/// Go: the constants of `github.com/ipfs/boxo/peering` (`go.ipfs.boxo.peering.consts`).
+extension GoIpfsBoxoPeeringConstsApi on GoIpfsBoxoPeeringConsts {
   /// Go: `const peering.ConnmgrTag untyped string`.
   String get connmgrTag => "ipfs-peering";
+}
 
+/// Go: the constants of a named type of `github.com/ipfs/boxo/peering` (`go.ipfs.boxo.peering.enums`).
+extension GoIpfsBoxoPeeringEnumsApi on GoIpfsBoxoPeeringEnums {
   /// Go: `const peering.StateInit peering.State`.
   int get stateInit => 0;
 

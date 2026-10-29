@@ -4,7 +4,8 @@ library;
 
 import 'dart:typed_data';
 
-import 'package:p2p_ffi/src/go.dart' show GoIpfsKuboCoreNodeLibp2p;
+import 'package:p2p_ffi/src/go.dart'
+    show GoIpfsKuboCoreNodeLibp2p, GoIpfsKuboCoreNodeLibp2pConsts;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/fx.dart' as $fx;
@@ -538,7 +539,10 @@ extension GoIpfsKuboCoreNodeLibp2pApi on GoIpfsKuboCoreNodeLibp2p {
     final $r = $callSync(1752, $W()..dto(tptConfig));
     return $r.any();
   }
+}
 
+/// Go: the constants of `github.com/ipfs/kubo/core/node/libp2p` (`go.ipfs.kubo.core.node.libp2p.consts`).
+extension GoIpfsKuboCoreNodeLibp2pConstsApi on GoIpfsKuboCoreNodeLibp2pConsts {
   /// Go: `const libp2p.NetLimitTraceFilename untyped string`.
   String get netLimitTraceFilename => "rcmgr.json.gz";
 

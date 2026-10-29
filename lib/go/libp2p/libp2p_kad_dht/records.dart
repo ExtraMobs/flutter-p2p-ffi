@@ -4,7 +4,8 @@ library;
 
 import 'dart:typed_data';
 
-import 'package:p2p_ffi/src/go.dart' show GoLibp2pLibp2pKadDhtRecords;
+import 'package:p2p_ffi/src/go.dart'
+    show GoLibp2pLibp2pKadDhtRecords, GoLibp2pLibp2pKadDhtRecordsConsts;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
@@ -226,7 +227,11 @@ extension GoLibp2pLibp2pKadDhtRecordsApi on GoLibp2pLibp2pKadDhtRecords {
   /// Go: `records.ProviderAddrTTL`.
   Libp2pKadDhtRecordsOption providerAddrTtl(Duration d) =>
       Libp2pKadDhtRecordsOption.$(3, (w) => w..i64((d).inMicroseconds * 1000));
+}
 
+/// Go: the constants of `github.com/libp2p/go-libp2p-kad-dht/records` (`go.libp2p.libp2pKadDht.records.consts`).
+extension GoLibp2pLibp2pKadDhtRecordsConstsApi
+    on GoLibp2pLibp2pKadDhtRecordsConsts {
   /// Go: `const records.ProvidersKeyPrefix untyped string`.
   String get providersKeyPrefix => "/providers/";
 }

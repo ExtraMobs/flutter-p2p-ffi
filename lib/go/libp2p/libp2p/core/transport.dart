@@ -2,7 +2,7 @@
 // Go: github.com/libp2p/go-libp2p/core/transport
 library;
 
-import 'package:p2p_ffi/src/go.dart' show GoLibp2pLibp2pCoreTransport;
+import 'package:p2p_ffi/src/go.dart' show GoLibp2pLibp2pCoreTransportEnums;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/libp2p/libp2p/core/network.dart' as $network;
 import 'package:p2p_ffi/go/libp2p/libp2p/p2p/transport/webrtc.dart' as $webrtc;
@@ -55,8 +55,9 @@ class Libp2pCoreTransportErrListenerClosed extends GolangException {
   String toString() => 'transport.ErrListenerClosed: $message';
 }
 
-/// Go: the package-level members of `github.com/libp2p/go-libp2p/core/transport` (`go.libp2p.libp2p.core.transport`).
-extension GoLibp2pLibp2pCoreTransportApi on GoLibp2pLibp2pCoreTransport {
+/// Go: the constants of a named type of `github.com/libp2p/go-libp2p/core/transport` (`go.libp2p.libp2p.core.transport.enums`).
+extension GoLibp2pLibp2pCoreTransportEnumsApi
+    on GoLibp2pLibp2pCoreTransportEnums {
   /// Go: `const transport.UpdateKindDialFailed transport.DialUpdateKind`.
   int get updateKindDialFailed => 0;
 

@@ -2,7 +2,8 @@
 // Go: github.com/libp2p/go-libp2p/p2p/host/resource-manager
 library;
 
-import 'package:p2p_ffi/src/go.dart' show GoLibp2pLibp2pP2pHostResourceManager;
+import 'package:p2p_ffi/src/go.dart'
+    show GoLibp2pLibp2pP2pHostResourceManagerEnums;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
@@ -653,9 +654,9 @@ class Libp2pP2pHostResourceManagerErrStreamOrConnLimitExceeded
   String toString() => 'rcmgr.ErrStreamOrConnLimitExceeded: $message';
 }
 
-/// Go: the package-level members of `github.com/libp2p/go-libp2p/p2p/host/resource-manager` (`go.libp2p.libp2p.p2p.host.resourceManager`).
-extension GoLibp2pLibp2pP2pHostResourceManagerApi
-    on GoLibp2pLibp2pP2pHostResourceManager {
+/// Go: the constants of a named type of `github.com/libp2p/go-libp2p/p2p/host/resource-manager` (`go.libp2p.libp2p.p2p.host.resourceManager.enums`).
+extension GoLibp2pLibp2pP2pHostResourceManagerEnumsApi
+    on GoLibp2pLibp2pP2pHostResourceManagerEnums {
   /// Go: `const rcmgr.BlockAllLimit rcmgr.LimitVal`.
   int get blockAllLimit => -2;
 

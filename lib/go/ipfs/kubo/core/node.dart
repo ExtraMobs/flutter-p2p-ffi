@@ -4,7 +4,8 @@ library;
 
 import 'dart:typed_data';
 
-import 'package:p2p_ffi/src/go.dart' show GoIpfsKuboCoreNode;
+import 'package:p2p_ffi/src/go.dart'
+    show GoIpfsKuboCoreNode, GoIpfsKuboCoreNodeConsts, GoIpfsKuboCoreNodeEnums;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
@@ -758,7 +759,10 @@ extension GoIpfsKuboCoreNodeApi on GoIpfsKuboCoreNode {
     final $r = $callSync(1722, $W()..json(cfg));
     return $r.hnn($fx.FxOption.$h);
   }
+}
 
+/// Go: the constants of `github.com/ipfs/kubo/core/node` (`go.ipfs.kubo.core.node.consts`).
+extension GoIpfsKuboCoreNodeConstsApi on GoIpfsKuboCoreNodeConsts {
   /// Go: `const node.DefaultEngineBlockstoreWorkerCount untyped int`.
   int get defaultEngineBlockstoreWorkerCount => 128;
 
@@ -774,9 +778,6 @@ extension GoIpfsKuboCoreNodeApi on GoIpfsKuboCoreNode {
   /// Go: `const node.DefaultMaxProviders untyped int`.
   int get defaultMaxProviders => 10;
 
-  /// Go: `const node.DefaultProviderSearchDelay time.Duration`.
-  Duration get defaultProviderSearchDelay => Duration(microseconds: 1000000);
-
   /// Go: `const node.DefaultTaskWorkerCount untyped int`.
   int get defaultTaskWorkerCount => 8;
 
@@ -785,4 +786,10 @@ extension GoIpfsKuboCoreNodeApi on GoIpfsKuboCoreNode {
 
   /// Go: `const node.KeystoreDatastorePath untyped string`.
   String get keystoreDatastorePath => "provider-keystore";
+}
+
+/// Go: the constants of a named type of `github.com/ipfs/kubo/core/node` (`go.ipfs.kubo.core.node.enums`).
+extension GoIpfsKuboCoreNodeEnumsApi on GoIpfsKuboCoreNodeEnums {
+  /// Go: `const node.DefaultProviderSearchDelay time.Duration`.
+  Duration get defaultProviderSearchDelay => Duration(microseconds: 1000000);
 }

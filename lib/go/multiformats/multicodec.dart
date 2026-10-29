@@ -2,19 +2,35 @@
 // Go: github.com/multiformats/go-multicodec
 library;
 
-import 'package:p2p_ffi/src/go.dart' show GoMultiformatsMulticodec;
+import 'package:p2p_ffi/src/go.dart'
+    show
+        GoMultiformatsMulticodec,
+        GoMultiformatsMulticodecConsts,
+        GoMultiformatsMulticodecEnums;
 import 'package:p2p_ffi/src/runtime.dart';
 
 /// Go: the package-level members of `github.com/multiformats/go-multicodec` (`go.multiformats.multicodec`).
 extension GoMultiformatsMulticodecApi on GoMultiformatsMulticodec {
-  /// Go: `const multicodec.CarMultihashIndexSorted multicodec.Code`.
-  int get carMultihashIndexSorted => 1025;
-
   /// Go: `func multicodec.KnownCodes() []multicodec.Code`.
   List<int> knownCodes() {
     final $r = $callSync(3476);
     return $r.list(() => $r.i64());
   }
+}
+
+/// Go: the constants of `github.com/multiformats/go-multicodec` (`go.multiformats.multicodec.consts`).
+extension GoMultiformatsMulticodecConstsApi on GoMultiformatsMulticodecConsts {
+  /// Go: `const multicodec.ReservedEnd untyped int`.
+  int get reservedEnd => 4194303;
+
+  /// Go: `const multicodec.ReservedStart untyped int`.
+  int get reservedStart => 3145728;
+}
+
+/// Go: the constants of a named type of `github.com/multiformats/go-multicodec` (`go.multiformats.multicodec.enums`).
+extension GoMultiformatsMulticodecEnumsApi on GoMultiformatsMulticodecEnums {
+  /// Go: `const multicodec.CarMultihashIndexSorted multicodec.Code`.
+  int get carMultihashIndexSorted => 1025;
 
   /// Go: `const multicodec.Aes128 multicodec.Code`.
   int get aes128 => 160;
@@ -888,12 +904,6 @@ extension GoMultiformatsMulticodecApi on GoMultiformatsMulticodec {
 
   /// Go: `const multicodec.Rdfc1 multicodec.Code`.
   int get rdfc1 => 46083;
-
-  /// Go: `const multicodec.ReservedEnd untyped int`.
-  int get reservedEnd => 4194303;
-
-  /// Go: `const multicodec.ReservedStart untyped int`.
-  int get reservedStart => 3145728;
 
   /// Go: `const multicodec.Ripemd128 multicodec.Code`.
   int get ripemd128 => 4178;

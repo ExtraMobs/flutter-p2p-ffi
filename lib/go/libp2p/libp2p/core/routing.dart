@@ -4,7 +4,8 @@ library;
 
 import 'dart:typed_data';
 
-import 'package:p2p_ffi/src/go.dart' show GoLibp2pLibp2pCoreRouting;
+import 'package:p2p_ffi/src/go.dart'
+    show GoLibp2pLibp2pCoreRouting, GoLibp2pLibp2pCoreRoutingEnums;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/ipfs/cid.dart' as $cid;
@@ -535,7 +536,10 @@ extension GoLibp2pLibp2pCoreRoutingApi on GoLibp2pLibp2pCoreRouting {
     final $r = await $call(3217, $W()..h(ctx));
     return $r.b();
   }
+}
 
+/// Go: the constants of a named type of `github.com/libp2p/go-libp2p/core/routing` (`go.libp2p.libp2p.core.routing.enums`).
+extension GoLibp2pLibp2pCoreRoutingEnumsApi on GoLibp2pLibp2pCoreRoutingEnums {
   /// Go: `const routing.AddingPeer routing.QueryEventType`.
   int get addingPeer => 6;
 

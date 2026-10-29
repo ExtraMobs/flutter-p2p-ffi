@@ -4,7 +4,8 @@ library;
 
 import 'dart:typed_data';
 
-import 'package:p2p_ffi/src/go.dart' show GoIpfsKuboCoreCoreiface;
+import 'package:p2p_ffi/src/go.dart'
+    show GoIpfsKuboCoreCoreiface, GoIpfsKuboCoreCoreifaceEnums;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/io.dart' as $io;
@@ -1521,7 +1522,10 @@ extension GoIpfsKuboCoreCoreifaceApi on GoIpfsKuboCoreCoreiface {
     final $r = $callSync(1602, $W()..val(id));
     return $r.str();
   }
+}
 
+/// Go: the constants of a named type of `github.com/ipfs/kubo/core/coreiface` (`go.ipfs.kubo.core.coreiface.enums`).
+extension GoIpfsKuboCoreCoreifaceEnumsApi on GoIpfsKuboCoreCoreifaceEnums {
   /// Go: `const iface.DiffAdd iface.ChangeType`.
   int get diffAdd => 0;
 

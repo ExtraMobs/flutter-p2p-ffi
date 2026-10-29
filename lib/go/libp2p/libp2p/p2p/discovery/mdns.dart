@@ -4,7 +4,8 @@ library;
 
 import 'dart:async';
 
-import 'package:p2p_ffi/src/go.dart' show GoLibp2pLibp2pP2pDiscoveryMdns;
+import 'package:p2p_ffi/src/go.dart'
+    show GoLibp2pLibp2pP2pDiscoveryMdns, GoLibp2pLibp2pP2pDiscoveryMdnsConsts;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/io.dart' as $io;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/host.dart' as $host;
@@ -79,7 +80,11 @@ extension GoLibp2pLibp2pP2pDiscoveryMdnsApi on GoLibp2pLibp2pP2pDiscoveryMdns {
           ..h(notifee));
     return $r.hnn(Libp2pP2pDiscoveryMdnsService.$h);
   }
+}
 
+/// Go: the constants of `github.com/libp2p/go-libp2p/p2p/discovery/mdns` (`go.libp2p.libp2p.p2p.discovery.mdns.consts`).
+extension GoLibp2pLibp2pP2pDiscoveryMdnsConstsApi
+    on GoLibp2pLibp2pP2pDiscoveryMdnsConsts {
   /// Go: `const mdns.ServiceName untyped string`.
   String get serviceName => "_p2p._udp";
 }

@@ -4,7 +4,8 @@ library;
 
 import 'dart:typed_data';
 
-import 'package:p2p_ffi/src/go.dart' show GoIpfsKuboConfig;
+import 'package:p2p_ffi/src/go.dart'
+    show GoIpfsKuboConfig, GoIpfsKuboConfigConsts, GoIpfsKuboConfigEnums;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/crypto.dart' as $crypto2;
 import 'package:p2p_ffi/go/ipfs/boxo/autoconf.dart' as $autoconf;
@@ -1344,24 +1345,15 @@ extension GoIpfsKuboConfigApi on GoIpfsKuboConfig {
   void validateProvideConfig(KuboConfigProvide cfg) {
     $callSync(1436, $W()..dto(cfg));
   }
+}
 
+/// Go: the constants of `github.com/ipfs/kubo/config` (`go.ipfs.kubo.config.consts`).
+extension GoIpfsKuboConfigConstsApi on GoIpfsKuboConfigConsts {
   /// Go: `const config.APITag untyped string`.
   String get apiTag => "API";
 
   /// Go: `const config.AuthorizationTag untyped string`.
   String get authorizationTag => "Authorizations";
-
-  /// Go: `const config.AutoNATServiceDisabled config.AutoNATServiceMode`.
-  int get autoNatServiceDisabled => 2;
-
-  /// Go: `const config.AutoNATServiceEnabled config.AutoNATServiceMode`.
-  int get autoNatServiceEnabled => 1;
-
-  /// Go: `const config.AutoNATServiceEnabledV1Only config.AutoNATServiceMode`.
-  int get autoNatServiceEnabledV1Only => 3;
-
-  /// Go: `const config.AutoNATServiceUnset config.AutoNATServiceMode`.
-  int get autoNatServiceUnset => 0;
 
   /// Go: `const config.AutoPlaceholder untyped string`.
   String get autoPlaceholder => "auto";
@@ -1375,18 +1367,6 @@ extension GoIpfsKuboConfigApi on GoIpfsKuboConfig {
   /// Go: `const config.DAGLayoutTrickle untyped string`.
   String get dagLayoutTrickle => "trickle";
 
-  /// Go: `const config.DHTModeAuto config.DHTMode`.
-  String get dhtModeAuto => "auto";
-
-  /// Go: `const config.DHTModeClient config.DHTMode`.
-  String get dhtModeClient => "client";
-
-  /// Go: `const config.DHTModeServer config.DHTMode`.
-  String get dhtModeServer => "server";
-
-  /// Go: `const config.Default config.Flag`.
-  int get default$ => 0;
-
   /// Go: `const config.DefaultAcceleratedDHTClient untyped bool`.
   bool get defaultAcceleratedDhtClient => false;
 
@@ -1399,23 +1379,12 @@ extension GoIpfsKuboConfigApi on GoIpfsKuboConfig {
   /// Go: `const config.DefaultAutoConfEnabled untyped bool`.
   bool get defaultAutoConfEnabled => true;
 
-  /// Go: `const config.DefaultAutoConfRefreshInterval time.Duration`.
-  Duration get defaultAutoConfRefreshInterval =>
-      Duration(microseconds: 86400000000);
-
-  /// Go: `const config.DefaultAutoConfTimeout time.Duration`.
-  Duration get defaultAutoConfTimeout => Duration(microseconds: 5000000);
-
   /// Go: `const config.DefaultAutoConfURL untyped string`.
   String get defaultAutoConfUrl =>
       "https://conf.ipfs-mainnet.org/autoconf.json";
 
   /// Go: `const config.DefaultAutoTLSEnabled untyped bool`.
   bool get defaultAutoTlsEnabled => true;
-
-  /// Go: `const config.DefaultAutoTLSRegistrationDelay time.Duration`.
-  Duration get defaultAutoTlsRegistrationDelay =>
-      Duration(microseconds: 3600000000);
 
   /// Go: `const config.DefaultAutoTLSShortAddrs untyped bool`.
   bool get defaultAutoTlsShortAddrs => true;
@@ -1472,17 +1441,11 @@ extension GoIpfsKuboConfigApi on GoIpfsKuboConfig {
   /// Go: `const config.DefaultConfigFile untyped string`.
   String get defaultConfigFile => "config";
 
-  /// Go: `const config.DefaultConnMgrGracePeriod time.Duration`.
-  Duration get defaultConnMgrGracePeriod => Duration(microseconds: 20000000);
-
   /// Go: `const config.DefaultConnMgrHighWater untyped int`.
   int get defaultConnMgrHighWater => 96;
 
   /// Go: `const config.DefaultConnMgrLowWater untyped int`.
   int get defaultConnMgrLowWater => 32;
-
-  /// Go: `const config.DefaultConnMgrSilencePeriod time.Duration`.
-  Duration get defaultConnMgrSilencePeriod => Duration(microseconds: 10000000);
 
   /// Go: `const config.DefaultConnMgrType untyped string`.
   String get defaultConnMgrType => "basic";
@@ -1517,9 +1480,6 @@ extension GoIpfsKuboConfigApi on GoIpfsKuboConfig {
   /// Go: `const config.DefaultFastProvideRoot untyped bool`.
   bool get defaultFastProvideRoot => true;
 
-  /// Go: `const config.DefaultFastProvideTimeout time.Duration`.
-  Duration get defaultFastProvideTimeout => Duration(microseconds: 10000000);
-
   /// Go: `const config.DefaultFastProvideWait untyped bool`.
   bool get defaultFastProvideWait => false;
 
@@ -1544,15 +1504,8 @@ extension GoIpfsKuboConfigApi on GoIpfsKuboConfig {
   /// Go: `const config.DefaultInlineDNSLink untyped bool`.
   bool get defaultInlineDnsLink => false;
 
-  /// Go: `const config.DefaultIpnsMaxCacheTTL time.Duration`.
-  Duration get defaultIpnsMaxCacheTtl =>
-      Duration(microseconds: 9223372036854775);
-
   /// Go: `const config.DefaultLoopbackAddressesOnLanDHT untyped bool`.
   bool get defaultLoopbackAddressesOnLanDht => false;
-
-  /// Go: `const config.DefaultMFSFetchTimeout time.Duration`.
-  Duration get defaultMfsFetchTimeout => Duration(microseconds: 60000000);
 
   /// Go: `const config.DefaultMFSNoFlushLimit untyped int`.
   int get defaultMfsNoFlushLimit => 256;
@@ -1563,9 +1516,6 @@ extension GoIpfsKuboConfigApi on GoIpfsKuboConfig {
   /// Go: `const config.DefaultMaxRangeRequestFileSize untyped int`.
   int get defaultMaxRangeRequestFileSize => 0;
 
-  /// Go: `const config.DefaultMaxRequestDuration time.Duration`.
-  Duration get defaultMaxRequestDuration => Duration(microseconds: 3600000000);
-
   /// Go: `const config.DefaultMigrationKeep untyped string`.
   String get defaultMigrationKeep => "cache";
 
@@ -1574,9 +1524,6 @@ extension GoIpfsKuboConfigApi on GoIpfsKuboConfig {
 
   /// Go: `const config.DefaultPathRoot untyped string`.
   String get defaultPathRoot => "~/.ipfs";
-
-  /// Go: `const config.DefaultPriority config.Priority`.
-  int get defaultPriority => 0;
 
   /// Go: `const config.DefaultProvideBloomFPRate untyped int`.
   int get defaultProvideBloomFpRate => 4750000;
@@ -1587,9 +1534,6 @@ extension GoIpfsKuboConfigApi on GoIpfsKuboConfig {
   /// Go: `const config.DefaultProvideDHTDedicatedPeriodicWorkers untyped int`.
   int get defaultProvideDhtDedicatedPeriodicWorkers => 2;
 
-  /// Go: `const config.DefaultProvideDHTInterval time.Duration`.
-  Duration get defaultProvideDhtInterval => Duration(microseconds: 79200000000);
-
   /// Go: `const config.DefaultProvideDHTKeystoreBatchSize untyped int`.
   int get defaultProvideDhtKeystoreBatchSize => 16384;
 
@@ -1599,16 +1543,8 @@ extension GoIpfsKuboConfigApi on GoIpfsKuboConfig {
   /// Go: `const config.DefaultProvideDHTMaxWorkers untyped int`.
   int get defaultProvideDhtMaxWorkers => 16;
 
-  /// Go: `const config.DefaultProvideDHTOfflineDelay time.Duration`.
-  Duration get defaultProvideDhtOfflineDelay =>
-      Duration(microseconds: 7200000000);
-
   /// Go: `const config.DefaultProvideDHTResumeEnabled untyped bool`.
   bool get defaultProvideDhtResumeEnabled => true;
-
-  /// Go: `const config.DefaultProvideDHTSendProviderRecordTimeout time.Duration`.
-  Duration get defaultProvideDhtSendProviderRecordTimeout =>
-      Duration(microseconds: 10000000);
 
   /// Go: `const config.DefaultProvideDHTSweepEnabled untyped bool`.
   bool get defaultProvideDhtSweepEnabled => true;
@@ -1626,17 +1562,11 @@ extension GoIpfsKuboConfigApi on GoIpfsKuboConfig {
   /// Go: `const config.DefaultResourceMgrMinInboundConns untyped int`.
   int get defaultResourceMgrMinInboundConns => 800;
 
-  /// Go: `const config.DefaultRetrievalTimeout time.Duration`.
-  Duration get defaultRetrievalTimeout => Duration(microseconds: 30000000);
-
   /// Go: `const config.DefaultRoutingType untyped string`.
   String get defaultRoutingType => "auto";
 
   /// Go: `const config.DefaultSeenMessagesStrategy untyped string`.
   String get defaultSeenMessagesStrategy => "last-seen";
-
-  /// Go: `const config.DefaultShutdownTimeout time.Duration`.
-  Duration get defaultShutdownTimeout => Duration(microseconds: 43200000000);
 
   /// Go: `const config.DefaultStoreMode untyped bool`.
   bool get defaultStoreMode => false;
@@ -1671,9 +1601,6 @@ extension GoIpfsKuboConfigApi on GoIpfsKuboConfig {
   /// Go: `const config.DefaultWriteThrough bool`.
   bool get defaultWriteThrough => true;
 
-  /// Go: `const config.Disabled config.Priority`.
-  int get disabled => -1;
-
   /// Go: `const config.EnvDir untyped string`.
   String get envDir => "IPFS_PATH";
 
@@ -1683,9 +1610,6 @@ extension GoIpfsKuboConfigApi on GoIpfsKuboConfig {
   /// Go: `const config.EnvHTTPRoutersFilterProtocols untyped string`.
   String get envHttpRoutersFilterProtocols =>
       "IPFS_HTTP_ROUTERS_FILTER_PROTOCOLS";
-
-  /// Go: `const config.False config.Flag`.
-  int get false$ => -1;
 
   /// Go: `const config.FirstSeenMessagesStrategy untyped string`.
   String get firstSeenMessagesStrategy => "first-seen";
@@ -1705,21 +1629,6 @@ extension GoIpfsKuboConfigApi on GoIpfsKuboConfig {
   /// Go: `const config.LastSeenMessagesStrategy untyped string`.
   String get lastSeenMessagesStrategy => "last-seen";
 
-  /// Go: `const config.MethodNameFindPeers config.MethodName`.
-  String get methodNameFindPeers => "find-peers";
-
-  /// Go: `const config.MethodNameFindProviders config.MethodName`.
-  String get methodNameFindProviders => "find-providers";
-
-  /// Go: `const config.MethodNameGetIPNS config.MethodName`.
-  String get methodNameGetIpns => "get-ipns";
-
-  /// Go: `const config.MethodNameProvide config.MethodName`.
-  String get methodNameProvide => "provide";
-
-  /// Go: `const config.MethodNamePutIPNS config.MethodName`.
-  String get methodNamePutIpns => "put-ipns";
-
   /// Go: `const config.MinProvideBloomFPRate untyped int`.
   int get minProvideBloomFpRate => 1000000;
 
@@ -1734,24 +1643,6 @@ extension GoIpfsKuboConfigApi on GoIpfsKuboConfig {
 
   /// Go: `const config.PrivKeyTag untyped string`.
   String get privKeyTag => "PrivKey";
-
-  /// Go: `const config.ProvideStrategyAll config.ProvideStrategy`.
-  int get provideStrategyAll => 1;
-
-  /// Go: `const config.ProvideStrategyEntities config.ProvideStrategy`.
-  int get provideStrategyEntities => 32;
-
-  /// Go: `const config.ProvideStrategyMFS config.ProvideStrategy`.
-  int get provideStrategyMfs => 8;
-
-  /// Go: `const config.ProvideStrategyPinned config.ProvideStrategy`.
-  int get provideStrategyPinned => 2;
-
-  /// Go: `const config.ProvideStrategyRoots config.ProvideStrategy`.
-  int get provideStrategyRoots => 4;
-
-  /// Go: `const config.ProvideStrategyUnique config.ProvideStrategy`.
-  int get provideStrategyUnique => 16;
 
   /// Go: `const config.PublicGoodDelegatedRoutingURL untyped string`.
   String get publicGoodDelegatedRoutingUrl => "https://delegated-ipfs.dev";
@@ -1770,6 +1661,122 @@ extension GoIpfsKuboConfigApi on GoIpfsKuboConfig {
 
   /// Go: `const config.ResourceMgrTransientScope untyped string`.
   String get resourceMgrTransientScope => "transient";
+}
+
+/// Go: the constants of a named type of `github.com/ipfs/kubo/config` (`go.ipfs.kubo.config.enums`).
+extension GoIpfsKuboConfigEnumsApi on GoIpfsKuboConfigEnums {
+  /// Go: `const config.AutoNATServiceDisabled config.AutoNATServiceMode`.
+  int get autoNatServiceDisabled => 2;
+
+  /// Go: `const config.AutoNATServiceEnabled config.AutoNATServiceMode`.
+  int get autoNatServiceEnabled => 1;
+
+  /// Go: `const config.AutoNATServiceEnabledV1Only config.AutoNATServiceMode`.
+  int get autoNatServiceEnabledV1Only => 3;
+
+  /// Go: `const config.AutoNATServiceUnset config.AutoNATServiceMode`.
+  int get autoNatServiceUnset => 0;
+
+  /// Go: `const config.DHTModeAuto config.DHTMode`.
+  String get dhtModeAuto => "auto";
+
+  /// Go: `const config.DHTModeClient config.DHTMode`.
+  String get dhtModeClient => "client";
+
+  /// Go: `const config.DHTModeServer config.DHTMode`.
+  String get dhtModeServer => "server";
+
+  /// Go: `const config.Default config.Flag`.
+  int get default$ => 0;
+
+  /// Go: `const config.DefaultAutoConfRefreshInterval time.Duration`.
+  Duration get defaultAutoConfRefreshInterval =>
+      Duration(microseconds: 86400000000);
+
+  /// Go: `const config.DefaultAutoConfTimeout time.Duration`.
+  Duration get defaultAutoConfTimeout => Duration(microseconds: 5000000);
+
+  /// Go: `const config.DefaultAutoTLSRegistrationDelay time.Duration`.
+  Duration get defaultAutoTlsRegistrationDelay =>
+      Duration(microseconds: 3600000000);
+
+  /// Go: `const config.DefaultConnMgrGracePeriod time.Duration`.
+  Duration get defaultConnMgrGracePeriod => Duration(microseconds: 20000000);
+
+  /// Go: `const config.DefaultConnMgrSilencePeriod time.Duration`.
+  Duration get defaultConnMgrSilencePeriod => Duration(microseconds: 10000000);
+
+  /// Go: `const config.DefaultFastProvideTimeout time.Duration`.
+  Duration get defaultFastProvideTimeout => Duration(microseconds: 10000000);
+
+  /// Go: `const config.DefaultIpnsMaxCacheTTL time.Duration`.
+  Duration get defaultIpnsMaxCacheTtl =>
+      Duration(microseconds: 9223372036854775);
+
+  /// Go: `const config.DefaultMFSFetchTimeout time.Duration`.
+  Duration get defaultMfsFetchTimeout => Duration(microseconds: 60000000);
+
+  /// Go: `const config.DefaultMaxRequestDuration time.Duration`.
+  Duration get defaultMaxRequestDuration => Duration(microseconds: 3600000000);
+
+  /// Go: `const config.DefaultPriority config.Priority`.
+  int get defaultPriority => 0;
+
+  /// Go: `const config.DefaultProvideDHTInterval time.Duration`.
+  Duration get defaultProvideDhtInterval => Duration(microseconds: 79200000000);
+
+  /// Go: `const config.DefaultProvideDHTOfflineDelay time.Duration`.
+  Duration get defaultProvideDhtOfflineDelay =>
+      Duration(microseconds: 7200000000);
+
+  /// Go: `const config.DefaultProvideDHTSendProviderRecordTimeout time.Duration`.
+  Duration get defaultProvideDhtSendProviderRecordTimeout =>
+      Duration(microseconds: 10000000);
+
+  /// Go: `const config.DefaultRetrievalTimeout time.Duration`.
+  Duration get defaultRetrievalTimeout => Duration(microseconds: 30000000);
+
+  /// Go: `const config.DefaultShutdownTimeout time.Duration`.
+  Duration get defaultShutdownTimeout => Duration(microseconds: 43200000000);
+
+  /// Go: `const config.Disabled config.Priority`.
+  int get disabled => -1;
+
+  /// Go: `const config.False config.Flag`.
+  int get false$ => -1;
+
+  /// Go: `const config.MethodNameFindPeers config.MethodName`.
+  String get methodNameFindPeers => "find-peers";
+
+  /// Go: `const config.MethodNameFindProviders config.MethodName`.
+  String get methodNameFindProviders => "find-providers";
+
+  /// Go: `const config.MethodNameGetIPNS config.MethodName`.
+  String get methodNameGetIpns => "get-ipns";
+
+  /// Go: `const config.MethodNameProvide config.MethodName`.
+  String get methodNameProvide => "provide";
+
+  /// Go: `const config.MethodNamePutIPNS config.MethodName`.
+  String get methodNamePutIpns => "put-ipns";
+
+  /// Go: `const config.ProvideStrategyAll config.ProvideStrategy`.
+  int get provideStrategyAll => 1;
+
+  /// Go: `const config.ProvideStrategyEntities config.ProvideStrategy`.
+  int get provideStrategyEntities => 32;
+
+  /// Go: `const config.ProvideStrategyMFS config.ProvideStrategy`.
+  int get provideStrategyMfs => 8;
+
+  /// Go: `const config.ProvideStrategyPinned config.ProvideStrategy`.
+  int get provideStrategyPinned => 2;
+
+  /// Go: `const config.ProvideStrategyRoots config.ProvideStrategy`.
+  int get provideStrategyRoots => 4;
+
+  /// Go: `const config.ProvideStrategyUnique config.ProvideStrategy`.
+  int get provideStrategyUnique => 16;
 
   /// Go: `const config.RouterTypeDHT config.RouterType`.
   String get routerTypeDht => "dht";

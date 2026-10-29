@@ -2,7 +2,8 @@
 // Go: github.com/decred/dcrd/dcrec/secp256k1/v4
 library;
 
-import 'package:p2p_ffi/src/go.dart' show GoDecredDcrdDcrecSecp256k1V4;
+import 'package:p2p_ffi/src/go.dart'
+    show GoDecredDcrdDcrecSecp256k1V4Consts, GoDecredDcrdDcrecSecp256k1V4Enums;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
@@ -37,26 +38,9 @@ class Secp256k1V4ErrorKind extends GolangException {
   String toString() => 'secp256k1.ErrorKind: $message';
 }
 
-/// Go: the package-level members of `github.com/decred/dcrd/dcrec/secp256k1/v4` (`go.decred.dcrd.dcrec.secp256k1.v4`).
-extension GoDecredDcrdDcrecSecp256k1V4Api on GoDecredDcrdDcrecSecp256k1V4 {
-  /// Go: `const secp256k1.ErrPubKeyInvalidFormat secp256k1.ErrorKind`.
-  String get errPubKeyInvalidFormat => "ErrPubKeyInvalidFormat";
-
-  /// Go: `const secp256k1.ErrPubKeyInvalidLen secp256k1.ErrorKind`.
-  String get errPubKeyInvalidLen => "ErrPubKeyInvalidLen";
-
-  /// Go: `const secp256k1.ErrPubKeyMismatchedOddness secp256k1.ErrorKind`.
-  String get errPubKeyMismatchedOddness => "ErrPubKeyMismatchedOddness";
-
-  /// Go: `const secp256k1.ErrPubKeyNotOnCurve secp256k1.ErrorKind`.
-  String get errPubKeyNotOnCurve => "ErrPubKeyNotOnCurve";
-
-  /// Go: `const secp256k1.ErrPubKeyXTooBig secp256k1.ErrorKind`.
-  String get errPubKeyXTooBig => "ErrPubKeyXTooBig";
-
-  /// Go: `const secp256k1.ErrPubKeyYTooBig secp256k1.ErrorKind`.
-  String get errPubKeyYTooBig => "ErrPubKeyYTooBig";
-
+/// Go: the constants of `github.com/decred/dcrd/dcrec/secp256k1/v4` (`go.decred.dcrd.dcrec.secp256k1.v4.consts`).
+extension GoDecredDcrdDcrecSecp256k1V4ConstsApi
+    on GoDecredDcrdDcrecSecp256k1V4Consts {
   /// Go: `const secp256k1.PrivKeyBytesLen untyped int`.
   int get privKeyBytesLen => 32;
 
@@ -80,4 +64,26 @@ extension GoDecredDcrdDcrecSecp256k1V4Api on GoDecredDcrdDcrecSecp256k1V4 {
 
   /// Go: `const secp256k1.PubKeyFormatUncompressed byte`.
   int get pubKeyFormatUncompressed => 4;
+}
+
+/// Go: the constants of a named type of `github.com/decred/dcrd/dcrec/secp256k1/v4` (`go.decred.dcrd.dcrec.secp256k1.v4.enums`).
+extension GoDecredDcrdDcrecSecp256k1V4EnumsApi
+    on GoDecredDcrdDcrecSecp256k1V4Enums {
+  /// Go: `const secp256k1.ErrPubKeyInvalidFormat secp256k1.ErrorKind`.
+  String get errPubKeyInvalidFormat => "ErrPubKeyInvalidFormat";
+
+  /// Go: `const secp256k1.ErrPubKeyInvalidLen secp256k1.ErrorKind`.
+  String get errPubKeyInvalidLen => "ErrPubKeyInvalidLen";
+
+  /// Go: `const secp256k1.ErrPubKeyMismatchedOddness secp256k1.ErrorKind`.
+  String get errPubKeyMismatchedOddness => "ErrPubKeyMismatchedOddness";
+
+  /// Go: `const secp256k1.ErrPubKeyNotOnCurve secp256k1.ErrorKind`.
+  String get errPubKeyNotOnCurve => "ErrPubKeyNotOnCurve";
+
+  /// Go: `const secp256k1.ErrPubKeyXTooBig secp256k1.ErrorKind`.
+  String get errPubKeyXTooBig => "ErrPubKeyXTooBig";
+
+  /// Go: `const secp256k1.ErrPubKeyYTooBig secp256k1.ErrorKind`.
+  String get errPubKeyYTooBig => "ErrPubKeyYTooBig";
 }

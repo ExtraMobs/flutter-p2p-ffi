@@ -4,7 +4,11 @@ library;
 
 import 'dart:typed_data';
 
-import 'package:p2p_ffi/src/go.dart' show GoLibp2pLibp2pKadDhtPb;
+import 'package:p2p_ffi/src/go.dart'
+    show
+        GoLibp2pLibp2pKadDhtPb,
+        GoLibp2pLibp2pKadDhtPbConsts,
+        GoLibp2pLibp2pKadDhtPbEnums;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
@@ -502,10 +506,16 @@ extension GoLibp2pLibp2pKadDhtPbApi on GoLibp2pLibp2pKadDhtPb {
     final $r = $callSync(2288, $W()..list(peers, (w0, e0) => w0.dto(e0)));
     return $r.list(() => $r.hnn(Libp2pKadDhtPbMessagePeer.$h));
   }
+}
 
+/// Go: the constants of `github.com/libp2p/go-libp2p-kad-dht/pb` (`go.libp2p.libp2pKadDht.pb.consts`).
+extension GoLibp2pLibp2pKadDhtPbConstsApi on GoLibp2pLibp2pKadDhtPbConsts {
   /// Go: `const dht_pb.MaxPeerRecordSize untyped int`.
   int get maxPeerRecordSize => 8192;
+}
 
+/// Go: the constants of a named type of `github.com/libp2p/go-libp2p-kad-dht/pb` (`go.libp2p.libp2pKadDht.pb.enums`).
+extension GoLibp2pLibp2pKadDhtPbEnumsApi on GoLibp2pLibp2pKadDhtPbEnums {
   /// Go: `const dht_pb.Message_ADD_PROVIDER dht_pb.Message_MessageType`.
   int get messageAddProvider => 2;
 

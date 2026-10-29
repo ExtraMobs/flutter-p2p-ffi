@@ -2,7 +2,8 @@
 // Go: github.com/libp2p/go-libp2p/p2p/muxer/yamux
 library;
 
-import 'package:p2p_ffi/src/go.dart' show GoLibp2pLibp2pP2pMuxerYamux;
+import 'package:p2p_ffi/src/go.dart'
+    show GoLibp2pLibp2pP2pMuxerYamux, GoLibp2pLibp2pP2pMuxerYamuxConsts;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
@@ -55,7 +56,11 @@ extension GoLibp2pLibp2pP2pMuxerYamuxApi on GoLibp2pLibp2pP2pMuxerYamux {
     final $r = $callSync(3233, $W()..h(m));
     return $r.hnn($network.Libp2pCoreNetworkMuxedConn.$h);
   }
+}
 
+/// Go: the constants of `github.com/libp2p/go-libp2p/p2p/muxer/yamux` (`go.libp2p.libp2p.p2p.muxer.yamux.consts`).
+extension GoLibp2pLibp2pP2pMuxerYamuxConstsApi
+    on GoLibp2pLibp2pP2pMuxerYamuxConsts {
   /// Go: `const yamux.ID untyped string`.
   String get id => "/yamux/1.0.0";
 }

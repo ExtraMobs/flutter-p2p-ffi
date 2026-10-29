@@ -4,7 +4,8 @@ library;
 
 import 'dart:typed_data';
 
-import 'package:p2p_ffi/src/go.dart' show GoIpfsKuboRepoFsrepo;
+import 'package:p2p_ffi/src/go.dart'
+    show GoIpfsKuboRepoFsrepo, GoIpfsKuboRepoFsrepoConsts;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
@@ -324,7 +325,10 @@ extension GoIpfsKuboRepoFsrepoApi on GoIpfsKuboRepoFsrepo {
     final $r = $callSync(1820);
     return $r.i64();
   }
+}
 
+/// Go: the constants of `github.com/ipfs/kubo/repo/fsrepo` (`go.ipfs.kubo.repo.fsrepo.consts`).
+extension GoIpfsKuboRepoFsrepoConstsApi on GoIpfsKuboRepoFsrepoConsts {
   /// Go: `const fsrepo.LockFile untyped string`.
   String get lockFile => "repo.lock";
 }

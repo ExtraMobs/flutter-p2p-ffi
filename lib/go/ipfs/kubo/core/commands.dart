@@ -4,7 +4,8 @@ library;
 
 import 'dart:typed_data';
 
-import 'package:p2p_ffi/src/go.dart' show GoIpfsKuboCoreCommands;
+import 'package:p2p_ffi/src/go.dart'
+    show GoIpfsKuboCoreCommands, GoIpfsKuboCoreCommandsConsts;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
@@ -1393,36 +1394,6 @@ extension GoIpfsKuboCoreCommandsApi on GoIpfsKuboCoreCommands {
     final $r = $callSync(1519);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
-
-  /// Go: `const commands.ApiAuthOption untyped string`.
-  String get apiAuthOption => "api-auth";
-
-  /// Go: `const commands.ApiOption untyped string`.
-  String get apiOption => "api";
-
-  /// Go: `const commands.ConfigFileOption untyped string`.
-  String get configFileOption => "config-file";
-
-  /// Go: `const commands.ConfigOption untyped string`.
-  String get configOption => "config";
-
-  /// Go: `const commands.DebugOption untyped string`.
-  String get debugOption => "debug";
-
-  /// Go: `const commands.DefaultMinimalVersionFraction untyped float`.
-  double get defaultMinimalVersionFraction => 0.05;
-
-  /// Go: `const commands.LocalOption untyped string`.
-  String get localOption => "local";
-
-  /// Go: `const commands.OfflineOption untyped string`.
-  String get offlineOption => "offline";
-
-  /// Go: `const commands.P2PProtoPrefix untyped string`.
-  String get p2pProtoPrefix => "/x/";
-
-  /// Go: `const commands.RepoDirOption untyped string`.
-  String get repoDirOption => "repo-dir";
 
   /// `ipfs add`: Add a file or directory to IPFS.
   Stream<KuboCoreCommandsAddEvent> add($core.KuboCoreIpfsNode node,
@@ -4911,4 +4882,37 @@ extension GoIpfsKuboCoreCommandsApi on GoIpfsKuboCoreCommands {
             'upgrade-cidv0-in-output': upgradeCidv0InOutput
           },
           (r) => KuboCoreCommandsDependency.$dec(r));
+}
+
+/// Go: the constants of `github.com/ipfs/kubo/core/commands` (`go.ipfs.kubo.core.commands.consts`).
+extension GoIpfsKuboCoreCommandsConstsApi on GoIpfsKuboCoreCommandsConsts {
+  /// Go: `const commands.ApiAuthOption untyped string`.
+  String get apiAuthOption => "api-auth";
+
+  /// Go: `const commands.ApiOption untyped string`.
+  String get apiOption => "api";
+
+  /// Go: `const commands.ConfigFileOption untyped string`.
+  String get configFileOption => "config-file";
+
+  /// Go: `const commands.ConfigOption untyped string`.
+  String get configOption => "config";
+
+  /// Go: `const commands.DebugOption untyped string`.
+  String get debugOption => "debug";
+
+  /// Go: `const commands.DefaultMinimalVersionFraction untyped float`.
+  double get defaultMinimalVersionFraction => 0.05;
+
+  /// Go: `const commands.LocalOption untyped string`.
+  String get localOption => "local";
+
+  /// Go: `const commands.OfflineOption untyped string`.
+  String get offlineOption => "offline";
+
+  /// Go: `const commands.P2PProtoPrefix untyped string`.
+  String get p2pProtoPrefix => "/x/";
+
+  /// Go: `const commands.RepoDirOption untyped string`.
+  String get repoDirOption => "repo-dir";
 }

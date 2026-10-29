@@ -2,7 +2,7 @@
 // Go: crypto
 library;
 
-import 'package:p2p_ffi/src/go.dart' show GoCrypto;
+import 'package:p2p_ffi/src/go.dart' show GoCryptoEnums;
 import 'package:p2p_ffi/src/runtime.dart';
 
 /// Go: `crypto.PrivateKey` (handle).
@@ -21,8 +21,8 @@ class CryptoPublicKey extends GoHandle with CryptoPublicKey$ {
 /// The methods of [CryptoPublicKey], mixed into every class Go also accepts as one.
 mixin CryptoPublicKey$ on GoHandle {}
 
-/// Go: the package-level members of `crypto` (`go.crypto`).
-extension GoCryptoApi on GoCrypto {
+/// Go: the constants of a named type of `crypto` (`go.crypto.enums`).
+extension GoCryptoEnumsApi on GoCryptoEnums {
   /// Go: `const crypto.BLAKE2b_256 crypto.Hash`.
   int get blake2b256 => 17;
 

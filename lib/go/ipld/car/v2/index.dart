@@ -5,7 +5,8 @@ library;
 import 'dart:async';
 import 'dart:typed_data';
 
-import 'package:p2p_ffi/src/go.dart' show GoIpldCarV2Index;
+import 'package:p2p_ffi/src/go.dart'
+    show GoIpldCarV2Index, GoIpldCarV2IndexConsts;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/ipfs/cid.dart' as $cid;
@@ -337,7 +338,10 @@ extension GoIpldCarV2IndexApi on GoIpldCarV2Index {
           ..h(w));
     return $r.i64();
   }
+}
 
+/// Go: the constants of `github.com/ipld/go-car/v2/index` (`go.ipld.car.v2.index.consts`).
+extension GoIpldCarV2IndexConstsApi on GoIpldCarV2IndexConsts {
   /// Go: `const index.CarIndexNone untyped int`.
   int get carIndexNone => 3145728;
 }

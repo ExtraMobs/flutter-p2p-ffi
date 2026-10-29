@@ -57,9 +57,13 @@ dart test                                          # the whole suite (needs the 
   `go.ipld.ipldPrime.traversal.selector.builder`, `golang.org/x/crypto` → `go.x.crypto`, a
   host of its own without an author, the standard library beside the authors: `go.context`),
   so two modules with the same name do not meet; lowerCamelCase as Dart names constants and
-  getters. A package's functions, constants and variables are members
-  of its namespace class (`go.ipfs.boxo.mfs` is a `GoIpfsBoxoMfs`), added by its library as an
-  extension (`GoIpfsBoxoMfsApi`); Dart has no nested types, so a type is a top-level class named
+  getters. A package's functions and variables are members
+  of its namespace class, its constants of one of two layers under it, so a constant never
+  hides a sub-package (`crypto.MD5` and `crypto/md5`; owner's decision, 2026-10-29): `enums`
+  for a constant of a named type (`go.multiformats.multicodec.enums.raw`), `consts` for the
+  others (`go.ipfs.cid.consts.raw`). The members are added by the package's library as an
+  extension on the namespace class (`go.ipfs.boxo.mfs` is a `GoIpfsBoxoMfs`; the extension
+  `GoIpfsBoxoMfsApi`, and `GoIpfsCidConstsApi` on the layer `GoIpfsCidConsts`); Dart has no nested types, so a type is a top-level class named
   after its package's path without the author, minus the words the Go name already starts with
   (`BoxoMfsRoot`, `Libp2pCorePeerId`, `cid.Cid` → `Cid`). Every name is unique: the
   generator refuses two equal names, a member that hides a sub-namespace, and an `export`

@@ -2,7 +2,7 @@
 // Go: github.com/ipfs/boxo/path
 library;
 
-import 'package:p2p_ffi/src/go.dart' show GoIpfsBoxoPath;
+import 'package:p2p_ffi/src/go.dart' show GoIpfsBoxoPath, GoIpfsBoxoPathConsts;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/ipfs/cid.dart' as $cid;
 
@@ -159,7 +159,10 @@ extension GoIpfsBoxoPathApi on GoIpfsBoxoPath {
     final $r = $callSync(1019, $W()..str(str));
     return $r.list(() => $r.str());
   }
+}
 
+/// Go: the constants of `github.com/ipfs/boxo/path` (`go.ipfs.boxo.path.consts`).
+extension GoIpfsBoxoPathConstsApi on GoIpfsBoxoPathConsts {
   /// Go: `const path.IPFSNamespace untyped string`.
   String get ipfsNamespace => "ipfs";
 

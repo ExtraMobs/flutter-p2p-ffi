@@ -4,7 +4,8 @@ library;
 
 import 'dart:typed_data';
 
-import 'package:p2p_ffi/src/go.dart' show GoLibp2pLibp2pP2pTransportQuic;
+import 'package:p2p_ffi/src/go.dart'
+    show GoLibp2pLibp2pP2pTransportQuic, GoLibp2pLibp2pP2pTransportQuicConsts;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/libp2p/libp2p/core/connmgr.dart' as $connmgr;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/crypto.dart' as $crypto;
@@ -62,10 +63,14 @@ extension GoLibp2pLibp2pP2pTransportQuicApi on GoLibp2pLibp2pP2pTransportQuic {
     return $r.hnn($transport.Libp2pCoreTransport.$h);
   }
 
-  /// Go: `const libp2pquic.ListenOrder untyped int`.
-  int get listenOrder => 1;
-
   /// Go: the function `libp2pquic.NewTransport` as a value (a token: Go gets the function
   /// itself, as in `libp2p.Transport(tcp.NewTCPTransport)`).
   GoToken get newTransportFunc => const GoToken(13);
+}
+
+/// Go: the constants of `github.com/libp2p/go-libp2p/p2p/transport/quic` (`go.libp2p.libp2p.p2p.transport.quic.consts`).
+extension GoLibp2pLibp2pP2pTransportQuicConstsApi
+    on GoLibp2pLibp2pP2pTransportQuicConsts {
+  /// Go: `const libp2pquic.ListenOrder untyped int`.
+  int get listenOrder => 1;
 }

@@ -1,6 +1,8 @@
 package main
 
 import (
+	"go/constant"
+	"go/types"
 	"os"
 	"path/filepath"
 	"reflect"
@@ -104,5 +106,29 @@ Future<$cid.Cid> dagPut(
 	want := []string{"File", "tFile", "api", "lookup", "mv", "dhtOption", "withMaxLinks", "dagPut"}
 	if got := publicNames(src); !reflect.DeepEqual(got, want) {
 		t.Errorf("publicNames = %v, quero %v", got, want)
+	}
+}
+
+// A constant of a named type is an enum; the others, untyped or of a basic
+// type, are consts; a variable is neither.
+func TestConstLayer(t *testing.T) {
+	pkg := types.NewPackage("crypto", "crypto")
+	hash := types.NewNamed(types.NewTypeName(0, pkg, "Hash", nil), types.Typ[types.Uint], nil)
+	one := constant.MakeInt64(1)
+	for _, c := range []struct {
+		o    types.Object
+		want string
+	}{
+		{types.NewConst(0, pkg, "MD5", hash, one), "enums"},
+		{types.NewConst(0, pkg, "Raw", types.Typ[types.UntypedInt], one), "consts"},
+		{types.NewConst(0, pkg, "Size", types.Typ[types.Int], one), "consts"},
+		{types.NewVar(0, pkg, "X", hash), ""},
+	} {
+		if got := constLayer(c.o); got != c.want {
+			t.Errorf("constLayer(%s) = %q, quero %q", c.o.Name(), got, c.want)
+		}
+	}
+	if got := nsPath(layerPath("go/crypto.dart", "enums")); got != "go.crypto.enums" {
+		t.Errorf("nsPath = %s", got)
 	}
 }

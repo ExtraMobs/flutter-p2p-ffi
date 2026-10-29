@@ -5,7 +5,8 @@ library;
 import 'dart:async';
 import 'dart:typed_data';
 
-import 'package:p2p_ffi/src/go.dart' show GoIpfsBoxoIpldUnixfsIo;
+import 'package:p2p_ffi/src/go.dart'
+    show GoIpfsBoxoIpldUnixfsIo, GoIpfsBoxoIpldUnixfsIoEnums;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
@@ -1155,7 +1156,10 @@ extension GoIpfsBoxoIpldUnixfsIoApi on GoIpfsBoxoIpldUnixfsIo {
           ..time(mtime));
     return $r.hnn(BoxoIpldUnixfsIoDirectoryOption.$h);
   }
+}
 
+/// Go: the constants of a named type of `github.com/ipfs/boxo/ipld/unixfs/io` (`go.ipfs.boxo.ipld.unixfs.io.enums`).
+extension GoIpfsBoxoIpldUnixfsIoEnumsApi on GoIpfsBoxoIpldUnixfsIoEnums {
   /// Go: `const io.SizeEstimationBlock io.SizeEstimationMode`.
   int get sizeEstimationBlock => 1;
 

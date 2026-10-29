@@ -2,7 +2,7 @@
 // Go: io/fs
 library;
 
-import 'package:p2p_ffi/src/go.dart' show GoIoFs;
+import 'package:p2p_ffi/src/go.dart' show GoIoFsEnums;
 import 'package:p2p_ffi/src/runtime.dart';
 
 /// Go: `fs.FileInfo` (handle).
@@ -94,8 +94,8 @@ class IoFsSkipDir extends GolangException {
   String toString() => 'fs.SkipDir: $message';
 }
 
-/// Go: the package-level members of `io/fs` (`go.io.fs`).
-extension GoIoFsApi on GoIoFs {
+/// Go: the constants of a named type of `io/fs` (`go.io.fs.enums`).
+extension GoIoFsEnumsApi on GoIoFsEnums {
   /// Go: `const fs.ModeAppend fs.FileMode`.
   int get modeAppend => 1073741824;
 

@@ -2,7 +2,7 @@
 // Go: reflect
 library;
 
-import 'package:p2p_ffi/src/go.dart' show GoReflect;
+import 'package:p2p_ffi/src/go.dart' show GoReflectEnums;
 import 'package:p2p_ffi/src/runtime.dart';
 
 /// Go: `reflect.Type` (handle).
@@ -31,8 +31,8 @@ class ReflectValueError extends GolangException {
   String toString() => 'reflect.ValueError: $message';
 }
 
-/// Go: the package-level members of `reflect` (`go.reflect`).
-extension GoReflectApi on GoReflect {
+/// Go: the constants of a named type of `reflect` (`go.reflect.enums`).
+extension GoReflectEnumsApi on GoReflectEnums {
   /// Go: `const reflect.Array reflect.Kind`.
   int get array => 17;
 

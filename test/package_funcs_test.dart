@@ -24,26 +24,27 @@ void main() {
     expect(go.ipfs.cid.cast(mhash), v0);
     expect(go.ipfs.cid.cidFromBytes(mhash), (34, v0));
 
-    final v1 = go.ipfs.cid.newCidV1(go.ipfs.cid.raw, mhash);
+    final v1 = go.ipfs.cid.newCidV1(go.ipfs.cid.consts.raw, mhash);
     expect(v1.value, startsWith('bafk'));
     expect(go.ipfs.cid.decode(v1.value), v1);
     expect(go.ipfs.cid.extractEncoding(v1.value), 0x62); // multibase base32 'b'
     expect(
         () => go.ipfs.cid.decode('not a cid'), throwsA(isA<GolangException>()));
 
-    final p = go.ipfs.cid.newPrefixV1(go.ipfs.cid.dagCbor, 0x12);
+    final p = go.ipfs.cid.newPrefixV1(go.ipfs.cid.consts.dagCbor, 0x12);
     final back = go.ipfs.cid.prefixFromBytes(p.bytes());
     expect((back.version, back.codec, back.mhType),
-        (1, go.ipfs.cid.dagCbor, 0x12));
+        (1, go.ipfs.cid.consts.dagCbor, 0x12));
   });
 
   test('multihash and multibase: the hash and the text of a CID', () {
     final data = Uint8List.fromList([1, 2, 3]);
     final c = go.ipfs.cid
-        .newPrefixV1(go.ipfs.cid.raw, go.multiformats.multihash.sha2256)
+        .newPrefixV1(
+            go.ipfs.cid.consts.raw, go.multiformats.multihash.consts.sha2256)
         .sum(data);
     final m = go.multiformats.multihash
-        .sum(data, go.multiformats.multihash.sha2256, -1);
+        .sum(data, go.multiformats.multihash.consts.sha2256, -1);
     expect(m, c.hash());
 
     final d = go.multiformats.multihash.decode(m);
@@ -51,11 +52,13 @@ void main() {
     expect(d.digest!.length, 32);
     expect(
         go.multiformats.multihash
-            .encode(d.digest!, go.multiformats.multihash.sha2256),
+            .encode(d.digest!, go.multiformats.multihash.consts.sha2256),
         m);
     expect(go.multiformats.multihash.names['sha2-256'],
-        go.multiformats.multihash.sha2256);
-    expect(go.multiformats.multihash.codes[go.multiformats.multihash.sha2256],
+        go.multiformats.multihash.consts.sha2256);
+    expect(
+        go.multiformats.multihash
+            .codes[go.multiformats.multihash.consts.sha2256],
         'sha2-256');
     expect(() => go.multiformats.multihash.cast(Uint8List(3)),
         throwsA(isA<GolangException>()));
@@ -65,18 +68,18 @@ void main() {
     set.release();
 
     final text = go.multiformats.multibase
-        .encode(go.multiformats.multibase.base36, data);
+        .encode(go.multiformats.multibase.consts.base36, data);
     expect(text, startsWith('k'));
     final (base, back) = go.multiformats.multibase.decode(text);
-    expect(base, go.multiformats.multibase.base36);
+    expect(base, go.multiformats.multibase.consts.base36);
     expect(back, data);
-    expect(
-        go.ipfs.cid.extractEncoding(c.value), go.multiformats.multibase.base32);
+    expect(go.ipfs.cid.extractEncoding(c.value),
+        go.multiformats.multibase.consts.base32);
   });
 
   test('peer: ID from a CID and from a /p2p multiaddr', () {
     final (sk, pk) = go.libp2p.libp2p.core.crypto
-        .generateKeyPair(go.libp2p.libp2p.core.crypto.ed25519, -1);
+        .generateKeyPair(go.libp2p.libp2p.core.crypto.consts.ed25519, -1);
     final id = go.libp2p.libp2p.core.peer.idFromPublicKey(pk);
     expect(go.libp2p.libp2p.core.peer.decode(id.value), id);
     expect(
@@ -112,7 +115,7 @@ void main() {
   });
 
   test('path and IPNS name', () {
-    final c = go.ipfs.cid.newCidV1(go.ipfs.cid.raw, mhash);
+    final c = go.ipfs.cid.newCidV1(go.ipfs.cid.consts.raw, mhash);
     final p = go.ipfs.boxo.path.fromCid(c);
     expect(p.value, '/ipfs/$c');
     expect(go.ipfs.boxo.path.newPath('/ipfs/$c').value, p.value);
@@ -126,7 +129,7 @@ void main() {
         p);
 
     final (sk, pk) = go.libp2p.libp2p.core.crypto
-        .generateKeyPair(go.libp2p.libp2p.core.crypto.ed25519, -1);
+        .generateKeyPair(go.libp2p.libp2p.core.crypto.consts.ed25519, -1);
     final id = go.libp2p.libp2p.core.peer.idFromPublicKey(pk);
     final name = go.ipfs.boxo.ipns.nameFromPeer(id);
     expect(go.ipfs.boxo.ipns.nameFromString(name.value), name);
@@ -136,8 +139,8 @@ void main() {
 
   test('crypto: raw keys of a type, equality, config encoding', () {
     final (sk, pk) = go.libp2p.libp2p.core.crypto
-        .generateKeyPair(go.libp2p.libp2p.core.crypto.ed25519, -1);
-    expect(sk.type(), go.libp2p.libp2p.core.crypto.ed25519);
+        .generateKeyPair(go.libp2p.libp2p.core.crypto.consts.ed25519, -1);
+    expect(sk.type(), go.libp2p.libp2p.core.crypto.consts.ed25519);
     final sk2 =
         go.libp2p.libp2p.core.crypto.unmarshalEd25519PrivateKey(sk.raw());
     final pk2 =
@@ -158,9 +161,9 @@ void main() {
   // generator runs on one machine; os.DevNull is "NUL" only on Windows).
   test('os: constants of the platform that runs', () {
     final windows = Platform.isWindows;
-    expect(go.os.devNull, windows ? 'NUL' : '/dev/null');
-    expect(go.os.pathSeparator, (windows ? r'\' : '/').codeUnitAt(0));
-    expect(go.os.pathListSeparator, (windows ? ';' : ':').codeUnitAt(0));
+    expect(go.os.consts.devNull, windows ? 'NUL' : '/dev/null');
+    expect(go.os.consts.pathSeparator, (windows ? r'\' : '/').codeUnitAt(0));
+    expect(go.os.consts.pathListSeparator, (windows ? ';' : ':').codeUnitAt(0));
   });
 
   test('merkledag: links of a dag-pb node through its protobuf', () {
@@ -184,14 +187,14 @@ void main() {
 
   test('value type methods: Cid', () {
     final v0 = go.ipfs.cid.newCidV0(mhash);
-    final v1 = go.ipfs.cid.newCidV1(go.ipfs.cid.raw, mhash);
-    expect((v0.version(), v0.type()), (0, go.ipfs.cid.dagProtobuf));
-    expect((v1.version(), v1.type()), (1, go.ipfs.cid.raw));
+    final v1 = go.ipfs.cid.newCidV1(go.ipfs.cid.consts.raw, mhash);
+    expect((v0.version(), v0.type()), (0, go.ipfs.cid.consts.dagProtobuf));
+    expect((v1.version(), v1.type()), (1, go.ipfs.cid.consts.raw));
     expect(v1.hash(), mhash);
     expect(v0.bytes(), mhash);
     expect(go.ipfs.cid.cast(v1.bytes()), v1);
     expect(v1.byteLen(), v1.bytes().length);
-    expect(v1.prefix().codec, go.ipfs.cid.raw);
+    expect(v1.prefix().codec, go.ipfs.cid.consts.raw);
     expect(v1.equals(go.ipfs.cid.decode(v1.value)), isTrue);
     expect(v1.equals(v0), isFalse);
     expect(v1.defined(), isTrue);
@@ -200,7 +203,7 @@ void main() {
 
   test('value type methods: peer ID, multiaddr, path, IPNS name', () {
     final (sk, pk) = go.libp2p.libp2p.core.crypto
-        .generateKeyPair(go.libp2p.libp2p.core.crypto.ed25519, -1);
+        .generateKeyPair(go.libp2p.libp2p.core.crypto.consts.ed25519, -1);
     final id = go.libp2p.libp2p.core.peer.idFromPublicKey(pk);
     id.validate();
     expect(go.libp2p.libp2p.core.peer.idFromBytes(id.marshal()), id);
@@ -223,7 +226,7 @@ void main() {
         isTrue);
     expect(full.compare(full), 0);
 
-    final c = go.ipfs.cid.newCidV1(go.ipfs.cid.raw, mhash);
+    final c = go.ipfs.cid.newCidV1(go.ipfs.cid.consts.raw, mhash);
     final p = go.ipfs.boxo.path.fromCid(c);
     expect(p.namespace(), 'ipfs');
     expect(p.mutable(), isFalse);

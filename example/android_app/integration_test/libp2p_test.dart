@@ -15,9 +15,9 @@ const echo = '/p2p-ffi-test/echo/1.0.0';
 Future<Libp2pCoreHost> newHost() => go.libp2p.libp2p.new$([
       go.libp2p.libp2p
           .transport(go.libp2p.libp2p.p2p.transport.tcp.newTcpTransportFunc),
-      go.libp2p.libp2p.security(go.libp2p.libp2p.p2p.security.noise.id,
+      go.libp2p.libp2p.security(go.libp2p.libp2p.p2p.security.noise.consts.id,
           go.libp2p.libp2p.p2p.security.noise.newFunc),
-      go.libp2p.libp2p.muxer(go.libp2p.libp2p.p2p.muxer.yamux.id,
+      go.libp2p.libp2p.muxer(go.libp2p.libp2p.p2p.muxer.yamux.consts.id,
           go.libp2p.libp2p.p2p.muxer.yamux.defaultTransport),
       go.libp2p.libp2p.listenAddrStrings(['/ip4/127.0.0.1/tcp/0']),
     ]);
@@ -38,7 +38,7 @@ void main() {
           .subscribe(Libp2pCoreEventEvtPeerConnectednessChanged.$type);
       final connected = sub.out().firstWhere((e) =>
           e is Libp2pCoreEventEvtPeerConnectednessChanged &&
-          e.connectedness == go.libp2p.libp2p.core.network.connected);
+          e.connectedness == go.libp2p.libp2p.core.network.enums.connected);
       await a.connect(ctx, go.libp2p.libp2p.core.host.infoFromHost(b));
       await connected.timeout(const Duration(seconds: 10));
       sub.close();
@@ -62,7 +62,7 @@ void main() {
       var validated = 0;
       await psB.registerTopicValidator('bench', (_, __, m) {
         validated++;
-        return go.libp2p.libp2pPubsub.validationAccept;
+        return go.libp2p.libp2pPubsub.enums.validationAccept;
       });
       final topicA = await psA.join('bench');
       final subB = await (await psB.join('bench')).subscribe([

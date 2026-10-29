@@ -4,7 +4,7 @@ library;
 
 import 'dart:typed_data';
 
-import 'package:p2p_ffi/src/go.dart' show GoIpfsDatastoreQuery;
+import 'package:p2p_ffi/src/go.dart' show GoIpfsDatastoreQueryConsts;
 import 'package:p2p_ffi/src/runtime.dart';
 
 /// Go: `query.Entry`.
@@ -136,8 +136,8 @@ class DatastoreQueryResults extends GoHandle with DatastoreQueryResults$ {
 /// The methods of [DatastoreQueryResults], mixed into every class Go also accepts as one.
 mixin DatastoreQueryResults$ on GoHandle {}
 
-/// Go: the package-level members of `github.com/ipfs/go-datastore/query` (`go.ipfs.datastore.query`).
-extension GoIpfsDatastoreQueryApi on GoIpfsDatastoreQuery {
+/// Go: the constants of `github.com/ipfs/go-datastore/query` (`go.ipfs.datastore.query.consts`).
+extension GoIpfsDatastoreQueryConstsApi on GoIpfsDatastoreQueryConsts {
   /// Go: `const query.KeysOnlyBufSize untyped int`.
   int get keysOnlyBufSize => 128;
 

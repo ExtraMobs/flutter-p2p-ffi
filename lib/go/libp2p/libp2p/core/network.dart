@@ -5,7 +5,11 @@ library;
 import 'dart:async';
 import 'dart:typed_data';
 
-import 'package:p2p_ffi/src/go.dart' show GoLibp2pLibp2pCoreNetwork;
+import 'package:p2p_ffi/src/go.dart'
+    show
+        GoLibp2pLibp2pCoreNetwork,
+        GoLibp2pLibp2pCoreNetworkConsts,
+        GoLibp2pLibp2pCoreNetworkEnums;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/crypto.dart' as $crypto2;
@@ -2088,7 +2092,29 @@ extension GoLibp2pLibp2pCoreNetworkApi on GoLibp2pLibp2pCoreNetwork {
     final $r = await $call(3112, $W()..h(ctx));
     return $r.hnn(Libp2pCoreNetworkConnManagementScope.$h);
   }
+}
 
+/// Go: the constants of `github.com/libp2p/go-libp2p/core/network` (`go.libp2p.libp2p.core.network.consts`).
+extension GoLibp2pLibp2pCoreNetworkConstsApi
+    on GoLibp2pLibp2pCoreNetworkConsts {
+  /// Go: `const network.MessageSizeMax untyped int`.
+  int get messageSizeMax => 4194304;
+
+  /// Go: `const network.ReservationPriorityAlways uint8`.
+  int get reservationPriorityAlways => 255;
+
+  /// Go: `const network.ReservationPriorityHigh uint8`.
+  int get reservationPriorityHigh => 203;
+
+  /// Go: `const network.ReservationPriorityLow uint8`.
+  int get reservationPriorityLow => 101;
+
+  /// Go: `const network.ReservationPriorityMedium uint8`.
+  int get reservationPriorityMedium => 152;
+}
+
+/// Go: the constants of a named type of `github.com/libp2p/go-libp2p/core/network` (`go.libp2p.libp2p.core.network.enums`).
+extension GoLibp2pLibp2pCoreNetworkEnumsApi on GoLibp2pLibp2pCoreNetworkEnums {
   /// Go: `const network.CanConnect network.Connectedness`.
   @Deprecated(
       "CanConnect is deprecated and will be removed in a future release.")
@@ -2144,9 +2170,6 @@ extension GoLibp2pLibp2pCoreNetworkApi on GoLibp2pLibp2pCoreNetwork {
   /// Go: `const network.Limited network.Connectedness`.
   int get limited => 4;
 
-  /// Go: `const network.MessageSizeMax untyped int`.
-  int get messageSizeMax => 4194304;
-
   /// Go: `const network.NATDeviceTypeCone network.NATDeviceType`.
   @Deprecated("Use NATDeviceTypeEndpointIndependent")
   int get natDeviceTypeCone => 1;
@@ -2181,18 +2204,6 @@ extension GoLibp2pLibp2pCoreNetworkApi on GoLibp2pLibp2pCoreNetwork {
 
   /// Go: `const network.ReachabilityUnknown network.Reachability`.
   int get reachabilityUnknown => 0;
-
-  /// Go: `const network.ReservationPriorityAlways uint8`.
-  int get reservationPriorityAlways => 255;
-
-  /// Go: `const network.ReservationPriorityHigh uint8`.
-  int get reservationPriorityHigh => 203;
-
-  /// Go: `const network.ReservationPriorityLow uint8`.
-  int get reservationPriorityLow => 101;
-
-  /// Go: `const network.ReservationPriorityMedium uint8`.
-  int get reservationPriorityMedium => 152;
 
   /// Go: `const network.StreamCodeOutOfRange network.StreamErrorCode`.
   int get streamCodeOutOfRange => 4105;

@@ -2,7 +2,7 @@
 // Go: math/big
 library;
 
-import 'package:p2p_ffi/src/go.dart' show GoMathBig;
+import 'package:p2p_ffi/src/go.dart' show GoMathBigConsts, GoMathBigEnums;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
@@ -23,20 +23,8 @@ class MathBigErrNaN extends GolangException {
   String toString() => 'big.ErrNaN: $message';
 }
 
-/// Go: the package-level members of `math/big` (`go.math.big`).
-extension GoMathBigApi on GoMathBig {
-  /// Go: `const big.Above big.Accuracy`.
-  int get above => 1;
-
-  /// Go: `const big.AwayFromZero big.RoundingMode`.
-  int get awayFromZero => 3;
-
-  /// Go: `const big.Below big.Accuracy`.
-  int get below => -1;
-
-  /// Go: `const big.Exact big.Accuracy`.
-  int get exact => 0;
-
+/// Go: the constants of `math/big` (`go.math.big.consts`).
+extension GoMathBigConstsApi on GoMathBigConsts {
   /// Go: `const big.MaxBase untyped rune`.
   int get maxBase => 62;
 
@@ -48,6 +36,21 @@ extension GoMathBigApi on GoMathBig {
 
   /// Go: `const big.MinExp untyped int`.
   int get minExp => -2147483648;
+}
+
+/// Go: the constants of a named type of `math/big` (`go.math.big.enums`).
+extension GoMathBigEnumsApi on GoMathBigEnums {
+  /// Go: `const big.Above big.Accuracy`.
+  int get above => 1;
+
+  /// Go: `const big.AwayFromZero big.RoundingMode`.
+  int get awayFromZero => 3;
+
+  /// Go: `const big.Below big.Accuracy`.
+  int get below => -1;
+
+  /// Go: `const big.Exact big.Accuracy`.
+  int get exact => 0;
 
   /// Go: `const big.ToNearestAway big.RoundingMode`.
   int get toNearestAway => 1;

@@ -2,7 +2,7 @@
 // Go: github.com/ipfs/go-ipld-legacy
 library;
 
-import 'package:p2p_ffi/src/go.dart' show GoIpfsIpldLegacy;
+import 'package:p2p_ffi/src/go.dart' show GoIpfsIpldLegacyEnums;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/ipfs/boxo/ipld/merkledag.dart' as $merkledag;
 import 'package:p2p_ffi/go/ipfs/ipld_format.dart' as $ipld_format;
@@ -30,8 +30,8 @@ mixin IpldLegacyUniversalNode$ on GoHandle {
   }
 }
 
-/// Go: the package-level members of `github.com/ipfs/go-ipld-legacy` (`go.ipfs.ipldLegacy`).
-extension GoIpfsIpldLegacyApi on GoIpfsIpldLegacy {
+/// Go: the constants of a named type of `github.com/ipfs/go-ipld-legacy` (`go.ipfs.ipldLegacy.enums`).
+extension GoIpfsIpldLegacyEnumsApi on GoIpfsIpldLegacyEnums {
   /// Go: `const ipldlegacy.ErrArrayOutOfRange ipldlegacy.errorType`.
   String get errArrayOutOfRange => "array index out of range";
 

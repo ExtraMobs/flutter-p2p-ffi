@@ -5,7 +5,8 @@ library;
 import 'dart:async';
 import 'dart:typed_data';
 
-import 'package:p2p_ffi/src/go.dart' show GoMultiformatsMultihash;
+import 'package:p2p_ffi/src/go.dart'
+    show GoMultiformatsMultihash, GoMultiformatsMultihashConsts;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/hash.dart' as $hash;
@@ -361,7 +362,10 @@ extension GoMultiformatsMultihashApi on GoMultiformatsMultihash {
           ..i64(length));
     return $r.bytes() ?? Uint8List(0);
   }
+}
 
+/// Go: the constants of `github.com/multiformats/go-multihash` (`go.multiformats.multihash.consts`).
+extension GoMultiformatsMultihashConstsApi on GoMultiformatsMultihashConsts {
   /// Go: `const multihash.BLAKE2B_MAX untyped int`.
   int get blake2bMax => 45632;
 

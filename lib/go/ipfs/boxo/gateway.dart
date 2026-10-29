@@ -5,7 +5,8 @@ library;
 import 'dart:async';
 import 'dart:typed_data';
 
-import 'package:p2p_ffi/src/go.dart' show GoIpfsBoxoGateway;
+import 'package:p2p_ffi/src/go.dart'
+    show GoIpfsBoxoGateway, GoIpfsBoxoGatewayConsts, GoIpfsBoxoGatewayEnums;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
@@ -1276,7 +1277,25 @@ extension GoIpfsBoxoGatewayApi on GoIpfsBoxoGateway {
     final $r = $callSync(678, $W()..str(dnsLabel));
     return $r.str();
   }
+}
 
+/// Go: the constants of `github.com/ipfs/boxo/gateway` (`go.ipfs.boxo.gateway.consts`).
+extension GoIpfsBoxoGatewayConstsApi on GoIpfsBoxoGatewayConsts {
+  /// Go: `const gateway.DefaultDiagnosticServiceURL untyped string`.
+  String get defaultDiagnosticServiceUrl => "https://check.ipfs.network";
+
+  /// Go: `const gateway.DefaultMaxConcurrentRequests untyped int`.
+  int get defaultMaxConcurrentRequests => 4096;
+
+  /// Go: `const gateway.DefaultMaxTraversalDepth untyped int`.
+  int get defaultMaxTraversalDepth => 1024;
+
+  /// Go: `const gateway.EmptyIdentityCIDString untyped string`.
+  String get emptyIdentityCidString => "bafkqaaa";
+}
+
+/// Go: the constants of a named type of `github.com/ipfs/boxo/gateway` (`go.ipfs.boxo.gateway.enums`).
+extension GoIpfsBoxoGatewayEnumsApi on GoIpfsBoxoGatewayEnums {
   /// Go: `const gateway.ContentPathKey gateway.RequestContextKey`.
   String get contentPathKey => "content-path";
 
@@ -1301,20 +1320,11 @@ extension GoIpfsBoxoGatewayApi on GoIpfsBoxoGateway {
   /// Go: `const gateway.DagScopeEntity gateway.DagScope`.
   String get dagScopeEntity => "entity";
 
-  /// Go: `const gateway.DefaultDiagnosticServiceURL untyped string`.
-  String get defaultDiagnosticServiceUrl => "https://check.ipfs.network";
-
   /// Go: `const gateway.DefaultGetBlockTimeout time.Duration`.
   Duration get defaultGetBlockTimeout => Duration(microseconds: 60000000);
 
-  /// Go: `const gateway.DefaultMaxConcurrentRequests untyped int`.
-  int get defaultMaxConcurrentRequests => 4096;
-
   /// Go: `const gateway.DefaultMaxRequestDuration time.Duration`.
   Duration get defaultMaxRequestDuration => Duration(microseconds: 3600000000);
-
-  /// Go: `const gateway.DefaultMaxTraversalDepth untyped int`.
-  int get defaultMaxTraversalDepth => 1024;
 
   /// Go: `const gateway.DefaultRetrievalTimeout time.Duration`.
   Duration get defaultRetrievalTimeout => Duration(microseconds: 30000000);
@@ -1327,9 +1337,6 @@ extension GoIpfsBoxoGatewayApi on GoIpfsBoxoGateway {
 
   /// Go: `const gateway.DuplicateBlocksUnspecified gateway.DuplicateBlocksPolicy`.
   int get duplicateBlocksUnspecified => 0;
-
-  /// Go: `const gateway.EmptyIdentityCIDString untyped string`.
-  String get emptyIdentityCidString => "bafkqaaa";
 
   /// Go: `const gateway.GatewayHostnameKey gateway.RequestContextKey`.
   String get gatewayHostnameKey => "gw-hostname";

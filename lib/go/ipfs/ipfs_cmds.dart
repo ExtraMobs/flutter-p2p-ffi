@@ -5,7 +5,8 @@ library;
 import 'dart:async';
 import 'dart:typed_data';
 
-import 'package:p2p_ffi/src/go.dart' show GoIpfsIpfsCmds;
+import 'package:p2p_ffi/src/go.dart'
+    show GoIpfsIpfsCmds, GoIpfsIpfsCmdsConsts, GoIpfsIpfsCmdsEnums;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 
@@ -1169,19 +1170,10 @@ extension GoIpfsIpfsCmdsApi on GoIpfsIpfsCmds {
     final $r = $callSync(1298, $W()..list(names, (w0, e0) => w0.str(e0)));
     return $r.hnn(IpfsCmdsOption.$h);
   }
+}
 
-  /// Go: `const cmds.Active cmds.Status`.
-  int get active => 0;
-
-  /// Go: `const cmds.ArgFile cmds.ArgumentType`.
-  int get argFile => 1;
-
-  /// Go: `const cmds.ArgString cmds.ArgumentType`.
-  int get argString => 0;
-
-  /// Go: `const cmds.Bool reflect.Kind`.
-  int get bool$ => 1;
-
+/// Go: the constants of `github.com/ipfs/go-ipfs-cmds` (`go.ipfs.ipfsCmds.consts`).
+extension GoIpfsIpfsCmdsConstsApi on GoIpfsIpfsCmdsConsts {
   /// Go: `const cmds.CLI untyped string`.
   String get cli => "cli";
 
@@ -1190,9 +1182,6 @@ extension GoIpfsIpfsCmdsApi on GoIpfsIpfsCmds {
 
   /// Go: `const cmds.DefaultOutputEncoding untyped string`.
   String get defaultOutputEncoding => "json";
-
-  /// Go: `const cmds.Deprecated cmds.Status`.
-  int get deprecated => 2;
 
   /// Go: `const cmds.DerefLong untyped string`.
   String get derefLong => "dereference-args";
@@ -1206,27 +1195,6 @@ extension GoIpfsIpfsCmdsApi on GoIpfsIpfsCmds {
   /// Go: `const cmds.EncShort untyped string`.
   String get encShort => "enc";
 
-  /// Go: `const cmds.ErrClient cmds.ErrorType`.
-  int get errClient => 1;
-
-  /// Go: `const cmds.ErrForbidden cmds.ErrorType`.
-  int get errForbidden => 4;
-
-  /// Go: `const cmds.ErrImplementation cmds.ErrorType`.
-  int get errImplementation => 2;
-
-  /// Go: `const cmds.ErrNormal cmds.ErrorType`.
-  int get errNormal => 0;
-
-  /// Go: `const cmds.ErrRateLimited cmds.ErrorType`.
-  int get errRateLimited => 3;
-
-  /// Go: `const cmds.Experimental cmds.Status`.
-  int get experimental => 1;
-
-  /// Go: `const cmds.Float reflect.Kind`.
-  int get float => 14;
-
   /// Go: `const cmds.Hidden untyped string`.
   String get hidden => "hidden";
 
@@ -1238,15 +1206,6 @@ extension GoIpfsIpfsCmdsApi on GoIpfsIpfsCmds {
 
   /// Go: `const cmds.IgnoreRules untyped string`.
   String get ignoreRules => "ignore-rules-path";
-
-  /// Go: `const cmds.Int reflect.Kind`.
-  int get int$ => 2;
-
-  /// Go: `const cmds.Int64 reflect.Kind`.
-  int get int64 => 6;
-
-  /// Go: `const cmds.Invalid reflect.Kind`.
-  int get invalid => 0;
 
   /// Go: `const cmds.JSON untyped string`.
   String get json => "json";
@@ -1269,17 +1228,8 @@ extension GoIpfsIpfsCmdsApi on GoIpfsIpfsCmds {
   /// Go: `const cmds.RecShort untyped string`.
   String get recShort => "r";
 
-  /// Go: `const cmds.Removed cmds.Status`.
-  int get removed => 3;
-
   /// Go: `const cmds.StdinName untyped string`.
   String get stdinName => "stdin-name";
-
-  /// Go: `const cmds.String reflect.Kind`.
-  int get string => 24;
-
-  /// Go: `const cmds.Strings reflect.Kind`.
-  int get strings => 17;
 
   /// Go: `const cmds.Text untyped string`.
   String get text => "text";
@@ -1290,15 +1240,72 @@ extension GoIpfsIpfsCmdsApi on GoIpfsIpfsCmds {
   /// Go: `const cmds.TimeoutOpt untyped string`.
   String get timeoutOpt => "timeout";
 
-  /// Go: `const cmds.Uint reflect.Kind`.
-  int get uint => 7;
-
-  /// Go: `const cmds.Uint64 reflect.Kind`.
-  int get uint64 => 11;
-
   /// Go: `const cmds.Undefined untyped string`.
   String get undefined => "";
 
   /// Go: `const cmds.XML untyped string`.
   String get xml => "xml";
+}
+
+/// Go: the constants of a named type of `github.com/ipfs/go-ipfs-cmds` (`go.ipfs.ipfsCmds.enums`).
+extension GoIpfsIpfsCmdsEnumsApi on GoIpfsIpfsCmdsEnums {
+  /// Go: `const cmds.Active cmds.Status`.
+  int get active => 0;
+
+  /// Go: `const cmds.ArgFile cmds.ArgumentType`.
+  int get argFile => 1;
+
+  /// Go: `const cmds.ArgString cmds.ArgumentType`.
+  int get argString => 0;
+
+  /// Go: `const cmds.Bool reflect.Kind`.
+  int get bool$ => 1;
+
+  /// Go: `const cmds.Deprecated cmds.Status`.
+  int get deprecated => 2;
+
+  /// Go: `const cmds.ErrClient cmds.ErrorType`.
+  int get errClient => 1;
+
+  /// Go: `const cmds.ErrForbidden cmds.ErrorType`.
+  int get errForbidden => 4;
+
+  /// Go: `const cmds.ErrImplementation cmds.ErrorType`.
+  int get errImplementation => 2;
+
+  /// Go: `const cmds.ErrNormal cmds.ErrorType`.
+  int get errNormal => 0;
+
+  /// Go: `const cmds.ErrRateLimited cmds.ErrorType`.
+  int get errRateLimited => 3;
+
+  /// Go: `const cmds.Experimental cmds.Status`.
+  int get experimental => 1;
+
+  /// Go: `const cmds.Float reflect.Kind`.
+  int get float => 14;
+
+  /// Go: `const cmds.Int reflect.Kind`.
+  int get int$ => 2;
+
+  /// Go: `const cmds.Int64 reflect.Kind`.
+  int get int64 => 6;
+
+  /// Go: `const cmds.Invalid reflect.Kind`.
+  int get invalid => 0;
+
+  /// Go: `const cmds.Removed cmds.Status`.
+  int get removed => 3;
+
+  /// Go: `const cmds.String reflect.Kind`.
+  int get string => 24;
+
+  /// Go: `const cmds.Strings reflect.Kind`.
+  int get strings => 17;
+
+  /// Go: `const cmds.Uint reflect.Kind`.
+  int get uint => 7;
+
+  /// Go: `const cmds.Uint64 reflect.Kind`.
+  int get uint64 => 11;
 }

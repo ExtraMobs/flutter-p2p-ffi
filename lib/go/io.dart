@@ -4,7 +4,7 @@ library;
 
 import 'dart:typed_data';
 
-import 'package:p2p_ffi/src/go.dart' show GoIo;
+import 'package:p2p_ffi/src/go.dart' show GoIo, GoIoConsts;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/ipfs/boxo/bitswap.dart' as $bitswap;
 import 'package:p2p_ffi/go/ipfs/boxo/blockservice.dart' as $blockservice;
@@ -542,7 +542,10 @@ extension GoIoApi on GoIo {
           ..reader(src));
     return $r.i64();
   }
+}
 
+/// Go: the constants of `io` (`go.io.consts`).
+extension GoIoConstsApi on GoIoConsts {
   /// Go: `const io.SeekCurrent untyped int`.
   int get seekCurrent => 1;
 

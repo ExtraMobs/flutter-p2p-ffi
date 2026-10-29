@@ -4,7 +4,7 @@ library;
 
 import 'dart:typed_data';
 
-import 'package:p2p_ffi/src/go.dart' show GoIpldCarV2;
+import 'package:p2p_ffi/src/go.dart' show GoIpldCarV2, GoIpldCarV2Consts;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/bytes.dart' as $bytes;
 import 'package:p2p_ffi/go/context.dart' as $context;
@@ -980,7 +980,10 @@ extension GoIpldCarV2Api on GoIpldCarV2 {
           ..str(srcPath)
           ..str(dstPath));
   }
+}
 
+/// Go: the constants of `github.com/ipld/go-car/v2` (`go.ipld.car.v2.consts`).
+extension GoIpldCarV2ConstsApi on GoIpldCarV2Consts {
   /// Go: `const car.CharacteristicsSize untyped int`.
   int get characteristicsSize => 16;
 

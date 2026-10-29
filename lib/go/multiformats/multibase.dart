@@ -4,7 +4,8 @@ library;
 
 import 'dart:typed_data';
 
-import 'package:p2p_ffi/src/go.dart' show GoMultiformatsMultibase;
+import 'package:p2p_ffi/src/go.dart'
+    show GoMultiformatsMultibase, GoMultiformatsMultibaseConsts;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
@@ -88,7 +89,10 @@ extension GoMultiformatsMultibaseApi on GoMultiformatsMultibase {
     final $r = $callSync(3474, $W()..i64(base));
     return $r.hnn(MultibaseEncoder.$h);
   }
+}
 
+/// Go: the constants of `github.com/multiformats/go-multibase` (`go.multiformats.multibase.consts`).
+extension GoMultiformatsMultibaseConstsApi on GoMultiformatsMultibaseConsts {
   /// Go: `const multibase.Base10 untyped rune`.
   int get base10 => 57;
 

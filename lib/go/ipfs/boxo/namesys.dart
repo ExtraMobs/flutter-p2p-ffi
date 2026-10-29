@@ -2,7 +2,8 @@
 // Go: github.com/ipfs/boxo/namesys
 library;
 
-import 'package:p2p_ffi/src/go.dart' show GoIpfsBoxoNamesys;
+import 'package:p2p_ffi/src/go.dart'
+    show GoIpfsBoxoNamesys, GoIpfsBoxoNamesysConsts, GoIpfsBoxoNamesysEnums;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
@@ -612,19 +613,25 @@ extension GoIpfsBoxoNamesysApi on GoIpfsBoxoNamesys {
           ..val(p));
     return $r.p() ? BoxoNamesysResult.$dec($r) : $nil();
   }
+}
 
+/// Go: the constants of `github.com/ipfs/boxo/namesys` (`go.ipfs.boxo.namesys.consts`).
+extension GoIpfsBoxoNamesysConstsApi on GoIpfsBoxoNamesysConsts {
   /// Go: `const namesys.DefaultDepthLimit untyped int`.
   int get defaultDepthLimit => 32;
-
-  /// Go: `const namesys.DefaultResolverCacheTTL time.Duration`.
-  Duration get defaultResolverCacheTtl => Duration(microseconds: 60000000);
 
   /// Go: `const namesys.DefaultResolverDhtRecordCount untyped int`.
   int get defaultResolverDhtRecordCount => 16;
 
-  /// Go: `const namesys.DefaultResolverDhtTimeout time.Duration`.
-  Duration get defaultResolverDhtTimeout => Duration(microseconds: 60000000);
-
   /// Go: `const namesys.UnlimitedDepth untyped int`.
   int get unlimitedDepth => 0;
+}
+
+/// Go: the constants of a named type of `github.com/ipfs/boxo/namesys` (`go.ipfs.boxo.namesys.enums`).
+extension GoIpfsBoxoNamesysEnumsApi on GoIpfsBoxoNamesysEnums {
+  /// Go: `const namesys.DefaultResolverCacheTTL time.Duration`.
+  Duration get defaultResolverCacheTtl => Duration(microseconds: 60000000);
+
+  /// Go: `const namesys.DefaultResolverDhtTimeout time.Duration`.
+  Duration get defaultResolverDhtTimeout => Duration(microseconds: 60000000);
 }

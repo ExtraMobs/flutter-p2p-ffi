@@ -2,7 +2,7 @@
 // Go: go.uber.org/dig
 library;
 
-import 'package:p2p_ffi/src/go.dart' show GoDig;
+import 'package:p2p_ffi/src/go.dart' show GoDigConsts;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
@@ -30,8 +30,8 @@ class DigPanicError extends GolangException {
   String toString() => 'dig.PanicError: $message';
 }
 
-/// Go: the package-level members of `go.uber.org/dig` (`go.dig`).
-extension GoDigApi on GoDig {
+/// Go: the constants of `go.uber.org/dig` (`go.dig.consts`).
+extension GoDigConstsApi on GoDigConsts {
   /// Go: `const dig.Version untyped string`.
   String get version => "1.19.0";
 }

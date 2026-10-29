@@ -4,7 +4,8 @@ library;
 
 import 'dart:typed_data';
 
-import 'package:p2p_ffi/src/go.dart' show GoLibp2pLibp2pPubsubPb;
+import 'package:p2p_ffi/src/go.dart'
+    show GoLibp2pLibp2pPubsubPb, GoLibp2pLibp2pPubsubPbEnums;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
@@ -2002,7 +2003,10 @@ extension GoLibp2pLibp2pPubsubPbApi on GoLibp2pLibp2pPubsubPb {
           ..bytes(msg)
           ..i64(maxControlMessageSize));
   }
+}
 
+/// Go: the constants of a named type of `github.com/libp2p/go-libp2p-pubsub/pb` (`go.libp2p.libp2pPubsub.pb.enums`).
+extension GoLibp2pLibp2pPubsubPbEnumsApi on GoLibp2pLibp2pPubsubPbEnums {
   /// Go: `const pubsub_pb.TraceEvent_DELIVER_MESSAGE pubsub_pb.TraceEvent_Type`.
   int get traceEventDeliverMessage => 3;
 

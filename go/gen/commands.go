@@ -125,7 +125,7 @@ func manualNames() map[string]bool {
 			return err
 		}
 		if src, err := os.ReadFile(path); err == nil && !bytes.HasPrefix(src, []byte(generatedHeader)) && !bytes.Contains(src, []byte("\npart of ")) {
-			for _, n := range append(publicNames(src), extMembers(src)...) {
+			for _, n := range append(publicNames(src), extMembers(src, "")...) {
 				manual[n] = true
 			}
 		}

@@ -4,7 +4,8 @@ library;
 
 import 'dart:typed_data';
 
-import 'package:p2p_ffi/src/go.dart' show GoLibp2pLibp2pCoreCrypto;
+import 'package:p2p_ffi/src/go.dart'
+    show GoLibp2pLibp2pCoreCrypto, GoLibp2pLibp2pCoreCryptoConsts;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/crypto/ecdsa.dart' as $ecdsa;
@@ -932,7 +933,10 @@ extension GoLibp2pLibp2pCoreCryptoApi on GoLibp2pLibp2pCoreCrypto {
     final $r = $callSync(2947, $W()..bytes(data));
     return $r.hnn(Libp2pCoreCryptoPubKey.$h);
   }
+}
 
+/// Go: the constants of `github.com/libp2p/go-libp2p/core/crypto` (`go.libp2p.libp2p.core.crypto.consts`).
+extension GoLibp2pLibp2pCoreCryptoConstsApi on GoLibp2pLibp2pCoreCryptoConsts {
   /// Go: `const crypto.ECDSA untyped int`.
   int get ecdsa => 3;
 

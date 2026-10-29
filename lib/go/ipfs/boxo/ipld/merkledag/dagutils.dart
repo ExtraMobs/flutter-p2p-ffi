@@ -2,7 +2,8 @@
 // Go: github.com/ipfs/boxo/ipld/merkledag/dagutils
 library;
 
-import 'package:p2p_ffi/src/go.dart' show GoIpfsBoxoIpldMerkledagDagutils;
+import 'package:p2p_ffi/src/go.dart'
+    show GoIpfsBoxoIpldMerkledagDagutils, GoIpfsBoxoIpldMerkledagDagutilsEnums;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
@@ -216,7 +217,11 @@ extension GoIpfsBoxoIpldMerkledagDagutilsApi
     final $r = $callSync(782);
     return $r.hnn($ipld_format.IpldFormatDagService.$h);
   }
+}
 
+/// Go: the constants of a named type of `github.com/ipfs/boxo/ipld/merkledag/dagutils` (`go.ipfs.boxo.ipld.merkledag.dagutils.enums`).
+extension GoIpfsBoxoIpldMerkledagDagutilsEnumsApi
+    on GoIpfsBoxoIpldMerkledagDagutilsEnums {
   /// Go: `const dagutils.Add dagutils.ChangeType`.
   int get add => 0;
 

@@ -2,7 +2,7 @@
 // Go: log/slog
 library;
 
-import 'package:p2p_ffi/src/go.dart' show GoLogSlog;
+import 'package:p2p_ffi/src/go.dart' show GoLogSlogConsts, GoLogSlogEnums;
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
 
@@ -20,8 +20,23 @@ class LogSlogValue extends $crypto.CryptoPrivateKey
   LogSlogValue.$h(super.$h) : super.$h();
 }
 
-/// Go: the package-level members of `log/slog` (`go.log.slog`).
-extension GoLogSlogApi on GoLogSlog {
+/// Go: the constants of `log/slog` (`go.log.slog.consts`).
+extension GoLogSlogConstsApi on GoLogSlogConsts {
+  /// Go: `const slog.LevelKey untyped string`.
+  String get levelKey => "level";
+
+  /// Go: `const slog.MessageKey untyped string`.
+  String get messageKey => "msg";
+
+  /// Go: `const slog.SourceKey untyped string`.
+  String get sourceKey => "source";
+
+  /// Go: `const slog.TimeKey untyped string`.
+  String get timeKey => "time";
+}
+
+/// Go: the constants of a named type of `log/slog` (`go.log.slog.enums`).
+extension GoLogSlogEnumsApi on GoLogSlogEnums {
   /// Go: `const slog.KindAny slog.Kind`.
   int get kindAny => 0;
 
@@ -61,18 +76,6 @@ extension GoLogSlogApi on GoLogSlog {
   /// Go: `const slog.LevelInfo slog.Level`.
   int get levelInfo => 0;
 
-  /// Go: `const slog.LevelKey untyped string`.
-  String get levelKey => "level";
-
   /// Go: `const slog.LevelWarn slog.Level`.
   int get levelWarn => 4;
-
-  /// Go: `const slog.MessageKey untyped string`.
-  String get messageKey => "msg";
-
-  /// Go: `const slog.SourceKey untyped string`.
-  String get sourceKey => "source";
-
-  /// Go: `const slog.TimeKey untyped string`.
-  String get timeKey => "time";
 }

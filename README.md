@@ -26,9 +26,13 @@ path without the author, minus the words the Go name already starts with:
 | `index.ReadFrom` (`github.com/ipld/go-car/v2/index`) | `go.ipld.car.v2.index.readFrom` |
 | `context.Background`, `context.Context` | `go.context.background`, `Context` |
 | `peer.ID` (`github.com/libp2p/go-libp2p/core/peer`) | `Libp2pCorePeerId` |
+| `cid.Raw` (an untyped constant) | `go.ipfs.cid.consts.raw` |
+| `multicodec.Raw` (a constant of type `multicodec.Code`) | `go.multiformats.multicodec.enums.raw` |
 
-Every name is unique in the import. A package constant is a getter (`go.multiformats.multicodec.raw`),
-so it is not a Dart `const`.
+Every name is unique in the import. A package's constants sit one level down, so a constant
+never hides a sub-package (Go's `crypto.MD5` and the package `crypto/md5`): `enums` for a
+constant of a named type, `consts` for the others. A constant is a getter, not a Dart
+`const`.
 
 | Document | What it has |
 |---|---|

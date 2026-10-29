@@ -2,7 +2,7 @@
 // Go: net/http
 library;
 
-import 'package:p2p_ffi/src/go.dart' show GoNetHttp;
+import 'package:p2p_ffi/src/go.dart' show GoNetHttpConsts, GoNetHttpEnums;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
@@ -248,8 +248,8 @@ class NetHttpProtocolError extends GolangException {
   String toString() => 'http.ProtocolError: $message';
 }
 
-/// Go: the package-level members of `net/http` (`go.net.http`).
-extension GoNetHttpApi on GoNetHttp {
+/// Go: the constants of `net/http` (`go.net.http.consts`).
+extension GoNetHttpConstsApi on GoNetHttpConsts {
   /// Go: `const http.DefaultMaxHeaderBytes untyped int`.
   int get defaultMaxHeaderBytes => 1048576;
 
@@ -282,33 +282,6 @@ extension GoNetHttpApi on GoNetHttp {
 
   /// Go: `const http.MethodTrace untyped string`.
   String get methodTrace => "TRACE";
-
-  /// Go: `const http.SameSiteDefaultMode http.SameSite`.
-  int get sameSiteDefaultMode => 1;
-
-  /// Go: `const http.SameSiteLaxMode http.SameSite`.
-  int get sameSiteLaxMode => 2;
-
-  /// Go: `const http.SameSiteNoneMode http.SameSite`.
-  int get sameSiteNoneMode => 4;
-
-  /// Go: `const http.SameSiteStrictMode http.SameSite`.
-  int get sameSiteStrictMode => 3;
-
-  /// Go: `const http.StateActive http.ConnState`.
-  int get stateActive => 1;
-
-  /// Go: `const http.StateClosed http.ConnState`.
-  int get stateClosed => 4;
-
-  /// Go: `const http.StateHijacked http.ConnState`.
-  int get stateHijacked => 3;
-
-  /// Go: `const http.StateIdle http.ConnState`.
-  int get stateIdle => 2;
-
-  /// Go: `const http.StateNew http.ConnState`.
-  int get stateNew => 0;
 
   /// Go: `const http.StatusAccepted untyped int`.
   int get statusAccepted => 202;
@@ -501,4 +474,34 @@ extension GoNetHttpApi on GoNetHttp {
 
   /// Go: `const http.TrailerPrefix untyped string`.
   String get trailerPrefix => "Trailer:";
+}
+
+/// Go: the constants of a named type of `net/http` (`go.net.http.enums`).
+extension GoNetHttpEnumsApi on GoNetHttpEnums {
+  /// Go: `const http.SameSiteDefaultMode http.SameSite`.
+  int get sameSiteDefaultMode => 1;
+
+  /// Go: `const http.SameSiteLaxMode http.SameSite`.
+  int get sameSiteLaxMode => 2;
+
+  /// Go: `const http.SameSiteNoneMode http.SameSite`.
+  int get sameSiteNoneMode => 4;
+
+  /// Go: `const http.SameSiteStrictMode http.SameSite`.
+  int get sameSiteStrictMode => 3;
+
+  /// Go: `const http.StateActive http.ConnState`.
+  int get stateActive => 1;
+
+  /// Go: `const http.StateClosed http.ConnState`.
+  int get stateClosed => 4;
+
+  /// Go: `const http.StateHijacked http.ConnState`.
+  int get stateHijacked => 3;
+
+  /// Go: `const http.StateIdle http.ConnState`.
+  int get stateIdle => 2;
+
+  /// Go: `const http.StateNew http.ConnState`.
+  int get stateNew => 0;
 }

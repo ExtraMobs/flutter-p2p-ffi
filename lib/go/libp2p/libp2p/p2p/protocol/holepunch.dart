@@ -2,7 +2,11 @@
 // Go: github.com/libp2p/go-libp2p/p2p/protocol/holepunch
 library;
 
-import 'package:p2p_ffi/src/go.dart' show GoLibp2pLibp2pP2pProtocolHolepunch;
+import 'package:p2p_ffi/src/go.dart'
+    show
+        GoLibp2pLibp2pP2pProtocolHolepunch,
+        GoLibp2pLibp2pP2pProtocolHolepunchConsts,
+        GoLibp2pLibp2pP2pProtocolHolepunchEnums;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
@@ -240,7 +244,11 @@ extension GoLibp2pLibp2pP2pProtocolHolepunchApi
     final $r = $callSync(3353);
     return Duration(microseconds: $r.i64() ~/ 1000);
   }
+}
 
+/// Go: the constants of `github.com/libp2p/go-libp2p/p2p/protocol/holepunch` (`go.libp2p.libp2p.p2p.protocol.holepunch.consts`).
+extension GoLibp2pLibp2pP2pProtocolHolepunchConstsApi
+    on GoLibp2pLibp2pP2pProtocolHolepunchConsts {
   /// Go: `const holepunch.DirectDialEvtT untyped string`.
   String get directDialEvtT => "DirectDial";
 
@@ -250,9 +258,6 @@ extension GoLibp2pLibp2pP2pProtocolHolepunchApi
   /// Go: `const holepunch.HolePunchAttemptEvtT untyped string`.
   String get holePunchAttemptEvtT => "HolePunchAttempt";
 
-  /// Go: `const holepunch.Protocol protocol.ID`.
-  String get protocol => "/libp2p/dcutr";
-
   /// Go: `const holepunch.ProtocolErrorEvtT untyped string`.
   String get protocolErrorEvtT => "ProtocolError";
 
@@ -261,4 +266,11 @@ extension GoLibp2pLibp2pP2pProtocolHolepunchApi
 
   /// Go: `const holepunch.StartHolePunchEvtT untyped string`.
   String get startHolePunchEvtT => "StartHolePunch";
+}
+
+/// Go: the constants of a named type of `github.com/libp2p/go-libp2p/p2p/protocol/holepunch` (`go.libp2p.libp2p.p2p.protocol.holepunch.enums`).
+extension GoLibp2pLibp2pP2pProtocolHolepunchEnumsApi
+    on GoLibp2pLibp2pP2pProtocolHolepunchEnums {
+  /// Go: `const holepunch.Protocol protocol.ID`.
+  String get protocol => "/libp2p/dcutr";
 }

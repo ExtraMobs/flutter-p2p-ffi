@@ -5,7 +5,11 @@ library;
 import 'dart:async';
 import 'dart:typed_data';
 
-import 'package:p2p_ffi/src/go.dart' show GoLibp2pLibp2pP2pNetSwarm;
+import 'package:p2p_ffi/src/go.dart'
+    show
+        GoLibp2pLibp2pP2pNetSwarm,
+        GoLibp2pLibp2pP2pNetSwarmConsts,
+        GoLibp2pLibp2pP2pNetSwarmEnums;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
@@ -1154,13 +1158,20 @@ extension GoLibp2pLibp2pP2pNetSwarmApi on GoLibp2pLibp2pP2pNetSwarm {
     return $r.list(
         () => $r.p() ? $network.Libp2pCoreNetworkAddrDelay.$dec($r) : $nil());
   }
+}
 
+/// Go: the constants of `github.com/libp2p/go-libp2p/p2p/net/swarm` (`go.libp2p.libp2p.p2p.net.swarm.consts`).
+extension GoLibp2pLibp2pP2pNetSwarmConstsApi
+    on GoLibp2pLibp2pP2pNetSwarmConsts {
   /// Go: `const swarm.ConcurrentFdDials untyped int`.
   int get concurrentFdDials => 160;
 
   /// Go: `const swarm.DialAttempts untyped int`.
   int get dialAttempts => 1;
+}
 
+/// Go: the constants of a named type of `github.com/libp2p/go-libp2p/p2p/net/swarm` (`go.libp2p.libp2p.p2p.net.swarm.enums`).
+extension GoLibp2pLibp2pP2pNetSwarmEnumsApi on GoLibp2pLibp2pP2pNetSwarmEnums {
   /// Go: `const swarm.PrivateOtherDelay time.Duration`.
   Duration get privateOtherDelay => Duration(microseconds: 100000);
 

@@ -5,7 +5,10 @@ library;
 import 'dart:async';
 
 import 'package:p2p_ffi/src/go.dart'
-    show GoLibp2pLibp2pP2pProtocolCircuitv2Relay;
+    show
+        GoLibp2pLibp2pP2pProtocolCircuitv2Relay,
+        GoLibp2pLibp2pP2pProtocolCircuitv2RelayConsts,
+        GoLibp2pLibp2pP2pProtocolCircuitv2RelayEnums;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
@@ -311,18 +314,26 @@ extension GoLibp2pLibp2pP2pProtocolCircuitv2RelayApi
           ..list(opts, (w0, e0) => w0.opt(e0)));
     return $r.hnn(Libp2pP2pProtocolCircuitv2Relay.$h);
   }
+}
 
-  /// Go: `const relay.ConnectTimeout time.Duration`.
-  Duration get connectTimeout => Duration(microseconds: 30000000);
-
-  /// Go: `const relay.HandshakeTimeout time.Duration`.
-  Duration get handshakeTimeout => Duration(microseconds: 60000000);
-
+/// Go: the constants of `github.com/libp2p/go-libp2p/p2p/protocol/circuitv2/relay` (`go.libp2p.libp2p.p2p.protocol.circuitv2.relay.consts`).
+extension GoLibp2pLibp2pP2pProtocolCircuitv2RelayConstsApi
+    on GoLibp2pLibp2pP2pProtocolCircuitv2RelayConsts {
   /// Go: `const relay.ReservationTagWeight untyped int`.
   int get reservationTagWeight => 10;
 
   /// Go: `const relay.ServiceName untyped string`.
   String get serviceName => "libp2p.relay/v2";
+}
+
+/// Go: the constants of a named type of `github.com/libp2p/go-libp2p/p2p/protocol/circuitv2/relay` (`go.libp2p.libp2p.p2p.protocol.circuitv2.relay.enums`).
+extension GoLibp2pLibp2pP2pProtocolCircuitv2RelayEnumsApi
+    on GoLibp2pLibp2pP2pProtocolCircuitv2RelayEnums {
+  /// Go: `const relay.ConnectTimeout time.Duration`.
+  Duration get connectTimeout => Duration(microseconds: 30000000);
+
+  /// Go: `const relay.HandshakeTimeout time.Duration`.
+  Duration get handshakeTimeout => Duration(microseconds: 60000000);
 
   /// Go: `const relay.StreamTimeout time.Duration`.
   Duration get streamTimeout => Duration(microseconds: 60000000);

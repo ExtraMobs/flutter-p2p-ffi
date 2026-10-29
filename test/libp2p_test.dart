@@ -36,7 +36,7 @@ void main() {
   test('identity: the peer ID comes from the key, which survives a round trip',
       () async {
     final (sk, _) = go.libp2p.libp2p.core.crypto
-        .generateKeyPair(go.libp2p.libp2p.core.crypto.ed25519, -1);
+        .generateKeyPair(go.libp2p.libp2p.core.crypto.consts.ed25519, -1);
     final again = go.libp2p.libp2p.core.crypto.unmarshalPrivateKey(
         go.libp2p.libp2p.core.crypto.marshalPrivateKey(sk));
     final h = await newHost(again);
@@ -48,7 +48,7 @@ void main() {
 
   test('connected, and ping measures the round trip', () async {
     expect(a.network().connectedness(b.id()),
-        go.libp2p.libp2p.core.network.connected);
+        go.libp2p.libp2p.core.network.enums.connected);
     expect(a.network().peers(), contains(b.id()));
     final (pingCtx, cancel) = go.context.withCancel(ctx);
     final first =
@@ -126,7 +126,7 @@ void main() {
 
   test('a private DHT: provide on one host, find it from the other', () async {
     final opts = [
-      go.libp2p.libp2pKadDht.mode(go.libp2p.libp2pKadDht.modeServer),
+      go.libp2p.libp2pKadDht.mode(go.libp2p.libp2pKadDht.enums.modeServer),
       go.libp2p.libp2pKadDht.protocolPrefix('/p2p-ffi-test')
     ];
     final da = go.libp2p.libp2pKadDht.new$(a, opts),
@@ -162,8 +162,8 @@ void main() {
         final text = utf8.decode(msg.message!.getData());
         if (text == 'boom') throw StateError('a bug in the validator');
         return text.startsWith('ok')
-            ? go.libp2p.libp2pPubsub.validationAccept
-            : go.libp2p.libp2pPubsub.validationReject;
+            ? go.libp2p.libp2pPubsub.enums.validationAccept
+            : go.libp2p.libp2pPubsub.enums.validationReject;
       }, [
         go.libp2p.libp2pPubsub.withValidatorTimeout(const Duration(seconds: 5))
       ]);
@@ -202,7 +202,7 @@ void main() {
     ]);
     final connected = sub.out().firstWhere((e) =>
         e is Libp2pCoreEventEvtPeerConnectednessChanged &&
-        e.connectedness == go.libp2p.libp2p.core.network.connected);
+        e.connectedness == go.libp2p.libp2p.core.network.enums.connected);
     await c.connect(ctx, go.libp2p.libp2p.core.host.infoFromHost(a));
     final e = await connected.timeout(const Duration(seconds: 10))
         as Libp2pCoreEventEvtPeerConnectednessChanged;
@@ -215,9 +215,9 @@ void main() {
     final opts = [
       go.libp2p.libp2p
           .transport(go.libp2p.libp2p.p2p.transport.tcp.newTcpTransportFunc),
-      go.libp2p.libp2p.security(go.libp2p.libp2p.p2p.security.noise.id,
+      go.libp2p.libp2p.security(go.libp2p.libp2p.p2p.security.noise.consts.id,
           go.libp2p.libp2p.p2p.security.noise.newFunc),
-      go.libp2p.libp2p.muxer(go.libp2p.libp2p.p2p.muxer.yamux.id,
+      go.libp2p.libp2p.muxer(go.libp2p.libp2p.p2p.muxer.yamux.consts.id,
           go.libp2p.libp2p.p2p.muxer.yamux.defaultTransport),
       go.libp2p.libp2p.listenAddrStrings(['/ip4/127.0.0.1/tcp/0']),
     ];

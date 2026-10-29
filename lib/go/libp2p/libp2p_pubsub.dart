@@ -5,7 +5,11 @@ library;
 import 'dart:async';
 import 'dart:typed_data';
 
-import 'package:p2p_ffi/src/go.dart' show GoLibp2pLibp2pPubsub;
+import 'package:p2p_ffi/src/go.dart'
+    show
+        GoLibp2pLibp2pPubsub,
+        GoLibp2pLibp2pPubsubConsts,
+        GoLibp2pLibp2pPubsubEnums;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
@@ -3365,24 +3369,12 @@ extension GoLibp2pLibp2pPubsubApi on GoLibp2pLibp2pPubsub {
           ..i64(limit));
     return $r.hnn(Libp2pPubsubSubscriptionFilter.$h);
   }
+}
 
-  /// Go: `const pubsub.AcceptAll pubsub.AcceptStatus`.
-  int get acceptAll => 2;
-
-  /// Go: `const pubsub.AcceptControl pubsub.AcceptStatus`.
-  int get acceptControl => 1;
-
-  /// Go: `const pubsub.AcceptNone pubsub.AcceptStatus`.
-  int get acceptNone => 0;
-
-  /// Go: `const pubsub.BackoffCleanupInterval time.Duration`.
-  Duration get backoffCleanupInterval => Duration(microseconds: 60000000);
-
+/// Go: the constants of `github.com/libp2p/go-libp2p-pubsub` (`go.libp2p.libp2pPubsub.consts`).
+extension GoLibp2pLibp2pPubsubConstsApi on GoLibp2pLibp2pPubsubConsts {
   /// Go: `const pubsub.BackoffMultiplier untyped int`.
   int get backoffMultiplier => 2;
-
-  /// Go: `const pubsub.DefaultDecayInterval time.Duration`.
-  Duration get defaultDecayInterval => Duration(microseconds: 1000000);
 
   /// Go: `const pubsub.DefaultDecayToZero untyped float`.
   double get defaultDecayToZero => 0.01;
@@ -3392,9 +3384,6 @@ extension GoLibp2pLibp2pPubsubApi on GoLibp2pLibp2pPubsub {
 
   /// Go: `const pubsub.DefaultMaxMessageSize untyped int`.
   int get defaultMaxMessageSize => 1048576;
-
-  /// Go: `const pubsub.FloodSubID protocol.ID`.
-  String get floodSubId => "/floodsub/1.0.0";
 
   /// Go: `const pubsub.FloodSubTopicSearchSize untyped int`.
   int get floodSubTopicSearchSize => 5;
@@ -3411,50 +3400,14 @@ extension GoLibp2pLibp2pPubsubApi on GoLibp2pLibp2pPubsub {
   /// Go: `const pubsub.GossipSubFeaturePX untyped int`.
   int get gossipSubFeaturePx => 1;
 
-  /// Go: `const pubsub.GossipSubID_v10 protocol.ID`.
-  String get gossipSubIdV10 => "/meshsub/1.0.0";
-
-  /// Go: `const pubsub.GossipSubID_v11 protocol.ID`.
-  String get gossipSubIdV11 => "/meshsub/1.1.0";
-
-  /// Go: `const pubsub.GossipSubID_v12 protocol.ID`.
-  String get gossipSubIdV12 => "/meshsub/1.2.0";
-
-  /// Go: `const pubsub.GossipSubID_v13 protocol.ID`.
-  String get gossipSubIdV13 => "/meshsub/1.3.0";
-
   /// Go: `const pubsub.LaxNoSign untyped int`.
   int get laxNoSign => 0;
-
-  /// Go: `const pubsub.LaxSign pubsub.MessageSignaturePolicy`.
-  int get laxSign => 1;
 
   /// Go: `const pubsub.MaxBackoffAttempts untyped int`.
   int get maxBackoffAttempts => 4;
 
-  /// Go: `const pubsub.MaxBackoffDelay time.Duration`.
-  Duration get maxBackoffDelay => Duration(microseconds: 10000000);
-
   /// Go: `const pubsub.MaxBackoffJitterCoff untyped int`.
   int get maxBackoffJitterCoff => 100;
-
-  /// Go: `const pubsub.MinBackoffDelay time.Duration`.
-  Duration get minBackoffDelay => Duration(microseconds: 100000);
-
-  /// Go: `const pubsub.PeerFeedbackInvalidMessage pubsub.PeerFeedbackKind`.
-  int get peerFeedbackInvalidMessage => 1;
-
-  /// Go: `const pubsub.PeerFeedbackUsefulMessage pubsub.PeerFeedbackKind`.
-  int get peerFeedbackUsefulMessage => 0;
-
-  /// Go: `const pubsub.PeerJoin pubsub.EventType`.
-  int get peerJoin => 0;
-
-  /// Go: `const pubsub.PeerLeave pubsub.EventType`.
-  int get peerLeave => 1;
-
-  /// Go: `const pubsub.RandomSubID protocol.ID`.
-  String get randomSubId => "/randomsub/1.0.0";
 
   /// Go: `const pubsub.RejectBlacklistedSource untyped string`.
   String get rejectBlacklistedSource => "blacklisted source";
@@ -3489,11 +3442,68 @@ extension GoLibp2pLibp2pPubsubApi on GoLibp2pLibp2pPubsub {
   /// Go: `const pubsub.RejectValidationThrottled untyped string`.
   String get rejectValidationThrottled => "validation throttled";
 
-  /// Go: `const pubsub.RemoteTracerProtoID protocol.ID`.
-  String get remoteTracerProtoId => "/libp2p/pubsub/tracer/1.0.0";
-
   /// Go: `const pubsub.SignPrefix untyped string`.
   String get signPrefix => "libp2p-pubsub:";
+}
+
+/// Go: the constants of a named type of `github.com/libp2p/go-libp2p-pubsub` (`go.libp2p.libp2pPubsub.enums`).
+extension GoLibp2pLibp2pPubsubEnumsApi on GoLibp2pLibp2pPubsubEnums {
+  /// Go: `const pubsub.AcceptAll pubsub.AcceptStatus`.
+  int get acceptAll => 2;
+
+  /// Go: `const pubsub.AcceptControl pubsub.AcceptStatus`.
+  int get acceptControl => 1;
+
+  /// Go: `const pubsub.AcceptNone pubsub.AcceptStatus`.
+  int get acceptNone => 0;
+
+  /// Go: `const pubsub.BackoffCleanupInterval time.Duration`.
+  Duration get backoffCleanupInterval => Duration(microseconds: 60000000);
+
+  /// Go: `const pubsub.DefaultDecayInterval time.Duration`.
+  Duration get defaultDecayInterval => Duration(microseconds: 1000000);
+
+  /// Go: `const pubsub.FloodSubID protocol.ID`.
+  String get floodSubId => "/floodsub/1.0.0";
+
+  /// Go: `const pubsub.GossipSubID_v10 protocol.ID`.
+  String get gossipSubIdV10 => "/meshsub/1.0.0";
+
+  /// Go: `const pubsub.GossipSubID_v11 protocol.ID`.
+  String get gossipSubIdV11 => "/meshsub/1.1.0";
+
+  /// Go: `const pubsub.GossipSubID_v12 protocol.ID`.
+  String get gossipSubIdV12 => "/meshsub/1.2.0";
+
+  /// Go: `const pubsub.GossipSubID_v13 protocol.ID`.
+  String get gossipSubIdV13 => "/meshsub/1.3.0";
+
+  /// Go: `const pubsub.LaxSign pubsub.MessageSignaturePolicy`.
+  int get laxSign => 1;
+
+  /// Go: `const pubsub.MaxBackoffDelay time.Duration`.
+  Duration get maxBackoffDelay => Duration(microseconds: 10000000);
+
+  /// Go: `const pubsub.MinBackoffDelay time.Duration`.
+  Duration get minBackoffDelay => Duration(microseconds: 100000);
+
+  /// Go: `const pubsub.PeerFeedbackInvalidMessage pubsub.PeerFeedbackKind`.
+  int get peerFeedbackInvalidMessage => 1;
+
+  /// Go: `const pubsub.PeerFeedbackUsefulMessage pubsub.PeerFeedbackKind`.
+  int get peerFeedbackUsefulMessage => 0;
+
+  /// Go: `const pubsub.PeerJoin pubsub.EventType`.
+  int get peerJoin => 0;
+
+  /// Go: `const pubsub.PeerLeave pubsub.EventType`.
+  int get peerLeave => 1;
+
+  /// Go: `const pubsub.RandomSubID protocol.ID`.
+  String get randomSubId => "/randomsub/1.0.0";
+
+  /// Go: `const pubsub.RemoteTracerProtoID protocol.ID`.
+  String get remoteTracerProtoId => "/libp2p/pubsub/tracer/1.0.0";
 
   /// Go: `const pubsub.StrictNoSign pubsub.MessageSignaturePolicy`.
   int get strictNoSign => 2;

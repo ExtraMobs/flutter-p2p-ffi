@@ -5,7 +5,11 @@ library;
 import 'dart:async';
 import 'dart:typed_data';
 
-import 'package:p2p_ffi/src/go.dart' show GoMultiformatsMultiaddr;
+import 'package:p2p_ffi/src/go.dart'
+    show
+        GoMultiformatsMultiaddr,
+        GoMultiformatsMultiaddrConsts,
+        GoMultiformatsMultiaddrEnums;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
@@ -740,16 +744,10 @@ extension GoMultiformatsMultiaddrApi on GoMultiformatsMultiaddr {
     final $r = $callSync(3466, $W()..list(addrs, (w0, e0) => w0.val(e0)));
     return $r.list(() => $r.p() ? Multiaddr($r.str()) : $nil());
   }
+}
 
-  /// Go: `const multiaddr.ActionAccept multiaddr.Action`.
-  int get actionAccept => 1;
-
-  /// Go: `const multiaddr.ActionDeny multiaddr.Action`.
-  int get actionDeny => 2;
-
-  /// Go: `const multiaddr.ActionNone multiaddr.Action`.
-  int get actionNone => 0;
-
+/// Go: the constants of `github.com/multiformats/go-multiaddr` (`go.multiformats.multiaddr.consts`).
+extension GoMultiformatsMultiaddrConstsApi on GoMultiformatsMultiaddrConsts {
   /// Go: `const multiaddr.LengthPrefixedVarSize untyped int`.
   int get lengthPrefixedVarSize => -1;
 
@@ -869,4 +867,16 @@ extension GoMultiformatsMultiaddrApi on GoMultiformatsMultiaddr {
 
   /// Go: `const multiaddr.P_WSS untyped int`.
   int get pWss => 478;
+}
+
+/// Go: the constants of a named type of `github.com/multiformats/go-multiaddr` (`go.multiformats.multiaddr.enums`).
+extension GoMultiformatsMultiaddrEnumsApi on GoMultiformatsMultiaddrEnums {
+  /// Go: `const multiaddr.ActionAccept multiaddr.Action`.
+  int get actionAccept => 1;
+
+  /// Go: `const multiaddr.ActionDeny multiaddr.Action`.
+  int get actionDeny => 2;
+
+  /// Go: `const multiaddr.ActionNone multiaddr.Action`.
+  int get actionNone => 0;
 }

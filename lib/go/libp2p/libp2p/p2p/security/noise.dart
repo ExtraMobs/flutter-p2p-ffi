@@ -2,7 +2,8 @@
 // Go: github.com/libp2p/go-libp2p/p2p/security/noise
 library;
 
-import 'package:p2p_ffi/src/go.dart' show GoLibp2pLibp2pP2pSecurityNoise;
+import 'package:p2p_ffi/src/go.dart'
+    show GoLibp2pLibp2pP2pSecurityNoise, GoLibp2pLibp2pP2pSecurityNoiseConsts;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
@@ -160,6 +161,14 @@ extension GoLibp2pLibp2pP2pSecurityNoiseApi on GoLibp2pLibp2pP2pSecurityNoise {
     return $r.hnn(Libp2pP2pSecurityNoiseTransport.$h);
   }
 
+  /// Go: the function `noise.New` as a value (a token: Go gets the function
+  /// itself, as in `libp2p.Transport(tcp.NewTCPTransport)`).
+  GoToken get newFunc => const GoToken(11);
+}
+
+/// Go: the constants of `github.com/libp2p/go-libp2p/p2p/security/noise` (`go.libp2p.libp2p.p2p.security.noise.consts`).
+extension GoLibp2pLibp2pP2pSecurityNoiseConstsApi
+    on GoLibp2pLibp2pP2pSecurityNoiseConsts {
   /// Go: `const noise.ID untyped string`.
   String get id => "/noise";
 
@@ -171,8 +180,4 @@ extension GoLibp2pLibp2pP2pSecurityNoiseApi on GoLibp2pLibp2pP2pSecurityNoise {
 
   /// Go: `const noise.MaxTransportMsgLength untyped int`.
   int get maxTransportMsgLength => 65535;
-
-  /// Go: the function `noise.New` as a value (a token: Go gets the function
-  /// itself, as in `libp2p.Transport(tcp.NewTCPTransport)`).
-  GoToken get newFunc => const GoToken(11);
 }

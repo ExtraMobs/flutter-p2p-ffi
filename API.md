@@ -9,31 +9,31 @@ Each line is an exposed Go symbol and where it is in Dart.
 |---|---|---|
 | `func bytes.NewBuffer(buf []byte) *bytes.Buffer` | `factory BytesBuffer` | sync |
 | `func (*bytes.Buffer).Bytes() []byte` | `BytesBuffer.bytes` | sync |
-| `const bytes.MinRead untyped int` | `go.bytes.minRead` | const |
+| `const bytes.MinRead untyped int` | `go.bytes.consts.minRead` | const |
 
 ## `crypto` → `go.crypto` (`lib/go/crypto.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
-| `const crypto.BLAKE2b_256 crypto.Hash` | `go.crypto.blake2b256` | const |
-| `const crypto.BLAKE2b_384 crypto.Hash` | `go.crypto.blake2b384` | const |
-| `const crypto.BLAKE2b_512 crypto.Hash` | `go.crypto.blake2b512` | const |
-| `const crypto.BLAKE2s_256 crypto.Hash` | `go.crypto.blake2s256` | const |
-| `const crypto.MD4 crypto.Hash` | `go.crypto.md4` | const |
-| `const crypto.MD5 crypto.Hash` | `go.crypto.md5` | const |
-| `const crypto.MD5SHA1 crypto.Hash` | `go.crypto.md5sha1` | const |
-| `const crypto.RIPEMD160 crypto.Hash` | `go.crypto.ripemd160` | const |
-| `const crypto.SHA1 crypto.Hash` | `go.crypto.sha1` | const |
-| `const crypto.SHA224 crypto.Hash` | `go.crypto.sha224` | const |
-| `const crypto.SHA256 crypto.Hash` | `go.crypto.sha256` | const |
-| `const crypto.SHA384 crypto.Hash` | `go.crypto.sha384` | const |
-| `const crypto.SHA3_224 crypto.Hash` | `go.crypto.sha3224` | const |
-| `const crypto.SHA3_256 crypto.Hash` | `go.crypto.sha3256` | const |
-| `const crypto.SHA3_384 crypto.Hash` | `go.crypto.sha3384` | const |
-| `const crypto.SHA3_512 crypto.Hash` | `go.crypto.sha3512` | const |
-| `const crypto.SHA512 crypto.Hash` | `go.crypto.sha512` | const |
-| `const crypto.SHA512_224 crypto.Hash` | `go.crypto.sha512224` | const |
-| `const crypto.SHA512_256 crypto.Hash` | `go.crypto.sha512256` | const |
+| `const crypto.BLAKE2b_256 crypto.Hash` | `go.crypto.enums.blake2b256` | const |
+| `const crypto.BLAKE2b_384 crypto.Hash` | `go.crypto.enums.blake2b384` | const |
+| `const crypto.BLAKE2b_512 crypto.Hash` | `go.crypto.enums.blake2b512` | const |
+| `const crypto.BLAKE2s_256 crypto.Hash` | `go.crypto.enums.blake2s256` | const |
+| `const crypto.MD4 crypto.Hash` | `go.crypto.enums.md4` | const |
+| `const crypto.MD5 crypto.Hash` | `go.crypto.enums.md5` | const |
+| `const crypto.MD5SHA1 crypto.Hash` | `go.crypto.enums.md5sha1` | const |
+| `const crypto.RIPEMD160 crypto.Hash` | `go.crypto.enums.ripemd160` | const |
+| `const crypto.SHA1 crypto.Hash` | `go.crypto.enums.sha1` | const |
+| `const crypto.SHA224 crypto.Hash` | `go.crypto.enums.sha224` | const |
+| `const crypto.SHA256 crypto.Hash` | `go.crypto.enums.sha256` | const |
+| `const crypto.SHA384 crypto.Hash` | `go.crypto.enums.sha384` | const |
+| `const crypto.SHA3_224 crypto.Hash` | `go.crypto.enums.sha3224` | const |
+| `const crypto.SHA3_256 crypto.Hash` | `go.crypto.enums.sha3256` | const |
+| `const crypto.SHA3_384 crypto.Hash` | `go.crypto.enums.sha3384` | const |
+| `const crypto.SHA3_512 crypto.Hash` | `go.crypto.enums.sha3512` | const |
+| `const crypto.SHA512 crypto.Hash` | `go.crypto.enums.sha512` | const |
+| `const crypto.SHA512_224 crypto.Hash` | `go.crypto.enums.sha512224` | const |
+| `const crypto.SHA512_256 crypto.Hash` | `go.crypto.enums.sha512256` | const |
 
 ## `crypto/elliptic` → `go.crypto.elliptic` (`lib/go/crypto/elliptic.dart`)
 
@@ -45,102 +45,102 @@ Each line is an exposed Go symbol and where it is in Dart.
 
 | Go | Dart | Mode |
 |---|---|---|
-| `const x509.CANotAuthorizedForExtKeyUsage x509.InvalidReason` | `go.crypto.x509.caNotAuthorizedForExtKeyUsage` | const |
-| `const x509.CANotAuthorizedForThisName x509.InvalidReason` | `go.crypto.x509.caNotAuthorizedForThisName` | const |
-| `const x509.DSA x509.PublicKeyAlgorithm` | `go.crypto.x509.dsa` | const |
-| `const x509.DSAWithSHA1 x509.SignatureAlgorithm` | `go.crypto.x509.dsaWithSha1` | const |
-| `const x509.DSAWithSHA256 x509.SignatureAlgorithm` | `go.crypto.x509.dsaWithSha256` | const |
-| `const x509.ECDSA x509.PublicKeyAlgorithm` | `go.crypto.x509.ecdsa` | const |
-| `const x509.ECDSAWithSHA1 x509.SignatureAlgorithm` | `go.crypto.x509.ecdsaWithSha1` | const |
-| `const x509.ECDSAWithSHA256 x509.SignatureAlgorithm` | `go.crypto.x509.ecdsaWithSha256` | const |
-| `const x509.ECDSAWithSHA384 x509.SignatureAlgorithm` | `go.crypto.x509.ecdsaWithSha384` | const |
-| `const x509.ECDSAWithSHA512 x509.SignatureAlgorithm` | `go.crypto.x509.ecdsaWithSha512` | const |
-| `const x509.Ed25519 x509.PublicKeyAlgorithm` | `go.crypto.x509.ed25519` | const |
-| `const x509.Expired x509.InvalidReason` | `go.crypto.x509.expired` | const |
-| `const x509.ExtKeyUsageAny x509.ExtKeyUsage` | `go.crypto.x509.extKeyUsageAny` | const |
-| `const x509.ExtKeyUsageClientAuth x509.ExtKeyUsage` | `go.crypto.x509.extKeyUsageClientAuth` | const |
-| `const x509.ExtKeyUsageCodeSigning x509.ExtKeyUsage` | `go.crypto.x509.extKeyUsageCodeSigning` | const |
-| `const x509.ExtKeyUsageEmailProtection x509.ExtKeyUsage` | `go.crypto.x509.extKeyUsageEmailProtection` | const |
-| `const x509.ExtKeyUsageIPSECEndSystem x509.ExtKeyUsage` | `go.crypto.x509.extKeyUsageIpsecEndSystem` | const |
-| `const x509.ExtKeyUsageIPSECTunnel x509.ExtKeyUsage` | `go.crypto.x509.extKeyUsageIpsecTunnel` | const |
-| `const x509.ExtKeyUsageIPSECUser x509.ExtKeyUsage` | `go.crypto.x509.extKeyUsageIpsecUser` | const |
-| `const x509.ExtKeyUsageMicrosoftCommercialCodeSigning x509.ExtKeyUsage` | `go.crypto.x509.extKeyUsageMicrosoftCommercialCodeSigning` | const |
-| `const x509.ExtKeyUsageMicrosoftKernelCodeSigning x509.ExtKeyUsage` | `go.crypto.x509.extKeyUsageMicrosoftKernelCodeSigning` | const |
-| `const x509.ExtKeyUsageMicrosoftServerGatedCrypto x509.ExtKeyUsage` | `go.crypto.x509.extKeyUsageMicrosoftServerGatedCrypto` | const |
-| `const x509.ExtKeyUsageNetscapeServerGatedCrypto x509.ExtKeyUsage` | `go.crypto.x509.extKeyUsageNetscapeServerGatedCrypto` | const |
-| `const x509.ExtKeyUsageOCSPSigning x509.ExtKeyUsage` | `go.crypto.x509.extKeyUsageOcspSigning` | const |
-| `const x509.ExtKeyUsageServerAuth x509.ExtKeyUsage` | `go.crypto.x509.extKeyUsageServerAuth` | const |
-| `const x509.ExtKeyUsageTimeStamping x509.ExtKeyUsage` | `go.crypto.x509.extKeyUsageTimeStamping` | const |
-| `const x509.IncompatibleUsage x509.InvalidReason` | `go.crypto.x509.incompatibleUsage` | const |
-| `const x509.KeyUsageCRLSign x509.KeyUsage` | `go.crypto.x509.keyUsageCrlSign` | const |
-| `const x509.KeyUsageCertSign x509.KeyUsage` | `go.crypto.x509.keyUsageCertSign` | const |
-| `const x509.KeyUsageContentCommitment x509.KeyUsage` | `go.crypto.x509.keyUsageContentCommitment` | const |
-| `const x509.KeyUsageDataEncipherment x509.KeyUsage` | `go.crypto.x509.keyUsageDataEncipherment` | const |
-| `const x509.KeyUsageDecipherOnly x509.KeyUsage` | `go.crypto.x509.keyUsageDecipherOnly` | const |
-| `const x509.KeyUsageDigitalSignature x509.KeyUsage` | `go.crypto.x509.keyUsageDigitalSignature` | const |
-| `const x509.KeyUsageEncipherOnly x509.KeyUsage` | `go.crypto.x509.keyUsageEncipherOnly` | const |
-| `const x509.KeyUsageKeyAgreement x509.KeyUsage` | `go.crypto.x509.keyUsageKeyAgreement` | const |
-| `const x509.KeyUsageKeyEncipherment x509.KeyUsage` | `go.crypto.x509.keyUsageKeyEncipherment` | const |
-| `const x509.MD2WithRSA x509.SignatureAlgorithm` | `go.crypto.x509.md2WithRsa` | const |
-| `const x509.MD5WithRSA x509.SignatureAlgorithm` | `go.crypto.x509.md5WithRsa` | const |
-| `const x509.NameConstraintsWithoutSANs x509.InvalidReason` | `go.crypto.x509.nameConstraintsWithoutSans` | const |
-| `const x509.NameMismatch x509.InvalidReason` | `go.crypto.x509.nameMismatch` | const |
-| `const x509.NoValidChains x509.InvalidReason` | `go.crypto.x509.noValidChains` | const |
-| `const x509.NotAuthorizedToSign x509.InvalidReason` | `go.crypto.x509.notAuthorizedToSign` | const |
-| `const x509.PEMCipher3DES x509.PEMCipher` | `go.crypto.x509.pemCipher3des` | const |
-| `const x509.PEMCipherAES128 x509.PEMCipher` | `go.crypto.x509.pemCipherAes128` | const |
-| `const x509.PEMCipherAES192 x509.PEMCipher` | `go.crypto.x509.pemCipherAes192` | const |
-| `const x509.PEMCipherAES256 x509.PEMCipher` | `go.crypto.x509.pemCipherAes256` | const |
-| `const x509.PEMCipherDES x509.PEMCipher` | `go.crypto.x509.pemCipherDes` | const |
-| `const x509.PureEd25519 x509.SignatureAlgorithm` | `go.crypto.x509.pureEd25519` | const |
-| `const x509.RSA x509.PublicKeyAlgorithm` | `go.crypto.x509.rsa` | const |
-| `const x509.SHA1WithRSA x509.SignatureAlgorithm` | `go.crypto.x509.sha1WithRsa` | const |
-| `const x509.SHA256WithRSA x509.SignatureAlgorithm` | `go.crypto.x509.sha256WithRsa` | const |
-| `const x509.SHA256WithRSAPSS x509.SignatureAlgorithm` | `go.crypto.x509.sha256WithRsapss` | const |
-| `const x509.SHA384WithRSA x509.SignatureAlgorithm` | `go.crypto.x509.sha384WithRsa` | const |
-| `const x509.SHA384WithRSAPSS x509.SignatureAlgorithm` | `go.crypto.x509.sha384WithRsapss` | const |
-| `const x509.SHA512WithRSA x509.SignatureAlgorithm` | `go.crypto.x509.sha512WithRsa` | const |
-| `const x509.SHA512WithRSAPSS x509.SignatureAlgorithm` | `go.crypto.x509.sha512WithRsapss` | const |
-| `const x509.TooManyConstraints x509.InvalidReason` | `go.crypto.x509.tooManyConstraints` | const |
-| `const x509.TooManyIntermediates x509.InvalidReason` | `go.crypto.x509.tooManyIntermediates` | const |
-| `const x509.UnconstrainedName x509.InvalidReason` | `go.crypto.x509.unconstrainedName` | const |
-| `const x509.UnknownPublicKeyAlgorithm x509.PublicKeyAlgorithm` | `go.crypto.x509.unknownPublicKeyAlgorithm` | const |
-| `const x509.UnknownSignatureAlgorithm x509.SignatureAlgorithm` | `go.crypto.x509.unknownSignatureAlgorithm` | const |
+| `const x509.CANotAuthorizedForExtKeyUsage x509.InvalidReason` | `go.crypto.x509.enums.caNotAuthorizedForExtKeyUsage` | const |
+| `const x509.CANotAuthorizedForThisName x509.InvalidReason` | `go.crypto.x509.enums.caNotAuthorizedForThisName` | const |
+| `const x509.DSA x509.PublicKeyAlgorithm` | `go.crypto.x509.enums.dsa` | const |
+| `const x509.DSAWithSHA1 x509.SignatureAlgorithm` | `go.crypto.x509.enums.dsaWithSha1` | const |
+| `const x509.DSAWithSHA256 x509.SignatureAlgorithm` | `go.crypto.x509.enums.dsaWithSha256` | const |
+| `const x509.ECDSA x509.PublicKeyAlgorithm` | `go.crypto.x509.enums.ecdsa` | const |
+| `const x509.ECDSAWithSHA1 x509.SignatureAlgorithm` | `go.crypto.x509.enums.ecdsaWithSha1` | const |
+| `const x509.ECDSAWithSHA256 x509.SignatureAlgorithm` | `go.crypto.x509.enums.ecdsaWithSha256` | const |
+| `const x509.ECDSAWithSHA384 x509.SignatureAlgorithm` | `go.crypto.x509.enums.ecdsaWithSha384` | const |
+| `const x509.ECDSAWithSHA512 x509.SignatureAlgorithm` | `go.crypto.x509.enums.ecdsaWithSha512` | const |
+| `const x509.Ed25519 x509.PublicKeyAlgorithm` | `go.crypto.x509.enums.ed25519` | const |
+| `const x509.Expired x509.InvalidReason` | `go.crypto.x509.enums.expired` | const |
+| `const x509.ExtKeyUsageAny x509.ExtKeyUsage` | `go.crypto.x509.enums.extKeyUsageAny` | const |
+| `const x509.ExtKeyUsageClientAuth x509.ExtKeyUsage` | `go.crypto.x509.enums.extKeyUsageClientAuth` | const |
+| `const x509.ExtKeyUsageCodeSigning x509.ExtKeyUsage` | `go.crypto.x509.enums.extKeyUsageCodeSigning` | const |
+| `const x509.ExtKeyUsageEmailProtection x509.ExtKeyUsage` | `go.crypto.x509.enums.extKeyUsageEmailProtection` | const |
+| `const x509.ExtKeyUsageIPSECEndSystem x509.ExtKeyUsage` | `go.crypto.x509.enums.extKeyUsageIpsecEndSystem` | const |
+| `const x509.ExtKeyUsageIPSECTunnel x509.ExtKeyUsage` | `go.crypto.x509.enums.extKeyUsageIpsecTunnel` | const |
+| `const x509.ExtKeyUsageIPSECUser x509.ExtKeyUsage` | `go.crypto.x509.enums.extKeyUsageIpsecUser` | const |
+| `const x509.ExtKeyUsageMicrosoftCommercialCodeSigning x509.ExtKeyUsage` | `go.crypto.x509.enums.extKeyUsageMicrosoftCommercialCodeSigning` | const |
+| `const x509.ExtKeyUsageMicrosoftKernelCodeSigning x509.ExtKeyUsage` | `go.crypto.x509.enums.extKeyUsageMicrosoftKernelCodeSigning` | const |
+| `const x509.ExtKeyUsageMicrosoftServerGatedCrypto x509.ExtKeyUsage` | `go.crypto.x509.enums.extKeyUsageMicrosoftServerGatedCrypto` | const |
+| `const x509.ExtKeyUsageNetscapeServerGatedCrypto x509.ExtKeyUsage` | `go.crypto.x509.enums.extKeyUsageNetscapeServerGatedCrypto` | const |
+| `const x509.ExtKeyUsageOCSPSigning x509.ExtKeyUsage` | `go.crypto.x509.enums.extKeyUsageOcspSigning` | const |
+| `const x509.ExtKeyUsageServerAuth x509.ExtKeyUsage` | `go.crypto.x509.enums.extKeyUsageServerAuth` | const |
+| `const x509.ExtKeyUsageTimeStamping x509.ExtKeyUsage` | `go.crypto.x509.enums.extKeyUsageTimeStamping` | const |
+| `const x509.IncompatibleUsage x509.InvalidReason` | `go.crypto.x509.enums.incompatibleUsage` | const |
+| `const x509.KeyUsageCRLSign x509.KeyUsage` | `go.crypto.x509.enums.keyUsageCrlSign` | const |
+| `const x509.KeyUsageCertSign x509.KeyUsage` | `go.crypto.x509.enums.keyUsageCertSign` | const |
+| `const x509.KeyUsageContentCommitment x509.KeyUsage` | `go.crypto.x509.enums.keyUsageContentCommitment` | const |
+| `const x509.KeyUsageDataEncipherment x509.KeyUsage` | `go.crypto.x509.enums.keyUsageDataEncipherment` | const |
+| `const x509.KeyUsageDecipherOnly x509.KeyUsage` | `go.crypto.x509.enums.keyUsageDecipherOnly` | const |
+| `const x509.KeyUsageDigitalSignature x509.KeyUsage` | `go.crypto.x509.enums.keyUsageDigitalSignature` | const |
+| `const x509.KeyUsageEncipherOnly x509.KeyUsage` | `go.crypto.x509.enums.keyUsageEncipherOnly` | const |
+| `const x509.KeyUsageKeyAgreement x509.KeyUsage` | `go.crypto.x509.enums.keyUsageKeyAgreement` | const |
+| `const x509.KeyUsageKeyEncipherment x509.KeyUsage` | `go.crypto.x509.enums.keyUsageKeyEncipherment` | const |
+| `const x509.MD2WithRSA x509.SignatureAlgorithm` | `go.crypto.x509.enums.md2WithRsa` | const |
+| `const x509.MD5WithRSA x509.SignatureAlgorithm` | `go.crypto.x509.enums.md5WithRsa` | const |
+| `const x509.NameConstraintsWithoutSANs x509.InvalidReason` | `go.crypto.x509.enums.nameConstraintsWithoutSans` | const |
+| `const x509.NameMismatch x509.InvalidReason` | `go.crypto.x509.enums.nameMismatch` | const |
+| `const x509.NoValidChains x509.InvalidReason` | `go.crypto.x509.enums.noValidChains` | const |
+| `const x509.NotAuthorizedToSign x509.InvalidReason` | `go.crypto.x509.enums.notAuthorizedToSign` | const |
+| `const x509.PEMCipher3DES x509.PEMCipher` | `go.crypto.x509.enums.pemCipher3des` | const |
+| `const x509.PEMCipherAES128 x509.PEMCipher` | `go.crypto.x509.enums.pemCipherAes128` | const |
+| `const x509.PEMCipherAES192 x509.PEMCipher` | `go.crypto.x509.enums.pemCipherAes192` | const |
+| `const x509.PEMCipherAES256 x509.PEMCipher` | `go.crypto.x509.enums.pemCipherAes256` | const |
+| `const x509.PEMCipherDES x509.PEMCipher` | `go.crypto.x509.enums.pemCipherDes` | const |
+| `const x509.PureEd25519 x509.SignatureAlgorithm` | `go.crypto.x509.enums.pureEd25519` | const |
+| `const x509.RSA x509.PublicKeyAlgorithm` | `go.crypto.x509.enums.rsa` | const |
+| `const x509.SHA1WithRSA x509.SignatureAlgorithm` | `go.crypto.x509.enums.sha1WithRsa` | const |
+| `const x509.SHA256WithRSA x509.SignatureAlgorithm` | `go.crypto.x509.enums.sha256WithRsa` | const |
+| `const x509.SHA256WithRSAPSS x509.SignatureAlgorithm` | `go.crypto.x509.enums.sha256WithRsapss` | const |
+| `const x509.SHA384WithRSA x509.SignatureAlgorithm` | `go.crypto.x509.enums.sha384WithRsa` | const |
+| `const x509.SHA384WithRSAPSS x509.SignatureAlgorithm` | `go.crypto.x509.enums.sha384WithRsapss` | const |
+| `const x509.SHA512WithRSA x509.SignatureAlgorithm` | `go.crypto.x509.enums.sha512WithRsa` | const |
+| `const x509.SHA512WithRSAPSS x509.SignatureAlgorithm` | `go.crypto.x509.enums.sha512WithRsapss` | const |
+| `const x509.TooManyConstraints x509.InvalidReason` | `go.crypto.x509.enums.tooManyConstraints` | const |
+| `const x509.TooManyIntermediates x509.InvalidReason` | `go.crypto.x509.enums.tooManyIntermediates` | const |
+| `const x509.UnconstrainedName x509.InvalidReason` | `go.crypto.x509.enums.unconstrainedName` | const |
+| `const x509.UnknownPublicKeyAlgorithm x509.PublicKeyAlgorithm` | `go.crypto.x509.enums.unknownPublicKeyAlgorithm` | const |
+| `const x509.UnknownSignatureAlgorithm x509.SignatureAlgorithm` | `go.crypto.x509.enums.unknownSignatureAlgorithm` | const |
 
 ## `github.com/decred/dcrd/dcrec/secp256k1/v4` → `go.decred.dcrd.dcrec.secp256k1.v4` (`lib/go/decred/dcrd/dcrec/secp256k1/v4.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
-| `const secp256k1.ErrPubKeyInvalidFormat secp256k1.ErrorKind` | `go.decred.dcrd.dcrec.secp256k1.v4.errPubKeyInvalidFormat` | const |
-| `const secp256k1.ErrPubKeyInvalidLen secp256k1.ErrorKind` | `go.decred.dcrd.dcrec.secp256k1.v4.errPubKeyInvalidLen` | const |
-| `const secp256k1.ErrPubKeyMismatchedOddness secp256k1.ErrorKind` | `go.decred.dcrd.dcrec.secp256k1.v4.errPubKeyMismatchedOddness` | const |
-| `const secp256k1.ErrPubKeyNotOnCurve secp256k1.ErrorKind` | `go.decred.dcrd.dcrec.secp256k1.v4.errPubKeyNotOnCurve` | const |
-| `const secp256k1.ErrPubKeyXTooBig secp256k1.ErrorKind` | `go.decred.dcrd.dcrec.secp256k1.v4.errPubKeyXTooBig` | const |
-| `const secp256k1.ErrPubKeyYTooBig secp256k1.ErrorKind` | `go.decred.dcrd.dcrec.secp256k1.v4.errPubKeyYTooBig` | const |
-| `const secp256k1.PrivKeyBytesLen untyped int` | `go.decred.dcrd.dcrec.secp256k1.v4.privKeyBytesLen` | const |
-| `const secp256k1.PubKeyBytesLenCompressed untyped int` | `go.decred.dcrd.dcrec.secp256k1.v4.pubKeyBytesLenCompressed` | const |
-| `const secp256k1.PubKeyBytesLenUncompressed untyped int` | `go.decred.dcrd.dcrec.secp256k1.v4.pubKeyBytesLenUncompressed` | const |
-| `const secp256k1.PubKeyFormatCompressedEven byte` | `go.decred.dcrd.dcrec.secp256k1.v4.pubKeyFormatCompressedEven` | const |
-| `const secp256k1.PubKeyFormatCompressedOdd byte` | `go.decred.dcrd.dcrec.secp256k1.v4.pubKeyFormatCompressedOdd` | const |
-| `const secp256k1.PubKeyFormatHybridEven byte` | `go.decred.dcrd.dcrec.secp256k1.v4.pubKeyFormatHybridEven` | const |
-| `const secp256k1.PubKeyFormatHybridOdd byte` | `go.decred.dcrd.dcrec.secp256k1.v4.pubKeyFormatHybridOdd` | const |
-| `const secp256k1.PubKeyFormatUncompressed byte` | `go.decred.dcrd.dcrec.secp256k1.v4.pubKeyFormatUncompressed` | const |
+| `const secp256k1.ErrPubKeyInvalidFormat secp256k1.ErrorKind` | `go.decred.dcrd.dcrec.secp256k1.v4.enums.errPubKeyInvalidFormat` | const |
+| `const secp256k1.ErrPubKeyInvalidLen secp256k1.ErrorKind` | `go.decred.dcrd.dcrec.secp256k1.v4.enums.errPubKeyInvalidLen` | const |
+| `const secp256k1.ErrPubKeyMismatchedOddness secp256k1.ErrorKind` | `go.decred.dcrd.dcrec.secp256k1.v4.enums.errPubKeyMismatchedOddness` | const |
+| `const secp256k1.ErrPubKeyNotOnCurve secp256k1.ErrorKind` | `go.decred.dcrd.dcrec.secp256k1.v4.enums.errPubKeyNotOnCurve` | const |
+| `const secp256k1.ErrPubKeyXTooBig secp256k1.ErrorKind` | `go.decred.dcrd.dcrec.secp256k1.v4.enums.errPubKeyXTooBig` | const |
+| `const secp256k1.ErrPubKeyYTooBig secp256k1.ErrorKind` | `go.decred.dcrd.dcrec.secp256k1.v4.enums.errPubKeyYTooBig` | const |
+| `const secp256k1.PrivKeyBytesLen untyped int` | `go.decred.dcrd.dcrec.secp256k1.v4.consts.privKeyBytesLen` | const |
+| `const secp256k1.PubKeyBytesLenCompressed untyped int` | `go.decred.dcrd.dcrec.secp256k1.v4.consts.pubKeyBytesLenCompressed` | const |
+| `const secp256k1.PubKeyBytesLenUncompressed untyped int` | `go.decred.dcrd.dcrec.secp256k1.v4.consts.pubKeyBytesLenUncompressed` | const |
+| `const secp256k1.PubKeyFormatCompressedEven byte` | `go.decred.dcrd.dcrec.secp256k1.v4.consts.pubKeyFormatCompressedEven` | const |
+| `const secp256k1.PubKeyFormatCompressedOdd byte` | `go.decred.dcrd.dcrec.secp256k1.v4.consts.pubKeyFormatCompressedOdd` | const |
+| `const secp256k1.PubKeyFormatHybridEven byte` | `go.decred.dcrd.dcrec.secp256k1.v4.consts.pubKeyFormatHybridEven` | const |
+| `const secp256k1.PubKeyFormatHybridOdd byte` | `go.decred.dcrd.dcrec.secp256k1.v4.consts.pubKeyFormatHybridOdd` | const |
+| `const secp256k1.PubKeyFormatUncompressed byte` | `go.decred.dcrd.dcrec.secp256k1.v4.consts.pubKeyFormatUncompressed` | const |
 
 ## `github.com/ipfs/boxo/autoconf` → `go.ipfs.boxo.autoconf` (`lib/go/ipfs/boxo/autoconf.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
-| `const autoconf.AutoPlaceholder untyped string` | `go.ipfs.boxo.autoconf.autoPlaceholder` | const |
-| `const autoconf.DefaultCacheSize untyped int` | `go.ipfs.boxo.autoconf.defaultCacheSize` | const |
-| `const autoconf.DefaultRefreshInterval time.Duration` | `go.ipfs.boxo.autoconf.defaultRefreshInterval` | const |
-| `const autoconf.DefaultTimeout time.Duration` | `go.ipfs.boxo.autoconf.defaultTimeout` | const |
-| `const autoconf.MainnetAutoConfURL untyped string` | `go.ipfs.boxo.autoconf.mainnetAutoConfUrl` | const |
-| `const autoconf.RoutingV1IPNSPath untyped string` | `go.ipfs.boxo.autoconf.routingV1ipnsPath` | const |
-| `const autoconf.RoutingV1PeersPath untyped string` | `go.ipfs.boxo.autoconf.routingV1PeersPath` | const |
-| `const autoconf.RoutingV1ProvidersPath untyped string` | `go.ipfs.boxo.autoconf.routingV1ProvidersPath` | const |
-| `const autoconf.SupportedAutoConfSchema untyped int` | `go.ipfs.boxo.autoconf.supportedAutoConfSchema` | const |
-| `const autoconf.SystemAminoDHT untyped string` | `go.ipfs.boxo.autoconf.systemAminoDht` | const |
-| `const autoconf.SystemIPNI untyped string` | `go.ipfs.boxo.autoconf.systemIpni` | const |
+| `const autoconf.AutoPlaceholder untyped string` | `go.ipfs.boxo.autoconf.consts.autoPlaceholder` | const |
+| `const autoconf.DefaultCacheSize untyped int` | `go.ipfs.boxo.autoconf.consts.defaultCacheSize` | const |
+| `const autoconf.DefaultRefreshInterval time.Duration` | `go.ipfs.boxo.autoconf.enums.defaultRefreshInterval` | const |
+| `const autoconf.DefaultTimeout time.Duration` | `go.ipfs.boxo.autoconf.enums.defaultTimeout` | const |
+| `const autoconf.MainnetAutoConfURL untyped string` | `go.ipfs.boxo.autoconf.consts.mainnetAutoConfUrl` | const |
+| `const autoconf.RoutingV1IPNSPath untyped string` | `go.ipfs.boxo.autoconf.consts.routingV1ipnsPath` | const |
+| `const autoconf.RoutingV1PeersPath untyped string` | `go.ipfs.boxo.autoconf.consts.routingV1PeersPath` | const |
+| `const autoconf.RoutingV1ProvidersPath untyped string` | `go.ipfs.boxo.autoconf.consts.routingV1ProvidersPath` | const |
+| `const autoconf.SupportedAutoConfSchema untyped int` | `go.ipfs.boxo.autoconf.consts.supportedAutoConfSchema` | const |
+| `const autoconf.SystemAminoDHT untyped string` | `go.ipfs.boxo.autoconf.consts.systemAminoDht` | const |
+| `const autoconf.SystemIPNI untyped string` | `go.ipfs.boxo.autoconf.consts.systemIpni` | const |
 
 ## `github.com/ipfs/boxo/bitswap` → `go.ipfs.boxo.bitswap` (`lib/go/ipfs/boxo/bitswap.dart`)
 
@@ -302,9 +302,9 @@ Omitted:
 | `func (chunk.Splitter).Reader() io.Reader` | `BoxoChunkerSplitter.reader` | sync |
 | `chunk.Splitter → x.(*chunk.Buzhash)` | `BoxoChunkerSplitter.asBoxoChunkerBuzhash` | cast |
 | `chunk.Splitter → x.(*chunk.Rabin)` | `BoxoChunkerSplitter.asBoxoChunkerRabin` | cast |
-| `const chunk.BlockSizeLimit int` | `go.ipfs.boxo.chunker.blockSizeLimit` | const |
-| `const chunk.ChunkOverheadBudget int` | `go.ipfs.boxo.chunker.chunkOverheadBudget` | const |
-| `const chunk.ChunkSizeLimit int` | `go.ipfs.boxo.chunker.chunkSizeLimit` | const |
+| `const chunk.BlockSizeLimit int` | `go.ipfs.boxo.chunker.consts.blockSizeLimit` | const |
+| `const chunk.ChunkOverheadBudget int` | `go.ipfs.boxo.chunker.consts.chunkOverheadBudget` | const |
+| `const chunk.ChunkSizeLimit int` | `go.ipfs.boxo.chunker.consts.chunkSizeLimit` | const |
 
 Omitted:
 
@@ -443,8 +443,8 @@ Omitted:
 | `files.Node → x.(files.Directory)` | `BoxoFilesNode.asBoxoFilesDirectory` | cast |
 | `files.Node → x.(files.File)` | `BoxoFilesNode.asBoxoFilesFile` | cast |
 | `files.Node → x.(files.FileInfo)` | `BoxoFilesNode.asBoxoFilesFileInfo` | cast |
-| `const files.FileModeHeaderName untyped string` | `go.ipfs.boxo.files.fileModeHeaderName` | const |
-| `const files.LastModifiedHeaderName untyped string` | `go.ipfs.boxo.files.lastModifiedHeaderName` | const |
+| `const files.FileModeHeaderName untyped string` | `go.ipfs.boxo.files.consts.fileModeHeaderName` | const |
+| `const files.LastModifiedHeaderName untyped string` | `go.ipfs.boxo.files.consts.lastModifiedHeaderName` | const |
 
 ## `github.com/ipfs/boxo/filestore` → `go.ipfs.boxo.filestore` (`lib/go/ipfs/boxo/filestore.dart`)
 
@@ -473,12 +473,12 @@ Omitted:
 | `func filestore.NewFileManager(ds datastore.Batching, root string, options ...filestore.Option) *filestore.FileManager` | `factory BoxoFilestoreFileManager` | sync |
 | `func filestore.NewFilestore(bs blockstore.Blockstore, fm *filestore.FileManager, prov provider.MultihashProvider) *filestore.Filestore` | `factory BoxoFilestore` | sync |
 | `func filestore.Verify(ctx context.Context, fs *filestore.Filestore, key cid.Cid) *filestore.ListRes` | `go.ipfs.boxo.filestore.verify` | Future |
-| `const filestore.StatusFileChanged filestore.Status` | `go.ipfs.boxo.filestore.statusFileChanged` | const |
-| `const filestore.StatusFileError filestore.Status` | `go.ipfs.boxo.filestore.statusFileError` | const |
-| `const filestore.StatusFileNotFound filestore.Status` | `go.ipfs.boxo.filestore.statusFileNotFound` | const |
-| `const filestore.StatusKeyNotFound filestore.Status` | `go.ipfs.boxo.filestore.statusKeyNotFound` | const |
-| `const filestore.StatusOk filestore.Status` | `go.ipfs.boxo.filestore.statusOk` | const |
-| `const filestore.StatusOtherError filestore.Status` | `go.ipfs.boxo.filestore.statusOtherError` | const |
+| `const filestore.StatusFileChanged filestore.Status` | `go.ipfs.boxo.filestore.enums.statusFileChanged` | const |
+| `const filestore.StatusFileError filestore.Status` | `go.ipfs.boxo.filestore.enums.statusFileError` | const |
+| `const filestore.StatusFileNotFound filestore.Status` | `go.ipfs.boxo.filestore.enums.statusFileNotFound` | const |
+| `const filestore.StatusKeyNotFound filestore.Status` | `go.ipfs.boxo.filestore.enums.statusKeyNotFound` | const |
+| `const filestore.StatusOk filestore.Status` | `go.ipfs.boxo.filestore.enums.statusOk` | const |
+| `const filestore.StatusOtherError filestore.Status` | `go.ipfs.boxo.filestore.enums.statusOtherError` | const |
 
 Omitted:
 
@@ -553,27 +553,27 @@ Omitted:
 | `func gateway.UninlineDNSLink(dnsLabel string) (fqdn string)` | `go.ipfs.boxo.gateway.uninlineDnsLink` | sync |
 | `gateway.IPFSBackend → x.(*gateway.BlocksBackend)` | `BoxoGatewayIpfsBackend.asBoxoGatewayBlocksBackend` | cast |
 | `gateway.IPFSBackend → x.(*gateway.CarBackend)` | `BoxoGatewayIpfsBackend.asBoxoGatewayCarBackend` | cast |
-| `const gateway.ContentPathKey gateway.RequestContextKey` | `go.ipfs.boxo.gateway.contentPathKey` | const |
-| `const gateway.DNSLinkHostnameKey gateway.RequestContextKey` | `go.ipfs.boxo.gateway.dnsLinkHostnameKey` | const |
-| `const gateway.DagOrderDFS gateway.DagOrder` | `go.ipfs.boxo.gateway.dagOrderDfs` | const |
-| `const gateway.DagOrderUnknown gateway.DagOrder` | `go.ipfs.boxo.gateway.dagOrderUnknown` | const |
-| `const gateway.DagOrderUnspecified gateway.DagOrder` | `go.ipfs.boxo.gateway.dagOrderUnspecified` | const |
-| `const gateway.DagScopeAll gateway.DagScope` | `go.ipfs.boxo.gateway.dagScopeAll` | const |
-| `const gateway.DagScopeBlock gateway.DagScope` | `go.ipfs.boxo.gateway.dagScopeBlock` | const |
-| `const gateway.DagScopeEntity gateway.DagScope` | `go.ipfs.boxo.gateway.dagScopeEntity` | const |
-| `const gateway.DefaultDiagnosticServiceURL untyped string` | `go.ipfs.boxo.gateway.defaultDiagnosticServiceUrl` | const |
-| `const gateway.DefaultGetBlockTimeout time.Duration` | `go.ipfs.boxo.gateway.defaultGetBlockTimeout` | const |
-| `const gateway.DefaultMaxConcurrentRequests untyped int` | `go.ipfs.boxo.gateway.defaultMaxConcurrentRequests` | const |
-| `const gateway.DefaultMaxRequestDuration time.Duration` | `go.ipfs.boxo.gateway.defaultMaxRequestDuration` | const |
-| `const gateway.DefaultMaxTraversalDepth untyped int` | `go.ipfs.boxo.gateway.defaultMaxTraversalDepth` | const |
-| `const gateway.DefaultRetrievalTimeout time.Duration` | `go.ipfs.boxo.gateway.defaultRetrievalTimeout` | const |
-| `const gateway.DuplicateBlocksExcluded gateway.DuplicateBlocksPolicy` | `go.ipfs.boxo.gateway.duplicateBlocksExcluded` | const |
-| `const gateway.DuplicateBlocksIncluded gateway.DuplicateBlocksPolicy` | `go.ipfs.boxo.gateway.duplicateBlocksIncluded` | const |
-| `const gateway.DuplicateBlocksUnspecified gateway.DuplicateBlocksPolicy` | `go.ipfs.boxo.gateway.duplicateBlocksUnspecified` | const |
-| `const gateway.EmptyIdentityCIDString untyped string` | `go.ipfs.boxo.gateway.emptyIdentityCidString` | const |
-| `const gateway.GatewayHostnameKey gateway.RequestContextKey` | `go.ipfs.boxo.gateway.gatewayHostnameKey` | const |
-| `const gateway.OriginalPathKey gateway.RequestContextKey` | `go.ipfs.boxo.gateway.originalPathKey` | const |
-| `const gateway.SubdomainHostnameKey gateway.RequestContextKey` | `go.ipfs.boxo.gateway.subdomainHostnameKey` | const |
+| `const gateway.ContentPathKey gateway.RequestContextKey` | `go.ipfs.boxo.gateway.enums.contentPathKey` | const |
+| `const gateway.DNSLinkHostnameKey gateway.RequestContextKey` | `go.ipfs.boxo.gateway.enums.dnsLinkHostnameKey` | const |
+| `const gateway.DagOrderDFS gateway.DagOrder` | `go.ipfs.boxo.gateway.enums.dagOrderDfs` | const |
+| `const gateway.DagOrderUnknown gateway.DagOrder` | `go.ipfs.boxo.gateway.enums.dagOrderUnknown` | const |
+| `const gateway.DagOrderUnspecified gateway.DagOrder` | `go.ipfs.boxo.gateway.enums.dagOrderUnspecified` | const |
+| `const gateway.DagScopeAll gateway.DagScope` | `go.ipfs.boxo.gateway.enums.dagScopeAll` | const |
+| `const gateway.DagScopeBlock gateway.DagScope` | `go.ipfs.boxo.gateway.enums.dagScopeBlock` | const |
+| `const gateway.DagScopeEntity gateway.DagScope` | `go.ipfs.boxo.gateway.enums.dagScopeEntity` | const |
+| `const gateway.DefaultDiagnosticServiceURL untyped string` | `go.ipfs.boxo.gateway.consts.defaultDiagnosticServiceUrl` | const |
+| `const gateway.DefaultGetBlockTimeout time.Duration` | `go.ipfs.boxo.gateway.enums.defaultGetBlockTimeout` | const |
+| `const gateway.DefaultMaxConcurrentRequests untyped int` | `go.ipfs.boxo.gateway.consts.defaultMaxConcurrentRequests` | const |
+| `const gateway.DefaultMaxRequestDuration time.Duration` | `go.ipfs.boxo.gateway.enums.defaultMaxRequestDuration` | const |
+| `const gateway.DefaultMaxTraversalDepth untyped int` | `go.ipfs.boxo.gateway.consts.defaultMaxTraversalDepth` | const |
+| `const gateway.DefaultRetrievalTimeout time.Duration` | `go.ipfs.boxo.gateway.enums.defaultRetrievalTimeout` | const |
+| `const gateway.DuplicateBlocksExcluded gateway.DuplicateBlocksPolicy` | `go.ipfs.boxo.gateway.enums.duplicateBlocksExcluded` | const |
+| `const gateway.DuplicateBlocksIncluded gateway.DuplicateBlocksPolicy` | `go.ipfs.boxo.gateway.enums.duplicateBlocksIncluded` | const |
+| `const gateway.DuplicateBlocksUnspecified gateway.DuplicateBlocksPolicy` | `go.ipfs.boxo.gateway.enums.duplicateBlocksUnspecified` | const |
+| `const gateway.EmptyIdentityCIDString untyped string` | `go.ipfs.boxo.gateway.consts.emptyIdentityCidString` | const |
+| `const gateway.GatewayHostnameKey gateway.RequestContextKey` | `go.ipfs.boxo.gateway.enums.gatewayHostnameKey` | const |
+| `const gateway.OriginalPathKey gateway.RequestContextKey` | `go.ipfs.boxo.gateway.enums.originalPathKey` | const |
+| `const gateway.SubdomainHostnameKey gateway.RequestContextKey` | `go.ipfs.boxo.gateway.enums.subdomainHostnameKey` | const |
 
 Omitted:
 
@@ -686,8 +686,8 @@ Omitted:
 | `func merkledag.Walk(ctx context.Context, getLinks merkledag.GetLinks, c cid.Cid, visit func(cid.Cid) bool, options ...merkledag.WalkOption) error` | `go.ipfs.boxo.ipld.merkledag.walk` | Future |
 | `func merkledag.WalkDepth(ctx context.Context, getLinks merkledag.GetLinks, c cid.Cid, visit func(cid.Cid, int) bool, options ...merkledag.WalkOption) error` | `go.ipfs.boxo.ipld.merkledag.walkDepth` | Future |
 | `func merkledag.WrapSession(s *blockservice.Session) format.NodeGetter` | `go.ipfs.boxo.ipld.merkledag.wrapSession` | sync |
-| `const merkledag.PBNodeDataFirst merkledag.PBNodeFieldOrder` | `go.ipfs.boxo.ipld.merkledag.pbNodeDataFirst` | const |
-| `const merkledag.PBNodeLinksFirst merkledag.PBNodeFieldOrder` | `go.ipfs.boxo.ipld.merkledag.pbNodeLinksFirst` | const |
+| `const merkledag.PBNodeDataFirst merkledag.PBNodeFieldOrder` | `go.ipfs.boxo.ipld.merkledag.enums.pbNodeDataFirst` | const |
+| `const merkledag.PBNodeLinksFirst merkledag.PBNodeFieldOrder` | `go.ipfs.boxo.ipld.merkledag.enums.pbNodeLinksFirst` | const |
 
 Omitted:
 
@@ -716,9 +716,9 @@ Omitted:
 | `func dagutils.MergeDiffs(a []*dagutils.Change, b []*dagutils.Change) ([]*dagutils.Change, []dagutils.Conflict)` | `go.ipfs.boxo.ipld.merkledag.dagutils.mergeDiffs` | sync |
 | `func dagutils.NewDagEditor(root *merkledag.ProtoNode, source format.DAGService) *dagutils.Editor` | `go.ipfs.boxo.ipld.merkledag.dagutils.newDagEditor` | sync |
 | `func dagutils.NewMemoryDagService() format.DAGService` | `go.ipfs.boxo.ipld.merkledag.dagutils.newMemoryDagService` | sync |
-| `const dagutils.Add dagutils.ChangeType` | `go.ipfs.boxo.ipld.merkledag.dagutils.add` | const |
-| `const dagutils.Mod dagutils.ChangeType` | `go.ipfs.boxo.ipld.merkledag.dagutils.mod` | const |
-| `const dagutils.Remove dagutils.ChangeType` | `go.ipfs.boxo.ipld.merkledag.dagutils.remove` | const |
+| `const dagutils.Add dagutils.ChangeType` | `go.ipfs.boxo.ipld.merkledag.dagutils.enums.add` | const |
+| `const dagutils.Mod dagutils.ChangeType` | `go.ipfs.boxo.ipld.merkledag.dagutils.enums.mod` | const |
+| `const dagutils.Remove dagutils.ChangeType` | `go.ipfs.boxo.ipld.merkledag.dagutils.enums.remove` | const |
 
 Omitted:
 
@@ -728,18 +728,18 @@ Omitted:
 
 | Go | Dart | Mode |
 |---|---|---|
-| `const pb.DoNotUpgradeFileEverItWillChangeYourHashes untyped string` | `go.ipfs.boxo.ipld.merkledag.pb.doNotUpgradeFileEverItWillChangeYourHashes` | const |
+| `const pb.DoNotUpgradeFileEverItWillChangeYourHashes untyped string` | `go.ipfs.boxo.ipld.merkledag.pb.consts.doNotUpgradeFileEverItWillChangeYourHashes` | const |
 
 ## `github.com/ipfs/boxo/ipld/unixfs` → `go.ipfs.boxo.ipld.unixfs` (`lib/go/ipfs/boxo/ipld/unixfs.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
-| `const unixfs.TDirectory pb.Data_DataType` | `go.ipfs.boxo.ipld.unixfs.tDirectory` | const |
-| `const unixfs.TFile pb.Data_DataType` | `go.ipfs.boxo.ipld.unixfs.tFile` | const |
-| `const unixfs.THAMTShard pb.Data_DataType` | `go.ipfs.boxo.ipld.unixfs.thamtShard` | const |
-| `const unixfs.TMetadata pb.Data_DataType` | `go.ipfs.boxo.ipld.unixfs.tMetadata` | const |
-| `const unixfs.TRaw pb.Data_DataType` | `go.ipfs.boxo.ipld.unixfs.tRaw` | const |
-| `const unixfs.TSymlink pb.Data_DataType` | `go.ipfs.boxo.ipld.unixfs.tSymlink` | const |
+| `const unixfs.TDirectory pb.Data_DataType` | `go.ipfs.boxo.ipld.unixfs.enums.tDirectory` | const |
+| `const unixfs.TFile pb.Data_DataType` | `go.ipfs.boxo.ipld.unixfs.enums.tFile` | const |
+| `const unixfs.THAMTShard pb.Data_DataType` | `go.ipfs.boxo.ipld.unixfs.enums.thamtShard` | const |
+| `const unixfs.TMetadata pb.Data_DataType` | `go.ipfs.boxo.ipld.unixfs.enums.tMetadata` | const |
+| `const unixfs.TRaw pb.Data_DataType` | `go.ipfs.boxo.ipld.unixfs.enums.tRaw` | const |
+| `const unixfs.TSymlink pb.Data_DataType` | `go.ipfs.boxo.ipld.unixfs.enums.tSymlink` | const |
 
 ## `github.com/ipfs/boxo/ipld/unixfs/file` → `go.ipfs.boxo.ipld.unixfs.file` (`lib/go/ipfs/boxo/ipld/unixfs/file.dart`)
 
@@ -857,9 +857,9 @@ Omitted:
 | `io.Directory → x.(*io.BasicDirectory)` | `BoxoIpldUnixfsIoDirectory.asBoxoIpldUnixfsIoBasicDirectory` | cast |
 | `io.Directory → x.(*io.DynamicDirectory)` | `BoxoIpldUnixfsIoDirectory.asBoxoIpldUnixfsIoDynamicDirectory` | cast |
 | `io.Directory → x.(*io.HAMTDirectory)` | `BoxoIpldUnixfsIoDirectory.asBoxoIpldUnixfsIoHamtDirectory` | cast |
-| `const io.SizeEstimationBlock io.SizeEstimationMode` | `go.ipfs.boxo.ipld.unixfs.io.sizeEstimationBlock` | const |
-| `const io.SizeEstimationDisabled io.SizeEstimationMode` | `go.ipfs.boxo.ipld.unixfs.io.sizeEstimationDisabled` | const |
-| `const io.SizeEstimationLinks io.SizeEstimationMode` | `go.ipfs.boxo.ipld.unixfs.io.sizeEstimationLinks` | const |
+| `const io.SizeEstimationBlock io.SizeEstimationMode` | `go.ipfs.boxo.ipld.unixfs.io.enums.sizeEstimationBlock` | const |
+| `const io.SizeEstimationDisabled io.SizeEstimationMode` | `go.ipfs.boxo.ipld.unixfs.io.enums.sizeEstimationDisabled` | const |
+| `const io.SizeEstimationLinks io.SizeEstimationMode` | `go.ipfs.boxo.ipld.unixfs.io.enums.sizeEstimationLinks` | const |
 
 ## `github.com/ipfs/boxo/ipns` → `go.ipfs.boxo.ipns` (`lib/go/ipfs/boxo/ipns.dart`)
 
@@ -898,17 +898,17 @@ Omitted:
 | `func ipns.ValidateWithName(rec *ipns.Record, name ipns.Name) error` | `go.ipfs.boxo.ipns.validateWithName` | sync |
 | `func (ipns.Validator).Select(k string, vals [][]byte) (int, error)` | `BoxoIpnsValidator.select` | sync |
 | `func (ipns.Validator).Validate(key string, value []byte) error` | `BoxoIpnsValidator.validate` | sync |
-| `const ipns.DefaultRecordLifetime time.Duration` | `go.ipfs.boxo.ipns.defaultRecordLifetime` | const |
-| `const ipns.DefaultRecordTTL time.Duration` | `go.ipfs.boxo.ipns.defaultRecordTtl` | const |
-| `const ipns.MaxRecordSize int` | `go.ipfs.boxo.ipns.maxRecordSize` | const |
-| `const ipns.MetadataKindBool ipns.MetadataKind` | `go.ipfs.boxo.ipns.metadataKindBool` | const |
-| `const ipns.MetadataKindBytes ipns.MetadataKind` | `go.ipfs.boxo.ipns.metadataKindBytes` | const |
-| `const ipns.MetadataKindInt ipns.MetadataKind` | `go.ipfs.boxo.ipns.metadataKindInt` | const |
-| `const ipns.MetadataKindInvalid ipns.MetadataKind` | `go.ipfs.boxo.ipns.metadataKindInvalid` | const |
-| `const ipns.MetadataKindString ipns.MetadataKind` | `go.ipfs.boxo.ipns.metadataKindString` | const |
-| `const ipns.NamespacePrefix untyped string` | `go.ipfs.boxo.ipns.namespacePrefix` | const |
-| `const ipns.NoopValue untyped string` | `go.ipfs.boxo.ipns.noopValue` | const |
-| `const ipns.ValidityEOL ipns.ValidityType` | `go.ipfs.boxo.ipns.validityEol` | const |
+| `const ipns.DefaultRecordLifetime time.Duration` | `go.ipfs.boxo.ipns.enums.defaultRecordLifetime` | const |
+| `const ipns.DefaultRecordTTL time.Duration` | `go.ipfs.boxo.ipns.enums.defaultRecordTtl` | const |
+| `const ipns.MaxRecordSize int` | `go.ipfs.boxo.ipns.consts.maxRecordSize` | const |
+| `const ipns.MetadataKindBool ipns.MetadataKind` | `go.ipfs.boxo.ipns.enums.metadataKindBool` | const |
+| `const ipns.MetadataKindBytes ipns.MetadataKind` | `go.ipfs.boxo.ipns.enums.metadataKindBytes` | const |
+| `const ipns.MetadataKindInt ipns.MetadataKind` | `go.ipfs.boxo.ipns.enums.metadataKindInt` | const |
+| `const ipns.MetadataKindInvalid ipns.MetadataKind` | `go.ipfs.boxo.ipns.enums.metadataKindInvalid` | const |
+| `const ipns.MetadataKindString ipns.MetadataKind` | `go.ipfs.boxo.ipns.enums.metadataKindString` | const |
+| `const ipns.NamespacePrefix untyped string` | `go.ipfs.boxo.ipns.consts.namespacePrefix` | const |
+| `const ipns.NoopValue untyped string` | `go.ipfs.boxo.ipns.consts.noopValue` | const |
+| `const ipns.ValidityEOL ipns.ValidityType` | `go.ipfs.boxo.ipns.enums.validityEol` | const |
 
 Omitted:
 
@@ -990,9 +990,9 @@ Omitted:
 | `func mfs.Touch(rt *mfs.Root, pth string, ts time.Time) error` | `go.ipfs.boxo.mfs.touch` | sync |
 | `mfs.FSNode → x.(*mfs.Directory)` | `BoxoMfsFsNode.asBoxoMfsDirectory` | cast |
 | `mfs.FSNode → x.(*mfs.File)` | `BoxoMfsFsNode.asBoxoMfsFile` | cast |
-| `const mfs.DefaultFetchTimeout time.Duration` | `go.ipfs.boxo.mfs.defaultFetchTimeout` | const |
-| `const mfs.TDir mfs.NodeType` | `go.ipfs.boxo.mfs.tDir` | const |
-| `const mfs.TFile mfs.NodeType` | `go.ipfs.boxo.mfs.tFile` | const |
+| `const mfs.DefaultFetchTimeout time.Duration` | `go.ipfs.boxo.mfs.enums.defaultFetchTimeout` | const |
+| `const mfs.TDir mfs.NodeType` | `go.ipfs.boxo.mfs.enums.tDir` | const |
+| `const mfs.TFile mfs.NodeType` | `go.ipfs.boxo.mfs.enums.tFile` | const |
 
 Omitted:
 
@@ -1040,11 +1040,11 @@ Omitted:
 | `namesys.Resolver → x.(*namesys.DNSResolver)` | `BoxoNamesysResolver.asBoxoNamesysDnsResolver` | cast |
 | `namesys.Resolver → x.(*namesys.IPNSResolver)` | `BoxoNamesysResolver.asBoxoNamesysIpnsResolver` | cast |
 | `namesys.Resolver → x.(namesys.NameSystem)` | `BoxoNamesysResolver.asBoxoNamesysNameSystem` | cast |
-| `const namesys.DefaultDepthLimit untyped int` | `go.ipfs.boxo.namesys.defaultDepthLimit` | const |
-| `const namesys.DefaultResolverCacheTTL time.Duration` | `go.ipfs.boxo.namesys.defaultResolverCacheTtl` | const |
-| `const namesys.DefaultResolverDhtRecordCount untyped int` | `go.ipfs.boxo.namesys.defaultResolverDhtRecordCount` | const |
-| `const namesys.DefaultResolverDhtTimeout time.Duration` | `go.ipfs.boxo.namesys.defaultResolverDhtTimeout` | const |
-| `const namesys.UnlimitedDepth untyped int` | `go.ipfs.boxo.namesys.unlimitedDepth` | const |
+| `const namesys.DefaultDepthLimit untyped int` | `go.ipfs.boxo.namesys.consts.defaultDepthLimit` | const |
+| `const namesys.DefaultResolverCacheTTL time.Duration` | `go.ipfs.boxo.namesys.enums.defaultResolverCacheTtl` | const |
+| `const namesys.DefaultResolverDhtRecordCount untyped int` | `go.ipfs.boxo.namesys.consts.defaultResolverDhtRecordCount` | const |
+| `const namesys.DefaultResolverDhtTimeout time.Duration` | `go.ipfs.boxo.namesys.enums.defaultResolverDhtTimeout` | const |
+| `const namesys.UnlimitedDepth untyped int` | `go.ipfs.boxo.namesys.consts.unlimitedDepth` | const |
 
 Omitted:
 
@@ -1085,9 +1085,9 @@ Omitted:
 | `func (path.Path).String() string` | `BoxoPath.string` | sync |
 | `func path.SegmentsToString(segments ...string) string` | `go.ipfs.boxo.path.segmentsToString` | sync |
 | `func path.StringToSegments(str string) []string` | `go.ipfs.boxo.path.stringToSegments` | sync |
-| `const path.IPFSNamespace untyped string` | `go.ipfs.boxo.path.ipfsNamespace` | const |
-| `const path.IPLDNamespace untyped string` | `go.ipfs.boxo.path.ipldNamespace` | const |
-| `const path.IPNSNamespace untyped string` | `go.ipfs.boxo.path.ipnsNamespace` | const |
+| `const path.IPFSNamespace untyped string` | `go.ipfs.boxo.path.consts.ipfsNamespace` | const |
+| `const path.IPLDNamespace untyped string` | `go.ipfs.boxo.path.consts.ipldNamespace` | const |
+| `const path.IPNSNamespace untyped string` | `go.ipfs.boxo.path.consts.ipnsNamespace` | const |
 
 ## `github.com/ipfs/boxo/peering` → `go.ipfs.boxo.peering` (`lib/go/ipfs/boxo/peering.dart`)
 
@@ -1100,10 +1100,10 @@ Omitted:
 | `func (*peering.PeeringService).RemovePeer(id peer.ID)` | `BoxoPeeringService.removePeer` | sync |
 | `func (*peering.PeeringService).Start() error` | `BoxoPeeringService.start` | sync |
 | `func (*peering.PeeringService).Stop()` | `BoxoPeeringService.stop` | sync |
-| `const peering.ConnmgrTag untyped string` | `go.ipfs.boxo.peering.connmgrTag` | const |
-| `const peering.StateInit peering.State` | `go.ipfs.boxo.peering.stateInit` | const |
-| `const peering.StateRunning peering.State` | `go.ipfs.boxo.peering.stateRunning` | const |
-| `const peering.StateStopped peering.State` | `go.ipfs.boxo.peering.stateStopped` | const |
+| `const peering.ConnmgrTag untyped string` | `go.ipfs.boxo.peering.consts.connmgrTag` | const |
+| `const peering.StateInit peering.State` | `go.ipfs.boxo.peering.enums.stateInit` | const |
+| `const peering.StateRunning peering.State` | `go.ipfs.boxo.peering.enums.stateRunning` | const |
+| `const peering.StateStopped peering.State` | `go.ipfs.boxo.peering.enums.stateStopped` | const |
 
 Omitted:
 
@@ -1142,7 +1142,7 @@ Omitted:
 | `provider.Reprovider → x.(*node.LegacyProvider)` | `BoxoProviderReprovider.asKuboCoreNodeLegacyProvider` | cast |
 | `provider.Reprovider → x.(provider.System)` | `BoxoProviderReprovider.asBoxoProviderSystem` | cast |
 | `provider.System → x.(*node.LegacyProvider)` | `BoxoProviderSystem.asKuboCoreNodeLegacyProvider` | cast |
-| `const provider.DefaultReproviderInterval time.Duration` | `go.ipfs.boxo.provider.defaultReproviderInterval` | const |
+| `const provider.DefaultReproviderInterval time.Duration` | `go.ipfs.boxo.provider.enums.defaultReproviderInterval` | const |
 
 Omitted:
 
@@ -1166,9 +1166,9 @@ Omitted:
 | `func verifcid.NewAllowlist(allowset map[uint64]bool) verifcid.Allowlist` | `factory BoxoVerifcidAllowlist` | sync |
 | `func verifcid.NewOverridingAllowlist(override verifcid.Allowlist, allowset map[uint64]bool) verifcid.Allowlist` | `go.ipfs.boxo.verifcid.newOverridingAllowlist` | sync |
 | `func verifcid.ValidateCid(allowlist verifcid.Allowlist, c cid.Cid) error` | `go.ipfs.boxo.verifcid.validateCid` | sync |
-| `const verifcid.DefaultMaxDigestSize untyped int` | `go.ipfs.boxo.verifcid.defaultMaxDigestSize` | const |
-| `const verifcid.DefaultMaxIdentityDigestSize untyped int` | `go.ipfs.boxo.verifcid.defaultMaxIdentityDigestSize` | const |
-| `const verifcid.DefaultMinDigestSize untyped int` | `go.ipfs.boxo.verifcid.defaultMinDigestSize` | const |
+| `const verifcid.DefaultMaxDigestSize untyped int` | `go.ipfs.boxo.verifcid.consts.defaultMaxDigestSize` | const |
+| `const verifcid.DefaultMaxIdentityDigestSize untyped int` | `go.ipfs.boxo.verifcid.consts.defaultMaxIdentityDigestSize` | const |
+| `const verifcid.DefaultMinDigestSize untyped int` | `go.ipfs.boxo.verifcid.consts.defaultMinDigestSize` | const |
 
 Omitted:
 
@@ -1232,33 +1232,33 @@ Omitted:
 | `func (cid.V1Builder).GetCodec() uint64` | `CidV1Builder.getCodec` | sync |
 | `func (cid.V1Builder).Sum(data []byte) (cid.Cid, error)` | `CidV1Builder.sum` | sync |
 | `func (cid.V1Builder).WithCodec(c uint64) cid.Builder` | `CidV1Builder.withCodec` | sync |
-| `const cid.BitcoinBlock untyped int` | `go.ipfs.cid.bitcoinBlock` | const |
-| `const cid.BitcoinTx untyped int` | `go.ipfs.cid.bitcoinTx` | const |
-| `const cid.DagCBOR untyped int` | `go.ipfs.cid.dagCbor` | const |
-| `const cid.DagJOSE untyped int` | `go.ipfs.cid.dagJose` | const |
-| `const cid.DagJSON untyped int` | `go.ipfs.cid.dagJson` | const |
-| `const cid.DagProtobuf untyped int` | `go.ipfs.cid.dagProtobuf` | const |
-| `const cid.DashBlock untyped int` | `go.ipfs.cid.dashBlock` | const |
-| `const cid.DashTx untyped int` | `go.ipfs.cid.dashTx` | const |
-| `const cid.DecredBlock untyped int` | `go.ipfs.cid.decredBlock` | const |
-| `const cid.DecredTx untyped int` | `go.ipfs.cid.decredTx` | const |
-| `const cid.EthAccountSnapshot untyped int` | `go.ipfs.cid.ethAccountSnapshot` | const |
-| `const cid.EthBlock untyped int` | `go.ipfs.cid.ethBlock` | const |
-| `const cid.EthBlockList untyped int` | `go.ipfs.cid.ethBlockList` | const |
-| `const cid.EthStateTrie untyped int` | `go.ipfs.cid.ethStateTrie` | const |
-| `const cid.EthStorageTrie untyped int` | `go.ipfs.cid.ethStorageTrie` | const |
-| `const cid.EthTx untyped int` | `go.ipfs.cid.ethTx` | const |
-| `const cid.EthTxReceipt untyped int` | `go.ipfs.cid.ethTxReceipt` | const |
-| `const cid.EthTxReceiptTrie untyped int` | `go.ipfs.cid.ethTxReceiptTrie` | const |
-| `const cid.EthTxTrie untyped int` | `go.ipfs.cid.ethTxTrie` | const |
-| `const cid.FilCommitmentSealed untyped int` | `go.ipfs.cid.filCommitmentSealed` | const |
-| `const cid.FilCommitmentUnsealed untyped int` | `go.ipfs.cid.filCommitmentUnsealed` | const |
-| `const cid.GitRaw untyped int` | `go.ipfs.cid.gitRaw` | const |
-| `const cid.Libp2pKey untyped int` | `go.ipfs.cid.libp2pKey` | const |
-| `const cid.Raw untyped int` | `go.ipfs.cid.raw` | const |
-| `const cid.UnsupportedVersionString untyped string` | `go.ipfs.cid.unsupportedVersionString` | const |
-| `const cid.ZcashBlock untyped int` | `go.ipfs.cid.zcashBlock` | const |
-| `const cid.ZcashTx untyped int` | `go.ipfs.cid.zcashTx` | const |
+| `const cid.BitcoinBlock untyped int` | `go.ipfs.cid.consts.bitcoinBlock` | const |
+| `const cid.BitcoinTx untyped int` | `go.ipfs.cid.consts.bitcoinTx` | const |
+| `const cid.DagCBOR untyped int` | `go.ipfs.cid.consts.dagCbor` | const |
+| `const cid.DagJOSE untyped int` | `go.ipfs.cid.consts.dagJose` | const |
+| `const cid.DagJSON untyped int` | `go.ipfs.cid.consts.dagJson` | const |
+| `const cid.DagProtobuf untyped int` | `go.ipfs.cid.consts.dagProtobuf` | const |
+| `const cid.DashBlock untyped int` | `go.ipfs.cid.consts.dashBlock` | const |
+| `const cid.DashTx untyped int` | `go.ipfs.cid.consts.dashTx` | const |
+| `const cid.DecredBlock untyped int` | `go.ipfs.cid.consts.decredBlock` | const |
+| `const cid.DecredTx untyped int` | `go.ipfs.cid.consts.decredTx` | const |
+| `const cid.EthAccountSnapshot untyped int` | `go.ipfs.cid.consts.ethAccountSnapshot` | const |
+| `const cid.EthBlock untyped int` | `go.ipfs.cid.consts.ethBlock` | const |
+| `const cid.EthBlockList untyped int` | `go.ipfs.cid.consts.ethBlockList` | const |
+| `const cid.EthStateTrie untyped int` | `go.ipfs.cid.consts.ethStateTrie` | const |
+| `const cid.EthStorageTrie untyped int` | `go.ipfs.cid.consts.ethStorageTrie` | const |
+| `const cid.EthTx untyped int` | `go.ipfs.cid.consts.ethTx` | const |
+| `const cid.EthTxReceipt untyped int` | `go.ipfs.cid.consts.ethTxReceipt` | const |
+| `const cid.EthTxReceiptTrie untyped int` | `go.ipfs.cid.consts.ethTxReceiptTrie` | const |
+| `const cid.EthTxTrie untyped int` | `go.ipfs.cid.consts.ethTxTrie` | const |
+| `const cid.FilCommitmentSealed untyped int` | `go.ipfs.cid.consts.filCommitmentSealed` | const |
+| `const cid.FilCommitmentUnsealed untyped int` | `go.ipfs.cid.consts.filCommitmentUnsealed` | const |
+| `const cid.GitRaw untyped int` | `go.ipfs.cid.consts.gitRaw` | const |
+| `const cid.Libp2pKey untyped int` | `go.ipfs.cid.consts.libp2pKey` | const |
+| `const cid.Raw untyped int` | `go.ipfs.cid.consts.raw` | const |
+| `const cid.UnsupportedVersionString untyped string` | `go.ipfs.cid.consts.unsupportedVersionString` | const |
+| `const cid.ZcashBlock untyped int` | `go.ipfs.cid.consts.zcashBlock` | const |
+| `const cid.ZcashTx untyped int` | `go.ipfs.cid.consts.zcashTx` | const |
 
 ## `github.com/ipfs/go-datastore` → `go.ipfs.datastore` (`lib/go/ipfs/datastore.dart`)
 
@@ -1418,13 +1418,13 @@ Omitted:
 | `datastore.Write → x.(datastore.Shim)` | `DatastoreWrite.asDatastoreShim` | cast |
 | `datastore.Write → x.(datastore.Txn)` | `DatastoreWrite.asDatastoreTxn` | cast |
 | `datastore.Write → x.(repo.Datastore)` | `DatastoreWrite.asKuboRepoDatastore` | cast |
-| `const datastore.FeatureNameBatching untyped string` | `go.ipfs.datastore.featureNameBatching` | const |
-| `const datastore.FeatureNameChecked untyped string` | `go.ipfs.datastore.featureNameChecked` | const |
-| `const datastore.FeatureNameGC untyped string` | `go.ipfs.datastore.featureNameGc` | const |
-| `const datastore.FeatureNamePersistent untyped string` | `go.ipfs.datastore.featureNamePersistent` | const |
-| `const datastore.FeatureNameScrubbed untyped string` | `go.ipfs.datastore.featureNameScrubbed` | const |
-| `const datastore.FeatureNameTTL untyped string` | `go.ipfs.datastore.featureNameTtl` | const |
-| `const datastore.FeatureNameTransaction untyped string` | `go.ipfs.datastore.featureNameTransaction` | const |
+| `const datastore.FeatureNameBatching untyped string` | `go.ipfs.datastore.consts.featureNameBatching` | const |
+| `const datastore.FeatureNameChecked untyped string` | `go.ipfs.datastore.consts.featureNameChecked` | const |
+| `const datastore.FeatureNameGC untyped string` | `go.ipfs.datastore.consts.featureNameGc` | const |
+| `const datastore.FeatureNamePersistent untyped string` | `go.ipfs.datastore.consts.featureNamePersistent` | const |
+| `const datastore.FeatureNameScrubbed untyped string` | `go.ipfs.datastore.consts.featureNameScrubbed` | const |
+| `const datastore.FeatureNameTTL untyped string` | `go.ipfs.datastore.consts.featureNameTtl` | const |
+| `const datastore.FeatureNameTransaction untyped string` | `go.ipfs.datastore.consts.featureNameTransaction` | const |
 
 Omitted:
 
@@ -1437,8 +1437,8 @@ Omitted:
 
 | Go | Dart | Mode |
 |---|---|---|
-| `const query.KeysOnlyBufSize untyped int` | `go.ipfs.datastore.query.keysOnlyBufSize` | const |
-| `const query.NormalBufSize untyped int` | `go.ipfs.datastore.query.normalBufSize` | const |
+| `const query.KeysOnlyBufSize untyped int` | `go.ipfs.datastore.query.consts.keysOnlyBufSize` | const |
+| `const query.NormalBufSize untyped int` | `go.ipfs.datastore.query.consts.normalBufSize` | const |
 
 ## `github.com/ipfs/go-datastore/sync` → `go.ipfs.datastore.sync` (`lib/go/ipfs/datastore/sync.dart`)
 
@@ -1546,50 +1546,50 @@ Omitted:
 | `func cmds.Uint64Option(names ...string) cmds.Option` | `go.ipfs.ipfsCmds.uint64Option` | sync |
 | `func cmds.UintOption(names ...string) cmds.Option` | `go.ipfs.ipfsCmds.uintOption` | sync |
 | `cmds.Encoder → x.(*cmds.TextEncoder)` | `IpfsCmdsEncoder.asIpfsCmdsTextEncoder` | cast |
-| `const cmds.Active cmds.Status` | `go.ipfs.ipfsCmds.active` | const |
-| `const cmds.ArgFile cmds.ArgumentType` | `go.ipfs.ipfsCmds.argFile` | const |
-| `const cmds.ArgString cmds.ArgumentType` | `go.ipfs.ipfsCmds.argString` | const |
-| `const cmds.Bool reflect.Kind` | `go.ipfs.ipfsCmds.bool$` | const |
-| `const cmds.CLI untyped string` | `go.ipfs.ipfsCmds.cli` | const |
-| `const cmds.ChanOpt untyped string` | `go.ipfs.ipfsCmds.chanOpt` | const |
-| `const cmds.DefaultOutputEncoding untyped string` | `go.ipfs.ipfsCmds.defaultOutputEncoding` | const |
-| `const cmds.Deprecated cmds.Status` | `go.ipfs.ipfsCmds.deprecated` | const |
-| `const cmds.DerefLong untyped string` | `go.ipfs.ipfsCmds.derefLong` | const |
-| `const cmds.DerefSymlinks untyped string` | `go.ipfs.ipfsCmds.derefSymlinks` | const |
-| `const cmds.EncLong untyped string` | `go.ipfs.ipfsCmds.encLong` | const |
-| `const cmds.EncShort untyped string` | `go.ipfs.ipfsCmds.encShort` | const |
-| `const cmds.ErrClient cmds.ErrorType` | `go.ipfs.ipfsCmds.errClient` | const |
-| `const cmds.ErrForbidden cmds.ErrorType` | `go.ipfs.ipfsCmds.errForbidden` | const |
-| `const cmds.ErrImplementation cmds.ErrorType` | `go.ipfs.ipfsCmds.errImplementation` | const |
-| `const cmds.ErrNormal cmds.ErrorType` | `go.ipfs.ipfsCmds.errNormal` | const |
-| `const cmds.ErrRateLimited cmds.ErrorType` | `go.ipfs.ipfsCmds.errRateLimited` | const |
-| `const cmds.Experimental cmds.Status` | `go.ipfs.ipfsCmds.experimental` | const |
-| `const cmds.Float reflect.Kind` | `go.ipfs.ipfsCmds.float` | const |
-| `const cmds.Hidden untyped string` | `go.ipfs.ipfsCmds.hidden` | const |
-| `const cmds.HiddenShort untyped string` | `go.ipfs.ipfsCmds.hiddenShort` | const |
-| `const cmds.Ignore untyped string` | `go.ipfs.ipfsCmds.ignore` | const |
-| `const cmds.IgnoreRules untyped string` | `go.ipfs.ipfsCmds.ignoreRules` | const |
-| `const cmds.Int reflect.Kind` | `go.ipfs.ipfsCmds.int$` | const |
-| `const cmds.Int64 reflect.Kind` | `go.ipfs.ipfsCmds.int64` | const |
-| `const cmds.Invalid reflect.Kind` | `go.ipfs.ipfsCmds.invalid` | const |
-| `const cmds.JSON untyped string` | `go.ipfs.ipfsCmds.json` | const |
-| `const cmds.OctetStream untyped string` | `go.ipfs.ipfsCmds.octetStream` | const |
-| `const cmds.OptLongHelp untyped string` | `go.ipfs.ipfsCmds.optLongHelp` | const |
-| `const cmds.OptShortHelp untyped string` | `go.ipfs.ipfsCmds.optShortHelp` | const |
-| `const cmds.Protobuf untyped string` | `go.ipfs.ipfsCmds.protobuf` | const |
-| `const cmds.RecLong untyped string` | `go.ipfs.ipfsCmds.recLong` | const |
-| `const cmds.RecShort untyped string` | `go.ipfs.ipfsCmds.recShort` | const |
-| `const cmds.Removed cmds.Status` | `go.ipfs.ipfsCmds.removed` | const |
-| `const cmds.StdinName untyped string` | `go.ipfs.ipfsCmds.stdinName` | const |
-| `const cmds.String reflect.Kind` | `go.ipfs.ipfsCmds.string` | const |
-| `const cmds.Strings reflect.Kind` | `go.ipfs.ipfsCmds.strings` | const |
-| `const cmds.Text untyped string` | `go.ipfs.ipfsCmds.text` | const |
-| `const cmds.TextNewline untyped string` | `go.ipfs.ipfsCmds.textNewline` | const |
-| `const cmds.TimeoutOpt untyped string` | `go.ipfs.ipfsCmds.timeoutOpt` | const |
-| `const cmds.Uint reflect.Kind` | `go.ipfs.ipfsCmds.uint` | const |
-| `const cmds.Uint64 reflect.Kind` | `go.ipfs.ipfsCmds.uint64` | const |
-| `const cmds.Undefined untyped string` | `go.ipfs.ipfsCmds.undefined` | const |
-| `const cmds.XML untyped string` | `go.ipfs.ipfsCmds.xml` | const |
+| `const cmds.Active cmds.Status` | `go.ipfs.ipfsCmds.enums.active` | const |
+| `const cmds.ArgFile cmds.ArgumentType` | `go.ipfs.ipfsCmds.enums.argFile` | const |
+| `const cmds.ArgString cmds.ArgumentType` | `go.ipfs.ipfsCmds.enums.argString` | const |
+| `const cmds.Bool reflect.Kind` | `go.ipfs.ipfsCmds.enums.bool$` | const |
+| `const cmds.CLI untyped string` | `go.ipfs.ipfsCmds.consts.cli` | const |
+| `const cmds.ChanOpt untyped string` | `go.ipfs.ipfsCmds.consts.chanOpt` | const |
+| `const cmds.DefaultOutputEncoding untyped string` | `go.ipfs.ipfsCmds.consts.defaultOutputEncoding` | const |
+| `const cmds.Deprecated cmds.Status` | `go.ipfs.ipfsCmds.enums.deprecated` | const |
+| `const cmds.DerefLong untyped string` | `go.ipfs.ipfsCmds.consts.derefLong` | const |
+| `const cmds.DerefSymlinks untyped string` | `go.ipfs.ipfsCmds.consts.derefSymlinks` | const |
+| `const cmds.EncLong untyped string` | `go.ipfs.ipfsCmds.consts.encLong` | const |
+| `const cmds.EncShort untyped string` | `go.ipfs.ipfsCmds.consts.encShort` | const |
+| `const cmds.ErrClient cmds.ErrorType` | `go.ipfs.ipfsCmds.enums.errClient` | const |
+| `const cmds.ErrForbidden cmds.ErrorType` | `go.ipfs.ipfsCmds.enums.errForbidden` | const |
+| `const cmds.ErrImplementation cmds.ErrorType` | `go.ipfs.ipfsCmds.enums.errImplementation` | const |
+| `const cmds.ErrNormal cmds.ErrorType` | `go.ipfs.ipfsCmds.enums.errNormal` | const |
+| `const cmds.ErrRateLimited cmds.ErrorType` | `go.ipfs.ipfsCmds.enums.errRateLimited` | const |
+| `const cmds.Experimental cmds.Status` | `go.ipfs.ipfsCmds.enums.experimental` | const |
+| `const cmds.Float reflect.Kind` | `go.ipfs.ipfsCmds.enums.float` | const |
+| `const cmds.Hidden untyped string` | `go.ipfs.ipfsCmds.consts.hidden` | const |
+| `const cmds.HiddenShort untyped string` | `go.ipfs.ipfsCmds.consts.hiddenShort` | const |
+| `const cmds.Ignore untyped string` | `go.ipfs.ipfsCmds.consts.ignore` | const |
+| `const cmds.IgnoreRules untyped string` | `go.ipfs.ipfsCmds.consts.ignoreRules` | const |
+| `const cmds.Int reflect.Kind` | `go.ipfs.ipfsCmds.enums.int$` | const |
+| `const cmds.Int64 reflect.Kind` | `go.ipfs.ipfsCmds.enums.int64` | const |
+| `const cmds.Invalid reflect.Kind` | `go.ipfs.ipfsCmds.enums.invalid` | const |
+| `const cmds.JSON untyped string` | `go.ipfs.ipfsCmds.consts.json` | const |
+| `const cmds.OctetStream untyped string` | `go.ipfs.ipfsCmds.consts.octetStream` | const |
+| `const cmds.OptLongHelp untyped string` | `go.ipfs.ipfsCmds.consts.optLongHelp` | const |
+| `const cmds.OptShortHelp untyped string` | `go.ipfs.ipfsCmds.consts.optShortHelp` | const |
+| `const cmds.Protobuf untyped string` | `go.ipfs.ipfsCmds.consts.protobuf` | const |
+| `const cmds.RecLong untyped string` | `go.ipfs.ipfsCmds.consts.recLong` | const |
+| `const cmds.RecShort untyped string` | `go.ipfs.ipfsCmds.consts.recShort` | const |
+| `const cmds.Removed cmds.Status` | `go.ipfs.ipfsCmds.enums.removed` | const |
+| `const cmds.StdinName untyped string` | `go.ipfs.ipfsCmds.consts.stdinName` | const |
+| `const cmds.String reflect.Kind` | `go.ipfs.ipfsCmds.enums.string` | const |
+| `const cmds.Strings reflect.Kind` | `go.ipfs.ipfsCmds.enums.strings` | const |
+| `const cmds.Text untyped string` | `go.ipfs.ipfsCmds.consts.text` | const |
+| `const cmds.TextNewline untyped string` | `go.ipfs.ipfsCmds.consts.textNewline` | const |
+| `const cmds.TimeoutOpt untyped string` | `go.ipfs.ipfsCmds.consts.timeoutOpt` | const |
+| `const cmds.Uint reflect.Kind` | `go.ipfs.ipfsCmds.enums.uint` | const |
+| `const cmds.Uint64 reflect.Kind` | `go.ipfs.ipfsCmds.enums.uint64` | const |
+| `const cmds.Undefined untyped string` | `go.ipfs.ipfsCmds.consts.undefined` | const |
+| `const cmds.XML untyped string` | `go.ipfs.ipfsCmds.consts.xml` | const |
 
 Omitted:
 
@@ -1698,19 +1698,19 @@ Omitted:
 |---|---|---|
 | `ipldlegacy.UniversalNode → x.(*merkledag.ProtoNode)` | `IpldLegacyUniversalNode.asBoxoIpldMerkledagProtoNode` | cast |
 | `ipldlegacy.UniversalNode → x.(*merkledag.RawNode)` | `IpldLegacyUniversalNode.asBoxoIpldMerkledagRawNode` | cast |
-| `const ipldlegacy.ErrArrayOutOfRange ipldlegacy.errorType` | `go.ipfs.ipldLegacy.errArrayOutOfRange` | const |
-| `const ipldlegacy.ErrNoLinks ipldlegacy.errorType` | `go.ipfs.ipldLegacy.errNoLinks` | const |
-| `const ipldlegacy.ErrNoSuchLink ipldlegacy.errorType` | `go.ipfs.ipldLegacy.errNoSuchLink` | const |
-| `const ipldlegacy.ErrNonLink ipldlegacy.errorType` | `go.ipfs.ipldLegacy.errNonLink` | const |
+| `const ipldlegacy.ErrArrayOutOfRange ipldlegacy.errorType` | `go.ipfs.ipldLegacy.enums.errArrayOutOfRange` | const |
+| `const ipldlegacy.ErrNoLinks ipldlegacy.errorType` | `go.ipfs.ipldLegacy.enums.errNoLinks` | const |
+| `const ipldlegacy.ErrNoSuchLink ipldlegacy.errorType` | `go.ipfs.ipldLegacy.enums.errNoSuchLink` | const |
+| `const ipldlegacy.ErrNonLink ipldlegacy.errorType` | `go.ipfs.ipldLegacy.enums.errNonLink` | const |
 
 ## `github.com/ipfs/go-log/v2` → `go.ipfs.log.v2` (`lib/go/ipfs/log/v2.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
-| `const log.ColorizedOutput log.LogFormat` | `go.ipfs.log.v2.colorizedOutput` | const |
-| `const log.DefaultName untyped string` | `go.ipfs.log.v2.defaultName` | const |
-| `const log.JSONOutput log.LogFormat` | `go.ipfs.log.v2.jsonOutput` | const |
-| `const log.PlaintextOutput log.LogFormat` | `go.ipfs.log.v2.plaintextOutput` | const |
+| `const log.ColorizedOutput log.LogFormat` | `go.ipfs.log.v2.enums.colorizedOutput` | const |
+| `const log.DefaultName untyped string` | `go.ipfs.log.v2.consts.defaultName` | const |
+| `const log.JSONOutput log.LogFormat` | `go.ipfs.log.v2.enums.jsonOutput` | const |
+| `const log.PlaintextOutput log.LogFormat` | `go.ipfs.log.v2.enums.plaintextOutput` | const |
 
 ## `github.com/ipfs/go-unixfsnode` → `go.ipfs.unixfsnode` (`lib/go/ipfs/unixfsnode.dart`)
 
@@ -1735,9 +1735,9 @@ Omitted:
 | `func ipfs.GetVersionInfo() *ipfs.VersionInfo` | `go.ipfs.kubo.getVersionInfo` | sync |
 | `func ipfs.ImplicitAgentSuffix() string` | `go.ipfs.kubo.implicitAgentSuffix` | sync |
 | `func ipfs.SetUserAgentSuffix(suffix string)` | `go.ipfs.kubo.setUserAgentSuffix` | sync |
-| `const ipfs.ApiVersion untyped string` | `go.ipfs.kubo.apiVersion` | const |
-| `const ipfs.CurrentVersionNumber untyped string` | `go.ipfs.kubo.currentVersionNumber` | const |
-| `const ipfs.RepoVersion untyped int` | `go.ipfs.kubo.repoVersion` | const |
+| `const ipfs.ApiVersion untyped string` | `go.ipfs.kubo.consts.apiVersion` | const |
+| `const ipfs.CurrentVersionNumber untyped string` | `go.ipfs.kubo.consts.currentVersionNumber` | const |
+| `const ipfs.RepoVersion untyped int` | `go.ipfs.kubo.consts.repoVersion` | const |
 
 ## `github.com/ipfs/kubo/config` → `go.ipfs.kubo.config` (`lib/go/ipfs/kubo/config.dart`)
 
@@ -1809,150 +1809,150 @@ Omitted:
 | `func config.ValidateAutoConfWithRepo(cfg *config.Config, swarmKeyExists bool) error` | `go.ipfs.kubo.config.validateAutoConfWithRepo` | sync |
 | `func config.ValidateImportConfig(cfg *config.Import) error` | `go.ipfs.kubo.config.validateImportConfig` | sync |
 | `func config.ValidateProvideConfig(cfg *config.Provide) error` | `go.ipfs.kubo.config.validateProvideConfig` | sync |
-| `const config.APITag untyped string` | `go.ipfs.kubo.config.apiTag` | const |
-| `const config.AuthorizationTag untyped string` | `go.ipfs.kubo.config.authorizationTag` | const |
-| `const config.AutoNATServiceDisabled config.AutoNATServiceMode` | `go.ipfs.kubo.config.autoNatServiceDisabled` | const |
-| `const config.AutoNATServiceEnabled config.AutoNATServiceMode` | `go.ipfs.kubo.config.autoNatServiceEnabled` | const |
-| `const config.AutoNATServiceEnabledV1Only config.AutoNATServiceMode` | `go.ipfs.kubo.config.autoNatServiceEnabledV1Only` | const |
-| `const config.AutoNATServiceUnset config.AutoNATServiceMode` | `go.ipfs.kubo.config.autoNatServiceUnset` | const |
-| `const config.AutoPlaceholder untyped string` | `go.ipfs.kubo.config.autoPlaceholder` | const |
-| `const config.CidContactRoutingURL untyped string` | `go.ipfs.kubo.config.cidContactRoutingUrl` | const |
-| `const config.DAGLayoutBalanced untyped string` | `go.ipfs.kubo.config.dagLayoutBalanced` | const |
-| `const config.DAGLayoutTrickle untyped string` | `go.ipfs.kubo.config.dagLayoutTrickle` | const |
-| `const config.DHTModeAuto config.DHTMode` | `go.ipfs.kubo.config.dhtModeAuto` | const |
-| `const config.DHTModeClient config.DHTMode` | `go.ipfs.kubo.config.dhtModeClient` | const |
-| `const config.DHTModeServer config.DHTMode` | `go.ipfs.kubo.config.dhtModeServer` | const |
-| `const config.Default config.Flag` | `go.ipfs.kubo.config.default$` | const |
-| `const config.DefaultAcceleratedDHTClient untyped bool` | `go.ipfs.kubo.config.defaultAcceleratedDhtClient` | const |
-| `const config.DefaultAllowCodecConversion untyped bool` | `go.ipfs.kubo.config.defaultAllowCodecConversion` | const |
-| `const config.DefaultAutoConfCacheSize untyped int` | `go.ipfs.kubo.config.defaultAutoConfCacheSize` | const |
-| `const config.DefaultAutoConfEnabled untyped bool` | `go.ipfs.kubo.config.defaultAutoConfEnabled` | const |
-| `const config.DefaultAutoConfRefreshInterval time.Duration` | `go.ipfs.kubo.config.defaultAutoConfRefreshInterval` | const |
-| `const config.DefaultAutoConfTimeout time.Duration` | `go.ipfs.kubo.config.defaultAutoConfTimeout` | const |
-| `const config.DefaultAutoConfURL untyped string` | `go.ipfs.kubo.config.defaultAutoConfUrl` | const |
-| `const config.DefaultAutoTLSEnabled untyped bool` | `go.ipfs.kubo.config.defaultAutoTlsEnabled` | const |
-| `const config.DefaultAutoTLSRegistrationDelay time.Duration` | `go.ipfs.kubo.config.defaultAutoTlsRegistrationDelay` | const |
-| `const config.DefaultAutoTLSShortAddrs untyped bool` | `go.ipfs.kubo.config.defaultAutoTlsShortAddrs` | const |
-| `const config.DefaultAutoTLSSkipDNSLookup untyped bool` | `go.ipfs.kubo.config.defaultAutoTlsSkipDnsLookup` | const |
-| `const config.DefaultAutoWSS untyped bool` | `go.ipfs.kubo.config.defaultAutoWss` | const |
-| `const config.DefaultBatchMaxNodes untyped int` | `go.ipfs.kubo.config.defaultBatchMaxNodes` | const |
-| `const config.DefaultBatchMaxSize untyped int` | `go.ipfs.kubo.config.defaultBatchMaxSize` | const |
-| `const config.DefaultBitswapLibp2pEnabled untyped bool` | `go.ipfs.kubo.config.defaultBitswapLibp2pEnabled` | const |
-| `const config.DefaultBitswapServerEnabled untyped bool` | `go.ipfs.kubo.config.defaultBitswapServerEnabled` | const |
-| `const config.DefaultBlockKeyCacheSize untyped int` | `go.ipfs.kubo.config.defaultBlockKeyCacheSize` | const |
-| `const config.DefaultBroadcastControlEnable untyped bool` | `go.ipfs.kubo.config.defaultBroadcastControlEnable` | const |
-| `const config.DefaultBroadcastControlLocalPeers untyped bool` | `go.ipfs.kubo.config.defaultBroadcastControlLocalPeers` | const |
-| `const config.DefaultBroadcastControlMaxPeers untyped int` | `go.ipfs.kubo.config.defaultBroadcastControlMaxPeers` | const |
-| `const config.DefaultBroadcastControlMaxRandomPeers untyped int` | `go.ipfs.kubo.config.defaultBroadcastControlMaxRandomPeers` | const |
-| `const config.DefaultBroadcastControlPeeredPeers untyped bool` | `go.ipfs.kubo.config.defaultBroadcastControlPeeredPeers` | const |
-| `const config.DefaultBroadcastControlSendToPendingPeers untyped bool` | `go.ipfs.kubo.config.defaultBroadcastControlSendToPendingPeers` | const |
-| `const config.DefaultCAEndpoint untyped string` | `go.ipfs.kubo.config.defaultCaEndpoint` | const |
-| `const config.DefaultCGNATCheck untyped bool` | `go.ipfs.kubo.config.defaultCgnatCheck` | const |
-| `const config.DefaultCidVersion untyped int` | `go.ipfs.kubo.config.defaultCidVersion` | const |
-| `const config.DefaultConfigFile untyped string` | `go.ipfs.kubo.config.defaultConfigFile` | const |
-| `const config.DefaultConnMgrGracePeriod time.Duration` | `go.ipfs.kubo.config.defaultConnMgrGracePeriod` | const |
-| `const config.DefaultConnMgrHighWater untyped int` | `go.ipfs.kubo.config.defaultConnMgrHighWater` | const |
-| `const config.DefaultConnMgrLowWater untyped int` | `go.ipfs.kubo.config.defaultConnMgrLowWater` | const |
-| `const config.DefaultConnMgrSilencePeriod time.Duration` | `go.ipfs.kubo.config.defaultConnMgrSilencePeriod` | const |
-| `const config.DefaultConnMgrType untyped string` | `go.ipfs.kubo.config.defaultConnMgrType` | const |
-| `const config.DefaultDataStoreDirectory untyped string` | `go.ipfs.kubo.config.defaultDataStoreDirectory` | const |
-| `const config.DefaultDeadListenerCheck untyped bool` | `go.ipfs.kubo.config.defaultDeadListenerCheck` | const |
-| `const config.DefaultDeprecatedXIpfsPath untyped bool` | `go.ipfs.kubo.config.defaultDeprecatedXIpfsPath` | const |
-| `const config.DefaultDeserializedResponses untyped bool` | `go.ipfs.kubo.config.defaultDeserializedResponses` | const |
-| `const config.DefaultDiagnosticServiceURL untyped string` | `go.ipfs.kubo.config.defaultDiagnosticServiceUrl` | const |
-| `const config.DefaultDisableHTMLErrors untyped bool` | `go.ipfs.kubo.config.defaultDisableHtmlErrors` | const |
-| `const config.DefaultDomainSuffix untyped string` | `go.ipfs.kubo.config.defaultDomainSuffix` | const |
-| `const config.DefaultExposeRoutingAPI untyped bool` | `go.ipfs.kubo.config.defaultExposeRoutingApi` | const |
-| `const config.DefaultFastProvideDAG untyped bool` | `go.ipfs.kubo.config.defaultFastProvideDag` | const |
-| `const config.DefaultFastProvideRoot untyped bool` | `go.ipfs.kubo.config.defaultFastProvideRoot` | const |
-| `const config.DefaultFastProvideTimeout time.Duration` | `go.ipfs.kubo.config.defaultFastProvideTimeout` | const |
-| `const config.DefaultFastProvideWait untyped bool` | `go.ipfs.kubo.config.defaultFastProvideWait` | const |
-| `const config.DefaultFuseAllowOther untyped bool` | `go.ipfs.kubo.config.defaultFuseAllowOther` | const |
-| `const config.DefaultHTTPRetrievalEnabled untyped bool` | `go.ipfs.kubo.config.defaultHttpRetrievalEnabled` | const |
-| `const config.DefaultHTTPRetrievalMaxBlockSize untyped string` | `go.ipfs.kubo.config.defaultHttpRetrievalMaxBlockSize` | const |
-| `const config.DefaultHTTPRetrievalNumWorkers untyped int` | `go.ipfs.kubo.config.defaultHttpRetrievalNumWorkers` | const |
-| `const config.DefaultHTTPRetrievalTLSInsecureSkipVerify untyped bool` | `go.ipfs.kubo.config.defaultHttpRetrievalTlsInsecureSkipVerify` | const |
-| `const config.DefaultHashFunction untyped string` | `go.ipfs.kubo.config.defaultHashFunction` | const |
-| `const config.DefaultInlineDNSLink untyped bool` | `go.ipfs.kubo.config.defaultInlineDnsLink` | const |
-| `const config.DefaultIpnsMaxCacheTTL time.Duration` | `go.ipfs.kubo.config.defaultIpnsMaxCacheTtl` | const |
-| `const config.DefaultLoopbackAddressesOnLanDHT untyped bool` | `go.ipfs.kubo.config.defaultLoopbackAddressesOnLanDht` | const |
-| `const config.DefaultMFSFetchTimeout time.Duration` | `go.ipfs.kubo.config.defaultMfsFetchTimeout` | const |
-| `const config.DefaultMFSNoFlushLimit untyped int` | `go.ipfs.kubo.config.defaultMfsNoFlushLimit` | const |
-| `const config.DefaultMaxConcurrentRequests untyped int` | `go.ipfs.kubo.config.defaultMaxConcurrentRequests` | const |
-| `const config.DefaultMaxRangeRequestFileSize untyped int` | `go.ipfs.kubo.config.defaultMaxRangeRequestFileSize` | const |
-| `const config.DefaultMaxRequestDuration time.Duration` | `go.ipfs.kubo.config.defaultMaxRequestDuration` | const |
-| `const config.DefaultMigrationKeep untyped string` | `go.ipfs.kubo.config.defaultMigrationKeep` | const |
-| `const config.DefaultPathName untyped string` | `go.ipfs.kubo.config.defaultPathName` | const |
-| `const config.DefaultPathRoot untyped string` | `go.ipfs.kubo.config.defaultPathRoot` | const |
-| `const config.DefaultPriority config.Priority` | `go.ipfs.kubo.config.defaultPriority` | const |
-| `const config.DefaultProvideBloomFPRate untyped int` | `go.ipfs.kubo.config.defaultProvideBloomFpRate` | const |
-| `const config.DefaultProvideDHTDedicatedBurstWorkers untyped int` | `go.ipfs.kubo.config.defaultProvideDhtDedicatedBurstWorkers` | const |
-| `const config.DefaultProvideDHTDedicatedPeriodicWorkers untyped int` | `go.ipfs.kubo.config.defaultProvideDhtDedicatedPeriodicWorkers` | const |
-| `const config.DefaultProvideDHTInterval time.Duration` | `go.ipfs.kubo.config.defaultProvideDhtInterval` | const |
-| `const config.DefaultProvideDHTKeystoreBatchSize untyped int` | `go.ipfs.kubo.config.defaultProvideDhtKeystoreBatchSize` | const |
-| `const config.DefaultProvideDHTMaxProvideConnsPerWorker untyped int` | `go.ipfs.kubo.config.defaultProvideDhtMaxProvideConnsPerWorker` | const |
-| `const config.DefaultProvideDHTMaxWorkers untyped int` | `go.ipfs.kubo.config.defaultProvideDhtMaxWorkers` | const |
-| `const config.DefaultProvideDHTOfflineDelay time.Duration` | `go.ipfs.kubo.config.defaultProvideDhtOfflineDelay` | const |
-| `const config.DefaultProvideDHTResumeEnabled untyped bool` | `go.ipfs.kubo.config.defaultProvideDhtResumeEnabled` | const |
-| `const config.DefaultProvideDHTSendProviderRecordTimeout time.Duration` | `go.ipfs.kubo.config.defaultProvideDhtSendProviderRecordTimeout` | const |
-| `const config.DefaultProvideDHTSweepEnabled untyped bool` | `go.ipfs.kubo.config.defaultProvideDhtSweepEnabled` | const |
-| `const config.DefaultProvideEnabled untyped bool` | `go.ipfs.kubo.config.defaultProvideEnabled` | const |
-| `const config.DefaultProvideStrategy untyped string` | `go.ipfs.kubo.config.defaultProvideStrategy` | const |
-| `const config.DefaultRegistrationEndpoint untyped string` | `go.ipfs.kubo.config.defaultRegistrationEndpoint` | const |
-| `const config.DefaultResourceMgrMinInboundConns untyped int` | `go.ipfs.kubo.config.defaultResourceMgrMinInboundConns` | const |
-| `const config.DefaultRetrievalTimeout time.Duration` | `go.ipfs.kubo.config.defaultRetrievalTimeout` | const |
-| `const config.DefaultRoutingType untyped string` | `go.ipfs.kubo.config.defaultRoutingType` | const |
-| `const config.DefaultSeenMessagesStrategy untyped string` | `go.ipfs.kubo.config.defaultSeenMessagesStrategy` | const |
-| `const config.DefaultShutdownTimeout time.Duration` | `go.ipfs.kubo.config.defaultShutdownTimeout` | const |
-| `const config.DefaultStoreMode untyped bool` | `go.ipfs.kubo.config.defaultStoreMode` | const |
-| `const config.DefaultStoreMtime untyped bool` | `go.ipfs.kubo.config.defaultStoreMtime` | const |
-| `const config.DefaultSwarmCheckPercentThreshold untyped int` | `go.ipfs.kubo.config.defaultSwarmCheckPercentThreshold` | const |
-| `const config.DefaultUnixFSChunker untyped string` | `go.ipfs.kubo.config.defaultUnixFsChunker` | const |
-| `const config.DefaultUnixFSDAGLayout untyped string` | `go.ipfs.kubo.config.defaultUnixFsdagLayout` | const |
-| `const config.DefaultUnixFSHAMTDirectorySizeEstimation untyped string` | `go.ipfs.kubo.config.defaultUnixFshamtDirectorySizeEstimation` | const |
-| `const config.DefaultUnixFSHAMTDirectorySizeThreshold untyped int` | `go.ipfs.kubo.config.defaultUnixFshamtDirectorySizeThreshold` | const |
-| `const config.DefaultUnixFSIncludeEmptyDirs untyped bool` | `go.ipfs.kubo.config.defaultUnixFsIncludeEmptyDirs` | const |
-| `const config.DefaultUnixFSPBNodeFieldOrder untyped string` | `go.ipfs.kubo.config.defaultUnixFspbNodeFieldOrder` | const |
-| `const config.DefaultUnixFSRawLeaves untyped bool` | `go.ipfs.kubo.config.defaultUnixFsRawLeaves` | const |
-| `const config.DefaultWriteThrough bool` | `go.ipfs.kubo.config.defaultWriteThrough` | const |
-| `const config.Disabled config.Priority` | `go.ipfs.kubo.config.disabled` | const |
-| `const config.EnvDir untyped string` | `go.ipfs.kubo.config.envDir` | const |
-| `const config.EnvHTTPRouters untyped string` | `go.ipfs.kubo.config.envHttpRouters` | const |
-| `const config.EnvHTTPRoutersFilterProtocols untyped string` | `go.ipfs.kubo.config.envHttpRoutersFilterProtocols` | const |
-| `const config.False config.Flag` | `go.ipfs.kubo.config.false$` | const |
-| `const config.FirstSeenMessagesStrategy untyped string` | `go.ipfs.kubo.config.firstSeenMessagesStrategy` | const |
-| `const config.HAMTSizeEstimationBlock untyped string` | `go.ipfs.kubo.config.hamtSizeEstimationBlock` | const |
-| `const config.HAMTSizeEstimationDisabled untyped string` | `go.ipfs.kubo.config.hamtSizeEstimationDisabled` | const |
-| `const config.HAMTSizeEstimationLinks untyped string` | `go.ipfs.kubo.config.hamtSizeEstimationLinks` | const |
-| `const config.IdentityTag untyped string` | `go.ipfs.kubo.config.identityTag` | const |
-| `const config.LastSeenMessagesStrategy untyped string` | `go.ipfs.kubo.config.lastSeenMessagesStrategy` | const |
-| `const config.MethodNameFindPeers config.MethodName` | `go.ipfs.kubo.config.methodNameFindPeers` | const |
-| `const config.MethodNameFindProviders config.MethodName` | `go.ipfs.kubo.config.methodNameFindProviders` | const |
-| `const config.MethodNameGetIPNS config.MethodName` | `go.ipfs.kubo.config.methodNameGetIpns` | const |
-| `const config.MethodNameProvide config.MethodName` | `go.ipfs.kubo.config.methodNameProvide` | const |
-| `const config.MethodNamePutIPNS config.MethodName` | `go.ipfs.kubo.config.methodNamePutIpns` | const |
-| `const config.MinProvideBloomFPRate untyped int` | `go.ipfs.kubo.config.minProvideBloomFpRate` | const |
-| `const config.PBNodeFieldOrderDataFirst untyped string` | `go.ipfs.kubo.config.pbNodeFieldOrderDataFirst` | const |
-| `const config.PBNodeFieldOrderLinksFirst untyped string` | `go.ipfs.kubo.config.pbNodeFieldOrderLinksFirst` | const |
-| `const config.PrivKeySelector untyped string` | `go.ipfs.kubo.config.privKeySelector` | const |
-| `const config.PrivKeyTag untyped string` | `go.ipfs.kubo.config.privKeyTag` | const |
-| `const config.ProvideStrategyAll config.ProvideStrategy` | `go.ipfs.kubo.config.provideStrategyAll` | const |
-| `const config.ProvideStrategyEntities config.ProvideStrategy` | `go.ipfs.kubo.config.provideStrategyEntities` | const |
-| `const config.ProvideStrategyMFS config.ProvideStrategy` | `go.ipfs.kubo.config.provideStrategyMfs` | const |
-| `const config.ProvideStrategyPinned config.ProvideStrategy` | `go.ipfs.kubo.config.provideStrategyPinned` | const |
-| `const config.ProvideStrategyRoots config.ProvideStrategy` | `go.ipfs.kubo.config.provideStrategyRoots` | const |
-| `const config.ProvideStrategyUnique config.ProvideStrategy` | `go.ipfs.kubo.config.provideStrategyUnique` | const |
-| `const config.PublicGoodDelegatedRoutingURL untyped string` | `go.ipfs.kubo.config.publicGoodDelegatedRoutingUrl` | const |
-| `const config.ResourceMgrPeerScopePrefix untyped string` | `go.ipfs.kubo.config.resourceMgrPeerScopePrefix` | const |
-| `const config.ResourceMgrProtocolScopePrefix untyped string` | `go.ipfs.kubo.config.resourceMgrProtocolScopePrefix` | const |
-| `const config.ResourceMgrServiceScopePrefix untyped string` | `go.ipfs.kubo.config.resourceMgrServiceScopePrefix` | const |
-| `const config.ResourceMgrSystemScope untyped string` | `go.ipfs.kubo.config.resourceMgrSystemScope` | const |
-| `const config.ResourceMgrTransientScope untyped string` | `go.ipfs.kubo.config.resourceMgrTransientScope` | const |
-| `const config.RouterTypeDHT config.RouterType` | `go.ipfs.kubo.config.routerTypeDht` | const |
-| `const config.RouterTypeHTTP config.RouterType` | `go.ipfs.kubo.config.routerTypeHttp` | const |
-| `const config.RouterTypeParallel config.RouterType` | `go.ipfs.kubo.config.routerTypeParallel` | const |
-| `const config.RouterTypeSequential config.RouterType` | `go.ipfs.kubo.config.routerTypeSequential` | const |
-| `const config.True config.Flag` | `go.ipfs.kubo.config.true$` | const |
+| `const config.APITag untyped string` | `go.ipfs.kubo.config.consts.apiTag` | const |
+| `const config.AuthorizationTag untyped string` | `go.ipfs.kubo.config.consts.authorizationTag` | const |
+| `const config.AutoNATServiceDisabled config.AutoNATServiceMode` | `go.ipfs.kubo.config.enums.autoNatServiceDisabled` | const |
+| `const config.AutoNATServiceEnabled config.AutoNATServiceMode` | `go.ipfs.kubo.config.enums.autoNatServiceEnabled` | const |
+| `const config.AutoNATServiceEnabledV1Only config.AutoNATServiceMode` | `go.ipfs.kubo.config.enums.autoNatServiceEnabledV1Only` | const |
+| `const config.AutoNATServiceUnset config.AutoNATServiceMode` | `go.ipfs.kubo.config.enums.autoNatServiceUnset` | const |
+| `const config.AutoPlaceholder untyped string` | `go.ipfs.kubo.config.consts.autoPlaceholder` | const |
+| `const config.CidContactRoutingURL untyped string` | `go.ipfs.kubo.config.consts.cidContactRoutingUrl` | const |
+| `const config.DAGLayoutBalanced untyped string` | `go.ipfs.kubo.config.consts.dagLayoutBalanced` | const |
+| `const config.DAGLayoutTrickle untyped string` | `go.ipfs.kubo.config.consts.dagLayoutTrickle` | const |
+| `const config.DHTModeAuto config.DHTMode` | `go.ipfs.kubo.config.enums.dhtModeAuto` | const |
+| `const config.DHTModeClient config.DHTMode` | `go.ipfs.kubo.config.enums.dhtModeClient` | const |
+| `const config.DHTModeServer config.DHTMode` | `go.ipfs.kubo.config.enums.dhtModeServer` | const |
+| `const config.Default config.Flag` | `go.ipfs.kubo.config.enums.default$` | const |
+| `const config.DefaultAcceleratedDHTClient untyped bool` | `go.ipfs.kubo.config.consts.defaultAcceleratedDhtClient` | const |
+| `const config.DefaultAllowCodecConversion untyped bool` | `go.ipfs.kubo.config.consts.defaultAllowCodecConversion` | const |
+| `const config.DefaultAutoConfCacheSize untyped int` | `go.ipfs.kubo.config.consts.defaultAutoConfCacheSize` | const |
+| `const config.DefaultAutoConfEnabled untyped bool` | `go.ipfs.kubo.config.consts.defaultAutoConfEnabled` | const |
+| `const config.DefaultAutoConfRefreshInterval time.Duration` | `go.ipfs.kubo.config.enums.defaultAutoConfRefreshInterval` | const |
+| `const config.DefaultAutoConfTimeout time.Duration` | `go.ipfs.kubo.config.enums.defaultAutoConfTimeout` | const |
+| `const config.DefaultAutoConfURL untyped string` | `go.ipfs.kubo.config.consts.defaultAutoConfUrl` | const |
+| `const config.DefaultAutoTLSEnabled untyped bool` | `go.ipfs.kubo.config.consts.defaultAutoTlsEnabled` | const |
+| `const config.DefaultAutoTLSRegistrationDelay time.Duration` | `go.ipfs.kubo.config.enums.defaultAutoTlsRegistrationDelay` | const |
+| `const config.DefaultAutoTLSShortAddrs untyped bool` | `go.ipfs.kubo.config.consts.defaultAutoTlsShortAddrs` | const |
+| `const config.DefaultAutoTLSSkipDNSLookup untyped bool` | `go.ipfs.kubo.config.consts.defaultAutoTlsSkipDnsLookup` | const |
+| `const config.DefaultAutoWSS untyped bool` | `go.ipfs.kubo.config.consts.defaultAutoWss` | const |
+| `const config.DefaultBatchMaxNodes untyped int` | `go.ipfs.kubo.config.consts.defaultBatchMaxNodes` | const |
+| `const config.DefaultBatchMaxSize untyped int` | `go.ipfs.kubo.config.consts.defaultBatchMaxSize` | const |
+| `const config.DefaultBitswapLibp2pEnabled untyped bool` | `go.ipfs.kubo.config.consts.defaultBitswapLibp2pEnabled` | const |
+| `const config.DefaultBitswapServerEnabled untyped bool` | `go.ipfs.kubo.config.consts.defaultBitswapServerEnabled` | const |
+| `const config.DefaultBlockKeyCacheSize untyped int` | `go.ipfs.kubo.config.consts.defaultBlockKeyCacheSize` | const |
+| `const config.DefaultBroadcastControlEnable untyped bool` | `go.ipfs.kubo.config.consts.defaultBroadcastControlEnable` | const |
+| `const config.DefaultBroadcastControlLocalPeers untyped bool` | `go.ipfs.kubo.config.consts.defaultBroadcastControlLocalPeers` | const |
+| `const config.DefaultBroadcastControlMaxPeers untyped int` | `go.ipfs.kubo.config.consts.defaultBroadcastControlMaxPeers` | const |
+| `const config.DefaultBroadcastControlMaxRandomPeers untyped int` | `go.ipfs.kubo.config.consts.defaultBroadcastControlMaxRandomPeers` | const |
+| `const config.DefaultBroadcastControlPeeredPeers untyped bool` | `go.ipfs.kubo.config.consts.defaultBroadcastControlPeeredPeers` | const |
+| `const config.DefaultBroadcastControlSendToPendingPeers untyped bool` | `go.ipfs.kubo.config.consts.defaultBroadcastControlSendToPendingPeers` | const |
+| `const config.DefaultCAEndpoint untyped string` | `go.ipfs.kubo.config.consts.defaultCaEndpoint` | const |
+| `const config.DefaultCGNATCheck untyped bool` | `go.ipfs.kubo.config.consts.defaultCgnatCheck` | const |
+| `const config.DefaultCidVersion untyped int` | `go.ipfs.kubo.config.consts.defaultCidVersion` | const |
+| `const config.DefaultConfigFile untyped string` | `go.ipfs.kubo.config.consts.defaultConfigFile` | const |
+| `const config.DefaultConnMgrGracePeriod time.Duration` | `go.ipfs.kubo.config.enums.defaultConnMgrGracePeriod` | const |
+| `const config.DefaultConnMgrHighWater untyped int` | `go.ipfs.kubo.config.consts.defaultConnMgrHighWater` | const |
+| `const config.DefaultConnMgrLowWater untyped int` | `go.ipfs.kubo.config.consts.defaultConnMgrLowWater` | const |
+| `const config.DefaultConnMgrSilencePeriod time.Duration` | `go.ipfs.kubo.config.enums.defaultConnMgrSilencePeriod` | const |
+| `const config.DefaultConnMgrType untyped string` | `go.ipfs.kubo.config.consts.defaultConnMgrType` | const |
+| `const config.DefaultDataStoreDirectory untyped string` | `go.ipfs.kubo.config.consts.defaultDataStoreDirectory` | const |
+| `const config.DefaultDeadListenerCheck untyped bool` | `go.ipfs.kubo.config.consts.defaultDeadListenerCheck` | const |
+| `const config.DefaultDeprecatedXIpfsPath untyped bool` | `go.ipfs.kubo.config.consts.defaultDeprecatedXIpfsPath` | const |
+| `const config.DefaultDeserializedResponses untyped bool` | `go.ipfs.kubo.config.consts.defaultDeserializedResponses` | const |
+| `const config.DefaultDiagnosticServiceURL untyped string` | `go.ipfs.kubo.config.consts.defaultDiagnosticServiceUrl` | const |
+| `const config.DefaultDisableHTMLErrors untyped bool` | `go.ipfs.kubo.config.consts.defaultDisableHtmlErrors` | const |
+| `const config.DefaultDomainSuffix untyped string` | `go.ipfs.kubo.config.consts.defaultDomainSuffix` | const |
+| `const config.DefaultExposeRoutingAPI untyped bool` | `go.ipfs.kubo.config.consts.defaultExposeRoutingApi` | const |
+| `const config.DefaultFastProvideDAG untyped bool` | `go.ipfs.kubo.config.consts.defaultFastProvideDag` | const |
+| `const config.DefaultFastProvideRoot untyped bool` | `go.ipfs.kubo.config.consts.defaultFastProvideRoot` | const |
+| `const config.DefaultFastProvideTimeout time.Duration` | `go.ipfs.kubo.config.enums.defaultFastProvideTimeout` | const |
+| `const config.DefaultFastProvideWait untyped bool` | `go.ipfs.kubo.config.consts.defaultFastProvideWait` | const |
+| `const config.DefaultFuseAllowOther untyped bool` | `go.ipfs.kubo.config.consts.defaultFuseAllowOther` | const |
+| `const config.DefaultHTTPRetrievalEnabled untyped bool` | `go.ipfs.kubo.config.consts.defaultHttpRetrievalEnabled` | const |
+| `const config.DefaultHTTPRetrievalMaxBlockSize untyped string` | `go.ipfs.kubo.config.consts.defaultHttpRetrievalMaxBlockSize` | const |
+| `const config.DefaultHTTPRetrievalNumWorkers untyped int` | `go.ipfs.kubo.config.consts.defaultHttpRetrievalNumWorkers` | const |
+| `const config.DefaultHTTPRetrievalTLSInsecureSkipVerify untyped bool` | `go.ipfs.kubo.config.consts.defaultHttpRetrievalTlsInsecureSkipVerify` | const |
+| `const config.DefaultHashFunction untyped string` | `go.ipfs.kubo.config.consts.defaultHashFunction` | const |
+| `const config.DefaultInlineDNSLink untyped bool` | `go.ipfs.kubo.config.consts.defaultInlineDnsLink` | const |
+| `const config.DefaultIpnsMaxCacheTTL time.Duration` | `go.ipfs.kubo.config.enums.defaultIpnsMaxCacheTtl` | const |
+| `const config.DefaultLoopbackAddressesOnLanDHT untyped bool` | `go.ipfs.kubo.config.consts.defaultLoopbackAddressesOnLanDht` | const |
+| `const config.DefaultMFSFetchTimeout time.Duration` | `go.ipfs.kubo.config.enums.defaultMfsFetchTimeout` | const |
+| `const config.DefaultMFSNoFlushLimit untyped int` | `go.ipfs.kubo.config.consts.defaultMfsNoFlushLimit` | const |
+| `const config.DefaultMaxConcurrentRequests untyped int` | `go.ipfs.kubo.config.consts.defaultMaxConcurrentRequests` | const |
+| `const config.DefaultMaxRangeRequestFileSize untyped int` | `go.ipfs.kubo.config.consts.defaultMaxRangeRequestFileSize` | const |
+| `const config.DefaultMaxRequestDuration time.Duration` | `go.ipfs.kubo.config.enums.defaultMaxRequestDuration` | const |
+| `const config.DefaultMigrationKeep untyped string` | `go.ipfs.kubo.config.consts.defaultMigrationKeep` | const |
+| `const config.DefaultPathName untyped string` | `go.ipfs.kubo.config.consts.defaultPathName` | const |
+| `const config.DefaultPathRoot untyped string` | `go.ipfs.kubo.config.consts.defaultPathRoot` | const |
+| `const config.DefaultPriority config.Priority` | `go.ipfs.kubo.config.enums.defaultPriority` | const |
+| `const config.DefaultProvideBloomFPRate untyped int` | `go.ipfs.kubo.config.consts.defaultProvideBloomFpRate` | const |
+| `const config.DefaultProvideDHTDedicatedBurstWorkers untyped int` | `go.ipfs.kubo.config.consts.defaultProvideDhtDedicatedBurstWorkers` | const |
+| `const config.DefaultProvideDHTDedicatedPeriodicWorkers untyped int` | `go.ipfs.kubo.config.consts.defaultProvideDhtDedicatedPeriodicWorkers` | const |
+| `const config.DefaultProvideDHTInterval time.Duration` | `go.ipfs.kubo.config.enums.defaultProvideDhtInterval` | const |
+| `const config.DefaultProvideDHTKeystoreBatchSize untyped int` | `go.ipfs.kubo.config.consts.defaultProvideDhtKeystoreBatchSize` | const |
+| `const config.DefaultProvideDHTMaxProvideConnsPerWorker untyped int` | `go.ipfs.kubo.config.consts.defaultProvideDhtMaxProvideConnsPerWorker` | const |
+| `const config.DefaultProvideDHTMaxWorkers untyped int` | `go.ipfs.kubo.config.consts.defaultProvideDhtMaxWorkers` | const |
+| `const config.DefaultProvideDHTOfflineDelay time.Duration` | `go.ipfs.kubo.config.enums.defaultProvideDhtOfflineDelay` | const |
+| `const config.DefaultProvideDHTResumeEnabled untyped bool` | `go.ipfs.kubo.config.consts.defaultProvideDhtResumeEnabled` | const |
+| `const config.DefaultProvideDHTSendProviderRecordTimeout time.Duration` | `go.ipfs.kubo.config.enums.defaultProvideDhtSendProviderRecordTimeout` | const |
+| `const config.DefaultProvideDHTSweepEnabled untyped bool` | `go.ipfs.kubo.config.consts.defaultProvideDhtSweepEnabled` | const |
+| `const config.DefaultProvideEnabled untyped bool` | `go.ipfs.kubo.config.consts.defaultProvideEnabled` | const |
+| `const config.DefaultProvideStrategy untyped string` | `go.ipfs.kubo.config.consts.defaultProvideStrategy` | const |
+| `const config.DefaultRegistrationEndpoint untyped string` | `go.ipfs.kubo.config.consts.defaultRegistrationEndpoint` | const |
+| `const config.DefaultResourceMgrMinInboundConns untyped int` | `go.ipfs.kubo.config.consts.defaultResourceMgrMinInboundConns` | const |
+| `const config.DefaultRetrievalTimeout time.Duration` | `go.ipfs.kubo.config.enums.defaultRetrievalTimeout` | const |
+| `const config.DefaultRoutingType untyped string` | `go.ipfs.kubo.config.consts.defaultRoutingType` | const |
+| `const config.DefaultSeenMessagesStrategy untyped string` | `go.ipfs.kubo.config.consts.defaultSeenMessagesStrategy` | const |
+| `const config.DefaultShutdownTimeout time.Duration` | `go.ipfs.kubo.config.enums.defaultShutdownTimeout` | const |
+| `const config.DefaultStoreMode untyped bool` | `go.ipfs.kubo.config.consts.defaultStoreMode` | const |
+| `const config.DefaultStoreMtime untyped bool` | `go.ipfs.kubo.config.consts.defaultStoreMtime` | const |
+| `const config.DefaultSwarmCheckPercentThreshold untyped int` | `go.ipfs.kubo.config.consts.defaultSwarmCheckPercentThreshold` | const |
+| `const config.DefaultUnixFSChunker untyped string` | `go.ipfs.kubo.config.consts.defaultUnixFsChunker` | const |
+| `const config.DefaultUnixFSDAGLayout untyped string` | `go.ipfs.kubo.config.consts.defaultUnixFsdagLayout` | const |
+| `const config.DefaultUnixFSHAMTDirectorySizeEstimation untyped string` | `go.ipfs.kubo.config.consts.defaultUnixFshamtDirectorySizeEstimation` | const |
+| `const config.DefaultUnixFSHAMTDirectorySizeThreshold untyped int` | `go.ipfs.kubo.config.consts.defaultUnixFshamtDirectorySizeThreshold` | const |
+| `const config.DefaultUnixFSIncludeEmptyDirs untyped bool` | `go.ipfs.kubo.config.consts.defaultUnixFsIncludeEmptyDirs` | const |
+| `const config.DefaultUnixFSPBNodeFieldOrder untyped string` | `go.ipfs.kubo.config.consts.defaultUnixFspbNodeFieldOrder` | const |
+| `const config.DefaultUnixFSRawLeaves untyped bool` | `go.ipfs.kubo.config.consts.defaultUnixFsRawLeaves` | const |
+| `const config.DefaultWriteThrough bool` | `go.ipfs.kubo.config.consts.defaultWriteThrough` | const |
+| `const config.Disabled config.Priority` | `go.ipfs.kubo.config.enums.disabled` | const |
+| `const config.EnvDir untyped string` | `go.ipfs.kubo.config.consts.envDir` | const |
+| `const config.EnvHTTPRouters untyped string` | `go.ipfs.kubo.config.consts.envHttpRouters` | const |
+| `const config.EnvHTTPRoutersFilterProtocols untyped string` | `go.ipfs.kubo.config.consts.envHttpRoutersFilterProtocols` | const |
+| `const config.False config.Flag` | `go.ipfs.kubo.config.enums.false$` | const |
+| `const config.FirstSeenMessagesStrategy untyped string` | `go.ipfs.kubo.config.consts.firstSeenMessagesStrategy` | const |
+| `const config.HAMTSizeEstimationBlock untyped string` | `go.ipfs.kubo.config.consts.hamtSizeEstimationBlock` | const |
+| `const config.HAMTSizeEstimationDisabled untyped string` | `go.ipfs.kubo.config.consts.hamtSizeEstimationDisabled` | const |
+| `const config.HAMTSizeEstimationLinks untyped string` | `go.ipfs.kubo.config.consts.hamtSizeEstimationLinks` | const |
+| `const config.IdentityTag untyped string` | `go.ipfs.kubo.config.consts.identityTag` | const |
+| `const config.LastSeenMessagesStrategy untyped string` | `go.ipfs.kubo.config.consts.lastSeenMessagesStrategy` | const |
+| `const config.MethodNameFindPeers config.MethodName` | `go.ipfs.kubo.config.enums.methodNameFindPeers` | const |
+| `const config.MethodNameFindProviders config.MethodName` | `go.ipfs.kubo.config.enums.methodNameFindProviders` | const |
+| `const config.MethodNameGetIPNS config.MethodName` | `go.ipfs.kubo.config.enums.methodNameGetIpns` | const |
+| `const config.MethodNameProvide config.MethodName` | `go.ipfs.kubo.config.enums.methodNameProvide` | const |
+| `const config.MethodNamePutIPNS config.MethodName` | `go.ipfs.kubo.config.enums.methodNamePutIpns` | const |
+| `const config.MinProvideBloomFPRate untyped int` | `go.ipfs.kubo.config.consts.minProvideBloomFpRate` | const |
+| `const config.PBNodeFieldOrderDataFirst untyped string` | `go.ipfs.kubo.config.consts.pbNodeFieldOrderDataFirst` | const |
+| `const config.PBNodeFieldOrderLinksFirst untyped string` | `go.ipfs.kubo.config.consts.pbNodeFieldOrderLinksFirst` | const |
+| `const config.PrivKeySelector untyped string` | `go.ipfs.kubo.config.consts.privKeySelector` | const |
+| `const config.PrivKeyTag untyped string` | `go.ipfs.kubo.config.consts.privKeyTag` | const |
+| `const config.ProvideStrategyAll config.ProvideStrategy` | `go.ipfs.kubo.config.enums.provideStrategyAll` | const |
+| `const config.ProvideStrategyEntities config.ProvideStrategy` | `go.ipfs.kubo.config.enums.provideStrategyEntities` | const |
+| `const config.ProvideStrategyMFS config.ProvideStrategy` | `go.ipfs.kubo.config.enums.provideStrategyMfs` | const |
+| `const config.ProvideStrategyPinned config.ProvideStrategy` | `go.ipfs.kubo.config.enums.provideStrategyPinned` | const |
+| `const config.ProvideStrategyRoots config.ProvideStrategy` | `go.ipfs.kubo.config.enums.provideStrategyRoots` | const |
+| `const config.ProvideStrategyUnique config.ProvideStrategy` | `go.ipfs.kubo.config.enums.provideStrategyUnique` | const |
+| `const config.PublicGoodDelegatedRoutingURL untyped string` | `go.ipfs.kubo.config.consts.publicGoodDelegatedRoutingUrl` | const |
+| `const config.ResourceMgrPeerScopePrefix untyped string` | `go.ipfs.kubo.config.consts.resourceMgrPeerScopePrefix` | const |
+| `const config.ResourceMgrProtocolScopePrefix untyped string` | `go.ipfs.kubo.config.consts.resourceMgrProtocolScopePrefix` | const |
+| `const config.ResourceMgrServiceScopePrefix untyped string` | `go.ipfs.kubo.config.consts.resourceMgrServiceScopePrefix` | const |
+| `const config.ResourceMgrSystemScope untyped string` | `go.ipfs.kubo.config.consts.resourceMgrSystemScope` | const |
+| `const config.ResourceMgrTransientScope untyped string` | `go.ipfs.kubo.config.consts.resourceMgrTransientScope` | const |
+| `const config.RouterTypeDHT config.RouterType` | `go.ipfs.kubo.config.enums.routerTypeDht` | const |
+| `const config.RouterTypeHTTP config.RouterType` | `go.ipfs.kubo.config.enums.routerTypeHttp` | const |
+| `const config.RouterTypeParallel config.RouterType` | `go.ipfs.kubo.config.enums.routerTypeParallel` | const |
+| `const config.RouterTypeSequential config.RouterType` | `go.ipfs.kubo.config.enums.routerTypeSequential` | const |
+| `const config.True config.Flag` | `go.ipfs.kubo.config.enums.true$` | const |
 
 Omitted:
 
@@ -2079,16 +2079,16 @@ Omitted:
 | `var commands.SwarmCmd *cmds.Command` | `go.ipfs.kubo.core.commands.swarmCmd` | sync |
 | `var commands.UpdateCmd *cmds.Command` | `go.ipfs.kubo.core.commands.updateCmd` | sync |
 | `var commands.VersionCmd *cmds.Command` | `go.ipfs.kubo.core.commands.versionCmd` | sync |
-| `const commands.ApiAuthOption untyped string` | `go.ipfs.kubo.core.commands.apiAuthOption` | const |
-| `const commands.ApiOption untyped string` | `go.ipfs.kubo.core.commands.apiOption` | const |
-| `const commands.ConfigFileOption untyped string` | `go.ipfs.kubo.core.commands.configFileOption` | const |
-| `const commands.ConfigOption untyped string` | `go.ipfs.kubo.core.commands.configOption` | const |
-| `const commands.DebugOption untyped string` | `go.ipfs.kubo.core.commands.debugOption` | const |
-| `const commands.DefaultMinimalVersionFraction untyped float` | `go.ipfs.kubo.core.commands.defaultMinimalVersionFraction` | const |
-| `const commands.LocalOption untyped string` | `go.ipfs.kubo.core.commands.localOption` | const |
-| `const commands.OfflineOption untyped string` | `go.ipfs.kubo.core.commands.offlineOption` | const |
-| `const commands.P2PProtoPrefix untyped string` | `go.ipfs.kubo.core.commands.p2pProtoPrefix` | const |
-| `const commands.RepoDirOption untyped string` | `go.ipfs.kubo.core.commands.repoDirOption` | const |
+| `const commands.ApiAuthOption untyped string` | `go.ipfs.kubo.core.commands.consts.apiAuthOption` | const |
+| `const commands.ApiOption untyped string` | `go.ipfs.kubo.core.commands.consts.apiOption` | const |
+| `const commands.ConfigFileOption untyped string` | `go.ipfs.kubo.core.commands.consts.configFileOption` | const |
+| `const commands.ConfigOption untyped string` | `go.ipfs.kubo.core.commands.consts.configOption` | const |
+| `const commands.DebugOption untyped string` | `go.ipfs.kubo.core.commands.consts.debugOption` | const |
+| `const commands.DefaultMinimalVersionFraction untyped float` | `go.ipfs.kubo.core.commands.consts.defaultMinimalVersionFraction` | const |
+| `const commands.LocalOption untyped string` | `go.ipfs.kubo.core.commands.consts.localOption` | const |
+| `const commands.OfflineOption untyped string` | `go.ipfs.kubo.core.commands.consts.offlineOption` | const |
+| `const commands.P2PProtoPrefix untyped string` | `go.ipfs.kubo.core.commands.consts.p2pProtoPrefix` | const |
+| `const commands.RepoDirOption untyped string` | `go.ipfs.kubo.core.commands.consts.repoDirOption` | const |
 
 Omitted:
 
@@ -2240,13 +2240,13 @@ Omitted:
 | `iface.RoutingAPI → x.(*coreapi.RoutingAPI)` | `KuboCoreCoreifaceRoutingApi.asKuboCoreCoreapiRoutingApi` | cast |
 | `iface.SwarmAPI → x.(*coreapi.SwarmAPI)` | `KuboCoreCoreifaceSwarmApi.asKuboCoreCoreapiSwarmApi` | cast |
 | `iface.UnixfsAPI → x.(*coreapi.UnixfsAPI)` | `KuboCoreCoreifaceUnixfsApi.asKuboCoreCoreapiUnixfsApi` | cast |
-| `const iface.DiffAdd iface.ChangeType` | `go.ipfs.kubo.core.coreiface.diffAdd` | const |
-| `const iface.DiffMod iface.ChangeType` | `go.ipfs.kubo.core.coreiface.diffMod` | const |
-| `const iface.DiffRemove iface.ChangeType` | `go.ipfs.kubo.core.coreiface.diffRemove` | const |
-| `const iface.TDirectory iface.FileType` | `go.ipfs.kubo.core.coreiface.tDirectory` | const |
-| `const iface.TFile iface.FileType` | `go.ipfs.kubo.core.coreiface.tFile` | const |
-| `const iface.TSymlink iface.FileType` | `go.ipfs.kubo.core.coreiface.tSymlink` | const |
-| `const iface.TUnknown iface.FileType` | `go.ipfs.kubo.core.coreiface.tUnknown` | const |
+| `const iface.DiffAdd iface.ChangeType` | `go.ipfs.kubo.core.coreiface.enums.diffAdd` | const |
+| `const iface.DiffMod iface.ChangeType` | `go.ipfs.kubo.core.coreiface.enums.diffMod` | const |
+| `const iface.DiffRemove iface.ChangeType` | `go.ipfs.kubo.core.coreiface.enums.diffRemove` | const |
+| `const iface.TDirectory iface.FileType` | `go.ipfs.kubo.core.coreiface.enums.tDirectory` | const |
+| `const iface.TFile iface.FileType` | `go.ipfs.kubo.core.coreiface.enums.tFile` | const |
+| `const iface.TSymlink iface.FileType` | `go.ipfs.kubo.core.coreiface.enums.tSymlink` | const |
+| `const iface.TUnknown iface.FileType` | `go.ipfs.kubo.core.coreiface.enums.tUnknown` | const |
 
 Omitted:
 
@@ -2301,12 +2301,12 @@ Omitted:
 | `func options.RoutingPutOptions(opts ...options.RoutingPutOption) (*options.RoutingPutSettings, error)` | `go.ipfs.kubo.core.coreiface.options.routingPutOptions` | sync |
 | `func options.UnixfsAddOptions(opts ...options.UnixfsAddOption) (*options.UnixfsAddSettings, cid.Prefix, error)` | `go.ipfs.kubo.core.coreiface.options.unixfsAddOptions` | sync |
 | `func options.UnixfsLsOptions(opts ...options.UnixfsLsOption) (*options.UnixfsLsSettings, error)` | `go.ipfs.kubo.core.coreiface.options.unixfsLsOptions` | sync |
-| `const options.BalancedLayout options.Layout` | `go.ipfs.kubo.core.coreiface.options.balancedLayout` | const |
-| `const options.DefaultNameValidTime time.Duration` | `go.ipfs.kubo.core.coreiface.options.defaultNameValidTime` | const |
-| `const options.DefaultRSALen untyped int` | `go.ipfs.kubo.core.coreiface.options.defaultRsaLen` | const |
-| `const options.Ed25519Key untyped string` | `go.ipfs.kubo.core.coreiface.options.ed25519Key` | const |
-| `const options.RSAKey untyped string` | `go.ipfs.kubo.core.coreiface.options.rsaKey` | const |
-| `const options.TrickleLayout options.Layout` | `go.ipfs.kubo.core.coreiface.options.trickleLayout` | const |
+| `const options.BalancedLayout options.Layout` | `go.ipfs.kubo.core.coreiface.options.enums.balancedLayout` | const |
+| `const options.DefaultNameValidTime time.Duration` | `go.ipfs.kubo.core.coreiface.options.enums.defaultNameValidTime` | const |
+| `const options.DefaultRSALen untyped int` | `go.ipfs.kubo.core.coreiface.options.consts.defaultRsaLen` | const |
+| `const options.Ed25519Key untyped string` | `go.ipfs.kubo.core.coreiface.options.consts.ed25519Key` | const |
+| `const options.RSAKey untyped string` | `go.ipfs.kubo.core.coreiface.options.consts.rsaKey` | const |
+| `const options.TrickleLayout options.Layout` | `go.ipfs.kubo.core.coreiface.options.enums.trickleLayout` | const |
 
 Omitted:
 
@@ -2401,15 +2401,15 @@ Omitted:
 | `node.BaseBlocks → x.(*blockstore.ReadOnly)` | `KuboCoreNodeBaseBlocks.asCarV2BlockstoreReadOnly` | cast |
 | `node.BaseBlocks → x.(*blockstore.ReadWrite)` | `KuboCoreNodeBaseBlocks.asCarV2BlockstoreReadWrite` | cast |
 | `node.DHTProvider → x.(*node.LegacyProvider)` | `KuboCoreNodeDhtProvider.asKuboCoreNodeLegacyProvider` | cast |
-| `const node.DefaultEngineBlockstoreWorkerCount untyped int` | `go.ipfs.kubo.core.node.defaultEngineBlockstoreWorkerCount` | const |
-| `const node.DefaultEngineTaskWorkerCount untyped int` | `go.ipfs.kubo.core.node.defaultEngineTaskWorkerCount` | const |
-| `const node.DefaultIpnsCacheSize untyped int` | `go.ipfs.kubo.core.node.defaultIpnsCacheSize` | const |
-| `const node.DefaultMaxOutstandingBytesPerPeer untyped int` | `go.ipfs.kubo.core.node.defaultMaxOutstandingBytesPerPeer` | const |
-| `const node.DefaultMaxProviders untyped int` | `go.ipfs.kubo.core.node.defaultMaxProviders` | const |
-| `const node.DefaultProviderSearchDelay time.Duration` | `go.ipfs.kubo.core.node.defaultProviderSearchDelay` | const |
-| `const node.DefaultTaskWorkerCount untyped int` | `go.ipfs.kubo.core.node.defaultTaskWorkerCount` | const |
-| `const node.DefaultWantHaveReplaceSize untyped int` | `go.ipfs.kubo.core.node.defaultWantHaveReplaceSize` | const |
-| `const node.KeystoreDatastorePath untyped string` | `go.ipfs.kubo.core.node.keystoreDatastorePath` | const |
+| `const node.DefaultEngineBlockstoreWorkerCount untyped int` | `go.ipfs.kubo.core.node.consts.defaultEngineBlockstoreWorkerCount` | const |
+| `const node.DefaultEngineTaskWorkerCount untyped int` | `go.ipfs.kubo.core.node.consts.defaultEngineTaskWorkerCount` | const |
+| `const node.DefaultIpnsCacheSize untyped int` | `go.ipfs.kubo.core.node.consts.defaultIpnsCacheSize` | const |
+| `const node.DefaultMaxOutstandingBytesPerPeer untyped int` | `go.ipfs.kubo.core.node.consts.defaultMaxOutstandingBytesPerPeer` | const |
+| `const node.DefaultMaxProviders untyped int` | `go.ipfs.kubo.core.node.consts.defaultMaxProviders` | const |
+| `const node.DefaultProviderSearchDelay time.Duration` | `go.ipfs.kubo.core.node.enums.defaultProviderSearchDelay` | const |
+| `const node.DefaultTaskWorkerCount untyped int` | `go.ipfs.kubo.core.node.consts.defaultTaskWorkerCount` | const |
+| `const node.DefaultWantHaveReplaceSize untyped int` | `go.ipfs.kubo.core.node.consts.defaultWantHaveReplaceSize` | const |
+| `const node.KeystoreDatastorePath untyped string` | `go.ipfs.kubo.core.node.consts.keystoreDatastorePath` | const |
 
 Omitted:
 
@@ -2459,8 +2459,8 @@ Omitted:
 | `func libp2p.StartP2PAutoTLS(lc fx.Lifecycle, certMgr *client.P2PForgeCertMgr, h host.Host)` | `go.ipfs.kubo.core.node.libp2p.startP2pAutoTls` | sync |
 | `func libp2p.TopicDiscovery() any` | `go.ipfs.kubo.core.node.libp2p.topicDiscovery` | sync |
 | `func libp2p.Transports(tptConfig config.Transports) any` | `go.ipfs.kubo.core.node.libp2p.transports` | sync |
-| `const libp2p.NetLimitTraceFilename untyped string` | `go.ipfs.kubo.core.node.libp2p.netLimitTraceFilename` | const |
-| `const libp2p.SeqnoStorePrefix untyped string` | `go.ipfs.kubo.core.node.libp2p.seqnoStorePrefix` | const |
+| `const libp2p.NetLimitTraceFilename untyped string` | `go.ipfs.kubo.core.node.libp2p.consts.netLimitTraceFilename` | const |
+| `const libp2p.SeqnoStorePrefix untyped string` | `go.ipfs.kubo.core.node.libp2p.consts.seqnoStorePrefix` | const |
 
 Omitted:
 
@@ -2580,7 +2580,7 @@ Omitted:
 | `func fsrepo.Open(repoPath string) (repo.Repo, error)` | `go.ipfs.kubo.repo.fsrepo.open` | sync |
 | `func fsrepo.OpenWithUserConfig(repoPath string, userConfigFilePath string) (repo.Repo, error)` | `go.ipfs.kubo.repo.fsrepo.openWithUserConfig` | sync |
 | `var fsrepo.RepoVersion int` | `go.ipfs.kubo.repo.fsrepo.repoVersion` | sync |
-| `const fsrepo.LockFile untyped string` | `go.ipfs.kubo.repo.fsrepo.lockFile` | const |
+| `const fsrepo.LockFile untyped string` | `go.ipfs.kubo.repo.fsrepo.consts.lockFile` | const |
 
 Omitted:
 
@@ -2639,12 +2639,12 @@ Omitted:
 | `func car.WrapV1File(srcPath string, dstPath string) error` | `go.ipld.car.v2.wrapV1File` | sync |
 | `car.Writer → x.(*bytes.Buffer)` | `CarV2Writer.asBytesBuffer` | cast |
 | `car.Writer → x.(*os.File)` | `CarV2Writer.asOsFile` | cast |
-| `const car.CharacteristicsSize untyped int` | `go.ipld.car.v2.characteristicsSize` | const |
-| `const car.DefaultMaxAllowedHeaderSize uint64` | `go.ipld.car.v2.defaultMaxAllowedHeaderSize` | const |
-| `const car.DefaultMaxAllowedSectionSize uint64` | `go.ipld.car.v2.defaultMaxAllowedSectionSize` | const |
-| `const car.DefaultMaxIndexCidSize untyped int` | `go.ipld.car.v2.defaultMaxIndexCidSize` | const |
-| `const car.HeaderSize untyped int` | `go.ipld.car.v2.headerSize` | const |
-| `const car.PragmaSize untyped int` | `go.ipld.car.v2.pragmaSize` | const |
+| `const car.CharacteristicsSize untyped int` | `go.ipld.car.v2.consts.characteristicsSize` | const |
+| `const car.DefaultMaxAllowedHeaderSize uint64` | `go.ipld.car.v2.consts.defaultMaxAllowedHeaderSize` | const |
+| `const car.DefaultMaxAllowedSectionSize uint64` | `go.ipld.car.v2.consts.defaultMaxAllowedSectionSize` | const |
+| `const car.DefaultMaxIndexCidSize untyped int` | `go.ipld.car.v2.consts.defaultMaxIndexCidSize` | const |
+| `const car.HeaderSize untyped int` | `go.ipld.car.v2.consts.headerSize` | const |
+| `const car.PragmaSize untyped int` | `go.ipld.car.v2.consts.pragmaSize` | const |
 
 Omitted:
 
@@ -2746,7 +2746,7 @@ Omitted:
 | `index.Index → x.(*index.InsertionIndex)` | `CarV2Index.asCarV2IndexInsertionIndex` | cast |
 | `index.Index → x.(index.IterableIndex)` | `CarV2Index.asCarV2IndexIterableIndex` | cast |
 | `index.IterableIndex → x.(*index.InsertionIndex)` | `CarV2IndexIterableIndex.asCarV2IndexInsertionIndex` | cast |
-| `const index.CarIndexNone untyped int` | `go.ipld.car.v2.index.carIndexNone` | const |
+| `const index.CarIndexNone untyped int` | `go.ipld.car.v2.index.consts.carIndexNone` | const |
 
 Omitted:
 
@@ -2905,16 +2905,16 @@ Omitted:
 | `datamodel.Node → x.(datamodel.UintNode)` | `IpldPrimeDatamodelNode.asIpldPrimeDatamodelUintNode` | cast |
 | `datamodel.NodeAssembler → x.(datamodel.NodeBuilder)` | `IpldPrimeDatamodelNodeAssembler.asIpldPrimeDatamodelNodeBuilder` | cast |
 | `datamodel.NodePrototype → x.(*basicnode.Prototype__Any)` | `IpldPrimeDatamodelNodePrototype.asIpldPrimeNodeBasicnodePrototypeAny` | cast |
-| `const datamodel.Kind_Bool datamodel.Kind` | `go.ipld.ipldPrime.datamodel.kindBool` | const |
-| `const datamodel.Kind_Bytes datamodel.Kind` | `go.ipld.ipldPrime.datamodel.kindBytes` | const |
-| `const datamodel.Kind_Float datamodel.Kind` | `go.ipld.ipldPrime.datamodel.kindFloat` | const |
-| `const datamodel.Kind_Int datamodel.Kind` | `go.ipld.ipldPrime.datamodel.kindInt` | const |
-| `const datamodel.Kind_Invalid datamodel.Kind` | `go.ipld.ipldPrime.datamodel.kindInvalid` | const |
-| `const datamodel.Kind_Link datamodel.Kind` | `go.ipld.ipldPrime.datamodel.kindLink` | const |
-| `const datamodel.Kind_List datamodel.Kind` | `go.ipld.ipldPrime.datamodel.kindList` | const |
-| `const datamodel.Kind_Map datamodel.Kind` | `go.ipld.ipldPrime.datamodel.kindMap` | const |
-| `const datamodel.Kind_Null datamodel.Kind` | `go.ipld.ipldPrime.datamodel.kindNull` | const |
-| `const datamodel.Kind_String datamodel.Kind` | `go.ipld.ipldPrime.datamodel.kindString` | const |
+| `const datamodel.Kind_Bool datamodel.Kind` | `go.ipld.ipldPrime.datamodel.enums.kindBool` | const |
+| `const datamodel.Kind_Bytes datamodel.Kind` | `go.ipld.ipldPrime.datamodel.enums.kindBytes` | const |
+| `const datamodel.Kind_Float datamodel.Kind` | `go.ipld.ipldPrime.datamodel.enums.kindFloat` | const |
+| `const datamodel.Kind_Int datamodel.Kind` | `go.ipld.ipldPrime.datamodel.enums.kindInt` | const |
+| `const datamodel.Kind_Invalid datamodel.Kind` | `go.ipld.ipldPrime.datamodel.enums.kindInvalid` | const |
+| `const datamodel.Kind_Link datamodel.Kind` | `go.ipld.ipldPrime.datamodel.enums.kindLink` | const |
+| `const datamodel.Kind_List datamodel.Kind` | `go.ipld.ipldPrime.datamodel.enums.kindList` | const |
+| `const datamodel.Kind_Map datamodel.Kind` | `go.ipld.ipldPrime.datamodel.enums.kindMap` | const |
+| `const datamodel.Kind_Null datamodel.Kind` | `go.ipld.ipldPrime.datamodel.enums.kindNull` | const |
+| `const datamodel.Kind_String datamodel.Kind` | `go.ipld.ipldPrime.datamodel.enums.kindString` | const |
 
 Omitted:
 
@@ -3050,9 +3050,9 @@ Omitted:
 | `func traversal.WalkLocal(n datamodel.Node, fn traversal.VisitFn) error` | `go.ipld.ipldPrime.traversal.walkLocal` | Future |
 | `func traversal.WalkMatching(n datamodel.Node, s selector.Selector, fn traversal.VisitFn) error` | `go.ipld.ipldPrime.traversal.walkMatching` | Future |
 | `func traversal.WalkTransforming(n datamodel.Node, s selector.Selector, fn traversal.TransformFn) (datamodel.Node, error)` | `go.ipld.ipldPrime.traversal.walkTransforming` | sync |
-| `const traversal.VisitReason_SelectionCandidate traversal.VisitReason` | `go.ipld.ipldPrime.traversal.visitReasonSelectionCandidate` | const |
-| `const traversal.VisitReason_SelectionMatch traversal.VisitReason` | `go.ipld.ipldPrime.traversal.visitReasonSelectionMatch` | const |
-| `const traversal.VisitReason_SelectionParent traversal.VisitReason` | `go.ipld.ipldPrime.traversal.visitReasonSelectionParent` | const |
+| `const traversal.VisitReason_SelectionCandidate traversal.VisitReason` | `go.ipld.ipldPrime.traversal.enums.visitReasonSelectionCandidate` | const |
+| `const traversal.VisitReason_SelectionMatch traversal.VisitReason` | `go.ipld.ipldPrime.traversal.enums.visitReasonSelectionMatch` | const |
+| `const traversal.VisitReason_SelectionParent traversal.VisitReason` | `go.ipld.ipldPrime.traversal.enums.visitReasonSelectionParent` | const |
 
 ## `github.com/ipld/go-ipld-prime/traversal/selector` → `go.ipld.ipldPrime.traversal.selector` (`lib/go/ipld/ipld_prime/traversal/selector.dart`)
 
@@ -3129,32 +3129,32 @@ Omitted:
 | `selector.Selector → x.(*selector.ExploreInterpretAs)` | `IpldPrimeTraversalSelector.asIpldPrimeTraversalSelectorExploreInterpretAs` | cast |
 | `selector.Selector → x.(*selector.ExploreRange)` | `IpldPrimeTraversalSelector.asIpldPrimeTraversalSelectorExploreRange` | cast |
 | `selector.Selector → x.(*selector.ExploreRecursive)` | `IpldPrimeTraversalSelector.asIpldPrimeTraversalSelectorExploreRecursive` | cast |
-| `const selector.ConditionMode_Link selector.ConditionMode` | `go.ipld.ipldPrime.traversal.selector.conditionModeLink` | const |
-| `const selector.SelectorKey_As untyped string` | `go.ipld.ipldPrime.traversal.selector.selectorKeyAs` | const |
-| `const selector.SelectorKey_Condition untyped string` | `go.ipld.ipldPrime.traversal.selector.selectorKeyCondition` | const |
-| `const selector.SelectorKey_End untyped string` | `go.ipld.ipldPrime.traversal.selector.selectorKeyEnd` | const |
-| `const selector.SelectorKey_ExploreAll untyped string` | `go.ipld.ipldPrime.traversal.selector.selectorKeyExploreAll` | const |
-| `const selector.SelectorKey_ExploreConditional untyped string` | `go.ipld.ipldPrime.traversal.selector.selectorKeyExploreConditional` | const |
-| `const selector.SelectorKey_ExploreFields untyped string` | `go.ipld.ipldPrime.traversal.selector.selectorKeyExploreFields` | const |
-| `const selector.SelectorKey_ExploreIndex untyped string` | `go.ipld.ipldPrime.traversal.selector.selectorKeyExploreIndex` | const |
-| `const selector.SelectorKey_ExploreInterpretAs untyped string` | `go.ipld.ipldPrime.traversal.selector.selectorKeyExploreInterpretAs` | const |
-| `const selector.SelectorKey_ExploreRange untyped string` | `go.ipld.ipldPrime.traversal.selector.selectorKeyExploreRange` | const |
-| `const selector.SelectorKey_ExploreRecursive untyped string` | `go.ipld.ipldPrime.traversal.selector.selectorKeyExploreRecursive` | const |
-| `const selector.SelectorKey_ExploreRecursiveEdge untyped string` | `go.ipld.ipldPrime.traversal.selector.selectorKeyExploreRecursiveEdge` | const |
-| `const selector.SelectorKey_ExploreUnion untyped string` | `go.ipld.ipldPrime.traversal.selector.selectorKeyExploreUnion` | const |
-| `const selector.SelectorKey_Fields untyped string` | `go.ipld.ipldPrime.traversal.selector.selectorKeyFields` | const |
-| `const selector.SelectorKey_From untyped string` | `go.ipld.ipldPrime.traversal.selector.selectorKeyFrom` | const |
-| `const selector.SelectorKey_Index untyped string` | `go.ipld.ipldPrime.traversal.selector.selectorKeyIndex` | const |
-| `const selector.SelectorKey_Limit untyped string` | `go.ipld.ipldPrime.traversal.selector.selectorKeyLimit` | const |
-| `const selector.SelectorKey_LimitDepth untyped string` | `go.ipld.ipldPrime.traversal.selector.selectorKeyLimitDepth` | const |
-| `const selector.SelectorKey_LimitNone untyped string` | `go.ipld.ipldPrime.traversal.selector.selectorKeyLimitNone` | const |
-| `const selector.SelectorKey_Matcher untyped string` | `go.ipld.ipldPrime.traversal.selector.selectorKeyMatcher` | const |
-| `const selector.SelectorKey_Next untyped string` | `go.ipld.ipldPrime.traversal.selector.selectorKeyNext` | const |
-| `const selector.SelectorKey_Sequence untyped string` | `go.ipld.ipldPrime.traversal.selector.selectorKeySequence` | const |
-| `const selector.SelectorKey_Start untyped string` | `go.ipld.ipldPrime.traversal.selector.selectorKeyStart` | const |
-| `const selector.SelectorKey_StopAt untyped string` | `go.ipld.ipldPrime.traversal.selector.selectorKeyStopAt` | const |
-| `const selector.SelectorKey_Subset untyped string` | `go.ipld.ipldPrime.traversal.selector.selectorKeySubset` | const |
-| `const selector.SelectorKey_To untyped string` | `go.ipld.ipldPrime.traversal.selector.selectorKeyTo` | const |
+| `const selector.ConditionMode_Link selector.ConditionMode` | `go.ipld.ipldPrime.traversal.selector.enums.conditionModeLink` | const |
+| `const selector.SelectorKey_As untyped string` | `go.ipld.ipldPrime.traversal.selector.consts.selectorKeyAs` | const |
+| `const selector.SelectorKey_Condition untyped string` | `go.ipld.ipldPrime.traversal.selector.consts.selectorKeyCondition` | const |
+| `const selector.SelectorKey_End untyped string` | `go.ipld.ipldPrime.traversal.selector.consts.selectorKeyEnd` | const |
+| `const selector.SelectorKey_ExploreAll untyped string` | `go.ipld.ipldPrime.traversal.selector.consts.selectorKeyExploreAll` | const |
+| `const selector.SelectorKey_ExploreConditional untyped string` | `go.ipld.ipldPrime.traversal.selector.consts.selectorKeyExploreConditional` | const |
+| `const selector.SelectorKey_ExploreFields untyped string` | `go.ipld.ipldPrime.traversal.selector.consts.selectorKeyExploreFields` | const |
+| `const selector.SelectorKey_ExploreIndex untyped string` | `go.ipld.ipldPrime.traversal.selector.consts.selectorKeyExploreIndex` | const |
+| `const selector.SelectorKey_ExploreInterpretAs untyped string` | `go.ipld.ipldPrime.traversal.selector.consts.selectorKeyExploreInterpretAs` | const |
+| `const selector.SelectorKey_ExploreRange untyped string` | `go.ipld.ipldPrime.traversal.selector.consts.selectorKeyExploreRange` | const |
+| `const selector.SelectorKey_ExploreRecursive untyped string` | `go.ipld.ipldPrime.traversal.selector.consts.selectorKeyExploreRecursive` | const |
+| `const selector.SelectorKey_ExploreRecursiveEdge untyped string` | `go.ipld.ipldPrime.traversal.selector.consts.selectorKeyExploreRecursiveEdge` | const |
+| `const selector.SelectorKey_ExploreUnion untyped string` | `go.ipld.ipldPrime.traversal.selector.consts.selectorKeyExploreUnion` | const |
+| `const selector.SelectorKey_Fields untyped string` | `go.ipld.ipldPrime.traversal.selector.consts.selectorKeyFields` | const |
+| `const selector.SelectorKey_From untyped string` | `go.ipld.ipldPrime.traversal.selector.consts.selectorKeyFrom` | const |
+| `const selector.SelectorKey_Index untyped string` | `go.ipld.ipldPrime.traversal.selector.consts.selectorKeyIndex` | const |
+| `const selector.SelectorKey_Limit untyped string` | `go.ipld.ipldPrime.traversal.selector.consts.selectorKeyLimit` | const |
+| `const selector.SelectorKey_LimitDepth untyped string` | `go.ipld.ipldPrime.traversal.selector.consts.selectorKeyLimitDepth` | const |
+| `const selector.SelectorKey_LimitNone untyped string` | `go.ipld.ipldPrime.traversal.selector.consts.selectorKeyLimitNone` | const |
+| `const selector.SelectorKey_Matcher untyped string` | `go.ipld.ipldPrime.traversal.selector.consts.selectorKeyMatcher` | const |
+| `const selector.SelectorKey_Next untyped string` | `go.ipld.ipldPrime.traversal.selector.consts.selectorKeyNext` | const |
+| `const selector.SelectorKey_Sequence untyped string` | `go.ipld.ipldPrime.traversal.selector.consts.selectorKeySequence` | const |
+| `const selector.SelectorKey_Start untyped string` | `go.ipld.ipldPrime.traversal.selector.consts.selectorKeyStart` | const |
+| `const selector.SelectorKey_StopAt untyped string` | `go.ipld.ipldPrime.traversal.selector.consts.selectorKeyStopAt` | const |
+| `const selector.SelectorKey_Subset untyped string` | `go.ipld.ipldPrime.traversal.selector.consts.selectorKeySubset` | const |
+| `const selector.SelectorKey_To untyped string` | `go.ipld.ipldPrime.traversal.selector.consts.selectorKeyTo` | const |
 
 Omitted:
 
@@ -3196,14 +3196,14 @@ Omitted:
 
 | Go | Dart | Mode |
 |---|---|---|
-| `const client.DefaultCAEndpoint untyped string` | `go.ipshipyard.p2pForge.client.defaultCaEndpoint` | const |
-| `const client.DefaultCATestEndpoint untyped string` | `go.ipshipyard.p2pForge.client.defaultCaTestEndpoint` | const |
-| `const client.DefaultForgeDomain untyped string` | `go.ipshipyard.p2pForge.client.defaultForgeDomain` | const |
-| `const client.DefaultForgeEndpoint untyped string` | `go.ipshipyard.p2pForge.client.defaultForgeEndpoint` | const |
-| `const client.DefaultStorageLocation untyped string` | `go.ipshipyard.p2pForge.client.defaultStorageLocation` | const |
-| `const client.ForgeAuthEnv untyped string` | `go.ipshipyard.p2pForge.client.forgeAuthEnv` | const |
-| `const client.ForgeAuthHeader untyped string` | `go.ipshipyard.p2pForge.client.forgeAuthHeader` | const |
-| `const client.HealthCheckPath untyped string` | `go.ipshipyard.p2pForge.client.healthCheckPath` | const |
+| `const client.DefaultCAEndpoint untyped string` | `go.ipshipyard.p2pForge.client.consts.defaultCaEndpoint` | const |
+| `const client.DefaultCATestEndpoint untyped string` | `go.ipshipyard.p2pForge.client.consts.defaultCaTestEndpoint` | const |
+| `const client.DefaultForgeDomain untyped string` | `go.ipshipyard.p2pForge.client.consts.defaultForgeDomain` | const |
+| `const client.DefaultForgeEndpoint untyped string` | `go.ipshipyard.p2pForge.client.consts.defaultForgeEndpoint` | const |
+| `const client.DefaultStorageLocation untyped string` | `go.ipshipyard.p2pForge.client.consts.defaultStorageLocation` | const |
+| `const client.ForgeAuthEnv untyped string` | `go.ipshipyard.p2pForge.client.consts.forgeAuthEnv` | const |
+| `const client.ForgeAuthHeader untyped string` | `go.ipshipyard.p2pForge.client.consts.forgeAuthHeader` | const |
+| `const client.HealthCheckPath untyped string` | `go.ipshipyard.p2pForge.client.consts.healthCheckPath` | const |
 
 ## `github.com/libp2p/go-libp2p` → `go.libp2p.libp2p` (`lib/go/libp2p/libp2p.dart`)
 
@@ -3324,15 +3324,15 @@ Omitted:
 | `func dht.PublicQueryFilter(_ any, ai peer.AddrInfo) bool` | `go.libp2p.libp2pKadDht.publicQueryFilter` | sync |
 | `func dht.PublicRoutingTableFilter(dht any, p peer.ID) bool` | `go.libp2p.libp2pKadDht.publicRoutingTableFilter` | sync |
 | `func dht.PublishLookupEvent(ctx context.Context, ev *dht.LookupEvent)` | `go.libp2p.libp2pKadDht.publishLookupEvent` | Future |
-| `const dht.DefaultPrefix protocol.ID` | `go.libp2p.libp2pKadDht.defaultPrefix` | const |
-| `const dht.LookupCancelled dht.LookupTerminationReason` | `go.libp2p.libp2pKadDht.lookupCancelled` | const |
-| `const dht.LookupCompleted dht.LookupTerminationReason` | `go.libp2p.libp2pKadDht.lookupCompleted` | const |
-| `const dht.LookupStarvation dht.LookupTerminationReason` | `go.libp2p.libp2pKadDht.lookupStarvation` | const |
-| `const dht.LookupStopped dht.LookupTerminationReason` | `go.libp2p.libp2pKadDht.lookupStopped` | const |
-| `const dht.ModeAuto dht.ModeOpt` | `go.libp2p.libp2pKadDht.modeAuto` | const |
-| `const dht.ModeAutoServer dht.ModeOpt` | `go.libp2p.libp2pKadDht.modeAutoServer` | const |
-| `const dht.ModeClient dht.ModeOpt` | `go.libp2p.libp2pKadDht.modeClient` | const |
-| `const dht.ModeServer dht.ModeOpt` | `go.libp2p.libp2pKadDht.modeServer` | const |
+| `const dht.DefaultPrefix protocol.ID` | `go.libp2p.libp2pKadDht.enums.defaultPrefix` | const |
+| `const dht.LookupCancelled dht.LookupTerminationReason` | `go.libp2p.libp2pKadDht.enums.lookupCancelled` | const |
+| `const dht.LookupCompleted dht.LookupTerminationReason` | `go.libp2p.libp2pKadDht.enums.lookupCompleted` | const |
+| `const dht.LookupStarvation dht.LookupTerminationReason` | `go.libp2p.libp2pKadDht.enums.lookupStarvation` | const |
+| `const dht.LookupStopped dht.LookupTerminationReason` | `go.libp2p.libp2pKadDht.enums.lookupStopped` | const |
+| `const dht.ModeAuto dht.ModeOpt` | `go.libp2p.libp2pKadDht.enums.modeAuto` | const |
+| `const dht.ModeAutoServer dht.ModeOpt` | `go.libp2p.libp2pKadDht.enums.modeAutoServer` | const |
+| `const dht.ModeClient dht.ModeOpt` | `go.libp2p.libp2pKadDht.enums.modeClient` | const |
+| `const dht.ModeServer dht.ModeOpt` | `go.libp2p.libp2pKadDht.enums.modeServer` | const |
 
 Omitted:
 
@@ -3430,17 +3430,17 @@ Omitted:
 | `func (*dht_pb.ProtocolMessenger).PutValue(ctx context.Context, p peer.ID, rec *pb.Record) (err error)` | `Libp2pKadDhtPbProtocolMessenger.putValue` | Future |
 | `func dht_pb.RawPeerInfosToPBPeers(peers []peer.AddrInfo) []*dht_pb.Message_Peer` | `go.libp2p.libp2pKadDht.pb.rawPeerInfosToPbPeers` | sync |
 | `dht_pb.MessageSender → x.(dht_pb.MessageSenderWithDisconnect)` | `Libp2pKadDhtPbMessageSender.asLibp2pKadDhtPbMessageSenderWithDisconnect` | cast |
-| `const dht_pb.MaxPeerRecordSize untyped int` | `go.libp2p.libp2pKadDht.pb.maxPeerRecordSize` | const |
-| `const dht_pb.Message_ADD_PROVIDER dht_pb.Message_MessageType` | `go.libp2p.libp2pKadDht.pb.messageAddProvider` | const |
-| `const dht_pb.Message_CANNOT_CONNECT dht_pb.Message_ConnectionType` | `go.libp2p.libp2pKadDht.pb.messageCannotConnect` | const |
-| `const dht_pb.Message_CAN_CONNECT dht_pb.Message_ConnectionType` | `go.libp2p.libp2pKadDht.pb.messageCanConnect` | const |
-| `const dht_pb.Message_CONNECTED dht_pb.Message_ConnectionType` | `go.libp2p.libp2pKadDht.pb.messageConnected` | const |
-| `const dht_pb.Message_FIND_NODE dht_pb.Message_MessageType` | `go.libp2p.libp2pKadDht.pb.messageFindNode` | const |
-| `const dht_pb.Message_GET_PROVIDERS dht_pb.Message_MessageType` | `go.libp2p.libp2pKadDht.pb.messageGetProviders` | const |
-| `const dht_pb.Message_GET_VALUE dht_pb.Message_MessageType` | `go.libp2p.libp2pKadDht.pb.messageGetValue` | const |
-| `const dht_pb.Message_NOT_CONNECTED dht_pb.Message_ConnectionType` | `go.libp2p.libp2pKadDht.pb.messageNotConnected` | const |
-| `const dht_pb.Message_PING dht_pb.Message_MessageType` | `go.libp2p.libp2pKadDht.pb.messagePing` | const |
-| `const dht_pb.Message_PUT_VALUE dht_pb.Message_MessageType` | `go.libp2p.libp2pKadDht.pb.messagePutValue` | const |
+| `const dht_pb.MaxPeerRecordSize untyped int` | `go.libp2p.libp2pKadDht.pb.consts.maxPeerRecordSize` | const |
+| `const dht_pb.Message_ADD_PROVIDER dht_pb.Message_MessageType` | `go.libp2p.libp2pKadDht.pb.enums.messageAddProvider` | const |
+| `const dht_pb.Message_CANNOT_CONNECT dht_pb.Message_ConnectionType` | `go.libp2p.libp2pKadDht.pb.enums.messageCannotConnect` | const |
+| `const dht_pb.Message_CAN_CONNECT dht_pb.Message_ConnectionType` | `go.libp2p.libp2pKadDht.pb.enums.messageCanConnect` | const |
+| `const dht_pb.Message_CONNECTED dht_pb.Message_ConnectionType` | `go.libp2p.libp2pKadDht.pb.enums.messageConnected` | const |
+| `const dht_pb.Message_FIND_NODE dht_pb.Message_MessageType` | `go.libp2p.libp2pKadDht.pb.enums.messageFindNode` | const |
+| `const dht_pb.Message_GET_PROVIDERS dht_pb.Message_MessageType` | `go.libp2p.libp2pKadDht.pb.enums.messageGetProviders` | const |
+| `const dht_pb.Message_GET_VALUE dht_pb.Message_MessageType` | `go.libp2p.libp2pKadDht.pb.enums.messageGetValue` | const |
+| `const dht_pb.Message_NOT_CONNECTED dht_pb.Message_ConnectionType` | `go.libp2p.libp2pKadDht.pb.enums.messageNotConnected` | const |
+| `const dht_pb.Message_PING dht_pb.Message_MessageType` | `go.libp2p.libp2pKadDht.pb.enums.messagePing` | const |
+| `const dht_pb.Message_PUT_VALUE dht_pb.Message_MessageType` | `go.libp2p.libp2pKadDht.pb.enums.messagePutValue` | const |
 
 Omitted:
 
@@ -3473,7 +3473,7 @@ Omitted:
 | `func (*records.ValueStore).Put(ctx context.Context, key string, rec *pb.Record) error` | `Libp2pKadDhtRecordsValueStore.put` | Future |
 | `func (*records.ValueStore).StartGC(ctx context.Context, interval time.Duration)` | `Libp2pKadDhtRecordsValueStore.startGc` | Future |
 | `records.ProviderStore → x.(*records.ProviderManager)` | `Libp2pKadDhtRecordsProviderStore.asLibp2pKadDhtRecordsProviderManager` | cast |
-| `const records.ProvidersKeyPrefix untyped string` | `go.libp2p.libp2pKadDht.records.providersKeyPrefix` | const |
+| `const records.ProvidersKeyPrefix untyped string` | `go.libp2p.libp2pKadDht.records.consts.providersKeyPrefix` | const |
 
 Omitted:
 
@@ -3514,7 +3514,7 @@ Omitted:
 | `func (*kbucket.RoutingTable).UsefulNewPeer(p peer.ID) bool` | `Libp2pKbucketRoutingTable.usefulNewPeer` | sync |
 | `func kbucket.SortClosestPeers(peers []peer.ID, target kbucket.ID) []peer.ID` | `go.libp2p.libp2pKbucket.sortClosestPeers` | sync |
 | `func kbucket.Xor(a kbucket.ID, b kbucket.ID) kbucket.ID` | `go.libp2p.libp2pKbucket.xor` | sync |
-| `const kbucket.PeerIDPreimageMaxCpl uint` | `go.libp2p.libp2pKbucket.peerIdPreimageMaxCpl` | const |
+| `const kbucket.PeerIDPreimageMaxCpl uint` | `go.libp2p.libp2pKbucket.consts.peerIdPreimageMaxCpl` | const |
 
 ## `github.com/libp2p/go-libp2p-pubsub` → `go.libp2p.libp2pPubsub` (`lib/go/libp2p/libp2p_pubsub.dart`)
 
@@ -3735,55 +3735,55 @@ Omitted:
 | `pubsub.PubSubRouter → x.(*pubsub.GossipSubRouter)` | `Libp2pPubsubPubSubRouter.asLibp2pPubsubGossipSubRouter` | cast |
 | `pubsub.PubSubRouter → x.(*pubsub.RandomSubRouter)` | `Libp2pPubsubPubSubRouter.asLibp2pPubsubRandomSubRouter` | cast |
 | `pubsub.RPCScheduler → x.(*pubsub.RoundRobinMessageIDScheduler)` | `Libp2pPubsubRpcScheduler.asLibp2pPubsubRoundRobinMessageIdScheduler` | cast |
-| `const pubsub.AcceptAll pubsub.AcceptStatus` | `go.libp2p.libp2pPubsub.acceptAll` | const |
-| `const pubsub.AcceptControl pubsub.AcceptStatus` | `go.libp2p.libp2pPubsub.acceptControl` | const |
-| `const pubsub.AcceptNone pubsub.AcceptStatus` | `go.libp2p.libp2pPubsub.acceptNone` | const |
-| `const pubsub.BackoffCleanupInterval time.Duration` | `go.libp2p.libp2pPubsub.backoffCleanupInterval` | const |
-| `const pubsub.BackoffMultiplier untyped int` | `go.libp2p.libp2pPubsub.backoffMultiplier` | const |
-| `const pubsub.DefaultDecayInterval time.Duration` | `go.libp2p.libp2pPubsub.defaultDecayInterval` | const |
-| `const pubsub.DefaultDecayToZero untyped float` | `go.libp2p.libp2pPubsub.defaultDecayToZero` | const |
-| `const pubsub.DefaultMaxControlMessageSize untyped int` | `go.libp2p.libp2pPubsub.defaultMaxControlMessageSize` | const |
-| `const pubsub.DefaultMaxMessageSize untyped int` | `go.libp2p.libp2pPubsub.defaultMaxMessageSize` | const |
-| `const pubsub.FloodSubID protocol.ID` | `go.libp2p.libp2pPubsub.floodSubId` | const |
-| `const pubsub.FloodSubTopicSearchSize untyped int` | `go.libp2p.libp2pPubsub.floodSubTopicSearchSize` | const |
-| `const pubsub.GossipSubFeatureExtensions untyped int` | `go.libp2p.libp2pPubsub.gossipSubFeatureExtensions` | const |
-| `const pubsub.GossipSubFeatureIdontwant untyped int` | `go.libp2p.libp2pPubsub.gossipSubFeatureIdontwant` | const |
-| `const pubsub.GossipSubFeatureMesh untyped int` | `go.libp2p.libp2pPubsub.gossipSubFeatureMesh` | const |
-| `const pubsub.GossipSubFeaturePX untyped int` | `go.libp2p.libp2pPubsub.gossipSubFeaturePx` | const |
-| `const pubsub.GossipSubID_v10 protocol.ID` | `go.libp2p.libp2pPubsub.gossipSubIdV10` | const |
-| `const pubsub.GossipSubID_v11 protocol.ID` | `go.libp2p.libp2pPubsub.gossipSubIdV11` | const |
-| `const pubsub.GossipSubID_v12 protocol.ID` | `go.libp2p.libp2pPubsub.gossipSubIdV12` | const |
-| `const pubsub.GossipSubID_v13 protocol.ID` | `go.libp2p.libp2pPubsub.gossipSubIdV13` | const |
-| `const pubsub.LaxNoSign untyped int` | `go.libp2p.libp2pPubsub.laxNoSign` | const |
-| `const pubsub.LaxSign pubsub.MessageSignaturePolicy` | `go.libp2p.libp2pPubsub.laxSign` | const |
-| `const pubsub.MaxBackoffAttempts untyped int` | `go.libp2p.libp2pPubsub.maxBackoffAttempts` | const |
-| `const pubsub.MaxBackoffDelay time.Duration` | `go.libp2p.libp2pPubsub.maxBackoffDelay` | const |
-| `const pubsub.MaxBackoffJitterCoff untyped int` | `go.libp2p.libp2pPubsub.maxBackoffJitterCoff` | const |
-| `const pubsub.MinBackoffDelay time.Duration` | `go.libp2p.libp2pPubsub.minBackoffDelay` | const |
-| `const pubsub.PeerFeedbackInvalidMessage pubsub.PeerFeedbackKind` | `go.libp2p.libp2pPubsub.peerFeedbackInvalidMessage` | const |
-| `const pubsub.PeerFeedbackUsefulMessage pubsub.PeerFeedbackKind` | `go.libp2p.libp2pPubsub.peerFeedbackUsefulMessage` | const |
-| `const pubsub.PeerJoin pubsub.EventType` | `go.libp2p.libp2pPubsub.peerJoin` | const |
-| `const pubsub.PeerLeave pubsub.EventType` | `go.libp2p.libp2pPubsub.peerLeave` | const |
-| `const pubsub.RandomSubID protocol.ID` | `go.libp2p.libp2pPubsub.randomSubId` | const |
-| `const pubsub.RejectBlacklistedSource untyped string` | `go.libp2p.libp2pPubsub.rejectBlacklistedSource` | const |
-| `const pubsub.RejectBlacklstedPeer untyped string` | `go.libp2p.libp2pPubsub.rejectBlacklstedPeer` | const |
-| `const pubsub.RejectInvalidSignature untyped string` | `go.libp2p.libp2pPubsub.rejectInvalidSignature` | const |
-| `const pubsub.RejectMissingSignature untyped string` | `go.libp2p.libp2pPubsub.rejectMissingSignature` | const |
-| `const pubsub.RejectSelfOrigin untyped string` | `go.libp2p.libp2pPubsub.rejectSelfOrigin` | const |
-| `const pubsub.RejectUnexpectedAuthInfo untyped string` | `go.libp2p.libp2pPubsub.rejectUnexpectedAuthInfo` | const |
-| `const pubsub.RejectUnexpectedSignature untyped string` | `go.libp2p.libp2pPubsub.rejectUnexpectedSignature` | const |
-| `const pubsub.RejectValidationFailed untyped string` | `go.libp2p.libp2pPubsub.rejectValidationFailed` | const |
-| `const pubsub.RejectValidationIgnored untyped string` | `go.libp2p.libp2pPubsub.rejectValidationIgnored` | const |
-| `const pubsub.RejectValidationQueueFull untyped string` | `go.libp2p.libp2pPubsub.rejectValidationQueueFull` | const |
-| `const pubsub.RejectValidationThrottled untyped string` | `go.libp2p.libp2pPubsub.rejectValidationThrottled` | const |
-| `const pubsub.RemoteTracerProtoID protocol.ID` | `go.libp2p.libp2pPubsub.remoteTracerProtoId` | const |
-| `const pubsub.SignPrefix untyped string` | `go.libp2p.libp2pPubsub.signPrefix` | const |
-| `const pubsub.StrictNoSign pubsub.MessageSignaturePolicy` | `go.libp2p.libp2pPubsub.strictNoSign` | const |
-| `const pubsub.StrictSign pubsub.MessageSignaturePolicy` | `go.libp2p.libp2pPubsub.strictSign` | const |
-| `const pubsub.TimeToLive time.Duration` | `go.libp2p.libp2pPubsub.timeToLive` | const |
-| `const pubsub.ValidationAccept pubsub.ValidationResult` | `go.libp2p.libp2pPubsub.validationAccept` | const |
-| `const pubsub.ValidationIgnore pubsub.ValidationResult` | `go.libp2p.libp2pPubsub.validationIgnore` | const |
-| `const pubsub.ValidationReject pubsub.ValidationResult` | `go.libp2p.libp2pPubsub.validationReject` | const |
+| `const pubsub.AcceptAll pubsub.AcceptStatus` | `go.libp2p.libp2pPubsub.enums.acceptAll` | const |
+| `const pubsub.AcceptControl pubsub.AcceptStatus` | `go.libp2p.libp2pPubsub.enums.acceptControl` | const |
+| `const pubsub.AcceptNone pubsub.AcceptStatus` | `go.libp2p.libp2pPubsub.enums.acceptNone` | const |
+| `const pubsub.BackoffCleanupInterval time.Duration` | `go.libp2p.libp2pPubsub.enums.backoffCleanupInterval` | const |
+| `const pubsub.BackoffMultiplier untyped int` | `go.libp2p.libp2pPubsub.consts.backoffMultiplier` | const |
+| `const pubsub.DefaultDecayInterval time.Duration` | `go.libp2p.libp2pPubsub.enums.defaultDecayInterval` | const |
+| `const pubsub.DefaultDecayToZero untyped float` | `go.libp2p.libp2pPubsub.consts.defaultDecayToZero` | const |
+| `const pubsub.DefaultMaxControlMessageSize untyped int` | `go.libp2p.libp2pPubsub.consts.defaultMaxControlMessageSize` | const |
+| `const pubsub.DefaultMaxMessageSize untyped int` | `go.libp2p.libp2pPubsub.consts.defaultMaxMessageSize` | const |
+| `const pubsub.FloodSubID protocol.ID` | `go.libp2p.libp2pPubsub.enums.floodSubId` | const |
+| `const pubsub.FloodSubTopicSearchSize untyped int` | `go.libp2p.libp2pPubsub.consts.floodSubTopicSearchSize` | const |
+| `const pubsub.GossipSubFeatureExtensions untyped int` | `go.libp2p.libp2pPubsub.consts.gossipSubFeatureExtensions` | const |
+| `const pubsub.GossipSubFeatureIdontwant untyped int` | `go.libp2p.libp2pPubsub.consts.gossipSubFeatureIdontwant` | const |
+| `const pubsub.GossipSubFeatureMesh untyped int` | `go.libp2p.libp2pPubsub.consts.gossipSubFeatureMesh` | const |
+| `const pubsub.GossipSubFeaturePX untyped int` | `go.libp2p.libp2pPubsub.consts.gossipSubFeaturePx` | const |
+| `const pubsub.GossipSubID_v10 protocol.ID` | `go.libp2p.libp2pPubsub.enums.gossipSubIdV10` | const |
+| `const pubsub.GossipSubID_v11 protocol.ID` | `go.libp2p.libp2pPubsub.enums.gossipSubIdV11` | const |
+| `const pubsub.GossipSubID_v12 protocol.ID` | `go.libp2p.libp2pPubsub.enums.gossipSubIdV12` | const |
+| `const pubsub.GossipSubID_v13 protocol.ID` | `go.libp2p.libp2pPubsub.enums.gossipSubIdV13` | const |
+| `const pubsub.LaxNoSign untyped int` | `go.libp2p.libp2pPubsub.consts.laxNoSign` | const |
+| `const pubsub.LaxSign pubsub.MessageSignaturePolicy` | `go.libp2p.libp2pPubsub.enums.laxSign` | const |
+| `const pubsub.MaxBackoffAttempts untyped int` | `go.libp2p.libp2pPubsub.consts.maxBackoffAttempts` | const |
+| `const pubsub.MaxBackoffDelay time.Duration` | `go.libp2p.libp2pPubsub.enums.maxBackoffDelay` | const |
+| `const pubsub.MaxBackoffJitterCoff untyped int` | `go.libp2p.libp2pPubsub.consts.maxBackoffJitterCoff` | const |
+| `const pubsub.MinBackoffDelay time.Duration` | `go.libp2p.libp2pPubsub.enums.minBackoffDelay` | const |
+| `const pubsub.PeerFeedbackInvalidMessage pubsub.PeerFeedbackKind` | `go.libp2p.libp2pPubsub.enums.peerFeedbackInvalidMessage` | const |
+| `const pubsub.PeerFeedbackUsefulMessage pubsub.PeerFeedbackKind` | `go.libp2p.libp2pPubsub.enums.peerFeedbackUsefulMessage` | const |
+| `const pubsub.PeerJoin pubsub.EventType` | `go.libp2p.libp2pPubsub.enums.peerJoin` | const |
+| `const pubsub.PeerLeave pubsub.EventType` | `go.libp2p.libp2pPubsub.enums.peerLeave` | const |
+| `const pubsub.RandomSubID protocol.ID` | `go.libp2p.libp2pPubsub.enums.randomSubId` | const |
+| `const pubsub.RejectBlacklistedSource untyped string` | `go.libp2p.libp2pPubsub.consts.rejectBlacklistedSource` | const |
+| `const pubsub.RejectBlacklstedPeer untyped string` | `go.libp2p.libp2pPubsub.consts.rejectBlacklstedPeer` | const |
+| `const pubsub.RejectInvalidSignature untyped string` | `go.libp2p.libp2pPubsub.consts.rejectInvalidSignature` | const |
+| `const pubsub.RejectMissingSignature untyped string` | `go.libp2p.libp2pPubsub.consts.rejectMissingSignature` | const |
+| `const pubsub.RejectSelfOrigin untyped string` | `go.libp2p.libp2pPubsub.consts.rejectSelfOrigin` | const |
+| `const pubsub.RejectUnexpectedAuthInfo untyped string` | `go.libp2p.libp2pPubsub.consts.rejectUnexpectedAuthInfo` | const |
+| `const pubsub.RejectUnexpectedSignature untyped string` | `go.libp2p.libp2pPubsub.consts.rejectUnexpectedSignature` | const |
+| `const pubsub.RejectValidationFailed untyped string` | `go.libp2p.libp2pPubsub.consts.rejectValidationFailed` | const |
+| `const pubsub.RejectValidationIgnored untyped string` | `go.libp2p.libp2pPubsub.consts.rejectValidationIgnored` | const |
+| `const pubsub.RejectValidationQueueFull untyped string` | `go.libp2p.libp2pPubsub.consts.rejectValidationQueueFull` | const |
+| `const pubsub.RejectValidationThrottled untyped string` | `go.libp2p.libp2pPubsub.consts.rejectValidationThrottled` | const |
+| `const pubsub.RemoteTracerProtoID protocol.ID` | `go.libp2p.libp2pPubsub.enums.remoteTracerProtoId` | const |
+| `const pubsub.SignPrefix untyped string` | `go.libp2p.libp2pPubsub.consts.signPrefix` | const |
+| `const pubsub.StrictNoSign pubsub.MessageSignaturePolicy` | `go.libp2p.libp2pPubsub.enums.strictNoSign` | const |
+| `const pubsub.StrictSign pubsub.MessageSignaturePolicy` | `go.libp2p.libp2pPubsub.enums.strictSign` | const |
+| `const pubsub.TimeToLive time.Duration` | `go.libp2p.libp2pPubsub.enums.timeToLive` | const |
+| `const pubsub.ValidationAccept pubsub.ValidationResult` | `go.libp2p.libp2pPubsub.enums.validationAccept` | const |
+| `const pubsub.ValidationIgnore pubsub.ValidationResult` | `go.libp2p.libp2pPubsub.enums.validationIgnore` | const |
+| `const pubsub.ValidationReject pubsub.ValidationResult` | `go.libp2p.libp2pPubsub.enums.validationReject` | const |
 
 Omitted:
 
@@ -4141,19 +4141,19 @@ Omitted:
 | `var pubsub_pb.TraceEvent_Type_name map[int32]string` | `go.libp2p.libp2pPubsub.pb.traceEventTypeName` | sync |
 | `var pubsub_pb.TraceEvent_Type_value map[string]int32` | `go.libp2p.libp2pPubsub.pb.traceEventTypeValue` | sync |
 | `func pubsub_pb.ValidateRawRPCControlMessageSize(msg []byte, maxControlMessageSize int) error` | `go.libp2p.libp2pPubsub.pb.validateRawRpcControlMessageSize` | sync |
-| `const pubsub_pb.TraceEvent_DELIVER_MESSAGE pubsub_pb.TraceEvent_Type` | `go.libp2p.libp2pPubsub.pb.traceEventDeliverMessage` | const |
-| `const pubsub_pb.TraceEvent_DROP_RPC pubsub_pb.TraceEvent_Type` | `go.libp2p.libp2pPubsub.pb.traceEventDropRpc` | const |
-| `const pubsub_pb.TraceEvent_DUPLICATE_MESSAGE pubsub_pb.TraceEvent_Type` | `go.libp2p.libp2pPubsub.pb.traceEventDuplicateMessage` | const |
-| `const pubsub_pb.TraceEvent_GRAFT pubsub_pb.TraceEvent_Type` | `go.libp2p.libp2pPubsub.pb.traceEventGraft` | const |
-| `const pubsub_pb.TraceEvent_JOIN pubsub_pb.TraceEvent_Type` | `go.libp2p.libp2pPubsub.pb.traceEventJoin` | const |
-| `const pubsub_pb.TraceEvent_LEAVE pubsub_pb.TraceEvent_Type` | `go.libp2p.libp2pPubsub.pb.traceEventLeave` | const |
-| `const pubsub_pb.TraceEvent_ON_CLOSED_OUTBOUND_STREAM pubsub_pb.TraceEvent_Type` | `go.libp2p.libp2pPubsub.pb.traceEventOnClosedOutboundStream` | const |
-| `const pubsub_pb.TraceEvent_ON_NEW_OUTBOUND_STREAM pubsub_pb.TraceEvent_Type` | `go.libp2p.libp2pPubsub.pb.traceEventOnNewOutboundStream` | const |
-| `const pubsub_pb.TraceEvent_PRUNE pubsub_pb.TraceEvent_Type` | `go.libp2p.libp2pPubsub.pb.traceEventPrune` | const |
-| `const pubsub_pb.TraceEvent_PUBLISH_MESSAGE pubsub_pb.TraceEvent_Type` | `go.libp2p.libp2pPubsub.pb.traceEventPublishMessage` | const |
-| `const pubsub_pb.TraceEvent_RECV_RPC pubsub_pb.TraceEvent_Type` | `go.libp2p.libp2pPubsub.pb.traceEventRecvRpc` | const |
-| `const pubsub_pb.TraceEvent_REJECT_MESSAGE pubsub_pb.TraceEvent_Type` | `go.libp2p.libp2pPubsub.pb.traceEventRejectMessage` | const |
-| `const pubsub_pb.TraceEvent_SEND_RPC pubsub_pb.TraceEvent_Type` | `go.libp2p.libp2pPubsub.pb.traceEventSendRpc` | const |
+| `const pubsub_pb.TraceEvent_DELIVER_MESSAGE pubsub_pb.TraceEvent_Type` | `go.libp2p.libp2pPubsub.pb.enums.traceEventDeliverMessage` | const |
+| `const pubsub_pb.TraceEvent_DROP_RPC pubsub_pb.TraceEvent_Type` | `go.libp2p.libp2pPubsub.pb.enums.traceEventDropRpc` | const |
+| `const pubsub_pb.TraceEvent_DUPLICATE_MESSAGE pubsub_pb.TraceEvent_Type` | `go.libp2p.libp2pPubsub.pb.enums.traceEventDuplicateMessage` | const |
+| `const pubsub_pb.TraceEvent_GRAFT pubsub_pb.TraceEvent_Type` | `go.libp2p.libp2pPubsub.pb.enums.traceEventGraft` | const |
+| `const pubsub_pb.TraceEvent_JOIN pubsub_pb.TraceEvent_Type` | `go.libp2p.libp2pPubsub.pb.enums.traceEventJoin` | const |
+| `const pubsub_pb.TraceEvent_LEAVE pubsub_pb.TraceEvent_Type` | `go.libp2p.libp2pPubsub.pb.enums.traceEventLeave` | const |
+| `const pubsub_pb.TraceEvent_ON_CLOSED_OUTBOUND_STREAM pubsub_pb.TraceEvent_Type` | `go.libp2p.libp2pPubsub.pb.enums.traceEventOnClosedOutboundStream` | const |
+| `const pubsub_pb.TraceEvent_ON_NEW_OUTBOUND_STREAM pubsub_pb.TraceEvent_Type` | `go.libp2p.libp2pPubsub.pb.enums.traceEventOnNewOutboundStream` | const |
+| `const pubsub_pb.TraceEvent_PRUNE pubsub_pb.TraceEvent_Type` | `go.libp2p.libp2pPubsub.pb.enums.traceEventPrune` | const |
+| `const pubsub_pb.TraceEvent_PUBLISH_MESSAGE pubsub_pb.TraceEvent_Type` | `go.libp2p.libp2pPubsub.pb.enums.traceEventPublishMessage` | const |
+| `const pubsub_pb.TraceEvent_RECV_RPC pubsub_pb.TraceEvent_Type` | `go.libp2p.libp2pPubsub.pb.enums.traceEventRecvRpc` | const |
+| `const pubsub_pb.TraceEvent_REJECT_MESSAGE pubsub_pb.TraceEvent_Type` | `go.libp2p.libp2pPubsub.pb.enums.traceEventRejectMessage` | const |
+| `const pubsub_pb.TraceEvent_SEND_RPC pubsub_pb.TraceEvent_Type` | `go.libp2p.libp2pPubsub.pb.enums.traceEventSendRpc` | const |
 
 Omitted:
 
@@ -4313,20 +4313,20 @@ Omitted:
 | `crypto.PubKey → x.(*crypto.Ed25519PublicKey)` | `Libp2pCoreCryptoPubKey.asLibp2pCoreCryptoEd25519PublicKey` | cast |
 | `crypto.PubKey → x.(*crypto.RsaPublicKey)` | `Libp2pCoreCryptoPubKey.asLibp2pCoreCryptoRsaPublicKey` | cast |
 | `crypto.PubKey → x.(*crypto.Secp256k1PublicKey)` | `Libp2pCoreCryptoPubKey.asLibp2pCoreCryptoSecp256k1PublicKey` | cast |
-| `const crypto.ECDSA untyped int` | `go.libp2p.libp2p.core.crypto.ecdsa` | const |
-| `const crypto.Ed25519 untyped int` | `go.libp2p.libp2p.core.crypto.ed25519` | const |
-| `const crypto.RSA untyped int` | `go.libp2p.libp2p.core.crypto.rsa` | const |
-| `const crypto.Secp256k1 untyped int` | `go.libp2p.libp2p.core.crypto.secp256k1` | const |
-| `const crypto.WeakRsaKeyEnv untyped string` | `go.libp2p.libp2p.core.crypto.weakRsaKeyEnv` | const |
+| `const crypto.ECDSA untyped int` | `go.libp2p.libp2p.core.crypto.consts.ecdsa` | const |
+| `const crypto.Ed25519 untyped int` | `go.libp2p.libp2p.core.crypto.consts.ed25519` | const |
+| `const crypto.RSA untyped int` | `go.libp2p.libp2p.core.crypto.consts.rsa` | const |
+| `const crypto.Secp256k1 untyped int` | `go.libp2p.libp2p.core.crypto.consts.secp256k1` | const |
+| `const crypto.WeakRsaKeyEnv untyped string` | `go.libp2p.libp2p.core.crypto.consts.weakRsaKeyEnv` | const |
 
 ## `github.com/libp2p/go-libp2p/core/crypto/pb` → `go.libp2p.libp2p.core.crypto.pb` (`lib/go/libp2p/libp2p/core/crypto/pb.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
-| `const pb.KeyType_ECDSA pb.KeyType` | `go.libp2p.libp2p.core.crypto.pb.keyTypeEcdsa` | const |
-| `const pb.KeyType_Ed25519 pb.KeyType` | `go.libp2p.libp2p.core.crypto.pb.keyTypeEd25519` | const |
-| `const pb.KeyType_RSA pb.KeyType` | `go.libp2p.libp2p.core.crypto.pb.keyTypeRsa` | const |
-| `const pb.KeyType_Secp256k1 pb.KeyType` | `go.libp2p.libp2p.core.crypto.pb.keyTypeSecp256k1` | const |
+| `const pb.KeyType_ECDSA pb.KeyType` | `go.libp2p.libp2p.core.crypto.pb.enums.keyTypeEcdsa` | const |
+| `const pb.KeyType_Ed25519 pb.KeyType` | `go.libp2p.libp2p.core.crypto.pb.enums.keyTypeEd25519` | const |
+| `const pb.KeyType_RSA pb.KeyType` | `go.libp2p.libp2p.core.crypto.pb.enums.keyTypeRsa` | const |
+| `const pb.KeyType_Secp256k1 pb.KeyType` | `go.libp2p.libp2p.core.crypto.pb.enums.keyTypeSecp256k1` | const |
 
 ## `github.com/libp2p/go-libp2p/core/discovery` → `go.libp2p.libp2p.core.discovery` (`lib/go/libp2p/libp2p/core/discovery.dart`)
 
@@ -4346,10 +4346,10 @@ Omitted:
 | `func (event.Emitter).Emit(evt any) error` | `Libp2pCoreEventEmitter.emit` | sync |
 | `func (event.Subscription).Name() string` | `Libp2pCoreEventSubscription.name` | sync |
 | `func (event.Subscription).Out() <-chan any` | `Libp2pCoreEventSubscription.out` | Stream |
-| `const event.Added event.AddrAction` | `go.libp2p.libp2p.core.event.added` | const |
-| `const event.Maintained event.AddrAction` | `go.libp2p.libp2p.core.event.maintained` | const |
-| `const event.Removed event.AddrAction` | `go.libp2p.libp2p.core.event.removed` | const |
-| `const event.Unknown event.AddrAction` | `go.libp2p.libp2p.core.event.unknown` | const |
+| `const event.Added event.AddrAction` | `go.libp2p.libp2p.core.event.enums.added` | const |
+| `const event.Maintained event.AddrAction` | `go.libp2p.libp2p.core.event.enums.maintained` | const |
+| `const event.Removed event.AddrAction` | `go.libp2p.libp2p.core.event.enums.removed` | const |
+| `const event.Unknown event.AddrAction` | `go.libp2p.libp2p.core.event.enums.unknown` | const |
 
 Omitted:
 
@@ -4551,49 +4551,49 @@ Omitted:
 | `network.ResourceScopeSpan → x.(network.StreamManagementScope)` | `Libp2pCoreNetworkResourceScopeSpan.asLibp2pCoreNetworkStreamManagementScope` | cast |
 | `network.ResourceScopeViewer → x.(network.ResourceManager)` | `Libp2pCoreNetworkResourceScopeViewer.asLibp2pCoreNetworkResourceManager` | cast |
 | `network.Stream → x.(*swarm.Stream)` | `Libp2pCoreNetworkStream.asLibp2pP2pNetSwarmStream` | cast |
-| `const network.CanConnect network.Connectedness` | `go.libp2p.libp2p.core.network.canConnect` | const |
-| `const network.CannotConnect network.Connectedness` | `go.libp2p.libp2p.core.network.cannotConnect` | const |
-| `const network.ConnCodeOutOfRange network.ConnErrorCode` | `go.libp2p.libp2p.core.network.connCodeOutOfRange` | const |
-| `const network.ConnGarbageCollected network.ConnErrorCode` | `go.libp2p.libp2p.core.network.connGarbageCollected` | const |
-| `const network.ConnGated network.ConnErrorCode` | `go.libp2p.libp2p.core.network.connGated` | const |
-| `const network.ConnNoError network.ConnErrorCode` | `go.libp2p.libp2p.core.network.connNoError` | const |
-| `const network.ConnProtocolNegotiationFailed network.ConnErrorCode` | `go.libp2p.libp2p.core.network.connProtocolNegotiationFailed` | const |
-| `const network.ConnProtocolViolation network.ConnErrorCode` | `go.libp2p.libp2p.core.network.connProtocolViolation` | const |
-| `const network.ConnRateLimited network.ConnErrorCode` | `go.libp2p.libp2p.core.network.connRateLimited` | const |
-| `const network.ConnResourceLimitExceeded network.ConnErrorCode` | `go.libp2p.libp2p.core.network.connResourceLimitExceeded` | const |
-| `const network.ConnShutdown network.ConnErrorCode` | `go.libp2p.libp2p.core.network.connShutdown` | const |
-| `const network.ConnSupplanted network.ConnErrorCode` | `go.libp2p.libp2p.core.network.connSupplanted` | const |
-| `const network.Connected network.Connectedness` | `go.libp2p.libp2p.core.network.connected` | const |
-| `const network.DirInbound network.Direction` | `go.libp2p.libp2p.core.network.dirInbound` | const |
-| `const network.DirOutbound network.Direction` | `go.libp2p.libp2p.core.network.dirOutbound` | const |
-| `const network.DirUnknown network.Direction` | `go.libp2p.libp2p.core.network.dirUnknown` | const |
-| `const network.Limited network.Connectedness` | `go.libp2p.libp2p.core.network.limited` | const |
-| `const network.MessageSizeMax untyped int` | `go.libp2p.libp2p.core.network.messageSizeMax` | const |
-| `const network.NATDeviceTypeCone network.NATDeviceType` | `go.libp2p.libp2p.core.network.natDeviceTypeCone` | const |
-| `const network.NATDeviceTypeEndpointDependent network.NATDeviceType` | `go.libp2p.libp2p.core.network.natDeviceTypeEndpointDependent` | const |
-| `const network.NATDeviceTypeEndpointIndependent network.NATDeviceType` | `go.libp2p.libp2p.core.network.natDeviceTypeEndpointIndependent` | const |
-| `const network.NATDeviceTypeSymmetric network.NATDeviceType` | `go.libp2p.libp2p.core.network.natDeviceTypeSymmetric` | const |
-| `const network.NATDeviceTypeUnknown network.NATDeviceType` | `go.libp2p.libp2p.core.network.natDeviceTypeUnknown` | const |
-| `const network.NATTransportTCP network.NATTransportProtocol` | `go.libp2p.libp2p.core.network.natTransportTcp` | const |
-| `const network.NATTransportUDP network.NATTransportProtocol` | `go.libp2p.libp2p.core.network.natTransportUdp` | const |
-| `const network.NotConnected network.Connectedness` | `go.libp2p.libp2p.core.network.notConnected` | const |
-| `const network.ReachabilityPrivate network.Reachability` | `go.libp2p.libp2p.core.network.reachabilityPrivate` | const |
-| `const network.ReachabilityPublic network.Reachability` | `go.libp2p.libp2p.core.network.reachabilityPublic` | const |
-| `const network.ReachabilityUnknown network.Reachability` | `go.libp2p.libp2p.core.network.reachabilityUnknown` | const |
-| `const network.ReservationPriorityAlways uint8` | `go.libp2p.libp2p.core.network.reservationPriorityAlways` | const |
-| `const network.ReservationPriorityHigh uint8` | `go.libp2p.libp2p.core.network.reservationPriorityHigh` | const |
-| `const network.ReservationPriorityLow uint8` | `go.libp2p.libp2p.core.network.reservationPriorityLow` | const |
-| `const network.ReservationPriorityMedium uint8` | `go.libp2p.libp2p.core.network.reservationPriorityMedium` | const |
-| `const network.StreamCodeOutOfRange network.StreamErrorCode` | `go.libp2p.libp2p.core.network.streamCodeOutOfRange` | const |
-| `const network.StreamGarbageCollected network.StreamErrorCode` | `go.libp2p.libp2p.core.network.streamGarbageCollected` | const |
-| `const network.StreamGated network.StreamErrorCode` | `go.libp2p.libp2p.core.network.streamGated` | const |
-| `const network.StreamNoError network.StreamErrorCode` | `go.libp2p.libp2p.core.network.streamNoError` | const |
-| `const network.StreamProtocolNegotiationFailed network.StreamErrorCode` | `go.libp2p.libp2p.core.network.streamProtocolNegotiationFailed` | const |
-| `const network.StreamProtocolViolation network.StreamErrorCode` | `go.libp2p.libp2p.core.network.streamProtocolViolation` | const |
-| `const network.StreamRateLimited network.StreamErrorCode` | `go.libp2p.libp2p.core.network.streamRateLimited` | const |
-| `const network.StreamResourceLimitExceeded network.StreamErrorCode` | `go.libp2p.libp2p.core.network.streamResourceLimitExceeded` | const |
-| `const network.StreamShutdown network.StreamErrorCode` | `go.libp2p.libp2p.core.network.streamShutdown` | const |
-| `const network.StreamSupplanted network.StreamErrorCode` | `go.libp2p.libp2p.core.network.streamSupplanted` | const |
+| `const network.CanConnect network.Connectedness` | `go.libp2p.libp2p.core.network.enums.canConnect` | const |
+| `const network.CannotConnect network.Connectedness` | `go.libp2p.libp2p.core.network.enums.cannotConnect` | const |
+| `const network.ConnCodeOutOfRange network.ConnErrorCode` | `go.libp2p.libp2p.core.network.enums.connCodeOutOfRange` | const |
+| `const network.ConnGarbageCollected network.ConnErrorCode` | `go.libp2p.libp2p.core.network.enums.connGarbageCollected` | const |
+| `const network.ConnGated network.ConnErrorCode` | `go.libp2p.libp2p.core.network.enums.connGated` | const |
+| `const network.ConnNoError network.ConnErrorCode` | `go.libp2p.libp2p.core.network.enums.connNoError` | const |
+| `const network.ConnProtocolNegotiationFailed network.ConnErrorCode` | `go.libp2p.libp2p.core.network.enums.connProtocolNegotiationFailed` | const |
+| `const network.ConnProtocolViolation network.ConnErrorCode` | `go.libp2p.libp2p.core.network.enums.connProtocolViolation` | const |
+| `const network.ConnRateLimited network.ConnErrorCode` | `go.libp2p.libp2p.core.network.enums.connRateLimited` | const |
+| `const network.ConnResourceLimitExceeded network.ConnErrorCode` | `go.libp2p.libp2p.core.network.enums.connResourceLimitExceeded` | const |
+| `const network.ConnShutdown network.ConnErrorCode` | `go.libp2p.libp2p.core.network.enums.connShutdown` | const |
+| `const network.ConnSupplanted network.ConnErrorCode` | `go.libp2p.libp2p.core.network.enums.connSupplanted` | const |
+| `const network.Connected network.Connectedness` | `go.libp2p.libp2p.core.network.enums.connected` | const |
+| `const network.DirInbound network.Direction` | `go.libp2p.libp2p.core.network.enums.dirInbound` | const |
+| `const network.DirOutbound network.Direction` | `go.libp2p.libp2p.core.network.enums.dirOutbound` | const |
+| `const network.DirUnknown network.Direction` | `go.libp2p.libp2p.core.network.enums.dirUnknown` | const |
+| `const network.Limited network.Connectedness` | `go.libp2p.libp2p.core.network.enums.limited` | const |
+| `const network.MessageSizeMax untyped int` | `go.libp2p.libp2p.core.network.consts.messageSizeMax` | const |
+| `const network.NATDeviceTypeCone network.NATDeviceType` | `go.libp2p.libp2p.core.network.enums.natDeviceTypeCone` | const |
+| `const network.NATDeviceTypeEndpointDependent network.NATDeviceType` | `go.libp2p.libp2p.core.network.enums.natDeviceTypeEndpointDependent` | const |
+| `const network.NATDeviceTypeEndpointIndependent network.NATDeviceType` | `go.libp2p.libp2p.core.network.enums.natDeviceTypeEndpointIndependent` | const |
+| `const network.NATDeviceTypeSymmetric network.NATDeviceType` | `go.libp2p.libp2p.core.network.enums.natDeviceTypeSymmetric` | const |
+| `const network.NATDeviceTypeUnknown network.NATDeviceType` | `go.libp2p.libp2p.core.network.enums.natDeviceTypeUnknown` | const |
+| `const network.NATTransportTCP network.NATTransportProtocol` | `go.libp2p.libp2p.core.network.enums.natTransportTcp` | const |
+| `const network.NATTransportUDP network.NATTransportProtocol` | `go.libp2p.libp2p.core.network.enums.natTransportUdp` | const |
+| `const network.NotConnected network.Connectedness` | `go.libp2p.libp2p.core.network.enums.notConnected` | const |
+| `const network.ReachabilityPrivate network.Reachability` | `go.libp2p.libp2p.core.network.enums.reachabilityPrivate` | const |
+| `const network.ReachabilityPublic network.Reachability` | `go.libp2p.libp2p.core.network.enums.reachabilityPublic` | const |
+| `const network.ReachabilityUnknown network.Reachability` | `go.libp2p.libp2p.core.network.enums.reachabilityUnknown` | const |
+| `const network.ReservationPriorityAlways uint8` | `go.libp2p.libp2p.core.network.consts.reservationPriorityAlways` | const |
+| `const network.ReservationPriorityHigh uint8` | `go.libp2p.libp2p.core.network.consts.reservationPriorityHigh` | const |
+| `const network.ReservationPriorityLow uint8` | `go.libp2p.libp2p.core.network.consts.reservationPriorityLow` | const |
+| `const network.ReservationPriorityMedium uint8` | `go.libp2p.libp2p.core.network.consts.reservationPriorityMedium` | const |
+| `const network.StreamCodeOutOfRange network.StreamErrorCode` | `go.libp2p.libp2p.core.network.enums.streamCodeOutOfRange` | const |
+| `const network.StreamGarbageCollected network.StreamErrorCode` | `go.libp2p.libp2p.core.network.enums.streamGarbageCollected` | const |
+| `const network.StreamGated network.StreamErrorCode` | `go.libp2p.libp2p.core.network.enums.streamGated` | const |
+| `const network.StreamNoError network.StreamErrorCode` | `go.libp2p.libp2p.core.network.enums.streamNoError` | const |
+| `const network.StreamProtocolNegotiationFailed network.StreamErrorCode` | `go.libp2p.libp2p.core.network.enums.streamProtocolNegotiationFailed` | const |
+| `const network.StreamProtocolViolation network.StreamErrorCode` | `go.libp2p.libp2p.core.network.enums.streamProtocolViolation` | const |
+| `const network.StreamRateLimited network.StreamErrorCode` | `go.libp2p.libp2p.core.network.enums.streamRateLimited` | const |
+| `const network.StreamResourceLimitExceeded network.StreamErrorCode` | `go.libp2p.libp2p.core.network.enums.streamResourceLimitExceeded` | const |
+| `const network.StreamShutdown network.StreamErrorCode` | `go.libp2p.libp2p.core.network.enums.streamShutdown` | const |
+| `const network.StreamSupplanted network.StreamErrorCode` | `go.libp2p.libp2p.core.network.enums.streamSupplanted` | const |
 
 Omitted:
 
@@ -4663,7 +4663,7 @@ Omitted:
 | `func peer.SplitAddr(m multiaddr.Multiaddr) (transport multiaddr.Multiaddr, id peer.ID)` | `go.libp2p.libp2p.core.peer.splitAddr` | sync |
 | `func peer.TimestampSeq() uint64` | `go.libp2p.libp2p.core.peer.timestampSeq` | sync |
 | `func peer.ToCid(id peer.ID) cid.Cid` | `go.libp2p.libp2p.core.peer.toCid` | sync |
-| `const peer.PeerRecordEnvelopeDomain untyped string` | `go.libp2p.libp2p.core.peer.peerRecordEnvelopeDomain` | const |
+| `const peer.PeerRecordEnvelopeDomain untyped string` | `go.libp2p.libp2p.core.peer.consts.peerRecordEnvelopeDomain` | const |
 
 Omitted:
 
@@ -4727,14 +4727,14 @@ Omitted:
 | `peerstore.Metrics → x.(peerstore.Peerstore)` | `Libp2pCorePeerstoreMetrics.asLibp2pCorePeerstore` | cast |
 | `peerstore.PeerMetadata → x.(peerstore.Peerstore)` | `Libp2pCorePeerstorePeerMetadata.asLibp2pCorePeerstore` | cast |
 | `peerstore.ProtoBook → x.(peerstore.Peerstore)` | `Libp2pCorePeerstoreProtoBook.asLibp2pCorePeerstore` | cast |
-| `const peerstore.ConnectedAddrTTL untyped int` | `go.libp2p.libp2p.core.peerstore.connectedAddrTtl` | const |
-| `const peerstore.PermanentAddrTTL untyped int` | `go.libp2p.libp2p.core.peerstore.permanentAddrTtl` | const |
+| `const peerstore.ConnectedAddrTTL untyped int` | `go.libp2p.libp2p.core.peerstore.consts.connectedAddrTtl` | const |
+| `const peerstore.PermanentAddrTTL untyped int` | `go.libp2p.libp2p.core.peerstore.consts.permanentAddrTtl` | const |
 
 ## `github.com/libp2p/go-libp2p/core/protocol` → `go.libp2p.libp2p.core.protocol` (`lib/go/libp2p/libp2p/core/protocol.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
-| `const protocol.TestingID protocol.ID` | `go.libp2p.libp2p.core.protocol.testingId` | const |
+| `const protocol.TestingID protocol.ID` | `go.libp2p.libp2p.core.protocol.enums.testingId` | const |
 
 ## `github.com/libp2p/go-libp2p/core/routing` → `go.libp2p.libp2p.core.routing` (`lib/go/libp2p/libp2p/core/routing.dart`)
 
@@ -4784,14 +4784,14 @@ Omitted:
 | `routing.ValueStore → x.(*dht.IpfsDHT)` | `Libp2pCoreRoutingValueStore.asLibp2pKadDhtIpfsDht` | cast |
 | `routing.ValueStore → x.(routing.ProvideManyRouter)` | `Libp2pCoreRoutingValueStore.asKuboRoutingProvideManyRouter` | cast |
 | `routing.ValueStore → x.(routing.Routing)` | `Libp2pCoreRoutingValueStore.asLibp2pCoreRouting` | cast |
-| `const routing.AddingPeer routing.QueryEventType` | `go.libp2p.libp2p.core.routing.addingPeer` | const |
-| `const routing.DialingPeer routing.QueryEventType` | `go.libp2p.libp2p.core.routing.dialingPeer` | const |
-| `const routing.FinalPeer routing.QueryEventType` | `go.libp2p.libp2p.core.routing.finalPeer` | const |
-| `const routing.PeerResponse routing.QueryEventType` | `go.libp2p.libp2p.core.routing.peerResponse` | const |
-| `const routing.Provider routing.QueryEventType` | `go.libp2p.libp2p.core.routing.provider` | const |
-| `const routing.QueryError routing.QueryEventType` | `go.libp2p.libp2p.core.routing.queryError` | const |
-| `const routing.SendingQuery routing.QueryEventType` | `go.libp2p.libp2p.core.routing.sendingQuery` | const |
-| `const routing.Value routing.QueryEventType` | `go.libp2p.libp2p.core.routing.value$` | const |
+| `const routing.AddingPeer routing.QueryEventType` | `go.libp2p.libp2p.core.routing.enums.addingPeer` | const |
+| `const routing.DialingPeer routing.QueryEventType` | `go.libp2p.libp2p.core.routing.enums.dialingPeer` | const |
+| `const routing.FinalPeer routing.QueryEventType` | `go.libp2p.libp2p.core.routing.enums.finalPeer` | const |
+| `const routing.PeerResponse routing.QueryEventType` | `go.libp2p.libp2p.core.routing.enums.peerResponse` | const |
+| `const routing.Provider routing.QueryEventType` | `go.libp2p.libp2p.core.routing.enums.provider` | const |
+| `const routing.QueryError routing.QueryEventType` | `go.libp2p.libp2p.core.routing.enums.queryError` | const |
+| `const routing.SendingQuery routing.QueryEventType` | `go.libp2p.libp2p.core.routing.enums.sendingQuery` | const |
+| `const routing.Value routing.QueryEventType` | `go.libp2p.libp2p.core.routing.enums.value$` | const |
 
 Omitted:
 
@@ -4805,9 +4805,9 @@ Omitted:
 | Go | Dart | Mode |
 |---|---|---|
 | `transport.Transport → x.(*libp2pwebrtc.WebRTCTransport)` | `Libp2pCoreTransport.asLibp2pP2pTransportWebrtcWebRtcTransport` | cast |
-| `const transport.UpdateKindDialFailed transport.DialUpdateKind` | `go.libp2p.libp2p.core.transport.updateKindDialFailed` | const |
-| `const transport.UpdateKindDialSuccessful transport.DialUpdateKind` | `go.libp2p.libp2p.core.transport.updateKindDialSuccessful` | const |
-| `const transport.UpdateKindHandshakeProgressed transport.DialUpdateKind` | `go.libp2p.libp2p.core.transport.updateKindHandshakeProgressed` | const |
+| `const transport.UpdateKindDialFailed transport.DialUpdateKind` | `go.libp2p.libp2p.core.transport.enums.updateKindDialFailed` | const |
+| `const transport.UpdateKindDialSuccessful transport.DialUpdateKind` | `go.libp2p.libp2p.core.transport.enums.updateKindDialSuccessful` | const |
+| `const transport.UpdateKindHandshakeProgressed transport.DialUpdateKind` | `go.libp2p.libp2p.core.transport.enums.updateKindHandshakeProgressed` | const |
 
 ## `github.com/libp2p/go-libp2p/p2p/discovery/mdns` → `go.libp2p.libp2p.p2p.discovery.mdns` (`lib/go/libp2p/libp2p/p2p/discovery/mdns.dart`)
 
@@ -4818,7 +4818,7 @@ Omitted:
 | `func mdns.NewMdnsService(host host.Host, serviceName string, notifee mdns.Notifee) *mdns.mdnsService` | `go.libp2p.libp2p.p2p.discovery.mdns.newMdnsService` | sync |
 | `func (mdns.Notifee).HandlePeerFound(peer.AddrInfo)` | `Libp2pP2pDiscoveryMdnsNotifee.handlePeerFound` | sync |
 | `func (mdns.Service).Start() error` | `Libp2pP2pDiscoveryMdnsService.start` | sync |
-| `const mdns.ServiceName untyped string` | `go.libp2p.libp2p.p2p.discovery.mdns.serviceName` | const |
+| `const mdns.ServiceName untyped string` | `go.libp2p.libp2p.p2p.discovery.mdns.consts.serviceName` | const |
 
 ## `github.com/libp2p/go-libp2p/p2p/discovery/routing` → `go.libp2p.libp2p.p2p.discovery.routing` (`lib/go/libp2p/libp2p/p2p/discovery/routing.dart`)
 
@@ -4835,24 +4835,24 @@ Omitted:
 
 | Go | Dart | Mode |
 |---|---|---|
-| `const rcmgr.BlockAllLimit rcmgr.LimitVal` | `go.libp2p.libp2p.p2p.host.resourceManager.blockAllLimit` | const |
-| `const rcmgr.BlockAllLimit64 rcmgr.LimitVal64` | `go.libp2p.libp2p.p2p.host.resourceManager.blockAllLimit64` | const |
-| `const rcmgr.DefaultLimit rcmgr.LimitVal` | `go.libp2p.libp2p.p2p.host.resourceManager.defaultLimit` | const |
-| `const rcmgr.DefaultLimit64 rcmgr.LimitVal64` | `go.libp2p.libp2p.p2p.host.resourceManager.defaultLimit64` | const |
-| `const rcmgr.TraceAddConnEvt rcmgr.TraceEvtTyp` | `go.libp2p.libp2p.p2p.host.resourceManager.traceAddConnEvt` | const |
-| `const rcmgr.TraceAddStreamEvt rcmgr.TraceEvtTyp` | `go.libp2p.libp2p.p2p.host.resourceManager.traceAddStreamEvt` | const |
-| `const rcmgr.TraceBlockAddConnEvt rcmgr.TraceEvtTyp` | `go.libp2p.libp2p.p2p.host.resourceManager.traceBlockAddConnEvt` | const |
-| `const rcmgr.TraceBlockAddStreamEvt rcmgr.TraceEvtTyp` | `go.libp2p.libp2p.p2p.host.resourceManager.traceBlockAddStreamEvt` | const |
-| `const rcmgr.TraceBlockReserveMemoryEvt rcmgr.TraceEvtTyp` | `go.libp2p.libp2p.p2p.host.resourceManager.traceBlockReserveMemoryEvt` | const |
-| `const rcmgr.TraceCreateScopeEvt rcmgr.TraceEvtTyp` | `go.libp2p.libp2p.p2p.host.resourceManager.traceCreateScopeEvt` | const |
-| `const rcmgr.TraceDestroyScopeEvt rcmgr.TraceEvtTyp` | `go.libp2p.libp2p.p2p.host.resourceManager.traceDestroyScopeEvt` | const |
-| `const rcmgr.TraceReleaseMemoryEvt rcmgr.TraceEvtTyp` | `go.libp2p.libp2p.p2p.host.resourceManager.traceReleaseMemoryEvt` | const |
-| `const rcmgr.TraceRemoveConnEvt rcmgr.TraceEvtTyp` | `go.libp2p.libp2p.p2p.host.resourceManager.traceRemoveConnEvt` | const |
-| `const rcmgr.TraceRemoveStreamEvt rcmgr.TraceEvtTyp` | `go.libp2p.libp2p.p2p.host.resourceManager.traceRemoveStreamEvt` | const |
-| `const rcmgr.TraceReserveMemoryEvt rcmgr.TraceEvtTyp` | `go.libp2p.libp2p.p2p.host.resourceManager.traceReserveMemoryEvt` | const |
-| `const rcmgr.TraceStartEvt rcmgr.TraceEvtTyp` | `go.libp2p.libp2p.p2p.host.resourceManager.traceStartEvt` | const |
-| `const rcmgr.Unlimited rcmgr.LimitVal` | `go.libp2p.libp2p.p2p.host.resourceManager.unlimited` | const |
-| `const rcmgr.Unlimited64 rcmgr.LimitVal64` | `go.libp2p.libp2p.p2p.host.resourceManager.unlimited64` | const |
+| `const rcmgr.BlockAllLimit rcmgr.LimitVal` | `go.libp2p.libp2p.p2p.host.resourceManager.enums.blockAllLimit` | const |
+| `const rcmgr.BlockAllLimit64 rcmgr.LimitVal64` | `go.libp2p.libp2p.p2p.host.resourceManager.enums.blockAllLimit64` | const |
+| `const rcmgr.DefaultLimit rcmgr.LimitVal` | `go.libp2p.libp2p.p2p.host.resourceManager.enums.defaultLimit` | const |
+| `const rcmgr.DefaultLimit64 rcmgr.LimitVal64` | `go.libp2p.libp2p.p2p.host.resourceManager.enums.defaultLimit64` | const |
+| `const rcmgr.TraceAddConnEvt rcmgr.TraceEvtTyp` | `go.libp2p.libp2p.p2p.host.resourceManager.enums.traceAddConnEvt` | const |
+| `const rcmgr.TraceAddStreamEvt rcmgr.TraceEvtTyp` | `go.libp2p.libp2p.p2p.host.resourceManager.enums.traceAddStreamEvt` | const |
+| `const rcmgr.TraceBlockAddConnEvt rcmgr.TraceEvtTyp` | `go.libp2p.libp2p.p2p.host.resourceManager.enums.traceBlockAddConnEvt` | const |
+| `const rcmgr.TraceBlockAddStreamEvt rcmgr.TraceEvtTyp` | `go.libp2p.libp2p.p2p.host.resourceManager.enums.traceBlockAddStreamEvt` | const |
+| `const rcmgr.TraceBlockReserveMemoryEvt rcmgr.TraceEvtTyp` | `go.libp2p.libp2p.p2p.host.resourceManager.enums.traceBlockReserveMemoryEvt` | const |
+| `const rcmgr.TraceCreateScopeEvt rcmgr.TraceEvtTyp` | `go.libp2p.libp2p.p2p.host.resourceManager.enums.traceCreateScopeEvt` | const |
+| `const rcmgr.TraceDestroyScopeEvt rcmgr.TraceEvtTyp` | `go.libp2p.libp2p.p2p.host.resourceManager.enums.traceDestroyScopeEvt` | const |
+| `const rcmgr.TraceReleaseMemoryEvt rcmgr.TraceEvtTyp` | `go.libp2p.libp2p.p2p.host.resourceManager.enums.traceReleaseMemoryEvt` | const |
+| `const rcmgr.TraceRemoveConnEvt rcmgr.TraceEvtTyp` | `go.libp2p.libp2p.p2p.host.resourceManager.enums.traceRemoveConnEvt` | const |
+| `const rcmgr.TraceRemoveStreamEvt rcmgr.TraceEvtTyp` | `go.libp2p.libp2p.p2p.host.resourceManager.enums.traceRemoveStreamEvt` | const |
+| `const rcmgr.TraceReserveMemoryEvt rcmgr.TraceEvtTyp` | `go.libp2p.libp2p.p2p.host.resourceManager.enums.traceReserveMemoryEvt` | const |
+| `const rcmgr.TraceStartEvt rcmgr.TraceEvtTyp` | `go.libp2p.libp2p.p2p.host.resourceManager.enums.traceStartEvt` | const |
+| `const rcmgr.Unlimited rcmgr.LimitVal` | `go.libp2p.libp2p.p2p.host.resourceManager.enums.unlimited` | const |
+| `const rcmgr.Unlimited64 rcmgr.LimitVal64` | `go.libp2p.libp2p.p2p.host.resourceManager.enums.unlimited64` | const |
 
 ## `github.com/libp2p/go-libp2p/p2p/muxer/yamux` → `go.libp2p.libp2p.p2p.muxer.yamux` (`lib/go/libp2p/libp2p/p2p/muxer/yamux.dart`)
 
@@ -4862,7 +4862,7 @@ Omitted:
 | `func yamux.NewMuxedConn(m *yamux.Session) network.MuxedConn` | `go.libp2p.libp2p.p2p.muxer.yamux.newMuxedConn` | sync |
 | `func (*yamux.Transport).Config() *yamux.Config` | `Libp2pP2pMuxerYamuxTransport.config` | sync |
 | `func (*yamux.Transport).NewConn(nc net.Conn, isServer bool, scope network.PeerScope) (network.MuxedConn, error)` | `Libp2pP2pMuxerYamuxTransport.newConn` | sync |
-| `const yamux.ID untyped string` | `go.libp2p.libp2p.p2p.muxer.yamux.id` | const |
+| `const yamux.ID untyped string` | `go.libp2p.libp2p.p2p.muxer.yamux.consts.id` | const |
 
 ## `github.com/libp2p/go-libp2p/p2p/net/swarm` → `go.libp2p.libp2p.p2p.net.swarm` (`lib/go/libp2p/libp2p/p2p/net/swarm.dart`)
 
@@ -4963,15 +4963,15 @@ Omitted:
 | `func (*swarm.Swarm).TransportForDialing(a multiaddr.Multiaddr) transport.Transport` | `Libp2pP2pNetSwarm.transportForDialing` | sync |
 | `func (*swarm.Swarm).TransportForListening(a multiaddr.Multiaddr) transport.Transport` | `Libp2pP2pNetSwarm.transportForListening` | sync |
 | `swarm.InstantTimer → x.(*swarm.RealTimer)` | `Libp2pP2pNetSwarmInstantTimer.asLibp2pP2pNetSwarmRealTimer` | cast |
-| `const swarm.ConcurrentFdDials untyped int` | `go.libp2p.libp2p.p2p.net.swarm.concurrentFdDials` | const |
-| `const swarm.DialAttempts untyped int` | `go.libp2p.libp2p.p2p.net.swarm.dialAttempts` | const |
-| `const swarm.PrivateOtherDelay time.Duration` | `go.libp2p.libp2p.p2p.net.swarm.privateOtherDelay` | const |
-| `const swarm.PrivateQUICDelay time.Duration` | `go.libp2p.libp2p.p2p.net.swarm.privateQuicDelay` | const |
-| `const swarm.PrivateTCPDelay time.Duration` | `go.libp2p.libp2p.p2p.net.swarm.privateTcpDelay` | const |
-| `const swarm.PublicOtherDelay time.Duration` | `go.libp2p.libp2p.p2p.net.swarm.publicOtherDelay` | const |
-| `const swarm.PublicQUICDelay time.Duration` | `go.libp2p.libp2p.p2p.net.swarm.publicQuicDelay` | const |
-| `const swarm.PublicTCPDelay time.Duration` | `go.libp2p.libp2p.p2p.net.swarm.publicTcpDelay` | const |
-| `const swarm.RelayDelay time.Duration` | `go.libp2p.libp2p.p2p.net.swarm.relayDelay` | const |
+| `const swarm.ConcurrentFdDials untyped int` | `go.libp2p.libp2p.p2p.net.swarm.consts.concurrentFdDials` | const |
+| `const swarm.DialAttempts untyped int` | `go.libp2p.libp2p.p2p.net.swarm.consts.dialAttempts` | const |
+| `const swarm.PrivateOtherDelay time.Duration` | `go.libp2p.libp2p.p2p.net.swarm.enums.privateOtherDelay` | const |
+| `const swarm.PrivateQUICDelay time.Duration` | `go.libp2p.libp2p.p2p.net.swarm.enums.privateQuicDelay` | const |
+| `const swarm.PrivateTCPDelay time.Duration` | `go.libp2p.libp2p.p2p.net.swarm.enums.privateTcpDelay` | const |
+| `const swarm.PublicOtherDelay time.Duration` | `go.libp2p.libp2p.p2p.net.swarm.enums.publicOtherDelay` | const |
+| `const swarm.PublicQUICDelay time.Duration` | `go.libp2p.libp2p.p2p.net.swarm.enums.publicQuicDelay` | const |
+| `const swarm.PublicTCPDelay time.Duration` | `go.libp2p.libp2p.p2p.net.swarm.enums.publicTcpDelay` | const |
+| `const swarm.RelayDelay time.Duration` | `go.libp2p.libp2p.p2p.net.swarm.enums.relayDelay` | const |
 
 Omitted:
 
@@ -5011,11 +5011,11 @@ Omitted:
 | `func relay.New(h host.Host, opts ...relay.Option) (*relay.Relay, error)` | `go.libp2p.libp2p.p2p.protocol.circuitv2.relay.new$` | sync |
 | `func relay.NewMetricsTracer(opts ...relay.MetricsTracerOption) relay.MetricsTracer` | `factory Libp2pP2pProtocolCircuitv2RelayMetricsTracer` | sync |
 | `func (*relay.Relay).Close() error` | `Libp2pP2pProtocolCircuitv2Relay.close` | sync |
-| `const relay.ConnectTimeout time.Duration` | `go.libp2p.libp2p.p2p.protocol.circuitv2.relay.connectTimeout` | const |
-| `const relay.HandshakeTimeout time.Duration` | `go.libp2p.libp2p.p2p.protocol.circuitv2.relay.handshakeTimeout` | const |
-| `const relay.ReservationTagWeight untyped int` | `go.libp2p.libp2p.p2p.protocol.circuitv2.relay.reservationTagWeight` | const |
-| `const relay.ServiceName untyped string` | `go.libp2p.libp2p.p2p.protocol.circuitv2.relay.serviceName` | const |
-| `const relay.StreamTimeout time.Duration` | `go.libp2p.libp2p.p2p.protocol.circuitv2.relay.streamTimeout` | const |
+| `const relay.ConnectTimeout time.Duration` | `go.libp2p.libp2p.p2p.protocol.circuitv2.relay.enums.connectTimeout` | const |
+| `const relay.HandshakeTimeout time.Duration` | `go.libp2p.libp2p.p2p.protocol.circuitv2.relay.enums.handshakeTimeout` | const |
+| `const relay.ReservationTagWeight untyped int` | `go.libp2p.libp2p.p2p.protocol.circuitv2.relay.consts.reservationTagWeight` | const |
+| `const relay.ServiceName untyped string` | `go.libp2p.libp2p.p2p.protocol.circuitv2.relay.consts.serviceName` | const |
+| `const relay.StreamTimeout time.Duration` | `go.libp2p.libp2p.p2p.protocol.circuitv2.relay.enums.streamTimeout` | const |
 
 Omitted:
 
@@ -5040,13 +5040,13 @@ Omitted:
 | `func (*holepunch.Service).Close() error` | `Libp2pP2pProtocolHolepunchService.close` | sync |
 | `func (*holepunch.Service).DirectConnect(p peer.ID) error` | `Libp2pP2pProtocolHolepunchService.directConnect` | sync |
 | `var holepunch.StreamTimeout time.Duration` | `go.libp2p.libp2p.p2p.protocol.holepunch.streamTimeout` | sync |
-| `const holepunch.DirectDialEvtT untyped string` | `go.libp2p.libp2p.p2p.protocol.holepunch.directDialEvtT` | const |
-| `const holepunch.EndHolePunchEvtT untyped string` | `go.libp2p.libp2p.p2p.protocol.holepunch.endHolePunchEvtT` | const |
-| `const holepunch.HolePunchAttemptEvtT untyped string` | `go.libp2p.libp2p.p2p.protocol.holepunch.holePunchAttemptEvtT` | const |
-| `const holepunch.Protocol protocol.ID` | `go.libp2p.libp2p.p2p.protocol.holepunch.protocol` | const |
-| `const holepunch.ProtocolErrorEvtT untyped string` | `go.libp2p.libp2p.p2p.protocol.holepunch.protocolErrorEvtT` | const |
-| `const holepunch.ServiceName untyped string` | `go.libp2p.libp2p.p2p.protocol.holepunch.serviceName` | const |
-| `const holepunch.StartHolePunchEvtT untyped string` | `go.libp2p.libp2p.p2p.protocol.holepunch.startHolePunchEvtT` | const |
+| `const holepunch.DirectDialEvtT untyped string` | `go.libp2p.libp2p.p2p.protocol.holepunch.consts.directDialEvtT` | const |
+| `const holepunch.EndHolePunchEvtT untyped string` | `go.libp2p.libp2p.p2p.protocol.holepunch.consts.endHolePunchEvtT` | const |
+| `const holepunch.HolePunchAttemptEvtT untyped string` | `go.libp2p.libp2p.p2p.protocol.holepunch.consts.holePunchAttemptEvtT` | const |
+| `const holepunch.Protocol protocol.ID` | `go.libp2p.libp2p.p2p.protocol.holepunch.enums.protocol` | const |
+| `const holepunch.ProtocolErrorEvtT untyped string` | `go.libp2p.libp2p.p2p.protocol.holepunch.consts.protocolErrorEvtT` | const |
+| `const holepunch.ServiceName untyped string` | `go.libp2p.libp2p.p2p.protocol.holepunch.consts.serviceName` | const |
+| `const holepunch.StartHolePunchEvtT untyped string` | `go.libp2p.libp2p.p2p.protocol.holepunch.consts.startHolePunchEvtT` | const |
 
 Omitted:
 
@@ -5066,9 +5066,9 @@ Omitted:
 | `func ping.Ping(ctx context.Context, h host.Host, p peer.ID) <-chan ping.Result` | `go.libp2p.libp2p.p2p.protocol.ping.ping` | Stream |
 | `func (*ping.PingService).Ping(ctx context.Context, p peer.ID) <-chan ping.Result` | `Libp2pP2pProtocolPingService.ping` | Stream |
 | `func (*ping.PingService).PingHandler(s network.Stream)` | `Libp2pP2pProtocolPingService.pingHandler` | sync |
-| `const ping.ID untyped string` | `go.libp2p.libp2p.p2p.protocol.ping.id` | const |
-| `const ping.PingSize untyped int` | `go.libp2p.libp2p.p2p.protocol.ping.pingSize` | const |
-| `const ping.ServiceName untyped string` | `go.libp2p.libp2p.p2p.protocol.ping.serviceName` | const |
+| `const ping.ID untyped string` | `go.libp2p.libp2p.p2p.protocol.ping.consts.id` | const |
+| `const ping.PingSize untyped int` | `go.libp2p.libp2p.p2p.protocol.ping.consts.pingSize` | const |
+| `const ping.ServiceName untyped string` | `go.libp2p.libp2p.p2p.protocol.ping.consts.serviceName` | const |
 
 ## `github.com/libp2p/go-libp2p/p2p/security/noise` → `go.libp2p.libp2p.p2p.security.noise` (`lib/go/libp2p/libp2p/p2p/security/noise.dart`)
 
@@ -5084,10 +5084,10 @@ Omitted:
 | `func (*noise.Transport).SecureInbound(ctx context.Context, insecure net.Conn, p peer.ID) (sec.SecureConn, error)` | `Libp2pP2pSecurityNoiseTransport.secureInbound` | Future |
 | `func (*noise.Transport).SecureOutbound(ctx context.Context, insecure net.Conn, p peer.ID) (sec.SecureConn, error)` | `Libp2pP2pSecurityNoiseTransport.secureOutbound` | Future |
 | `func (*noise.Transport).WithSessionOptions(opts ...noise.SessionOption) (*noise.SessionTransport, error)` | `Libp2pP2pSecurityNoiseTransport.withSessionOptions` | sync |
-| `const noise.ID untyped string` | `go.libp2p.libp2p.p2p.security.noise.id` | const |
-| `const noise.LengthPrefixLength untyped int` | `go.libp2p.libp2p.p2p.security.noise.lengthPrefixLength` | const |
-| `const noise.MaxPlaintextLength untyped int` | `go.libp2p.libp2p.p2p.security.noise.maxPlaintextLength` | const |
-| `const noise.MaxTransportMsgLength untyped int` | `go.libp2p.libp2p.p2p.security.noise.maxTransportMsgLength` | const |
+| `const noise.ID untyped string` | `go.libp2p.libp2p.p2p.security.noise.consts.id` | const |
+| `const noise.LengthPrefixLength untyped int` | `go.libp2p.libp2p.p2p.security.noise.consts.lengthPrefixLength` | const |
+| `const noise.MaxPlaintextLength untyped int` | `go.libp2p.libp2p.p2p.security.noise.consts.maxPlaintextLength` | const |
+| `const noise.MaxTransportMsgLength untyped int` | `go.libp2p.libp2p.p2p.security.noise.consts.maxTransportMsgLength` | const |
 
 Omitted:
 
@@ -5108,7 +5108,7 @@ Omitted:
 | `func (*libp2ptls.Transport).ID() protocol.ID` | `Libp2pP2pSecurityTlsTransport.id` | sync |
 | `func (*libp2ptls.Transport).SecureInbound(ctx context.Context, insecure net.Conn, p peer.ID) (sec.SecureConn, error)` | `Libp2pP2pSecurityTlsTransport.secureInbound` | Future |
 | `func (*libp2ptls.Transport).SecureOutbound(ctx context.Context, insecure net.Conn, p peer.ID) (sec.SecureConn, error)` | `Libp2pP2pSecurityTlsTransport.secureOutbound` | Future |
-| `const libp2ptls.ID untyped string` | `go.libp2p.libp2p.p2p.security.tls.id` | const |
+| `const libp2ptls.ID untyped string` | `go.libp2p.libp2p.p2p.security.tls.consts.id` | const |
 
 Omitted:
 
@@ -5122,7 +5122,7 @@ Omitted:
 |---|---|---|
 | `var libp2pquic.HolePunchTimeout time.Duration` | `go.libp2p.libp2p.p2p.transport.quic.holePunchTimeout` | sync |
 | `func libp2pquic.NewTransport(key crypto.PrivKey, connManager *quicreuse.ConnManager, psk pnet.PSK, gater connmgr.ConnectionGater, rcmgr network.ResourceManager, opts ...libp2pquic.Option) (transport.Transport, error)` | `go.libp2p.libp2p.p2p.transport.quic.newTransport` | sync |
-| `const libp2pquic.ListenOrder untyped int` | `go.libp2p.libp2p.p2p.transport.quic.listenOrder` | const |
+| `const libp2pquic.ListenOrder untyped int` | `go.libp2p.libp2p.p2p.transport.quic.consts.listenOrder` | const |
 
 Omitted:
 
@@ -5141,10 +5141,10 @@ Omitted:
 | `func (*libp2pwebrtc.WebRTCTransport).ListenOrder() int` | `Libp2pP2pTransportWebrtcWebRtcTransport.listenOrder` | sync |
 | `func (*libp2pwebrtc.WebRTCTransport).Protocols() []int` | `Libp2pP2pTransportWebrtcWebRtcTransport.protocols` | sync |
 | `func (*libp2pwebrtc.WebRTCTransport).Proxy() bool` | `Libp2pP2pTransportWebrtcWebRtcTransport.proxy` | sync |
-| `const libp2pwebrtc.DefaultDisconnectedTimeout time.Duration` | `go.libp2p.libp2p.p2p.transport.webrtc.defaultDisconnectedTimeout` | const |
-| `const libp2pwebrtc.DefaultFailedTimeout time.Duration` | `go.libp2p.libp2p.p2p.transport.webrtc.defaultFailedTimeout` | const |
-| `const libp2pwebrtc.DefaultKeepaliveTimeout time.Duration` | `go.libp2p.libp2p.p2p.transport.webrtc.defaultKeepaliveTimeout` | const |
-| `const libp2pwebrtc.DefaultMaxInFlightConnections untyped int` | `go.libp2p.libp2p.p2p.transport.webrtc.defaultMaxInFlightConnections` | const |
+| `const libp2pwebrtc.DefaultDisconnectedTimeout time.Duration` | `go.libp2p.libp2p.p2p.transport.webrtc.enums.defaultDisconnectedTimeout` | const |
+| `const libp2pwebrtc.DefaultFailedTimeout time.Duration` | `go.libp2p.libp2p.p2p.transport.webrtc.enums.defaultFailedTimeout` | const |
+| `const libp2pwebrtc.DefaultKeepaliveTimeout time.Duration` | `go.libp2p.libp2p.p2p.transport.webrtc.enums.defaultKeepaliveTimeout` | const |
+| `const libp2pwebrtc.DefaultMaxInFlightConnections untyped int` | `go.libp2p.libp2p.p2p.transport.webrtc.consts.defaultMaxInFlightConnections` | const |
 
 Omitted:
 
@@ -5235,49 +5235,49 @@ Omitted:
 | `var multiaddr.TranscoderPort multiaddr.Transcoder` | `go.multiformats.multiaddr.transcoderPort` | sync |
 | `var multiaddr.TranscoderUnix multiaddr.Transcoder` | `go.multiformats.multiaddr.transcoderUnix` | sync |
 | `func multiaddr.Unique(addrs []multiaddr.Multiaddr) []multiaddr.Multiaddr` | `go.multiformats.multiaddr.unique` | sync |
-| `const multiaddr.ActionAccept multiaddr.Action` | `go.multiformats.multiaddr.actionAccept` | const |
-| `const multiaddr.ActionDeny multiaddr.Action` | `go.multiformats.multiaddr.actionDeny` | const |
-| `const multiaddr.ActionNone multiaddr.Action` | `go.multiformats.multiaddr.actionNone` | const |
-| `const multiaddr.LengthPrefixedVarSize untyped int` | `go.multiformats.multiaddr.lengthPrefixedVarSize` | const |
-| `const multiaddr.P_CERTHASH untyped int` | `go.multiformats.multiaddr.pCerthash` | const |
-| `const multiaddr.P_CIRCUIT untyped int` | `go.multiformats.multiaddr.pCircuit` | const |
-| `const multiaddr.P_DCCP untyped int` | `go.multiformats.multiaddr.pDccp` | const |
-| `const multiaddr.P_DNS untyped int` | `go.multiformats.multiaddr.pDns` | const |
-| `const multiaddr.P_DNS4 untyped int` | `go.multiformats.multiaddr.pDns4` | const |
-| `const multiaddr.P_DNS6 untyped int` | `go.multiformats.multiaddr.pDns6` | const |
-| `const multiaddr.P_DNSADDR untyped int` | `go.multiformats.multiaddr.pDnsaddr` | const |
-| `const multiaddr.P_GARLIC32 untyped int` | `go.multiformats.multiaddr.pGarlic32` | const |
-| `const multiaddr.P_GARLIC64 untyped int` | `go.multiformats.multiaddr.pGarlic64` | const |
-| `const multiaddr.P_HTTP untyped int` | `go.multiformats.multiaddr.pHttp` | const |
-| `const multiaddr.P_HTTPS untyped int` | `go.multiformats.multiaddr.pHttps` | const |
-| `const multiaddr.P_HTTP_PATH untyped int` | `go.multiformats.multiaddr.pHttpPath` | const |
-| `const multiaddr.P_IP4 untyped int` | `go.multiformats.multiaddr.pIp4` | const |
-| `const multiaddr.P_IP6 untyped int` | `go.multiformats.multiaddr.pIp6` | const |
-| `const multiaddr.P_IP6ZONE untyped int` | `go.multiformats.multiaddr.pIp6zone` | const |
-| `const multiaddr.P_IPCIDR untyped int` | `go.multiformats.multiaddr.pIpcidr` | const |
-| `const multiaddr.P_IPFS untyped int` | `go.multiformats.multiaddr.pIpfs` | const |
-| `const multiaddr.P_MEMORY untyped int` | `go.multiformats.multiaddr.pMemory` | const |
-| `const multiaddr.P_NOISE untyped int` | `go.multiformats.multiaddr.pNoise` | const |
-| `const multiaddr.P_ONION untyped int` | `go.multiformats.multiaddr.pOnion` | const |
-| `const multiaddr.P_ONION3 untyped int` | `go.multiformats.multiaddr.pOnion3` | const |
-| `const multiaddr.P_P2P untyped int` | `go.multiformats.multiaddr.pP2p` | const |
-| `const multiaddr.P_P2P_WEBRTC_DIRECT untyped int` | `go.multiformats.multiaddr.pP2pWebrtcDirect` | const |
-| `const multiaddr.P_PLAINTEXTV2 untyped int` | `go.multiformats.multiaddr.pPlaintextv2` | const |
-| `const multiaddr.P_QUIC untyped int` | `go.multiformats.multiaddr.pQuic` | const |
-| `const multiaddr.P_QUIC_V1 untyped int` | `go.multiformats.multiaddr.pQuicV1` | const |
-| `const multiaddr.P_SCTP untyped int` | `go.multiformats.multiaddr.pSctp` | const |
-| `const multiaddr.P_SNI untyped int` | `go.multiformats.multiaddr.pSni` | const |
-| `const multiaddr.P_TCP untyped int` | `go.multiformats.multiaddr.pTcp` | const |
-| `const multiaddr.P_TLS untyped int` | `go.multiformats.multiaddr.pTls` | const |
-| `const multiaddr.P_UDP untyped int` | `go.multiformats.multiaddr.pUdp` | const |
-| `const multiaddr.P_UDT untyped int` | `go.multiformats.multiaddr.pUdt` | const |
-| `const multiaddr.P_UNIX untyped int` | `go.multiformats.multiaddr.pUnix` | const |
-| `const multiaddr.P_UTP untyped int` | `go.multiformats.multiaddr.pUtp` | const |
-| `const multiaddr.P_WEBRTC untyped int` | `go.multiformats.multiaddr.pWebrtc` | const |
-| `const multiaddr.P_WEBRTC_DIRECT untyped int` | `go.multiformats.multiaddr.pWebrtcDirect` | const |
-| `const multiaddr.P_WEBTRANSPORT untyped int` | `go.multiformats.multiaddr.pWebtransport` | const |
-| `const multiaddr.P_WS untyped int` | `go.multiformats.multiaddr.pWs` | const |
-| `const multiaddr.P_WSS untyped int` | `go.multiformats.multiaddr.pWss` | const |
+| `const multiaddr.ActionAccept multiaddr.Action` | `go.multiformats.multiaddr.enums.actionAccept` | const |
+| `const multiaddr.ActionDeny multiaddr.Action` | `go.multiformats.multiaddr.enums.actionDeny` | const |
+| `const multiaddr.ActionNone multiaddr.Action` | `go.multiformats.multiaddr.enums.actionNone` | const |
+| `const multiaddr.LengthPrefixedVarSize untyped int` | `go.multiformats.multiaddr.consts.lengthPrefixedVarSize` | const |
+| `const multiaddr.P_CERTHASH untyped int` | `go.multiformats.multiaddr.consts.pCerthash` | const |
+| `const multiaddr.P_CIRCUIT untyped int` | `go.multiformats.multiaddr.consts.pCircuit` | const |
+| `const multiaddr.P_DCCP untyped int` | `go.multiformats.multiaddr.consts.pDccp` | const |
+| `const multiaddr.P_DNS untyped int` | `go.multiformats.multiaddr.consts.pDns` | const |
+| `const multiaddr.P_DNS4 untyped int` | `go.multiformats.multiaddr.consts.pDns4` | const |
+| `const multiaddr.P_DNS6 untyped int` | `go.multiformats.multiaddr.consts.pDns6` | const |
+| `const multiaddr.P_DNSADDR untyped int` | `go.multiformats.multiaddr.consts.pDnsaddr` | const |
+| `const multiaddr.P_GARLIC32 untyped int` | `go.multiformats.multiaddr.consts.pGarlic32` | const |
+| `const multiaddr.P_GARLIC64 untyped int` | `go.multiformats.multiaddr.consts.pGarlic64` | const |
+| `const multiaddr.P_HTTP untyped int` | `go.multiformats.multiaddr.consts.pHttp` | const |
+| `const multiaddr.P_HTTPS untyped int` | `go.multiformats.multiaddr.consts.pHttps` | const |
+| `const multiaddr.P_HTTP_PATH untyped int` | `go.multiformats.multiaddr.consts.pHttpPath` | const |
+| `const multiaddr.P_IP4 untyped int` | `go.multiformats.multiaddr.consts.pIp4` | const |
+| `const multiaddr.P_IP6 untyped int` | `go.multiformats.multiaddr.consts.pIp6` | const |
+| `const multiaddr.P_IP6ZONE untyped int` | `go.multiformats.multiaddr.consts.pIp6zone` | const |
+| `const multiaddr.P_IPCIDR untyped int` | `go.multiformats.multiaddr.consts.pIpcidr` | const |
+| `const multiaddr.P_IPFS untyped int` | `go.multiformats.multiaddr.consts.pIpfs` | const |
+| `const multiaddr.P_MEMORY untyped int` | `go.multiformats.multiaddr.consts.pMemory` | const |
+| `const multiaddr.P_NOISE untyped int` | `go.multiformats.multiaddr.consts.pNoise` | const |
+| `const multiaddr.P_ONION untyped int` | `go.multiformats.multiaddr.consts.pOnion` | const |
+| `const multiaddr.P_ONION3 untyped int` | `go.multiformats.multiaddr.consts.pOnion3` | const |
+| `const multiaddr.P_P2P untyped int` | `go.multiformats.multiaddr.consts.pP2p` | const |
+| `const multiaddr.P_P2P_WEBRTC_DIRECT untyped int` | `go.multiformats.multiaddr.consts.pP2pWebrtcDirect` | const |
+| `const multiaddr.P_PLAINTEXTV2 untyped int` | `go.multiformats.multiaddr.consts.pPlaintextv2` | const |
+| `const multiaddr.P_QUIC untyped int` | `go.multiformats.multiaddr.consts.pQuic` | const |
+| `const multiaddr.P_QUIC_V1 untyped int` | `go.multiformats.multiaddr.consts.pQuicV1` | const |
+| `const multiaddr.P_SCTP untyped int` | `go.multiformats.multiaddr.consts.pSctp` | const |
+| `const multiaddr.P_SNI untyped int` | `go.multiformats.multiaddr.consts.pSni` | const |
+| `const multiaddr.P_TCP untyped int` | `go.multiformats.multiaddr.consts.pTcp` | const |
+| `const multiaddr.P_TLS untyped int` | `go.multiformats.multiaddr.consts.pTls` | const |
+| `const multiaddr.P_UDP untyped int` | `go.multiformats.multiaddr.consts.pUdp` | const |
+| `const multiaddr.P_UDT untyped int` | `go.multiformats.multiaddr.consts.pUdt` | const |
+| `const multiaddr.P_UNIX untyped int` | `go.multiformats.multiaddr.consts.pUnix` | const |
+| `const multiaddr.P_UTP untyped int` | `go.multiformats.multiaddr.consts.pUtp` | const |
+| `const multiaddr.P_WEBRTC untyped int` | `go.multiformats.multiaddr.consts.pWebrtc` | const |
+| `const multiaddr.P_WEBRTC_DIRECT untyped int` | `go.multiformats.multiaddr.consts.pWebrtcDirect` | const |
+| `const multiaddr.P_WEBTRANSPORT untyped int` | `go.multiformats.multiaddr.consts.pWebtransport` | const |
+| `const multiaddr.P_WS untyped int` | `go.multiformats.multiaddr.consts.pWs` | const |
+| `const multiaddr.P_WSS untyped int` | `go.multiformats.multiaddr.consts.pWss` | const |
 
 Omitted:
 
@@ -5300,641 +5300,641 @@ Omitted:
 | `var multibase.Encodings map[string]multibase.Encoding` | `go.multiformats.multibase.encodings` | sync |
 | `func multibase.MustNewEncoder(base multibase.Encoding) multibase.Encoder` | `go.multiformats.multibase.mustNewEncoder` | sync |
 | `func multibase.NewEncoder(base multibase.Encoding) (multibase.Encoder, error)` | `factory MultibaseEncoder` | sync |
-| `const multibase.Base10 untyped rune` | `go.multiformats.multibase.base10` | const |
-| `const multibase.Base16 untyped rune` | `go.multiformats.multibase.base16` | const |
-| `const multibase.Base16Upper untyped rune` | `go.multiformats.multibase.base16Upper` | const |
-| `const multibase.Base2 untyped rune` | `go.multiformats.multibase.base2` | const |
-| `const multibase.Base256Emoji untyped rune` | `go.multiformats.multibase.base256Emoji` | const |
-| `const multibase.Base32 untyped rune` | `go.multiformats.multibase.base32` | const |
-| `const multibase.Base32Upper untyped rune` | `go.multiformats.multibase.base32Upper` | const |
-| `const multibase.Base32hex untyped rune` | `go.multiformats.multibase.base32hex` | const |
-| `const multibase.Base32hexPad untyped rune` | `go.multiformats.multibase.base32hexPad` | const |
-| `const multibase.Base32hexPadUpper untyped rune` | `go.multiformats.multibase.base32hexPadUpper` | const |
-| `const multibase.Base32hexUpper untyped rune` | `go.multiformats.multibase.base32hexUpper` | const |
-| `const multibase.Base32pad untyped rune` | `go.multiformats.multibase.base32pad` | const |
-| `const multibase.Base32padUpper untyped rune` | `go.multiformats.multibase.base32padUpper` | const |
-| `const multibase.Base36 untyped rune` | `go.multiformats.multibase.base36` | const |
-| `const multibase.Base36Upper untyped rune` | `go.multiformats.multibase.base36Upper` | const |
-| `const multibase.Base45 untyped rune` | `go.multiformats.multibase.base45` | const |
-| `const multibase.Base58BTC untyped rune` | `go.multiformats.multibase.base58btc` | const |
-| `const multibase.Base58Flickr untyped rune` | `go.multiformats.multibase.base58Flickr` | const |
-| `const multibase.Base64 untyped rune` | `go.multiformats.multibase.base64` | const |
-| `const multibase.Base64pad untyped rune` | `go.multiformats.multibase.base64pad` | const |
-| `const multibase.Base64url untyped rune` | `go.multiformats.multibase.base64url` | const |
-| `const multibase.Base64urlPad untyped rune` | `go.multiformats.multibase.base64urlPad` | const |
-| `const multibase.Base8 untyped rune` | `go.multiformats.multibase.base8` | const |
-| `const multibase.Identity untyped int` | `go.multiformats.multibase.identity` | const |
+| `const multibase.Base10 untyped rune` | `go.multiformats.multibase.consts.base10` | const |
+| `const multibase.Base16 untyped rune` | `go.multiformats.multibase.consts.base16` | const |
+| `const multibase.Base16Upper untyped rune` | `go.multiformats.multibase.consts.base16Upper` | const |
+| `const multibase.Base2 untyped rune` | `go.multiformats.multibase.consts.base2` | const |
+| `const multibase.Base256Emoji untyped rune` | `go.multiformats.multibase.consts.base256Emoji` | const |
+| `const multibase.Base32 untyped rune` | `go.multiformats.multibase.consts.base32` | const |
+| `const multibase.Base32Upper untyped rune` | `go.multiformats.multibase.consts.base32Upper` | const |
+| `const multibase.Base32hex untyped rune` | `go.multiformats.multibase.consts.base32hex` | const |
+| `const multibase.Base32hexPad untyped rune` | `go.multiformats.multibase.consts.base32hexPad` | const |
+| `const multibase.Base32hexPadUpper untyped rune` | `go.multiformats.multibase.consts.base32hexPadUpper` | const |
+| `const multibase.Base32hexUpper untyped rune` | `go.multiformats.multibase.consts.base32hexUpper` | const |
+| `const multibase.Base32pad untyped rune` | `go.multiformats.multibase.consts.base32pad` | const |
+| `const multibase.Base32padUpper untyped rune` | `go.multiformats.multibase.consts.base32padUpper` | const |
+| `const multibase.Base36 untyped rune` | `go.multiformats.multibase.consts.base36` | const |
+| `const multibase.Base36Upper untyped rune` | `go.multiformats.multibase.consts.base36Upper` | const |
+| `const multibase.Base45 untyped rune` | `go.multiformats.multibase.consts.base45` | const |
+| `const multibase.Base58BTC untyped rune` | `go.multiformats.multibase.consts.base58btc` | const |
+| `const multibase.Base58Flickr untyped rune` | `go.multiformats.multibase.consts.base58Flickr` | const |
+| `const multibase.Base64 untyped rune` | `go.multiformats.multibase.consts.base64` | const |
+| `const multibase.Base64pad untyped rune` | `go.multiformats.multibase.consts.base64pad` | const |
+| `const multibase.Base64url untyped rune` | `go.multiformats.multibase.consts.base64url` | const |
+| `const multibase.Base64urlPad untyped rune` | `go.multiformats.multibase.consts.base64urlPad` | const |
+| `const multibase.Base8 untyped rune` | `go.multiformats.multibase.consts.base8` | const |
+| `const multibase.Identity untyped int` | `go.multiformats.multibase.consts.identity` | const |
 
 ## `github.com/multiformats/go-multicodec` → `go.multiformats.multicodec` (`lib/go/multiformats/multicodec.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
-| `const multicodec.CarMultihashIndexSorted multicodec.Code` | `go.multiformats.multicodec.carMultihashIndexSorted` | const |
+| `const multicodec.CarMultihashIndexSorted multicodec.Code` | `go.multiformats.multicodec.enums.carMultihashIndexSorted` | const |
 | `func multicodec.KnownCodes() []multicodec.Code` | `go.multiformats.multicodec.knownCodes` | sync |
-| `const multicodec.Aes128 multicodec.Code` | `go.multiformats.multicodec.aes128` | const |
-| `const multicodec.Aes192 multicodec.Code` | `go.multiformats.multicodec.aes192` | const |
-| `const multicodec.Aes256 multicodec.Code` | `go.multiformats.multicodec.aes256` | const |
-| `const multicodec.AesGcm256 multicodec.Code` | `go.multiformats.multicodec.aesGcm256` | const |
-| `const multicodec.ArweaveNs multicodec.Code` | `go.multiformats.multicodec.arweaveNs` | const |
-| `const multicodec.BcryptPbkdf multicodec.Code` | `go.multiformats.multicodec.bcryptPbkdf` | const |
-| `const multicodec.Beeson multicodec.Code` | `go.multiformats.multicodec.beeson` | const |
-| `const multicodec.Bencode multicodec.Code` | `go.multiformats.multicodec.bencode` | const |
-| `const multicodec.BitcoinBlock multicodec.Code` | `go.multiformats.multicodec.bitcoinBlock` | const |
-| `const multicodec.BitcoinTx multicodec.Code` | `go.multiformats.multicodec.bitcoinTx` | const |
-| `const multicodec.BitcoinWitnessCommitment multicodec.Code` | `go.multiformats.multicodec.bitcoinWitnessCommitment` | const |
-| `const multicodec.BittorrentPiecesRoot multicodec.Code` | `go.multiformats.multicodec.bittorrentPiecesRoot` | const |
-| `const multicodec.Blake2b104 multicodec.Code` | `go.multiformats.multicodec.blake2b104` | const |
-| `const multicodec.Blake2b112 multicodec.Code` | `go.multiformats.multicodec.blake2b112` | const |
-| `const multicodec.Blake2b120 multicodec.Code` | `go.multiformats.multicodec.blake2b120` | const |
-| `const multicodec.Blake2b128 multicodec.Code` | `go.multiformats.multicodec.blake2b128` | const |
-| `const multicodec.Blake2b136 multicodec.Code` | `go.multiformats.multicodec.blake2b136` | const |
-| `const multicodec.Blake2b144 multicodec.Code` | `go.multiformats.multicodec.blake2b144` | const |
-| `const multicodec.Blake2b152 multicodec.Code` | `go.multiformats.multicodec.blake2b152` | const |
-| `const multicodec.Blake2b16 multicodec.Code` | `go.multiformats.multicodec.blake2b16` | const |
-| `const multicodec.Blake2b160 multicodec.Code` | `go.multiformats.multicodec.blake2b160` | const |
-| `const multicodec.Blake2b168 multicodec.Code` | `go.multiformats.multicodec.blake2b168` | const |
-| `const multicodec.Blake2b176 multicodec.Code` | `go.multiformats.multicodec.blake2b176` | const |
-| `const multicodec.Blake2b184 multicodec.Code` | `go.multiformats.multicodec.blake2b184` | const |
-| `const multicodec.Blake2b192 multicodec.Code` | `go.multiformats.multicodec.blake2b192` | const |
-| `const multicodec.Blake2b200 multicodec.Code` | `go.multiformats.multicodec.blake2b200` | const |
-| `const multicodec.Blake2b208 multicodec.Code` | `go.multiformats.multicodec.blake2b208` | const |
-| `const multicodec.Blake2b216 multicodec.Code` | `go.multiformats.multicodec.blake2b216` | const |
-| `const multicodec.Blake2b224 multicodec.Code` | `go.multiformats.multicodec.blake2b224` | const |
-| `const multicodec.Blake2b232 multicodec.Code` | `go.multiformats.multicodec.blake2b232` | const |
-| `const multicodec.Blake2b24 multicodec.Code` | `go.multiformats.multicodec.blake2b24` | const |
-| `const multicodec.Blake2b240 multicodec.Code` | `go.multiformats.multicodec.blake2b240` | const |
-| `const multicodec.Blake2b248 multicodec.Code` | `go.multiformats.multicodec.blake2b248` | const |
-| `const multicodec.Blake2b256 multicodec.Code` | `go.multiformats.multicodec.blake2b256` | const |
-| `const multicodec.Blake2b264 multicodec.Code` | `go.multiformats.multicodec.blake2b264` | const |
-| `const multicodec.Blake2b272 multicodec.Code` | `go.multiformats.multicodec.blake2b272` | const |
-| `const multicodec.Blake2b280 multicodec.Code` | `go.multiformats.multicodec.blake2b280` | const |
-| `const multicodec.Blake2b288 multicodec.Code` | `go.multiformats.multicodec.blake2b288` | const |
-| `const multicodec.Blake2b296 multicodec.Code` | `go.multiformats.multicodec.blake2b296` | const |
-| `const multicodec.Blake2b304 multicodec.Code` | `go.multiformats.multicodec.blake2b304` | const |
-| `const multicodec.Blake2b312 multicodec.Code` | `go.multiformats.multicodec.blake2b312` | const |
-| `const multicodec.Blake2b32 multicodec.Code` | `go.multiformats.multicodec.blake2b32` | const |
-| `const multicodec.Blake2b320 multicodec.Code` | `go.multiformats.multicodec.blake2b320` | const |
-| `const multicodec.Blake2b328 multicodec.Code` | `go.multiformats.multicodec.blake2b328` | const |
-| `const multicodec.Blake2b336 multicodec.Code` | `go.multiformats.multicodec.blake2b336` | const |
-| `const multicodec.Blake2b344 multicodec.Code` | `go.multiformats.multicodec.blake2b344` | const |
-| `const multicodec.Blake2b352 multicodec.Code` | `go.multiformats.multicodec.blake2b352` | const |
-| `const multicodec.Blake2b360 multicodec.Code` | `go.multiformats.multicodec.blake2b360` | const |
-| `const multicodec.Blake2b368 multicodec.Code` | `go.multiformats.multicodec.blake2b368` | const |
-| `const multicodec.Blake2b376 multicodec.Code` | `go.multiformats.multicodec.blake2b376` | const |
-| `const multicodec.Blake2b384 multicodec.Code` | `go.multiformats.multicodec.blake2b384` | const |
-| `const multicodec.Blake2b392 multicodec.Code` | `go.multiformats.multicodec.blake2b392` | const |
-| `const multicodec.Blake2b40 multicodec.Code` | `go.multiformats.multicodec.blake2b40` | const |
-| `const multicodec.Blake2b400 multicodec.Code` | `go.multiformats.multicodec.blake2b400` | const |
-| `const multicodec.Blake2b408 multicodec.Code` | `go.multiformats.multicodec.blake2b408` | const |
-| `const multicodec.Blake2b416 multicodec.Code` | `go.multiformats.multicodec.blake2b416` | const |
-| `const multicodec.Blake2b424 multicodec.Code` | `go.multiformats.multicodec.blake2b424` | const |
-| `const multicodec.Blake2b432 multicodec.Code` | `go.multiformats.multicodec.blake2b432` | const |
-| `const multicodec.Blake2b440 multicodec.Code` | `go.multiformats.multicodec.blake2b440` | const |
-| `const multicodec.Blake2b448 multicodec.Code` | `go.multiformats.multicodec.blake2b448` | const |
-| `const multicodec.Blake2b456 multicodec.Code` | `go.multiformats.multicodec.blake2b456` | const |
-| `const multicodec.Blake2b464 multicodec.Code` | `go.multiformats.multicodec.blake2b464` | const |
-| `const multicodec.Blake2b472 multicodec.Code` | `go.multiformats.multicodec.blake2b472` | const |
-| `const multicodec.Blake2b48 multicodec.Code` | `go.multiformats.multicodec.blake2b48` | const |
-| `const multicodec.Blake2b480 multicodec.Code` | `go.multiformats.multicodec.blake2b480` | const |
-| `const multicodec.Blake2b488 multicodec.Code` | `go.multiformats.multicodec.blake2b488` | const |
-| `const multicodec.Blake2b496 multicodec.Code` | `go.multiformats.multicodec.blake2b496` | const |
-| `const multicodec.Blake2b504 multicodec.Code` | `go.multiformats.multicodec.blake2b504` | const |
-| `const multicodec.Blake2b512 multicodec.Code` | `go.multiformats.multicodec.blake2b512` | const |
-| `const multicodec.Blake2b56 multicodec.Code` | `go.multiformats.multicodec.blake2b56` | const |
-| `const multicodec.Blake2b64 multicodec.Code` | `go.multiformats.multicodec.blake2b64` | const |
-| `const multicodec.Blake2b72 multicodec.Code` | `go.multiformats.multicodec.blake2b72` | const |
-| `const multicodec.Blake2b8 multicodec.Code` | `go.multiformats.multicodec.blake2b8` | const |
-| `const multicodec.Blake2b80 multicodec.Code` | `go.multiformats.multicodec.blake2b80` | const |
-| `const multicodec.Blake2b88 multicodec.Code` | `go.multiformats.multicodec.blake2b88` | const |
-| `const multicodec.Blake2b96 multicodec.Code` | `go.multiformats.multicodec.blake2b96` | const |
-| `const multicodec.Blake2s104 multicodec.Code` | `go.multiformats.multicodec.blake2s104` | const |
-| `const multicodec.Blake2s112 multicodec.Code` | `go.multiformats.multicodec.blake2s112` | const |
-| `const multicodec.Blake2s120 multicodec.Code` | `go.multiformats.multicodec.blake2s120` | const |
-| `const multicodec.Blake2s128 multicodec.Code` | `go.multiformats.multicodec.blake2s128` | const |
-| `const multicodec.Blake2s136 multicodec.Code` | `go.multiformats.multicodec.blake2s136` | const |
-| `const multicodec.Blake2s144 multicodec.Code` | `go.multiformats.multicodec.blake2s144` | const |
-| `const multicodec.Blake2s152 multicodec.Code` | `go.multiformats.multicodec.blake2s152` | const |
-| `const multicodec.Blake2s16 multicodec.Code` | `go.multiformats.multicodec.blake2s16` | const |
-| `const multicodec.Blake2s160 multicodec.Code` | `go.multiformats.multicodec.blake2s160` | const |
-| `const multicodec.Blake2s168 multicodec.Code` | `go.multiformats.multicodec.blake2s168` | const |
-| `const multicodec.Blake2s176 multicodec.Code` | `go.multiformats.multicodec.blake2s176` | const |
-| `const multicodec.Blake2s184 multicodec.Code` | `go.multiformats.multicodec.blake2s184` | const |
-| `const multicodec.Blake2s192 multicodec.Code` | `go.multiformats.multicodec.blake2s192` | const |
-| `const multicodec.Blake2s200 multicodec.Code` | `go.multiformats.multicodec.blake2s200` | const |
-| `const multicodec.Blake2s208 multicodec.Code` | `go.multiformats.multicodec.blake2s208` | const |
-| `const multicodec.Blake2s216 multicodec.Code` | `go.multiformats.multicodec.blake2s216` | const |
-| `const multicodec.Blake2s224 multicodec.Code` | `go.multiformats.multicodec.blake2s224` | const |
-| `const multicodec.Blake2s232 multicodec.Code` | `go.multiformats.multicodec.blake2s232` | const |
-| `const multicodec.Blake2s24 multicodec.Code` | `go.multiformats.multicodec.blake2s24` | const |
-| `const multicodec.Blake2s240 multicodec.Code` | `go.multiformats.multicodec.blake2s240` | const |
-| `const multicodec.Blake2s248 multicodec.Code` | `go.multiformats.multicodec.blake2s248` | const |
-| `const multicodec.Blake2s256 multicodec.Code` | `go.multiformats.multicodec.blake2s256` | const |
-| `const multicodec.Blake2s32 multicodec.Code` | `go.multiformats.multicodec.blake2s32` | const |
-| `const multicodec.Blake2s40 multicodec.Code` | `go.multiformats.multicodec.blake2s40` | const |
-| `const multicodec.Blake2s48 multicodec.Code` | `go.multiformats.multicodec.blake2s48` | const |
-| `const multicodec.Blake2s56 multicodec.Code` | `go.multiformats.multicodec.blake2s56` | const |
-| `const multicodec.Blake2s64 multicodec.Code` | `go.multiformats.multicodec.blake2s64` | const |
-| `const multicodec.Blake2s72 multicodec.Code` | `go.multiformats.multicodec.blake2s72` | const |
-| `const multicodec.Blake2s8 multicodec.Code` | `go.multiformats.multicodec.blake2s8` | const |
-| `const multicodec.Blake2s80 multicodec.Code` | `go.multiformats.multicodec.blake2s80` | const |
-| `const multicodec.Blake2s88 multicodec.Code` | `go.multiformats.multicodec.blake2s88` | const |
-| `const multicodec.Blake2s96 multicodec.Code` | `go.multiformats.multicodec.blake2s96` | const |
-| `const multicodec.Blake3 multicodec.Code` | `go.multiformats.multicodec.blake3` | const |
-| `const multicodec.Blake3Hashseq multicodec.Code` | `go.multiformats.multicodec.blake3Hashseq` | const |
-| `const multicodec.Bls12_381G1Msig multicodec.Code` | `go.multiformats.multicodec.bls12381g1Msig` | const |
-| `const multicodec.Bls12_381G1Priv multicodec.Code` | `go.multiformats.multicodec.bls12381g1Priv` | const |
-| `const multicodec.Bls12_381G1PrivShare multicodec.Code` | `go.multiformats.multicodec.bls12381g1PrivShare` | const |
-| `const multicodec.Bls12_381G1Pub multicodec.Code` | `go.multiformats.multicodec.bls12381g1Pub` | const |
-| `const multicodec.Bls12_381G1PubShare multicodec.Code` | `go.multiformats.multicodec.bls12381g1PubShare` | const |
-| `const multicodec.Bls12_381G1ShareMsig multicodec.Code` | `go.multiformats.multicodec.bls12381g1ShareMsig` | const |
-| `const multicodec.Bls12_381G1Sig multicodec.Code` | `go.multiformats.multicodec.bls12381g1Sig` | const |
-| `const multicodec.Bls12_381G1g2Priv multicodec.Code` | `go.multiformats.multicodec.bls12381g1g2Priv` | const |
-| `const multicodec.Bls12_381G1g2Pub multicodec.Code` | `go.multiformats.multicodec.bls12381g1g2Pub` | const |
-| `const multicodec.Bls12_381G2Msig multicodec.Code` | `go.multiformats.multicodec.bls12381g2Msig` | const |
-| `const multicodec.Bls12_381G2Priv multicodec.Code` | `go.multiformats.multicodec.bls12381g2Priv` | const |
-| `const multicodec.Bls12_381G2PrivShare multicodec.Code` | `go.multiformats.multicodec.bls12381g2PrivShare` | const |
-| `const multicodec.Bls12_381G2Pub multicodec.Code` | `go.multiformats.multicodec.bls12381g2Pub` | const |
-| `const multicodec.Bls12_381G2PubShare multicodec.Code` | `go.multiformats.multicodec.bls12381g2PubShare` | const |
-| `const multicodec.Bls12_381G2ShareMsig multicodec.Code` | `go.multiformats.multicodec.bls12381g2ShareMsig` | const |
-| `const multicodec.Bls12_381G2Sig multicodec.Code` | `go.multiformats.multicodec.bls12381g2Sig` | const |
-| `const multicodec.Caip50 multicodec.Code` | `go.multiformats.multicodec.caip50` | const |
-| `const multicodec.Car multicodec.Code` | `go.multiformats.multicodec.car` | const |
-| `const multicodec.CarIndexSorted multicodec.Code` | `go.multiformats.multicodec.carIndexSorted` | const |
-| `const multicodec.Cbor multicodec.Code` | `go.multiformats.multicodec.cbor` | const |
-| `const multicodec.Certhash multicodec.Code` | `go.multiformats.multicodec.certhash` | const |
-| `const multicodec.Chacha128 multicodec.Code` | `go.multiformats.multicodec.chacha128` | const |
-| `const multicodec.Chacha20Poly1305 multicodec.Code` | `go.multiformats.multicodec.chacha20Poly1305` | const |
-| `const multicodec.Chacha256 multicodec.Code` | `go.multiformats.multicodec.chacha256` | const |
-| `const multicodec.Cidv1 multicodec.Code` | `go.multiformats.multicodec.cidv1` | const |
-| `const multicodec.Cidv2 multicodec.Code` | `go.multiformats.multicodec.cidv2` | const |
-| `const multicodec.Cidv3 multicodec.Code` | `go.multiformats.multicodec.cidv3` | const |
-| `const multicodec.Crc32 multicodec.Code` | `go.multiformats.multicodec.crc32` | const |
-| `const multicodec.Crc64Ecma multicodec.Code` | `go.multiformats.multicodec.crc64Ecma` | const |
-| `const multicodec.Crc64Nvme multicodec.Code` | `go.multiformats.multicodec.crc64Nvme` | const |
-| `const multicodec.DagCbor multicodec.Code` | `go.multiformats.multicodec.dagCbor` | const |
-| `const multicodec.DagCose multicodec.Code` | `go.multiformats.multicodec.dagCose` | const |
-| `const multicodec.DagJose multicodec.Code` | `go.multiformats.multicodec.dagJose` | const |
-| `const multicodec.DagJson multicodec.Code` | `go.multiformats.multicodec.dagJson` | const |
-| `const multicodec.DagPb multicodec.Code` | `go.multiformats.multicodec.dagPb` | const |
-| `const multicodec.DashBlock multicodec.Code` | `go.multiformats.multicodec.dashBlock` | const |
-| `const multicodec.DashTx multicodec.Code` | `go.multiformats.multicodec.dashTx` | const |
-| `const multicodec.DblSha2_256 multicodec.Code` | `go.multiformats.multicodec.dblSha2256` | const |
-| `const multicodec.Dccp multicodec.Code` | `go.multiformats.multicodec.dccp` | const |
-| `const multicodec.DecredBlock multicodec.Code` | `go.multiformats.multicodec.decredBlock` | const |
-| `const multicodec.DecredTx multicodec.Code` | `go.multiformats.multicodec.decredTx` | const |
-| `const multicodec.Dns multicodec.Code` | `go.multiformats.multicodec.dns` | const |
-| `const multicodec.Dns4 multicodec.Code` | `go.multiformats.multicodec.dns4` | const |
-| `const multicodec.Dns6 multicodec.Code` | `go.multiformats.multicodec.dns6` | const |
-| `const multicodec.Dnsaddr multicodec.Code` | `go.multiformats.multicodec.dnsaddr` | const |
-| `const multicodec.Dnslink multicodec.Code` | `go.multiformats.multicodec.dnslink` | const |
-| `const multicodec.Ed25519Priv multicodec.Code` | `go.multiformats.multicodec.ed25519Priv` | const |
-| `const multicodec.Ed25519Pub multicodec.Code` | `go.multiformats.multicodec.ed25519Pub` | const |
-| `const multicodec.Ed2k multicodec.Code` | `go.multiformats.multicodec.ed2k` | const |
-| `const multicodec.Ed448Priv multicodec.Code` | `go.multiformats.multicodec.ed448Priv` | const |
-| `const multicodec.Ed448Pub multicodec.Code` | `go.multiformats.multicodec.ed448Pub` | const |
-| `const multicodec.Eddsa multicodec.Code` | `go.multiformats.multicodec.eddsa` | const |
-| `const multicodec.EddsaMsig multicodec.Code` | `go.multiformats.multicodec.eddsaMsig` | const |
-| `const multicodec.Eip191 multicodec.Code` | `go.multiformats.multicodec.eip191` | const |
-| `const multicodec.Es256 multicodec.Code` | `go.multiformats.multicodec.es256` | const |
-| `const multicodec.Es256Msig multicodec.Code` | `go.multiformats.multicodec.es256Msig` | const |
-| `const multicodec.Es256k multicodec.Code` | `go.multiformats.multicodec.es256k` | const |
-| `const multicodec.Es256kMsig multicodec.Code` | `go.multiformats.multicodec.es256kMsig` | const |
-| `const multicodec.Es384 multicodec.Code` | `go.multiformats.multicodec.es384` | const |
-| `const multicodec.Es384Msig multicodec.Code` | `go.multiformats.multicodec.es384Msig` | const |
-| `const multicodec.Es512 multicodec.Code` | `go.multiformats.multicodec.es512` | const |
-| `const multicodec.Es521Msig multicodec.Code` | `go.multiformats.multicodec.es521Msig` | const |
-| `const multicodec.EthAccountSnapshot multicodec.Code` | `go.multiformats.multicodec.ethAccountSnapshot` | const |
-| `const multicodec.EthBlock multicodec.Code` | `go.multiformats.multicodec.ethBlock` | const |
-| `const multicodec.EthBlockList multicodec.Code` | `go.multiformats.multicodec.ethBlockList` | const |
-| `const multicodec.EthReceiptLog multicodec.Code` | `go.multiformats.multicodec.ethReceiptLog` | const |
-| `const multicodec.EthReceiptLogTrie multicodec.Code` | `go.multiformats.multicodec.ethReceiptLogTrie` | const |
-| `const multicodec.EthStateTrie multicodec.Code` | `go.multiformats.multicodec.ethStateTrie` | const |
-| `const multicodec.EthStorageTrie multicodec.Code` | `go.multiformats.multicodec.ethStorageTrie` | const |
-| `const multicodec.EthTx multicodec.Code` | `go.multiformats.multicodec.ethTx` | const |
-| `const multicodec.EthTxReceipt multicodec.Code` | `go.multiformats.multicodec.ethTxReceipt` | const |
-| `const multicodec.EthTxReceiptTrie multicodec.Code` | `go.multiformats.multicodec.ethTxReceiptTrie` | const |
-| `const multicodec.EthTxTrie multicodec.Code` | `go.multiformats.multicodec.ethTxTrie` | const |
-| `const multicodec.FilCommitmentSealed multicodec.Code` | `go.multiformats.multicodec.filCommitmentSealed` | const |
-| `const multicodec.FilCommitmentUnsealed multicodec.Code` | `go.multiformats.multicodec.filCommitmentUnsealed` | const |
-| `const multicodec.Fr32Sha256Trunc254Padbintree multicodec.Code` | `go.multiformats.multicodec.fr32Sha256Trunc254Padbintree` | const |
-| `const multicodec.Garlic32 multicodec.Code` | `go.multiformats.multicodec.garlic32` | const |
-| `const multicodec.Garlic64 multicodec.Code` | `go.multiformats.multicodec.garlic64` | const |
-| `const multicodec.GitRaw multicodec.Code` | `go.multiformats.multicodec.gitRaw` | const |
-| `const multicodec.HolochainAdrV0 multicodec.Code` | `go.multiformats.multicodec.holochainAdrV0` | const |
-| `const multicodec.HolochainAdrV1 multicodec.Code` | `go.multiformats.multicodec.holochainAdrV1` | const |
-| `const multicodec.HolochainKeyV0 multicodec.Code` | `go.multiformats.multicodec.holochainKeyV0` | const |
-| `const multicodec.HolochainKeyV1 multicodec.Code` | `go.multiformats.multicodec.holochainKeyV1` | const |
-| `const multicodec.HolochainSigV0 multicodec.Code` | `go.multiformats.multicodec.holochainSigV0` | const |
-| `const multicodec.HolochainSigV1 multicodec.Code` | `go.multiformats.multicodec.holochainSigV1` | const |
-| `const multicodec.Http multicodec.Code` | `go.multiformats.multicodec.http` | const |
-| `const multicodec.HttpPath multicodec.Code` | `go.multiformats.multicodec.httpPath` | const |
-| `const multicodec.Https multicodec.Code` | `go.multiformats.multicodec.https` | const |
-| `const multicodec.Identity multicodec.Code` | `go.multiformats.multicodec.identity` | const |
-| `const multicodec.Ip4 multicodec.Code` | `go.multiformats.multicodec.ip4` | const |
-| `const multicodec.Ip6 multicodec.Code` | `go.multiformats.multicodec.ip6` | const |
-| `const multicodec.Ip6zone multicodec.Code` | `go.multiformats.multicodec.ip6zone` | const |
-| `const multicodec.Ipcidr multicodec.Code` | `go.multiformats.multicodec.ipcidr` | const |
-| `const multicodec.Ipfs multicodec.Code` | `go.multiformats.multicodec.ipfs` | const |
-| `const multicodec.Ipld multicodec.Code` | `go.multiformats.multicodec.ipld` | const |
-| `const multicodec.Ipns multicodec.Code` | `go.multiformats.multicodec.ipns` | const |
-| `const multicodec.IpnsRecord multicodec.Code` | `go.multiformats.multicodec.ipnsRecord` | const |
-| `const multicodec.Iscc multicodec.Code` | `go.multiformats.multicodec.iscc` | const |
-| `const multicodec.Json multicodec.Code` | `go.multiformats.multicodec.json` | const |
-| `const multicodec.JsonJcs multicodec.Code` | `go.multiformats.multicodec.jsonJcs` | const |
-| `const multicodec.Jwk_jcsPriv multicodec.Code` | `go.multiformats.multicodec.jwkJcsPriv` | const |
-| `const multicodec.Jwk_jcsPub multicodec.Code` | `go.multiformats.multicodec.jwkJcsPub` | const |
-| `const multicodec.Kangarootwelve multicodec.Code` | `go.multiformats.multicodec.kangarootwelve` | const |
-| `const multicodec.Keccak224 multicodec.Code` | `go.multiformats.multicodec.keccak224` | const |
-| `const multicodec.Keccak256 multicodec.Code` | `go.multiformats.multicodec.keccak256` | const |
-| `const multicodec.Keccak384 multicodec.Code` | `go.multiformats.multicodec.keccak384` | const |
-| `const multicodec.Keccak512 multicodec.Code` | `go.multiformats.multicodec.keccak512` | const |
-| `const multicodec.KumandraNs multicodec.Code` | `go.multiformats.multicodec.kumandraNs` | const |
-| `const multicodec.LamportMsig multicodec.Code` | `go.multiformats.multicodec.lamportMsig` | const |
-| `const multicodec.LamportSha3_256Priv multicodec.Code` | `go.multiformats.multicodec.lamportSha3256Priv` | const |
-| `const multicodec.LamportSha3_256PrivShare multicodec.Code` | `go.multiformats.multicodec.lamportSha3256PrivShare` | const |
-| `const multicodec.LamportSha3_256Pub multicodec.Code` | `go.multiformats.multicodec.lamportSha3256Pub` | const |
-| `const multicodec.LamportSha3_256Sig multicodec.Code` | `go.multiformats.multicodec.lamportSha3256Sig` | const |
-| `const multicodec.LamportSha3_256SigShare multicodec.Code` | `go.multiformats.multicodec.lamportSha3256SigShare` | const |
-| `const multicodec.LamportSha3_384Priv multicodec.Code` | `go.multiformats.multicodec.lamportSha3384Priv` | const |
-| `const multicodec.LamportSha3_384PrivShare multicodec.Code` | `go.multiformats.multicodec.lamportSha3384PrivShare` | const |
-| `const multicodec.LamportSha3_384Pub multicodec.Code` | `go.multiformats.multicodec.lamportSha3384Pub` | const |
-| `const multicodec.LamportSha3_384Sig multicodec.Code` | `go.multiformats.multicodec.lamportSha3384Sig` | const |
-| `const multicodec.LamportSha3_384SigShare multicodec.Code` | `go.multiformats.multicodec.lamportSha3384SigShare` | const |
-| `const multicodec.LamportSha3_512Priv multicodec.Code` | `go.multiformats.multicodec.lamportSha3512Priv` | const |
-| `const multicodec.LamportSha3_512PrivShare multicodec.Code` | `go.multiformats.multicodec.lamportSha3512PrivShare` | const |
-| `const multicodec.LamportSha3_512Pub multicodec.Code` | `go.multiformats.multicodec.lamportSha3512Pub` | const |
-| `const multicodec.LamportSha3_512Sig multicodec.Code` | `go.multiformats.multicodec.lamportSha3512Sig` | const |
-| `const multicodec.LamportSha3_512SigShare multicodec.Code` | `go.multiformats.multicodec.lamportSha3512SigShare` | const |
-| `const multicodec.LamportShareMsig multicodec.Code` | `go.multiformats.multicodec.lamportShareMsig` | const |
-| `const multicodec.Lbry multicodec.Code` | `go.multiformats.multicodec.lbry` | const |
-| `const multicodec.LeofcoinBlock multicodec.Code` | `go.multiformats.multicodec.leofcoinBlock` | const |
-| `const multicodec.LeofcoinPr multicodec.Code` | `go.multiformats.multicodec.leofcoinPr` | const |
-| `const multicodec.LeofcoinTx multicodec.Code` | `go.multiformats.multicodec.leofcoinTx` | const |
-| `const multicodec.Libp2pKey multicodec.Code` | `go.multiformats.multicodec.libp2pKey` | const |
-| `const multicodec.Libp2pPeerRecord multicodec.Code` | `go.multiformats.multicodec.libp2pPeerRecord` | const |
-| `const multicodec.Libp2pRelayRsvp multicodec.Code` | `go.multiformats.multicodec.libp2pRelayRsvp` | const |
-| `const multicodec.Md4 multicodec.Code` | `go.multiformats.multicodec.md4` | const |
-| `const multicodec.Md5 multicodec.Code` | `go.multiformats.multicodec.md5` | const |
-| `const multicodec.Memorytransport multicodec.Code` | `go.multiformats.multicodec.memorytransport` | const |
-| `const multicodec.Messagepack multicodec.Code` | `go.multiformats.multicodec.messagepack` | const |
-| `const multicodec.Mlkem1024Priv multicodec.Code` | `go.multiformats.multicodec.mlkem1024Priv` | const |
-| `const multicodec.Mlkem1024Pub multicodec.Code` | `go.multiformats.multicodec.mlkem1024Pub` | const |
-| `const multicodec.Mlkem512Priv multicodec.Code` | `go.multiformats.multicodec.mlkem512Priv` | const |
-| `const multicodec.Mlkem512Pub multicodec.Code` | `go.multiformats.multicodec.mlkem512Pub` | const |
-| `const multicodec.Mlkem768Priv multicodec.Code` | `go.multiformats.multicodec.mlkem768Priv` | const |
-| `const multicodec.Mlkem768Pub multicodec.Code` | `go.multiformats.multicodec.mlkem768Pub` | const |
-| `const multicodec.Multiaddr multicodec.Code` | `go.multiformats.multicodec.multiaddr` | const |
-| `const multicodec.Multibase multicodec.Code` | `go.multiformats.multicodec.multibase` | const |
-| `const multicodec.Multicodec multicodec.Code` | `go.multiformats.multicodec.multicodec` | const |
-| `const multicodec.Multidid multicodec.Code` | `go.multiformats.multicodec.multidid` | const |
-| `const multicodec.Multihash multicodec.Code` | `go.multiformats.multicodec.multihash` | const |
-| `const multicodec.Multikey multicodec.Code` | `go.multiformats.multicodec.multikey` | const |
-| `const multicodec.Multisig multicodec.Code` | `go.multiformats.multicodec.multisig` | const |
-| `const multicodec.Murmur3X64_128 multicodec.Code` | `go.multiformats.multicodec.murmur3x64128` | const |
-| `const multicodec.Murmur3X64_64 multicodec.Code` | `go.multiformats.multicodec.murmur3x6464` | const |
-| `const multicodec.Murmur3_32 multicodec.Code` | `go.multiformats.multicodec.murmur332` | const |
-| `const multicodec.Noise multicodec.Code` | `go.multiformats.multicodec.noise` | const |
-| `const multicodec.Nonce multicodec.Code` | `go.multiformats.multicodec.nonce` | const |
-| `const multicodec.NonstandardSig multicodec.Code` | `go.multiformats.multicodec.nonstandardSig` | const |
-| `const multicodec.Onion multicodec.Code` | `go.multiformats.multicodec.onion` | const |
-| `const multicodec.Onion3 multicodec.Code` | `go.multiformats.multicodec.onion3` | const |
-| `const multicodec.P256Priv multicodec.Code` | `go.multiformats.multicodec.p256Priv` | const |
-| `const multicodec.P256Pub multicodec.Code` | `go.multiformats.multicodec.p256Pub` | const |
-| `const multicodec.P2p multicodec.Code` | `go.multiformats.multicodec.p2p` | const |
-| `const multicodec.P2pCircuit multicodec.Code` | `go.multiformats.multicodec.p2pCircuit` | const |
-| `const multicodec.P2pStardust multicodec.Code` | `go.multiformats.multicodec.p2pStardust` | const |
-| `const multicodec.P2pWebrtcDirect multicodec.Code` | `go.multiformats.multicodec.p2pWebrtcDirect` | const |
-| `const multicodec.P2pWebrtcStar multicodec.Code` | `go.multiformats.multicodec.p2pWebrtcStar` | const |
-| `const multicodec.P2pWebsocketStar multicodec.Code` | `go.multiformats.multicodec.p2pWebsocketStar` | const |
-| `const multicodec.P384Priv multicodec.Code` | `go.multiformats.multicodec.p384Priv` | const |
-| `const multicodec.P384Pub multicodec.Code` | `go.multiformats.multicodec.p384Pub` | const |
-| `const multicodec.P521Priv multicodec.Code` | `go.multiformats.multicodec.p521Priv` | const |
-| `const multicodec.P521Pub multicodec.Code` | `go.multiformats.multicodec.p521Pub` | const |
-| `const multicodec.Path multicodec.Code` | `go.multiformats.multicodec.path` | const |
-| `const multicodec.Plaintextv2 multicodec.Code` | `go.multiformats.multicodec.plaintextv2` | const |
-| `const multicodec.PoseidonBls12_381A2Fc1 multicodec.Code` | `go.multiformats.multicodec.poseidonBls12381a2Fc1` | const |
-| `const multicodec.PoseidonBls12_381A2Fc1Sc multicodec.Code` | `go.multiformats.multicodec.poseidonBls12381a2Fc1Sc` | const |
-| `const multicodec.Protobuf multicodec.Code` | `go.multiformats.multicodec.protobuf` | const |
-| `const multicodec.ProvenanceLog multicodec.Code` | `go.multiformats.multicodec.provenanceLog` | const |
-| `const multicodec.ProvenanceLogEntry multicodec.Code` | `go.multiformats.multicodec.provenanceLogEntry` | const |
-| `const multicodec.ProvenanceLogScript multicodec.Code` | `go.multiformats.multicodec.provenanceLogScript` | const |
-| `const multicodec.Quic multicodec.Code` | `go.multiformats.multicodec.quic` | const |
-| `const multicodec.QuicV1 multicodec.Code` | `go.multiformats.multicodec.quicV1` | const |
-| `const multicodec.Raw multicodec.Code` | `go.multiformats.multicodec.raw` | const |
-| `const multicodec.Rdfc1 multicodec.Code` | `go.multiformats.multicodec.rdfc1` | const |
-| `const multicodec.ReservedEnd untyped int` | `go.multiformats.multicodec.reservedEnd` | const |
-| `const multicodec.ReservedStart untyped int` | `go.multiformats.multicodec.reservedStart` | const |
-| `const multicodec.Ripemd128 multicodec.Code` | `go.multiformats.multicodec.ripemd128` | const |
-| `const multicodec.Ripemd160 multicodec.Code` | `go.multiformats.multicodec.ripemd160` | const |
-| `const multicodec.Ripemd256 multicodec.Code` | `go.multiformats.multicodec.ripemd256` | const |
-| `const multicodec.Ripemd320 multicodec.Code` | `go.multiformats.multicodec.ripemd320` | const |
-| `const multicodec.Rlp multicodec.Code` | `go.multiformats.multicodec.rlp` | const |
-| `const multicodec.Rs256 multicodec.Code` | `go.multiformats.multicodec.rs256` | const |
-| `const multicodec.Rs256Msig multicodec.Code` | `go.multiformats.multicodec.rs256Msig` | const |
-| `const multicodec.RsaPriv multicodec.Code` | `go.multiformats.multicodec.rsaPriv` | const |
-| `const multicodec.RsaPub multicodec.Code` | `go.multiformats.multicodec.rsaPub` | const |
-| `const multicodec.Scion multicodec.Code` | `go.multiformats.multicodec.scion` | const |
-| `const multicodec.Sctp multicodec.Code` | `go.multiformats.multicodec.sctp` | const |
-| `const multicodec.Secp256k1Priv multicodec.Code` | `go.multiformats.multicodec.secp256k1Priv` | const |
-| `const multicodec.Secp256k1Pub multicodec.Code` | `go.multiformats.multicodec.secp256k1Pub` | const |
-| `const multicodec.Sha1 multicodec.Code` | `go.multiformats.multicodec.sha1` | const |
-| `const multicodec.Sha256a multicodec.Code` | `go.multiformats.multicodec.sha256a` | const |
-| `const multicodec.Sha2_224 multicodec.Code` | `go.multiformats.multicodec.sha2224` | const |
-| `const multicodec.Sha2_256 multicodec.Code` | `go.multiformats.multicodec.sha2256` | const |
-| `const multicodec.Sha2_256Chunked multicodec.Code` | `go.multiformats.multicodec.sha2256Chunked` | const |
-| `const multicodec.Sha2_256Trunc254Padded multicodec.Code` | `go.multiformats.multicodec.sha2256Trunc254Padded` | const |
-| `const multicodec.Sha2_384 multicodec.Code` | `go.multiformats.multicodec.sha2384` | const |
-| `const multicodec.Sha2_512 multicodec.Code` | `go.multiformats.multicodec.sha2512` | const |
-| `const multicodec.Sha2_512_224 multicodec.Code` | `go.multiformats.multicodec.sha2512224` | const |
-| `const multicodec.Sha2_512_256 multicodec.Code` | `go.multiformats.multicodec.sha2512256` | const |
-| `const multicodec.Sha3_224 multicodec.Code` | `go.multiformats.multicodec.sha3224` | const |
-| `const multicodec.Sha3_256 multicodec.Code` | `go.multiformats.multicodec.sha3256` | const |
-| `const multicodec.Sha3_384 multicodec.Code` | `go.multiformats.multicodec.sha3384` | const |
-| `const multicodec.Sha3_512 multicodec.Code` | `go.multiformats.multicodec.sha3512` | const |
-| `const multicodec.Shake128 multicodec.Code` | `go.multiformats.multicodec.shake128` | const |
-| `const multicodec.Shake256 multicodec.Code` | `go.multiformats.multicodec.shake256` | const |
-| `const multicodec.ShelterContractData multicodec.Code` | `go.multiformats.multicodec.shelterContractData` | const |
-| `const multicodec.ShelterContractManifest multicodec.Code` | `go.multiformats.multicodec.shelterContractManifest` | const |
-| `const multicodec.ShelterContractText multicodec.Code` | `go.multiformats.multicodec.shelterContractText` | const |
-| `const multicodec.ShelterFileChunk multicodec.Code` | `go.multiformats.multicodec.shelterFileChunk` | const |
-| `const multicodec.ShelterFileManifest multicodec.Code` | `go.multiformats.multicodec.shelterFileManifest` | const |
-| `const multicodec.Shs multicodec.Code` | `go.multiformats.multicodec.shs` | const |
-| `const multicodec.Silverpine multicodec.Code` | `go.multiformats.multicodec.silverpine` | const |
-| `const multicodec.Skein1024_1000 multicodec.Code` | `go.multiformats.multicodec.skein10241000` | const |
-| `const multicodec.Skein1024_1008 multicodec.Code` | `go.multiformats.multicodec.skein10241008` | const |
-| `const multicodec.Skein1024_1016 multicodec.Code` | `go.multiformats.multicodec.skein10241016` | const |
-| `const multicodec.Skein1024_1024 multicodec.Code` | `go.multiformats.multicodec.skein10241024` | const |
-| `const multicodec.Skein1024_104 multicodec.Code` | `go.multiformats.multicodec.skein1024104` | const |
-| `const multicodec.Skein1024_112 multicodec.Code` | `go.multiformats.multicodec.skein1024112` | const |
-| `const multicodec.Skein1024_120 multicodec.Code` | `go.multiformats.multicodec.skein1024120` | const |
-| `const multicodec.Skein1024_128 multicodec.Code` | `go.multiformats.multicodec.skein1024128` | const |
-| `const multicodec.Skein1024_136 multicodec.Code` | `go.multiformats.multicodec.skein1024136` | const |
-| `const multicodec.Skein1024_144 multicodec.Code` | `go.multiformats.multicodec.skein1024144` | const |
-| `const multicodec.Skein1024_152 multicodec.Code` | `go.multiformats.multicodec.skein1024152` | const |
-| `const multicodec.Skein1024_16 multicodec.Code` | `go.multiformats.multicodec.skein102416` | const |
-| `const multicodec.Skein1024_160 multicodec.Code` | `go.multiformats.multicodec.skein1024160` | const |
-| `const multicodec.Skein1024_168 multicodec.Code` | `go.multiformats.multicodec.skein1024168` | const |
-| `const multicodec.Skein1024_176 multicodec.Code` | `go.multiformats.multicodec.skein1024176` | const |
-| `const multicodec.Skein1024_184 multicodec.Code` | `go.multiformats.multicodec.skein1024184` | const |
-| `const multicodec.Skein1024_192 multicodec.Code` | `go.multiformats.multicodec.skein1024192` | const |
-| `const multicodec.Skein1024_200 multicodec.Code` | `go.multiformats.multicodec.skein1024200` | const |
-| `const multicodec.Skein1024_208 multicodec.Code` | `go.multiformats.multicodec.skein1024208` | const |
-| `const multicodec.Skein1024_216 multicodec.Code` | `go.multiformats.multicodec.skein1024216` | const |
-| `const multicodec.Skein1024_224 multicodec.Code` | `go.multiformats.multicodec.skein1024224` | const |
-| `const multicodec.Skein1024_232 multicodec.Code` | `go.multiformats.multicodec.skein1024232` | const |
-| `const multicodec.Skein1024_24 multicodec.Code` | `go.multiformats.multicodec.skein102424` | const |
-| `const multicodec.Skein1024_240 multicodec.Code` | `go.multiformats.multicodec.skein1024240` | const |
-| `const multicodec.Skein1024_248 multicodec.Code` | `go.multiformats.multicodec.skein1024248` | const |
-| `const multicodec.Skein1024_256 multicodec.Code` | `go.multiformats.multicodec.skein1024256` | const |
-| `const multicodec.Skein1024_264 multicodec.Code` | `go.multiformats.multicodec.skein1024264` | const |
-| `const multicodec.Skein1024_272 multicodec.Code` | `go.multiformats.multicodec.skein1024272` | const |
-| `const multicodec.Skein1024_280 multicodec.Code` | `go.multiformats.multicodec.skein1024280` | const |
-| `const multicodec.Skein1024_288 multicodec.Code` | `go.multiformats.multicodec.skein1024288` | const |
-| `const multicodec.Skein1024_296 multicodec.Code` | `go.multiformats.multicodec.skein1024296` | const |
-| `const multicodec.Skein1024_304 multicodec.Code` | `go.multiformats.multicodec.skein1024304` | const |
-| `const multicodec.Skein1024_312 multicodec.Code` | `go.multiformats.multicodec.skein1024312` | const |
-| `const multicodec.Skein1024_32 multicodec.Code` | `go.multiformats.multicodec.skein102432` | const |
-| `const multicodec.Skein1024_320 multicodec.Code` | `go.multiformats.multicodec.skein1024320` | const |
-| `const multicodec.Skein1024_328 multicodec.Code` | `go.multiformats.multicodec.skein1024328` | const |
-| `const multicodec.Skein1024_336 multicodec.Code` | `go.multiformats.multicodec.skein1024336` | const |
-| `const multicodec.Skein1024_344 multicodec.Code` | `go.multiformats.multicodec.skein1024344` | const |
-| `const multicodec.Skein1024_352 multicodec.Code` | `go.multiformats.multicodec.skein1024352` | const |
-| `const multicodec.Skein1024_360 multicodec.Code` | `go.multiformats.multicodec.skein1024360` | const |
-| `const multicodec.Skein1024_368 multicodec.Code` | `go.multiformats.multicodec.skein1024368` | const |
-| `const multicodec.Skein1024_376 multicodec.Code` | `go.multiformats.multicodec.skein1024376` | const |
-| `const multicodec.Skein1024_384 multicodec.Code` | `go.multiformats.multicodec.skein1024384` | const |
-| `const multicodec.Skein1024_392 multicodec.Code` | `go.multiformats.multicodec.skein1024392` | const |
-| `const multicodec.Skein1024_40 multicodec.Code` | `go.multiformats.multicodec.skein102440` | const |
-| `const multicodec.Skein1024_400 multicodec.Code` | `go.multiformats.multicodec.skein1024400` | const |
-| `const multicodec.Skein1024_408 multicodec.Code` | `go.multiformats.multicodec.skein1024408` | const |
-| `const multicodec.Skein1024_416 multicodec.Code` | `go.multiformats.multicodec.skein1024416` | const |
-| `const multicodec.Skein1024_424 multicodec.Code` | `go.multiformats.multicodec.skein1024424` | const |
-| `const multicodec.Skein1024_432 multicodec.Code` | `go.multiformats.multicodec.skein1024432` | const |
-| `const multicodec.Skein1024_440 multicodec.Code` | `go.multiformats.multicodec.skein1024440` | const |
-| `const multicodec.Skein1024_448 multicodec.Code` | `go.multiformats.multicodec.skein1024448` | const |
-| `const multicodec.Skein1024_456 multicodec.Code` | `go.multiformats.multicodec.skein1024456` | const |
-| `const multicodec.Skein1024_464 multicodec.Code` | `go.multiformats.multicodec.skein1024464` | const |
-| `const multicodec.Skein1024_472 multicodec.Code` | `go.multiformats.multicodec.skein1024472` | const |
-| `const multicodec.Skein1024_48 multicodec.Code` | `go.multiformats.multicodec.skein102448` | const |
-| `const multicodec.Skein1024_480 multicodec.Code` | `go.multiformats.multicodec.skein1024480` | const |
-| `const multicodec.Skein1024_488 multicodec.Code` | `go.multiformats.multicodec.skein1024488` | const |
-| `const multicodec.Skein1024_496 multicodec.Code` | `go.multiformats.multicodec.skein1024496` | const |
-| `const multicodec.Skein1024_504 multicodec.Code` | `go.multiformats.multicodec.skein1024504` | const |
-| `const multicodec.Skein1024_512 multicodec.Code` | `go.multiformats.multicodec.skein1024512` | const |
-| `const multicodec.Skein1024_520 multicodec.Code` | `go.multiformats.multicodec.skein1024520` | const |
-| `const multicodec.Skein1024_528 multicodec.Code` | `go.multiformats.multicodec.skein1024528` | const |
-| `const multicodec.Skein1024_536 multicodec.Code` | `go.multiformats.multicodec.skein1024536` | const |
-| `const multicodec.Skein1024_544 multicodec.Code` | `go.multiformats.multicodec.skein1024544` | const |
-| `const multicodec.Skein1024_552 multicodec.Code` | `go.multiformats.multicodec.skein1024552` | const |
-| `const multicodec.Skein1024_56 multicodec.Code` | `go.multiformats.multicodec.skein102456` | const |
-| `const multicodec.Skein1024_560 multicodec.Code` | `go.multiformats.multicodec.skein1024560` | const |
-| `const multicodec.Skein1024_568 multicodec.Code` | `go.multiformats.multicodec.skein1024568` | const |
-| `const multicodec.Skein1024_576 multicodec.Code` | `go.multiformats.multicodec.skein1024576` | const |
-| `const multicodec.Skein1024_584 multicodec.Code` | `go.multiformats.multicodec.skein1024584` | const |
-| `const multicodec.Skein1024_592 multicodec.Code` | `go.multiformats.multicodec.skein1024592` | const |
-| `const multicodec.Skein1024_600 multicodec.Code` | `go.multiformats.multicodec.skein1024600` | const |
-| `const multicodec.Skein1024_608 multicodec.Code` | `go.multiformats.multicodec.skein1024608` | const |
-| `const multicodec.Skein1024_616 multicodec.Code` | `go.multiformats.multicodec.skein1024616` | const |
-| `const multicodec.Skein1024_624 multicodec.Code` | `go.multiformats.multicodec.skein1024624` | const |
-| `const multicodec.Skein1024_632 multicodec.Code` | `go.multiformats.multicodec.skein1024632` | const |
-| `const multicodec.Skein1024_64 multicodec.Code` | `go.multiformats.multicodec.skein102464` | const |
-| `const multicodec.Skein1024_640 multicodec.Code` | `go.multiformats.multicodec.skein1024640` | const |
-| `const multicodec.Skein1024_648 multicodec.Code` | `go.multiformats.multicodec.skein1024648` | const |
-| `const multicodec.Skein1024_656 multicodec.Code` | `go.multiformats.multicodec.skein1024656` | const |
-| `const multicodec.Skein1024_664 multicodec.Code` | `go.multiformats.multicodec.skein1024664` | const |
-| `const multicodec.Skein1024_672 multicodec.Code` | `go.multiformats.multicodec.skein1024672` | const |
-| `const multicodec.Skein1024_680 multicodec.Code` | `go.multiformats.multicodec.skein1024680` | const |
-| `const multicodec.Skein1024_688 multicodec.Code` | `go.multiformats.multicodec.skein1024688` | const |
-| `const multicodec.Skein1024_696 multicodec.Code` | `go.multiformats.multicodec.skein1024696` | const |
-| `const multicodec.Skein1024_704 multicodec.Code` | `go.multiformats.multicodec.skein1024704` | const |
-| `const multicodec.Skein1024_712 multicodec.Code` | `go.multiformats.multicodec.skein1024712` | const |
-| `const multicodec.Skein1024_72 multicodec.Code` | `go.multiformats.multicodec.skein102472` | const |
-| `const multicodec.Skein1024_720 multicodec.Code` | `go.multiformats.multicodec.skein1024720` | const |
-| `const multicodec.Skein1024_728 multicodec.Code` | `go.multiformats.multicodec.skein1024728` | const |
-| `const multicodec.Skein1024_736 multicodec.Code` | `go.multiformats.multicodec.skein1024736` | const |
-| `const multicodec.Skein1024_744 multicodec.Code` | `go.multiformats.multicodec.skein1024744` | const |
-| `const multicodec.Skein1024_752 multicodec.Code` | `go.multiformats.multicodec.skein1024752` | const |
-| `const multicodec.Skein1024_760 multicodec.Code` | `go.multiformats.multicodec.skein1024760` | const |
-| `const multicodec.Skein1024_768 multicodec.Code` | `go.multiformats.multicodec.skein1024768` | const |
-| `const multicodec.Skein1024_776 multicodec.Code` | `go.multiformats.multicodec.skein1024776` | const |
-| `const multicodec.Skein1024_784 multicodec.Code` | `go.multiformats.multicodec.skein1024784` | const |
-| `const multicodec.Skein1024_792 multicodec.Code` | `go.multiformats.multicodec.skein1024792` | const |
-| `const multicodec.Skein1024_8 multicodec.Code` | `go.multiformats.multicodec.skein10248` | const |
-| `const multicodec.Skein1024_80 multicodec.Code` | `go.multiformats.multicodec.skein102480` | const |
-| `const multicodec.Skein1024_800 multicodec.Code` | `go.multiformats.multicodec.skein1024800` | const |
-| `const multicodec.Skein1024_808 multicodec.Code` | `go.multiformats.multicodec.skein1024808` | const |
-| `const multicodec.Skein1024_816 multicodec.Code` | `go.multiformats.multicodec.skein1024816` | const |
-| `const multicodec.Skein1024_824 multicodec.Code` | `go.multiformats.multicodec.skein1024824` | const |
-| `const multicodec.Skein1024_832 multicodec.Code` | `go.multiformats.multicodec.skein1024832` | const |
-| `const multicodec.Skein1024_840 multicodec.Code` | `go.multiformats.multicodec.skein1024840` | const |
-| `const multicodec.Skein1024_848 multicodec.Code` | `go.multiformats.multicodec.skein1024848` | const |
-| `const multicodec.Skein1024_856 multicodec.Code` | `go.multiformats.multicodec.skein1024856` | const |
-| `const multicodec.Skein1024_864 multicodec.Code` | `go.multiformats.multicodec.skein1024864` | const |
-| `const multicodec.Skein1024_872 multicodec.Code` | `go.multiformats.multicodec.skein1024872` | const |
-| `const multicodec.Skein1024_88 multicodec.Code` | `go.multiformats.multicodec.skein102488` | const |
-| `const multicodec.Skein1024_880 multicodec.Code` | `go.multiformats.multicodec.skein1024880` | const |
-| `const multicodec.Skein1024_888 multicodec.Code` | `go.multiformats.multicodec.skein1024888` | const |
-| `const multicodec.Skein1024_896 multicodec.Code` | `go.multiformats.multicodec.skein1024896` | const |
-| `const multicodec.Skein1024_904 multicodec.Code` | `go.multiformats.multicodec.skein1024904` | const |
-| `const multicodec.Skein1024_912 multicodec.Code` | `go.multiformats.multicodec.skein1024912` | const |
-| `const multicodec.Skein1024_920 multicodec.Code` | `go.multiformats.multicodec.skein1024920` | const |
-| `const multicodec.Skein1024_928 multicodec.Code` | `go.multiformats.multicodec.skein1024928` | const |
-| `const multicodec.Skein1024_936 multicodec.Code` | `go.multiformats.multicodec.skein1024936` | const |
-| `const multicodec.Skein1024_944 multicodec.Code` | `go.multiformats.multicodec.skein1024944` | const |
-| `const multicodec.Skein1024_952 multicodec.Code` | `go.multiformats.multicodec.skein1024952` | const |
-| `const multicodec.Skein1024_96 multicodec.Code` | `go.multiformats.multicodec.skein102496` | const |
-| `const multicodec.Skein1024_960 multicodec.Code` | `go.multiformats.multicodec.skein1024960` | const |
-| `const multicodec.Skein1024_968 multicodec.Code` | `go.multiformats.multicodec.skein1024968` | const |
-| `const multicodec.Skein1024_976 multicodec.Code` | `go.multiformats.multicodec.skein1024976` | const |
-| `const multicodec.Skein1024_984 multicodec.Code` | `go.multiformats.multicodec.skein1024984` | const |
-| `const multicodec.Skein1024_992 multicodec.Code` | `go.multiformats.multicodec.skein1024992` | const |
-| `const multicodec.Skein256_104 multicodec.Code` | `go.multiformats.multicodec.skein256104` | const |
-| `const multicodec.Skein256_112 multicodec.Code` | `go.multiformats.multicodec.skein256112` | const |
-| `const multicodec.Skein256_120 multicodec.Code` | `go.multiformats.multicodec.skein256120` | const |
-| `const multicodec.Skein256_128 multicodec.Code` | `go.multiformats.multicodec.skein256128` | const |
-| `const multicodec.Skein256_136 multicodec.Code` | `go.multiformats.multicodec.skein256136` | const |
-| `const multicodec.Skein256_144 multicodec.Code` | `go.multiformats.multicodec.skein256144` | const |
-| `const multicodec.Skein256_152 multicodec.Code` | `go.multiformats.multicodec.skein256152` | const |
-| `const multicodec.Skein256_16 multicodec.Code` | `go.multiformats.multicodec.skein25616` | const |
-| `const multicodec.Skein256_160 multicodec.Code` | `go.multiformats.multicodec.skein256160` | const |
-| `const multicodec.Skein256_168 multicodec.Code` | `go.multiformats.multicodec.skein256168` | const |
-| `const multicodec.Skein256_176 multicodec.Code` | `go.multiformats.multicodec.skein256176` | const |
-| `const multicodec.Skein256_184 multicodec.Code` | `go.multiformats.multicodec.skein256184` | const |
-| `const multicodec.Skein256_192 multicodec.Code` | `go.multiformats.multicodec.skein256192` | const |
-| `const multicodec.Skein256_200 multicodec.Code` | `go.multiformats.multicodec.skein256200` | const |
-| `const multicodec.Skein256_208 multicodec.Code` | `go.multiformats.multicodec.skein256208` | const |
-| `const multicodec.Skein256_216 multicodec.Code` | `go.multiformats.multicodec.skein256216` | const |
-| `const multicodec.Skein256_224 multicodec.Code` | `go.multiformats.multicodec.skein256224` | const |
-| `const multicodec.Skein256_232 multicodec.Code` | `go.multiformats.multicodec.skein256232` | const |
-| `const multicodec.Skein256_24 multicodec.Code` | `go.multiformats.multicodec.skein25624` | const |
-| `const multicodec.Skein256_240 multicodec.Code` | `go.multiformats.multicodec.skein256240` | const |
-| `const multicodec.Skein256_248 multicodec.Code` | `go.multiformats.multicodec.skein256248` | const |
-| `const multicodec.Skein256_256 multicodec.Code` | `go.multiformats.multicodec.skein256256` | const |
-| `const multicodec.Skein256_32 multicodec.Code` | `go.multiformats.multicodec.skein25632` | const |
-| `const multicodec.Skein256_40 multicodec.Code` | `go.multiformats.multicodec.skein25640` | const |
-| `const multicodec.Skein256_48 multicodec.Code` | `go.multiformats.multicodec.skein25648` | const |
-| `const multicodec.Skein256_56 multicodec.Code` | `go.multiformats.multicodec.skein25656` | const |
-| `const multicodec.Skein256_64 multicodec.Code` | `go.multiformats.multicodec.skein25664` | const |
-| `const multicodec.Skein256_72 multicodec.Code` | `go.multiformats.multicodec.skein25672` | const |
-| `const multicodec.Skein256_8 multicodec.Code` | `go.multiformats.multicodec.skein2568` | const |
-| `const multicodec.Skein256_80 multicodec.Code` | `go.multiformats.multicodec.skein25680` | const |
-| `const multicodec.Skein256_88 multicodec.Code` | `go.multiformats.multicodec.skein25688` | const |
-| `const multicodec.Skein256_96 multicodec.Code` | `go.multiformats.multicodec.skein25696` | const |
-| `const multicodec.Skein512_104 multicodec.Code` | `go.multiformats.multicodec.skein512104` | const |
-| `const multicodec.Skein512_112 multicodec.Code` | `go.multiformats.multicodec.skein512112` | const |
-| `const multicodec.Skein512_120 multicodec.Code` | `go.multiformats.multicodec.skein512120` | const |
-| `const multicodec.Skein512_128 multicodec.Code` | `go.multiformats.multicodec.skein512128` | const |
-| `const multicodec.Skein512_136 multicodec.Code` | `go.multiformats.multicodec.skein512136` | const |
-| `const multicodec.Skein512_144 multicodec.Code` | `go.multiformats.multicodec.skein512144` | const |
-| `const multicodec.Skein512_152 multicodec.Code` | `go.multiformats.multicodec.skein512152` | const |
-| `const multicodec.Skein512_16 multicodec.Code` | `go.multiformats.multicodec.skein51216` | const |
-| `const multicodec.Skein512_160 multicodec.Code` | `go.multiformats.multicodec.skein512160` | const |
-| `const multicodec.Skein512_168 multicodec.Code` | `go.multiformats.multicodec.skein512168` | const |
-| `const multicodec.Skein512_176 multicodec.Code` | `go.multiformats.multicodec.skein512176` | const |
-| `const multicodec.Skein512_184 multicodec.Code` | `go.multiformats.multicodec.skein512184` | const |
-| `const multicodec.Skein512_192 multicodec.Code` | `go.multiformats.multicodec.skein512192` | const |
-| `const multicodec.Skein512_200 multicodec.Code` | `go.multiformats.multicodec.skein512200` | const |
-| `const multicodec.Skein512_208 multicodec.Code` | `go.multiformats.multicodec.skein512208` | const |
-| `const multicodec.Skein512_216 multicodec.Code` | `go.multiformats.multicodec.skein512216` | const |
-| `const multicodec.Skein512_224 multicodec.Code` | `go.multiformats.multicodec.skein512224` | const |
-| `const multicodec.Skein512_232 multicodec.Code` | `go.multiformats.multicodec.skein512232` | const |
-| `const multicodec.Skein512_24 multicodec.Code` | `go.multiformats.multicodec.skein51224` | const |
-| `const multicodec.Skein512_240 multicodec.Code` | `go.multiformats.multicodec.skein512240` | const |
-| `const multicodec.Skein512_248 multicodec.Code` | `go.multiformats.multicodec.skein512248` | const |
-| `const multicodec.Skein512_256 multicodec.Code` | `go.multiformats.multicodec.skein512256` | const |
-| `const multicodec.Skein512_264 multicodec.Code` | `go.multiformats.multicodec.skein512264` | const |
-| `const multicodec.Skein512_272 multicodec.Code` | `go.multiformats.multicodec.skein512272` | const |
-| `const multicodec.Skein512_280 multicodec.Code` | `go.multiformats.multicodec.skein512280` | const |
-| `const multicodec.Skein512_288 multicodec.Code` | `go.multiformats.multicodec.skein512288` | const |
-| `const multicodec.Skein512_296 multicodec.Code` | `go.multiformats.multicodec.skein512296` | const |
-| `const multicodec.Skein512_304 multicodec.Code` | `go.multiformats.multicodec.skein512304` | const |
-| `const multicodec.Skein512_312 multicodec.Code` | `go.multiformats.multicodec.skein512312` | const |
-| `const multicodec.Skein512_32 multicodec.Code` | `go.multiformats.multicodec.skein51232` | const |
-| `const multicodec.Skein512_320 multicodec.Code` | `go.multiformats.multicodec.skein512320` | const |
-| `const multicodec.Skein512_328 multicodec.Code` | `go.multiformats.multicodec.skein512328` | const |
-| `const multicodec.Skein512_336 multicodec.Code` | `go.multiformats.multicodec.skein512336` | const |
-| `const multicodec.Skein512_344 multicodec.Code` | `go.multiformats.multicodec.skein512344` | const |
-| `const multicodec.Skein512_352 multicodec.Code` | `go.multiformats.multicodec.skein512352` | const |
-| `const multicodec.Skein512_360 multicodec.Code` | `go.multiformats.multicodec.skein512360` | const |
-| `const multicodec.Skein512_368 multicodec.Code` | `go.multiformats.multicodec.skein512368` | const |
-| `const multicodec.Skein512_376 multicodec.Code` | `go.multiformats.multicodec.skein512376` | const |
-| `const multicodec.Skein512_384 multicodec.Code` | `go.multiformats.multicodec.skein512384` | const |
-| `const multicodec.Skein512_392 multicodec.Code` | `go.multiformats.multicodec.skein512392` | const |
-| `const multicodec.Skein512_40 multicodec.Code` | `go.multiformats.multicodec.skein51240` | const |
-| `const multicodec.Skein512_400 multicodec.Code` | `go.multiformats.multicodec.skein512400` | const |
-| `const multicodec.Skein512_408 multicodec.Code` | `go.multiformats.multicodec.skein512408` | const |
-| `const multicodec.Skein512_416 multicodec.Code` | `go.multiformats.multicodec.skein512416` | const |
-| `const multicodec.Skein512_424 multicodec.Code` | `go.multiformats.multicodec.skein512424` | const |
-| `const multicodec.Skein512_432 multicodec.Code` | `go.multiformats.multicodec.skein512432` | const |
-| `const multicodec.Skein512_440 multicodec.Code` | `go.multiformats.multicodec.skein512440` | const |
-| `const multicodec.Skein512_448 multicodec.Code` | `go.multiformats.multicodec.skein512448` | const |
-| `const multicodec.Skein512_456 multicodec.Code` | `go.multiformats.multicodec.skein512456` | const |
-| `const multicodec.Skein512_464 multicodec.Code` | `go.multiformats.multicodec.skein512464` | const |
-| `const multicodec.Skein512_472 multicodec.Code` | `go.multiformats.multicodec.skein512472` | const |
-| `const multicodec.Skein512_48 multicodec.Code` | `go.multiformats.multicodec.skein51248` | const |
-| `const multicodec.Skein512_480 multicodec.Code` | `go.multiformats.multicodec.skein512480` | const |
-| `const multicodec.Skein512_488 multicodec.Code` | `go.multiformats.multicodec.skein512488` | const |
-| `const multicodec.Skein512_496 multicodec.Code` | `go.multiformats.multicodec.skein512496` | const |
-| `const multicodec.Skein512_504 multicodec.Code` | `go.multiformats.multicodec.skein512504` | const |
-| `const multicodec.Skein512_512 multicodec.Code` | `go.multiformats.multicodec.skein512512` | const |
-| `const multicodec.Skein512_56 multicodec.Code` | `go.multiformats.multicodec.skein51256` | const |
-| `const multicodec.Skein512_64 multicodec.Code` | `go.multiformats.multicodec.skein51264` | const |
-| `const multicodec.Skein512_72 multicodec.Code` | `go.multiformats.multicodec.skein51272` | const |
-| `const multicodec.Skein512_8 multicodec.Code` | `go.multiformats.multicodec.skein5128` | const |
-| `const multicodec.Skein512_80 multicodec.Code` | `go.multiformats.multicodec.skein51280` | const |
-| `const multicodec.Skein512_88 multicodec.Code` | `go.multiformats.multicodec.skein51288` | const |
-| `const multicodec.Skein512_96 multicodec.Code` | `go.multiformats.multicodec.skein51296` | const |
-| `const multicodec.SkynetNs multicodec.Code` | `go.multiformats.multicodec.skynetNs` | const |
-| `const multicodec.Sm2Priv multicodec.Code` | `go.multiformats.multicodec.sm2Priv` | const |
-| `const multicodec.Sm2Pub multicodec.Code` | `go.multiformats.multicodec.sm2Pub` | const |
-| `const multicodec.Sm3_256 multicodec.Code` | `go.multiformats.multicodec.sm3256` | const |
-| `const multicodec.Sni multicodec.Code` | `go.multiformats.multicodec.sni` | const |
-| `const multicodec.Sr25519Priv multicodec.Code` | `go.multiformats.multicodec.sr25519Priv` | const |
-| `const multicodec.Sr25519Pub multicodec.Code` | `go.multiformats.multicodec.sr25519Pub` | const |
-| `const multicodec.Ssz multicodec.Code` | `go.multiformats.multicodec.ssz` | const |
-| `const multicodec.SszSha2_256Bmt multicodec.Code` | `go.multiformats.multicodec.sszSha2256Bmt` | const |
-| `const multicodec.StellarBlock multicodec.Code` | `go.multiformats.multicodec.stellarBlock` | const |
-| `const multicodec.StellarTx multicodec.Code` | `go.multiformats.multicodec.stellarTx` | const |
-| `const multicodec.Streamid multicodec.Code` | `go.multiformats.multicodec.streamid` | const |
-| `const multicodec.SubspaceNs multicodec.Code` | `go.multiformats.multicodec.subspaceNs` | const |
-| `const multicodec.Swarm multicodec.Code` | `go.multiformats.multicodec.swarm` | const |
-| `const multicodec.SwarmFeed multicodec.Code` | `go.multiformats.multicodec.swarmFeed` | const |
-| `const multicodec.SwarmManifest multicodec.Code` | `go.multiformats.multicodec.swarmManifest` | const |
-| `const multicodec.Swhid1Snp multicodec.Code` | `go.multiformats.multicodec.swhid1Snp` | const |
-| `const multicodec.Tcp multicodec.Code` | `go.multiformats.multicodec.tcp` | const |
-| `const multicodec.Thread multicodec.Code` | `go.multiformats.multicodec.thread` | const |
-| `const multicodec.Tls multicodec.Code` | `go.multiformats.multicodec.tls` | const |
-| `const multicodec.TorrentFile multicodec.Code` | `go.multiformats.multicodec.torrentFile` | const |
-| `const multicodec.TorrentInfo multicodec.Code` | `go.multiformats.multicodec.torrentInfo` | const |
-| `const multicodec.TransportBitswap multicodec.Code` | `go.multiformats.multicodec.transportBitswap` | const |
-| `const multicodec.TransportFilecoinPieceHttp multicodec.Code` | `go.multiformats.multicodec.transportFilecoinPieceHttp` | const |
-| `const multicodec.TransportGraphsyncFilecoinv1 multicodec.Code` | `go.multiformats.multicodec.transportGraphsyncFilecoinv1` | const |
-| `const multicodec.TransportIpfsGatewayHttp multicodec.Code` | `go.multiformats.multicodec.transportIpfsGatewayHttp` | const |
-| `const multicodec.Udp multicodec.Code` | `go.multiformats.multicodec.udp` | const |
-| `const multicodec.Udt multicodec.Code` | `go.multiformats.multicodec.udt` | const |
-| `const multicodec.Unix multicodec.Code` | `go.multiformats.multicodec.unix` | const |
-| `const multicodec.Utp multicodec.Code` | `go.multiformats.multicodec.utp` | const |
-| `const multicodec.Varsig multicodec.Code` | `go.multiformats.multicodec.varsig` | const |
-| `const multicodec.Vlad multicodec.Code` | `go.multiformats.multicodec.vlad` | const |
-| `const multicodec.Webrtc multicodec.Code` | `go.multiformats.multicodec.webrtc` | const |
-| `const multicodec.WebrtcDirect multicodec.Code` | `go.multiformats.multicodec.webrtcDirect` | const |
-| `const multicodec.Webtransport multicodec.Code` | `go.multiformats.multicodec.webtransport` | const |
-| `const multicodec.Ws multicodec.Code` | `go.multiformats.multicodec.ws` | const |
-| `const multicodec.Wss multicodec.Code` | `go.multiformats.multicodec.wss` | const |
-| `const multicodec.X11 multicodec.Code` | `go.multiformats.multicodec.x11` | const |
-| `const multicodec.X25519Priv multicodec.Code` | `go.multiformats.multicodec.x25519Priv` | const |
-| `const multicodec.X25519Pub multicodec.Code` | `go.multiformats.multicodec.x25519Pub` | const |
-| `const multicodec.X448Priv multicodec.Code` | `go.multiformats.multicodec.x448Priv` | const |
-| `const multicodec.X448Pub multicodec.Code` | `go.multiformats.multicodec.x448Pub` | const |
-| `const multicodec.X509Certificate multicodec.Code` | `go.multiformats.multicodec.x509Certificate` | const |
-| `const multicodec.Xxh32 multicodec.Code` | `go.multiformats.multicodec.xxh32` | const |
-| `const multicodec.Xxh3_128 multicodec.Code` | `go.multiformats.multicodec.xxh3128` | const |
-| `const multicodec.Xxh3_64 multicodec.Code` | `go.multiformats.multicodec.xxh364` | const |
-| `const multicodec.Xxh64 multicodec.Code` | `go.multiformats.multicodec.xxh64` | const |
-| `const multicodec.ZcashBlock multicodec.Code` | `go.multiformats.multicodec.zcashBlock` | const |
-| `const multicodec.ZcashTx multicodec.Code` | `go.multiformats.multicodec.zcashTx` | const |
-| `const multicodec.Zeronet multicodec.Code` | `go.multiformats.multicodec.zeronet` | const |
-| `const multicodec.ZeroxcertImprint256 multicodec.Code` | `go.multiformats.multicodec.zeroxcertImprint256` | const |
+| `const multicodec.Aes128 multicodec.Code` | `go.multiformats.multicodec.enums.aes128` | const |
+| `const multicodec.Aes192 multicodec.Code` | `go.multiformats.multicodec.enums.aes192` | const |
+| `const multicodec.Aes256 multicodec.Code` | `go.multiformats.multicodec.enums.aes256` | const |
+| `const multicodec.AesGcm256 multicodec.Code` | `go.multiformats.multicodec.enums.aesGcm256` | const |
+| `const multicodec.ArweaveNs multicodec.Code` | `go.multiformats.multicodec.enums.arweaveNs` | const |
+| `const multicodec.BcryptPbkdf multicodec.Code` | `go.multiformats.multicodec.enums.bcryptPbkdf` | const |
+| `const multicodec.Beeson multicodec.Code` | `go.multiformats.multicodec.enums.beeson` | const |
+| `const multicodec.Bencode multicodec.Code` | `go.multiformats.multicodec.enums.bencode` | const |
+| `const multicodec.BitcoinBlock multicodec.Code` | `go.multiformats.multicodec.enums.bitcoinBlock` | const |
+| `const multicodec.BitcoinTx multicodec.Code` | `go.multiformats.multicodec.enums.bitcoinTx` | const |
+| `const multicodec.BitcoinWitnessCommitment multicodec.Code` | `go.multiformats.multicodec.enums.bitcoinWitnessCommitment` | const |
+| `const multicodec.BittorrentPiecesRoot multicodec.Code` | `go.multiformats.multicodec.enums.bittorrentPiecesRoot` | const |
+| `const multicodec.Blake2b104 multicodec.Code` | `go.multiformats.multicodec.enums.blake2b104` | const |
+| `const multicodec.Blake2b112 multicodec.Code` | `go.multiformats.multicodec.enums.blake2b112` | const |
+| `const multicodec.Blake2b120 multicodec.Code` | `go.multiformats.multicodec.enums.blake2b120` | const |
+| `const multicodec.Blake2b128 multicodec.Code` | `go.multiformats.multicodec.enums.blake2b128` | const |
+| `const multicodec.Blake2b136 multicodec.Code` | `go.multiformats.multicodec.enums.blake2b136` | const |
+| `const multicodec.Blake2b144 multicodec.Code` | `go.multiformats.multicodec.enums.blake2b144` | const |
+| `const multicodec.Blake2b152 multicodec.Code` | `go.multiformats.multicodec.enums.blake2b152` | const |
+| `const multicodec.Blake2b16 multicodec.Code` | `go.multiformats.multicodec.enums.blake2b16` | const |
+| `const multicodec.Blake2b160 multicodec.Code` | `go.multiformats.multicodec.enums.blake2b160` | const |
+| `const multicodec.Blake2b168 multicodec.Code` | `go.multiformats.multicodec.enums.blake2b168` | const |
+| `const multicodec.Blake2b176 multicodec.Code` | `go.multiformats.multicodec.enums.blake2b176` | const |
+| `const multicodec.Blake2b184 multicodec.Code` | `go.multiformats.multicodec.enums.blake2b184` | const |
+| `const multicodec.Blake2b192 multicodec.Code` | `go.multiformats.multicodec.enums.blake2b192` | const |
+| `const multicodec.Blake2b200 multicodec.Code` | `go.multiformats.multicodec.enums.blake2b200` | const |
+| `const multicodec.Blake2b208 multicodec.Code` | `go.multiformats.multicodec.enums.blake2b208` | const |
+| `const multicodec.Blake2b216 multicodec.Code` | `go.multiformats.multicodec.enums.blake2b216` | const |
+| `const multicodec.Blake2b224 multicodec.Code` | `go.multiformats.multicodec.enums.blake2b224` | const |
+| `const multicodec.Blake2b232 multicodec.Code` | `go.multiformats.multicodec.enums.blake2b232` | const |
+| `const multicodec.Blake2b24 multicodec.Code` | `go.multiformats.multicodec.enums.blake2b24` | const |
+| `const multicodec.Blake2b240 multicodec.Code` | `go.multiformats.multicodec.enums.blake2b240` | const |
+| `const multicodec.Blake2b248 multicodec.Code` | `go.multiformats.multicodec.enums.blake2b248` | const |
+| `const multicodec.Blake2b256 multicodec.Code` | `go.multiformats.multicodec.enums.blake2b256` | const |
+| `const multicodec.Blake2b264 multicodec.Code` | `go.multiformats.multicodec.enums.blake2b264` | const |
+| `const multicodec.Blake2b272 multicodec.Code` | `go.multiformats.multicodec.enums.blake2b272` | const |
+| `const multicodec.Blake2b280 multicodec.Code` | `go.multiformats.multicodec.enums.blake2b280` | const |
+| `const multicodec.Blake2b288 multicodec.Code` | `go.multiformats.multicodec.enums.blake2b288` | const |
+| `const multicodec.Blake2b296 multicodec.Code` | `go.multiformats.multicodec.enums.blake2b296` | const |
+| `const multicodec.Blake2b304 multicodec.Code` | `go.multiformats.multicodec.enums.blake2b304` | const |
+| `const multicodec.Blake2b312 multicodec.Code` | `go.multiformats.multicodec.enums.blake2b312` | const |
+| `const multicodec.Blake2b32 multicodec.Code` | `go.multiformats.multicodec.enums.blake2b32` | const |
+| `const multicodec.Blake2b320 multicodec.Code` | `go.multiformats.multicodec.enums.blake2b320` | const |
+| `const multicodec.Blake2b328 multicodec.Code` | `go.multiformats.multicodec.enums.blake2b328` | const |
+| `const multicodec.Blake2b336 multicodec.Code` | `go.multiformats.multicodec.enums.blake2b336` | const |
+| `const multicodec.Blake2b344 multicodec.Code` | `go.multiformats.multicodec.enums.blake2b344` | const |
+| `const multicodec.Blake2b352 multicodec.Code` | `go.multiformats.multicodec.enums.blake2b352` | const |
+| `const multicodec.Blake2b360 multicodec.Code` | `go.multiformats.multicodec.enums.blake2b360` | const |
+| `const multicodec.Blake2b368 multicodec.Code` | `go.multiformats.multicodec.enums.blake2b368` | const |
+| `const multicodec.Blake2b376 multicodec.Code` | `go.multiformats.multicodec.enums.blake2b376` | const |
+| `const multicodec.Blake2b384 multicodec.Code` | `go.multiformats.multicodec.enums.blake2b384` | const |
+| `const multicodec.Blake2b392 multicodec.Code` | `go.multiformats.multicodec.enums.blake2b392` | const |
+| `const multicodec.Blake2b40 multicodec.Code` | `go.multiformats.multicodec.enums.blake2b40` | const |
+| `const multicodec.Blake2b400 multicodec.Code` | `go.multiformats.multicodec.enums.blake2b400` | const |
+| `const multicodec.Blake2b408 multicodec.Code` | `go.multiformats.multicodec.enums.blake2b408` | const |
+| `const multicodec.Blake2b416 multicodec.Code` | `go.multiformats.multicodec.enums.blake2b416` | const |
+| `const multicodec.Blake2b424 multicodec.Code` | `go.multiformats.multicodec.enums.blake2b424` | const |
+| `const multicodec.Blake2b432 multicodec.Code` | `go.multiformats.multicodec.enums.blake2b432` | const |
+| `const multicodec.Blake2b440 multicodec.Code` | `go.multiformats.multicodec.enums.blake2b440` | const |
+| `const multicodec.Blake2b448 multicodec.Code` | `go.multiformats.multicodec.enums.blake2b448` | const |
+| `const multicodec.Blake2b456 multicodec.Code` | `go.multiformats.multicodec.enums.blake2b456` | const |
+| `const multicodec.Blake2b464 multicodec.Code` | `go.multiformats.multicodec.enums.blake2b464` | const |
+| `const multicodec.Blake2b472 multicodec.Code` | `go.multiformats.multicodec.enums.blake2b472` | const |
+| `const multicodec.Blake2b48 multicodec.Code` | `go.multiformats.multicodec.enums.blake2b48` | const |
+| `const multicodec.Blake2b480 multicodec.Code` | `go.multiformats.multicodec.enums.blake2b480` | const |
+| `const multicodec.Blake2b488 multicodec.Code` | `go.multiformats.multicodec.enums.blake2b488` | const |
+| `const multicodec.Blake2b496 multicodec.Code` | `go.multiformats.multicodec.enums.blake2b496` | const |
+| `const multicodec.Blake2b504 multicodec.Code` | `go.multiformats.multicodec.enums.blake2b504` | const |
+| `const multicodec.Blake2b512 multicodec.Code` | `go.multiformats.multicodec.enums.blake2b512` | const |
+| `const multicodec.Blake2b56 multicodec.Code` | `go.multiformats.multicodec.enums.blake2b56` | const |
+| `const multicodec.Blake2b64 multicodec.Code` | `go.multiformats.multicodec.enums.blake2b64` | const |
+| `const multicodec.Blake2b72 multicodec.Code` | `go.multiformats.multicodec.enums.blake2b72` | const |
+| `const multicodec.Blake2b8 multicodec.Code` | `go.multiformats.multicodec.enums.blake2b8` | const |
+| `const multicodec.Blake2b80 multicodec.Code` | `go.multiformats.multicodec.enums.blake2b80` | const |
+| `const multicodec.Blake2b88 multicodec.Code` | `go.multiformats.multicodec.enums.blake2b88` | const |
+| `const multicodec.Blake2b96 multicodec.Code` | `go.multiformats.multicodec.enums.blake2b96` | const |
+| `const multicodec.Blake2s104 multicodec.Code` | `go.multiformats.multicodec.enums.blake2s104` | const |
+| `const multicodec.Blake2s112 multicodec.Code` | `go.multiformats.multicodec.enums.blake2s112` | const |
+| `const multicodec.Blake2s120 multicodec.Code` | `go.multiformats.multicodec.enums.blake2s120` | const |
+| `const multicodec.Blake2s128 multicodec.Code` | `go.multiformats.multicodec.enums.blake2s128` | const |
+| `const multicodec.Blake2s136 multicodec.Code` | `go.multiformats.multicodec.enums.blake2s136` | const |
+| `const multicodec.Blake2s144 multicodec.Code` | `go.multiformats.multicodec.enums.blake2s144` | const |
+| `const multicodec.Blake2s152 multicodec.Code` | `go.multiformats.multicodec.enums.blake2s152` | const |
+| `const multicodec.Blake2s16 multicodec.Code` | `go.multiformats.multicodec.enums.blake2s16` | const |
+| `const multicodec.Blake2s160 multicodec.Code` | `go.multiformats.multicodec.enums.blake2s160` | const |
+| `const multicodec.Blake2s168 multicodec.Code` | `go.multiformats.multicodec.enums.blake2s168` | const |
+| `const multicodec.Blake2s176 multicodec.Code` | `go.multiformats.multicodec.enums.blake2s176` | const |
+| `const multicodec.Blake2s184 multicodec.Code` | `go.multiformats.multicodec.enums.blake2s184` | const |
+| `const multicodec.Blake2s192 multicodec.Code` | `go.multiformats.multicodec.enums.blake2s192` | const |
+| `const multicodec.Blake2s200 multicodec.Code` | `go.multiformats.multicodec.enums.blake2s200` | const |
+| `const multicodec.Blake2s208 multicodec.Code` | `go.multiformats.multicodec.enums.blake2s208` | const |
+| `const multicodec.Blake2s216 multicodec.Code` | `go.multiformats.multicodec.enums.blake2s216` | const |
+| `const multicodec.Blake2s224 multicodec.Code` | `go.multiformats.multicodec.enums.blake2s224` | const |
+| `const multicodec.Blake2s232 multicodec.Code` | `go.multiformats.multicodec.enums.blake2s232` | const |
+| `const multicodec.Blake2s24 multicodec.Code` | `go.multiformats.multicodec.enums.blake2s24` | const |
+| `const multicodec.Blake2s240 multicodec.Code` | `go.multiformats.multicodec.enums.blake2s240` | const |
+| `const multicodec.Blake2s248 multicodec.Code` | `go.multiformats.multicodec.enums.blake2s248` | const |
+| `const multicodec.Blake2s256 multicodec.Code` | `go.multiformats.multicodec.enums.blake2s256` | const |
+| `const multicodec.Blake2s32 multicodec.Code` | `go.multiformats.multicodec.enums.blake2s32` | const |
+| `const multicodec.Blake2s40 multicodec.Code` | `go.multiformats.multicodec.enums.blake2s40` | const |
+| `const multicodec.Blake2s48 multicodec.Code` | `go.multiformats.multicodec.enums.blake2s48` | const |
+| `const multicodec.Blake2s56 multicodec.Code` | `go.multiformats.multicodec.enums.blake2s56` | const |
+| `const multicodec.Blake2s64 multicodec.Code` | `go.multiformats.multicodec.enums.blake2s64` | const |
+| `const multicodec.Blake2s72 multicodec.Code` | `go.multiformats.multicodec.enums.blake2s72` | const |
+| `const multicodec.Blake2s8 multicodec.Code` | `go.multiformats.multicodec.enums.blake2s8` | const |
+| `const multicodec.Blake2s80 multicodec.Code` | `go.multiformats.multicodec.enums.blake2s80` | const |
+| `const multicodec.Blake2s88 multicodec.Code` | `go.multiformats.multicodec.enums.blake2s88` | const |
+| `const multicodec.Blake2s96 multicodec.Code` | `go.multiformats.multicodec.enums.blake2s96` | const |
+| `const multicodec.Blake3 multicodec.Code` | `go.multiformats.multicodec.enums.blake3` | const |
+| `const multicodec.Blake3Hashseq multicodec.Code` | `go.multiformats.multicodec.enums.blake3Hashseq` | const |
+| `const multicodec.Bls12_381G1Msig multicodec.Code` | `go.multiformats.multicodec.enums.bls12381g1Msig` | const |
+| `const multicodec.Bls12_381G1Priv multicodec.Code` | `go.multiformats.multicodec.enums.bls12381g1Priv` | const |
+| `const multicodec.Bls12_381G1PrivShare multicodec.Code` | `go.multiformats.multicodec.enums.bls12381g1PrivShare` | const |
+| `const multicodec.Bls12_381G1Pub multicodec.Code` | `go.multiformats.multicodec.enums.bls12381g1Pub` | const |
+| `const multicodec.Bls12_381G1PubShare multicodec.Code` | `go.multiformats.multicodec.enums.bls12381g1PubShare` | const |
+| `const multicodec.Bls12_381G1ShareMsig multicodec.Code` | `go.multiformats.multicodec.enums.bls12381g1ShareMsig` | const |
+| `const multicodec.Bls12_381G1Sig multicodec.Code` | `go.multiformats.multicodec.enums.bls12381g1Sig` | const |
+| `const multicodec.Bls12_381G1g2Priv multicodec.Code` | `go.multiformats.multicodec.enums.bls12381g1g2Priv` | const |
+| `const multicodec.Bls12_381G1g2Pub multicodec.Code` | `go.multiformats.multicodec.enums.bls12381g1g2Pub` | const |
+| `const multicodec.Bls12_381G2Msig multicodec.Code` | `go.multiformats.multicodec.enums.bls12381g2Msig` | const |
+| `const multicodec.Bls12_381G2Priv multicodec.Code` | `go.multiformats.multicodec.enums.bls12381g2Priv` | const |
+| `const multicodec.Bls12_381G2PrivShare multicodec.Code` | `go.multiformats.multicodec.enums.bls12381g2PrivShare` | const |
+| `const multicodec.Bls12_381G2Pub multicodec.Code` | `go.multiformats.multicodec.enums.bls12381g2Pub` | const |
+| `const multicodec.Bls12_381G2PubShare multicodec.Code` | `go.multiformats.multicodec.enums.bls12381g2PubShare` | const |
+| `const multicodec.Bls12_381G2ShareMsig multicodec.Code` | `go.multiformats.multicodec.enums.bls12381g2ShareMsig` | const |
+| `const multicodec.Bls12_381G2Sig multicodec.Code` | `go.multiformats.multicodec.enums.bls12381g2Sig` | const |
+| `const multicodec.Caip50 multicodec.Code` | `go.multiformats.multicodec.enums.caip50` | const |
+| `const multicodec.Car multicodec.Code` | `go.multiformats.multicodec.enums.car` | const |
+| `const multicodec.CarIndexSorted multicodec.Code` | `go.multiformats.multicodec.enums.carIndexSorted` | const |
+| `const multicodec.Cbor multicodec.Code` | `go.multiformats.multicodec.enums.cbor` | const |
+| `const multicodec.Certhash multicodec.Code` | `go.multiformats.multicodec.enums.certhash` | const |
+| `const multicodec.Chacha128 multicodec.Code` | `go.multiformats.multicodec.enums.chacha128` | const |
+| `const multicodec.Chacha20Poly1305 multicodec.Code` | `go.multiformats.multicodec.enums.chacha20Poly1305` | const |
+| `const multicodec.Chacha256 multicodec.Code` | `go.multiformats.multicodec.enums.chacha256` | const |
+| `const multicodec.Cidv1 multicodec.Code` | `go.multiformats.multicodec.enums.cidv1` | const |
+| `const multicodec.Cidv2 multicodec.Code` | `go.multiformats.multicodec.enums.cidv2` | const |
+| `const multicodec.Cidv3 multicodec.Code` | `go.multiformats.multicodec.enums.cidv3` | const |
+| `const multicodec.Crc32 multicodec.Code` | `go.multiformats.multicodec.enums.crc32` | const |
+| `const multicodec.Crc64Ecma multicodec.Code` | `go.multiformats.multicodec.enums.crc64Ecma` | const |
+| `const multicodec.Crc64Nvme multicodec.Code` | `go.multiformats.multicodec.enums.crc64Nvme` | const |
+| `const multicodec.DagCbor multicodec.Code` | `go.multiformats.multicodec.enums.dagCbor` | const |
+| `const multicodec.DagCose multicodec.Code` | `go.multiformats.multicodec.enums.dagCose` | const |
+| `const multicodec.DagJose multicodec.Code` | `go.multiformats.multicodec.enums.dagJose` | const |
+| `const multicodec.DagJson multicodec.Code` | `go.multiformats.multicodec.enums.dagJson` | const |
+| `const multicodec.DagPb multicodec.Code` | `go.multiformats.multicodec.enums.dagPb` | const |
+| `const multicodec.DashBlock multicodec.Code` | `go.multiformats.multicodec.enums.dashBlock` | const |
+| `const multicodec.DashTx multicodec.Code` | `go.multiformats.multicodec.enums.dashTx` | const |
+| `const multicodec.DblSha2_256 multicodec.Code` | `go.multiformats.multicodec.enums.dblSha2256` | const |
+| `const multicodec.Dccp multicodec.Code` | `go.multiformats.multicodec.enums.dccp` | const |
+| `const multicodec.DecredBlock multicodec.Code` | `go.multiformats.multicodec.enums.decredBlock` | const |
+| `const multicodec.DecredTx multicodec.Code` | `go.multiformats.multicodec.enums.decredTx` | const |
+| `const multicodec.Dns multicodec.Code` | `go.multiformats.multicodec.enums.dns` | const |
+| `const multicodec.Dns4 multicodec.Code` | `go.multiformats.multicodec.enums.dns4` | const |
+| `const multicodec.Dns6 multicodec.Code` | `go.multiformats.multicodec.enums.dns6` | const |
+| `const multicodec.Dnsaddr multicodec.Code` | `go.multiformats.multicodec.enums.dnsaddr` | const |
+| `const multicodec.Dnslink multicodec.Code` | `go.multiformats.multicodec.enums.dnslink` | const |
+| `const multicodec.Ed25519Priv multicodec.Code` | `go.multiformats.multicodec.enums.ed25519Priv` | const |
+| `const multicodec.Ed25519Pub multicodec.Code` | `go.multiformats.multicodec.enums.ed25519Pub` | const |
+| `const multicodec.Ed2k multicodec.Code` | `go.multiformats.multicodec.enums.ed2k` | const |
+| `const multicodec.Ed448Priv multicodec.Code` | `go.multiformats.multicodec.enums.ed448Priv` | const |
+| `const multicodec.Ed448Pub multicodec.Code` | `go.multiformats.multicodec.enums.ed448Pub` | const |
+| `const multicodec.Eddsa multicodec.Code` | `go.multiformats.multicodec.enums.eddsa` | const |
+| `const multicodec.EddsaMsig multicodec.Code` | `go.multiformats.multicodec.enums.eddsaMsig` | const |
+| `const multicodec.Eip191 multicodec.Code` | `go.multiformats.multicodec.enums.eip191` | const |
+| `const multicodec.Es256 multicodec.Code` | `go.multiformats.multicodec.enums.es256` | const |
+| `const multicodec.Es256Msig multicodec.Code` | `go.multiformats.multicodec.enums.es256Msig` | const |
+| `const multicodec.Es256k multicodec.Code` | `go.multiformats.multicodec.enums.es256k` | const |
+| `const multicodec.Es256kMsig multicodec.Code` | `go.multiformats.multicodec.enums.es256kMsig` | const |
+| `const multicodec.Es384 multicodec.Code` | `go.multiformats.multicodec.enums.es384` | const |
+| `const multicodec.Es384Msig multicodec.Code` | `go.multiformats.multicodec.enums.es384Msig` | const |
+| `const multicodec.Es512 multicodec.Code` | `go.multiformats.multicodec.enums.es512` | const |
+| `const multicodec.Es521Msig multicodec.Code` | `go.multiformats.multicodec.enums.es521Msig` | const |
+| `const multicodec.EthAccountSnapshot multicodec.Code` | `go.multiformats.multicodec.enums.ethAccountSnapshot` | const |
+| `const multicodec.EthBlock multicodec.Code` | `go.multiformats.multicodec.enums.ethBlock` | const |
+| `const multicodec.EthBlockList multicodec.Code` | `go.multiformats.multicodec.enums.ethBlockList` | const |
+| `const multicodec.EthReceiptLog multicodec.Code` | `go.multiformats.multicodec.enums.ethReceiptLog` | const |
+| `const multicodec.EthReceiptLogTrie multicodec.Code` | `go.multiformats.multicodec.enums.ethReceiptLogTrie` | const |
+| `const multicodec.EthStateTrie multicodec.Code` | `go.multiformats.multicodec.enums.ethStateTrie` | const |
+| `const multicodec.EthStorageTrie multicodec.Code` | `go.multiformats.multicodec.enums.ethStorageTrie` | const |
+| `const multicodec.EthTx multicodec.Code` | `go.multiformats.multicodec.enums.ethTx` | const |
+| `const multicodec.EthTxReceipt multicodec.Code` | `go.multiformats.multicodec.enums.ethTxReceipt` | const |
+| `const multicodec.EthTxReceiptTrie multicodec.Code` | `go.multiformats.multicodec.enums.ethTxReceiptTrie` | const |
+| `const multicodec.EthTxTrie multicodec.Code` | `go.multiformats.multicodec.enums.ethTxTrie` | const |
+| `const multicodec.FilCommitmentSealed multicodec.Code` | `go.multiformats.multicodec.enums.filCommitmentSealed` | const |
+| `const multicodec.FilCommitmentUnsealed multicodec.Code` | `go.multiformats.multicodec.enums.filCommitmentUnsealed` | const |
+| `const multicodec.Fr32Sha256Trunc254Padbintree multicodec.Code` | `go.multiformats.multicodec.enums.fr32Sha256Trunc254Padbintree` | const |
+| `const multicodec.Garlic32 multicodec.Code` | `go.multiformats.multicodec.enums.garlic32` | const |
+| `const multicodec.Garlic64 multicodec.Code` | `go.multiformats.multicodec.enums.garlic64` | const |
+| `const multicodec.GitRaw multicodec.Code` | `go.multiformats.multicodec.enums.gitRaw` | const |
+| `const multicodec.HolochainAdrV0 multicodec.Code` | `go.multiformats.multicodec.enums.holochainAdrV0` | const |
+| `const multicodec.HolochainAdrV1 multicodec.Code` | `go.multiformats.multicodec.enums.holochainAdrV1` | const |
+| `const multicodec.HolochainKeyV0 multicodec.Code` | `go.multiformats.multicodec.enums.holochainKeyV0` | const |
+| `const multicodec.HolochainKeyV1 multicodec.Code` | `go.multiformats.multicodec.enums.holochainKeyV1` | const |
+| `const multicodec.HolochainSigV0 multicodec.Code` | `go.multiformats.multicodec.enums.holochainSigV0` | const |
+| `const multicodec.HolochainSigV1 multicodec.Code` | `go.multiformats.multicodec.enums.holochainSigV1` | const |
+| `const multicodec.Http multicodec.Code` | `go.multiformats.multicodec.enums.http` | const |
+| `const multicodec.HttpPath multicodec.Code` | `go.multiformats.multicodec.enums.httpPath` | const |
+| `const multicodec.Https multicodec.Code` | `go.multiformats.multicodec.enums.https` | const |
+| `const multicodec.Identity multicodec.Code` | `go.multiformats.multicodec.enums.identity` | const |
+| `const multicodec.Ip4 multicodec.Code` | `go.multiformats.multicodec.enums.ip4` | const |
+| `const multicodec.Ip6 multicodec.Code` | `go.multiformats.multicodec.enums.ip6` | const |
+| `const multicodec.Ip6zone multicodec.Code` | `go.multiformats.multicodec.enums.ip6zone` | const |
+| `const multicodec.Ipcidr multicodec.Code` | `go.multiformats.multicodec.enums.ipcidr` | const |
+| `const multicodec.Ipfs multicodec.Code` | `go.multiformats.multicodec.enums.ipfs` | const |
+| `const multicodec.Ipld multicodec.Code` | `go.multiformats.multicodec.enums.ipld` | const |
+| `const multicodec.Ipns multicodec.Code` | `go.multiformats.multicodec.enums.ipns` | const |
+| `const multicodec.IpnsRecord multicodec.Code` | `go.multiformats.multicodec.enums.ipnsRecord` | const |
+| `const multicodec.Iscc multicodec.Code` | `go.multiformats.multicodec.enums.iscc` | const |
+| `const multicodec.Json multicodec.Code` | `go.multiformats.multicodec.enums.json` | const |
+| `const multicodec.JsonJcs multicodec.Code` | `go.multiformats.multicodec.enums.jsonJcs` | const |
+| `const multicodec.Jwk_jcsPriv multicodec.Code` | `go.multiformats.multicodec.enums.jwkJcsPriv` | const |
+| `const multicodec.Jwk_jcsPub multicodec.Code` | `go.multiformats.multicodec.enums.jwkJcsPub` | const |
+| `const multicodec.Kangarootwelve multicodec.Code` | `go.multiformats.multicodec.enums.kangarootwelve` | const |
+| `const multicodec.Keccak224 multicodec.Code` | `go.multiformats.multicodec.enums.keccak224` | const |
+| `const multicodec.Keccak256 multicodec.Code` | `go.multiformats.multicodec.enums.keccak256` | const |
+| `const multicodec.Keccak384 multicodec.Code` | `go.multiformats.multicodec.enums.keccak384` | const |
+| `const multicodec.Keccak512 multicodec.Code` | `go.multiformats.multicodec.enums.keccak512` | const |
+| `const multicodec.KumandraNs multicodec.Code` | `go.multiformats.multicodec.enums.kumandraNs` | const |
+| `const multicodec.LamportMsig multicodec.Code` | `go.multiformats.multicodec.enums.lamportMsig` | const |
+| `const multicodec.LamportSha3_256Priv multicodec.Code` | `go.multiformats.multicodec.enums.lamportSha3256Priv` | const |
+| `const multicodec.LamportSha3_256PrivShare multicodec.Code` | `go.multiformats.multicodec.enums.lamportSha3256PrivShare` | const |
+| `const multicodec.LamportSha3_256Pub multicodec.Code` | `go.multiformats.multicodec.enums.lamportSha3256Pub` | const |
+| `const multicodec.LamportSha3_256Sig multicodec.Code` | `go.multiformats.multicodec.enums.lamportSha3256Sig` | const |
+| `const multicodec.LamportSha3_256SigShare multicodec.Code` | `go.multiformats.multicodec.enums.lamportSha3256SigShare` | const |
+| `const multicodec.LamportSha3_384Priv multicodec.Code` | `go.multiformats.multicodec.enums.lamportSha3384Priv` | const |
+| `const multicodec.LamportSha3_384PrivShare multicodec.Code` | `go.multiformats.multicodec.enums.lamportSha3384PrivShare` | const |
+| `const multicodec.LamportSha3_384Pub multicodec.Code` | `go.multiformats.multicodec.enums.lamportSha3384Pub` | const |
+| `const multicodec.LamportSha3_384Sig multicodec.Code` | `go.multiformats.multicodec.enums.lamportSha3384Sig` | const |
+| `const multicodec.LamportSha3_384SigShare multicodec.Code` | `go.multiformats.multicodec.enums.lamportSha3384SigShare` | const |
+| `const multicodec.LamportSha3_512Priv multicodec.Code` | `go.multiformats.multicodec.enums.lamportSha3512Priv` | const |
+| `const multicodec.LamportSha3_512PrivShare multicodec.Code` | `go.multiformats.multicodec.enums.lamportSha3512PrivShare` | const |
+| `const multicodec.LamportSha3_512Pub multicodec.Code` | `go.multiformats.multicodec.enums.lamportSha3512Pub` | const |
+| `const multicodec.LamportSha3_512Sig multicodec.Code` | `go.multiformats.multicodec.enums.lamportSha3512Sig` | const |
+| `const multicodec.LamportSha3_512SigShare multicodec.Code` | `go.multiformats.multicodec.enums.lamportSha3512SigShare` | const |
+| `const multicodec.LamportShareMsig multicodec.Code` | `go.multiformats.multicodec.enums.lamportShareMsig` | const |
+| `const multicodec.Lbry multicodec.Code` | `go.multiformats.multicodec.enums.lbry` | const |
+| `const multicodec.LeofcoinBlock multicodec.Code` | `go.multiformats.multicodec.enums.leofcoinBlock` | const |
+| `const multicodec.LeofcoinPr multicodec.Code` | `go.multiformats.multicodec.enums.leofcoinPr` | const |
+| `const multicodec.LeofcoinTx multicodec.Code` | `go.multiformats.multicodec.enums.leofcoinTx` | const |
+| `const multicodec.Libp2pKey multicodec.Code` | `go.multiformats.multicodec.enums.libp2pKey` | const |
+| `const multicodec.Libp2pPeerRecord multicodec.Code` | `go.multiformats.multicodec.enums.libp2pPeerRecord` | const |
+| `const multicodec.Libp2pRelayRsvp multicodec.Code` | `go.multiformats.multicodec.enums.libp2pRelayRsvp` | const |
+| `const multicodec.Md4 multicodec.Code` | `go.multiformats.multicodec.enums.md4` | const |
+| `const multicodec.Md5 multicodec.Code` | `go.multiformats.multicodec.enums.md5` | const |
+| `const multicodec.Memorytransport multicodec.Code` | `go.multiformats.multicodec.enums.memorytransport` | const |
+| `const multicodec.Messagepack multicodec.Code` | `go.multiformats.multicodec.enums.messagepack` | const |
+| `const multicodec.Mlkem1024Priv multicodec.Code` | `go.multiformats.multicodec.enums.mlkem1024Priv` | const |
+| `const multicodec.Mlkem1024Pub multicodec.Code` | `go.multiformats.multicodec.enums.mlkem1024Pub` | const |
+| `const multicodec.Mlkem512Priv multicodec.Code` | `go.multiformats.multicodec.enums.mlkem512Priv` | const |
+| `const multicodec.Mlkem512Pub multicodec.Code` | `go.multiformats.multicodec.enums.mlkem512Pub` | const |
+| `const multicodec.Mlkem768Priv multicodec.Code` | `go.multiformats.multicodec.enums.mlkem768Priv` | const |
+| `const multicodec.Mlkem768Pub multicodec.Code` | `go.multiformats.multicodec.enums.mlkem768Pub` | const |
+| `const multicodec.Multiaddr multicodec.Code` | `go.multiformats.multicodec.enums.multiaddr` | const |
+| `const multicodec.Multibase multicodec.Code` | `go.multiformats.multicodec.enums.multibase` | const |
+| `const multicodec.Multicodec multicodec.Code` | `go.multiformats.multicodec.enums.multicodec` | const |
+| `const multicodec.Multidid multicodec.Code` | `go.multiformats.multicodec.enums.multidid` | const |
+| `const multicodec.Multihash multicodec.Code` | `go.multiformats.multicodec.enums.multihash` | const |
+| `const multicodec.Multikey multicodec.Code` | `go.multiformats.multicodec.enums.multikey` | const |
+| `const multicodec.Multisig multicodec.Code` | `go.multiformats.multicodec.enums.multisig` | const |
+| `const multicodec.Murmur3X64_128 multicodec.Code` | `go.multiformats.multicodec.enums.murmur3x64128` | const |
+| `const multicodec.Murmur3X64_64 multicodec.Code` | `go.multiformats.multicodec.enums.murmur3x6464` | const |
+| `const multicodec.Murmur3_32 multicodec.Code` | `go.multiformats.multicodec.enums.murmur332` | const |
+| `const multicodec.Noise multicodec.Code` | `go.multiformats.multicodec.enums.noise` | const |
+| `const multicodec.Nonce multicodec.Code` | `go.multiformats.multicodec.enums.nonce` | const |
+| `const multicodec.NonstandardSig multicodec.Code` | `go.multiformats.multicodec.enums.nonstandardSig` | const |
+| `const multicodec.Onion multicodec.Code` | `go.multiformats.multicodec.enums.onion` | const |
+| `const multicodec.Onion3 multicodec.Code` | `go.multiformats.multicodec.enums.onion3` | const |
+| `const multicodec.P256Priv multicodec.Code` | `go.multiformats.multicodec.enums.p256Priv` | const |
+| `const multicodec.P256Pub multicodec.Code` | `go.multiformats.multicodec.enums.p256Pub` | const |
+| `const multicodec.P2p multicodec.Code` | `go.multiformats.multicodec.enums.p2p` | const |
+| `const multicodec.P2pCircuit multicodec.Code` | `go.multiformats.multicodec.enums.p2pCircuit` | const |
+| `const multicodec.P2pStardust multicodec.Code` | `go.multiformats.multicodec.enums.p2pStardust` | const |
+| `const multicodec.P2pWebrtcDirect multicodec.Code` | `go.multiformats.multicodec.enums.p2pWebrtcDirect` | const |
+| `const multicodec.P2pWebrtcStar multicodec.Code` | `go.multiformats.multicodec.enums.p2pWebrtcStar` | const |
+| `const multicodec.P2pWebsocketStar multicodec.Code` | `go.multiformats.multicodec.enums.p2pWebsocketStar` | const |
+| `const multicodec.P384Priv multicodec.Code` | `go.multiformats.multicodec.enums.p384Priv` | const |
+| `const multicodec.P384Pub multicodec.Code` | `go.multiformats.multicodec.enums.p384Pub` | const |
+| `const multicodec.P521Priv multicodec.Code` | `go.multiformats.multicodec.enums.p521Priv` | const |
+| `const multicodec.P521Pub multicodec.Code` | `go.multiformats.multicodec.enums.p521Pub` | const |
+| `const multicodec.Path multicodec.Code` | `go.multiformats.multicodec.enums.path` | const |
+| `const multicodec.Plaintextv2 multicodec.Code` | `go.multiformats.multicodec.enums.plaintextv2` | const |
+| `const multicodec.PoseidonBls12_381A2Fc1 multicodec.Code` | `go.multiformats.multicodec.enums.poseidonBls12381a2Fc1` | const |
+| `const multicodec.PoseidonBls12_381A2Fc1Sc multicodec.Code` | `go.multiformats.multicodec.enums.poseidonBls12381a2Fc1Sc` | const |
+| `const multicodec.Protobuf multicodec.Code` | `go.multiformats.multicodec.enums.protobuf` | const |
+| `const multicodec.ProvenanceLog multicodec.Code` | `go.multiformats.multicodec.enums.provenanceLog` | const |
+| `const multicodec.ProvenanceLogEntry multicodec.Code` | `go.multiformats.multicodec.enums.provenanceLogEntry` | const |
+| `const multicodec.ProvenanceLogScript multicodec.Code` | `go.multiformats.multicodec.enums.provenanceLogScript` | const |
+| `const multicodec.Quic multicodec.Code` | `go.multiformats.multicodec.enums.quic` | const |
+| `const multicodec.QuicV1 multicodec.Code` | `go.multiformats.multicodec.enums.quicV1` | const |
+| `const multicodec.Raw multicodec.Code` | `go.multiformats.multicodec.enums.raw` | const |
+| `const multicodec.Rdfc1 multicodec.Code` | `go.multiformats.multicodec.enums.rdfc1` | const |
+| `const multicodec.ReservedEnd untyped int` | `go.multiformats.multicodec.consts.reservedEnd` | const |
+| `const multicodec.ReservedStart untyped int` | `go.multiformats.multicodec.consts.reservedStart` | const |
+| `const multicodec.Ripemd128 multicodec.Code` | `go.multiformats.multicodec.enums.ripemd128` | const |
+| `const multicodec.Ripemd160 multicodec.Code` | `go.multiformats.multicodec.enums.ripemd160` | const |
+| `const multicodec.Ripemd256 multicodec.Code` | `go.multiformats.multicodec.enums.ripemd256` | const |
+| `const multicodec.Ripemd320 multicodec.Code` | `go.multiformats.multicodec.enums.ripemd320` | const |
+| `const multicodec.Rlp multicodec.Code` | `go.multiformats.multicodec.enums.rlp` | const |
+| `const multicodec.Rs256 multicodec.Code` | `go.multiformats.multicodec.enums.rs256` | const |
+| `const multicodec.Rs256Msig multicodec.Code` | `go.multiformats.multicodec.enums.rs256Msig` | const |
+| `const multicodec.RsaPriv multicodec.Code` | `go.multiformats.multicodec.enums.rsaPriv` | const |
+| `const multicodec.RsaPub multicodec.Code` | `go.multiformats.multicodec.enums.rsaPub` | const |
+| `const multicodec.Scion multicodec.Code` | `go.multiformats.multicodec.enums.scion` | const |
+| `const multicodec.Sctp multicodec.Code` | `go.multiformats.multicodec.enums.sctp` | const |
+| `const multicodec.Secp256k1Priv multicodec.Code` | `go.multiformats.multicodec.enums.secp256k1Priv` | const |
+| `const multicodec.Secp256k1Pub multicodec.Code` | `go.multiformats.multicodec.enums.secp256k1Pub` | const |
+| `const multicodec.Sha1 multicodec.Code` | `go.multiformats.multicodec.enums.sha1` | const |
+| `const multicodec.Sha256a multicodec.Code` | `go.multiformats.multicodec.enums.sha256a` | const |
+| `const multicodec.Sha2_224 multicodec.Code` | `go.multiformats.multicodec.enums.sha2224` | const |
+| `const multicodec.Sha2_256 multicodec.Code` | `go.multiformats.multicodec.enums.sha2256` | const |
+| `const multicodec.Sha2_256Chunked multicodec.Code` | `go.multiformats.multicodec.enums.sha2256Chunked` | const |
+| `const multicodec.Sha2_256Trunc254Padded multicodec.Code` | `go.multiformats.multicodec.enums.sha2256Trunc254Padded` | const |
+| `const multicodec.Sha2_384 multicodec.Code` | `go.multiformats.multicodec.enums.sha2384` | const |
+| `const multicodec.Sha2_512 multicodec.Code` | `go.multiformats.multicodec.enums.sha2512` | const |
+| `const multicodec.Sha2_512_224 multicodec.Code` | `go.multiformats.multicodec.enums.sha2512224` | const |
+| `const multicodec.Sha2_512_256 multicodec.Code` | `go.multiformats.multicodec.enums.sha2512256` | const |
+| `const multicodec.Sha3_224 multicodec.Code` | `go.multiformats.multicodec.enums.sha3224` | const |
+| `const multicodec.Sha3_256 multicodec.Code` | `go.multiformats.multicodec.enums.sha3256` | const |
+| `const multicodec.Sha3_384 multicodec.Code` | `go.multiformats.multicodec.enums.sha3384` | const |
+| `const multicodec.Sha3_512 multicodec.Code` | `go.multiformats.multicodec.enums.sha3512` | const |
+| `const multicodec.Shake128 multicodec.Code` | `go.multiformats.multicodec.enums.shake128` | const |
+| `const multicodec.Shake256 multicodec.Code` | `go.multiformats.multicodec.enums.shake256` | const |
+| `const multicodec.ShelterContractData multicodec.Code` | `go.multiformats.multicodec.enums.shelterContractData` | const |
+| `const multicodec.ShelterContractManifest multicodec.Code` | `go.multiformats.multicodec.enums.shelterContractManifest` | const |
+| `const multicodec.ShelterContractText multicodec.Code` | `go.multiformats.multicodec.enums.shelterContractText` | const |
+| `const multicodec.ShelterFileChunk multicodec.Code` | `go.multiformats.multicodec.enums.shelterFileChunk` | const |
+| `const multicodec.ShelterFileManifest multicodec.Code` | `go.multiformats.multicodec.enums.shelterFileManifest` | const |
+| `const multicodec.Shs multicodec.Code` | `go.multiformats.multicodec.enums.shs` | const |
+| `const multicodec.Silverpine multicodec.Code` | `go.multiformats.multicodec.enums.silverpine` | const |
+| `const multicodec.Skein1024_1000 multicodec.Code` | `go.multiformats.multicodec.enums.skein10241000` | const |
+| `const multicodec.Skein1024_1008 multicodec.Code` | `go.multiformats.multicodec.enums.skein10241008` | const |
+| `const multicodec.Skein1024_1016 multicodec.Code` | `go.multiformats.multicodec.enums.skein10241016` | const |
+| `const multicodec.Skein1024_1024 multicodec.Code` | `go.multiformats.multicodec.enums.skein10241024` | const |
+| `const multicodec.Skein1024_104 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024104` | const |
+| `const multicodec.Skein1024_112 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024112` | const |
+| `const multicodec.Skein1024_120 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024120` | const |
+| `const multicodec.Skein1024_128 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024128` | const |
+| `const multicodec.Skein1024_136 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024136` | const |
+| `const multicodec.Skein1024_144 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024144` | const |
+| `const multicodec.Skein1024_152 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024152` | const |
+| `const multicodec.Skein1024_16 multicodec.Code` | `go.multiformats.multicodec.enums.skein102416` | const |
+| `const multicodec.Skein1024_160 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024160` | const |
+| `const multicodec.Skein1024_168 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024168` | const |
+| `const multicodec.Skein1024_176 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024176` | const |
+| `const multicodec.Skein1024_184 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024184` | const |
+| `const multicodec.Skein1024_192 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024192` | const |
+| `const multicodec.Skein1024_200 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024200` | const |
+| `const multicodec.Skein1024_208 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024208` | const |
+| `const multicodec.Skein1024_216 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024216` | const |
+| `const multicodec.Skein1024_224 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024224` | const |
+| `const multicodec.Skein1024_232 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024232` | const |
+| `const multicodec.Skein1024_24 multicodec.Code` | `go.multiformats.multicodec.enums.skein102424` | const |
+| `const multicodec.Skein1024_240 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024240` | const |
+| `const multicodec.Skein1024_248 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024248` | const |
+| `const multicodec.Skein1024_256 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024256` | const |
+| `const multicodec.Skein1024_264 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024264` | const |
+| `const multicodec.Skein1024_272 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024272` | const |
+| `const multicodec.Skein1024_280 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024280` | const |
+| `const multicodec.Skein1024_288 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024288` | const |
+| `const multicodec.Skein1024_296 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024296` | const |
+| `const multicodec.Skein1024_304 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024304` | const |
+| `const multicodec.Skein1024_312 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024312` | const |
+| `const multicodec.Skein1024_32 multicodec.Code` | `go.multiformats.multicodec.enums.skein102432` | const |
+| `const multicodec.Skein1024_320 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024320` | const |
+| `const multicodec.Skein1024_328 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024328` | const |
+| `const multicodec.Skein1024_336 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024336` | const |
+| `const multicodec.Skein1024_344 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024344` | const |
+| `const multicodec.Skein1024_352 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024352` | const |
+| `const multicodec.Skein1024_360 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024360` | const |
+| `const multicodec.Skein1024_368 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024368` | const |
+| `const multicodec.Skein1024_376 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024376` | const |
+| `const multicodec.Skein1024_384 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024384` | const |
+| `const multicodec.Skein1024_392 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024392` | const |
+| `const multicodec.Skein1024_40 multicodec.Code` | `go.multiformats.multicodec.enums.skein102440` | const |
+| `const multicodec.Skein1024_400 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024400` | const |
+| `const multicodec.Skein1024_408 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024408` | const |
+| `const multicodec.Skein1024_416 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024416` | const |
+| `const multicodec.Skein1024_424 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024424` | const |
+| `const multicodec.Skein1024_432 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024432` | const |
+| `const multicodec.Skein1024_440 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024440` | const |
+| `const multicodec.Skein1024_448 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024448` | const |
+| `const multicodec.Skein1024_456 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024456` | const |
+| `const multicodec.Skein1024_464 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024464` | const |
+| `const multicodec.Skein1024_472 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024472` | const |
+| `const multicodec.Skein1024_48 multicodec.Code` | `go.multiformats.multicodec.enums.skein102448` | const |
+| `const multicodec.Skein1024_480 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024480` | const |
+| `const multicodec.Skein1024_488 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024488` | const |
+| `const multicodec.Skein1024_496 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024496` | const |
+| `const multicodec.Skein1024_504 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024504` | const |
+| `const multicodec.Skein1024_512 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024512` | const |
+| `const multicodec.Skein1024_520 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024520` | const |
+| `const multicodec.Skein1024_528 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024528` | const |
+| `const multicodec.Skein1024_536 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024536` | const |
+| `const multicodec.Skein1024_544 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024544` | const |
+| `const multicodec.Skein1024_552 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024552` | const |
+| `const multicodec.Skein1024_56 multicodec.Code` | `go.multiformats.multicodec.enums.skein102456` | const |
+| `const multicodec.Skein1024_560 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024560` | const |
+| `const multicodec.Skein1024_568 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024568` | const |
+| `const multicodec.Skein1024_576 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024576` | const |
+| `const multicodec.Skein1024_584 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024584` | const |
+| `const multicodec.Skein1024_592 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024592` | const |
+| `const multicodec.Skein1024_600 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024600` | const |
+| `const multicodec.Skein1024_608 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024608` | const |
+| `const multicodec.Skein1024_616 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024616` | const |
+| `const multicodec.Skein1024_624 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024624` | const |
+| `const multicodec.Skein1024_632 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024632` | const |
+| `const multicodec.Skein1024_64 multicodec.Code` | `go.multiformats.multicodec.enums.skein102464` | const |
+| `const multicodec.Skein1024_640 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024640` | const |
+| `const multicodec.Skein1024_648 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024648` | const |
+| `const multicodec.Skein1024_656 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024656` | const |
+| `const multicodec.Skein1024_664 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024664` | const |
+| `const multicodec.Skein1024_672 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024672` | const |
+| `const multicodec.Skein1024_680 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024680` | const |
+| `const multicodec.Skein1024_688 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024688` | const |
+| `const multicodec.Skein1024_696 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024696` | const |
+| `const multicodec.Skein1024_704 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024704` | const |
+| `const multicodec.Skein1024_712 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024712` | const |
+| `const multicodec.Skein1024_72 multicodec.Code` | `go.multiformats.multicodec.enums.skein102472` | const |
+| `const multicodec.Skein1024_720 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024720` | const |
+| `const multicodec.Skein1024_728 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024728` | const |
+| `const multicodec.Skein1024_736 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024736` | const |
+| `const multicodec.Skein1024_744 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024744` | const |
+| `const multicodec.Skein1024_752 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024752` | const |
+| `const multicodec.Skein1024_760 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024760` | const |
+| `const multicodec.Skein1024_768 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024768` | const |
+| `const multicodec.Skein1024_776 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024776` | const |
+| `const multicodec.Skein1024_784 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024784` | const |
+| `const multicodec.Skein1024_792 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024792` | const |
+| `const multicodec.Skein1024_8 multicodec.Code` | `go.multiformats.multicodec.enums.skein10248` | const |
+| `const multicodec.Skein1024_80 multicodec.Code` | `go.multiformats.multicodec.enums.skein102480` | const |
+| `const multicodec.Skein1024_800 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024800` | const |
+| `const multicodec.Skein1024_808 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024808` | const |
+| `const multicodec.Skein1024_816 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024816` | const |
+| `const multicodec.Skein1024_824 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024824` | const |
+| `const multicodec.Skein1024_832 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024832` | const |
+| `const multicodec.Skein1024_840 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024840` | const |
+| `const multicodec.Skein1024_848 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024848` | const |
+| `const multicodec.Skein1024_856 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024856` | const |
+| `const multicodec.Skein1024_864 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024864` | const |
+| `const multicodec.Skein1024_872 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024872` | const |
+| `const multicodec.Skein1024_88 multicodec.Code` | `go.multiformats.multicodec.enums.skein102488` | const |
+| `const multicodec.Skein1024_880 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024880` | const |
+| `const multicodec.Skein1024_888 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024888` | const |
+| `const multicodec.Skein1024_896 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024896` | const |
+| `const multicodec.Skein1024_904 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024904` | const |
+| `const multicodec.Skein1024_912 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024912` | const |
+| `const multicodec.Skein1024_920 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024920` | const |
+| `const multicodec.Skein1024_928 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024928` | const |
+| `const multicodec.Skein1024_936 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024936` | const |
+| `const multicodec.Skein1024_944 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024944` | const |
+| `const multicodec.Skein1024_952 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024952` | const |
+| `const multicodec.Skein1024_96 multicodec.Code` | `go.multiformats.multicodec.enums.skein102496` | const |
+| `const multicodec.Skein1024_960 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024960` | const |
+| `const multicodec.Skein1024_968 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024968` | const |
+| `const multicodec.Skein1024_976 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024976` | const |
+| `const multicodec.Skein1024_984 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024984` | const |
+| `const multicodec.Skein1024_992 multicodec.Code` | `go.multiformats.multicodec.enums.skein1024992` | const |
+| `const multicodec.Skein256_104 multicodec.Code` | `go.multiformats.multicodec.enums.skein256104` | const |
+| `const multicodec.Skein256_112 multicodec.Code` | `go.multiformats.multicodec.enums.skein256112` | const |
+| `const multicodec.Skein256_120 multicodec.Code` | `go.multiformats.multicodec.enums.skein256120` | const |
+| `const multicodec.Skein256_128 multicodec.Code` | `go.multiformats.multicodec.enums.skein256128` | const |
+| `const multicodec.Skein256_136 multicodec.Code` | `go.multiformats.multicodec.enums.skein256136` | const |
+| `const multicodec.Skein256_144 multicodec.Code` | `go.multiformats.multicodec.enums.skein256144` | const |
+| `const multicodec.Skein256_152 multicodec.Code` | `go.multiformats.multicodec.enums.skein256152` | const |
+| `const multicodec.Skein256_16 multicodec.Code` | `go.multiformats.multicodec.enums.skein25616` | const |
+| `const multicodec.Skein256_160 multicodec.Code` | `go.multiformats.multicodec.enums.skein256160` | const |
+| `const multicodec.Skein256_168 multicodec.Code` | `go.multiformats.multicodec.enums.skein256168` | const |
+| `const multicodec.Skein256_176 multicodec.Code` | `go.multiformats.multicodec.enums.skein256176` | const |
+| `const multicodec.Skein256_184 multicodec.Code` | `go.multiformats.multicodec.enums.skein256184` | const |
+| `const multicodec.Skein256_192 multicodec.Code` | `go.multiformats.multicodec.enums.skein256192` | const |
+| `const multicodec.Skein256_200 multicodec.Code` | `go.multiformats.multicodec.enums.skein256200` | const |
+| `const multicodec.Skein256_208 multicodec.Code` | `go.multiformats.multicodec.enums.skein256208` | const |
+| `const multicodec.Skein256_216 multicodec.Code` | `go.multiformats.multicodec.enums.skein256216` | const |
+| `const multicodec.Skein256_224 multicodec.Code` | `go.multiformats.multicodec.enums.skein256224` | const |
+| `const multicodec.Skein256_232 multicodec.Code` | `go.multiformats.multicodec.enums.skein256232` | const |
+| `const multicodec.Skein256_24 multicodec.Code` | `go.multiformats.multicodec.enums.skein25624` | const |
+| `const multicodec.Skein256_240 multicodec.Code` | `go.multiformats.multicodec.enums.skein256240` | const |
+| `const multicodec.Skein256_248 multicodec.Code` | `go.multiformats.multicodec.enums.skein256248` | const |
+| `const multicodec.Skein256_256 multicodec.Code` | `go.multiformats.multicodec.enums.skein256256` | const |
+| `const multicodec.Skein256_32 multicodec.Code` | `go.multiformats.multicodec.enums.skein25632` | const |
+| `const multicodec.Skein256_40 multicodec.Code` | `go.multiformats.multicodec.enums.skein25640` | const |
+| `const multicodec.Skein256_48 multicodec.Code` | `go.multiformats.multicodec.enums.skein25648` | const |
+| `const multicodec.Skein256_56 multicodec.Code` | `go.multiformats.multicodec.enums.skein25656` | const |
+| `const multicodec.Skein256_64 multicodec.Code` | `go.multiformats.multicodec.enums.skein25664` | const |
+| `const multicodec.Skein256_72 multicodec.Code` | `go.multiformats.multicodec.enums.skein25672` | const |
+| `const multicodec.Skein256_8 multicodec.Code` | `go.multiformats.multicodec.enums.skein2568` | const |
+| `const multicodec.Skein256_80 multicodec.Code` | `go.multiformats.multicodec.enums.skein25680` | const |
+| `const multicodec.Skein256_88 multicodec.Code` | `go.multiformats.multicodec.enums.skein25688` | const |
+| `const multicodec.Skein256_96 multicodec.Code` | `go.multiformats.multicodec.enums.skein25696` | const |
+| `const multicodec.Skein512_104 multicodec.Code` | `go.multiformats.multicodec.enums.skein512104` | const |
+| `const multicodec.Skein512_112 multicodec.Code` | `go.multiformats.multicodec.enums.skein512112` | const |
+| `const multicodec.Skein512_120 multicodec.Code` | `go.multiformats.multicodec.enums.skein512120` | const |
+| `const multicodec.Skein512_128 multicodec.Code` | `go.multiformats.multicodec.enums.skein512128` | const |
+| `const multicodec.Skein512_136 multicodec.Code` | `go.multiformats.multicodec.enums.skein512136` | const |
+| `const multicodec.Skein512_144 multicodec.Code` | `go.multiformats.multicodec.enums.skein512144` | const |
+| `const multicodec.Skein512_152 multicodec.Code` | `go.multiformats.multicodec.enums.skein512152` | const |
+| `const multicodec.Skein512_16 multicodec.Code` | `go.multiformats.multicodec.enums.skein51216` | const |
+| `const multicodec.Skein512_160 multicodec.Code` | `go.multiformats.multicodec.enums.skein512160` | const |
+| `const multicodec.Skein512_168 multicodec.Code` | `go.multiformats.multicodec.enums.skein512168` | const |
+| `const multicodec.Skein512_176 multicodec.Code` | `go.multiformats.multicodec.enums.skein512176` | const |
+| `const multicodec.Skein512_184 multicodec.Code` | `go.multiformats.multicodec.enums.skein512184` | const |
+| `const multicodec.Skein512_192 multicodec.Code` | `go.multiformats.multicodec.enums.skein512192` | const |
+| `const multicodec.Skein512_200 multicodec.Code` | `go.multiformats.multicodec.enums.skein512200` | const |
+| `const multicodec.Skein512_208 multicodec.Code` | `go.multiformats.multicodec.enums.skein512208` | const |
+| `const multicodec.Skein512_216 multicodec.Code` | `go.multiformats.multicodec.enums.skein512216` | const |
+| `const multicodec.Skein512_224 multicodec.Code` | `go.multiformats.multicodec.enums.skein512224` | const |
+| `const multicodec.Skein512_232 multicodec.Code` | `go.multiformats.multicodec.enums.skein512232` | const |
+| `const multicodec.Skein512_24 multicodec.Code` | `go.multiformats.multicodec.enums.skein51224` | const |
+| `const multicodec.Skein512_240 multicodec.Code` | `go.multiformats.multicodec.enums.skein512240` | const |
+| `const multicodec.Skein512_248 multicodec.Code` | `go.multiformats.multicodec.enums.skein512248` | const |
+| `const multicodec.Skein512_256 multicodec.Code` | `go.multiformats.multicodec.enums.skein512256` | const |
+| `const multicodec.Skein512_264 multicodec.Code` | `go.multiformats.multicodec.enums.skein512264` | const |
+| `const multicodec.Skein512_272 multicodec.Code` | `go.multiformats.multicodec.enums.skein512272` | const |
+| `const multicodec.Skein512_280 multicodec.Code` | `go.multiformats.multicodec.enums.skein512280` | const |
+| `const multicodec.Skein512_288 multicodec.Code` | `go.multiformats.multicodec.enums.skein512288` | const |
+| `const multicodec.Skein512_296 multicodec.Code` | `go.multiformats.multicodec.enums.skein512296` | const |
+| `const multicodec.Skein512_304 multicodec.Code` | `go.multiformats.multicodec.enums.skein512304` | const |
+| `const multicodec.Skein512_312 multicodec.Code` | `go.multiformats.multicodec.enums.skein512312` | const |
+| `const multicodec.Skein512_32 multicodec.Code` | `go.multiformats.multicodec.enums.skein51232` | const |
+| `const multicodec.Skein512_320 multicodec.Code` | `go.multiformats.multicodec.enums.skein512320` | const |
+| `const multicodec.Skein512_328 multicodec.Code` | `go.multiformats.multicodec.enums.skein512328` | const |
+| `const multicodec.Skein512_336 multicodec.Code` | `go.multiformats.multicodec.enums.skein512336` | const |
+| `const multicodec.Skein512_344 multicodec.Code` | `go.multiformats.multicodec.enums.skein512344` | const |
+| `const multicodec.Skein512_352 multicodec.Code` | `go.multiformats.multicodec.enums.skein512352` | const |
+| `const multicodec.Skein512_360 multicodec.Code` | `go.multiformats.multicodec.enums.skein512360` | const |
+| `const multicodec.Skein512_368 multicodec.Code` | `go.multiformats.multicodec.enums.skein512368` | const |
+| `const multicodec.Skein512_376 multicodec.Code` | `go.multiformats.multicodec.enums.skein512376` | const |
+| `const multicodec.Skein512_384 multicodec.Code` | `go.multiformats.multicodec.enums.skein512384` | const |
+| `const multicodec.Skein512_392 multicodec.Code` | `go.multiformats.multicodec.enums.skein512392` | const |
+| `const multicodec.Skein512_40 multicodec.Code` | `go.multiformats.multicodec.enums.skein51240` | const |
+| `const multicodec.Skein512_400 multicodec.Code` | `go.multiformats.multicodec.enums.skein512400` | const |
+| `const multicodec.Skein512_408 multicodec.Code` | `go.multiformats.multicodec.enums.skein512408` | const |
+| `const multicodec.Skein512_416 multicodec.Code` | `go.multiformats.multicodec.enums.skein512416` | const |
+| `const multicodec.Skein512_424 multicodec.Code` | `go.multiformats.multicodec.enums.skein512424` | const |
+| `const multicodec.Skein512_432 multicodec.Code` | `go.multiformats.multicodec.enums.skein512432` | const |
+| `const multicodec.Skein512_440 multicodec.Code` | `go.multiformats.multicodec.enums.skein512440` | const |
+| `const multicodec.Skein512_448 multicodec.Code` | `go.multiformats.multicodec.enums.skein512448` | const |
+| `const multicodec.Skein512_456 multicodec.Code` | `go.multiformats.multicodec.enums.skein512456` | const |
+| `const multicodec.Skein512_464 multicodec.Code` | `go.multiformats.multicodec.enums.skein512464` | const |
+| `const multicodec.Skein512_472 multicodec.Code` | `go.multiformats.multicodec.enums.skein512472` | const |
+| `const multicodec.Skein512_48 multicodec.Code` | `go.multiformats.multicodec.enums.skein51248` | const |
+| `const multicodec.Skein512_480 multicodec.Code` | `go.multiformats.multicodec.enums.skein512480` | const |
+| `const multicodec.Skein512_488 multicodec.Code` | `go.multiformats.multicodec.enums.skein512488` | const |
+| `const multicodec.Skein512_496 multicodec.Code` | `go.multiformats.multicodec.enums.skein512496` | const |
+| `const multicodec.Skein512_504 multicodec.Code` | `go.multiformats.multicodec.enums.skein512504` | const |
+| `const multicodec.Skein512_512 multicodec.Code` | `go.multiformats.multicodec.enums.skein512512` | const |
+| `const multicodec.Skein512_56 multicodec.Code` | `go.multiformats.multicodec.enums.skein51256` | const |
+| `const multicodec.Skein512_64 multicodec.Code` | `go.multiformats.multicodec.enums.skein51264` | const |
+| `const multicodec.Skein512_72 multicodec.Code` | `go.multiformats.multicodec.enums.skein51272` | const |
+| `const multicodec.Skein512_8 multicodec.Code` | `go.multiformats.multicodec.enums.skein5128` | const |
+| `const multicodec.Skein512_80 multicodec.Code` | `go.multiformats.multicodec.enums.skein51280` | const |
+| `const multicodec.Skein512_88 multicodec.Code` | `go.multiformats.multicodec.enums.skein51288` | const |
+| `const multicodec.Skein512_96 multicodec.Code` | `go.multiformats.multicodec.enums.skein51296` | const |
+| `const multicodec.SkynetNs multicodec.Code` | `go.multiformats.multicodec.enums.skynetNs` | const |
+| `const multicodec.Sm2Priv multicodec.Code` | `go.multiformats.multicodec.enums.sm2Priv` | const |
+| `const multicodec.Sm2Pub multicodec.Code` | `go.multiformats.multicodec.enums.sm2Pub` | const |
+| `const multicodec.Sm3_256 multicodec.Code` | `go.multiformats.multicodec.enums.sm3256` | const |
+| `const multicodec.Sni multicodec.Code` | `go.multiformats.multicodec.enums.sni` | const |
+| `const multicodec.Sr25519Priv multicodec.Code` | `go.multiformats.multicodec.enums.sr25519Priv` | const |
+| `const multicodec.Sr25519Pub multicodec.Code` | `go.multiformats.multicodec.enums.sr25519Pub` | const |
+| `const multicodec.Ssz multicodec.Code` | `go.multiformats.multicodec.enums.ssz` | const |
+| `const multicodec.SszSha2_256Bmt multicodec.Code` | `go.multiformats.multicodec.enums.sszSha2256Bmt` | const |
+| `const multicodec.StellarBlock multicodec.Code` | `go.multiformats.multicodec.enums.stellarBlock` | const |
+| `const multicodec.StellarTx multicodec.Code` | `go.multiformats.multicodec.enums.stellarTx` | const |
+| `const multicodec.Streamid multicodec.Code` | `go.multiformats.multicodec.enums.streamid` | const |
+| `const multicodec.SubspaceNs multicodec.Code` | `go.multiformats.multicodec.enums.subspaceNs` | const |
+| `const multicodec.Swarm multicodec.Code` | `go.multiformats.multicodec.enums.swarm` | const |
+| `const multicodec.SwarmFeed multicodec.Code` | `go.multiformats.multicodec.enums.swarmFeed` | const |
+| `const multicodec.SwarmManifest multicodec.Code` | `go.multiformats.multicodec.enums.swarmManifest` | const |
+| `const multicodec.Swhid1Snp multicodec.Code` | `go.multiformats.multicodec.enums.swhid1Snp` | const |
+| `const multicodec.Tcp multicodec.Code` | `go.multiformats.multicodec.enums.tcp` | const |
+| `const multicodec.Thread multicodec.Code` | `go.multiformats.multicodec.enums.thread` | const |
+| `const multicodec.Tls multicodec.Code` | `go.multiformats.multicodec.enums.tls` | const |
+| `const multicodec.TorrentFile multicodec.Code` | `go.multiformats.multicodec.enums.torrentFile` | const |
+| `const multicodec.TorrentInfo multicodec.Code` | `go.multiformats.multicodec.enums.torrentInfo` | const |
+| `const multicodec.TransportBitswap multicodec.Code` | `go.multiformats.multicodec.enums.transportBitswap` | const |
+| `const multicodec.TransportFilecoinPieceHttp multicodec.Code` | `go.multiformats.multicodec.enums.transportFilecoinPieceHttp` | const |
+| `const multicodec.TransportGraphsyncFilecoinv1 multicodec.Code` | `go.multiformats.multicodec.enums.transportGraphsyncFilecoinv1` | const |
+| `const multicodec.TransportIpfsGatewayHttp multicodec.Code` | `go.multiformats.multicodec.enums.transportIpfsGatewayHttp` | const |
+| `const multicodec.Udp multicodec.Code` | `go.multiformats.multicodec.enums.udp` | const |
+| `const multicodec.Udt multicodec.Code` | `go.multiformats.multicodec.enums.udt` | const |
+| `const multicodec.Unix multicodec.Code` | `go.multiformats.multicodec.enums.unix` | const |
+| `const multicodec.Utp multicodec.Code` | `go.multiformats.multicodec.enums.utp` | const |
+| `const multicodec.Varsig multicodec.Code` | `go.multiformats.multicodec.enums.varsig` | const |
+| `const multicodec.Vlad multicodec.Code` | `go.multiformats.multicodec.enums.vlad` | const |
+| `const multicodec.Webrtc multicodec.Code` | `go.multiformats.multicodec.enums.webrtc` | const |
+| `const multicodec.WebrtcDirect multicodec.Code` | `go.multiformats.multicodec.enums.webrtcDirect` | const |
+| `const multicodec.Webtransport multicodec.Code` | `go.multiformats.multicodec.enums.webtransport` | const |
+| `const multicodec.Ws multicodec.Code` | `go.multiformats.multicodec.enums.ws` | const |
+| `const multicodec.Wss multicodec.Code` | `go.multiformats.multicodec.enums.wss` | const |
+| `const multicodec.X11 multicodec.Code` | `go.multiformats.multicodec.enums.x11` | const |
+| `const multicodec.X25519Priv multicodec.Code` | `go.multiformats.multicodec.enums.x25519Priv` | const |
+| `const multicodec.X25519Pub multicodec.Code` | `go.multiformats.multicodec.enums.x25519Pub` | const |
+| `const multicodec.X448Priv multicodec.Code` | `go.multiformats.multicodec.enums.x448Priv` | const |
+| `const multicodec.X448Pub multicodec.Code` | `go.multiformats.multicodec.enums.x448Pub` | const |
+| `const multicodec.X509Certificate multicodec.Code` | `go.multiformats.multicodec.enums.x509Certificate` | const |
+| `const multicodec.Xxh32 multicodec.Code` | `go.multiformats.multicodec.enums.xxh32` | const |
+| `const multicodec.Xxh3_128 multicodec.Code` | `go.multiformats.multicodec.enums.xxh3128` | const |
+| `const multicodec.Xxh3_64 multicodec.Code` | `go.multiformats.multicodec.enums.xxh364` | const |
+| `const multicodec.Xxh64 multicodec.Code` | `go.multiformats.multicodec.enums.xxh64` | const |
+| `const multicodec.ZcashBlock multicodec.Code` | `go.multiformats.multicodec.enums.zcashBlock` | const |
+| `const multicodec.ZcashTx multicodec.Code` | `go.multiformats.multicodec.enums.zcashTx` | const |
+| `const multicodec.Zeronet multicodec.Code` | `go.multiformats.multicodec.enums.zeronet` | const |
+| `const multicodec.ZeroxcertImprint256 multicodec.Code` | `go.multiformats.multicodec.enums.zeroxcertImprint256` | const |
 
 Omitted:
 
@@ -5971,34 +5971,34 @@ Omitted:
 | `func multihash.Sum(data []byte, code uint64, length int) (multihash.Multihash, error)` | `go.multiformats.multihash.sum` | sync |
 | `func multihash.SumStream(r io.Reader, code uint64, length int) (multihash.Multihash, error)` | `go.multiformats.multihash.sumStream` | sync |
 | `func (multihash.Writer).WriteMultihash(multihash.Multihash) error` | `MultihashWriter.writeMultihash` | sync |
-| `const multihash.BLAKE2B_MAX untyped int` | `go.multiformats.multihash.blake2bMax` | const |
-| `const multihash.BLAKE2B_MIN untyped int` | `go.multiformats.multihash.blake2bMin` | const |
-| `const multihash.BLAKE2S_MAX untyped int` | `go.multiformats.multihash.blake2sMax` | const |
-| `const multihash.BLAKE2S_MIN untyped int` | `go.multiformats.multihash.blake2sMin` | const |
-| `const multihash.BLAKE3 untyped int` | `go.multiformats.multihash.blake3` | const |
-| `const multihash.DBL_SHA2_256 untyped int` | `go.multiformats.multihash.dblSha2256` | const |
-| `const multihash.ID untyped int` | `go.multiformats.multihash.id` | const |
-| `const multihash.IDENTITY untyped int` | `go.multiformats.multihash.identity` | const |
-| `const multihash.KECCAK_224 untyped int` | `go.multiformats.multihash.keccak224` | const |
-| `const multihash.KECCAK_256 untyped int` | `go.multiformats.multihash.keccak256` | const |
-| `const multihash.KECCAK_384 untyped int` | `go.multiformats.multihash.keccak384` | const |
-| `const multihash.KECCAK_512 untyped int` | `go.multiformats.multihash.keccak512` | const |
-| `const multihash.MD5 untyped int` | `go.multiformats.multihash.md5` | const |
-| `const multihash.MURMUR3 untyped int` | `go.multiformats.multihash.murmur3` | const |
-| `const multihash.MURMUR3X64_64 untyped int` | `go.multiformats.multihash.murmur3x6464` | const |
-| `const multihash.POSEIDON_BLS12_381_A1_FC1 untyped int` | `go.multiformats.multihash.poseidonBls12381A1Fc1` | const |
-| `const multihash.SHA1 untyped int` | `go.multiformats.multihash.sha1` | const |
-| `const multihash.SHA2_256 untyped int` | `go.multiformats.multihash.sha2256` | const |
-| `const multihash.SHA2_256_TRUNC254_PADDED untyped int` | `go.multiformats.multihash.sha2256Trunc254Padded` | const |
-| `const multihash.SHA2_512 untyped int` | `go.multiformats.multihash.sha2512` | const |
-| `const multihash.SHA3 untyped int` | `go.multiformats.multihash.sha3` | const |
-| `const multihash.SHA3_224 untyped int` | `go.multiformats.multihash.sha3224` | const |
-| `const multihash.SHA3_256 untyped int` | `go.multiformats.multihash.sha3256` | const |
-| `const multihash.SHA3_384 untyped int` | `go.multiformats.multihash.sha3384` | const |
-| `const multihash.SHA3_512 untyped int` | `go.multiformats.multihash.sha3512` | const |
-| `const multihash.SHAKE_128 untyped int` | `go.multiformats.multihash.shake128` | const |
-| `const multihash.SHAKE_256 untyped int` | `go.multiformats.multihash.shake256` | const |
-| `const multihash.X11 untyped int` | `go.multiformats.multihash.x11` | const |
+| `const multihash.BLAKE2B_MAX untyped int` | `go.multiformats.multihash.consts.blake2bMax` | const |
+| `const multihash.BLAKE2B_MIN untyped int` | `go.multiformats.multihash.consts.blake2bMin` | const |
+| `const multihash.BLAKE2S_MAX untyped int` | `go.multiformats.multihash.consts.blake2sMax` | const |
+| `const multihash.BLAKE2S_MIN untyped int` | `go.multiformats.multihash.consts.blake2sMin` | const |
+| `const multihash.BLAKE3 untyped int` | `go.multiformats.multihash.consts.blake3` | const |
+| `const multihash.DBL_SHA2_256 untyped int` | `go.multiformats.multihash.consts.dblSha2256` | const |
+| `const multihash.ID untyped int` | `go.multiformats.multihash.consts.id` | const |
+| `const multihash.IDENTITY untyped int` | `go.multiformats.multihash.consts.identity` | const |
+| `const multihash.KECCAK_224 untyped int` | `go.multiformats.multihash.consts.keccak224` | const |
+| `const multihash.KECCAK_256 untyped int` | `go.multiformats.multihash.consts.keccak256` | const |
+| `const multihash.KECCAK_384 untyped int` | `go.multiformats.multihash.consts.keccak384` | const |
+| `const multihash.KECCAK_512 untyped int` | `go.multiformats.multihash.consts.keccak512` | const |
+| `const multihash.MD5 untyped int` | `go.multiformats.multihash.consts.md5` | const |
+| `const multihash.MURMUR3 untyped int` | `go.multiformats.multihash.consts.murmur3` | const |
+| `const multihash.MURMUR3X64_64 untyped int` | `go.multiformats.multihash.consts.murmur3x6464` | const |
+| `const multihash.POSEIDON_BLS12_381_A1_FC1 untyped int` | `go.multiformats.multihash.consts.poseidonBls12381A1Fc1` | const |
+| `const multihash.SHA1 untyped int` | `go.multiformats.multihash.consts.sha1` | const |
+| `const multihash.SHA2_256 untyped int` | `go.multiformats.multihash.consts.sha2256` | const |
+| `const multihash.SHA2_256_TRUNC254_PADDED untyped int` | `go.multiformats.multihash.consts.sha2256Trunc254Padded` | const |
+| `const multihash.SHA2_512 untyped int` | `go.multiformats.multihash.consts.sha2512` | const |
+| `const multihash.SHA3 untyped int` | `go.multiformats.multihash.consts.sha3` | const |
+| `const multihash.SHA3_224 untyped int` | `go.multiformats.multihash.consts.sha3224` | const |
+| `const multihash.SHA3_256 untyped int` | `go.multiformats.multihash.consts.sha3256` | const |
+| `const multihash.SHA3_384 untyped int` | `go.multiformats.multihash.consts.sha3384` | const |
+| `const multihash.SHA3_512 untyped int` | `go.multiformats.multihash.consts.sha3512` | const |
+| `const multihash.SHAKE_128 untyped int` | `go.multiformats.multihash.consts.shake128` | const |
+| `const multihash.SHAKE_256 untyped int` | `go.multiformats.multihash.consts.shake256` | const |
+| `const multihash.X11 untyped int` | `go.multiformats.multihash.consts.x11` | const |
 
 Omitted:
 
@@ -6012,15 +6012,15 @@ Omitted:
 | Go | Dart | Mode |
 |---|---|---|
 | `var prometheus.DefaultGatherer prometheus.Gatherer` | `go.prometheus.clientGolang.prometheus.defaultGatherer` | sync |
-| `const prometheus.CounterValue prometheus.ValueType` | `go.prometheus.clientGolang.prometheus.counterValue` | const |
-| `const prometheus.DefAgeBuckets untyped int` | `go.prometheus.clientGolang.prometheus.defAgeBuckets` | const |
-| `const prometheus.DefBufCap untyped int` | `go.prometheus.clientGolang.prometheus.defBufCap` | const |
-| `const prometheus.DefMaxAge time.Duration` | `go.prometheus.clientGolang.prometheus.defMaxAge` | const |
-| `const prometheus.DefNativeHistogramZeroThreshold untyped float` | `go.prometheus.clientGolang.prometheus.defNativeHistogramZeroThreshold` | const |
-| `const prometheus.ExemplarMaxRunes untyped int` | `go.prometheus.clientGolang.prometheus.exemplarMaxRunes` | const |
-| `const prometheus.GaugeValue prometheus.ValueType` | `go.prometheus.clientGolang.prometheus.gaugeValue` | const |
-| `const prometheus.NativeHistogramZeroThresholdZero untyped int` | `go.prometheus.clientGolang.prometheus.nativeHistogramZeroThresholdZero` | const |
-| `const prometheus.UntypedValue prometheus.ValueType` | `go.prometheus.clientGolang.prometheus.untypedValue` | const |
+| `const prometheus.CounterValue prometheus.ValueType` | `go.prometheus.clientGolang.prometheus.enums.counterValue` | const |
+| `const prometheus.DefAgeBuckets untyped int` | `go.prometheus.clientGolang.prometheus.consts.defAgeBuckets` | const |
+| `const prometheus.DefBufCap untyped int` | `go.prometheus.clientGolang.prometheus.consts.defBufCap` | const |
+| `const prometheus.DefMaxAge time.Duration` | `go.prometheus.clientGolang.prometheus.enums.defMaxAge` | const |
+| `const prometheus.DefNativeHistogramZeroThreshold untyped float` | `go.prometheus.clientGolang.prometheus.consts.defNativeHistogramZeroThreshold` | const |
+| `const prometheus.ExemplarMaxRunes untyped int` | `go.prometheus.clientGolang.prometheus.consts.exemplarMaxRunes` | const |
+| `const prometheus.GaugeValue prometheus.ValueType` | `go.prometheus.clientGolang.prometheus.enums.gaugeValue` | const |
+| `const prometheus.NativeHistogramZeroThresholdZero untyped int` | `go.prometheus.clientGolang.prometheus.consts.nativeHistogramZeroThresholdZero` | const |
+| `const prometheus.UntypedValue prometheus.ValueType` | `go.prometheus.clientGolang.prometheus.enums.untypedValue` | const |
 
 Omitted:
 
@@ -6030,54 +6030,54 @@ Omitted:
 
 | Go | Dart | Mode |
 |---|---|---|
-| `const io_prometheus_client.MetricType_COUNTER io_prometheus_client.MetricType` | `go.prometheus.clientModel.go.metricTypeCounter` | const |
-| `const io_prometheus_client.MetricType_GAUGE io_prometheus_client.MetricType` | `go.prometheus.clientModel.go.metricTypeGauge` | const |
-| `const io_prometheus_client.MetricType_GAUGE_HISTOGRAM io_prometheus_client.MetricType` | `go.prometheus.clientModel.go.metricTypeGaugeHistogram` | const |
-| `const io_prometheus_client.MetricType_HISTOGRAM io_prometheus_client.MetricType` | `go.prometheus.clientModel.go.metricTypeHistogram` | const |
-| `const io_prometheus_client.MetricType_SUMMARY io_prometheus_client.MetricType` | `go.prometheus.clientModel.go.metricTypeSummary` | const |
-| `const io_prometheus_client.MetricType_UNTYPED io_prometheus_client.MetricType` | `go.prometheus.clientModel.go.metricTypeUntyped` | const |
+| `const io_prometheus_client.MetricType_COUNTER io_prometheus_client.MetricType` | `go.prometheus.clientModel.go.enums.metricTypeCounter` | const |
+| `const io_prometheus_client.MetricType_GAUGE io_prometheus_client.MetricType` | `go.prometheus.clientModel.go.enums.metricTypeGauge` | const |
+| `const io_prometheus_client.MetricType_GAUGE_HISTOGRAM io_prometheus_client.MetricType` | `go.prometheus.clientModel.go.enums.metricTypeGaugeHistogram` | const |
+| `const io_prometheus_client.MetricType_HISTOGRAM io_prometheus_client.MetricType` | `go.prometheus.clientModel.go.enums.metricTypeHistogram` | const |
+| `const io_prometheus_client.MetricType_SUMMARY io_prometheus_client.MetricType` | `go.prometheus.clientModel.go.enums.metricTypeSummary` | const |
+| `const io_prometheus_client.MetricType_UNTYPED io_prometheus_client.MetricType` | `go.prometheus.clientModel.go.enums.metricTypeUntyped` | const |
 
 ## `go.uber.org/dig` → `go.dig` (`lib/go/dig.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
-| `const dig.Version untyped string` | `go.dig.version` | const |
+| `const dig.Version untyped string` | `go.dig.consts.version` | const |
 
 ## `go.uber.org/fx` → `go.fx` (`lib/go/fx.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
-| `const fx.DefaultTimeout time.Duration` | `go.fx.defaultTimeout` | const |
-| `const fx.Version untyped string` | `go.fx.version` | const |
+| `const fx.DefaultTimeout time.Duration` | `go.fx.enums.defaultTimeout` | const |
+| `const fx.Version untyped string` | `go.fx.consts.version` | const |
 
 ## `google.golang.org/protobuf/reflect/protoreflect` → `go.protobuf.reflect.protoreflect` (`lib/go/protobuf/reflect/protoreflect.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
-| `const protoreflect.BoolKind protoreflect.Kind` | `go.protobuf.reflect.protoreflect.boolKind` | const |
-| `const protoreflect.BytesKind protoreflect.Kind` | `go.protobuf.reflect.protoreflect.bytesKind` | const |
-| `const protoreflect.DoubleKind protoreflect.Kind` | `go.protobuf.reflect.protoreflect.doubleKind` | const |
-| `const protoreflect.Editions protoreflect.Syntax` | `go.protobuf.reflect.protoreflect.editions` | const |
-| `const protoreflect.EnumKind protoreflect.Kind` | `go.protobuf.reflect.protoreflect.enumKind` | const |
-| `const protoreflect.Fixed32Kind protoreflect.Kind` | `go.protobuf.reflect.protoreflect.fixed32Kind` | const |
-| `const protoreflect.Fixed64Kind protoreflect.Kind` | `go.protobuf.reflect.protoreflect.fixed64Kind` | const |
-| `const protoreflect.FloatKind protoreflect.Kind` | `go.protobuf.reflect.protoreflect.floatKind` | const |
-| `const protoreflect.GroupKind protoreflect.Kind` | `go.protobuf.reflect.protoreflect.groupKind` | const |
-| `const protoreflect.Int32Kind protoreflect.Kind` | `go.protobuf.reflect.protoreflect.int32Kind` | const |
-| `const protoreflect.Int64Kind protoreflect.Kind` | `go.protobuf.reflect.protoreflect.int64Kind` | const |
-| `const protoreflect.MessageKind protoreflect.Kind` | `go.protobuf.reflect.protoreflect.messageKind` | const |
-| `const protoreflect.Optional protoreflect.Cardinality` | `go.protobuf.reflect.protoreflect.optional` | const |
-| `const protoreflect.Proto2 protoreflect.Syntax` | `go.protobuf.reflect.protoreflect.proto2` | const |
-| `const protoreflect.Proto3 protoreflect.Syntax` | `go.protobuf.reflect.protoreflect.proto3` | const |
-| `const protoreflect.Repeated protoreflect.Cardinality` | `go.protobuf.reflect.protoreflect.repeated` | const |
-| `const protoreflect.Required protoreflect.Cardinality` | `go.protobuf.reflect.protoreflect.required` | const |
-| `const protoreflect.Sfixed32Kind protoreflect.Kind` | `go.protobuf.reflect.protoreflect.sfixed32Kind` | const |
-| `const protoreflect.Sfixed64Kind protoreflect.Kind` | `go.protobuf.reflect.protoreflect.sfixed64Kind` | const |
-| `const protoreflect.Sint32Kind protoreflect.Kind` | `go.protobuf.reflect.protoreflect.sint32Kind` | const |
-| `const protoreflect.Sint64Kind protoreflect.Kind` | `go.protobuf.reflect.protoreflect.sint64Kind` | const |
-| `const protoreflect.StringKind protoreflect.Kind` | `go.protobuf.reflect.protoreflect.stringKind` | const |
-| `const protoreflect.Uint32Kind protoreflect.Kind` | `go.protobuf.reflect.protoreflect.uint32Kind` | const |
-| `const protoreflect.Uint64Kind protoreflect.Kind` | `go.protobuf.reflect.protoreflect.uint64Kind` | const |
+| `const protoreflect.BoolKind protoreflect.Kind` | `go.protobuf.reflect.protoreflect.enums.boolKind` | const |
+| `const protoreflect.BytesKind protoreflect.Kind` | `go.protobuf.reflect.protoreflect.enums.bytesKind` | const |
+| `const protoreflect.DoubleKind protoreflect.Kind` | `go.protobuf.reflect.protoreflect.enums.doubleKind` | const |
+| `const protoreflect.Editions protoreflect.Syntax` | `go.protobuf.reflect.protoreflect.enums.editions` | const |
+| `const protoreflect.EnumKind protoreflect.Kind` | `go.protobuf.reflect.protoreflect.enums.enumKind` | const |
+| `const protoreflect.Fixed32Kind protoreflect.Kind` | `go.protobuf.reflect.protoreflect.enums.fixed32Kind` | const |
+| `const protoreflect.Fixed64Kind protoreflect.Kind` | `go.protobuf.reflect.protoreflect.enums.fixed64Kind` | const |
+| `const protoreflect.FloatKind protoreflect.Kind` | `go.protobuf.reflect.protoreflect.enums.floatKind` | const |
+| `const protoreflect.GroupKind protoreflect.Kind` | `go.protobuf.reflect.protoreflect.enums.groupKind` | const |
+| `const protoreflect.Int32Kind protoreflect.Kind` | `go.protobuf.reflect.protoreflect.enums.int32Kind` | const |
+| `const protoreflect.Int64Kind protoreflect.Kind` | `go.protobuf.reflect.protoreflect.enums.int64Kind` | const |
+| `const protoreflect.MessageKind protoreflect.Kind` | `go.protobuf.reflect.protoreflect.enums.messageKind` | const |
+| `const protoreflect.Optional protoreflect.Cardinality` | `go.protobuf.reflect.protoreflect.enums.optional` | const |
+| `const protoreflect.Proto2 protoreflect.Syntax` | `go.protobuf.reflect.protoreflect.enums.proto2` | const |
+| `const protoreflect.Proto3 protoreflect.Syntax` | `go.protobuf.reflect.protoreflect.enums.proto3` | const |
+| `const protoreflect.Repeated protoreflect.Cardinality` | `go.protobuf.reflect.protoreflect.enums.repeated` | const |
+| `const protoreflect.Required protoreflect.Cardinality` | `go.protobuf.reflect.protoreflect.enums.required` | const |
+| `const protoreflect.Sfixed32Kind protoreflect.Kind` | `go.protobuf.reflect.protoreflect.enums.sfixed32Kind` | const |
+| `const protoreflect.Sfixed64Kind protoreflect.Kind` | `go.protobuf.reflect.protoreflect.enums.sfixed64Kind` | const |
+| `const protoreflect.Sint32Kind protoreflect.Kind` | `go.protobuf.reflect.protoreflect.enums.sint32Kind` | const |
+| `const protoreflect.Sint64Kind protoreflect.Kind` | `go.protobuf.reflect.protoreflect.enums.sint64Kind` | const |
+| `const protoreflect.StringKind protoreflect.Kind` | `go.protobuf.reflect.protoreflect.enums.stringKind` | const |
+| `const protoreflect.Uint32Kind protoreflect.Kind` | `go.protobuf.reflect.protoreflect.enums.uint32Kind` | const |
+| `const protoreflect.Uint64Kind protoreflect.Kind` | `go.protobuf.reflect.protoreflect.enums.uint64Kind` | const |
 
 ## `io` → `go.io` (`lib/go/io.dart`)
 
@@ -6150,174 +6150,174 @@ Omitted:
 | `io.Closer → x.(peerstore.Peerstore)` | `IoCloser.asLibp2pCorePeerstore` | cast |
 | `io.Closer → x.(transport.CapableConn)` | `IoCloser.asLibp2pCoreTransportCapableConn` | cast |
 | `io.Closer → x.(mdns.Service)` | `IoCloser.asLibp2pP2pDiscoveryMdnsService` | cast |
-| `const io.SeekCurrent untyped int` | `go.io.seekCurrent` | const |
-| `const io.SeekEnd untyped int` | `go.io.seekEnd` | const |
-| `const io.SeekStart untyped int` | `go.io.seekStart` | const |
+| `const io.SeekCurrent untyped int` | `go.io.consts.seekCurrent` | const |
+| `const io.SeekEnd untyped int` | `go.io.consts.seekEnd` | const |
+| `const io.SeekStart untyped int` | `go.io.consts.seekStart` | const |
 
 ## `io/fs` → `go.io.fs` (`lib/go/io/fs.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
-| `const fs.ModeAppend fs.FileMode` | `go.io.fs.modeAppend` | const |
-| `const fs.ModeCharDevice fs.FileMode` | `go.io.fs.modeCharDevice` | const |
-| `const fs.ModeDevice fs.FileMode` | `go.io.fs.modeDevice` | const |
-| `const fs.ModeDir fs.FileMode` | `go.io.fs.modeDir` | const |
-| `const fs.ModeExclusive fs.FileMode` | `go.io.fs.modeExclusive` | const |
-| `const fs.ModeIrregular fs.FileMode` | `go.io.fs.modeIrregular` | const |
-| `const fs.ModeNamedPipe fs.FileMode` | `go.io.fs.modeNamedPipe` | const |
-| `const fs.ModePerm fs.FileMode` | `go.io.fs.modePerm` | const |
-| `const fs.ModeSetgid fs.FileMode` | `go.io.fs.modeSetgid` | const |
-| `const fs.ModeSetuid fs.FileMode` | `go.io.fs.modeSetuid` | const |
-| `const fs.ModeSocket fs.FileMode` | `go.io.fs.modeSocket` | const |
-| `const fs.ModeSticky fs.FileMode` | `go.io.fs.modeSticky` | const |
-| `const fs.ModeSymlink fs.FileMode` | `go.io.fs.modeSymlink` | const |
-| `const fs.ModeTemporary fs.FileMode` | `go.io.fs.modeTemporary` | const |
-| `const fs.ModeType fs.FileMode` | `go.io.fs.modeType` | const |
+| `const fs.ModeAppend fs.FileMode` | `go.io.fs.enums.modeAppend` | const |
+| `const fs.ModeCharDevice fs.FileMode` | `go.io.fs.enums.modeCharDevice` | const |
+| `const fs.ModeDevice fs.FileMode` | `go.io.fs.enums.modeDevice` | const |
+| `const fs.ModeDir fs.FileMode` | `go.io.fs.enums.modeDir` | const |
+| `const fs.ModeExclusive fs.FileMode` | `go.io.fs.enums.modeExclusive` | const |
+| `const fs.ModeIrregular fs.FileMode` | `go.io.fs.enums.modeIrregular` | const |
+| `const fs.ModeNamedPipe fs.FileMode` | `go.io.fs.enums.modeNamedPipe` | const |
+| `const fs.ModePerm fs.FileMode` | `go.io.fs.enums.modePerm` | const |
+| `const fs.ModeSetgid fs.FileMode` | `go.io.fs.enums.modeSetgid` | const |
+| `const fs.ModeSetuid fs.FileMode` | `go.io.fs.enums.modeSetuid` | const |
+| `const fs.ModeSocket fs.FileMode` | `go.io.fs.enums.modeSocket` | const |
+| `const fs.ModeSticky fs.FileMode` | `go.io.fs.enums.modeSticky` | const |
+| `const fs.ModeSymlink fs.FileMode` | `go.io.fs.enums.modeSymlink` | const |
+| `const fs.ModeTemporary fs.FileMode` | `go.io.fs.enums.modeTemporary` | const |
+| `const fs.ModeType fs.FileMode` | `go.io.fs.enums.modeType` | const |
 
 ## `log/slog` → `go.log.slog` (`lib/go/log/slog.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
-| `const slog.KindAny slog.Kind` | `go.log.slog.kindAny` | const |
-| `const slog.KindBool slog.Kind` | `go.log.slog.kindBool` | const |
-| `const slog.KindDuration slog.Kind` | `go.log.slog.kindDuration` | const |
-| `const slog.KindFloat64 slog.Kind` | `go.log.slog.kindFloat64` | const |
-| `const slog.KindGroup slog.Kind` | `go.log.slog.kindGroup` | const |
-| `const slog.KindInt64 slog.Kind` | `go.log.slog.kindInt64` | const |
-| `const slog.KindLogValuer slog.Kind` | `go.log.slog.kindLogValuer` | const |
-| `const slog.KindString slog.Kind` | `go.log.slog.kindString` | const |
-| `const slog.KindTime slog.Kind` | `go.log.slog.kindTime` | const |
-| `const slog.KindUint64 slog.Kind` | `go.log.slog.kindUint64` | const |
-| `const slog.LevelDebug slog.Level` | `go.log.slog.levelDebug` | const |
-| `const slog.LevelError slog.Level` | `go.log.slog.levelError` | const |
-| `const slog.LevelInfo slog.Level` | `go.log.slog.levelInfo` | const |
-| `const slog.LevelKey untyped string` | `go.log.slog.levelKey` | const |
-| `const slog.LevelWarn slog.Level` | `go.log.slog.levelWarn` | const |
-| `const slog.MessageKey untyped string` | `go.log.slog.messageKey` | const |
-| `const slog.SourceKey untyped string` | `go.log.slog.sourceKey` | const |
-| `const slog.TimeKey untyped string` | `go.log.slog.timeKey` | const |
+| `const slog.KindAny slog.Kind` | `go.log.slog.enums.kindAny` | const |
+| `const slog.KindBool slog.Kind` | `go.log.slog.enums.kindBool` | const |
+| `const slog.KindDuration slog.Kind` | `go.log.slog.enums.kindDuration` | const |
+| `const slog.KindFloat64 slog.Kind` | `go.log.slog.enums.kindFloat64` | const |
+| `const slog.KindGroup slog.Kind` | `go.log.slog.enums.kindGroup` | const |
+| `const slog.KindInt64 slog.Kind` | `go.log.slog.enums.kindInt64` | const |
+| `const slog.KindLogValuer slog.Kind` | `go.log.slog.enums.kindLogValuer` | const |
+| `const slog.KindString slog.Kind` | `go.log.slog.enums.kindString` | const |
+| `const slog.KindTime slog.Kind` | `go.log.slog.enums.kindTime` | const |
+| `const slog.KindUint64 slog.Kind` | `go.log.slog.enums.kindUint64` | const |
+| `const slog.LevelDebug slog.Level` | `go.log.slog.enums.levelDebug` | const |
+| `const slog.LevelError slog.Level` | `go.log.slog.enums.levelError` | const |
+| `const slog.LevelInfo slog.Level` | `go.log.slog.enums.levelInfo` | const |
+| `const slog.LevelKey untyped string` | `go.log.slog.consts.levelKey` | const |
+| `const slog.LevelWarn slog.Level` | `go.log.slog.enums.levelWarn` | const |
+| `const slog.MessageKey untyped string` | `go.log.slog.consts.messageKey` | const |
+| `const slog.SourceKey untyped string` | `go.log.slog.consts.sourceKey` | const |
+| `const slog.TimeKey untyped string` | `go.log.slog.consts.timeKey` | const |
 
 ## `math/big` → `go.math.big` (`lib/go/math/big.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
-| `const big.Above big.Accuracy` | `go.math.big.above` | const |
-| `const big.AwayFromZero big.RoundingMode` | `go.math.big.awayFromZero` | const |
-| `const big.Below big.Accuracy` | `go.math.big.below` | const |
-| `const big.Exact big.Accuracy` | `go.math.big.exact` | const |
-| `const big.MaxBase untyped rune` | `go.math.big.maxBase` | const |
-| `const big.MaxExp untyped int` | `go.math.big.maxExp` | const |
-| `const big.MaxPrec untyped int` | `go.math.big.maxPrec` | const |
-| `const big.MinExp untyped int` | `go.math.big.minExp` | const |
-| `const big.ToNearestAway big.RoundingMode` | `go.math.big.toNearestAway` | const |
-| `const big.ToNearestEven big.RoundingMode` | `go.math.big.toNearestEven` | const |
-| `const big.ToNegativeInf big.RoundingMode` | `go.math.big.toNegativeInf` | const |
-| `const big.ToPositiveInf big.RoundingMode` | `go.math.big.toPositiveInf` | const |
-| `const big.ToZero big.RoundingMode` | `go.math.big.toZero` | const |
+| `const big.Above big.Accuracy` | `go.math.big.enums.above` | const |
+| `const big.AwayFromZero big.RoundingMode` | `go.math.big.enums.awayFromZero` | const |
+| `const big.Below big.Accuracy` | `go.math.big.enums.below` | const |
+| `const big.Exact big.Accuracy` | `go.math.big.enums.exact` | const |
+| `const big.MaxBase untyped rune` | `go.math.big.consts.maxBase` | const |
+| `const big.MaxExp untyped int` | `go.math.big.consts.maxExp` | const |
+| `const big.MaxPrec untyped int` | `go.math.big.consts.maxPrec` | const |
+| `const big.MinExp untyped int` | `go.math.big.consts.minExp` | const |
+| `const big.ToNearestAway big.RoundingMode` | `go.math.big.enums.toNearestAway` | const |
+| `const big.ToNearestEven big.RoundingMode` | `go.math.big.enums.toNearestEven` | const |
+| `const big.ToNegativeInf big.RoundingMode` | `go.math.big.enums.toNegativeInf` | const |
+| `const big.ToPositiveInf big.RoundingMode` | `go.math.big.enums.toPositiveInf` | const |
+| `const big.ToZero big.RoundingMode` | `go.math.big.enums.toZero` | const |
 
 ## `net` → `go.net` (`lib/go/net.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
 | `net.Conn → x.(sec.SecureConn)` | `NetConn.asLibp2pCoreSecSecureConn` | cast |
-| `const net.FlagBroadcast net.Flags` | `go.net.flagBroadcast` | const |
-| `const net.FlagLoopback net.Flags` | `go.net.flagLoopback` | const |
-| `const net.FlagMulticast net.Flags` | `go.net.flagMulticast` | const |
-| `const net.FlagPointToPoint net.Flags` | `go.net.flagPointToPoint` | const |
-| `const net.FlagRunning net.Flags` | `go.net.flagRunning` | const |
-| `const net.FlagUp net.Flags` | `go.net.flagUp` | const |
-| `const net.IPv4len untyped int` | `go.net.iPv4len` | const |
-| `const net.IPv6len untyped int` | `go.net.iPv6len` | const |
+| `const net.FlagBroadcast net.Flags` | `go.net.enums.flagBroadcast` | const |
+| `const net.FlagLoopback net.Flags` | `go.net.enums.flagLoopback` | const |
+| `const net.FlagMulticast net.Flags` | `go.net.enums.flagMulticast` | const |
+| `const net.FlagPointToPoint net.Flags` | `go.net.enums.flagPointToPoint` | const |
+| `const net.FlagRunning net.Flags` | `go.net.enums.flagRunning` | const |
+| `const net.FlagUp net.Flags` | `go.net.enums.flagUp` | const |
+| `const net.IPv4len untyped int` | `go.net.consts.iPv4len` | const |
+| `const net.IPv6len untyped int` | `go.net.consts.iPv6len` | const |
 
 ## `net/http` → `go.net.http` (`lib/go/net/http.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
 | `http.Handler → x.(http.HandlerFunc)` | `NetHttpHandler.asNetHttpHandlerFunc` | cast |
-| `const http.DefaultMaxHeaderBytes untyped int` | `go.net.http.defaultMaxHeaderBytes` | const |
-| `const http.DefaultMaxIdleConnsPerHost untyped int` | `go.net.http.defaultMaxIdleConnsPerHost` | const |
-| `const http.MethodConnect untyped string` | `go.net.http.methodConnect` | const |
-| `const http.MethodDelete untyped string` | `go.net.http.methodDelete` | const |
-| `const http.MethodGet untyped string` | `go.net.http.methodGet` | const |
-| `const http.MethodHead untyped string` | `go.net.http.methodHead` | const |
-| `const http.MethodOptions untyped string` | `go.net.http.methodOptions` | const |
-| `const http.MethodPatch untyped string` | `go.net.http.methodPatch` | const |
-| `const http.MethodPost untyped string` | `go.net.http.methodPost` | const |
-| `const http.MethodPut untyped string` | `go.net.http.methodPut` | const |
-| `const http.MethodTrace untyped string` | `go.net.http.methodTrace` | const |
-| `const http.SameSiteDefaultMode http.SameSite` | `go.net.http.sameSiteDefaultMode` | const |
-| `const http.SameSiteLaxMode http.SameSite` | `go.net.http.sameSiteLaxMode` | const |
-| `const http.SameSiteNoneMode http.SameSite` | `go.net.http.sameSiteNoneMode` | const |
-| `const http.SameSiteStrictMode http.SameSite` | `go.net.http.sameSiteStrictMode` | const |
-| `const http.StateActive http.ConnState` | `go.net.http.stateActive` | const |
-| `const http.StateClosed http.ConnState` | `go.net.http.stateClosed` | const |
-| `const http.StateHijacked http.ConnState` | `go.net.http.stateHijacked` | const |
-| `const http.StateIdle http.ConnState` | `go.net.http.stateIdle` | const |
-| `const http.StateNew http.ConnState` | `go.net.http.stateNew` | const |
-| `const http.StatusAccepted untyped int` | `go.net.http.statusAccepted` | const |
-| `const http.StatusAlreadyReported untyped int` | `go.net.http.statusAlreadyReported` | const |
-| `const http.StatusBadGateway untyped int` | `go.net.http.statusBadGateway` | const |
-| `const http.StatusBadRequest untyped int` | `go.net.http.statusBadRequest` | const |
-| `const http.StatusConflict untyped int` | `go.net.http.statusConflict` | const |
-| `const http.StatusContinue untyped int` | `go.net.http.statusContinue` | const |
-| `const http.StatusCreated untyped int` | `go.net.http.statusCreated` | const |
-| `const http.StatusEarlyHints untyped int` | `go.net.http.statusEarlyHints` | const |
-| `const http.StatusExpectationFailed untyped int` | `go.net.http.statusExpectationFailed` | const |
-| `const http.StatusFailedDependency untyped int` | `go.net.http.statusFailedDependency` | const |
-| `const http.StatusForbidden untyped int` | `go.net.http.statusForbidden` | const |
-| `const http.StatusFound untyped int` | `go.net.http.statusFound` | const |
-| `const http.StatusGatewayTimeout untyped int` | `go.net.http.statusGatewayTimeout` | const |
-| `const http.StatusGone untyped int` | `go.net.http.statusGone` | const |
-| `const http.StatusHTTPVersionNotSupported untyped int` | `go.net.http.statusHttpVersionNotSupported` | const |
-| `const http.StatusIMUsed untyped int` | `go.net.http.statusImUsed` | const |
-| `const http.StatusInsufficientStorage untyped int` | `go.net.http.statusInsufficientStorage` | const |
-| `const http.StatusInternalServerError untyped int` | `go.net.http.statusInternalServerError` | const |
-| `const http.StatusLengthRequired untyped int` | `go.net.http.statusLengthRequired` | const |
-| `const http.StatusLocked untyped int` | `go.net.http.statusLocked` | const |
-| `const http.StatusLoopDetected untyped int` | `go.net.http.statusLoopDetected` | const |
-| `const http.StatusMethodNotAllowed untyped int` | `go.net.http.statusMethodNotAllowed` | const |
-| `const http.StatusMisdirectedRequest untyped int` | `go.net.http.statusMisdirectedRequest` | const |
-| `const http.StatusMovedPermanently untyped int` | `go.net.http.statusMovedPermanently` | const |
-| `const http.StatusMultiStatus untyped int` | `go.net.http.statusMultiStatus` | const |
-| `const http.StatusMultipleChoices untyped int` | `go.net.http.statusMultipleChoices` | const |
-| `const http.StatusNetworkAuthenticationRequired untyped int` | `go.net.http.statusNetworkAuthenticationRequired` | const |
-| `const http.StatusNoContent untyped int` | `go.net.http.statusNoContent` | const |
-| `const http.StatusNonAuthoritativeInfo untyped int` | `go.net.http.statusNonAuthoritativeInfo` | const |
-| `const http.StatusNotAcceptable untyped int` | `go.net.http.statusNotAcceptable` | const |
-| `const http.StatusNotExtended untyped int` | `go.net.http.statusNotExtended` | const |
-| `const http.StatusNotFound untyped int` | `go.net.http.statusNotFound` | const |
-| `const http.StatusNotImplemented untyped int` | `go.net.http.statusNotImplemented` | const |
-| `const http.StatusNotModified untyped int` | `go.net.http.statusNotModified` | const |
-| `const http.StatusOK untyped int` | `go.net.http.statusOk` | const |
-| `const http.StatusPartialContent untyped int` | `go.net.http.statusPartialContent` | const |
-| `const http.StatusPaymentRequired untyped int` | `go.net.http.statusPaymentRequired` | const |
-| `const http.StatusPermanentRedirect untyped int` | `go.net.http.statusPermanentRedirect` | const |
-| `const http.StatusPreconditionFailed untyped int` | `go.net.http.statusPreconditionFailed` | const |
-| `const http.StatusPreconditionRequired untyped int` | `go.net.http.statusPreconditionRequired` | const |
-| `const http.StatusProcessing untyped int` | `go.net.http.statusProcessing` | const |
-| `const http.StatusProxyAuthRequired untyped int` | `go.net.http.statusProxyAuthRequired` | const |
-| `const http.StatusRequestEntityTooLarge untyped int` | `go.net.http.statusRequestEntityTooLarge` | const |
-| `const http.StatusRequestHeaderFieldsTooLarge untyped int` | `go.net.http.statusRequestHeaderFieldsTooLarge` | const |
-| `const http.StatusRequestTimeout untyped int` | `go.net.http.statusRequestTimeout` | const |
-| `const http.StatusRequestURITooLong untyped int` | `go.net.http.statusRequestUriTooLong` | const |
-| `const http.StatusRequestedRangeNotSatisfiable untyped int` | `go.net.http.statusRequestedRangeNotSatisfiable` | const |
-| `const http.StatusResetContent untyped int` | `go.net.http.statusResetContent` | const |
-| `const http.StatusSeeOther untyped int` | `go.net.http.statusSeeOther` | const |
-| `const http.StatusServiceUnavailable untyped int` | `go.net.http.statusServiceUnavailable` | const |
-| `const http.StatusSwitchingProtocols untyped int` | `go.net.http.statusSwitchingProtocols` | const |
-| `const http.StatusTeapot untyped int` | `go.net.http.statusTeapot` | const |
-| `const http.StatusTemporaryRedirect untyped int` | `go.net.http.statusTemporaryRedirect` | const |
-| `const http.StatusTooEarly untyped int` | `go.net.http.statusTooEarly` | const |
-| `const http.StatusTooManyRequests untyped int` | `go.net.http.statusTooManyRequests` | const |
-| `const http.StatusUnauthorized untyped int` | `go.net.http.statusUnauthorized` | const |
-| `const http.StatusUnavailableForLegalReasons untyped int` | `go.net.http.statusUnavailableForLegalReasons` | const |
-| `const http.StatusUnprocessableEntity untyped int` | `go.net.http.statusUnprocessableEntity` | const |
-| `const http.StatusUnsupportedMediaType untyped int` | `go.net.http.statusUnsupportedMediaType` | const |
-| `const http.StatusUpgradeRequired untyped int` | `go.net.http.statusUpgradeRequired` | const |
-| `const http.StatusUseProxy untyped int` | `go.net.http.statusUseProxy` | const |
-| `const http.StatusVariantAlsoNegotiates untyped int` | `go.net.http.statusVariantAlsoNegotiates` | const |
-| `const http.TimeFormat untyped string` | `go.net.http.timeFormat` | const |
-| `const http.TrailerPrefix untyped string` | `go.net.http.trailerPrefix` | const |
+| `const http.DefaultMaxHeaderBytes untyped int` | `go.net.http.consts.defaultMaxHeaderBytes` | const |
+| `const http.DefaultMaxIdleConnsPerHost untyped int` | `go.net.http.consts.defaultMaxIdleConnsPerHost` | const |
+| `const http.MethodConnect untyped string` | `go.net.http.consts.methodConnect` | const |
+| `const http.MethodDelete untyped string` | `go.net.http.consts.methodDelete` | const |
+| `const http.MethodGet untyped string` | `go.net.http.consts.methodGet` | const |
+| `const http.MethodHead untyped string` | `go.net.http.consts.methodHead` | const |
+| `const http.MethodOptions untyped string` | `go.net.http.consts.methodOptions` | const |
+| `const http.MethodPatch untyped string` | `go.net.http.consts.methodPatch` | const |
+| `const http.MethodPost untyped string` | `go.net.http.consts.methodPost` | const |
+| `const http.MethodPut untyped string` | `go.net.http.consts.methodPut` | const |
+| `const http.MethodTrace untyped string` | `go.net.http.consts.methodTrace` | const |
+| `const http.SameSiteDefaultMode http.SameSite` | `go.net.http.enums.sameSiteDefaultMode` | const |
+| `const http.SameSiteLaxMode http.SameSite` | `go.net.http.enums.sameSiteLaxMode` | const |
+| `const http.SameSiteNoneMode http.SameSite` | `go.net.http.enums.sameSiteNoneMode` | const |
+| `const http.SameSiteStrictMode http.SameSite` | `go.net.http.enums.sameSiteStrictMode` | const |
+| `const http.StateActive http.ConnState` | `go.net.http.enums.stateActive` | const |
+| `const http.StateClosed http.ConnState` | `go.net.http.enums.stateClosed` | const |
+| `const http.StateHijacked http.ConnState` | `go.net.http.enums.stateHijacked` | const |
+| `const http.StateIdle http.ConnState` | `go.net.http.enums.stateIdle` | const |
+| `const http.StateNew http.ConnState` | `go.net.http.enums.stateNew` | const |
+| `const http.StatusAccepted untyped int` | `go.net.http.consts.statusAccepted` | const |
+| `const http.StatusAlreadyReported untyped int` | `go.net.http.consts.statusAlreadyReported` | const |
+| `const http.StatusBadGateway untyped int` | `go.net.http.consts.statusBadGateway` | const |
+| `const http.StatusBadRequest untyped int` | `go.net.http.consts.statusBadRequest` | const |
+| `const http.StatusConflict untyped int` | `go.net.http.consts.statusConflict` | const |
+| `const http.StatusContinue untyped int` | `go.net.http.consts.statusContinue` | const |
+| `const http.StatusCreated untyped int` | `go.net.http.consts.statusCreated` | const |
+| `const http.StatusEarlyHints untyped int` | `go.net.http.consts.statusEarlyHints` | const |
+| `const http.StatusExpectationFailed untyped int` | `go.net.http.consts.statusExpectationFailed` | const |
+| `const http.StatusFailedDependency untyped int` | `go.net.http.consts.statusFailedDependency` | const |
+| `const http.StatusForbidden untyped int` | `go.net.http.consts.statusForbidden` | const |
+| `const http.StatusFound untyped int` | `go.net.http.consts.statusFound` | const |
+| `const http.StatusGatewayTimeout untyped int` | `go.net.http.consts.statusGatewayTimeout` | const |
+| `const http.StatusGone untyped int` | `go.net.http.consts.statusGone` | const |
+| `const http.StatusHTTPVersionNotSupported untyped int` | `go.net.http.consts.statusHttpVersionNotSupported` | const |
+| `const http.StatusIMUsed untyped int` | `go.net.http.consts.statusImUsed` | const |
+| `const http.StatusInsufficientStorage untyped int` | `go.net.http.consts.statusInsufficientStorage` | const |
+| `const http.StatusInternalServerError untyped int` | `go.net.http.consts.statusInternalServerError` | const |
+| `const http.StatusLengthRequired untyped int` | `go.net.http.consts.statusLengthRequired` | const |
+| `const http.StatusLocked untyped int` | `go.net.http.consts.statusLocked` | const |
+| `const http.StatusLoopDetected untyped int` | `go.net.http.consts.statusLoopDetected` | const |
+| `const http.StatusMethodNotAllowed untyped int` | `go.net.http.consts.statusMethodNotAllowed` | const |
+| `const http.StatusMisdirectedRequest untyped int` | `go.net.http.consts.statusMisdirectedRequest` | const |
+| `const http.StatusMovedPermanently untyped int` | `go.net.http.consts.statusMovedPermanently` | const |
+| `const http.StatusMultiStatus untyped int` | `go.net.http.consts.statusMultiStatus` | const |
+| `const http.StatusMultipleChoices untyped int` | `go.net.http.consts.statusMultipleChoices` | const |
+| `const http.StatusNetworkAuthenticationRequired untyped int` | `go.net.http.consts.statusNetworkAuthenticationRequired` | const |
+| `const http.StatusNoContent untyped int` | `go.net.http.consts.statusNoContent` | const |
+| `const http.StatusNonAuthoritativeInfo untyped int` | `go.net.http.consts.statusNonAuthoritativeInfo` | const |
+| `const http.StatusNotAcceptable untyped int` | `go.net.http.consts.statusNotAcceptable` | const |
+| `const http.StatusNotExtended untyped int` | `go.net.http.consts.statusNotExtended` | const |
+| `const http.StatusNotFound untyped int` | `go.net.http.consts.statusNotFound` | const |
+| `const http.StatusNotImplemented untyped int` | `go.net.http.consts.statusNotImplemented` | const |
+| `const http.StatusNotModified untyped int` | `go.net.http.consts.statusNotModified` | const |
+| `const http.StatusOK untyped int` | `go.net.http.consts.statusOk` | const |
+| `const http.StatusPartialContent untyped int` | `go.net.http.consts.statusPartialContent` | const |
+| `const http.StatusPaymentRequired untyped int` | `go.net.http.consts.statusPaymentRequired` | const |
+| `const http.StatusPermanentRedirect untyped int` | `go.net.http.consts.statusPermanentRedirect` | const |
+| `const http.StatusPreconditionFailed untyped int` | `go.net.http.consts.statusPreconditionFailed` | const |
+| `const http.StatusPreconditionRequired untyped int` | `go.net.http.consts.statusPreconditionRequired` | const |
+| `const http.StatusProcessing untyped int` | `go.net.http.consts.statusProcessing` | const |
+| `const http.StatusProxyAuthRequired untyped int` | `go.net.http.consts.statusProxyAuthRequired` | const |
+| `const http.StatusRequestEntityTooLarge untyped int` | `go.net.http.consts.statusRequestEntityTooLarge` | const |
+| `const http.StatusRequestHeaderFieldsTooLarge untyped int` | `go.net.http.consts.statusRequestHeaderFieldsTooLarge` | const |
+| `const http.StatusRequestTimeout untyped int` | `go.net.http.consts.statusRequestTimeout` | const |
+| `const http.StatusRequestURITooLong untyped int` | `go.net.http.consts.statusRequestUriTooLong` | const |
+| `const http.StatusRequestedRangeNotSatisfiable untyped int` | `go.net.http.consts.statusRequestedRangeNotSatisfiable` | const |
+| `const http.StatusResetContent untyped int` | `go.net.http.consts.statusResetContent` | const |
+| `const http.StatusSeeOther untyped int` | `go.net.http.consts.statusSeeOther` | const |
+| `const http.StatusServiceUnavailable untyped int` | `go.net.http.consts.statusServiceUnavailable` | const |
+| `const http.StatusSwitchingProtocols untyped int` | `go.net.http.consts.statusSwitchingProtocols` | const |
+| `const http.StatusTeapot untyped int` | `go.net.http.consts.statusTeapot` | const |
+| `const http.StatusTemporaryRedirect untyped int` | `go.net.http.consts.statusTemporaryRedirect` | const |
+| `const http.StatusTooEarly untyped int` | `go.net.http.consts.statusTooEarly` | const |
+| `const http.StatusTooManyRequests untyped int` | `go.net.http.consts.statusTooManyRequests` | const |
+| `const http.StatusUnauthorized untyped int` | `go.net.http.consts.statusUnauthorized` | const |
+| `const http.StatusUnavailableForLegalReasons untyped int` | `go.net.http.consts.statusUnavailableForLegalReasons` | const |
+| `const http.StatusUnprocessableEntity untyped int` | `go.net.http.consts.statusUnprocessableEntity` | const |
+| `const http.StatusUnsupportedMediaType untyped int` | `go.net.http.consts.statusUnsupportedMediaType` | const |
+| `const http.StatusUpgradeRequired untyped int` | `go.net.http.consts.statusUpgradeRequired` | const |
+| `const http.StatusUseProxy untyped int` | `go.net.http.consts.statusUseProxy` | const |
+| `const http.StatusVariantAlsoNegotiates untyped int` | `go.net.http.consts.statusVariantAlsoNegotiates` | const |
+| `const http.TimeFormat untyped string` | `go.net.http.consts.timeFormat` | const |
+| `const http.TrailerPrefix untyped string` | `go.net.http.consts.trailerPrefix` | const |
 
 ## `os` → `go.os` (`lib/go/os.dart`)
 
@@ -6328,74 +6328,74 @@ Omitted:
 | `func (*os.File).Close() error` | `OsFile.close` | sync |
 | `func os.Open(name string) (*os.File, error)` | `go.os.open` | sync |
 | `func os.OpenFile(name string, flag int, perm os.FileMode) (*os.File, error)` | `go.os.openFile` | sync |
-| `const os.DevNull untyped string` | `go.os.devNull` | sync |
-| `const os.O_SYNC int` | `go.os.oSync` | sync |
-| `const os.PathListSeparator untyped rune` | `go.os.pathListSeparator` | sync |
-| `const os.PathSeparator untyped rune` | `go.os.pathSeparator` | sync |
-| `const os.ModeAppend fs.FileMode` | `go.os.modeAppend` | const |
-| `const os.ModeCharDevice fs.FileMode` | `go.os.modeCharDevice` | const |
-| `const os.ModeDevice fs.FileMode` | `go.os.modeDevice` | const |
-| `const os.ModeDir fs.FileMode` | `go.os.modeDir` | const |
-| `const os.ModeExclusive fs.FileMode` | `go.os.modeExclusive` | const |
-| `const os.ModeIrregular fs.FileMode` | `go.os.modeIrregular` | const |
-| `const os.ModeNamedPipe fs.FileMode` | `go.os.modeNamedPipe` | const |
-| `const os.ModePerm fs.FileMode` | `go.os.modePerm` | const |
-| `const os.ModeSetgid fs.FileMode` | `go.os.modeSetgid` | const |
-| `const os.ModeSetuid fs.FileMode` | `go.os.modeSetuid` | const |
-| `const os.ModeSocket fs.FileMode` | `go.os.modeSocket` | const |
-| `const os.ModeSticky fs.FileMode` | `go.os.modeSticky` | const |
-| `const os.ModeSymlink fs.FileMode` | `go.os.modeSymlink` | const |
-| `const os.ModeTemporary fs.FileMode` | `go.os.modeTemporary` | const |
-| `const os.ModeType fs.FileMode` | `go.os.modeType` | const |
-| `const os.O_APPEND int` | `go.os.oAppend` | const |
-| `const os.O_CREATE int` | `go.os.oCreate` | const |
-| `const os.O_EXCL int` | `go.os.oExcl` | const |
-| `const os.O_RDONLY int` | `go.os.oRdonly` | const |
-| `const os.O_RDWR int` | `go.os.oRdwr` | const |
-| `const os.O_TRUNC int` | `go.os.oTrunc` | const |
-| `const os.O_WRONLY int` | `go.os.oWronly` | const |
-| `const os.SEEK_CUR int` | `go.os.seekCur` | const |
-| `const os.SEEK_END int` | `go.os.seekEnd` | const |
-| `const os.SEEK_SET int` | `go.os.seekSet` | const |
+| `const os.DevNull untyped string` | `go.os.consts.devNull` | sync |
+| `const os.O_SYNC int` | `go.os.consts.oSync` | sync |
+| `const os.PathListSeparator untyped rune` | `go.os.consts.pathListSeparator` | sync |
+| `const os.PathSeparator untyped rune` | `go.os.consts.pathSeparator` | sync |
+| `const os.ModeAppend fs.FileMode` | `go.os.enums.modeAppend` | const |
+| `const os.ModeCharDevice fs.FileMode` | `go.os.enums.modeCharDevice` | const |
+| `const os.ModeDevice fs.FileMode` | `go.os.enums.modeDevice` | const |
+| `const os.ModeDir fs.FileMode` | `go.os.enums.modeDir` | const |
+| `const os.ModeExclusive fs.FileMode` | `go.os.enums.modeExclusive` | const |
+| `const os.ModeIrregular fs.FileMode` | `go.os.enums.modeIrregular` | const |
+| `const os.ModeNamedPipe fs.FileMode` | `go.os.enums.modeNamedPipe` | const |
+| `const os.ModePerm fs.FileMode` | `go.os.enums.modePerm` | const |
+| `const os.ModeSetgid fs.FileMode` | `go.os.enums.modeSetgid` | const |
+| `const os.ModeSetuid fs.FileMode` | `go.os.enums.modeSetuid` | const |
+| `const os.ModeSocket fs.FileMode` | `go.os.enums.modeSocket` | const |
+| `const os.ModeSticky fs.FileMode` | `go.os.enums.modeSticky` | const |
+| `const os.ModeSymlink fs.FileMode` | `go.os.enums.modeSymlink` | const |
+| `const os.ModeTemporary fs.FileMode` | `go.os.enums.modeTemporary` | const |
+| `const os.ModeType fs.FileMode` | `go.os.enums.modeType` | const |
+| `const os.O_APPEND int` | `go.os.consts.oAppend` | const |
+| `const os.O_CREATE int` | `go.os.consts.oCreate` | const |
+| `const os.O_EXCL int` | `go.os.consts.oExcl` | const |
+| `const os.O_RDONLY int` | `go.os.consts.oRdonly` | const |
+| `const os.O_RDWR int` | `go.os.consts.oRdwr` | const |
+| `const os.O_TRUNC int` | `go.os.consts.oTrunc` | const |
+| `const os.O_WRONLY int` | `go.os.consts.oWronly` | const |
+| `const os.SEEK_CUR int` | `go.os.consts.seekCur` | const |
+| `const os.SEEK_END int` | `go.os.consts.seekEnd` | const |
+| `const os.SEEK_SET int` | `go.os.consts.seekSet` | const |
 
 ## `reflect` → `go.reflect` (`lib/go/reflect.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
-| `const reflect.Array reflect.Kind` | `go.reflect.array` | const |
-| `const reflect.Bool reflect.Kind` | `go.reflect.bool$` | const |
-| `const reflect.BothDir reflect.ChanDir` | `go.reflect.bothDir` | const |
-| `const reflect.Chan reflect.Kind` | `go.reflect.chan` | const |
-| `const reflect.Complex128 reflect.Kind` | `go.reflect.complex128` | const |
-| `const reflect.Complex64 reflect.Kind` | `go.reflect.complex64` | const |
-| `const reflect.Float32 reflect.Kind` | `go.reflect.float32` | const |
-| `const reflect.Float64 reflect.Kind` | `go.reflect.float64` | const |
-| `const reflect.Func reflect.Kind` | `go.reflect.func` | const |
-| `const reflect.Int reflect.Kind` | `go.reflect.int$` | const |
-| `const reflect.Int16 reflect.Kind` | `go.reflect.int16` | const |
-| `const reflect.Int32 reflect.Kind` | `go.reflect.int32` | const |
-| `const reflect.Int64 reflect.Kind` | `go.reflect.int64` | const |
-| `const reflect.Int8 reflect.Kind` | `go.reflect.int8` | const |
-| `const reflect.Interface reflect.Kind` | `go.reflect.interface` | const |
-| `const reflect.Invalid reflect.Kind` | `go.reflect.invalid` | const |
-| `const reflect.Map reflect.Kind` | `go.reflect.map` | const |
-| `const reflect.Pointer reflect.Kind` | `go.reflect.pointer` | const |
-| `const reflect.Ptr reflect.Kind` | `go.reflect.ptr` | const |
-| `const reflect.RecvDir reflect.ChanDir` | `go.reflect.recvDir` | const |
-| `const reflect.SelectDefault reflect.SelectDir` | `go.reflect.selectDefault` | const |
-| `const reflect.SelectRecv reflect.SelectDir` | `go.reflect.selectRecv` | const |
-| `const reflect.SelectSend reflect.SelectDir` | `go.reflect.selectSend` | const |
-| `const reflect.SendDir reflect.ChanDir` | `go.reflect.sendDir` | const |
-| `const reflect.Slice reflect.Kind` | `go.reflect.slice` | const |
-| `const reflect.String reflect.Kind` | `go.reflect.string` | const |
-| `const reflect.Struct reflect.Kind` | `go.reflect.struct` | const |
-| `const reflect.Uint reflect.Kind` | `go.reflect.uint` | const |
-| `const reflect.Uint16 reflect.Kind` | `go.reflect.uint16` | const |
-| `const reflect.Uint32 reflect.Kind` | `go.reflect.uint32` | const |
-| `const reflect.Uint64 reflect.Kind` | `go.reflect.uint64` | const |
-| `const reflect.Uint8 reflect.Kind` | `go.reflect.uint8` | const |
-| `const reflect.Uintptr reflect.Kind` | `go.reflect.uintptr` | const |
-| `const reflect.UnsafePointer reflect.Kind` | `go.reflect.unsafePointer` | const |
+| `const reflect.Array reflect.Kind` | `go.reflect.enums.array` | const |
+| `const reflect.Bool reflect.Kind` | `go.reflect.enums.bool$` | const |
+| `const reflect.BothDir reflect.ChanDir` | `go.reflect.enums.bothDir` | const |
+| `const reflect.Chan reflect.Kind` | `go.reflect.enums.chan` | const |
+| `const reflect.Complex128 reflect.Kind` | `go.reflect.enums.complex128` | const |
+| `const reflect.Complex64 reflect.Kind` | `go.reflect.enums.complex64` | const |
+| `const reflect.Float32 reflect.Kind` | `go.reflect.enums.float32` | const |
+| `const reflect.Float64 reflect.Kind` | `go.reflect.enums.float64` | const |
+| `const reflect.Func reflect.Kind` | `go.reflect.enums.func` | const |
+| `const reflect.Int reflect.Kind` | `go.reflect.enums.int$` | const |
+| `const reflect.Int16 reflect.Kind` | `go.reflect.enums.int16` | const |
+| `const reflect.Int32 reflect.Kind` | `go.reflect.enums.int32` | const |
+| `const reflect.Int64 reflect.Kind` | `go.reflect.enums.int64` | const |
+| `const reflect.Int8 reflect.Kind` | `go.reflect.enums.int8` | const |
+| `const reflect.Interface reflect.Kind` | `go.reflect.enums.interface` | const |
+| `const reflect.Invalid reflect.Kind` | `go.reflect.enums.invalid` | const |
+| `const reflect.Map reflect.Kind` | `go.reflect.enums.map` | const |
+| `const reflect.Pointer reflect.Kind` | `go.reflect.enums.pointer` | const |
+| `const reflect.Ptr reflect.Kind` | `go.reflect.enums.ptr` | const |
+| `const reflect.RecvDir reflect.ChanDir` | `go.reflect.enums.recvDir` | const |
+| `const reflect.SelectDefault reflect.SelectDir` | `go.reflect.enums.selectDefault` | const |
+| `const reflect.SelectRecv reflect.SelectDir` | `go.reflect.enums.selectRecv` | const |
+| `const reflect.SelectSend reflect.SelectDir` | `go.reflect.enums.selectSend` | const |
+| `const reflect.SendDir reflect.ChanDir` | `go.reflect.enums.sendDir` | const |
+| `const reflect.Slice reflect.Kind` | `go.reflect.enums.slice` | const |
+| `const reflect.String reflect.Kind` | `go.reflect.enums.string` | const |
+| `const reflect.Struct reflect.Kind` | `go.reflect.enums.struct` | const |
+| `const reflect.Uint reflect.Kind` | `go.reflect.enums.uint` | const |
+| `const reflect.Uint16 reflect.Kind` | `go.reflect.enums.uint16` | const |
+| `const reflect.Uint32 reflect.Kind` | `go.reflect.enums.uint32` | const |
+| `const reflect.Uint64 reflect.Kind` | `go.reflect.enums.uint64` | const |
+| `const reflect.Uint8 reflect.Kind` | `go.reflect.enums.uint8` | const |
+| `const reflect.Uintptr reflect.Kind` | `go.reflect.enums.uintptr` | const |
+| `const reflect.UnsafePointer reflect.Kind` | `go.reflect.enums.unsafePointer` | const |
 
 ## `runtime/debug` → `go.runtime.debug` (`lib/go/runtime/debug.dart`)
 
@@ -6469,7 +6469,7 @@ Omitted:
 ## Adaptations (generator rules and hand-written code)
 
 - One import, `package:p2p_ffi/p2p_ffi.dart`. A package's functions, constants and variables are reached through the namespace tree: the top-level constant `go`, then one getter per segment of the package's path after the host of its URL, the author first, lowerCamelCase as Dart names constants and getters (`github.com/ipfs/boxo/mfs` → `go.ipfs.boxo.mfs.newRoot(...)`, `github.com/ipfs/go-cid` → `go.ipfs.cid`, `github.com/libp2p/go-libp2p-kad-dht` → `go.libp2p.libp2pKadDht`, `golang.org/x/crypto` → `go.x.crypto`, `context` → `go.context`); the module's own segment drops `go-` and its major version goes after it, a nested module keeps the outer one's path, a host of its own has no author (`lukechampine.com/blake3` → `go.blake3`), and the Go standard library sits beside the authors. Dart has no nested types, so a type is a top-level class named after its package's path without the author, minus the words the Go name already starts with (`mfs.Root` → `BoxoMfsRoot`, `peer.ID` → `Libp2pCorePeerId`, `cid.Cid` → `Cid`, `context.Context` → `Context`): every name is unique in the import. The code of each package is one library under `lib/go/` (`lib/go/ipfs/boxo/mfs.dart`), which adds the members to its namespace class as an extension (`GoIpfsBoxoMfsApi on GoIpfsBoxoMfs`); `lib/src/go.dart` holds the tree and exports them all, and the generator refuses two equal names, a member that hides a sub-namespace, and an `export` in a public library outside `lib/p2p_ffi.dart`.
-- A package constant is a getter of its namespace (`go.multiformats.multicodec.raw`), not a Dart `const`. Its value is written into the Dart code, except when it is not the same on every target (`go/gen/platform.go`: windows, linux, android; `go.os.devNull`, `go.os.pathSeparator`): then the getter asks the host, which has the value of the platform that runs.
+- A package constant is a getter of one of two layers of its namespace (owner's decision, 2026-10-29), so it does not hide a sub-package (`crypto.MD5` and `crypto/md5`): `enums`, a constant of a named type (`go.multiformats.multicodec.enums.raw`, `go.crypto.enums.md5`), and `consts`, the others (`go.ipfs.cid.consts.raw`); not a Dart `const`. Its value is written into the Dart code, except when it is not the same on every target (`go/gen/platform.go`: windows, linux, android; `go.os.consts.devNull`, `go.os.consts.pathSeparator`): then the getter asks the host, which has the value of the platform that runs.
 - `context` (`go.context`, hand-written in `lib/go/context.dart`): `background`, `withCancel`, `withTimeout`, `withDeadline`; `ContextCancelFunc` is callable (`cancel()`).
 - `readerStream` (exported by `package:p2p_ffi/p2p_ffi.dart`, hand-written): any `io.Reader` handle as a `Stream<Uint8List>`, in 256 KiB pieces; cancel through the reader's context.
 - `config.Profiles` (hand-written): `go.ipfs.kubo.config.profiles[name]!.transform(cfg)`; in Go it is a map of functions.

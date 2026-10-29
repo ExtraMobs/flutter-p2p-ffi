@@ -2,7 +2,7 @@
 // Go: github.com/libp2p/go-libp2p/core/crypto/pb
 library;
 
-import 'package:p2p_ffi/src/go.dart' show GoLibp2pLibp2pCoreCryptoPb;
+import 'package:p2p_ffi/src/go.dart' show GoLibp2pLibp2pCoreCryptoPbEnums;
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
 
@@ -13,8 +13,9 @@ class Libp2pCoreCryptoPbPublicKey extends $crypto.CryptoPrivateKey
   Libp2pCoreCryptoPbPublicKey.$h(super.$h) : super.$h();
 }
 
-/// Go: the package-level members of `github.com/libp2p/go-libp2p/core/crypto/pb` (`go.libp2p.libp2p.core.crypto.pb`).
-extension GoLibp2pLibp2pCoreCryptoPbApi on GoLibp2pLibp2pCoreCryptoPb {
+/// Go: the constants of a named type of `github.com/libp2p/go-libp2p/core/crypto/pb` (`go.libp2p.libp2p.core.crypto.pb.enums`).
+extension GoLibp2pLibp2pCoreCryptoPbEnumsApi
+    on GoLibp2pLibp2pCoreCryptoPbEnums {
   /// Go: `const pb.KeyType_ECDSA pb.KeyType`.
   int get keyTypeEcdsa => 3;
 

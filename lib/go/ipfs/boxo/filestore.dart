@@ -4,7 +4,8 @@ library;
 
 import 'dart:async';
 
-import 'package:p2p_ffi/src/go.dart' show GoIpfsBoxoFilestore;
+import 'package:p2p_ffi/src/go.dart'
+    show GoIpfsBoxoFilestore, GoIpfsBoxoFilestoreEnums;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
@@ -407,7 +408,10 @@ extension GoIpfsBoxoFilestoreApi on GoIpfsBoxoFilestore {
           ..val(key));
     return $r.p() ? BoxoFilestoreListRes.$dec($r) : $nil();
   }
+}
 
+/// Go: the constants of a named type of `github.com/ipfs/boxo/filestore` (`go.ipfs.boxo.filestore.enums`).
+extension GoIpfsBoxoFilestoreEnumsApi on GoIpfsBoxoFilestoreEnums {
   /// Go: `const filestore.StatusFileChanged filestore.Status`.
   int get statusFileChanged => 12;
 

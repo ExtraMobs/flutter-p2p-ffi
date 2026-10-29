@@ -4,7 +4,11 @@ library;
 
 import 'dart:async';
 
-import 'package:p2p_ffi/src/go.dart' show GoIpfsKuboCoreCoreifaceOptions;
+import 'package:p2p_ffi/src/go.dart'
+    show
+        GoIpfsKuboCoreCoreifaceOptions,
+        GoIpfsKuboCoreCoreifaceOptionsConsts,
+        GoIpfsKuboCoreCoreifaceOptionsEnums;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/ipfs/boxo/namesys.dart' as $namesys;
 import 'package:p2p_ffi/go/ipfs/cid.dart' as $cid;
@@ -1349,13 +1353,11 @@ extension GoIpfsKuboCoreCoreifaceOptionsApi on GoIpfsKuboCoreCoreifaceOptions {
     final $r = $callSync(1665, $W()..list(opts, (w0, e0) => w0.opt(e0)));
     return $r.p() ? KuboCoreCoreifaceOptionsUnixfsLsSettings.$dec($r) : $nil();
   }
+}
 
-  /// Go: `const options.BalancedLayout options.Layout`.
-  int get balancedLayout => 0;
-
-  /// Go: `const options.DefaultNameValidTime time.Duration`.
-  Duration get defaultNameValidTime => Duration(microseconds: 86400000000);
-
+/// Go: the constants of `github.com/ipfs/kubo/core/coreiface/options` (`go.ipfs.kubo.core.coreiface.options.consts`).
+extension GoIpfsKuboCoreCoreifaceOptionsConstsApi
+    on GoIpfsKuboCoreCoreifaceOptionsConsts {
   /// Go: `const options.DefaultRSALen untyped int`.
   int get defaultRsaLen => 2048;
 
@@ -1364,6 +1366,16 @@ extension GoIpfsKuboCoreCoreifaceOptionsApi on GoIpfsKuboCoreCoreifaceOptions {
 
   /// Go: `const options.RSAKey untyped string`.
   String get rsaKey => "rsa";
+}
+
+/// Go: the constants of a named type of `github.com/ipfs/kubo/core/coreiface/options` (`go.ipfs.kubo.core.coreiface.options.enums`).
+extension GoIpfsKuboCoreCoreifaceOptionsEnumsApi
+    on GoIpfsKuboCoreCoreifaceOptionsEnums {
+  /// Go: `const options.BalancedLayout options.Layout`.
+  int get balancedLayout => 0;
+
+  /// Go: `const options.DefaultNameValidTime time.Duration`.
+  Duration get defaultNameValidTime => Duration(microseconds: 86400000000);
 
   /// Go: `const options.TrickleLayout options.Layout`.
   int get trickleLayout => 1;

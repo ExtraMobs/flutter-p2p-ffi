@@ -4,7 +4,11 @@ library;
 
 import 'dart:typed_data';
 
-import 'package:p2p_ffi/src/go.dart' show GoLibp2pLibp2pP2pTransportWebrtc;
+import 'package:p2p_ffi/src/go.dart'
+    show
+        GoLibp2pLibp2pP2pTransportWebrtc,
+        GoLibp2pLibp2pP2pTransportWebrtcConsts,
+        GoLibp2pLibp2pP2pTransportWebrtcEnums;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
@@ -138,6 +142,21 @@ extension GoLibp2pLibp2pP2pTransportWebrtcApi
     return $r.hnn(Libp2pP2pTransportWebrtcWebRtcTransport.$h);
   }
 
+  /// Go: the function `libp2pwebrtc.New` as a value (a token: Go gets the function
+  /// itself, as in `libp2p.Transport(tcp.NewTCPTransport)`).
+  GoToken get newFunc => const GoToken(16);
+}
+
+/// Go: the constants of `github.com/libp2p/go-libp2p/p2p/transport/webrtc` (`go.libp2p.libp2p.p2p.transport.webrtc.consts`).
+extension GoLibp2pLibp2pP2pTransportWebrtcConstsApi
+    on GoLibp2pLibp2pP2pTransportWebrtcConsts {
+  /// Go: `const libp2pwebrtc.DefaultMaxInFlightConnections untyped int`.
+  int get defaultMaxInFlightConnections => 128;
+}
+
+/// Go: the constants of a named type of `github.com/libp2p/go-libp2p/p2p/transport/webrtc` (`go.libp2p.libp2p.p2p.transport.webrtc.enums`).
+extension GoLibp2pLibp2pP2pTransportWebrtcEnumsApi
+    on GoLibp2pLibp2pP2pTransportWebrtcEnums {
   /// Go: `const libp2pwebrtc.DefaultDisconnectedTimeout time.Duration`.
   Duration get defaultDisconnectedTimeout => Duration(microseconds: 20000000);
 
@@ -146,11 +165,4 @@ extension GoLibp2pLibp2pP2pTransportWebrtcApi
 
   /// Go: `const libp2pwebrtc.DefaultKeepaliveTimeout time.Duration`.
   Duration get defaultKeepaliveTimeout => Duration(microseconds: 15000000);
-
-  /// Go: `const libp2pwebrtc.DefaultMaxInFlightConnections untyped int`.
-  int get defaultMaxInFlightConnections => 128;
-
-  /// Go: the function `libp2pwebrtc.New` as a value (a token: Go gets the function
-  /// itself, as in `libp2p.Transport(tcp.NewTCPTransport)`).
-  GoToken get newFunc => const GoToken(16);
 }

@@ -2,7 +2,8 @@
 // Go: github.com/ipfs/boxo/autoconf
 library;
 
-import 'package:p2p_ffi/src/go.dart' show GoIpfsBoxoAutoconf;
+import 'package:p2p_ffi/src/go.dart'
+    show GoIpfsBoxoAutoconfConsts, GoIpfsBoxoAutoconfEnums;
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
 
@@ -13,19 +14,13 @@ class BoxoAutoconfClient extends $crypto.CryptoPrivateKey
   BoxoAutoconfClient.$h(super.$h) : super.$h();
 }
 
-/// Go: the package-level members of `github.com/ipfs/boxo/autoconf` (`go.ipfs.boxo.autoconf`).
-extension GoIpfsBoxoAutoconfApi on GoIpfsBoxoAutoconf {
+/// Go: the constants of `github.com/ipfs/boxo/autoconf` (`go.ipfs.boxo.autoconf.consts`).
+extension GoIpfsBoxoAutoconfConstsApi on GoIpfsBoxoAutoconfConsts {
   /// Go: `const autoconf.AutoPlaceholder untyped string`.
   String get autoPlaceholder => "auto";
 
   /// Go: `const autoconf.DefaultCacheSize untyped int`.
   int get defaultCacheSize => 3;
-
-  /// Go: `const autoconf.DefaultRefreshInterval time.Duration`.
-  Duration get defaultRefreshInterval => Duration(microseconds: 86400000000);
-
-  /// Go: `const autoconf.DefaultTimeout time.Duration`.
-  Duration get defaultTimeout => Duration(microseconds: 5000000);
 
   /// Go: `const autoconf.MainnetAutoConfURL untyped string`.
   String get mainnetAutoConfUrl =>
@@ -48,4 +43,13 @@ extension GoIpfsBoxoAutoconfApi on GoIpfsBoxoAutoconf {
 
   /// Go: `const autoconf.SystemIPNI untyped string`.
   String get systemIpni => "IPNI";
+}
+
+/// Go: the constants of a named type of `github.com/ipfs/boxo/autoconf` (`go.ipfs.boxo.autoconf.enums`).
+extension GoIpfsBoxoAutoconfEnumsApi on GoIpfsBoxoAutoconfEnums {
+  /// Go: `const autoconf.DefaultRefreshInterval time.Duration`.
+  Duration get defaultRefreshInterval => Duration(microseconds: 86400000000);
+
+  /// Go: `const autoconf.DefaultTimeout time.Duration`.
+  Duration get defaultTimeout => Duration(microseconds: 5000000);
 }

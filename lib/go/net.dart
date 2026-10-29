@@ -4,7 +4,7 @@ library;
 
 import 'dart:typed_data';
 
-import 'package:p2p_ffi/src/go.dart' show GoNet;
+import 'package:p2p_ffi/src/go.dart' show GoNetConsts, GoNetEnums;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/libp2p/libp2p/core/sec.dart' as $sec;
 
@@ -204,8 +204,17 @@ class NetUnknownNetworkError extends GolangException {
   String toString() => 'net.UnknownNetworkError: $message';
 }
 
-/// Go: the package-level members of `net` (`go.net`).
-extension GoNetApi on GoNet {
+/// Go: the constants of `net` (`go.net.consts`).
+extension GoNetConstsApi on GoNetConsts {
+  /// Go: `const net.IPv4len untyped int`.
+  int get iPv4len => 4;
+
+  /// Go: `const net.IPv6len untyped int`.
+  int get iPv6len => 16;
+}
+
+/// Go: the constants of a named type of `net` (`go.net.enums`).
+extension GoNetEnumsApi on GoNetEnums {
   /// Go: `const net.FlagBroadcast net.Flags`.
   int get flagBroadcast => 2;
 
@@ -223,10 +232,4 @@ extension GoNetApi on GoNet {
 
   /// Go: `const net.FlagUp net.Flags`.
   int get flagUp => 1;
-
-  /// Go: `const net.IPv4len untyped int`.
-  int get iPv4len => 4;
-
-  /// Go: `const net.IPv6len untyped int`.
-  int get iPv6len => 16;
 }

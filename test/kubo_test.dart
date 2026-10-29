@@ -424,8 +424,10 @@ void main() {
 
         final file = '${p.value}/dados.bin';
         // entity: a pasta (prova do caminho), a raiz do arquivo e 3 fatias
-        final (all, bytes) = await getCar(file,
-            BoxoGatewayCarParams(scope: go.ipfs.boxo.gateway.dagScopeEntity));
+        final (all, bytes) = await getCar(
+            file,
+            BoxoGatewayCarParams(
+                scope: go.ipfs.boxo.gateway.enums.dagScopeEntity));
         expect(all, hasLength(5));
         expect(all.first, p.value.substring('/ipfs/'.length));
         expect(bytes, data);
@@ -433,7 +435,7 @@ void main() {
         final (some, part) = await getCar(
             file,
             BoxoGatewayCarParams(
-                scope: go.ipfs.boxo.gateway.dagScopeEntity,
+                scope: go.ipfs.boxo.gateway.enums.dagScopeEntity,
                 range: BoxoGatewayDagByteRange(from: 300000, to: 300099)));
         expect(some, hasLength(3));
         expect(part, data.sublist(262144, 2 * 262144));
@@ -875,11 +877,11 @@ void main() {
       final p1 = await obj.addLink(ctx, p0, 'a', child);
       final added = await obj.diff(ctx, p0, p1);
       expect([for (final c in added) (c.type, c.path)],
-          [(go.ipfs.kubo.core.coreiface.diffAdd, 'a')]);
+          [(go.ipfs.kubo.core.coreiface.enums.diffAdd, 'a')]);
       final p2 = await obj.rmLink(ctx, p1, 'a');
       final removed = await obj.diff(ctx, p1, p2);
       expect([for (final c in removed) (c.type, c.path)],
-          [(go.ipfs.kubo.core.coreiface.diffRemove, 'a')]);
+          [(go.ipfs.kubo.core.coreiface.enums.diffRemove, 'a')]);
       expect(p2.value, p0.value);
     });
 
@@ -889,7 +891,7 @@ void main() {
           root, '/t013/sub', BoxoMfsMkdirOpts(mkparents: true, flush: true));
       final dirNode = go.ipfs.boxo.mfs.lookup(root, '/t013');
       expect(go.ipfs.boxo.mfs.isDir(dirNode), isTrue);
-      expect(dirNode.type(), go.ipfs.boxo.mfs.tDir);
+      expect(dirNode.type(), go.ipfs.boxo.mfs.enums.tDir);
       expect(dirNode.asBoxoMfsFile(), isNull);
       final dir = dirNode.asBoxoMfsDirectory()!;
       expect(dir.path(), '/t013');
@@ -930,8 +932,8 @@ void main() {
 
       expect(await dir.listNames(ctx), unorderedEquals(['a.txt', 'sub']));
       final list = {for (final e in await dir.list(ctx)) e.name: e};
-      expect(list['a.txt']!.type, go.ipfs.boxo.mfs.tFile);
-      expect(list['sub']!.type, go.ipfs.boxo.mfs.tDir);
+      expect(list['a.txt']!.type, go.ipfs.boxo.mfs.enums.tFile);
+      expect(list['sub']!.type, go.ipfs.boxo.mfs.enums.tDir);
 
       go.ipfs.boxo.mfs.mv(root, '/t013/a.txt', '/t013/sub/b.txt');
       expect(

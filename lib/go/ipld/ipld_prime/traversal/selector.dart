@@ -2,7 +2,11 @@
 // Go: github.com/ipld/go-ipld-prime/traversal/selector
 library;
 
-import 'package:p2p_ffi/src/go.dart' show GoIpldIpldPrimeTraversalSelector;
+import 'package:p2p_ffi/src/go.dart'
+    show
+        GoIpldIpldPrimeTraversalSelector,
+        GoIpldIpldPrimeTraversalSelectorConsts,
+        GoIpldIpldPrimeTraversalSelectorEnums;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
@@ -865,10 +869,11 @@ extension GoIpldIpldPrimeTraversalSelectorApi
     final $r = $callSync(2171);
     return $r.hnn(IpldPrimeTraversalSelectorRecursionLimit.$h);
   }
+}
 
-  /// Go: `const selector.ConditionMode_Link selector.ConditionMode`.
-  String get conditionModeLink => "/";
-
+/// Go: the constants of `github.com/ipld/go-ipld-prime/traversal/selector` (`go.ipld.ipldPrime.traversal.selector.consts`).
+extension GoIpldIpldPrimeTraversalSelectorConstsApi
+    on GoIpldIpldPrimeTraversalSelectorConsts {
   /// Go: `const selector.SelectorKey_As untyped string`.
   String get selectorKeyAs => "as";
 
@@ -943,4 +948,11 @@ extension GoIpldIpldPrimeTraversalSelectorApi
 
   /// Go: `const selector.SelectorKey_To untyped string`.
   String get selectorKeyTo => "]";
+}
+
+/// Go: the constants of a named type of `github.com/ipld/go-ipld-prime/traversal/selector` (`go.ipld.ipldPrime.traversal.selector.enums`).
+extension GoIpldIpldPrimeTraversalSelectorEnumsApi
+    on GoIpldIpldPrimeTraversalSelectorEnums {
+  /// Go: `const selector.ConditionMode_Link selector.ConditionMode`.
+  String get conditionModeLink => "/";
 }

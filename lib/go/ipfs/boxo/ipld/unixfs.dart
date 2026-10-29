@@ -2,7 +2,7 @@
 // Go: github.com/ipfs/boxo/ipld/unixfs
 library;
 
-import 'package:p2p_ffi/src/go.dart' show GoIpfsBoxoIpldUnixfs;
+import 'package:p2p_ffi/src/go.dart' show GoIpfsBoxoIpldUnixfsEnums;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/ipfs/ipld_format.dart' as $ipld_format;
 
@@ -57,8 +57,8 @@ class BoxoIpldUnixfsErrUnrecognizedType extends GolangException {
   String toString() => 'unixfs.ErrUnrecognizedType: $message';
 }
 
-/// Go: the package-level members of `github.com/ipfs/boxo/ipld/unixfs` (`go.ipfs.boxo.ipld.unixfs`).
-extension GoIpfsBoxoIpldUnixfsApi on GoIpfsBoxoIpldUnixfs {
+/// Go: the constants of a named type of `github.com/ipfs/boxo/ipld/unixfs` (`go.ipfs.boxo.ipld.unixfs.enums`).
+extension GoIpfsBoxoIpldUnixfsEnumsApi on GoIpfsBoxoIpldUnixfsEnums {
   /// Go: `const unixfs.TDirectory pb.Data_DataType`.
   int get tDirectory => 1;
 

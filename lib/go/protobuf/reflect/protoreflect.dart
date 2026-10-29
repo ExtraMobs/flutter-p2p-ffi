@@ -2,7 +2,7 @@
 // Go: google.golang.org/protobuf/reflect/protoreflect
 library;
 
-import 'package:p2p_ffi/src/go.dart' show GoProtobufReflectProtoreflect;
+import 'package:p2p_ffi/src/go.dart' show GoProtobufReflectProtoreflectEnums;
 import 'package:p2p_ffi/src/runtime.dart';
 
 /// Go: `protoreflect.Descriptor` (handle).
@@ -33,8 +33,9 @@ class ProtobufReflectProtoreflectMessage extends GoHandle
 /// The methods of [ProtobufReflectProtoreflectMessage], mixed into every class Go also accepts as one.
 mixin ProtobufReflectProtoreflectMessage$ on GoHandle {}
 
-/// Go: the package-level members of `google.golang.org/protobuf/reflect/protoreflect` (`go.protobuf.reflect.protoreflect`).
-extension GoProtobufReflectProtoreflectApi on GoProtobufReflectProtoreflect {
+/// Go: the constants of a named type of `google.golang.org/protobuf/reflect/protoreflect` (`go.protobuf.reflect.protoreflect.enums`).
+extension GoProtobufReflectProtoreflectEnumsApi
+    on GoProtobufReflectProtoreflectEnums {
   /// Go: `const protoreflect.BoolKind protoreflect.Kind`.
   int get boolKind => 8;
 

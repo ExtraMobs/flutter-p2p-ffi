@@ -4,7 +4,8 @@ library;
 
 import 'dart:async';
 
-import 'package:p2p_ffi/src/go.dart' show GoIpldIpldPrimeTraversal;
+import 'package:p2p_ffi/src/go.dart'
+    show GoIpldIpldPrimeTraversal, GoIpldIpldPrimeTraversalEnums;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
@@ -461,7 +462,10 @@ extension GoIpldIpldPrimeTraversalApi on GoIpldIpldPrimeTraversal {
           ..h(fn));
     return $r.hnn($datamodel.IpldPrimeDatamodelNode.$h);
   }
+}
 
+/// Go: the constants of a named type of `github.com/ipld/go-ipld-prime/traversal` (`go.ipld.ipldPrime.traversal.enums`).
+extension GoIpldIpldPrimeTraversalEnumsApi on GoIpldIpldPrimeTraversalEnums {
   /// Go: `const traversal.VisitReason_SelectionCandidate traversal.VisitReason`.
   int get visitReasonSelectionCandidate => 120;
 

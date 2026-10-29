@@ -5,7 +5,8 @@ library;
 import 'dart:async';
 import 'dart:typed_data';
 
-import 'package:p2p_ffi/src/go.dart' show GoIpfsBoxoProvider;
+import 'package:p2p_ffi/src/go.dart'
+    show GoIpfsBoxoProvider, GoIpfsBoxoProviderEnums;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
@@ -405,7 +406,10 @@ extension GoIpfsBoxoProviderApi on GoIpfsBoxoProvider {
     final $r = $callSync(1034, $W()..list(streams, (w0, e0) => w0.h(e0)));
     return $r.hnn(BoxoProviderKeyChanFunc.$h);
   }
+}
 
+/// Go: the constants of a named type of `github.com/ipfs/boxo/provider` (`go.ipfs.boxo.provider.enums`).
+extension GoIpfsBoxoProviderEnumsApi on GoIpfsBoxoProviderEnums {
   /// Go: `const provider.DefaultReproviderInterval time.Duration`.
   Duration get defaultReproviderInterval => Duration(microseconds: 79200000000);
 }

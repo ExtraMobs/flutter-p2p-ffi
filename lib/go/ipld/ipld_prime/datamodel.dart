@@ -4,7 +4,8 @@ library;
 
 import 'dart:typed_data';
 
-import 'package:p2p_ffi/src/go.dart' show GoIpldIpldPrimeDatamodel;
+import 'package:p2p_ffi/src/go.dart'
+    show GoIpldIpldPrimeDatamodel, GoIpldIpldPrimeDatamodelEnums;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/io.dart' as $io;
@@ -882,7 +883,10 @@ extension GoIpldIpldPrimeDatamodelApi on GoIpldIpldPrimeDatamodel {
     final $r = $callSync(2040, $W()..str(s));
     return $r.hnn(IpldPrimeDatamodelPathSegment.$h);
   }
+}
 
+/// Go: the constants of a named type of `github.com/ipld/go-ipld-prime/datamodel` (`go.ipld.ipldPrime.datamodel.enums`).
+extension GoIpldIpldPrimeDatamodelEnumsApi on GoIpldIpldPrimeDatamodelEnums {
   /// Go: `const datamodel.Kind_Bool datamodel.Kind`.
   int get kindBool => 98;
 

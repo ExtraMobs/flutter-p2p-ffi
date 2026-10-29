@@ -4,7 +4,7 @@ library;
 
 import 'dart:typed_data';
 
-import 'package:p2p_ffi/src/go.dart' show GoCryptoX509;
+import 'package:p2p_ffi/src/go.dart' show GoCryptoX509Enums;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/crypto/x509/pkix.dart' as $pkix;
@@ -517,8 +517,8 @@ class CryptoX509UnknownAuthorityError extends GolangException {
   String toString() => 'x509.UnknownAuthorityError: $message';
 }
 
-/// Go: the package-level members of `crypto/x509` (`go.crypto.x509`).
-extension GoCryptoX509Api on GoCryptoX509 {
+/// Go: the constants of a named type of `crypto/x509` (`go.crypto.x509.enums`).
+extension GoCryptoX509EnumsApi on GoCryptoX509Enums {
   /// Go: `const x509.CANotAuthorizedForExtKeyUsage x509.InvalidReason`.
   int get caNotAuthorizedForExtKeyUsage => 9;
 

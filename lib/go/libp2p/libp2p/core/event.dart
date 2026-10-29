@@ -2,7 +2,7 @@
 // Go: github.com/libp2p/go-libp2p/core/event
 library;
 
-import 'package:p2p_ffi/src/go.dart' show GoLibp2pLibp2pCoreEvent;
+import 'package:p2p_ffi/src/go.dart' show GoLibp2pLibp2pCoreEventEnums;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/io.dart' as $io;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/network.dart' as $network;
@@ -464,8 +464,8 @@ final class Libp2pCoreEventUpdatedAddress implements GoDto {
   }
 }
 
-/// Go: the package-level members of `github.com/libp2p/go-libp2p/core/event` (`go.libp2p.libp2p.core.event`).
-extension GoLibp2pLibp2pCoreEventApi on GoLibp2pLibp2pCoreEvent {
+/// Go: the constants of a named type of `github.com/libp2p/go-libp2p/core/event` (`go.libp2p.libp2p.core.event.enums`).
+extension GoLibp2pLibp2pCoreEventEnumsApi on GoLibp2pLibp2pCoreEventEnums {
   /// Go: `const event.Added event.AddrAction`.
   int get added => 1;
 

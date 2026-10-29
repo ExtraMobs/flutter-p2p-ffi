@@ -2,7 +2,8 @@
 // Go: github.com/ipfs/boxo/verifcid
 library;
 
-import 'package:p2p_ffi/src/go.dart' show GoIpfsBoxoVerifcid;
+import 'package:p2p_ffi/src/go.dart'
+    show GoIpfsBoxoVerifcid, GoIpfsBoxoVerifcidConsts;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/ipfs/cid.dart' as $cid;
 
@@ -117,7 +118,10 @@ extension GoIpfsBoxoVerifcidApi on GoIpfsBoxoVerifcid {
           ..h(allowlist)
           ..val(c));
   }
+}
 
+/// Go: the constants of `github.com/ipfs/boxo/verifcid` (`go.ipfs.boxo.verifcid.consts`).
+extension GoIpfsBoxoVerifcidConstsApi on GoIpfsBoxoVerifcidConsts {
   /// Go: `const verifcid.DefaultMaxDigestSize untyped int`.
   int get defaultMaxDigestSize => 128;
 

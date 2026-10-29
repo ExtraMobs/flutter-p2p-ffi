@@ -25,6 +25,7 @@ type dartLib struct {
 	bytes   bool     // usa Uint8List
 	async   bool     // usa StreamSink (dart:async)
 	ns      bool     // has members: an extension on its namespace class (lib/src/go.dart)
+	layers  []string // the constant layers it has (consts, enums): an extension on each
 }
 
 type dclass struct {
@@ -622,7 +623,12 @@ func (e *dartEmitter) body(l *dartLib) string {
 		body.WriteString(e.class(l, l.classes[k]))
 	}
 	members := e.holders(l, &body)
+	layered := map[string][]string{}
 	for _, f := range l.funcs {
+		if layer := constLayer(f.obj); layer != "" {
+			layered[layer] = append(layered[layer], e.function(l, f, "", false))
+			continue
+		}
 		members = append(members, e.function(l, f, "", false))
 	}
 	members = append(members, l.members...)
@@ -633,6 +639,14 @@ func (e *dartEmitter) body(l *dartLib) string {
 		ns := nsClass(l.path)
 		fmt.Fprintf(&body, "/// Go: the package-level members of `%s` (`%s`).\nextension %sApi on %s {\n%s}\n", l.goPath, nsPath(l.path), ns, ns, strings.Join(members, "\n"))
 		l.ns = true
+	}
+	l.layers = nil
+	for _, layer := range constLayers {
+		if ms := layered[layer]; len(ms) > 0 {
+			ns := nsClass(layerPath(l.path, layer))
+			fmt.Fprintf(&body, "/// Go: the %s of `%s` (`%s`).\nextension %sApi on %s {\n%s}\n", constLayerDoc[layer], l.goPath, nsPath(layerPath(l.path, layer)), ns, ns, strings.Join(ms, "\n"))
+			l.layers = append(l.layers, layer)
+		}
 	}
 	return body.String()
 }
@@ -660,7 +674,7 @@ func (e *dartEmitter) emitPart(l *dartLib, hand []byte) (string, string) {
 	if usesRuntime(body) {
 		need["import '"+pkgPrefix+"src/runtime.dart';"] = true
 	}
-	if l.ns {
+	if l.ns || len(l.layers) > 0 {
 		need[nsImport(l)] = true
 	}
 	for uri, p := range l.prefix {
@@ -690,7 +704,7 @@ func (e *dartEmitter) emitLib(l *dartLib) string {
 	if l.async || l.bytes {
 		b.WriteString("\n")
 	}
-	if l.ns {
+	if l.ns || len(l.layers) > 0 {
 		b.WriteString(nsImport(l) + "\n")
 	}
 	if usesRuntime(body) {
@@ -704,9 +718,17 @@ func (e *dartEmitter) emitLib(l *dartLib) string {
 	return strings.TrimRight(b.String(), "\n") + "\n"
 }
 
-// nsImport: the import of the library's namespace class.
+// nsImport: the import of the library's namespace classes (its own, when it
+// has members, and its constant layers').
 func nsImport(l *dartLib) string {
-	return "import '" + pkgPrefix + "src/go.dart' show " + nsClass(l.path) + ";"
+	var show []string
+	if l.ns {
+		show = append(show, nsClass(l.path))
+	}
+	for _, layer := range l.layers {
+		show = append(show, nsClass(layerPath(l.path, layer)))
+	}
+	return "import '" + pkgPrefix + "src/go.dart' show " + strings.Join(show, ", ") + ";"
 }
 
 func (e *dartEmitter) class(l *dartLib, c *dclass) string {

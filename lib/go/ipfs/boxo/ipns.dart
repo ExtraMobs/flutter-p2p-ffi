@@ -4,7 +4,8 @@ library;
 
 import 'dart:typed_data';
 
-import 'package:p2p_ffi/src/go.dart' show GoIpfsBoxoIpns;
+import 'package:p2p_ffi/src/go.dart'
+    show GoIpfsBoxoIpns, GoIpfsBoxoIpnsConsts, GoIpfsBoxoIpnsEnums;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/ipfs/boxo/path.dart' as $path;
@@ -467,15 +468,27 @@ extension GoIpfsBoxoIpnsApi on GoIpfsBoxoIpns {
           ..h(rec)
           ..val(name));
   }
+}
 
+/// Go: the constants of `github.com/ipfs/boxo/ipns` (`go.ipfs.boxo.ipns.consts`).
+extension GoIpfsBoxoIpnsConstsApi on GoIpfsBoxoIpnsConsts {
+  /// Go: `const ipns.MaxRecordSize int`.
+  int get maxRecordSize => 10240;
+
+  /// Go: `const ipns.NamespacePrefix untyped string`.
+  String get namespacePrefix => "/ipns/";
+
+  /// Go: `const ipns.NoopValue untyped string`.
+  String get noopValue => "/ipfs/bafkqaaa";
+}
+
+/// Go: the constants of a named type of `github.com/ipfs/boxo/ipns` (`go.ipfs.boxo.ipns.enums`).
+extension GoIpfsBoxoIpnsEnumsApi on GoIpfsBoxoIpnsEnums {
   /// Go: `const ipns.DefaultRecordLifetime time.Duration`.
   Duration get defaultRecordLifetime => Duration(microseconds: 172800000000);
 
   /// Go: `const ipns.DefaultRecordTTL time.Duration`.
   Duration get defaultRecordTtl => Duration(microseconds: 300000000);
-
-  /// Go: `const ipns.MaxRecordSize int`.
-  int get maxRecordSize => 10240;
 
   /// Go: `const ipns.MetadataKindBool ipns.MetadataKind`.
   int get metadataKindBool => 4;
@@ -491,12 +504,6 @@ extension GoIpfsBoxoIpnsApi on GoIpfsBoxoIpns {
 
   /// Go: `const ipns.MetadataKindString ipns.MetadataKind`.
   int get metadataKindString => 1;
-
-  /// Go: `const ipns.NamespacePrefix untyped string`.
-  String get namespacePrefix => "/ipns/";
-
-  /// Go: `const ipns.NoopValue untyped string`.
-  String get noopValue => "/ipfs/bafkqaaa";
 
   /// Go: `const ipns.ValidityEOL ipns.ValidityType`.
   int get validityEol => 0;

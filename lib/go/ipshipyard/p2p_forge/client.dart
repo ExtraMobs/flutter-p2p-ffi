@@ -2,7 +2,7 @@
 // Go: github.com/ipshipyard/p2p-forge/client
 library;
 
-import 'package:p2p_ffi/src/go.dart' show GoIpshipyardP2pForgeClient;
+import 'package:p2p_ffi/src/go.dart' show GoIpshipyardP2pForgeClientConsts;
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
 
@@ -13,8 +13,9 @@ class P2pForgeClientP2pForgeCertMgr extends $crypto.CryptoPrivateKey
   P2pForgeClientP2pForgeCertMgr.$h(super.$h) : super.$h();
 }
 
-/// Go: the package-level members of `github.com/ipshipyard/p2p-forge/client` (`go.ipshipyard.p2pForge.client`).
-extension GoIpshipyardP2pForgeClientApi on GoIpshipyardP2pForgeClient {
+/// Go: the constants of `github.com/ipshipyard/p2p-forge/client` (`go.ipshipyard.p2pForge.client.consts`).
+extension GoIpshipyardP2pForgeClientConstsApi
+    on GoIpshipyardP2pForgeClientConsts {
   /// Go: `const client.DefaultCAEndpoint untyped string`.
   String get defaultCaEndpoint =>
       "https://acme-v02.api.letsencrypt.org/directory";

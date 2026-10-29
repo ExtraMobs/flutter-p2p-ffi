@@ -2,7 +2,11 @@
 // Go: github.com/prometheus/client_golang/prometheus
 library;
 
-import 'package:p2p_ffi/src/go.dart' show GoPrometheusClientGolangPrometheus;
+import 'package:p2p_ffi/src/go.dart'
+    show
+        GoPrometheusClientGolangPrometheus,
+        GoPrometheusClientGolangPrometheusConsts,
+        GoPrometheusClientGolangPrometheusEnums;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/prometheus/client_model/go.dart' as $go;
 
@@ -62,18 +66,16 @@ extension GoPrometheusClientGolangPrometheusApi
     final $r = $callSync(3502);
     return $r.p() ? ClientGolangPrometheusGatherer.$dec($r) : $nil();
   }
+}
 
-  /// Go: `const prometheus.CounterValue prometheus.ValueType`.
-  int get counterValue => 1;
-
+/// Go: the constants of `github.com/prometheus/client_golang/prometheus` (`go.prometheus.clientGolang.prometheus.consts`).
+extension GoPrometheusClientGolangPrometheusConstsApi
+    on GoPrometheusClientGolangPrometheusConsts {
   /// Go: `const prometheus.DefAgeBuckets untyped int`.
   int get defAgeBuckets => 5;
 
   /// Go: `const prometheus.DefBufCap untyped int`.
   int get defBufCap => 500;
-
-  /// Go: `const prometheus.DefMaxAge time.Duration`.
-  Duration get defMaxAge => Duration(microseconds: 600000000);
 
   /// Go: `const prometheus.DefNativeHistogramZeroThreshold untyped float`.
   double get defNativeHistogramZeroThreshold => 2.938735877055719e-39;
@@ -81,11 +83,21 @@ extension GoPrometheusClientGolangPrometheusApi
   /// Go: `const prometheus.ExemplarMaxRunes untyped int`.
   int get exemplarMaxRunes => 128;
 
-  /// Go: `const prometheus.GaugeValue prometheus.ValueType`.
-  int get gaugeValue => 2;
-
   /// Go: `const prometheus.NativeHistogramZeroThresholdZero untyped int`.
   int get nativeHistogramZeroThresholdZero => -1;
+}
+
+/// Go: the constants of a named type of `github.com/prometheus/client_golang/prometheus` (`go.prometheus.clientGolang.prometheus.enums`).
+extension GoPrometheusClientGolangPrometheusEnumsApi
+    on GoPrometheusClientGolangPrometheusEnums {
+  /// Go: `const prometheus.CounterValue prometheus.ValueType`.
+  int get counterValue => 1;
+
+  /// Go: `const prometheus.DefMaxAge time.Duration`.
+  Duration get defMaxAge => Duration(microseconds: 600000000);
+
+  /// Go: `const prometheus.GaugeValue prometheus.ValueType`.
+  int get gaugeValue => 2;
 
   /// Go: `const prometheus.UntypedValue prometheus.ValueType`.
   int get untypedValue => 3;

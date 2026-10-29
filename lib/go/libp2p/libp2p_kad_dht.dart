@@ -5,7 +5,8 @@ library;
 import 'dart:async';
 import 'dart:typed_data';
 
-import 'package:p2p_ffi/src/go.dart' show GoLibp2pLibp2pKadDht;
+import 'package:p2p_ffi/src/go.dart'
+    show GoLibp2pLibp2pKadDht, GoLibp2pLibp2pKadDhtEnums;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
@@ -796,7 +797,10 @@ extension GoLibp2pLibp2pKadDhtApi on GoLibp2pLibp2pKadDht {
           ..h(ctx)
           ..dto(ev));
   }
+}
 
+/// Go: the constants of a named type of `github.com/libp2p/go-libp2p-kad-dht` (`go.libp2p.libp2pKadDht.enums`).
+extension GoLibp2pLibp2pKadDhtEnumsApi on GoLibp2pLibp2pKadDhtEnums {
   /// Go: `const dht.DefaultPrefix protocol.ID`.
   String get defaultPrefix => "/ipfs";
 

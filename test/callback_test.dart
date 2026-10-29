@@ -86,7 +86,7 @@ void main() {
 
   test('index: forEach e getAll', () async {
     final idx = go.ipld.car.v2.index
-        .new$(go.multiformats.multicodec.carMultihashIndexSorted);
+        .new$(go.multiformats.multicodec.enums.carMultihashIndexSorted);
     idx.load([
       for (var i = 0; i < 5; i++)
         CarV2IndexRecord(

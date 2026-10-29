@@ -4,7 +4,8 @@ library;
 
 import 'dart:typed_data';
 
-import 'package:p2p_ffi/src/go.dart' show GoIpfsBoxoChunker;
+import 'package:p2p_ffi/src/go.dart'
+    show GoIpfsBoxoChunker, GoIpfsBoxoChunkerConsts;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/io.dart' as $io;
@@ -215,7 +216,10 @@ extension GoIpfsBoxoChunkerApi on GoIpfsBoxoChunker {
     final $r = $callSync(506, $W()..i64(size));
     return $r.hnn(BoxoChunkerSplitterGen.$h);
   }
+}
 
+/// Go: the constants of `github.com/ipfs/boxo/chunker` (`go.ipfs.boxo.chunker.consts`).
+extension GoIpfsBoxoChunkerConstsApi on GoIpfsBoxoChunkerConsts {
   /// Go: `const chunk.BlockSizeLimit int`.
   int get blockSizeLimit => 2097152;
 

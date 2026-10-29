@@ -2,7 +2,7 @@
 // Go: github.com/prometheus/client_model/go
 library;
 
-import 'package:p2p_ffi/src/go.dart' show GoPrometheusClientModelGo;
+import 'package:p2p_ffi/src/go.dart' show GoPrometheusClientModelGoEnums;
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
 
@@ -13,8 +13,8 @@ class ClientModelGoMetricFamily extends $crypto.CryptoPrivateKey
   ClientModelGoMetricFamily.$h(super.$h) : super.$h();
 }
 
-/// Go: the package-level members of `github.com/prometheus/client_model/go` (`go.prometheus.clientModel.go`).
-extension GoPrometheusClientModelGoApi on GoPrometheusClientModelGo {
+/// Go: the constants of a named type of `github.com/prometheus/client_model/go` (`go.prometheus.clientModel.go.enums`).
+extension GoPrometheusClientModelGoEnumsApi on GoPrometheusClientModelGoEnums {
   /// Go: `const io_prometheus_client.MetricType_COUNTER io_prometheus_client.MetricType`.
   int get metricTypeCounter => 0;
 

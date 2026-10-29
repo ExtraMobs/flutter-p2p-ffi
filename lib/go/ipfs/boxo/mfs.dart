@@ -5,7 +5,7 @@ library;
 import 'dart:async';
 import 'dart:typed_data';
 
-import 'package:p2p_ffi/src/go.dart' show GoIpfsBoxoMfs;
+import 'package:p2p_ffi/src/go.dart' show GoIpfsBoxoMfs, GoIpfsBoxoMfsEnums;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
@@ -879,7 +879,10 @@ extension GoIpfsBoxoMfsApi on GoIpfsBoxoMfs {
           ..str(pth)
           ..time(ts));
   }
+}
 
+/// Go: the constants of a named type of `github.com/ipfs/boxo/mfs` (`go.ipfs.boxo.mfs.enums`).
+extension GoIpfsBoxoMfsEnumsApi on GoIpfsBoxoMfsEnums {
   /// Go: `const mfs.DefaultFetchTimeout time.Duration`.
   Duration get defaultFetchTimeout => Duration(microseconds: 300000000);
 

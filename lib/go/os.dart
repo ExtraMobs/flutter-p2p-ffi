@@ -2,7 +2,7 @@
 // Go: os
 library;
 
-import 'package:p2p_ffi/src/go.dart' show GoOs;
+import 'package:p2p_ffi/src/go.dart' show GoOs, GoOsConsts, GoOsEnums;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/io/fs.dart' as $fs;
@@ -167,7 +167,10 @@ extension GoOsApi on GoOs {
           ..i64(perm));
     return $r.hnn(OsFile.$h);
   }
+}
 
+/// Go: the constants of `os` (`go.os.consts`).
+extension GoOsConstsApi on GoOsConsts {
   /// Go: `const os.DevNull untyped string`.
   String get devNull {
     final $r = $callSync(3507);
@@ -192,6 +195,42 @@ extension GoOsApi on GoOs {
     return $r.i64();
   }
 
+  /// Go: `const os.O_APPEND int`.
+  int get oAppend => 1024;
+
+  /// Go: `const os.O_CREATE int`.
+  int get oCreate => 64;
+
+  /// Go: `const os.O_EXCL int`.
+  int get oExcl => 128;
+
+  /// Go: `const os.O_RDONLY int`.
+  int get oRdonly => 0;
+
+  /// Go: `const os.O_RDWR int`.
+  int get oRdwr => 2;
+
+  /// Go: `const os.O_TRUNC int`.
+  int get oTrunc => 512;
+
+  /// Go: `const os.O_WRONLY int`.
+  int get oWronly => 1;
+
+  /// Go: `const os.SEEK_CUR int`.
+  @Deprecated("Use io.SeekStart, io.SeekCurrent, and io.SeekEnd.")
+  int get seekCur => 1;
+
+  /// Go: `const os.SEEK_END int`.
+  @Deprecated("Use io.SeekStart, io.SeekCurrent, and io.SeekEnd.")
+  int get seekEnd => 2;
+
+  /// Go: `const os.SEEK_SET int`.
+  @Deprecated("Use io.SeekStart, io.SeekCurrent, and io.SeekEnd.")
+  int get seekSet => 0;
+}
+
+/// Go: the constants of a named type of `os` (`go.os.enums`).
+extension GoOsEnumsApi on GoOsEnums {
   /// Go: `const os.ModeAppend fs.FileMode`.
   int get modeAppend => 1073741824;
 
@@ -236,37 +275,4 @@ extension GoOsApi on GoOs {
 
   /// Go: `const os.ModeType fs.FileMode`.
   int get modeType => 2401763328;
-
-  /// Go: `const os.O_APPEND int`.
-  int get oAppend => 1024;
-
-  /// Go: `const os.O_CREATE int`.
-  int get oCreate => 64;
-
-  /// Go: `const os.O_EXCL int`.
-  int get oExcl => 128;
-
-  /// Go: `const os.O_RDONLY int`.
-  int get oRdonly => 0;
-
-  /// Go: `const os.O_RDWR int`.
-  int get oRdwr => 2;
-
-  /// Go: `const os.O_TRUNC int`.
-  int get oTrunc => 512;
-
-  /// Go: `const os.O_WRONLY int`.
-  int get oWronly => 1;
-
-  /// Go: `const os.SEEK_CUR int`.
-  @Deprecated("Use io.SeekStart, io.SeekCurrent, and io.SeekEnd.")
-  int get seekCur => 1;
-
-  /// Go: `const os.SEEK_END int`.
-  @Deprecated("Use io.SeekStart, io.SeekCurrent, and io.SeekEnd.")
-  int get seekEnd => 2;
-
-  /// Go: `const os.SEEK_SET int`.
-  @Deprecated("Use io.SeekStart, io.SeekCurrent, and io.SeekEnd.")
-  int get seekSet => 0;
 }
