@@ -5,6 +5,7 @@ library;
 import 'dart:async';
 import 'dart:typed_data';
 
+import 'package:p2p_ffi/src/go.dart' show GoLibp2pPubsub;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/libp2p/core/crypto.dart' as $crypto;
@@ -16,28 +17,28 @@ import 'package:p2p_ffi/go/log/slog.dart' as $slog;
 import 'package:p2p_ffi/go/net.dart' as $net;
 
 /// Go: `pubsub.BackoffConnectorFactory` (handle).
-class BackoffConnectorFactory extends GoHandle {
-  BackoffConnectorFactory.$h(super.$h);
+class Libp2pPubsubBackoffConnectorFactory extends GoHandle {
+  Libp2pPubsubBackoffConnectorFactory.$h(super.$h);
 }
 
 /// Go: `pubsub.Blacklist` (handle).
-class Blacklist extends GoHandle {
-  Blacklist.$h(super.$h);
+class Libp2pPubsubBlacklist extends GoHandle {
+  Libp2pPubsubBlacklist.$h(super.$h);
 }
 
 /// Go: `pubsub.DiscoverOpt` (functional option; constructors in the package).
-final class DiscoverOpt extends GoOption {
-  DiscoverOpt.$(super.$i, super.$a);
+final class Libp2pPubsubDiscoverOpt extends GoOption {
+  Libp2pPubsubDiscoverOpt.$(super.$i, super.$a);
 }
 
 /// Go: `pubsub.EventTracer` (handle).
-class EventTracer extends GoHandle {
-  EventTracer.$h(super.$h);
+class Libp2pPubsubEventTracer extends GoHandle {
+  Libp2pPubsubEventTracer.$h(super.$h);
 }
 
 /// Go: `pubsub.GossipSubParams`.
-final class GossipSubParams implements GoDto {
-  GossipSubParams(
+final class Libp2pPubsubGossipSubParams implements GoDto {
+  Libp2pPubsubGossipSubParams(
       {int? d,
       int? dlo,
       int? dhi,
@@ -103,7 +104,7 @@ final class GossipSubParams implements GoDto {
         iDontWantMessageThreshold = iDontWantMessageThreshold ?? 0,
         iDontWantMessageTtl = iDontWantMessageTtl ?? 0;
 
-  GossipSubParams.$dec($R r)
+  Libp2pPubsubGossipSubParams.$dec($R r)
       : d = r.i64(),
         dlo = r.i64(),
         dhi = r.i64(),
@@ -280,28 +281,31 @@ final class GossipSubParams implements GoDto {
 /// Go: `pubsub.Message`.
 ///
 /// Fields that do not cross the bridge: `ValidatorData` (type any).
-final class Message implements GoDto {
-  Message(
-      {$pb.Message? message, String? id, $peer.Id? receivedFrom, bool? local})
+final class Libp2pPubsubMessage implements GoDto {
+  Libp2pPubsubMessage(
+      {$pb.Libp2pPubsubPbMessage? message,
+      String? id,
+      $peer.Libp2pCorePeerId? receivedFrom,
+      bool? local})
       : message = message,
         id = id ?? '',
         receivedFrom = receivedFrom,
         local = local ?? false;
 
-  Message.$dec($R r)
-      : message = r.hn($pb.Message.$h),
+  Libp2pPubsubMessage.$dec($R r)
+      : message = r.hn($pb.Libp2pPubsubPbMessage.$h),
         id = r.str(),
-        receivedFrom = r.p() ? $peer.Id(r.str()) : null,
+        receivedFrom = r.p() ? $peer.Libp2pCorePeerId(r.str()) : null,
         local = r.b();
 
   /// Go: `Message`.
-  $pb.Message? message;
+  $pb.Libp2pPubsubPbMessage? message;
 
   /// Go: `ID`.
   String id;
 
   /// Go: `ReceivedFrom`.
-  $peer.Id? receivedFrom;
+  $peer.Libp2pCorePeerId? receivedFrom;
 
   /// Go: `Local`.
   bool local;
@@ -316,37 +320,37 @@ final class Message implements GoDto {
   }
 
   /// Go: `func (*pubsub.Message).GetFrom() peer.ID`.
-  $peer.Id getFrom() {
+  $peer.Libp2pCorePeerId getFrom() {
     final $r = $callSync(509, $W()..dto(this));
-    return $r.p() ? $peer.Id($r.str()) : $nil();
+    return $r.p() ? $peer.Libp2pCorePeerId($r.str()) : $nil();
   }
 }
 
 /// Go: `pubsub.Option` (functional option; constructors in the package).
-final class Option extends GoOption {
-  Option.$(super.$i, super.$a);
+final class Libp2pPubsubOption extends GoOption {
+  Libp2pPubsubOption.$(super.$i, super.$a);
 }
 
 /// Go: `pubsub.PXRecordReducer` (handle).
-class PxRecordReducer extends GoHandle {
-  PxRecordReducer.$h(super.$h);
+class Libp2pPubsubPxRecordReducer extends GoHandle {
+  Libp2pPubsubPxRecordReducer.$h(super.$h);
 }
 
 /// Go: `pubsub.PeerEvent`.
-final class PeerEvent implements GoDto {
-  PeerEvent({int? type, $peer.Id? peer})
+final class Libp2pPubsubPeerEvent implements GoDto {
+  Libp2pPubsubPeerEvent({int? type, $peer.Libp2pCorePeerId? peer})
       : type = type ?? 0,
         peer = peer;
 
-  PeerEvent.$dec($R r)
+  Libp2pPubsubPeerEvent.$dec($R r)
       : type = r.i64(),
-        peer = r.p() ? $peer.Id(r.str()) : null;
+        peer = r.p() ? $peer.Libp2pCorePeerId(r.str()) : null;
 
   /// Go: `Type`.
   int type;
 
   /// Go: `Peer`.
-  $peer.Id? peer;
+  $peer.Libp2pCorePeerId? peer;
 
   @override
   void $enc($W w) {
@@ -357,8 +361,8 @@ final class PeerEvent implements GoDto {
 }
 
 /// Go: `pubsub.PeerGaterParams`.
-final class PeerGaterParams implements GoDto {
-  PeerGaterParams(
+final class Libp2pPubsubPeerGaterParams implements GoDto {
+  Libp2pPubsubPeerGaterParams(
       {double? threshold,
       double? globalDecay,
       double? sourceDecay,
@@ -382,7 +386,7 @@ final class PeerGaterParams implements GoDto {
         rejectWeight = rejectWeight ?? 0.0,
         topicDeliveryWeights = topicDeliveryWeights ?? {};
 
-  PeerGaterParams.$dec($R r)
+  Libp2pPubsubPeerGaterParams.$dec($R r)
       : threshold = r.f64(),
         globalDecay = r.f64(),
         sourceDecay = r.f64(),
@@ -449,15 +453,15 @@ final class PeerGaterParams implements GoDto {
 /// Go: `pubsub.PeerScoreParams`.
 ///
 /// Fields that do not cross the bridge: `AppSpecificScore` (func(p github.com/libp2p/go-libp2p/core/peer.ID) float64).
-final class PeerScoreParams implements GoDto {
-  PeerScoreParams(
+final class Libp2pPubsubPeerScoreParams implements GoDto {
+  Libp2pPubsubPeerScoreParams(
       {bool? skipAtomicValidation,
-      Map<String, TopicScoreParams>? topics,
+      Map<String, Libp2pPubsubTopicScoreParams>? topics,
       double? topicScoreCap,
       double? appSpecificWeight,
       double? ipColocationFactorWeight,
       int? ipColocationFactorThreshold,
-      List<$net.IpNet>? ipColocationFactorWhitelist,
+      List<$net.NetIpNet>? ipColocationFactorWhitelist,
       double? behaviourPenaltyWeight,
       double? behaviourPenaltyThreshold,
       double? behaviourPenaltyDecay,
@@ -480,16 +484,16 @@ final class PeerScoreParams implements GoDto {
         retainScore = retainScore ?? Duration.zero,
         seenMsgTtl = seenMsgTtl ?? Duration.zero;
 
-  PeerScoreParams.$dec($R r)
+  Libp2pPubsubPeerScoreParams.$dec($R r)
       : skipAtomicValidation = r.b(),
-        topics = r.map(
-            () => r.str(), () => r.p() ? TopicScoreParams.$dec(r) : $nil()),
+        topics = r.map(() => r.str(),
+            () => r.p() ? Libp2pPubsubTopicScoreParams.$dec(r) : $nil()),
         topicScoreCap = r.f64(),
         appSpecificWeight = r.f64(),
         ipColocationFactorWeight = r.f64(),
         ipColocationFactorThreshold = r.i64(),
         ipColocationFactorWhitelist =
-            r.list(() => r.p() ? $net.IpNet.$dec(r) : $nil()),
+            r.list(() => r.p() ? $net.NetIpNet.$dec(r) : $nil()),
         behaviourPenaltyWeight = r.f64(),
         behaviourPenaltyThreshold = r.f64(),
         behaviourPenaltyDecay = r.f64(),
@@ -502,7 +506,7 @@ final class PeerScoreParams implements GoDto {
   bool skipAtomicValidation;
 
   /// Go: `Topics`.
-  Map<String, TopicScoreParams> topics;
+  Map<String, Libp2pPubsubTopicScoreParams> topics;
 
   /// Go: `TopicScoreCap`.
   double topicScoreCap;
@@ -517,7 +521,7 @@ final class PeerScoreParams implements GoDto {
   int ipColocationFactorThreshold;
 
   /// Go: `IPColocationFactorWhitelist`.
-  List<$net.IpNet> ipColocationFactorWhitelist;
+  List<$net.NetIpNet> ipColocationFactorWhitelist;
 
   /// Go: `BehaviourPenaltyWeight`.
   double behaviourPenaltyWeight;
@@ -561,8 +565,8 @@ final class PeerScoreParams implements GoDto {
 }
 
 /// Go: `pubsub.PeerScoreThresholds`.
-final class PeerScoreThresholds implements GoDto {
-  PeerScoreThresholds(
+final class Libp2pPubsubPeerScoreThresholds implements GoDto {
+  Libp2pPubsubPeerScoreThresholds(
       {bool? skipAtomicValidation,
       double? gossipThreshold,
       double? publishThreshold,
@@ -576,7 +580,7 @@ final class PeerScoreThresholds implements GoDto {
         acceptPxThreshold = acceptPxThreshold ?? 0.0,
         opportunisticGraftThreshold = opportunisticGraftThreshold ?? 0.0;
 
-  PeerScoreThresholds.$dec($R r)
+  Libp2pPubsubPeerScoreThresholds.$dec($R r)
       : skipAtomicValidation = r.b(),
         gossipThreshold = r.f64(),
         publishThreshold = r.f64(),
@@ -615,25 +619,26 @@ final class PeerScoreThresholds implements GoDto {
 }
 
 /// Go: `pubsub.PubOpt` (functional option; constructors in the package).
-final class PubOpt extends GoOption {
-  PubOpt.$(super.$i, super.$a);
+final class Libp2pPubsubPubOpt extends GoOption {
+  Libp2pPubsubPubOpt.$(super.$i, super.$a);
 }
 
 /// Go: `pubsub.PubSub` (handle).
-class PubSub extends GoHandle {
-  PubSub.$h(super.$h);
+class Libp2pPubsubPubSub extends GoHandle {
+  Libp2pPubsubPubSub.$h(super.$h);
 
   /// Go: `func (*pubsub.PubSub).Join(topic string, opts ...pubsub.TopicOpt) (*pubsub.Topic, error)`.
   ///
   /// Asynchronous: runs in a goroutine of the service.
-  Future<Topic> join(String topic, [List<TopicOpt> opts = const []]) async {
+  Future<Libp2pPubsubTopic> join(String topic,
+      [List<Libp2pPubsubTopicOpt> opts = const []]) async {
     final $r = await $call(
         514,
         $W()
           ..h(this)
           ..str(topic)
           ..list(opts, (w0, e0) => w0.opt(e0)));
-    return $r.hnn(Topic.$h);
+    return $r.hnn(Libp2pPubsubTopic.$h);
   }
 
   /// Go: `func (*pubsub.PubSub).GetTopics() []string`.
@@ -647,19 +652,19 @@ class PubSub extends GoHandle {
   /// Go: `func (*pubsub.PubSub).ListPeers(topic string) []peer.ID`.
   ///
   /// Asynchronous: runs in a goroutine of the service.
-  Future<List<$peer.Id>> listPeers(String topic) async {
+  Future<List<$peer.Libp2pCorePeerId>> listPeers(String topic) async {
     final $r = await $call(
         515,
         $W()
           ..h(this)
           ..str(topic));
-    return $r.list(() => $r.p() ? $peer.Id($r.str()) : $nil());
+    return $r.list(() => $r.p() ? $peer.Libp2pCorePeerId($r.str()) : $nil());
   }
 
   /// Go: `func (*pubsub.PubSub).AddDirectPeer(pInfo peer.AddrInfo) error`.
   ///
   /// Asynchronous: runs in a goroutine of the service.
-  Future<void> addDirectPeer($peer.AddrInfo pInfo) async {
+  Future<void> addDirectPeer($peer.Libp2pCorePeerAddrInfo pInfo) async {
     await $call(
         511,
         $W()
@@ -670,7 +675,7 @@ class PubSub extends GoHandle {
   /// Go: `func (*pubsub.PubSub).RemoveDirectPeer(pid peer.ID) error`.
   ///
   /// Asynchronous: runs in a goroutine of the service.
-  Future<void> removeDirectPeer($peer.Id pid) async {
+  Future<void> removeDirectPeer($peer.Libp2pCorePeerId pid) async {
     await $call(
         517,
         $W()
@@ -681,7 +686,7 @@ class PubSub extends GoHandle {
   /// Go: `func (*pubsub.PubSub).BlacklistPeer(pid peer.ID)`.
   ///
   /// Asynchronous: runs in a goroutine of the service.
-  Future<void> blacklistPeer($peer.Id pid) async {
+  Future<void> blacklistPeer($peer.Libp2pCorePeerId pid) async {
     await $call(
         512,
         $W()
@@ -697,9 +702,10 @@ class PubSub extends GoHandle {
   /// long as it holds it (a retained callback, WIRE.md).
   Future<void> registerTopicValidator(
       String topic,
-      FutureOr<int> Function($context.Context ctx, $peer.Id id, Message message)
+      FutureOr<int> Function($context.Context ctx, $peer.Libp2pCorePeerId id,
+              Libp2pPubsubMessage message)
           val,
-      [List<ValidatorOpt> opts = const []]) async {
+      [List<Libp2pPubsubValidatorOpt> opts = const []]) async {
     await $call(
         516,
         $W()
@@ -708,8 +714,8 @@ class PubSub extends GoHandle {
           ..cb(
               (r) => val(
                   r.hnn($context.Context.$h),
-                  r.p() ? $peer.Id(r.str()) : $nil(),
-                  r.p() ? Message.$dec(r) : $nil()),
+                  r.p() ? $peer.Libp2pCorePeerId(r.str()) : $nil(),
+                  r.p() ? Libp2pPubsubMessage.$dec(r) : $nil()),
               true,
               (w, v) => w.i64(v as int))
           ..list(opts, (w0, e0) => w0.opt(e0)));
@@ -728,39 +734,39 @@ class PubSub extends GoHandle {
 }
 
 /// Go: `pubsub.RPC` (handle).
-class Rpc extends GoHandle {
-  Rpc.$h(super.$h);
+class Libp2pPubsubRpc extends GoHandle {
+  Libp2pPubsubRpc.$h(super.$h);
 }
 
 /// Go: `pubsub.RawTracer` (handle).
-class RawTracer extends GoHandle {
-  RawTracer.$h(super.$h);
+class Libp2pPubsubRawTracer extends GoHandle {
+  Libp2pPubsubRawTracer.$h(super.$h);
 }
 
 /// Go: `pubsub.RouterReady` (handle).
-class RouterReady extends GoHandle {
-  RouterReady.$h(super.$h);
+class Libp2pPubsubRouterReady extends GoHandle {
+  Libp2pPubsubRouterReady.$h(super.$h);
 }
 
 /// Go: `pubsub.SubOpt` (functional option; constructors in the package).
-final class SubOpt extends GoOption {
-  SubOpt.$(super.$i, super.$a);
+final class Libp2pPubsubSubOpt extends GoOption {
+  Libp2pPubsubSubOpt.$(super.$i, super.$a);
 }
 
 /// Go: `pubsub.Subscription` (handle).
-class Subscription extends GoHandle {
-  Subscription.$h(super.$h);
+class Libp2pPubsubSubscription extends GoHandle {
+  Libp2pPubsubSubscription.$h(super.$h);
 
   /// Go: `func (*pubsub.Subscription).Next(ctx context.Context) (*pubsub.Message, error)`.
   ///
   /// Asynchronous: runs in a goroutine of the service.
-  Future<Message> next($context.Context ctx) async {
+  Future<Libp2pPubsubMessage> next($context.Context ctx) async {
     final $r = await $call(
         520,
         $W()
           ..h(this)
           ..h(ctx));
-    return $r.p() ? Message.$dec($r) : $nil();
+    return $r.p() ? Libp2pPubsubMessage.$dec($r) : $nil();
   }
 
   /// Go: `func (*pubsub.Subscription).Topic() string`.
@@ -778,30 +784,30 @@ class Subscription extends GoHandle {
 }
 
 /// Go: `pubsub.SubscriptionFilter` (handle).
-class SubscriptionFilter extends GoHandle {
-  SubscriptionFilter.$h(super.$h);
+class Libp2pPubsubSubscriptionFilter extends GoHandle {
+  Libp2pPubsubSubscriptionFilter.$h(super.$h);
 }
 
 /// Go: `pubsub.TestExtensionConfig`.
 ///
 /// Fields that do not cross the bridge: `OnReceiveTestExtension` (func(from github.com/libp2p/go-libp2p/core/peer.ID)).
-final class TestExtensionConfig implements GoDto {
-  TestExtensionConfig();
-  TestExtensionConfig.$dec($R r);
+final class Libp2pPubsubTestExtensionConfig implements GoDto {
+  Libp2pPubsubTestExtensionConfig();
+  Libp2pPubsubTestExtensionConfig.$dec($R r);
 
   @override
   void $enc($W w) {}
 }
 
 /// Go: `pubsub.Topic` (handle).
-class Topic extends GoHandle {
-  Topic.$h(super.$h);
+class Libp2pPubsubTopic extends GoHandle {
+  Libp2pPubsubTopic.$h(super.$h);
 
   /// Go: `func (*pubsub.Topic).Publish(ctx context.Context, data []byte, opts ...pubsub.PubOpt) error`.
   ///
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> publish($context.Context ctx, Uint8List data,
-      [List<PubOpt> opts = const []]) async {
+      [List<Libp2pPubsubPubOpt> opts = const []]) async {
     await $call(
         525,
         $W()
@@ -814,34 +820,35 @@ class Topic extends GoHandle {
   /// Go: `func (*pubsub.Topic).Subscribe(opts ...pubsub.SubOpt) (*pubsub.Subscription, error)`.
   ///
   /// Asynchronous: runs in a goroutine of the service.
-  Future<Subscription> subscribe([List<SubOpt> opts = const []]) async {
+  Future<Libp2pPubsubSubscription> subscribe(
+      [List<Libp2pPubsubSubOpt> opts = const []]) async {
     final $r = await $call(
         527,
         $W()
           ..h(this)
           ..list(opts, (w0, e0) => w0.opt(e0)));
-    return $r.hnn(Subscription.$h);
+    return $r.hnn(Libp2pPubsubSubscription.$h);
   }
 
   /// Go: `func (*pubsub.Topic).ListPeers() []peer.ID`.
   ///
   /// Asynchronous: runs in a goroutine of the service.
-  Future<List<$peer.Id>> listPeers() async {
+  Future<List<$peer.Libp2pCorePeerId>> listPeers() async {
     final $r = await $call(524, $W()..h(this));
-    return $r.list(() => $r.p() ? $peer.Id($r.str()) : $nil());
+    return $r.list(() => $r.p() ? $peer.Libp2pCorePeerId($r.str()) : $nil());
   }
 
   /// Go: `func (*pubsub.Topic).EventHandler(opts ...pubsub.TopicEventHandlerOpt) (*pubsub.TopicEventHandler, error)`.
   ///
   /// Asynchronous: runs in a goroutine of the service.
-  Future<TopicEventHandler> eventHandler(
-      [List<TopicEventHandlerOpt> opts = const []]) async {
+  Future<Libp2pPubsubTopicEventHandler> eventHandler(
+      [List<Libp2pPubsubTopicEventHandlerOpt> opts = const []]) async {
     final $r = await $call(
         523,
         $W()
           ..h(this)
           ..list(opts, (w0, e0) => w0.h(e0)));
-    return $r.hnn(TopicEventHandler.$h);
+    return $r.hnn(Libp2pPubsubTopicEventHandler.$h);
   }
 
   /// Go: `func (*pubsub.Topic).String() string`.
@@ -859,19 +866,19 @@ class Topic extends GoHandle {
 }
 
 /// Go: `pubsub.TopicEventHandler` (handle).
-class TopicEventHandler extends GoHandle {
-  TopicEventHandler.$h(super.$h);
+class Libp2pPubsubTopicEventHandler extends GoHandle {
+  Libp2pPubsubTopicEventHandler.$h(super.$h);
 
   /// Go: `func (*pubsub.TopicEventHandler).NextPeerEvent(ctx context.Context) (pubsub.PeerEvent, error)`.
   ///
   /// Asynchronous: runs in a goroutine of the service.
-  Future<PeerEvent> nextPeerEvent($context.Context ctx) async {
+  Future<Libp2pPubsubPeerEvent> nextPeerEvent($context.Context ctx) async {
     final $r = await $call(
         529,
         $W()
           ..h(this)
           ..h(ctx));
-    return $r.p() ? PeerEvent.$dec($r) : $nil();
+    return $r.p() ? Libp2pPubsubPeerEvent.$dec($r) : $nil();
   }
 
   /// Go: `func (*pubsub.TopicEventHandler).Cancel()`.
@@ -883,18 +890,18 @@ class TopicEventHandler extends GoHandle {
 }
 
 /// Go: `pubsub.TopicEventHandlerOpt` (handle).
-class TopicEventHandlerOpt extends GoHandle {
-  TopicEventHandlerOpt.$h(super.$h);
+class Libp2pPubsubTopicEventHandlerOpt extends GoHandle {
+  Libp2pPubsubTopicEventHandlerOpt.$h(super.$h);
 }
 
 /// Go: `pubsub.TopicOpt` (functional option; constructors in the package).
-final class TopicOpt extends GoOption {
-  TopicOpt.$(super.$i, super.$a);
+final class Libp2pPubsubTopicOpt extends GoOption {
+  Libp2pPubsubTopicOpt.$(super.$i, super.$a);
 }
 
 /// Go: `pubsub.TopicScoreParams`.
-final class TopicScoreParams implements GoDto {
-  TopicScoreParams(
+final class Libp2pPubsubTopicScoreParams implements GoDto {
+  Libp2pPubsubTopicScoreParams(
       {bool? skipAtomicValidation,
       double? topicWeight,
       double? timeInMeshWeight,
@@ -934,7 +941,7 @@ final class TopicScoreParams implements GoDto {
         invalidMessageDeliveriesWeight = invalidMessageDeliveriesWeight ?? 0.0,
         invalidMessageDeliveriesDecay = invalidMessageDeliveriesDecay ?? 0.0;
 
-  TopicScoreParams.$dec($R r)
+  Libp2pPubsubTopicScoreParams.$dec($R r)
       : skipAtomicValidation = r.b(),
         topicWeight = r.f64(),
         timeInMeshWeight = r.f64(),
@@ -1034,411 +1041,14 @@ final class TopicScoreParams implements GoDto {
 }
 
 /// Go: `pubsub.ValidatorOpt` (functional option; constructors in the package).
-final class ValidatorOpt extends GoOption {
-  ValidatorOpt.$(super.$i, super.$a);
+final class Libp2pPubsubValidatorOpt extends GoOption {
+  Libp2pPubsubValidatorOpt.$(super.$i, super.$a);
 }
-
-/// Go: `go-libp2p-pubsub.FanoutOnly`.
-TopicOpt fanoutOnly() => TopicOpt.$(0, (_) {});
-
-/// Go: `go-libp2p-pubsub.OnlyPublicAddrsOnPeerExchange`.
-Option onlyPublicAddrsOnPeerExchange() => Option.$(0, (_) {});
-
-/// Go: `go-libp2p-pubsub.RequestPartialMessages`.
-TopicOpt requestPartialMessages() => TopicOpt.$(1, (_) {});
-
-/// Go: `go-libp2p-pubsub.SupportsPartialMessages`.
-TopicOpt supportsPartialMessages() => TopicOpt.$(2, (_) {});
-
-/// Go: `go-libp2p-pubsub.WithAppSpecificRpcInspector`.
-Option withAppSpecificRpcInspector(
-        FutureOr<void> Function($peer.Id id, Rpc rpc) inspector) =>
-    Option.$(
-        1,
-        (w) => w
-          ..cb(
-              (r) =>
-                  inspector(r.p() ? $peer.Id(r.str()) : $nil(), r.hnn(Rpc.$h)),
-              true));
-
-/// Go: `go-libp2p-pubsub.WithBlacklist`.
-Option withBlacklist(Blacklist b) => Option.$(2, (w) => w..h(b));
-
-/// Go: `go-libp2p-pubsub.WithBufferSize`.
-SubOpt withBufferSize(int size) => SubOpt.$(0, (w) => w..i64(size));
-
-/// Go: `go-libp2p-pubsub.WithCustomPXRecordReducer`.
-Option withCustomPxRecordReducer(PxRecordReducer f) =>
-    Option.$(3, (w) => w..h(f));
-
-/// Go: `go-libp2p-pubsub.WithDefaultValidator`.
-Option withDefaultValidator(Object? val,
-        [List<ValidatorOpt> opts = const []]) =>
-    Option.$(
-        4,
-        (w) => w
-          ..any(val)
-          ..list(opts, (w0, e0) => w0.opt(e0)));
-
-/// Go: `go-libp2p-pubsub.WithDirectConnectTicks`.
-Option withDirectConnectTicks(int t) => Option.$(5, (w) => w..i64(t));
-
-/// Go: `go-libp2p-pubsub.WithDirectPeers`.
-Option withDirectPeers(List<$peer.AddrInfo> pis) =>
-    Option.$(6, (w) => w..list(pis, (w0, e0) => w0.dto(e0)));
-
-/// Go: `go-libp2p-pubsub.WithDiscoverConnector`.
-DiscoverOpt withDiscoverConnector(BackoffConnectorFactory connFactory) =>
-    DiscoverOpt.$(0, (w) => w..h(connFactory));
-
-/// Go: `go-libp2p-pubsub.WithDiscoveryOpts`.
-DiscoverOpt withDiscoveryOpts([List<$discovery.Option> opts = const []]) =>
-    DiscoverOpt.$(1, (w) => w..list(opts, (w0, e0) => w0.opt(e0)));
-
-/// Go: `go-libp2p-pubsub.WithDiscovery`.
-Option withDiscovery($discovery.Discovery d,
-        [List<DiscoverOpt> opts = const []]) =>
-    Option.$(
-        7,
-        (w) => w
-          ..h(d)
-          ..list(opts, (w0, e0) => w0.opt(e0)));
-
-/// Go: `go-libp2p-pubsub.WithEventTracer`.
-Option withEventTracer(EventTracer tracer) => Option.$(8, (w) => w..h(tracer));
-
-/// Go: `go-libp2p-pubsub.WithFloodPublish`.
-Option withFloodPublish(bool floodPublish) =>
-    Option.$(9, (w) => w..b(floodPublish));
-
-/// Go: `go-libp2p-pubsub.WithGossipSubParams`.
-Option withGossipSubParams(GossipSubParams cfg) =>
-    Option.$(10, (w) => w..dto(cfg));
-
-/// Go: `go-libp2p-pubsub.WithGossipSubProtocols`.
-Option withGossipSubProtocols(List<String> protos,
-        FutureOr<bool> Function(int arg0, String arg1) feature) =>
-    Option.$(
-        11,
-        (w) => w
-          ..list(protos, (w0, e0) => w0.str(e0))
-          ..cb((r) => feature(r.i64(), r.str()), true));
-
-/// Go: `go-libp2p-pubsub.WithLocalPublication`.
-PubOpt withLocalPublication(bool local) => PubOpt.$(0, (w) => w..b(local));
-
-/// Go: `go-libp2p-pubsub.WithLogger`.
-Option withLogger($slog.Logger logger) => Option.$(12, (w) => w..h(logger));
-
-/// Go: `go-libp2p-pubsub.WithMaxControlMessageSize`.
-Option withMaxControlMessageSize(int maxControlMessageSize) =>
-    Option.$(13, (w) => w..i64(maxControlMessageSize));
-
-/// Go: `go-libp2p-pubsub.WithMaxMessageSize`.
-Option withMaxMessageSize(int maxMessageSize) =>
-    Option.$(14, (w) => w..i64(maxMessageSize));
-
-/// Go: `go-libp2p-pubsub.WithMessageAuthor`.
-Option withMessageAuthor($peer.Id author) =>
-    Option.$(15, (w) => w..val(author));
-
-/// Go: `go-libp2p-pubsub.WithMessageFilter`.
-SubOpt withMessageFilter(FutureOr<bool> Function(Message message) filter) =>
-    SubOpt.$(
-        1, (w) => w..cb((r) => filter(r.p() ? Message.$dec(r) : $nil()), true));
-
-/// Go: `go-libp2p-pubsub.WithMessageIdFn`.
-Option withMessageIdFn(FutureOr<String> Function($pb.Message pmsg) fn) =>
-    Option.$(
-        16,
-        (w) => w
-          ..cb((r) => fn(r.hnn($pb.Message.$h)), true,
-              (w, v) => w.str(v as String)));
-
-/// Go: `go-libp2p-pubsub.WithMessageSignaturePolicy`.
-Option withMessageSignaturePolicy(int policy) =>
-    Option.$(17, (w) => w..i64(policy));
-
-/// Go: `go-libp2p-pubsub.WithMessageSigning`.
-Option withMessageSigning(bool enabled) => Option.$(18, (w) => w..b(enabled));
-
-/// Go: `go-libp2p-pubsub.WithNoAuthor`.
-Option withNoAuthor() => Option.$(19, (_) {});
-
-/// Go: `go-libp2p-pubsub.WithPeerExchange`.
-Option withPeerExchange(bool doPx) => Option.$(21, (w) => w..b(doPx));
-
-/// Go: `go-libp2p-pubsub.WithPeerFilter`.
-Option withPeerFilter(
-        FutureOr<bool> Function($peer.Id pid, String topic) filter) =>
-    Option.$(
-        22,
-        (w) => w
-          ..cb((r) => filter(r.p() ? $peer.Id(r.str()) : $nil(), r.str()),
-              true));
-
-/// Go: `go-libp2p-pubsub.WithPeerGater`.
-Option withPeerGater(PeerGaterParams params) =>
-    Option.$(23, (w) => w..dto(params));
-
-/// Go: `go-libp2p-pubsub.WithPeerOutboundQueueSize`.
-Option withPeerOutboundQueueSize(int size) => Option.$(24, (w) => w..i64(size));
-
-/// Go: `go-libp2p-pubsub.WithPeerScoreInspect`.
-Option withPeerScoreInspect(Object? inspect, Duration period) => Option.$(
-    26,
-    (w) => w
-      ..any(inspect)
-      ..i64((period).inMicroseconds * 1000));
-
-/// Go: `go-libp2p-pubsub.WithPeerScore`.
-Option withPeerScore(PeerScoreParams params, PeerScoreThresholds thresholds) =>
-    Option.$(
-        25,
-        (w) => w
-          ..dto(params)
-          ..dto(thresholds));
-
-/// Go: `go-libp2p-pubsub.WithRPCLogger`.
-Option withRpcLogger($slog.Logger logger) => Option.$(28, (w) => w..h(logger));
-
-/// Go: `go-libp2p-pubsub.WithRawTracer`.
-Option withRawTracer(RawTracer tracer) => Option.$(29, (w) => w..h(tracer));
-
-/// Go: `go-libp2p-pubsub.WithReadiness`.
-PubOpt withReadiness(RouterReady ready) => PubOpt.$(1, (w) => w..h(ready));
-
-/// Go: `go-libp2p-pubsub.WithSecretKeyAndPeerId`.
-PubOpt withSecretKeyAndPeerId($crypto.PrivKey key, $peer.Id pid) => PubOpt.$(
-    2,
-    (w) => w
-      ..h(key)
-      ..val(pid));
-
-/// Go: `go-libp2p-pubsub.WithSeenMessagesStrategy`.
-Option withSeenMessagesStrategy(int strategy) =>
-    Option.$(30, (w) => w..i64(strategy));
-
-/// Go: `go-libp2p-pubsub.WithSeenMessagesTTL`.
-Option withSeenMessagesTtl(Duration ttl) =>
-    Option.$(31, (w) => w..i64((ttl).inMicroseconds * 1000));
-
-/// Go: `go-libp2p-pubsub.WithStrictSignatureVerification`.
-Option withStrictSignatureVerification(bool required) =>
-    Option.$(32, (w) => w..b(required));
-
-/// Go: `go-libp2p-pubsub.WithSubscriptionFilter`.
-Option withSubscriptionFilter(SubscriptionFilter subFilter) =>
-    Option.$(33, (w) => w..h(subFilter));
-
-/// Go: `go-libp2p-pubsub.WithTestExtension`.
-Option withTestExtension(TestExtensionConfig c) =>
-    Option.$(34, (w) => w..dto(c));
-
-/// Go: `go-libp2p-pubsub.WithTopicMessageIdFn`.
-TopicOpt withTopicMessageIdFn(
-        FutureOr<String> Function($pb.Message pmsg) msgId) =>
-    TopicOpt.$(
-        3,
-        (w) => w
-          ..cb((r) => msgId(r.hnn($pb.Message.$h)), true,
-              (w, v) => w.str(v as String)));
-
-/// Go: `go-libp2p-pubsub.WithValidateQueueSize`.
-Option withValidateQueueSize(int n) => Option.$(35, (w) => w..i64(n));
-
-/// Go: `go-libp2p-pubsub.WithValidateThrottle`.
-Option withValidateThrottle(int n) => Option.$(36, (w) => w..i64(n));
-
-/// Go: `go-libp2p-pubsub.WithValidateWorkers`.
-Option withValidateWorkers(int n) => Option.$(37, (w) => w..i64(n));
-
-/// Go: `go-libp2p-pubsub.WithValidatorConcurrency`.
-ValidatorOpt withValidatorConcurrency(int n) =>
-    ValidatorOpt.$(0, (w) => w..i64(n));
-
-/// Go: `go-libp2p-pubsub.WithValidatorData`.
-PubOpt withValidatorData(Object? data) => PubOpt.$(3, (w) => w..any(data));
-
-/// Go: `go-libp2p-pubsub.WithValidatorInline`.
-ValidatorOpt withValidatorInline(bool inline) =>
-    ValidatorOpt.$(1, (w) => w..b(inline));
-
-/// Go: `go-libp2p-pubsub.WithValidatorTimeout`.
-ValidatorOpt withValidatorTimeout(Duration timeout) =>
-    ValidatorOpt.$(2, (w) => w..i64((timeout).inMicroseconds * 1000));
-
-/// Go: `func pubsub.NewGossipSub(ctx context.Context, h host.Host, opts ...pubsub.Option) (*pubsub.PubSub, error)`.
-///
-/// Asynchronous: runs in a goroutine of the service.
-Future<PubSub> newGossipSub($context.Context ctx, $host.Host h,
-    [List<Option> opts = const []]) async {
-  final $r = await $call(
-      510,
-      $W()
-        ..h(ctx)
-        ..h(h)
-        ..list(opts, (w0, e0) => w0.opt(e0)));
-  return $r.hnn(PubSub.$h);
-}
-
-/// Go: `func pubsub.DefaultGossipSubParams() pubsub.GossipSubParams`.
-GossipSubParams defaultGossipSubParams() {
-  final $r = $callSync(508);
-  return $r.p() ? GossipSubParams.$dec($r) : $nil();
-}
-
-/// Go: `const pubsub.AcceptAll pubsub.AcceptStatus`.
-const acceptAll = 2;
-
-/// Go: `const pubsub.AcceptControl pubsub.AcceptStatus`.
-const acceptControl = 1;
-
-/// Go: `const pubsub.AcceptNone pubsub.AcceptStatus`.
-const acceptNone = 0;
-
-/// Go: `const pubsub.BackoffCleanupInterval time.Duration`.
-const backoffCleanupInterval = Duration(microseconds: 60000000);
-
-/// Go: `const pubsub.BackoffMultiplier untyped int`.
-const backoffMultiplier = 2;
-
-/// Go: `const pubsub.DefaultDecayInterval time.Duration`.
-const defaultDecayInterval = Duration(microseconds: 1000000);
-
-/// Go: `const pubsub.DefaultDecayToZero untyped float`.
-const defaultDecayToZero = 0.01;
-
-/// Go: `const pubsub.DefaultMaxControlMessageSize untyped int`.
-const defaultMaxControlMessageSize = 524288;
-
-/// Go: `const pubsub.DefaultMaxMessageSize untyped int`.
-const defaultMaxMessageSize = 1048576;
-
-/// Go: `const pubsub.FloodSubID protocol.ID`.
-const floodSubId = "/floodsub/1.0.0";
-
-/// Go: `const pubsub.FloodSubTopicSearchSize untyped int`.
-const floodSubTopicSearchSize = 5;
-
-/// Go: `const pubsub.GossipSubFeatureExtensions untyped int`.
-const gossipSubFeatureExtensions = 3;
-
-/// Go: `const pubsub.GossipSubFeatureIdontwant untyped int`.
-const gossipSubFeatureIdontwant = 2;
-
-/// Go: `const pubsub.GossipSubFeatureMesh untyped int`.
-const gossipSubFeatureMesh = 0;
-
-/// Go: `const pubsub.GossipSubFeaturePX untyped int`.
-const gossipSubFeaturePx = 1;
-
-/// Go: `const pubsub.GossipSubID_v10 protocol.ID`.
-const gossipSubIdV10 = "/meshsub/1.0.0";
-
-/// Go: `const pubsub.GossipSubID_v11 protocol.ID`.
-const gossipSubIdV11 = "/meshsub/1.1.0";
-
-/// Go: `const pubsub.GossipSubID_v12 protocol.ID`.
-const gossipSubIdV12 = "/meshsub/1.2.0";
-
-/// Go: `const pubsub.GossipSubID_v13 protocol.ID`.
-const gossipSubIdV13 = "/meshsub/1.3.0";
-
-/// Go: `const pubsub.LaxNoSign untyped int`.
-const laxNoSign = 0;
-
-/// Go: `const pubsub.LaxSign pubsub.MessageSignaturePolicy`.
-const laxSign = 1;
-
-/// Go: `const pubsub.MaxBackoffAttempts untyped int`.
-const maxBackoffAttempts = 4;
-
-/// Go: `const pubsub.MaxBackoffDelay time.Duration`.
-const maxBackoffDelay = Duration(microseconds: 10000000);
-
-/// Go: `const pubsub.MaxBackoffJitterCoff untyped int`.
-const maxBackoffJitterCoff = 100;
-
-/// Go: `const pubsub.MinBackoffDelay time.Duration`.
-const minBackoffDelay = Duration(microseconds: 100000);
-
-/// Go: `const pubsub.PeerFeedbackInvalidMessage pubsub.PeerFeedbackKind`.
-const peerFeedbackInvalidMessage = 1;
-
-/// Go: `const pubsub.PeerFeedbackUsefulMessage pubsub.PeerFeedbackKind`.
-const peerFeedbackUsefulMessage = 0;
-
-/// Go: `const pubsub.PeerJoin pubsub.EventType`.
-const peerJoin = 0;
-
-/// Go: `const pubsub.PeerLeave pubsub.EventType`.
-const peerLeave = 1;
-
-/// Go: `const pubsub.RandomSubID protocol.ID`.
-const randomSubId = "/randomsub/1.0.0";
-
-/// Go: `const pubsub.RejectBlacklistedSource untyped string`.
-const rejectBlacklistedSource = "blacklisted source";
-
-/// Go: `const pubsub.RejectBlacklstedPeer untyped string`.
-const rejectBlacklstedPeer = "blacklisted peer";
-
-/// Go: `const pubsub.RejectInvalidSignature untyped string`.
-const rejectInvalidSignature = "invalid signature";
-
-/// Go: `const pubsub.RejectMissingSignature untyped string`.
-const rejectMissingSignature = "missing signature";
-
-/// Go: `const pubsub.RejectSelfOrigin untyped string`.
-const rejectSelfOrigin = "self originated message";
-
-/// Go: `const pubsub.RejectUnexpectedAuthInfo untyped string`.
-const rejectUnexpectedAuthInfo = "unexpected auth info";
-
-/// Go: `const pubsub.RejectUnexpectedSignature untyped string`.
-const rejectUnexpectedSignature = "unexpected signature";
-
-/// Go: `const pubsub.RejectValidationFailed untyped string`.
-const rejectValidationFailed = "validation failed";
-
-/// Go: `const pubsub.RejectValidationIgnored untyped string`.
-const rejectValidationIgnored = "validation ignored";
-
-/// Go: `const pubsub.RejectValidationQueueFull untyped string`.
-const rejectValidationQueueFull = "validation queue full";
-
-/// Go: `const pubsub.RejectValidationThrottled untyped string`.
-const rejectValidationThrottled = "validation throttled";
-
-/// Go: `const pubsub.RemoteTracerProtoID protocol.ID`.
-const remoteTracerProtoId = "/libp2p/pubsub/tracer/1.0.0";
-
-/// Go: `const pubsub.SignPrefix untyped string`.
-const signPrefix = "libp2p-pubsub:";
-
-/// Go: `const pubsub.StrictNoSign pubsub.MessageSignaturePolicy`.
-const strictNoSign = 2;
-
-/// Go: `const pubsub.StrictSign pubsub.MessageSignaturePolicy`.
-const strictSign = 3;
-
-/// Go: `const pubsub.TimeToLive time.Duration`.
-const timeToLive = Duration(microseconds: 600000000);
-
-/// Go: `const pubsub.ValidationAccept pubsub.ValidationResult`.
-const validationAccept = 0;
-
-/// Go: `const pubsub.ValidationIgnore pubsub.ValidationResult`.
-const validationIgnore = 2;
-
-/// Go: `const pubsub.ValidationReject pubsub.ValidationResult`.
-const validationReject = 1;
 
 /// Go: `var pubsub.ErrEmptyPeerID error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrEmptyPeerId extends GolangException {
-  ErrEmptyPeerId.$(super.base) : super.$from();
+class Libp2pPubsubErrEmptyPeerId extends GolangException {
+  Libp2pPubsubErrEmptyPeerId.$(super.base) : super.$from();
 
   @override
   String toString() => 'pubsub.ErrEmptyPeerID: $message';
@@ -1446,8 +1056,8 @@ class ErrEmptyPeerId extends GolangException {
 
 /// Go: `var pubsub.ErrFanoutOnlyTopic error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrFanoutOnlyTopic extends GolangException {
-  ErrFanoutOnlyTopic.$(super.base) : super.$from();
+class Libp2pPubsubErrFanoutOnlyTopic extends GolangException {
+  Libp2pPubsubErrFanoutOnlyTopic.$(super.base) : super.$from();
 
   @override
   String toString() => 'pubsub.ErrFanoutOnlyTopic: $message';
@@ -1455,8 +1065,8 @@ class ErrFanoutOnlyTopic extends GolangException {
 
 /// Go: `var pubsub.ErrNilSignKey error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrNilSignKey extends GolangException {
-  ErrNilSignKey.$(super.base) : super.$from();
+class Libp2pPubsubErrNilSignKey extends GolangException {
+  Libp2pPubsubErrNilSignKey.$(super.base) : super.$from();
 
   @override
   String toString() => 'pubsub.ErrNilSignKey: $message';
@@ -1464,8 +1074,8 @@ class ErrNilSignKey extends GolangException {
 
 /// Go: `var pubsub.ErrQueueCancelled error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrQueueCancelled extends GolangException {
-  ErrQueueCancelled.$(super.base) : super.$from();
+class Libp2pPubsubErrQueueCancelled extends GolangException {
+  Libp2pPubsubErrQueueCancelled.$(super.base) : super.$from();
 
   @override
   String toString() => 'pubsub.ErrQueueCancelled: $message';
@@ -1473,8 +1083,8 @@ class ErrQueueCancelled extends GolangException {
 
 /// Go: `var pubsub.ErrQueueClosed error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrQueueClosed extends GolangException {
-  ErrQueueClosed.$(super.base) : super.$from();
+class Libp2pPubsubErrQueueClosed extends GolangException {
+  Libp2pPubsubErrQueueClosed.$(super.base) : super.$from();
 
   @override
   String toString() => 'pubsub.ErrQueueClosed: $message';
@@ -1482,8 +1092,8 @@ class ErrQueueClosed extends GolangException {
 
 /// Go: `var pubsub.ErrQueueFull error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrQueueFull extends GolangException {
-  ErrQueueFull.$(super.base) : super.$from();
+class Libp2pPubsubErrQueueFull extends GolangException {
+  Libp2pPubsubErrQueueFull.$(super.base) : super.$from();
 
   @override
   String toString() => 'pubsub.ErrQueueFull: $message';
@@ -1491,8 +1101,8 @@ class ErrQueueFull extends GolangException {
 
 /// Go: `var pubsub.ErrQueuePushOnClosed error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrQueuePushOnClosed extends GolangException {
-  ErrQueuePushOnClosed.$(super.base) : super.$from();
+class Libp2pPubsubErrQueuePushOnClosed extends GolangException {
+  Libp2pPubsubErrQueuePushOnClosed.$(super.base) : super.$from();
 
   @override
   String toString() => 'pubsub.ErrQueuePushOnClosed: $message';
@@ -1500,8 +1110,8 @@ class ErrQueuePushOnClosed extends GolangException {
 
 /// Go: `var pubsub.ErrSubscriptionCancelled error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrSubscriptionCancelled extends GolangException {
-  ErrSubscriptionCancelled.$(super.base) : super.$from();
+class Libp2pPubsubErrSubscriptionCancelled extends GolangException {
+  Libp2pPubsubErrSubscriptionCancelled.$(super.base) : super.$from();
 
   @override
   String toString() => 'pubsub.ErrSubscriptionCancelled: $message';
@@ -1509,8 +1119,8 @@ class ErrSubscriptionCancelled extends GolangException {
 
 /// Go: `var pubsub.ErrTooManySubscriptions error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrTooManySubscriptions extends GolangException {
-  ErrTooManySubscriptions.$(super.base) : super.$from();
+class Libp2pPubsubErrTooManySubscriptions extends GolangException {
+  Libp2pPubsubErrTooManySubscriptions.$(super.base) : super.$from();
 
   @override
   String toString() => 'pubsub.ErrTooManySubscriptions: $message';
@@ -1518,8 +1128,8 @@ class ErrTooManySubscriptions extends GolangException {
 
 /// Go: `var pubsub.ErrTopicClosed error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrTopicClosed extends GolangException {
-  ErrTopicClosed.$(super.base) : super.$from();
+class Libp2pPubsubErrTopicClosed extends GolangException {
+  Libp2pPubsubErrTopicClosed.$(super.base) : super.$from();
 
   @override
   String toString() => 'pubsub.ErrTopicClosed: $message';
@@ -1527,8 +1137,8 @@ class ErrTopicClosed extends GolangException {
 
 /// Go: `pubsub.ValidationError`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ValidationError extends GolangException {
-  ValidationError.$(super.base, $R r)
+class Libp2pPubsubValidationError extends GolangException {
+  Libp2pPubsubValidationError.$(super.base, $R r)
       : reason = r.str(),
         super.$from();
 
@@ -1537,4 +1147,444 @@ class ValidationError extends GolangException {
 
   @override
   String toString() => 'pubsub.ValidationError: $message';
+}
+
+/// Go: the package-level members of `github.com/libp2p/go-libp2p-pubsub` (`Go.libp2pPubsub`).
+extension GoLibp2pPubsubApi on GoLibp2pPubsub {
+  /// Go: `go-libp2p-pubsub.FanoutOnly`.
+  Libp2pPubsubTopicOpt fanoutOnly() => Libp2pPubsubTopicOpt.$(0, (_) {});
+
+  /// Go: `go-libp2p-pubsub.OnlyPublicAddrsOnPeerExchange`.
+  Libp2pPubsubOption onlyPublicAddrsOnPeerExchange() =>
+      Libp2pPubsubOption.$(0, (_) {});
+
+  /// Go: `go-libp2p-pubsub.RequestPartialMessages`.
+  Libp2pPubsubTopicOpt requestPartialMessages() =>
+      Libp2pPubsubTopicOpt.$(1, (_) {});
+
+  /// Go: `go-libp2p-pubsub.SupportsPartialMessages`.
+  Libp2pPubsubTopicOpt supportsPartialMessages() =>
+      Libp2pPubsubTopicOpt.$(2, (_) {});
+
+  /// Go: `go-libp2p-pubsub.WithAppSpecificRpcInspector`.
+  Libp2pPubsubOption withAppSpecificRpcInspector(
+          FutureOr<void> Function(
+                  $peer.Libp2pCorePeerId id, Libp2pPubsubRpc rpc)
+              inspector) =>
+      Libp2pPubsubOption.$(
+          1,
+          (w) => w
+            ..cb(
+                (r) => inspector(
+                    r.p() ? $peer.Libp2pCorePeerId(r.str()) : $nil(),
+                    r.hnn(Libp2pPubsubRpc.$h)),
+                true));
+
+  /// Go: `go-libp2p-pubsub.WithBlacklist`.
+  Libp2pPubsubOption withBlacklist(Libp2pPubsubBlacklist b) =>
+      Libp2pPubsubOption.$(2, (w) => w..h(b));
+
+  /// Go: `go-libp2p-pubsub.WithBufferSize`.
+  Libp2pPubsubSubOpt withBufferSize(int size) =>
+      Libp2pPubsubSubOpt.$(0, (w) => w..i64(size));
+
+  /// Go: `go-libp2p-pubsub.WithCustomPXRecordReducer`.
+  Libp2pPubsubOption withCustomPxRecordReducer(Libp2pPubsubPxRecordReducer f) =>
+      Libp2pPubsubOption.$(3, (w) => w..h(f));
+
+  /// Go: `go-libp2p-pubsub.WithDefaultValidator`.
+  Libp2pPubsubOption withDefaultValidator(Object? val,
+          [List<Libp2pPubsubValidatorOpt> opts = const []]) =>
+      Libp2pPubsubOption.$(
+          4,
+          (w) => w
+            ..any(val)
+            ..list(opts, (w0, e0) => w0.opt(e0)));
+
+  /// Go: `go-libp2p-pubsub.WithDirectConnectTicks`.
+  Libp2pPubsubOption withDirectConnectTicks(int t) =>
+      Libp2pPubsubOption.$(5, (w) => w..i64(t));
+
+  /// Go: `go-libp2p-pubsub.WithDirectPeers`.
+  Libp2pPubsubOption withDirectPeers(List<$peer.Libp2pCorePeerAddrInfo> pis) =>
+      Libp2pPubsubOption.$(6, (w) => w..list(pis, (w0, e0) => w0.dto(e0)));
+
+  /// Go: `go-libp2p-pubsub.WithDiscoverConnector`.
+  Libp2pPubsubDiscoverOpt withDiscoverConnector(
+          Libp2pPubsubBackoffConnectorFactory connFactory) =>
+      Libp2pPubsubDiscoverOpt.$(0, (w) => w..h(connFactory));
+
+  /// Go: `go-libp2p-pubsub.WithDiscoveryOpts`.
+  Libp2pPubsubDiscoverOpt withDiscoveryOpts(
+          [List<$discovery.Libp2pCoreDiscoveryOption> opts = const []]) =>
+      Libp2pPubsubDiscoverOpt.$(
+          1, (w) => w..list(opts, (w0, e0) => w0.opt(e0)));
+
+  /// Go: `go-libp2p-pubsub.WithDiscovery`.
+  Libp2pPubsubOption withDiscovery($discovery.Libp2pCoreDiscovery d,
+          [List<Libp2pPubsubDiscoverOpt> opts = const []]) =>
+      Libp2pPubsubOption.$(
+          7,
+          (w) => w
+            ..h(d)
+            ..list(opts, (w0, e0) => w0.opt(e0)));
+
+  /// Go: `go-libp2p-pubsub.WithEventTracer`.
+  Libp2pPubsubOption withEventTracer(Libp2pPubsubEventTracer tracer) =>
+      Libp2pPubsubOption.$(8, (w) => w..h(tracer));
+
+  /// Go: `go-libp2p-pubsub.WithFloodPublish`.
+  Libp2pPubsubOption withFloodPublish(bool floodPublish) =>
+      Libp2pPubsubOption.$(9, (w) => w..b(floodPublish));
+
+  /// Go: `go-libp2p-pubsub.WithGossipSubParams`.
+  Libp2pPubsubOption withGossipSubParams(Libp2pPubsubGossipSubParams cfg) =>
+      Libp2pPubsubOption.$(10, (w) => w..dto(cfg));
+
+  /// Go: `go-libp2p-pubsub.WithGossipSubProtocols`.
+  Libp2pPubsubOption withGossipSubProtocols(List<String> protos,
+          FutureOr<bool> Function(int arg0, String arg1) feature) =>
+      Libp2pPubsubOption.$(
+          11,
+          (w) => w
+            ..list(protos, (w0, e0) => w0.str(e0))
+            ..cb((r) => feature(r.i64(), r.str()), true));
+
+  /// Go: `go-libp2p-pubsub.WithLocalPublication`.
+  Libp2pPubsubPubOpt withLocalPublication(bool local) =>
+      Libp2pPubsubPubOpt.$(0, (w) => w..b(local));
+
+  /// Go: `go-libp2p-pubsub.WithLogger`.
+  Libp2pPubsubOption withLogger($slog.LogSlogLogger logger) =>
+      Libp2pPubsubOption.$(12, (w) => w..h(logger));
+
+  /// Go: `go-libp2p-pubsub.WithMaxControlMessageSize`.
+  Libp2pPubsubOption withMaxControlMessageSize(int maxControlMessageSize) =>
+      Libp2pPubsubOption.$(13, (w) => w..i64(maxControlMessageSize));
+
+  /// Go: `go-libp2p-pubsub.WithMaxMessageSize`.
+  Libp2pPubsubOption withMaxMessageSize(int maxMessageSize) =>
+      Libp2pPubsubOption.$(14, (w) => w..i64(maxMessageSize));
+
+  /// Go: `go-libp2p-pubsub.WithMessageAuthor`.
+  Libp2pPubsubOption withMessageAuthor($peer.Libp2pCorePeerId author) =>
+      Libp2pPubsubOption.$(15, (w) => w..val(author));
+
+  /// Go: `go-libp2p-pubsub.WithMessageFilter`.
+  Libp2pPubsubSubOpt withMessageFilter(
+          FutureOr<bool> Function(Libp2pPubsubMessage message) filter) =>
+      Libp2pPubsubSubOpt.$(
+          1,
+          (w) => w
+            ..cb((r) => filter(r.p() ? Libp2pPubsubMessage.$dec(r) : $nil()),
+                true));
+
+  /// Go: `go-libp2p-pubsub.WithMessageIdFn`.
+  Libp2pPubsubOption withMessageIdFn(
+          FutureOr<String> Function($pb.Libp2pPubsubPbMessage pmsg) fn) =>
+      Libp2pPubsubOption.$(
+          16,
+          (w) => w
+            ..cb((r) => fn(r.hnn($pb.Libp2pPubsubPbMessage.$h)), true,
+                (w, v) => w.str(v as String)));
+
+  /// Go: `go-libp2p-pubsub.WithMessageSignaturePolicy`.
+  Libp2pPubsubOption withMessageSignaturePolicy(int policy) =>
+      Libp2pPubsubOption.$(17, (w) => w..i64(policy));
+
+  /// Go: `go-libp2p-pubsub.WithMessageSigning`.
+  Libp2pPubsubOption withMessageSigning(bool enabled) =>
+      Libp2pPubsubOption.$(18, (w) => w..b(enabled));
+
+  /// Go: `go-libp2p-pubsub.WithNoAuthor`.
+  Libp2pPubsubOption withNoAuthor() => Libp2pPubsubOption.$(19, (_) {});
+
+  /// Go: `go-libp2p-pubsub.WithPeerExchange`.
+  Libp2pPubsubOption withPeerExchange(bool doPx) =>
+      Libp2pPubsubOption.$(21, (w) => w..b(doPx));
+
+  /// Go: `go-libp2p-pubsub.WithPeerFilter`.
+  Libp2pPubsubOption withPeerFilter(
+          FutureOr<bool> Function($peer.Libp2pCorePeerId pid, String topic)
+              filter) =>
+      Libp2pPubsubOption.$(
+          22,
+          (w) => w
+            ..cb(
+                (r) => filter(
+                    r.p() ? $peer.Libp2pCorePeerId(r.str()) : $nil(), r.str()),
+                true));
+
+  /// Go: `go-libp2p-pubsub.WithPeerGater`.
+  Libp2pPubsubOption withPeerGater(Libp2pPubsubPeerGaterParams params) =>
+      Libp2pPubsubOption.$(23, (w) => w..dto(params));
+
+  /// Go: `go-libp2p-pubsub.WithPeerOutboundQueueSize`.
+  Libp2pPubsubOption withPeerOutboundQueueSize(int size) =>
+      Libp2pPubsubOption.$(24, (w) => w..i64(size));
+
+  /// Go: `go-libp2p-pubsub.WithPeerScoreInspect`.
+  Libp2pPubsubOption withPeerScoreInspect(Object? inspect, Duration period) =>
+      Libp2pPubsubOption.$(
+          26,
+          (w) => w
+            ..any(inspect)
+            ..i64((period).inMicroseconds * 1000));
+
+  /// Go: `go-libp2p-pubsub.WithPeerScore`.
+  Libp2pPubsubOption withPeerScore(Libp2pPubsubPeerScoreParams params,
+          Libp2pPubsubPeerScoreThresholds thresholds) =>
+      Libp2pPubsubOption.$(
+          25,
+          (w) => w
+            ..dto(params)
+            ..dto(thresholds));
+
+  /// Go: `go-libp2p-pubsub.WithRPCLogger`.
+  Libp2pPubsubOption withRpcLogger($slog.LogSlogLogger logger) =>
+      Libp2pPubsubOption.$(28, (w) => w..h(logger));
+
+  /// Go: `go-libp2p-pubsub.WithRawTracer`.
+  Libp2pPubsubOption withRawTracer(Libp2pPubsubRawTracer tracer) =>
+      Libp2pPubsubOption.$(29, (w) => w..h(tracer));
+
+  /// Go: `go-libp2p-pubsub.WithReadiness`.
+  Libp2pPubsubPubOpt withReadiness(Libp2pPubsubRouterReady ready) =>
+      Libp2pPubsubPubOpt.$(1, (w) => w..h(ready));
+
+  /// Go: `go-libp2p-pubsub.WithSecretKeyAndPeerId`.
+  Libp2pPubsubPubOpt withSecretKeyAndPeerId(
+          $crypto.Libp2pCoreCryptoPrivKey key, $peer.Libp2pCorePeerId pid) =>
+      Libp2pPubsubPubOpt.$(
+          2,
+          (w) => w
+            ..h(key)
+            ..val(pid));
+
+  /// Go: `go-libp2p-pubsub.WithSeenMessagesStrategy`.
+  Libp2pPubsubOption withSeenMessagesStrategy(int strategy) =>
+      Libp2pPubsubOption.$(30, (w) => w..i64(strategy));
+
+  /// Go: `go-libp2p-pubsub.WithSeenMessagesTTL`.
+  Libp2pPubsubOption withSeenMessagesTtl(Duration ttl) =>
+      Libp2pPubsubOption.$(31, (w) => w..i64((ttl).inMicroseconds * 1000));
+
+  /// Go: `go-libp2p-pubsub.WithStrictSignatureVerification`.
+  Libp2pPubsubOption withStrictSignatureVerification(bool required) =>
+      Libp2pPubsubOption.$(32, (w) => w..b(required));
+
+  /// Go: `go-libp2p-pubsub.WithSubscriptionFilter`.
+  Libp2pPubsubOption withSubscriptionFilter(
+          Libp2pPubsubSubscriptionFilter subFilter) =>
+      Libp2pPubsubOption.$(33, (w) => w..h(subFilter));
+
+  /// Go: `go-libp2p-pubsub.WithTestExtension`.
+  Libp2pPubsubOption withTestExtension(Libp2pPubsubTestExtensionConfig c) =>
+      Libp2pPubsubOption.$(34, (w) => w..dto(c));
+
+  /// Go: `go-libp2p-pubsub.WithTopicMessageIdFn`.
+  Libp2pPubsubTopicOpt withTopicMessageIdFn(
+          FutureOr<String> Function($pb.Libp2pPubsubPbMessage pmsg) msgId) =>
+      Libp2pPubsubTopicOpt.$(
+          3,
+          (w) => w
+            ..cb((r) => msgId(r.hnn($pb.Libp2pPubsubPbMessage.$h)), true,
+                (w, v) => w.str(v as String)));
+
+  /// Go: `go-libp2p-pubsub.WithValidateQueueSize`.
+  Libp2pPubsubOption withValidateQueueSize(int n) =>
+      Libp2pPubsubOption.$(35, (w) => w..i64(n));
+
+  /// Go: `go-libp2p-pubsub.WithValidateThrottle`.
+  Libp2pPubsubOption withValidateThrottle(int n) =>
+      Libp2pPubsubOption.$(36, (w) => w..i64(n));
+
+  /// Go: `go-libp2p-pubsub.WithValidateWorkers`.
+  Libp2pPubsubOption withValidateWorkers(int n) =>
+      Libp2pPubsubOption.$(37, (w) => w..i64(n));
+
+  /// Go: `go-libp2p-pubsub.WithValidatorConcurrency`.
+  Libp2pPubsubValidatorOpt withValidatorConcurrency(int n) =>
+      Libp2pPubsubValidatorOpt.$(0, (w) => w..i64(n));
+
+  /// Go: `go-libp2p-pubsub.WithValidatorData`.
+  Libp2pPubsubPubOpt withValidatorData(Object? data) =>
+      Libp2pPubsubPubOpt.$(3, (w) => w..any(data));
+
+  /// Go: `go-libp2p-pubsub.WithValidatorInline`.
+  Libp2pPubsubValidatorOpt withValidatorInline(bool inline) =>
+      Libp2pPubsubValidatorOpt.$(1, (w) => w..b(inline));
+
+  /// Go: `go-libp2p-pubsub.WithValidatorTimeout`.
+  Libp2pPubsubValidatorOpt withValidatorTimeout(Duration timeout) =>
+      Libp2pPubsubValidatorOpt.$(
+          2, (w) => w..i64((timeout).inMicroseconds * 1000));
+
+  /// Go: `func pubsub.NewGossipSub(ctx context.Context, h host.Host, opts ...pubsub.Option) (*pubsub.PubSub, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<Libp2pPubsubPubSub> newGossipSub(
+      $context.Context ctx, $host.Libp2pCoreHost h,
+      [List<Libp2pPubsubOption> opts = const []]) async {
+    final $r = await $call(
+        510,
+        $W()
+          ..h(ctx)
+          ..h(h)
+          ..list(opts, (w0, e0) => w0.opt(e0)));
+    return $r.hnn(Libp2pPubsubPubSub.$h);
+  }
+
+  /// Go: `func pubsub.DefaultGossipSubParams() pubsub.GossipSubParams`.
+  Libp2pPubsubGossipSubParams defaultGossipSubParams() {
+    final $r = $callSync(508);
+    return $r.p() ? Libp2pPubsubGossipSubParams.$dec($r) : $nil();
+  }
+
+  /// Go: `const pubsub.AcceptAll pubsub.AcceptStatus`.
+  int get acceptAll => 2;
+
+  /// Go: `const pubsub.AcceptControl pubsub.AcceptStatus`.
+  int get acceptControl => 1;
+
+  /// Go: `const pubsub.AcceptNone pubsub.AcceptStatus`.
+  int get acceptNone => 0;
+
+  /// Go: `const pubsub.BackoffCleanupInterval time.Duration`.
+  Duration get backoffCleanupInterval => Duration(microseconds: 60000000);
+
+  /// Go: `const pubsub.BackoffMultiplier untyped int`.
+  int get backoffMultiplier => 2;
+
+  /// Go: `const pubsub.DefaultDecayInterval time.Duration`.
+  Duration get defaultDecayInterval => Duration(microseconds: 1000000);
+
+  /// Go: `const pubsub.DefaultDecayToZero untyped float`.
+  double get defaultDecayToZero => 0.01;
+
+  /// Go: `const pubsub.DefaultMaxControlMessageSize untyped int`.
+  int get defaultMaxControlMessageSize => 524288;
+
+  /// Go: `const pubsub.DefaultMaxMessageSize untyped int`.
+  int get defaultMaxMessageSize => 1048576;
+
+  /// Go: `const pubsub.FloodSubID protocol.ID`.
+  String get floodSubId => "/floodsub/1.0.0";
+
+  /// Go: `const pubsub.FloodSubTopicSearchSize untyped int`.
+  int get floodSubTopicSearchSize => 5;
+
+  /// Go: `const pubsub.GossipSubFeatureExtensions untyped int`.
+  int get gossipSubFeatureExtensions => 3;
+
+  /// Go: `const pubsub.GossipSubFeatureIdontwant untyped int`.
+  int get gossipSubFeatureIdontwant => 2;
+
+  /// Go: `const pubsub.GossipSubFeatureMesh untyped int`.
+  int get gossipSubFeatureMesh => 0;
+
+  /// Go: `const pubsub.GossipSubFeaturePX untyped int`.
+  int get gossipSubFeaturePx => 1;
+
+  /// Go: `const pubsub.GossipSubID_v10 protocol.ID`.
+  String get gossipSubIdV10 => "/meshsub/1.0.0";
+
+  /// Go: `const pubsub.GossipSubID_v11 protocol.ID`.
+  String get gossipSubIdV11 => "/meshsub/1.1.0";
+
+  /// Go: `const pubsub.GossipSubID_v12 protocol.ID`.
+  String get gossipSubIdV12 => "/meshsub/1.2.0";
+
+  /// Go: `const pubsub.GossipSubID_v13 protocol.ID`.
+  String get gossipSubIdV13 => "/meshsub/1.3.0";
+
+  /// Go: `const pubsub.LaxNoSign untyped int`.
+  int get laxNoSign => 0;
+
+  /// Go: `const pubsub.LaxSign pubsub.MessageSignaturePolicy`.
+  int get laxSign => 1;
+
+  /// Go: `const pubsub.MaxBackoffAttempts untyped int`.
+  int get maxBackoffAttempts => 4;
+
+  /// Go: `const pubsub.MaxBackoffDelay time.Duration`.
+  Duration get maxBackoffDelay => Duration(microseconds: 10000000);
+
+  /// Go: `const pubsub.MaxBackoffJitterCoff untyped int`.
+  int get maxBackoffJitterCoff => 100;
+
+  /// Go: `const pubsub.MinBackoffDelay time.Duration`.
+  Duration get minBackoffDelay => Duration(microseconds: 100000);
+
+  /// Go: `const pubsub.PeerFeedbackInvalidMessage pubsub.PeerFeedbackKind`.
+  int get peerFeedbackInvalidMessage => 1;
+
+  /// Go: `const pubsub.PeerFeedbackUsefulMessage pubsub.PeerFeedbackKind`.
+  int get peerFeedbackUsefulMessage => 0;
+
+  /// Go: `const pubsub.PeerJoin pubsub.EventType`.
+  int get peerJoin => 0;
+
+  /// Go: `const pubsub.PeerLeave pubsub.EventType`.
+  int get peerLeave => 1;
+
+  /// Go: `const pubsub.RandomSubID protocol.ID`.
+  String get randomSubId => "/randomsub/1.0.0";
+
+  /// Go: `const pubsub.RejectBlacklistedSource untyped string`.
+  String get rejectBlacklistedSource => "blacklisted source";
+
+  /// Go: `const pubsub.RejectBlacklstedPeer untyped string`.
+  String get rejectBlacklstedPeer => "blacklisted peer";
+
+  /// Go: `const pubsub.RejectInvalidSignature untyped string`.
+  String get rejectInvalidSignature => "invalid signature";
+
+  /// Go: `const pubsub.RejectMissingSignature untyped string`.
+  String get rejectMissingSignature => "missing signature";
+
+  /// Go: `const pubsub.RejectSelfOrigin untyped string`.
+  String get rejectSelfOrigin => "self originated message";
+
+  /// Go: `const pubsub.RejectUnexpectedAuthInfo untyped string`.
+  String get rejectUnexpectedAuthInfo => "unexpected auth info";
+
+  /// Go: `const pubsub.RejectUnexpectedSignature untyped string`.
+  String get rejectUnexpectedSignature => "unexpected signature";
+
+  /// Go: `const pubsub.RejectValidationFailed untyped string`.
+  String get rejectValidationFailed => "validation failed";
+
+  /// Go: `const pubsub.RejectValidationIgnored untyped string`.
+  String get rejectValidationIgnored => "validation ignored";
+
+  /// Go: `const pubsub.RejectValidationQueueFull untyped string`.
+  String get rejectValidationQueueFull => "validation queue full";
+
+  /// Go: `const pubsub.RejectValidationThrottled untyped string`.
+  String get rejectValidationThrottled => "validation throttled";
+
+  /// Go: `const pubsub.RemoteTracerProtoID protocol.ID`.
+  String get remoteTracerProtoId => "/libp2p/pubsub/tracer/1.0.0";
+
+  /// Go: `const pubsub.SignPrefix untyped string`.
+  String get signPrefix => "libp2p-pubsub:";
+
+  /// Go: `const pubsub.StrictNoSign pubsub.MessageSignaturePolicy`.
+  int get strictNoSign => 2;
+
+  /// Go: `const pubsub.StrictSign pubsub.MessageSignaturePolicy`.
+  int get strictSign => 3;
+
+  /// Go: `const pubsub.TimeToLive time.Duration`.
+  Duration get timeToLive => Duration(microseconds: 600000000);
+
+  /// Go: `const pubsub.ValidationAccept pubsub.ValidationResult`.
+  int get validationAccept => 0;
+
+  /// Go: `const pubsub.ValidationIgnore pubsub.ValidationResult`.
+  int get validationIgnore => 2;
+
+  /// Go: `const pubsub.ValidationReject pubsub.ValidationResult`.
+  int get validationReject => 1;
 }

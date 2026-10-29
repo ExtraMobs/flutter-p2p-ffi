@@ -7,14 +7,14 @@ import 'dart:typed_data';
 import 'package:p2p_ffi/src/runtime.dart';
 
 /// Go: `record.Validator` (handle).
-class Validator extends GoHandle {
-  Validator.$h(super.$h);
+class Libp2pRecordValidator extends GoHandle {
+  Libp2pRecordValidator.$h(super.$h);
 }
 
 /// Go: `record.ErrBetterRecord`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrBetterRecord extends GolangException {
-  ErrBetterRecord.$(super.base, $R r)
+class Libp2pRecordErrBetterRecord extends GolangException {
+  Libp2pRecordErrBetterRecord.$(super.base, $R r)
       : key = r.str(),
         value$ = r.bytes() ?? Uint8List(0),
         super.$from();
@@ -31,8 +31,8 @@ class ErrBetterRecord extends GolangException {
 
 /// Go: `var record.ErrInvalidRecordType error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrInvalidRecordType extends GolangException {
-  ErrInvalidRecordType.$(super.base) : super.$from();
+class Libp2pRecordErrInvalidRecordType extends GolangException {
+  Libp2pRecordErrInvalidRecordType.$(super.base) : super.$from();
 
   @override
   String toString() => 'record.ErrInvalidRecordType: $message';

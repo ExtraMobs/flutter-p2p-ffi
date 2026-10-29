@@ -2,23 +2,27 @@
 // Go: runtime/debug
 library;
 
+import 'package:p2p_ffi/src/go.dart' show GoRuntimeDebug;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/os.dart' as $os;
 
 /// Go: `debug.CrashOptions`.
-final class CrashOptions implements GoDto {
-  CrashOptions();
-  CrashOptions.$dec($R r);
+final class RuntimeDebugCrashOptions implements GoDto {
+  RuntimeDebugCrashOptions();
+  RuntimeDebugCrashOptions.$dec($R r);
 
   @override
   void $enc($W w) {}
 }
 
-/// Go: `func debug.SetCrashOutput(f *os.File, opts debug.CrashOptions) error`.
-void setCrashOutput($os.File f, CrashOptions opts) {
-  $callSync(
-      704,
-      $W()
-        ..h(f)
-        ..dto(opts));
+/// Go: the package-level members of `runtime/debug` (`Go.runtime.debug`).
+extension GoRuntimeDebugApi on GoRuntimeDebug {
+  /// Go: `func debug.SetCrashOutput(f *os.File, opts debug.CrashOptions) error`.
+  void setCrashOutput($os.OsFile f, RuntimeDebugCrashOptions opts) {
+    $callSync(
+        704,
+        $W()
+          ..h(f)
+          ..dto(opts));
+  }
 }

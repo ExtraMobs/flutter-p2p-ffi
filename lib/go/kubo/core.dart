@@ -2,6 +2,7 @@
 // Go: github.com/ipfs/kubo/core
 library;
 
+import 'package:p2p_ffi/src/go.dart' show GoKuboCore;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/boxo/blockservice.dart' as $blockservice;
 import 'package:p2p_ffi/go/boxo/blockstore.dart' as $blockstore;
@@ -15,8 +16,8 @@ import 'package:p2p_ffi/go/libp2p/core/host.dart' as $host;
 import 'package:p2p_ffi/go/libp2p/core/network.dart' as $network;
 
 /// Go: `core.IpfsNode` (handle).
-class IpfsNode extends GoHandle {
-  IpfsNode.$h(super.$h);
+class KuboCoreIpfsNode extends GoHandle {
+  KuboCoreIpfsNode.$h(super.$h);
 
   /// Go: `func (*core.IpfsNode).Close() error`.
   ///
@@ -26,13 +27,13 @@ class IpfsNode extends GoHandle {
   }
 
   /// Go: `field FilesRoot *mfs.Root`.
-  $mfs.Root get filesRoot {
+  $mfs.BoxoMfsRoot get filesRoot {
     final $r = $callSync(281, $W()..h(this));
-    return $r.hnn($mfs.Root.$h);
+    return $r.hnn($mfs.BoxoMfsRoot.$h);
   }
 
   /// Go: `field FilesRoot *mfs.Root`.
-  set filesRoot($mfs.Root filesRoot) {
+  set filesRoot($mfs.BoxoMfsRoot filesRoot) {
     $callSync(
         282,
         $W()
@@ -41,13 +42,13 @@ class IpfsNode extends GoHandle {
   }
 
   /// Go: `field Repo repo.Repo`.
-  $repo.Repo get repo {
+  $repo.KuboRepo get repo {
     final $r = $callSync(289, $W()..h(this));
-    return $r.hnn($repo.Repo.$h);
+    return $r.hnn($repo.KuboRepo.$h);
   }
 
   /// Go: `field Repo repo.Repo`.
-  set repo($repo.Repo repo) {
+  set repo($repo.KuboRepo repo) {
     $callSync(
         290,
         $W()
@@ -56,13 +57,13 @@ class IpfsNode extends GoHandle {
   }
 
   /// Go: `field Peering *peering.PeeringService`.
-  $peering.PeeringService get peering {
+  $peering.BoxoPeeringService get peering {
     final $r = $callSync(287, $W()..h(this));
-    return $r.hnn($peering.PeeringService.$h);
+    return $r.hnn($peering.BoxoPeeringService.$h);
   }
 
   /// Go: `field Peering *peering.PeeringService`.
-  set peering($peering.PeeringService peering) {
+  set peering($peering.BoxoPeeringService peering) {
     $callSync(
         288,
         $W()
@@ -71,13 +72,13 @@ class IpfsNode extends GoHandle {
   }
 
   /// Go: `field Blocks blockservice.BlockService`.
-  $blockservice.BlockService get blocks {
+  $blockservice.BoxoBlockserviceBlockService get blocks {
     final $r = $callSync(274, $W()..h(this));
-    return $r.hnn($blockservice.BlockService.$h);
+    return $r.hnn($blockservice.BoxoBlockserviceBlockService.$h);
   }
 
   /// Go: `field Blocks blockservice.BlockService`.
-  set blocks($blockservice.BlockService blocks) {
+  set blocks($blockservice.BoxoBlockserviceBlockService blocks) {
     $callSync(
         275,
         $W()
@@ -86,13 +87,13 @@ class IpfsNode extends GoHandle {
   }
 
   /// Go: `field Blockstore blockstore.GCBlockstore`.
-  $blockstore.GcBlockstore get blockstore {
+  $blockstore.BoxoBlockstoreGcBlockstore get blockstore {
     final $r = $callSync(276, $W()..h(this));
-    return $r.hnn($blockstore.GcBlockstore.$h);
+    return $r.hnn($blockstore.BoxoBlockstoreGcBlockstore.$h);
   }
 
   /// Go: `field Blockstore blockstore.GCBlockstore`.
-  set blockstore($blockstore.GcBlockstore blockstore) {
+  set blockstore($blockstore.BoxoBlockstoreGcBlockstore blockstore) {
     $callSync(
         277,
         $W()
@@ -101,13 +102,13 @@ class IpfsNode extends GoHandle {
   }
 
   /// Go: `field Exchange exchange.Interface`.
-  $exchange.Interface get exchange {
+  $exchange.BoxoExchangeInterface get exchange {
     final $r = $callSync(279, $W()..h(this));
-    return $r.hnn($exchange.Interface.$h);
+    return $r.hnn($exchange.BoxoExchangeInterface.$h);
   }
 
   /// Go: `field Exchange exchange.Interface`.
-  set exchange($exchange.Interface exchange) {
+  set exchange($exchange.BoxoExchangeInterface exchange) {
     $callSync(
         280,
         $W()
@@ -116,13 +117,13 @@ class IpfsNode extends GoHandle {
   }
 
   /// Go: `field GCLocker blockstore.GCLocker`.
-  $blockstore.GcLocker get gcLocker {
+  $blockstore.BoxoBlockstoreGcLocker get gcLocker {
     final $r = $callSync(283, $W()..h(this));
-    return $r.hnn($blockstore.GcLocker.$h);
+    return $r.hnn($blockstore.BoxoBlockstoreGcLocker.$h);
   }
 
   /// Go: `field GCLocker blockstore.GCLocker`.
-  set gcLocker($blockstore.GcLocker gcLocker) {
+  set gcLocker($blockstore.BoxoBlockstoreGcLocker gcLocker) {
     $callSync(
         284,
         $W()
@@ -131,13 +132,13 @@ class IpfsNode extends GoHandle {
   }
 
   /// Go: `field PeerHost host.Host`.
-  $host.Host get peerHost {
+  $host.Libp2pCoreHost get peerHost {
     final $r = $callSync(285, $W()..h(this));
-    return $r.hnn($host.Host.$h);
+    return $r.hnn($host.Libp2pCoreHost.$h);
   }
 
   /// Go: `field PeerHost host.Host`.
-  set peerHost($host.Host peerHost) {
+  set peerHost($host.Libp2pCoreHost peerHost) {
     $callSync(
         286,
         $W()
@@ -146,13 +147,14 @@ class IpfsNode extends GoHandle {
   }
 
   /// Go: `field ResourceManager network.ResourceManager`.
-  $network.ResourceManager get resourceManager {
+  $network.Libp2pCoreNetworkResourceManager get resourceManager {
     final $r = $callSync(291, $W()..h(this));
-    return $r.hnn($network.ResourceManager.$h);
+    return $r.hnn($network.Libp2pCoreNetworkResourceManager.$h);
   }
 
   /// Go: `field ResourceManager network.ResourceManager`.
-  set resourceManager($network.ResourceManager resourceManager) {
+  set resourceManager(
+      $network.Libp2pCoreNetworkResourceManager resourceManager) {
     $callSync(
         292,
         $W()
@@ -161,13 +163,13 @@ class IpfsNode extends GoHandle {
   }
 
   /// Go: `field BaseBlocks node.BaseBlocks`.
-  $node.BaseBlocks get baseBlocks {
+  $node.KuboCoreNodeBaseBlocks get baseBlocks {
     final $r = $callSync(272, $W()..h(this));
-    return $r.hnn($node.BaseBlocks.$h);
+    return $r.hnn($node.KuboCoreNodeBaseBlocks.$h);
   }
 
   /// Go: `field BaseBlocks node.BaseBlocks`.
-  set baseBlocks($node.BaseBlocks baseBlocks) {
+  set baseBlocks($node.KuboCoreNodeBaseBlocks baseBlocks) {
     $callSync(
         273,
         $W()
@@ -176,14 +178,18 @@ class IpfsNode extends GoHandle {
   }
 }
 
-/// Go: `func core.NewNode(ctx context.Context, cfg *core.BuildCfg) (*core.IpfsNode, error)`.
-///
-/// Asynchronous: runs in a goroutine of the service.
-Future<IpfsNode> newNode($context.Context ctx, $node.BuildCfg cfg) async {
-  final $r = await $call(
-      293,
-      $W()
-        ..h(ctx)
-        ..dto(cfg));
-  return $r.hnn(IpfsNode.$h);
+/// Go: the package-level members of `github.com/ipfs/kubo/core` (`Go.kubo.core`).
+extension GoKuboCoreApi on GoKuboCore {
+  /// Go: `func core.NewNode(ctx context.Context, cfg *core.BuildCfg) (*core.IpfsNode, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<KuboCoreIpfsNode> newNode(
+      $context.Context ctx, $node.KuboCoreNodeBuildCfg cfg) async {
+    final $r = await $call(
+        293,
+        $W()
+          ..h(ctx)
+          ..dto(cfg));
+    return $r.hnn(KuboCoreIpfsNode.$h);
+  }
 }

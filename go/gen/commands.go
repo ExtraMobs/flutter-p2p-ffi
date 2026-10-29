@@ -125,7 +125,7 @@ func manualNames() map[string]bool {
 			return err
 		}
 		if src, err := os.ReadFile(path); err == nil && !bytes.HasPrefix(src, []byte(generatedHeader)) && !bytes.Contains(src, []byte("\npart of ")) {
-			for _, n := range publicNames(src) {
+			for _, n := range append(publicNames(src), extMembers(src)...) {
 				manual[n] = true
 			}
 		}
@@ -215,7 +215,7 @@ func (e *cmdEmitter) prepare(cs []*cmdInfo, manual map[string]bool) {
 			ci.mode = "typed"
 		}
 		if ci.out != nil {
-			e.collect(ci.out, typeName(cmdName(strings.Join(ci.path, "-")))+"Output")
+			e.collect(ci.out, qualType(dartPath(cmdsPkg), cmdName(strings.Join(ci.path, "-"))+"Output"))
 		}
 	}
 }
@@ -238,14 +238,14 @@ func (e *cmdEmitter) collect(t reflect.Type, hint string) {
 		e.libs[t] = l
 		if c, ok := l.classes[pkg+"."+t.Name()]; ok && t.Name() != "" && c.t.k == kDTO {
 			e.shared[t] = c.t
-			e.names[t] = className(c.t)
+			e.names[t] = className(e.de.m, c.t)
 		} else {
-			name := typeName(t.Name())
+			name := qualType(l.path, t.Name())
 			if t.Name() == "" {
 				name = hint
 			}
 			for _, c := range l.classes {
-				if className(c.t) == name {
+				if className(e.de.m, c.t) == name {
 					panic(fmt.Sprintf("gen: o DTO de comando %v repete a classe %s de lib/%s", t, name, l.path))
 				}
 			}
@@ -292,7 +292,7 @@ func (e *cmdEmitter) decStruct(t reflect.Type, r string) string {
 	for _, f := range cmdschema.Fields(t) {
 		n := memberName(f.Name)
 		if !have[n] {
-			panic(fmt.Sprintf("gen: o campo %s.%s do comando não existe na classe %s", t, f.Name, className(ti)))
+			panic(fmt.Sprintf("gen: o campo %s.%s do comando não existe na classe %s", t, f.Name, className(e.de.m, ti)))
 		}
 		args = append(args, n+": "+e.dec(f.Type, r))
 	}
@@ -316,6 +316,7 @@ func (e *cmdEmitter) textRef(t reflect.Type) string {
 	if !ok {
 		return ""
 	}
+	c = qualType(dartPath(t.PkgPath()), c)
 	if pkgPrefix+dartPath(t.PkgPath()) == pkgPrefix+e.cur.path {
 		return c
 	}
@@ -428,7 +429,7 @@ func emitCommands(de *dartEmitter, manual map[string]bool) (api, smoke string, h
 	e.prepare(cs, manual)
 	h := fnv.New64a()
 	var body, md, sm strings.Builder
-	fmt.Fprintf(&md, "\n## RPC commands (`ipfs ...`) → `package:p2p_ffi/%s`\n\n", cmdsLib.path)
+	fmt.Fprintf(&md, "\n## RPC commands (`ipfs ...`) → `%s` (`lib/%s`)\n\n", nsPath(cmdsLib.path), cmdsLib.path)
 	md.WriteString("Generated from the kubo command tree (`core/commands.Root`); the host calls them like the kubo HTTP server (function 36 of `WIRE.md`). Each result type lives in the library of its Go package.\n\n| Command | Dart | Returns |\n|---|---|---|\n")
 	var skipped []string
 	for _, ci := range cs {
@@ -440,7 +441,7 @@ func emitCommands(de *dartEmitter, manual map[string]bool) (api, smoke string, h
 		e.cur = cmdsLib
 		ret, call := e.ret(ci)
 		var params []string
-		params = append(params, e.imp("github.com/ipfs/kubo/core")+".IpfsNode node", e.de.imp(cmdsLib, pkgPrefix+"go/context.dart")+".Context ctx")
+		params = append(params, e.imp("github.com/ipfs/kubo/core")+"."+qualType(dartPath("github.com/ipfs/kubo/core"), "IpfsNode")+" node", e.de.imp(cmdsLib, pkgPrefix+"go/context.dart")+".Context ctx")
 		var args, fls, smArgs []string
 		for _, a := range ci.args {
 			get := fmt.Sprintf("a.s('%s', '%s')", key, a.name)
@@ -457,7 +458,7 @@ func emitCommands(de *dartEmitter, manual map[string]bool) (api, smoke string, h
 			}
 			t := "String"
 			if a.file {
-				t = e.imp("github.com/ipfs/boxo/files") + ".Node"
+				t = e.imp("github.com/ipfs/boxo/files") + "." + qualType(dartPath("github.com/ipfs/boxo/files"), "Node")
 			}
 			switch {
 			case a.variadic:
@@ -502,10 +503,10 @@ func emitCommands(de *dartEmitter, manual map[string]bool) (api, smoke string, h
 		fmt.Fprintf(&body, "%s %s(%s) =>\n    %s(node, ctx, '%s', [%s], [%s], {%s}%s);\n\n",
 			ret, ci.dart, sig, call.fn, key, strings.Join(args, ", "), strings.Join(fls, ", "), strings.Join(optMap, ", "), call.dec)
 		fmt.Fprintf(&md, "| `ipfs %s` | `%s` | `%s` |\n", key, ci.dart, ret)
-		fmt.Fprintf(&sm, "  '%s': (a) => k.%s(%s),\n", key, ci.dart, strings.Join(append([]string{"a.node", "a.ctx"}, smArgs...), ", "))
+		fmt.Fprintf(&sm, "  '%s': (a) => %s.%s(%s),\n", key, nsPath(cmdsLib.path), ci.dart, strings.Join(append([]string{"a.node", "a.ctx"}, smArgs...), ", "))
 		fmt.Fprintf(h, "%s|%s|%v|%v|%s\n", key, sig, ci.args, ci.opts, ret)
 	}
-	cmdsLib.extra = append(cmdsLib.extra, body.String())
+	cmdsLib.members = append(cmdsLib.members, body.String())
 	cmdsLib.bytes = cmdsLib.bytes || strings.Contains(body.String(), "Uint8List")
 	for _, t := range e.order {
 		l := e.libs[t]
@@ -518,7 +519,7 @@ func emitCommands(de *dartEmitter, manual map[string]bool) (api, smoke string, h
 	if len(skipped) > 0 {
 		md.WriteString("\nLeft out:\n\n" + strings.Join(skipped, "\n") + "\n")
 	}
-	return md.String(), smokeDart(sm.String(), cmdsLib.path), h.Sum64()
+	return md.String(), smokeDart(sm.String()), h.Sum64()
 }
 
 type cmdCall struct{ fn, dec string }
@@ -577,26 +578,23 @@ func (e *cmdEmitter) schema(t reflect.Type) string {
 // smokeDart: a tabela do teste de fumaça (test/src/commands_smoke.dart): cada
 // comando gerado chamado com os argumentos obrigatórios que o teste fornece
 // (SmokeArgs), para test/commands_smoke_test.dart rodar todos.
-func smokeDart(entries, cmdsPath string) string {
+func smokeDart(entries string) string {
 	return generatedHeader + ` from the kubo command tree; do not edit.
 
 // Every generated kubo command, called with the arguments the smoke test
 // provides (test/commands_smoke_test.dart).
-import '` + pkgPrefix + dartPath("github.com/ipfs/boxo/files") + `' as files;
-import '` + pkgPrefix + dartPath("context") + `' as context;
-import '` + pkgPrefix + dartPath("github.com/ipfs/kubo/core") + `' as core;
-import '` + pkgPrefix + cmdsPath + `' as k;
+import '` + pkgPrefix + dartPkg + `.dart';
 
 /// What a command needs: the node, a ctx, and a value per required argument.
 abstract interface class SmokeArgs {
-  core.IpfsNode get node;
-  context.Context get ctx;
+  ` + qualType(dartPath("github.com/ipfs/kubo/core"), "IpfsNode") + ` get node;
+  ` + qualType(dartPath("context"), "Context") + ` get ctx;
 
   /// The string for argument [arg] of command [cmd].
   String s(String cmd, String arg);
 
   /// The file for argument [arg] of command [cmd].
-  files.Node f(String cmd, String arg);
+  ` + qualType(dartPath("github.com/ipfs/boxo/files"), "Node") + ` f(String cmd, String arg);
 }
 
 /// Command path → the call.

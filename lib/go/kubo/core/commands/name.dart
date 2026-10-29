@@ -5,16 +5,17 @@ library;
 import 'package:p2p_ffi/src/runtime.dart';
 
 /// Go: `name.IpnsInspectResult` (a kubo command output).
-final class IpnsInspectResult {
-  IpnsInspectResult.$dec($R r)
-      : entry = IpnsInspectEntry.$dec(r),
+final class KuboCoreCommandsNameIpnsInspectResult {
+  KuboCoreCommandsNameIpnsInspectResult.$dec($R r)
+      : entry = KuboCoreCommandsNameIpnsInspectEntry.$dec(r),
         pbSize = r.i64(),
         signatureType = r.str(),
         hexDump = r.str(),
-        validation = r.p() ? IpnsInspectValidation.$dec(r) : null;
+        validation =
+            r.p() ? KuboCoreCommandsNameIpnsInspectValidation.$dec(r) : null;
 
   /// Go: `Entry`.
-  final IpnsInspectEntry entry;
+  final KuboCoreCommandsNameIpnsInspectEntry entry;
 
   /// Go: `PbSize`.
   final int pbSize;
@@ -26,12 +27,12 @@ final class IpnsInspectResult {
   final String hexDump;
 
   /// Go: `Validation`.
-  final IpnsInspectValidation? validation;
+  final KuboCoreCommandsNameIpnsInspectValidation? validation;
 }
 
 /// Go: `name.IpnsInspectEntry` (a kubo command output).
-final class IpnsInspectEntry {
-  IpnsInspectEntry.$dec($R r)
+final class KuboCoreCommandsNameIpnsInspectEntry {
+  KuboCoreCommandsNameIpnsInspectEntry.$dec($R r)
       : value$ = r.str(),
         validityType = r.p() ? r.i64() : null,
         validity = r.p() ? (r.p() ? r.time() : null) : null,
@@ -55,8 +56,8 @@ final class IpnsInspectEntry {
 }
 
 /// Go: `name.IpnsInspectValidation` (a kubo command output).
-final class IpnsInspectValidation {
-  IpnsInspectValidation.$dec($R r)
+final class KuboCoreCommandsNameIpnsInspectValidation {
+  KuboCoreCommandsNameIpnsInspectValidation.$dec($R r)
       : valid = r.b(),
         reason = r.str(),
         name = r.str();
@@ -72,8 +73,8 @@ final class IpnsInspectValidation {
 }
 
 /// Go: `name.IpnsEntry` (a kubo command output).
-final class IpnsEntry {
-  IpnsEntry.$dec($R r)
+final class KuboCoreCommandsNameIpnsEntry {
+  KuboCoreCommandsNameIpnsEntry.$dec($R r)
       : name = r.str(),
         value$ = r.str();
 
@@ -85,32 +86,32 @@ final class IpnsEntry {
 }
 
 /// Go: `name.ipnsPubsubCancel` (a kubo command output).
-final class IpnsPubsubCancel {
-  IpnsPubsubCancel.$dec($R r) : canceled = r.b();
+final class KuboCoreCommandsNameIpnsPubsubCancel {
+  KuboCoreCommandsNameIpnsPubsubCancel.$dec($R r) : canceled = r.b();
 
   /// Go: `Canceled`.
   final bool canceled;
 }
 
 /// Go: `name.ipnsPubsubState` (a kubo command output).
-final class IpnsPubsubState {
-  IpnsPubsubState.$dec($R r) : enabled = r.b();
+final class KuboCoreCommandsNameIpnsPubsubState {
+  KuboCoreCommandsNameIpnsPubsubState.$dec($R r) : enabled = r.b();
 
   /// Go: `Enabled`.
   final bool enabled;
 }
 
 /// Go: `name.stringList` (a kubo command output).
-final class StringList {
-  StringList.$dec($R r) : strings = r.list(() => r.str());
+final class KuboCoreCommandsNameStringList {
+  KuboCoreCommandsNameStringList.$dec($R r) : strings = r.list(() => r.str());
 
   /// Go: `Strings`.
   final List<String> strings;
 }
 
 /// Go: `name.ResolvedPath` (a kubo command output).
-final class ResolvedPath {
-  ResolvedPath.$dec($R r) : path = r.str();
+final class KuboCoreCommandsNameResolvedPath {
+  KuboCoreCommandsNameResolvedPath.$dec($R r) : path = r.str();
 
   /// Go: `Path`.
   final String path;

@@ -7,11 +7,11 @@ import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/libp2p/core/peer.dart' as $peer;
 
 /// Go: `connmgr.ConnManager` (handle).
-class ConnManager extends GoHandle {
-  ConnManager.$h(super.$h);
+class Libp2pCoreConnmgrConnManager extends GoHandle {
+  Libp2pCoreConnmgrConnManager.$h(super.$h);
 
   /// Go: `func (connmgr.ConnManager).Protect(id peer.ID, tag string)`.
-  void protect($peer.Id id, String tag) {
+  void protect($peer.Libp2pCorePeerId id, String tag) {
     $callSync(
         536,
         $W()
@@ -21,7 +21,7 @@ class ConnManager extends GoHandle {
   }
 
   /// Go: `func (connmgr.ConnManager).Unprotect(id peer.ID, tag string) (protected bool)`.
-  bool unprotect($peer.Id id, String tag) {
+  bool unprotect($peer.Libp2pCorePeerId id, String tag) {
     final $r = $callSync(
         539,
         $W()
@@ -32,7 +32,7 @@ class ConnManager extends GoHandle {
   }
 
   /// Go: `func (connmgr.ConnManager).IsProtected(id peer.ID, tag string) (protected bool)`.
-  bool isProtected($peer.Id id, String tag) {
+  bool isProtected($peer.Libp2pCorePeerId id, String tag) {
     final $r = $callSync(
         535,
         $W()
@@ -43,7 +43,7 @@ class ConnManager extends GoHandle {
   }
 
   /// Go: `func (connmgr.ConnManager).TagPeer(peer.ID, string, int)`.
-  void tagPeer($peer.Id id, String arg1, int arg2) {
+  void tagPeer($peer.Libp2pCorePeerId id, String arg1, int arg2) {
     $callSync(
         537,
         $W()
@@ -54,7 +54,7 @@ class ConnManager extends GoHandle {
   }
 
   /// Go: `func (connmgr.ConnManager).UntagPeer(p peer.ID, tag string)`.
-  void untagPeer($peer.Id p, String tag) {
+  void untagPeer($peer.Libp2pCorePeerId p, String tag) {
     $callSync(
         540,
         $W()
@@ -76,6 +76,6 @@ class ConnManager extends GoHandle {
 }
 
 /// Go: `connmgr.ConnectionGater` (handle).
-class ConnectionGater extends GoHandle {
-  ConnectionGater.$h(super.$h);
+class Libp2pCoreConnmgrConnectionGater extends GoHandle {
+  Libp2pCoreConnmgrConnectionGater.$h(super.$h);
 }

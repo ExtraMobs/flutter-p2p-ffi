@@ -2,12 +2,16 @@
 // Go: github.com/ipfs/boxo/exchange/offline
 library;
 
+import 'package:p2p_ffi/src/go.dart' show GoBoxoExchangeOffline;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/boxo/blockstore.dart' as $blockstore;
 import 'package:p2p_ffi/go/boxo/exchange.dart' as $exchange;
 
-/// Go: `func offline.Exchange(bs blockstore.Blockstore) exchange.Interface`.
-$exchange.Interface exchange($blockstore.Blockstore bs) {
-  final $r = $callSync(123, $W()..h(bs));
-  return $r.hnn($exchange.Interface.$h);
+/// Go: the package-level members of `github.com/ipfs/boxo/exchange/offline` (`Go.boxo.exchange.offline`).
+extension GoBoxoExchangeOfflineApi on GoBoxoExchangeOffline {
+  /// Go: `func offline.Exchange(bs blockstore.Blockstore) exchange.Interface`.
+  $exchange.BoxoExchangeInterface exchange($blockstore.BoxoBlockstore bs) {
+    final $r = $callSync(123, $W()..h(bs));
+    return $r.hnn($exchange.BoxoExchangeInterface.$h);
+  }
 }

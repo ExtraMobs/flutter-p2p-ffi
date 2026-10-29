@@ -2,63 +2,23 @@
 // Go: github.com/ipfs/boxo/chunker
 library;
 
+import 'package:p2p_ffi/src/go.dart' show GoBoxoChunker;
 import 'package:p2p_ffi/src/runtime.dart';
 
 /// Go: `chunk.Splitter` (handle).
-class Splitter extends GoHandle {
-  Splitter.$h(super.$h);
+class BoxoChunkerSplitter extends GoHandle {
+  BoxoChunkerSplitter.$h(super.$h);
 }
 
 /// Go: `chunk.SplitterGen` (handle).
-class SplitterGen extends GoHandle {
-  SplitterGen.$h(super.$h);
+class BoxoChunkerSplitterGen extends GoHandle {
+  BoxoChunkerSplitterGen.$h(super.$h);
 }
-
-/// Go: `func chunk.SizeSplitterGen(size int64) chunk.SplitterGen`.
-SplitterGen sizeSplitterGen(int size) {
-  final $r = $callSync(122, $W()..i64(size));
-  return $r.hnn(SplitterGen.$h);
-}
-
-/// Go: `var chunk.DefaultBlockSize int64`.
-int get defaultBlockSize {
-  final $r = $callSync(119);
-  return $r.i64();
-}
-
-/// Go: `func chunk.NewSizeSplitter(r io.Reader, size int64) chunk.Splitter`.
-Splitter newSizeSplitter(Object r, int size) {
-  final $r = $callSync(
-      121,
-      $W()
-        ..reader(r)
-        ..i64(size));
-  return $r.hnn(Splitter.$h);
-}
-
-/// Go: `func chunk.FromString(r io.Reader, chunker string) (chunk.Splitter, error)`.
-Splitter fromString(Object r, String chunker) {
-  final $r = $callSync(
-      120,
-      $W()
-        ..reader(r)
-        ..str(chunker));
-  return $r.hnn(Splitter.$h);
-}
-
-/// Go: `const chunk.BlockSizeLimit int`.
-const blockSizeLimit = 2097152;
-
-/// Go: `const chunk.ChunkOverheadBudget int`.
-const chunkOverheadBudget = 256;
-
-/// Go: `const chunk.ChunkSizeLimit int`.
-const chunkSizeLimit = 2096896;
 
 /// Go: `var chunk.ErrRabinMin error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrRabinMin extends GolangException {
-  ErrRabinMin.$(super.base) : super.$from();
+class BoxoChunkerErrRabinMin extends GolangException {
+  BoxoChunkerErrRabinMin.$(super.base) : super.$from();
 
   @override
   String toString() => 'chunk.ErrRabinMin: $message';
@@ -66,8 +26,8 @@ class ErrRabinMin extends GolangException {
 
 /// Go: `var chunk.ErrSize error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrSize extends GolangException {
-  ErrSize.$(super.base) : super.$from();
+class BoxoChunkerErrSize extends GolangException {
+  BoxoChunkerErrSize.$(super.base) : super.$from();
 
   @override
   String toString() => 'chunk.ErrSize: $message';
@@ -75,9 +35,53 @@ class ErrSize extends GolangException {
 
 /// Go: `var chunk.ErrSizeMax error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrSizeMax extends GolangException {
-  ErrSizeMax.$(super.base) : super.$from();
+class BoxoChunkerErrSizeMax extends GolangException {
+  BoxoChunkerErrSizeMax.$(super.base) : super.$from();
 
   @override
   String toString() => 'chunk.ErrSizeMax: $message';
+}
+
+/// Go: the package-level members of `github.com/ipfs/boxo/chunker` (`Go.boxo.chunker`).
+extension GoBoxoChunkerApi on GoBoxoChunker {
+  /// Go: `func chunk.SizeSplitterGen(size int64) chunk.SplitterGen`.
+  BoxoChunkerSplitterGen sizeSplitterGen(int size) {
+    final $r = $callSync(122, $W()..i64(size));
+    return $r.hnn(BoxoChunkerSplitterGen.$h);
+  }
+
+  /// Go: `var chunk.DefaultBlockSize int64`.
+  int get defaultBlockSize {
+    final $r = $callSync(119);
+    return $r.i64();
+  }
+
+  /// Go: `func chunk.NewSizeSplitter(r io.Reader, size int64) chunk.Splitter`.
+  BoxoChunkerSplitter newSizeSplitter(Object r, int size) {
+    final $r = $callSync(
+        121,
+        $W()
+          ..reader(r)
+          ..i64(size));
+    return $r.hnn(BoxoChunkerSplitter.$h);
+  }
+
+  /// Go: `func chunk.FromString(r io.Reader, chunker string) (chunk.Splitter, error)`.
+  BoxoChunkerSplitter fromString(Object r, String chunker) {
+    final $r = $callSync(
+        120,
+        $W()
+          ..reader(r)
+          ..str(chunker));
+    return $r.hnn(BoxoChunkerSplitter.$h);
+  }
+
+  /// Go: `const chunk.BlockSizeLimit int`.
+  int get blockSizeLimit => 2097152;
+
+  /// Go: `const chunk.ChunkOverheadBudget int`.
+  int get chunkOverheadBudget => 256;
+
+  /// Go: `const chunk.ChunkSizeLimit int`.
+  int get chunkSizeLimit => 2096896;
 }

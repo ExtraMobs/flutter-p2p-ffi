@@ -8,21 +8,14 @@ import 'dart:io';
 import 'dart:math';
 import 'dart:typed_data';
 
-import 'package:p2p_ffi/go/car/v2.dart' as car;
-import 'package:p2p_ffi/go/car/v2/blockstore.dart' as blockstore;
-import 'package:p2p_ffi/go/context.dart' as context;
-import 'package:p2p_ffi/go/os.dart' as os;
-import 'package:p2p_ffi/go/io.dart' as io;
-import 'package:p2p_ffi/go/block_format.dart' as block_format;
-import 'package:p2p_ffi/go/cid.dart' as cid;
-import 'package:p2p_ffi/p2p_ffi.dart' show GolangEofException, P2pService;
+import 'package:p2p_ffi/p2p_ffi.dart';
 
 Future<void> main(List<String> args) async {
   final mib = args.isEmpty ? 64 : int.parse(args.first);
   final tmp = Directory.systemTemp.createTempSync('bench_car_');
   await P2pService.start();
-  final ctx = context.background();
-  final prefix = cid.newPrefixV1(0x55, 0x12); // raw, sha2-256
+  final ctx = Go.context.background();
+  final prefix = Go.cid.newPrefixV1(0x55, 0x12); // raw, sha2-256
   final rnd = Random(1);
   try {
     for (final blockSize in [256 * 1024, 4 * 1024]) {
@@ -51,21 +44,20 @@ Future<void> main(List<String> args) async {
       final cids = await run('Prefix.sum (CID, Dart → Go)',
           () async => [for (final d in datas) prefix.sum(d)]);
       final file = '${tmp.path}/b$blockSize.car';
-      final rw = blockstore.openReadWrite(file, [cids.first]);
+      final rw = Go.car.v2.blockstore.openReadWrite(file, [cids.first]);
       await run('ReadWrite.put, um por chamada (Dart → Go)', () async {
         for (var i = 0; i < count; i++) {
-          await rw.put(
-              ctx, block_format.Block(cid: cids[i], rawData: datas[i]));
+          await rw.put(ctx, BlockFormatBlock(cid: cids[i], rawData: datas[i]));
         }
       });
       rw.finalize();
       final file2 = '${tmp.path}/m$blockSize.car';
-      final rw2 = blockstore.openReadWrite(file2, [cids.first]);
+      final rw2 = Go.car.v2.blockstore.openReadWrite(file2, [cids.first]);
       await run('ReadWrite.putMany, 64 por chamada (Dart → Go)', () async {
         for (var i = 0; i < count; i += 64) {
           await rw2.putMany(ctx, [
             for (var j = i; j < min(i + 64, count); j++)
-              block_format.Block(cid: cids[j], rawData: datas[j])
+              BlockFormatBlock(cid: cids[j], rawData: datas[j])
           ]);
         }
       });
@@ -73,15 +65,15 @@ Future<void> main(List<String> args) async {
 
       // só no Go: lê e confere o hash de cada bloco, nada atravessa
       await run('Reader.inspect(true) (só no Go)', () async {
-        final r = car.openReader(file);
+        final r = Go.car.v2.openReader(file);
         r.inspect(true);
         r.close();
       });
 
       // Go → Dart: os bytes de cada bloco voltam
       await run('BlockReader.next (Go → Dart)', () async {
-        final f = os.open(file);
-        final br = car.BlockReader(f);
+        final f = Go.os.open(file);
+        final br = CarV2BlockReader(f);
         var n = 0;
         while (true) {
           try {
@@ -93,7 +85,7 @@ Future<void> main(List<String> args) async {
         f.close();
         if (n != total) throw StateError('leu $n de $total');
       });
-      final ro = blockstore.openReadOnly(file);
+      final ro = Go.car.v2.blockstore.openReadOnly(file);
       await run('ReadOnly.get por CID (Go → Dart)', () async {
         for (final c in cids) {
           await ro.get(ctx, c);
@@ -101,8 +93,8 @@ Future<void> main(List<String> args) async {
       });
       ro.close();
       await run('io.ReadAll do arquivo, uma chamada (Go → Dart)', () async {
-        final f = os.open(file);
-        io.readAll(f);
+        final f = Go.os.open(file);
+        Go.io.readAll(f);
         f.close();
       });
       await run('File.readAsBytesSync (Dart puro, piso)',

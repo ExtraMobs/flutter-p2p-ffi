@@ -32,23 +32,6 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:p2p_ffi/go/block_format.dart' as blocks;
-import 'package:p2p_ffi/go/boxo/fetcher/impl/blockservice.dart'
-    as fetcher_blockservice;
-import 'package:p2p_ffi/go/car/v2.dart' as car;
-import 'package:p2p_ffi/go/car/v2/blockstore.dart' as car_blockstore;
-import 'package:p2p_ffi/go/car/v2/index.dart' as index;
-import 'package:p2p_ffi/go/car/v2/storage.dart' as storage;
-import 'package:p2p_ffi/go/cid.dart' as cid;
-import 'package:p2p_ffi/go/codec_dagpb.dart' as codec_dagpb;
-import 'package:p2p_ffi/go/context.dart' as context;
-import 'package:p2p_ffi/go/ipld_prime/datamodel.dart' as datamodel;
-import 'package:p2p_ffi/go/ipld_prime/linking/cid.dart' as cidlink;
-import 'package:p2p_ffi/go/ipld_prime/traversal/selector/parse.dart' as parse;
-import 'package:p2p_ffi/go/multicodec.dart' as multicodec;
-import 'package:p2p_ffi/go/multihash.dart' as multihash;
-import 'package:p2p_ffi/go/os.dart' as os;
-import 'package:p2p_ffi/go/unixfsnode.dart' as unixfsnode;
 import 'package:p2p_ffi/p2p_ffi.dart';
 
 import 'lesson.dart';
@@ -58,12 +41,12 @@ Future<void> main() async {
   final tmp = Directory.systemTemp.createTempSync('lesson06_');
   String at(String name) => '${tmp.path}/$name';
   try {
-    final ctx = context.background();
+    final ctx = Go.context.background();
     final s = await Sample.build(ctx);
     final v2 = at('folder.v2.car');
     await s.writeCar(ctx, v2);
     int count(String path) {
-      final r = car.openReader(path);
+      final r = Go.car.v2.openReader(path);
       try {
         return r.inspect(true).blockCount;
       } finally {
@@ -74,14 +57,14 @@ Future<void> main() async {
     // 1. CARv2 → CARv1 y vuelta. El v1 dentro de un v2 son los mismos bytes.
     //    Go:  car.ExtractV1File(v2, v1); car.WrapV1File(v1, again)
     final v1 = at('folder.v1.car');
-    car.extractV1File(v2, v1);
+    Go.car.v2.extractV1File(v2, v1);
     final again = at('folder.again.car');
-    car.wrapV1File(v1, again);
+    Go.car.v2.wrapV1File(v1, again);
     say('CARv2 ${File(v2).lengthSync()} bytes → CARv1 '
         '${File(v1).lengthSync()} bytes (versión '
-        '${car.readVersion(File(v1).readAsBytesSync())}) → CARv2 '
+        '${Go.car.v2.readVersion(File(v1).readAsBytesSync())}) → CARv2 '
         '${File(again).lengthSync()} bytes');
-    final r = car.openReader(again);
+    final r = Go.car.v2.openReader(again);
     try {
       final h = r.header;
       say('  la cabecera v2: los datos v1 en ${h.dataOffset}..'
@@ -95,18 +78,18 @@ Future<void> main() async {
     //    Go:  idx, _ := car.GenerateIndexFromFile(v1)
     //         off, _ := index.GetFirst(idx, root)
     //         index.WriteTo(idx, f); idx2, _ := index.ReadFrom(f2)
-    final idx = car.generateIndexFromFile(v1);
+    final idx = Go.car.v2.generateIndexFromFile(v1);
     say('\nel índice del v1: el bloque raíz está en el byte '
-        '${index.getFirst(idx, s.root)}');
+        '${Go.car.v2.index.getFirst(idx, s.root)}');
     final idxFile = '$v1.idx';
-    final w = os.create(idxFile);
-    final n = index.writeTo(idx, w);
+    final w = Go.os.create(idxFile);
+    final n = Go.car.v2.index.writeTo(idx, w);
     w.close();
-    final rd = os.open(idxFile);
-    final loaded = index.readFrom(rd);
+    final rd = Go.os.open(idxFile);
+    final loaded = Go.car.v2.index.readFrom(rd);
     rd.close();
     say('  guardé $n bytes en ${idxFile.split('/').last}; cargado de nuevo: '
-        'la raíz en el byte ${index.getFirst(loaded, s.root)}');
+        'la raíz en el byte ${Go.car.v2.index.getFirst(loaded, s.root)}');
 
     // 3. Cambiar las raíces: aquí el CAR pasa a empezar en data.bin (un CIDv0
     //    como la carpeta, así que del mismo tamaño).
@@ -115,8 +98,8 @@ Future<void> main() async {
     final dataBin = folder.links().first.cid!;
     final copy = at('copy.car');
     File(v2).copySync(copy);
-    car.replaceRootsInFile(copy, [dataBin]);
-    final rc = car.openReader(copy);
+    Go.car.v2.replaceRootsInFile(copy, [dataBin]);
+    final rc = Go.car.v2.openReader(copy);
     try {
       say('\nraíces cambiadas: ${rc.roots()} (en el CAR: '
           '${rc.inspect(false).rootsPresent})');
@@ -131,17 +114,18 @@ Future<void> main() async {
     //         car.TraverseToFile(ctx, &ls, root, selector, out,
     //             car.WithTraversalPrototypeChooser(
     //                 dagpb.AddSupportToChooser(bsfetcher.DefaultPrototypeChooser)))
-    final dagPbChooser = car.withTraversalPrototypeChooser(codec_dagpb
-        .addSupportToChooser(fetcher_blockservice.defaultPrototypeChooser));
-    Future<int> select(String name, datamodel.Node selector,
-        [List<car.Option>? opts]) async {
-      final f = os.open(v2);
+    final dagPbChooser = Go.car.v2.withTraversalPrototypeChooser(Go.codecDagpb
+        .addSupportToChooser(
+            Go.boxo.fetcher.impl.blockservice.defaultPrototypeChooser));
+    Future<int> select(String name, IpldPrimeDatamodelNode selector,
+        [List<CarV2Option>? opts]) async {
+      final f = Go.os.open(v2);
       try {
-        final ls = cidlink.defaultLinkSystem();
-        unixfsnode.addUnixFsReificationToLinkSystem(ls);
-        ls.setReadStorage(storage.openReadable(f));
+        final ls = Go.ipldPrime.linking.cid.defaultLinkSystem();
+        Go.unixfsnode.addUnixFsReificationToLinkSystem(ls);
+        ls.setReadStorage(Go.car.v2.storage.openReadable(f));
         final out = at('$name.car');
-        await car.traverseToFile(
+        await Go.car.v2.traverseToFile(
             ctx, ls, s.root, selector, out, opts ?? [dagPbChooser]);
         return count(out);
       } finally {
@@ -151,15 +135,15 @@ Future<void> main() async {
 
     say('\npartes de la carpeta (${count(v2)} bloques):');
     say('  solo el bloque raíz:  '
-        '${await select('root', parse.commonSelectorMatchPoint)} bloque');
+        '${await select('root', Go.ipldPrime.traversal.selector.parse.commonSelectorMatchPoint)} bloque');
     say('  la ruta hello.txt:    '
-        '${await select('hello', unixfsnode.unixFsPathSelector('hello.txt'))}'
+        '${await select('hello', Go.unixfsnode.unixFsPathSelector('hello.txt'))}'
         ' bloques (la carpeta, hello.txt)');
     say('  la ruta data.bin:     '
-        '${await select('data', unixfsnode.unixFsPathSelector('data.bin'))}'
+        '${await select('data', Go.unixfsnode.unixFsPathSelector('data.bin'))}'
         ' bloques (la carpeta, data.bin, sus 3 hojas)');
     say('  todo:                 '
-        '${await select('all', parse.commonSelectorExploreAllRecursively)}'
+        '${await select('all', Go.ipldPrime.traversal.selector.parse.commonSelectorExploreAllRecursively)}'
         ' bloques');
 
     // 5. Juntar: un CAR nuevo con las raíces y los bloques de los dos.
@@ -168,18 +152,18 @@ Future<void> main() async {
     //         rw.Finalize()
     final note = Uint8List.fromList(utf8.encode('a second CAR'));
     final noteCid =
-        cid.newPrefixV1(multicodec.raw, multihash.sha2256).sum(note);
+        Go.cid.newPrefixV1(Go.multicodec.raw, Go.multihash.sha2256).sum(note);
     final second = at('second.car');
-    final sw = car_blockstore.openReadWrite(second, [noteCid]);
-    await sw.put(ctx, blocks.Block(cid: noteCid, rawData: note));
+    final sw = Go.car.v2.blockstore.openReadWrite(second, [noteCid]);
+    await sw.put(ctx, BlockFormatBlock(cid: noteCid, rawData: note));
     sw.finalize();
     final merged = at('merged.car');
-    final rw = car_blockstore.openReadWrite(merged, [s.root, noteCid]);
+    final rw = Go.car.v2.blockstore.openReadWrite(merged, [s.root, noteCid]);
     for (final source in [v1, second]) {
-      final f = os.open(source);
+      final f = Go.os.open(source);
       try {
-        final br = car.BlockReader(f);
-        final batch = <blocks.Block>[];
+        final br = CarV2BlockReader(f);
+        final batch = <BlockFormatBlock>[];
         while (true) {
           try {
             batch.add(br.next());
@@ -193,7 +177,7 @@ Future<void> main() async {
       }
     }
     rw.finalize();
-    final rm = car.openReader(merged);
+    final rm = Go.car.v2.openReader(merged);
     try {
       say('\njuntos: ${rm.inspect(true).blockCount} bloques, raíces '
           '${rm.roots()}');
@@ -204,15 +188,15 @@ Future<void> main() async {
     say('\n== Errores comunes\n');
     await mistake('extraer el v1 de un CAR que ya es v1',
         why: 'no hay envoltorio v2 que quitar',
-        instead: 'comprueba car.readVersion antes',
-        action: () => car.extractV1File(v1, at('x.car')));
+        instead: 'comprueba Go.car.v2.readVersion antes',
+        action: () => Go.car.v2.extractV1File(v1, at('x.car')));
     await mistake('envolver un CAR que ya es v2 (y luego leerlo)',
         why: 'wrapV1File toma la cabecera v2 como datos v1: escribe sin '
             'quejarse y el archivo solo falla al leerlo',
-        instead: 'comprueba car.readVersion antes; envuelve solo v1',
+        instead: 'comprueba Go.car.v2.readVersion antes; envuelve solo v1',
         action: () {
       final twice = at('twice.car');
-      car.wrapV1File(v2, twice);
+      Go.car.v2.wrapV1File(v2, twice);
       count(twice);
     });
     await mistake('cambiar la raíz por un CID de otro tamaño',
@@ -220,25 +204,25 @@ Future<void> main() async {
             'que ocupar los mismos bytes (aquí un CIDv1 en lugar de un CIDv0)',
         instead: 'un CID de la misma versión y codec, o copia los bloques a '
             'un CAR nuevo (paso 5) con las raíces nuevas',
-        action: () => car.replaceRootsInFile(
-            copy, [cid.newCidV1(multicodec.dagPb, dataBin.hash())]));
+        action: () => Go.car.v2.replaceRootsInFile(
+            copy, [Go.cid.newCidV1(Go.multicodec.dagPb, dataBin.hash())]));
     await silentlyWrong('seleccionar por ruta sin el chooser dag-pb',
         why: 'go-car decodifica dag-pb como datos genéricos, la capa UnixFS no '
             'encuentra "data.bin" en ellos, y el recorrido se detiene en la '
             'raíz',
-        instead: 'pasa car.withTraversalPrototypeChooser(...) como en el '
+        instead: 'pasa Go.car.v2.withTraversalPrototypeChooser(...) como en el '
             'paso 4',
         wrong: () async =>
-            '${await select('nochooser', unixfsnode.unixFsPathSelector('data.bin'), [])} bloques',
+            '${await select('nochooser', Go.unixfsnode.unixFsPathSelector('data.bin'), [])} bloques',
         right: () async =>
-            '${await select('chooser', unixfsnode.unixFsPathSelector('data.bin'))} bloques');
+            '${await select('chooser', Go.unixfsnode.unixFsPathSelector('data.bin'))} bloques');
     await mistake('juntar dentro de uno de los CARs de origen',
         why: 'openReadWrite sobre un archivo existente lo retoma, y solo se '
             'puede retomar un CARv2 escrito por él mismo; un v1 se rechaza',
         instead: 'escribe en un archivo nuevo y luego reemplaza el origen si '
             'hace falta',
-        action: () =>
-            car_blockstore.openReadWrite(v1, [s.root, noteCid]).discard());
+        action: () => Go.car.v2.blockstore
+            .openReadWrite(v1, [s.root, noteCid]).discard());
   } finally {
     await P2pService.stop();
     tmp.deleteSync(recursive: true);

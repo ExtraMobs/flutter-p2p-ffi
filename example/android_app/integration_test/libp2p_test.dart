@@ -8,25 +8,17 @@ import 'dart:typed_data';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
-import 'package:p2p_ffi/go/context.dart' as context;
-import 'package:p2p_ffi/go/io_stream.dart' as io;
-import 'package:p2p_ffi/go/libp2p.dart' as libp2p;
-import 'package:p2p_ffi/go/libp2p/core/event.dart' as event;
-import 'package:p2p_ffi/go/libp2p/core/host.dart' as host;
-import 'package:p2p_ffi/go/libp2p/core/network.dart' as network;
-import 'package:p2p_ffi/go/libp2p/p2p/muxer/yamux.dart' as yamux;
-import 'package:p2p_ffi/go/libp2p/p2p/security/noise.dart' as noise;
-import 'package:p2p_ffi/go/libp2p/p2p/transport/tcp.dart' as tcp;
-import 'package:p2p_ffi/go/libp2p_pubsub.dart' as pubsub;
 import 'package:p2p_ffi/p2p_ffi.dart';
 
 const echo = '/p2p-ffi-test/echo/1.0.0';
 
-Future<host.Host> newHost() => libp2p.new$([
-      libp2p.transport(tcp.newTcpTransportFunc),
-      libp2p.security(noise.id, noise.newFunc),
-      libp2p.muxer(yamux.id, yamux.defaultTransport),
-      libp2p.listenAddrStrings(['/ip4/127.0.0.1/tcp/0']),
+Future<Libp2pCoreHost> newHost() => Go.libp2p.new$([
+      Go.libp2p.transport(Go.libp2p.p2p.transport.tcp.newTcpTransportFunc),
+      Go.libp2p.security(Go.libp2p.p2p.security.noise.id,
+          Go.libp2p.p2p.security.noise.newFunc),
+      Go.libp2p.muxer(Go.libp2p.p2p.muxer.yamux.id,
+          Go.libp2p.p2p.muxer.yamux.defaultTransport),
+      Go.libp2p.listenAddrStrings(['/ip4/127.0.0.1/tcp/0']),
     ]);
 
 Uint8List bytes(String s) => Uint8List.fromList(utf8.encode(s));
@@ -36,44 +28,46 @@ void main() {
 
   test('libp2p without kubo', () async {
     await P2pService.start();
-    final ctx = context.background();
+    final ctx = Go.context.background();
     final a = await newHost(), b = await newHost();
     try {
       // the event bus sees the connection
-      final sub =
-          b.eventBus().subscribe(event.EvtPeerConnectednessChanged.$type);
+      final sub = b
+          .eventBus()
+          .subscribe(Libp2pCoreEventEvtPeerConnectednessChanged.$type);
       final connected = sub.out().firstWhere((e) =>
-          e is event.EvtPeerConnectednessChanged &&
-          e.connectedness == network.connected);
-      await a.connect(ctx, host.infoFromHost(b));
+          e is Libp2pCoreEventEvtPeerConnectednessChanged &&
+          e.connectedness == Go.libp2p.core.network.connected);
+      await a.connect(ctx, Go.libp2p.core.host.infoFromHost(b));
       await connected.timeout(const Duration(seconds: 10));
       sub.close();
 
       // a stream handler: echo
       b.setStreamHandler(echo, (s) async {
-        final got = await io.readerStream(s).expand((c) => c).toList();
+        final got = await readerStream(s).expand((c) => c).toList();
         await s.write(Uint8List.fromList(got));
         await s.close();
       });
       final s = await a.newStream(ctx, b.id(), [echo]);
       await s.write(bytes('hello'));
       await s.closeWrite();
-      expect(utf8.decode(await io.readerStream(s).expand((c) => c).toList()),
+      expect(utf8.decode(await readerStream(s).expand((c) => c).toList()),
           'hello');
 
       // retained callbacks per message: a validator on b, a filter on its
       // subscription
-      final psA = await pubsub.newGossipSub(ctx, a);
-      final psB = await pubsub.newGossipSub(ctx, b);
+      final psA = await Go.libp2pPubsub.newGossipSub(ctx, a);
+      final psB = await Go.libp2pPubsub.newGossipSub(ctx, b);
       var validated = 0;
       await psB.registerTopicValidator('bench', (_, __, m) {
         validated++;
-        return pubsub.validationAccept;
+        return Go.libp2pPubsub.validationAccept;
       });
       final topicA = await psA.join('bench');
       final subB = await (await psB.join('bench')).subscribe([
-        pubsub.withBufferSize(256), // the default 32 drops a burst (measured)
-        pubsub.withMessageFilter((m) => true),
+        Go.libp2pPubsub
+            .withBufferSize(256), // the default 32 drops a burst (measured)
+        Go.libp2pPubsub.withMessageFilter((m) => true),
       ]);
       while (!(await topicA.listPeers()).contains(b.id())) {
         await Future<void>.delayed(const Duration(milliseconds: 50));
@@ -84,7 +78,7 @@ void main() {
       for (var i = 0; i < n; i++) {
         await topicA.publish(ctx, bytes('m$i'));
         final (nextCtx, cancel) =
-            context.withTimeout(ctx, const Duration(seconds: 10));
+            Go.context.withTimeout(ctx, const Duration(seconds: 10));
         await subB.next(nextCtx);
         cancel();
       }
@@ -103,7 +97,7 @@ void main() {
       try {
         for (;;) {
           final (nextCtx, cancel) =
-              context.withTimeout(ctx, const Duration(seconds: 3));
+              Go.context.withTimeout(ctx, const Duration(seconds: 3));
           try {
             await subB.next(nextCtx);
             got++;

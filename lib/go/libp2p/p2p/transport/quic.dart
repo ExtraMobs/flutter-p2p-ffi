@@ -2,20 +2,24 @@
 // Go: github.com/libp2p/go-libp2p/p2p/transport/quic
 library;
 
+import 'package:p2p_ffi/src/go.dart' show GoLibp2pP2pTransportQuic;
 import 'package:p2p_ffi/src/runtime.dart';
-
-/// Go: `const libp2pquic.ListenOrder untyped int`.
-const listenOrder = 1;
-
-/// Go: the function `libp2pquic.NewTransport` as a value (a token: Go gets the function
-/// itself, as in `libp2p.Transport(tcp.NewTCPTransport)`).
-const newTransportFunc = GoToken(13);
 
 /// Go: `var libp2pquic.ErrHolePunching error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrHolePunching extends GolangException {
-  ErrHolePunching.$(super.base) : super.$from();
+class Libp2pP2pTransportQuicErrHolePunching extends GolangException {
+  Libp2pP2pTransportQuicErrHolePunching.$(super.base) : super.$from();
 
   @override
   String toString() => 'libp2pquic.ErrHolePunching: $message';
+}
+
+/// Go: the package-level members of `github.com/libp2p/go-libp2p/p2p/transport/quic` (`Go.libp2p.p2p.transport.quic`).
+extension GoLibp2pP2pTransportQuicApi on GoLibp2pP2pTransportQuic {
+  /// Go: `const libp2pquic.ListenOrder untyped int`.
+  int get listenOrder => 1;
+
+  /// Go: the function `libp2pquic.NewTransport` as a value (a token: Go gets the function
+  /// itself, as in `libp2p.Transport(tcp.NewTCPTransport)`).
+  GoToken get newTransportFunc => const GoToken(13);
 }

@@ -2,143 +2,12 @@
 // Go: github.com/ipfs/go-ipfs-cmds
 library;
 
+import 'package:p2p_ffi/src/go.dart' show GoIpfsCmds;
 import 'package:p2p_ffi/src/runtime.dart';
 
-/// Go: `const cmds.Active cmds.Status`.
-const active = 0;
-
-/// Go: `const cmds.ArgFile cmds.ArgumentType`.
-const argFile = 1;
-
-/// Go: `const cmds.ArgString cmds.ArgumentType`.
-const argString = 0;
-
-/// Go: `const cmds.Bool reflect.Kind`.
-const bool$ = 1;
-
-/// Go: `const cmds.CLI untyped string`.
-const cli = "cli";
-
-/// Go: `const cmds.ChanOpt untyped string`.
-const chanOpt = "stream-channels";
-
-/// Go: `const cmds.DefaultOutputEncoding untyped string`.
-const defaultOutputEncoding = "json";
-
-/// Go: `const cmds.Deprecated cmds.Status`.
-const deprecated = 2;
-
-/// Go: `const cmds.DerefLong untyped string`.
-const derefLong = "dereference-args";
-
-/// Go: `const cmds.DerefSymlinks untyped string`.
-const derefSymlinks = "dereference-symlinks";
-
-/// Go: `const cmds.EncLong untyped string`.
-const encLong = "encoding";
-
-/// Go: `const cmds.EncShort untyped string`.
-const encShort = "enc";
-
-/// Go: `const cmds.ErrClient cmds.ErrorType`.
-const errClient = 1;
-
-/// Go: `const cmds.ErrForbidden cmds.ErrorType`.
-const errForbidden = 4;
-
-/// Go: `const cmds.ErrImplementation cmds.ErrorType`.
-const errImplementation = 2;
-
-/// Go: `const cmds.ErrNormal cmds.ErrorType`.
-const errNormal = 0;
-
-/// Go: `const cmds.ErrRateLimited cmds.ErrorType`.
-const errRateLimited = 3;
-
-/// Go: `const cmds.Experimental cmds.Status`.
-const experimental = 1;
-
-/// Go: `const cmds.Float reflect.Kind`.
-const float = 14;
-
-/// Go: `const cmds.Hidden untyped string`.
-const hidden = "hidden";
-
-/// Go: `const cmds.HiddenShort untyped string`.
-const hiddenShort = "H";
-
-/// Go: `const cmds.Ignore untyped string`.
-const ignore = "ignore";
-
-/// Go: `const cmds.IgnoreRules untyped string`.
-const ignoreRules = "ignore-rules-path";
-
-/// Go: `const cmds.Int reflect.Kind`.
-const int$ = 2;
-
-/// Go: `const cmds.Int64 reflect.Kind`.
-const int64 = 6;
-
-/// Go: `const cmds.Invalid reflect.Kind`.
-const invalid = 0;
-
-/// Go: `const cmds.JSON untyped string`.
-const json = "json";
-
-/// Go: `const cmds.OctetStream untyped string`.
-const octetStream = "octet-stream";
-
-/// Go: `const cmds.OptLongHelp untyped string`.
-const optLongHelp = "help";
-
-/// Go: `const cmds.OptShortHelp untyped string`.
-const optShortHelp = "h";
-
-/// Go: `const cmds.Protobuf untyped string`.
-const protobuf = "protobuf";
-
-/// Go: `const cmds.RecLong untyped string`.
-const recLong = "recursive";
-
-/// Go: `const cmds.RecShort untyped string`.
-const recShort = "r";
-
-/// Go: `const cmds.Removed cmds.Status`.
-const removed = 3;
-
-/// Go: `const cmds.StdinName untyped string`.
-const stdinName = "stdin-name";
-
-/// Go: `const cmds.String reflect.Kind`.
-const string = 24;
-
-/// Go: `const cmds.Strings reflect.Kind`.
-const strings = 17;
-
-/// Go: `const cmds.Text untyped string`.
-const text = "text";
-
-/// Go: `const cmds.TextNewline untyped string`.
-const textNewline = "textnl";
-
-/// Go: `const cmds.TimeoutOpt untyped string`.
-const timeoutOpt = "timeout";
-
-/// Go: `const cmds.Uint reflect.Kind`.
-const uint = 7;
-
-/// Go: `const cmds.Uint64 reflect.Kind`.
-const uint64 = 11;
-
-/// Go: `const cmds.Undefined untyped string`.
-const undefined = "";
-
-/// Go: `const cmds.XML untyped string`.
-const xml = "xml";
-
 /// Go: `cmds.ReqLogEntry` (a kubo command output).
-final class ReqLogEntry {
-  ReqLogEntry.$dec($R r)
+final class IpfsCmdsReqLogEntry {
+  IpfsCmdsReqLogEntry.$dec($R r)
       : startTime = r.p() ? r.time() : null,
         endTime = r.p() ? r.time() : null,
         active = r.b(),
@@ -171,8 +40,8 @@ final class ReqLogEntry {
 
 /// Go: `var cmds.ErrClosedEmitter error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrClosedEmitter extends GolangException {
-  ErrClosedEmitter.$(super.base) : super.$from();
+class IpfsCmdsErrClosedEmitter extends GolangException {
+  IpfsCmdsErrClosedEmitter.$(super.base) : super.$from();
 
   @override
   String toString() => 'cmds.ErrClosedEmitter: $message';
@@ -180,8 +49,8 @@ class ErrClosedEmitter extends GolangException {
 
 /// Go: `var cmds.ErrClosingClosedEmitter error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrClosingClosedEmitter extends GolangException {
-  ErrClosingClosedEmitter.$(super.base) : super.$from();
+class IpfsCmdsErrClosingClosedEmitter extends GolangException {
+  IpfsCmdsErrClosingClosedEmitter.$(super.base) : super.$from();
 
   @override
   String toString() => 'cmds.ErrClosingClosedEmitter: $message';
@@ -189,8 +58,8 @@ class ErrClosingClosedEmitter extends GolangException {
 
 /// Go: `var cmds.ErrIncorrectType error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrIncorrectType extends GolangException {
-  ErrIncorrectType.$(super.base) : super.$from();
+class IpfsCmdsErrIncorrectType extends GolangException {
+  IpfsCmdsErrIncorrectType.$(super.base) : super.$from();
 
   @override
   String toString() => 'cmds.ErrIncorrectType: $message';
@@ -198,8 +67,8 @@ class ErrIncorrectType extends GolangException {
 
 /// Go: `var cmds.ErrNoFormatter error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrNoFormatter extends GolangException {
-  ErrNoFormatter.$(super.base) : super.$from();
+class IpfsCmdsErrNoFormatter extends GolangException {
+  IpfsCmdsErrNoFormatter.$(super.base) : super.$from();
 
   @override
   String toString() => 'cmds.ErrNoFormatter: $message';
@@ -207,8 +76,8 @@ class ErrNoFormatter extends GolangException {
 
 /// Go: `var cmds.ErrNotCallable error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrNotCallable extends GolangException {
-  ErrNotCallable.$(super.base) : super.$from();
+class IpfsCmdsErrNotCallable extends GolangException {
+  IpfsCmdsErrNotCallable.$(super.base) : super.$from();
 
   @override
   String toString() => 'cmds.ErrNotCallable: $message';
@@ -216,8 +85,8 @@ class ErrNotCallable extends GolangException {
 
 /// Go: `cmds.Error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class Error$ extends GolangException {
-  Error$.$(super.base, $R r)
+class IpfsCmdsError extends GolangException {
+  IpfsCmdsError.$(super.base, $R r)
       : message = r.str(),
         code = r.i64(),
         super.$from();
@@ -234,9 +103,144 @@ class Error$ extends GolangException {
 
 /// Go: `cmds.ErrorType`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrorType extends GolangException {
-  ErrorType.$(super.base) : super.$from();
+class IpfsCmdsErrorType extends GolangException {
+  IpfsCmdsErrorType.$(super.base) : super.$from();
 
   @override
   String toString() => 'cmds.ErrorType: $message';
+}
+
+/// Go: the package-level members of `github.com/ipfs/go-ipfs-cmds` (`Go.ipfsCmds`).
+extension GoIpfsCmdsApi on GoIpfsCmds {
+  /// Go: `const cmds.Active cmds.Status`.
+  int get active => 0;
+
+  /// Go: `const cmds.ArgFile cmds.ArgumentType`.
+  int get argFile => 1;
+
+  /// Go: `const cmds.ArgString cmds.ArgumentType`.
+  int get argString => 0;
+
+  /// Go: `const cmds.Bool reflect.Kind`.
+  int get bool$ => 1;
+
+  /// Go: `const cmds.CLI untyped string`.
+  String get cli => "cli";
+
+  /// Go: `const cmds.ChanOpt untyped string`.
+  String get chanOpt => "stream-channels";
+
+  /// Go: `const cmds.DefaultOutputEncoding untyped string`.
+  String get defaultOutputEncoding => "json";
+
+  /// Go: `const cmds.Deprecated cmds.Status`.
+  int get deprecated => 2;
+
+  /// Go: `const cmds.DerefLong untyped string`.
+  String get derefLong => "dereference-args";
+
+  /// Go: `const cmds.DerefSymlinks untyped string`.
+  String get derefSymlinks => "dereference-symlinks";
+
+  /// Go: `const cmds.EncLong untyped string`.
+  String get encLong => "encoding";
+
+  /// Go: `const cmds.EncShort untyped string`.
+  String get encShort => "enc";
+
+  /// Go: `const cmds.ErrClient cmds.ErrorType`.
+  int get errClient => 1;
+
+  /// Go: `const cmds.ErrForbidden cmds.ErrorType`.
+  int get errForbidden => 4;
+
+  /// Go: `const cmds.ErrImplementation cmds.ErrorType`.
+  int get errImplementation => 2;
+
+  /// Go: `const cmds.ErrNormal cmds.ErrorType`.
+  int get errNormal => 0;
+
+  /// Go: `const cmds.ErrRateLimited cmds.ErrorType`.
+  int get errRateLimited => 3;
+
+  /// Go: `const cmds.Experimental cmds.Status`.
+  int get experimental => 1;
+
+  /// Go: `const cmds.Float reflect.Kind`.
+  int get float => 14;
+
+  /// Go: `const cmds.Hidden untyped string`.
+  String get hidden => "hidden";
+
+  /// Go: `const cmds.HiddenShort untyped string`.
+  String get hiddenShort => "H";
+
+  /// Go: `const cmds.Ignore untyped string`.
+  String get ignore => "ignore";
+
+  /// Go: `const cmds.IgnoreRules untyped string`.
+  String get ignoreRules => "ignore-rules-path";
+
+  /// Go: `const cmds.Int reflect.Kind`.
+  int get int$ => 2;
+
+  /// Go: `const cmds.Int64 reflect.Kind`.
+  int get int64 => 6;
+
+  /// Go: `const cmds.Invalid reflect.Kind`.
+  int get invalid => 0;
+
+  /// Go: `const cmds.JSON untyped string`.
+  String get json => "json";
+
+  /// Go: `const cmds.OctetStream untyped string`.
+  String get octetStream => "octet-stream";
+
+  /// Go: `const cmds.OptLongHelp untyped string`.
+  String get optLongHelp => "help";
+
+  /// Go: `const cmds.OptShortHelp untyped string`.
+  String get optShortHelp => "h";
+
+  /// Go: `const cmds.Protobuf untyped string`.
+  String get protobuf => "protobuf";
+
+  /// Go: `const cmds.RecLong untyped string`.
+  String get recLong => "recursive";
+
+  /// Go: `const cmds.RecShort untyped string`.
+  String get recShort => "r";
+
+  /// Go: `const cmds.Removed cmds.Status`.
+  int get removed => 3;
+
+  /// Go: `const cmds.StdinName untyped string`.
+  String get stdinName => "stdin-name";
+
+  /// Go: `const cmds.String reflect.Kind`.
+  int get string => 24;
+
+  /// Go: `const cmds.Strings reflect.Kind`.
+  int get strings => 17;
+
+  /// Go: `const cmds.Text untyped string`.
+  String get text => "text";
+
+  /// Go: `const cmds.TextNewline untyped string`.
+  String get textNewline => "textnl";
+
+  /// Go: `const cmds.TimeoutOpt untyped string`.
+  String get timeoutOpt => "timeout";
+
+  /// Go: `const cmds.Uint reflect.Kind`.
+  int get uint => 7;
+
+  /// Go: `const cmds.Uint64 reflect.Kind`.
+  int get uint64 => 11;
+
+  /// Go: `const cmds.Undefined untyped string`.
+  String get undefined => "";
+
+  /// Go: `const cmds.XML untyped string`.
+  String get xml => "xml";
 }

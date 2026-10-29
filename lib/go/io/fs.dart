@@ -2,62 +2,18 @@
 // Go: io/fs
 library;
 
+import 'package:p2p_ffi/src/go.dart' show GoIoFs;
 import 'package:p2p_ffi/src/runtime.dart';
 
 /// Go: `fs.FileInfo` (handle).
-class FileInfo extends GoHandle {
-  FileInfo.$h(super.$h);
+class IoFsFileInfo extends GoHandle {
+  IoFsFileInfo.$h(super.$h);
 }
-
-/// Go: `const fs.ModeAppend fs.FileMode`.
-const modeAppend = 1073741824;
-
-/// Go: `const fs.ModeCharDevice fs.FileMode`.
-const modeCharDevice = 2097152;
-
-/// Go: `const fs.ModeDevice fs.FileMode`.
-const modeDevice = 67108864;
-
-/// Go: `const fs.ModeDir fs.FileMode`.
-const modeDir = 2147483648;
-
-/// Go: `const fs.ModeExclusive fs.FileMode`.
-const modeExclusive = 536870912;
-
-/// Go: `const fs.ModeIrregular fs.FileMode`.
-const modeIrregular = 524288;
-
-/// Go: `const fs.ModeNamedPipe fs.FileMode`.
-const modeNamedPipe = 33554432;
-
-/// Go: `const fs.ModePerm fs.FileMode`.
-const modePerm = 511;
-
-/// Go: `const fs.ModeSetgid fs.FileMode`.
-const modeSetgid = 4194304;
-
-/// Go: `const fs.ModeSetuid fs.FileMode`.
-const modeSetuid = 8388608;
-
-/// Go: `const fs.ModeSocket fs.FileMode`.
-const modeSocket = 16777216;
-
-/// Go: `const fs.ModeSticky fs.FileMode`.
-const modeSticky = 1048576;
-
-/// Go: `const fs.ModeSymlink fs.FileMode`.
-const modeSymlink = 134217728;
-
-/// Go: `const fs.ModeTemporary fs.FileMode`.
-const modeTemporary = 268435456;
-
-/// Go: `const fs.ModeType fs.FileMode`.
-const modeType = 2401763328;
 
 /// Go: `var fs.ErrClosed error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrClosed extends GolangException {
-  ErrClosed.$(super.base) : super.$from();
+class IoFsErrClosed extends GolangException {
+  IoFsErrClosed.$(super.base) : super.$from();
 
   @override
   String toString() => 'fs.ErrClosed: $message';
@@ -65,8 +21,8 @@ class ErrClosed extends GolangException {
 
 /// Go: `var fs.ErrExist error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrExist extends GolangException {
-  ErrExist.$(super.base) : super.$from();
+class IoFsErrExist extends GolangException {
+  IoFsErrExist.$(super.base) : super.$from();
 
   @override
   String toString() => 'fs.ErrExist: $message';
@@ -74,8 +30,8 @@ class ErrExist extends GolangException {
 
 /// Go: `var fs.ErrInvalid error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrInvalid extends GolangException {
-  ErrInvalid.$(super.base) : super.$from();
+class IoFsErrInvalid extends GolangException {
+  IoFsErrInvalid.$(super.base) : super.$from();
 
   @override
   String toString() => 'fs.ErrInvalid: $message';
@@ -83,8 +39,8 @@ class ErrInvalid extends GolangException {
 
 /// Go: `var fs.ErrNotExist error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrNotExist extends GolangException {
-  ErrNotExist.$(super.base) : super.$from();
+class IoFsErrNotExist extends GolangException {
+  IoFsErrNotExist.$(super.base) : super.$from();
 
   @override
   String toString() => 'fs.ErrNotExist: $message';
@@ -92,8 +48,8 @@ class ErrNotExist extends GolangException {
 
 /// Go: `var fs.ErrPermission error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrPermission extends GolangException {
-  ErrPermission.$(super.base) : super.$from();
+class IoFsErrPermission extends GolangException {
+  IoFsErrPermission.$(super.base) : super.$from();
 
   @override
   String toString() => 'fs.ErrPermission: $message';
@@ -101,8 +57,8 @@ class ErrPermission extends GolangException {
 
 /// Go: `fs.PathError`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class PathError extends GolangException {
-  PathError.$(super.base, $R r)
+class IoFsPathError extends GolangException {
+  IoFsPathError.$(super.base, $R r)
       : op = r.str(),
         path = r.str(),
         super.$from();
@@ -119,8 +75,8 @@ class PathError extends GolangException {
 
 /// Go: `var fs.SkipAll error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class SkipAll extends GolangException {
-  SkipAll.$(super.base) : super.$from();
+class IoFsSkipAll extends GolangException {
+  IoFsSkipAll.$(super.base) : super.$from();
 
   @override
   String toString() => 'fs.SkipAll: $message';
@@ -128,9 +84,57 @@ class SkipAll extends GolangException {
 
 /// Go: `var fs.SkipDir error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class SkipDir extends GolangException {
-  SkipDir.$(super.base) : super.$from();
+class IoFsSkipDir extends GolangException {
+  IoFsSkipDir.$(super.base) : super.$from();
 
   @override
   String toString() => 'fs.SkipDir: $message';
+}
+
+/// Go: the package-level members of `io/fs` (`Go.io.fs`).
+extension GoIoFsApi on GoIoFs {
+  /// Go: `const fs.ModeAppend fs.FileMode`.
+  int get modeAppend => 1073741824;
+
+  /// Go: `const fs.ModeCharDevice fs.FileMode`.
+  int get modeCharDevice => 2097152;
+
+  /// Go: `const fs.ModeDevice fs.FileMode`.
+  int get modeDevice => 67108864;
+
+  /// Go: `const fs.ModeDir fs.FileMode`.
+  int get modeDir => 2147483648;
+
+  /// Go: `const fs.ModeExclusive fs.FileMode`.
+  int get modeExclusive => 536870912;
+
+  /// Go: `const fs.ModeIrregular fs.FileMode`.
+  int get modeIrregular => 524288;
+
+  /// Go: `const fs.ModeNamedPipe fs.FileMode`.
+  int get modeNamedPipe => 33554432;
+
+  /// Go: `const fs.ModePerm fs.FileMode`.
+  int get modePerm => 511;
+
+  /// Go: `const fs.ModeSetgid fs.FileMode`.
+  int get modeSetgid => 4194304;
+
+  /// Go: `const fs.ModeSetuid fs.FileMode`.
+  int get modeSetuid => 8388608;
+
+  /// Go: `const fs.ModeSocket fs.FileMode`.
+  int get modeSocket => 16777216;
+
+  /// Go: `const fs.ModeSticky fs.FileMode`.
+  int get modeSticky => 1048576;
+
+  /// Go: `const fs.ModeSymlink fs.FileMode`.
+  int get modeSymlink => 134217728;
+
+  /// Go: `const fs.ModeTemporary fs.FileMode`.
+  int get modeTemporary => 268435456;
+
+  /// Go: `const fs.ModeType fs.FileMode`.
+  int get modeType => 2401763328;
 }

@@ -6,12 +6,13 @@ import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/ipld_prime/datamodel.dart' as $datamodel;
 
 /// Go: `basicnode.Prototype__Any` (handle).
-class PrototypeAny extends $datamodel.NodePrototype {
-  PrototypeAny.$h(super.$h) : super.$h();
+class IpldPrimeNodeBasicnodePrototypeAny
+    extends $datamodel.IpldPrimeDatamodelNodePrototype {
+  IpldPrimeNodeBasicnodePrototypeAny.$h(super.$h) : super.$h();
 
   /// Go: `func basicnode.NewPrototype__Any() *basicnode.Prototype__Any`.
-  factory PrototypeAny() {
+  factory IpldPrimeNodeBasicnodePrototypeAny() {
     final $r = $callSync(468);
-    return $r.hnn(PrototypeAny.$h);
+    return $r.hnn(IpldPrimeNodeBasicnodePrototypeAny.$h);
   }
 }

@@ -5,6 +5,6 @@ library;
 import 'package:p2p_ffi/src/runtime.dart';
 
 /// Go: `basichost.AddrsFactory` (handle).
-class AddrsFactory extends GoHandle {
-  AddrsFactory.$h(super.$h);
+class Libp2pP2pHostBasicAddrsFactory extends GoHandle {
+  Libp2pP2pHostBasicAddrsFactory.$h(super.$h);
 }

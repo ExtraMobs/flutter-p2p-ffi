@@ -7,17 +7,17 @@ import 'package:p2p_ffi/go/io.dart' as $io;
 import 'package:p2p_ffi/go/kubo/config.dart' as $config;
 
 /// Go: `repo.Repo` (handle).
-class Repo extends $io.Closer {
-  Repo.$h(super.$h) : super.$h();
+class KuboRepo extends $io.IoCloser {
+  KuboRepo.$h(super.$h) : super.$h();
 
   /// Go: `func (repo.Repo).Config() (*config.Config, error)`.
-  $config.Config config() {
+  $config.KuboConfig config() {
     final $r = $callSync(379, $W()..h(this));
-    return $r.p() ? $config.Config($r.json()) : $nil();
+    return $r.p() ? $config.KuboConfig($r.json()) : $nil();
   }
 
   /// Go: `func (repo.Repo).SetConfig(*config.Config) error`.
-  void setConfig($config.Config config) {
+  void setConfig($config.KuboConfig config) {
     $callSync(
         381,
         $W()
@@ -63,8 +63,8 @@ class Repo extends $io.Closer {
 
 /// Go: `var repo.ErrApiNotRunning error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrApiNotRunning extends GolangException {
-  ErrApiNotRunning.$(super.base) : super.$from();
+class KuboRepoErrApiNotRunning extends GolangException {
+  KuboRepoErrApiNotRunning.$(super.base) : super.$from();
 
   @override
   String toString() => 'repo.ErrApiNotRunning: $message';

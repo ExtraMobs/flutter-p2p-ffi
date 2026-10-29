@@ -4,11 +4,12 @@ library;
 
 import 'dart:typed_data';
 
+import 'package:p2p_ffi/src/go.dart' show GoCid;
 import 'package:p2p_ffi/src/runtime.dart';
 
 /// Go: `cid.Builder` (handle).
-class Builder extends GoHandle {
-  Builder.$h(super.$h);
+class CidBuilder extends GoHandle {
+  CidBuilder.$h(super.$h);
 }
 
 /// Go: `cid.Cid` (valor).
@@ -46,9 +47,9 @@ class Cid extends GoValue {
   }
 
   /// Go: `func (cid.Cid).Prefix() cid.Prefix`.
-  Prefix prefix() {
+  CidPrefix prefix() {
     final $r = $callSync(230, $W()..val(this));
-    return $r.p() ? Prefix.$dec($r) : $nil();
+    return $r.p() ? CidPrefix.$dec($r) : $nil();
   }
 
   /// Go: `func (cid.Cid).Equals(o cid.Cid) bool`.
@@ -79,14 +80,14 @@ class Cid extends GoValue {
 }
 
 /// Go: `cid.Prefix`.
-final class Prefix implements GoDto {
-  Prefix({int? version, int? codec, int? mhType, int? mhLength})
+final class CidPrefix implements GoDto {
+  CidPrefix({int? version, int? codec, int? mhType, int? mhLength})
       : version = version ?? 0,
         codec = codec ?? 0,
         mhType = mhType ?? 0,
         mhLength = mhLength ?? 0;
 
-  Prefix.$dec($R r)
+  CidPrefix.$dec($R r)
       : version = r.i64(),
         codec = r.i64(),
         mhType = r.i64(),
@@ -139,159 +140,10 @@ final class Prefix implements GoDto {
   }
 }
 
-/// Go: `func cid.NewPrefixV0(mhType uint64) cid.Prefix`.
-Prefix newPrefixV0(int mhType) {
-  final $r = $callSync(239, $W()..i64(mhType));
-  return $r.p() ? Prefix.$dec($r) : $nil();
-}
-
-/// Go: `func cid.NewPrefixV1(codecType uint64, mhType uint64) cid.Prefix`.
-Prefix newPrefixV1(int codecType, int mhType) {
-  final $r = $callSync(
-      240,
-      $W()
-        ..i64(codecType)
-        ..i64(mhType));
-  return $r.p() ? Prefix.$dec($r) : $nil();
-}
-
-/// Go: `func cid.Decode(v string) (cid.Cid, error)`.
-Cid decode(String v) {
-  final $r = $callSync(235, $W()..str(v));
-  return $r.p() ? Cid($r.str()) : $nil();
-}
-
-/// Go: `func cid.Parse(v any) (cid.Cid, error)`.
-Cid parse(Object? v) {
-  final $r = $callSync(241, $W()..any(v));
-  return $r.p() ? Cid($r.str()) : $nil();
-}
-
-/// Go: `func cid.Cast(data []byte) (cid.Cid, error)`.
-Cid cast(Uint8List data) {
-  final $r = $callSync(224, $W()..bytes(data));
-  return $r.p() ? Cid($r.str()) : $nil();
-}
-
-/// Go: `func cid.CidFromBytes(data []byte) (int, cid.Cid, error)`.
-(int, Cid) cidFromBytes(Uint8List data) {
-  final $r = $callSync(234, $W()..bytes(data));
-  return ($r.i64(), $r.p() ? Cid($r.str()) : $nil());
-}
-
-/// Go: `func cid.NewCidV0(mhash multihash.Multihash) cid.Cid`.
-Cid newCidV0(Uint8List mhash) {
-  final $r = $callSync(237, $W()..bytes(mhash));
-  return $r.p() ? Cid($r.str()) : $nil();
-}
-
-/// Go: `func cid.NewCidV1(codecType uint64, mhash multihash.Multihash) cid.Cid`.
-Cid newCidV1(int codecType, Uint8List mhash) {
-  final $r = $callSync(
-      238,
-      $W()
-        ..i64(codecType)
-        ..bytes(mhash));
-  return $r.p() ? Cid($r.str()) : $nil();
-}
-
-/// Go: `func cid.PrefixFromBytes(buf []byte) (cid.Prefix, error)`.
-Prefix prefixFromBytes(Uint8List buf) {
-  final $r = $callSync(244, $W()..bytes(buf));
-  return $r.p() ? Prefix.$dec($r) : $nil();
-}
-
-/// Go: `func cid.ExtractEncoding(v string) (multibase.Encoding, error)`.
-int extractEncoding(String v) {
-  final $r = $callSync(236, $W()..str(v));
-  return $r.i64();
-}
-
-/// Go: `const cid.BitcoinBlock untyped int`.
-const bitcoinBlock = 176;
-
-/// Go: `const cid.BitcoinTx untyped int`.
-const bitcoinTx = 177;
-
-/// Go: `const cid.DagCBOR untyped int`.
-const dagCbor = 113;
-
-/// Go: `const cid.DagJOSE untyped int`.
-const dagJose = 133;
-
-/// Go: `const cid.DagJSON untyped int`.
-const dagJson = 297;
-
-/// Go: `const cid.DagProtobuf untyped int`.
-const dagProtobuf = 112;
-
-/// Go: `const cid.DashBlock untyped int`.
-const dashBlock = 240;
-
-/// Go: `const cid.DashTx untyped int`.
-const dashTx = 241;
-
-/// Go: `const cid.DecredBlock untyped int`.
-const decredBlock = 224;
-
-/// Go: `const cid.DecredTx untyped int`.
-const decredTx = 225;
-
-/// Go: `const cid.EthAccountSnapshot untyped int`.
-const ethAccountSnapshot = 151;
-
-/// Go: `const cid.EthBlock untyped int`.
-const ethBlock = 144;
-
-/// Go: `const cid.EthBlockList untyped int`.
-const ethBlockList = 145;
-
-/// Go: `const cid.EthStateTrie untyped int`.
-const ethStateTrie = 150;
-
-/// Go: `const cid.EthStorageTrie untyped int`.
-const ethStorageTrie = 152;
-
-/// Go: `const cid.EthTx untyped int`.
-const ethTx = 147;
-
-/// Go: `const cid.EthTxReceipt untyped int`.
-const ethTxReceipt = 149;
-
-/// Go: `const cid.EthTxReceiptTrie untyped int`.
-const ethTxReceiptTrie = 148;
-
-/// Go: `const cid.EthTxTrie untyped int`.
-const ethTxTrie = 146;
-
-/// Go: `const cid.FilCommitmentSealed untyped int`.
-const filCommitmentSealed = 61698;
-
-/// Go: `const cid.FilCommitmentUnsealed untyped int`.
-const filCommitmentUnsealed = 61697;
-
-/// Go: `const cid.GitRaw untyped int`.
-const gitRaw = 120;
-
-/// Go: `const cid.Libp2pKey untyped int`.
-const libp2pKey = 114;
-
-/// Go: `const cid.Raw untyped int`.
-const raw = 85;
-
-/// Go: `const cid.UnsupportedVersionString untyped string`.
-const unsupportedVersionString = "<unsupported cid version>";
-
-/// Go: `const cid.ZcashBlock untyped int`.
-const zcashBlock = 192;
-
-/// Go: `const cid.ZcashTx untyped int`.
-const zcashTx = 193;
-
 /// Go: `cid.ErrInvalidCid`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrInvalidCid extends GolangException {
-  ErrInvalidCid.$(super.base) : super.$from();
+class CidErrInvalidCid extends GolangException {
+  CidErrInvalidCid.$(super.base) : super.$from();
 
   @override
   String toString() => 'cid.ErrInvalidCid: $message';
@@ -299,9 +151,161 @@ class ErrInvalidCid extends GolangException {
 
 /// Go: `var cid.ErrInvalidEncoding error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrInvalidEncoding extends GolangException {
-  ErrInvalidEncoding.$(super.base) : super.$from();
+class CidErrInvalidEncoding extends GolangException {
+  CidErrInvalidEncoding.$(super.base) : super.$from();
 
   @override
   String toString() => 'cid.ErrInvalidEncoding: $message';
+}
+
+/// Go: the package-level members of `github.com/ipfs/go-cid` (`Go.cid`).
+extension GoCidApi on GoCid {
+  /// Go: `func cid.NewPrefixV0(mhType uint64) cid.Prefix`.
+  CidPrefix newPrefixV0(int mhType) {
+    final $r = $callSync(239, $W()..i64(mhType));
+    return $r.p() ? CidPrefix.$dec($r) : $nil();
+  }
+
+  /// Go: `func cid.NewPrefixV1(codecType uint64, mhType uint64) cid.Prefix`.
+  CidPrefix newPrefixV1(int codecType, int mhType) {
+    final $r = $callSync(
+        240,
+        $W()
+          ..i64(codecType)
+          ..i64(mhType));
+    return $r.p() ? CidPrefix.$dec($r) : $nil();
+  }
+
+  /// Go: `func cid.Decode(v string) (cid.Cid, error)`.
+  Cid decode(String v) {
+    final $r = $callSync(235, $W()..str(v));
+    return $r.p() ? Cid($r.str()) : $nil();
+  }
+
+  /// Go: `func cid.Parse(v any) (cid.Cid, error)`.
+  Cid parse(Object? v) {
+    final $r = $callSync(241, $W()..any(v));
+    return $r.p() ? Cid($r.str()) : $nil();
+  }
+
+  /// Go: `func cid.Cast(data []byte) (cid.Cid, error)`.
+  Cid cast(Uint8List data) {
+    final $r = $callSync(224, $W()..bytes(data));
+    return $r.p() ? Cid($r.str()) : $nil();
+  }
+
+  /// Go: `func cid.CidFromBytes(data []byte) (int, cid.Cid, error)`.
+  (int, Cid) cidFromBytes(Uint8List data) {
+    final $r = $callSync(234, $W()..bytes(data));
+    return ($r.i64(), $r.p() ? Cid($r.str()) : $nil());
+  }
+
+  /// Go: `func cid.NewCidV0(mhash multihash.Multihash) cid.Cid`.
+  Cid newCidV0(Uint8List mhash) {
+    final $r = $callSync(237, $W()..bytes(mhash));
+    return $r.p() ? Cid($r.str()) : $nil();
+  }
+
+  /// Go: `func cid.NewCidV1(codecType uint64, mhash multihash.Multihash) cid.Cid`.
+  Cid newCidV1(int codecType, Uint8List mhash) {
+    final $r = $callSync(
+        238,
+        $W()
+          ..i64(codecType)
+          ..bytes(mhash));
+    return $r.p() ? Cid($r.str()) : $nil();
+  }
+
+  /// Go: `func cid.PrefixFromBytes(buf []byte) (cid.Prefix, error)`.
+  CidPrefix prefixFromBytes(Uint8List buf) {
+    final $r = $callSync(244, $W()..bytes(buf));
+    return $r.p() ? CidPrefix.$dec($r) : $nil();
+  }
+
+  /// Go: `func cid.ExtractEncoding(v string) (multibase.Encoding, error)`.
+  int extractEncoding(String v) {
+    final $r = $callSync(236, $W()..str(v));
+    return $r.i64();
+  }
+
+  /// Go: `const cid.BitcoinBlock untyped int`.
+  int get bitcoinBlock => 176;
+
+  /// Go: `const cid.BitcoinTx untyped int`.
+  int get bitcoinTx => 177;
+
+  /// Go: `const cid.DagCBOR untyped int`.
+  int get dagCbor => 113;
+
+  /// Go: `const cid.DagJOSE untyped int`.
+  int get dagJose => 133;
+
+  /// Go: `const cid.DagJSON untyped int`.
+  int get dagJson => 297;
+
+  /// Go: `const cid.DagProtobuf untyped int`.
+  int get dagProtobuf => 112;
+
+  /// Go: `const cid.DashBlock untyped int`.
+  int get dashBlock => 240;
+
+  /// Go: `const cid.DashTx untyped int`.
+  int get dashTx => 241;
+
+  /// Go: `const cid.DecredBlock untyped int`.
+  int get decredBlock => 224;
+
+  /// Go: `const cid.DecredTx untyped int`.
+  int get decredTx => 225;
+
+  /// Go: `const cid.EthAccountSnapshot untyped int`.
+  int get ethAccountSnapshot => 151;
+
+  /// Go: `const cid.EthBlock untyped int`.
+  int get ethBlock => 144;
+
+  /// Go: `const cid.EthBlockList untyped int`.
+  int get ethBlockList => 145;
+
+  /// Go: `const cid.EthStateTrie untyped int`.
+  int get ethStateTrie => 150;
+
+  /// Go: `const cid.EthStorageTrie untyped int`.
+  int get ethStorageTrie => 152;
+
+  /// Go: `const cid.EthTx untyped int`.
+  int get ethTx => 147;
+
+  /// Go: `const cid.EthTxReceipt untyped int`.
+  int get ethTxReceipt => 149;
+
+  /// Go: `const cid.EthTxReceiptTrie untyped int`.
+  int get ethTxReceiptTrie => 148;
+
+  /// Go: `const cid.EthTxTrie untyped int`.
+  int get ethTxTrie => 146;
+
+  /// Go: `const cid.FilCommitmentSealed untyped int`.
+  int get filCommitmentSealed => 61698;
+
+  /// Go: `const cid.FilCommitmentUnsealed untyped int`.
+  int get filCommitmentUnsealed => 61697;
+
+  /// Go: `const cid.GitRaw untyped int`.
+  int get gitRaw => 120;
+
+  /// Go: `const cid.Libp2pKey untyped int`.
+  int get libp2pKey => 114;
+
+  /// Go: `const cid.Raw untyped int`.
+  int get raw => 85;
+
+  /// Go: `const cid.UnsupportedVersionString untyped string`.
+  String get unsupportedVersionString => "<unsupported cid version>";
+
+  /// Go: `const cid.ZcashBlock untyped int`.
+  int get zcashBlock => 192;
+
+  /// Go: `const cid.ZcashTx untyped int`.
+  int get zcashTx => 193;
 }

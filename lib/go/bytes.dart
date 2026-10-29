@@ -4,16 +4,17 @@ library;
 
 import 'dart:typed_data';
 
+import 'package:p2p_ffi/src/go.dart' show GoBytes;
 import 'package:p2p_ffi/src/runtime.dart';
 
 /// Go: `bytes.Buffer` (handle).
-class Buffer extends GoHandle {
-  Buffer.$h(super.$h);
+class BytesBuffer extends GoHandle {
+  BytesBuffer.$h(super.$h);
 
   /// Go: `func bytes.NewBuffer(buf []byte) *bytes.Buffer`.
-  factory Buffer(Uint8List buf) {
+  factory BytesBuffer(Uint8List buf) {
     final $r = $callSync(65, $W()..bytes(buf));
-    return $r.hnn(Buffer.$h);
+    return $r.hnn(BytesBuffer.$h);
   }
 
   /// Go: `func (*bytes.Buffer).Bytes() []byte`.
@@ -23,14 +24,17 @@ class Buffer extends GoHandle {
   }
 }
 
-/// Go: `const bytes.MinRead untyped int`.
-const minRead = 512;
-
 /// Go: `var bytes.ErrTooLarge error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrTooLarge extends GolangException {
-  ErrTooLarge.$(super.base) : super.$from();
+class BytesErrTooLarge extends GolangException {
+  BytesErrTooLarge.$(super.base) : super.$from();
 
   @override
   String toString() => 'bytes.ErrTooLarge: $message';
+}
+
+/// Go: the package-level members of `bytes` (`Go.bytes`).
+extension GoBytesApi on GoBytes {
+  /// Go: `const bytes.MinRead untyped int`.
+  int get minRead => 512;
 }

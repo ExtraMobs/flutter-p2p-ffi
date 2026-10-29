@@ -9,21 +9,25 @@ protocol in [`WIRE.md`](WIRE.md)). A Go panic stops only the service, never the 
 Targets: VM/AOT on Windows, linux and Android (not JS/Wasm).
 
 The Dart API is Go's own, generated: the same functions, types and argument order as in
-pkg.go.dev, so the Go documentation applies. Each Go package is one library under
-`package:p2p_ffi/go/`, at the package's path in its module (the module named without
-`go-` and the major version), with the Go standard library beside the modules:
+pkg.go.dev, so the Go documentation applies. One import brings all of it,
+`package:p2p_ffi/p2p_ffi.dart`. A Go package's functions, constants and variables hang
+from `Go`, one getter per segment of the package's path in its module (the module named
+without `go-` and the major version, the Go standard library beside the modules). Dart has
+no nested types, so a type is a top-level class named after the same path, minus the words
+the Go name already starts with:
 
-| Go package | Dart library |
+| Go | Dart |
 |---|---|
-| `github.com/ipfs/boxo/mfs` | `package:p2p_ffi/go/boxo/mfs.dart` |
-| `github.com/ipfs/kubo/repo/fsrepo` | `package:p2p_ffi/go/kubo/repo/fsrepo.dart` |
-| `github.com/ipfs/go-cid` | `package:p2p_ffi/go/cid.dart` |
-| `github.com/ipld/go-car/v2/index` | `package:p2p_ffi/go/car/v2/index.dart` |
-| `context` | `package:p2p_ffi/go/context.dart` |
+| `mfs.NewRoot` (`github.com/ipfs/boxo/mfs`) | `Go.boxo.mfs.newRoot` |
+| `mfs.Root` | `BoxoMfsRoot` |
+| `fsrepo.Open` (`github.com/ipfs/kubo/repo/fsrepo`) | `Go.kubo.repo.fsrepo.open` |
+| `cid.Decode`, `cid.Cid` (`github.com/ipfs/go-cid`) | `Go.cid.decode`, `Cid` |
+| `index.ReadFrom` (`github.com/ipld/go-car/v2/index`) | `Go.car.v2.index.readFrom` |
+| `context.Background`, `context.Context` | `Go.context.background`, `Context` |
+| `peer.ID` (`github.com/libp2p/go-libp2p/core/peer`) | `Libp2pCorePeerId` |
 
-Import each package with its last segment as the prefix (`as mfs`), like Go code reads.
-Each type lives only in the library of its Go package, and no library re-exports another.
-The service, its errors and the handles come from `package:p2p_ffi/p2p_ffi.dart`.
+Every name is unique in the import. A package constant is a getter (`Go.multicodec.raw`),
+so it is not a Dart `const`.
 
 | Document | What it has |
 |---|---|
@@ -37,40 +41,33 @@ The service, its errors and the handles come from `package:p2p_ffi/p2p_ffi.dart`
 ```dart
 import 'dart:convert';
 
-import 'package:p2p_ffi/go/boxo/files.dart' as files;
-import 'package:p2p_ffi/go/context.dart' as context;
-import 'package:p2p_ffi/go/io.dart' as io;
-import 'package:p2p_ffi/go/kubo/config.dart' as config;
-import 'package:p2p_ffi/go/kubo/core.dart' as core;
-import 'package:p2p_ffi/go/kubo/core/coreapi.dart' as coreapi;
-import 'package:p2p_ffi/go/kubo/core/coreiface/options.dart' as options;
-import 'package:p2p_ffi/go/kubo/core/node.dart' as node;
-import 'package:p2p_ffi/go/kubo/plugin/loader.dart' as loader;
-import 'package:p2p_ffi/go/kubo/repo/fsrepo.dart' as fsrepo;
 import 'package:p2p_ffi/p2p_ffi.dart';
 
 await P2pService.start(onStop: (stop) => print('${stop.reason}: ${stop.report}'));
-loader.PluginLoader('')..initialize()..inject(); // once per service
-fsrepo.init(repo, config.initWithIdentity(config.createIdentity(null, [options.key.type('ed25519')])));
-final ctx = context.background();
-final n = await core.newNode(ctx, node.BuildCfg(repo: fsrepo.open(repo)));
-final api = coreapi.newCoreApi(n);
-final p = await api.unixfs().add(ctx, files.newBytesFile(utf8.encode('hi')),
+KuboPluginLoader('')..initialize()..inject(); // once per service
+final options = Go.kubo.core.coreiface.options;
+Go.kubo.repo.fsrepo.init(repo, Go.kubo.config.initWithIdentity(
+    Go.kubo.config.createIdentity(null, [options.key.type('ed25519')])));
+final ctx = Go.context.background();
+final n = await Go.kubo.core.newNode(
+    ctx, KuboCoreNodeBuildCfg(repo: Go.kubo.repo.fsrepo.open(repo)));
+final api = Go.kubo.core.coreapi.newCoreApi(n);
+final p = await api.unixfs().add(ctx, Go.boxo.files.newBytesFile(utf8.encode('hi')),
     [options.unixfs.pin(true, '')]);
-print(utf8.decode(io.readAll(files.toFile(await api.unixfs().get(ctx, p)))));
+print(utf8.decode(Go.io.readAll(Go.boxo.files.toFile(await api.unixfs().get(ctx, p)))));
 await n.close();
 await P2pService.stop();
 ```
 
 ## How Go becomes Dart
 
-- `context.Context` is the first parameter, as in Go (`background`, `withCancel`,
-  `withTimeout`, `withDeadline`; call `cancel()`).
+- `context.Context` is the first parameter, as in Go (`Go.context.background`,
+  `withCancel`, `withTimeout`, `withDeadline`; call `cancel()`).
 - A function with a `context` is asynchronous (`Future`); a channel is a `Stream`;
   `(T, error)` is `T`, and the error is thrown as `GolangException`.
 - `if err != nil` disappears: Go errors are exceptions. Every exported error sentinel and
-  error type of an exposed package has its class, in the library of its package
-  (`on fs.ErrNotExist`, `on fs.PathError catch (e) { e.path }`); `io.EOF`,
+  error type of an exposed package has its class, named after its package
+  (`on IoFsErrNotExist`, `on IoFsPathError catch (e) { e.path }`); `io.EOF`,
   `io.ErrUnexpectedEOF`, `context.Canceled`, `context.DeadlineExceeded` and IPLD's not
   found keep `GolangEofException`, `GolangUnexpectedEofException`,
   `GolangCanceledException`, `GolangDeadlineExceededException`, `GolangNotFoundException`.
@@ -79,28 +76,28 @@ await P2pService.stop();
   the chain, if any) and `causes`; `e.isA<T>()` and `e.find<T>()` are Go's `errors.Is`
   and `errors.As`.
 - Functional options are a list (`[options.unixfs.cidVersion(1), options.unixfs.pin(true, '')]`);
-  option structs take named parameters (`mfs.Flags(write: true)`).
-- Struct fields are getters and setters (`node.filesRoot`); constants are `const`;
-  `any` is `Object?`.
+  option structs take named parameters (`BoxoMfsFlags(write: true)`).
+- Struct fields are getters and setters (`node.filesRoot`); `any` is `Object?`.
 - A type assertion is a cast that returns null when it does not match
-  (`mfs.lookup(root, '/a').asFile()`).
+  (`Go.boxo.mfs.lookup(root, '/a').asFile()`).
 - `Read`/`ReadAt`/`CtxReadFull` take a size and return the bytes read.
 - A Go function that takes a function takes a Dart function (a callback; returning `false`
   or throwing stops Go). A function Go keeps, like a stream handler, is called on the event
   loop for as long as Go holds it; an interface root (`mdns.Notifee`) is implemented in
-  Dart with one function per method (`mdns.Notifee(handlePeerFound: (pi) {...})`).
+  Dart with one function per method
+  (`Libp2pP2pDiscoveryMdnsNotifee(handlePeerFound: (pi) {...})`).
 - `time.Duration` is a `Duration`.
 - Where Go reflects on an `any`, the generator fixes the type: a pubsub validator is a Dart
-  function, an event type goes by example as `EvtX.$type`, and a Go constructor as a token
-  (`libp2p.transport(tcp.newTcpTransportFunc)`).
+  function, an event type goes by example as its class's `$type`
+  (`Libp2pCoreEventEvtPeerConnectednessChanged.$type`), and a Go constructor as a token
+  (`Go.libp2p.transport(Go.libp2p.p2p.transport.tcp.newTcpTransportFunc)`).
 - CID, path, peer ID and multiaddr are values (their text form); objects with state stay in
   Go, behind a handle.
 
 The kubo RPC commands (`ipfs files ...`, `ipfs pin ls`, `ipfs cat`...) are also available,
-running against the app's node: one function per command in
-`package:p2p_ffi/go/kubo/core/commands.dart`, each returning a `Stream`; their result types
-are in the libraries of their Go packages
-(`await commands.filesStat(n, ctx, '/a').single`).
+running against the app's node: one function per command in `Go.kubo.core.commands`, each
+returning a `Stream`; their result types are named after their Go packages
+(`await Go.kubo.core.commands.filesStat(n, ctx, '/a').single`).
 
 ## Examples
 
@@ -164,7 +161,7 @@ are in the libraries of their Go packages
 - **Release handles in loops.** The Dart `Finalizer` frees Go objects late, while each
   handle may pin megabytes in the host. Use `.release()`, `.use()` or `withGoScope()`
   (lesson 20 of the course). The node and the repo still need `close()`.
-- **Synchronous calls block the isolate** until the host answers (`io.copy` of a large file,
+- **Synchronous calls block the isolate** until the host answers (`Go.io.copy` of a large file,
   for example); calls with a `context` are `Future`s.
 - **A command `Stream` only runs when listened to**: `.single`, `.first`, `toList()` or
   `drain()`. Cancelling the subscription of `io_stream.readerStream` or of a command does not stop
@@ -180,9 +177,9 @@ are in the libraries of their Go packages
 - **`routing().provide` only queues the announcement**: a lookup right after may need a retry.
 - **`Unprotect` returns whether other tags still protect the peer**, not whether it was
   protected; peering protects its own peers too.
-- **libp2p without kubo** (`libp2p.new$([...])`): a host has only what its options give it.
-  Without `libp2p.identity(key)` the peer ID changes at each start (keep
-  `crypto.marshalPrivateKey`); there is no DHT, pubsub or mDNS until you create them on the
+- **libp2p without kubo** (`Go.libp2p.new$([...])`): a host has only what its options give it.
+  Without `Go.libp2p.identity(key)` the peer ID changes at each start (keep
+  `Go.libp2p.core.crypto.marshalPrivateKey`); there is no DHT, pubsub or mDNS until you create them on the
   host, and the default listen addresses are on every interface (Windows asks for the
   firewall; `listenAddrStrings(['/ip4/127.0.0.1/tcp/0'])` stays local).
 - **`newStream` negotiates the protocol lazily**: a peer without the handler fails on the
@@ -197,7 +194,7 @@ are in the libraries of their Go packages
 - **Do not wait synchronously on what a retained callback holds.** Pubsub's methods that
   go through its event loop are `Future`s for that reason (the loop runs the subscription
   filter and waits for Dart).
-- **A subscription keeps 32 messages by default** (`pubsub.withBufferSize`): Dart pulls them
+- **A subscription keeps 32 messages by default** (`Go.libp2pPubsub.withBufferSize`): Dart pulls them
   one at a time with `next()`, so a burst beyond that is dropped. On a phone, 39 of a burst
   of 200 arrived with the default and 200 of 200 with `withBufferSize(256)`.
 - **A function given to an option runs per message or per peer** (`withMessageFilter`,
@@ -213,7 +210,7 @@ are in the libraries of their Go packages
 - go-car's `has` matches multihashes unless `useWholeCids(true)`.
 - Wrapping a CARv2 again is accepted and produces a broken file.
 - UnixFS selectors need the dag-pb prototype chooser
-  (`car.withTraversalPrototypeChooser(codec_dagpb.addSupportToChooser(blockservice.defaultPrototypeChooser))`),
+  (`Go.car.v2.withTraversalPrototypeChooser(Go.codecDagpb.addSupportToChooser(Go.boxo.fetcher.impl.blockservice.defaultPrototypeChooser))`),
   or the traversal stops at the directory.
 - go-car's `AttachIndex` always fails (upstream bug).
 

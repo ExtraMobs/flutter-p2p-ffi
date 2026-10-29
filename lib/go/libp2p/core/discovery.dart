@@ -2,26 +2,31 @@
 // Go: github.com/libp2p/go-libp2p/core/discovery
 library;
 
+import 'package:p2p_ffi/src/go.dart' show GoLibp2pCoreDiscovery;
 import 'package:p2p_ffi/src/runtime.dart';
 
 /// Go: `discovery.Advertiser` (handle).
-class Advertiser extends GoHandle {
-  Advertiser.$h(super.$h);
+class Libp2pCoreDiscoveryAdvertiser extends GoHandle {
+  Libp2pCoreDiscoveryAdvertiser.$h(super.$h);
 }
 
 /// Go: `discovery.Discovery` (handle).
-class Discovery extends Advertiser {
-  Discovery.$h(super.$h) : super.$h();
+class Libp2pCoreDiscovery extends Libp2pCoreDiscoveryAdvertiser {
+  Libp2pCoreDiscovery.$h(super.$h) : super.$h();
 }
 
 /// Go: `discovery.Option` (functional option; constructors in the package).
-final class Option extends GoOption {
-  Option.$(super.$i, super.$a);
+final class Libp2pCoreDiscoveryOption extends GoOption {
+  Libp2pCoreDiscoveryOption.$(super.$i, super.$a);
 }
 
-/// Go: `discovery.Limit`.
-Option limit(int limit) => Option.$(0, (w) => w..i64(limit));
+/// Go: the package-level members of `github.com/libp2p/go-libp2p/core/discovery` (`Go.libp2p.core.discovery`).
+extension GoLibp2pCoreDiscoveryApi on GoLibp2pCoreDiscovery {
+  /// Go: `discovery.Limit`.
+  Libp2pCoreDiscoveryOption limit(int limit) =>
+      Libp2pCoreDiscoveryOption.$(0, (w) => w..i64(limit));
 
-/// Go: `discovery.TTL`.
-Option ttl(Duration ttl) =>
-    Option.$(1, (w) => w..i64((ttl).inMicroseconds * 1000));
+  /// Go: `discovery.TTL`.
+  Libp2pCoreDiscoveryOption ttl(Duration ttl) => Libp2pCoreDiscoveryOption.$(
+      1, (w) => w..i64((ttl).inMicroseconds * 1000));
+}

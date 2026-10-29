@@ -5,13 +5,13 @@ library;
 import 'package:p2p_ffi/src/runtime.dart';
 
 /// Go: `loader.PluginLoader` (handle).
-class PluginLoader extends GoHandle {
-  PluginLoader.$h(super.$h);
+class KuboPluginLoader extends GoHandle {
+  KuboPluginLoader.$h(super.$h);
 
   /// Go: `func loader.NewPluginLoader(repo string) (*loader.PluginLoader, error)`.
-  factory PluginLoader(String repo) {
+  factory KuboPluginLoader(String repo) {
     final $r = $callSync(374, $W()..str(repo));
-    return $r.hnn(PluginLoader.$h);
+    return $r.hnn(KuboPluginLoader.$h);
   }
 
   /// Go: `func (*loader.PluginLoader).Initialize() error`.

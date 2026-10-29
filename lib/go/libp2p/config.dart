@@ -5,16 +5,16 @@ library;
 import 'package:p2p_ffi/src/runtime.dart';
 
 /// Go: `config.NATManagerC` (handle).
-class NatManagerC extends GoHandle {
-  NatManagerC.$h(super.$h);
+class Libp2pConfigNatManagerC extends GoHandle {
+  Libp2pConfigNatManagerC.$h(super.$h);
 }
 
 /// Go: `config.Option` (functional option; constructors in the package).
-final class Option extends GoOption {
-  Option.$(super.$i, super.$a);
+final class Libp2pConfigOption extends GoOption {
+  Libp2pConfigOption.$(super.$i, super.$a);
 }
 
 /// Go: `config.RoutingC` (handle).
-class RoutingC extends GoHandle {
-  RoutingC.$h(super.$h);
+class Libp2pConfigRoutingC extends GoHandle {
+  Libp2pConfigRoutingC.$h(super.$h);
 }

@@ -2,6 +2,7 @@
 // Go: github.com/ipfs/boxo/bitswap
 library;
 
+import 'package:p2p_ffi/src/go.dart' show GoBoxoBitswap;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/boxo/bitswap/network.dart' as $network;
 import 'package:p2p_ffi/go/boxo/blockstore.dart' as $blockstore;
@@ -11,8 +12,8 @@ import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/libp2p/core/routing.dart' as $routing;
 
 /// Go: `bitswap.Bitswap` (handle).
-class Bitswap extends $exchange.Interface {
-  Bitswap.$h(super.$h) : super.$h();
+class BoxoBitswap extends $exchange.BoxoExchangeInterface {
+  BoxoBitswap.$h(super.$h) : super.$h();
 
   /// Go: `func (*bitswap.Bitswap).Close() error`.
   void close() {
@@ -20,20 +21,20 @@ class Bitswap extends $exchange.Interface {
   }
 
   /// Go: `func (*bitswap.Bitswap).Stat() (*bitswap.Stat, error)`.
-  Stat stat() {
+  BoxoBitswapStat stat() {
     final $r = $callSync(104, $W()..h(this));
-    return $r.p() ? Stat.$dec($r) : $nil();
+    return $r.p() ? BoxoBitswapStat.$dec($r) : $nil();
   }
 }
 
 /// Go: `bitswap.Option` (handle).
-class Option extends GoHandle {
-  Option.$h(super.$h);
+class BoxoBitswapOption extends GoHandle {
+  BoxoBitswapOption.$h(super.$h);
 }
 
 /// Go: `bitswap.Stat`.
-final class Stat implements GoDto {
-  Stat(
+final class BoxoBitswapStat implements GoDto {
+  BoxoBitswapStat(
       {List<$cid.Cid>? wantlist,
       List<String>? peers,
       int? blocksReceived,
@@ -53,7 +54,7 @@ final class Stat implements GoDto {
         blocksSent = blocksSent ?? 0,
         dataSent = dataSent ?? 0;
 
-  Stat.$dec($R r)
+  BoxoBitswapStat.$dec($R r)
       : wantlist = r.list(() => r.p() ? $cid.Cid(r.str()) : $nil()),
         peers = r.list(() => r.str()),
         blocksReceived = r.i64(),
@@ -127,19 +128,25 @@ final class Stat implements GoDto {
   }
 }
 
-/// Go: `func bitswap.New(ctx context.Context, net network.BitSwapNetwork, providerFinder routing.ContentDiscovery, bstore blockstore.Blockstore, options ...bitswap.Option) *bitswap.Bitswap`.
-///
-/// Asynchronous: runs in a goroutine of the service.
-Future<Bitswap> new$($context.Context ctx, $network.BitSwapNetwork net,
-    $routing.ContentDiscovery providerFinder, $blockstore.Blockstore bstore,
-    [List<Option> options = const []]) async {
-  final $r = await $call(
-      105,
-      $W()
-        ..h(ctx)
-        ..h(net)
-        ..h(providerFinder)
-        ..h(bstore)
-        ..list(options, (w0, e0) => w0.h(e0)));
-  return $r.hnn(Bitswap.$h);
+/// Go: the package-level members of `github.com/ipfs/boxo/bitswap` (`Go.boxo.bitswap`).
+extension GoBoxoBitswapApi on GoBoxoBitswap {
+  /// Go: `func bitswap.New(ctx context.Context, net network.BitSwapNetwork, providerFinder routing.ContentDiscovery, bstore blockstore.Blockstore, options ...bitswap.Option) *bitswap.Bitswap`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<BoxoBitswap> new$(
+      $context.Context ctx,
+      $network.BoxoBitswapNetworkBitSwapNetwork net,
+      $routing.Libp2pCoreRoutingContentDiscovery providerFinder,
+      $blockstore.BoxoBlockstore bstore,
+      [List<BoxoBitswapOption> options = const []]) async {
+    final $r = await $call(
+        105,
+        $W()
+          ..h(ctx)
+          ..h(net)
+          ..h(providerFinder)
+          ..h(bstore)
+          ..list(options, (w0, e0) => w0.h(e0)));
+    return $r.hnn(BoxoBitswap.$h);
+  }
 }

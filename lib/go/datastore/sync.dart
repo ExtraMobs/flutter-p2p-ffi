@@ -2,16 +2,20 @@
 // Go: github.com/ipfs/go-datastore/sync
 library;
 
+import 'package:p2p_ffi/src/go.dart' show GoDatastoreSync;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/datastore.dart' as $datastore;
 
 /// Go: `sync.MutexDatastore` (handle).
-class MutexDatastore extends $datastore.Batching {
-  MutexDatastore.$h(super.$h) : super.$h();
+class DatastoreSyncMutexDatastore extends $datastore.DatastoreBatching {
+  DatastoreSyncMutexDatastore.$h(super.$h) : super.$h();
 }
 
-/// Go: `func sync.MutexWrap(d datastore.Datastore) *sync.MutexDatastore`.
-MutexDatastore mutexWrap($datastore.Datastore d) {
-  final $r = $callSync(247, $W()..h(d));
-  return $r.hnn(MutexDatastore.$h);
+/// Go: the package-level members of `github.com/ipfs/go-datastore/sync` (`Go.datastore.sync`).
+extension GoDatastoreSyncApi on GoDatastoreSync {
+  /// Go: `func sync.MutexWrap(d datastore.Datastore) *sync.MutexDatastore`.
+  DatastoreSyncMutexDatastore mutexWrap($datastore.Datastore d) {
+    final $r = $callSync(247, $W()..h(d));
+    return $r.hnn(DatastoreSyncMutexDatastore.$h);
+  }
 }

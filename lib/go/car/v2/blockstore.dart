@@ -2,6 +2,7 @@
 // Go: github.com/ipld/go-car/v2/blockstore
 library;
 
+import 'package:p2p_ffi/src/go.dart' show GoCarV2Blockstore;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/block_format.dart' as $block_format;
 import 'package:p2p_ffi/go/boxo/blockstore.dart' as $blockstore;
@@ -11,19 +12,19 @@ import 'package:p2p_ffi/go/cid.dart' as $cid;
 import 'package:p2p_ffi/go/context.dart' as $context;
 
 /// Go: `blockstore.ReadOnly` (handle).
-class ReadOnly extends $blockstore.Blockstore {
-  ReadOnly.$h(super.$h) : super.$h();
+class CarV2BlockstoreReadOnly extends $blockstore.BoxoBlockstore {
+  CarV2BlockstoreReadOnly.$h(super.$h) : super.$h();
 
   /// Go: `func blockstore.NewReadOnly(backing io.ReaderAt, idx index.Index, opts ...car.Option) (*blockstore.ReadOnly, error)`.
-  factory ReadOnly(Object backing, $index.Index idx,
-      [List<$v2.Option> opts = const []]) {
+  factory CarV2BlockstoreReadOnly(Object backing, $index.CarV2Index idx,
+      [List<$v2.CarV2Option> opts = const []]) {
     final $r = $callSync(
         427,
         $W()
           ..reader(backing)
           ..h(idx)
           ..list(opts, (w0, e0) => w0.opt(e0)));
-    return $r.hnn(ReadOnly.$h);
+    return $r.hnn(CarV2BlockstoreReadOnly.$h);
   }
 
   /// Go: `func (*blockstore.ReadOnly).Roots() ([]cid.Cid, error)`.
@@ -48,14 +49,15 @@ class ReadOnly extends $blockstore.Blockstore {
   /// Go: `func (*blockstore.ReadOnly).Get(ctx context.Context, key cid.Cid) (blocks.Block, error)`.
   ///
   /// Asynchronous: runs in a goroutine of the service.
-  Future<$block_format.Block> get($context.Context ctx, $cid.Cid key) async {
+  Future<$block_format.BlockFormatBlock> get(
+      $context.Context ctx, $cid.Cid key) async {
     final $r = await $call(
         432,
         $W()
           ..h(this)
           ..h(ctx)
           ..val(key));
-    return $r.p() ? $block_format.Block.$dec($r) : $nil();
+    return $r.p() ? $block_format.BlockFormatBlock.$dec($r) : $nil();
   }
 
   /// Go: `func (*blockstore.ReadOnly).GetSize(ctx context.Context, key cid.Cid) (int, error)`.
@@ -80,9 +82,9 @@ class ReadOnly extends $blockstore.Blockstore {
       .map((r) => r.p() ? $cid.Cid(r.str()) : $nil());
 
   /// Go: `func (*blockstore.ReadOnly).Index() index.Index`.
-  $index.Index index() {
+  $index.CarV2Index index() {
     final $r = $callSync(436, $W()..h(this));
-    return $r.hnn($index.Index.$h);
+    return $r.hnn($index.CarV2Index.$h);
   }
 
   /// Go: `func (*blockstore.ReadOnly).HashOnRead(bool)`.
@@ -101,8 +103,8 @@ class ReadOnly extends $blockstore.Blockstore {
 }
 
 /// Go: `blockstore.ReadWrite` (handle).
-class ReadWrite extends $blockstore.Blockstore {
-  ReadWrite.$h(super.$h) : super.$h();
+class CarV2BlockstoreReadWrite extends $blockstore.BoxoBlockstore {
+  CarV2BlockstoreReadWrite.$h(super.$h) : super.$h();
 
   /// Go: `func (*blockstore.ReadWrite).Roots() ([]cid.Cid, error)`.
   List<$cid.Cid> roots() {
@@ -113,7 +115,8 @@ class ReadWrite extends $blockstore.Blockstore {
   /// Go: `func (*blockstore.ReadWrite).Put(ctx context.Context, blk blocks.Block) error`.
   ///
   /// Asynchronous: runs in a goroutine of the service.
-  Future<void> put($context.Context ctx, $block_format.Block blk) async {
+  Future<void> put(
+      $context.Context ctx, $block_format.BlockFormatBlock blk) async {
     await $call(
         448,
         $W()
@@ -126,7 +129,7 @@ class ReadWrite extends $blockstore.Blockstore {
   ///
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> putMany(
-      $context.Context ctx, List<$block_format.Block> blks) async {
+      $context.Context ctx, List<$block_format.BlockFormatBlock> blks) async {
     await $call(
         449,
         $W()
@@ -151,14 +154,15 @@ class ReadWrite extends $blockstore.Blockstore {
   /// Go: `func (*blockstore.ReadWrite).Get(ctx context.Context, key cid.Cid) (blocks.Block, error)`.
   ///
   /// Asynchronous: runs in a goroutine of the service.
-  Future<$block_format.Block> get($context.Context ctx, $cid.Cid key) async {
+  Future<$block_format.BlockFormatBlock> get(
+      $context.Context ctx, $cid.Cid key) async {
     final $r = await $call(
         443,
         $W()
           ..h(this)
           ..h(ctx)
           ..val(key));
-    return $r.p() ? $block_format.Block.$dec($r) : $nil();
+    return $r.p() ? $block_format.BlockFormatBlock.$dec($r) : $nil();
   }
 
   /// Go: `func (*blockstore.ReadWrite).GetSize(ctx context.Context, key cid.Cid) (int, error)`.
@@ -183,9 +187,9 @@ class ReadWrite extends $blockstore.Blockstore {
       .map((r) => r.p() ? $cid.Cid(r.str()) : $nil());
 
   /// Go: `func (*blockstore.ReadWrite).Index() index.Index`.
-  $index.Index index() {
+  $index.CarV2Index index() {
     final $r = $callSync(447, $W()..h(this));
-    return $r.hnn($index.Index.$h);
+    return $r.hnn($index.CarV2Index.$h);
   }
 
   /// Go: `func (*blockstore.ReadWrite).HashOnRead(enable bool)`.
@@ -218,24 +222,28 @@ class ReadWrite extends $blockstore.Blockstore {
   }
 }
 
-/// Go: `func blockstore.OpenReadOnly(path string, opts ...car.Option) (*blockstore.ReadOnly, error)`.
-ReadOnly openReadOnly(String path, [List<$v2.Option> opts = const []]) {
-  final $r = $callSync(
-      428,
-      $W()
-        ..str(path)
-        ..list(opts, (w0, e0) => w0.opt(e0)));
-  return $r.hnn(ReadOnly.$h);
-}
+/// Go: the package-level members of `github.com/ipld/go-car/v2/blockstore` (`Go.car.v2.blockstore`).
+extension GoCarV2BlockstoreApi on GoCarV2Blockstore {
+  /// Go: `func blockstore.OpenReadOnly(path string, opts ...car.Option) (*blockstore.ReadOnly, error)`.
+  CarV2BlockstoreReadOnly openReadOnly(String path,
+      [List<$v2.CarV2Option> opts = const []]) {
+    final $r = $callSync(
+        428,
+        $W()
+          ..str(path)
+          ..list(opts, (w0, e0) => w0.opt(e0)));
+    return $r.hnn(CarV2BlockstoreReadOnly.$h);
+  }
 
-/// Go: `func blockstore.OpenReadWrite(path string, roots []cid.Cid, opts ...car.Option) (*blockstore.ReadWrite, error)`.
-ReadWrite openReadWrite(String path, List<$cid.Cid> roots,
-    [List<$v2.Option> opts = const []]) {
-  final $r = $callSync(
-      429,
-      $W()
-        ..str(path)
-        ..list(roots, (w0, e0) => w0.val(e0))
-        ..list(opts, (w0, e0) => w0.opt(e0)));
-  return $r.hnn(ReadWrite.$h);
+  /// Go: `func blockstore.OpenReadWrite(path string, roots []cid.Cid, opts ...car.Option) (*blockstore.ReadWrite, error)`.
+  CarV2BlockstoreReadWrite openReadWrite(String path, List<$cid.Cid> roots,
+      [List<$v2.CarV2Option> opts = const []]) {
+    final $r = $callSync(
+        429,
+        $W()
+          ..str(path)
+          ..list(roots, (w0, e0) => w0.val(e0))
+          ..list(opts, (w0, e0) => w0.opt(e0)));
+    return $r.hnn(CarV2BlockstoreReadWrite.$h);
+  }
 }

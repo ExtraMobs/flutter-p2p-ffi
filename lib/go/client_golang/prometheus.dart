@@ -2,44 +2,18 @@
 // Go: github.com/prometheus/client_golang/prometheus
 library;
 
+import 'package:p2p_ffi/src/go.dart' show GoClientGolangPrometheus;
 import 'package:p2p_ffi/src/runtime.dart';
 
 /// Go: `prometheus.Registerer` (handle).
-class Registerer extends GoHandle {
-  Registerer.$h(super.$h);
+class ClientGolangPrometheusRegisterer extends GoHandle {
+  ClientGolangPrometheusRegisterer.$h(super.$h);
 }
-
-/// Go: `const prometheus.CounterValue prometheus.ValueType`.
-const counterValue = 1;
-
-/// Go: `const prometheus.DefAgeBuckets untyped int`.
-const defAgeBuckets = 5;
-
-/// Go: `const prometheus.DefBufCap untyped int`.
-const defBufCap = 500;
-
-/// Go: `const prometheus.DefMaxAge time.Duration`.
-const defMaxAge = Duration(microseconds: 600000000);
-
-/// Go: `const prometheus.DefNativeHistogramZeroThreshold untyped float`.
-const defNativeHistogramZeroThreshold = 2.938735877055719e-39;
-
-/// Go: `const prometheus.ExemplarMaxRunes untyped int`.
-const exemplarMaxRunes = 128;
-
-/// Go: `const prometheus.GaugeValue prometheus.ValueType`.
-const gaugeValue = 2;
-
-/// Go: `const prometheus.NativeHistogramZeroThresholdZero untyped int`.
-const nativeHistogramZeroThresholdZero = -1;
-
-/// Go: `const prometheus.UntypedValue prometheus.ValueType`.
-const untypedValue = 3;
 
 /// Go: `prometheus.AlreadyRegisteredError`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class AlreadyRegisteredError extends GolangException {
-  AlreadyRegisteredError.$(super.base) : super.$from();
+class ClientGolangPrometheusAlreadyRegisteredError extends GolangException {
+  ClientGolangPrometheusAlreadyRegisteredError.$(super.base) : super.$from();
 
   @override
   String toString() => 'prometheus.AlreadyRegisteredError: $message';
@@ -47,9 +21,39 @@ class AlreadyRegisteredError extends GolangException {
 
 /// Go: `prometheus.MultiError`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class MultiError extends GolangException {
-  MultiError.$(super.base) : super.$from();
+class ClientGolangPrometheusMultiError extends GolangException {
+  ClientGolangPrometheusMultiError.$(super.base) : super.$from();
 
   @override
   String toString() => 'prometheus.MultiError: $message';
+}
+
+/// Go: the package-level members of `github.com/prometheus/client_golang/prometheus` (`Go.clientGolang.prometheus`).
+extension GoClientGolangPrometheusApi on GoClientGolangPrometheus {
+  /// Go: `const prometheus.CounterValue prometheus.ValueType`.
+  int get counterValue => 1;
+
+  /// Go: `const prometheus.DefAgeBuckets untyped int`.
+  int get defAgeBuckets => 5;
+
+  /// Go: `const prometheus.DefBufCap untyped int`.
+  int get defBufCap => 500;
+
+  /// Go: `const prometheus.DefMaxAge time.Duration`.
+  Duration get defMaxAge => Duration(microseconds: 600000000);
+
+  /// Go: `const prometheus.DefNativeHistogramZeroThreshold untyped float`.
+  double get defNativeHistogramZeroThreshold => 2.938735877055719e-39;
+
+  /// Go: `const prometheus.ExemplarMaxRunes untyped int`.
+  int get exemplarMaxRunes => 128;
+
+  /// Go: `const prometheus.GaugeValue prometheus.ValueType`.
+  int get gaugeValue => 2;
+
+  /// Go: `const prometheus.NativeHistogramZeroThresholdZero untyped int`.
+  int get nativeHistogramZeroThresholdZero => -1;
+
+  /// Go: `const prometheus.UntypedValue prometheus.ValueType`.
+  int get untypedValue => 3;
 }

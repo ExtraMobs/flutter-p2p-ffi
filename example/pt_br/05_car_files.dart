@@ -24,18 +24,6 @@
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:p2p_ffi/go/block_format.dart' as blocks;
-import 'package:p2p_ffi/go/boxo/blockservice.dart' as blockservice;
-import 'package:p2p_ffi/go/boxo/exchange/offline.dart' as offline;
-import 'package:p2p_ffi/go/boxo/files.dart' as files;
-import 'package:p2p_ffi/go/boxo/ipld/merkledag.dart' as merkledag;
-import 'package:p2p_ffi/go/boxo/ipld/unixfs/file.dart' as unixfs_file;
-import 'package:p2p_ffi/go/car/v2.dart' as car;
-import 'package:p2p_ffi/go/car/v2/blockstore.dart' as car_blockstore;
-import 'package:p2p_ffi/go/cid.dart' as cid;
-import 'package:p2p_ffi/go/context.dart' as context;
-import 'package:p2p_ffi/go/ipld_format.dart' as ipld_format;
-import 'package:p2p_ffi/go/os.dart' as os;
 import 'package:p2p_ffi/p2p_ffi.dart';
 
 import 'lesson.dart';
@@ -44,16 +32,16 @@ Future<void> main() async {
   await P2pService.start();
   final tmp = Directory.systemTemp.createTempSync('lesson05_');
   try {
-    final ctx = context.background();
+    final ctx = Go.context.background();
     final s = await Sample.build(ctx);
     say('a pasta de exemplo: ${s.root}');
 
     // 1. Quais blocos: percorra o DAG a partir da raiz, o pai antes dos
     //    filhos (a ordem em que o `ipfs dag export` grava). Cada Get pelo CID
     //    de um link devolve o bloco sob aquele CID exato, codec incluído.
-    Future<List<blocks.Block>> dagBlocks(cid.Cid c) async => [
+    Future<List<BlockFormatBlock>> dagBlocks(Cid c) async => [
           await s.store.get(ctx, c),
-          for (final l in await ipld_format.getLinks(ctx, s.dag, c))
+          for (final l in await Go.ipldFormat.getLinks(ctx, s.dag, c))
             ...await dagBlocks(l.cid!),
         ];
 
@@ -62,8 +50,8 @@ Future<void> main() async {
     //    Go:  rw, _ := blockstore.OpenReadWrite(out, []cid.Cid{root})
     //         rw.PutMany(ctx, blks); rw.Finalize()
     final out = '${tmp.path}/folder.car';
-    Future<void> writeCar(String path, List<blocks.Block> all) async {
-      final rw = car_blockstore.openReadWrite(path, [s.root]);
+    Future<void> writeCar(String path, List<BlockFormatBlock> all) async {
+      final rw = Go.car.v2.blockstore.openReadWrite(path, [s.root]);
       await rw.putMany(ctx, all);
       rw.finalize();
     }
@@ -75,7 +63,7 @@ Future<void> main() async {
     // 3. Inspecionar: versão, raízes, quantos blocos, as raízes estão dentro.
     //    O Reader mapeia o arquivo: feche-o sempre.
     //    Go:  r, _ := car.OpenReader(out); defer r.Close(); st, _ := r.Inspect(false)
-    final r = car.openReader(out);
+    final r = Go.car.v2.openReader(out);
     try {
       final st = r.inspect(false);
       say('CARv${r.version}, raízes ${r.roots()}, ${st.blockCount} blocos '
@@ -90,9 +78,9 @@ Future<void> main() async {
     //    de cada bloco ao ler; o fim é o io.EOF do Go.
     //    Go:  br, _ := car.NewBlockReader(f)
     //         for { b, err := br.Next(); if errors.Is(err, io.EOF) { break } }
-    final f = os.open(out);
+    final f = Go.os.open(out);
     try {
-      final br = car.BlockReader(f);
+      final br = CarV2BlockReader(f);
       say('\nos blocos no arquivo:');
       while (true) {
         try {
@@ -113,20 +101,21 @@ Future<void> main() async {
     //         nd, _ := dag.Get(ctx, root); f, _ := unixfile.NewUnixfsFile(ctx, dag, nd)
     //         files.WriteTo(f, dir)
     Future<void> extract(String carPath, String dir) async {
-      final ro = car_blockstore.openReadOnly(carPath);
+      final ro = Go.car.v2.blockstore.openReadOnly(carPath);
       try {
-        final dag = merkledag
-            .newDagService(blockservice.new$(ro, offline.exchange(ro)));
+        final dag = Go.boxo.ipld.merkledag.newDagService(Go.boxo.blockservice
+            .new$(ro, Go.boxo.exchange.offline.exchange(ro)));
         final root = ro.roots().single;
-        files.writeTo(
-            await unixfs_file.newUnixfsFile(ctx, dag, await dag.get(ctx, root)),
+        Go.boxo.files.writeTo(
+            await Go.boxo.ipld.unixfs.file
+                .newUnixfsFile(ctx, dag, await dag.get(ctx, root)),
             dir);
       } finally {
         ro.close();
       }
     }
 
-    final ro = car_blockstore.openReadOnly(out);
+    final ro = Go.car.v2.blockstore.openReadOnly(out);
     try {
       final b = await ro.get(ctx, s.root);
       say('\no bloco raiz, lido do CAR: ${b.rawData!.length} bytes');
@@ -146,7 +135,7 @@ Future<void> main() async {
         why: 'o go-car confere o cabeçalho e o recusa',
         instead: 'trate o erro: um CAR que você recebe pode vir de qualquer '
             'lugar',
-        action: () => car.openReader(notCar).close());
+        action: () => Go.car.v2.openReader(notCar).close());
 
     // Um byte invertido perto do fim, nos dados de uma folha.
     final good = File(out).readAsBytesSync();
@@ -154,7 +143,7 @@ Future<void> main() async {
     File(corrupted).writeAsBytesSync(
         Uint8List.fromList(good)..[good.length - 2000] ^= 0xff);
     String inspect(String path, bool check) {
-      final r = car.openReader(path);
+      final r = Go.car.v2.openReader(path);
       try {
         return '${r.inspect(check).blockCount} blocos, sem erro';
       } on GolangException catch (e) {
@@ -172,19 +161,19 @@ Future<void> main() async {
         right: () => inspect(corrupted, true));
 
     final unfinished = '${tmp.path}/unfinished.car';
-    final rw = car_blockstore.openReadWrite(unfinished, [s.root]);
+    final rw = Go.car.v2.blockstore.openReadWrite(unfinished, [s.root]);
     await rw.put(ctx, await s.store.get(ctx, s.root));
     await mistake('ler um CAR cujo gravador nunca foi finalizado',
         why: 'o cabeçalho só é gravado pelo finalize()',
         instead: 'finalize() ao terminar (ou discard() para desistir)',
-        action: () => car.openReader(unfinished).close());
+        action: () => Go.car.v2.openReader(unfinished).close());
     rw.discard();
 
     // Copiar "todos os blocos do blockstore" em vez de percorrer o DAG. Um
     // blockstore guarda os blocos só pelo multihash: o AllKeysChan devolve
     // cada um como um CIDv1 raw, sem o codec com que foi guardado.
     String rootsInside(String path) {
-      final r = car.openReader(path);
+      final r = Go.car.v2.openReader(path);
       try {
         final st = r.inspect(false);
         return 'raízes no CAR: ${st.rootsPresent}, codecs ${st.codecCounts}';

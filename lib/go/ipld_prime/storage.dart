@@ -7,23 +7,23 @@ import 'package:p2p_ffi/go/car/v2/storage.dart' as $storage;
 import 'package:p2p_ffi/go/ipld_prime/storage/bsadapter.dart' as $bsadapter;
 
 /// Go: `storage.ReadableStorage` (handle).
-class ReadableStorage extends Storage {
-  ReadableStorage.$h(super.$h) : super.$h();
+class IpldPrimeStorageReadableStorage extends IpldPrimeStorage {
+  IpldPrimeStorageReadableStorage.$h(super.$h) : super.$h();
 
   /// Go: type assertion `x.(*bsadapter.Adapter)`: null if the object is not one.
-  $bsadapter.Adapter? asAdapter() {
+  $bsadapter.IpldPrimeStorageBsadapterAdapter? asAdapter() {
     final $r = $callSync(94, $W()..h(this));
-    return $r.hn($bsadapter.Adapter.$h);
+    return $r.hn($bsadapter.IpldPrimeStorageBsadapterAdapter.$h);
   }
 
   /// Go: type assertion `x.(storage.ReadableCar)`: null if the object is not one.
-  $storage.ReadableCar? asReadableCar() {
+  $storage.CarV2StorageReadableCar? asReadableCar() {
     final $r = $callSync(95, $W()..h(this));
-    return $r.hn($storage.ReadableCar.$h);
+    return $r.hn($storage.CarV2StorageReadableCar.$h);
   }
 }
 
 /// Go: `storage.Storage` (handle).
-class Storage extends GoHandle {
-  Storage.$h(super.$h);
+class IpldPrimeStorage extends GoHandle {
+  IpldPrimeStorage.$h(super.$h);
 }

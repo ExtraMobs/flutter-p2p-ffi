@@ -11,12 +11,13 @@
 // lo enlaza. Todo lo que está en el MFS queda protegido del GC (lección 09).
 //
 // Dos capas, el mismo árbol:
-//   - los comandos (`commands.filesWrite`, `filesLs`, `filesRead`...): el
-//     `ipfs files` de la línea de comandos, cada uno un Stream de resultados;
-//   - el paquete mfs de boxo (`mfs.mkdir`, `mfs.lookup`, `File.open`...): la
-//     capa que los comandos usan por dentro, con más control (abrir un
-//     archivo, posicionarse, escribir un trozo) y más deberes (cerrar lo que
-//     abres, flush).
+//   - los comandos (`Go.kubo.core.commands.filesWrite`, `filesLs`,
+//     `filesRead`...): el `ipfs files` de la línea de comandos, cada uno un
+//     Stream de resultados;
+//   - el paquete mfs de boxo (`Go.boxo.mfs.mkdir`, `Go.boxo.mfs.lookup`,
+//     `BoxoMfsFile.open`...): la capa que los comandos usan por dentro, con
+//     más control (abrir un archivo, posicionarse, escribir un trozo) y más
+//     deberes (cerrar lo que abres, flush).
 //
 // Necesita: la lección 08 (un nodo: la raíz de su MFS es n.filesRoot).
 // Técnicamente, el MFS necesita un DAGService para leer y escribir sus
@@ -30,11 +31,6 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:p2p_ffi/go/boxo/files.dart' as files;
-import 'package:p2p_ffi/go/boxo/mfs.dart' as mfs;
-import 'package:p2p_ffi/go/context.dart' as context;
-import 'package:p2p_ffi/go/kubo/core/commands.dart' as commands;
-import 'package:p2p_ffi/go/kubo/core/coreapi.dart' as coreapi;
 import 'package:p2p_ffi/p2p_ffi.dart';
 
 import 'lesson.dart';
@@ -42,42 +38,45 @@ import 'lesson.dart';
 Future<void> main() async {
   await P2pService.start();
   final tmp = Directory.systemTemp.createTempSync('lesson10_');
-  final ctx = context.background();
+  final ctx = Go.context.background();
   final n = await newNode(ctx, '${tmp.path}/repo');
   try {
-    final api = coreapi.newCoreApi(n);
+    final api = Go.kubo.core.coreapi.newCoreApi(n);
     Future<String> rootCid() async =>
-        (await commands.filesStat(n, ctx, '/').single).hash;
+        (await Go.kubo.core.commands.filesStat(n, ctx, '/').single).hash;
 
     // 1. Los comandos: mkdir, write, ls, read, como en la línea de comandos.
     //    CLI: ipfs files mkdir -p /site; echo ... | ipfs files write --create /site/index.html
     final empty = await rootCid();
-    await commands.filesMkdir(n, ctx, '/site', parents: true).drain<void>();
-    await commands
+    await Go.kubo.core.commands
+        .filesMkdir(n, ctx, '/site', parents: true)
+        .drain<void>();
+    await Go.kubo.core.commands
         .filesWrite(n, ctx, '/site/index.html',
-            files.newBytesFile(utf8.encode('<h1>v1</h1>\n')),
+            Go.boxo.files.newBytesFile(utf8.encode('<h1>v1</h1>\n')),
             create: true)
         .drain<void>();
     final v1 = await rootCid();
     say('la raíz del MFS: vacía $empty → tras un write $v1');
-    final ls = await commands.filesLs(n, ctx, '/site', long: true).single;
+    final ls =
+        await Go.kubo.core.commands.filesLs(n, ctx, '/site', long: true).single;
     for (final e in ls.entries) {
       say('  /site/${e.name}  ${e.size} bytes  ${e.hash}');
     }
-    final html = await commands
+    final html = await Go.kubo.core.commands
         .filesRead(n, ctx, '/site/index.html')
         .fold<List<int>>([], (all, piece) => all..addAll(piece));
     say('  leído: ${utf8.decode(html).trim()}');
 
     // 2. Editar el mismo nombre: la raíz recibe un CID nuevo, la antigua
     //    sigue mostrando la v1 (inmutable, como siempre).
-    await commands
+    await Go.kubo.core.commands
         .filesWrite(n, ctx, '/site/index.html',
-            files.newBytesFile(utf8.encode('<h1>v2</h1>\n')),
+            Go.boxo.files.newBytesFile(utf8.encode('<h1>v2</h1>\n')),
             truncate: true)
         .drain<void>();
     final v2 = await rootCid();
-    final old = await commands
+    final old = await Go.kubo.core.commands
         .cat(n, ctx, ['/ipfs/$v1/site/index.html']).fold<List<int>>(
             [], (all, piece) => all..addAll(piece));
     say('\ntras editar: raíz $v2');
@@ -86,8 +85,10 @@ Future<void> main() async {
     // 3. Un CID de fuera, enlazado en el MFS sin copiar (`files cp`).
     final logo = await api
         .unixfs()
-        .add(ctx, files.newBytesFile(utf8.encode('a logo, say\n')));
-    await commands.filesCp(n, ctx, logo.value, '/site/logo.txt').drain<void>();
+        .add(ctx, Go.boxo.files.newBytesFile(utf8.encode('a logo, say\n')));
+    await Go.kubo.core.commands
+        .filesCp(n, ctx, logo.value, '/site/logo.txt')
+        .drain<void>();
     say('\nenlacé $logo como /site/logo.txt (ningún byte copiado)');
 
     // 4. El nivel bajo: el mfs de boxo, sobre el mismo árbol.
@@ -95,22 +96,22 @@ Future<void> main() async {
     //         fd, _ := f.Open(ctx, mfs.Flags{Write: true, Sync: true})
     //         fd.Seek(0, io.SeekEnd); fd.Write(b); fd.Close()
     final root = n.filesRoot;
-    final file = mfs.lookup(root, '/site/index.html').asFile()!;
-    final w = await file.open(ctx, mfs.Flags(write: true, sync: true));
+    final file = Go.boxo.mfs.lookup(root, '/site/index.html').asFile()!;
+    final w = await file.open(ctx, BoxoMfsFlags(write: true, sync: true));
     w.seek(0, 2); // 2 = io.SeekEnd
     w.write(utf8.encode('<p>appended by mfs</p>\n'));
     w.close(); // close es lo que escribe el cambio en el árbol
-    final r = await file.open(ctx, mfs.Flags(read: true));
+    final r = await file.open(ctx, BoxoMfsFlags(read: true));
     final now = await r.ctxReadFull(ctx, 1024);
     r.close();
     say('\nmfs, tras añadir al final:\n${utf8.decode(now)}');
     //    Go:  mfs.Mv(root, "/site/logo.txt", "/site/img/logo.txt")
-    mfs.mkdir(root, '/site/img', mfs.MkdirOpts(mkparents: true));
-    mfs.mv(root, '/site/logo.txt', '/site/img/logo.txt');
+    Go.boxo.mfs.mkdir(root, '/site/img', BoxoMfsMkdirOpts(mkparents: true));
+    Go.boxo.mfs.mv(root, '/site/logo.txt', '/site/img/logo.txt');
     //    Go:  nd, _ := mfs.FlushPath(ctx, root, "/site")
-    final site = await mfs.flushPath(ctx, root, '/site');
+    final site = await Go.boxo.mfs.flushPath(ctx, root, '/site');
     say('/site escrito (flush): ${site.cid()}');
-    final dir = mfs.lookup(root, '/site').asDirectory()!;
+    final dir = Go.boxo.mfs.lookup(root, '/site').asDirectory()!;
     say('  entradas: ${(await dir.listNames(ctx)).join(', ')}');
 
     say('\n== Errores comunes\n');
@@ -118,9 +119,9 @@ Future<void> main() async {
         why: 'files write crea el archivo (create: true), no las carpetas de '
             'encima',
         instead: 'filesMkdir(..., parents: true) antes',
-        action: () => commands
-            .filesWrite(
-                n, ctx, '/nope/a.txt', files.newBytesFile(utf8.encode('x')),
+        action: () => Go.kubo.core.commands
+            .filesWrite(n, ctx, '/nope/a.txt',
+                Go.boxo.files.newBytesFile(utf8.encode('x')),
                 create: true)
             .drain<void>());
     // (Abrir un archivo para escritura mientras otro descriptor está abierto
@@ -130,13 +131,15 @@ Future<void> main() async {
         why: 'files rm rechaza carpetas salvo que le digas que borre lo que '
             'hay dentro',
         instead: 'filesRm(..., recursive: true)',
-        action: () => commands.filesRm(n, ctx, ['/site']).drain<void>());
+        action: () =>
+            Go.kubo.core.commands.filesRm(n, ctx, ['/site']).drain<void>());
     await mistake('leer una ruta que no existe',
         why: 'las rutas del MFS son nombres en el árbol, no CIDs: una errata '
             'es un error',
         instead: 'filesStat o filesLs para comprobar; las rutas /ipfs/<cid> '
             'van a cat',
-        action: () => commands.filesStat(n, ctx, '/site/index.htm').single);
+        action: () =>
+            Go.kubo.core.commands.filesStat(n, ctx, '/site/index.htm').single);
   } finally {
     await n.close();
     await P2pService.stop();

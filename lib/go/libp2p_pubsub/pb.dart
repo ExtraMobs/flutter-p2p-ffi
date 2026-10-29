@@ -4,11 +4,12 @@ library;
 
 import 'dart:typed_data';
 
+import 'package:p2p_ffi/src/go.dart' show GoLibp2pPubsubPb;
 import 'package:p2p_ffi/src/runtime.dart';
 
 /// Go: `pubsub_pb.Message` (handle).
-class Message extends GoHandle {
-  Message.$h(super.$h);
+class Libp2pPubsubPbMessage extends GoHandle {
+  Libp2pPubsubPbMessage.$h(super.$h);
 
   /// Go: `func (*pubsub_pb.Message).GetData() []byte`.
   Uint8List getData() {
@@ -35,41 +36,44 @@ class Message extends GoHandle {
   }
 }
 
-/// Go: `const pubsub_pb.TraceEvent_DELIVER_MESSAGE pubsub_pb.TraceEvent_Type`.
-const traceEventDeliverMessage = 3;
+/// Go: the package-level members of `github.com/libp2p/go-libp2p-pubsub/pb` (`Go.libp2pPubsub.pb`).
+extension GoLibp2pPubsubPbApi on GoLibp2pPubsubPb {
+  /// Go: `const pubsub_pb.TraceEvent_DELIVER_MESSAGE pubsub_pb.TraceEvent_Type`.
+  int get traceEventDeliverMessage => 3;
 
-/// Go: `const pubsub_pb.TraceEvent_DROP_RPC pubsub_pb.TraceEvent_Type`.
-const traceEventDropRpc = 8;
+  /// Go: `const pubsub_pb.TraceEvent_DROP_RPC pubsub_pb.TraceEvent_Type`.
+  int get traceEventDropRpc => 8;
 
-/// Go: `const pubsub_pb.TraceEvent_DUPLICATE_MESSAGE pubsub_pb.TraceEvent_Type`.
-const traceEventDuplicateMessage = 2;
+  /// Go: `const pubsub_pb.TraceEvent_DUPLICATE_MESSAGE pubsub_pb.TraceEvent_Type`.
+  int get traceEventDuplicateMessage => 2;
 
-/// Go: `const pubsub_pb.TraceEvent_GRAFT pubsub_pb.TraceEvent_Type`.
-const traceEventGraft = 11;
+  /// Go: `const pubsub_pb.TraceEvent_GRAFT pubsub_pb.TraceEvent_Type`.
+  int get traceEventGraft => 11;
 
-/// Go: `const pubsub_pb.TraceEvent_JOIN pubsub_pb.TraceEvent_Type`.
-const traceEventJoin = 9;
+  /// Go: `const pubsub_pb.TraceEvent_JOIN pubsub_pb.TraceEvent_Type`.
+  int get traceEventJoin => 9;
 
-/// Go: `const pubsub_pb.TraceEvent_LEAVE pubsub_pb.TraceEvent_Type`.
-const traceEventLeave = 10;
+  /// Go: `const pubsub_pb.TraceEvent_LEAVE pubsub_pb.TraceEvent_Type`.
+  int get traceEventLeave => 10;
 
-/// Go: `const pubsub_pb.TraceEvent_ON_CLOSED_OUTBOUND_STREAM pubsub_pb.TraceEvent_Type`.
-const traceEventOnClosedOutboundStream = 5;
+  /// Go: `const pubsub_pb.TraceEvent_ON_CLOSED_OUTBOUND_STREAM pubsub_pb.TraceEvent_Type`.
+  int get traceEventOnClosedOutboundStream => 5;
 
-/// Go: `const pubsub_pb.TraceEvent_ON_NEW_OUTBOUND_STREAM pubsub_pb.TraceEvent_Type`.
-const traceEventOnNewOutboundStream = 4;
+  /// Go: `const pubsub_pb.TraceEvent_ON_NEW_OUTBOUND_STREAM pubsub_pb.TraceEvent_Type`.
+  int get traceEventOnNewOutboundStream => 4;
 
-/// Go: `const pubsub_pb.TraceEvent_PRUNE pubsub_pb.TraceEvent_Type`.
-const traceEventPrune = 12;
+  /// Go: `const pubsub_pb.TraceEvent_PRUNE pubsub_pb.TraceEvent_Type`.
+  int get traceEventPrune => 12;
 
-/// Go: `const pubsub_pb.TraceEvent_PUBLISH_MESSAGE pubsub_pb.TraceEvent_Type`.
-const traceEventPublishMessage = 0;
+  /// Go: `const pubsub_pb.TraceEvent_PUBLISH_MESSAGE pubsub_pb.TraceEvent_Type`.
+  int get traceEventPublishMessage => 0;
 
-/// Go: `const pubsub_pb.TraceEvent_RECV_RPC pubsub_pb.TraceEvent_Type`.
-const traceEventRecvRpc = 6;
+  /// Go: `const pubsub_pb.TraceEvent_RECV_RPC pubsub_pb.TraceEvent_Type`.
+  int get traceEventRecvRpc => 6;
 
-/// Go: `const pubsub_pb.TraceEvent_REJECT_MESSAGE pubsub_pb.TraceEvent_Type`.
-const traceEventRejectMessage = 1;
+  /// Go: `const pubsub_pb.TraceEvent_REJECT_MESSAGE pubsub_pb.TraceEvent_Type`.
+  int get traceEventRejectMessage => 1;
 
-/// Go: `const pubsub_pb.TraceEvent_SEND_RPC pubsub_pb.TraceEvent_Type`.
-const traceEventSendRpc = 7;
+  /// Go: `const pubsub_pb.TraceEvent_SEND_RPC pubsub_pb.TraceEvent_Type`.
+  int get traceEventSendRpc => 7;
+}

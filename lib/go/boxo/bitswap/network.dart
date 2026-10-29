@@ -5,16 +5,16 @@ library;
 import 'package:p2p_ffi/src/runtime.dart';
 
 /// Go: `network.BitSwapNetwork` (handle).
-class BitSwapNetwork extends Pinger {
-  BitSwapNetwork.$h(super.$h) : super.$h();
+class BoxoBitswapNetworkBitSwapNetwork extends BoxoBitswapNetworkPinger {
+  BoxoBitswapNetworkBitSwapNetwork.$h(super.$h) : super.$h();
 }
 
 /// Go: `network.ConnectEventManager` (handle).
-class ConnectEventManager extends GoHandle {
-  ConnectEventManager.$h(super.$h);
+class BoxoBitswapNetworkConnectEventManager extends GoHandle {
+  BoxoBitswapNetworkConnectEventManager.$h(super.$h);
 }
 
 /// Go: `network.Pinger` (handle).
-class Pinger extends GoHandle {
-  Pinger.$h(super.$h);
+class BoxoBitswapNetworkPinger extends GoHandle {
+  BoxoBitswapNetworkPinger.$h(super.$h);
 }

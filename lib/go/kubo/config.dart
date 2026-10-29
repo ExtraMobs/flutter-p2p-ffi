@@ -2,22 +2,23 @@
 // Go: github.com/ipfs/kubo/config
 library;
 
+import 'package:p2p_ffi/src/go.dart' show GoKuboConfig;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/kubo/core/coreiface/options.dart' as $options;
 import 'package:p2p_ffi/go/libp2p/core/peer.dart' as $peer;
 
 /// Go: `config.Config` (valor).
-class Config extends GoJsonValue {
-  Config(super.json);
+class KuboConfig extends GoJsonValue {
+  KuboConfig(super.json);
 }
 
 /// Go: `config.Identity`.
-final class Identity implements GoDto {
-  Identity({String? peerId, String? privKey})
+final class KuboConfigIdentity implements GoDto {
+  KuboConfigIdentity({String? peerId, String? privKey})
       : peerId = peerId ?? '',
         privKey = privKey ?? '';
 
-  Identity.$dec($R r)
+  KuboConfigIdentity.$dec($R r)
       : peerId = r.str(),
         privKey = r.str();
 
@@ -35,498 +36,516 @@ final class Identity implements GoDto {
   }
 }
 
-/// Go: `func config.CreateIdentity(out io.Writer, opts []options.KeyGenerateOption) (config.Identity, error)`.
-Identity createIdentity(GoHandle? out, List<$options.KeyGenerateOption> opts) {
-  final $r = $callSync(
-      268,
-      $W()
-        ..h(out)
-        ..list(opts, (w0, e0) => w0.opt(e0)));
-  return $r.p() ? Identity.$dec($r) : $nil();
-}
-
-/// Go: `func config.InitWithIdentity(identity config.Identity) (*config.Config, error)`.
-Config initWithIdentity(Identity identity) {
-  final $r = $callSync(269, $W()..dto(identity));
-  return $r.p() ? Config($r.json()) : $nil();
-}
-
-/// Go: `func config.ParseBootstrapPeers(addrs []string) ([]peer.AddrInfo, error)`.
-List<$peer.AddrInfo> parseBootstrapPeers(List<String> addrs) {
-  final $r = $callSync(270, $W()..list(addrs, (w0, e0) => w0.str(e0)));
-  return $r.list(() => $r.p() ? $peer.AddrInfo.$dec($r) : $nil());
-}
-
-/// Go: `func config.BootstrapPeerStrings(bps []peer.AddrInfo) []string`.
-List<String> bootstrapPeerStrings(List<$peer.AddrInfo> bps) {
-  final $r = $callSync(267, $W()..list(bps, (w0, e0) => w0.dto(e0)));
-  return $r.list(() => $r.str());
-}
-
-/// Go: `func config.PathRoot() (string, error)`.
-String pathRoot() {
-  final $r = $callSync(271);
-  return $r.str();
-}
-
-/// Go: `const config.APITag untyped string`.
-const apiTag = "API";
-
-/// Go: `const config.AuthorizationTag untyped string`.
-const authorizationTag = "Authorizations";
-
-/// Go: `const config.AutoNATServiceDisabled config.AutoNATServiceMode`.
-const autoNatServiceDisabled = 2;
-
-/// Go: `const config.AutoNATServiceEnabled config.AutoNATServiceMode`.
-const autoNatServiceEnabled = 1;
-
-/// Go: `const config.AutoNATServiceEnabledV1Only config.AutoNATServiceMode`.
-const autoNatServiceEnabledV1Only = 3;
-
-/// Go: `const config.AutoNATServiceUnset config.AutoNATServiceMode`.
-const autoNatServiceUnset = 0;
-
-/// Go: `const config.AutoPlaceholder untyped string`.
-const autoPlaceholder = "auto";
-
-/// Go: `const config.CidContactRoutingURL untyped string`.
-const cidContactRoutingUrl = "https://cid.contact";
-
-/// Go: `const config.DAGLayoutBalanced untyped string`.
-const dagLayoutBalanced = "balanced";
-
-/// Go: `const config.DAGLayoutTrickle untyped string`.
-const dagLayoutTrickle = "trickle";
-
-/// Go: `const config.DHTModeAuto config.DHTMode`.
-const dhtModeAuto = "auto";
-
-/// Go: `const config.DHTModeClient config.DHTMode`.
-const dhtModeClient = "client";
-
-/// Go: `const config.DHTModeServer config.DHTMode`.
-const dhtModeServer = "server";
-
-/// Go: `const config.Default config.Flag`.
-const default$ = 0;
-
-/// Go: `const config.DefaultAcceleratedDHTClient untyped bool`.
-const defaultAcceleratedDhtClient = false;
-
-/// Go: `const config.DefaultAllowCodecConversion untyped bool`.
-const defaultAllowCodecConversion = false;
-
-/// Go: `const config.DefaultAutoConfCacheSize untyped int`.
-const defaultAutoConfCacheSize = 3;
-
-/// Go: `const config.DefaultAutoConfEnabled untyped bool`.
-const defaultAutoConfEnabled = true;
-
-/// Go: `const config.DefaultAutoConfRefreshInterval time.Duration`.
-const defaultAutoConfRefreshInterval = Duration(microseconds: 86400000000);
-
-/// Go: `const config.DefaultAutoConfTimeout time.Duration`.
-const defaultAutoConfTimeout = Duration(microseconds: 5000000);
-
-/// Go: `const config.DefaultAutoConfURL untyped string`.
-const defaultAutoConfUrl = "https://conf.ipfs-mainnet.org/autoconf.json";
-
-/// Go: `const config.DefaultAutoTLSEnabled untyped bool`.
-const defaultAutoTlsEnabled = true;
-
-/// Go: `const config.DefaultAutoTLSRegistrationDelay time.Duration`.
-const defaultAutoTlsRegistrationDelay = Duration(microseconds: 3600000000);
-
-/// Go: `const config.DefaultAutoTLSShortAddrs untyped bool`.
-const defaultAutoTlsShortAddrs = true;
-
-/// Go: `const config.DefaultAutoTLSSkipDNSLookup untyped bool`.
-const defaultAutoTlsSkipDnsLookup = true;
-
-/// Go: `const config.DefaultAutoWSS untyped bool`.
-const defaultAutoWss = true;
-
-/// Go: `const config.DefaultBatchMaxNodes untyped int`.
-const defaultBatchMaxNodes = 128;
-
-/// Go: `const config.DefaultBatchMaxSize untyped int`.
-const defaultBatchMaxSize = 104857600;
-
-/// Go: `const config.DefaultBitswapLibp2pEnabled untyped bool`.
-const defaultBitswapLibp2pEnabled = true;
-
-/// Go: `const config.DefaultBitswapServerEnabled untyped bool`.
-const defaultBitswapServerEnabled = true;
-
-/// Go: `const config.DefaultBlockKeyCacheSize untyped int`.
-const defaultBlockKeyCacheSize = 65536;
-
-/// Go: `const config.DefaultBroadcastControlEnable untyped bool`.
-const defaultBroadcastControlEnable = true;
-
-/// Go: `const config.DefaultBroadcastControlLocalPeers untyped bool`.
-const defaultBroadcastControlLocalPeers = false;
-
-/// Go: `const config.DefaultBroadcastControlMaxPeers untyped int`.
-const defaultBroadcastControlMaxPeers = -1;
-
-/// Go: `const config.DefaultBroadcastControlMaxRandomPeers untyped int`.
-const defaultBroadcastControlMaxRandomPeers = 0;
-
-/// Go: `const config.DefaultBroadcastControlPeeredPeers untyped bool`.
-const defaultBroadcastControlPeeredPeers = false;
-
-/// Go: `const config.DefaultBroadcastControlSendToPendingPeers untyped bool`.
-const defaultBroadcastControlSendToPendingPeers = false;
-
-/// Go: `const config.DefaultCAEndpoint untyped string`.
-const defaultCaEndpoint = "https://acme-v02.api.letsencrypt.org/directory";
-
-/// Go: `const config.DefaultCGNATCheck untyped bool`.
-const defaultCgnatCheck = true;
-
-/// Go: `const config.DefaultCidVersion untyped int`.
-const defaultCidVersion = 0;
-
-/// Go: `const config.DefaultConfigFile untyped string`.
-const defaultConfigFile = "config";
-
-/// Go: `const config.DefaultConnMgrGracePeriod time.Duration`.
-const defaultConnMgrGracePeriod = Duration(microseconds: 20000000);
-
-/// Go: `const config.DefaultConnMgrHighWater untyped int`.
-const defaultConnMgrHighWater = 96;
-
-/// Go: `const config.DefaultConnMgrLowWater untyped int`.
-const defaultConnMgrLowWater = 32;
-
-/// Go: `const config.DefaultConnMgrSilencePeriod time.Duration`.
-const defaultConnMgrSilencePeriod = Duration(microseconds: 10000000);
-
-/// Go: `const config.DefaultConnMgrType untyped string`.
-const defaultConnMgrType = "basic";
-
-/// Go: `const config.DefaultDataStoreDirectory untyped string`.
-const defaultDataStoreDirectory = "datastore";
-
-/// Go: `const config.DefaultDeadListenerCheck untyped bool`.
-const defaultDeadListenerCheck = true;
-
-/// Go: `const config.DefaultDeprecatedXIpfsPath untyped bool`.
-const defaultDeprecatedXIpfsPath = false;
-
-/// Go: `const config.DefaultDeserializedResponses untyped bool`.
-const defaultDeserializedResponses = true;
-
-/// Go: `const config.DefaultDiagnosticServiceURL untyped string`.
-const defaultDiagnosticServiceUrl = "https://check.ipfs.network";
-
-/// Go: `const config.DefaultDisableHTMLErrors untyped bool`.
-const defaultDisableHtmlErrors = false;
-
-/// Go: `const config.DefaultDomainSuffix untyped string`.
-const defaultDomainSuffix = "libp2p.direct";
-
-/// Go: `const config.DefaultExposeRoutingAPI untyped bool`.
-const defaultExposeRoutingApi = true;
-
-/// Go: `const config.DefaultFastProvideDAG untyped bool`.
-const defaultFastProvideDag = false;
-
-/// Go: `const config.DefaultFastProvideRoot untyped bool`.
-const defaultFastProvideRoot = true;
-
-/// Go: `const config.DefaultFastProvideTimeout time.Duration`.
-const defaultFastProvideTimeout = Duration(microseconds: 10000000);
-
-/// Go: `const config.DefaultFastProvideWait untyped bool`.
-const defaultFastProvideWait = false;
-
-/// Go: `const config.DefaultFuseAllowOther untyped bool`.
-const defaultFuseAllowOther = false;
-
-/// Go: `const config.DefaultHTTPRetrievalEnabled untyped bool`.
-const defaultHttpRetrievalEnabled = true;
-
-/// Go: `const config.DefaultHTTPRetrievalMaxBlockSize untyped string`.
-const defaultHttpRetrievalMaxBlockSize = "2MiB";
-
-/// Go: `const config.DefaultHTTPRetrievalNumWorkers untyped int`.
-const defaultHttpRetrievalNumWorkers = 16;
-
-/// Go: `const config.DefaultHTTPRetrievalTLSInsecureSkipVerify untyped bool`.
-const defaultHttpRetrievalTlsInsecureSkipVerify = false;
-
-/// Go: `const config.DefaultHashFunction untyped string`.
-const defaultHashFunction = "sha2-256";
-
-/// Go: `const config.DefaultInlineDNSLink untyped bool`.
-const defaultInlineDnsLink = false;
-
-/// Go: `const config.DefaultIpnsMaxCacheTTL time.Duration`.
-const defaultIpnsMaxCacheTtl = Duration(microseconds: 9223372036854775);
-
-/// Go: `const config.DefaultLoopbackAddressesOnLanDHT untyped bool`.
-const defaultLoopbackAddressesOnLanDht = false;
-
-/// Go: `const config.DefaultMFSFetchTimeout time.Duration`.
-const defaultMfsFetchTimeout = Duration(microseconds: 60000000);
-
-/// Go: `const config.DefaultMFSNoFlushLimit untyped int`.
-const defaultMfsNoFlushLimit = 256;
-
-/// Go: `const config.DefaultMaxConcurrentRequests untyped int`.
-const defaultMaxConcurrentRequests = 4096;
-
-/// Go: `const config.DefaultMaxRangeRequestFileSize untyped int`.
-const defaultMaxRangeRequestFileSize = 0;
-
-/// Go: `const config.DefaultMaxRequestDuration time.Duration`.
-const defaultMaxRequestDuration = Duration(microseconds: 3600000000);
-
-/// Go: `const config.DefaultMigrationKeep untyped string`.
-const defaultMigrationKeep = "cache";
-
-/// Go: `const config.DefaultPathName untyped string`.
-const defaultPathName = ".ipfs";
-
-/// Go: `const config.DefaultPathRoot untyped string`.
-const defaultPathRoot = "~/.ipfs";
-
-/// Go: `const config.DefaultPriority config.Priority`.
-const defaultPriority = 0;
-
-/// Go: `const config.DefaultProvideBloomFPRate untyped int`.
-const defaultProvideBloomFpRate = 4750000;
-
-/// Go: `const config.DefaultProvideDHTDedicatedBurstWorkers untyped int`.
-const defaultProvideDhtDedicatedBurstWorkers = 1;
-
-/// Go: `const config.DefaultProvideDHTDedicatedPeriodicWorkers untyped int`.
-const defaultProvideDhtDedicatedPeriodicWorkers = 2;
-
-/// Go: `const config.DefaultProvideDHTInterval time.Duration`.
-const defaultProvideDhtInterval = Duration(microseconds: 79200000000);
-
-/// Go: `const config.DefaultProvideDHTKeystoreBatchSize untyped int`.
-const defaultProvideDhtKeystoreBatchSize = 16384;
-
-/// Go: `const config.DefaultProvideDHTMaxProvideConnsPerWorker untyped int`.
-const defaultProvideDhtMaxProvideConnsPerWorker = 20;
-
-/// Go: `const config.DefaultProvideDHTMaxWorkers untyped int`.
-const defaultProvideDhtMaxWorkers = 16;
-
-/// Go: `const config.DefaultProvideDHTOfflineDelay time.Duration`.
-const defaultProvideDhtOfflineDelay = Duration(microseconds: 7200000000);
-
-/// Go: `const config.DefaultProvideDHTResumeEnabled untyped bool`.
-const defaultProvideDhtResumeEnabled = true;
-
-/// Go: `const config.DefaultProvideDHTSendProviderRecordTimeout time.Duration`.
-const defaultProvideDhtSendProviderRecordTimeout =
-    Duration(microseconds: 10000000);
-
-/// Go: `const config.DefaultProvideDHTSweepEnabled untyped bool`.
-const defaultProvideDhtSweepEnabled = true;
-
-/// Go: `const config.DefaultProvideEnabled untyped bool`.
-const defaultProvideEnabled = true;
-
-/// Go: `const config.DefaultProvideStrategy untyped string`.
-const defaultProvideStrategy = "all";
-
-/// Go: `const config.DefaultRegistrationEndpoint untyped string`.
-const defaultRegistrationEndpoint = "https://registration.libp2p.direct";
-
-/// Go: `const config.DefaultResourceMgrMinInboundConns untyped int`.
-const defaultResourceMgrMinInboundConns = 800;
-
-/// Go: `const config.DefaultRetrievalTimeout time.Duration`.
-const defaultRetrievalTimeout = Duration(microseconds: 30000000);
-
-/// Go: `const config.DefaultRoutingType untyped string`.
-const defaultRoutingType = "auto";
-
-/// Go: `const config.DefaultSeenMessagesStrategy untyped string`.
-const defaultSeenMessagesStrategy = "last-seen";
-
-/// Go: `const config.DefaultShutdownTimeout time.Duration`.
-const defaultShutdownTimeout = Duration(microseconds: 43200000000);
-
-/// Go: `const config.DefaultStoreMode untyped bool`.
-const defaultStoreMode = false;
-
-/// Go: `const config.DefaultStoreMtime untyped bool`.
-const defaultStoreMtime = false;
-
-/// Go: `const config.DefaultSwarmCheckPercentThreshold untyped int`.
-const defaultSwarmCheckPercentThreshold = 5;
-
-/// Go: `const config.DefaultUnixFSChunker untyped string`.
-const defaultUnixFsChunker = "size-262144";
-
-/// Go: `const config.DefaultUnixFSDAGLayout untyped string`.
-const defaultUnixFsdagLayout = "balanced";
-
-/// Go: `const config.DefaultUnixFSHAMTDirectorySizeEstimation untyped string`.
-const defaultUnixFshamtDirectorySizeEstimation = "links";
-
-/// Go: `const config.DefaultUnixFSHAMTDirectorySizeThreshold untyped int`.
-const defaultUnixFshamtDirectorySizeThreshold = 262144;
-
-/// Go: `const config.DefaultUnixFSIncludeEmptyDirs untyped bool`.
-const defaultUnixFsIncludeEmptyDirs = true;
-
-/// Go: `const config.DefaultUnixFSPBNodeFieldOrder untyped string`.
-const defaultUnixFspbNodeFieldOrder = "links-first";
-
-/// Go: `const config.DefaultUnixFSRawLeaves untyped bool`.
-const defaultUnixFsRawLeaves = false;
-
-/// Go: `const config.DefaultWriteThrough bool`.
-const defaultWriteThrough = true;
-
-/// Go: `const config.Disabled config.Priority`.
-const disabled = -1;
-
-/// Go: `const config.EnvDir untyped string`.
-const envDir = "IPFS_PATH";
-
-/// Go: `const config.EnvHTTPRouters untyped string`.
-const envHttpRouters = "IPFS_HTTP_ROUTERS";
-
-/// Go: `const config.EnvHTTPRoutersFilterProtocols untyped string`.
-const envHttpRoutersFilterProtocols = "IPFS_HTTP_ROUTERS_FILTER_PROTOCOLS";
-
-/// Go: `const config.False config.Flag`.
-const false$ = -1;
-
-/// Go: `const config.FirstSeenMessagesStrategy untyped string`.
-const firstSeenMessagesStrategy = "first-seen";
-
-/// Go: `const config.HAMTSizeEstimationBlock untyped string`.
-const hamtSizeEstimationBlock = "block";
-
-/// Go: `const config.HAMTSizeEstimationDisabled untyped string`.
-const hamtSizeEstimationDisabled = "disabled";
-
-/// Go: `const config.HAMTSizeEstimationLinks untyped string`.
-const hamtSizeEstimationLinks = "links";
-
-/// Go: `const config.IdentityTag untyped string`.
-const identityTag = "Identity";
-
-/// Go: `const config.LastSeenMessagesStrategy untyped string`.
-const lastSeenMessagesStrategy = "last-seen";
-
-/// Go: `const config.MethodNameFindPeers config.MethodName`.
-const methodNameFindPeers = "find-peers";
-
-/// Go: `const config.MethodNameFindProviders config.MethodName`.
-const methodNameFindProviders = "find-providers";
-
-/// Go: `const config.MethodNameGetIPNS config.MethodName`.
-const methodNameGetIpns = "get-ipns";
-
-/// Go: `const config.MethodNameProvide config.MethodName`.
-const methodNameProvide = "provide";
-
-/// Go: `const config.MethodNamePutIPNS config.MethodName`.
-const methodNamePutIpns = "put-ipns";
-
-/// Go: `const config.MinProvideBloomFPRate untyped int`.
-const minProvideBloomFpRate = 1000000;
-
-/// Go: `const config.PBNodeFieldOrderDataFirst untyped string`.
-const pbNodeFieldOrderDataFirst = "data-first";
-
-/// Go: `const config.PBNodeFieldOrderLinksFirst untyped string`.
-const pbNodeFieldOrderLinksFirst = "links-first";
-
-/// Go: `const config.PrivKeySelector untyped string`.
-const privKeySelector = "Identity.PrivKey";
-
-/// Go: `const config.PrivKeyTag untyped string`.
-const privKeyTag = "PrivKey";
-
-/// Go: `const config.ProvideStrategyAll config.ProvideStrategy`.
-const provideStrategyAll = 1;
-
-/// Go: `const config.ProvideStrategyEntities config.ProvideStrategy`.
-const provideStrategyEntities = 32;
-
-/// Go: `const config.ProvideStrategyMFS config.ProvideStrategy`.
-const provideStrategyMfs = 8;
-
-/// Go: `const config.ProvideStrategyPinned config.ProvideStrategy`.
-const provideStrategyPinned = 2;
-
-/// Go: `const config.ProvideStrategyRoots config.ProvideStrategy`.
-const provideStrategyRoots = 4;
-
-/// Go: `const config.ProvideStrategyUnique config.ProvideStrategy`.
-const provideStrategyUnique = 16;
-
-/// Go: `const config.PublicGoodDelegatedRoutingURL untyped string`.
-const publicGoodDelegatedRoutingUrl = "https://delegated-ipfs.dev";
-
-/// Go: `const config.ResourceMgrPeerScopePrefix untyped string`.
-const resourceMgrPeerScopePrefix = "peer:";
-
-/// Go: `const config.ResourceMgrProtocolScopePrefix untyped string`.
-const resourceMgrProtocolScopePrefix = "proto:";
-
-/// Go: `const config.ResourceMgrServiceScopePrefix untyped string`.
-const resourceMgrServiceScopePrefix = "svc:";
-
-/// Go: `const config.ResourceMgrSystemScope untyped string`.
-const resourceMgrSystemScope = "system";
-
-/// Go: `const config.ResourceMgrTransientScope untyped string`.
-const resourceMgrTransientScope = "transient";
-
-/// Go: `const config.RouterTypeDHT config.RouterType`.
-const routerTypeDht = "dht";
-
-/// Go: `const config.RouterTypeHTTP config.RouterType`.
-const routerTypeHttp = "http";
-
-/// Go: `const config.RouterTypeParallel config.RouterType`.
-const routerTypeParallel = "parallel";
-
-/// Go: `const config.RouterTypeSequential config.RouterType`.
-const routerTypeSequential = "sequential";
-
-/// Go: `const config.True config.Flag`.
-const true$ = 1;
-
 /// Go: `var config.ErrInvalidPeerAddr error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrInvalidPeerAddr extends GolangException {
-  ErrInvalidPeerAddr.$(super.base) : super.$from();
+class KuboConfigErrInvalidPeerAddr extends GolangException {
+  KuboConfigErrInvalidPeerAddr.$(super.base) : super.$from();
 
   @override
   String toString() => 'config.ErrInvalidPeerAddr: $message';
 }
 
-/// Go: `var config.Profiles map[string]config.Profile`. Hand-written
-/// (go/gen/extra; functions 40 and 41 of WIRE.md): in Go a profile is a
-/// `Transform` function. Read on first use, with the service already started.
-final Map<String, Profile> profiles = () {
+/// Go: the package-level members of `github.com/ipfs/kubo/config` (`Go.kubo.config`).
+extension GoKuboConfigApi on GoKuboConfig {
+  /// Go: `func config.CreateIdentity(out io.Writer, opts []options.KeyGenerateOption) (config.Identity, error)`.
+  KuboConfigIdentity createIdentity(GoHandle? out,
+      List<$options.KuboCoreCoreifaceOptionsKeyGenerateOption> opts) {
+    final $r = $callSync(
+        268,
+        $W()
+          ..h(out)
+          ..list(opts, (w0, e0) => w0.opt(e0)));
+    return $r.p() ? KuboConfigIdentity.$dec($r) : $nil();
+  }
+
+  /// Go: `func config.InitWithIdentity(identity config.Identity) (*config.Config, error)`.
+  KuboConfig initWithIdentity(KuboConfigIdentity identity) {
+    final $r = $callSync(269, $W()..dto(identity));
+    return $r.p() ? KuboConfig($r.json()) : $nil();
+  }
+
+  /// Go: `func config.ParseBootstrapPeers(addrs []string) ([]peer.AddrInfo, error)`.
+  List<$peer.Libp2pCorePeerAddrInfo> parseBootstrapPeers(List<String> addrs) {
+    final $r = $callSync(270, $W()..list(addrs, (w0, e0) => w0.str(e0)));
+    return $r
+        .list(() => $r.p() ? $peer.Libp2pCorePeerAddrInfo.$dec($r) : $nil());
+  }
+
+  /// Go: `func config.BootstrapPeerStrings(bps []peer.AddrInfo) []string`.
+  List<String> bootstrapPeerStrings(List<$peer.Libp2pCorePeerAddrInfo> bps) {
+    final $r = $callSync(267, $W()..list(bps, (w0, e0) => w0.dto(e0)));
+    return $r.list(() => $r.str());
+  }
+
+  /// Go: `func config.PathRoot() (string, error)`.
+  String pathRoot() {
+    final $r = $callSync(271);
+    return $r.str();
+  }
+
+  /// Go: `const config.APITag untyped string`.
+  String get apiTag => "API";
+
+  /// Go: `const config.AuthorizationTag untyped string`.
+  String get authorizationTag => "Authorizations";
+
+  /// Go: `const config.AutoNATServiceDisabled config.AutoNATServiceMode`.
+  int get autoNatServiceDisabled => 2;
+
+  /// Go: `const config.AutoNATServiceEnabled config.AutoNATServiceMode`.
+  int get autoNatServiceEnabled => 1;
+
+  /// Go: `const config.AutoNATServiceEnabledV1Only config.AutoNATServiceMode`.
+  int get autoNatServiceEnabledV1Only => 3;
+
+  /// Go: `const config.AutoNATServiceUnset config.AutoNATServiceMode`.
+  int get autoNatServiceUnset => 0;
+
+  /// Go: `const config.AutoPlaceholder untyped string`.
+  String get autoPlaceholder => "auto";
+
+  /// Go: `const config.CidContactRoutingURL untyped string`.
+  String get cidContactRoutingUrl => "https://cid.contact";
+
+  /// Go: `const config.DAGLayoutBalanced untyped string`.
+  String get dagLayoutBalanced => "balanced";
+
+  /// Go: `const config.DAGLayoutTrickle untyped string`.
+  String get dagLayoutTrickle => "trickle";
+
+  /// Go: `const config.DHTModeAuto config.DHTMode`.
+  String get dhtModeAuto => "auto";
+
+  /// Go: `const config.DHTModeClient config.DHTMode`.
+  String get dhtModeClient => "client";
+
+  /// Go: `const config.DHTModeServer config.DHTMode`.
+  String get dhtModeServer => "server";
+
+  /// Go: `const config.Default config.Flag`.
+  int get default$ => 0;
+
+  /// Go: `const config.DefaultAcceleratedDHTClient untyped bool`.
+  bool get defaultAcceleratedDhtClient => false;
+
+  /// Go: `const config.DefaultAllowCodecConversion untyped bool`.
+  bool get defaultAllowCodecConversion => false;
+
+  /// Go: `const config.DefaultAutoConfCacheSize untyped int`.
+  int get defaultAutoConfCacheSize => 3;
+
+  /// Go: `const config.DefaultAutoConfEnabled untyped bool`.
+  bool get defaultAutoConfEnabled => true;
+
+  /// Go: `const config.DefaultAutoConfRefreshInterval time.Duration`.
+  Duration get defaultAutoConfRefreshInterval =>
+      Duration(microseconds: 86400000000);
+
+  /// Go: `const config.DefaultAutoConfTimeout time.Duration`.
+  Duration get defaultAutoConfTimeout => Duration(microseconds: 5000000);
+
+  /// Go: `const config.DefaultAutoConfURL untyped string`.
+  String get defaultAutoConfUrl =>
+      "https://conf.ipfs-mainnet.org/autoconf.json";
+
+  /// Go: `const config.DefaultAutoTLSEnabled untyped bool`.
+  bool get defaultAutoTlsEnabled => true;
+
+  /// Go: `const config.DefaultAutoTLSRegistrationDelay time.Duration`.
+  Duration get defaultAutoTlsRegistrationDelay =>
+      Duration(microseconds: 3600000000);
+
+  /// Go: `const config.DefaultAutoTLSShortAddrs untyped bool`.
+  bool get defaultAutoTlsShortAddrs => true;
+
+  /// Go: `const config.DefaultAutoTLSSkipDNSLookup untyped bool`.
+  bool get defaultAutoTlsSkipDnsLookup => true;
+
+  /// Go: `const config.DefaultAutoWSS untyped bool`.
+  bool get defaultAutoWss => true;
+
+  /// Go: `const config.DefaultBatchMaxNodes untyped int`.
+  int get defaultBatchMaxNodes => 128;
+
+  /// Go: `const config.DefaultBatchMaxSize untyped int`.
+  int get defaultBatchMaxSize => 104857600;
+
+  /// Go: `const config.DefaultBitswapLibp2pEnabled untyped bool`.
+  bool get defaultBitswapLibp2pEnabled => true;
+
+  /// Go: `const config.DefaultBitswapServerEnabled untyped bool`.
+  bool get defaultBitswapServerEnabled => true;
+
+  /// Go: `const config.DefaultBlockKeyCacheSize untyped int`.
+  int get defaultBlockKeyCacheSize => 65536;
+
+  /// Go: `const config.DefaultBroadcastControlEnable untyped bool`.
+  bool get defaultBroadcastControlEnable => true;
+
+  /// Go: `const config.DefaultBroadcastControlLocalPeers untyped bool`.
+  bool get defaultBroadcastControlLocalPeers => false;
+
+  /// Go: `const config.DefaultBroadcastControlMaxPeers untyped int`.
+  int get defaultBroadcastControlMaxPeers => -1;
+
+  /// Go: `const config.DefaultBroadcastControlMaxRandomPeers untyped int`.
+  int get defaultBroadcastControlMaxRandomPeers => 0;
+
+  /// Go: `const config.DefaultBroadcastControlPeeredPeers untyped bool`.
+  bool get defaultBroadcastControlPeeredPeers => false;
+
+  /// Go: `const config.DefaultBroadcastControlSendToPendingPeers untyped bool`.
+  bool get defaultBroadcastControlSendToPendingPeers => false;
+
+  /// Go: `const config.DefaultCAEndpoint untyped string`.
+  String get defaultCaEndpoint =>
+      "https://acme-v02.api.letsencrypt.org/directory";
+
+  /// Go: `const config.DefaultCGNATCheck untyped bool`.
+  bool get defaultCgnatCheck => true;
+
+  /// Go: `const config.DefaultCidVersion untyped int`.
+  int get defaultCidVersion => 0;
+
+  /// Go: `const config.DefaultConfigFile untyped string`.
+  String get defaultConfigFile => "config";
+
+  /// Go: `const config.DefaultConnMgrGracePeriod time.Duration`.
+  Duration get defaultConnMgrGracePeriod => Duration(microseconds: 20000000);
+
+  /// Go: `const config.DefaultConnMgrHighWater untyped int`.
+  int get defaultConnMgrHighWater => 96;
+
+  /// Go: `const config.DefaultConnMgrLowWater untyped int`.
+  int get defaultConnMgrLowWater => 32;
+
+  /// Go: `const config.DefaultConnMgrSilencePeriod time.Duration`.
+  Duration get defaultConnMgrSilencePeriod => Duration(microseconds: 10000000);
+
+  /// Go: `const config.DefaultConnMgrType untyped string`.
+  String get defaultConnMgrType => "basic";
+
+  /// Go: `const config.DefaultDataStoreDirectory untyped string`.
+  String get defaultDataStoreDirectory => "datastore";
+
+  /// Go: `const config.DefaultDeadListenerCheck untyped bool`.
+  bool get defaultDeadListenerCheck => true;
+
+  /// Go: `const config.DefaultDeprecatedXIpfsPath untyped bool`.
+  bool get defaultDeprecatedXIpfsPath => false;
+
+  /// Go: `const config.DefaultDeserializedResponses untyped bool`.
+  bool get defaultDeserializedResponses => true;
+
+  /// Go: `const config.DefaultDiagnosticServiceURL untyped string`.
+  String get defaultDiagnosticServiceUrl => "https://check.ipfs.network";
+
+  /// Go: `const config.DefaultDisableHTMLErrors untyped bool`.
+  bool get defaultDisableHtmlErrors => false;
+
+  /// Go: `const config.DefaultDomainSuffix untyped string`.
+  String get defaultDomainSuffix => "libp2p.direct";
+
+  /// Go: `const config.DefaultExposeRoutingAPI untyped bool`.
+  bool get defaultExposeRoutingApi => true;
+
+  /// Go: `const config.DefaultFastProvideDAG untyped bool`.
+  bool get defaultFastProvideDag => false;
+
+  /// Go: `const config.DefaultFastProvideRoot untyped bool`.
+  bool get defaultFastProvideRoot => true;
+
+  /// Go: `const config.DefaultFastProvideTimeout time.Duration`.
+  Duration get defaultFastProvideTimeout => Duration(microseconds: 10000000);
+
+  /// Go: `const config.DefaultFastProvideWait untyped bool`.
+  bool get defaultFastProvideWait => false;
+
+  /// Go: `const config.DefaultFuseAllowOther untyped bool`.
+  bool get defaultFuseAllowOther => false;
+
+  /// Go: `const config.DefaultHTTPRetrievalEnabled untyped bool`.
+  bool get defaultHttpRetrievalEnabled => true;
+
+  /// Go: `const config.DefaultHTTPRetrievalMaxBlockSize untyped string`.
+  String get defaultHttpRetrievalMaxBlockSize => "2MiB";
+
+  /// Go: `const config.DefaultHTTPRetrievalNumWorkers untyped int`.
+  int get defaultHttpRetrievalNumWorkers => 16;
+
+  /// Go: `const config.DefaultHTTPRetrievalTLSInsecureSkipVerify untyped bool`.
+  bool get defaultHttpRetrievalTlsInsecureSkipVerify => false;
+
+  /// Go: `const config.DefaultHashFunction untyped string`.
+  String get defaultHashFunction => "sha2-256";
+
+  /// Go: `const config.DefaultInlineDNSLink untyped bool`.
+  bool get defaultInlineDnsLink => false;
+
+  /// Go: `const config.DefaultIpnsMaxCacheTTL time.Duration`.
+  Duration get defaultIpnsMaxCacheTtl =>
+      Duration(microseconds: 9223372036854775);
+
+  /// Go: `const config.DefaultLoopbackAddressesOnLanDHT untyped bool`.
+  bool get defaultLoopbackAddressesOnLanDht => false;
+
+  /// Go: `const config.DefaultMFSFetchTimeout time.Duration`.
+  Duration get defaultMfsFetchTimeout => Duration(microseconds: 60000000);
+
+  /// Go: `const config.DefaultMFSNoFlushLimit untyped int`.
+  int get defaultMfsNoFlushLimit => 256;
+
+  /// Go: `const config.DefaultMaxConcurrentRequests untyped int`.
+  int get defaultMaxConcurrentRequests => 4096;
+
+  /// Go: `const config.DefaultMaxRangeRequestFileSize untyped int`.
+  int get defaultMaxRangeRequestFileSize => 0;
+
+  /// Go: `const config.DefaultMaxRequestDuration time.Duration`.
+  Duration get defaultMaxRequestDuration => Duration(microseconds: 3600000000);
+
+  /// Go: `const config.DefaultMigrationKeep untyped string`.
+  String get defaultMigrationKeep => "cache";
+
+  /// Go: `const config.DefaultPathName untyped string`.
+  String get defaultPathName => ".ipfs";
+
+  /// Go: `const config.DefaultPathRoot untyped string`.
+  String get defaultPathRoot => "~/.ipfs";
+
+  /// Go: `const config.DefaultPriority config.Priority`.
+  int get defaultPriority => 0;
+
+  /// Go: `const config.DefaultProvideBloomFPRate untyped int`.
+  int get defaultProvideBloomFpRate => 4750000;
+
+  /// Go: `const config.DefaultProvideDHTDedicatedBurstWorkers untyped int`.
+  int get defaultProvideDhtDedicatedBurstWorkers => 1;
+
+  /// Go: `const config.DefaultProvideDHTDedicatedPeriodicWorkers untyped int`.
+  int get defaultProvideDhtDedicatedPeriodicWorkers => 2;
+
+  /// Go: `const config.DefaultProvideDHTInterval time.Duration`.
+  Duration get defaultProvideDhtInterval => Duration(microseconds: 79200000000);
+
+  /// Go: `const config.DefaultProvideDHTKeystoreBatchSize untyped int`.
+  int get defaultProvideDhtKeystoreBatchSize => 16384;
+
+  /// Go: `const config.DefaultProvideDHTMaxProvideConnsPerWorker untyped int`.
+  int get defaultProvideDhtMaxProvideConnsPerWorker => 20;
+
+  /// Go: `const config.DefaultProvideDHTMaxWorkers untyped int`.
+  int get defaultProvideDhtMaxWorkers => 16;
+
+  /// Go: `const config.DefaultProvideDHTOfflineDelay time.Duration`.
+  Duration get defaultProvideDhtOfflineDelay =>
+      Duration(microseconds: 7200000000);
+
+  /// Go: `const config.DefaultProvideDHTResumeEnabled untyped bool`.
+  bool get defaultProvideDhtResumeEnabled => true;
+
+  /// Go: `const config.DefaultProvideDHTSendProviderRecordTimeout time.Duration`.
+  Duration get defaultProvideDhtSendProviderRecordTimeout =>
+      Duration(microseconds: 10000000);
+
+  /// Go: `const config.DefaultProvideDHTSweepEnabled untyped bool`.
+  bool get defaultProvideDhtSweepEnabled => true;
+
+  /// Go: `const config.DefaultProvideEnabled untyped bool`.
+  bool get defaultProvideEnabled => true;
+
+  /// Go: `const config.DefaultProvideStrategy untyped string`.
+  String get defaultProvideStrategy => "all";
+
+  /// Go: `const config.DefaultRegistrationEndpoint untyped string`.
+  String get defaultRegistrationEndpoint =>
+      "https://registration.libp2p.direct";
+
+  /// Go: `const config.DefaultResourceMgrMinInboundConns untyped int`.
+  int get defaultResourceMgrMinInboundConns => 800;
+
+  /// Go: `const config.DefaultRetrievalTimeout time.Duration`.
+  Duration get defaultRetrievalTimeout => Duration(microseconds: 30000000);
+
+  /// Go: `const config.DefaultRoutingType untyped string`.
+  String get defaultRoutingType => "auto";
+
+  /// Go: `const config.DefaultSeenMessagesStrategy untyped string`.
+  String get defaultSeenMessagesStrategy => "last-seen";
+
+  /// Go: `const config.DefaultShutdownTimeout time.Duration`.
+  Duration get defaultShutdownTimeout => Duration(microseconds: 43200000000);
+
+  /// Go: `const config.DefaultStoreMode untyped bool`.
+  bool get defaultStoreMode => false;
+
+  /// Go: `const config.DefaultStoreMtime untyped bool`.
+  bool get defaultStoreMtime => false;
+
+  /// Go: `const config.DefaultSwarmCheckPercentThreshold untyped int`.
+  int get defaultSwarmCheckPercentThreshold => 5;
+
+  /// Go: `const config.DefaultUnixFSChunker untyped string`.
+  String get defaultUnixFsChunker => "size-262144";
+
+  /// Go: `const config.DefaultUnixFSDAGLayout untyped string`.
+  String get defaultUnixFsdagLayout => "balanced";
+
+  /// Go: `const config.DefaultUnixFSHAMTDirectorySizeEstimation untyped string`.
+  String get defaultUnixFshamtDirectorySizeEstimation => "links";
+
+  /// Go: `const config.DefaultUnixFSHAMTDirectorySizeThreshold untyped int`.
+  int get defaultUnixFshamtDirectorySizeThreshold => 262144;
+
+  /// Go: `const config.DefaultUnixFSIncludeEmptyDirs untyped bool`.
+  bool get defaultUnixFsIncludeEmptyDirs => true;
+
+  /// Go: `const config.DefaultUnixFSPBNodeFieldOrder untyped string`.
+  String get defaultUnixFspbNodeFieldOrder => "links-first";
+
+  /// Go: `const config.DefaultUnixFSRawLeaves untyped bool`.
+  bool get defaultUnixFsRawLeaves => false;
+
+  /// Go: `const config.DefaultWriteThrough bool`.
+  bool get defaultWriteThrough => true;
+
+  /// Go: `const config.Disabled config.Priority`.
+  int get disabled => -1;
+
+  /// Go: `const config.EnvDir untyped string`.
+  String get envDir => "IPFS_PATH";
+
+  /// Go: `const config.EnvHTTPRouters untyped string`.
+  String get envHttpRouters => "IPFS_HTTP_ROUTERS";
+
+  /// Go: `const config.EnvHTTPRoutersFilterProtocols untyped string`.
+  String get envHttpRoutersFilterProtocols =>
+      "IPFS_HTTP_ROUTERS_FILTER_PROTOCOLS";
+
+  /// Go: `const config.False config.Flag`.
+  int get false$ => -1;
+
+  /// Go: `const config.FirstSeenMessagesStrategy untyped string`.
+  String get firstSeenMessagesStrategy => "first-seen";
+
+  /// Go: `const config.HAMTSizeEstimationBlock untyped string`.
+  String get hamtSizeEstimationBlock => "block";
+
+  /// Go: `const config.HAMTSizeEstimationDisabled untyped string`.
+  String get hamtSizeEstimationDisabled => "disabled";
+
+  /// Go: `const config.HAMTSizeEstimationLinks untyped string`.
+  String get hamtSizeEstimationLinks => "links";
+
+  /// Go: `const config.IdentityTag untyped string`.
+  String get identityTag => "Identity";
+
+  /// Go: `const config.LastSeenMessagesStrategy untyped string`.
+  String get lastSeenMessagesStrategy => "last-seen";
+
+  /// Go: `const config.MethodNameFindPeers config.MethodName`.
+  String get methodNameFindPeers => "find-peers";
+
+  /// Go: `const config.MethodNameFindProviders config.MethodName`.
+  String get methodNameFindProviders => "find-providers";
+
+  /// Go: `const config.MethodNameGetIPNS config.MethodName`.
+  String get methodNameGetIpns => "get-ipns";
+
+  /// Go: `const config.MethodNameProvide config.MethodName`.
+  String get methodNameProvide => "provide";
+
+  /// Go: `const config.MethodNamePutIPNS config.MethodName`.
+  String get methodNamePutIpns => "put-ipns";
+
+  /// Go: `const config.MinProvideBloomFPRate untyped int`.
+  int get minProvideBloomFpRate => 1000000;
+
+  /// Go: `const config.PBNodeFieldOrderDataFirst untyped string`.
+  String get pbNodeFieldOrderDataFirst => "data-first";
+
+  /// Go: `const config.PBNodeFieldOrderLinksFirst untyped string`.
+  String get pbNodeFieldOrderLinksFirst => "links-first";
+
+  /// Go: `const config.PrivKeySelector untyped string`.
+  String get privKeySelector => "Identity.PrivKey";
+
+  /// Go: `const config.PrivKeyTag untyped string`.
+  String get privKeyTag => "PrivKey";
+
+  /// Go: `const config.ProvideStrategyAll config.ProvideStrategy`.
+  int get provideStrategyAll => 1;
+
+  /// Go: `const config.ProvideStrategyEntities config.ProvideStrategy`.
+  int get provideStrategyEntities => 32;
+
+  /// Go: `const config.ProvideStrategyMFS config.ProvideStrategy`.
+  int get provideStrategyMfs => 8;
+
+  /// Go: `const config.ProvideStrategyPinned config.ProvideStrategy`.
+  int get provideStrategyPinned => 2;
+
+  /// Go: `const config.ProvideStrategyRoots config.ProvideStrategy`.
+  int get provideStrategyRoots => 4;
+
+  /// Go: `const config.ProvideStrategyUnique config.ProvideStrategy`.
+  int get provideStrategyUnique => 16;
+
+  /// Go: `const config.PublicGoodDelegatedRoutingURL untyped string`.
+  String get publicGoodDelegatedRoutingUrl => "https://delegated-ipfs.dev";
+
+  /// Go: `const config.ResourceMgrPeerScopePrefix untyped string`.
+  String get resourceMgrPeerScopePrefix => "peer:";
+
+  /// Go: `const config.ResourceMgrProtocolScopePrefix untyped string`.
+  String get resourceMgrProtocolScopePrefix => "proto:";
+
+  /// Go: `const config.ResourceMgrServiceScopePrefix untyped string`.
+  String get resourceMgrServiceScopePrefix => "svc:";
+
+  /// Go: `const config.ResourceMgrSystemScope untyped string`.
+  String get resourceMgrSystemScope => "system";
+
+  /// Go: `const config.ResourceMgrTransientScope untyped string`.
+  String get resourceMgrTransientScope => "transient";
+
+  /// Go: `const config.RouterTypeDHT config.RouterType`.
+  String get routerTypeDht => "dht";
+
+  /// Go: `const config.RouterTypeHTTP config.RouterType`.
+  String get routerTypeHttp => "http";
+
+  /// Go: `const config.RouterTypeParallel config.RouterType`.
+  String get routerTypeParallel => "parallel";
+
+  /// Go: `const config.RouterTypeSequential config.RouterType`.
+  String get routerTypeSequential => "sequential";
+
+  /// Go: `const config.True config.Flag`.
+  int get true$ => 1;
+}
+
+final Map<String, KuboConfigProfile> _profiles = () {
   final r = $callSync(40);
-  return {for (final name in r.list(r.str)) name: Profile._(name)};
+  return {for (final name in r.list(r.str)) name: KuboConfigProfile._(name)};
 }();
 
+/// Go: `var config.Profiles`, hand-written (go/gen/extra).
+extension GoKuboConfigProfiles on GoKuboConfig {
+  /// Go: `var config.Profiles map[string]config.Profile`. Hand-written
+  /// (go/gen/extra; functions 40 and 41 of WIRE.md): in Go a profile is a
+  /// `Transform` function. Read on first use, with the service already started.
+  Map<String, KuboConfigProfile> get profiles => _profiles;
+}
+
 /// Go: `config.Profile`.
-final class Profile {
-  Profile._(this._name);
+final class KuboConfigProfile {
+  KuboConfigProfile._(this._name);
 
   final String _name;
 
   /// Go: `Transform(c *Config) error`: applies the profile to [c].
-  void transform(Config c) {
+  void transform(KuboConfig c) {
     final r = $callSync(
             41,
             $W()

@@ -2,21 +2,13 @@
 // Go: github.com/ipfs/boxo/ipld/merkledag/dagutils
 library;
 
+import 'package:p2p_ffi/src/go.dart' show GoBoxoIpldMerkledagDagutils;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/cid.dart' as $cid;
 
-/// Go: `const dagutils.Add dagutils.ChangeType`.
-const add = 0;
-
-/// Go: `const dagutils.Mod dagutils.ChangeType`.
-const mod = 2;
-
-/// Go: `const dagutils.Remove dagutils.ChangeType`.
-const remove = 1;
-
 /// Go: `dagutils.Change` (a kubo command output).
-final class Change {
-  Change.$dec($R r)
+final class BoxoIpldMerkledagDagutilsChange {
+  BoxoIpldMerkledagDagutilsChange.$dec($R r)
       : type = r.i64(),
         path = r.str(),
         before = $cid.Cid(r.str()),
@@ -33,4 +25,16 @@ final class Change {
 
   /// Go: `After`.
   final $cid.Cid after;
+}
+
+/// Go: the package-level members of `github.com/ipfs/boxo/ipld/merkledag/dagutils` (`Go.boxo.ipld.merkledag.dagutils`).
+extension GoBoxoIpldMerkledagDagutilsApi on GoBoxoIpldMerkledagDagutils {
+  /// Go: `const dagutils.Add dagutils.ChangeType`.
+  int get add => 0;
+
+  /// Go: `const dagutils.Mod dagutils.ChangeType`.
+  int get mod => 2;
+
+  /// Go: `const dagutils.Remove dagutils.ChangeType`.
+  int get remove => 1;
 }

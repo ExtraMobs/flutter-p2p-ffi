@@ -4,19 +4,20 @@ library;
 
 import 'dart:typed_data';
 
+import 'package:p2p_ffi/src/go.dart' show GoBoxoIpns;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/boxo/path.dart' as $path;
 import 'package:p2p_ffi/go/cid.dart' as $cid;
 import 'package:p2p_ffi/go/libp2p/core/peer.dart' as $peer;
 
 /// Go: `ipns.Name` (valor).
-class Name extends GoValue {
-  const Name(super.value);
+class BoxoIpnsName extends GoValue {
+  const BoxoIpnsName(super.value);
 
   /// Go: `func (ipns.Name).Peer() peer.ID`.
-  $peer.Id peer() {
+  $peer.Libp2pCorePeerId peer() {
     final $r = $callSync(155, $W()..val(this));
-    return $r.p() ? $peer.Id($r.str()) : $nil();
+    return $r.p() ? $peer.Libp2pCorePeerId($r.str()) : $nil();
   }
 
   /// Go: `func (ipns.Name).Cid() cid.Cid`.
@@ -26,9 +27,9 @@ class Name extends GoValue {
   }
 
   /// Go: `func (ipns.Name).AsPath() path.Path`.
-  $path.Path asPath() {
+  $path.BoxoPath asPath() {
     final $r = $callSync(152, $W()..val(this));
-    return $r.p() ? $path.Path($r.str()) : $nil();
+    return $r.p() ? $path.BoxoPath($r.str()) : $nil();
   }
 
   /// Go: `func (ipns.Name).RoutingKey() []byte`.
@@ -38,7 +39,7 @@ class Name extends GoValue {
   }
 
   /// Go: `func (ipns.Name).Equal(other ipns.Name) bool`.
-  bool equal(Name other) {
+  bool equal(BoxoIpnsName other) {
     final $r = $callSync(
         154,
         $W()
@@ -48,67 +49,10 @@ class Name extends GoValue {
   }
 }
 
-/// Go: `func ipns.NameFromString(str string) (ipns.Name, error)`.
-Name nameFromString(String str) {
-  final $r = $callSync(160, $W()..str(str));
-  return $r.p() ? Name($r.str()) : $nil();
-}
-
-/// Go: `func ipns.NameFromPeer(pid peer.ID) ipns.Name`.
-Name nameFromPeer($peer.Id pid) {
-  final $r = $callSync(158, $W()..val(pid));
-  return $r.p() ? Name($r.str()) : $nil();
-}
-
-/// Go: `func ipns.NameFromCid(c cid.Cid) (ipns.Name, error)`.
-Name nameFromCid($cid.Cid c) {
-  final $r = $callSync(157, $W()..val(c));
-  return $r.p() ? Name($r.str()) : $nil();
-}
-
-/// Go: `func ipns.NameFromRoutingKey(data []byte) (ipns.Name, error)`.
-Name nameFromRoutingKey(Uint8List data) {
-  final $r = $callSync(159, $W()..bytes(data));
-  return $r.p() ? Name($r.str()) : $nil();
-}
-
-/// Go: `const ipns.DefaultRecordLifetime time.Duration`.
-const defaultRecordLifetime = Duration(microseconds: 172800000000);
-
-/// Go: `const ipns.DefaultRecordTTL time.Duration`.
-const defaultRecordTtl = Duration(microseconds: 300000000);
-
-/// Go: `const ipns.MaxRecordSize int`.
-const maxRecordSize = 10240;
-
-/// Go: `const ipns.MetadataKindBool ipns.MetadataKind`.
-const metadataKindBool = 4;
-
-/// Go: `const ipns.MetadataKindBytes ipns.MetadataKind`.
-const metadataKindBytes = 2;
-
-/// Go: `const ipns.MetadataKindInt ipns.MetadataKind`.
-const metadataKindInt = 3;
-
-/// Go: `const ipns.MetadataKindInvalid ipns.MetadataKind`.
-const metadataKindInvalid = 0;
-
-/// Go: `const ipns.MetadataKindString ipns.MetadataKind`.
-const metadataKindString = 1;
-
-/// Go: `const ipns.NamespacePrefix untyped string`.
-const namespacePrefix = "/ipns/";
-
-/// Go: `const ipns.NoopValue untyped string`.
-const noopValue = "/ipfs/bafkqaaa";
-
-/// Go: `const ipns.ValidityEOL ipns.ValidityType`.
-const validityEol = 0;
-
 /// Go: `var ipns.ErrDataMissing error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrDataMissing extends GolangException {
-  ErrDataMissing.$(super.base) : super.$from();
+class BoxoIpnsErrDataMissing extends GolangException {
+  BoxoIpnsErrDataMissing.$(super.base) : super.$from();
 
   @override
   String toString() => 'ipns.ErrDataMissing: $message';
@@ -116,8 +60,8 @@ class ErrDataMissing extends GolangException {
 
 /// Go: `var ipns.ErrExpiredRecord error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrExpiredRecord extends GolangException {
-  ErrExpiredRecord.$(super.base) : super.$from();
+class BoxoIpnsErrExpiredRecord extends GolangException {
+  BoxoIpnsErrExpiredRecord.$(super.base) : super.$from();
 
   @override
   String toString() => 'ipns.ErrExpiredRecord: $message';
@@ -125,8 +69,8 @@ class ErrExpiredRecord extends GolangException {
 
 /// Go: `var ipns.ErrInvalidName error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrInvalidName extends GolangException {
-  ErrInvalidName.$(super.base) : super.$from();
+class BoxoIpnsErrInvalidName extends GolangException {
+  BoxoIpnsErrInvalidName.$(super.base) : super.$from();
 
   @override
   String toString() => 'ipns.ErrInvalidName: $message';
@@ -134,8 +78,8 @@ class ErrInvalidName extends GolangException {
 
 /// Go: `var ipns.ErrInvalidPath error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrInvalidPath extends GolangException {
-  ErrInvalidPath.$(super.base) : super.$from();
+class BoxoIpnsErrInvalidPath extends GolangException {
+  BoxoIpnsErrInvalidPath.$(super.base) : super.$from();
 
   @override
   String toString() => 'ipns.ErrInvalidPath: $message';
@@ -143,8 +87,8 @@ class ErrInvalidPath extends GolangException {
 
 /// Go: `var ipns.ErrInvalidPublicKey error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrInvalidPublicKey extends GolangException {
-  ErrInvalidPublicKey.$(super.base) : super.$from();
+class BoxoIpnsErrInvalidPublicKey extends GolangException {
+  BoxoIpnsErrInvalidPublicKey.$(super.base) : super.$from();
 
   @override
   String toString() => 'ipns.ErrInvalidPublicKey: $message';
@@ -152,8 +96,8 @@ class ErrInvalidPublicKey extends GolangException {
 
 /// Go: `var ipns.ErrInvalidRecord error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrInvalidRecord extends GolangException {
-  ErrInvalidRecord.$(super.base) : super.$from();
+class BoxoIpnsErrInvalidRecord extends GolangException {
+  BoxoIpnsErrInvalidRecord.$(super.base) : super.$from();
 
   @override
   String toString() => 'ipns.ErrInvalidRecord: $message';
@@ -161,8 +105,8 @@ class ErrInvalidRecord extends GolangException {
 
 /// Go: `var ipns.ErrInvalidValidity error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrInvalidValidity extends GolangException {
-  ErrInvalidValidity.$(super.base) : super.$from();
+class BoxoIpnsErrInvalidValidity extends GolangException {
+  BoxoIpnsErrInvalidValidity.$(super.base) : super.$from();
 
   @override
   String toString() => 'ipns.ErrInvalidValidity: $message';
@@ -170,8 +114,8 @@ class ErrInvalidValidity extends GolangException {
 
 /// Go: `var ipns.ErrMetadataConflict error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrMetadataConflict extends GolangException {
-  ErrMetadataConflict.$(super.base) : super.$from();
+class BoxoIpnsErrMetadataConflict extends GolangException {
+  BoxoIpnsErrMetadataConflict.$(super.base) : super.$from();
 
   @override
   String toString() => 'ipns.ErrMetadataConflict: $message';
@@ -179,8 +123,8 @@ class ErrMetadataConflict extends GolangException {
 
 /// Go: `var ipns.ErrMetadataEmptyKey error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrMetadataEmptyKey extends GolangException {
-  ErrMetadataEmptyKey.$(super.base) : super.$from();
+class BoxoIpnsErrMetadataEmptyKey extends GolangException {
+  BoxoIpnsErrMetadataEmptyKey.$(super.base) : super.$from();
 
   @override
   String toString() => 'ipns.ErrMetadataEmptyKey: $message';
@@ -188,8 +132,8 @@ class ErrMetadataEmptyKey extends GolangException {
 
 /// Go: `var ipns.ErrMetadataNotFound error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrMetadataNotFound extends GolangException {
-  ErrMetadataNotFound.$(super.base) : super.$from();
+class BoxoIpnsErrMetadataNotFound extends GolangException {
+  BoxoIpnsErrMetadataNotFound.$(super.base) : super.$from();
 
   @override
   String toString() => 'ipns.ErrMetadataNotFound: $message';
@@ -197,8 +141,8 @@ class ErrMetadataNotFound extends GolangException {
 
 /// Go: `var ipns.ErrMetadataUnsupportedType error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrMetadataUnsupportedType extends GolangException {
-  ErrMetadataUnsupportedType.$(super.base) : super.$from();
+class BoxoIpnsErrMetadataUnsupportedType extends GolangException {
+  BoxoIpnsErrMetadataUnsupportedType.$(super.base) : super.$from();
 
   @override
   String toString() => 'ipns.ErrMetadataUnsupportedType: $message';
@@ -206,8 +150,8 @@ class ErrMetadataUnsupportedType extends GolangException {
 
 /// Go: `var ipns.ErrMetadataValueNotSet error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrMetadataValueNotSet extends GolangException {
-  ErrMetadataValueNotSet.$(super.base) : super.$from();
+class BoxoIpnsErrMetadataValueNotSet extends GolangException {
+  BoxoIpnsErrMetadataValueNotSet.$(super.base) : super.$from();
 
   @override
   String toString() => 'ipns.ErrMetadataValueNotSet: $message';
@@ -215,8 +159,8 @@ class ErrMetadataValueNotSet extends GolangException {
 
 /// Go: `var ipns.ErrPublicKeyMismatch error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrPublicKeyMismatch extends GolangException {
-  ErrPublicKeyMismatch.$(super.base) : super.$from();
+class BoxoIpnsErrPublicKeyMismatch extends GolangException {
+  BoxoIpnsErrPublicKeyMismatch.$(super.base) : super.$from();
 
   @override
   String toString() => 'ipns.ErrPublicKeyMismatch: $message';
@@ -224,8 +168,8 @@ class ErrPublicKeyMismatch extends GolangException {
 
 /// Go: `var ipns.ErrPublicKeyNotFound error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrPublicKeyNotFound extends GolangException {
-  ErrPublicKeyNotFound.$(super.base) : super.$from();
+class BoxoIpnsErrPublicKeyNotFound extends GolangException {
+  BoxoIpnsErrPublicKeyNotFound.$(super.base) : super.$from();
 
   @override
   String toString() => 'ipns.ErrPublicKeyNotFound: $message';
@@ -233,8 +177,8 @@ class ErrPublicKeyNotFound extends GolangException {
 
 /// Go: `var ipns.ErrRecordSize error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrRecordSize extends GolangException {
-  ErrRecordSize.$(super.base) : super.$from();
+class BoxoIpnsErrRecordSize extends GolangException {
+  BoxoIpnsErrRecordSize.$(super.base) : super.$from();
 
   @override
   String toString() => 'ipns.ErrRecordSize: $message';
@@ -242,8 +186,8 @@ class ErrRecordSize extends GolangException {
 
 /// Go: `var ipns.ErrSignature error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrSignature extends GolangException {
-  ErrSignature.$(super.base) : super.$from();
+class BoxoIpnsErrSignature extends GolangException {
+  BoxoIpnsErrSignature.$(super.base) : super.$from();
 
   @override
   String toString() => 'ipns.ErrSignature: $message';
@@ -251,9 +195,69 @@ class ErrSignature extends GolangException {
 
 /// Go: `var ipns.ErrUnrecognizedValidity error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrUnrecognizedValidity extends GolangException {
-  ErrUnrecognizedValidity.$(super.base) : super.$from();
+class BoxoIpnsErrUnrecognizedValidity extends GolangException {
+  BoxoIpnsErrUnrecognizedValidity.$(super.base) : super.$from();
 
   @override
   String toString() => 'ipns.ErrUnrecognizedValidity: $message';
+}
+
+/// Go: the package-level members of `github.com/ipfs/boxo/ipns` (`Go.boxo.ipns`).
+extension GoBoxoIpnsApi on GoBoxoIpns {
+  /// Go: `func ipns.NameFromString(str string) (ipns.Name, error)`.
+  BoxoIpnsName nameFromString(String str) {
+    final $r = $callSync(160, $W()..str(str));
+    return $r.p() ? BoxoIpnsName($r.str()) : $nil();
+  }
+
+  /// Go: `func ipns.NameFromPeer(pid peer.ID) ipns.Name`.
+  BoxoIpnsName nameFromPeer($peer.Libp2pCorePeerId pid) {
+    final $r = $callSync(158, $W()..val(pid));
+    return $r.p() ? BoxoIpnsName($r.str()) : $nil();
+  }
+
+  /// Go: `func ipns.NameFromCid(c cid.Cid) (ipns.Name, error)`.
+  BoxoIpnsName nameFromCid($cid.Cid c) {
+    final $r = $callSync(157, $W()..val(c));
+    return $r.p() ? BoxoIpnsName($r.str()) : $nil();
+  }
+
+  /// Go: `func ipns.NameFromRoutingKey(data []byte) (ipns.Name, error)`.
+  BoxoIpnsName nameFromRoutingKey(Uint8List data) {
+    final $r = $callSync(159, $W()..bytes(data));
+    return $r.p() ? BoxoIpnsName($r.str()) : $nil();
+  }
+
+  /// Go: `const ipns.DefaultRecordLifetime time.Duration`.
+  Duration get defaultRecordLifetime => Duration(microseconds: 172800000000);
+
+  /// Go: `const ipns.DefaultRecordTTL time.Duration`.
+  Duration get defaultRecordTtl => Duration(microseconds: 300000000);
+
+  /// Go: `const ipns.MaxRecordSize int`.
+  int get maxRecordSize => 10240;
+
+  /// Go: `const ipns.MetadataKindBool ipns.MetadataKind`.
+  int get metadataKindBool => 4;
+
+  /// Go: `const ipns.MetadataKindBytes ipns.MetadataKind`.
+  int get metadataKindBytes => 2;
+
+  /// Go: `const ipns.MetadataKindInt ipns.MetadataKind`.
+  int get metadataKindInt => 3;
+
+  /// Go: `const ipns.MetadataKindInvalid ipns.MetadataKind`.
+  int get metadataKindInvalid => 0;
+
+  /// Go: `const ipns.MetadataKindString ipns.MetadataKind`.
+  int get metadataKindString => 1;
+
+  /// Go: `const ipns.NamespacePrefix untyped string`.
+  String get namespacePrefix => "/ipns/";
+
+  /// Go: `const ipns.NoopValue untyped string`.
+  String get noopValue => "/ipfs/bafkqaaa";
+
+  /// Go: `const ipns.ValidityEOL ipns.ValidityType`.
+  int get validityEol => 0;
 }

@@ -1,19 +1,24 @@
-/// Go: `var config.Profiles map[string]config.Profile`. Hand-written
-/// (go/gen/extra; functions 40 and 41 of WIRE.md): in Go a profile is a
-/// `Transform` function. Read on first use, with the service already started.
-final Map<String, Profile> profiles = () {
+final Map<String, KuboConfigProfile> _profiles = () {
   final r = $callSync(40);
-  return {for (final name in r.list(r.str)) name: Profile._(name)};
+  return {for (final name in r.list(r.str)) name: KuboConfigProfile._(name)};
 }();
 
+/// Go: `var config.Profiles`, hand-written (go/gen/extra).
+extension GoKuboConfigProfiles on GoKuboConfig {
+  /// Go: `var config.Profiles map[string]config.Profile`. Hand-written
+  /// (go/gen/extra; functions 40 and 41 of WIRE.md): in Go a profile is a
+  /// `Transform` function. Read on first use, with the service already started.
+  Map<String, KuboConfigProfile> get profiles => _profiles;
+}
+
 /// Go: `config.Profile`.
-final class Profile {
-  Profile._(this._name);
+final class KuboConfigProfile {
+  KuboConfigProfile._(this._name);
 
   final String _name;
 
   /// Go: `Transform(c *Config) error`: applies the profile to [c].
-  void transform(Config c) {
+  void transform(KuboConfig c) {
     final r = $callSync(41, $W()..str(_name)..jsonStr(c.json)).json();
     c.json
       ..clear()

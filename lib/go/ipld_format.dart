@@ -4,6 +4,7 @@ library;
 
 import 'dart:typed_data';
 
+import 'package:p2p_ffi/src/go.dart' show GoIpldFormat;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/boxo/ipld/merkledag.dart' as $merkledag;
 import 'package:p2p_ffi/go/cid.dart' as $cid;
@@ -11,13 +12,13 @@ import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/kubo/core/coreiface.dart' as $coreiface;
 
 /// Go: `format.DAGService` (handle).
-class DagService extends NodeGetter {
-  DagService.$h(super.$h) : super.$h();
+class IpldFormatDagService extends IpldFormatNodeGetter {
+  IpldFormatDagService.$h(super.$h) : super.$h();
 
   /// Go: `func (format.NodeAdder).Add(context.Context, format.Node) error`.
   ///
   /// Asynchronous: runs in a goroutine of the service.
-  Future<void> add($context.Context ctx, Node node) async {
+  Future<void> add($context.Context ctx, IpldFormatNode node) async {
     await $call(
         249,
         $W()
@@ -27,20 +28,20 @@ class DagService extends NodeGetter {
   }
 
   /// Go: type assertion `x.(iface.APIDagService)`: null if the object is not one.
-  $coreiface.ApiDagService? asApiDagService() {
+  $coreiface.KuboCoreCoreifaceApiDagService? asApiDagService() {
     final $r = $callSync(81, $W()..h(this));
-    return $r.hn($coreiface.ApiDagService.$h);
+    return $r.hn($coreiface.KuboCoreCoreifaceApiDagService.$h);
   }
 }
 
 /// Go: `format.Link`.
-final class Link implements GoDto {
-  Link({String? name, int? size, $cid.Cid? cid})
+final class IpldFormatLink implements GoDto {
+  IpldFormatLink({String? name, int? size, $cid.Cid? cid})
       : name = name ?? '',
         size = size ?? 0,
         cid = cid;
 
-  Link.$dec($R r)
+  IpldFormatLink.$dec($R r)
       : name = r.str(),
         size = r.i64(),
         cid = r.p() ? $cid.Cid(r.str()) : null;
@@ -67,8 +68,8 @@ final class Link implements GoDto {
 }
 
 /// Go: `format.Node` (handle).
-class Node extends Resolver {
-  Node.$h(super.$h) : super.$h();
+class IpldFormatNode extends IpldFormatResolver {
+  IpldFormatNode.$h(super.$h) : super.$h();
 
   /// Go: `func (blocks.Block).Cid() cid.Cid`.
   $cid.Cid cid() {
@@ -83,9 +84,9 @@ class Node extends Resolver {
   }
 
   /// Go: `func (format.Node).Links() []*format.Link`.
-  List<Link> links() {
+  List<IpldFormatLink> links() {
     final $r = $callSync(253, $W()..h(this));
-    return $r.list(() => $r.p() ? Link.$dec($r) : $nil());
+    return $r.list(() => $r.p() ? IpldFormatLink.$dec($r) : $nil());
   }
 
   /// Go: `func (format.Node).Size() (uint64, error)`.
@@ -95,32 +96,32 @@ class Node extends Resolver {
   }
 
   /// Go: `func (format.Node).Stat() (*format.NodeStat, error)`.
-  NodeStat stat() {
+  IpldFormatNodeStat stat() {
     final $r = $callSync(256, $W()..h(this));
-    return $r.p() ? NodeStat.$dec($r) : $nil();
+    return $r.p() ? IpldFormatNodeStat.$dec($r) : $nil();
   }
 
   /// Go: type assertion `x.(*merkledag.ProtoNode)`: null if the object is not one.
-  $merkledag.ProtoNode? asProtoNode() {
+  $merkledag.BoxoIpldMerkledagProtoNode? asProtoNode() {
     final $r = $callSync(82, $W()..h(this));
-    return $r.hn($merkledag.ProtoNode.$h);
+    return $r.hn($merkledag.BoxoIpldMerkledagProtoNode.$h);
   }
 
   /// Go: type assertion `x.(*merkledag.RawNode)`: null if the object is not one.
-  $merkledag.RawNode? asRawNode() {
+  $merkledag.BoxoIpldMerkledagRawNode? asRawNode() {
     final $r = $callSync(83, $W()..h(this));
-    return $r.hn($merkledag.RawNode.$h);
+    return $r.hn($merkledag.BoxoIpldMerkledagRawNode.$h);
   }
 }
 
 /// Go: `format.NodeAdder` (handle).
-class NodeAdder extends GoHandle {
-  NodeAdder.$h(super.$h);
+class IpldFormatNodeAdder extends GoHandle {
+  IpldFormatNodeAdder.$h(super.$h);
 
   /// Go: `func (format.NodeAdder).Add(context.Context, format.Node) error`.
   ///
   /// Asynchronous: runs in a goroutine of the service.
-  Future<void> add($context.Context ctx, Node node) async {
+  Future<void> add($context.Context ctx, IpldFormatNode node) async {
     await $call(
         257,
         $W()
@@ -132,7 +133,7 @@ class NodeAdder extends GoHandle {
   /// Go: `func (format.NodeAdder).AddMany(context.Context, []format.Node) error`.
   ///
   /// Asynchronous: runs in a goroutine of the service.
-  Future<void> addMany($context.Context ctx, List<Node> nodes) async {
+  Future<void> addMany($context.Context ctx, List<IpldFormatNode> nodes) async {
     await $call(
         258,
         $W()
@@ -142,60 +143,60 @@ class NodeAdder extends GoHandle {
   }
 
   /// Go: type assertion `x.(format.DAGService)`: null if the object is not one.
-  DagService? asDagService() {
+  IpldFormatDagService? asDagService() {
     final $r = $callSync(84, $W()..h(this));
-    return $r.hn(DagService.$h);
+    return $r.hn(IpldFormatDagService.$h);
   }
 
   /// Go: type assertion `x.(iface.APIDagService)`: null if the object is not one.
-  $coreiface.ApiDagService? asApiDagService() {
+  $coreiface.KuboCoreCoreifaceApiDagService? asApiDagService() {
     final $r = $callSync(85, $W()..h(this));
-    return $r.hn($coreiface.ApiDagService.$h);
+    return $r.hn($coreiface.KuboCoreCoreifaceApiDagService.$h);
   }
 }
 
 /// Go: `format.NodeGetter` (handle).
-class NodeGetter extends GoHandle {
-  NodeGetter.$h(super.$h);
+class IpldFormatNodeGetter extends GoHandle {
+  IpldFormatNodeGetter.$h(super.$h);
 
   /// Go: `func (format.NodeGetter).Get(context.Context, cid.Cid) (format.Node, error)`.
   ///
   /// Asynchronous: runs in a goroutine of the service.
-  Future<Node> get($context.Context ctx, $cid.Cid cid) async {
+  Future<IpldFormatNode> get($context.Context ctx, $cid.Cid cid) async {
     final $r = await $call(
         259,
         $W()
           ..h(this)
           ..h(ctx)
           ..val(cid));
-    return $r.hnn(Node.$h);
+    return $r.hnn(IpldFormatNode.$h);
   }
 
   /// Go: type assertion `x.(format.DAGService)`: null if the object is not one.
-  DagService? asDagService() {
+  IpldFormatDagService? asDagService() {
     final $r = $callSync(86, $W()..h(this));
-    return $r.hn(DagService.$h);
+    return $r.hn(IpldFormatDagService.$h);
   }
 
   /// Go: type assertion `x.(iface.APIDagService)`: null if the object is not one.
-  $coreiface.ApiDagService? asApiDagService() {
+  $coreiface.KuboCoreCoreifaceApiDagService? asApiDagService() {
     final $r = $callSync(87, $W()..h(this));
-    return $r.hn($coreiface.ApiDagService.$h);
+    return $r.hn($coreiface.KuboCoreCoreifaceApiDagService.$h);
   }
 }
 
 /// Go: `format.NodeOption`.
-final class NodeOption implements GoDto {
-  NodeOption({Node? node, String? err})
+final class IpldFormatNodeOption implements GoDto {
+  IpldFormatNodeOption({IpldFormatNode? node, String? err})
       : node = node,
         err = err;
 
-  NodeOption.$dec($R r)
-      : node = r.hn(Node.$h),
+  IpldFormatNodeOption.$dec($R r)
+      : node = r.hn(IpldFormatNode.$h),
         err = r.err();
 
   /// Go: `Node`.
-  Node? node;
+  IpldFormatNode? node;
 
   /// Go: `Err`.
   String? err;
@@ -209,8 +210,8 @@ final class NodeOption implements GoDto {
 }
 
 /// Go: `format.NodeStat`.
-final class NodeStat implements GoDto {
-  NodeStat(
+final class IpldFormatNodeStat implements GoDto {
+  IpldFormatNodeStat(
       {String? hash,
       int? numLinks,
       int? blockSize,
@@ -224,7 +225,7 @@ final class NodeStat implements GoDto {
         dataSize = dataSize ?? 0,
         cumulativeSize = cumulativeSize ?? 0;
 
-  NodeStat.$dec($R r)
+  IpldFormatNodeStat.$dec($R r)
       : hash = r.str(),
         numLinks = r.i64(),
         blockSize = r.i64(),
@@ -263,48 +264,14 @@ final class NodeStat implements GoDto {
 }
 
 /// Go: `format.Resolver` (handle).
-class Resolver extends GoHandle {
-  Resolver.$h(super.$h);
-}
-
-/// Go: `func format.MakeLink(n format.Node) (*format.Link, error)`.
-Link makeLink(Node n) {
-  final $r = $callSync(251, $W()..h(n));
-  return $r.p() ? Link.$dec($r) : $nil();
-}
-
-/// Go: `func format.GetLinks(ctx context.Context, ng format.NodeGetter, c cid.Cid) ([]*format.Link, error)`.
-///
-/// Asynchronous: runs in a goroutine of the service.
-Future<List<Link>> getLinks(
-    $context.Context ctx, NodeGetter ng, $cid.Cid c) async {
-  final $r = await $call(
-      250,
-      $W()
-        ..h(ctx)
-        ..h(ng)
-        ..val(c));
-  return $r.list(() => $r.p() ? Link.$dec($r) : $nil());
-}
-
-/// Go: `func format.Copy(ctx context.Context, from format.DAGService, to format.DAGService, root cid.Cid) error`.
-///
-/// Asynchronous: runs in a goroutine of the service.
-Future<void> copy(
-    $context.Context ctx, DagService from, DagService to, $cid.Cid root) async {
-  await $call(
-      248,
-      $W()
-        ..h(ctx)
-        ..h(from)
-        ..h(to)
-        ..val(root));
+class IpldFormatResolver extends GoHandle {
+  IpldFormatResolver.$h(super.$h);
 }
 
 /// Go: `var format.EndOfDag error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class EndOfDag extends GolangException {
-  EndOfDag.$(super.base) : super.$from();
+class IpldFormatEndOfDag extends GolangException {
+  IpldFormatEndOfDag.$(super.base) : super.$from();
 
   @override
   String toString() => 'format.EndOfDag: $message';
@@ -312,8 +279,8 @@ class EndOfDag extends GolangException {
 
 /// Go: `var format.ErrClosed error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrClosed extends GolangException {
-  ErrClosed.$(super.base) : super.$from();
+class IpldFormatErrClosed extends GolangException {
+  IpldFormatErrClosed.$(super.base) : super.$from();
 
   @override
   String toString() => 'format.ErrClosed: $message';
@@ -321,8 +288,8 @@ class ErrClosed extends GolangException {
 
 /// Go: `var format.ErrDownNoChild error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrDownNoChild extends GolangException {
-  ErrDownNoChild.$(super.base) : super.$from();
+class IpldFormatErrDownNoChild extends GolangException {
+  IpldFormatErrDownNoChild.$(super.base) : super.$from();
 
   @override
   String toString() => 'format.ErrDownNoChild: $message';
@@ -330,8 +297,8 @@ class ErrDownNoChild extends GolangException {
 
 /// Go: `var format.ErrNextNoChild error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrNextNoChild extends GolangException {
-  ErrNextNoChild.$(super.base) : super.$from();
+class IpldFormatErrNextNoChild extends GolangException {
+  IpldFormatErrNextNoChild.$(super.base) : super.$from();
 
   @override
   String toString() => 'format.ErrNextNoChild: $message';
@@ -339,8 +306,8 @@ class ErrNextNoChild extends GolangException {
 
 /// Go: `var format.ErrNilVisitor error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrNilVisitor extends GolangException {
-  ErrNilVisitor.$(super.base) : super.$from();
+class IpldFormatErrNilVisitor extends GolangException {
+  IpldFormatErrNilVisitor.$(super.base) : super.$from();
 
   @override
   String toString() => 'format.ErrNilVisitor: $message';
@@ -348,9 +315,46 @@ class ErrNilVisitor extends GolangException {
 
 /// Go: `var format.ErrNotCommited error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrNotCommited extends GolangException {
-  ErrNotCommited.$(super.base) : super.$from();
+class IpldFormatErrNotCommited extends GolangException {
+  IpldFormatErrNotCommited.$(super.base) : super.$from();
 
   @override
   String toString() => 'format.ErrNotCommited: $message';
+}
+
+/// Go: the package-level members of `github.com/ipfs/go-ipld-format` (`Go.ipldFormat`).
+extension GoIpldFormatApi on GoIpldFormat {
+  /// Go: `func format.MakeLink(n format.Node) (*format.Link, error)`.
+  IpldFormatLink makeLink(IpldFormatNode n) {
+    final $r = $callSync(251, $W()..h(n));
+    return $r.p() ? IpldFormatLink.$dec($r) : $nil();
+  }
+
+  /// Go: `func format.GetLinks(ctx context.Context, ng format.NodeGetter, c cid.Cid) ([]*format.Link, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<List<IpldFormatLink>> getLinks(
+      $context.Context ctx, IpldFormatNodeGetter ng, $cid.Cid c) async {
+    final $r = await $call(
+        250,
+        $W()
+          ..h(ctx)
+          ..h(ng)
+          ..val(c));
+    return $r.list(() => $r.p() ? IpldFormatLink.$dec($r) : $nil());
+  }
+
+  /// Go: `func format.Copy(ctx context.Context, from format.DAGService, to format.DAGService, root cid.Cid) error`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> copy($context.Context ctx, IpldFormatDagService from,
+      IpldFormatDagService to, $cid.Cid root) async {
+    await $call(
+        248,
+        $W()
+          ..h(ctx)
+          ..h(from)
+          ..h(to)
+          ..val(root));
+  }
 }

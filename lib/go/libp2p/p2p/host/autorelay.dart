@@ -2,63 +2,82 @@
 // Go: github.com/libp2p/go-libp2p/p2p/host/autorelay
 library;
 
+import 'package:p2p_ffi/src/go.dart' show GoLibp2pP2pHostAutorelay;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/libp2p/core/peer.dart' as $peer;
 
 /// Go: `autorelay.ClockWithInstantTimer` (handle).
-class ClockWithInstantTimer extends GoHandle {
-  ClockWithInstantTimer.$h(super.$h);
+class Libp2pP2pHostAutorelayClockWithInstantTimer extends GoHandle {
+  Libp2pP2pHostAutorelayClockWithInstantTimer.$h(super.$h);
 }
 
 /// Go: `autorelay.MetricsTracer` (handle).
-class MetricsTracer extends GoHandle {
-  MetricsTracer.$h(super.$h);
+class Libp2pP2pHostAutorelayMetricsTracer extends GoHandle {
+  Libp2pP2pHostAutorelayMetricsTracer.$h(super.$h);
 }
 
 /// Go: `autorelay.Option` (functional option; constructors in the package).
-final class Option extends GoOption {
-  Option.$(super.$i, super.$a);
+final class Libp2pP2pHostAutorelayOption extends GoOption {
+  Libp2pP2pHostAutorelayOption.$(super.$i, super.$a);
 }
 
 /// Go: `autorelay.PeerSource` (handle).
-class PeerSource extends GoHandle {
-  PeerSource.$h(super.$h);
+class Libp2pP2pHostAutorelayPeerSource extends GoHandle {
+  Libp2pP2pHostAutorelayPeerSource.$h(super.$h);
 }
 
-/// Go: `autorelay.WithBackoff`.
-Option withBackoff(Duration d) =>
-    Option.$(0, (w) => w..i64((d).inMicroseconds * 1000));
+/// Go: the package-level members of `github.com/libp2p/go-libp2p/p2p/host/autorelay` (`Go.libp2p.p2p.host.autorelay`).
+extension GoLibp2pP2pHostAutorelayApi on GoLibp2pP2pHostAutorelay {
+  /// Go: `autorelay.WithBackoff`.
+  Libp2pP2pHostAutorelayOption withBackoff(Duration d) =>
+      Libp2pP2pHostAutorelayOption.$(
+          0, (w) => w..i64((d).inMicroseconds * 1000));
 
-/// Go: `autorelay.WithBootDelay`.
-Option withBootDelay(Duration d) =>
-    Option.$(1, (w) => w..i64((d).inMicroseconds * 1000));
+  /// Go: `autorelay.WithBootDelay`.
+  Libp2pP2pHostAutorelayOption withBootDelay(Duration d) =>
+      Libp2pP2pHostAutorelayOption.$(
+          1, (w) => w..i64((d).inMicroseconds * 1000));
 
-/// Go: `autorelay.WithClock`.
-Option withClock(ClockWithInstantTimer cl) => Option.$(2, (w) => w..h(cl));
+  /// Go: `autorelay.WithClock`.
+  Libp2pP2pHostAutorelayOption withClock(
+          Libp2pP2pHostAutorelayClockWithInstantTimer cl) =>
+      Libp2pP2pHostAutorelayOption.$(2, (w) => w..h(cl));
 
-/// Go: `autorelay.WithMaxCandidateAge`.
-Option withMaxCandidateAge(Duration d) =>
-    Option.$(3, (w) => w..i64((d).inMicroseconds * 1000));
+  /// Go: `autorelay.WithMaxCandidateAge`.
+  Libp2pP2pHostAutorelayOption withMaxCandidateAge(Duration d) =>
+      Libp2pP2pHostAutorelayOption.$(
+          3, (w) => w..i64((d).inMicroseconds * 1000));
 
-/// Go: `autorelay.WithMaxCandidates`.
-Option withMaxCandidates(int n) => Option.$(4, (w) => w..i64(n));
+  /// Go: `autorelay.WithMaxCandidates`.
+  Libp2pP2pHostAutorelayOption withMaxCandidates(int n) =>
+      Libp2pP2pHostAutorelayOption.$(4, (w) => w..i64(n));
 
-/// Go: `autorelay.WithMetricsTracer`.
-Option withMetricsTracer(MetricsTracer mt) => Option.$(5, (w) => w..h(mt));
+  /// Go: `autorelay.WithMetricsTracer`.
+  Libp2pP2pHostAutorelayOption withMetricsTracer(
+          Libp2pP2pHostAutorelayMetricsTracer mt) =>
+      Libp2pP2pHostAutorelayOption.$(5, (w) => w..h(mt));
 
-/// Go: `autorelay.WithMinCandidates`.
-Option withMinCandidates(int n) => Option.$(6, (w) => w..i64(n));
+  /// Go: `autorelay.WithMinCandidates`.
+  Libp2pP2pHostAutorelayOption withMinCandidates(int n) =>
+      Libp2pP2pHostAutorelayOption.$(6, (w) => w..i64(n));
 
-/// Go: `autorelay.WithMinInterval`.
-Option withMinInterval(Duration interval) =>
-    Option.$(7, (w) => w..i64((interval).inMicroseconds * 1000));
+  /// Go: `autorelay.WithMinInterval`.
+  Libp2pP2pHostAutorelayOption withMinInterval(Duration interval) =>
+      Libp2pP2pHostAutorelayOption.$(
+          7, (w) => w..i64((interval).inMicroseconds * 1000));
 
-/// Go: `autorelay.WithNumRelays`.
-Option withNumRelays(int n) => Option.$(8, (w) => w..i64(n));
+  /// Go: `autorelay.WithNumRelays`.
+  Libp2pP2pHostAutorelayOption withNumRelays(int n) =>
+      Libp2pP2pHostAutorelayOption.$(8, (w) => w..i64(n));
 
-/// Go: `autorelay.WithPeerSource`.
-Option withPeerSource(PeerSource f) => Option.$(9, (w) => w..h(f));
+  /// Go: `autorelay.WithPeerSource`.
+  Libp2pP2pHostAutorelayOption withPeerSource(
+          Libp2pP2pHostAutorelayPeerSource f) =>
+      Libp2pP2pHostAutorelayOption.$(9, (w) => w..h(f));
 
-/// Go: `autorelay.WithStaticRelays`.
-Option withStaticRelays(List<$peer.AddrInfo> static) =>
-    Option.$(10, (w) => w..list(static, (w0, e0) => w0.dto(e0)));
+  /// Go: `autorelay.WithStaticRelays`.
+  Libp2pP2pHostAutorelayOption withStaticRelays(
+          List<$peer.Libp2pCorePeerAddrInfo> static) =>
+      Libp2pP2pHostAutorelayOption.$(
+          10, (w) => w..list(static, (w0, e0) => w0.dto(e0)));
+}

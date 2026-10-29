@@ -2,20 +2,24 @@
 // Go: github.com/libp2p/go-libp2p/p2p/security/noise
 library;
 
+import 'package:p2p_ffi/src/go.dart' show GoLibp2pP2pSecurityNoise;
 import 'package:p2p_ffi/src/runtime.dart';
 
-/// Go: `const noise.ID untyped string`.
-const id = "/noise";
+/// Go: the package-level members of `github.com/libp2p/go-libp2p/p2p/security/noise` (`Go.libp2p.p2p.security.noise`).
+extension GoLibp2pP2pSecurityNoiseApi on GoLibp2pP2pSecurityNoise {
+  /// Go: `const noise.ID untyped string`.
+  String get id => "/noise";
 
-/// Go: `const noise.LengthPrefixLength untyped int`.
-const lengthPrefixLength = 2;
+  /// Go: `const noise.LengthPrefixLength untyped int`.
+  int get lengthPrefixLength => 2;
 
-/// Go: `const noise.MaxPlaintextLength untyped int`.
-const maxPlaintextLength = 65519;
+  /// Go: `const noise.MaxPlaintextLength untyped int`.
+  int get maxPlaintextLength => 65519;
 
-/// Go: `const noise.MaxTransportMsgLength untyped int`.
-const maxTransportMsgLength = 65535;
+  /// Go: `const noise.MaxTransportMsgLength untyped int`.
+  int get maxTransportMsgLength => 65535;
 
-/// Go: the function `noise.New` as a value (a token: Go gets the function
-/// itself, as in `libp2p.Transport(tcp.NewTCPTransport)`).
-const newFunc = GoToken(11);
+  /// Go: the function `noise.New` as a value (a token: Go gets the function
+  /// itself, as in `libp2p.Transport(tcp.NewTCPTransport)`).
+  GoToken get newFunc => const GoToken(11);
+}

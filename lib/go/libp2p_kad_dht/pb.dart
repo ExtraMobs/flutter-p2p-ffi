@@ -2,42 +2,46 @@
 // Go: github.com/libp2p/go-libp2p-kad-dht/pb
 library;
 
+import 'package:p2p_ffi/src/go.dart' show GoLibp2pKadDhtPb;
 import 'package:p2p_ffi/src/runtime.dart';
 
 /// Go: `dht_pb.Message` (handle).
-class Message extends GoHandle {
-  Message.$h(super.$h);
+class Libp2pKadDhtPbMessage extends GoHandle {
+  Libp2pKadDhtPbMessage.$h(super.$h);
 }
 
-/// Go: `const dht_pb.MaxPeerRecordSize untyped int`.
-const maxPeerRecordSize = 8192;
+/// Go: the package-level members of `github.com/libp2p/go-libp2p-kad-dht/pb` (`Go.libp2pKadDht.pb`).
+extension GoLibp2pKadDhtPbApi on GoLibp2pKadDhtPb {
+  /// Go: `const dht_pb.MaxPeerRecordSize untyped int`.
+  int get maxPeerRecordSize => 8192;
 
-/// Go: `const dht_pb.Message_ADD_PROVIDER dht_pb.Message_MessageType`.
-const messageAddProvider = 2;
+  /// Go: `const dht_pb.Message_ADD_PROVIDER dht_pb.Message_MessageType`.
+  int get messageAddProvider => 2;
 
-/// Go: `const dht_pb.Message_CANNOT_CONNECT dht_pb.Message_ConnectionType`.
-const messageCannotConnect = 3;
+  /// Go: `const dht_pb.Message_CANNOT_CONNECT dht_pb.Message_ConnectionType`.
+  int get messageCannotConnect => 3;
 
-/// Go: `const dht_pb.Message_CAN_CONNECT dht_pb.Message_ConnectionType`.
-const messageCanConnect = 2;
+  /// Go: `const dht_pb.Message_CAN_CONNECT dht_pb.Message_ConnectionType`.
+  int get messageCanConnect => 2;
 
-/// Go: `const dht_pb.Message_CONNECTED dht_pb.Message_ConnectionType`.
-const messageConnected = 1;
+  /// Go: `const dht_pb.Message_CONNECTED dht_pb.Message_ConnectionType`.
+  int get messageConnected => 1;
 
-/// Go: `const dht_pb.Message_FIND_NODE dht_pb.Message_MessageType`.
-const messageFindNode = 4;
+  /// Go: `const dht_pb.Message_FIND_NODE dht_pb.Message_MessageType`.
+  int get messageFindNode => 4;
 
-/// Go: `const dht_pb.Message_GET_PROVIDERS dht_pb.Message_MessageType`.
-const messageGetProviders = 3;
+  /// Go: `const dht_pb.Message_GET_PROVIDERS dht_pb.Message_MessageType`.
+  int get messageGetProviders => 3;
 
-/// Go: `const dht_pb.Message_GET_VALUE dht_pb.Message_MessageType`.
-const messageGetValue = 1;
+  /// Go: `const dht_pb.Message_GET_VALUE dht_pb.Message_MessageType`.
+  int get messageGetValue => 1;
 
-/// Go: `const dht_pb.Message_NOT_CONNECTED dht_pb.Message_ConnectionType`.
-const messageNotConnected = 0;
+  /// Go: `const dht_pb.Message_NOT_CONNECTED dht_pb.Message_ConnectionType`.
+  int get messageNotConnected => 0;
 
-/// Go: `const dht_pb.Message_PING dht_pb.Message_MessageType`.
-const messagePing = 5;
+  /// Go: `const dht_pb.Message_PING dht_pb.Message_MessageType`.
+  int get messagePing => 5;
 
-/// Go: `const dht_pb.Message_PUT_VALUE dht_pb.Message_MessageType`.
-const messagePutValue = 0;
+  /// Go: `const dht_pb.Message_PUT_VALUE dht_pb.Message_MessageType`.
+  int get messagePutValue => 0;
+}

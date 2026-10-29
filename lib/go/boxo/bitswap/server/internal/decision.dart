@@ -5,8 +5,8 @@ library;
 import 'package:p2p_ffi/src/runtime.dart';
 
 /// Go: `decision.Receipt` (a kubo command output).
-final class Receipt {
-  Receipt.$dec($R r)
+final class BoxoBitswapServerInternalDecisionReceipt {
+  BoxoBitswapServerInternalDecisionReceipt.$dec($R r)
       : peer = r.str(),
         value$ = r.f64(),
         sent = r.i64(),

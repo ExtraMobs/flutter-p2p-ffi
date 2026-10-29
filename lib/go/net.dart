@@ -4,16 +4,17 @@ library;
 
 import 'dart:typed_data';
 
+import 'package:p2p_ffi/src/go.dart' show GoNet;
 import 'package:p2p_ffi/src/runtime.dart';
 
 /// Go: `net.Addr` (values read from the methods; built in Dart, it
 /// crosses as a Go value that returns them).
-final class Addr implements GoDto {
-  Addr({String? network, String? string})
+final class NetAddr implements GoDto {
+  NetAddr({String? network, String? string})
       : network = network ?? '',
         string = string ?? '';
 
-  Addr.$dec($R r)
+  NetAddr.$dec($R r)
       : network = r.str(),
         string = r.str();
 
@@ -32,12 +33,12 @@ final class Addr implements GoDto {
 }
 
 /// Go: `net.IPNet`.
-final class IpNet implements GoDto {
-  IpNet({Uint8List? ip, Uint8List? mask})
+final class NetIpNet implements GoDto {
+  NetIpNet({Uint8List? ip, Uint8List? mask})
       : ip = ip,
         mask = mask;
 
-  IpNet.$dec($R r)
+  NetIpNet.$dec($R r)
       : ip = r.bytes(),
         mask = r.bytes();
 
@@ -55,34 +56,10 @@ final class IpNet implements GoDto {
   }
 }
 
-/// Go: `const net.FlagBroadcast net.Flags`.
-const flagBroadcast = 2;
-
-/// Go: `const net.FlagLoopback net.Flags`.
-const flagLoopback = 4;
-
-/// Go: `const net.FlagMulticast net.Flags`.
-const flagMulticast = 16;
-
-/// Go: `const net.FlagPointToPoint net.Flags`.
-const flagPointToPoint = 8;
-
-/// Go: `const net.FlagRunning net.Flags`.
-const flagRunning = 32;
-
-/// Go: `const net.FlagUp net.Flags`.
-const flagUp = 1;
-
-/// Go: `const net.IPv4len untyped int`.
-const iPv4len = 4;
-
-/// Go: `const net.IPv6len untyped int`.
-const iPv6len = 16;
-
 /// Go: `net.AddrError`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class AddrError extends GolangException {
-  AddrError.$(super.base, $R r)
+class NetAddrError extends GolangException {
+  NetAddrError.$(super.base, $R r)
       : err = r.str(),
         addr = r.str(),
         super.$from();
@@ -99,8 +76,8 @@ class AddrError extends GolangException {
 
 /// Go: `net.DNSConfigError`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class DnsConfigError extends GolangException {
-  DnsConfigError.$(super.base) : super.$from();
+class NetDnsConfigError extends GolangException {
+  NetDnsConfigError.$(super.base) : super.$from();
 
   @override
   String toString() => 'net.DNSConfigError: $message';
@@ -108,8 +85,8 @@ class DnsConfigError extends GolangException {
 
 /// Go: `net.DNSError`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class DnsError extends GolangException {
-  DnsError.$(super.base, $R r)
+class NetDnsError extends GolangException {
+  NetDnsError.$(super.base, $R r)
       : err = r.str(),
         name = r.str(),
         server = r.str(),
@@ -142,8 +119,8 @@ class DnsError extends GolangException {
 
 /// Go: `var net.ErrClosed error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrClosed extends GolangException {
-  ErrClosed.$(super.base) : super.$from();
+class NetErrClosed extends GolangException {
+  NetErrClosed.$(super.base) : super.$from();
 
   @override
   String toString() => 'net.ErrClosed: $message';
@@ -151,8 +128,8 @@ class ErrClosed extends GolangException {
 
 /// Go: `var net.ErrWriteToConnected error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrWriteToConnected extends GolangException {
-  ErrWriteToConnected.$(super.base) : super.$from();
+class NetErrWriteToConnected extends GolangException {
+  NetErrWriteToConnected.$(super.base) : super.$from();
 
   @override
   String toString() => 'net.ErrWriteToConnected: $message';
@@ -160,8 +137,8 @@ class ErrWriteToConnected extends GolangException {
 
 /// Go: `net.InvalidAddrError`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class InvalidAddrError extends GolangException {
-  InvalidAddrError.$(super.base) : super.$from();
+class NetInvalidAddrError extends GolangException {
+  NetInvalidAddrError.$(super.base) : super.$from();
 
   @override
   String toString() => 'net.InvalidAddrError: $message';
@@ -169,8 +146,8 @@ class InvalidAddrError extends GolangException {
 
 /// Go: `net.OpError`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class OpError extends GolangException {
-  OpError.$(super.base, $R r)
+class NetOpError extends GolangException {
+  NetOpError.$(super.base, $R r)
       : op = r.str(),
         net = r.str(),
         super.$from();
@@ -187,8 +164,8 @@ class OpError extends GolangException {
 
 /// Go: `net.ParseError`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ParseError extends GolangException {
-  ParseError.$(super.base, $R r)
+class NetParseError extends GolangException {
+  NetParseError.$(super.base, $R r)
       : type = r.str(),
         text = r.str(),
         super.$from();
@@ -205,9 +182,36 @@ class ParseError extends GolangException {
 
 /// Go: `net.UnknownNetworkError`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class UnknownNetworkError extends GolangException {
-  UnknownNetworkError.$(super.base) : super.$from();
+class NetUnknownNetworkError extends GolangException {
+  NetUnknownNetworkError.$(super.base) : super.$from();
 
   @override
   String toString() => 'net.UnknownNetworkError: $message';
+}
+
+/// Go: the package-level members of `net` (`Go.net`).
+extension GoNetApi on GoNet {
+  /// Go: `const net.FlagBroadcast net.Flags`.
+  int get flagBroadcast => 2;
+
+  /// Go: `const net.FlagLoopback net.Flags`.
+  int get flagLoopback => 4;
+
+  /// Go: `const net.FlagMulticast net.Flags`.
+  int get flagMulticast => 16;
+
+  /// Go: `const net.FlagPointToPoint net.Flags`.
+  int get flagPointToPoint => 8;
+
+  /// Go: `const net.FlagRunning net.Flags`.
+  int get flagRunning => 32;
+
+  /// Go: `const net.FlagUp net.Flags`.
+  int get flagUp => 1;
+
+  /// Go: `const net.IPv4len untyped int`.
+  int get iPv4len => 4;
+
+  /// Go: `const net.IPv6len untyped int`.
+  int get iPv6len => 16;
 }

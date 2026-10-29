@@ -32,15 +32,6 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:p2p_ffi/go/car/v2.dart' as car;
-import 'package:p2p_ffi/go/context.dart' as context;
-import 'package:p2p_ffi/go/io_stream.dart' as io_stream;
-import 'package:p2p_ffi/go/ipld_prime/node/basicnode.dart' as basicnode;
-import 'package:p2p_ffi/go/ipld_prime/traversal/selector/builder.dart'
-    as builder;
-import 'package:p2p_ffi/go/libp2p.dart' as libp2p;
-import 'package:p2p_ffi/go/libp2p/core/host.dart' as host;
-import 'package:p2p_ffi/go/libp2p/core/network.dart' as network;
 import 'package:p2p_ffi/p2p_ffi.dart';
 
 import 'lesson.dart';
@@ -52,14 +43,14 @@ Future<void> main() async {
   await P2pService.start();
   final tmp = Directory.systemTemp.createTempSync('lesson21_');
   try {
-    final ctx = context.background();
+    final ctx = Go.context.background();
 
     // 1. Called many times during the call: each entry of a CAR index.
     //    Go:  idx.(index.IterableIndex).ForEach(func(mh multihash.Multihash, off uint64) error {...})
     final s = await Sample.build(ctx);
     final carFile = '${tmp.path}/sample.car';
     await s.writeCar(ctx, carFile);
-    final idx = car.generateIndexFromFile(carFile).asIterableIndex()!;
+    final idx = Go.car.v2.generateIndexFromFile(carFile).asIterableIndex()!;
     final offsets = <int>[];
     await idx.forEach((multihash, offset) => offsets.add(offset));
     say('forEach called the Dart function ${offsets.length} times; offsets '
@@ -77,24 +68,23 @@ Future<void> main() async {
     // 2. Kept by Go: a stream handler, called for every stream that comes,
     //    until removed.
     //    Go:  b.SetStreamHandler(proto, func(s network.Stream) {...})
-    Future<host.Host> newHost() => libp2p.new$([
-          libp2p.listenAddrStrings(['/ip4/127.0.0.1/tcp/0'])
+    Future<Libp2pCoreHost> newHost() => Go.libp2p.new$([
+          Go.libp2p.listenAddrStrings(['/ip4/127.0.0.1/tcp/0'])
         ]);
     final a = await newHost(), b = await newHost();
     var served = 0;
     b.setStreamHandler('/lesson/echo/1.0.0', (st) async {
       served++;
-      final got = await io_stream.readerStream(st).expand((c) => c).toList();
+      final got = await readerStream(st).expand((c) => c).toList();
       await st.write(Uint8List.fromList(got.reversed.toList()));
       await st.close();
     });
-    await a.connect(ctx, host.infoFromHost(b));
+    await a.connect(ctx, Go.libp2p.core.host.infoFromHost(b));
     Future<String> echo(String text) async {
       final st = await a.newStream(ctx, b.id(), ['/lesson/echo/1.0.0']);
       await st.write(Uint8List.fromList(utf8.encode(text)));
       await st.closeWrite();
-      return utf8
-          .decode(await io_stream.readerStream(st).expand((c) => c).toList());
+      return utf8.decode(await readerStream(st).expand((c) => c).toList());
     }
 
     say('\necho "abc" → "${await echo('abc')}", "dart" → '
@@ -103,12 +93,12 @@ Future<void> main() async {
 
     // 3. A Go interface implemented in Dart: only the methods you need.
     //    Go:  a.Network().Notify(&network.NotifyBundle{DisconnectedF: ...})
-    final gone = network.Notifiee(
+    final gone = Libp2pCoreNetworkNotifiee(
         disconnected: (_, c) =>
             say('  [Notifiee] lost ${c.remotePeer().shortString()}'));
     a.network().notify(gone);
     final c = await newHost();
-    await a.connect(ctx, host.infoFromHost(c));
+    await a.connect(ctx, Go.libp2p.core.host.infoFromHost(c));
     say('\nclosing c, with a Notifiee on a:');
     await c.close();
     await Future<void>.delayed(const Duration(milliseconds: 300));
@@ -118,7 +108,8 @@ Future<void> main() async {
     //    a fields builder to the function, which fills it right there.
     //    Go:  ssb.ExploreFields(func(efsb builder.ExploreFieldsSpecBuilder) {
     //             efsb.Insert("Links", ssb.Matcher()) })
-    final ssb = builder.SelectorSpecBuilder(basicnode.PrototypeAny());
+    final ssb = IpldPrimeTraversalSelectorBuilderSelectorSpecBuilder(
+        IpldPrimeNodeBasicnodePrototypeAny());
     final spec =
         await ssb.exploreFields((f) => f.insert('Links', ssb.matcher()));
     say('\nexploreFields: built a selector spec inside the callback: '

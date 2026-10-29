@@ -2,99 +2,103 @@
 // Go: github.com/ipld/go-ipld-prime/traversal/selector
 library;
 
+import 'package:p2p_ffi/src/go.dart' show GoIpldPrimeTraversalSelector;
 import 'package:p2p_ffi/src/runtime.dart';
 
 /// Go: `selector.RecursionLimit` (handle).
-class RecursionLimit extends GoHandle {
-  RecursionLimit.$h(super.$h);
+class IpldPrimeTraversalSelectorRecursionLimit extends GoHandle {
+  IpldPrimeTraversalSelectorRecursionLimit.$h(super.$h);
 }
 
-/// Go: `func selector.RecursionLimitDepth(depth int64) selector.RecursionLimit`.
-RecursionLimit recursionLimitDepth(int depth) {
-  final $r = $callSync(472, $W()..i64(depth));
-  return $r.hnn(RecursionLimit.$h);
+/// Go: the package-level members of `github.com/ipld/go-ipld-prime/traversal/selector` (`Go.ipldPrime.traversal.selector`).
+extension GoIpldPrimeTraversalSelectorApi on GoIpldPrimeTraversalSelector {
+  /// Go: `func selector.RecursionLimitDepth(depth int64) selector.RecursionLimit`.
+  IpldPrimeTraversalSelectorRecursionLimit recursionLimitDepth(int depth) {
+    final $r = $callSync(472, $W()..i64(depth));
+    return $r.hnn(IpldPrimeTraversalSelectorRecursionLimit.$h);
+  }
+
+  /// Go: `func selector.RecursionLimitNone() selector.RecursionLimit`.
+  IpldPrimeTraversalSelectorRecursionLimit recursionLimitNone() {
+    final $r = $callSync(473);
+    return $r.hnn(IpldPrimeTraversalSelectorRecursionLimit.$h);
+  }
+
+  /// Go: `const selector.ConditionMode_Link selector.ConditionMode`.
+  String get conditionModeLink => "/";
+
+  /// Go: `const selector.SelectorKey_As untyped string`.
+  String get selectorKeyAs => "as";
+
+  /// Go: `const selector.SelectorKey_Condition untyped string`.
+  String get selectorKeyCondition => "&";
+
+  /// Go: `const selector.SelectorKey_End untyped string`.
+  String get selectorKeyEnd => "\$";
+
+  /// Go: `const selector.SelectorKey_ExploreAll untyped string`.
+  String get selectorKeyExploreAll => "a";
+
+  /// Go: `const selector.SelectorKey_ExploreConditional untyped string`.
+  String get selectorKeyExploreConditional => "&";
+
+  /// Go: `const selector.SelectorKey_ExploreFields untyped string`.
+  String get selectorKeyExploreFields => "f";
+
+  /// Go: `const selector.SelectorKey_ExploreIndex untyped string`.
+  String get selectorKeyExploreIndex => "i";
+
+  /// Go: `const selector.SelectorKey_ExploreInterpretAs untyped string`.
+  String get selectorKeyExploreInterpretAs => "~";
+
+  /// Go: `const selector.SelectorKey_ExploreRange untyped string`.
+  String get selectorKeyExploreRange => "r";
+
+  /// Go: `const selector.SelectorKey_ExploreRecursive untyped string`.
+  String get selectorKeyExploreRecursive => "R";
+
+  /// Go: `const selector.SelectorKey_ExploreRecursiveEdge untyped string`.
+  String get selectorKeyExploreRecursiveEdge => "@";
+
+  /// Go: `const selector.SelectorKey_ExploreUnion untyped string`.
+  String get selectorKeyExploreUnion => "|";
+
+  /// Go: `const selector.SelectorKey_Fields untyped string`.
+  String get selectorKeyFields => "f>";
+
+  /// Go: `const selector.SelectorKey_From untyped string`.
+  String get selectorKeyFrom => "[";
+
+  /// Go: `const selector.SelectorKey_Index untyped string`.
+  String get selectorKeyIndex => "i";
+
+  /// Go: `const selector.SelectorKey_Limit untyped string`.
+  String get selectorKeyLimit => "l";
+
+  /// Go: `const selector.SelectorKey_LimitDepth untyped string`.
+  String get selectorKeyLimitDepth => "depth";
+
+  /// Go: `const selector.SelectorKey_LimitNone untyped string`.
+  String get selectorKeyLimitNone => "none";
+
+  /// Go: `const selector.SelectorKey_Matcher untyped string`.
+  String get selectorKeyMatcher => ".";
+
+  /// Go: `const selector.SelectorKey_Next untyped string`.
+  String get selectorKeyNext => ">";
+
+  /// Go: `const selector.SelectorKey_Sequence untyped string`.
+  String get selectorKeySequence => ":>";
+
+  /// Go: `const selector.SelectorKey_Start untyped string`.
+  String get selectorKeyStart => "^";
+
+  /// Go: `const selector.SelectorKey_StopAt untyped string`.
+  String get selectorKeyStopAt => "!";
+
+  /// Go: `const selector.SelectorKey_Subset untyped string`.
+  String get selectorKeySubset => "subset";
+
+  /// Go: `const selector.SelectorKey_To untyped string`.
+  String get selectorKeyTo => "]";
 }
-
-/// Go: `func selector.RecursionLimitNone() selector.RecursionLimit`.
-RecursionLimit recursionLimitNone() {
-  final $r = $callSync(473);
-  return $r.hnn(RecursionLimit.$h);
-}
-
-/// Go: `const selector.ConditionMode_Link selector.ConditionMode`.
-const conditionModeLink = "/";
-
-/// Go: `const selector.SelectorKey_As untyped string`.
-const selectorKeyAs = "as";
-
-/// Go: `const selector.SelectorKey_Condition untyped string`.
-const selectorKeyCondition = "&";
-
-/// Go: `const selector.SelectorKey_End untyped string`.
-const selectorKeyEnd = "\$";
-
-/// Go: `const selector.SelectorKey_ExploreAll untyped string`.
-const selectorKeyExploreAll = "a";
-
-/// Go: `const selector.SelectorKey_ExploreConditional untyped string`.
-const selectorKeyExploreConditional = "&";
-
-/// Go: `const selector.SelectorKey_ExploreFields untyped string`.
-const selectorKeyExploreFields = "f";
-
-/// Go: `const selector.SelectorKey_ExploreIndex untyped string`.
-const selectorKeyExploreIndex = "i";
-
-/// Go: `const selector.SelectorKey_ExploreInterpretAs untyped string`.
-const selectorKeyExploreInterpretAs = "~";
-
-/// Go: `const selector.SelectorKey_ExploreRange untyped string`.
-const selectorKeyExploreRange = "r";
-
-/// Go: `const selector.SelectorKey_ExploreRecursive untyped string`.
-const selectorKeyExploreRecursive = "R";
-
-/// Go: `const selector.SelectorKey_ExploreRecursiveEdge untyped string`.
-const selectorKeyExploreRecursiveEdge = "@";
-
-/// Go: `const selector.SelectorKey_ExploreUnion untyped string`.
-const selectorKeyExploreUnion = "|";
-
-/// Go: `const selector.SelectorKey_Fields untyped string`.
-const selectorKeyFields = "f>";
-
-/// Go: `const selector.SelectorKey_From untyped string`.
-const selectorKeyFrom = "[";
-
-/// Go: `const selector.SelectorKey_Index untyped string`.
-const selectorKeyIndex = "i";
-
-/// Go: `const selector.SelectorKey_Limit untyped string`.
-const selectorKeyLimit = "l";
-
-/// Go: `const selector.SelectorKey_LimitDepth untyped string`.
-const selectorKeyLimitDepth = "depth";
-
-/// Go: `const selector.SelectorKey_LimitNone untyped string`.
-const selectorKeyLimitNone = "none";
-
-/// Go: `const selector.SelectorKey_Matcher untyped string`.
-const selectorKeyMatcher = ".";
-
-/// Go: `const selector.SelectorKey_Next untyped string`.
-const selectorKeyNext = ">";
-
-/// Go: `const selector.SelectorKey_Sequence untyped string`.
-const selectorKeySequence = ":>";
-
-/// Go: `const selector.SelectorKey_Start untyped string`.
-const selectorKeyStart = "^";
-
-/// Go: `const selector.SelectorKey_StopAt untyped string`.
-const selectorKeyStopAt = "!";
-
-/// Go: `const selector.SelectorKey_Subset untyped string`.
-const selectorKeySubset = "subset";
-
-/// Go: `const selector.SelectorKey_To untyped string`.
-const selectorKeyTo = "]";

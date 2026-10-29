@@ -2,113 +2,93 @@
 // Go: github.com/ipfs/go-datastore
 library;
 
+import 'package:p2p_ffi/src/go.dart' show GoDatastore;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/datastore/sync.dart' as $sync;
 
 /// Go: `datastore.Batching` (handle).
-class Batching extends Datastore {
-  Batching.$h(super.$h) : super.$h();
+class DatastoreBatching extends Datastore {
+  DatastoreBatching.$h(super.$h) : super.$h();
 
   /// Go: type assertion `x.(*datastore.MapDatastore)`: null if the object is not one.
-  MapDatastore? asMapDatastore() {
+  DatastoreMapDatastore? asMapDatastore() {
     final $r = $callSync(74, $W()..h(this));
-    return $r.hn(MapDatastore.$h);
+    return $r.hn(DatastoreMapDatastore.$h);
   }
 
   /// Go: type assertion `x.(*datastore.NullDatastore)`: null if the object is not one.
-  NullDatastore? asNullDatastore() {
+  DatastoreNullDatastore? asNullDatastore() {
     final $r = $callSync(75, $W()..h(this));
-    return $r.hn(NullDatastore.$h);
+    return $r.hn(DatastoreNullDatastore.$h);
   }
 
   /// Go: type assertion `x.(*sync.MutexDatastore)`: null if the object is not one.
-  $sync.MutexDatastore? asMutexDatastore() {
+  $sync.DatastoreSyncMutexDatastore? asMutexDatastore() {
     final $r = $callSync(76, $W()..h(this));
-    return $r.hn($sync.MutexDatastore.$h);
+    return $r.hn($sync.DatastoreSyncMutexDatastore.$h);
   }
 }
 
 /// Go: `datastore.Datastore` (handle).
-class Datastore extends Read {
+class Datastore extends DatastoreRead {
   Datastore.$h(super.$h) : super.$h();
 
   /// Go: type assertion `x.(*datastore.MapDatastore)`: null if the object is not one.
-  MapDatastore? asMapDatastore() {
+  DatastoreMapDatastore? asMapDatastore() {
     final $r = $callSync(77, $W()..h(this));
-    return $r.hn(MapDatastore.$h);
+    return $r.hn(DatastoreMapDatastore.$h);
   }
 
   /// Go: type assertion `x.(*datastore.NullDatastore)`: null if the object is not one.
-  NullDatastore? asNullDatastore() {
+  DatastoreNullDatastore? asNullDatastore() {
     final $r = $callSync(78, $W()..h(this));
-    return $r.hn(NullDatastore.$h);
+    return $r.hn(DatastoreNullDatastore.$h);
   }
 
   /// Go: type assertion `x.(*sync.MutexDatastore)`: null if the object is not one.
-  $sync.MutexDatastore? asMutexDatastore() {
+  $sync.DatastoreSyncMutexDatastore? asMutexDatastore() {
     final $r = $callSync(79, $W()..h(this));
-    return $r.hn($sync.MutexDatastore.$h);
+    return $r.hn($sync.DatastoreSyncMutexDatastore.$h);
   }
 
   /// Go: type assertion `x.(datastore.Batching)`: null if the object is not one.
-  Batching? asBatching() {
+  DatastoreBatching? asBatching() {
     final $r = $callSync(80, $W()..h(this));
-    return $r.hn(Batching.$h);
+    return $r.hn(DatastoreBatching.$h);
   }
 }
 
 /// Go: `datastore.MapDatastore` (handle).
-class MapDatastore extends Batching {
-  MapDatastore.$h(super.$h) : super.$h();
+class DatastoreMapDatastore extends DatastoreBatching {
+  DatastoreMapDatastore.$h(super.$h) : super.$h();
 
   /// Go: `func datastore.NewMapDatastore() (d *datastore.MapDatastore)`.
-  factory MapDatastore() {
+  factory DatastoreMapDatastore() {
     final $r = $callSync(245);
-    return $r.hnn(MapDatastore.$h);
+    return $r.hnn(DatastoreMapDatastore.$h);
   }
 }
 
 /// Go: `datastore.NullDatastore` (handle).
-class NullDatastore extends Batching {
-  NullDatastore.$h(super.$h) : super.$h();
+class DatastoreNullDatastore extends DatastoreBatching {
+  DatastoreNullDatastore.$h(super.$h) : super.$h();
 
   /// Go: `func datastore.NewNullDatastore() *datastore.NullDatastore`.
-  factory NullDatastore() {
+  factory DatastoreNullDatastore() {
     final $r = $callSync(246);
-    return $r.hnn(NullDatastore.$h);
+    return $r.hnn(DatastoreNullDatastore.$h);
   }
 }
 
 /// Go: `datastore.Read` (handle).
-class Read extends GoHandle {
-  Read.$h(super.$h);
+class DatastoreRead extends GoHandle {
+  DatastoreRead.$h(super.$h);
 }
-
-/// Go: `const datastore.FeatureNameBatching untyped string`.
-const featureNameBatching = "Batching";
-
-/// Go: `const datastore.FeatureNameChecked untyped string`.
-const featureNameChecked = "Checked";
-
-/// Go: `const datastore.FeatureNameGC untyped string`.
-const featureNameGc = "GC";
-
-/// Go: `const datastore.FeatureNamePersistent untyped string`.
-const featureNamePersistent = "Persistent";
-
-/// Go: `const datastore.FeatureNameScrubbed untyped string`.
-const featureNameScrubbed = "Scrubbed";
-
-/// Go: `const datastore.FeatureNameTTL untyped string`.
-const featureNameTtl = "TTL";
-
-/// Go: `const datastore.FeatureNameTransaction untyped string`.
-const featureNameTransaction = "Transaction";
 
 /// Go: `var datastore.ErrBatchUnsupported error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrBatchUnsupported extends GolangException {
-  ErrBatchUnsupported.$(super.base) : super.$from();
+class DatastoreErrBatchUnsupported extends GolangException {
+  DatastoreErrBatchUnsupported.$(super.base) : super.$from();
 
   @override
   String toString() => 'datastore.ErrBatchUnsupported: $message';
@@ -116,9 +96,33 @@ class ErrBatchUnsupported extends GolangException {
 
 /// Go: `var datastore.ErrNotFound error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrNotFound extends GolangException {
-  ErrNotFound.$(super.base) : super.$from();
+class DatastoreErrNotFound extends GolangException {
+  DatastoreErrNotFound.$(super.base) : super.$from();
 
   @override
   String toString() => 'datastore.ErrNotFound: $message';
+}
+
+/// Go: the package-level members of `github.com/ipfs/go-datastore` (`Go.datastore`).
+extension GoDatastoreApi on GoDatastore {
+  /// Go: `const datastore.FeatureNameBatching untyped string`.
+  String get featureNameBatching => "Batching";
+
+  /// Go: `const datastore.FeatureNameChecked untyped string`.
+  String get featureNameChecked => "Checked";
+
+  /// Go: `const datastore.FeatureNameGC untyped string`.
+  String get featureNameGc => "GC";
+
+  /// Go: `const datastore.FeatureNamePersistent untyped string`.
+  String get featureNamePersistent => "Persistent";
+
+  /// Go: `const datastore.FeatureNameScrubbed untyped string`.
+  String get featureNameScrubbed => "Scrubbed";
+
+  /// Go: `const datastore.FeatureNameTTL untyped string`.
+  String get featureNameTtl => "TTL";
+
+  /// Go: `const datastore.FeatureNameTransaction untyped string`.
+  String get featureNameTransaction => "Transaction";
 }

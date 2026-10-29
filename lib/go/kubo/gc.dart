@@ -6,12 +6,12 @@ import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/cid.dart' as $cid;
 
 /// Go: `gc.Result`.
-final class Result implements GoDto {
-  Result({$cid.Cid? keyRemoved, String? error})
+final class KuboGcResult implements GoDto {
+  KuboGcResult({$cid.Cid? keyRemoved, String? error})
       : keyRemoved = keyRemoved,
         error = error;
 
-  Result.$dec($R r)
+  KuboGcResult.$dec($R r)
       : keyRemoved = r.p() ? $cid.Cid(r.str()) : null,
         error = r.err();
 
@@ -31,8 +31,8 @@ final class Result implements GoDto {
 
 /// Go: `gc.CannotDeleteBlockError`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class CannotDeleteBlockError extends GolangException {
-  CannotDeleteBlockError.$(super.base, $R r)
+class KuboGcCannotDeleteBlockError extends GolangException {
+  KuboGcCannotDeleteBlockError.$(super.base, $R r)
       : key = r.p() ? $cid.Cid(r.str()) : $nil(),
         super.$from();
 
@@ -45,8 +45,8 @@ class CannotDeleteBlockError extends GolangException {
 
 /// Go: `gc.CannotFetchLinksError`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class CannotFetchLinksError extends GolangException {
-  CannotFetchLinksError.$(super.base, $R r)
+class KuboGcCannotFetchLinksError extends GolangException {
+  KuboGcCannotFetchLinksError.$(super.base, $R r)
       : key = r.p() ? $cid.Cid(r.str()) : $nil(),
         super.$from();
 
@@ -59,8 +59,8 @@ class CannotFetchLinksError extends GolangException {
 
 /// Go: `var gc.ErrCannotDeleteSomeBlocks error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrCannotDeleteSomeBlocks extends GolangException {
-  ErrCannotDeleteSomeBlocks.$(super.base) : super.$from();
+class KuboGcErrCannotDeleteSomeBlocks extends GolangException {
+  KuboGcErrCannotDeleteSomeBlocks.$(super.base) : super.$from();
 
   @override
   String toString() => 'gc.ErrCannotDeleteSomeBlocks: $message';
@@ -68,8 +68,8 @@ class ErrCannotDeleteSomeBlocks extends GolangException {
 
 /// Go: `var gc.ErrCannotFetchAllLinks error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrCannotFetchAllLinks extends GolangException {
-  ErrCannotFetchAllLinks.$(super.base) : super.$from();
+class KuboGcErrCannotFetchAllLinks extends GolangException {
+  KuboGcErrCannotFetchAllLinks.$(super.base) : super.$from();
 
   @override
   String toString() => 'gc.ErrCannotFetchAllLinks: $message';

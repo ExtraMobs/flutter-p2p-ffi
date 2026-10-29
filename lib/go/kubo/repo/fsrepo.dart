@@ -2,57 +2,16 @@
 // Go: github.com/ipfs/kubo/repo/fsrepo
 library;
 
+import 'package:p2p_ffi/src/go.dart' show GoKuboRepoFsrepo;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/kubo/config.dart' as $config;
 import 'package:p2p_ffi/go/kubo/repo.dart' as $repo;
 import 'package:p2p_ffi/go/multiaddr.dart' as $multiaddr;
 
-/// Go: `func fsrepo.IsInitialized(path string) bool`.
-bool isInitialized(String path) {
-  final $r = $callSync(386, $W()..str(path));
-  return $r.b();
-}
-
-/// Go: `func fsrepo.Init(repoPath string, conf *config.Config) error`.
-void init(String repoPath, $config.Config conf) {
-  $callSync(
-      385,
-      $W()
-        ..str(repoPath)
-        ..json(conf));
-}
-
-/// Go: `func fsrepo.Open(repoPath string) (repo.Repo, error)`.
-$repo.Repo open(String repoPath) {
-  final $r = $callSync(388, $W()..str(repoPath));
-  return $r.hnn($repo.Repo.$h);
-}
-
-/// Go: `func fsrepo.BestKnownPath() (string, error)`.
-String bestKnownPath() {
-  final $r = $callSync(384);
-  return $r.str();
-}
-
-/// Go: `func fsrepo.LockedByOtherProcess(repoPath string) (bool, error)`.
-bool lockedByOtherProcess(String repoPath) {
-  final $r = $callSync(387, $W()..str(repoPath));
-  return $r.b();
-}
-
-/// Go: `func fsrepo.APIAddr(repoPath string) (multiaddr.Multiaddr, error)`.
-$multiaddr.Multiaddr apiAddr(String repoPath) {
-  final $r = $callSync(383, $W()..str(repoPath));
-  return $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil();
-}
-
-/// Go: `const fsrepo.LockFile untyped string`.
-const lockFile = "repo.lock";
-
 /// Go: `var fsrepo.ErrNeedMigration error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrNeedMigration extends GolangException {
-  ErrNeedMigration.$(super.base) : super.$from();
+class KuboRepoFsrepoErrNeedMigration extends GolangException {
+  KuboRepoFsrepoErrNeedMigration.$(super.base) : super.$from();
 
   @override
   String toString() => 'fsrepo.ErrNeedMigration: $message';
@@ -60,8 +19,8 @@ class ErrNeedMigration extends GolangException {
 
 /// Go: `var fsrepo.ErrNoVersion error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrNoVersion extends GolangException {
-  ErrNoVersion.$(super.base) : super.$from();
+class KuboRepoFsrepoErrNoVersion extends GolangException {
+  KuboRepoFsrepoErrNoVersion.$(super.base) : super.$from();
 
   @override
   String toString() => 'fsrepo.ErrNoVersion: $message';
@@ -69,8 +28,8 @@ class ErrNoVersion extends GolangException {
 
 /// Go: `var fsrepo.ErrOldRepo error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrOldRepo extends GolangException {
-  ErrOldRepo.$(super.base) : super.$from();
+class KuboRepoFsrepoErrOldRepo extends GolangException {
+  KuboRepoFsrepoErrOldRepo.$(super.base) : super.$from();
 
   @override
   String toString() => 'fsrepo.ErrOldRepo: $message';
@@ -78,8 +37,8 @@ class ErrOldRepo extends GolangException {
 
 /// Go: `fsrepo.NoRepoError`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class NoRepoError extends GolangException {
-  NoRepoError.$(super.base, $R r)
+class KuboRepoFsrepoNoRepoError extends GolangException {
+  KuboRepoFsrepoNoRepoError.$(super.base, $R r)
       : path = r.str(),
         super.$from();
 
@@ -88,4 +47,49 @@ class NoRepoError extends GolangException {
 
   @override
   String toString() => 'fsrepo.NoRepoError: $message';
+}
+
+/// Go: the package-level members of `github.com/ipfs/kubo/repo/fsrepo` (`Go.kubo.repo.fsrepo`).
+extension GoKuboRepoFsrepoApi on GoKuboRepoFsrepo {
+  /// Go: `func fsrepo.IsInitialized(path string) bool`.
+  bool isInitialized(String path) {
+    final $r = $callSync(386, $W()..str(path));
+    return $r.b();
+  }
+
+  /// Go: `func fsrepo.Init(repoPath string, conf *config.Config) error`.
+  void init(String repoPath, $config.KuboConfig conf) {
+    $callSync(
+        385,
+        $W()
+          ..str(repoPath)
+          ..json(conf));
+  }
+
+  /// Go: `func fsrepo.Open(repoPath string) (repo.Repo, error)`.
+  $repo.KuboRepo open(String repoPath) {
+    final $r = $callSync(388, $W()..str(repoPath));
+    return $r.hnn($repo.KuboRepo.$h);
+  }
+
+  /// Go: `func fsrepo.BestKnownPath() (string, error)`.
+  String bestKnownPath() {
+    final $r = $callSync(384);
+    return $r.str();
+  }
+
+  /// Go: `func fsrepo.LockedByOtherProcess(repoPath string) (bool, error)`.
+  bool lockedByOtherProcess(String repoPath) {
+    final $r = $callSync(387, $W()..str(repoPath));
+    return $r.b();
+  }
+
+  /// Go: `func fsrepo.APIAddr(repoPath string) (multiaddr.Multiaddr, error)`.
+  $multiaddr.Multiaddr apiAddr(String repoPath) {
+    final $r = $callSync(383, $W()..str(repoPath));
+    return $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil();
+  }
+
+  /// Go: `const fsrepo.LockFile untyped string`.
+  String get lockFile => "repo.lock";
 }

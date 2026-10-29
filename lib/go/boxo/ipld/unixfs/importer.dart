@@ -2,17 +2,21 @@
 // Go: github.com/ipfs/boxo/ipld/unixfs/importer
 library;
 
+import 'package:p2p_ffi/src/go.dart' show GoBoxoIpldUnixfsImporter;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/boxo/chunker.dart' as $chunker;
 import 'package:p2p_ffi/go/ipld_format.dart' as $ipld_format;
 
-/// Go: `func importer.BuildDagFromReader(ds format.DAGService, spl chunk.Splitter) (format.Node, error)`.
-$ipld_format.Node buildDagFromReader(
-    $ipld_format.DagService ds, $chunker.Splitter spl) {
-  final $r = $callSync(
-      148,
-      $W()
-        ..h(ds)
-        ..h(spl));
-  return $r.hnn($ipld_format.Node.$h);
+/// Go: the package-level members of `github.com/ipfs/boxo/ipld/unixfs/importer` (`Go.boxo.ipld.unixfs.importer`).
+extension GoBoxoIpldUnixfsImporterApi on GoBoxoIpldUnixfsImporter {
+  /// Go: `func importer.BuildDagFromReader(ds format.DAGService, spl chunk.Splitter) (format.Node, error)`.
+  $ipld_format.IpldFormatNode buildDagFromReader(
+      $ipld_format.IpldFormatDagService ds, $chunker.BoxoChunkerSplitter spl) {
+    final $r = $callSync(
+        148,
+        $W()
+          ..h(ds)
+          ..h(spl));
+    return $r.hnn($ipld_format.IpldFormatNode.$h);
+  }
 }

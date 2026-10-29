@@ -2,19 +2,24 @@
 // Go: github.com/libp2p/go-libp2p/p2p/muxer/yamux
 library;
 
+import 'package:p2p_ffi/src/go.dart' show GoLibp2pP2pMuxerYamux;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/libp2p/core/network.dart' as $network;
 
 /// Go: `yamux.Transport` (handle).
-class Transport extends $network.Multiplexer {
-  Transport.$h(super.$h) : super.$h();
+class Libp2pP2pMuxerYamuxTransport
+    extends $network.Libp2pCoreNetworkMultiplexer {
+  Libp2pP2pMuxerYamuxTransport.$h(super.$h) : super.$h();
 }
 
-/// Go: `var yamux.DefaultTransport *yamux.Transport`.
-Transport get defaultTransport {
-  final $r = $callSync(648);
-  return $r.hnn(Transport.$h);
-}
+/// Go: the package-level members of `github.com/libp2p/go-libp2p/p2p/muxer/yamux` (`Go.libp2p.p2p.muxer.yamux`).
+extension GoLibp2pP2pMuxerYamuxApi on GoLibp2pP2pMuxerYamux {
+  /// Go: `var yamux.DefaultTransport *yamux.Transport`.
+  Libp2pP2pMuxerYamuxTransport get defaultTransport {
+    final $r = $callSync(648);
+    return $r.hnn(Libp2pP2pMuxerYamuxTransport.$h);
+  }
 
-/// Go: `const yamux.ID untyped string`.
-const id = "/yamux/1.0.0";
+  /// Go: `const yamux.ID untyped string`.
+  String get id => "/yamux/1.0.0";
+}

@@ -5,12 +5,13 @@ library;
 import 'dart:async';
 import 'dart:typed_data';
 
+import 'package:p2p_ffi/src/go.dart' show GoCarV2Index;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/cid.dart' as $cid;
 
 /// Go: `index.Index` (handle).
-class Index extends GoHandle {
-  Index.$h(super.$h);
+class CarV2Index extends GoHandle {
+  CarV2Index.$h(super.$h);
 
   /// Go: `func (index.Index).Codec() multicodec.Code`.
   int codec() {
@@ -38,7 +39,7 @@ class Index extends GoHandle {
   }
 
   /// Go: `func (index.Index).Load([]index.Record) error`.
-  void load(List<Record$> records) {
+  void load(List<CarV2IndexRecord> records) {
     $callSync(
         454,
         $W()
@@ -66,15 +67,15 @@ class Index extends GoHandle {
   }
 
   /// Go: type assertion `x.(index.IterableIndex)`: null if the object is not one.
-  IterableIndex? asIterableIndex() {
+  CarV2IndexIterableIndex? asIterableIndex() {
     final $r = $callSync(90, $W()..h(this));
-    return $r.hn(IterableIndex.$h);
+    return $r.hn(CarV2IndexIterableIndex.$h);
   }
 }
 
 /// Go: `index.IterableIndex` (handle).
-class IterableIndex extends Index {
-  IterableIndex.$h(super.$h) : super.$h();
+class CarV2IndexIterableIndex extends CarV2Index {
+  CarV2IndexIterableIndex.$h(super.$h) : super.$h();
 
   /// Go: `func (index.IterableIndex).ForEach(func(multihash.Multihash, uint64) error) error`.
   ///
@@ -96,12 +97,12 @@ class IterableIndex extends Index {
 }
 
 /// Go: `index.Record`.
-final class Record$ implements GoDto {
-  Record$({$cid.Cid? cid, int? offset})
+final class CarV2IndexRecord implements GoDto {
+  CarV2IndexRecord({$cid.Cid? cid, int? offset})
       : cid = cid,
         offset = offset ?? 0;
 
-  Record$.$dec($R r)
+  CarV2IndexRecord.$dec($R r)
       : cid = r.p() ? $cid.Cid(r.str()) : null,
         offset = r.i64();
 
@@ -122,43 +123,46 @@ final class Record$ implements GoDto {
   }
 }
 
-/// Go: `func index.New(codec multicodec.Code) (index.Index, error)`.
-Index new$(int codec) {
-  final $r = $callSync(458, $W()..i64(codec));
-  return $r.hnn(Index.$h);
-}
+/// Go: the package-level members of `github.com/ipld/go-car/v2/index` (`Go.car.v2.index`).
+extension GoCarV2IndexApi on GoCarV2Index {
+  /// Go: `func index.New(codec multicodec.Code) (index.Index, error)`.
+  CarV2Index new$(int codec) {
+    final $r = $callSync(458, $W()..i64(codec));
+    return $r.hnn(CarV2Index.$h);
+  }
 
-/// Go: `func index.ReadFrom(r io.Reader) (index.Index, error)`.
-Index readFrom(Object r) {
-  final $r = $callSync(460, $W()..reader(r));
-  return $r.hnn(Index.$h);
-}
+  /// Go: `func index.ReadFrom(r io.Reader) (index.Index, error)`.
+  CarV2Index readFrom(Object r) {
+    final $r = $callSync(460, $W()..reader(r));
+    return $r.hnn(CarV2Index.$h);
+  }
 
-/// Go: `func index.WriteTo(idx index.Index, w io.Writer) (uint64, error)`.
-int writeTo(Index idx, GoHandle? w) {
-  final $r = $callSync(
-      461,
-      $W()
-        ..h(idx)
-        ..h(w));
-  return $r.i64();
-}
+  /// Go: `func index.WriteTo(idx index.Index, w io.Writer) (uint64, error)`.
+  int writeTo(CarV2Index idx, GoHandle? w) {
+    final $r = $callSync(
+        461,
+        $W()
+          ..h(idx)
+          ..h(w));
+    return $r.i64();
+  }
 
-/// Go: `func index.GetFirst(idx index.Index, key cid.Cid) (uint64, error)`.
-int getFirst(Index idx, $cid.Cid key) {
-  final $r = $callSync(
-      451,
-      $W()
-        ..h(idx)
-        ..val(key));
-  return $r.i64();
-}
+  /// Go: `func index.GetFirst(idx index.Index, key cid.Cid) (uint64, error)`.
+  int getFirst(CarV2Index idx, $cid.Cid key) {
+    final $r = $callSync(
+        451,
+        $W()
+          ..h(idx)
+          ..val(key));
+    return $r.i64();
+  }
 
-/// Go: `func index.ReadCodec(r io.Reader) (multicodec.Code, error)`.
-int readCodec(Object r) {
-  final $r = $callSync(459, $W()..reader(r));
-  return $r.i64();
-}
+  /// Go: `func index.ReadCodec(r io.Reader) (multicodec.Code, error)`.
+  int readCodec(Object r) {
+    final $r = $callSync(459, $W()..reader(r));
+    return $r.i64();
+  }
 
-/// Go: `const index.CarIndexNone untyped int`.
-const carIndexNone = 3145728;
+  /// Go: `const index.CarIndexNone untyped int`.
+  int get carIndexNone => 3145728;
+}

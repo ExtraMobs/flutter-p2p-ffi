@@ -2,12 +2,13 @@
 // Go: github.com/libp2p/go-libp2p-kbucket
 library;
 
+import 'package:p2p_ffi/src/go.dart' show GoLibp2pKbucket;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/libp2p/core/peer.dart' as $peer;
 
 /// Go: `kbucket.RoutingTable` (handle).
-class RoutingTable extends GoHandle {
-  RoutingTable.$h(super.$h);
+class Libp2pKbucketRoutingTable extends GoHandle {
+  Libp2pKbucketRoutingTable.$h(super.$h);
 
   /// Go: `func (*kbucket.RoutingTable).Size() int`.
   int size() {
@@ -16,19 +17,16 @@ class RoutingTable extends GoHandle {
   }
 
   /// Go: `func (*kbucket.RoutingTable).ListPeers() []peer.ID`.
-  List<$peer.Id> listPeers() {
+  List<$peer.Libp2pCorePeerId> listPeers() {
     final $r = $callSync(506, $W()..h(this));
-    return $r.list(() => $r.p() ? $peer.Id($r.str()) : $nil());
+    return $r.list(() => $r.p() ? $peer.Libp2pCorePeerId($r.str()) : $nil());
   }
 }
 
-/// Go: `const kbucket.PeerIDPreimageMaxCpl uint`.
-const peerIdPreimageMaxCpl = 15;
-
 /// Go: `var kbucket.ErrLookupFailure error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrLookupFailure extends GolangException {
-  ErrLookupFailure.$(super.base) : super.$from();
+class Libp2pKbucketErrLookupFailure extends GolangException {
+  Libp2pKbucketErrLookupFailure.$(super.base) : super.$from();
 
   @override
   String toString() => 'kbucket.ErrLookupFailure: $message';
@@ -36,8 +34,8 @@ class ErrLookupFailure extends GolangException {
 
 /// Go: `var kbucket.ErrPeerRejectedHighLatency error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrPeerRejectedHighLatency extends GolangException {
-  ErrPeerRejectedHighLatency.$(super.base) : super.$from();
+class Libp2pKbucketErrPeerRejectedHighLatency extends GolangException {
+  Libp2pKbucketErrPeerRejectedHighLatency.$(super.base) : super.$from();
 
   @override
   String toString() => 'kbucket.ErrPeerRejectedHighLatency: $message';
@@ -45,9 +43,15 @@ class ErrPeerRejectedHighLatency extends GolangException {
 
 /// Go: `var kbucket.ErrPeerRejectedNoCapacity error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrPeerRejectedNoCapacity extends GolangException {
-  ErrPeerRejectedNoCapacity.$(super.base) : super.$from();
+class Libp2pKbucketErrPeerRejectedNoCapacity extends GolangException {
+  Libp2pKbucketErrPeerRejectedNoCapacity.$(super.base) : super.$from();
 
   @override
   String toString() => 'kbucket.ErrPeerRejectedNoCapacity: $message';
+}
+
+/// Go: the package-level members of `github.com/libp2p/go-libp2p-kbucket` (`Go.libp2pKbucket`).
+extension GoLibp2pKbucketApi on GoLibp2pKbucket {
+  /// Go: `const kbucket.PeerIDPreimageMaxCpl uint`.
+  int get peerIdPreimageMaxCpl => 15;
 }

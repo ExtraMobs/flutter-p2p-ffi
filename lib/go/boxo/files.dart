@@ -4,68 +4,31 @@ library;
 
 import 'dart:typed_data';
 
+import 'package:p2p_ffi/src/go.dart' show GoBoxoFiles;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/io.dart' as $io;
 import 'package:p2p_ffi/go/io/fs.dart' as $fs;
 
 /// Go: `files.File` (handle).
-class File extends Node {
-  File.$h(super.$h) : super.$h();
+class BoxoFilesFile extends BoxoFilesNode {
+  BoxoFilesFile.$h(super.$h) : super.$h();
 }
 
 /// Go: `files.Node` (handle).
-class Node extends $io.Closer {
-  Node.$h(super.$h) : super.$h();
+class BoxoFilesNode extends $io.IoCloser {
+  BoxoFilesNode.$h(super.$h) : super.$h();
 
   /// Go: type assertion `x.(files.File)`: null if the object is not one.
-  File? asFile() {
+  BoxoFilesFile? asFile() {
     final $r = $callSync(71, $W()..h(this));
-    return $r.hn(File.$h);
+    return $r.hn(BoxoFilesFile.$h);
   }
 }
 
-/// Go: `func files.NewBytesFile(b []byte) files.File`.
-File newBytesFile(Uint8List b) {
-  final $r = $callSync(125, $W()..bytes(b));
-  return $r.hnn(File.$h);
-}
-
-/// Go: `func files.NewSerialFile(path string, includeHidden bool, stat os.FileInfo) (files.Node, error)`.
-Node newSerialFile(String path, bool includeHidden, $fs.FileInfo stat) {
-  final $r = $callSync(
-      126,
-      $W()
-        ..str(path)
-        ..b(includeHidden)
-        ..h(stat));
-  return $r.hnn(Node.$h);
-}
-
-/// Go: `func files.ToFile(n files.Node) files.File`.
-File toFile(Node n) {
-  final $r = $callSync(127, $W()..h(n));
-  return $r.hnn(File.$h);
-}
-
-/// Go: `func files.WriteTo(nd files.Node, fpath string) error`.
-void writeTo(Node nd, String fpath) {
-  $callSync(
-      128,
-      $W()
-        ..h(nd)
-        ..str(fpath));
-}
-
-/// Go: `const files.FileModeHeaderName untyped string`.
-const fileModeHeaderName = "File-Mode";
-
-/// Go: `const files.LastModifiedHeaderName untyped string`.
-const lastModifiedHeaderName = "Last-Modified";
-
 /// Go: `var files.ErrInvalidDirectoryEntry error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrInvalidDirectoryEntry extends GolangException {
-  ErrInvalidDirectoryEntry.$(super.base) : super.$from();
+class BoxoFilesErrInvalidDirectoryEntry extends GolangException {
+  BoxoFilesErrInvalidDirectoryEntry.$(super.base) : super.$from();
 
   @override
   String toString() => 'files.ErrInvalidDirectoryEntry: $message';
@@ -73,8 +36,8 @@ class ErrInvalidDirectoryEntry extends GolangException {
 
 /// Go: `var files.ErrNotDirectory error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrNotDirectory extends GolangException {
-  ErrNotDirectory.$(super.base) : super.$from();
+class BoxoFilesErrNotDirectory extends GolangException {
+  BoxoFilesErrNotDirectory.$(super.base) : super.$from();
 
   @override
   String toString() => 'files.ErrNotDirectory: $message';
@@ -82,8 +45,8 @@ class ErrNotDirectory extends GolangException {
 
 /// Go: `var files.ErrNotReader error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrNotReader extends GolangException {
-  ErrNotReader.$(super.base) : super.$from();
+class BoxoFilesErrNotReader extends GolangException {
+  BoxoFilesErrNotReader.$(super.base) : super.$from();
 
   @override
   String toString() => 'files.ErrNotReader: $message';
@@ -91,8 +54,8 @@ class ErrNotReader extends GolangException {
 
 /// Go: `var files.ErrNotSupported error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrNotSupported extends GolangException {
-  ErrNotSupported.$(super.base) : super.$from();
+class BoxoFilesErrNotSupported extends GolangException {
+  BoxoFilesErrNotSupported.$(super.base) : super.$from();
 
   @override
   String toString() => 'files.ErrNotSupported: $message';
@@ -100,8 +63,8 @@ class ErrNotSupported extends GolangException {
 
 /// Go: `var files.ErrPathExistsOverwrite error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrPathExistsOverwrite extends GolangException {
-  ErrPathExistsOverwrite.$(super.base) : super.$from();
+class BoxoFilesErrPathExistsOverwrite extends GolangException {
+  BoxoFilesErrPathExistsOverwrite.$(super.base) : super.$from();
 
   @override
   String toString() => 'files.ErrPathExistsOverwrite: $message';
@@ -109,9 +72,51 @@ class ErrPathExistsOverwrite extends GolangException {
 
 /// Go: `var files.ErrUnixFSPathOutsideRoot error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrUnixFsPathOutsideRoot extends GolangException {
-  ErrUnixFsPathOutsideRoot.$(super.base) : super.$from();
+class BoxoFilesErrUnixFsPathOutsideRoot extends GolangException {
+  BoxoFilesErrUnixFsPathOutsideRoot.$(super.base) : super.$from();
 
   @override
   String toString() => 'files.ErrUnixFSPathOutsideRoot: $message';
+}
+
+/// Go: the package-level members of `github.com/ipfs/boxo/files` (`Go.boxo.files`).
+extension GoBoxoFilesApi on GoBoxoFiles {
+  /// Go: `func files.NewBytesFile(b []byte) files.File`.
+  BoxoFilesFile newBytesFile(Uint8List b) {
+    final $r = $callSync(125, $W()..bytes(b));
+    return $r.hnn(BoxoFilesFile.$h);
+  }
+
+  /// Go: `func files.NewSerialFile(path string, includeHidden bool, stat os.FileInfo) (files.Node, error)`.
+  BoxoFilesNode newSerialFile(
+      String path, bool includeHidden, $fs.IoFsFileInfo stat) {
+    final $r = $callSync(
+        126,
+        $W()
+          ..str(path)
+          ..b(includeHidden)
+          ..h(stat));
+    return $r.hnn(BoxoFilesNode.$h);
+  }
+
+  /// Go: `func files.ToFile(n files.Node) files.File`.
+  BoxoFilesFile toFile(BoxoFilesNode n) {
+    final $r = $callSync(127, $W()..h(n));
+    return $r.hnn(BoxoFilesFile.$h);
+  }
+
+  /// Go: `func files.WriteTo(nd files.Node, fpath string) error`.
+  void writeTo(BoxoFilesNode nd, String fpath) {
+    $callSync(
+        128,
+        $W()
+          ..h(nd)
+          ..str(fpath));
+  }
+
+  /// Go: `const files.FileModeHeaderName untyped string`.
+  String get fileModeHeaderName => "File-Mode";
+
+  /// Go: `const files.LastModifiedHeaderName untyped string`.
+  String get lastModifiedHeaderName => "Last-Modified";
 }

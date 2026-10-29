@@ -3,10 +3,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:p2p_ffi/go/bytes.dart' as bytes;
-import 'package:p2p_ffi/go/io.dart' as io;
-import 'package:p2p_ffi/go/os.dart' as os;
-import 'package:p2p_ffi/p2p_ffi.dart' show GoHandleUse, P2pService, withGoScope;
+import 'package:p2p_ffi/p2p_ffi.dart';
 
 int hostMb() {
   final pid = P2pService.hostPid;
@@ -32,22 +29,22 @@ void round(String mode, String big) {
   for (var i = 0; i < 40; i++) {
     switch (mode) {
       case 'finalizer':
-        final buf = bytes.Buffer(Uint8List(0));
-        final f = os.open(big);
-        io.copy(buf, f);
+        final buf = BytesBuffer(Uint8List(0));
+        final f = Go.os.open(big);
+        Go.io.copy(buf, f);
         f.close();
       case 'release':
-        bytes.Buffer(Uint8List(0)).use((buf) {
-          os.open(big).use((f) {
-            io.copy(buf, f);
+        BytesBuffer(Uint8List(0)).use((buf) {
+          Go.os.open(big).use((f) {
+            Go.io.copy(buf, f);
             f.close();
           });
         });
       case 'scope':
         withGoScope((s) {
-          final buf = s.manage(bytes.Buffer(Uint8List(0)));
-          final f = s.manage(os.open(big));
-          io.copy(buf, f);
+          final buf = s.manage(BytesBuffer(Uint8List(0)));
+          final f = s.manage(Go.os.open(big));
+          Go.io.copy(buf, f);
           f.close();
         });
       default:

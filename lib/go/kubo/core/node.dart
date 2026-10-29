@@ -2,6 +2,7 @@
 // Go: github.com/ipfs/kubo/core/node
 library;
 
+import 'package:p2p_ffi/src/go.dart' show GoKuboCoreNode;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/block_format.dart' as $block_format;
 import 'package:p2p_ffi/go/car/v2/blockstore.dart' as $blockstore;
@@ -11,13 +12,14 @@ import 'package:p2p_ffi/go/kubo/core/node/libp2p.dart' as $libp2p;
 import 'package:p2p_ffi/go/kubo/repo.dart' as $repo;
 
 /// Go: `node.BaseBlocks` (handle).
-class BaseBlocks extends GoHandle {
-  BaseBlocks.$h(super.$h);
+class KuboCoreNodeBaseBlocks extends GoHandle {
+  KuboCoreNodeBaseBlocks.$h(super.$h);
 
   /// Go: `func (node.BaseBlocks).Put(context.Context, blocks.Block) error`.
   ///
   /// Asynchronous: runs in a goroutine of the service.
-  Future<void> put($context.Context ctx, $block_format.Block block) async {
+  Future<void> put(
+      $context.Context ctx, $block_format.BlockFormatBlock block) async {
     await $call(
         368,
         $W()
@@ -42,14 +44,15 @@ class BaseBlocks extends GoHandle {
   /// Go: `func (node.BaseBlocks).Get(context.Context, cid.Cid) (blocks.Block, error)`.
   ///
   /// Asynchronous: runs in a goroutine of the service.
-  Future<$block_format.Block> get($context.Context ctx, $cid.Cid cid) async {
+  Future<$block_format.BlockFormatBlock> get(
+      $context.Context ctx, $cid.Cid cid) async {
     final $r = await $call(
         365,
         $W()
           ..h(this)
           ..h(ctx)
           ..val(cid));
-    return $r.p() ? $block_format.Block.$dec($r) : $nil();
+    return $r.p() ? $block_format.BlockFormatBlock.$dec($r) : $nil();
   }
 
   /// Go: `func (node.BaseBlocks).GetSize(context.Context, cid.Cid) (int, error)`.
@@ -86,28 +89,28 @@ class BaseBlocks extends GoHandle {
       .map((r) => r.p() ? $cid.Cid(r.str()) : $nil());
 
   /// Go: type assertion `x.(*blockstore.ReadOnly)`: null if the object is not one.
-  $blockstore.ReadOnly? asReadOnly() {
+  $blockstore.CarV2BlockstoreReadOnly? asReadOnly() {
     final $r = $callSync(88, $W()..h(this));
-    return $r.hn($blockstore.ReadOnly.$h);
+    return $r.hn($blockstore.CarV2BlockstoreReadOnly.$h);
   }
 
   /// Go: type assertion `x.(*blockstore.ReadWrite)`: null if the object is not one.
-  $blockstore.ReadWrite? asReadWrite() {
+  $blockstore.CarV2BlockstoreReadWrite? asReadWrite() {
     final $r = $callSync(89, $W()..h(this));
-    return $r.hn($blockstore.ReadWrite.$h);
+    return $r.hn($blockstore.CarV2BlockstoreReadWrite.$h);
   }
 }
 
 /// Go: `node.BuildCfg`.
-final class BuildCfg implements GoDto {
-  BuildCfg(
+final class KuboCoreNodeBuildCfg implements GoDto {
+  KuboCoreNodeBuildCfg(
       {bool? online,
       Map<String, bool>? extraOpts,
       bool? permanent,
       bool? disableEncryptedConnections,
-      $libp2p.RoutingOption? routing,
-      $libp2p.HostOption? host,
-      $repo.Repo? repo,
+      $libp2p.KuboCoreNodeLibp2pRoutingOption? routing,
+      $libp2p.KuboCoreNodeLibp2pHostOption? host,
+      $repo.KuboRepo? repo,
       Duration? shutdownTimeout})
       : online = online ?? false,
         extraOpts = extraOpts ?? {},
@@ -118,14 +121,14 @@ final class BuildCfg implements GoDto {
         repo = repo,
         shutdownTimeout = shutdownTimeout ?? Duration.zero;
 
-  BuildCfg.$dec($R r)
+  KuboCoreNodeBuildCfg.$dec($R r)
       : online = r.b(),
         extraOpts = r.map(() => r.str(), () => r.b()),
         permanent = r.b(),
         disableEncryptedConnections = r.b(),
-        routing = r.hn($libp2p.RoutingOption.$h),
-        host = r.hn($libp2p.HostOption.$h),
-        repo = r.hn($repo.Repo.$h),
+        routing = r.hn($libp2p.KuboCoreNodeLibp2pRoutingOption.$h),
+        host = r.hn($libp2p.KuboCoreNodeLibp2pHostOption.$h),
+        repo = r.hn($repo.KuboRepo.$h),
         shutdownTimeout = Duration(microseconds: r.i64() ~/ 1000);
 
   /// Go: `Online`.
@@ -141,13 +144,13 @@ final class BuildCfg implements GoDto {
   bool disableEncryptedConnections;
 
   /// Go: `Routing`.
-  $libp2p.RoutingOption? routing;
+  $libp2p.KuboCoreNodeLibp2pRoutingOption? routing;
 
   /// Go: `Host`.
-  $libp2p.HostOption? host;
+  $libp2p.KuboCoreNodeLibp2pHostOption? host;
 
   /// Go: `Repo`.
-  $repo.Repo? repo;
+  $repo.KuboRepo? repo;
 
   /// Go: `ShutdownTimeout`.
   Duration shutdownTimeout;
@@ -166,29 +169,32 @@ final class BuildCfg implements GoDto {
   }
 }
 
-/// Go: `const node.DefaultEngineBlockstoreWorkerCount untyped int`.
-const defaultEngineBlockstoreWorkerCount = 128;
+/// Go: the package-level members of `github.com/ipfs/kubo/core/node` (`Go.kubo.core.node`).
+extension GoKuboCoreNodeApi on GoKuboCoreNode {
+  /// Go: `const node.DefaultEngineBlockstoreWorkerCount untyped int`.
+  int get defaultEngineBlockstoreWorkerCount => 128;
 
-/// Go: `const node.DefaultEngineTaskWorkerCount untyped int`.
-const defaultEngineTaskWorkerCount = 8;
+  /// Go: `const node.DefaultEngineTaskWorkerCount untyped int`.
+  int get defaultEngineTaskWorkerCount => 8;
 
-/// Go: `const node.DefaultIpnsCacheSize untyped int`.
-const defaultIpnsCacheSize = 128;
+  /// Go: `const node.DefaultIpnsCacheSize untyped int`.
+  int get defaultIpnsCacheSize => 128;
 
-/// Go: `const node.DefaultMaxOutstandingBytesPerPeer untyped int`.
-const defaultMaxOutstandingBytesPerPeer = 1048576;
+  /// Go: `const node.DefaultMaxOutstandingBytesPerPeer untyped int`.
+  int get defaultMaxOutstandingBytesPerPeer => 1048576;
 
-/// Go: `const node.DefaultMaxProviders untyped int`.
-const defaultMaxProviders = 10;
+  /// Go: `const node.DefaultMaxProviders untyped int`.
+  int get defaultMaxProviders => 10;
 
-/// Go: `const node.DefaultProviderSearchDelay time.Duration`.
-const defaultProviderSearchDelay = Duration(microseconds: 1000000);
+  /// Go: `const node.DefaultProviderSearchDelay time.Duration`.
+  Duration get defaultProviderSearchDelay => Duration(microseconds: 1000000);
 
-/// Go: `const node.DefaultTaskWorkerCount untyped int`.
-const defaultTaskWorkerCount = 8;
+  /// Go: `const node.DefaultTaskWorkerCount untyped int`.
+  int get defaultTaskWorkerCount => 8;
 
-/// Go: `const node.DefaultWantHaveReplaceSize untyped int`.
-const defaultWantHaveReplaceSize = 1024;
+  /// Go: `const node.DefaultWantHaveReplaceSize untyped int`.
+  int get defaultWantHaveReplaceSize => 1024;
 
-/// Go: `const node.KeystoreDatastorePath untyped string`.
-const keystoreDatastorePath = "provider-keystore";
+  /// Go: `const node.KeystoreDatastorePath untyped string`.
+  String get keystoreDatastorePath => "provider-keystore";
+}

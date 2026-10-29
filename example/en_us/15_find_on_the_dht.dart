@@ -28,16 +28,6 @@
 // to me?" → lesson 16.
 import 'dart:convert';
 
-import 'package:p2p_ffi/go/cid.dart' as cid;
-import 'package:p2p_ffi/go/context.dart' as context;
-import 'package:p2p_ffi/go/libp2p.dart' as libp2p;
-import 'package:p2p_ffi/go/libp2p/core/host.dart' as host;
-import 'package:p2p_ffi/go/libp2p/core/routing.dart' as routing;
-import 'package:p2p_ffi/go/libp2p/p2p/discovery/routing.dart' as discovery;
-import 'package:p2p_ffi/go/libp2p_kad_dht.dart' as dht;
-import 'package:p2p_ffi/go/libp2p_kbucket.dart' as kbucket;
-import 'package:p2p_ffi/go/multicodec.dart' as multicodec;
-import 'package:p2p_ffi/go/multihash.dart' as multihash;
 import 'package:p2p_ffi/p2p_ffi.dart';
 
 import 'lesson.dart';
@@ -47,21 +37,24 @@ const prefix = '/p2p-ffi-lesson'; // a private DHT: not the /ipfs one
 Future<void> main() async {
   await P2pService.start();
   try {
-    final ctx = context.background();
+    final ctx = Go.context.background();
 
     // 1. Five hosts, each with a DHT in server mode. Only the first is known
     //    to the others: it is their bootstrap peer.
     //    Go:  d, _ := dht.New(ctx, h, dht.Mode(dht.ModeServer), dht.ProtocolPrefix(prefix))
     final hosts = [
       for (var i = 0; i < 5; i++)
-        await libp2p.new$([
-          libp2p.listenAddrStrings(['/ip4/127.0.0.1/tcp/0'])
+        await Go.libp2p.new$([
+          Go.libp2p.listenAddrStrings(['/ip4/127.0.0.1/tcp/0'])
         ]),
     ];
-    final opts = [dht.mode(dht.modeServer), dht.protocolPrefix(prefix)];
-    final dhts = [for (final h in hosts) dht.new$(h, opts)];
+    final opts = [
+      Go.libp2pKadDht.mode(Go.libp2pKadDht.modeServer),
+      Go.libp2pKadDht.protocolPrefix(prefix)
+    ];
+    final dhts = [for (final h in hosts) Go.libp2pKadDht.new$(h, opts)];
     for (final h in hosts.skip(1)) {
-      await h.connect(ctx, host.infoFromHost(hosts[0]));
+      await h.connect(ctx, Go.libp2p.core.host.infoFromHost(hosts[0]));
     }
     //    Bootstrap: each asks the network for the peers closest to itself,
     //    filling its routing table beyond the bootstrap peer.
@@ -87,7 +80,8 @@ Future<void> main() async {
           // On a DHT this small a lookup can miss while the tables fill
           // (kb.ErrLookupFailure, routing.ErrNotFound): retry only those.
           if (i == 5 ||
-              (e is! kbucket.ErrLookupFailure && e is! routing.ErrNotFound)) {
+              (e is! Libp2pKbucketErrLookupFailure &&
+                  e is! Libp2pCoreRoutingErrNotFound)) {
             rethrow;
           }
           await Future<void>.delayed(const Duration(milliseconds: 300));
@@ -99,8 +93,8 @@ Future<void> main() async {
     // 3. Provide and FindProviders: host 1 says it has a CID; host 4 finds
     //    who has it.
     //    Go:  d.Provide(ctx, c, true); provs, _ := d.FindProviders(ctx, c)
-    final content = cid
-        .newPrefixV1(multicodec.raw, multihash.sha2256)
+    final content = Go.cid
+        .newPrefixV1(Go.multicodec.raw, Go.multihash.sha2256)
         .sum(utf8.encode('something host 1 has'));
     await dhts[1].provide(ctx, content, true);
     final providers = await dhts[4].findProviders(ctx, content);
@@ -113,31 +107,33 @@ Future<void> main() async {
     //    in it.
     //    Go:  rd := routing.NewRoutingDiscovery(d); rd.Advertise(ctx, "room")
     //         for pi := range rd.FindPeers(ctx, "room") {...}
-    final ttl =
-        await discovery.RoutingDiscovery(dhts[2]).advertise(ctx, 'room');
+    final ttl = await Libp2pP2pDiscoveryRoutingDiscovery(dhts[2])
+        .advertise(ctx, 'room');
     say('\nhost 2 advertised "room" (valid ${ttl.inHours} h)');
     await for (final pi
-        in discovery.RoutingDiscovery(dhts[4]).findPeers(ctx, 'room')) {
+        in Libp2pP2pDiscoveryRoutingDiscovery(dhts[4]).findPeers(ctx, 'room')) {
       say('host 4 found in "room": ${pi.id!.shortString()}');
     }
 
     say('\n== Common mistakes\n');
-    final lonely = await libp2p.new$([
-      libp2p.listenAddrStrings(['/ip4/127.0.0.1/tcp/0'])
+    final lonely = await Go.libp2p.new$([
+      Go.libp2p.listenAddrStrings(['/ip4/127.0.0.1/tcp/0'])
     ]);
-    final lonelyDht = dht.new$(lonely, opts);
+    final lonelyDht = Go.libp2pKadDht.new$(lonely, opts);
     await mistake('providing on a DHT that knows no peer',
         why: 'its routing table is empty: there is nobody to store the '
             'record on',
         instead: 'connect to a bootstrap peer first (kubo: the Bootstrap '
             'list of the config)',
         action: () => lonelyDht.provide(ctx, content, true));
-    final other = await libp2p.new$([
-      libp2p.listenAddrStrings(['/ip4/127.0.0.1/tcp/0'])
+    final other = await Go.libp2p.new$([
+      Go.libp2p.listenAddrStrings(['/ip4/127.0.0.1/tcp/0'])
     ]);
-    final otherDht =
-        dht.new$(other, [dht.mode(dht.modeServer), dht.protocolPrefix('/x')]);
-    await other.connect(ctx, host.infoFromHost(hosts[0]));
+    final otherDht = Go.libp2pKadDht.new$(other, [
+      Go.libp2pKadDht.mode(Go.libp2pKadDht.modeServer),
+      Go.libp2pKadDht.protocolPrefix('/x')
+    ]);
+    await other.connect(ctx, Go.libp2p.core.host.infoFromHost(hosts[0]));
     await silentlyWrong('joining with another protocol prefix',
         why: 'a different prefix is a different DHT: the peers are '
             'connected but never enter each other\'s tables',

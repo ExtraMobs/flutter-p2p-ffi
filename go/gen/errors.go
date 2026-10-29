@@ -51,14 +51,14 @@ func (e *dartEmitter) errorClasses() []*goError {
 		}
 		taken := map[string]bool{}
 		for _, c := range l.classes {
-			taken[className(c.t)] = true
+			taken[className(e.m, c.t)] = true
 		}
 		for _, name := range pkg.Scope().Names() {
 			obj := pkg.Scope().Lookup(name)
 			if !obj.Exported() {
 				continue
 			}
-			ge := &goError{key: l.goPath + "." + name, lib: l, obj: obj, name: typeName(name)}
+			ge := &goError{key: l.goPath + "." + name, lib: l, obj: obj, name: qualType(l.path, name)}
 			switch o := obj.(type) {
 			case *types.Var:
 				if !types.Identical(o.Type(), types.Universe.Lookup("error").Type()) {
@@ -355,7 +355,7 @@ func errorsAPI(errs []*goError) string {
 		if len(ge.skip) > 0 {
 			cell = strings.TrimSpace(cell + " (not crossing: " + strings.Join(ge.skip, ", ") + ")")
 		}
-		cs = append(cs, class{errDoc(ge), ge.name, "package:p2p_ffi/" + ge.lib.path, cell})
+		cs = append(cs, class{errDoc(ge), ge.name, "lib/" + ge.lib.path, cell})
 	}
 	return runTmpl("api", map[string]any{"Classes": cs, "Omitted": os})
 }

@@ -2,18 +2,19 @@
 // Go: github.com/libp2p/go-libp2p/p2p/protocol/ping
 library;
 
+import 'package:p2p_ffi/src/go.dart' show GoLibp2pP2pProtocolPing;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/libp2p/core/host.dart' as $host;
 import 'package:p2p_ffi/go/libp2p/core/peer.dart' as $peer;
 
 /// Go: `ping.Result`.
-final class Result implements GoDto {
-  Result({Duration? rtt, String? error})
+final class Libp2pP2pProtocolPingResult implements GoDto {
+  Libp2pP2pProtocolPingResult({Duration? rtt, String? error})
       : rtt = rtt ?? Duration.zero,
         error = error;
 
-  Result.$dec($R r)
+  Libp2pP2pProtocolPingResult.$dec($R r)
       : rtt = Duration(microseconds: r.i64() ~/ 1000),
         error = r.err();
 
@@ -31,20 +32,25 @@ final class Result implements GoDto {
   }
 }
 
-/// Go: `func ping.Ping(ctx context.Context, h host.Host, p peer.ID) <-chan ping.Result`.
-Stream<Result> ping($context.Context ctx, $host.Host h, $peer.Id p) => $stream(
-        651,
-        $W()
-          ..h(ctx)
-          ..h(h)
-          ..val(p))
-    .map((r) => r.p() ? Result.$dec(r) : $nil());
+/// Go: the package-level members of `github.com/libp2p/go-libp2p/p2p/protocol/ping` (`Go.libp2p.p2p.protocol.ping`).
+extension GoLibp2pP2pProtocolPingApi on GoLibp2pP2pProtocolPing {
+  /// Go: `func ping.Ping(ctx context.Context, h host.Host, p peer.ID) <-chan ping.Result`.
+  Stream<Libp2pP2pProtocolPingResult> ping($context.Context ctx,
+          $host.Libp2pCoreHost h, $peer.Libp2pCorePeerId p) =>
+      $stream(
+              651,
+              $W()
+                ..h(ctx)
+                ..h(h)
+                ..val(p))
+          .map((r) => r.p() ? Libp2pP2pProtocolPingResult.$dec(r) : $nil());
 
-/// Go: `const ping.ID untyped string`.
-const id = "/ipfs/ping/1.0.0";
+  /// Go: `const ping.ID untyped string`.
+  String get id => "/ipfs/ping/1.0.0";
 
-/// Go: `const ping.PingSize untyped int`.
-const pingSize = 32;
+  /// Go: `const ping.PingSize untyped int`.
+  int get pingSize => 32;
 
-/// Go: `const ping.ServiceName untyped string`.
-const serviceName = "libp2p.ping";
+  /// Go: `const ping.ServiceName untyped string`.
+  String get serviceName => "libp2p.ping";
+}

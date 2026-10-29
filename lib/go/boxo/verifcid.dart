@@ -2,26 +2,18 @@
 // Go: github.com/ipfs/boxo/verifcid
 library;
 
+import 'package:p2p_ffi/src/go.dart' show GoBoxoVerifcid;
 import 'package:p2p_ffi/src/runtime.dart';
 
 /// Go: `verifcid.Allowlist` (handle).
-class Allowlist extends GoHandle {
-  Allowlist.$h(super.$h);
+class BoxoVerifcidAllowlist extends GoHandle {
+  BoxoVerifcidAllowlist.$h(super.$h);
 }
-
-/// Go: `const verifcid.DefaultMaxDigestSize untyped int`.
-const defaultMaxDigestSize = 128;
-
-/// Go: `const verifcid.DefaultMaxIdentityDigestSize untyped int`.
-const defaultMaxIdentityDigestSize = 128;
-
-/// Go: `const verifcid.DefaultMinDigestSize untyped int`.
-const defaultMinDigestSize = 20;
 
 /// Go: `var verifcid.ErrAboveMaximumHashLength error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrAboveMaximumHashLength extends GolangException {
-  ErrAboveMaximumHashLength.$(super.base) : super.$from();
+class BoxoVerifcidErrAboveMaximumHashLength extends GolangException {
+  BoxoVerifcidErrAboveMaximumHashLength.$(super.base) : super.$from();
 
   @override
   String toString() => 'verifcid.ErrAboveMaximumHashLength: $message';
@@ -29,8 +21,8 @@ class ErrAboveMaximumHashLength extends GolangException {
 
 /// Go: `var verifcid.ErrBelowMinimumHashLength error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrBelowMinimumHashLength extends GolangException {
-  ErrBelowMinimumHashLength.$(super.base) : super.$from();
+class BoxoVerifcidErrBelowMinimumHashLength extends GolangException {
+  BoxoVerifcidErrBelowMinimumHashLength.$(super.base) : super.$from();
 
   @override
   String toString() => 'verifcid.ErrBelowMinimumHashLength: $message';
@@ -38,8 +30,8 @@ class ErrBelowMinimumHashLength extends GolangException {
 
 /// Go: `var verifcid.ErrDigestTooLarge error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrDigestTooLarge extends GolangException {
-  ErrDigestTooLarge.$(super.base) : super.$from();
+class BoxoVerifcidErrDigestTooLarge extends GolangException {
+  BoxoVerifcidErrDigestTooLarge.$(super.base) : super.$from();
 
   @override
   String toString() => 'verifcid.ErrDigestTooLarge: $message';
@@ -47,8 +39,8 @@ class ErrDigestTooLarge extends GolangException {
 
 /// Go: `var verifcid.ErrDigestTooSmall error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrDigestTooSmall extends GolangException {
-  ErrDigestTooSmall.$(super.base) : super.$from();
+class BoxoVerifcidErrDigestTooSmall extends GolangException {
+  BoxoVerifcidErrDigestTooSmall.$(super.base) : super.$from();
 
   @override
   String toString() => 'verifcid.ErrDigestTooSmall: $message';
@@ -56,9 +48,21 @@ class ErrDigestTooSmall extends GolangException {
 
 /// Go: `var verifcid.ErrPossiblyInsecureHashFunction error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrPossiblyInsecureHashFunction extends GolangException {
-  ErrPossiblyInsecureHashFunction.$(super.base) : super.$from();
+class BoxoVerifcidErrPossiblyInsecureHashFunction extends GolangException {
+  BoxoVerifcidErrPossiblyInsecureHashFunction.$(super.base) : super.$from();
 
   @override
   String toString() => 'verifcid.ErrPossiblyInsecureHashFunction: $message';
+}
+
+/// Go: the package-level members of `github.com/ipfs/boxo/verifcid` (`Go.boxo.verifcid`).
+extension GoBoxoVerifcidApi on GoBoxoVerifcid {
+  /// Go: `const verifcid.DefaultMaxDigestSize untyped int`.
+  int get defaultMaxDigestSize => 128;
+
+  /// Go: `const verifcid.DefaultMaxIdentityDigestSize untyped int`.
+  int get defaultMaxIdentityDigestSize => 128;
+
+  /// Go: `const verifcid.DefaultMinDigestSize untyped int`.
+  int get defaultMinDigestSize => 20;
 }

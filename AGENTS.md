@@ -3,9 +3,12 @@
 Peer-to-peer networking from Go (kubo v0.43.1, boxo, go-libp2p) used from Dart without HTTP.
 The Go code runs in the `p2p_host` executable, in another process; the app talks to it through shared memory (the `p2p_shm`,
 in C) with a binary protocol (`WIRE.md`). The Dart API is Go's own, generated from
-`go/gen/roots.txt`: one library per Go package under `lib/go/`, at the package's path in its
-module (`github.com/ipfs/boxo/mfs` → `lib/go/boxo/mfs.dart`, `github.com/ipfs/go-cid` →
-`lib/go/cid.dart`); `lib/p2p_ffi.dart` is the runtime's entry point. Targets: VM/AOT on Windows, linux and Android (not JS/Wasm).
+`go/gen/roots.txt`, all of it behind one import, `lib/p2p_ffi.dart`: a package's functions,
+constants and variables hang from `Go` along the package's path in its module
+(`github.com/ipfs/boxo/mfs` → `Go.boxo.mfs.newRoot`, `github.com/ipfs/go-cid` →
+`Go.cid.decode`), and its types are top-level classes named after that path (`BoxoMfsRoot`,
+`cid.Cid` → `Cid`). The code of each package is one library under `lib/go/`, at the same
+path (`lib/go/boxo/mfs.dart`). Targets: VM/AOT on Windows, linux and Android (not JS/Wasm).
 
 `README.md` is the usage guide; `example/README.md` opens the course (one lesson per
 question) in `example/en_us/`, `example/pt_br/` and `example/es/`; `API.md`
@@ -16,7 +19,7 @@ done in each version and what is pending.
 
 | Path | What it is |
 |---|---|
-| `lib/` | the Dart package: the generated code (`lib/go/`, one library per Go package) and the runtime in `lib/src/` (`runtime.dart` and its parts, `service.dart`, `shm.dart`), exported only by `lib/p2p_ffi.dart` |
+| `lib/` | the Dart package: the generated code (`lib/go/`, one library per Go package; `lib/src/go.dart`, the `Go` namespace tree that exports them) and the runtime in `lib/src/` (`runtime.dart` and its parts, `service.dart`, `shm.dart`), exported only by `lib/p2p_ffi.dart` |
 | `go/` | the `p2p_host` (`host*.go`, `wire.go`, `callback.go`, `retained.go`, `deadlock.go`, `logpump.go`, the hand ports `manual_*.go`) and the generator (`go/gen`, with `roots.txt`; the Dart paths in `go/gen/namespaces.go`) |
 | `shm/` | the `p2p_shm` in C (rings, the bell, the thread that wakes Dart) |
 | `tool/` | `build.dart` (generates and builds per platform, with the upstream patches) and the benchmarks (`bench*.dart`) |
@@ -45,10 +48,16 @@ dart test                                          # the whole suite (needs the 
 
 ## Conventions
 
-- **One library per Go type:** a Go type lives only in the library of its Go package, and
-  no public library re-exports another (the generator refuses an `export` outside
-  `lib/src/`, except in `lib/p2p_ffi.dart`). A hand-written library of a Go package gets
-  the generated part of that package as `<name>.g.dart`.
+- **Namespaces (owner's decision, 2026-10-28, option a):** one import,
+  `package:p2p_ffi/p2p_ffi.dart`. A package's functions, constants and variables are members
+  of its namespace class (`Go.boxo.mfs` is a `GoBoxoMfs`), added by its library as an
+  extension (`GoBoxoMfsApi`); Dart has no nested types, so a type is a top-level class named
+  after its package's path, minus the words the Go name already starts with
+  (`BoxoMfsRoot`, `Libp2pCorePeerId`, `cid.Cid` → `Cid`). Every name is unique: the
+  generator refuses two equal names, a member that hides a sub-namespace, and an `export`
+  in a public library outside `lib/p2p_ffi.dart`. A hand-written library of a Go package
+  adds its members the same way (`extension GoContextApi on GoContext`) and gets the
+  generated part of that package as `<name>.g.dart`.
 
 - **`dart format` before every commit** for every hand-written `.dart` (generated code comes
   out formatted): `dart format --output=none --set-exit-if-changed <files>`.

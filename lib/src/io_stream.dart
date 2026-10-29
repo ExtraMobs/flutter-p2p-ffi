@@ -2,10 +2,11 @@
 /// WIRE.md).
 ///
 /// ```dart
-/// import 'package:p2p_ffi/go/io_stream.dart' as io;
+/// import 'package:p2p_ffi/p2p_ffi.dart';
 ///
-/// final file = files.toFile(await unixfile.newUnixfsFile(ctx, dag, root));
-/// await for (final chunk in io.readerStream(file)) {
+/// final file = Go.boxo.files.toFile(
+///     await Go.boxo.ipld.unixfs.file.newUnixfsFile(ctx, dag, root));
+/// await for (final chunk in readerStream(file)) {
 ///   sink.add(chunk);
 /// }
 /// ```

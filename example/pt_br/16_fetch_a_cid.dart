@@ -32,22 +32,6 @@
 //
 // Próxima pergunta: "E para buscar da rede IPFS de verdade, não dos meus
 // próprios hosts?" → lição 17.
-import 'package:p2p_ffi/go/boxo/bitswap.dart' as bitswap;
-import 'package:p2p_ffi/go/boxo/bitswap/network/bsnet.dart' as bsnet;
-import 'package:p2p_ffi/go/boxo/blockservice.dart' as blockservice;
-import 'package:p2p_ffi/go/boxo/blockstore.dart' as blockstore;
-import 'package:p2p_ffi/go/boxo/exchange/offline.dart' as offline;
-import 'package:p2p_ffi/go/boxo/exchange.dart' as exchange;
-import 'package:p2p_ffi/go/boxo/files.dart' as files;
-import 'package:p2p_ffi/go/boxo/ipld/merkledag.dart' as merkledag;
-import 'package:p2p_ffi/go/boxo/ipld/unixfs/file.dart' as unixfs_file;
-import 'package:p2p_ffi/go/context.dart' as context;
-import 'package:p2p_ffi/go/datastore.dart' as datastore;
-import 'package:p2p_ffi/go/datastore/sync.dart' as sync;
-import 'package:p2p_ffi/go/io.dart' as io;
-import 'package:p2p_ffi/go/libp2p.dart' as libp2p;
-import 'package:p2p_ffi/go/libp2p/core/host.dart' as host;
-import 'package:p2p_ffi/go/libp2p_kad_dht.dart' as dht;
 import 'package:p2p_ffi/p2p_ffi.dart';
 
 import 'lesson.dart';
@@ -55,23 +39,26 @@ import 'lesson.dart';
 Future<void> main() async {
   await P2pService.start();
   try {
-    final ctx = context.background();
+    final ctx = Go.context.background();
 
     // O mundo: a tem o exemplo da lição 03 no seu blockstore; b e c começam
     // vazios. Cada um tem um host e um DHT; b e c conhecem d, o bootstrap.
     // a fica fora da rede até o passo 3.
     final s = await Sample.build(ctx);
     final root = s.root;
-    Future<host.Host> newHost() => libp2p.new$([
-          libp2p.listenAddrStrings(['/ip4/127.0.0.1/tcp/0'])
+    Future<Libp2pCoreHost> newHost() => Go.libp2p.new$([
+          Go.libp2p.listenAddrStrings(['/ip4/127.0.0.1/tcp/0'])
         ]);
     final [a, b, c, d] = [for (var i = 0; i < 4; i++) await newHost()];
-    final opts = [dht.mode(dht.modeServer), dht.protocolPrefix('/lesson16')];
+    final opts = [
+      Go.libp2pKadDht.mode(Go.libp2pKadDht.modeServer),
+      Go.libp2pKadDht.protocolPrefix('/lesson16')
+    ];
     final [dhtA, dhtB, dhtC, dhtD] = [
-      for (final h in [a, b, c, d]) dht.new$(h, opts)
+      for (final h in [a, b, c, d]) Go.libp2pKadDht.new$(h, opts)
     ];
     for (final h in [b, c]) {
-      await h.connect(ctx, host.infoFromHost(d));
+      await h.connect(ctx, Go.libp2p.core.host.infoFromHost(d));
     }
     for (final x in [dhtB, dhtC, dhtD]) {
       await x.bootstrap(ctx);
@@ -82,24 +69,27 @@ Future<void> main() async {
     // Bitswap num host: a rede dele (o host falando /ipfs/bitswap), um
     // localizador de provedores (o DHT) e o blockstore que ele serve e enche.
     //    Go:  bs := bitswap.New(ctx, bsnet.NewFromIpfsHost(h), finder, bstore)
-    Future<bitswap.Bitswap> bitswapOn(
-            host.Host h, dht.IpfsDht finder, blockstore.Blockstore store) =>
-        bitswap.new$(ctx, bsnet.newFromIpfsHost(h), finder, store);
-    blockstore.Blockstore emptyStore() =>
-        blockstore.Blockstore(sync.mutexWrap(datastore.MapDatastore()));
+    Future<BoxoBitswap> bitswapOn(Libp2pCoreHost h, Libp2pKadDhtIpfsDht finder,
+            BoxoBlockstore store) =>
+        Go.boxo.bitswap.new$(ctx,
+            Go.boxo.bitswap.network.bsnet.newFromIpfsHost(h), finder, store);
+    BoxoBlockstore emptyStore() =>
+        BoxoBlockstore(Go.datastore.sync.mutexWrap(DatastoreMapDatastore()));
     final bsA = await bitswapOn(a, dhtA, s.store); // a serve os seus blocos
 
     // Lê o data.bin de um blockservice sobre [store] e [ex], com prazo: o
     // leitor da lição 04, sem mudança.
-    Future<int> readWith(blockstore.Blockstore store, exchange.Interface ex,
+    Future<int> readWith(BoxoBlockstore store, BoxoExchangeInterface ex,
         {Duration within = const Duration(seconds: 20)}) async {
-      final (tctx, cancel) = context.withTimeout(ctx, within);
+      final (tctx, cancel) = Go.context.withTimeout(ctx, within);
       try {
-        final dag = merkledag.newDagService(blockservice.new$(store, ex));
+        final dag = Go.boxo.ipld.merkledag
+            .newDagService(Go.boxo.blockservice.new$(store, ex));
         final folder = await dag.get(tctx, root);
         final dataBin = await dag.get(tctx, folder.links().first.cid!);
-        final f = await unixfs_file.newUnixfsFile(tctx, dag, dataBin);
-        return io.readAll(files.toFile(f)).length;
+        final f =
+            await Go.boxo.ipld.unixfs.file.newUnixfsFile(tctx, dag, dataBin);
+        return Go.io.readAll(Go.boxo.files.toFile(f)).length;
       } finally {
         cancel();
       }
@@ -110,7 +100,8 @@ Future<void> main() async {
     await mistake('b buscando com o exchange offline',
         why: 'o blockstore não tem e o offline não tem a quem perguntar',
         instead: 'um exchange que pergunta aos peers: o bitswap (abaixo)',
-        action: () => readWith(storeB, offline.exchange(storeB)));
+        action: () =>
+            readWith(storeB, Go.boxo.exchange.offline.exchange(storeB)));
 
     // 2. b com bitswap, mas a nunca anunciou o CID e b não está conectado
     //    a a: os wants não vão para ninguém útil, o DHT não tem registro.
@@ -125,7 +116,7 @@ Future<void> main() async {
     // 3. a entra no DHT e anuncia a raiz; b busca de novo: o bitswap acha a
     //    pelo DHT, conecta, pede, recebe, confere.
     //    Go:  dhtA.Provide(ctx, root, true)
-    await a.connect(ctx, host.infoFromHost(d));
+    await a.connect(ctx, Go.libp2p.core.host.infoFromHost(d));
     await dhtA.bootstrap(ctx);
     await dhtA.provide(ctx, root, true);
     final watch = Stopwatch()..start();
@@ -137,7 +128,7 @@ Future<void> main() async {
     // 4. c se conecta direto a a: os wants vão direto para a, sem busca.
     final storeC = emptyStore();
     final bsC = await bitswapOn(c, dhtC, storeC);
-    await c.connect(ctx, host.infoFromHost(a));
+    await c.connect(ctx, Go.libp2p.core.host.infoFromHost(a));
     watch.reset();
     final direct = await readWith(storeC, bsC);
     say('c, conectado a a: $direct bytes em ${watch.elapsedMilliseconds} ms '
@@ -154,10 +145,10 @@ Future<void> main() async {
     // e guarda os mesmos blocos de a (o blockstore de a) mas não roda
     // bitswap; f se conecta só a e e pede a raiz.
     final e = await newHost(), f = await newHost();
-    final dhtF = dht.new$(f, opts);
+    final dhtF = Go.libp2pKadDht.new$(f, opts);
     final storeF = emptyStore();
     final bsF = await bitswapOn(f, dhtF, storeF);
-    await f.connect(ctx, host.infoFromHost(e));
+    await f.connect(ctx, Go.libp2p.core.host.infoFromHost(e));
     await mistake('buscar de um peer que tem os blocos mas não tem bitswap',
         why: 'e nunca ouve os wants: ter os blocos não basta, algo tem de '
             'servi-los por /ipfs/bitswap',

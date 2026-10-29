@@ -2,30 +2,31 @@
 // Go: github.com/ipfs/boxo/ipld/unixfs/io
 library;
 
+import 'package:p2p_ffi/src/go.dart' show GoBoxoIpldUnixfsIo;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/ipld_format.dart' as $ipld_format;
 
 /// Go: `io.Directory` (handle).
-class Directory extends GoHandle {
-  Directory.$h(super.$h);
+class BoxoIpldUnixfsIoDirectory extends GoHandle {
+  BoxoIpldUnixfsIoDirectory.$h(super.$h);
 
   /// Go: `func io.NewDirectory(dserv format.DAGService, opts ...io.DirectoryOption) (io.Directory, error)`.
-  factory Directory($ipld_format.DagService dserv,
-      [List<DirectoryOption> opts = const []]) {
+  factory BoxoIpldUnixfsIoDirectory($ipld_format.IpldFormatDagService dserv,
+      [List<BoxoIpldUnixfsIoDirectoryOption> opts = const []]) {
     final $r = $callSync(
         151,
         $W()
           ..h(dserv)
           ..list(opts, (w0, e0) => w0.h(e0)));
-    return $r.hnn(Directory.$h);
+    return $r.hnn(BoxoIpldUnixfsIoDirectory.$h);
   }
 
   /// Go: `func (io.Directory).AddChild(context.Context, string, format.Node) error`.
   ///
   /// Asynchronous: runs in a goroutine of the service.
-  Future<void> addChild(
-      $context.Context ctx, String name, $ipld_format.Node node) async {
+  Future<void> addChild($context.Context ctx, String name,
+      $ipld_format.IpldFormatNode node) async {
     await $call(
         149,
         $W()
@@ -36,30 +37,21 @@ class Directory extends GoHandle {
   }
 
   /// Go: `func (io.Directory).GetNode() (format.Node, error)`.
-  $ipld_format.Node getNode() {
+  $ipld_format.IpldFormatNode getNode() {
     final $r = $callSync(150, $W()..h(this));
-    return $r.hnn($ipld_format.Node.$h);
+    return $r.hnn($ipld_format.IpldFormatNode.$h);
   }
 }
 
 /// Go: `io.DirectoryOption` (handle).
-class DirectoryOption extends GoHandle {
-  DirectoryOption.$h(super.$h);
+class BoxoIpldUnixfsIoDirectoryOption extends GoHandle {
+  BoxoIpldUnixfsIoDirectoryOption.$h(super.$h);
 }
-
-/// Go: `const io.SizeEstimationBlock io.SizeEstimationMode`.
-const sizeEstimationBlock = 1;
-
-/// Go: `const io.SizeEstimationDisabled io.SizeEstimationMode`.
-const sizeEstimationDisabled = 2;
-
-/// Go: `const io.SizeEstimationLinks io.SizeEstimationMode`.
-const sizeEstimationLinks = 0;
 
 /// Go: `var io.ErrCantReadSymlinks error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrCantReadSymlinks extends GolangException {
-  ErrCantReadSymlinks.$(super.base) : super.$from();
+class BoxoIpldUnixfsIoErrCantReadSymlinks extends GolangException {
+  BoxoIpldUnixfsIoErrCantReadSymlinks.$(super.base) : super.$from();
 
   @override
   String toString() => 'io.ErrCantReadSymlinks: $message';
@@ -67,8 +59,8 @@ class ErrCantReadSymlinks extends GolangException {
 
 /// Go: `var io.ErrInvalidHAMTFanout error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrInvalidHamtFanout extends GolangException {
-  ErrInvalidHamtFanout.$(super.base) : super.$from();
+class BoxoIpldUnixfsIoErrInvalidHamtFanout extends GolangException {
+  BoxoIpldUnixfsIoErrInvalidHamtFanout.$(super.base) : super.$from();
 
   @override
   String toString() => 'io.ErrInvalidHAMTFanout: $message';
@@ -76,8 +68,8 @@ class ErrInvalidHamtFanout extends GolangException {
 
 /// Go: `var io.ErrIsDir error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrIsDir extends GolangException {
-  ErrIsDir.$(super.base) : super.$from();
+class BoxoIpldUnixfsIoErrIsDir extends GolangException {
+  BoxoIpldUnixfsIoErrIsDir.$(super.base) : super.$from();
 
   @override
   String toString() => 'io.ErrIsDir: $message';
@@ -85,8 +77,8 @@ class ErrIsDir extends GolangException {
 
 /// Go: `var io.ErrNotADir error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrNotADir extends GolangException {
-  ErrNotADir.$(super.base) : super.$from();
+class BoxoIpldUnixfsIoErrNotADir extends GolangException {
+  BoxoIpldUnixfsIoErrNotADir.$(super.base) : super.$from();
 
   @override
   String toString() => 'io.ErrNotADir: $message';
@@ -94,8 +86,8 @@ class ErrNotADir extends GolangException {
 
 /// Go: `var io.ErrSeekNotSupported error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrSeekNotSupported extends GolangException {
-  ErrSeekNotSupported.$(super.base) : super.$from();
+class BoxoIpldUnixfsIoErrSeekNotSupported extends GolangException {
+  BoxoIpldUnixfsIoErrSeekNotSupported.$(super.base) : super.$from();
 
   @override
   String toString() => 'io.ErrSeekNotSupported: $message';
@@ -103,9 +95,21 @@ class ErrSeekNotSupported extends GolangException {
 
 /// Go: `var io.ErrUnkownNodeType error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrUnkownNodeType extends GolangException {
-  ErrUnkownNodeType.$(super.base) : super.$from();
+class BoxoIpldUnixfsIoErrUnkownNodeType extends GolangException {
+  BoxoIpldUnixfsIoErrUnkownNodeType.$(super.base) : super.$from();
 
   @override
   String toString() => 'io.ErrUnkownNodeType: $message';
+}
+
+/// Go: the package-level members of `github.com/ipfs/boxo/ipld/unixfs/io` (`Go.boxo.ipld.unixfs.io`).
+extension GoBoxoIpldUnixfsIoApi on GoBoxoIpldUnixfsIo {
+  /// Go: `const io.SizeEstimationBlock io.SizeEstimationMode`.
+  int get sizeEstimationBlock => 1;
+
+  /// Go: `const io.SizeEstimationDisabled io.SizeEstimationMode`.
+  int get sizeEstimationDisabled => 2;
+
+  /// Go: `const io.SizeEstimationLinks io.SizeEstimationMode`.
+  int get sizeEstimationLinks => 0;
 }

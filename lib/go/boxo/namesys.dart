@@ -2,54 +2,28 @@
 // Go: github.com/ipfs/boxo/namesys
 library;
 
+import 'package:p2p_ffi/src/go.dart' show GoBoxoNamesys;
 import 'package:p2p_ffi/src/runtime.dart';
 
 /// Go: `namesys.NameSystem` (handle).
-class NameSystem extends Resolver {
-  NameSystem.$h(super.$h) : super.$h();
+class BoxoNamesysNameSystem extends BoxoNamesysResolver {
+  BoxoNamesysNameSystem.$h(super.$h) : super.$h();
 }
 
 /// Go: `namesys.ResolveOption` (functional option; constructors in the package).
-final class ResolveOption extends GoOption {
-  ResolveOption.$(super.$i, super.$a);
+final class BoxoNamesysResolveOption extends GoOption {
+  BoxoNamesysResolveOption.$(super.$i, super.$a);
 }
 
 /// Go: `namesys.Resolver` (handle).
-class Resolver extends GoHandle {
-  Resolver.$h(super.$h);
+class BoxoNamesysResolver extends GoHandle {
+  BoxoNamesysResolver.$h(super.$h);
 }
-
-/// Go: `namesys.ResolveWithDepth`.
-ResolveOption resolveWithDepth(int depth) =>
-    ResolveOption.$(0, (w) => w..i64(depth));
-
-/// Go: `namesys.ResolveWithDhtRecordCount`.
-ResolveOption resolveWithDhtRecordCount(int count) =>
-    ResolveOption.$(1, (w) => w..i64(count));
-
-/// Go: `namesys.ResolveWithDhtTimeout`.
-ResolveOption resolveWithDhtTimeout(Duration timeout) =>
-    ResolveOption.$(2, (w) => w..i64((timeout).inMicroseconds * 1000));
-
-/// Go: `const namesys.DefaultDepthLimit untyped int`.
-const defaultDepthLimit = 32;
-
-/// Go: `const namesys.DefaultResolverCacheTTL time.Duration`.
-const defaultResolverCacheTtl = Duration(microseconds: 60000000);
-
-/// Go: `const namesys.DefaultResolverDhtRecordCount untyped int`.
-const defaultResolverDhtRecordCount = 16;
-
-/// Go: `const namesys.DefaultResolverDhtTimeout time.Duration`.
-const defaultResolverDhtTimeout = Duration(microseconds: 60000000);
-
-/// Go: `const namesys.UnlimitedDepth untyped int`.
-const unlimitedDepth = 0;
 
 /// Go: `var namesys.ErrInvalidSequence error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrInvalidSequence extends GolangException {
-  ErrInvalidSequence.$(super.base) : super.$from();
+class BoxoNamesysErrInvalidSequence extends GolangException {
+  BoxoNamesysErrInvalidSequence.$(super.base) : super.$from();
 
   @override
   String toString() => 'namesys.ErrInvalidSequence: $message';
@@ -57,8 +31,8 @@ class ErrInvalidSequence extends GolangException {
 
 /// Go: `var namesys.ErrMissingDNSLinkRecord error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrMissingDnsLinkRecord extends GolangException {
-  ErrMissingDnsLinkRecord.$(super.base) : super.$from();
+class BoxoNamesysErrMissingDnsLinkRecord extends GolangException {
+  BoxoNamesysErrMissingDnsLinkRecord.$(super.base) : super.$from();
 
   @override
   String toString() => 'namesys.ErrMissingDNSLinkRecord: $message';
@@ -66,8 +40,8 @@ class ErrMissingDnsLinkRecord extends GolangException {
 
 /// Go: `var namesys.ErrMultipleDNSLinkRecords error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrMultipleDnsLinkRecords extends GolangException {
-  ErrMultipleDnsLinkRecords.$(super.base) : super.$from();
+class BoxoNamesysErrMultipleDnsLinkRecords extends GolangException {
+  BoxoNamesysErrMultipleDnsLinkRecords.$(super.base) : super.$from();
 
   @override
   String toString() => 'namesys.ErrMultipleDNSLinkRecords: $message';
@@ -75,8 +49,8 @@ class ErrMultipleDnsLinkRecords extends GolangException {
 
 /// Go: `var namesys.ErrNoNamesys error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrNoNamesys extends GolangException {
-  ErrNoNamesys.$(super.base) : super.$from();
+class BoxoNamesysErrNoNamesys extends GolangException {
+  BoxoNamesysErrNoNamesys.$(super.base) : super.$from();
 
   @override
   String toString() => 'namesys.ErrNoNamesys: $message';
@@ -84,8 +58,8 @@ class ErrNoNamesys extends GolangException {
 
 /// Go: `var namesys.ErrResolveFailed error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrResolveFailed extends GolangException {
-  ErrResolveFailed.$(super.base) : super.$from();
+class BoxoNamesysErrResolveFailed extends GolangException {
+  BoxoNamesysErrResolveFailed.$(super.base) : super.$from();
 
   @override
   String toString() => 'namesys.ErrResolveFailed: $message';
@@ -93,9 +67,40 @@ class ErrResolveFailed extends GolangException {
 
 /// Go: `var namesys.ErrResolveRecursion error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrResolveRecursion extends GolangException {
-  ErrResolveRecursion.$(super.base) : super.$from();
+class BoxoNamesysErrResolveRecursion extends GolangException {
+  BoxoNamesysErrResolveRecursion.$(super.base) : super.$from();
 
   @override
   String toString() => 'namesys.ErrResolveRecursion: $message';
+}
+
+/// Go: the package-level members of `github.com/ipfs/boxo/namesys` (`Go.boxo.namesys`).
+extension GoBoxoNamesysApi on GoBoxoNamesys {
+  /// Go: `namesys.ResolveWithDepth`.
+  BoxoNamesysResolveOption resolveWithDepth(int depth) =>
+      BoxoNamesysResolveOption.$(0, (w) => w..i64(depth));
+
+  /// Go: `namesys.ResolveWithDhtRecordCount`.
+  BoxoNamesysResolveOption resolveWithDhtRecordCount(int count) =>
+      BoxoNamesysResolveOption.$(1, (w) => w..i64(count));
+
+  /// Go: `namesys.ResolveWithDhtTimeout`.
+  BoxoNamesysResolveOption resolveWithDhtTimeout(Duration timeout) =>
+      BoxoNamesysResolveOption.$(
+          2, (w) => w..i64((timeout).inMicroseconds * 1000));
+
+  /// Go: `const namesys.DefaultDepthLimit untyped int`.
+  int get defaultDepthLimit => 32;
+
+  /// Go: `const namesys.DefaultResolverCacheTTL time.Duration`.
+  Duration get defaultResolverCacheTtl => Duration(microseconds: 60000000);
+
+  /// Go: `const namesys.DefaultResolverDhtRecordCount untyped int`.
+  int get defaultResolverDhtRecordCount => 16;
+
+  /// Go: `const namesys.DefaultResolverDhtTimeout time.Duration`.
+  Duration get defaultResolverDhtTimeout => Duration(microseconds: 60000000);
+
+  /// Go: `const namesys.UnlimitedDepth untyped int`.
+  int get unlimitedDepth => 0;
 }

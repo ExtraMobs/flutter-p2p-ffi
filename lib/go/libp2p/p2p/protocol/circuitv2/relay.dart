@@ -4,31 +4,32 @@ library;
 
 import 'dart:async';
 
+import 'package:p2p_ffi/src/go.dart' show GoLibp2pP2pProtocolCircuitv2Relay;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/multiaddr.dart' as $multiaddr;
 
 /// Go: `relay.ACLFilter` (handle).
-class AclFilter extends GoHandle {
-  AclFilter.$h(super.$h);
+class Libp2pP2pProtocolCircuitv2RelayAclFilter extends GoHandle {
+  Libp2pP2pProtocolCircuitv2RelayAclFilter.$h(super.$h);
 }
 
 /// Go: `relay.MetricsTracer` (handle).
-class MetricsTracer extends GoHandle {
-  MetricsTracer.$h(super.$h);
+class Libp2pP2pProtocolCircuitv2RelayMetricsTracer extends GoHandle {
+  Libp2pP2pProtocolCircuitv2RelayMetricsTracer.$h(super.$h);
 }
 
 /// Go: `relay.Option` (functional option; constructors in the package).
-final class Option extends GoOption {
-  Option.$(super.$i, super.$a);
+final class Libp2pP2pProtocolCircuitv2RelayOption extends GoOption {
+  Libp2pP2pProtocolCircuitv2RelayOption.$(super.$i, super.$a);
 }
 
 /// Go: `relay.RelayLimit`.
-final class RelayLimit implements GoDto {
-  RelayLimit({Duration? duration, int? data})
+final class Libp2pP2pProtocolCircuitv2RelayLimit implements GoDto {
+  Libp2pP2pProtocolCircuitv2RelayLimit({Duration? duration, int? data})
       : duration = duration ?? Duration.zero,
         data = data ?? 0;
 
-  RelayLimit.$dec($R r)
+  Libp2pP2pProtocolCircuitv2RelayLimit.$dec($R r)
       : duration = Duration(microseconds: r.i64() ~/ 1000),
         data = r.i64();
 
@@ -47,9 +48,9 @@ final class RelayLimit implements GoDto {
 }
 
 /// Go: `relay.Resources`.
-final class Resources implements GoDto {
-  Resources(
-      {RelayLimit? limit,
+final class Libp2pP2pProtocolCircuitv2RelayResources implements GoDto {
+  Libp2pP2pProtocolCircuitv2RelayResources(
+      {Libp2pP2pProtocolCircuitv2RelayLimit? limit,
       Duration? reservationTtl,
       int? maxReservations,
       int? maxCircuits,
@@ -66,8 +67,8 @@ final class Resources implements GoDto {
         maxReservationsPerIp = maxReservationsPerIp ?? 0,
         maxReservationsPerAsn = maxReservationsPerAsn ?? 0;
 
-  Resources.$dec($R r)
-      : limit = r.p() ? RelayLimit.$dec(r) : null,
+  Libp2pP2pProtocolCircuitv2RelayResources.$dec($R r)
+      : limit = r.p() ? Libp2pP2pProtocolCircuitv2RelayLimit.$dec(r) : null,
         reservationTtl = Duration(microseconds: r.i64() ~/ 1000),
         maxReservations = r.i64(),
         maxCircuits = r.i64(),
@@ -77,7 +78,7 @@ final class Resources implements GoDto {
         maxReservationsPerAsn = r.i64();
 
   /// Go: `Limit`.
-  RelayLimit? limit;
+  Libp2pP2pProtocolCircuitv2RelayLimit? limit;
 
   /// Go: `ReservationTTL`.
   Duration reservationTtl;
@@ -114,53 +115,66 @@ final class Resources implements GoDto {
   }
 }
 
-/// Go: `relay.WithACL`.
-Option withAcl(AclFilter acl) => Option.$(0, (w) => w..h(acl));
+/// Go: the package-level members of `github.com/libp2p/go-libp2p/p2p/protocol/circuitv2/relay` (`Go.libp2p.p2p.protocol.circuitv2.relay`).
+extension GoLibp2pP2pProtocolCircuitv2RelayApi
+    on GoLibp2pP2pProtocolCircuitv2Relay {
+  /// Go: `relay.WithACL`.
+  Libp2pP2pProtocolCircuitv2RelayOption withAcl(
+          Libp2pP2pProtocolCircuitv2RelayAclFilter acl) =>
+      Libp2pP2pProtocolCircuitv2RelayOption.$(0, (w) => w..h(acl));
 
-/// Go: `relay.WithInfiniteLimits`.
-Option withInfiniteLimits() => Option.$(1, (_) {});
+  /// Go: `relay.WithInfiniteLimits`.
+  Libp2pP2pProtocolCircuitv2RelayOption withInfiniteLimits() =>
+      Libp2pP2pProtocolCircuitv2RelayOption.$(1, (_) {});
 
-/// Go: `relay.WithLimit`.
-Option withLimit(RelayLimit limit) => Option.$(2, (w) => w..dto(limit));
+  /// Go: `relay.WithLimit`.
+  Libp2pP2pProtocolCircuitv2RelayOption withLimit(
+          Libp2pP2pProtocolCircuitv2RelayLimit limit) =>
+      Libp2pP2pProtocolCircuitv2RelayOption.$(2, (w) => w..dto(limit));
 
-/// Go: `relay.WithMetricsTracer`.
-Option withMetricsTracer(MetricsTracer mt) => Option.$(3, (w) => w..h(mt));
+  /// Go: `relay.WithMetricsTracer`.
+  Libp2pP2pProtocolCircuitv2RelayOption withMetricsTracer(
+          Libp2pP2pProtocolCircuitv2RelayMetricsTracer mt) =>
+      Libp2pP2pProtocolCircuitv2RelayOption.$(3, (w) => w..h(mt));
 
-/// Go: `relay.WithReservationAddressFilter`.
-Option withReservationAddressFilter(
-        FutureOr<bool> Function($multiaddr.Multiaddr addr) filter) =>
-    Option.$(
-        4,
-        (w) => w
-          ..cb((r) => filter(r.p() ? $multiaddr.Multiaddr(r.str()) : $nil()),
-              true));
+  /// Go: `relay.WithReservationAddressFilter`.
+  Libp2pP2pProtocolCircuitv2RelayOption withReservationAddressFilter(
+          FutureOr<bool> Function($multiaddr.Multiaddr addr) filter) =>
+      Libp2pP2pProtocolCircuitv2RelayOption.$(
+          4,
+          (w) => w
+            ..cb((r) => filter(r.p() ? $multiaddr.Multiaddr(r.str()) : $nil()),
+                true));
 
-/// Go: `relay.WithResources`.
-Option withResources(Resources rc) => Option.$(5, (w) => w..dto(rc));
+  /// Go: `relay.WithResources`.
+  Libp2pP2pProtocolCircuitv2RelayOption withResources(
+          Libp2pP2pProtocolCircuitv2RelayResources rc) =>
+      Libp2pP2pProtocolCircuitv2RelayOption.$(5, (w) => w..dto(rc));
 
-/// Go: `func relay.DefaultResources() relay.Resources`.
-Resources defaultResources() {
-  final $r = $callSync(650);
-  return $r.p() ? Resources.$dec($r) : $nil();
+  /// Go: `func relay.DefaultResources() relay.Resources`.
+  Libp2pP2pProtocolCircuitv2RelayResources defaultResources() {
+    final $r = $callSync(650);
+    return $r.p() ? Libp2pP2pProtocolCircuitv2RelayResources.$dec($r) : $nil();
+  }
+
+  /// Go: `func relay.DefaultLimit() *relay.RelayLimit`.
+  Libp2pP2pProtocolCircuitv2RelayLimit defaultLimit() {
+    final $r = $callSync(649);
+    return $r.p() ? Libp2pP2pProtocolCircuitv2RelayLimit.$dec($r) : $nil();
+  }
+
+  /// Go: `const relay.ConnectTimeout time.Duration`.
+  Duration get connectTimeout => Duration(microseconds: 30000000);
+
+  /// Go: `const relay.HandshakeTimeout time.Duration`.
+  Duration get handshakeTimeout => Duration(microseconds: 60000000);
+
+  /// Go: `const relay.ReservationTagWeight untyped int`.
+  int get reservationTagWeight => 10;
+
+  /// Go: `const relay.ServiceName untyped string`.
+  String get serviceName => "libp2p.relay/v2";
+
+  /// Go: `const relay.StreamTimeout time.Duration`.
+  Duration get streamTimeout => Duration(microseconds: 60000000);
 }
-
-/// Go: `func relay.DefaultLimit() *relay.RelayLimit`.
-RelayLimit defaultLimit() {
-  final $r = $callSync(649);
-  return $r.p() ? RelayLimit.$dec($r) : $nil();
-}
-
-/// Go: `const relay.ConnectTimeout time.Duration`.
-const connectTimeout = Duration(microseconds: 30000000);
-
-/// Go: `const relay.HandshakeTimeout time.Duration`.
-const handshakeTimeout = Duration(microseconds: 60000000);
-
-/// Go: `const relay.ReservationTagWeight untyped int`.
-const reservationTagWeight = 10;
-
-/// Go: `const relay.ServiceName untyped string`.
-const serviceName = "libp2p.relay/v2";
-
-/// Go: `const relay.StreamTimeout time.Duration`.
-const streamTimeout = Duration(microseconds: 60000000);

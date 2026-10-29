@@ -2,26 +2,18 @@
 // Go: github.com/ipld/go-ipld-prime/traversal
 library;
 
+import 'package:p2p_ffi/src/go.dart' show GoIpldPrimeTraversal;
 import 'package:p2p_ffi/src/runtime.dart';
 
 /// Go: `traversal.LinkTargetNodePrototypeChooser` (handle).
-class LinkTargetNodePrototypeChooser extends GoHandle {
-  LinkTargetNodePrototypeChooser.$h(super.$h);
+class IpldPrimeTraversalLinkTargetNodePrototypeChooser extends GoHandle {
+  IpldPrimeTraversalLinkTargetNodePrototypeChooser.$h(super.$h);
 }
-
-/// Go: `const traversal.VisitReason_SelectionCandidate traversal.VisitReason`.
-const visitReasonSelectionCandidate = 120;
-
-/// Go: `const traversal.VisitReason_SelectionMatch traversal.VisitReason`.
-const visitReasonSelectionMatch = 109;
-
-/// Go: `const traversal.VisitReason_SelectionParent traversal.VisitReason`.
-const visitReasonSelectionParent = 112;
 
 /// Go: `traversal.ErrBudgetExceeded`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrBudgetExceeded extends GolangException {
-  ErrBudgetExceeded.$(super.base, $R r)
+class IpldPrimeTraversalErrBudgetExceeded extends GolangException {
+  IpldPrimeTraversalErrBudgetExceeded.$(super.base, $R r)
       : budgetKind = r.str(),
         super.$from();
 
@@ -34,9 +26,21 @@ class ErrBudgetExceeded extends GolangException {
 
 /// Go: `traversal.SkipMe`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class SkipMe extends GolangException {
-  SkipMe.$(super.base) : super.$from();
+class IpldPrimeTraversalSkipMe extends GolangException {
+  IpldPrimeTraversalSkipMe.$(super.base) : super.$from();
 
   @override
   String toString() => 'traversal.SkipMe: $message';
+}
+
+/// Go: the package-level members of `github.com/ipld/go-ipld-prime/traversal` (`Go.ipldPrime.traversal`).
+extension GoIpldPrimeTraversalApi on GoIpldPrimeTraversal {
+  /// Go: `const traversal.VisitReason_SelectionCandidate traversal.VisitReason`.
+  int get visitReasonSelectionCandidate => 120;
+
+  /// Go: `const traversal.VisitReason_SelectionMatch traversal.VisitReason`.
+  int get visitReasonSelectionMatch => 109;
+
+  /// Go: `const traversal.VisitReason_SelectionParent traversal.VisitReason`.
+  int get visitReasonSelectionParent => 112;
 }

@@ -4,16 +4,17 @@ library;
 
 import 'dart:typed_data';
 
+import 'package:p2p_ffi/src/go.dart' show GoIo;
 import 'package:p2p_ffi/src/runtime.dart';
 
 /// Go: `io.Closer` (handle).
-class Closer extends GoHandle {
-  Closer.$h(super.$h);
+class IoCloser extends GoHandle {
+  IoCloser.$h(super.$h);
 }
 
 /// Go: `io.ReadCloser` (handle).
-class ReadCloser extends GoHandle {
-  ReadCloser.$h(super.$h);
+class IoReadCloser extends GoHandle {
+  IoReadCloser.$h(super.$h);
 
   /// Go: `func (io.Closer).Close() error`.
   void close() {
@@ -22,54 +23,29 @@ class ReadCloser extends GoHandle {
 }
 
 /// Go: `io.ReadSeeker` (handle).
-class ReadSeeker extends GoHandle {
-  ReadSeeker.$h(super.$h);
+class IoReadSeeker extends GoHandle {
+  IoReadSeeker.$h(super.$h);
 }
 
 /// Go: `io.Reader` (handle).
-class Reader extends GoHandle {
-  Reader.$h(super.$h);
+class IoReader extends GoHandle {
+  IoReader.$h(super.$h);
 }
 
 /// Go: `io.ReaderAt` (handle).
-class ReaderAt extends GoHandle {
-  ReaderAt.$h(super.$h);
+class IoReaderAt extends GoHandle {
+  IoReaderAt.$h(super.$h);
 }
 
 /// Go: `io.Seeker` (handle).
-class Seeker extends GoHandle {
-  Seeker.$h(super.$h);
+class IoSeeker extends GoHandle {
+  IoSeeker.$h(super.$h);
 }
-
-/// Go: `func io.ReadAll(r io.Reader) ([]byte, error)`.
-Uint8List readAll(Object r) {
-  final $r = $callSync(697, $W()..reader(r));
-  return $r.bytes() ?? Uint8List(0);
-}
-
-/// Go: `func io.Copy(dst io.Writer, src io.Reader) (written int64, err error)`.
-int copy(GoHandle? dst, Object src) {
-  final $r = $callSync(
-      696,
-      $W()
-        ..h(dst)
-        ..reader(src));
-  return $r.i64();
-}
-
-/// Go: `const io.SeekCurrent untyped int`.
-const seekCurrent = 1;
-
-/// Go: `const io.SeekEnd untyped int`.
-const seekEnd = 2;
-
-/// Go: `const io.SeekStart untyped int`.
-const seekStart = 0;
 
 /// Go: `var io.ErrClosedPipe error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrClosedPipe extends GolangException {
-  ErrClosedPipe.$(super.base) : super.$from();
+class IoErrClosedPipe extends GolangException {
+  IoErrClosedPipe.$(super.base) : super.$from();
 
   @override
   String toString() => 'io.ErrClosedPipe: $message';
@@ -77,8 +53,8 @@ class ErrClosedPipe extends GolangException {
 
 /// Go: `var io.ErrNoProgress error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrNoProgress extends GolangException {
-  ErrNoProgress.$(super.base) : super.$from();
+class IoErrNoProgress extends GolangException {
+  IoErrNoProgress.$(super.base) : super.$from();
 
   @override
   String toString() => 'io.ErrNoProgress: $message';
@@ -86,8 +62,8 @@ class ErrNoProgress extends GolangException {
 
 /// Go: `var io.ErrShortBuffer error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrShortBuffer extends GolangException {
-  ErrShortBuffer.$(super.base) : super.$from();
+class IoErrShortBuffer extends GolangException {
+  IoErrShortBuffer.$(super.base) : super.$from();
 
   @override
   String toString() => 'io.ErrShortBuffer: $message';
@@ -95,9 +71,37 @@ class ErrShortBuffer extends GolangException {
 
 /// Go: `var io.ErrShortWrite error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrShortWrite extends GolangException {
-  ErrShortWrite.$(super.base) : super.$from();
+class IoErrShortWrite extends GolangException {
+  IoErrShortWrite.$(super.base) : super.$from();
 
   @override
   String toString() => 'io.ErrShortWrite: $message';
+}
+
+/// Go: the package-level members of `io` (`Go.io`).
+extension GoIoApi on GoIo {
+  /// Go: `func io.ReadAll(r io.Reader) ([]byte, error)`.
+  Uint8List readAll(Object r) {
+    final $r = $callSync(697, $W()..reader(r));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func io.Copy(dst io.Writer, src io.Reader) (written int64, err error)`.
+  int copy(GoHandle? dst, Object src) {
+    final $r = $callSync(
+        696,
+        $W()
+          ..h(dst)
+          ..reader(src));
+    return $r.i64();
+  }
+
+  /// Go: `const io.SeekCurrent untyped int`.
+  int get seekCurrent => 1;
+
+  /// Go: `const io.SeekEnd untyped int`.
+  int get seekEnd => 2;
+
+  /// Go: `const io.SeekStart untyped int`.
+  int get seekStart => 0;
 }

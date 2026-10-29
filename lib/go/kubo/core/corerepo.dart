@@ -2,59 +2,15 @@
 // Go: github.com/ipfs/kubo/core/corerepo
 library;
 
+import 'package:p2p_ffi/src/go.dart' show GoKuboCoreCorerepo;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/kubo/core.dart' as $core;
 import 'package:p2p_ffi/go/kubo/gc.dart' as $gc;
 
-/// Go: `func corerepo.GarbageCollect(n *core.IpfsNode, ctx context.Context) error`.
-///
-/// Asynchronous: runs in a goroutine of the service.
-Future<void> garbageCollect($core.IpfsNode n, $context.Context ctx) async {
-  await $call(
-      360,
-      $W()
-        ..h(n)
-        ..h(ctx));
-}
-
-/// Go: `func corerepo.GarbageCollectAsync(n *core.IpfsNode, ctx context.Context) <-chan gc.Result`.
-Stream<$gc.Result> garbageCollectAsync(
-        $core.IpfsNode n, $context.Context ctx) =>
-    $stream(
-            361,
-            $W()
-              ..h(n)
-              ..h(ctx))
-        .map((r) => r.p() ? $gc.Result.$dec(r) : $nil());
-
-/// Go: `func corerepo.PeriodicGC(ctx context.Context, node *core.IpfsNode) error`.
-///
-/// Asynchronous: runs in a goroutine of the service.
-Future<void> periodicGc($context.Context ctx, $core.IpfsNode node) async {
-  await $call(
-      362,
-      $W()
-        ..h(ctx)
-        ..h(node));
-}
-
-/// Go: `func corerepo.ConditionalGC(ctx context.Context, node *core.IpfsNode, offset uint64) error`.
-///
-/// Asynchronous: runs in a goroutine of the service.
-Future<void> conditionalGc(
-    $context.Context ctx, $core.IpfsNode node, int offset) async {
-  await $call(
-      359,
-      $W()
-        ..h(ctx)
-        ..h(node)
-        ..i64(offset));
-}
-
 /// Go: `corerepo.Stat` (a kubo command output).
-final class Stat {
-  Stat.$dec($R r)
+final class KuboCoreCorerepoStat {
+  KuboCoreCorerepoStat.$dec($R r)
       : repoSize = r.i64(),
         storageMax = r.i64(),
         numObjects = r.i64(),
@@ -88,8 +44,8 @@ final class Stat {
 
 /// Go: `var corerepo.ErrMaxStorageExceeded error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrMaxStorageExceeded extends GolangException {
-  ErrMaxStorageExceeded.$(super.base) : super.$from();
+class KuboCoreCorerepoErrMaxStorageExceeded extends GolangException {
+  KuboCoreCorerepoErrMaxStorageExceeded.$(super.base) : super.$from();
 
   @override
   String toString() => 'corerepo.ErrMaxStorageExceeded: $message';
@@ -97,9 +53,59 @@ class ErrMaxStorageExceeded extends GolangException {
 
 /// Go: `corerepo.MultiError`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class MultiError extends GolangException {
-  MultiError.$(super.base) : super.$from();
+class KuboCoreCorerepoMultiError extends GolangException {
+  KuboCoreCorerepoMultiError.$(super.base) : super.$from();
 
   @override
   String toString() => 'corerepo.MultiError: $message';
+}
+
+/// Go: the package-level members of `github.com/ipfs/kubo/core/corerepo` (`Go.kubo.core.corerepo`).
+extension GoKuboCoreCorerepoApi on GoKuboCoreCorerepo {
+  /// Go: `func corerepo.GarbageCollect(n *core.IpfsNode, ctx context.Context) error`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> garbageCollect(
+      $core.KuboCoreIpfsNode n, $context.Context ctx) async {
+    await $call(
+        360,
+        $W()
+          ..h(n)
+          ..h(ctx));
+  }
+
+  /// Go: `func corerepo.GarbageCollectAsync(n *core.IpfsNode, ctx context.Context) <-chan gc.Result`.
+  Stream<$gc.KuboGcResult> garbageCollectAsync(
+          $core.KuboCoreIpfsNode n, $context.Context ctx) =>
+      $stream(
+              361,
+              $W()
+                ..h(n)
+                ..h(ctx))
+          .map((r) => r.p() ? $gc.KuboGcResult.$dec(r) : $nil());
+
+  /// Go: `func corerepo.PeriodicGC(ctx context.Context, node *core.IpfsNode) error`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> periodicGc(
+      $context.Context ctx, $core.KuboCoreIpfsNode node) async {
+    await $call(
+        362,
+        $W()
+          ..h(ctx)
+          ..h(node));
+  }
+
+  /// Go: `func corerepo.ConditionalGC(ctx context.Context, node *core.IpfsNode, offset uint64) error`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> conditionalGc(
+      $context.Context ctx, $core.KuboCoreIpfsNode node, int offset) async {
+    await $call(
+        359,
+        $W()
+          ..h(ctx)
+          ..h(node)
+          ..i64(offset));
+  }
 }

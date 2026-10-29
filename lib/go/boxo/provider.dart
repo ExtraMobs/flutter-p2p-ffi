@@ -2,14 +2,12 @@
 // Go: github.com/ipfs/boxo/provider
 library;
 
+import 'package:p2p_ffi/src/go.dart' show GoBoxoProvider;
 import 'package:p2p_ffi/src/runtime.dart';
 
-/// Go: `const provider.DefaultReproviderInterval time.Duration`.
-const defaultReproviderInterval = Duration(microseconds: 79200000000);
-
 /// Go: `provider.ReproviderStats` (a kubo command output).
-final class ReproviderStats {
-  ReproviderStats.$dec($R r)
+final class BoxoProviderReproviderStats {
+  BoxoProviderReproviderStats.$dec($R r)
       : totalReprovides = r.i64(),
         lastReprovideBatchSize = r.i64(),
         reprovideInterval = Duration(microseconds: r.i64() ~/ 1000),
@@ -40,4 +38,10 @@ final class ReproviderStats {
 
   /// Go: `LastRun`.
   final DateTime? lastRun;
+}
+
+/// Go: the package-level members of `github.com/ipfs/boxo/provider` (`Go.boxo.provider`).
+extension GoBoxoProviderApi on GoBoxoProvider {
+  /// Go: `const provider.DefaultReproviderInterval time.Duration`.
+  Duration get defaultReproviderInterval => Duration(microseconds: 79200000000);
 }

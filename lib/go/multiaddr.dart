@@ -4,6 +4,7 @@ library;
 
 import 'dart:typed_data';
 
+import 'package:p2p_ffi/src/go.dart' show GoMultiaddr;
 import 'package:p2p_ffi/src/runtime.dart';
 
 /// Go: `multiaddr.Multiaddr` (valor).
@@ -37,7 +38,7 @@ class Multiaddr extends GoValue {
   }
 
   /// Go: `func (multiaddr.Multiaddr).Encapsulate(other multiaddr.Multiaddrer) multiaddr.Multiaddr`.
-  Multiaddr encapsulate(Multiaddrer other) {
+  Multiaddr encapsulate(MultiaddrMultiaddrer other) {
     final $r = $callSync(
         657,
         $W()
@@ -47,7 +48,7 @@ class Multiaddr extends GoValue {
   }
 
   /// Go: `func (multiaddr.Multiaddr).Decapsulate(rightPartsAny multiaddr.Multiaddrer) multiaddr.Multiaddr`.
-  Multiaddr decapsulate(Multiaddrer rightPartsAny) {
+  Multiaddr decapsulate(MultiaddrMultiaddrer rightPartsAny) {
     final $r = $callSync(
         656,
         $W()
@@ -69,10 +70,11 @@ class Multiaddr extends GoValue {
 
 /// Go: `multiaddr.Multiaddrer` (values read from the methods; built in Dart, it
 /// crosses as a Go value that returns them).
-final class Multiaddrer implements GoDto {
-  Multiaddrer({Multiaddr? multiaddr}) : multiaddr = multiaddr;
+final class MultiaddrMultiaddrer implements GoDto {
+  MultiaddrMultiaddrer({Multiaddr? multiaddr}) : multiaddr = multiaddr;
 
-  Multiaddrer.$dec($R r) : multiaddr = r.p() ? Multiaddr(r.str()) : null;
+  MultiaddrMultiaddrer.$dec($R r)
+      : multiaddr = r.p() ? Multiaddr(r.str()) : null;
 
   /// Go: `Multiaddr()`.
   final Multiaddr? multiaddr;
@@ -83,174 +85,177 @@ final class Multiaddrer implements GoDto {
   }
 }
 
-/// Go: `func multiaddr.NewMultiaddr(s string) (a multiaddr.Multiaddr, err error)`.
-Multiaddr newMultiaddr(String s) {
-  final $r = $callSync(660, $W()..str(s));
-  return $r.p() ? Multiaddr($r.str()) : $nil();
-}
-
-/// Go: `func multiaddr.NewMultiaddrBytes(b []byte) (a multiaddr.Multiaddr, err error)`.
-Multiaddr newMultiaddrBytes(Uint8List b) {
-  final $r = $callSync(661, $W()..bytes(b));
-  return $r.p() ? Multiaddr($r.str()) : $nil();
-}
-
-/// Go: `func multiaddr.Join(msInterfaces ...multiaddr.Multiaddrer) multiaddr.Multiaddr`.
-Multiaddr join([List<Multiaddrer> msInterfaces = const []]) {
-  final $r = $callSync(653, $W()..list(msInterfaces, (w0, e0) => w0.dto(e0)));
-  return $r.p() ? Multiaddr($r.str()) : $nil();
-}
-
-/// Go: `func multiaddr.Contains(addrs []multiaddr.Multiaddr, addr multiaddr.Multiaddr) bool`.
-bool contains(List<Multiaddr> addrs, Multiaddr addr) {
-  final $r = $callSync(
-      652,
-      $W()
-        ..list(addrs, (w0, e0) => w0.val(e0))
-        ..val(addr));
-  return $r.b();
-}
-
-/// Go: `func multiaddr.Unique(addrs []multiaddr.Multiaddr) []multiaddr.Multiaddr`.
-List<Multiaddr> unique(List<Multiaddr> addrs) {
-  final $r = $callSync(662, $W()..list(addrs, (w0, e0) => w0.val(e0)));
-  return $r.list(() => $r.p() ? Multiaddr($r.str()) : $nil());
-}
-
-/// Go: `const multiaddr.ActionAccept multiaddr.Action`.
-const actionAccept = 1;
-
-/// Go: `const multiaddr.ActionDeny multiaddr.Action`.
-const actionDeny = 2;
-
-/// Go: `const multiaddr.ActionNone multiaddr.Action`.
-const actionNone = 0;
-
-/// Go: `const multiaddr.LengthPrefixedVarSize untyped int`.
-const lengthPrefixedVarSize = -1;
-
-/// Go: `const multiaddr.P_CERTHASH untyped int`.
-const pCerthash = 466;
-
-/// Go: `const multiaddr.P_CIRCUIT untyped int`.
-const pCircuit = 290;
-
-/// Go: `const multiaddr.P_DCCP untyped int`.
-const pDccp = 33;
-
-/// Go: `const multiaddr.P_DNS untyped int`.
-const pDns = 53;
-
-/// Go: `const multiaddr.P_DNS4 untyped int`.
-const pDns4 = 54;
-
-/// Go: `const multiaddr.P_DNS6 untyped int`.
-const pDns6 = 55;
-
-/// Go: `const multiaddr.P_DNSADDR untyped int`.
-const pDnsaddr = 56;
-
-/// Go: `const multiaddr.P_GARLIC32 untyped int`.
-const pGarlic32 = 447;
-
-/// Go: `const multiaddr.P_GARLIC64 untyped int`.
-const pGarlic64 = 446;
-
-/// Go: `const multiaddr.P_HTTP untyped int`.
-const pHttp = 480;
-
-/// Go: `const multiaddr.P_HTTPS untyped int`.
-const pHttps = 443;
-
-/// Go: `const multiaddr.P_HTTP_PATH untyped int`.
-const pHttpPath = 481;
-
-/// Go: `const multiaddr.P_IP4 untyped int`.
-const pIp4 = 4;
-
-/// Go: `const multiaddr.P_IP6 untyped int`.
-const pIp6 = 41;
-
-/// Go: `const multiaddr.P_IP6ZONE untyped int`.
-const pIp6zone = 42;
-
-/// Go: `const multiaddr.P_IPCIDR untyped int`.
-const pIpcidr = 43;
-
-/// Go: `const multiaddr.P_IPFS untyped int`.
-const pIpfs = 421;
-
-/// Go: `const multiaddr.P_MEMORY untyped int`.
-const pMemory = 777;
-
-/// Go: `const multiaddr.P_NOISE untyped int`.
-const pNoise = 454;
-
-/// Go: `const multiaddr.P_ONION untyped int`.
-const pOnion = 444;
-
-/// Go: `const multiaddr.P_ONION3 untyped int`.
-const pOnion3 = 445;
-
-/// Go: `const multiaddr.P_P2P untyped int`.
-const pP2p = 421;
-
-/// Go: `const multiaddr.P_P2P_WEBRTC_DIRECT untyped int`.
-const pP2pWebrtcDirect = 276;
-
-/// Go: `const multiaddr.P_PLAINTEXTV2 untyped int`.
-const pPlaintextv2 = 7367777;
-
-/// Go: `const multiaddr.P_QUIC untyped int`.
-const pQuic = 460;
-
-/// Go: `const multiaddr.P_QUIC_V1 untyped int`.
-const pQuicV1 = 461;
-
-/// Go: `const multiaddr.P_SCTP untyped int`.
-const pSctp = 132;
-
-/// Go: `const multiaddr.P_SNI untyped int`.
-const pSni = 449;
-
-/// Go: `const multiaddr.P_TCP untyped int`.
-const pTcp = 6;
-
-/// Go: `const multiaddr.P_TLS untyped int`.
-const pTls = 448;
-
-/// Go: `const multiaddr.P_UDP untyped int`.
-const pUdp = 273;
-
-/// Go: `const multiaddr.P_UDT untyped int`.
-const pUdt = 301;
-
-/// Go: `const multiaddr.P_UNIX untyped int`.
-const pUnix = 400;
-
-/// Go: `const multiaddr.P_UTP untyped int`.
-const pUtp = 302;
-
-/// Go: `const multiaddr.P_WEBRTC untyped int`.
-const pWebrtc = 281;
-
-/// Go: `const multiaddr.P_WEBRTC_DIRECT untyped int`.
-const pWebrtcDirect = 280;
-
-/// Go: `const multiaddr.P_WEBTRANSPORT untyped int`.
-const pWebtransport = 465;
-
-/// Go: `const multiaddr.P_WS untyped int`.
-const pWs = 477;
-
-/// Go: `const multiaddr.P_WSS untyped int`.
-const pWss = 478;
-
 /// Go: `var multiaddr.ErrProtocolNotFound error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrProtocolNotFound extends GolangException {
-  ErrProtocolNotFound.$(super.base) : super.$from();
+class MultiaddrErrProtocolNotFound extends GolangException {
+  MultiaddrErrProtocolNotFound.$(super.base) : super.$from();
 
   @override
   String toString() => 'multiaddr.ErrProtocolNotFound: $message';
+}
+
+/// Go: the package-level members of `github.com/multiformats/go-multiaddr` (`Go.multiaddr`).
+extension GoMultiaddrApi on GoMultiaddr {
+  /// Go: `func multiaddr.NewMultiaddr(s string) (a multiaddr.Multiaddr, err error)`.
+  Multiaddr newMultiaddr(String s) {
+    final $r = $callSync(660, $W()..str(s));
+    return $r.p() ? Multiaddr($r.str()) : $nil();
+  }
+
+  /// Go: `func multiaddr.NewMultiaddrBytes(b []byte) (a multiaddr.Multiaddr, err error)`.
+  Multiaddr newMultiaddrBytes(Uint8List b) {
+    final $r = $callSync(661, $W()..bytes(b));
+    return $r.p() ? Multiaddr($r.str()) : $nil();
+  }
+
+  /// Go: `func multiaddr.Join(msInterfaces ...multiaddr.Multiaddrer) multiaddr.Multiaddr`.
+  Multiaddr join([List<MultiaddrMultiaddrer> msInterfaces = const []]) {
+    final $r = $callSync(653, $W()..list(msInterfaces, (w0, e0) => w0.dto(e0)));
+    return $r.p() ? Multiaddr($r.str()) : $nil();
+  }
+
+  /// Go: `func multiaddr.Contains(addrs []multiaddr.Multiaddr, addr multiaddr.Multiaddr) bool`.
+  bool contains(List<Multiaddr> addrs, Multiaddr addr) {
+    final $r = $callSync(
+        652,
+        $W()
+          ..list(addrs, (w0, e0) => w0.val(e0))
+          ..val(addr));
+    return $r.b();
+  }
+
+  /// Go: `func multiaddr.Unique(addrs []multiaddr.Multiaddr) []multiaddr.Multiaddr`.
+  List<Multiaddr> unique(List<Multiaddr> addrs) {
+    final $r = $callSync(662, $W()..list(addrs, (w0, e0) => w0.val(e0)));
+    return $r.list(() => $r.p() ? Multiaddr($r.str()) : $nil());
+  }
+
+  /// Go: `const multiaddr.ActionAccept multiaddr.Action`.
+  int get actionAccept => 1;
+
+  /// Go: `const multiaddr.ActionDeny multiaddr.Action`.
+  int get actionDeny => 2;
+
+  /// Go: `const multiaddr.ActionNone multiaddr.Action`.
+  int get actionNone => 0;
+
+  /// Go: `const multiaddr.LengthPrefixedVarSize untyped int`.
+  int get lengthPrefixedVarSize => -1;
+
+  /// Go: `const multiaddr.P_CERTHASH untyped int`.
+  int get pCerthash => 466;
+
+  /// Go: `const multiaddr.P_CIRCUIT untyped int`.
+  int get pCircuit => 290;
+
+  /// Go: `const multiaddr.P_DCCP untyped int`.
+  int get pDccp => 33;
+
+  /// Go: `const multiaddr.P_DNS untyped int`.
+  int get pDns => 53;
+
+  /// Go: `const multiaddr.P_DNS4 untyped int`.
+  int get pDns4 => 54;
+
+  /// Go: `const multiaddr.P_DNS6 untyped int`.
+  int get pDns6 => 55;
+
+  /// Go: `const multiaddr.P_DNSADDR untyped int`.
+  int get pDnsaddr => 56;
+
+  /// Go: `const multiaddr.P_GARLIC32 untyped int`.
+  int get pGarlic32 => 447;
+
+  /// Go: `const multiaddr.P_GARLIC64 untyped int`.
+  int get pGarlic64 => 446;
+
+  /// Go: `const multiaddr.P_HTTP untyped int`.
+  int get pHttp => 480;
+
+  /// Go: `const multiaddr.P_HTTPS untyped int`.
+  int get pHttps => 443;
+
+  /// Go: `const multiaddr.P_HTTP_PATH untyped int`.
+  int get pHttpPath => 481;
+
+  /// Go: `const multiaddr.P_IP4 untyped int`.
+  int get pIp4 => 4;
+
+  /// Go: `const multiaddr.P_IP6 untyped int`.
+  int get pIp6 => 41;
+
+  /// Go: `const multiaddr.P_IP6ZONE untyped int`.
+  int get pIp6zone => 42;
+
+  /// Go: `const multiaddr.P_IPCIDR untyped int`.
+  int get pIpcidr => 43;
+
+  /// Go: `const multiaddr.P_IPFS untyped int`.
+  int get pIpfs => 421;
+
+  /// Go: `const multiaddr.P_MEMORY untyped int`.
+  int get pMemory => 777;
+
+  /// Go: `const multiaddr.P_NOISE untyped int`.
+  int get pNoise => 454;
+
+  /// Go: `const multiaddr.P_ONION untyped int`.
+  int get pOnion => 444;
+
+  /// Go: `const multiaddr.P_ONION3 untyped int`.
+  int get pOnion3 => 445;
+
+  /// Go: `const multiaddr.P_P2P untyped int`.
+  int get pP2p => 421;
+
+  /// Go: `const multiaddr.P_P2P_WEBRTC_DIRECT untyped int`.
+  int get pP2pWebrtcDirect => 276;
+
+  /// Go: `const multiaddr.P_PLAINTEXTV2 untyped int`.
+  int get pPlaintextv2 => 7367777;
+
+  /// Go: `const multiaddr.P_QUIC untyped int`.
+  int get pQuic => 460;
+
+  /// Go: `const multiaddr.P_QUIC_V1 untyped int`.
+  int get pQuicV1 => 461;
+
+  /// Go: `const multiaddr.P_SCTP untyped int`.
+  int get pSctp => 132;
+
+  /// Go: `const multiaddr.P_SNI untyped int`.
+  int get pSni => 449;
+
+  /// Go: `const multiaddr.P_TCP untyped int`.
+  int get pTcp => 6;
+
+  /// Go: `const multiaddr.P_TLS untyped int`.
+  int get pTls => 448;
+
+  /// Go: `const multiaddr.P_UDP untyped int`.
+  int get pUdp => 273;
+
+  /// Go: `const multiaddr.P_UDT untyped int`.
+  int get pUdt => 301;
+
+  /// Go: `const multiaddr.P_UNIX untyped int`.
+  int get pUnix => 400;
+
+  /// Go: `const multiaddr.P_UTP untyped int`.
+  int get pUtp => 302;
+
+  /// Go: `const multiaddr.P_WEBRTC untyped int`.
+  int get pWebrtc => 281;
+
+  /// Go: `const multiaddr.P_WEBRTC_DIRECT untyped int`.
+  int get pWebrtcDirect => 280;
+
+  /// Go: `const multiaddr.P_WEBTRANSPORT untyped int`.
+  int get pWebtransport => 465;
+
+  /// Go: `const multiaddr.P_WS untyped int`.
+  int get pWs => 477;
+
+  /// Go: `const multiaddr.P_WSS untyped int`.
+  int get pWss => 478;
 }

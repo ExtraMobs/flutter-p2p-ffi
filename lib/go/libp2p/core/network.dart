@@ -5,14 +5,15 @@ library;
 import 'dart:async';
 import 'dart:typed_data';
 
+import 'package:p2p_ffi/src/go.dart' show GoLibp2pCoreNetwork;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/io.dart' as $io;
 import 'package:p2p_ffi/go/libp2p/core/peer.dart' as $peer;
 import 'package:p2p_ffi/go/multiaddr.dart' as $multiaddr;
 
 /// Go: `network.Conn` (handle).
-class Conn extends $io.Closer {
-  Conn.$h(super.$h) : super.$h();
+class Libp2pCoreNetworkConn extends $io.IoCloser {
+  Libp2pCoreNetworkConn.$h(super.$h) : super.$h();
 
   /// Go: `func (network.Conn).ID() string`.
   String id() {
@@ -21,9 +22,9 @@ class Conn extends $io.Closer {
   }
 
   /// Go: `func (network.ConnSecurity).RemotePeer() peer.ID`.
-  $peer.Id remotePeer() {
+  $peer.Libp2pCorePeerId remotePeer() {
     final $r = $callSync(585, $W()..h(this));
-    return $r.p() ? $peer.Id($r.str()) : $nil();
+    return $r.p() ? $peer.Libp2pCorePeerId($r.str()) : $nil();
   }
 
   /// Go: `func (network.ConnMultiaddrs).RemoteMultiaddr() multiaddr.Multiaddr`.
@@ -39,9 +40,9 @@ class Conn extends $io.Closer {
   }
 
   /// Go: `func (network.ConnStat).Stat() network.ConnStats`.
-  ConnStats stat() {
+  Libp2pCoreNetworkConnStats stat() {
     final $r = $callSync(586, $W()..h(this));
-    return $r.p() ? ConnStats.$dec($r) : $nil();
+    return $r.p() ? Libp2pCoreNetworkConnStats.$dec($r) : $nil();
   }
 
   /// Go: `func (network.Conn).IsClosed() bool`.
@@ -59,17 +60,17 @@ class Conn extends $io.Closer {
 }
 
 /// Go: `network.ConnStats`.
-final class ConnStats implements GoDto {
-  ConnStats({Stats? stats, int? numStreams})
+final class Libp2pCoreNetworkConnStats implements GoDto {
+  Libp2pCoreNetworkConnStats({Libp2pCoreNetworkStats? stats, int? numStreams})
       : stats = stats,
         numStreams = numStreams ?? 0;
 
-  ConnStats.$dec($R r)
-      : stats = r.p() ? Stats.$dec(r) : null,
+  Libp2pCoreNetworkConnStats.$dec($R r)
+      : stats = r.p() ? Libp2pCoreNetworkStats.$dec(r) : null,
         numStreams = r.i64();
 
   /// Go: `Stats`.
-  Stats? stats;
+  Libp2pCoreNetworkStats? stats;
 
   /// Go: `NumStreams`.
   int numStreams;
@@ -83,58 +84,58 @@ final class ConnStats implements GoDto {
 }
 
 /// Go: `network.DialRanker` (handle).
-class DialRanker extends GoHandle {
-  DialRanker.$h(super.$h);
+class Libp2pCoreNetworkDialRanker extends GoHandle {
+  Libp2pCoreNetworkDialRanker.$h(super.$h);
 }
 
 /// Go: `network.Dialer` (handle).
-class Dialer extends GoHandle {
-  Dialer.$h(super.$h);
+class Libp2pCoreNetworkDialer extends GoHandle {
+  Libp2pCoreNetworkDialer.$h(super.$h);
 }
 
 /// Go: `network.MultiaddrDNSResolver` (handle).
-class MultiaddrDnsResolver extends GoHandle {
-  MultiaddrDnsResolver.$h(super.$h);
+class Libp2pCoreNetworkMultiaddrDnsResolver extends GoHandle {
+  Libp2pCoreNetworkMultiaddrDnsResolver.$h(super.$h);
 }
 
 /// Go: `network.Multiplexer` (handle).
-class Multiplexer extends GoHandle {
-  Multiplexer.$h(super.$h);
+class Libp2pCoreNetworkMultiplexer extends GoHandle {
+  Libp2pCoreNetworkMultiplexer.$h(super.$h);
 }
 
 /// Go: `network.MuxedStream` (handle).
-class MuxedStream extends $io.Closer {
-  MuxedStream.$h(super.$h) : super.$h();
+class Libp2pCoreNetworkMuxedStream extends $io.IoCloser {
+  Libp2pCoreNetworkMuxedStream.$h(super.$h) : super.$h();
 }
 
 /// Go: `network.Network` (handle).
-class Network extends Dialer {
-  Network.$h(super.$h) : super.$h();
+class Libp2pCoreNetwork extends Libp2pCoreNetworkDialer {
+  Libp2pCoreNetwork.$h(super.$h) : super.$h();
 
   /// Go: `func (network.Dialer).Peers() []peer.ID`.
-  List<$peer.Id> peers() {
+  List<$peer.Libp2pCorePeerId> peers() {
     final $r = $callSync(594, $W()..h(this));
-    return $r.list(() => $r.p() ? $peer.Id($r.str()) : $nil());
+    return $r.list(() => $r.p() ? $peer.Libp2pCorePeerId($r.str()) : $nil());
   }
 
   /// Go: `func (network.Dialer).Conns() []network.Conn`.
-  List<Conn> conns() {
+  List<Libp2pCoreNetworkConn> conns() {
     final $r = $callSync(589, $W()..h(this));
-    return $r.list(() => $r.hnn(Conn.$h));
+    return $r.list(() => $r.hnn(Libp2pCoreNetworkConn.$h));
   }
 
   /// Go: `func (network.Dialer).ConnsToPeer(p peer.ID) []network.Conn`.
-  List<Conn> connsToPeer($peer.Id p) {
+  List<Libp2pCoreNetworkConn> connsToPeer($peer.Libp2pCorePeerId p) {
     final $r = $callSync(
         590,
         $W()
           ..h(this)
           ..val(p));
-    return $r.list(() => $r.hnn(Conn.$h));
+    return $r.list(() => $r.hnn(Libp2pCoreNetworkConn.$h));
   }
 
   /// Go: `func (network.Dialer).Connectedness(peer.ID) network.Connectedness`.
-  int connectedness($peer.Id id) {
+  int connectedness($peer.Libp2pCorePeerId id) {
     final $r = $callSync(
         588,
         $W()
@@ -144,7 +145,7 @@ class Network extends Dialer {
   }
 
   /// Go: `func (network.Dialer).ClosePeer(peer.ID) error`.
-  void closePeer($peer.Id id) {
+  void closePeer($peer.Libp2pCorePeerId id) {
     $callSync(
         587,
         $W()
@@ -165,7 +166,7 @@ class Network extends Dialer {
   }
 
   /// Go: `func (network.Dialer).Notify(network.Notifiee)`.
-  void notify(Notifiee notifiee) {
+  void notify(Libp2pCoreNetworkNotifiee notifiee) {
     $callSync(
         593,
         $W()
@@ -174,7 +175,7 @@ class Network extends Dialer {
   }
 
   /// Go: `func (network.Dialer).StopNotify(network.Notifiee)`.
-  void stopNotify(Notifiee notifiee) {
+  void stopNotify(Libp2pCoreNetworkNotifiee notifiee) {
     $callSync(
         595,
         $W()
@@ -184,19 +185,25 @@ class Network extends Dialer {
 }
 
 /// Go: `network.Notifiee` (handle).
-class Notifiee extends GoHandle {
-  Notifiee.$h(super.$h);
+class Libp2pCoreNetworkNotifiee extends GoHandle {
+  Libp2pCoreNetworkNotifiee.$h(super.$h);
 
   /// A Dart implementation of Go's `network.Notifiee`.
   ///
   /// Go keeps the functions and calls them on the Dart event loop for as
   /// long as it holds the object; a method left out does nothing (a retained callback, WIRE.md).
-  factory Notifiee(
-      {FutureOr<void> Function(Network network, Conn conn)? connected,
-      FutureOr<void> Function(Network network, Conn conn)? disconnected,
-      FutureOr<void> Function(Network network, $multiaddr.Multiaddr multiaddr)?
+  factory Libp2pCoreNetworkNotifiee(
+      {FutureOr<void> Function(
+              Libp2pCoreNetwork network, Libp2pCoreNetworkConn conn)?
+          connected,
+      FutureOr<void> Function(
+              Libp2pCoreNetwork network, Libp2pCoreNetworkConn conn)?
+          disconnected,
+      FutureOr<void> Function(
+              Libp2pCoreNetwork network, $multiaddr.Multiaddr multiaddr)?
           listen,
-      FutureOr<void> Function(Network network, $multiaddr.Multiaddr multiaddr)?
+      FutureOr<void> Function(
+              Libp2pCoreNetwork network, $multiaddr.Multiaddr multiaddr)?
           listenClose}) {
     final $r = $callSync(
         596,
@@ -204,32 +211,35 @@ class Notifiee extends GoHandle {
           ..cb(
               connected == null
                   ? null
-                  : (r) => connected(r.hnn(Network.$h), r.hnn(Conn.$h)),
+                  : (r) => connected(r.hnn(Libp2pCoreNetwork.$h),
+                      r.hnn(Libp2pCoreNetworkConn.$h)),
               false)
           ..cb(
               disconnected == null
                   ? null
-                  : (r) => disconnected(r.hnn(Network.$h), r.hnn(Conn.$h)),
+                  : (r) => disconnected(r.hnn(Libp2pCoreNetwork.$h),
+                      r.hnn(Libp2pCoreNetworkConn.$h)),
               false)
           ..cb(
               listen == null
                   ? null
-                  : (r) => listen(r.hnn(Network.$h),
+                  : (r) => listen(r.hnn(Libp2pCoreNetwork.$h),
                       r.p() ? $multiaddr.Multiaddr(r.str()) : $nil()),
               false)
           ..cb(
               listenClose == null
                   ? null
-                  : (r) => listenClose(r.hnn(Network.$h),
+                  : (r) => listenClose(r.hnn(Libp2pCoreNetwork.$h),
                       r.p() ? $multiaddr.Multiaddr(r.str()) : $nil()),
               false));
-    return $r.hnn(Notifiee.$h);
+    return $r.hnn(Libp2pCoreNetworkNotifiee.$h);
   }
 }
 
 /// Go: `network.ResourceManager` (handle).
-class ResourceManager extends ResourceScopeViewer {
-  ResourceManager.$h(super.$h) : super.$h();
+class Libp2pCoreNetworkResourceManager
+    extends Libp2pCoreNetworkResourceScopeViewer {
+  Libp2pCoreNetworkResourceManager.$h(super.$h) : super.$h();
 
   /// Go: `func (network.ResourceScopeViewer).ViewSystem(func(network.ResourceScope) error) error`.
   ///
@@ -239,14 +249,15 @@ class ResourceManager extends ResourceScopeViewer {
   /// the callback receives Go objects that may only be valid during the
   /// invocation). Go runs at most `batchSize - 1` invocations ahead of Dart.
   Future<void> viewSystem(
-      FutureOr<void> Function(ResourceScope resourceScope) callback,
+      FutureOr<void> Function(Libp2pCoreNetworkResourceScope resourceScope)
+          callback,
       {int? batchSize}) async {
     await $callCb(
         597,
         $W()
           ..h(this)
           ..u32(batchSize ?? 1),
-        (r) => callback(r.hnn(ResourceScope.$h)));
+        (r) => callback(r.hnn(Libp2pCoreNetworkResourceScope.$h)));
   }
 
   /// Go: `func (network.ResourceScopeViewer).ViewTransient(func(network.ResourceScope) error) error`.
@@ -257,36 +268,37 @@ class ResourceManager extends ResourceScopeViewer {
   /// the callback receives Go objects that may only be valid during the
   /// invocation). Go runs at most `batchSize - 1` invocations ahead of Dart.
   Future<void> viewTransient(
-      FutureOr<void> Function(ResourceScope resourceScope) callback,
+      FutureOr<void> Function(Libp2pCoreNetworkResourceScope resourceScope)
+          callback,
       {int? batchSize}) async {
     await $callCb(
         598,
         $W()
           ..h(this)
           ..u32(batchSize ?? 1),
-        (r) => callback(r.hnn(ResourceScope.$h)));
+        (r) => callback(r.hnn(Libp2pCoreNetworkResourceScope.$h)));
   }
 }
 
 /// Go: `network.ResourceScope` (handle).
-class ResourceScope extends GoHandle {
-  ResourceScope.$h(super.$h);
+class Libp2pCoreNetworkResourceScope extends GoHandle {
+  Libp2pCoreNetworkResourceScope.$h(super.$h);
 
   /// Go: `func (network.ResourceScope).Stat() network.ScopeStat`.
-  ScopeStat stat() {
+  Libp2pCoreNetworkScopeStat stat() {
     final $r = $callSync(599, $W()..h(this));
-    return $r.p() ? ScopeStat.$dec($r) : $nil();
+    return $r.p() ? Libp2pCoreNetworkScopeStat.$dec($r) : $nil();
   }
 }
 
 /// Go: `network.ResourceScopeViewer` (handle).
-class ResourceScopeViewer extends GoHandle {
-  ResourceScopeViewer.$h(super.$h);
+class Libp2pCoreNetworkResourceScopeViewer extends GoHandle {
+  Libp2pCoreNetworkResourceScopeViewer.$h(super.$h);
 }
 
 /// Go: `network.ScopeStat`.
-final class ScopeStat implements GoDto {
-  ScopeStat(
+final class Libp2pCoreNetworkScopeStat implements GoDto {
+  Libp2pCoreNetworkScopeStat(
       {int? numStreamsInbound,
       int? numStreamsOutbound,
       int? numConnsInbound,
@@ -300,7 +312,7 @@ final class ScopeStat implements GoDto {
         numFd = numFd ?? 0,
         memory = memory ?? 0;
 
-  ScopeStat.$dec($R r)
+  Libp2pCoreNetworkScopeStat.$dec($R r)
       : numStreamsInbound = r.i64(),
         numStreamsOutbound = r.i64(),
         numConnsInbound = r.i64(),
@@ -341,13 +353,13 @@ final class ScopeStat implements GoDto {
 /// Go: `network.Stats`.
 ///
 /// Fields that do not cross the bridge: `Extra` (map keyed by any).
-final class Stats implements GoDto {
-  Stats({int? direction, DateTime? opened, bool? limited})
+final class Libp2pCoreNetworkStats implements GoDto {
+  Libp2pCoreNetworkStats({int? direction, DateTime? opened, bool? limited})
       : direction = direction ?? 0,
         opened = opened,
         limited = limited ?? false;
 
-  Stats.$dec($R r)
+  Libp2pCoreNetworkStats.$dec($R r)
       : direction = r.i64(),
         opened = r.p() ? r.time() : null,
         limited = r.b();
@@ -371,8 +383,8 @@ final class Stats implements GoDto {
 }
 
 /// Go: `network.Stream` (handle).
-class Stream$ extends MuxedStream {
-  Stream$.$h(super.$h) : super.$h();
+class Libp2pCoreNetworkStream extends Libp2pCoreNetworkMuxedStream {
+  Libp2pCoreNetworkStream.$h(super.$h) : super.$h();
 
   /// Go: `func (io.Reader).Read(p []byte) (n int, err error)`.
   ///
@@ -462,145 +474,16 @@ class Stream$ extends MuxedStream {
   }
 
   /// Go: `func (network.Stream).Conn() network.Conn`.
-  Conn conn() {
+  Libp2pCoreNetworkConn conn() {
     final $r = $callSync(603, $W()..h(this));
-    return $r.hnn(Conn.$h);
+    return $r.hnn(Libp2pCoreNetworkConn.$h);
   }
 }
 
-/// Go: `const network.CanConnect network.Connectedness`.
-const canConnect = 2;
-
-/// Go: `const network.CannotConnect network.Connectedness`.
-const cannotConnect = 3;
-
-/// Go: `const network.ConnCodeOutOfRange network.ConnErrorCode`.
-const connCodeOutOfRange = 4104;
-
-/// Go: `const network.ConnGarbageCollected network.ConnErrorCode`.
-const connGarbageCollected = 4101;
-
-/// Go: `const network.ConnGated network.ConnErrorCode`.
-const connGated = 4103;
-
-/// Go: `const network.ConnNoError network.ConnErrorCode`.
-const connNoError = 0;
-
-/// Go: `const network.ConnProtocolNegotiationFailed network.ConnErrorCode`.
-const connProtocolNegotiationFailed = 4096;
-
-/// Go: `const network.ConnProtocolViolation network.ConnErrorCode`.
-const connProtocolViolation = 4099;
-
-/// Go: `const network.ConnRateLimited network.ConnErrorCode`.
-const connRateLimited = 4098;
-
-/// Go: `const network.ConnResourceLimitExceeded network.ConnErrorCode`.
-const connResourceLimitExceeded = 4097;
-
-/// Go: `const network.ConnShutdown network.ConnErrorCode`.
-const connShutdown = 4102;
-
-/// Go: `const network.ConnSupplanted network.ConnErrorCode`.
-const connSupplanted = 4100;
-
-/// Go: `const network.Connected network.Connectedness`.
-const connected = 1;
-
-/// Go: `const network.DirInbound network.Direction`.
-const dirInbound = 1;
-
-/// Go: `const network.DirOutbound network.Direction`.
-const dirOutbound = 2;
-
-/// Go: `const network.DirUnknown network.Direction`.
-const dirUnknown = 0;
-
-/// Go: `const network.Limited network.Connectedness`.
-const limited = 4;
-
-/// Go: `const network.MessageSizeMax untyped int`.
-const messageSizeMax = 4194304;
-
-/// Go: `const network.NATDeviceTypeCone network.NATDeviceType`.
-const natDeviceTypeCone = 1;
-
-/// Go: `const network.NATDeviceTypeEndpointDependent network.NATDeviceType`.
-const natDeviceTypeEndpointDependent = 2;
-
-/// Go: `const network.NATDeviceTypeEndpointIndependent network.NATDeviceType`.
-const natDeviceTypeEndpointIndependent = 1;
-
-/// Go: `const network.NATDeviceTypeSymmetric network.NATDeviceType`.
-const natDeviceTypeSymmetric = 2;
-
-/// Go: `const network.NATDeviceTypeUnknown network.NATDeviceType`.
-const natDeviceTypeUnknown = 0;
-
-/// Go: `const network.NATTransportTCP network.NATTransportProtocol`.
-const natTransportTcp = 1;
-
-/// Go: `const network.NATTransportUDP network.NATTransportProtocol`.
-const natTransportUdp = 0;
-
-/// Go: `const network.NotConnected network.Connectedness`.
-const notConnected = 0;
-
-/// Go: `const network.ReachabilityPrivate network.Reachability`.
-const reachabilityPrivate = 2;
-
-/// Go: `const network.ReachabilityPublic network.Reachability`.
-const reachabilityPublic = 1;
-
-/// Go: `const network.ReachabilityUnknown network.Reachability`.
-const reachabilityUnknown = 0;
-
-/// Go: `const network.ReservationPriorityAlways uint8`.
-const reservationPriorityAlways = 255;
-
-/// Go: `const network.ReservationPriorityHigh uint8`.
-const reservationPriorityHigh = 203;
-
-/// Go: `const network.ReservationPriorityLow uint8`.
-const reservationPriorityLow = 101;
-
-/// Go: `const network.ReservationPriorityMedium uint8`.
-const reservationPriorityMedium = 152;
-
-/// Go: `const network.StreamCodeOutOfRange network.StreamErrorCode`.
-const streamCodeOutOfRange = 4105;
-
-/// Go: `const network.StreamGarbageCollected network.StreamErrorCode`.
-const streamGarbageCollected = 4102;
-
-/// Go: `const network.StreamGated network.StreamErrorCode`.
-const streamGated = 4104;
-
-/// Go: `const network.StreamNoError network.StreamErrorCode`.
-const streamNoError = 0;
-
-/// Go: `const network.StreamProtocolNegotiationFailed network.StreamErrorCode`.
-const streamProtocolNegotiationFailed = 4097;
-
-/// Go: `const network.StreamProtocolViolation network.StreamErrorCode`.
-const streamProtocolViolation = 4100;
-
-/// Go: `const network.StreamRateLimited network.StreamErrorCode`.
-const streamRateLimited = 4099;
-
-/// Go: `const network.StreamResourceLimitExceeded network.StreamErrorCode`.
-const streamResourceLimitExceeded = 4098;
-
-/// Go: `const network.StreamShutdown network.StreamErrorCode`.
-const streamShutdown = 4103;
-
-/// Go: `const network.StreamSupplanted network.StreamErrorCode`.
-const streamSupplanted = 4101;
-
 /// Go: `network.ConnError`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ConnError extends GolangException {
-  ConnError.$(super.base, $R r)
+class Libp2pCoreNetworkConnError extends GolangException {
+  Libp2pCoreNetworkConnError.$(super.base, $R r)
       : remote = r.b(),
         errorCode = r.i64(),
         super.$from();
@@ -617,8 +500,8 @@ class ConnError extends GolangException {
 
 /// Go: `var network.ErrLimitedConn error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrLimitedConn extends GolangException {
-  ErrLimitedConn.$(super.base) : super.$from();
+class Libp2pCoreNetworkErrLimitedConn extends GolangException {
+  Libp2pCoreNetworkErrLimitedConn.$(super.base) : super.$from();
 
   @override
   String toString() => 'network.ErrLimitedConn: $message';
@@ -626,8 +509,8 @@ class ErrLimitedConn extends GolangException {
 
 /// Go: `var network.ErrNoConn error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrNoConn extends GolangException {
-  ErrNoConn.$(super.base) : super.$from();
+class Libp2pCoreNetworkErrNoConn extends GolangException {
+  Libp2pCoreNetworkErrNoConn.$(super.base) : super.$from();
 
   @override
   String toString() => 'network.ErrNoConn: $message';
@@ -635,8 +518,8 @@ class ErrNoConn extends GolangException {
 
 /// Go: `var network.ErrNoRemoteAddrs error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrNoRemoteAddrs extends GolangException {
-  ErrNoRemoteAddrs.$(super.base) : super.$from();
+class Libp2pCoreNetworkErrNoRemoteAddrs extends GolangException {
+  Libp2pCoreNetworkErrNoRemoteAddrs.$(super.base) : super.$from();
 
   @override
   String toString() => 'network.ErrNoRemoteAddrs: $message';
@@ -644,8 +527,8 @@ class ErrNoRemoteAddrs extends GolangException {
 
 /// Go: `var network.ErrReset error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrReset extends GolangException {
-  ErrReset.$(super.base) : super.$from();
+class Libp2pCoreNetworkErrReset extends GolangException {
+  Libp2pCoreNetworkErrReset.$(super.base) : super.$from();
 
   @override
   String toString() => 'network.ErrReset: $message';
@@ -653,8 +536,8 @@ class ErrReset extends GolangException {
 
 /// Go: `var network.ErrResourceScopeClosed error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrResourceScopeClosed extends GolangException {
-  ErrResourceScopeClosed.$(super.base) : super.$from();
+class Libp2pCoreNetworkErrResourceScopeClosed extends GolangException {
+  Libp2pCoreNetworkErrResourceScopeClosed.$(super.base) : super.$from();
 
   @override
   String toString() => 'network.ErrResourceScopeClosed: $message';
@@ -662,8 +545,8 @@ class ErrResourceScopeClosed extends GolangException {
 
 /// Go: `var network.ErrTransientConn error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrTransientConn extends GolangException {
-  ErrTransientConn.$(super.base) : super.$from();
+class Libp2pCoreNetworkErrTransientConn extends GolangException {
+  Libp2pCoreNetworkErrTransientConn.$(super.base) : super.$from();
 
   @override
   String toString() => 'network.ErrTransientConn: $message';
@@ -671,8 +554,8 @@ class ErrTransientConn extends GolangException {
 
 /// Go: `network.StreamError`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class StreamError extends GolangException {
-  StreamError.$(super.base, $R r)
+class Libp2pCoreNetworkStreamError extends GolangException {
+  Libp2pCoreNetworkStreamError.$(super.base, $R r)
       : errorCode = r.i64(),
         remote = r.b(),
         super.$from();
@@ -685,4 +568,136 @@ class StreamError extends GolangException {
 
   @override
   String toString() => 'network.StreamError: $message';
+}
+
+/// Go: the package-level members of `github.com/libp2p/go-libp2p/core/network` (`Go.libp2p.core.network`).
+extension GoLibp2pCoreNetworkApi on GoLibp2pCoreNetwork {
+  /// Go: `const network.CanConnect network.Connectedness`.
+  int get canConnect => 2;
+
+  /// Go: `const network.CannotConnect network.Connectedness`.
+  int get cannotConnect => 3;
+
+  /// Go: `const network.ConnCodeOutOfRange network.ConnErrorCode`.
+  int get connCodeOutOfRange => 4104;
+
+  /// Go: `const network.ConnGarbageCollected network.ConnErrorCode`.
+  int get connGarbageCollected => 4101;
+
+  /// Go: `const network.ConnGated network.ConnErrorCode`.
+  int get connGated => 4103;
+
+  /// Go: `const network.ConnNoError network.ConnErrorCode`.
+  int get connNoError => 0;
+
+  /// Go: `const network.ConnProtocolNegotiationFailed network.ConnErrorCode`.
+  int get connProtocolNegotiationFailed => 4096;
+
+  /// Go: `const network.ConnProtocolViolation network.ConnErrorCode`.
+  int get connProtocolViolation => 4099;
+
+  /// Go: `const network.ConnRateLimited network.ConnErrorCode`.
+  int get connRateLimited => 4098;
+
+  /// Go: `const network.ConnResourceLimitExceeded network.ConnErrorCode`.
+  int get connResourceLimitExceeded => 4097;
+
+  /// Go: `const network.ConnShutdown network.ConnErrorCode`.
+  int get connShutdown => 4102;
+
+  /// Go: `const network.ConnSupplanted network.ConnErrorCode`.
+  int get connSupplanted => 4100;
+
+  /// Go: `const network.Connected network.Connectedness`.
+  int get connected => 1;
+
+  /// Go: `const network.DirInbound network.Direction`.
+  int get dirInbound => 1;
+
+  /// Go: `const network.DirOutbound network.Direction`.
+  int get dirOutbound => 2;
+
+  /// Go: `const network.DirUnknown network.Direction`.
+  int get dirUnknown => 0;
+
+  /// Go: `const network.Limited network.Connectedness`.
+  int get limited => 4;
+
+  /// Go: `const network.MessageSizeMax untyped int`.
+  int get messageSizeMax => 4194304;
+
+  /// Go: `const network.NATDeviceTypeCone network.NATDeviceType`.
+  int get natDeviceTypeCone => 1;
+
+  /// Go: `const network.NATDeviceTypeEndpointDependent network.NATDeviceType`.
+  int get natDeviceTypeEndpointDependent => 2;
+
+  /// Go: `const network.NATDeviceTypeEndpointIndependent network.NATDeviceType`.
+  int get natDeviceTypeEndpointIndependent => 1;
+
+  /// Go: `const network.NATDeviceTypeSymmetric network.NATDeviceType`.
+  int get natDeviceTypeSymmetric => 2;
+
+  /// Go: `const network.NATDeviceTypeUnknown network.NATDeviceType`.
+  int get natDeviceTypeUnknown => 0;
+
+  /// Go: `const network.NATTransportTCP network.NATTransportProtocol`.
+  int get natTransportTcp => 1;
+
+  /// Go: `const network.NATTransportUDP network.NATTransportProtocol`.
+  int get natTransportUdp => 0;
+
+  /// Go: `const network.NotConnected network.Connectedness`.
+  int get notConnected => 0;
+
+  /// Go: `const network.ReachabilityPrivate network.Reachability`.
+  int get reachabilityPrivate => 2;
+
+  /// Go: `const network.ReachabilityPublic network.Reachability`.
+  int get reachabilityPublic => 1;
+
+  /// Go: `const network.ReachabilityUnknown network.Reachability`.
+  int get reachabilityUnknown => 0;
+
+  /// Go: `const network.ReservationPriorityAlways uint8`.
+  int get reservationPriorityAlways => 255;
+
+  /// Go: `const network.ReservationPriorityHigh uint8`.
+  int get reservationPriorityHigh => 203;
+
+  /// Go: `const network.ReservationPriorityLow uint8`.
+  int get reservationPriorityLow => 101;
+
+  /// Go: `const network.ReservationPriorityMedium uint8`.
+  int get reservationPriorityMedium => 152;
+
+  /// Go: `const network.StreamCodeOutOfRange network.StreamErrorCode`.
+  int get streamCodeOutOfRange => 4105;
+
+  /// Go: `const network.StreamGarbageCollected network.StreamErrorCode`.
+  int get streamGarbageCollected => 4102;
+
+  /// Go: `const network.StreamGated network.StreamErrorCode`.
+  int get streamGated => 4104;
+
+  /// Go: `const network.StreamNoError network.StreamErrorCode`.
+  int get streamNoError => 0;
+
+  /// Go: `const network.StreamProtocolNegotiationFailed network.StreamErrorCode`.
+  int get streamProtocolNegotiationFailed => 4097;
+
+  /// Go: `const network.StreamProtocolViolation network.StreamErrorCode`.
+  int get streamProtocolViolation => 4100;
+
+  /// Go: `const network.StreamRateLimited network.StreamErrorCode`.
+  int get streamRateLimited => 4099;
+
+  /// Go: `const network.StreamResourceLimitExceeded network.StreamErrorCode`.
+  int get streamResourceLimitExceeded => 4098;
+
+  /// Go: `const network.StreamShutdown network.StreamErrorCode`.
+  int get streamShutdown => 4103;
+
+  /// Go: `const network.StreamSupplanted network.StreamErrorCode`.
+  int get streamSupplanted => 4101;
 }

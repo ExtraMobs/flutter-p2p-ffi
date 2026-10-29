@@ -5,13 +5,13 @@ library;
 import 'package:p2p_ffi/src/runtime.dart';
 
 /// Go: `metrics.Reporter` (handle).
-class Reporter extends GoHandle {
-  Reporter.$h(super.$h);
+class Libp2pCoreMetricsReporter extends GoHandle {
+  Libp2pCoreMetricsReporter.$h(super.$h);
 }
 
 /// Go: `metrics.Stats` (a kubo command output).
-final class Stats {
-  Stats.$dec($R r)
+final class Libp2pCoreMetricsStats {
+  Libp2pCoreMetricsStats.$dec($R r)
       : totalIn = r.i64(),
         totalOut = r.i64(),
         rateIn = r.f64(),

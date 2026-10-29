@@ -5,45 +5,45 @@ library;
 import 'package:p2p_ffi/src/runtime.dart';
 
 /// Go: `stats.Stats` (a kubo command output).
-final class Stats {
-  Stats.$dec($R r)
+final class Libp2pKadDhtProviderStats {
+  Libp2pKadDhtProviderStats.$dec($R r)
       : closed = r.b(),
-        connectivity = Connectivity.$dec(r),
-        queues = Queues.$dec(r),
-        schedule = Schedule.$dec(r),
-        workers = Workers.$dec(r),
-        timing = Timing.$dec(r),
-        operations = Operations.$dec(r),
-        network = Network.$dec(r);
+        connectivity = Libp2pKadDhtProviderStatsConnectivity.$dec(r),
+        queues = Libp2pKadDhtProviderStatsQueues.$dec(r),
+        schedule = Libp2pKadDhtProviderStatsSchedule.$dec(r),
+        workers = Libp2pKadDhtProviderStatsWorkers.$dec(r),
+        timing = Libp2pKadDhtProviderStatsTiming.$dec(r),
+        operations = Libp2pKadDhtProviderStatsOperations.$dec(r),
+        network = Libp2pKadDhtProviderStatsNetwork.$dec(r);
 
   /// Go: `Closed`.
   final bool closed;
 
   /// Go: `Connectivity`.
-  final Connectivity connectivity;
+  final Libp2pKadDhtProviderStatsConnectivity connectivity;
 
   /// Go: `Queues`.
-  final Queues queues;
+  final Libp2pKadDhtProviderStatsQueues queues;
 
   /// Go: `Schedule`.
-  final Schedule schedule;
+  final Libp2pKadDhtProviderStatsSchedule schedule;
 
   /// Go: `Workers`.
-  final Workers workers;
+  final Libp2pKadDhtProviderStatsWorkers workers;
 
   /// Go: `Timing`.
-  final Timing timing;
+  final Libp2pKadDhtProviderStatsTiming timing;
 
   /// Go: `Operations`.
-  final Operations operations;
+  final Libp2pKadDhtProviderStatsOperations operations;
 
   /// Go: `Network`.
-  final Network network;
+  final Libp2pKadDhtProviderStatsNetwork network;
 }
 
 /// Go: `stats.Connectivity` (a kubo command output).
-final class Connectivity {
-  Connectivity.$dec($R r)
+final class Libp2pKadDhtProviderStatsConnectivity {
+  Libp2pKadDhtProviderStatsConnectivity.$dec($R r)
       : status = r.str(),
         since = r.p() ? r.time() : null;
 
@@ -55,8 +55,8 @@ final class Connectivity {
 }
 
 /// Go: `stats.Queues` (a kubo command output).
-final class Queues {
-  Queues.$dec($R r)
+final class Libp2pKadDhtProviderStatsQueues {
+  Libp2pKadDhtProviderStatsQueues.$dec($R r)
       : pendingKeyProvides = r.i64(),
         pendingRegionProvides = r.i64(),
         pendingRegionReprovides = r.i64();
@@ -72,8 +72,8 @@ final class Queues {
 }
 
 /// Go: `stats.Schedule` (a kubo command output).
-final class Schedule {
-  Schedule.$dec($R r)
+final class Libp2pKadDhtProviderStatsSchedule {
+  Libp2pKadDhtProviderStatsSchedule.$dec($R r)
       : keys = r.i64(),
         regions = r.i64(),
         avgPrefixLength = r.f64(),
@@ -97,8 +97,8 @@ final class Schedule {
 }
 
 /// Go: `stats.Workers` (a kubo command output).
-final class Workers {
-  Workers.$dec($R r)
+final class Libp2pKadDhtProviderStatsWorkers {
+  Libp2pKadDhtProviderStatsWorkers.$dec($R r)
       : max = r.i64(),
         active = r.i64(),
         activePeriodic = r.i64(),
@@ -138,8 +138,8 @@ final class Workers {
 }
 
 /// Go: `stats.Timing` (a kubo command output).
-final class Timing {
-  Timing.$dec($R r)
+final class Libp2pKadDhtProviderStatsTiming {
+  Libp2pKadDhtProviderStatsTiming.$dec($R r)
       : uptime = Duration(microseconds: r.i64() ~/ 1000),
         reprovidesInterval = Duration(microseconds: r.i64() ~/ 1000),
         cycleStart = r.p() ? r.time() : null,
@@ -163,21 +163,21 @@ final class Timing {
 }
 
 /// Go: `stats.Operations` (a kubo command output).
-final class Operations {
-  Operations.$dec($R r)
-      : ongoing = OngoingOperations.$dec(r),
-        past = PastOperations.$dec(r);
+final class Libp2pKadDhtProviderStatsOperations {
+  Libp2pKadDhtProviderStatsOperations.$dec($R r)
+      : ongoing = Libp2pKadDhtProviderStatsOngoingOperations.$dec(r),
+        past = Libp2pKadDhtProviderStatsPastOperations.$dec(r);
 
   /// Go: `Ongoing`.
-  final OngoingOperations ongoing;
+  final Libp2pKadDhtProviderStatsOngoingOperations ongoing;
 
   /// Go: `Past`.
-  final PastOperations past;
+  final Libp2pKadDhtProviderStatsPastOperations past;
 }
 
 /// Go: `stats.OngoingOperations` (a kubo command output).
-final class OngoingOperations {
-  OngoingOperations.$dec($R r)
+final class Libp2pKadDhtProviderStatsOngoingOperations {
+  Libp2pKadDhtProviderStatsOngoingOperations.$dec($R r)
       : regionProvides = r.i64(),
         keyProvides = r.i64(),
         regionReprovides = r.i64(),
@@ -197,8 +197,8 @@ final class OngoingOperations {
 }
 
 /// Go: `stats.PastOperations` (a kubo command output).
-final class PastOperations {
-  PastOperations.$dec($R r)
+final class Libp2pKadDhtProviderStatsPastOperations {
+  Libp2pKadDhtProviderStatsPastOperations.$dec($R r)
       : recordsProvided = r.i64(),
         keysProvided = r.i64(),
         keysFailed = r.i64(),
@@ -234,8 +234,8 @@ final class PastOperations {
 }
 
 /// Go: `stats.Network` (a kubo command output).
-final class Network {
-  Network.$dec($R r)
+final class Libp2pKadDhtProviderStatsNetwork {
+  Libp2pKadDhtProviderStatsNetwork.$dec($R r)
       : peers = r.i64(),
         reachable = r.i64(),
         completeKeyspaceCoverage = r.b(),

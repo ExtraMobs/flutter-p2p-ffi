@@ -2,6 +2,7 @@
 // Go: github.com/libp2p/go-libp2p/core/event
 library;
 
+import 'package:p2p_ffi/src/go.dart' show GoLibp2pCoreEvent;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/io.dart' as $io;
 import 'package:p2p_ffi/go/libp2p/core/network.dart' as $network;
@@ -10,26 +11,27 @@ import 'package:p2p_ffi/go/libp2p/core/record.dart' as $record;
 import 'package:p2p_ffi/go/multiaddr.dart' as $multiaddr;
 
 /// Go: `event.Bus` (handle).
-class Bus extends GoHandle {
-  Bus.$h(super.$h);
+class Libp2pCoreEventBus extends GoHandle {
+  Libp2pCoreEventBus.$h(super.$h);
 
   /// Go: `func (event.Bus).Subscribe(eventType any, opts ...event.SubscriptionOpt) (event.Subscription, error)`.
-  Subscription subscribe(Object? eventType) {
+  Libp2pCoreEventSubscription subscribe(Object? eventType) {
     final $r = $callSync(
         563,
         $W()
           ..h(this)
           ..any(eventType));
-    return $r.hnn(Subscription.$h);
+    return $r.hnn(Libp2pCoreEventSubscription.$h);
   }
 }
 
 /// Go: `event.EvtAutoRelayAddrsUpdated`.
-final class EvtAutoRelayAddrsUpdated implements GoDto {
-  EvtAutoRelayAddrsUpdated({List<$multiaddr.Multiaddr>? relayAddrs})
+final class Libp2pCoreEventEvtAutoRelayAddrsUpdated implements GoDto {
+  Libp2pCoreEventEvtAutoRelayAddrsUpdated(
+      {List<$multiaddr.Multiaddr>? relayAddrs})
       : relayAddrs = relayAddrs ?? [];
 
-  EvtAutoRelayAddrsUpdated.$dec($R r)
+  Libp2pCoreEventEvtAutoRelayAddrsUpdated.$dec($R r)
       : relayAddrs =
             r.list(() => r.p() ? $multiaddr.Multiaddr(r.str()) : $nil());
 
@@ -42,13 +44,13 @@ final class EvtAutoRelayAddrsUpdated implements GoDto {
   }
 
   /// The Go type as a token, for a parameter that takes the type by example:
-  /// Go gets `new(EvtAutoRelayAddrsUpdated)` (`bus.subscribe(EvtAutoRelayAddrsUpdated.$type)`).
+  /// Go gets `new(EvtAutoRelayAddrsUpdated)` (`bus.subscribe(Libp2pCoreEventEvtAutoRelayAddrsUpdated.$type)`).
   static const $type = GoToken(1);
 }
 
 /// Go: `event.EvtHostReachableAddrsChanged`.
-final class EvtHostReachableAddrsChanged implements GoDto {
-  EvtHostReachableAddrsChanged(
+final class Libp2pCoreEventEvtHostReachableAddrsChanged implements GoDto {
+  Libp2pCoreEventEvtHostReachableAddrsChanged(
       {List<$multiaddr.Multiaddr>? reachable,
       List<$multiaddr.Multiaddr>? unreachable,
       List<$multiaddr.Multiaddr>? unknown})
@@ -56,7 +58,7 @@ final class EvtHostReachableAddrsChanged implements GoDto {
         unreachable = unreachable ?? [],
         unknown = unknown ?? [];
 
-  EvtHostReachableAddrsChanged.$dec($R r)
+  Libp2pCoreEventEvtHostReachableAddrsChanged.$dec($R r)
       : reachable =
             r.list(() => r.p() ? $multiaddr.Multiaddr(r.str()) : $nil()),
         unreachable =
@@ -81,39 +83,41 @@ final class EvtHostReachableAddrsChanged implements GoDto {
   }
 
   /// The Go type as a token, for a parameter that takes the type by example:
-  /// Go gets `new(EvtHostReachableAddrsChanged)` (`bus.subscribe(EvtHostReachableAddrsChanged.$type)`).
+  /// Go gets `new(EvtHostReachableAddrsChanged)` (`bus.subscribe(Libp2pCoreEventEvtHostReachableAddrsChanged.$type)`).
   static const $type = GoToken(2);
 }
 
 /// Go: `event.EvtLocalAddressesUpdated`.
-final class EvtLocalAddressesUpdated implements GoDto {
-  EvtLocalAddressesUpdated(
+final class Libp2pCoreEventEvtLocalAddressesUpdated implements GoDto {
+  Libp2pCoreEventEvtLocalAddressesUpdated(
       {bool? diffs,
-      List<UpdatedAddress>? current,
-      List<UpdatedAddress>? removed,
-      $record.Envelope? signedPeerRecord})
+      List<Libp2pCoreEventUpdatedAddress>? current,
+      List<Libp2pCoreEventUpdatedAddress>? removed,
+      $record.Libp2pCoreRecordEnvelope? signedPeerRecord})
       : diffs = diffs ?? false,
         current = current ?? [],
         removed = removed ?? [],
         signedPeerRecord = signedPeerRecord;
 
-  EvtLocalAddressesUpdated.$dec($R r)
+  Libp2pCoreEventEvtLocalAddressesUpdated.$dec($R r)
       : diffs = r.b(),
-        current = r.list(() => r.p() ? UpdatedAddress.$dec(r) : $nil()),
-        removed = r.list(() => r.p() ? UpdatedAddress.$dec(r) : $nil()),
-        signedPeerRecord = r.hn($record.Envelope.$h);
+        current = r
+            .list(() => r.p() ? Libp2pCoreEventUpdatedAddress.$dec(r) : $nil()),
+        removed = r
+            .list(() => r.p() ? Libp2pCoreEventUpdatedAddress.$dec(r) : $nil()),
+        signedPeerRecord = r.hn($record.Libp2pCoreRecordEnvelope.$h);
 
   /// Go: `Diffs`.
   bool diffs;
 
   /// Go: `Current`.
-  List<UpdatedAddress> current;
+  List<Libp2pCoreEventUpdatedAddress> current;
 
   /// Go: `Removed`.
-  List<UpdatedAddress> removed;
+  List<Libp2pCoreEventUpdatedAddress> removed;
 
   /// Go: `SignedPeerRecord`.
-  $record.Envelope? signedPeerRecord;
+  $record.Libp2pCoreRecordEnvelope? signedPeerRecord;
 
   @override
   void $enc($W w) {
@@ -125,17 +129,18 @@ final class EvtLocalAddressesUpdated implements GoDto {
   }
 
   /// The Go type as a token, for a parameter that takes the type by example:
-  /// Go gets `new(EvtLocalAddressesUpdated)` (`bus.subscribe(EvtLocalAddressesUpdated.$type)`).
+  /// Go gets `new(EvtLocalAddressesUpdated)` (`bus.subscribe(Libp2pCoreEventEvtLocalAddressesUpdated.$type)`).
   static const $type = GoToken(3);
 }
 
 /// Go: `event.EvtLocalProtocolsUpdated`.
-final class EvtLocalProtocolsUpdated implements GoDto {
-  EvtLocalProtocolsUpdated({List<String>? added, List<String>? removed})
+final class Libp2pCoreEventEvtLocalProtocolsUpdated implements GoDto {
+  Libp2pCoreEventEvtLocalProtocolsUpdated(
+      {List<String>? added, List<String>? removed})
       : added = added ?? [],
         removed = removed ?? [];
 
-  EvtLocalProtocolsUpdated.$dec($R r)
+  Libp2pCoreEventEvtLocalProtocolsUpdated.$dec($R r)
       : added = r.list(() => r.str()),
         removed = r.list(() => r.str());
 
@@ -153,16 +158,17 @@ final class EvtLocalProtocolsUpdated implements GoDto {
   }
 
   /// The Go type as a token, for a parameter that takes the type by example:
-  /// Go gets `new(EvtLocalProtocolsUpdated)` (`bus.subscribe(EvtLocalProtocolsUpdated.$type)`).
+  /// Go gets `new(EvtLocalProtocolsUpdated)` (`bus.subscribe(Libp2pCoreEventEvtLocalProtocolsUpdated.$type)`).
   static const $type = GoToken(4);
 }
 
 /// Go: `event.EvtLocalReachabilityChanged`.
-final class EvtLocalReachabilityChanged implements GoDto {
-  EvtLocalReachabilityChanged({int? reachability})
+final class Libp2pCoreEventEvtLocalReachabilityChanged implements GoDto {
+  Libp2pCoreEventEvtLocalReachabilityChanged({int? reachability})
       : reachability = reachability ?? 0;
 
-  EvtLocalReachabilityChanged.$dec($R r) : reachability = r.i64();
+  Libp2pCoreEventEvtLocalReachabilityChanged.$dec($R r)
+      : reachability = r.i64();
 
   /// Go: `Reachability`.
   int reachability;
@@ -173,17 +179,18 @@ final class EvtLocalReachabilityChanged implements GoDto {
   }
 
   /// The Go type as a token, for a parameter that takes the type by example:
-  /// Go gets `new(EvtLocalReachabilityChanged)` (`bus.subscribe(EvtLocalReachabilityChanged.$type)`).
+  /// Go gets `new(EvtLocalReachabilityChanged)` (`bus.subscribe(Libp2pCoreEventEvtLocalReachabilityChanged.$type)`).
   static const $type = GoToken(5);
 }
 
 /// Go: `event.EvtNATDeviceTypeChanged`.
-final class EvtNatDeviceTypeChanged implements GoDto {
-  EvtNatDeviceTypeChanged({int? transportProtocol, int? natDeviceType})
+final class Libp2pCoreEventEvtNatDeviceTypeChanged implements GoDto {
+  Libp2pCoreEventEvtNatDeviceTypeChanged(
+      {int? transportProtocol, int? natDeviceType})
       : transportProtocol = transportProtocol ?? 0,
         natDeviceType = natDeviceType ?? 0;
 
-  EvtNatDeviceTypeChanged.$dec($R r)
+  Libp2pCoreEventEvtNatDeviceTypeChanged.$dec($R r)
       : transportProtocol = r.i64(),
         natDeviceType = r.i64();
 
@@ -201,22 +208,23 @@ final class EvtNatDeviceTypeChanged implements GoDto {
   }
 
   /// The Go type as a token, for a parameter that takes the type by example:
-  /// Go gets `new(EvtNATDeviceTypeChanged)` (`bus.subscribe(EvtNatDeviceTypeChanged.$type)`).
+  /// Go gets `new(EvtNATDeviceTypeChanged)` (`bus.subscribe(Libp2pCoreEventEvtNatDeviceTypeChanged.$type)`).
   static const $type = GoToken(6);
 }
 
 /// Go: `event.EvtPeerConnectednessChanged`.
-final class EvtPeerConnectednessChanged implements GoDto {
-  EvtPeerConnectednessChanged({$peer.Id? peer, int? connectedness})
+final class Libp2pCoreEventEvtPeerConnectednessChanged implements GoDto {
+  Libp2pCoreEventEvtPeerConnectednessChanged(
+      {$peer.Libp2pCorePeerId? peer, int? connectedness})
       : peer = peer,
         connectedness = connectedness ?? 0;
 
-  EvtPeerConnectednessChanged.$dec($R r)
-      : peer = r.p() ? $peer.Id(r.str()) : null,
+  Libp2pCoreEventEvtPeerConnectednessChanged.$dec($R r)
+      : peer = r.p() ? $peer.Libp2pCorePeerId(r.str()) : null,
         connectedness = r.i64();
 
   /// Go: `Peer`.
-  $peer.Id? peer;
+  $peer.Libp2pCorePeerId? peer;
 
   /// Go: `Connectedness`.
   int connectedness;
@@ -229,18 +237,18 @@ final class EvtPeerConnectednessChanged implements GoDto {
   }
 
   /// The Go type as a token, for a parameter that takes the type by example:
-  /// Go gets `new(EvtPeerConnectednessChanged)` (`bus.subscribe(EvtPeerConnectednessChanged.$type)`).
+  /// Go gets `new(EvtPeerConnectednessChanged)` (`bus.subscribe(Libp2pCoreEventEvtPeerConnectednessChanged.$type)`).
   static const $type = GoToken(7);
 }
 
 /// Go: `event.EvtPeerIdentificationCompleted`.
-final class EvtPeerIdentificationCompleted implements GoDto {
-  EvtPeerIdentificationCompleted(
-      {$peer.Id? peer,
-      $network.Conn? conn,
+final class Libp2pCoreEventEvtPeerIdentificationCompleted implements GoDto {
+  Libp2pCoreEventEvtPeerIdentificationCompleted(
+      {$peer.Libp2pCorePeerId? peer,
+      $network.Libp2pCoreNetworkConn? conn,
       List<$multiaddr.Multiaddr>? listenAddrs,
       List<String>? protocols,
-      $record.Envelope? signedPeerRecord,
+      $record.Libp2pCoreRecordEnvelope? signedPeerRecord,
       String? agentVersion,
       String? protocolVersion,
       $multiaddr.Multiaddr? observedAddr})
@@ -253,22 +261,22 @@ final class EvtPeerIdentificationCompleted implements GoDto {
         protocolVersion = protocolVersion ?? '',
         observedAddr = observedAddr;
 
-  EvtPeerIdentificationCompleted.$dec($R r)
-      : peer = r.p() ? $peer.Id(r.str()) : null,
-        conn = r.hn($network.Conn.$h),
+  Libp2pCoreEventEvtPeerIdentificationCompleted.$dec($R r)
+      : peer = r.p() ? $peer.Libp2pCorePeerId(r.str()) : null,
+        conn = r.hn($network.Libp2pCoreNetworkConn.$h),
         listenAddrs =
             r.list(() => r.p() ? $multiaddr.Multiaddr(r.str()) : $nil()),
         protocols = r.list(() => r.str()),
-        signedPeerRecord = r.hn($record.Envelope.$h),
+        signedPeerRecord = r.hn($record.Libp2pCoreRecordEnvelope.$h),
         agentVersion = r.str(),
         protocolVersion = r.str(),
         observedAddr = r.p() ? $multiaddr.Multiaddr(r.str()) : null;
 
   /// Go: `Peer`.
-  $peer.Id? peer;
+  $peer.Libp2pCorePeerId? peer;
 
   /// Go: `Conn`.
-  $network.Conn? conn;
+  $network.Libp2pCoreNetworkConn? conn;
 
   /// Go: `ListenAddrs`.
   List<$multiaddr.Multiaddr> listenAddrs;
@@ -277,7 +285,7 @@ final class EvtPeerIdentificationCompleted implements GoDto {
   List<String> protocols;
 
   /// Go: `SignedPeerRecord`.
-  $record.Envelope? signedPeerRecord;
+  $record.Libp2pCoreRecordEnvelope? signedPeerRecord;
 
   /// Go: `AgentVersion`.
   String agentVersion;
@@ -302,22 +310,23 @@ final class EvtPeerIdentificationCompleted implements GoDto {
   }
 
   /// The Go type as a token, for a parameter that takes the type by example:
-  /// Go gets `new(EvtPeerIdentificationCompleted)` (`bus.subscribe(EvtPeerIdentificationCompleted.$type)`).
+  /// Go gets `new(EvtPeerIdentificationCompleted)` (`bus.subscribe(Libp2pCoreEventEvtPeerIdentificationCompleted.$type)`).
   static const $type = GoToken(8);
 }
 
 /// Go: `event.EvtPeerIdentificationFailed`.
-final class EvtPeerIdentificationFailed implements GoDto {
-  EvtPeerIdentificationFailed({$peer.Id? peer, String? reason})
+final class Libp2pCoreEventEvtPeerIdentificationFailed implements GoDto {
+  Libp2pCoreEventEvtPeerIdentificationFailed(
+      {$peer.Libp2pCorePeerId? peer, String? reason})
       : peer = peer,
         reason = reason;
 
-  EvtPeerIdentificationFailed.$dec($R r)
-      : peer = r.p() ? $peer.Id(r.str()) : null,
+  Libp2pCoreEventEvtPeerIdentificationFailed.$dec($R r)
+      : peer = r.p() ? $peer.Libp2pCorePeerId(r.str()) : null,
         reason = r.err();
 
   /// Go: `Peer`.
-  $peer.Id? peer;
+  $peer.Libp2pCorePeerId? peer;
 
   /// Go: `Reason`.
   String? reason;
@@ -330,25 +339,27 @@ final class EvtPeerIdentificationFailed implements GoDto {
   }
 
   /// The Go type as a token, for a parameter that takes the type by example:
-  /// Go gets `new(EvtPeerIdentificationFailed)` (`bus.subscribe(EvtPeerIdentificationFailed.$type)`).
+  /// Go gets `new(EvtPeerIdentificationFailed)` (`bus.subscribe(Libp2pCoreEventEvtPeerIdentificationFailed.$type)`).
   static const $type = GoToken(9);
 }
 
 /// Go: `event.EvtPeerProtocolsUpdated`.
-final class EvtPeerProtocolsUpdated implements GoDto {
-  EvtPeerProtocolsUpdated(
-      {$peer.Id? peer, List<String>? added, List<String>? removed})
+final class Libp2pCoreEventEvtPeerProtocolsUpdated implements GoDto {
+  Libp2pCoreEventEvtPeerProtocolsUpdated(
+      {$peer.Libp2pCorePeerId? peer,
+      List<String>? added,
+      List<String>? removed})
       : peer = peer,
         added = added ?? [],
         removed = removed ?? [];
 
-  EvtPeerProtocolsUpdated.$dec($R r)
-      : peer = r.p() ? $peer.Id(r.str()) : null,
+  Libp2pCoreEventEvtPeerProtocolsUpdated.$dec($R r)
+      : peer = r.p() ? $peer.Libp2pCorePeerId(r.str()) : null,
         added = r.list(() => r.str()),
         removed = r.list(() => r.str());
 
   /// Go: `Peer`.
-  $peer.Id? peer;
+  $peer.Libp2pCorePeerId? peer;
 
   /// Go: `Added`.
   List<String> added;
@@ -365,13 +376,13 @@ final class EvtPeerProtocolsUpdated implements GoDto {
   }
 
   /// The Go type as a token, for a parameter that takes the type by example:
-  /// Go gets `new(EvtPeerProtocolsUpdated)` (`bus.subscribe(EvtPeerProtocolsUpdated.$type)`).
+  /// Go gets `new(EvtPeerProtocolsUpdated)` (`bus.subscribe(Libp2pCoreEventEvtPeerProtocolsUpdated.$type)`).
   static const $type = GoToken(10);
 }
 
 /// Go: `event.Subscription` (handle).
-class Subscription extends $io.Closer {
-  Subscription.$h(super.$h) : super.$h();
+class Libp2pCoreEventSubscription extends $io.IoCloser {
+  Libp2pCoreEventSubscription.$h(super.$h) : super.$h();
 
   /// Go: `func (event.Subscription).Out() <-chan any`.
   Stream<Object?> out() => $stream(566, $W()..h(this)).map((r) => r.any());
@@ -389,12 +400,12 @@ class Subscription extends $io.Closer {
 }
 
 /// Go: `event.UpdatedAddress`.
-final class UpdatedAddress implements GoDto {
-  UpdatedAddress({$multiaddr.Multiaddr? address, int? action})
+final class Libp2pCoreEventUpdatedAddress implements GoDto {
+  Libp2pCoreEventUpdatedAddress({$multiaddr.Multiaddr? address, int? action})
       : address = address,
         action = action ?? 0;
 
-  UpdatedAddress.$dec($R r)
+  Libp2pCoreEventUpdatedAddress.$dec($R r)
       : address = r.p() ? $multiaddr.Multiaddr(r.str()) : null,
         action = r.i64();
 
@@ -412,14 +423,17 @@ final class UpdatedAddress implements GoDto {
   }
 }
 
-/// Go: `const event.Added event.AddrAction`.
-const added = 1;
+/// Go: the package-level members of `github.com/libp2p/go-libp2p/core/event` (`Go.libp2p.core.event`).
+extension GoLibp2pCoreEventApi on GoLibp2pCoreEvent {
+  /// Go: `const event.Added event.AddrAction`.
+  int get added => 1;
 
-/// Go: `const event.Maintained event.AddrAction`.
-const maintained = 2;
+  /// Go: `const event.Maintained event.AddrAction`.
+  int get maintained => 2;
 
-/// Go: `const event.Removed event.AddrAction`.
-const removed = 3;
+  /// Go: `const event.Removed event.AddrAction`.
+  int get removed => 3;
 
-/// Go: `const event.Unknown event.AddrAction`.
-const unknown = 0;
+  /// Go: `const event.Unknown event.AddrAction`.
+  int get unknown => 0;
+}

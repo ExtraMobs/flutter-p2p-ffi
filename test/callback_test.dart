@@ -5,9 +5,6 @@
 // kubo no meio. Exige `dart run tool/build.dart`.
 import 'dart:typed_data';
 
-import 'package:p2p_ffi/go/car/v2/index.dart' as index;
-import 'package:p2p_ffi/go/multicodec.dart' as multicodec;
-import 'package:p2p_ffi/go/cid.dart' as cid;
 import 'package:p2p_ffi/p2p_ffi.dart';
 import 'package:p2p_ffi/src/runtime.dart' show $W, $callCb, $callSync, GoHandle;
 import 'package:test/test.dart';
@@ -88,11 +85,11 @@ void main() {
   });
 
   test('index: forEach e getAll', () async {
-    final idx = index.new$(multicodec.carMultihashIndexSorted);
+    final idx = Go.car.v2.index.new$(Go.multicodec.carMultihashIndexSorted);
     idx.load([
       for (var i = 0; i < 5; i++)
-        index.Record$(
-            cid: cid.newPrefixV1(0x55, 0x12).sum(Uint8List.fromList([i])),
+        CarV2IndexRecord(
+            cid: Go.cid.newPrefixV1(0x55, 0x12).sum(Uint8List.fromList([i])),
             offset: 100 + i)
     ]);
     final it = idx.asIterableIndex()!;
@@ -106,7 +103,7 @@ void main() {
     });
     expect(offsets..sort(), [100, 101, 102, 103, 104]);
 
-    final c = cid.newPrefixV1(0x55, 0x12).sum(Uint8List.fromList([3]));
+    final c = Go.cid.newPrefixV1(0x55, 0x12).sum(Uint8List.fromList([3]));
     final got = <int>[];
     await idx.getAll(c, (offset) {
       got.add(offset);

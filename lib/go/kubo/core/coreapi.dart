@@ -2,18 +2,22 @@
 // Go: github.com/ipfs/kubo/core/coreapi
 library;
 
+import 'package:p2p_ffi/src/go.dart' show GoKuboCoreCoreapi;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/kubo/core.dart' as $core;
 import 'package:p2p_ffi/go/kubo/core/coreiface.dart' as $coreiface;
 import 'package:p2p_ffi/go/kubo/core/coreiface/options.dart' as $options;
 
-/// Go: `func coreapi.NewCoreAPI(n *core.IpfsNode, opts ...options.ApiOption) (iface.CoreAPI, error)`.
-$coreiface.CoreApi newCoreApi($core.IpfsNode n,
-    [List<$options.ApiOption> opts = const []]) {
-  final $r = $callSync(
-      294,
-      $W()
-        ..h(n)
-        ..list(opts, (w0, e0) => w0.opt(e0)));
-  return $r.hnn($coreiface.CoreApi.$h);
+/// Go: the package-level members of `github.com/ipfs/kubo/core/coreapi` (`Go.kubo.core.coreapi`).
+extension GoKuboCoreCoreapiApi on GoKuboCoreCoreapi {
+  /// Go: `func coreapi.NewCoreAPI(n *core.IpfsNode, opts ...options.ApiOption) (iface.CoreAPI, error)`.
+  $coreiface.KuboCoreCoreifaceCoreApi newCoreApi($core.KuboCoreIpfsNode n,
+      [List<$options.KuboCoreCoreifaceOptionsApiOption> opts = const []]) {
+    final $r = $callSync(
+        294,
+        $W()
+          ..h(n)
+          ..list(opts, (w0, e0) => w0.opt(e0)));
+    return $r.hnn($coreiface.KuboCoreCoreifaceCoreApi.$h);
+  }
 }

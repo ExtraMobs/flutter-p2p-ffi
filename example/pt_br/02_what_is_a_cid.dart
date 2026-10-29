@@ -25,10 +25,6 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:p2p_ffi/go/cid.dart' as cid;
-import 'package:p2p_ffi/go/multibase.dart' as multibase;
-import 'package:p2p_ffi/go/multicodec.dart' as multicodec;
-import 'package:p2p_ffi/go/multihash.dart' as multihash;
 import 'package:p2p_ffi/p2p_ffi.dart';
 
 import 'lesson.dart';
@@ -40,7 +36,7 @@ Future<void> main() async {
     //    Sum calcula o hash dos bytes e monta o CID.
     //    Go:  p := cid.NewPrefixV1(cid.Raw, multihash.SHA2_256)
     //         c, _ := p.Sum(data)
-    final raw = cid.newPrefixV1(cid.raw, multihash.sha2256);
+    final raw = Go.cid.newPrefixV1(Go.cid.raw, Go.multihash.sha2256);
     final hello = raw.sum(utf8.encode('hello'));
     say('"hello" como bytes crus:   $hello');
     say('  os mesmos bytes de novo: ${raw.sum(utf8.encode('hello'))} '
@@ -65,21 +61,21 @@ Future<void> main() async {
     // 3. O texto é só uma base: o mesmo CID escrito de três jeitos.
     say('\no mesmo CID em três bases:');
     for (final (name, base) in [
-      ('base32', multibase.base32), // 'b', o padrão do CIDv1
-      ('base58btc', multibase.base58btc), // 'z', a única base do CIDv0
+      ('base32', Go.multibase.base32), // 'b', o padrão do CIDv1
+      ('base58btc', Go.multibase.base58btc), // 'z', a única base do CIDv0
       (
         'base36',
-        multibase.base36
+        Go.multibase.base36
       ), // 'k', para subdomínios (sem maiúsculas, curto)
     ]) {
       final text = hello.stringOfBase(base);
       say('  ${name.padRight(9)} $text  (decodifica para o mesmo: '
-          '${cid.decode(text).equals(hello)})');
+          '${Go.cid.decode(text).equals(hello)})');
     }
 
     // 4. O codec faz parte do nome: os mesmos bytes lidos como raw ou como
     //    dag-pb são CIDs diferentes com o mesmo hash.
-    final asDagPb = cid.newCidV1(multicodec.dagPb, mh);
+    final asDagPb = Go.cid.newCidV1(Go.multicodec.dagPb, mh);
     say('\no mesmo hash com o codec dag-pb: $asDagPb');
     say('  mesmo hash: ${hex(asDagPb.hash()) == hex(mh)}, mesmo CID: '
         '${asDagPb.equals(hello)}');
@@ -87,17 +83,18 @@ Future<void> main() async {
     // 5. CIDv0: o antigo `Qm...`, sha2-256 + dag-pb, base58, sem bytes de
     //    prefixo. Converte para v1 sem perda (mesmo codec, mesmo hash).
     //    Go:  v0 := cid.NewCidV0(mh); v1 := cid.NewCidV1(cid.DagProtobuf, v0.Hash())
-    final v0 = cid.newCidV0(mh);
-    final v1 = cid.newCidV1(multicodec.dagPb, v0.hash());
+    final v0 = Go.cid.newCidV0(mh);
+    final v1 = Go.cid.newCidV1(Go.multicodec.dagPb, v0.hash());
     say('\nCIDv0 $v0 (${v0.bytes().length} bytes: só o multihash)');
     say('  como CIDv1:     $v1 (o mesmo que o dag-pb acima: '
         '${v1.equals(asDagPb)})');
 
     // 6. Outras funções de hash, e identity: o "hash" são os próprios dados,
     //    para bytes tão pequenos que o hash deixaria o nome mais longo.
-    final sha512 = cid.newPrefixV1(multicodec.raw, multihash.sha2512);
+    final sha512 = Go.cid.newPrefixV1(Go.multicodec.raw, Go.multihash.sha2512);
     say('\ncom sha2-512: ${sha512.sum(utf8.encode('hello'))}');
-    final identity = cid.newPrefixV1(multicodec.raw, multihash.identity);
+    final identity =
+        Go.cid.newPrefixV1(Go.multicodec.raw, Go.multihash.identity);
     final inline = identity.sum(utf8.encode('hi'));
     say('com identity: $inline (os bytes "hi" estão dentro: '
         '${utf8.decode(inline.hash().sublist(2))})');
@@ -106,7 +103,7 @@ Future<void> main() async {
 
     // 7. Verificar: refazer o CID a partir dos bytes recebidos e comparar.
     //    É o que todo nó IPFS faz com cada bloco que recebe.
-    bool verify(cid.Cid c, Uint8List data) => c.prefix().sum(data).equals(c);
+    bool verify(Cid c, Uint8List data) => c.prefix().sum(data).equals(c);
     say('\nverify("hello"): ${verify(hello, utf8.encode('hello'))}, '
         'verify("HELLO"): ${verify(hello, utf8.encode('HELLO'))}');
 
@@ -114,19 +111,20 @@ Future<void> main() async {
     await silentlyWrong('comparar dois CIDs pelo texto',
         why: 'um CID tem vários textos (a base, e v0 ou v1 para dag-pb)',
         instead: 'compare com equals(), ou compare os hashes entre v0 e v1',
-        wrong: () => '$hello' == hello.stringOfBase(multibase.base58btc),
-        right: () =>
-            hello.equals(cid.decode(hello.stringOfBase(multibase.base58btc))));
+        wrong: () => '$hello' == hello.stringOfBase(Go.multibase.base58btc),
+        right: () => hello
+            .equals(Go.cid.decode(hello.stringOfBase(Go.multibase.base58btc))));
     await mistake('um CIDv0 com um hash que não é sha2-256',
         why: 'o v0 não tem bytes de prefixo: sha2-256 e dag-pb ficam '
             'implícitos',
-        instead: 'cid.newPrefixV1(codec, hash) para qualquer outra coisa',
-        action: () => cid.newPrefixV0(multihash.sha2512).sum(Uint8List(3)));
+        instead: 'Go.cid.newPrefixV1(codec, hash) para qualquer outra coisa',
+        action: () =>
+            Go.cid.newPrefixV0(Go.multihash.sha2512).sum(Uint8List(3)));
     await mistake('decodificar um texto cortado no meio',
         why: 'o tamanho do digest está dentro do CID; um texto curto falha',
         instead: 'decodifique o texto inteiro (ao copiar de uma URL, cuidado '
             'com o fim)',
-        action: () => cid.decode('$hello'.substring(0, 30)));
+        action: () => Go.cid.decode('$hello'.substring(0, 30)));
   } finally {
     await P2pService.stop();
   }

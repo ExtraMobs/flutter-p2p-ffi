@@ -6,30 +6,31 @@ import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/boxo/ipld/merkledag/dagutils.dart' as $dagutils;
 
 /// Go: `objectcmd.Changes` (a kubo command output).
-final class Changes {
-  Changes.$dec($R r)
-      : changes = r.list(() => r.p() ? $dagutils.Change.$dec(r) : null);
+final class KuboCoreCommandsObjectChanges {
+  KuboCoreCommandsObjectChanges.$dec($R r)
+      : changes = r.list(() =>
+            r.p() ? $dagutils.BoxoIpldMerkledagDagutilsChange.$dec(r) : null);
 
   /// Go: `Changes`.
-  final List<$dagutils.Change?> changes;
+  final List<$dagutils.BoxoIpldMerkledagDagutilsChange?> changes;
 }
 
 /// Go: `objectcmd.Object` (a kubo command output).
-final class Object$ {
-  Object$.$dec($R r)
+final class KuboCoreCommandsObject {
+  KuboCoreCommandsObject.$dec($R r)
       : hash = r.str(),
-        links = r.list(() => Link.$dec(r));
+        links = r.list(() => KuboCoreCommandsObjectLink.$dec(r));
 
   /// Go: `Hash`.
   final String hash;
 
   /// Go: `Links`.
-  final List<Link> links;
+  final List<KuboCoreCommandsObjectLink> links;
 }
 
 /// Go: `objectcmd.Link` (a kubo command output).
-final class Link {
-  Link.$dec($R r)
+final class KuboCoreCommandsObjectLink {
+  KuboCoreCommandsObjectLink.$dec($R r)
       : name = r.str(),
         hash = r.str(),
         size = r.i64();
@@ -49,8 +50,8 @@ final class Link {
 
 /// Go: `var objectcmd.ErrDataEncoding error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrDataEncoding extends GolangException {
-  ErrDataEncoding.$(super.base) : super.$from();
+class KuboCoreCommandsObjectErrDataEncoding extends GolangException {
+  KuboCoreCommandsObjectErrDataEncoding.$(super.base) : super.$from();
 
   @override
   String toString() => 'objectcmd.ErrDataEncoding: $message';

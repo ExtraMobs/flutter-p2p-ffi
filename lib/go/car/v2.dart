@@ -2,6 +2,7 @@
 // Go: github.com/ipld/go-car/v2
 library;
 
+import 'package:p2p_ffi/src/go.dart' show GoCarV2;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/block_format.dart' as $block_format;
 import 'package:p2p_ffi/go/car/v2/index.dart' as $index;
@@ -13,14 +14,14 @@ import 'package:p2p_ffi/go/ipld_prime/linking.dart' as $linking;
 import 'package:p2p_ffi/go/ipld_prime/traversal.dart' as $traversal;
 
 /// Go: `car.BlockMetadata`.
-final class BlockMetadata implements GoDto {
-  BlockMetadata({$cid.Cid? cid, int? offset, int? sourceOffset, int? size})
+final class CarV2BlockMetadata implements GoDto {
+  CarV2BlockMetadata({$cid.Cid? cid, int? offset, int? sourceOffset, int? size})
       : cid = cid,
         offset = offset ?? 0,
         sourceOffset = sourceOffset ?? 0,
         size = size ?? 0;
 
-  BlockMetadata.$dec($R r)
+  CarV2BlockMetadata.$dec($R r)
       : cid = r.p() ? $cid.Cid(r.str()) : null,
         offset = r.i64(),
         sourceOffset = r.i64(),
@@ -58,17 +59,17 @@ final class BlockMetadata implements GoDto {
 }
 
 /// Go: `car.BlockReader` (handle).
-class BlockReader extends GoHandle {
-  BlockReader.$h(super.$h);
+class CarV2BlockReader extends GoHandle {
+  CarV2BlockReader.$h(super.$h);
 
   /// Go: `func car.NewBlockReader(r io.Reader, opts ...car.Option) (*car.BlockReader, error)`.
-  factory BlockReader(Object r, [List<Option> opts = const []]) {
+  factory CarV2BlockReader(Object r, [List<CarV2Option> opts = const []]) {
     final $r = $callSync(
         407,
         $W()
           ..reader(r)
           ..list(opts, (w0, e0) => w0.opt(e0)));
-    return $r.hnn(BlockReader.$h);
+    return $r.hnn(CarV2BlockReader.$h);
   }
 
   /// Go: `field Version uint64`.
@@ -102,35 +103,35 @@ class BlockReader extends GoHandle {
   }
 
   /// Go: `func (*car.BlockReader).Next() (blocks.Block, error)`.
-  $block_format.Block next() {
+  $block_format.BlockFormatBlock next() {
     final $r = $callSync(390, $W()..h(this));
-    return $r.p() ? $block_format.Block.$dec($r) : $nil();
+    return $r.p() ? $block_format.BlockFormatBlock.$dec($r) : $nil();
   }
 
   /// Go: `func (*car.BlockReader).NextReader() (cid.Cid, io.Reader, uint64, error)`.
-  ($cid.Cid, $io.Reader, int) nextReader() {
+  ($cid.Cid, $io.IoReader, int) nextReader() {
     final $r = $callSync(391, $W()..h(this));
     return (
       $r.p() ? $cid.Cid($r.str()) : $nil(),
-      $r.hnn($io.Reader.$h),
+      $r.hnn($io.IoReader.$h),
       $r.i64()
     );
   }
 
   /// Go: `func (*car.BlockReader).SkipNext() (*car.BlockMetadata, error)`.
-  BlockMetadata skipNext() {
+  CarV2BlockMetadata skipNext() {
     final $r = $callSync(394, $W()..h(this));
-    return $r.p() ? BlockMetadata.$dec($r) : $nil();
+    return $r.p() ? CarV2BlockMetadata.$dec($r) : $nil();
   }
 }
 
 /// Go: `car.Characteristics`.
-final class Characteristics implements GoDto {
-  Characteristics({int? hi, int? lo})
+final class CarV2Characteristics implements GoDto {
+  CarV2Characteristics({int? hi, int? lo})
       : hi = hi ?? 0,
         lo = lo ?? 0;
 
-  Characteristics.$dec($R r)
+  CarV2Characteristics.$dec($R r)
       : hi = r.i64(),
         lo = r.i64();
 
@@ -161,9 +162,9 @@ final class Characteristics implements GoDto {
 }
 
 /// Go: `car.Header`.
-final class Header implements GoDto {
-  Header(
-      {Characteristics? characteristics,
+final class CarV2Header implements GoDto {
+  CarV2Header(
+      {CarV2Characteristics? characteristics,
       int? dataOffset,
       int? dataSize,
       int? indexOffset})
@@ -172,14 +173,14 @@ final class Header implements GoDto {
         dataSize = dataSize ?? 0,
         indexOffset = indexOffset ?? 0;
 
-  Header.$dec($R r)
-      : characteristics = r.p() ? Characteristics.$dec(r) : null,
+  CarV2Header.$dec($R r)
+      : characteristics = r.p() ? CarV2Characteristics.$dec(r) : null,
         dataOffset = r.i64(),
         dataSize = r.i64(),
         indexOffset = r.i64();
 
   /// Go: `Characteristics`.
-  Characteristics? characteristics;
+  CarV2Characteristics? characteristics;
 
   /// Go: `DataOffset`.
   ///
@@ -215,33 +216,33 @@ final class Header implements GoDto {
   }
 
   /// Go: `func (car.Header).WithDataSize(size uint64) car.Header`.
-  Header withDataSize(int size) {
+  CarV2Header withDataSize(int size) {
     final $r = $callSync(
         403,
         $W()
           ..dto(this)
           ..i64(size));
-    return $r.p() ? Header.$dec($r) : $nil();
+    return $r.p() ? CarV2Header.$dec($r) : $nil();
   }
 
   /// Go: `func (car.Header).WithDataPadding(padding uint64) car.Header`.
-  Header withDataPadding(int padding) {
+  CarV2Header withDataPadding(int padding) {
     final $r = $callSync(
         402,
         $W()
           ..dto(this)
           ..i64(padding));
-    return $r.p() ? Header.$dec($r) : $nil();
+    return $r.p() ? CarV2Header.$dec($r) : $nil();
   }
 
   /// Go: `func (car.Header).WithIndexPadding(padding uint64) car.Header`.
-  Header withIndexPadding(int padding) {
+  CarV2Header withIndexPadding(int padding) {
     final $r = $callSync(
         404,
         $W()
           ..dto(this)
           ..i64(padding));
-    return $r.p() ? Header.$dec($r) : $nil();
+    return $r.p() ? CarV2Header.$dec($r) : $nil();
   }
 
   /// Go: `func (car.Header).WriteTo(w io.Writer) (n int64, err error)`.
@@ -256,32 +257,32 @@ final class Header implements GoDto {
 }
 
 /// Go: `car.Option` (functional option; constructors in the package).
-final class Option extends GoOption {
-  Option.$(super.$i, super.$a);
+final class CarV2Option extends GoOption {
+  CarV2Option.$(super.$i, super.$a);
 }
 
 /// Go: `car.Reader` (handle).
-class Reader extends GoHandle {
-  Reader.$h(super.$h);
+class CarV2Reader extends GoHandle {
+  CarV2Reader.$h(super.$h);
 
   /// Go: `func car.NewReader(r io.ReaderAt, opts ...car.Option) (*car.Reader, error)`.
-  factory Reader(Object r, [List<Option> opts = const []]) {
+  factory CarV2Reader(Object r, [List<CarV2Option> opts = const []]) {
     final $r = $callSync(
         409,
         $W()
           ..reader(r)
           ..list(opts, (w0, e0) => w0.opt(e0)));
-    return $r.hnn(Reader.$h);
+    return $r.hnn(CarV2Reader.$h);
   }
 
   /// Go: `field Header car.Header`.
-  Header get header {
+  CarV2Header get header {
     final $r = $callSync(415, $W()..h(this));
-    return $r.p() ? Header.$dec($r) : $nil();
+    return $r.p() ? CarV2Header.$dec($r) : $nil();
   }
 
   /// Go: `field Header car.Header`.
-  set header(Header header) {
+  set header(CarV2Header header) {
     $callSync(
         416,
         $W()
@@ -311,25 +312,25 @@ class Reader extends GoHandle {
   }
 
   /// Go: `func (*car.Reader).Inspect(validateBlockHash bool) (car.Stats, error)`.
-  Stats inspect(bool validateBlockHash) {
+  CarV2Stats inspect(bool validateBlockHash) {
     final $r = $callSync(
         418,
         $W()
           ..h(this)
           ..b(validateBlockHash));
-    return $r.p() ? Stats.$dec($r) : $nil();
+    return $r.p() ? CarV2Stats.$dec($r) : $nil();
   }
 
   /// Go: `func (*car.Reader).DataReader() (car.SectionReader, error)`.
-  SectionReader dataReader() {
+  CarV2SectionReader dataReader() {
     final $r = $callSync(414, $W()..h(this));
-    return $r.hnn(SectionReader.$h);
+    return $r.hnn(CarV2SectionReader.$h);
   }
 
   /// Go: `func (*car.Reader).IndexReader() (io.Reader, error)`.
-  $io.Reader indexReader() {
+  $io.IoReader indexReader() {
     final $r = $callSync(417, $W()..h(this));
-    return $r.hnn($io.Reader.$h);
+    return $r.hnn($io.IoReader.$h);
   }
 
   /// Go: `func (*car.Reader).Close() error`.
@@ -339,15 +340,15 @@ class Reader extends GoHandle {
 }
 
 /// Go: `car.SectionReader` (handle).
-class SectionReader extends GoHandle {
-  SectionReader.$h(super.$h);
+class CarV2SectionReader extends GoHandle {
+  CarV2SectionReader.$h(super.$h);
 }
 
 /// Go: `car.Stats`.
-final class Stats implements GoDto {
-  Stats(
+final class CarV2Stats implements GoDto {
+  CarV2Stats(
       {int? version,
-      Header? header,
+      CarV2Header? header,
       List<$cid.Cid>? roots,
       bool? rootsPresent,
       int? blockCount,
@@ -375,9 +376,9 @@ final class Stats implements GoDto {
         minBlockLength = minBlockLength ?? 0,
         indexCodec = indexCodec ?? 0;
 
-  Stats.$dec($R r)
+  CarV2Stats.$dec($R r)
       : version = r.i64(),
-        header = r.p() ? Header.$dec(r) : null,
+        header = r.p() ? CarV2Header.$dec(r) : null,
         roots = r.list(() => r.p() ? $cid.Cid(r.str()) : $nil()),
         rootsPresent = r.b(),
         blockCount = r.i64(),
@@ -398,7 +399,7 @@ final class Stats implements GoDto {
   int version;
 
   /// Go: `Header`.
-  Header? header;
+  CarV2Header? header;
 
   /// Go: `Roots`.
   List<$cid.Cid> roots;
@@ -480,229 +481,10 @@ final class Stats implements GoDto {
   }
 }
 
-/// Go: `v2.AllowDuplicatePuts`.
-Option allowDuplicatePuts(bool allow) => Option.$(0, (w) => w..b(allow));
-
-/// Go: `v2.MaxAllowedHeaderSize`.
-Option maxAllowedHeaderSize(int max) => Option.$(1, (w) => w..i64(max));
-
-/// Go: `v2.MaxAllowedSectionSize`.
-Option maxAllowedSectionSize(int max) => Option.$(2, (w) => w..i64(max));
-
-/// Go: `v2.MaxIndexCidSize`.
-Option maxIndexCidSize(int s) => Option.$(3, (w) => w..i64(s));
-
-/// Go: `v2.MaxTraversalLinks`.
-Option maxTraversalLinks(int maxTraversalLinks) =>
-    Option.$(4, (w) => w..i64(maxTraversalLinks));
-
-/// Go: `v2.StoreIdentityCIDs`.
-Option storeIdentityCids(bool b) => Option.$(5, (w) => w..b(b));
-
-/// Go: `v2.UseDataPadding`.
-Option useDataPadding(int p) => Option.$(6, (w) => w..i64(p));
-
-/// Go: `v2.UseIndexCodec`.
-Option useIndexCodec(int c) => Option.$(7, (w) => w..i64(c));
-
-/// Go: `v2.UseIndexPadding`.
-Option useIndexPadding(int p) => Option.$(8, (w) => w..i64(p));
-
-/// Go: `v2.UseWholeCIDs`.
-Option useWholeCids(bool enable) => Option.$(9, (w) => w..b(enable));
-
-/// Go: `v2.WithTraversalPrototypeChooser`.
-Option withTraversalPrototypeChooser(
-        $traversal.LinkTargetNodePrototypeChooser t) =>
-    Option.$(10, (w) => w..h(t));
-
-/// Go: `v2.WithTrustedCAR`.
-Option withTrustedCar(bool t) => Option.$(11, (w) => w..b(t));
-
-/// Go: `v2.WithoutIndex`.
-Option withoutIndex() => Option.$(12, (_) {});
-
-/// Go: `v2.WriteAsCarV1`.
-Option writeAsCarV1(bool asCarV1) => Option.$(13, (w) => w..b(asCarV1));
-
-/// Go: `v2.ZeroLengthSectionAsEOF`.
-Option zeroLengthSectionAsEof(bool enable) => Option.$(14, (w) => w..b(enable));
-
-/// Go: `func car.ReadVersion(r io.Reader, opts ...car.Option) (uint64, error)`.
-int readVersion(Object r, [List<Option> opts = const []]) {
-  final $r = $callSync(
-      412,
-      $W()
-        ..reader(r)
-        ..list(opts, (w0, e0) => w0.opt(e0)));
-  return $r.i64();
-}
-
-/// Go: `func car.OpenReader(path string, opts ...car.Option) (*car.Reader, error)`.
-Reader openReader(String path, [List<Option> opts = const []]) {
-  final $r = $callSync(
-      410,
-      $W()
-        ..str(path)
-        ..list(opts, (w0, e0) => w0.opt(e0)));
-  return $r.hnn(Reader.$h);
-}
-
-/// Go: `func car.NewHeader(dataSize uint64) car.Header`.
-Header newHeader(int dataSize) {
-  final $r = $callSync(408, $W()..i64(dataSize));
-  return $r.p() ? Header.$dec($r) : $nil();
-}
-
-/// Go: `func car.ExtractV1File(srcPath string, dstPath string, opts ...car.Option) (err error)`.
-void extractV1File(String srcPath, String dstPath,
-    [List<Option> opts = const []]) {
-  $callSync(
-      398,
-      $W()
-        ..str(srcPath)
-        ..str(dstPath)
-        ..list(opts, (w0, e0) => w0.opt(e0)));
-}
-
-/// Go: `func car.WrapV1File(srcPath string, dstPath string) error`.
-void wrapV1File(String srcPath, String dstPath) {
-  $callSync(
-      426,
-      $W()
-        ..str(srcPath)
-        ..str(dstPath));
-}
-
-/// Go: `func car.WrapV1(src io.ReadSeeker, dst io.Writer, opts ...car.Option) error`.
-void wrapV1(Object src, GoHandle? dst, [List<Option> opts = const []]) {
-  $callSync(
-      425,
-      $W()
-        ..reader(src)
-        ..h(dst)
-        ..list(opts, (w0, e0) => w0.opt(e0)));
-}
-
-/// Go: `func car.ReplaceRootsInFile(path string, roots []cid.Cid, opts ...car.Option) (err error)`.
-void replaceRootsInFile(String path, List<$cid.Cid> roots,
-    [List<Option> opts = const []]) {
-  $callSync(
-      422,
-      $W()
-        ..str(path)
-        ..list(roots, (w0, e0) => w0.val(e0))
-        ..list(opts, (w0, e0) => w0.opt(e0)));
-}
-
-/// Go: `func car.GenerateIndex(v1r io.Reader, opts ...car.Option) (index.Index, error)`.
-$index.Index generateIndex(Object v1r, [List<Option> opts = const []]) {
-  final $r = $callSync(
-      399,
-      $W()
-        ..reader(v1r)
-        ..list(opts, (w0, e0) => w0.opt(e0)));
-  return $r.hnn($index.Index.$h);
-}
-
-/// Go: `func car.GenerateIndexFromFile(path string, opts ...car.Option) (index.Index, error)`.
-$index.Index generateIndexFromFile(String path,
-    [List<Option> opts = const []]) {
-  final $r = $callSync(
-      400,
-      $W()
-        ..str(path)
-        ..list(opts, (w0, e0) => w0.opt(e0)));
-  return $r.hnn($index.Index.$h);
-}
-
-/// Go: `func car.ReadOrGenerateIndex(rs io.ReadSeeker, opts ...car.Option) (index.Index, error)`.
-$index.Index readOrGenerateIndex(Object rs, [List<Option> opts = const []]) {
-  final $r = $callSync(
-      411,
-      $W()
-        ..reader(rs)
-        ..list(opts, (w0, e0) => w0.opt(e0)));
-  return $r.hnn($index.Index.$h);
-}
-
-/// Go: `func car.LoadIndex(idx index.Index, r io.Reader, opts ...car.Option) error`.
-void loadIndex($index.Index idx, Object r, [List<Option> opts = const []]) {
-  $callSync(
-      406,
-      $W()
-        ..h(idx)
-        ..reader(r)
-        ..list(opts, (w0, e0) => w0.opt(e0)));
-}
-
-/// Go: `func car.AttachIndex(path string, idx index.Index, offset uint64) error`.
-void attachIndex(String path, $index.Index idx, int offset) {
-  $callSync(
-      389,
-      $W()
-        ..str(path)
-        ..h(idx)
-        ..i64(offset));
-}
-
-/// Go: `func car.TraverseToFile(ctx context.Context, ls *ipld.LinkSystem, root cid.Cid, selector ipld.Node, destination string, opts ...car.Option) error`.
-///
-/// Asynchronous: runs in a goroutine of the service.
-Future<void> traverseToFile($context.Context ctx, $linking.LinkSystem ls,
-    $cid.Cid root, $datamodel.Node selector, String destination,
-    [List<Option> opts = const []]) async {
-  await $call(
-      423,
-      $W()
-        ..h(ctx)
-        ..h(ls)
-        ..val(root)
-        ..h(selector)
-        ..str(destination)
-        ..list(opts, (w0, e0) => w0.opt(e0)));
-}
-
-/// Go: `func car.TraverseV1(ctx context.Context, ls *ipld.LinkSystem, root cid.Cid, selector ipld.Node, writer io.Writer, opts ...car.Option) (uint64, error)`.
-///
-/// Asynchronous: runs in a goroutine of the service.
-Future<int> traverseV1($context.Context ctx, $linking.LinkSystem ls,
-    $cid.Cid root, $datamodel.Node selector, GoHandle? writer,
-    [List<Option> opts = const []]) async {
-  final $r = await $call(
-      424,
-      $W()
-        ..h(ctx)
-        ..h(ls)
-        ..val(root)
-        ..h(selector)
-        ..h(writer)
-        ..list(opts, (w0, e0) => w0.opt(e0)));
-  return $r.i64();
-}
-
-/// Go: `const car.CharacteristicsSize untyped int`.
-const characteristicsSize = 16;
-
-/// Go: `const car.DefaultMaxAllowedHeaderSize uint64`.
-const defaultMaxAllowedHeaderSize = 33554432;
-
-/// Go: `const car.DefaultMaxAllowedSectionSize uint64`.
-const defaultMaxAllowedSectionSize = 8388608;
-
-/// Go: `const car.DefaultMaxIndexCidSize untyped int`.
-const defaultMaxIndexCidSize = 2048;
-
-/// Go: `const car.HeaderSize untyped int`.
-const headerSize = 40;
-
-/// Go: `const car.PragmaSize untyped int`.
-const pragmaSize = 11;
-
 /// Go: `var car.ErrAlreadyV1 error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrAlreadyV1 extends GolangException {
-  ErrAlreadyV1.$(super.base) : super.$from();
+class CarV2ErrAlreadyV1 extends GolangException {
+  CarV2ErrAlreadyV1.$(super.base) : super.$from();
 
   @override
   String toString() => 'car.ErrAlreadyV1: $message';
@@ -710,8 +492,8 @@ class ErrAlreadyV1 extends GolangException {
 
 /// Go: `car.ErrCidTooLarge`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrCidTooLarge extends GolangException {
-  ErrCidTooLarge.$(super.base, $R r)
+class CarV2ErrCidTooLarge extends GolangException {
+  CarV2ErrCidTooLarge.$(super.base, $R r)
       : maxSize = r.i64(),
         currentSize = r.i64(),
         super.$from();
@@ -728,8 +510,8 @@ class ErrCidTooLarge extends GolangException {
 
 /// Go: `var car.ErrOffsetImpossible error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrOffsetImpossible extends GolangException {
-  ErrOffsetImpossible.$(super.base) : super.$from();
+class CarV2ErrOffsetImpossible extends GolangException {
+  CarV2ErrOffsetImpossible.$(super.base) : super.$from();
 
   @override
   String toString() => 'car.ErrOffsetImpossible: $message';
@@ -737,9 +519,248 @@ class ErrOffsetImpossible extends GolangException {
 
 /// Go: `var car.ErrSizeMismatch error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrSizeMismatch extends GolangException {
-  ErrSizeMismatch.$(super.base) : super.$from();
+class CarV2ErrSizeMismatch extends GolangException {
+  CarV2ErrSizeMismatch.$(super.base) : super.$from();
 
   @override
   String toString() => 'car.ErrSizeMismatch: $message';
+}
+
+/// Go: the package-level members of `github.com/ipld/go-car/v2` (`Go.car.v2`).
+extension GoCarV2Api on GoCarV2 {
+  /// Go: `v2.AllowDuplicatePuts`.
+  CarV2Option allowDuplicatePuts(bool allow) =>
+      CarV2Option.$(0, (w) => w..b(allow));
+
+  /// Go: `v2.MaxAllowedHeaderSize`.
+  CarV2Option maxAllowedHeaderSize(int max) =>
+      CarV2Option.$(1, (w) => w..i64(max));
+
+  /// Go: `v2.MaxAllowedSectionSize`.
+  CarV2Option maxAllowedSectionSize(int max) =>
+      CarV2Option.$(2, (w) => w..i64(max));
+
+  /// Go: `v2.MaxIndexCidSize`.
+  CarV2Option maxIndexCidSize(int s) => CarV2Option.$(3, (w) => w..i64(s));
+
+  /// Go: `v2.MaxTraversalLinks`.
+  CarV2Option maxTraversalLinks(int maxTraversalLinks) =>
+      CarV2Option.$(4, (w) => w..i64(maxTraversalLinks));
+
+  /// Go: `v2.StoreIdentityCIDs`.
+  CarV2Option storeIdentityCids(bool b) => CarV2Option.$(5, (w) => w..b(b));
+
+  /// Go: `v2.UseDataPadding`.
+  CarV2Option useDataPadding(int p) => CarV2Option.$(6, (w) => w..i64(p));
+
+  /// Go: `v2.UseIndexCodec`.
+  CarV2Option useIndexCodec(int c) => CarV2Option.$(7, (w) => w..i64(c));
+
+  /// Go: `v2.UseIndexPadding`.
+  CarV2Option useIndexPadding(int p) => CarV2Option.$(8, (w) => w..i64(p));
+
+  /// Go: `v2.UseWholeCIDs`.
+  CarV2Option useWholeCids(bool enable) =>
+      CarV2Option.$(9, (w) => w..b(enable));
+
+  /// Go: `v2.WithTraversalPrototypeChooser`.
+  CarV2Option withTraversalPrototypeChooser(
+          $traversal.IpldPrimeTraversalLinkTargetNodePrototypeChooser t) =>
+      CarV2Option.$(10, (w) => w..h(t));
+
+  /// Go: `v2.WithTrustedCAR`.
+  CarV2Option withTrustedCar(bool t) => CarV2Option.$(11, (w) => w..b(t));
+
+  /// Go: `v2.WithoutIndex`.
+  CarV2Option withoutIndex() => CarV2Option.$(12, (_) {});
+
+  /// Go: `v2.WriteAsCarV1`.
+  CarV2Option writeAsCarV1(bool asCarV1) =>
+      CarV2Option.$(13, (w) => w..b(asCarV1));
+
+  /// Go: `v2.ZeroLengthSectionAsEOF`.
+  CarV2Option zeroLengthSectionAsEof(bool enable) =>
+      CarV2Option.$(14, (w) => w..b(enable));
+
+  /// Go: `func car.ReadVersion(r io.Reader, opts ...car.Option) (uint64, error)`.
+  int readVersion(Object r, [List<CarV2Option> opts = const []]) {
+    final $r = $callSync(
+        412,
+        $W()
+          ..reader(r)
+          ..list(opts, (w0, e0) => w0.opt(e0)));
+    return $r.i64();
+  }
+
+  /// Go: `func car.OpenReader(path string, opts ...car.Option) (*car.Reader, error)`.
+  CarV2Reader openReader(String path, [List<CarV2Option> opts = const []]) {
+    final $r = $callSync(
+        410,
+        $W()
+          ..str(path)
+          ..list(opts, (w0, e0) => w0.opt(e0)));
+    return $r.hnn(CarV2Reader.$h);
+  }
+
+  /// Go: `func car.NewHeader(dataSize uint64) car.Header`.
+  CarV2Header newHeader(int dataSize) {
+    final $r = $callSync(408, $W()..i64(dataSize));
+    return $r.p() ? CarV2Header.$dec($r) : $nil();
+  }
+
+  /// Go: `func car.ExtractV1File(srcPath string, dstPath string, opts ...car.Option) (err error)`.
+  void extractV1File(String srcPath, String dstPath,
+      [List<CarV2Option> opts = const []]) {
+    $callSync(
+        398,
+        $W()
+          ..str(srcPath)
+          ..str(dstPath)
+          ..list(opts, (w0, e0) => w0.opt(e0)));
+  }
+
+  /// Go: `func car.WrapV1File(srcPath string, dstPath string) error`.
+  void wrapV1File(String srcPath, String dstPath) {
+    $callSync(
+        426,
+        $W()
+          ..str(srcPath)
+          ..str(dstPath));
+  }
+
+  /// Go: `func car.WrapV1(src io.ReadSeeker, dst io.Writer, opts ...car.Option) error`.
+  void wrapV1(Object src, GoHandle? dst, [List<CarV2Option> opts = const []]) {
+    $callSync(
+        425,
+        $W()
+          ..reader(src)
+          ..h(dst)
+          ..list(opts, (w0, e0) => w0.opt(e0)));
+  }
+
+  /// Go: `func car.ReplaceRootsInFile(path string, roots []cid.Cid, opts ...car.Option) (err error)`.
+  void replaceRootsInFile(String path, List<$cid.Cid> roots,
+      [List<CarV2Option> opts = const []]) {
+    $callSync(
+        422,
+        $W()
+          ..str(path)
+          ..list(roots, (w0, e0) => w0.val(e0))
+          ..list(opts, (w0, e0) => w0.opt(e0)));
+  }
+
+  /// Go: `func car.GenerateIndex(v1r io.Reader, opts ...car.Option) (index.Index, error)`.
+  $index.CarV2Index generateIndex(Object v1r,
+      [List<CarV2Option> opts = const []]) {
+    final $r = $callSync(
+        399,
+        $W()
+          ..reader(v1r)
+          ..list(opts, (w0, e0) => w0.opt(e0)));
+    return $r.hnn($index.CarV2Index.$h);
+  }
+
+  /// Go: `func car.GenerateIndexFromFile(path string, opts ...car.Option) (index.Index, error)`.
+  $index.CarV2Index generateIndexFromFile(String path,
+      [List<CarV2Option> opts = const []]) {
+    final $r = $callSync(
+        400,
+        $W()
+          ..str(path)
+          ..list(opts, (w0, e0) => w0.opt(e0)));
+    return $r.hnn($index.CarV2Index.$h);
+  }
+
+  /// Go: `func car.ReadOrGenerateIndex(rs io.ReadSeeker, opts ...car.Option) (index.Index, error)`.
+  $index.CarV2Index readOrGenerateIndex(Object rs,
+      [List<CarV2Option> opts = const []]) {
+    final $r = $callSync(
+        411,
+        $W()
+          ..reader(rs)
+          ..list(opts, (w0, e0) => w0.opt(e0)));
+    return $r.hnn($index.CarV2Index.$h);
+  }
+
+  /// Go: `func car.LoadIndex(idx index.Index, r io.Reader, opts ...car.Option) error`.
+  void loadIndex($index.CarV2Index idx, Object r,
+      [List<CarV2Option> opts = const []]) {
+    $callSync(
+        406,
+        $W()
+          ..h(idx)
+          ..reader(r)
+          ..list(opts, (w0, e0) => w0.opt(e0)));
+  }
+
+  /// Go: `func car.AttachIndex(path string, idx index.Index, offset uint64) error`.
+  void attachIndex(String path, $index.CarV2Index idx, int offset) {
+    $callSync(
+        389,
+        $W()
+          ..str(path)
+          ..h(idx)
+          ..i64(offset));
+  }
+
+  /// Go: `func car.TraverseToFile(ctx context.Context, ls *ipld.LinkSystem, root cid.Cid, selector ipld.Node, destination string, opts ...car.Option) error`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> traverseToFile(
+      $context.Context ctx,
+      $linking.IpldPrimeLinkingLinkSystem ls,
+      $cid.Cid root,
+      $datamodel.IpldPrimeDatamodelNode selector,
+      String destination,
+      [List<CarV2Option> opts = const []]) async {
+    await $call(
+        423,
+        $W()
+          ..h(ctx)
+          ..h(ls)
+          ..val(root)
+          ..h(selector)
+          ..str(destination)
+          ..list(opts, (w0, e0) => w0.opt(e0)));
+  }
+
+  /// Go: `func car.TraverseV1(ctx context.Context, ls *ipld.LinkSystem, root cid.Cid, selector ipld.Node, writer io.Writer, opts ...car.Option) (uint64, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<int> traverseV1(
+      $context.Context ctx,
+      $linking.IpldPrimeLinkingLinkSystem ls,
+      $cid.Cid root,
+      $datamodel.IpldPrimeDatamodelNode selector,
+      GoHandle? writer,
+      [List<CarV2Option> opts = const []]) async {
+    final $r = await $call(
+        424,
+        $W()
+          ..h(ctx)
+          ..h(ls)
+          ..val(root)
+          ..h(selector)
+          ..h(writer)
+          ..list(opts, (w0, e0) => w0.opt(e0)));
+    return $r.i64();
+  }
+
+  /// Go: `const car.CharacteristicsSize untyped int`.
+  int get characteristicsSize => 16;
+
+  /// Go: `const car.DefaultMaxAllowedHeaderSize uint64`.
+  int get defaultMaxAllowedHeaderSize => 33554432;
+
+  /// Go: `const car.DefaultMaxAllowedSectionSize uint64`.
+  int get defaultMaxAllowedSectionSize => 8388608;
+
+  /// Go: `const car.DefaultMaxIndexCidSize untyped int`.
+  int get defaultMaxIndexCidSize => 2048;
+
+  /// Go: `const car.HeaderSize untyped int`.
+  int get headerSize => 40;
+
+  /// Go: `const car.PragmaSize untyped int`.
+  int get pragmaSize => 11;
 }

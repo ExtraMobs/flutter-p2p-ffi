@@ -2,55 +2,66 @@
 // Go: github.com/ipfs/go-unixfsnode
 library;
 
+import 'package:p2p_ffi/src/go.dart' show GoUnixfsnode;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/ipld_prime/datamodel.dart' as $datamodel;
 import 'package:p2p_ffi/go/ipld_prime/linking.dart' as $linking;
 import 'package:p2p_ffi/go/ipld_prime/traversal/selector/builder.dart'
     as $builder;
 
-/// Go: `func unixfsnode.AddUnixFSReificationToLinkSystem(lsys *ipld.LinkSystem)`.
-void addUnixFsReificationToLinkSystem($linking.LinkSystem lsys) {
-  $callSync(260, $W()..h(lsys));
-}
+/// Go: the package-level members of `github.com/ipfs/go-unixfsnode` (`Go.unixfsnode`).
+extension GoUnixfsnodeApi on GoUnixfsnode {
+  /// Go: `func unixfsnode.AddUnixFSReificationToLinkSystem(lsys *ipld.LinkSystem)`.
+  void addUnixFsReificationToLinkSystem(
+      $linking.IpldPrimeLinkingLinkSystem lsys) {
+    $callSync(260, $W()..h(lsys));
+  }
 
-/// Go: `func unixfsnode.UnixFSPathSelector(path string) datamodel.Node`.
-$datamodel.Node unixFsPathSelector(String path) {
-  final $r = $callSync(265, $W()..str(path));
-  return $r.hnn($datamodel.Node.$h);
-}
+  /// Go: `func unixfsnode.UnixFSPathSelector(path string) datamodel.Node`.
+  $datamodel.IpldPrimeDatamodelNode unixFsPathSelector(String path) {
+    final $r = $callSync(265, $W()..str(path));
+    return $r.hnn($datamodel.IpldPrimeDatamodelNode.$h);
+  }
 
-/// Go: `func unixfsnode.UnixFSPathSelectorBuilder(path string, targetSelector builder.SelectorSpec, matchPath bool) ipld.Node`.
-$datamodel.Node unixFsPathSelectorBuilder(
-    String path, $builder.SelectorSpec targetSelector, bool matchPath) {
-  final $r = $callSync(
-      266,
-      $W()
-        ..str(path)
-        ..h(targetSelector)
-        ..b(matchPath));
-  return $r.hnn($datamodel.Node.$h);
-}
+  /// Go: `func unixfsnode.UnixFSPathSelectorBuilder(path string, targetSelector builder.SelectorSpec, matchPath bool) ipld.Node`.
+  $datamodel.IpldPrimeDatamodelNode unixFsPathSelectorBuilder(
+      String path,
+      $builder.IpldPrimeTraversalSelectorBuilderSelectorSpec targetSelector,
+      bool matchPath) {
+    final $r = $callSync(
+        266,
+        $W()
+          ..str(path)
+          ..h(targetSelector)
+          ..b(matchPath));
+    return $r.hnn($datamodel.IpldPrimeDatamodelNode.$h);
+  }
 
-/// Go: `var unixfsnode.MatchUnixFSSelector builder.SelectorSpec`.
-$builder.SelectorSpec get matchUnixFsSelector {
-  final $r = $callSync(264);
-  return $r.hnn($builder.SelectorSpec.$h);
-}
+  /// Go: `var unixfsnode.MatchUnixFSSelector builder.SelectorSpec`.
+  $builder.IpldPrimeTraversalSelectorBuilderSelectorSpec
+      get matchUnixFsSelector {
+    final $r = $callSync(264);
+    return $r.hnn($builder.IpldPrimeTraversalSelectorBuilderSelectorSpec.$h);
+  }
 
-/// Go: `var unixfsnode.MatchUnixFSEntitySelector builder.SelectorSpec`.
-$builder.SelectorSpec get matchUnixFsEntitySelector {
-  final $r = $callSync(262);
-  return $r.hnn($builder.SelectorSpec.$h);
-}
+  /// Go: `var unixfsnode.MatchUnixFSEntitySelector builder.SelectorSpec`.
+  $builder.IpldPrimeTraversalSelectorBuilderSelectorSpec
+      get matchUnixFsEntitySelector {
+    final $r = $callSync(262);
+    return $r.hnn($builder.IpldPrimeTraversalSelectorBuilderSelectorSpec.$h);
+  }
 
-/// Go: `var unixfsnode.MatchUnixFSPreloadSelector builder.SelectorSpec`.
-$builder.SelectorSpec get matchUnixFsPreloadSelector {
-  final $r = $callSync(263);
-  return $r.hnn($builder.SelectorSpec.$h);
-}
+  /// Go: `var unixfsnode.MatchUnixFSPreloadSelector builder.SelectorSpec`.
+  $builder.IpldPrimeTraversalSelectorBuilderSelectorSpec
+      get matchUnixFsPreloadSelector {
+    final $r = $callSync(263);
+    return $r.hnn($builder.IpldPrimeTraversalSelectorBuilderSelectorSpec.$h);
+  }
 
-/// Go: `var unixfsnode.ExploreAllRecursivelySelector builder.SelectorSpec`.
-$builder.SelectorSpec get exploreAllRecursivelySelector {
-  final $r = $callSync(261);
-  return $r.hnn($builder.SelectorSpec.$h);
+  /// Go: `var unixfsnode.ExploreAllRecursivelySelector builder.SelectorSpec`.
+  $builder.IpldPrimeTraversalSelectorBuilderSelectorSpec
+      get exploreAllRecursivelySelector {
+    final $r = $callSync(261);
+    return $r.hnn($builder.IpldPrimeTraversalSelectorBuilderSelectorSpec.$h);
+  }
 }

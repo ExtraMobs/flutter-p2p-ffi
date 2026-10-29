@@ -5,6 +5,6 @@ library;
 import 'package:p2p_ffi/src/runtime.dart';
 
 /// Go: `simplelru.LRUCache` (handle).
-class LruCache extends GoHandle {
-  LruCache.$h(super.$h);
+class GolangLruSimplelruLruCache extends GoHandle {
+  GolangLruSimplelruLruCache.$h(super.$h);
 }

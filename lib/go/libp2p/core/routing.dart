@@ -2,6 +2,7 @@
 // Go: github.com/libp2p/go-libp2p/core/routing
 library;
 
+import 'package:p2p_ffi/src/go.dart' show GoLibp2pCoreRouting;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/libp2p/core/peer.dart' as $peer;
 import 'package:p2p_ffi/go/libp2p/p2p/discovery/routing.dart' as $routing;
@@ -9,104 +10,81 @@ import 'package:p2p_ffi/go/libp2p_kad_dht.dart' as $libp2p_kad_dht;
 import 'package:p2p_ffi/go/multiaddr.dart' as $multiaddr;
 
 /// Go: `routing.ContentDiscovery` (handle).
-class ContentDiscovery extends GoHandle {
-  ContentDiscovery.$h(super.$h);
+class Libp2pCoreRoutingContentDiscovery extends GoHandle {
+  Libp2pCoreRoutingContentDiscovery.$h(super.$h);
 
   /// Go: type assertion `x.(*dht.IpfsDHT)`: null if the object is not one.
-  $libp2p_kad_dht.IpfsDht? asIpfsDht() {
+  $libp2p_kad_dht.Libp2pKadDhtIpfsDht? asIpfsDht() {
     final $r = $callSync(98, $W()..h(this));
-    return $r.hn($libp2p_kad_dht.IpfsDht.$h);
+    return $r.hn($libp2p_kad_dht.Libp2pKadDhtIpfsDht.$h);
   }
 
   /// Go: type assertion `x.(*routing.RoutingDiscovery)`: null if the object is not one.
-  $routing.RoutingDiscovery? asRoutingDiscovery() {
+  $routing.Libp2pP2pDiscoveryRoutingDiscovery? asRoutingDiscovery() {
     final $r = $callSync(99, $W()..h(this));
-    return $r.hn($routing.RoutingDiscovery.$h);
+    return $r.hn($routing.Libp2pP2pDiscoveryRoutingDiscovery.$h);
   }
 
   /// Go: type assertion `x.(routing.ContentRouting)`: null if the object is not one.
-  ContentRouting? asContentRouting() {
+  Libp2pCoreRoutingContentRouting? asContentRouting() {
     final $r = $callSync(100, $W()..h(this));
-    return $r.hn(ContentRouting.$h);
+    return $r.hn(Libp2pCoreRoutingContentRouting.$h);
   }
 }
 
 /// Go: `routing.ContentProviding` (handle).
-class ContentProviding extends GoHandle {
-  ContentProviding.$h(super.$h);
+class Libp2pCoreRoutingContentProviding extends GoHandle {
+  Libp2pCoreRoutingContentProviding.$h(super.$h);
 }
 
 /// Go: `routing.ContentRouting` (handle).
-class ContentRouting extends ContentDiscovery {
-  ContentRouting.$h(super.$h) : super.$h();
+class Libp2pCoreRoutingContentRouting
+    extends Libp2pCoreRoutingContentDiscovery {
+  Libp2pCoreRoutingContentRouting.$h(super.$h) : super.$h();
 
   /// Go: type assertion `x.(*dht.IpfsDHT)`: null if the object is not one.
-  $libp2p_kad_dht.IpfsDht? asIpfsDht() {
+  $libp2p_kad_dht.Libp2pKadDhtIpfsDht? asIpfsDht() {
     final $r = $callSync(101, $W()..h(this));
-    return $r.hn($libp2p_kad_dht.IpfsDht.$h);
+    return $r.hn($libp2p_kad_dht.Libp2pKadDhtIpfsDht.$h);
   }
 
   /// Go: type assertion `x.(*routing.RoutingDiscovery)`: null if the object is not one.
-  $routing.RoutingDiscovery? asRoutingDiscovery() {
+  $routing.Libp2pP2pDiscoveryRoutingDiscovery? asRoutingDiscovery() {
     final $r = $callSync(102, $W()..h(this));
-    return $r.hn($routing.RoutingDiscovery.$h);
+    return $r.hn($routing.Libp2pP2pDiscoveryRoutingDiscovery.$h);
   }
 }
 
 /// Go: `routing.Option` (handle).
-class Option extends GoHandle {
-  Option.$h(super.$h);
+class Libp2pCoreRoutingOption extends GoHandle {
+  Libp2pCoreRoutingOption.$h(super.$h);
 }
 
 /// Go: `routing.ValueStore` (handle).
-class ValueStore extends GoHandle {
-  ValueStore.$h(super.$h);
+class Libp2pCoreRoutingValueStore extends GoHandle {
+  Libp2pCoreRoutingValueStore.$h(super.$h);
 }
 
-/// Go: `const routing.AddingPeer routing.QueryEventType`.
-const addingPeer = 6;
-
-/// Go: `const routing.DialingPeer routing.QueryEventType`.
-const dialingPeer = 7;
-
-/// Go: `const routing.FinalPeer routing.QueryEventType`.
-const finalPeer = 2;
-
-/// Go: `const routing.PeerResponse routing.QueryEventType`.
-const peerResponse = 1;
-
-/// Go: `const routing.Provider routing.QueryEventType`.
-const provider = 4;
-
-/// Go: `const routing.QueryError routing.QueryEventType`.
-const queryError = 3;
-
-/// Go: `const routing.SendingQuery routing.QueryEventType`.
-const sendingQuery = 0;
-
-/// Go: `const routing.Value routing.QueryEventType`.
-const value$ = 5;
-
 /// Go: `routing.QueryEvent` (a kubo command output).
-final class QueryEvent {
-  QueryEvent.$dec($R r)
-      : id = $peer.Id(r.str()),
+final class Libp2pCoreRoutingQueryEvent {
+  Libp2pCoreRoutingQueryEvent.$dec($R r)
+      : id = $peer.Libp2pCorePeerId(r.str()),
         type = r.i64(),
         responses = r.list(() => r.p()
-            ? $peer.AddrInfo(
-                id: $peer.Id(r.str()),
+            ? $peer.Libp2pCorePeerAddrInfo(
+                id: $peer.Libp2pCorePeerId(r.str()),
                 addrs: r.list(() => $multiaddr.Multiaddr(r.str())))
             : null),
         extra = r.str();
 
   /// Go: `ID`.
-  final $peer.Id id;
+  final $peer.Libp2pCorePeerId id;
 
   /// Go: `Type`.
   final int type;
 
   /// Go: `Responses`.
-  final List<$peer.AddrInfo?> responses;
+  final List<$peer.Libp2pCorePeerAddrInfo?> responses;
 
   /// Go: `Extra`.
   final String extra;
@@ -114,8 +92,8 @@ final class QueryEvent {
 
 /// Go: `var routing.ErrNotFound error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrNotFound extends GolangException {
-  ErrNotFound.$(super.base) : super.$from();
+class Libp2pCoreRoutingErrNotFound extends GolangException {
+  Libp2pCoreRoutingErrNotFound.$(super.base) : super.$from();
 
   @override
   String toString() => 'routing.ErrNotFound: $message';
@@ -123,9 +101,36 @@ class ErrNotFound extends GolangException {
 
 /// Go: `var routing.ErrNotSupported error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrNotSupported extends GolangException {
-  ErrNotSupported.$(super.base) : super.$from();
+class Libp2pCoreRoutingErrNotSupported extends GolangException {
+  Libp2pCoreRoutingErrNotSupported.$(super.base) : super.$from();
 
   @override
   String toString() => 'routing.ErrNotSupported: $message';
+}
+
+/// Go: the package-level members of `github.com/libp2p/go-libp2p/core/routing` (`Go.libp2p.core.routing`).
+extension GoLibp2pCoreRoutingApi on GoLibp2pCoreRouting {
+  /// Go: `const routing.AddingPeer routing.QueryEventType`.
+  int get addingPeer => 6;
+
+  /// Go: `const routing.DialingPeer routing.QueryEventType`.
+  int get dialingPeer => 7;
+
+  /// Go: `const routing.FinalPeer routing.QueryEventType`.
+  int get finalPeer => 2;
+
+  /// Go: `const routing.PeerResponse routing.QueryEventType`.
+  int get peerResponse => 1;
+
+  /// Go: `const routing.Provider routing.QueryEventType`.
+  int get provider => 4;
+
+  /// Go: `const routing.QueryError routing.QueryEventType`.
+  int get queryError => 3;
+
+  /// Go: `const routing.SendingQuery routing.QueryEventType`.
+  int get sendingQuery => 0;
+
+  /// Go: `const routing.Value routing.QueryEventType`.
+  int get value$ => 5;
 }

@@ -4,16 +4,17 @@ library;
 
 import 'dart:typed_data';
 
+import 'package:p2p_ffi/src/go.dart' show GoMultibase;
 import 'package:p2p_ffi/src/runtime.dart';
 
 /// Go: `multibase.Encoder` (handle).
-class Encoder extends GoHandle {
-  Encoder.$h(super.$h);
+class MultibaseEncoder extends GoHandle {
+  MultibaseEncoder.$h(super.$h);
 
   /// Go: `func multibase.NewEncoder(base multibase.Encoding) (multibase.Encoder, error)`.
-  factory Encoder(int base) {
+  factory MultibaseEncoder(int base) {
     final $r = $callSync(670, $W()..i64(base));
-    return $r.hnn(Encoder.$h);
+    return $r.hnn(MultibaseEncoder.$h);
   }
 
   /// Go: `func (multibase.Encoder).Encode(data []byte) string`.
@@ -33,117 +34,120 @@ class Encoder extends GoHandle {
   }
 }
 
-/// Go: `func multibase.Encode(base multibase.Encoding, data []byte) (string, error)`.
-String encode(int base, Uint8List data) {
-  final $r = $callSync(
-      664,
-      $W()
-        ..i64(base)
-        ..bytes(data));
-  return $r.str();
-}
-
-/// Go: `func multibase.Decode(data string) (multibase.Encoding, []byte, error)`.
-(int, Uint8List) decode(String data) {
-  final $r = $callSync(663, $W()..str(data));
-  return ($r.i64(), $r.bytes() ?? Uint8List(0));
-}
-
-/// Go: `func multibase.EncoderByName(str string) (multibase.Encoder, error)`.
-Encoder encoderByName(String str) {
-  final $r = $callSync(667, $W()..str(str));
-  return $r.hnn(Encoder.$h);
-}
-
-/// Go: `var multibase.EncodingToStr map[multibase.Encoding]string`.
-Map<int, String> get encodingToStr {
-  final $r = $callSync(668);
-  return $r.map(() => $r.i64(), () => $r.str());
-}
-
-/// Go: `var multibase.Encodings map[string]multibase.Encoding`.
-Map<String, int> get encodings {
-  final $r = $callSync(669);
-  return $r.map(() => $r.str(), () => $r.i64());
-}
-
-/// Go: `const multibase.Base10 untyped rune`.
-const base10 = 57;
-
-/// Go: `const multibase.Base16 untyped rune`.
-const base16 = 102;
-
-/// Go: `const multibase.Base16Upper untyped rune`.
-const base16Upper = 70;
-
-/// Go: `const multibase.Base2 untyped rune`.
-const base2 = 48;
-
-/// Go: `const multibase.Base256Emoji untyped rune`.
-const base256Emoji = 128640;
-
-/// Go: `const multibase.Base32 untyped rune`.
-const base32 = 98;
-
-/// Go: `const multibase.Base32Upper untyped rune`.
-const base32Upper = 66;
-
-/// Go: `const multibase.Base32hex untyped rune`.
-const base32hex = 118;
-
-/// Go: `const multibase.Base32hexPad untyped rune`.
-const base32hexPad = 116;
-
-/// Go: `const multibase.Base32hexPadUpper untyped rune`.
-const base32hexPadUpper = 84;
-
-/// Go: `const multibase.Base32hexUpper untyped rune`.
-const base32hexUpper = 86;
-
-/// Go: `const multibase.Base32pad untyped rune`.
-const base32pad = 99;
-
-/// Go: `const multibase.Base32padUpper untyped rune`.
-const base32padUpper = 67;
-
-/// Go: `const multibase.Base36 untyped rune`.
-const base36 = 107;
-
-/// Go: `const multibase.Base36Upper untyped rune`.
-const base36Upper = 75;
-
-/// Go: `const multibase.Base45 untyped rune`.
-const base45 = 82;
-
-/// Go: `const multibase.Base58BTC untyped rune`.
-const base58btc = 122;
-
-/// Go: `const multibase.Base58Flickr untyped rune`.
-const base58Flickr = 90;
-
-/// Go: `const multibase.Base64 untyped rune`.
-const base64 = 109;
-
-/// Go: `const multibase.Base64pad untyped rune`.
-const base64pad = 77;
-
-/// Go: `const multibase.Base64url untyped rune`.
-const base64url = 117;
-
-/// Go: `const multibase.Base64urlPad untyped rune`.
-const base64urlPad = 85;
-
-/// Go: `const multibase.Base8 untyped rune`.
-const base8 = 55;
-
-/// Go: `const multibase.Identity untyped int`.
-const identity = 0;
-
 /// Go: `var multibase.ErrUnsupportedEncoding error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrUnsupportedEncoding extends GolangException {
-  ErrUnsupportedEncoding.$(super.base) : super.$from();
+class MultibaseErrUnsupportedEncoding extends GolangException {
+  MultibaseErrUnsupportedEncoding.$(super.base) : super.$from();
 
   @override
   String toString() => 'multibase.ErrUnsupportedEncoding: $message';
+}
+
+/// Go: the package-level members of `github.com/multiformats/go-multibase` (`Go.multibase`).
+extension GoMultibaseApi on GoMultibase {
+  /// Go: `func multibase.Encode(base multibase.Encoding, data []byte) (string, error)`.
+  String encode(int base, Uint8List data) {
+    final $r = $callSync(
+        664,
+        $W()
+          ..i64(base)
+          ..bytes(data));
+    return $r.str();
+  }
+
+  /// Go: `func multibase.Decode(data string) (multibase.Encoding, []byte, error)`.
+  (int, Uint8List) decode(String data) {
+    final $r = $callSync(663, $W()..str(data));
+    return ($r.i64(), $r.bytes() ?? Uint8List(0));
+  }
+
+  /// Go: `func multibase.EncoderByName(str string) (multibase.Encoder, error)`.
+  MultibaseEncoder encoderByName(String str) {
+    final $r = $callSync(667, $W()..str(str));
+    return $r.hnn(MultibaseEncoder.$h);
+  }
+
+  /// Go: `var multibase.EncodingToStr map[multibase.Encoding]string`.
+  Map<int, String> get encodingToStr {
+    final $r = $callSync(668);
+    return $r.map(() => $r.i64(), () => $r.str());
+  }
+
+  /// Go: `var multibase.Encodings map[string]multibase.Encoding`.
+  Map<String, int> get encodings {
+    final $r = $callSync(669);
+    return $r.map(() => $r.str(), () => $r.i64());
+  }
+
+  /// Go: `const multibase.Base10 untyped rune`.
+  int get base10 => 57;
+
+  /// Go: `const multibase.Base16 untyped rune`.
+  int get base16 => 102;
+
+  /// Go: `const multibase.Base16Upper untyped rune`.
+  int get base16Upper => 70;
+
+  /// Go: `const multibase.Base2 untyped rune`.
+  int get base2 => 48;
+
+  /// Go: `const multibase.Base256Emoji untyped rune`.
+  int get base256Emoji => 128640;
+
+  /// Go: `const multibase.Base32 untyped rune`.
+  int get base32 => 98;
+
+  /// Go: `const multibase.Base32Upper untyped rune`.
+  int get base32Upper => 66;
+
+  /// Go: `const multibase.Base32hex untyped rune`.
+  int get base32hex => 118;
+
+  /// Go: `const multibase.Base32hexPad untyped rune`.
+  int get base32hexPad => 116;
+
+  /// Go: `const multibase.Base32hexPadUpper untyped rune`.
+  int get base32hexPadUpper => 84;
+
+  /// Go: `const multibase.Base32hexUpper untyped rune`.
+  int get base32hexUpper => 86;
+
+  /// Go: `const multibase.Base32pad untyped rune`.
+  int get base32pad => 99;
+
+  /// Go: `const multibase.Base32padUpper untyped rune`.
+  int get base32padUpper => 67;
+
+  /// Go: `const multibase.Base36 untyped rune`.
+  int get base36 => 107;
+
+  /// Go: `const multibase.Base36Upper untyped rune`.
+  int get base36Upper => 75;
+
+  /// Go: `const multibase.Base45 untyped rune`.
+  int get base45 => 82;
+
+  /// Go: `const multibase.Base58BTC untyped rune`.
+  int get base58btc => 122;
+
+  /// Go: `const multibase.Base58Flickr untyped rune`.
+  int get base58Flickr => 90;
+
+  /// Go: `const multibase.Base64 untyped rune`.
+  int get base64 => 109;
+
+  /// Go: `const multibase.Base64pad untyped rune`.
+  int get base64pad => 77;
+
+  /// Go: `const multibase.Base64url untyped rune`.
+  int get base64url => 117;
+
+  /// Go: `const multibase.Base64urlPad untyped rune`.
+  int get base64urlPad => 85;
+
+  /// Go: `const multibase.Base8 untyped rune`.
+  int get base8 => 55;
+
+  /// Go: `const multibase.Identity untyped int`.
+  int get identity => 0;
 }

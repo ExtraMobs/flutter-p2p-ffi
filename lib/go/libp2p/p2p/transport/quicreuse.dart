@@ -4,30 +4,38 @@ library;
 
 import 'dart:async';
 
+import 'package:p2p_ffi/src/go.dart' show GoLibp2pP2pTransportQuicreuse;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/client_golang/prometheus.dart' as $prometheus;
 import 'package:p2p_ffi/go/net.dart' as $net;
 
 /// Go: `quicreuse.Option` (functional option; constructors in the package).
-final class Option extends GoOption {
-  Option.$(super.$i, super.$a);
+final class Libp2pP2pTransportQuicreuseOption extends GoOption {
+  Libp2pP2pTransportQuicreuseOption.$(super.$i, super.$a);
 }
 
-/// Go: `quicreuse.DisableReuseport`.
-Option disableReuseport() => Option.$(1, (_) {});
+/// Go: the package-level members of `github.com/libp2p/go-libp2p/p2p/transport/quicreuse` (`Go.libp2p.p2p.transport.quicreuse`).
+extension GoLibp2pP2pTransportQuicreuseApi on GoLibp2pP2pTransportQuicreuse {
+  /// Go: `quicreuse.DisableReuseport`.
+  Libp2pP2pTransportQuicreuseOption disableReuseport() =>
+      Libp2pP2pTransportQuicreuseOption.$(1, (_) {});
 
-/// Go: `quicreuse.EnableMetrics`.
-Option enableMetrics($prometheus.Registerer reg) =>
-    Option.$(2, (w) => w..h(reg));
+  /// Go: `quicreuse.EnableMetrics`.
+  Libp2pP2pTransportQuicreuseOption enableMetrics(
+          $prometheus.ClientGolangPrometheusRegisterer reg) =>
+      Libp2pP2pTransportQuicreuseOption.$(2, (w) => w..h(reg));
 
-/// Go: `quicreuse.VerifySourceAddress`.
-Option verifySourceAddress(FutureOr<bool> Function($net.Addr addr) f) =>
-    Option.$(
-        5, (w) => w..cb((r) => f(r.p() ? $net.Addr.$dec(r) : $nil()), true));
+  /// Go: `quicreuse.VerifySourceAddress`.
+  Libp2pP2pTransportQuicreuseOption verifySourceAddress(
+          FutureOr<bool> Function($net.NetAddr addr) f) =>
+      Libp2pP2pTransportQuicreuseOption.$(5,
+          (w) => w..cb((r) => f(r.p() ? $net.NetAddr.$dec(r) : $nil()), true));
 
-/// Go: `quicreuse.WithQlogTracerDir`.
-Option withQlogTracerDir(String dir) => Option.$(6, (w) => w..str(dir));
+  /// Go: `quicreuse.WithQlogTracerDir`.
+  Libp2pP2pTransportQuicreuseOption withQlogTracerDir(String dir) =>
+      Libp2pP2pTransportQuicreuseOption.$(6, (w) => w..str(dir));
 
-/// Go: the function `quicreuse.NewConnManager` as a value (a token: Go gets the function
-/// itself, as in `libp2p.Transport(tcp.NewTCPTransport)`).
-const newConnManagerFunc = GoToken(14);
+  /// Go: the function `quicreuse.NewConnManager` as a value (a token: Go gets the function
+  /// itself, as in `libp2p.Transport(tcp.NewTCPTransport)`).
+  GoToken get newConnManagerFunc => const GoToken(14);
+}

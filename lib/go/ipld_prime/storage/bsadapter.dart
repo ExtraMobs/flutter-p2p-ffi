@@ -7,23 +7,24 @@ import 'package:p2p_ffi/go/boxo/blockstore.dart' as $blockstore;
 import 'package:p2p_ffi/go/ipld_prime/storage.dart' as $storage;
 
 /// Go: `bsadapter.Adapter` (handle).
-class Adapter extends $storage.ReadableStorage {
-  Adapter.$h(super.$h) : super.$h();
+class IpldPrimeStorageBsadapterAdapter
+    extends $storage.IpldPrimeStorageReadableStorage {
+  IpldPrimeStorageBsadapterAdapter.$h(super.$h) : super.$h();
 
   /// Go: `func bsadapter.NewAdapter() *bsadapter.Adapter`.
-  factory Adapter() {
+  factory IpldPrimeStorageBsadapterAdapter() {
     final $r = $callSync(469);
-    return $r.hnn(Adapter.$h);
+    return $r.hnn(IpldPrimeStorageBsadapterAdapter.$h);
   }
 
   /// Go: `field Wrapped blockstore.Blockstore`.
-  $blockstore.Blockstore get wrapped {
+  $blockstore.BoxoBlockstore get wrapped {
     final $r = $callSync(470, $W()..h(this));
-    return $r.hnn($blockstore.Blockstore.$h);
+    return $r.hnn($blockstore.BoxoBlockstore.$h);
   }
 
   /// Go: `field Wrapped blockstore.Blockstore`.
-  set wrapped($blockstore.Blockstore wrapped) {
+  set wrapped($blockstore.BoxoBlockstore wrapped) {
     $callSync(
         471,
         $W()

@@ -2,30 +2,13 @@
 // Go: github.com/ipfs/boxo/filestore
 library;
 
+import 'package:p2p_ffi/src/go.dart' show GoBoxoFilestore;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/cid.dart' as $cid;
 
-/// Go: `const filestore.StatusFileChanged filestore.Status`.
-const statusFileChanged = 12;
-
-/// Go: `const filestore.StatusFileError filestore.Status`.
-const statusFileError = 10;
-
-/// Go: `const filestore.StatusFileNotFound filestore.Status`.
-const statusFileNotFound = 11;
-
-/// Go: `const filestore.StatusKeyNotFound filestore.Status`.
-const statusKeyNotFound = 30;
-
-/// Go: `const filestore.StatusOk filestore.Status`.
-const statusOk = 0;
-
-/// Go: `const filestore.StatusOtherError filestore.Status`.
-const statusOtherError = 20;
-
 /// Go: `filestore.ListRes` (a kubo command output).
-final class ListRes {
-  ListRes.$dec($R r)
+final class BoxoFilestoreListRes {
+  BoxoFilestoreListRes.$dec($R r)
       : status = r.i64(),
         errorMsg = r.str(),
         key = $cid.Cid(r.str()),
@@ -60,8 +43,8 @@ final class ListRes {
 
 /// Go: `filestore.CorruptReferenceError`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class CorruptReferenceError extends GolangException {
-  CorruptReferenceError.$(super.base, $R r)
+class BoxoFilestoreCorruptReferenceError extends GolangException {
+  BoxoFilestoreCorruptReferenceError.$(super.base, $R r)
       : code = r.i64(),
         super.$from();
 
@@ -74,8 +57,8 @@ class CorruptReferenceError extends GolangException {
 
 /// Go: `var filestore.ErrFilestoreNotEnabled error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrFilestoreNotEnabled extends GolangException {
-  ErrFilestoreNotEnabled.$(super.base) : super.$from();
+class BoxoFilestoreErrFilestoreNotEnabled extends GolangException {
+  BoxoFilestoreErrFilestoreNotEnabled.$(super.base) : super.$from();
 
   @override
   String toString() => 'filestore.ErrFilestoreNotEnabled: $message';
@@ -83,9 +66,30 @@ class ErrFilestoreNotEnabled extends GolangException {
 
 /// Go: `var filestore.ErrUrlstoreNotEnabled error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrUrlstoreNotEnabled extends GolangException {
-  ErrUrlstoreNotEnabled.$(super.base) : super.$from();
+class BoxoFilestoreErrUrlstoreNotEnabled extends GolangException {
+  BoxoFilestoreErrUrlstoreNotEnabled.$(super.base) : super.$from();
 
   @override
   String toString() => 'filestore.ErrUrlstoreNotEnabled: $message';
+}
+
+/// Go: the package-level members of `github.com/ipfs/boxo/filestore` (`Go.boxo.filestore`).
+extension GoBoxoFilestoreApi on GoBoxoFilestore {
+  /// Go: `const filestore.StatusFileChanged filestore.Status`.
+  int get statusFileChanged => 12;
+
+  /// Go: `const filestore.StatusFileError filestore.Status`.
+  int get statusFileError => 10;
+
+  /// Go: `const filestore.StatusFileNotFound filestore.Status`.
+  int get statusFileNotFound => 11;
+
+  /// Go: `const filestore.StatusKeyNotFound filestore.Status`.
+  int get statusKeyNotFound => 30;
+
+  /// Go: `const filestore.StatusOk filestore.Status`.
+  int get statusOk => 0;
+
+  /// Go: `const filestore.StatusOtherError filestore.Status`.
+  int get statusOtherError => 20;
 }

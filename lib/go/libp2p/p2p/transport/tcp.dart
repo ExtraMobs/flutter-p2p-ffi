@@ -2,8 +2,12 @@
 // Go: github.com/libp2p/go-libp2p/p2p/transport/tcp
 library;
 
+import 'package:p2p_ffi/src/go.dart' show GoLibp2pP2pTransportTcp;
 import 'package:p2p_ffi/src/runtime.dart';
 
-/// Go: the function `tcp.NewTCPTransport` as a value (a token: Go gets the function
-/// itself, as in `libp2p.Transport(tcp.NewTCPTransport)`).
-const newTcpTransportFunc = GoToken(15);
+/// Go: the package-level members of `github.com/libp2p/go-libp2p/p2p/transport/tcp` (`Go.libp2p.p2p.transport.tcp`).
+extension GoLibp2pP2pTransportTcpApi on GoLibp2pP2pTransportTcp {
+  /// Go: the function `tcp.NewTCPTransport` as a value (a token: Go gets the function
+  /// itself, as in `libp2p.Transport(tcp.NewTCPTransport)`).
+  GoToken get newTcpTransportFunc => const GoToken(15);
+}

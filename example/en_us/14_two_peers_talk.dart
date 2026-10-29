@@ -26,15 +26,6 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:p2p_ffi/go/context.dart' as context;
-import 'package:p2p_ffi/go/io_stream.dart' as io_stream;
-import 'package:p2p_ffi/go/libp2p.dart' as libp2p;
-import 'package:p2p_ffi/go/libp2p/core/event.dart' as event;
-import 'package:p2p_ffi/go/libp2p/core/host.dart' as host;
-import 'package:p2p_ffi/go/libp2p/core/network.dart' as network;
-import 'package:p2p_ffi/go/libp2p/core/peer.dart' as peer;
-import 'package:p2p_ffi/go/libp2p/p2p/discovery/mdns.dart' as mdns;
-import 'package:p2p_ffi/go/libp2p/p2p/protocol/ping.dart' as ping;
 import 'package:p2p_ffi/p2p_ffi.dart';
 
 import 'lesson.dart';
@@ -42,21 +33,22 @@ import 'lesson.dart';
 const greet = '/lesson/greet/1.0.0';
 
 /// network.Connectedness as words.
-String state(int c) => switch (c) {
-      network.notConnected => 'not connected',
-      network.connected => 'connected',
-      network.canConnect => 'can connect',
-      network.cannotConnect => 'cannot connect',
-      network.limited => 'connected (limited, through a relay)',
-      _ => '$c',
-    };
+String state(int c) =>
+    {
+      Go.libp2p.core.network.notConnected: 'not connected',
+      Go.libp2p.core.network.connected: 'connected',
+      Go.libp2p.core.network.canConnect: 'can connect',
+      Go.libp2p.core.network.cannotConnect: 'cannot connect',
+      Go.libp2p.core.network.limited: 'connected (limited, through a relay)',
+    }[c] ??
+    '$c';
 
 Future<void> main() async {
   await P2pService.start();
   try {
-    final ctx = context.background();
-    Future<host.Host> newHost() => libp2p.new$([
-          libp2p.listenAddrStrings(['/ip4/127.0.0.1/tcp/0'])
+    final ctx = Go.context.background();
+    Future<Libp2pCoreHost> newHost() => Go.libp2p.new$([
+          Go.libp2p.listenAddrStrings(['/ip4/127.0.0.1/tcp/0'])
         ]);
     final a = await newHost(), b = await newHost();
     say('a: ${a.id().shortString()}  b: ${b.id().shortString()}');
@@ -64,7 +56,7 @@ Future<void> main() async {
     // 1. Watch a's connections: a Dart implementation of a Go interface
     //    (network.Notifiee), called by Go on each event.
     //    Go:  a.Network().Notify(&network.NotifyBundle{ConnectedF: ...})
-    final watcher = network.Notifiee(
+    final watcher = Libp2pCoreNetworkNotifiee(
       connected: (_, c) =>
           say('  [a] connected to ${c.remotePeer().shortString()} '
               'over ${c.remoteMultiaddr()}'),
@@ -74,22 +66,25 @@ Future<void> main() async {
     a.network().notify(watcher);
     //    The same news from b's event bus.
     //    Go:  sub, _ := b.EventBus().Subscribe(new(event.EvtPeerConnectednessChanged))
-    final bus = b.eventBus().subscribe(event.EvtPeerConnectednessChanged.$type);
+    final bus = b
+        .eventBus()
+        .subscribe(Libp2pCoreEventEvtPeerConnectednessChanged.$type);
     final busDone = bus.out().forEach((e) {
-      if (e is event.EvtPeerConnectednessChanged) {
+      if (e is Libp2pCoreEventEvtPeerConnectednessChanged) {
         say('  [b] ${e.peer!.shortString()} is now ${state(e.connectedness)}');
       }
     });
 
     // 2. Connect: b's ID and addresses, as an AddrInfo.
     //    Go:  a.Connect(ctx, *host.InfoFromHost(b))
-    await a.connect(ctx, host.infoFromHost(b));
+    await a.connect(ctx, Go.libp2p.core.host.infoFromHost(b));
     say('a and b: ${state(a.network().connectedness(b.id()))}');
 
     // 3. Ping: a protocol every host speaks (/ipfs/ping/1.0.0).
     //    Go:  for r := range ping.Ping(ctx, a, b.ID()) { r.RTT }
-    final (pingCtx, stopPing) = context.withCancel(ctx);
-    await for (final r in ping.ping(pingCtx, a, b.id()).take(3)) {
+    final (pingCtx, stopPing) = Go.context.withCancel(ctx);
+    await for (final r
+        in Go.libp2p.p2p.protocol.ping.ping(pingCtx, a, b.id()).take(3)) {
       // On Windows Go's clock ticks coarsely: a loopback ping may read 0.
       say('ping a → b: ${r.rtt.inMicroseconds} µs');
     }
@@ -99,7 +94,7 @@ Future<void> main() async {
     //    Dart function Go keeps and calls once per incoming stream.
     //    Go:  b.SetStreamHandler(greet, func(s network.Stream) {...})
     b.setStreamHandler(greet, (s) async {
-      final name = await io_stream.readerStream(s).expand((c) => c).toList();
+      final name = await readerStream(s).expand((c) => c).toList();
       await s.write(utf8.encode('hello, ${utf8.decode(name)}, from b'));
       await s.close();
     });
@@ -107,7 +102,7 @@ Future<void> main() async {
     final s = await a.newStream(ctx, b.id(), [greet]);
     await s.write(Uint8List.fromList(utf8.encode('a')));
     await s.closeWrite(); // "I am done sending"; b's read loop ends
-    final answer = await io_stream.readerStream(s).expand((c) => c).toList();
+    final answer = await readerStream(s).expand((c) => c).toList();
     say('a sent "a" on $greet; b answered "${utf8.decode(answer)}"');
     //    What a learned b speaks (identify, run on every new connection):
     final speaks = await a.peerstore().getProtocols(b.id());
@@ -119,14 +114,16 @@ Future<void> main() async {
     //    Go:  mdns.NewMdnsService(h, "lesson", notifee).Start()
     final c = await newHost();
     final found = Completer<void>();
-    final listen = mdns.newMdnsService(c, 'p2p-ffi-lesson',
-        mdns.Notifee(handlePeerFound: (pi) {
+    final listen = Go.libp2p.p2p.discovery.mdns
+        .newMdnsService(c, 'p2p-ffi-lesson',
+            Libp2pP2pDiscoveryMdnsNotifee(handlePeerFound: (pi) {
       if (pi.id == a.id() && !found.isCompleted) {
         say('mDNS: c found a on the local network at ${pi.addrs.first}');
         found.complete();
       }
     }));
-    final announce = mdns.newMdnsService(a, 'p2p-ffi-lesson', mdns.Notifee());
+    final announce = Go.libp2p.p2p.discovery.mdns
+        .newMdnsService(a, 'p2p-ffi-lesson', Libp2pP2pDiscoveryMdnsNotifee());
     listen.start();
     announce.start();
     await found.future.timeout(const Duration(seconds: 10),
@@ -144,7 +141,7 @@ Future<void> main() async {
         why: 'c has never seen b: no address in its peerstore to dial',
         instead: 'pass the addresses (an AddrInfo), or find them by the DHT '
             '(lesson 15) or mDNS',
-        action: () => c.connect(ctx, peer.AddrInfo(id: b.id())));
+        action: () => c.connect(ctx, Libp2pCorePeerAddrInfo(id: b.id())));
 
     a.network().stopNotify(watcher);
     bus.close();

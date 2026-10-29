@@ -29,18 +29,6 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:p2p_ffi/go/context.dart' as context;
-import 'package:p2p_ffi/go/kubo/config.dart' as config;
-import 'package:p2p_ffi/go/kubo/core.dart' as core;
-import 'package:p2p_ffi/go/kubo/core/coreapi.dart' as coreapi;
-import 'package:p2p_ffi/go/kubo/core/coreiface/options.dart' as options;
-import 'package:p2p_ffi/go/kubo/core/node.dart' as node;
-import 'package:p2p_ffi/go/kubo/core/node/libp2p.dart' as kubo_libp2p;
-import 'package:p2p_ffi/go/kubo/repo/fsrepo.dart' as fsrepo;
-import 'package:p2p_ffi/go/libp2p.dart' as libp2p;
-import 'package:p2p_ffi/go/libp2p/core/host.dart' as host;
-import 'package:p2p_ffi/go/libp2p/core/peer.dart' as peer;
-import 'package:p2p_ffi/go/libp2p_pubsub.dart' as pubsub;
 import 'package:p2p_ffi/p2p_ffi.dart';
 
 import 'lesson.dart';
@@ -48,36 +36,41 @@ import 'lesson.dart';
 Future<void> main() async {
   await P2pService.start();
   final tmp = Directory.systemTemp.createTempSync('lesson18_');
-  final ctx = context.background();
+  final ctx = Go.context.background();
   try {
     // 1. kubo's pubsub: two online nodes on loopback, pubsub enabled.
     //    Go:  core.NewNode(ctx, &node.BuildCfg{..., ExtraOpts: map[string]bool{"pubsub": true}})
     loadPlugins();
-    Future<core.IpfsNode> pubsubNode(String name) async {
-      final cfg = config.initWithIdentity(
-          config.createIdentity(null, [options.key.type('ed25519')]));
-      config.profiles['test']!.transform(cfg);
-      fsrepo.init('${tmp.path}/$name', cfg);
-      return core.newNode(
+    Future<KuboCoreIpfsNode> pubsubNode(String name) async {
+      final cfg = Go.kubo.config.initWithIdentity(Go.kubo.config.createIdentity(
+          null, [Go.kubo.core.coreiface.options.key.type('ed25519')]));
+      Go.kubo.config.profiles['test']!.transform(cfg);
+      Go.kubo.repo.fsrepo.init('${tmp.path}/$name', cfg);
+      return Go.kubo.core.newNode(
           ctx,
-          node.BuildCfg(
-              repo: fsrepo.open('${tmp.path}/$name'),
+          KuboCoreNodeBuildCfg(
+              repo: Go.kubo.repo.fsrepo.open('${tmp.path}/$name'),
               online: true,
-              routing: kubo_libp2p.dhtServerOption,
+              routing: Go.kubo.core.node.libp2p.dhtServerOption,
               extraOpts: {'pubsub': true}));
     }
 
     final na = await pubsubNode('a'), nb = await pubsubNode('b');
-    final a = coreapi.newCoreApi(na), b = coreapi.newCoreApi(nb);
+    final a = Go.kubo.core.coreapi.newCoreApi(na),
+        b = Go.kubo.core.coreapi.newCoreApi(nb);
     final idA = (await a.key().self(ctx)).id!;
     await b.swarm().connect(
-        ctx, peer.AddrInfo(id: idA, addrs: await a.swarm().localAddrs(ctx)));
+        ctx,
+        Libp2pCorePeerAddrInfo(
+            id: idA, addrs: await a.swarm().localAddrs(ctx)));
 
     //    a subscribes; b waits until it sees a on the topic, then publishes.
     //    Go:  sub, _ := api.PubSub().Subscribe(ctx, "news")
-    final (subCtx, stopSub) = context.withCancel(ctx);
+    final (subCtx, stopSub) = Go.context.withCancel(ctx);
     final sub = await a.pubSub().subscribe(subCtx, 'news');
-    while (!(await b.pubSub().peers(ctx, [options.pubSub.topic('news')]))
+    while (!(await b
+            .pubSub()
+            .peers(ctx, [Go.kubo.core.coreiface.options.pubSub.topic('news')]))
         .contains(idA)) {
       await Future<void>.delayed(const Duration(milliseconds: 100));
     }
@@ -96,22 +89,24 @@ Future<void> main() async {
     //    Go:  ps, _ := pubsub.NewGossipSub(ctx, h); t, _ := ps.Join("chat")
     final hosts = [
       for (var i = 0; i < 3; i++)
-        await libp2p.new$([
-          libp2p.listenAddrStrings(['/ip4/127.0.0.1/tcp/0'])
+        await Go.libp2p.new$([
+          Go.libp2p.listenAddrStrings(['/ip4/127.0.0.1/tcp/0'])
         ]),
     ];
     final [x, y, z] = hosts;
-    await x.connect(ctx, host.infoFromHost(y));
-    await z.connect(ctx, host.infoFromHost(y));
-    final routers = [for (final h in hosts) await pubsub.newGossipSub(ctx, h)];
+    await x.connect(ctx, Go.libp2p.core.host.infoFromHost(y));
+    await z.connect(ctx, Go.libp2p.core.host.infoFromHost(y));
+    final routers = [
+      for (final h in hosts) await Go.libp2pPubsub.newGossipSub(ctx, h)
+    ];
     //    z only accepts short messages: a Dart function Go calls for each
     //    message (accept, ignore or reject; an exception also rejects).
     //    Go:  ps.RegisterTopicValidator("chat", func(ctx, from, m) ValidationResult {...})
     await routers[2].registerTopicValidator(
         'chat',
         (_, from, msg) => msg.message!.getData().length <= 64
-            ? pubsub.validationAccept
-            : pubsub.validationReject);
+            ? Go.libp2pPubsub.validationAccept
+            : Go.libp2pPubsub.validationReject);
     final topics = [for (final r in routers) await r.join('chat')];
     final zSub = await topics[2].subscribe();
     final ySub = await topics[1].subscribe(); // y relays only if subscribed
@@ -125,11 +120,11 @@ Future<void> main() async {
     await topics[0].publish(ctx, Uint8List.fromList(utf8.encode('bye from x')));
     for (var i = 0; i < 2; i++) {
       final (nctx, cancel) =
-          context.withTimeout(ctx, const Duration(seconds: 10));
+          Go.context.withTimeout(ctx, const Duration(seconds: 10));
       final got = await zSub.next(nctx);
       cancel();
       say('gossipsub: z got "${utf8.decode(got.message!.getData())}" '
-          '(author ${peer.idFromBytes(got.message!.getFrom()).shortString()}, '
+          '(author ${Go.libp2p.core.peer.idFromBytes(got.message!.getFrom()).shortString()}, '
           'relayed by ${got.receivedFrom!.shortString()})');
     }
 
@@ -141,7 +136,7 @@ Future<void> main() async {
         instead: 'publish a CID or an IPNS name for history; pubsub only '
             'for what happens now', action: () async {
       final (nctx, cancel) =
-          context.withTimeout(ctx, const Duration(seconds: 2));
+          Go.context.withTimeout(ctx, const Duration(seconds: 2));
       try {
         await late.next(nctx);
       } finally {

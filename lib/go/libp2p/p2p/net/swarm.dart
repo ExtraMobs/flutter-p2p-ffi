@@ -2,6 +2,7 @@
 // Go: github.com/libp2p/go-libp2p/p2p/net/swarm
 library;
 
+import 'package:p2p_ffi/src/go.dart' show GoLibp2pP2pNetSwarm;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/libp2p/core/connmgr.dart' as $connmgr;
 import 'package:p2p_ffi/go/libp2p/core/metrics.dart' as $metrics;
@@ -10,98 +11,30 @@ import 'package:p2p_ffi/go/libp2p/core/peer.dart' as $peer;
 import 'package:p2p_ffi/go/multiaddr.dart' as $multiaddr;
 
 /// Go: `swarm.BlackHoleSuccessCounter` (handle).
-class BlackHoleSuccessCounter extends GoHandle {
-  BlackHoleSuccessCounter.$h(super.$h);
+class Libp2pP2pNetSwarmBlackHoleSuccessCounter extends GoHandle {
+  Libp2pP2pNetSwarmBlackHoleSuccessCounter.$h(super.$h);
 }
 
 /// Go: `swarm.MetricsTracer` (handle).
-class MetricsTracer extends GoHandle {
-  MetricsTracer.$h(super.$h);
+class Libp2pP2pNetSwarmMetricsTracer extends GoHandle {
+  Libp2pP2pNetSwarmMetricsTracer.$h(super.$h);
 }
 
 /// Go: `swarm.Option` (functional option; constructors in the package).
-final class Option extends GoOption {
-  Option.$(super.$i, super.$a);
+final class Libp2pP2pNetSwarmOption extends GoOption {
+  Libp2pP2pNetSwarmOption.$(super.$i, super.$a);
 }
-
-/// Go: `swarm.WithConnectionGater`.
-Option withConnectionGater($connmgr.ConnectionGater gater) =>
-    Option.$(0, (w) => w..h(gater));
-
-/// Go: `swarm.WithDialRanker`.
-Option withDialRanker($network.DialRanker d) => Option.$(1, (w) => w..h(d));
-
-/// Go: `swarm.WithDialTimeoutLocal`.
-Option withDialTimeoutLocal(Duration t) =>
-    Option.$(3, (w) => w..i64((t).inMicroseconds * 1000));
-
-/// Go: `swarm.WithDialTimeout`.
-Option withDialTimeout(Duration t) =>
-    Option.$(2, (w) => w..i64((t).inMicroseconds * 1000));
-
-/// Go: `swarm.WithIPv6BlackHoleSuccessCounter`.
-Option withIPv6BlackHoleSuccessCounter(BlackHoleSuccessCounter f) =>
-    Option.$(4, (w) => w..h(f));
-
-/// Go: `swarm.WithMetricsTracer`.
-Option withMetricsTracer(MetricsTracer t) => Option.$(6, (w) => w..h(t));
-
-/// Go: `swarm.WithMetrics`.
-Option withMetrics($metrics.Reporter reporter) =>
-    Option.$(5, (w) => w..h(reporter));
-
-/// Go: `swarm.WithMultiaddrResolver`.
-Option withMultiaddrResolver($network.MultiaddrDnsResolver resolver) =>
-    Option.$(7, (w) => w..h(resolver));
-
-/// Go: `swarm.WithReadOnlyBlackHoleDetector`.
-Option withReadOnlyBlackHoleDetector() => Option.$(8, (_) {});
-
-/// Go: `swarm.WithResourceManager`.
-Option withResourceManager($network.ResourceManager m) =>
-    Option.$(9, (w) => w..h(m));
-
-/// Go: `swarm.WithUDPBlackHoleSuccessCounter`.
-Option withUdpBlackHoleSuccessCounter(BlackHoleSuccessCounter f) =>
-    Option.$(10, (w) => w..h(f));
-
-/// Go: `const swarm.ConcurrentFdDials untyped int`.
-const concurrentFdDials = 160;
-
-/// Go: `const swarm.DialAttempts untyped int`.
-const dialAttempts = 1;
-
-/// Go: `const swarm.PrivateOtherDelay time.Duration`.
-const privateOtherDelay = Duration(microseconds: 100000);
-
-/// Go: `const swarm.PrivateQUICDelay time.Duration`.
-const privateQuicDelay = Duration(microseconds: 30000);
-
-/// Go: `const swarm.PrivateTCPDelay time.Duration`.
-const privateTcpDelay = Duration(microseconds: 30000);
-
-/// Go: `const swarm.PublicOtherDelay time.Duration`.
-const publicOtherDelay = Duration(microseconds: 1000000);
-
-/// Go: `const swarm.PublicQUICDelay time.Duration`.
-const publicQuicDelay = Duration(microseconds: 250000);
-
-/// Go: `const swarm.PublicTCPDelay time.Duration`.
-const publicTcpDelay = Duration(microseconds: 250000);
-
-/// Go: `const swarm.RelayDelay time.Duration`.
-const relayDelay = Duration(microseconds: 500000);
 
 /// Go: `swarm.DialError`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class DialError extends GolangException {
-  DialError.$(super.base, $R r)
-      : peer = r.p() ? $peer.Id(r.str()) : $nil(),
+class Libp2pP2pNetSwarmDialError extends GolangException {
+  Libp2pP2pNetSwarmDialError.$(super.base, $R r)
+      : peer = r.p() ? $peer.Libp2pCorePeerId(r.str()) : $nil(),
         skipped = r.i64(),
         super.$from();
 
   /// Go: `Peer`.
-  final $peer.Id peer;
+  final $peer.Libp2pCorePeerId peer;
 
   /// Go: `Skipped`.
   final int skipped;
@@ -112,8 +45,8 @@ class DialError extends GolangException {
 
 /// Go: `var swarm.ErrAddrFiltered error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrAddrFiltered extends GolangException {
-  ErrAddrFiltered.$(super.base) : super.$from();
+class Libp2pP2pNetSwarmErrAddrFiltered extends GolangException {
+  Libp2pP2pNetSwarmErrAddrFiltered.$(super.base) : super.$from();
 
   @override
   String toString() => 'swarm.ErrAddrFiltered: $message';
@@ -121,8 +54,8 @@ class ErrAddrFiltered extends GolangException {
 
 /// Go: `var swarm.ErrAllDialsFailed error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrAllDialsFailed extends GolangException {
-  ErrAllDialsFailed.$(super.base) : super.$from();
+class Libp2pP2pNetSwarmErrAllDialsFailed extends GolangException {
+  Libp2pP2pNetSwarmErrAllDialsFailed.$(super.base) : super.$from();
 
   @override
   String toString() => 'swarm.ErrAllDialsFailed: $message';
@@ -130,8 +63,8 @@ class ErrAllDialsFailed extends GolangException {
 
 /// Go: `var swarm.ErrConnClosed error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrConnClosed extends GolangException {
-  ErrConnClosed.$(super.base) : super.$from();
+class Libp2pP2pNetSwarmErrConnClosed extends GolangException {
+  Libp2pP2pNetSwarmErrConnClosed.$(super.base) : super.$from();
 
   @override
   String toString() => 'swarm.ErrConnClosed: $message';
@@ -139,8 +72,8 @@ class ErrConnClosed extends GolangException {
 
 /// Go: `var swarm.ErrDialBackoff error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrDialBackoff extends GolangException {
-  ErrDialBackoff.$(super.base) : super.$from();
+class Libp2pP2pNetSwarmErrDialBackoff extends GolangException {
+  Libp2pP2pNetSwarmErrDialBackoff.$(super.base) : super.$from();
 
   @override
   String toString() => 'swarm.ErrDialBackoff: $message';
@@ -148,8 +81,8 @@ class ErrDialBackoff extends GolangException {
 
 /// Go: `var swarm.ErrDialRefusedBlackHole error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrDialRefusedBlackHole extends GolangException {
-  ErrDialRefusedBlackHole.$(super.base) : super.$from();
+class Libp2pP2pNetSwarmErrDialRefusedBlackHole extends GolangException {
+  Libp2pP2pNetSwarmErrDialRefusedBlackHole.$(super.base) : super.$from();
 
   @override
   String toString() => 'swarm.ErrDialRefusedBlackHole: $message';
@@ -157,8 +90,8 @@ class ErrDialRefusedBlackHole extends GolangException {
 
 /// Go: `var swarm.ErrDialTimeout error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrDialTimeout extends GolangException {
-  ErrDialTimeout.$(super.base) : super.$from();
+class Libp2pP2pNetSwarmErrDialTimeout extends GolangException {
+  Libp2pP2pNetSwarmErrDialTimeout.$(super.base) : super.$from();
 
   @override
   String toString() => 'swarm.ErrDialTimeout: $message';
@@ -166,8 +99,8 @@ class ErrDialTimeout extends GolangException {
 
 /// Go: `var swarm.ErrDialToSelf error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrDialToSelf extends GolangException {
-  ErrDialToSelf.$(super.base) : super.$from();
+class Libp2pP2pNetSwarmErrDialToSelf extends GolangException {
+  Libp2pP2pNetSwarmErrDialToSelf.$(super.base) : super.$from();
 
   @override
   String toString() => 'swarm.ErrDialToSelf: $message';
@@ -175,8 +108,8 @@ class ErrDialToSelf extends GolangException {
 
 /// Go: `var swarm.ErrGaterDisallowedConnection error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrGaterDisallowedConnection extends GolangException {
-  ErrGaterDisallowedConnection.$(super.base) : super.$from();
+class Libp2pP2pNetSwarmErrGaterDisallowedConnection extends GolangException {
+  Libp2pP2pNetSwarmErrGaterDisallowedConnection.$(super.base) : super.$from();
 
   @override
   String toString() => 'swarm.ErrGaterDisallowedConnection: $message';
@@ -184,8 +117,8 @@ class ErrGaterDisallowedConnection extends GolangException {
 
 /// Go: `var swarm.ErrNoAddresses error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrNoAddresses extends GolangException {
-  ErrNoAddresses.$(super.base) : super.$from();
+class Libp2pP2pNetSwarmErrNoAddresses extends GolangException {
+  Libp2pP2pNetSwarmErrNoAddresses.$(super.base) : super.$from();
 
   @override
   String toString() => 'swarm.ErrNoAddresses: $message';
@@ -193,8 +126,8 @@ class ErrNoAddresses extends GolangException {
 
 /// Go: `var swarm.ErrNoGoodAddresses error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrNoGoodAddresses extends GolangException {
-  ErrNoGoodAddresses.$(super.base) : super.$from();
+class Libp2pP2pNetSwarmErrNoGoodAddresses extends GolangException {
+  Libp2pP2pNetSwarmErrNoGoodAddresses.$(super.base) : super.$from();
 
   @override
   String toString() => 'swarm.ErrNoGoodAddresses: $message';
@@ -202,8 +135,8 @@ class ErrNoGoodAddresses extends GolangException {
 
 /// Go: `var swarm.ErrNoTransport error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrNoTransport extends GolangException {
-  ErrNoTransport.$(super.base) : super.$from();
+class Libp2pP2pNetSwarmErrNoTransport extends GolangException {
+  Libp2pP2pNetSwarmErrNoTransport.$(super.base) : super.$from();
 
   @override
   String toString() => 'swarm.ErrNoTransport: $message';
@@ -211,8 +144,8 @@ class ErrNoTransport extends GolangException {
 
 /// Go: `var swarm.ErrSwarmClosed error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrSwarmClosed extends GolangException {
-  ErrSwarmClosed.$(super.base) : super.$from();
+class Libp2pP2pNetSwarmErrSwarmClosed extends GolangException {
+  Libp2pP2pNetSwarmErrSwarmClosed.$(super.base) : super.$from();
 
   @override
   String toString() => 'swarm.ErrSwarmClosed: $message';
@@ -220,8 +153,8 @@ class ErrSwarmClosed extends GolangException {
 
 /// Go: `swarm.TransportError`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class TransportError extends GolangException {
-  TransportError.$(super.base, $R r)
+class Libp2pP2pNetSwarmTransportError extends GolangException {
+  Libp2pP2pNetSwarmTransportError.$(super.base, $R r)
       : address = r.p() ? $multiaddr.Multiaddr(r.str()) : $nil(),
         super.$from();
 
@@ -230,4 +163,85 @@ class TransportError extends GolangException {
 
   @override
   String toString() => 'swarm.TransportError: $message';
+}
+
+/// Go: the package-level members of `github.com/libp2p/go-libp2p/p2p/net/swarm` (`Go.libp2p.p2p.net.swarm`).
+extension GoLibp2pP2pNetSwarmApi on GoLibp2pP2pNetSwarm {
+  /// Go: `swarm.WithConnectionGater`.
+  Libp2pP2pNetSwarmOption withConnectionGater(
+          $connmgr.Libp2pCoreConnmgrConnectionGater gater) =>
+      Libp2pP2pNetSwarmOption.$(0, (w) => w..h(gater));
+
+  /// Go: `swarm.WithDialRanker`.
+  Libp2pP2pNetSwarmOption withDialRanker(
+          $network.Libp2pCoreNetworkDialRanker d) =>
+      Libp2pP2pNetSwarmOption.$(1, (w) => w..h(d));
+
+  /// Go: `swarm.WithDialTimeoutLocal`.
+  Libp2pP2pNetSwarmOption withDialTimeoutLocal(Duration t) =>
+      Libp2pP2pNetSwarmOption.$(3, (w) => w..i64((t).inMicroseconds * 1000));
+
+  /// Go: `swarm.WithDialTimeout`.
+  Libp2pP2pNetSwarmOption withDialTimeout(Duration t) =>
+      Libp2pP2pNetSwarmOption.$(2, (w) => w..i64((t).inMicroseconds * 1000));
+
+  /// Go: `swarm.WithIPv6BlackHoleSuccessCounter`.
+  Libp2pP2pNetSwarmOption withIPv6BlackHoleSuccessCounter(
+          Libp2pP2pNetSwarmBlackHoleSuccessCounter f) =>
+      Libp2pP2pNetSwarmOption.$(4, (w) => w..h(f));
+
+  /// Go: `swarm.WithMetricsTracer`.
+  Libp2pP2pNetSwarmOption withMetricsTracer(Libp2pP2pNetSwarmMetricsTracer t) =>
+      Libp2pP2pNetSwarmOption.$(6, (w) => w..h(t));
+
+  /// Go: `swarm.WithMetrics`.
+  Libp2pP2pNetSwarmOption withMetrics(
+          $metrics.Libp2pCoreMetricsReporter reporter) =>
+      Libp2pP2pNetSwarmOption.$(5, (w) => w..h(reporter));
+
+  /// Go: `swarm.WithMultiaddrResolver`.
+  Libp2pP2pNetSwarmOption withMultiaddrResolver(
+          $network.Libp2pCoreNetworkMultiaddrDnsResolver resolver) =>
+      Libp2pP2pNetSwarmOption.$(7, (w) => w..h(resolver));
+
+  /// Go: `swarm.WithReadOnlyBlackHoleDetector`.
+  Libp2pP2pNetSwarmOption withReadOnlyBlackHoleDetector() =>
+      Libp2pP2pNetSwarmOption.$(8, (_) {});
+
+  /// Go: `swarm.WithResourceManager`.
+  Libp2pP2pNetSwarmOption withResourceManager(
+          $network.Libp2pCoreNetworkResourceManager m) =>
+      Libp2pP2pNetSwarmOption.$(9, (w) => w..h(m));
+
+  /// Go: `swarm.WithUDPBlackHoleSuccessCounter`.
+  Libp2pP2pNetSwarmOption withUdpBlackHoleSuccessCounter(
+          Libp2pP2pNetSwarmBlackHoleSuccessCounter f) =>
+      Libp2pP2pNetSwarmOption.$(10, (w) => w..h(f));
+
+  /// Go: `const swarm.ConcurrentFdDials untyped int`.
+  int get concurrentFdDials => 160;
+
+  /// Go: `const swarm.DialAttempts untyped int`.
+  int get dialAttempts => 1;
+
+  /// Go: `const swarm.PrivateOtherDelay time.Duration`.
+  Duration get privateOtherDelay => Duration(microseconds: 100000);
+
+  /// Go: `const swarm.PrivateQUICDelay time.Duration`.
+  Duration get privateQuicDelay => Duration(microseconds: 30000);
+
+  /// Go: `const swarm.PrivateTCPDelay time.Duration`.
+  Duration get privateTcpDelay => Duration(microseconds: 30000);
+
+  /// Go: `const swarm.PublicOtherDelay time.Duration`.
+  Duration get publicOtherDelay => Duration(microseconds: 1000000);
+
+  /// Go: `const swarm.PublicQUICDelay time.Duration`.
+  Duration get publicQuicDelay => Duration(microseconds: 250000);
+
+  /// Go: `const swarm.PublicTCPDelay time.Duration`.
+  Duration get publicTcpDelay => Duration(microseconds: 250000);
+
+  /// Go: `const swarm.RelayDelay time.Duration`.
+  Duration get relayDelay => Duration(microseconds: 500000);
 }

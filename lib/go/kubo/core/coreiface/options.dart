@@ -4,257 +4,253 @@ library;
 
 import 'dart:async';
 
+import 'package:p2p_ffi/src/go.dart' show GoKuboCoreCoreifaceOptions;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/boxo/namesys.dart' as $namesys;
 import 'package:p2p_ffi/go/kubo/core/coreiface.dart' as $coreiface;
 
 /// Go: `options.ApiOption` (functional option; constructors in the package).
-final class ApiOption extends GoOption {
-  ApiOption.$(super.$i, super.$a);
+final class KuboCoreCoreifaceOptionsApiOption extends GoOption {
+  KuboCoreCoreifaceOptionsApiOption.$(super.$i, super.$a);
 }
 
 /// Go: `options.BlockPutOption` (functional option; constructors in the package).
-final class BlockPutOption extends GoOption {
-  BlockPutOption.$(super.$i, super.$a);
+final class KuboCoreCoreifaceOptionsBlockPutOption extends GoOption {
+  KuboCoreCoreifaceOptionsBlockPutOption.$(super.$i, super.$a);
 }
 
 /// Go: `options.BlockRmOption` (functional option; constructors in the package).
-final class BlockRmOption extends GoOption {
-  BlockRmOption.$(super.$i, super.$a);
+final class KuboCoreCoreifaceOptionsBlockRmOption extends GoOption {
+  KuboCoreCoreifaceOptionsBlockRmOption.$(super.$i, super.$a);
 }
 
 /// Go: `options.KeyGenerateOption` (functional option; constructors in the package).
-final class KeyGenerateOption extends GoOption {
-  KeyGenerateOption.$(super.$i, super.$a);
+final class KuboCoreCoreifaceOptionsKeyGenerateOption extends GoOption {
+  KuboCoreCoreifaceOptionsKeyGenerateOption.$(super.$i, super.$a);
 }
 
 /// Go: `options.KeyRenameOption` (functional option; constructors in the package).
-final class KeyRenameOption extends GoOption {
-  KeyRenameOption.$(super.$i, super.$a);
+final class KuboCoreCoreifaceOptionsKeyRenameOption extends GoOption {
+  KuboCoreCoreifaceOptionsKeyRenameOption.$(super.$i, super.$a);
 }
 
 /// Go: `options.NamePublishOption` (functional option; constructors in the package).
-final class NamePublishOption extends GoOption {
-  NamePublishOption.$(super.$i, super.$a);
+final class KuboCoreCoreifaceOptionsNamePublishOption extends GoOption {
+  KuboCoreCoreifaceOptionsNamePublishOption.$(super.$i, super.$a);
 }
 
 /// Go: `options.NameResolveOption` (functional option; constructors in the package).
-final class NameResolveOption extends GoOption {
-  NameResolveOption.$(super.$i, super.$a);
+final class KuboCoreCoreifaceOptionsNameResolveOption extends GoOption {
+  KuboCoreCoreifaceOptionsNameResolveOption.$(super.$i, super.$a);
 }
 
 /// Go: `options.ObjectAddLinkOption` (functional option; constructors in the package).
-final class ObjectAddLinkOption extends GoOption {
-  ObjectAddLinkOption.$(super.$i, super.$a);
+final class KuboCoreCoreifaceOptionsObjectAddLinkOption extends GoOption {
+  KuboCoreCoreifaceOptionsObjectAddLinkOption.$(super.$i, super.$a);
 }
 
 /// Go: `options.ObjectRmLinkOption` (functional option; constructors in the package).
-final class ObjectRmLinkOption extends GoOption {
-  ObjectRmLinkOption.$(super.$i, super.$a);
+final class KuboCoreCoreifaceOptionsObjectRmLinkOption extends GoOption {
+  KuboCoreCoreifaceOptionsObjectRmLinkOption.$(super.$i, super.$a);
 }
 
 /// Go: `options.PinAddOption` (functional option; constructors in the package).
-final class PinAddOption extends GoOption {
-  PinAddOption.$(super.$i, super.$a);
+final class KuboCoreCoreifaceOptionsPinAddOption extends GoOption {
+  KuboCoreCoreifaceOptionsPinAddOption.$(super.$i, super.$a);
 }
 
 /// Go: `options.PinIsPinnedOption` (functional option; constructors in the package).
-final class PinIsPinnedOption extends GoOption {
-  PinIsPinnedOption.$(super.$i, super.$a);
+final class KuboCoreCoreifaceOptionsPinIsPinnedOption extends GoOption {
+  KuboCoreCoreifaceOptionsPinIsPinnedOption.$(super.$i, super.$a);
 }
 
 /// Go: `options.PinLsOption` (functional option; constructors in the package).
-final class PinLsOption extends GoOption {
-  PinLsOption.$(super.$i, super.$a);
+final class KuboCoreCoreifaceOptionsPinLsOption extends GoOption {
+  KuboCoreCoreifaceOptionsPinLsOption.$(super.$i, super.$a);
 }
 
 /// Go: `options.PinRmOption` (functional option; constructors in the package).
-final class PinRmOption extends GoOption {
-  PinRmOption.$(super.$i, super.$a);
+final class KuboCoreCoreifaceOptionsPinRmOption extends GoOption {
+  KuboCoreCoreifaceOptionsPinRmOption.$(super.$i, super.$a);
 }
 
 /// Go: `options.PinUpdateOption` (functional option; constructors in the package).
-final class PinUpdateOption extends GoOption {
-  PinUpdateOption.$(super.$i, super.$a);
+final class KuboCoreCoreifaceOptionsPinUpdateOption extends GoOption {
+  KuboCoreCoreifaceOptionsPinUpdateOption.$(super.$i, super.$a);
 }
 
 /// Go: `options.PubSubPeersOption` (functional option; constructors in the package).
-final class PubSubPeersOption extends GoOption {
-  PubSubPeersOption.$(super.$i, super.$a);
+final class KuboCoreCoreifaceOptionsPubSubPeersOption extends GoOption {
+  KuboCoreCoreifaceOptionsPubSubPeersOption.$(super.$i, super.$a);
 }
 
 /// Go: `options.PubSubSubscribeOption` (functional option; constructors in the package).
-final class PubSubSubscribeOption extends GoOption {
-  PubSubSubscribeOption.$(super.$i, super.$a);
+final class KuboCoreCoreifaceOptionsPubSubSubscribeOption extends GoOption {
+  KuboCoreCoreifaceOptionsPubSubSubscribeOption.$(super.$i, super.$a);
 }
 
 /// Go: `options.RoutingFindProvidersOption` (functional option; constructors in the package).
-final class RoutingFindProvidersOption extends GoOption {
-  RoutingFindProvidersOption.$(super.$i, super.$a);
+final class KuboCoreCoreifaceOptionsRoutingFindProvidersOption
+    extends GoOption {
+  KuboCoreCoreifaceOptionsRoutingFindProvidersOption.$(super.$i, super.$a);
 }
 
 /// Go: `options.RoutingProvideOption` (functional option; constructors in the package).
-final class RoutingProvideOption extends GoOption {
-  RoutingProvideOption.$(super.$i, super.$a);
+final class KuboCoreCoreifaceOptionsRoutingProvideOption extends GoOption {
+  KuboCoreCoreifaceOptionsRoutingProvideOption.$(super.$i, super.$a);
 }
 
 /// Go: `options.RoutingPutOption` (functional option; constructors in the package).
-final class RoutingPutOption extends GoOption {
-  RoutingPutOption.$(super.$i, super.$a);
+final class KuboCoreCoreifaceOptionsRoutingPutOption extends GoOption {
+  KuboCoreCoreifaceOptionsRoutingPutOption.$(super.$i, super.$a);
 }
 
 /// Go: `options.UnixfsAddOption` (functional option; constructors in the package).
-final class UnixfsAddOption extends GoOption {
-  UnixfsAddOption.$(super.$i, super.$a);
+final class KuboCoreCoreifaceOptionsUnixfsAddOption extends GoOption {
+  KuboCoreCoreifaceOptionsUnixfsAddOption.$(super.$i, super.$a);
 }
 
 /// Go: `options.UnixfsLsOption` (functional option; constructors in the package).
-final class UnixfsLsOption extends GoOption {
-  UnixfsLsOption.$(super.$i, super.$a);
+final class KuboCoreCoreifaceOptionsUnixfsLsOption extends GoOption {
+  KuboCoreCoreifaceOptionsUnixfsLsOption.$(super.$i, super.$a);
 }
-
-/// Go: `var Api`: option constructors.
-const api = _Api._();
 
 final class _Api {
   const _Api._();
 
   /// Go: `options.Api.FetchBlocks`.
-  ApiOption fetchBlocks(bool fetch) => ApiOption.$(0, (w) => w..b(fetch));
+  KuboCoreCoreifaceOptionsApiOption fetchBlocks(bool fetch) =>
+      KuboCoreCoreifaceOptionsApiOption.$(0, (w) => w..b(fetch));
 
   /// Go: `options.Api.Offline`.
-  ApiOption offline(bool offline) => ApiOption.$(1, (w) => w..b(offline));
+  KuboCoreCoreifaceOptionsApiOption offline(bool offline) =>
+      KuboCoreCoreifaceOptionsApiOption.$(1, (w) => w..b(offline));
 }
-
-/// Go: `var Block`: option constructors.
-const block = _Block._();
 
 final class _Block {
   const _Block._();
 
   /// Go: `options.Block.CidCodec`.
-  BlockPutOption cidCodec(String codecName) =>
-      BlockPutOption.$(0, (w) => w..str(codecName));
+  KuboCoreCoreifaceOptionsBlockPutOption cidCodec(String codecName) =>
+      KuboCoreCoreifaceOptionsBlockPutOption.$(0, (w) => w..str(codecName));
 
   /// Go: `options.Block.Force`.
-  BlockRmOption force(bool force) => BlockRmOption.$(0, (w) => w..b(force));
+  KuboCoreCoreifaceOptionsBlockRmOption force(bool force) =>
+      KuboCoreCoreifaceOptionsBlockRmOption.$(0, (w) => w..b(force));
 
   /// Go: `options.Block.Format`.
-  BlockPutOption format(String format) =>
-      BlockPutOption.$(1, (w) => w..str(format));
+  KuboCoreCoreifaceOptionsBlockPutOption format(String format) =>
+      KuboCoreCoreifaceOptionsBlockPutOption.$(1, (w) => w..str(format));
 
   /// Go: `options.Block.Hash`.
-  BlockPutOption hash(int mhType, int mhLen) => BlockPutOption.$(
-      2,
-      (w) => w
-        ..i64(mhType)
-        ..i64(mhLen));
+  KuboCoreCoreifaceOptionsBlockPutOption hash(int mhType, int mhLen) =>
+      KuboCoreCoreifaceOptionsBlockPutOption.$(
+          2,
+          (w) => w
+            ..i64(mhType)
+            ..i64(mhLen));
 
   /// Go: `options.Block.Pin`.
-  BlockPutOption pin(bool pin) => BlockPutOption.$(3, (w) => w..b(pin));
+  KuboCoreCoreifaceOptionsBlockPutOption pin(bool pin) =>
+      KuboCoreCoreifaceOptionsBlockPutOption.$(3, (w) => w..b(pin));
 }
-
-/// Go: `var Dht`: option constructors.
-const dht = _Dht._();
 
 final class _Dht {
   const _Dht._();
 
   /// Go: `options.Dht.AllowOffline`.
-  RoutingPutOption allowOffline(bool allow) =>
-      RoutingPutOption.$(0, (w) => w..b(allow));
+  KuboCoreCoreifaceOptionsRoutingPutOption allowOffline(bool allow) =>
+      KuboCoreCoreifaceOptionsRoutingPutOption.$(0, (w) => w..b(allow));
 
   /// Go: `options.Dht.NumProviders`.
-  RoutingFindProvidersOption numProviders(int numProviders) =>
-      RoutingFindProvidersOption.$(0, (w) => w..i64(numProviders));
+  KuboCoreCoreifaceOptionsRoutingFindProvidersOption numProviders(
+          int numProviders) =>
+      KuboCoreCoreifaceOptionsRoutingFindProvidersOption.$(
+          0, (w) => w..i64(numProviders));
 
   /// Go: `options.Dht.Recursive`.
-  RoutingProvideOption recursive(bool recursive) =>
-      RoutingProvideOption.$(0, (w) => w..b(recursive));
+  KuboCoreCoreifaceOptionsRoutingProvideOption recursive(bool recursive) =>
+      KuboCoreCoreifaceOptionsRoutingProvideOption.$(0, (w) => w..b(recursive));
 }
-
-/// Go: `var Key`: option constructors.
-const key = _Key._();
 
 final class _Key {
   const _Key._();
 
   /// Go: `options.Key.Force`.
-  KeyRenameOption force(bool force) => KeyRenameOption.$(0, (w) => w..b(force));
+  KuboCoreCoreifaceOptionsKeyRenameOption force(bool force) =>
+      KuboCoreCoreifaceOptionsKeyRenameOption.$(0, (w) => w..b(force));
 
   /// Go: `options.Key.Size`.
-  KeyGenerateOption size(int size) =>
-      KeyGenerateOption.$(0, (w) => w..i64(size));
+  KuboCoreCoreifaceOptionsKeyGenerateOption size(int size) =>
+      KuboCoreCoreifaceOptionsKeyGenerateOption.$(0, (w) => w..i64(size));
 
   /// Go: `options.Key.Type`.
-  KeyGenerateOption type(String algorithm) =>
-      KeyGenerateOption.$(1, (w) => w..str(algorithm));
+  KuboCoreCoreifaceOptionsKeyGenerateOption type(String algorithm) =>
+      KuboCoreCoreifaceOptionsKeyGenerateOption.$(1, (w) => w..str(algorithm));
 }
-
-/// Go: `var Name`: option constructors.
-const name = _Name._();
 
 final class _Name {
   const _Name._();
 
   /// Go: `options.Name.AllowDelegated`.
-  NamePublishOption allowDelegated(bool allowDelegated) =>
-      NamePublishOption.$(0, (w) => w..b(allowDelegated));
+  KuboCoreCoreifaceOptionsNamePublishOption allowDelegated(
+          bool allowDelegated) =>
+      KuboCoreCoreifaceOptionsNamePublishOption.$(
+          0, (w) => w..b(allowDelegated));
 
   /// Go: `options.Name.AllowOffline`.
-  NamePublishOption allowOffline(bool allow) =>
-      NamePublishOption.$(1, (w) => w..b(allow));
+  KuboCoreCoreifaceOptionsNamePublishOption allowOffline(bool allow) =>
+      KuboCoreCoreifaceOptionsNamePublishOption.$(1, (w) => w..b(allow));
 
   /// Go: `options.Name.Cache`.
-  NameResolveOption cache(bool cache) =>
-      NameResolveOption.$(0, (w) => w..b(cache));
+  KuboCoreCoreifaceOptionsNameResolveOption cache(bool cache) =>
+      KuboCoreCoreifaceOptionsNameResolveOption.$(0, (w) => w..b(cache));
 
   /// Go: `options.Name.CompatibleWithV1`.
-  NamePublishOption compatibleWithV1(bool compatible) =>
-      NamePublishOption.$(2, (w) => w..b(compatible));
+  KuboCoreCoreifaceOptionsNamePublishOption compatibleWithV1(bool compatible) =>
+      KuboCoreCoreifaceOptionsNamePublishOption.$(2, (w) => w..b(compatible));
 
   /// Go: `options.Name.Key`.
-  NamePublishOption key(String key) =>
-      NamePublishOption.$(3, (w) => w..str(key));
+  KuboCoreCoreifaceOptionsNamePublishOption key(String key) =>
+      KuboCoreCoreifaceOptionsNamePublishOption.$(3, (w) => w..str(key));
 
   /// Go: `options.Name.ResolveOption`.
-  NameResolveOption resolveOption($namesys.ResolveOption opt) =>
-      NameResolveOption.$(1, (w) => w..list([opt], (w0, e0) => w0.opt(e0)));
+  KuboCoreCoreifaceOptionsNameResolveOption resolveOption(
+          $namesys.BoxoNamesysResolveOption opt) =>
+      KuboCoreCoreifaceOptionsNameResolveOption.$(
+          1, (w) => w..list([opt], (w0, e0) => w0.opt(e0)));
 
   /// Go: `options.Name.Sequence`.
-  NamePublishOption sequence(int seq) =>
-      NamePublishOption.$(4, (w) => w..i64(seq));
+  KuboCoreCoreifaceOptionsNamePublishOption sequence(int seq) =>
+      KuboCoreCoreifaceOptionsNamePublishOption.$(4, (w) => w..i64(seq));
 
   /// Go: `options.Name.TTL`.
-  NamePublishOption ttl(Duration ttl) =>
-      NamePublishOption.$(5, (w) => w..i64((ttl).inMicroseconds * 1000));
+  KuboCoreCoreifaceOptionsNamePublishOption ttl(Duration ttl) =>
+      KuboCoreCoreifaceOptionsNamePublishOption.$(
+          5, (w) => w..i64((ttl).inMicroseconds * 1000));
 
   /// Go: `options.Name.ValidTime`.
-  NamePublishOption validTime(Duration validTime) =>
-      NamePublishOption.$(6, (w) => w..i64((validTime).inMicroseconds * 1000));
+  KuboCoreCoreifaceOptionsNamePublishOption validTime(Duration validTime) =>
+      KuboCoreCoreifaceOptionsNamePublishOption.$(
+          6, (w) => w..i64((validTime).inMicroseconds * 1000));
 }
-
-/// Go: `var Object`: option constructors.
-const object = _Object$._();
 
 final class _Object$ {
   const _Object$._();
 
   /// Go: `options.Object.Create`.
-  ObjectAddLinkOption create(bool create) =>
-      ObjectAddLinkOption.$(0, (w) => w..b(create));
+  KuboCoreCoreifaceOptionsObjectAddLinkOption create(bool create) =>
+      KuboCoreCoreifaceOptionsObjectAddLinkOption.$(0, (w) => w..b(create));
 
   /// Go: `options.Object.RmLinkSkipUnixFSValidation`.
-  ObjectRmLinkOption rmLinkSkipUnixFsValidation(bool skip) =>
-      ObjectRmLinkOption.$(0, (w) => w..b(skip));
+  KuboCoreCoreifaceOptionsObjectRmLinkOption rmLinkSkipUnixFsValidation(
+          bool skip) =>
+      KuboCoreCoreifaceOptionsObjectRmLinkOption.$(0, (w) => w..b(skip));
 
   /// Go: `options.Object.SkipUnixFSValidation`.
-  ObjectAddLinkOption skipUnixFsValidation(bool skip) =>
-      ObjectAddLinkOption.$(1, (w) => w..b(skip));
+  KuboCoreCoreifaceOptionsObjectAddLinkOption skipUnixFsValidation(bool skip) =>
+      KuboCoreCoreifaceOptionsObjectAddLinkOption.$(1, (w) => w..b(skip));
 }
-
-/// Go: `var Pin`: option constructors.
-const pin = _Pin._();
 
 final class _Pin {
   const _Pin._();
@@ -266,250 +262,296 @@ final class _Pin {
   final ls = const _PinLs._();
 
   /// Go: `options.Pin.Name`.
-  PinAddOption name(String name) => PinAddOption.$(0, (w) => w..str(name));
+  KuboCoreCoreifaceOptionsPinAddOption name(String name) =>
+      KuboCoreCoreifaceOptionsPinAddOption.$(0, (w) => w..str(name));
 
   /// Go: `options.Pin.Recursive`.
-  PinAddOption recursive(bool recursive) =>
-      PinAddOption.$(1, (w) => w..b(recursive));
+  KuboCoreCoreifaceOptionsPinAddOption recursive(bool recursive) =>
+      KuboCoreCoreifaceOptionsPinAddOption.$(1, (w) => w..b(recursive));
 
   /// Go: `options.Pin.RmRecursive`.
-  PinRmOption rmRecursive(bool recursive) =>
-      PinRmOption.$(0, (w) => w..b(recursive));
+  KuboCoreCoreifaceOptionsPinRmOption rmRecursive(bool recursive) =>
+      KuboCoreCoreifaceOptionsPinRmOption.$(0, (w) => w..b(recursive));
 
   /// Go: `options.Pin.Unpin`.
-  PinUpdateOption unpin(bool unpin) => PinUpdateOption.$(0, (w) => w..b(unpin));
+  KuboCoreCoreifaceOptionsPinUpdateOption unpin(bool unpin) =>
+      KuboCoreCoreifaceOptionsPinUpdateOption.$(0, (w) => w..b(unpin));
 }
 
 final class _PinIsPinned {
   const _PinIsPinned._();
 
   /// Go: `options.Pin.IsPinned.All`.
-  PinIsPinnedOption all() => PinIsPinnedOption.$(0, (_) {});
+  KuboCoreCoreifaceOptionsPinIsPinnedOption all() =>
+      KuboCoreCoreifaceOptionsPinIsPinnedOption.$(0, (_) {});
 
   /// Go: `options.Pin.IsPinned.Direct`.
-  PinIsPinnedOption direct() => PinIsPinnedOption.$(1, (_) {});
+  KuboCoreCoreifaceOptionsPinIsPinnedOption direct() =>
+      KuboCoreCoreifaceOptionsPinIsPinnedOption.$(1, (_) {});
 
   /// Go: `options.Pin.IsPinned.Indirect`.
-  PinIsPinnedOption indirect() => PinIsPinnedOption.$(2, (_) {});
+  KuboCoreCoreifaceOptionsPinIsPinnedOption indirect() =>
+      KuboCoreCoreifaceOptionsPinIsPinnedOption.$(2, (_) {});
 
   /// Go: `options.Pin.IsPinned.Recursive`.
-  PinIsPinnedOption recursive() => PinIsPinnedOption.$(3, (_) {});
+  KuboCoreCoreifaceOptionsPinIsPinnedOption recursive() =>
+      KuboCoreCoreifaceOptionsPinIsPinnedOption.$(3, (_) {});
 
   /// Go: `options.Pin.IsPinned.Type`.
-  PinIsPinnedOption type(String typeStr) =>
-      PinIsPinnedOption.$(4, (w) => w..str(typeStr));
+  KuboCoreCoreifaceOptionsPinIsPinnedOption type(String typeStr) =>
+      KuboCoreCoreifaceOptionsPinIsPinnedOption.$(4, (w) => w..str(typeStr));
 }
 
 final class _PinLs {
   const _PinLs._();
 
   /// Go: `options.Pin.Ls.All`.
-  PinLsOption all() => PinLsOption.$(0, (_) {});
+  KuboCoreCoreifaceOptionsPinLsOption all() =>
+      KuboCoreCoreifaceOptionsPinLsOption.$(0, (_) {});
 
   /// Go: `options.Pin.Ls.Detailed`.
-  PinLsOption detailed(bool detailed) =>
-      PinLsOption.$(1, (w) => w..b(detailed));
+  KuboCoreCoreifaceOptionsPinLsOption detailed(bool detailed) =>
+      KuboCoreCoreifaceOptionsPinLsOption.$(1, (w) => w..b(detailed));
 
   /// Go: `options.Pin.Ls.Direct`.
-  PinLsOption direct() => PinLsOption.$(2, (_) {});
+  KuboCoreCoreifaceOptionsPinLsOption direct() =>
+      KuboCoreCoreifaceOptionsPinLsOption.$(2, (_) {});
 
   /// Go: `options.Pin.Ls.Indirect`.
-  PinLsOption indirect() => PinLsOption.$(3, (_) {});
+  KuboCoreCoreifaceOptionsPinLsOption indirect() =>
+      KuboCoreCoreifaceOptionsPinLsOption.$(3, (_) {});
 
   /// Go: `options.Pin.Ls.Name`.
-  PinLsOption name(String name) => PinLsOption.$(4, (w) => w..str(name));
+  KuboCoreCoreifaceOptionsPinLsOption name(String name) =>
+      KuboCoreCoreifaceOptionsPinLsOption.$(4, (w) => w..str(name));
 
   /// Go: `options.Pin.Ls.Recursive`.
-  PinLsOption recursive() => PinLsOption.$(5, (_) {});
+  KuboCoreCoreifaceOptionsPinLsOption recursive() =>
+      KuboCoreCoreifaceOptionsPinLsOption.$(5, (_) {});
 
   /// Go: `options.Pin.Ls.Type`.
-  PinLsOption type(String typeStr) => PinLsOption.$(6, (w) => w..str(typeStr));
+  KuboCoreCoreifaceOptionsPinLsOption type(String typeStr) =>
+      KuboCoreCoreifaceOptionsPinLsOption.$(6, (w) => w..str(typeStr));
 }
-
-/// Go: `var PubSub`: option constructors.
-const pubSub = _PubSub._();
 
 final class _PubSub {
   const _PubSub._();
 
   /// Go: `options.PubSub.Discover`.
-  PubSubSubscribeOption discover(bool discover) =>
-      PubSubSubscribeOption.$(0, (w) => w..b(discover));
+  KuboCoreCoreifaceOptionsPubSubSubscribeOption discover(bool discover) =>
+      KuboCoreCoreifaceOptionsPubSubSubscribeOption.$(0, (w) => w..b(discover));
 
   /// Go: `options.PubSub.Topic`.
-  PubSubPeersOption topic(String topic) =>
-      PubSubPeersOption.$(0, (w) => w..str(topic));
+  KuboCoreCoreifaceOptionsPubSubPeersOption topic(String topic) =>
+      KuboCoreCoreifaceOptionsPubSubPeersOption.$(0, (w) => w..str(topic));
 }
-
-/// Go: `var Put`: option constructors.
-const put = _Put._();
 
 final class _Put {
   const _Put._();
 
   /// Go: `options.Put.AllowOffline`.
-  RoutingPutOption allowOffline(bool allow) =>
-      RoutingPutOption.$(1, (w) => w..b(allow));
+  KuboCoreCoreifaceOptionsRoutingPutOption allowOffline(bool allow) =>
+      KuboCoreCoreifaceOptionsRoutingPutOption.$(1, (w) => w..b(allow));
 
   /// Go: `options.Put.NumProviders`.
-  RoutingFindProvidersOption numProviders(int numProviders) =>
-      RoutingFindProvidersOption.$(1, (w) => w..i64(numProviders));
+  KuboCoreCoreifaceOptionsRoutingFindProvidersOption numProviders(
+          int numProviders) =>
+      KuboCoreCoreifaceOptionsRoutingFindProvidersOption.$(
+          1, (w) => w..i64(numProviders));
 
   /// Go: `options.Put.Recursive`.
-  RoutingProvideOption recursive(bool recursive) =>
-      RoutingProvideOption.$(1, (w) => w..b(recursive));
+  KuboCoreCoreifaceOptionsRoutingProvideOption recursive(bool recursive) =>
+      KuboCoreCoreifaceOptionsRoutingProvideOption.$(1, (w) => w..b(recursive));
 }
-
-/// Go: `var Routing`: option constructors.
-const routing = _Routing._();
 
 final class _Routing {
   const _Routing._();
 
   /// Go: `options.Routing.AllowOffline`.
-  RoutingPutOption allowOffline(bool allow) =>
-      RoutingPutOption.$(2, (w) => w..b(allow));
+  KuboCoreCoreifaceOptionsRoutingPutOption allowOffline(bool allow) =>
+      KuboCoreCoreifaceOptionsRoutingPutOption.$(2, (w) => w..b(allow));
 
   /// Go: `options.Routing.NumProviders`.
-  RoutingFindProvidersOption numProviders(int numProviders) =>
-      RoutingFindProvidersOption.$(2, (w) => w..i64(numProviders));
+  KuboCoreCoreifaceOptionsRoutingFindProvidersOption numProviders(
+          int numProviders) =>
+      KuboCoreCoreifaceOptionsRoutingFindProvidersOption.$(
+          2, (w) => w..i64(numProviders));
 
   /// Go: `options.Routing.Recursive`.
-  RoutingProvideOption recursive(bool recursive) =>
-      RoutingProvideOption.$(2, (w) => w..b(recursive));
+  KuboCoreCoreifaceOptionsRoutingProvideOption recursive(bool recursive) =>
+      KuboCoreCoreifaceOptionsRoutingProvideOption.$(2, (w) => w..b(recursive));
 }
-
-/// Go: `var Unixfs`: option constructors.
-const unixfs = _Unixfs._();
 
 final class _Unixfs {
   const _Unixfs._();
 
   /// Go: `options.Unixfs.Chunker`.
-  UnixfsAddOption chunker(String chunker) =>
-      UnixfsAddOption.$(0, (w) => w..str(chunker));
+  KuboCoreCoreifaceOptionsUnixfsAddOption chunker(String chunker) =>
+      KuboCoreCoreifaceOptionsUnixfsAddOption.$(0, (w) => w..str(chunker));
 
   /// Go: `options.Unixfs.CidVersion`.
-  UnixfsAddOption cidVersion(int version) =>
-      UnixfsAddOption.$(1, (w) => w..i64(version));
+  KuboCoreCoreifaceOptionsUnixfsAddOption cidVersion(int version) =>
+      KuboCoreCoreifaceOptionsUnixfsAddOption.$(1, (w) => w..i64(version));
 
   /// Go: `options.Unixfs.Events`.
-  UnixfsAddOption events(
-          StreamSink<$coreiface.AddEvent> sink) =>
-      UnixfsAddOption.$(
+  KuboCoreCoreifaceOptionsUnixfsAddOption events(
+          StreamSink<$coreiface.KuboCoreCoreifaceAddEvent> sink) =>
+      KuboCoreCoreifaceOptionsUnixfsAddOption.$(
           2,
           (w) => w
-            ..sink(GoSink<$coreiface.AddEvent>(
-                sink, (r) => r.p() ? $coreiface.AddEvent.$dec(r) : $nil())));
+            ..sink(GoSink<$coreiface.KuboCoreCoreifaceAddEvent>(
+                sink,
+                (r) => r.p()
+                    ? $coreiface.KuboCoreCoreifaceAddEvent.$dec(r)
+                    : $nil())));
 
   /// Go: `options.Unixfs.FsCache`.
-  UnixfsAddOption fsCache(bool enable) =>
-      UnixfsAddOption.$(3, (w) => w..b(enable));
+  KuboCoreCoreifaceOptionsUnixfsAddOption fsCache(bool enable) =>
+      KuboCoreCoreifaceOptionsUnixfsAddOption.$(3, (w) => w..b(enable));
 
   /// Go: `options.Unixfs.HashOnly`.
-  UnixfsAddOption hashOnly(bool hashOnly) =>
-      UnixfsAddOption.$(5, (w) => w..b(hashOnly));
+  KuboCoreCoreifaceOptionsUnixfsAddOption hashOnly(bool hashOnly) =>
+      KuboCoreCoreifaceOptionsUnixfsAddOption.$(5, (w) => w..b(hashOnly));
 
   /// Go: `options.Unixfs.Hash`.
-  UnixfsAddOption hash(int mhtype) =>
-      UnixfsAddOption.$(4, (w) => w..i64(mhtype));
+  KuboCoreCoreifaceOptionsUnixfsAddOption hash(int mhtype) =>
+      KuboCoreCoreifaceOptionsUnixfsAddOption.$(4, (w) => w..i64(mhtype));
 
   /// Go: `options.Unixfs.IncludeEmptyDirs`.
-  UnixfsAddOption includeEmptyDirs(bool include) =>
-      UnixfsAddOption.$(6, (w) => w..b(include));
+  KuboCoreCoreifaceOptionsUnixfsAddOption includeEmptyDirs(bool include) =>
+      KuboCoreCoreifaceOptionsUnixfsAddOption.$(6, (w) => w..b(include));
 
   /// Go: `options.Unixfs.InlineLimit`.
-  UnixfsAddOption inlineLimit(int limit) =>
-      UnixfsAddOption.$(8, (w) => w..i64(limit));
+  KuboCoreCoreifaceOptionsUnixfsAddOption inlineLimit(int limit) =>
+      KuboCoreCoreifaceOptionsUnixfsAddOption.$(8, (w) => w..i64(limit));
 
   /// Go: `options.Unixfs.Inline`.
-  UnixfsAddOption inline(bool enable) =>
-      UnixfsAddOption.$(7, (w) => w..b(enable));
+  KuboCoreCoreifaceOptionsUnixfsAddOption inline(bool enable) =>
+      KuboCoreCoreifaceOptionsUnixfsAddOption.$(7, (w) => w..b(enable));
 
   /// Go: `options.Unixfs.Layout`.
-  UnixfsAddOption layout(int layout) =>
-      UnixfsAddOption.$(9, (w) => w..i64(layout));
+  KuboCoreCoreifaceOptionsUnixfsAddOption layout(int layout) =>
+      KuboCoreCoreifaceOptionsUnixfsAddOption.$(9, (w) => w..i64(layout));
 
   /// Go: `options.Unixfs.MaxDirectoryLinks`.
-  UnixfsAddOption maxDirectoryLinks(int n) =>
-      UnixfsAddOption.$(10, (w) => w..i64(n));
+  KuboCoreCoreifaceOptionsUnixfsAddOption maxDirectoryLinks(int n) =>
+      KuboCoreCoreifaceOptionsUnixfsAddOption.$(10, (w) => w..i64(n));
 
   /// Go: `options.Unixfs.MaxFileLinks`.
-  UnixfsAddOption maxFileLinks(int n) =>
-      UnixfsAddOption.$(11, (w) => w..i64(n));
+  KuboCoreCoreifaceOptionsUnixfsAddOption maxFileLinks(int n) =>
+      KuboCoreCoreifaceOptionsUnixfsAddOption.$(11, (w) => w..i64(n));
 
   /// Go: `options.Unixfs.MaxHAMTFanout`.
-  UnixfsAddOption maxHamtFanout(int n) =>
-      UnixfsAddOption.$(12, (w) => w..i64(n));
+  KuboCoreCoreifaceOptionsUnixfsAddOption maxHamtFanout(int n) =>
+      KuboCoreCoreifaceOptionsUnixfsAddOption.$(12, (w) => w..i64(n));
 
   /// Go: `options.Unixfs.Mode`.
-  UnixfsAddOption mode(int mode) => UnixfsAddOption.$(13, (w) => w..i64(mode));
+  KuboCoreCoreifaceOptionsUnixfsAddOption mode(int mode) =>
+      KuboCoreCoreifaceOptionsUnixfsAddOption.$(13, (w) => w..i64(mode));
 
   /// Go: `options.Unixfs.Mtime`.
-  UnixfsAddOption mtime(int seconds, int nsecs) => UnixfsAddOption.$(
-      14,
-      (w) => w
-        ..i64(seconds)
-        ..i64(nsecs));
+  KuboCoreCoreifaceOptionsUnixfsAddOption mtime(int seconds, int nsecs) =>
+      KuboCoreCoreifaceOptionsUnixfsAddOption.$(
+          14,
+          (w) => w
+            ..i64(seconds)
+            ..i64(nsecs));
 
   /// Go: `options.Unixfs.Nocopy`.
-  UnixfsAddOption nocopy(bool enable) =>
-      UnixfsAddOption.$(15, (w) => w..b(enable));
+  KuboCoreCoreifaceOptionsUnixfsAddOption nocopy(bool enable) =>
+      KuboCoreCoreifaceOptionsUnixfsAddOption.$(15, (w) => w..b(enable));
 
   /// Go: `options.Unixfs.Pin`.
-  UnixfsAddOption pin(bool pin, String pinName) => UnixfsAddOption.$(
-      16,
-      (w) => w
-        ..b(pin)
-        ..str(pinName));
+  KuboCoreCoreifaceOptionsUnixfsAddOption pin(bool pin, String pinName) =>
+      KuboCoreCoreifaceOptionsUnixfsAddOption.$(
+          16,
+          (w) => w
+            ..b(pin)
+            ..str(pinName));
 
   /// Go: `options.Unixfs.PreserveMode`.
-  UnixfsAddOption preserveMode(bool enable) =>
-      UnixfsAddOption.$(17, (w) => w..b(enable));
+  KuboCoreCoreifaceOptionsUnixfsAddOption preserveMode(bool enable) =>
+      KuboCoreCoreifaceOptionsUnixfsAddOption.$(17, (w) => w..b(enable));
 
   /// Go: `options.Unixfs.PreserveMtime`.
-  UnixfsAddOption preserveMtime(bool enable) =>
-      UnixfsAddOption.$(18, (w) => w..b(enable));
+  KuboCoreCoreifaceOptionsUnixfsAddOption preserveMtime(bool enable) =>
+      KuboCoreCoreifaceOptionsUnixfsAddOption.$(18, (w) => w..b(enable));
 
   /// Go: `options.Unixfs.Progress`.
-  UnixfsAddOption progress(bool enable) =>
-      UnixfsAddOption.$(19, (w) => w..b(enable));
+  KuboCoreCoreifaceOptionsUnixfsAddOption progress(bool enable) =>
+      KuboCoreCoreifaceOptionsUnixfsAddOption.$(19, (w) => w..b(enable));
 
   /// Go: `options.Unixfs.RawLeaves`.
-  UnixfsAddOption rawLeaves(bool enable) =>
-      UnixfsAddOption.$(20, (w) => w..b(enable));
+  KuboCoreCoreifaceOptionsUnixfsAddOption rawLeaves(bool enable) =>
+      KuboCoreCoreifaceOptionsUnixfsAddOption.$(20, (w) => w..b(enable));
 
   /// Go: `options.Unixfs.ResolveChildren`.
-  UnixfsLsOption resolveChildren(bool resolve) =>
-      UnixfsLsOption.$(0, (w) => w..b(resolve));
+  KuboCoreCoreifaceOptionsUnixfsLsOption resolveChildren(bool resolve) =>
+      KuboCoreCoreifaceOptionsUnixfsLsOption.$(0, (w) => w..b(resolve));
 
   /// Go: `options.Unixfs.Silent`.
-  UnixfsAddOption silent(bool silent) =>
-      UnixfsAddOption.$(21, (w) => w..b(silent));
+  KuboCoreCoreifaceOptionsUnixfsAddOption silent(bool silent) =>
+      KuboCoreCoreifaceOptionsUnixfsAddOption.$(21, (w) => w..b(silent));
 
   /// Go: `options.Unixfs.SizeEstimationMode`.
-  UnixfsAddOption sizeEstimationMode(int mode) =>
-      UnixfsAddOption.$(22, (w) => w..i64(mode));
+  KuboCoreCoreifaceOptionsUnixfsAddOption sizeEstimationMode(int mode) =>
+      KuboCoreCoreifaceOptionsUnixfsAddOption.$(22, (w) => w..i64(mode));
 
   /// Go: `options.Unixfs.UseCumulativeSize`.
-  UnixfsLsOption useCumulativeSize(bool use) =>
-      UnixfsLsOption.$(1, (w) => w..b(use));
+  KuboCoreCoreifaceOptionsUnixfsLsOption useCumulativeSize(bool use) =>
+      KuboCoreCoreifaceOptionsUnixfsLsOption.$(1, (w) => w..b(use));
 }
 
-/// Go: `const options.BalancedLayout options.Layout`.
-const balancedLayout = 0;
+/// Go: the package-level members of `github.com/ipfs/kubo/core/coreiface/options` (`Go.kubo.core.coreiface.options`).
+extension GoKuboCoreCoreifaceOptionsApi on GoKuboCoreCoreifaceOptions {
+  /// Go: `var Api`: option constructors.
+  _Api get api => const _Api._();
 
-/// Go: `const options.DefaultNameValidTime time.Duration`.
-const defaultNameValidTime = Duration(microseconds: 86400000000);
+  /// Go: `var Block`: option constructors.
+  _Block get block => const _Block._();
 
-/// Go: `const options.DefaultRSALen untyped int`.
-const defaultRsaLen = 2048;
+  /// Go: `var Dht`: option constructors.
+  _Dht get dht => const _Dht._();
 
-/// Go: `const options.Ed25519Key untyped string`.
-const ed25519Key = "ed25519";
+  /// Go: `var Key`: option constructors.
+  _Key get key => const _Key._();
 
-/// Go: `const options.RSAKey untyped string`.
-const rsaKey = "rsa";
+  /// Go: `var Name`: option constructors.
+  _Name get name => const _Name._();
 
-/// Go: `const options.TrickleLayout options.Layout`.
-const trickleLayout = 1;
+  /// Go: `var Object`: option constructors.
+  _Object$ get object => const _Object$._();
+
+  /// Go: `var Pin`: option constructors.
+  _Pin get pin => const _Pin._();
+
+  /// Go: `var PubSub`: option constructors.
+  _PubSub get pubSub => const _PubSub._();
+
+  /// Go: `var Put`: option constructors.
+  _Put get put => const _Put._();
+
+  /// Go: `var Routing`: option constructors.
+  _Routing get routing => const _Routing._();
+
+  /// Go: `var Unixfs`: option constructors.
+  _Unixfs get unixfs => const _Unixfs._();
+
+  /// Go: `const options.BalancedLayout options.Layout`.
+  int get balancedLayout => 0;
+
+  /// Go: `const options.DefaultNameValidTime time.Duration`.
+  Duration get defaultNameValidTime => Duration(microseconds: 86400000000);
+
+  /// Go: `const options.DefaultRSALen untyped int`.
+  int get defaultRsaLen => 2048;
+
+  /// Go: `const options.Ed25519Key untyped string`.
+  String get ed25519Key => "ed25519";
+
+  /// Go: `const options.RSAKey untyped string`.
+  String get rsaKey => "rsa";
+
+  /// Go: `const options.TrickleLayout options.Layout`.
+  int get trickleLayout => 1;
+}

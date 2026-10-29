@@ -9,20 +9,22 @@ import 'package:p2p_ffi/go/libp2p/core/peer.dart' as $peer;
 import 'package:p2p_ffi/go/libp2p/core/routing.dart' as $routing;
 
 /// Go: `routing.RoutingDiscovery` (handle).
-class RoutingDiscovery extends $routing.ContentRouting {
-  RoutingDiscovery.$h(super.$h) : super.$h();
+class Libp2pP2pDiscoveryRoutingDiscovery
+    extends $routing.Libp2pCoreRoutingContentRouting {
+  Libp2pP2pDiscoveryRoutingDiscovery.$h(super.$h) : super.$h();
 
   /// Go: `func routing.NewRoutingDiscovery(router routing.ContentRouting) *routing.RoutingDiscovery`.
-  factory RoutingDiscovery($routing.ContentRouting router) {
+  factory Libp2pP2pDiscoveryRoutingDiscovery(
+      $routing.Libp2pCoreRoutingContentRouting router) {
     final $r = $callSync(645, $W()..h(router));
-    return $r.hnn(RoutingDiscovery.$h);
+    return $r.hnn(Libp2pP2pDiscoveryRoutingDiscovery.$h);
   }
 
   /// Go: `func (*routing.RoutingDiscovery).Advertise(ctx context.Context, ns string, opts ...discovery.Option) (time.Duration, error)`.
   ///
   /// Asynchronous: runs in a goroutine of the service.
   Future<Duration> advertise($context.Context ctx, String ns,
-      [List<$discovery.Option> opts = const []]) async {
+      [List<$discovery.Libp2pCoreDiscoveryOption> opts = const []]) async {
     final $r = await $call(
         646,
         $W()
@@ -34,8 +36,9 @@ class RoutingDiscovery extends $routing.ContentRouting {
   }
 
   /// Go: `func (*routing.RoutingDiscovery).FindPeers(ctx context.Context, ns string, opts ...discovery.Option) (<-chan peer.AddrInfo, error)`.
-  Stream<$peer.AddrInfo> findPeers($context.Context ctx, String ns,
-          [List<$discovery.Option> opts = const []]) =>
+  Stream<$peer.Libp2pCorePeerAddrInfo> findPeers(
+          $context.Context ctx, String ns,
+          [List<$discovery.Libp2pCoreDiscoveryOption> opts = const []]) =>
       $stream(
               647,
               $W()
@@ -43,5 +46,5 @@ class RoutingDiscovery extends $routing.ContentRouting {
                 ..h(ctx)
                 ..str(ns)
                 ..list(opts, (w0, e0) => w0.opt(e0)))
-          .map((r) => r.p() ? $peer.AddrInfo.$dec(r) : $nil());
+          .map((r) => r.p() ? $peer.Libp2pCorePeerAddrInfo.$dec(r) : $nil());
 }

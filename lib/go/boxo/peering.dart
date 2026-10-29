@@ -2,15 +2,16 @@
 // Go: github.com/ipfs/boxo/peering
 library;
 
+import 'package:p2p_ffi/src/go.dart' show GoBoxoPeering;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/libp2p/core/peer.dart' as $peer;
 
 /// Go: `peering.PeeringService` (handle).
-class PeeringService extends GoHandle {
-  PeeringService.$h(super.$h);
+class BoxoPeeringService extends GoHandle {
+  BoxoPeeringService.$h(super.$h);
 
   /// Go: `func (*peering.PeeringService).AddPeer(info peer.AddrInfo)`.
-  void addPeer($peer.AddrInfo info) {
+  void addPeer($peer.Libp2pCorePeerAddrInfo info) {
     $callSync(
         221,
         $W()
@@ -19,7 +20,7 @@ class PeeringService extends GoHandle {
   }
 
   /// Go: `func (*peering.PeeringService).RemovePeer(id peer.ID)`.
-  void removePeer($peer.Id id) {
+  void removePeer($peer.Libp2pCorePeerId id) {
     $callSync(
         223,
         $W()
@@ -28,20 +29,24 @@ class PeeringService extends GoHandle {
   }
 
   /// Go: `func (*peering.PeeringService).ListPeers() []peer.AddrInfo`.
-  List<$peer.AddrInfo> listPeers() {
+  List<$peer.Libp2pCorePeerAddrInfo> listPeers() {
     final $r = $callSync(222, $W()..h(this));
-    return $r.list(() => $r.p() ? $peer.AddrInfo.$dec($r) : $nil());
+    return $r
+        .list(() => $r.p() ? $peer.Libp2pCorePeerAddrInfo.$dec($r) : $nil());
   }
 }
 
-/// Go: `const peering.ConnmgrTag untyped string`.
-const connmgrTag = "ipfs-peering";
+/// Go: the package-level members of `github.com/ipfs/boxo/peering` (`Go.boxo.peering`).
+extension GoBoxoPeeringApi on GoBoxoPeering {
+  /// Go: `const peering.ConnmgrTag untyped string`.
+  String get connmgrTag => "ipfs-peering";
 
-/// Go: `const peering.StateInit peering.State`.
-const stateInit = 0;
+  /// Go: `const peering.StateInit peering.State`.
+  int get stateInit => 0;
 
-/// Go: `const peering.StateRunning peering.State`.
-const stateRunning = 1;
+  /// Go: `const peering.StateRunning peering.State`.
+  int get stateRunning => 1;
 
-/// Go: `const peering.StateStopped peering.State`.
-const stateStopped = 2;
+  /// Go: `const peering.StateStopped peering.State`.
+  int get stateStopped => 2;
+}

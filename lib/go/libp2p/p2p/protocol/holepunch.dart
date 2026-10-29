@@ -2,73 +2,33 @@
 // Go: github.com/libp2p/go-libp2p/p2p/protocol/holepunch
 library;
 
+import 'package:p2p_ffi/src/go.dart' show GoLibp2pP2pProtocolHolepunch;
 import 'package:p2p_ffi/src/runtime.dart';
 
 /// Go: `holepunch.AddrFilter` (handle).
-class AddrFilter extends GoHandle {
-  AddrFilter.$h(super.$h);
+class Libp2pP2pProtocolHolepunchAddrFilter extends GoHandle {
+  Libp2pP2pProtocolHolepunchAddrFilter.$h(super.$h);
 }
 
 /// Go: `holepunch.EventTracer` (handle).
-class EventTracer extends GoHandle {
-  EventTracer.$h(super.$h);
+class Libp2pP2pProtocolHolepunchEventTracer extends GoHandle {
+  Libp2pP2pProtocolHolepunchEventTracer.$h(super.$h);
 }
 
 /// Go: `holepunch.MetricsTracer` (handle).
-class MetricsTracer extends GoHandle {
-  MetricsTracer.$h(super.$h);
+class Libp2pP2pProtocolHolepunchMetricsTracer extends GoHandle {
+  Libp2pP2pProtocolHolepunchMetricsTracer.$h(super.$h);
 }
 
 /// Go: `holepunch.Option` (functional option; constructors in the package).
-final class Option extends GoOption {
-  Option.$(super.$i, super.$a);
+final class Libp2pP2pProtocolHolepunchOption extends GoOption {
+  Libp2pP2pProtocolHolepunchOption.$(super.$i, super.$a);
 }
-
-/// Go: `holepunch.DirectDialTimeout`.
-Option directDialTimeout(Duration timeout) =>
-    Option.$(0, (w) => w..i64((timeout).inMicroseconds * 1000));
-
-/// Go: `holepunch.WithAddrFilter`.
-Option withAddrFilter(AddrFilter f) => Option.$(1, (w) => w..h(f));
-
-/// Go: `holepunch.WithMetricsAndEventTracer`.
-Option withMetricsAndEventTracer(MetricsTracer mt, EventTracer et) => Option.$(
-    2,
-    (w) => w
-      ..h(mt)
-      ..h(et));
-
-/// Go: `holepunch.WithMetricsTracer`.
-Option withMetricsTracer(MetricsTracer mt) => Option.$(3, (w) => w..h(mt));
-
-/// Go: `holepunch.WithTracer`.
-Option withTracer(EventTracer et) => Option.$(4, (w) => w..h(et));
-
-/// Go: `const holepunch.DirectDialEvtT untyped string`.
-const directDialEvtT = "DirectDial";
-
-/// Go: `const holepunch.EndHolePunchEvtT untyped string`.
-const endHolePunchEvtT = "EndHolePunch";
-
-/// Go: `const holepunch.HolePunchAttemptEvtT untyped string`.
-const holePunchAttemptEvtT = "HolePunchAttempt";
-
-/// Go: `const holepunch.Protocol protocol.ID`.
-const protocol = "/libp2p/dcutr";
-
-/// Go: `const holepunch.ProtocolErrorEvtT untyped string`.
-const protocolErrorEvtT = "ProtocolError";
-
-/// Go: `const holepunch.ServiceName untyped string`.
-const serviceName = "libp2p.holepunch";
-
-/// Go: `const holepunch.StartHolePunchEvtT untyped string`.
-const startHolePunchEvtT = "StartHolePunch";
 
 /// Go: `var holepunch.ErrClosed error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrClosed extends GolangException {
-  ErrClosed.$(super.base) : super.$from();
+class Libp2pP2pProtocolHolepunchErrClosed extends GolangException {
+  Libp2pP2pProtocolHolepunchErrClosed.$(super.base) : super.$from();
 
   @override
   String toString() => 'holepunch.ErrClosed: $message';
@@ -76,9 +36,63 @@ class ErrClosed extends GolangException {
 
 /// Go: `var holepunch.ErrHolePunchActive error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrHolePunchActive extends GolangException {
-  ErrHolePunchActive.$(super.base) : super.$from();
+class Libp2pP2pProtocolHolepunchErrHolePunchActive extends GolangException {
+  Libp2pP2pProtocolHolepunchErrHolePunchActive.$(super.base) : super.$from();
 
   @override
   String toString() => 'holepunch.ErrHolePunchActive: $message';
+}
+
+/// Go: the package-level members of `github.com/libp2p/go-libp2p/p2p/protocol/holepunch` (`Go.libp2p.p2p.protocol.holepunch`).
+extension GoLibp2pP2pProtocolHolepunchApi on GoLibp2pP2pProtocolHolepunch {
+  /// Go: `holepunch.DirectDialTimeout`.
+  Libp2pP2pProtocolHolepunchOption directDialTimeout(Duration timeout) =>
+      Libp2pP2pProtocolHolepunchOption.$(
+          0, (w) => w..i64((timeout).inMicroseconds * 1000));
+
+  /// Go: `holepunch.WithAddrFilter`.
+  Libp2pP2pProtocolHolepunchOption withAddrFilter(
+          Libp2pP2pProtocolHolepunchAddrFilter f) =>
+      Libp2pP2pProtocolHolepunchOption.$(1, (w) => w..h(f));
+
+  /// Go: `holepunch.WithMetricsAndEventTracer`.
+  Libp2pP2pProtocolHolepunchOption withMetricsAndEventTracer(
+          Libp2pP2pProtocolHolepunchMetricsTracer mt,
+          Libp2pP2pProtocolHolepunchEventTracer et) =>
+      Libp2pP2pProtocolHolepunchOption.$(
+          2,
+          (w) => w
+            ..h(mt)
+            ..h(et));
+
+  /// Go: `holepunch.WithMetricsTracer`.
+  Libp2pP2pProtocolHolepunchOption withMetricsTracer(
+          Libp2pP2pProtocolHolepunchMetricsTracer mt) =>
+      Libp2pP2pProtocolHolepunchOption.$(3, (w) => w..h(mt));
+
+  /// Go: `holepunch.WithTracer`.
+  Libp2pP2pProtocolHolepunchOption withTracer(
+          Libp2pP2pProtocolHolepunchEventTracer et) =>
+      Libp2pP2pProtocolHolepunchOption.$(4, (w) => w..h(et));
+
+  /// Go: `const holepunch.DirectDialEvtT untyped string`.
+  String get directDialEvtT => "DirectDial";
+
+  /// Go: `const holepunch.EndHolePunchEvtT untyped string`.
+  String get endHolePunchEvtT => "EndHolePunch";
+
+  /// Go: `const holepunch.HolePunchAttemptEvtT untyped string`.
+  String get holePunchAttemptEvtT => "HolePunchAttempt";
+
+  /// Go: `const holepunch.Protocol protocol.ID`.
+  String get protocol => "/libp2p/dcutr";
+
+  /// Go: `const holepunch.ProtocolErrorEvtT untyped string`.
+  String get protocolErrorEvtT => "ProtocolError";
+
+  /// Go: `const holepunch.ServiceName untyped string`.
+  String get serviceName => "libp2p.holepunch";
+
+  /// Go: `const holepunch.StartHolePunchEvtT untyped string`.
+  String get startHolePunchEvtT => "StartHolePunch";
 }

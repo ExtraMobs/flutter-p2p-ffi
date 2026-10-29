@@ -2,36 +2,19 @@
 // Go: github.com/libp2p/go-libp2p-kad-dht/records
 library;
 
+import 'package:p2p_ffi/src/go.dart' show GoLibp2pKadDhtRecords;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/golang_lru/simplelru.dart' as $simplelru;
 
 /// Go: `records.Option` (functional option; constructors in the package).
-final class Option extends GoOption {
-  Option.$(super.$i, super.$a);
+final class Libp2pKadDhtRecordsOption extends GoOption {
+  Libp2pKadDhtRecordsOption.$(super.$i, super.$a);
 }
-
-/// Go: `records.Cache`.
-Option cache($simplelru.LruCache c) => Option.$(0, (w) => w..h(c));
-
-/// Go: `records.CleanupInterval`.
-Option cleanupInterval(Duration d) =>
-    Option.$(1, (w) => w..i64((d).inMicroseconds * 1000));
-
-/// Go: `records.ProvideValidity`.
-Option provideValidity(Duration d) =>
-    Option.$(2, (w) => w..i64((d).inMicroseconds * 1000));
-
-/// Go: `records.ProviderAddrTTL`.
-Option providerAddrTtl(Duration d) =>
-    Option.$(3, (w) => w..i64((d).inMicroseconds * 1000));
-
-/// Go: `const records.ProvidersKeyPrefix untyped string`.
-const providersKeyPrefix = "/providers/";
 
 /// Go: `var records.ErrClosed error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrClosed extends GolangException {
-  ErrClosed.$(super.base) : super.$from();
+class Libp2pKadDhtRecordsErrClosed extends GolangException {
+  Libp2pKadDhtRecordsErrClosed.$(super.base) : super.$from();
 
   @override
   String toString() => 'records.ErrClosed: $message';
@@ -39,9 +22,31 @@ class ErrClosed extends GolangException {
 
 /// Go: `var records.ErrOldRecord error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrOldRecord extends GolangException {
-  ErrOldRecord.$(super.base) : super.$from();
+class Libp2pKadDhtRecordsErrOldRecord extends GolangException {
+  Libp2pKadDhtRecordsErrOldRecord.$(super.base) : super.$from();
 
   @override
   String toString() => 'records.ErrOldRecord: $message';
+}
+
+/// Go: the package-level members of `github.com/libp2p/go-libp2p-kad-dht/records` (`Go.libp2pKadDht.records`).
+extension GoLibp2pKadDhtRecordsApi on GoLibp2pKadDhtRecords {
+  /// Go: `records.Cache`.
+  Libp2pKadDhtRecordsOption cache($simplelru.GolangLruSimplelruLruCache c) =>
+      Libp2pKadDhtRecordsOption.$(0, (w) => w..h(c));
+
+  /// Go: `records.CleanupInterval`.
+  Libp2pKadDhtRecordsOption cleanupInterval(Duration d) =>
+      Libp2pKadDhtRecordsOption.$(1, (w) => w..i64((d).inMicroseconds * 1000));
+
+  /// Go: `records.ProvideValidity`.
+  Libp2pKadDhtRecordsOption provideValidity(Duration d) =>
+      Libp2pKadDhtRecordsOption.$(2, (w) => w..i64((d).inMicroseconds * 1000));
+
+  /// Go: `records.ProviderAddrTTL`.
+  Libp2pKadDhtRecordsOption providerAddrTtl(Duration d) =>
+      Libp2pKadDhtRecordsOption.$(3, (w) => w..i64((d).inMicroseconds * 1000));
+
+  /// Go: `const records.ProvidersKeyPrefix untyped string`.
+  String get providersKeyPrefix => "/providers/";
 }

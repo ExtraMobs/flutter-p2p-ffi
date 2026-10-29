@@ -2,17 +2,19 @@
 // Go: github.com/libp2p/go-libp2p/core/peerstore
 library;
 
+import 'package:p2p_ffi/src/go.dart' show GoLibp2pCorePeerstore;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/io.dart' as $io;
 import 'package:p2p_ffi/go/libp2p/core/peer.dart' as $peer;
 import 'package:p2p_ffi/go/multiaddr.dart' as $multiaddr;
 
 /// Go: `peerstore.Peerstore` (handle).
-class Peerstore extends $io.Closer {
-  Peerstore.$h(super.$h) : super.$h();
+class Libp2pCorePeerstore extends $io.IoCloser {
+  Libp2pCorePeerstore.$h(super.$h) : super.$h();
 
   /// Go: `func (peerstore.AddrBook).AddAddrs(p peer.ID, addrs []multiaddr.Multiaddr, ttl time.Duration)`.
-  void addAddrs($peer.Id p, List<$multiaddr.Multiaddr> addrs, Duration ttl) {
+  void addAddrs($peer.Libp2pCorePeerId p, List<$multiaddr.Multiaddr> addrs,
+      Duration ttl) {
     $callSync(
         632,
         $W()
@@ -23,7 +25,7 @@ class Peerstore extends $io.Closer {
   }
 
   /// Go: `func (peerstore.AddrBook).Addrs(p peer.ID) []multiaddr.Multiaddr`.
-  List<$multiaddr.Multiaddr> addrs($peer.Id p) {
+  List<$multiaddr.Multiaddr> addrs($peer.Libp2pCorePeerId p) {
     final $r = $callSync(
         633,
         $W()
@@ -33,7 +35,7 @@ class Peerstore extends $io.Closer {
   }
 
   /// Go: `func (peerstore.AddrBook).ClearAddrs(p peer.ID)`.
-  void clearAddrs($peer.Id p) {
+  void clearAddrs($peer.Libp2pCorePeerId p) {
     $callSync(
         634,
         $W()
@@ -42,29 +44,29 @@ class Peerstore extends $io.Closer {
   }
 
   /// Go: `func (peerstore.Peerstore).PeerInfo(peer.ID) peer.AddrInfo`.
-  $peer.AddrInfo peerInfo($peer.Id id) {
+  $peer.Libp2pCorePeerAddrInfo peerInfo($peer.Libp2pCorePeerId id) {
     final $r = $callSync(
         638,
         $W()
           ..h(this)
           ..val(id));
-    return $r.p() ? $peer.AddrInfo.$dec($r) : $nil();
+    return $r.p() ? $peer.Libp2pCorePeerAddrInfo.$dec($r) : $nil();
   }
 
   /// Go: `func (peerstore.Peerstore).Peers() peer.IDSlice`.
-  List<$peer.Id> peers() {
+  List<$peer.Libp2pCorePeerId> peers() {
     final $r = $callSync(639, $W()..h(this));
-    return $r.list(() => $r.p() ? $peer.Id($r.str()) : $nil());
+    return $r.list(() => $r.p() ? $peer.Libp2pCorePeerId($r.str()) : $nil());
   }
 
   /// Go: `func (peerstore.AddrBook).PeersWithAddrs() peer.IDSlice`.
-  List<$peer.Id> peersWithAddrs() {
+  List<$peer.Libp2pCorePeerId> peersWithAddrs() {
     final $r = $callSync(640, $W()..h(this));
-    return $r.list(() => $r.p() ? $peer.Id($r.str()) : $nil());
+    return $r.list(() => $r.p() ? $peer.Libp2pCorePeerId($r.str()) : $nil());
   }
 
   /// Go: `func (peerstore.ProtoBook).GetProtocols(peer.ID) ([]protocol.ID, error)`.
-  List<String> getProtocols($peer.Id id) {
+  List<String> getProtocols($peer.Libp2pCorePeerId id) {
     final $r = $callSync(
         636,
         $W()
@@ -74,7 +76,7 @@ class Peerstore extends $io.Closer {
   }
 
   /// Go: `func (peerstore.PeerMetadata).Get(p peer.ID, key string) (any, error)`.
-  Object? get($peer.Id p, String key) {
+  Object? get($peer.Libp2pCorePeerId p, String key) {
     final $r = $callSync(
         635,
         $W()
@@ -85,7 +87,7 @@ class Peerstore extends $io.Closer {
   }
 
   /// Go: `func (peerstore.Metrics).LatencyEWMA(peer.ID) time.Duration`.
-  Duration latencyEwma($peer.Id id) {
+  Duration latencyEwma($peer.Libp2pCorePeerId id) {
     final $r = $callSync(
         637,
         $W()
@@ -95,27 +97,32 @@ class Peerstore extends $io.Closer {
   }
 }
 
-/// Go: `func peerstore.AddrInfos(ps peerstore.Peerstore, peers []peer.ID) []peer.AddrInfo`.
-List<$peer.AddrInfo> addrInfos(Peerstore ps, List<$peer.Id> peers) {
-  final $r = $callSync(
-      631,
-      $W()
-        ..h(ps)
-        ..list(peers, (w0, e0) => w0.val(e0)));
-  return $r.list(() => $r.p() ? $peer.AddrInfo.$dec($r) : $nil());
-}
-
-/// Go: `const peerstore.ConnectedAddrTTL untyped int`.
-const connectedAddrTtl = 9223372036854775806;
-
-/// Go: `const peerstore.PermanentAddrTTL untyped int`.
-const permanentAddrTtl = 9223372036854775807;
-
 /// Go: `var peerstore.ErrNotFound error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrNotFound extends GolangException {
-  ErrNotFound.$(super.base) : super.$from();
+class Libp2pCorePeerstoreErrNotFound extends GolangException {
+  Libp2pCorePeerstoreErrNotFound.$(super.base) : super.$from();
 
   @override
   String toString() => 'peerstore.ErrNotFound: $message';
+}
+
+/// Go: the package-level members of `github.com/libp2p/go-libp2p/core/peerstore` (`Go.libp2p.core.peerstore`).
+extension GoLibp2pCorePeerstoreApi on GoLibp2pCorePeerstore {
+  /// Go: `func peerstore.AddrInfos(ps peerstore.Peerstore, peers []peer.ID) []peer.AddrInfo`.
+  List<$peer.Libp2pCorePeerAddrInfo> addrInfos(
+      Libp2pCorePeerstore ps, List<$peer.Libp2pCorePeerId> peers) {
+    final $r = $callSync(
+        631,
+        $W()
+          ..h(ps)
+          ..list(peers, (w0, e0) => w0.val(e0)));
+    return $r
+        .list(() => $r.p() ? $peer.Libp2pCorePeerAddrInfo.$dec($r) : $nil());
+  }
+
+  /// Go: `const peerstore.ConnectedAddrTTL untyped int`.
+  int get connectedAddrTtl => 9223372036854775806;
+
+  /// Go: `const peerstore.PermanentAddrTTL untyped int`.
+  int get permanentAddrTtl => 9223372036854775807;
 }

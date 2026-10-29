@@ -10,18 +10,6 @@ import 'dart:convert';
 import 'dart:io' show Directory;
 import 'dart:typed_data';
 
-import 'package:p2p_ffi/go/boxo/files.dart' as files;
-import 'package:p2p_ffi/go/context.dart' as context;
-import 'package:p2p_ffi/go/kubo/core/node.dart' as core_node;
-import 'package:p2p_ffi/go/kubo/core/coreiface.dart' as coreiface;
-import 'package:p2p_ffi/go/kubo/core.dart' as core;
-import 'package:p2p_ffi/go/kubo/plugin/loader.dart' as loader;
-import 'package:p2p_ffi/go/kubo/config.dart' as config;
-import 'package:p2p_ffi/go/kubo/core/node/libp2p.dart' as libp2p;
-import 'package:p2p_ffi/go/kubo/core/commands.dart' as commands;
-import 'package:p2p_ffi/go/kubo/repo/fsrepo.dart' as fsrepo;
-import 'package:p2p_ffi/go/kubo/core/coreiface/options.dart' as options;
-import 'package:p2p_ffi/go/kubo/core/coreapi.dart' as coreapi;
 import 'package:p2p_ffi/p2p_ffi.dart';
 import 'package:test/test.dart';
 
@@ -41,9 +29,9 @@ final class _Args implements SmokeArgs {
   _Args(this.node, this.ctx, this.cid, this.self);
 
   @override
-  final core.IpfsNode node;
+  final KuboCoreIpfsNode node;
   @override
-  context.Context ctx;
+  Context ctx;
   final String cid, self;
 
   @override
@@ -73,8 +61,8 @@ final class _Args implements SmokeArgs {
       };
 
   @override
-  files.Node f(String cmd, String arg) =>
-      files.newBytesFile(utf8.encode(switch (arg) {
+  BoxoFilesNode f(String cmd, String arg) =>
+      Go.boxo.files.newBytesFile(utf8.encode(switch (arg) {
         'data' when cmd.startsWith('dag') => '{"a": 1}',
         _ => 'smoke $cmd',
       }));
@@ -82,14 +70,14 @@ final class _Args implements SmokeArgs {
 
 void main() {
   late Directory tmp;
-  late core.IpfsNode n;
-  late coreiface.CoreApi api;
-  final ctx = () => context.background();
+  late KuboCoreIpfsNode n;
+  late KuboCoreCoreifaceCoreApi api;
+  final ctx = () => Go.context.background();
 
   setUpAll(() async {
     tmp = Directory.systemTemp.createTempSync('p2p_ffi_smoke_');
     await P2pService.start();
-    loader.PluginLoader('')
+    KuboPluginLoader('')
       ..initialize()
       ..inject();
   });
@@ -99,37 +87,38 @@ void main() {
     tmp.deleteSync(recursive: true);
   });
 
-  Future<(core.IpfsNode, coreiface.CoreApi)> newNode(String name,
+  Future<(KuboCoreIpfsNode, KuboCoreCoreifaceCoreApi)> newNode(String name,
       {bool online = false}) async {
-    final cfg = config.initWithIdentity(
-        config.createIdentity(null, [options.key.type('ed25519')]));
-    config.profiles['test']!.transform(cfg);
-    fsrepo.init('${tmp.path}/$name', cfg);
-    final n = await core.newNode(
+    final cfg = Go.kubo.config.initWithIdentity(Go.kubo.config.createIdentity(
+        null, [Go.kubo.core.coreiface.options.key.type('ed25519')]));
+    Go.kubo.config.profiles['test']!.transform(cfg);
+    Go.kubo.repo.fsrepo.init('${tmp.path}/$name', cfg);
+    final n = await Go.kubo.core.newNode(
         ctx(),
-        core_node.BuildCfg(
-            repo: fsrepo.open('${tmp.path}/$name'),
+        KuboCoreNodeBuildCfg(
+            repo: Go.kubo.repo.fsrepo.open('${tmp.path}/$name'),
             online: online,
-            routing: online ? libp2p.dhtServerOption : null,
+            routing: online ? Go.kubo.core.node.libp2p.dhtServerOption : null,
             extraOpts: {'pubsub': true}));
-    return (n, coreapi.newCoreApi(n));
+    return (n, Go.kubo.core.coreapi.newCoreApi(n));
   }
 
   test('todos os comandos num nó offline: nenhum erro de protocolo', () async {
     (n, api) = await newNode('offline');
     final p = await api.unixfs().add(
         ctx(),
-        files.newBytesFile(utf8.encode('smoke')),
-        [options.unixfs.pin(true, '')]);
+        Go.boxo.files.newBytesFile(utf8.encode('smoke')),
+        [Go.kubo.core.coreiface.options.unixfs.pin(true, '')]);
     final cid = p.value.substring('/ipfs/'.length);
     final self = (await api.key().self(ctx())).id!.value;
-    await commands.filesMkdir(n, ctx(), '/smoke').drain<void>();
-    await commands
-        .filesWrite(
-            n, ctx(), '/smoke/a.txt', files.newBytesFile(utf8.encode('olá')),
+    await Go.kubo.core.commands.filesMkdir(n, ctx(), '/smoke').drain<void>();
+    await Go.kubo.core.commands
+        .filesWrite(n, ctx(), '/smoke/a.txt',
+            Go.boxo.files.newBytesFile(utf8.encode('olá')),
             create: true)
         .drain<void>();
-    await api.key().generate(ctx(), 'smoke-key', [options.key.type('ed25519')]);
+    await api.key().generate(ctx(), 'smoke-key',
+        [Go.kubo.core.coreiface.options.key.type('ed25519')]);
 
     final args = _Args(n, ctx(), cid, self);
     final names = smokeCommands.keys.toList()
@@ -139,7 +128,7 @@ void main() {
     final kuboErrors = <String>[], failures = <String>[];
     for (final name in names) {
       final (c, cancel) =
-          context.withTimeout(ctx(), const Duration(seconds: 10));
+          Go.context.withTimeout(ctx(), const Duration(seconds: 10));
       args.ctx = c;
       try {
         final out = await smokeCommands[name]!(args)
@@ -172,8 +161,8 @@ void main() {
   }, timeout: const Timeout(Duration(minutes: 10)));
 
   group('comandos de rede em dois nós online', () {
-    late core.IpfsNode na, nb;
-    late coreiface.CoreApi a;
+    late KuboCoreIpfsNode na, nb;
+    late KuboCoreCoreifaceCoreApi a;
     late String idA, cid;
 
     setUpAll(() async {
@@ -181,10 +170,10 @@ void main() {
       (nb, _) = await newNode('b', online: true);
       idA = (await a.key().self(ctx())).id!.value;
       final addrs = await a.swarm().localAddrs(ctx());
-      await commands.swarmConnect(
+      await Go.kubo.core.commands.swarmConnect(
           nb, ctx(), ['${addrs.first.value}/p2p/$idA']).drain<void>();
-      final p = await a.unixfs().add(
-          ctx(), files.newBytesFile(utf8.encode('rede ${DateTime.now()}')));
+      final p = await a.unixfs().add(ctx(),
+          Go.boxo.files.newBytesFile(utf8.encode('rede ${DateTime.now()}')));
       cid = p.value.substring('/ipfs/'.length);
     });
 
@@ -194,18 +183,20 @@ void main() {
     });
 
     test('swarm peers e ping', () async {
-      final peers = await commands.swarmPeers(nb, ctx()).single;
+      final peers = await Go.kubo.core.commands.swarmPeers(nb, ctx()).single;
       expect([for (final p in peers.peers) p.peer], contains(idA));
-      final pings = await commands.ping(nb, ctx(), [idA], count: 2).toList();
+      final pings =
+          await Go.kubo.core.commands.ping(nb, ctx(), [idA], count: 2).toList();
       expect(pings.where((r) => r.success), isNotEmpty);
     });
 
     test('routing provide e findprovs', () async {
-      await commands.routingProvide(na, ctx(), [cid]).drain<void>();
+      await Go.kubo.core.commands
+          .routingProvide(na, ctx(), [cid]).drain<void>();
       final (c, cancel) =
-          context.withTimeout(ctx(), const Duration(seconds: 30));
+          Go.context.withTimeout(ctx(), const Duration(seconds: 30));
       try {
-        final events = await commands
+        final events = await Go.kubo.core.commands
             .routingFindprovs(nb, c, [cid], numProviders: 1)
             .toList();
         expect([
@@ -219,15 +210,16 @@ void main() {
 
     test('pubsub: sub em A, pub em B', () async {
       final got = Completer<String>();
-      final sub = commands.pubsubSub(na, ctx(), 'smoke-rede').listen((m) {
+      final sub =
+          Go.kubo.core.commands.pubsubSub(na, ctx(), 'smoke-rede').listen((m) {
         if (!got.isCompleted) got.complete(m.from);
       });
       // a assinatura propaga entre os nós antes da primeira mensagem
       for (var i = 0; i < 20 && !got.isCompleted; i++) {
         await Future<void>.delayed(const Duration(milliseconds: 500));
-        await commands
+        await Go.kubo.core.commands
             .pubsubPub(nb, ctx(), 'smoke-rede',
-                files.newBytesFile(Uint8List.fromList([i])))
+                Go.boxo.files.newBytesFile(Uint8List.fromList([i])))
             .drain<void>();
       }
       expect(await got.future.timeout(const Duration(seconds: 5)), isNotEmpty);
@@ -235,10 +227,12 @@ void main() {
     });
 
     test('name publish e resolve', () async {
-      final e = await commands
+      final e = await Go.kubo.core.commands
           .namePublish(na, ctx(), '/ipfs/$cid', allowOffline: true)
           .single;
-      final r = await commands.nameResolve(na, ctx(), '/ipns/${e.name}').single;
+      final r = await Go.kubo.core.commands
+          .nameResolve(na, ctx(), '/ipns/${e.name}')
+          .single;
       expect(r.path, '/ipfs/$cid');
     });
   });

@@ -2,6 +2,7 @@
 // Go: github.com/ipfs/boxo/blockservice
 library;
 
+import 'package:p2p_ffi/src/go.dart' show GoBoxoBlockservice;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/boxo/blockstore.dart' as $blockstore;
 import 'package:p2p_ffi/go/boxo/exchange.dart' as $exchange;
@@ -9,30 +10,36 @@ import 'package:p2p_ffi/go/boxo/verifcid.dart' as $verifcid;
 import 'package:p2p_ffi/go/io.dart' as $io;
 
 /// Go: `blockservice.BlockService` (handle).
-class BlockService extends $io.Closer {
-  BlockService.$h(super.$h) : super.$h();
+class BoxoBlockserviceBlockService extends $io.IoCloser {
+  BoxoBlockserviceBlockService.$h(super.$h) : super.$h();
 }
 
 /// Go: `blockservice.Option` (functional option; constructors in the package).
-final class Option extends GoOption {
-  Option.$(super.$i, super.$a);
+final class BoxoBlockserviceOption extends GoOption {
+  BoxoBlockserviceOption.$(super.$i, super.$a);
 }
 
-/// Go: `blockservice.WithAllowlist`.
-Option withAllowlist($verifcid.Allowlist allowlist) =>
-    Option.$(0, (w) => w..h(allowlist));
+/// Go: the package-level members of `github.com/ipfs/boxo/blockservice` (`Go.boxo.blockservice`).
+extension GoBoxoBlockserviceApi on GoBoxoBlockservice {
+  /// Go: `blockservice.WithAllowlist`.
+  BoxoBlockserviceOption withAllowlist(
+          $verifcid.BoxoVerifcidAllowlist allowlist) =>
+      BoxoBlockserviceOption.$(0, (w) => w..h(allowlist));
 
-/// Go: `blockservice.WriteThrough`.
-Option writeThrough(bool enabled) => Option.$(1, (w) => w..b(enabled));
+  /// Go: `blockservice.WriteThrough`.
+  BoxoBlockserviceOption writeThrough(bool enabled) =>
+      BoxoBlockserviceOption.$(1, (w) => w..b(enabled));
 
-/// Go: `func blockservice.New(bs blockstore.Blockstore, exchange exchange.Interface, opts ...blockservice.Option) blockservice.BlockService`.
-BlockService new$($blockstore.Blockstore bs, $exchange.Interface exchange,
-    [List<Option> opts = const []]) {
-  final $r = $callSync(
-      107,
-      $W()
-        ..h(bs)
-        ..h(exchange)
-        ..list(opts, (w0, e0) => w0.opt(e0)));
-  return $r.hnn(BlockService.$h);
+  /// Go: `func blockservice.New(bs blockstore.Blockstore, exchange exchange.Interface, opts ...blockservice.Option) blockservice.BlockService`.
+  BoxoBlockserviceBlockService new$(
+      $blockstore.BoxoBlockstore bs, $exchange.BoxoExchangeInterface exchange,
+      [List<BoxoBlockserviceOption> opts = const []]) {
+    final $r = $callSync(
+        107,
+        $W()
+          ..h(bs)
+          ..h(exchange)
+          ..list(opts, (w0, e0) => w0.opt(e0)));
+    return $r.hnn(BoxoBlockserviceBlockService.$h);
+  }
 }

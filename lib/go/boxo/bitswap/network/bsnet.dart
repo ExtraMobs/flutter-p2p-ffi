@@ -2,33 +2,41 @@
 // Go: github.com/ipfs/boxo/bitswap/network/bsnet
 library;
 
+import 'package:p2p_ffi/src/go.dart' show GoBoxoBitswapNetworkBsnet;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/boxo/bitswap/network.dart' as $network;
 import 'package:p2p_ffi/go/libp2p/core/host.dart' as $host;
 
 /// Go: `bsnet.NetOpt` (functional option; constructors in the package).
-final class NetOpt extends GoOption {
-  NetOpt.$(super.$i, super.$a);
+final class BoxoBitswapNetworkBsnetNetOpt extends GoOption {
+  BoxoBitswapNetworkBsnetNetOpt.$(super.$i, super.$a);
 }
 
-/// Go: `bsnet.Prefix`.
-NetOpt prefix(String prefix) => NetOpt.$(0, (w) => w..str(prefix));
+/// Go: the package-level members of `github.com/ipfs/boxo/bitswap/network/bsnet` (`Go.boxo.bitswap.network.bsnet`).
+extension GoBoxoBitswapNetworkBsnetApi on GoBoxoBitswapNetworkBsnet {
+  /// Go: `bsnet.Prefix`.
+  BoxoBitswapNetworkBsnetNetOpt prefix(String prefix) =>
+      BoxoBitswapNetworkBsnetNetOpt.$(0, (w) => w..str(prefix));
 
-/// Go: `bsnet.SupportedProtocols`.
-NetOpt supportedProtocols(List<String> protos) =>
-    NetOpt.$(1, (w) => w..list(protos, (w0, e0) => w0.str(e0)));
+  /// Go: `bsnet.SupportedProtocols`.
+  BoxoBitswapNetworkBsnetNetOpt supportedProtocols(List<String> protos) =>
+      BoxoBitswapNetworkBsnetNetOpt.$(
+          1, (w) => w..list(protos, (w0, e0) => w0.str(e0)));
 
-/// Go: `bsnet.WithConnectEventManager`.
-NetOpt withConnectEventManager($network.ConnectEventManager evm) =>
-    NetOpt.$(2, (w) => w..h(evm));
+  /// Go: `bsnet.WithConnectEventManager`.
+  BoxoBitswapNetworkBsnetNetOpt withConnectEventManager(
+          $network.BoxoBitswapNetworkConnectEventManager evm) =>
+      BoxoBitswapNetworkBsnetNetOpt.$(2, (w) => w..h(evm));
 
-/// Go: `func bsnet.NewFromIpfsHost(host host.Host, opts ...bsnet.NetOpt) network.BitSwapNetwork`.
-$network.BitSwapNetwork newFromIpfsHost($host.Host host,
-    [List<NetOpt> opts = const []]) {
-  final $r = $callSync(
-      106,
-      $W()
-        ..h(host)
-        ..list(opts, (w0, e0) => w0.opt(e0)));
-  return $r.hnn($network.BitSwapNetwork.$h);
+  /// Go: `func bsnet.NewFromIpfsHost(host host.Host, opts ...bsnet.NetOpt) network.BitSwapNetwork`.
+  $network.BoxoBitswapNetworkBitSwapNetwork newFromIpfsHost(
+      $host.Libp2pCoreHost host,
+      [List<BoxoBitswapNetworkBsnetNetOpt> opts = const []]) {
+    final $r = $callSync(
+        106,
+        $W()
+          ..h(host)
+          ..list(opts, (w0, e0) => w0.opt(e0)));
+    return $r.hnn($network.BoxoBitswapNetworkBitSwapNetwork.$h);
+  }
 }

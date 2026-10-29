@@ -2,12 +2,9 @@
 // ida e volta de cada tipo, sem o p2p_host.
 import 'dart:typed_data';
 
-import 'package:p2p_ffi/go/cid.dart' as cid;
-import 'package:p2p_ffi/go/ipld_format.dart' as format;
-import 'package:p2p_ffi/go/kubo/config.dart' as config;
-import 'package:p2p_ffi/go/kubo/core/coreiface/options.dart' as options;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:test/test.dart';
+import 'package:p2p_ffi/p2p_ffi.dart';
 
 final class _H extends GoHandle {
   _H(super.$h);
@@ -71,15 +68,15 @@ void main() {
   test('tipos-valor, time.Time e config.Config', () {
     final t = DateTime.utc(2026, 10, 15, 12, 30, 1, 2, 3);
     final w = $W()
-      ..val(const cid.Cid('bafy'))
+      ..val(const Cid('bafy'))
       ..val(null)
       ..time(t)
       ..time(null)
-      ..json(config.Config({
+      ..json(KuboConfig({
         'a': [1, 2]
       }));
     final r = _back(w);
-    expect(r.p() ? cid.Cid(r.str()) : null, const cid.Cid('bafy'));
+    expect(r.p() ? Cid(r.str()) : null, const Cid('bafy'));
     expect(r.p(), isFalse);
     expect(r.p(), isTrue);
     expect(r.time(), t);
@@ -122,24 +119,26 @@ void main() {
   });
 
   test('DTO gerado: presença + campos na ordem', () {
-    final link = format.Link(name: 'n', size: 9, cid: const cid.Cid('bafy'));
+    final link = IpldFormatLink(name: 'n', size: 9, cid: const Cid('bafy'));
     final w = $W()
       ..dto(link)
       ..dto(null)
-      ..dto(format.Link());
+      ..dto(IpldFormatLink());
     final r = _back(w);
     expect(r.p(), isTrue);
-    final got = format.Link.$dec(r);
-    expect((got.name, got.size, got.cid), ('n', 9, const cid.Cid('bafy')));
+    final got = IpldFormatLink.$dec(r);
+    expect((got.name, got.size, got.cid), ('n', 9, const Cid('bafy')));
     expect(r.p(), isFalse);
     expect(r.p(), isTrue);
-    final empty = format.Link.$dec(r);
+    final empty = IpldFormatLink.$dec(r);
     expect((empty.name, empty.size, empty.cid), ('', 0, null));
   });
 
   test('opção funcional: índice do construtor + parâmetros', () {
-    final o = options.unixfs.cidVersion(1);
-    final w = $W()..list([o, options.pin.ls.all()], (w, e) => w.opt(e));
+    final o = Go.kubo.core.coreiface.options.unixfs.cidVersion(1);
+    final w = $W()
+      ..list(
+          [o, Go.kubo.core.coreiface.options.pin.ls.all()], (w, e) => w.opt(e));
     final r = _back(w);
     expect(r.i32(), 2);
     expect(r.u32(), o.$i);

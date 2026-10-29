@@ -8,12 +8,7 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
-import 'package:p2p_ffi/go/context.dart' as context;
-import 'package:p2p_ffi/go/kubo/core.dart' as core;
-import 'package:p2p_ffi/go/kubo/core/coreapi.dart' as coreapi;
-import 'package:p2p_ffi/go/kubo/core/node.dart' as node;
-import 'package:p2p_ffi/go/kubo/repo/fsrepo.dart' as fsrepo;
-import 'package:p2p_ffi/p2p_ffi.dart' show P2pService;
+import 'package:p2p_ffi/p2p_ffi.dart';
 import 'package:p2p_ffi/src/runtime.dart' show $callSync, $W;
 import 'package:p2p_ffi_android/main.dart' show setupService, startNode;
 
@@ -57,13 +52,14 @@ void main() {
     final lines = <String>[];
     for (final spin in [20000, 200000]) {
       await P2pService.start(spin: spin);
-      final ctx = context.background();
+      final ctx = Go.context.background();
       lines.add('--- spin $spin');
       lines.add('Noop:          ${pct(measure(() => $callSync(0)))}');
       lines.add(
           'Echo 8 B:      ${pct(measure(() => $callSync(2, $W()..i64(1))))}');
       lines.add('ctx.err():     ${pct(measure(() => ctx.err()))}');
-      lines.add('background():  ${pct(measure(() => context.background()))}');
+      lines
+          .add('background():  ${pct(measure(() => Go.context.background()))}');
       for (final gap in [20, 50, 100]) {
         lines.add('Noop + $gap µs of Dart: '
             '${pct(measure(() => $callSync(0), gapUs: gap, n: 1000))}');
@@ -81,12 +77,13 @@ void main() {
     for (final spin in [20000, 200000]) {
       await P2pService.start(spin: spin);
       setupService(repo); // plugins (once per host) and the app's repo
-      final ctx = context.background();
+      final ctx = Go.context.background();
       for (final online in [false, true]) {
         final n = online
             ? await startNode(ctx, repo)
-            : await core.newNode(ctx, node.BuildCfg(repo: fsrepo.open(repo)));
-        final api = coreapi.newCoreApi(n);
+            : await Go.kubo.core.newNode(ctx,
+                KuboCoreNodeBuildCfg(repo: Go.kubo.repo.fsrepo.open(repo)));
+        final api = Go.kubo.core.coreapi.newCoreApi(n);
         if (online) await Future<void>.delayed(const Duration(seconds: 20));
         final peers = online ? (await api.swarm().peers(ctx)).length : 0;
         lines.add(

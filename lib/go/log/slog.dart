@@ -2,63 +2,67 @@
 // Go: log/slog
 library;
 
+import 'package:p2p_ffi/src/go.dart' show GoLogSlog;
 import 'package:p2p_ffi/src/runtime.dart';
 
 /// Go: `slog.Logger` (handle).
-class Logger extends GoHandle {
-  Logger.$h(super.$h);
+class LogSlogLogger extends GoHandle {
+  LogSlogLogger.$h(super.$h);
 }
 
-/// Go: `const slog.KindAny slog.Kind`.
-const kindAny = 0;
+/// Go: the package-level members of `log/slog` (`Go.log.slog`).
+extension GoLogSlogApi on GoLogSlog {
+  /// Go: `const slog.KindAny slog.Kind`.
+  int get kindAny => 0;
 
-/// Go: `const slog.KindBool slog.Kind`.
-const kindBool = 1;
+  /// Go: `const slog.KindBool slog.Kind`.
+  int get kindBool => 1;
 
-/// Go: `const slog.KindDuration slog.Kind`.
-const kindDuration = 2;
+  /// Go: `const slog.KindDuration slog.Kind`.
+  int get kindDuration => 2;
 
-/// Go: `const slog.KindFloat64 slog.Kind`.
-const kindFloat64 = 3;
+  /// Go: `const slog.KindFloat64 slog.Kind`.
+  int get kindFloat64 => 3;
 
-/// Go: `const slog.KindGroup slog.Kind`.
-const kindGroup = 8;
+  /// Go: `const slog.KindGroup slog.Kind`.
+  int get kindGroup => 8;
 
-/// Go: `const slog.KindInt64 slog.Kind`.
-const kindInt64 = 4;
+  /// Go: `const slog.KindInt64 slog.Kind`.
+  int get kindInt64 => 4;
 
-/// Go: `const slog.KindLogValuer slog.Kind`.
-const kindLogValuer = 9;
+  /// Go: `const slog.KindLogValuer slog.Kind`.
+  int get kindLogValuer => 9;
 
-/// Go: `const slog.KindString slog.Kind`.
-const kindString = 5;
+  /// Go: `const slog.KindString slog.Kind`.
+  int get kindString => 5;
 
-/// Go: `const slog.KindTime slog.Kind`.
-const kindTime = 6;
+  /// Go: `const slog.KindTime slog.Kind`.
+  int get kindTime => 6;
 
-/// Go: `const slog.KindUint64 slog.Kind`.
-const kindUint64 = 7;
+  /// Go: `const slog.KindUint64 slog.Kind`.
+  int get kindUint64 => 7;
 
-/// Go: `const slog.LevelDebug slog.Level`.
-const levelDebug = -4;
+  /// Go: `const slog.LevelDebug slog.Level`.
+  int get levelDebug => -4;
 
-/// Go: `const slog.LevelError slog.Level`.
-const levelError = 8;
+  /// Go: `const slog.LevelError slog.Level`.
+  int get levelError => 8;
 
-/// Go: `const slog.LevelInfo slog.Level`.
-const levelInfo = 0;
+  /// Go: `const slog.LevelInfo slog.Level`.
+  int get levelInfo => 0;
 
-/// Go: `const slog.LevelKey untyped string`.
-const levelKey = "level";
+  /// Go: `const slog.LevelKey untyped string`.
+  String get levelKey => "level";
 
-/// Go: `const slog.LevelWarn slog.Level`.
-const levelWarn = 4;
+  /// Go: `const slog.LevelWarn slog.Level`.
+  int get levelWarn => 4;
 
-/// Go: `const slog.MessageKey untyped string`.
-const messageKey = "msg";
+  /// Go: `const slog.MessageKey untyped string`.
+  String get messageKey => "msg";
 
-/// Go: `const slog.SourceKey untyped string`.
-const sourceKey = "source";
+  /// Go: `const slog.SourceKey untyped string`.
+  String get sourceKey => "source";
 
-/// Go: `const slog.TimeKey untyped string`.
-const timeKey = "time";
+  /// Go: `const slog.TimeKey untyped string`.
+  String get timeKey => "time";
+}

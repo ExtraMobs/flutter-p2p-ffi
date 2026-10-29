@@ -4,45 +4,29 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:p2p_ffi/go/cid.dart' as cid;
-import 'package:p2p_ffi/go/context.dart' as context;
-import 'package:p2p_ffi/go/io_stream.dart' as io;
-import 'package:p2p_ffi/go/libp2p.dart' as libp2p;
-import 'package:p2p_ffi/go/libp2p/core/crypto.dart' as crypto;
-import 'package:p2p_ffi/go/libp2p/core/event.dart' as event;
-import 'package:p2p_ffi/go/libp2p/core/host.dart' as host;
-import 'package:p2p_ffi/go/libp2p/core/network.dart' as network;
-import 'package:p2p_ffi/go/libp2p/core/peer.dart' as peer;
-import 'package:p2p_ffi/go/libp2p/p2p/discovery/routing.dart' as routing;
-import 'package:p2p_ffi/go/libp2p/p2p/muxer/yamux.dart' as yamux;
-import 'package:p2p_ffi/go/libp2p/p2p/protocol/circuitv2/relay.dart' as relay;
-import 'package:p2p_ffi/go/libp2p/p2p/protocol/ping.dart' as ping;
-import 'package:p2p_ffi/go/libp2p/p2p/security/noise.dart' as noise;
-import 'package:p2p_ffi/go/libp2p/p2p/transport/tcp.dart' as tcp;
-import 'package:p2p_ffi/go/libp2p_kad_dht.dart' as dht;
-import 'package:p2p_ffi/go/libp2p_pubsub.dart' as pubsub;
 import 'package:p2p_ffi/p2p_ffi.dart';
 import 'package:test/test.dart';
 
 const echo = '/p2p-ffi-test/echo/1.0.0';
 
-Future<host.Host> newHost([crypto.PrivKey? key]) => libp2p.new$([
-      libp2p.listenAddrStrings(['/ip4/127.0.0.1/tcp/0']),
-      if (key != null) libp2p.identity(key),
+Future<Libp2pCoreHost> newHost([Libp2pCoreCryptoPrivKey? key]) =>
+    Go.libp2p.new$([
+      Go.libp2p.listenAddrStrings(['/ip4/127.0.0.1/tcp/0']),
+      if (key != null) Go.libp2p.identity(key),
     ]);
 
 void main() {
   setUpAll(P2pService.start);
   tearDownAll(P2pService.stop);
 
-  late host.Host a, b;
-  late final context.Context ctx;
-  setUpAll(() => ctx = context.background());
+  late Libp2pCoreHost a, b;
+  late final Context ctx;
+  setUpAll(() => ctx = Go.context.background());
 
   setUp(() async {
     a = await newHost();
     b = await newHost();
-    await a.connect(ctx, host.infoFromHost(b));
+    await a.connect(ctx, Go.libp2p.core.host.infoFromHost(b));
   });
   tearDown(() async {
     await a.close();
@@ -51,20 +35,23 @@ void main() {
 
   test('identity: the peer ID comes from the key, which survives a round trip',
       () async {
-    final (sk, _) = crypto.generateKeyPair(crypto.ed25519, -1);
-    final again = crypto.unmarshalPrivateKey(crypto.marshalPrivateKey(sk));
+    final (sk, _) = Go.libp2p.core.crypto
+        .generateKeyPair(Go.libp2p.core.crypto.ed25519, -1);
+    final again = Go.libp2p.core.crypto
+        .unmarshalPrivateKey(Go.libp2p.core.crypto.marshalPrivateKey(sk));
     final h = await newHost(again);
     addTearDown(h.close);
-    expect(h.id(), peer.idFromPrivateKey(sk));
+    expect(h.id(), Go.libp2p.core.peer.idFromPrivateKey(sk));
     final sig = sk.sign(utf8.encode('hi'));
     expect(sk.getPublic().verify(utf8.encode('hi'), sig), isTrue);
   });
 
   test('connected, and ping measures the round trip', () async {
-    expect(a.network().connectedness(b.id()), network.connected);
+    expect(a.network().connectedness(b.id()), Go.libp2p.core.network.connected);
     expect(a.network().peers(), contains(b.id()));
-    final (pingCtx, cancel) = context.withCancel(ctx);
-    final first = await ping.ping(pingCtx, a, b.id()).first;
+    final (pingCtx, cancel) = Go.context.withCancel(ctx);
+    final first =
+        await Go.libp2p.p2p.protocol.ping.ping(pingCtx, a, b.id()).first;
     cancel();
     expect(first.error, isNull);
     // Go itself measures 0 s on Windows loopback (checked with a go test)
@@ -76,7 +63,7 @@ void main() {
     b.setStreamHandler(echo, (s) async {
       served.complete(s.protocol());
       final got = BytesBuilder();
-      await for (final chunk in io.readerStream(s)) {
+      await for (final chunk in readerStream(s)) {
         got.add(chunk);
       }
       await s.write(got.takeBytes());
@@ -85,7 +72,7 @@ void main() {
     final s = await a.newStream(ctx, b.id(), [echo]);
     await s.write(utf8.encode('hello'));
     await s.closeWrite();
-    final back = await io.readerStream(s).expand((c) => c).toList();
+    final back = await readerStream(s).expand((c) => c).toList();
     expect(utf8.decode(back), 'hello');
     expect(await served.future, echo);
     b.removeStreamHandler(echo);
@@ -107,8 +94,8 @@ void main() {
   });
 
   test('a Dart Notifiee sees the connection close', () async {
-    final gone = Completer<peer.Id>();
-    final n = network.Notifiee(
+    final gone = Completer<Libp2pCorePeerId>();
+    final n = Libp2pCoreNetworkNotifiee(
         disconnected: (_, conn) => gone.complete(conn.remotePeer()));
     a.network().notify(n);
     a.network().closePeer(b.id());
@@ -117,8 +104,8 @@ void main() {
   });
 
   test('gossipsub between the two hosts', () async {
-    final psA = await pubsub.newGossipSub(ctx, a);
-    final psB = await pubsub.newGossipSub(ctx, b);
+    final psA = await Go.libp2pPubsub.newGossipSub(ctx, a);
+    final psB = await Go.libp2pPubsub.newGossipSub(ctx, b);
     final topicA = await psA.join('p2p-ffi-test');
     final topicB = await psB.join('p2p-ffi-test');
     final sub = await topicB.subscribe();
@@ -128,7 +115,7 @@ void main() {
     }
     await topicA.publish(ctx, Uint8List.fromList(utf8.encode('news')));
     final (nextCtx, cancel) =
-        context.withTimeout(ctx, const Duration(seconds: 10));
+        Go.context.withTimeout(ctx, const Duration(seconds: 10));
     final msg = await sub.next(nextCtx);
     cancel();
     expect(utf8.decode(msg.message!.getData()), 'news');
@@ -138,10 +125,11 @@ void main() {
 
   test('a private DHT: provide on one host, find it from the other', () async {
     final opts = [
-      dht.mode(dht.modeServer),
-      dht.protocolPrefix('/p2p-ffi-test')
+      Go.libp2pKadDht.mode(Go.libp2pKadDht.modeServer),
+      Go.libp2pKadDht.protocolPrefix('/p2p-ffi-test')
     ];
-    final da = dht.new$(a, opts), db = dht.new$(b, opts);
+    final da = Go.libp2pKadDht.new$(a, opts),
+        db = Go.libp2pKadDht.new$(b, opts);
     addTearDown(() async {
       await da.close();
       await db.close();
@@ -151,31 +139,31 @@ void main() {
       await Future<void>.delayed(const Duration(milliseconds: 50));
     }
     final key =
-        cid.Cid('bafkreifzjut3te2nhyekklss27nh3k72ysco7y32koao5eei66wof36n5e');
+        Cid('bafkreifzjut3te2nhyekklss27nh3k72ysco7y32koao5eei66wof36n5e');
     await da.provide(ctx, key, true);
     final found = await db.findProviders(ctx, key);
     expect(found.map((p) => p.id), contains(a.id()));
 
     // rendezvous by name over the same DHT
-    await routing.RoutingDiscovery(da).advertise(ctx, 'p2p-ffi-room');
-    final peers = await routing.RoutingDiscovery(db)
+    await Libp2pP2pDiscoveryRoutingDiscovery(da).advertise(ctx, 'p2p-ffi-room');
+    final peers = await Libp2pP2pDiscoveryRoutingDiscovery(db)
         .findPeers(ctx, 'p2p-ffi-room')
         .toList();
     expect(peers.map((p) => p.id), contains(a.id()));
   });
 
   test('a topic validator: Go asks Dart, and an exception rejects', () async {
-    final psA = await pubsub.newGossipSub(ctx, a);
-    final psB = await pubsub.newGossipSub(ctx, b);
+    final psA = await Go.libp2pPubsub.newGossipSub(ctx, a);
+    final psB = await Go.libp2pPubsub.newGossipSub(ctx, b);
     final thrown = <Object>[];
     await runZonedGuarded(() {
       return psB.registerTopicValidator('checked', (vctx, from, msg) {
         final text = utf8.decode(msg.message!.getData());
         if (text == 'boom') throw StateError('a bug in the validator');
         return text.startsWith('ok')
-            ? pubsub.validationAccept
-            : pubsub.validationReject;
-      }, [pubsub.withValidatorTimeout(const Duration(seconds: 5))]);
+            ? Go.libp2pPubsub.validationAccept
+            : Go.libp2pPubsub.validationReject;
+      }, [Go.libp2pPubsub.withValidatorTimeout(const Duration(seconds: 5))]);
     }, (e, _) => thrown.add(e));
     final topicA = await psA.join('checked');
     final sub = await (await psB.join('checked')).subscribe();
@@ -188,7 +176,7 @@ void main() {
     final got = <String>[];
     for (var i = 0; i < 2; i++) {
       final (nextCtx, cancel) =
-          context.withTimeout(ctx, const Duration(seconds: 10));
+          Go.context.withTimeout(ctx, const Duration(seconds: 10));
       got.add(utf8.decode((await sub.next(nextCtx)).message!.getData()));
       cancel();
     }
@@ -206,15 +194,15 @@ void main() {
     final c = await newHost();
     addTearDown(c.close);
     final sub = c.eventBus().subscribe([
-      event.EvtPeerConnectednessChanged.$type,
-      event.EvtLocalReachabilityChanged.$type,
+      Libp2pCoreEventEvtPeerConnectednessChanged.$type,
+      Libp2pCoreEventEvtLocalReachabilityChanged.$type,
     ]);
     final connected = sub.out().firstWhere((e) =>
-        e is event.EvtPeerConnectednessChanged &&
-        e.connectedness == network.connected);
-    await c.connect(ctx, host.infoFromHost(a));
+        e is Libp2pCoreEventEvtPeerConnectednessChanged &&
+        e.connectedness == Go.libp2p.core.network.connected);
+    await c.connect(ctx, Go.libp2p.core.host.infoFromHost(a));
     final e = await connected.timeout(const Duration(seconds: 10))
-        as event.EvtPeerConnectednessChanged;
+        as Libp2pCoreEventEvtPeerConnectednessChanged;
     expect(e.peer, a.id());
     sub.close();
   });
@@ -222,54 +210,59 @@ void main() {
   test("a stack of one's own: TCP, Noise and yamux, from Go functions",
       () async {
     final opts = [
-      libp2p.transport(tcp.newTcpTransportFunc),
-      libp2p.security(noise.id, noise.newFunc),
-      libp2p.muxer(yamux.id, yamux.defaultTransport),
-      libp2p.listenAddrStrings(['/ip4/127.0.0.1/tcp/0']),
+      Go.libp2p.transport(Go.libp2p.p2p.transport.tcp.newTcpTransportFunc),
+      Go.libp2p.security(Go.libp2p.p2p.security.noise.id,
+          Go.libp2p.p2p.security.noise.newFunc),
+      Go.libp2p.muxer(Go.libp2p.p2p.muxer.yamux.id,
+          Go.libp2p.p2p.muxer.yamux.defaultTransport),
+      Go.libp2p.listenAddrStrings(['/ip4/127.0.0.1/tcp/0']),
     ];
-    final x = await libp2p.new$(opts), y = await libp2p.new$(opts);
+    final x = await Go.libp2p.new$(opts), y = await Go.libp2p.new$(opts);
     addTearDown(() async {
       await x.close();
       await y.close();
     });
-    await x.connect(ctx, host.infoFromHost(y));
+    await x.connect(ctx, Go.libp2p.core.host.infoFromHost(y));
     expect(x.network().connsToPeer(y.id()), isNotEmpty);
     // without the QUIC transport the host refuses a QUIC address
     await expectLater(
-        libp2p.new$([
+        Go.libp2p.new$([
           ...opts.take(3),
-          libp2p.listenAddrStrings(['/ip4/127.0.0.1/udp/0/quic-v1']),
+          Go.libp2p.listenAddrStrings(['/ip4/127.0.0.1/udp/0/quic-v1']),
         ]),
         throwsA(isA<GolangException>()));
   });
 
   test('an option that takes a struct: the gossipsub parameters cross',
       () async {
-    final params = pubsub.defaultGossipSubParams();
+    final params = Go.libp2pPubsub.defaultGossipSubParams();
     expect(params.d, greaterThan(0));
     expect(params.heartbeatInterval, greaterThan(Duration.zero));
-    await pubsub.newGossipSub(ctx, a, [pubsub.withGossipSubParams(params)]);
+    await Go.libp2pPubsub
+        .newGossipSub(ctx, a, [Go.libp2pPubsub.withGossipSubParams(params)]);
     // invalid on purpose (Dlo above D): gossipsub refuses what arrived
     params.dlo = params.d + 1;
     await expectLater(
-        pubsub.newGossipSub(ctx, b, [pubsub.withGossipSubParams(params)]),
+        Go.libp2pPubsub.newGossipSub(
+            ctx, b, [Go.libp2pPubsub.withGossipSubParams(params)]),
         throwsA(isA<GolangException>()));
-    final r = await libp2p.new$([
-      libp2p.listenAddrStrings(['/ip4/127.0.0.1/tcp/0']),
-      libp2p.enableRelayService([
-        relay.withResources(
-            relay.defaultResources()..limit = relay.defaultLimit()),
+    final r = await Go.libp2p.new$([
+      Go.libp2p.listenAddrStrings(['/ip4/127.0.0.1/tcp/0']),
+      Go.libp2p.enableRelayService([
+        Go.libp2p.p2p.protocol.circuitv2.relay.withResources(
+            Go.libp2p.p2p.protocol.circuitv2.relay.defaultResources()
+              ..limit = Go.libp2p.p2p.protocol.circuitv2.relay.defaultLimit()),
       ]),
     ]);
     await r.close();
   });
 
   test('an option that keeps a function: a subscription filter', () async {
-    final psA = await pubsub.newGossipSub(ctx, a);
-    final psB = await pubsub.newGossipSub(ctx, b);
+    final psA = await Go.libp2pPubsub.newGossipSub(ctx, a);
+    final psB = await Go.libp2pPubsub.newGossipSub(ctx, b);
     final topicA = await psA.join('filtered');
     final sub = await (await psB.join('filtered')).subscribe([
-      pubsub.withMessageFilter(
+      Go.libp2pPubsub.withMessageFilter(
           (m) => !utf8.decode(m.message!.getData()).startsWith('skip')),
     ]);
     while (!(await topicA.listPeers()).contains(b.id())) {
@@ -278,7 +271,7 @@ void main() {
     await topicA.publish(ctx, Uint8List.fromList(utf8.encode('skip me')));
     await topicA.publish(ctx, Uint8List.fromList(utf8.encode('keep me')));
     final (nextCtx, cancel) =
-        context.withTimeout(ctx, const Duration(seconds: 10));
+        Go.context.withTimeout(ctx, const Duration(seconds: 10));
     final m = await sub.next(nextCtx);
     cancel();
     expect(utf8.decode(m.message!.getData()), 'keep me');

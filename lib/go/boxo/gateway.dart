@@ -2,6 +2,7 @@
 // Go: github.com/ipfs/boxo/gateway
 library;
 
+import 'package:p2p_ffi/src/go.dart' show GoBoxoGateway;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/boxo/blockservice.dart' as $blockservice;
 import 'package:p2p_ffi/go/boxo/namesys.dart' as $namesys;
@@ -13,30 +14,33 @@ import 'package:p2p_ffi/go/io.dart' as $io;
 import 'package:p2p_ffi/go/libp2p/core/routing.dart' as $routing;
 
 /// Go: `gateway.BackendOption` (functional option; constructors in the package).
-final class BackendOption extends GoOption {
-  BackendOption.$(super.$i, super.$a);
+final class BoxoGatewayBackendOption extends GoOption {
+  BoxoGatewayBackendOption.$(super.$i, super.$a);
 }
 
 /// Go: `gateway.BlocksBackend` (handle).
-class BlocksBackend extends GoHandle {
-  BlocksBackend.$h(super.$h);
+class BoxoGatewayBlocksBackend extends GoHandle {
+  BoxoGatewayBlocksBackend.$h(super.$h);
 
   /// Go: `func gateway.NewBlocksBackend(blockService blockservice.BlockService, opts ...gateway.BackendOption) (*gateway.BlocksBackend, error)`.
-  factory BlocksBackend($blockservice.BlockService blockService,
-      [List<BackendOption> opts = const []]) {
+  factory BoxoGatewayBlocksBackend(
+      $blockservice.BoxoBlockserviceBlockService blockService,
+      [List<BoxoGatewayBackendOption> opts = const []]) {
     final $r = $callSync(
         130,
         $W()
           ..h(blockService)
           ..list(opts, (w0, e0) => w0.opt(e0)));
-    return $r.hnn(BlocksBackend.$h);
+    return $r.hnn(BoxoGatewayBlocksBackend.$h);
   }
 
   /// Go: `func (*gateway.BlocksBackend).GetCAR(ctx context.Context, p path.ImmutablePath, params gateway.CarParams) (gateway.ContentPathMetadata, io.ReadCloser, error)`.
   ///
   /// Asynchronous: runs in a goroutine of the service.
-  Future<(ContentPathMetadata, $io.ReadCloser)> getCar(
-      $context.Context ctx, $path.ImmutablePath p, CarParams params) async {
+  Future<(BoxoGatewayContentPathMetadata, $io.IoReadCloser)> getCar(
+      $context.Context ctx,
+      $path.BoxoPathImmutablePath p,
+      BoxoGatewayCarParams params) async {
     final $r = await $call(
         129,
         $W()
@@ -45,29 +49,32 @@ class BlocksBackend extends GoHandle {
           ..val(p)
           ..dto(params));
     return (
-      $r.p() ? ContentPathMetadata.$dec($r) : $nil(),
-      $r.hnn($io.ReadCloser.$h)
+      $r.p() ? BoxoGatewayContentPathMetadata.$dec($r) : $nil(),
+      $r.hnn($io.IoReadCloser.$h)
     );
   }
 }
 
 /// Go: `gateway.CarParams`.
-final class CarParams implements GoDto {
-  CarParams(
-      {DagByteRange? range, String? scope, String? order, int? duplicates})
+final class BoxoGatewayCarParams implements GoDto {
+  BoxoGatewayCarParams(
+      {BoxoGatewayDagByteRange? range,
+      String? scope,
+      String? order,
+      int? duplicates})
       : range = range,
         scope = scope ?? '',
         order = order ?? '',
         duplicates = duplicates ?? 0;
 
-  CarParams.$dec($R r)
-      : range = r.p() ? DagByteRange.$dec(r) : null,
+  BoxoGatewayCarParams.$dec($R r)
+      : range = r.p() ? BoxoGatewayDagByteRange.$dec(r) : null,
         scope = r.str(),
         order = r.str(),
         duplicates = r.i64();
 
   /// Go: `Range`.
-  DagByteRange? range;
+  BoxoGatewayDagByteRange? range;
 
   /// Go: `Scope`.
   String scope;
@@ -89,10 +96,10 @@ final class CarParams implements GoDto {
 }
 
 /// Go: `gateway.ContentPathMetadata`.
-final class ContentPathMetadata implements GoDto {
-  ContentPathMetadata(
+final class BoxoGatewayContentPathMetadata implements GoDto {
+  BoxoGatewayContentPathMetadata(
       {List<$cid.Cid>? pathSegmentRoots,
-      $path.ImmutablePath? lastSegment,
+      $path.BoxoPathImmutablePath? lastSegment,
       List<String>? lastSegmentRemainder,
       String? contentType,
       DateTime? modTime})
@@ -102,9 +109,9 @@ final class ContentPathMetadata implements GoDto {
         contentType = contentType ?? '',
         modTime = modTime;
 
-  ContentPathMetadata.$dec($R r)
+  BoxoGatewayContentPathMetadata.$dec($R r)
       : pathSegmentRoots = r.list(() => r.p() ? $cid.Cid(r.str()) : $nil()),
-        lastSegment = r.p() ? $path.ImmutablePath(r.str()) : null,
+        lastSegment = r.p() ? $path.BoxoPathImmutablePath(r.str()) : null,
         lastSegmentRemainder = r.list(() => r.str()),
         contentType = r.str(),
         modTime = r.p() ? r.time() : null;
@@ -113,7 +120,7 @@ final class ContentPathMetadata implements GoDto {
   List<$cid.Cid> pathSegmentRoots;
 
   /// Go: `LastSegment`.
-  $path.ImmutablePath? lastSegment;
+  $path.BoxoPathImmutablePath? lastSegment;
 
   /// Go: `LastSegmentRemainder`.
   List<String> lastSegmentRemainder;
@@ -136,12 +143,12 @@ final class ContentPathMetadata implements GoDto {
 }
 
 /// Go: `gateway.DagByteRange`.
-final class DagByteRange implements GoDto {
-  DagByteRange({int? from, int? to})
+final class BoxoGatewayDagByteRange implements GoDto {
+  BoxoGatewayDagByteRange({int? from, int? to})
       : from = from ?? 0,
         to = to;
 
-  DagByteRange.$dec($R r)
+  BoxoGatewayDagByteRange.$dec($R r)
       : from = r.i64(),
         to = r.p() ? r.i64() : null;
 
@@ -159,93 +166,10 @@ final class DagByteRange implements GoDto {
   }
 }
 
-/// Go: `gateway.WithGetBlockTimeout`.
-BackendOption withGetBlockTimeout(Duration dur) =>
-    BackendOption.$(0, (w) => w..i64((dur).inMicroseconds * 1000));
-
-/// Go: `gateway.WithMaxTraversalDepth`.
-BackendOption withMaxTraversalDepth(int depth) =>
-    BackendOption.$(1, (w) => w..i64(depth));
-
-/// Go: `gateway.WithNameSystem`.
-BackendOption withNameSystem($namesys.NameSystem ns) =>
-    BackendOption.$(2, (w) => w..h(ns));
-
-/// Go: `gateway.WithResolver`.
-BackendOption withResolver($resolver.Resolver r) =>
-    BackendOption.$(4, (w) => w..h(r));
-
-/// Go: `gateway.WithValueStore`.
-BackendOption withValueStore($routing.ValueStore vs) =>
-    BackendOption.$(5, (w) => w..h(vs));
-
-/// Go: `const gateway.ContentPathKey gateway.RequestContextKey`.
-const contentPathKey = "content-path";
-
-/// Go: `const gateway.DNSLinkHostnameKey gateway.RequestContextKey`.
-const dnsLinkHostnameKey = "dnslink-hostname";
-
-/// Go: `const gateway.DagOrderDFS gateway.DagOrder`.
-const dagOrderDfs = "dfs";
-
-/// Go: `const gateway.DagOrderUnknown gateway.DagOrder`.
-const dagOrderUnknown = "unk";
-
-/// Go: `const gateway.DagOrderUnspecified gateway.DagOrder`.
-const dagOrderUnspecified = "";
-
-/// Go: `const gateway.DagScopeAll gateway.DagScope`.
-const dagScopeAll = "all";
-
-/// Go: `const gateway.DagScopeBlock gateway.DagScope`.
-const dagScopeBlock = "block";
-
-/// Go: `const gateway.DagScopeEntity gateway.DagScope`.
-const dagScopeEntity = "entity";
-
-/// Go: `const gateway.DefaultDiagnosticServiceURL untyped string`.
-const defaultDiagnosticServiceUrl = "https://check.ipfs.network";
-
-/// Go: `const gateway.DefaultGetBlockTimeout time.Duration`.
-const defaultGetBlockTimeout = Duration(microseconds: 60000000);
-
-/// Go: `const gateway.DefaultMaxConcurrentRequests untyped int`.
-const defaultMaxConcurrentRequests = 4096;
-
-/// Go: `const gateway.DefaultMaxRequestDuration time.Duration`.
-const defaultMaxRequestDuration = Duration(microseconds: 3600000000);
-
-/// Go: `const gateway.DefaultMaxTraversalDepth untyped int`.
-const defaultMaxTraversalDepth = 1024;
-
-/// Go: `const gateway.DefaultRetrievalTimeout time.Duration`.
-const defaultRetrievalTimeout = Duration(microseconds: 30000000);
-
-/// Go: `const gateway.DuplicateBlocksExcluded gateway.DuplicateBlocksPolicy`.
-const duplicateBlocksExcluded = 2;
-
-/// Go: `const gateway.DuplicateBlocksIncluded gateway.DuplicateBlocksPolicy`.
-const duplicateBlocksIncluded = 1;
-
-/// Go: `const gateway.DuplicateBlocksUnspecified gateway.DuplicateBlocksPolicy`.
-const duplicateBlocksUnspecified = 0;
-
-/// Go: `const gateway.EmptyIdentityCIDString untyped string`.
-const emptyIdentityCidString = "bafkqaaa";
-
-/// Go: `const gateway.GatewayHostnameKey gateway.RequestContextKey`.
-const gatewayHostnameKey = "gw-hostname";
-
-/// Go: `const gateway.OriginalPathKey gateway.RequestContextKey`.
-const originalPathKey = "original-path-key";
-
-/// Go: `const gateway.SubdomainHostnameKey gateway.RequestContextKey`.
-const subdomainHostnameKey = "subdomain-hostname";
-
 /// Go: `var gateway.ErrFetcherUnexpectedEOF error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrFetcherUnexpectedEof extends GolangException {
-  ErrFetcherUnexpectedEof.$(super.base) : super.$from();
+class BoxoGatewayErrFetcherUnexpectedEof extends GolangException {
+  BoxoGatewayErrFetcherUnexpectedEof.$(super.base) : super.$from();
 
   @override
   String toString() => 'gateway.ErrFetcherUnexpectedEOF: $message';
@@ -253,8 +177,8 @@ class ErrFetcherUnexpectedEof extends GolangException {
 
 /// Go: `gateway.ErrInvalidResponse`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrInvalidResponse extends GolangException {
-  ErrInvalidResponse.$(super.base, $R r)
+class BoxoGatewayErrInvalidResponse extends GolangException {
+  BoxoGatewayErrInvalidResponse.$(super.base, $R r)
       : message = r.str(),
         super.$from();
 
@@ -267,8 +191,8 @@ class ErrInvalidResponse extends GolangException {
 
 /// Go: `gateway.ErrPartialResponse`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrPartialResponse extends GolangException {
-  ErrPartialResponse.$(super.base) : super.$from();
+class BoxoGatewayErrPartialResponse extends GolangException {
+  BoxoGatewayErrPartialResponse.$(super.base) : super.$from();
 
   @override
   String toString() => 'gateway.ErrPartialResponse: $message';
@@ -276,8 +200,8 @@ class ErrPartialResponse extends GolangException {
 
 /// Go: `var gateway.ErrRetrievalTimeout error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrRetrievalTimeout extends GolangException {
-  ErrRetrievalTimeout.$(super.base) : super.$from();
+class BoxoGatewayErrRetrievalTimeout extends GolangException {
+  BoxoGatewayErrRetrievalTimeout.$(super.base) : super.$from();
 
   @override
   String toString() => 'gateway.ErrRetrievalTimeout: $message';
@@ -285,8 +209,8 @@ class ErrRetrievalTimeout extends GolangException {
 
 /// Go: `var gateway.ErrTraversalTooDeep error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrTraversalTooDeep extends GolangException {
-  ErrTraversalTooDeep.$(super.base) : super.$from();
+class BoxoGatewayErrTraversalTooDeep extends GolangException {
+  BoxoGatewayErrTraversalTooDeep.$(super.base) : super.$from();
 
   @override
   String toString() => 'gateway.ErrTraversalTooDeep: $message';
@@ -294,8 +218,8 @@ class ErrTraversalTooDeep extends GolangException {
 
 /// Go: `gateway.ErrorRetryAfter`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrorRetryAfter extends GolangException {
-  ErrorRetryAfter.$(super.base, $R r)
+class BoxoGatewayErrorRetryAfter extends GolangException {
+  BoxoGatewayErrorRetryAfter.$(super.base, $R r)
       : retryAfter = Duration(microseconds: r.i64() ~/ 1000),
         super.$from();
 
@@ -308,8 +232,8 @@ class ErrorRetryAfter extends GolangException {
 
 /// Go: `gateway.ErrorStatusCode`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrorStatusCode extends GolangException {
-  ErrorStatusCode.$(super.base, $R r)
+class BoxoGatewayErrorStatusCode extends GolangException {
+  BoxoGatewayErrorStatusCode.$(super.base, $R r)
       : statusCode = r.i64(),
         super.$from();
 
@@ -318,4 +242,91 @@ class ErrorStatusCode extends GolangException {
 
   @override
   String toString() => 'gateway.ErrorStatusCode: $message';
+}
+
+/// Go: the package-level members of `github.com/ipfs/boxo/gateway` (`Go.boxo.gateway`).
+extension GoBoxoGatewayApi on GoBoxoGateway {
+  /// Go: `gateway.WithGetBlockTimeout`.
+  BoxoGatewayBackendOption withGetBlockTimeout(Duration dur) =>
+      BoxoGatewayBackendOption.$(0, (w) => w..i64((dur).inMicroseconds * 1000));
+
+  /// Go: `gateway.WithMaxTraversalDepth`.
+  BoxoGatewayBackendOption withMaxTraversalDepth(int depth) =>
+      BoxoGatewayBackendOption.$(1, (w) => w..i64(depth));
+
+  /// Go: `gateway.WithNameSystem`.
+  BoxoGatewayBackendOption withNameSystem($namesys.BoxoNamesysNameSystem ns) =>
+      BoxoGatewayBackendOption.$(2, (w) => w..h(ns));
+
+  /// Go: `gateway.WithResolver`.
+  BoxoGatewayBackendOption withResolver($resolver.BoxoPathResolver r) =>
+      BoxoGatewayBackendOption.$(4, (w) => w..h(r));
+
+  /// Go: `gateway.WithValueStore`.
+  BoxoGatewayBackendOption withValueStore(
+          $routing.Libp2pCoreRoutingValueStore vs) =>
+      BoxoGatewayBackendOption.$(5, (w) => w..h(vs));
+
+  /// Go: `const gateway.ContentPathKey gateway.RequestContextKey`.
+  String get contentPathKey => "content-path";
+
+  /// Go: `const gateway.DNSLinkHostnameKey gateway.RequestContextKey`.
+  String get dnsLinkHostnameKey => "dnslink-hostname";
+
+  /// Go: `const gateway.DagOrderDFS gateway.DagOrder`.
+  String get dagOrderDfs => "dfs";
+
+  /// Go: `const gateway.DagOrderUnknown gateway.DagOrder`.
+  String get dagOrderUnknown => "unk";
+
+  /// Go: `const gateway.DagOrderUnspecified gateway.DagOrder`.
+  String get dagOrderUnspecified => "";
+
+  /// Go: `const gateway.DagScopeAll gateway.DagScope`.
+  String get dagScopeAll => "all";
+
+  /// Go: `const gateway.DagScopeBlock gateway.DagScope`.
+  String get dagScopeBlock => "block";
+
+  /// Go: `const gateway.DagScopeEntity gateway.DagScope`.
+  String get dagScopeEntity => "entity";
+
+  /// Go: `const gateway.DefaultDiagnosticServiceURL untyped string`.
+  String get defaultDiagnosticServiceUrl => "https://check.ipfs.network";
+
+  /// Go: `const gateway.DefaultGetBlockTimeout time.Duration`.
+  Duration get defaultGetBlockTimeout => Duration(microseconds: 60000000);
+
+  /// Go: `const gateway.DefaultMaxConcurrentRequests untyped int`.
+  int get defaultMaxConcurrentRequests => 4096;
+
+  /// Go: `const gateway.DefaultMaxRequestDuration time.Duration`.
+  Duration get defaultMaxRequestDuration => Duration(microseconds: 3600000000);
+
+  /// Go: `const gateway.DefaultMaxTraversalDepth untyped int`.
+  int get defaultMaxTraversalDepth => 1024;
+
+  /// Go: `const gateway.DefaultRetrievalTimeout time.Duration`.
+  Duration get defaultRetrievalTimeout => Duration(microseconds: 30000000);
+
+  /// Go: `const gateway.DuplicateBlocksExcluded gateway.DuplicateBlocksPolicy`.
+  int get duplicateBlocksExcluded => 2;
+
+  /// Go: `const gateway.DuplicateBlocksIncluded gateway.DuplicateBlocksPolicy`.
+  int get duplicateBlocksIncluded => 1;
+
+  /// Go: `const gateway.DuplicateBlocksUnspecified gateway.DuplicateBlocksPolicy`.
+  int get duplicateBlocksUnspecified => 0;
+
+  /// Go: `const gateway.EmptyIdentityCIDString untyped string`.
+  String get emptyIdentityCidString => "bafkqaaa";
+
+  /// Go: `const gateway.GatewayHostnameKey gateway.RequestContextKey`.
+  String get gatewayHostnameKey => "gw-hostname";
+
+  /// Go: `const gateway.OriginalPathKey gateway.RequestContextKey`.
+  String get originalPathKey => "original-path-key";
+
+  /// Go: `const gateway.SubdomainHostnameKey gateway.RequestContextKey`.
+  String get subdomainHostnameKey => "subdomain-hostname";
 }

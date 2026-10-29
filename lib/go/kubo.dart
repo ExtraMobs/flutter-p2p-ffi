@@ -2,20 +2,12 @@
 // Go: github.com/ipfs/kubo
 library;
 
+import 'package:p2p_ffi/src/go.dart' show GoKubo;
 import 'package:p2p_ffi/src/runtime.dart';
 
-/// Go: `const ipfs.ApiVersion untyped string`.
-const apiVersion = "/kubo/0.43.1/";
-
-/// Go: `const ipfs.CurrentVersionNumber untyped string`.
-const currentVersionNumber = "0.43.1";
-
-/// Go: `const ipfs.RepoVersion untyped int`.
-const repoVersion = 18;
-
 /// Go: `ipfs.VersionInfo` (a kubo command output).
-final class VersionInfo {
-  VersionInfo.$dec($R r)
+final class KuboVersionInfo {
+  KuboVersionInfo.$dec($R r)
       : version = r.str(),
         commit = r.str(),
         repo = r.str(),
@@ -36,4 +28,16 @@ final class VersionInfo {
 
   /// Go: `Golang`.
   final String golang;
+}
+
+/// Go: the package-level members of `github.com/ipfs/kubo` (`Go.kubo`).
+extension GoKuboApi on GoKubo {
+  /// Go: `const ipfs.ApiVersion untyped string`.
+  String get apiVersion => "/kubo/0.43.1/";
+
+  /// Go: `const ipfs.CurrentVersionNumber untyped string`.
+  String get currentVersionNumber => "0.43.1";
+
+  /// Go: `const ipfs.RepoVersion untyped int`.
+  int get repoVersion => 18;
 }

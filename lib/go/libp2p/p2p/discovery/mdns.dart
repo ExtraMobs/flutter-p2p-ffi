@@ -4,37 +4,39 @@ library;
 
 import 'dart:async';
 
+import 'package:p2p_ffi/src/go.dart' show GoLibp2pP2pDiscoveryMdns;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/io.dart' as $io;
 import 'package:p2p_ffi/go/libp2p/core/host.dart' as $host;
 import 'package:p2p_ffi/go/libp2p/core/peer.dart' as $peer;
 
 /// Go: `mdns.Notifee` (handle).
-class Notifee extends GoHandle {
-  Notifee.$h(super.$h);
+class Libp2pP2pDiscoveryMdnsNotifee extends GoHandle {
+  Libp2pP2pDiscoveryMdnsNotifee.$h(super.$h);
 
   /// A Dart implementation of Go's `mdns.Notifee`.
   ///
   /// Go keeps the functions and calls them on the Dart event loop for as
   /// long as it holds the object; a method left out does nothing (a retained callback, WIRE.md).
-  factory Notifee(
-      {FutureOr<void> Function($peer.AddrInfo addrInfo)? handlePeerFound}) {
+  factory Libp2pP2pDiscoveryMdnsNotifee(
+      {FutureOr<void> Function($peer.Libp2pCorePeerAddrInfo addrInfo)?
+          handlePeerFound}) {
     final $r = $callSync(
         642,
         $W()
           ..cb(
               handlePeerFound == null
                   ? null
-                  : (r) =>
-                      handlePeerFound(r.p() ? $peer.AddrInfo.$dec(r) : $nil()),
+                  : (r) => handlePeerFound(
+                      r.p() ? $peer.Libp2pCorePeerAddrInfo.$dec(r) : $nil()),
               false));
-    return $r.hnn(Notifee.$h);
+    return $r.hnn(Libp2pP2pDiscoveryMdnsNotifee.$h);
   }
 }
 
 /// Go: `mdns.Service` (handle).
-class Service extends $io.Closer {
-  Service.$h(super.$h) : super.$h();
+class Libp2pP2pDiscoveryMdnsService extends $io.IoCloser {
+  Libp2pP2pDiscoveryMdnsService.$h(super.$h) : super.$h();
 
   /// Go: `func (mdns.Service).Start() error`.
   void start() {
@@ -47,16 +49,20 @@ class Service extends $io.Closer {
   }
 }
 
-/// Go: `func mdns.NewMdnsService(host host.Host, serviceName string, notifee mdns.Notifee) *mdns.mdnsService`.
-Service newMdnsService($host.Host host, String serviceName, Notifee notifee) {
-  final $r = $callSync(
-      641,
-      $W()
-        ..h(host)
-        ..str(serviceName)
-        ..h(notifee));
-  return $r.hnn(Service.$h);
-}
+/// Go: the package-level members of `github.com/libp2p/go-libp2p/p2p/discovery/mdns` (`Go.libp2p.p2p.discovery.mdns`).
+extension GoLibp2pP2pDiscoveryMdnsApi on GoLibp2pP2pDiscoveryMdns {
+  /// Go: `func mdns.NewMdnsService(host host.Host, serviceName string, notifee mdns.Notifee) *mdns.mdnsService`.
+  Libp2pP2pDiscoveryMdnsService newMdnsService($host.Libp2pCoreHost host,
+      String serviceName, Libp2pP2pDiscoveryMdnsNotifee notifee) {
+    final $r = $callSync(
+        641,
+        $W()
+          ..h(host)
+          ..str(serviceName)
+          ..h(notifee));
+    return $r.hnn(Libp2pP2pDiscoveryMdnsService.$h);
+  }
 
-/// Go: `const mdns.ServiceName untyped string`.
-const serviceName = "_p2p._udp";
+  /// Go: `const mdns.ServiceName untyped string`.
+  String get serviceName => "_p2p._udp";
+}

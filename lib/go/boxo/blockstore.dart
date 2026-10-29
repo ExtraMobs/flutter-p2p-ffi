@@ -10,23 +10,25 @@ import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/datastore.dart' as $datastore;
 
 /// Go: `blockstore.Blockstore` (handle).
-class Blockstore extends GoHandle {
-  Blockstore.$h(super.$h);
+class BoxoBlockstore extends GoHandle {
+  BoxoBlockstore.$h(super.$h);
 
   /// Go: `func blockstore.NewBlockstore(d datastore.Batching, opts ...blockstore.Option) blockstore.Blockstore`.
-  factory Blockstore($datastore.Batching d, [List<Option> opts = const []]) {
+  factory BoxoBlockstore($datastore.DatastoreBatching d,
+      [List<BoxoBlockstoreOption> opts = const []]) {
     final $r = $callSync(
         117,
         $W()
           ..h(d)
           ..list(opts, (w0, e0) => w0.h(e0)));
-    return $r.hnn(Blockstore.$h);
+    return $r.hnn(BoxoBlockstore.$h);
   }
 
   /// Go: `func (blockstore.Blockstore).Put(context.Context, blocks.Block) error`.
   ///
   /// Asynchronous: runs in a goroutine of the service.
-  Future<void> put($context.Context ctx, $block_format.Block block) async {
+  Future<void> put(
+      $context.Context ctx, $block_format.BlockFormatBlock block) async {
     await $call(
         113,
         $W()
@@ -51,14 +53,15 @@ class Blockstore extends GoHandle {
   /// Go: `func (blockstore.Blockstore).Get(context.Context, cid.Cid) (blocks.Block, error)`.
   ///
   /// Asynchronous: runs in a goroutine of the service.
-  Future<$block_format.Block> get($context.Context ctx, $cid.Cid cid) async {
+  Future<$block_format.BlockFormatBlock> get(
+      $context.Context ctx, $cid.Cid cid) async {
     final $r = await $call(
         110,
         $W()
           ..h(this)
           ..h(ctx)
           ..val(cid));
-    return $r.p() ? $block_format.Block.$dec($r) : $nil();
+    return $r.p() ? $block_format.BlockFormatBlock.$dec($r) : $nil();
   }
 
   /// Go: `func (blockstore.Blockstore).DeleteBlock(context.Context, cid.Cid) error`.
@@ -95,55 +98,55 @@ class Blockstore extends GoHandle {
       .map((r) => r.p() ? $cid.Cid(r.str()) : $nil());
 
   /// Go: type assertion `x.(*blockstore.ReadOnly)`: null if the object is not one.
-  $blockstore.ReadOnly? asReadOnly() {
+  $blockstore.CarV2BlockstoreReadOnly? asReadOnly() {
     final $r = $callSync(66, $W()..h(this));
-    return $r.hn($blockstore.ReadOnly.$h);
+    return $r.hn($blockstore.CarV2BlockstoreReadOnly.$h);
   }
 
   /// Go: type assertion `x.(*blockstore.ReadWrite)`: null if the object is not one.
-  $blockstore.ReadWrite? asReadWrite() {
+  $blockstore.CarV2BlockstoreReadWrite? asReadWrite() {
     final $r = $callSync(67, $W()..h(this));
-    return $r.hn($blockstore.ReadWrite.$h);
+    return $r.hn($blockstore.CarV2BlockstoreReadWrite.$h);
   }
 
   /// Go: type assertion `x.(blockstore.GCBlockstore)`: null if the object is not one.
-  GcBlockstore? asGcBlockstore() {
+  BoxoBlockstoreGcBlockstore? asGcBlockstore() {
     final $r = $callSync(68, $W()..h(this));
-    return $r.hn(GcBlockstore.$h);
+    return $r.hn(BoxoBlockstoreGcBlockstore.$h);
   }
 }
 
 /// Go: `blockstore.GCBlockstore` (handle).
-class GcBlockstore extends Blockstore {
-  GcBlockstore.$h(super.$h) : super.$h();
+class BoxoBlockstoreGcBlockstore extends BoxoBlockstore {
+  BoxoBlockstoreGcBlockstore.$h(super.$h) : super.$h();
 }
 
 /// Go: `blockstore.GCLocker` (handle).
-class GcLocker extends GoHandle {
-  GcLocker.$h(super.$h);
+class BoxoBlockstoreGcLocker extends GoHandle {
+  BoxoBlockstoreGcLocker.$h(super.$h);
 
   /// Go: `func (blockstore.GCLocker).GCLock(context.Context) blockstore.Unlocker`.
   ///
   /// Asynchronous: runs in a goroutine of the service.
-  Future<Unlocker> gcLock($context.Context ctx) async {
+  Future<BoxoBlockstoreUnlocker> gcLock($context.Context ctx) async {
     final $r = await $call(
         114,
         $W()
           ..h(this)
           ..h(ctx));
-    return $r.hnn(Unlocker.$h);
+    return $r.hnn(BoxoBlockstoreUnlocker.$h);
   }
 
   /// Go: `func (blockstore.GCLocker).PinLock(context.Context) blockstore.Unlocker`.
   ///
   /// Asynchronous: runs in a goroutine of the service.
-  Future<Unlocker> pinLock($context.Context ctx) async {
+  Future<BoxoBlockstoreUnlocker> pinLock($context.Context ctx) async {
     final $r = await $call(
         116,
         $W()
           ..h(this)
           ..h(ctx));
-    return $r.hnn(Unlocker.$h);
+    return $r.hnn(BoxoBlockstoreUnlocker.$h);
   }
 
   /// Go: `func (blockstore.GCLocker).GCRequested(context.Context) bool`.
@@ -159,20 +162,20 @@ class GcLocker extends GoHandle {
   }
 
   /// Go: type assertion `x.(blockstore.GCBlockstore)`: null if the object is not one.
-  GcBlockstore? asGcBlockstore() {
+  BoxoBlockstoreGcBlockstore? asGcBlockstore() {
     final $r = $callSync(69, $W()..h(this));
-    return $r.hn(GcBlockstore.$h);
+    return $r.hn(BoxoBlockstoreGcBlockstore.$h);
   }
 }
 
 /// Go: `blockstore.Option` (handle).
-class Option extends GoHandle {
-  Option.$h(super.$h);
+class BoxoBlockstoreOption extends GoHandle {
+  BoxoBlockstoreOption.$h(super.$h);
 }
 
 /// Go: `blockstore.Unlocker` (handle).
-class Unlocker extends GoHandle {
-  Unlocker.$h(super.$h);
+class BoxoBlockstoreUnlocker extends GoHandle {
+  BoxoBlockstoreUnlocker.$h(super.$h);
 
   /// Go: `func (blockstore.Unlocker).Unlock(context.Context)`.
   ///
@@ -188,8 +191,8 @@ class Unlocker extends GoHandle {
 
 /// Go: `var blockstore.ErrHashMismatch error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrHashMismatch extends GolangException {
-  ErrHashMismatch.$(super.base) : super.$from();
+class BoxoBlockstoreErrHashMismatch extends GolangException {
+  BoxoBlockstoreErrHashMismatch.$(super.base) : super.$from();
 
   @override
   String toString() => 'blockstore.ErrHashMismatch: $message';

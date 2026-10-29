@@ -4,31 +4,24 @@
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:p2p_ffi/go/boxo/files.dart' as files;
-import 'package:p2p_ffi/go/boxo/ipld/merkledag.dart' as merkledag;
-import 'package:p2p_ffi/go/context.dart' as context;
-import 'package:p2p_ffi/go/kubo/config.dart' as config;
-import 'package:p2p_ffi/go/kubo/core.dart' as core;
-import 'package:p2p_ffi/go/kubo/core/coreapi.dart' as coreapi;
-import 'package:p2p_ffi/go/kubo/core/node.dart' as node;
-import 'package:p2p_ffi/go/kubo/plugin/loader.dart' as loader;
-import 'package:p2p_ffi/go/kubo/repo/fsrepo.dart' as fsrepo;
-import 'package:p2p_ffi/p2p_ffi.dart' show P2pService;
+import 'package:p2p_ffi/p2p_ffi.dart';
 import 'package:p2p_ffi/src/runtime.dart' show $call, $callSync;
 
 Future<void> main() async {
   final tmp = Directory.systemTemp.createTempSync('bench_');
   await P2pService.start();
-  loader.PluginLoader('')
+  KuboPluginLoader('')
     ..initialize()
     ..inject();
-  final cfg = config.initWithIdentity(config.createIdentity(null, []));
-  config.profiles['test']!.transform(cfg);
+  final cfg =
+      Go.kubo.config.initWithIdentity(Go.kubo.config.createIdentity(null, []));
+  Go.kubo.config.profiles['test']!.transform(cfg);
   final repoPath = '${tmp.path}/r';
-  fsrepo.init(repoPath, cfg);
-  final ctx = context.background();
-  final n = await core.newNode(ctx, node.BuildCfg(repo: fsrepo.open(repoPath)));
-  final api = coreapi.newCoreApi(n);
+  Go.kubo.repo.fsrepo.init(repoPath, cfg);
+  final ctx = Go.context.background();
+  final n = await Go.kubo.core.newNode(
+      ctx, KuboCoreNodeBuildCfg(repo: Go.kubo.repo.fsrepo.open(repoPath)));
+  final api = Go.kubo.core.coreapi.newCoreApi(n);
 
   void bench(String what, void Function() f) {
     for (var i = 0; i < 2000; i++) {
@@ -45,16 +38,16 @@ Future<void> main() async {
 
   bench('api.unixfs() (handle → handle)', () => api.unixfs());
   bench('fsrepo.isInitialized (string → bool)',
-      () => fsrepo.isInitialized(repoPath));
+      () => Go.kubo.repo.fsrepo.isInitialized(repoPath));
   bench('ctx.err() (à mão)', () => ctx.err());
   bench('withTimeout + cancel (à mão, 2 chamadas)', () {
-    final (_, cancel) = context.withTimeout(ctx, const Duration(seconds: 1));
+    final (_, cancel) = Go.context.withTimeout(ctx, const Duration(seconds: 1));
     cancel();
   });
 
   final kib = Uint8List(1024);
-  final raw = merkledag.RawNode(kib);
-  bench('RawNode(1 KiB) (bytes → handle)', () => merkledag.RawNode(kib));
+  final raw = BoxoIpldMerkledagRawNode(kib);
+  bench('RawNode(1 KiB) (bytes → handle)', () => BoxoIpldMerkledagRawNode(kib));
   bench('node.cid() (handle → CID)', () => raw.cid());
   bench('node.rawData() (handle → 1 KiB)', () => raw.rawData());
 
@@ -74,13 +67,13 @@ Future<void> main() async {
 
   bench('Noop síncrono (função 0, piso do canal)', () => $callSync(0));
   await benchAsync('Noop assíncrono (função 0)', () => $call(0));
-  final p = await api.unixfs().add(ctx, files.newBytesFile(kib));
+  final p = await api.unixfs().add(ctx, Go.boxo.files.newBytesFile(kib));
   final block = api.block();
   await benchAsync('block.stat assíncrono', () => block.stat(ctx, p));
   await benchAsync('resolvePath assíncrono', () => api.resolvePath(ctx, p));
   final unixfs = api.unixfs();
   await benchAsync('unixfs.add 1 KiB assíncrono',
-      () => unixfs.add(ctx, files.newBytesFile(kib)));
+      () => unixfs.add(ctx, Go.boxo.files.newBytesFile(kib)));
 
   await n.close();
   await P2pService.stop();

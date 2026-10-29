@@ -2,88 +2,51 @@
 // Go: github.com/ipfs/kubo/core/node/libp2p
 library;
 
+import 'package:p2p_ffi/src/go.dart' show GoKuboCoreNodeLibp2p;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/kubo/config.dart' as $config;
 
 /// Go: `libp2p.HostOption` (handle).
-class HostOption extends GoHandle {
-  HostOption.$h(super.$h);
+class KuboCoreNodeLibp2pHostOption extends GoHandle {
+  KuboCoreNodeLibp2pHostOption.$h(super.$h);
 }
 
 /// Go: `libp2p.RoutingOption` (handle).
-class RoutingOption extends GoHandle {
-  RoutingOption.$h(super.$h);
+class KuboCoreNodeLibp2pRoutingOption extends GoHandle {
+  KuboCoreNodeLibp2pRoutingOption.$h(super.$h);
 }
-
-/// Go: `var libp2p.DHTOption libp2p.RoutingOption`.
-RoutingOption get dhtOption {
-  final $r = $callSync(371);
-  return $r.hnn(RoutingOption.$h);
-}
-
-/// Go: `var libp2p.DHTClientOption libp2p.RoutingOption`.
-RoutingOption get dhtClientOption {
-  final $r = $callSync(370);
-  return $r.hnn(RoutingOption.$h);
-}
-
-/// Go: `var libp2p.DHTServerOption libp2p.RoutingOption`.
-RoutingOption get dhtServerOption {
-  final $r = $callSync(372);
-  return $r.hnn(RoutingOption.$h);
-}
-
-/// Go: `var libp2p.NilRouterOption func(_ libp2p.RoutingOptionArgs) (routing.Routing, error)`.
-RoutingOption get nilRouterOption {
-  final $r = $callSync(373);
-  return $r.hnn(RoutingOption.$h);
-}
-
-/// Go: `func libp2p.ConstructDefaultRouting(cfg *config.Config, routingOpt libp2p.RoutingOption) libp2p.RoutingOption`.
-RoutingOption constructDefaultRouting(
-    $config.Config cfg, RoutingOption routingOpt) {
-  final $r = $callSync(
-      369,
-      $W()
-        ..json(cfg)
-        ..h(routingOpt));
-  return $r.hnn(RoutingOption.$h);
-}
-
-/// Go: `const libp2p.NetLimitTraceFilename untyped string`.
-const netLimitTraceFilename = "rcmgr.json.gz";
-
-/// Go: `const libp2p.SeqnoStorePrefix untyped string`.
-const seqnoStorePrefix = "/pubsub/seqno/";
 
 /// Go: `libp2p.LimitsConfigAndUsage` (a kubo command output).
-final class LimitsConfigAndUsage {
-  LimitsConfigAndUsage.$dec($R r)
-      : system = ResourceLimitsAndUsage.$dec(r),
-        transient = ResourceLimitsAndUsage.$dec(r),
-        services = r.map(() => r.str(), () => ResourceLimitsAndUsage.$dec(r)),
-        protocols = r.map(() => r.str(), () => ResourceLimitsAndUsage.$dec(r)),
-        peers = r.map(() => r.str(), () => ResourceLimitsAndUsage.$dec(r));
+final class KuboCoreNodeLibp2pLimitsConfigAndUsage {
+  KuboCoreNodeLibp2pLimitsConfigAndUsage.$dec($R r)
+      : system = KuboCoreNodeLibp2pResourceLimitsAndUsage.$dec(r),
+        transient = KuboCoreNodeLibp2pResourceLimitsAndUsage.$dec(r),
+        services = r.map(() => r.str(),
+            () => KuboCoreNodeLibp2pResourceLimitsAndUsage.$dec(r)),
+        protocols = r.map(() => r.str(),
+            () => KuboCoreNodeLibp2pResourceLimitsAndUsage.$dec(r)),
+        peers = r.map(() => r.str(),
+            () => KuboCoreNodeLibp2pResourceLimitsAndUsage.$dec(r));
 
   /// Go: `System`.
-  final ResourceLimitsAndUsage system;
+  final KuboCoreNodeLibp2pResourceLimitsAndUsage system;
 
   /// Go: `Transient`.
-  final ResourceLimitsAndUsage transient;
+  final KuboCoreNodeLibp2pResourceLimitsAndUsage transient;
 
   /// Go: `Services`.
-  final Map<String, ResourceLimitsAndUsage> services;
+  final Map<String, KuboCoreNodeLibp2pResourceLimitsAndUsage> services;
 
   /// Go: `Protocols`.
-  final Map<String, ResourceLimitsAndUsage> protocols;
+  final Map<String, KuboCoreNodeLibp2pResourceLimitsAndUsage> protocols;
 
   /// Go: `Peers`.
-  final Map<String, ResourceLimitsAndUsage> peers;
+  final Map<String, KuboCoreNodeLibp2pResourceLimitsAndUsage> peers;
 }
 
 /// Go: `libp2p.ResourceLimitsAndUsage` (a kubo command output).
-final class ResourceLimitsAndUsage {
-  ResourceLimitsAndUsage.$dec($R r)
+final class KuboCoreNodeLibp2pResourceLimitsAndUsage {
+  KuboCoreNodeLibp2pResourceLimitsAndUsage.$dec($R r)
       : memory = r.i64(),
         memoryUsage = r.i64(),
         fd = r.i64(),
@@ -152,9 +115,53 @@ final class ResourceLimitsAndUsage {
 
 /// Go: `var libp2p.ErrNoResourceMgr error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrNoResourceMgr extends GolangException {
-  ErrNoResourceMgr.$(super.base) : super.$from();
+class KuboCoreNodeLibp2pErrNoResourceMgr extends GolangException {
+  KuboCoreNodeLibp2pErrNoResourceMgr.$(super.base) : super.$from();
 
   @override
   String toString() => 'libp2p.ErrNoResourceMgr: $message';
+}
+
+/// Go: the package-level members of `github.com/ipfs/kubo/core/node/libp2p` (`Go.kubo.core.node.libp2p`).
+extension GoKuboCoreNodeLibp2pApi on GoKuboCoreNodeLibp2p {
+  /// Go: `var libp2p.DHTOption libp2p.RoutingOption`.
+  KuboCoreNodeLibp2pRoutingOption get dhtOption {
+    final $r = $callSync(371);
+    return $r.hnn(KuboCoreNodeLibp2pRoutingOption.$h);
+  }
+
+  /// Go: `var libp2p.DHTClientOption libp2p.RoutingOption`.
+  KuboCoreNodeLibp2pRoutingOption get dhtClientOption {
+    final $r = $callSync(370);
+    return $r.hnn(KuboCoreNodeLibp2pRoutingOption.$h);
+  }
+
+  /// Go: `var libp2p.DHTServerOption libp2p.RoutingOption`.
+  KuboCoreNodeLibp2pRoutingOption get dhtServerOption {
+    final $r = $callSync(372);
+    return $r.hnn(KuboCoreNodeLibp2pRoutingOption.$h);
+  }
+
+  /// Go: `var libp2p.NilRouterOption func(_ libp2p.RoutingOptionArgs) (routing.Routing, error)`.
+  KuboCoreNodeLibp2pRoutingOption get nilRouterOption {
+    final $r = $callSync(373);
+    return $r.hnn(KuboCoreNodeLibp2pRoutingOption.$h);
+  }
+
+  /// Go: `func libp2p.ConstructDefaultRouting(cfg *config.Config, routingOpt libp2p.RoutingOption) libp2p.RoutingOption`.
+  KuboCoreNodeLibp2pRoutingOption constructDefaultRouting(
+      $config.KuboConfig cfg, KuboCoreNodeLibp2pRoutingOption routingOpt) {
+    final $r = $callSync(
+        369,
+        $W()
+          ..json(cfg)
+          ..h(routingOpt));
+    return $r.hnn(KuboCoreNodeLibp2pRoutingOption.$h);
+  }
+
+  /// Go: `const libp2p.NetLimitTraceFilename untyped string`.
+  String get netLimitTraceFilename => "rcmgr.json.gz";
+
+  /// Go: `const libp2p.SeqnoStorePrefix untyped string`.
+  String get seqnoStorePrefix => "/pubsub/seqno/";
 }

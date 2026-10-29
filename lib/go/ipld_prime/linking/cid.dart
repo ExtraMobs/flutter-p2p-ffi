@@ -2,11 +2,15 @@
 // Go: github.com/ipld/go-ipld-prime/linking/cid
 library;
 
+import 'package:p2p_ffi/src/go.dart' show GoIpldPrimeLinkingCid;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/ipld_prime/linking.dart' as $linking;
 
-/// Go: `func cidlink.DefaultLinkSystem() linking.LinkSystem`.
-$linking.LinkSystem defaultLinkSystem() {
-  final $r = $callSync(467);
-  return $r.hnn($linking.LinkSystem.$h);
+/// Go: the package-level members of `github.com/ipld/go-ipld-prime/linking/cid` (`Go.ipldPrime.linking.cid`).
+extension GoIpldPrimeLinkingCidApi on GoIpldPrimeLinkingCid {
+  /// Go: `func cidlink.DefaultLinkSystem() linking.LinkSystem`.
+  $linking.IpldPrimeLinkingLinkSystem defaultLinkSystem() {
+    final $r = $callSync(467);
+    return $r.hnn($linking.IpldPrimeLinkingLinkSystem.$h);
+  }
 }

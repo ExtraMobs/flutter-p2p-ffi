@@ -2,11 +2,15 @@
 // Go: github.com/libp2p/go-libp2p/p2p/security/tls
 library;
 
+import 'package:p2p_ffi/src/go.dart' show GoLibp2pP2pSecurityTls;
 import 'package:p2p_ffi/src/runtime.dart';
 
-/// Go: `const libp2ptls.ID untyped string`.
-const id = "/tls/1.0.0";
+/// Go: the package-level members of `github.com/libp2p/go-libp2p/p2p/security/tls` (`Go.libp2p.p2p.security.tls`).
+extension GoLibp2pP2pSecurityTlsApi on GoLibp2pP2pSecurityTls {
+  /// Go: `const libp2ptls.ID untyped string`.
+  String get id => "/tls/1.0.0";
 
-/// Go: the function `libp2ptls.New` as a value (a token: Go gets the function
-/// itself, as in `libp2p.Transport(tcp.NewTCPTransport)`).
-const newFunc = GoToken(12);
+  /// Go: the function `libp2ptls.New` as a value (a token: Go gets the function
+  /// itself, as in `libp2p.Transport(tcp.NewTCPTransport)`).
+  GoToken get newFunc => const GoToken(12);
+}

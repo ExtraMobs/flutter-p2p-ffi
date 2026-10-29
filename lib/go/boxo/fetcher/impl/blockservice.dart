@@ -2,11 +2,17 @@
 // Go: github.com/ipfs/boxo/fetcher/impl/blockservice
 library;
 
+import 'package:p2p_ffi/src/go.dart' show GoBoxoFetcherImplBlockservice;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/ipld_prime/traversal.dart' as $traversal;
 
-/// Go: `var bsfetcher.DefaultPrototypeChooser func(lnk ipld.Link, lnkCtx ipld.LinkContext) (ipld.NodePrototype, error)`.
-$traversal.LinkTargetNodePrototypeChooser get defaultPrototypeChooser {
-  final $r = $callSync(124);
-  return $r.hnn($traversal.LinkTargetNodePrototypeChooser.$h);
+/// Go: the package-level members of `github.com/ipfs/boxo/fetcher/impl/blockservice` (`Go.boxo.fetcher.impl.blockservice`).
+extension GoBoxoFetcherImplBlockserviceApi on GoBoxoFetcherImplBlockservice {
+  /// Go: `var bsfetcher.DefaultPrototypeChooser func(lnk ipld.Link, lnkCtx ipld.LinkContext) (ipld.NodePrototype, error)`.
+  $traversal.IpldPrimeTraversalLinkTargetNodePrototypeChooser
+      get defaultPrototypeChooser {
+    final $r = $callSync(124);
+    return $r
+        .hnn($traversal.IpldPrimeTraversalLinkTargetNodePrototypeChooser.$h);
+  }
 }

@@ -6,17 +6,17 @@ import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/boxo/bitswap.dart' as $bitswap;
 
 /// Go: `exchange.Fetcher` (handle).
-class Fetcher extends GoHandle {
-  Fetcher.$h(super.$h);
+class BoxoExchangeFetcher extends GoHandle {
+  BoxoExchangeFetcher.$h(super.$h);
 }
 
 /// Go: `exchange.Interface` (handle).
-class Interface extends Fetcher {
-  Interface.$h(super.$h) : super.$h();
+class BoxoExchangeInterface extends BoxoExchangeFetcher {
+  BoxoExchangeInterface.$h(super.$h) : super.$h();
 
   /// Go: type assertion `x.(*bitswap.Bitswap)`: null if the object is not one.
-  $bitswap.Bitswap? asBitswap() {
+  $bitswap.BoxoBitswap? asBitswap() {
     final $r = $callSync(70, $W()..h(this));
-    return $r.hn($bitswap.Bitswap.$h);
+    return $r.hn($bitswap.BoxoBitswap.$h);
   }
 }

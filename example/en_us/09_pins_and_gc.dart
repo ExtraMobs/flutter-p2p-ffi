@@ -26,13 +26,6 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:p2p_ffi/go/boxo/files.dart' as files;
-import 'package:p2p_ffi/go/boxo/mfs.dart' as mfs;
-import 'package:p2p_ffi/go/boxo/path.dart' as path;
-import 'package:p2p_ffi/go/context.dart' as context;
-import 'package:p2p_ffi/go/kubo/core/coreapi.dart' as coreapi;
-import 'package:p2p_ffi/go/kubo/core/coreiface/options.dart' as options;
-import 'package:p2p_ffi/go/kubo/core/corerepo.dart' as corerepo;
 import 'package:p2p_ffi/p2p_ffi.dart';
 
 import 'lesson.dart';
@@ -40,18 +33,18 @@ import 'lesson.dart';
 Future<void> main() async {
   await P2pService.start();
   final tmp = Directory.systemTemp.createTempSync('lesson09_');
-  final ctx = context.background();
+  final ctx = Go.context.background();
   final n = await newNode(ctx, '${tmp.path}/repo');
   try {
-    final api = coreapi.newCoreApi(n);
-    Future<path.Path> add(String text,
-            [List<options.UnixfsAddOption> o = const []]) =>
-        api.unixfs().add(ctx, files.newBytesFile(utf8.encode(text)), o);
+    final api = Go.kubo.core.coreapi.newCoreApi(n);
+    Future<BoxoPath> add(String text,
+            [List<KuboCoreCoreifaceOptionsUnixfsAddOption> o = const []]) =>
+        api.unixfs().add(ctx, Go.boxo.files.newBytesFile(utf8.encode(text)), o);
     // Not found is ipld's ErrNotFound, thrown as GolangNotFoundException; any
     // other error (a broken store, a closed node) goes up.
     //    Go:  _, err := api.Block().Stat(ctx, p)
     //         return !ipld.IsNotFound(err)
-    Future<bool> here(path.Path p) async {
+    Future<bool> here(BoxoPath p) async {
       try {
         await api.block().stat(ctx, p);
         return true;
@@ -62,21 +55,21 @@ Future<void> main() async {
 
     // 1. Four files, four fates.
     //    Go:  api.Unixfs().Add(ctx, f, options.Unixfs.Pin(true, "name"))
-    final pinned =
-        await add('kept by a pin\n', [options.unixfs.pin(true, 'lesson-09')]);
+    final pinned = await add('kept by a pin\n',
+        [Go.kubo.core.coreiface.options.unixfs.pin(true, 'lesson-09')]);
     final loose = await add('nothing protects me\n');
     final inMfs = await add('kept by MFS\n');
-    final unpinned =
-        await add('pinned, then unpinned\n', [options.unixfs.pin(true, '')]);
+    final unpinned = await add('pinned, then unpinned\n',
+        [Go.kubo.core.coreiface.options.unixfs.pin(true, '')]);
     //    Go:  mfs.PutNode(n.FilesRoot, "/kept.txt", nd)
-    mfs.putNode(n.filesRoot, '/kept.txt', await api.resolveNode(ctx, inMfs));
+    Go.boxo.mfs
+        .putNode(n.filesRoot, '/kept.txt', await api.resolveNode(ctx, inMfs));
     //    Go:  api.Pin().Rm(ctx, p)
     await api.pin().rm(ctx, unpinned);
 
     // A raw block (`ipfs block put --pin`): kubo pins it as recursive.
-    final raw = await api
-        .block()
-        .put(ctx, utf8.encode('a raw block'), [options.block.pin(true)]);
+    final raw = await api.block().put(ctx, utf8.encode('a raw block'),
+        [Go.kubo.core.coreiface.options.block.pin(true)]);
 
     Future<void> show(String when) async {
       say('\n$when:');
@@ -98,13 +91,16 @@ Future<void> main() async {
     // 2. The pins, with their names and types.
     //    Go:  api.Pin().Ls(ctx, options.Pin.Ls.Detailed(true))
     say('\npin ls:');
-    await for (final p in api.pin().ls(ctx, [options.pin.ls.detailed(true)])) {
+    await for (final p in api
+        .pin()
+        .ls(ctx, [Go.kubo.core.coreiface.options.pin.ls.detailed(true)])) {
       say('  ${p.type.padRight(9)} ${p.path} ${p.name}');
     }
 
     // 3. GC: everything not reachable from a pin or from MFS goes.
     //    Go:  for r := range corerepo.GarbageCollectAsync(n, ctx) { ... }
-    final removed = await corerepo.garbageCollectAsync(n, ctx).toList();
+    final removed =
+        await Go.kubo.core.corerepo.garbageCollectAsync(n, ctx).toList();
     say('\nGC removed ${removed.length} block(s): '
         '${removed.map((r) => r.keyRemoved).join(', ')}');
     await show('after GC');

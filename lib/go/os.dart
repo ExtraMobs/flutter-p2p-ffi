@@ -2,12 +2,13 @@
 // Go: os
 library;
 
+import 'package:p2p_ffi/src/go.dart' show GoOs;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/io/fs.dart' as $fs;
 
 /// Go: `os.File` (handle).
-class File extends GoHandle {
-  File.$h(super.$h);
+class OsFile extends GoHandle {
+  OsFile.$h(super.$h);
 
   /// Go: `func (*os.File).Close() error`.
   void close() {
@@ -15,126 +16,10 @@ class File extends GoHandle {
   }
 }
 
-/// Go: `func os.Stat(name string) (os.FileInfo, error)`.
-$fs.FileInfo stat(String name) {
-  final $r = $callSync(703, $W()..str(name));
-  return $r.hnn($fs.FileInfo.$h);
-}
-
-/// Go: `func os.Create(name string) (*os.File, error)`.
-File create(String name) {
-  final $r = $callSync(699, $W()..str(name));
-  return $r.hnn(File.$h);
-}
-
-/// Go: `func os.Open(name string) (*os.File, error)`.
-File open(String name) {
-  final $r = $callSync(701, $W()..str(name));
-  return $r.hnn(File.$h);
-}
-
-/// Go: `func os.OpenFile(name string, flag int, perm os.FileMode) (*os.File, error)`.
-File openFile(String name, int flag, int perm) {
-  final $r = $callSync(
-      702,
-      $W()
-        ..str(name)
-        ..i64(flag)
-        ..i64(perm));
-  return $r.hnn(File.$h);
-}
-
-/// Go: `const os.DevNull untyped string`.
-const devNull = "NUL";
-
-/// Go: `const os.ModeAppend fs.FileMode`.
-const modeAppend = 1073741824;
-
-/// Go: `const os.ModeCharDevice fs.FileMode`.
-const modeCharDevice = 2097152;
-
-/// Go: `const os.ModeDevice fs.FileMode`.
-const modeDevice = 67108864;
-
-/// Go: `const os.ModeDir fs.FileMode`.
-const modeDir = 2147483648;
-
-/// Go: `const os.ModeExclusive fs.FileMode`.
-const modeExclusive = 536870912;
-
-/// Go: `const os.ModeIrregular fs.FileMode`.
-const modeIrregular = 524288;
-
-/// Go: `const os.ModeNamedPipe fs.FileMode`.
-const modeNamedPipe = 33554432;
-
-/// Go: `const os.ModePerm fs.FileMode`.
-const modePerm = 511;
-
-/// Go: `const os.ModeSetgid fs.FileMode`.
-const modeSetgid = 4194304;
-
-/// Go: `const os.ModeSetuid fs.FileMode`.
-const modeSetuid = 8388608;
-
-/// Go: `const os.ModeSocket fs.FileMode`.
-const modeSocket = 16777216;
-
-/// Go: `const os.ModeSticky fs.FileMode`.
-const modeSticky = 1048576;
-
-/// Go: `const os.ModeSymlink fs.FileMode`.
-const modeSymlink = 134217728;
-
-/// Go: `const os.ModeTemporary fs.FileMode`.
-const modeTemporary = 268435456;
-
-/// Go: `const os.ModeType fs.FileMode`.
-const modeType = 2401763328;
-
-/// Go: `const os.O_APPEND int`.
-const oAppend = 1024;
-
-/// Go: `const os.O_CREATE int`.
-const oCreate = 64;
-
-/// Go: `const os.O_EXCL int`.
-const oExcl = 128;
-
-/// Go: `const os.O_RDONLY int`.
-const oRdonly = 0;
-
-/// Go: `const os.O_RDWR int`.
-const oRdwr = 2;
-
-/// Go: `const os.O_SYNC int`.
-const oSync = 4096;
-
-/// Go: `const os.O_TRUNC int`.
-const oTrunc = 512;
-
-/// Go: `const os.O_WRONLY int`.
-const oWronly = 1;
-
-/// Go: `const os.PathListSeparator untyped rune`.
-const pathListSeparator = 59;
-
-/// Go: `const os.PathSeparator untyped rune`.
-const pathSeparator = 92;
-
-/// Go: `const os.SEEK_CUR int`.
-const seekCur = 1;
-
-/// Go: `const os.SEEK_END int`.
-const seekEnd = 2;
-
-/// Go: `const os.SEEK_SET int`.
-const seekSet = 0;
-
 /// Go: `var os.ErrClosed error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrClosed extends GolangException {
-  ErrClosed.$(super.base) : super.$from();
+class OsErrClosed extends GolangException {
+  OsErrClosed.$(super.base) : super.$from();
 
   @override
   String toString() => 'os.ErrClosed: $message';
@@ -142,8 +27,8 @@ class ErrClosed extends GolangException {
 
 /// Go: `var os.ErrDeadlineExceeded error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrDeadlineExceeded extends GolangException {
-  ErrDeadlineExceeded.$(super.base) : super.$from();
+class OsErrDeadlineExceeded extends GolangException {
+  OsErrDeadlineExceeded.$(super.base) : super.$from();
 
   @override
   String toString() => 'os.ErrDeadlineExceeded: $message';
@@ -151,8 +36,8 @@ class ErrDeadlineExceeded extends GolangException {
 
 /// Go: `var os.ErrExist error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrExist extends GolangException {
-  ErrExist.$(super.base) : super.$from();
+class OsErrExist extends GolangException {
+  OsErrExist.$(super.base) : super.$from();
 
   @override
   String toString() => 'os.ErrExist: $message';
@@ -160,8 +45,8 @@ class ErrExist extends GolangException {
 
 /// Go: `var os.ErrInvalid error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrInvalid extends GolangException {
-  ErrInvalid.$(super.base) : super.$from();
+class OsErrInvalid extends GolangException {
+  OsErrInvalid.$(super.base) : super.$from();
 
   @override
   String toString() => 'os.ErrInvalid: $message';
@@ -169,8 +54,8 @@ class ErrInvalid extends GolangException {
 
 /// Go: `var os.ErrNoDeadline error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrNoDeadline extends GolangException {
-  ErrNoDeadline.$(super.base) : super.$from();
+class OsErrNoDeadline extends GolangException {
+  OsErrNoDeadline.$(super.base) : super.$from();
 
   @override
   String toString() => 'os.ErrNoDeadline: $message';
@@ -178,8 +63,8 @@ class ErrNoDeadline extends GolangException {
 
 /// Go: `var os.ErrNoHandle error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrNoHandle extends GolangException {
-  ErrNoHandle.$(super.base) : super.$from();
+class OsErrNoHandle extends GolangException {
+  OsErrNoHandle.$(super.base) : super.$from();
 
   @override
   String toString() => 'os.ErrNoHandle: $message';
@@ -187,8 +72,8 @@ class ErrNoHandle extends GolangException {
 
 /// Go: `var os.ErrNotExist error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrNotExist extends GolangException {
-  ErrNotExist.$(super.base) : super.$from();
+class OsErrNotExist extends GolangException {
+  OsErrNotExist.$(super.base) : super.$from();
 
   @override
   String toString() => 'os.ErrNotExist: $message';
@@ -196,8 +81,8 @@ class ErrNotExist extends GolangException {
 
 /// Go: `var os.ErrPermission error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrPermission extends GolangException {
-  ErrPermission.$(super.base) : super.$from();
+class OsErrPermission extends GolangException {
+  OsErrPermission.$(super.base) : super.$from();
 
   @override
   String toString() => 'os.ErrPermission: $message';
@@ -205,8 +90,8 @@ class ErrPermission extends GolangException {
 
 /// Go: `var os.ErrProcessDone error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrProcessDone extends GolangException {
-  ErrProcessDone.$(super.base) : super.$from();
+class OsErrProcessDone extends GolangException {
+  OsErrProcessDone.$(super.base) : super.$from();
 
   @override
   String toString() => 'os.ErrProcessDone: $message';
@@ -214,8 +99,8 @@ class ErrProcessDone extends GolangException {
 
 /// Go: `os.LinkError`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class LinkError extends GolangException {
-  LinkError.$(super.base, $R r)
+class OsLinkError extends GolangException {
+  OsLinkError.$(super.base, $R r)
       : op = r.str(),
         old = r.str(),
         new$ = r.str(),
@@ -236,8 +121,8 @@ class LinkError extends GolangException {
 
 /// Go: `os.SyscallError`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class SyscallError extends GolangException {
-  SyscallError.$(super.base, $R r)
+class OsSyscallError extends GolangException {
+  OsSyscallError.$(super.base, $R r)
       : syscall = r.str(),
         super.$from();
 
@@ -246,4 +131,123 @@ class SyscallError extends GolangException {
 
   @override
   String toString() => 'os.SyscallError: $message';
+}
+
+/// Go: the package-level members of `os` (`Go.os`).
+extension GoOsApi on GoOs {
+  /// Go: `func os.Stat(name string) (os.FileInfo, error)`.
+  $fs.IoFsFileInfo stat(String name) {
+    final $r = $callSync(703, $W()..str(name));
+    return $r.hnn($fs.IoFsFileInfo.$h);
+  }
+
+  /// Go: `func os.Create(name string) (*os.File, error)`.
+  OsFile create(String name) {
+    final $r = $callSync(699, $W()..str(name));
+    return $r.hnn(OsFile.$h);
+  }
+
+  /// Go: `func os.Open(name string) (*os.File, error)`.
+  OsFile open(String name) {
+    final $r = $callSync(701, $W()..str(name));
+    return $r.hnn(OsFile.$h);
+  }
+
+  /// Go: `func os.OpenFile(name string, flag int, perm os.FileMode) (*os.File, error)`.
+  OsFile openFile(String name, int flag, int perm) {
+    final $r = $callSync(
+        702,
+        $W()
+          ..str(name)
+          ..i64(flag)
+          ..i64(perm));
+    return $r.hnn(OsFile.$h);
+  }
+
+  /// Go: `const os.DevNull untyped string`.
+  String get devNull => "NUL";
+
+  /// Go: `const os.ModeAppend fs.FileMode`.
+  int get modeAppend => 1073741824;
+
+  /// Go: `const os.ModeCharDevice fs.FileMode`.
+  int get modeCharDevice => 2097152;
+
+  /// Go: `const os.ModeDevice fs.FileMode`.
+  int get modeDevice => 67108864;
+
+  /// Go: `const os.ModeDir fs.FileMode`.
+  int get modeDir => 2147483648;
+
+  /// Go: `const os.ModeExclusive fs.FileMode`.
+  int get modeExclusive => 536870912;
+
+  /// Go: `const os.ModeIrregular fs.FileMode`.
+  int get modeIrregular => 524288;
+
+  /// Go: `const os.ModeNamedPipe fs.FileMode`.
+  int get modeNamedPipe => 33554432;
+
+  /// Go: `const os.ModePerm fs.FileMode`.
+  int get modePerm => 511;
+
+  /// Go: `const os.ModeSetgid fs.FileMode`.
+  int get modeSetgid => 4194304;
+
+  /// Go: `const os.ModeSetuid fs.FileMode`.
+  int get modeSetuid => 8388608;
+
+  /// Go: `const os.ModeSocket fs.FileMode`.
+  int get modeSocket => 16777216;
+
+  /// Go: `const os.ModeSticky fs.FileMode`.
+  int get modeSticky => 1048576;
+
+  /// Go: `const os.ModeSymlink fs.FileMode`.
+  int get modeSymlink => 134217728;
+
+  /// Go: `const os.ModeTemporary fs.FileMode`.
+  int get modeTemporary => 268435456;
+
+  /// Go: `const os.ModeType fs.FileMode`.
+  int get modeType => 2401763328;
+
+  /// Go: `const os.O_APPEND int`.
+  int get oAppend => 1024;
+
+  /// Go: `const os.O_CREATE int`.
+  int get oCreate => 64;
+
+  /// Go: `const os.O_EXCL int`.
+  int get oExcl => 128;
+
+  /// Go: `const os.O_RDONLY int`.
+  int get oRdonly => 0;
+
+  /// Go: `const os.O_RDWR int`.
+  int get oRdwr => 2;
+
+  /// Go: `const os.O_SYNC int`.
+  int get oSync => 4096;
+
+  /// Go: `const os.O_TRUNC int`.
+  int get oTrunc => 512;
+
+  /// Go: `const os.O_WRONLY int`.
+  int get oWronly => 1;
+
+  /// Go: `const os.PathListSeparator untyped rune`.
+  int get pathListSeparator => 59;
+
+  /// Go: `const os.PathSeparator untyped rune`.
+  int get pathSeparator => 92;
+
+  /// Go: `const os.SEEK_CUR int`.
+  int get seekCur => 1;
+
+  /// Go: `const os.SEEK_END int`.
+  int get seekEnd => 2;
+
+  /// Go: `const os.SEEK_SET int`.
+  int get seekSet => 0;
 }

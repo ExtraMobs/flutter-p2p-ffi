@@ -4,6 +4,7 @@ library;
 
 import 'dart:typed_data';
 
+import 'package:p2p_ffi/src/go.dart' show GoKuboCoreCommands;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/boxo/bitswap.dart' as $bitswap;
 import 'package:p2p_ffi/go/boxo/bitswap/server/internal/decision.dart'
@@ -29,3307 +30,9 @@ import 'package:p2p_ffi/go/libp2p/core/routing.dart' as $routing;
 import 'package:p2p_ffi/go/libp2p_kad_dht/provider/stats.dart' as $stats;
 import 'package:p2p_ffi/go/multiaddr.dart' as $multiaddr;
 
-/// Go: `const commands.ApiAuthOption untyped string`.
-const apiAuthOption = "api-auth";
-
-/// Go: `const commands.ApiOption untyped string`.
-const apiOption = "api";
-
-/// Go: `const commands.ConfigFileOption untyped string`.
-const configFileOption = "config-file";
-
-/// Go: `const commands.ConfigOption untyped string`.
-const configOption = "config";
-
-/// Go: `const commands.DebugOption untyped string`.
-const debugOption = "debug";
-
-/// Go: `const commands.DefaultMinimalVersionFraction untyped float`.
-const defaultMinimalVersionFraction = 0.05;
-
-/// Go: `const commands.LocalOption untyped string`.
-const localOption = "local";
-
-/// Go: `const commands.OfflineOption untyped string`.
-const offlineOption = "offline";
-
-/// Go: `const commands.P2PProtoPrefix untyped string`.
-const p2pProtoPrefix = "/x/";
-
-/// Go: `const commands.RepoDirOption untyped string`.
-const repoDirOption = "repo-dir";
-
-/// `ipfs add`: Add a file or directory to IPFS.
-Stream<AddEvent> add(
-        $core.IpfsNode node, $context.Context ctx, List<$files.Node> path,
-        {bool? recursive,
-        bool? dereferenceArgs,
-        String? stdinName,
-        bool? hidden,
-        List<String>? ignore,
-        String? ignoreRulesPath,
-        bool? emptyDirs,
-        bool? dereferenceSymlinks,
-        bool? quiet,
-        bool? quieter,
-        bool? silent,
-        bool? progress,
-        bool? onlyHash,
-        bool? wrapWithDirectory,
-        bool? pin,
-        String? pinName,
-        String? toFiles,
-        int? cidVersion,
-        String? hash,
-        bool? rawLeaves,
-        String? chunker,
-        bool? trickle,
-        int? maxFileLinks,
-        int? maxDirectoryLinks,
-        int? maxHamtFanout,
-        bool? inline,
-        int? inlineLimit,
-        bool? nocopy,
-        bool? fscache,
-        bool? preserveMode,
-        bool? preserveMtime,
-        int? mode,
-        int? mtime,
-        int? mtimeNsecs,
-        bool? fastProvideRoot,
-        bool? fastProvideDag,
-        bool? fastProvideWait,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'add',
-        [],
-        [...path],
-        {
-          'recursive': recursive,
-          'dereference-args': dereferenceArgs,
-          'stdin-name': stdinName,
-          'hidden': hidden,
-          'ignore': ignore,
-          'ignore-rules-path': ignoreRulesPath,
-          'empty-dirs': emptyDirs,
-          'dereference-symlinks': dereferenceSymlinks,
-          'quiet': quiet,
-          'quieter': quieter,
-          'silent': silent,
-          'progress': progress,
-          'only-hash': onlyHash,
-          'wrap-with-directory': wrapWithDirectory,
-          'pin': pin,
-          'pin-name': pinName,
-          'to-files': toFiles,
-          'cid-version': cidVersion,
-          'hash': hash,
-          'raw-leaves': rawLeaves,
-          'chunker': chunker,
-          'trickle': trickle,
-          'max-file-links': maxFileLinks,
-          'max-directory-links': maxDirectoryLinks,
-          'max-hamt-fanout': maxHamtFanout,
-          'inline': inline,
-          'inline-limit': inlineLimit,
-          'nocopy': nocopy,
-          'fscache': fscache,
-          'preserve-mode': preserveMode,
-          'preserve-mtime': preserveMtime,
-          'mode': mode,
-          'mtime': mtime,
-          'mtime-nsecs': mtimeNsecs,
-          'fast-provide-root': fastProvideRoot,
-          'fast-provide-dag': fastProvideDag,
-          'fast-provide-wait': fastProvideWait,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => AddEvent.$dec(r));
-
-/// `ipfs bitswap ledger`: Show the current ledger for a peer.
-Stream<$decision.Receipt> bitswapLedger(
-        $core.IpfsNode node, $context.Context ctx, String peer,
-        {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'bitswap ledger',
-        [peer],
-        [],
-        {
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => $decision.Receipt.$dec(r));
-
-/// `ipfs bitswap reprovide`: Deprecated command to announce to bitswap. Use 'ipfs routing reprovide' instead.
-@Deprecated('deprecated in kubo')
-Stream<Object?> bitswapReprovide($core.IpfsNode node, $context.Context ctx,
-        {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
-    $cmdDynStream(node, ctx, 'bitswap reprovide', [], [], {
-      'offline': offline,
-      'cid-base': cidBase,
-      'upgrade-cidv0-in-output': upgradeCidv0InOutput
-    });
-
-/// `ipfs bitswap stat`: Show some diagnostic information on the bitswap agent.
-Stream<$bitswap.Stat> bitswapStat($core.IpfsNode node, $context.Context ctx,
-        {bool? verbose,
-        bool? human,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'bitswap stat',
-        [],
-        [],
-        {
-          'verbose': verbose,
-          'human': human,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => $bitswap.Stat(
-            wantlist: r.list(() => $cid.Cid(r.str())),
-            peers: r.list(() => r.str()),
-            blocksReceived: r.i64(),
-            dataReceived: r.i64(),
-            dupBlksReceived: r.i64(),
-            dupDataReceived: r.i64(),
-            messagesReceived: r.i64(),
-            blocksSent: r.i64(),
-            dataSent: r.i64()));
-
-/// `ipfs bitswap wantlist`: Show blocks currently on the wantlist.
-Stream<KeyList> bitswapWantlist($core.IpfsNode node, $context.Context ctx,
-        {String? peer,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'bitswap wantlist',
-        [],
-        [],
-        {
-          'peer': peer,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => KeyList.$dec(r));
-
-/// `ipfs block get`: Get a raw IPFS block.
-Stream<Uint8List> blockGet(
-        $core.IpfsNode node, $context.Context ctx, String cid,
-        {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
-    $cmdBytes(node, ctx, 'block get', [
-      cid
-    ], [], {
-      'offline': offline,
-      'cid-base': cidBase,
-      'upgrade-cidv0-in-output': upgradeCidv0InOutput
-    });
-
-/// `ipfs block put`: Store input as an IPFS block.
-Stream<BlockStat> blockPut(
-        $core.IpfsNode node, $context.Context ctx, List<$files.Node> data,
-        {String? cidCodec,
-        String? mhtype,
-        int? mhlen,
-        bool? pin,
-        bool? allowBigBlock,
-        String? format,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'block put',
-        [],
-        [...data],
-        {
-          'cid-codec': cidCodec,
-          'mhtype': mhtype,
-          'mhlen': mhlen,
-          'pin': pin,
-          'allow-big-block': allowBigBlock,
-          'format': format,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => BlockStat.$dec(r));
-
-/// `ipfs block rm`: Remove IPFS block(s) from the local datastore.
-Stream<RemovedBlock> blockRm(
-        $core.IpfsNode node, $context.Context ctx, List<String> cid,
-        {bool? force,
-        bool? quiet,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'block rm',
-        [...cid],
-        [],
-        {
-          'force': force,
-          'quiet': quiet,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => RemovedBlock.$dec(r));
-
-/// `ipfs block stat`: Print information of a raw IPFS block.
-Stream<BlockStat> blockStat(
-        $core.IpfsNode node, $context.Context ctx, String cid,
-        {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'block stat',
-        [cid],
-        [],
-        {
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => BlockStat.$dec(r));
-
-/// `ipfs bootstrap`: Show or edit the list of bootstrap peers.
-Stream<BootstrapOutput> bootstrap($core.IpfsNode node, $context.Context ctx,
-        {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'bootstrap',
-        [],
-        [],
-        {
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => BootstrapOutput.$dec(r));
-
-/// `ipfs bootstrap add`: Add peers to the bootstrap list.
-Stream<BootstrapOutput> bootstrapAdd(
-        $core.IpfsNode node, $context.Context ctx, List<String> peer,
-        {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'bootstrap add',
-        [...peer],
-        [],
-        {
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => BootstrapOutput.$dec(r));
-
-/// `ipfs bootstrap list`: Show peers in the bootstrap list.
-Stream<BootstrapOutput> bootstrapList($core.IpfsNode node, $context.Context ctx,
-        {bool? expandAuto,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'bootstrap list',
-        [],
-        [],
-        {
-          'expand-auto': expandAuto,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => BootstrapOutput.$dec(r));
-
-/// `ipfs bootstrap rm`: Remove peers from the bootstrap list.
-Stream<BootstrapOutput> bootstrapRm(
-        $core.IpfsNode node, $context.Context ctx, List<String> peer,
-        {bool? all,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'bootstrap rm',
-        [...peer],
-        [],
-        {
-          'all': all,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => BootstrapOutput.$dec(r));
-
-/// `ipfs bootstrap rm all`: Remove all peers from the bootstrap list.
-Stream<BootstrapOutput> bootstrapRmAll(
-        $core.IpfsNode node, $context.Context ctx,
-        {bool? all,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'bootstrap rm all',
-        [],
-        [],
-        {
-          'all': all,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => BootstrapOutput.$dec(r));
-
-/// `ipfs cat`: Show IPFS object data.
-Stream<Uint8List> cat(
-        $core.IpfsNode node, $context.Context ctx, List<String> ipfsPath,
-        {int? offset,
-        int? length,
-        bool? progress,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdBytes(node, ctx, 'cat', [
-      ...ipfsPath
-    ], [], {
-      'offset': offset,
-      'length': length,
-      'progress': progress,
-      'offline': offline,
-      'cid-base': cidBase,
-      'upgrade-cidv0-in-output': upgradeCidv0InOutput
-    });
-
-/// `ipfs cid base32`: Convert CIDs to Base32 CID version 1.
-Stream<CidFormatRes> cidBase32(
-        $core.IpfsNode node, $context.Context ctx, List<String> cid,
-        {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'cid base32',
-        [...cid],
-        [],
-        {
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => CidFormatRes.$dec(r));
-
-/// `ipfs cid bases`: List available multibase encodings.
-Stream<List<CodeAndName>> cidBases($core.IpfsNode node, $context.Context ctx,
-        {bool? prefix,
-        bool? numeric,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'cid bases',
-        [],
-        [],
-        {
-          'prefix': prefix,
-          'numeric': numeric,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => r.list(() => CodeAndName.$dec(r)));
-
-/// `ipfs cid codecs`: List available CID multicodecs.
-Stream<List<CodeAndName>> cidCodecs($core.IpfsNode node, $context.Context ctx,
-        {bool? numeric,
-        bool? supported,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'cid codecs',
-        [],
-        [],
-        {
-          'numeric': numeric,
-          'supported': supported,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => r.list(() => CodeAndName.$dec(r)));
-
-/// `ipfs cid format`: Format and convert a CID in various useful ways.
-Stream<CidFormatRes> cidFormat(
-        $core.IpfsNode node, $context.Context ctx, List<String> cid,
-        {String? f,
-        String? v,
-        String? mc,
-        String? b,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'cid format',
-        [...cid],
-        [],
-        {
-          'f': f,
-          'v': v,
-          'mc': mc,
-          'b': b,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => CidFormatRes.$dec(r));
-
-/// `ipfs cid hashes`: List available multihashes.
-Stream<List<CodeAndName>> cidHashes($core.IpfsNode node, $context.Context ctx,
-        {bool? numeric,
-        bool? supported,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'cid hashes',
-        [],
-        [],
-        {
-          'numeric': numeric,
-          'supported': supported,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => r.list(() => CodeAndName.$dec(r)));
-
-/// `ipfs cid inspect`: Inspect and display detailed information about a CID.
-Stream<CidInspectRes> cidInspect(
-        $core.IpfsNode node, $context.Context ctx, String cid,
-        {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'cid inspect',
-        [cid],
-        [],
-        {
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => CidInspectRes.$dec(r));
-
-/// `ipfs config`: Get and set IPFS config values.
-Stream<ConfigField> config(
-        $core.IpfsNode node, $context.Context ctx, String key, String? value,
-        {bool? bool,
-        bool? json,
-        bool? expandAuto,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'config',
-        [key, if (value != null) value],
-        [],
-        {
-          'bool': bool,
-          'json': json,
-          'expand-auto': expandAuto,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => ConfigField.$dec(r));
-
-/// `ipfs config profile apply`: Apply profile to config.
-Stream<ConfigUpdateOutput> configProfileApply(
-        $core.IpfsNode node, $context.Context ctx, String profile,
-        {bool? dryRun,
-        bool? bool,
-        bool? expandAuto,
-        bool? json,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'config profile apply',
-        [profile],
-        [],
-        {
-          'dry-run': dryRun,
-          'bool': bool,
-          'expand-auto': expandAuto,
-          'json': json,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => ConfigUpdateOutput.$dec(r));
-
-/// `ipfs config replace`: Replace the config with <file>.
-Stream<Object?> configReplace(
-        $core.IpfsNode node, $context.Context ctx, $files.Node file,
-        {bool? bool,
-        bool? expandAuto,
-        bool? json,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdDynStream(node, ctx, 'config replace', [], [
-      file
-    ], {
-      'bool': bool,
-      'expand-auto': expandAuto,
-      'json': json,
-      'offline': offline,
-      'cid-base': cidBase,
-      'upgrade-cidv0-in-output': upgradeCidv0InOutput
-    });
-
-/// `ipfs config show`: Output config file contents.
-Stream<Map<String, Object?>> configShow(
-        $core.IpfsNode node, $context.Context ctx,
-        {bool? bool,
-        bool? expandAuto,
-        bool? json,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'config show',
-        [],
-        [],
-        {
-          'bool': bool,
-          'expand-auto': expandAuto,
-          'json': json,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => r.map(() => r.str(), () => r.any()));
-
-/// `ipfs dag resolve`: Resolve IPLD block.
-Stream<$dag.ResolveOutput> dagResolve(
-        $core.IpfsNode node, $context.Context ctx, String ref,
-        {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'dag resolve',
-        [ref],
-        [],
-        {
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => $dag.ResolveOutput.$dec(r));
-
-/// `ipfs dag stat`: Gets stats for a DAG.
-Stream<$dag.DagStatSummary> dagStat(
-        $core.IpfsNode node, $context.Context ctx, List<String> root,
-        {bool? progress,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'dag stat',
-        [...root],
-        [],
-        {
-          'progress': progress,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => $dag.DagStatSummary.$dec(r));
-
-/// `ipfs dht query`: Find the closest Peer IDs to a given Peer ID by querying the DHT.
-@Deprecated('deprecated in kubo')
-Stream<$routing.QueryEvent> dhtQuery(
-        $core.IpfsNode node, $context.Context ctx, List<String> peerId,
-        {bool? verbose,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'dht query',
-        [...peerId],
-        [],
-        {
-          'verbose': verbose,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => $routing.QueryEvent.$dec(r));
-
-/// `ipfs diag cmds`: List commands run on this IPFS node.
-Stream<List<$ipfs_cmds.ReqLogEntry?>> diagCmds(
-        $core.IpfsNode node, $context.Context ctx,
-        {bool? verbose,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'diag cmds',
-        [],
-        [],
-        {
-          'verbose': verbose,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => r.list(() => r.p() ? $ipfs_cmds.ReqLogEntry.$dec(r) : null));
-
-/// `ipfs diag cmds clear`: Clear inactive requests from the log.
-Stream<Object?> diagCmdsClear($core.IpfsNode node, $context.Context ctx,
-        {bool? verbose,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdDynStream(node, ctx, 'diag cmds clear', [], [], {
-      'verbose': verbose,
-      'offline': offline,
-      'cid-base': cidBase,
-      'upgrade-cidv0-in-output': upgradeCidv0InOutput
-    });
-
-/// `ipfs diag cmds set-time`: Set how long to keep inactive requests in the log.
-Stream<Object?> diagCmdsSetTime(
-        $core.IpfsNode node, $context.Context ctx, String time,
-        {bool? verbose,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdDynStream(node, ctx, 'diag cmds set-time', [
-      time
-    ], [], {
-      'verbose': verbose,
-      'offline': offline,
-      'cid-base': cidBase,
-      'upgrade-cidv0-in-output': upgradeCidv0InOutput
-    });
-
-/// `ipfs diag datastore count`: Count entries matching a datastore prefix.
-///
-/// Experimental in kubo.
-Stream<DiagDatastoreCountResult> diagDatastoreCount(
-        $core.IpfsNode node, $context.Context ctx, String prefix,
-        {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'diag datastore count',
-        [prefix],
-        [],
-        {
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => DiagDatastoreCountResult.$dec(r));
-
-/// `ipfs diag datastore get`: Read a raw key from the datastore.
-///
-/// Experimental in kubo.
-Stream<DiagDatastoreGetResult> diagDatastoreGet(
-        $core.IpfsNode node, $context.Context ctx, String key,
-        {bool? hex,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'diag datastore get',
-        [key],
-        [],
-        {
-          'hex': hex,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => DiagDatastoreGetResult.$dec(r));
-
-/// `ipfs diag datastore put`: Write a raw key-value pair to the datastore.
-///
-/// Experimental in kubo.
-Stream<Object?> diagDatastorePut(
-        $core.IpfsNode node, $context.Context ctx, String key, String value,
-        {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
-    $cmdDynStream(node, ctx, 'diag datastore put', [
-      key,
-      value
-    ], [], {
-      'offline': offline,
-      'cid-base': cidBase,
-      'upgrade-cidv0-in-output': upgradeCidv0InOutput
-    });
-
-/// `ipfs diag healthy`: Report whether the daemon is operational.
-Stream<Object?> diagHealthy($core.IpfsNode node, $context.Context ctx,
-        {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
-    $cmdDynStream(node, ctx, 'diag healthy', [], [], {
-      'offline': offline,
-      'cid-base': cidBase,
-      'upgrade-cidv0-in-output': upgradeCidv0InOutput
-    });
-
-/// `ipfs diag profile`: Collect a performance profile for debugging.
-Stream<Uint8List> diagProfile($core.IpfsNode node, $context.Context ctx,
-        {String? output,
-        List<String>? collectors,
-        String? profileTime,
-        int? mutexProfileFraction,
-        String? blockProfileRate,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdBytes(node, ctx, 'diag profile', [], [], {
-      'output': output,
-      'collectors': collectors,
-      'profile-time': profileTime,
-      'mutex-profile-fraction': mutexProfileFraction,
-      'block-profile-rate': blockProfileRate,
-      'offline': offline,
-      'cid-base': cidBase,
-      'upgrade-cidv0-in-output': upgradeCidv0InOutput
-    });
-
-/// `ipfs diag sys`: Print system diagnostic information.
-Stream<Object?> diagSys($core.IpfsNode node, $context.Context ctx,
-        {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
-    $cmdDynStream(node, ctx, 'diag sys', [], [], {
-      'offline': offline,
-      'cid-base': cidBase,
-      'upgrade-cidv0-in-output': upgradeCidv0InOutput
-    });
-
-/// `ipfs files chcid`: Change the CID version or hash function of the root node of a given path.
-Stream<Object?> filesChcid(
-        $core.IpfsNode node, $context.Context ctx, String path,
-        {int? cidVersion,
-        String? hash,
-        bool? flush,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdDynStream(node, ctx, 'files chcid', [
-      path
-    ], [], {
-      'cid-version': cidVersion,
-      'hash': hash,
-      'flush': flush,
-      'offline': offline,
-      'cid-base': cidBase,
-      'upgrade-cidv0-in-output': upgradeCidv0InOutput
-    });
-
-/// `ipfs files chmod`: Change optional POSIX mode permissions
-///
-/// Experimental in kubo.
-Stream<Object?> filesChmod(
-        $core.IpfsNode node, $context.Context ctx, String mode, String path,
-        {bool? flush,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdDynStream(node, ctx, 'files chmod', [
-      mode,
-      path
-    ], [], {
-      'flush': flush,
-      'offline': offline,
-      'cid-base': cidBase,
-      'upgrade-cidv0-in-output': upgradeCidv0InOutput
-    });
-
-/// `ipfs files chroot`: Change the MFS root CID.
-///
-/// Experimental in kubo.
-Stream<MessageOutput> filesChroot(
-        $core.IpfsNode node, $context.Context ctx, String? cid,
-        {bool? confirm,
-        bool? flush,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'files chroot',
-        [if (cid != null) cid],
-        [],
-        {
-          'confirm': confirm,
-          'flush': flush,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => MessageOutput.$dec(r));
-
-/// `ipfs files cp`: Add references to IPFS files and directories in MFS (or copy within MFS).
-Stream<Object?> filesCp(
-        $core.IpfsNode node, $context.Context ctx, String source, String dest,
-        {bool? force,
-        bool? parents,
-        bool? flush,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdDynStream(node, ctx, 'files cp', [
-      source,
-      dest
-    ], [], {
-      'force': force,
-      'parents': parents,
-      'flush': flush,
-      'offline': offline,
-      'cid-base': cidBase,
-      'upgrade-cidv0-in-output': upgradeCidv0InOutput
-    });
-
-/// `ipfs files flush`: Flush a given path's data to disk.
-Stream<FlushRes> filesFlush(
-        $core.IpfsNode node, $context.Context ctx, String? path,
-        {bool? flush,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'files flush',
-        [if (path != null) path],
-        [],
-        {
-          'flush': flush,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => FlushRes.$dec(r));
-
-/// `ipfs files ls`: List directories in the local mutable namespace.
-Stream<FilesLsOutput> filesLs(
-        $core.IpfsNode node, $context.Context ctx, String? path,
-        {bool? long,
-        bool? u,
-        bool? flush,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'files ls',
-        [if (path != null) path],
-        [],
-        {
-          'long': long,
-          'U': u,
-          'flush': flush,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => FilesLsOutput.$dec(r));
-
-/// `ipfs files mkdir`: Make directories.
-Stream<Object?> filesMkdir(
-        $core.IpfsNode node, $context.Context ctx, String path,
-        {bool? parents,
-        int? cidVersion,
-        String? hash,
-        bool? flush,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdDynStream(node, ctx, 'files mkdir', [
-      path
-    ], [], {
-      'parents': parents,
-      'cid-version': cidVersion,
-      'hash': hash,
-      'flush': flush,
-      'offline': offline,
-      'cid-base': cidBase,
-      'upgrade-cidv0-in-output': upgradeCidv0InOutput
-    });
-
-/// `ipfs files mv`: Move files.
-Stream<Object?> filesMv(
-        $core.IpfsNode node, $context.Context ctx, String source, String dest,
-        {bool? flush,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdDynStream(node, ctx, 'files mv', [
-      source,
-      dest
-    ], [], {
-      'flush': flush,
-      'offline': offline,
-      'cid-base': cidBase,
-      'upgrade-cidv0-in-output': upgradeCidv0InOutput
-    });
-
-/// `ipfs files read`: Read a file from MFS.
-Stream<Uint8List> filesRead(
-        $core.IpfsNode node, $context.Context ctx, String path,
-        {int? offset,
-        int? count,
-        bool? flush,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdBytes(node, ctx, 'files read', [
-      path
-    ], [], {
-      'offset': offset,
-      'count': count,
-      'flush': flush,
-      'offline': offline,
-      'cid-base': cidBase,
-      'upgrade-cidv0-in-output': upgradeCidv0InOutput
-    });
-
-/// `ipfs files rm`: Remove a file from MFS.
-Stream<Object?> filesRm(
-        $core.IpfsNode node, $context.Context ctx, List<String> path,
-        {bool? recursive,
-        bool? force,
-        bool? flush,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdDynStream(node, ctx, 'files rm', [
-      ...path
-    ], [], {
-      'recursive': recursive,
-      'force': force,
-      'flush': flush,
-      'offline': offline,
-      'cid-base': cidBase,
-      'upgrade-cidv0-in-output': upgradeCidv0InOutput
-    });
-
-/// `ipfs files stat`: Display file status.
-Stream<StatOutput> filesStat(
-        $core.IpfsNode node, $context.Context ctx, String path,
-        {String? format,
-        bool? hash,
-        bool? size,
-        bool? withLocal,
-        bool? flush,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'files stat',
-        [path],
-        [],
-        {
-          'format': format,
-          'hash': hash,
-          'size': size,
-          'with-local': withLocal,
-          'flush': flush,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => StatOutput.$dec(r));
-
-/// `ipfs files touch`: Set or change optional POSIX modification times.
-///
-/// Experimental in kubo.
-Stream<Object?> filesTouch(
-        $core.IpfsNode node, $context.Context ctx, String path,
-        {int? mtime,
-        int? mtimeNsecs,
-        bool? flush,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdDynStream(node, ctx, 'files touch', [
-      path
-    ], [], {
-      'mtime': mtime,
-      'mtime-nsecs': mtimeNsecs,
-      'flush': flush,
-      'offline': offline,
-      'cid-base': cidBase,
-      'upgrade-cidv0-in-output': upgradeCidv0InOutput
-    });
-
-/// `ipfs files write`: Append to (modify) a file in MFS.
-Stream<Object?> filesWrite($core.IpfsNode node, $context.Context ctx,
-        String path, $files.Node data,
-        {int? offset,
-        bool? create,
-        bool? parents,
-        bool? truncate,
-        int? count,
-        bool? rawLeaves,
-        int? cidVersion,
-        String? hash,
-        bool? flush,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdDynStream(node, ctx, 'files write', [
-      path
-    ], [
-      data
-    ], {
-      'offset': offset,
-      'create': create,
-      'parents': parents,
-      'truncate': truncate,
-      'count': count,
-      'raw-leaves': rawLeaves,
-      'cid-version': cidVersion,
-      'hash': hash,
-      'flush': flush,
-      'offline': offline,
-      'cid-base': cidBase,
-      'upgrade-cidv0-in-output': upgradeCidv0InOutput
-    });
-
-/// `ipfs filestore dups`: List blocks that are both in the filestore and standard block storage.
-Stream<RefWrapper> filestoreDups($core.IpfsNode node, $context.Context ctx,
-        {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'filestore dups',
-        [],
-        [],
-        {
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => RefWrapper.$dec(r));
-
-/// `ipfs filestore ls`: List objects in filestore.
-Stream<$filestore.ListRes> filestoreLs(
-        $core.IpfsNode node, $context.Context ctx, List<String> obj,
-        {bool? fileOrder,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'filestore ls',
-        [...obj],
-        [],
-        {
-          'file-order': fileOrder,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => $filestore.ListRes.$dec(r));
-
-/// `ipfs filestore verify`: Verify objects in filestore.
-Stream<$filestore.ListRes> filestoreVerify(
-        $core.IpfsNode node, $context.Context ctx, List<String> obj,
-        {bool? fileOrder,
-        bool? removeBadBlocks,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'filestore verify',
-        [...obj],
-        [],
-        {
-          'file-order': fileOrder,
-          'remove-bad-blocks': removeBadBlocks,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => $filestore.ListRes.$dec(r));
-
-/// `ipfs get`: Download IPFS objects.
-Stream<Uint8List> get(
-        $core.IpfsNode node, $context.Context ctx, String ipfsPath,
-        {String? output,
-        bool? archive,
-        bool? compress,
-        int? compressionLevel,
-        bool? progress,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdBytes(node, ctx, 'get', [
-      ipfsPath
-    ], [], {
-      'output': output,
-      'archive': archive,
-      'compress': compress,
-      'compression-level': compressionLevel,
-      'progress': progress,
-      'offline': offline,
-      'cid-base': cidBase,
-      'upgrade-cidv0-in-output': upgradeCidv0InOutput
-    });
-
-/// `ipfs id`: Show IPFS node id info.
-Stream<IdOutput> id($core.IpfsNode node, $context.Context ctx, String? peerid,
-        {String? format,
-        String? peeridBase,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'id',
-        [if (peerid != null) peerid],
-        [],
-        {
-          'format': format,
-          'peerid-base': peeridBase,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => IdOutput.$dec(r));
-
-/// `ipfs key export`: Export a keypair
-Stream<Uint8List> keyExport(
-        $core.IpfsNode node, $context.Context ctx, String name,
-        {String? output,
-        String? format,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdBytes(node, ctx, 'key export', [
-      name
-    ], [], {
-      'output': output,
-      'format': format,
-      'offline': offline,
-      'cid-base': cidBase,
-      'upgrade-cidv0-in-output': upgradeCidv0InOutput
-    });
-
-/// `ipfs key gen`: Create a new keypair
-Stream<KeyOutput> keyGen($core.IpfsNode node, $context.Context ctx, String name,
-        {String? type,
-        int? size,
-        String? ipnsBase,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'key gen',
-        [name],
-        [],
-        {
-          'type': type,
-          'size': size,
-          'ipns-base': ipnsBase,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => KeyOutput.$dec(r));
-
-/// `ipfs key import`: Import a key and prints imported key id
-Stream<KeyOutput> keyImport(
-        $core.IpfsNode node, $context.Context ctx, String name, $files.Node key,
-        {String? ipnsBase,
-        String? format,
-        bool? allowAnyKeyType,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'key import',
-        [name],
-        [key],
-        {
-          'ipns-base': ipnsBase,
-          'format': format,
-          'allow-any-key-type': allowAnyKeyType,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => KeyOutput.$dec(r));
-
-/// `ipfs key list`: Deprecated: use 'ipfs key ls' instead.
-@Deprecated('deprecated in kubo')
-Stream<KeyOutputList> keyList($core.IpfsNode node, $context.Context ctx,
-        {bool? l,
-        String? ipnsBase,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'key list',
-        [],
-        [],
-        {
-          'l': l,
-          'ipns-base': ipnsBase,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => KeyOutputList.$dec(r));
-
-/// `ipfs key ls`: List all local keypairs.
-Stream<KeyOutputList> keyLs($core.IpfsNode node, $context.Context ctx,
-        {bool? l,
-        String? ipnsBase,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'key ls',
-        [],
-        [],
-        {
-          'l': l,
-          'ipns-base': ipnsBase,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => KeyOutputList.$dec(r));
-
-/// `ipfs key rename`: Rename a keypair.
-Stream<KeyRenameOutput> keyRename(
-        $core.IpfsNode node, $context.Context ctx, String name, String newName,
-        {bool? force,
-        String? ipnsBase,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'key rename',
-        [name, newName],
-        [],
-        {
-          'force': force,
-          'ipns-base': ipnsBase,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => KeyRenameOutput.$dec(r));
-
-/// `ipfs key rm`: Remove a keypair.
-Stream<KeyOutputList> keyRm(
-        $core.IpfsNode node, $context.Context ctx, List<String> name,
-        {bool? l,
-        String? ipnsBase,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'key rm',
-        [...name],
-        [],
-        {
-          'l': l,
-          'ipns-base': ipnsBase,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => KeyOutputList.$dec(r));
-
-/// `ipfs key rotate`: Rotates the IPFS identity.
-Stream<Object?> keyRotate($core.IpfsNode node, $context.Context ctx,
-        {String? oldkey,
-        String? type,
-        int? size,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdDynStream(node, ctx, 'key rotate', [], [], {
-      'oldkey': oldkey,
-      'type': type,
-      'size': size,
-      'offline': offline,
-      'cid-base': cidBase,
-      'upgrade-cidv0-in-output': upgradeCidv0InOutput
-    });
-
-/// `ipfs key sign`: Generates a signature for the given data with a specified key. Useful for proving the key ownership.
-///
-/// Experimental in kubo.
-Stream<KeySignOutput> keySign(
-        $core.IpfsNode node, $context.Context ctx, $files.Node data,
-        {String? key,
-        String? ipnsBase,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'key sign',
-        [],
-        [data],
-        {
-          'key': key,
-          'ipns-base': ipnsBase,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => KeySignOutput.$dec(r));
-
-/// `ipfs key verify`: Verify that the given data and signature match.
-///
-/// Experimental in kubo.
-Stream<KeyVerifyOutput> keyVerify(
-        $core.IpfsNode node, $context.Context ctx, $files.Node data,
-        {String? key,
-        String? signature,
-        String? ipnsBase,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'key verify',
-        [],
-        [data],
-        {
-          'key': key,
-          'signature': signature,
-          'ipns-base': ipnsBase,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => KeyVerifyOutput.$dec(r));
-
-/// `ipfs log level`: Change or get the logging level.
-Stream<LogLevelOutput> logLevel($core.IpfsNode node, $context.Context ctx,
-        String? subsystem, String? level,
-        {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'log level',
-        [if (subsystem != null) subsystem, if (level != null) level],
-        [],
-        {
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => LogLevelOutput.$dec(r));
-
-/// `ipfs log ls`: List the logging subsystems.
-Stream<StringList> logLs($core.IpfsNode node, $context.Context ctx,
-        {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'log ls',
-        [],
-        [],
-        {
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => StringList.$dec(r));
-
-/// `ipfs log tail`: Read and output log messages.
-///
-/// Experimental in kubo.
-Stream<Uint8List> logTail($core.IpfsNode node, $context.Context ctx,
-        {String? logLevel,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdBytes(node, ctx, 'log tail', [], [], {
-      'log-level': logLevel,
-      'offline': offline,
-      'cid-base': cidBase,
-      'upgrade-cidv0-in-output': upgradeCidv0InOutput
-    });
-
-/// `ipfs ls`: List directory contents for Unix filesystem objects.
-Stream<LsOutput> ls(
-        $core.IpfsNode node, $context.Context ctx, List<String> ipfsPath,
-        {bool? headers,
-        bool? resolveType,
-        bool? size,
-        bool? stream,
-        bool? long,
-        bool? human,
-        bool? sortSize,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'ls',
-        [...ipfsPath],
-        [],
-        {
-          'headers': headers,
-          'resolve-type': resolveType,
-          'size': size,
-          'stream': stream,
-          'long': long,
-          'human': human,
-          'sort-size': sortSize,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => LsOutput.$dec(r));
-
-/// `ipfs multibase decode`: Decode multibase string
-Stream<Uint8List> multibaseDecode(
-        $core.IpfsNode node, $context.Context ctx, $files.Node encodedFile,
-        {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
-    $cmdBytes(node, ctx, 'multibase decode', [], [
-      encodedFile
-    ], {
-      'offline': offline,
-      'cid-base': cidBase,
-      'upgrade-cidv0-in-output': upgradeCidv0InOutput
-    });
-
-/// `ipfs multibase encode`: Encode data into multibase string
-Stream<Uint8List> multibaseEncode(
-        $core.IpfsNode node, $context.Context ctx, $files.Node file,
-        {String? b,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdBytes(node, ctx, 'multibase encode', [], [
-      file
-    ], {
-      'b': b,
-      'offline': offline,
-      'cid-base': cidBase,
-      'upgrade-cidv0-in-output': upgradeCidv0InOutput
-    });
-
-/// `ipfs multibase list`: List available multibase encodings.
-Stream<List<CodeAndName>> multibaseList(
-        $core.IpfsNode node, $context.Context ctx,
-        {bool? prefix,
-        bool? numeric,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'multibase list',
-        [],
-        [],
-        {
-          'prefix': prefix,
-          'numeric': numeric,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => r.list(() => CodeAndName.$dec(r)));
-
-/// `ipfs multibase transcode`: Transcode multibase string between bases
-Stream<Uint8List> multibaseTranscode(
-        $core.IpfsNode node, $context.Context ctx, $files.Node encodedFile,
-        {String? b,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdBytes(node, ctx, 'multibase transcode', [], [
-      encodedFile
-    ], {
-      'b': b,
-      'offline': offline,
-      'cid-base': cidBase,
-      'upgrade-cidv0-in-output': upgradeCidv0InOutput
-    });
-
-/// `ipfs name get`: Retrieve a signed IPNS record.
-///
-/// Experimental in kubo.
-Stream<Uint8List> nameGet(
-        $core.IpfsNode node, $context.Context ctx, String name,
-        {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
-    $cmdBytes(node, ctx, 'name get', [
-      name
-    ], [], {
-      'offline': offline,
-      'cid-base': cidBase,
-      'upgrade-cidv0-in-output': upgradeCidv0InOutput
-    });
-
-/// `ipfs name inspect`: Inspects an IPNS Record
-///
-/// Experimental in kubo.
-Stream<$name.IpnsInspectResult> nameInspect(
-        $core.IpfsNode node, $context.Context ctx, $files.Node record,
-        {String? verify,
-        bool? dump,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'name inspect',
-        [],
-        [record],
-        {
-          'verify': verify,
-          'dump': dump,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => $name.IpnsInspectResult.$dec(r));
-
-/// `ipfs name publish`: Publish IPNS names.
-Stream<$name.IpnsEntry> namePublish(
-        $core.IpfsNode node, $context.Context ctx, String ipfsPath,
-        {String? key,
-        bool? resolve,
-        String? lifetime,
-        String? ttl,
-        bool? quieter,
-        bool? v1compat,
-        bool? allowOffline,
-        bool? allowDelegated,
-        int? sequence,
-        String? ipnsBase,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'name publish',
-        [ipfsPath],
-        [],
-        {
-          'key': key,
-          'resolve': resolve,
-          'lifetime': lifetime,
-          'ttl': ttl,
-          'quieter': quieter,
-          'v1compat': v1compat,
-          'allow-offline': allowOffline,
-          'allow-delegated': allowDelegated,
-          'sequence': sequence,
-          'ipns-base': ipnsBase,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => $name.IpnsEntry.$dec(r));
-
-/// `ipfs name pubsub cancel`: Cancel a name subscription.
-///
-/// Experimental in kubo.
-Stream<$name.IpnsPubsubCancel> namePubsubCancel(
-        $core.IpfsNode node, $context.Context ctx, String name,
-        {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'name pubsub cancel',
-        [name],
-        [],
-        {
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => $name.IpnsPubsubCancel.$dec(r));
-
-/// `ipfs name pubsub state`: Query the state of IPNS pubsub.
-///
-/// Experimental in kubo.
-Stream<$name.IpnsPubsubState> namePubsubState(
-        $core.IpfsNode node, $context.Context ctx,
-        {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'name pubsub state',
-        [],
-        [],
-        {
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => $name.IpnsPubsubState.$dec(r));
-
-/// `ipfs name pubsub subs`: Show current name subscriptions.
-///
-/// Experimental in kubo.
-Stream<$name.StringList> namePubsubSubs(
-        $core.IpfsNode node, $context.Context ctx,
-        {String? ipnsBase,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'name pubsub subs',
-        [],
-        [],
-        {
-          'ipns-base': ipnsBase,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => $name.StringList.$dec(r));
-
-/// `ipfs name put`: Store a pre-signed IPNS record in the routing system.
-///
-/// Experimental in kubo.
-Stream<$name.IpnsEntry> namePut($core.IpfsNode node, $context.Context ctx,
-        String name, $files.Node record,
-        {bool? force,
-        bool? allowOffline,
-        bool? allowDelegated,
-        bool? quiet,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'name put',
-        [name],
-        [record],
-        {
-          'force': force,
-          'allow-offline': allowOffline,
-          'allow-delegated': allowDelegated,
-          'quiet': quiet,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => $name.IpnsEntry.$dec(r));
-
-/// `ipfs name resolve`: Resolve IPNS names.
-Stream<$name.ResolvedPath> nameResolve(
-        $core.IpfsNode node, $context.Context ctx, String? name,
-        {bool? recursive,
-        bool? nocache,
-        int? dhtRecordCount,
-        String? dhtTimeout,
-        bool? stream,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'name resolve',
-        [if (name != null) name],
-        [],
-        {
-          'recursive': recursive,
-          'nocache': nocache,
-          'dht-record-count': dhtRecordCount,
-          'dht-timeout': dhtTimeout,
-          'stream': stream,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => $name.ResolvedPath.$dec(r));
-
-/// `ipfs object diff`: Display the diff between two IPFS objects.
-@Deprecated('deprecated in kubo')
-Stream<$object.Changes> objectDiff(
-        $core.IpfsNode node, $context.Context ctx, String objA, String objB,
-        {bool? verbose,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'object diff',
-        [objA, objB],
-        [],
-        {
-          'verbose': verbose,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => $object.Changes.$dec(r));
-
-/// `ipfs object patch add-link`: Deprecated way to add a link to a given dag-pb.
-@Deprecated('deprecated in kubo')
-Stream<$object.Object$> objectPatchAddLink($core.IpfsNode node,
-        $context.Context ctx, String root, String name, String ref,
-        {bool? create,
-        bool? allowNonUnixfs,
-        bool? allowBigBlock,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'object patch add-link',
-        [root, name, ref],
-        [],
-        {
-          'create': create,
-          'allow-non-unixfs': allowNonUnixfs,
-          'allow-big-block': allowBigBlock,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => $object.Object$.$dec(r));
-
-/// `ipfs object patch rm-link`: Deprecated way to remove a link from dag-pb object.
-@Deprecated('deprecated in kubo')
-Stream<$object.Object$> objectPatchRmLink(
-        $core.IpfsNode node, $context.Context ctx, String root, String name,
-        {bool? allowNonUnixfs,
-        bool? allowBigBlock,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'object patch rm-link',
-        [root, name],
-        [],
-        {
-          'allow-non-unixfs': allowNonUnixfs,
-          'allow-big-block': allowBigBlock,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => $object.Object$.$dec(r));
-
-/// `ipfs p2p close`: Stop listening for new connections to forward.
-///
-/// Experimental in kubo.
-Stream<int> p2pClose($core.IpfsNode node, $context.Context ctx,
-        {bool? all,
-        String? protocol,
-        String? listenAddress,
-        String? targetAddress,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'p2p close',
-        [],
-        [],
-        {
-          'all': all,
-          'protocol': protocol,
-          'listen-address': listenAddress,
-          'target-address': targetAddress,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => r.i64());
-
-/// `ipfs p2p forward`: Forward connections to libp2p service.
-///
-/// Experimental in kubo.
-Stream<P2pForegroundOutput> p2pForward(
-        $core.IpfsNode node,
-        $context.Context ctx,
-        String protocol,
-        String listenAddress,
-        String targetAddress,
-        {bool? allowCustomProtocol,
-        bool? foreground,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'p2p forward',
-        [protocol, listenAddress, targetAddress],
-        [],
-        {
-          'allow-custom-protocol': allowCustomProtocol,
-          'foreground': foreground,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => P2pForegroundOutput.$dec(r));
-
-/// `ipfs p2p listen`: Create libp2p service.
-///
-/// Experimental in kubo.
-Stream<P2pForegroundOutput> p2pListen($core.IpfsNode node, $context.Context ctx,
-        String protocol, String targetAddress,
-        {bool? allowCustomProtocol,
-        bool? reportPeerId,
-        bool? foreground,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'p2p listen',
-        [protocol, targetAddress],
-        [],
-        {
-          'allow-custom-protocol': allowCustomProtocol,
-          'report-peer-id': reportPeerId,
-          'foreground': foreground,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => P2pForegroundOutput.$dec(r));
-
-/// `ipfs p2p ls`: List active p2p listeners.
-///
-/// Experimental in kubo.
-Stream<P2plsOutput> p2pLs($core.IpfsNode node, $context.Context ctx,
-        {bool? headers,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'p2p ls',
-        [],
-        [],
-        {
-          'headers': headers,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => P2plsOutput.$dec(r));
-
-/// `ipfs p2p stream close`: Close active p2p stream.
-///
-/// Experimental in kubo.
-Stream<Object?> p2pStreamClose(
-        $core.IpfsNode node, $context.Context ctx, String? id,
-        {bool? all,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdDynStream(node, ctx, 'p2p stream close', [
-      if (id != null) id
-    ], [], {
-      'all': all,
-      'offline': offline,
-      'cid-base': cidBase,
-      'upgrade-cidv0-in-output': upgradeCidv0InOutput
-    });
-
-/// `ipfs p2p stream ls`: List active p2p streams.
-///
-/// Experimental in kubo.
-Stream<P2pStreamsOutput> p2pStreamLs($core.IpfsNode node, $context.Context ctx,
-        {bool? headers,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'p2p stream ls',
-        [],
-        [],
-        {
-          'headers': headers,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => P2pStreamsOutput.$dec(r));
-
-/// `ipfs pin add`: Pin objects to local storage.
-Stream<$pin.AddPinOutput> pinAdd(
-        $core.IpfsNode node, $context.Context ctx, List<String> ipfsPath,
-        {bool? recursive,
-        String? name,
-        bool? progress,
-        bool? fastProvideRoot,
-        bool? fastProvideDag,
-        bool? fastProvideWait,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'pin add',
-        [...ipfsPath],
-        [],
-        {
-          'recursive': recursive,
-          'name': name,
-          'progress': progress,
-          'fast-provide-root': fastProvideRoot,
-          'fast-provide-dag': fastProvideDag,
-          'fast-provide-wait': fastProvideWait,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => $pin.AddPinOutput.$dec(r));
-
-/// `ipfs pin ls`: List objects pinned to local storage.
-Stream<$pin.PinLsOutputWrapper> pinLs(
-        $core.IpfsNode node, $context.Context ctx, List<String> ipfsPath,
-        {String? type,
-        bool? quiet,
-        String? name,
-        bool? stream,
-        bool? names,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'pin ls',
-        [...ipfsPath],
-        [],
-        {
-          'type': type,
-          'quiet': quiet,
-          'name': name,
-          'stream': stream,
-          'names': names,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => $pin.PinLsOutputWrapper.$dec(r));
-
-/// `ipfs pin remote add`: Pin object to remote pinning service.
-Stream<$pin.RemotePinOutput> pinRemoteAdd(
-        $core.IpfsNode node, $context.Context ctx, String ipfsPath,
-        {String? service,
-        String? name,
-        bool? background,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'pin remote add',
-        [ipfsPath],
-        [],
-        {
-          'service': service,
-          'name': name,
-          'background': background,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => $pin.RemotePinOutput.$dec(r));
-
-/// `ipfs pin remote ls`: List objects pinned to remote pinning service.
-Stream<$pin.RemotePinOutput> pinRemoteLs(
-        $core.IpfsNode node, $context.Context ctx,
-        {String? service,
-        String? name,
-        List<String>? cid,
-        List<String>? status,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'pin remote ls',
-        [],
-        [],
-        {
-          'service': service,
-          'name': name,
-          'cid': cid,
-          'status': status,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => $pin.RemotePinOutput.$dec(r));
-
-/// `ipfs pin remote rm`: Remove pins from remote pinning service.
-Stream<Object?> pinRemoteRm($core.IpfsNode node, $context.Context ctx,
-        {String? service,
-        String? name,
-        List<String>? cid,
-        List<String>? status,
-        bool? force,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdDynStream(node, ctx, 'pin remote rm', [], [], {
-      'service': service,
-      'name': name,
-      'cid': cid,
-      'status': status,
-      'force': force,
-      'offline': offline,
-      'cid-base': cidBase,
-      'upgrade-cidv0-in-output': upgradeCidv0InOutput
-    });
-
-/// `ipfs pin remote service add`: Add remote pinning service.
-Stream<Object?> pinRemoteServiceAdd($core.IpfsNode node, $context.Context ctx,
-        String service, String endpoint, String key,
-        {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
-    $cmdDynStream(node, ctx, 'pin remote service add', [
-      service,
-      endpoint,
-      key
-    ], [], {
-      'offline': offline,
-      'cid-base': cidBase,
-      'upgrade-cidv0-in-output': upgradeCidv0InOutput
-    });
-
-/// `ipfs pin remote service ls`: List remote pinning services.
-Stream<$pin.PinServicesList> pinRemoteServiceLs(
-        $core.IpfsNode node, $context.Context ctx,
-        {bool? stat,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'pin remote service ls',
-        [],
-        [],
-        {
-          'stat': stat,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => $pin.PinServicesList.$dec(r));
-
-/// `ipfs pin remote service rm`: Remove remote pinning service.
-Stream<Object?> pinRemoteServiceRm(
-        $core.IpfsNode node, $context.Context ctx, String service,
-        {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
-    $cmdDynStream(node, ctx, 'pin remote service rm', [
-      service
-    ], [], {
-      'offline': offline,
-      'cid-base': cidBase,
-      'upgrade-cidv0-in-output': upgradeCidv0InOutput
-    });
-
-/// `ipfs pin rm`: Remove object from pin-list.
-Stream<$pin.PinOutput> pinRm(
-        $core.IpfsNode node, $context.Context ctx, List<String> ipfsPath,
-        {bool? recursive,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'pin rm',
-        [...ipfsPath],
-        [],
-        {
-          'recursive': recursive,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => $pin.PinOutput.$dec(r));
-
-/// `ipfs pin update`: Update a recursive pin.
-Stream<$pin.PinOutput> pinUpdate($core.IpfsNode node, $context.Context ctx,
-        String fromPath, String toPath,
-        {bool? unpin,
-        bool? fastProvideRoot,
-        bool? fastProvideDag,
-        bool? fastProvideWait,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'pin update',
-        [fromPath, toPath],
-        [],
-        {
-          'unpin': unpin,
-          'fast-provide-root': fastProvideRoot,
-          'fast-provide-dag': fastProvideDag,
-          'fast-provide-wait': fastProvideWait,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => $pin.PinOutput.$dec(r));
-
-/// `ipfs pin verify`: Verify that recursive pins are complete.
-Stream<$pin.PinVerifyRes> pinVerify($core.IpfsNode node, $context.Context ctx,
-        {bool? verbose,
-        bool? quiet,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'pin verify',
-        [],
-        [],
-        {
-          'verbose': verbose,
-          'quiet': quiet,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => $pin.PinVerifyRes.$dec(r));
-
-/// `ipfs ping`: Send echo request packets to IPFS hosts.
-Stream<PingResult> ping(
-        $core.IpfsNode node, $context.Context ctx, List<String> peerId,
-        {int? count,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'ping',
-        [...peerId],
-        [],
-        {
-          'count': count,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => PingResult.$dec(r));
-
-/// `ipfs provide clear`: Clear all CIDs from the provide queue.
-///
-/// Experimental in kubo.
-Stream<int> provideClear($core.IpfsNode node, $context.Context ctx,
-        {bool? quiet,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'provide clear',
-        [],
-        [],
-        {
-          'quiet': quiet,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => r.i64());
-
-/// `ipfs provide once`: Announce CIDs to the routing system on demand.
-///
-/// Experimental in kubo.
-Stream<ProvideOnceEvent> provideOnce(
-        $core.IpfsNode node, $context.Context ctx, List<String> cid,
-        {bool? recursive,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'provide once',
-        [...cid],
-        [],
-        {
-          'recursive': recursive,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => ProvideOnceEvent.$dec(r));
-
-/// `ipfs provide stat`: Show statistics about the provide system
-///
-/// Experimental in kubo.
-Stream<ProvideStats> provideStat($core.IpfsNode node, $context.Context ctx,
-        {bool? lan,
-        bool? all,
-        bool? compact,
-        bool? connectivity,
-        bool? network,
-        bool? schedule,
-        bool? timings,
-        bool? workers,
-        bool? operations,
-        bool? queues,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'provide stat',
-        [],
-        [],
-        {
-          'lan': lan,
-          'all': all,
-          'compact': compact,
-          'connectivity': connectivity,
-          'network': network,
-          'schedule': schedule,
-          'timings': timings,
-          'workers': workers,
-          'operations': operations,
-          'queues': queues,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => ProvideStats.$dec(r));
-
-/// `ipfs pubsub ls`: List subscribed topics by name.
-///
-/// Experimental in kubo.
-Stream<StringList> pubsubLs($core.IpfsNode node, $context.Context ctx,
-        {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'pubsub ls',
-        [],
-        [],
-        {
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => StringList.$dec(r));
-
-/// `ipfs pubsub peers`: List peers we are currently pubsubbing with.
-///
-/// Experimental in kubo.
-Stream<StringList> pubsubPeers(
-        $core.IpfsNode node, $context.Context ctx, String? topic,
-        {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'pubsub peers',
-        [if (topic != null) topic],
-        [],
-        {
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => StringList.$dec(r));
-
-/// `ipfs pubsub pub`: Publish data to a given pubsub topic.
-///
-/// Experimental in kubo.
-Stream<Object?> pubsubPub($core.IpfsNode node, $context.Context ctx,
-        String topic, $files.Node data,
-        {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
-    $cmdDynStream(node, ctx, 'pubsub pub', [
-      topic
-    ], [
-      data
-    ], {
-      'offline': offline,
-      'cid-base': cidBase,
-      'upgrade-cidv0-in-output': upgradeCidv0InOutput
-    });
-
-/// `ipfs pubsub reset`: Reset pubsub validator state.
-///
-/// Experimental in kubo.
-Stream<PubsubResetResult> pubsubReset($core.IpfsNode node, $context.Context ctx,
-        {String? peer,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'pubsub reset',
-        [],
-        [],
-        {
-          'peer': peer,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => PubsubResetResult.$dec(r));
-
-/// `ipfs pubsub sub`: Subscribe to messages on a given topic.
-///
-/// Experimental in kubo.
-Stream<PubsubMessage> pubsubSub(
-        $core.IpfsNode node, $context.Context ctx, String topic,
-        {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'pubsub sub',
-        [topic],
-        [],
-        {
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => PubsubMessage.$dec(r));
-
-/// `ipfs refs`: List links (references) from an object.
-Stream<RefWrapper> refs(
-        $core.IpfsNode node, $context.Context ctx, List<String> ipfsPath,
-        {String? format,
-        bool? edges,
-        bool? unique,
-        bool? recursive,
-        int? maxDepth,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'refs',
-        [...ipfsPath],
-        [],
-        {
-          'format': format,
-          'edges': edges,
-          'unique': unique,
-          'recursive': recursive,
-          'max-depth': maxDepth,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => RefWrapper.$dec(r));
-
-/// `ipfs refs local`: List all local references.
-Stream<RefWrapper> refsLocal($core.IpfsNode node, $context.Context ctx,
-        {bool? edges,
-        String? format,
-        int? maxDepth,
-        bool? recursive,
-        bool? unique,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'refs local',
-        [],
-        [],
-        {
-          'edges': edges,
-          'format': format,
-          'max-depth': maxDepth,
-          'recursive': recursive,
-          'unique': unique,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => RefWrapper.$dec(r));
-
-/// `ipfs repo gc`: Perform a garbage collection sweep on the repo.
-Stream<GcResult> repoGc($core.IpfsNode node, $context.Context ctx,
-        {bool? streamErrors,
-        bool? quiet,
-        bool? silent,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'repo gc',
-        [],
-        [],
-        {
-          'stream-errors': streamErrors,
-          'quiet': quiet,
-          'silent': silent,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => GcResult.$dec(r));
-
-/// `ipfs repo ls`: List all local references.
-Stream<RefWrapper> repoLs($core.IpfsNode node, $context.Context ctx,
-        {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'repo ls',
-        [],
-        [],
-        {
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => RefWrapper.$dec(r));
-
-/// `ipfs repo migrate`: Apply repository migrations to a specific version.
-Stream<Object?> repoMigrate($core.IpfsNode node, $context.Context ctx,
-        {int? to,
-        bool? allowDowngrade,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdDynStream(node, ctx, 'repo migrate', [], [], {
-      'to': to,
-      'allow-downgrade': allowDowngrade,
-      'offline': offline,
-      'cid-base': cidBase,
-      'upgrade-cidv0-in-output': upgradeCidv0InOutput
-    });
-
-/// `ipfs repo stat`: Get stats for the currently used repo.
-Stream<$corerepo.Stat> repoStat($core.IpfsNode node, $context.Context ctx,
-        {bool? sizeOnly,
-        bool? human,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'repo stat',
-        [],
-        [],
-        {
-          'size-only': sizeOnly,
-          'human': human,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => $corerepo.Stat.$dec(r));
-
-/// `ipfs repo verify`: Verify all blocks in repo are not corrupted.
-Stream<VerifyProgress> repoVerify($core.IpfsNode node, $context.Context ctx,
-        {bool? drop,
-        bool? heal,
-        String? healTimeout,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'repo verify',
-        [],
-        [],
-        {
-          'drop': drop,
-          'heal': heal,
-          'heal-timeout': healTimeout,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => VerifyProgress.$dec(r));
-
-/// `ipfs repo version`: Show the repo version.
-Stream<RepoVersion> repoVersion($core.IpfsNode node, $context.Context ctx,
-        {bool? quiet,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'repo version',
-        [],
-        [],
-        {
-          'quiet': quiet,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => RepoVersion.$dec(r));
-
-/// `ipfs resolve`: Resolve the value of names to IPFS.
-Stream<$name.ResolvedPath> resolve(
-        $core.IpfsNode node, $context.Context ctx, String name,
-        {bool? recursive,
-        int? dhtRecordCount,
-        String? dhtTimeout,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'resolve',
-        [name],
-        [],
-        {
-          'recursive': recursive,
-          'dht-record-count': dhtRecordCount,
-          'dht-timeout': dhtTimeout,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => $name.ResolvedPath.$dec(r));
-
-/// `ipfs routing findpeer`: Find the multiaddresses associated with a Peer ID.
-Stream<$routing.QueryEvent> routingFindpeer(
-        $core.IpfsNode node, $context.Context ctx, List<String> peerId,
-        {bool? verbose,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'routing findpeer',
-        [...peerId],
-        [],
-        {
-          'verbose': verbose,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => $routing.QueryEvent.$dec(r));
-
-/// `ipfs routing findprovs`: Find peers that can provide a specific value, given a key.
-Stream<$routing.QueryEvent> routingFindprovs(
-        $core.IpfsNode node, $context.Context ctx, List<String> key,
-        {bool? verbose,
-        int? numProviders,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'routing findprovs',
-        [...key],
-        [],
-        {
-          'verbose': verbose,
-          'num-providers': numProviders,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => $routing.QueryEvent.$dec(r));
-
-/// `ipfs routing get`: Given a key, query the routing system for its best value.
-///
-/// Experimental in kubo.
-Stream<$routing.QueryEvent> routingGet(
-        $core.IpfsNode node, $context.Context ctx, List<String> key,
-        {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'routing get',
-        [...key],
-        [],
-        {
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => $routing.QueryEvent.$dec(r));
-
-/// `ipfs routing provide`: Deprecated, use 'ipfs provide once' instead.
-@Deprecated('deprecated in kubo')
-Stream<$routing.QueryEvent> routingProvide(
-        $core.IpfsNode node, $context.Context ctx, List<String> key,
-        {bool? verbose,
-        bool? recursive,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'routing provide',
-        [...key],
-        [],
-        {
-          'verbose': verbose,
-          'recursive': recursive,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => $routing.QueryEvent.$dec(r));
-
-/// `ipfs routing put`: Write a key/value pair to the routing system.
-///
-/// Experimental in kubo.
-Stream<$routing.QueryEvent> routingPut($core.IpfsNode node,
-        $context.Context ctx, String key, $files.Node valueFile,
-        {bool? allowOffline,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'routing put',
-        [key],
-        [valueFile],
-        {
-          'allow-offline': allowOffline,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => $routing.QueryEvent.$dec(r));
-
-/// `ipfs routing reprovide`: Trigger a reprovide cycle (legacy provider only).
-@Deprecated('deprecated in kubo')
-Stream<Object?> routingReprovide($core.IpfsNode node, $context.Context ctx,
-        {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
-    $cmdDynStream(node, ctx, 'routing reprovide', [], [], {
-      'offline': offline,
-      'cid-base': cidBase,
-      'upgrade-cidv0-in-output': upgradeCidv0InOutput
-    });
-
-/// `ipfs stats bitswap`: Show some diagnostic information on the bitswap agent.
-Stream<$bitswap.Stat> statsBitswap($core.IpfsNode node, $context.Context ctx,
-        {bool? verbose,
-        bool? human,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'stats bitswap',
-        [],
-        [],
-        {
-          'verbose': verbose,
-          'human': human,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => $bitswap.Stat(
-            wantlist: r.list(() => $cid.Cid(r.str())),
-            peers: r.list(() => r.str()),
-            blocksReceived: r.i64(),
-            dataReceived: r.i64(),
-            dupBlksReceived: r.i64(),
-            dupDataReceived: r.i64(),
-            messagesReceived: r.i64(),
-            blocksSent: r.i64(),
-            dataSent: r.i64()));
-
-/// `ipfs stats bw`: Print IPFS bandwidth information.
-Stream<$metrics.Stats> statsBw($core.IpfsNode node, $context.Context ctx,
-        {String? peer,
-        String? proto,
-        bool? poll,
-        String? interval,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'stats bw',
-        [],
-        [],
-        {
-          'peer': peer,
-          'proto': proto,
-          'poll': poll,
-          'interval': interval,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => $metrics.Stats.$dec(r));
-
-/// `ipfs stats dht`: Returns statistics about the node's DHT(s).
-Stream<DhtStat> statsDht(
-        $core.IpfsNode node, $context.Context ctx, List<String> dht,
-        {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'stats dht',
-        [...dht],
-        [],
-        {
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => DhtStat.$dec(r));
-
-/// `ipfs stats provide`: Deprecated command, use 'ipfs provide stat' instead.
-@Deprecated('deprecated in kubo')
-Stream<ProvideStats> statsProvide($core.IpfsNode node, $context.Context ctx,
-        {bool? lan,
-        bool? all,
-        bool? compact,
-        bool? connectivity,
-        bool? network,
-        bool? schedule,
-        bool? timings,
-        bool? workers,
-        bool? operations,
-        bool? queues,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'stats provide',
-        [],
-        [],
-        {
-          'lan': lan,
-          'all': all,
-          'compact': compact,
-          'connectivity': connectivity,
-          'network': network,
-          'schedule': schedule,
-          'timings': timings,
-          'workers': workers,
-          'operations': operations,
-          'queues': queues,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => ProvideStats.$dec(r));
-
-/// `ipfs stats repo`: Get stats for the currently used repo.
-Stream<$corerepo.Stat> statsRepo($core.IpfsNode node, $context.Context ctx,
-        {bool? sizeOnly,
-        bool? human,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'stats repo',
-        [],
-        [],
-        {
-          'size-only': sizeOnly,
-          'human': human,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => $corerepo.Stat.$dec(r));
-
-/// `ipfs stats reprovide`: Deprecated command, use 'ipfs provide stat' instead.
-@Deprecated('deprecated in kubo')
-Stream<ProvideStats> statsReprovide($core.IpfsNode node, $context.Context ctx,
-        {bool? lan,
-        bool? all,
-        bool? compact,
-        bool? connectivity,
-        bool? network,
-        bool? schedule,
-        bool? timings,
-        bool? workers,
-        bool? operations,
-        bool? queues,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'stats reprovide',
-        [],
-        [],
-        {
-          'lan': lan,
-          'all': all,
-          'compact': compact,
-          'connectivity': connectivity,
-          'network': network,
-          'schedule': schedule,
-          'timings': timings,
-          'workers': workers,
-          'operations': operations,
-          'queues': queues,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => ProvideStats.$dec(r));
-
-/// `ipfs swarm addrs`: List known addresses. Useful for debugging.
-Stream<AddrMap> swarmAddrs($core.IpfsNode node, $context.Context ctx,
-        {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'swarm addrs',
-        [],
-        [],
-        {
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => AddrMap.$dec(r));
-
-/// `ipfs swarm addrs autonat`: Show address reachability as determined by AutoNAT V2.
-Stream<AutoNatResult> swarmAddrsAutonat(
-        $core.IpfsNode node, $context.Context ctx,
-        {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'swarm addrs autonat',
-        [],
-        [],
-        {
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => AutoNatResult.$dec(r));
-
-/// `ipfs swarm addrs listen`: List interface listening addresses.
-Stream<StringList> swarmAddrsListen($core.IpfsNode node, $context.Context ctx,
-        {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'swarm addrs listen',
-        [],
-        [],
-        {
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => StringList.$dec(r));
-
-/// `ipfs swarm addrs local`: List local addresses.
-Stream<StringList> swarmAddrsLocal($core.IpfsNode node, $context.Context ctx,
-        {bool? id,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'swarm addrs local',
-        [],
-        [],
-        {
-          'id': id,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => StringList.$dec(r));
-
-/// `ipfs swarm connect`: Open connection to a given peer.
-Stream<StringList> swarmConnect(
-        $core.IpfsNode node, $context.Context ctx, List<String> address,
-        {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'swarm connect',
-        [...address],
-        [],
-        {
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => StringList.$dec(r));
-
-/// `ipfs swarm disconnect`: Close connection to a given address.
-Stream<StringList> swarmDisconnect(
-        $core.IpfsNode node, $context.Context ctx, List<String> address,
-        {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'swarm disconnect',
-        [...address],
-        [],
-        {
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => StringList.$dec(r));
-
-/// `ipfs swarm filters`: Manipulate address filters.
-Stream<StringList> swarmFilters($core.IpfsNode node, $context.Context ctx,
-        {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'swarm filters',
-        [],
-        [],
-        {
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => StringList.$dec(r));
-
-/// `ipfs swarm filters add`: Add an address filter.
-Stream<StringList> swarmFiltersAdd(
-        $core.IpfsNode node, $context.Context ctx, List<String> address,
-        {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'swarm filters add',
-        [...address],
-        [],
-        {
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => StringList.$dec(r));
-
-/// `ipfs swarm filters rm`: Remove an address filter.
-Stream<StringList> swarmFiltersRm(
-        $core.IpfsNode node, $context.Context ctx, List<String> address,
-        {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'swarm filters rm',
-        [...address],
-        [],
-        {
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => StringList.$dec(r));
-
-/// `ipfs swarm peering add`: Add peers into the peering subsystem.
-Stream<PeeringResult> swarmPeeringAdd(
-        $core.IpfsNode node, $context.Context ctx, List<String> address,
-        {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'swarm peering add',
-        [...address],
-        [],
-        {
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => PeeringResult.$dec(r));
-
-/// `ipfs swarm peering ls`: List peers registered in the peering subsystem.
-Stream<AddrInfos> swarmPeeringLs($core.IpfsNode node, $context.Context ctx,
-        {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'swarm peering ls',
-        [],
-        [],
-        {
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => AddrInfos.$dec(r));
-
-/// `ipfs swarm peering rm`: Remove a peer from the peering subsystem.
-Stream<PeeringResult> swarmPeeringRm(
-        $core.IpfsNode node, $context.Context ctx, List<String> id,
-        {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'swarm peering rm',
-        [...id],
-        [],
-        {
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => PeeringResult.$dec(r));
-
-/// `ipfs swarm peers`: List peers with open connections.
-Stream<ConnInfos> swarmPeers($core.IpfsNode node, $context.Context ctx,
-        {bool? verbose,
-        bool? streams,
-        bool? latency,
-        bool? direction,
-        bool? identify,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'swarm peers',
-        [],
-        [],
-        {
-          'verbose': verbose,
-          'streams': streams,
-          'latency': latency,
-          'direction': direction,
-          'identify': identify,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => ConnInfos.$dec(r));
-
-/// `ipfs swarm resources`: Get a summary of all resources accounted for by the libp2p Resource Manager.
-///
-/// Experimental in kubo.
-Stream<$libp2p.LimitsConfigAndUsage> swarmResources(
-        $core.IpfsNode node, $context.Context ctx,
-        {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'swarm resources',
-        [],
-        [],
-        {
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => $libp2p.LimitsConfigAndUsage.$dec(r));
-
-/// `ipfs version`: Show IPFS version information.
-Stream<$kubo.VersionInfo> version($core.IpfsNode node, $context.Context ctx,
-        {bool? number,
-        bool? commit,
-        bool? repo,
-        bool? all,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'version',
-        [],
-        [],
-        {
-          'number': number,
-          'commit': commit,
-          'repo': repo,
-          'all': all,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => $kubo.VersionInfo.$dec(r));
-
-/// `ipfs version check`: Checks Kubo version against connected peers.
-Stream<VersionCheckOutput> versionCheck(
-        $core.IpfsNode node, $context.Context ctx,
-        {int? minPercent,
-        bool? all,
-        bool? commit,
-        bool? number,
-        bool? repo,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'version check',
-        [],
-        [],
-        {
-          'min-percent': minPercent,
-          'all': all,
-          'commit': commit,
-          'number': number,
-          'repo': repo,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => VersionCheckOutput.$dec(r));
-
-/// `ipfs version deps`: Shows information about dependencies used for build.
-Stream<Dependency> versionDeps($core.IpfsNode node, $context.Context ctx,
-        {bool? all,
-        bool? commit,
-        bool? number,
-        bool? repo,
-        bool? offline,
-        String? cidBase,
-        bool? upgradeCidv0InOutput}) =>
-    $cmdStream(
-        node,
-        ctx,
-        'version deps',
-        [],
-        [],
-        {
-          'all': all,
-          'commit': commit,
-          'number': number,
-          'repo': repo,
-          'offline': offline,
-          'cid-base': cidBase,
-          'upgrade-cidv0-in-output': upgradeCidv0InOutput
-        },
-        (r) => Dependency.$dec(r));
-
 /// Go: `commands.AddEvent` (a kubo command output).
-final class AddEvent {
-  AddEvent.$dec($R r)
+final class KuboCoreCommandsAddEvent {
+  KuboCoreCommandsAddEvent.$dec($R r)
       : name = r.str(),
         hash = r.str(),
         bytes = r.i64(),
@@ -3361,16 +64,16 @@ final class AddEvent {
 }
 
 /// Go: `commands.KeyList` (a kubo command output).
-final class KeyList {
-  KeyList.$dec($R r) : keys = r.list(() => $cid.Cid(r.str()));
+final class KuboCoreCommandsKeyList {
+  KuboCoreCommandsKeyList.$dec($R r) : keys = r.list(() => $cid.Cid(r.str()));
 
   /// Go: `Keys`.
   final List<$cid.Cid> keys;
 }
 
 /// Go: `commands.BlockStat` (a kubo command output).
-final class BlockStat {
-  BlockStat.$dec($R r)
+final class KuboCoreCommandsBlockStat {
+  KuboCoreCommandsBlockStat.$dec($R r)
       : key = r.str(),
         size = r.i64();
 
@@ -3382,8 +85,8 @@ final class BlockStat {
 }
 
 /// Go: `commands.removedBlock` (a kubo command output).
-final class RemovedBlock {
-  RemovedBlock.$dec($R r)
+final class KuboCoreCommandsRemovedBlock {
+  KuboCoreCommandsRemovedBlock.$dec($R r)
       : hash = r.str(),
         error = r.str();
 
@@ -3395,16 +98,16 @@ final class RemovedBlock {
 }
 
 /// Go: `commands.BootstrapOutput` (a kubo command output).
-final class BootstrapOutput {
-  BootstrapOutput.$dec($R r) : peers = r.list(() => r.str());
+final class KuboCoreCommandsBootstrapOutput {
+  KuboCoreCommandsBootstrapOutput.$dec($R r) : peers = r.list(() => r.str());
 
   /// Go: `Peers`.
   final List<String> peers;
 }
 
 /// Go: `commands.CidFormatRes` (a kubo command output).
-final class CidFormatRes {
-  CidFormatRes.$dec($R r)
+final class KuboCoreCommandsCidFormatRes {
+  KuboCoreCommandsCidFormatRes.$dec($R r)
       : cidStr = r.str(),
         formatted = r.str(),
         errorMsg = r.str();
@@ -3420,8 +123,8 @@ final class CidFormatRes {
 }
 
 /// Go: `commands.CodeAndName` (a kubo command output).
-final class CodeAndName {
-  CodeAndName.$dec($R r)
+final class KuboCoreCommandsCodeAndName {
+  KuboCoreCommandsCodeAndName.$dec($R r)
       : code = r.i64(),
         name = r.str();
 
@@ -3433,13 +136,13 @@ final class CodeAndName {
 }
 
 /// Go: `commands.CidInspectRes` (a kubo command output).
-final class CidInspectRes {
-  CidInspectRes.$dec($R r)
+final class KuboCoreCommandsCidInspectRes {
+  KuboCoreCommandsCidInspectRes.$dec($R r)
       : cid = r.str(),
         version = r.i64(),
-        multibase = CidInspectBase.$dec(r),
-        multicodec = CidInspectCodec.$dec(r),
-        multihash = CidInspectHash.$dec(r),
+        multibase = KuboCoreCommandsCidInspectBase.$dec(r),
+        multicodec = KuboCoreCommandsCidInspectCodec.$dec(r),
+        multihash = KuboCoreCommandsCidInspectHash.$dec(r),
         cidV0 = r.str(),
         cidV1 = r.str(),
         errorMsg = r.str();
@@ -3451,13 +154,13 @@ final class CidInspectRes {
   final int version;
 
   /// Go: `Multibase`.
-  final CidInspectBase multibase;
+  final KuboCoreCommandsCidInspectBase multibase;
 
   /// Go: `Multicodec`.
-  final CidInspectCodec multicodec;
+  final KuboCoreCommandsCidInspectCodec multicodec;
 
   /// Go: `Multihash`.
-  final CidInspectHash multihash;
+  final KuboCoreCommandsCidInspectHash multihash;
 
   /// Go: `CidV0`.
   final String cidV0;
@@ -3470,8 +173,8 @@ final class CidInspectRes {
 }
 
 /// Go: `commands.CidInspectBase` (a kubo command output).
-final class CidInspectBase {
-  CidInspectBase.$dec($R r)
+final class KuboCoreCommandsCidInspectBase {
+  KuboCoreCommandsCidInspectBase.$dec($R r)
       : prefix = r.str(),
         name = r.str();
 
@@ -3483,8 +186,8 @@ final class CidInspectBase {
 }
 
 /// Go: `commands.CidInspectCodec` (a kubo command output).
-final class CidInspectCodec {
-  CidInspectCodec.$dec($R r)
+final class KuboCoreCommandsCidInspectCodec {
+  KuboCoreCommandsCidInspectCodec.$dec($R r)
       : code = r.i64(),
         name = r.str();
 
@@ -3499,8 +202,8 @@ final class CidInspectCodec {
 }
 
 /// Go: `commands.CidInspectHash` (a kubo command output).
-final class CidInspectHash {
-  CidInspectHash.$dec($R r)
+final class KuboCoreCommandsCidInspectHash {
+  KuboCoreCommandsCidInspectHash.$dec($R r)
       : code = r.i64(),
         name = r.str(),
         length = r.i64(),
@@ -3523,8 +226,8 @@ final class CidInspectHash {
 }
 
 /// Go: `commands.ConfigField` (a kubo command output).
-final class ConfigField {
-  ConfigField.$dec($R r)
+final class KuboCoreCommandsConfigField {
+  KuboCoreCommandsConfigField.$dec($R r)
       : key = r.str(),
         value$ = r.any();
 
@@ -3536,8 +239,8 @@ final class ConfigField {
 }
 
 /// Go: `commands.ConfigUpdateOutput` (a kubo command output).
-final class ConfigUpdateOutput {
-  ConfigUpdateOutput.$dec($R r)
+final class KuboCoreCommandsConfigUpdateOutput {
+  KuboCoreCommandsConfigUpdateOutput.$dec($R r)
       : oldCfg = r.map(() => r.str(), () => r.any()),
         newCfg = r.map(() => r.str(), () => r.any());
 
@@ -3549,8 +252,8 @@ final class ConfigUpdateOutput {
 }
 
 /// Go: `commands.diagDatastoreCountResult` (a kubo command output).
-final class DiagDatastoreCountResult {
-  DiagDatastoreCountResult.$dec($R r)
+final class KuboCoreCommandsDiagDatastoreCountResult {
+  KuboCoreCommandsDiagDatastoreCountResult.$dec($R r)
       : prefix = r.str(),
         count = r.i64();
 
@@ -3562,8 +265,8 @@ final class DiagDatastoreCountResult {
 }
 
 /// Go: `commands.diagDatastoreGetResult` (a kubo command output).
-final class DiagDatastoreGetResult {
-  DiagDatastoreGetResult.$dec($R r)
+final class KuboCoreCommandsDiagDatastoreGetResult {
+  KuboCoreCommandsDiagDatastoreGetResult.$dec($R r)
       : key = r.str(),
         value$ = r.bytes(),
         hexDump = r.str();
@@ -3579,34 +282,34 @@ final class DiagDatastoreGetResult {
 }
 
 /// Go: `commands.MessageOutput` (a kubo command output).
-final class MessageOutput {
-  MessageOutput.$dec($R r) : message = r.str();
+final class KuboCoreCommandsMessageOutput {
+  KuboCoreCommandsMessageOutput.$dec($R r) : message = r.str();
 
   /// Go: `Message`.
   final String message;
 }
 
 /// Go: `commands.flushRes` (a kubo command output).
-final class FlushRes {
-  FlushRes.$dec($R r) : cid = r.str();
+final class KuboCoreCommandsFlushRes {
+  KuboCoreCommandsFlushRes.$dec($R r) : cid = r.str();
 
   /// Go: `Cid`.
   final String cid;
 }
 
 /// Go: `commands.filesLsOutput` (a kubo command output).
-final class FilesLsOutput {
-  FilesLsOutput.$dec($R r)
-      : entries = r.list(() => $mfs.NodeListing(
+final class KuboCoreCommandsFilesLsOutput {
+  KuboCoreCommandsFilesLsOutput.$dec($R r)
+      : entries = r.list(() => $mfs.BoxoMfsNodeListing(
             name: r.str(), type: r.i64(), size: r.i64(), hash: r.str()));
 
   /// Go: `Entries`.
-  final List<$mfs.NodeListing> entries;
+  final List<$mfs.BoxoMfsNodeListing> entries;
 }
 
 /// Go: `commands.statOutput` (a kubo command output).
-final class StatOutput {
-  StatOutput.$dec($R r)
+final class KuboCoreCommandsStatOutput {
+  KuboCoreCommandsStatOutput.$dec($R r)
       : hash = r.str(),
         size = r.i64(),
         cumulativeSize = r.i64(),
@@ -3663,8 +366,8 @@ final class StatOutput {
 }
 
 /// Go: `commands.RefWrapper` (a kubo command output).
-final class RefWrapper {
-  RefWrapper.$dec($R r)
+final class KuboCoreCommandsRefWrapper {
+  KuboCoreCommandsRefWrapper.$dec($R r)
       : ref = r.str(),
         err = r.str();
 
@@ -3676,8 +379,8 @@ final class RefWrapper {
 }
 
 /// Go: `commands.IdOutput` (a kubo command output).
-final class IdOutput {
-  IdOutput.$dec($R r)
+final class KuboCoreCommandsIdOutput {
+  KuboCoreCommandsIdOutput.$dec($R r)
       : id = r.str(),
         publicKey = r.str(),
         addresses = r.list(() => r.str()),
@@ -3701,8 +404,8 @@ final class IdOutput {
 }
 
 /// Go: `commands.KeyOutput` (a kubo command output).
-final class KeyOutput {
-  KeyOutput.$dec($R r)
+final class KuboCoreCommandsKeyOutput {
+  KuboCoreCommandsKeyOutput.$dec($R r)
       : name = r.str(),
         id = r.str();
 
@@ -3714,16 +417,17 @@ final class KeyOutput {
 }
 
 /// Go: `commands.KeyOutputList` (a kubo command output).
-final class KeyOutputList {
-  KeyOutputList.$dec($R r) : keys = r.list(() => KeyOutput.$dec(r));
+final class KuboCoreCommandsKeyOutputList {
+  KuboCoreCommandsKeyOutputList.$dec($R r)
+      : keys = r.list(() => KuboCoreCommandsKeyOutput.$dec(r));
 
   /// Go: `Keys`.
-  final List<KeyOutput> keys;
+  final List<KuboCoreCommandsKeyOutput> keys;
 }
 
 /// Go: `commands.KeyRenameOutput` (a kubo command output).
-final class KeyRenameOutput {
-  KeyRenameOutput.$dec($R r)
+final class KuboCoreCommandsKeyRenameOutput {
+  KuboCoreCommandsKeyRenameOutput.$dec($R r)
       : was = r.str(),
         now = r.str(),
         id = r.str(),
@@ -3743,34 +447,34 @@ final class KeyRenameOutput {
 }
 
 /// Go: `commands.KeySignOutput` (a kubo command output).
-final class KeySignOutput {
-  KeySignOutput.$dec($R r)
-      : key = KeyOutput.$dec(r),
+final class KuboCoreCommandsKeySignOutput {
+  KuboCoreCommandsKeySignOutput.$dec($R r)
+      : key = KuboCoreCommandsKeyOutput.$dec(r),
         signature = r.str();
 
   /// Go: `Key`.
-  final KeyOutput key;
+  final KuboCoreCommandsKeyOutput key;
 
   /// Go: `Signature`.
   final String signature;
 }
 
 /// Go: `commands.KeyVerifyOutput` (a kubo command output).
-final class KeyVerifyOutput {
-  KeyVerifyOutput.$dec($R r)
-      : key = KeyOutput.$dec(r),
+final class KuboCoreCommandsKeyVerifyOutput {
+  KuboCoreCommandsKeyVerifyOutput.$dec($R r)
+      : key = KuboCoreCommandsKeyOutput.$dec(r),
         signatureValid = r.b();
 
   /// Go: `Key`.
-  final KeyOutput key;
+  final KuboCoreCommandsKeyOutput key;
 
   /// Go: `SignatureValid`.
   final bool signatureValid;
 }
 
 /// Go: `commands.logLevelOutput` (a kubo command output).
-final class LogLevelOutput {
-  LogLevelOutput.$dec($R r)
+final class KuboCoreCommandsLogLevelOutput {
+  KuboCoreCommandsLogLevelOutput.$dec($R r)
       : levels = r.map(() => r.str(), () => r.str()),
         message = r.str();
 
@@ -3782,37 +486,38 @@ final class LogLevelOutput {
 }
 
 /// Go: `commands.stringList` (a kubo command output).
-final class StringList {
-  StringList.$dec($R r) : strings = r.list(() => r.str());
+final class KuboCoreCommandsStringList {
+  KuboCoreCommandsStringList.$dec($R r) : strings = r.list(() => r.str());
 
   /// Go: `Strings`.
   final List<String> strings;
 }
 
 /// Go: `commands.LsOutput` (a kubo command output).
-final class LsOutput {
-  LsOutput.$dec($R r) : objects = r.list(() => LsObject.$dec(r));
+final class KuboCoreCommandsLsOutput {
+  KuboCoreCommandsLsOutput.$dec($R r)
+      : objects = r.list(() => KuboCoreCommandsLsObject.$dec(r));
 
   /// Go: `Objects`.
-  final List<LsObject> objects;
+  final List<KuboCoreCommandsLsObject> objects;
 }
 
 /// Go: `commands.LsObject` (a kubo command output).
-final class LsObject {
-  LsObject.$dec($R r)
+final class KuboCoreCommandsLsObject {
+  KuboCoreCommandsLsObject.$dec($R r)
       : hash = r.str(),
-        links = r.list(() => LsLink.$dec(r));
+        links = r.list(() => KuboCoreCommandsLsLink.$dec(r));
 
   /// Go: `Hash`.
   final String hash;
 
   /// Go: `Links`.
-  final List<LsLink> links;
+  final List<KuboCoreCommandsLsLink> links;
 }
 
 /// Go: `commands.LsLink` (a kubo command output).
-final class LsLink {
-  LsLink.$dec($R r)
+final class KuboCoreCommandsLsLink {
+  KuboCoreCommandsLsLink.$dec($R r)
       : name = r.str(),
         hash = r.str(),
         size = r.i64(),
@@ -3847,8 +552,8 @@ final class LsLink {
 }
 
 /// Go: `commands.P2PForegroundOutput` (a kubo command output).
-final class P2pForegroundOutput {
-  P2pForegroundOutput.$dec($R r)
+final class KuboCoreCommandsP2pForegroundOutput {
+  KuboCoreCommandsP2pForegroundOutput.$dec($R r)
       : status = r.str(),
         protocol = r.str(),
         address = r.str();
@@ -3864,17 +569,17 @@ final class P2pForegroundOutput {
 }
 
 /// Go: `commands.P2PLsOutput` (a kubo command output).
-final class P2plsOutput {
-  P2plsOutput.$dec($R r)
-      : listeners = r.list(() => P2pListenerInfoOutput.$dec(r));
+final class KuboCoreCommandsP2plsOutput {
+  KuboCoreCommandsP2plsOutput.$dec($R r)
+      : listeners = r.list(() => KuboCoreCommandsP2pListenerInfoOutput.$dec(r));
 
   /// Go: `Listeners`.
-  final List<P2pListenerInfoOutput> listeners;
+  final List<KuboCoreCommandsP2pListenerInfoOutput> listeners;
 }
 
 /// Go: `commands.P2PListenerInfoOutput` (a kubo command output).
-final class P2pListenerInfoOutput {
-  P2pListenerInfoOutput.$dec($R r)
+final class KuboCoreCommandsP2pListenerInfoOutput {
+  KuboCoreCommandsP2pListenerInfoOutput.$dec($R r)
       : protocol = r.str(),
         listenAddress = r.str(),
         targetAddress = r.str();
@@ -3890,17 +595,17 @@ final class P2pListenerInfoOutput {
 }
 
 /// Go: `commands.P2PStreamsOutput` (a kubo command output).
-final class P2pStreamsOutput {
-  P2pStreamsOutput.$dec($R r)
-      : streams = r.list(() => P2pStreamInfoOutput.$dec(r));
+final class KuboCoreCommandsP2pStreamsOutput {
+  KuboCoreCommandsP2pStreamsOutput.$dec($R r)
+      : streams = r.list(() => KuboCoreCommandsP2pStreamInfoOutput.$dec(r));
 
   /// Go: `Streams`.
-  final List<P2pStreamInfoOutput> streams;
+  final List<KuboCoreCommandsP2pStreamInfoOutput> streams;
 }
 
 /// Go: `commands.P2PStreamInfoOutput` (a kubo command output).
-final class P2pStreamInfoOutput {
-  P2pStreamInfoOutput.$dec($R r)
+final class KuboCoreCommandsP2pStreamInfoOutput {
+  KuboCoreCommandsP2pStreamInfoOutput.$dec($R r)
       : handlerId = r.str(),
         protocol = r.str(),
         originAddress = r.str(),
@@ -3920,8 +625,8 @@ final class P2pStreamInfoOutput {
 }
 
 /// Go: `commands.PingResult` (a kubo command output).
-final class PingResult {
-  PingResult.$dec($R r)
+final class KuboCoreCommandsPingResult {
+  KuboCoreCommandsPingResult.$dec($R r)
       : success = r.b(),
         time = Duration(microseconds: r.i64() ~/ 1000),
         text = r.str();
@@ -3937,41 +642,41 @@ final class PingResult {
 }
 
 /// Go: `commands.ProvideOnceEvent` (a kubo command output).
-final class ProvideOnceEvent {
-  ProvideOnceEvent.$dec($R r) : queued = r.str();
+final class KuboCoreCommandsProvideOnceEvent {
+  KuboCoreCommandsProvideOnceEvent.$dec($R r) : queued = r.str();
 
   /// Go: `Queued`.
   final String queued;
 }
 
 /// Go: `commands.provideStats` (a kubo command output).
-final class ProvideStats {
-  ProvideStats.$dec($R r)
-      : sweep = r.p() ? $stats.Stats.$dec(r) : null,
-        legacy = r.p() ? $provider.ReproviderStats.$dec(r) : null,
+final class KuboCoreCommandsProvideStats {
+  KuboCoreCommandsProvideStats.$dec($R r)
+      : sweep = r.p() ? $stats.Libp2pKadDhtProviderStats.$dec(r) : null,
+        legacy = r.p() ? $provider.BoxoProviderReproviderStats.$dec(r) : null,
         fullRt = r.b();
 
   /// Go: `Sweep`.
-  final $stats.Stats? sweep;
+  final $stats.Libp2pKadDhtProviderStats? sweep;
 
   /// Go: `Legacy`.
-  final $provider.ReproviderStats? legacy;
+  final $provider.BoxoProviderReproviderStats? legacy;
 
   /// Go: `FullRT`.
   final bool fullRt;
 }
 
 /// Go: `commands.pubsubResetResult` (a kubo command output).
-final class PubsubResetResult {
-  PubsubResetResult.$dec($R r) : deleted = r.i64();
+final class KuboCoreCommandsPubsubResetResult {
+  KuboCoreCommandsPubsubResetResult.$dec($R r) : deleted = r.i64();
 
   /// Go: `Deleted`.
   final int deleted;
 }
 
 /// Go: `commands.pubsubMessage` (a kubo command output).
-final class PubsubMessage {
-  PubsubMessage.$dec($R r)
+final class KuboCoreCommandsPubsubMessage {
+  KuboCoreCommandsPubsubMessage.$dec($R r)
       : from = r.str(),
         data = r.str(),
         seqno = r.str(),
@@ -3991,8 +696,8 @@ final class PubsubMessage {
 }
 
 /// Go: `commands.GcResult` (a kubo command output).
-final class GcResult {
-  GcResult.$dec($R r)
+final class KuboCoreCommandsGcResult {
+  KuboCoreCommandsGcResult.$dec($R r)
       : key = $cid.Cid(r.str()),
         error = r.str();
 
@@ -4004,8 +709,8 @@ final class GcResult {
 }
 
 /// Go: `commands.VerifyProgress` (a kubo command output).
-final class VerifyProgress {
-  VerifyProgress.$dec($R r)
+final class KuboCoreCommandsVerifyProgress {
+  KuboCoreCommandsVerifyProgress.$dec($R r)
       : msg = r.str(),
         progress = r.i64();
 
@@ -4017,42 +722,42 @@ final class VerifyProgress {
 }
 
 /// Go: `commands.RepoVersion` (a kubo command output).
-final class RepoVersion {
-  RepoVersion.$dec($R r) : version = r.str();
+final class KuboCoreCommandsRepoVersion {
+  KuboCoreCommandsRepoVersion.$dec($R r) : version = r.str();
 
   /// Go: `Version`.
   final String version;
 }
 
 /// Go: `commands.dhtStat` (a kubo command output).
-final class DhtStat {
-  DhtStat.$dec($R r)
+final class KuboCoreCommandsDhtStat {
+  KuboCoreCommandsDhtStat.$dec($R r)
       : name = r.str(),
-        buckets = r.list(() => DhtBucket.$dec(r));
+        buckets = r.list(() => KuboCoreCommandsDhtBucket.$dec(r));
 
   /// Go: `Name`.
   final String name;
 
   /// Go: `Buckets`.
-  final List<DhtBucket> buckets;
+  final List<KuboCoreCommandsDhtBucket> buckets;
 }
 
 /// Go: `commands.dhtBucket` (a kubo command output).
-final class DhtBucket {
-  DhtBucket.$dec($R r)
+final class KuboCoreCommandsDhtBucket {
+  KuboCoreCommandsDhtBucket.$dec($R r)
       : lastRefresh = r.str(),
-        peers = r.list(() => DhtPeerInfo.$dec(r));
+        peers = r.list(() => KuboCoreCommandsDhtPeerInfo.$dec(r));
 
   /// Go: `LastRefresh`.
   final String lastRefresh;
 
   /// Go: `Peers`.
-  final List<DhtPeerInfo> peers;
+  final List<KuboCoreCommandsDhtPeerInfo> peers;
 }
 
 /// Go: `commands.dhtPeerInfo` (a kubo command output).
-final class DhtPeerInfo {
-  DhtPeerInfo.$dec($R r)
+final class KuboCoreCommandsDhtPeerInfo {
+  KuboCoreCommandsDhtPeerInfo.$dec($R r)
       : id = r.str(),
         connected = r.b(),
         agentVersion = r.str(),
@@ -4076,8 +781,8 @@ final class DhtPeerInfo {
 }
 
 /// Go: `commands.addrMap` (a kubo command output).
-final class AddrMap {
-  AddrMap.$dec($R r)
+final class KuboCoreCommandsAddrMap {
+  KuboCoreCommandsAddrMap.$dec($R r)
       : addrs = r.map(() => r.str(), () => r.list(() => r.str()));
 
   /// Go: `Addrs`.
@@ -4085,8 +790,8 @@ final class AddrMap {
 }
 
 /// Go: `commands.autoNATResult` (a kubo command output).
-final class AutoNatResult {
-  AutoNatResult.$dec($R r)
+final class KuboCoreCommandsAutoNatResult {
+  KuboCoreCommandsAutoNatResult.$dec($R r)
       : reachability = r.str(),
         nat = r.str(),
         reachable = r.list(() => r.str()),
@@ -4110,47 +815,48 @@ final class AutoNatResult {
 }
 
 /// Go: `commands.peeringResult` (a kubo command output).
-final class PeeringResult {
-  PeeringResult.$dec($R r)
-      : id = $peer.Id(r.str()),
+final class KuboCoreCommandsPeeringResult {
+  KuboCoreCommandsPeeringResult.$dec($R r)
+      : id = $peer.Libp2pCorePeerId(r.str()),
         status = r.str();
 
   /// Go: `ID`.
-  final $peer.Id id;
+  final $peer.Libp2pCorePeerId id;
 
   /// Go: `Status`.
   final String status;
 }
 
 /// Go: `commands.addrInfos` (a kubo command output).
-final class AddrInfos {
-  AddrInfos.$dec($R r)
-      : peers = r.list(() => $peer.AddrInfo(
-            id: $peer.Id(r.str()),
+final class KuboCoreCommandsAddrInfos {
+  KuboCoreCommandsAddrInfos.$dec($R r)
+      : peers = r.list(() => $peer.Libp2pCorePeerAddrInfo(
+            id: $peer.Libp2pCorePeerId(r.str()),
             addrs: r.list(() => $multiaddr.Multiaddr(r.str()))));
 
   /// Go: `Peers`.
-  final List<$peer.AddrInfo> peers;
+  final List<$peer.Libp2pCorePeerAddrInfo> peers;
 }
 
 /// Go: `commands.connInfos` (a kubo command output).
-final class ConnInfos {
-  ConnInfos.$dec($R r) : peers = r.list(() => ConnInfo.$dec(r));
+final class KuboCoreCommandsConnInfos {
+  KuboCoreCommandsConnInfos.$dec($R r)
+      : peers = r.list(() => KuboCoreCommandsConnInfo.$dec(r));
 
   /// Go: `Peers`.
-  final List<ConnInfo> peers;
+  final List<KuboCoreCommandsConnInfo> peers;
 }
 
 /// Go: `commands.connInfo` (a kubo command output).
-final class ConnInfo {
-  ConnInfo.$dec($R r)
+final class KuboCoreCommandsConnInfo {
+  KuboCoreCommandsConnInfo.$dec($R r)
       : addr = r.str(),
         peer = r.str(),
         latency = r.str(),
         muxer = r.str(),
         direction = r.i64(),
-        streams = r.list(() => StreamInfo.$dec(r)),
-        identify = IdOutput.$dec(r);
+        streams = r.list(() => KuboCoreCommandsStreamInfo.$dec(r)),
+        identify = KuboCoreCommandsIdOutput.$dec(r);
 
   /// Go: `Addr`.
   final String addr;
@@ -4168,23 +874,23 @@ final class ConnInfo {
   final int direction;
 
   /// Go: `Streams`.
-  final List<StreamInfo> streams;
+  final List<KuboCoreCommandsStreamInfo> streams;
 
   /// Go: `Identify`.
-  final IdOutput identify;
+  final KuboCoreCommandsIdOutput identify;
 }
 
 /// Go: `commands.streamInfo` (a kubo command output).
-final class StreamInfo {
-  StreamInfo.$dec($R r) : protocol = r.str();
+final class KuboCoreCommandsStreamInfo {
+  KuboCoreCommandsStreamInfo.$dec($R r) : protocol = r.str();
 
   /// Go: `Protocol`.
   final String protocol;
 }
 
 /// Go: `commands.VersionCheckOutput` (a kubo command output).
-final class VersionCheckOutput {
-  VersionCheckOutput.$dec($R r)
+final class KuboCoreCommandsVersionCheckOutput {
+  KuboCoreCommandsVersionCheckOutput.$dec($R r)
       : updateAvailable = r.b(),
         runningVersion = r.str(),
         greatestVersion = r.str(),
@@ -4208,8 +914,8 @@ final class VersionCheckOutput {
 }
 
 /// Go: `commands.Dependency` (a kubo command output).
-final class Dependency {
-  Dependency.$dec($R r)
+final class KuboCoreCommandsDependency {
+  KuboCoreCommandsDependency.$dec($R r)
       : path = r.str(),
         version = r.str(),
         replacedBy = r.str(),
@@ -4230,8 +936,8 @@ final class Dependency {
 
 /// Go: `var commands.ErrDepthLimitExceeded error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrDepthLimitExceeded extends GolangException {
-  ErrDepthLimitExceeded.$(super.base) : super.$from();
+class KuboCoreCommandsErrDepthLimitExceeded extends GolangException {
+  KuboCoreCommandsErrDepthLimitExceeded.$(super.base) : super.$from();
 
   @override
   String toString() => 'commands.ErrDepthLimitExceeded: $message';
@@ -4239,8 +945,8 @@ class ErrDepthLimitExceeded extends GolangException {
 
 /// Go: `var commands.ErrInvalidCompressionLevel error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrInvalidCompressionLevel extends GolangException {
-  ErrInvalidCompressionLevel.$(super.base) : super.$from();
+class KuboCoreCommandsErrInvalidCompressionLevel extends GolangException {
+  KuboCoreCommandsErrInvalidCompressionLevel.$(super.base) : super.$from();
 
   @override
   String toString() => 'commands.ErrInvalidCompressionLevel: $message';
@@ -4248,8 +954,8 @@ class ErrInvalidCompressionLevel extends GolangException {
 
 /// Go: `var commands.ErrNotDHT error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrNotDht extends GolangException {
-  ErrNotDht.$(super.base) : super.$from();
+class KuboCoreCommandsErrNotDht extends GolangException {
+  KuboCoreCommandsErrNotDht.$(super.base) : super.$from();
 
   @override
   String toString() => 'commands.ErrNotDHT: $message';
@@ -4257,8 +963,8 @@ class ErrNotDht extends GolangException {
 
 /// Go: `var commands.ErrNotOnline error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrNotOnline extends GolangException {
-  ErrNotOnline.$(super.base) : super.$from();
+class KuboCoreCommandsErrNotOnline extends GolangException {
+  KuboCoreCommandsErrNotOnline.$(super.base) : super.$from();
 
   @override
   String toString() => 'commands.ErrNotOnline: $message';
@@ -4266,8 +972,8 @@ class ErrNotOnline extends GolangException {
 
 /// Go: `var commands.ErrPingSelf error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrPingSelf extends GolangException {
-  ErrPingSelf.$(super.base) : super.$from();
+class KuboCoreCommandsErrPingSelf extends GolangException {
+  KuboCoreCommandsErrPingSelf.$(super.base) : super.$from();
 
   @override
   String toString() => 'commands.ErrPingSelf: $message';
@@ -4275,9 +981,3394 @@ class ErrPingSelf extends GolangException {
 
 /// Go: `var commands.ErrSelfUnsupported error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrSelfUnsupported extends GolangException {
-  ErrSelfUnsupported.$(super.base) : super.$from();
+class KuboCoreCommandsErrSelfUnsupported extends GolangException {
+  KuboCoreCommandsErrSelfUnsupported.$(super.base) : super.$from();
 
   @override
   String toString() => 'commands.ErrSelfUnsupported: $message';
+}
+
+/// Go: the package-level members of `github.com/ipfs/kubo/core/commands` (`Go.kubo.core.commands`).
+extension GoKuboCoreCommandsApi on GoKuboCoreCommands {
+  /// Go: `const commands.ApiAuthOption untyped string`.
+  String get apiAuthOption => "api-auth";
+
+  /// Go: `const commands.ApiOption untyped string`.
+  String get apiOption => "api";
+
+  /// Go: `const commands.ConfigFileOption untyped string`.
+  String get configFileOption => "config-file";
+
+  /// Go: `const commands.ConfigOption untyped string`.
+  String get configOption => "config";
+
+  /// Go: `const commands.DebugOption untyped string`.
+  String get debugOption => "debug";
+
+  /// Go: `const commands.DefaultMinimalVersionFraction untyped float`.
+  double get defaultMinimalVersionFraction => 0.05;
+
+  /// Go: `const commands.LocalOption untyped string`.
+  String get localOption => "local";
+
+  /// Go: `const commands.OfflineOption untyped string`.
+  String get offlineOption => "offline";
+
+  /// Go: `const commands.P2PProtoPrefix untyped string`.
+  String get p2pProtoPrefix => "/x/";
+
+  /// Go: `const commands.RepoDirOption untyped string`.
+  String get repoDirOption => "repo-dir";
+
+  /// `ipfs add`: Add a file or directory to IPFS.
+  Stream<KuboCoreCommandsAddEvent> add($core.KuboCoreIpfsNode node,
+          $context.Context ctx, List<$files.BoxoFilesNode> path,
+          {bool? recursive,
+          bool? dereferenceArgs,
+          String? stdinName,
+          bool? hidden,
+          List<String>? ignore,
+          String? ignoreRulesPath,
+          bool? emptyDirs,
+          bool? dereferenceSymlinks,
+          bool? quiet,
+          bool? quieter,
+          bool? silent,
+          bool? progress,
+          bool? onlyHash,
+          bool? wrapWithDirectory,
+          bool? pin,
+          String? pinName,
+          String? toFiles,
+          int? cidVersion,
+          String? hash,
+          bool? rawLeaves,
+          String? chunker,
+          bool? trickle,
+          int? maxFileLinks,
+          int? maxDirectoryLinks,
+          int? maxHamtFanout,
+          bool? inline,
+          int? inlineLimit,
+          bool? nocopy,
+          bool? fscache,
+          bool? preserveMode,
+          bool? preserveMtime,
+          int? mode,
+          int? mtime,
+          int? mtimeNsecs,
+          bool? fastProvideRoot,
+          bool? fastProvideDag,
+          bool? fastProvideWait,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'add',
+          [],
+          [...path],
+          {
+            'recursive': recursive,
+            'dereference-args': dereferenceArgs,
+            'stdin-name': stdinName,
+            'hidden': hidden,
+            'ignore': ignore,
+            'ignore-rules-path': ignoreRulesPath,
+            'empty-dirs': emptyDirs,
+            'dereference-symlinks': dereferenceSymlinks,
+            'quiet': quiet,
+            'quieter': quieter,
+            'silent': silent,
+            'progress': progress,
+            'only-hash': onlyHash,
+            'wrap-with-directory': wrapWithDirectory,
+            'pin': pin,
+            'pin-name': pinName,
+            'to-files': toFiles,
+            'cid-version': cidVersion,
+            'hash': hash,
+            'raw-leaves': rawLeaves,
+            'chunker': chunker,
+            'trickle': trickle,
+            'max-file-links': maxFileLinks,
+            'max-directory-links': maxDirectoryLinks,
+            'max-hamt-fanout': maxHamtFanout,
+            'inline': inline,
+            'inline-limit': inlineLimit,
+            'nocopy': nocopy,
+            'fscache': fscache,
+            'preserve-mode': preserveMode,
+            'preserve-mtime': preserveMtime,
+            'mode': mode,
+            'mtime': mtime,
+            'mtime-nsecs': mtimeNsecs,
+            'fast-provide-root': fastProvideRoot,
+            'fast-provide-dag': fastProvideDag,
+            'fast-provide-wait': fastProvideWait,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => KuboCoreCommandsAddEvent.$dec(r));
+
+  /// `ipfs bitswap ledger`: Show the current ledger for a peer.
+  Stream<$decision.BoxoBitswapServerInternalDecisionReceipt> bitswapLedger(
+          $core.KuboCoreIpfsNode node, $context.Context ctx, String peer,
+          {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'bitswap ledger',
+          [peer],
+          [],
+          {
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => $decision.BoxoBitswapServerInternalDecisionReceipt.$dec(r));
+
+  /// `ipfs bitswap reprovide`: Deprecated command to announce to bitswap. Use 'ipfs routing reprovide' instead.
+  @Deprecated('deprecated in kubo')
+  Stream<Object?> bitswapReprovide(
+          $core.KuboCoreIpfsNode node, $context.Context ctx,
+          {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
+      $cmdDynStream(node, ctx, 'bitswap reprovide', [], [], {
+        'offline': offline,
+        'cid-base': cidBase,
+        'upgrade-cidv0-in-output': upgradeCidv0InOutput
+      });
+
+  /// `ipfs bitswap stat`: Show some diagnostic information on the bitswap agent.
+  Stream<$bitswap.BoxoBitswapStat> bitswapStat(
+          $core.KuboCoreIpfsNode node, $context.Context ctx,
+          {bool? verbose,
+          bool? human,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'bitswap stat',
+          [],
+          [],
+          {
+            'verbose': verbose,
+            'human': human,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => $bitswap.BoxoBitswapStat(
+              wantlist: r.list(() => $cid.Cid(r.str())),
+              peers: r.list(() => r.str()),
+              blocksReceived: r.i64(),
+              dataReceived: r.i64(),
+              dupBlksReceived: r.i64(),
+              dupDataReceived: r.i64(),
+              messagesReceived: r.i64(),
+              blocksSent: r.i64(),
+              dataSent: r.i64()));
+
+  /// `ipfs bitswap wantlist`: Show blocks currently on the wantlist.
+  Stream<KuboCoreCommandsKeyList> bitswapWantlist(
+          $core.KuboCoreIpfsNode node, $context.Context ctx,
+          {String? peer,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'bitswap wantlist',
+          [],
+          [],
+          {
+            'peer': peer,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => KuboCoreCommandsKeyList.$dec(r));
+
+  /// `ipfs block get`: Get a raw IPFS block.
+  Stream<Uint8List> blockGet(
+          $core.KuboCoreIpfsNode node, $context.Context ctx, String cid,
+          {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
+      $cmdBytes(node, ctx, 'block get', [
+        cid
+      ], [], {
+        'offline': offline,
+        'cid-base': cidBase,
+        'upgrade-cidv0-in-output': upgradeCidv0InOutput
+      });
+
+  /// `ipfs block put`: Store input as an IPFS block.
+  Stream<KuboCoreCommandsBlockStat> blockPut($core.KuboCoreIpfsNode node,
+          $context.Context ctx, List<$files.BoxoFilesNode> data,
+          {String? cidCodec,
+          String? mhtype,
+          int? mhlen,
+          bool? pin,
+          bool? allowBigBlock,
+          String? format,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'block put',
+          [],
+          [...data],
+          {
+            'cid-codec': cidCodec,
+            'mhtype': mhtype,
+            'mhlen': mhlen,
+            'pin': pin,
+            'allow-big-block': allowBigBlock,
+            'format': format,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => KuboCoreCommandsBlockStat.$dec(r));
+
+  /// `ipfs block rm`: Remove IPFS block(s) from the local datastore.
+  Stream<KuboCoreCommandsRemovedBlock> blockRm(
+          $core.KuboCoreIpfsNode node, $context.Context ctx, List<String> cid,
+          {bool? force,
+          bool? quiet,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'block rm',
+          [...cid],
+          [],
+          {
+            'force': force,
+            'quiet': quiet,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => KuboCoreCommandsRemovedBlock.$dec(r));
+
+  /// `ipfs block stat`: Print information of a raw IPFS block.
+  Stream<KuboCoreCommandsBlockStat> blockStat(
+          $core.KuboCoreIpfsNode node, $context.Context ctx, String cid,
+          {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'block stat',
+          [cid],
+          [],
+          {
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => KuboCoreCommandsBlockStat.$dec(r));
+
+  /// `ipfs bootstrap`: Show or edit the list of bootstrap peers.
+  Stream<KuboCoreCommandsBootstrapOutput> bootstrap(
+          $core.KuboCoreIpfsNode node, $context.Context ctx,
+          {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'bootstrap',
+          [],
+          [],
+          {
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => KuboCoreCommandsBootstrapOutput.$dec(r));
+
+  /// `ipfs bootstrap add`: Add peers to the bootstrap list.
+  Stream<KuboCoreCommandsBootstrapOutput> bootstrapAdd(
+          $core.KuboCoreIpfsNode node, $context.Context ctx, List<String> peer,
+          {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'bootstrap add',
+          [...peer],
+          [],
+          {
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => KuboCoreCommandsBootstrapOutput.$dec(r));
+
+  /// `ipfs bootstrap list`: Show peers in the bootstrap list.
+  Stream<KuboCoreCommandsBootstrapOutput> bootstrapList(
+          $core.KuboCoreIpfsNode node, $context.Context ctx,
+          {bool? expandAuto,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'bootstrap list',
+          [],
+          [],
+          {
+            'expand-auto': expandAuto,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => KuboCoreCommandsBootstrapOutput.$dec(r));
+
+  /// `ipfs bootstrap rm`: Remove peers from the bootstrap list.
+  Stream<KuboCoreCommandsBootstrapOutput> bootstrapRm(
+          $core.KuboCoreIpfsNode node, $context.Context ctx, List<String> peer,
+          {bool? all,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'bootstrap rm',
+          [...peer],
+          [],
+          {
+            'all': all,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => KuboCoreCommandsBootstrapOutput.$dec(r));
+
+  /// `ipfs bootstrap rm all`: Remove all peers from the bootstrap list.
+  Stream<KuboCoreCommandsBootstrapOutput> bootstrapRmAll(
+          $core.KuboCoreIpfsNode node, $context.Context ctx,
+          {bool? all,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'bootstrap rm all',
+          [],
+          [],
+          {
+            'all': all,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => KuboCoreCommandsBootstrapOutput.$dec(r));
+
+  /// `ipfs cat`: Show IPFS object data.
+  Stream<Uint8List> cat($core.KuboCoreIpfsNode node, $context.Context ctx,
+          List<String> ipfsPath,
+          {int? offset,
+          int? length,
+          bool? progress,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdBytes(node, ctx, 'cat', [
+        ...ipfsPath
+      ], [], {
+        'offset': offset,
+        'length': length,
+        'progress': progress,
+        'offline': offline,
+        'cid-base': cidBase,
+        'upgrade-cidv0-in-output': upgradeCidv0InOutput
+      });
+
+  /// `ipfs cid base32`: Convert CIDs to Base32 CID version 1.
+  Stream<KuboCoreCommandsCidFormatRes> cidBase32(
+          $core.KuboCoreIpfsNode node, $context.Context ctx, List<String> cid,
+          {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'cid base32',
+          [...cid],
+          [],
+          {
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => KuboCoreCommandsCidFormatRes.$dec(r));
+
+  /// `ipfs cid bases`: List available multibase encodings.
+  Stream<List<KuboCoreCommandsCodeAndName>> cidBases(
+          $core.KuboCoreIpfsNode node, $context.Context ctx,
+          {bool? prefix,
+          bool? numeric,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'cid bases',
+          [],
+          [],
+          {
+            'prefix': prefix,
+            'numeric': numeric,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => r.list(() => KuboCoreCommandsCodeAndName.$dec(r)));
+
+  /// `ipfs cid codecs`: List available CID multicodecs.
+  Stream<List<KuboCoreCommandsCodeAndName>> cidCodecs(
+          $core.KuboCoreIpfsNode node, $context.Context ctx,
+          {bool? numeric,
+          bool? supported,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'cid codecs',
+          [],
+          [],
+          {
+            'numeric': numeric,
+            'supported': supported,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => r.list(() => KuboCoreCommandsCodeAndName.$dec(r)));
+
+  /// `ipfs cid format`: Format and convert a CID in various useful ways.
+  Stream<KuboCoreCommandsCidFormatRes> cidFormat(
+          $core.KuboCoreIpfsNode node, $context.Context ctx, List<String> cid,
+          {String? f,
+          String? v,
+          String? mc,
+          String? b,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'cid format',
+          [...cid],
+          [],
+          {
+            'f': f,
+            'v': v,
+            'mc': mc,
+            'b': b,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => KuboCoreCommandsCidFormatRes.$dec(r));
+
+  /// `ipfs cid hashes`: List available multihashes.
+  Stream<List<KuboCoreCommandsCodeAndName>> cidHashes(
+          $core.KuboCoreIpfsNode node, $context.Context ctx,
+          {bool? numeric,
+          bool? supported,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'cid hashes',
+          [],
+          [],
+          {
+            'numeric': numeric,
+            'supported': supported,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => r.list(() => KuboCoreCommandsCodeAndName.$dec(r)));
+
+  /// `ipfs cid inspect`: Inspect and display detailed information about a CID.
+  Stream<KuboCoreCommandsCidInspectRes> cidInspect(
+          $core.KuboCoreIpfsNode node, $context.Context ctx, String cid,
+          {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'cid inspect',
+          [cid],
+          [],
+          {
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => KuboCoreCommandsCidInspectRes.$dec(r));
+
+  /// `ipfs config`: Get and set IPFS config values.
+  Stream<KuboCoreCommandsConfigField> config($core.KuboCoreIpfsNode node,
+          $context.Context ctx, String key, String? value,
+          {bool? bool,
+          bool? json,
+          bool? expandAuto,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'config',
+          [key, if (value != null) value],
+          [],
+          {
+            'bool': bool,
+            'json': json,
+            'expand-auto': expandAuto,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => KuboCoreCommandsConfigField.$dec(r));
+
+  /// `ipfs config profile apply`: Apply profile to config.
+  Stream<KuboCoreCommandsConfigUpdateOutput> configProfileApply(
+          $core.KuboCoreIpfsNode node, $context.Context ctx, String profile,
+          {bool? dryRun,
+          bool? bool,
+          bool? expandAuto,
+          bool? json,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'config profile apply',
+          [profile],
+          [],
+          {
+            'dry-run': dryRun,
+            'bool': bool,
+            'expand-auto': expandAuto,
+            'json': json,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => KuboCoreCommandsConfigUpdateOutput.$dec(r));
+
+  /// `ipfs config replace`: Replace the config with <file>.
+  Stream<Object?> configReplace($core.KuboCoreIpfsNode node,
+          $context.Context ctx, $files.BoxoFilesNode file,
+          {bool? bool,
+          bool? expandAuto,
+          bool? json,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdDynStream(node, ctx, 'config replace', [], [
+        file
+      ], {
+        'bool': bool,
+        'expand-auto': expandAuto,
+        'json': json,
+        'offline': offline,
+        'cid-base': cidBase,
+        'upgrade-cidv0-in-output': upgradeCidv0InOutput
+      });
+
+  /// `ipfs config show`: Output config file contents.
+  Stream<Map<String, Object?>> configShow(
+          $core.KuboCoreIpfsNode node, $context.Context ctx,
+          {bool? bool,
+          bool? expandAuto,
+          bool? json,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'config show',
+          [],
+          [],
+          {
+            'bool': bool,
+            'expand-auto': expandAuto,
+            'json': json,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => r.map(() => r.str(), () => r.any()));
+
+  /// `ipfs dag resolve`: Resolve IPLD block.
+  Stream<$dag.KuboCoreCommandsDagResolveOutput> dagResolve(
+          $core.KuboCoreIpfsNode node, $context.Context ctx, String ref,
+          {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'dag resolve',
+          [ref],
+          [],
+          {
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => $dag.KuboCoreCommandsDagResolveOutput.$dec(r));
+
+  /// `ipfs dag stat`: Gets stats for a DAG.
+  Stream<$dag.KuboCoreCommandsDagStatSummary> dagStat(
+          $core.KuboCoreIpfsNode node, $context.Context ctx, List<String> root,
+          {bool? progress,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'dag stat',
+          [...root],
+          [],
+          {
+            'progress': progress,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => $dag.KuboCoreCommandsDagStatSummary.$dec(r));
+
+  /// `ipfs dht query`: Find the closest Peer IDs to a given Peer ID by querying the DHT.
+  @Deprecated('deprecated in kubo')
+  Stream<$routing.Libp2pCoreRoutingQueryEvent> dhtQuery(
+          $core.KuboCoreIpfsNode node,
+          $context.Context ctx,
+          List<String> peerId,
+          {bool? verbose,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'dht query',
+          [...peerId],
+          [],
+          {
+            'verbose': verbose,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => $routing.Libp2pCoreRoutingQueryEvent.$dec(r));
+
+  /// `ipfs diag cmds`: List commands run on this IPFS node.
+  Stream<List<$ipfs_cmds.IpfsCmdsReqLogEntry?>> diagCmds(
+          $core.KuboCoreIpfsNode node, $context.Context ctx,
+          {bool? verbose,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'diag cmds',
+          [],
+          [],
+          {
+            'verbose': verbose,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => r.list(
+              () => r.p() ? $ipfs_cmds.IpfsCmdsReqLogEntry.$dec(r) : null));
+
+  /// `ipfs diag cmds clear`: Clear inactive requests from the log.
+  Stream<Object?> diagCmdsClear(
+          $core.KuboCoreIpfsNode node, $context.Context ctx,
+          {bool? verbose,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdDynStream(node, ctx, 'diag cmds clear', [], [], {
+        'verbose': verbose,
+        'offline': offline,
+        'cid-base': cidBase,
+        'upgrade-cidv0-in-output': upgradeCidv0InOutput
+      });
+
+  /// `ipfs diag cmds set-time`: Set how long to keep inactive requests in the log.
+  Stream<Object?> diagCmdsSetTime(
+          $core.KuboCoreIpfsNode node, $context.Context ctx, String time,
+          {bool? verbose,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdDynStream(node, ctx, 'diag cmds set-time', [
+        time
+      ], [], {
+        'verbose': verbose,
+        'offline': offline,
+        'cid-base': cidBase,
+        'upgrade-cidv0-in-output': upgradeCidv0InOutput
+      });
+
+  /// `ipfs diag datastore count`: Count entries matching a datastore prefix.
+  ///
+  /// Experimental in kubo.
+  Stream<KuboCoreCommandsDiagDatastoreCountResult> diagDatastoreCount(
+          $core.KuboCoreIpfsNode node, $context.Context ctx, String prefix,
+          {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'diag datastore count',
+          [prefix],
+          [],
+          {
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => KuboCoreCommandsDiagDatastoreCountResult.$dec(r));
+
+  /// `ipfs diag datastore get`: Read a raw key from the datastore.
+  ///
+  /// Experimental in kubo.
+  Stream<KuboCoreCommandsDiagDatastoreGetResult> diagDatastoreGet(
+          $core.KuboCoreIpfsNode node, $context.Context ctx, String key,
+          {bool? hex,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'diag datastore get',
+          [key],
+          [],
+          {
+            'hex': hex,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => KuboCoreCommandsDiagDatastoreGetResult.$dec(r));
+
+  /// `ipfs diag datastore put`: Write a raw key-value pair to the datastore.
+  ///
+  /// Experimental in kubo.
+  Stream<Object?> diagDatastorePut($core.KuboCoreIpfsNode node,
+          $context.Context ctx, String key, String value,
+          {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
+      $cmdDynStream(node, ctx, 'diag datastore put', [
+        key,
+        value
+      ], [], {
+        'offline': offline,
+        'cid-base': cidBase,
+        'upgrade-cidv0-in-output': upgradeCidv0InOutput
+      });
+
+  /// `ipfs diag healthy`: Report whether the daemon is operational.
+  Stream<Object?> diagHealthy($core.KuboCoreIpfsNode node, $context.Context ctx,
+          {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
+      $cmdDynStream(node, ctx, 'diag healthy', [], [], {
+        'offline': offline,
+        'cid-base': cidBase,
+        'upgrade-cidv0-in-output': upgradeCidv0InOutput
+      });
+
+  /// `ipfs diag profile`: Collect a performance profile for debugging.
+  Stream<Uint8List> diagProfile(
+          $core.KuboCoreIpfsNode node, $context.Context ctx,
+          {String? output,
+          List<String>? collectors,
+          String? profileTime,
+          int? mutexProfileFraction,
+          String? blockProfileRate,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdBytes(node, ctx, 'diag profile', [], [], {
+        'output': output,
+        'collectors': collectors,
+        'profile-time': profileTime,
+        'mutex-profile-fraction': mutexProfileFraction,
+        'block-profile-rate': blockProfileRate,
+        'offline': offline,
+        'cid-base': cidBase,
+        'upgrade-cidv0-in-output': upgradeCidv0InOutput
+      });
+
+  /// `ipfs diag sys`: Print system diagnostic information.
+  Stream<Object?> diagSys($core.KuboCoreIpfsNode node, $context.Context ctx,
+          {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
+      $cmdDynStream(node, ctx, 'diag sys', [], [], {
+        'offline': offline,
+        'cid-base': cidBase,
+        'upgrade-cidv0-in-output': upgradeCidv0InOutput
+      });
+
+  /// `ipfs files chcid`: Change the CID version or hash function of the root node of a given path.
+  Stream<Object?> filesChcid(
+          $core.KuboCoreIpfsNode node, $context.Context ctx, String path,
+          {int? cidVersion,
+          String? hash,
+          bool? flush,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdDynStream(node, ctx, 'files chcid', [
+        path
+      ], [], {
+        'cid-version': cidVersion,
+        'hash': hash,
+        'flush': flush,
+        'offline': offline,
+        'cid-base': cidBase,
+        'upgrade-cidv0-in-output': upgradeCidv0InOutput
+      });
+
+  /// `ipfs files chmod`: Change optional POSIX mode permissions
+  ///
+  /// Experimental in kubo.
+  Stream<Object?> filesChmod($core.KuboCoreIpfsNode node, $context.Context ctx,
+          String mode, String path,
+          {bool? flush,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdDynStream(node, ctx, 'files chmod', [
+        mode,
+        path
+      ], [], {
+        'flush': flush,
+        'offline': offline,
+        'cid-base': cidBase,
+        'upgrade-cidv0-in-output': upgradeCidv0InOutput
+      });
+
+  /// `ipfs files chroot`: Change the MFS root CID.
+  ///
+  /// Experimental in kubo.
+  Stream<KuboCoreCommandsMessageOutput> filesChroot(
+          $core.KuboCoreIpfsNode node, $context.Context ctx, String? cid,
+          {bool? confirm,
+          bool? flush,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'files chroot',
+          [if (cid != null) cid],
+          [],
+          {
+            'confirm': confirm,
+            'flush': flush,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => KuboCoreCommandsMessageOutput.$dec(r));
+
+  /// `ipfs files cp`: Add references to IPFS files and directories in MFS (or copy within MFS).
+  Stream<Object?> filesCp($core.KuboCoreIpfsNode node, $context.Context ctx,
+          String source, String dest,
+          {bool? force,
+          bool? parents,
+          bool? flush,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdDynStream(node, ctx, 'files cp', [
+        source,
+        dest
+      ], [], {
+        'force': force,
+        'parents': parents,
+        'flush': flush,
+        'offline': offline,
+        'cid-base': cidBase,
+        'upgrade-cidv0-in-output': upgradeCidv0InOutput
+      });
+
+  /// `ipfs files flush`: Flush a given path's data to disk.
+  Stream<KuboCoreCommandsFlushRes> filesFlush(
+          $core.KuboCoreIpfsNode node, $context.Context ctx, String? path,
+          {bool? flush,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'files flush',
+          [if (path != null) path],
+          [],
+          {
+            'flush': flush,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => KuboCoreCommandsFlushRes.$dec(r));
+
+  /// `ipfs files ls`: List directories in the local mutable namespace.
+  Stream<KuboCoreCommandsFilesLsOutput> filesLs(
+          $core.KuboCoreIpfsNode node, $context.Context ctx, String? path,
+          {bool? long,
+          bool? u,
+          bool? flush,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'files ls',
+          [if (path != null) path],
+          [],
+          {
+            'long': long,
+            'U': u,
+            'flush': flush,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => KuboCoreCommandsFilesLsOutput.$dec(r));
+
+  /// `ipfs files mkdir`: Make directories.
+  Stream<Object?> filesMkdir(
+          $core.KuboCoreIpfsNode node, $context.Context ctx, String path,
+          {bool? parents,
+          int? cidVersion,
+          String? hash,
+          bool? flush,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdDynStream(node, ctx, 'files mkdir', [
+        path
+      ], [], {
+        'parents': parents,
+        'cid-version': cidVersion,
+        'hash': hash,
+        'flush': flush,
+        'offline': offline,
+        'cid-base': cidBase,
+        'upgrade-cidv0-in-output': upgradeCidv0InOutput
+      });
+
+  /// `ipfs files mv`: Move files.
+  Stream<Object?> filesMv($core.KuboCoreIpfsNode node, $context.Context ctx,
+          String source, String dest,
+          {bool? flush,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdDynStream(node, ctx, 'files mv', [
+        source,
+        dest
+      ], [], {
+        'flush': flush,
+        'offline': offline,
+        'cid-base': cidBase,
+        'upgrade-cidv0-in-output': upgradeCidv0InOutput
+      });
+
+  /// `ipfs files read`: Read a file from MFS.
+  Stream<Uint8List> filesRead(
+          $core.KuboCoreIpfsNode node, $context.Context ctx, String path,
+          {int? offset,
+          int? count,
+          bool? flush,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdBytes(node, ctx, 'files read', [
+        path
+      ], [], {
+        'offset': offset,
+        'count': count,
+        'flush': flush,
+        'offline': offline,
+        'cid-base': cidBase,
+        'upgrade-cidv0-in-output': upgradeCidv0InOutput
+      });
+
+  /// `ipfs files rm`: Remove a file from MFS.
+  Stream<Object?> filesRm(
+          $core.KuboCoreIpfsNode node, $context.Context ctx, List<String> path,
+          {bool? recursive,
+          bool? force,
+          bool? flush,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdDynStream(node, ctx, 'files rm', [
+        ...path
+      ], [], {
+        'recursive': recursive,
+        'force': force,
+        'flush': flush,
+        'offline': offline,
+        'cid-base': cidBase,
+        'upgrade-cidv0-in-output': upgradeCidv0InOutput
+      });
+
+  /// `ipfs files stat`: Display file status.
+  Stream<KuboCoreCommandsStatOutput> filesStat(
+          $core.KuboCoreIpfsNode node, $context.Context ctx, String path,
+          {String? format,
+          bool? hash,
+          bool? size,
+          bool? withLocal,
+          bool? flush,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'files stat',
+          [path],
+          [],
+          {
+            'format': format,
+            'hash': hash,
+            'size': size,
+            'with-local': withLocal,
+            'flush': flush,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => KuboCoreCommandsStatOutput.$dec(r));
+
+  /// `ipfs files touch`: Set or change optional POSIX modification times.
+  ///
+  /// Experimental in kubo.
+  Stream<Object?> filesTouch(
+          $core.KuboCoreIpfsNode node, $context.Context ctx, String path,
+          {int? mtime,
+          int? mtimeNsecs,
+          bool? flush,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdDynStream(node, ctx, 'files touch', [
+        path
+      ], [], {
+        'mtime': mtime,
+        'mtime-nsecs': mtimeNsecs,
+        'flush': flush,
+        'offline': offline,
+        'cid-base': cidBase,
+        'upgrade-cidv0-in-output': upgradeCidv0InOutput
+      });
+
+  /// `ipfs files write`: Append to (modify) a file in MFS.
+  Stream<Object?> filesWrite($core.KuboCoreIpfsNode node, $context.Context ctx,
+          String path, $files.BoxoFilesNode data,
+          {int? offset,
+          bool? create,
+          bool? parents,
+          bool? truncate,
+          int? count,
+          bool? rawLeaves,
+          int? cidVersion,
+          String? hash,
+          bool? flush,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdDynStream(node, ctx, 'files write', [
+        path
+      ], [
+        data
+      ], {
+        'offset': offset,
+        'create': create,
+        'parents': parents,
+        'truncate': truncate,
+        'count': count,
+        'raw-leaves': rawLeaves,
+        'cid-version': cidVersion,
+        'hash': hash,
+        'flush': flush,
+        'offline': offline,
+        'cid-base': cidBase,
+        'upgrade-cidv0-in-output': upgradeCidv0InOutput
+      });
+
+  /// `ipfs filestore dups`: List blocks that are both in the filestore and standard block storage.
+  Stream<KuboCoreCommandsRefWrapper> filestoreDups(
+          $core.KuboCoreIpfsNode node, $context.Context ctx,
+          {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'filestore dups',
+          [],
+          [],
+          {
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => KuboCoreCommandsRefWrapper.$dec(r));
+
+  /// `ipfs filestore ls`: List objects in filestore.
+  Stream<$filestore.BoxoFilestoreListRes> filestoreLs(
+          $core.KuboCoreIpfsNode node, $context.Context ctx, List<String> obj,
+          {bool? fileOrder,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'filestore ls',
+          [...obj],
+          [],
+          {
+            'file-order': fileOrder,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => $filestore.BoxoFilestoreListRes.$dec(r));
+
+  /// `ipfs filestore verify`: Verify objects in filestore.
+  Stream<$filestore.BoxoFilestoreListRes> filestoreVerify(
+          $core.KuboCoreIpfsNode node, $context.Context ctx, List<String> obj,
+          {bool? fileOrder,
+          bool? removeBadBlocks,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'filestore verify',
+          [...obj],
+          [],
+          {
+            'file-order': fileOrder,
+            'remove-bad-blocks': removeBadBlocks,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => $filestore.BoxoFilestoreListRes.$dec(r));
+
+  /// `ipfs get`: Download IPFS objects.
+  Stream<Uint8List> get(
+          $core.KuboCoreIpfsNode node, $context.Context ctx, String ipfsPath,
+          {String? output,
+          bool? archive,
+          bool? compress,
+          int? compressionLevel,
+          bool? progress,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdBytes(node, ctx, 'get', [
+        ipfsPath
+      ], [], {
+        'output': output,
+        'archive': archive,
+        'compress': compress,
+        'compression-level': compressionLevel,
+        'progress': progress,
+        'offline': offline,
+        'cid-base': cidBase,
+        'upgrade-cidv0-in-output': upgradeCidv0InOutput
+      });
+
+  /// `ipfs id`: Show IPFS node id info.
+  Stream<KuboCoreCommandsIdOutput> id(
+          $core.KuboCoreIpfsNode node, $context.Context ctx, String? peerid,
+          {String? format,
+          String? peeridBase,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'id',
+          [if (peerid != null) peerid],
+          [],
+          {
+            'format': format,
+            'peerid-base': peeridBase,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => KuboCoreCommandsIdOutput.$dec(r));
+
+  /// `ipfs key export`: Export a keypair
+  Stream<Uint8List> keyExport(
+          $core.KuboCoreIpfsNode node, $context.Context ctx, String name,
+          {String? output,
+          String? format,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdBytes(node, ctx, 'key export', [
+        name
+      ], [], {
+        'output': output,
+        'format': format,
+        'offline': offline,
+        'cid-base': cidBase,
+        'upgrade-cidv0-in-output': upgradeCidv0InOutput
+      });
+
+  /// `ipfs key gen`: Create a new keypair
+  Stream<KuboCoreCommandsKeyOutput> keyGen(
+          $core.KuboCoreIpfsNode node, $context.Context ctx, String name,
+          {String? type,
+          int? size,
+          String? ipnsBase,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'key gen',
+          [name],
+          [],
+          {
+            'type': type,
+            'size': size,
+            'ipns-base': ipnsBase,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => KuboCoreCommandsKeyOutput.$dec(r));
+
+  /// `ipfs key import`: Import a key and prints imported key id
+  Stream<KuboCoreCommandsKeyOutput> keyImport($core.KuboCoreIpfsNode node,
+          $context.Context ctx, String name, $files.BoxoFilesNode key,
+          {String? ipnsBase,
+          String? format,
+          bool? allowAnyKeyType,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'key import',
+          [name],
+          [key],
+          {
+            'ipns-base': ipnsBase,
+            'format': format,
+            'allow-any-key-type': allowAnyKeyType,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => KuboCoreCommandsKeyOutput.$dec(r));
+
+  /// `ipfs key list`: Deprecated: use 'ipfs key ls' instead.
+  @Deprecated('deprecated in kubo')
+  Stream<KuboCoreCommandsKeyOutputList> keyList(
+          $core.KuboCoreIpfsNode node, $context.Context ctx,
+          {bool? l,
+          String? ipnsBase,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'key list',
+          [],
+          [],
+          {
+            'l': l,
+            'ipns-base': ipnsBase,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => KuboCoreCommandsKeyOutputList.$dec(r));
+
+  /// `ipfs key ls`: List all local keypairs.
+  Stream<KuboCoreCommandsKeyOutputList> keyLs(
+          $core.KuboCoreIpfsNode node, $context.Context ctx,
+          {bool? l,
+          String? ipnsBase,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'key ls',
+          [],
+          [],
+          {
+            'l': l,
+            'ipns-base': ipnsBase,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => KuboCoreCommandsKeyOutputList.$dec(r));
+
+  /// `ipfs key rename`: Rename a keypair.
+  Stream<KuboCoreCommandsKeyRenameOutput> keyRename($core.KuboCoreIpfsNode node,
+          $context.Context ctx, String name, String newName,
+          {bool? force,
+          String? ipnsBase,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'key rename',
+          [name, newName],
+          [],
+          {
+            'force': force,
+            'ipns-base': ipnsBase,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => KuboCoreCommandsKeyRenameOutput.$dec(r));
+
+  /// `ipfs key rm`: Remove a keypair.
+  Stream<KuboCoreCommandsKeyOutputList> keyRm(
+          $core.KuboCoreIpfsNode node, $context.Context ctx, List<String> name,
+          {bool? l,
+          String? ipnsBase,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'key rm',
+          [...name],
+          [],
+          {
+            'l': l,
+            'ipns-base': ipnsBase,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => KuboCoreCommandsKeyOutputList.$dec(r));
+
+  /// `ipfs key rotate`: Rotates the IPFS identity.
+  Stream<Object?> keyRotate($core.KuboCoreIpfsNode node, $context.Context ctx,
+          {String? oldkey,
+          String? type,
+          int? size,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdDynStream(node, ctx, 'key rotate', [], [], {
+        'oldkey': oldkey,
+        'type': type,
+        'size': size,
+        'offline': offline,
+        'cid-base': cidBase,
+        'upgrade-cidv0-in-output': upgradeCidv0InOutput
+      });
+
+  /// `ipfs key sign`: Generates a signature for the given data with a specified key. Useful for proving the key ownership.
+  ///
+  /// Experimental in kubo.
+  Stream<KuboCoreCommandsKeySignOutput> keySign($core.KuboCoreIpfsNode node,
+          $context.Context ctx, $files.BoxoFilesNode data,
+          {String? key,
+          String? ipnsBase,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'key sign',
+          [],
+          [data],
+          {
+            'key': key,
+            'ipns-base': ipnsBase,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => KuboCoreCommandsKeySignOutput.$dec(r));
+
+  /// `ipfs key verify`: Verify that the given data and signature match.
+  ///
+  /// Experimental in kubo.
+  Stream<KuboCoreCommandsKeyVerifyOutput> keyVerify($core.KuboCoreIpfsNode node,
+          $context.Context ctx, $files.BoxoFilesNode data,
+          {String? key,
+          String? signature,
+          String? ipnsBase,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'key verify',
+          [],
+          [data],
+          {
+            'key': key,
+            'signature': signature,
+            'ipns-base': ipnsBase,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => KuboCoreCommandsKeyVerifyOutput.$dec(r));
+
+  /// `ipfs log level`: Change or get the logging level.
+  Stream<KuboCoreCommandsLogLevelOutput> logLevel($core.KuboCoreIpfsNode node,
+          $context.Context ctx, String? subsystem, String? level,
+          {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'log level',
+          [if (subsystem != null) subsystem, if (level != null) level],
+          [],
+          {
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => KuboCoreCommandsLogLevelOutput.$dec(r));
+
+  /// `ipfs log ls`: List the logging subsystems.
+  Stream<KuboCoreCommandsStringList> logLs(
+          $core.KuboCoreIpfsNode node, $context.Context ctx,
+          {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'log ls',
+          [],
+          [],
+          {
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => KuboCoreCommandsStringList.$dec(r));
+
+  /// `ipfs log tail`: Read and output log messages.
+  ///
+  /// Experimental in kubo.
+  Stream<Uint8List> logTail($core.KuboCoreIpfsNode node, $context.Context ctx,
+          {String? logLevel,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdBytes(node, ctx, 'log tail', [], [], {
+        'log-level': logLevel,
+        'offline': offline,
+        'cid-base': cidBase,
+        'upgrade-cidv0-in-output': upgradeCidv0InOutput
+      });
+
+  /// `ipfs ls`: List directory contents for Unix filesystem objects.
+  Stream<KuboCoreCommandsLsOutput> ls($core.KuboCoreIpfsNode node,
+          $context.Context ctx, List<String> ipfsPath,
+          {bool? headers,
+          bool? resolveType,
+          bool? size,
+          bool? stream,
+          bool? long,
+          bool? human,
+          bool? sortSize,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'ls',
+          [...ipfsPath],
+          [],
+          {
+            'headers': headers,
+            'resolve-type': resolveType,
+            'size': size,
+            'stream': stream,
+            'long': long,
+            'human': human,
+            'sort-size': sortSize,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => KuboCoreCommandsLsOutput.$dec(r));
+
+  /// `ipfs multibase decode`: Decode multibase string
+  Stream<Uint8List> multibaseDecode($core.KuboCoreIpfsNode node,
+          $context.Context ctx, $files.BoxoFilesNode encodedFile,
+          {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
+      $cmdBytes(node, ctx, 'multibase decode', [], [
+        encodedFile
+      ], {
+        'offline': offline,
+        'cid-base': cidBase,
+        'upgrade-cidv0-in-output': upgradeCidv0InOutput
+      });
+
+  /// `ipfs multibase encode`: Encode data into multibase string
+  Stream<Uint8List> multibaseEncode($core.KuboCoreIpfsNode node,
+          $context.Context ctx, $files.BoxoFilesNode file,
+          {String? b,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdBytes(node, ctx, 'multibase encode', [], [
+        file
+      ], {
+        'b': b,
+        'offline': offline,
+        'cid-base': cidBase,
+        'upgrade-cidv0-in-output': upgradeCidv0InOutput
+      });
+
+  /// `ipfs multibase list`: List available multibase encodings.
+  Stream<List<KuboCoreCommandsCodeAndName>> multibaseList(
+          $core.KuboCoreIpfsNode node, $context.Context ctx,
+          {bool? prefix,
+          bool? numeric,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'multibase list',
+          [],
+          [],
+          {
+            'prefix': prefix,
+            'numeric': numeric,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => r.list(() => KuboCoreCommandsCodeAndName.$dec(r)));
+
+  /// `ipfs multibase transcode`: Transcode multibase string between bases
+  Stream<Uint8List> multibaseTranscode($core.KuboCoreIpfsNode node,
+          $context.Context ctx, $files.BoxoFilesNode encodedFile,
+          {String? b,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdBytes(node, ctx, 'multibase transcode', [], [
+        encodedFile
+      ], {
+        'b': b,
+        'offline': offline,
+        'cid-base': cidBase,
+        'upgrade-cidv0-in-output': upgradeCidv0InOutput
+      });
+
+  /// `ipfs name get`: Retrieve a signed IPNS record.
+  ///
+  /// Experimental in kubo.
+  Stream<Uint8List> nameGet(
+          $core.KuboCoreIpfsNode node, $context.Context ctx, String name,
+          {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
+      $cmdBytes(node, ctx, 'name get', [
+        name
+      ], [], {
+        'offline': offline,
+        'cid-base': cidBase,
+        'upgrade-cidv0-in-output': upgradeCidv0InOutput
+      });
+
+  /// `ipfs name inspect`: Inspects an IPNS Record
+  ///
+  /// Experimental in kubo.
+  Stream<$name.KuboCoreCommandsNameIpnsInspectResult> nameInspect(
+          $core.KuboCoreIpfsNode node,
+          $context.Context ctx,
+          $files.BoxoFilesNode record,
+          {String? verify,
+          bool? dump,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'name inspect',
+          [],
+          [record],
+          {
+            'verify': verify,
+            'dump': dump,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => $name.KuboCoreCommandsNameIpnsInspectResult.$dec(r));
+
+  /// `ipfs name publish`: Publish IPNS names.
+  Stream<$name.KuboCoreCommandsNameIpnsEntry> namePublish(
+          $core.KuboCoreIpfsNode node, $context.Context ctx, String ipfsPath,
+          {String? key,
+          bool? resolve,
+          String? lifetime,
+          String? ttl,
+          bool? quieter,
+          bool? v1compat,
+          bool? allowOffline,
+          bool? allowDelegated,
+          int? sequence,
+          String? ipnsBase,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'name publish',
+          [ipfsPath],
+          [],
+          {
+            'key': key,
+            'resolve': resolve,
+            'lifetime': lifetime,
+            'ttl': ttl,
+            'quieter': quieter,
+            'v1compat': v1compat,
+            'allow-offline': allowOffline,
+            'allow-delegated': allowDelegated,
+            'sequence': sequence,
+            'ipns-base': ipnsBase,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => $name.KuboCoreCommandsNameIpnsEntry.$dec(r));
+
+  /// `ipfs name pubsub cancel`: Cancel a name subscription.
+  ///
+  /// Experimental in kubo.
+  Stream<$name.KuboCoreCommandsNameIpnsPubsubCancel> namePubsubCancel(
+          $core.KuboCoreIpfsNode node, $context.Context ctx, String name,
+          {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'name pubsub cancel',
+          [name],
+          [],
+          {
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => $name.KuboCoreCommandsNameIpnsPubsubCancel.$dec(r));
+
+  /// `ipfs name pubsub state`: Query the state of IPNS pubsub.
+  ///
+  /// Experimental in kubo.
+  Stream<$name.KuboCoreCommandsNameIpnsPubsubState> namePubsubState(
+          $core.KuboCoreIpfsNode node, $context.Context ctx,
+          {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'name pubsub state',
+          [],
+          [],
+          {
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => $name.KuboCoreCommandsNameIpnsPubsubState.$dec(r));
+
+  /// `ipfs name pubsub subs`: Show current name subscriptions.
+  ///
+  /// Experimental in kubo.
+  Stream<$name.KuboCoreCommandsNameStringList> namePubsubSubs(
+          $core.KuboCoreIpfsNode node, $context.Context ctx,
+          {String? ipnsBase,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'name pubsub subs',
+          [],
+          [],
+          {
+            'ipns-base': ipnsBase,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => $name.KuboCoreCommandsNameStringList.$dec(r));
+
+  /// `ipfs name put`: Store a pre-signed IPNS record in the routing system.
+  ///
+  /// Experimental in kubo.
+  Stream<$name.KuboCoreCommandsNameIpnsEntry> namePut(
+          $core.KuboCoreIpfsNode node,
+          $context.Context ctx,
+          String name,
+          $files.BoxoFilesNode record,
+          {bool? force,
+          bool? allowOffline,
+          bool? allowDelegated,
+          bool? quiet,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'name put',
+          [name],
+          [record],
+          {
+            'force': force,
+            'allow-offline': allowOffline,
+            'allow-delegated': allowDelegated,
+            'quiet': quiet,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => $name.KuboCoreCommandsNameIpnsEntry.$dec(r));
+
+  /// `ipfs name resolve`: Resolve IPNS names.
+  Stream<$name.KuboCoreCommandsNameResolvedPath> nameResolve(
+          $core.KuboCoreIpfsNode node, $context.Context ctx, String? name,
+          {bool? recursive,
+          bool? nocache,
+          int? dhtRecordCount,
+          String? dhtTimeout,
+          bool? stream,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'name resolve',
+          [if (name != null) name],
+          [],
+          {
+            'recursive': recursive,
+            'nocache': nocache,
+            'dht-record-count': dhtRecordCount,
+            'dht-timeout': dhtTimeout,
+            'stream': stream,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => $name.KuboCoreCommandsNameResolvedPath.$dec(r));
+
+  /// `ipfs object diff`: Display the diff between two IPFS objects.
+  @Deprecated('deprecated in kubo')
+  Stream<$object.KuboCoreCommandsObjectChanges> objectDiff(
+          $core.KuboCoreIpfsNode node,
+          $context.Context ctx,
+          String objA,
+          String objB,
+          {bool? verbose,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'object diff',
+          [objA, objB],
+          [],
+          {
+            'verbose': verbose,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => $object.KuboCoreCommandsObjectChanges.$dec(r));
+
+  /// `ipfs object patch add-link`: Deprecated way to add a link to a given dag-pb.
+  @Deprecated('deprecated in kubo')
+  Stream<$object.KuboCoreCommandsObject> objectPatchAddLink(
+          $core.KuboCoreIpfsNode node,
+          $context.Context ctx,
+          String root,
+          String name,
+          String ref,
+          {bool? create,
+          bool? allowNonUnixfs,
+          bool? allowBigBlock,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'object patch add-link',
+          [root, name, ref],
+          [],
+          {
+            'create': create,
+            'allow-non-unixfs': allowNonUnixfs,
+            'allow-big-block': allowBigBlock,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => $object.KuboCoreCommandsObject.$dec(r));
+
+  /// `ipfs object patch rm-link`: Deprecated way to remove a link from dag-pb object.
+  @Deprecated('deprecated in kubo')
+  Stream<$object.KuboCoreCommandsObject> objectPatchRmLink(
+          $core.KuboCoreIpfsNode node,
+          $context.Context ctx,
+          String root,
+          String name,
+          {bool? allowNonUnixfs,
+          bool? allowBigBlock,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'object patch rm-link',
+          [root, name],
+          [],
+          {
+            'allow-non-unixfs': allowNonUnixfs,
+            'allow-big-block': allowBigBlock,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => $object.KuboCoreCommandsObject.$dec(r));
+
+  /// `ipfs p2p close`: Stop listening for new connections to forward.
+  ///
+  /// Experimental in kubo.
+  Stream<int> p2pClose($core.KuboCoreIpfsNode node, $context.Context ctx,
+          {bool? all,
+          String? protocol,
+          String? listenAddress,
+          String? targetAddress,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'p2p close',
+          [],
+          [],
+          {
+            'all': all,
+            'protocol': protocol,
+            'listen-address': listenAddress,
+            'target-address': targetAddress,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => r.i64());
+
+  /// `ipfs p2p forward`: Forward connections to libp2p service.
+  ///
+  /// Experimental in kubo.
+  Stream<KuboCoreCommandsP2pForegroundOutput> p2pForward(
+          $core.KuboCoreIpfsNode node,
+          $context.Context ctx,
+          String protocol,
+          String listenAddress,
+          String targetAddress,
+          {bool? allowCustomProtocol,
+          bool? foreground,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'p2p forward',
+          [protocol, listenAddress, targetAddress],
+          [],
+          {
+            'allow-custom-protocol': allowCustomProtocol,
+            'foreground': foreground,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => KuboCoreCommandsP2pForegroundOutput.$dec(r));
+
+  /// `ipfs p2p listen`: Create libp2p service.
+  ///
+  /// Experimental in kubo.
+  Stream<KuboCoreCommandsP2pForegroundOutput> p2pListen(
+          $core.KuboCoreIpfsNode node,
+          $context.Context ctx,
+          String protocol,
+          String targetAddress,
+          {bool? allowCustomProtocol,
+          bool? reportPeerId,
+          bool? foreground,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'p2p listen',
+          [protocol, targetAddress],
+          [],
+          {
+            'allow-custom-protocol': allowCustomProtocol,
+            'report-peer-id': reportPeerId,
+            'foreground': foreground,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => KuboCoreCommandsP2pForegroundOutput.$dec(r));
+
+  /// `ipfs p2p ls`: List active p2p listeners.
+  ///
+  /// Experimental in kubo.
+  Stream<KuboCoreCommandsP2plsOutput> p2pLs(
+          $core.KuboCoreIpfsNode node, $context.Context ctx,
+          {bool? headers,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'p2p ls',
+          [],
+          [],
+          {
+            'headers': headers,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => KuboCoreCommandsP2plsOutput.$dec(r));
+
+  /// `ipfs p2p stream close`: Close active p2p stream.
+  ///
+  /// Experimental in kubo.
+  Stream<Object?> p2pStreamClose(
+          $core.KuboCoreIpfsNode node, $context.Context ctx, String? id,
+          {bool? all,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdDynStream(node, ctx, 'p2p stream close', [
+        if (id != null) id
+      ], [], {
+        'all': all,
+        'offline': offline,
+        'cid-base': cidBase,
+        'upgrade-cidv0-in-output': upgradeCidv0InOutput
+      });
+
+  /// `ipfs p2p stream ls`: List active p2p streams.
+  ///
+  /// Experimental in kubo.
+  Stream<KuboCoreCommandsP2pStreamsOutput> p2pStreamLs(
+          $core.KuboCoreIpfsNode node, $context.Context ctx,
+          {bool? headers,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'p2p stream ls',
+          [],
+          [],
+          {
+            'headers': headers,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => KuboCoreCommandsP2pStreamsOutput.$dec(r));
+
+  /// `ipfs pin add`: Pin objects to local storage.
+  Stream<$pin.KuboCoreCommandsPinAddPinOutput> pinAdd(
+          $core.KuboCoreIpfsNode node,
+          $context.Context ctx,
+          List<String> ipfsPath,
+          {bool? recursive,
+          String? name,
+          bool? progress,
+          bool? fastProvideRoot,
+          bool? fastProvideDag,
+          bool? fastProvideWait,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'pin add',
+          [...ipfsPath],
+          [],
+          {
+            'recursive': recursive,
+            'name': name,
+            'progress': progress,
+            'fast-provide-root': fastProvideRoot,
+            'fast-provide-dag': fastProvideDag,
+            'fast-provide-wait': fastProvideWait,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => $pin.KuboCoreCommandsPinAddPinOutput.$dec(r));
+
+  /// `ipfs pin ls`: List objects pinned to local storage.
+  Stream<$pin.KuboCoreCommandsPinLsOutputWrapper> pinLs(
+          $core.KuboCoreIpfsNode node,
+          $context.Context ctx,
+          List<String> ipfsPath,
+          {String? type,
+          bool? quiet,
+          String? name,
+          bool? stream,
+          bool? names,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'pin ls',
+          [...ipfsPath],
+          [],
+          {
+            'type': type,
+            'quiet': quiet,
+            'name': name,
+            'stream': stream,
+            'names': names,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => $pin.KuboCoreCommandsPinLsOutputWrapper.$dec(r));
+
+  /// `ipfs pin remote add`: Pin object to remote pinning service.
+  Stream<$pin.KuboCoreCommandsPinRemotePinOutput> pinRemoteAdd(
+          $core.KuboCoreIpfsNode node, $context.Context ctx, String ipfsPath,
+          {String? service,
+          String? name,
+          bool? background,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'pin remote add',
+          [ipfsPath],
+          [],
+          {
+            'service': service,
+            'name': name,
+            'background': background,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => $pin.KuboCoreCommandsPinRemotePinOutput.$dec(r));
+
+  /// `ipfs pin remote ls`: List objects pinned to remote pinning service.
+  Stream<$pin.KuboCoreCommandsPinRemotePinOutput> pinRemoteLs(
+          $core.KuboCoreIpfsNode node, $context.Context ctx,
+          {String? service,
+          String? name,
+          List<String>? cid,
+          List<String>? status,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'pin remote ls',
+          [],
+          [],
+          {
+            'service': service,
+            'name': name,
+            'cid': cid,
+            'status': status,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => $pin.KuboCoreCommandsPinRemotePinOutput.$dec(r));
+
+  /// `ipfs pin remote rm`: Remove pins from remote pinning service.
+  Stream<Object?> pinRemoteRm($core.KuboCoreIpfsNode node, $context.Context ctx,
+          {String? service,
+          String? name,
+          List<String>? cid,
+          List<String>? status,
+          bool? force,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdDynStream(node, ctx, 'pin remote rm', [], [], {
+        'service': service,
+        'name': name,
+        'cid': cid,
+        'status': status,
+        'force': force,
+        'offline': offline,
+        'cid-base': cidBase,
+        'upgrade-cidv0-in-output': upgradeCidv0InOutput
+      });
+
+  /// `ipfs pin remote service add`: Add remote pinning service.
+  Stream<Object?> pinRemoteServiceAdd($core.KuboCoreIpfsNode node,
+          $context.Context ctx, String service, String endpoint, String key,
+          {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
+      $cmdDynStream(node, ctx, 'pin remote service add', [
+        service,
+        endpoint,
+        key
+      ], [], {
+        'offline': offline,
+        'cid-base': cidBase,
+        'upgrade-cidv0-in-output': upgradeCidv0InOutput
+      });
+
+  /// `ipfs pin remote service ls`: List remote pinning services.
+  Stream<$pin.KuboCoreCommandsPinServicesList> pinRemoteServiceLs(
+          $core.KuboCoreIpfsNode node, $context.Context ctx,
+          {bool? stat,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'pin remote service ls',
+          [],
+          [],
+          {
+            'stat': stat,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => $pin.KuboCoreCommandsPinServicesList.$dec(r));
+
+  /// `ipfs pin remote service rm`: Remove remote pinning service.
+  Stream<Object?> pinRemoteServiceRm(
+          $core.KuboCoreIpfsNode node, $context.Context ctx, String service,
+          {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
+      $cmdDynStream(node, ctx, 'pin remote service rm', [
+        service
+      ], [], {
+        'offline': offline,
+        'cid-base': cidBase,
+        'upgrade-cidv0-in-output': upgradeCidv0InOutput
+      });
+
+  /// `ipfs pin rm`: Remove object from pin-list.
+  Stream<$pin.KuboCoreCommandsPinOutput> pinRm($core.KuboCoreIpfsNode node,
+          $context.Context ctx, List<String> ipfsPath,
+          {bool? recursive,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'pin rm',
+          [...ipfsPath],
+          [],
+          {
+            'recursive': recursive,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => $pin.KuboCoreCommandsPinOutput.$dec(r));
+
+  /// `ipfs pin update`: Update a recursive pin.
+  Stream<$pin.KuboCoreCommandsPinOutput> pinUpdate($core.KuboCoreIpfsNode node,
+          $context.Context ctx, String fromPath, String toPath,
+          {bool? unpin,
+          bool? fastProvideRoot,
+          bool? fastProvideDag,
+          bool? fastProvideWait,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'pin update',
+          [fromPath, toPath],
+          [],
+          {
+            'unpin': unpin,
+            'fast-provide-root': fastProvideRoot,
+            'fast-provide-dag': fastProvideDag,
+            'fast-provide-wait': fastProvideWait,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => $pin.KuboCoreCommandsPinOutput.$dec(r));
+
+  /// `ipfs pin verify`: Verify that recursive pins are complete.
+  Stream<$pin.KuboCoreCommandsPinVerifyRes> pinVerify(
+          $core.KuboCoreIpfsNode node, $context.Context ctx,
+          {bool? verbose,
+          bool? quiet,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'pin verify',
+          [],
+          [],
+          {
+            'verbose': verbose,
+            'quiet': quiet,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => $pin.KuboCoreCommandsPinVerifyRes.$dec(r));
+
+  /// `ipfs ping`: Send echo request packets to IPFS hosts.
+  Stream<KuboCoreCommandsPingResult> ping($core.KuboCoreIpfsNode node,
+          $context.Context ctx, List<String> peerId,
+          {int? count,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'ping',
+          [...peerId],
+          [],
+          {
+            'count': count,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => KuboCoreCommandsPingResult.$dec(r));
+
+  /// `ipfs provide clear`: Clear all CIDs from the provide queue.
+  ///
+  /// Experimental in kubo.
+  Stream<int> provideClear($core.KuboCoreIpfsNode node, $context.Context ctx,
+          {bool? quiet,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'provide clear',
+          [],
+          [],
+          {
+            'quiet': quiet,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => r.i64());
+
+  /// `ipfs provide once`: Announce CIDs to the routing system on demand.
+  ///
+  /// Experimental in kubo.
+  Stream<KuboCoreCommandsProvideOnceEvent> provideOnce(
+          $core.KuboCoreIpfsNode node, $context.Context ctx, List<String> cid,
+          {bool? recursive,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'provide once',
+          [...cid],
+          [],
+          {
+            'recursive': recursive,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => KuboCoreCommandsProvideOnceEvent.$dec(r));
+
+  /// `ipfs provide stat`: Show statistics about the provide system
+  ///
+  /// Experimental in kubo.
+  Stream<KuboCoreCommandsProvideStats> provideStat(
+          $core.KuboCoreIpfsNode node, $context.Context ctx,
+          {bool? lan,
+          bool? all,
+          bool? compact,
+          bool? connectivity,
+          bool? network,
+          bool? schedule,
+          bool? timings,
+          bool? workers,
+          bool? operations,
+          bool? queues,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'provide stat',
+          [],
+          [],
+          {
+            'lan': lan,
+            'all': all,
+            'compact': compact,
+            'connectivity': connectivity,
+            'network': network,
+            'schedule': schedule,
+            'timings': timings,
+            'workers': workers,
+            'operations': operations,
+            'queues': queues,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => KuboCoreCommandsProvideStats.$dec(r));
+
+  /// `ipfs pubsub ls`: List subscribed topics by name.
+  ///
+  /// Experimental in kubo.
+  Stream<KuboCoreCommandsStringList> pubsubLs(
+          $core.KuboCoreIpfsNode node, $context.Context ctx,
+          {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'pubsub ls',
+          [],
+          [],
+          {
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => KuboCoreCommandsStringList.$dec(r));
+
+  /// `ipfs pubsub peers`: List peers we are currently pubsubbing with.
+  ///
+  /// Experimental in kubo.
+  Stream<KuboCoreCommandsStringList> pubsubPeers(
+          $core.KuboCoreIpfsNode node, $context.Context ctx, String? topic,
+          {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'pubsub peers',
+          [if (topic != null) topic],
+          [],
+          {
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => KuboCoreCommandsStringList.$dec(r));
+
+  /// `ipfs pubsub pub`: Publish data to a given pubsub topic.
+  ///
+  /// Experimental in kubo.
+  Stream<Object?> pubsubPub($core.KuboCoreIpfsNode node, $context.Context ctx,
+          String topic, $files.BoxoFilesNode data,
+          {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
+      $cmdDynStream(node, ctx, 'pubsub pub', [
+        topic
+      ], [
+        data
+      ], {
+        'offline': offline,
+        'cid-base': cidBase,
+        'upgrade-cidv0-in-output': upgradeCidv0InOutput
+      });
+
+  /// `ipfs pubsub reset`: Reset pubsub validator state.
+  ///
+  /// Experimental in kubo.
+  Stream<KuboCoreCommandsPubsubResetResult> pubsubReset(
+          $core.KuboCoreIpfsNode node, $context.Context ctx,
+          {String? peer,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'pubsub reset',
+          [],
+          [],
+          {
+            'peer': peer,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => KuboCoreCommandsPubsubResetResult.$dec(r));
+
+  /// `ipfs pubsub sub`: Subscribe to messages on a given topic.
+  ///
+  /// Experimental in kubo.
+  Stream<KuboCoreCommandsPubsubMessage> pubsubSub(
+          $core.KuboCoreIpfsNode node, $context.Context ctx, String topic,
+          {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'pubsub sub',
+          [topic],
+          [],
+          {
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => KuboCoreCommandsPubsubMessage.$dec(r));
+
+  /// `ipfs refs`: List links (references) from an object.
+  Stream<KuboCoreCommandsRefWrapper> refs($core.KuboCoreIpfsNode node,
+          $context.Context ctx, List<String> ipfsPath,
+          {String? format,
+          bool? edges,
+          bool? unique,
+          bool? recursive,
+          int? maxDepth,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'refs',
+          [...ipfsPath],
+          [],
+          {
+            'format': format,
+            'edges': edges,
+            'unique': unique,
+            'recursive': recursive,
+            'max-depth': maxDepth,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => KuboCoreCommandsRefWrapper.$dec(r));
+
+  /// `ipfs refs local`: List all local references.
+  Stream<KuboCoreCommandsRefWrapper> refsLocal(
+          $core.KuboCoreIpfsNode node, $context.Context ctx,
+          {bool? edges,
+          String? format,
+          int? maxDepth,
+          bool? recursive,
+          bool? unique,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'refs local',
+          [],
+          [],
+          {
+            'edges': edges,
+            'format': format,
+            'max-depth': maxDepth,
+            'recursive': recursive,
+            'unique': unique,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => KuboCoreCommandsRefWrapper.$dec(r));
+
+  /// `ipfs repo gc`: Perform a garbage collection sweep on the repo.
+  Stream<KuboCoreCommandsGcResult> repoGc(
+          $core.KuboCoreIpfsNode node, $context.Context ctx,
+          {bool? streamErrors,
+          bool? quiet,
+          bool? silent,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'repo gc',
+          [],
+          [],
+          {
+            'stream-errors': streamErrors,
+            'quiet': quiet,
+            'silent': silent,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => KuboCoreCommandsGcResult.$dec(r));
+
+  /// `ipfs repo ls`: List all local references.
+  Stream<KuboCoreCommandsRefWrapper> repoLs(
+          $core.KuboCoreIpfsNode node, $context.Context ctx,
+          {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'repo ls',
+          [],
+          [],
+          {
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => KuboCoreCommandsRefWrapper.$dec(r));
+
+  /// `ipfs repo migrate`: Apply repository migrations to a specific version.
+  Stream<Object?> repoMigrate($core.KuboCoreIpfsNode node, $context.Context ctx,
+          {int? to,
+          bool? allowDowngrade,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdDynStream(node, ctx, 'repo migrate', [], [], {
+        'to': to,
+        'allow-downgrade': allowDowngrade,
+        'offline': offline,
+        'cid-base': cidBase,
+        'upgrade-cidv0-in-output': upgradeCidv0InOutput
+      });
+
+  /// `ipfs repo stat`: Get stats for the currently used repo.
+  Stream<$corerepo.KuboCoreCorerepoStat> repoStat(
+          $core.KuboCoreIpfsNode node, $context.Context ctx,
+          {bool? sizeOnly,
+          bool? human,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'repo stat',
+          [],
+          [],
+          {
+            'size-only': sizeOnly,
+            'human': human,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => $corerepo.KuboCoreCorerepoStat.$dec(r));
+
+  /// `ipfs repo verify`: Verify all blocks in repo are not corrupted.
+  Stream<KuboCoreCommandsVerifyProgress> repoVerify(
+          $core.KuboCoreIpfsNode node, $context.Context ctx,
+          {bool? drop,
+          bool? heal,
+          String? healTimeout,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'repo verify',
+          [],
+          [],
+          {
+            'drop': drop,
+            'heal': heal,
+            'heal-timeout': healTimeout,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => KuboCoreCommandsVerifyProgress.$dec(r));
+
+  /// `ipfs repo version`: Show the repo version.
+  Stream<KuboCoreCommandsRepoVersion> repoVersion(
+          $core.KuboCoreIpfsNode node, $context.Context ctx,
+          {bool? quiet,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'repo version',
+          [],
+          [],
+          {
+            'quiet': quiet,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => KuboCoreCommandsRepoVersion.$dec(r));
+
+  /// `ipfs resolve`: Resolve the value of names to IPFS.
+  Stream<$name.KuboCoreCommandsNameResolvedPath> resolve(
+          $core.KuboCoreIpfsNode node, $context.Context ctx, String name,
+          {bool? recursive,
+          int? dhtRecordCount,
+          String? dhtTimeout,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'resolve',
+          [name],
+          [],
+          {
+            'recursive': recursive,
+            'dht-record-count': dhtRecordCount,
+            'dht-timeout': dhtTimeout,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => $name.KuboCoreCommandsNameResolvedPath.$dec(r));
+
+  /// `ipfs routing findpeer`: Find the multiaddresses associated with a Peer ID.
+  Stream<$routing.Libp2pCoreRoutingQueryEvent> routingFindpeer(
+          $core.KuboCoreIpfsNode node,
+          $context.Context ctx,
+          List<String> peerId,
+          {bool? verbose,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'routing findpeer',
+          [...peerId],
+          [],
+          {
+            'verbose': verbose,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => $routing.Libp2pCoreRoutingQueryEvent.$dec(r));
+
+  /// `ipfs routing findprovs`: Find peers that can provide a specific value, given a key.
+  Stream<$routing.Libp2pCoreRoutingQueryEvent> routingFindprovs(
+          $core.KuboCoreIpfsNode node, $context.Context ctx, List<String> key,
+          {bool? verbose,
+          int? numProviders,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'routing findprovs',
+          [...key],
+          [],
+          {
+            'verbose': verbose,
+            'num-providers': numProviders,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => $routing.Libp2pCoreRoutingQueryEvent.$dec(r));
+
+  /// `ipfs routing get`: Given a key, query the routing system for its best value.
+  ///
+  /// Experimental in kubo.
+  Stream<$routing.Libp2pCoreRoutingQueryEvent> routingGet(
+          $core.KuboCoreIpfsNode node, $context.Context ctx, List<String> key,
+          {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'routing get',
+          [...key],
+          [],
+          {
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => $routing.Libp2pCoreRoutingQueryEvent.$dec(r));
+
+  /// `ipfs routing provide`: Deprecated, use 'ipfs provide once' instead.
+  @Deprecated('deprecated in kubo')
+  Stream<$routing.Libp2pCoreRoutingQueryEvent> routingProvide(
+          $core.KuboCoreIpfsNode node, $context.Context ctx, List<String> key,
+          {bool? verbose,
+          bool? recursive,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'routing provide',
+          [...key],
+          [],
+          {
+            'verbose': verbose,
+            'recursive': recursive,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => $routing.Libp2pCoreRoutingQueryEvent.$dec(r));
+
+  /// `ipfs routing put`: Write a key/value pair to the routing system.
+  ///
+  /// Experimental in kubo.
+  Stream<$routing.Libp2pCoreRoutingQueryEvent> routingPut(
+          $core.KuboCoreIpfsNode node,
+          $context.Context ctx,
+          String key,
+          $files.BoxoFilesNode valueFile,
+          {bool? allowOffline,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'routing put',
+          [key],
+          [valueFile],
+          {
+            'allow-offline': allowOffline,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => $routing.Libp2pCoreRoutingQueryEvent.$dec(r));
+
+  /// `ipfs routing reprovide`: Trigger a reprovide cycle (legacy provider only).
+  @Deprecated('deprecated in kubo')
+  Stream<Object?> routingReprovide(
+          $core.KuboCoreIpfsNode node, $context.Context ctx,
+          {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
+      $cmdDynStream(node, ctx, 'routing reprovide', [], [], {
+        'offline': offline,
+        'cid-base': cidBase,
+        'upgrade-cidv0-in-output': upgradeCidv0InOutput
+      });
+
+  /// `ipfs stats bitswap`: Show some diagnostic information on the bitswap agent.
+  Stream<$bitswap.BoxoBitswapStat> statsBitswap(
+          $core.KuboCoreIpfsNode node, $context.Context ctx,
+          {bool? verbose,
+          bool? human,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'stats bitswap',
+          [],
+          [],
+          {
+            'verbose': verbose,
+            'human': human,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => $bitswap.BoxoBitswapStat(
+              wantlist: r.list(() => $cid.Cid(r.str())),
+              peers: r.list(() => r.str()),
+              blocksReceived: r.i64(),
+              dataReceived: r.i64(),
+              dupBlksReceived: r.i64(),
+              dupDataReceived: r.i64(),
+              messagesReceived: r.i64(),
+              blocksSent: r.i64(),
+              dataSent: r.i64()));
+
+  /// `ipfs stats bw`: Print IPFS bandwidth information.
+  Stream<$metrics.Libp2pCoreMetricsStats> statsBw(
+          $core.KuboCoreIpfsNode node, $context.Context ctx,
+          {String? peer,
+          String? proto,
+          bool? poll,
+          String? interval,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'stats bw',
+          [],
+          [],
+          {
+            'peer': peer,
+            'proto': proto,
+            'poll': poll,
+            'interval': interval,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => $metrics.Libp2pCoreMetricsStats.$dec(r));
+
+  /// `ipfs stats dht`: Returns statistics about the node's DHT(s).
+  Stream<KuboCoreCommandsDhtStat> statsDht(
+          $core.KuboCoreIpfsNode node, $context.Context ctx, List<String> dht,
+          {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'stats dht',
+          [...dht],
+          [],
+          {
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => KuboCoreCommandsDhtStat.$dec(r));
+
+  /// `ipfs stats provide`: Deprecated command, use 'ipfs provide stat' instead.
+  @Deprecated('deprecated in kubo')
+  Stream<KuboCoreCommandsProvideStats> statsProvide(
+          $core.KuboCoreIpfsNode node, $context.Context ctx,
+          {bool? lan,
+          bool? all,
+          bool? compact,
+          bool? connectivity,
+          bool? network,
+          bool? schedule,
+          bool? timings,
+          bool? workers,
+          bool? operations,
+          bool? queues,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'stats provide',
+          [],
+          [],
+          {
+            'lan': lan,
+            'all': all,
+            'compact': compact,
+            'connectivity': connectivity,
+            'network': network,
+            'schedule': schedule,
+            'timings': timings,
+            'workers': workers,
+            'operations': operations,
+            'queues': queues,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => KuboCoreCommandsProvideStats.$dec(r));
+
+  /// `ipfs stats repo`: Get stats for the currently used repo.
+  Stream<$corerepo.KuboCoreCorerepoStat> statsRepo(
+          $core.KuboCoreIpfsNode node, $context.Context ctx,
+          {bool? sizeOnly,
+          bool? human,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'stats repo',
+          [],
+          [],
+          {
+            'size-only': sizeOnly,
+            'human': human,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => $corerepo.KuboCoreCorerepoStat.$dec(r));
+
+  /// `ipfs stats reprovide`: Deprecated command, use 'ipfs provide stat' instead.
+  @Deprecated('deprecated in kubo')
+  Stream<KuboCoreCommandsProvideStats> statsReprovide(
+          $core.KuboCoreIpfsNode node, $context.Context ctx,
+          {bool? lan,
+          bool? all,
+          bool? compact,
+          bool? connectivity,
+          bool? network,
+          bool? schedule,
+          bool? timings,
+          bool? workers,
+          bool? operations,
+          bool? queues,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'stats reprovide',
+          [],
+          [],
+          {
+            'lan': lan,
+            'all': all,
+            'compact': compact,
+            'connectivity': connectivity,
+            'network': network,
+            'schedule': schedule,
+            'timings': timings,
+            'workers': workers,
+            'operations': operations,
+            'queues': queues,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => KuboCoreCommandsProvideStats.$dec(r));
+
+  /// `ipfs swarm addrs`: List known addresses. Useful for debugging.
+  Stream<KuboCoreCommandsAddrMap> swarmAddrs(
+          $core.KuboCoreIpfsNode node, $context.Context ctx,
+          {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'swarm addrs',
+          [],
+          [],
+          {
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => KuboCoreCommandsAddrMap.$dec(r));
+
+  /// `ipfs swarm addrs autonat`: Show address reachability as determined by AutoNAT V2.
+  Stream<KuboCoreCommandsAutoNatResult> swarmAddrsAutonat(
+          $core.KuboCoreIpfsNode node, $context.Context ctx,
+          {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'swarm addrs autonat',
+          [],
+          [],
+          {
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => KuboCoreCommandsAutoNatResult.$dec(r));
+
+  /// `ipfs swarm addrs listen`: List interface listening addresses.
+  Stream<KuboCoreCommandsStringList> swarmAddrsListen(
+          $core.KuboCoreIpfsNode node, $context.Context ctx,
+          {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'swarm addrs listen',
+          [],
+          [],
+          {
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => KuboCoreCommandsStringList.$dec(r));
+
+  /// `ipfs swarm addrs local`: List local addresses.
+  Stream<KuboCoreCommandsStringList> swarmAddrsLocal(
+          $core.KuboCoreIpfsNode node, $context.Context ctx,
+          {bool? id,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'swarm addrs local',
+          [],
+          [],
+          {
+            'id': id,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => KuboCoreCommandsStringList.$dec(r));
+
+  /// `ipfs swarm connect`: Open connection to a given peer.
+  Stream<KuboCoreCommandsStringList> swarmConnect($core.KuboCoreIpfsNode node,
+          $context.Context ctx, List<String> address,
+          {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'swarm connect',
+          [...address],
+          [],
+          {
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => KuboCoreCommandsStringList.$dec(r));
+
+  /// `ipfs swarm disconnect`: Close connection to a given address.
+  Stream<KuboCoreCommandsStringList> swarmDisconnect(
+          $core.KuboCoreIpfsNode node,
+          $context.Context ctx,
+          List<String> address,
+          {bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'swarm disconnect',
+          [...address],
+          [],
+          {
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => KuboCoreCommandsStringList.$dec(r));
+
+  /// `ipfs swarm filters`: Manipulate address filters.
+  Stream<KuboCoreCommandsStringList> swarmFilters(
+          $core.KuboCoreIpfsNode node, $context.Context ctx,
+          {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'swarm filters',
+          [],
+          [],
+          {
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => KuboCoreCommandsStringList.$dec(r));
+
+  /// `ipfs swarm filters add`: Add an address filter.
+  Stream<KuboCoreCommandsStringList> swarmFiltersAdd(
+          $core.KuboCoreIpfsNode node,
+          $context.Context ctx,
+          List<String> address,
+          {bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'swarm filters add',
+          [...address],
+          [],
+          {
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => KuboCoreCommandsStringList.$dec(r));
+
+  /// `ipfs swarm filters rm`: Remove an address filter.
+  Stream<KuboCoreCommandsStringList> swarmFiltersRm($core.KuboCoreIpfsNode node,
+          $context.Context ctx, List<String> address,
+          {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'swarm filters rm',
+          [...address],
+          [],
+          {
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => KuboCoreCommandsStringList.$dec(r));
+
+  /// `ipfs swarm peering add`: Add peers into the peering subsystem.
+  Stream<KuboCoreCommandsPeeringResult> swarmPeeringAdd(
+          $core.KuboCoreIpfsNode node,
+          $context.Context ctx,
+          List<String> address,
+          {bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'swarm peering add',
+          [...address],
+          [],
+          {
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => KuboCoreCommandsPeeringResult.$dec(r));
+
+  /// `ipfs swarm peering ls`: List peers registered in the peering subsystem.
+  Stream<KuboCoreCommandsAddrInfos> swarmPeeringLs(
+          $core.KuboCoreIpfsNode node, $context.Context ctx,
+          {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'swarm peering ls',
+          [],
+          [],
+          {
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => KuboCoreCommandsAddrInfos.$dec(r));
+
+  /// `ipfs swarm peering rm`: Remove a peer from the peering subsystem.
+  Stream<KuboCoreCommandsPeeringResult> swarmPeeringRm(
+          $core.KuboCoreIpfsNode node, $context.Context ctx, List<String> id,
+          {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'swarm peering rm',
+          [...id],
+          [],
+          {
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => KuboCoreCommandsPeeringResult.$dec(r));
+
+  /// `ipfs swarm peers`: List peers with open connections.
+  Stream<KuboCoreCommandsConnInfos> swarmPeers(
+          $core.KuboCoreIpfsNode node, $context.Context ctx,
+          {bool? verbose,
+          bool? streams,
+          bool? latency,
+          bool? direction,
+          bool? identify,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'swarm peers',
+          [],
+          [],
+          {
+            'verbose': verbose,
+            'streams': streams,
+            'latency': latency,
+            'direction': direction,
+            'identify': identify,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => KuboCoreCommandsConnInfos.$dec(r));
+
+  /// `ipfs swarm resources`: Get a summary of all resources accounted for by the libp2p Resource Manager.
+  ///
+  /// Experimental in kubo.
+  Stream<$libp2p.KuboCoreNodeLibp2pLimitsConfigAndUsage> swarmResources(
+          $core.KuboCoreIpfsNode node, $context.Context ctx,
+          {bool? offline, String? cidBase, bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'swarm resources',
+          [],
+          [],
+          {
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => $libp2p.KuboCoreNodeLibp2pLimitsConfigAndUsage.$dec(r));
+
+  /// `ipfs version`: Show IPFS version information.
+  Stream<$kubo.KuboVersionInfo> version(
+          $core.KuboCoreIpfsNode node, $context.Context ctx,
+          {bool? number,
+          bool? commit,
+          bool? repo,
+          bool? all,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'version',
+          [],
+          [],
+          {
+            'number': number,
+            'commit': commit,
+            'repo': repo,
+            'all': all,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => $kubo.KuboVersionInfo.$dec(r));
+
+  /// `ipfs version check`: Checks Kubo version against connected peers.
+  Stream<KuboCoreCommandsVersionCheckOutput> versionCheck(
+          $core.KuboCoreIpfsNode node, $context.Context ctx,
+          {int? minPercent,
+          bool? all,
+          bool? commit,
+          bool? number,
+          bool? repo,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'version check',
+          [],
+          [],
+          {
+            'min-percent': minPercent,
+            'all': all,
+            'commit': commit,
+            'number': number,
+            'repo': repo,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => KuboCoreCommandsVersionCheckOutput.$dec(r));
+
+  /// `ipfs version deps`: Shows information about dependencies used for build.
+  Stream<KuboCoreCommandsDependency> versionDeps(
+          $core.KuboCoreIpfsNode node, $context.Context ctx,
+          {bool? all,
+          bool? commit,
+          bool? number,
+          bool? repo,
+          bool? offline,
+          String? cidBase,
+          bool? upgradeCidv0InOutput}) =>
+      $cmdStream(
+          node,
+          ctx,
+          'version deps',
+          [],
+          [],
+          {
+            'all': all,
+            'commit': commit,
+            'number': number,
+            'repo': repo,
+            'offline': offline,
+            'cid-base': cidBase,
+            'upgrade-cidv0-in-output': upgradeCidv0InOutput
+          },
+          (r) => KuboCoreCommandsDependency.$dec(r));
 }

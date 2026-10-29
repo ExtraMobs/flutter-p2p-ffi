@@ -3,8 +3,8 @@
 part of 'dag.dart';
 
 /// Go: `dagcmd.ResolveOutput` (a kubo command output).
-final class ResolveOutput {
-  ResolveOutput.$dec($R r)
+final class KuboCoreCommandsDagResolveOutput {
+  KuboCoreCommandsDagResolveOutput.$dec($R r)
       : cid = $cid.Cid(r.str()),
         remPath = r.str();
 
@@ -16,13 +16,14 @@ final class ResolveOutput {
 }
 
 /// Go: `dagcmd.DagStatSummary` (a kubo command output).
-final class DagStatSummary {
-  DagStatSummary.$dec($R r)
+final class KuboCoreCommandsDagStatSummary {
+  KuboCoreCommandsDagStatSummary.$dec($R r)
       : uniqueBlocks = r.i64(),
         totalSize = r.i64(),
         sharedSize = r.i64(),
         ratio = r.f64(),
-        dagStatsArray = r.list(() => r.p() ? DagStat.$dec(r) : null);
+        dagStatsArray =
+            r.list(() => r.p() ? KuboCoreCommandsDagStat.$dec(r) : null);
 
   /// Go: `UniqueBlocks`.
   final int uniqueBlocks;
@@ -43,12 +44,12 @@ final class DagStatSummary {
   final double ratio;
 
   /// Go: `DagStatsArray`.
-  final List<DagStat?> dagStatsArray;
+  final List<KuboCoreCommandsDagStat?> dagStatsArray;
 }
 
 /// Go: `dagcmd.DagStat` (a kubo command output).
-final class DagStat {
-  DagStat.$dec($R r)
+final class KuboCoreCommandsDagStat {
+  KuboCoreCommandsDagStat.$dec($R r)
       : cid = r.str(),
         size = r.i64(),
         numBlocks = r.i64();

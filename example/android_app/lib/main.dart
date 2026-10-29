@@ -15,18 +15,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:p2p_ffi_flutter/p2p_ffi_flutter.dart';
-import 'package:p2p_ffi/go/context.dart' as go_context;
-import 'package:p2p_ffi/go/kubo/config.dart' as config;
-import 'package:p2p_ffi/go/kubo/core.dart' as core;
-import 'package:p2p_ffi/go/kubo/core/coreapi.dart' as coreapi;
-import 'package:p2p_ffi/go/kubo/core/coreiface.dart' as iface;
-import 'package:p2p_ffi/go/kubo/core/coreiface/options.dart' as options;
-import 'package:p2p_ffi/go/kubo/core/node.dart' as node;
-import 'package:p2p_ffi/go/kubo/core/node/libp2p.dart' as libp2p;
-import 'package:p2p_ffi/go/kubo/plugin/loader.dart' as loader;
-import 'package:p2p_ffi/go/kubo/repo/fsrepo.dart' as fsrepo;
-import 'package:p2p_ffi/p2p_ffi.dart'
-    show P2pBackground, P2pService, P2pStop, P2pStopHandler, P2pStopReason;
+import 'package:p2p_ffi/p2p_ffi.dart';
 import 'package:p2p_ffi/src/runtime.dart' show $callSync;
 
 import 'checks.dart';
@@ -36,15 +25,17 @@ import 'checks.dart';
 String get appDataDir => Directory.systemTemp.parent.path;
 
 /// daemon.go's switch over Routing.Type (like example 04).
-libp2p.RoutingOption routingFor(config.Config cfg) {
+KuboCoreNodeLibp2pRoutingOption routingFor(KuboConfig cfg) {
   final type = (cfg.json['Routing'] as Map?)?['Type'] as String? ?? '';
   return switch (type) {
-    'autoclient' => libp2p.constructDefaultRouting(cfg, libp2p.dhtClientOption),
-    'dht' => libp2p.dhtOption,
-    'dhtclient' => libp2p.dhtClientOption,
-    'dhtserver' => libp2p.dhtServerOption,
-    'none' => libp2p.nilRouterOption,
-    _ => libp2p.constructDefaultRouting(cfg, libp2p.dhtOption),
+    'autoclient' => Go.kubo.core.node.libp2p
+        .constructDefaultRouting(cfg, Go.kubo.core.node.libp2p.dhtClientOption),
+    'dht' => Go.kubo.core.node.libp2p.dhtOption,
+    'dhtclient' => Go.kubo.core.node.libp2p.dhtClientOption,
+    'dhtserver' => Go.kubo.core.node.libp2p.dhtServerOption,
+    'none' => Go.kubo.core.node.libp2p.nilRouterOption,
+    _ => Go.kubo.core.node.libp2p
+        .constructDefaultRouting(cfg, Go.kubo.core.node.libp2p.dhtOption),
   };
 }
 
@@ -66,17 +57,17 @@ Future<String?> prepare(String repoPath, String crashLog,
 /// What each service process needs before the node: injects the plugins (once
 /// per p2p_host; again after a restart) and creates the repo if needed.
 void setupService(String repoPath) {
-  loader.PluginLoader('')
+  KuboPluginLoader('')
     ..initialize()
     ..inject();
-  if (!fsrepo.isInitialized(repoPath)) {
-    final cfg = config.initWithIdentity(
-        config.createIdentity(null, [options.key.type('ed25519')]));
+  if (!Go.kubo.repo.fsrepo.isInitialized(repoPath)) {
+    final cfg = Go.kubo.config.initWithIdentity(Go.kubo.config.createIdentity(
+        null, [Go.kubo.core.coreiface.options.key.type('ed25519')]));
     final defaults = ((cfg.json['Addresses'] as Map)['Swarm'] as List)
         .cast<String>()
         .toList();
     for (final p in ['randomports', 'lowpower']) {
-      config.profiles[p]!.transform(cfg);
+      Go.kubo.config.profiles[p]!.transform(cfg);
     }
     // randomports replaces the default list with TCP only; without UDP there is
     // no QUIC nor hole punching (DCUtR). Put kubo's default list back (TCP,
@@ -94,16 +85,16 @@ void setupService(String repoPath) {
       ...?cfg.json['DNS'] as Map<String, Object?>?,
       'Resolvers': {'.': 'https://cloudflare-dns.com/dns-query'},
     };
-    fsrepo.init(repoPath, cfg);
+    Go.kubo.repo.fsrepo.init(repoPath, cfg);
   }
 }
 
 /// Starts the online node over [repoPath], with pubsub on.
-Future<core.IpfsNode> startNode(go_context.Context ctx, String repoPath) {
-  final repo = fsrepo.open(repoPath);
-  return core.newNode(
+Future<KuboCoreIpfsNode> startNode(Context ctx, String repoPath) {
+  final repo = Go.kubo.repo.fsrepo.open(repoPath);
+  return Go.kubo.core.newNode(
       ctx,
-      node.BuildCfg(
+      KuboCoreNodeBuildCfg(
           repo: repo,
           online: true,
           routing: routingFor(repo.config()),
@@ -162,14 +153,14 @@ class NodePage extends StatefulWidget {
 class _NodePageState extends State<NodePage> {
   /// A context of the current service (the handles of a previous p2p_host are
   /// not valid after a restart).
-  go_context.Context get ctx => go_context.background();
+  Context get ctx => Go.context.background();
   late final String _crashLog = '$appDataDir/crash.log';
   late final String repoPath = '$appDataDir/ipfs';
   late final AppLifecycleListener _life;
   var _foreground = true;
   Future<void> _busy = Future.value(); // start/stop/checks in series
-  core.IpfsNode? _node;
-  iface.CoreApi? _api;
+  KuboCoreIpfsNode? _node;
+  KuboCoreCoreifaceCoreApi? _api;
   Timer? _tick;
   final _logView = TextEditingController();
   final _logScroll = ScrollController();
@@ -253,7 +244,7 @@ class _NodePageState extends State<NodePage> {
     _set(() => _status = 'starting the node...');
     final sw = Stopwatch()..start();
     final n = await startNode(ctx, repoPath);
-    final api = coreapi.newCoreApi(n);
+    final api = Go.kubo.core.coreapi.newCoreApi(n);
     _node = n;
     _api = api;
     _peerId = (await api.key().self(ctx)).id.toString();

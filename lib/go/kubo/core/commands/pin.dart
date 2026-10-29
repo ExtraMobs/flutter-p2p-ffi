@@ -5,8 +5,8 @@ library;
 import 'package:p2p_ffi/src/runtime.dart';
 
 /// Go: `pin.AddPinOutput` (a kubo command output).
-final class AddPinOutput {
-  AddPinOutput.$dec($R r)
+final class KuboCoreCommandsPinAddPinOutput {
+  KuboCoreCommandsPinAddPinOutput.$dec($R r)
       : pins = r.list(() => r.str()),
         progress = r.i64(),
         bytes = r.i64();
@@ -25,15 +25,15 @@ final class AddPinOutput {
 }
 
 /// Go: `pin.PinLsOutputWrapper` (a kubo command output).
-final class PinLsOutputWrapper {
-  PinLsOutputWrapper.$dec($R r)
-      : keys = r.map(() => r.str(), () => PinLsType.$dec(r)),
+final class KuboCoreCommandsPinLsOutputWrapper {
+  KuboCoreCommandsPinLsOutputWrapper.$dec($R r)
+      : keys = r.map(() => r.str(), () => KuboCoreCommandsPinLsType.$dec(r)),
         cid = r.str(),
         name = r.str(),
         type = r.str();
 
   /// Go: `Keys`.
-  final Map<String, PinLsType> keys;
+  final Map<String, KuboCoreCommandsPinLsType> keys;
 
   /// Go: `Cid`.
   final String cid;
@@ -46,8 +46,8 @@ final class PinLsOutputWrapper {
 }
 
 /// Go: `pin.PinLsType` (a kubo command output).
-final class PinLsType {
-  PinLsType.$dec($R r)
+final class KuboCoreCommandsPinLsType {
+  KuboCoreCommandsPinLsType.$dec($R r)
       : type = r.str(),
         name = r.str();
 
@@ -59,8 +59,8 @@ final class PinLsType {
 }
 
 /// Go: `pin.RemotePinOutput` (a kubo command output).
-final class RemotePinOutput {
-  RemotePinOutput.$dec($R r)
+final class KuboCoreCommandsPinRemotePinOutput {
+  KuboCoreCommandsPinRemotePinOutput.$dec($R r)
       : status = r.str(),
         cid = r.str(),
         name = r.str();
@@ -76,20 +76,21 @@ final class RemotePinOutput {
 }
 
 /// Go: `pin.PinServicesList` (a kubo command output).
-final class PinServicesList {
-  PinServicesList.$dec($R r)
-      : remoteServices = r.list(() => ServiceDetails.$dec(r));
+final class KuboCoreCommandsPinServicesList {
+  KuboCoreCommandsPinServicesList.$dec($R r)
+      : remoteServices =
+            r.list(() => KuboCoreCommandsPinServiceDetails.$dec(r));
 
   /// Go: `RemoteServices`.
-  final List<ServiceDetails> remoteServices;
+  final List<KuboCoreCommandsPinServiceDetails> remoteServices;
 }
 
 /// Go: `pin.ServiceDetails` (a kubo command output).
-final class ServiceDetails {
-  ServiceDetails.$dec($R r)
+final class KuboCoreCommandsPinServiceDetails {
+  KuboCoreCommandsPinServiceDetails.$dec($R r)
       : service = r.str(),
         apiEndpoint = r.str(),
-        stat = r.p() ? Stat.$dec(r) : null;
+        stat = r.p() ? KuboCoreCommandsPinStat.$dec(r) : null;
 
   /// Go: `Service`.
   final String service;
@@ -98,25 +99,25 @@ final class ServiceDetails {
   final String apiEndpoint;
 
   /// Go: `Stat`.
-  final Stat? stat;
+  final KuboCoreCommandsPinStat? stat;
 }
 
 /// Go: `pin.Stat` (a kubo command output).
-final class Stat {
-  Stat.$dec($R r)
+final class KuboCoreCommandsPinStat {
+  KuboCoreCommandsPinStat.$dec($R r)
       : status = r.str(),
-        pinCount = r.p() ? PinCount.$dec(r) : null;
+        pinCount = r.p() ? KuboCoreCommandsPinCount.$dec(r) : null;
 
   /// Go: `Status`.
   final String status;
 
   /// Go: `PinCount`.
-  final PinCount? pinCount;
+  final KuboCoreCommandsPinCount? pinCount;
 }
 
 /// Go: `pin.PinCount` (a kubo command output).
-final class PinCount {
-  PinCount.$dec($R r)
+final class KuboCoreCommandsPinCount {
+  KuboCoreCommandsPinCount.$dec($R r)
       : queued = r.i64(),
         pinning = r.i64(),
         pinned = r.i64(),
@@ -136,20 +137,20 @@ final class PinCount {
 }
 
 /// Go: `pin.PinOutput` (a kubo command output).
-final class PinOutput {
-  PinOutput.$dec($R r) : pins = r.list(() => r.str());
+final class KuboCoreCommandsPinOutput {
+  KuboCoreCommandsPinOutput.$dec($R r) : pins = r.list(() => r.str());
 
   /// Go: `Pins`.
   final List<String> pins;
 }
 
 /// Go: `pin.PinVerifyRes` (a kubo command output).
-final class PinVerifyRes {
-  PinVerifyRes.$dec($R r)
+final class KuboCoreCommandsPinVerifyRes {
+  KuboCoreCommandsPinVerifyRes.$dec($R r)
       : cid = r.str(),
         err = r.str(),
         ok = r.b(),
-        badNodes = r.list(() => BadNode.$dec(r));
+        badNodes = r.list(() => KuboCoreCommandsPinBadNode.$dec(r));
 
   /// Go: `Cid`.
   final String cid;
@@ -161,12 +162,12 @@ final class PinVerifyRes {
   final bool ok;
 
   /// Go: `BadNodes`.
-  final List<BadNode> badNodes;
+  final List<KuboCoreCommandsPinBadNode> badNodes;
 }
 
 /// Go: `pin.BadNode` (a kubo command output).
-final class BadNode {
-  BadNode.$dec($R r)
+final class KuboCoreCommandsPinBadNode {
+  KuboCoreCommandsPinBadNode.$dec($R r)
       : cid = r.str(),
         err = r.str();
 

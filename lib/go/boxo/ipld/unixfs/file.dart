@@ -2,21 +2,27 @@
 // Go: github.com/ipfs/boxo/ipld/unixfs/file
 library;
 
+import 'package:p2p_ffi/src/go.dart' show GoBoxoIpldUnixfsFile;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/boxo/files.dart' as $files;
 import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/ipld_format.dart' as $ipld_format;
 
-/// Go: `func unixfile.NewUnixfsFile(ctx context.Context, dserv format.DAGService, nd format.Node) (files.Node, error)`.
-///
-/// Asynchronous: runs in a goroutine of the service.
-Future<$files.Node> newUnixfsFile($context.Context ctx,
-    $ipld_format.DagService dserv, $ipld_format.Node nd) async {
-  final $r = await $call(
-      147,
-      $W()
-        ..h(ctx)
-        ..h(dserv)
-        ..h(nd));
-  return $r.hnn($files.Node.$h);
+/// Go: the package-level members of `github.com/ipfs/boxo/ipld/unixfs/file` (`Go.boxo.ipld.unixfs.file`).
+extension GoBoxoIpldUnixfsFileApi on GoBoxoIpldUnixfsFile {
+  /// Go: `func unixfile.NewUnixfsFile(ctx context.Context, dserv format.DAGService, nd format.Node) (files.Node, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<$files.BoxoFilesNode> newUnixfsFile(
+      $context.Context ctx,
+      $ipld_format.IpldFormatDagService dserv,
+      $ipld_format.IpldFormatNode nd) async {
+    final $r = await $call(
+        147,
+        $W()
+          ..h(ctx)
+          ..h(dserv)
+          ..h(nd));
+    return $r.hnn($files.BoxoFilesNode.$h);
+  }
 }

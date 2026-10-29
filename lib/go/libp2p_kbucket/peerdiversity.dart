@@ -5,6 +5,6 @@ library;
 import 'package:p2p_ffi/src/runtime.dart';
 
 /// Go: `peerdiversity.PeerIPGroupFilter` (handle).
-class PeerIpGroupFilter extends GoHandle {
-  PeerIpGroupFilter.$h(super.$h);
+class Libp2pKbucketPeerdiversityPeerIpGroupFilter extends GoHandle {
+  Libp2pKbucketPeerdiversityPeerIpGroupFilter.$h(super.$h);
 }

@@ -2,229 +2,278 @@
 
 // Every generated kubo command, called with the arguments the smoke test
 // provides (test/commands_smoke_test.dart).
-import 'package:p2p_ffi/go/boxo/files.dart' as files;
-import 'package:p2p_ffi/go/context.dart' as context;
-import 'package:p2p_ffi/go/kubo/core.dart' as core;
-import 'package:p2p_ffi/go/kubo/core/commands.dart' as k;
+import 'package:p2p_ffi/p2p_ffi.dart';
 
 /// What a command needs: the node, a ctx, and a value per required argument.
 abstract interface class SmokeArgs {
-  core.IpfsNode get node;
-  context.Context get ctx;
+  KuboCoreIpfsNode get node;
+  Context get ctx;
 
   /// The string for argument [arg] of command [cmd].
   String s(String cmd, String arg);
 
   /// The file for argument [arg] of command [cmd].
-  files.Node f(String cmd, String arg);
+  BoxoFilesNode f(String cmd, String arg);
 }
 
 /// Command path → the call.
 final smokeCommands = <String, Stream<Object?> Function(SmokeArgs a)>{
-  'add': (a) => k.add(a.node, a.ctx, [a.f('add', 'path')]),
-  'bitswap ledger': (a) =>
-      k.bitswapLedger(a.node, a.ctx, a.s('bitswap ledger', 'peer')),
-  'bitswap reprovide': (a) => k.bitswapReprovide(a.node, a.ctx),
-  'bitswap stat': (a) => k.bitswapStat(a.node, a.ctx),
-  'bitswap wantlist': (a) => k.bitswapWantlist(a.node, a.ctx),
-  'block get': (a) => k.blockGet(a.node, a.ctx, a.s('block get', 'cid')),
-  'block put': (a) => k.blockPut(a.node, a.ctx, [a.f('block put', 'data')]),
-  'block rm': (a) => k.blockRm(a.node, a.ctx, [a.s('block rm', 'cid')]),
-  'block stat': (a) => k.blockStat(a.node, a.ctx, a.s('block stat', 'cid')),
-  'bootstrap': (a) => k.bootstrap(a.node, a.ctx),
-  'bootstrap add': (a) =>
-      k.bootstrapAdd(a.node, a.ctx, [a.s('bootstrap add', 'peer')]),
-  'bootstrap list': (a) => k.bootstrapList(a.node, a.ctx),
-  'bootstrap rm': (a) =>
-      k.bootstrapRm(a.node, a.ctx, [a.s('bootstrap rm', 'peer')]),
-  'bootstrap rm all': (a) => k.bootstrapRmAll(a.node, a.ctx),
-  'cat': (a) => k.cat(a.node, a.ctx, [a.s('cat', 'ipfs-path')]),
-  'cid base32': (a) => k.cidBase32(a.node, a.ctx, [a.s('cid base32', 'cid')]),
-  'cid bases': (a) => k.cidBases(a.node, a.ctx),
-  'cid codecs': (a) => k.cidCodecs(a.node, a.ctx),
-  'cid format': (a) => k.cidFormat(a.node, a.ctx, [a.s('cid format', 'cid')]),
-  'cid hashes': (a) => k.cidHashes(a.node, a.ctx),
-  'cid inspect': (a) => k.cidInspect(a.node, a.ctx, a.s('cid inspect', 'cid')),
-  'config': (a) => k.config(a.node, a.ctx, a.s('config', 'key'), null),
-  'config profile apply': (a) => k.configProfileApply(
+  'add': (a) => Go.kubo.core.commands.add(a.node, a.ctx, [a.f('add', 'path')]),
+  'bitswap ledger': (a) => Go.kubo.core.commands
+      .bitswapLedger(a.node, a.ctx, a.s('bitswap ledger', 'peer')),
+  'bitswap reprovide': (a) =>
+      Go.kubo.core.commands.bitswapReprovide(a.node, a.ctx),
+  'bitswap stat': (a) => Go.kubo.core.commands.bitswapStat(a.node, a.ctx),
+  'bitswap wantlist': (a) =>
+      Go.kubo.core.commands.bitswapWantlist(a.node, a.ctx),
+  'block get': (a) =>
+      Go.kubo.core.commands.blockGet(a.node, a.ctx, a.s('block get', 'cid')),
+  'block put': (a) =>
+      Go.kubo.core.commands.blockPut(a.node, a.ctx, [a.f('block put', 'data')]),
+  'block rm': (a) =>
+      Go.kubo.core.commands.blockRm(a.node, a.ctx, [a.s('block rm', 'cid')]),
+  'block stat': (a) =>
+      Go.kubo.core.commands.blockStat(a.node, a.ctx, a.s('block stat', 'cid')),
+  'bootstrap': (a) => Go.kubo.core.commands.bootstrap(a.node, a.ctx),
+  'bootstrap add': (a) => Go.kubo.core.commands
+      .bootstrapAdd(a.node, a.ctx, [a.s('bootstrap add', 'peer')]),
+  'bootstrap list': (a) => Go.kubo.core.commands.bootstrapList(a.node, a.ctx),
+  'bootstrap rm': (a) => Go.kubo.core.commands
+      .bootstrapRm(a.node, a.ctx, [a.s('bootstrap rm', 'peer')]),
+  'bootstrap rm all': (a) =>
+      Go.kubo.core.commands.bootstrapRmAll(a.node, a.ctx),
+  'cat': (a) =>
+      Go.kubo.core.commands.cat(a.node, a.ctx, [a.s('cat', 'ipfs-path')]),
+  'cid base32': (a) => Go.kubo.core.commands
+      .cidBase32(a.node, a.ctx, [a.s('cid base32', 'cid')]),
+  'cid bases': (a) => Go.kubo.core.commands.cidBases(a.node, a.ctx),
+  'cid codecs': (a) => Go.kubo.core.commands.cidCodecs(a.node, a.ctx),
+  'cid format': (a) => Go.kubo.core.commands
+      .cidFormat(a.node, a.ctx, [a.s('cid format', 'cid')]),
+  'cid hashes': (a) => Go.kubo.core.commands.cidHashes(a.node, a.ctx),
+  'cid inspect': (a) => Go.kubo.core.commands
+      .cidInspect(a.node, a.ctx, a.s('cid inspect', 'cid')),
+  'config': (a) =>
+      Go.kubo.core.commands.config(a.node, a.ctx, a.s('config', 'key'), null),
+  'config profile apply': (a) => Go.kubo.core.commands.configProfileApply(
       a.node, a.ctx, a.s('config profile apply', 'profile')),
-  'config replace': (a) =>
-      k.configReplace(a.node, a.ctx, a.f('config replace', 'file')),
-  'config show': (a) => k.configShow(a.node, a.ctx),
-  'dag resolve': (a) => k.dagResolve(a.node, a.ctx, a.s('dag resolve', 'ref')),
-  'dag stat': (a) => k.dagStat(a.node, a.ctx, [a.s('dag stat', 'root')]),
-  'dht query': (a) => k.dhtQuery(a.node, a.ctx, [a.s('dht query', 'peerID')]),
-  'diag cmds': (a) => k.diagCmds(a.node, a.ctx),
-  'diag cmds clear': (a) => k.diagCmdsClear(a.node, a.ctx),
-  'diag cmds set-time': (a) =>
-      k.diagCmdsSetTime(a.node, a.ctx, a.s('diag cmds set-time', 'time')),
-  'diag datastore count': (a) => k.diagDatastoreCount(
-      a.node, a.ctx, a.s('diag datastore count', 'prefix')),
-  'diag datastore get': (a) =>
-      k.diagDatastoreGet(a.node, a.ctx, a.s('diag datastore get', 'key')),
-  'diag datastore put': (a) => k.diagDatastorePut(a.node, a.ctx,
-      a.s('diag datastore put', 'key'), a.s('diag datastore put', 'value')),
-  'diag healthy': (a) => k.diagHealthy(a.node, a.ctx),
-  'diag profile': (a) => k.diagProfile(a.node, a.ctx),
-  'diag sys': (a) => k.diagSys(a.node, a.ctx),
-  'files chcid': (a) => k.filesChcid(a.node, a.ctx, a.s('files chcid', 'path')),
-  'files chmod': (a) => k.filesChmod(
+  'config replace': (a) => Go.kubo.core.commands
+      .configReplace(a.node, a.ctx, a.f('config replace', 'file')),
+  'config show': (a) => Go.kubo.core.commands.configShow(a.node, a.ctx),
+  'dag resolve': (a) => Go.kubo.core.commands
+      .dagResolve(a.node, a.ctx, a.s('dag resolve', 'ref')),
+  'dag stat': (a) =>
+      Go.kubo.core.commands.dagStat(a.node, a.ctx, [a.s('dag stat', 'root')]),
+  'dht query': (a) => Go.kubo.core.commands
+      .dhtQuery(a.node, a.ctx, [a.s('dht query', 'peerID')]),
+  'diag cmds': (a) => Go.kubo.core.commands.diagCmds(a.node, a.ctx),
+  'diag cmds clear': (a) => Go.kubo.core.commands.diagCmdsClear(a.node, a.ctx),
+  'diag cmds set-time': (a) => Go.kubo.core.commands
+      .diagCmdsSetTime(a.node, a.ctx, a.s('diag cmds set-time', 'time')),
+  'diag datastore count': (a) => Go.kubo.core.commands
+      .diagDatastoreCount(a.node, a.ctx, a.s('diag datastore count', 'prefix')),
+  'diag datastore get': (a) => Go.kubo.core.commands
+      .diagDatastoreGet(a.node, a.ctx, a.s('diag datastore get', 'key')),
+  'diag datastore put': (a) => Go.kubo.core.commands.diagDatastorePut(
+      a.node,
+      a.ctx,
+      a.s('diag datastore put', 'key'),
+      a.s('diag datastore put', 'value')),
+  'diag healthy': (a) => Go.kubo.core.commands.diagHealthy(a.node, a.ctx),
+  'diag profile': (a) => Go.kubo.core.commands.diagProfile(a.node, a.ctx),
+  'diag sys': (a) => Go.kubo.core.commands.diagSys(a.node, a.ctx),
+  'files chcid': (a) => Go.kubo.core.commands
+      .filesChcid(a.node, a.ctx, a.s('files chcid', 'path')),
+  'files chmod': (a) => Go.kubo.core.commands.filesChmod(
       a.node, a.ctx, a.s('files chmod', 'mode'), a.s('files chmod', 'path')),
-  'files chroot': (a) => k.filesChroot(a.node, a.ctx, null),
-  'files cp': (a) => k.filesCp(
+  'files chroot': (a) => Go.kubo.core.commands.filesChroot(a.node, a.ctx, null),
+  'files cp': (a) => Go.kubo.core.commands.filesCp(
       a.node, a.ctx, a.s('files cp', 'source'), a.s('files cp', 'dest')),
-  'files flush': (a) => k.filesFlush(a.node, a.ctx, null),
-  'files ls': (a) => k.filesLs(a.node, a.ctx, null),
-  'files mkdir': (a) => k.filesMkdir(a.node, a.ctx, a.s('files mkdir', 'path')),
-  'files mv': (a) => k.filesMv(
+  'files flush': (a) => Go.kubo.core.commands.filesFlush(a.node, a.ctx, null),
+  'files ls': (a) => Go.kubo.core.commands.filesLs(a.node, a.ctx, null),
+  'files mkdir': (a) => Go.kubo.core.commands
+      .filesMkdir(a.node, a.ctx, a.s('files mkdir', 'path')),
+  'files mv': (a) => Go.kubo.core.commands.filesMv(
       a.node, a.ctx, a.s('files mv', 'source'), a.s('files mv', 'dest')),
-  'files read': (a) => k.filesRead(a.node, a.ctx, a.s('files read', 'path')),
-  'files rm': (a) => k.filesRm(a.node, a.ctx, [a.s('files rm', 'path')]),
-  'files stat': (a) => k.filesStat(a.node, a.ctx, a.s('files stat', 'path')),
-  'files touch': (a) => k.filesTouch(a.node, a.ctx, a.s('files touch', 'path')),
-  'files write': (a) => k.filesWrite(
+  'files read': (a) =>
+      Go.kubo.core.commands.filesRead(a.node, a.ctx, a.s('files read', 'path')),
+  'files rm': (a) =>
+      Go.kubo.core.commands.filesRm(a.node, a.ctx, [a.s('files rm', 'path')]),
+  'files stat': (a) =>
+      Go.kubo.core.commands.filesStat(a.node, a.ctx, a.s('files stat', 'path')),
+  'files touch': (a) => Go.kubo.core.commands
+      .filesTouch(a.node, a.ctx, a.s('files touch', 'path')),
+  'files write': (a) => Go.kubo.core.commands.filesWrite(
       a.node, a.ctx, a.s('files write', 'path'), a.f('files write', 'data')),
-  'filestore dups': (a) => k.filestoreDups(a.node, a.ctx),
-  'filestore ls': (a) =>
-      k.filestoreLs(a.node, a.ctx, [a.s('filestore ls', 'obj')]),
-  'filestore verify': (a) =>
-      k.filestoreVerify(a.node, a.ctx, [a.s('filestore verify', 'obj')]),
-  'get': (a) => k.get(a.node, a.ctx, a.s('get', 'ipfs-path')),
-  'id': (a) => k.id(a.node, a.ctx, null),
-  'key export': (a) => k.keyExport(a.node, a.ctx, a.s('key export', 'name')),
-  'key gen': (a) => k.keyGen(a.node, a.ctx, a.s('key gen', 'name')),
-  'key import': (a) => k.keyImport(
+  'filestore dups': (a) => Go.kubo.core.commands.filestoreDups(a.node, a.ctx),
+  'filestore ls': (a) => Go.kubo.core.commands
+      .filestoreLs(a.node, a.ctx, [a.s('filestore ls', 'obj')]),
+  'filestore verify': (a) => Go.kubo.core.commands
+      .filestoreVerify(a.node, a.ctx, [a.s('filestore verify', 'obj')]),
+  'get': (a) =>
+      Go.kubo.core.commands.get(a.node, a.ctx, a.s('get', 'ipfs-path')),
+  'id': (a) => Go.kubo.core.commands.id(a.node, a.ctx, null),
+  'key export': (a) =>
+      Go.kubo.core.commands.keyExport(a.node, a.ctx, a.s('key export', 'name')),
+  'key gen': (a) =>
+      Go.kubo.core.commands.keyGen(a.node, a.ctx, a.s('key gen', 'name')),
+  'key import': (a) => Go.kubo.core.commands.keyImport(
       a.node, a.ctx, a.s('key import', 'name'), a.f('key import', 'key')),
-  'key list': (a) => k.keyList(a.node, a.ctx),
-  'key ls': (a) => k.keyLs(a.node, a.ctx),
-  'key rename': (a) => k.keyRename(
+  'key list': (a) => Go.kubo.core.commands.keyList(a.node, a.ctx),
+  'key ls': (a) => Go.kubo.core.commands.keyLs(a.node, a.ctx),
+  'key rename': (a) => Go.kubo.core.commands.keyRename(
       a.node, a.ctx, a.s('key rename', 'name'), a.s('key rename', 'newName')),
-  'key rm': (a) => k.keyRm(a.node, a.ctx, [a.s('key rm', 'name')]),
-  'key rotate': (a) => k.keyRotate(a.node, a.ctx),
-  'key sign': (a) => k.keySign(a.node, a.ctx, a.f('key sign', 'data')),
-  'key verify': (a) => k.keyVerify(a.node, a.ctx, a.f('key verify', 'data')),
-  'log level': (a) => k.logLevel(a.node, a.ctx, null, null),
-  'log ls': (a) => k.logLs(a.node, a.ctx),
-  'log tail': (a) => k.logTail(a.node, a.ctx),
-  'ls': (a) => k.ls(a.node, a.ctx, [a.s('ls', 'ipfs-path')]),
-  'multibase decode': (a) =>
-      k.multibaseDecode(a.node, a.ctx, a.f('multibase decode', 'encoded_file')),
-  'multibase encode': (a) =>
-      k.multibaseEncode(a.node, a.ctx, a.f('multibase encode', 'file')),
-  'multibase list': (a) => k.multibaseList(a.node, a.ctx),
-  'multibase transcode': (a) => k.multibaseTranscode(
+  'key rm': (a) =>
+      Go.kubo.core.commands.keyRm(a.node, a.ctx, [a.s('key rm', 'name')]),
+  'key rotate': (a) => Go.kubo.core.commands.keyRotate(a.node, a.ctx),
+  'key sign': (a) =>
+      Go.kubo.core.commands.keySign(a.node, a.ctx, a.f('key sign', 'data')),
+  'key verify': (a) =>
+      Go.kubo.core.commands.keyVerify(a.node, a.ctx, a.f('key verify', 'data')),
+  'log level': (a) => Go.kubo.core.commands.logLevel(a.node, a.ctx, null, null),
+  'log ls': (a) => Go.kubo.core.commands.logLs(a.node, a.ctx),
+  'log tail': (a) => Go.kubo.core.commands.logTail(a.node, a.ctx),
+  'ls': (a) =>
+      Go.kubo.core.commands.ls(a.node, a.ctx, [a.s('ls', 'ipfs-path')]),
+  'multibase decode': (a) => Go.kubo.core.commands
+      .multibaseDecode(a.node, a.ctx, a.f('multibase decode', 'encoded_file')),
+  'multibase encode': (a) => Go.kubo.core.commands
+      .multibaseEncode(a.node, a.ctx, a.f('multibase encode', 'file')),
+  'multibase list': (a) => Go.kubo.core.commands.multibaseList(a.node, a.ctx),
+  'multibase transcode': (a) => Go.kubo.core.commands.multibaseTranscode(
       a.node, a.ctx, a.f('multibase transcode', 'encoded_file')),
-  'name get': (a) => k.nameGet(a.node, a.ctx, a.s('name get', 'name')),
-  'name inspect': (a) =>
-      k.nameInspect(a.node, a.ctx, a.f('name inspect', 'record')),
-  'name publish': (a) =>
-      k.namePublish(a.node, a.ctx, a.s('name publish', 'ipfs-path')),
-  'name pubsub cancel': (a) =>
-      k.namePubsubCancel(a.node, a.ctx, a.s('name pubsub cancel', 'name')),
-  'name pubsub state': (a) => k.namePubsubState(a.node, a.ctx),
-  'name pubsub subs': (a) => k.namePubsubSubs(a.node, a.ctx),
-  'name put': (a) => k.namePut(
+  'name get': (a) =>
+      Go.kubo.core.commands.nameGet(a.node, a.ctx, a.s('name get', 'name')),
+  'name inspect': (a) => Go.kubo.core.commands
+      .nameInspect(a.node, a.ctx, a.f('name inspect', 'record')),
+  'name publish': (a) => Go.kubo.core.commands
+      .namePublish(a.node, a.ctx, a.s('name publish', 'ipfs-path')),
+  'name pubsub cancel': (a) => Go.kubo.core.commands
+      .namePubsubCancel(a.node, a.ctx, a.s('name pubsub cancel', 'name')),
+  'name pubsub state': (a) =>
+      Go.kubo.core.commands.namePubsubState(a.node, a.ctx),
+  'name pubsub subs': (a) =>
+      Go.kubo.core.commands.namePubsubSubs(a.node, a.ctx),
+  'name put': (a) => Go.kubo.core.commands.namePut(
       a.node, a.ctx, a.s('name put', 'name'), a.f('name put', 'record')),
-  'name resolve': (a) => k.nameResolve(a.node, a.ctx, null),
-  'object diff': (a) => k.objectDiff(
+  'name resolve': (a) => Go.kubo.core.commands.nameResolve(a.node, a.ctx, null),
+  'object diff': (a) => Go.kubo.core.commands.objectDiff(
       a.node, a.ctx, a.s('object diff', 'obj_a'), a.s('object diff', 'obj_b')),
-  'object patch add-link': (a) => k.objectPatchAddLink(
+  'object patch add-link': (a) => Go.kubo.core.commands.objectPatchAddLink(
       a.node,
       a.ctx,
       a.s('object patch add-link', 'root'),
       a.s('object patch add-link', 'name'),
       a.s('object patch add-link', 'ref')),
-  'object patch rm-link': (a) => k.objectPatchRmLink(a.node, a.ctx,
-      a.s('object patch rm-link', 'root'), a.s('object patch rm-link', 'name')),
-  'p2p close': (a) => k.p2pClose(a.node, a.ctx),
-  'p2p forward': (a) => k.p2pForward(
+  'object patch rm-link': (a) => Go.kubo.core.commands.objectPatchRmLink(
+      a.node,
+      a.ctx,
+      a.s('object patch rm-link', 'root'),
+      a.s('object patch rm-link', 'name')),
+  'p2p close': (a) => Go.kubo.core.commands.p2pClose(a.node, a.ctx),
+  'p2p forward': (a) => Go.kubo.core.commands.p2pForward(
       a.node,
       a.ctx,
       a.s('p2p forward', 'protocol'),
       a.s('p2p forward', 'listen-address'),
       a.s('p2p forward', 'target-address')),
-  'p2p listen': (a) => k.p2pListen(a.node, a.ctx, a.s('p2p listen', 'protocol'),
-      a.s('p2p listen', 'target-address')),
-  'p2p ls': (a) => k.p2pLs(a.node, a.ctx),
-  'p2p stream close': (a) => k.p2pStreamClose(a.node, a.ctx, null),
-  'p2p stream ls': (a) => k.p2pStreamLs(a.node, a.ctx),
-  'pin add': (a) => k.pinAdd(a.node, a.ctx, [a.s('pin add', 'ipfs-path')]),
-  'pin ls': (a) => k.pinLs(a.node, a.ctx, [a.s('pin ls', 'ipfs-path')]),
-  'pin remote add': (a) =>
-      k.pinRemoteAdd(a.node, a.ctx, a.s('pin remote add', 'ipfs-path')),
-  'pin remote ls': (a) => k.pinRemoteLs(a.node, a.ctx),
-  'pin remote rm': (a) => k.pinRemoteRm(a.node, a.ctx),
-  'pin remote service add': (a) => k.pinRemoteServiceAdd(
+  'p2p listen': (a) => Go.kubo.core.commands.p2pListen(a.node, a.ctx,
+      a.s('p2p listen', 'protocol'), a.s('p2p listen', 'target-address')),
+  'p2p ls': (a) => Go.kubo.core.commands.p2pLs(a.node, a.ctx),
+  'p2p stream close': (a) =>
+      Go.kubo.core.commands.p2pStreamClose(a.node, a.ctx, null),
+  'p2p stream ls': (a) => Go.kubo.core.commands.p2pStreamLs(a.node, a.ctx),
+  'pin add': (a) => Go.kubo.core.commands
+      .pinAdd(a.node, a.ctx, [a.s('pin add', 'ipfs-path')]),
+  'pin ls': (a) =>
+      Go.kubo.core.commands.pinLs(a.node, a.ctx, [a.s('pin ls', 'ipfs-path')]),
+  'pin remote add': (a) => Go.kubo.core.commands
+      .pinRemoteAdd(a.node, a.ctx, a.s('pin remote add', 'ipfs-path')),
+  'pin remote ls': (a) => Go.kubo.core.commands.pinRemoteLs(a.node, a.ctx),
+  'pin remote rm': (a) => Go.kubo.core.commands.pinRemoteRm(a.node, a.ctx),
+  'pin remote service add': (a) => Go.kubo.core.commands.pinRemoteServiceAdd(
       a.node,
       a.ctx,
       a.s('pin remote service add', 'service'),
       a.s('pin remote service add', 'endpoint'),
       a.s('pin remote service add', 'key')),
-  'pin remote service ls': (a) => k.pinRemoteServiceLs(a.node, a.ctx),
-  'pin remote service rm': (a) => k.pinRemoteServiceRm(
+  'pin remote service ls': (a) =>
+      Go.kubo.core.commands.pinRemoteServiceLs(a.node, a.ctx),
+  'pin remote service rm': (a) => Go.kubo.core.commands.pinRemoteServiceRm(
       a.node, a.ctx, a.s('pin remote service rm', 'service')),
-  'pin rm': (a) => k.pinRm(a.node, a.ctx, [a.s('pin rm', 'ipfs-path')]),
-  'pin update': (a) => k.pinUpdate(a.node, a.ctx,
+  'pin rm': (a) =>
+      Go.kubo.core.commands.pinRm(a.node, a.ctx, [a.s('pin rm', 'ipfs-path')]),
+  'pin update': (a) => Go.kubo.core.commands.pinUpdate(a.node, a.ctx,
       a.s('pin update', 'from-path'), a.s('pin update', 'to-path')),
-  'pin verify': (a) => k.pinVerify(a.node, a.ctx),
-  'ping': (a) => k.ping(a.node, a.ctx, [a.s('ping', 'peer ID')]),
-  'provide clear': (a) => k.provideClear(a.node, a.ctx),
-  'provide once': (a) =>
-      k.provideOnce(a.node, a.ctx, [a.s('provide once', 'cid')]),
-  'provide stat': (a) => k.provideStat(a.node, a.ctx),
-  'pubsub ls': (a) => k.pubsubLs(a.node, a.ctx),
-  'pubsub peers': (a) => k.pubsubPeers(a.node, a.ctx, null),
-  'pubsub pub': (a) => k.pubsubPub(
+  'pin verify': (a) => Go.kubo.core.commands.pinVerify(a.node, a.ctx),
+  'ping': (a) =>
+      Go.kubo.core.commands.ping(a.node, a.ctx, [a.s('ping', 'peer ID')]),
+  'provide clear': (a) => Go.kubo.core.commands.provideClear(a.node, a.ctx),
+  'provide once': (a) => Go.kubo.core.commands
+      .provideOnce(a.node, a.ctx, [a.s('provide once', 'cid')]),
+  'provide stat': (a) => Go.kubo.core.commands.provideStat(a.node, a.ctx),
+  'pubsub ls': (a) => Go.kubo.core.commands.pubsubLs(a.node, a.ctx),
+  'pubsub peers': (a) => Go.kubo.core.commands.pubsubPeers(a.node, a.ctx, null),
+  'pubsub pub': (a) => Go.kubo.core.commands.pubsubPub(
       a.node, a.ctx, a.s('pubsub pub', 'topic'), a.f('pubsub pub', 'data')),
-  'pubsub reset': (a) => k.pubsubReset(a.node, a.ctx),
-  'pubsub sub': (a) => k.pubsubSub(a.node, a.ctx, a.s('pubsub sub', 'topic')),
-  'refs': (a) => k.refs(a.node, a.ctx, [a.s('refs', 'ipfs-path')]),
-  'refs local': (a) => k.refsLocal(a.node, a.ctx),
-  'repo gc': (a) => k.repoGc(a.node, a.ctx),
-  'repo ls': (a) => k.repoLs(a.node, a.ctx),
-  'repo migrate': (a) => k.repoMigrate(a.node, a.ctx),
-  'repo stat': (a) => k.repoStat(a.node, a.ctx),
-  'repo verify': (a) => k.repoVerify(a.node, a.ctx),
-  'repo version': (a) => k.repoVersion(a.node, a.ctx),
-  'resolve': (a) => k.resolve(a.node, a.ctx, a.s('resolve', 'name')),
-  'routing findpeer': (a) =>
-      k.routingFindpeer(a.node, a.ctx, [a.s('routing findpeer', 'peerID')]),
-  'routing findprovs': (a) =>
-      k.routingFindprovs(a.node, a.ctx, [a.s('routing findprovs', 'key')]),
-  'routing get': (a) =>
-      k.routingGet(a.node, a.ctx, [a.s('routing get', 'key')]),
-  'routing provide': (a) =>
-      k.routingProvide(a.node, a.ctx, [a.s('routing provide', 'key')]),
-  'routing put': (a) => k.routingPut(a.node, a.ctx, a.s('routing put', 'key'),
-      a.f('routing put', 'value-file')),
-  'routing reprovide': (a) => k.routingReprovide(a.node, a.ctx),
-  'stats bitswap': (a) => k.statsBitswap(a.node, a.ctx),
-  'stats bw': (a) => k.statsBw(a.node, a.ctx),
-  'stats dht': (a) => k.statsDht(a.node, a.ctx, [a.s('stats dht', 'dht')]),
-  'stats provide': (a) => k.statsProvide(a.node, a.ctx),
-  'stats repo': (a) => k.statsRepo(a.node, a.ctx),
-  'stats reprovide': (a) => k.statsReprovide(a.node, a.ctx),
-  'swarm addrs': (a) => k.swarmAddrs(a.node, a.ctx),
-  'swarm addrs autonat': (a) => k.swarmAddrsAutonat(a.node, a.ctx),
-  'swarm addrs listen': (a) => k.swarmAddrsListen(a.node, a.ctx),
-  'swarm addrs local': (a) => k.swarmAddrsLocal(a.node, a.ctx),
-  'swarm connect': (a) =>
-      k.swarmConnect(a.node, a.ctx, [a.s('swarm connect', 'address')]),
-  'swarm disconnect': (a) =>
-      k.swarmDisconnect(a.node, a.ctx, [a.s('swarm disconnect', 'address')]),
-  'swarm filters': (a) => k.swarmFilters(a.node, a.ctx),
-  'swarm filters add': (a) =>
-      k.swarmFiltersAdd(a.node, a.ctx, [a.s('swarm filters add', 'address')]),
-  'swarm filters rm': (a) =>
-      k.swarmFiltersRm(a.node, a.ctx, [a.s('swarm filters rm', 'address')]),
-  'swarm peering add': (a) =>
-      k.swarmPeeringAdd(a.node, a.ctx, [a.s('swarm peering add', 'address')]),
-  'swarm peering ls': (a) => k.swarmPeeringLs(a.node, a.ctx),
-  'swarm peering rm': (a) =>
-      k.swarmPeeringRm(a.node, a.ctx, [a.s('swarm peering rm', 'ID')]),
-  'swarm peers': (a) => k.swarmPeers(a.node, a.ctx),
-  'swarm resources': (a) => k.swarmResources(a.node, a.ctx),
-  'version': (a) => k.version(a.node, a.ctx),
-  'version check': (a) => k.versionCheck(a.node, a.ctx),
-  'version deps': (a) => k.versionDeps(a.node, a.ctx),
+  'pubsub reset': (a) => Go.kubo.core.commands.pubsubReset(a.node, a.ctx),
+  'pubsub sub': (a) => Go.kubo.core.commands
+      .pubsubSub(a.node, a.ctx, a.s('pubsub sub', 'topic')),
+  'refs': (a) =>
+      Go.kubo.core.commands.refs(a.node, a.ctx, [a.s('refs', 'ipfs-path')]),
+  'refs local': (a) => Go.kubo.core.commands.refsLocal(a.node, a.ctx),
+  'repo gc': (a) => Go.kubo.core.commands.repoGc(a.node, a.ctx),
+  'repo ls': (a) => Go.kubo.core.commands.repoLs(a.node, a.ctx),
+  'repo migrate': (a) => Go.kubo.core.commands.repoMigrate(a.node, a.ctx),
+  'repo stat': (a) => Go.kubo.core.commands.repoStat(a.node, a.ctx),
+  'repo verify': (a) => Go.kubo.core.commands.repoVerify(a.node, a.ctx),
+  'repo version': (a) => Go.kubo.core.commands.repoVersion(a.node, a.ctx),
+  'resolve': (a) =>
+      Go.kubo.core.commands.resolve(a.node, a.ctx, a.s('resolve', 'name')),
+  'routing findpeer': (a) => Go.kubo.core.commands
+      .routingFindpeer(a.node, a.ctx, [a.s('routing findpeer', 'peerID')]),
+  'routing findprovs': (a) => Go.kubo.core.commands
+      .routingFindprovs(a.node, a.ctx, [a.s('routing findprovs', 'key')]),
+  'routing get': (a) => Go.kubo.core.commands
+      .routingGet(a.node, a.ctx, [a.s('routing get', 'key')]),
+  'routing provide': (a) => Go.kubo.core.commands
+      .routingProvide(a.node, a.ctx, [a.s('routing provide', 'key')]),
+  'routing put': (a) => Go.kubo.core.commands.routingPut(a.node, a.ctx,
+      a.s('routing put', 'key'), a.f('routing put', 'value-file')),
+  'routing reprovide': (a) =>
+      Go.kubo.core.commands.routingReprovide(a.node, a.ctx),
+  'stats bitswap': (a) => Go.kubo.core.commands.statsBitswap(a.node, a.ctx),
+  'stats bw': (a) => Go.kubo.core.commands.statsBw(a.node, a.ctx),
+  'stats dht': (a) =>
+      Go.kubo.core.commands.statsDht(a.node, a.ctx, [a.s('stats dht', 'dht')]),
+  'stats provide': (a) => Go.kubo.core.commands.statsProvide(a.node, a.ctx),
+  'stats repo': (a) => Go.kubo.core.commands.statsRepo(a.node, a.ctx),
+  'stats reprovide': (a) => Go.kubo.core.commands.statsReprovide(a.node, a.ctx),
+  'swarm addrs': (a) => Go.kubo.core.commands.swarmAddrs(a.node, a.ctx),
+  'swarm addrs autonat': (a) =>
+      Go.kubo.core.commands.swarmAddrsAutonat(a.node, a.ctx),
+  'swarm addrs listen': (a) =>
+      Go.kubo.core.commands.swarmAddrsListen(a.node, a.ctx),
+  'swarm addrs local': (a) =>
+      Go.kubo.core.commands.swarmAddrsLocal(a.node, a.ctx),
+  'swarm connect': (a) => Go.kubo.core.commands
+      .swarmConnect(a.node, a.ctx, [a.s('swarm connect', 'address')]),
+  'swarm disconnect': (a) => Go.kubo.core.commands
+      .swarmDisconnect(a.node, a.ctx, [a.s('swarm disconnect', 'address')]),
+  'swarm filters': (a) => Go.kubo.core.commands.swarmFilters(a.node, a.ctx),
+  'swarm filters add': (a) => Go.kubo.core.commands
+      .swarmFiltersAdd(a.node, a.ctx, [a.s('swarm filters add', 'address')]),
+  'swarm filters rm': (a) => Go.kubo.core.commands
+      .swarmFiltersRm(a.node, a.ctx, [a.s('swarm filters rm', 'address')]),
+  'swarm peering add': (a) => Go.kubo.core.commands
+      .swarmPeeringAdd(a.node, a.ctx, [a.s('swarm peering add', 'address')]),
+  'swarm peering ls': (a) =>
+      Go.kubo.core.commands.swarmPeeringLs(a.node, a.ctx),
+  'swarm peering rm': (a) => Go.kubo.core.commands
+      .swarmPeeringRm(a.node, a.ctx, [a.s('swarm peering rm', 'ID')]),
+  'swarm peers': (a) => Go.kubo.core.commands.swarmPeers(a.node, a.ctx),
+  'swarm resources': (a) => Go.kubo.core.commands.swarmResources(a.node, a.ctx),
+  'version': (a) => Go.kubo.core.commands.version(a.node, a.ctx),
+  'version check': (a) => Go.kubo.core.commands.versionCheck(a.node, a.ctx),
+  'version deps': (a) => Go.kubo.core.commands.versionDeps(a.node, a.ctx),
 };

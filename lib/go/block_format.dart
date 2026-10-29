@@ -9,8 +9,8 @@ import 'package:p2p_ffi/go/cid.dart' as $cid;
 
 /// Go: `blocks.Block` (values read from the methods; built in Dart, it
 /// crosses as a Go value that returns them).
-final class Block implements GoDto {
-  Block(
+final class BlockFormatBlock implements GoDto {
+  BlockFormatBlock(
       {$cid.Cid? cid,
       Map<String, Object?>? loggable,
       Uint8List? rawData,
@@ -20,7 +20,7 @@ final class Block implements GoDto {
         rawData = rawData,
         string = string ?? '';
 
-  Block.$dec($R r)
+  BlockFormatBlock.$dec($R r)
       : cid = r.p() ? $cid.Cid(r.str()) : null,
         loggable = r.map(() => r.str(), () => r.any()),
         rawData = r.bytes(),
@@ -50,8 +50,8 @@ final class Block implements GoDto {
 
 /// Go: `var blocks.ErrWrongHash error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrWrongHash extends GolangException {
-  ErrWrongHash.$(super.base) : super.$from();
+class BlockFormatErrWrongHash extends GolangException {
+  BlockFormatErrWrongHash.$(super.base) : super.$from();
 
   @override
   String toString() => 'blocks.ErrWrongHash: $message';

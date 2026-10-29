@@ -2,21 +2,28 @@
 // Go: github.com/ipld/go-codec-dagpb
 library;
 
+import 'package:p2p_ffi/src/go.dart' show GoCodecDagpb;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/ipld_prime/traversal.dart' as $traversal;
 
-/// Go: `func dagpb.AddSupportToChooser(existing traversal.LinkTargetNodePrototypeChooser) traversal.LinkTargetNodePrototypeChooser`.
-$traversal.LinkTargetNodePrototypeChooser addSupportToChooser(
-    $traversal.LinkTargetNodePrototypeChooser existing) {
-  final $r = $callSync(465, $W()..h(existing));
-  return $r.hnn($traversal.LinkTargetNodePrototypeChooser.$h);
-}
-
 /// Go: `var dagpb.ErrIntOverflow error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrIntOverflow extends GolangException {
-  ErrIntOverflow.$(super.base) : super.$from();
+class CodecDagpbErrIntOverflow extends GolangException {
+  CodecDagpbErrIntOverflow.$(super.base) : super.$from();
 
   @override
   String toString() => 'dagpb.ErrIntOverflow: $message';
+}
+
+/// Go: the package-level members of `github.com/ipld/go-codec-dagpb` (`Go.codecDagpb`).
+extension GoCodecDagpbApi on GoCodecDagpb {
+  /// Go: `func dagpb.AddSupportToChooser(existing traversal.LinkTargetNodePrototypeChooser) traversal.LinkTargetNodePrototypeChooser`.
+  $traversal.IpldPrimeTraversalLinkTargetNodePrototypeChooser
+      addSupportToChooser(
+          $traversal.IpldPrimeTraversalLinkTargetNodePrototypeChooser
+              existing) {
+    final $r = $callSync(465, $W()..h(existing));
+    return $r
+        .hnn($traversal.IpldPrimeTraversalLinkTargetNodePrototypeChooser.$h);
+  }
 }

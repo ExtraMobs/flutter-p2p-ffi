@@ -2,12 +2,13 @@
 // Go: github.com/ipfs/boxo/path
 library;
 
+import 'package:p2p_ffi/src/go.dart' show GoBoxoPath;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/cid.dart' as $cid;
 
 /// Go: `path.ImmutablePath` (valor).
-class ImmutablePath extends Path {
-  const ImmutablePath(super.value);
+class BoxoPathImmutablePath extends BoxoPath {
+  const BoxoPathImmutablePath(super.value);
 
   /// Go: `func (path.ImmutablePath).RootCid() cid.Cid`.
   $cid.Cid rootCid() {
@@ -17,8 +18,8 @@ class ImmutablePath extends Path {
 }
 
 /// Go: `path.Path` (valor).
-class Path extends GoValue {
-  const Path(super.value);
+class BoxoPath extends GoValue {
+  const BoxoPath(super.value);
 
   /// Go: `func (path.Path).Namespace() string`.
   String namespace() {
@@ -39,65 +40,10 @@ class Path extends GoValue {
   }
 }
 
-/// Go: `func path.NewPath(str string) (path.Path, error)`.
-Path newPath(String str) {
-  final $r = $callSync(214, $W()..str(str));
-  return $r.p() ? Path($r.str()) : $nil();
-}
-
-/// Go: `func path.NewPathFromSegments(segments ...string) (path.Path, error)`.
-Path newPathFromSegments([List<String> segments = const []]) {
-  final $r = $callSync(215, $W()..list(segments, (w0, e0) => w0.str(e0)));
-  return $r.p() ? Path($r.str()) : $nil();
-}
-
-/// Go: `func path.Join(p path.Path, segments ...string) (path.Path, error)`.
-Path join(Path p, [List<String> segments = const []]) {
-  final $r = $callSync(
-      212,
-      $W()
-        ..val(p)
-        ..list(segments, (w0, e0) => w0.str(e0)));
-  return $r.p() ? Path($r.str()) : $nil();
-}
-
-/// Go: `func path.FromCid(cid cid.Cid) path.ImmutablePath`.
-ImmutablePath fromCid($cid.Cid cid) {
-  final $r = $callSync(210, $W()..val(cid));
-  return $r.p() ? ImmutablePath($r.str()) : $nil();
-}
-
-/// Go: `func path.NewImmutablePath(p path.Path) (path.ImmutablePath, error)`.
-ImmutablePath newImmutablePath(Path p) {
-  final $r = $callSync(213, $W()..val(p));
-  return $r.p() ? ImmutablePath($r.str()) : $nil();
-}
-
-/// Go: `func path.SegmentsToString(segments ...string) string`.
-String segmentsToString([List<String> segments = const []]) {
-  final $r = $callSync(219, $W()..list(segments, (w0, e0) => w0.str(e0)));
-  return $r.str();
-}
-
-/// Go: `func path.StringToSegments(str string) []string`.
-List<String> stringToSegments(String str) {
-  final $r = $callSync(220, $W()..str(str));
-  return $r.list(() => $r.str());
-}
-
-/// Go: `const path.IPFSNamespace untyped string`.
-const ipfsNamespace = "ipfs";
-
-/// Go: `const path.IPLDNamespace untyped string`.
-const ipldNamespace = "ipld";
-
-/// Go: `const path.IPNSNamespace untyped string`.
-const ipnsNamespace = "ipns";
-
 /// Go: `var path.ErrExpectedImmutable error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrExpectedImmutable extends GolangException {
-  ErrExpectedImmutable.$(super.base) : super.$from();
+class BoxoPathErrExpectedImmutable extends GolangException {
+  BoxoPathErrExpectedImmutable.$(super.base) : super.$from();
 
   @override
   String toString() => 'path.ErrExpectedImmutable: $message';
@@ -105,8 +51,8 @@ class ErrExpectedImmutable extends GolangException {
 
 /// Go: `var path.ErrInsufficientComponents error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrInsufficientComponents extends GolangException {
-  ErrInsufficientComponents.$(super.base) : super.$from();
+class BoxoPathErrInsufficientComponents extends GolangException {
+  BoxoPathErrInsufficientComponents.$(super.base) : super.$from();
 
   @override
   String toString() => 'path.ErrInsufficientComponents: $message';
@@ -114,8 +60,8 @@ class ErrInsufficientComponents extends GolangException {
 
 /// Go: `path.ErrInvalidPath`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrInvalidPath extends GolangException {
-  ErrInvalidPath.$(super.base) : super.$from();
+class BoxoPathErrInvalidPath extends GolangException {
+  BoxoPathErrInvalidPath.$(super.base) : super.$from();
 
   @override
   String toString() => 'path.ErrInvalidPath: $message';
@@ -123,9 +69,67 @@ class ErrInvalidPath extends GolangException {
 
 /// Go: `var path.ErrUnknownNamespace error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrUnknownNamespace extends GolangException {
-  ErrUnknownNamespace.$(super.base) : super.$from();
+class BoxoPathErrUnknownNamespace extends GolangException {
+  BoxoPathErrUnknownNamespace.$(super.base) : super.$from();
 
   @override
   String toString() => 'path.ErrUnknownNamespace: $message';
+}
+
+/// Go: the package-level members of `github.com/ipfs/boxo/path` (`Go.boxo.path`).
+extension GoBoxoPathApi on GoBoxoPath {
+  /// Go: `func path.NewPath(str string) (path.Path, error)`.
+  BoxoPath newPath(String str) {
+    final $r = $callSync(214, $W()..str(str));
+    return $r.p() ? BoxoPath($r.str()) : $nil();
+  }
+
+  /// Go: `func path.NewPathFromSegments(segments ...string) (path.Path, error)`.
+  BoxoPath newPathFromSegments([List<String> segments = const []]) {
+    final $r = $callSync(215, $W()..list(segments, (w0, e0) => w0.str(e0)));
+    return $r.p() ? BoxoPath($r.str()) : $nil();
+  }
+
+  /// Go: `func path.Join(p path.Path, segments ...string) (path.Path, error)`.
+  BoxoPath join(BoxoPath p, [List<String> segments = const []]) {
+    final $r = $callSync(
+        212,
+        $W()
+          ..val(p)
+          ..list(segments, (w0, e0) => w0.str(e0)));
+    return $r.p() ? BoxoPath($r.str()) : $nil();
+  }
+
+  /// Go: `func path.FromCid(cid cid.Cid) path.ImmutablePath`.
+  BoxoPathImmutablePath fromCid($cid.Cid cid) {
+    final $r = $callSync(210, $W()..val(cid));
+    return $r.p() ? BoxoPathImmutablePath($r.str()) : $nil();
+  }
+
+  /// Go: `func path.NewImmutablePath(p path.Path) (path.ImmutablePath, error)`.
+  BoxoPathImmutablePath newImmutablePath(BoxoPath p) {
+    final $r = $callSync(213, $W()..val(p));
+    return $r.p() ? BoxoPathImmutablePath($r.str()) : $nil();
+  }
+
+  /// Go: `func path.SegmentsToString(segments ...string) string`.
+  String segmentsToString([List<String> segments = const []]) {
+    final $r = $callSync(219, $W()..list(segments, (w0, e0) => w0.str(e0)));
+    return $r.str();
+  }
+
+  /// Go: `func path.StringToSegments(str string) []string`.
+  List<String> stringToSegments(String str) {
+    final $r = $callSync(220, $W()..str(str));
+    return $r.list(() => $r.str());
+  }
+
+  /// Go: `const path.IPFSNamespace untyped string`.
+  String get ipfsNamespace => "ipfs";
+
+  /// Go: `const path.IPLDNamespace untyped string`.
+  String get ipldNamespace => "ipld";
+
+  /// Go: `const path.IPNSNamespace untyped string`.
+  String get ipnsNamespace => "ipns";
 }

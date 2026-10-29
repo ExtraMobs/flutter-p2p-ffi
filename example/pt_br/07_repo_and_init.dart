@@ -29,10 +29,6 @@
 // Próxima pergunta: "E o que o nó faz com esse repositório?" → lição 08.
 import 'dart:io';
 
-import 'package:p2p_ffi/go/kubo/config.dart' as config;
-import 'package:p2p_ffi/go/kubo/core/coreiface/options.dart' as options;
-import 'package:p2p_ffi/go/kubo/plugin/loader.dart' as loader;
-import 'package:p2p_ffi/go/kubo/repo/fsrepo.dart' as fsrepo;
 import 'package:p2p_ffi/p2p_ffi.dart';
 
 import 'lesson.dart';
@@ -45,7 +41,7 @@ Future<void> main() async {
     // 1. Os plugins, uma vez por processo do serviço.
     //    Go:  plugins, _ := loader.NewPluginLoader("")
     //         plugins.Initialize(); plugins.Inject()
-    final plugins = loader.PluginLoader('');
+    final plugins = KuboPluginLoader('');
     plugins.initialize();
     plugins.inject();
     say('plugins carregados (agora o kubo conhece os datastores)');
@@ -53,27 +49,28 @@ Future<void> main() async {
     // 2. A identidade: uma chave ed25519 nova; o peer ID vem dela.
     //    Go:  id, _ := config.CreateIdentity(io.Discard, []options.KeyGenerateOption{
     //             options.Key.Type("ed25519")})
-    final identity = config.createIdentity(null, [options.key.type('ed25519')]);
+    final identity = Go.kubo.config.createIdentity(
+        null, [Go.kubo.core.coreiface.options.key.type('ed25519')]);
     say('\nidentidade: peer ID ${identity.peerId}');
     say('  (a chave privada fica na config: quem a tem É este peer)');
 
     // 3. A config a partir da identidade, e um perfil por cima.
     //    Go:  cfg, _ := config.InitWithIdentity(id)
     //         config.Profiles["test"].Transform(cfg)
-    final cfg = config.initWithIdentity(identity);
+    final cfg = Go.kubo.config.initWithIdentity(identity);
     final before = (cfg.json['Addresses'] as Map)['Swarm'];
-    config.profiles['test']!.transform(cfg);
+    Go.kubo.config.profiles['test']!.transform(cfg);
     final after = (cfg.json['Addresses'] as Map)['Swarm'];
     say('\nconfig: escuta em $before por padrão');
     say('  depois do perfil `test`: $after, peers de bootstrap '
         '${(cfg.json['Bootstrap'] as List).length}');
-    say('  perfis que o kubo conhece: ${config.profiles.keys.join(', ')}');
+    say('  perfis que o kubo conhece: ${Go.kubo.config.profiles.keys.join(', ')}');
 
     // 4. O init grava a pasta; o open a trava para este processo.
     //    Go:  fsrepo.Init(dir, cfg); r, _ := fsrepo.Open(dir)
-    say('\ninicializado antes do init: ${fsrepo.isInitialized(dir)}');
-    fsrepo.init(dir, cfg);
-    say('inicializado depois do init: ${fsrepo.isInitialized(dir)}');
+    say('\ninicializado antes do init: ${Go.kubo.repo.fsrepo.isInitialized(dir)}');
+    Go.kubo.repo.fsrepo.init(dir, cfg);
+    say('inicializado depois do init: ${Go.kubo.repo.fsrepo.isInitialized(dir)}');
     void listFolder(String when) {
       final entries = Directory(dir).listSync()
         ..sort((a, b) => a.path.compareTo(b.path));
@@ -84,7 +81,7 @@ Future<void> main() async {
     }
 
     listFolder('depois do init');
-    final repo = fsrepo.open(dir);
+    final repo = Go.kubo.repo.fsrepo.open(dir);
     listFolder('depois do open (os datastores nascem na primeira abertura)');
     final stored = repo.config();
     say('\naberto; a config lida de volta do disco tem o mesmo peer ID: '
@@ -101,16 +98,16 @@ Future<void> main() async {
     repo.close();
 
     say('\n== Erros comuns\n');
-    final other = config.initWithIdentity(
-        config.createIdentity(null, [options.key.type('ed25519')]));
+    final other = Go.kubo.config.initWithIdentity(Go.kubo.config.createIdentity(
+        null, [Go.kubo.core.coreiface.options.key.type('ed25519')]));
     await silentlyWrong('init de novo, esperando que a config nova substitua',
         why: 'init numa pasta que já é repositório não faz nada (sem erro): '
             'a identidade de dentro nunca é sobrescrita',
         instead: 'mude um repositório existente com setConfig/setConfigKey '
             '(passo 5); identidade nova pede pasta nova',
         wrong: () {
-          fsrepo.init(dir, other);
-          final r = fsrepo.open(dir);
+          Go.kubo.repo.fsrepo.init(dir, other);
+          final r = Go.kubo.repo.fsrepo.open(dir);
           final id = (r.config().json['Identity'] as Map)['PeerID'];
           r.close();
           return 'peer ID no repositório: $id';
@@ -120,12 +117,12 @@ Future<void> main() async {
     await mistake('abrir uma pasta que nunca foi inicializada',
         why: 'não há config, nem identidade, nem datastore para abrir',
         instead: 'init uma vez (passos 2-4), open nas outras',
-        action: () => fsrepo.open('${tmp.path}/nothing-here'));
+        action: () => Go.kubo.repo.fsrepo.open('${tmp.path}/nothing-here'));
     await mistake('carregar os plugins duas vezes no mesmo serviço',
         why: 'cada plugin de datastore se registra uma vez só no Go',
         instead: 'carregue-os uma vez por serviço, logo após o '
             'P2pService.start()',
-        action: () => loader.PluginLoader('')
+        action: () => KuboPluginLoader('')
           ..initialize()
           ..inject());
   } finally {

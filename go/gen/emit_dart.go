@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	"go/types"
+	"io/fs"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -19,9 +20,11 @@ type dartLib struct {
 	prefix  map[string]string // library importada → prefixo
 	classes map[string]*dclass
 	funcs   []*fn
-	extra   []string // código de outro emissor (os comandos e os DTOs deles)
+	extra   []string // código de outro emissor (os DTOs dos comandos, as classes de erro)
+	members []string // the namespace's members (commands, function tokens): in the library's extension
 	bytes   bool     // usa Uint8List
 	async   bool     // usa StreamSink (dart:async)
+	ns      bool     // has members: an extension on its namespace class (lib/src/go.dart)
 }
 
 type dclass struct {
@@ -165,12 +168,69 @@ func emitDart(m *model, fns []*fn, hash uint64, more func(*dartEmitter)) (map[st
 		}
 		out[path] = formatDart(path, src)
 	}
+	tree, err := goTree(publicLibs(out), e.goPaths(), runtimeNames())
+	if err != nil {
+		panic("gen: " + err.Error())
+	}
+	out["src/go.dart"] = tree
 	out["src/any_types.dart"] = formatDart("src/any_types.dart", anyTypes)
 	out["src/error_types.dart"] = formatDart("src/error_types.dart", errorTypes)
 	// O hash da tabela vai no Hello do P2pService (WIRE.md): app e host têm de
 	// vir do mesmo gerador.
 	out["src/table.dart"] = tableDart(hash)
 	return out, consts, errs
+}
+
+// publicLibs: every library under lib/go/ (relative to lib/) → its source:
+// the generated ones in [out] and the hand-written ones, each with its
+// generated part.
+func publicLibs(out map[string][]byte) map[string][]byte {
+	libs := map[string][]byte{}
+	for path, src := range out {
+		if strings.HasPrefix(path, "go/") && !strings.HasSuffix(path, ".g.dart") {
+			libs[path] = src
+		}
+	}
+	_ = filepath.WalkDir("../lib/go", func(p string, d fs.DirEntry, err error) error {
+		if err != nil || d.IsDir() || !strings.HasSuffix(p, ".dart") || strings.HasSuffix(p, ".g.dart") {
+			return err
+		}
+		rel := filepath.ToSlash(strings.TrimPrefix(p, filepath.Clean("../lib")+string(filepath.Separator)))
+		if _, ok := libs[rel]; ok {
+			return nil
+		}
+		src, err := os.ReadFile(p)
+		if err != nil || bytes.HasPrefix(src, []byte(generatedHeader)) { // a stale generated one
+			return err
+		}
+		libs[rel] = append(src, out[strings.TrimSuffix(rel, ".dart")+".g.dart"]...)
+		return nil
+	})
+	return libs
+}
+
+// goPaths: the Go package of each library.
+func (e *dartEmitter) goPaths() map[string]string {
+	m := map[string]string{}
+	for path, l := range e.libs {
+		m[path] = l.goPath
+	}
+	return m
+}
+
+// runtimeNames: what lib/p2p_ffi.dart exports from lib/src/ (its `show` lists).
+func runtimeNames() []string {
+	src, err := os.ReadFile("../lib/" + dartPkg + ".dart")
+	if err != nil {
+		panic("gen: " + err.Error())
+	}
+	var out []string
+	for _, m := range regexp.MustCompile(`(?s)\bshow\s+([^;]*);`).FindAllSubmatch(src, -1) {
+		for _, n := range strings.Split(string(m[1]), ",") {
+			out = append(out, strings.TrimSpace(n))
+		}
+	}
+	return out
 }
 
 // tokens: the classes of the type tokens get `static const $type`, the
@@ -183,7 +243,7 @@ func (e *dartEmitter) tokens() string {
 	for _, t := range e.m.toks {
 		if t.fn != nil {
 			l := e.lib(t.fn.Pkg().Path())
-			l.extra = append(l.extra, fmt.Sprintf("/// Go: the function `%s.%s` as a value (a token: Go gets the function\n/// itself, as in `libp2p.Transport(tcp.NewTCPTransport)`).\nconst %sFunc = GoToken(%d);\n\n",
+			l.members = append(l.members, fmt.Sprintf("/// Go: the function `%s.%s` as a value (a token: Go gets the function\n/// itself, as in `libp2p.Transport(tcp.NewTCPTransport)`).\nGoToken get %sFunc => const GoToken(%d);\n",
 				t.fn.Pkg().Name(), t.fn.Name(), strings.TrimSuffix(memberName(t.fn.Name()), "$"), t.id))
 			continue
 		}
@@ -301,7 +361,7 @@ func isFactory(f *fn) bool {
 
 // ref: nome (qualificado, se de outra library) da classe de [t].
 func (e *dartEmitter) ref(t *tinfo, from *dartLib) string {
-	name := className(t)
+	name := className(e.m, t)
 	l := e.lib(e.m.home(t.named.Obj().Pkg()).Path())
 	if l == from {
 		return name
@@ -330,11 +390,13 @@ func (e *dartEmitter) imp(from *dartLib, uri string) string {
 	return p
 }
 
-func className(t *tinfo) string {
+// className: the Dart class of [t], named after its library (qualType).
+func className(m *model, t *tinfo) string {
+	path := dartPath(m.home(t.named.Obj().Pkg()).Path())
 	if t.k == kValue {
-		return t.val.dartClass
+		return qualType(path, t.val.dartClass)
 	}
-	return typeName(t.named.Obj().Name())
+	return qualType(path, t.named.Obj().Name())
 }
 
 func basicDart(t *tinfo) string {
@@ -543,12 +605,18 @@ func (e *dartEmitter) body(l *dartLib) string {
 	for _, k := range sortedKeys(l.classes) {
 		body.WriteString(e.class(l, l.classes[k]))
 	}
-	e.holders(l, &body)
+	members := e.holders(l, &body)
 	for _, f := range l.funcs {
-		body.WriteString(e.function(l, f, "", false) + "\n")
+		members = append(members, e.function(l, f, "", false))
 	}
+	members = append(members, l.members...)
 	for _, x := range l.extra {
 		body.WriteString(x)
+	}
+	if len(members) > 0 {
+		ns := nsClass(l.path)
+		fmt.Fprintf(&body, "/// Go: the package-level members of `%s` (`%s`).\nextension %sApi on %s {\n%s}\n", l.goPath, nsPath(l.path), ns, ns, strings.Join(members, "\n"))
+		l.ns = true
 	}
 	return body.String()
 }
@@ -575,6 +643,9 @@ func (e *dartEmitter) emitPart(l *dartLib, hand []byte) (string, string) {
 	}
 	if usesRuntime(body) {
 		need["import '"+pkgPrefix+"src/runtime.dart';"] = true
+	}
+	if l.ns {
+		need[nsImport(l)] = true
 	}
 	for uri, p := range l.prefix {
 		need[fmt.Sprintf("import '%s' as %s;", uri, p)] = true
@@ -603,6 +674,9 @@ func (e *dartEmitter) emitLib(l *dartLib) string {
 	if l.async || l.bytes {
 		b.WriteString("\n")
 	}
+	if l.ns {
+		b.WriteString(nsImport(l) + "\n")
+	}
 	if usesRuntime(body) {
 		b.WriteString("import '" + pkgPrefix + "src/runtime.dart';\n")
 	}
@@ -614,9 +688,14 @@ func (e *dartEmitter) emitLib(l *dartLib) string {
 	return strings.TrimRight(b.String(), "\n") + "\n"
 }
 
+// nsImport: the import of the library's namespace class.
+func nsImport(l *dartLib) string {
+	return "import '" + pkgPrefix + "src/go.dart' show " + nsClass(l.path) + ";"
+}
+
 func (e *dartEmitter) class(l *dartLib, c *dclass) string {
 	t := c.t
-	name := className(t)
+	name := className(e.m, t)
 	var b strings.Builder
 	switch t.k {
 	case kValue:
@@ -624,7 +703,7 @@ func (e *dartEmitter) class(l *dartLib, c *dclass) string {
 		if t.val.json {
 			base = "GoJsonValue"
 		} else if t.val.dartExtend != "" {
-			base = t.val.dartExtend
+			base = qualType(l.path, t.val.dartExtend)
 		}
 		fmt.Fprintf(&b, "/// Go: `%s` (valor).\nclass %s extends %s {\n", docType(t), name, base)
 		if t.val.json {
@@ -815,7 +894,7 @@ func isU64(t types.Type) bool {
 
 // holders: as variáveis de opções do pacote (options.Unixfs, options.Pin.Ls...),
 // com os construtores das opções usadas.
-func (e *dartEmitter) holders(l *dartLib, b *strings.Builder) {
+func (e *dartEmitter) holders(l *dartLib, b *strings.Builder) (members []string) {
 	type node struct {
 		kids  map[string]*node
 		ctors []string
@@ -912,13 +991,11 @@ func (e *dartEmitter) holders(l *dartLib, b *strings.Builder) {
 		}
 	}
 	for _, k := range sortedKeys(root.kids) {
-		fmt.Fprintf(b, "/// Go: `var %s`: option constructors.\nconst %s = _%s._();\n\n", k, memberName(k), typeName(k))
+		members = append(members, fmt.Sprintf("  /// Go: `var %s`: option constructors.\n  _%s get %s => const _%s._();\n", k, typeName(k), memberName(k), typeName(k)))
 		emit([]string{k}, root.kids[k])
 	}
 	sort.Strings(root.ctors)
-	for _, c := range root.ctors { // funções do pacote: no nível da library
-		b.WriteString(strings.ReplaceAll(strings.TrimPrefix(c, "  "), "\n  ", "\n") + "\n")
-	}
+	return append(members, root.ctors...) // the package's functions: members of its namespace
 }
 
 // function emite uma função de nível de pacote, um método (inClass) ou uma
@@ -926,7 +1003,7 @@ func (e *dartEmitter) holders(l *dartLib, b *strings.Builder) {
 // chama a função f.id do host no modo dela e decodifica os resultados do $R.
 func (e *dartEmitter) function(l *dartLib, f *fn, class string, factory bool) string {
 	if isConstObj(f.obj) { // constante: o valor do Go, sem ir ao host
-		return fmt.Sprintf("/// Go: `%s`.\nconst %s = %s;\n", goDoc(f.obj), memberName(f.obj.Name()), f.constLit)
+		return fmt.Sprintf("  /// Go: `%s`.\n  %s get %s => %s;\n", goDoc(f.obj), constDart(f.constLit), memberName(f.obj.Name()), f.constLit)
 	}
 	if f.cast != nil { // type assertion: um handle novo, ou null
 		C := e.dt(f.cast, l)
@@ -1014,10 +1091,7 @@ func (e *dartEmitter) function(l *dartLib, f *fn, class string, factory bool) st
 	if len(segs) > 0 {
 		call += ", $W().." + strings.Join(segs, "..")
 	}
-	indent := ""
-	if class != "" {
-		indent = "  "
-	}
+	indent := "  " // a class member, or one of the namespace's extension
 	name := memberName(f.obj.Name())
 	var b strings.Builder
 	if f.impl != nil {
@@ -1101,6 +1175,21 @@ func (e *dartEmitter) function(l *dartLib, f *fn, class string, factory bool) st
 		fmt.Fprintf(&b, "%s%s {\n%s  final $r = %s;\n%s  return %s;\n%s}\n", indent, head, indent, callExpr, indent, dec, indent)
 	}
 	return b.String()
+}
+
+// constDart: the Dart type of a constant's literal (dartConstLit).
+func constDart(lit string) string {
+	switch {
+	case lit == "true" || lit == "false":
+		return "bool"
+	case strings.HasPrefix(lit, "Duration("):
+		return "Duration"
+	case strings.HasPrefix(lit, `"`):
+		return "String"
+	case strings.ContainsAny(lit, ".eEn"):
+		return "double"
+	}
+	return "int"
 }
 
 // weaker: [a] is only taken by option constructors and [b] is not.

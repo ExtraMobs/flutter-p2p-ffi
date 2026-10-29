@@ -6,11 +6,11 @@ import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/ipld_prime/storage.dart' as $storage;
 
 /// Go: `linking.LinkSystem` (handle).
-class LinkSystem extends GoHandle {
-  LinkSystem.$h(super.$h);
+class IpldPrimeLinkingLinkSystem extends GoHandle {
+  IpldPrimeLinkingLinkSystem.$h(super.$h);
 
   /// Go: `func (*linking.LinkSystem).SetReadStorage(store storage.ReadableStorage)`.
-  void setReadStorage($storage.ReadableStorage store) {
+  void setReadStorage($storage.IpldPrimeStorageReadableStorage store) {
     $callSync(
         466,
         $W()
@@ -21,8 +21,8 @@ class LinkSystem extends GoHandle {
 
 /// Go: `linking.ErrHashMismatch`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrHashMismatch extends GolangException {
-  ErrHashMismatch.$(super.base) : super.$from();
+class IpldPrimeLinkingErrHashMismatch extends GolangException {
+  IpldPrimeLinkingErrHashMismatch.$(super.base) : super.$from();
 
   @override
   String toString() => 'linking.ErrHashMismatch: $message';
@@ -30,8 +30,8 @@ class ErrHashMismatch extends GolangException {
 
 /// Go: `linking.ErrLinkingSetup`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrLinkingSetup extends GolangException {
-  ErrLinkingSetup.$(super.base, $R r)
+class IpldPrimeLinkingErrLinkingSetup extends GolangException {
+  IpldPrimeLinkingErrLinkingSetup.$(super.base, $R r)
       : detail = r.str(),
         super.$from();
 

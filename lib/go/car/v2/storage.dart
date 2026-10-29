@@ -2,6 +2,7 @@
 // Go: github.com/ipld/go-car/v2/storage
 library;
 
+import 'package:p2p_ffi/src/go.dart' show GoCarV2Storage;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/car/v2.dart' as $v2;
 import 'package:p2p_ffi/go/car/v2/index.dart' as $index;
@@ -9,8 +10,8 @@ import 'package:p2p_ffi/go/cid.dart' as $cid;
 import 'package:p2p_ffi/go/ipld_prime/storage.dart' as $storage;
 
 /// Go: `storage.ReadableCar` (handle).
-class ReadableCar extends $storage.ReadableStorage {
-  ReadableCar.$h(super.$h) : super.$h();
+class CarV2StorageReadableCar extends $storage.IpldPrimeStorageReadableStorage {
+  CarV2StorageReadableCar.$h(super.$h) : super.$h();
 
   /// Go: `func (storage.ReadableCar).Roots() []cid.Cid`.
   List<$cid.Cid> roots() {
@@ -19,27 +20,31 @@ class ReadableCar extends $storage.ReadableStorage {
   }
 
   /// Go: `func (storage.ReadableCar).Index() index.Index`.
-  $index.Index index() {
+  $index.CarV2Index index() {
     final $r = $callSync(463, $W()..h(this));
-    return $r.hnn($index.Index.$h);
+    return $r.hnn($index.CarV2Index.$h);
   }
-}
-
-/// Go: `func storage.OpenReadable(reader io.ReaderAt, opts ...car.Option) (storage.ReadableCar, error)`.
-ReadableCar openReadable(Object reader, [List<$v2.Option> opts = const []]) {
-  final $r = $callSync(
-      462,
-      $W()
-        ..reader(reader)
-        ..list(opts, (w0, e0) => w0.opt(e0)));
-  return $r.hnn(ReadableCar.$h);
 }
 
 /// Go: `var storage.ErrClosed error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrClosed extends GolangException {
-  ErrClosed.$(super.base) : super.$from();
+class CarV2StorageErrClosed extends GolangException {
+  CarV2StorageErrClosed.$(super.base) : super.$from();
 
   @override
   String toString() => 'storage.ErrClosed: $message';
+}
+
+/// Go: the package-level members of `github.com/ipld/go-car/v2/storage` (`Go.car.v2.storage`).
+extension GoCarV2StorageApi on GoCarV2Storage {
+  /// Go: `func storage.OpenReadable(reader io.ReaderAt, opts ...car.Option) (storage.ReadableCar, error)`.
+  CarV2StorageReadableCar openReadable(Object reader,
+      [List<$v2.CarV2Option> opts = const []]) {
+    final $r = $callSync(
+        462,
+        $W()
+          ..reader(reader)
+          ..list(opts, (w0, e0) => w0.opt(e0)));
+    return $r.hnn(CarV2StorageReadableCar.$h);
+  }
 }

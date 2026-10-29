@@ -2,72 +2,43 @@
 // Go: github.com/ipld/go-ipld-prime/datamodel
 library;
 
+import 'package:p2p_ffi/src/go.dart' show GoIpldPrimeDatamodel;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/boxo/ipld/merkledag.dart' as $merkledag;
 import 'package:p2p_ffi/go/ipld_prime/node/basicnode.dart' as $basicnode;
 
 /// Go: `datamodel.Node` (handle).
-class Node extends GoHandle {
-  Node.$h(super.$h);
+class IpldPrimeDatamodelNode extends GoHandle {
+  IpldPrimeDatamodelNode.$h(super.$h);
 
   /// Go: type assertion `x.(*merkledag.ProtoNode)`: null if the object is not one.
-  $merkledag.ProtoNode? asProtoNode() {
+  $merkledag.BoxoIpldMerkledagProtoNode? asProtoNode() {
     final $r = $callSync(91, $W()..h(this));
-    return $r.hn($merkledag.ProtoNode.$h);
+    return $r.hn($merkledag.BoxoIpldMerkledagProtoNode.$h);
   }
 
   /// Go: type assertion `x.(*merkledag.RawNode)`: null if the object is not one.
-  $merkledag.RawNode? asRawNode() {
+  $merkledag.BoxoIpldMerkledagRawNode? asRawNode() {
     final $r = $callSync(92, $W()..h(this));
-    return $r.hn($merkledag.RawNode.$h);
+    return $r.hn($merkledag.BoxoIpldMerkledagRawNode.$h);
   }
 }
 
 /// Go: `datamodel.NodePrototype` (handle).
-class NodePrototype extends GoHandle {
-  NodePrototype.$h(super.$h);
+class IpldPrimeDatamodelNodePrototype extends GoHandle {
+  IpldPrimeDatamodelNodePrototype.$h(super.$h);
 
   /// Go: type assertion `x.(*basicnode.Prototype__Any)`: null if the object is not one.
-  $basicnode.PrototypeAny? asPrototypeAny() {
+  $basicnode.IpldPrimeNodeBasicnodePrototypeAny? asPrototypeAny() {
     final $r = $callSync(93, $W()..h(this));
-    return $r.hn($basicnode.PrototypeAny.$h);
+    return $r.hn($basicnode.IpldPrimeNodeBasicnodePrototypeAny.$h);
   }
 }
 
-/// Go: `const datamodel.Kind_Bool datamodel.Kind`.
-const kindBool = 98;
-
-/// Go: `const datamodel.Kind_Bytes datamodel.Kind`.
-const kindBytes = 120;
-
-/// Go: `const datamodel.Kind_Float datamodel.Kind`.
-const kindFloat = 102;
-
-/// Go: `const datamodel.Kind_Int datamodel.Kind`.
-const kindInt = 105;
-
-/// Go: `const datamodel.Kind_Invalid datamodel.Kind`.
-const kindInvalid = 0;
-
-/// Go: `const datamodel.Kind_Link datamodel.Kind`.
-const kindLink = 47;
-
-/// Go: `const datamodel.Kind_List datamodel.Kind`.
-const kindList = 91;
-
-/// Go: `const datamodel.Kind_Map datamodel.Kind`.
-const kindMap = 123;
-
-/// Go: `const datamodel.Kind_Null datamodel.Kind`.
-const kindNull = 48;
-
-/// Go: `const datamodel.Kind_String datamodel.Kind`.
-const kindString = 115;
-
 /// Go: `datamodel.ErrInvalidSegmentForList`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrInvalidSegmentForList extends GolangException {
-  ErrInvalidSegmentForList.$(super.base, $R r)
+class IpldPrimeDatamodelErrInvalidSegmentForList extends GolangException {
+  IpldPrimeDatamodelErrInvalidSegmentForList.$(super.base, $R r)
       : typeName = r.str(),
         super.$from();
 
@@ -80,8 +51,8 @@ class ErrInvalidSegmentForList extends GolangException {
 
 /// Go: `datamodel.ErrIteratorOverread`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrIteratorOverread extends GolangException {
-  ErrIteratorOverread.$(super.base) : super.$from();
+class IpldPrimeDatamodelErrIteratorOverread extends GolangException {
+  IpldPrimeDatamodelErrIteratorOverread.$(super.base) : super.$from();
 
   @override
   String toString() => 'datamodel.ErrIteratorOverread: $message';
@@ -89,8 +60,8 @@ class ErrIteratorOverread extends GolangException {
 
 /// Go: `datamodel.ErrNotExists`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrNotExists extends GolangException {
-  ErrNotExists.$(super.base) : super.$from();
+class IpldPrimeDatamodelErrNotExists extends GolangException {
+  IpldPrimeDatamodelErrNotExists.$(super.base) : super.$from();
 
   @override
   String toString() => 'datamodel.ErrNotExists: $message';
@@ -98,8 +69,8 @@ class ErrNotExists extends GolangException {
 
 /// Go: `datamodel.ErrRepeatedMapKey`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrRepeatedMapKey extends GolangException {
-  ErrRepeatedMapKey.$(super.base) : super.$from();
+class IpldPrimeDatamodelErrRepeatedMapKey extends GolangException {
+  IpldPrimeDatamodelErrRepeatedMapKey.$(super.base) : super.$from();
 
   @override
   String toString() => 'datamodel.ErrRepeatedMapKey: $message';
@@ -107,8 +78,8 @@ class ErrRepeatedMapKey extends GolangException {
 
 /// Go: `datamodel.ErrWrongKind`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrWrongKind extends GolangException {
-  ErrWrongKind.$(super.base, $R r)
+class IpldPrimeDatamodelErrWrongKind extends GolangException {
+  IpldPrimeDatamodelErrWrongKind.$(super.base, $R r)
       : typeName = r.str(),
         methodName = r.str(),
         actualKind = r.i64(),
@@ -125,4 +96,37 @@ class ErrWrongKind extends GolangException {
 
   @override
   String toString() => 'datamodel.ErrWrongKind: $message';
+}
+
+/// Go: the package-level members of `github.com/ipld/go-ipld-prime/datamodel` (`Go.ipldPrime.datamodel`).
+extension GoIpldPrimeDatamodelApi on GoIpldPrimeDatamodel {
+  /// Go: `const datamodel.Kind_Bool datamodel.Kind`.
+  int get kindBool => 98;
+
+  /// Go: `const datamodel.Kind_Bytes datamodel.Kind`.
+  int get kindBytes => 120;
+
+  /// Go: `const datamodel.Kind_Float datamodel.Kind`.
+  int get kindFloat => 102;
+
+  /// Go: `const datamodel.Kind_Int datamodel.Kind`.
+  int get kindInt => 105;
+
+  /// Go: `const datamodel.Kind_Invalid datamodel.Kind`.
+  int get kindInvalid => 0;
+
+  /// Go: `const datamodel.Kind_Link datamodel.Kind`.
+  int get kindLink => 47;
+
+  /// Go: `const datamodel.Kind_List datamodel.Kind`.
+  int get kindList => 91;
+
+  /// Go: `const datamodel.Kind_Map datamodel.Kind`.
+  int get kindMap => 123;
+
+  /// Go: `const datamodel.Kind_Null datamodel.Kind`.
+  int get kindNull => 48;
+
+  /// Go: `const datamodel.Kind_String datamodel.Kind`.
+  int get kindString => 115;
 }

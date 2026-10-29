@@ -4,17 +4,18 @@ library;
 
 import 'dart:typed_data';
 
+import 'package:p2p_ffi/src/go.dart' show GoBoxoIpldMerkledag;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/boxo/blockservice.dart' as $blockservice;
 import 'package:p2p_ffi/go/cid.dart' as $cid;
 import 'package:p2p_ffi/go/ipld_format.dart' as $ipld_format;
 
 /// Go: `merkledag.ProtoNode` (handle).
-class ProtoNode extends $ipld_format.Node {
-  ProtoNode.$h(super.$h) : super.$h();
+class BoxoIpldMerkledagProtoNode extends $ipld_format.IpldFormatNode {
+  BoxoIpldMerkledagProtoNode.$h(super.$h) : super.$h();
 
   /// Go: `func (*merkledag.ProtoNode).AddNodeLink(name string, that format.Node) error`.
-  void addNodeLink(String name, $ipld_format.Node that) {
+  void addNodeLink(String name, $ipld_format.IpldFormatNode that) {
     $callSync(
         136,
         $W()
@@ -39,19 +40,20 @@ class ProtoNode extends $ipld_format.Node {
   }
 
   /// Go: `func (*merkledag.ProtoNode).Links() []*format.Link`.
-  List<$ipld_format.Link> links() {
+  List<$ipld_format.IpldFormatLink> links() {
     final $r = $callSync(141, $W()..h(this));
-    return $r.list(() => $r.p() ? $ipld_format.Link.$dec($r) : $nil());
+    return $r
+        .list(() => $r.p() ? $ipld_format.IpldFormatLink.$dec($r) : $nil());
   }
 
   /// Go: `func (*merkledag.ProtoNode).GetNodeLink(name string) (*format.Link, error)`.
-  $ipld_format.Link getNodeLink(String name) {
+  $ipld_format.IpldFormatLink getNodeLink(String name) {
     final $r = $callSync(
         140,
         $W()
           ..h(this)
           ..str(name));
-    return $r.p() ? $ipld_format.Link.$dec($r) : $nil();
+    return $r.p() ? $ipld_format.IpldFormatLink.$dec($r) : $nil();
   }
 
   /// Go: `func (*merkledag.ProtoNode).RemoveNodeLink(name string) error`.
@@ -64,14 +66,15 @@ class ProtoNode extends $ipld_format.Node {
   }
 
   /// Go: `func (*merkledag.ProtoNode).UpdateNodeLink(name string, that *merkledag.ProtoNode) (*merkledag.ProtoNode, error)`.
-  ProtoNode updateNodeLink(String name, ProtoNode that) {
+  BoxoIpldMerkledagProtoNode updateNodeLink(
+      String name, BoxoIpldMerkledagProtoNode that) {
     final $r = $callSync(
         144,
         $W()
           ..h(this)
           ..str(name)
           ..h(that));
-    return $r.hnn(ProtoNode.$h);
+    return $r.hnn(BoxoIpldMerkledagProtoNode.$h);
   }
 
   /// Go: `func (*merkledag.ProtoNode).EncodeProtobuf(force bool) ([]byte, error)`.
@@ -85,69 +88,27 @@ class ProtoNode extends $ipld_format.Node {
   }
 
   /// Go: `func (*merkledag.ProtoNode).Copy() format.Node`.
-  $ipld_format.Node copy() {
+  $ipld_format.IpldFormatNode copy() {
     final $r = $callSync(137, $W()..h(this));
-    return $r.hnn($ipld_format.Node.$h);
+    return $r.hnn($ipld_format.IpldFormatNode.$h);
   }
 }
 
 /// Go: `merkledag.RawNode` (handle).
-class RawNode extends $ipld_format.Node {
-  RawNode.$h(super.$h) : super.$h();
+class BoxoIpldMerkledagRawNode extends $ipld_format.IpldFormatNode {
+  BoxoIpldMerkledagRawNode.$h(super.$h) : super.$h();
 
   /// Go: `func merkledag.NewRawNode(data []byte) *merkledag.RawNode`.
-  factory RawNode(Uint8List data) {
+  factory BoxoIpldMerkledagRawNode(Uint8List data) {
     final $r = $callSync(133, $W()..bytes(data));
-    return $r.hnn(RawNode.$h);
+    return $r.hnn(BoxoIpldMerkledagRawNode.$h);
   }
 }
 
-/// Go: `func merkledag.NodeWithData(d []byte) *merkledag.ProtoNode`.
-ProtoNode nodeWithData(Uint8List d) {
-  final $r = $callSync(134, $W()..bytes(d));
-  return $r.hnn(ProtoNode.$h);
-}
-
-/// Go: `func merkledag.NewDAGService(bs blockservice.BlockService) *merkledag.dagService`.
-$ipld_format.DagService newDagService($blockservice.BlockService bs) {
-  final $r = $callSync(132, $W()..h(bs));
-  return $r.hnn($ipld_format.DagService.$h);
-}
-
-/// Go: `func merkledag.DecodeProtobuf(encoded []byte) (*merkledag.ProtoNode, error)`.
-ProtoNode decodeProtobuf(Uint8List encoded) {
-  final $r = $callSync(131, $W()..bytes(encoded));
-  return $r.hnn(ProtoNode.$h);
-}
-
-/// Go: `func merkledag.PrefixForCidVersion(version int) (cid.Prefix, error)`.
-$cid.Prefix prefixForCidVersion(int version) {
-  final $r = $callSync(135, $W()..i64(version));
-  return $r.p() ? $cid.Prefix.$dec($r) : $nil();
-}
-
-/// Go: `func merkledag.V0CidPrefix() cid.Prefix`.
-$cid.Prefix v0CidPrefix() {
-  final $r = $callSync(145);
-  return $r.p() ? $cid.Prefix.$dec($r) : $nil();
-}
-
-/// Go: `func merkledag.V1CidPrefix() cid.Prefix`.
-$cid.Prefix v1CidPrefix() {
-  final $r = $callSync(146);
-  return $r.p() ? $cid.Prefix.$dec($r) : $nil();
-}
-
-/// Go: `const merkledag.PBNodeDataFirst merkledag.PBNodeFieldOrder`.
-const pbNodeDataFirst = 1;
-
-/// Go: `const merkledag.PBNodeLinksFirst merkledag.PBNodeFieldOrder`.
-const pbNodeLinksFirst = 0;
-
 /// Go: `var merkledag.ErrLinkNotFound error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrLinkNotFound extends GolangException {
-  ErrLinkNotFound.$(super.base) : super.$from();
+class BoxoIpldMerkledagErrLinkNotFound extends GolangException {
+  BoxoIpldMerkledagErrLinkNotFound.$(super.base) : super.$from();
 
   @override
   String toString() => 'merkledag.ErrLinkNotFound: $message';
@@ -155,8 +116,8 @@ class ErrLinkNotFound extends GolangException {
 
 /// Go: `var merkledag.ErrNotProtobuf error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrNotProtobuf extends GolangException {
-  ErrNotProtobuf.$(super.base) : super.$from();
+class BoxoIpldMerkledagErrNotProtobuf extends GolangException {
+  BoxoIpldMerkledagErrNotProtobuf.$(super.base) : super.$from();
 
   @override
   String toString() => 'merkledag.ErrNotProtobuf: $message';
@@ -164,8 +125,8 @@ class ErrNotProtobuf extends GolangException {
 
 /// Go: `var merkledag.ErrNotRawNode error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrNotRawNode extends GolangException {
-  ErrNotRawNode.$(super.base) : super.$from();
+class BoxoIpldMerkledagErrNotRawNode extends GolangException {
+  BoxoIpldMerkledagErrNotRawNode.$(super.base) : super.$from();
 
   @override
   String toString() => 'merkledag.ErrNotRawNode: $message';
@@ -173,9 +134,55 @@ class ErrNotRawNode extends GolangException {
 
 /// Go: `var merkledag.ErrReadOnly error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
-class ErrReadOnly extends GolangException {
-  ErrReadOnly.$(super.base) : super.$from();
+class BoxoIpldMerkledagErrReadOnly extends GolangException {
+  BoxoIpldMerkledagErrReadOnly.$(super.base) : super.$from();
 
   @override
   String toString() => 'merkledag.ErrReadOnly: $message';
+}
+
+/// Go: the package-level members of `github.com/ipfs/boxo/ipld/merkledag` (`Go.boxo.ipld.merkledag`).
+extension GoBoxoIpldMerkledagApi on GoBoxoIpldMerkledag {
+  /// Go: `func merkledag.NodeWithData(d []byte) *merkledag.ProtoNode`.
+  BoxoIpldMerkledagProtoNode nodeWithData(Uint8List d) {
+    final $r = $callSync(134, $W()..bytes(d));
+    return $r.hnn(BoxoIpldMerkledagProtoNode.$h);
+  }
+
+  /// Go: `func merkledag.NewDAGService(bs blockservice.BlockService) *merkledag.dagService`.
+  $ipld_format.IpldFormatDagService newDagService(
+      $blockservice.BoxoBlockserviceBlockService bs) {
+    final $r = $callSync(132, $W()..h(bs));
+    return $r.hnn($ipld_format.IpldFormatDagService.$h);
+  }
+
+  /// Go: `func merkledag.DecodeProtobuf(encoded []byte) (*merkledag.ProtoNode, error)`.
+  BoxoIpldMerkledagProtoNode decodeProtobuf(Uint8List encoded) {
+    final $r = $callSync(131, $W()..bytes(encoded));
+    return $r.hnn(BoxoIpldMerkledagProtoNode.$h);
+  }
+
+  /// Go: `func merkledag.PrefixForCidVersion(version int) (cid.Prefix, error)`.
+  $cid.CidPrefix prefixForCidVersion(int version) {
+    final $r = $callSync(135, $W()..i64(version));
+    return $r.p() ? $cid.CidPrefix.$dec($r) : $nil();
+  }
+
+  /// Go: `func merkledag.V0CidPrefix() cid.Prefix`.
+  $cid.CidPrefix v0CidPrefix() {
+    final $r = $callSync(145);
+    return $r.p() ? $cid.CidPrefix.$dec($r) : $nil();
+  }
+
+  /// Go: `func merkledag.V1CidPrefix() cid.Prefix`.
+  $cid.CidPrefix v1CidPrefix() {
+    final $r = $callSync(146);
+    return $r.p() ? $cid.CidPrefix.$dec($r) : $nil();
+  }
+
+  /// Go: `const merkledag.PBNodeDataFirst merkledag.PBNodeFieldOrder`.
+  int get pbNodeDataFirst => 1;
+
+  /// Go: `const merkledag.PBNodeLinksFirst merkledag.PBNodeFieldOrder`.
+  int get pbNodeLinksFirst => 0;
 }
