@@ -4,10 +4,51 @@ library;
 
 import 'package:p2p_ffi/src/go.dart' show GoBoxoVerifcid;
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/cid.dart' as $cid;
 
 /// Go: `verifcid.Allowlist` (handle).
-class BoxoVerifcidAllowlist extends GoHandle {
+class BoxoVerifcidAllowlist extends GoHandle with BoxoVerifcidAllowlist$ {
   BoxoVerifcidAllowlist.$h(super.$h);
+
+  /// Go: `func verifcid.NewAllowlist(allowset map[uint64]bool) verifcid.Allowlist`.
+  factory BoxoVerifcidAllowlist(Map<int, bool> allowset) {
+    final $r = $callSync(1031,
+        $W()..map(allowset, (w0, k0) => w0.i64(k0), (w0, v0) => w0.b(v0)));
+    return $r.hnn(BoxoVerifcidAllowlist.$h);
+  }
+}
+
+/// The methods of [BoxoVerifcidAllowlist], mixed into every class Go also accepts as one.
+mixin BoxoVerifcidAllowlist$ on GoHandle {
+  /// Go: `func (verifcid.Allowlist).IsAllowed(code uint64) bool`.
+  bool isAllowed(int code) {
+    final $r = $callSync(
+        1028,
+        $W()
+          ..h(this)
+          ..i64(code));
+    return $r.b();
+  }
+
+  /// Go: `func (verifcid.Allowlist).MaxDigestSize(code uint64) int`.
+  int maxDigestSize(int code) {
+    final $r = $callSync(
+        1029,
+        $W()
+          ..h(this)
+          ..i64(code));
+    return $r.i64();
+  }
+
+  /// Go: `func (verifcid.Allowlist).MinDigestSize(code uint64) int`.
+  int minDigestSize(int code) {
+    final $r = $callSync(
+        1030,
+        $W()
+          ..h(this)
+          ..i64(code));
+    return $r.i64();
+  }
 }
 
 /// Go: `var verifcid.ErrAboveMaximumHashLength error`: an error. Thrown as this class when it is the outermost
@@ -57,6 +98,26 @@ class BoxoVerifcidErrPossiblyInsecureHashFunction extends GolangException {
 
 /// Go: the package-level members of `github.com/ipfs/boxo/verifcid` (`Go.boxo.verifcid`).
 extension GoBoxoVerifcidApi on GoBoxoVerifcid {
+  /// Go: `func verifcid.NewOverridingAllowlist(override verifcid.Allowlist, allowset map[uint64]bool) verifcid.Allowlist`.
+  BoxoVerifcidAllowlist newOverridingAllowlist(
+      BoxoVerifcidAllowlist override, Map<int, bool> allowset) {
+    final $r = $callSync(
+        1032,
+        $W()
+          ..h(override)
+          ..map(allowset, (w0, k0) => w0.i64(k0), (w0, v0) => w0.b(v0)));
+    return $r.hnn(BoxoVerifcidAllowlist.$h);
+  }
+
+  /// Go: `func verifcid.ValidateCid(allowlist verifcid.Allowlist, c cid.Cid) error`.
+  void validateCid(BoxoVerifcidAllowlist allowlist, $cid.Cid c) {
+    $callSync(
+        1033,
+        $W()
+          ..h(allowlist)
+          ..val(c));
+  }
+
   /// Go: `const verifcid.DefaultMaxDigestSize untyped int`.
   int get defaultMaxDigestSize => 128;
 

@@ -32,12 +32,16 @@ type dclass struct {
 	methods   []*fn
 	factories []*fn
 	token     int // tokens.go: the type's token (static const $type); 0 = none
+	// mixins: the other exposed interfaces Go accepts this type as, besides
+	// its base class's chain (linkMixins); mixed in and implemented
+	mixins []*dclass
 }
 
 type dartEmitter struct {
 	m           *model
 	libs        map[string]*dartLib
 	paramIfaces map[string]bool // interfaces usadas como parâmetro (linkConcrete)
+	ifaces      []*dclass       // the interfaces a handle can extend or mix in (linkConcrete)
 	optIfaces   map[string]bool // interfaces only an option constructor takes: the last choice of linkConcrete
 }
 
@@ -145,6 +149,8 @@ func emitDart(m *model, fns []*fn, hash uint64, more func(*dartEmitter)) (map[st
 	}
 	e.linkInterfaces()
 	e.linkConcrete()
+	e.linkMixins()
+	e.alignOverrides()
 	anyTypes := e.tokens()
 	if more != nil {
 		more(e)
@@ -582,7 +588,7 @@ func (e *dartEmitter) dec(t *tinfo, r string, from *dartLib, opt bool) string {
 		}
 		return fmt.Sprintf("%s.hnn(%s.$h)", r, e.ref(t, from))
 	case kSlice:
-		return fmt.Sprintf("%s.list(() => %s)", r, e.dec(t.elem, r, from, false))
+		return fmt.Sprintf("%s.list(() => %s)", r, e.decElem(t.elem, r, from))
 	case kMap:
 		key := r + ".str()"
 		switch {
@@ -591,9 +597,18 @@ func (e *dartEmitter) dec(t *tinfo, r string, from *dartLib, opt bool) string {
 		case t.mkey != nil:
 			key = e.ref(t.mkey, from) + "(" + r + ".str())"
 		}
-		return fmt.Sprintf("%s.map(() => %s, () => %s)", r, key, e.dec(t.elem, r, from, false))
+		return fmt.Sprintf("%s.map(() => %s, () => %s)", r, key, e.decElem(t.elem, r, from))
 	}
 	panic("gen: sem decodificação Dart para " + t.key)
+}
+
+// decElem: an element of a list or map is not nullable; a nil one (a nil
+// error in a []error, like a nil pointer) throws.
+func (e *dartEmitter) decElem(t *tinfo, r string, from *dartLib) string {
+	if t.k == kError {
+		return r + ".err() ?? $nil()"
+	}
+	return e.dec(t, r, from, false)
 }
 
 func goDoc(o types.Object) string {
@@ -784,11 +799,35 @@ func (e *dartEmitter) classBody(l *dartLib, c *dclass) string {
 		if base != "GoHandle" {
 			ctor = name + ".$h(super.$h) : super.$h();"
 		}
-		fmt.Fprintf(&b, "/// Go: `%s` (handle).\nclass %s extends %s {\n  %s\n", docType(t), name, base, ctor)
+		// an interface's methods are its mixin (linkMixins), its class mixes it in
+		mixin := types.IsInterface(t.named) && !t.reader
+		var with, impl []string
+		for _, mx := range c.mixins {
+			with = append(with, e.ref(mx.t, l)+"$")
+			impl = append(impl, e.ref(mx.t, l))
+		}
+		if mixin {
+			with = append(with, name+"$")
+		}
+		head := ""
+		if len(with) > 0 {
+			head += " with " + strings.Join(with, ", ")
+		}
+		if len(impl) > 0 {
+			head += " implements " + strings.Join(impl, ", ")
+		}
+		fmt.Fprintf(&b, "/// Go: `%s` (handle).\nclass %s extends %s%s {\n  %s\n", docType(t), name, base, head, ctor)
 		for _, f := range c.factories {
 			b.WriteString("\n" + e.function(l, f, name, true))
 		}
-		for _, f := range c.methods {
+		if mixin {
+			fmt.Fprintf(&b, "}\n\n/// The methods of [%s], mixed into every class Go also accepts as one.\nmixin %s$ on GoHandle {\n", name, name)
+		}
+		for i, f := range c.methods {
+			if mixin && i == 0 {
+				b.WriteString(e.function(l, f, name, false))
+				continue
+			}
 			b.WriteString("\n" + e.function(l, f, name, false))
 		}
 		b.WriteString("}\n\n")
@@ -1330,6 +1369,45 @@ func (e *dartEmitter) linkInterfaces() {
 	}
 }
 
+// alignOverrides: a method that overrides an asynchronous one of its base
+// class or of a mixin (swarm.Conn.Close over network.Conn.Close) is
+// asynchronous too, or the Dart override would not be valid.
+func (e *dartEmitter) alignOverrides() {
+	classes := map[string]*dclass{}
+	for _, l := range e.libs {
+		for _, c := range l.classes {
+			if c.t.k == kHandle && c.t.named != nil {
+				classes[classKey(c.t)] = c
+			}
+		}
+	}
+	for changed := true; changed; {
+		changed = false
+		for _, c := range classes {
+			async := map[string]bool{}
+			var supers []*tinfo
+			for s := c.t.super; s != nil; s = s.super {
+				supers = append(supers, s)
+			}
+			for _, mx := range c.mixins {
+				supers = append(supers, mx.t)
+			}
+			for _, s := range supers {
+				if b := classes[classKey(s)]; b != nil {
+					for _, f := range b.methods {
+						async[memberName(f.obj.Name())] = async[memberName(f.obj.Name())] || f.async
+					}
+				}
+			}
+			for _, f := range c.methods {
+				if !f.async && async[memberName(f.obj.Name())] {
+					f.async, changed = true, true
+				}
+			}
+		}
+	}
+}
+
 // linkConcrete: handle concreto (*merkledag.RawNode) que implementa uma
 // interface exposta (ipld.Node) estende a classe dela no Dart, para ser aceito
 // onde o Go aceita a interface. Escolhe a interface com mais métodos.
@@ -1362,7 +1440,8 @@ func (e *dartEmitter) linkConcrete() {
 				}
 				// a com métodos expostos ganha da usada só como parâmetro
 				// (ProtoNode fica format.Node, não datamodel.Node); entre
-				// iguais, a com mais métodos; one only an option takes comes last
+				// iguais, a com mais métodos; one only an option takes comes last;
+				// the other interfaces it implements are mixed in (linkMixins)
 				if best == nil || e.weaker(best, i) || (e.weaker(i, best) == e.weaker(best, i) && better(i, best)) {
 					best = i
 				}
@@ -1370,6 +1449,54 @@ func (e *dartEmitter) linkConcrete() {
 			if best != nil {
 				c.t.super = best.t
 			}
+		}
+	}
+	e.ifaces = ifaces
+}
+
+// linkMixins: Dart has one base class, Go accepts a type as every interface
+// it implements (IpfsDht is a ContentRouting, a ValueStore, a Routing...).
+// Each interface's methods are also a mixin (`Name$`); a handle mixes in and
+// implements the exposed interfaces its base class's chain lacks: those an
+// interface embeds, every one a concrete type implements.
+func (e *dartEmitter) linkMixins() {
+	depth := func(c *dclass) int {
+		n := 0
+		for s := c.t.super; s != nil; s = s.super {
+			n++
+		}
+		return n
+	}
+	for _, path := range sortedKeys(e.libs) {
+		l := e.libs[path]
+		for _, k := range sortedKeys(l.classes) {
+			c := l.classes[k]
+			if c.t.k != kHandle || c.t.reader || c.t.named == nil {
+				continue
+			}
+			chain := map[string]bool{classKey(c.t): true}
+			for s := c.t.super; s != nil; s = s.super {
+				chain[classKey(s)] = true
+			}
+			iface := types.IsInterface(c.t.named)
+			var ms []*dclass
+			for _, i := range e.ifaces {
+				if chain[classKey(i.t)] {
+					continue
+				}
+				// an interface only through embedding: two interfaces with the
+				// same methods would implement each other, a cycle in Dart
+				if iface && !embeds(c.t.named, i.t.named) {
+					continue
+				}
+				it := i.t.named.Underlying().(*types.Interface)
+				if !iface && !types.Implements(types.NewPointer(c.t.named), it) && !types.Implements(c.t.named, it) {
+					continue
+				}
+				ms = append(ms, i)
+			}
+			sort.SliceStable(ms, func(a, b int) bool { return depth(ms[a]) < depth(ms[b]) })
+			c.mixins = ms
 		}
 	}
 }

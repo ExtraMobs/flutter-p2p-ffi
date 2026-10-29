@@ -3,10 +3,14 @@
 library;
 
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/ipfs_cmds.dart' as $ipfs_cmds;
 
 /// Go: `config.NATManagerC` (handle).
-class Libp2pConfigNatManagerC extends GoHandle {
-  Libp2pConfigNatManagerC.$h(super.$h);
+class Libp2pConfigNatManagerC extends $crypto.CryptoPrivateKey
+    with $crypto.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
+    implements $crypto.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+  Libp2pConfigNatManagerC.$h(super.$h) : super.$h();
 }
 
 /// Go: `config.Option` (functional option; constructors in the package).
@@ -15,6 +19,8 @@ final class Libp2pConfigOption extends GoOption {
 }
 
 /// Go: `config.RoutingC` (handle).
-class Libp2pConfigRoutingC extends GoHandle {
-  Libp2pConfigRoutingC.$h(super.$h);
+class Libp2pConfigRoutingC extends $crypto.CryptoPrivateKey
+    with $crypto.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
+    implements $crypto.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+  Libp2pConfigRoutingC.$h(super.$h) : super.$h();
 }

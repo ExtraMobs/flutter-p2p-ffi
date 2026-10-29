@@ -4,15 +4,19 @@ library;
 
 import 'package:p2p_ffi/src/go.dart' show GoOs;
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/io/fs.dart' as $fs;
+import 'package:p2p_ffi/go/ipfs_cmds.dart' as $ipfs_cmds;
 
 /// Go: `os.File` (handle).
-class OsFile extends GoHandle {
-  OsFile.$h(super.$h);
+class OsFile extends $crypto.CryptoPrivateKey
+    with $crypto.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
+    implements $crypto.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+  OsFile.$h(super.$h) : super.$h();
 
   /// Go: `func (*os.File).Close() error`.
   void close() {
-    $callSync(700, $W()..h(this));
+    $callSync(3467, $W()..h(this));
   }
 }
 
@@ -137,26 +141,26 @@ class OsSyscallError extends GolangException {
 extension GoOsApi on GoOs {
   /// Go: `func os.Stat(name string) (os.FileInfo, error)`.
   $fs.IoFsFileInfo stat(String name) {
-    final $r = $callSync(703, $W()..str(name));
+    final $r = $callSync(3470, $W()..str(name));
     return $r.hnn($fs.IoFsFileInfo.$h);
   }
 
   /// Go: `func os.Create(name string) (*os.File, error)`.
   OsFile create(String name) {
-    final $r = $callSync(699, $W()..str(name));
+    final $r = $callSync(3466, $W()..str(name));
     return $r.hnn(OsFile.$h);
   }
 
   /// Go: `func os.Open(name string) (*os.File, error)`.
   OsFile open(String name) {
-    final $r = $callSync(701, $W()..str(name));
+    final $r = $callSync(3468, $W()..str(name));
     return $r.hnn(OsFile.$h);
   }
 
   /// Go: `func os.OpenFile(name string, flag int, perm os.FileMode) (*os.File, error)`.
   OsFile openFile(String name, int flag, int perm) {
     final $r = $callSync(
-        702,
+        3469,
         $W()
           ..str(name)
           ..i64(flag)

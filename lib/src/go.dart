@@ -6,25 +6,37 @@
 library;
 
 export 'package:p2p_ffi/go/block_format.dart';
+export 'package:p2p_ffi/go/boxo/autoconf.dart';
 export 'package:p2p_ffi/go/boxo/bitswap.dart';
+export 'package:p2p_ffi/go/boxo/bitswap/client.dart';
+export 'package:p2p_ffi/go/boxo/bitswap/message.dart';
 export 'package:p2p_ffi/go/boxo/bitswap/network.dart';
 export 'package:p2p_ffi/go/boxo/bitswap/network/bsnet.dart';
+export 'package:p2p_ffi/go/boxo/bitswap/server.dart';
 export 'package:p2p_ffi/go/boxo/bitswap/server/internal/decision.dart';
+export 'package:p2p_ffi/go/boxo/bitswap/tracer.dart';
 export 'package:p2p_ffi/go/boxo/blockservice.dart';
 export 'package:p2p_ffi/go/boxo/blockstore.dart';
+export 'package:p2p_ffi/go/boxo/bootstrap.dart';
 export 'package:p2p_ffi/go/boxo/chunker.dart';
 export 'package:p2p_ffi/go/boxo/exchange.dart';
 export 'package:p2p_ffi/go/boxo/exchange/offline.dart';
+export 'package:p2p_ffi/go/boxo/fetcher.dart';
 export 'package:p2p_ffi/go/boxo/fetcher/impl/blockservice.dart';
 export 'package:p2p_ffi/go/boxo/files.dart';
 export 'package:p2p_ffi/go/boxo/filestore.dart';
+export 'package:p2p_ffi/go/boxo/filestore/posinfo.dart';
 export 'package:p2p_ffi/go/boxo/gateway.dart';
+export 'package:p2p_ffi/go/boxo/gateway/assets.dart';
 export 'package:p2p_ffi/go/boxo/ipld/merkledag.dart';
 export 'package:p2p_ffi/go/boxo/ipld/merkledag/dagutils.dart';
+export 'package:p2p_ffi/go/boxo/ipld/merkledag/pb.dart';
+export 'package:p2p_ffi/go/boxo/ipld/unixfs.dart';
 export 'package:p2p_ffi/go/boxo/ipld/unixfs/file.dart';
 export 'package:p2p_ffi/go/boxo/ipld/unixfs/importer.dart';
 export 'package:p2p_ffi/go/boxo/ipld/unixfs/io.dart';
 export 'package:p2p_ffi/go/boxo/ipns.dart';
+export 'package:p2p_ffi/go/boxo/keystore.dart';
 export 'package:p2p_ffi/go/boxo/mfs.dart';
 export 'package:p2p_ffi/go/boxo/namesys.dart';
 export 'package:p2p_ffi/go/boxo/path.dart';
@@ -38,20 +50,35 @@ export 'package:p2p_ffi/go/car/v2/blockstore.dart';
 export 'package:p2p_ffi/go/car/v2/index.dart';
 export 'package:p2p_ffi/go/car/v2/storage.dart';
 export 'package:p2p_ffi/go/cid.dart';
+export 'package:p2p_ffi/go/cidutil/cidenc.dart';
 export 'package:p2p_ffi/go/client_golang/prometheus.dart';
+export 'package:p2p_ffi/go/client_model/go.dart';
 export 'package:p2p_ffi/go/codec_dagpb.dart';
 export 'package:p2p_ffi/go/context.dart';
+export 'package:p2p_ffi/go/crypto.dart';
+export 'package:p2p_ffi/go/crypto/ecdsa.dart';
+export 'package:p2p_ffi/go/crypto/elliptic.dart';
+export 'package:p2p_ffi/go/crypto/x509.dart';
+export 'package:p2p_ffi/go/crypto/x509/pkix.dart';
 export 'package:p2p_ffi/go/datastore.dart';
+export 'package:p2p_ffi/go/datastore/query.dart';
 export 'package:p2p_ffi/go/datastore/sync.dart';
+export 'package:p2p_ffi/go/dig.dart';
+export 'package:p2p_ffi/go/doh_resolver.dart';
+export 'package:p2p_ffi/go/fx.dart';
+export 'package:p2p_ffi/go/gitignore.dart';
 export 'package:p2p_ffi/go/golang_lru/simplelru.dart';
 export 'package:p2p_ffi/go/hash.dart';
 export 'package:p2p_ffi/go/io.dart';
 export 'package:p2p_ffi/go/io/fs.dart';
 export 'package:p2p_ffi/go/ipfs_cmds.dart';
 export 'package:p2p_ffi/go/ipld_format.dart';
+export 'package:p2p_ffi/go/ipld_legacy.dart';
 export 'package:p2p_ffi/go/ipld_prime/datamodel.dart';
 export 'package:p2p_ffi/go/ipld_prime/linking.dart';
 export 'package:p2p_ffi/go/ipld_prime/linking/cid.dart';
+export 'package:p2p_ffi/go/ipld_prime/linking/preload.dart';
+export 'package:p2p_ffi/go/ipld_prime/multicodec.dart';
 export 'package:p2p_ffi/go/ipld_prime/node/basicnode.dart';
 export 'package:p2p_ffi/go/ipld_prime/storage.dart';
 export 'package:p2p_ffi/go/ipld_prime/storage/bsadapter.dart';
@@ -74,32 +101,42 @@ export 'package:p2p_ffi/go/kubo/core/corerepo.dart';
 export 'package:p2p_ffi/go/kubo/core/node.dart';
 export 'package:p2p_ffi/go/kubo/core/node/libp2p.dart';
 export 'package:p2p_ffi/go/kubo/gc.dart';
+export 'package:p2p_ffi/go/kubo/plugin.dart';
 export 'package:p2p_ffi/go/kubo/plugin/loader.dart';
 export 'package:p2p_ffi/go/kubo/repo.dart';
 export 'package:p2p_ffi/go/kubo/repo/fsrepo.dart';
+export 'package:p2p_ffi/go/kubo/routing.dart';
 export 'package:p2p_ffi/go/libp2p.dart';
 export 'package:p2p_ffi/go/libp2p/config.dart';
 export 'package:p2p_ffi/go/libp2p/core/connmgr.dart';
 export 'package:p2p_ffi/go/libp2p/core/crypto.dart';
+export 'package:p2p_ffi/go/libp2p/core/crypto/pb.dart';
 export 'package:p2p_ffi/go/libp2p/core/discovery.dart';
 export 'package:p2p_ffi/go/libp2p/core/event.dart';
 export 'package:p2p_ffi/go/libp2p/core/host.dart';
 export 'package:p2p_ffi/go/libp2p/core/metrics.dart';
 export 'package:p2p_ffi/go/libp2p/core/network.dart';
 export 'package:p2p_ffi/go/libp2p/core/peer.dart';
+export 'package:p2p_ffi/go/libp2p/core/peer/pb.dart';
 export 'package:p2p_ffi/go/libp2p/core/peerstore.dart';
+export 'package:p2p_ffi/go/libp2p/core/protocol.dart';
 export 'package:p2p_ffi/go/libp2p/core/record.dart';
 export 'package:p2p_ffi/go/libp2p/core/routing.dart';
+export 'package:p2p_ffi/go/libp2p/core/sec.dart';
+export 'package:p2p_ffi/go/libp2p/core/transport.dart';
 export 'package:p2p_ffi/go/libp2p/p2p/discovery/mdns.dart';
 export 'package:p2p_ffi/go/libp2p/p2p/discovery/routing.dart';
 export 'package:p2p_ffi/go/libp2p/p2p/host/autorelay.dart';
 export 'package:p2p_ffi/go/libp2p/p2p/host/basic.dart';
+export 'package:p2p_ffi/go/libp2p/p2p/host/resource_manager.dart';
 export 'package:p2p_ffi/go/libp2p/p2p/muxer/yamux.dart';
 export 'package:p2p_ffi/go/libp2p/p2p/net/swarm.dart';
+export 'package:p2p_ffi/go/libp2p/p2p/net/upgrader.dart';
 export 'package:p2p_ffi/go/libp2p/p2p/protocol/circuitv2/relay.dart';
 export 'package:p2p_ffi/go/libp2p/p2p/protocol/holepunch.dart';
 export 'package:p2p_ffi/go/libp2p/p2p/protocol/ping.dart';
 export 'package:p2p_ffi/go/libp2p/p2p/security/noise.dart';
+export 'package:p2p_ffi/go/libp2p/p2p/security/noise/pb.dart';
 export 'package:p2p_ffi/go/libp2p/p2p/security/tls.dart';
 export 'package:p2p_ffi/go/libp2p/p2p/transport/quic.dart';
 export 'package:p2p_ffi/go/libp2p/p2p/transport/quicreuse.dart';
@@ -116,15 +153,29 @@ export 'package:p2p_ffi/go/libp2p_kbucket/peerdiversity.dart';
 export 'package:p2p_ffi/go/libp2p_pubsub.dart';
 export 'package:p2p_ffi/go/libp2p_pubsub/pb.dart';
 export 'package:p2p_ffi/go/libp2p_record.dart';
+export 'package:p2p_ffi/go/libp2p_record/pb.dart';
+export 'package:p2p_ffi/go/libp2p_routing_helpers.dart';
 export 'package:p2p_ffi/go/log/slog.dart';
+export 'package:p2p_ffi/go/log/v2.dart';
+export 'package:p2p_ffi/go/math/big.dart';
+export 'package:p2p_ffi/go/mime/multipart.dart';
 export 'package:p2p_ffi/go/multiaddr.dart';
+export 'package:p2p_ffi/go/multiaddr_dns.dart';
 export 'package:p2p_ffi/go/multibase.dart';
 export 'package:p2p_ffi/go/multicodec.dart';
 export 'package:p2p_ffi/go/multihash.dart';
 export 'package:p2p_ffi/go/net.dart';
+export 'package:p2p_ffi/go/net/http.dart';
+export 'package:p2p_ffi/go/net/url.dart';
 export 'package:p2p_ffi/go/os.dart';
+export 'package:p2p_ffi/go/p2p_forge/client.dart';
+export 'package:p2p_ffi/go/protobuf/reflect/protoreflect.dart';
+export 'package:p2p_ffi/go/reflect.dart';
+export 'package:p2p_ffi/go/regexp.dart';
 export 'package:p2p_ffi/go/runtime/debug.dart';
+export 'package:p2p_ffi/go/secp256k1/v4.dart';
 export 'package:p2p_ffi/go/unixfsnode.dart';
+export 'package:p2p_ffi/go/yamux/v5.dart';
 
 /// The Go packages: `Go.<module>.<package>`.
 abstract final class Go {
@@ -143,8 +194,14 @@ abstract final class Go {
   /// `cid`.
   static const cid = GoCid._();
 
+  /// `cidutil`.
+  static const cidutil = GoCidutil._();
+
   /// `client_golang`.
   static const clientGolang = GoClientGolang._();
+
+  /// `client_model`.
+  static const clientModel = GoClientModel._();
 
   /// `codec_dagpb`.
   static const codecDagpb = GoCodecDagpb._();
@@ -152,8 +209,23 @@ abstract final class Go {
   /// `context`.
   static const context = GoContext._();
 
+  /// `crypto`.
+  static const crypto = GoCrypto._();
+
   /// `datastore`.
   static const datastore = GoDatastore._();
+
+  /// `dig`.
+  static const dig = GoDig._();
+
+  /// `doh_resolver`.
+  static const dohResolver = GoDohResolver._();
+
+  /// `fx`.
+  static const fx = GoFx._();
+
+  /// `gitignore`.
+  static const gitignore = GoGitignore._();
 
   /// `golang_lru`.
   static const golangLru = GoGolangLru._();
@@ -169,6 +241,9 @@ abstract final class Go {
 
   /// `ipld_format`.
   static const ipldFormat = GoIpldFormat._();
+
+  /// `ipld_legacy`.
+  static const ipldLegacy = GoIpldLegacy._();
 
   /// `ipld_prime`.
   static const ipldPrime = GoIpldPrime._();
@@ -191,11 +266,23 @@ abstract final class Go {
   /// `libp2p_record`.
   static const libp2pRecord = GoLibp2pRecord._();
 
+  /// `libp2p_routing_helpers`.
+  static const libp2pRoutingHelpers = GoLibp2pRoutingHelpers._();
+
   /// `log`.
   static const log = GoLog._();
 
+  /// `math`.
+  static const math = GoMath._();
+
+  /// `mime`.
+  static const mime = GoMime._();
+
   /// `multiaddr`.
   static const multiaddr = GoMultiaddr._();
+
+  /// `multiaddr_dns`.
+  static const multiaddrDns = GoMultiaddrDns._();
 
   /// `multibase`.
   static const multibase = GoMultibase._();
@@ -212,16 +299,37 @@ abstract final class Go {
   /// `os`.
   static const os = GoOs._();
 
+  /// `p2p_forge`.
+  static const p2pForge = GoP2pForge._();
+
+  /// `protobuf`.
+  static const protobuf = GoProtobuf._();
+
+  /// `reflect`.
+  static const reflect = GoReflect._();
+
+  /// `regexp`.
+  static const regexp = GoRegexp._();
+
   /// `runtime`.
   static const runtime = GoRuntime._();
 
+  /// `secp256k1`.
+  static const secp256k1 = GoSecp256k1._();
+
   /// `unixfsnode`.
   static const unixfsnode = GoUnixfsnode._();
+
+  /// `yamux`.
+  static const yamux = GoYamux._();
 }
 
 /// `Go.boxo`.
 final class GoBoxo {
   const GoBoxo._();
+
+  /// Go: package `github.com/ipfs/boxo/autoconf`.
+  GoBoxoAutoconf get autoconf => const GoBoxoAutoconf._();
 
   /// Go: package `github.com/ipfs/boxo/bitswap`.
   GoBoxoBitswap get bitswap => const GoBoxoBitswap._();
@@ -232,13 +340,16 @@ final class GoBoxo {
   /// Go: package `github.com/ipfs/boxo/blockstore`.
   GoBoxoBlockstore get blockstore => const GoBoxoBlockstore._();
 
+  /// Go: package `github.com/ipfs/boxo/bootstrap`.
+  GoBoxoBootstrap get bootstrap => const GoBoxoBootstrap._();
+
   /// Go: package `github.com/ipfs/boxo/chunker`.
   GoBoxoChunker get chunker => const GoBoxoChunker._();
 
   /// Go: package `github.com/ipfs/boxo/exchange`.
   GoBoxoExchange get exchange => const GoBoxoExchange._();
 
-  /// `boxo/fetcher`.
+  /// Go: package `github.com/ipfs/boxo/fetcher`.
   GoBoxoFetcher get fetcher => const GoBoxoFetcher._();
 
   /// Go: package `github.com/ipfs/boxo/files`.
@@ -255,6 +366,9 @@ final class GoBoxo {
 
   /// Go: package `github.com/ipfs/boxo/ipns`.
   GoBoxoIpns get ipns => const GoBoxoIpns._();
+
+  /// Go: package `github.com/ipfs/boxo/keystore`.
+  GoBoxoKeystore get keystore => const GoBoxoKeystore._();
 
   /// Go: package `github.com/ipfs/boxo/mfs`.
   GoBoxoMfs get mfs => const GoBoxoMfs._();
@@ -279,11 +393,20 @@ final class GoBoxo {
 final class GoBoxoBitswap {
   const GoBoxoBitswap._();
 
+  /// Go: package `github.com/ipfs/boxo/bitswap/client`.
+  GoBoxoBitswapClient get client => const GoBoxoBitswapClient._();
+
+  /// Go: package `github.com/ipfs/boxo/bitswap/message`.
+  GoBoxoBitswapMessage get message => const GoBoxoBitswapMessage._();
+
   /// Go: package `github.com/ipfs/boxo/bitswap/network`.
   GoBoxoBitswapNetwork get network => const GoBoxoBitswapNetwork._();
 
-  /// `boxo/bitswap/server`.
+  /// Go: package `github.com/ipfs/boxo/bitswap/server`.
   GoBoxoBitswapServer get server => const GoBoxoBitswapServer._();
+
+  /// Go: package `github.com/ipfs/boxo/bitswap/tracer`.
+  GoBoxoBitswapTracer get tracer => const GoBoxoBitswapTracer._();
 }
 
 /// Go: package `github.com/ipfs/boxo/bitswap/network`, as `Go.boxo.bitswap.network`.
@@ -294,7 +417,7 @@ final class GoBoxoBitswapNetwork {
   GoBoxoBitswapNetworkBsnet get bsnet => const GoBoxoBitswapNetworkBsnet._();
 }
 
-/// `Go.boxo.bitswap.server`.
+/// Go: package `github.com/ipfs/boxo/bitswap/server`, as `Go.boxo.bitswap.server`.
 final class GoBoxoBitswapServer {
   const GoBoxoBitswapServer._();
 
@@ -320,7 +443,7 @@ final class GoBoxoExchange {
   GoBoxoExchangeOffline get offline => const GoBoxoExchangeOffline._();
 }
 
-/// `Go.boxo.fetcher`.
+/// Go: package `github.com/ipfs/boxo/fetcher`, as `Go.boxo.fetcher`.
 final class GoBoxoFetcher {
   const GoBoxoFetcher._();
 
@@ -337,6 +460,22 @@ final class GoBoxoFetcherImpl {
       const GoBoxoFetcherImplBlockservice._();
 }
 
+/// Go: package `github.com/ipfs/boxo/filestore`, as `Go.boxo.filestore`.
+final class GoBoxoFilestore {
+  const GoBoxoFilestore._();
+
+  /// Go: package `github.com/ipfs/boxo/filestore/posinfo`.
+  GoBoxoFilestorePosinfo get posinfo => const GoBoxoFilestorePosinfo._();
+}
+
+/// Go: package `github.com/ipfs/boxo/gateway`, as `Go.boxo.gateway`.
+final class GoBoxoGateway {
+  const GoBoxoGateway._();
+
+  /// Go: package `github.com/ipfs/boxo/gateway/assets`.
+  GoBoxoGatewayAssets get assets => const GoBoxoGatewayAssets._();
+}
+
 /// `Go.boxo.ipld`.
 final class GoBoxoIpld {
   const GoBoxoIpld._();
@@ -344,7 +483,7 @@ final class GoBoxoIpld {
   /// Go: package `github.com/ipfs/boxo/ipld/merkledag`.
   GoBoxoIpldMerkledag get merkledag => const GoBoxoIpldMerkledag._();
 
-  /// `boxo/ipld/unixfs`.
+  /// Go: package `github.com/ipfs/boxo/ipld/unixfs`.
   GoBoxoIpldUnixfs get unixfs => const GoBoxoIpldUnixfs._();
 }
 
@@ -355,9 +494,12 @@ final class GoBoxoIpldMerkledag {
   /// Go: package `github.com/ipfs/boxo/ipld/merkledag/dagutils`.
   GoBoxoIpldMerkledagDagutils get dagutils =>
       const GoBoxoIpldMerkledagDagutils._();
+
+  /// Go: package `github.com/ipfs/boxo/ipld/merkledag/pb`.
+  GoBoxoIpldMerkledagPb get pb => const GoBoxoIpldMerkledagPb._();
 }
 
-/// `Go.boxo.ipld.unixfs`.
+/// Go: package `github.com/ipfs/boxo/ipld/unixfs`, as `Go.boxo.ipld.unixfs`.
 final class GoBoxoIpldUnixfs {
   const GoBoxoIpldUnixfs._();
 
@@ -401,6 +543,14 @@ final class GoCarV2 {
   GoCarV2Storage get storage => const GoCarV2Storage._();
 }
 
+/// `Go.cidutil`.
+final class GoCidutil {
+  const GoCidutil._();
+
+  /// Go: package `github.com/ipfs/go-cidutil/cidenc`.
+  GoCidutilCidenc get cidenc => const GoCidutilCidenc._();
+}
+
 /// `Go.clientGolang`.
 final class GoClientGolang {
   const GoClientGolang._();
@@ -409,9 +559,42 @@ final class GoClientGolang {
   GoClientGolangPrometheus get prometheus => const GoClientGolangPrometheus._();
 }
 
+/// `Go.clientModel`.
+final class GoClientModel {
+  const GoClientModel._();
+
+  /// Go: package `github.com/prometheus/client_model/go`.
+  GoClientModelGo get go => const GoClientModelGo._();
+}
+
+/// Go: package `crypto`, as `Go.crypto`.
+final class GoCrypto {
+  const GoCrypto._();
+
+  /// Go: package `crypto/ecdsa`.
+  GoCryptoEcdsa get ecdsa => const GoCryptoEcdsa._();
+
+  /// Go: package `crypto/elliptic`.
+  GoCryptoElliptic get elliptic => const GoCryptoElliptic._();
+
+  /// Go: package `crypto/x509`.
+  GoCryptoX509 get x509 => const GoCryptoX509._();
+}
+
+/// Go: package `crypto/x509`, as `Go.crypto.x509`.
+final class GoCryptoX509 {
+  const GoCryptoX509._();
+
+  /// Go: package `crypto/x509/pkix`.
+  GoCryptoX509Pkix get pkix => const GoCryptoX509Pkix._();
+}
+
 /// Go: package `github.com/ipfs/go-datastore`, as `Go.datastore`.
 final class GoDatastore {
   const GoDatastore._();
+
+  /// Go: package `github.com/ipfs/go-datastore/query`.
+  GoDatastoreQuery get query => const GoDatastoreQuery._();
 
   /// Go: package `github.com/ipfs/go-datastore/sync`.
   GoDatastoreSync get sync => const GoDatastoreSync._();
@@ -443,6 +626,9 @@ final class GoIpldPrime {
   /// Go: package `github.com/ipld/go-ipld-prime/linking`.
   GoIpldPrimeLinking get linking => const GoIpldPrimeLinking._();
 
+  /// Go: package `github.com/ipld/go-ipld-prime/multicodec`.
+  GoIpldPrimeMulticodec get multicodec => const GoIpldPrimeMulticodec._();
+
   /// `ipld_prime/node`.
   GoIpldPrimeNode get node => const GoIpldPrimeNode._();
 
@@ -459,6 +645,9 @@ final class GoIpldPrimeLinking {
 
   /// Go: package `github.com/ipld/go-ipld-prime/linking/cid`.
   GoIpldPrimeLinkingCid get cid => const GoIpldPrimeLinkingCid._();
+
+  /// Go: package `github.com/ipld/go-ipld-prime/linking/preload`.
+  GoIpldPrimeLinkingPreload get preload => const GoIpldPrimeLinkingPreload._();
 }
 
 /// `Go.ipldPrime.node`.
@@ -513,11 +702,14 @@ final class GoKubo {
   /// Go: package `github.com/ipfs/kubo/gc`.
   GoKuboGc get gc => const GoKuboGc._();
 
-  /// `kubo/plugin`.
+  /// Go: package `github.com/ipfs/kubo/plugin`.
   GoKuboPlugin get plugin => const GoKuboPlugin._();
 
   /// Go: package `github.com/ipfs/kubo/repo`.
   GoKuboRepo get repo => const GoKuboRepo._();
+
+  /// Go: package `github.com/ipfs/kubo/routing`.
+  GoKuboRouting get routing => const GoKuboRouting._();
 }
 
 /// Go: package `github.com/ipfs/kubo/core`, as `Go.kubo.core`.
@@ -574,7 +766,7 @@ final class GoKuboCoreNode {
   GoKuboCoreNodeLibp2p get libp2p => const GoKuboCoreNodeLibp2p._();
 }
 
-/// `Go.kubo.plugin`.
+/// Go: package `github.com/ipfs/kubo/plugin`, as `Go.kubo.plugin`.
 final class GoKuboPlugin {
   const GoKuboPlugin._();
 
@@ -635,11 +827,36 @@ final class GoLibp2pCore {
   /// Go: package `github.com/libp2p/go-libp2p/core/peerstore`.
   GoLibp2pCorePeerstore get peerstore => const GoLibp2pCorePeerstore._();
 
+  /// Go: package `github.com/libp2p/go-libp2p/core/protocol`.
+  GoLibp2pCoreProtocol get protocol => const GoLibp2pCoreProtocol._();
+
   /// Go: package `github.com/libp2p/go-libp2p/core/record`.
   GoLibp2pCoreRecord get record => const GoLibp2pCoreRecord._();
 
   /// Go: package `github.com/libp2p/go-libp2p/core/routing`.
   GoLibp2pCoreRouting get routing => const GoLibp2pCoreRouting._();
+
+  /// Go: package `github.com/libp2p/go-libp2p/core/sec`.
+  GoLibp2pCoreSec get sec => const GoLibp2pCoreSec._();
+
+  /// Go: package `github.com/libp2p/go-libp2p/core/transport`.
+  GoLibp2pCoreTransport get transport => const GoLibp2pCoreTransport._();
+}
+
+/// Go: package `github.com/libp2p/go-libp2p/core/crypto`, as `Go.libp2p.core.crypto`.
+final class GoLibp2pCoreCrypto {
+  const GoLibp2pCoreCrypto._();
+
+  /// Go: package `github.com/libp2p/go-libp2p/core/crypto/pb`.
+  GoLibp2pCoreCryptoPb get pb => const GoLibp2pCoreCryptoPb._();
+}
+
+/// Go: package `github.com/libp2p/go-libp2p/core/peer`, as `Go.libp2p.core.peer`.
+final class GoLibp2pCorePeer {
+  const GoLibp2pCorePeer._();
+
+  /// Go: package `github.com/libp2p/go-libp2p/core/peer/pb`.
+  GoLibp2pCorePeerPb get pb => const GoLibp2pCorePeerPb._();
 }
 
 /// `Go.libp2p.p2p`.
@@ -689,6 +906,10 @@ final class GoLibp2pP2pHost {
 
   /// Go: package `github.com/libp2p/go-libp2p/p2p/host/basic`.
   GoLibp2pP2pHostBasic get basic => const GoLibp2pP2pHostBasic._();
+
+  /// Go: package `github.com/libp2p/go-libp2p/p2p/host/resource-manager`.
+  GoLibp2pP2pHostResourceManager get resourceManager =>
+      const GoLibp2pP2pHostResourceManager._();
 }
 
 /// `Go.libp2p.p2p.muxer`.
@@ -705,6 +926,9 @@ final class GoLibp2pP2pNet {
 
   /// Go: package `github.com/libp2p/go-libp2p/p2p/net/swarm`.
   GoLibp2pP2pNetSwarm get swarm => const GoLibp2pP2pNetSwarm._();
+
+  /// Go: package `github.com/libp2p/go-libp2p/p2p/net/upgrader`.
+  GoLibp2pP2pNetUpgrader get upgrader => const GoLibp2pP2pNetUpgrader._();
 }
 
 /// `Go.libp2p.p2p.protocol`.
@@ -741,6 +965,14 @@ final class GoLibp2pP2pSecurity {
 
   /// Go: package `github.com/libp2p/go-libp2p/p2p/security/tls`.
   GoLibp2pP2pSecurityTls get tls => const GoLibp2pP2pSecurityTls._();
+}
+
+/// Go: package `github.com/libp2p/go-libp2p/p2p/security/noise`, as `Go.libp2p.p2p.security.noise`.
+final class GoLibp2pP2pSecurityNoise {
+  const GoLibp2pP2pSecurityNoise._();
+
+  /// Go: package `github.com/libp2p/go-libp2p/p2p/security/noise/pb`.
+  GoLibp2pP2pSecurityNoisePb get pb => const GoLibp2pP2pSecurityNoisePb._();
 }
 
 /// `Go.libp2p.p2p.transport`.
@@ -809,12 +1041,75 @@ final class GoLibp2pPubsub {
   GoLibp2pPubsubPb get pb => const GoLibp2pPubsubPb._();
 }
 
+/// Go: package `github.com/libp2p/go-libp2p-record`, as `Go.libp2pRecord`.
+final class GoLibp2pRecord {
+  const GoLibp2pRecord._();
+
+  /// Go: package `github.com/libp2p/go-libp2p-record/pb`.
+  GoLibp2pRecordPb get pb => const GoLibp2pRecordPb._();
+}
+
 /// `Go.log`.
 final class GoLog {
   const GoLog._();
 
   /// Go: package `log/slog`.
   GoLogSlog get slog => const GoLogSlog._();
+
+  /// Go: package `github.com/ipfs/go-log/v2`.
+  GoLogV2 get v2 => const GoLogV2._();
+}
+
+/// `Go.math`.
+final class GoMath {
+  const GoMath._();
+
+  /// Go: package `math/big`.
+  GoMathBig get big => const GoMathBig._();
+}
+
+/// `Go.mime`.
+final class GoMime {
+  const GoMime._();
+
+  /// Go: package `mime/multipart`.
+  GoMimeMultipart get multipart => const GoMimeMultipart._();
+}
+
+/// Go: package `net`, as `Go.net`.
+final class GoNet {
+  const GoNet._();
+
+  /// Go: package `net/http`.
+  GoNetHttp get http => const GoNetHttp._();
+
+  /// Go: package `net/url`.
+  GoNetUrl get url => const GoNetUrl._();
+}
+
+/// `Go.p2pForge`.
+final class GoP2pForge {
+  const GoP2pForge._();
+
+  /// Go: package `github.com/ipshipyard/p2p-forge/client`.
+  GoP2pForgeClient get client => const GoP2pForgeClient._();
+}
+
+/// `Go.protobuf`.
+final class GoProtobuf {
+  const GoProtobuf._();
+
+  /// `protobuf/reflect`.
+  GoProtobufReflect get reflect => const GoProtobufReflect._();
+}
+
+/// `Go.protobuf.reflect`.
+final class GoProtobufReflect {
+  const GoProtobufReflect._();
+
+  /// Go: package `google.golang.org/protobuf/reflect/protoreflect`.
+  GoProtobufReflectProtoreflect get protoreflect =>
+      const GoProtobufReflectProtoreflect._();
 }
 
 /// `Go.runtime`.
@@ -825,9 +1120,40 @@ final class GoRuntime {
   GoRuntimeDebug get debug => const GoRuntimeDebug._();
 }
 
+/// `Go.secp256k1`.
+final class GoSecp256k1 {
+  const GoSecp256k1._();
+
+  /// Go: package `github.com/decred/dcrd/dcrec/secp256k1/v4`.
+  GoSecp256k1V4 get v4 => const GoSecp256k1V4._();
+}
+
+/// `Go.yamux`.
+final class GoYamux {
+  const GoYamux._();
+
+  /// Go: package `github.com/libp2p/go-yamux/v5`.
+  GoYamuxV5 get v5 => const GoYamuxV5._();
+}
+
 /// Go: package `github.com/ipfs/go-block-format`, as `Go.blockFormat`.
 final class GoBlockFormat {
   const GoBlockFormat._();
+}
+
+/// Go: package `github.com/ipfs/boxo/autoconf`, as `Go.boxo.autoconf`.
+final class GoBoxoAutoconf {
+  const GoBoxoAutoconf._();
+}
+
+/// Go: package `github.com/ipfs/boxo/bitswap/client`, as `Go.boxo.bitswap.client`.
+final class GoBoxoBitswapClient {
+  const GoBoxoBitswapClient._();
+}
+
+/// Go: package `github.com/ipfs/boxo/bitswap/message`, as `Go.boxo.bitswap.message`.
+final class GoBoxoBitswapMessage {
+  const GoBoxoBitswapMessage._();
 }
 
 /// Go: package `github.com/ipfs/boxo/bitswap/network/bsnet`, as `Go.boxo.bitswap.network.bsnet`.
@@ -840,6 +1166,11 @@ final class GoBoxoBitswapServerInternalDecision {
   const GoBoxoBitswapServerInternalDecision._();
 }
 
+/// Go: package `github.com/ipfs/boxo/bitswap/tracer`, as `Go.boxo.bitswap.tracer`.
+final class GoBoxoBitswapTracer {
+  const GoBoxoBitswapTracer._();
+}
+
 /// Go: package `github.com/ipfs/boxo/blockservice`, as `Go.boxo.blockservice`.
 final class GoBoxoBlockservice {
   const GoBoxoBlockservice._();
@@ -848,6 +1179,11 @@ final class GoBoxoBlockservice {
 /// Go: package `github.com/ipfs/boxo/blockstore`, as `Go.boxo.blockstore`.
 final class GoBoxoBlockstore {
   const GoBoxoBlockstore._();
+}
+
+/// Go: package `github.com/ipfs/boxo/bootstrap`, as `Go.boxo.bootstrap`.
+final class GoBoxoBootstrap {
+  const GoBoxoBootstrap._();
 }
 
 /// Go: package `github.com/ipfs/boxo/chunker`, as `Go.boxo.chunker`.
@@ -870,19 +1206,24 @@ final class GoBoxoFiles {
   const GoBoxoFiles._();
 }
 
-/// Go: package `github.com/ipfs/boxo/filestore`, as `Go.boxo.filestore`.
-final class GoBoxoFilestore {
-  const GoBoxoFilestore._();
+/// Go: package `github.com/ipfs/boxo/filestore/posinfo`, as `Go.boxo.filestore.posinfo`.
+final class GoBoxoFilestorePosinfo {
+  const GoBoxoFilestorePosinfo._();
 }
 
-/// Go: package `github.com/ipfs/boxo/gateway`, as `Go.boxo.gateway`.
-final class GoBoxoGateway {
-  const GoBoxoGateway._();
+/// Go: package `github.com/ipfs/boxo/gateway/assets`, as `Go.boxo.gateway.assets`.
+final class GoBoxoGatewayAssets {
+  const GoBoxoGatewayAssets._();
 }
 
 /// Go: package `github.com/ipfs/boxo/ipld/merkledag/dagutils`, as `Go.boxo.ipld.merkledag.dagutils`.
 final class GoBoxoIpldMerkledagDagutils {
   const GoBoxoIpldMerkledagDagutils._();
+}
+
+/// Go: package `github.com/ipfs/boxo/ipld/merkledag/pb`, as `Go.boxo.ipld.merkledag.pb`.
+final class GoBoxoIpldMerkledagPb {
+  const GoBoxoIpldMerkledagPb._();
 }
 
 /// Go: package `github.com/ipfs/boxo/ipld/unixfs/file`, as `Go.boxo.ipld.unixfs.file`.
@@ -903,6 +1244,11 @@ final class GoBoxoIpldUnixfsIo {
 /// Go: package `github.com/ipfs/boxo/ipns`, as `Go.boxo.ipns`.
 final class GoBoxoIpns {
   const GoBoxoIpns._();
+}
+
+/// Go: package `github.com/ipfs/boxo/keystore`, as `Go.boxo.keystore`.
+final class GoBoxoKeystore {
+  const GoBoxoKeystore._();
 }
 
 /// Go: package `github.com/ipfs/boxo/mfs`, as `Go.boxo.mfs`.
@@ -960,9 +1306,19 @@ final class GoCid {
   const GoCid._();
 }
 
+/// Go: package `github.com/ipfs/go-cidutil/cidenc`, as `Go.cidutil.cidenc`.
+final class GoCidutilCidenc {
+  const GoCidutilCidenc._();
+}
+
 /// Go: package `github.com/prometheus/client_golang/prometheus`, as `Go.clientGolang.prometheus`.
 final class GoClientGolangPrometheus {
   const GoClientGolangPrometheus._();
+}
+
+/// Go: package `github.com/prometheus/client_model/go`, as `Go.clientModel.go`.
+final class GoClientModelGo {
+  const GoClientModelGo._();
 }
 
 /// Go: package `github.com/ipld/go-codec-dagpb`, as `Go.codecDagpb`.
@@ -975,9 +1331,49 @@ final class GoContext {
   const GoContext._();
 }
 
+/// Go: package `crypto/ecdsa`, as `Go.crypto.ecdsa`.
+final class GoCryptoEcdsa {
+  const GoCryptoEcdsa._();
+}
+
+/// Go: package `crypto/elliptic`, as `Go.crypto.elliptic`.
+final class GoCryptoElliptic {
+  const GoCryptoElliptic._();
+}
+
+/// Go: package `crypto/x509/pkix`, as `Go.crypto.x509.pkix`.
+final class GoCryptoX509Pkix {
+  const GoCryptoX509Pkix._();
+}
+
+/// Go: package `github.com/ipfs/go-datastore/query`, as `Go.datastore.query`.
+final class GoDatastoreQuery {
+  const GoDatastoreQuery._();
+}
+
 /// Go: package `github.com/ipfs/go-datastore/sync`, as `Go.datastore.sync`.
 final class GoDatastoreSync {
   const GoDatastoreSync._();
+}
+
+/// Go: package `go.uber.org/dig`, as `Go.dig`.
+final class GoDig {
+  const GoDig._();
+}
+
+/// Go: package `github.com/libp2p/go-doh-resolver`, as `Go.dohResolver`.
+final class GoDohResolver {
+  const GoDohResolver._();
+}
+
+/// Go: package `go.uber.org/fx`, as `Go.fx`.
+final class GoFx {
+  const GoFx._();
+}
+
+/// Go: package `github.com/crackcomm/go-gitignore`, as `Go.gitignore`.
+final class GoGitignore {
+  const GoGitignore._();
 }
 
 /// Go: package `github.com/hashicorp/golang-lru/simplelru`, as `Go.golangLru.simplelru`.
@@ -1005,6 +1401,11 @@ final class GoIpldFormat {
   const GoIpldFormat._();
 }
 
+/// Go: package `github.com/ipfs/go-ipld-legacy`, as `Go.ipldLegacy`.
+final class GoIpldLegacy {
+  const GoIpldLegacy._();
+}
+
 /// Go: package `github.com/ipld/go-ipld-prime/datamodel`, as `Go.ipldPrime.datamodel`.
 final class GoIpldPrimeDatamodel {
   const GoIpldPrimeDatamodel._();
@@ -1013,6 +1414,16 @@ final class GoIpldPrimeDatamodel {
 /// Go: package `github.com/ipld/go-ipld-prime/linking/cid`, as `Go.ipldPrime.linking.cid`.
 final class GoIpldPrimeLinkingCid {
   const GoIpldPrimeLinkingCid._();
+}
+
+/// Go: package `github.com/ipld/go-ipld-prime/linking/preload`, as `Go.ipldPrime.linking.preload`.
+final class GoIpldPrimeLinkingPreload {
+  const GoIpldPrimeLinkingPreload._();
+}
+
+/// Go: package `github.com/ipld/go-ipld-prime/multicodec`, as `Go.ipldPrime.multicodec`.
+final class GoIpldPrimeMulticodec {
+  const GoIpldPrimeMulticodec._();
 }
 
 /// Go: package `github.com/ipld/go-ipld-prime/node/basicnode`, as `Go.ipldPrime.node.basicnode`.
@@ -1095,6 +1506,11 @@ final class GoKuboRepoFsrepo {
   const GoKuboRepoFsrepo._();
 }
 
+/// Go: package `github.com/ipfs/kubo/routing`, as `Go.kubo.routing`.
+final class GoKuboRouting {
+  const GoKuboRouting._();
+}
+
 /// Go: package `github.com/libp2p/go-libp2p/config`, as `Go.libp2p.config`.
 final class GoLibp2pConfig {
   const GoLibp2pConfig._();
@@ -1105,9 +1521,9 @@ final class GoLibp2pCoreConnmgr {
   const GoLibp2pCoreConnmgr._();
 }
 
-/// Go: package `github.com/libp2p/go-libp2p/core/crypto`, as `Go.libp2p.core.crypto`.
-final class GoLibp2pCoreCrypto {
-  const GoLibp2pCoreCrypto._();
+/// Go: package `github.com/libp2p/go-libp2p/core/crypto/pb`, as `Go.libp2p.core.crypto.pb`.
+final class GoLibp2pCoreCryptoPb {
+  const GoLibp2pCoreCryptoPb._();
 }
 
 /// Go: package `github.com/libp2p/go-libp2p/core/discovery`, as `Go.libp2p.core.discovery`.
@@ -1135,14 +1551,19 @@ final class GoLibp2pCoreNetwork {
   const GoLibp2pCoreNetwork._();
 }
 
-/// Go: package `github.com/libp2p/go-libp2p/core/peer`, as `Go.libp2p.core.peer`.
-final class GoLibp2pCorePeer {
-  const GoLibp2pCorePeer._();
+/// Go: package `github.com/libp2p/go-libp2p/core/peer/pb`, as `Go.libp2p.core.peer.pb`.
+final class GoLibp2pCorePeerPb {
+  const GoLibp2pCorePeerPb._();
 }
 
 /// Go: package `github.com/libp2p/go-libp2p/core/peerstore`, as `Go.libp2p.core.peerstore`.
 final class GoLibp2pCorePeerstore {
   const GoLibp2pCorePeerstore._();
+}
+
+/// Go: package `github.com/libp2p/go-libp2p/core/protocol`, as `Go.libp2p.core.protocol`.
+final class GoLibp2pCoreProtocol {
+  const GoLibp2pCoreProtocol._();
 }
 
 /// Go: package `github.com/libp2p/go-libp2p/core/record`, as `Go.libp2p.core.record`.
@@ -1153,6 +1574,16 @@ final class GoLibp2pCoreRecord {
 /// Go: package `github.com/libp2p/go-libp2p/core/routing`, as `Go.libp2p.core.routing`.
 final class GoLibp2pCoreRouting {
   const GoLibp2pCoreRouting._();
+}
+
+/// Go: package `github.com/libp2p/go-libp2p/core/sec`, as `Go.libp2p.core.sec`.
+final class GoLibp2pCoreSec {
+  const GoLibp2pCoreSec._();
+}
+
+/// Go: package `github.com/libp2p/go-libp2p/core/transport`, as `Go.libp2p.core.transport`.
+final class GoLibp2pCoreTransport {
+  const GoLibp2pCoreTransport._();
 }
 
 /// Go: package `github.com/libp2p/go-libp2p/p2p/discovery/mdns`, as `Go.libp2p.p2p.discovery.mdns`.
@@ -1175,6 +1606,11 @@ final class GoLibp2pP2pHostBasic {
   const GoLibp2pP2pHostBasic._();
 }
 
+/// Go: package `github.com/libp2p/go-libp2p/p2p/host/resource-manager`, as `Go.libp2p.p2p.host.resourceManager`.
+final class GoLibp2pP2pHostResourceManager {
+  const GoLibp2pP2pHostResourceManager._();
+}
+
 /// Go: package `github.com/libp2p/go-libp2p/p2p/muxer/yamux`, as `Go.libp2p.p2p.muxer.yamux`.
 final class GoLibp2pP2pMuxerYamux {
   const GoLibp2pP2pMuxerYamux._();
@@ -1183,6 +1619,11 @@ final class GoLibp2pP2pMuxerYamux {
 /// Go: package `github.com/libp2p/go-libp2p/p2p/net/swarm`, as `Go.libp2p.p2p.net.swarm`.
 final class GoLibp2pP2pNetSwarm {
   const GoLibp2pP2pNetSwarm._();
+}
+
+/// Go: package `github.com/libp2p/go-libp2p/p2p/net/upgrader`, as `Go.libp2p.p2p.net.upgrader`.
+final class GoLibp2pP2pNetUpgrader {
+  const GoLibp2pP2pNetUpgrader._();
 }
 
 /// Go: package `github.com/libp2p/go-libp2p/p2p/protocol/circuitv2/relay`, as `Go.libp2p.p2p.protocol.circuitv2.relay`.
@@ -1200,9 +1641,9 @@ final class GoLibp2pP2pProtocolPing {
   const GoLibp2pP2pProtocolPing._();
 }
 
-/// Go: package `github.com/libp2p/go-libp2p/p2p/security/noise`, as `Go.libp2p.p2p.security.noise`.
-final class GoLibp2pP2pSecurityNoise {
-  const GoLibp2pP2pSecurityNoise._();
+/// Go: package `github.com/libp2p/go-libp2p/p2p/security/noise/pb`, as `Go.libp2p.p2p.security.noise.pb`.
+final class GoLibp2pP2pSecurityNoisePb {
+  const GoLibp2pP2pSecurityNoisePb._();
 }
 
 /// Go: package `github.com/libp2p/go-libp2p/p2p/security/tls`, as `Go.libp2p.p2p.security.tls`.
@@ -1265,9 +1706,14 @@ final class GoLibp2pPubsubPb {
   const GoLibp2pPubsubPb._();
 }
 
-/// Go: package `github.com/libp2p/go-libp2p-record`, as `Go.libp2pRecord`.
-final class GoLibp2pRecord {
-  const GoLibp2pRecord._();
+/// Go: package `github.com/libp2p/go-libp2p-record/pb`, as `Go.libp2pRecord.pb`.
+final class GoLibp2pRecordPb {
+  const GoLibp2pRecordPb._();
+}
+
+/// Go: package `github.com/libp2p/go-libp2p-routing-helpers`, as `Go.libp2pRoutingHelpers`.
+final class GoLibp2pRoutingHelpers {
+  const GoLibp2pRoutingHelpers._();
 }
 
 /// Go: package `log/slog`, as `Go.log.slog`.
@@ -1275,9 +1721,29 @@ final class GoLogSlog {
   const GoLogSlog._();
 }
 
+/// Go: package `github.com/ipfs/go-log/v2`, as `Go.log.v2`.
+final class GoLogV2 {
+  const GoLogV2._();
+}
+
+/// Go: package `math/big`, as `Go.math.big`.
+final class GoMathBig {
+  const GoMathBig._();
+}
+
+/// Go: package `mime/multipart`, as `Go.mime.multipart`.
+final class GoMimeMultipart {
+  const GoMimeMultipart._();
+}
+
 /// Go: package `github.com/multiformats/go-multiaddr`, as `Go.multiaddr`.
 final class GoMultiaddr {
   const GoMultiaddr._();
+}
+
+/// Go: package `github.com/multiformats/go-multiaddr-dns`, as `Go.multiaddrDns`.
+final class GoMultiaddrDns {
+  const GoMultiaddrDns._();
 }
 
 /// Go: package `github.com/multiformats/go-multibase`, as `Go.multibase`.
@@ -1295,9 +1761,14 @@ final class GoMultihash {
   const GoMultihash._();
 }
 
-/// Go: package `net`, as `Go.net`.
-final class GoNet {
-  const GoNet._();
+/// Go: package `net/http`, as `Go.net.http`.
+final class GoNetHttp {
+  const GoNetHttp._();
+}
+
+/// Go: package `net/url`, as `Go.net.url`.
+final class GoNetUrl {
+  const GoNetUrl._();
 }
 
 /// Go: package `os`, as `Go.os`.
@@ -1305,12 +1776,42 @@ final class GoOs {
   const GoOs._();
 }
 
+/// Go: package `github.com/ipshipyard/p2p-forge/client`, as `Go.p2pForge.client`.
+final class GoP2pForgeClient {
+  const GoP2pForgeClient._();
+}
+
+/// Go: package `google.golang.org/protobuf/reflect/protoreflect`, as `Go.protobuf.reflect.protoreflect`.
+final class GoProtobufReflectProtoreflect {
+  const GoProtobufReflectProtoreflect._();
+}
+
+/// Go: package `reflect`, as `Go.reflect`.
+final class GoReflect {
+  const GoReflect._();
+}
+
+/// Go: package `regexp`, as `Go.regexp`.
+final class GoRegexp {
+  const GoRegexp._();
+}
+
 /// Go: package `runtime/debug`, as `Go.runtime.debug`.
 final class GoRuntimeDebug {
   const GoRuntimeDebug._();
 }
 
+/// Go: package `github.com/decred/dcrd/dcrec/secp256k1/v4`, as `Go.secp256k1.v4`.
+final class GoSecp256k1V4 {
+  const GoSecp256k1V4._();
+}
+
 /// Go: package `github.com/ipfs/go-unixfsnode`, as `Go.unixfsnode`.
 final class GoUnixfsnode {
   const GoUnixfsnode._();
+}
+
+/// Go: package `github.com/libp2p/go-yamux/v5`, as `Go.yamux.v5`.
+final class GoYamuxV5 {
+  const GoYamuxV5._();
 }

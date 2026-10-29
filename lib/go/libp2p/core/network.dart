@@ -7,55 +7,293 @@ import 'dart:typed_data';
 
 import 'package:p2p_ffi/src/go.dart' show GoLibp2pCoreNetwork;
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/context.dart' as $context;
+import 'package:p2p_ffi/go/crypto.dart' as $crypto2;
 import 'package:p2p_ffi/go/io.dart' as $io;
+import 'package:p2p_ffi/go/ipfs_cmds.dart' as $ipfs_cmds;
+import 'package:p2p_ffi/go/libp2p/core/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/libp2p/core/peer.dart' as $peer;
+import 'package:p2p_ffi/go/libp2p/core/peerstore.dart' as $peerstore;
+import 'package:p2p_ffi/go/libp2p/core/sec.dart' as $sec;
+import 'package:p2p_ffi/go/libp2p/core/transport.dart' as $transport;
+import 'package:p2p_ffi/go/libp2p/p2p/muxer/yamux.dart' as $yamux;
+import 'package:p2p_ffi/go/libp2p/p2p/net/swarm.dart' as $swarm;
 import 'package:p2p_ffi/go/multiaddr.dart' as $multiaddr;
+import 'package:p2p_ffi/go/net.dart' as $net;
+
+/// Go: `network.AddrDelay`.
+final class Libp2pCoreNetworkAddrDelay implements GoDto {
+  Libp2pCoreNetworkAddrDelay({$multiaddr.Multiaddr? addr, Duration? delay})
+      : addr = addr,
+        delay = delay ?? Duration.zero;
+
+  Libp2pCoreNetworkAddrDelay.$dec($R r)
+      : addr = r.p() ? $multiaddr.Multiaddr(r.str()) : null,
+        delay = Duration(microseconds: r.i64() ~/ 1000);
+
+  /// Go: `Addr`.
+  $multiaddr.Multiaddr? addr;
+
+  /// Go: `Delay`.
+  Duration delay;
+
+  @override
+  void $enc($W w) {
+    w
+      ..val(addr)
+      ..i64((delay).inMicroseconds * 1000);
+  }
+}
 
 /// Go: `network.Conn` (handle).
-class Libp2pCoreNetworkConn extends $io.IoCloser {
+class Libp2pCoreNetworkConn extends $io.IoCloser
+    with
+        Libp2pCoreNetworkConnScoper$,
+        Libp2pCoreNetworkConnSecurity$,
+        Libp2pCoreNetworkConn$
+    implements Libp2pCoreNetworkConnScoper, Libp2pCoreNetworkConnSecurity {
   Libp2pCoreNetworkConn.$h(super.$h) : super.$h();
+}
 
-  /// Go: `func (network.Conn).ID() string`.
-  String id() {
-    final $r = $callSync(581, $W()..h(this));
-    return $r.str();
-  }
-
+/// The methods of [Libp2pCoreNetworkConn], mixed into every class Go also accepts as one.
+mixin Libp2pCoreNetworkConn$ on GoHandle {
   /// Go: `func (network.ConnSecurity).RemotePeer() peer.ID`.
   $peer.Libp2pCorePeerId remotePeer() {
-    final $r = $callSync(585, $W()..h(this));
+    final $r = $callSync(2950, $W()..h(this));
     return $r.p() ? $peer.Libp2pCorePeerId($r.str()) : $nil();
   }
 
   /// Go: `func (network.ConnMultiaddrs).RemoteMultiaddr() multiaddr.Multiaddr`.
   $multiaddr.Multiaddr remoteMultiaddr() {
-    final $r = $callSync(584, $W()..h(this));
+    final $r = $callSync(2949, $W()..h(this));
     return $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil();
   }
 
   /// Go: `func (network.ConnMultiaddrs).LocalMultiaddr() multiaddr.Multiaddr`.
   $multiaddr.Multiaddr localMultiaddr() {
-    final $r = $callSync(583, $W()..h(this));
+    final $r = $callSync(2947, $W()..h(this));
     return $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil();
   }
 
   /// Go: `func (network.ConnStat).Stat() network.ConnStats`.
   Libp2pCoreNetworkConnStats stat() {
-    final $r = $callSync(586, $W()..h(this));
+    final $r = $callSync(2951, $W()..h(this));
     return $r.p() ? Libp2pCoreNetworkConnStats.$dec($r) : $nil();
-  }
-
-  /// Go: `func (network.Conn).IsClosed() bool`.
-  bool isClosed() {
-    final $r = $callSync(582, $W()..h(this));
-    return $r.b();
   }
 
   /// Go: `func (io.Closer).Close() error`.
   ///
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> close() async {
-    await $call(580, $W()..h(this));
+    await $call(2942, $W()..h(this));
+  }
+
+  /// Go: `func (network.Conn).As(target any) bool`.
+  bool as(Object? target) {
+    final $r = $callSync(
+        2941,
+        $W()
+          ..h(this)
+          ..any(target));
+    return $r.b();
+  }
+
+  /// Go: `func (network.Conn).CloseWithError(errCode network.ConnErrorCode) error`.
+  void closeWithError(int errCode) {
+    $callSync(
+        2943,
+        $W()
+          ..h(this)
+          ..i64(errCode));
+  }
+
+  /// Go: `func (network.Conn).GetStreams() []network.Stream`.
+  List<Libp2pCoreNetworkStream> getStreams() {
+    final $r = $callSync(2944, $W()..h(this));
+    return $r.list(() => $r.hnn(Libp2pCoreNetworkStream.$h));
+  }
+
+  /// Go: `func (network.Conn).ID() string`.
+  String id() {
+    final $r = $callSync(2945, $W()..h(this));
+    return $r.str();
+  }
+
+  /// Go: `func (network.Conn).IsClosed() bool`.
+  bool isClosed() {
+    final $r = $callSync(2946, $W()..h(this));
+    return $r.b();
+  }
+
+  /// Go: `func (network.Conn).NewStream(context.Context) (network.Stream, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<Libp2pCoreNetworkStream> newStream($context.Context ctx) async {
+    final $r = await $call(
+        2948,
+        $W()
+          ..h(this)
+          ..h(ctx));
+    return $r.hnn(Libp2pCoreNetworkStream.$h);
+  }
+
+  /// Go: type assertion `x.(*swarm.Conn)`: null if the object is not one.
+  $swarm.Libp2pP2pNetSwarmConn? asLibp2pP2pNetSwarmConn() {
+    final $r = $callSync(288, $W()..h(this));
+    return $r.hn($swarm.Libp2pP2pNetSwarmConn.$h);
+  }
+}
+
+/// Go: `network.ConnManagementScope` (handle).
+class Libp2pCoreNetworkConnManagementScope
+    extends Libp2pCoreNetworkResourceScopeSpan
+    with Libp2pCoreNetworkConnManagementScope$ {
+  Libp2pCoreNetworkConnManagementScope.$h(super.$h) : super.$h();
+}
+
+/// The methods of [Libp2pCoreNetworkConnManagementScope], mixed into every class Go also accepts as one.
+mixin Libp2pCoreNetworkConnManagementScope$ on GoHandle {
+  /// Go: `func (network.ConnManagementScope).PeerScope() network.PeerScope`.
+  Libp2pCoreNetworkPeerScope peerScope() {
+    final $r = $callSync(2952, $W()..h(this));
+    return $r.hnn(Libp2pCoreNetworkPeerScope.$h);
+  }
+
+  /// Go: `func (network.ConnManagementScope).SetPeer(peer.ID) error`.
+  void setPeer($peer.Libp2pCorePeerId id) {
+    $callSync(
+        2953,
+        $W()
+          ..h(this)
+          ..val(id));
+  }
+}
+
+/// Go: `network.ConnMultiaddrs` (values read from the methods; built in Dart, it
+/// crosses as a Go value that returns them).
+final class Libp2pCoreNetworkConnMultiaddrs implements GoDto {
+  Libp2pCoreNetworkConnMultiaddrs(
+      {$multiaddr.Multiaddr? localMultiaddr,
+      $multiaddr.Multiaddr? remoteMultiaddr})
+      : localMultiaddr = localMultiaddr,
+        remoteMultiaddr = remoteMultiaddr;
+
+  Libp2pCoreNetworkConnMultiaddrs.$dec($R r)
+      : localMultiaddr = r.p() ? $multiaddr.Multiaddr(r.str()) : null,
+        remoteMultiaddr = r.p() ? $multiaddr.Multiaddr(r.str()) : null;
+
+  /// Go: `LocalMultiaddr()`.
+  final $multiaddr.Multiaddr? localMultiaddr;
+
+  /// Go: `RemoteMultiaddr()`.
+  final $multiaddr.Multiaddr? remoteMultiaddr;
+
+  @override
+  void $enc($W w) {
+    w
+      ..val(localMultiaddr)
+      ..val(remoteMultiaddr);
+  }
+}
+
+/// Go: `network.ConnScope` (handle).
+class Libp2pCoreNetworkConnScope extends Libp2pCoreNetworkResourceScope
+    with Libp2pCoreNetworkConnScope$ {
+  Libp2pCoreNetworkConnScope.$h(super.$h) : super.$h();
+}
+
+/// The methods of [Libp2pCoreNetworkConnScope], mixed into every class Go also accepts as one.
+mixin Libp2pCoreNetworkConnScope$ on GoHandle {}
+
+/// Go: `network.ConnScoper` (handle).
+class Libp2pCoreNetworkConnScoper extends GoHandle
+    with Libp2pCoreNetworkConnScoper$ {
+  Libp2pCoreNetworkConnScoper.$h(super.$h);
+}
+
+/// The methods of [Libp2pCoreNetworkConnScoper], mixed into every class Go also accepts as one.
+mixin Libp2pCoreNetworkConnScoper$ on GoHandle {
+  /// Go: `func (network.ConnScoper).Scope() network.ConnScope`.
+  Libp2pCoreNetworkConnScope scope() {
+    final $r = $callSync(2954, $W()..h(this));
+    return $r.hnn(Libp2pCoreNetworkConnScope.$h);
+  }
+
+  /// Go: type assertion `x.(*swarm.Conn)`: null if the object is not one.
+  $swarm.Libp2pP2pNetSwarmConn? asLibp2pP2pNetSwarmConn() {
+    final $r = $callSync(289, $W()..h(this));
+    return $r.hn($swarm.Libp2pP2pNetSwarmConn.$h);
+  }
+
+  /// Go: type assertion `x.(network.Conn)`: null if the object is not one.
+  Libp2pCoreNetworkConn? asLibp2pCoreNetworkConn() {
+    final $r = $callSync(290, $W()..h(this));
+    return $r.hn(Libp2pCoreNetworkConn.$h);
+  }
+
+  /// Go: type assertion `x.(transport.CapableConn)`: null if the object is not one.
+  $transport.Libp2pCoreTransportCapableConn?
+      asLibp2pCoreTransportCapableConn() {
+    final $r = $callSync(291, $W()..h(this));
+    return $r.hn($transport.Libp2pCoreTransportCapableConn.$h);
+  }
+}
+
+/// Go: `network.ConnSecurity` (handle).
+class Libp2pCoreNetworkConnSecurity extends GoHandle
+    with Libp2pCoreNetworkConnSecurity$ {
+  Libp2pCoreNetworkConnSecurity.$h(super.$h);
+}
+
+/// The methods of [Libp2pCoreNetworkConnSecurity], mixed into every class Go also accepts as one.
+mixin Libp2pCoreNetworkConnSecurity$ on GoHandle {
+  /// Go: `func (network.ConnSecurity).ConnState() network.ConnectionState`.
+  Libp2pCoreNetworkConnectionState connState() {
+    final $r = $callSync(2955, $W()..h(this));
+    return $r.p() ? Libp2pCoreNetworkConnectionState.$dec($r) : $nil();
+  }
+
+  /// Go: `func (network.ConnSecurity).LocalPeer() peer.ID`.
+  $peer.Libp2pCorePeerId localPeer() {
+    final $r = $callSync(2956, $W()..h(this));
+    return $r.p() ? $peer.Libp2pCorePeerId($r.str()) : $nil();
+  }
+
+  /// Go: `func (network.ConnSecurity).RemotePeer() peer.ID`.
+  $peer.Libp2pCorePeerId remotePeer() {
+    final $r = $callSync(2957, $W()..h(this));
+    return $r.p() ? $peer.Libp2pCorePeerId($r.str()) : $nil();
+  }
+
+  /// Go: `func (network.ConnSecurity).RemotePublicKey() crypto.PubKey`.
+  $crypto.Libp2pCoreCryptoPubKey remotePublicKey() {
+    final $r = $callSync(2958, $W()..h(this));
+    return $r.hnn($crypto.Libp2pCoreCryptoPubKey.$h);
+  }
+
+  /// Go: type assertion `x.(*swarm.Conn)`: null if the object is not one.
+  $swarm.Libp2pP2pNetSwarmConn? asLibp2pP2pNetSwarmConn() {
+    final $r = $callSync(292, $W()..h(this));
+    return $r.hn($swarm.Libp2pP2pNetSwarmConn.$h);
+  }
+
+  /// Go: type assertion `x.(network.Conn)`: null if the object is not one.
+  Libp2pCoreNetworkConn? asLibp2pCoreNetworkConn() {
+    final $r = $callSync(293, $W()..h(this));
+    return $r.hn(Libp2pCoreNetworkConn.$h);
+  }
+
+  /// Go: type assertion `x.(sec.SecureConn)`: null if the object is not one.
+  $sec.Libp2pCoreSecSecureConn? asLibp2pCoreSecSecureConn() {
+    final $r = $callSync(294, $W()..h(this));
+    return $r.hn($sec.Libp2pCoreSecSecureConn.$h);
+  }
+
+  /// Go: type assertion `x.(transport.CapableConn)`: null if the object is not one.
+  $transport.Libp2pCoreTransportCapableConn?
+      asLibp2pCoreTransportCapableConn() {
+    final $r = $callSync(295, $W()..h(this));
+    return $r.hn($transport.Libp2pCoreTransportCapableConn.$h);
   }
 }
 
@@ -83,51 +321,397 @@ final class Libp2pCoreNetworkConnStats implements GoDto {
   }
 }
 
+/// Go: `network.ConnectionState`.
+final class Libp2pCoreNetworkConnectionState implements GoDto {
+  Libp2pCoreNetworkConnectionState(
+      {String? streamMultiplexer,
+      String? security,
+      String? transport,
+      bool? usedEarlyMuxerNegotiation})
+      : streamMultiplexer = streamMultiplexer ?? '',
+        security = security ?? '',
+        transport = transport ?? '',
+        usedEarlyMuxerNegotiation = usedEarlyMuxerNegotiation ?? false;
+
+  Libp2pCoreNetworkConnectionState.$dec($R r)
+      : streamMultiplexer = r.str(),
+        security = r.str(),
+        transport = r.str(),
+        usedEarlyMuxerNegotiation = r.b();
+
+  /// Go: `StreamMultiplexer`.
+  String streamMultiplexer;
+
+  /// Go: `Security`.
+  String security;
+
+  /// Go: `Transport`.
+  String transport;
+
+  /// Go: `UsedEarlyMuxerNegotiation`.
+  bool usedEarlyMuxerNegotiation;
+
+  @override
+  void $enc($W w) {
+    w
+      ..str(streamMultiplexer)
+      ..str(security)
+      ..str(transport)
+      ..b(usedEarlyMuxerNegotiation);
+  }
+}
+
 /// Go: `network.DialRanker` (handle).
-class Libp2pCoreNetworkDialRanker extends GoHandle {
-  Libp2pCoreNetworkDialRanker.$h(super.$h);
+class Libp2pCoreNetworkDialRanker extends $crypto2.CryptoPrivateKey
+    with $crypto2.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
+    implements $crypto2.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+  Libp2pCoreNetworkDialRanker.$h(super.$h) : super.$h();
 }
 
 /// Go: `network.Dialer` (handle).
-class Libp2pCoreNetworkDialer extends GoHandle {
+class Libp2pCoreNetworkDialer extends GoHandle with Libp2pCoreNetworkDialer$ {
   Libp2pCoreNetworkDialer.$h(super.$h);
 }
 
-/// Go: `network.MultiaddrDNSResolver` (handle).
-class Libp2pCoreNetworkMultiaddrDnsResolver extends GoHandle {
-  Libp2pCoreNetworkMultiaddrDnsResolver.$h(super.$h);
-}
+/// The methods of [Libp2pCoreNetworkDialer], mixed into every class Go also accepts as one.
+mixin Libp2pCoreNetworkDialer$ on GoHandle {
+  /// Go: `func (network.Dialer).CanDial(p peer.ID, addr multiaddr.Multiaddr) bool`.
+  bool canDial($peer.Libp2pCorePeerId p, $multiaddr.Multiaddr addr) {
+    final $r = $callSync(
+        2960,
+        $W()
+          ..h(this)
+          ..val(p)
+          ..val(addr));
+    return $r.b();
+  }
 
-/// Go: `network.Multiplexer` (handle).
-class Libp2pCoreNetworkMultiplexer extends GoHandle {
-  Libp2pCoreNetworkMultiplexer.$h(super.$h);
-}
+  /// Go: `func (network.Dialer).ClosePeer(peer.ID) error`.
+  void closePeer($peer.Libp2pCorePeerId id) {
+    $callSync(
+        2961,
+        $W()
+          ..h(this)
+          ..val(id));
+  }
 
-/// Go: `network.MuxedStream` (handle).
-class Libp2pCoreNetworkMuxedStream extends $io.IoCloser {
-  Libp2pCoreNetworkMuxedStream.$h(super.$h) : super.$h();
-}
-
-/// Go: `network.Network` (handle).
-class Libp2pCoreNetwork extends Libp2pCoreNetworkDialer {
-  Libp2pCoreNetwork.$h(super.$h) : super.$h();
-
-  /// Go: `func (network.Dialer).Peers() []peer.ID`.
-  List<$peer.Libp2pCorePeerId> peers() {
-    final $r = $callSync(594, $W()..h(this));
-    return $r.list(() => $r.p() ? $peer.Libp2pCorePeerId($r.str()) : $nil());
+  /// Go: `func (network.Dialer).Connectedness(peer.ID) network.Connectedness`.
+  int connectedness($peer.Libp2pCorePeerId id) {
+    final $r = $callSync(
+        2962,
+        $W()
+          ..h(this)
+          ..val(id));
+    return $r.i64();
   }
 
   /// Go: `func (network.Dialer).Conns() []network.Conn`.
   List<Libp2pCoreNetworkConn> conns() {
-    final $r = $callSync(589, $W()..h(this));
+    final $r = $callSync(2963, $W()..h(this));
     return $r.list(() => $r.hnn(Libp2pCoreNetworkConn.$h));
   }
 
   /// Go: `func (network.Dialer).ConnsToPeer(p peer.ID) []network.Conn`.
   List<Libp2pCoreNetworkConn> connsToPeer($peer.Libp2pCorePeerId p) {
     final $r = $callSync(
-        590,
+        2964,
+        $W()
+          ..h(this)
+          ..val(p));
+    return $r.list(() => $r.hnn(Libp2pCoreNetworkConn.$h));
+  }
+
+  /// Go: `func (network.Dialer).DialPeer(context.Context, peer.ID) (network.Conn, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<Libp2pCoreNetworkConn> dialPeer(
+      $context.Context ctx, $peer.Libp2pCorePeerId id) async {
+    final $r = await $call(
+        2965,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(id));
+    return $r.hnn(Libp2pCoreNetworkConn.$h);
+  }
+
+  /// Go: `func (network.Dialer).LocalPeer() peer.ID`.
+  $peer.Libp2pCorePeerId localPeer() {
+    final $r = $callSync(2966, $W()..h(this));
+    return $r.p() ? $peer.Libp2pCorePeerId($r.str()) : $nil();
+  }
+
+  /// Go: `func (network.Dialer).Notify(network.Notifiee)`.
+  void notify(Libp2pCoreNetworkNotifiee notifiee) {
+    $callSync(
+        2967,
+        $W()
+          ..h(this)
+          ..h(notifiee));
+  }
+
+  /// Go: `func (network.Dialer).Peers() []peer.ID`.
+  List<$peer.Libp2pCorePeerId> peers() {
+    final $r = $callSync(2968, $W()..h(this));
+    return $r.list(() => $r.p() ? $peer.Libp2pCorePeerId($r.str()) : $nil());
+  }
+
+  /// Go: `func (network.Dialer).Peerstore() peerstore.Peerstore`.
+  $peerstore.Libp2pCorePeerstore peerstore() {
+    final $r = $callSync(2969, $W()..h(this));
+    return $r.hnn($peerstore.Libp2pCorePeerstore.$h);
+  }
+
+  /// Go: `func (network.Dialer).StopNotify(network.Notifiee)`.
+  void stopNotify(Libp2pCoreNetworkNotifiee notifiee) {
+    $callSync(
+        2970,
+        $W()
+          ..h(this)
+          ..h(notifiee));
+  }
+
+  /// Go: type assertion `x.(*swarm.Swarm)`: null if the object is not one.
+  $swarm.Libp2pP2pNetSwarm? asLibp2pP2pNetSwarm() {
+    final $r = $callSync(296, $W()..h(this));
+    return $r.hn($swarm.Libp2pP2pNetSwarm.$h);
+  }
+
+  /// Go: type assertion `x.(network.Network)`: null if the object is not one.
+  Libp2pCoreNetwork? asLibp2pCoreNetwork() {
+    final $r = $callSync(297, $W()..h(this));
+    return $r.hn(Libp2pCoreNetwork.$h);
+  }
+}
+
+/// Go: `network.MultiaddrDNSResolver` (handle).
+class Libp2pCoreNetworkMultiaddrDnsResolver extends GoHandle
+    with Libp2pCoreNetworkMultiaddrDnsResolver$ {
+  Libp2pCoreNetworkMultiaddrDnsResolver.$h(super.$h);
+}
+
+/// The methods of [Libp2pCoreNetworkMultiaddrDnsResolver], mixed into every class Go also accepts as one.
+mixin Libp2pCoreNetworkMultiaddrDnsResolver$ on GoHandle {
+  /// Go: `func (network.MultiaddrDNSResolver).ResolveDNSAddr(ctx context.Context, expectedPeerID peer.ID, maddr multiaddr.Multiaddr, recursionLimit int, outputLimit int) ([]multiaddr.Multiaddr, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<List<$multiaddr.Multiaddr>> resolveDnsAddr(
+      $context.Context ctx,
+      $peer.Libp2pCorePeerId expectedPeerId,
+      $multiaddr.Multiaddr maddr,
+      int recursionLimit,
+      int outputLimit) async {
+    final $r = await $call(
+        2978,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(expectedPeerId)
+          ..val(maddr)
+          ..i64(recursionLimit)
+          ..i64(outputLimit));
+    return $r.list(() => $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil());
+  }
+
+  /// Go: `func (network.MultiaddrDNSResolver).ResolveDNSComponent(ctx context.Context, maddr multiaddr.Multiaddr, outputLimit int) ([]multiaddr.Multiaddr, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<List<$multiaddr.Multiaddr>> resolveDnsComponent(
+      $context.Context ctx, $multiaddr.Multiaddr maddr, int outputLimit) async {
+    final $r = await $call(
+        2979,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(maddr)
+          ..i64(outputLimit));
+    return $r.list(() => $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil());
+  }
+}
+
+/// Go: `network.Multiplexer` (handle).
+class Libp2pCoreNetworkMultiplexer extends GoHandle
+    with Libp2pCoreNetworkMultiplexer$ {
+  Libp2pCoreNetworkMultiplexer.$h(super.$h);
+}
+
+/// The methods of [Libp2pCoreNetworkMultiplexer], mixed into every class Go also accepts as one.
+mixin Libp2pCoreNetworkMultiplexer$ on GoHandle {
+  /// Go: `func (network.Multiplexer).NewConn(c net.Conn, isServer bool, scope network.PeerScope) (network.MuxedConn, error)`.
+  Libp2pCoreNetworkMuxedConn newConn(
+      $net.NetConn c, bool isServer, Libp2pCoreNetworkPeerScope scope) {
+    final $r = $callSync(
+        2980,
+        $W()
+          ..h(this)
+          ..h(c)
+          ..b(isServer)
+          ..h(scope));
+    return $r.hnn(Libp2pCoreNetworkMuxedConn.$h);
+  }
+
+  /// Go: type assertion `x.(*yamux.Transport)`: null if the object is not one.
+  $yamux.Libp2pP2pMuxerYamuxTransport? asLibp2pP2pMuxerYamuxTransport() {
+    final $r = $callSync(298, $W()..h(this));
+    return $r.hn($yamux.Libp2pP2pMuxerYamuxTransport.$h);
+  }
+}
+
+/// Go: `network.MuxedConn` (handle).
+class Libp2pCoreNetworkMuxedConn extends $io.IoCloser
+    with Libp2pCoreNetworkMuxedConn$ {
+  Libp2pCoreNetworkMuxedConn.$h(super.$h) : super.$h();
+}
+
+/// The methods of [Libp2pCoreNetworkMuxedConn], mixed into every class Go also accepts as one.
+mixin Libp2pCoreNetworkMuxedConn$ on GoHandle {
+  /// Go: `func (network.MuxedConn).AcceptStream() (network.MuxedStream, error)`.
+  Libp2pCoreNetworkMuxedStream acceptStream() {
+    final $r = $callSync(2981, $W()..h(this));
+    return $r.hnn(Libp2pCoreNetworkMuxedStream.$h);
+  }
+
+  /// Go: `func (network.MuxedConn).As(target any) bool`.
+  bool as(Object? target) {
+    final $r = $callSync(
+        2982,
+        $W()
+          ..h(this)
+          ..any(target));
+    return $r.b();
+  }
+
+  /// Go: `func (network.MuxedConn).CloseWithError(errCode network.ConnErrorCode) error`.
+  void closeWithError(int errCode) {
+    $callSync(
+        2983,
+        $W()
+          ..h(this)
+          ..i64(errCode));
+  }
+
+  /// Go: `func (network.MuxedConn).IsClosed() bool`.
+  bool isClosed() {
+    final $r = $callSync(2984, $W()..h(this));
+    return $r.b();
+  }
+
+  /// Go: `func (network.MuxedConn).OpenStream(context.Context) (network.MuxedStream, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<Libp2pCoreNetworkMuxedStream> openStream($context.Context ctx) async {
+    final $r = await $call(
+        2985,
+        $W()
+          ..h(this)
+          ..h(ctx));
+    return $r.hnn(Libp2pCoreNetworkMuxedStream.$h);
+  }
+
+  /// Go: type assertion `x.(transport.CapableConn)`: null if the object is not one.
+  $transport.Libp2pCoreTransportCapableConn?
+      asLibp2pCoreTransportCapableConn() {
+    final $r = $callSync(299, $W()..h(this));
+    return $r.hn($transport.Libp2pCoreTransportCapableConn.$h);
+  }
+}
+
+/// Go: `network.MuxedStream` (handle).
+class Libp2pCoreNetworkMuxedStream extends $io.IoCloser
+    with Libp2pCoreNetworkMuxedStream$ {
+  Libp2pCoreNetworkMuxedStream.$h(super.$h) : super.$h();
+}
+
+/// The methods of [Libp2pCoreNetworkMuxedStream], mixed into every class Go also accepts as one.
+mixin Libp2pCoreNetworkMuxedStream$ on GoHandle {
+  /// Go: `func (network.MuxedStream).CloseRead() error`.
+  void closeRead() {
+    $callSync(2986, $W()..h(this));
+  }
+
+  /// Go: `func (network.MuxedStream).CloseWrite() error`.
+  void closeWrite() {
+    $callSync(2987, $W()..h(this));
+  }
+
+  /// Go: `func (network.MuxedStream).Reset() error`.
+  void reset() {
+    $callSync(2988, $W()..h(this));
+  }
+
+  /// Go: `func (network.MuxedStream).ResetWithError(errCode network.StreamErrorCode) error`.
+  void resetWithError(int errCode) {
+    $callSync(
+        2989,
+        $W()
+          ..h(this)
+          ..i64(errCode));
+  }
+
+  /// Go: `func (network.MuxedStream).SetDeadline(time.Time) error`.
+  void setDeadline(DateTime time) {
+    $callSync(
+        2990,
+        $W()
+          ..h(this)
+          ..time(time));
+  }
+
+  /// Go: `func (network.MuxedStream).SetReadDeadline(time.Time) error`.
+  void setReadDeadline(DateTime time) {
+    $callSync(
+        2991,
+        $W()
+          ..h(this)
+          ..time(time));
+  }
+
+  /// Go: `func (network.MuxedStream).SetWriteDeadline(time.Time) error`.
+  void setWriteDeadline(DateTime time) {
+    $callSync(
+        2992,
+        $W()
+          ..h(this)
+          ..time(time));
+  }
+
+  /// Go: type assertion `x.(*swarm.Stream)`: null if the object is not one.
+  $swarm.Libp2pP2pNetSwarmStream? asLibp2pP2pNetSwarmStream() {
+    final $r = $callSync(300, $W()..h(this));
+    return $r.hn($swarm.Libp2pP2pNetSwarmStream.$h);
+  }
+
+  /// Go: type assertion `x.(network.Stream)`: null if the object is not one.
+  Libp2pCoreNetworkStream? asLibp2pCoreNetworkStream() {
+    final $r = $callSync(301, $W()..h(this));
+    return $r.hn(Libp2pCoreNetworkStream.$h);
+  }
+}
+
+/// Go: `network.Network` (handle).
+class Libp2pCoreNetwork extends Libp2pCoreNetworkDialer
+    with Libp2pCoreNetwork$ {
+  Libp2pCoreNetwork.$h(super.$h) : super.$h();
+}
+
+/// The methods of [Libp2pCoreNetwork], mixed into every class Go also accepts as one.
+mixin Libp2pCoreNetwork$ on GoHandle {
+  /// Go: `func (network.Dialer).Peers() []peer.ID`.
+  List<$peer.Libp2pCorePeerId> peers() {
+    final $r = $callSync(3002, $W()..h(this));
+    return $r.list(() => $r.p() ? $peer.Libp2pCorePeerId($r.str()) : $nil());
+  }
+
+  /// Go: `func (network.Dialer).Conns() []network.Conn`.
+  List<Libp2pCoreNetworkConn> conns() {
+    final $r = $callSync(2995, $W()..h(this));
+    return $r.list(() => $r.hnn(Libp2pCoreNetworkConn.$h));
+  }
+
+  /// Go: `func (network.Dialer).ConnsToPeer(p peer.ID) []network.Conn`.
+  List<Libp2pCoreNetworkConn> connsToPeer($peer.Libp2pCorePeerId p) {
+    final $r = $callSync(
+        2996,
         $W()
           ..h(this)
           ..val(p));
@@ -137,7 +721,7 @@ class Libp2pCoreNetwork extends Libp2pCoreNetworkDialer {
   /// Go: `func (network.Dialer).Connectedness(peer.ID) network.Connectedness`.
   int connectedness($peer.Libp2pCorePeerId id) {
     final $r = $callSync(
-        588,
+        2994,
         $W()
           ..h(this)
           ..val(id));
@@ -147,28 +731,16 @@ class Libp2pCoreNetwork extends Libp2pCoreNetworkDialer {
   /// Go: `func (network.Dialer).ClosePeer(peer.ID) error`.
   void closePeer($peer.Libp2pCorePeerId id) {
     $callSync(
-        587,
+        2993,
         $W()
           ..h(this)
           ..val(id));
   }
 
-  /// Go: `func (network.Network).ListenAddresses() []multiaddr.Multiaddr`.
-  List<$multiaddr.Multiaddr> listenAddresses() {
-    final $r = $callSync(592, $W()..h(this));
-    return $r.list(() => $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil());
-  }
-
-  /// Go: `func (network.Network).InterfaceListenAddresses() ([]multiaddr.Multiaddr, error)`.
-  List<$multiaddr.Multiaddr> interfaceListenAddresses() {
-    final $r = $callSync(591, $W()..h(this));
-    return $r.list(() => $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil());
-  }
-
   /// Go: `func (network.Dialer).Notify(network.Notifiee)`.
   void notify(Libp2pCoreNetworkNotifiee notifiee) {
     $callSync(
-        593,
+        3001,
         $W()
           ..h(this)
           ..h(notifiee));
@@ -177,15 +749,112 @@ class Libp2pCoreNetwork extends Libp2pCoreNetworkDialer {
   /// Go: `func (network.Dialer).StopNotify(network.Notifiee)`.
   void stopNotify(Libp2pCoreNetworkNotifiee notifiee) {
     $callSync(
-        595,
+        3004,
         $W()
           ..h(this)
           ..h(notifiee));
   }
+
+  /// Go: `func (network.Network).InterfaceListenAddresses() ([]multiaddr.Multiaddr, error)`.
+  List<$multiaddr.Multiaddr> interfaceListenAddresses() {
+    final $r = $callSync(2997, $W()..h(this));
+    return $r.list(() => $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil());
+  }
+
+  /// Go: `func (network.Network).Listen(...multiaddr.Multiaddr) error`.
+  void listen([List<$multiaddr.Multiaddr> multiaddrs = const []]) {
+    $callSync(
+        2998,
+        $W()
+          ..h(this)
+          ..list(multiaddrs, (w0, e0) => w0.val(e0)));
+  }
+
+  /// Go: `func (network.Network).ListenAddresses() []multiaddr.Multiaddr`.
+  List<$multiaddr.Multiaddr> listenAddresses() {
+    final $r = $callSync(2999, $W()..h(this));
+    return $r.list(() => $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil());
+  }
+
+  /// Go: `func (network.Network).NewStream(context.Context, peer.ID) (network.Stream, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<Libp2pCoreNetworkStream> newStream(
+      $context.Context ctx, $peer.Libp2pCorePeerId id) async {
+    final $r = await $call(
+        3000,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(id));
+    return $r.hnn(Libp2pCoreNetworkStream.$h);
+  }
+
+  /// Go: `func (network.Network).ResourceManager() network.ResourceManager`.
+  Libp2pCoreNetworkResourceManager resourceManager() {
+    final $r = $callSync(3003, $W()..h(this));
+    return $r.hnn(Libp2pCoreNetworkResourceManager.$h);
+  }
+
+  /// Go: type assertion `x.(*swarm.Swarm)`: null if the object is not one.
+  $swarm.Libp2pP2pNetSwarm? asLibp2pP2pNetSwarm() {
+    final $r = $callSync(302, $W()..h(this));
+    return $r.hn($swarm.Libp2pP2pNetSwarm.$h);
+  }
+}
+
+/// Go: `network.NoopNotifiee`.
+final class Libp2pCoreNetworkNoopNotifiee implements GoDto {
+  Libp2pCoreNetworkNoopNotifiee();
+  Libp2pCoreNetworkNoopNotifiee.$dec($R r);
+
+  @override
+  void $enc($W w) {}
+
+  /// Go: `func (*network.NoopNotifiee).Connected(_ network.Network, _ network.Conn)`.
+  void connected(Libp2pCoreNetwork network, Libp2pCoreNetworkConn conn) {
+    $callSync(
+        3005,
+        $W()
+          ..dto(this)
+          ..h(network)
+          ..h(conn));
+  }
+
+  /// Go: `func (*network.NoopNotifiee).Disconnected(_ network.Network, _ network.Conn)`.
+  void disconnected(Libp2pCoreNetwork network, Libp2pCoreNetworkConn conn) {
+    $callSync(
+        3006,
+        $W()
+          ..dto(this)
+          ..h(network)
+          ..h(conn));
+  }
+
+  /// Go: `func (*network.NoopNotifiee).Listen(_ network.Network, _ multiaddr.Multiaddr)`.
+  void listen(Libp2pCoreNetwork network, $multiaddr.Multiaddr multiaddr) {
+    $callSync(
+        3007,
+        $W()
+          ..dto(this)
+          ..h(network)
+          ..val(multiaddr));
+  }
+
+  /// Go: `func (*network.NoopNotifiee).ListenClose(_ network.Network, _ multiaddr.Multiaddr)`.
+  void listenClose(Libp2pCoreNetwork network, $multiaddr.Multiaddr multiaddr) {
+    $callSync(
+        3008,
+        $W()
+          ..dto(this)
+          ..h(network)
+          ..val(multiaddr));
+  }
 }
 
 /// Go: `network.Notifiee` (handle).
-class Libp2pCoreNetworkNotifiee extends GoHandle {
+class Libp2pCoreNetworkNotifiee extends GoHandle
+    with Libp2pCoreNetworkNotifiee$ {
   Libp2pCoreNetworkNotifiee.$h(super.$h);
 
   /// A Dart implementation of Go's `network.Notifiee`.
@@ -206,7 +875,7 @@ class Libp2pCoreNetworkNotifiee extends GoHandle {
               Libp2pCoreNetwork network, $multiaddr.Multiaddr multiaddr)?
           listenClose}) {
     final $r = $callSync(
-        596,
+        3009,
         $W()
           ..cb(
               connected == null
@@ -236,11 +905,306 @@ class Libp2pCoreNetworkNotifiee extends GoHandle {
   }
 }
 
+/// The methods of [Libp2pCoreNetworkNotifiee], mixed into every class Go also accepts as one.
+mixin Libp2pCoreNetworkNotifiee$ on GoHandle {
+  /// Go: `func (network.Notifiee).Connected(network.Network, network.Conn)`.
+  void connected(Libp2pCoreNetwork network, Libp2pCoreNetworkConn conn) {
+    $callSync(
+        3010,
+        $W()
+          ..h(this)
+          ..h(network)
+          ..h(conn));
+  }
+
+  /// Go: `func (network.Notifiee).Disconnected(network.Network, network.Conn)`.
+  void disconnected(Libp2pCoreNetwork network, Libp2pCoreNetworkConn conn) {
+    $callSync(
+        3011,
+        $W()
+          ..h(this)
+          ..h(network)
+          ..h(conn));
+  }
+
+  /// Go: `func (network.Notifiee).Listen(network.Network, multiaddr.Multiaddr)`.
+  void listen(Libp2pCoreNetwork network, $multiaddr.Multiaddr multiaddr) {
+    $callSync(
+        3012,
+        $W()
+          ..h(this)
+          ..h(network)
+          ..val(multiaddr));
+  }
+
+  /// Go: `func (network.Notifiee).ListenClose(network.Network, multiaddr.Multiaddr)`.
+  void listenClose(Libp2pCoreNetwork network, $multiaddr.Multiaddr multiaddr) {
+    $callSync(
+        3013,
+        $W()
+          ..h(this)
+          ..h(network)
+          ..val(multiaddr));
+  }
+}
+
+/// Go: `network.NotifyBundle`.
+///
+/// Fields that do not cross the bridge: `ListenF` (func(github.com/libp2p/go-libp2p/core/network.Network, github.com/multiformats/go-multiaddr.Multiaddr)), `ListenCloseF` (func(github.com/libp2p/go-libp2p/core/network.Network, github.com/multiformats/go-multiaddr.Multiaddr)), `ConnectedF` (func(github.com/libp2p/go-libp2p/core/network.Network, github.com/libp2p/go-libp2p/core/network.Conn)), `DisconnectedF` (func(github.com/libp2p/go-libp2p/core/network.Network, github.com/libp2p/go-libp2p/core/network.Conn)).
+final class Libp2pCoreNetworkNotifyBundle implements GoDto {
+  Libp2pCoreNetworkNotifyBundle();
+  Libp2pCoreNetworkNotifyBundle.$dec($R r);
+
+  @override
+  void $enc($W w) {}
+
+  /// Go: `func (*network.NotifyBundle).Connected(n network.Network, c network.Conn)`.
+  void connected(Libp2pCoreNetwork n, Libp2pCoreNetworkConn c) {
+    $callSync(
+        3014,
+        $W()
+          ..dto(this)
+          ..h(n)
+          ..h(c));
+  }
+
+  /// Go: `func (*network.NotifyBundle).Disconnected(n network.Network, c network.Conn)`.
+  void disconnected(Libp2pCoreNetwork n, Libp2pCoreNetworkConn c) {
+    $callSync(
+        3015,
+        $W()
+          ..dto(this)
+          ..h(n)
+          ..h(c));
+  }
+
+  /// Go: `func (*network.NotifyBundle).Listen(n network.Network, a multiaddr.Multiaddr)`.
+  void listen(Libp2pCoreNetwork n, $multiaddr.Multiaddr a) {
+    $callSync(
+        3016,
+        $W()
+          ..dto(this)
+          ..h(n)
+          ..val(a));
+  }
+
+  /// Go: `func (*network.NotifyBundle).ListenClose(n network.Network, a multiaddr.Multiaddr)`.
+  void listenClose(Libp2pCoreNetwork n, $multiaddr.Multiaddr a) {
+    $callSync(
+        3017,
+        $W()
+          ..dto(this)
+          ..h(n)
+          ..val(a));
+  }
+}
+
+/// Go: `network.NullResourceManager`.
+final class Libp2pCoreNetworkNullResourceManager implements GoDto {
+  Libp2pCoreNetworkNullResourceManager();
+  Libp2pCoreNetworkNullResourceManager.$dec($R r);
+
+  @override
+  void $enc($W w) {}
+
+  /// Go: `func (*network.NullResourceManager).Close() error`.
+  void close() {
+    $callSync(3018, $W()..dto(this));
+  }
+
+  /// Go: `func (*network.NullResourceManager).OpenConnection(_ network.Direction, _ bool, _ multiaddr.Multiaddr) (network.ConnManagementScope, error)`.
+  Libp2pCoreNetworkConnManagementScope openConnection(
+      int arg0, bool arg1, $multiaddr.Multiaddr multiaddr) {
+    final $r = $callSync(
+        3019,
+        $W()
+          ..dto(this)
+          ..i64(arg0)
+          ..b(arg1)
+          ..val(multiaddr));
+    return $r.hnn(Libp2pCoreNetworkConnManagementScope.$h);
+  }
+
+  /// Go: `func (*network.NullResourceManager).OpenStream(_ peer.ID, _ network.Direction) (network.StreamManagementScope, error)`.
+  Libp2pCoreNetworkStreamManagementScope openStream(
+      $peer.Libp2pCorePeerId id, int arg1) {
+    final $r = $callSync(
+        3020,
+        $W()
+          ..dto(this)
+          ..val(id)
+          ..i64(arg1));
+    return $r.hnn(Libp2pCoreNetworkStreamManagementScope.$h);
+  }
+
+  /// Go: `func (*network.NullResourceManager).VerifySourceAddress(_ net.Addr) bool`.
+  bool verifySourceAddress($net.NetAddr addr) {
+    final $r = $callSync(
+        3021,
+        $W()
+          ..dto(this)
+          ..dto(addr));
+    return $r.b();
+  }
+}
+
+/// Go: `network.NullScope`.
+final class Libp2pCoreNetworkNullScope implements GoDto {
+  Libp2pCoreNetworkNullScope();
+  Libp2pCoreNetworkNullScope.$dec($R r);
+
+  @override
+  void $enc($W w) {}
+
+  /// Go: `func (*network.NullScope).BeginSpan() (network.ResourceScopeSpan, error)`.
+  Libp2pCoreNetworkResourceScopeSpan beginSpan() {
+    final $r = $callSync(3022, $W()..dto(this));
+    return $r.hnn(Libp2pCoreNetworkResourceScopeSpan.$h);
+  }
+
+  /// Go: `func (*network.NullScope).Done()`.
+  void done() {
+    $callSync(3023, $W()..dto(this));
+  }
+
+  /// Go: `func (*network.NullScope).Name() string`.
+  String name() {
+    final $r = $callSync(3024, $W()..dto(this));
+    return $r.str();
+  }
+
+  /// Go: `func (*network.NullScope).Peer() peer.ID`.
+  $peer.Libp2pCorePeerId peer() {
+    final $r = $callSync(3025, $W()..dto(this));
+    return $r.p() ? $peer.Libp2pCorePeerId($r.str()) : $nil();
+  }
+
+  /// Go: `func (*network.NullScope).PeerScope() network.PeerScope`.
+  Libp2pCoreNetworkPeerScope peerScope() {
+    final $r = $callSync(3026, $W()..dto(this));
+    return $r.hnn(Libp2pCoreNetworkPeerScope.$h);
+  }
+
+  /// Go: `func (*network.NullScope).Protocol() protocol.ID`.
+  String protocol() {
+    final $r = $callSync(3027, $W()..dto(this));
+    return $r.str();
+  }
+
+  /// Go: `func (*network.NullScope).ProtocolScope() network.ProtocolScope`.
+  Libp2pCoreNetworkProtocolScope protocolScope() {
+    final $r = $callSync(3028, $W()..dto(this));
+    return $r.hnn(Libp2pCoreNetworkProtocolScope.$h);
+  }
+
+  /// Go: `func (*network.NullScope).ReleaseMemory(_ int)`.
+  void releaseMemory(int arg0) {
+    $callSync(
+        3029,
+        $W()
+          ..dto(this)
+          ..i64(arg0));
+  }
+
+  /// Go: `func (*network.NullScope).ReserveMemory(_ int, _ uint8) error`.
+  void reserveMemory(int arg0, int arg1) {
+    $callSync(
+        3030,
+        $W()
+          ..dto(this)
+          ..i64(arg0)
+          ..i64(arg1));
+  }
+
+  /// Go: `func (*network.NullScope).ServiceScope() network.ServiceScope`.
+  Libp2pCoreNetworkServiceScope serviceScope() {
+    final $r = $callSync(3031, $W()..dto(this));
+    return $r.hnn(Libp2pCoreNetworkServiceScope.$h);
+  }
+
+  /// Go: `func (*network.NullScope).SetPeer(peer.ID) error`.
+  void setPeer($peer.Libp2pCorePeerId id) {
+    $callSync(
+        3032,
+        $W()
+          ..dto(this)
+          ..val(id));
+  }
+
+  /// Go: `func (*network.NullScope).SetProtocol(_ protocol.ID) error`.
+  void setProtocol(String arg0) {
+    $callSync(
+        3033,
+        $W()
+          ..dto(this)
+          ..str(arg0));
+  }
+
+  /// Go: `func (*network.NullScope).SetService(_ string) error`.
+  void setService(String arg0) {
+    $callSync(
+        3034,
+        $W()
+          ..dto(this)
+          ..str(arg0));
+  }
+
+  /// Go: `func (*network.NullScope).Stat() network.ScopeStat`.
+  Libp2pCoreNetworkScopeStat stat() {
+    final $r = $callSync(3035, $W()..dto(this));
+    return $r.p() ? Libp2pCoreNetworkScopeStat.$dec($r) : $nil();
+  }
+
+  /// Go: `func (*network.NullScope).VerifySourceAddress(_ net.Addr) bool`.
+  bool verifySourceAddress($net.NetAddr addr) {
+    final $r = $callSync(
+        3036,
+        $W()
+          ..dto(this)
+          ..dto(addr));
+    return $r.b();
+  }
+}
+
+/// Go: `network.PeerScope` (handle).
+class Libp2pCoreNetworkPeerScope extends Libp2pCoreNetworkResourceScope
+    with Libp2pCoreNetworkPeerScope$ {
+  Libp2pCoreNetworkPeerScope.$h(super.$h) : super.$h();
+}
+
+/// The methods of [Libp2pCoreNetworkPeerScope], mixed into every class Go also accepts as one.
+mixin Libp2pCoreNetworkPeerScope$ on GoHandle {
+  /// Go: `func (network.PeerScope).Peer() peer.ID`.
+  $peer.Libp2pCorePeerId peer() {
+    final $r = $callSync(3037, $W()..h(this));
+    return $r.p() ? $peer.Libp2pCorePeerId($r.str()) : $nil();
+  }
+}
+
+/// Go: `network.ProtocolScope` (handle).
+class Libp2pCoreNetworkProtocolScope extends Libp2pCoreNetworkResourceScope
+    with Libp2pCoreNetworkProtocolScope$ {
+  Libp2pCoreNetworkProtocolScope.$h(super.$h) : super.$h();
+}
+
+/// The methods of [Libp2pCoreNetworkProtocolScope], mixed into every class Go also accepts as one.
+mixin Libp2pCoreNetworkProtocolScope$ on GoHandle {
+  /// Go: `func (network.ProtocolScope).Protocol() protocol.ID`.
+  String protocol() {
+    final $r = $callSync(3038, $W()..h(this));
+    return $r.str();
+  }
+}
+
 /// Go: `network.ResourceManager` (handle).
 class Libp2pCoreNetworkResourceManager
-    extends Libp2pCoreNetworkResourceScopeViewer {
+    extends Libp2pCoreNetworkResourceScopeViewer
+    with Libp2pCoreNetworkResourceManager$ {
   Libp2pCoreNetworkResourceManager.$h(super.$h) : super.$h();
+}
 
+/// The methods of [Libp2pCoreNetworkResourceManager], mixed into every class Go also accepts as one.
+mixin Libp2pCoreNetworkResourceManager$ on GoHandle {
   /// Go: `func (network.ResourceScopeViewer).ViewSystem(func(network.ResourceScope) error) error`.
   ///
   /// Asynchronous: runs in a goroutine of the service.
@@ -253,7 +1217,7 @@ class Libp2pCoreNetworkResourceManager
           callback,
       {int? batchSize}) async {
     await $callCb(
-        597,
+        3043,
         $W()
           ..h(this)
           ..u32(batchSize ?? 1),
@@ -272,29 +1236,180 @@ class Libp2pCoreNetworkResourceManager
           callback,
       {int? batchSize}) async {
     await $callCb(
-        598,
+        3044,
         $W()
           ..h(this)
           ..u32(batchSize ?? 1),
         (r) => callback(r.hnn(Libp2pCoreNetworkResourceScope.$h)));
   }
+
+  /// Go: `func (network.ResourceManager).Close() error`.
+  void close() {
+    $callSync(3039, $W()..h(this));
+  }
+
+  /// Go: `func (network.ResourceManager).OpenConnection(dir network.Direction, usefd bool, endpoint multiaddr.Multiaddr) (network.ConnManagementScope, error)`.
+  Libp2pCoreNetworkConnManagementScope openConnection(
+      int dir, bool usefd, $multiaddr.Multiaddr endpoint) {
+    final $r = $callSync(
+        3040,
+        $W()
+          ..h(this)
+          ..i64(dir)
+          ..b(usefd)
+          ..val(endpoint));
+    return $r.hnn(Libp2pCoreNetworkConnManagementScope.$h);
+  }
+
+  /// Go: `func (network.ResourceManager).OpenStream(p peer.ID, dir network.Direction) (network.StreamManagementScope, error)`.
+  Libp2pCoreNetworkStreamManagementScope openStream(
+      $peer.Libp2pCorePeerId p, int dir) {
+    final $r = $callSync(
+        3041,
+        $W()
+          ..h(this)
+          ..val(p)
+          ..i64(dir));
+    return $r.hnn(Libp2pCoreNetworkStreamManagementScope.$h);
+  }
+
+  /// Go: `func (network.ResourceManager).VerifySourceAddress(addr net.Addr) bool`.
+  bool verifySourceAddress($net.NetAddr addr) {
+    final $r = $callSync(
+        3042,
+        $W()
+          ..h(this)
+          ..dto(addr));
+    return $r.b();
+  }
 }
 
 /// Go: `network.ResourceScope` (handle).
-class Libp2pCoreNetworkResourceScope extends GoHandle {
+class Libp2pCoreNetworkResourceScope extends GoHandle
+    with Libp2pCoreNetworkResourceScope$ {
   Libp2pCoreNetworkResourceScope.$h(super.$h);
+}
+
+/// The methods of [Libp2pCoreNetworkResourceScope], mixed into every class Go also accepts as one.
+mixin Libp2pCoreNetworkResourceScope$ on GoHandle {
+  /// Go: `func (network.ResourceScope).BeginSpan() (network.ResourceScopeSpan, error)`.
+  Libp2pCoreNetworkResourceScopeSpan beginSpan() {
+    final $r = $callSync(3045, $W()..h(this));
+    return $r.hnn(Libp2pCoreNetworkResourceScopeSpan.$h);
+  }
+
+  /// Go: `func (network.ResourceScope).ReleaseMemory(size int)`.
+  void releaseMemory(int size) {
+    $callSync(
+        3046,
+        $W()
+          ..h(this)
+          ..i64(size));
+  }
+
+  /// Go: `func (network.ResourceScope).ReserveMemory(size int, prio uint8) error`.
+  void reserveMemory(int size, int prio) {
+    $callSync(
+        3047,
+        $W()
+          ..h(this)
+          ..i64(size)
+          ..i64(prio));
+  }
 
   /// Go: `func (network.ResourceScope).Stat() network.ScopeStat`.
   Libp2pCoreNetworkScopeStat stat() {
-    final $r = $callSync(599, $W()..h(this));
+    final $r = $callSync(3048, $W()..h(this));
     return $r.p() ? Libp2pCoreNetworkScopeStat.$dec($r) : $nil();
+  }
+
+  /// Go: type assertion `x.(network.ConnManagementScope)`: null if the object is not one.
+  Libp2pCoreNetworkConnManagementScope?
+      asLibp2pCoreNetworkConnManagementScope() {
+    final $r = $callSync(303, $W()..h(this));
+    return $r.hn(Libp2pCoreNetworkConnManagementScope.$h);
+  }
+
+  /// Go: type assertion `x.(network.ConnScope)`: null if the object is not one.
+  Libp2pCoreNetworkConnScope? asLibp2pCoreNetworkConnScope() {
+    final $r = $callSync(304, $W()..h(this));
+    return $r.hn(Libp2pCoreNetworkConnScope.$h);
+  }
+
+  /// Go: type assertion `x.(network.PeerScope)`: null if the object is not one.
+  Libp2pCoreNetworkPeerScope? asLibp2pCoreNetworkPeerScope() {
+    final $r = $callSync(305, $W()..h(this));
+    return $r.hn(Libp2pCoreNetworkPeerScope.$h);
+  }
+
+  /// Go: type assertion `x.(network.ProtocolScope)`: null if the object is not one.
+  Libp2pCoreNetworkProtocolScope? asLibp2pCoreNetworkProtocolScope() {
+    final $r = $callSync(306, $W()..h(this));
+    return $r.hn(Libp2pCoreNetworkProtocolScope.$h);
+  }
+
+  /// Go: type assertion `x.(network.ResourceScopeSpan)`: null if the object is not one.
+  Libp2pCoreNetworkResourceScopeSpan? asLibp2pCoreNetworkResourceScopeSpan() {
+    final $r = $callSync(307, $W()..h(this));
+    return $r.hn(Libp2pCoreNetworkResourceScopeSpan.$h);
+  }
+
+  /// Go: type assertion `x.(network.ServiceScope)`: null if the object is not one.
+  Libp2pCoreNetworkServiceScope? asLibp2pCoreNetworkServiceScope() {
+    final $r = $callSync(308, $W()..h(this));
+    return $r.hn(Libp2pCoreNetworkServiceScope.$h);
+  }
+
+  /// Go: type assertion `x.(network.StreamManagementScope)`: null if the object is not one.
+  Libp2pCoreNetworkStreamManagementScope?
+      asLibp2pCoreNetworkStreamManagementScope() {
+    final $r = $callSync(309, $W()..h(this));
+    return $r.hn(Libp2pCoreNetworkStreamManagementScope.$h);
+  }
+
+  /// Go: type assertion `x.(network.StreamScope)`: null if the object is not one.
+  Libp2pCoreNetworkStreamScope? asLibp2pCoreNetworkStreamScope() {
+    final $r = $callSync(310, $W()..h(this));
+    return $r.hn(Libp2pCoreNetworkStreamScope.$h);
+  }
+}
+
+/// Go: `network.ResourceScopeSpan` (handle).
+class Libp2pCoreNetworkResourceScopeSpan extends Libp2pCoreNetworkResourceScope
+    with Libp2pCoreNetworkResourceScopeSpan$ {
+  Libp2pCoreNetworkResourceScopeSpan.$h(super.$h) : super.$h();
+}
+
+/// The methods of [Libp2pCoreNetworkResourceScopeSpan], mixed into every class Go also accepts as one.
+mixin Libp2pCoreNetworkResourceScopeSpan$ on GoHandle {
+  /// Go: `func (network.ResourceScopeSpan).Done()`.
+  void done() {
+    $callSync(3049, $W()..h(this));
+  }
+
+  /// Go: type assertion `x.(network.ConnManagementScope)`: null if the object is not one.
+  Libp2pCoreNetworkConnManagementScope?
+      asLibp2pCoreNetworkConnManagementScope() {
+    final $r = $callSync(311, $W()..h(this));
+    return $r.hn(Libp2pCoreNetworkConnManagementScope.$h);
+  }
+
+  /// Go: type assertion `x.(network.StreamManagementScope)`: null if the object is not one.
+  Libp2pCoreNetworkStreamManagementScope?
+      asLibp2pCoreNetworkStreamManagementScope() {
+    final $r = $callSync(312, $W()..h(this));
+    return $r.hn(Libp2pCoreNetworkStreamManagementScope.$h);
   }
 }
 
 /// Go: `network.ResourceScopeViewer` (handle).
-class Libp2pCoreNetworkResourceScopeViewer extends GoHandle {
+class Libp2pCoreNetworkResourceScopeViewer extends GoHandle
+    with Libp2pCoreNetworkResourceScopeViewer$ {
   Libp2pCoreNetworkResourceScopeViewer.$h(super.$h);
 }
+
+/// The methods of [Libp2pCoreNetworkResourceScopeViewer], mixed into every class Go also accepts as one.
+mixin Libp2pCoreNetworkResourceScopeViewer$ on GoHandle {}
 
 /// Go: `network.ScopeStat`.
 final class Libp2pCoreNetworkScopeStat implements GoDto {
@@ -350,6 +1465,21 @@ final class Libp2pCoreNetworkScopeStat implements GoDto {
   }
 }
 
+/// Go: `network.ServiceScope` (handle).
+class Libp2pCoreNetworkServiceScope extends Libp2pCoreNetworkResourceScope
+    with Libp2pCoreNetworkServiceScope$ {
+  Libp2pCoreNetworkServiceScope.$h(super.$h) : super.$h();
+}
+
+/// The methods of [Libp2pCoreNetworkServiceScope], mixed into every class Go also accepts as one.
+mixin Libp2pCoreNetworkServiceScope$ on GoHandle {
+  /// Go: `func (network.ServiceScope).Name() string`.
+  String name() {
+    final $r = $callSync(3050, $W()..h(this));
+    return $r.str();
+  }
+}
+
 /// Go: `network.Stats`.
 ///
 /// Fields that do not cross the bridge: `Extra` (map keyed by any).
@@ -383,15 +1513,19 @@ final class Libp2pCoreNetworkStats implements GoDto {
 }
 
 /// Go: `network.Stream` (handle).
-class Libp2pCoreNetworkStream extends Libp2pCoreNetworkMuxedStream {
+class Libp2pCoreNetworkStream extends Libp2pCoreNetworkMuxedStream
+    with Libp2pCoreNetworkStream$ {
   Libp2pCoreNetworkStream.$h(super.$h) : super.$h();
+}
 
+/// The methods of [Libp2pCoreNetworkStream], mixed into every class Go also accepts as one.
+mixin Libp2pCoreNetworkStream$ on GoHandle {
   /// Go: `func (io.Reader).Read(p []byte) (n int, err error)`.
   ///
   /// Asynchronous: runs in a goroutine of the service.
   Future<Uint8List> read(int n) async {
     final $r = await $call(
-        606,
+        3057,
         $W()
           ..h(this)
           ..i64(n));
@@ -403,7 +1537,7 @@ class Libp2pCoreNetworkStream extends Libp2pCoreNetworkMuxedStream {
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> write(Uint8List p) async {
     final $r = await $call(
-        611,
+        3066,
         $W()
           ..h(this)
           ..bytes(p));
@@ -414,30 +1548,30 @@ class Libp2pCoreNetworkStream extends Libp2pCoreNetworkMuxedStream {
   ///
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> close() async {
-    await $call(600, $W()..h(this));
+    await $call(3051, $W()..h(this));
   }
 
   /// Go: `func (network.MuxedStream).CloseWrite() error`.
   ///
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> closeWrite() async {
-    await $call(602, $W()..h(this));
+    await $call(3053, $W()..h(this));
   }
 
   /// Go: `func (network.MuxedStream).CloseRead() error`.
   void closeRead() {
-    $callSync(601, $W()..h(this));
+    $callSync(3052, $W()..h(this));
   }
 
   /// Go: `func (network.MuxedStream).Reset() error`.
   void reset() {
-    $callSync(607, $W()..h(this));
+    $callSync(3058, $W()..h(this));
   }
 
   /// Go: `func (network.MuxedStream).SetDeadline(time.Time) error`.
   void setDeadline(DateTime time) {
     $callSync(
-        608,
+        3061,
         $W()
           ..h(this)
           ..time(time));
@@ -446,7 +1580,7 @@ class Libp2pCoreNetworkStream extends Libp2pCoreNetworkMuxedStream {
   /// Go: `func (network.MuxedStream).SetReadDeadline(time.Time) error`.
   void setReadDeadline(DateTime time) {
     $callSync(
-        609,
+        3063,
         $W()
           ..h(this)
           ..time(time));
@@ -455,28 +1589,135 @@ class Libp2pCoreNetworkStream extends Libp2pCoreNetworkMuxedStream {
   /// Go: `func (network.MuxedStream).SetWriteDeadline(time.Time) error`.
   void setWriteDeadline(DateTime time) {
     $callSync(
-        610,
+        3064,
         $W()
           ..h(this)
           ..time(time));
   }
 
+  /// Go: `func (network.Stream).Conn() network.Conn`.
+  Libp2pCoreNetworkConn conn() {
+    final $r = $callSync(3054, $W()..h(this));
+    return $r.hnn(Libp2pCoreNetworkConn.$h);
+  }
+
   /// Go: `func (network.Stream).ID() string`.
   String id() {
-    final $r = $callSync(604, $W()..h(this));
+    final $r = $callSync(3055, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (network.Stream).Protocol() protocol.ID`.
   String protocol() {
-    final $r = $callSync(605, $W()..h(this));
+    final $r = $callSync(3056, $W()..h(this));
     return $r.str();
   }
 
-  /// Go: `func (network.Stream).Conn() network.Conn`.
-  Libp2pCoreNetworkConn conn() {
-    final $r = $callSync(603, $W()..h(this));
-    return $r.hnn(Libp2pCoreNetworkConn.$h);
+  /// Go: `func (network.Stream).ResetWithError(errCode network.StreamErrorCode) error`.
+  void resetWithError(int errCode) {
+    $callSync(
+        3059,
+        $W()
+          ..h(this)
+          ..i64(errCode));
+  }
+
+  /// Go: `func (network.Stream).Scope() network.StreamScope`.
+  Libp2pCoreNetworkStreamScope scope() {
+    final $r = $callSync(3060, $W()..h(this));
+    return $r.hnn(Libp2pCoreNetworkStreamScope.$h);
+  }
+
+  /// Go: `func (network.Stream).SetProtocol(id protocol.ID) error`.
+  void setProtocol(String id) {
+    $callSync(
+        3062,
+        $W()
+          ..h(this)
+          ..str(id));
+  }
+
+  /// Go: `func (network.Stream).Stat() network.Stats`.
+  Libp2pCoreNetworkStats stat() {
+    final $r = $callSync(3065, $W()..h(this));
+    return $r.p() ? Libp2pCoreNetworkStats.$dec($r) : $nil();
+  }
+
+  /// Go: type assertion `x.(*swarm.Stream)`: null if the object is not one.
+  $swarm.Libp2pP2pNetSwarmStream? asLibp2pP2pNetSwarmStream() {
+    final $r = $callSync(313, $W()..h(this));
+    return $r.hn($swarm.Libp2pP2pNetSwarmStream.$h);
+  }
+}
+
+/// Go: `network.StreamHandler` (handle).
+class Libp2pCoreNetworkStreamHandler extends $crypto2.CryptoPrivateKey
+    with $crypto2.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
+    implements $crypto2.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+  Libp2pCoreNetworkStreamHandler.$h(super.$h) : super.$h();
+}
+
+/// Go: `network.StreamManagementScope` (handle).
+class Libp2pCoreNetworkStreamManagementScope
+    extends Libp2pCoreNetworkResourceScopeSpan
+    with Libp2pCoreNetworkStreamManagementScope$ {
+  Libp2pCoreNetworkStreamManagementScope.$h(super.$h) : super.$h();
+}
+
+/// The methods of [Libp2pCoreNetworkStreamManagementScope], mixed into every class Go also accepts as one.
+mixin Libp2pCoreNetworkStreamManagementScope$ on GoHandle {
+  /// Go: `func (network.StreamManagementScope).PeerScope() network.PeerScope`.
+  Libp2pCoreNetworkPeerScope peerScope() {
+    final $r = $callSync(3067, $W()..h(this));
+    return $r.hnn(Libp2pCoreNetworkPeerScope.$h);
+  }
+
+  /// Go: `func (network.StreamManagementScope).ProtocolScope() network.ProtocolScope`.
+  Libp2pCoreNetworkProtocolScope protocolScope() {
+    final $r = $callSync(3068, $W()..h(this));
+    return $r.hnn(Libp2pCoreNetworkProtocolScope.$h);
+  }
+
+  /// Go: `func (network.StreamManagementScope).ServiceScope() network.ServiceScope`.
+  Libp2pCoreNetworkServiceScope serviceScope() {
+    final $r = $callSync(3069, $W()..h(this));
+    return $r.hnn(Libp2pCoreNetworkServiceScope.$h);
+  }
+
+  /// Go: `func (network.StreamManagementScope).SetProtocol(proto protocol.ID) error`.
+  void setProtocol(String proto) {
+    $callSync(
+        3070,
+        $W()
+          ..h(this)
+          ..str(proto));
+  }
+
+  /// Go: `func (network.StreamManagementScope).SetService(srv string) error`.
+  void setService(String srv) {
+    $callSync(
+        3071,
+        $W()
+          ..h(this)
+          ..str(srv));
+  }
+}
+
+/// Go: `network.StreamScope` (handle).
+class Libp2pCoreNetworkStreamScope extends Libp2pCoreNetworkResourceScope
+    with Libp2pCoreNetworkStreamScope$ {
+  Libp2pCoreNetworkStreamScope.$h(super.$h) : super.$h();
+}
+
+/// The methods of [Libp2pCoreNetworkStreamScope], mixed into every class Go also accepts as one.
+mixin Libp2pCoreNetworkStreamScope$ on GoHandle {
+  /// Go: `func (network.StreamScope).SetService(srv string) error`.
+  void setService(String srv) {
+    $callSync(
+        3072,
+        $W()
+          ..h(this)
+          ..str(srv));
   }
 }
 
@@ -572,6 +1813,77 @@ class Libp2pCoreNetworkStreamError extends GolangException {
 
 /// Go: the package-level members of `github.com/libp2p/go-libp2p/core/network` (`Go.libp2p.core.network`).
 extension GoLibp2pCoreNetworkApi on GoLibp2pCoreNetwork {
+  /// Go: `var network.DialPeerTimeout time.Duration`.
+  Duration get dialPeerTimeout {
+    final $r = $callSync(2959);
+    return Duration(microseconds: $r.i64() ~/ 1000);
+  }
+
+  /// Go: `func network.GetAllowLimitedConn(ctx context.Context) (usetransient bool, reason string)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<(bool, String)> getAllowLimitedConn($context.Context ctx) async {
+    final $r = await $call(2971, $W()..h(ctx));
+    return ($r.b(), $r.str());
+  }
+
+  /// Go: `func network.GetDialPeerTimeout(ctx context.Context) time.Duration`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<Duration> getDialPeerTimeout($context.Context ctx) async {
+    final $r = await $call(2972, $W()..h(ctx));
+    return Duration(microseconds: $r.i64() ~/ 1000);
+  }
+
+  /// Go: `func network.GetForceDirectDial(ctx context.Context) (forceDirect bool, reason string)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<(bool, String)> getForceDirectDial($context.Context ctx) async {
+    final $r = await $call(2973, $W()..h(ctx));
+    return ($r.b(), $r.str());
+  }
+
+  /// Go: `func network.GetNoDial(ctx context.Context) (nodial bool, reason string)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<(bool, String)> getNoDial($context.Context ctx) async {
+    final $r = await $call(2974, $W()..h(ctx));
+    return ($r.b(), $r.str());
+  }
+
+  /// Go: `func network.GetSimultaneousConnect(ctx context.Context) (simconnect bool, isClient bool, reason string)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<(bool, bool, String)> getSimultaneousConnect(
+      $context.Context ctx) async {
+    final $r = await $call(2975, $W()..h(ctx));
+    return ($r.b(), $r.b(), $r.str());
+  }
+
+  /// Go: `func network.GetUseTransient(ctx context.Context) (usetransient bool, reason string)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  @Deprecated("Use GetAllowLimitedConn instead.")
+  Future<(bool, String)> getUseTransient($context.Context ctx) async {
+    final $r = await $call(2976, $W()..h(ctx));
+    return ($r.b(), $r.str());
+  }
+
+  /// Go: `var network.GlobalNoopNotifiee *network.NoopNotifiee`.
+  Libp2pCoreNetworkNoopNotifiee get globalNoopNotifiee {
+    final $r = $callSync(2977);
+    return $r.p() ? Libp2pCoreNetworkNoopNotifiee.$dec($r) : $nil();
+  }
+
+  /// Go: `func network.UnwrapConnManagementScope(ctx context.Context) (network.ConnManagementScope, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<Libp2pCoreNetworkConnManagementScope> unwrapConnManagementScope(
+      $context.Context ctx) async {
+    final $r = await $call(3073, $W()..h(ctx));
+    return $r.hnn(Libp2pCoreNetworkConnManagementScope.$h);
+  }
+
   /// Go: `const network.CanConnect network.Connectedness`.
   @Deprecated(
       "CanConnect is deprecated and will be removed in a future release.")

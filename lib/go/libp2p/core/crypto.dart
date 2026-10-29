@@ -6,79 +6,586 @@ import 'dart:typed_data';
 
 import 'package:p2p_ffi/src/go.dart' show GoLibp2pCoreCrypto;
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/crypto/ecdsa.dart' as $ecdsa;
+import 'package:p2p_ffi/go/crypto/elliptic.dart' as $elliptic;
+import 'package:p2p_ffi/go/ipfs_cmds.dart' as $ipfs_cmds;
+import 'package:p2p_ffi/go/libp2p/core/crypto/pb.dart' as $pb;
+import 'package:p2p_ffi/go/secp256k1/v4.dart' as $v4;
 
-/// Go: `crypto.Key` (handle).
-class Libp2pCoreCryptoKey extends GoHandle {
-  Libp2pCoreCryptoKey.$h(super.$h);
+/// Go: `crypto.ECDSAPrivateKey` (handle).
+class Libp2pCoreCryptoEcdsaPrivateKey extends Libp2pCoreCryptoPrivKey
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $ipfs_cmds.IpfsCmdsEnvironment$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $ipfs_cmds.IpfsCmdsEnvironment {
+  Libp2pCoreCryptoEcdsaPrivateKey.$h(super.$h) : super.$h();
 
-  /// Go: `func (crypto.Key).Raw() ([]byte, error)`.
+  /// Go: `func (*crypto.ECDSAPrivateKey).Equals(o crypto.Key) bool`.
+  bool equals(Libp2pCoreCryptoKey o) {
+    final $r = $callSync(
+        2846,
+        $W()
+          ..h(this)
+          ..h(o));
+    return $r.b();
+  }
+
+  /// Go: `func (*crypto.ECDSAPrivateKey).GetPublic() crypto.PubKey`.
+  Libp2pCoreCryptoPubKey getPublic() {
+    final $r = $callSync(2847, $W()..h(this));
+    return $r.hnn(Libp2pCoreCryptoPubKey.$h);
+  }
+
+  /// Go: `func (*crypto.ECDSAPrivateKey).Raw() (res []byte, err error)`.
   Uint8List raw() {
-    final $r = $callSync(545, $W()..h(this));
+    final $r = $callSync(2848, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
-  /// Go: `func (crypto.Key).Type() pb.KeyType`.
+  /// Go: `func (*crypto.ECDSAPrivateKey).Sign(data []byte) (sig []byte, err error)`.
+  Uint8List sign(Uint8List data) {
+    final $r = $callSync(
+        2849,
+        $W()
+          ..h(this)
+          ..bytes(data));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (*crypto.ECDSAPrivateKey).Type() pb.KeyType`.
   int type() {
-    final $r = $callSync(546, $W()..h(this));
+    final $r = $callSync(2850, $W()..h(this));
+    return $r.i64();
+  }
+}
+
+/// Go: `crypto.ECDSAPublicKey` (handle).
+class Libp2pCoreCryptoEcdsaPublicKey extends Libp2pCoreCryptoPubKey
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $ipfs_cmds.IpfsCmdsEnvironment$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $ipfs_cmds.IpfsCmdsEnvironment {
+  Libp2pCoreCryptoEcdsaPublicKey.$h(super.$h) : super.$h();
+
+  /// Go: `func (*crypto.ECDSAPublicKey).Equals(o crypto.Key) bool`.
+  bool equals(Libp2pCoreCryptoKey o) {
+    final $r = $callSync(
+        2851,
+        $W()
+          ..h(this)
+          ..h(o));
+    return $r.b();
+  }
+
+  /// Go: `func (*crypto.ECDSAPublicKey).Raw() ([]byte, error)`.
+  Uint8List raw() {
+    final $r = $callSync(2852, $W()..h(this));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (*crypto.ECDSAPublicKey).Type() pb.KeyType`.
+  int type() {
+    final $r = $callSync(2853, $W()..h(this));
     return $r.i64();
   }
 
+  /// Go: `func (*crypto.ECDSAPublicKey).Verify(data []byte, sigBytes []byte) (success bool, err error)`.
+  bool verify(Uint8List data, Uint8List sigBytes) {
+    final $r = $callSync(
+        2854,
+        $W()
+          ..h(this)
+          ..bytes(data)
+          ..bytes(sigBytes));
+    return $r.b();
+  }
+}
+
+/// Go: `crypto.Ed25519PrivateKey` (handle).
+class Libp2pCoreCryptoEd25519PrivateKey extends Libp2pCoreCryptoPrivKey
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $ipfs_cmds.IpfsCmdsEnvironment$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $ipfs_cmds.IpfsCmdsEnvironment {
+  Libp2pCoreCryptoEd25519PrivateKey.$h(super.$h) : super.$h();
+
+  /// Go: `func (*crypto.Ed25519PrivateKey).Equals(o crypto.Key) bool`.
+  bool equals(Libp2pCoreCryptoKey o) {
+    final $r = $callSync(
+        2856,
+        $W()
+          ..h(this)
+          ..h(o));
+    return $r.b();
+  }
+
+  /// Go: `func (*crypto.Ed25519PrivateKey).GetPublic() crypto.PubKey`.
+  Libp2pCoreCryptoPubKey getPublic() {
+    final $r = $callSync(2857, $W()..h(this));
+    return $r.hnn(Libp2pCoreCryptoPubKey.$h);
+  }
+
+  /// Go: `func (*crypto.Ed25519PrivateKey).Raw() ([]byte, error)`.
+  Uint8List raw() {
+    final $r = $callSync(2858, $W()..h(this));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (*crypto.Ed25519PrivateKey).Sign(msg []byte) (res []byte, err error)`.
+  Uint8List sign(Uint8List msg) {
+    final $r = $callSync(
+        2859,
+        $W()
+          ..h(this)
+          ..bytes(msg));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (*crypto.Ed25519PrivateKey).Type() pb.KeyType`.
+  int type() {
+    final $r = $callSync(2860, $W()..h(this));
+    return $r.i64();
+  }
+}
+
+/// Go: `crypto.Ed25519PublicKey` (handle).
+class Libp2pCoreCryptoEd25519PublicKey extends Libp2pCoreCryptoPubKey
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $ipfs_cmds.IpfsCmdsEnvironment$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $ipfs_cmds.IpfsCmdsEnvironment {
+  Libp2pCoreCryptoEd25519PublicKey.$h(super.$h) : super.$h();
+
+  /// Go: `func (*crypto.Ed25519PublicKey).Equals(o crypto.Key) bool`.
+  bool equals(Libp2pCoreCryptoKey o) {
+    final $r = $callSync(
+        2861,
+        $W()
+          ..h(this)
+          ..h(o));
+    return $r.b();
+  }
+
+  /// Go: `func (*crypto.Ed25519PublicKey).Raw() ([]byte, error)`.
+  Uint8List raw() {
+    final $r = $callSync(2862, $W()..h(this));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (*crypto.Ed25519PublicKey).Type() pb.KeyType`.
+  int type() {
+    final $r = $callSync(2863, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (*crypto.Ed25519PublicKey).Verify(data []byte, sig []byte) (success bool, err error)`.
+  bool verify(Uint8List data, Uint8List sig) {
+    final $r = $callSync(
+        2864,
+        $W()
+          ..h(this)
+          ..bytes(data)
+          ..bytes(sig));
+    return $r.b();
+  }
+}
+
+/// Go: `crypto.Key` (handle).
+class Libp2pCoreCryptoKey extends GoHandle with Libp2pCoreCryptoKey$ {
+  Libp2pCoreCryptoKey.$h(super.$h);
+}
+
+/// The methods of [Libp2pCoreCryptoKey], mixed into every class Go also accepts as one.
+mixin Libp2pCoreCryptoKey$ on GoHandle {
   /// Go: `func (crypto.Key).Equals(crypto.Key) bool`.
   bool equals(Libp2pCoreCryptoKey key) {
     final $r = $callSync(
-        544,
+        2872,
         $W()
           ..h(this)
           ..h(key));
     return $r.b();
   }
 
+  /// Go: `func (crypto.Key).Raw() ([]byte, error)`.
+  Uint8List raw() {
+    final $r = $callSync(2873, $W()..h(this));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (crypto.Key).Type() pb.KeyType`.
+  int type() {
+    final $r = $callSync(2874, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: type assertion `x.(*crypto.ECDSAPrivateKey)`: null if the object is not one.
+  Libp2pCoreCryptoEcdsaPrivateKey? asLibp2pCoreCryptoEcdsaPrivateKey() {
+    final $r = $callSync(270, $W()..h(this));
+    return $r.hn(Libp2pCoreCryptoEcdsaPrivateKey.$h);
+  }
+
+  /// Go: type assertion `x.(*crypto.ECDSAPublicKey)`: null if the object is not one.
+  Libp2pCoreCryptoEcdsaPublicKey? asLibp2pCoreCryptoEcdsaPublicKey() {
+    final $r = $callSync(271, $W()..h(this));
+    return $r.hn(Libp2pCoreCryptoEcdsaPublicKey.$h);
+  }
+
+  /// Go: type assertion `x.(*crypto.Ed25519PrivateKey)`: null if the object is not one.
+  Libp2pCoreCryptoEd25519PrivateKey? asLibp2pCoreCryptoEd25519PrivateKey() {
+    final $r = $callSync(272, $W()..h(this));
+    return $r.hn(Libp2pCoreCryptoEd25519PrivateKey.$h);
+  }
+
+  /// Go: type assertion `x.(*crypto.Ed25519PublicKey)`: null if the object is not one.
+  Libp2pCoreCryptoEd25519PublicKey? asLibp2pCoreCryptoEd25519PublicKey() {
+    final $r = $callSync(273, $W()..h(this));
+    return $r.hn(Libp2pCoreCryptoEd25519PublicKey.$h);
+  }
+
+  /// Go: type assertion `x.(*crypto.RsaPrivateKey)`: null if the object is not one.
+  Libp2pCoreCryptoRsaPrivateKey? asLibp2pCoreCryptoRsaPrivateKey() {
+    final $r = $callSync(274, $W()..h(this));
+    return $r.hn(Libp2pCoreCryptoRsaPrivateKey.$h);
+  }
+
+  /// Go: type assertion `x.(*crypto.RsaPublicKey)`: null if the object is not one.
+  Libp2pCoreCryptoRsaPublicKey? asLibp2pCoreCryptoRsaPublicKey() {
+    final $r = $callSync(275, $W()..h(this));
+    return $r.hn(Libp2pCoreCryptoRsaPublicKey.$h);
+  }
+
+  /// Go: type assertion `x.(*crypto.Secp256k1PublicKey)`: null if the object is not one.
+  Libp2pCoreCryptoSecp256k1PublicKey? asLibp2pCoreCryptoSecp256k1PublicKey() {
+    final $r = $callSync(276, $W()..h(this));
+    return $r.hn(Libp2pCoreCryptoSecp256k1PublicKey.$h);
+  }
+
   /// Go: type assertion `x.(crypto.PrivKey)`: null if the object is not one.
   Libp2pCoreCryptoPrivKey? asLibp2pCoreCryptoPrivKey() {
-    final $r = $callSync(96, $W()..h(this));
+    final $r = $callSync(277, $W()..h(this));
     return $r.hn(Libp2pCoreCryptoPrivKey.$h);
   }
 
   /// Go: type assertion `x.(crypto.PubKey)`: null if the object is not one.
   Libp2pCoreCryptoPubKey? asLibp2pCoreCryptoPubKey() {
-    final $r = $callSync(97, $W()..h(this));
+    final $r = $callSync(278, $W()..h(this));
     return $r.hn(Libp2pCoreCryptoPubKey.$h);
   }
 }
 
 /// Go: `crypto.PrivKey` (handle).
-class Libp2pCoreCryptoPrivKey extends Libp2pCoreCryptoKey {
+class Libp2pCoreCryptoPrivKey extends Libp2pCoreCryptoKey
+    with Libp2pCoreCryptoPrivKey$ {
   Libp2pCoreCryptoPrivKey.$h(super.$h) : super.$h();
+}
 
+/// The methods of [Libp2pCoreCryptoPrivKey], mixed into every class Go also accepts as one.
+mixin Libp2pCoreCryptoPrivKey$ on GoHandle {
   /// Go: `func (crypto.PrivKey).GetPublic() crypto.PubKey`.
   Libp2pCoreCryptoPubKey getPublic() {
-    final $r = $callSync(550, $W()..h(this));
+    final $r = $callSync(2883, $W()..h(this));
     return $r.hnn(Libp2pCoreCryptoPubKey.$h);
   }
 
   /// Go: `func (crypto.PrivKey).Sign([]byte) ([]byte, error)`.
   Uint8List sign(Uint8List arg0) {
     final $r = $callSync(
-        551,
+        2884,
         $W()
           ..h(this)
           ..bytes(arg0));
     return $r.bytes() ?? Uint8List(0);
   }
+
+  /// Go: type assertion `x.(*crypto.ECDSAPrivateKey)`: null if the object is not one.
+  Libp2pCoreCryptoEcdsaPrivateKey? asLibp2pCoreCryptoEcdsaPrivateKey() {
+    final $r = $callSync(279, $W()..h(this));
+    return $r.hn(Libp2pCoreCryptoEcdsaPrivateKey.$h);
+  }
+
+  /// Go: type assertion `x.(*crypto.Ed25519PrivateKey)`: null if the object is not one.
+  Libp2pCoreCryptoEd25519PrivateKey? asLibp2pCoreCryptoEd25519PrivateKey() {
+    final $r = $callSync(280, $W()..h(this));
+    return $r.hn(Libp2pCoreCryptoEd25519PrivateKey.$h);
+  }
+
+  /// Go: type assertion `x.(*crypto.RsaPrivateKey)`: null if the object is not one.
+  Libp2pCoreCryptoRsaPrivateKey? asLibp2pCoreCryptoRsaPrivateKey() {
+    final $r = $callSync(281, $W()..h(this));
+    return $r.hn(Libp2pCoreCryptoRsaPrivateKey.$h);
+  }
+}
+
+/// Go: `crypto.PrivKeyUnmarshaller` (handle).
+class Libp2pCoreCryptoPrivKeyUnmarshaller extends $crypto.CryptoPrivateKey
+    with $crypto.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
+    implements $crypto.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+  Libp2pCoreCryptoPrivKeyUnmarshaller.$h(super.$h) : super.$h();
 }
 
 /// Go: `crypto.PubKey` (handle).
-class Libp2pCoreCryptoPubKey extends Libp2pCoreCryptoKey {
+class Libp2pCoreCryptoPubKey extends Libp2pCoreCryptoKey
+    with Libp2pCoreCryptoPubKey$ {
   Libp2pCoreCryptoPubKey.$h(super.$h) : super.$h();
+}
 
+/// The methods of [Libp2pCoreCryptoPubKey], mixed into every class Go also accepts as one.
+mixin Libp2pCoreCryptoPubKey$ on GoHandle {
   /// Go: `func (crypto.PubKey).Verify(data []byte, sig []byte) (bool, error)`.
   bool verify(Uint8List data, Uint8List sig) {
     final $r = $callSync(
-        552,
+        2887,
         $W()
           ..h(this)
           ..bytes(data)
           ..bytes(sig));
+    return $r.b();
+  }
+
+  /// Go: type assertion `x.(*crypto.ECDSAPublicKey)`: null if the object is not one.
+  Libp2pCoreCryptoEcdsaPublicKey? asLibp2pCoreCryptoEcdsaPublicKey() {
+    final $r = $callSync(282, $W()..h(this));
+    return $r.hn(Libp2pCoreCryptoEcdsaPublicKey.$h);
+  }
+
+  /// Go: type assertion `x.(*crypto.Ed25519PublicKey)`: null if the object is not one.
+  Libp2pCoreCryptoEd25519PublicKey? asLibp2pCoreCryptoEd25519PublicKey() {
+    final $r = $callSync(283, $W()..h(this));
+    return $r.hn(Libp2pCoreCryptoEd25519PublicKey.$h);
+  }
+
+  /// Go: type assertion `x.(*crypto.RsaPublicKey)`: null if the object is not one.
+  Libp2pCoreCryptoRsaPublicKey? asLibp2pCoreCryptoRsaPublicKey() {
+    final $r = $callSync(284, $W()..h(this));
+    return $r.hn(Libp2pCoreCryptoRsaPublicKey.$h);
+  }
+
+  /// Go: type assertion `x.(*crypto.Secp256k1PublicKey)`: null if the object is not one.
+  Libp2pCoreCryptoSecp256k1PublicKey? asLibp2pCoreCryptoSecp256k1PublicKey() {
+    final $r = $callSync(285, $W()..h(this));
+    return $r.hn(Libp2pCoreCryptoSecp256k1PublicKey.$h);
+  }
+}
+
+/// Go: `crypto.PubKeyUnmarshaller` (handle).
+class Libp2pCoreCryptoPubKeyUnmarshaller extends $crypto.CryptoPrivateKey
+    with $crypto.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
+    implements $crypto.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+  Libp2pCoreCryptoPubKeyUnmarshaller.$h(super.$h) : super.$h();
+}
+
+/// Go: `crypto.RsaPrivateKey` (handle).
+class Libp2pCoreCryptoRsaPrivateKey extends Libp2pCoreCryptoPrivKey
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $ipfs_cmds.IpfsCmdsEnvironment$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $ipfs_cmds.IpfsCmdsEnvironment {
+  Libp2pCoreCryptoRsaPrivateKey.$h(super.$h) : super.$h();
+
+  /// Go: `func (*crypto.RsaPrivateKey).Equals(k crypto.Key) bool`.
+  bool equals(Libp2pCoreCryptoKey k) {
+    final $r = $callSync(
+        2892,
+        $W()
+          ..h(this)
+          ..h(k));
+    return $r.b();
+  }
+
+  /// Go: `func (*crypto.RsaPrivateKey).GetPublic() crypto.PubKey`.
+  Libp2pCoreCryptoPubKey getPublic() {
+    final $r = $callSync(2893, $W()..h(this));
+    return $r.hnn(Libp2pCoreCryptoPubKey.$h);
+  }
+
+  /// Go: `func (*crypto.RsaPrivateKey).Raw() (res []byte, err error)`.
+  Uint8List raw() {
+    final $r = $callSync(2894, $W()..h(this));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (*crypto.RsaPrivateKey).Sign(message []byte) (sig []byte, err error)`.
+  Uint8List sign(Uint8List message) {
+    final $r = $callSync(
+        2895,
+        $W()
+          ..h(this)
+          ..bytes(message));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (*crypto.RsaPrivateKey).Type() pb.KeyType`.
+  int type() {
+    final $r = $callSync(2896, $W()..h(this));
+    return $r.i64();
+  }
+}
+
+/// Go: `crypto.RsaPublicKey` (handle).
+class Libp2pCoreCryptoRsaPublicKey extends Libp2pCoreCryptoPubKey
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $ipfs_cmds.IpfsCmdsEnvironment$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $ipfs_cmds.IpfsCmdsEnvironment {
+  Libp2pCoreCryptoRsaPublicKey.$h(super.$h) : super.$h();
+
+  /// Go: `func (*crypto.RsaPublicKey).Equals(k crypto.Key) bool`.
+  bool equals(Libp2pCoreCryptoKey k) {
+    final $r = $callSync(
+        2897,
+        $W()
+          ..h(this)
+          ..h(k));
+    return $r.b();
+  }
+
+  /// Go: `func (*crypto.RsaPublicKey).Raw() (res []byte, err error)`.
+  Uint8List raw() {
+    final $r = $callSync(2898, $W()..h(this));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (*crypto.RsaPublicKey).Type() pb.KeyType`.
+  int type() {
+    final $r = $callSync(2899, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (*crypto.RsaPublicKey).Verify(data []byte, sig []byte) (success bool, err error)`.
+  bool verify(Uint8List data, Uint8List sig) {
+    final $r = $callSync(
+        2900,
+        $W()
+          ..h(this)
+          ..bytes(data)
+          ..bytes(sig));
+    return $r.b();
+  }
+}
+
+/// Go: `crypto.Secp256k1PrivateKey`.
+final class Libp2pCoreCryptoSecp256k1PrivateKey implements GoDto {
+  Libp2pCoreCryptoSecp256k1PrivateKey({$v4.Secp256k1V4ModNScalar? key})
+      : key = key;
+
+  Libp2pCoreCryptoSecp256k1PrivateKey.$dec($R r)
+      : key = r.hn($v4.Secp256k1V4ModNScalar.$h);
+
+  /// Go: `Key`.
+  $v4.Secp256k1V4ModNScalar? key;
+
+  @override
+  void $enc($W w) {
+    w..h(key);
+  }
+
+  /// Go: `func (*crypto.Secp256k1PrivateKey).Equals(o crypto.Key) bool`.
+  bool equals(Libp2pCoreCryptoKey o) {
+    final $r = $callSync(
+        2901,
+        $W()
+          ..dto(this)
+          ..h(o));
+    return $r.b();
+  }
+
+  /// Go: `func (*crypto.Secp256k1PrivateKey).GetPublic() crypto.PubKey`.
+  Libp2pCoreCryptoPubKey getPublic() {
+    final $r = $callSync(2902, $W()..dto(this));
+    return $r.hnn(Libp2pCoreCryptoPubKey.$h);
+  }
+
+  /// Go: `func (*crypto.Secp256k1PrivateKey).Raw() ([]byte, error)`.
+  Uint8List raw() {
+    final $r = $callSync(2903, $W()..dto(this));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (*crypto.Secp256k1PrivateKey).Sign(data []byte) (_sig []byte, err error)`.
+  Uint8List sign(Uint8List data) {
+    final $r = $callSync(
+        2904,
+        $W()
+          ..dto(this)
+          ..bytes(data));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (*crypto.Secp256k1PrivateKey).Type() pb.KeyType`.
+  int type() {
+    final $r = $callSync(2905, $W()..dto(this));
+    return $r.i64();
+  }
+}
+
+/// Go: `crypto.Secp256k1PublicKey` (handle).
+class Libp2pCoreCryptoSecp256k1PublicKey extends Libp2pCoreCryptoPubKey
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $ipfs_cmds.IpfsCmdsEnvironment$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $ipfs_cmds.IpfsCmdsEnvironment {
+  Libp2pCoreCryptoSecp256k1PublicKey.$h(super.$h) : super.$h();
+
+  /// Go: `func (*crypto.Secp256k1PublicKey).Equals(o crypto.Key) bool`.
+  bool equals(Libp2pCoreCryptoKey o) {
+    final $r = $callSync(
+        2906,
+        $W()
+          ..h(this)
+          ..h(o));
+    return $r.b();
+  }
+
+  /// Go: `func (*crypto.Secp256k1PublicKey).Raw() (res []byte, err error)`.
+  Uint8List raw() {
+    final $r = $callSync(2907, $W()..h(this));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (*crypto.Secp256k1PublicKey).Type() pb.KeyType`.
+  int type() {
+    final $r = $callSync(2908, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (*crypto.Secp256k1PublicKey).Verify(data []byte, sigStr []byte) (success bool, err error)`.
+  bool verify(Uint8List data, Uint8List sigStr) {
+    final $r = $callSync(
+        2909,
+        $W()
+          ..h(this)
+          ..bytes(data)
+          ..bytes(sigStr));
     return $r.b();
   }
 }
@@ -148,11 +655,81 @@ class Libp2pCoreCryptoErrRsaKeyTooSmall extends GolangException {
 
 /// Go: the package-level members of `github.com/libp2p/go-libp2p/core/crypto` (`Go.libp2p.core.crypto`).
 extension GoLibp2pCoreCryptoApi on GoLibp2pCoreCrypto {
+  /// Go: `func crypto.ConfigDecodeKey(b string) ([]byte, error)`.
+  Uint8List configDecodeKey(String b) {
+    final $r = $callSync(2842, $W()..str(b));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func crypto.ConfigEncodeKey(b []byte) string`.
+  String configEncodeKey(Uint8List b) {
+    final $r = $callSync(2843, $W()..bytes(b));
+    return $r.str();
+  }
+
+  /// Go: `var crypto.ECDSACurve elliptic.Curve`.
+  $elliptic.CryptoEllipticCurve get ecdsaCurve {
+    final $r = $callSync(2844);
+    return $r.hnn($elliptic.CryptoEllipticCurve.$h);
+  }
+
+  /// Go: `func crypto.ECDSAKeyPairFromKey(priv *ecdsa.PrivateKey) (crypto.PrivKey, crypto.PubKey, error)`.
+  (Libp2pCoreCryptoPrivKey, Libp2pCoreCryptoPubKey) ecdsaKeyPairFromKey(
+      $ecdsa.CryptoEcdsaPrivateKey priv) {
+    final $r = $callSync(2845, $W()..dto(priv));
+    return (
+      $r.hnn(Libp2pCoreCryptoPrivKey.$h),
+      $r.hnn(Libp2pCoreCryptoPubKey.$h)
+    );
+  }
+
+  /// Go: `func crypto.ECDSAPublicKeyFromPubKey(pub ecdsa.PublicKey) (crypto.PubKey, error)`.
+  Libp2pCoreCryptoPubKey ecdsaPublicKeyFromPubKey(
+      $ecdsa.CryptoEcdsaPublicKey pub) {
+    final $r = $callSync(2855, $W()..h(pub));
+    return $r.hnn(Libp2pCoreCryptoPubKey.$h);
+  }
+
+  /// Go: `func crypto.GenerateECDSAKeyPair(src io.Reader) (crypto.PrivKey, crypto.PubKey, error)`.
+  (Libp2pCoreCryptoPrivKey, Libp2pCoreCryptoPubKey) generateEcdsaKeyPair(
+      Object src) {
+    final $r = $callSync(2865, $W()..reader(src));
+    return (
+      $r.hnn(Libp2pCoreCryptoPrivKey.$h),
+      $r.hnn(Libp2pCoreCryptoPubKey.$h)
+    );
+  }
+
+  /// Go: `func crypto.GenerateECDSAKeyPairWithCurve(curve elliptic.Curve, src io.Reader) (crypto.PrivKey, crypto.PubKey, error)`.
+  (Libp2pCoreCryptoPrivKey, Libp2pCoreCryptoPubKey)
+      generateEcdsaKeyPairWithCurve(
+          $elliptic.CryptoEllipticCurve curve, Object src) {
+    final $r = $callSync(
+        2866,
+        $W()
+          ..h(curve)
+          ..reader(src));
+    return (
+      $r.hnn(Libp2pCoreCryptoPrivKey.$h),
+      $r.hnn(Libp2pCoreCryptoPubKey.$h)
+    );
+  }
+
+  /// Go: `func crypto.GenerateEd25519Key(src io.Reader) (crypto.PrivKey, crypto.PubKey, error)`.
+  (Libp2pCoreCryptoPrivKey, Libp2pCoreCryptoPubKey) generateEd25519Key(
+      Object src) {
+    final $r = $callSync(2867, $W()..reader(src));
+    return (
+      $r.hnn(Libp2pCoreCryptoPrivKey.$h),
+      $r.hnn(Libp2pCoreCryptoPubKey.$h)
+    );
+  }
+
   /// Go: `func crypto.GenerateKeyPair(typ int, bits int) (crypto.PrivKey, crypto.PubKey, error)`.
   (Libp2pCoreCryptoPrivKey, Libp2pCoreCryptoPubKey) generateKeyPair(
       int typ, int bits) {
     final $r = $callSync(
-        543,
+        2868,
         $W()
           ..i64(typ)
           ..i64(bits));
@@ -162,97 +739,197 @@ extension GoLibp2pCoreCryptoApi on GoLibp2pCoreCrypto {
     );
   }
 
-  /// Go: `func crypto.MarshalPrivateKey(k crypto.PrivKey) ([]byte, error)`.
-  Uint8List marshalPrivateKey(Libp2pCoreCryptoPrivKey k) {
-    final $r = $callSync(548, $W()..h(k));
-    return $r.bytes() ?? Uint8List(0);
+  /// Go: `func crypto.GenerateKeyPairWithReader(typ int, bits int, src io.Reader) (crypto.PrivKey, crypto.PubKey, error)`.
+  (Libp2pCoreCryptoPrivKey, Libp2pCoreCryptoPubKey) generateKeyPairWithReader(
+      int typ, int bits, Object src) {
+    final $r = $callSync(
+        2869,
+        $W()
+          ..i64(typ)
+          ..i64(bits)
+          ..reader(src));
+    return (
+      $r.hnn(Libp2pCoreCryptoPrivKey.$h),
+      $r.hnn(Libp2pCoreCryptoPubKey.$h)
+    );
   }
 
-  /// Go: `func crypto.UnmarshalPrivateKey(data []byte) (crypto.PrivKey, error)`.
-  Libp2pCoreCryptoPrivKey unmarshalPrivateKey(Uint8List data) {
-    final $r = $callSync(557, $W()..bytes(data));
-    return $r.hnn(Libp2pCoreCryptoPrivKey.$h);
+  /// Go: `func crypto.GenerateRSAKeyPair(bits int, src io.Reader) (crypto.PrivKey, crypto.PubKey, error)`.
+  (Libp2pCoreCryptoPrivKey, Libp2pCoreCryptoPubKey) generateRsaKeyPair(
+      int bits, Object src) {
+    final $r = $callSync(
+        2870,
+        $W()
+          ..i64(bits)
+          ..reader(src));
+    return (
+      $r.hnn(Libp2pCoreCryptoPrivKey.$h),
+      $r.hnn(Libp2pCoreCryptoPubKey.$h)
+    );
   }
 
-  /// Go: `func crypto.MarshalPublicKey(k crypto.PubKey) ([]byte, error)`.
-  Uint8List marshalPublicKey(Libp2pCoreCryptoPubKey k) {
-    final $r = $callSync(549, $W()..h(k));
-    return $r.bytes() ?? Uint8List(0);
-  }
-
-  /// Go: `func crypto.UnmarshalPublicKey(data []byte) (crypto.PubKey, error)`.
-  Libp2pCoreCryptoPubKey unmarshalPublicKey(Uint8List data) {
-    final $r = $callSync(558, $W()..bytes(data));
-    return $r.hnn(Libp2pCoreCryptoPubKey.$h);
+  /// Go: `func crypto.GenerateSecp256k1Key(_ io.Reader) (crypto.PrivKey, crypto.PubKey, error)`.
+  (Libp2pCoreCryptoPrivKey, Libp2pCoreCryptoPubKey) generateSecp256k1Key(
+      Object reader) {
+    final $r = $callSync(2871, $W()..reader(reader));
+    return (
+      $r.hnn(Libp2pCoreCryptoPrivKey.$h),
+      $r.hnn(Libp2pCoreCryptoPubKey.$h)
+    );
   }
 
   /// Go: `func crypto.KeyEqual(k1 crypto.Key, k2 crypto.Key) bool`.
   bool keyEqual(Libp2pCoreCryptoKey k1, Libp2pCoreCryptoKey k2) {
     final $r = $callSync(
-        547,
+        2875,
         $W()
           ..h(k1)
           ..h(k2));
     return $r.b();
   }
 
-  /// Go: `func crypto.ConfigEncodeKey(b []byte) string`.
-  String configEncodeKey(Uint8List b) {
-    final $r = $callSync(542, $W()..bytes(b));
-    return $r.str();
+  /// Go: `func crypto.KeyPairFromStdKey(priv crypto.PrivateKey) (crypto.PrivKey, crypto.PubKey, error)`.
+  (Libp2pCoreCryptoPrivKey, Libp2pCoreCryptoPubKey) keyPairFromStdKey(
+      $crypto.CryptoPrivateKey priv) {
+    final $r = $callSync(2876, $W()..h(priv));
+    return (
+      $r.hnn(Libp2pCoreCryptoPrivKey.$h),
+      $r.hnn(Libp2pCoreCryptoPubKey.$h)
+    );
   }
 
-  /// Go: `func crypto.ConfigDecodeKey(b string) ([]byte, error)`.
-  Uint8List configDecodeKey(String b) {
-    final $r = $callSync(541, $W()..str(b));
+  /// Go: `var crypto.KeyTypes []int`.
+  List<int> get keyTypes {
+    final $r = $callSync(2877);
+    return $r.list(() => $r.i64());
+  }
+
+  /// Go: `func crypto.MarshalECDSAPrivateKey(ePriv crypto.ECDSAPrivateKey) (res []byte, err error)`.
+  Uint8List marshalEcdsaPrivateKey(Libp2pCoreCryptoEcdsaPrivateKey ePriv) {
+    final $r = $callSync(2878, $W()..h(ePriv));
     return $r.bytes() ?? Uint8List(0);
   }
 
-  /// Go: `func crypto.UnmarshalEd25519PrivateKey(data []byte) (crypto.PrivKey, error)`.
-  Libp2pCoreCryptoPrivKey unmarshalEd25519PrivateKey(Uint8List data) {
-    final $r = $callSync(555, $W()..bytes(data));
-    return $r.hnn(Libp2pCoreCryptoPrivKey.$h);
+  /// Go: `func crypto.MarshalECDSAPublicKey(ePub crypto.ECDSAPublicKey) (res []byte, err error)`.
+  Uint8List marshalEcdsaPublicKey(Libp2pCoreCryptoEcdsaPublicKey ePub) {
+    final $r = $callSync(2879, $W()..h(ePub));
+    return $r.bytes() ?? Uint8List(0);
   }
 
-  /// Go: `func crypto.UnmarshalEd25519PublicKey(data []byte) (crypto.PubKey, error)`.
-  Libp2pCoreCryptoPubKey unmarshalEd25519PublicKey(Uint8List data) {
-    final $r = $callSync(556, $W()..bytes(data));
+  /// Go: `func crypto.MarshalPrivateKey(k crypto.PrivKey) ([]byte, error)`.
+  Uint8List marshalPrivateKey(Libp2pCoreCryptoPrivKey k) {
+    final $r = $callSync(2880, $W()..h(k));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func crypto.MarshalPublicKey(k crypto.PubKey) ([]byte, error)`.
+  Uint8List marshalPublicKey(Libp2pCoreCryptoPubKey k) {
+    final $r = $callSync(2881, $W()..h(k));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `var crypto.MinRsaKeyBits int`.
+  int get minRsaKeyBits {
+    final $r = $callSync(2882);
+    return $r.i64();
+  }
+
+  /// Go: `func crypto.PrivKeyToStdKey(priv crypto.PrivKey) (crypto.PrivateKey, error)`.
+  $crypto.CryptoPrivateKey privKeyToStdKey(Libp2pCoreCryptoPrivKey priv) {
+    final $r = $callSync(2885, $W()..h(priv));
+    return $r.hnn($crypto.CryptoPrivateKey.$h);
+  }
+
+  /// Go: `var crypto.PrivKeyUnmarshallers map[pb.KeyType]crypto.PrivKeyUnmarshaller`.
+  Map<int, Libp2pCoreCryptoPrivKeyUnmarshaller> get privKeyUnmarshallers {
+    final $r = $callSync(2886);
+    return $r.map(
+        () => $r.i64(), () => $r.hnn(Libp2pCoreCryptoPrivKeyUnmarshaller.$h));
+  }
+
+  /// Go: `func crypto.PubKeyToStdKey(pub crypto.PubKey) (crypto.PublicKey, error)`.
+  $crypto.CryptoPublicKey pubKeyToStdKey(Libp2pCoreCryptoPubKey pub) {
+    final $r = $callSync(2888, $W()..h(pub));
+    return $r.hnn($crypto.CryptoPublicKey.$h);
+  }
+
+  /// Go: `var crypto.PubKeyUnmarshallers map[pb.KeyType]crypto.PubKeyUnmarshaller`.
+  Map<int, Libp2pCoreCryptoPubKeyUnmarshaller> get pubKeyUnmarshallers {
+    final $r = $callSync(2889);
+    return $r.map(
+        () => $r.i64(), () => $r.hnn(Libp2pCoreCryptoPubKeyUnmarshaller.$h));
+  }
+
+  /// Go: `func crypto.PublicKeyFromProto(pmes *pb.PublicKey) (crypto.PubKey, error)`.
+  Libp2pCoreCryptoPubKey publicKeyFromProto(
+      $pb.Libp2pCoreCryptoPbPublicKey pmes) {
+    final $r = $callSync(2890, $W()..h(pmes));
     return $r.hnn(Libp2pCoreCryptoPubKey.$h);
   }
 
-  /// Go: `func crypto.UnmarshalSecp256k1PrivateKey(data []byte) (k crypto.PrivKey, err error)`.
-  Libp2pCoreCryptoPrivKey unmarshalSecp256k1PrivateKey(Uint8List data) {
-    final $r = $callSync(561, $W()..bytes(data));
-    return $r.hnn(Libp2pCoreCryptoPrivKey.$h);
-  }
-
-  /// Go: `func crypto.UnmarshalSecp256k1PublicKey(data []byte) (_k crypto.PubKey, err error)`.
-  Libp2pCoreCryptoPubKey unmarshalSecp256k1PublicKey(Uint8List data) {
-    final $r = $callSync(562, $W()..bytes(data));
-    return $r.hnn(Libp2pCoreCryptoPubKey.$h);
-  }
-
-  /// Go: `func crypto.UnmarshalRsaPrivateKey(b []byte) (key crypto.PrivKey, err error)`.
-  Libp2pCoreCryptoPrivKey unmarshalRsaPrivateKey(Uint8List b) {
-    final $r = $callSync(559, $W()..bytes(b));
-    return $r.hnn(Libp2pCoreCryptoPrivKey.$h);
-  }
-
-  /// Go: `func crypto.UnmarshalRsaPublicKey(b []byte) (key crypto.PubKey, err error)`.
-  Libp2pCoreCryptoPubKey unmarshalRsaPublicKey(Uint8List b) {
-    final $r = $callSync(560, $W()..bytes(b));
-    return $r.hnn(Libp2pCoreCryptoPubKey.$h);
+  /// Go: `func crypto.PublicKeyToProto(k crypto.PubKey) (*pb.PublicKey, error)`.
+  $pb.Libp2pCoreCryptoPbPublicKey publicKeyToProto(Libp2pCoreCryptoPubKey k) {
+    final $r = $callSync(2891, $W()..h(k));
+    return $r.hnn($pb.Libp2pCoreCryptoPbPublicKey.$h);
   }
 
   /// Go: `func crypto.UnmarshalECDSAPrivateKey(data []byte) (res crypto.PrivKey, err error)`.
   Libp2pCoreCryptoPrivKey unmarshalEcdsaPrivateKey(Uint8List data) {
-    final $r = $callSync(553, $W()..bytes(data));
+    final $r = $callSync(2910, $W()..bytes(data));
     return $r.hnn(Libp2pCoreCryptoPrivKey.$h);
   }
 
   /// Go: `func crypto.UnmarshalECDSAPublicKey(data []byte) (key crypto.PubKey, err error)`.
   Libp2pCoreCryptoPubKey unmarshalEcdsaPublicKey(Uint8List data) {
-    final $r = $callSync(554, $W()..bytes(data));
+    final $r = $callSync(2911, $W()..bytes(data));
+    return $r.hnn(Libp2pCoreCryptoPubKey.$h);
+  }
+
+  /// Go: `func crypto.UnmarshalEd25519PrivateKey(data []byte) (crypto.PrivKey, error)`.
+  Libp2pCoreCryptoPrivKey unmarshalEd25519PrivateKey(Uint8List data) {
+    final $r = $callSync(2912, $W()..bytes(data));
+    return $r.hnn(Libp2pCoreCryptoPrivKey.$h);
+  }
+
+  /// Go: `func crypto.UnmarshalEd25519PublicKey(data []byte) (crypto.PubKey, error)`.
+  Libp2pCoreCryptoPubKey unmarshalEd25519PublicKey(Uint8List data) {
+    final $r = $callSync(2913, $W()..bytes(data));
+    return $r.hnn(Libp2pCoreCryptoPubKey.$h);
+  }
+
+  /// Go: `func crypto.UnmarshalPrivateKey(data []byte) (crypto.PrivKey, error)`.
+  Libp2pCoreCryptoPrivKey unmarshalPrivateKey(Uint8List data) {
+    final $r = $callSync(2914, $W()..bytes(data));
+    return $r.hnn(Libp2pCoreCryptoPrivKey.$h);
+  }
+
+  /// Go: `func crypto.UnmarshalPublicKey(data []byte) (crypto.PubKey, error)`.
+  Libp2pCoreCryptoPubKey unmarshalPublicKey(Uint8List data) {
+    final $r = $callSync(2915, $W()..bytes(data));
+    return $r.hnn(Libp2pCoreCryptoPubKey.$h);
+  }
+
+  /// Go: `func crypto.UnmarshalRsaPrivateKey(b []byte) (key crypto.PrivKey, err error)`.
+  Libp2pCoreCryptoPrivKey unmarshalRsaPrivateKey(Uint8List b) {
+    final $r = $callSync(2916, $W()..bytes(b));
+    return $r.hnn(Libp2pCoreCryptoPrivKey.$h);
+  }
+
+  /// Go: `func crypto.UnmarshalRsaPublicKey(b []byte) (key crypto.PubKey, err error)`.
+  Libp2pCoreCryptoPubKey unmarshalRsaPublicKey(Uint8List b) {
+    final $r = $callSync(2917, $W()..bytes(b));
+    return $r.hnn(Libp2pCoreCryptoPubKey.$h);
+  }
+
+  /// Go: `func crypto.UnmarshalSecp256k1PrivateKey(data []byte) (k crypto.PrivKey, err error)`.
+  Libp2pCoreCryptoPrivKey unmarshalSecp256k1PrivateKey(Uint8List data) {
+    final $r = $callSync(2918, $W()..bytes(data));
+    return $r.hnn(Libp2pCoreCryptoPrivKey.$h);
+  }
+
+  /// Go: `func crypto.UnmarshalSecp256k1PublicKey(data []byte) (_k crypto.PubKey, err error)`.
+  Libp2pCoreCryptoPubKey unmarshalSecp256k1PublicKey(Uint8List data) {
+    final $r = $callSync(2919, $W()..bytes(data));
     return $r.hnn(Libp2pCoreCryptoPubKey.$h);
   }
 

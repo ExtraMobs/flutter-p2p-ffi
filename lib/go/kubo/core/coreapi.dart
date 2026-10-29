@@ -2,11 +2,884 @@
 // Go: github.com/ipfs/kubo/core/coreapi
 library;
 
+import 'dart:typed_data';
+
 import 'package:p2p_ffi/src/go.dart' show GoKuboCoreCoreapi;
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/boxo/files.dart' as $files;
+import 'package:p2p_ffi/go/boxo/ipns.dart' as $ipns;
+import 'package:p2p_ffi/go/boxo/path.dart' as $path;
+import 'package:p2p_ffi/go/context.dart' as $context;
+import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/io.dart' as $io;
+import 'package:p2p_ffi/go/ipfs_cmds.dart' as $ipfs_cmds;
+import 'package:p2p_ffi/go/ipld_format.dart' as $ipld_format;
 import 'package:p2p_ffi/go/kubo/core.dart' as $core;
 import 'package:p2p_ffi/go/kubo/core/coreiface.dart' as $coreiface;
 import 'package:p2p_ffi/go/kubo/core/coreiface/options.dart' as $options;
+import 'package:p2p_ffi/go/libp2p/core/peer.dart' as $peer;
+import 'package:p2p_ffi/go/libp2p/core/routing.dart' as $routing;
+import 'package:p2p_ffi/go/multiaddr.dart' as $multiaddr;
+
+/// Go: `coreapi.BlockAPI` (handle).
+class KuboCoreCoreapiBlockApi extends $coreiface.KuboCoreCoreifaceBlockApi
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $ipfs_cmds.IpfsCmdsEnvironment$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $ipfs_cmds.IpfsCmdsEnvironment {
+  KuboCoreCoreapiBlockApi.$h(super.$h) : super.$h();
+
+  /// Go: `func (*coreapi.BlockAPI).Get(ctx context.Context, p path.Path) (io.Reader, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<$io.IoReader> get($context.Context ctx, $path.BoxoPath p) async {
+    final $r = await $call(
+        1503,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(p));
+    return $r.hnn($io.IoReader.$h);
+  }
+
+  /// Go: `func (*coreapi.BlockAPI).Put(ctx context.Context, src io.Reader, opts ...options.BlockPutOption) (iface.BlockStat, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<$coreiface.KuboCoreCoreifaceBlockStat> put(
+      $context.Context ctx, Object src,
+      [List<$options.KuboCoreCoreifaceOptionsBlockPutOption> opts =
+          const []]) async {
+    final $r = await $call(
+        1504,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..reader(src)
+          ..list(opts, (w0, e0) => w0.opt(e0)));
+    return $r.p() ? $coreiface.KuboCoreCoreifaceBlockStat.$dec($r) : $nil();
+  }
+
+  /// Go: `func (*coreapi.BlockAPI).Rm(ctx context.Context, p path.Path, opts ...options.BlockRmOption) error`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> rm($context.Context ctx, $path.BoxoPath p,
+      [List<$options.KuboCoreCoreifaceOptionsBlockRmOption> opts =
+          const []]) async {
+    await $call(
+        1505,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(p)
+          ..list(opts, (w0, e0) => w0.opt(e0)));
+  }
+
+  /// Go: `func (*coreapi.BlockAPI).Stat(ctx context.Context, p path.Path) (iface.BlockStat, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<$coreiface.KuboCoreCoreifaceBlockStat> stat(
+      $context.Context ctx, $path.BoxoPath p) async {
+    final $r = await $call(
+        1506,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(p));
+    return $r.p() ? $coreiface.KuboCoreCoreifaceBlockStat.$dec($r) : $nil();
+  }
+}
+
+/// Go: `coreapi.BlockStat` (handle).
+class KuboCoreCoreapiBlockStat extends $crypto.CryptoPrivateKey
+    with $crypto.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
+    implements $crypto.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+  KuboCoreCoreapiBlockStat.$h(super.$h) : super.$h();
+
+  /// Go: `func (*coreapi.BlockStat).Path() path.ImmutablePath`.
+  $path.BoxoPathImmutablePath path() {
+    final $r = $callSync(1507, $W()..h(this));
+    return $r.p() ? $path.BoxoPathImmutablePath($r.str()) : $nil();
+  }
+
+  /// Go: `func (*coreapi.BlockStat).Size() int`.
+  int size() {
+    final $r = $callSync(1508, $W()..h(this));
+    return $r.i64();
+  }
+}
+
+/// Go: `coreapi.CoreAPI` (handle).
+class KuboCoreCoreapiCoreApi extends $coreiface.KuboCoreCoreifaceCoreApi
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $ipfs_cmds.IpfsCmdsEnvironment$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $ipfs_cmds.IpfsCmdsEnvironment {
+  KuboCoreCoreapiCoreApi.$h(super.$h) : super.$h();
+
+  /// Go: `func (*coreapi.CoreAPI).Block() iface.BlockAPI`.
+  $coreiface.KuboCoreCoreifaceBlockApi block() {
+    final $r = $callSync(1509, $W()..h(this));
+    return $r.hnn($coreiface.KuboCoreCoreifaceBlockApi.$h);
+  }
+
+  /// Go: `func (*coreapi.CoreAPI).Dag() iface.APIDagService`.
+  $coreiface.KuboCoreCoreifaceApiDagService dag() {
+    final $r = $callSync(1510, $W()..h(this));
+    return $r.hnn($coreiface.KuboCoreCoreifaceApiDagService.$h);
+  }
+
+  /// Go: `func (*coreapi.CoreAPI).Key() iface.KeyAPI`.
+  $coreiface.KuboCoreCoreifaceKeyApi key() {
+    final $r = $callSync(1511, $W()..h(this));
+    return $r.hnn($coreiface.KuboCoreCoreifaceKeyApi.$h);
+  }
+
+  /// Go: `func (*coreapi.CoreAPI).Name() iface.NameAPI`.
+  $coreiface.KuboCoreCoreifaceNameApi name() {
+    final $r = $callSync(1512, $W()..h(this));
+    return $r.hnn($coreiface.KuboCoreCoreifaceNameApi.$h);
+  }
+
+  /// Go: `func (*coreapi.CoreAPI).Object() iface.ObjectAPI`.
+  $coreiface.KuboCoreCoreifaceObjectApi object() {
+    final $r = $callSync(1513, $W()..h(this));
+    return $r.hnn($coreiface.KuboCoreCoreifaceObjectApi.$h);
+  }
+
+  /// Go: `func (*coreapi.CoreAPI).Pin() iface.PinAPI`.
+  $coreiface.KuboCoreCoreifacePinApi pin() {
+    final $r = $callSync(1514, $W()..h(this));
+    return $r.hnn($coreiface.KuboCoreCoreifacePinApi.$h);
+  }
+
+  /// Go: `func (*coreapi.CoreAPI).PubSub() iface.PubSubAPI`.
+  $coreiface.KuboCoreCoreifacePubSubApi pubSub() {
+    final $r = $callSync(1515, $W()..h(this));
+    return $r.hnn($coreiface.KuboCoreCoreifacePubSubApi.$h);
+  }
+
+  /// Go: `func (*coreapi.CoreAPI).ResolveNode(ctx context.Context, p path.Path) (format.Node, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<$ipld_format.IpldFormatNode> resolveNode(
+      $context.Context ctx, $path.BoxoPath p) async {
+    final $r = await $call(
+        1516,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(p));
+    return $r.hnn($ipld_format.IpldFormatNode.$h);
+  }
+
+  /// Go: `func (*coreapi.CoreAPI).ResolvePath(ctx context.Context, p path.Path) (path.ImmutablePath, []string, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<($path.BoxoPathImmutablePath, List<String>)> resolvePath(
+      $context.Context ctx, $path.BoxoPath p) async {
+    final $r = await $call(
+        1517,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(p));
+    return (
+      $r.p() ? $path.BoxoPathImmutablePath($r.str()) : $nil(),
+      $r.list(() => $r.str())
+    );
+  }
+
+  /// Go: `func (*coreapi.CoreAPI).Routing() iface.RoutingAPI`.
+  $coreiface.KuboCoreCoreifaceRoutingApi routing() {
+    final $r = $callSync(1518, $W()..h(this));
+    return $r.hnn($coreiface.KuboCoreCoreifaceRoutingApi.$h);
+  }
+
+  /// Go: `func (*coreapi.CoreAPI).Swarm() iface.SwarmAPI`.
+  $coreiface.KuboCoreCoreifaceSwarmApi swarm() {
+    final $r = $callSync(1519, $W()..h(this));
+    return $r.hnn($coreiface.KuboCoreCoreifaceSwarmApi.$h);
+  }
+
+  /// Go: `func (*coreapi.CoreAPI).Unixfs() iface.UnixfsAPI`.
+  $coreiface.KuboCoreCoreifaceUnixfsApi unixfs() {
+    final $r = $callSync(1520, $W()..h(this));
+    return $r.hnn($coreiface.KuboCoreCoreifaceUnixfsApi.$h);
+  }
+
+  /// Go: `func (*coreapi.CoreAPI).WithOptions(opts ...options.ApiOption) (iface.CoreAPI, error)`.
+  $coreiface.KuboCoreCoreifaceCoreApi withOptions(
+      [List<$options.KuboCoreCoreifaceOptionsApiOption> opts = const []]) {
+    final $r = $callSync(
+        1521,
+        $W()
+          ..h(this)
+          ..list(opts, (w0, e0) => w0.opt(e0)));
+    return $r.hnn($coreiface.KuboCoreCoreifaceCoreApi.$h);
+  }
+}
+
+/// Go: `coreapi.KeyAPI` (handle).
+class KuboCoreCoreapiKeyApi extends $coreiface.KuboCoreCoreifaceKeyApi
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $ipfs_cmds.IpfsCmdsEnvironment$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $ipfs_cmds.IpfsCmdsEnvironment {
+  KuboCoreCoreapiKeyApi.$h(super.$h) : super.$h();
+
+  /// Go: `func (*coreapi.KeyAPI).Generate(ctx context.Context, name string, opts ...options.KeyGenerateOption) (iface.Key, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<$coreiface.KuboCoreCoreifaceKey> generate(
+      $context.Context ctx, String name,
+      [List<$options.KuboCoreCoreifaceOptionsKeyGenerateOption> opts =
+          const []]) async {
+    final $r = await $call(
+        1522,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..str(name)
+          ..list(opts, (w0, e0) => w0.opt(e0)));
+    return $r.p() ? $coreiface.KuboCoreCoreifaceKey.$dec($r) : $nil();
+  }
+
+  /// Go: `func (*coreapi.KeyAPI).List(ctx context.Context) ([]iface.Key, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<List<$coreiface.KuboCoreCoreifaceKey>> list(
+      $context.Context ctx) async {
+    final $r = await $call(
+        1523,
+        $W()
+          ..h(this)
+          ..h(ctx));
+    return $r
+        .list(() => $r.p() ? $coreiface.KuboCoreCoreifaceKey.$dec($r) : $nil());
+  }
+
+  /// Go: `func (*coreapi.KeyAPI).Remove(ctx context.Context, name string) (iface.Key, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<$coreiface.KuboCoreCoreifaceKey> remove(
+      $context.Context ctx, String name) async {
+    final $r = await $call(
+        1524,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..str(name));
+    return $r.p() ? $coreiface.KuboCoreCoreifaceKey.$dec($r) : $nil();
+  }
+
+  /// Go: `func (*coreapi.KeyAPI).Rename(ctx context.Context, oldName string, newName string, opts ...options.KeyRenameOption) (iface.Key, bool, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<($coreiface.KuboCoreCoreifaceKey, bool)> rename(
+      $context.Context ctx, String oldName, String newName,
+      [List<$options.KuboCoreCoreifaceOptionsKeyRenameOption> opts =
+          const []]) async {
+    final $r = await $call(
+        1525,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..str(oldName)
+          ..str(newName)
+          ..list(opts, (w0, e0) => w0.opt(e0)));
+    return ($r.p() ? $coreiface.KuboCoreCoreifaceKey.$dec($r) : $nil(), $r.b());
+  }
+
+  /// Go: `func (*coreapi.KeyAPI).Self(ctx context.Context) (iface.Key, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<$coreiface.KuboCoreCoreifaceKey> self($context.Context ctx) async {
+    final $r = await $call(
+        1526,
+        $W()
+          ..h(this)
+          ..h(ctx));
+    return $r.p() ? $coreiface.KuboCoreCoreifaceKey.$dec($r) : $nil();
+  }
+
+  /// Go: `func (*coreapi.KeyAPI).Sign(ctx context.Context, name string, data []byte) (iface.Key, []byte, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<($coreiface.KuboCoreCoreifaceKey, Uint8List)> sign(
+      $context.Context ctx, String name, Uint8List data) async {
+    final $r = await $call(
+        1527,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..str(name)
+          ..bytes(data));
+    return (
+      $r.p() ? $coreiface.KuboCoreCoreifaceKey.$dec($r) : $nil(),
+      $r.bytes() ?? Uint8List(0)
+    );
+  }
+
+  /// Go: `func (*coreapi.KeyAPI).Verify(ctx context.Context, keyOrName string, signature []byte, data []byte) (iface.Key, bool, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<($coreiface.KuboCoreCoreifaceKey, bool)> verify($context.Context ctx,
+      String keyOrName, Uint8List signature, Uint8List data) async {
+    final $r = await $call(
+        1528,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..str(keyOrName)
+          ..bytes(signature)
+          ..bytes(data));
+    return ($r.p() ? $coreiface.KuboCoreCoreifaceKey.$dec($r) : $nil(), $r.b());
+  }
+}
+
+/// Go: `coreapi.NameAPI` (handle).
+class KuboCoreCoreapiNameApi extends $coreiface.KuboCoreCoreifaceNameApi
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $ipfs_cmds.IpfsCmdsEnvironment$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $ipfs_cmds.IpfsCmdsEnvironment {
+  KuboCoreCoreapiNameApi.$h(super.$h) : super.$h();
+
+  /// Go: `func (*coreapi.NameAPI).Publish(ctx context.Context, p path.Path, opts ...options.NamePublishOption) (ipns.Name, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<$ipns.BoxoIpnsName> publish($context.Context ctx, $path.BoxoPath p,
+      [List<$options.KuboCoreCoreifaceOptionsNamePublishOption> opts =
+          const []]) async {
+    final $r = await $call(
+        1529,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(p)
+          ..list(opts, (w0, e0) => w0.opt(e0)));
+    return $r.p() ? $ipns.BoxoIpnsName($r.str()) : $nil();
+  }
+
+  /// Go: `func (*coreapi.NameAPI).Resolve(ctx context.Context, name string, opts ...options.NameResolveOption) (path.Path, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<$path.BoxoPath> resolve($context.Context ctx, String name,
+      [List<$options.KuboCoreCoreifaceOptionsNameResolveOption> opts =
+          const []]) async {
+    final $r = await $call(
+        1530,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..str(name)
+          ..list(opts, (w0, e0) => w0.opt(e0)));
+    return $r.p() ? $path.BoxoPath($r.str()) : $nil();
+  }
+
+  /// Go: `func (*coreapi.NameAPI).Search(ctx context.Context, name string, opts ...options.NameResolveOption) (<-chan iface.IpnsResult, error)`.
+  Stream<$coreiface.KuboCoreCoreifaceIpnsResult> search(
+          $context.Context ctx, String name,
+          [List<$options.KuboCoreCoreifaceOptionsNameResolveOption> opts =
+              const []]) =>
+      $stream(
+              1531,
+              $W()
+                ..h(this)
+                ..h(ctx)
+                ..str(name)
+                ..list(opts, (w0, e0) => w0.opt(e0)))
+          .map((r) =>
+              r.p() ? $coreiface.KuboCoreCoreifaceIpnsResult.$dec(r) : $nil());
+}
+
+/// Go: `coreapi.ObjectAPI` (handle).
+class KuboCoreCoreapiObjectApi extends $coreiface.KuboCoreCoreifaceObjectApi
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $ipfs_cmds.IpfsCmdsEnvironment$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $ipfs_cmds.IpfsCmdsEnvironment {
+  KuboCoreCoreapiObjectApi.$h(super.$h) : super.$h();
+
+  /// Go: `func (*coreapi.ObjectAPI).AddLink(ctx context.Context, base path.Path, name string, child path.Path, opts ...options.ObjectAddLinkOption) (path.ImmutablePath, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<$path.BoxoPathImmutablePath> addLink($context.Context ctx,
+      $path.BoxoPath base, String name, $path.BoxoPath child,
+      [List<$options.KuboCoreCoreifaceOptionsObjectAddLinkOption> opts =
+          const []]) async {
+    final $r = await $call(
+        1533,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(base)
+          ..str(name)
+          ..val(child)
+          ..list(opts, (w0, e0) => w0.opt(e0)));
+    return $r.p() ? $path.BoxoPathImmutablePath($r.str()) : $nil();
+  }
+
+  /// Go: `func (*coreapi.ObjectAPI).Diff(ctx context.Context, before path.Path, after path.Path) ([]iface.ObjectChange, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<List<$coreiface.KuboCoreCoreifaceObjectChange>> diff(
+      $context.Context ctx, $path.BoxoPath before, $path.BoxoPath after) async {
+    final $r = await $call(
+        1534,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(before)
+          ..val(after));
+    return $r.list(() =>
+        $r.p() ? $coreiface.KuboCoreCoreifaceObjectChange.$dec($r) : $nil());
+  }
+
+  /// Go: `func (*coreapi.ObjectAPI).RmLink(ctx context.Context, base path.Path, link string, opts ...options.ObjectRmLinkOption) (path.ImmutablePath, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<$path.BoxoPathImmutablePath> rmLink(
+      $context.Context ctx, $path.BoxoPath base, String link,
+      [List<$options.KuboCoreCoreifaceOptionsObjectRmLinkOption> opts =
+          const []]) async {
+    final $r = await $call(
+        1535,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(base)
+          ..str(link)
+          ..list(opts, (w0, e0) => w0.opt(e0)));
+    return $r.p() ? $path.BoxoPathImmutablePath($r.str()) : $nil();
+  }
+}
+
+/// Go: `coreapi.PinAPI` (handle).
+class KuboCoreCoreapiPinApi extends $coreiface.KuboCoreCoreifacePinApi
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $ipfs_cmds.IpfsCmdsEnvironment$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $ipfs_cmds.IpfsCmdsEnvironment {
+  KuboCoreCoreapiPinApi.$h(super.$h) : super.$h();
+
+  /// Go: `func (*coreapi.PinAPI).Add(ctx context.Context, p path.Path, opts ...options.PinAddOption) error`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> add($context.Context ctx, $path.BoxoPath p,
+      [List<$options.KuboCoreCoreifaceOptionsPinAddOption> opts =
+          const []]) async {
+    await $call(
+        1536,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(p)
+          ..list(opts, (w0, e0) => w0.opt(e0)));
+  }
+
+  /// Go: `func (*coreapi.PinAPI).IsPinned(ctx context.Context, p path.Path, opts ...options.PinIsPinnedOption) (string, bool, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<(String, bool)> isPinned($context.Context ctx, $path.BoxoPath p,
+      [List<$options.KuboCoreCoreifaceOptionsPinIsPinnedOption> opts =
+          const []]) async {
+    final $r = await $call(
+        1537,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(p)
+          ..list(opts, (w0, e0) => w0.opt(e0)));
+    return ($r.str(), $r.b());
+  }
+
+  /// Go: `func (*coreapi.PinAPI).Ls(ctx context.Context, pins chan<- iface.Pin, opts ...options.PinLsOption) error`.
+  Stream<$coreiface.KuboCoreCoreifacePin> ls($context.Context ctx,
+          [List<$options.KuboCoreCoreifaceOptionsPinLsOption> opts =
+              const []]) =>
+      $stream(
+              1538,
+              $W()
+                ..h(this)
+                ..h(ctx)
+                ..list(opts, (w0, e0) => w0.opt(e0)))
+          .map((r) => r.p() ? $coreiface.KuboCoreCoreifacePin.$dec(r) : $nil());
+
+  /// Go: `func (*coreapi.PinAPI).Rm(ctx context.Context, p path.Path, opts ...options.PinRmOption) error`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> rm($context.Context ctx, $path.BoxoPath p,
+      [List<$options.KuboCoreCoreifaceOptionsPinRmOption> opts =
+          const []]) async {
+    await $call(
+        1539,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(p)
+          ..list(opts, (w0, e0) => w0.opt(e0)));
+  }
+
+  /// Go: `func (*coreapi.PinAPI).Update(ctx context.Context, from path.Path, to path.Path, opts ...options.PinUpdateOption) error`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> update(
+      $context.Context ctx, $path.BoxoPath from, $path.BoxoPath to,
+      [List<$options.KuboCoreCoreifaceOptionsPinUpdateOption> opts =
+          const []]) async {
+    await $call(
+        1540,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(from)
+          ..val(to)
+          ..list(opts, (w0, e0) => w0.opt(e0)));
+  }
+
+  /// Go: `func (*coreapi.PinAPI).Verify(ctx context.Context) (<-chan iface.PinStatus, error)`.
+  Stream<$coreiface.KuboCoreCoreifacePinStatus> verify($context.Context ctx) =>
+      $stream(
+              1541,
+              $W()
+                ..h(this)
+                ..h(ctx))
+          .map((r) =>
+              r.p() ? $coreiface.KuboCoreCoreifacePinStatus.$dec(r) : $nil());
+}
+
+/// Go: `coreapi.PubSubAPI` (handle).
+class KuboCoreCoreapiPubSubApi extends $coreiface.KuboCoreCoreifacePubSubApi
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $ipfs_cmds.IpfsCmdsEnvironment$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $ipfs_cmds.IpfsCmdsEnvironment {
+  KuboCoreCoreapiPubSubApi.$h(super.$h) : super.$h();
+
+  /// Go: `func (*coreapi.PubSubAPI).Ls(ctx context.Context) ([]string, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<List<String>> ls($context.Context ctx) async {
+    final $r = await $call(
+        1542,
+        $W()
+          ..h(this)
+          ..h(ctx));
+    return $r.list(() => $r.str());
+  }
+
+  /// Go: `func (*coreapi.PubSubAPI).Peers(ctx context.Context, opts ...options.PubSubPeersOption) ([]peer.ID, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<List<$peer.Libp2pCorePeerId>> peers($context.Context ctx,
+      [List<$options.KuboCoreCoreifaceOptionsPubSubPeersOption> opts =
+          const []]) async {
+    final $r = await $call(
+        1543,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..list(opts, (w0, e0) => w0.opt(e0)));
+    return $r.list(() => $r.p() ? $peer.Libp2pCorePeerId($r.str()) : $nil());
+  }
+
+  /// Go: `func (*coreapi.PubSubAPI).Publish(ctx context.Context, topic string, data []byte) error`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> publish(
+      $context.Context ctx, String topic, Uint8List data) async {
+    await $call(
+        1544,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..str(topic)
+          ..bytes(data));
+  }
+
+  /// Go: `func (*coreapi.PubSubAPI).Subscribe(ctx context.Context, topic string, opts ...options.PubSubSubscribeOption) (iface.PubSubSubscription, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<$coreiface.KuboCoreCoreifacePubSubSubscription> subscribe(
+      $context.Context ctx, String topic,
+      [List<$options.KuboCoreCoreifaceOptionsPubSubSubscribeOption> opts =
+          const []]) async {
+    final $r = await $call(
+        1545,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..str(topic)
+          ..list(opts, (w0, e0) => w0.opt(e0)));
+    return $r.hnn($coreiface.KuboCoreCoreifacePubSubSubscription.$h);
+  }
+}
+
+/// Go: `coreapi.RoutingAPI` (handle).
+class KuboCoreCoreapiRoutingApi extends $coreiface.KuboCoreCoreifaceRoutingApi
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $routing.Libp2pCoreRoutingPeerRouting$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $routing.Libp2pCoreRoutingPeerRouting {
+  KuboCoreCoreapiRoutingApi.$h(super.$h) : super.$h();
+
+  /// Go: `func (*coreapi.RoutingAPI).FindPeer(ctx context.Context, p peer.ID) (peer.AddrInfo, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<$peer.Libp2pCorePeerAddrInfo> findPeer(
+      $context.Context ctx, $peer.Libp2pCorePeerId p) async {
+    final $r = await $call(
+        1546,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(p));
+    return $r.p() ? $peer.Libp2pCorePeerAddrInfo.$dec($r) : $nil();
+  }
+
+  /// Go: `func (*coreapi.RoutingAPI).FindProviders(ctx context.Context, p path.Path, opts ...options.RoutingFindProvidersOption) (<-chan peer.AddrInfo, error)`.
+  Stream<$peer.Libp2pCorePeerAddrInfo> findProviders(
+          $context.Context ctx, $path.BoxoPath p,
+          [List<$options.KuboCoreCoreifaceOptionsRoutingFindProvidersOption>
+              opts = const []]) =>
+      $stream(
+              1547,
+              $W()
+                ..h(this)
+                ..h(ctx)
+                ..val(p)
+                ..list(opts, (w0, e0) => w0.opt(e0)))
+          .map((r) => r.p() ? $peer.Libp2pCorePeerAddrInfo.$dec(r) : $nil());
+
+  /// Go: `func (*coreapi.RoutingAPI).Get(ctx context.Context, key string) ([]byte, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<Uint8List> get($context.Context ctx, String key) async {
+    final $r = await $call(
+        1548,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..str(key));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (*coreapi.RoutingAPI).Provide(ctx context.Context, path path.Path, opts ...options.RoutingProvideOption) error`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> provide($context.Context ctx, $path.BoxoPath path,
+      [List<$options.KuboCoreCoreifaceOptionsRoutingProvideOption> opts =
+          const []]) async {
+    await $call(
+        1549,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(path)
+          ..list(opts, (w0, e0) => w0.opt(e0)));
+  }
+
+  /// Go: `func (*coreapi.RoutingAPI).Put(ctx context.Context, key string, value []byte, opts ...options.RoutingPutOption) error`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> put($context.Context ctx, String key, Uint8List value,
+      [List<$options.KuboCoreCoreifaceOptionsRoutingPutOption> opts =
+          const []]) async {
+    await $call(
+        1550,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..str(key)
+          ..bytes(value)
+          ..list(opts, (w0, e0) => w0.opt(e0)));
+  }
+}
+
+/// Go: `coreapi.SwarmAPI` (handle).
+class KuboCoreCoreapiSwarmApi extends $coreiface.KuboCoreCoreifaceSwarmApi
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $ipfs_cmds.IpfsCmdsEnvironment$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $ipfs_cmds.IpfsCmdsEnvironment {
+  KuboCoreCoreapiSwarmApi.$h(super.$h) : super.$h();
+
+  /// Go: `func (*coreapi.SwarmAPI).Connect(ctx context.Context, pi peer.AddrInfo) error`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> connect(
+      $context.Context ctx, $peer.Libp2pCorePeerAddrInfo pi) async {
+    await $call(
+        1551,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..dto(pi));
+  }
+
+  /// Go: `func (*coreapi.SwarmAPI).Disconnect(ctx context.Context, addr multiaddr.Multiaddr) error`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> disconnect(
+      $context.Context ctx, $multiaddr.Multiaddr addr) async {
+    await $call(
+        1552,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(addr));
+  }
+
+  /// Go: `func (*coreapi.SwarmAPI).KnownAddrs(ctx context.Context) (map[peer.ID][]multiaddr.Multiaddr, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<Map<$peer.Libp2pCorePeerId, List<$multiaddr.Multiaddr>>> knownAddrs(
+      $context.Context ctx) async {
+    final $r = await $call(
+        1553,
+        $W()
+          ..h(this)
+          ..h(ctx));
+    return $r.map(() => $peer.Libp2pCorePeerId($r.str()),
+        () => $r.list(() => $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil()));
+  }
+
+  /// Go: `func (*coreapi.SwarmAPI).ListenAddrs(ctx context.Context) ([]multiaddr.Multiaddr, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<List<$multiaddr.Multiaddr>> listenAddrs($context.Context ctx) async {
+    final $r = await $call(
+        1554,
+        $W()
+          ..h(this)
+          ..h(ctx));
+    return $r.list(() => $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil());
+  }
+
+  /// Go: `func (*coreapi.SwarmAPI).LocalAddrs(ctx context.Context) ([]multiaddr.Multiaddr, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<List<$multiaddr.Multiaddr>> localAddrs($context.Context ctx) async {
+    final $r = await $call(
+        1555,
+        $W()
+          ..h(this)
+          ..h(ctx));
+    return $r.list(() => $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil());
+  }
+
+  /// Go: `func (*coreapi.SwarmAPI).Peers(ctx context.Context) ([]iface.ConnectionInfo, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<List<$coreiface.KuboCoreCoreifaceConnectionInfo>> peers(
+      $context.Context ctx) async {
+    final $r = await $call(
+        1556,
+        $W()
+          ..h(this)
+          ..h(ctx));
+    return $r.list(() =>
+        $r.p() ? $coreiface.KuboCoreCoreifaceConnectionInfo.$dec($r) : $nil());
+  }
+}
+
+/// Go: `coreapi.UnixfsAPI` (handle).
+class KuboCoreCoreapiUnixfsApi extends $coreiface.KuboCoreCoreifaceUnixfsApi
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $ipfs_cmds.IpfsCmdsEnvironment$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $ipfs_cmds.IpfsCmdsEnvironment {
+  KuboCoreCoreapiUnixfsApi.$h(super.$h) : super.$h();
+
+  /// Go: `func (*coreapi.UnixfsAPI).Add(ctx context.Context, files files.Node, opts ...options.UnixfsAddOption) (path.ImmutablePath, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<$path.BoxoPathImmutablePath> add(
+      $context.Context ctx, $files.BoxoFilesNode files,
+      [List<$options.KuboCoreCoreifaceOptionsUnixfsAddOption> opts =
+          const []]) async {
+    final $r = await $call(
+        1557,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..h(files)
+          ..list(opts, (w0, e0) => w0.opt(e0)));
+    return $r.p() ? $path.BoxoPathImmutablePath($r.str()) : $nil();
+  }
+
+  /// Go: `func (*coreapi.UnixfsAPI).Get(ctx context.Context, p path.Path) (files.Node, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<$files.BoxoFilesNode> get(
+      $context.Context ctx, $path.BoxoPath p) async {
+    final $r = await $call(
+        1558,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(p));
+    return $r.hnn($files.BoxoFilesNode.$h);
+  }
+
+  /// Go: `func (*coreapi.UnixfsAPI).Ls(ctx context.Context, p path.Path, out chan<- iface.DirEntry, opts ...options.UnixfsLsOption) error`.
+  Stream<$coreiface.KuboCoreCoreifaceDirEntry> ls(
+          $context.Context ctx, $path.BoxoPath p,
+          [List<$options.KuboCoreCoreifaceOptionsUnixfsLsOption> opts =
+              const []]) =>
+      $stream(
+              1559,
+              $W()
+                ..h(this)
+                ..h(ctx)
+                ..val(p)
+                ..list(opts, (w0, e0) => w0.opt(e0)))
+          .map((r) =>
+              r.p() ? $coreiface.KuboCoreCoreifaceDirEntry.$dec(r) : $nil());
+}
 
 /// Go: the package-level members of `github.com/ipfs/kubo/core/coreapi` (`Go.kubo.core.coreapi`).
 extension GoKuboCoreCoreapiApi on GoKuboCoreCoreapi {
@@ -14,7 +887,7 @@ extension GoKuboCoreCoreapiApi on GoKuboCoreCoreapi {
   $coreiface.KuboCoreCoreifaceCoreApi newCoreApi($core.KuboCoreIpfsNode n,
       [List<$options.KuboCoreCoreifaceOptionsApiOption> opts = const []]) {
     final $r = $callSync(
-        294,
+        1532,
         $W()
           ..h(n)
           ..list(opts, (w0, e0) => w0.opt(e0)));

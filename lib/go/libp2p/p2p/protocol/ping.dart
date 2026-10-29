@@ -6,7 +6,44 @@ import 'package:p2p_ffi/src/go.dart' show GoLibp2pP2pProtocolPing;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/libp2p/core/host.dart' as $host;
+import 'package:p2p_ffi/go/libp2p/core/network.dart' as $network;
 import 'package:p2p_ffi/go/libp2p/core/peer.dart' as $peer;
+
+/// Go: `ping.PingService`.
+final class Libp2pP2pProtocolPingService implements GoDto {
+  Libp2pP2pProtocolPingService({$host.Libp2pCoreHost? host}) : host = host;
+
+  Libp2pP2pProtocolPingService.$dec($R r)
+      : host = r.hn($host.Libp2pCoreHost.$h);
+
+  /// Go: `Host`.
+  $host.Libp2pCoreHost? host;
+
+  @override
+  void $enc($W w) {
+    w..h(host);
+  }
+
+  /// Go: `func (*ping.PingService).Ping(ctx context.Context, p peer.ID) <-chan ping.Result`.
+  Stream<Libp2pP2pProtocolPingResult> ping(
+          $context.Context ctx, $peer.Libp2pCorePeerId p) =>
+      $stream(
+              3316,
+              $W()
+                ..dto(this)
+                ..h(ctx)
+                ..val(p))
+          .map((r) => r.p() ? Libp2pP2pProtocolPingResult.$dec(r) : $nil());
+
+  /// Go: `func (*ping.PingService).PingHandler(s network.Stream)`.
+  void pingHandler($network.Libp2pCoreNetworkStream s) {
+    $callSync(
+        3317,
+        $W()
+          ..dto(this)
+          ..h(s));
+  }
+}
 
 /// Go: `ping.Result`.
 final class Libp2pP2pProtocolPingResult implements GoDto {
@@ -34,11 +71,17 @@ final class Libp2pP2pProtocolPingResult implements GoDto {
 
 /// Go: the package-level members of `github.com/libp2p/go-libp2p/p2p/protocol/ping` (`Go.libp2p.p2p.protocol.ping`).
 extension GoLibp2pP2pProtocolPingApi on GoLibp2pP2pProtocolPing {
+  /// Go: `func ping.NewPingService(h host.Host) *ping.PingService`.
+  Libp2pP2pProtocolPingService newPingService($host.Libp2pCoreHost h) {
+    final $r = $callSync(3314, $W()..h(h));
+    return $r.p() ? Libp2pP2pProtocolPingService.$dec($r) : $nil();
+  }
+
   /// Go: `func ping.Ping(ctx context.Context, h host.Host, p peer.ID) <-chan ping.Result`.
   Stream<Libp2pP2pProtocolPingResult> ping($context.Context ctx,
           $host.Libp2pCoreHost h, $peer.Libp2pCorePeerId p) =>
       $stream(
-              651,
+              3315,
               $W()
                 ..h(ctx)
                 ..h(h)

@@ -9,14 +9,17 @@ import 'package:p2p_ffi/go/ipld_prime/datamodel.dart' as $datamodel;
 import 'package:p2p_ffi/go/ipld_prime/traversal/selector.dart' as $selector;
 
 /// Go: `builder.ExploreFieldsSpecBuilder` (handle).
-class IpldPrimeTraversalSelectorBuilderExploreFieldsSpecBuilder
-    extends GoHandle {
+class IpldPrimeTraversalSelectorBuilderExploreFieldsSpecBuilder extends GoHandle
+    with IpldPrimeTraversalSelectorBuilderExploreFieldsSpecBuilder$ {
   IpldPrimeTraversalSelectorBuilderExploreFieldsSpecBuilder.$h(super.$h);
+}
 
+/// The methods of [IpldPrimeTraversalSelectorBuilderExploreFieldsSpecBuilder], mixed into every class Go also accepts as one.
+mixin IpldPrimeTraversalSelectorBuilderExploreFieldsSpecBuilder$ on GoHandle {
   /// Go: `func (builder.ExploreFieldsSpecBuilder).Insert(k string, v builder.SelectorSpec)`.
   void insert(String k, IpldPrimeTraversalSelectorBuilderSelectorSpec v) {
     $callSync(
-        474,
+        2154,
         $W()
           ..h(this)
           ..str(k)
@@ -25,90 +28,48 @@ class IpldPrimeTraversalSelectorBuilderExploreFieldsSpecBuilder
 }
 
 /// Go: `builder.SelectorSpec` (handle).
-class IpldPrimeTraversalSelectorBuilderSelectorSpec extends GoHandle {
+class IpldPrimeTraversalSelectorBuilderSelectorSpec extends GoHandle
+    with IpldPrimeTraversalSelectorBuilderSelectorSpec$ {
   IpldPrimeTraversalSelectorBuilderSelectorSpec.$h(super.$h);
+}
 
+/// The methods of [IpldPrimeTraversalSelectorBuilderSelectorSpec], mixed into every class Go also accepts as one.
+mixin IpldPrimeTraversalSelectorBuilderSelectorSpec$ on GoHandle {
   /// Go: `func (builder.SelectorSpec).Node() datamodel.Node`.
   $datamodel.IpldPrimeDatamodelNode node() {
-    final $r = $callSync(476, $W()..h(this));
+    final $r = $callSync(2156, $W()..h(this));
     return $r.hnn($datamodel.IpldPrimeDatamodelNode.$h);
+  }
+
+  /// Go: `func (builder.SelectorSpec).Selector() (selector.Selector, error)`.
+  $selector.IpldPrimeTraversalSelector selector() {
+    final $r = $callSync(2157, $W()..h(this));
+    return $r.hnn($selector.IpldPrimeTraversalSelector.$h);
   }
 }
 
 /// Go: `builder.SelectorSpecBuilder` (handle).
-class IpldPrimeTraversalSelectorBuilderSelectorSpecBuilder extends GoHandle {
+class IpldPrimeTraversalSelectorBuilderSelectorSpecBuilder extends GoHandle
+    with IpldPrimeTraversalSelectorBuilderSelectorSpecBuilder$ {
   IpldPrimeTraversalSelectorBuilderSelectorSpecBuilder.$h(super.$h);
 
   /// Go: `func builder.NewSelectorSpecBuilder(np datamodel.NodePrototype) builder.SelectorSpecBuilder`.
   factory IpldPrimeTraversalSelectorBuilderSelectorSpecBuilder(
       $datamodel.IpldPrimeDatamodelNodePrototype np) {
-    final $r = $callSync(475, $W()..h(np));
+    final $r = $callSync(2155, $W()..h(np));
     return $r.hnn(IpldPrimeTraversalSelectorBuilderSelectorSpecBuilder.$h);
   }
+}
 
-  /// Go: `func (builder.SelectorSpecBuilder).ExploreRecursiveEdge() builder.SelectorSpec`.
-  IpldPrimeTraversalSelectorBuilderSelectorSpec exploreRecursiveEdge() {
-    final $r = $callSync(483, $W()..h(this));
-    return $r.hnn(IpldPrimeTraversalSelectorBuilderSelectorSpec.$h);
-  }
-
-  /// Go: `func (builder.SelectorSpecBuilder).ExploreRecursive(limit selector.RecursionLimit, sequence builder.SelectorSpec) builder.SelectorSpec`.
-  IpldPrimeTraversalSelectorBuilderSelectorSpec exploreRecursive(
-      $selector.IpldPrimeTraversalSelectorRecursionLimit limit,
-      IpldPrimeTraversalSelectorBuilderSelectorSpec sequence) {
-    final $r = $callSync(
-        482,
-        $W()
-          ..h(this)
-          ..h(limit)
-          ..h(sequence));
-    return $r.hnn(IpldPrimeTraversalSelectorBuilderSelectorSpec.$h);
-  }
-
-  /// Go: `func (builder.SelectorSpecBuilder).ExploreUnion(...builder.SelectorSpec) builder.SelectorSpec`.
-  IpldPrimeTraversalSelectorBuilderSelectorSpec exploreUnion(
-      [List<IpldPrimeTraversalSelectorBuilderSelectorSpec> selectorSpecs =
-          const []]) {
-    final $r = $callSync(
-        484,
-        $W()
-          ..h(this)
-          ..list(selectorSpecs, (w0, e0) => w0.h(e0)));
-    return $r.hnn(IpldPrimeTraversalSelectorBuilderSelectorSpec.$h);
-  }
-
+/// The methods of [IpldPrimeTraversalSelectorBuilderSelectorSpecBuilder], mixed into every class Go also accepts as one.
+mixin IpldPrimeTraversalSelectorBuilderSelectorSpecBuilder$ on GoHandle {
   /// Go: `func (builder.SelectorSpecBuilder).ExploreAll(next builder.SelectorSpec) builder.SelectorSpec`.
   IpldPrimeTraversalSelectorBuilderSelectorSpec exploreAll(
       IpldPrimeTraversalSelectorBuilderSelectorSpec next) {
     final $r = $callSync(
-        477,
+        2158,
         $W()
           ..h(this)
-          ..h(next));
-    return $r.hnn(IpldPrimeTraversalSelectorBuilderSelectorSpec.$h);
-  }
-
-  /// Go: `func (builder.SelectorSpecBuilder).ExploreIndex(index int64, next builder.SelectorSpec) builder.SelectorSpec`.
-  IpldPrimeTraversalSelectorBuilderSelectorSpec exploreIndex(
-      int index, IpldPrimeTraversalSelectorBuilderSelectorSpec next) {
-    final $r = $callSync(
-        479,
-        $W()
-          ..h(this)
-          ..i64(index)
-          ..h(next));
-    return $r.hnn(IpldPrimeTraversalSelectorBuilderSelectorSpec.$h);
-  }
-
-  /// Go: `func (builder.SelectorSpecBuilder).ExploreRange(start int64, end int64, next builder.SelectorSpec) builder.SelectorSpec`.
-  IpldPrimeTraversalSelectorBuilderSelectorSpec exploreRange(
-      int start, int end, IpldPrimeTraversalSelectorBuilderSelectorSpec next) {
-    final $r = $callSync(
-        481,
-        $W()
-          ..h(this)
-          ..i64(start)
-          ..i64(end)
           ..h(next));
     return $r.hnn(IpldPrimeTraversalSelectorBuilderSelectorSpec.$h);
   }
@@ -126,7 +87,7 @@ class IpldPrimeTraversalSelectorBuilderSelectorSpecBuilder extends GoHandle {
           callback,
       {int? batchSize}) async {
     final $r = await $callCb(
-        478,
+        2159,
         $W()
           ..h(this)
           ..u32(batchSize ?? 1),
@@ -135,11 +96,23 @@ class IpldPrimeTraversalSelectorBuilderSelectorSpecBuilder extends GoHandle {
     return $r.hnn(IpldPrimeTraversalSelectorBuilderSelectorSpec.$h);
   }
 
+  /// Go: `func (builder.SelectorSpecBuilder).ExploreIndex(index int64, next builder.SelectorSpec) builder.SelectorSpec`.
+  IpldPrimeTraversalSelectorBuilderSelectorSpec exploreIndex(
+      int index, IpldPrimeTraversalSelectorBuilderSelectorSpec next) {
+    final $r = $callSync(
+        2160,
+        $W()
+          ..h(this)
+          ..i64(index)
+          ..h(next));
+    return $r.hnn(IpldPrimeTraversalSelectorBuilderSelectorSpec.$h);
+  }
+
   /// Go: `func (builder.SelectorSpecBuilder).ExploreInterpretAs(as string, next builder.SelectorSpec) builder.SelectorSpec`.
   IpldPrimeTraversalSelectorBuilderSelectorSpec exploreInterpretAs(
       String as, IpldPrimeTraversalSelectorBuilderSelectorSpec next) {
     final $r = $callSync(
-        480,
+        2161,
         $W()
           ..h(this)
           ..str(as)
@@ -147,9 +120,53 @@ class IpldPrimeTraversalSelectorBuilderSelectorSpecBuilder extends GoHandle {
     return $r.hnn(IpldPrimeTraversalSelectorBuilderSelectorSpec.$h);
   }
 
+  /// Go: `func (builder.SelectorSpecBuilder).ExploreRange(start int64, end int64, next builder.SelectorSpec) builder.SelectorSpec`.
+  IpldPrimeTraversalSelectorBuilderSelectorSpec exploreRange(
+      int start, int end, IpldPrimeTraversalSelectorBuilderSelectorSpec next) {
+    final $r = $callSync(
+        2162,
+        $W()
+          ..h(this)
+          ..i64(start)
+          ..i64(end)
+          ..h(next));
+    return $r.hnn(IpldPrimeTraversalSelectorBuilderSelectorSpec.$h);
+  }
+
+  /// Go: `func (builder.SelectorSpecBuilder).ExploreRecursive(limit selector.RecursionLimit, sequence builder.SelectorSpec) builder.SelectorSpec`.
+  IpldPrimeTraversalSelectorBuilderSelectorSpec exploreRecursive(
+      $selector.IpldPrimeTraversalSelectorRecursionLimit limit,
+      IpldPrimeTraversalSelectorBuilderSelectorSpec sequence) {
+    final $r = $callSync(
+        2163,
+        $W()
+          ..h(this)
+          ..h(limit)
+          ..h(sequence));
+    return $r.hnn(IpldPrimeTraversalSelectorBuilderSelectorSpec.$h);
+  }
+
+  /// Go: `func (builder.SelectorSpecBuilder).ExploreRecursiveEdge() builder.SelectorSpec`.
+  IpldPrimeTraversalSelectorBuilderSelectorSpec exploreRecursiveEdge() {
+    final $r = $callSync(2164, $W()..h(this));
+    return $r.hnn(IpldPrimeTraversalSelectorBuilderSelectorSpec.$h);
+  }
+
+  /// Go: `func (builder.SelectorSpecBuilder).ExploreUnion(...builder.SelectorSpec) builder.SelectorSpec`.
+  IpldPrimeTraversalSelectorBuilderSelectorSpec exploreUnion(
+      [List<IpldPrimeTraversalSelectorBuilderSelectorSpec> selectorSpecs =
+          const []]) {
+    final $r = $callSync(
+        2165,
+        $W()
+          ..h(this)
+          ..list(selectorSpecs, (w0, e0) => w0.h(e0)));
+    return $r.hnn(IpldPrimeTraversalSelectorBuilderSelectorSpec.$h);
+  }
+
   /// Go: `func (builder.SelectorSpecBuilder).Matcher() builder.SelectorSpec`.
   IpldPrimeTraversalSelectorBuilderSelectorSpec matcher() {
-    final $r = $callSync(485, $W()..h(this));
+    final $r = $callSync(2166, $W()..h(this));
     return $r.hnn(IpldPrimeTraversalSelectorBuilderSelectorSpec.$h);
   }
 
@@ -157,7 +174,7 @@ class IpldPrimeTraversalSelectorBuilderSelectorSpecBuilder extends GoHandle {
   IpldPrimeTraversalSelectorBuilderSelectorSpec matcherSubset(
       int from, int to) {
     final $r = $callSync(
-        486,
+        2167,
         $W()
           ..h(this)
           ..i64(from)

@@ -14,7 +14,9 @@ import 'package:p2p_ffi/go/boxo/filestore.dart' as $filestore;
 import 'package:p2p_ffi/go/boxo/mfs.dart' as $mfs;
 import 'package:p2p_ffi/go/boxo/provider.dart' as $provider;
 import 'package:p2p_ffi/go/cid.dart' as $cid;
+import 'package:p2p_ffi/go/cidutil/cidenc.dart' as $cidenc;
 import 'package:p2p_ffi/go/context.dart' as $context;
+import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/ipfs_cmds.dart' as $ipfs_cmds;
 import 'package:p2p_ffi/go/kubo.dart' as $kubo;
 import 'package:p2p_ffi/go/kubo/core.dart' as $core;
@@ -29,6 +31,114 @@ import 'package:p2p_ffi/go/libp2p/core/peer.dart' as $peer;
 import 'package:p2p_ffi/go/libp2p/core/routing.dart' as $routing;
 import 'package:p2p_ffi/go/libp2p_kad_dht/provider/stats.dart' as $stats;
 import 'package:p2p_ffi/go/multiaddr.dart' as $multiaddr;
+
+/// Go: `commands.BlockStat`.
+final class KuboCoreCommandsBlockStat implements GoDto {
+  KuboCoreCommandsBlockStat({String? key, int? size})
+      : key = key ?? '',
+        size = size ?? 0;
+
+  KuboCoreCommandsBlockStat.$dec($R r)
+      : key = r.str(),
+        size = r.i64();
+
+  /// Go: `Key`.
+  String key;
+
+  /// Go: `Size`.
+  int size;
+
+  @override
+  void $enc($W w) {
+    w
+      ..str(key)
+      ..i64(size);
+  }
+
+  /// Go: `func (commands.BlockStat).String() string`.
+  String string() {
+    final $r = $callSync(1452, $W()..dto(this));
+    return $r.str();
+  }
+}
+
+/// Go: `commands.RefWriter` (handle).
+class KuboCoreCommandsRefWriter extends $crypto.CryptoPrivateKey
+    with $crypto.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
+    implements $crypto.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+  KuboCoreCommandsRefWriter.$h(super.$h) : super.$h();
+
+  /// Go: `func (*commands.RefWriter).WriteEdge(from cid.Cid, to cid.Cid, linkname string, enc cidenc.Encoder) error`.
+  void writeEdge($cid.Cid from, $cid.Cid to, String linkname,
+      $cidenc.CidutilCidencEncoder enc) {
+    $callSync(
+        1490,
+        $W()
+          ..h(this)
+          ..val(from)
+          ..val(to)
+          ..str(linkname)
+          ..dto(enc));
+  }
+
+  /// Go: `func (*commands.RefWriter).WriteRefs(c cid.Cid, enc cidenc.Encoder) (int, error)`.
+  int writeRefs($cid.Cid c, $cidenc.CidutilCidencEncoder enc) {
+    final $r = $callSync(
+        1491,
+        $W()
+          ..h(this)
+          ..val(c)
+          ..dto(enc));
+    return $r.i64();
+  }
+}
+
+/// Go: `commands.VersionCheckOutput`.
+final class KuboCoreCommandsVersionCheckOutput implements GoDto {
+  KuboCoreCommandsVersionCheckOutput(
+      {bool? updateAvailable,
+      String? runningVersion,
+      String? greatestVersion,
+      int? peersSampled,
+      int? withGreaterVersion})
+      : updateAvailable = updateAvailable ?? false,
+        runningVersion = runningVersion ?? '',
+        greatestVersion = greatestVersion ?? '',
+        peersSampled = peersSampled ?? 0,
+        withGreaterVersion = withGreaterVersion ?? 0;
+
+  KuboCoreCommandsVersionCheckOutput.$dec($R r)
+      : updateAvailable = r.b(),
+        runningVersion = r.str(),
+        greatestVersion = r.str(),
+        peersSampled = r.i64(),
+        withGreaterVersion = r.i64();
+
+  /// Go: `UpdateAvailable`.
+  bool updateAvailable;
+
+  /// Go: `RunningVersion`.
+  String runningVersion;
+
+  /// Go: `GreatestVersion`.
+  String greatestVersion;
+
+  /// Go: `PeersSampled`.
+  int peersSampled;
+
+  /// Go: `WithGreaterVersion`.
+  int withGreaterVersion;
+
+  @override
+  void $enc($W w) {
+    w
+      ..b(updateAvailable)
+      ..str(runningVersion)
+      ..str(greatestVersion)
+      ..i64(peersSampled)
+      ..i64(withGreaterVersion);
+  }
+}
 
 /// Go: `commands.AddEvent` (a kubo command output).
 final class KuboCoreCommandsAddEvent {
@@ -69,19 +179,6 @@ final class KuboCoreCommandsKeyList {
 
   /// Go: `Keys`.
   final List<$cid.Cid> keys;
-}
-
-/// Go: `commands.BlockStat` (a kubo command output).
-final class KuboCoreCommandsBlockStat {
-  KuboCoreCommandsBlockStat.$dec($R r)
-      : key = r.str(),
-        size = r.i64();
-
-  /// Go: `Key`.
-  final String key;
-
-  /// Go: `Size`.
-  final int size;
 }
 
 /// Go: `commands.removedBlock` (a kubo command output).
@@ -653,7 +750,15 @@ final class KuboCoreCommandsProvideOnceEvent {
 final class KuboCoreCommandsProvideStats {
   KuboCoreCommandsProvideStats.$dec($R r)
       : sweep = r.p() ? $stats.Libp2pKadDhtProviderStats.$dec(r) : null,
-        legacy = r.p() ? $provider.BoxoProviderReproviderStats.$dec(r) : null,
+        legacy = r.p()
+            ? ($provider.BoxoProviderReproviderStats(
+                totalReprovides: r.i64(),
+                lastReprovideBatchSize: r.i64(),
+                reprovideInterval: Duration(microseconds: r.i64() ~/ 1000),
+                avgReprovideDuration: Duration(microseconds: r.i64() ~/ 1000),
+                lastReprovideDuration: Duration(microseconds: r.i64() ~/ 1000),
+                lastRun: r.p() ? r.time() : null))
+            : null,
         fullRt = r.b();
 
   /// Go: `Sweep`.
@@ -888,31 +993,6 @@ final class KuboCoreCommandsStreamInfo {
   final String protocol;
 }
 
-/// Go: `commands.VersionCheckOutput` (a kubo command output).
-final class KuboCoreCommandsVersionCheckOutput {
-  KuboCoreCommandsVersionCheckOutput.$dec($R r)
-      : updateAvailable = r.b(),
-        runningVersion = r.str(),
-        greatestVersion = r.str(),
-        peersSampled = r.i64(),
-        withGreaterVersion = r.i64();
-
-  /// Go: `UpdateAvailable`.
-  final bool updateAvailable;
-
-  /// Go: `RunningVersion`.
-  final String runningVersion;
-
-  /// Go: `GreatestVersion`.
-  final String greatestVersion;
-
-  /// Go: `PeersSampled`.
-  final int peersSampled;
-
-  /// Go: `WithGreaterVersion`.
-  final int withGreaterVersion;
-}
-
 /// Go: `commands.Dependency` (a kubo command output).
 final class KuboCoreCommandsDependency {
   KuboCoreCommandsDependency.$dec($R r)
@@ -990,6 +1070,330 @@ class KuboCoreCommandsErrSelfUnsupported extends GolangException {
 
 /// Go: the package-level members of `github.com/ipfs/kubo/core/commands` (`Go.kubo.core.commands`).
 extension GoKuboCoreCommandsApi on GoKuboCoreCommands {
+  /// Go: `var commands.ActiveReqsCmd *cmds.Command`.
+  $ipfs_cmds.IpfsCmdsCommand get activeReqsCmd {
+    final $r = $callSync(1448);
+    return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
+  }
+
+  /// Go: `var commands.AddCmd *cmds.Command`.
+  $ipfs_cmds.IpfsCmdsCommand get addCmd {
+    final $r = $callSync(1449);
+    return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
+  }
+
+  /// Go: `var commands.BitswapCmd *cmds.Command`.
+  $ipfs_cmds.IpfsCmdsCommand get bitswapCmd {
+    final $r = $callSync(1450);
+    return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
+  }
+
+  /// Go: `var commands.BlockCmd *cmds.Command`.
+  $ipfs_cmds.IpfsCmdsCommand get blockCmd {
+    final $r = $callSync(1451);
+    return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
+  }
+
+  /// Go: `var commands.BootstrapCmd *cmds.Command`.
+  $ipfs_cmds.IpfsCmdsCommand get bootstrapCmd {
+    final $r = $callSync(1453);
+    return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
+  }
+
+  /// Go: `var commands.CatCmd *cmds.Command`.
+  $ipfs_cmds.IpfsCmdsCommand get catCmd {
+    final $r = $callSync(1454);
+    return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
+  }
+
+  /// Go: `var commands.CidCmd *cmds.Command`.
+  $ipfs_cmds.IpfsCmdsCommand get cidCmd {
+    final $r = $callSync(1455);
+    return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
+  }
+
+  /// Go: `func commands.CommandsCmd(root *cmds.Command) *cmds.Command`.
+  $ipfs_cmds.IpfsCmdsCommand commandsCmd($ipfs_cmds.IpfsCmdsCommand root) {
+    final $r = $callSync(1456, $W()..dto(root));
+    return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
+  }
+
+  /// Go: `var commands.CommandsDaemonCmd *cmds.Command`.
+  $ipfs_cmds.IpfsCmdsCommand get commandsDaemonCmd {
+    final $r = $callSync(1457);
+    return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
+  }
+
+  /// Go: `func commands.CompletionCmd(root *cmds.Command) *cmds.Command`.
+  $ipfs_cmds.IpfsCmdsCommand completionCmd($ipfs_cmds.IpfsCmdsCommand root) {
+    final $r = $callSync(1458, $W()..dto(root));
+    return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
+  }
+
+  /// Go: `var commands.ConfigCmd *cmds.Command`.
+  $ipfs_cmds.IpfsCmdsCommand get configCmd {
+    final $r = $callSync(1459);
+    return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
+  }
+
+  /// Go: `func commands.CreateCmdExtras(opts ...func(e *cmds.Extra)) *cmds.Extra`.
+  $ipfs_cmds.IpfsCmdsExtra createCmdExtras() {
+    final $r = $callSync(1460);
+    return $r.hnn($ipfs_cmds.IpfsCmdsExtra.$h);
+  }
+
+  /// Go: `func commands.DaemonNotRunning(req *cmds.Request, env cmds.Environment) error`.
+  void daemonNotRunning(
+      $ipfs_cmds.IpfsCmdsRequest req, $ipfs_cmds.IpfsCmdsEnvironment env) {
+    $callSync(
+        1461,
+        $W()
+          ..h(req)
+          ..h(env));
+  }
+
+  /// Go: `var commands.DefaultBufSize int`.
+  int get defaultBufSize {
+    final $r = $callSync(1462);
+    return $r.i64();
+  }
+
+  /// Go: `func commands.DetectNewKuboVersion(nd *core.IpfsNode, minPercent int64) (commands.VersionCheckOutput, error)`.
+  KuboCoreCommandsVersionCheckOutput detectNewKuboVersion(
+      $core.KuboCoreIpfsNode nd, int minPercent) {
+    final $r = $callSync(
+        1463,
+        $W()
+          ..h(nd)
+          ..i64(minPercent));
+    return $r.p() ? KuboCoreCommandsVersionCheckOutput.$dec($r) : $nil();
+  }
+
+  /// Go: `var commands.DhtCmd *cmds.Command`.
+  $ipfs_cmds.IpfsCmdsCommand get dhtCmd {
+    final $r = $callSync(1464);
+    return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
+  }
+
+  /// Go: `var commands.DiagCmd *cmds.Command`.
+  $ipfs_cmds.IpfsCmdsCommand get diagCmd {
+    final $r = $callSync(1465);
+    return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
+  }
+
+  /// Go: `func commands.ExternalBinary(instructions string) *cmds.Command`.
+  $ipfs_cmds.IpfsCmdsCommand externalBinary(String instructions) {
+    final $r = $callSync(1466, $W()..str(instructions));
+    return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
+  }
+
+  /// Go: `var commands.FileStoreCmd *cmds.Command`.
+  $ipfs_cmds.IpfsCmdsCommand get fileStoreCmd {
+    final $r = $callSync(1467);
+    return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
+  }
+
+  /// Go: `var commands.FilesCmd *cmds.Command`.
+  $ipfs_cmds.IpfsCmdsCommand get filesCmd {
+    final $r = $callSync(1468);
+    return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
+  }
+
+  /// Go: `var commands.GetCmd *cmds.Command`.
+  $ipfs_cmds.IpfsCmdsCommand get getCmd {
+    final $r = $callSync(1469);
+    return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
+  }
+
+  /// Go: `func commands.GetDoesNotUseConfigAsInput(e *cmds.Extra) (val bool, found bool)`.
+  (bool, bool) getDoesNotUseConfigAsInput($ipfs_cmds.IpfsCmdsExtra e) {
+    final $r = $callSync(1470, $W()..h(e));
+    return ($r.b(), $r.b());
+  }
+
+  /// Go: `func commands.GetDoesNotUseRepo(e *cmds.Extra) (val bool, found bool)`.
+  (bool, bool) getDoesNotUseRepo($ipfs_cmds.IpfsCmdsExtra e) {
+    final $r = $callSync(1471, $W()..h(e));
+    return ($r.b(), $r.b());
+  }
+
+  /// Go: `func commands.GetPreemptsAutoUpdate(e *cmds.Extra) (val bool, found bool)`.
+  (bool, bool) getPreemptsAutoUpdate($ipfs_cmds.IpfsCmdsExtra e) {
+    final $r = $callSync(1472, $W()..h(e));
+    return ($r.b(), $r.b());
+  }
+
+  /// Go: `var commands.HumanJSONEncoder func(*cmds.Request) func(io.Writer) cmds.Encoder`.
+  $ipfs_cmds.IpfsCmdsEncoderFunc get humanJsonEncoder {
+    final $r = $callSync(1473);
+    return $r.hnn($ipfs_cmds.IpfsCmdsEncoderFunc.$h);
+  }
+
+  /// Go: `var commands.IDCmd *cmds.Command`.
+  $ipfs_cmds.IpfsCmdsCommand get idCmd {
+    final $r = $callSync(1474);
+    return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
+  }
+
+  /// Go: `var commands.KeyCmd *cmds.Command`.
+  $ipfs_cmds.IpfsCmdsCommand get keyCmd {
+    final $r = $callSync(1475);
+    return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
+  }
+
+  /// Go: `var commands.LogCmd *cmds.Command`.
+  $ipfs_cmds.IpfsCmdsCommand get logCmd {
+    final $r = $callSync(1476);
+    return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
+  }
+
+  /// Go: `var commands.LsCmd *cmds.Command`.
+  $ipfs_cmds.IpfsCmdsCommand get lsCmd {
+    final $r = $callSync(1477);
+    return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
+  }
+
+  /// Go: `var commands.MbaseCmd *cmds.Command`.
+  $ipfs_cmds.IpfsCmdsCommand get mbaseCmd {
+    final $r = $callSync(1478);
+    return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
+  }
+
+  /// Go: `var commands.MountCmd *cmds.Command`.
+  $ipfs_cmds.IpfsCmdsCommand get mountCmd {
+    final $r = $callSync(1479);
+    return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
+  }
+
+  /// Go: `var commands.P2PCmd *cmds.Command`.
+  $ipfs_cmds.IpfsCmdsCommand get p2pCmd {
+    final $r = $callSync(1480);
+    return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
+  }
+
+  /// Go: `func commands.ParsePeerParam(text string) (multiaddr.Multiaddr, peer.ID, error)`.
+  ($multiaddr.Multiaddr, $peer.Libp2pCorePeerId) parsePeerParam(String text) {
+    final $r = $callSync(1481, $W()..str(text));
+    return (
+      $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil(),
+      $r.p() ? $peer.Libp2pCorePeerId($r.str()) : $nil()
+    );
+  }
+
+  /// Go: `var commands.PingCmd *cmds.Command`.
+  $ipfs_cmds.IpfsCmdsCommand get pingCmd {
+    final $r = $callSync(1482);
+    return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
+  }
+
+  /// Go: `var commands.ProvideCmd *cmds.Command`.
+  $ipfs_cmds.IpfsCmdsCommand get provideCmd {
+    final $r = $callSync(1483);
+    return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
+  }
+
+  /// Go: `var commands.PubsubCmd *cmds.Command`.
+  $ipfs_cmds.IpfsCmdsCommand get pubsubCmd {
+    final $r = $callSync(1484);
+    return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
+  }
+
+  /// Go: `var commands.PubsubLsCmd *cmds.Command`.
+  $ipfs_cmds.IpfsCmdsCommand get pubsubLsCmd {
+    final $r = $callSync(1485);
+    return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
+  }
+
+  /// Go: `var commands.PubsubPeersCmd *cmds.Command`.
+  $ipfs_cmds.IpfsCmdsCommand get pubsubPeersCmd {
+    final $r = $callSync(1486);
+    return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
+  }
+
+  /// Go: `var commands.PubsubPubCmd *cmds.Command`.
+  $ipfs_cmds.IpfsCmdsCommand get pubsubPubCmd {
+    final $r = $callSync(1487);
+    return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
+  }
+
+  /// Go: `var commands.PubsubResetCmd *cmds.Command`.
+  $ipfs_cmds.IpfsCmdsCommand get pubsubResetCmd {
+    final $r = $callSync(1488);
+    return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
+  }
+
+  /// Go: `var commands.PubsubSubCmd *cmds.Command`.
+  $ipfs_cmds.IpfsCmdsCommand get pubsubSubCmd {
+    final $r = $callSync(1489);
+    return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
+  }
+
+  /// Go: `var commands.RefsCmd *cmds.Command`.
+  $ipfs_cmds.IpfsCmdsCommand get refsCmd {
+    final $r = $callSync(1492);
+    return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
+  }
+
+  /// Go: `var commands.RefsLocalCmd *cmds.Command`.
+  $ipfs_cmds.IpfsCmdsCommand get refsLocalCmd {
+    final $r = $callSync(1493);
+    return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
+  }
+
+  /// Go: `var commands.RemovedDHTCmd *cmds.Command`.
+  $ipfs_cmds.IpfsCmdsCommand get removedDhtCmd {
+    final $r = $callSync(1494);
+    return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
+  }
+
+  /// Go: `var commands.RepoCmd *cmds.Command`.
+  $ipfs_cmds.IpfsCmdsCommand get repoCmd {
+    final $r = $callSync(1495);
+    return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
+  }
+
+  /// Go: `var commands.ResolveCmd *cmds.Command`.
+  $ipfs_cmds.IpfsCmdsCommand get resolveCmd {
+    final $r = $callSync(1496);
+    return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
+  }
+
+  /// Go: `var commands.Root *cmds.Command`.
+  $ipfs_cmds.IpfsCmdsCommand get root {
+    final $r = $callSync(1497);
+    return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
+  }
+
+  /// Go: `var commands.RoutingCmd *cmds.Command`.
+  $ipfs_cmds.IpfsCmdsCommand get routingCmd {
+    final $r = $callSync(1498);
+    return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
+  }
+
+  /// Go: `var commands.StatsCmd *cmds.Command`.
+  $ipfs_cmds.IpfsCmdsCommand get statsCmd {
+    final $r = $callSync(1499);
+    return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
+  }
+
+  /// Go: `var commands.SwarmCmd *cmds.Command`.
+  $ipfs_cmds.IpfsCmdsCommand get swarmCmd {
+    final $r = $callSync(1500);
+    return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
+  }
+
+  /// Go: `var commands.UpdateCmd *cmds.Command`.
+  $ipfs_cmds.IpfsCmdsCommand get updateCmd {
+    final $r = $callSync(1501);
+    return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
+  }
+
+  /// Go: `var commands.VersionCmd *cmds.Command`.
+  $ipfs_cmds.IpfsCmdsCommand get versionCmd {
+    final $r = $callSync(1502);
+    return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
+  }
+
   /// Go: `const commands.ApiAuthOption untyped string`.
   String get apiAuthOption => "api-auth";
 
@@ -1235,7 +1639,7 @@ extension GoKuboCoreCommandsApi on GoKuboCoreCommands {
             'cid-base': cidBase,
             'upgrade-cidv0-in-output': upgradeCidv0InOutput
           },
-          (r) => KuboCoreCommandsBlockStat.$dec(r));
+          (r) => KuboCoreCommandsBlockStat(key: r.str(), size: r.i64()));
 
   /// `ipfs block rm`: Remove IPFS block(s) from the local datastore.
   Stream<KuboCoreCommandsRemovedBlock> blockRm(
@@ -1275,7 +1679,7 @@ extension GoKuboCoreCommandsApi on GoKuboCoreCommands {
             'cid-base': cidBase,
             'upgrade-cidv0-in-output': upgradeCidv0InOutput
           },
-          (r) => KuboCoreCommandsBlockStat.$dec(r));
+          (r) => KuboCoreCommandsBlockStat(key: r.str(), size: r.i64()));
 
   /// `ipfs bootstrap`: Show or edit the list of bootstrap peers.
   Stream<KuboCoreCommandsBootstrapOutput> bootstrap(
@@ -1681,7 +2085,15 @@ extension GoKuboCoreCommandsApi on GoKuboCoreCommands {
             'cid-base': cidBase,
             'upgrade-cidv0-in-output': upgradeCidv0InOutput
           },
-          (r) => $routing.Libp2pCoreRoutingQueryEvent.$dec(r));
+          (r) => $routing.Libp2pCoreRoutingQueryEvent(
+              id: $peer.Libp2pCorePeerId(r.str()),
+              type: r.i64(),
+              responses: r.list(() => r.p()
+                  ? $peer.Libp2pCorePeerAddrInfo(
+                      id: $peer.Libp2pCorePeerId(r.str()),
+                      addrs: r.list(() => $multiaddr.Multiaddr(r.str())))
+                  : $nil()),
+              extra: r.str()));
 
   /// `ipfs diag cmds`: List commands run on this IPFS node.
   Stream<List<$ipfs_cmds.IpfsCmdsReqLogEntry?>> diagCmds(
@@ -1702,8 +2114,16 @@ extension GoKuboCoreCommandsApi on GoKuboCoreCommands {
             'cid-base': cidBase,
             'upgrade-cidv0-in-output': upgradeCidv0InOutput
           },
-          (r) => r.list(
-              () => r.p() ? $ipfs_cmds.IpfsCmdsReqLogEntry.$dec(r) : null));
+          (r) => r.list(() => r.p()
+              ? ($ipfs_cmds.IpfsCmdsReqLogEntry(
+                  startTime: r.p() ? r.time() : null,
+                  endTime: r.p() ? r.time() : null,
+                  active: r.b(),
+                  command: r.str(),
+                  options: r.map(() => r.str(), () => r.any()),
+                  args: r.list(() => r.str()),
+                  id: r.i64()))
+              : null));
 
   /// `ipfs diag cmds clear`: Clear inactive requests from the log.
   Stream<Object?> diagCmdsClear(
@@ -2163,7 +2583,13 @@ extension GoKuboCoreCommandsApi on GoKuboCoreCommands {
             'cid-base': cidBase,
             'upgrade-cidv0-in-output': upgradeCidv0InOutput
           },
-          (r) => $filestore.BoxoFilestoreListRes.$dec(r));
+          (r) => $filestore.BoxoFilestoreListRes(
+              status: r.i64(),
+              errorMsg: r.str(),
+              key: $cid.Cid(r.str()),
+              filePath: r.str(),
+              offset: r.i64(),
+              size: r.i64()));
 
   /// `ipfs filestore verify`: Verify objects in filestore.
   Stream<$filestore.BoxoFilestoreListRes> filestoreVerify(
@@ -2186,7 +2612,13 @@ extension GoKuboCoreCommandsApi on GoKuboCoreCommands {
             'cid-base': cidBase,
             'upgrade-cidv0-in-output': upgradeCidv0InOutput
           },
-          (r) => $filestore.BoxoFilestoreListRes.$dec(r));
+          (r) => $filestore.BoxoFilestoreListRes(
+              status: r.i64(),
+              errorMsg: r.str(),
+              key: $cid.Cid(r.str()),
+              filePath: r.str(),
+              offset: r.i64(),
+              size: r.i64()));
 
   /// `ipfs get`: Download IPFS objects.
   Stream<Uint8List> get(
@@ -3737,7 +4169,15 @@ extension GoKuboCoreCommandsApi on GoKuboCoreCommands {
             'cid-base': cidBase,
             'upgrade-cidv0-in-output': upgradeCidv0InOutput
           },
-          (r) => $routing.Libp2pCoreRoutingQueryEvent.$dec(r));
+          (r) => $routing.Libp2pCoreRoutingQueryEvent(
+              id: $peer.Libp2pCorePeerId(r.str()),
+              type: r.i64(),
+              responses: r.list(() => r.p()
+                  ? $peer.Libp2pCorePeerAddrInfo(
+                      id: $peer.Libp2pCorePeerId(r.str()),
+                      addrs: r.list(() => $multiaddr.Multiaddr(r.str())))
+                  : $nil()),
+              extra: r.str()));
 
   /// `ipfs routing findprovs`: Find peers that can provide a specific value, given a key.
   Stream<$routing.Libp2pCoreRoutingQueryEvent> routingFindprovs(
@@ -3760,7 +4200,15 @@ extension GoKuboCoreCommandsApi on GoKuboCoreCommands {
             'cid-base': cidBase,
             'upgrade-cidv0-in-output': upgradeCidv0InOutput
           },
-          (r) => $routing.Libp2pCoreRoutingQueryEvent.$dec(r));
+          (r) => $routing.Libp2pCoreRoutingQueryEvent(
+              id: $peer.Libp2pCorePeerId(r.str()),
+              type: r.i64(),
+              responses: r.list(() => r.p()
+                  ? $peer.Libp2pCorePeerAddrInfo(
+                      id: $peer.Libp2pCorePeerId(r.str()),
+                      addrs: r.list(() => $multiaddr.Multiaddr(r.str())))
+                  : $nil()),
+              extra: r.str()));
 
   /// `ipfs routing get`: Given a key, query the routing system for its best value.
   ///
@@ -3779,7 +4227,15 @@ extension GoKuboCoreCommandsApi on GoKuboCoreCommands {
             'cid-base': cidBase,
             'upgrade-cidv0-in-output': upgradeCidv0InOutput
           },
-          (r) => $routing.Libp2pCoreRoutingQueryEvent.$dec(r));
+          (r) => $routing.Libp2pCoreRoutingQueryEvent(
+              id: $peer.Libp2pCorePeerId(r.str()),
+              type: r.i64(),
+              responses: r.list(() => r.p()
+                  ? $peer.Libp2pCorePeerAddrInfo(
+                      id: $peer.Libp2pCorePeerId(r.str()),
+                      addrs: r.list(() => $multiaddr.Multiaddr(r.str())))
+                  : $nil()),
+              extra: r.str()));
 
   /// `ipfs routing provide`: Deprecated, use 'ipfs provide once' instead.
   @Deprecated('deprecated in kubo')
@@ -3803,7 +4259,15 @@ extension GoKuboCoreCommandsApi on GoKuboCoreCommands {
             'cid-base': cidBase,
             'upgrade-cidv0-in-output': upgradeCidv0InOutput
           },
-          (r) => $routing.Libp2pCoreRoutingQueryEvent.$dec(r));
+          (r) => $routing.Libp2pCoreRoutingQueryEvent(
+              id: $peer.Libp2pCorePeerId(r.str()),
+              type: r.i64(),
+              responses: r.list(() => r.p()
+                  ? $peer.Libp2pCorePeerAddrInfo(
+                      id: $peer.Libp2pCorePeerId(r.str()),
+                      addrs: r.list(() => $multiaddr.Multiaddr(r.str())))
+                  : $nil()),
+              extra: r.str()));
 
   /// `ipfs routing put`: Write a key/value pair to the routing system.
   ///
@@ -3829,7 +4293,15 @@ extension GoKuboCoreCommandsApi on GoKuboCoreCommands {
             'cid-base': cidBase,
             'upgrade-cidv0-in-output': upgradeCidv0InOutput
           },
-          (r) => $routing.Libp2pCoreRoutingQueryEvent.$dec(r));
+          (r) => $routing.Libp2pCoreRoutingQueryEvent(
+              id: $peer.Libp2pCorePeerId(r.str()),
+              type: r.i64(),
+              responses: r.list(() => r.p()
+                  ? $peer.Libp2pCorePeerAddrInfo(
+                      id: $peer.Libp2pCorePeerId(r.str()),
+                      addrs: r.list(() => $multiaddr.Multiaddr(r.str())))
+                  : $nil()),
+              extra: r.str()));
 
   /// `ipfs routing reprovide`: Trigger a reprovide cycle (legacy provider only).
   @Deprecated('deprecated in kubo')
@@ -4287,7 +4759,65 @@ extension GoKuboCoreCommandsApi on GoKuboCoreCommands {
             'cid-base': cidBase,
             'upgrade-cidv0-in-output': upgradeCidv0InOutput
           },
-          (r) => $libp2p.KuboCoreNodeLibp2pLimitsConfigAndUsage.$dec(r));
+          (r) => $libp2p.KuboCoreNodeLibp2pLimitsConfigAndUsage(
+              system: $libp2p.KuboCoreNodeLibp2pResourceLimitsAndUsage(
+                  memory: r.i64(),
+                  memoryUsage: r.i64(),
+                  fd: r.i64(),
+                  fdUsage: r.i64(),
+                  conns: r.i64(),
+                  connsUsage: r.i64(),
+                  connsInbound: r.i64(),
+                  connsInboundUsage: r.i64(),
+                  connsOutbound: r.i64(),
+                  connsOutboundUsage: r.i64(),
+                  streams: r.i64(),
+                  streamsUsage: r.i64(),
+                  streamsInbound: r.i64(),
+                  streamsInboundUsage: r.i64(),
+                  streamsOutbound: r.i64(),
+                  streamsOutboundUsage: r.i64()),
+              transient: $libp2p.KuboCoreNodeLibp2pResourceLimitsAndUsage(
+                  memory: r.i64(),
+                  memoryUsage: r.i64(),
+                  fd: r.i64(),
+                  fdUsage: r.i64(),
+                  conns: r.i64(),
+                  connsUsage: r.i64(),
+                  connsInbound: r.i64(),
+                  connsInboundUsage: r.i64(),
+                  connsOutbound: r.i64(),
+                  connsOutboundUsage: r.i64(),
+                  streams: r.i64(),
+                  streamsUsage: r.i64(),
+                  streamsInbound: r.i64(),
+                  streamsInboundUsage: r.i64(),
+                  streamsOutbound: r.i64(),
+                  streamsOutboundUsage: r.i64()),
+              services: r.map(
+                  () => r.str(),
+                  () => $libp2p.KuboCoreNodeLibp2pResourceLimitsAndUsage(
+                      memory: r.i64(),
+                      memoryUsage: r.i64(),
+                      fd: r.i64(),
+                      fdUsage: r.i64(),
+                      conns: r.i64(),
+                      connsUsage: r.i64(),
+                      connsInbound: r.i64(),
+                      connsInboundUsage: r.i64(),
+                      connsOutbound: r.i64(),
+                      connsOutboundUsage: r.i64(),
+                      streams: r.i64(),
+                      streamsUsage: r.i64(),
+                      streamsInbound: r.i64(),
+                      streamsInboundUsage: r.i64(),
+                      streamsOutbound: r.i64(),
+                      streamsOutboundUsage: r.i64())),
+              protocols: r.map(
+                  () => r.str(),
+                  () =>
+                      $libp2p.KuboCoreNodeLibp2pResourceLimitsAndUsage(memory: r.i64(), memoryUsage: r.i64(), fd: r.i64(), fdUsage: r.i64(), conns: r.i64(), connsUsage: r.i64(), connsInbound: r.i64(), connsInboundUsage: r.i64(), connsOutbound: r.i64(), connsOutboundUsage: r.i64(), streams: r.i64(), streamsUsage: r.i64(), streamsInbound: r.i64(), streamsInboundUsage: r.i64(), streamsOutbound: r.i64(), streamsOutboundUsage: r.i64())),
+              peers: r.map(() => $peer.Libp2pCorePeerId(r.str()), () => $libp2p.KuboCoreNodeLibp2pResourceLimitsAndUsage(memory: r.i64(), memoryUsage: r.i64(), fd: r.i64(), fdUsage: r.i64(), conns: r.i64(), connsUsage: r.i64(), connsInbound: r.i64(), connsInboundUsage: r.i64(), connsOutbound: r.i64(), connsOutboundUsage: r.i64(), streams: r.i64(), streamsUsage: r.i64(), streamsInbound: r.i64(), streamsInboundUsage: r.i64(), streamsOutbound: r.i64(), streamsOutboundUsage: r.i64()))));
 
   /// `ipfs version`: Show IPFS version information.
   Stream<$kubo.KuboVersionInfo> version(
@@ -4314,7 +4844,12 @@ extension GoKuboCoreCommandsApi on GoKuboCoreCommands {
             'cid-base': cidBase,
             'upgrade-cidv0-in-output': upgradeCidv0InOutput
           },
-          (r) => $kubo.KuboVersionInfo.$dec(r));
+          (r) => $kubo.KuboVersionInfo(
+              version: r.str(),
+              commit: r.str(),
+              repo: r.str(),
+              system: r.str(),
+              golang: r.str()));
 
   /// `ipfs version check`: Checks Kubo version against connected peers.
   Stream<KuboCoreCommandsVersionCheckOutput> versionCheck(
@@ -4343,7 +4878,12 @@ extension GoKuboCoreCommandsApi on GoKuboCoreCommands {
             'cid-base': cidBase,
             'upgrade-cidv0-in-output': upgradeCidv0InOutput
           },
-          (r) => KuboCoreCommandsVersionCheckOutput.$dec(r));
+          (r) => KuboCoreCommandsVersionCheckOutput(
+              updateAvailable: r.b(),
+              runningVersion: r.str(),
+              greatestVersion: r.str(),
+              peersSampled: r.i64(),
+              withGreaterVersion: r.i64()));
 
   /// `ipfs version deps`: Shows information about dependencies used for build.
   Stream<KuboCoreCommandsDependency> versionDeps(

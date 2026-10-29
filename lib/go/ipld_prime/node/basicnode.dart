@@ -2,17 +2,221 @@
 // Go: github.com/ipld/go-ipld-prime/node/basicnode
 library;
 
+import 'dart:typed_data';
+
+import 'package:p2p_ffi/src/go.dart' show GoIpldPrimeNodeBasicnode;
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/ipfs_cmds.dart' as $ipfs_cmds;
 import 'package:p2p_ffi/go/ipld_prime/datamodel.dart' as $datamodel;
+import 'package:p2p_ffi/go/ipld_prime/linking.dart' as $linking;
 
 /// Go: `basicnode.Prototype__Any` (handle).
 class IpldPrimeNodeBasicnodePrototypeAny
-    extends $datamodel.IpldPrimeDatamodelNodePrototype {
+    extends $datamodel.IpldPrimeDatamodelNodePrototype
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $ipfs_cmds.IpfsCmdsEnvironment$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $ipfs_cmds.IpfsCmdsEnvironment {
   IpldPrimeNodeBasicnodePrototypeAny.$h(super.$h) : super.$h();
 
   /// Go: `func basicnode.NewPrototype__Any() *basicnode.Prototype__Any`.
   factory IpldPrimeNodeBasicnodePrototypeAny() {
-    final $r = $callSync(468);
+    final $r = $callSync(2053);
     return $r.hnn(IpldPrimeNodeBasicnodePrototypeAny.$h);
+  }
+
+  /// Go: `func (basicnode.Prototype__Any).NewBuilder() datamodel.NodeBuilder`.
+  $datamodel.IpldPrimeDatamodelNodeBuilder newBuilder() {
+    final $r = $callSync(2054, $W()..h(this));
+    return $r.hnn($datamodel.IpldPrimeDatamodelNodeBuilder.$h);
+  }
+}
+
+/// Go: `basicnode.Prototype__Bool`.
+final class IpldPrimeNodeBasicnodePrototypeBool implements GoDto {
+  IpldPrimeNodeBasicnodePrototypeBool();
+  IpldPrimeNodeBasicnodePrototypeBool.$dec($R r);
+
+  @override
+  void $enc($W w) {}
+
+  /// Go: `func (basicnode.Prototype__Bool).NewBuilder() datamodel.NodeBuilder`.
+  $datamodel.IpldPrimeDatamodelNodeBuilder newBuilder() {
+    final $r = $callSync(2055, $W()..dto(this));
+    return $r.hnn($datamodel.IpldPrimeDatamodelNodeBuilder.$h);
+  }
+}
+
+/// Go: `basicnode.Prototype__Bytes`.
+final class IpldPrimeNodeBasicnodePrototypeBytes implements GoDto {
+  IpldPrimeNodeBasicnodePrototypeBytes();
+  IpldPrimeNodeBasicnodePrototypeBytes.$dec($R r);
+
+  @override
+  void $enc($W w) {}
+
+  /// Go: `func (basicnode.Prototype__Bytes).NewBuilder() datamodel.NodeBuilder`.
+  $datamodel.IpldPrimeDatamodelNodeBuilder newBuilder() {
+    final $r = $callSync(2056, $W()..dto(this));
+    return $r.hnn($datamodel.IpldPrimeDatamodelNodeBuilder.$h);
+  }
+}
+
+/// Go: `basicnode.Prototype__Float`.
+final class IpldPrimeNodeBasicnodePrototypeFloat implements GoDto {
+  IpldPrimeNodeBasicnodePrototypeFloat();
+  IpldPrimeNodeBasicnodePrototypeFloat.$dec($R r);
+
+  @override
+  void $enc($W w) {}
+
+  /// Go: `func (basicnode.Prototype__Float).NewBuilder() datamodel.NodeBuilder`.
+  $datamodel.IpldPrimeDatamodelNodeBuilder newBuilder() {
+    final $r = $callSync(2057, $W()..dto(this));
+    return $r.hnn($datamodel.IpldPrimeDatamodelNodeBuilder.$h);
+  }
+}
+
+/// Go: `basicnode.Prototype__Int`.
+final class IpldPrimeNodeBasicnodePrototypeInt implements GoDto {
+  IpldPrimeNodeBasicnodePrototypeInt();
+  IpldPrimeNodeBasicnodePrototypeInt.$dec($R r);
+
+  @override
+  void $enc($W w) {}
+
+  /// Go: `func (basicnode.Prototype__Int).NewBuilder() datamodel.NodeBuilder`.
+  $datamodel.IpldPrimeDatamodelNodeBuilder newBuilder() {
+    final $r = $callSync(2058, $W()..dto(this));
+    return $r.hnn($datamodel.IpldPrimeDatamodelNodeBuilder.$h);
+  }
+}
+
+/// Go: `basicnode.Prototype__Link`.
+final class IpldPrimeNodeBasicnodePrototypeLink implements GoDto {
+  IpldPrimeNodeBasicnodePrototypeLink();
+  IpldPrimeNodeBasicnodePrototypeLink.$dec($R r);
+
+  @override
+  void $enc($W w) {}
+
+  /// Go: `func (basicnode.Prototype__Link).NewBuilder() datamodel.NodeBuilder`.
+  $datamodel.IpldPrimeDatamodelNodeBuilder newBuilder() {
+    final $r = $callSync(2059, $W()..dto(this));
+    return $r.hnn($datamodel.IpldPrimeDatamodelNodeBuilder.$h);
+  }
+}
+
+/// Go: `basicnode.Prototype__List`.
+final class IpldPrimeNodeBasicnodePrototypeList implements GoDto {
+  IpldPrimeNodeBasicnodePrototypeList();
+  IpldPrimeNodeBasicnodePrototypeList.$dec($R r);
+
+  @override
+  void $enc($W w) {}
+
+  /// Go: `func (basicnode.Prototype__List).NewBuilder() datamodel.NodeBuilder`.
+  $datamodel.IpldPrimeDatamodelNodeBuilder newBuilder() {
+    final $r = $callSync(2060, $W()..dto(this));
+    return $r.hnn($datamodel.IpldPrimeDatamodelNodeBuilder.$h);
+  }
+}
+
+/// Go: `basicnode.Prototype__Map`.
+final class IpldPrimeNodeBasicnodePrototypeMap implements GoDto {
+  IpldPrimeNodeBasicnodePrototypeMap();
+  IpldPrimeNodeBasicnodePrototypeMap.$dec($R r);
+
+  @override
+  void $enc($W w) {}
+
+  /// Go: `func (basicnode.Prototype__Map).NewBuilder() datamodel.NodeBuilder`.
+  $datamodel.IpldPrimeDatamodelNodeBuilder newBuilder() {
+    final $r = $callSync(2061, $W()..dto(this));
+    return $r.hnn($datamodel.IpldPrimeDatamodelNodeBuilder.$h);
+  }
+}
+
+/// Go: `basicnode.Prototype__String`.
+final class IpldPrimeNodeBasicnodePrototypeString implements GoDto {
+  IpldPrimeNodeBasicnodePrototypeString();
+  IpldPrimeNodeBasicnodePrototypeString.$dec($R r);
+
+  @override
+  void $enc($W w) {}
+
+  /// Go: `func (basicnode.Prototype__String).NewBuilder() datamodel.NodeBuilder`.
+  $datamodel.IpldPrimeDatamodelNodeBuilder newBuilder() {
+    final $r = $callSync(2062, $W()..dto(this));
+    return $r.hnn($datamodel.IpldPrimeDatamodelNodeBuilder.$h);
+  }
+}
+
+/// Go: the package-level members of `github.com/ipld/go-ipld-prime/node/basicnode` (`Go.ipldPrime.node.basicnode`).
+extension GoIpldPrimeNodeBasicnodeApi on GoIpldPrimeNodeBasicnode {
+  /// Go: `func basicnode.Chooser(_ datamodel.Link, _ linking.LinkContext) (datamodel.NodePrototype, error)`.
+  $datamodel.IpldPrimeDatamodelNodePrototype chooser(
+      $datamodel.IpldPrimeDatamodelLink link,
+      $linking.IpldPrimeLinkingLinkContext linkContext) {
+    final $r = $callSync(
+        2044,
+        $W()
+          ..h(link)
+          ..dto(linkContext));
+    return $r.hnn($datamodel.IpldPrimeDatamodelNodePrototype.$h);
+  }
+
+  /// Go: `func basicnode.NewBool(value bool) datamodel.Node`.
+  $datamodel.IpldPrimeDatamodelNode newBool(bool value) {
+    final $r = $callSync(2045, $W()..b(value));
+    return $r.hnn($datamodel.IpldPrimeDatamodelNode.$h);
+  }
+
+  /// Go: `func basicnode.NewBytes(value []byte) datamodel.Node`.
+  $datamodel.IpldPrimeDatamodelNode newBytes(Uint8List value) {
+    final $r = $callSync(2046, $W()..bytes(value));
+    return $r.hnn($datamodel.IpldPrimeDatamodelNode.$h);
+  }
+
+  /// Go: `func basicnode.NewBytesFromReader(rs io.ReadSeeker) datamodel.Node`.
+  $datamodel.IpldPrimeDatamodelNode newBytesFromReader(Object rs) {
+    final $r = $callSync(2047, $W()..reader(rs));
+    return $r.hnn($datamodel.IpldPrimeDatamodelNode.$h);
+  }
+
+  /// Go: `func basicnode.NewFloat(value float64) datamodel.Node`.
+  $datamodel.IpldPrimeDatamodelNode newFloat(double value) {
+    final $r = $callSync(2048, $W()..f64(value));
+    return $r.hnn($datamodel.IpldPrimeDatamodelNode.$h);
+  }
+
+  /// Go: `func basicnode.NewInt(value int64) datamodel.Node`.
+  $datamodel.IpldPrimeDatamodelNode newInt(int value) {
+    final $r = $callSync(2049, $W()..i64(value));
+    return $r.hnn($datamodel.IpldPrimeDatamodelNode.$h);
+  }
+
+  /// Go: `func basicnode.NewLink(value datamodel.Link) datamodel.Node`.
+  $datamodel.IpldPrimeDatamodelNode newLink(
+      $datamodel.IpldPrimeDatamodelLink value) {
+    final $r = $callSync(2050, $W()..h(value));
+    return $r.hnn($datamodel.IpldPrimeDatamodelNode.$h);
+  }
+
+  /// Go: `func basicnode.NewString(value string) datamodel.Node`.
+  $datamodel.IpldPrimeDatamodelNode newString(String value) {
+    final $r = $callSync(2051, $W()..str(value));
+    return $r.hnn($datamodel.IpldPrimeDatamodelNode.$h);
+  }
+
+  /// Go: `func basicnode.NewUint(value uint64) datamodel.Node`.
+  $datamodel.IpldPrimeDatamodelNode newUint(int value) {
+    final $r = $callSync(2052, $W()..i64(value));
+    return $r.hnn($datamodel.IpldPrimeDatamodelNode.$h);
   }
 }

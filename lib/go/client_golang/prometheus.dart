@@ -4,11 +4,37 @@ library;
 
 import 'package:p2p_ffi/src/go.dart' show GoClientGolangPrometheus;
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/client_model/go.dart' as $go;
+
+/// Go: `prometheus.Gatherer` (values read from the methods; built in Dart, it
+/// crosses as a Go value that returns them).
+final class ClientGolangPrometheusGatherer implements GoDto {
+  ClientGolangPrometheusGatherer({List<$go.ClientModelGoMetricFamily>? gather})
+      : gather = gather;
+
+  ClientGolangPrometheusGatherer.$dec($R r)
+      : gather = $orErr(
+            r.list(() => r.hnn($go.ClientModelGoMetricFamily.$h)), r.err());
+
+  /// Go: `Gather()`.
+  final List<$go.ClientModelGoMetricFamily>? gather;
+
+  @override
+  void $enc($W w) {
+    w
+      ..list(gather ?? [], (w0, e0) => w0.h(e0))
+      ..err(null);
+  }
+}
 
 /// Go: `prometheus.Registerer` (handle).
-class ClientGolangPrometheusRegisterer extends GoHandle {
+class ClientGolangPrometheusRegisterer extends GoHandle
+    with ClientGolangPrometheusRegisterer$ {
   ClientGolangPrometheusRegisterer.$h(super.$h);
 }
+
+/// The methods of [ClientGolangPrometheusRegisterer], mixed into every class Go also accepts as one.
+mixin ClientGolangPrometheusRegisterer$ on GoHandle {}
 
 /// Go: `prometheus.AlreadyRegisteredError`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
@@ -30,6 +56,12 @@ class ClientGolangPrometheusMultiError extends GolangException {
 
 /// Go: the package-level members of `github.com/prometheus/client_golang/prometheus` (`Go.clientGolang.prometheus`).
 extension GoClientGolangPrometheusApi on GoClientGolangPrometheus {
+  /// Go: `var prometheus.DefaultGatherer prometheus.Gatherer`.
+  ClientGolangPrometheusGatherer get defaultGatherer {
+    final $r = $callSync(3462);
+    return $r.p() ? ClientGolangPrometheusGatherer.$dec($r) : $nil();
+  }
+
   /// Go: `const prometheus.CounterValue prometheus.ValueType`.
   int get counterValue => 1;
 

@@ -3,11 +3,21 @@
 library;
 
 import 'package:p2p_ffi/src/go.dart' show GoLogSlog;
-import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/ipfs_cmds.dart' as $ipfs_cmds;
 
 /// Go: `slog.Logger` (handle).
-class LogSlogLogger extends GoHandle {
-  LogSlogLogger.$h(super.$h);
+class LogSlogLogger extends $crypto.CryptoPrivateKey
+    with $crypto.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
+    implements $crypto.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+  LogSlogLogger.$h(super.$h) : super.$h();
+}
+
+/// Go: `slog.Value` (handle).
+class LogSlogValue extends $crypto.CryptoPrivateKey
+    with $crypto.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
+    implements $crypto.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+  LogSlogValue.$h(super.$h) : super.$h();
 }
 
 /// Go: the package-level members of `log/slog` (`Go.log.slog`).

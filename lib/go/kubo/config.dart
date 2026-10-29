@@ -2,14 +2,303 @@
 // Go: github.com/ipfs/kubo/config
 library;
 
+import 'dart:typed_data';
+
 import 'package:p2p_ffi/src/go.dart' show GoKuboConfig;
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/boxo/autoconf.dart' as $autoconf;
+import 'package:p2p_ffi/go/boxo/chunker.dart' as $chunker;
+import 'package:p2p_ffi/go/cid.dart' as $cid;
+import 'package:p2p_ffi/go/crypto.dart' as $crypto2;
+import 'package:p2p_ffi/go/ipfs_cmds.dart' as $ipfs_cmds;
 import 'package:p2p_ffi/go/kubo/core/coreiface/options.dart' as $options;
+import 'package:p2p_ffi/go/libp2p/core/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/libp2p/core/peer.dart' as $peer;
+
+/// Go: `config.AutoTLS`.
+final class KuboConfigAutoTls implements GoDto {
+  KuboConfigAutoTls(
+      {int? enabled,
+      int? autoWss,
+      int? skipDnsLookup,
+      KuboConfigOptionalString? domainSuffix,
+      KuboConfigOptionalString? registrationEndpoint,
+      KuboConfigOptionalString? registrationToken,
+      KuboConfigOptionalDuration? registrationDelay,
+      KuboConfigOptionalString? caEndpoint,
+      int? shortAddrs})
+      : enabled = enabled ?? 0,
+        autoWss = autoWss ?? 0,
+        skipDnsLookup = skipDnsLookup ?? 0,
+        domainSuffix = domainSuffix,
+        registrationEndpoint = registrationEndpoint,
+        registrationToken = registrationToken,
+        registrationDelay = registrationDelay,
+        caEndpoint = caEndpoint,
+        shortAddrs = shortAddrs ?? 0;
+
+  KuboConfigAutoTls.$dec($R r)
+      : enabled = r.i64(),
+        autoWss = r.i64(),
+        skipDnsLookup = r.i64(),
+        domainSuffix = r.hn(KuboConfigOptionalString.$h),
+        registrationEndpoint = r.hn(KuboConfigOptionalString.$h),
+        registrationToken = r.hn(KuboConfigOptionalString.$h),
+        registrationDelay = r.hn(KuboConfigOptionalDuration.$h),
+        caEndpoint = r.hn(KuboConfigOptionalString.$h),
+        shortAddrs = r.i64();
+
+  /// Go: `Enabled`.
+  int enabled;
+
+  /// Go: `AutoWSS`.
+  int autoWss;
+
+  /// Go: `SkipDNSLookup`.
+  int skipDnsLookup;
+
+  /// Go: `DomainSuffix`.
+  KuboConfigOptionalString? domainSuffix;
+
+  /// Go: `RegistrationEndpoint`.
+  KuboConfigOptionalString? registrationEndpoint;
+
+  /// Go: `RegistrationToken`.
+  KuboConfigOptionalString? registrationToken;
+
+  /// Go: `RegistrationDelay`.
+  KuboConfigOptionalDuration? registrationDelay;
+
+  /// Go: `CAEndpoint`.
+  KuboConfigOptionalString? caEndpoint;
+
+  /// Go: `ShortAddrs`.
+  int shortAddrs;
+
+  @override
+  void $enc($W w) {
+    w
+      ..i64(enabled)
+      ..i64(autoWss)
+      ..i64(skipDnsLookup)
+      ..h(domainSuffix)
+      ..h(registrationEndpoint)
+      ..h(registrationToken)
+      ..h(registrationDelay)
+      ..h(caEndpoint)
+      ..i64(shortAddrs);
+  }
+}
 
 /// Go: `config.Config` (valor).
 class KuboConfig extends GoJsonValue {
   KuboConfig(super.json);
+}
+
+/// Go: `config.ConnMgr`.
+final class KuboConfigConnMgr implements GoDto {
+  KuboConfigConnMgr(
+      {KuboConfigOptionalString? type,
+      KuboConfigOptionalInteger? lowWater,
+      KuboConfigOptionalInteger? highWater,
+      KuboConfigOptionalDuration? gracePeriod,
+      KuboConfigOptionalDuration? silencePeriod})
+      : type = type,
+        lowWater = lowWater,
+        highWater = highWater,
+        gracePeriod = gracePeriod,
+        silencePeriod = silencePeriod;
+
+  KuboConfigConnMgr.$dec($R r)
+      : type = r.hn(KuboConfigOptionalString.$h),
+        lowWater = r.hn(KuboConfigOptionalInteger.$h),
+        highWater = r.hn(KuboConfigOptionalInteger.$h),
+        gracePeriod = r.hn(KuboConfigOptionalDuration.$h),
+        silencePeriod = r.hn(KuboConfigOptionalDuration.$h);
+
+  /// Go: `Type`.
+  KuboConfigOptionalString? type;
+
+  /// Go: `LowWater`.
+  KuboConfigOptionalInteger? lowWater;
+
+  /// Go: `HighWater`.
+  KuboConfigOptionalInteger? highWater;
+
+  /// Go: `GracePeriod`.
+  KuboConfigOptionalDuration? gracePeriod;
+
+  /// Go: `SilencePeriod`.
+  KuboConfigOptionalDuration? silencePeriod;
+
+  @override
+  void $enc($W w) {
+    w
+      ..h(type)
+      ..h(lowWater)
+      ..h(highWater)
+      ..h(gracePeriod)
+      ..h(silencePeriod);
+  }
+}
+
+/// Go: `config.Datastore`.
+///
+/// Fields that do not cross the bridge: `Params` (pointer to encoding/json.RawMessage).
+final class KuboConfigDatastore implements GoDto {
+  KuboConfigDatastore(
+      {String? storageMax,
+      int? storageGcWatermark,
+      String? gcPeriod,
+      String? type,
+      String? path,
+      bool? noSync,
+      Map<String, Object?>? spec,
+      bool? hashOnRead,
+      int? bloomFilterSize,
+      KuboConfigOptionalInteger? blockKeyCacheSize,
+      int? writeThrough})
+      : storageMax = storageMax ?? '',
+        storageGcWatermark = storageGcWatermark ?? 0,
+        gcPeriod = gcPeriod ?? '',
+        type = type ?? '',
+        path = path ?? '',
+        noSync = noSync ?? false,
+        spec = spec ?? {},
+        hashOnRead = hashOnRead ?? false,
+        bloomFilterSize = bloomFilterSize ?? 0,
+        blockKeyCacheSize = blockKeyCacheSize,
+        writeThrough = writeThrough ?? 0;
+
+  KuboConfigDatastore.$dec($R r)
+      : storageMax = r.str(),
+        storageGcWatermark = r.i64(),
+        gcPeriod = r.str(),
+        type = r.str(),
+        path = r.str(),
+        noSync = r.b(),
+        spec = r.map(() => r.str(), () => r.any()),
+        hashOnRead = r.b(),
+        bloomFilterSize = r.i64(),
+        blockKeyCacheSize = r.hn(KuboConfigOptionalInteger.$h),
+        writeThrough = r.i64();
+
+  /// Go: `StorageMax`.
+  String storageMax;
+
+  /// Go: `StorageGCWatermark`.
+  int storageGcWatermark;
+
+  /// Go: `GCPeriod`.
+  String gcPeriod;
+
+  /// Go: `Type`.
+  String type;
+
+  /// Go: `Path`.
+  String path;
+
+  /// Go: `NoSync`.
+  bool noSync;
+
+  /// Go: `Spec`.
+  Map<String, Object?> spec;
+
+  /// Go: `HashOnRead`.
+  bool hashOnRead;
+
+  /// Go: `BloomFilterSize`.
+  int bloomFilterSize;
+
+  /// Go: `BlockKeyCacheSize`.
+  KuboConfigOptionalInteger? blockKeyCacheSize;
+
+  /// Go: `WriteThrough`.
+  int writeThrough;
+
+  @override
+  void $enc($W w) {
+    w
+      ..str(storageMax)
+      ..i64(storageGcWatermark)
+      ..str(gcPeriod)
+      ..str(type)
+      ..str(path)
+      ..b(noSync)
+      ..map(spec, (w0, k0) => w0.str(k0), (w0, v0) => w0.any(v0))
+      ..b(hashOnRead)
+      ..i64(bloomFilterSize)
+      ..h(blockKeyCacheSize)
+      ..i64(writeThrough);
+  }
+}
+
+/// Go: `config.Duration`.
+final class KuboConfigDuration implements GoDto {
+  KuboConfigDuration({Duration? duration})
+      : duration = duration ?? Duration.zero;
+
+  KuboConfigDuration.$dec($R r)
+      : duration = Duration(microseconds: r.i64() ~/ 1000);
+
+  /// Go: `Duration`.
+  Duration duration;
+
+  @override
+  void $enc($W w) {
+    w..i64((duration).inMicroseconds * 1000);
+  }
+
+  /// Go: `func (config.Duration).MarshalJSON() ([]byte, error)`.
+  Uint8List marshalJson() {
+    final $r = $callSync(1365, $W()..dto(this));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (*config.Duration).UnmarshalJSON(b []byte) error`.
+  void unmarshalJson(Uint8List b) {
+    $callSync(
+        1366,
+        $W()
+          ..dto(this)
+          ..bytes(b));
+  }
+}
+
+/// Go: `config.HTTPRouterParams`.
+final class KuboConfigHttpRouterParams implements GoDto {
+  KuboConfigHttpRouterParams(
+      {String? endpoint, int? maxProvideBatchSize, int? maxProvideConcurrency})
+      : endpoint = endpoint ?? '',
+        maxProvideBatchSize = maxProvideBatchSize ?? 0,
+        maxProvideConcurrency = maxProvideConcurrency ?? 0;
+
+  KuboConfigHttpRouterParams.$dec($R r)
+      : endpoint = r.str(),
+        maxProvideBatchSize = r.i64(),
+        maxProvideConcurrency = r.i64();
+
+  /// Go: `Endpoint`.
+  String endpoint;
+
+  /// Go: `MaxProvideBatchSize`.
+  int maxProvideBatchSize;
+
+  /// Go: `MaxProvideConcurrency`.
+  int maxProvideConcurrency;
+
+  @override
+  void $enc($W w) {
+    w
+      ..str(endpoint)
+      ..i64(maxProvideBatchSize)
+      ..i64(maxProvideConcurrency);
+  }
+
+  /// Go: `func (*config.HTTPRouterParams).FillDefaults()`.
+  void fillDefaults() {
+    $callSync(1370, $W()..dto(this));
+  }
 }
 
 /// Go: `config.Identity`.
@@ -34,6 +323,778 @@ final class KuboConfigIdentity implements GoDto {
       ..str(peerId)
       ..str(privKey);
   }
+
+  /// Go: `func (*config.Identity).DecodePrivateKey(passphrase string) (crypto.PrivKey, error)`.
+  $crypto.Libp2pCoreCryptoPrivKey decodePrivateKey(String passphrase) {
+    final $r = $callSync(
+        1372,
+        $W()
+          ..dto(this)
+          ..str(passphrase));
+    return $r.hnn($crypto.Libp2pCoreCryptoPrivKey.$h);
+  }
+}
+
+/// Go: `config.Import`.
+final class KuboConfigImport implements GoDto {
+  KuboConfigImport(
+      {KuboConfigOptionalInteger? cidVersion,
+      int? unixFsRawLeaves,
+      KuboConfigOptionalString? unixFsChunker,
+      KuboConfigOptionalString? hashFunction,
+      KuboConfigOptionalInteger? unixFsFileMaxLinks,
+      KuboConfigOptionalInteger? unixFsDirectoryMaxLinks,
+      KuboConfigOptionalInteger? unixFshamtDirectoryMaxFanout,
+      KuboConfigOptionalBytes? unixFshamtDirectorySizeThreshold,
+      KuboConfigOptionalString? unixFshamtDirectorySizeEstimation,
+      KuboConfigOptionalString? unixFsdagLayout,
+      KuboConfigOptionalString? unixFspbNodeFieldOrder,
+      KuboConfigOptionalInteger? batchMaxNodes,
+      KuboConfigOptionalInteger? batchMaxSize,
+      int? fastProvideRoot,
+      int? fastProvideDag,
+      int? fastProvideWait})
+      : cidVersion = cidVersion,
+        unixFsRawLeaves = unixFsRawLeaves ?? 0,
+        unixFsChunker = unixFsChunker,
+        hashFunction = hashFunction,
+        unixFsFileMaxLinks = unixFsFileMaxLinks,
+        unixFsDirectoryMaxLinks = unixFsDirectoryMaxLinks,
+        unixFshamtDirectoryMaxFanout = unixFshamtDirectoryMaxFanout,
+        unixFshamtDirectorySizeThreshold = unixFshamtDirectorySizeThreshold,
+        unixFshamtDirectorySizeEstimation = unixFshamtDirectorySizeEstimation,
+        unixFsdagLayout = unixFsdagLayout,
+        unixFspbNodeFieldOrder = unixFspbNodeFieldOrder,
+        batchMaxNodes = batchMaxNodes,
+        batchMaxSize = batchMaxSize,
+        fastProvideRoot = fastProvideRoot ?? 0,
+        fastProvideDag = fastProvideDag ?? 0,
+        fastProvideWait = fastProvideWait ?? 0;
+
+  KuboConfigImport.$dec($R r)
+      : cidVersion = r.hn(KuboConfigOptionalInteger.$h),
+        unixFsRawLeaves = r.i64(),
+        unixFsChunker = r.hn(KuboConfigOptionalString.$h),
+        hashFunction = r.hn(KuboConfigOptionalString.$h),
+        unixFsFileMaxLinks = r.hn(KuboConfigOptionalInteger.$h),
+        unixFsDirectoryMaxLinks = r.hn(KuboConfigOptionalInteger.$h),
+        unixFshamtDirectoryMaxFanout = r.hn(KuboConfigOptionalInteger.$h),
+        unixFshamtDirectorySizeThreshold =
+            r.p() ? KuboConfigOptionalBytes.$dec(r) : null,
+        unixFshamtDirectorySizeEstimation = r.hn(KuboConfigOptionalString.$h),
+        unixFsdagLayout = r.hn(KuboConfigOptionalString.$h),
+        unixFspbNodeFieldOrder = r.hn(KuboConfigOptionalString.$h),
+        batchMaxNodes = r.hn(KuboConfigOptionalInteger.$h),
+        batchMaxSize = r.hn(KuboConfigOptionalInteger.$h),
+        fastProvideRoot = r.i64(),
+        fastProvideDag = r.i64(),
+        fastProvideWait = r.i64();
+
+  /// Go: `CidVersion`.
+  KuboConfigOptionalInteger? cidVersion;
+
+  /// Go: `UnixFSRawLeaves`.
+  int unixFsRawLeaves;
+
+  /// Go: `UnixFSChunker`.
+  KuboConfigOptionalString? unixFsChunker;
+
+  /// Go: `HashFunction`.
+  KuboConfigOptionalString? hashFunction;
+
+  /// Go: `UnixFSFileMaxLinks`.
+  KuboConfigOptionalInteger? unixFsFileMaxLinks;
+
+  /// Go: `UnixFSDirectoryMaxLinks`.
+  KuboConfigOptionalInteger? unixFsDirectoryMaxLinks;
+
+  /// Go: `UnixFSHAMTDirectoryMaxFanout`.
+  KuboConfigOptionalInteger? unixFshamtDirectoryMaxFanout;
+
+  /// Go: `UnixFSHAMTDirectorySizeThreshold`.
+  KuboConfigOptionalBytes? unixFshamtDirectorySizeThreshold;
+
+  /// Go: `UnixFSHAMTDirectorySizeEstimation`.
+  KuboConfigOptionalString? unixFshamtDirectorySizeEstimation;
+
+  /// Go: `UnixFSDAGLayout`.
+  KuboConfigOptionalString? unixFsdagLayout;
+
+  /// Go: `UnixFSPBNodeFieldOrder`.
+  KuboConfigOptionalString? unixFspbNodeFieldOrder;
+
+  /// Go: `BatchMaxNodes`.
+  KuboConfigOptionalInteger? batchMaxNodes;
+
+  /// Go: `BatchMaxSize`.
+  KuboConfigOptionalInteger? batchMaxSize;
+
+  /// Go: `FastProvideRoot`.
+  int fastProvideRoot;
+
+  /// Go: `FastProvideDAG`.
+  int fastProvideDag;
+
+  /// Go: `FastProvideWait`.
+  int fastProvideWait;
+
+  @override
+  void $enc($W w) {
+    w
+      ..h(cidVersion)
+      ..i64(unixFsRawLeaves)
+      ..h(unixFsChunker)
+      ..h(hashFunction)
+      ..h(unixFsFileMaxLinks)
+      ..h(unixFsDirectoryMaxLinks)
+      ..h(unixFshamtDirectoryMaxFanout)
+      ..dto(unixFshamtDirectorySizeThreshold)
+      ..h(unixFshamtDirectorySizeEstimation)
+      ..h(unixFsdagLayout)
+      ..h(unixFspbNodeFieldOrder)
+      ..h(batchMaxNodes)
+      ..h(batchMaxSize)
+      ..i64(fastProvideRoot)
+      ..i64(fastProvideDag)
+      ..i64(fastProvideWait);
+  }
+
+  /// Go: `func (*config.Import).HAMTSizeEstimationMode() io.SizeEstimationMode`.
+  int hamtSizeEstimationMode() {
+    final $r = $callSync(1373, $W()..dto(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (*config.Import).PBNodeFieldOrderMode() merkledag.PBNodeFieldOrder`.
+  int pbNodeFieldOrderMode() {
+    final $r = $callSync(1374, $W()..dto(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (*config.Import).UnixFSCidBuilder() (cid.Builder, error)`.
+  $cid.CidBuilder unixFsCidBuilder() {
+    final $r = $callSync(1375, $W()..dto(this));
+    return $r.hnn($cid.CidBuilder.$h);
+  }
+
+  /// Go: `func (*config.Import).UnixFSSplitterFunc() chunk.SplitterGen`.
+  $chunker.BoxoChunkerSplitterGen unixFsSplitterFunc() {
+    final $r = $callSync(1376, $W()..dto(this));
+    return $r.hnn($chunker.BoxoChunkerSplitterGen.$h);
+  }
+}
+
+/// Go: `config.OptionalBytes`.
+final class KuboConfigOptionalBytes implements GoDto {
+  KuboConfigOptionalBytes({KuboConfigOptionalString? optionalString})
+      : optionalString = optionalString;
+
+  KuboConfigOptionalBytes.$dec($R r)
+      : optionalString = r.hn(KuboConfigOptionalString.$h);
+
+  /// Go: `OptionalString`.
+  KuboConfigOptionalString? optionalString;
+
+  @override
+  void $enc($W w) {
+    w..h(optionalString);
+  }
+
+  /// Go: `func (*config.OptionalBytes).IsDefault() bool`.
+  bool isDefault() {
+    final $r = $callSync(1386, $W()..dto(this));
+    return $r.b();
+  }
+
+  /// Go: `func (config.OptionalString).MarshalJSON() ([]byte, error)`.
+  Uint8List marshalJson() {
+    final $r = $callSync(1387, $W()..dto(this));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (config.OptionalString).String() string`.
+  String string() {
+    final $r = $callSync(1388, $W()..dto(this));
+    return $r.str();
+  }
+
+  /// Go: `func (*config.OptionalBytes).UnmarshalJSON(input []byte) error`.
+  void unmarshalJson(Uint8List input) {
+    $callSync(
+        1389,
+        $W()
+          ..dto(this)
+          ..bytes(input));
+  }
+
+  /// Go: `func (*config.OptionalBytes).WithDefault(defaultValue uint64) (value uint64)`.
+  int withDefault(int defaultValue) {
+    final $r = $callSync(
+        1390,
+        $W()
+          ..dto(this)
+          ..i64(defaultValue));
+    return $r.i64();
+  }
+}
+
+/// Go: `config.OptionalDuration` (handle).
+class KuboConfigOptionalDuration extends $crypto2.CryptoPrivateKey
+    with $crypto2.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
+    implements $crypto2.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+  KuboConfigOptionalDuration.$h(super.$h) : super.$h();
+
+  /// Go: `func config.NewOptionalDuration(d time.Duration) *config.OptionalDuration`.
+  factory KuboConfigOptionalDuration(Duration d) {
+    final $r = $callSync(1383, $W()..i64((d).inMicroseconds * 1000));
+    return $r.hnn(KuboConfigOptionalDuration.$h);
+  }
+
+  /// Go: `func (*config.OptionalDuration).IsDefault() bool`.
+  bool isDefault() {
+    final $r = $callSync(1391, $W()..h(this));
+    return $r.b();
+  }
+
+  /// Go: `func (config.OptionalDuration).MarshalJSON() ([]byte, error)`.
+  Uint8List marshalJson() {
+    final $r = $callSync(1392, $W()..h(this));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (config.OptionalDuration).String() string`.
+  String string() {
+    final $r = $callSync(1393, $W()..h(this));
+    return $r.str();
+  }
+
+  /// Go: `func (*config.OptionalDuration).UnmarshalJSON(input []byte) error`.
+  void unmarshalJson(Uint8List input) {
+    $callSync(
+        1394,
+        $W()
+          ..h(this)
+          ..bytes(input));
+  }
+
+  /// Go: `func (*config.OptionalDuration).WithDefault(defaultValue time.Duration) time.Duration`.
+  Duration withDefault(Duration defaultValue) {
+    final $r = $callSync(
+        1395,
+        $W()
+          ..h(this)
+          ..i64((defaultValue).inMicroseconds * 1000));
+    return Duration(microseconds: $r.i64() ~/ 1000);
+  }
+}
+
+/// Go: `config.OptionalInteger` (handle).
+class KuboConfigOptionalInteger extends $crypto2.CryptoPrivateKey
+    with $crypto2.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
+    implements $crypto2.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+  KuboConfigOptionalInteger.$h(super.$h) : super.$h();
+
+  /// Go: `func config.NewOptionalInteger(v int64) *config.OptionalInteger`.
+  factory KuboConfigOptionalInteger(int v) {
+    final $r = $callSync(1384, $W()..i64(v));
+    return $r.hnn(KuboConfigOptionalInteger.$h);
+  }
+
+  /// Go: `func (*config.OptionalInteger).IsDefault() bool`.
+  bool isDefault() {
+    final $r = $callSync(1396, $W()..h(this));
+    return $r.b();
+  }
+
+  /// Go: `func (config.OptionalInteger).MarshalJSON() ([]byte, error)`.
+  Uint8List marshalJson() {
+    final $r = $callSync(1397, $W()..h(this));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (config.OptionalInteger).String() string`.
+  String string() {
+    final $r = $callSync(1398, $W()..h(this));
+    return $r.str();
+  }
+
+  /// Go: `func (*config.OptionalInteger).UnmarshalJSON(input []byte) error`.
+  void unmarshalJson(Uint8List input) {
+    $callSync(
+        1399,
+        $W()
+          ..h(this)
+          ..bytes(input));
+  }
+
+  /// Go: `func (*config.OptionalInteger).WithDefault(defaultValue int64) (value int64)`.
+  int withDefault(int defaultValue) {
+    final $r = $callSync(
+        1400,
+        $W()
+          ..h(this)
+          ..i64(defaultValue));
+    return $r.i64();
+  }
+}
+
+/// Go: `config.OptionalString` (handle).
+class KuboConfigOptionalString extends $crypto2.CryptoPrivateKey
+    with $crypto2.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
+    implements $crypto2.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+  KuboConfigOptionalString.$h(super.$h) : super.$h();
+
+  /// Go: `func config.NewOptionalString(s string) *config.OptionalString`.
+  factory KuboConfigOptionalString(String s) {
+    final $r = $callSync(1385, $W()..str(s));
+    return $r.hnn(KuboConfigOptionalString.$h);
+  }
+
+  /// Go: `func (*config.OptionalString).IsDefault() bool`.
+  bool isDefault() {
+    final $r = $callSync(1401, $W()..h(this));
+    return $r.b();
+  }
+
+  /// Go: `func (config.OptionalString).MarshalJSON() ([]byte, error)`.
+  Uint8List marshalJson() {
+    final $r = $callSync(1402, $W()..h(this));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (config.OptionalString).String() string`.
+  String string() {
+    final $r = $callSync(1403, $W()..h(this));
+    return $r.str();
+  }
+
+  /// Go: `func (*config.OptionalString).UnmarshalJSON(input []byte) error`.
+  void unmarshalJson(Uint8List input) {
+    $callSync(
+        1404,
+        $W()
+          ..h(this)
+          ..bytes(input));
+  }
+
+  /// Go: `func (*config.OptionalString).WithDefault(defaultValue string) (value string)`.
+  String withDefault(String defaultValue) {
+    final $r = $callSync(
+        1405,
+        $W()
+          ..h(this)
+          ..str(defaultValue));
+    return $r.str();
+  }
+}
+
+/// Go: `config.Peering`.
+final class KuboConfigPeering implements GoDto {
+  KuboConfigPeering({List<$peer.Libp2pCorePeerAddrInfo>? peers})
+      : peers = peers ?? [];
+
+  KuboConfigPeering.$dec($R r)
+      : peers =
+            r.list(() => r.p() ? $peer.Libp2pCorePeerAddrInfo.$dec(r) : $nil());
+
+  /// Go: `Peers`.
+  List<$peer.Libp2pCorePeerAddrInfo> peers;
+
+  @override
+  void $enc($W w) {
+    w..list(peers, (w0, e0) => w0.dto(e0));
+  }
+}
+
+/// Go: `config.Provide`.
+final class KuboConfigProvide implements GoDto {
+  KuboConfigProvide(
+      {int? enabled,
+      KuboConfigOptionalString? strategy,
+      KuboConfigOptionalInteger? bloomFpRate,
+      KuboConfigProvideDht? dht})
+      : enabled = enabled ?? 0,
+        strategy = strategy,
+        bloomFpRate = bloomFpRate,
+        dht = dht;
+
+  KuboConfigProvide.$dec($R r)
+      : enabled = r.i64(),
+        strategy = r.hn(KuboConfigOptionalString.$h),
+        bloomFpRate = r.hn(KuboConfigOptionalInteger.$h),
+        dht = r.p() ? KuboConfigProvideDht.$dec(r) : null;
+
+  /// Go: `Enabled`.
+  int enabled;
+
+  /// Go: `Strategy`.
+  KuboConfigOptionalString? strategy;
+
+  /// Go: `BloomFPRate`.
+  KuboConfigOptionalInteger? bloomFpRate;
+
+  /// Go: `DHT`.
+  KuboConfigProvideDht? dht;
+
+  @override
+  void $enc($W w) {
+    w
+      ..i64(enabled)
+      ..h(strategy)
+      ..h(bloomFpRate)
+      ..dto(dht);
+  }
+}
+
+/// Go: `config.ProvideDHT`.
+final class KuboConfigProvideDht implements GoDto {
+  KuboConfigProvideDht(
+      {KuboConfigOptionalDuration? interval,
+      KuboConfigOptionalInteger? maxWorkers,
+      int? sweepEnabled,
+      KuboConfigOptionalInteger? dedicatedPeriodicWorkers,
+      KuboConfigOptionalInteger? dedicatedBurstWorkers,
+      KuboConfigOptionalInteger? maxProvideConnsPerWorker,
+      KuboConfigOptionalInteger? keystoreBatchSize,
+      KuboConfigOptionalDuration? offlineDelay,
+      KuboConfigOptionalDuration? sendProviderRecordTimeout,
+      int? resumeEnabled})
+      : interval = interval,
+        maxWorkers = maxWorkers,
+        sweepEnabled = sweepEnabled ?? 0,
+        dedicatedPeriodicWorkers = dedicatedPeriodicWorkers,
+        dedicatedBurstWorkers = dedicatedBurstWorkers,
+        maxProvideConnsPerWorker = maxProvideConnsPerWorker,
+        keystoreBatchSize = keystoreBatchSize,
+        offlineDelay = offlineDelay,
+        sendProviderRecordTimeout = sendProviderRecordTimeout,
+        resumeEnabled = resumeEnabled ?? 0;
+
+  KuboConfigProvideDht.$dec($R r)
+      : interval = r.hn(KuboConfigOptionalDuration.$h),
+        maxWorkers = r.hn(KuboConfigOptionalInteger.$h),
+        sweepEnabled = r.i64(),
+        dedicatedPeriodicWorkers = r.hn(KuboConfigOptionalInteger.$h),
+        dedicatedBurstWorkers = r.hn(KuboConfigOptionalInteger.$h),
+        maxProvideConnsPerWorker = r.hn(KuboConfigOptionalInteger.$h),
+        keystoreBatchSize = r.hn(KuboConfigOptionalInteger.$h),
+        offlineDelay = r.hn(KuboConfigOptionalDuration.$h),
+        sendProviderRecordTimeout = r.hn(KuboConfigOptionalDuration.$h),
+        resumeEnabled = r.i64();
+
+  /// Go: `Interval`.
+  KuboConfigOptionalDuration? interval;
+
+  /// Go: `MaxWorkers`.
+  KuboConfigOptionalInteger? maxWorkers;
+
+  /// Go: `SweepEnabled`.
+  int sweepEnabled;
+
+  /// Go: `DedicatedPeriodicWorkers`.
+  KuboConfigOptionalInteger? dedicatedPeriodicWorkers;
+
+  /// Go: `DedicatedBurstWorkers`.
+  KuboConfigOptionalInteger? dedicatedBurstWorkers;
+
+  /// Go: `MaxProvideConnsPerWorker`.
+  KuboConfigOptionalInteger? maxProvideConnsPerWorker;
+
+  /// Go: `KeystoreBatchSize`.
+  KuboConfigOptionalInteger? keystoreBatchSize;
+
+  /// Go: `OfflineDelay`.
+  KuboConfigOptionalDuration? offlineDelay;
+
+  /// Go: `SendProviderRecordTimeout`.
+  KuboConfigOptionalDuration? sendProviderRecordTimeout;
+
+  /// Go: `ResumeEnabled`.
+  int resumeEnabled;
+
+  @override
+  void $enc($W w) {
+    w
+      ..h(interval)
+      ..h(maxWorkers)
+      ..i64(sweepEnabled)
+      ..h(dedicatedPeriodicWorkers)
+      ..h(dedicatedBurstWorkers)
+      ..h(maxProvideConnsPerWorker)
+      ..h(keystoreBatchSize)
+      ..h(offlineDelay)
+      ..h(sendProviderRecordTimeout)
+      ..i64(resumeEnabled);
+  }
+}
+
+/// Go: `config.RelayClient`.
+final class KuboConfigRelayClient implements GoDto {
+  KuboConfigRelayClient({int? enabled, List<String>? staticRelays})
+      : enabled = enabled ?? 0,
+        staticRelays = staticRelays ?? [];
+
+  KuboConfigRelayClient.$dec($R r)
+      : enabled = r.i64(),
+        staticRelays = r.list(() => r.str());
+
+  /// Go: `Enabled`.
+  int enabled;
+
+  /// Go: `StaticRelays`.
+  List<String> staticRelays;
+
+  @override
+  void $enc($W w) {
+    w
+      ..i64(enabled)
+      ..list(staticRelays, (w0, e0) => w0.str(e0));
+  }
+}
+
+/// Go: `config.RelayService`.
+final class KuboConfigRelayService implements GoDto {
+  KuboConfigRelayService(
+      {int? enabled,
+      KuboConfigOptionalDuration? connectionDurationLimit,
+      KuboConfigOptionalInteger? connectionDataLimit,
+      KuboConfigOptionalDuration? reservationTtl,
+      KuboConfigOptionalInteger? maxReservations,
+      KuboConfigOptionalInteger? maxCircuits,
+      KuboConfigOptionalInteger? bufferSize,
+      KuboConfigOptionalInteger? maxReservationsPerIp,
+      KuboConfigOptionalInteger? maxReservationsPerAsn})
+      : enabled = enabled ?? 0,
+        connectionDurationLimit = connectionDurationLimit,
+        connectionDataLimit = connectionDataLimit,
+        reservationTtl = reservationTtl,
+        maxReservations = maxReservations,
+        maxCircuits = maxCircuits,
+        bufferSize = bufferSize,
+        maxReservationsPerIp = maxReservationsPerIp,
+        maxReservationsPerAsn = maxReservationsPerAsn;
+
+  KuboConfigRelayService.$dec($R r)
+      : enabled = r.i64(),
+        connectionDurationLimit = r.hn(KuboConfigOptionalDuration.$h),
+        connectionDataLimit = r.hn(KuboConfigOptionalInteger.$h),
+        reservationTtl = r.hn(KuboConfigOptionalDuration.$h),
+        maxReservations = r.hn(KuboConfigOptionalInteger.$h),
+        maxCircuits = r.hn(KuboConfigOptionalInteger.$h),
+        bufferSize = r.hn(KuboConfigOptionalInteger.$h),
+        maxReservationsPerIp = r.hn(KuboConfigOptionalInteger.$h),
+        maxReservationsPerAsn = r.hn(KuboConfigOptionalInteger.$h);
+
+  /// Go: `Enabled`.
+  int enabled;
+
+  /// Go: `ConnectionDurationLimit`.
+  KuboConfigOptionalDuration? connectionDurationLimit;
+
+  /// Go: `ConnectionDataLimit`.
+  KuboConfigOptionalInteger? connectionDataLimit;
+
+  /// Go: `ReservationTTL`.
+  KuboConfigOptionalDuration? reservationTtl;
+
+  /// Go: `MaxReservations`.
+  KuboConfigOptionalInteger? maxReservations;
+
+  /// Go: `MaxCircuits`.
+  KuboConfigOptionalInteger? maxCircuits;
+
+  /// Go: `BufferSize`.
+  KuboConfigOptionalInteger? bufferSize;
+
+  /// Go: `MaxReservationsPerIP`.
+  KuboConfigOptionalInteger? maxReservationsPerIp;
+
+  /// Go: `MaxReservationsPerASN`.
+  KuboConfigOptionalInteger? maxReservationsPerAsn;
+
+  @override
+  void $enc($W w) {
+    w
+      ..i64(enabled)
+      ..h(connectionDurationLimit)
+      ..h(connectionDataLimit)
+      ..h(reservationTtl)
+      ..h(maxReservations)
+      ..h(maxCircuits)
+      ..h(bufferSize)
+      ..h(maxReservationsPerIp)
+      ..h(maxReservationsPerAsn);
+  }
+}
+
+/// Go: `config.ResourceMgr`.
+///
+/// Fields that do not cross the bridge: `Limits` (unexported type github.com/ipfs/kubo/config.swarmLimits).
+final class KuboConfigResourceMgr implements GoDto {
+  KuboConfigResourceMgr(
+      {int? enabled,
+      KuboConfigOptionalBytes? maxMemory,
+      KuboConfigOptionalInteger? maxFileDescriptors,
+      List<String>? allowlist})
+      : enabled = enabled ?? 0,
+        maxMemory = maxMemory,
+        maxFileDescriptors = maxFileDescriptors,
+        allowlist = allowlist ?? [];
+
+  KuboConfigResourceMgr.$dec($R r)
+      : enabled = r.i64(),
+        maxMemory = r.p() ? KuboConfigOptionalBytes.$dec(r) : null,
+        maxFileDescriptors = r.hn(KuboConfigOptionalInteger.$h),
+        allowlist = r.list(() => r.str());
+
+  /// Go: `Enabled`.
+  int enabled;
+
+  /// Go: `MaxMemory`.
+  KuboConfigOptionalBytes? maxMemory;
+
+  /// Go: `MaxFileDescriptors`.
+  KuboConfigOptionalInteger? maxFileDescriptors;
+
+  /// Go: `Allowlist`.
+  List<String> allowlist;
+
+  @override
+  void $enc($W w) {
+    w
+      ..i64(enabled)
+      ..dto(maxMemory)
+      ..h(maxFileDescriptors)
+      ..list(allowlist, (w0, e0) => w0.str(e0));
+  }
+}
+
+/// Go: `config.Router`.
+///
+/// Fields that do not cross the bridge: `Parameters` (type any).
+final class KuboConfigRouter implements GoDto {
+  KuboConfigRouter({String? type}) : type = type ?? '';
+
+  KuboConfigRouter.$dec($R r) : type = r.str();
+
+  /// Go: `Type`.
+  String type;
+
+  @override
+  void $enc($W w) {
+    w..str(type);
+  }
+}
+
+/// Go: `config.RouterParser`.
+final class KuboConfigRouterParser implements GoDto {
+  KuboConfigRouterParser({KuboConfigRouter? router}) : router = router;
+
+  KuboConfigRouterParser.$dec($R r)
+      : router = r.p() ? KuboConfigRouter.$dec(r) : null;
+
+  /// Go: `Router`.
+  KuboConfigRouter? router;
+
+  @override
+  void $enc($W w) {
+    w..dto(router);
+  }
+
+  /// Go: `func (*config.RouterParser).UnmarshalJSON(b []byte) error`.
+  void unmarshalJson(Uint8List b) {
+    $callSync(
+        1414,
+        $W()
+          ..dto(this)
+          ..bytes(b));
+  }
+}
+
+/// Go: `config.SwarmConfig`.
+final class KuboConfigSwarmConfig implements GoDto {
+  KuboConfigSwarmConfig(
+      {List<String>? addrFilters,
+      bool? disableBandwidthMetrics,
+      bool? disableNatPortMap,
+      KuboConfigRelayClient? relayClient,
+      KuboConfigRelayService? relayService,
+      int? enableHolePunching,
+      KuboConfigTransports? transports,
+      KuboConfigConnMgr? connMgr,
+      KuboConfigResourceMgr? resourceMgr})
+      : addrFilters = addrFilters ?? [],
+        disableBandwidthMetrics = disableBandwidthMetrics ?? false,
+        disableNatPortMap = disableNatPortMap ?? false,
+        relayClient = relayClient,
+        relayService = relayService,
+        enableHolePunching = enableHolePunching ?? 0,
+        transports = transports,
+        connMgr = connMgr,
+        resourceMgr = resourceMgr;
+
+  KuboConfigSwarmConfig.$dec($R r)
+      : addrFilters = r.list(() => r.str()),
+        disableBandwidthMetrics = r.b(),
+        disableNatPortMap = r.b(),
+        relayClient = r.p() ? KuboConfigRelayClient.$dec(r) : null,
+        relayService = r.p() ? KuboConfigRelayService.$dec(r) : null,
+        enableHolePunching = r.i64(),
+        transports = r.p() ? KuboConfigTransports.$dec(r) : null,
+        connMgr = r.p() ? KuboConfigConnMgr.$dec(r) : null,
+        resourceMgr = r.p() ? KuboConfigResourceMgr.$dec(r) : null;
+
+  /// Go: `AddrFilters`.
+  List<String> addrFilters;
+
+  /// Go: `DisableBandwidthMetrics`.
+  bool disableBandwidthMetrics;
+
+  /// Go: `DisableNatPortMap`.
+  bool disableNatPortMap;
+
+  /// Go: `RelayClient`.
+  KuboConfigRelayClient? relayClient;
+
+  /// Go: `RelayService`.
+  KuboConfigRelayService? relayService;
+
+  /// Go: `EnableHolePunching`.
+  int enableHolePunching;
+
+  /// Go: `Transports`.
+  KuboConfigTransports? transports;
+
+  /// Go: `ConnMgr`.
+  KuboConfigConnMgr? connMgr;
+
+  /// Go: `ResourceMgr`.
+  KuboConfigResourceMgr? resourceMgr;
+
+  @override
+  void $enc($W w) {
+    w
+      ..list(addrFilters, (w0, e0) => w0.str(e0))
+      ..b(disableBandwidthMetrics)
+      ..b(disableNatPortMap)
+      ..dto(relayClient)
+      ..dto(relayService)
+      ..i64(enableHolePunching)
+      ..dto(transports)
+      ..dto(connMgr)
+      ..dto(resourceMgr);
+  }
+}
+
+/// Go: `config.Transports`.
+///
+/// Fields that do not cross the bridge: `Network` (struct{QUIC github.com/ipfs/kubo/config.Flag "json:\",omitempty\""; TCP github.com/ipfs/kubo/config.Flag "json:\",omitempty\""; Websocket github.com/ipfs/kubo/config.Flag "json:\",omitempty\""; Relay github.com/ipfs/kubo/config.Flag "json:\",omitempty\""; WebTransport github.com/ipfs/kubo/config.Flag "json:\",omitempty\""; WebRTCDirect github.com/ipfs/kubo/config.Flag "json:\",omitempty\""}), `Security` (struct{TLS github.com/ipfs/kubo/config.Priority "json:\",omitempty\""; Noise github.com/ipfs/kubo/config.Priority "json:\",omitempty\""}), `Multiplexers` (struct{Yamux github.com/ipfs/kubo/config.Priority "json:\",omitempty\""}).
+final class KuboConfigTransports implements GoDto {
+  KuboConfigTransports();
+  KuboConfigTransports.$dec($R r);
+
+  @override
+  void $enc($W w) {}
 }
 
 /// Go: `var config.ErrInvalidPeerAddr error`: an error. Thrown as this class when it is the outermost
@@ -47,40 +1108,241 @@ class KuboConfigErrInvalidPeerAddr extends GolangException {
 
 /// Go: the package-level members of `github.com/ipfs/kubo/config` (`Go.kubo.config`).
 extension GoKuboConfigApi on GoKuboConfig {
+  /// Go: `func config.BootstrapPeerStrings(bps []peer.AddrInfo) []string`.
+  List<String> bootstrapPeerStrings(List<$peer.Libp2pCorePeerAddrInfo> bps) {
+    final $r = $callSync(1354, $W()..list(bps, (w0, e0) => w0.dto(e0)));
+    return $r.list(() => $r.str());
+  }
+
+  /// Go: `func config.CheckKey(key string) error`.
+  void checkKey(String key) {
+    $callSync(1355, $W()..str(key));
+  }
+
+  /// Go: `func config.ConvertAuthSecret(secret string) string`.
+  String convertAuthSecret(String secret) {
+    final $r = $callSync(1356, $W()..str(secret));
+    return $r.str();
+  }
+
   /// Go: `func config.CreateIdentity(out io.Writer, opts []options.KeyGenerateOption) (config.Identity, error)`.
   KuboConfigIdentity createIdentity(GoHandle? out,
       List<$options.KuboCoreCoreifaceOptionsKeyGenerateOption> opts) {
     final $r = $callSync(
-        268,
+        1357,
         $W()
           ..h(out)
           ..list(opts, (w0, e0) => w0.opt(e0)));
     return $r.p() ? KuboConfigIdentity.$dec($r) : $nil();
   }
 
+  /// Go: `func config.DataStorePath(configroot string) (string, error)`.
+  String dataStorePath(String configroot) {
+    final $r = $callSync(1358, $W()..str(configroot));
+    return $r.str();
+  }
+
+  /// Go: `func config.DefaultDatastoreConfig() config.Datastore`.
+  KuboConfigDatastore defaultDatastoreConfig() {
+    final $r = $callSync(1359);
+    return $r.p() ? KuboConfigDatastore.$dec($r) : $nil();
+  }
+
+  /// Go: `var config.DefaultHTTPRoutersFilterProtocols []string`.
+  List<String> get defaultHttpRoutersFilterProtocols {
+    final $r = $callSync(1360);
+    return $r.list(() => $r.str());
+  }
+
+  /// Go: `var config.DefaultMigrationDownloadSources []string`.
+  List<String> get defaultMigrationDownloadSources {
+    final $r = $callSync(1361);
+    return $r.list(() => $r.str());
+  }
+
+  /// Go: `var config.DefaultUnixFSDirectoryMaxLinks int64`.
+  int get defaultUnixFsDirectoryMaxLinks {
+    final $r = $callSync(1362);
+    return $r.i64();
+  }
+
+  /// Go: `var config.DefaultUnixFSFileMaxLinks int64`.
+  int get defaultUnixFsFileMaxLinks {
+    final $r = $callSync(1363);
+    return $r.i64();
+  }
+
+  /// Go: `var config.DefaultUnixFSHAMTDirectoryMaxFanout int64`.
+  int get defaultUnixFshamtDirectoryMaxFanout {
+    final $r = $callSync(1364);
+    return $r.i64();
+  }
+
+  /// Go: `func config.Filename(configroot string, userConfigFile string) (string, error)`.
+  String filename(String configroot, String userConfigFile) {
+    final $r = $callSync(
+        1367,
+        $W()
+          ..str(configroot)
+          ..str(userConfigFile));
+    return $r.str();
+  }
+
+  /// Go: `func config.FromMap(v map[string]any) (*config.Config, error)`.
+  KuboConfig fromMap(Map<String, Object?> v) {
+    final $r = $callSync(
+        1368, $W()..map(v, (w0, k0) => w0.str(k0), (w0, v0) => w0.any(v0)));
+    return $r.p() ? KuboConfig($r.json()) : $nil();
+  }
+
+  /// Go: `func config.GetAutoConfClient(cfg *config.Config) (*autoconf.Client, error)`.
+  $autoconf.BoxoAutoconfClient getAutoConfClient(KuboConfig cfg) {
+    final $r = $callSync(1369, $W()..json(cfg));
+    return $r.hnn($autoconf.BoxoAutoconfClient.$h);
+  }
+
+  /// Go: `func config.HumanOutput(value any) ([]byte, error)`.
+  Uint8List humanOutput(Object? value) {
+    final $r = $callSync(1371, $W()..any(value));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func config.Init(out io.Writer, nBitsForKeypair int) (*config.Config, error)`.
+  KuboConfig init(GoHandle? out, int nBitsForKeypair) {
+    final $r = $callSync(
+        1377,
+        $W()
+          ..h(out)
+          ..i64(nBitsForKeypair));
+    return $r.p() ? KuboConfig($r.json()) : $nil();
+  }
+
   /// Go: `func config.InitWithIdentity(identity config.Identity) (*config.Config, error)`.
   KuboConfig initWithIdentity(KuboConfigIdentity identity) {
-    final $r = $callSync(269, $W()..dto(identity));
+    final $r = $callSync(1378, $W()..dto(identity));
     return $r.p() ? KuboConfig($r.json()) : $nil();
+  }
+
+  /// Go: `func config.Marshal(value any) ([]byte, error)`.
+  Uint8List marshal(Object? value) {
+    final $r = $callSync(1379, $W()..any(value));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `var config.MethodNameList []config.MethodName`.
+  List<String> get methodNameList {
+    final $r = $callSync(1380);
+    return $r.list(() => $r.str());
+  }
+
+  /// Go: `func config.MustParseProvideStrategy(s string) config.ProvideStrategy`.
+  int mustParseProvideStrategy(String s) {
+    final $r = $callSync(1381, $W()..str(s));
+    return $r.i64();
+  }
+
+  /// Go: `func config.NewOptionalBytes(s string) *config.OptionalBytes`.
+  KuboConfigOptionalBytes newOptionalBytes(String s) {
+    final $r = $callSync(1382, $W()..str(s));
+    return $r.p() ? KuboConfigOptionalBytes.$dec($r) : $nil();
   }
 
   /// Go: `func config.ParseBootstrapPeers(addrs []string) ([]peer.AddrInfo, error)`.
   List<$peer.Libp2pCorePeerAddrInfo> parseBootstrapPeers(List<String> addrs) {
-    final $r = $callSync(270, $W()..list(addrs, (w0, e0) => w0.str(e0)));
+    final $r = $callSync(1406, $W()..list(addrs, (w0, e0) => w0.str(e0)));
     return $r
         .list(() => $r.p() ? $peer.Libp2pCorePeerAddrInfo.$dec($r) : $nil());
   }
 
-  /// Go: `func config.BootstrapPeerStrings(bps []peer.AddrInfo) []string`.
-  List<String> bootstrapPeerStrings(List<$peer.Libp2pCorePeerAddrInfo> bps) {
-    final $r = $callSync(267, $W()..list(bps, (w0, e0) => w0.dto(e0)));
-    return $r.list(() => $r.str());
+  /// Go: `func config.ParseProvideStrategy(s string) (#rv1 config.ProvideStrategy, #rv2 error)`.
+  int parseProvideStrategy(String s) {
+    final $r = $callSync(1407, $W()..str(s));
+    return $r.i64();
+  }
+
+  /// Go: `func config.Path(configroot string, extension string) (string, error)`.
+  String path(String configroot, String extension) {
+    final $r = $callSync(
+        1408,
+        $W()
+          ..str(configroot)
+          ..str(extension));
+    return $r.str();
   }
 
   /// Go: `func config.PathRoot() (string, error)`.
   String pathRoot() {
-    final $r = $callSync(271);
+    final $r = $callSync(1409);
     return $r.str();
+  }
+
+  /// Go: `var config.PinningConcealSelector []string`.
+  List<String> get pinningConcealSelector {
+    final $r = $callSync(1410);
+    return $r.list(() => $r.str());
+  }
+
+  /// Go: `func config.ReflectToMap(conf any) any`.
+  Object? reflectToMap(Object? conf) {
+    final $r = $callSync(1411, $W()..any(conf));
+    return $r.any();
+  }
+
+  /// Go: `var config.RemoteServicesPath string`.
+  String get remoteServicesPath {
+    final $r = $callSync(1412);
+    return $r.str();
+  }
+
+  /// Go: `func config.ResolveBoolFromConfig(userValue bool, userSet bool, configFlag config.Flag, defaultValue bool) bool`.
+  bool resolveBoolFromConfig(
+      bool userValue, bool userSet, int configFlag, bool defaultValue) {
+    final $r = $callSync(
+        1413,
+        $W()
+          ..b(userValue)
+          ..b(userSet)
+          ..i64(configFlag)
+          ..b(defaultValue));
+    return $r.b();
+  }
+
+  /// Go: `func config.ShouldProvideForStrategy(strategy config.ProvideStrategy, isPinned bool, isPinnedRoot bool, isMFS bool) bool`.
+  bool shouldProvideForStrategy(
+      int strategy, bool isPinned, bool isPinnedRoot, bool isMfs) {
+    final $r = $callSync(
+        1415,
+        $W()
+          ..i64(strategy)
+          ..b(isPinned)
+          ..b(isPinnedRoot)
+          ..b(isMfs));
+    return $r.b();
+  }
+
+  /// Go: `func config.ToMap(conf *config.Config) (map[string]any, error)`.
+  Map<String, Object?> toMap(KuboConfig conf) {
+    final $r = $callSync(1416, $W()..json(conf));
+    return $r.map(() => $r.str(), () => $r.any());
+  }
+
+  /// Go: `func config.ValidateAutoConfWithRepo(cfg *config.Config, swarmKeyExists bool) error`.
+  void validateAutoConfWithRepo(KuboConfig cfg, bool swarmKeyExists) {
+    $callSync(
+        1417,
+        $W()
+          ..json(cfg)
+          ..b(swarmKeyExists));
+  }
+
+  /// Go: `func config.ValidateImportConfig(cfg *config.Import) error`.
+  void validateImportConfig(KuboConfigImport cfg) {
+    $callSync(1418, $W()..dto(cfg));
+  }
+
+  /// Go: `func config.ValidateProvideConfig(cfg *config.Provide) error`.
+  void validateProvideConfig(KuboConfigProvide cfg) {
+    $callSync(1419, $W()..dto(cfg));
   }
 
   /// Go: `const config.APITag untyped string`.

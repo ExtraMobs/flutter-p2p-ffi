@@ -2,9 +2,12 @@
 // Go: github.com/libp2p/go-libp2p/p2p/host/basic
 library;
 
-import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/ipfs_cmds.dart' as $ipfs_cmds;
 
 /// Go: `basichost.AddrsFactory` (handle).
-class Libp2pP2pHostBasicAddrsFactory extends GoHandle {
-  Libp2pP2pHostBasicAddrsFactory.$h(super.$h);
+class Libp2pP2pHostBasicAddrsFactory extends $crypto.CryptoPrivateKey
+    with $crypto.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
+    implements $crypto.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+  Libp2pP2pHostBasicAddrsFactory.$h(super.$h) : super.$h();
 }

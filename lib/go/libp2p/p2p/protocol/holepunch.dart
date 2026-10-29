@@ -4,25 +4,178 @@ library;
 
 import 'package:p2p_ffi/src/go.dart' show GoLibp2pP2pProtocolHolepunch;
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/client_golang/prometheus.dart' as $prometheus;
+import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/ipfs_cmds.dart' as $ipfs_cmds;
+import 'package:p2p_ffi/go/libp2p/core/network.dart' as $network;
+import 'package:p2p_ffi/go/libp2p/core/peer.dart' as $peer;
+import 'package:p2p_ffi/go/multiaddr.dart' as $multiaddr;
 
 /// Go: `holepunch.AddrFilter` (handle).
-class Libp2pP2pProtocolHolepunchAddrFilter extends GoHandle {
+class Libp2pP2pProtocolHolepunchAddrFilter extends GoHandle
+    with Libp2pP2pProtocolHolepunchAddrFilter$ {
   Libp2pP2pProtocolHolepunchAddrFilter.$h(super.$h);
 }
 
+/// The methods of [Libp2pP2pProtocolHolepunchAddrFilter], mixed into every class Go also accepts as one.
+mixin Libp2pP2pProtocolHolepunchAddrFilter$ on GoHandle {
+  /// Go: `func (holepunch.AddrFilter).FilterLocal(remoteID peer.ID, maddrs []multiaddr.Multiaddr) []multiaddr.Multiaddr`.
+  List<$multiaddr.Multiaddr> filterLocal(
+      $peer.Libp2pCorePeerId remoteId, List<$multiaddr.Multiaddr> maddrs) {
+    final $r = $callSync(
+        3305,
+        $W()
+          ..h(this)
+          ..val(remoteId)
+          ..list(maddrs, (w0, e0) => w0.val(e0)));
+    return $r.list(() => $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil());
+  }
+
+  /// Go: `func (holepunch.AddrFilter).FilterRemote(remoteID peer.ID, maddrs []multiaddr.Multiaddr) []multiaddr.Multiaddr`.
+  List<$multiaddr.Multiaddr> filterRemote(
+      $peer.Libp2pCorePeerId remoteId, List<$multiaddr.Multiaddr> maddrs) {
+    final $r = $callSync(
+        3306,
+        $W()
+          ..h(this)
+          ..val(remoteId)
+          ..list(maddrs, (w0, e0) => w0.val(e0)));
+    return $r.list(() => $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil());
+  }
+}
+
+/// Go: `holepunch.Event`.
+///
+/// Fields that do not cross the bridge: `Evt` (type any).
+final class Libp2pP2pProtocolHolepunchEvent implements GoDto {
+  Libp2pP2pProtocolHolepunchEvent(
+      {int? timestamp,
+      $peer.Libp2pCorePeerId? peer,
+      $peer.Libp2pCorePeerId? remote,
+      String? type})
+      : timestamp = timestamp ?? 0,
+        peer = peer,
+        remote = remote,
+        type = type ?? '';
+
+  Libp2pP2pProtocolHolepunchEvent.$dec($R r)
+      : timestamp = r.i64(),
+        peer = r.p() ? $peer.Libp2pCorePeerId(r.str()) : null,
+        remote = r.p() ? $peer.Libp2pCorePeerId(r.str()) : null,
+        type = r.str();
+
+  /// Go: `Timestamp`.
+  int timestamp;
+
+  /// Go: `Peer`.
+  $peer.Libp2pCorePeerId? peer;
+
+  /// Go: `Remote`.
+  $peer.Libp2pCorePeerId? remote;
+
+  /// Go: `Type`.
+  String type;
+
+  @override
+  void $enc($W w) {
+    w
+      ..i64(timestamp)
+      ..val(peer)
+      ..val(remote)
+      ..str(type);
+  }
+}
+
 /// Go: `holepunch.EventTracer` (handle).
-class Libp2pP2pProtocolHolepunchEventTracer extends GoHandle {
+class Libp2pP2pProtocolHolepunchEventTracer extends GoHandle
+    with Libp2pP2pProtocolHolepunchEventTracer$ {
   Libp2pP2pProtocolHolepunchEventTracer.$h(super.$h);
 }
 
+/// The methods of [Libp2pP2pProtocolHolepunchEventTracer], mixed into every class Go also accepts as one.
+mixin Libp2pP2pProtocolHolepunchEventTracer$ on GoHandle {
+  /// Go: `func (holepunch.EventTracer).Trace(evt *holepunch.Event)`.
+  void trace(Libp2pP2pProtocolHolepunchEvent evt) {
+    $callSync(
+        3307,
+        $W()
+          ..h(this)
+          ..dto(evt));
+  }
+}
+
 /// Go: `holepunch.MetricsTracer` (handle).
-class Libp2pP2pProtocolHolepunchMetricsTracer extends GoHandle {
+class Libp2pP2pProtocolHolepunchMetricsTracer extends GoHandle
+    with Libp2pP2pProtocolHolepunchMetricsTracer$ {
   Libp2pP2pProtocolHolepunchMetricsTracer.$h(super.$h);
+
+  /// Go: `func holepunch.NewMetricsTracer(opts ...holepunch.MetricsTracerOption) holepunch.MetricsTracer`.
+  factory Libp2pP2pProtocolHolepunchMetricsTracer(
+      [List<Libp2pP2pProtocolHolepunchMetricsTracerOption> opts = const []]) {
+    final $r = $callSync(3310, $W()..list(opts, (w0, e0) => w0.opt(e0)));
+    return $r.hnn(Libp2pP2pProtocolHolepunchMetricsTracer.$h);
+  }
+}
+
+/// The methods of [Libp2pP2pProtocolHolepunchMetricsTracer], mixed into every class Go also accepts as one.
+mixin Libp2pP2pProtocolHolepunchMetricsTracer$ on GoHandle {
+  /// Go: `func (holepunch.MetricsTracer).DirectDialFinished(success bool)`.
+  void directDialFinished(bool success) {
+    $callSync(
+        3308,
+        $W()
+          ..h(this)
+          ..b(success));
+  }
+
+  /// Go: `func (holepunch.MetricsTracer).HolePunchFinished(side string, attemptNum int, theirAddrs []multiaddr.Multiaddr, ourAddr []multiaddr.Multiaddr, directConn network.ConnMultiaddrs)`.
+  void holePunchFinished(
+      String side,
+      int attemptNum,
+      List<$multiaddr.Multiaddr> theirAddrs,
+      List<$multiaddr.Multiaddr> ourAddr,
+      $network.Libp2pCoreNetworkConnMultiaddrs directConn) {
+    $callSync(
+        3309,
+        $W()
+          ..h(this)
+          ..str(side)
+          ..i64(attemptNum)
+          ..list(theirAddrs, (w0, e0) => w0.val(e0))
+          ..list(ourAddr, (w0, e0) => w0.val(e0))
+          ..dto(directConn));
+  }
+}
+
+/// Go: `holepunch.MetricsTracerOption` (functional option; constructors in the package).
+final class Libp2pP2pProtocolHolepunchMetricsTracerOption extends GoOption {
+  Libp2pP2pProtocolHolepunchMetricsTracerOption.$(super.$i, super.$a);
 }
 
 /// Go: `holepunch.Option` (functional option; constructors in the package).
 final class Libp2pP2pProtocolHolepunchOption extends GoOption {
   Libp2pP2pProtocolHolepunchOption.$(super.$i, super.$a);
+}
+
+/// Go: `holepunch.Service` (handle).
+class Libp2pP2pProtocolHolepunchService extends $crypto.CryptoPrivateKey
+    with $crypto.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
+    implements $crypto.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+  Libp2pP2pProtocolHolepunchService.$h(super.$h) : super.$h();
+
+  /// Go: `func (*holepunch.Service).Close() error`.
+  void close() {
+    $callSync(3311, $W()..h(this));
+  }
+
+  /// Go: `func (*holepunch.Service).DirectConnect(p peer.ID) error`.
+  void directConnect($peer.Libp2pCorePeerId p) {
+    $callSync(
+        3312,
+        $W()
+          ..h(this)
+          ..val(p));
+  }
 }
 
 /// Go: `var holepunch.ErrClosed error`: an error. Thrown as this class when it is the outermost
@@ -70,10 +223,21 @@ extension GoLibp2pP2pProtocolHolepunchApi on GoLibp2pP2pProtocolHolepunch {
           Libp2pP2pProtocolHolepunchMetricsTracer mt) =>
       Libp2pP2pProtocolHolepunchOption.$(3, (w) => w..h(mt));
 
+  /// Go: `holepunch.WithRegisterer`.
+  Libp2pP2pProtocolHolepunchMetricsTracerOption withRegisterer(
+          $prometheus.ClientGolangPrometheusRegisterer reg) =>
+      Libp2pP2pProtocolHolepunchMetricsTracerOption.$(0, (w) => w..h(reg));
+
   /// Go: `holepunch.WithTracer`.
   Libp2pP2pProtocolHolepunchOption withTracer(
           Libp2pP2pProtocolHolepunchEventTracer et) =>
       Libp2pP2pProtocolHolepunchOption.$(4, (w) => w..h(et));
+
+  /// Go: `var holepunch.StreamTimeout time.Duration`.
+  Duration get streamTimeout {
+    final $r = $callSync(3313);
+    return Duration(microseconds: $r.i64() ~/ 1000);
+  }
 
   /// Go: `const holepunch.DirectDialEvtT untyped string`.
   String get directDialEvtT => "DirectDial";

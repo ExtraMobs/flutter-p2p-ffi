@@ -8,44 +8,228 @@ import 'package:p2p_ffi/src/go.dart' show GoBoxoIpns;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/boxo/path.dart' as $path;
 import 'package:p2p_ffi/go/cid.dart' as $cid;
+import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/ipfs_cmds.dart' as $ipfs_cmds;
+import 'package:p2p_ffi/go/libp2p/core/crypto.dart' as $crypto2;
 import 'package:p2p_ffi/go/libp2p/core/peer.dart' as $peer;
+import 'package:p2p_ffi/go/libp2p/core/peerstore.dart' as $peerstore;
+
+/// Go: `ipns.MetadataValue` (handle).
+class BoxoIpnsMetadataValue extends $crypto.CryptoPrivateKey
+    with $crypto.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
+    implements $crypto.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+  BoxoIpnsMetadataValue.$h(super.$h) : super.$h();
+
+  /// Go: `func (ipns.MetadataValue).AsBool() (bool, error)`.
+  bool asBool() {
+    final $r = $callSync(872, $W()..h(this));
+    return $r.b();
+  }
+
+  /// Go: `func (ipns.MetadataValue).AsBytes() ([]byte, error)`.
+  Uint8List asBytes() {
+    final $r = $callSync(873, $W()..h(this));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (ipns.MetadataValue).AsInt() (int64, error)`.
+  int asInt() {
+    final $r = $callSync(874, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (ipns.MetadataValue).AsString() (string, error)`.
+  String asString() {
+    final $r = $callSync(875, $W()..h(this));
+    return $r.str();
+  }
+
+  /// Go: `func (ipns.MetadataValue).Kind() ipns.MetadataKind`.
+  int kind() {
+    final $r = $callSync(876, $W()..h(this));
+    return $r.i64();
+  }
+}
 
 /// Go: `ipns.Name` (valor).
 class BoxoIpnsName extends GoValue {
   const BoxoIpnsName(super.value);
 
-  /// Go: `func (ipns.Name).Peer() peer.ID`.
-  $peer.Libp2pCorePeerId peer() {
-    final $r = $callSync(155, $W()..val(this));
-    return $r.p() ? $peer.Libp2pCorePeerId($r.str()) : $nil();
+  /// Go: `func (ipns.Name).AsPath() path.Path`.
+  $path.BoxoPath asPath() {
+    final $r = $callSync(877, $W()..val(this));
+    return $r.p() ? $path.BoxoPath($r.str()) : $nil();
   }
 
   /// Go: `func (ipns.Name).Cid() cid.Cid`.
   $cid.Cid cid() {
-    final $r = $callSync(153, $W()..val(this));
+    final $r = $callSync(878, $W()..val(this));
     return $r.p() ? $cid.Cid($r.str()) : $nil();
-  }
-
-  /// Go: `func (ipns.Name).AsPath() path.Path`.
-  $path.BoxoPath asPath() {
-    final $r = $callSync(152, $W()..val(this));
-    return $r.p() ? $path.BoxoPath($r.str()) : $nil();
-  }
-
-  /// Go: `func (ipns.Name).RoutingKey() []byte`.
-  Uint8List routingKey() {
-    final $r = $callSync(156, $W()..val(this));
-    return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (ipns.Name).Equal(other ipns.Name) bool`.
   bool equal(BoxoIpnsName other) {
     final $r = $callSync(
-        154,
+        879,
         $W()
           ..val(this)
           ..val(other));
     return $r.b();
+  }
+
+  /// Go: `func (ipns.Name).MarshalJSON() ([]byte, error)`.
+  Uint8List marshalJson() {
+    final $r = $callSync(880, $W()..val(this));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (ipns.Name).Peer() peer.ID`.
+  $peer.Libp2pCorePeerId peer() {
+    final $r = $callSync(881, $W()..val(this));
+    return $r.p() ? $peer.Libp2pCorePeerId($r.str()) : $nil();
+  }
+
+  /// Go: `func (ipns.Name).RoutingKey() []byte`.
+  Uint8List routingKey() {
+    final $r = $callSync(882, $W()..val(this));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (ipns.Name).String() string`.
+  String string() {
+    final $r = $callSync(883, $W()..val(this));
+    return $r.str();
+  }
+
+  /// Go: `func (*ipns.Name).UnmarshalJSON(b []byte) error`.
+  void unmarshalJson(Uint8List b) {
+    $callSync(
+        884,
+        $W()
+          ..val(this)
+          ..bytes(b));
+  }
+}
+
+/// Go: `ipns.Option` (functional option; constructors in the package).
+final class BoxoIpnsOption extends GoOption {
+  BoxoIpnsOption.$(super.$i, super.$a);
+}
+
+/// Go: `ipns.Record` (handle).
+class BoxoIpnsRecord extends $crypto.CryptoPrivateKey
+    with $crypto.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
+    implements $crypto.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+  BoxoIpnsRecord.$h(super.$h) : super.$h();
+
+  /// Go: `func ipns.NewRecord(sk crypto.PrivKey, value path.Path, seq uint64, eol time.Time, ttl time.Duration, opts ...ipns.Option) (*ipns.Record, error)`.
+  factory BoxoIpnsRecord($crypto2.Libp2pCoreCryptoPrivKey sk,
+      $path.BoxoPath value, int seq, DateTime eol, Duration ttl,
+      [List<BoxoIpnsOption> opts = const []]) {
+    final $r = $callSync(
+        889,
+        $W()
+          ..h(sk)
+          ..val(value)
+          ..i64(seq)
+          ..time(eol)
+          ..i64((ttl).inMicroseconds * 1000)
+          ..list(opts, (w0, e0) => w0.opt(e0)));
+    return $r.hnn(BoxoIpnsRecord.$h);
+  }
+
+  /// Go: `func (*ipns.Record).Metadata(key string) (ipns.MetadataValue, error)`.
+  BoxoIpnsMetadataValue metadata(String key) {
+    final $r = $callSync(
+        890,
+        $W()
+          ..h(this)
+          ..str(key));
+    return $r.hnn(BoxoIpnsMetadataValue.$h);
+  }
+
+  /// Go: `func (*ipns.Record).MetadataExists(key string) bool`.
+  bool metadataExists(String key) {
+    final $r = $callSync(
+        891,
+        $W()
+          ..h(this)
+          ..str(key));
+    return $r.b();
+  }
+
+  /// Go: `func (*ipns.Record).PubKey() (crypto.PubKey, error)`.
+  $crypto2.Libp2pCoreCryptoPubKey pubKey() {
+    final $r = $callSync(892, $W()..h(this));
+    return $r.hnn($crypto2.Libp2pCoreCryptoPubKey.$h);
+  }
+
+  /// Go: `func (*ipns.Record).Sequence() (uint64, error)`.
+  int sequence() {
+    final $r = $callSync(893, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (*ipns.Record).TTL() (time.Duration, error)`.
+  Duration ttl() {
+    final $r = $callSync(894, $W()..h(this));
+    return Duration(microseconds: $r.i64() ~/ 1000);
+  }
+
+  /// Go: `func (*ipns.Record).Validity() (time.Time, error)`.
+  DateTime validity() {
+    final $r = $callSync(895, $W()..h(this));
+    return $r.p() ? $r.time() : $nil();
+  }
+
+  /// Go: `func (*ipns.Record).ValidityType() (ipns.ValidityType, error)`.
+  int validityType() {
+    final $r = $callSync(896, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (*ipns.Record).Value() (path.Path, error)`.
+  $path.BoxoPath value$() {
+    final $r = $callSync(897, $W()..h(this));
+    return $r.p() ? $path.BoxoPath($r.str()) : $nil();
+  }
+}
+
+/// Go: `ipns.Validator`.
+final class BoxoIpnsValidator implements GoDto {
+  BoxoIpnsValidator({$peerstore.Libp2pCorePeerstoreKeyBook? keyBook})
+      : keyBook = keyBook;
+
+  BoxoIpnsValidator.$dec($R r)
+      : keyBook = r.hn($peerstore.Libp2pCorePeerstoreKeyBook.$h);
+
+  /// Go: `KeyBook`.
+  $peerstore.Libp2pCorePeerstoreKeyBook? keyBook;
+
+  @override
+  void $enc($W w) {
+    w..h(keyBook);
+  }
+
+  /// Go: `func (ipns.Validator).Select(k string, vals [][]byte) (int, error)`.
+  int select(String k, List<Uint8List> vals) {
+    final $r = $callSync(
+        901,
+        $W()
+          ..dto(this)
+          ..str(k)
+          ..list(vals, (w0, e0) => w0.bytes(e0)));
+    return $r.i64();
+  }
+
+  /// Go: `func (ipns.Validator).Validate(key string, value []byte) error`.
+  void validate(String key, Uint8List value) {
+    $callSync(
+        902,
+        $W()
+          ..dto(this)
+          ..str(key)
+          ..bytes(value));
   }
 }
 
@@ -204,28 +388,84 @@ class BoxoIpnsErrUnrecognizedValidity extends GolangException {
 
 /// Go: the package-level members of `github.com/ipfs/boxo/ipns` (`Go.boxo.ipns`).
 extension GoBoxoIpnsApi on GoBoxoIpns {
-  /// Go: `func ipns.NameFromString(str string) (ipns.Name, error)`.
-  BoxoIpnsName nameFromString(String str) {
-    final $r = $callSync(160, $W()..str(str));
+  /// Go: `ipns.WithMetadata`.
+  BoxoIpnsOption withMetadata(Map<String, Object?> metadata) =>
+      BoxoIpnsOption.$(
+          0,
+          (w) =>
+              w..map(metadata, (w0, k0) => w0.str(k0), (w0, v0) => w0.any(v0)));
+
+  /// Go: `ipns.WithPublicKey`.
+  BoxoIpnsOption withPublicKey(bool embedded) =>
+      BoxoIpnsOption.$(1, (w) => w..b(embedded));
+
+  /// Go: `ipns.WithV1Compatibility`.
+  BoxoIpnsOption withV1Compatibility(bool compatible) =>
+      BoxoIpnsOption.$(2, (w) => w..b(compatible));
+
+  /// Go: `func ipns.ExtractPublicKey(rec *ipns.Record, name ipns.Name) (crypto.PubKey, error)`.
+  $crypto2.Libp2pCoreCryptoPubKey extractPublicKey(
+      BoxoIpnsRecord rec, BoxoIpnsName name) {
+    final $r = $callSync(
+        870,
+        $W()
+          ..h(rec)
+          ..val(name));
+    return $r.hnn($crypto2.Libp2pCoreCryptoPubKey.$h);
+  }
+
+  /// Go: `func ipns.MarshalRecord(rec *ipns.Record) ([]byte, error)`.
+  Uint8List marshalRecord(BoxoIpnsRecord rec) {
+    final $r = $callSync(871, $W()..h(rec));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func ipns.NameFromCid(c cid.Cid) (ipns.Name, error)`.
+  BoxoIpnsName nameFromCid($cid.Cid c) {
+    final $r = $callSync(885, $W()..val(c));
     return $r.p() ? BoxoIpnsName($r.str()) : $nil();
   }
 
   /// Go: `func ipns.NameFromPeer(pid peer.ID) ipns.Name`.
   BoxoIpnsName nameFromPeer($peer.Libp2pCorePeerId pid) {
-    final $r = $callSync(158, $W()..val(pid));
-    return $r.p() ? BoxoIpnsName($r.str()) : $nil();
-  }
-
-  /// Go: `func ipns.NameFromCid(c cid.Cid) (ipns.Name, error)`.
-  BoxoIpnsName nameFromCid($cid.Cid c) {
-    final $r = $callSync(157, $W()..val(c));
+    final $r = $callSync(886, $W()..val(pid));
     return $r.p() ? BoxoIpnsName($r.str()) : $nil();
   }
 
   /// Go: `func ipns.NameFromRoutingKey(data []byte) (ipns.Name, error)`.
   BoxoIpnsName nameFromRoutingKey(Uint8List data) {
-    final $r = $callSync(159, $W()..bytes(data));
+    final $r = $callSync(887, $W()..bytes(data));
     return $r.p() ? BoxoIpnsName($r.str()) : $nil();
+  }
+
+  /// Go: `func ipns.NameFromString(str string) (ipns.Name, error)`.
+  BoxoIpnsName nameFromString(String str) {
+    final $r = $callSync(888, $W()..str(str));
+    return $r.p() ? BoxoIpnsName($r.str()) : $nil();
+  }
+
+  /// Go: `func ipns.UnmarshalRecord(data []byte) (*ipns.Record, error)`.
+  BoxoIpnsRecord unmarshalRecord(Uint8List data) {
+    final $r = $callSync(898, $W()..bytes(data));
+    return $r.hnn(BoxoIpnsRecord.$h);
+  }
+
+  /// Go: `func ipns.Validate(rec *ipns.Record, pk crypto.PubKey) error`.
+  void validate(BoxoIpnsRecord rec, $crypto2.Libp2pCoreCryptoPubKey pk) {
+    $callSync(
+        899,
+        $W()
+          ..h(rec)
+          ..h(pk));
+  }
+
+  /// Go: `func ipns.ValidateWithName(rec *ipns.Record, name ipns.Name) error`.
+  void validateWithName(BoxoIpnsRecord rec, BoxoIpnsName name) {
+    $callSync(
+        900,
+        $W()
+          ..h(rec)
+          ..val(name));
   }
 
   /// Go: `const ipns.DefaultRecordLifetime time.Duration`.

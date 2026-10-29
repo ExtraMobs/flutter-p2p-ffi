@@ -16,6 +16,8 @@ import 'package:p2p_ffi/go/libp2p/core/peer.dart' as $peer;
 import 'package:p2p_ffi/go/libp2p/core/peerstore.dart' as $peerstore;
 import 'package:p2p_ffi/go/libp2p/p2p/host/autorelay.dart' as $autorelay;
 import 'package:p2p_ffi/go/libp2p/p2p/host/basic.dart' as $basic;
+import 'package:p2p_ffi/go/libp2p/p2p/host/resource_manager.dart'
+    as $resource_manager;
 import 'package:p2p_ffi/go/libp2p/p2p/net/swarm.dart' as $swarm;
 import 'package:p2p_ffi/go/libp2p/p2p/protocol/circuitv2/relay.dart' as $relay;
 import 'package:p2p_ffi/go/libp2p/p2p/protocol/holepunch.dart' as $holepunch;
@@ -324,7 +326,20 @@ extension GoLibp2pApi on GoLibp2p {
   /// Asynchronous: runs in a goroutine of the service.
   Future<$host.Libp2pCoreHost> new$(
       [List<$config.Libp2pConfigOption> opts = const []]) async {
-    final $r = await $call(534, $W()..list(opts, (w0, e0) => w0.opt(e0)));
+    final $r = await $call(2800, $W()..list(opts, (w0, e0) => w0.opt(e0)));
     return $r.hnn($host.Libp2pCoreHost.$h);
+  }
+
+  /// Go: `func libp2p.NewWithoutDefaults(opts ...libp2p.Option) (host.Host, error)`.
+  $host.Libp2pCoreHost newWithoutDefaults(
+      [List<$config.Libp2pConfigOption> opts = const []]) {
+    final $r = $callSync(2801, $W()..list(opts, (w0, e0) => w0.opt(e0)));
+    return $r.hnn($host.Libp2pCoreHost.$h);
+  }
+
+  /// Go: `func libp2p.SetDefaultServiceLimits(config *rcmgr.ScalingLimitConfig)`.
+  void setDefaultServiceLimits(
+      $resource_manager.Libp2pP2pHostResourceManagerScalingLimitConfig config) {
+    $callSync(2802, $W()..dto(config));
   }
 }

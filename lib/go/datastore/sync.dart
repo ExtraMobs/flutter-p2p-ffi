@@ -2,20 +2,209 @@
 // Go: github.com/ipfs/go-datastore/sync
 library;
 
+import 'dart:typed_data';
+
 import 'package:p2p_ffi/src/go.dart' show GoDatastoreSync;
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/context.dart' as $context;
+import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/datastore.dart' as $datastore;
+import 'package:p2p_ffi/go/datastore/query.dart' as $query;
+import 'package:p2p_ffi/go/ipfs_cmds.dart' as $ipfs_cmds;
 
 /// Go: `sync.MutexDatastore` (handle).
-class DatastoreSyncMutexDatastore extends $datastore.DatastoreBatching {
+class DatastoreSyncMutexDatastore extends $datastore.DatastoreShim
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $datastore.DatastoreBatchingFeature$,
+        $datastore.DatastoreCheckedFeature$,
+        $datastore.DatastoreGcFeature$,
+        $datastore.DatastorePersistentFeature$,
+        $datastore.DatastoreScrubbedFeature$,
+        $datastore.DatastoreWrite$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $datastore.DatastoreBatching$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $datastore.DatastoreBatchingFeature,
+        $datastore.DatastoreCheckedFeature,
+        $datastore.DatastoreGcFeature,
+        $datastore.DatastorePersistentFeature,
+        $datastore.DatastoreScrubbedFeature,
+        $datastore.DatastoreWrite,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $datastore.DatastoreBatching {
   DatastoreSyncMutexDatastore.$h(super.$h) : super.$h();
+
+  /// Go: `func (*sync.MutexDatastore).Batch(ctx context.Context) (datastore.Batch, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<$datastore.DatastoreBatch> batch($context.Context ctx) async {
+    final $r = await $call(
+        1188,
+        $W()
+          ..h(this)
+          ..h(ctx));
+    return $r.hnn($datastore.DatastoreBatch.$h);
+  }
+
+  /// Go: `func (*sync.MutexDatastore).Check(ctx context.Context) error`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> check($context.Context ctx) async {
+    await $call(
+        1189,
+        $W()
+          ..h(this)
+          ..h(ctx));
+  }
+
+  /// Go: `func (*sync.MutexDatastore).Children() []datastore.Datastore`.
+  List<$datastore.Datastore> children() {
+    final $r = $callSync(1190, $W()..h(this));
+    return $r.list(() => $r.hnn($datastore.Datastore.$h));
+  }
+
+  /// Go: `func (*sync.MutexDatastore).Close() error`.
+  void close() {
+    $callSync(1191, $W()..h(this));
+  }
+
+  /// Go: `func (*sync.MutexDatastore).CollectGarbage(ctx context.Context) error`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> collectGarbage($context.Context ctx) async {
+    await $call(
+        1192,
+        $W()
+          ..h(this)
+          ..h(ctx));
+  }
+
+  /// Go: `func (*sync.MutexDatastore).Delete(ctx context.Context, key datastore.Key) (err error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> delete($context.Context ctx, $datastore.DatastoreKey key) async {
+    await $call(
+        1193,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..h(key));
+  }
+
+  /// Go: `func (*sync.MutexDatastore).DiskUsage(ctx context.Context) (uint64, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<int> diskUsage($context.Context ctx) async {
+    final $r = await $call(
+        1194,
+        $W()
+          ..h(this)
+          ..h(ctx));
+    return $r.i64();
+  }
+
+  /// Go: `func (*sync.MutexDatastore).Get(ctx context.Context, key datastore.Key) (value []byte, err error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<Uint8List> get(
+      $context.Context ctx, $datastore.DatastoreKey key) async {
+    final $r = await $call(
+        1195,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..h(key));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (*sync.MutexDatastore).GetSize(ctx context.Context, key datastore.Key) (size int, err error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<int> getSize($context.Context ctx, $datastore.DatastoreKey key) async {
+    final $r = await $call(
+        1196,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..h(key));
+    return $r.i64();
+  }
+
+  /// Go: `func (*sync.MutexDatastore).Has(ctx context.Context, key datastore.Key) (exists bool, err error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<bool> has($context.Context ctx, $datastore.DatastoreKey key) async {
+    final $r = await $call(
+        1197,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..h(key));
+    return $r.b();
+  }
+
+  /// Go: `func (*sync.MutexDatastore).Put(ctx context.Context, key datastore.Key, value []byte) (err error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> put($context.Context ctx, $datastore.DatastoreKey key,
+      Uint8List value) async {
+    await $call(
+        1198,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..h(key)
+          ..bytes(value));
+  }
+
+  /// Go: `func (*sync.MutexDatastore).Query(ctx context.Context, q query.Query) (query.Results, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<$query.DatastoreQueryResults> query(
+      $context.Context ctx, $query.DatastoreQuery q) async {
+    final $r = await $call(
+        1199,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..dto(q));
+    return $r.hnn($query.DatastoreQueryResults.$h);
+  }
+
+  /// Go: `func (*sync.MutexDatastore).Scrub(ctx context.Context) error`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> scrub($context.Context ctx) async {
+    await $call(
+        1200,
+        $W()
+          ..h(this)
+          ..h(ctx));
+  }
+
+  /// Go: `func (*sync.MutexDatastore).Sync(ctx context.Context, prefix datastore.Key) error`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> sync(
+      $context.Context ctx, $datastore.DatastoreKey prefix) async {
+    await $call(
+        1201,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..h(prefix));
+  }
 }
 
 /// Go: the package-level members of `github.com/ipfs/go-datastore/sync` (`Go.datastore.sync`).
 extension GoDatastoreSyncApi on GoDatastoreSync {
   /// Go: `func sync.MutexWrap(d datastore.Datastore) *sync.MutexDatastore`.
   DatastoreSyncMutexDatastore mutexWrap($datastore.Datastore d) {
-    final $r = $callSync(247, $W()..h(d));
+    final $r = $callSync(1202, $W()..h(d));
     return $r.hnn(DatastoreSyncMutexDatastore.$h);
   }
 }

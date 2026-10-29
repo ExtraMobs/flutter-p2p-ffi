@@ -7,9 +7,12 @@ import 'dart:typed_data';
 import 'package:p2p_ffi/src/runtime.dart';
 
 /// Go: `record.Validator` (handle).
-class Libp2pRecordValidator extends GoHandle {
+class Libp2pRecordValidator extends GoHandle with Libp2pRecordValidator$ {
   Libp2pRecordValidator.$h(super.$h);
 }
+
+/// The methods of [Libp2pRecordValidator], mixed into every class Go also accepts as one.
+mixin Libp2pRecordValidator$ on GoHandle {}
 
 /// Go: `record.ErrBetterRecord`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).

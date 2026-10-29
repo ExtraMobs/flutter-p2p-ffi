@@ -6,6 +6,7 @@ import 'dart:typed_data';
 
 import 'package:p2p_ffi/src/go.dart' show GoNet;
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/libp2p/core/sec.dart' as $sec;
 
 /// Go: `net.Addr` (values read from the methods; built in Dart, it
 /// crosses as a Go value that returns them).
@@ -29,6 +30,20 @@ final class NetAddr implements GoDto {
     w
       ..str(network)
       ..str(string);
+  }
+}
+
+/// Go: `net.Conn` (handle).
+class NetConn extends GoHandle with NetConn$ {
+  NetConn.$h(super.$h);
+}
+
+/// The methods of [NetConn], mixed into every class Go also accepts as one.
+mixin NetConn$ on GoHandle {
+  /// Go: type assertion `x.(sec.SecureConn)`: null if the object is not one.
+  $sec.Libp2pCoreSecSecureConn? asLibp2pCoreSecSecureConn() {
+    final $r = $callSync(413, $W()..h(this));
+    return $r.hn($sec.Libp2pCoreSecSecureConn.$h);
   }
 }
 

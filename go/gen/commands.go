@@ -282,19 +282,28 @@ func (e *cmdEmitter) decStruct(t reflect.Type, r string) string {
 	if !ok {
 		return e.ref(t) + ".$dec(" + r + ")"
 	}
-	have := map[string]bool{}
+	have := map[string]*tinfo{}
 	for _, f := range ti.fields {
 		if f.skipped == "" {
-			have[memberName(f.name)] = true
+			have[memberName(f.name)] = f.t
 		}
 	}
 	var args []string
 	for _, f := range cmdschema.Fields(t) {
 		n := memberName(f.Name)
-		if !have[n] {
+		if have[n] == nil {
 			panic(fmt.Sprintf("gen: o campo %s.%s do comando não existe na classe %s", t, f.Name, className(e.de.m, ti)))
 		}
-		args = append(args, n+": "+e.dec(f.Type, r))
+		dec := e.dec(f.Type, r)
+		if k := cmdschema.Of(f.Type); (k == cmdschema.List || k == cmdschema.Map) && cmdschema.Of(f.Type.Elem()) == cmdschema.Ptr {
+			// the class's elements are not nullable (emit_dart: Go's nil
+			// element throws), the command's are
+			dec = strings.TrimSuffix(dec, " : null)") + " : $nil())"
+		}
+		if ft := have[n]; ft.k == kMap && ft.mkey != nil && ft.mkey.k != kBasic { // map[peer.ID]...: the class's key
+			dec = strings.Replace(dec, r+".map(() => "+r+".str(),", r+".map(() => "+e.de.ref(ft.mkey, e.cur)+"("+r+".str()),", 1)
+		}
+		args = append(args, n+": "+dec)
 	}
 	return e.ref(t) + "(" + strings.Join(args, ", ") + ")"
 }

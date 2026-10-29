@@ -13,21 +13,27 @@ import 'package:p2p_ffi/go/cid.dart' as $cid;
 import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/io.dart' as $io;
 import 'package:p2p_ffi/go/ipld_format.dart' as $ipld_format;
+import 'package:p2p_ffi/go/kubo/core/coreapi.dart' as $coreapi;
 import 'package:p2p_ffi/go/kubo/core/coreiface/options.dart' as $options;
 import 'package:p2p_ffi/go/libp2p/core/peer.dart' as $peer;
 import 'package:p2p_ffi/go/multiaddr.dart' as $multiaddr;
 
 /// Go: `iface.APIDagService` (handle).
-class KuboCoreCoreifaceApiDagService extends $ipld_format.IpldFormatDagService {
+class KuboCoreCoreifaceApiDagService extends $ipld_format.IpldFormatDagService
+    with $ipld_format.IpldFormatNodeAdder$, KuboCoreCoreifaceApiDagService$
+    implements $ipld_format.IpldFormatNodeAdder {
   KuboCoreCoreifaceApiDagService.$h(super.$h) : super.$h();
+}
 
+/// The methods of [KuboCoreCoreifaceApiDagService], mixed into every class Go also accepts as one.
+mixin KuboCoreCoreifaceApiDagService$ on GoHandle {
   /// Go: `func (format.NodeGetter).Get(context.Context, cid.Cid) (format.Node, error)`.
   ///
   /// Asynchronous: runs in a goroutine of the service.
   Future<$ipld_format.IpldFormatNode> get(
       $context.Context ctx, $cid.Cid cid) async {
     final $r = await $call(
-        297,
+        1562,
         $W()
           ..h(this)
           ..h(ctx)
@@ -39,7 +45,7 @@ class KuboCoreCoreifaceApiDagService extends $ipld_format.IpldFormatDagService {
   Stream<$ipld_format.IpldFormatNodeOption> getMany(
           $context.Context ctx, List<$cid.Cid> cids) =>
       $stream(
-              298,
+              1563,
               $W()
                 ..h(this)
                 ..h(ctx)
@@ -53,7 +59,7 @@ class KuboCoreCoreifaceApiDagService extends $ipld_format.IpldFormatDagService {
   Future<void> add(
       $context.Context ctx, $ipld_format.IpldFormatNode node) async {
     await $call(
-        295,
+        1560,
         $W()
           ..h(this)
           ..h(ctx)
@@ -66,7 +72,7 @@ class KuboCoreCoreifaceApiDagService extends $ipld_format.IpldFormatDagService {
   Future<void> addMany(
       $context.Context ctx, List<$ipld_format.IpldFormatNode> nodes) async {
     await $call(
-        296,
+        1561,
         $W()
           ..h(this)
           ..h(ctx)
@@ -78,7 +84,7 @@ class KuboCoreCoreifaceApiDagService extends $ipld_format.IpldFormatDagService {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> remove($context.Context ctx, $cid.Cid cid) async {
     await $call(
-        300,
+        1565,
         $W()
           ..h(this)
           ..h(ctx)
@@ -90,7 +96,7 @@ class KuboCoreCoreifaceApiDagService extends $ipld_format.IpldFormatDagService {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> removeMany($context.Context ctx, List<$cid.Cid> cids) async {
     await $call(
-        301,
+        1566,
         $W()
           ..h(this)
           ..h(ctx)
@@ -99,7 +105,7 @@ class KuboCoreCoreifaceApiDagService extends $ipld_format.IpldFormatDagService {
 
   /// Go: `func (iface.APIDagService).Pinning() format.NodeAdder`.
   $ipld_format.IpldFormatNodeAdder pinning() {
-    final $r = $callSync(299, $W()..h(this));
+    final $r = $callSync(1564, $W()..h(this));
     return $r.hnn($ipld_format.IpldFormatNodeAdder.$h);
   }
 }
@@ -191,8 +197,25 @@ final class KuboCoreCoreifaceBadPinNode implements GoDto {
 }
 
 /// Go: `iface.BlockAPI` (handle).
-class KuboCoreCoreifaceBlockApi extends GoHandle {
+class KuboCoreCoreifaceBlockApi extends GoHandle
+    with KuboCoreCoreifaceBlockApi$ {
   KuboCoreCoreifaceBlockApi.$h(super.$h);
+}
+
+/// The methods of [KuboCoreCoreifaceBlockApi], mixed into every class Go also accepts as one.
+mixin KuboCoreCoreifaceBlockApi$ on GoHandle {
+  /// Go: `func (iface.BlockAPI).Get(context.Context, path.Path) (io.Reader, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<$io.IoReader> get($context.Context ctx, $path.BoxoPath path) async {
+    final $r = await $call(
+        1567,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(path));
+    return $r.hnn($io.IoReader.$h);
+  }
 
   /// Go: `func (iface.BlockAPI).Put(context.Context, io.Reader, ...options.BlockPutOption) (iface.BlockStat, error)`.
   ///
@@ -201,26 +224,13 @@ class KuboCoreCoreifaceBlockApi extends GoHandle {
       [List<$options.KuboCoreCoreifaceOptionsBlockPutOption> opts =
           const []]) async {
     final $r = await $call(
-        303,
+        1568,
         $W()
           ..h(this)
           ..h(ctx)
           ..reader(reader)
           ..list(opts, (w0, e0) => w0.opt(e0)));
     return $r.p() ? KuboCoreCoreifaceBlockStat.$dec($r) : $nil();
-  }
-
-  /// Go: `func (iface.BlockAPI).Get(context.Context, path.Path) (io.Reader, error)`.
-  ///
-  /// Asynchronous: runs in a goroutine of the service.
-  Future<$io.IoReader> get($context.Context ctx, $path.BoxoPath path) async {
-    final $r = await $call(
-        302,
-        $W()
-          ..h(this)
-          ..h(ctx)
-          ..val(path));
-    return $r.hnn($io.IoReader.$h);
   }
 
   /// Go: `func (iface.BlockAPI).Rm(context.Context, path.Path, ...options.BlockRmOption) error`.
@@ -230,7 +240,7 @@ class KuboCoreCoreifaceBlockApi extends GoHandle {
       [List<$options.KuboCoreCoreifaceOptionsBlockRmOption> opts =
           const []]) async {
     await $call(
-        304,
+        1569,
         $W()
           ..h(this)
           ..h(ctx)
@@ -244,12 +254,18 @@ class KuboCoreCoreifaceBlockApi extends GoHandle {
   Future<KuboCoreCoreifaceBlockStat> stat(
       $context.Context ctx, $path.BoxoPath path) async {
     final $r = await $call(
-        305,
+        1570,
         $W()
           ..h(this)
           ..h(ctx)
           ..val(path));
     return $r.p() ? KuboCoreCoreifaceBlockStat.$dec($r) : $nil();
+  }
+
+  /// Go: type assertion `x.(*coreapi.BlockAPI)`: null if the object is not one.
+  $coreapi.KuboCoreCoreapiBlockApi? asKuboCoreCoreapiBlockApi() {
+    final $r = $callSync(203, $W()..h(this));
+    return $r.hn($coreapi.KuboCoreCoreapiBlockApi.$h);
   }
 }
 
@@ -329,13 +345,66 @@ final class KuboCoreCoreifaceConnectionInfo implements GoDto {
 }
 
 /// Go: `iface.CoreAPI` (handle).
-class KuboCoreCoreifaceCoreApi extends GoHandle {
+class KuboCoreCoreifaceCoreApi extends GoHandle with KuboCoreCoreifaceCoreApi$ {
   KuboCoreCoreifaceCoreApi.$h(super.$h);
+}
 
-  /// Go: `func (iface.CoreAPI).Unixfs() iface.UnixfsAPI`.
-  KuboCoreCoreifaceUnixfsApi unixfs() {
-    final $r = $callSync(317, $W()..h(this));
-    return $r.hnn(KuboCoreCoreifaceUnixfsApi.$h);
+/// The methods of [KuboCoreCoreifaceCoreApi], mixed into every class Go also accepts as one.
+mixin KuboCoreCoreifaceCoreApi$ on GoHandle {
+  /// Go: `func (iface.CoreAPI).Block() iface.BlockAPI`.
+  KuboCoreCoreifaceBlockApi block() {
+    final $r = $callSync(1571, $W()..h(this));
+    return $r.hnn(KuboCoreCoreifaceBlockApi.$h);
+  }
+
+  /// Go: `func (iface.CoreAPI).Dag() iface.APIDagService`.
+  KuboCoreCoreifaceApiDagService dag() {
+    final $r = $callSync(1572, $W()..h(this));
+    return $r.hnn(KuboCoreCoreifaceApiDagService.$h);
+  }
+
+  /// Go: `func (iface.CoreAPI).Key() iface.KeyAPI`.
+  KuboCoreCoreifaceKeyApi key() {
+    final $r = $callSync(1573, $W()..h(this));
+    return $r.hnn(KuboCoreCoreifaceKeyApi.$h);
+  }
+
+  /// Go: `func (iface.CoreAPI).Name() iface.NameAPI`.
+  KuboCoreCoreifaceNameApi name() {
+    final $r = $callSync(1574, $W()..h(this));
+    return $r.hnn(KuboCoreCoreifaceNameApi.$h);
+  }
+
+  /// Go: `func (iface.CoreAPI).Object() iface.ObjectAPI`.
+  KuboCoreCoreifaceObjectApi object() {
+    final $r = $callSync(1575, $W()..h(this));
+    return $r.hnn(KuboCoreCoreifaceObjectApi.$h);
+  }
+
+  /// Go: `func (iface.CoreAPI).Pin() iface.PinAPI`.
+  KuboCoreCoreifacePinApi pin() {
+    final $r = $callSync(1576, $W()..h(this));
+    return $r.hnn(KuboCoreCoreifacePinApi.$h);
+  }
+
+  /// Go: `func (iface.CoreAPI).PubSub() iface.PubSubAPI`.
+  KuboCoreCoreifacePubSubApi pubSub() {
+    final $r = $callSync(1577, $W()..h(this));
+    return $r.hnn(KuboCoreCoreifacePubSubApi.$h);
+  }
+
+  /// Go: `func (iface.CoreAPI).ResolveNode(context.Context, path.Path) (format.Node, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<$ipld_format.IpldFormatNode> resolveNode(
+      $context.Context ctx, $path.BoxoPath path) async {
+    final $r = await $call(
+        1578,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(path));
+    return $r.hnn($ipld_format.IpldFormatNode.$h);
   }
 
   /// Go: `func (iface.CoreAPI).ResolvePath(context.Context, path.Path) (path.ImmutablePath, []string, error)`.
@@ -344,7 +413,7 @@ class KuboCoreCoreifaceCoreApi extends GoHandle {
   Future<($path.BoxoPathImmutablePath, List<String>)> resolvePath(
       $context.Context ctx, $path.BoxoPath path) async {
     final $r = await $call(
-        314,
+        1579,
         $W()
           ..h(this)
           ..h(ctx)
@@ -355,83 +424,39 @@ class KuboCoreCoreifaceCoreApi extends GoHandle {
     );
   }
 
-  /// Go: `func (iface.CoreAPI).Pin() iface.PinAPI`.
-  KuboCoreCoreifacePinApi pin() {
-    final $r = $callSync(311, $W()..h(this));
-    return $r.hnn(KuboCoreCoreifacePinApi.$h);
-  }
-
-  /// Go: `func (iface.CoreAPI).Block() iface.BlockAPI`.
-  KuboCoreCoreifaceBlockApi block() {
-    final $r = $callSync(306, $W()..h(this));
-    return $r.hnn(KuboCoreCoreifaceBlockApi.$h);
-  }
-
-  /// Go: `func (iface.CoreAPI).Key() iface.KeyAPI`.
-  KuboCoreCoreifaceKeyApi key() {
-    final $r = $callSync(308, $W()..h(this));
-    return $r.hnn(KuboCoreCoreifaceKeyApi.$h);
+  /// Go: `func (iface.CoreAPI).Routing() iface.RoutingAPI`.
+  KuboCoreCoreifaceRoutingApi routing() {
+    final $r = $callSync(1580, $W()..h(this));
+    return $r.hnn(KuboCoreCoreifaceRoutingApi.$h);
   }
 
   /// Go: `func (iface.CoreAPI).Swarm() iface.SwarmAPI`.
   KuboCoreCoreifaceSwarmApi swarm() {
-    final $r = $callSync(316, $W()..h(this));
+    final $r = $callSync(1581, $W()..h(this));
     return $r.hnn(KuboCoreCoreifaceSwarmApi.$h);
   }
 
-  /// Go: `func (iface.CoreAPI).Routing() iface.RoutingAPI`.
-  KuboCoreCoreifaceRoutingApi routing() {
-    final $r = $callSync(315, $W()..h(this));
-    return $r.hnn(KuboCoreCoreifaceRoutingApi.$h);
-  }
-
-  /// Go: `func (iface.CoreAPI).Name() iface.NameAPI`.
-  KuboCoreCoreifaceNameApi name() {
-    final $r = $callSync(309, $W()..h(this));
-    return $r.hnn(KuboCoreCoreifaceNameApi.$h);
-  }
-
-  /// Go: `func (iface.CoreAPI).Dag() iface.APIDagService`.
-  KuboCoreCoreifaceApiDagService dag() {
-    final $r = $callSync(307, $W()..h(this));
-    return $r.hnn(KuboCoreCoreifaceApiDagService.$h);
-  }
-
-  /// Go: `func (iface.CoreAPI).ResolveNode(context.Context, path.Path) (format.Node, error)`.
-  ///
-  /// Asynchronous: runs in a goroutine of the service.
-  Future<$ipld_format.IpldFormatNode> resolveNode(
-      $context.Context ctx, $path.BoxoPath path) async {
-    final $r = await $call(
-        313,
-        $W()
-          ..h(this)
-          ..h(ctx)
-          ..val(path));
-    return $r.hnn($ipld_format.IpldFormatNode.$h);
-  }
-
-  /// Go: `func (iface.CoreAPI).PubSub() iface.PubSubAPI`.
-  KuboCoreCoreifacePubSubApi pubSub() {
-    final $r = $callSync(312, $W()..h(this));
-    return $r.hnn(KuboCoreCoreifacePubSubApi.$h);
+  /// Go: `func (iface.CoreAPI).Unixfs() iface.UnixfsAPI`.
+  KuboCoreCoreifaceUnixfsApi unixfs() {
+    final $r = $callSync(1582, $W()..h(this));
+    return $r.hnn(KuboCoreCoreifaceUnixfsApi.$h);
   }
 
   /// Go: `func (iface.CoreAPI).WithOptions(...options.ApiOption) (iface.CoreAPI, error)`.
   KuboCoreCoreifaceCoreApi withOptions(
       [List<$options.KuboCoreCoreifaceOptionsApiOption> opts = const []]) {
     final $r = $callSync(
-        318,
+        1583,
         $W()
           ..h(this)
           ..list(opts, (w0, e0) => w0.opt(e0)));
     return $r.hnn(KuboCoreCoreifaceCoreApi.$h);
   }
 
-  /// Go: `func (iface.CoreAPI).Object() iface.ObjectAPI`.
-  KuboCoreCoreifaceObjectApi object() {
-    final $r = $callSync(310, $W()..h(this));
-    return $r.hnn(KuboCoreCoreifaceObjectApi.$h);
+  /// Go: type assertion `x.(*coreapi.CoreAPI)`: null if the object is not one.
+  $coreapi.KuboCoreCoreapiCoreApi? asKuboCoreCoreapiCoreApi() {
+    final $r = $callSync(204, $W()..h(this));
+    return $r.hn($coreapi.KuboCoreCoreapiCoreApi.$h);
   }
 }
 
@@ -556,21 +581,12 @@ final class KuboCoreCoreifaceKey implements GoDto {
 }
 
 /// Go: `iface.KeyAPI` (handle).
-class KuboCoreCoreifaceKeyApi extends GoHandle {
+class KuboCoreCoreifaceKeyApi extends GoHandle with KuboCoreCoreifaceKeyApi$ {
   KuboCoreCoreifaceKeyApi.$h(super.$h);
+}
 
-  /// Go: `func (iface.KeyAPI).Self(ctx context.Context) (iface.Key, error)`.
-  ///
-  /// Asynchronous: runs in a goroutine of the service.
-  Future<KuboCoreCoreifaceKey> self($context.Context ctx) async {
-    final $r = await $call(
-        323,
-        $W()
-          ..h(this)
-          ..h(ctx));
-    return $r.p() ? KuboCoreCoreifaceKey.$dec($r) : $nil();
-  }
-
+/// The methods of [KuboCoreCoreifaceKeyApi], mixed into every class Go also accepts as one.
+mixin KuboCoreCoreifaceKeyApi$ on GoHandle {
   /// Go: `func (iface.KeyAPI).Generate(ctx context.Context, name string, opts ...options.KeyGenerateOption) (iface.Key, error)`.
   ///
   /// Asynchronous: runs in a goroutine of the service.
@@ -578,7 +594,7 @@ class KuboCoreCoreifaceKeyApi extends GoHandle {
       [List<$options.KuboCoreCoreifaceOptionsKeyGenerateOption> opts =
           const []]) async {
     final $r = await $call(
-        319,
+        1586,
         $W()
           ..h(this)
           ..h(ctx)
@@ -587,30 +603,12 @@ class KuboCoreCoreifaceKeyApi extends GoHandle {
     return $r.p() ? KuboCoreCoreifaceKey.$dec($r) : $nil();
   }
 
-  /// Go: `func (iface.KeyAPI).Rename(ctx context.Context, oldName string, newName string, opts ...options.KeyRenameOption) (iface.Key, bool, error)`.
-  ///
-  /// Asynchronous: runs in a goroutine of the service.
-  Future<(KuboCoreCoreifaceKey, bool)> rename(
-      $context.Context ctx, String oldName, String newName,
-      [List<$options.KuboCoreCoreifaceOptionsKeyRenameOption> opts =
-          const []]) async {
-    final $r = await $call(
-        322,
-        $W()
-          ..h(this)
-          ..h(ctx)
-          ..str(oldName)
-          ..str(newName)
-          ..list(opts, (w0, e0) => w0.opt(e0)));
-    return ($r.p() ? KuboCoreCoreifaceKey.$dec($r) : $nil(), $r.b());
-  }
-
   /// Go: `func (iface.KeyAPI).List(ctx context.Context) ([]iface.Key, error)`.
   ///
   /// Asynchronous: runs in a goroutine of the service.
   Future<List<KuboCoreCoreifaceKey>> list($context.Context ctx) async {
     final $r = await $call(
-        320,
+        1587,
         $W()
           ..h(this)
           ..h(ctx));
@@ -622,11 +620,41 @@ class KuboCoreCoreifaceKeyApi extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<KuboCoreCoreifaceKey> remove($context.Context ctx, String name) async {
     final $r = await $call(
-        321,
+        1588,
         $W()
           ..h(this)
           ..h(ctx)
           ..str(name));
+    return $r.p() ? KuboCoreCoreifaceKey.$dec($r) : $nil();
+  }
+
+  /// Go: `func (iface.KeyAPI).Rename(ctx context.Context, oldName string, newName string, opts ...options.KeyRenameOption) (iface.Key, bool, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<(KuboCoreCoreifaceKey, bool)> rename(
+      $context.Context ctx, String oldName, String newName,
+      [List<$options.KuboCoreCoreifaceOptionsKeyRenameOption> opts =
+          const []]) async {
+    final $r = await $call(
+        1589,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..str(oldName)
+          ..str(newName)
+          ..list(opts, (w0, e0) => w0.opt(e0)));
+    return ($r.p() ? KuboCoreCoreifaceKey.$dec($r) : $nil(), $r.b());
+  }
+
+  /// Go: `func (iface.KeyAPI).Self(ctx context.Context) (iface.Key, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<KuboCoreCoreifaceKey> self($context.Context ctx) async {
+    final $r = await $call(
+        1590,
+        $W()
+          ..h(this)
+          ..h(ctx));
     return $r.p() ? KuboCoreCoreifaceKey.$dec($r) : $nil();
   }
 
@@ -636,7 +664,7 @@ class KuboCoreCoreifaceKeyApi extends GoHandle {
   Future<(KuboCoreCoreifaceKey, Uint8List)> sign(
       $context.Context ctx, String name, Uint8List data) async {
     final $r = await $call(
-        324,
+        1591,
         $W()
           ..h(this)
           ..h(ctx)
@@ -654,7 +682,7 @@ class KuboCoreCoreifaceKeyApi extends GoHandle {
   Future<(KuboCoreCoreifaceKey, bool)> verify($context.Context ctx,
       String keyOrName, Uint8List signature, Uint8List data) async {
     final $r = await $call(
-        325,
+        1592,
         $W()
           ..h(this)
           ..h(ctx)
@@ -663,12 +691,21 @@ class KuboCoreCoreifaceKeyApi extends GoHandle {
           ..bytes(data));
     return ($r.p() ? KuboCoreCoreifaceKey.$dec($r) : $nil(), $r.b());
   }
+
+  /// Go: type assertion `x.(*coreapi.KeyAPI)`: null if the object is not one.
+  $coreapi.KuboCoreCoreapiKeyApi? asKuboCoreCoreapiKeyApi() {
+    final $r = $callSync(205, $W()..h(this));
+    return $r.hn($coreapi.KuboCoreCoreapiKeyApi.$h);
+  }
 }
 
 /// Go: `iface.NameAPI` (handle).
-class KuboCoreCoreifaceNameApi extends GoHandle {
+class KuboCoreCoreifaceNameApi extends GoHandle with KuboCoreCoreifaceNameApi$ {
   KuboCoreCoreifaceNameApi.$h(super.$h);
+}
 
+/// The methods of [KuboCoreCoreifaceNameApi], mixed into every class Go also accepts as one.
+mixin KuboCoreCoreifaceNameApi$ on GoHandle {
   /// Go: `func (iface.NameAPI).Publish(ctx context.Context, path path.Path, opts ...options.NamePublishOption) (ipns.Name, error)`.
   ///
   /// Asynchronous: runs in a goroutine of the service.
@@ -676,7 +713,7 @@ class KuboCoreCoreifaceNameApi extends GoHandle {
       [List<$options.KuboCoreCoreifaceOptionsNamePublishOption> opts =
           const []]) async {
     final $r = await $call(
-        326,
+        1593,
         $W()
           ..h(this)
           ..h(ctx)
@@ -692,7 +729,7 @@ class KuboCoreCoreifaceNameApi extends GoHandle {
       [List<$options.KuboCoreCoreifaceOptionsNameResolveOption> opts =
           const []]) async {
     final $r = await $call(
-        327,
+        1594,
         $W()
           ..h(this)
           ..h(ctx)
@@ -706,19 +743,29 @@ class KuboCoreCoreifaceNameApi extends GoHandle {
           [List<$options.KuboCoreCoreifaceOptionsNameResolveOption> opts =
               const []]) =>
       $stream(
-              328,
+              1595,
               $W()
                 ..h(this)
                 ..h(ctx)
                 ..str(name)
                 ..list(opts, (w0, e0) => w0.opt(e0)))
           .map((r) => r.p() ? KuboCoreCoreifaceIpnsResult.$dec(r) : $nil());
+
+  /// Go: type assertion `x.(*coreapi.NameAPI)`: null if the object is not one.
+  $coreapi.KuboCoreCoreapiNameApi? asKuboCoreCoreapiNameApi() {
+    final $r = $callSync(206, $W()..h(this));
+    return $r.hn($coreapi.KuboCoreCoreapiNameApi.$h);
+  }
 }
 
 /// Go: `iface.ObjectAPI` (handle).
-class KuboCoreCoreifaceObjectApi extends GoHandle {
+class KuboCoreCoreifaceObjectApi extends GoHandle
+    with KuboCoreCoreifaceObjectApi$ {
   KuboCoreCoreifaceObjectApi.$h(super.$h);
+}
 
+/// The methods of [KuboCoreCoreifaceObjectApi], mixed into every class Go also accepts as one.
+mixin KuboCoreCoreifaceObjectApi$ on GoHandle {
   /// Go: `func (iface.ObjectAPI).AddLink(ctx context.Context, base path.Path, name string, child path.Path, opts ...options.ObjectAddLinkOption) (path.ImmutablePath, error)`.
   ///
   /// Asynchronous: runs in a goroutine of the service.
@@ -727,7 +774,7 @@ class KuboCoreCoreifaceObjectApi extends GoHandle {
       [List<$options.KuboCoreCoreifaceOptionsObjectAddLinkOption> opts =
           const []]) async {
     final $r = await $call(
-        329,
+        1596,
         $W()
           ..h(this)
           ..h(ctx)
@@ -738,6 +785,22 @@ class KuboCoreCoreifaceObjectApi extends GoHandle {
     return $r.p() ? $path.BoxoPathImmutablePath($r.str()) : $nil();
   }
 
+  /// Go: `func (iface.ObjectAPI).Diff(context.Context, path.Path, path.Path) ([]iface.ObjectChange, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<List<KuboCoreCoreifaceObjectChange>> diff(
+      $context.Context ctx, $path.BoxoPath before, $path.BoxoPath after) async {
+    final $r = await $call(
+        1597,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(before)
+          ..val(after));
+    return $r
+        .list(() => $r.p() ? KuboCoreCoreifaceObjectChange.$dec($r) : $nil());
+  }
+
   /// Go: `func (iface.ObjectAPI).RmLink(ctx context.Context, base path.Path, link string, opts ...options.ObjectRmLinkOption) (path.ImmutablePath, error)`.
   ///
   /// Asynchronous: runs in a goroutine of the service.
@@ -746,7 +809,7 @@ class KuboCoreCoreifaceObjectApi extends GoHandle {
       [List<$options.KuboCoreCoreifaceOptionsObjectRmLinkOption> opts =
           const []]) async {
     final $r = await $call(
-        331,
+        1598,
         $W()
           ..h(this)
           ..h(ctx)
@@ -756,20 +819,10 @@ class KuboCoreCoreifaceObjectApi extends GoHandle {
     return $r.p() ? $path.BoxoPathImmutablePath($r.str()) : $nil();
   }
 
-  /// Go: `func (iface.ObjectAPI).Diff(context.Context, path.Path, path.Path) ([]iface.ObjectChange, error)`.
-  ///
-  /// Asynchronous: runs in a goroutine of the service.
-  Future<List<KuboCoreCoreifaceObjectChange>> diff(
-      $context.Context ctx, $path.BoxoPath before, $path.BoxoPath after) async {
-    final $r = await $call(
-        330,
-        $W()
-          ..h(this)
-          ..h(ctx)
-          ..val(before)
-          ..val(after));
-    return $r
-        .list(() => $r.p() ? KuboCoreCoreifaceObjectChange.$dec($r) : $nil());
+  /// Go: type assertion `x.(*coreapi.ObjectAPI)`: null if the object is not one.
+  $coreapi.KuboCoreCoreapiObjectApi? asKuboCoreCoreapiObjectApi() {
+    final $r = $callSync(207, $W()..h(this));
+    return $r.hn($coreapi.KuboCoreCoreapiObjectApi.$h);
   }
 }
 
@@ -846,9 +899,12 @@ final class KuboCoreCoreifacePin implements GoDto {
 }
 
 /// Go: `iface.PinAPI` (handle).
-class KuboCoreCoreifacePinApi extends GoHandle {
+class KuboCoreCoreifacePinApi extends GoHandle with KuboCoreCoreifacePinApi$ {
   KuboCoreCoreifacePinApi.$h(super.$h);
+}
 
+/// The methods of [KuboCoreCoreifacePinApi], mixed into every class Go also accepts as one.
+mixin KuboCoreCoreifacePinApi$ on GoHandle {
   /// Go: `func (iface.PinAPI).Add(context.Context, path.Path, ...options.PinAddOption) error`.
   ///
   /// Asynchronous: runs in a goroutine of the service.
@@ -856,25 +912,13 @@ class KuboCoreCoreifacePinApi extends GoHandle {
       [List<$options.KuboCoreCoreifaceOptionsPinAddOption> opts =
           const []]) async {
     await $call(
-        332,
+        1599,
         $W()
           ..h(this)
           ..h(ctx)
           ..val(path)
           ..list(opts, (w0, e0) => w0.opt(e0)));
   }
-
-  /// Go: `func (iface.PinAPI).Ls(context.Context, chan<- iface.Pin, ...options.PinLsOption) error`.
-  Stream<KuboCoreCoreifacePin> ls($context.Context ctx,
-          [List<$options.KuboCoreCoreifaceOptionsPinLsOption> opts =
-              const []]) =>
-      $stream(
-              334,
-              $W()
-                ..h(this)
-                ..h(ctx)
-                ..list(opts, (w0, e0) => w0.opt(e0)))
-          .map((r) => r.p() ? KuboCoreCoreifacePin.$dec(r) : $nil());
 
   /// Go: `func (iface.PinAPI).IsPinned(context.Context, path.Path, ...options.PinIsPinnedOption) (string, bool, error)`.
   ///
@@ -883,7 +927,7 @@ class KuboCoreCoreifacePinApi extends GoHandle {
       [List<$options.KuboCoreCoreifaceOptionsPinIsPinnedOption> opts =
           const []]) async {
     final $r = await $call(
-        333,
+        1600,
         $W()
           ..h(this)
           ..h(ctx)
@@ -892,6 +936,18 @@ class KuboCoreCoreifacePinApi extends GoHandle {
     return ($r.str(), $r.b());
   }
 
+  /// Go: `func (iface.PinAPI).Ls(context.Context, chan<- iface.Pin, ...options.PinLsOption) error`.
+  Stream<KuboCoreCoreifacePin> ls($context.Context ctx,
+          [List<$options.KuboCoreCoreifaceOptionsPinLsOption> opts =
+              const []]) =>
+      $stream(
+              1601,
+              $W()
+                ..h(this)
+                ..h(ctx)
+                ..list(opts, (w0, e0) => w0.opt(e0)))
+          .map((r) => r.p() ? KuboCoreCoreifacePin.$dec(r) : $nil());
+
   /// Go: `func (iface.PinAPI).Rm(context.Context, path.Path, ...options.PinRmOption) error`.
   ///
   /// Asynchronous: runs in a goroutine of the service.
@@ -899,7 +955,7 @@ class KuboCoreCoreifacePinApi extends GoHandle {
       [List<$options.KuboCoreCoreifaceOptionsPinRmOption> opts =
           const []]) async {
     await $call(
-        335,
+        1602,
         $W()
           ..h(this)
           ..h(ctx)
@@ -915,7 +971,7 @@ class KuboCoreCoreifacePinApi extends GoHandle {
       [List<$options.KuboCoreCoreifaceOptionsPinUpdateOption> opts =
           const []]) async {
     await $call(
-        336,
+        1603,
         $W()
           ..h(this)
           ..h(ctx)
@@ -926,11 +982,17 @@ class KuboCoreCoreifacePinApi extends GoHandle {
 
   /// Go: `func (iface.PinAPI).Verify(context.Context) (<-chan iface.PinStatus, error)`.
   Stream<KuboCoreCoreifacePinStatus> verify($context.Context ctx) => $stream(
-          337,
+          1604,
           $W()
             ..h(this)
             ..h(ctx))
       .map((r) => r.p() ? KuboCoreCoreifacePinStatus.$dec(r) : $nil());
+
+  /// Go: type assertion `x.(*coreapi.PinAPI)`: null if the object is not one.
+  $coreapi.KuboCoreCoreapiPinApi? asKuboCoreCoreapiPinApi() {
+    final $r = $callSync(208, $W()..h(this));
+    return $r.hn($coreapi.KuboCoreCoreapiPinApi.$h);
+  }
 }
 
 /// Go: `iface.PinStatus` (values read from the methods; built in Dart, it
@@ -967,15 +1029,19 @@ final class KuboCoreCoreifacePinStatus implements GoDto {
 }
 
 /// Go: `iface.PubSubAPI` (handle).
-class KuboCoreCoreifacePubSubApi extends GoHandle {
+class KuboCoreCoreifacePubSubApi extends GoHandle
+    with KuboCoreCoreifacePubSubApi$ {
   KuboCoreCoreifacePubSubApi.$h(super.$h);
+}
 
+/// The methods of [KuboCoreCoreifacePubSubApi], mixed into every class Go also accepts as one.
+mixin KuboCoreCoreifacePubSubApi$ on GoHandle {
   /// Go: `func (iface.PubSubAPI).Ls(context.Context) ([]string, error)`.
   ///
   /// Asynchronous: runs in a goroutine of the service.
   Future<List<String>> ls($context.Context ctx) async {
     final $r = await $call(
-        338,
+        1605,
         $W()
           ..h(this)
           ..h(ctx));
@@ -989,7 +1055,7 @@ class KuboCoreCoreifacePubSubApi extends GoHandle {
       [List<$options.KuboCoreCoreifaceOptionsPubSubPeersOption> opts =
           const []]) async {
     final $r = await $call(
-        339,
+        1606,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1003,7 +1069,7 @@ class KuboCoreCoreifacePubSubApi extends GoHandle {
   Future<void> publish(
       $context.Context ctx, String topic, Uint8List data) async {
     await $call(
-        340,
+        1607,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1019,13 +1085,19 @@ class KuboCoreCoreifacePubSubApi extends GoHandle {
       [List<$options.KuboCoreCoreifaceOptionsPubSubSubscribeOption> opts =
           const []]) async {
     final $r = await $call(
-        341,
+        1608,
         $W()
           ..h(this)
           ..h(ctx)
           ..str(topic)
           ..list(opts, (w0, e0) => w0.opt(e0)));
     return $r.hnn(KuboCoreCoreifacePubSubSubscription.$h);
+  }
+
+  /// Go: type assertion `x.(*coreapi.PubSubAPI)`: null if the object is not one.
+  $coreapi.KuboCoreCoreapiPubSubApi? asKuboCoreCoreapiPubSubApi() {
+    final $r = $callSync(209, $W()..h(this));
+    return $r.hn($coreapi.KuboCoreCoreapiPubSubApi.$h);
   }
 }
 
@@ -1071,60 +1143,88 @@ final class KuboCoreCoreifacePubSubMessage implements GoDto {
 }
 
 /// Go: `iface.PubSubSubscription` (handle).
-class KuboCoreCoreifacePubSubSubscription extends $io.IoCloser {
+class KuboCoreCoreifacePubSubSubscription extends $io.IoCloser
+    with KuboCoreCoreifacePubSubSubscription$ {
   KuboCoreCoreifacePubSubSubscription.$h(super.$h) : super.$h();
+}
+
+/// The methods of [KuboCoreCoreifacePubSubSubscription], mixed into every class Go also accepts as one.
+mixin KuboCoreCoreifacePubSubSubscription$ on GoHandle {
+  /// Go: `func (io.Closer).Close() error`.
+  void close() {
+    $callSync(1609, $W()..h(this));
+  }
 
   /// Go: `func (iface.PubSubSubscription).Next(context.Context) (iface.PubSubMessage, error)`.
   ///
   /// Asynchronous: runs in a goroutine of the service.
   Future<KuboCoreCoreifacePubSubMessage> next($context.Context ctx) async {
     final $r = await $call(
-        343,
+        1610,
         $W()
           ..h(this)
           ..h(ctx));
     return $r.p() ? KuboCoreCoreifacePubSubMessage.$dec($r) : $nil();
   }
-
-  /// Go: `func (io.Closer).Close() error`.
-  void close() {
-    $callSync(342, $W()..h(this));
-  }
 }
 
 /// Go: `iface.ReadSeekCloser` (handle).
-class KuboCoreCoreifaceReadSeekCloser extends $io.IoSeeker {
+class KuboCoreCoreifaceReadSeekCloser extends $io.IoSeeker
+    with KuboCoreCoreifaceReadSeekCloser$ {
   KuboCoreCoreifaceReadSeekCloser.$h(super.$h) : super.$h();
 }
 
+/// The methods of [KuboCoreCoreifaceReadSeekCloser], mixed into every class Go also accepts as one.
+mixin KuboCoreCoreifaceReadSeekCloser$ on GoHandle {}
+
 /// Go: `iface.Reader` (handle).
-class KuboCoreCoreifaceReader extends KuboCoreCoreifaceReadSeekCloser {
+class KuboCoreCoreifaceReader extends KuboCoreCoreifaceReadSeekCloser
+    with KuboCoreCoreifaceReader$ {
   KuboCoreCoreifaceReader.$h(super.$h) : super.$h();
+}
+
+/// The methods of [KuboCoreCoreifaceReader], mixed into every class Go also accepts as one.
+mixin KuboCoreCoreifaceReader$ on GoHandle {
+  /// Go: `func (iface.Reader).CtxReadFull(context.Context, []byte) (int, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<Uint8List> ctxReadFull($context.Context ctx, int n) async {
+    final $r = await $call(
+        1611,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..i64(n));
+    return $r.bytes() ?? Uint8List(0);
+  }
 
   /// Go: `func (iface.Reader).Size() uint64`.
   int size() {
-    final $r = $callSync(344, $W()..h(this));
+    final $r = $callSync(1612, $W()..h(this));
     return $r.i64();
   }
 }
 
 /// Go: `iface.RoutingAPI` (handle).
-class KuboCoreCoreifaceRoutingApi extends GoHandle {
+class KuboCoreCoreifaceRoutingApi extends GoHandle
+    with KuboCoreCoreifaceRoutingApi$ {
   KuboCoreCoreifaceRoutingApi.$h(super.$h);
+}
 
-  /// Go: `func (iface.RoutingAPI).Provide(context.Context, path.Path, ...options.RoutingProvideOption) error`.
+/// The methods of [KuboCoreCoreifaceRoutingApi], mixed into every class Go also accepts as one.
+mixin KuboCoreCoreifaceRoutingApi$ on GoHandle {
+  /// Go: `func (iface.RoutingAPI).FindPeer(context.Context, peer.ID) (peer.AddrInfo, error)`.
   ///
   /// Asynchronous: runs in a goroutine of the service.
-  Future<void> provide($context.Context ctx, $path.BoxoPath path,
-      [List<$options.KuboCoreCoreifaceOptionsRoutingProvideOption> opts =
-          const []]) async {
-    await $call(
-        348,
+  Future<$peer.Libp2pCorePeerAddrInfo> findPeer(
+      $context.Context ctx, $peer.Libp2pCorePeerId id) async {
+    final $r = await $call(
+        1613,
         $W()
           ..h(this)
           ..h(ctx)
-          ..val(path)
-          ..list(opts, (w0, e0) => w0.opt(e0)));
+          ..val(id));
+    return $r.p() ? $peer.Libp2pCorePeerAddrInfo.$dec($r) : $nil();
   }
 
   /// Go: `func (iface.RoutingAPI).FindProviders(context.Context, path.Path, ...options.RoutingFindProvidersOption) (<-chan peer.AddrInfo, error)`.
@@ -1133,7 +1233,7 @@ class KuboCoreCoreifaceRoutingApi extends GoHandle {
           [List<$options.KuboCoreCoreifaceOptionsRoutingFindProvidersOption>
               opts = const []]) =>
       $stream(
-              346,
+              1614,
               $W()
                 ..h(this)
                 ..h(ctx)
@@ -1141,31 +1241,32 @@ class KuboCoreCoreifaceRoutingApi extends GoHandle {
                 ..list(opts, (w0, e0) => w0.opt(e0)))
           .map((r) => r.p() ? $peer.Libp2pCorePeerAddrInfo.$dec(r) : $nil());
 
-  /// Go: `func (iface.RoutingAPI).FindPeer(context.Context, peer.ID) (peer.AddrInfo, error)`.
-  ///
-  /// Asynchronous: runs in a goroutine of the service.
-  Future<$peer.Libp2pCorePeerAddrInfo> findPeer(
-      $context.Context ctx, $peer.Libp2pCorePeerId id) async {
-    final $r = await $call(
-        345,
-        $W()
-          ..h(this)
-          ..h(ctx)
-          ..val(id));
-    return $r.p() ? $peer.Libp2pCorePeerAddrInfo.$dec($r) : $nil();
-  }
-
   /// Go: `func (iface.RoutingAPI).Get(context.Context, string) ([]byte, error)`.
   ///
   /// Asynchronous: runs in a goroutine of the service.
   Future<Uint8List> get($context.Context ctx, String key) async {
     final $r = await $call(
-        347,
+        1615,
         $W()
           ..h(this)
           ..h(ctx)
           ..str(key));
     return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (iface.RoutingAPI).Provide(context.Context, path.Path, ...options.RoutingProvideOption) error`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> provide($context.Context ctx, $path.BoxoPath path,
+      [List<$options.KuboCoreCoreifaceOptionsRoutingProvideOption> opts =
+          const []]) async {
+    await $call(
+        1616,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(path)
+          ..list(opts, (w0, e0) => w0.opt(e0)));
   }
 
   /// Go: `func (iface.RoutingAPI).Put(ctx context.Context, key string, value []byte, opts ...options.RoutingPutOption) error`.
@@ -1175,7 +1276,7 @@ class KuboCoreCoreifaceRoutingApi extends GoHandle {
       [List<$options.KuboCoreCoreifaceOptionsRoutingPutOption> opts =
           const []]) async {
     await $call(
-        349,
+        1617,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1183,19 +1284,29 @@ class KuboCoreCoreifaceRoutingApi extends GoHandle {
           ..bytes(value)
           ..list(opts, (w0, e0) => w0.opt(e0)));
   }
+
+  /// Go: type assertion `x.(*coreapi.RoutingAPI)`: null if the object is not one.
+  $coreapi.KuboCoreCoreapiRoutingApi? asKuboCoreCoreapiRoutingApi() {
+    final $r = $callSync(210, $W()..h(this));
+    return $r.hn($coreapi.KuboCoreCoreapiRoutingApi.$h);
+  }
 }
 
 /// Go: `iface.SwarmAPI` (handle).
-class KuboCoreCoreifaceSwarmApi extends GoHandle {
+class KuboCoreCoreifaceSwarmApi extends GoHandle
+    with KuboCoreCoreifaceSwarmApi$ {
   KuboCoreCoreifaceSwarmApi.$h(super.$h);
+}
 
+/// The methods of [KuboCoreCoreifaceSwarmApi], mixed into every class Go also accepts as one.
+mixin KuboCoreCoreifaceSwarmApi$ on GoHandle {
   /// Go: `func (iface.SwarmAPI).Connect(context.Context, peer.AddrInfo) error`.
   ///
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> connect(
       $context.Context ctx, $peer.Libp2pCorePeerAddrInfo addrInfo) async {
     await $call(
-        350,
+        1618,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1208,25 +1319,25 @@ class KuboCoreCoreifaceSwarmApi extends GoHandle {
   Future<void> disconnect(
       $context.Context ctx, $multiaddr.Multiaddr multiaddr) async {
     await $call(
-        351,
+        1619,
         $W()
           ..h(this)
           ..h(ctx)
           ..val(multiaddr));
   }
 
-  /// Go: `func (iface.SwarmAPI).Peers(context.Context) ([]iface.ConnectionInfo, error)`.
+  /// Go: `func (iface.SwarmAPI).KnownAddrs(context.Context) (map[peer.ID][]multiaddr.Multiaddr, error)`.
   ///
   /// Asynchronous: runs in a goroutine of the service.
-  Future<List<KuboCoreCoreifaceConnectionInfo>> peers(
+  Future<Map<$peer.Libp2pCorePeerId, List<$multiaddr.Multiaddr>>> knownAddrs(
       $context.Context ctx) async {
     final $r = await $call(
-        355,
+        1620,
         $W()
           ..h(this)
           ..h(ctx));
-    return $r
-        .list(() => $r.p() ? KuboCoreCoreifaceConnectionInfo.$dec($r) : $nil());
+    return $r.map(() => $peer.Libp2pCorePeerId($r.str()),
+        () => $r.list(() => $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil()));
   }
 
   /// Go: `func (iface.SwarmAPI).ListenAddrs(context.Context) ([]multiaddr.Multiaddr, error)`.
@@ -1234,7 +1345,7 @@ class KuboCoreCoreifaceSwarmApi extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<List<$multiaddr.Multiaddr>> listenAddrs($context.Context ctx) async {
     final $r = await $call(
-        353,
+        1621,
         $W()
           ..h(this)
           ..h(ctx));
@@ -1246,32 +1357,42 @@ class KuboCoreCoreifaceSwarmApi extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<List<$multiaddr.Multiaddr>> localAddrs($context.Context ctx) async {
     final $r = await $call(
-        354,
+        1622,
         $W()
           ..h(this)
           ..h(ctx));
     return $r.list(() => $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil());
   }
 
-  /// Go: `func (iface.SwarmAPI).KnownAddrs(context.Context) (map[peer.ID][]multiaddr.Multiaddr, error)`.
+  /// Go: `func (iface.SwarmAPI).Peers(context.Context) ([]iface.ConnectionInfo, error)`.
   ///
   /// Asynchronous: runs in a goroutine of the service.
-  Future<Map<$peer.Libp2pCorePeerId, List<$multiaddr.Multiaddr>>> knownAddrs(
+  Future<List<KuboCoreCoreifaceConnectionInfo>> peers(
       $context.Context ctx) async {
     final $r = await $call(
-        352,
+        1623,
         $W()
           ..h(this)
           ..h(ctx));
-    return $r.map(() => $peer.Libp2pCorePeerId($r.str()),
-        () => $r.list(() => $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil()));
+    return $r
+        .list(() => $r.p() ? KuboCoreCoreifaceConnectionInfo.$dec($r) : $nil());
+  }
+
+  /// Go: type assertion `x.(*coreapi.SwarmAPI)`: null if the object is not one.
+  $coreapi.KuboCoreCoreapiSwarmApi? asKuboCoreCoreapiSwarmApi() {
+    final $r = $callSync(211, $W()..h(this));
+    return $r.hn($coreapi.KuboCoreCoreapiSwarmApi.$h);
   }
 }
 
 /// Go: `iface.UnixfsAPI` (handle).
-class KuboCoreCoreifaceUnixfsApi extends GoHandle {
+class KuboCoreCoreifaceUnixfsApi extends GoHandle
+    with KuboCoreCoreifaceUnixfsApi$ {
   KuboCoreCoreifaceUnixfsApi.$h(super.$h);
+}
 
+/// The methods of [KuboCoreCoreifaceUnixfsApi], mixed into every class Go also accepts as one.
+mixin KuboCoreCoreifaceUnixfsApi$ on GoHandle {
   /// Go: `func (iface.UnixfsAPI).Add(context.Context, files.Node, ...options.UnixfsAddOption) (path.ImmutablePath, error)`.
   ///
   /// Asynchronous: runs in a goroutine of the service.
@@ -1280,7 +1401,7 @@ class KuboCoreCoreifaceUnixfsApi extends GoHandle {
       [List<$options.KuboCoreCoreifaceOptionsUnixfsAddOption> opts =
           const []]) async {
     final $r = await $call(
-        356,
+        1624,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1295,7 +1416,7 @@ class KuboCoreCoreifaceUnixfsApi extends GoHandle {
   Future<$files.BoxoFilesNode> get(
       $context.Context ctx, $path.BoxoPath path) async {
     final $r = await $call(
-        357,
+        1625,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1309,13 +1430,19 @@ class KuboCoreCoreifaceUnixfsApi extends GoHandle {
           [List<$options.KuboCoreCoreifaceOptionsUnixfsLsOption> opts =
               const []]) =>
       $stream(
-              358,
+              1626,
               $W()
                 ..h(this)
                 ..h(ctx)
                 ..val(path)
                 ..list(opts, (w0, e0) => w0.opt(e0)))
           .map((r) => r.p() ? KuboCoreCoreifaceDirEntry.$dec(r) : $nil());
+
+  /// Go: type assertion `x.(*coreapi.UnixfsAPI)`: null if the object is not one.
+  $coreapi.KuboCoreCoreapiUnixfsApi? asKuboCoreCoreapiUnixfsApi() {
+    final $r = $callSync(212, $W()..h(this));
+    return $r.hn($coreapi.KuboCoreCoreapiUnixfsApi.$h);
+  }
 }
 
 /// Go: `var iface.ErrConnNotFound error`: an error. Thrown as this class when it is the outermost
@@ -1383,6 +1510,18 @@ class KuboCoreCoreifaceErrResolveFailed extends GolangException {
 
 /// Go: the package-level members of `github.com/ipfs/kubo/core/coreiface` (`Go.kubo.core.coreiface`).
 extension GoKuboCoreCoreifaceApi on GoKuboCoreCoreiface {
+  /// Go: `func iface.FormatKey(key iface.Key) string`.
+  String formatKey(KuboCoreCoreifaceKey key) {
+    final $r = $callSync(1584, $W()..dto(key));
+    return $r.str();
+  }
+
+  /// Go: `func iface.FormatKeyID(id peer.ID) string`.
+  String formatKeyId($peer.Libp2pCorePeerId id) {
+    final $r = $callSync(1585, $W()..val(id));
+    return $r.str();
+  }
+
   /// Go: `const iface.DiffAdd iface.ChangeType`.
   int get diffAdd => 0;
 

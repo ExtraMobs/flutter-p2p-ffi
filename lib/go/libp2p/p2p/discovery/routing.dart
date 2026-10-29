@@ -3,20 +3,100 @@
 library;
 
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/boxo/provider.dart' as $provider;
+import 'package:p2p_ffi/go/cid.dart' as $cid;
 import 'package:p2p_ffi/go/context.dart' as $context;
+import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/ipfs_cmds.dart' as $ipfs_cmds;
 import 'package:p2p_ffi/go/libp2p/core/discovery.dart' as $discovery;
 import 'package:p2p_ffi/go/libp2p/core/peer.dart' as $peer;
 import 'package:p2p_ffi/go/libp2p/core/routing.dart' as $routing;
 
+/// Go: `routing.DiscoveryRouting` (handle).
+class Libp2pP2pDiscoveryRouting extends $provider.BoxoProviderProvide
+    with
+        $provider.BoxoProvider$,
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $routing.Libp2pCoreRoutingContentDiscovery$,
+        $routing.Libp2pCoreRoutingContentProviding$,
+        $discovery.Libp2pCoreDiscovery$,
+        $routing.Libp2pCoreRoutingContentRouting$
+    implements
+        $provider.BoxoProvider,
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $routing.Libp2pCoreRoutingContentDiscovery,
+        $routing.Libp2pCoreRoutingContentProviding,
+        $discovery.Libp2pCoreDiscovery,
+        $routing.Libp2pCoreRoutingContentRouting {
+  Libp2pP2pDiscoveryRouting.$h(super.$h) : super.$h();
+
+  /// Go: `func routing.NewDiscoveryRouting(disc discovery.Discovery, opts ...discovery.Option) *routing.DiscoveryRouting`.
+  factory Libp2pP2pDiscoveryRouting($discovery.Libp2pCoreDiscovery disc,
+      [List<$discovery.Libp2pCoreDiscoveryOption> opts = const []]) {
+    final $r = $callSync(
+        3189,
+        $W()
+          ..h(disc)
+          ..list(opts, (w0, e0) => w0.opt(e0)));
+    return $r.hnn(Libp2pP2pDiscoveryRouting.$h);
+  }
+
+  /// Go: `func (*routing.DiscoveryRouting).FindProvidersAsync(ctx context.Context, c cid.Cid, limit int) <-chan peer.AddrInfo`.
+  Stream<$peer.Libp2pCorePeerAddrInfo> findProvidersAsync(
+          $context.Context ctx, $cid.Cid c, int limit) =>
+      $stream(
+              3187,
+              $W()
+                ..h(this)
+                ..h(ctx)
+                ..val(c)
+                ..i64(limit))
+          .map((r) => r.p() ? $peer.Libp2pCorePeerAddrInfo.$dec(r) : $nil());
+
+  /// Go: `func (*routing.DiscoveryRouting).Provide(ctx context.Context, c cid.Cid, bcast bool) error`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> provide($context.Context ctx, $cid.Cid c, bool bcast) async {
+    await $call(
+        3188,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(c)
+          ..b(bcast));
+  }
+}
+
 /// Go: `routing.RoutingDiscovery` (handle).
-class Libp2pP2pDiscoveryRoutingDiscovery
-    extends $routing.Libp2pCoreRoutingContentRouting {
+class Libp2pP2pDiscoveryRoutingDiscovery extends $provider.BoxoProviderProvide
+    with
+        $provider.BoxoProvider$,
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $routing.Libp2pCoreRoutingContentDiscovery$,
+        $routing.Libp2pCoreRoutingContentProviding$,
+        $discovery.Libp2pCoreDiscovery$,
+        $routing.Libp2pCoreRoutingContentRouting$
+    implements
+        $provider.BoxoProvider,
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $routing.Libp2pCoreRoutingContentDiscovery,
+        $routing.Libp2pCoreRoutingContentProviding,
+        $discovery.Libp2pCoreDiscovery,
+        $routing.Libp2pCoreRoutingContentRouting {
   Libp2pP2pDiscoveryRoutingDiscovery.$h(super.$h) : super.$h();
 
   /// Go: `func routing.NewRoutingDiscovery(router routing.ContentRouting) *routing.RoutingDiscovery`.
   factory Libp2pP2pDiscoveryRoutingDiscovery(
       $routing.Libp2pCoreRoutingContentRouting router) {
-    final $r = $callSync(645, $W()..h(router));
+    final $r = $callSync(3190, $W()..h(router));
     return $r.hnn(Libp2pP2pDiscoveryRoutingDiscovery.$h);
   }
 
@@ -26,7 +106,7 @@ class Libp2pP2pDiscoveryRoutingDiscovery
   Future<Duration> advertise($context.Context ctx, String ns,
       [List<$discovery.Libp2pCoreDiscoveryOption> opts = const []]) async {
     final $r = await $call(
-        646,
+        3191,
         $W()
           ..h(this)
           ..h(ctx)
@@ -40,7 +120,7 @@ class Libp2pP2pDiscoveryRoutingDiscovery
           $context.Context ctx, String ns,
           [List<$discovery.Libp2pCoreDiscoveryOption> opts = const []]) =>
       $stream(
-              647,
+              3192,
               $W()
                 ..h(this)
                 ..h(ctx)

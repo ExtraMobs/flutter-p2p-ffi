@@ -7,7 +7,9 @@ import 'dart:typed_data';
 
 import 'package:p2p_ffi/src/go.dart' show GoMultihash;
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/hash.dart' as $hash;
+import 'package:p2p_ffi/go/ipfs_cmds.dart' as $ipfs_cmds;
 
 /// Go: `multihash.DecodedMultihash`.
 final class MultihashDecodedMultihash implements GoDto {
@@ -50,36 +52,41 @@ final class MultihashDecodedMultihash implements GoDto {
 }
 
 /// Go: `multihash.Reader` (handle).
-class MultihashReader extends GoHandle {
+class MultihashReader extends GoHandle with MultihashReader$ {
   MultihashReader.$h(super.$h);
 
   /// Go: `func multihash.NewReader(r io.Reader) multihash.Reader`.
   factory MultihashReader(Object r) {
-    final $r = $callSync(682, $W()..reader(r));
+    final $r = $callSync(3448, $W()..reader(r));
     return $r.hnn(MultihashReader.$h);
   }
+}
 
+/// The methods of [MultihashReader], mixed into every class Go also accepts as one.
+mixin MultihashReader$ on GoHandle {
   /// Go: `func (multihash.Reader).ReadMultihash() (multihash.Multihash, error)`.
   Uint8List readMultihash() {
-    final $r = $callSync(685, $W()..h(this));
+    final $r = $callSync(3451, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 }
 
 /// Go: `multihash.Set` (handle).
-class MultihashSet extends GoHandle {
-  MultihashSet.$h(super.$h);
+class MultihashSet extends $crypto.CryptoPrivateKey
+    with $crypto.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
+    implements $crypto.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+  MultihashSet.$h(super.$h) : super.$h();
 
   /// Go: `func multihash.NewSet() *multihash.Set`.
   factory MultihashSet() {
-    final $r = $callSync(683);
+    final $r = $callSync(3449);
     return $r.hnn(MultihashSet.$h);
   }
 
   /// Go: `func (*multihash.Set).Add(m multihash.Multihash)`.
   void add(Uint8List m) {
     $callSync(
-        686,
+        3452,
         $W()
           ..h(this)
           ..bytes(m));
@@ -87,7 +94,7 @@ class MultihashSet extends GoHandle {
 
   /// Go: `func (*multihash.Set).All() []multihash.Multihash`.
   List<Uint8List> all() {
-    final $r = $callSync(687, $W()..h(this));
+    final $r = $callSync(3453, $W()..h(this));
     return $r.list(() => $r.bytes() ?? Uint8List(0));
   }
 
@@ -101,7 +108,7 @@ class MultihashSet extends GoHandle {
   Future<void> forEach(FutureOr<void> Function(Uint8List m) f,
       {int? batchSize}) async {
     await $callCb(
-        688,
+        3454,
         $W()
           ..h(this)
           ..u32(batchSize ?? 0),
@@ -111,7 +118,7 @@ class MultihashSet extends GoHandle {
   /// Go: `func (*multihash.Set).Has(m multihash.Multihash) bool`.
   bool has(Uint8List m) {
     final $r = $callSync(
-        689,
+        3455,
         $W()
           ..h(this)
           ..bytes(m));
@@ -120,14 +127,14 @@ class MultihashSet extends GoHandle {
 
   /// Go: `func (*multihash.Set).Len() int`.
   int len() {
-    final $r = $callSync(690, $W()..h(this));
+    final $r = $callSync(3456, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*multihash.Set).Remove(m multihash.Multihash)`.
   void remove(Uint8List m) {
     $callSync(
-        691,
+        3457,
         $W()
           ..h(this)
           ..bytes(m));
@@ -136,7 +143,7 @@ class MultihashSet extends GoHandle {
   /// Go: `func (*multihash.Set).Visit(m multihash.Multihash) bool`.
   bool visit(Uint8List m) {
     final $r = $callSync(
-        692,
+        3458,
         $W()
           ..h(this)
           ..bytes(m));
@@ -145,19 +152,22 @@ class MultihashSet extends GoHandle {
 }
 
 /// Go: `multihash.Writer` (handle).
-class MultihashWriter extends GoHandle {
+class MultihashWriter extends GoHandle with MultihashWriter$ {
   MultihashWriter.$h(super.$h);
 
   /// Go: `func multihash.NewWriter(w io.Writer) multihash.Writer`.
   factory MultihashWriter(GoHandle? w) {
-    final $r = $callSync(684, $W()..h(w));
+    final $r = $callSync(3450, $W()..h(w));
     return $r.hnn(MultihashWriter.$h);
   }
+}
 
+/// The methods of [MultihashWriter], mixed into every class Go also accepts as one.
+mixin MultihashWriter$ on GoHandle {
   /// Go: `func (multihash.Writer).WriteMultihash(multihash.Multihash) error`.
   void writeMultihash(Uint8List arg0) {
     $callSync(
-        695,
+        3461,
         $W()
           ..h(this)
           ..bytes(arg0));
@@ -256,10 +266,84 @@ class MultihashErrVarintTooLong extends GolangException {
 
 /// Go: the package-level members of `github.com/multiformats/go-multihash` (`Go.multihash`).
 extension GoMultihashApi on GoMultihash {
+  /// Go: `func multihash.Cast(buf []byte) (multihash.Multihash, error)`.
+  Uint8List cast(Uint8List buf) {
+    final $r = $callSync(3437, $W()..bytes(buf));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `var multihash.Codes map[uint64]string`.
+  Map<int, String> get codes {
+    final $r = $callSync(3438);
+    return $r.map(() => $r.i64(), () => $r.str());
+  }
+
+  /// Go: `func multihash.Decode(buf []byte) (*multihash.DecodedMultihash, error)`.
+  MultihashDecodedMultihash decode(Uint8List buf) {
+    final $r = $callSync(3439, $W()..bytes(buf));
+    return $r.p() ? MultihashDecodedMultihash.$dec($r) : $nil();
+  }
+
+  /// Go: `var multihash.DefaultLengths map[uint64]int`.
+  Map<int, int> get defaultLengths {
+    final $r = $callSync(3440);
+    return $r.map(() => $r.i64(), () => $r.i64());
+  }
+
+  /// Go: `func multihash.Encode(buf []byte, code uint64) ([]byte, error)`.
+  Uint8List encode(Uint8List buf, int code) {
+    final $r = $callSync(
+        3441,
+        $W()
+          ..bytes(buf)
+          ..i64(code));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func multihash.EncodeName(buf []byte, name string) ([]byte, error)`.
+  Uint8List encodeName(Uint8List buf, String name) {
+    final $r = $callSync(
+        3442,
+        $W()
+          ..bytes(buf)
+          ..str(name));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func multihash.FromB58String(s string) (m multihash.Multihash, err error)`.
+  Uint8List fromB58String(String s) {
+    final $r = $callSync(3443, $W()..str(s));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func multihash.FromHexString(s string) (multihash.Multihash, error)`.
+  Uint8List fromHexString(String s) {
+    final $r = $callSync(3444, $W()..str(s));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func multihash.GetHasher(indicator uint64) (hash.Hash, error)`.
+  $hash.Hash getHasher(int indicator) {
+    final $r = $callSync(3445, $W()..i64(indicator));
+    return $r.hnn($hash.Hash.$h);
+  }
+
+  /// Go: `func multihash.MHFromBytes(buf []byte) (int, multihash.Multihash, error)`.
+  (int, Uint8List) mhFromBytes(Uint8List buf) {
+    final $r = $callSync(3446, $W()..bytes(buf));
+    return ($r.i64(), $r.bytes() ?? Uint8List(0));
+  }
+
+  /// Go: `var multihash.Names map[string]uint64`.
+  Map<String, int> get names {
+    final $r = $callSync(3447);
+    return $r.map(() => $r.str(), () => $r.i64());
+  }
+
   /// Go: `func multihash.Sum(data []byte, code uint64, length int) (multihash.Multihash, error)`.
   Uint8List sum(Uint8List data, int code, int length) {
     final $r = $callSync(
-        693,
+        3459,
         $W()
           ..bytes(data)
           ..i64(code)
@@ -270,86 +354,12 @@ extension GoMultihashApi on GoMultihash {
   /// Go: `func multihash.SumStream(r io.Reader, code uint64, length int) (multihash.Multihash, error)`.
   Uint8List sumStream(Object r, int code, int length) {
     final $r = $callSync(
-        694,
+        3460,
         $W()
           ..reader(r)
           ..i64(code)
           ..i64(length));
     return $r.bytes() ?? Uint8List(0);
-  }
-
-  /// Go: `func multihash.Encode(buf []byte, code uint64) ([]byte, error)`.
-  Uint8List encode(Uint8List buf, int code) {
-    final $r = $callSync(
-        675,
-        $W()
-          ..bytes(buf)
-          ..i64(code));
-    return $r.bytes() ?? Uint8List(0);
-  }
-
-  /// Go: `func multihash.EncodeName(buf []byte, name string) ([]byte, error)`.
-  Uint8List encodeName(Uint8List buf, String name) {
-    final $r = $callSync(
-        676,
-        $W()
-          ..bytes(buf)
-          ..str(name));
-    return $r.bytes() ?? Uint8List(0);
-  }
-
-  /// Go: `func multihash.Decode(buf []byte) (*multihash.DecodedMultihash, error)`.
-  MultihashDecodedMultihash decode(Uint8List buf) {
-    final $r = $callSync(673, $W()..bytes(buf));
-    return $r.p() ? MultihashDecodedMultihash.$dec($r) : $nil();
-  }
-
-  /// Go: `func multihash.Cast(buf []byte) (multihash.Multihash, error)`.
-  Uint8List cast(Uint8List buf) {
-    final $r = $callSync(671, $W()..bytes(buf));
-    return $r.bytes() ?? Uint8List(0);
-  }
-
-  /// Go: `func multihash.MHFromBytes(buf []byte) (int, multihash.Multihash, error)`.
-  (int, Uint8List) mhFromBytes(Uint8List buf) {
-    final $r = $callSync(680, $W()..bytes(buf));
-    return ($r.i64(), $r.bytes() ?? Uint8List(0));
-  }
-
-  /// Go: `func multihash.FromB58String(s string) (m multihash.Multihash, err error)`.
-  Uint8List fromB58String(String s) {
-    final $r = $callSync(677, $W()..str(s));
-    return $r.bytes() ?? Uint8List(0);
-  }
-
-  /// Go: `func multihash.FromHexString(s string) (multihash.Multihash, error)`.
-  Uint8List fromHexString(String s) {
-    final $r = $callSync(678, $W()..str(s));
-    return $r.bytes() ?? Uint8List(0);
-  }
-
-  /// Go: `var multihash.Names map[string]uint64`.
-  Map<String, int> get names {
-    final $r = $callSync(681);
-    return $r.map(() => $r.str(), () => $r.i64());
-  }
-
-  /// Go: `var multihash.Codes map[uint64]string`.
-  Map<int, String> get codes {
-    final $r = $callSync(672);
-    return $r.map(() => $r.i64(), () => $r.str());
-  }
-
-  /// Go: `var multihash.DefaultLengths map[uint64]int`.
-  Map<int, int> get defaultLengths {
-    final $r = $callSync(674);
-    return $r.map(() => $r.i64(), () => $r.i64());
-  }
-
-  /// Go: `func multihash.GetHasher(indicator uint64) (hash.Hash, error)`.
-  $hash.Hash getHasher(int indicator) {
-    final $r = $callSync(679, $W()..i64(indicator));
-    return $r.hnn($hash.Hash.$h);
   }
 
   /// Go: `const multihash.BLAKE2B_MAX untyped int`.

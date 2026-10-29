@@ -5,9 +5,13 @@ library;
 import 'package:p2p_ffi/src/runtime.dart';
 
 /// Go: `metrics.Reporter` (handle).
-class Libp2pCoreMetricsReporter extends GoHandle {
+class Libp2pCoreMetricsReporter extends GoHandle
+    with Libp2pCoreMetricsReporter$ {
   Libp2pCoreMetricsReporter.$h(super.$h);
 }
+
+/// The methods of [Libp2pCoreMetricsReporter], mixed into every class Go also accepts as one.
+mixin Libp2pCoreMetricsReporter$ on GoHandle {}
 
 /// Go: `metrics.Stats` (a kubo command output).
 final class Libp2pCoreMetricsStats {

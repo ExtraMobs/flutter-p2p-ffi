@@ -11,7 +11,8 @@ import 'package:p2p_ffi/go/libp2p/core/host.dart' as $host;
 import 'package:p2p_ffi/go/libp2p/core/peer.dart' as $peer;
 
 /// Go: `mdns.Notifee` (handle).
-class Libp2pP2pDiscoveryMdnsNotifee extends GoHandle {
+class Libp2pP2pDiscoveryMdnsNotifee extends GoHandle
+    with Libp2pP2pDiscoveryMdnsNotifee$ {
   Libp2pP2pDiscoveryMdnsNotifee.$h(super.$h);
 
   /// A Dart implementation of Go's `mdns.Notifee`.
@@ -22,7 +23,7 @@ class Libp2pP2pDiscoveryMdnsNotifee extends GoHandle {
       {FutureOr<void> Function($peer.Libp2pCorePeerAddrInfo addrInfo)?
           handlePeerFound}) {
     final $r = $callSync(
-        642,
+        3183,
         $W()
           ..cb(
               handlePeerFound == null
@@ -34,18 +35,34 @@ class Libp2pP2pDiscoveryMdnsNotifee extends GoHandle {
   }
 }
 
+/// The methods of [Libp2pP2pDiscoveryMdnsNotifee], mixed into every class Go also accepts as one.
+mixin Libp2pP2pDiscoveryMdnsNotifee$ on GoHandle {
+  /// Go: `func (mdns.Notifee).HandlePeerFound(peer.AddrInfo)`.
+  void handlePeerFound($peer.Libp2pCorePeerAddrInfo addrInfo) {
+    $callSync(
+        3184,
+        $W()
+          ..h(this)
+          ..dto(addrInfo));
+  }
+}
+
 /// Go: `mdns.Service` (handle).
-class Libp2pP2pDiscoveryMdnsService extends $io.IoCloser {
+class Libp2pP2pDiscoveryMdnsService extends $io.IoCloser
+    with Libp2pP2pDiscoveryMdnsService$ {
   Libp2pP2pDiscoveryMdnsService.$h(super.$h) : super.$h();
+}
+
+/// The methods of [Libp2pP2pDiscoveryMdnsService], mixed into every class Go also accepts as one.
+mixin Libp2pP2pDiscoveryMdnsService$ on GoHandle {
+  /// Go: `func (io.Closer).Close() error`.
+  void close() {
+    $callSync(3185, $W()..h(this));
+  }
 
   /// Go: `func (mdns.Service).Start() error`.
   void start() {
-    $callSync(644, $W()..h(this));
-  }
-
-  /// Go: `func (io.Closer).Close() error`.
-  void close() {
-    $callSync(643, $W()..h(this));
+    $callSync(3186, $W()..h(this));
   }
 }
 
@@ -55,7 +72,7 @@ extension GoLibp2pP2pDiscoveryMdnsApi on GoLibp2pP2pDiscoveryMdns {
   Libp2pP2pDiscoveryMdnsService newMdnsService($host.Libp2pCoreHost host,
       String serviceName, Libp2pP2pDiscoveryMdnsNotifee notifee) {
     final $r = $callSync(
-        641,
+        3182,
         $W()
           ..h(host)
           ..str(serviceName)

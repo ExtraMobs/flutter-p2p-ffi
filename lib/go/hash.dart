@@ -5,6 +5,9 @@ library;
 import 'package:p2p_ffi/src/runtime.dart';
 
 /// Go: `hash.Hash` (handle).
-class Hash extends GoHandle {
+class Hash extends GoHandle with Hash$ {
   Hash.$h(super.$h);
 }
+
+/// The methods of [Hash], mixed into every class Go also accepts as one.
+mixin Hash$ on GoHandle {}

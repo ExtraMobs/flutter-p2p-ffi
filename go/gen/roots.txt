@@ -1,115 +1,25 @@
-# Símbolos Go expostos ao Dart, na ordem em que o kubo monta um nó
-# (cmd/ipfs/kubo/daemon.go e docs/examples/kubo-as-a-library).
-# Um por linha: pacote.Função ou pacote.Tipo.Método. Depois de editar:
-# `go run ./gen` na pasta go/.
-
-# M1.0 plugins (uma vez por processo, antes de qualquer repo)
-github.com/ipfs/kubo/plugin/loader.NewPluginLoader
-github.com/ipfs/kubo/plugin/loader.PluginLoader.Initialize
-github.com/ipfs/kubo/plugin/loader.PluginLoader.Inject
-
-# M1.1 identidade, config e repo (ipfs init)
-github.com/ipfs/kubo/config.CreateIdentity
-github.com/ipfs/kubo/config.InitWithIdentity
-github.com/ipfs/kubo/repo/fsrepo.IsInitialized
-github.com/ipfs/kubo/repo/fsrepo.Init
-github.com/ipfs/kubo/repo/fsrepo.Open
-
-# M1.2 nó e CoreAPI
-github.com/ipfs/kubo/core.NewNode
-github.com/ipfs/kubo/core.IpfsNode.Close
-github.com/ipfs/kubo/core/coreapi.NewCoreAPI
-github.com/ipfs/kubo/core/coreiface.CoreAPI.Unixfs
-github.com/ipfs/kubo/core/coreiface.CoreAPI.ResolvePath
+# Go symbols exposed to Dart. A line "pkg.*" takes every exported function,
+# variable and method of the package; go/gen/ignore_roots.txt drops what must
+# not cross, and a symbol the generator cannot bridge is skipped (API.md,
+# "omitted"). The other lines are the special roots a "pkg.*" does not reach:
+# one symbol of a package with no "pkg.*" (the stdlib), a struct field
+# (IpfsNode.FilesRoot), a method an interface inherits by embedding, a type
+# alone (a struct with an empty constructor). After editing: `go run ./gen` in
+# go/.
 
 # M1.3 arquivos (Unixfs)
-github.com/ipfs/kubo/core/coreiface.UnixfsAPI.Add
-github.com/ipfs/kubo/core/coreiface.UnixfsAPI.Get
-github.com/ipfs/kubo/core/coreiface.UnixfsAPI.Ls
-github.com/ipfs/boxo/files.NewBytesFile
-github.com/ipfs/boxo/files.NewSerialFile
-github.com/ipfs/boxo/files.ToFile
-github.com/ipfs/boxo/files.WriteTo
 os.Stat
 io.ReadAll
 
-# M2 pins, blocos e GC (ipfs pin, ipfs block, ipfs repo gc)
-github.com/ipfs/kubo/core/coreiface.CoreAPI.Pin
-github.com/ipfs/kubo/core/coreiface.PinAPI.Add
-github.com/ipfs/kubo/core/coreiface.PinAPI.Ls
-github.com/ipfs/kubo/core/coreiface.PinAPI.IsPinned
-github.com/ipfs/kubo/core/coreiface.PinAPI.Rm
-github.com/ipfs/kubo/core/coreiface.PinAPI.Update
-github.com/ipfs/kubo/core/coreiface.PinAPI.Verify
-github.com/ipfs/kubo/core/coreiface.CoreAPI.Block
-github.com/ipfs/kubo/core/coreiface.BlockAPI.Put
-github.com/ipfs/kubo/core/coreiface.BlockAPI.Get
-github.com/ipfs/kubo/core/coreiface.BlockAPI.Rm
-github.com/ipfs/kubo/core/coreiface.BlockAPI.Stat
-github.com/ipfs/kubo/core/corerepo.GarbageCollect
-github.com/ipfs/kubo/core/corerepo.GarbageCollectAsync
-
-# M3 rede (o roteamento como o daemon.go escolhe; swarm; routing; identidade)
-github.com/ipfs/kubo/repo.Repo.Config
-github.com/ipfs/kubo/core/node/libp2p.DHTOption
-github.com/ipfs/kubo/core/node/libp2p.DHTClientOption
-github.com/ipfs/kubo/core/node/libp2p.DHTServerOption
-github.com/ipfs/kubo/core/node/libp2p.NilRouterOption
-github.com/ipfs/kubo/core/node/libp2p.ConstructDefaultRouting
-github.com/ipfs/kubo/core/coreiface.CoreAPI.Key
-github.com/ipfs/kubo/core/coreiface.KeyAPI.Self
-github.com/ipfs/kubo/core/coreiface.CoreAPI.Swarm
-github.com/ipfs/kubo/core/coreiface.SwarmAPI.Connect
-github.com/ipfs/kubo/core/coreiface.SwarmAPI.Disconnect
-github.com/ipfs/kubo/core/coreiface.SwarmAPI.Peers
-github.com/ipfs/kubo/core/coreiface.SwarmAPI.ListenAddrs
-github.com/ipfs/kubo/core/coreiface.SwarmAPI.LocalAddrs
-github.com/ipfs/kubo/core/coreiface.CoreAPI.Routing
-github.com/ipfs/kubo/core/coreiface.RoutingAPI.Provide
-github.com/ipfs/kubo/core/coreiface.RoutingAPI.FindProviders
-github.com/ipfs/kubo/core/coreiface.RoutingAPI.FindPeer
-github.com/ipfs/kubo/core/coreiface.RoutingAPI.Get
-github.com/ipfs/kubo/core/coreiface.RoutingAPI.Put
-github.com/libp2p/go-libp2p/core/peer.AddrInfoFromString
-github.com/libp2p/go-libp2p/core/peer.AddrInfoToP2pAddrs
-
-# F2a IPNS e chaves (ipfs name, ipfs key)
-github.com/ipfs/kubo/core/coreiface.CoreAPI.Name
-github.com/ipfs/kubo/core/coreiface.NameAPI.Publish
-github.com/ipfs/kubo/core/coreiface.NameAPI.Resolve
-github.com/ipfs/kubo/core/coreiface.NameAPI.Search
-github.com/ipfs/kubo/core/coreiface.KeyAPI.Generate
-github.com/ipfs/kubo/core/coreiface.KeyAPI.Rename
-github.com/ipfs/kubo/core/coreiface.KeyAPI.List
-github.com/ipfs/kubo/core/coreiface.KeyAPI.Remove
-github.com/ipfs/kubo/core/coreiface.KeyAPI.Sign
-github.com/ipfs/kubo/core/coreiface.KeyAPI.Verify
-
-# F2b endereços conhecidos (ipfs swarm addrs)
-github.com/ipfs/kubo/core/coreiface.SwarmAPI.KnownAddrs
-
 # F2c Dag sobre merkledag (ipfs dag, nós raw e dag-pb)
-github.com/ipfs/kubo/core/coreiface.CoreAPI.Dag
-github.com/ipfs/kubo/core/coreiface.CoreAPI.ResolveNode
 github.com/ipfs/kubo/core/coreiface.APIDagService.Get
 github.com/ipfs/kubo/core/coreiface.APIDagService.GetMany
 github.com/ipfs/kubo/core/coreiface.APIDagService.Add
 github.com/ipfs/kubo/core/coreiface.APIDagService.AddMany
 github.com/ipfs/kubo/core/coreiface.APIDagService.Remove
 github.com/ipfs/kubo/core/coreiface.APIDagService.RemoveMany
-github.com/ipfs/kubo/core/coreiface.APIDagService.Pinning
-github.com/ipfs/go-ipld-format.NodeAdder.Add
-github.com/ipfs/go-ipld-format.NodeAdder.AddMany
 github.com/ipfs/go-ipld-format.Node.Cid
 github.com/ipfs/go-ipld-format.Node.RawData
-github.com/ipfs/go-ipld-format.Node.Links
-github.com/ipfs/go-ipld-format.Node.Size
-github.com/ipfs/go-ipld-format.Node.Stat
-github.com/ipfs/boxo/ipld/merkledag.NewRawNode
-github.com/ipfs/boxo/ipld/merkledag.NodeWithData
-github.com/ipfs/boxo/ipld/merkledag.ProtoNode.AddNodeLink
-github.com/ipfs/boxo/ipld/merkledag.ProtoNode.SetData
-github.com/ipfs/boxo/ipld/merkledag.ProtoNode.Data
 
 # F4a relatório de crash: um panic em goroutine interna do kubo derruba o
 # processo; o Go grava o relatório num arquivo para o app ler no próximo início
@@ -119,229 +29,46 @@ runtime/debug.SetCrashOutput
 
 # Pubsub (ipfs pubsub): o nó precisa de BuildCfg.ExtraOpts {"pubsub": true},
 # como o daemon faz com Pubsub.Enabled
-github.com/ipfs/kubo/core/coreiface.CoreAPI.PubSub
-github.com/ipfs/kubo/core/coreiface.PubSubAPI.Ls
-github.com/ipfs/kubo/core/coreiface.PubSubAPI.Peers
-github.com/ipfs/kubo/core/coreiface.PubSubAPI.Publish
-github.com/ipfs/kubo/core/coreiface.PubSubAPI.Subscribe
-github.com/ipfs/kubo/core/coreiface.PubSubSubscription.Next
 github.com/ipfs/kubo/core/coreiface.PubSubSubscription.Close
-
-# 0.13 o resto da CoreAPI: opções da API (offline, sem buscar blocos), objetos
-# dag-pb (ipfs object patch/diff) e o tamanho de um Reader
-github.com/ipfs/kubo/core/coreiface.CoreAPI.WithOptions
-github.com/ipfs/kubo/core/coreiface.CoreAPI.Object
-github.com/ipfs/kubo/core/coreiface.ObjectAPI.AddLink
-github.com/ipfs/kubo/core/coreiface.ObjectAPI.RmLink
-github.com/ipfs/kubo/core/coreiface.ObjectAPI.Diff
-github.com/ipfs/kubo/core/coreiface.Reader.Size
 
 # 0.13 MFS de baixo nível (boxo/mfs; os comandos `ipfs files` vêm no 0.14):
 # a raiz do nó, funções do pacote, pastas, arquivos e descritores
 github.com/ipfs/kubo/core.IpfsNode.FilesRoot
 # o produtor do SplitterGen que o mfs.WithChunker recebe
-github.com/ipfs/boxo/chunker.SizeSplitterGen
-github.com/ipfs/boxo/mfs.Lookup
-github.com/ipfs/boxo/mfs.DirLookup
-github.com/ipfs/boxo/mfs.Mkdir
-github.com/ipfs/boxo/mfs.Mv
-github.com/ipfs/boxo/mfs.PutNode
-github.com/ipfs/boxo/mfs.FlushPath
-github.com/ipfs/boxo/mfs.Chmod
-github.com/ipfs/boxo/mfs.Touch
-github.com/ipfs/boxo/mfs.IsDir
-github.com/ipfs/boxo/mfs.IsFile
-github.com/ipfs/boxo/mfs.Root.GetDirectory
-github.com/ipfs/boxo/mfs.Root.Flush
-github.com/ipfs/boxo/mfs.Root.FlushMemFree
-github.com/ipfs/boxo/mfs.FSNode.GetNode
-github.com/ipfs/boxo/mfs.FSNode.Flush
-github.com/ipfs/boxo/mfs.FSNode.Type
-github.com/ipfs/boxo/mfs.FSNode.SetMode
-github.com/ipfs/boxo/mfs.FSNode.SetModTime
-github.com/ipfs/boxo/mfs.Directory.Child
-github.com/ipfs/boxo/mfs.Directory.ListNames
-github.com/ipfs/boxo/mfs.Directory.List
-github.com/ipfs/boxo/mfs.Directory.Mkdir
-github.com/ipfs/boxo/mfs.Directory.MkdirWithOpts
-github.com/ipfs/boxo/mfs.Directory.Unlink
-github.com/ipfs/boxo/mfs.Directory.Uncache
-github.com/ipfs/boxo/mfs.Directory.AddChild
-github.com/ipfs/boxo/mfs.Directory.Flush
-github.com/ipfs/boxo/mfs.Directory.GetNode
-github.com/ipfs/boxo/mfs.Directory.Path
-github.com/ipfs/boxo/mfs.Directory.Mode
-github.com/ipfs/boxo/mfs.Directory.ModTime
-github.com/ipfs/boxo/mfs.File.Open
-github.com/ipfs/boxo/mfs.File.Size
-github.com/ipfs/boxo/mfs.File.GetNode
-github.com/ipfs/boxo/mfs.File.Flush
-github.com/ipfs/boxo/mfs.File.Sync
-github.com/ipfs/boxo/mfs.File.Mode
-github.com/ipfs/boxo/mfs.File.ModTime
 github.com/ipfs/boxo/mfs.File.RawLeaves
 github.com/ipfs/boxo/mfs.FileDescriptor.Read
-github.com/ipfs/boxo/mfs.FileDescriptor.CtxReadFull
 github.com/ipfs/boxo/mfs.FileDescriptor.Write
 github.com/ipfs/boxo/mfs.FileDescriptor.WriteAt
 github.com/ipfs/boxo/mfs.FileDescriptor.Seek
-github.com/ipfs/boxo/mfs.FileDescriptor.Truncate
-github.com/ipfs/boxo/mfs.FileDescriptor.Size
-github.com/ipfs/boxo/mfs.FileDescriptor.Flush
 github.com/ipfs/boxo/mfs.FileDescriptor.Close
 
 # 0.13 config e peering do nó rodando (os comandos `ipfs config/bootstrap/
 # swarm peering` vêm no 0.14): a maior parte da config só vale ao reiniciar
 github.com/ipfs/kubo/core.IpfsNode.Repo
-github.com/ipfs/kubo/repo.Repo.SetConfig
-github.com/ipfs/kubo/repo.Repo.SetConfigKey
-github.com/ipfs/kubo/repo.Repo.GetConfigKey
-github.com/ipfs/kubo/repo.Repo.BackupConfig
-github.com/ipfs/kubo/config.ParseBootstrapPeers
-github.com/ipfs/kubo/config.BootstrapPeerStrings
 github.com/ipfs/kubo/core.IpfsNode.Peering
-github.com/ipfs/boxo/peering.PeeringService.AddPeer
-github.com/ipfs/boxo/peering.PeeringService.RemovePeer
-github.com/ipfs/boxo/peering.PeeringService.ListPeers
 
 # 0.16 go-car (github.com/ipld/go-car/v2): arquivos CAR sem nó. Leitura
 # (versão, raízes, estatísticas, bloco a bloco), conversões v1/v2, índice,
 # blockstore e storage IPLD sobre um CAR e a travessia seletiva CAR → CAR.
 # As opções (car.Option) saem sozinhas, como funções do pacote.
-github.com/ipld/go-car/v2.ReadVersion
-github.com/ipld/go-car/v2.OpenReader
-github.com/ipld/go-car/v2.NewReader
 github.com/ipld/go-car/v2.Reader.Header
 github.com/ipld/go-car/v2.Reader.Version
-github.com/ipld/go-car/v2.Reader.Roots
-github.com/ipld/go-car/v2.Reader.Inspect
-github.com/ipld/go-car/v2.Reader.DataReader
-github.com/ipld/go-car/v2.Reader.IndexReader
-github.com/ipld/go-car/v2.Reader.Close
-github.com/ipld/go-car/v2.NewBlockReader
 github.com/ipld/go-car/v2.BlockReader.Version
 github.com/ipld/go-car/v2.BlockReader.Roots
-github.com/ipld/go-car/v2.BlockReader.Next
-github.com/ipld/go-car/v2.BlockReader.NextReader
-github.com/ipld/go-car/v2.BlockReader.SkipNext
-github.com/ipld/go-car/v2.NewHeader
-github.com/ipld/go-car/v2.Header.HasIndex
-github.com/ipld/go-car/v2.Header.WithDataSize
-github.com/ipld/go-car/v2.Header.WithDataPadding
-github.com/ipld/go-car/v2.Header.WithIndexPadding
-github.com/ipld/go-car/v2.Header.WriteTo
-github.com/ipld/go-car/v2.Characteristics.IsFullyIndexed
-github.com/ipld/go-car/v2.ExtractV1File
-github.com/ipld/go-car/v2.WrapV1File
-github.com/ipld/go-car/v2.WrapV1
-github.com/ipld/go-car/v2.ReplaceRootsInFile
-github.com/ipld/go-car/v2.GenerateIndex
-github.com/ipld/go-car/v2.GenerateIndexFromFile
-github.com/ipld/go-car/v2.ReadOrGenerateIndex
-github.com/ipld/go-car/v2.LoadIndex
-github.com/ipld/go-car/v2.AttachIndex
-github.com/ipld/go-car/v2/index.New
-github.com/ipld/go-car/v2/index.ReadFrom
-github.com/ipld/go-car/v2/index.WriteTo
-github.com/ipld/go-car/v2/index.GetFirst
-github.com/ipld/go-car/v2/index.ReadCodec
-github.com/ipld/go-car/v2/index.Index.Codec
-github.com/ipld/go-car/v2/index.Index.Marshal
-github.com/ipld/go-car/v2/index.Index.Unmarshal
-github.com/ipld/go-car/v2/index.Index.Load
 # 0.17 callbacks sob demanda: o Go chama o callback, o Dart recebe os
 # argumentos em lotes (batchSize) e responde (false/exceção param)
-github.com/ipld/go-car/v2/index.Index.GetAll
-github.com/ipld/go-car/v2/index.IterableIndex.ForEach
 # the multicodec code table: one root makes the library, and every constant of
 # the package comes with it (CarMultihashIndexSorted, the codecs, the hashes)
 github.com/multiformats/go-multicodec.CarMultihashIndexSorted
 # o CID de um bloco novo, sem nó: cid.NewPrefixV1(codec, mhType).sum(dados)
-github.com/ipfs/go-cid.NewPrefixV0
-github.com/ipfs/go-cid.NewPrefixV1
-github.com/ipfs/go-cid.Prefix.Sum
 # go-multihash: the hash functions' codes (SHA2_256...) and the hash of a CID as a
 # value of its own (sum without a CID, decode, base58/hex, streams)
-github.com/multiformats/go-multihash.Sum
-github.com/multiformats/go-multihash.SumStream
-github.com/multiformats/go-multihash.Encode
-github.com/multiformats/go-multihash.EncodeName
-github.com/multiformats/go-multihash.Decode
-github.com/multiformats/go-multihash.Cast
-github.com/multiformats/go-multihash.MHFromBytes
-github.com/multiformats/go-multihash.FromB58String
-github.com/multiformats/go-multihash.FromHexString
-github.com/multiformats/go-multihash.Multihash.B58String
-github.com/multiformats/go-multihash.Multihash.HexString
-github.com/multiformats/go-multihash.Multihash.String
-github.com/multiformats/go-multihash.Names
-github.com/multiformats/go-multihash.Codes
-github.com/multiformats/go-multihash.DefaultLengths
-github.com/multiformats/go-multihash.GetHasher
-github.com/multiformats/go-multihash.Register
-github.com/multiformats/go-multihash.NewSet
-github.com/multiformats/go-multihash.Set.Add
-github.com/multiformats/go-multihash.Set.All
-github.com/multiformats/go-multihash.Set.ForEach
-github.com/multiformats/go-multihash.Set.Has
-github.com/multiformats/go-multihash.Set.Len
-github.com/multiformats/go-multihash.Set.Remove
-github.com/multiformats/go-multihash.Set.Visit
-github.com/multiformats/go-multihash.NewReader
-github.com/multiformats/go-multihash.Reader.ReadMultihash
-github.com/multiformats/go-multihash.NewWriter
-github.com/multiformats/go-multihash.Writer.WriteMultihash
 # go-multibase: the bases of a CID's text (Base32 'b', Base58BTC 'z', Base36 'k')
-github.com/multiformats/go-multibase.Encode
-github.com/multiformats/go-multibase.Decode
-github.com/multiformats/go-multibase.EncoderByName
-github.com/multiformats/go-multibase.NewEncoder
-github.com/multiformats/go-multibase.Encoder.Encode
-github.com/multiformats/go-multibase.Encoder.Encoding
-github.com/multiformats/go-multibase.EncodingToStr
-github.com/multiformats/go-multibase.Encodings
 # the chunk size the splitters aim at (a var: read from Go, not a const)
-github.com/ipfs/boxo/chunker.DefaultBlockSize
-github.com/ipld/go-car/v2/blockstore.OpenReadOnly
-github.com/ipld/go-car/v2/blockstore.NewReadOnly
-github.com/ipld/go-car/v2/blockstore.ReadOnly.Roots
-github.com/ipld/go-car/v2/blockstore.ReadOnly.Has
-github.com/ipld/go-car/v2/blockstore.ReadOnly.Get
-github.com/ipld/go-car/v2/blockstore.ReadOnly.GetSize
-github.com/ipld/go-car/v2/blockstore.ReadOnly.AllKeysChan
-github.com/ipld/go-car/v2/blockstore.ReadOnly.Index
-github.com/ipld/go-car/v2/blockstore.ReadOnly.HashOnRead
-github.com/ipld/go-car/v2/blockstore.ReadOnly.Close
-github.com/ipld/go-car/v2/blockstore.OpenReadWrite
-github.com/ipld/go-car/v2/blockstore.ReadWrite.Roots
-github.com/ipld/go-car/v2/blockstore.ReadWrite.Put
-github.com/ipld/go-car/v2/blockstore.ReadWrite.PutMany
-github.com/ipld/go-car/v2/blockstore.ReadWrite.Has
-github.com/ipld/go-car/v2/blockstore.ReadWrite.Get
-github.com/ipld/go-car/v2/blockstore.ReadWrite.GetSize
-github.com/ipld/go-car/v2/blockstore.ReadWrite.AllKeysChan
-github.com/ipld/go-car/v2/blockstore.ReadWrite.Index
-github.com/ipld/go-car/v2/blockstore.ReadWrite.HashOnRead
-github.com/ipld/go-car/v2/blockstore.ReadWrite.Finalize
-github.com/ipld/go-car/v2/blockstore.ReadWrite.FinalizeReadOnly
-github.com/ipld/go-car/v2/blockstore.ReadWrite.Discard
-github.com/ipld/go-car/v2/blockstore.ReadWrite.Close
-github.com/ipld/go-car/v2/storage.OpenReadable
-github.com/ipld/go-car/v2/storage.ReadableCar.Roots
-github.com/ipld/go-car/v2/storage.ReadableCar.Index
 # travessia seletiva: o LinkSystem lê de um storage (um CAR aberto) e o
 # seletor diz o que copiar (ParseJSONSelector ou um dos CommonSelector_*).
 # Do storage só o que serve a ela: Has/Get/Put têm como chave o CID binário
 # (KeyString), que o Dart não monta; para escrever, o blockstore.ReadWrite.
-github.com/ipld/go-ipld-prime/linking/cid.DefaultLinkSystem
-github.com/ipld/go-ipld-prime/linking.LinkSystem.SetReadStorage
-github.com/ipld/go-ipld-prime/traversal/selector/parse.ParseJSONSelector
-github.com/ipld/go-ipld-prime/traversal/selector/parse.CommonSelector_MatchPoint
-github.com/ipld/go-ipld-prime/traversal/selector/parse.CommonSelector_MatchChildren
-github.com/ipld/go-ipld-prime/traversal/selector/parse.CommonSelector_ExploreAllRecursively
-github.com/ipld/go-ipld-prime/traversal/selector/parse.CommonSelector_MatchAllRecursively
-github.com/ipld/go-car/v2.TraverseToFile
-github.com/ipld/go-car/v2.TraverseV1
 # arquivos e buffers do Go para as funções de cima (io.ReaderAt, io.Writer);
 # os O_* são iguais no Windows, no linux e no Android
 os.Open
@@ -353,42 +80,16 @@ bytes.Buffer.Bytes
 # o CAR de um caminho, com escopo (all/entity/block), ordem, duplicatas e
 # faixa de bytes de um arquivo; busca na rede o que faltar
 github.com/ipfs/kubo/core.IpfsNode.Blocks
-github.com/ipfs/boxo/gateway.NewBlocksBackend
-github.com/ipfs/boxo/gateway.BlocksBackend.GetCAR
 io.Copy
 io.ReadCloser.Close
 # a camada UnixFS sobre o LinkSystem (go-unixfsnode): seletores que andam
 # pelos nomes de arquivo de uma pasta
-github.com/ipfs/go-unixfsnode.AddUnixFSReificationToLinkSystem
-github.com/ipfs/go-unixfsnode.UnixFSPathSelector
-github.com/ipfs/go-unixfsnode.UnixFSPathSelectorBuilder
-github.com/ipfs/go-unixfsnode.MatchUnixFSSelector
-github.com/ipfs/go-unixfsnode.MatchUnixFSEntitySelector
-github.com/ipfs/go-unixfsnode.MatchUnixFSPreloadSelector
-github.com/ipfs/go-unixfsnode.ExploreAllRecursivelySelector
 # o go-car decodifica com o protótipo genérico; a reificação UnixFS só pega
 # nós dag-pb tipados: car.withTraversalPrototypeChooser(dagpb.addSupportToChooser(
 # bsfetcher.defaultPrototypeChooser)), como o gateway faz
-github.com/ipld/go-codec-dagpb.AddSupportToChooser
-github.com/ipfs/boxo/fetcher/impl/blockservice.DefaultPrototypeChooser
 # o construtor de seletores do ipld-prime (alternativa ao JSON); o
 # exploreFields recebe um callback (sob demanda)
 github.com/ipld/go-ipld-prime/node/basicnode.Prototype__Any
-github.com/ipld/go-ipld-prime/traversal/selector/builder.NewSelectorSpecBuilder
-github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreRecursiveEdge
-github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreRecursive
-github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreUnion
-github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreAll
-github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreIndex
-github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreRange
-github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreFields
-github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreInterpretAs
-github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.Matcher
-github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.MatcherSubset
-github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpec.Node
-github.com/ipld/go-ipld-prime/traversal/selector/builder.ExploreFieldsSpecBuilder.Insert
-github.com/ipld/go-ipld-prime/traversal/selector.RecursionLimitDepth
-github.com/ipld/go-ipld-prime/traversal/selector.RecursionLimitNone
 # seletor qualquer sobre os blocos locais do nó: o bsadapter faz do
 # blockstore do kubo o storage de um LinkSystem (aprovado pelo dono, 0.17)
 github.com/ipfs/kubo/core.IpfsNode.Blockstore
@@ -399,127 +100,58 @@ github.com/ipld/go-ipld-prime/storage/bsadapter.Adapter.Wrapped
 # CAR's blockstore (go-car's ReadOnly/ReadWrite) becomes an offline block
 # service and a DAG service, to create a CAR from files (the UnixFS importer)
 # and to extract the files of a CAR (the UnixFS reader)
-github.com/ipfs/boxo/blockservice.New
-github.com/ipfs/boxo/exchange/offline.Exchange
-github.com/ipfs/boxo/ipld/merkledag.NewDAGService
-github.com/ipfs/go-ipld-format.NodeGetter.Get
 github.com/ipfs/go-ipld-format.DAGService.Add
-github.com/ipfs/boxo/ipld/unixfs/importer.BuildDagFromReader
-github.com/ipfs/boxo/chunker.NewSizeSplitter
-github.com/ipfs/boxo/chunker.FromString
-github.com/ipfs/boxo/ipld/unixfs/io.NewDirectory
-github.com/ipfs/boxo/ipld/unixfs/io.Directory.AddChild
-github.com/ipfs/boxo/ipld/unixfs/io.Directory.GetNode
-github.com/ipfs/boxo/ipld/unixfs/file.NewUnixfsFile
 # importing a CAR into the node block by block: kubo's blockstore (node.blockstore)
-github.com/ipfs/boxo/blockstore.Blockstore.Put
-github.com/ipfs/boxo/blockstore.Blockstore.Has
-github.com/ipfs/boxo/blockstore.Blockstore.Get
 # 0.20 automatic GC: Datastore.StorageMax/StorageGCWatermark/GCPeriod only act
 # through PeriodicGC, which only the daemon (--enable-gc) starts; a node built
 # with core.NewNode never collects on its own
-github.com/ipfs/kubo/core/corerepo.PeriodicGC
-github.com/ipfs/kubo/core/corerepo.ConditionalGC
 # 0.20 fetching without storing: blockservice.getBlock caches every block it
 # fetches in its blockstore; a block service over a blockstore on the null
 # datastore (puts dropped, gets not found) and the node's exchange (bitswap)
 # reads from the network without growing the repo
 github.com/ipfs/kubo/core.IpfsNode.Exchange
-github.com/ipfs/boxo/blockstore.NewBlockstore
-github.com/ipfs/go-datastore.NewNullDatastore
-github.com/ipfs/go-datastore.NewMapDatastore
-github.com/ipfs/go-datastore/sync.MutexWrap
 # 0.20 the node's blockstore block by block (an eviction policy of one's own
 # instead of a full GC) and the GC locker: PinLock holds the GC off while a
 # put->pin sequence runs; GCLock waits for every PinLock
-github.com/ipfs/boxo/blockstore.Blockstore.DeleteBlock
-github.com/ipfs/boxo/blockstore.Blockstore.GetSize
-github.com/ipfs/boxo/blockstore.Blockstore.AllKeysChan
 github.com/ipfs/kubo/core.IpfsNode.GCLocker
-github.com/ipfs/boxo/blockstore.GCLocker.GCLock
-github.com/ipfs/boxo/blockstore.GCLocker.PinLock
-github.com/ipfs/boxo/blockstore.GCLocker.GCRequested
-github.com/ipfs/boxo/blockstore.Unlocker.Unlock
 # 0.20 the connection manager of the running node: protect or tag the peers
 # that matter (the ones serving a download) so trimming above HighWater keeps
 # them, and trim on demand (the app going to background)
 github.com/ipfs/kubo/core.IpfsNode.PeerHost
-github.com/libp2p/go-libp2p/core/host.Host.ConnManager
-github.com/libp2p/go-libp2p/core/connmgr.ConnManager.Protect
-github.com/libp2p/go-libp2p/core/connmgr.ConnManager.Unprotect
-github.com/libp2p/go-libp2p/core/connmgr.ConnManager.IsProtected
-github.com/libp2p/go-libp2p/core/connmgr.ConnManager.TagPeer
-github.com/libp2p/go-libp2p/core/connmgr.ConnManager.UntagPeer
-github.com/libp2p/go-libp2p/core/connmgr.ConnManager.TrimOpenConns
 # 0.20 the libp2p resource manager, read-only: the interface has no way to
 # change limits at run time (Swarm.ResourceMgr in the config, then restart);
 # the scope is valid only inside the callback
 github.com/ipfs/kubo/core.IpfsNode.ResourceManager
 github.com/libp2p/go-libp2p/core/network.ResourceManager.ViewSystem
 github.com/libp2p/go-libp2p/core/network.ResourceManager.ViewTransient
-github.com/libp2p/go-libp2p/core/network.ResourceScope.Stat
 # 0.20 the raw blockstore, without the filestore wrapping (the same as
 # IpfsNode.Blockstore while Experimental.FilestoreEnabled is off); its type is
 # defined from blockstore.Blockstore, so its methods are listed on it
 github.com/ipfs/kubo/core.IpfsNode.BaseBlocks
-github.com/ipfs/kubo/core/node.BaseBlocks.Put
-github.com/ipfs/kubo/core/node.BaseBlocks.Has
-github.com/ipfs/kubo/core/node.BaseBlocks.Get
-github.com/ipfs/kubo/core/node.BaseBlocks.GetSize
-github.com/ipfs/kubo/core/node.BaseBlocks.DeleteBlock
-github.com/ipfs/kubo/core/node.BaseBlocks.AllKeysChan
 
 # 0.22 a libp2p host without kubo: libp2p.New with its options (they come with
 # the function, like car.Option), the identity key, and the host itself
-github.com/libp2p/go-libp2p.New
-github.com/libp2p/go-libp2p/core/crypto.GenerateKeyPair
-github.com/libp2p/go-libp2p/core/crypto.MarshalPrivateKey
-github.com/libp2p/go-libp2p/core/crypto.UnmarshalPrivateKey
-github.com/libp2p/go-libp2p/core/crypto.MarshalPublicKey
-github.com/libp2p/go-libp2p/core/crypto.UnmarshalPublicKey
-github.com/libp2p/go-libp2p/core/crypto.PrivKey.GetPublic
-github.com/libp2p/go-libp2p/core/crypto.PrivKey.Sign
-github.com/libp2p/go-libp2p/core/crypto.PubKey.Verify
-github.com/libp2p/go-libp2p/core/peer.IDFromPrivateKey
-github.com/libp2p/go-libp2p/core/peer.IDFromPublicKey
-github.com/libp2p/go-libp2p/core/host.Host.ID
-github.com/libp2p/go-libp2p/core/host.Host.Addrs
-github.com/libp2p/go-libp2p/core/host.Host.Connect
-github.com/libp2p/go-libp2p/core/host.Host.Network
-github.com/libp2p/go-libp2p/core/host.Host.Peerstore
-github.com/libp2p/go-libp2p/core/host.Host.Close
-github.com/libp2p/go-libp2p/core/host.InfoFromHost
 github.com/libp2p/go-libp2p/core/network.Network.Peers
 github.com/libp2p/go-libp2p/core/network.Network.Conns
 github.com/libp2p/go-libp2p/core/network.Network.ConnsToPeer
 github.com/libp2p/go-libp2p/core/network.Network.Connectedness
 github.com/libp2p/go-libp2p/core/network.Network.ClosePeer
-github.com/libp2p/go-libp2p/core/network.Network.ListenAddresses
-github.com/libp2p/go-libp2p/core/network.Network.InterfaceListenAddresses
-github.com/libp2p/go-libp2p/core/network.Conn.ID
 github.com/libp2p/go-libp2p/core/network.Conn.RemotePeer
 github.com/libp2p/go-libp2p/core/network.Conn.RemoteMultiaddr
 github.com/libp2p/go-libp2p/core/network.Conn.LocalMultiaddr
 github.com/libp2p/go-libp2p/core/network.Conn.Stat
-github.com/libp2p/go-libp2p/core/network.Conn.IsClosed
 github.com/libp2p/go-libp2p/core/network.Conn.Close
 github.com/libp2p/go-libp2p/core/peerstore.Peerstore.AddAddrs
 github.com/libp2p/go-libp2p/core/peerstore.Peerstore.Addrs
 github.com/libp2p/go-libp2p/core/peerstore.Peerstore.ClearAddrs
-github.com/libp2p/go-libp2p/core/peerstore.Peerstore.PeerInfo
-github.com/libp2p/go-libp2p/core/peerstore.Peerstore.Peers
 github.com/libp2p/go-libp2p/core/peerstore.Peerstore.PeersWithAddrs
 github.com/libp2p/go-libp2p/core/peerstore.Peerstore.GetProtocols
 github.com/libp2p/go-libp2p/core/peerstore.Peerstore.Get
 github.com/libp2p/go-libp2p/core/peerstore.Peerstore.LatencyEWMA
-github.com/libp2p/go-libp2p/p2p/protocol/ping.Ping
-github.com/libp2p/go-libp2p/core/peer.AddrInfoFromP2pAddr
-github.com/libp2p/go-libp2p/core/peer.AddrInfosFromP2pAddrs
 
 # 0.22 streams we open: a protocol of one's own over a connection. Read, Write
 # and Close block without a context (forceAsync); io_stream.readerStream reads
 # a stream to its end
-github.com/libp2p/go-libp2p/core/host.Host.NewStream
 github.com/libp2p/go-libp2p/core/network.Stream.Read
 github.com/libp2p/go-libp2p/core/network.Stream.Write
 github.com/libp2p/go-libp2p/core/network.Stream.Close
@@ -529,206 +161,138 @@ github.com/libp2p/go-libp2p/core/network.Stream.Reset
 github.com/libp2p/go-libp2p/core/network.Stream.SetDeadline
 github.com/libp2p/go-libp2p/core/network.Stream.SetReadDeadline
 github.com/libp2p/go-libp2p/core/network.Stream.SetWriteDeadline
-github.com/libp2p/go-libp2p/core/network.Stream.ID
-github.com/libp2p/go-libp2p/core/network.Stream.Protocol
-github.com/libp2p/go-libp2p/core/network.Stream.Conn
-
-# 0.22 gossipsub on a host of one's own: the subscription is pulled
-# (Subscription.Next), so no callback is needed
-github.com/libp2p/go-libp2p-pubsub.NewGossipSub
-github.com/libp2p/go-libp2p-pubsub.PubSub.Join
-github.com/libp2p/go-libp2p-pubsub.PubSub.GetTopics
-github.com/libp2p/go-libp2p-pubsub.PubSub.ListPeers
-github.com/libp2p/go-libp2p-pubsub.PubSub.AddDirectPeer
-github.com/libp2p/go-libp2p-pubsub.PubSub.RemoveDirectPeer
-github.com/libp2p/go-libp2p-pubsub.PubSub.BlacklistPeer
-github.com/libp2p/go-libp2p-pubsub.Topic.Publish
-github.com/libp2p/go-libp2p-pubsub.Topic.Subscribe
-github.com/libp2p/go-libp2p-pubsub.Topic.ListPeers
-github.com/libp2p/go-libp2p-pubsub.Topic.EventHandler
-github.com/libp2p/go-libp2p-pubsub.Topic.String
-github.com/libp2p/go-libp2p-pubsub.Topic.Close
-github.com/libp2p/go-libp2p-pubsub.Subscription.Next
-github.com/libp2p/go-libp2p-pubsub.Subscription.Topic
-github.com/libp2p/go-libp2p-pubsub.Subscription.Cancel
-github.com/libp2p/go-libp2p-pubsub.Message.GetFrom
-github.com/libp2p/go-libp2p-pubsub/pb.Message.GetData
-github.com/libp2p/go-libp2p-pubsub/pb.Message.GetFrom
-github.com/libp2p/go-libp2p-pubsub/pb.Message.GetSeqno
-github.com/libp2p/go-libp2p-pubsub/pb.Message.GetTopic
-github.com/libp2p/go-libp2p-pubsub.TopicEventHandler.NextPeerEvent
-github.com/libp2p/go-libp2p-pubsub.TopicEventHandler.Cancel
-
-# 0.22 a Kademlia DHT on a host of one's own (amino, the IPFS one, by default;
-# ProtocolPrefix makes a private one) and rendezvous by name over it
-github.com/libp2p/go-libp2p-kad-dht.New
-github.com/libp2p/go-libp2p-kad-dht.DefaultBootstrapPeers
-github.com/libp2p/go-libp2p-kad-dht.IpfsDHT.Bootstrap
-github.com/libp2p/go-libp2p-kad-dht.IpfsDHT.FindPeer
-github.com/libp2p/go-libp2p-kad-dht.IpfsDHT.Provide
-github.com/libp2p/go-libp2p-kad-dht.IpfsDHT.FindProviders
-github.com/libp2p/go-libp2p-kad-dht.IpfsDHT.FindProvidersAsync
-github.com/libp2p/go-libp2p-kad-dht.IpfsDHT.GetClosestPeers
-github.com/libp2p/go-libp2p-kad-dht.IpfsDHT.PutValue
-github.com/libp2p/go-libp2p-kad-dht.IpfsDHT.GetValue
-github.com/libp2p/go-libp2p-kad-dht.IpfsDHT.Ping
-github.com/libp2p/go-libp2p-kad-dht.IpfsDHT.Mode
-github.com/libp2p/go-libp2p-kad-dht.IpfsDHT.RoutingTable
-github.com/libp2p/go-libp2p-kad-dht.IpfsDHT.Close
-github.com/libp2p/go-libp2p-kbucket.RoutingTable.Size
-github.com/libp2p/go-libp2p-kbucket.RoutingTable.ListPeers
-github.com/libp2p/go-libp2p/p2p/discovery/routing.NewRoutingDiscovery
-github.com/libp2p/go-libp2p/p2p/discovery/routing.RoutingDiscovery.Advertise
-github.com/libp2p/go-libp2p/p2p/discovery/routing.RoutingDiscovery.FindPeers
 
 # 0.22 retained callbacks (WIRE.md): functions Go keeps past the call. The
 # stream handler serves a protocol of one's own; a root that is an interface
 # type (mdns.Notifee, network.Notifiee) makes Dart implement it, one function
 # per method
-github.com/libp2p/go-libp2p/core/host.Host.SetStreamHandler
-github.com/libp2p/go-libp2p/core/host.Host.SetStreamHandlerMatch
-github.com/libp2p/go-libp2p/core/host.Host.RemoveStreamHandler
 github.com/libp2p/go-libp2p/core/network.Notifiee
 github.com/libp2p/go-libp2p/core/network.Network.Notify
 github.com/libp2p/go-libp2p/core/network.Network.StopNotify
 github.com/libp2p/go-libp2p/p2p/discovery/mdns.Notifee
-github.com/libp2p/go-libp2p/p2p/discovery/mdns.NewMdnsService
-github.com/libp2p/go-libp2p/p2p/discovery/mdns.Service.Start
 github.com/libp2p/go-libp2p/p2p/discovery/mdns.Service.Close
-
-# 0.23 pubsub validators: RegisterTopicValidator takes `val any` and reflects
-# on it; the generator's anyAs table makes it a ValidatorEx, a retained
-# callback that returns a value (an exception rejects: cbOnThrow)
-github.com/libp2p/go-libp2p-pubsub.PubSub.RegisterTopicValidator
-github.com/libp2p/go-libp2p-pubsub.PubSub.UnregisterTopicValidator
 
 # 0.23 the host's event bus: Subscribe takes the event type by example
 # (event.EvtX.$type, a token: new(T) in Go) and Out delivers the events as
 # their classes (gen/tokens.go)
-github.com/libp2p/go-libp2p/core/host.Host.EventBus
-github.com/libp2p/go-libp2p/core/event.Bus.Subscribe
-github.com/libp2p/go-libp2p/core/event.Subscription.Out
-github.com/libp2p/go-libp2p/core/event.Subscription.Name
 github.com/libp2p/go-libp2p/core/event.Subscription.Close
-
-# 0.23 a transport and security stack of one's own: libp2p.Transport and
-# Security take Go constructors, which cross as function tokens
-# (tcp.newTcpTransportFunc, noise.newFunc...; gen/tokens.go); the muxer is
-# a value
-github.com/libp2p/go-libp2p/p2p/muxer/yamux.DefaultTransport
-
-# 0.24 the defaults of the structs the options take (an option may now take a
-# struct, and keep a function: a retained callback)
-github.com/libp2p/go-libp2p-pubsub.DefaultGossipSubParams
-github.com/libp2p/go-libp2p/p2p/protocol/circuitv2/relay.DefaultResources
-github.com/libp2p/go-libp2p/p2p/protocol/circuitv2/relay.DefaultLimit
-
-# 0.25 package functions that build and convert without a node: CIDs, peer
-# IDs, multiaddrs, paths and IPNS names from strings and bytes; the keys of
-# each type; dag-pb nodes and their links; the repo's paths and lock
-github.com/ipfs/go-cid.Decode
-github.com/ipfs/go-cid.Parse
-github.com/ipfs/go-cid.Cast
-github.com/ipfs/go-cid.CidFromBytes
-github.com/ipfs/go-cid.NewCidV0
-github.com/ipfs/go-cid.NewCidV1
-github.com/ipfs/go-cid.PrefixFromBytes
-github.com/ipfs/go-cid.ExtractEncoding
-github.com/ipfs/go-cid.Prefix.Bytes
-github.com/libp2p/go-libp2p/core/peer.Decode
-github.com/libp2p/go-libp2p/core/peer.IDFromBytes
-github.com/libp2p/go-libp2p/core/peer.FromCid
-github.com/libp2p/go-libp2p/core/peer.ToCid
-github.com/libp2p/go-libp2p/core/peer.IDFromP2PAddr
-github.com/libp2p/go-libp2p/core/peer.SplitAddr
-github.com/libp2p/go-libp2p/core/peer.AddrInfosToIDs
-github.com/multiformats/go-multiaddr.NewMultiaddr
-github.com/multiformats/go-multiaddr.NewMultiaddrBytes
-github.com/multiformats/go-multiaddr.Join
-github.com/multiformats/go-multiaddr.Contains
-github.com/multiformats/go-multiaddr.Unique
-github.com/ipfs/boxo/path.NewPath
-github.com/ipfs/boxo/path.NewPathFromSegments
-github.com/ipfs/boxo/path.Join
-github.com/ipfs/boxo/path.FromCid
-github.com/ipfs/boxo/path.NewImmutablePath
-github.com/ipfs/boxo/path.SegmentsToString
-github.com/ipfs/boxo/path.StringToSegments
-github.com/ipfs/boxo/ipns.NameFromString
-github.com/ipfs/boxo/ipns.NameFromPeer
-github.com/ipfs/boxo/ipns.NameFromCid
-github.com/ipfs/boxo/ipns.NameFromRoutingKey
-github.com/libp2p/go-libp2p/core/crypto.KeyEqual
-github.com/libp2p/go-libp2p/core/crypto.ConfigEncodeKey
-github.com/libp2p/go-libp2p/core/crypto.ConfigDecodeKey
-github.com/libp2p/go-libp2p/core/crypto.UnmarshalEd25519PrivateKey
-github.com/libp2p/go-libp2p/core/crypto.UnmarshalEd25519PublicKey
-github.com/libp2p/go-libp2p/core/crypto.UnmarshalSecp256k1PrivateKey
-github.com/libp2p/go-libp2p/core/crypto.UnmarshalSecp256k1PublicKey
-github.com/libp2p/go-libp2p/core/crypto.UnmarshalRsaPrivateKey
-github.com/libp2p/go-libp2p/core/crypto.UnmarshalRsaPublicKey
-github.com/libp2p/go-libp2p/core/crypto.UnmarshalECDSAPrivateKey
-github.com/libp2p/go-libp2p/core/crypto.UnmarshalECDSAPublicKey
-github.com/libp2p/go-libp2p/core/crypto.Key.Raw
-github.com/libp2p/go-libp2p/core/crypto.Key.Type
-github.com/libp2p/go-libp2p/core/crypto.Key.Equals
-github.com/libp2p/go-libp2p/core/peerstore.AddrInfos
-github.com/ipfs/boxo/ipld/merkledag.DecodeProtobuf
-github.com/ipfs/boxo/ipld/merkledag.PrefixForCidVersion
-github.com/ipfs/boxo/ipld/merkledag.V0CidPrefix
-github.com/ipfs/boxo/ipld/merkledag.V1CidPrefix
-github.com/ipfs/boxo/ipld/merkledag.ProtoNode.Links
-github.com/ipfs/boxo/ipld/merkledag.ProtoNode.GetNodeLink
-github.com/ipfs/boxo/ipld/merkledag.ProtoNode.RemoveNodeLink
-github.com/ipfs/boxo/ipld/merkledag.ProtoNode.UpdateNodeLink
-github.com/ipfs/boxo/ipld/merkledag.ProtoNode.EncodeProtobuf
-github.com/ipfs/boxo/ipld/merkledag.ProtoNode.Copy
-github.com/ipfs/go-ipld-format.MakeLink
-github.com/ipfs/go-ipld-format.GetLinks
-github.com/ipfs/go-ipld-format.Copy
-github.com/ipfs/kubo/config.PathRoot
-github.com/ipfs/kubo/repo/fsrepo.BestKnownPath
-github.com/ipfs/kubo/repo/fsrepo.LockedByOtherProcess
-github.com/ipfs/kubo/repo/fsrepo.APIAddr
 
 # 0.25 methods of the value types (the receiver crosses as its string, like a
 # parameter): what a CID, a peer ID, a multiaddr, a path and an IPNS name hold.
 # Go's String() is the Dart class's value
-github.com/ipfs/go-cid.Cid.Version
-github.com/ipfs/go-cid.Cid.Type
-github.com/ipfs/go-cid.Cid.Hash
-github.com/ipfs/go-cid.Cid.Bytes
-github.com/ipfs/go-cid.Cid.ByteLen
-github.com/ipfs/go-cid.Cid.Prefix
-github.com/ipfs/go-cid.Cid.Equals
-github.com/ipfs/go-cid.Cid.Defined
-github.com/ipfs/go-cid.Cid.StringOfBase
-github.com/libp2p/go-libp2p/core/peer.ID.Validate
-github.com/libp2p/go-libp2p/core/peer.ID.Marshal
-github.com/libp2p/go-libp2p/core/peer.ID.ExtractPublicKey
-github.com/libp2p/go-libp2p/core/peer.ID.MatchesPrivateKey
-github.com/libp2p/go-libp2p/core/peer.ID.MatchesPublicKey
-github.com/libp2p/go-libp2p/core/peer.ID.ShortString
-github.com/multiformats/go-multiaddr.Multiaddr.Bytes
-github.com/multiformats/go-multiaddr.Multiaddr.Equal
-github.com/multiformats/go-multiaddr.Multiaddr.Compare
-github.com/multiformats/go-multiaddr.Multiaddr.Encapsulate
-github.com/multiformats/go-multiaddr.Multiaddr.Decapsulate
-github.com/multiformats/go-multiaddr.Multiaddr.ValueForProtocol
-github.com/ipfs/boxo/path.Path.Namespace
-github.com/ipfs/boxo/path.Path.Mutable
-github.com/ipfs/boxo/path.Path.Segments
-github.com/ipfs/boxo/path.ImmutablePath.RootCid
-github.com/ipfs/boxo/ipns.Name.Peer
-github.com/ipfs/boxo/ipns.Name.Cid
-github.com/ipfs/boxo/ipns.Name.AsPath
-github.com/ipfs/boxo/ipns.Name.RoutingKey
-github.com/ipfs/boxo/ipns.Name.Equal
 # 0.26 the course (example/en_us): closing a repo opened by hand (lesson 07),
 # and bitswap built by hand over a libp2p host, to show what fetching a CID
 # from others needs (lesson 16)
 github.com/ipfs/kubo/repo.Repo.Close
-github.com/ipfs/boxo/bitswap.New
-github.com/ipfs/boxo/bitswap.Bitswap.Close
-github.com/ipfs/boxo/bitswap.Bitswap.Stat
-github.com/ipfs/boxo/bitswap/network/bsnet.NewFromIpfsHost
+
+# Every exported symbol of these packages (go/gen/ignore_roots.txt drops
+# what must not cross; a symbol the generator cannot bridge is skipped)
+github.com/ipfs/boxo/bitswap.*
+github.com/ipfs/boxo/bitswap/network/bsnet.*
+github.com/ipfs/boxo/blockservice.*
+github.com/ipfs/boxo/blockstore.*
+github.com/ipfs/boxo/chunker.*
+github.com/ipfs/boxo/exchange.*
+github.com/ipfs/boxo/exchange/offline.*
+github.com/ipfs/boxo/fetcher/impl/blockservice.*
+github.com/ipfs/boxo/files.*
+github.com/ipfs/boxo/filestore.*
+github.com/ipfs/boxo/gateway.*
+github.com/ipfs/boxo/ipld/merkledag.*
+github.com/ipfs/boxo/ipld/merkledag/dagutils.*
+github.com/ipfs/boxo/ipld/unixfs/file.*
+github.com/ipfs/boxo/ipld/unixfs/importer.*
+github.com/ipfs/boxo/ipld/unixfs/io.*
+github.com/ipfs/boxo/ipns.*
+github.com/ipfs/boxo/mfs.*
+github.com/ipfs/boxo/namesys.*
+github.com/ipfs/boxo/path.*
+github.com/ipfs/boxo/peering.*
+github.com/ipfs/boxo/provider.*
+github.com/ipfs/boxo/verifcid.*
+github.com/ipfs/go-cid.*
+github.com/ipfs/go-datastore.*
+github.com/ipfs/go-datastore/sync.*
+github.com/ipfs/go-ipfs-cmds.*
+github.com/ipfs/go-ipld-format.*
+github.com/ipfs/go-unixfsnode.*
+github.com/ipfs/kubo.*
+github.com/ipfs/kubo/config.*
+github.com/ipfs/kubo/core.*
+github.com/ipfs/kubo/core/commands.*
+github.com/ipfs/kubo/core/coreapi.*
+github.com/ipfs/kubo/core/coreiface.*
+github.com/ipfs/kubo/core/coreiface/options.*
+github.com/ipfs/kubo/core/corerepo.*
+github.com/ipfs/kubo/core/node.*
+github.com/ipfs/kubo/core/node/libp2p.*
+github.com/ipfs/kubo/plugin/loader.*
+github.com/ipfs/kubo/repo.*
+github.com/ipfs/kubo/repo/fsrepo.*
+github.com/ipld/go-car/v2.*
+github.com/ipld/go-car/v2/blockstore.*
+github.com/ipld/go-car/v2/index.*
+github.com/ipld/go-car/v2/storage.*
+github.com/ipld/go-codec-dagpb.*
+github.com/ipld/go-ipld-prime/datamodel.*
+github.com/ipld/go-ipld-prime/linking.*
+github.com/ipld/go-ipld-prime/linking/cid.*
+github.com/ipld/go-ipld-prime/node/basicnode.*
+github.com/ipld/go-ipld-prime/storage.*
+github.com/ipld/go-ipld-prime/storage/bsadapter.*
+github.com/ipld/go-ipld-prime/traversal.*
+github.com/ipld/go-ipld-prime/traversal/selector.*
+github.com/ipld/go-ipld-prime/traversal/selector/builder.*
+github.com/ipld/go-ipld-prime/traversal/selector/parse.*
+github.com/libp2p/go-libp2p.*
+github.com/libp2p/go-libp2p-kad-dht.*
+github.com/libp2p/go-libp2p-kad-dht/pb.*
+github.com/libp2p/go-libp2p-kad-dht/records.*
+github.com/libp2p/go-libp2p-kbucket.*
+github.com/libp2p/go-libp2p-pubsub.*
+github.com/libp2p/go-libp2p-pubsub/pb.*
+github.com/libp2p/go-libp2p/core/connmgr.*
+github.com/libp2p/go-libp2p/core/crypto.*
+github.com/libp2p/go-libp2p/core/event.*
+github.com/libp2p/go-libp2p/core/host.*
+github.com/libp2p/go-libp2p/core/network.*
+github.com/libp2p/go-libp2p/core/peer.*
+github.com/libp2p/go-libp2p/core/peerstore.*
+github.com/libp2p/go-libp2p/core/routing.*
+github.com/libp2p/go-libp2p/p2p/discovery/mdns.*
+github.com/libp2p/go-libp2p/p2p/discovery/routing.*
+github.com/libp2p/go-libp2p/p2p/muxer/yamux.*
+github.com/libp2p/go-libp2p/p2p/net/swarm.*
+github.com/libp2p/go-libp2p/p2p/protocol/circuitv2/relay.*
+github.com/libp2p/go-libp2p/p2p/protocol/holepunch.*
+github.com/libp2p/go-libp2p/p2p/protocol/ping.*
+github.com/libp2p/go-libp2p/p2p/security/noise.*
+github.com/libp2p/go-libp2p/p2p/security/tls.*
+github.com/libp2p/go-libp2p/p2p/transport/quic.*
+github.com/libp2p/go-libp2p/p2p/transport/webrtc.*
+github.com/multiformats/go-multiaddr.*
+github.com/multiformats/go-multibase.*
+github.com/multiformats/go-multicodec.*
+github.com/multiformats/go-multihash.*
+
+# Prometheus: only the reading side, the metrics as data
+github.com/prometheus/client_golang/prometheus.DefaultGatherer
+github.com/prometheus/client_golang/prometheus.Gatherer.Gather
+
+# Checked callbacks: Go only calls them during the call (a "pkg.*" leaves out
+# a function that takes a callback until someone checks it)
+github.com/ipld/go-car/v2/index.Index.GetAll
+github.com/ipld/go-car/v2/index.IterableIndex.ForEach
+github.com/ipld/go-ipld-prime/traversal/selector/builder.SelectorSpecBuilder.ExploreFields
+github.com/multiformats/go-multihash.Set.ForEach
+# read in Go (go doc -src): a loop that calls it, no goroutine, nothing kept
+github.com/ipfs/go-cid.Set.ForEach
+github.com/ipfs/boxo/files.Walk
+github.com/ipfs/boxo/mfs.Directory.ForEachEntry
+github.com/multiformats/go-multiaddr.ForEach
+github.com/multiformats/go-multiaddr.SplitFunc
+github.com/libp2p/go-libp2p-pubsub.FilterSubscriptions
+github.com/ipfs/go-ipfs-cmds.Command.Walk
+github.com/ipld/go-car/v2/index.InsertionIndex.ForEach
+github.com/ipld/go-car/v2/index.InsertionIndex.ForEachCid
+github.com/ipld/go-car/v2/index.InsertionIndex.GetAll

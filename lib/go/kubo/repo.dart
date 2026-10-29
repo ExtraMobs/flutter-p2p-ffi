@@ -2,24 +2,306 @@
 // Go: github.com/ipfs/kubo/repo
 library;
 
+import 'dart:typed_data';
+
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/boxo/filestore.dart' as $filestore;
+import 'package:p2p_ffi/go/boxo/keystore.dart' as $keystore;
+import 'package:p2p_ffi/go/context.dart' as $context;
+import 'package:p2p_ffi/go/datastore.dart' as $datastore;
+import 'package:p2p_ffi/go/datastore/sync.dart' as $sync;
 import 'package:p2p_ffi/go/io.dart' as $io;
 import 'package:p2p_ffi/go/kubo/config.dart' as $config;
+import 'package:p2p_ffi/go/kubo/repo/fsrepo.dart' as $fsrepo;
+import 'package:p2p_ffi/go/libp2p/p2p/host/resource_manager.dart'
+    as $resource_manager;
+import 'package:p2p_ffi/go/multiaddr.dart' as $multiaddr;
+import 'package:p2p_ffi/go/net.dart' as $net;
+
+/// Go: `repo.Datastore` (handle).
+class KuboRepoDatastore extends $datastore.DatastoreBatching
+    with
+        $datastore.DatastoreBatchingFeature$,
+        $datastore.DatastoreWrite$,
+        KuboRepoDatastore$
+    implements $datastore.DatastoreBatchingFeature, $datastore.DatastoreWrite {
+  KuboRepoDatastore.$h(super.$h) : super.$h();
+}
+
+/// The methods of [KuboRepoDatastore], mixed into every class Go also accepts as one.
+mixin KuboRepoDatastore$ on GoHandle {
+  /// Go: type assertion `x.(*datastore.LogDatastore)`: null if the object is not one.
+  $datastore.DatastoreLogDatastore? asDatastoreLogDatastore() {
+    final $r = $callSync(218, $W()..h(this));
+    return $r.hn($datastore.DatastoreLogDatastore.$h);
+  }
+
+  /// Go: type assertion `x.(*datastore.MapDatastore)`: null if the object is not one.
+  $datastore.DatastoreMapDatastore? asDatastoreMapDatastore() {
+    final $r = $callSync(219, $W()..h(this));
+    return $r.hn($datastore.DatastoreMapDatastore.$h);
+  }
+
+  /// Go: type assertion `x.(*datastore.NullDatastore)`: null if the object is not one.
+  $datastore.DatastoreNullDatastore? asDatastoreNullDatastore() {
+    final $r = $callSync(220, $W()..h(this));
+    return $r.hn($datastore.DatastoreNullDatastore.$h);
+  }
+
+  /// Go: type assertion `x.(*sync.MutexDatastore)`: null if the object is not one.
+  $sync.DatastoreSyncMutexDatastore? asDatastoreSyncMutexDatastore() {
+    final $r = $callSync(221, $W()..h(this));
+    return $r.hn($sync.DatastoreSyncMutexDatastore.$h);
+  }
+}
+
+/// Go: `repo.Mock`.
+final class KuboRepoMock implements GoDto {
+  KuboRepoMock(
+      {$config.KuboConfig? c,
+      KuboRepoDatastore? d,
+      $keystore.BoxoKeystore? k,
+      $filestore.BoxoFilestoreFileManager? f})
+      : c = c,
+        d = d,
+        k = k,
+        f = f;
+
+  KuboRepoMock.$dec($R r)
+      : c = r.p() ? $config.KuboConfig(r.json()) : null,
+        d = r.hn(KuboRepoDatastore.$h),
+        k = r.hn($keystore.BoxoKeystore.$h),
+        f = r.hn($filestore.BoxoFilestoreFileManager.$h);
+
+  /// Go: `C`.
+  $config.KuboConfig? c;
+
+  /// Go: `D`.
+  KuboRepoDatastore? d;
+
+  /// Go: `K`.
+  $keystore.BoxoKeystore? k;
+
+  /// Go: `F`.
+  $filestore.BoxoFilestoreFileManager? f;
+
+  @override
+  void $enc($W w) {
+    w
+      ..json(c)
+      ..h(d)
+      ..h(k)
+      ..h(f);
+  }
+
+  /// Go: `func (*repo.Mock).BackupConfig(prefix string) (string, error)`.
+  String backupConfig(String prefix) {
+    final $r = $callSync(
+        1744,
+        $W()
+          ..dto(this)
+          ..str(prefix));
+    return $r.str();
+  }
+
+  /// Go: `func (*repo.Mock).Close() error`.
+  void close() {
+    $callSync(1745, $W()..dto(this));
+  }
+
+  /// Go: `func (*repo.Mock).Config() (*config.Config, error)`.
+  $config.KuboConfig config() {
+    final $r = $callSync(1746, $W()..dto(this));
+    return $r.p() ? $config.KuboConfig($r.json()) : $nil();
+  }
+
+  /// Go: `func (*repo.Mock).Datastore() repo.Datastore`.
+  KuboRepoDatastore datastore() {
+    final $r = $callSync(1747, $W()..dto(this));
+    return $r.hnn(KuboRepoDatastore.$h);
+  }
+
+  /// Go: `func (*repo.Mock).FileManager() *filestore.FileManager`.
+  $filestore.BoxoFilestoreFileManager fileManager() {
+    final $r = $callSync(1748, $W()..dto(this));
+    return $r.hnn($filestore.BoxoFilestoreFileManager.$h);
+  }
+
+  /// Go: `func (*repo.Mock).GetConfigKey(key string) (any, error)`.
+  Object? getConfigKey(String key) {
+    final $r = $callSync(
+        1749,
+        $W()
+          ..dto(this)
+          ..str(key));
+    return $r.any();
+  }
+
+  /// Go: `func (*repo.Mock).GetStorageUsage(_ context.Context) (uint64, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<int> getStorageUsage($context.Context ctx) async {
+    final $r = await $call(
+        1750,
+        $W()
+          ..dto(this)
+          ..h(ctx));
+    return $r.i64();
+  }
+
+  /// Go: `func (*repo.Mock).Keystore() keystore.Keystore`.
+  $keystore.BoxoKeystore keystore() {
+    final $r = $callSync(1751, $W()..dto(this));
+    return $r.hnn($keystore.BoxoKeystore.$h);
+  }
+
+  /// Go: `func (*repo.Mock).Path() string`.
+  String path() {
+    final $r = $callSync(1752, $W()..dto(this));
+    return $r.str();
+  }
+
+  /// Go: `func (*repo.Mock).SetAPIAddr(addr multiaddr.Multiaddr) error`.
+  void setApiAddr($multiaddr.Multiaddr addr) {
+    $callSync(
+        1753,
+        $W()
+          ..dto(this)
+          ..val(addr));
+  }
+
+  /// Go: `func (*repo.Mock).SetConfig(updated *config.Config) error`.
+  void setConfig($config.KuboConfig updated) {
+    $callSync(
+        1754,
+        $W()
+          ..dto(this)
+          ..json(updated));
+  }
+
+  /// Go: `func (*repo.Mock).SetConfigKey(key string, value any) error`.
+  void setConfigKey(String key, Object? value) {
+    $callSync(
+        1755,
+        $W()
+          ..dto(this)
+          ..str(key)
+          ..any(value));
+  }
+
+  /// Go: `func (*repo.Mock).SetGatewayAddr(addr net.Addr) error`.
+  void setGatewayAddr($net.NetAddr addr) {
+    $callSync(
+        1756,
+        $W()
+          ..dto(this)
+          ..dto(addr));
+  }
+
+  /// Go: `func (*repo.Mock).SwarmKey() ([]byte, error)`.
+  Uint8List swarmKey() {
+    final $r = $callSync(1757, $W()..dto(this));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (*repo.Mock).UserResourceOverrides() (rcmgr.PartialLimitConfig, error)`.
+  $resource_manager.Libp2pP2pHostResourceManagerPartialLimitConfig
+      userResourceOverrides() {
+    final $r = $callSync(1758, $W()..dto(this));
+    return $r.p()
+        ? $resource_manager.Libp2pP2pHostResourceManagerPartialLimitConfig.$dec(
+            $r)
+        : $nil();
+  }
+}
 
 /// Go: `repo.Repo` (handle).
-class KuboRepo extends $io.IoCloser {
+class KuboRepo extends $io.IoCloser with KuboRepo$ {
   KuboRepo.$h(super.$h) : super.$h();
+}
+
+/// The methods of [KuboRepo], mixed into every class Go also accepts as one.
+mixin KuboRepo$ on GoHandle {
+  /// Go: `func (io.Closer).Close() error`.
+  void close() {
+    $callSync(1760, $W()..h(this));
+  }
+
+  /// Go: `func (repo.Repo).BackupConfig(prefix string) (string, error)`.
+  String backupConfig(String prefix) {
+    final $r = $callSync(
+        1759,
+        $W()
+          ..h(this)
+          ..str(prefix));
+    return $r.str();
+  }
 
   /// Go: `func (repo.Repo).Config() (*config.Config, error)`.
   $config.KuboConfig config() {
-    final $r = $callSync(379, $W()..h(this));
+    final $r = $callSync(1761, $W()..h(this));
     return $r.p() ? $config.KuboConfig($r.json()) : $nil();
+  }
+
+  /// Go: `func (repo.Repo).Datastore() repo.Datastore`.
+  KuboRepoDatastore datastore() {
+    final $r = $callSync(1762, $W()..h(this));
+    return $r.hnn(KuboRepoDatastore.$h);
+  }
+
+  /// Go: `func (repo.Repo).FileManager() *filestore.FileManager`.
+  $filestore.BoxoFilestoreFileManager fileManager() {
+    final $r = $callSync(1763, $W()..h(this));
+    return $r.hnn($filestore.BoxoFilestoreFileManager.$h);
+  }
+
+  /// Go: `func (repo.Repo).GetConfigKey(key string) (any, error)`.
+  Object? getConfigKey(String key) {
+    final $r = $callSync(
+        1764,
+        $W()
+          ..h(this)
+          ..str(key));
+    return $r.any();
+  }
+
+  /// Go: `func (repo.Repo).GetStorageUsage(context.Context) (uint64, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<int> getStorageUsage($context.Context ctx) async {
+    final $r = await $call(
+        1765,
+        $W()
+          ..h(this)
+          ..h(ctx));
+    return $r.i64();
+  }
+
+  /// Go: `func (repo.Repo).Keystore() keystore.Keystore`.
+  $keystore.BoxoKeystore keystore() {
+    final $r = $callSync(1766, $W()..h(this));
+    return $r.hnn($keystore.BoxoKeystore.$h);
+  }
+
+  /// Go: `func (repo.Repo).Path() string`.
+  String path() {
+    final $r = $callSync(1767, $W()..h(this));
+    return $r.str();
+  }
+
+  /// Go: `func (repo.Repo).SetAPIAddr(addr multiaddr.Multiaddr) error`.
+  void setApiAddr($multiaddr.Multiaddr addr) {
+    $callSync(
+        1768,
+        $W()
+          ..h(this)
+          ..val(addr));
   }
 
   /// Go: `func (repo.Repo).SetConfig(*config.Config) error`.
   void setConfig($config.KuboConfig config) {
     $callSync(
-        381,
+        1769,
         $W()
           ..h(this)
           ..json(config));
@@ -28,36 +310,42 @@ class KuboRepo extends $io.IoCloser {
   /// Go: `func (repo.Repo).SetConfigKey(key string, value any) error`.
   void setConfigKey(String key, Object? value) {
     $callSync(
-        382,
+        1770,
         $W()
           ..h(this)
           ..str(key)
           ..any(value));
   }
 
-  /// Go: `func (repo.Repo).GetConfigKey(key string) (any, error)`.
-  Object? getConfigKey(String key) {
-    final $r = $callSync(
-        380,
+  /// Go: `func (repo.Repo).SetGatewayAddr(addr net.Addr) error`.
+  void setGatewayAddr($net.NetAddr addr) {
+    $callSync(
+        1771,
         $W()
           ..h(this)
-          ..str(key));
-    return $r.any();
+          ..dto(addr));
   }
 
-  /// Go: `func (repo.Repo).BackupConfig(prefix string) (string, error)`.
-  String backupConfig(String prefix) {
-    final $r = $callSync(
-        377,
-        $W()
-          ..h(this)
-          ..str(prefix));
-    return $r.str();
+  /// Go: `func (repo.Repo).SwarmKey() ([]byte, error)`.
+  Uint8List swarmKey() {
+    final $r = $callSync(1772, $W()..h(this));
+    return $r.bytes() ?? Uint8List(0);
   }
 
-  /// Go: `func (io.Closer).Close() error`.
-  void close() {
-    $callSync(378, $W()..h(this));
+  /// Go: `func (repo.Repo).UserResourceOverrides() (rcmgr.PartialLimitConfig, error)`.
+  $resource_manager.Libp2pP2pHostResourceManagerPartialLimitConfig
+      userResourceOverrides() {
+    final $r = $callSync(1773, $W()..h(this));
+    return $r.p()
+        ? $resource_manager.Libp2pP2pHostResourceManagerPartialLimitConfig.$dec(
+            $r)
+        : $nil();
+  }
+
+  /// Go: type assertion `x.(*fsrepo.FSRepo)`: null if the object is not one.
+  $fsrepo.KuboRepoFsrepoFsRepo? asKuboRepoFsrepoFsRepo() {
+    final $r = $callSync(222, $W()..h(this));
+    return $r.hn($fsrepo.KuboRepoFsrepoFsRepo.$h);
   }
 }
 

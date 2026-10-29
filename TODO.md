@@ -1,5 +1,48 @@
 # Pendências do ipfs_ffi
 
+## Done: namespaces as classes, `pkg.*` and ignore_roots.txt (0.28.0)
+
+The owner's decisions (2026-10-28): one import with the `Go` tree (option a); every
+symbol of a package enters if the generator can bridge it; roots.txt keeps only the
+special roots, ignore_roots.txt what must not cross; Go's `Deprecated:` becomes
+`@Deprecated`; casts named after the class; a nil element of a list throws.
+
+- **Namespaces:** `package:p2p_ffi/p2p_ffi.dart` is the only import. A package's
+  functions, constants and variables are members of `Go.<path>` (`Go.boxo.mfs.newRoot`),
+  its types top-level classes named after the path (`BoxoMfsRoot`, `Libp2pCorePeerId`).
+  Constants are getters now (not `const`: lesson 14's switch became a map).
+- **`pkg.*`:** 87 packages (those that had a library) enter whole; roots.txt went from
+  593 symbol lines to 96 special ones (stdlib, struct fields, methods an interface
+  inherits by embedding, type roots, the checked callbacks, Prometheus' `Gather`).
+  Left out on their own: an error type's methods and vars (they are its error class),
+  a function that takes or returns a concrete error as a value, an empty interface's
+  casts.
+- **Size:** `zz_generated.go` 413 KB → 1.74 MB; `lib/go` 24 k → 60 k lines, 121 → 172
+  libraries; API.md 2370 → 5508 rows; the Windows `p2p_host.exe` 61.6 → 65.8 MB (+7%).
+- **Interfaces as mixins:** Dart has one base class, Go accepts a type as every
+  interface it implements. Each interface's methods are also a mixin (`Name$`); a handle
+  mixes in and implements the exposed interfaces its base chain lacks (`IpfsDht` is a
+  `ContentRouting`, a `ValueStore`...). An override of an asynchronous method is
+  asynchronous too.
+- **Casts** are `as<DartClass>()` (`asBoxoMfsFile`, `asCarV2IndexIterableIndex`): unique
+  by construction (the prototype had 101 colliding `asTransport`...).
+- **Deprecated:** the generator reads the Go doc of each declaration; 7 symbols with the
+  current roots (`os.SEEK_*`, `multihash.ID`...).
+- Checked on Windows: go vet, go test, gen -check, dart analyze, the suite (118) and the
+  63 lessons.
+
+Pending:
+- **35 functions that take a callback** are left out until someone reads whether Go only
+  calls it during the call (an explicit root) or keeps it (`retainedFuncs`): API.md lists
+  them. Already seen: `SetStreamHandler` of `network.Network`/`swarm.Swarm`, `mfs.NewRoot`
+  (`PubFunc`) and bitswap's `WithPeerBlockRequestFilter`/`WithTaskComparator` keep it;
+  `merkledag.Walk`/`WalkDepth` call it from several goroutines with `Concurrency`.
+- **The universe** (the owner's item 1): measure the whole graph (751 packages outside the
+  stdlib, 124 in it) before choosing what goes to ignore_roots.txt.
+- Not done, awaiting the owner: the retained callback as the default (item 3) and
+  `GolangPanicException` (item 4).
+- Android and linux not rebuilt for this version.
+
 ## Done: go-multihash, go-multibase and the lessons' constants (0.27.0)
 
 The owner asked what the `0x12` in lesson 01 is: the multihash code of sha2-256. A

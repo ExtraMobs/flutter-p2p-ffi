@@ -4,35 +4,62 @@ library;
 
 import 'package:p2p_ffi/src/go.dart' show GoBoxoPeering;
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/ipfs_cmds.dart' as $ipfs_cmds;
+import 'package:p2p_ffi/go/libp2p/core/host.dart' as $host;
 import 'package:p2p_ffi/go/libp2p/core/peer.dart' as $peer;
 
 /// Go: `peering.PeeringService` (handle).
-class BoxoPeeringService extends GoHandle {
-  BoxoPeeringService.$h(super.$h);
+class BoxoPeeringService extends $crypto.CryptoPrivateKey
+    with $crypto.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
+    implements $crypto.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+  BoxoPeeringService.$h(super.$h) : super.$h();
+
+  /// Go: `func peering.NewPeeringService(host host.Host) *peering.PeeringService`.
+  factory BoxoPeeringService($host.Libp2pCoreHost host) {
+    final $r = $callSync(1005, $W()..h(host));
+    return $r.hnn(BoxoPeeringService.$h);
+  }
 
   /// Go: `func (*peering.PeeringService).AddPeer(info peer.AddrInfo)`.
   void addPeer($peer.Libp2pCorePeerAddrInfo info) {
     $callSync(
-        221,
+        1006,
         $W()
           ..h(this)
           ..dto(info));
   }
 
+  /// Go: `func (*peering.PeeringService).GetState() peering.State`.
+  int getState() {
+    final $r = $callSync(1007, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (*peering.PeeringService).ListPeers() []peer.AddrInfo`.
+  List<$peer.Libp2pCorePeerAddrInfo> listPeers() {
+    final $r = $callSync(1008, $W()..h(this));
+    return $r
+        .list(() => $r.p() ? $peer.Libp2pCorePeerAddrInfo.$dec($r) : $nil());
+  }
+
   /// Go: `func (*peering.PeeringService).RemovePeer(id peer.ID)`.
   void removePeer($peer.Libp2pCorePeerId id) {
     $callSync(
-        223,
+        1009,
         $W()
           ..h(this)
           ..val(id));
   }
 
-  /// Go: `func (*peering.PeeringService).ListPeers() []peer.AddrInfo`.
-  List<$peer.Libp2pCorePeerAddrInfo> listPeers() {
-    final $r = $callSync(222, $W()..h(this));
-    return $r
-        .list(() => $r.p() ? $peer.Libp2pCorePeerAddrInfo.$dec($r) : $nil());
+  /// Go: `func (*peering.PeeringService).Start() error`.
+  void start() {
+    $callSync(1010, $W()..h(this));
+  }
+
+  /// Go: `func (*peering.PeeringService).Stop()`.
+  void stop() {
+    $callSync(1011, $W()..h(this));
   }
 }
 

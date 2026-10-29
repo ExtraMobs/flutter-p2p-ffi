@@ -4,9 +4,107 @@ library;
 
 import 'package:p2p_ffi/src/go.dart' show GoKuboCoreCorerepo;
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/cid.dart' as $cid;
 import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/kubo/core.dart' as $core;
 import 'package:p2p_ffi/go/kubo/gc.dart' as $gc;
+import 'package:p2p_ffi/go/kubo/repo.dart' as $repo;
+
+/// Go: `corerepo.GC`.
+final class KuboCoreCorerepoGc implements GoDto {
+  KuboCoreCorerepoGc(
+      {$core.KuboCoreIpfsNode? node,
+      $repo.KuboRepo? repo,
+      int? storageMax,
+      int? storageGc,
+      int? slackGb,
+      int? storage})
+      : node = node,
+        repo = repo,
+        storageMax = storageMax ?? 0,
+        storageGc = storageGc ?? 0,
+        slackGb = slackGb ?? 0,
+        storage = storage ?? 0;
+
+  KuboCoreCorerepoGc.$dec($R r)
+      : node = r.hn($core.KuboCoreIpfsNode.$h),
+        repo = r.hn($repo.KuboRepo.$h),
+        storageMax = r.i64(),
+        storageGc = r.i64(),
+        slackGb = r.i64(),
+        storage = r.i64();
+
+  /// Go: `Node`.
+  $core.KuboCoreIpfsNode? node;
+
+  /// Go: `Repo`.
+  $repo.KuboRepo? repo;
+
+  /// Go: `StorageMax`.
+  ///
+  /// Go `uint64`: values from 2^63 up arrive negative (same 64 bits);
+  /// `BigInt.from(v).toUnsigned(64)` reads them unsigned.
+  int storageMax;
+
+  /// Go: `StorageGC`.
+  ///
+  /// Go `uint64`: values from 2^63 up arrive negative (same 64 bits);
+  /// `BigInt.from(v).toUnsigned(64)` reads them unsigned.
+  int storageGc;
+
+  /// Go: `SlackGB`.
+  ///
+  /// Go `uint64`: values from 2^63 up arrive negative (same 64 bits);
+  /// `BigInt.from(v).toUnsigned(64)` reads them unsigned.
+  int slackGb;
+
+  /// Go: `Storage`.
+  ///
+  /// Go `uint64`: values from 2^63 up arrive negative (same 64 bits);
+  /// `BigInt.from(v).toUnsigned(64)` reads them unsigned.
+  int storage;
+
+  @override
+  void $enc($W w) {
+    w
+      ..h(node)
+      ..h(repo)
+      ..i64(storageMax)
+      ..i64(storageGc)
+      ..i64(slackGb)
+      ..i64(storage);
+  }
+}
+
+/// Go: `corerepo.SizeStat`.
+final class KuboCoreCorerepoSizeStat implements GoDto {
+  KuboCoreCorerepoSizeStat({int? repoSize, int? storageMax})
+      : repoSize = repoSize ?? 0,
+        storageMax = storageMax ?? 0;
+
+  KuboCoreCorerepoSizeStat.$dec($R r)
+      : repoSize = r.i64(),
+        storageMax = r.i64();
+
+  /// Go: `RepoSize`.
+  ///
+  /// Go `uint64`: values from 2^63 up arrive negative (same 64 bits);
+  /// `BigInt.from(v).toUnsigned(64)` reads them unsigned.
+  int repoSize;
+
+  /// Go: `StorageMax`.
+  ///
+  /// Go `uint64`: values from 2^63 up arrive negative (same 64 bits);
+  /// `BigInt.from(v).toUnsigned(64)` reads them unsigned.
+  int storageMax;
+
+  @override
+  void $enc($W w) {
+    w
+      ..i64(repoSize)
+      ..i64(storageMax);
+  }
+}
 
 /// Go: `corerepo.Stat` (a kubo command output).
 final class KuboCoreCorerepoStat {
@@ -62,13 +160,32 @@ class KuboCoreCorerepoMultiError extends GolangException {
 
 /// Go: the package-level members of `github.com/ipfs/kubo/core/corerepo` (`Go.kubo.core.corerepo`).
 extension GoKuboCoreCorerepoApi on GoKuboCoreCorerepo {
+  /// Go: `func corerepo.BestEffortRoots(n *core.IpfsNode) ([]cid.Cid, error)`.
+  List<$cid.Cid> bestEffortRoots($core.KuboCoreIpfsNode n) {
+    final $r = $callSync(1649, $W()..h(n));
+    return $r.list(() => $r.p() ? $cid.Cid($r.str()) : $nil());
+  }
+
+  /// Go: `func corerepo.ConditionalGC(ctx context.Context, node *core.IpfsNode, offset uint64) error`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> conditionalGc(
+      $context.Context ctx, $core.KuboCoreIpfsNode node, int offset) async {
+    await $call(
+        1650,
+        $W()
+          ..h(ctx)
+          ..h(node)
+          ..i64(offset));
+  }
+
   /// Go: `func corerepo.GarbageCollect(n *core.IpfsNode, ctx context.Context) error`.
   ///
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> garbageCollect(
       $core.KuboCoreIpfsNode n, $context.Context ctx) async {
     await $call(
-        360,
+        1651,
         $W()
           ..h(n)
           ..h(ctx));
@@ -78,11 +195,17 @@ extension GoKuboCoreCorerepoApi on GoKuboCoreCorerepo {
   Stream<$gc.KuboGcResult> garbageCollectAsync(
           $core.KuboCoreIpfsNode n, $context.Context ctx) =>
       $stream(
-              361,
+              1652,
               $W()
                 ..h(n)
                 ..h(ctx))
           .map((r) => r.p() ? $gc.KuboGcResult.$dec(r) : $nil());
+
+  /// Go: `func corerepo.NewGC(n *core.IpfsNode) (*corerepo.GC, error)`.
+  KuboCoreCorerepoGc newGc($core.KuboCoreIpfsNode n) {
+    final $r = $callSync(1653, $W()..h(n));
+    return $r.p() ? KuboCoreCorerepoGc.$dec($r) : $nil();
+  }
 
   /// Go: `func corerepo.PeriodicGC(ctx context.Context, node *core.IpfsNode) error`.
   ///
@@ -90,22 +213,22 @@ extension GoKuboCoreCorerepoApi on GoKuboCoreCorerepo {
   Future<void> periodicGc(
       $context.Context ctx, $core.KuboCoreIpfsNode node) async {
     await $call(
-        362,
+        1654,
         $W()
           ..h(ctx)
           ..h(node));
   }
 
-  /// Go: `func corerepo.ConditionalGC(ctx context.Context, node *core.IpfsNode, offset uint64) error`.
+  /// Go: `func corerepo.RepoSize(ctx context.Context, n *core.IpfsNode) (corerepo.SizeStat, error)`.
   ///
   /// Asynchronous: runs in a goroutine of the service.
-  Future<void> conditionalGc(
-      $context.Context ctx, $core.KuboCoreIpfsNode node, int offset) async {
-    await $call(
-        359,
+  Future<KuboCoreCorerepoSizeStat> repoSize(
+      $context.Context ctx, $core.KuboCoreIpfsNode n) async {
+    final $r = await $call(
+        1655,
         $W()
           ..h(ctx)
-          ..h(node)
-          ..i64(offset));
+          ..h(n));
+    return $r.p() ? KuboCoreCorerepoSizeStat.$dec($r) : $nil();
   }
 }

@@ -2,16 +2,27 @@
 // Go: github.com/ipfs/boxo/gateway
 library;
 
+import 'dart:typed_data';
+
 import 'package:p2p_ffi/src/go.dart' show GoBoxoGateway;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/boxo/blockservice.dart' as $blockservice;
+import 'package:p2p_ffi/go/boxo/blockstore.dart' as $blockstore;
+import 'package:p2p_ffi/go/boxo/files.dart' as $files;
+import 'package:p2p_ffi/go/boxo/gateway/assets.dart' as $assets;
 import 'package:p2p_ffi/go/boxo/namesys.dart' as $namesys;
 import 'package:p2p_ffi/go/boxo/path.dart' as $path;
 import 'package:p2p_ffi/go/boxo/path/resolver.dart' as $resolver;
 import 'package:p2p_ffi/go/cid.dart' as $cid;
+import 'package:p2p_ffi/go/client_golang/prometheus.dart' as $prometheus;
 import 'package:p2p_ffi/go/context.dart' as $context;
+import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/doh_resolver.dart' as $doh_resolver;
 import 'package:p2p_ffi/go/io.dart' as $io;
+import 'package:p2p_ffi/go/ipfs_cmds.dart' as $ipfs_cmds;
 import 'package:p2p_ffi/go/libp2p/core/routing.dart' as $routing;
+import 'package:p2p_ffi/go/multiaddr_dns.dart' as $multiaddr_dns;
+import 'package:p2p_ffi/go/net/http.dart' as $http;
 
 /// Go: `gateway.BackendOption` (functional option; constructors in the package).
 final class BoxoGatewayBackendOption extends GoOption {
@@ -19,19 +30,80 @@ final class BoxoGatewayBackendOption extends GoOption {
 }
 
 /// Go: `gateway.BlocksBackend` (handle).
-class BoxoGatewayBlocksBackend extends GoHandle {
-  BoxoGatewayBlocksBackend.$h(super.$h);
+class BoxoGatewayBlocksBackend extends BoxoGatewayIpfsBackend
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $ipfs_cmds.IpfsCmdsEnvironment$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $ipfs_cmds.IpfsCmdsEnvironment {
+  BoxoGatewayBlocksBackend.$h(super.$h) : super.$h();
 
   /// Go: `func gateway.NewBlocksBackend(blockService blockservice.BlockService, opts ...gateway.BackendOption) (*gateway.BlocksBackend, error)`.
   factory BoxoGatewayBlocksBackend(
       $blockservice.BoxoBlockserviceBlockService blockService,
       [List<BoxoGatewayBackendOption> opts = const []]) {
     final $r = $callSync(
-        130,
+        652,
         $W()
           ..h(blockService)
           ..list(opts, (w0, e0) => w0.opt(e0)));
     return $r.hnn(BoxoGatewayBlocksBackend.$h);
+  }
+
+  /// Go: `func (*gateway.BlocksBackend).Get(ctx context.Context, path path.ImmutablePath, ranges ...gateway.ByteRange) (gateway.ContentPathMetadata, *gateway.GetResponse, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<(BoxoGatewayContentPathMetadata, BoxoGatewayGetResponse)> get(
+      $context.Context ctx, $path.BoxoPathImmutablePath path,
+      [List<BoxoGatewayByteRange> ranges = const []]) async {
+    final $r = await $call(
+        615,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(path)
+          ..list(ranges, (w0, e0) => w0.dto(e0)));
+    return (
+      $r.p() ? BoxoGatewayContentPathMetadata.$dec($r) : $nil(),
+      $r.hnn(BoxoGatewayGetResponse.$h)
+    );
+  }
+
+  /// Go: `func (*gateway.BlocksBackend).GetAll(ctx context.Context, path path.ImmutablePath) (gateway.ContentPathMetadata, files.Node, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<(BoxoGatewayContentPathMetadata, $files.BoxoFilesNode)> getAll(
+      $context.Context ctx, $path.BoxoPathImmutablePath path) async {
+    final $r = await $call(
+        616,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(path));
+    return (
+      $r.p() ? BoxoGatewayContentPathMetadata.$dec($r) : $nil(),
+      $r.hnn($files.BoxoFilesNode.$h)
+    );
+  }
+
+  /// Go: `func (*gateway.BlocksBackend).GetBlock(ctx context.Context, path path.ImmutablePath) (gateway.ContentPathMetadata, files.File, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<(BoxoGatewayContentPathMetadata, $files.BoxoFilesFile)> getBlock(
+      $context.Context ctx, $path.BoxoPathImmutablePath path) async {
+    final $r = await $call(
+        617,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(path));
+    return (
+      $r.p() ? BoxoGatewayContentPathMetadata.$dec($r) : $nil(),
+      $r.hnn($files.BoxoFilesFile.$h)
+    );
   }
 
   /// Go: `func (*gateway.BlocksBackend).GetCAR(ctx context.Context, p path.ImmutablePath, params gateway.CarParams) (gateway.ContentPathMetadata, io.ReadCloser, error)`.
@@ -42,7 +114,7 @@ class BoxoGatewayBlocksBackend extends GoHandle {
       $path.BoxoPathImmutablePath p,
       BoxoGatewayCarParams params) async {
     final $r = await $call(
-        129,
+        618,
         $W()
           ..h(this)
           ..h(ctx)
@@ -53,7 +125,314 @@ class BoxoGatewayBlocksBackend extends GoHandle {
       $r.hnn($io.IoReadCloser.$h)
     );
   }
+
+  /// Go: `func (*gateway.baseBackend).GetDNSLinkRecord(ctx context.Context, hostname string) (path.Path, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<$path.BoxoPath> getDnsLinkRecord(
+      $context.Context ctx, String hostname) async {
+    final $r = await $call(
+        619,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..str(hostname));
+    return $r.p() ? $path.BoxoPath($r.str()) : $nil();
+  }
+
+  /// Go: `func (*gateway.baseBackend).GetIPNSRecord(ctx context.Context, c cid.Cid) ([]byte, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<Uint8List> getIpnsRecord($context.Context ctx, $cid.Cid c) async {
+    final $r = await $call(
+        620,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(c));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (*gateway.BlocksBackend).Head(ctx context.Context, path path.ImmutablePath) (gateway.ContentPathMetadata, *gateway.HeadResponse, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<(BoxoGatewayContentPathMetadata, BoxoGatewayHeadResponse)> head(
+      $context.Context ctx, $path.BoxoPathImmutablePath path) async {
+    final $r = await $call(
+        621,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(path));
+    return (
+      $r.p() ? BoxoGatewayContentPathMetadata.$dec($r) : $nil(),
+      $r.hnn(BoxoGatewayHeadResponse.$h)
+    );
+  }
+
+  /// Go: `func (*gateway.BlocksBackend).IsCached(ctx context.Context, p path.Path) bool`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<bool> isCached($context.Context ctx, $path.BoxoPath p) async {
+    final $r = await $call(
+        622,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(p));
+    return $r.b();
+  }
+
+  /// Go: `func (*gateway.baseBackend).ResolveMutable(ctx context.Context, p path.Path) (path.ImmutablePath, time.Duration, time.Time, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<($path.BoxoPathImmutablePath, Duration, DateTime)> resolveMutable(
+      $context.Context ctx, $path.BoxoPath p) async {
+    final $r = await $call(
+        623,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(p));
+    return (
+      $r.p() ? $path.BoxoPathImmutablePath($r.str()) : $nil(),
+      Duration(microseconds: $r.i64() ~/ 1000),
+      $r.p() ? $r.time() : $nil()
+    );
+  }
+
+  /// Go: `func (*gateway.BlocksBackend).ResolvePath(ctx context.Context, path path.ImmutablePath) (gateway.ContentPathMetadata, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<BoxoGatewayContentPathMetadata> resolvePath(
+      $context.Context ctx, $path.BoxoPathImmutablePath path) async {
+    final $r = await $call(
+        624,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(path));
+    return $r.p() ? BoxoGatewayContentPathMetadata.$dec($r) : $nil();
+  }
 }
+
+/// Go: `gateway.ByteRange`.
+final class BoxoGatewayByteRange implements GoDto {
+  BoxoGatewayByteRange({int? from, int? to})
+      : from = from ?? 0,
+        to = to;
+
+  BoxoGatewayByteRange.$dec($R r)
+      : from = r.i64(),
+        to = r.p() ? r.i64() : null;
+
+  /// Go: `From`.
+  int from;
+
+  /// Go: `To`.
+  int? to;
+
+  @override
+  void $enc($W w) {
+    w
+      ..i64(from)
+      ..ptr(to, (w0, v0) => w0.i64(v0));
+  }
+}
+
+/// Go: `gateway.CarBackend` (handle).
+class BoxoGatewayCarBackend extends BoxoGatewayIpfsBackend
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $ipfs_cmds.IpfsCmdsEnvironment$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $ipfs_cmds.IpfsCmdsEnvironment {
+  BoxoGatewayCarBackend.$h(super.$h) : super.$h();
+
+  /// Go: `func gateway.NewCarBackend(f gateway.CarFetcher, opts ...gateway.BackendOption) (*gateway.CarBackend, error)`.
+  factory BoxoGatewayCarBackend(BoxoGatewayCarFetcher f,
+      [List<BoxoGatewayBackendOption> opts = const []]) {
+    final $r = $callSync(
+        654,
+        $W()
+          ..h(f)
+          ..list(opts, (w0, e0) => w0.opt(e0)));
+    return $r.hnn(BoxoGatewayCarBackend.$h);
+  }
+
+  /// Go: `func (*gateway.CarBackend).Get(ctx context.Context, path path.ImmutablePath, byteRanges ...gateway.ByteRange) (gateway.ContentPathMetadata, *gateway.GetResponse, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<(BoxoGatewayContentPathMetadata, BoxoGatewayGetResponse)> get(
+      $context.Context ctx, $path.BoxoPathImmutablePath path,
+      [List<BoxoGatewayByteRange> byteRanges = const []]) async {
+    final $r = await $call(
+        625,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(path)
+          ..list(byteRanges, (w0, e0) => w0.dto(e0)));
+    return (
+      $r.p() ? BoxoGatewayContentPathMetadata.$dec($r) : $nil(),
+      $r.hnn(BoxoGatewayGetResponse.$h)
+    );
+  }
+
+  /// Go: `func (*gateway.CarBackend).GetAll(ctx context.Context, path path.ImmutablePath) (gateway.ContentPathMetadata, files.Node, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<(BoxoGatewayContentPathMetadata, $files.BoxoFilesNode)> getAll(
+      $context.Context ctx, $path.BoxoPathImmutablePath path) async {
+    final $r = await $call(
+        626,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(path));
+    return (
+      $r.p() ? BoxoGatewayContentPathMetadata.$dec($r) : $nil(),
+      $r.hnn($files.BoxoFilesNode.$h)
+    );
+  }
+
+  /// Go: `func (*gateway.CarBackend).GetBlock(ctx context.Context, p path.ImmutablePath) (gateway.ContentPathMetadata, files.File, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<(BoxoGatewayContentPathMetadata, $files.BoxoFilesFile)> getBlock(
+      $context.Context ctx, $path.BoxoPathImmutablePath p) async {
+    final $r = await $call(
+        627,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(p));
+    return (
+      $r.p() ? BoxoGatewayContentPathMetadata.$dec($r) : $nil(),
+      $r.hnn($files.BoxoFilesFile.$h)
+    );
+  }
+
+  /// Go: `func (*gateway.CarBackend).GetCAR(ctx context.Context, p path.ImmutablePath, params gateway.CarParams) (gateway.ContentPathMetadata, io.ReadCloser, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<(BoxoGatewayContentPathMetadata, $io.IoReadCloser)> getCar(
+      $context.Context ctx,
+      $path.BoxoPathImmutablePath p,
+      BoxoGatewayCarParams params) async {
+    final $r = await $call(
+        628,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(p)
+          ..dto(params));
+    return (
+      $r.p() ? BoxoGatewayContentPathMetadata.$dec($r) : $nil(),
+      $r.hnn($io.IoReadCloser.$h)
+    );
+  }
+
+  /// Go: `func (*gateway.baseBackend).GetDNSLinkRecord(ctx context.Context, hostname string) (path.Path, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<$path.BoxoPath> getDnsLinkRecord(
+      $context.Context ctx, String hostname) async {
+    final $r = await $call(
+        629,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..str(hostname));
+    return $r.p() ? $path.BoxoPath($r.str()) : $nil();
+  }
+
+  /// Go: `func (*gateway.baseBackend).GetIPNSRecord(ctx context.Context, c cid.Cid) ([]byte, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<Uint8List> getIpnsRecord($context.Context ctx, $cid.Cid c) async {
+    final $r = await $call(
+        630,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(c));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (*gateway.CarBackend).Head(ctx context.Context, p path.ImmutablePath) (gateway.ContentPathMetadata, *gateway.HeadResponse, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<(BoxoGatewayContentPathMetadata, BoxoGatewayHeadResponse)> head(
+      $context.Context ctx, $path.BoxoPathImmutablePath p) async {
+    final $r = await $call(
+        631,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(p));
+    return (
+      $r.p() ? BoxoGatewayContentPathMetadata.$dec($r) : $nil(),
+      $r.hnn(BoxoGatewayHeadResponse.$h)
+    );
+  }
+
+  /// Go: `func (*gateway.CarBackend).IsCached(ctx context.Context, path path.Path) bool`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<bool> isCached($context.Context ctx, $path.BoxoPath path) async {
+    final $r = await $call(
+        632,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(path));
+    return $r.b();
+  }
+
+  /// Go: `func (*gateway.baseBackend).ResolveMutable(ctx context.Context, p path.Path) (path.ImmutablePath, time.Duration, time.Time, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<($path.BoxoPathImmutablePath, Duration, DateTime)> resolveMutable(
+      $context.Context ctx, $path.BoxoPath p) async {
+    final $r = await $call(
+        633,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(p));
+    return (
+      $r.p() ? $path.BoxoPathImmutablePath($r.str()) : $nil(),
+      Duration(microseconds: $r.i64() ~/ 1000),
+      $r.p() ? $r.time() : $nil()
+    );
+  }
+
+  /// Go: `func (*gateway.CarBackend).ResolvePath(ctx context.Context, p path.ImmutablePath) (gateway.ContentPathMetadata, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<BoxoGatewayContentPathMetadata> resolvePath(
+      $context.Context ctx, $path.BoxoPathImmutablePath p) async {
+    final $r = await $call(
+        634,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(p));
+    return $r.p() ? BoxoGatewayContentPathMetadata.$dec($r) : $nil();
+  }
+}
+
+/// Go: `gateway.CarFetcher` (handle).
+class BoxoGatewayCarFetcher extends GoHandle with BoxoGatewayCarFetcher$ {
+  BoxoGatewayCarFetcher.$h(super.$h);
+}
+
+/// The methods of [BoxoGatewayCarFetcher], mixed into every class Go also accepts as one.
+mixin BoxoGatewayCarFetcher$ on GoHandle {}
 
 /// Go: `gateway.CarParams`.
 final class BoxoGatewayCarParams implements GoDto {
@@ -92,6 +471,125 @@ final class BoxoGatewayCarParams implements GoDto {
       ..str(scope)
       ..str(order)
       ..i64(duplicates);
+  }
+}
+
+/// Go: `gateway.Config`.
+final class BoxoGatewayConfig implements GoDto {
+  BoxoGatewayConfig(
+      {bool? deserializedResponses,
+      bool? allowCodecConversion,
+      bool? noDnsLink,
+      bool? disableHtmlErrors,
+      bool? deprecatedXIpfsPath,
+      Map<String, BoxoGatewayPublicGateway>? publicGateways,
+      List<$assets.BoxoGatewayAssetsMenuItem>? menu,
+      Duration? retrievalTimeout,
+      int? maxConcurrentRequests,
+      String? diagnosticServiceUrl,
+      int? maxRangeRequestFileSize,
+      int? maxDeserializedResponseSize,
+      int? maxUnixFsdagResponseSize,
+      Duration? maxRequestDuration,
+      $prometheus.ClientGolangPrometheusRegisterer? metricsRegistry})
+      : deserializedResponses = deserializedResponses ?? false,
+        allowCodecConversion = allowCodecConversion ?? false,
+        noDnsLink = noDnsLink ?? false,
+        disableHtmlErrors = disableHtmlErrors ?? false,
+        deprecatedXIpfsPath = deprecatedXIpfsPath ?? false,
+        publicGateways = publicGateways ?? {},
+        menu = menu ?? [],
+        retrievalTimeout = retrievalTimeout ?? Duration.zero,
+        maxConcurrentRequests = maxConcurrentRequests ?? 0,
+        diagnosticServiceUrl = diagnosticServiceUrl ?? '',
+        maxRangeRequestFileSize = maxRangeRequestFileSize ?? 0,
+        maxDeserializedResponseSize = maxDeserializedResponseSize ?? 0,
+        maxUnixFsdagResponseSize = maxUnixFsdagResponseSize ?? 0,
+        maxRequestDuration = maxRequestDuration ?? Duration.zero,
+        metricsRegistry = metricsRegistry;
+
+  BoxoGatewayConfig.$dec($R r)
+      : deserializedResponses = r.b(),
+        allowCodecConversion = r.b(),
+        noDnsLink = r.b(),
+        disableHtmlErrors = r.b(),
+        deprecatedXIpfsPath = r.b(),
+        publicGateways = r.map(() => r.str(),
+            () => r.p() ? BoxoGatewayPublicGateway.$dec(r) : $nil()),
+        menu = r.list(
+            () => r.p() ? $assets.BoxoGatewayAssetsMenuItem.$dec(r) : $nil()),
+        retrievalTimeout = Duration(microseconds: r.i64() ~/ 1000),
+        maxConcurrentRequests = r.i64(),
+        diagnosticServiceUrl = r.str(),
+        maxRangeRequestFileSize = r.i64(),
+        maxDeserializedResponseSize = r.i64(),
+        maxUnixFsdagResponseSize = r.i64(),
+        maxRequestDuration = Duration(microseconds: r.i64() ~/ 1000),
+        metricsRegistry = r.hn($prometheus.ClientGolangPrometheusRegisterer.$h);
+
+  /// Go: `DeserializedResponses`.
+  bool deserializedResponses;
+
+  /// Go: `AllowCodecConversion`.
+  bool allowCodecConversion;
+
+  /// Go: `NoDNSLink`.
+  bool noDnsLink;
+
+  /// Go: `DisableHTMLErrors`.
+  bool disableHtmlErrors;
+
+  /// Go: `DeprecatedXIpfsPath`.
+  bool deprecatedXIpfsPath;
+
+  /// Go: `PublicGateways`.
+  Map<String, BoxoGatewayPublicGateway> publicGateways;
+
+  /// Go: `Menu`.
+  List<$assets.BoxoGatewayAssetsMenuItem> menu;
+
+  /// Go: `RetrievalTimeout`.
+  Duration retrievalTimeout;
+
+  /// Go: `MaxConcurrentRequests`.
+  int maxConcurrentRequests;
+
+  /// Go: `DiagnosticServiceURL`.
+  String diagnosticServiceUrl;
+
+  /// Go: `MaxRangeRequestFileSize`.
+  int maxRangeRequestFileSize;
+
+  /// Go: `MaxDeserializedResponseSize`.
+  int maxDeserializedResponseSize;
+
+  /// Go: `MaxUnixFSDAGResponseSize`.
+  int maxUnixFsdagResponseSize;
+
+  /// Go: `MaxRequestDuration`.
+  Duration maxRequestDuration;
+
+  /// Go: `MetricsRegistry`.
+  $prometheus.ClientGolangPrometheusRegisterer? metricsRegistry;
+
+  @override
+  void $enc($W w) {
+    w
+      ..b(deserializedResponses)
+      ..b(allowCodecConversion)
+      ..b(noDnsLink)
+      ..b(disableHtmlErrors)
+      ..b(deprecatedXIpfsPath)
+      ..map(publicGateways, (w0, k0) => w0.str(k0), (w0, v0) => w0.dto(v0))
+      ..list(menu, (w0, e0) => w0.dto(e0))
+      ..i64((retrievalTimeout).inMicroseconds * 1000)
+      ..i64(maxConcurrentRequests)
+      ..str(diagnosticServiceUrl)
+      ..i64(maxRangeRequestFileSize)
+      ..i64(maxDeserializedResponseSize)
+      ..i64(maxUnixFsdagResponseSize)
+      ..i64((maxRequestDuration).inMicroseconds * 1000)
+      ..h(metricsRegistry);
   }
 }
 
@@ -163,6 +661,298 @@ final class BoxoGatewayDagByteRange implements GoDto {
     w
       ..i64(from)
       ..ptr(to, (w0, v0) => w0.i64(v0));
+  }
+}
+
+/// Go: `gateway.GetResponse` (handle).
+class BoxoGatewayGetResponse extends $crypto.CryptoPrivateKey
+    with $crypto.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
+    implements $crypto.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+  BoxoGatewayGetResponse.$h(super.$h) : super.$h();
+
+  /// Go: `func (*gateway.GetResponse).Close() error`.
+  void close() {
+    $callSync(636, $W()..h(this));
+  }
+}
+
+/// Go: `gateway.HeadResponse` (handle).
+class BoxoGatewayHeadResponse extends $crypto.CryptoPrivateKey
+    with $crypto.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
+    implements $crypto.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+  BoxoGatewayHeadResponse.$h(super.$h) : super.$h();
+
+  /// Go: `func (*gateway.HeadResponse).Close() error`.
+  void close() {
+    $callSync(637, $W()..h(this));
+  }
+}
+
+/// Go: `gateway.Headers` (handle).
+class BoxoGatewayHeaders extends $crypto.CryptoPrivateKey
+    with $crypto.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
+    implements $crypto.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+  BoxoGatewayHeaders.$h(super.$h) : super.$h();
+
+  /// Go: `func gateway.NewHeaders(headers map[string][]string) *gateway.Headers`.
+  factory BoxoGatewayHeaders(Map<String, List<String>> headers) {
+    final $r = $callSync(
+        664,
+        $W()
+          ..map(headers, (w0, k0) => w0.str(k0),
+              (w0, v0) => w0.list(v0, (w1, e1) => w1.str(e1))));
+    return $r.hnn(BoxoGatewayHeaders.$h);
+  }
+
+  /// Go: `func (*gateway.Headers).ApplyCors() *gateway.Headers`.
+  BoxoGatewayHeaders applyCors() {
+    final $r = $callSync(638, $W()..h(this));
+    return $r.hnn(BoxoGatewayHeaders.$h);
+  }
+
+  /// Go: `func (*gateway.Headers).WithDeprecatedXIpfsPath() *gateway.Headers`.
+  BoxoGatewayHeaders withDeprecatedXIpfsPath() {
+    final $r = $callSync(639, $W()..h(this));
+    return $r.hnn(BoxoGatewayHeaders.$h);
+  }
+
+  /// Go: `func (*gateway.Headers).Wrap(next http.Handler) http.Handler`.
+  $http.NetHttpHandler wrap($http.NetHttpHandler next) {
+    final $r = $callSync(
+        640,
+        $W()
+          ..h(this)
+          ..h(next));
+    return $r.hnn($http.NetHttpHandler.$h);
+  }
+}
+
+/// Go: `gateway.IPFSBackend` (handle).
+class BoxoGatewayIpfsBackend extends GoHandle with BoxoGatewayIpfsBackend$ {
+  BoxoGatewayIpfsBackend.$h(super.$h);
+}
+
+/// The methods of [BoxoGatewayIpfsBackend], mixed into every class Go also accepts as one.
+mixin BoxoGatewayIpfsBackend$ on GoHandle {
+  /// Go: `func (gateway.IPFSBackend).Get(context.Context, path.ImmutablePath, ...gateway.ByteRange) (gateway.ContentPathMetadata, *gateway.GetResponse, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<(BoxoGatewayContentPathMetadata, BoxoGatewayGetResponse)> get(
+      $context.Context ctx, $path.BoxoPathImmutablePath immutablePath,
+      [List<BoxoGatewayByteRange> byteRanges = const []]) async {
+    final $r = await $call(
+        641,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(immutablePath)
+          ..list(byteRanges, (w0, e0) => w0.dto(e0)));
+    return (
+      $r.p() ? BoxoGatewayContentPathMetadata.$dec($r) : $nil(),
+      $r.hnn(BoxoGatewayGetResponse.$h)
+    );
+  }
+
+  /// Go: `func (gateway.IPFSBackend).GetAll(context.Context, path.ImmutablePath) (gateway.ContentPathMetadata, files.Node, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<(BoxoGatewayContentPathMetadata, $files.BoxoFilesNode)> getAll(
+      $context.Context ctx, $path.BoxoPathImmutablePath immutablePath) async {
+    final $r = await $call(
+        642,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(immutablePath));
+    return (
+      $r.p() ? BoxoGatewayContentPathMetadata.$dec($r) : $nil(),
+      $r.hnn($files.BoxoFilesNode.$h)
+    );
+  }
+
+  /// Go: `func (gateway.IPFSBackend).GetBlock(context.Context, path.ImmutablePath) (gateway.ContentPathMetadata, files.File, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<(BoxoGatewayContentPathMetadata, $files.BoxoFilesFile)> getBlock(
+      $context.Context ctx, $path.BoxoPathImmutablePath immutablePath) async {
+    final $r = await $call(
+        643,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(immutablePath));
+    return (
+      $r.p() ? BoxoGatewayContentPathMetadata.$dec($r) : $nil(),
+      $r.hnn($files.BoxoFilesFile.$h)
+    );
+  }
+
+  /// Go: `func (gateway.IPFSBackend).GetCAR(context.Context, path.ImmutablePath, gateway.CarParams) (gateway.ContentPathMetadata, io.ReadCloser, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<(BoxoGatewayContentPathMetadata, $io.IoReadCloser)> getCar(
+      $context.Context ctx,
+      $path.BoxoPathImmutablePath immutablePath,
+      BoxoGatewayCarParams carParams) async {
+    final $r = await $call(
+        644,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(immutablePath)
+          ..dto(carParams));
+    return (
+      $r.p() ? BoxoGatewayContentPathMetadata.$dec($r) : $nil(),
+      $r.hnn($io.IoReadCloser.$h)
+    );
+  }
+
+  /// Go: `func (gateway.IPFSBackend).GetDNSLinkRecord(context.Context, string) (path.Path, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<$path.BoxoPath> getDnsLinkRecord(
+      $context.Context ctx, String arg1) async {
+    final $r = await $call(
+        645,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..str(arg1));
+    return $r.p() ? $path.BoxoPath($r.str()) : $nil();
+  }
+
+  /// Go: `func (gateway.IPFSBackend).GetIPNSRecord(context.Context, cid.Cid) ([]byte, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<Uint8List> getIpnsRecord($context.Context ctx, $cid.Cid cid) async {
+    final $r = await $call(
+        646,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(cid));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (gateway.IPFSBackend).Head(context.Context, path.ImmutablePath) (gateway.ContentPathMetadata, *gateway.HeadResponse, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<(BoxoGatewayContentPathMetadata, BoxoGatewayHeadResponse)> head(
+      $context.Context ctx, $path.BoxoPathImmutablePath immutablePath) async {
+    final $r = await $call(
+        647,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(immutablePath));
+    return (
+      $r.p() ? BoxoGatewayContentPathMetadata.$dec($r) : $nil(),
+      $r.hnn(BoxoGatewayHeadResponse.$h)
+    );
+  }
+
+  /// Go: `func (gateway.IPFSBackend).IsCached(context.Context, path.Path) bool`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<bool> isCached($context.Context ctx, $path.BoxoPath path) async {
+    final $r = await $call(
+        648,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(path));
+    return $r.b();
+  }
+
+  /// Go: `func (gateway.IPFSBackend).ResolveMutable(context.Context, path.Path) (path.ImmutablePath, time.Duration, time.Time, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<($path.BoxoPathImmutablePath, Duration, DateTime)> resolveMutable(
+      $context.Context ctx, $path.BoxoPath path) async {
+    final $r = await $call(
+        649,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(path));
+    return (
+      $r.p() ? $path.BoxoPathImmutablePath($r.str()) : $nil(),
+      Duration(microseconds: $r.i64() ~/ 1000),
+      $r.p() ? $r.time() : $nil()
+    );
+  }
+
+  /// Go: `func (gateway.IPFSBackend).ResolvePath(context.Context, path.ImmutablePath) (gateway.ContentPathMetadata, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<BoxoGatewayContentPathMetadata> resolvePath(
+      $context.Context ctx, $path.BoxoPathImmutablePath immutablePath) async {
+    final $r = await $call(
+        650,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(immutablePath));
+    return $r.p() ? BoxoGatewayContentPathMetadata.$dec($r) : $nil();
+  }
+
+  /// Go: type assertion `x.(*gateway.BlocksBackend)`: null if the object is not one.
+  BoxoGatewayBlocksBackend? asBoxoGatewayBlocksBackend() {
+    final $r = $callSync(101, $W()..h(this));
+    return $r.hn(BoxoGatewayBlocksBackend.$h);
+  }
+
+  /// Go: type assertion `x.(*gateway.CarBackend)`: null if the object is not one.
+  BoxoGatewayCarBackend? asBoxoGatewayCarBackend() {
+    final $r = $callSync(102, $W()..h(this));
+    return $r.hn(BoxoGatewayCarBackend.$h);
+  }
+}
+
+/// Go: `gateway.PublicGateway`.
+final class BoxoGatewayPublicGateway implements GoDto {
+  BoxoGatewayPublicGateway(
+      {List<String>? paths,
+      bool? useSubdomains,
+      bool? noDnsLink,
+      bool? inlineDnsLink,
+      bool? deserializedResponses})
+      : paths = paths ?? [],
+        useSubdomains = useSubdomains ?? false,
+        noDnsLink = noDnsLink ?? false,
+        inlineDnsLink = inlineDnsLink ?? false,
+        deserializedResponses = deserializedResponses ?? false;
+
+  BoxoGatewayPublicGateway.$dec($R r)
+      : paths = r.list(() => r.str()),
+        useSubdomains = r.b(),
+        noDnsLink = r.b(),
+        inlineDnsLink = r.b(),
+        deserializedResponses = r.b();
+
+  /// Go: `Paths`.
+  List<String> paths;
+
+  /// Go: `UseSubdomains`.
+  bool useSubdomains;
+
+  /// Go: `NoDNSLink`.
+  bool noDnsLink;
+
+  /// Go: `InlineDNSLink`.
+  bool inlineDnsLink;
+
+  /// Go: `DeserializedResponses`.
+  bool deserializedResponses;
+
+  @override
+  void $enc($W w) {
+    w
+      ..list(paths, (w0, e0) => w0.str(e0))
+      ..b(useSubdomains)
+      ..b(noDnsLink)
+      ..b(inlineDnsLink)
+      ..b(deserializedResponses);
   }
 }
 
@@ -266,6 +1056,197 @@ extension GoBoxoGatewayApi on GoBoxoGateway {
   BoxoGatewayBackendOption withValueStore(
           $routing.Libp2pCoreRoutingValueStore vs) =>
       BoxoGatewayBackendOption.$(5, (w) => w..h(vs));
+
+  /// Go: `var gateway.EmptyIdentityCID cid.Cid`.
+  $cid.Cid get emptyIdentityCid {
+    final $r = $callSync(635);
+    return $r.p() ? $cid.Cid($r.str()) : $nil();
+  }
+
+  /// Go: `func gateway.InlineDNSLink(fqdn string) (dnsLabel string, err error)`.
+  String inlineDnsLink(String fqdn) {
+    final $r = $callSync(651, $W()..str(fqdn));
+    return $r.str();
+  }
+
+  /// Go: `func gateway.NewCacheBlockStore(size int, reg prometheus.Registerer) (blockstore.Blockstore, error)`.
+  $blockstore.BoxoBlockstore newCacheBlockStore(
+      int size, $prometheus.ClientGolangPrometheusRegisterer reg) {
+    final $r = $callSync(
+        653,
+        $W()
+          ..i64(size)
+          ..h(reg));
+    return $r.hnn($blockstore.BoxoBlockstore.$h);
+  }
+
+  /// Go: `func gateway.NewDNSResolver(resolvers map[string]string, dohOpts ...doh.Option) (*madns.Resolver, error)`.
+  $multiaddr_dns.MultiaddrDnsResolver newDnsResolver(
+      Map<String, String> resolvers,
+      [List<$doh_resolver.DohResolverOption> dohOpts = const []]) {
+    final $r = $callSync(
+        655,
+        $W()
+          ..map(resolvers, (w0, k0) => w0.str(k0), (w0, v0) => w0.str(v0))
+          ..list(dohOpts, (w0, e0) => w0.opt(e0)));
+    return $r.hnn($multiaddr_dns.MultiaddrDnsResolver.$h);
+  }
+
+  /// Go: `func gateway.NewDagByteRange(rangeStr string) (gateway.DagByteRange, error)`.
+  BoxoGatewayDagByteRange newDagByteRange(String rangeStr) {
+    final $r = $callSync(656, $W()..str(rangeStr));
+    return $r.p() ? BoxoGatewayDagByteRange.$dec($r) : $nil();
+  }
+
+  /// Go: `func gateway.NewDuplicateBlocksPolicy(dupsValue string) (gateway.DuplicateBlocksPolicy, error)`.
+  int newDuplicateBlocksPolicy(String dupsValue) {
+    final $r = $callSync(657, $W()..str(dupsValue));
+    return $r.i64();
+  }
+
+  /// Go: `func gateway.NewGetResponseFromReader(file io.ReadCloser, fullFileSize int64) *gateway.GetResponse`.
+  BoxoGatewayGetResponse newGetResponseFromReader(
+      Object file, int fullFileSize) {
+    final $r = $callSync(
+        658,
+        $W()
+          ..reader(file)
+          ..i64(fullFileSize));
+    return $r.hnn(BoxoGatewayGetResponse.$h);
+  }
+
+  /// Go: `func gateway.NewGetResponseFromSymlink(symlink *files.Symlink, size int64) *gateway.GetResponse`.
+  BoxoGatewayGetResponse newGetResponseFromSymlink(
+      $files.BoxoFilesSymlink symlink, int size) {
+    final $r = $callSync(
+        659,
+        $W()
+          ..h(symlink)
+          ..i64(size));
+    return $r.hnn(BoxoGatewayGetResponse.$h);
+  }
+
+  /// Go: `func gateway.NewHandler(c gateway.Config, backend gateway.IPFSBackend) http.Handler`.
+  $http.NetHttpHandler newHandler(
+      BoxoGatewayConfig c, BoxoGatewayIpfsBackend backend) {
+    final $r = $callSync(
+        660,
+        $W()
+          ..dto(c)
+          ..h(backend));
+    return $r.hnn($http.NetHttpHandler.$h);
+  }
+
+  /// Go: `func gateway.NewHeadResponseForDirectory(dagSize int64) *gateway.HeadResponse`.
+  BoxoGatewayHeadResponse newHeadResponseForDirectory(int dagSize) {
+    final $r = $callSync(661, $W()..i64(dagSize));
+    return $r.hnn(BoxoGatewayHeadResponse.$h);
+  }
+
+  /// Go: `func gateway.NewHeadResponseForFile(startingBytes io.ReadCloser, size int64) *gateway.HeadResponse`.
+  BoxoGatewayHeadResponse newHeadResponseForFile(
+      Object startingBytes, int size) {
+    final $r = $callSync(
+        662,
+        $W()
+          ..reader(startingBytes)
+          ..i64(size));
+    return $r.hnn(BoxoGatewayHeadResponse.$h);
+  }
+
+  /// Go: `func gateway.NewHeadResponseForSymlink(symlinkSize int64) *gateway.HeadResponse`.
+  BoxoGatewayHeadResponse newHeadResponseForSymlink(int symlinkSize) {
+    final $r = $callSync(663, $W()..i64(symlinkSize));
+    return $r.hnn(BoxoGatewayHeadResponse.$h);
+  }
+
+  /// Go: `func gateway.NewHostnameHandler(c gateway.Config, backend gateway.IPFSBackend, next http.Handler) http.HandlerFunc`.
+  $http.NetHttpHandlerFunc newHostnameHandler(BoxoGatewayConfig c,
+      BoxoGatewayIpfsBackend backend, $http.NetHttpHandler next) {
+    final $r = $callSync(
+        665,
+        $W()
+          ..dto(c)
+          ..h(backend)
+          ..h(next));
+    return $r.hnn($http.NetHttpHandlerFunc.$h);
+  }
+
+  /// Go: `func gateway.NewRemoteBlocksBackend(gatewayURL []string, httpClient *http.Client, opts ...gateway.BackendOption) (*gateway.BlocksBackend, error)`.
+  BoxoGatewayBlocksBackend newRemoteBlocksBackend(
+      List<String> gatewayUrl, $http.NetHttpClient httpClient,
+      [List<BoxoGatewayBackendOption> opts = const []]) {
+    final $r = $callSync(
+        666,
+        $W()
+          ..list(gatewayUrl, (w0, e0) => w0.str(e0))
+          ..dto(httpClient)
+          ..list(opts, (w0, e0) => w0.opt(e0)));
+    return $r.hnn(BoxoGatewayBlocksBackend.$h);
+  }
+
+  /// Go: `func gateway.NewRemoteBlockstore(gatewayURL []string, httpClient *http.Client) (blockstore.Blockstore, error)`.
+  $blockstore.BoxoBlockstore newRemoteBlockstore(
+      List<String> gatewayUrl, $http.NetHttpClient httpClient) {
+    final $r = $callSync(
+        667,
+        $W()
+          ..list(gatewayUrl, (w0, e0) => w0.str(e0))
+          ..dto(httpClient));
+    return $r.hnn($blockstore.BoxoBlockstore.$h);
+  }
+
+  /// Go: `func gateway.NewRemoteCarBackend(gatewayURL []string, httpClient *http.Client, opts ...gateway.BackendOption) (*gateway.CarBackend, error)`.
+  BoxoGatewayCarBackend newRemoteCarBackend(
+      List<String> gatewayUrl, $http.NetHttpClient httpClient,
+      [List<BoxoGatewayBackendOption> opts = const []]) {
+    final $r = $callSync(
+        668,
+        $W()
+          ..list(gatewayUrl, (w0, e0) => w0.str(e0))
+          ..dto(httpClient)
+          ..list(opts, (w0, e0) => w0.opt(e0)));
+    return $r.hnn(BoxoGatewayCarBackend.$h);
+  }
+
+  /// Go: `func gateway.NewRemoteCarFetcher(gatewayURL []string, httpClient *http.Client) (gateway.CarFetcher, error)`.
+  BoxoGatewayCarFetcher newRemoteCarFetcher(
+      List<String> gatewayUrl, $http.NetHttpClient httpClient) {
+    final $r = $callSync(
+        669,
+        $W()
+          ..list(gatewayUrl, (w0, e0) => w0.str(e0))
+          ..dto(httpClient));
+    return $r.hnn(BoxoGatewayCarFetcher.$h);
+  }
+
+  /// Go: `func gateway.NewRemoteValueStore(gatewayURL []string, httpClient *http.Client) (routing.ValueStore, error)`.
+  $routing.Libp2pCoreRoutingValueStore newRemoteValueStore(
+      List<String> gatewayUrl, $http.NetHttpClient httpClient) {
+    final $r = $callSync(
+        670,
+        $W()
+          ..list(gatewayUrl, (w0, e0) => w0.str(e0))
+          ..dto(httpClient));
+    return $r.hnn($routing.Libp2pCoreRoutingValueStore.$h);
+  }
+
+  /// Go: `func gateway.NewRetryCarFetcher(inner gateway.CarFetcher, allowedRetries int) (gateway.CarFetcher, error)`.
+  BoxoGatewayCarFetcher newRetryCarFetcher(
+      BoxoGatewayCarFetcher inner, int allowedRetries) {
+    final $r = $callSync(
+        671,
+        $W()
+          ..h(inner)
+          ..i64(allowedRetries));
+    return $r.hnn(BoxoGatewayCarFetcher.$h);
+  }
+
+  /// Go: `func gateway.UninlineDNSLink(dnsLabel string) (fqdn string)`.
+  String uninlineDnsLink(String dnsLabel) {
+    final $r = $callSync(672, $W()..str(dnsLabel));
+    return $r.str();
+  }
 
   /// Go: `const gateway.ContentPathKey gateway.RequestContextKey`.
   String get contentPathKey => "content-path";

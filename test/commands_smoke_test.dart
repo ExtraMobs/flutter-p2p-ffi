@@ -201,7 +201,7 @@ void main() {
             .toList();
         expect([
           for (final e in events)
-            for (final r in e.responses) r?.id?.value
+            for (final r in e.responses) r.id?.value
         ], contains(idA));
       } finally {
         cancel();

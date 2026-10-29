@@ -4,41 +4,312 @@ library;
 
 import 'package:p2p_ffi/src/go.dart' show GoBoxoFilestore;
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/block_format.dart' as $block_format;
+import 'package:p2p_ffi/go/boxo/blockstore.dart' as $blockstore;
+import 'package:p2p_ffi/go/boxo/filestore/posinfo.dart' as $posinfo;
+import 'package:p2p_ffi/go/boxo/provider.dart' as $provider;
 import 'package:p2p_ffi/go/cid.dart' as $cid;
+import 'package:p2p_ffi/go/context.dart' as $context;
+import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/datastore.dart' as $datastore;
+import 'package:p2p_ffi/go/ipfs_cmds.dart' as $ipfs_cmds;
+import 'package:p2p_ffi/go/kubo/core/node.dart' as $node;
 
-/// Go: `filestore.ListRes` (a kubo command output).
-final class BoxoFilestoreListRes {
+/// Go: `filestore.FileManager` (handle).
+class BoxoFilestoreFileManager extends $crypto.CryptoPrivateKey
+    with $crypto.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
+    implements $crypto.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+  BoxoFilestoreFileManager.$h(super.$h) : super.$h();
+
+  /// Go: `func filestore.NewFileManager(ds datastore.Batching, root string, options ...filestore.Option) *filestore.FileManager`.
+  factory BoxoFilestoreFileManager($datastore.DatastoreBatching ds, String root,
+      [List<BoxoFilestoreOption> options = const []]) {
+    final $r = $callSync(
+        612,
+        $W()
+          ..h(ds)
+          ..str(root)
+          ..list(options, (w0, e0) => w0.opt(e0)));
+    return $r.hnn(BoxoFilestoreFileManager.$h);
+  }
+
+  /// Go: `func (*filestore.FileManager).AllKeysChan(ctx context.Context) (<-chan cid.Cid, error)`.
+  Stream<$cid.Cid> allKeysChan($context.Context ctx) => $stream(
+          593,
+          $W()
+            ..h(this)
+            ..h(ctx))
+      .map((r) => r.p() ? $cid.Cid(r.str()) : $nil());
+
+  /// Go: `func (*filestore.FileManager).DeleteBlock(ctx context.Context, c cid.Cid) error`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> deleteBlock($context.Context ctx, $cid.Cid c) async {
+    await $call(
+        594,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(c));
+  }
+
+  /// Go: `func (*filestore.FileManager).Get(ctx context.Context, c cid.Cid) (blocks.Block, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<$block_format.BlockFormatBlock> get(
+      $context.Context ctx, $cid.Cid c) async {
+    final $r = await $call(
+        595,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(c));
+    return $r.p() ? $block_format.BlockFormatBlock.$dec($r) : $nil();
+  }
+
+  /// Go: `func (*filestore.FileManager).GetSize(ctx context.Context, c cid.Cid) (int, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<int> getSize($context.Context ctx, $cid.Cid c) async {
+    final $r = await $call(
+        596,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(c));
+    return $r.i64();
+  }
+
+  /// Go: `func (*filestore.FileManager).Has(ctx context.Context, c cid.Cid) (bool, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<bool> has($context.Context ctx, $cid.Cid c) async {
+    final $r = await $call(
+        597,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(c));
+    return $r.b();
+  }
+
+  /// Go: `func (*filestore.FileManager).Put(ctx context.Context, b *posinfo.FilestoreNode) error`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> put($context.Context ctx,
+      $posinfo.BoxoFilestorePosinfoFilestoreNode b) async {
+    await $call(
+        598,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..h(b));
+  }
+
+  /// Go: `func (*filestore.FileManager).PutMany(ctx context.Context, bs []*posinfo.FilestoreNode) error`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> putMany($context.Context ctx,
+      List<$posinfo.BoxoFilestorePosinfoFilestoreNode> bs) async {
+    await $call(
+        599,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..list(bs, (w0, e0) => w0.h(e0)));
+  }
+}
+
+/// Go: `filestore.Filestore` (handle).
+class BoxoFilestore extends $blockstore.BoxoBlockstore
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        $node.KuboCoreNodeBaseBlocks$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        $node.KuboCoreNodeBaseBlocks {
+  BoxoFilestore.$h(super.$h) : super.$h();
+
+  /// Go: `func filestore.NewFilestore(bs blockstore.Blockstore, fm *filestore.FileManager, prov provider.MultihashProvider) *filestore.Filestore`.
+  factory BoxoFilestore(
+      $blockstore.BoxoBlockstore bs,
+      BoxoFilestoreFileManager fm,
+      $provider.BoxoProviderMultihashProvider prov) {
+    final $r = $callSync(
+        613,
+        $W()
+          ..h(bs)
+          ..h(fm)
+          ..h(prov));
+    return $r.hnn(BoxoFilestore.$h);
+  }
+
+  /// Go: `func (*filestore.Filestore).AllKeysChan(ctx context.Context) (<-chan cid.Cid, error)`.
+  Stream<$cid.Cid> allKeysChan($context.Context ctx) => $stream(
+          600,
+          $W()
+            ..h(this)
+            ..h(ctx))
+      .map((r) => r.p() ? $cid.Cid(r.str()) : $nil());
+
+  /// Go: `func (*filestore.Filestore).DeleteBlock(ctx context.Context, c cid.Cid) error`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> deleteBlock($context.Context ctx, $cid.Cid c) async {
+    await $call(
+        601,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(c));
+  }
+
+  /// Go: `func (*filestore.Filestore).FileManager() *filestore.FileManager`.
+  BoxoFilestoreFileManager fileManager() {
+    final $r = $callSync(602, $W()..h(this));
+    return $r.hnn(BoxoFilestoreFileManager.$h);
+  }
+
+  /// Go: `func (*filestore.Filestore).Get(ctx context.Context, c cid.Cid) (blocks.Block, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<$block_format.BlockFormatBlock> get(
+      $context.Context ctx, $cid.Cid c) async {
+    final $r = await $call(
+        603,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(c));
+    return $r.p() ? $block_format.BlockFormatBlock.$dec($r) : $nil();
+  }
+
+  /// Go: `func (*filestore.Filestore).GetSize(ctx context.Context, c cid.Cid) (int, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<int> getSize($context.Context ctx, $cid.Cid c) async {
+    final $r = await $call(
+        604,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(c));
+    return $r.i64();
+  }
+
+  /// Go: `func (*filestore.Filestore).Has(ctx context.Context, c cid.Cid) (bool, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<bool> has($context.Context ctx, $cid.Cid c) async {
+    final $r = await $call(
+        605,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(c));
+    return $r.b();
+  }
+
+  /// Go: `func (*filestore.Filestore).MainBlockstore() blockstore.Blockstore`.
+  $blockstore.BoxoBlockstore mainBlockstore() {
+    final $r = $callSync(606, $W()..h(this));
+    return $r.hnn($blockstore.BoxoBlockstore.$h);
+  }
+
+  /// Go: `func (*filestore.Filestore).Put(ctx context.Context, b blocks.Block) error`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> put(
+      $context.Context ctx, $block_format.BlockFormatBlock b) async {
+    await $call(
+        607,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..dto(b));
+  }
+
+  /// Go: `func (*filestore.Filestore).PutMany(ctx context.Context, bs []blocks.Block) error`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> putMany(
+      $context.Context ctx, List<$block_format.BlockFormatBlock> bs) async {
+    await $call(
+        608,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..list(bs, (w0, e0) => w0.dto(e0)));
+  }
+}
+
+/// Go: `filestore.ListRes`.
+final class BoxoFilestoreListRes implements GoDto {
+  BoxoFilestoreListRes(
+      {int? status,
+      String? errorMsg,
+      $cid.Cid? key,
+      String? filePath,
+      int? offset,
+      int? size})
+      : status = status ?? 0,
+        errorMsg = errorMsg ?? '',
+        key = key,
+        filePath = filePath ?? '',
+        offset = offset ?? 0,
+        size = size ?? 0;
+
   BoxoFilestoreListRes.$dec($R r)
       : status = r.i64(),
         errorMsg = r.str(),
-        key = $cid.Cid(r.str()),
+        key = r.p() ? $cid.Cid(r.str()) : null,
         filePath = r.str(),
         offset = r.i64(),
         size = r.i64();
 
   /// Go: `Status`.
-  final int status;
+  int status;
 
   /// Go: `ErrorMsg`.
-  final String errorMsg;
+  String errorMsg;
 
   /// Go: `Key`.
-  final $cid.Cid key;
+  $cid.Cid? key;
 
   /// Go: `FilePath`.
-  final String filePath;
+  String filePath;
 
   /// Go: `Offset`.
   ///
   /// Go `uint64`: values from 2^63 up arrive negative (same 64 bits);
   /// `BigInt.from(v).toUnsigned(64)` reads them unsigned.
-  final int offset;
+  int offset;
 
   /// Go: `Size`.
   ///
   /// Go `uint64`: values from 2^63 up arrive negative (same 64 bits);
   /// `BigInt.from(v).toUnsigned(64)` reads them unsigned.
-  final int size;
+  int size;
+
+  @override
+  void $enc($W w) {
+    w
+      ..i64(status)
+      ..str(errorMsg)
+      ..val(key)
+      ..str(filePath)
+      ..i64(offset)
+      ..i64(size);
+  }
+}
+
+/// Go: `filestore.Option` (functional option; constructors in the package).
+final class BoxoFilestoreOption extends GoOption {
+  BoxoFilestoreOption.$(super.$i, super.$a);
 }
 
 /// Go: `filestore.CorruptReferenceError`: an error. Thrown as this class when it is the outermost
@@ -75,6 +346,49 @@ class BoxoFilestoreErrUrlstoreNotEnabled extends GolangException {
 
 /// Go: the package-level members of `github.com/ipfs/boxo/filestore` (`Go.boxo.filestore`).
 extension GoBoxoFilestoreApi on GoBoxoFilestore {
+  /// Go: `filestore.WithMMapReader`.
+  BoxoFilestoreOption withMMapReader() => BoxoFilestoreOption.$(0, (_) {});
+
+  /// Go: `var filestore.FilestorePrefix datastore.Key`.
+  $datastore.DatastoreKey get filestorePrefix {
+    final $r = $callSync(609);
+    return $r.hnn($datastore.DatastoreKey.$h);
+  }
+
+  /// Go: `func filestore.IsURL(str string) bool`.
+  bool isUrl(String str) {
+    final $r = $callSync(610, $W()..str(str));
+    return $r.b();
+  }
+
+  /// Go: `func filestore.List(ctx context.Context, fs *filestore.Filestore, key cid.Cid) *filestore.ListRes`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<BoxoFilestoreListRes> list(
+      $context.Context ctx, BoxoFilestore fs, $cid.Cid key) async {
+    final $r = await $call(
+        611,
+        $W()
+          ..h(ctx)
+          ..h(fs)
+          ..val(key));
+    return $r.p() ? BoxoFilestoreListRes.$dec($r) : $nil();
+  }
+
+  /// Go: `func filestore.Verify(ctx context.Context, fs *filestore.Filestore, key cid.Cid) *filestore.ListRes`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<BoxoFilestoreListRes> verify(
+      $context.Context ctx, BoxoFilestore fs, $cid.Cid key) async {
+    final $r = await $call(
+        614,
+        $W()
+          ..h(ctx)
+          ..h(fs)
+          ..val(key));
+    return $r.p() ? BoxoFilestoreListRes.$dec($r) : $nil();
+  }
+
   /// Go: `const filestore.StatusFileChanged filestore.Status`.
   int get statusFileChanged => 12;
 

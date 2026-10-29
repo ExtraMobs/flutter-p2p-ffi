@@ -12,28 +12,33 @@ import 'package:p2p_ffi/go/libp2p/core/event.dart' as $event;
 import 'package:p2p_ffi/go/libp2p/core/network.dart' as $network;
 import 'package:p2p_ffi/go/libp2p/core/peer.dart' as $peer;
 import 'package:p2p_ffi/go/libp2p/core/peerstore.dart' as $peerstore;
+import 'package:p2p_ffi/go/libp2p/core/protocol.dart' as $protocol;
 import 'package:p2p_ffi/go/multiaddr.dart' as $multiaddr;
 
 /// Go: `host.Host` (handle).
-class Libp2pCoreHost extends GoHandle {
+class Libp2pCoreHost extends GoHandle with Libp2pCoreHost$ {
   Libp2pCoreHost.$h(super.$h);
+}
+
+/// The methods of [Libp2pCoreHost], mixed into every class Go also accepts as one.
+mixin Libp2pCoreHost$ on GoHandle {
+  /// Go: `func (host.Host).Addrs() []multiaddr.Multiaddr`.
+  List<$multiaddr.Multiaddr> addrs() {
+    final $r = $callSync(2927, $W()..h(this));
+    return $r.list(() => $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil());
+  }
+
+  /// Go: `func (host.Host).Close() error`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> close() async {
+    await $call(2928, $W()..h(this));
+  }
 
   /// Go: `func (host.Host).ConnManager() connmgr.ConnManager`.
   $connmgr.Libp2pCoreConnmgrConnManager connManager() {
-    final $r = $callSync(569, $W()..h(this));
+    final $r = $callSync(2929, $W()..h(this));
     return $r.hnn($connmgr.Libp2pCoreConnmgrConnManager.$h);
-  }
-
-  /// Go: `func (host.Host).ID() peer.ID`.
-  $peer.Libp2pCorePeerId id() {
-    final $r = $callSync(572, $W()..h(this));
-    return $r.p() ? $peer.Libp2pCorePeerId($r.str()) : $nil();
-  }
-
-  /// Go: `func (host.Host).Addrs() []multiaddr.Multiaddr`.
-  List<$multiaddr.Multiaddr> addrs() {
-    final $r = $callSync(567, $W()..h(this));
-    return $r.list(() => $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil());
   }
 
   /// Go: `func (host.Host).Connect(ctx context.Context, pi peer.AddrInfo) error`.
@@ -42,30 +47,35 @@ class Libp2pCoreHost extends GoHandle {
   Future<void> connect(
       $context.Context ctx, $peer.Libp2pCorePeerAddrInfo pi) async {
     await $call(
-        570,
+        2930,
         $W()
           ..h(this)
           ..h(ctx)
           ..dto(pi));
   }
 
+  /// Go: `func (host.Host).EventBus() event.Bus`.
+  $event.Libp2pCoreEventBus eventBus() {
+    final $r = $callSync(2931, $W()..h(this));
+    return $r.hnn($event.Libp2pCoreEventBus.$h);
+  }
+
+  /// Go: `func (host.Host).ID() peer.ID`.
+  $peer.Libp2pCorePeerId id() {
+    final $r = $callSync(2932, $W()..h(this));
+    return $r.p() ? $peer.Libp2pCorePeerId($r.str()) : $nil();
+  }
+
+  /// Go: `func (host.Host).Mux() protocol.Switch`.
+  $protocol.Libp2pCoreProtocolSwitch mux() {
+    final $r = $callSync(2933, $W()..h(this));
+    return $r.hnn($protocol.Libp2pCoreProtocolSwitch.$h);
+  }
+
   /// Go: `func (host.Host).Network() network.Network`.
   $network.Libp2pCoreNetwork network() {
-    final $r = $callSync(573, $W()..h(this));
+    final $r = $callSync(2934, $W()..h(this));
     return $r.hnn($network.Libp2pCoreNetwork.$h);
-  }
-
-  /// Go: `func (host.Host).Peerstore() peerstore.Peerstore`.
-  $peerstore.Libp2pCorePeerstore peerstore() {
-    final $r = $callSync(575, $W()..h(this));
-    return $r.hnn($peerstore.Libp2pCorePeerstore.$h);
-  }
-
-  /// Go: `func (host.Host).Close() error`.
-  ///
-  /// Asynchronous: runs in a goroutine of the service.
-  Future<void> close() async {
-    await $call(568, $W()..h(this));
   }
 
   /// Go: `func (host.Host).NewStream(ctx context.Context, p peer.ID, pids ...protocol.ID) (network.Stream, error)`.
@@ -75,13 +85,28 @@ class Libp2pCoreHost extends GoHandle {
       $context.Context ctx, $peer.Libp2pCorePeerId p,
       [List<String> pids = const []]) async {
     final $r = await $call(
-        574,
+        2935,
         $W()
           ..h(this)
           ..h(ctx)
           ..val(p)
           ..list(pids, (w0, e0) => w0.str(e0)));
     return $r.hnn($network.Libp2pCoreNetworkStream.$h);
+  }
+
+  /// Go: `func (host.Host).Peerstore() peerstore.Peerstore`.
+  $peerstore.Libp2pCorePeerstore peerstore() {
+    final $r = $callSync(2936, $W()..h(this));
+    return $r.hnn($peerstore.Libp2pCorePeerstore.$h);
+  }
+
+  /// Go: `func (host.Host).RemoveStreamHandler(pid protocol.ID)`.
+  void removeStreamHandler(String pid) {
+    $callSync(
+        2937,
+        $W()
+          ..h(this)
+          ..str(pid));
   }
 
   /// Go: `func (host.Host).SetStreamHandler(pid protocol.ID, handler network.StreamHandler)`.
@@ -93,7 +118,7 @@ class Libp2pCoreHost extends GoHandle {
       FutureOr<void> Function($network.Libp2pCoreNetworkStream stream)
           handler) {
     $callSync(
-        577,
+        2938,
         $W()
           ..h(this)
           ..str(pid)
@@ -111,7 +136,7 @@ class Libp2pCoreHost extends GoHandle {
       FutureOr<void> Function($network.Libp2pCoreNetworkStream stream)
           handler) {
     $callSync(
-        578,
+        2939,
         $W()
           ..h(this)
           ..str(pid)
@@ -119,28 +144,13 @@ class Libp2pCoreHost extends GoHandle {
           ..cb((r) => handler(r.hnn($network.Libp2pCoreNetworkStream.$h)),
               false));
   }
-
-  /// Go: `func (host.Host).RemoveStreamHandler(pid protocol.ID)`.
-  void removeStreamHandler(String pid) {
-    $callSync(
-        576,
-        $W()
-          ..h(this)
-          ..str(pid));
-  }
-
-  /// Go: `func (host.Host).EventBus() event.Bus`.
-  $event.Libp2pCoreEventBus eventBus() {
-    final $r = $callSync(571, $W()..h(this));
-    return $r.hnn($event.Libp2pCoreEventBus.$h);
-  }
 }
 
 /// Go: the package-level members of `github.com/libp2p/go-libp2p/core/host` (`Go.libp2p.core.host`).
 extension GoLibp2pCoreHostApi on GoLibp2pCoreHost {
   /// Go: `func host.InfoFromHost(h host.Host) *peer.AddrInfo`.
   $peer.Libp2pCorePeerAddrInfo infoFromHost(Libp2pCoreHost h) {
-    final $r = $callSync(579, $W()..h(h));
+    final $r = $callSync(2940, $W()..h(h));
     return $r.p() ? $peer.Libp2pCorePeerAddrInfo.$dec($r) : $nil();
   }
 }

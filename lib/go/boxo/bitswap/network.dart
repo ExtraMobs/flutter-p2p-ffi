@@ -3,18 +3,29 @@
 library;
 
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/ipfs_cmds.dart' as $ipfs_cmds;
 
 /// Go: `network.BitSwapNetwork` (handle).
-class BoxoBitswapNetworkBitSwapNetwork extends BoxoBitswapNetworkPinger {
+class BoxoBitswapNetworkBitSwapNetwork extends BoxoBitswapNetworkPinger
+    with BoxoBitswapNetworkBitSwapNetwork$ {
   BoxoBitswapNetworkBitSwapNetwork.$h(super.$h) : super.$h();
 }
 
+/// The methods of [BoxoBitswapNetworkBitSwapNetwork], mixed into every class Go also accepts as one.
+mixin BoxoBitswapNetworkBitSwapNetwork$ on GoHandle {}
+
 /// Go: `network.ConnectEventManager` (handle).
-class BoxoBitswapNetworkConnectEventManager extends GoHandle {
-  BoxoBitswapNetworkConnectEventManager.$h(super.$h);
+class BoxoBitswapNetworkConnectEventManager extends $crypto.CryptoPrivateKey
+    with $crypto.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
+    implements $crypto.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+  BoxoBitswapNetworkConnectEventManager.$h(super.$h) : super.$h();
 }
 
 /// Go: `network.Pinger` (handle).
-class BoxoBitswapNetworkPinger extends GoHandle {
+class BoxoBitswapNetworkPinger extends GoHandle with BoxoBitswapNetworkPinger$ {
   BoxoBitswapNetworkPinger.$h(super.$h);
 }
+
+/// The methods of [BoxoBitswapNetworkPinger], mixed into every class Go also accepts as one.
+mixin BoxoBitswapNetworkPinger$ on GoHandle {}

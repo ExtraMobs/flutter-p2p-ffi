@@ -2,9 +2,27 @@
 // Go: github.com/ipld/go-codec-dagpb
 library;
 
+import 'dart:typed_data';
+
 import 'package:p2p_ffi/src/go.dart' show GoCodecDagpb;
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/ipfs_cmds.dart' as $ipfs_cmds;
+import 'package:p2p_ffi/go/ipld_prime/datamodel.dart' as $datamodel;
 import 'package:p2p_ffi/go/ipld_prime/traversal.dart' as $traversal;
+
+/// Go: `dagpb.PBLinks__Itr` (handle).
+class CodecDagpbPbLinksItr extends $crypto.CryptoPrivateKey
+    with $crypto.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
+    implements $crypto.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+  CodecDagpbPbLinksItr.$h(super.$h) : super.$h();
+
+  /// Go: `func (*dagpb.PBLinks__Itr).Done() bool`.
+  bool done() {
+    final $r = $callSync(1934, $W()..h(this));
+    return $r.b();
+  }
+}
 
 /// Go: `var dagpb.ErrIntOverflow error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).
@@ -22,8 +40,87 @@ extension GoCodecDagpbApi on GoCodecDagpb {
       addSupportToChooser(
           $traversal.IpldPrimeTraversalLinkTargetNodePrototypeChooser
               existing) {
-    final $r = $callSync(465, $W()..h(existing));
+    final $r = $callSync(1926, $W()..h(existing));
     return $r
         .hnn($traversal.IpldPrimeTraversalLinkTargetNodePrototypeChooser.$h);
+  }
+
+  /// Go: `func dagpb.AppendEncode(enc []byte, inNode ipld.Node) ([]byte, error)`.
+  Uint8List appendEncode(
+      Uint8List enc, $datamodel.IpldPrimeDatamodelNode inNode) {
+    final $r = $callSync(
+        1927,
+        $W()
+          ..bytes(enc)
+          ..h(inNode));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func dagpb.Decode(na ipld.NodeAssembler, in io.Reader) error`.
+  void decode($datamodel.IpldPrimeDatamodelNodeAssembler na, Object in$) {
+    $callSync(
+        1928,
+        $W()
+          ..h(na)
+          ..reader(in$));
+  }
+
+  /// Go: `func dagpb.DecodeBytes(na ipld.NodeAssembler, src []byte) error`.
+  void decodeBytes(
+      $datamodel.IpldPrimeDatamodelNodeAssembler na, Uint8List src) {
+    $callSync(
+        1929,
+        $W()
+          ..h(na)
+          ..bytes(src));
+  }
+
+  /// Go: `func dagpb.Decoder(na ipld.NodeAssembler, r io.Reader) error`.
+  @Deprecated("use Decode instead.")
+  void decoder($datamodel.IpldPrimeDatamodelNodeAssembler na, Object r) {
+    $callSync(
+        1930,
+        $W()
+          ..h(na)
+          ..reader(r));
+  }
+
+  /// Go: `func dagpb.Encode(node ipld.Node, w io.Writer) error`.
+  void encode($datamodel.IpldPrimeDatamodelNode node, GoHandle? w) {
+    $callSync(
+        1931,
+        $W()
+          ..h(node)
+          ..h(w));
+  }
+
+  /// Go: `func dagpb.Encoder(inNode ipld.Node, w io.Writer) error`.
+  @Deprecated("use Encode instead.")
+  void encoder($datamodel.IpldPrimeDatamodelNode inNode, GoHandle? w) {
+    $callSync(
+        1932,
+        $W()
+          ..h(inNode)
+          ..h(w));
+  }
+
+  /// Go: `func dagpb.Marshal(inNode ipld.Node, w io.Writer) error`.
+  @Deprecated("use Encode instead.")
+  void marshal($datamodel.IpldPrimeDatamodelNode inNode, GoHandle? w) {
+    $callSync(
+        1933,
+        $W()
+          ..h(inNode)
+          ..h(w));
+  }
+
+  /// Go: `func dagpb.Unmarshal(na ipld.NodeAssembler, r io.Reader) error`.
+  @Deprecated("use Decode instead.")
+  void unmarshal($datamodel.IpldPrimeDatamodelNodeAssembler na, Object r) {
+    $callSync(
+        1935,
+        $W()
+          ..h(na)
+          ..reader(r));
   }
 }

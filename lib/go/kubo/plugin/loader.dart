@@ -2,25 +2,72 @@
 // Go: github.com/ipfs/kubo/plugin/loader
 library;
 
+import 'package:p2p_ffi/src/go.dart' show GoKuboPluginLoader;
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/ipfs_cmds.dart' as $ipfs_cmds;
+import 'package:p2p_ffi/go/kubo/core.dart' as $core;
+import 'package:p2p_ffi/go/kubo/plugin.dart' as $plugin;
 
 /// Go: `loader.PluginLoader` (handle).
-class KuboPluginLoader extends GoHandle {
-  KuboPluginLoader.$h(super.$h);
+class KuboPluginLoader extends $crypto.CryptoPrivateKey
+    with $crypto.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
+    implements $crypto.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+  KuboPluginLoader.$h(super.$h) : super.$h();
 
   /// Go: `func loader.NewPluginLoader(repo string) (*loader.PluginLoader, error)`.
   factory KuboPluginLoader(String repo) {
-    final $r = $callSync(374, $W()..str(repo));
+    final $r = $callSync(1736, $W()..str(repo));
     return $r.hnn(KuboPluginLoader.$h);
+  }
+
+  /// Go: `func (*loader.PluginLoader).Close() error`.
+  void close() {
+    $callSync(1737, $W()..h(this));
   }
 
   /// Go: `func (*loader.PluginLoader).Initialize() error`.
   void initialize() {
-    $callSync(375, $W()..h(this));
+    $callSync(1738, $W()..h(this));
   }
 
   /// Go: `func (*loader.PluginLoader).Inject() error`.
   void inject() {
-    $callSync(376, $W()..h(this));
+    $callSync(1739, $W()..h(this));
+  }
+
+  /// Go: `func (*loader.PluginLoader).Load(pl plugin.Plugin) error`.
+  void load($plugin.KuboPlugin pl) {
+    $callSync(
+        1740,
+        $W()
+          ..h(this)
+          ..h(pl));
+  }
+
+  /// Go: `func (*loader.PluginLoader).LoadDirectory(pluginDir string) error`.
+  void loadDirectory(String pluginDir) {
+    $callSync(
+        1741,
+        $W()
+          ..h(this)
+          ..str(pluginDir));
+  }
+
+  /// Go: `func (*loader.PluginLoader).Start(node *core.IpfsNode) error`.
+  void start($core.KuboCoreIpfsNode node) {
+    $callSync(
+        1742,
+        $W()
+          ..h(this)
+          ..h(node));
+  }
+}
+
+/// Go: the package-level members of `github.com/ipfs/kubo/plugin/loader` (`Go.kubo.plugin.loader`).
+extension GoKuboPluginLoaderApi on GoKuboPluginLoader {
+  /// Go: `func loader.Preload(plugins ...plugin.Plugin)`.
+  void preload([List<$plugin.KuboPlugin> plugins = const []]) {
+    $callSync(1743, $W()..list(plugins, (w0, e0) => w0.h(e0)));
   }
 }

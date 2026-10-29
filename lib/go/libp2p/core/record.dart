@@ -3,10 +3,14 @@
 library;
 
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/ipfs_cmds.dart' as $ipfs_cmds;
 
 /// Go: `record.Envelope` (handle).
-class Libp2pCoreRecordEnvelope extends GoHandle {
-  Libp2pCoreRecordEnvelope.$h(super.$h);
+class Libp2pCoreRecordEnvelope extends $crypto.CryptoPrivateKey
+    with $crypto.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
+    implements $crypto.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+  Libp2pCoreRecordEnvelope.$h(super.$h) : super.$h();
 }
 
 /// Go: `var record.ErrEmptyDomain error`: an error. Thrown as this class when it is the outermost

@@ -5,8 +5,20 @@ library;
 import 'package:p2p_ffi/src/go.dart' show GoKubo;
 import 'package:p2p_ffi/src/runtime.dart';
 
-/// Go: `ipfs.VersionInfo` (a kubo command output).
-final class KuboVersionInfo {
+/// Go: `ipfs.VersionInfo`.
+final class KuboVersionInfo implements GoDto {
+  KuboVersionInfo(
+      {String? version,
+      String? commit,
+      String? repo,
+      String? system,
+      String? golang})
+      : version = version ?? '',
+        commit = commit ?? '',
+        repo = repo ?? '',
+        system = system ?? '',
+        golang = golang ?? '';
+
   KuboVersionInfo.$dec($R r)
       : version = r.str(),
         commit = r.str(),
@@ -15,23 +27,62 @@ final class KuboVersionInfo {
         golang = r.str();
 
   /// Go: `Version`.
-  final String version;
+  String version;
 
   /// Go: `Commit`.
-  final String commit;
+  String commit;
 
   /// Go: `Repo`.
-  final String repo;
+  String repo;
 
   /// Go: `System`.
-  final String system;
+  String system;
 
   /// Go: `Golang`.
-  final String golang;
+  String golang;
+
+  @override
+  void $enc($W w) {
+    w
+      ..str(version)
+      ..str(commit)
+      ..str(repo)
+      ..str(system)
+      ..str(golang);
+  }
 }
 
 /// Go: the package-level members of `github.com/ipfs/kubo` (`Go.kubo`).
 extension GoKuboApi on GoKubo {
+  /// Go: `var ipfs.CurrentCommit string`.
+  String get currentCommit {
+    final $r = $callSync(1349);
+    return $r.str();
+  }
+
+  /// Go: `func ipfs.GetUserAgentVersion() string`.
+  String getUserAgentVersion() {
+    final $r = $callSync(1350);
+    return $r.str();
+  }
+
+  /// Go: `func ipfs.GetVersionInfo() *ipfs.VersionInfo`.
+  KuboVersionInfo getVersionInfo() {
+    final $r = $callSync(1351);
+    return $r.p() ? KuboVersionInfo.$dec($r) : $nil();
+  }
+
+  /// Go: `func ipfs.ImplicitAgentSuffix() string`.
+  String implicitAgentSuffix() {
+    final $r = $callSync(1352);
+    return $r.str();
+  }
+
+  /// Go: `func ipfs.SetUserAgentSuffix(suffix string)`.
+  void setUserAgentSuffix(String suffix) {
+    $callSync(1353, $W()..str(suffix));
+  }
+
   /// Go: `const ipfs.ApiVersion untyped string`.
   String get apiVersion => "/kubo/0.43.1/";
 

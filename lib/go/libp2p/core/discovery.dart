@@ -4,15 +4,37 @@ library;
 
 import 'package:p2p_ffi/src/go.dart' show GoLibp2pCoreDiscovery;
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/libp2p/p2p/discovery/routing.dart' as $routing;
 
 /// Go: `discovery.Advertiser` (handle).
-class Libp2pCoreDiscoveryAdvertiser extends GoHandle {
+class Libp2pCoreDiscoveryAdvertiser extends GoHandle
+    with Libp2pCoreDiscoveryAdvertiser$ {
   Libp2pCoreDiscoveryAdvertiser.$h(super.$h);
 }
 
+/// The methods of [Libp2pCoreDiscoveryAdvertiser], mixed into every class Go also accepts as one.
+mixin Libp2pCoreDiscoveryAdvertiser$ on GoHandle {}
+
 /// Go: `discovery.Discovery` (handle).
-class Libp2pCoreDiscovery extends Libp2pCoreDiscoveryAdvertiser {
+class Libp2pCoreDiscovery extends Libp2pCoreDiscoveryAdvertiser
+    with Libp2pCoreDiscovery$ {
   Libp2pCoreDiscovery.$h(super.$h) : super.$h();
+}
+
+/// The methods of [Libp2pCoreDiscovery], mixed into every class Go also accepts as one.
+mixin Libp2pCoreDiscovery$ on GoHandle {
+  /// Go: type assertion `x.(*routing.DiscoveryRouting)`: null if the object is not one.
+  $routing.Libp2pP2pDiscoveryRouting? asLibp2pP2pDiscoveryRouting() {
+    final $r = $callSync(286, $W()..h(this));
+    return $r.hn($routing.Libp2pP2pDiscoveryRouting.$h);
+  }
+
+  /// Go: type assertion `x.(*routing.RoutingDiscovery)`: null if the object is not one.
+  $routing.Libp2pP2pDiscoveryRoutingDiscovery?
+      asLibp2pP2pDiscoveryRoutingDiscovery() {
+    final $r = $callSync(287, $W()..h(this));
+    return $r.hn($routing.Libp2pP2pDiscoveryRoutingDiscovery.$h);
+  }
 }
 
 /// Go: `discovery.Option` (functional option; constructors in the package).

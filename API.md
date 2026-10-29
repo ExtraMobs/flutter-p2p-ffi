@@ -11,63 +11,319 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `func (*bytes.Buffer).Bytes() []byte` | `BytesBuffer.bytes` | sync |
 | `const bytes.MinRead untyped int` | `Go.bytes.minRead` | const |
 
+## `crypto` → `Go.crypto` (`lib/go/crypto.dart`)
+
+| Go | Dart | Mode |
+|---|---|---|
+| `const crypto.BLAKE2b_256 crypto.Hash` | `Go.crypto.blake2b256` | const |
+| `const crypto.BLAKE2b_384 crypto.Hash` | `Go.crypto.blake2b384` | const |
+| `const crypto.BLAKE2b_512 crypto.Hash` | `Go.crypto.blake2b512` | const |
+| `const crypto.BLAKE2s_256 crypto.Hash` | `Go.crypto.blake2s256` | const |
+| `const crypto.MD4 crypto.Hash` | `Go.crypto.md4` | const |
+| `const crypto.MD5 crypto.Hash` | `Go.crypto.md5` | const |
+| `const crypto.MD5SHA1 crypto.Hash` | `Go.crypto.md5sha1` | const |
+| `const crypto.RIPEMD160 crypto.Hash` | `Go.crypto.ripemd160` | const |
+| `const crypto.SHA1 crypto.Hash` | `Go.crypto.sha1` | const |
+| `const crypto.SHA224 crypto.Hash` | `Go.crypto.sha224` | const |
+| `const crypto.SHA256 crypto.Hash` | `Go.crypto.sha256` | const |
+| `const crypto.SHA384 crypto.Hash` | `Go.crypto.sha384` | const |
+| `const crypto.SHA3_224 crypto.Hash` | `Go.crypto.sha3224` | const |
+| `const crypto.SHA3_256 crypto.Hash` | `Go.crypto.sha3256` | const |
+| `const crypto.SHA3_384 crypto.Hash` | `Go.crypto.sha3384` | const |
+| `const crypto.SHA3_512 crypto.Hash` | `Go.crypto.sha3512` | const |
+| `const crypto.SHA512 crypto.Hash` | `Go.crypto.sha512` | const |
+| `const crypto.SHA512_224 crypto.Hash` | `Go.crypto.sha512224` | const |
+| `const crypto.SHA512_256 crypto.Hash` | `Go.crypto.sha512256` | const |
+
+## `crypto/elliptic` → `Go.crypto.elliptic` (`lib/go/crypto/elliptic.dart`)
+
+| Go | Dart | Mode |
+|---|---|---|
+| `elliptic.Curve → x.(ecdsa.PublicKey)` | `CryptoEllipticCurve.asCryptoEcdsaPublicKey` | cast |
+
+## `crypto/x509` → `Go.crypto.x509` (`lib/go/crypto/x509.dart`)
+
+| Go | Dart | Mode |
+|---|---|---|
+| `const x509.CANotAuthorizedForExtKeyUsage x509.InvalidReason` | `Go.crypto.x509.caNotAuthorizedForExtKeyUsage` | const |
+| `const x509.CANotAuthorizedForThisName x509.InvalidReason` | `Go.crypto.x509.caNotAuthorizedForThisName` | const |
+| `const x509.DSA x509.PublicKeyAlgorithm` | `Go.crypto.x509.dsa` | const |
+| `const x509.DSAWithSHA1 x509.SignatureAlgorithm` | `Go.crypto.x509.dsaWithSha1` | const |
+| `const x509.DSAWithSHA256 x509.SignatureAlgorithm` | `Go.crypto.x509.dsaWithSha256` | const |
+| `const x509.ECDSA x509.PublicKeyAlgorithm` | `Go.crypto.x509.ecdsa` | const |
+| `const x509.ECDSAWithSHA1 x509.SignatureAlgorithm` | `Go.crypto.x509.ecdsaWithSha1` | const |
+| `const x509.ECDSAWithSHA256 x509.SignatureAlgorithm` | `Go.crypto.x509.ecdsaWithSha256` | const |
+| `const x509.ECDSAWithSHA384 x509.SignatureAlgorithm` | `Go.crypto.x509.ecdsaWithSha384` | const |
+| `const x509.ECDSAWithSHA512 x509.SignatureAlgorithm` | `Go.crypto.x509.ecdsaWithSha512` | const |
+| `const x509.Ed25519 x509.PublicKeyAlgorithm` | `Go.crypto.x509.ed25519` | const |
+| `const x509.Expired x509.InvalidReason` | `Go.crypto.x509.expired` | const |
+| `const x509.ExtKeyUsageAny x509.ExtKeyUsage` | `Go.crypto.x509.extKeyUsageAny` | const |
+| `const x509.ExtKeyUsageClientAuth x509.ExtKeyUsage` | `Go.crypto.x509.extKeyUsageClientAuth` | const |
+| `const x509.ExtKeyUsageCodeSigning x509.ExtKeyUsage` | `Go.crypto.x509.extKeyUsageCodeSigning` | const |
+| `const x509.ExtKeyUsageEmailProtection x509.ExtKeyUsage` | `Go.crypto.x509.extKeyUsageEmailProtection` | const |
+| `const x509.ExtKeyUsageIPSECEndSystem x509.ExtKeyUsage` | `Go.crypto.x509.extKeyUsageIpsecEndSystem` | const |
+| `const x509.ExtKeyUsageIPSECTunnel x509.ExtKeyUsage` | `Go.crypto.x509.extKeyUsageIpsecTunnel` | const |
+| `const x509.ExtKeyUsageIPSECUser x509.ExtKeyUsage` | `Go.crypto.x509.extKeyUsageIpsecUser` | const |
+| `const x509.ExtKeyUsageMicrosoftCommercialCodeSigning x509.ExtKeyUsage` | `Go.crypto.x509.extKeyUsageMicrosoftCommercialCodeSigning` | const |
+| `const x509.ExtKeyUsageMicrosoftKernelCodeSigning x509.ExtKeyUsage` | `Go.crypto.x509.extKeyUsageMicrosoftKernelCodeSigning` | const |
+| `const x509.ExtKeyUsageMicrosoftServerGatedCrypto x509.ExtKeyUsage` | `Go.crypto.x509.extKeyUsageMicrosoftServerGatedCrypto` | const |
+| `const x509.ExtKeyUsageNetscapeServerGatedCrypto x509.ExtKeyUsage` | `Go.crypto.x509.extKeyUsageNetscapeServerGatedCrypto` | const |
+| `const x509.ExtKeyUsageOCSPSigning x509.ExtKeyUsage` | `Go.crypto.x509.extKeyUsageOcspSigning` | const |
+| `const x509.ExtKeyUsageServerAuth x509.ExtKeyUsage` | `Go.crypto.x509.extKeyUsageServerAuth` | const |
+| `const x509.ExtKeyUsageTimeStamping x509.ExtKeyUsage` | `Go.crypto.x509.extKeyUsageTimeStamping` | const |
+| `const x509.IncompatibleUsage x509.InvalidReason` | `Go.crypto.x509.incompatibleUsage` | const |
+| `const x509.KeyUsageCRLSign x509.KeyUsage` | `Go.crypto.x509.keyUsageCrlSign` | const |
+| `const x509.KeyUsageCertSign x509.KeyUsage` | `Go.crypto.x509.keyUsageCertSign` | const |
+| `const x509.KeyUsageContentCommitment x509.KeyUsage` | `Go.crypto.x509.keyUsageContentCommitment` | const |
+| `const x509.KeyUsageDataEncipherment x509.KeyUsage` | `Go.crypto.x509.keyUsageDataEncipherment` | const |
+| `const x509.KeyUsageDecipherOnly x509.KeyUsage` | `Go.crypto.x509.keyUsageDecipherOnly` | const |
+| `const x509.KeyUsageDigitalSignature x509.KeyUsage` | `Go.crypto.x509.keyUsageDigitalSignature` | const |
+| `const x509.KeyUsageEncipherOnly x509.KeyUsage` | `Go.crypto.x509.keyUsageEncipherOnly` | const |
+| `const x509.KeyUsageKeyAgreement x509.KeyUsage` | `Go.crypto.x509.keyUsageKeyAgreement` | const |
+| `const x509.KeyUsageKeyEncipherment x509.KeyUsage` | `Go.crypto.x509.keyUsageKeyEncipherment` | const |
+| `const x509.MD2WithRSA x509.SignatureAlgorithm` | `Go.crypto.x509.md2WithRsa` | const |
+| `const x509.MD5WithRSA x509.SignatureAlgorithm` | `Go.crypto.x509.md5WithRsa` | const |
+| `const x509.NameConstraintsWithoutSANs x509.InvalidReason` | `Go.crypto.x509.nameConstraintsWithoutSans` | const |
+| `const x509.NameMismatch x509.InvalidReason` | `Go.crypto.x509.nameMismatch` | const |
+| `const x509.NoValidChains x509.InvalidReason` | `Go.crypto.x509.noValidChains` | const |
+| `const x509.NotAuthorizedToSign x509.InvalidReason` | `Go.crypto.x509.notAuthorizedToSign` | const |
+| `const x509.PEMCipher3DES x509.PEMCipher` | `Go.crypto.x509.pemCipher3des` | const |
+| `const x509.PEMCipherAES128 x509.PEMCipher` | `Go.crypto.x509.pemCipherAes128` | const |
+| `const x509.PEMCipherAES192 x509.PEMCipher` | `Go.crypto.x509.pemCipherAes192` | const |
+| `const x509.PEMCipherAES256 x509.PEMCipher` | `Go.crypto.x509.pemCipherAes256` | const |
+| `const x509.PEMCipherDES x509.PEMCipher` | `Go.crypto.x509.pemCipherDes` | const |
+| `const x509.PureEd25519 x509.SignatureAlgorithm` | `Go.crypto.x509.pureEd25519` | const |
+| `const x509.RSA x509.PublicKeyAlgorithm` | `Go.crypto.x509.rsa` | const |
+| `const x509.SHA1WithRSA x509.SignatureAlgorithm` | `Go.crypto.x509.sha1WithRsa` | const |
+| `const x509.SHA256WithRSA x509.SignatureAlgorithm` | `Go.crypto.x509.sha256WithRsa` | const |
+| `const x509.SHA256WithRSAPSS x509.SignatureAlgorithm` | `Go.crypto.x509.sha256WithRsapss` | const |
+| `const x509.SHA384WithRSA x509.SignatureAlgorithm` | `Go.crypto.x509.sha384WithRsa` | const |
+| `const x509.SHA384WithRSAPSS x509.SignatureAlgorithm` | `Go.crypto.x509.sha384WithRsapss` | const |
+| `const x509.SHA512WithRSA x509.SignatureAlgorithm` | `Go.crypto.x509.sha512WithRsa` | const |
+| `const x509.SHA512WithRSAPSS x509.SignatureAlgorithm` | `Go.crypto.x509.sha512WithRsapss` | const |
+| `const x509.TooManyConstraints x509.InvalidReason` | `Go.crypto.x509.tooManyConstraints` | const |
+| `const x509.TooManyIntermediates x509.InvalidReason` | `Go.crypto.x509.tooManyIntermediates` | const |
+| `const x509.UnconstrainedName x509.InvalidReason` | `Go.crypto.x509.unconstrainedName` | const |
+| `const x509.UnknownPublicKeyAlgorithm x509.PublicKeyAlgorithm` | `Go.crypto.x509.unknownPublicKeyAlgorithm` | const |
+| `const x509.UnknownSignatureAlgorithm x509.SignatureAlgorithm` | `Go.crypto.x509.unknownSignatureAlgorithm` | const |
+
+## `github.com/decred/dcrd/dcrec/secp256k1/v4` → `Go.secp256k1.v4` (`lib/go/secp256k1/v4.dart`)
+
+| Go | Dart | Mode |
+|---|---|---|
+| `const secp256k1.ErrPubKeyInvalidFormat secp256k1.ErrorKind` | `Go.secp256k1.v4.errPubKeyInvalidFormat` | const |
+| `const secp256k1.ErrPubKeyInvalidLen secp256k1.ErrorKind` | `Go.secp256k1.v4.errPubKeyInvalidLen` | const |
+| `const secp256k1.ErrPubKeyMismatchedOddness secp256k1.ErrorKind` | `Go.secp256k1.v4.errPubKeyMismatchedOddness` | const |
+| `const secp256k1.ErrPubKeyNotOnCurve secp256k1.ErrorKind` | `Go.secp256k1.v4.errPubKeyNotOnCurve` | const |
+| `const secp256k1.ErrPubKeyXTooBig secp256k1.ErrorKind` | `Go.secp256k1.v4.errPubKeyXTooBig` | const |
+| `const secp256k1.ErrPubKeyYTooBig secp256k1.ErrorKind` | `Go.secp256k1.v4.errPubKeyYTooBig` | const |
+| `const secp256k1.PrivKeyBytesLen untyped int` | `Go.secp256k1.v4.privKeyBytesLen` | const |
+| `const secp256k1.PubKeyBytesLenCompressed untyped int` | `Go.secp256k1.v4.pubKeyBytesLenCompressed` | const |
+| `const secp256k1.PubKeyBytesLenUncompressed untyped int` | `Go.secp256k1.v4.pubKeyBytesLenUncompressed` | const |
+| `const secp256k1.PubKeyFormatCompressedEven byte` | `Go.secp256k1.v4.pubKeyFormatCompressedEven` | const |
+| `const secp256k1.PubKeyFormatCompressedOdd byte` | `Go.secp256k1.v4.pubKeyFormatCompressedOdd` | const |
+| `const secp256k1.PubKeyFormatHybridEven byte` | `Go.secp256k1.v4.pubKeyFormatHybridEven` | const |
+| `const secp256k1.PubKeyFormatHybridOdd byte` | `Go.secp256k1.v4.pubKeyFormatHybridOdd` | const |
+| `const secp256k1.PubKeyFormatUncompressed byte` | `Go.secp256k1.v4.pubKeyFormatUncompressed` | const |
+
+## `github.com/ipfs/boxo/autoconf` → `Go.boxo.autoconf` (`lib/go/boxo/autoconf.dart`)
+
+| Go | Dart | Mode |
+|---|---|---|
+| `const autoconf.AutoPlaceholder untyped string` | `Go.boxo.autoconf.autoPlaceholder` | const |
+| `const autoconf.DefaultCacheSize untyped int` | `Go.boxo.autoconf.defaultCacheSize` | const |
+| `const autoconf.DefaultRefreshInterval time.Duration` | `Go.boxo.autoconf.defaultRefreshInterval` | const |
+| `const autoconf.DefaultTimeout time.Duration` | `Go.boxo.autoconf.defaultTimeout` | const |
+| `const autoconf.MainnetAutoConfURL untyped string` | `Go.boxo.autoconf.mainnetAutoConfUrl` | const |
+| `const autoconf.RoutingV1IPNSPath untyped string` | `Go.boxo.autoconf.routingV1ipnsPath` | const |
+| `const autoconf.RoutingV1PeersPath untyped string` | `Go.boxo.autoconf.routingV1PeersPath` | const |
+| `const autoconf.RoutingV1ProvidersPath untyped string` | `Go.boxo.autoconf.routingV1ProvidersPath` | const |
+| `const autoconf.SupportedAutoConfSchema untyped int` | `Go.boxo.autoconf.supportedAutoConfSchema` | const |
+| `const autoconf.SystemAminoDHT untyped string` | `Go.boxo.autoconf.systemAminoDht` | const |
+| `const autoconf.SystemIPNI untyped string` | `Go.boxo.autoconf.systemIpni` | const |
+
 ## `github.com/ipfs/boxo/bitswap` → `Go.boxo.bitswap` (`lib/go/boxo/bitswap.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
-| `func bitswap.New(ctx context.Context, net network.BitSwapNetwork, providerFinder routing.ContentDiscovery, bstore blockstore.Blockstore, options ...bitswap.Option) *bitswap.Bitswap` | `Go.boxo.bitswap.new$` | Future |
 | `func (*bitswap.Bitswap).Close() error` | `BoxoBitswap.close` | sync |
+| `func (*bitswap.Bitswap).NotifyNewBlocks(ctx context.Context, blks ...blocks.Block) error` | `BoxoBitswap.notifyNewBlocks` | Future |
+| `func (*bitswap.Bitswap).PeerConnected(p peer.ID)` | `BoxoBitswap.peerConnected` | sync |
+| `func (*bitswap.Bitswap).PeerDisconnected(p peer.ID)` | `BoxoBitswap.peerDisconnected` | sync |
+| `func (*bitswap.Bitswap).ReceiveMessage(ctx context.Context, p peer.ID, incoming message.BitSwapMessage)` | `BoxoBitswap.receiveMessage` | Future |
 | `func (*bitswap.Bitswap).Stat() (*bitswap.Stat, error)` | `BoxoBitswap.stat` | sync |
+| `func (*bitswap.Bitswap).WantlistForPeer(p peer.ID) []cid.Cid` | `BoxoBitswap.wantlistForPeer` | sync |
+| `func bitswap.EngineBlockstoreWorkerCount(count int) bitswap.Option` | `Go.boxo.bitswap.engineBlockstoreWorkerCount` | sync |
+| `func bitswap.EngineTaskWorkerCount(count int) bitswap.Option` | `Go.boxo.bitswap.engineTaskWorkerCount` | sync |
+| `func bitswap.MaxCidSize(n uint) bitswap.Option` | `Go.boxo.bitswap.maxCidSize` | sync |
+| `func bitswap.MaxOutstandingBytesPerPeer(count int) bitswap.Option` | `Go.boxo.bitswap.maxOutstandingBytesPerPeer` | sync |
+| `func bitswap.MaxQueuedWantlistEntriesPerPeer(count uint) bitswap.Option` | `Go.boxo.bitswap.maxQueuedWantlistEntriesPerPeer` | sync |
+| `func bitswap.New(ctx context.Context, net network.BitSwapNetwork, providerFinder routing.ContentDiscovery, bstore blockstore.Blockstore, options ...bitswap.Option) *bitswap.Bitswap` | `Go.boxo.bitswap.new$` | Future |
+| `func bitswap.ProviderSearchDelay(newProvSearchDelay time.Duration) bitswap.Option` | `Go.boxo.bitswap.providerSearchDelay` | sync |
+| `func bitswap.RebroadcastDelay(newRebroadcastDelay time.Duration) bitswap.Option` | `Go.boxo.bitswap.rebroadcastDelay` | sync |
+| `func bitswap.SetSendDontHaves(send bool) bitswap.Option` | `Go.boxo.bitswap.setSendDontHaves` | sync |
+| `func bitswap.SetSimulateDontHavesOnTimeout(send bool) bitswap.Option` | `Go.boxo.bitswap.setSimulateDontHavesOnTimeout` | sync |
+| `func bitswap.TaskWorkerCount(count int) bitswap.Option` | `Go.boxo.bitswap.taskWorkerCount` | sync |
+| `func bitswap.WithBlockReceivedNotifier(brn client.BlockReceivedNotifier) bitswap.Option` | `Go.boxo.bitswap.withBlockReceivedNotifier` | sync |
+| `func bitswap.WithScoreLedger(scoreLedger server.ScoreLedger) bitswap.Option` | `Go.boxo.bitswap.withScoreLedger` | sync |
+| `func bitswap.WithServerEnabled(enabled bool) bitswap.Option` | `Go.boxo.bitswap.withServerEnabled` | sync |
+| `func bitswap.WithTargetMessageSize(tms int) bitswap.Option` | `Go.boxo.bitswap.withTargetMessageSize` | sync |
+| `func bitswap.WithTracer(tap tracer.Tracer) bitswap.Option` | `Go.boxo.bitswap.withTracer` | sync |
+| `func bitswap.WithWantHaveReplaceSize(size int) bitswap.Option` | `Go.boxo.bitswap.withWantHaveReplaceSize` | sync |
+| `func bitswap.WithoutDuplicatedBlockStats() bitswap.Option` | `Go.boxo.bitswap.withoutDuplicatedBlockStats` | sync |
+
+Omitted:
+
+- `func (*bitswap.Bitswap).ReceiveError(err error)`: parameter err: error
+- `func bitswap.WithClientOption(opt client.Option) bitswap.Option`: parameter opt: github.com/ipfs/boxo/bitswap/client.Option
+- `func bitswap.WithPeerBlockRequestFilter(pbrf server.PeerBlockRequestFilter) bitswap.Option`: takes a callback nobody checked yet: an explicit root in roots.txt if Go only calls it during the call, retainedFuncs if Go keeps it
+- `func bitswap.WithServerOption(opt server.Option) bitswap.Option`: parameter opt: github.com/ipfs/boxo/bitswap/server.Option
+- `func bitswap.WithTaskComparator(comparator server.TaskComparator) bitswap.Option`: takes a callback nobody checked yet: an explicit root in roots.txt if Go only calls it during the call, retainedFuncs if Go keeps it
+
+## `github.com/ipfs/boxo/bitswap/client` → `Go.boxo.bitswap.client` (`lib/go/boxo/bitswap/client.dart`)
+
+| Go | Dart | Mode |
+|---|---|---|
+| `client.BlockReceivedNotifier → x.(*bitswap.Bitswap)` | `BoxoBitswapClientBlockReceivedNotifier.asBoxoBitswap` | cast |
 
 ## `github.com/ipfs/boxo/bitswap/network/bsnet` → `Go.boxo.bitswap.network.bsnet` (`lib/go/boxo/bitswap/network/bsnet.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
 | `func bsnet.NewFromIpfsHost(host host.Host, opts ...bsnet.NetOpt) network.BitSwapNetwork` | `Go.boxo.bitswap.network.bsnet.newFromIpfsHost` | sync |
+| `var bsnet.ProtocolBitswap protocol.ID` | `Go.boxo.bitswap.network.bsnet.protocolBitswap` | sync |
+| `var bsnet.ProtocolBitswapNoVers protocol.ID` | `Go.boxo.bitswap.network.bsnet.protocolBitswapNoVers` | sync |
+| `var bsnet.ProtocolBitswapOneOne protocol.ID` | `Go.boxo.bitswap.network.bsnet.protocolBitswapOneOne` | sync |
+| `var bsnet.ProtocolBitswapOneZero protocol.ID` | `Go.boxo.bitswap.network.bsnet.protocolBitswapOneZero` | sync |
+
+Omitted:
+
+- `func (bsnet.HasContext).Context() context.Context`: result 0: context.Context
+- `func bsnet.Prefix(prefix protocol.ID) bsnet.NetOpt`: result 0: github.com/ipfs/boxo/bitswap/network/bsnet.NetOpt
+- `func bsnet.SupportedProtocols(protos []protocol.ID) bsnet.NetOpt`: result 0: github.com/ipfs/boxo/bitswap/network/bsnet.NetOpt
+- `func bsnet.WithConnectEventManager(evm *network.ConnectEventManager) bsnet.NetOpt`: result 0: github.com/ipfs/boxo/bitswap/network/bsnet.NetOpt
 
 ## `github.com/ipfs/boxo/blockservice` → `Go.boxo.blockservice` (`lib/go/boxo/blockservice.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
+| `func (blockservice.BlockGetter).GetBlock(ctx context.Context, c cid.Cid) (blocks.Block, error)` | `BoxoBlockserviceBlockGetter.getBlock` | Future |
+| `func (blockservice.BlockGetter).GetBlocks(ctx context.Context, ks []cid.Cid) <-chan blocks.Block` | `BoxoBlockserviceBlockGetter.getBlocks` | Stream |
+| `func (blockservice.BlockService).AddBlock(ctx context.Context, o blocks.Block) error` | `BoxoBlockserviceBlockService.addBlock` | Future |
+| `func (blockservice.BlockService).AddBlocks(ctx context.Context, bs []blocks.Block) error` | `BoxoBlockserviceBlockService.addBlocks` | Future |
+| `func (blockservice.BlockService).Blockstore() blockstore.Blockstore` | `BoxoBlockserviceBlockService.blockstore` | sync |
+| `func (blockservice.BlockService).DeleteBlock(ctx context.Context, o cid.Cid) error` | `BoxoBlockserviceBlockService.deleteBlock` | Future |
+| `func (blockservice.BlockService).Exchange() exchange.Interface` | `BoxoBlockserviceBlockService.exchange` | sync |
+| `func (blockservice.BoundedBlockService).Allowlist() verifcid.Allowlist` | `BoxoBlockserviceBoundedBlockService.allowlist` | sync |
 | `func blockservice.New(bs blockstore.Blockstore, exchange exchange.Interface, opts ...blockservice.Option) blockservice.BlockService` | `Go.boxo.blockservice.new$` | sync |
+| `func blockservice.NewSession(ctx context.Context, bs blockservice.BlockService) *blockservice.Session` | `Go.boxo.blockservice.newSession` | Future |
+| `func (*blockservice.Session).GetBlock(ctx context.Context, c cid.Cid) (blocks.Block, error)` | `BoxoBlockserviceSession.getBlock` | Future |
+| `func (*blockservice.Session).GetBlocks(ctx context.Context, ks []cid.Cid) <-chan blocks.Block` | `BoxoBlockserviceSession.getBlocks` | Stream |
+| `blockservice.BlockGetter → x.(*blockservice.Session)` | `BoxoBlockserviceBlockGetter.asBoxoBlockserviceSession` | cast |
+| `blockservice.BlockGetter → x.(blockservice.BlockService)` | `BoxoBlockserviceBlockGetter.asBoxoBlockserviceBlockService` | cast |
+| `blockservice.BlockGetter → x.(blockservice.BoundedBlockService)` | `BoxoBlockserviceBlockGetter.asBoxoBlockserviceBoundedBlockService` | cast |
+| `blockservice.BlockService → x.(blockservice.BoundedBlockService)` | `BoxoBlockserviceBlockService.asBoxoBlockserviceBoundedBlockService` | cast |
+
+Omitted:
+
+- `func blockservice.ContextWithSession(ctx context.Context, bs blockservice.BlockService) context.Context`: result 0: context.Context
+- `func blockservice.EmbedSessionInContext(ctx context.Context, ses *blockservice.Session) context.Context`: result 0: context.Context
+- `func blockservice.WithAllowlist(allowlist verifcid.Allowlist) blockservice.Option`: result 0: github.com/ipfs/boxo/blockservice.Option
+- `func blockservice.WriteThrough(enabled bool) blockservice.Option`: result 0: github.com/ipfs/boxo/blockservice.Option
 
 ## `github.com/ipfs/boxo/blockstore` → `Go.boxo.blockstore` (`lib/go/boxo/blockstore.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
-| `func (blockstore.Blockstore).Put(context.Context, blocks.Block) error` | `BoxoBlockstore.put` | Future |
-| `func (blockstore.Blockstore).Has(context.Context, cid.Cid) (bool, error)` | `BoxoBlockstore.has` | Future |
-| `func (blockstore.Blockstore).Get(context.Context, cid.Cid) (blocks.Block, error)` | `BoxoBlockstore.get` | Future |
-| `func blockstore.NewBlockstore(d datastore.Batching, opts ...blockstore.Option) blockstore.Blockstore` | `factory BoxoBlockstore` | sync |
-| `func (blockstore.Blockstore).DeleteBlock(context.Context, cid.Cid) error` | `BoxoBlockstore.deleteBlock` | Future |
-| `func (blockstore.Blockstore).GetSize(context.Context, cid.Cid) (int, error)` | `BoxoBlockstore.getSize` | Future |
+| `var blockstore.BlockPrefix datastore.Key` | `Go.boxo.blockstore.blockPrefix` | sync |
 | `func (blockstore.Blockstore).AllKeysChan(ctx context.Context) (<-chan cid.Cid, error)` | `BoxoBlockstore.allKeysChan` | Stream |
+| `func (blockstore.Blockstore).DeleteBlock(context.Context, cid.Cid) error` | `BoxoBlockstore.deleteBlock` | Future |
+| `func (blockstore.Blockstore).Get(context.Context, cid.Cid) (blocks.Block, error)` | `BoxoBlockstore.get` | Future |
+| `func (blockstore.Blockstore).GetSize(context.Context, cid.Cid) (int, error)` | `BoxoBlockstore.getSize` | Future |
+| `func (blockstore.Blockstore).Has(context.Context, cid.Cid) (bool, error)` | `BoxoBlockstore.has` | Future |
+| `func (blockstore.Blockstore).Put(context.Context, blocks.Block) error` | `BoxoBlockstore.put` | Future |
+| `func (blockstore.Blockstore).PutMany(context.Context, []blocks.Block) error` | `BoxoBlockstore.putMany` | Future |
+| `func (blockstore.BloomCacheStatus).BloomActive() bool` | `BoxoBlockstoreBloomCacheStatus.bloomActive` | sync |
+| `func (blockstore.BloomCacheStatus).Rebuild(ctx context.Context) error` | `BoxoBlockstoreBloomCacheStatus.rebuild` | Future |
+| `func (blockstore.BloomCacheStatus).Wait(ctx context.Context) error` | `BoxoBlockstoreBloomCacheStatus.wait` | Future |
+| `func blockstore.CachedBlockstore(ctx context.Context, bs blockstore.Blockstore, opts blockstore.CacheOpts) (cbs blockstore.Blockstore, err error)` | `Go.boxo.blockstore.cachedBlockstore` | Future |
+| `func blockstore.DefaultCacheOpts() blockstore.CacheOpts` | `Go.boxo.blockstore.defaultCacheOpts` | sync |
 | `func (blockstore.GCLocker).GCLock(context.Context) blockstore.Unlocker` | `BoxoBlockstoreGcLocker.gcLock` | Future |
-| `func (blockstore.GCLocker).PinLock(context.Context) blockstore.Unlocker` | `BoxoBlockstoreGcLocker.pinLock` | Future |
 | `func (blockstore.GCLocker).GCRequested(context.Context) bool` | `BoxoBlockstoreGcLocker.gcRequested` | Future |
+| `func (blockstore.GCLocker).PinLock(context.Context) blockstore.Unlocker` | `BoxoBlockstoreGcLocker.pinLock` | Future |
+| `func blockstore.NewBlockstore(d datastore.Batching, opts ...blockstore.Option) blockstore.Blockstore` | `factory BoxoBlockstore` | sync |
+| `func blockstore.NewBlockstoreNoPrefix(d datastore.Batching) blockstore.Blockstore` | `Go.boxo.blockstore.newBlockstoreNoPrefix` | sync |
+| `func blockstore.NewGCBlockstore(bs blockstore.Blockstore, gcl blockstore.GCLocker) blockstore.GCBlockstore` | `factory BoxoBlockstoreGcBlockstore` | sync |
+| `func blockstore.NewGCLocker() blockstore.GCLocker` | `factory BoxoBlockstoreGcLocker` | sync |
+| `func blockstore.NewIdStore(bs blockstore.Blockstore) blockstore.Blockstore` | `Go.boxo.blockstore.newIdStore` | sync |
+| `func blockstore.NoPrefix() blockstore.Option` | `Go.boxo.blockstore.noPrefix` | sync |
+| `func blockstore.Provider(provider provider.MultihashProvider) blockstore.Option` | `Go.boxo.blockstore.provider` | sync |
 | `func (blockstore.Unlocker).Unlock(context.Context)` | `BoxoBlockstoreUnlocker.unlock` | Future |
+| `func (blockstore.Blockstore).AllKeysChan(ctx context.Context) (<-chan cid.Cid, error)` | `BoxoBlockstoreValidatingBlockstore.allKeysChan` | Stream |
+| `func (blockstore.Blockstore).DeleteBlock(context.Context, cid.Cid) error` | `BoxoBlockstoreValidatingBlockstore.deleteBlock` | Future |
+| `func (*blockstore.ValidatingBlockstore).Get(ctx context.Context, c cid.Cid) (blocks.Block, error)` | `BoxoBlockstoreValidatingBlockstore.get` | Future |
+| `func (blockstore.Blockstore).GetSize(context.Context, cid.Cid) (int, error)` | `BoxoBlockstoreValidatingBlockstore.getSize` | Future |
+| `func (blockstore.Blockstore).Has(context.Context, cid.Cid) (bool, error)` | `BoxoBlockstoreValidatingBlockstore.has` | Future |
+| `func (blockstore.Blockstore).Put(context.Context, blocks.Block) error` | `BoxoBlockstoreValidatingBlockstore.put` | Future |
+| `func (blockstore.Blockstore).PutMany(context.Context, []blocks.Block) error` | `BoxoBlockstoreValidatingBlockstore.putMany` | Future |
+| `func blockstore.WriteThrough(enabled bool) blockstore.Option` | `Go.boxo.blockstore.writeThrough` | sync |
+| `blockstore.Blockstore → x.(*blockstore.ValidatingBlockstore)` | `BoxoBlockstore.asBoxoBlockstoreValidatingBlockstore` | cast |
+| `blockstore.Blockstore → x.(*filestore.Filestore)` | `BoxoBlockstore.asBoxoFilestore` | cast |
 | `blockstore.Blockstore → x.(*blockstore.ReadOnly)` | `BoxoBlockstore.asCarV2BlockstoreReadOnly` | cast |
 | `blockstore.Blockstore → x.(*blockstore.ReadWrite)` | `BoxoBlockstore.asCarV2BlockstoreReadWrite` | cast |
 | `blockstore.Blockstore → x.(blockstore.GCBlockstore)` | `BoxoBlockstore.asBoxoBlockstoreGcBlockstore` | cast |
 | `blockstore.GCLocker → x.(blockstore.GCBlockstore)` | `BoxoBlockstoreGcLocker.asBoxoBlockstoreGcBlockstore` | cast |
 
+Omitted:
+
+- `func (blockstore.AllKeysChanWithErrer).AllKeysChanWithErr(ctx context.Context) (<-chan cid.Cid, func() error, error)`: channel with other results
+- `func (*blockstore.ValidatingBlockstore).AllKeysChanWithErr(ctx context.Context) (<-chan cid.Cid, func() error, error)`: channel with other results
+- `func (blockstore.Viewer).View(ctx context.Context, cid cid.Cid, callback func([]byte) error) error`: takes a callback nobody checked yet: an explicit root in roots.txt if Go only calls it during the call, retainedFuncs if Go keeps it
+
 ## `github.com/ipfs/boxo/chunker` → `Go.boxo.chunker` (`lib/go/boxo/chunker.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
-| `func chunk.SizeSplitterGen(size int64) chunk.SplitterGen` | `Go.boxo.chunker.sizeSplitterGen` | sync |
+| `func (*chunk.Buzhash).NextBytes() ([]byte, error)` | `BoxoChunkerBuzhash.nextBytes` | sync |
+| `func (*chunk.Buzhash).Reader() io.Reader` | `BoxoChunkerBuzhash.reader` | sync |
 | `var chunk.DefaultBlockSize int64` | `Go.boxo.chunker.defaultBlockSize` | sync |
-| `func chunk.NewSizeSplitter(r io.Reader, size int64) chunk.Splitter` | `Go.boxo.chunker.newSizeSplitter` | sync |
+| `func chunk.DefaultSplitter(r io.Reader) chunk.Splitter` | `Go.boxo.chunker.defaultSplitter` | sync |
 | `func chunk.FromString(r io.Reader, chunker string) (chunk.Splitter, error)` | `Go.boxo.chunker.fromString` | sync |
+| `var chunk.IpfsRabinPoly chunker.Pol` | `Go.boxo.chunker.ipfsRabinPoly` | sync |
+| `func chunk.NewBuzhash(r io.Reader) *chunk.Buzhash` | `factory BoxoChunkerBuzhash` | sync |
+| `func chunk.NewRabin(r io.Reader, avgBlkSize uint64) *chunk.Rabin` | `factory BoxoChunkerRabin` | sync |
+| `func chunk.NewRabinMinMax(r io.Reader, min uint64, avg uint64, max uint64) *chunk.Rabin` | `Go.boxo.chunker.newRabinMinMax` | sync |
+| `func chunk.NewSizeSplitter(r io.Reader, size int64) chunk.Splitter` | `Go.boxo.chunker.newSizeSplitter` | sync |
+| `func (*chunk.Rabin).NextBytes() ([]byte, error)` | `BoxoChunkerRabin.nextBytes` | sync |
+| `func (*chunk.Rabin).Reader() io.Reader` | `BoxoChunkerRabin.reader` | sync |
+| `func chunk.Register(name string, fn chunk.SplitterFunc)` | `Go.boxo.chunker.register` | sync |
+| `func chunk.SizeSplitterGen(size int64) chunk.SplitterGen` | `Go.boxo.chunker.sizeSplitterGen` | sync |
+| `func (chunk.Splitter).NextBytes() ([]byte, error)` | `BoxoChunkerSplitter.nextBytes` | sync |
+| `func (chunk.Splitter).Reader() io.Reader` | `BoxoChunkerSplitter.reader` | sync |
+| `chunk.Splitter → x.(*chunk.Buzhash)` | `BoxoChunkerSplitter.asBoxoChunkerBuzhash` | cast |
+| `chunk.Splitter → x.(*chunk.Rabin)` | `BoxoChunkerSplitter.asBoxoChunkerRabin` | cast |
 | `const chunk.BlockSizeLimit int` | `Go.boxo.chunker.blockSizeLimit` | const |
 | `const chunk.ChunkOverheadBudget int` | `Go.boxo.chunker.chunkOverheadBudget` | const |
 | `const chunk.ChunkSizeLimit int` | `Go.boxo.chunker.chunkSizeLimit` | const |
+
+Omitted:
+
+- `func chunk.Chan(s chunk.Splitter) (<-chan []byte, <-chan error)`: channel with other results
 
 ## `github.com/ipfs/boxo/exchange` → `Go.boxo.exchange` (`lib/go/boxo/exchange.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
+| `func (exchange.Fetcher).GetBlock(context.Context, cid.Cid) (blocks.Block, error)` | `BoxoExchangeFetcher.getBlock` | Future |
+| `func (exchange.Fetcher).GetBlocks(context.Context, []cid.Cid) (<-chan blocks.Block, error)` | `BoxoExchangeFetcher.getBlocks` | Stream |
+| `func (exchange.Interface).NotifyNewBlocks(ctx context.Context, blocks ...blocks.Block) error` | `BoxoExchangeInterface.notifyNewBlocks` | Future |
+| `func (exchange.SessionExchange).NewSession(context.Context) exchange.Fetcher` | `BoxoExchangeSessionExchange.newSession` | Future |
+| `exchange.Fetcher → x.(*bitswap.Bitswap)` | `BoxoExchangeFetcher.asBoxoBitswap` | cast |
+| `exchange.Fetcher → x.(exchange.Interface)` | `BoxoExchangeFetcher.asBoxoExchangeInterface` | cast |
+| `exchange.Fetcher → x.(exchange.SessionExchange)` | `BoxoExchangeFetcher.asBoxoExchangeSessionExchange` | cast |
 | `exchange.Interface → x.(*bitswap.Bitswap)` | `BoxoExchangeInterface.asBoxoBitswap` | cast |
+| `exchange.Interface → x.(exchange.SessionExchange)` | `BoxoExchangeInterface.asBoxoExchangeSessionExchange` | cast |
+| `exchange.SessionExchange → x.(*bitswap.Bitswap)` | `BoxoExchangeSessionExchange.asBoxoBitswap` | cast |
 
 ## `github.com/ipfs/boxo/exchange/offline` → `Go.boxo.exchange.offline` (`lib/go/boxo/exchange/offline.dart`)
 
@@ -75,21 +331,118 @@ Each line is an exposed Go symbol and where it is in Dart.
 |---|---|---|
 | `func offline.Exchange(bs blockstore.Blockstore) exchange.Interface` | `Go.boxo.exchange.offline.exchange` | sync |
 
+## `github.com/ipfs/boxo/fetcher` → `Go.boxo.fetcher` (`lib/go/boxo/fetcher.dart`)
+
+| Go | Dart | Mode |
+|---|---|---|
+| `fetcher.Factory → x.(*bsfetcher.FetcherConfig)` | `BoxoFetcherFactory.asBoxoFetcherImplBlockserviceFetcherConfig` | cast |
+
 ## `github.com/ipfs/boxo/fetcher/impl/blockservice` → `Go.boxo.fetcher.impl.blockservice` (`lib/go/boxo/fetcher/impl/blockservice.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
 | `var bsfetcher.DefaultPrototypeChooser func(lnk ipld.Link, lnkCtx ipld.LinkContext) (ipld.NodePrototype, error)` | `Go.boxo.fetcher.impl.blockservice.defaultPrototypeChooser` | sync |
+| `func (bsfetcher.FetcherConfig).FetcherWithSession(ctx context.Context, s *blockservice.Session) fetcher.Fetcher` | `BoxoFetcherImplBlockserviceFetcherConfig.fetcherWithSession` | Future |
+| `func (bsfetcher.FetcherConfig).NewSession(ctx context.Context) fetcher.Fetcher` | `BoxoFetcherImplBlockserviceFetcherConfig.newSession` | Future |
+| `func (bsfetcher.FetcherConfig).WithReifier(nr ipld.NodeReifier) fetcher.Factory` | `BoxoFetcherImplBlockserviceFetcherConfig.withReifier` | sync |
+| `func bsfetcher.NewFetcherConfig(blockService blockservice.BlockService) bsfetcher.FetcherConfig` | `factory BoxoFetcherImplBlockserviceFetcherConfig` | sync |
 
 ## `github.com/ipfs/boxo/files` → `Go.boxo.files` (`lib/go/boxo/files.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
+| `func (files.DirEntry).Name() string` | `BoxoFilesDirEntry.name` | sync |
+| `func (files.DirEntry).Node() files.Node` | `BoxoFilesDirEntry.node` | sync |
+| `func files.DirFromEntry(e files.DirEntry) files.Directory` | `Go.boxo.files.dirFromEntry` | sync |
+| `func (files.DirIterator).Err() error` | `BoxoFilesDirIterator.err` | sync |
+| `func (files.DirIterator).Next() bool` | `BoxoFilesDirIterator.next` | sync |
+| `func (files.Directory).Entries() files.DirIterator` | `BoxoFilesDirectory.entries` | sync |
+| `func files.FileEntry(name string, file files.Node) files.DirEntry` | `Go.boxo.files.fileEntry` | sync |
+| `func files.FileFromEntry(e files.DirEntry) files.File` | `Go.boxo.files.fileFromEntry` | sync |
+| `func (files.FileInfo).AbsPath() string` | `BoxoFilesFileInfo.absPath` | sync |
+| `func (files.FileInfo).Stat() os.FileInfo` | `BoxoFilesFileInfo.stat` | sync |
+| `func (*files.Filter).ShouldExclude(fileInfo os.FileInfo) (result bool)` | `BoxoFilesFilter.shouldExclude` | sync |
+| `func files.ModePermsToUnixPerms(fileMode os.FileMode) uint32` | `Go.boxo.files.modePermsToUnixPerms` | sync |
+| `func (*files.MultiFileReader).Boundary() string` | `BoxoFilesMultiFileReader.boundary` | sync |
+| `func (*files.MultiFileReader).Read(buf []byte) (written int, err error)` | `BoxoFilesMultiFileReader.read` | sync |
 | `func files.NewBytesFile(b []byte) files.File` | `Go.boxo.files.newBytesFile` | sync |
+| `func files.NewBytesStatFile(b []byte, stat os.FileInfo) files.File` | `Go.boxo.files.newBytesStatFile` | sync |
+| `func files.NewFileFromPartReader(reader *multipart.Reader, mediatype string) (files.Directory, error)` | `Go.boxo.files.newFileFromPartReader` | sync |
+| `func files.NewFilter(ignoreFile string, rules []string, includeHidden bool) (*files.Filter, error)` | `Go.boxo.files.newFilter` | sync |
+| `func files.NewLinkFile(target string, stat os.FileInfo) files.File` | `Go.boxo.files.newLinkFile` | sync |
+| `func files.NewMapDirectory(f map[string]files.Node) files.Directory` | `Go.boxo.files.newMapDirectory` | sync |
+| `func files.NewMapStatDirectory(f map[string]files.Node, stat os.FileInfo) files.Directory` | `Go.boxo.files.newMapStatDirectory` | sync |
+| `func files.NewMultiFileReader(file files.Directory, form bool, rawAbsPath bool) *files.MultiFileReader` | `factory BoxoFilesMultiFileReader` | sync |
+| `func files.NewReaderFile(reader io.Reader) files.File` | `Go.boxo.files.newReaderFile` | sync |
+| `func files.NewReaderPathFile(path string, reader io.ReadCloser, stat os.FileInfo) (*files.ReaderFile, error)` | `Go.boxo.files.newReaderPathFile` | sync |
+| `func files.NewReaderStatFile(reader io.Reader, stat os.FileInfo) files.File` | `Go.boxo.files.newReaderStatFile` | sync |
 | `func files.NewSerialFile(path string, includeHidden bool, stat os.FileInfo) (files.Node, error)` | `Go.boxo.files.newSerialFile` | sync |
+| `func files.NewSerialFileWithFilter(path string, filter *files.Filter, stat os.FileInfo) (files.Node, error)` | `Go.boxo.files.newSerialFileWithFilter` | sync |
+| `func files.NewSerialFileWithOptions(path string, stat os.FileInfo, opts files.SerialFileOptions) (files.Node, error)` | `Go.boxo.files.newSerialFileWithOptions` | sync |
+| `func files.NewSliceDirectory(files []files.DirEntry) files.Directory` | `Go.boxo.files.newSliceDirectory` | sync |
+| `func files.NewSliceStatDirectory(files []files.DirEntry, stat os.FileInfo) files.Directory` | `Go.boxo.files.newSliceStatDirectory` | sync |
+| `func files.NewSymlinkFile(target string, mtime time.Time) files.File` | `Go.boxo.files.newSymlinkFile` | sync |
+| `func files.NewTarWriter(w io.Writer) (*files.TarWriter, error)` | `factory BoxoFilesTarWriter` | sync |
+| `func files.NewWebFile(url *url.URL) *files.WebFile` | `factory BoxoFilesWebFile` | sync |
+| `func (files.Node).ModTime() (mtime time.Time)` | `BoxoFilesNode.modTime` | sync |
+| `func (files.Node).Mode() os.FileMode` | `BoxoFilesNode.mode` | sync |
+| `func (files.Node).Size() (int64, error)` | `BoxoFilesNode.size` | sync |
+| `func (*files.ReaderFile).AbsPath() string` | `BoxoFilesReaderFile.absPath` | sync |
+| `func (*files.ReaderFile).Close() error` | `BoxoFilesReaderFile.close` | sync |
+| `func (*files.ReaderFile).ModTime() time.Time` | `BoxoFilesReaderFile.modTime` | sync |
+| `func (*files.ReaderFile).Mode() os.FileMode` | `BoxoFilesReaderFile.mode` | sync |
+| `func (*files.ReaderFile).Read(p []byte) (int, error)` | `BoxoFilesReaderFile.read` | sync |
+| `func (*files.ReaderFile).Seek(offset int64, whence int) (int64, error)` | `BoxoFilesReaderFile.seek` | sync |
+| `func (*files.ReaderFile).Size() (int64, error)` | `BoxoFilesReaderFile.size` | sync |
+| `func (*files.ReaderFile).Stat() os.FileInfo` | `BoxoFilesReaderFile.stat` | sync |
+| `func (*files.SliceFile).Close() error` | `BoxoFilesSliceFile.close` | sync |
+| `func (*files.SliceFile).Entries() files.DirIterator` | `BoxoFilesSliceFile.entries` | sync |
+| `func (*files.SliceFile).Length() int` | `BoxoFilesSliceFile.length` | sync |
+| `func (*files.SliceFile).ModTime() time.Time` | `BoxoFilesSliceFile.modTime` | sync |
+| `func (*files.SliceFile).Mode() os.FileMode` | `BoxoFilesSliceFile.mode` | sync |
+| `func (*files.SliceFile).Size() (int64, error)` | `BoxoFilesSliceFile.size` | sync |
+| `func (*files.Symlink).Close() error` | `BoxoFilesSymlink.close` | sync |
+| `func (*files.Symlink).ModTime() time.Time` | `BoxoFilesSymlink.modTime` | sync |
+| `func (*files.Symlink).Mode() os.FileMode` | `BoxoFilesSymlink.mode` | sync |
+| `func (*files.Symlink).Read(b []byte) (int, error)` | `BoxoFilesSymlink.read` | sync |
+| `func (*files.Symlink).Seek(offset int64, whence int) (int64, error)` | `BoxoFilesSymlink.seek` | sync |
+| `func (*files.Symlink).Size() (int64, error)` | `BoxoFilesSymlink.size` | sync |
+| `func (*files.TarWriter).Close() error` | `BoxoFilesTarWriter.close` | sync |
+| `func (*files.TarWriter).SetFormat(format tar.Format)` | `BoxoFilesTarWriter.setFormat` | sync |
+| `func (*files.TarWriter).WriteFile(nd files.Node, fpath string) error` | `BoxoFilesTarWriter.writeFile` | sync |
+| `func files.ToDir(n files.Node) files.Directory` | `Go.boxo.files.toDir` | sync |
 | `func files.ToFile(n files.Node) files.File` | `Go.boxo.files.toFile` | sync |
+| `func files.ToSymlink(n files.Node) *files.Symlink` | `Go.boxo.files.toSymlink` | sync |
+| `func files.UnixPermsOrDefault(n files.Node) uint32` | `Go.boxo.files.unixPermsOrDefault` | sync |
+| `func files.UnixPermsToModePerms(unixPerms uint32) os.FileMode` | `Go.boxo.files.unixPermsToModePerms` | sync |
+| `func files.UpdateFileMode(path string, mode os.FileMode) error` | `Go.boxo.files.updateFileMode` | sync |
+| `func files.UpdateFileModeUnix(path string, mode uint32) error` | `Go.boxo.files.updateFileModeUnix` | sync |
+| `func files.UpdateMeta(path string, mode os.FileMode, mtime time.Time) error` | `Go.boxo.files.updateMeta` | sync |
+| `func files.UpdateMetaUnix(path string, mode uint32, mtime time.Time) error` | `Go.boxo.files.updateMetaUnix` | sync |
+| `func files.UpdateModTime(path string, mtime time.Time) error` | `Go.boxo.files.updateModTime` | sync |
+| `func files.Walk(nd files.Node, cb func(fpath string, nd files.Node) error) error` | `Go.boxo.files.walk` | Future |
+| `func (*files.WebFile).AbsPath() string` | `BoxoFilesWebFile.absPath` | sync |
+| `func (*files.WebFile).Close() error` | `BoxoFilesWebFile.close` | sync |
+| `func (*files.WebFile).ModTime() time.Time` | `BoxoFilesWebFile.modTime` | sync |
+| `func (*files.WebFile).Mode() os.FileMode` | `BoxoFilesWebFile.mode` | sync |
+| `func (*files.WebFile).Read(b []byte) (int, error)` | `BoxoFilesWebFile.read` | sync |
+| `func (*files.WebFile).Size() (int64, error)` | `BoxoFilesWebFile.size` | sync |
+| `func (*files.WebFile).Stat() os.FileInfo` | `BoxoFilesWebFile.stat` | sync |
 | `func files.WriteTo(nd files.Node, fpath string) error` | `Go.boxo.files.writeTo` | sync |
+| `files.DirEntry → x.(files.DirIterator)` | `BoxoFilesDirEntry.asBoxoFilesDirIterator` | cast |
+| `files.Directory → x.(*files.SliceFile)` | `BoxoFilesDirectory.asBoxoFilesSliceFile` | cast |
+| `files.File → x.(*files.ReaderFile)` | `BoxoFilesFile.asBoxoFilesReaderFile` | cast |
+| `files.File → x.(*files.Symlink)` | `BoxoFilesFile.asBoxoFilesSymlink` | cast |
+| `files.File → x.(*files.WebFile)` | `BoxoFilesFile.asBoxoFilesWebFile` | cast |
+| `files.FileInfo → x.(*files.ReaderFile)` | `BoxoFilesFileInfo.asBoxoFilesReaderFile` | cast |
+| `files.FileInfo → x.(*files.WebFile)` | `BoxoFilesFileInfo.asBoxoFilesWebFile` | cast |
+| `files.Node → x.(*files.ReaderFile)` | `BoxoFilesNode.asBoxoFilesReaderFile` | cast |
+| `files.Node → x.(*files.SliceFile)` | `BoxoFilesNode.asBoxoFilesSliceFile` | cast |
+| `files.Node → x.(*files.Symlink)` | `BoxoFilesNode.asBoxoFilesSymlink` | cast |
+| `files.Node → x.(*files.WebFile)` | `BoxoFilesNode.asBoxoFilesWebFile` | cast |
+| `files.Node → x.(files.Directory)` | `BoxoFilesNode.asBoxoFilesDirectory` | cast |
 | `files.Node → x.(files.File)` | `BoxoFilesNode.asBoxoFilesFile` | cast |
+| `files.Node → x.(files.FileInfo)` | `BoxoFilesNode.asBoxoFilesFileInfo` | cast |
 | `const files.FileModeHeaderName untyped string` | `Go.boxo.files.fileModeHeaderName` | const |
 | `const files.LastModifiedHeaderName untyped string` | `Go.boxo.files.lastModifiedHeaderName` | const |
 
@@ -97,6 +450,28 @@ Each line is an exposed Go symbol and where it is in Dart.
 
 | Go | Dart | Mode |
 |---|---|---|
+| `func (*filestore.FileManager).AllKeysChan(ctx context.Context) (<-chan cid.Cid, error)` | `BoxoFilestoreFileManager.allKeysChan` | Stream |
+| `func (*filestore.FileManager).DeleteBlock(ctx context.Context, c cid.Cid) error` | `BoxoFilestoreFileManager.deleteBlock` | Future |
+| `func (*filestore.FileManager).Get(ctx context.Context, c cid.Cid) (blocks.Block, error)` | `BoxoFilestoreFileManager.get` | Future |
+| `func (*filestore.FileManager).GetSize(ctx context.Context, c cid.Cid) (int, error)` | `BoxoFilestoreFileManager.getSize` | Future |
+| `func (*filestore.FileManager).Has(ctx context.Context, c cid.Cid) (bool, error)` | `BoxoFilestoreFileManager.has` | Future |
+| `func (*filestore.FileManager).Put(ctx context.Context, b *posinfo.FilestoreNode) error` | `BoxoFilestoreFileManager.put` | Future |
+| `func (*filestore.FileManager).PutMany(ctx context.Context, bs []*posinfo.FilestoreNode) error` | `BoxoFilestoreFileManager.putMany` | Future |
+| `func (*filestore.Filestore).AllKeysChan(ctx context.Context) (<-chan cid.Cid, error)` | `BoxoFilestore.allKeysChan` | Stream |
+| `func (*filestore.Filestore).DeleteBlock(ctx context.Context, c cid.Cid) error` | `BoxoFilestore.deleteBlock` | Future |
+| `func (*filestore.Filestore).FileManager() *filestore.FileManager` | `BoxoFilestore.fileManager` | sync |
+| `func (*filestore.Filestore).Get(ctx context.Context, c cid.Cid) (blocks.Block, error)` | `BoxoFilestore.get` | Future |
+| `func (*filestore.Filestore).GetSize(ctx context.Context, c cid.Cid) (int, error)` | `BoxoFilestore.getSize` | Future |
+| `func (*filestore.Filestore).Has(ctx context.Context, c cid.Cid) (bool, error)` | `BoxoFilestore.has` | Future |
+| `func (*filestore.Filestore).MainBlockstore() blockstore.Blockstore` | `BoxoFilestore.mainBlockstore` | sync |
+| `func (*filestore.Filestore).Put(ctx context.Context, b blocks.Block) error` | `BoxoFilestore.put` | Future |
+| `func (*filestore.Filestore).PutMany(ctx context.Context, bs []blocks.Block) error` | `BoxoFilestore.putMany` | Future |
+| `var filestore.FilestorePrefix datastore.Key` | `Go.boxo.filestore.filestorePrefix` | sync |
+| `func filestore.IsURL(str string) bool` | `Go.boxo.filestore.isUrl` | sync |
+| `func filestore.List(ctx context.Context, fs *filestore.Filestore, key cid.Cid) *filestore.ListRes` | `Go.boxo.filestore.list` | Future |
+| `func filestore.NewFileManager(ds datastore.Batching, root string, options ...filestore.Option) *filestore.FileManager` | `factory BoxoFilestoreFileManager` | sync |
+| `func filestore.NewFilestore(bs blockstore.Blockstore, fm *filestore.FileManager, prov provider.MultihashProvider) *filestore.Filestore` | `factory BoxoFilestore` | sync |
+| `func filestore.Verify(ctx context.Context, fs *filestore.Filestore, key cid.Cid) *filestore.ListRes` | `Go.boxo.filestore.verify` | Future |
 | `const filestore.StatusFileChanged filestore.Status` | `Go.boxo.filestore.statusFileChanged` | const |
 | `const filestore.StatusFileError filestore.Status` | `Go.boxo.filestore.statusFileError` | const |
 | `const filestore.StatusFileNotFound filestore.Status` | `Go.boxo.filestore.statusFileNotFound` | const |
@@ -104,12 +479,79 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `const filestore.StatusOk filestore.Status` | `Go.boxo.filestore.statusOk` | const |
 | `const filestore.StatusOtherError filestore.Status` | `Go.boxo.filestore.statusOtherError` | const |
 
+Omitted:
+
+- `func filestore.ListAll(ctx context.Context, fs *filestore.Filestore, fileOrder bool) (func(context.Context) *filestore.ListRes, error)`: result 0: func(context.Context) *github.com/ipfs/boxo/filestore.ListRes
+- `func (*filestore.ListRes).FormatLong(enc func(cid.Cid) string) string`: parameter enc: func(github.com/ipfs/go-cid.Cid) string
+- `func (filestore.Status).Format() string`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/ipfs/boxo/filestore.Status
+- `func (filestore.Status).String() string`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/ipfs/boxo/filestore.Status
+- `func filestore.VerifyAll(ctx context.Context, fs *filestore.Filestore, fileOrder bool) (func(context.Context) *filestore.ListRes, error)`: result 0: func(context.Context) *github.com/ipfs/boxo/filestore.ListRes
+- `func filestore.WithMMapReader() filestore.Option`: result 0: github.com/ipfs/boxo/filestore.Option
+
 ## `github.com/ipfs/boxo/gateway` → `Go.boxo.gateway` (`lib/go/boxo/gateway.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
-| `func gateway.NewBlocksBackend(blockService blockservice.BlockService, opts ...gateway.BackendOption) (*gateway.BlocksBackend, error)` | `factory BoxoGatewayBlocksBackend` | sync |
+| `func (*gateway.BlocksBackend).Get(ctx context.Context, path path.ImmutablePath, ranges ...gateway.ByteRange) (gateway.ContentPathMetadata, *gateway.GetResponse, error)` | `BoxoGatewayBlocksBackend.get` | Future |
+| `func (*gateway.BlocksBackend).GetAll(ctx context.Context, path path.ImmutablePath) (gateway.ContentPathMetadata, files.Node, error)` | `BoxoGatewayBlocksBackend.getAll` | Future |
+| `func (*gateway.BlocksBackend).GetBlock(ctx context.Context, path path.ImmutablePath) (gateway.ContentPathMetadata, files.File, error)` | `BoxoGatewayBlocksBackend.getBlock` | Future |
 | `func (*gateway.BlocksBackend).GetCAR(ctx context.Context, p path.ImmutablePath, params gateway.CarParams) (gateway.ContentPathMetadata, io.ReadCloser, error)` | `BoxoGatewayBlocksBackend.getCar` | Future |
+| `func (*gateway.baseBackend).GetDNSLinkRecord(ctx context.Context, hostname string) (path.Path, error)` | `BoxoGatewayBlocksBackend.getDnsLinkRecord` | Future |
+| `func (*gateway.baseBackend).GetIPNSRecord(ctx context.Context, c cid.Cid) ([]byte, error)` | `BoxoGatewayBlocksBackend.getIpnsRecord` | Future |
+| `func (*gateway.BlocksBackend).Head(ctx context.Context, path path.ImmutablePath) (gateway.ContentPathMetadata, *gateway.HeadResponse, error)` | `BoxoGatewayBlocksBackend.head` | Future |
+| `func (*gateway.BlocksBackend).IsCached(ctx context.Context, p path.Path) bool` | `BoxoGatewayBlocksBackend.isCached` | Future |
+| `func (*gateway.baseBackend).ResolveMutable(ctx context.Context, p path.Path) (path.ImmutablePath, time.Duration, time.Time, error)` | `BoxoGatewayBlocksBackend.resolveMutable` | Future |
+| `func (*gateway.BlocksBackend).ResolvePath(ctx context.Context, path path.ImmutablePath) (gateway.ContentPathMetadata, error)` | `BoxoGatewayBlocksBackend.resolvePath` | Future |
+| `func (*gateway.CarBackend).Get(ctx context.Context, path path.ImmutablePath, byteRanges ...gateway.ByteRange) (gateway.ContentPathMetadata, *gateway.GetResponse, error)` | `BoxoGatewayCarBackend.get` | Future |
+| `func (*gateway.CarBackend).GetAll(ctx context.Context, path path.ImmutablePath) (gateway.ContentPathMetadata, files.Node, error)` | `BoxoGatewayCarBackend.getAll` | Future |
+| `func (*gateway.CarBackend).GetBlock(ctx context.Context, p path.ImmutablePath) (gateway.ContentPathMetadata, files.File, error)` | `BoxoGatewayCarBackend.getBlock` | Future |
+| `func (*gateway.CarBackend).GetCAR(ctx context.Context, p path.ImmutablePath, params gateway.CarParams) (gateway.ContentPathMetadata, io.ReadCloser, error)` | `BoxoGatewayCarBackend.getCar` | Future |
+| `func (*gateway.baseBackend).GetDNSLinkRecord(ctx context.Context, hostname string) (path.Path, error)` | `BoxoGatewayCarBackend.getDnsLinkRecord` | Future |
+| `func (*gateway.baseBackend).GetIPNSRecord(ctx context.Context, c cid.Cid) ([]byte, error)` | `BoxoGatewayCarBackend.getIpnsRecord` | Future |
+| `func (*gateway.CarBackend).Head(ctx context.Context, p path.ImmutablePath) (gateway.ContentPathMetadata, *gateway.HeadResponse, error)` | `BoxoGatewayCarBackend.head` | Future |
+| `func (*gateway.CarBackend).IsCached(ctx context.Context, path path.Path) bool` | `BoxoGatewayCarBackend.isCached` | Future |
+| `func (*gateway.baseBackend).ResolveMutable(ctx context.Context, p path.Path) (path.ImmutablePath, time.Duration, time.Time, error)` | `BoxoGatewayCarBackend.resolveMutable` | Future |
+| `func (*gateway.CarBackend).ResolvePath(ctx context.Context, p path.ImmutablePath) (gateway.ContentPathMetadata, error)` | `BoxoGatewayCarBackend.resolvePath` | Future |
+| `var gateway.EmptyIdentityCID cid.Cid` | `Go.boxo.gateway.emptyIdentityCid` | sync |
+| `func (*gateway.GetResponse).Close() error` | `BoxoGatewayGetResponse.close` | sync |
+| `func (*gateway.HeadResponse).Close() error` | `BoxoGatewayHeadResponse.close` | sync |
+| `func (*gateway.Headers).ApplyCors() *gateway.Headers` | `BoxoGatewayHeaders.applyCors` | sync |
+| `func (*gateway.Headers).WithDeprecatedXIpfsPath() *gateway.Headers` | `BoxoGatewayHeaders.withDeprecatedXIpfsPath` | sync |
+| `func (*gateway.Headers).Wrap(next http.Handler) http.Handler` | `BoxoGatewayHeaders.wrap` | sync |
+| `func (gateway.IPFSBackend).Get(context.Context, path.ImmutablePath, ...gateway.ByteRange) (gateway.ContentPathMetadata, *gateway.GetResponse, error)` | `BoxoGatewayIpfsBackend.get` | Future |
+| `func (gateway.IPFSBackend).GetAll(context.Context, path.ImmutablePath) (gateway.ContentPathMetadata, files.Node, error)` | `BoxoGatewayIpfsBackend.getAll` | Future |
+| `func (gateway.IPFSBackend).GetBlock(context.Context, path.ImmutablePath) (gateway.ContentPathMetadata, files.File, error)` | `BoxoGatewayIpfsBackend.getBlock` | Future |
+| `func (gateway.IPFSBackend).GetCAR(context.Context, path.ImmutablePath, gateway.CarParams) (gateway.ContentPathMetadata, io.ReadCloser, error)` | `BoxoGatewayIpfsBackend.getCar` | Future |
+| `func (gateway.IPFSBackend).GetDNSLinkRecord(context.Context, string) (path.Path, error)` | `BoxoGatewayIpfsBackend.getDnsLinkRecord` | Future |
+| `func (gateway.IPFSBackend).GetIPNSRecord(context.Context, cid.Cid) ([]byte, error)` | `BoxoGatewayIpfsBackend.getIpnsRecord` | Future |
+| `func (gateway.IPFSBackend).Head(context.Context, path.ImmutablePath) (gateway.ContentPathMetadata, *gateway.HeadResponse, error)` | `BoxoGatewayIpfsBackend.head` | Future |
+| `func (gateway.IPFSBackend).IsCached(context.Context, path.Path) bool` | `BoxoGatewayIpfsBackend.isCached` | Future |
+| `func (gateway.IPFSBackend).ResolveMutable(context.Context, path.Path) (path.ImmutablePath, time.Duration, time.Time, error)` | `BoxoGatewayIpfsBackend.resolveMutable` | Future |
+| `func (gateway.IPFSBackend).ResolvePath(context.Context, path.ImmutablePath) (gateway.ContentPathMetadata, error)` | `BoxoGatewayIpfsBackend.resolvePath` | Future |
+| `func gateway.InlineDNSLink(fqdn string) (dnsLabel string, err error)` | `Go.boxo.gateway.inlineDnsLink` | sync |
+| `func gateway.NewBlocksBackend(blockService blockservice.BlockService, opts ...gateway.BackendOption) (*gateway.BlocksBackend, error)` | `factory BoxoGatewayBlocksBackend` | sync |
+| `func gateway.NewCacheBlockStore(size int, reg prometheus.Registerer) (blockstore.Blockstore, error)` | `Go.boxo.gateway.newCacheBlockStore` | sync |
+| `func gateway.NewCarBackend(f gateway.CarFetcher, opts ...gateway.BackendOption) (*gateway.CarBackend, error)` | `factory BoxoGatewayCarBackend` | sync |
+| `func gateway.NewDNSResolver(resolvers map[string]string, dohOpts ...doh.Option) (*madns.Resolver, error)` | `Go.boxo.gateway.newDnsResolver` | sync |
+| `func gateway.NewDagByteRange(rangeStr string) (gateway.DagByteRange, error)` | `Go.boxo.gateway.newDagByteRange` | sync |
+| `func gateway.NewDuplicateBlocksPolicy(dupsValue string) (gateway.DuplicateBlocksPolicy, error)` | `Go.boxo.gateway.newDuplicateBlocksPolicy` | sync |
+| `func gateway.NewGetResponseFromReader(file io.ReadCloser, fullFileSize int64) *gateway.GetResponse` | `Go.boxo.gateway.newGetResponseFromReader` | sync |
+| `func gateway.NewGetResponseFromSymlink(symlink *files.Symlink, size int64) *gateway.GetResponse` | `Go.boxo.gateway.newGetResponseFromSymlink` | sync |
+| `func gateway.NewHandler(c gateway.Config, backend gateway.IPFSBackend) http.Handler` | `Go.boxo.gateway.newHandler` | sync |
+| `func gateway.NewHeadResponseForDirectory(dagSize int64) *gateway.HeadResponse` | `Go.boxo.gateway.newHeadResponseForDirectory` | sync |
+| `func gateway.NewHeadResponseForFile(startingBytes io.ReadCloser, size int64) *gateway.HeadResponse` | `Go.boxo.gateway.newHeadResponseForFile` | sync |
+| `func gateway.NewHeadResponseForSymlink(symlinkSize int64) *gateway.HeadResponse` | `Go.boxo.gateway.newHeadResponseForSymlink` | sync |
+| `func gateway.NewHeaders(headers map[string][]string) *gateway.Headers` | `factory BoxoGatewayHeaders` | sync |
+| `func gateway.NewHostnameHandler(c gateway.Config, backend gateway.IPFSBackend, next http.Handler) http.HandlerFunc` | `Go.boxo.gateway.newHostnameHandler` | sync |
+| `func gateway.NewRemoteBlocksBackend(gatewayURL []string, httpClient *http.Client, opts ...gateway.BackendOption) (*gateway.BlocksBackend, error)` | `Go.boxo.gateway.newRemoteBlocksBackend` | sync |
+| `func gateway.NewRemoteBlockstore(gatewayURL []string, httpClient *http.Client) (blockstore.Blockstore, error)` | `Go.boxo.gateway.newRemoteBlockstore` | sync |
+| `func gateway.NewRemoteCarBackend(gatewayURL []string, httpClient *http.Client, opts ...gateway.BackendOption) (*gateway.CarBackend, error)` | `Go.boxo.gateway.newRemoteCarBackend` | sync |
+| `func gateway.NewRemoteCarFetcher(gatewayURL []string, httpClient *http.Client) (gateway.CarFetcher, error)` | `Go.boxo.gateway.newRemoteCarFetcher` | sync |
+| `func gateway.NewRemoteValueStore(gatewayURL []string, httpClient *http.Client) (routing.ValueStore, error)` | `Go.boxo.gateway.newRemoteValueStore` | sync |
+| `func gateway.NewRetryCarFetcher(inner gateway.CarFetcher, allowedRetries int) (gateway.CarFetcher, error)` | `Go.boxo.gateway.newRetryCarFetcher` | sync |
+| `func gateway.UninlineDNSLink(dnsLabel string) (fqdn string)` | `Go.boxo.gateway.uninlineDnsLink` | sync |
+| `gateway.IPFSBackend → x.(*gateway.BlocksBackend)` | `BoxoGatewayIpfsBackend.asBoxoGatewayBlocksBackend` | cast |
+| `gateway.IPFSBackend → x.(*gateway.CarBackend)` | `BoxoGatewayIpfsBackend.asBoxoGatewayCarBackend` | cast |
 | `const gateway.ContentPathKey gateway.RequestContextKey` | `Go.boxo.gateway.contentPathKey` | const |
 | `const gateway.DNSLinkHostnameKey gateway.RequestContextKey` | `Go.boxo.gateway.dnsLinkHostnameKey` | const |
 | `const gateway.DagOrderDFS gateway.DagOrder` | `Go.boxo.gateway.dagOrderDfs` | const |
@@ -132,36 +574,172 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `const gateway.OriginalPathKey gateway.RequestContextKey` | `Go.boxo.gateway.originalPathKey` | const |
 | `const gateway.SubdomainHostnameKey gateway.RequestContextKey` | `Go.boxo.gateway.subdomainHostnameKey` | const |
 
+Omitted:
+
+- `func (*gateway.BlocksBackend).WrapContextForRequest(ctx context.Context) context.Context`: result 0: context.Context
+- `func (gateway.CarFetcher).Fetch(ctx context.Context, path path.ImmutablePath, params gateway.CarParams, cb gateway.DataCallback) error`: takes a callback nobody checked yet: an explicit root in roots.txt if Go only calls it during the call, retainedFuncs if Go keeps it
+- `func (gateway.DuplicateBlocksPolicy).Bool() bool`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/ipfs/boxo/gateway.DuplicateBlocksPolicy
+- `func (gateway.DuplicateBlocksPolicy).String() string`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/ipfs/boxo/gateway.DuplicateBlocksPolicy
+- `func gateway.NewGetResponseFromDirectoryListing(dagSize uint64, entries <-chan unixfs.LinkResult, closeFn func() error) *gateway.GetResponse`: parameter entries: <-chan github.com/ipfs/boxo/ipld/unixfs.LinkResult
+- `func (gateway.WithContextHint).WrapContextForRequest(context.Context) context.Context`: result 0: context.Context
+- `func gateway.WithGetBlockTimeout(dur time.Duration) gateway.BackendOption`: result 0: github.com/ipfs/boxo/gateway.BackendOption
+- `func gateway.WithMaxTraversalDepth(depth int) gateway.BackendOption`: result 0: github.com/ipfs/boxo/gateway.BackendOption
+- `func gateway.WithNameSystem(ns namesys.NameSystem) gateway.BackendOption`: result 0: github.com/ipfs/boxo/gateway.BackendOption
+- `func gateway.WithPrometheusRegistry(reg prometheus.Registerer) gateway.BackendOption`: result 0: github.com/ipfs/boxo/gateway.BackendOption
+- `func gateway.WithResolver(r resolver.Resolver) gateway.BackendOption`: result 0: github.com/ipfs/boxo/gateway.BackendOption
+- `func gateway.WithValueStore(vs routing.ValueStore) gateway.BackendOption`: result 0: github.com/ipfs/boxo/gateway.BackendOption
+
 ## `github.com/ipfs/boxo/ipld/merkledag` → `Go.boxo.ipld.merkledag` (`lib/go/boxo/ipld/merkledag.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
-| `func merkledag.NewRawNode(data []byte) *merkledag.RawNode` | `factory BoxoIpldMerkledagRawNode` | sync |
-| `func merkledag.NodeWithData(d []byte) *merkledag.ProtoNode` | `Go.boxo.ipld.merkledag.nodeWithData` | sync |
-| `func (*merkledag.ProtoNode).AddNodeLink(name string, that format.Node) error` | `BoxoIpldMerkledagProtoNode.addNodeLink` | sync |
-| `func (*merkledag.ProtoNode).SetData(d []byte)` | `BoxoIpldMerkledagProtoNode.setData` | sync |
-| `func (*merkledag.ProtoNode).Data() []byte` | `BoxoIpldMerkledagProtoNode.data` | sync |
-| `func merkledag.NewDAGService(bs blockservice.BlockService) *merkledag.dagService` | `Go.boxo.ipld.merkledag.newDagService` | sync |
+| `func (*merkledag.ComboService).Add(ctx context.Context, nd format.Node) error` | `BoxoIpldMerkledagComboService.add` | Future |
+| `func (*merkledag.ComboService).AddMany(ctx context.Context, nds []format.Node) error` | `BoxoIpldMerkledagComboService.addMany` | Future |
+| `func (*merkledag.ComboService).Get(ctx context.Context, c cid.Cid) (format.Node, error)` | `BoxoIpldMerkledagComboService.get` | Future |
+| `func (*merkledag.ComboService).GetMany(ctx context.Context, cids []cid.Cid) <-chan *format.NodeOption` | `BoxoIpldMerkledagComboService.getMany` | Stream |
+| `func (*merkledag.ComboService).Remove(ctx context.Context, c cid.Cid) error` | `BoxoIpldMerkledagComboService.remove` | Future |
+| `func (*merkledag.ComboService).RemoveMany(ctx context.Context, cids []cid.Cid) error` | `BoxoIpldMerkledagComboService.removeMany` | Future |
 | `func merkledag.DecodeProtobuf(encoded []byte) (*merkledag.ProtoNode, error)` | `Go.boxo.ipld.merkledag.decodeProtobuf` | sync |
+| `func merkledag.DecodeProtobufBlock(b blocks.Block) (format.Node, error)` | `Go.boxo.ipld.merkledag.decodeProtobufBlock` | sync |
+| `func merkledag.DecodeRawBlock(block blocks.Block) (format.Node, error)` | `Go.boxo.ipld.merkledag.decodeRawBlock` | sync |
+| `var merkledag.DefaultPBNodeFieldOrder merkledag.PBNodeFieldOrder` | `Go.boxo.ipld.merkledag.defaultPbNodeFieldOrder` | sync |
+| `func (*merkledag.ErrorService).Add(ctx context.Context, nd format.Node) error` | `BoxoIpldMerkledagErrorService.add` | Future |
+| `func (*merkledag.ErrorService).AddMany(ctx context.Context, nds []format.Node) error` | `BoxoIpldMerkledagErrorService.addMany` | Future |
+| `func (*merkledag.ErrorService).Get(ctx context.Context, c cid.Cid) (format.Node, error)` | `BoxoIpldMerkledagErrorService.get` | Future |
+| `func (*merkledag.ErrorService).GetMany(ctx context.Context, cids []cid.Cid) <-chan *format.NodeOption` | `BoxoIpldMerkledagErrorService.getMany` | Stream |
+| `func (*merkledag.ErrorService).Remove(ctx context.Context, c cid.Cid) error` | `BoxoIpldMerkledagErrorService.remove` | Future |
+| `func (*merkledag.ErrorService).RemoveMany(ctx context.Context, cids []cid.Cid) error` | `BoxoIpldMerkledagErrorService.removeMany` | Future |
+| `func merkledag.FetchGraph(ctx context.Context, root cid.Cid, serv format.DAGService, opts ...merkledag.WalkOption) error` | `Go.boxo.ipld.merkledag.fetchGraph` | Future |
+| `func merkledag.FetchGraphWithDepthLimit(ctx context.Context, root cid.Cid, depthLim int, serv format.DAGService, opts ...merkledag.WalkOption) error` | `Go.boxo.ipld.merkledag.fetchGraphWithDepthLimit` | Future |
+| `func merkledag.GetLinksDirect(serv format.NodeGetter) merkledag.GetLinks` | `Go.boxo.ipld.merkledag.getLinksDirect` | sync |
+| `func merkledag.GetLinksDirectWithProgressTracker(serv format.NodeGetter, tracker *merkledag.ProgressTracker) merkledag.GetLinks` | `Go.boxo.ipld.merkledag.getLinksDirectWithProgressTracker` | sync |
+| `func merkledag.GetLinksWithDAG(ng format.NodeGetter) merkledag.GetLinks` | `Go.boxo.ipld.merkledag.getLinksWithDag` | sync |
+| `func merkledag.NewDAGService(bs blockservice.BlockService) *merkledag.dagService` | `Go.boxo.ipld.merkledag.newDagService` | sync |
+| `func merkledag.NewRawNode(data []byte) *merkledag.RawNode` | `factory BoxoIpldMerkledagRawNode` | sync |
+| `func merkledag.NewRawNodeWPrefix(data []byte, builder cid.Builder) (*merkledag.RawNode, error)` | `Go.boxo.ipld.merkledag.newRawNodeWPrefix` | sync |
+| `func merkledag.NewReadOnlyDagService(ng format.NodeGetter) format.DAGService` | `Go.boxo.ipld.merkledag.newReadOnlyDagService` | sync |
+| `func merkledag.NewSession(ctx context.Context, g format.NodeGetter) format.NodeGetter` | `Go.boxo.ipld.merkledag.newSession` | Future |
+| `func merkledag.NodeWithData(d []byte) *merkledag.ProtoNode` | `Go.boxo.ipld.merkledag.nodeWithData` | sync |
 | `func merkledag.PrefixForCidVersion(version int) (cid.Prefix, error)` | `Go.boxo.ipld.merkledag.prefixForCidVersion` | sync |
+| `func (*merkledag.ProgressTracker).ProgressStat() merkledag.ProgressStat` | `BoxoIpldMerkledagProgressTracker.progressStat` | sync |
+| `func (*merkledag.ProgressTracker).Update(bytes uint64)` | `BoxoIpldMerkledagProgressTracker.update` | sync |
+| `func (*merkledag.ProgressTracker).Value() int` | `BoxoIpldMerkledagProgressTracker.value$` | sync |
+| `func (*merkledag.ProtoNode).AddNodeLink(name string, that format.Node) error` | `BoxoIpldMerkledagProtoNode.addNodeLink` | sync |
+| `func (*merkledag.ProtoNode).AddRawLink(name string, l *format.Link) error` | `BoxoIpldMerkledagProtoNode.addRawLink` | sync |
+| `func (*merkledag.ProtoNode).AsBool() (bool, error)` | `BoxoIpldMerkledagProtoNode.asBool` | sync |
+| `func (*merkledag.ProtoNode).AsBytes() ([]byte, error)` | `BoxoIpldMerkledagProtoNode.asBytes` | sync |
+| `func (*merkledag.ProtoNode).AsFloat() (float64, error)` | `BoxoIpldMerkledagProtoNode.asFloat` | sync |
+| `func (*merkledag.ProtoNode).AsInt() (int64, error)` | `BoxoIpldMerkledagProtoNode.asInt` | sync |
+| `func (*merkledag.ProtoNode).AsLink() (ipld.Link, error)` | `BoxoIpldMerkledagProtoNode.asLink` | sync |
+| `func (*merkledag.ProtoNode).AsString() (string, error)` | `BoxoIpldMerkledagProtoNode.asString` | sync |
+| `func (*merkledag.ProtoNode).Cid() cid.Cid` | `BoxoIpldMerkledagProtoNode.cid` | sync |
+| `func (*merkledag.ProtoNode).CidBuilder() cid.Builder` | `BoxoIpldMerkledagProtoNode.cidBuilder` | sync |
+| `func (*merkledag.ProtoNode).Copy() format.Node` | `BoxoIpldMerkledagProtoNode.copy` | sync |
+| `func (*merkledag.ProtoNode).Data() []byte` | `BoxoIpldMerkledagProtoNode.data` | sync |
+| `func (*merkledag.ProtoNode).EncodeProtobuf(force bool) ([]byte, error)` | `BoxoIpldMerkledagProtoNode.encodeProtobuf` | sync |
+| `func (*merkledag.ProtoNode).GetLinkedNode(ctx context.Context, ds format.DAGService, name string) (format.Node, error)` | `BoxoIpldMerkledagProtoNode.getLinkedNode` | Future |
+| `func (*merkledag.ProtoNode).GetLinkedProtoNode(ctx context.Context, ds format.DAGService, name string) (*merkledag.ProtoNode, error)` | `BoxoIpldMerkledagProtoNode.getLinkedProtoNode` | Future |
+| `func (*merkledag.ProtoNode).GetNodeLink(name string) (*format.Link, error)` | `BoxoIpldMerkledagProtoNode.getNodeLink` | sync |
+| `func (*merkledag.ProtoNode).GetPBNode() *pb.PBNode` | `BoxoIpldMerkledagProtoNode.getPbNode` | sync |
+| `func (*merkledag.ProtoNode).IsAbsent() bool` | `BoxoIpldMerkledagProtoNode.isAbsent` | sync |
+| `func (*merkledag.ProtoNode).IsNull() bool` | `BoxoIpldMerkledagProtoNode.isNull` | sync |
+| `func (*merkledag.ProtoNode).Kind() ipld.Kind` | `BoxoIpldMerkledagProtoNode.kind` | sync |
+| `func (*merkledag.ProtoNode).Length() int64` | `BoxoIpldMerkledagProtoNode.length` | sync |
+| `func (*merkledag.ProtoNode).Links() []*format.Link` | `BoxoIpldMerkledagProtoNode.links` | sync |
+| `func (*merkledag.ProtoNode).ListIterator() ipld.ListIterator` | `BoxoIpldMerkledagProtoNode.listIterator` | sync |
+| `func (*merkledag.ProtoNode).Loggable() map[string]any` | `BoxoIpldMerkledagProtoNode.loggable` | sync |
+| `func (*merkledag.ProtoNode).LookupByIndex(idx int64) (ipld.Node, error)` | `BoxoIpldMerkledagProtoNode.lookupByIndex` | sync |
+| `func (*merkledag.ProtoNode).LookupByNode(key ipld.Node) (ipld.Node, error)` | `BoxoIpldMerkledagProtoNode.lookupByNode` | sync |
+| `func (*merkledag.ProtoNode).LookupBySegment(seg ipld.PathSegment) (ipld.Node, error)` | `BoxoIpldMerkledagProtoNode.lookupBySegment` | sync |
+| `func (*merkledag.ProtoNode).LookupByString(key string) (ipld.Node, error)` | `BoxoIpldMerkledagProtoNode.lookupByString` | sync |
+| `func (*merkledag.ProtoNode).MapIterator() ipld.MapIterator` | `BoxoIpldMerkledagProtoNode.mapIterator` | sync |
+| `func (*merkledag.ProtoNode).Marshal() ([]byte, error)` | `BoxoIpldMerkledagProtoNode.marshal` | sync |
+| `func (*merkledag.ProtoNode).MarshalJSON() ([]byte, error)` | `BoxoIpldMerkledagProtoNode.marshalJson` | sync |
+| `func (*merkledag.ProtoNode).Multihash() multihash.Multihash` | `BoxoIpldMerkledagProtoNode.multihash` | sync |
+| `func (*merkledag.ProtoNode).Prototype() ipld.NodePrototype` | `BoxoIpldMerkledagProtoNode.prototype` | sync |
+| `func (*merkledag.ProtoNode).RawData() []byte` | `BoxoIpldMerkledagProtoNode.rawData` | sync |
+| `func (*merkledag.ProtoNode).RemoveNodeLink(name string) error` | `BoxoIpldMerkledagProtoNode.removeNodeLink` | sync |
+| `func (*merkledag.ProtoNode).Resolve(path []string) (any, []string, error)` | `BoxoIpldMerkledagProtoNode.resolve` | sync |
+| `func (*merkledag.ProtoNode).ResolveLink(path []string) (*format.Link, []string, error)` | `BoxoIpldMerkledagProtoNode.resolveLink` | sync |
+| `func (*merkledag.ProtoNode).SetCidBuilder(builder cid.Builder) error` | `BoxoIpldMerkledagProtoNode.setCidBuilder` | sync |
+| `func (*merkledag.ProtoNode).SetData(d []byte)` | `BoxoIpldMerkledagProtoNode.setData` | sync |
+| `func (*merkledag.ProtoNode).SetLinks(links []*format.Link) error` | `BoxoIpldMerkledagProtoNode.setLinks` | sync |
+| `func (*merkledag.ProtoNode).Size() (uint64, error)` | `BoxoIpldMerkledagProtoNode.size` | sync |
+| `func (*merkledag.ProtoNode).Stat() (*format.NodeStat, error)` | `BoxoIpldMerkledagProtoNode.stat` | sync |
+| `func (*merkledag.ProtoNode).String() string` | `BoxoIpldMerkledagProtoNode.string` | sync |
+| `func (*merkledag.ProtoNode).Tree(p string, depth int) []string` | `BoxoIpldMerkledagProtoNode.tree` | sync |
+| `func (*merkledag.ProtoNode).UnmarshalJSON(b []byte) error` | `BoxoIpldMerkledagProtoNode.unmarshalJson` | sync |
+| `func (*merkledag.ProtoNode).UpdateNodeLink(name string, that *merkledag.ProtoNode) (*merkledag.ProtoNode, error)` | `BoxoIpldMerkledagProtoNode.updateNodeLink` | sync |
+| `func merkledag.ProtoNodeConverter(b blocks.Block, nd ipld.Node) (ipldlegacy.UniversalNode, error)` | `Go.boxo.ipld.merkledag.protoNodeConverter` | sync |
+| `func (*merkledag.RawNode).Copy() format.Node` | `BoxoIpldMerkledagRawNode.copy` | sync |
+| `func (*merkledag.RawNode).Links() []*format.Link` | `BoxoIpldMerkledagRawNode.links` | sync |
+| `func (*merkledag.RawNode).MarshalJSON() ([]byte, error)` | `BoxoIpldMerkledagRawNode.marshalJson` | sync |
+| `func (*merkledag.RawNode).Resolve(path []string) (any, []string, error)` | `BoxoIpldMerkledagRawNode.resolve` | sync |
+| `func (*merkledag.RawNode).ResolveLink(path []string) (*format.Link, []string, error)` | `BoxoIpldMerkledagRawNode.resolveLink` | sync |
+| `func (*merkledag.RawNode).Size() (uint64, error)` | `BoxoIpldMerkledagRawNode.size` | sync |
+| `func (*merkledag.RawNode).Stat() (*format.NodeStat, error)` | `BoxoIpldMerkledagRawNode.stat` | sync |
+| `func (*merkledag.RawNode).Tree(p string, depth int) []string` | `BoxoIpldMerkledagRawNode.tree` | sync |
+| `func merkledag.RawNodeConverter(b blocks.Block, nd ipld.Node) (ipldlegacy.UniversalNode, error)` | `Go.boxo.ipld.merkledag.rawNodeConverter` | sync |
+| `func (merkledag.SessionMaker).Session(context.Context) format.NodeGetter` | `BoxoIpldMerkledagSessionMaker.session` | Future |
 | `func merkledag.V0CidPrefix() cid.Prefix` | `Go.boxo.ipld.merkledag.v0CidPrefix` | sync |
 | `func merkledag.V1CidPrefix() cid.Prefix` | `Go.boxo.ipld.merkledag.v1CidPrefix` | sync |
-| `func (*merkledag.ProtoNode).Links() []*format.Link` | `BoxoIpldMerkledagProtoNode.links` | sync |
-| `func (*merkledag.ProtoNode).GetNodeLink(name string) (*format.Link, error)` | `BoxoIpldMerkledagProtoNode.getNodeLink` | sync |
-| `func (*merkledag.ProtoNode).RemoveNodeLink(name string) error` | `BoxoIpldMerkledagProtoNode.removeNodeLink` | sync |
-| `func (*merkledag.ProtoNode).UpdateNodeLink(name string, that *merkledag.ProtoNode) (*merkledag.ProtoNode, error)` | `BoxoIpldMerkledagProtoNode.updateNodeLink` | sync |
-| `func (*merkledag.ProtoNode).EncodeProtobuf(force bool) ([]byte, error)` | `BoxoIpldMerkledagProtoNode.encodeProtobuf` | sync |
-| `func (*merkledag.ProtoNode).Copy() format.Node` | `BoxoIpldMerkledagProtoNode.copy` | sync |
+| `func merkledag.WrapSession(s *blockservice.Session) format.NodeGetter` | `Go.boxo.ipld.merkledag.wrapSession` | sync |
 | `const merkledag.PBNodeDataFirst merkledag.PBNodeFieldOrder` | `Go.boxo.ipld.merkledag.pbNodeDataFirst` | const |
 | `const merkledag.PBNodeLinksFirst merkledag.PBNodeFieldOrder` | `Go.boxo.ipld.merkledag.pbNodeLinksFirst` | const |
+
+Omitted:
+
+- `func merkledag.Concurrency(worker int) merkledag.WalkOption`: result 0: github.com/ipfs/boxo/ipld/merkledag.WalkOption
+- `func merkledag.Concurrent() merkledag.WalkOption`: result 0: github.com/ipfs/boxo/ipld/merkledag.WalkOption
+- `func merkledag.IgnoreErrors() merkledag.WalkOption`: result 0: github.com/ipfs/boxo/ipld/merkledag.WalkOption
+- `func merkledag.IgnoreMissing() merkledag.WalkOption`: result 0: github.com/ipfs/boxo/ipld/merkledag.WalkOption
+- `func merkledag.OnError(handler func(c cid.Cid, err error) error) merkledag.WalkOption`: parameter handler: callback with argument error
+- `func merkledag.OnMissing(callback func(c cid.Cid)) merkledag.WalkOption`: result 0: github.com/ipfs/boxo/ipld/merkledag.WalkOption
+- `func (*merkledag.ProgressTracker).DeriveContext(ctx context.Context) context.Context`: result 0: context.Context
+- `func merkledag.SkipRoot() merkledag.WalkOption`: result 0: github.com/ipfs/boxo/ipld/merkledag.WalkOption
+- `func merkledag.Walk(ctx context.Context, getLinks merkledag.GetLinks, c cid.Cid, visit func(cid.Cid) bool, options ...merkledag.WalkOption) error`: takes a callback nobody checked yet: an explicit root in roots.txt if Go only calls it during the call, retainedFuncs if Go keeps it
+- `func merkledag.WalkDepth(ctx context.Context, getLinks merkledag.GetLinks, c cid.Cid, visit func(cid.Cid, int) bool, options ...merkledag.WalkOption) error`: takes a callback nobody checked yet: an explicit root in roots.txt if Go only calls it during the call, retainedFuncs if Go keeps it
+- `func merkledag.WithProvider(p provider.MultihashProvider) merkledag.WalkOption`: result 0: github.com/ipfs/boxo/ipld/merkledag.WalkOption
 
 ## `github.com/ipfs/boxo/ipld/merkledag/dagutils` → `Go.boxo.ipld.merkledag.dagutils` (`lib/go/boxo/ipld/merkledag/dagutils.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
+| `func dagutils.ApplyChange(ctx context.Context, ds format.DAGService, nd *merkledag.ProtoNode, cs []*dagutils.Change) (*merkledag.ProtoNode, error)` | `Go.boxo.ipld.merkledag.dagutils.applyChange` | Future |
+| `func (*dagutils.Change).String() string` | `BoxoIpldMerkledagDagutilsChange.string` | sync |
+| `func dagutils.Diff(ctx context.Context, ds format.DAGService, a format.Node, b format.Node) ([]*dagutils.Change, error)` | `Go.boxo.ipld.merkledag.dagutils.diff` | Future |
+| `func dagutils.DiffEnumerate(ctx context.Context, dserv format.NodeGetter, from cid.Cid, to cid.Cid) error` | `Go.boxo.ipld.merkledag.dagutils.diffEnumerate` | Future |
+| `func (*dagutils.Editor).Finalize(ctx context.Context, ds format.DAGService) (*merkledag.ProtoNode, error)` | `BoxoIpldMerkledagDagutilsEditor.finalize` | Future |
+| `func (*dagutils.Editor).GetDagService() format.DAGService` | `BoxoIpldMerkledagDagutilsEditor.getDagService` | sync |
+| `func (*dagutils.Editor).GetNode() *merkledag.ProtoNode` | `BoxoIpldMerkledagDagutilsEditor.getNode` | sync |
+| `func (*dagutils.Editor).RmLink(ctx context.Context, pth string) error` | `BoxoIpldMerkledagDagutilsEditor.rmLink` | Future |
+| `func dagutils.MergeDiffs(a []*dagutils.Change, b []*dagutils.Change) ([]*dagutils.Change, []dagutils.Conflict)` | `Go.boxo.ipld.merkledag.dagutils.mergeDiffs` | sync |
+| `func dagutils.NewDagEditor(root *merkledag.ProtoNode, source format.DAGService) *dagutils.Editor` | `Go.boxo.ipld.merkledag.dagutils.newDagEditor` | sync |
+| `func dagutils.NewMemoryDagService() format.DAGService` | `Go.boxo.ipld.merkledag.dagutils.newMemoryDagService` | sync |
 | `const dagutils.Add dagutils.ChangeType` | `Go.boxo.ipld.merkledag.dagutils.add` | const |
 | `const dagutils.Mod dagutils.ChangeType` | `Go.boxo.ipld.merkledag.dagutils.mod` | const |
 | `const dagutils.Remove dagutils.ChangeType` | `Go.boxo.ipld.merkledag.dagutils.remove` | const |
+
+Omitted:
+
+- `func (*dagutils.Editor).InsertNodeAtPath(ctx context.Context, pth string, toinsert format.Node, create func() *merkledag.ProtoNode) error`: parameter create: func() *github.com/ipfs/boxo/ipld/merkledag.ProtoNode
+
+## `github.com/ipfs/boxo/ipld/merkledag/pb` → `Go.boxo.ipld.merkledag.pb` (`lib/go/boxo/ipld/merkledag/pb.dart`)
+
+| Go | Dart | Mode |
+|---|---|---|
+| `const pb.DoNotUpgradeFileEverItWillChangeYourHashes untyped string` | `Go.boxo.ipld.merkledag.pb.doNotUpgradeFileEverItWillChangeYourHashes` | const |
+
+## `github.com/ipfs/boxo/ipld/unixfs` → `Go.boxo.ipld.unixfs` (`lib/go/boxo/ipld/unixfs.dart`)
+
+| Go | Dart | Mode |
+|---|---|---|
+| `const unixfs.TDirectory pb.Data_DataType` | `Go.boxo.ipld.unixfs.tDirectory` | const |
+| `const unixfs.TFile pb.Data_DataType` | `Go.boxo.ipld.unixfs.tFile` | const |
+| `const unixfs.THAMTShard pb.Data_DataType` | `Go.boxo.ipld.unixfs.thamtShard` | const |
+| `const unixfs.TMetadata pb.Data_DataType` | `Go.boxo.ipld.unixfs.tMetadata` | const |
+| `const unixfs.TRaw pb.Data_DataType` | `Go.boxo.ipld.unixfs.tRaw` | const |
+| `const unixfs.TSymlink pb.Data_DataType` | `Go.boxo.ipld.unixfs.tSymlink` | const |
 
 ## `github.com/ipfs/boxo/ipld/unixfs/file` → `Go.boxo.ipld.unixfs.file` (`lib/go/boxo/ipld/unixfs/file.dart`)
 
@@ -174,31 +752,155 @@ Each line is an exposed Go symbol and where it is in Dart.
 | Go | Dart | Mode |
 |---|---|---|
 | `func importer.BuildDagFromReader(ds format.DAGService, spl chunk.Splitter) (format.Node, error)` | `Go.boxo.ipld.unixfs.importer.buildDagFromReader` | sync |
+| `func importer.BuildTrickleDagFromReader(ds format.DAGService, spl chunk.Splitter) (format.Node, error)` | `Go.boxo.ipld.unixfs.importer.buildTrickleDagFromReader` | sync |
 
 ## `github.com/ipfs/boxo/ipld/unixfs/io` → `Go.boxo.ipld.unixfs.io` (`lib/go/boxo/ipld/unixfs/io.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
-| `func io.NewDirectory(dserv format.DAGService, opts ...io.DirectoryOption) (io.Directory, error)` | `factory BoxoIpldUnixfsIoDirectory` | sync |
+| `func (*io.BasicDirectory).AddChild(ctx context.Context, name string, node format.Node) error` | `BoxoIpldUnixfsIoBasicDirectory.addChild` | Future |
+| `func (*io.BasicDirectory).EnumLinksAsync(ctx context.Context) <-chan unixfs.LinkResult` | `BoxoIpldUnixfsIoBasicDirectory.enumLinksAsync` | Stream |
+| `func (*io.BasicDirectory).Find(ctx context.Context, name string) (format.Node, error)` | `BoxoIpldUnixfsIoBasicDirectory.find` | Future |
+| `func (*io.BasicDirectory).GetCidBuilder() cid.Builder` | `BoxoIpldUnixfsIoBasicDirectory.getCidBuilder` | sync |
+| `func (*io.BasicDirectory).GetHAMTShardingSize() int` | `BoxoIpldUnixfsIoBasicDirectory.getHamtShardingSize` | sync |
+| `func (*io.BasicDirectory).GetMaxHAMTFanout() int` | `BoxoIpldUnixfsIoBasicDirectory.getMaxHamtFanout` | sync |
+| `func (*io.BasicDirectory).GetMaxLinks() int` | `BoxoIpldUnixfsIoBasicDirectory.getMaxLinks` | sync |
+| `func (*io.BasicDirectory).GetNode() (format.Node, error)` | `BoxoIpldUnixfsIoBasicDirectory.getNode` | sync |
+| `func (*io.BasicDirectory).GetSizeEstimationMode() io.SizeEstimationMode` | `BoxoIpldUnixfsIoBasicDirectory.getSizeEstimationMode` | sync |
+| `func (*io.BasicDirectory).Links(ctx context.Context) ([]*format.Link, error)` | `BoxoIpldUnixfsIoBasicDirectory.links` | Future |
+| `func (*io.BasicDirectory).RemoveChild(ctx context.Context, name string) error` | `BoxoIpldUnixfsIoBasicDirectory.removeChild` | Future |
+| `func (*io.BasicDirectory).SetCidBuilder(builder cid.Builder)` | `BoxoIpldUnixfsIoBasicDirectory.setCidBuilder` | sync |
+| `func (*io.BasicDirectory).SetHAMTShardingSize(size int)` | `BoxoIpldUnixfsIoBasicDirectory.setHamtShardingSize` | sync |
+| `func (*io.BasicDirectory).SetMaxHAMTFanout(n int)` | `BoxoIpldUnixfsIoBasicDirectory.setMaxHamtFanout` | sync |
+| `func (*io.BasicDirectory).SetMaxLinks(n int)` | `BoxoIpldUnixfsIoBasicDirectory.setMaxLinks` | sync |
+| `func (*io.BasicDirectory).SetSizeEstimationMode(mode io.SizeEstimationMode)` | `BoxoIpldUnixfsIoBasicDirectory.setSizeEstimationMode` | sync |
+| `func (*io.BasicDirectory).SetStat(mode os.FileMode, mtime time.Time)` | `BoxoIpldUnixfsIoBasicDirectory.setStat` | sync |
+| `func (io.DagReader).CtxReadFull(context.Context, []byte) (int, error)` | `BoxoIpldUnixfsIoDagReader.ctxReadFull` | Future |
+| `func (io.DagReader).ModTime() time.Time` | `BoxoIpldUnixfsIoDagReader.modTime` | sync |
+| `func (io.DagReader).Mode() os.FileMode` | `BoxoIpldUnixfsIoDagReader.mode` | sync |
+| `func (io.DagReader).Size() uint64` | `BoxoIpldUnixfsIoDagReader.size` | sync |
+| `var io.DefaultShardWidth int` | `Go.boxo.ipld.unixfs.io.defaultShardWidth` | sync |
 | `func (io.Directory).AddChild(context.Context, string, format.Node) error` | `BoxoIpldUnixfsIoDirectory.addChild` | Future |
+| `func (io.Directory).EnumLinksAsync(context.Context) <-chan unixfs.LinkResult` | `BoxoIpldUnixfsIoDirectory.enumLinksAsync` | Stream |
+| `func (io.Directory).Find(context.Context, string) (format.Node, error)` | `BoxoIpldUnixfsIoDirectory.find` | Future |
+| `func (io.Directory).GetCidBuilder() cid.Builder` | `BoxoIpldUnixfsIoDirectory.getCidBuilder` | sync |
+| `func (io.Directory).GetHAMTShardingSize() int` | `BoxoIpldUnixfsIoDirectory.getHamtShardingSize` | sync |
+| `func (io.Directory).GetMaxHAMTFanout() int` | `BoxoIpldUnixfsIoDirectory.getMaxHamtFanout` | sync |
+| `func (io.Directory).GetMaxLinks() int` | `BoxoIpldUnixfsIoDirectory.getMaxLinks` | sync |
 | `func (io.Directory).GetNode() (format.Node, error)` | `BoxoIpldUnixfsIoDirectory.getNode` | sync |
+| `func (io.Directory).GetSizeEstimationMode() io.SizeEstimationMode` | `BoxoIpldUnixfsIoDirectory.getSizeEstimationMode` | sync |
+| `func (io.Directory).Links(context.Context) ([]*format.Link, error)` | `BoxoIpldUnixfsIoDirectory.links` | Future |
+| `func (io.Directory).RemoveChild(context.Context, string) error` | `BoxoIpldUnixfsIoDirectory.removeChild` | Future |
+| `func (io.Directory).SetCidBuilder(cid.Builder)` | `BoxoIpldUnixfsIoDirectory.setCidBuilder` | sync |
+| `func (io.Directory).SetHAMTShardingSize(size int)` | `BoxoIpldUnixfsIoDirectory.setHamtShardingSize` | sync |
+| `func (io.Directory).SetMaxHAMTFanout(n int)` | `BoxoIpldUnixfsIoDirectory.setMaxHamtFanout` | sync |
+| `func (io.Directory).SetMaxLinks(n int)` | `BoxoIpldUnixfsIoDirectory.setMaxLinks` | sync |
+| `func (io.Directory).SetSizeEstimationMode(io.SizeEstimationMode)` | `BoxoIpldUnixfsIoDirectory.setSizeEstimationMode` | sync |
+| `func (io.Directory).SetStat(os.FileMode, time.Time)` | `BoxoIpldUnixfsIoDirectory.setStat` | sync |
+| `func (*io.DynamicDirectory).AddChild(ctx context.Context, name string, nd format.Node) error` | `BoxoIpldUnixfsIoDynamicDirectory.addChild` | Future |
+| `func (io.Directory).EnumLinksAsync(context.Context) <-chan unixfs.LinkResult` | `BoxoIpldUnixfsIoDynamicDirectory.enumLinksAsync` | Stream |
+| `func (io.Directory).Find(context.Context, string) (format.Node, error)` | `BoxoIpldUnixfsIoDynamicDirectory.find` | Future |
+| `func (io.Directory).GetCidBuilder() cid.Builder` | `BoxoIpldUnixfsIoDynamicDirectory.getCidBuilder` | sync |
+| `func (io.Directory).GetHAMTShardingSize() int` | `BoxoIpldUnixfsIoDynamicDirectory.getHamtShardingSize` | sync |
+| `func (io.Directory).GetMaxHAMTFanout() int` | `BoxoIpldUnixfsIoDynamicDirectory.getMaxHamtFanout` | sync |
+| `func (io.Directory).GetMaxLinks() int` | `BoxoIpldUnixfsIoDynamicDirectory.getMaxLinks` | sync |
+| `func (io.Directory).GetNode() (format.Node, error)` | `BoxoIpldUnixfsIoDynamicDirectory.getNode` | sync |
+| `func (io.Directory).GetSizeEstimationMode() io.SizeEstimationMode` | `BoxoIpldUnixfsIoDynamicDirectory.getSizeEstimationMode` | sync |
+| `func (io.Directory).Links(context.Context) ([]*format.Link, error)` | `BoxoIpldUnixfsIoDynamicDirectory.links` | Future |
+| `func (*io.DynamicDirectory).RemoveChild(ctx context.Context, name string) error` | `BoxoIpldUnixfsIoDynamicDirectory.removeChild` | Future |
+| `func (io.Directory).SetCidBuilder(cid.Builder)` | `BoxoIpldUnixfsIoDynamicDirectory.setCidBuilder` | sync |
+| `func (io.Directory).SetHAMTShardingSize(size int)` | `BoxoIpldUnixfsIoDynamicDirectory.setHamtShardingSize` | sync |
+| `func (*io.DynamicDirectory).SetMaxHAMTFanout(n int)` | `BoxoIpldUnixfsIoDynamicDirectory.setMaxHamtFanout` | sync |
+| `func (*io.DynamicDirectory).SetMaxLinks(n int)` | `BoxoIpldUnixfsIoDynamicDirectory.setMaxLinks` | sync |
+| `func (io.Directory).SetSizeEstimationMode(io.SizeEstimationMode)` | `BoxoIpldUnixfsIoDynamicDirectory.setSizeEstimationMode` | sync |
+| `func (*io.DynamicDirectory).SetStat(mode os.FileMode, mtime time.Time)` | `BoxoIpldUnixfsIoDynamicDirectory.setStat` | sync |
+| `func (*io.HAMTDirectory).AddChild(ctx context.Context, name string, nd format.Node) error` | `BoxoIpldUnixfsIoHamtDirectory.addChild` | Future |
+| `func (*io.HAMTDirectory).EnumLinksAsync(ctx context.Context) <-chan unixfs.LinkResult` | `BoxoIpldUnixfsIoHamtDirectory.enumLinksAsync` | Stream |
+| `func (*io.HAMTDirectory).Find(ctx context.Context, name string) (format.Node, error)` | `BoxoIpldUnixfsIoHamtDirectory.find` | Future |
+| `func (*io.HAMTDirectory).GetCidBuilder() cid.Builder` | `BoxoIpldUnixfsIoHamtDirectory.getCidBuilder` | sync |
+| `func (*io.HAMTDirectory).GetHAMTShardingSize() int` | `BoxoIpldUnixfsIoHamtDirectory.getHamtShardingSize` | sync |
+| `func (*io.HAMTDirectory).GetMaxHAMTFanout() int` | `BoxoIpldUnixfsIoHamtDirectory.getMaxHamtFanout` | sync |
+| `func (*io.HAMTDirectory).GetMaxLinks() int` | `BoxoIpldUnixfsIoHamtDirectory.getMaxLinks` | sync |
+| `func (*io.HAMTDirectory).GetNode() (format.Node, error)` | `BoxoIpldUnixfsIoHamtDirectory.getNode` | sync |
+| `func (*io.HAMTDirectory).GetSizeEstimationMode() io.SizeEstimationMode` | `BoxoIpldUnixfsIoHamtDirectory.getSizeEstimationMode` | sync |
+| `func (*io.HAMTDirectory).Links(ctx context.Context) ([]*format.Link, error)` | `BoxoIpldUnixfsIoHamtDirectory.links` | Future |
+| `func (*io.HAMTDirectory).RemoveChild(ctx context.Context, name string) error` | `BoxoIpldUnixfsIoHamtDirectory.removeChild` | Future |
+| `func (*io.HAMTDirectory).SetCidBuilder(builder cid.Builder)` | `BoxoIpldUnixfsIoHamtDirectory.setCidBuilder` | sync |
+| `func (*io.HAMTDirectory).SetHAMTShardingSize(size int)` | `BoxoIpldUnixfsIoHamtDirectory.setHamtShardingSize` | sync |
+| `func (*io.HAMTDirectory).SetMaxHAMTFanout(n int)` | `BoxoIpldUnixfsIoHamtDirectory.setMaxHamtFanout` | sync |
+| `func (*io.HAMTDirectory).SetMaxLinks(n int)` | `BoxoIpldUnixfsIoHamtDirectory.setMaxLinks` | sync |
+| `func (*io.HAMTDirectory).SetSizeEstimationMode(mode io.SizeEstimationMode)` | `BoxoIpldUnixfsIoHamtDirectory.setSizeEstimationMode` | sync |
+| `func (*io.HAMTDirectory).SetStat(mode os.FileMode, mtime time.Time)` | `BoxoIpldUnixfsIoHamtDirectory.setStat` | sync |
+| `var io.HAMTShardingSize int` | `Go.boxo.ipld.unixfs.io.hamtShardingSize` | sync |
+| `var io.HAMTSizeEstimation io.SizeEstimationMode` | `Go.boxo.ipld.unixfs.io.hamtSizeEstimation` | sync |
+| `func io.NewBasicDirectory(dserv format.DAGService, opts ...io.DirectoryOption) (*io.BasicDirectory, error)` | `factory BoxoIpldUnixfsIoBasicDirectory` | sync |
+| `func io.NewBasicDirectoryFromNode(dserv format.DAGService, node *merkledag.ProtoNode) *io.BasicDirectory` | `Go.boxo.ipld.unixfs.io.newBasicDirectoryFromNode` | sync |
+| `func io.NewDagReader(ctx context.Context, n format.Node, serv format.NodeGetter) (io.DagReader, error)` | `Go.boxo.ipld.unixfs.io.newDagReader` | Future |
+| `func io.NewDirectory(dserv format.DAGService, opts ...io.DirectoryOption) (io.Directory, error)` | `factory BoxoIpldUnixfsIoDirectory` | sync |
+| `func io.NewDirectoryFromNode(dserv format.DAGService, node format.Node) (io.Directory, error)` | `Go.boxo.ipld.unixfs.io.newDirectoryFromNode` | sync |
+| `func io.NewHAMTDirectory(dserv format.DAGService, sizeChange int, opts ...io.DirectoryOption) (*io.HAMTDirectory, error)` | `factory BoxoIpldUnixfsIoHamtDirectory` | sync |
+| `func io.NewHAMTDirectoryFromNode(dserv format.DAGService, node format.Node) (*io.HAMTDirectory, error)` | `Go.boxo.ipld.unixfs.io.newHamtDirectoryFromNode` | sync |
+| `func io.ResolveUnixfsOnce(ctx context.Context, ds format.NodeGetter, nd format.Node, names []string) (*format.Link, []string, error)` | `Go.boxo.ipld.unixfs.io.resolveUnixfsOnce` | Future |
+| `func (io.UnixFSProfile).ApplyGlobals()` | `BoxoIpldUnixfsIoUnixFsProfile.applyGlobals` | sync |
+| `func (io.UnixFSProfile).CidBuilder() cid.Builder` | `BoxoIpldUnixfsIoUnixFsProfile.cidBuilder` | sync |
+| `var io.UnixFS_v0_2015 io.UnixFSProfile` | `Go.boxo.ipld.unixfs.io.unixFsV02015` | sync |
+| `var io.UnixFS_v1_2025 io.UnixFSProfile` | `Go.boxo.ipld.unixfs.io.unixFsV12025` | sync |
+| `func io.WithCidBuilder(cb cid.Builder) io.DirectoryOption` | `Go.boxo.ipld.unixfs.io.withCidBuilder` | sync |
+| `func io.WithMaxHAMTFanout(n int) io.DirectoryOption` | `Go.boxo.ipld.unixfs.io.withMaxHamtFanout` | sync |
+| `func io.WithMaxLinks(n int) io.DirectoryOption` | `Go.boxo.ipld.unixfs.io.withMaxLinks` | sync |
+| `func io.WithSizeEstimationMode(mode io.SizeEstimationMode) io.DirectoryOption` | `Go.boxo.ipld.unixfs.io.withSizeEstimationMode` | sync |
+| `func io.WithStat(mode os.FileMode, mtime time.Time) io.DirectoryOption` | `Go.boxo.ipld.unixfs.io.withStat` | sync |
+| `io.Directory → x.(*io.BasicDirectory)` | `BoxoIpldUnixfsIoDirectory.asBoxoIpldUnixfsIoBasicDirectory` | cast |
+| `io.Directory → x.(*io.DynamicDirectory)` | `BoxoIpldUnixfsIoDirectory.asBoxoIpldUnixfsIoDynamicDirectory` | cast |
+| `io.Directory → x.(*io.HAMTDirectory)` | `BoxoIpldUnixfsIoDirectory.asBoxoIpldUnixfsIoHamtDirectory` | cast |
 | `const io.SizeEstimationBlock io.SizeEstimationMode` | `Go.boxo.ipld.unixfs.io.sizeEstimationBlock` | const |
 | `const io.SizeEstimationDisabled io.SizeEstimationMode` | `Go.boxo.ipld.unixfs.io.sizeEstimationDisabled` | const |
 | `const io.SizeEstimationLinks io.SizeEstimationMode` | `Go.boxo.ipld.unixfs.io.sizeEstimationLinks` | const |
+
+Omitted:
+
+- `func (*io.BasicDirectory).ForEachLink(_ context.Context, f func(*format.Link) error) error`: takes a callback nobody checked yet: an explicit root in roots.txt if Go only calls it during the call, retainedFuncs if Go keeps it
+- `func (io.Directory).ForEachLink(context.Context, func(*format.Link) error) error`: takes a callback nobody checked yet: an explicit root in roots.txt if Go only calls it during the call, retainedFuncs if Go keeps it
+- `func (io.Directory).ForEachLink(context.Context, func(*format.Link) error) error`: takes a callback nobody checked yet: an explicit root in roots.txt if Go only calls it during the call, retainedFuncs if Go keeps it
+- `func (*io.HAMTDirectory).ForEachLink(ctx context.Context, f func(*format.Link) error) error`: takes a callback nobody checked yet: an explicit root in roots.txt if Go only calls it during the call, retainedFuncs if Go keeps it
 
 ## `github.com/ipfs/boxo/ipns` → `Go.boxo.ipns` (`lib/go/boxo/ipns.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
-| `func ipns.NameFromString(str string) (ipns.Name, error)` | `Go.boxo.ipns.nameFromString` | sync |
-| `func ipns.NameFromPeer(pid peer.ID) ipns.Name` | `Go.boxo.ipns.nameFromPeer` | sync |
-| `func ipns.NameFromCid(c cid.Cid) (ipns.Name, error)` | `Go.boxo.ipns.nameFromCid` | sync |
-| `func ipns.NameFromRoutingKey(data []byte) (ipns.Name, error)` | `Go.boxo.ipns.nameFromRoutingKey` | sync |
-| `func (ipns.Name).Peer() peer.ID` | `BoxoIpnsName.peer` | sync |
-| `func (ipns.Name).Cid() cid.Cid` | `BoxoIpnsName.cid` | sync |
+| `func ipns.ExtractPublicKey(rec *ipns.Record, name ipns.Name) (crypto.PubKey, error)` | `Go.boxo.ipns.extractPublicKey` | sync |
+| `func ipns.MarshalRecord(rec *ipns.Record) ([]byte, error)` | `Go.boxo.ipns.marshalRecord` | sync |
+| `func (ipns.MetadataValue).AsBool() (bool, error)` | `BoxoIpnsMetadataValue.asBool` | sync |
+| `func (ipns.MetadataValue).AsBytes() ([]byte, error)` | `BoxoIpnsMetadataValue.asBytes` | sync |
+| `func (ipns.MetadataValue).AsInt() (int64, error)` | `BoxoIpnsMetadataValue.asInt` | sync |
+| `func (ipns.MetadataValue).AsString() (string, error)` | `BoxoIpnsMetadataValue.asString` | sync |
+| `func (ipns.MetadataValue).Kind() ipns.MetadataKind` | `BoxoIpnsMetadataValue.kind` | sync |
 | `func (ipns.Name).AsPath() path.Path` | `BoxoIpnsName.asPath` | sync |
-| `func (ipns.Name).RoutingKey() []byte` | `BoxoIpnsName.routingKey` | sync |
+| `func (ipns.Name).Cid() cid.Cid` | `BoxoIpnsName.cid` | sync |
 | `func (ipns.Name).Equal(other ipns.Name) bool` | `BoxoIpnsName.equal` | sync |
+| `func (ipns.Name).MarshalJSON() ([]byte, error)` | `BoxoIpnsName.marshalJson` | sync |
+| `func (ipns.Name).Peer() peer.ID` | `BoxoIpnsName.peer` | sync |
+| `func (ipns.Name).RoutingKey() []byte` | `BoxoIpnsName.routingKey` | sync |
+| `func (ipns.Name).String() string` | `BoxoIpnsName.string` | sync |
+| `func (*ipns.Name).UnmarshalJSON(b []byte) error` | `BoxoIpnsName.unmarshalJson` | sync |
+| `func ipns.NameFromCid(c cid.Cid) (ipns.Name, error)` | `Go.boxo.ipns.nameFromCid` | sync |
+| `func ipns.NameFromPeer(pid peer.ID) ipns.Name` | `Go.boxo.ipns.nameFromPeer` | sync |
+| `func ipns.NameFromRoutingKey(data []byte) (ipns.Name, error)` | `Go.boxo.ipns.nameFromRoutingKey` | sync |
+| `func ipns.NameFromString(str string) (ipns.Name, error)` | `Go.boxo.ipns.nameFromString` | sync |
+| `func ipns.NewRecord(sk crypto.PrivKey, value path.Path, seq uint64, eol time.Time, ttl time.Duration, opts ...ipns.Option) (*ipns.Record, error)` | `factory BoxoIpnsRecord` | sync |
+| `func (*ipns.Record).Metadata(key string) (ipns.MetadataValue, error)` | `BoxoIpnsRecord.metadata` | sync |
+| `func (*ipns.Record).MetadataExists(key string) bool` | `BoxoIpnsRecord.metadataExists` | sync |
+| `func (*ipns.Record).PubKey() (crypto.PubKey, error)` | `BoxoIpnsRecord.pubKey` | sync |
+| `func (*ipns.Record).Sequence() (uint64, error)` | `BoxoIpnsRecord.sequence` | sync |
+| `func (*ipns.Record).TTL() (time.Duration, error)` | `BoxoIpnsRecord.ttl` | sync |
+| `func (*ipns.Record).Validity() (time.Time, error)` | `BoxoIpnsRecord.validity` | sync |
+| `func (*ipns.Record).ValidityType() (ipns.ValidityType, error)` | `BoxoIpnsRecord.validityType` | sync |
+| `func (*ipns.Record).Value() (path.Path, error)` | `BoxoIpnsRecord.value$` | sync |
+| `func ipns.UnmarshalRecord(data []byte) (*ipns.Record, error)` | `Go.boxo.ipns.unmarshalRecord` | sync |
+| `func ipns.Validate(rec *ipns.Record, pk crypto.PubKey) error` | `Go.boxo.ipns.validate` | sync |
+| `func ipns.ValidateWithName(rec *ipns.Record, name ipns.Name) error` | `Go.boxo.ipns.validateWithName` | sync |
+| `func (ipns.Validator).Select(k string, vals [][]byte) (int, error)` | `BoxoIpnsValidator.select` | sync |
+| `func (ipns.Validator).Validate(key string, value []byte) error` | `BoxoIpnsValidator.validate` | sync |
 | `const ipns.DefaultRecordLifetime time.Duration` | `Go.boxo.ipns.defaultRecordLifetime` | const |
 | `const ipns.DefaultRecordTTL time.Duration` | `Go.boxo.ipns.defaultRecordTtl` | const |
 | `const ipns.MaxRecordSize int` | `Go.boxo.ipns.maxRecordSize` | const |
@@ -211,90 +913,181 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `const ipns.NoopValue untyped string` | `Go.boxo.ipns.noopValue` | const |
 | `const ipns.ValidityEOL ipns.ValidityType` | `Go.boxo.ipns.validityEol` | const |
 
+Omitted:
+
+- `func (ipns.MetadataKind).String() string`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/ipfs/boxo/ipns.MetadataKind
+- `func (*ipns.Record).MetadataEntries() iter.Seq2[string, ipns.MetadataValue]`: result 0: generic iter.Seq2[string, github.com/ipfs/boxo/ipns.MetadataValue]
+- `func ipns.WithMetadata(metadata map[string]any) ipns.Option`: result 0: github.com/ipfs/boxo/ipns.Option
+- `func ipns.WithPublicKey(embedded bool) ipns.Option`: result 0: github.com/ipfs/boxo/ipns.Option
+- `func ipns.WithV1Compatibility(compatible bool) ipns.Option`: result 0: github.com/ipfs/boxo/ipns.Option
+
 ## `github.com/ipfs/boxo/mfs` → `Go.boxo.mfs` (`lib/go/boxo/mfs.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
-| `func mfs.Lookup(r *mfs.Root, path string) (mfs.FSNode, error)` | `Go.boxo.mfs.lookup` | sync |
-| `func mfs.DirLookup(d *mfs.Directory, pth string) (mfs.FSNode, error)` | `Go.boxo.mfs.dirLookup` | sync |
-| `func mfs.Mkdir(r *mfs.Root, pth string, opts mfs.MkdirOpts, dirOpts ...mfs.Option) error` | `Go.boxo.mfs.mkdir` | sync |
-| `func mfs.Mv(r *mfs.Root, src string, dst string) error` | `Go.boxo.mfs.mv` | sync |
-| `func mfs.PutNode(r *mfs.Root, path string, nd format.Node) error` | `Go.boxo.mfs.putNode` | sync |
-| `func mfs.FlushPath(ctx context.Context, rt *mfs.Root, pth string) (format.Node, error)` | `Go.boxo.mfs.flushPath` | Future |
-| `func mfs.Chmod(rt *mfs.Root, pth string, mode os.FileMode) error` | `Go.boxo.mfs.chmod` | sync |
-| `func mfs.Touch(rt *mfs.Root, pth string, ts time.Time) error` | `Go.boxo.mfs.touch` | sync |
-| `func mfs.IsDir(fsn mfs.FSNode) bool` | `Go.boxo.mfs.isDir` | sync |
-| `func mfs.IsFile(fsn mfs.FSNode) bool` | `Go.boxo.mfs.isFile` | sync |
-| `func (*mfs.Root).GetDirectory() *mfs.Directory` | `BoxoMfsRoot.getDirectory` | sync |
-| `func (*mfs.Root).Flush() error` | `BoxoMfsRoot.flush` | sync |
-| `func (*mfs.Root).FlushMemFree(ctx context.Context) error` | `BoxoMfsRoot.flushMemFree` | Future |
-| `func (mfs.FSNode).GetNode() (format.Node, error)` | `BoxoMfsFsNode.getNode` | sync |
-| `func (mfs.FSNode).Flush() error` | `BoxoMfsFsNode.flush` | sync |
-| `func (mfs.FSNode).Type() mfs.NodeType` | `BoxoMfsFsNode.type` | sync |
-| `func (mfs.FSNode).SetMode(mode os.FileMode) error` | `BoxoMfsFsNode.setMode` | sync |
-| `func (mfs.FSNode).SetModTime(ts time.Time) error` | `BoxoMfsFsNode.setModTime` | sync |
-| `func (*mfs.Directory).Child(name string) (mfs.FSNode, error)` | `BoxoMfsDirectory.child` | sync |
-| `func (*mfs.Directory).ListNames(ctx context.Context) ([]string, error)` | `BoxoMfsDirectory.listNames` | Future |
-| `func (*mfs.Directory).List(ctx context.Context) ([]mfs.NodeListing, error)` | `BoxoMfsDirectory.list` | Future |
-| `func (*mfs.Directory).Mkdir(name string) (*mfs.Directory, error)` | `BoxoMfsDirectory.mkdir` | sync |
-| `func (*mfs.Directory).MkdirWithOpts(name string, opts ...mfs.Option) (*mfs.Directory, error)` | `BoxoMfsDirectory.mkdirWithOpts` | sync |
-| `func (*mfs.Directory).Unlink(name string) error` | `BoxoMfsDirectory.unlink` | sync |
-| `func (*mfs.Directory).Uncache(name string)` | `BoxoMfsDirectory.uncache` | sync |
-| `func (*mfs.Directory).AddChild(name string, nd format.Node) error` | `BoxoMfsDirectory.addChild` | sync |
-| `func (*mfs.Directory).Flush() error` | `BoxoMfsDirectory.flush` | sync |
-| `func (*mfs.Directory).GetNode() (format.Node, error)` | `BoxoMfsDirectory.getNode` | sync |
-| `func (*mfs.Directory).Path() string` | `BoxoMfsDirectory.path` | sync |
-| `func (*mfs.Directory).Mode() (os.FileMode, error)` | `BoxoMfsDirectory.mode` | sync |
-| `func (*mfs.Directory).ModTime() (time.Time, error)` | `BoxoMfsDirectory.modTime` | sync |
-| `func (*mfs.File).Open(ctx context.Context, flags mfs.Flags) (_ mfs.FileDescriptor, _retErr error)` | `BoxoMfsFile.open` | Future |
-| `func (*mfs.File).Size() (int64, error)` | `BoxoMfsFile.size` | sync |
-| `func (*mfs.File).GetNode() (format.Node, error)` | `BoxoMfsFile.getNode` | sync |
-| `func (*mfs.File).Flush() error` | `BoxoMfsFile.flush` | sync |
-| `func (*mfs.File).Sync() error` | `BoxoMfsFile.sync` | sync |
-| `func (*mfs.File).Mode() (os.FileMode, error)` | `BoxoMfsFile.mode` | sync |
-| `func (*mfs.File).ModTime() (time.Time, error)` | `BoxoMfsFile.modTime` | sync |
 | `(*mfs.File).RawLeaves bool` | `BoxoMfsFile.rawLeaves` | field |
 | `(*mfs.File).RawLeaves bool` | `BoxoMfsFile.rawLeaves =` | field |
 | `func (io.Reader).Read(p []byte) (n int, err error)` | `BoxoMfsFileDescriptor.read` | sync |
-| `func (mfs.FileDescriptor).CtxReadFull(context.Context, []byte) (int, error)` | `BoxoMfsFileDescriptor.ctxReadFull` | Future |
 | `func (io.Writer).Write(p []byte) (n int, err error)` | `BoxoMfsFileDescriptor.write` | sync |
 | `func (io.WriterAt).WriteAt(p []byte, off int64) (n int, err error)` | `BoxoMfsFileDescriptor.writeAt` | sync |
 | `func (io.Seeker).Seek(offset int64, whence int) (int64, error)` | `BoxoMfsFileDescriptor.seek` | sync |
-| `func (mfs.FileDescriptor).Truncate(int64) error` | `BoxoMfsFileDescriptor.truncate` | sync |
-| `func (mfs.FileDescriptor).Size() (int64, error)` | `BoxoMfsFileDescriptor.size` | sync |
-| `func (mfs.FileDescriptor).Flush() error` | `BoxoMfsFileDescriptor.flush` | sync |
 | `func (io.Closer).Close() error` | `BoxoMfsFileDescriptor.close` | sync |
+| `func mfs.Chmod(rt *mfs.Root, pth string, mode os.FileMode) error` | `Go.boxo.mfs.chmod` | sync |
+| `func mfs.DirLookup(d *mfs.Directory, pth string) (mfs.FSNode, error)` | `Go.boxo.mfs.dirLookup` | sync |
+| `func (*mfs.Directory).AddChild(name string, nd format.Node) error` | `BoxoMfsDirectory.addChild` | sync |
+| `func (*mfs.Directory).Child(name string) (mfs.FSNode, error)` | `BoxoMfsDirectory.child` | sync |
+| `func (*mfs.Directory).Flush() error` | `BoxoMfsDirectory.flush` | sync |
+| `func (*mfs.Directory).ForEachEntry(ctx context.Context, f func(mfs.NodeListing) error) error` | `BoxoMfsDirectory.forEachEntry` | Future |
+| `func (*mfs.Directory).GetCidBuilder() cid.Builder` | `BoxoMfsDirectory.getCidBuilder` | sync |
+| `func (*mfs.Directory).GetNode() (format.Node, error)` | `BoxoMfsDirectory.getNode` | sync |
+| `func (*mfs.Directory).List(ctx context.Context) ([]mfs.NodeListing, error)` | `BoxoMfsDirectory.list` | Future |
+| `func (*mfs.Directory).ListNames(ctx context.Context) ([]string, error)` | `BoxoMfsDirectory.listNames` | Future |
+| `func (*mfs.Directory).Mkdir(name string) (*mfs.Directory, error)` | `BoxoMfsDirectory.mkdir` | sync |
+| `func (*mfs.Directory).MkdirWithOpts(name string, opts ...mfs.Option) (*mfs.Directory, error)` | `BoxoMfsDirectory.mkdirWithOpts` | sync |
+| `func (*mfs.Directory).ModTime() (time.Time, error)` | `BoxoMfsDirectory.modTime` | sync |
+| `func (*mfs.Directory).Mode() (os.FileMode, error)` | `BoxoMfsDirectory.mode` | sync |
+| `func (*mfs.Directory).Path() string` | `BoxoMfsDirectory.path` | sync |
+| `func (*mfs.Directory).SetCidBuilder(b cid.Builder)` | `BoxoMfsDirectory.setCidBuilder` | sync |
+| `func (*mfs.Directory).SetModTime(ts time.Time) error` | `BoxoMfsDirectory.setModTime` | sync |
+| `func (*mfs.Directory).SetMode(mode os.FileMode) error` | `BoxoMfsDirectory.setMode` | sync |
+| `func (*mfs.Directory).Type() mfs.NodeType` | `BoxoMfsDirectory.type` | sync |
+| `func (*mfs.Directory).Uncache(name string)` | `BoxoMfsDirectory.uncache` | sync |
+| `func (*mfs.Directory).Unlink(name string) error` | `BoxoMfsDirectory.unlink` | sync |
+| `func (mfs.FSNode).Flush() error` | `BoxoMfsFsNode.flush` | sync |
+| `func (mfs.FSNode).GetNode() (format.Node, error)` | `BoxoMfsFsNode.getNode` | sync |
+| `func (mfs.FSNode).SetModTime(ts time.Time) error` | `BoxoMfsFsNode.setModTime` | sync |
+| `func (mfs.FSNode).SetMode(mode os.FileMode) error` | `BoxoMfsFsNode.setMode` | sync |
+| `func (mfs.FSNode).Type() mfs.NodeType` | `BoxoMfsFsNode.type` | sync |
+| `func (*mfs.File).Flush() error` | `BoxoMfsFile.flush` | sync |
+| `func (*mfs.File).GetNode() (format.Node, error)` | `BoxoMfsFile.getNode` | sync |
+| `func (*mfs.File).ModTime() (time.Time, error)` | `BoxoMfsFile.modTime` | sync |
+| `func (*mfs.File).Mode() (os.FileMode, error)` | `BoxoMfsFile.mode` | sync |
+| `func (*mfs.File).Open(ctx context.Context, flags mfs.Flags) (_ mfs.FileDescriptor, _retErr error)` | `BoxoMfsFile.open` | Future |
+| `func (*mfs.File).SetModTime(ts time.Time) error` | `BoxoMfsFile.setModTime` | sync |
+| `func (*mfs.File).SetMode(mode os.FileMode) error` | `BoxoMfsFile.setMode` | sync |
+| `func (*mfs.File).Size() (int64, error)` | `BoxoMfsFile.size` | sync |
+| `func (*mfs.File).Sync() error` | `BoxoMfsFile.sync` | sync |
+| `func (*mfs.File).Type() mfs.NodeType` | `BoxoMfsFile.type` | sync |
+| `func (mfs.FileDescriptor).CtxReadFull(context.Context, []byte) (int, error)` | `BoxoMfsFileDescriptor.ctxReadFull` | Future |
+| `func (mfs.FileDescriptor).Flush() error` | `BoxoMfsFileDescriptor.flush` | sync |
+| `func (mfs.FileDescriptor).Size() (int64, error)` | `BoxoMfsFileDescriptor.size` | sync |
+| `func (mfs.FileDescriptor).Truncate(int64) error` | `BoxoMfsFileDescriptor.truncate` | sync |
+| `func mfs.FlushPath(ctx context.Context, rt *mfs.Root, pth string) (format.Node, error)` | `Go.boxo.mfs.flushPath` | Future |
+| `func mfs.IsDir(fsn mfs.FSNode) bool` | `Go.boxo.mfs.isDir` | sync |
+| `func mfs.IsFile(fsn mfs.FSNode) bool` | `Go.boxo.mfs.isFile` | sync |
+| `func mfs.Lookup(r *mfs.Root, path string) (mfs.FSNode, error)` | `Go.boxo.mfs.lookup` | sync |
+| `func mfs.Mkdir(r *mfs.Root, pth string, opts mfs.MkdirOpts, dirOpts ...mfs.Option) error` | `Go.boxo.mfs.mkdir` | sync |
+| `func mfs.Mv(r *mfs.Root, src string, dst string) error` | `Go.boxo.mfs.mv` | sync |
+| `func mfs.PutNode(r *mfs.Root, path string, nd format.Node) error` | `Go.boxo.mfs.putNode` | sync |
+| `func (*mfs.Republisher).Close() error` | `BoxoMfsRepublisher.close` | sync |
+| `func (*mfs.Republisher).Update(c cid.Cid)` | `BoxoMfsRepublisher.update` | sync |
+| `func (*mfs.Republisher).WaitPub(ctx context.Context) error` | `BoxoMfsRepublisher.waitPub` | Future |
+| `func (*mfs.Root).Close() error` | `BoxoMfsRoot.close` | sync |
+| `func (*mfs.Root).Flush() error` | `BoxoMfsRoot.flush` | sync |
+| `func (*mfs.Root).FlushMemFree(ctx context.Context) error` | `BoxoMfsRoot.flushMemFree` | Future |
+| `func (*mfs.Root).GetChunker() chunk.SplitterGen` | `BoxoMfsRoot.getChunker` | sync |
+| `func (*mfs.Root).GetDirectory() *mfs.Directory` | `BoxoMfsRoot.getDirectory` | sync |
+| `func mfs.Touch(rt *mfs.Root, pth string, ts time.Time) error` | `Go.boxo.mfs.touch` | sync |
 | `mfs.FSNode → x.(*mfs.Directory)` | `BoxoMfsFsNode.asBoxoMfsDirectory` | cast |
 | `mfs.FSNode → x.(*mfs.File)` | `BoxoMfsFsNode.asBoxoMfsFile` | cast |
 | `const mfs.DefaultFetchTimeout time.Duration` | `Go.boxo.mfs.defaultFetchTimeout` | const |
 | `const mfs.TDir mfs.NodeType` | `Go.boxo.mfs.tDir` | const |
 | `const mfs.TFile mfs.NodeType` | `Go.boxo.mfs.tFile` | const |
 
+Omitted:
+
+- `func mfs.NewDirectory(ctx context.Context, name string, node format.Node, parent mfs.parent, dserv format.DAGService, prov provider.MultihashProvider) (*mfs.Directory, error)`: parameter parent: unexported type github.com/ipfs/boxo/mfs.parent
+- `func mfs.NewEmptyDirectory(ctx context.Context, name string, p mfs.parent, dserv format.DAGService, prov provider.MultihashProvider, opts ...mfs.Option) (*mfs.Directory, error)`: parameter p: unexported type github.com/ipfs/boxo/mfs.parent
+- `func mfs.NewEmptyRoot(ctx context.Context, ds format.DAGService, pf mfs.PubFunc, prov provider.MultihashProvider, opts ...mfs.Option) (*mfs.Root, error)`: takes a callback nobody checked yet: an explicit root in roots.txt if Go only calls it during the call, retainedFuncs if Go keeps it
+- `func mfs.NewFile(name string, node format.Node, parent mfs.parent, dserv format.DAGService, providing provider.MultihashProvider) (*mfs.File, error)`: parameter parent: unexported type github.com/ipfs/boxo/mfs.parent
+- `func mfs.NewRepublisher(pf mfs.PubFunc, tshort time.Duration, tlong time.Duration, lastPublished cid.Cid) *mfs.Republisher`: takes a callback nobody checked yet: an explicit root in roots.txt if Go only calls it during the call, retainedFuncs if Go keeps it
+- `func mfs.NewRoot(ctx context.Context, ds format.DAGService, node *merkledag.ProtoNode, pf mfs.PubFunc, prov provider.MultihashProvider, opts ...mfs.Option) (*mfs.Root, error)`: takes a callback nobody checked yet: an explicit root in roots.txt if Go only calls it during the call, retainedFuncs if Go keeps it
+- `func mfs.WithChunker(c chunk.SplitterGen) mfs.Option`: result 0: github.com/ipfs/boxo/mfs.Option
+- `func mfs.WithCidBuilder(b cid.Builder) mfs.Option`: result 0: github.com/ipfs/boxo/mfs.Option
+- `func mfs.WithFetchTimeout(d time.Duration) mfs.Option`: result 0: github.com/ipfs/boxo/mfs.Option
+- `func mfs.WithHAMTShardingSize(size int) mfs.Option`: result 0: github.com/ipfs/boxo/mfs.Option
+- `func mfs.WithMaxHAMTFanout(n int) mfs.Option`: result 0: github.com/ipfs/boxo/mfs.Option
+- `func mfs.WithMaxLinks(n int) mfs.Option`: result 0: github.com/ipfs/boxo/mfs.Option
+- `func mfs.WithModTime(t time.Time) mfs.Option`: result 0: github.com/ipfs/boxo/mfs.Option
+- `func mfs.WithMode(mode os.FileMode) mfs.Option`: result 0: github.com/ipfs/boxo/mfs.Option
+- `func mfs.WithSizeEstimationMode(mode io.SizeEstimationMode) mfs.Option`: result 0: github.com/ipfs/boxo/mfs.Option
+
 ## `github.com/ipfs/boxo/namesys` → `Go.boxo.namesys` (`lib/go/boxo/namesys.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
+| `func (*namesys.DNSResolver).Resolve(ctx context.Context, p path.Path, options ...namesys.ResolveOption) (namesys.Result, error)` | `BoxoNamesysDnsResolver.resolve` | Future |
+| `func (*namesys.DNSResolver).ResolveAsync(ctx context.Context, p path.Path, options ...namesys.ResolveOption) <-chan namesys.AsyncResult` | `BoxoNamesysDnsResolver.resolveAsync` | Stream |
+| `func namesys.DefaultResolveOptions() namesys.ResolveOptions` | `Go.boxo.namesys.defaultResolveOptions` | sync |
+| `func (*namesys.IPNSPublisher).GetPublished(ctx context.Context, name ipns.Name, checkRouting bool) (*ipns.Record, error)` | `BoxoNamesysIpnsPublisher.getPublished` | Future |
+| `func (*namesys.IPNSPublisher).Publish(ctx context.Context, priv crypto.PrivKey, value path.Path, options ...namesys.PublishOption) error` | `BoxoNamesysIpnsPublisher.publish` | Future |
+| `func (*namesys.IPNSResolver).Resolve(ctx context.Context, p path.Path, options ...namesys.ResolveOption) (namesys.Result, error)` | `BoxoNamesysIpnsResolver.resolve` | Future |
+| `func (*namesys.IPNSResolver).ResolveAsync(ctx context.Context, p path.Path, options ...namesys.ResolveOption) <-chan namesys.AsyncResult` | `BoxoNamesysIpnsResolver.resolveAsync` | Stream |
+| `func namesys.IpnsDsKey(name ipns.Name) datastore.Key` | `Go.boxo.namesys.ipnsDsKey` | sync |
+| `func namesys.NewDNSResolver(lookup namesys.LookupTXTFunc) *namesys.DNSResolver` | `factory BoxoNamesysDnsResolver` | sync |
+| `func namesys.NewDNSResolverWithTTL(lookup namesys.LookupTXTWithTTLFunc) *namesys.DNSResolver` | `Go.boxo.namesys.newDnsResolverWithTtl` | sync |
+| `func namesys.NewIPNSPublisher(route routing.ValueStore, ds datastore.Datastore) *namesys.IPNSPublisher` | `factory BoxoNamesysIpnsPublisher` | sync |
+| `func namesys.NewIPNSResolver(route routing.ValueStore) *namesys.IPNSResolver` | `factory BoxoNamesysIpnsResolver` | sync |
+| `func namesys.NewNameSystem(r routing.ValueStore, opts ...namesys.Option) (#rv1 namesys.NameSystem, #rv2 error)` | `factory BoxoNamesysNameSystem` | sync |
+| `func namesys.PkRoutingKey(id peer.ID) string` | `Go.boxo.namesys.pkRoutingKey` | sync |
+| `func namesys.ProcessResolveOptions(opts []namesys.ResolveOption) namesys.ResolveOptions` | `Go.boxo.namesys.processResolveOptions` | sync |
+| `func namesys.PublishIPNSRecord(ctx context.Context, r routing.ValueStore, pubKey crypto.PubKey, rec *ipns.Record) error` | `Go.boxo.namesys.publishIpnsRecord` | Future |
+| `func (namesys.Publisher).Publish(ctx context.Context, sk crypto.PrivKey, value path.Path, options ...namesys.PublishOption) error` | `BoxoNamesysPublisher.publish` | Future |
+| `func namesys.PutIPNSRecord(ctx context.Context, r routing.ValueStore, name ipns.Name, rec *ipns.Record) error` | `Go.boxo.namesys.putIpnsRecord` | Future |
+| `func namesys.PutPublicKey(ctx context.Context, r routing.ValueStore, pid peer.ID, pubKey crypto.PubKey) error` | `Go.boxo.namesys.putPublicKey` | Future |
+| `func namesys.Resolve(ctx context.Context, ns namesys.NameSystem, p path.Path) (namesys.Result, error)` | `Go.boxo.namesys.resolve` | Future |
+| `func (namesys.Resolver).Resolve(context.Context, path.Path, ...namesys.ResolveOption) (namesys.Result, error)` | `BoxoNamesysResolver.resolve` | Future |
+| `func (namesys.Resolver).ResolveAsync(context.Context, path.Path, ...namesys.ResolveOption) <-chan namesys.AsyncResult` | `BoxoNamesysResolver.resolveAsync` | Stream |
+| `namesys.Publisher → x.(*namesys.IPNSPublisher)` | `BoxoNamesysPublisher.asBoxoNamesysIpnsPublisher` | cast |
+| `namesys.Publisher → x.(namesys.NameSystem)` | `BoxoNamesysPublisher.asBoxoNamesysNameSystem` | cast |
+| `namesys.Resolver → x.(*namesys.DNSResolver)` | `BoxoNamesysResolver.asBoxoNamesysDnsResolver` | cast |
+| `namesys.Resolver → x.(*namesys.IPNSResolver)` | `BoxoNamesysResolver.asBoxoNamesysIpnsResolver` | cast |
+| `namesys.Resolver → x.(namesys.NameSystem)` | `BoxoNamesysResolver.asBoxoNamesysNameSystem` | cast |
 | `const namesys.DefaultDepthLimit untyped int` | `Go.boxo.namesys.defaultDepthLimit` | const |
 | `const namesys.DefaultResolverCacheTTL time.Duration` | `Go.boxo.namesys.defaultResolverCacheTtl` | const |
 | `const namesys.DefaultResolverDhtRecordCount untyped int` | `Go.boxo.namesys.defaultResolverDhtRecordCount` | const |
 | `const namesys.DefaultResolverDhtTimeout time.Duration` | `Go.boxo.namesys.defaultResolverDhtTimeout` | const |
 | `const namesys.UnlimitedDepth untyped int` | `Go.boxo.namesys.unlimitedDepth` | const |
 
+Omitted:
+
+- `func namesys.DefaultPublishOptions() namesys.PublishOptions`: result 0: github.com/ipfs/boxo/namesys.PublishOptions
+- `func (*namesys.IPNSPublisher).ListPublished(ctx context.Context) (map[ipns.Name]*ipns.Record, error)`: result 0: map keyed by github.com/ipfs/boxo/ipns.Name
+- `func namesys.ProcessPublishOptions(opts []namesys.PublishOption) namesys.PublishOptions`: result 0: github.com/ipfs/boxo/namesys.PublishOptions
+- `func namesys.PublishWithEOL(eol time.Time) namesys.PublishOption`: result 0: github.com/ipfs/boxo/namesys.PublishOption
+- `func namesys.PublishWithIPNSOption(option ipns.Option) namesys.PublishOption`: parameter option: github.com/ipfs/boxo/ipns.Option
+- `func namesys.PublishWithSequence(seq uint64) namesys.PublishOption`: result 0: github.com/ipfs/boxo/namesys.PublishOption
+- `func namesys.PublishWithTTL(ttl time.Duration) namesys.PublishOption`: result 0: github.com/ipfs/boxo/namesys.PublishOption
+- `func namesys.ResolveWithDepth(depth uint) namesys.ResolveOption`: result 0: github.com/ipfs/boxo/namesys.ResolveOption
+- `func namesys.ResolveWithDhtRecordCount(count uint) namesys.ResolveOption`: result 0: github.com/ipfs/boxo/namesys.ResolveOption
+- `func namesys.ResolveWithDhtTimeout(timeout time.Duration) namesys.ResolveOption`: result 0: github.com/ipfs/boxo/namesys.ResolveOption
+- `func namesys.WithCache(size int) namesys.Option`: result 0: github.com/ipfs/boxo/namesys.Option
+- `func namesys.WithDNSResolver(rslv madns.BasicResolver) namesys.Option`: result 0: github.com/ipfs/boxo/namesys.Option
+- `func namesys.WithDNSResolverWithTTL(lookup namesys.LookupTXTWithTTLFunc) namesys.Option`: result 0: github.com/ipfs/boxo/namesys.Option
+- `func namesys.WithDatastore(ds datastore.Datastore) namesys.Option`: result 0: github.com/ipfs/boxo/namesys.Option
+- `func namesys.WithMaxCacheTTL(dur time.Duration) namesys.Option`: result 0: github.com/ipfs/boxo/namesys.Option
+
 ## `github.com/ipfs/boxo/path` → `Go.boxo.path` (`lib/go/boxo/path.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
+| `func path.FromCid(cid cid.Cid) path.ImmutablePath` | `Go.boxo.path.fromCid` | sync |
+| `func (path.ImmutablePath).Mutable() bool` | `BoxoPathImmutablePath.mutable` | sync |
+| `func (path.ImmutablePath).Namespace() string` | `BoxoPathImmutablePath.namespace` | sync |
+| `func (path.ImmutablePath).RootCid() cid.Cid` | `BoxoPathImmutablePath.rootCid` | sync |
+| `func (path.ImmutablePath).Segments() []string` | `BoxoPathImmutablePath.segments` | sync |
+| `func (path.ImmutablePath).String() string` | `BoxoPathImmutablePath.string` | sync |
+| `func path.Join(p path.Path, segments ...string) (path.Path, error)` | `Go.boxo.path.join` | sync |
+| `func path.NewImmutablePath(p path.Path) (path.ImmutablePath, error)` | `Go.boxo.path.newImmutablePath` | sync |
 | `func path.NewPath(str string) (path.Path, error)` | `Go.boxo.path.newPath` | sync |
 | `func path.NewPathFromSegments(segments ...string) (path.Path, error)` | `Go.boxo.path.newPathFromSegments` | sync |
-| `func path.Join(p path.Path, segments ...string) (path.Path, error)` | `Go.boxo.path.join` | sync |
-| `func path.FromCid(cid cid.Cid) path.ImmutablePath` | `Go.boxo.path.fromCid` | sync |
-| `func path.NewImmutablePath(p path.Path) (path.ImmutablePath, error)` | `Go.boxo.path.newImmutablePath` | sync |
+| `func path.NewPathFromURI(str string) (path.Path, error)` | `Go.boxo.path.newPathFromUri` | sync |
+| `func (path.Path).Mutable() bool` | `BoxoPath.mutable` | sync |
+| `func (path.Path).Namespace() string` | `BoxoPath.namespace` | sync |
+| `func (path.Path).Segments() []string` | `BoxoPath.segments` | sync |
+| `func (path.Path).String() string` | `BoxoPath.string` | sync |
 | `func path.SegmentsToString(segments ...string) string` | `Go.boxo.path.segmentsToString` | sync |
 | `func path.StringToSegments(str string) []string` | `Go.boxo.path.stringToSegments` | sync |
-| `func (path.Path).Namespace() string` | `BoxoPath.namespace` | sync |
-| `func (path.Path).Mutable() bool` | `BoxoPath.mutable` | sync |
-| `func (path.Path).Segments() []string` | `BoxoPath.segments` | sync |
-| `func (path.ImmutablePath).RootCid() cid.Cid` | `BoxoPathImmutablePath.rootCid` | sync |
 | `const path.IPFSNamespace untyped string` | `Go.boxo.path.ipfsNamespace` | const |
 | `const path.IPLDNamespace untyped string` | `Go.boxo.path.ipldNamespace` | const |
 | `const path.IPNSNamespace untyped string` | `Go.boxo.path.ipnsNamespace` | const |
@@ -303,53 +1096,145 @@ Each line is an exposed Go symbol and where it is in Dart.
 
 | Go | Dart | Mode |
 |---|---|---|
+| `func peering.NewPeeringService(host host.Host) *peering.PeeringService` | `factory BoxoPeeringService` | sync |
 | `func (*peering.PeeringService).AddPeer(info peer.AddrInfo)` | `BoxoPeeringService.addPeer` | sync |
-| `func (*peering.PeeringService).RemovePeer(id peer.ID)` | `BoxoPeeringService.removePeer` | sync |
+| `func (*peering.PeeringService).GetState() peering.State` | `BoxoPeeringService.getState` | sync |
 | `func (*peering.PeeringService).ListPeers() []peer.AddrInfo` | `BoxoPeeringService.listPeers` | sync |
+| `func (*peering.PeeringService).RemovePeer(id peer.ID)` | `BoxoPeeringService.removePeer` | sync |
+| `func (*peering.PeeringService).Start() error` | `BoxoPeeringService.start` | sync |
+| `func (*peering.PeeringService).Stop()` | `BoxoPeeringService.stop` | sync |
 | `const peering.ConnmgrTag untyped string` | `Go.boxo.peering.connmgrTag` | const |
 | `const peering.StateInit peering.State` | `Go.boxo.peering.stateInit` | const |
 | `const peering.StateRunning peering.State` | `Go.boxo.peering.stateRunning` | const |
 | `const peering.StateStopped peering.State` | `Go.boxo.peering.stateStopped` | const |
 
+Omitted:
+
+- `func (peering.State).String() string`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/ipfs/boxo/peering.State
+
 ## `github.com/ipfs/boxo/provider` → `Go.boxo.provider` (`lib/go/boxo/provider.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
+| `var provider.DefaultKeyPrefix datastore.Key` | `Go.boxo.provider.defaultKeyPrefix` | sync |
+| `func (provider.MultihashProvider).StartProviding(force bool, keys ...multihash.Multihash) error` | `BoxoProviderMultihashProvider.startProviding` | sync |
+| `func provider.New(ds datastore.Batching, opts ...provider.Option) (provider.System, error)` | `Go.boxo.provider.new$` | sync |
+| `func provider.NewBufferedProvider(pinsF provider.KeyChanFunc) provider.KeyChanFunc` | `Go.boxo.provider.newBufferedProvider` | sync |
+| `func provider.NewConcatProvider(streams ...provider.KeyChanFunc) provider.KeyChanFunc` | `Go.boxo.provider.newConcatProvider` | sync |
+| `func provider.NewDAGProvider(root cid.Cid, fetchConfig fetcher.Factory) provider.KeyChanFunc` | `Go.boxo.provider.newDagProvider` | sync |
+| `func provider.NewNoopProvider() provider.System` | `Go.boxo.provider.newNoopProvider` | sync |
+| `func provider.NewPrioritizedProvider(streams ...provider.KeyChanFunc) provider.KeyChanFunc` | `Go.boxo.provider.newPrioritizedProvider` | sync |
+| `func (provider.Provide).Provide(context.Context, cid.Cid, bool) error` | `BoxoProviderProvide.provide` | Future |
+| `func (provider.ProvideMany).ProvideMany(ctx context.Context, keys []multihash.Multihash) error` | `BoxoProviderProvideMany.provideMany` | Future |
+| `func (provider.Provider).Provide(context.Context, cid.Cid, bool) error` | `BoxoProvider.provide` | Future |
+| `func (provider.Reprovider).Reprovide(context.Context) error` | `BoxoProviderReprovider.reprovide` | Future |
+| `func (provider.System).Clear() int` | `BoxoProviderSystem.clear` | sync |
+| `func (provider.System).Close() error` | `BoxoProviderSystem.close` | sync |
+| `func (provider.System).SetKeyProvider(kp provider.KeyChanFunc)` | `BoxoProviderSystem.setKeyProvider` | sync |
+| `func (provider.System).Stat() (provider.ReproviderStats, error)` | `BoxoProviderSystem.stat` | sync |
+| `provider.MultihashProvider → x.(*node.LegacyProvider)` | `BoxoProviderMultihashProvider.asKuboCoreNodeLegacyProvider` | cast |
+| `provider.Provide → x.(*node.LegacyProvider)` | `BoxoProviderProvide.asKuboCoreNodeLegacyProvider` | cast |
+| `provider.Provide → x.(*dht.IpfsDHT)` | `BoxoProviderProvide.asLibp2pKadDhtIpfsDht` | cast |
+| `provider.Provide → x.(*routing.DiscoveryRouting)` | `BoxoProviderProvide.asLibp2pP2pDiscoveryRouting` | cast |
+| `provider.Provide → x.(*routing.RoutingDiscovery)` | `BoxoProviderProvide.asLibp2pP2pDiscoveryRoutingDiscovery` | cast |
+| `provider.Provider → x.(*node.LegacyProvider)` | `BoxoProvider.asKuboCoreNodeLegacyProvider` | cast |
+| `provider.Provider → x.(*dht.IpfsDHT)` | `BoxoProvider.asLibp2pKadDhtIpfsDht` | cast |
+| `provider.Provider → x.(*routing.DiscoveryRouting)` | `BoxoProvider.asLibp2pP2pDiscoveryRouting` | cast |
+| `provider.Provider → x.(*routing.RoutingDiscovery)` | `BoxoProvider.asLibp2pP2pDiscoveryRoutingDiscovery` | cast |
+| `provider.Provider → x.(provider.System)` | `BoxoProvider.asBoxoProviderSystem` | cast |
+| `provider.Reprovider → x.(*node.LegacyProvider)` | `BoxoProviderReprovider.asKuboCoreNodeLegacyProvider` | cast |
+| `provider.Reprovider → x.(provider.System)` | `BoxoProviderReprovider.asBoxoProviderSystem` | cast |
+| `provider.System → x.(*node.LegacyProvider)` | `BoxoProviderSystem.asKuboCoreNodeLegacyProvider` | cast |
 | `const provider.DefaultReproviderInterval time.Duration` | `Go.boxo.provider.defaultReproviderInterval` | const |
+
+Omitted:
+
+- `func provider.Allowlist(allowlist verifcid.Allowlist) provider.Option`: result 0: github.com/ipfs/boxo/provider.Option
+- `func provider.DatastorePrefix(k datastore.Key) provider.Option`: result 0: github.com/ipfs/boxo/provider.Option
+- `func provider.KeyProvider(fn provider.KeyChanFunc) provider.Option`: result 0: github.com/ipfs/boxo/provider.Option
+- `func provider.MaxBatchSize(n uint) provider.Option`: result 0: github.com/ipfs/boxo/provider.Option
+- `func provider.Online(rsys provider.Provide) provider.Option`: result 0: github.com/ipfs/boxo/provider.Option
+- `func provider.ProvideWorkerCount(n int) provider.Option`: result 0: github.com/ipfs/boxo/provider.Option
+- `func (provider.Ready).Ready() bool`: receiver is neither a handle, a DTO nor a value type: 
+- `func provider.ReproviderInterval(duration time.Duration) provider.Option`: result 0: github.com/ipfs/boxo/provider.Option
+- `func provider.ThroughputReport(f provider.ThroughputCallback, minimumProvides uint) provider.Option`: result 0: github.com/ipfs/boxo/provider.Option
 
 ## `github.com/ipfs/boxo/verifcid` → `Go.boxo.verifcid` (`lib/go/boxo/verifcid.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
+| `func (verifcid.Allowlist).IsAllowed(code uint64) bool` | `BoxoVerifcidAllowlist.isAllowed` | sync |
+| `func (verifcid.Allowlist).MaxDigestSize(code uint64) int` | `BoxoVerifcidAllowlist.maxDigestSize` | sync |
+| `func (verifcid.Allowlist).MinDigestSize(code uint64) int` | `BoxoVerifcidAllowlist.minDigestSize` | sync |
+| `func verifcid.NewAllowlist(allowset map[uint64]bool) verifcid.Allowlist` | `factory BoxoVerifcidAllowlist` | sync |
+| `func verifcid.NewOverridingAllowlist(override verifcid.Allowlist, allowset map[uint64]bool) verifcid.Allowlist` | `Go.boxo.verifcid.newOverridingAllowlist` | sync |
+| `func verifcid.ValidateCid(allowlist verifcid.Allowlist, c cid.Cid) error` | `Go.boxo.verifcid.validateCid` | sync |
 | `const verifcid.DefaultMaxDigestSize untyped int` | `Go.boxo.verifcid.defaultMaxDigestSize` | const |
 | `const verifcid.DefaultMaxIdentityDigestSize untyped int` | `Go.boxo.verifcid.defaultMaxIdentityDigestSize` | const |
 | `const verifcid.DefaultMinDigestSize untyped int` | `Go.boxo.verifcid.defaultMinDigestSize` | const |
+
+Omitted:
+
+- `var verifcid.DefaultAllowlist verifcid.defaultAllowlist`: result 0: unexported type github.com/ipfs/boxo/verifcid.defaultAllowlist
 
 ## `github.com/ipfs/go-cid` → `Go.cid` (`lib/go/cid.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
-| `func cid.NewPrefixV0(mhType uint64) cid.Prefix` | `Go.cid.newPrefixV0` | sync |
-| `func cid.NewPrefixV1(codecType uint64, mhType uint64) cid.Prefix` | `Go.cid.newPrefixV1` | sync |
-| `func (cid.Prefix).Sum(data []byte) (cid.Cid, error)` | `CidPrefix.sum` | sync |
-| `func cid.Decode(v string) (cid.Cid, error)` | `Go.cid.decode` | sync |
-| `func cid.Parse(v any) (cid.Cid, error)` | `Go.cid.parse` | sync |
+| `func (cid.Builder).GetCodec() uint64` | `CidBuilder.getCodec` | sync |
+| `func (cid.Builder).Sum(data []byte) (cid.Cid, error)` | `CidBuilder.sum` | sync |
+| `func (cid.Builder).WithCodec(uint64) cid.Builder` | `CidBuilder.withCodec` | sync |
 | `func cid.Cast(data []byte) (cid.Cid, error)` | `Go.cid.cast` | sync |
+| `func (cid.Cid).ByteLen() int` | `Cid.byteLen` | sync |
+| `func (cid.Cid).Bytes() []byte` | `Cid.bytes` | sync |
+| `func (cid.Cid).Defined() bool` | `Cid.defined` | sync |
+| `func (cid.Cid).Encode(base multibase.Encoder) string` | `Cid.encode` | sync |
+| `func (cid.Cid).Equals(o cid.Cid) bool` | `Cid.equals` | sync |
+| `func (cid.Cid).Hash() multihash.Multihash` | `Cid.hash` | sync |
+| `func (cid.Cid).KeyString() string` | `Cid.keyString` | sync |
+| `func (cid.Cid).Loggable() map[string]any` | `Cid.loggable` | sync |
+| `func (cid.Cid).MarshalBinary() ([]byte, error)` | `Cid.marshalBinary` | sync |
+| `func (cid.Cid).MarshalJSON() ([]byte, error)` | `Cid.marshalJson` | sync |
+| `func (cid.Cid).MarshalText() ([]byte, error)` | `Cid.marshalText` | sync |
+| `func (cid.Cid).Prefix() cid.Prefix` | `Cid.prefix` | sync |
+| `func (cid.Cid).String() string` | `Cid.string` | sync |
+| `func (cid.Cid).StringOfBase(base multibase.Encoding) (string, error)` | `Cid.stringOfBase` | sync |
+| `func (cid.Cid).Type() uint64` | `Cid.type` | sync |
+| `func (*cid.Cid).UnmarshalBinary(data []byte) error` | `Cid.unmarshalBinary` | sync |
+| `func (*cid.Cid).UnmarshalJSON(b []byte) error` | `Cid.unmarshalJson` | sync |
+| `func (*cid.Cid).UnmarshalText(text []byte) error` | `Cid.unmarshalText` | sync |
+| `func (cid.Cid).Version() uint64` | `Cid.version` | sync |
+| `func (cid.Cid).WriteBytes(w io.Writer) (int, error)` | `Cid.writeBytes` | sync |
 | `func cid.CidFromBytes(data []byte) (int, cid.Cid, error)` | `Go.cid.cidFromBytes` | sync |
+| `func cid.CidFromReader(r io.Reader) (int, cid.Cid, error)` | `Go.cid.cidFromReader` | sync |
+| `func cid.Decode(v string) (cid.Cid, error)` | `Go.cid.decode` | sync |
+| `func cid.ExtractEncoding(v string) (multibase.Encoding, error)` | `Go.cid.extractEncoding` | sync |
+| `func cid.MustParse(v any) cid.Cid` | `Go.cid.mustParse` | sync |
 | `func cid.NewCidV0(mhash multihash.Multihash) cid.Cid` | `Go.cid.newCidV0` | sync |
 | `func cid.NewCidV1(codecType uint64, mhash multihash.Multihash) cid.Cid` | `Go.cid.newCidV1` | sync |
-| `func cid.PrefixFromBytes(buf []byte) (cid.Prefix, error)` | `Go.cid.prefixFromBytes` | sync |
-| `func cid.ExtractEncoding(v string) (multibase.Encoding, error)` | `Go.cid.extractEncoding` | sync |
+| `func cid.NewPrefixV0(mhType uint64) cid.Prefix` | `Go.cid.newPrefixV0` | sync |
+| `func cid.NewPrefixV1(codecType uint64, mhType uint64) cid.Prefix` | `Go.cid.newPrefixV1` | sync |
+| `func cid.NewSet() *cid.Set` | `factory CidSet` | sync |
+| `func cid.Parse(v any) (cid.Cid, error)` | `Go.cid.parse` | sync |
 | `func (cid.Prefix).Bytes() []byte` | `CidPrefix.bytes` | sync |
-| `func (cid.Cid).Version() uint64` | `Cid.version` | sync |
-| `func (cid.Cid).Type() uint64` | `Cid.type` | sync |
-| `func (cid.Cid).Hash() multihash.Multihash` | `Cid.hash` | sync |
-| `func (cid.Cid).Bytes() []byte` | `Cid.bytes` | sync |
-| `func (cid.Cid).ByteLen() int` | `Cid.byteLen` | sync |
-| `func (cid.Cid).Prefix() cid.Prefix` | `Cid.prefix` | sync |
-| `func (cid.Cid).Equals(o cid.Cid) bool` | `Cid.equals` | sync |
-| `func (cid.Cid).Defined() bool` | `Cid.defined` | sync |
-| `func (cid.Cid).StringOfBase(base multibase.Encoding) (string, error)` | `Cid.stringOfBase` | sync |
+| `func (cid.Prefix).GetCodec() uint64` | `CidPrefix.getCodec` | sync |
+| `func (cid.Prefix).Sum(data []byte) (cid.Cid, error)` | `CidPrefix.sum` | sync |
+| `func (cid.Prefix).WithCodec(c uint64) cid.Builder` | `CidPrefix.withCodec` | sync |
+| `func cid.PrefixFromBytes(buf []byte) (cid.Prefix, error)` | `Go.cid.prefixFromBytes` | sync |
+| `func (*cid.Set).Add(c cid.Cid)` | `CidSet.add` | sync |
+| `func (*cid.Set).ForEach(f func(c cid.Cid) error) error` | `CidSet.forEach` | Future |
+| `func (*cid.Set).Has(c cid.Cid) bool` | `CidSet.has` | sync |
+| `func (*cid.Set).Keys() []cid.Cid` | `CidSet.keys` | sync |
+| `func (*cid.Set).Len() int` | `CidSet.len` | sync |
+| `func (*cid.Set).Remove(c cid.Cid)` | `CidSet.remove` | sync |
+| `func (*cid.Set).Visit(c cid.Cid) bool` | `CidSet.visit` | sync |
+| `var cid.Undef cid.Cid` | `Go.cid.undef` | sync |
+| `func (cid.V0Builder).GetCodec() uint64` | `CidV0Builder.getCodec` | sync |
+| `func (cid.V0Builder).Sum(data []byte) (cid.Cid, error)` | `CidV0Builder.sum` | sync |
+| `func (cid.V0Builder).WithCodec(c uint64) cid.Builder` | `CidV0Builder.withCodec` | sync |
+| `func (cid.V1Builder).GetCodec() uint64` | `CidV1Builder.getCodec` | sync |
+| `func (cid.V1Builder).Sum(data []byte) (cid.Cid, error)` | `CidV1Builder.sum` | sync |
+| `func (cid.V1Builder).WithCodec(c uint64) cid.Builder` | `CidV1Builder.withCodec` | sync |
 | `const cid.BitcoinBlock untyped int` | `Go.cid.bitcoinBlock` | const |
 | `const cid.BitcoinTx untyped int` | `Go.cid.bitcoinTx` | const |
 | `const cid.DagCBOR untyped int` | `Go.cid.dagCbor` | const |
@@ -382,15 +1267,160 @@ Each line is an exposed Go symbol and where it is in Dart.
 
 | Go | Dart | Mode |
 |---|---|---|
-| `func datastore.NewNullDatastore() *datastore.NullDatastore` | `factory DatastoreNullDatastore` | sync |
+| `func (datastore.Batch).Commit(ctx context.Context) error` | `DatastoreBatch.commit` | Future |
+| `func (datastore.BatchingFeature).Batch(ctx context.Context) (datastore.Batch, error)` | `DatastoreBatchingFeature.batch` | Future |
+| `func (datastore.CheckedFeature).Check(ctx context.Context) error` | `DatastoreCheckedFeature.check` | Future |
+| `func (datastore.Datastore).Sync(ctx context.Context, prefix datastore.Key) error` | `Datastore.sync` | Future |
+| `func datastore.DiskUsage(ctx context.Context, d datastore.Datastore) (uint64, error)` | `Go.datastore.diskUsage` | Future |
+| `func datastore.EntryKeys(e []query.Entry) []datastore.Key` | `Go.datastore.entryKeys` | sync |
+| `func datastore.FeatureByName(name string) (datastore.Feature, bool)` | `Go.datastore.featureByName` | sync |
+| `func datastore.Features() []datastore.Feature` | `Go.datastore.features` | sync |
+| `func datastore.FeaturesForDatastore(dstore datastore.Datastore) (features []datastore.Feature)` | `Go.datastore.featuresForDatastore` | sync |
+| `func (datastore.GCFeature).CollectGarbage(ctx context.Context) error` | `DatastoreGcFeature.collectGarbage` | Future |
+| `func datastore.GetBackedHas(ctx context.Context, ds datastore.Read, key datastore.Key) (bool, error)` | `Go.datastore.getBackedHas` | Future |
+| `func datastore.GetBackedSize(ctx context.Context, ds datastore.Read, key datastore.Key) (int, error)` | `Go.datastore.getBackedSize` | Future |
+| `func (datastore.Key).BaseNamespace() string` | `DatastoreKey.baseNamespace` | sync |
+| `func (datastore.Key).Bytes() []byte` | `DatastoreKey.bytes` | sync |
+| `func (datastore.Key).Child(k2 datastore.Key) datastore.Key` | `DatastoreKey.child` | sync |
+| `func (datastore.Key).ChildString(s string) datastore.Key` | `DatastoreKey.childString` | sync |
+| `func (*datastore.Key).Clean()` | `DatastoreKey.clean` | sync |
+| `func (datastore.Key).Compare(k2 datastore.Key) int` | `DatastoreKey.compare` | sync |
+| `func (datastore.Key).Equal(k2 datastore.Key) bool` | `DatastoreKey.equal` | sync |
+| `func (datastore.Key).Instance(s string) datastore.Key` | `DatastoreKey.instance` | sync |
+| `func (datastore.Key).IsAncestorOf(other datastore.Key) bool` | `DatastoreKey.isAncestorOf` | sync |
+| `func (datastore.Key).IsDescendantOf(other datastore.Key) bool` | `DatastoreKey.isDescendantOf` | sync |
+| `func (datastore.Key).IsTopLevel() bool` | `DatastoreKey.isTopLevel` | sync |
+| `func (datastore.Key).Less(k2 datastore.Key) bool` | `DatastoreKey.less` | sync |
+| `func (datastore.Key).List() []string` | `DatastoreKey.list` | sync |
+| `func (datastore.Key).MarshalJSON() ([]byte, error)` | `DatastoreKey.marshalJson` | sync |
+| `func (datastore.Key).Name() string` | `DatastoreKey.name` | sync |
+| `func (datastore.Key).Namespaces() []string` | `DatastoreKey.namespaces` | sync |
+| `func (datastore.Key).Parent() datastore.Key` | `DatastoreKey.parent` | sync |
+| `func (datastore.Key).Path() datastore.Key` | `DatastoreKey.path` | sync |
+| `func (datastore.Key).Reverse() datastore.Key` | `DatastoreKey.reverse` | sync |
+| `func (datastore.Key).RootNamespace() string` | `DatastoreKey.rootNamespace` | sync |
+| `func (datastore.Key).String() string` | `DatastoreKey.string` | sync |
+| `func (datastore.Key).Type() string` | `DatastoreKey.type` | sync |
+| `func (*datastore.Key).UnmarshalJSON(data []byte) error` | `DatastoreKey.unmarshalJson` | sync |
+| `func datastore.KeyWithNamespaces(ns []string) datastore.Key` | `Go.datastore.keyWithNamespaces` | sync |
+| `func (*datastore.LogBatch).Commit(ctx context.Context) error` | `DatastoreLogBatch.commit` | Future |
+| `func (*datastore.LogBatch).Delete(ctx context.Context, key datastore.Key) error` | `DatastoreLogBatch.delete` | Future |
+| `func (*datastore.LogBatch).Put(ctx context.Context, key datastore.Key, value []byte) error` | `DatastoreLogBatch.put` | Future |
+| `func (*datastore.LogDatastore).Batch(ctx context.Context) (datastore.Batch, error)` | `DatastoreLogDatastore.batch` | Future |
+| `func (*datastore.LogDatastore).Check(ctx context.Context) error` | `DatastoreLogDatastore.check` | Future |
+| `func (*datastore.LogDatastore).Children() []datastore.Datastore` | `DatastoreLogDatastore.children` | sync |
+| `func (*datastore.LogDatastore).Close() error` | `DatastoreLogDatastore.close` | sync |
+| `func (*datastore.LogDatastore).CollectGarbage(ctx context.Context) error` | `DatastoreLogDatastore.collectGarbage` | Future |
+| `func (*datastore.LogDatastore).Delete(ctx context.Context, key datastore.Key) error` | `DatastoreLogDatastore.delete` | Future |
+| `func (*datastore.LogDatastore).DiskUsage(ctx context.Context) (uint64, error)` | `DatastoreLogDatastore.diskUsage` | Future |
+| `func (*datastore.LogDatastore).Get(ctx context.Context, key datastore.Key) ([]byte, error)` | `DatastoreLogDatastore.get` | Future |
+| `func (*datastore.LogDatastore).GetSize(ctx context.Context, key datastore.Key) (int, error)` | `DatastoreLogDatastore.getSize` | Future |
+| `func (*datastore.LogDatastore).Has(ctx context.Context, key datastore.Key) (bool, error)` | `DatastoreLogDatastore.has` | Future |
+| `func (*datastore.LogDatastore).Put(ctx context.Context, key datastore.Key, value []byte) error` | `DatastoreLogDatastore.put` | Future |
+| `func (*datastore.LogDatastore).Query(ctx context.Context, q query.Query) (query.Results, error)` | `DatastoreLogDatastore.query` | Future |
+| `func (*datastore.LogDatastore).Scrub(ctx context.Context) error` | `DatastoreLogDatastore.scrub` | Future |
+| `func (*datastore.LogDatastore).Sync(ctx context.Context, prefix datastore.Key) error` | `DatastoreLogDatastore.sync` | Future |
+| `func (*datastore.MapDatastore).Batch(ctx context.Context) (datastore.Batch, error)` | `DatastoreMapDatastore.batch` | Future |
+| `func (*datastore.MapDatastore).Close() error` | `DatastoreMapDatastore.close` | sync |
+| `func (*datastore.MapDatastore).Delete(ctx context.Context, key datastore.Key) error` | `DatastoreMapDatastore.delete` | Future |
+| `func (*datastore.MapDatastore).Get(ctx context.Context, key datastore.Key) ([]byte, error)` | `DatastoreMapDatastore.get` | Future |
+| `func (*datastore.MapDatastore).GetSize(ctx context.Context, key datastore.Key) (int, error)` | `DatastoreMapDatastore.getSize` | Future |
+| `func (*datastore.MapDatastore).Has(ctx context.Context, key datastore.Key) (bool, error)` | `DatastoreMapDatastore.has` | Future |
+| `func (*datastore.MapDatastore).Put(ctx context.Context, key datastore.Key, value []byte) error` | `DatastoreMapDatastore.put` | Future |
+| `func (*datastore.MapDatastore).Query(ctx context.Context, q query.Query) (query.Results, error)` | `DatastoreMapDatastore.query` | Future |
+| `func (*datastore.MapDatastore).Sync(ctx context.Context, prefix datastore.Key) error` | `DatastoreMapDatastore.sync` | Future |
+| `func datastore.NamespaceType(namespace string) string` | `Go.datastore.namespaceType` | sync |
+| `func datastore.NamespaceValue(namespace string) string` | `Go.datastore.namespaceValue` | sync |
+| `func datastore.NewBasicBatch(ds datastore.Datastore) datastore.Batch` | `Go.datastore.newBasicBatch` | sync |
+| `func datastore.NewKey(s string) datastore.Key` | `factory DatastoreKey` | sync |
+| `func datastore.NewLogDatastore(ds datastore.Datastore, name string) *datastore.LogDatastore` | `factory DatastoreLogDatastore` | sync |
 | `func datastore.NewMapDatastore() (d *datastore.MapDatastore)` | `factory DatastoreMapDatastore` | sync |
+| `func datastore.NewNullDatastore() *datastore.NullDatastore` | `factory DatastoreNullDatastore` | sync |
+| `func (*datastore.NullDatastore).Batch(ctx context.Context) (datastore.Batch, error)` | `DatastoreNullDatastore.batch` | Future |
+| `func (*datastore.NullDatastore).Check(ctx context.Context) error` | `DatastoreNullDatastore.check` | Future |
+| `func (*datastore.NullDatastore).Close() error` | `DatastoreNullDatastore.close` | sync |
+| `func (*datastore.NullDatastore).CollectGarbage(ctx context.Context) error` | `DatastoreNullDatastore.collectGarbage` | Future |
+| `func (*datastore.NullDatastore).Delete(ctx context.Context, key datastore.Key) error` | `DatastoreNullDatastore.delete` | Future |
+| `func (*datastore.NullDatastore).DiskUsage(ctx context.Context) (uint64, error)` | `DatastoreNullDatastore.diskUsage` | Future |
+| `func (*datastore.NullDatastore).Get(ctx context.Context, key datastore.Key) ([]byte, error)` | `DatastoreNullDatastore.get` | Future |
+| `func (*datastore.NullDatastore).GetSize(ctx context.Context, key datastore.Key) (int, error)` | `DatastoreNullDatastore.getSize` | Future |
+| `func (*datastore.NullDatastore).Has(ctx context.Context, key datastore.Key) (bool, error)` | `DatastoreNullDatastore.has` | Future |
+| `func (*datastore.NullDatastore).NewTransaction(ctx context.Context, readOnly bool) (datastore.Txn, error)` | `DatastoreNullDatastore.newTransaction` | Future |
+| `func (*datastore.NullDatastore).Put(ctx context.Context, key datastore.Key, value []byte) error` | `DatastoreNullDatastore.put` | Future |
+| `func (*datastore.NullDatastore).Query(ctx context.Context, q query.Query) (query.Results, error)` | `DatastoreNullDatastore.query` | Future |
+| `func (*datastore.NullDatastore).Scrub(ctx context.Context) error` | `DatastoreNullDatastore.scrub` | Future |
+| `func (*datastore.NullDatastore).Sync(ctx context.Context, prefix datastore.Key) error` | `DatastoreNullDatastore.sync` | Future |
+| `func (datastore.PersistentFeature).DiskUsage(ctx context.Context) (uint64, error)` | `DatastorePersistentFeature.diskUsage` | Future |
+| `func datastore.RandomKey() datastore.Key` | `Go.datastore.randomKey` | sync |
+| `func datastore.RawKey(s string) datastore.Key` | `Go.datastore.rawKey` | sync |
+| `func (datastore.Read).Get(ctx context.Context, key datastore.Key) (value []byte, err error)` | `DatastoreRead.get` | Future |
+| `func (datastore.Read).GetSize(ctx context.Context, key datastore.Key) (size int, err error)` | `DatastoreRead.getSize` | Future |
+| `func (datastore.Read).Has(ctx context.Context, key datastore.Key) (exists bool, err error)` | `DatastoreRead.has` | Future |
+| `func (datastore.Read).Query(ctx context.Context, q query.Query) (query.Results, error)` | `DatastoreRead.query` | Future |
+| `func (datastore.ScrubbedFeature).Scrub(ctx context.Context) error` | `DatastoreScrubbedFeature.scrub` | Future |
+| `func (datastore.Shim).Children() []datastore.Datastore` | `DatastoreShim.children` | sync |
+| `func (datastore.TTL).GetExpiration(ctx context.Context, key datastore.Key) (time.Time, error)` | `DatastoreTtl.getExpiration` | Future |
+| `func (datastore.TTL).PutWithTTL(ctx context.Context, key datastore.Key, value []byte, ttl time.Duration) error` | `DatastoreTtl.putWithTtl` | Future |
+| `func (datastore.TTL).SetTTL(ctx context.Context, key datastore.Key, ttl time.Duration) error` | `DatastoreTtl.setTtl` | Future |
+| `func (datastore.Txn).Commit(ctx context.Context) error` | `DatastoreTxn.commit` | Future |
+| `func (datastore.Txn).Discard(ctx context.Context)` | `DatastoreTxn.discard` | Future |
+| `func (datastore.TxnFeature).NewTransaction(ctx context.Context, readOnly bool) (datastore.Txn, error)` | `DatastoreTxnFeature.newTransaction` | Future |
+| `func (datastore.Write).Delete(ctx context.Context, key datastore.Key) error` | `DatastoreWrite.delete` | Future |
+| `func (datastore.Write).Put(ctx context.Context, key datastore.Key, value []byte) error` | `DatastoreWrite.put` | Future |
+| `datastore.Batch → x.(*datastore.LogBatch)` | `DatastoreBatch.asDatastoreLogBatch` | cast |
+| `datastore.Batching → x.(*datastore.LogDatastore)` | `DatastoreBatching.asDatastoreLogDatastore` | cast |
 | `datastore.Batching → x.(*datastore.MapDatastore)` | `DatastoreBatching.asDatastoreMapDatastore` | cast |
 | `datastore.Batching → x.(*datastore.NullDatastore)` | `DatastoreBatching.asDatastoreNullDatastore` | cast |
 | `datastore.Batching → x.(*sync.MutexDatastore)` | `DatastoreBatching.asDatastoreSyncMutexDatastore` | cast |
+| `datastore.Batching → x.(repo.Datastore)` | `DatastoreBatching.asKuboRepoDatastore` | cast |
+| `datastore.BatchingFeature → x.(*datastore.LogDatastore)` | `DatastoreBatchingFeature.asDatastoreLogDatastore` | cast |
+| `datastore.BatchingFeature → x.(*datastore.MapDatastore)` | `DatastoreBatchingFeature.asDatastoreMapDatastore` | cast |
+| `datastore.BatchingFeature → x.(*datastore.NullDatastore)` | `DatastoreBatchingFeature.asDatastoreNullDatastore` | cast |
+| `datastore.BatchingFeature → x.(*sync.MutexDatastore)` | `DatastoreBatchingFeature.asDatastoreSyncMutexDatastore` | cast |
+| `datastore.BatchingFeature → x.(datastore.Batching)` | `DatastoreBatchingFeature.asDatastoreBatching` | cast |
+| `datastore.BatchingFeature → x.(repo.Datastore)` | `DatastoreBatchingFeature.asKuboRepoDatastore` | cast |
+| `datastore.CheckedFeature → x.(*datastore.LogDatastore)` | `DatastoreCheckedFeature.asDatastoreLogDatastore` | cast |
+| `datastore.CheckedFeature → x.(*datastore.NullDatastore)` | `DatastoreCheckedFeature.asDatastoreNullDatastore` | cast |
+| `datastore.CheckedFeature → x.(*sync.MutexDatastore)` | `DatastoreCheckedFeature.asDatastoreSyncMutexDatastore` | cast |
+| `datastore.Datastore → x.(*datastore.LogDatastore)` | `Datastore.asDatastoreLogDatastore` | cast |
 | `datastore.Datastore → x.(*datastore.MapDatastore)` | `Datastore.asDatastoreMapDatastore` | cast |
 | `datastore.Datastore → x.(*datastore.NullDatastore)` | `Datastore.asDatastoreNullDatastore` | cast |
 | `datastore.Datastore → x.(*sync.MutexDatastore)` | `Datastore.asDatastoreSyncMutexDatastore` | cast |
 | `datastore.Datastore → x.(datastore.Batching)` | `Datastore.asDatastoreBatching` | cast |
+| `datastore.Datastore → x.(datastore.Shim)` | `Datastore.asDatastoreShim` | cast |
+| `datastore.Datastore → x.(repo.Datastore)` | `Datastore.asKuboRepoDatastore` | cast |
+| `datastore.GCFeature → x.(*datastore.LogDatastore)` | `DatastoreGcFeature.asDatastoreLogDatastore` | cast |
+| `datastore.GCFeature → x.(*datastore.NullDatastore)` | `DatastoreGcFeature.asDatastoreNullDatastore` | cast |
+| `datastore.GCFeature → x.(*sync.MutexDatastore)` | `DatastoreGcFeature.asDatastoreSyncMutexDatastore` | cast |
+| `datastore.PersistentFeature → x.(*datastore.LogDatastore)` | `DatastorePersistentFeature.asDatastoreLogDatastore` | cast |
+| `datastore.PersistentFeature → x.(*datastore.NullDatastore)` | `DatastorePersistentFeature.asDatastoreNullDatastore` | cast |
+| `datastore.PersistentFeature → x.(*sync.MutexDatastore)` | `DatastorePersistentFeature.asDatastoreSyncMutexDatastore` | cast |
+| `datastore.Read → x.(*datastore.LogDatastore)` | `DatastoreRead.asDatastoreLogDatastore` | cast |
+| `datastore.Read → x.(*datastore.MapDatastore)` | `DatastoreRead.asDatastoreMapDatastore` | cast |
+| `datastore.Read → x.(*datastore.NullDatastore)` | `DatastoreRead.asDatastoreNullDatastore` | cast |
+| `datastore.Read → x.(*sync.MutexDatastore)` | `DatastoreRead.asDatastoreSyncMutexDatastore` | cast |
+| `datastore.Read → x.(datastore.Batching)` | `DatastoreRead.asDatastoreBatching` | cast |
+| `datastore.Read → x.(datastore.Datastore)` | `DatastoreRead.asDatastore` | cast |
+| `datastore.Read → x.(datastore.Shim)` | `DatastoreRead.asDatastoreShim` | cast |
+| `datastore.Read → x.(datastore.Txn)` | `DatastoreRead.asDatastoreTxn` | cast |
+| `datastore.Read → x.(repo.Datastore)` | `DatastoreRead.asKuboRepoDatastore` | cast |
+| `datastore.ScrubbedFeature → x.(*datastore.LogDatastore)` | `DatastoreScrubbedFeature.asDatastoreLogDatastore` | cast |
+| `datastore.ScrubbedFeature → x.(*datastore.NullDatastore)` | `DatastoreScrubbedFeature.asDatastoreNullDatastore` | cast |
+| `datastore.ScrubbedFeature → x.(*sync.MutexDatastore)` | `DatastoreScrubbedFeature.asDatastoreSyncMutexDatastore` | cast |
+| `datastore.Shim → x.(*datastore.LogDatastore)` | `DatastoreShim.asDatastoreLogDatastore` | cast |
+| `datastore.Shim → x.(*sync.MutexDatastore)` | `DatastoreShim.asDatastoreSyncMutexDatastore` | cast |
+| `datastore.TxnFeature → x.(*datastore.NullDatastore)` | `DatastoreTxnFeature.asDatastoreNullDatastore` | cast |
+| `datastore.Write → x.(*datastore.LogBatch)` | `DatastoreWrite.asDatastoreLogBatch` | cast |
+| `datastore.Write → x.(*datastore.LogDatastore)` | `DatastoreWrite.asDatastoreLogDatastore` | cast |
+| `datastore.Write → x.(*datastore.MapDatastore)` | `DatastoreWrite.asDatastoreMapDatastore` | cast |
+| `datastore.Write → x.(*datastore.NullDatastore)` | `DatastoreWrite.asDatastoreNullDatastore` | cast |
+| `datastore.Write → x.(*sync.MutexDatastore)` | `DatastoreWrite.asDatastoreSyncMutexDatastore` | cast |
+| `datastore.Write → x.(datastore.Batch)` | `DatastoreWrite.asDatastoreBatch` | cast |
+| `datastore.Write → x.(datastore.Batching)` | `DatastoreWrite.asDatastoreBatching` | cast |
+| `datastore.Write → x.(datastore.Datastore)` | `DatastoreWrite.asDatastore` | cast |
+| `datastore.Write → x.(datastore.Shim)` | `DatastoreWrite.asDatastoreShim` | cast |
+| `datastore.Write → x.(datastore.Txn)` | `DatastoreWrite.asDatastoreTxn` | cast |
+| `datastore.Write → x.(repo.Datastore)` | `DatastoreWrite.asKuboRepoDatastore` | cast |
 | `const datastore.FeatureNameBatching untyped string` | `Go.datastore.featureNameBatching` | const |
 | `const datastore.FeatureNameChecked untyped string` | `Go.datastore.featureNameChecked` | const |
 | `const datastore.FeatureNameGC untyped string` | `Go.datastore.featureNameGc` | const |
@@ -399,16 +1429,126 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `const datastore.FeatureNameTTL untyped string` | `Go.datastore.featureNameTtl` | const |
 | `const datastore.FeatureNameTransaction untyped string` | `Go.datastore.featureNameTransaction` | const |
 
+Omitted:
+
+- `func (datastore.KeySlice).Len() int`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/ipfs/go-datastore.KeySlice
+- `func (datastore.KeySlice).Less(i int, j int) bool`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/ipfs/go-datastore.KeySlice
+- `func (datastore.KeySlice).Swap(i int, j int)`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/ipfs/go-datastore.KeySlice
+- `func datastore.QueryIter(ctx context.Context, ds datastore.Read, q query.Query) iter.Seq2[query.Entry, error]`: result 0: generic iter.Seq2[github.com/ipfs/go-datastore/query.Entry, error]
+
+## `github.com/ipfs/go-datastore/query` → `Go.datastore.query` (`lib/go/datastore/query.dart`)
+
+| Go | Dart | Mode |
+|---|---|---|
+| `const query.KeysOnlyBufSize untyped int` | `Go.datastore.query.keysOnlyBufSize` | const |
+| `const query.NormalBufSize untyped int` | `Go.datastore.query.normalBufSize` | const |
+
 ## `github.com/ipfs/go-datastore/sync` → `Go.datastore.sync` (`lib/go/datastore/sync.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
+| `func (*sync.MutexDatastore).Batch(ctx context.Context) (datastore.Batch, error)` | `DatastoreSyncMutexDatastore.batch` | Future |
+| `func (*sync.MutexDatastore).Check(ctx context.Context) error` | `DatastoreSyncMutexDatastore.check` | Future |
+| `func (*sync.MutexDatastore).Children() []datastore.Datastore` | `DatastoreSyncMutexDatastore.children` | sync |
+| `func (*sync.MutexDatastore).Close() error` | `DatastoreSyncMutexDatastore.close` | sync |
+| `func (*sync.MutexDatastore).CollectGarbage(ctx context.Context) error` | `DatastoreSyncMutexDatastore.collectGarbage` | Future |
+| `func (*sync.MutexDatastore).Delete(ctx context.Context, key datastore.Key) (err error)` | `DatastoreSyncMutexDatastore.delete` | Future |
+| `func (*sync.MutexDatastore).DiskUsage(ctx context.Context) (uint64, error)` | `DatastoreSyncMutexDatastore.diskUsage` | Future |
+| `func (*sync.MutexDatastore).Get(ctx context.Context, key datastore.Key) (value []byte, err error)` | `DatastoreSyncMutexDatastore.get` | Future |
+| `func (*sync.MutexDatastore).GetSize(ctx context.Context, key datastore.Key) (size int, err error)` | `DatastoreSyncMutexDatastore.getSize` | Future |
+| `func (*sync.MutexDatastore).Has(ctx context.Context, key datastore.Key) (exists bool, err error)` | `DatastoreSyncMutexDatastore.has` | Future |
+| `func (*sync.MutexDatastore).Put(ctx context.Context, key datastore.Key, value []byte) (err error)` | `DatastoreSyncMutexDatastore.put` | Future |
+| `func (*sync.MutexDatastore).Query(ctx context.Context, q query.Query) (query.Results, error)` | `DatastoreSyncMutexDatastore.query` | Future |
+| `func (*sync.MutexDatastore).Scrub(ctx context.Context) error` | `DatastoreSyncMutexDatastore.scrub` | Future |
+| `func (*sync.MutexDatastore).Sync(ctx context.Context, prefix datastore.Key) error` | `DatastoreSyncMutexDatastore.sync` | Future |
 | `func sync.MutexWrap(d datastore.Datastore) *sync.MutexDatastore` | `Go.datastore.sync.mutexWrap` | sync |
 
 ## `github.com/ipfs/go-ipfs-cmds` → `Go.ipfsCmds` (`lib/go/ipfs_cmds.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
+| `func (cmds.Argument).EnableRecursive() cmds.Argument` | `IpfsCmdsArgument.enableRecursive` | sync |
+| `func (cmds.Argument).EnableStdin() cmds.Argument` | `IpfsCmdsArgument.enableStdin` | sync |
+| `func cmds.BoolOption(names ...string) cmds.Option` | `Go.ipfsCmds.boolOption` | sync |
+| `func cmds.ClientError(msg string) error` | `Go.ipfsCmds.clientError` | sync |
+| `func (*cmds.Command).Call(req *cmds.Request, re cmds.ResponseEmitter, env cmds.Environment)` | `IpfsCmdsCommand.call` | sync |
+| `func (*cmds.Command).CheckArguments(req *cmds.Request) error` | `IpfsCmdsCommand.checkArguments` | sync |
+| `func (*cmds.Command).DebugValidate() map[string][]error` | `IpfsCmdsCommand.debugValidate` | sync |
+| `func (*cmds.Command).Get(path []string) (*cmds.Command, error)` | `IpfsCmdsCommand.get` | sync |
+| `func (*cmds.Command).GetOptions(path []string) (map[string]cmds.Option, error)` | `IpfsCmdsCommand.getOptions` | sync |
+| `func (*cmds.Command).ProcessHelp()` | `IpfsCmdsCommand.processHelp` | sync |
+| `func (*cmds.Command).Resolve(pth []string) ([]*cmds.Command, error)` | `IpfsCmdsCommand.resolve` | sync |
+| `func (*cmds.Command).Walk(visitor cmds.CommandVisitor)` | `IpfsCmdsCommand.walk` | Future |
+| `func cmds.Copy(re cmds.ResponseEmitter, res cmds.Response) error` | `Go.ipfsCmds.copy` | sync |
+| `func (cmds.Decoder).Decode(value any) error` | `IpfsCmdsDecoder.decode` | sync |
+| `func cmds.DelimitedStringsOption(delimiter string, names ...string) cmds.Option` | `Go.ipfsCmds.delimitedStringsOption` | sync |
+| `func cmds.EmitOnce(re cmds.ResponseEmitter, v any) error` | `Go.ipfsCmds.emitOnce` | sync |
+| `func (cmds.Encoder).Encode(value any) error` | `IpfsCmdsEncoder.encode` | sync |
+| `func (cmds.Executor).Execute(req *cmds.Request, re cmds.ResponseEmitter, env cmds.Environment) error` | `IpfsCmdsExecutor.execute` | sync |
+| `func (*cmds.Extra).GetValue(key any) (any, bool)` | `IpfsCmdsExtra.getValue` | sync |
+| `func (*cmds.Extra).SetValue(key any, value any) *cmds.Extra` | `IpfsCmdsExtra.setValue` | sync |
+| `func cmds.FileArg(name string, required bool, variadic bool, description string) cmds.Argument` | `Go.ipfsCmds.fileArg` | sync |
+| `func cmds.FloatOption(names ...string) cmds.Option` | `Go.ipfsCmds.floatOption` | sync |
+| `func cmds.GetEncoder(req *cmds.Request, w io.Writer, def cmds.EncodingType) (encType cmds.EncodingType, enc cmds.Encoder, err error)` | `Go.ipfsCmds.getEncoder` | sync |
+| `func cmds.GetEncoding(req *cmds.Request, def cmds.EncodingType) cmds.EncodingType` | `Go.ipfsCmds.getEncoding` | sync |
+| `func cmds.Int64Option(names ...string) cmds.Option` | `Go.ipfsCmds.int64Option` | sync |
+| `func cmds.IntOption(names ...string) cmds.Option` | `Go.ipfsCmds.intOption` | sync |
+| `func (*cmds.MaybeError).Get() (any, error)` | `IpfsCmdsMaybeError.get` | sync |
+| `func (*cmds.MaybeError).UnmarshalJSON(data []byte) error` | `IpfsCmdsMaybeError.unmarshalJson` | sync |
+| `func cmds.NewChanResponsePair(req *cmds.Request) (cmds.ResponseEmitter, cmds.Response)` | `Go.ipfsCmds.newChanResponsePair` | sync |
+| `func cmds.NewExecutor(root *cmds.Command) cmds.Executor` | `factory IpfsCmdsExecutor` | sync |
+| `func cmds.NewFlushForwarder(re cmds.ResponseEmitter, f cmds.Flusher) cmds.ResponseEmitter` | `Go.ipfsCmds.newFlushForwarder` | sync |
+| `func cmds.NewOption(kind reflect.Kind, names ...string) cmds.Option` | `factory IpfsCmdsOption` | sync |
+| `func cmds.NewReaderResponse(r io.Reader, req *cmds.Request) (cmds.Response, error)` | `Go.ipfsCmds.newReaderResponse` | sync |
+| `func cmds.NewWriterResponseEmitter(w io.WriteCloser, req *cmds.Request) (cmds.ResponseEmitter, error)` | `Go.ipfsCmds.newWriterResponseEmitter` | sync |
+| `func (cmds.Option).Default() any` | `IpfsCmdsOption.default$` | sync |
+| `func (cmds.Option).Description() string` | `IpfsCmdsOption.description` | sync |
+| `func (cmds.Option).Name() string` | `IpfsCmdsOption.name` | sync |
+| `func (cmds.Option).Names() []string` | `IpfsCmdsOption.names` | sync |
+| `func (cmds.Option).Parse(str string) (any, error)` | `IpfsCmdsOption.parse` | sync |
+| `func (cmds.Option).Type() reflect.Kind` | `IpfsCmdsOption.type` | sync |
+| `func (cmds.Option).WithDefault(any) cmds.Option` | `IpfsCmdsOption.withDefault` | sync |
+| `var cmds.OptionDerefArgs cmds.Option` | `Go.ipfsCmds.optionDerefArgs` | sync |
+| `var cmds.OptionDerefSymlinks cmds.Option` | `Go.ipfsCmds.optionDerefSymlinks` | sync |
+| `var cmds.OptionEncodingType cmds.Option` | `Go.ipfsCmds.optionEncodingType` | sync |
+| `var cmds.OptionHidden cmds.Option` | `Go.ipfsCmds.optionHidden` | sync |
+| `var cmds.OptionIgnore cmds.Option` | `Go.ipfsCmds.optionIgnore` | sync |
+| `var cmds.OptionIgnoreRules cmds.Option` | `Go.ipfsCmds.optionIgnoreRules` | sync |
+| `var cmds.OptionRecursivePath cmds.Option` | `Go.ipfsCmds.optionRecursivePath` | sync |
+| `var cmds.OptionStdinName cmds.Option` | `Go.ipfsCmds.optionStdinName` | sync |
+| `var cmds.OptionStreamChannels cmds.Option` | `Go.ipfsCmds.optionStreamChannels` | sync |
+| `var cmds.OptionTimeout cmds.Option` | `Go.ipfsCmds.optionTimeout` | sync |
+| `func (*cmds.ReqLog).Add(req *cmds.Request) *cmds.ReqLogEntry` | `IpfsCmdsReqLog.add` | sync |
+| `func (*cmds.ReqLog).AddEntry(rle *cmds.ReqLogEntry)` | `IpfsCmdsReqLog.addEntry` | sync |
+| `func (*cmds.ReqLog).ClearInactive()` | `IpfsCmdsReqLog.clearInactive` | sync |
+| `func (*cmds.ReqLog).Finish(rle *cmds.ReqLogEntry)` | `IpfsCmdsReqLog.finish` | sync |
+| `func (*cmds.ReqLog).Report() []*cmds.ReqLogEntry` | `IpfsCmdsReqLog.report` | sync |
+| `func (*cmds.ReqLog).SetKeepTime(t time.Duration)` | `IpfsCmdsReqLog.setKeepTime` | sync |
+| `func (*cmds.ReqLogEntry).Copy() *cmds.ReqLogEntry` | `IpfsCmdsReqLogEntry.copy` | sync |
+| `func (*cmds.Request).BodyArgs() cmds.StdinArguments` | `IpfsCmdsRequest.bodyArgs` | sync |
+| `func (*cmds.Request).FillDefaults() error` | `IpfsCmdsRequest.fillDefaults` | sync |
+| `func (*cmds.Request).ParseBodyArgs() error` | `IpfsCmdsRequest.parseBodyArgs` | sync |
+| `func (*cmds.Request).SetOption(name string, value any)` | `IpfsCmdsRequest.setOption` | sync |
+| `func (cmds.Response).Length() uint64` | `IpfsCmdsResponse.length` | sync |
+| `func (cmds.Response).Next() (any, error)` | `IpfsCmdsResponse.next` | sync |
+| `func (cmds.Response).Request() *cmds.Request` | `IpfsCmdsResponse.request` | sync |
+| `func (cmds.ResponseEmitter).Close() error` | `IpfsCmdsResponseEmitter.close` | sync |
+| `func (cmds.ResponseEmitter).Emit(value any) error` | `IpfsCmdsResponseEmitter.emit` | sync |
+| `func (cmds.ResponseEmitter).SetContentType(contentType string)` | `IpfsCmdsResponseEmitter.setContentType` | sync |
+| `func (cmds.ResponseEmitter).SetEncodingType(encType cmds.EncodingType)` | `IpfsCmdsResponseEmitter.setEncodingType` | sync |
+| `func (cmds.ResponseEmitter).SetLength(length uint64)` | `IpfsCmdsResponseEmitter.setLength` | sync |
+| `func (cmds.Single).GoString() string` | `IpfsCmdsSingle.goString` | sync |
+| `func (cmds.Single).String() string` | `IpfsCmdsSingle.string` | sync |
+| `func (cmds.StdinArguments).Argument() string` | `IpfsCmdsStdinArguments.argument` | sync |
+| `func (cmds.StdinArguments).Err() error` | `IpfsCmdsStdinArguments.err` | sync |
+| `func (cmds.StdinArguments).Scan() bool` | `IpfsCmdsStdinArguments.scan` | sync |
+| `func cmds.StringArg(name string, required bool, variadic bool, description string) cmds.Argument` | `Go.ipfsCmds.stringArg` | sync |
+| `func cmds.StringOption(names ...string) cmds.Option` | `Go.ipfsCmds.stringOption` | sync |
+| `func cmds.StringsOption(names ...string) cmds.Option` | `Go.ipfsCmds.stringsOption` | sync |
+| `func (cmds.TextEncoder).Encode(v any) error` | `IpfsCmdsTextEncoder.encode` | sync |
+| `func cmds.Uint64Option(names ...string) cmds.Option` | `Go.ipfsCmds.uint64Option` | sync |
+| `func cmds.UintOption(names ...string) cmds.Option` | `Go.ipfsCmds.uintOption` | sync |
+| `cmds.Encoder → x.(*cmds.TextEncoder)` | `IpfsCmdsEncoder.asIpfsCmdsTextEncoder` | cast |
 | `const cmds.Active cmds.Status` | `Go.ipfsCmds.active` | const |
 | `const cmds.ArgFile cmds.ArgumentType` | `Go.ipfsCmds.argFile` | const |
 | `const cmds.ArgString cmds.ArgumentType` | `Go.ipfsCmds.argString` | const |
@@ -454,46 +1594,150 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `const cmds.Undefined untyped string` | `Go.ipfsCmds.undefined` | const |
 | `const cmds.XML untyped string` | `Go.ipfsCmds.xml` | const |
 
+Omitted:
+
+- `var cmds.Decoders map[cmds.EncodingType]func(w io.Reader) cmds.Decoder`: result 0: map[string]func(w io.Reader) github.com/ipfs/go-ipfs-cmds.Decoder
+- `func cmds.EmitChan(re cmds.ResponseEmitter, ch <-chan any) error`: parameter ch: <-chan any
+- `var cmds.Encoders cmds.EncoderMap`: result 0: tipo github.com/ipfs/go-ipfs-cmds.EncoderMap
+- `func (cmds.Flusher).Flush() error`: receiver is neither a handle, a DTO nor a value type: 
+- `func cmds.MakeEncoder(f func(*cmds.Request, io.Writer, any) error) func(*cmds.Request) func(io.Writer) cmds.Encoder`: parameter f: callback with argument io.Writer
+- `func cmds.MakeTypedEncoder(f any) func(*cmds.Request) func(io.Writer) cmds.Encoder`: result 0: func(*github.com/ipfs/go-ipfs-cmds.Request) func(io.Writer) github.com/ipfs/go-ipfs-cmds.Encoder
+- `func cmds.NewRequest(ctx context.Context, path []string, opts cmds.OptMap, args []string, file files.Directory, root *cmds.Command) (*cmds.Request, error)`: parameter opts: tipo github.com/ipfs/go-ipfs-cmds.OptMap
+- `func (cmds.ResponseEmitter).CloseWithError(error) error`: parameter error: error
+
 ## `github.com/ipfs/go-ipld-format` → `Go.ipldFormat` (`lib/go/ipld_format.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
-| `func (format.NodeAdder).Add(context.Context, format.Node) error` | `IpldFormatNodeAdder.add` | Future |
-| `func (format.NodeAdder).AddMany(context.Context, []format.Node) error` | `IpldFormatNodeAdder.addMany` | Future |
 | `func (blocks.Block).Cid() cid.Cid` | `IpldFormatNode.cid` | sync |
 | `func (blocks.Block).RawData() []byte` | `IpldFormatNode.rawData` | sync |
+| `func (format.NodeAdder).Add(context.Context, format.Node) error` | `IpldFormatDagService.add` | Future |
+| `func (*format.Batch).Add(ctx context.Context, nd format.Node) error` | `IpldFormatBatch.add` | Future |
+| `func (*format.Batch).AddMany(ctx context.Context, nodes []format.Node) error` | `IpldFormatBatch.addMany` | Future |
+| `func (*format.Batch).Commit() error` | `IpldFormatBatch.commit` | sync |
+| `func (*format.BufferedDAG).Add(ctx context.Context, n format.Node) error` | `IpldFormatBufferedDag.add` | Future |
+| `func (*format.BufferedDAG).AddMany(ctx context.Context, nds []format.Node) error` | `IpldFormatBufferedDag.addMany` | Future |
+| `func (*format.BufferedDAG).Commit() error` | `IpldFormatBufferedDag.commit` | sync |
+| `func (*format.BufferedDAG).Get(ctx context.Context, c cid.Cid) (format.Node, error)` | `IpldFormatBufferedDag.get` | Future |
+| `func (*format.BufferedDAG).GetMany(ctx context.Context, cs []cid.Cid) <-chan *format.NodeOption` | `IpldFormatBufferedDag.getMany` | Stream |
+| `func (*format.BufferedDAG).Remove(ctx context.Context, c cid.Cid) error` | `IpldFormatBufferedDag.remove` | Future |
+| `func (*format.BufferedDAG).RemoveMany(ctx context.Context, cs []cid.Cid) error` | `IpldFormatBufferedDag.removeMany` | Future |
+| `func format.Copy(ctx context.Context, from format.DAGService, to format.DAGService, root cid.Cid) error` | `Go.ipldFormat.copy` | Future |
+| `func (format.DAGService).Remove(context.Context, cid.Cid) error` | `IpldFormatDagService.remove` | Future |
+| `func (format.DAGService).RemoveMany(context.Context, []cid.Cid) error` | `IpldFormatDagService.removeMany` | Future |
+| `func format.Decode(block blocks.Block, decoder format.DecodeBlockFunc) (format.Node, error)` | `Go.ipldFormat.decode` | sync |
+| `func format.ExtractIPLDNode(node format.NavigableNode) format.Node` | `Go.ipldFormat.extractIpldNode` | sync |
+| `func format.GetDAG(ctx context.Context, ds format.NodeGetter, root format.Node) []*format.NodePromise` | `Go.ipldFormat.getDag` | Future |
+| `func format.GetLinks(ctx context.Context, ng format.NodeGetter, c cid.Cid) ([]*format.Link, error)` | `Go.ipldFormat.getLinks` | Future |
+| `func format.GetNodes(ctx context.Context, ds format.NodeGetter, keys []cid.Cid) []*format.NodePromise` | `Go.ipldFormat.getNodes` | Future |
+| `func (*format.Link).GetNode(ctx context.Context, serv format.NodeGetter) (format.Node, error)` | `IpldFormatLink.getNode` | Future |
+| `func (format.LinkGetter).GetLinks(ctx context.Context, nd cid.Cid) ([]*format.Link, error)` | `IpldFormatLinkGetter.getLinks` | Future |
+| `func format.MakeLink(n format.Node) (*format.Link, error)` | `Go.ipldFormat.makeLink` | sync |
+| `func (*format.NavigableIPLDNode).ChildTotal() uint` | `IpldFormatNavigableIpldNode.childTotal` | sync |
+| `func (*format.NavigableIPLDNode).FetchChild(ctx context.Context, childIndex uint) (format.NavigableNode, error)` | `IpldFormatNavigableIpldNode.fetchChild` | Future |
+| `func (*format.NavigableIPLDNode).GetIPLDNode() format.Node` | `IpldFormatNavigableIpldNode.getIpldNode` | sync |
+| `func (format.NavigableNode).ChildTotal() uint` | `IpldFormatNavigableNode.childTotal` | sync |
+| `func (format.NavigableNode).FetchChild(ctx context.Context, childIndex uint) (format.NavigableNode, error)` | `IpldFormatNavigableNode.fetchChild` | Future |
+| `func (format.NavigableNode).GetIPLDNode() format.Node` | `IpldFormatNavigableNode.getIpldNode` | sync |
+| `func format.NewBatch(ctx context.Context, na format.NodeAdder, opts ...format.BatchOption) *format.Batch` | `Go.ipldFormat.newBatch` | Future |
+| `func format.NewBufferedDAG(ctx context.Context, ds format.DAGService, opts ...format.BatchOption) *format.BufferedDAG` | `Go.ipldFormat.newBufferedDag` | Future |
+| `func format.NewNavigableIPLDNode(node format.Node, nodeGetter format.NodeGetter) *format.NavigableIPLDNode` | `factory IpldFormatNavigableIpldNode` | sync |
+| `func format.NewNodePromise(ctx context.Context) *format.NodePromise` | `Go.ipldFormat.newNodePromise` | Future |
+| `func format.NewWalker(ctx context.Context, root format.NavigableNode) *format.Walker` | `Go.ipldFormat.newWalker` | Future |
+| `func (format.Node).Copy() format.Node` | `IpldFormatNode.copy` | sync |
 | `func (format.Node).Links() []*format.Link` | `IpldFormatNode.links` | sync |
+| `func (format.Node).ResolveLink(path []string) (*format.Link, []string, error)` | `IpldFormatNode.resolveLink` | sync |
 | `func (format.Node).Size() (uint64, error)` | `IpldFormatNode.size` | sync |
 | `func (format.Node).Stat() (*format.NodeStat, error)` | `IpldFormatNode.stat` | sync |
+| `func (format.NodeAdder).Add(context.Context, format.Node) error` | `IpldFormatNodeAdder.add` | Future |
+| `func (format.NodeAdder).AddMany(context.Context, []format.Node) error` | `IpldFormatNodeAdder.addMany` | Future |
 | `func (format.NodeGetter).Get(context.Context, cid.Cid) (format.Node, error)` | `IpldFormatNodeGetter.get` | Future |
-| `func (format.NodeAdder).Add(context.Context, format.Node) error` | `IpldFormatDagService.add` | Future |
-| `func format.MakeLink(n format.Node) (*format.Link, error)` | `Go.ipldFormat.makeLink` | sync |
-| `func format.GetLinks(ctx context.Context, ng format.NodeGetter, c cid.Cid) ([]*format.Link, error)` | `Go.ipldFormat.getLinks` | Future |
-| `func format.Copy(ctx context.Context, from format.DAGService, to format.DAGService, root cid.Cid) error` | `Go.ipldFormat.copy` | Future |
+| `func (format.NodeGetter).GetMany(context.Context, []cid.Cid) <-chan *format.NodeOption` | `IpldFormatNodeGetter.getMany` | Stream |
+| `func (*format.NodePromise).Get(ctx context.Context) (format.Node, error)` | `IpldFormatNodePromise.get` | Future |
+| `func (*format.NodePromise).Send(nd format.Node)` | `IpldFormatNodePromise.send` | sync |
+| `func (format.NodeStat).String() string` | `IpldFormatNodeStat.string` | sync |
+| `func (*format.Registry).Decode(block blocks.Block) (format.Node, error)` | `IpldFormatRegistry.decode` | sync |
+| `func (*format.Registry).Register(codec uint64, decoder format.DecodeBlockFunc)` | `IpldFormatRegistry.register` | sync |
+| `func (format.Resolver).Resolve(path []string) (any, []string, error)` | `IpldFormatResolver.resolve` | sync |
+| `func (format.Resolver).Tree(path string, depth int) []string` | `IpldFormatResolver.tree` | sync |
+| `func (*format.Walker).ActiveChildIndex() uint` | `IpldFormatWalker.activeChildIndex` | sync |
+| `func (*format.Walker).ActiveNode() format.NavigableNode` | `IpldFormatWalker.activeNode` | sync |
+| `func (*format.Walker).NextChild() error` | `IpldFormatWalker.nextChild` | sync |
+| `func (*format.Walker).Pause()` | `IpldFormatWalker.pause` | sync |
+| `func (*format.Walker).SetContext(ctx context.Context)` | `IpldFormatWalker.setContext` | Future |
+| `format.DAGService → x.(*format.BufferedDAG)` | `IpldFormatDagService.asIpldFormatBufferedDag` | cast |
 | `format.DAGService → x.(iface.APIDagService)` | `IpldFormatDagService.asKuboCoreCoreifaceApiDagService` | cast |
+| `format.NavigableNode → x.(*format.NavigableIPLDNode)` | `IpldFormatNavigableNode.asIpldFormatNavigableIpldNode` | cast |
+| `format.Node → x.(*posinfo.FilestoreNode)` | `IpldFormatNode.asBoxoFilestorePosinfoFilestoreNode` | cast |
 | `format.Node → x.(*merkledag.ProtoNode)` | `IpldFormatNode.asBoxoIpldMerkledagProtoNode` | cast |
 | `format.Node → x.(*merkledag.RawNode)` | `IpldFormatNode.asBoxoIpldMerkledagRawNode` | cast |
+| `format.Node → x.(ipldlegacy.UniversalNode)` | `IpldFormatNode.asIpldLegacyUniversalNode` | cast |
+| `format.NodeAdder → x.(*format.Batch)` | `IpldFormatNodeAdder.asIpldFormatBatch` | cast |
+| `format.NodeAdder → x.(*format.BufferedDAG)` | `IpldFormatNodeAdder.asIpldFormatBufferedDag` | cast |
 | `format.NodeAdder → x.(format.DAGService)` | `IpldFormatNodeAdder.asIpldFormatDagService` | cast |
 | `format.NodeAdder → x.(iface.APIDagService)` | `IpldFormatNodeAdder.asKuboCoreCoreifaceApiDagService` | cast |
+| `format.NodeGetter → x.(*format.BufferedDAG)` | `IpldFormatNodeGetter.asIpldFormatBufferedDag` | cast |
 | `format.NodeGetter → x.(format.DAGService)` | `IpldFormatNodeGetter.asIpldFormatDagService` | cast |
+| `format.NodeGetter → x.(format.LinkGetter)` | `IpldFormatNodeGetter.asIpldFormatLinkGetter` | cast |
 | `format.NodeGetter → x.(iface.APIDagService)` | `IpldFormatNodeGetter.asKuboCoreCoreifaceApiDagService` | cast |
+| `format.Resolver → x.(*posinfo.FilestoreNode)` | `IpldFormatResolver.asBoxoFilestorePosinfoFilestoreNode` | cast |
+| `format.Resolver → x.(*merkledag.ProtoNode)` | `IpldFormatResolver.asBoxoIpldMerkledagProtoNode` | cast |
+| `format.Resolver → x.(*merkledag.RawNode)` | `IpldFormatResolver.asBoxoIpldMerkledagRawNode` | cast |
+| `format.Resolver → x.(format.Node)` | `IpldFormatResolver.asIpldFormatNode` | cast |
+| `format.Resolver → x.(ipldlegacy.UniversalNode)` | `IpldFormatResolver.asIpldLegacyUniversalNode` | cast |
+
+Omitted:
+
+- `func format.IsNotFound(err error) bool`: parameter err: error
+- `func format.MaxNodesBatchOption(num int) format.BatchOption`: result 0: github.com/ipfs/go-ipld-format.BatchOption
+- `func format.MaxSizeBatchOption(size int) format.BatchOption`: result 0: github.com/ipfs/go-ipld-format.BatchOption
+- `func (*format.NodePromise).Fail(err error)`: parameter err: error
+- `func (*format.Walker).Iterate(visitor format.Visitor) error`: takes a callback nobody checked yet: an explicit root in roots.txt if Go only calls it during the call, retainedFuncs if Go keeps it
+- `func (*format.Walker).Seek(visitor format.Visitor) error`: takes a callback nobody checked yet: an explicit root in roots.txt if Go only calls it during the call, retainedFuncs if Go keeps it
+
+## `github.com/ipfs/go-ipld-legacy` → `Go.ipldLegacy` (`lib/go/ipld_legacy.dart`)
+
+| Go | Dart | Mode |
+|---|---|---|
+| `ipldlegacy.UniversalNode → x.(*merkledag.ProtoNode)` | `IpldLegacyUniversalNode.asBoxoIpldMerkledagProtoNode` | cast |
+| `ipldlegacy.UniversalNode → x.(*merkledag.RawNode)` | `IpldLegacyUniversalNode.asBoxoIpldMerkledagRawNode` | cast |
+| `const ipldlegacy.ErrArrayOutOfRange ipldlegacy.errorType` | `Go.ipldLegacy.errArrayOutOfRange` | const |
+| `const ipldlegacy.ErrNoLinks ipldlegacy.errorType` | `Go.ipldLegacy.errNoLinks` | const |
+| `const ipldlegacy.ErrNoSuchLink ipldlegacy.errorType` | `Go.ipldLegacy.errNoSuchLink` | const |
+| `const ipldlegacy.ErrNonLink ipldlegacy.errorType` | `Go.ipldLegacy.errNonLink` | const |
+
+## `github.com/ipfs/go-log/v2` → `Go.log.v2` (`lib/go/log/v2.dart`)
+
+| Go | Dart | Mode |
+|---|---|---|
+| `const log.ColorizedOutput log.LogFormat` | `Go.log.v2.colorizedOutput` | const |
+| `const log.DefaultName untyped string` | `Go.log.v2.defaultName` | const |
+| `const log.JSONOutput log.LogFormat` | `Go.log.v2.jsonOutput` | const |
+| `const log.PlaintextOutput log.LogFormat` | `Go.log.v2.plaintextOutput` | const |
 
 ## `github.com/ipfs/go-unixfsnode` → `Go.unixfsnode` (`lib/go/unixfsnode.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
 | `func unixfsnode.AddUnixFSReificationToLinkSystem(lsys *ipld.LinkSystem)` | `Go.unixfsnode.addUnixFsReificationToLinkSystem` | sync |
-| `func unixfsnode.UnixFSPathSelector(path string) datamodel.Node` | `Go.unixfsnode.unixFsPathSelector` | sync |
-| `func unixfsnode.UnixFSPathSelectorBuilder(path string, targetSelector builder.SelectorSpec, matchPath bool) ipld.Node` | `Go.unixfsnode.unixFsPathSelectorBuilder` | sync |
-| `var unixfsnode.MatchUnixFSSelector builder.SelectorSpec` | `Go.unixfsnode.matchUnixFsSelector` | sync |
+| `func unixfsnode.BytesConsumingMatcher(p traversal.Progress, n datamodel.Node) error` | `Go.unixfsnode.bytesConsumingMatcher` | sync |
+| `var unixfsnode.ExploreAllRecursivelySelector builder.SelectorSpec` | `Go.unixfsnode.exploreAllRecursivelySelector` | sync |
 | `var unixfsnode.MatchUnixFSEntitySelector builder.SelectorSpec` | `Go.unixfsnode.matchUnixFsEntitySelector` | sync |
 | `var unixfsnode.MatchUnixFSPreloadSelector builder.SelectorSpec` | `Go.unixfsnode.matchUnixFsPreloadSelector` | sync |
-| `var unixfsnode.ExploreAllRecursivelySelector builder.SelectorSpec` | `Go.unixfsnode.exploreAllRecursivelySelector` | sync |
+| `var unixfsnode.MatchUnixFSSelector builder.SelectorSpec` | `Go.unixfsnode.matchUnixFsSelector` | sync |
+| `func unixfsnode.Reify(lnkCtx ipld.LinkContext, maybePBNodeRoot ipld.Node, lsys *ipld.LinkSystem) (ipld.Node, error)` | `Go.unixfsnode.reify` | sync |
+| `func unixfsnode.UnixFSPathSelector(path string) datamodel.Node` | `Go.unixfsnode.unixFsPathSelector` | sync |
+| `func unixfsnode.UnixFSPathSelectorBuilder(path string, targetSelector builder.SelectorSpec, matchPath bool) ipld.Node` | `Go.unixfsnode.unixFsPathSelectorBuilder` | sync |
 
 ## `github.com/ipfs/kubo` → `Go.kubo` (`lib/go/kubo.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
+| `var ipfs.CurrentCommit string` | `Go.kubo.currentCommit` | sync |
+| `func ipfs.GetUserAgentVersion() string` | `Go.kubo.getUserAgentVersion` | sync |
+| `func ipfs.GetVersionInfo() *ipfs.VersionInfo` | `Go.kubo.getVersionInfo` | sync |
+| `func ipfs.ImplicitAgentSuffix() string` | `Go.kubo.implicitAgentSuffix` | sync |
+| `func ipfs.SetUserAgentSuffix(suffix string)` | `Go.kubo.setUserAgentSuffix` | sync |
 | `const ipfs.ApiVersion untyped string` | `Go.kubo.apiVersion` | const |
 | `const ipfs.CurrentVersionNumber untyped string` | `Go.kubo.currentVersionNumber` | const |
 | `const ipfs.RepoVersion untyped int` | `Go.kubo.repoVersion` | const |
@@ -502,11 +1746,72 @@ Each line is an exposed Go symbol and where it is in Dart.
 
 | Go | Dart | Mode |
 |---|---|---|
-| `func config.CreateIdentity(out io.Writer, opts []options.KeyGenerateOption) (config.Identity, error)` | `Go.kubo.config.createIdentity` | sync |
-| `func config.InitWithIdentity(identity config.Identity) (*config.Config, error)` | `Go.kubo.config.initWithIdentity` | sync |
-| `func config.ParseBootstrapPeers(addrs []string) ([]peer.AddrInfo, error)` | `Go.kubo.config.parseBootstrapPeers` | sync |
 | `func config.BootstrapPeerStrings(bps []peer.AddrInfo) []string` | `Go.kubo.config.bootstrapPeerStrings` | sync |
+| `func config.CheckKey(key string) error` | `Go.kubo.config.checkKey` | sync |
+| `func config.ConvertAuthSecret(secret string) string` | `Go.kubo.config.convertAuthSecret` | sync |
+| `func config.CreateIdentity(out io.Writer, opts []options.KeyGenerateOption) (config.Identity, error)` | `Go.kubo.config.createIdentity` | sync |
+| `func config.DataStorePath(configroot string) (string, error)` | `Go.kubo.config.dataStorePath` | sync |
+| `func config.DefaultDatastoreConfig() config.Datastore` | `Go.kubo.config.defaultDatastoreConfig` | sync |
+| `var config.DefaultHTTPRoutersFilterProtocols []string` | `Go.kubo.config.defaultHttpRoutersFilterProtocols` | sync |
+| `var config.DefaultMigrationDownloadSources []string` | `Go.kubo.config.defaultMigrationDownloadSources` | sync |
+| `var config.DefaultUnixFSDirectoryMaxLinks int64` | `Go.kubo.config.defaultUnixFsDirectoryMaxLinks` | sync |
+| `var config.DefaultUnixFSFileMaxLinks int64` | `Go.kubo.config.defaultUnixFsFileMaxLinks` | sync |
+| `var config.DefaultUnixFSHAMTDirectoryMaxFanout int64` | `Go.kubo.config.defaultUnixFshamtDirectoryMaxFanout` | sync |
+| `func (config.Duration).MarshalJSON() ([]byte, error)` | `KuboConfigDuration.marshalJson` | sync |
+| `func (*config.Duration).UnmarshalJSON(b []byte) error` | `KuboConfigDuration.unmarshalJson` | sync |
+| `func config.Filename(configroot string, userConfigFile string) (string, error)` | `Go.kubo.config.filename` | sync |
+| `func config.FromMap(v map[string]any) (*config.Config, error)` | `Go.kubo.config.fromMap` | sync |
+| `func config.GetAutoConfClient(cfg *config.Config) (*autoconf.Client, error)` | `Go.kubo.config.getAutoConfClient` | sync |
+| `func (*config.HTTPRouterParams).FillDefaults()` | `KuboConfigHttpRouterParams.fillDefaults` | sync |
+| `func config.HumanOutput(value any) ([]byte, error)` | `Go.kubo.config.humanOutput` | sync |
+| `func (*config.Identity).DecodePrivateKey(passphrase string) (crypto.PrivKey, error)` | `KuboConfigIdentity.decodePrivateKey` | sync |
+| `func (*config.Import).HAMTSizeEstimationMode() io.SizeEstimationMode` | `KuboConfigImport.hamtSizeEstimationMode` | sync |
+| `func (*config.Import).PBNodeFieldOrderMode() merkledag.PBNodeFieldOrder` | `KuboConfigImport.pbNodeFieldOrderMode` | sync |
+| `func (*config.Import).UnixFSCidBuilder() (cid.Builder, error)` | `KuboConfigImport.unixFsCidBuilder` | sync |
+| `func (*config.Import).UnixFSSplitterFunc() chunk.SplitterGen` | `KuboConfigImport.unixFsSplitterFunc` | sync |
+| `func config.Init(out io.Writer, nBitsForKeypair int) (*config.Config, error)` | `Go.kubo.config.init` | sync |
+| `func config.InitWithIdentity(identity config.Identity) (*config.Config, error)` | `Go.kubo.config.initWithIdentity` | sync |
+| `func config.Marshal(value any) ([]byte, error)` | `Go.kubo.config.marshal` | sync |
+| `var config.MethodNameList []config.MethodName` | `Go.kubo.config.methodNameList` | sync |
+| `func config.MustParseProvideStrategy(s string) config.ProvideStrategy` | `Go.kubo.config.mustParseProvideStrategy` | sync |
+| `func config.NewOptionalBytes(s string) *config.OptionalBytes` | `Go.kubo.config.newOptionalBytes` | sync |
+| `func config.NewOptionalDuration(d time.Duration) *config.OptionalDuration` | `factory KuboConfigOptionalDuration` | sync |
+| `func config.NewOptionalInteger(v int64) *config.OptionalInteger` | `factory KuboConfigOptionalInteger` | sync |
+| `func config.NewOptionalString(s string) *config.OptionalString` | `factory KuboConfigOptionalString` | sync |
+| `func (*config.OptionalBytes).IsDefault() bool` | `KuboConfigOptionalBytes.isDefault` | sync |
+| `func (config.OptionalString).MarshalJSON() ([]byte, error)` | `KuboConfigOptionalBytes.marshalJson` | sync |
+| `func (config.OptionalString).String() string` | `KuboConfigOptionalBytes.string` | sync |
+| `func (*config.OptionalBytes).UnmarshalJSON(input []byte) error` | `KuboConfigOptionalBytes.unmarshalJson` | sync |
+| `func (*config.OptionalBytes).WithDefault(defaultValue uint64) (value uint64)` | `KuboConfigOptionalBytes.withDefault` | sync |
+| `func (*config.OptionalDuration).IsDefault() bool` | `KuboConfigOptionalDuration.isDefault` | sync |
+| `func (config.OptionalDuration).MarshalJSON() ([]byte, error)` | `KuboConfigOptionalDuration.marshalJson` | sync |
+| `func (config.OptionalDuration).String() string` | `KuboConfigOptionalDuration.string` | sync |
+| `func (*config.OptionalDuration).UnmarshalJSON(input []byte) error` | `KuboConfigOptionalDuration.unmarshalJson` | sync |
+| `func (*config.OptionalDuration).WithDefault(defaultValue time.Duration) time.Duration` | `KuboConfigOptionalDuration.withDefault` | sync |
+| `func (*config.OptionalInteger).IsDefault() bool` | `KuboConfigOptionalInteger.isDefault` | sync |
+| `func (config.OptionalInteger).MarshalJSON() ([]byte, error)` | `KuboConfigOptionalInteger.marshalJson` | sync |
+| `func (config.OptionalInteger).String() string` | `KuboConfigOptionalInteger.string` | sync |
+| `func (*config.OptionalInteger).UnmarshalJSON(input []byte) error` | `KuboConfigOptionalInteger.unmarshalJson` | sync |
+| `func (*config.OptionalInteger).WithDefault(defaultValue int64) (value int64)` | `KuboConfigOptionalInteger.withDefault` | sync |
+| `func (*config.OptionalString).IsDefault() bool` | `KuboConfigOptionalString.isDefault` | sync |
+| `func (config.OptionalString).MarshalJSON() ([]byte, error)` | `KuboConfigOptionalString.marshalJson` | sync |
+| `func (config.OptionalString).String() string` | `KuboConfigOptionalString.string` | sync |
+| `func (*config.OptionalString).UnmarshalJSON(input []byte) error` | `KuboConfigOptionalString.unmarshalJson` | sync |
+| `func (*config.OptionalString).WithDefault(defaultValue string) (value string)` | `KuboConfigOptionalString.withDefault` | sync |
+| `func config.ParseBootstrapPeers(addrs []string) ([]peer.AddrInfo, error)` | `Go.kubo.config.parseBootstrapPeers` | sync |
+| `func config.ParseProvideStrategy(s string) (#rv1 config.ProvideStrategy, #rv2 error)` | `Go.kubo.config.parseProvideStrategy` | sync |
+| `func config.Path(configroot string, extension string) (string, error)` | `Go.kubo.config.path` | sync |
 | `func config.PathRoot() (string, error)` | `Go.kubo.config.pathRoot` | sync |
+| `var config.PinningConcealSelector []string` | `Go.kubo.config.pinningConcealSelector` | sync |
+| `func config.ReflectToMap(conf any) any` | `Go.kubo.config.reflectToMap` | sync |
+| `var config.RemoteServicesPath string` | `Go.kubo.config.remoteServicesPath` | sync |
+| `func config.ResolveBoolFromConfig(userValue bool, userSet bool, configFlag config.Flag, defaultValue bool) bool` | `Go.kubo.config.resolveBoolFromConfig` | sync |
+| `func (*config.RouterParser).UnmarshalJSON(b []byte) error` | `KuboConfigRouterParser.unmarshalJson` | sync |
+| `func config.ShouldProvideForStrategy(strategy config.ProvideStrategy, isPinned bool, isPinnedRoot bool, isMFS bool) bool` | `Go.kubo.config.shouldProvideForStrategy` | sync |
+| `func config.ToMap(conf *config.Config) (map[string]any, error)` | `Go.kubo.config.toMap` | sync |
+| `func config.ValidateAutoConfWithRepo(cfg *config.Config, swarmKeyExists bool) error` | `Go.kubo.config.validateAutoConfWithRepo` | sync |
+| `func config.ValidateImportConfig(cfg *config.Import) error` | `Go.kubo.config.validateImportConfig` | sync |
+| `func config.ValidateProvideConfig(cfg *config.Provide) error` | `Go.kubo.config.validateProvideConfig` | sync |
 | `const config.APITag untyped string` | `Go.kubo.config.apiTag` | const |
 | `const config.AuthorizationTag untyped string` | `Go.kubo.config.authorizationTag` | const |
 | `const config.AutoNATServiceDisabled config.AutoNATServiceMode` | `Go.kubo.config.autoNatServiceDisabled` | const |
@@ -652,12 +1957,38 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `const config.RouterTypeSequential config.RouterType` | `Go.kubo.config.routerTypeSequential` | const |
 | `const config.True config.Flag` | `Go.kubo.config.true$` | const |
 
+Omitted:
+
+- `func (config.AutoNATServiceMode).MarshalText() ([]byte, error)`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/ipfs/kubo/config.AutoNATServiceMode
+- `func (*config.AutoNATServiceMode).UnmarshalText(text []byte) error`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/ipfs/kubo/config.AutoNATServiceMode
+- `func (*config.Config).BootstrapPeers() ([]peer.AddrInfo, error)`: receiver is neither a handle, a DTO nor a value type: 
+- `func (*config.Config).BootstrapPeersWithAutoConf() ([]peer.AddrInfo, error)`: receiver is neither a handle, a DTO nor a value type: 
+- `func (*config.Config).BootstrapWithAutoConf() []string`: receiver is neither a handle, a DTO nor a value type: 
+- `func (*config.Config).Clone() (*config.Config, error)`: receiver is neither a handle, a DTO nor a value type: 
+- `func (*config.Config).DNSResolversWithAutoConf() map[string]string`: receiver is neither a handle, a DTO nor a value type: 
+- `func (*config.Config).DelegatedPublishersWithAutoConf() []string`: receiver is neither a handle, a DTO nor a value type: 
+- `func (*config.Config).DelegatedRoutersWithAutoConf() []string`: receiver is neither a handle, a DTO nor a value type: 
+- `func (*config.Config).ExpandAutoConfValues(cfg map[string]any) (map[string]any, error)`: receiver is neither a handle, a DTO nor a value type: 
+- `func (*config.Config).ExpandConfigField(key string, value any) any`: receiver is neither a handle, a DTO nor a value type: 
+- `func (*config.Config).HasHTTPProviderConfigured() bool`: receiver is neither a handle, a DTO nor a value type: 
+- `func (*config.Config).SetBootstrapPeers(bps []peer.AddrInfo)`: receiver is neither a handle, a DTO nor a value type: 
+- `func (config.Flag).MarshalJSON() ([]byte, error)`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/ipfs/kubo/config.Flag
+- `func (config.Flag).String() string`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/ipfs/kubo/config.Flag
+- `func (*config.Flag).UnmarshalJSON(input []byte) error`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/ipfs/kubo/config.Flag
+- `func (config.Flag).WithDefault(defaultValue bool) bool`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/ipfs/kubo/config.Flag
+- `func (*config.Import).MFSRootOptions() ([]mfs.Option, error)`: result 0: []github.com/ipfs/boxo/mfs.Option
+- `func (config.Methods).Check() error`: receiver is neither a handle, a DTO nor a value type: *tipo github.com/ipfs/kubo/config.Methods
+- `func (config.Priority).MarshalJSON() ([]byte, error)`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/ipfs/kubo/config.Priority
+- `func (config.Priority).String() string`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/ipfs/kubo/config.Priority
+- `func (*config.Priority).UnmarshalJSON(input []byte) error`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/ipfs/kubo/config.Priority
+- `func (config.Priority).WithDefault(defaultPriority config.Priority) (priority int64, enabled bool)`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/ipfs/kubo/config.Priority
+- `func (config.Strings).MarshalJSON() ([]byte, error)`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/ipfs/kubo/config.Strings
+- `func (*config.Strings).UnmarshalJSON(data []byte) error`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/ipfs/kubo/config.Strings
+
 ## `github.com/ipfs/kubo/core` → `Go.kubo.core` (`lib/go/kubo/core.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
-| `func core.NewNode(ctx context.Context, cfg *core.BuildCfg) (*core.IpfsNode, error)` | `Go.kubo.core.newNode` | Future |
-| `func (*core.IpfsNode).Close() error` | `KuboCoreIpfsNode.close` | Future |
 | `(*core.IpfsNode).FilesRoot *mfs.Root` | `KuboCoreIpfsNode.filesRoot` | field |
 | `(*core.IpfsNode).FilesRoot *mfs.Root` | `KuboCoreIpfsNode.filesRoot =` | field |
 | `(*core.IpfsNode).Repo repo.Repo` | `KuboCoreIpfsNode.repo` | field |
@@ -678,11 +2009,79 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `(*core.IpfsNode).ResourceManager network.ResourceManager` | `KuboCoreIpfsNode.resourceManager =` | field |
 | `(*core.IpfsNode).BaseBlocks node.BaseBlocks` | `KuboCoreIpfsNode.baseBlocks` | field |
 | `(*core.IpfsNode).BaseBlocks node.BaseBlocks` | `KuboCoreIpfsNode.baseBlocks =` | field |
+| `func (*core.IpfsNode).Bootstrap(cfg bootstrap.BootstrapConfig) error` | `KuboCoreIpfsNode.bootstrap` | sync |
+| `func (*core.IpfsNode).Close() error` | `KuboCoreIpfsNode.close` | Future |
+| `func (*core.IpfsNode).HasActiveDHTClient() bool` | `KuboCoreIpfsNode.hasActiveDhtClient` | sync |
+| `func (*core.IpfsNode).MFSRoots() []*mfs.Root` | `KuboCoreIpfsNode.mfsRoots` | sync |
+| `func (*core.IpfsNode).RegisterMFSRoot(r *mfs.Root)` | `KuboCoreIpfsNode.registerMfsRoot` | sync |
+| `func (*core.IpfsNode).UnregisterMFSRoot(r *mfs.Root)` | `KuboCoreIpfsNode.unregisterMfsRoot` | sync |
+| `func core.NewNode(ctx context.Context, cfg *core.BuildCfg) (*core.IpfsNode, error)` | `Go.kubo.core.newNode` | Future |
+| `var core.TempBootstrapPeersKey datastore.Key` | `Go.kubo.core.tempBootstrapPeersKey` | sync |
+
+Omitted:
+
+- `func (*core.IpfsNode).Context() context.Context`: result 0: context.Context
+- `func core.RegisterFXOptionFunc(optFunc core.fxOptFunc)`: parameter optFunc: unexported type github.com/ipfs/kubo/core.fxOptFunc
 
 ## `github.com/ipfs/kubo/core/commands` → `Go.kubo.core.commands` (`lib/go/kubo/core/commands.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
+| `var commands.ActiveReqsCmd *cmds.Command` | `Go.kubo.core.commands.activeReqsCmd` | sync |
+| `var commands.AddCmd *cmds.Command` | `Go.kubo.core.commands.addCmd` | sync |
+| `var commands.BitswapCmd *cmds.Command` | `Go.kubo.core.commands.bitswapCmd` | sync |
+| `var commands.BlockCmd *cmds.Command` | `Go.kubo.core.commands.blockCmd` | sync |
+| `func (commands.BlockStat).String() string` | `KuboCoreCommandsBlockStat.string` | sync |
+| `var commands.BootstrapCmd *cmds.Command` | `Go.kubo.core.commands.bootstrapCmd` | sync |
+| `var commands.CatCmd *cmds.Command` | `Go.kubo.core.commands.catCmd` | sync |
+| `var commands.CidCmd *cmds.Command` | `Go.kubo.core.commands.cidCmd` | sync |
+| `func commands.CommandsCmd(root *cmds.Command) *cmds.Command` | `Go.kubo.core.commands.commandsCmd` | sync |
+| `var commands.CommandsDaemonCmd *cmds.Command` | `Go.kubo.core.commands.commandsDaemonCmd` | sync |
+| `func commands.CompletionCmd(root *cmds.Command) *cmds.Command` | `Go.kubo.core.commands.completionCmd` | sync |
+| `var commands.ConfigCmd *cmds.Command` | `Go.kubo.core.commands.configCmd` | sync |
+| `func commands.CreateCmdExtras(opts ...func(e *cmds.Extra)) *cmds.Extra` | `Go.kubo.core.commands.createCmdExtras` | sync |
+| `func commands.DaemonNotRunning(req *cmds.Request, env cmds.Environment) error` | `Go.kubo.core.commands.daemonNotRunning` | sync |
+| `var commands.DefaultBufSize int` | `Go.kubo.core.commands.defaultBufSize` | sync |
+| `func commands.DetectNewKuboVersion(nd *core.IpfsNode, minPercent int64) (commands.VersionCheckOutput, error)` | `Go.kubo.core.commands.detectNewKuboVersion` | sync |
+| `var commands.DhtCmd *cmds.Command` | `Go.kubo.core.commands.dhtCmd` | sync |
+| `var commands.DiagCmd *cmds.Command` | `Go.kubo.core.commands.diagCmd` | sync |
+| `func commands.ExternalBinary(instructions string) *cmds.Command` | `Go.kubo.core.commands.externalBinary` | sync |
+| `var commands.FileStoreCmd *cmds.Command` | `Go.kubo.core.commands.fileStoreCmd` | sync |
+| `var commands.FilesCmd *cmds.Command` | `Go.kubo.core.commands.filesCmd` | sync |
+| `var commands.GetCmd *cmds.Command` | `Go.kubo.core.commands.getCmd` | sync |
+| `func commands.GetDoesNotUseConfigAsInput(e *cmds.Extra) (val bool, found bool)` | `Go.kubo.core.commands.getDoesNotUseConfigAsInput` | sync |
+| `func commands.GetDoesNotUseRepo(e *cmds.Extra) (val bool, found bool)` | `Go.kubo.core.commands.getDoesNotUseRepo` | sync |
+| `func commands.GetPreemptsAutoUpdate(e *cmds.Extra) (val bool, found bool)` | `Go.kubo.core.commands.getPreemptsAutoUpdate` | sync |
+| `var commands.HumanJSONEncoder func(*cmds.Request) func(io.Writer) cmds.Encoder` | `Go.kubo.core.commands.humanJsonEncoder` | sync |
+| `var commands.IDCmd *cmds.Command` | `Go.kubo.core.commands.idCmd` | sync |
+| `var commands.KeyCmd *cmds.Command` | `Go.kubo.core.commands.keyCmd` | sync |
+| `var commands.LogCmd *cmds.Command` | `Go.kubo.core.commands.logCmd` | sync |
+| `var commands.LsCmd *cmds.Command` | `Go.kubo.core.commands.lsCmd` | sync |
+| `var commands.MbaseCmd *cmds.Command` | `Go.kubo.core.commands.mbaseCmd` | sync |
+| `var commands.MountCmd *cmds.Command` | `Go.kubo.core.commands.mountCmd` | sync |
+| `var commands.P2PCmd *cmds.Command` | `Go.kubo.core.commands.p2pCmd` | sync |
+| `func commands.ParsePeerParam(text string) (multiaddr.Multiaddr, peer.ID, error)` | `Go.kubo.core.commands.parsePeerParam` | sync |
+| `var commands.PingCmd *cmds.Command` | `Go.kubo.core.commands.pingCmd` | sync |
+| `var commands.ProvideCmd *cmds.Command` | `Go.kubo.core.commands.provideCmd` | sync |
+| `var commands.PubsubCmd *cmds.Command` | `Go.kubo.core.commands.pubsubCmd` | sync |
+| `var commands.PubsubLsCmd *cmds.Command` | `Go.kubo.core.commands.pubsubLsCmd` | sync |
+| `var commands.PubsubPeersCmd *cmds.Command` | `Go.kubo.core.commands.pubsubPeersCmd` | sync |
+| `var commands.PubsubPubCmd *cmds.Command` | `Go.kubo.core.commands.pubsubPubCmd` | sync |
+| `var commands.PubsubResetCmd *cmds.Command` | `Go.kubo.core.commands.pubsubResetCmd` | sync |
+| `var commands.PubsubSubCmd *cmds.Command` | `Go.kubo.core.commands.pubsubSubCmd` | sync |
+| `func (*commands.RefWriter).WriteEdge(from cid.Cid, to cid.Cid, linkname string, enc cidenc.Encoder) error` | `KuboCoreCommandsRefWriter.writeEdge` | sync |
+| `func (*commands.RefWriter).WriteRefs(c cid.Cid, enc cidenc.Encoder) (int, error)` | `KuboCoreCommandsRefWriter.writeRefs` | sync |
+| `var commands.RefsCmd *cmds.Command` | `Go.kubo.core.commands.refsCmd` | sync |
+| `var commands.RefsLocalCmd *cmds.Command` | `Go.kubo.core.commands.refsLocalCmd` | sync |
+| `var commands.RemovedDHTCmd *cmds.Command` | `Go.kubo.core.commands.removedDhtCmd` | sync |
+| `var commands.RepoCmd *cmds.Command` | `Go.kubo.core.commands.repoCmd` | sync |
+| `var commands.ResolveCmd *cmds.Command` | `Go.kubo.core.commands.resolveCmd` | sync |
+| `var commands.Root *cmds.Command` | `Go.kubo.core.commands.root` | sync |
+| `var commands.RoutingCmd *cmds.Command` | `Go.kubo.core.commands.routingCmd` | sync |
+| `var commands.StatsCmd *cmds.Command` | `Go.kubo.core.commands.statsCmd` | sync |
+| `var commands.SwarmCmd *cmds.Command` | `Go.kubo.core.commands.swarmCmd` | sync |
+| `var commands.UpdateCmd *cmds.Command` | `Go.kubo.core.commands.updateCmd` | sync |
+| `var commands.VersionCmd *cmds.Command` | `Go.kubo.core.commands.versionCmd` | sync |
 | `const commands.ApiAuthOption untyped string` | `Go.kubo.core.commands.apiAuthOption` | const |
 | `const commands.ApiOption untyped string` | `Go.kubo.core.commands.apiOption` | const |
 | `const commands.ConfigFileOption untyped string` | `Go.kubo.core.commands.configFileOption` | const |
@@ -694,80 +2093,156 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `const commands.P2PProtoPrefix untyped string` | `Go.kubo.core.commands.p2pProtoPrefix` | const |
 | `const commands.RepoDirOption untyped string` | `Go.kubo.core.commands.repoDirOption` | const |
 
+Omitted:
+
+- `func commands.CreateCmdExtras(opts ...func(e *cmds.Extra)) *cmds.Extra`: called without `opts: []func(e *github.com/ipfs/go-ipfs-cmds.Extra)`
+- `func commands.SetDoesNotUseConfigAsInput(val bool) func(e *cmds.Extra)`: result 0: func(e *github.com/ipfs/go-ipfs-cmds.Extra)
+- `func commands.SetDoesNotUseRepo(val bool) func(e *cmds.Extra)`: result 0: func(e *github.com/ipfs/go-ipfs-cmds.Extra)
+- `func commands.SetPreemptsAutoUpdate(val bool) func(e *cmds.Extra)`: result 0: func(e *github.com/ipfs/go-ipfs-cmds.Extra)
+
 ## `github.com/ipfs/kubo/core/coreapi` → `Go.kubo.core.coreapi` (`lib/go/kubo/core/coreapi.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
+| `func (*coreapi.BlockAPI).Get(ctx context.Context, p path.Path) (io.Reader, error)` | `KuboCoreCoreapiBlockApi.get` | Future |
+| `func (*coreapi.BlockAPI).Put(ctx context.Context, src io.Reader, opts ...options.BlockPutOption) (iface.BlockStat, error)` | `KuboCoreCoreapiBlockApi.put` | Future |
+| `func (*coreapi.BlockAPI).Rm(ctx context.Context, p path.Path, opts ...options.BlockRmOption) error` | `KuboCoreCoreapiBlockApi.rm` | Future |
+| `func (*coreapi.BlockAPI).Stat(ctx context.Context, p path.Path) (iface.BlockStat, error)` | `KuboCoreCoreapiBlockApi.stat` | Future |
+| `func (*coreapi.BlockStat).Path() path.ImmutablePath` | `KuboCoreCoreapiBlockStat.path` | sync |
+| `func (*coreapi.BlockStat).Size() int` | `KuboCoreCoreapiBlockStat.size` | sync |
+| `func (*coreapi.CoreAPI).Block() iface.BlockAPI` | `KuboCoreCoreapiCoreApi.block` | sync |
+| `func (*coreapi.CoreAPI).Dag() iface.APIDagService` | `KuboCoreCoreapiCoreApi.dag` | sync |
+| `func (*coreapi.CoreAPI).Key() iface.KeyAPI` | `KuboCoreCoreapiCoreApi.key` | sync |
+| `func (*coreapi.CoreAPI).Name() iface.NameAPI` | `KuboCoreCoreapiCoreApi.name` | sync |
+| `func (*coreapi.CoreAPI).Object() iface.ObjectAPI` | `KuboCoreCoreapiCoreApi.object` | sync |
+| `func (*coreapi.CoreAPI).Pin() iface.PinAPI` | `KuboCoreCoreapiCoreApi.pin` | sync |
+| `func (*coreapi.CoreAPI).PubSub() iface.PubSubAPI` | `KuboCoreCoreapiCoreApi.pubSub` | sync |
+| `func (*coreapi.CoreAPI).ResolveNode(ctx context.Context, p path.Path) (format.Node, error)` | `KuboCoreCoreapiCoreApi.resolveNode` | Future |
+| `func (*coreapi.CoreAPI).ResolvePath(ctx context.Context, p path.Path) (path.ImmutablePath, []string, error)` | `KuboCoreCoreapiCoreApi.resolvePath` | Future |
+| `func (*coreapi.CoreAPI).Routing() iface.RoutingAPI` | `KuboCoreCoreapiCoreApi.routing` | sync |
+| `func (*coreapi.CoreAPI).Swarm() iface.SwarmAPI` | `KuboCoreCoreapiCoreApi.swarm` | sync |
+| `func (*coreapi.CoreAPI).Unixfs() iface.UnixfsAPI` | `KuboCoreCoreapiCoreApi.unixfs` | sync |
+| `func (*coreapi.CoreAPI).WithOptions(opts ...options.ApiOption) (iface.CoreAPI, error)` | `KuboCoreCoreapiCoreApi.withOptions` | sync |
+| `func (*coreapi.KeyAPI).Generate(ctx context.Context, name string, opts ...options.KeyGenerateOption) (iface.Key, error)` | `KuboCoreCoreapiKeyApi.generate` | Future |
+| `func (*coreapi.KeyAPI).List(ctx context.Context) ([]iface.Key, error)` | `KuboCoreCoreapiKeyApi.list` | Future |
+| `func (*coreapi.KeyAPI).Remove(ctx context.Context, name string) (iface.Key, error)` | `KuboCoreCoreapiKeyApi.remove` | Future |
+| `func (*coreapi.KeyAPI).Rename(ctx context.Context, oldName string, newName string, opts ...options.KeyRenameOption) (iface.Key, bool, error)` | `KuboCoreCoreapiKeyApi.rename` | Future |
+| `func (*coreapi.KeyAPI).Self(ctx context.Context) (iface.Key, error)` | `KuboCoreCoreapiKeyApi.self` | Future |
+| `func (*coreapi.KeyAPI).Sign(ctx context.Context, name string, data []byte) (iface.Key, []byte, error)` | `KuboCoreCoreapiKeyApi.sign` | Future |
+| `func (*coreapi.KeyAPI).Verify(ctx context.Context, keyOrName string, signature []byte, data []byte) (iface.Key, bool, error)` | `KuboCoreCoreapiKeyApi.verify` | Future |
+| `func (*coreapi.NameAPI).Publish(ctx context.Context, p path.Path, opts ...options.NamePublishOption) (ipns.Name, error)` | `KuboCoreCoreapiNameApi.publish` | Future |
+| `func (*coreapi.NameAPI).Resolve(ctx context.Context, name string, opts ...options.NameResolveOption) (path.Path, error)` | `KuboCoreCoreapiNameApi.resolve` | Future |
+| `func (*coreapi.NameAPI).Search(ctx context.Context, name string, opts ...options.NameResolveOption) (<-chan iface.IpnsResult, error)` | `KuboCoreCoreapiNameApi.search` | Stream |
 | `func coreapi.NewCoreAPI(n *core.IpfsNode, opts ...options.ApiOption) (iface.CoreAPI, error)` | `Go.kubo.core.coreapi.newCoreApi` | sync |
+| `func (*coreapi.ObjectAPI).AddLink(ctx context.Context, base path.Path, name string, child path.Path, opts ...options.ObjectAddLinkOption) (path.ImmutablePath, error)` | `KuboCoreCoreapiObjectApi.addLink` | Future |
+| `func (*coreapi.ObjectAPI).Diff(ctx context.Context, before path.Path, after path.Path) ([]iface.ObjectChange, error)` | `KuboCoreCoreapiObjectApi.diff` | Future |
+| `func (*coreapi.ObjectAPI).RmLink(ctx context.Context, base path.Path, link string, opts ...options.ObjectRmLinkOption) (path.ImmutablePath, error)` | `KuboCoreCoreapiObjectApi.rmLink` | Future |
+| `func (*coreapi.PinAPI).Add(ctx context.Context, p path.Path, opts ...options.PinAddOption) error` | `KuboCoreCoreapiPinApi.add` | Future |
+| `func (*coreapi.PinAPI).IsPinned(ctx context.Context, p path.Path, opts ...options.PinIsPinnedOption) (string, bool, error)` | `KuboCoreCoreapiPinApi.isPinned` | Future |
+| `func (*coreapi.PinAPI).Ls(ctx context.Context, pins chan<- iface.Pin, opts ...options.PinLsOption) error` | `KuboCoreCoreapiPinApi.ls` | Stream |
+| `func (*coreapi.PinAPI).Rm(ctx context.Context, p path.Path, opts ...options.PinRmOption) error` | `KuboCoreCoreapiPinApi.rm` | Future |
+| `func (*coreapi.PinAPI).Update(ctx context.Context, from path.Path, to path.Path, opts ...options.PinUpdateOption) error` | `KuboCoreCoreapiPinApi.update` | Future |
+| `func (*coreapi.PinAPI).Verify(ctx context.Context) (<-chan iface.PinStatus, error)` | `KuboCoreCoreapiPinApi.verify` | Stream |
+| `func (*coreapi.PubSubAPI).Ls(ctx context.Context) ([]string, error)` | `KuboCoreCoreapiPubSubApi.ls` | Future |
+| `func (*coreapi.PubSubAPI).Peers(ctx context.Context, opts ...options.PubSubPeersOption) ([]peer.ID, error)` | `KuboCoreCoreapiPubSubApi.peers` | Future |
+| `func (*coreapi.PubSubAPI).Publish(ctx context.Context, topic string, data []byte) error` | `KuboCoreCoreapiPubSubApi.publish` | Future |
+| `func (*coreapi.PubSubAPI).Subscribe(ctx context.Context, topic string, opts ...options.PubSubSubscribeOption) (iface.PubSubSubscription, error)` | `KuboCoreCoreapiPubSubApi.subscribe` | Future |
+| `func (*coreapi.RoutingAPI).FindPeer(ctx context.Context, p peer.ID) (peer.AddrInfo, error)` | `KuboCoreCoreapiRoutingApi.findPeer` | Future |
+| `func (*coreapi.RoutingAPI).FindProviders(ctx context.Context, p path.Path, opts ...options.RoutingFindProvidersOption) (<-chan peer.AddrInfo, error)` | `KuboCoreCoreapiRoutingApi.findProviders` | Stream |
+| `func (*coreapi.RoutingAPI).Get(ctx context.Context, key string) ([]byte, error)` | `KuboCoreCoreapiRoutingApi.get` | Future |
+| `func (*coreapi.RoutingAPI).Provide(ctx context.Context, path path.Path, opts ...options.RoutingProvideOption) error` | `KuboCoreCoreapiRoutingApi.provide` | Future |
+| `func (*coreapi.RoutingAPI).Put(ctx context.Context, key string, value []byte, opts ...options.RoutingPutOption) error` | `KuboCoreCoreapiRoutingApi.put` | Future |
+| `func (*coreapi.SwarmAPI).Connect(ctx context.Context, pi peer.AddrInfo) error` | `KuboCoreCoreapiSwarmApi.connect` | Future |
+| `func (*coreapi.SwarmAPI).Disconnect(ctx context.Context, addr multiaddr.Multiaddr) error` | `KuboCoreCoreapiSwarmApi.disconnect` | Future |
+| `func (*coreapi.SwarmAPI).KnownAddrs(ctx context.Context) (map[peer.ID][]multiaddr.Multiaddr, error)` | `KuboCoreCoreapiSwarmApi.knownAddrs` | Future |
+| `func (*coreapi.SwarmAPI).ListenAddrs(ctx context.Context) ([]multiaddr.Multiaddr, error)` | `KuboCoreCoreapiSwarmApi.listenAddrs` | Future |
+| `func (*coreapi.SwarmAPI).LocalAddrs(ctx context.Context) ([]multiaddr.Multiaddr, error)` | `KuboCoreCoreapiSwarmApi.localAddrs` | Future |
+| `func (*coreapi.SwarmAPI).Peers(ctx context.Context) ([]iface.ConnectionInfo, error)` | `KuboCoreCoreapiSwarmApi.peers` | Future |
+| `func (*coreapi.UnixfsAPI).Add(ctx context.Context, files files.Node, opts ...options.UnixfsAddOption) (path.ImmutablePath, error)` | `KuboCoreCoreapiUnixfsApi.add` | Future |
+| `func (*coreapi.UnixfsAPI).Get(ctx context.Context, p path.Path) (files.Node, error)` | `KuboCoreCoreapiUnixfsApi.get` | Future |
+| `func (*coreapi.UnixfsAPI).Ls(ctx context.Context, p path.Path, out chan<- iface.DirEntry, opts ...options.UnixfsLsOption) error` | `KuboCoreCoreapiUnixfsApi.ls` | Stream |
 
 ## `github.com/ipfs/kubo/core/coreiface` → `Go.kubo.core.coreiface` (`lib/go/kubo/core/coreiface.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
-| `func (iface.CoreAPI).Unixfs() iface.UnixfsAPI` | `KuboCoreCoreifaceCoreApi.unixfs` | sync |
-| `func (iface.CoreAPI).ResolvePath(context.Context, path.Path) (path.ImmutablePath, []string, error)` | `KuboCoreCoreifaceCoreApi.resolvePath` | Future |
-| `func (iface.UnixfsAPI).Add(context.Context, files.Node, ...options.UnixfsAddOption) (path.ImmutablePath, error)` | `KuboCoreCoreifaceUnixfsApi.add` | Future |
-| `func (iface.UnixfsAPI).Get(context.Context, path.Path) (files.Node, error)` | `KuboCoreCoreifaceUnixfsApi.get` | Future |
-| `func (iface.UnixfsAPI).Ls(context.Context, path.Path, chan<- iface.DirEntry, ...options.UnixfsLsOption) error` | `KuboCoreCoreifaceUnixfsApi.ls` | Stream |
-| `func (iface.CoreAPI).Pin() iface.PinAPI` | `KuboCoreCoreifaceCoreApi.pin` | sync |
-| `func (iface.PinAPI).Add(context.Context, path.Path, ...options.PinAddOption) error` | `KuboCoreCoreifacePinApi.add` | Future |
-| `func (iface.PinAPI).Ls(context.Context, chan<- iface.Pin, ...options.PinLsOption) error` | `KuboCoreCoreifacePinApi.ls` | Stream |
-| `func (iface.PinAPI).IsPinned(context.Context, path.Path, ...options.PinIsPinnedOption) (string, bool, error)` | `KuboCoreCoreifacePinApi.isPinned` | Future |
-| `func (iface.PinAPI).Rm(context.Context, path.Path, ...options.PinRmOption) error` | `KuboCoreCoreifacePinApi.rm` | Future |
-| `func (iface.PinAPI).Update(ctx context.Context, from path.Path, to path.Path, opts ...options.PinUpdateOption) error` | `KuboCoreCoreifacePinApi.update` | Future |
-| `func (iface.PinAPI).Verify(context.Context) (<-chan iface.PinStatus, error)` | `KuboCoreCoreifacePinApi.verify` | Stream |
-| `func (iface.CoreAPI).Block() iface.BlockAPI` | `KuboCoreCoreifaceCoreApi.block` | sync |
-| `func (iface.BlockAPI).Put(context.Context, io.Reader, ...options.BlockPutOption) (iface.BlockStat, error)` | `KuboCoreCoreifaceBlockApi.put` | Future |
-| `func (iface.BlockAPI).Get(context.Context, path.Path) (io.Reader, error)` | `KuboCoreCoreifaceBlockApi.get` | Future |
-| `func (iface.BlockAPI).Rm(context.Context, path.Path, ...options.BlockRmOption) error` | `KuboCoreCoreifaceBlockApi.rm` | Future |
-| `func (iface.BlockAPI).Stat(context.Context, path.Path) (iface.BlockStat, error)` | `KuboCoreCoreifaceBlockApi.stat` | Future |
-| `func (iface.CoreAPI).Key() iface.KeyAPI` | `KuboCoreCoreifaceCoreApi.key` | sync |
-| `func (iface.KeyAPI).Self(ctx context.Context) (iface.Key, error)` | `KuboCoreCoreifaceKeyApi.self` | Future |
-| `func (iface.CoreAPI).Swarm() iface.SwarmAPI` | `KuboCoreCoreifaceCoreApi.swarm` | sync |
-| `func (iface.SwarmAPI).Connect(context.Context, peer.AddrInfo) error` | `KuboCoreCoreifaceSwarmApi.connect` | Future |
-| `func (iface.SwarmAPI).Disconnect(context.Context, multiaddr.Multiaddr) error` | `KuboCoreCoreifaceSwarmApi.disconnect` | Future |
-| `func (iface.SwarmAPI).Peers(context.Context) ([]iface.ConnectionInfo, error)` | `KuboCoreCoreifaceSwarmApi.peers` | Future |
-| `func (iface.SwarmAPI).ListenAddrs(context.Context) ([]multiaddr.Multiaddr, error)` | `KuboCoreCoreifaceSwarmApi.listenAddrs` | Future |
-| `func (iface.SwarmAPI).LocalAddrs(context.Context) ([]multiaddr.Multiaddr, error)` | `KuboCoreCoreifaceSwarmApi.localAddrs` | Future |
-| `func (iface.CoreAPI).Routing() iface.RoutingAPI` | `KuboCoreCoreifaceCoreApi.routing` | sync |
-| `func (iface.RoutingAPI).Provide(context.Context, path.Path, ...options.RoutingProvideOption) error` | `KuboCoreCoreifaceRoutingApi.provide` | Future |
-| `func (iface.RoutingAPI).FindProviders(context.Context, path.Path, ...options.RoutingFindProvidersOption) (<-chan peer.AddrInfo, error)` | `KuboCoreCoreifaceRoutingApi.findProviders` | Stream |
-| `func (iface.RoutingAPI).FindPeer(context.Context, peer.ID) (peer.AddrInfo, error)` | `KuboCoreCoreifaceRoutingApi.findPeer` | Future |
-| `func (iface.RoutingAPI).Get(context.Context, string) ([]byte, error)` | `KuboCoreCoreifaceRoutingApi.get` | Future |
-| `func (iface.RoutingAPI).Put(ctx context.Context, key string, value []byte, opts ...options.RoutingPutOption) error` | `KuboCoreCoreifaceRoutingApi.put` | Future |
-| `func (iface.CoreAPI).Name() iface.NameAPI` | `KuboCoreCoreifaceCoreApi.name` | sync |
-| `func (iface.NameAPI).Publish(ctx context.Context, path path.Path, opts ...options.NamePublishOption) (ipns.Name, error)` | `KuboCoreCoreifaceNameApi.publish` | Future |
-| `func (iface.NameAPI).Resolve(ctx context.Context, name string, opts ...options.NameResolveOption) (path.Path, error)` | `KuboCoreCoreifaceNameApi.resolve` | Future |
-| `func (iface.NameAPI).Search(ctx context.Context, name string, opts ...options.NameResolveOption) (<-chan iface.IpnsResult, error)` | `KuboCoreCoreifaceNameApi.search` | Stream |
-| `func (iface.KeyAPI).Generate(ctx context.Context, name string, opts ...options.KeyGenerateOption) (iface.Key, error)` | `KuboCoreCoreifaceKeyApi.generate` | Future |
-| `func (iface.KeyAPI).Rename(ctx context.Context, oldName string, newName string, opts ...options.KeyRenameOption) (iface.Key, bool, error)` | `KuboCoreCoreifaceKeyApi.rename` | Future |
-| `func (iface.KeyAPI).List(ctx context.Context) ([]iface.Key, error)` | `KuboCoreCoreifaceKeyApi.list` | Future |
-| `func (iface.KeyAPI).Remove(ctx context.Context, name string) (iface.Key, error)` | `KuboCoreCoreifaceKeyApi.remove` | Future |
-| `func (iface.KeyAPI).Sign(ctx context.Context, name string, data []byte) (iface.Key, []byte, error)` | `KuboCoreCoreifaceKeyApi.sign` | Future |
-| `func (iface.KeyAPI).Verify(ctx context.Context, keyOrName string, signature []byte, data []byte) (iface.Key, bool, error)` | `KuboCoreCoreifaceKeyApi.verify` | Future |
-| `func (iface.SwarmAPI).KnownAddrs(context.Context) (map[peer.ID][]multiaddr.Multiaddr, error)` | `KuboCoreCoreifaceSwarmApi.knownAddrs` | Future |
-| `func (iface.CoreAPI).Dag() iface.APIDagService` | `KuboCoreCoreifaceCoreApi.dag` | sync |
-| `func (iface.CoreAPI).ResolveNode(context.Context, path.Path) (format.Node, error)` | `KuboCoreCoreifaceCoreApi.resolveNode` | Future |
 | `func (format.NodeGetter).Get(context.Context, cid.Cid) (format.Node, error)` | `KuboCoreCoreifaceApiDagService.get` | Future |
 | `func (format.NodeGetter).GetMany(context.Context, []cid.Cid) <-chan *format.NodeOption` | `KuboCoreCoreifaceApiDagService.getMany` | Stream |
 | `func (format.NodeAdder).Add(context.Context, format.Node) error` | `KuboCoreCoreifaceApiDagService.add` | Future |
 | `func (format.NodeAdder).AddMany(context.Context, []format.Node) error` | `KuboCoreCoreifaceApiDagService.addMany` | Future |
 | `func (format.DAGService).Remove(context.Context, cid.Cid) error` | `KuboCoreCoreifaceApiDagService.remove` | Future |
 | `func (format.DAGService).RemoveMany(context.Context, []cid.Cid) error` | `KuboCoreCoreifaceApiDagService.removeMany` | Future |
+| `func (io.Closer).Close() error` | `KuboCoreCoreifacePubSubSubscription.close` | sync |
 | `func (iface.APIDagService).Pinning() format.NodeAdder` | `KuboCoreCoreifaceApiDagService.pinning` | sync |
+| `func (iface.BlockAPI).Get(context.Context, path.Path) (io.Reader, error)` | `KuboCoreCoreifaceBlockApi.get` | Future |
+| `func (iface.BlockAPI).Put(context.Context, io.Reader, ...options.BlockPutOption) (iface.BlockStat, error)` | `KuboCoreCoreifaceBlockApi.put` | Future |
+| `func (iface.BlockAPI).Rm(context.Context, path.Path, ...options.BlockRmOption) error` | `KuboCoreCoreifaceBlockApi.rm` | Future |
+| `func (iface.BlockAPI).Stat(context.Context, path.Path) (iface.BlockStat, error)` | `KuboCoreCoreifaceBlockApi.stat` | Future |
+| `func (iface.CoreAPI).Block() iface.BlockAPI` | `KuboCoreCoreifaceCoreApi.block` | sync |
+| `func (iface.CoreAPI).Dag() iface.APIDagService` | `KuboCoreCoreifaceCoreApi.dag` | sync |
+| `func (iface.CoreAPI).Key() iface.KeyAPI` | `KuboCoreCoreifaceCoreApi.key` | sync |
+| `func (iface.CoreAPI).Name() iface.NameAPI` | `KuboCoreCoreifaceCoreApi.name` | sync |
+| `func (iface.CoreAPI).Object() iface.ObjectAPI` | `KuboCoreCoreifaceCoreApi.object` | sync |
+| `func (iface.CoreAPI).Pin() iface.PinAPI` | `KuboCoreCoreifaceCoreApi.pin` | sync |
 | `func (iface.CoreAPI).PubSub() iface.PubSubAPI` | `KuboCoreCoreifaceCoreApi.pubSub` | sync |
+| `func (iface.CoreAPI).ResolveNode(context.Context, path.Path) (format.Node, error)` | `KuboCoreCoreifaceCoreApi.resolveNode` | Future |
+| `func (iface.CoreAPI).ResolvePath(context.Context, path.Path) (path.ImmutablePath, []string, error)` | `KuboCoreCoreifaceCoreApi.resolvePath` | Future |
+| `func (iface.CoreAPI).Routing() iface.RoutingAPI` | `KuboCoreCoreifaceCoreApi.routing` | sync |
+| `func (iface.CoreAPI).Swarm() iface.SwarmAPI` | `KuboCoreCoreifaceCoreApi.swarm` | sync |
+| `func (iface.CoreAPI).Unixfs() iface.UnixfsAPI` | `KuboCoreCoreifaceCoreApi.unixfs` | sync |
+| `func (iface.CoreAPI).WithOptions(...options.ApiOption) (iface.CoreAPI, error)` | `KuboCoreCoreifaceCoreApi.withOptions` | sync |
+| `func iface.FormatKey(key iface.Key) string` | `Go.kubo.core.coreiface.formatKey` | sync |
+| `func iface.FormatKeyID(id peer.ID) string` | `Go.kubo.core.coreiface.formatKeyId` | sync |
+| `func (iface.KeyAPI).Generate(ctx context.Context, name string, opts ...options.KeyGenerateOption) (iface.Key, error)` | `KuboCoreCoreifaceKeyApi.generate` | Future |
+| `func (iface.KeyAPI).List(ctx context.Context) ([]iface.Key, error)` | `KuboCoreCoreifaceKeyApi.list` | Future |
+| `func (iface.KeyAPI).Remove(ctx context.Context, name string) (iface.Key, error)` | `KuboCoreCoreifaceKeyApi.remove` | Future |
+| `func (iface.KeyAPI).Rename(ctx context.Context, oldName string, newName string, opts ...options.KeyRenameOption) (iface.Key, bool, error)` | `KuboCoreCoreifaceKeyApi.rename` | Future |
+| `func (iface.KeyAPI).Self(ctx context.Context) (iface.Key, error)` | `KuboCoreCoreifaceKeyApi.self` | Future |
+| `func (iface.KeyAPI).Sign(ctx context.Context, name string, data []byte) (iface.Key, []byte, error)` | `KuboCoreCoreifaceKeyApi.sign` | Future |
+| `func (iface.KeyAPI).Verify(ctx context.Context, keyOrName string, signature []byte, data []byte) (iface.Key, bool, error)` | `KuboCoreCoreifaceKeyApi.verify` | Future |
+| `func (iface.NameAPI).Publish(ctx context.Context, path path.Path, opts ...options.NamePublishOption) (ipns.Name, error)` | `KuboCoreCoreifaceNameApi.publish` | Future |
+| `func (iface.NameAPI).Resolve(ctx context.Context, name string, opts ...options.NameResolveOption) (path.Path, error)` | `KuboCoreCoreifaceNameApi.resolve` | Future |
+| `func (iface.NameAPI).Search(ctx context.Context, name string, opts ...options.NameResolveOption) (<-chan iface.IpnsResult, error)` | `KuboCoreCoreifaceNameApi.search` | Stream |
+| `func (iface.ObjectAPI).AddLink(ctx context.Context, base path.Path, name string, child path.Path, opts ...options.ObjectAddLinkOption) (path.ImmutablePath, error)` | `KuboCoreCoreifaceObjectApi.addLink` | Future |
+| `func (iface.ObjectAPI).Diff(context.Context, path.Path, path.Path) ([]iface.ObjectChange, error)` | `KuboCoreCoreifaceObjectApi.diff` | Future |
+| `func (iface.ObjectAPI).RmLink(ctx context.Context, base path.Path, link string, opts ...options.ObjectRmLinkOption) (path.ImmutablePath, error)` | `KuboCoreCoreifaceObjectApi.rmLink` | Future |
+| `func (iface.PinAPI).Add(context.Context, path.Path, ...options.PinAddOption) error` | `KuboCoreCoreifacePinApi.add` | Future |
+| `func (iface.PinAPI).IsPinned(context.Context, path.Path, ...options.PinIsPinnedOption) (string, bool, error)` | `KuboCoreCoreifacePinApi.isPinned` | Future |
+| `func (iface.PinAPI).Ls(context.Context, chan<- iface.Pin, ...options.PinLsOption) error` | `KuboCoreCoreifacePinApi.ls` | Stream |
+| `func (iface.PinAPI).Rm(context.Context, path.Path, ...options.PinRmOption) error` | `KuboCoreCoreifacePinApi.rm` | Future |
+| `func (iface.PinAPI).Update(ctx context.Context, from path.Path, to path.Path, opts ...options.PinUpdateOption) error` | `KuboCoreCoreifacePinApi.update` | Future |
+| `func (iface.PinAPI).Verify(context.Context) (<-chan iface.PinStatus, error)` | `KuboCoreCoreifacePinApi.verify` | Stream |
 | `func (iface.PubSubAPI).Ls(context.Context) ([]string, error)` | `KuboCoreCoreifacePubSubApi.ls` | Future |
 | `func (iface.PubSubAPI).Peers(context.Context, ...options.PubSubPeersOption) ([]peer.ID, error)` | `KuboCoreCoreifacePubSubApi.peers` | Future |
 | `func (iface.PubSubAPI).Publish(context.Context, string, []byte) error` | `KuboCoreCoreifacePubSubApi.publish` | Future |
 | `func (iface.PubSubAPI).Subscribe(context.Context, string, ...options.PubSubSubscribeOption) (iface.PubSubSubscription, error)` | `KuboCoreCoreifacePubSubApi.subscribe` | Future |
 | `func (iface.PubSubSubscription).Next(context.Context) (iface.PubSubMessage, error)` | `KuboCoreCoreifacePubSubSubscription.next` | Future |
-| `func (io.Closer).Close() error` | `KuboCoreCoreifacePubSubSubscription.close` | sync |
-| `func (iface.CoreAPI).WithOptions(...options.ApiOption) (iface.CoreAPI, error)` | `KuboCoreCoreifaceCoreApi.withOptions` | sync |
-| `func (iface.CoreAPI).Object() iface.ObjectAPI` | `KuboCoreCoreifaceCoreApi.object` | sync |
-| `func (iface.ObjectAPI).AddLink(ctx context.Context, base path.Path, name string, child path.Path, opts ...options.ObjectAddLinkOption) (path.ImmutablePath, error)` | `KuboCoreCoreifaceObjectApi.addLink` | Future |
-| `func (iface.ObjectAPI).RmLink(ctx context.Context, base path.Path, link string, opts ...options.ObjectRmLinkOption) (path.ImmutablePath, error)` | `KuboCoreCoreifaceObjectApi.rmLink` | Future |
-| `func (iface.ObjectAPI).Diff(context.Context, path.Path, path.Path) ([]iface.ObjectChange, error)` | `KuboCoreCoreifaceObjectApi.diff` | Future |
+| `func (iface.Reader).CtxReadFull(context.Context, []byte) (int, error)` | `KuboCoreCoreifaceReader.ctxReadFull` | Future |
 | `func (iface.Reader).Size() uint64` | `KuboCoreCoreifaceReader.size` | sync |
+| `func (iface.RoutingAPI).FindPeer(context.Context, peer.ID) (peer.AddrInfo, error)` | `KuboCoreCoreifaceRoutingApi.findPeer` | Future |
+| `func (iface.RoutingAPI).FindProviders(context.Context, path.Path, ...options.RoutingFindProvidersOption) (<-chan peer.AddrInfo, error)` | `KuboCoreCoreifaceRoutingApi.findProviders` | Stream |
+| `func (iface.RoutingAPI).Get(context.Context, string) ([]byte, error)` | `KuboCoreCoreifaceRoutingApi.get` | Future |
+| `func (iface.RoutingAPI).Provide(context.Context, path.Path, ...options.RoutingProvideOption) error` | `KuboCoreCoreifaceRoutingApi.provide` | Future |
+| `func (iface.RoutingAPI).Put(ctx context.Context, key string, value []byte, opts ...options.RoutingPutOption) error` | `KuboCoreCoreifaceRoutingApi.put` | Future |
+| `func (iface.SwarmAPI).Connect(context.Context, peer.AddrInfo) error` | `KuboCoreCoreifaceSwarmApi.connect` | Future |
+| `func (iface.SwarmAPI).Disconnect(context.Context, multiaddr.Multiaddr) error` | `KuboCoreCoreifaceSwarmApi.disconnect` | Future |
+| `func (iface.SwarmAPI).KnownAddrs(context.Context) (map[peer.ID][]multiaddr.Multiaddr, error)` | `KuboCoreCoreifaceSwarmApi.knownAddrs` | Future |
+| `func (iface.SwarmAPI).ListenAddrs(context.Context) ([]multiaddr.Multiaddr, error)` | `KuboCoreCoreifaceSwarmApi.listenAddrs` | Future |
+| `func (iface.SwarmAPI).LocalAddrs(context.Context) ([]multiaddr.Multiaddr, error)` | `KuboCoreCoreifaceSwarmApi.localAddrs` | Future |
+| `func (iface.SwarmAPI).Peers(context.Context) ([]iface.ConnectionInfo, error)` | `KuboCoreCoreifaceSwarmApi.peers` | Future |
+| `func (iface.UnixfsAPI).Add(context.Context, files.Node, ...options.UnixfsAddOption) (path.ImmutablePath, error)` | `KuboCoreCoreifaceUnixfsApi.add` | Future |
+| `func (iface.UnixfsAPI).Get(context.Context, path.Path) (files.Node, error)` | `KuboCoreCoreifaceUnixfsApi.get` | Future |
+| `func (iface.UnixfsAPI).Ls(context.Context, path.Path, chan<- iface.DirEntry, ...options.UnixfsLsOption) error` | `KuboCoreCoreifaceUnixfsApi.ls` | Stream |
+| `iface.BlockAPI → x.(*coreapi.BlockAPI)` | `KuboCoreCoreifaceBlockApi.asKuboCoreCoreapiBlockApi` | cast |
+| `iface.CoreAPI → x.(*coreapi.CoreAPI)` | `KuboCoreCoreifaceCoreApi.asKuboCoreCoreapiCoreApi` | cast |
+| `iface.KeyAPI → x.(*coreapi.KeyAPI)` | `KuboCoreCoreifaceKeyApi.asKuboCoreCoreapiKeyApi` | cast |
+| `iface.NameAPI → x.(*coreapi.NameAPI)` | `KuboCoreCoreifaceNameApi.asKuboCoreCoreapiNameApi` | cast |
+| `iface.ObjectAPI → x.(*coreapi.ObjectAPI)` | `KuboCoreCoreifaceObjectApi.asKuboCoreCoreapiObjectApi` | cast |
+| `iface.PinAPI → x.(*coreapi.PinAPI)` | `KuboCoreCoreifacePinApi.asKuboCoreCoreapiPinApi` | cast |
+| `iface.PubSubAPI → x.(*coreapi.PubSubAPI)` | `KuboCoreCoreifacePubSubApi.asKuboCoreCoreapiPubSubApi` | cast |
+| `iface.RoutingAPI → x.(*coreapi.RoutingAPI)` | `KuboCoreCoreifaceRoutingApi.asKuboCoreCoreapiRoutingApi` | cast |
+| `iface.SwarmAPI → x.(*coreapi.SwarmAPI)` | `KuboCoreCoreifaceSwarmApi.asKuboCoreCoreapiSwarmApi` | cast |
+| `iface.UnixfsAPI → x.(*coreapi.UnixfsAPI)` | `KuboCoreCoreifaceUnixfsApi.asKuboCoreCoreapiUnixfsApi` | cast |
 | `const iface.DiffAdd iface.ChangeType` | `Go.kubo.core.coreiface.diffAdd` | const |
 | `const iface.DiffMod iface.ChangeType` | `Go.kubo.core.coreiface.diffMod` | const |
 | `const iface.DiffRemove iface.ChangeType` | `Go.kubo.core.coreiface.diffRemove` | const |
@@ -776,10 +2251,59 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `const iface.TSymlink iface.FileType` | `Go.kubo.core.coreiface.tSymlink` | const |
 | `const iface.TUnknown iface.FileType` | `Go.kubo.core.coreiface.tUnknown` | const |
 
+Omitted:
+
+- `func (iface.BadPinNode).Err() error`: receiver is neither a handle, a DTO nor a value type: 
+- `func (iface.BadPinNode).Path() path.ImmutablePath`: receiver is neither a handle, a DTO nor a value type: 
+- `func (iface.BlockStat).Path() path.ImmutablePath`: receiver is neither a handle, a DTO nor a value type: 
+- `func (iface.BlockStat).Size() int`: receiver is neither a handle, a DTO nor a value type: 
+- `func (iface.ConnectionInfo).Address() multiaddr.Multiaddr`: receiver is neither a handle, a DTO nor a value type: 
+- `func (iface.ConnectionInfo).Direction() network.Direction`: receiver is neither a handle, a DTO nor a value type: 
+- `func (iface.ConnectionInfo).ID() peer.ID`: receiver is neither a handle, a DTO nor a value type: 
+- `func (iface.ConnectionInfo).Latency() (time.Duration, error)`: receiver is neither a handle, a DTO nor a value type: 
+- `func (iface.ConnectionInfo).Streams() ([]protocol.ID, error)`: receiver is neither a handle, a DTO nor a value type: 
+- `func (iface.FileType).String() string`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/ipfs/kubo/core/coreiface.FileType
+- `func (iface.Key).ID() peer.ID`: receiver is neither a handle, a DTO nor a value type: 
+- `func (iface.Key).Name() string`: receiver is neither a handle, a DTO nor a value type: 
+- `func (iface.Key).Path() path.Path`: receiver is neither a handle, a DTO nor a value type: 
+- `func iface.LsIter(ctx context.Context, api iface.UnixfsAPI, p path.Path, opts ...options.UnixfsLsOption) iter.Seq2[iface.DirEntry, error]`: result 0: generic iter.Seq2[github.com/ipfs/kubo/core/coreiface.DirEntry, error]
+- `func (iface.Pin).Name() string`: receiver is neither a handle, a DTO nor a value type: 
+- `func (iface.Pin).Path() path.ImmutablePath`: receiver is neither a handle, a DTO nor a value type: 
+- `func (iface.Pin).Type() string`: receiver is neither a handle, a DTO nor a value type: 
+- `func (iface.PinStatus).BadNodes() []iface.BadPinNode`: receiver is neither a handle, a DTO nor a value type: 
+- `func (iface.PinStatus).Err() error`: receiver is neither a handle, a DTO nor a value type: 
+- `func (iface.PinStatus).Ok() bool`: receiver is neither a handle, a DTO nor a value type: 
+- `func (iface.PubSubMessage).Data() []byte`: receiver is neither a handle, a DTO nor a value type: 
+- `func (iface.PubSubMessage).From() peer.ID`: receiver is neither a handle, a DTO nor a value type: 
+- `func (iface.PubSubMessage).Seq() []byte`: receiver is neither a handle, a DTO nor a value type: 
+- `func (iface.PubSubMessage).Topics() []string`: receiver is neither a handle, a DTO nor a value type: 
+
 ## `github.com/ipfs/kubo/core/coreiface/options` → `Go.kubo.core.coreiface.options` (`lib/go/kubo/core/coreiface/options.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
+| `func options.ApiOptions(opts ...options.ApiOption) (*options.ApiSettings, error)` | `Go.kubo.core.coreiface.options.apiOptions` | sync |
+| `func options.ApiOptionsTo(options *options.ApiSettings, opts ...options.ApiOption) (*options.ApiSettings, error)` | `Go.kubo.core.coreiface.options.apiOptionsTo` | sync |
+| `func options.BlockPutOptions(opts ...options.BlockPutOption) (*options.BlockPutSettings, error)` | `Go.kubo.core.coreiface.options.blockPutOptions` | sync |
+| `func options.BlockRmOptions(opts ...options.BlockRmOption) (*options.BlockRmSettings, error)` | `Go.kubo.core.coreiface.options.blockRmOptions` | sync |
+| `func options.CheckKeySize(algorithm string, size int) error` | `Go.kubo.core.coreiface.options.checkKeySize` | sync |
+| `func options.KeyGenerateOptions(opts ...options.KeyGenerateOption) (*options.KeyGenerateSettings, error)` | `Go.kubo.core.coreiface.options.keyGenerateOptions` | sync |
+| `func options.KeyRenameOptions(opts ...options.KeyRenameOption) (*options.KeyRenameSettings, error)` | `Go.kubo.core.coreiface.options.keyRenameOptions` | sync |
+| `func options.NamePublishOptions(opts ...options.NamePublishOption) (*options.NamePublishSettings, error)` | `Go.kubo.core.coreiface.options.namePublishOptions` | sync |
+| `func options.ObjectAddLinkOptions(opts ...options.ObjectAddLinkOption) (*options.ObjectAddLinkSettings, error)` | `Go.kubo.core.coreiface.options.objectAddLinkOptions` | sync |
+| `func options.ObjectRmLinkOptions(opts ...options.ObjectRmLinkOption) (*options.ObjectRmLinkSettings, error)` | `Go.kubo.core.coreiface.options.objectRmLinkOptions` | sync |
+| `func options.PinAddOptions(opts ...options.PinAddOption) (*options.PinAddSettings, error)` | `Go.kubo.core.coreiface.options.pinAddOptions` | sync |
+| `func options.PinIsPinnedOptions(opts ...options.PinIsPinnedOption) (*options.PinIsPinnedSettings, error)` | `Go.kubo.core.coreiface.options.pinIsPinnedOptions` | sync |
+| `func options.PinLsOptions(opts ...options.PinLsOption) (*options.PinLsSettings, error)` | `Go.kubo.core.coreiface.options.pinLsOptions` | sync |
+| `func options.PinRmOptions(opts ...options.PinRmOption) (*options.PinRmSettings, error)` | `Go.kubo.core.coreiface.options.pinRmOptions` | sync |
+| `func options.PinUpdateOptions(opts ...options.PinUpdateOption) (*options.PinUpdateSettings, error)` | `Go.kubo.core.coreiface.options.pinUpdateOptions` | sync |
+| `func options.PubSubPeersOptions(opts ...options.PubSubPeersOption) (*options.PubSubPeersSettings, error)` | `Go.kubo.core.coreiface.options.pubSubPeersOptions` | sync |
+| `func options.PubSubSubscribeOptions(opts ...options.PubSubSubscribeOption) (*options.PubSubSubscribeSettings, error)` | `Go.kubo.core.coreiface.options.pubSubSubscribeOptions` | sync |
+| `func options.RoutingFindProvidersOptions(opts ...options.RoutingFindProvidersOption) (*options.RoutingFindProvidersSettings, error)` | `Go.kubo.core.coreiface.options.routingFindProvidersOptions` | sync |
+| `func options.RoutingProvideOptions(opts ...options.RoutingProvideOption) (*options.RoutingProvideSettings, error)` | `Go.kubo.core.coreiface.options.routingProvideOptions` | sync |
+| `func options.RoutingPutOptions(opts ...options.RoutingPutOption) (*options.RoutingPutSettings, error)` | `Go.kubo.core.coreiface.options.routingPutOptions` | sync |
+| `func options.UnixfsAddOptions(opts ...options.UnixfsAddOption) (*options.UnixfsAddSettings, cid.Prefix, error)` | `Go.kubo.core.coreiface.options.unixfsAddOptions` | sync |
+| `func options.UnixfsLsOptions(opts ...options.UnixfsLsOption) (*options.UnixfsLsSettings, error)` | `Go.kubo.core.coreiface.options.unixfsLsOptions` | sync |
 | `const options.BalancedLayout options.Layout` | `Go.kubo.core.coreiface.options.balancedLayout` | const |
 | `const options.DefaultNameValidTime time.Duration` | `Go.kubo.core.coreiface.options.defaultNameValidTime` | const |
 | `const options.DefaultRSALen untyped int` | `Go.kubo.core.coreiface.options.defaultRsaLen` | const |
@@ -787,31 +2311,99 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `const options.RSAKey untyped string` | `Go.kubo.core.coreiface.options.rsaKey` | const |
 | `const options.TrickleLayout options.Layout` | `Go.kubo.core.coreiface.options.trickleLayout` | const |
 
+Omitted:
+
+- `var options.Api options.apiOpts`: result 0: unexported type github.com/ipfs/kubo/core/coreiface/options.apiOpts
+- `var options.Block options.blockOpts`: result 0: unexported type github.com/ipfs/kubo/core/coreiface/options.blockOpts
+- `var options.Dht options.routingOpts`: result 0: unexported type github.com/ipfs/kubo/core/coreiface/options.routingOpts
+- `var options.DhtFindProvidersOptions func(opts ...options.RoutingFindProvidersOption) (*options.RoutingFindProvidersSettings, error)`: result 0: func(opts ...github.com/ipfs/kubo/core/coreiface/options.RoutingFindProvidersOption) (*github.com/ipfs/kubo/core/coreiface/options.RoutingFindProvidersSettings, error)
+- `var options.DhtProvideOptions func(opts ...options.RoutingProvideOption) (*options.RoutingProvideSettings, error)`: result 0: func(opts ...github.com/ipfs/kubo/core/coreiface/options.RoutingProvideOption) (*github.com/ipfs/kubo/core/coreiface/options.RoutingProvideSettings, error)
+- `var options.Key options.keyOpts`: result 0: unexported type github.com/ipfs/kubo/core/coreiface/options.keyOpts
+- `var options.Name options.nameOpts`: result 0: unexported type github.com/ipfs/kubo/core/coreiface/options.nameOpts
+- `func options.NameResolveOptions(opts ...options.NameResolveOption) (*options.NameResolveSettings, error)`: result 0: *github.com/ipfs/kubo/core/coreiface/options.NameResolveSettings
+- `var options.Object options.objectOpts`: result 0: unexported type github.com/ipfs/kubo/core/coreiface/options.objectOpts
+- `var options.Pin options.pinOpts`: result 0: unexported type github.com/ipfs/kubo/core/coreiface/options.pinOpts
+- `var options.PubSub options.pubsubOpts`: result 0: unexported type github.com/ipfs/kubo/core/coreiface/options.pubsubOpts
+- `var options.Put options.routingOpts`: result 0: unexported type github.com/ipfs/kubo/core/coreiface/options.routingOpts
+- `var options.Routing options.routingOpts`: result 0: unexported type github.com/ipfs/kubo/core/coreiface/options.routingOpts
+- `var options.Unixfs options.unixfsOpts`: result 0: unexported type github.com/ipfs/kubo/core/coreiface/options.unixfsOpts
+
 ## `github.com/ipfs/kubo/core/corerepo` → `Go.kubo.core.corerepo` (`lib/go/kubo/core/corerepo.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
+| `func corerepo.BestEffortRoots(n *core.IpfsNode) ([]cid.Cid, error)` | `Go.kubo.core.corerepo.bestEffortRoots` | sync |
+| `func corerepo.ConditionalGC(ctx context.Context, node *core.IpfsNode, offset uint64) error` | `Go.kubo.core.corerepo.conditionalGc` | Future |
 | `func corerepo.GarbageCollect(n *core.IpfsNode, ctx context.Context) error` | `Go.kubo.core.corerepo.garbageCollect` | Future |
 | `func corerepo.GarbageCollectAsync(n *core.IpfsNode, ctx context.Context) <-chan gc.Result` | `Go.kubo.core.corerepo.garbageCollectAsync` | Stream |
+| `func corerepo.NewGC(n *core.IpfsNode) (*corerepo.GC, error)` | `Go.kubo.core.corerepo.newGc` | sync |
 | `func corerepo.PeriodicGC(ctx context.Context, node *core.IpfsNode) error` | `Go.kubo.core.corerepo.periodicGc` | Future |
-| `func corerepo.ConditionalGC(ctx context.Context, node *core.IpfsNode, offset uint64) error` | `Go.kubo.core.corerepo.conditionalGc` | Future |
+| `func corerepo.RepoSize(ctx context.Context, n *core.IpfsNode) (corerepo.SizeStat, error)` | `Go.kubo.core.corerepo.repoSize` | Future |
 
 Omitted:
 
+- `func corerepo.CollectResult(ctx context.Context, gcOut <-chan gc.Result, cb func(cid.Cid)) error`: parameter gcOut: <-chan github.com/ipfs/kubo/gc.Result
 - `const corerepo.NoLimit uint64`: constant of type uint64
 
 ## `github.com/ipfs/kubo/core/node` → `Go.kubo.core.node` (`lib/go/kubo/core/node.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
-| `func (node.BaseBlocks).Put(context.Context, blocks.Block) error` | `KuboCoreNodeBaseBlocks.put` | Future |
-| `func (node.BaseBlocks).Has(context.Context, cid.Cid) (bool, error)` | `KuboCoreNodeBaseBlocks.has` | Future |
+| `func (node.BaseBlocks).AllKeysChan(ctx context.Context) (<-chan cid.Cid, error)` | `KuboCoreNodeBaseBlocks.allKeysChan` | Stream |
+| `func (node.BaseBlocks).DeleteBlock(context.Context, cid.Cid) error` | `KuboCoreNodeBaseBlocks.deleteBlock` | Future |
 | `func (node.BaseBlocks).Get(context.Context, cid.Cid) (blocks.Block, error)` | `KuboCoreNodeBaseBlocks.get` | Future |
 | `func (node.BaseBlocks).GetSize(context.Context, cid.Cid) (int, error)` | `KuboCoreNodeBaseBlocks.getSize` | Future |
-| `func (node.BaseBlocks).DeleteBlock(context.Context, cid.Cid) error` | `KuboCoreNodeBaseBlocks.deleteBlock` | Future |
-| `func (node.BaseBlocks).AllKeysChan(ctx context.Context) (<-chan cid.Cid, error)` | `KuboCoreNodeBaseBlocks.allKeysChan` | Stream |
+| `func (node.BaseBlocks).Has(context.Context, cid.Cid) (bool, error)` | `KuboCoreNodeBaseBlocks.has` | Future |
+| `func (node.BaseBlocks).Put(context.Context, blocks.Block) error` | `KuboCoreNodeBaseBlocks.put` | Future |
+| `func (node.BaseBlocks).PutMany(context.Context, []blocks.Block) error` | `KuboCoreNodeBaseBlocks.putMany` | Future |
+| `var node.BaseLibP2P fx.Option` | `Go.kubo.core.node.baseLibP2p` | sync |
+| `func node.Bitswap(serverEnabled bool, libp2pEnabled bool, httpEnabled bool) any` | `Go.kubo.core.node.bitswap` | sync |
+| `func node.BitswapOptions(cfg *config.Config) any` | `Go.kubo.core.node.bitswapOptions` | sync |
+| `var node.Core fx.Option` | `Go.kubo.core.node.core` | sync |
+| `func (node.DHTProvider).Clear() int` | `KuboCoreNodeDhtProvider.clear` | sync |
+| `func (node.DHTProvider).Close() error` | `KuboCoreNodeDhtProvider.close` | sync |
+| `func (node.DHTProvider).ProvideOnce(keys ...multihash.Multihash) error` | `KuboCoreNodeDhtProvider.provideOnce` | sync |
+| `func (node.DHTProvider).RefreshSchedule() error` | `KuboCoreNodeDhtProvider.refreshSchedule` | sync |
+| `func (node.DHTProvider).StartProviding(force bool, keys ...multihash.Multihash) error` | `KuboCoreNodeDhtProvider.startProviding` | sync |
+| `func node.DNSResolver(cfg *config.Config) (*madns.Resolver, error)` | `Go.kubo.core.node.dnsResolver` | sync |
+| `func node.Dag(bs blockservice.BlockService) format.DAGService` | `Go.kubo.core.node.dag` | sync |
+| `func node.Datastore(repo repo.Repo) datastore.Datastore` | `Go.kubo.core.node.datastore` | sync |
+| `func node.FetcherConfig(bs blockservice.BlockService) node.FetchersOut` | `Go.kubo.core.node.fetcherConfig` | sync |
+| `var node.FilesRootDatastoreKey datastore.Key` | `Go.kubo.core.node.filesRootDatastoreKey` | sync |
+| `func node.GcBlockstoreCtor(bb node.BaseBlocks) (gclocker blockstore.GCLocker, gcbs blockstore.GCBlockstore, bs blockstore.Blockstore)` | `Go.kubo.core.node.gcBlockstoreCtor` | sync |
+| `func node.IPFS(ctx context.Context, bcfg *node.BuildCfg) fx.Option` | `Go.kubo.core.node.ipfs` | Future |
+| `var node.IPNS fx.Option` | `Go.kubo.core.node.ipns` | sync |
+| `func node.Identity(cfg *config.Config) fx.Option` | `Go.kubo.core.node.identity` | sync |
+| `func (*node.LegacyProvider).Clear() int` | `KuboCoreNodeLegacyProvider.clear` | sync |
+| `func (*node.LegacyProvider).ProvideOnce(keys ...multihash.Multihash) error` | `KuboCoreNodeLegacyProvider.provideOnce` | sync |
+| `func (*node.LegacyProvider).RefreshSchedule() error` | `KuboCoreNodeLegacyProvider.refreshSchedule` | sync |
+| `func (*node.LegacyProvider).StartProviding(force bool, keys ...multihash.Multihash) error` | `KuboCoreNodeLegacyProvider.startProviding` | sync |
+| `func node.LegacyProviderOpt(reprovideInterval time.Duration, strategy string, acceleratedDHTClient bool, provideWorkerCount int) fx.Option` | `Go.kubo.core.node.legacyProviderOpt` | sync |
+| `func node.LibP2P(bcfg *node.BuildCfg, cfg *config.Config, userResourceOverrides rcmgr.PartialLimitConfig) fx.Option` | `Go.kubo.core.node.libP2p` | sync |
+| `func node.Networked(bcfg *node.BuildCfg, cfg *config.Config, userResourceOverrides rcmgr.PartialLimitConfig) fx.Option` | `Go.kubo.core.node.networked` | sync |
+| `func (*node.NoopProvider).Clear() int` | `KuboCoreNodeNoopProvider.clear` | sync |
+| `func (*node.NoopProvider).Close() error` | `KuboCoreNodeNoopProvider.close` | sync |
+| `func (*node.NoopProvider).ProvideOnce(...multihash.Multihash) error` | `KuboCoreNodeNoopProvider.provideOnce` | sync |
+| `func (*node.NoopProvider).RefreshSchedule() error` | `KuboCoreNodeNoopProvider.refreshSchedule` | sync |
+| `func (*node.NoopProvider).StartProviding(bool, ...multihash.Multihash) error` | `KuboCoreNodeNoopProvider.startProviding` | sync |
+| `func node.Offline(cfg *config.Config) fx.Option` | `Go.kubo.core.node.offline` | sync |
+| `func node.OfflineProviders() fx.Option` | `Go.kubo.core.node.offlineProviders` | sync |
+| `func node.Online(bcfg *node.BuildCfg, cfg *config.Config, userResourceOverrides rcmgr.PartialLimitConfig) fx.Option` | `Go.kubo.core.node.online` | sync |
+| `func node.OnlineExchange(isBitswapActive bool) any` | `Go.kubo.core.node.onlineExchange` | sync |
+| `func node.OnlineProviders(provide bool, cfg *config.Config) fx.Option` | `Go.kubo.core.node.onlineProviders` | sync |
+| `func node.PathResolverConfig(fetchers node.FetchersIn) node.PathResolversOut` | `Go.kubo.core.node.pathResolverConfig` | sync |
+| `func node.PeerWith(peers ...peer.AddrInfo) fx.Option` | `Go.kubo.core.node.peerWith` | sync |
+| `func node.Peering(lc fx.Lifecycle, host host.Host) *peering.PeeringService` | `Go.kubo.core.node.peering` | sync |
+| `func node.PurgeStaleDHTValueRecords(lc fx.Lifecycle, repo repo.Repo)` | `Go.kubo.core.node.purgeStaleDhtValueRecords` | sync |
+| `func node.RecordValidator(ps peerstore.Peerstore) record.Validator` | `Go.kubo.core.node.recordValidator` | sync |
+| `func node.RepoConfig(repo repo.Repo) (*config.Config, error)` | `Go.kubo.core.node.repoConfig` | sync |
+| `func node.Storage(bcfg *node.BuildCfg, cfg *config.Config) fx.Option` | `Go.kubo.core.node.storage` | sync |
+| `func node.SweepingProviderOpt(cfg *config.Config) fx.Option` | `Go.kubo.core.node.sweepingProviderOpt` | sync |
+| `node.BaseBlocks → x.(*blockstore.ValidatingBlockstore)` | `KuboCoreNodeBaseBlocks.asBoxoBlockstoreValidatingBlockstore` | cast |
+| `node.BaseBlocks → x.(*filestore.Filestore)` | `KuboCoreNodeBaseBlocks.asBoxoFilestore` | cast |
 | `node.BaseBlocks → x.(*blockstore.ReadOnly)` | `KuboCoreNodeBaseBlocks.asCarV2BlockstoreReadOnly` | cast |
 | `node.BaseBlocks → x.(*blockstore.ReadWrite)` | `KuboCoreNodeBaseBlocks.asCarV2BlockstoreReadWrite` | cast |
+| `node.DHTProvider → x.(*node.LegacyProvider)` | `KuboCoreNodeDhtProvider.asKuboCoreNodeLegacyProvider` | cast |
 | `const node.DefaultEngineBlockstoreWorkerCount untyped int` | `Go.kubo.core.node.defaultEngineBlockstoreWorkerCount` | const |
 | `const node.DefaultEngineTaskWorkerCount untyped int` | `Go.kubo.core.node.defaultEngineTaskWorkerCount` | const |
 | `const node.DefaultIpnsCacheSize untyped int` | `Go.kubo.core.node.defaultIpnsCacheSize` | const |
@@ -822,91 +2414,234 @@ Omitted:
 | `const node.DefaultWantHaveReplaceSize untyped int` | `Go.kubo.core.node.defaultWantHaveReplaceSize` | const |
 | `const node.KeystoreDatastorePath untyped string` | `Go.kubo.core.node.keystoreDatastorePath` | const |
 
+Omitted:
+
+- `func node.BaseBlockstoreCtor(cacheOpts blockstore.CacheOpts, hashOnRead bool, writeThrough bool, providingStrategy string) func(mctx helpers.MetricsCtx, repo repo.Repo, prov node.DHTProvider, lc fx.Lifecycle) (bs node.BaseBlocks, err error)`: result 0: func(mctx github.com/ipfs/kubo/core/node/helpers.MetricsCtx, repo github.com/ipfs/kubo/repo.Repo, prov github.com/ipfs/kubo/core/node.DHTProvider, lc go.uber.org/fx.Lifecycle) (bs github.com/ipfs/kubo/core/node.BaseBlocks, err error)
+- `func node.BlockService(cfg *config.Config) func(lc fx.Lifecycle, bs blockstore.Blockstore, rem exchange.Interface) blockservice.BlockService`: result 0: func(lc go.uber.org/fx.Lifecycle, bs github.com/ipfs/boxo/blockstore.Blockstore, rem github.com/ipfs/boxo/exchange.Interface) github.com/ipfs/boxo/blockservice.BlockService
+- `func node.Files(strategy string) func(mctx helpers.MetricsCtx, lc fx.Lifecycle, repo repo.Repo, dag format.DAGService, bs blockstore.Blockstore, prov node.DHTProvider) (*mfs.Root, error)`: result 0: func(mctx github.com/ipfs/kubo/core/node/helpers.MetricsCtx, lc go.uber.org/fx.Lifecycle, repo github.com/ipfs/kubo/repo.Repo, dag github.com/ipfs/go-ipld-format.DAGService, bs github.com/ipfs/boxo/blockstore.Blockstore, prov github.com/ipfs/kubo/core/node.DHTProvider) (*github.com/ipfs/boxo/mfs.Root, error)
+- `func node.FilestoreBlockstoreCtor(providingStrategy string) func(repo repo.Repo, bb node.BaseBlocks, prov node.DHTProvider) (gclocker blockstore.GCLocker, gcbs blockstore.GCBlockstore, bs blockstore.Blockstore, fstore *filestore.Filestore)`: result 0: func(repo github.com/ipfs/kubo/repo.Repo, bb github.com/ipfs/kubo/core/node.BaseBlocks, prov github.com/ipfs/kubo/core/node.DHTProvider) (gclocker github.com/ipfs/boxo/blockstore.GCLocker, gcbs github.com/ipfs/boxo/blockstore.GCBlockstore, bs github.com/ipfs/boxo/blockstore.Blockstore, fstore *github.com/ipfs/boxo/filestore.Filestore)
+- `func node.IpnsRepublisher(repubPeriod time.Duration, recordLifetime time.Duration) func(node.lcStartStop, namesys.NameSystem, repo.Repo, crypto.PrivKey) error`: result 0: func(github.com/ipfs/kubo/core/node.lcStartStop, github.com/ipfs/boxo/namesys.NameSystem, github.com/ipfs/kubo/repo.Repo, github.com/libp2p/go-libp2p/core/crypto.PrivKey) error
+- `func node.MountKeystoreDatastores(repo repo.Repo) ([]mount.Mount, func(), error)`: result 1: func()
+- `func node.Namesys(cacheSize int, cacheMaxTTL time.Duration) func(rt routing.ProvideManyRouter, rslv *madns.Resolver, repo repo.Repo) (namesys.NameSystem, error)`: result 0: func(rt github.com/ipfs/kubo/routing.ProvideManyRouter, rslv *github.com/multiformats/go-multiaddr-dns.Resolver, repo github.com/ipfs/kubo/repo.Repo) (github.com/ipfs/boxo/namesys.NameSystem, error)
+- `func node.NewP2PForgeResolver(suffixes []string, fallback madns.BasicResolver) *node.p2pForgeResolver`: result 0: *unexported type github.com/ipfs/kubo/core/node.p2pForgeResolver
+- `func node.PeerID(id peer.ID) func() peer.ID`: result 0: func() github.com/libp2p/go-libp2p/core/peer.ID
+- `func node.Pinning(strategy string) func(lc fx.Lifecycle, bstore blockstore.Blockstore, ds format.DAGService, repo repo.Repo, prov node.DHTProvider) (pin.Pinner, error)`: result 0: func(lc go.uber.org/fx.Lifecycle, bstore github.com/ipfs/boxo/blockstore.Blockstore, ds github.com/ipfs/go-ipld-format.DAGService, repo github.com/ipfs/kubo/repo.Repo, prov github.com/ipfs/kubo/core/node.DHTProvider) (github.com/ipfs/boxo/pinning/pinner.Pinner, error)
+- `func node.PrivateKey(sk crypto.PrivKey) func(id peer.ID) (crypto.PrivKey, error)`: result 0: func(id github.com/libp2p/go-libp2p/core/peer.ID) (github.com/libp2p/go-libp2p/core/crypto.PrivKey, error)
+
 ## `github.com/ipfs/kubo/core/node/libp2p` → `Go.kubo.core.node.libp2p` (`lib/go/kubo/core/node/libp2p.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
-| `var libp2p.DHTOption libp2p.RoutingOption` | `Go.kubo.core.node.libp2p.dhtOption` | sync |
-| `var libp2p.DHTClientOption libp2p.RoutingOption` | `Go.kubo.core.node.libp2p.dhtClientOption` | sync |
-| `var libp2p.DHTServerOption libp2p.RoutingOption` | `Go.kubo.core.node.libp2p.dhtServerOption` | sync |
-| `var libp2p.NilRouterOption func(_ libp2p.RoutingOptionArgs) (routing.Routing, error)` | `Go.kubo.core.node.libp2p.nilRouterOption` | sync |
+| `func libp2p.AddrsFactory(announce []string, appendAnnounce []string, noAnnounce []string) any` | `Go.kubo.core.node.libp2p.addrsFactory` | sync |
+| `func libp2p.BaseRouting(cfg *config.Config) any` | `Go.kubo.core.node.libp2p.baseRouting` | sync |
 | `func libp2p.ConstructDefaultRouting(cfg *config.Config, routingOpt libp2p.RoutingOption) libp2p.RoutingOption` | `Go.kubo.core.node.libp2p.constructDefaultRouting` | sync |
+| `func libp2p.ConstructDelegatedOnlyRouting(cfg *config.Config) libp2p.RoutingOption` | `Go.kubo.core.node.libp2p.constructDelegatedOnlyRouting` | sync |
+| `func libp2p.ContentDiscovery(in routing.ProvideManyRouter) routing.ContentDiscovery` | `Go.kubo.core.node.libp2p.contentDiscovery` | sync |
+| `var libp2p.DHTClientOption libp2p.RoutingOption` | `Go.kubo.core.node.libp2p.dhtClientOption` | sync |
+| `var libp2p.DHTOption libp2p.RoutingOption` | `Go.kubo.core.node.libp2p.dhtOption` | sync |
+| `var libp2p.DHTServerOption libp2p.RoutingOption` | `Go.kubo.core.node.libp2p.dhtServerOption` | sync |
+| `var libp2p.DefaultHostOption libp2p.HostOption` | `Go.kubo.core.node.libp2p.defaultHostOption` | sync |
+| `func libp2p.DetectNAT(h host.Host) string` | `Go.kubo.core.node.libp2p.detectNat` | sync |
+| `func libp2p.FloodSub(pubsubOptions ...pubsub.Option) any` | `Go.kubo.core.node.libp2p.floodSub` | sync |
+| `func libp2p.GossipSub(pubsubOptions ...pubsub.Option) any` | `Go.kubo.core.node.libp2p.gossipSub` | sync |
+| `func libp2p.LimitConfig(cfg config.SwarmConfig, userResourceOverrides rcmgr.PartialLimitConfig) (limitConfig rcmgr.ConcreteLimitConfig, logMessageForStartup string, err error)` | `Go.kubo.core.node.libp2p.limitConfig` | sync |
+| `func libp2p.LimitConfigsToInfo(stats libp2p.LimitsConfigAndUsage) libp2p.ResourceInfos` | `Go.kubo.core.node.libp2p.limitConfigsToInfo` | sync |
+| `func (libp2p.LimitsConfigAndUsage).MarshalJSON() ([]byte, error)` | `KuboCoreNodeLibp2pLimitsConfigAndUsage.marshalJson` | sync |
+| `func (libp2p.LimitsConfigAndUsage).ToPartialLimitConfig() (result rcmgr.PartialLimitConfig)` | `KuboCoreNodeLibp2pLimitsConfigAndUsage.toPartialLimitConfig` | sync |
+| `func libp2p.ListenOn(addresses []string) any` | `Go.kubo.core.node.libp2p.listenOn` | sync |
+| `func libp2p.MaybeAutoRelay(staticRelays []string, cfgPeering config.Peering, enabled bool) fx.Option` | `Go.kubo.core.node.libp2p.maybeAutoRelay` | sync |
+| `func libp2p.MergeLimitsAndStatsIntoLimitsConfigAndUsage(l rcmgr.ConcreteLimitConfig, stats rcmgr.ResourceManagerStat) libp2p.LimitsConfigAndUsage` | `Go.kubo.core.node.libp2p.mergeLimitsAndStatsIntoLimitsConfigAndUsage` | sync |
+| `var libp2p.NilRouterOption func(_ libp2p.RoutingOptionArgs) (routing.Routing, error)` | `Go.kubo.core.node.libp2p.nilRouterOption` | sync |
+| `func libp2p.P2PForgeCertMgr(repoPath string, cfg config.AutoTLS, atlsLog *log.ZapEventLogger) any` | `Go.kubo.core.node.libp2p.p2pForgeCertMgr` | sync |
+| `func libp2p.PNetChecker(repo repo.Repo, ph host.Host, lc fx.Lifecycle) error` | `Go.kubo.core.node.libp2p.pNetChecker` | sync |
+| `func libp2p.Peerstore(lc fx.Lifecycle) (peerstore.Peerstore, error)` | `Go.kubo.core.node.libp2p.peerstore` | sync |
+| `func libp2p.PstoreAddSelfKeys(id peer.ID, sk crypto.PrivKey, ps peerstore.Peerstore) error` | `Go.kubo.core.node.libp2p.pstoreAddSelfKeys` | sync |
+| `func (libp2p.ResourceLimitsAndUsage).ToResourceLimits() rcmgr.ResourceLimits` | `KuboCoreNodeLibp2pResourceLimitsAndUsage.toResourceLimits` | sync |
+| `func libp2p.ResourceManager(repoPath string, cfg config.SwarmConfig, userResourceOverrides rcmgr.PartialLimitConfig) any` | `Go.kubo.core.node.libp2p.resourceManager` | sync |
+| `func libp2p.Security(enabled bool, tptConfig config.Transports) any` | `Go.kubo.core.node.libp2p.security` | sync |
+| `func libp2p.StartP2PAutoTLS(lc fx.Lifecycle, certMgr *client.P2PForgeCertMgr, h host.Host)` | `Go.kubo.core.node.libp2p.startP2pAutoTls` | sync |
+| `func libp2p.TopicDiscovery() any` | `Go.kubo.core.node.libp2p.topicDiscovery` | sync |
+| `func libp2p.Transports(tptConfig config.Transports) any` | `Go.kubo.core.node.libp2p.transports` | sync |
 | `const libp2p.NetLimitTraceFilename untyped string` | `Go.kubo.core.node.libp2p.netLimitTraceFilename` | const |
 | `const libp2p.SeqnoStorePrefix untyped string` | `Go.kubo.core.node.libp2p.seqnoStorePrefix` | const |
+
+Omitted:
+
+- `func libp2p.AddrFilters(filters []string) func() (*multiaddr.Filters, libp2p.Libp2pOpts, error)`: result 0: func() (*github.com/multiformats/go-multiaddr.Filters, github.com/ipfs/kubo/core/node/libp2p.Libp2pOpts, error)
+- `func libp2p.AutoNATService(throttle *config.AutoNATThrottleConfig, v1only bool) func() libp2p.Libp2pOpts`: result 0: func() github.com/ipfs/kubo/core/node/libp2p.Libp2pOpts
+- `func libp2p.BandwidthCounter() (opts libp2p.Libp2pOpts, reporter *metrics.BandwidthCounter)`: result 0: github.com/ipfs/kubo/core/node/libp2p.Libp2pOpts
+- `func libp2p.ConnectionManager(low int, high int, grace time.Duration, silence time.Duration) func() (opts libp2p.Libp2pOpts, err error)`: result 0: func() (opts github.com/ipfs/kubo/core/node/libp2p.Libp2pOpts, err error)
+- `func libp2p.ConstructDelegatedRouting(routers config.Routers, methods config.Methods, peerID string, addrs config.Addresses, privKey string, httpRetrieval bool) libp2p.RoutingOption`: parameter routers: tipo github.com/ipfs/kubo/config.Routers
+- `func libp2p.ContentRouting(in libp2p.p2pOnlineContentRoutingIn) routing.ContentRouting`: parameter in: unexported type github.com/ipfs/kubo/core/node/libp2p.p2pOnlineContentRoutingIn
+- `func libp2p.DiscoveryHandler(mctx helpers.MetricsCtx, lc fx.Lifecycle, host host.Host) *libp2p.discoveryHandler`: result 0: *unexported type github.com/ipfs/kubo/core/node/libp2p.discoveryHandler
+- `func libp2p.ForceReachability(val *config.OptionalString) func() (opts libp2p.Libp2pOpts, err error)`: result 0: func() (opts github.com/ipfs/kubo/core/node/libp2p.Libp2pOpts, err error)
+- `func libp2p.HolePunching(flag config.Flag, hasRelayClient bool) func() (opts libp2p.Libp2pOpts, err error)`: result 0: func() (opts github.com/ipfs/kubo/core/node/libp2p.Libp2pOpts, err error)
+- `func libp2p.Host(mctx helpers.MetricsCtx, lc fx.Lifecycle, params libp2p.P2PHostIn) (out libp2p.P2PHostOut, err error)`: parameter params: github.com/ipfs/kubo/core/node/libp2p.P2PHostIn with an option inside
+- `func libp2p.MonitorCGNAT() func(fx.Lifecycle, host.Host) error`: result 0: func(go.uber.org/fx.Lifecycle, github.com/libp2p/go-libp2p/core/host.Host) error
+- `func libp2p.MonitorDeadListeners(swarmListen []string, addrFilters []string, noAnnounce []string) func(fx.Lifecycle, host.Host) error`: result 0: func(go.uber.org/fx.Lifecycle, github.com/libp2p/go-libp2p/core/host.Host) error
+- `func libp2p.MultiaddrResolver(rslv *madns.Resolver) (opts libp2p.Libp2pOpts, err error)`: result 0: github.com/ipfs/kubo/core/node/libp2p.Libp2pOpts
+- `var libp2p.NatPortMap func() (opts libp2p.Libp2pOpts, err error)`: result 0: func() (opts github.com/ipfs/kubo/core/node/libp2p.Libp2pOpts, err error)
+- `func libp2p.NonPublicAddrPublishing(val config.Flag) func() (opts libp2p.Libp2pOpts)`: result 0: func() (opts github.com/ipfs/kubo/core/node/libp2p.Libp2pOpts)
+- `func libp2p.OfflineRouting(dstore datastore.Datastore, validator record.Validator) libp2p.p2pRouterOut`: result 0: unexported type github.com/ipfs/kubo/core/node/libp2p.p2pRouterOut
+- `func libp2p.PNet(repo repo.Repo) (opts libp2p.Libp2pOpts, fp libp2p.PNetFingerprint, err error)`: result 0: github.com/ipfs/kubo/core/node/libp2p.Libp2pOpts
+- `func libp2p.PubsubRouter(mctx helpers.MetricsCtx, lc fx.Lifecycle, in libp2p.p2pPSRoutingIn) (libp2p.p2pRouterOut, *namesys.PubsubValueStore, error)`: parameter in: unexported type github.com/ipfs/kubo/core/node/libp2p.p2pPSRoutingIn
+- `func libp2p.RelayService(enable bool, relayOpts config.RelayService) func() (opts libp2p.Libp2pOpts, err error)`: result 0: func() (opts github.com/ipfs/kubo/core/node/libp2p.Libp2pOpts, err error)
+- `func libp2p.RelayTransport(enableRelay bool) func() (opts libp2p.Libp2pOpts, err error)`: result 0: func() (opts github.com/ipfs/kubo/core/node/libp2p.Libp2pOpts, err error)
+- `func libp2p.Routing(in libp2p.p2pOnlineRoutingIn) routing.ProvideManyRouter`: parameter in: unexported type github.com/ipfs/kubo/core/node/libp2p.p2pOnlineRoutingIn
+- `func libp2p.SetupDiscovery(useMdns bool) func(helpers.MetricsCtx, fx.Lifecycle, host.Host, *libp2p.discoveryHandler) error`: result 0: func(github.com/ipfs/kubo/core/node/helpers.MetricsCtx, go.uber.org/fx.Lifecycle, github.com/libp2p/go-libp2p/core/host.Host, *github.com/ipfs/kubo/core/node/libp2p.discoveryHandler) error
+- `func libp2p.SmuxTransport(tptConfig config.Transports) func() (opts libp2p.Libp2pOpts, err error)`: result 0: func() (opts github.com/ipfs/kubo/core/node/libp2p.Libp2pOpts, err error)
+- `func libp2p.UserAgent() func() (opts libp2p.Libp2pOpts, err error)`: result 0: func() (opts github.com/ipfs/kubo/core/node/libp2p.Libp2pOpts, err error)
 
 ## `github.com/ipfs/kubo/plugin/loader` → `Go.kubo.plugin.loader` (`lib/go/kubo/plugin/loader.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
 | `func loader.NewPluginLoader(repo string) (*loader.PluginLoader, error)` | `factory KuboPluginLoader` | sync |
+| `func (*loader.PluginLoader).Close() error` | `KuboPluginLoader.close` | sync |
 | `func (*loader.PluginLoader).Initialize() error` | `KuboPluginLoader.initialize` | sync |
 | `func (*loader.PluginLoader).Inject() error` | `KuboPluginLoader.inject` | sync |
+| `func (*loader.PluginLoader).Load(pl plugin.Plugin) error` | `KuboPluginLoader.load` | sync |
+| `func (*loader.PluginLoader).LoadDirectory(pluginDir string) error` | `KuboPluginLoader.loadDirectory` | sync |
+| `func (*loader.PluginLoader).Start(node *core.IpfsNode) error` | `KuboPluginLoader.start` | sync |
+| `func loader.Preload(plugins ...plugin.Plugin)` | `Go.kubo.plugin.loader.preload` | sync |
 
 ## `github.com/ipfs/kubo/repo` → `Go.kubo.repo` (`lib/go/kubo/repo.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
+| `func (io.Closer).Close() error` | `KuboRepo.close` | sync |
+| `func (*repo.Mock).BackupConfig(prefix string) (string, error)` | `KuboRepoMock.backupConfig` | sync |
+| `func (*repo.Mock).Close() error` | `KuboRepoMock.close` | sync |
+| `func (*repo.Mock).Config() (*config.Config, error)` | `KuboRepoMock.config` | sync |
+| `func (*repo.Mock).Datastore() repo.Datastore` | `KuboRepoMock.datastore` | sync |
+| `func (*repo.Mock).FileManager() *filestore.FileManager` | `KuboRepoMock.fileManager` | sync |
+| `func (*repo.Mock).GetConfigKey(key string) (any, error)` | `KuboRepoMock.getConfigKey` | sync |
+| `func (*repo.Mock).GetStorageUsage(_ context.Context) (uint64, error)` | `KuboRepoMock.getStorageUsage` | Future |
+| `func (*repo.Mock).Keystore() keystore.Keystore` | `KuboRepoMock.keystore` | sync |
+| `func (*repo.Mock).Path() string` | `KuboRepoMock.path` | sync |
+| `func (*repo.Mock).SetAPIAddr(addr multiaddr.Multiaddr) error` | `KuboRepoMock.setApiAddr` | sync |
+| `func (*repo.Mock).SetConfig(updated *config.Config) error` | `KuboRepoMock.setConfig` | sync |
+| `func (*repo.Mock).SetConfigKey(key string, value any) error` | `KuboRepoMock.setConfigKey` | sync |
+| `func (*repo.Mock).SetGatewayAddr(addr net.Addr) error` | `KuboRepoMock.setGatewayAddr` | sync |
+| `func (*repo.Mock).SwarmKey() ([]byte, error)` | `KuboRepoMock.swarmKey` | sync |
+| `func (*repo.Mock).UserResourceOverrides() (rcmgr.PartialLimitConfig, error)` | `KuboRepoMock.userResourceOverrides` | sync |
+| `func (repo.Repo).BackupConfig(prefix string) (string, error)` | `KuboRepo.backupConfig` | sync |
 | `func (repo.Repo).Config() (*config.Config, error)` | `KuboRepo.config` | sync |
+| `func (repo.Repo).Datastore() repo.Datastore` | `KuboRepo.datastore` | sync |
+| `func (repo.Repo).FileManager() *filestore.FileManager` | `KuboRepo.fileManager` | sync |
+| `func (repo.Repo).GetConfigKey(key string) (any, error)` | `KuboRepo.getConfigKey` | sync |
+| `func (repo.Repo).GetStorageUsage(context.Context) (uint64, error)` | `KuboRepo.getStorageUsage` | Future |
+| `func (repo.Repo).Keystore() keystore.Keystore` | `KuboRepo.keystore` | sync |
+| `func (repo.Repo).Path() string` | `KuboRepo.path` | sync |
+| `func (repo.Repo).SetAPIAddr(addr multiaddr.Multiaddr) error` | `KuboRepo.setApiAddr` | sync |
 | `func (repo.Repo).SetConfig(*config.Config) error` | `KuboRepo.setConfig` | sync |
 | `func (repo.Repo).SetConfigKey(key string, value any) error` | `KuboRepo.setConfigKey` | sync |
-| `func (repo.Repo).GetConfigKey(key string) (any, error)` | `KuboRepo.getConfigKey` | sync |
-| `func (repo.Repo).BackupConfig(prefix string) (string, error)` | `KuboRepo.backupConfig` | sync |
-| `func (io.Closer).Close() error` | `KuboRepo.close` | sync |
+| `func (repo.Repo).SetGatewayAddr(addr net.Addr) error` | `KuboRepo.setGatewayAddr` | sync |
+| `func (repo.Repo).SwarmKey() ([]byte, error)` | `KuboRepo.swarmKey` | sync |
+| `func (repo.Repo).UserResourceOverrides() (rcmgr.PartialLimitConfig, error)` | `KuboRepo.userResourceOverrides` | sync |
+| `repo.Datastore → x.(*datastore.LogDatastore)` | `KuboRepoDatastore.asDatastoreLogDatastore` | cast |
+| `repo.Datastore → x.(*datastore.MapDatastore)` | `KuboRepoDatastore.asDatastoreMapDatastore` | cast |
+| `repo.Datastore → x.(*datastore.NullDatastore)` | `KuboRepoDatastore.asDatastoreNullDatastore` | cast |
+| `repo.Datastore → x.(*sync.MutexDatastore)` | `KuboRepoDatastore.asDatastoreSyncMutexDatastore` | cast |
+| `repo.Repo → x.(*fsrepo.FSRepo)` | `KuboRepo.asKuboRepoFsrepoFsRepo` | cast |
+
+Omitted:
+
+- `func (*repo.OnlyOne).Open(key any, open func() (repo.Repo, error)) (repo.Repo, error)`: parameter open: func() (github.com/ipfs/kubo/repo.Repo, error)
 
 ## `github.com/ipfs/kubo/repo/fsrepo` → `Go.kubo.repo.fsrepo` (`lib/go/kubo/repo/fsrepo.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
-| `func fsrepo.IsInitialized(path string) bool` | `Go.kubo.repo.fsrepo.isInitialized` | sync |
-| `func fsrepo.Init(repoPath string, conf *config.Config) error` | `Go.kubo.repo.fsrepo.init` | sync |
-| `func fsrepo.Open(repoPath string) (repo.Repo, error)` | `Go.kubo.repo.fsrepo.open` | sync |
-| `func fsrepo.BestKnownPath() (string, error)` | `Go.kubo.repo.fsrepo.bestKnownPath` | sync |
-| `func fsrepo.LockedByOtherProcess(repoPath string) (bool, error)` | `Go.kubo.repo.fsrepo.lockedByOtherProcess` | sync |
 | `func fsrepo.APIAddr(repoPath string) (multiaddr.Multiaddr, error)` | `Go.kubo.repo.fsrepo.apiAddr` | sync |
+| `func fsrepo.AddDatastoreConfigHandler(name string, dsc fsrepo.ConfigFromMap) error` | `Go.kubo.repo.fsrepo.addDatastoreConfigHandler` | sync |
+| `func fsrepo.AnyDatastoreConfig(params map[string]any) (fsrepo.DatastoreConfig, error)` | `Go.kubo.repo.fsrepo.anyDatastoreConfig` | sync |
+| `func fsrepo.BestKnownPath() (string, error)` | `Go.kubo.repo.fsrepo.bestKnownPath` | sync |
+| `func (fsrepo.DatastoreConfig).Create(path string) (repo.Datastore, error)` | `KuboRepoFsrepoDatastoreConfig.create` | sync |
+| `func (*fsrepo.FSRepo).BackupConfig(prefix string) (string, error)` | `KuboRepoFsrepoFsRepo.backupConfig` | sync |
+| `func (*fsrepo.FSRepo).Close() error` | `KuboRepoFsrepoFsRepo.close` | sync |
+| `func (*fsrepo.FSRepo).Config() (*config.Config, error)` | `KuboRepoFsrepoFsRepo.config` | sync |
+| `func (*fsrepo.FSRepo).Datastore() repo.Datastore` | `KuboRepoFsrepoFsRepo.datastore` | sync |
+| `func (*fsrepo.FSRepo).FileManager() *filestore.FileManager` | `KuboRepoFsrepoFsRepo.fileManager` | sync |
+| `func (*fsrepo.FSRepo).GetConfigKey(key string) (any, error)` | `KuboRepoFsrepoFsRepo.getConfigKey` | sync |
+| `func (*fsrepo.FSRepo).GetStorageUsage(ctx context.Context) (uint64, error)` | `KuboRepoFsrepoFsRepo.getStorageUsage` | Future |
+| `func (*fsrepo.FSRepo).Keystore() keystore.Keystore` | `KuboRepoFsrepoFsRepo.keystore` | sync |
+| `func (*fsrepo.FSRepo).Path() string` | `KuboRepoFsrepoFsRepo.path` | sync |
+| `func (*fsrepo.FSRepo).SetAPIAddr(addr multiaddr.Multiaddr) error` | `KuboRepoFsrepoFsRepo.setApiAddr` | sync |
+| `func (*fsrepo.FSRepo).SetConfig(updated *config.Config) error` | `KuboRepoFsrepoFsRepo.setConfig` | sync |
+| `func (*fsrepo.FSRepo).SetConfigKey(key string, value any) error` | `KuboRepoFsrepoFsRepo.setConfigKey` | sync |
+| `func (*fsrepo.FSRepo).SetGatewayAddr(addr net.Addr) error` | `KuboRepoFsrepoFsRepo.setGatewayAddr` | sync |
+| `func (*fsrepo.FSRepo).SwarmKey() ([]byte, error)` | `KuboRepoFsrepoFsRepo.swarmKey` | sync |
+| `func (*fsrepo.FSRepo).UserResourceOverrides() (rcmgr.PartialLimitConfig, error)` | `KuboRepoFsrepoFsRepo.userResourceOverrides` | sync |
+| `func fsrepo.Init(repoPath string, conf *config.Config) error` | `Go.kubo.repo.fsrepo.init` | sync |
+| `func fsrepo.IsInitialized(path string) bool` | `Go.kubo.repo.fsrepo.isInitialized` | sync |
+| `func fsrepo.LockedByOtherProcess(repoPath string) (bool, error)` | `Go.kubo.repo.fsrepo.lockedByOtherProcess` | sync |
+| `func fsrepo.LogDatastoreConfig(params map[string]any) (fsrepo.DatastoreConfig, error)` | `Go.kubo.repo.fsrepo.logDatastoreConfig` | sync |
+| `func fsrepo.MeasureDatastoreConfig(params map[string]any) (fsrepo.DatastoreConfig, error)` | `Go.kubo.repo.fsrepo.measureDatastoreConfig` | sync |
+| `func fsrepo.MemDatastoreConfig(params map[string]any) (fsrepo.DatastoreConfig, error)` | `Go.kubo.repo.fsrepo.memDatastoreConfig` | sync |
+| `func fsrepo.MountDatastoreConfig(params map[string]any) (fsrepo.DatastoreConfig, error)` | `Go.kubo.repo.fsrepo.mountDatastoreConfig` | sync |
+| `func fsrepo.Open(repoPath string) (repo.Repo, error)` | `Go.kubo.repo.fsrepo.open` | sync |
+| `func fsrepo.OpenWithUserConfig(repoPath string, userConfigFilePath string) (repo.Repo, error)` | `Go.kubo.repo.fsrepo.openWithUserConfig` | sync |
+| `var fsrepo.RepoVersion int` | `Go.kubo.repo.fsrepo.repoVersion` | sync |
 | `const fsrepo.LockFile untyped string` | `Go.kubo.repo.fsrepo.lockFile` | const |
+
+Omitted:
+
+- `func (fsrepo.DatastoreConfig).DiskSpec() fsrepo.DiskSpec`: result 0: tipo github.com/ipfs/kubo/repo/fsrepo.DiskSpec
+- `func (fsrepo.DiskSpec).Bytes() []byte`: receiver is neither a handle, a DTO nor a value type: *tipo github.com/ipfs/kubo/repo/fsrepo.DiskSpec
+- `func (fsrepo.DiskSpec).String() string`: receiver is neither a handle, a DTO nor a value type: *tipo github.com/ipfs/kubo/repo/fsrepo.DiskSpec
 
 ## `github.com/ipld/go-car/v2` → `Go.car.v2` (`lib/go/car/v2.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
-| `func car.ReadVersion(r io.Reader, opts ...car.Option) (uint64, error)` | `Go.car.v2.readVersion` | sync |
-| `func car.OpenReader(path string, opts ...car.Option) (*car.Reader, error)` | `Go.car.v2.openReader` | sync |
-| `func car.NewReader(r io.ReaderAt, opts ...car.Option) (*car.Reader, error)` | `factory CarV2Reader` | sync |
 | `(*car.Reader).Header car.Header` | `CarV2Reader.header` | field |
 | `(*car.Reader).Header car.Header` | `CarV2Reader.header =` | field |
 | `(*car.Reader).Version uint64` | `CarV2Reader.version` | field |
 | `(*car.Reader).Version uint64` | `CarV2Reader.version =` | field |
-| `func (*car.Reader).Roots() ([]cid.Cid, error)` | `CarV2Reader.roots` | sync |
-| `func (*car.Reader).Inspect(validateBlockHash bool) (car.Stats, error)` | `CarV2Reader.inspect` | sync |
-| `func (*car.Reader).DataReader() (car.SectionReader, error)` | `CarV2Reader.dataReader` | sync |
-| `func (*car.Reader).IndexReader() (io.Reader, error)` | `CarV2Reader.indexReader` | sync |
-| `func (*car.Reader).Close() error` | `CarV2Reader.close` | sync |
-| `func car.NewBlockReader(r io.Reader, opts ...car.Option) (*car.BlockReader, error)` | `factory CarV2BlockReader` | sync |
 | `(*car.BlockReader).Version uint64` | `CarV2BlockReader.version` | field |
 | `(*car.BlockReader).Version uint64` | `CarV2BlockReader.version =` | field |
 | `(*car.BlockReader).Roots []cid.Cid` | `CarV2BlockReader.roots` | field |
 | `(*car.BlockReader).Roots []cid.Cid` | `CarV2BlockReader.roots =` | field |
+| `func car.ApplyOptions(opt ...car.Option) car.Options` | `Go.car.v2.applyOptions` | sync |
+| `func car.AttachIndex(path string, idx index.Index, offset uint64) error` | `Go.car.v2.attachIndex` | sync |
 | `func (*car.BlockReader).Next() (blocks.Block, error)` | `CarV2BlockReader.next` | sync |
 | `func (*car.BlockReader).NextReader() (cid.Cid, io.Reader, uint64, error)` | `CarV2BlockReader.nextReader` | sync |
 | `func (*car.BlockReader).SkipNext() (*car.BlockMetadata, error)` | `CarV2BlockReader.skipNext` | sync |
-| `func car.NewHeader(dataSize uint64) car.Header` | `Go.car.v2.newHeader` | sync |
-| `func (car.Header).HasIndex() bool` | `CarV2Header.hasIndex` | sync |
-| `func (car.Header).WithDataSize(size uint64) car.Header` | `CarV2Header.withDataSize` | sync |
-| `func (car.Header).WithDataPadding(padding uint64) car.Header` | `CarV2Header.withDataPadding` | sync |
-| `func (car.Header).WithIndexPadding(padding uint64) car.Header` | `CarV2Header.withIndexPadding` | sync |
-| `func (car.Header).WriteTo(w io.Writer) (n int64, err error)` | `CarV2Header.writeTo` | sync |
 | `func (*car.Characteristics).IsFullyIndexed() bool` | `CarV2Characteristics.isFullyIndexed` | sync |
+| `func (*car.Characteristics).ReadFrom(r io.Reader) (int64, error)` | `CarV2Characteristics.readFrom` | sync |
+| `func (*car.Characteristics).SetFullyIndexed(b bool)` | `CarV2Characteristics.setFullyIndexed` | sync |
+| `func (car.Characteristics).WriteTo(w io.Writer) (n int64, err error)` | `CarV2Characteristics.writeTo` | sync |
 | `func car.ExtractV1File(srcPath string, dstPath string, opts ...car.Option) (err error)` | `Go.car.v2.extractV1File` | sync |
-| `func car.WrapV1File(srcPath string, dstPath string) error` | `Go.car.v2.wrapV1File` | sync |
-| `func car.WrapV1(src io.ReadSeeker, dst io.Writer, opts ...car.Option) error` | `Go.car.v2.wrapV1` | sync |
-| `func car.ReplaceRootsInFile(path string, roots []cid.Cid, opts ...car.Option) (err error)` | `Go.car.v2.replaceRootsInFile` | sync |
 | `func car.GenerateIndex(v1r io.Reader, opts ...car.Option) (index.Index, error)` | `Go.car.v2.generateIndex` | sync |
 | `func car.GenerateIndexFromFile(path string, opts ...car.Option) (index.Index, error)` | `Go.car.v2.generateIndexFromFile` | sync |
-| `func car.ReadOrGenerateIndex(rs io.ReadSeeker, opts ...car.Option) (index.Index, error)` | `Go.car.v2.readOrGenerateIndex` | sync |
+| `func (car.Header).HasIndex() bool` | `CarV2Header.hasIndex` | sync |
+| `func (*car.Header).ReadFrom(r io.Reader) (int64, error)` | `CarV2Header.readFrom` | sync |
+| `func (car.Header).WithDataPadding(padding uint64) car.Header` | `CarV2Header.withDataPadding` | sync |
+| `func (car.Header).WithDataSize(size uint64) car.Header` | `CarV2Header.withDataSize` | sync |
+| `func (car.Header).WithIndexPadding(padding uint64) car.Header` | `CarV2Header.withIndexPadding` | sync |
+| `func (car.Header).WriteTo(w io.Writer) (n int64, err error)` | `CarV2Header.writeTo` | sync |
 | `func car.LoadIndex(idx index.Index, r io.Reader, opts ...car.Option) error` | `Go.car.v2.loadIndex` | sync |
-| `func car.AttachIndex(path string, idx index.Index, offset uint64) error` | `Go.car.v2.attachIndex` | sync |
+| `func car.NewBlockReader(r io.Reader, opts ...car.Option) (*car.BlockReader, error)` | `factory CarV2BlockReader` | sync |
+| `func car.NewHeader(dataSize uint64) car.Header` | `Go.car.v2.newHeader` | sync |
+| `func car.NewReader(r io.ReaderAt, opts ...car.Option) (*car.Reader, error)` | `factory CarV2Reader` | sync |
+| `func car.NewSelectiveWriter(ctx context.Context, ls *ipld.LinkSystem, root cid.Cid, selector ipld.Node, opts ...car.Option) (car.Writer, error)` | `Go.car.v2.newSelectiveWriter` | Future |
+| `func car.OpenReader(path string, opts ...car.Option) (*car.Reader, error)` | `Go.car.v2.openReader` | sync |
+| `var car.Pragma []byte` | `Go.car.v2.pragma` | sync |
+| `func car.ReadOrGenerateIndex(rs io.ReadSeeker, opts ...car.Option) (index.Index, error)` | `Go.car.v2.readOrGenerateIndex` | sync |
+| `func car.ReadVersion(r io.Reader, opts ...car.Option) (uint64, error)` | `Go.car.v2.readVersion` | sync |
+| `func (*car.Reader).Close() error` | `CarV2Reader.close` | sync |
+| `func (*car.Reader).DataReader() (car.SectionReader, error)` | `CarV2Reader.dataReader` | sync |
+| `func (*car.Reader).IndexReader() (io.Reader, error)` | `CarV2Reader.indexReader` | sync |
+| `func (*car.Reader).Inspect(validateBlockHash bool) (car.Stats, error)` | `CarV2Reader.inspect` | sync |
+| `func (*car.Reader).Roots() ([]cid.Cid, error)` | `CarV2Reader.roots` | sync |
+| `func car.ReplaceRootsInFile(path string, roots []cid.Cid, opts ...car.Option) (err error)` | `Go.car.v2.replaceRootsInFile` | sync |
 | `func car.TraverseToFile(ctx context.Context, ls *ipld.LinkSystem, root cid.Cid, selector ipld.Node, destination string, opts ...car.Option) error` | `Go.car.v2.traverseToFile` | Future |
 | `func car.TraverseV1(ctx context.Context, ls *ipld.LinkSystem, root cid.Cid, selector ipld.Node, writer io.Writer, opts ...car.Option) (uint64, error)` | `Go.car.v2.traverseV1` | Future |
+| `func car.WrapV1(src io.ReadSeeker, dst io.Writer, opts ...car.Option) error` | `Go.car.v2.wrapV1` | sync |
+| `func car.WrapV1File(srcPath string, dstPath string) error` | `Go.car.v2.wrapV1File` | sync |
+| `car.Writer → x.(*bytes.Buffer)` | `CarV2Writer.asBytesBuffer` | cast |
+| `car.Writer → x.(*os.File)` | `CarV2Writer.asOsFile` | cast |
 | `const car.CharacteristicsSize untyped int` | `Go.car.v2.characteristicsSize` | const |
 | `const car.DefaultMaxAllowedHeaderSize uint64` | `Go.car.v2.defaultMaxAllowedHeaderSize` | const |
 | `const car.DefaultMaxAllowedSectionSize uint64` | `Go.car.v2.defaultMaxAllowedSectionSize` | const |
@@ -914,73 +2649,264 @@ Omitted:
 | `const car.HeaderSize untyped int` | `Go.car.v2.headerSize` | const |
 | `const car.PragmaSize untyped int` | `Go.car.v2.pragmaSize` | const |
 
+Omitted:
+
+- `func car.AllowDuplicatePuts(allow bool) car.Option`: result 0: github.com/ipld/go-car/v2.Option
+- `func car.MaxAllowedHeaderSize(max uint64) car.Option`: result 0: github.com/ipld/go-car/v2.Option
+- `func car.MaxAllowedSectionSize(max uint64) car.Option`: result 0: github.com/ipld/go-car/v2.Option
+- `func car.MaxIndexCidSize(s uint64) car.Option`: result 0: github.com/ipld/go-car/v2.Option
+- `func car.MaxTraversalLinks(MaxTraversalLinks uint64) car.Option`: result 0: github.com/ipld/go-car/v2.Option
+- `func car.StoreIdentityCIDs(b bool) car.Option`: result 0: github.com/ipld/go-car/v2.Option
+- `func car.UseDataPadding(p uint64) car.Option`: result 0: github.com/ipld/go-car/v2.Option
+- `func car.UseIndexCodec(c multicodec.Code) car.Option`: result 0: github.com/ipld/go-car/v2.Option
+- `func car.UseIndexPadding(p uint64) car.Option`: result 0: github.com/ipld/go-car/v2.Option
+- `func car.UseWholeCIDs(enable bool) car.Option`: result 0: github.com/ipld/go-car/v2.Option
+- `func car.WithTraversalPrototypeChooser(t traversal.LinkTargetNodePrototypeChooser) car.Option`: result 0: github.com/ipld/go-car/v2.Option
+- `func car.WithTrustedCAR(t bool) car.Option`: result 0: github.com/ipld/go-car/v2.Option
+- `func car.WithoutIndex() car.Option`: result 0: github.com/ipld/go-car/v2.Option
+- `func car.WriteAsCarV1(asCarV1 bool) car.Option`: result 0: github.com/ipld/go-car/v2.Option
+- `func car.ZeroLengthSectionAsEOF(enable bool) car.Option`: result 0: github.com/ipld/go-car/v2.Option
+
 ## `github.com/ipld/go-car/v2/blockstore` → `Go.car.v2.blockstore` (`lib/go/car/v2/blockstore.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
-| `func blockstore.OpenReadOnly(path string, opts ...car.Option) (*blockstore.ReadOnly, error)` | `Go.car.v2.blockstore.openReadOnly` | sync |
+| `func (blockstore.Blockstore).AllKeysChan(ctx context.Context) (<-chan cid.Cid, error)` | `CarV2Blockstore.allKeysChan` | Stream |
+| `func (blockstore.Blockstore).DeleteBlock(context.Context, cid.Cid) error` | `CarV2Blockstore.deleteBlock` | Future |
+| `func (blockstore.Blockstore).Get(context.Context, cid.Cid) (blocks.Block, error)` | `CarV2Blockstore.get` | Future |
+| `func (blockstore.Blockstore).GetSize(context.Context, cid.Cid) (int, error)` | `CarV2Blockstore.getSize` | Future |
+| `func (blockstore.Blockstore).Has(context.Context, cid.Cid) (bool, error)` | `CarV2Blockstore.has` | Future |
+| `func (blockstore.Blockstore).HashOnRead(enabled bool)` | `CarV2Blockstore.hashOnRead` | sync |
+| `func (blockstore.Blockstore).Put(context.Context, blocks.Block) error` | `CarV2Blockstore.put` | Future |
+| `func (blockstore.Blockstore).PutMany(context.Context, []blocks.Block) error` | `CarV2Blockstore.putMany` | Future |
 | `func blockstore.NewReadOnly(backing io.ReaderAt, idx index.Index, opts ...car.Option) (*blockstore.ReadOnly, error)` | `factory CarV2BlockstoreReadOnly` | sync |
-| `func (*blockstore.ReadOnly).Roots() ([]cid.Cid, error)` | `CarV2BlockstoreReadOnly.roots` | sync |
-| `func (*blockstore.ReadOnly).Has(ctx context.Context, key cid.Cid) (bool, error)` | `CarV2BlockstoreReadOnly.has` | Future |
+| `func blockstore.OpenReadOnly(path string, opts ...car.Option) (*blockstore.ReadOnly, error)` | `Go.car.v2.blockstore.openReadOnly` | sync |
+| `func blockstore.OpenReadWrite(path string, roots []cid.Cid, opts ...car.Option) (*blockstore.ReadWrite, error)` | `Go.car.v2.blockstore.openReadWrite` | sync |
+| `func blockstore.OpenReadWriteFile(f *os.File, roots []cid.Cid, opts ...car.Option) (*blockstore.ReadWrite, error)` | `Go.car.v2.blockstore.openReadWriteFile` | sync |
+| `func (*blockstore.ReadOnly).AllKeysChan(ctx context.Context) (<-chan cid.Cid, error)` | `CarV2BlockstoreReadOnly.allKeysChan` | Stream |
+| `func (*blockstore.ReadOnly).Close() error` | `CarV2BlockstoreReadOnly.close` | sync |
+| `func (*blockstore.ReadOnly).DeleteBlock(_ context.Context, _ cid.Cid) error` | `CarV2BlockstoreReadOnly.deleteBlock` | Future |
 | `func (*blockstore.ReadOnly).Get(ctx context.Context, key cid.Cid) (blocks.Block, error)` | `CarV2BlockstoreReadOnly.get` | Future |
 | `func (*blockstore.ReadOnly).GetSize(ctx context.Context, key cid.Cid) (int, error)` | `CarV2BlockstoreReadOnly.getSize` | Future |
-| `func (*blockstore.ReadOnly).AllKeysChan(ctx context.Context) (<-chan cid.Cid, error)` | `CarV2BlockstoreReadOnly.allKeysChan` | Stream |
-| `func (*blockstore.ReadOnly).Index() index.Index` | `CarV2BlockstoreReadOnly.index` | sync |
+| `func (*blockstore.ReadOnly).Has(ctx context.Context, key cid.Cid) (bool, error)` | `CarV2BlockstoreReadOnly.has` | Future |
 | `func (*blockstore.ReadOnly).HashOnRead(bool)` | `CarV2BlockstoreReadOnly.hashOnRead` | sync |
-| `func (*blockstore.ReadOnly).Close() error` | `CarV2BlockstoreReadOnly.close` | sync |
-| `func blockstore.OpenReadWrite(path string, roots []cid.Cid, opts ...car.Option) (*blockstore.ReadWrite, error)` | `Go.car.v2.blockstore.openReadWrite` | sync |
-| `func (*blockstore.ReadWrite).Roots() ([]cid.Cid, error)` | `CarV2BlockstoreReadWrite.roots` | sync |
-| `func (*blockstore.ReadWrite).Put(ctx context.Context, blk blocks.Block) error` | `CarV2BlockstoreReadWrite.put` | Future |
-| `func (*blockstore.ReadWrite).PutMany(ctx context.Context, blks []blocks.Block) error` | `CarV2BlockstoreReadWrite.putMany` | Future |
-| `func (*blockstore.ReadWrite).Has(ctx context.Context, key cid.Cid) (bool, error)` | `CarV2BlockstoreReadWrite.has` | Future |
-| `func (*blockstore.ReadWrite).Get(ctx context.Context, key cid.Cid) (blocks.Block, error)` | `CarV2BlockstoreReadWrite.get` | Future |
-| `func (*blockstore.ReadWrite).GetSize(ctx context.Context, key cid.Cid) (int, error)` | `CarV2BlockstoreReadWrite.getSize` | Future |
+| `func (*blockstore.ReadOnly).Index() index.Index` | `CarV2BlockstoreReadOnly.index` | sync |
+| `func (*blockstore.ReadOnly).Put(context.Context, blocks.Block) error` | `CarV2BlockstoreReadOnly.put` | Future |
+| `func (*blockstore.ReadOnly).PutMany(context.Context, []blocks.Block) error` | `CarV2BlockstoreReadOnly.putMany` | Future |
+| `func (*blockstore.ReadOnly).Roots() ([]cid.Cid, error)` | `CarV2BlockstoreReadOnly.roots` | sync |
 | `func (*blockstore.ReadWrite).AllKeysChan(ctx context.Context) (<-chan cid.Cid, error)` | `CarV2BlockstoreReadWrite.allKeysChan` | Stream |
-| `func (*blockstore.ReadWrite).Index() index.Index` | `CarV2BlockstoreReadWrite.index` | sync |
-| `func (*blockstore.ReadWrite).HashOnRead(enable bool)` | `CarV2BlockstoreReadWrite.hashOnRead` | sync |
+| `func (*blockstore.ReadWrite).Close() error` | `CarV2BlockstoreReadWrite.close` | sync |
+| `func (*blockstore.ReadWrite).DeleteBlock(_ context.Context, _ cid.Cid) error` | `CarV2BlockstoreReadWrite.deleteBlock` | Future |
+| `func (*blockstore.ReadWrite).Discard()` | `CarV2BlockstoreReadWrite.discard` | sync |
 | `func (*blockstore.ReadWrite).Finalize() error` | `CarV2BlockstoreReadWrite.finalize` | sync |
 | `func (*blockstore.ReadWrite).FinalizeReadOnly() error` | `CarV2BlockstoreReadWrite.finalizeReadOnly` | sync |
-| `func (*blockstore.ReadWrite).Discard()` | `CarV2BlockstoreReadWrite.discard` | sync |
-| `func (*blockstore.ReadWrite).Close() error` | `CarV2BlockstoreReadWrite.close` | sync |
+| `func (*blockstore.ReadWrite).Get(ctx context.Context, key cid.Cid) (blocks.Block, error)` | `CarV2BlockstoreReadWrite.get` | Future |
+| `func (*blockstore.ReadWrite).GetSize(ctx context.Context, key cid.Cid) (int, error)` | `CarV2BlockstoreReadWrite.getSize` | Future |
+| `func (*blockstore.ReadWrite).Has(ctx context.Context, key cid.Cid) (bool, error)` | `CarV2BlockstoreReadWrite.has` | Future |
+| `func (*blockstore.ReadWrite).HashOnRead(enable bool)` | `CarV2BlockstoreReadWrite.hashOnRead` | sync |
+| `func (*blockstore.ReadWrite).Index() index.Index` | `CarV2BlockstoreReadWrite.index` | sync |
+| `func (*blockstore.ReadWrite).Put(ctx context.Context, blk blocks.Block) error` | `CarV2BlockstoreReadWrite.put` | Future |
+| `func (*blockstore.ReadWrite).PutMany(ctx context.Context, blks []blocks.Block) error` | `CarV2BlockstoreReadWrite.putMany` | Future |
+| `func (*blockstore.ReadWrite).Roots() ([]cid.Cid, error)` | `CarV2BlockstoreReadWrite.roots` | sync |
+| `blockstore.Blockstore → x.(*blockstore.ReadOnly)` | `CarV2Blockstore.asCarV2BlockstoreReadOnly` | cast |
+| `blockstore.Blockstore → x.(*blockstore.ReadWrite)` | `CarV2Blockstore.asCarV2BlockstoreReadWrite` | cast |
+
+Omitted:
+
+- `var blockstore.AllowDuplicatePuts func(allow bool) car.Option`: result 0: func(allow bool) github.com/ipld/go-car/v2.Option
+- `var blockstore.UseWholeCIDs func(enable bool) car.Option`: result 0: func(enable bool) github.com/ipld/go-car/v2.Option
+- `func blockstore.WithAsyncErrorHandler(ctx context.Context, errHandler func(error)) context.Context`: parameter errHandler: callback with argument error
+- `var blockstore.WriteAsCarV1 func(asCarV1 bool) car.Option`: result 0: func(asCarV1 bool) github.com/ipld/go-car/v2.Option
 
 ## `github.com/ipld/go-car/v2/index` → `Go.car.v2.index` (`lib/go/car/v2/index.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
-| `func index.New(codec multicodec.Code) (index.Index, error)` | `Go.car.v2.index.new$` | sync |
-| `func index.ReadFrom(r io.Reader) (index.Index, error)` | `Go.car.v2.index.readFrom` | sync |
-| `func index.WriteTo(idx index.Index, w io.Writer) (uint64, error)` | `Go.car.v2.index.writeTo` | sync |
 | `func index.GetFirst(idx index.Index, key cid.Cid) (uint64, error)` | `Go.car.v2.index.getFirst` | sync |
-| `func index.ReadCodec(r io.Reader) (multicodec.Code, error)` | `Go.car.v2.index.readCodec` | sync |
 | `func (index.Index).Codec() multicodec.Code` | `CarV2Index.codec` | sync |
+| `func (index.Index).GetAll(cid.Cid, func(uint64) bool) error` | `CarV2Index.getAll` | Future |
+| `func (index.Index).Load([]index.Record) error` | `CarV2Index.load` | sync |
 | `func (index.Index).Marshal(w io.Writer) (uint64, error)` | `CarV2Index.marshal` | sync |
 | `func (index.Index).Unmarshal(r io.Reader) error` | `CarV2Index.unmarshal` | sync |
-| `func (index.Index).Load([]index.Record) error` | `CarV2Index.load` | sync |
-| `func (index.Index).GetAll(cid.Cid, func(uint64) bool) error` | `CarV2Index.getAll` | Future |
+| `func (*index.InsertionIndex).Codec() multicodec.Code` | `CarV2IndexInsertionIndex.codec` | sync |
+| `func (*index.InsertionIndex).Flatten(codec multicodec.Code) (index.Index, error)` | `CarV2IndexInsertionIndex.flatten` | sync |
+| `func (*index.InsertionIndex).ForEach(f func(multihash.Multihash, uint64) error) error` | `CarV2IndexInsertionIndex.forEach` | Future |
+| `func (*index.InsertionIndex).ForEachCid(f func(cid.Cid, uint64) error) error` | `CarV2IndexInsertionIndex.forEachCid` | Future |
+| `func (*index.InsertionIndex).Get(c cid.Cid) (uint64, error)` | `CarV2IndexInsertionIndex.get` | sync |
+| `func (*index.InsertionIndex).GetAll(c cid.Cid, fn func(uint64) bool) error` | `CarV2IndexInsertionIndex.getAll` | Future |
+| `func (*index.InsertionIndex).HasExactCID(c cid.Cid) (bool, error)` | `CarV2IndexInsertionIndex.hasExactCid` | sync |
+| `func (*index.InsertionIndex).HasMultihash(mh multihash.Multihash) (bool, error)` | `CarV2IndexInsertionIndex.hasMultihash` | sync |
+| `func (*index.InsertionIndex).InsertNoReplace(key cid.Cid, n uint64)` | `CarV2IndexInsertionIndex.insertNoReplace` | sync |
+| `func (*index.InsertionIndex).Load(rs []index.Record) error` | `CarV2IndexInsertionIndex.load` | sync |
+| `func (*index.InsertionIndex).Marshal(w io.Writer) (uint64, error)` | `CarV2IndexInsertionIndex.marshal` | sync |
+| `func (*index.InsertionIndex).Unmarshal(r io.Reader) error` | `CarV2IndexInsertionIndex.unmarshal` | sync |
 | `func (index.IterableIndex).ForEach(func(multihash.Multihash, uint64) error) error` | `CarV2IndexIterableIndex.forEach` | Future |
+| `func index.New(codec multicodec.Code) (index.Index, error)` | `Go.car.v2.index.new$` | sync |
+| `func index.NewInsertionIndex() *index.InsertionIndex` | `factory CarV2IndexInsertionIndex` | sync |
+| `func index.ReadCodec(r io.Reader) (multicodec.Code, error)` | `Go.car.v2.index.readCodec` | sync |
+| `func index.ReadFrom(r io.Reader) (index.Index, error)` | `Go.car.v2.index.readFrom` | sync |
+| `func index.WriteTo(idx index.Index, w io.Writer) (uint64, error)` | `Go.car.v2.index.writeTo` | sync |
+| `index.Index → x.(*index.InsertionIndex)` | `CarV2Index.asCarV2IndexInsertionIndex` | cast |
 | `index.Index → x.(index.IterableIndex)` | `CarV2Index.asCarV2IndexIterableIndex` | cast |
+| `index.IterableIndex → x.(*index.InsertionIndex)` | `CarV2IndexIterableIndex.asCarV2IndexInsertionIndex` | cast |
 | `const index.CarIndexNone untyped int` | `Go.car.v2.index.carIndexNone` | const |
+
+Omitted:
+
+- `func (*index.MultihashIndexSorted).Codec() multicodec.Code`: receiver is neither a handle, a DTO nor a value type: *tipo github.com/ipld/go-car/v2/index.MultihashIndexSorted
+- `func (*index.MultihashIndexSorted).ForEach(f func(mh multihash.Multihash, offset uint64) error) error`: receiver is neither a handle, a DTO nor a value type: *tipo github.com/ipld/go-car/v2/index.MultihashIndexSorted
+- `func (*index.MultihashIndexSorted).GetAll(cid cid.Cid, f func(uint64) bool) error`: receiver is neither a handle, a DTO nor a value type: *tipo github.com/ipld/go-car/v2/index.MultihashIndexSorted
+- `func (*index.MultihashIndexSorted).Load(records []index.Record) error`: receiver is neither a handle, a DTO nor a value type: *tipo github.com/ipld/go-car/v2/index.MultihashIndexSorted
+- `func (*index.MultihashIndexSorted).Marshal(w io.Writer) (uint64, error)`: receiver is neither a handle, a DTO nor a value type: *tipo github.com/ipld/go-car/v2/index.MultihashIndexSorted
+- `func (*index.MultihashIndexSorted).Unmarshal(r io.Reader) error`: receiver is neither a handle, a DTO nor a value type: *tipo github.com/ipld/go-car/v2/index.MultihashIndexSorted
+- `func index.NewMultihashSorted() *index.MultihashIndexSorted`: result 0: *tipo github.com/ipld/go-car/v2/index.MultihashIndexSorted
 
 ## `github.com/ipld/go-car/v2/storage` → `Go.car.v2.storage` (`lib/go/car/v2/storage.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
+| `func storage.NewReadableWritable(rw storage.ReaderAtWriterAt, roots []cid.Cid, opts ...car.Option) (*storage.StorageCar, error)` | `Go.car.v2.storage.newReadableWritable` | sync |
+| `func storage.NewWritable(writer io.Writer, roots []cid.Cid, opts ...car.Option) (storage.WritableCar, error)` | `Go.car.v2.storage.newWritable` | sync |
 | `func storage.OpenReadable(reader io.ReaderAt, opts ...car.Option) (storage.ReadableCar, error)` | `Go.car.v2.storage.openReadable` | sync |
-| `func (storage.ReadableCar).Roots() []cid.Cid` | `CarV2StorageReadableCar.roots` | sync |
+| `func storage.OpenReadableWritable(rw storage.ReaderAtWriterAt, roots []cid.Cid, opts ...car.Option) (*storage.StorageCar, error)` | `Go.car.v2.storage.openReadableWritable` | sync |
 | `func (storage.ReadableCar).Index() index.Index` | `CarV2StorageReadableCar.index` | sync |
+| `func (storage.ReadableCar).Roots() []cid.Cid` | `CarV2StorageReadableCar.roots` | sync |
+| `func (*storage.StorageCar).Finalize() error` | `CarV2StorageCar.finalize` | sync |
+| `func (*storage.StorageCar).Get(ctx context.Context, keyStr string) ([]byte, error)` | `CarV2StorageCar.get` | Future |
+| `func (*storage.StorageCar).GetStream(ctx context.Context, keyStr string) (io.ReadCloser, error)` | `CarV2StorageCar.getStream` | Future |
+| `func (*storage.StorageCar).Has(ctx context.Context, keyStr string) (bool, error)` | `CarV2StorageCar.has` | Future |
+| `func (*storage.StorageCar).Index() index.Index` | `CarV2StorageCar.index` | sync |
+| `func (*storage.StorageCar).Put(ctx context.Context, keyStr string, data []byte) error` | `CarV2StorageCar.put` | Future |
+| `func (*storage.StorageCar).Roots() []cid.Cid` | `CarV2StorageCar.roots` | sync |
+| `func (storage.WritableCar).Finalize() error` | `CarV2StorageWritableCar.finalize` | sync |
+| `func (storage.WritableCar).Index() index.Index` | `CarV2StorageWritableCar.index` | sync |
+| `func (storage.WritableCar).Roots() []cid.Cid` | `CarV2StorageWritableCar.roots` | sync |
+| `storage.ReadableCar → x.(*storage.StorageCar)` | `CarV2StorageReadableCar.asCarV2StorageCar` | cast |
+| `storage.WritableCar → x.(*storage.StorageCar)` | `CarV2StorageWritableCar.asCarV2StorageCar` | cast |
+
+Omitted:
+
+- `func storage.IsNotFound(err error) bool`: parameter err: error
 
 ## `github.com/ipld/go-codec-dagpb` → `Go.codecDagpb` (`lib/go/codec_dagpb.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
 | `func dagpb.AddSupportToChooser(existing traversal.LinkTargetNodePrototypeChooser) traversal.LinkTargetNodePrototypeChooser` | `Go.codecDagpb.addSupportToChooser` | sync |
+| `func dagpb.AppendEncode(enc []byte, inNode ipld.Node) ([]byte, error)` | `Go.codecDagpb.appendEncode` | sync |
+| `func dagpb.Decode(na ipld.NodeAssembler, in io.Reader) error` | `Go.codecDagpb.decode` | sync |
+| `func dagpb.DecodeBytes(na ipld.NodeAssembler, src []byte) error` | `Go.codecDagpb.decodeBytes` | sync |
+| `func dagpb.Decoder(na ipld.NodeAssembler, r io.Reader) error` | `Go.codecDagpb.decoder` | sync |
+| `func dagpb.Encode(node ipld.Node, w io.Writer) error` | `Go.codecDagpb.encode` | sync |
+| `func dagpb.Encoder(inNode ipld.Node, w io.Writer) error` | `Go.codecDagpb.encoder` | sync |
+| `func dagpb.Marshal(inNode ipld.Node, w io.Writer) error` | `Go.codecDagpb.marshal` | sync |
+| `func (*dagpb.PBLinks__Itr).Done() bool` | `CodecDagpbPbLinksItr.done` | sync |
+| `func dagpb.Unmarshal(na ipld.NodeAssembler, r io.Reader) error` | `Go.codecDagpb.unmarshal` | sync |
+
+Omitted:
+
+- `func (*dagpb.PBLinks__Itr).Next() (idx int64, v dagpb.PBLink)`: result 1: *unexported type github.com/ipld/go-codec-dagpb._PBLink
+- `var dagpb.Type dagpb.typeSlab`: result 0: unexported type github.com/ipld/go-codec-dagpb.typeSlab
 
 ## `github.com/ipld/go-ipld-prime/datamodel` → `Go.ipldPrime.datamodel` (`lib/go/ipld_prime/datamodel.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
+| `var datamodel.Absent datamodel.Node` | `Go.ipldPrime.datamodel.absent` | sync |
+| `func datamodel.Copy(n datamodel.Node, na datamodel.NodeAssembler) error` | `Go.ipldPrime.datamodel.copy` | sync |
+| `func datamodel.DeepEqual(x datamodel.Node, y datamodel.Node) bool` | `Go.ipldPrime.datamodel.deepEqual` | sync |
+| `var datamodel.EmptyPath datamodel.Path` | `Go.ipldPrime.datamodel.emptyPath` | sync |
+| `var datamodel.EmptyPathSegment datamodel.PathSegment` | `Go.ipldPrime.datamodel.emptyPathSegment` | sync |
+| `var datamodel.KindSet_JustBool datamodel.KindSet` | `Go.ipldPrime.datamodel.kindSetJustBool` | sync |
+| `var datamodel.KindSet_JustBytes datamodel.KindSet` | `Go.ipldPrime.datamodel.kindSetJustBytes` | sync |
+| `var datamodel.KindSet_JustFloat datamodel.KindSet` | `Go.ipldPrime.datamodel.kindSetJustFloat` | sync |
+| `var datamodel.KindSet_JustInt datamodel.KindSet` | `Go.ipldPrime.datamodel.kindSetJustInt` | sync |
+| `var datamodel.KindSet_JustLink datamodel.KindSet` | `Go.ipldPrime.datamodel.kindSetJustLink` | sync |
+| `var datamodel.KindSet_JustList datamodel.KindSet` | `Go.ipldPrime.datamodel.kindSetJustList` | sync |
+| `var datamodel.KindSet_JustMap datamodel.KindSet` | `Go.ipldPrime.datamodel.kindSetJustMap` | sync |
+| `var datamodel.KindSet_JustNull datamodel.KindSet` | `Go.ipldPrime.datamodel.kindSetJustNull` | sync |
+| `var datamodel.KindSet_JustString datamodel.KindSet` | `Go.ipldPrime.datamodel.kindSetJustString` | sync |
+| `var datamodel.KindSet_Recursive datamodel.KindSet` | `Go.ipldPrime.datamodel.kindSetRecursive` | sync |
+| `var datamodel.KindSet_Scalar datamodel.KindSet` | `Go.ipldPrime.datamodel.kindSetScalar` | sync |
+| `func (datamodel.LargeBytesNode).AsLargeBytes() (io.ReadSeeker, error)` | `IpldPrimeDatamodelLargeBytesNode.asLargeBytes` | sync |
+| `func (datamodel.Link).Binary() string` | `IpldPrimeDatamodelLink.binary` | sync |
+| `func (datamodel.Link).Prototype() datamodel.LinkPrototype` | `IpldPrimeDatamodelLink.prototype` | sync |
+| `func (datamodel.Link).String() string` | `IpldPrimeDatamodelLink.string` | sync |
+| `func (datamodel.LinkPrototype).BuildLink(hashsum []byte) datamodel.Link` | `IpldPrimeDatamodelLinkPrototype.buildLink` | sync |
+| `func (datamodel.ListAssembler).AssembleValue() datamodel.NodeAssembler` | `IpldPrimeDatamodelListAssembler.assembleValue` | sync |
+| `func (datamodel.ListAssembler).Finish() error` | `IpldPrimeDatamodelListAssembler.finish` | sync |
+| `func (datamodel.ListAssembler).ValuePrototype(idx int64) datamodel.NodePrototype` | `IpldPrimeDatamodelListAssembler.valuePrototype` | sync |
+| `func (datamodel.ListIterator).Done() bool` | `IpldPrimeDatamodelListIterator.done` | sync |
+| `func (datamodel.ListIterator).Next() (idx int64, value datamodel.Node, err error)` | `IpldPrimeDatamodelListIterator.next` | sync |
+| `func (datamodel.MapAssembler).AssembleEntry(k string) (datamodel.NodeAssembler, error)` | `IpldPrimeDatamodelMapAssembler.assembleEntry` | sync |
+| `func (datamodel.MapAssembler).AssembleKey() datamodel.NodeAssembler` | `IpldPrimeDatamodelMapAssembler.assembleKey` | sync |
+| `func (datamodel.MapAssembler).AssembleValue() datamodel.NodeAssembler` | `IpldPrimeDatamodelMapAssembler.assembleValue` | sync |
+| `func (datamodel.MapAssembler).Finish() error` | `IpldPrimeDatamodelMapAssembler.finish` | sync |
+| `func (datamodel.MapAssembler).KeyPrototype() datamodel.NodePrototype` | `IpldPrimeDatamodelMapAssembler.keyPrototype` | sync |
+| `func (datamodel.MapAssembler).ValuePrototype(k string) datamodel.NodePrototype` | `IpldPrimeDatamodelMapAssembler.valuePrototype` | sync |
+| `func (datamodel.MapIterator).Done() bool` | `IpldPrimeDatamodelMapIterator.done` | sync |
+| `func (datamodel.MapIterator).Next() (key datamodel.Node, value datamodel.Node, err error)` | `IpldPrimeDatamodelMapIterator.next` | sync |
+| `func datamodel.NewPath(segments []datamodel.PathSegment) datamodel.Path` | `factory IpldPrimeDatamodelPath` | sync |
+| `func datamodel.NewPathNocopy(segments []datamodel.PathSegment) datamodel.Path` | `Go.ipldPrime.datamodel.newPathNocopy` | sync |
+| `func (datamodel.Node).AsBool() (bool, error)` | `IpldPrimeDatamodelNode.asBool` | sync |
+| `func (datamodel.Node).AsBytes() ([]byte, error)` | `IpldPrimeDatamodelNode.asBytes` | sync |
+| `func (datamodel.Node).AsFloat() (float64, error)` | `IpldPrimeDatamodelNode.asFloat` | sync |
+| `func (datamodel.Node).AsInt() (int64, error)` | `IpldPrimeDatamodelNode.asInt` | sync |
+| `func (datamodel.Node).AsLink() (datamodel.Link, error)` | `IpldPrimeDatamodelNode.asLink` | sync |
+| `func (datamodel.Node).AsString() (string, error)` | `IpldPrimeDatamodelNode.asString` | sync |
+| `func (datamodel.Node).IsAbsent() bool` | `IpldPrimeDatamodelNode.isAbsent` | sync |
+| `func (datamodel.Node).IsNull() bool` | `IpldPrimeDatamodelNode.isNull` | sync |
+| `func (datamodel.Node).Kind() datamodel.Kind` | `IpldPrimeDatamodelNode.kind` | sync |
+| `func (datamodel.Node).Length() int64` | `IpldPrimeDatamodelNode.length` | sync |
+| `func (datamodel.Node).ListIterator() datamodel.ListIterator` | `IpldPrimeDatamodelNode.listIterator` | sync |
+| `func (datamodel.Node).LookupByIndex(idx int64) (datamodel.Node, error)` | `IpldPrimeDatamodelNode.lookupByIndex` | sync |
+| `func (datamodel.Node).LookupByNode(key datamodel.Node) (datamodel.Node, error)` | `IpldPrimeDatamodelNode.lookupByNode` | sync |
+| `func (datamodel.Node).LookupBySegment(seg datamodel.PathSegment) (datamodel.Node, error)` | `IpldPrimeDatamodelNode.lookupBySegment` | sync |
+| `func (datamodel.Node).LookupByString(key string) (datamodel.Node, error)` | `IpldPrimeDatamodelNode.lookupByString` | sync |
+| `func (datamodel.Node).MapIterator() datamodel.MapIterator` | `IpldPrimeDatamodelNode.mapIterator` | sync |
+| `func (datamodel.Node).Prototype() datamodel.NodePrototype` | `IpldPrimeDatamodelNode.prototype` | sync |
+| `func (datamodel.NodeAssembler).AssignBool(bool) error` | `IpldPrimeDatamodelNodeAssembler.assignBool` | sync |
+| `func (datamodel.NodeAssembler).AssignBytes([]byte) error` | `IpldPrimeDatamodelNodeAssembler.assignBytes` | sync |
+| `func (datamodel.NodeAssembler).AssignFloat(float64) error` | `IpldPrimeDatamodelNodeAssembler.assignFloat` | sync |
+| `func (datamodel.NodeAssembler).AssignInt(int64) error` | `IpldPrimeDatamodelNodeAssembler.assignInt` | sync |
+| `func (datamodel.NodeAssembler).AssignLink(datamodel.Link) error` | `IpldPrimeDatamodelNodeAssembler.assignLink` | sync |
+| `func (datamodel.NodeAssembler).AssignNode(datamodel.Node) error` | `IpldPrimeDatamodelNodeAssembler.assignNode` | sync |
+| `func (datamodel.NodeAssembler).AssignNull() error` | `IpldPrimeDatamodelNodeAssembler.assignNull` | sync |
+| `func (datamodel.NodeAssembler).AssignString(string) error` | `IpldPrimeDatamodelNodeAssembler.assignString` | sync |
+| `func (datamodel.NodeAssembler).BeginList(sizeHint int64) (datamodel.ListAssembler, error)` | `IpldPrimeDatamodelNodeAssembler.beginList` | sync |
+| `func (datamodel.NodeAssembler).BeginMap(sizeHint int64) (datamodel.MapAssembler, error)` | `IpldPrimeDatamodelNodeAssembler.beginMap` | sync |
+| `func (datamodel.NodeAssembler).Prototype() datamodel.NodePrototype` | `IpldPrimeDatamodelNodeAssembler.prototype` | sync |
+| `func (datamodel.NodeBuilder).Build() datamodel.Node` | `IpldPrimeDatamodelNodeBuilder.build` | sync |
+| `func (datamodel.NodeBuilder).Reset()` | `IpldPrimeDatamodelNodeBuilder.reset` | sync |
+| `func (datamodel.NodePrototype).NewBuilder() datamodel.NodeBuilder` | `IpldPrimeDatamodelNodePrototype.newBuilder` | sync |
+| `func (datamodel.NodePrototypeSupportingAmend).AmendingBuilder(base datamodel.Node) datamodel.NodeBuilder` | `IpldPrimeDatamodelNodePrototypeSupportingAmend.amendingBuilder` | sync |
+| `var datamodel.Null datamodel.Node` | `Go.ipldPrime.datamodel.null$` | sync |
+| `func datamodel.ParsePath(pth string) datamodel.Path` | `Go.ipldPrime.datamodel.parsePath` | sync |
+| `func datamodel.ParsePathSegment(s string) datamodel.PathSegment` | `Go.ipldPrime.datamodel.parsePathSegment` | sync |
+| `func (datamodel.Path).AppendSegment(ps datamodel.PathSegment) datamodel.Path` | `IpldPrimeDatamodelPath.appendSegment` | sync |
+| `func (datamodel.Path).AppendSegmentInt(ps int64) datamodel.Path` | `IpldPrimeDatamodelPath.appendSegmentInt` | sync |
+| `func (datamodel.Path).AppendSegmentString(ps string) datamodel.Path` | `IpldPrimeDatamodelPath.appendSegmentString` | sync |
+| `func (datamodel.Path).Join(p2 datamodel.Path) datamodel.Path` | `IpldPrimeDatamodelPath.join` | sync |
+| `func (datamodel.Path).Last() datamodel.PathSegment` | `IpldPrimeDatamodelPath.last` | sync |
+| `func (datamodel.Path).Len() int` | `IpldPrimeDatamodelPath.len` | sync |
+| `func (datamodel.Path).Parent() datamodel.Path` | `IpldPrimeDatamodelPath.parent` | sync |
+| `func (datamodel.Path).Pop() datamodel.Path` | `IpldPrimeDatamodelPath.pop` | sync |
+| `func (datamodel.Path).Segments() []datamodel.PathSegment` | `IpldPrimeDatamodelPath.segments` | sync |
+| `func (datamodel.Path).Shift() (datamodel.PathSegment, datamodel.Path)` | `IpldPrimeDatamodelPath.shift` | sync |
+| `func (datamodel.Path).String() string` | `IpldPrimeDatamodelPath.string` | sync |
+| `func (datamodel.Path).Truncate(i int) datamodel.Path` | `IpldPrimeDatamodelPath.truncate` | sync |
+| `func (datamodel.PathSegment).Equals(o datamodel.PathSegment) bool` | `IpldPrimeDatamodelPathSegment.equals` | sync |
+| `func (datamodel.PathSegment).Index() (int64, error)` | `IpldPrimeDatamodelPathSegment.index` | sync |
+| `func (datamodel.PathSegment).String() string` | `IpldPrimeDatamodelPathSegment.string` | sync |
+| `func datamodel.PathSegmentOfInt(i int64) datamodel.PathSegment` | `Go.ipldPrime.datamodel.pathSegmentOfInt` | sync |
+| `func datamodel.PathSegmentOfString(s string) datamodel.PathSegment` | `Go.ipldPrime.datamodel.pathSegmentOfString` | sync |
+| `func (datamodel.UintNode).AsUint() (uint64, error)` | `IpldPrimeDatamodelUintNode.asUint` | sync |
 | `datamodel.Node → x.(*merkledag.ProtoNode)` | `IpldPrimeDatamodelNode.asBoxoIpldMerkledagProtoNode` | cast |
 | `datamodel.Node → x.(*merkledag.RawNode)` | `IpldPrimeDatamodelNode.asBoxoIpldMerkledagRawNode` | cast |
+| `datamodel.Node → x.(ipldlegacy.UniversalNode)` | `IpldPrimeDatamodelNode.asIpldLegacyUniversalNode` | cast |
+| `datamodel.Node → x.(datamodel.LargeBytesNode)` | `IpldPrimeDatamodelNode.asIpldPrimeDatamodelLargeBytesNode` | cast |
+| `datamodel.Node → x.(datamodel.UintNode)` | `IpldPrimeDatamodelNode.asIpldPrimeDatamodelUintNode` | cast |
+| `datamodel.NodeAssembler → x.(datamodel.NodeBuilder)` | `IpldPrimeDatamodelNodeAssembler.asIpldPrimeDatamodelNodeBuilder` | cast |
 | `datamodel.NodePrototype → x.(*basicnode.Prototype__Any)` | `IpldPrimeDatamodelNodePrototype.asIpldPrimeNodeBasicnodePrototypeAny` | cast |
 | `const datamodel.Kind_Bool datamodel.Kind` | `Go.ipldPrime.datamodel.kindBool` | const |
 | `const datamodel.Kind_Bytes datamodel.Kind` | `Go.ipldPrime.datamodel.kindBytes` | const |
@@ -993,30 +2919,108 @@ Omitted:
 | `const datamodel.Kind_Null datamodel.Kind` | `Go.ipldPrime.datamodel.kindNull` | const |
 | `const datamodel.Kind_String datamodel.Kind` | `Go.ipldPrime.datamodel.kindString` | const |
 
+Omitted:
+
+- `func (datamodel.Kind).String() string`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/ipld/go-ipld-prime/datamodel.Kind
+- `func (datamodel.KindSet).Contains(e datamodel.Kind) bool`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/ipld/go-ipld-prime/datamodel.KindSet
+- `func (datamodel.KindSet).String() string`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/ipld/go-ipld-prime/datamodel.KindSet
+
 ## `github.com/ipld/go-ipld-prime/linking` → `Go.ipldPrime.linking` (`lib/go/ipld_prime/linking.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
+| `func (*linking.LinkSystem).ComputeLink(lp datamodel.LinkPrototype, n datamodel.Node) (datamodel.Link, error)` | `IpldPrimeLinkingLinkSystem.computeLink` | sync |
+| `func (*linking.LinkSystem).Fill(lnkCtx linking.LinkContext, lnk datamodel.Link, na datamodel.NodeAssembler) error` | `IpldPrimeLinkingLinkSystem.fill` | sync |
+| `func (*linking.LinkSystem).Load(lnkCtx linking.LinkContext, lnk datamodel.Link, np datamodel.NodePrototype) (datamodel.Node, error)` | `IpldPrimeLinkingLinkSystem.load` | sync |
+| `func (*linking.LinkSystem).LoadPlusRaw(lnkCtx linking.LinkContext, lnk datamodel.Link, np datamodel.NodePrototype) (datamodel.Node, []byte, error)` | `IpldPrimeLinkingLinkSystem.loadPlusRaw` | sync |
+| `func (*linking.LinkSystem).LoadRaw(lnkCtx linking.LinkContext, lnk datamodel.Link) ([]byte, error)` | `IpldPrimeLinkingLinkSystem.loadRaw` | sync |
+| `func (*linking.LinkSystem).MustComputeLink(lp datamodel.LinkPrototype, n datamodel.Node) datamodel.Link` | `IpldPrimeLinkingLinkSystem.mustComputeLink` | sync |
+| `func (*linking.LinkSystem).MustFill(lnkCtx linking.LinkContext, lnk datamodel.Link, na datamodel.NodeAssembler)` | `IpldPrimeLinkingLinkSystem.mustFill` | sync |
+| `func (*linking.LinkSystem).MustLoad(lnkCtx linking.LinkContext, lnk datamodel.Link, np datamodel.NodePrototype) datamodel.Node` | `IpldPrimeLinkingLinkSystem.mustLoad` | sync |
+| `func (*linking.LinkSystem).MustStore(lnkCtx linking.LinkContext, lp datamodel.LinkPrototype, n datamodel.Node) datamodel.Link` | `IpldPrimeLinkingLinkSystem.mustStore` | sync |
 | `func (*linking.LinkSystem).SetReadStorage(store storage.ReadableStorage)` | `IpldPrimeLinkingLinkSystem.setReadStorage` | sync |
+| `func (*linking.LinkSystem).SetWriteStorage(store storage.WritableStorage)` | `IpldPrimeLinkingLinkSystem.setWriteStorage` | sync |
+| `func (*linking.LinkSystem).Store(lnkCtx linking.LinkContext, lp datamodel.LinkPrototype, n datamodel.Node) (datamodel.Link, error)` | `IpldPrimeLinkingLinkSystem.store` | sync |
 
 ## `github.com/ipld/go-ipld-prime/linking/cid` → `Go.ipldPrime.linking.cid` (`lib/go/ipld_prime/linking/cid.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
 | `func cidlink.DefaultLinkSystem() linking.LinkSystem` | `Go.ipldPrime.linking.cid.defaultLinkSystem` | sync |
+| `func (cidlink.Link).Binary() string` | `IpldPrimeLinkingCidLink.binary` | sync |
+| `func (cidlink.Link).Prototype() datamodel.LinkPrototype` | `IpldPrimeLinkingCidLink.prototype` | sync |
+| `func (cidlink.Link).String() string` | `IpldPrimeLinkingCidLink.string` | sync |
+| `func (cidlink.LinkPrototype).BuildLink(hashsum []byte) datamodel.Link` | `IpldPrimeLinkingCidLinkPrototype.buildLink` | sync |
+| `func cidlink.LinkSystemUsingMulticodecRegistry(mcReg multicodec.Registry) linking.LinkSystem` | `Go.ipldPrime.linking.cid.linkSystemUsingMulticodecRegistry` | sync |
+| `func (*cidlink.Memory).OpenRead(lnkCtx linking.LinkContext, lnk datamodel.Link) (io.Reader, error)` | `IpldPrimeLinkingCidMemory.openRead` | sync |
+
+Omitted:
+
+- `func (*cidlink.Memory).OpenWrite(lnkCtx linking.LinkContext) (io.Writer, linking.BlockWriteCommitter, error)`: result 0: io.Writer
 
 ## `github.com/ipld/go-ipld-prime/node/basicnode` → `Go.ipldPrime.node.basicnode` (`lib/go/ipld_prime/node/basicnode.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
 | `func basicnode.NewPrototype__Any() *basicnode.Prototype__Any` | `factory IpldPrimeNodeBasicnodePrototypeAny` | sync |
+| `func basicnode.Chooser(_ datamodel.Link, _ linking.LinkContext) (datamodel.NodePrototype, error)` | `Go.ipldPrime.node.basicnode.chooser` | sync |
+| `func basicnode.NewBool(value bool) datamodel.Node` | `Go.ipldPrime.node.basicnode.newBool` | sync |
+| `func basicnode.NewBytes(value []byte) datamodel.Node` | `Go.ipldPrime.node.basicnode.newBytes` | sync |
+| `func basicnode.NewBytesFromReader(rs io.ReadSeeker) datamodel.Node` | `Go.ipldPrime.node.basicnode.newBytesFromReader` | sync |
+| `func basicnode.NewFloat(value float64) datamodel.Node` | `Go.ipldPrime.node.basicnode.newFloat` | sync |
+| `func basicnode.NewInt(value int64) datamodel.Node` | `Go.ipldPrime.node.basicnode.newInt` | sync |
+| `func basicnode.NewLink(value datamodel.Link) datamodel.Node` | `Go.ipldPrime.node.basicnode.newLink` | sync |
+| `func basicnode.NewString(value string) datamodel.Node` | `Go.ipldPrime.node.basicnode.newString` | sync |
+| `func basicnode.NewUint(value uint64) datamodel.Node` | `Go.ipldPrime.node.basicnode.newUint` | sync |
+| `func (basicnode.Prototype__Any).NewBuilder() datamodel.NodeBuilder` | `IpldPrimeNodeBasicnodePrototypeAny.newBuilder` | sync |
+| `func (basicnode.Prototype__Bool).NewBuilder() datamodel.NodeBuilder` | `IpldPrimeNodeBasicnodePrototypeBool.newBuilder` | sync |
+| `func (basicnode.Prototype__Bytes).NewBuilder() datamodel.NodeBuilder` | `IpldPrimeNodeBasicnodePrototypeBytes.newBuilder` | sync |
+| `func (basicnode.Prototype__Float).NewBuilder() datamodel.NodeBuilder` | `IpldPrimeNodeBasicnodePrototypeFloat.newBuilder` | sync |
+| `func (basicnode.Prototype__Int).NewBuilder() datamodel.NodeBuilder` | `IpldPrimeNodeBasicnodePrototypeInt.newBuilder` | sync |
+| `func (basicnode.Prototype__Link).NewBuilder() datamodel.NodeBuilder` | `IpldPrimeNodeBasicnodePrototypeLink.newBuilder` | sync |
+| `func (basicnode.Prototype__List).NewBuilder() datamodel.NodeBuilder` | `IpldPrimeNodeBasicnodePrototypeList.newBuilder` | sync |
+| `func (basicnode.Prototype__Map).NewBuilder() datamodel.NodeBuilder` | `IpldPrimeNodeBasicnodePrototypeMap.newBuilder` | sync |
+| `func (basicnode.Prototype__String).NewBuilder() datamodel.NodeBuilder` | `IpldPrimeNodeBasicnodePrototypeString.newBuilder` | sync |
+
+Omitted:
+
+- `var basicnode.Prototype basicnode.prototype`: result 0: unexported type github.com/ipld/go-ipld-prime/node/basicnode.prototype
 
 ## `github.com/ipld/go-ipld-prime/storage` → `Go.ipldPrime.storage` (`lib/go/ipld_prime/storage.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
+| `func storage.Get(ctx context.Context, store storage.ReadableStorage, key string) ([]byte, error)` | `Go.ipldPrime.storage.get` | Future |
+| `func storage.GetStream(ctx context.Context, store storage.ReadableStorage, key string) (io.ReadCloser, error)` | `Go.ipldPrime.storage.getStream` | Future |
+| `func storage.Has(ctx context.Context, store storage.Storage, key string) (bool, error)` | `Go.ipldPrime.storage.has` | Future |
+| `func storage.Peek(ctx context.Context, store storage.ReadableStorage, key string) ([]byte, io.Closer, error)` | `Go.ipldPrime.storage.peek` | Future |
+| `func (storage.PeekableStorage).Peek(ctx context.Context, key string) ([]byte, io.Closer, error)` | `IpldPrimeStoragePeekableStorage.peek` | Future |
+| `func storage.Put(ctx context.Context, store storage.WritableStorage, key string, content []byte) error` | `Go.ipldPrime.storage.put` | Future |
+| `func storage.PutVec(ctx context.Context, store storage.WritableStorage, key string, blobVec [][]byte) error` | `Go.ipldPrime.storage.putVec` | Future |
+| `func (storage.ReadableStorage).Get(ctx context.Context, key string) ([]byte, error)` | `IpldPrimeStorageReadableStorage.get` | Future |
+| `func (storage.Storage).Has(ctx context.Context, key string) (bool, error)` | `IpldPrimeStorage.has` | Future |
+| `func (storage.StreamingReadableStorage).GetStream(ctx context.Context, key string) (io.ReadCloser, error)` | `IpldPrimeStorageStreamingReadableStorage.getStream` | Future |
+| `func (storage.VectorWritableStorage).PutVec(ctx context.Context, key string, blobVec [][]byte) error` | `IpldPrimeStorageVectorWritableStorage.putVec` | Future |
+| `func (storage.WritableStorage).Put(ctx context.Context, key string, content []byte) error` | `IpldPrimeStorageWritableStorage.put` | Future |
+| `storage.ReadableStorage → x.(*storage.StorageCar)` | `IpldPrimeStorageReadableStorage.asCarV2StorageCar` | cast |
 | `storage.ReadableStorage → x.(*bsadapter.Adapter)` | `IpldPrimeStorageReadableStorage.asIpldPrimeStorageBsadapterAdapter` | cast |
 | `storage.ReadableStorage → x.(storage.ReadableCar)` | `IpldPrimeStorageReadableStorage.asCarV2StorageReadableCar` | cast |
+| `storage.Storage → x.(*storage.StorageCar)` | `IpldPrimeStorage.asCarV2StorageCar` | cast |
+| `storage.Storage → x.(*bsadapter.Adapter)` | `IpldPrimeStorage.asIpldPrimeStorageBsadapterAdapter` | cast |
+| `storage.Storage → x.(storage.ReadableCar)` | `IpldPrimeStorage.asCarV2StorageReadableCar` | cast |
+| `storage.Storage → x.(storage.WritableCar)` | `IpldPrimeStorage.asCarV2StorageWritableCar` | cast |
+| `storage.Storage → x.(storage.ReadableStorage)` | `IpldPrimeStorage.asIpldPrimeStorageReadableStorage` | cast |
+| `storage.Storage → x.(storage.WritableStorage)` | `IpldPrimeStorage.asIpldPrimeStorageWritableStorage` | cast |
+| `storage.StreamingReadableStorage → x.(*storage.StorageCar)` | `IpldPrimeStorageStreamingReadableStorage.asCarV2StorageCar` | cast |
+| `storage.StreamingReadableStorage → x.(storage.ReadableCar)` | `IpldPrimeStorageStreamingReadableStorage.asCarV2StorageReadableCar` | cast |
+| `storage.WritableStorage → x.(*storage.StorageCar)` | `IpldPrimeStorageWritableStorage.asCarV2StorageCar` | cast |
+| `storage.WritableStorage → x.(*bsadapter.Adapter)` | `IpldPrimeStorageWritableStorage.asIpldPrimeStorageBsadapterAdapter` | cast |
+| `storage.WritableStorage → x.(storage.WritableCar)` | `IpldPrimeStorageWritableStorage.asCarV2StorageWritableCar` | cast |
+
+Omitted:
+
+- `func storage.PutStream(ctx context.Context, store storage.WritableStorage) (io.Writer, func(key string) error, error)`: result 0: io.Writer
+- `func (storage.StreamingWritableStorage).PutStream(ctx context.Context) (io.Writer, func(key string) error, error)`: result 0: io.Writer
 
 ## `github.com/ipld/go-ipld-prime/storage/bsadapter` → `Go.ipldPrime.storage.bsadapter` (`lib/go/ipld_prime/storage/bsadapter.dart`)
 
@@ -1025,21 +3029,112 @@ Omitted:
 | `func bsadapter.NewAdapter() *bsadapter.Adapter` | `factory IpldPrimeStorageBsadapterAdapter` | sync |
 | `(*bsadapter.Adapter).Wrapped blockstore.Blockstore` | `IpldPrimeStorageBsadapterAdapter.wrapped` | field |
 | `(*bsadapter.Adapter).Wrapped blockstore.Blockstore` | `IpldPrimeStorageBsadapterAdapter.wrapped =` | field |
+| `func (*bsadapter.Adapter).Get(ctx context.Context, key string) ([]byte, error)` | `IpldPrimeStorageBsadapterAdapter.get` | Future |
+| `func (*bsadapter.Adapter).Has(ctx context.Context, key string) (bool, error)` | `IpldPrimeStorageBsadapterAdapter.has` | Future |
+| `func (*bsadapter.Adapter).Put(ctx context.Context, key string, content []byte) error` | `IpldPrimeStorageBsadapterAdapter.put` | Future |
 
 ## `github.com/ipld/go-ipld-prime/traversal` → `Go.ipldPrime.traversal` (`lib/go/ipld_prime/traversal.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
+| `func (*traversal.Budget).Clone() *traversal.Budget` | `IpldPrimeTraversalBudget.clone` | sync |
+| `func traversal.FocusedTransform(n datamodel.Node, p datamodel.Path, fn traversal.TransformFn, createParents bool) (datamodel.Node, error)` | `Go.ipldPrime.traversal.focusedTransform` | sync |
+| `func traversal.Get(n datamodel.Node, p datamodel.Path) (datamodel.Node, error)` | `Go.ipldPrime.traversal.get` | sync |
+| `func (traversal.Progress).FocusedTransform(n datamodel.Node, p datamodel.Path, fn traversal.TransformFn, createParents bool) (datamodel.Node, error)` | `IpldPrimeTraversalProgress.focusedTransform` | sync |
+| `func (traversal.Progress).Get(n datamodel.Node, p datamodel.Path) (datamodel.Node, error)` | `IpldPrimeTraversalProgress.get` | sync |
+| `func (traversal.Progress).WalkTransforming(n datamodel.Node, s selector.Selector, fn traversal.TransformFn) (datamodel.Node, error)` | `IpldPrimeTraversalProgress.walkTransforming` | sync |
+| `func traversal.SelectLinks(n datamodel.Node) ([]datamodel.Link, error)` | `Go.ipldPrime.traversal.selectLinks` | sync |
+| `func traversal.WalkTransforming(n datamodel.Node, s selector.Selector, fn traversal.TransformFn) (datamodel.Node, error)` | `Go.ipldPrime.traversal.walkTransforming` | sync |
 | `const traversal.VisitReason_SelectionCandidate traversal.VisitReason` | `Go.ipldPrime.traversal.visitReasonSelectionCandidate` | const |
 | `const traversal.VisitReason_SelectionMatch traversal.VisitReason` | `Go.ipldPrime.traversal.visitReasonSelectionMatch` | const |
 | `const traversal.VisitReason_SelectionParent traversal.VisitReason` | `Go.ipldPrime.traversal.visitReasonSelectionParent` | const |
+
+Omitted:
+
+- `func traversal.Focus(n datamodel.Node, p datamodel.Path, fn traversal.VisitFn) error`: takes a callback nobody checked yet: an explicit root in roots.txt if Go only calls it during the call, retainedFuncs if Go keeps it
+- `func (traversal.Progress).Focus(n datamodel.Node, p datamodel.Path, fn traversal.VisitFn) error`: takes a callback nobody checked yet: an explicit root in roots.txt if Go only calls it during the call, retainedFuncs if Go keeps it
+- `func (traversal.Progress).WalkAdv(n datamodel.Node, s selector.Selector, fn traversal.AdvVisitFn) error`: takes a callback nobody checked yet: an explicit root in roots.txt if Go only calls it during the call, retainedFuncs if Go keeps it
+- `func (traversal.Progress).WalkLocal(n datamodel.Node, fn traversal.VisitFn) error`: takes a callback nobody checked yet: an explicit root in roots.txt if Go only calls it during the call, retainedFuncs if Go keeps it
+- `func (traversal.Progress).WalkMatching(n datamodel.Node, s selector.Selector, fn traversal.VisitFn) error`: takes a callback nobody checked yet: an explicit root in roots.txt if Go only calls it during the call, retainedFuncs if Go keeps it
+- `func traversal.WalkAdv(n datamodel.Node, s selector.Selector, fn traversal.AdvVisitFn) error`: takes a callback nobody checked yet: an explicit root in roots.txt if Go only calls it during the call, retainedFuncs if Go keeps it
+- `func traversal.WalkLocal(n datamodel.Node, fn traversal.VisitFn) error`: takes a callback nobody checked yet: an explicit root in roots.txt if Go only calls it during the call, retainedFuncs if Go keeps it
+- `func traversal.WalkMatching(n datamodel.Node, s selector.Selector, fn traversal.VisitFn) error`: takes a callback nobody checked yet: an explicit root in roots.txt if Go only calls it during the call, retainedFuncs if Go keeps it
 
 ## `github.com/ipld/go-ipld-prime/traversal/selector` → `Go.ipldPrime.traversal.selector` (`lib/go/ipld_prime/traversal/selector.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
+| `func selector.CompileSelector(dmt datamodel.Node) (selector.Selector, error)` | `Go.ipldPrime.traversal.selector.compileSelector` | sync |
+| `func (*selector.Condition).Match(n datamodel.Node) bool` | `IpldPrimeTraversalSelectorCondition.match` | sync |
+| `func (selector.ExploreAll).Decide(n datamodel.Node) bool` | `IpldPrimeTraversalSelectorExploreAll.decide` | sync |
+| `func (selector.ExploreAll).Explore(n datamodel.Node, p datamodel.PathSegment) (selector.Selector, error)` | `IpldPrimeTraversalSelectorExploreAll.explore` | sync |
+| `func (selector.ExploreAll).Interests() []datamodel.PathSegment` | `IpldPrimeTraversalSelectorExploreAll.interests` | sync |
+| `func (selector.ExploreAll).Match(node datamodel.Node) (datamodel.Node, error)` | `IpldPrimeTraversalSelectorExploreAll.match` | sync |
+| `func (selector.ExploreFields).Decide(n datamodel.Node) bool` | `IpldPrimeTraversalSelectorExploreFields.decide` | sync |
+| `func (selector.ExploreFields).Explore(n datamodel.Node, p datamodel.PathSegment) (selector.Selector, error)` | `IpldPrimeTraversalSelectorExploreFields.explore` | sync |
+| `func (selector.ExploreFields).Interests() []datamodel.PathSegment` | `IpldPrimeTraversalSelectorExploreFields.interests` | sync |
+| `func (selector.ExploreFields).Match(node datamodel.Node) (datamodel.Node, error)` | `IpldPrimeTraversalSelectorExploreFields.match` | sync |
+| `func (selector.ExploreIndex).Decide(n datamodel.Node) bool` | `IpldPrimeTraversalSelectorExploreIndex.decide` | sync |
+| `func (selector.ExploreIndex).Explore(n datamodel.Node, p datamodel.PathSegment) (selector.Selector, error)` | `IpldPrimeTraversalSelectorExploreIndex.explore` | sync |
+| `func (selector.ExploreIndex).Interests() []datamodel.PathSegment` | `IpldPrimeTraversalSelectorExploreIndex.interests` | sync |
+| `func (selector.ExploreIndex).Match(node datamodel.Node) (datamodel.Node, error)` | `IpldPrimeTraversalSelectorExploreIndex.match` | sync |
+| `func (selector.ExploreInterpretAs).Decide(n datamodel.Node) bool` | `IpldPrimeTraversalSelectorExploreInterpretAs.decide` | sync |
+| `func (selector.ExploreInterpretAs).Explore(n datamodel.Node, p datamodel.PathSegment) (selector.Selector, error)` | `IpldPrimeTraversalSelectorExploreInterpretAs.explore` | sync |
+| `func (selector.ExploreInterpretAs).Interests() []datamodel.PathSegment` | `IpldPrimeTraversalSelectorExploreInterpretAs.interests` | sync |
+| `func (selector.ExploreInterpretAs).Match(node datamodel.Node) (datamodel.Node, error)` | `IpldPrimeTraversalSelectorExploreInterpretAs.match` | sync |
+| `func (selector.ExploreInterpretAs).NamedReifier() string` | `IpldPrimeTraversalSelectorExploreInterpretAs.namedReifier` | sync |
+| `func (selector.ExploreRange).Decide(n datamodel.Node) bool` | `IpldPrimeTraversalSelectorExploreRange.decide` | sync |
+| `func (selector.ExploreRange).Explore(n datamodel.Node, p datamodel.PathSegment) (selector.Selector, error)` | `IpldPrimeTraversalSelectorExploreRange.explore` | sync |
+| `func (selector.ExploreRange).Interests() []datamodel.PathSegment` | `IpldPrimeTraversalSelectorExploreRange.interests` | sync |
+| `func (selector.ExploreRange).Match(node datamodel.Node) (datamodel.Node, error)` | `IpldPrimeTraversalSelectorExploreRange.match` | sync |
+| `func (selector.ExploreRecursive).Decide(n datamodel.Node) bool` | `IpldPrimeTraversalSelectorExploreRecursive.decide` | sync |
+| `func (selector.ExploreRecursive).Explore(n datamodel.Node, p datamodel.PathSegment) (selector.Selector, error)` | `IpldPrimeTraversalSelectorExploreRecursive.explore` | sync |
+| `func (selector.ExploreRecursive).Interests() []datamodel.PathSegment` | `IpldPrimeTraversalSelectorExploreRecursive.interests` | sync |
+| `func (selector.ExploreRecursive).Match(node datamodel.Node) (datamodel.Node, error)` | `IpldPrimeTraversalSelectorExploreRecursive.match` | sync |
+| `func (selector.ExploreRecursiveEdge).Decide(n datamodel.Node) bool` | `IpldPrimeTraversalSelectorExploreRecursiveEdge.decide` | sync |
+| `func (selector.ExploreRecursiveEdge).Explore(n datamodel.Node, p datamodel.PathSegment) (selector.Selector, error)` | `IpldPrimeTraversalSelectorExploreRecursiveEdge.explore` | sync |
+| `func (selector.ExploreRecursiveEdge).Interests() []datamodel.PathSegment` | `IpldPrimeTraversalSelectorExploreRecursiveEdge.interests` | sync |
+| `func (selector.ExploreRecursiveEdge).Match(node datamodel.Node) (datamodel.Node, error)` | `IpldPrimeTraversalSelectorExploreRecursiveEdge.match` | sync |
+| `func (selector.ExploreUnion).Decide(n datamodel.Node) bool` | `IpldPrimeTraversalSelectorExploreUnion.decide` | sync |
+| `func (selector.ExploreUnion).Explore(n datamodel.Node, p datamodel.PathSegment) (selector.Selector, error)` | `IpldPrimeTraversalSelectorExploreUnion.explore` | sync |
+| `func (selector.ExploreUnion).Interests() []datamodel.PathSegment` | `IpldPrimeTraversalSelectorExploreUnion.interests` | sync |
+| `func (selector.ExploreUnion).Match(n datamodel.Node) (datamodel.Node, error)` | `IpldPrimeTraversalSelectorExploreUnion.match` | sync |
+| `func (selector.Matcher).Decide(n datamodel.Node) bool` | `IpldPrimeTraversalSelectorMatcher.decide` | sync |
+| `func (selector.Matcher).Explore(n datamodel.Node, p datamodel.PathSegment) (selector.Selector, error)` | `IpldPrimeTraversalSelectorMatcher.explore` | sync |
+| `func (selector.Matcher).Interests() []datamodel.PathSegment` | `IpldPrimeTraversalSelectorMatcher.interests` | sync |
+| `func (selector.Matcher).Match(node datamodel.Node) (datamodel.Node, error)` | `IpldPrimeTraversalSelectorMatcher.match` | sync |
+| `func selector.NewSegmentIterator(n datamodel.Node) selector.SegmentIterator` | `factory IpldPrimeTraversalSelectorSegmentIterator` | sync |
+| `func (selector.ParseContext).ParseCondition(n datamodel.Node) (selector.Condition, error)` | `IpldPrimeTraversalSelectorParseContext.parseCondition` | sync |
+| `func (selector.ParseContext).ParseExploreAll(n datamodel.Node) (selector.Selector, error)` | `IpldPrimeTraversalSelectorParseContext.parseExploreAll` | sync |
+| `func (selector.ParseContext).ParseExploreFields(n datamodel.Node) (selector.Selector, error)` | `IpldPrimeTraversalSelectorParseContext.parseExploreFields` | sync |
+| `func (selector.ParseContext).ParseExploreIndex(n datamodel.Node) (selector.Selector, error)` | `IpldPrimeTraversalSelectorParseContext.parseExploreIndex` | sync |
+| `func (selector.ParseContext).ParseExploreInterpretAs(n datamodel.Node) (selector.Selector, error)` | `IpldPrimeTraversalSelectorParseContext.parseExploreInterpretAs` | sync |
+| `func (selector.ParseContext).ParseExploreRange(n datamodel.Node) (selector.Selector, error)` | `IpldPrimeTraversalSelectorParseContext.parseExploreRange` | sync |
+| `func (selector.ParseContext).ParseExploreRecursive(n datamodel.Node) (selector.Selector, error)` | `IpldPrimeTraversalSelectorParseContext.parseExploreRecursive` | sync |
+| `func (selector.ParseContext).ParseExploreRecursiveEdge(n datamodel.Node) (selector.Selector, error)` | `IpldPrimeTraversalSelectorParseContext.parseExploreRecursiveEdge` | sync |
+| `func (selector.ParseContext).ParseExploreUnion(n datamodel.Node) (selector.Selector, error)` | `IpldPrimeTraversalSelectorParseContext.parseExploreUnion` | sync |
+| `func (selector.ParseContext).ParseMatcher(n datamodel.Node) (selector.Selector, error)` | `IpldPrimeTraversalSelectorParseContext.parseMatcher` | sync |
+| `func (selector.ParseContext).ParseSelector(n datamodel.Node) (selector.Selector, error)` | `IpldPrimeTraversalSelectorParseContext.parseSelector` | sync |
+| `func (selector.ParseContext).PushParent(parent selector.ParsedParent) selector.ParseContext` | `IpldPrimeTraversalSelectorParseContext.pushParent` | sync |
+| `func selector.ParseSelector(dmt datamodel.Node) (selector.Selector, error)` | `Go.ipldPrime.traversal.selector.parseSelector` | sync |
+| `func (selector.ParsedParent).Link(s selector.Selector) bool` | `IpldPrimeTraversalSelectorParsedParent.link` | sync |
+| `func (selector.RecursionLimit).Depth() int64` | `IpldPrimeTraversalSelectorRecursionLimit.depth` | sync |
+| `func (selector.RecursionLimit).Mode() selector.RecursionLimit_Mode` | `IpldPrimeTraversalSelectorRecursionLimit.mode` | sync |
 | `func selector.RecursionLimitDepth(depth int64) selector.RecursionLimit` | `Go.ipldPrime.traversal.selector.recursionLimitDepth` | sync |
 | `func selector.RecursionLimitNone() selector.RecursionLimit` | `Go.ipldPrime.traversal.selector.recursionLimitNone` | sync |
+| `func (selector.SegmentIterator).Done() bool` | `IpldPrimeTraversalSelectorSegmentIterator.done` | sync |
+| `func (selector.SegmentIterator).Next() (pathSegment datamodel.PathSegment, value datamodel.Node, err error)` | `IpldPrimeTraversalSelectorSegmentIterator.next` | sync |
+| `func (selector.Selector).Decide(node datamodel.Node) bool` | `IpldPrimeTraversalSelector.decide` | sync |
+| `func (selector.Selector).Explore(node datamodel.Node, child datamodel.PathSegment) (subsequent selector.Selector, err error)` | `IpldPrimeTraversalSelector.explore` | sync |
+| `func (selector.Selector).Interests() []datamodel.PathSegment` | `IpldPrimeTraversalSelector.interests` | sync |
+| `func (selector.Selector).Match(node datamodel.Node) (datamodel.Node, error)` | `IpldPrimeTraversalSelector.match` | sync |
+| `func (selector.Slice).Slice(n datamodel.Node) (datamodel.Node, error)` | `IpldPrimeTraversalSelectorSlice.slice` | sync |
+| `selector.Selector → x.(*selector.ExploreAll)` | `IpldPrimeTraversalSelector.asIpldPrimeTraversalSelectorExploreAll` | cast |
+| `selector.Selector → x.(*selector.ExploreFields)` | `IpldPrimeTraversalSelector.asIpldPrimeTraversalSelectorExploreFields` | cast |
+| `selector.Selector → x.(*selector.ExploreIndex)` | `IpldPrimeTraversalSelector.asIpldPrimeTraversalSelectorExploreIndex` | cast |
+| `selector.Selector → x.(*selector.ExploreInterpretAs)` | `IpldPrimeTraversalSelector.asIpldPrimeTraversalSelectorExploreInterpretAs` | cast |
+| `selector.Selector → x.(*selector.ExploreRange)` | `IpldPrimeTraversalSelector.asIpldPrimeTraversalSelectorExploreRange` | cast |
+| `selector.Selector → x.(*selector.ExploreRecursive)` | `IpldPrimeTraversalSelector.asIpldPrimeTraversalSelectorExploreRecursive` | cast |
 | `const selector.ConditionMode_Link selector.ConditionMode` | `Go.ipldPrime.traversal.selector.conditionModeLink` | const |
 | `const selector.SelectorKey_As untyped string` | `Go.ipldPrime.traversal.selector.selectorKeyAs` | const |
 | `const selector.SelectorKey_Condition untyped string` | `Go.ipldPrime.traversal.selector.selectorKeyCondition` | const |
@@ -1069,6 +3164,7 @@ Omitted:
 
 Omitted:
 
+- `func (selector.Reifiable).NamedReifier() string`: receiver is neither a handle, a DTO nor a value type: 
 - `const selector.RecursionLimit_Depth selector.RecursionLimit_Mode`: constant whose Dart name `recursionLimitDepth` another member of the library has
 - `const selector.RecursionLimit_None selector.RecursionLimit_Mode`: constant whose Dart name `recursionLimitNone` another member of the library has
 
@@ -1076,54 +3172,164 @@ Omitted:
 
 | Go | Dart | Mode |
 |---|---|---|
+| `func (builder.ExploreFieldsSpecBuilder).Insert(k string, v builder.SelectorSpec)` | `IpldPrimeTraversalSelectorBuilderExploreFieldsSpecBuilder.insert` | sync |
 | `func builder.NewSelectorSpecBuilder(np datamodel.NodePrototype) builder.SelectorSpecBuilder` | `factory IpldPrimeTraversalSelectorBuilderSelectorSpecBuilder` | sync |
-| `func (builder.SelectorSpecBuilder).ExploreRecursiveEdge() builder.SelectorSpec` | `IpldPrimeTraversalSelectorBuilderSelectorSpecBuilder.exploreRecursiveEdge` | sync |
-| `func (builder.SelectorSpecBuilder).ExploreRecursive(limit selector.RecursionLimit, sequence builder.SelectorSpec) builder.SelectorSpec` | `IpldPrimeTraversalSelectorBuilderSelectorSpecBuilder.exploreRecursive` | sync |
-| `func (builder.SelectorSpecBuilder).ExploreUnion(...builder.SelectorSpec) builder.SelectorSpec` | `IpldPrimeTraversalSelectorBuilderSelectorSpecBuilder.exploreUnion` | sync |
+| `func (builder.SelectorSpec).Node() datamodel.Node` | `IpldPrimeTraversalSelectorBuilderSelectorSpec.node` | sync |
+| `func (builder.SelectorSpec).Selector() (selector.Selector, error)` | `IpldPrimeTraversalSelectorBuilderSelectorSpec.selector` | sync |
 | `func (builder.SelectorSpecBuilder).ExploreAll(next builder.SelectorSpec) builder.SelectorSpec` | `IpldPrimeTraversalSelectorBuilderSelectorSpecBuilder.exploreAll` | sync |
-| `func (builder.SelectorSpecBuilder).ExploreIndex(index int64, next builder.SelectorSpec) builder.SelectorSpec` | `IpldPrimeTraversalSelectorBuilderSelectorSpecBuilder.exploreIndex` | sync |
-| `func (builder.SelectorSpecBuilder).ExploreRange(start int64, end int64, next builder.SelectorSpec) builder.SelectorSpec` | `IpldPrimeTraversalSelectorBuilderSelectorSpecBuilder.exploreRange` | sync |
 | `func (builder.SelectorSpecBuilder).ExploreFields(builder.ExploreFieldsSpecBuildingClosure) builder.SelectorSpec` | `IpldPrimeTraversalSelectorBuilderSelectorSpecBuilder.exploreFields` | Future |
+| `func (builder.SelectorSpecBuilder).ExploreIndex(index int64, next builder.SelectorSpec) builder.SelectorSpec` | `IpldPrimeTraversalSelectorBuilderSelectorSpecBuilder.exploreIndex` | sync |
 | `func (builder.SelectorSpecBuilder).ExploreInterpretAs(as string, next builder.SelectorSpec) builder.SelectorSpec` | `IpldPrimeTraversalSelectorBuilderSelectorSpecBuilder.exploreInterpretAs` | sync |
+| `func (builder.SelectorSpecBuilder).ExploreRange(start int64, end int64, next builder.SelectorSpec) builder.SelectorSpec` | `IpldPrimeTraversalSelectorBuilderSelectorSpecBuilder.exploreRange` | sync |
+| `func (builder.SelectorSpecBuilder).ExploreRecursive(limit selector.RecursionLimit, sequence builder.SelectorSpec) builder.SelectorSpec` | `IpldPrimeTraversalSelectorBuilderSelectorSpecBuilder.exploreRecursive` | sync |
+| `func (builder.SelectorSpecBuilder).ExploreRecursiveEdge() builder.SelectorSpec` | `IpldPrimeTraversalSelectorBuilderSelectorSpecBuilder.exploreRecursiveEdge` | sync |
+| `func (builder.SelectorSpecBuilder).ExploreUnion(...builder.SelectorSpec) builder.SelectorSpec` | `IpldPrimeTraversalSelectorBuilderSelectorSpecBuilder.exploreUnion` | sync |
 | `func (builder.SelectorSpecBuilder).Matcher() builder.SelectorSpec` | `IpldPrimeTraversalSelectorBuilderSelectorSpecBuilder.matcher` | sync |
 | `func (builder.SelectorSpecBuilder).MatcherSubset(from int64, to int64) builder.SelectorSpec` | `IpldPrimeTraversalSelectorBuilderSelectorSpecBuilder.matcherSubset` | sync |
-| `func (builder.SelectorSpec).Node() datamodel.Node` | `IpldPrimeTraversalSelectorBuilderSelectorSpec.node` | sync |
-| `func (builder.ExploreFieldsSpecBuilder).Insert(k string, v builder.SelectorSpec)` | `IpldPrimeTraversalSelectorBuilderExploreFieldsSpecBuilder.insert` | sync |
 
 ## `github.com/ipld/go-ipld-prime/traversal/selector/parse` → `Go.ipldPrime.traversal.selector.parse` (`lib/go/ipld_prime/traversal/selector/parse.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
-| `func selectorparse.ParseJSONSelector(jsonStr string) (datamodel.Node, error)` | `Go.ipldPrime.traversal.selector.parse.parseJsonSelector` | sync |
-| `var selectorparse.CommonSelector_MatchPoint datamodel.Node` | `Go.ipldPrime.traversal.selector.parse.commonSelectorMatchPoint` | sync |
-| `var selectorparse.CommonSelector_MatchChildren datamodel.Node` | `Go.ipldPrime.traversal.selector.parse.commonSelectorMatchChildren` | sync |
 | `var selectorparse.CommonSelector_ExploreAllRecursively datamodel.Node` | `Go.ipldPrime.traversal.selector.parse.commonSelectorExploreAllRecursively` | sync |
 | `var selectorparse.CommonSelector_MatchAllRecursively datamodel.Node` | `Go.ipldPrime.traversal.selector.parse.commonSelectorMatchAllRecursively` | sync |
+| `var selectorparse.CommonSelector_MatchChildren datamodel.Node` | `Go.ipldPrime.traversal.selector.parse.commonSelectorMatchChildren` | sync |
+| `var selectorparse.CommonSelector_MatchPoint datamodel.Node` | `Go.ipldPrime.traversal.selector.parse.commonSelectorMatchPoint` | sync |
+| `func selectorparse.ParseAndCompileJSONSelector(jsonStr string) (selector.Selector, error)` | `Go.ipldPrime.traversal.selector.parse.parseAndCompileJsonSelector` | sync |
+| `func selectorparse.ParseJSONSelector(jsonStr string) (datamodel.Node, error)` | `Go.ipldPrime.traversal.selector.parse.parseJsonSelector` | sync |
+
+## `github.com/ipshipyard/p2p-forge/client` → `Go.p2pForge.client` (`lib/go/p2p_forge/client.dart`)
+
+| Go | Dart | Mode |
+|---|---|---|
+| `const client.DefaultCAEndpoint untyped string` | `Go.p2pForge.client.defaultCaEndpoint` | const |
+| `const client.DefaultCATestEndpoint untyped string` | `Go.p2pForge.client.defaultCaTestEndpoint` | const |
+| `const client.DefaultForgeDomain untyped string` | `Go.p2pForge.client.defaultForgeDomain` | const |
+| `const client.DefaultForgeEndpoint untyped string` | `Go.p2pForge.client.defaultForgeEndpoint` | const |
+| `const client.DefaultStorageLocation untyped string` | `Go.p2pForge.client.defaultStorageLocation` | const |
+| `const client.ForgeAuthEnv untyped string` | `Go.p2pForge.client.forgeAuthEnv` | const |
+| `const client.ForgeAuthHeader untyped string` | `Go.p2pForge.client.forgeAuthHeader` | const |
+| `const client.HealthCheckPath untyped string` | `Go.p2pForge.client.healthCheckPath` | const |
 
 ## `github.com/libp2p/go-libp2p` → `Go.libp2p` (`lib/go/libp2p.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
 | `func libp2p.New(opts ...libp2p.Option) (host.Host, error)` | `Go.libp2p.new$` | Future |
+| `func libp2p.NewWithoutDefaults(opts ...libp2p.Option) (host.Host, error)` | `Go.libp2p.newWithoutDefaults` | sync |
+| `func libp2p.SetDefaultServiceLimits(config *rcmgr.ScalingLimitConfig)` | `Go.libp2p.setDefaultServiceLimits` | sync |
+
+Omitted:
+
+- `func libp2p.AddrsFactory(factory config.AddrsFactory) libp2p.Option`: result 0: github.com/libp2p/go-libp2p/config.Option
+- `func libp2p.AutoNATServiceRateLimit(global int, perPeer int, interval time.Duration) libp2p.Option`: result 0: github.com/libp2p/go-libp2p/config.Option
+- `func libp2p.BandwidthReporter(rep metrics.Reporter) libp2p.Option`: result 0: github.com/libp2p/go-libp2p/config.Option
+- `func libp2p.ChainOptions(opts ...libp2p.Option) libp2p.Option`: result 0: github.com/libp2p/go-libp2p/config.Option
+- `func libp2p.ConnectionGater(cg connmgr.ConnectionGater) libp2p.Option`: result 0: github.com/libp2p/go-libp2p/config.Option
+- `func libp2p.ConnectionManager(connman connmgr.ConnManager) libp2p.Option`: result 0: github.com/libp2p/go-libp2p/config.Option
+- `var libp2p.DefaultConnectionManager func(cfg *libp2p.Config) error`: result 0: github.com/libp2p/go-libp2p/config.Option
+- `var libp2p.DefaultEnableRelay func(cfg *libp2p.Config) error`: result 0: github.com/libp2p/go-libp2p/config.Option
+- `var libp2p.DefaultListenAddrs func(cfg *libp2p.Config) error`: result 0: github.com/libp2p/go-libp2p/config.Option
+- `var libp2p.DefaultMuxers libp2p.Option`: result 0: github.com/libp2p/go-libp2p/config.Option
+- `var libp2p.DefaultPeerstore libp2p.Option`: result 0: github.com/libp2p/go-libp2p/config.Option
+- `var libp2p.DefaultPrivateTransports libp2p.Option`: result 0: github.com/libp2p/go-libp2p/config.Option
+- `var libp2p.DefaultPrometheusRegisterer func(cfg *libp2p.Config) error`: result 0: github.com/libp2p/go-libp2p/config.Option
+- `var libp2p.DefaultResourceManager func(cfg *libp2p.Config) error`: result 0: github.com/libp2p/go-libp2p/config.Option
+- `var libp2p.DefaultSecurity libp2p.Option`: result 0: github.com/libp2p/go-libp2p/config.Option
+- `var libp2p.DefaultTransports libp2p.Option`: result 0: github.com/libp2p/go-libp2p/config.Option
+- `var libp2p.Defaults libp2p.Option`: result 0: github.com/libp2p/go-libp2p/config.Option
+- `func libp2p.DialRanker(d network.DialRanker) libp2p.Option`: result 0: github.com/libp2p/go-libp2p/config.Option
+- `func libp2p.DisableIdentifyAddressDiscovery() libp2p.Option`: result 0: github.com/libp2p/go-libp2p/config.Option
+- `func libp2p.DisableMetrics() libp2p.Option`: result 0: github.com/libp2p/go-libp2p/config.Option
+- `func libp2p.DisableRelay() libp2p.Option`: result 0: github.com/libp2p/go-libp2p/config.Option
+- `func libp2p.EnableAutoNATv2() libp2p.Option`: result 0: github.com/libp2p/go-libp2p/config.Option
+- `func libp2p.EnableAutoRelay(opts ...autorelay.Option) libp2p.Option`: result 0: github.com/libp2p/go-libp2p/config.Option
+- `func libp2p.EnableAutoRelayWithPeerSource(peerSource autorelay.PeerSource, opts ...autorelay.Option) libp2p.Option`: result 0: github.com/libp2p/go-libp2p/config.Option
+- `func libp2p.EnableAutoRelayWithStaticRelays(static []peer.AddrInfo, opts ...autorelay.Option) libp2p.Option`: result 0: github.com/libp2p/go-libp2p/config.Option
+- `func libp2p.EnableHolePunching(opts ...holepunch.Option) libp2p.Option`: result 0: github.com/libp2p/go-libp2p/config.Option
+- `func libp2p.EnableNATService() libp2p.Option`: result 0: github.com/libp2p/go-libp2p/config.Option
+- `func libp2p.EnableRelay() libp2p.Option`: result 0: github.com/libp2p/go-libp2p/config.Option
+- `func libp2p.EnableRelayService(opts ...relay.Option) libp2p.Option`: result 0: github.com/libp2p/go-libp2p/config.Option
+- `var libp2p.FallbackDefaults libp2p.Option`: result 0: github.com/libp2p/go-libp2p/config.Option
+- `func libp2p.ForceReachabilityPrivate() libp2p.Option`: result 0: github.com/libp2p/go-libp2p/config.Option
+- `func libp2p.ForceReachabilityPublic() libp2p.Option`: result 0: github.com/libp2p/go-libp2p/config.Option
+- `func libp2p.IPv6BlackHoleSuccessCounter(f *swarm.BlackHoleSuccessCounter) libp2p.Option`: result 0: github.com/libp2p/go-libp2p/config.Option
+- `func libp2p.Identity(sk crypto.PrivKey) libp2p.Option`: result 0: github.com/libp2p/go-libp2p/config.Option
+- `func libp2p.ListenAddrStrings(s ...string) libp2p.Option`: result 0: github.com/libp2p/go-libp2p/config.Option
+- `func libp2p.ListenAddrs(addrs ...multiaddr.Multiaddr) libp2p.Option`: result 0: github.com/libp2p/go-libp2p/config.Option
+- `func libp2p.MultiaddrResolver(rslv network.MultiaddrDNSResolver) libp2p.Option`: result 0: github.com/libp2p/go-libp2p/config.Option
+- `func libp2p.Muxer(name string, muxer network.Multiplexer) libp2p.Option`: result 0: github.com/libp2p/go-libp2p/config.Option
+- `func libp2p.NATManager(nm config.NATManagerC) libp2p.Option`: result 0: github.com/libp2p/go-libp2p/config.Option
+- `func libp2p.NATPortMap() libp2p.Option`: result 0: github.com/libp2p/go-libp2p/config.Option
+- `var libp2p.NoListenAddrs func(cfg *libp2p.Config) error`: result 0: github.com/libp2p/go-libp2p/config.Option
+- `var libp2p.NoSecurity libp2p.Option`: result 0: github.com/libp2p/go-libp2p/config.Option
+- `var libp2p.NoTransports func(cfg *libp2p.Config) error`: result 0: github.com/libp2p/go-libp2p/config.Option
+- `func libp2p.NonPublicAddrPublishing(enable bool) libp2p.Option`: result 0: github.com/libp2p/go-libp2p/config.Option
+- `func libp2p.Peerstore(ps peerstore.Peerstore) libp2p.Option`: result 0: github.com/libp2p/go-libp2p/config.Option
+- `func libp2p.Ping(enable bool) libp2p.Option`: result 0: github.com/libp2p/go-libp2p/config.Option
+- `func libp2p.PrivateNetwork(psk pnet.PSK) libp2p.Option`: result 0: github.com/libp2p/go-libp2p/config.Option
+- `func libp2p.PrometheusRegisterer(reg prometheus.Registerer) libp2p.Option`: result 0: github.com/libp2p/go-libp2p/config.Option
+- `func libp2p.ProtocolVersion(s string) libp2p.Option`: result 0: github.com/libp2p/go-libp2p/config.Option
+- `func libp2p.QUICReuse(constructor any, opts ...quicreuse.Option) libp2p.Option`: result 0: github.com/libp2p/go-libp2p/config.Option
+- `var libp2p.RandomIdentity func(cfg *libp2p.Config) error`: result 0: github.com/libp2p/go-libp2p/config.Option
+- `func libp2p.ResourceManager(rcmgr network.ResourceManager) libp2p.Option`: result 0: github.com/libp2p/go-libp2p/config.Option
+- `func libp2p.Routing(rt config.RoutingC) libp2p.Option`: result 0: github.com/libp2p/go-libp2p/config.Option
+- `func libp2p.Security(name string, constructor any) libp2p.Option`: result 0: github.com/libp2p/go-libp2p/config.Option
+- `func libp2p.ShareTCPListener() libp2p.Option`: result 0: github.com/libp2p/go-libp2p/config.Option
+- `func libp2p.SwarmOpts(opts ...swarm.Option) libp2p.Option`: result 0: github.com/libp2p/go-libp2p/config.Option
+- `func libp2p.Transport(constructor any, opts ...any) libp2p.Option`: result 0: github.com/libp2p/go-libp2p/config.Option
+- `func libp2p.UDPBlackHoleSuccessCounter(f *swarm.BlackHoleSuccessCounter) libp2p.Option`: result 0: github.com/libp2p/go-libp2p/config.Option
+- `func libp2p.UserAgent(userAgent string) libp2p.Option`: result 0: github.com/libp2p/go-libp2p/config.Option
+- `func libp2p.WithDialTimeout(t time.Duration) libp2p.Option`: result 0: github.com/libp2p/go-libp2p/config.Option
+- `func libp2p.WithFxOption(opts ...fx.Option) libp2p.Option`: result 0: github.com/libp2p/go-libp2p/config.Option
 
 ## `github.com/libp2p/go-libp2p-kad-dht` → `Go.libp2pKadDht` (`lib/go/libp2p_kad_dht.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
-| `func dht.New(h host.Host, options ...dht.Option) (_ *dht.IpfsDHT, err error)` | `Go.libp2pKadDht.new$` | sync |
 | `var dht.DefaultBootstrapPeers []multiaddr.Multiaddr` | `Go.libp2pKadDht.defaultBootstrapPeers` | sync |
+| `var dht.DefaultProtocols []protocol.ID` | `Go.libp2pKadDht.defaultProtocols` | sync |
+| `func dht.GetDefaultBootstrapPeerAddrInfos() []peer.AddrInfo` | `Go.libp2pKadDht.getDefaultBootstrapPeerAddrInfos` | sync |
 | `func (*dht.IpfsDHT).Bootstrap(ctx context.Context) (err error)` | `Libp2pKadDhtIpfsDht.bootstrap` | Future |
+| `func (*dht.IpfsDHT).BucketSize() int` | `Libp2pKadDhtIpfsDht.bucketSize` | sync |
+| `func (*dht.IpfsDHT).Close() error` | `Libp2pKadDhtIpfsDht.close` | Future |
+| `func (*dht.IpfsDHT).FilteredAddrs() []multiaddr.Multiaddr` | `Libp2pKadDhtIpfsDht.filteredAddrs` | sync |
+| `func (*dht.IpfsDHT).FindLocal(ctx context.Context, id peer.ID) peer.AddrInfo` | `Libp2pKadDhtIpfsDht.findLocal` | Future |
 | `func (*dht.IpfsDHT).FindPeer(ctx context.Context, id peer.ID) (pi peer.AddrInfo, err error)` | `Libp2pKadDhtIpfsDht.findPeer` | Future |
-| `func (*dht.IpfsDHT).Provide(ctx context.Context, key cid.Cid, brdcst bool) (err error)` | `Libp2pKadDhtIpfsDht.provide` | Future |
 | `func (*dht.IpfsDHT).FindProviders(ctx context.Context, c cid.Cid) ([]peer.AddrInfo, error)` | `Libp2pKadDhtIpfsDht.findProviders` | Future |
 | `func (*dht.IpfsDHT).FindProvidersAsync(ctx context.Context, key cid.Cid, count int) (ch <-chan peer.AddrInfo)` | `Libp2pKadDhtIpfsDht.findProvidersAsync` | Stream |
 | `func (*dht.IpfsDHT).GetClosestPeers(ctx context.Context, key string) ([]peer.ID, error)` | `Libp2pKadDhtIpfsDht.getClosestPeers` | Future |
-| `func (*dht.IpfsDHT).PutValue(ctx context.Context, key string, value []byte, opts ...routing.Option) (err error)` | `Libp2pKadDhtIpfsDht.putValue` | Future |
+| `func (*dht.IpfsDHT).GetPublicKey(ctx context.Context, p peer.ID) (crypto.PubKey, error)` | `Libp2pKadDhtIpfsDht.getPublicKey` | Future |
+| `func (*dht.IpfsDHT).GetRoutingTableDiversityStats() []peerdiversity.CplDiversityStats` | `Libp2pKadDhtIpfsDht.getRoutingTableDiversityStats` | sync |
 | `func (*dht.IpfsDHT).GetValue(ctx context.Context, key string, opts ...routing.Option) (result []byte, err error)` | `Libp2pKadDhtIpfsDht.getValue` | Future |
-| `func (*dht.IpfsDHT).Ping(ctx context.Context, p peer.ID) error` | `Libp2pKadDhtIpfsDht.ping` | Future |
+| `func (*dht.IpfsDHT).Host() host.Host` | `Libp2pKadDhtIpfsDht.host` | sync |
+| `func (*dht.IpfsDHT).MessageSender() dht_pb.MessageSender` | `Libp2pKadDhtIpfsDht.messageSender` | sync |
 | `func (*dht.IpfsDHT).Mode() dht.ModeOpt` | `Libp2pKadDhtIpfsDht.mode` | sync |
+| `func (*dht.IpfsDHT).NetworkSize() (int32, error)` | `Libp2pKadDhtIpfsDht.networkSize` | sync |
+| `func (*dht.IpfsDHT).PeerID() peer.ID` | `Libp2pKadDhtIpfsDht.peerId` | sync |
+| `func (*dht.IpfsDHT).PeerKey() []byte` | `Libp2pKadDhtIpfsDht.peerKey` | sync |
+| `func (*dht.IpfsDHT).Ping(ctx context.Context, p peer.ID) error` | `Libp2pKadDhtIpfsDht.ping` | Future |
+| `func (*dht.IpfsDHT).Provide(ctx context.Context, key cid.Cid, brdcst bool) (err error)` | `Libp2pKadDhtIpfsDht.provide` | Future |
+| `func (*dht.IpfsDHT).ProviderStore() records.ProviderStore` | `Libp2pKadDhtIpfsDht.providerStore` | sync |
+| `func (*dht.IpfsDHT).PutValue(ctx context.Context, key string, value []byte, opts ...routing.Option) (err error)` | `Libp2pKadDhtIpfsDht.putValue` | Future |
 | `func (*dht.IpfsDHT).RoutingTable() *kbucket.RoutingTable` | `Libp2pKadDhtIpfsDht.routingTable` | sync |
-| `func (*dht.IpfsDHT).Close() error` | `Libp2pKadDhtIpfsDht.close` | Future |
+| `func (*dht.IpfsDHT).SearchValue(ctx context.Context, key string, opts ...routing.Option) (ch <-chan []byte, err error)` | `Libp2pKadDhtIpfsDht.searchValue` | Stream |
+| `var dht.LookupEventBufferSize int` | `Go.libp2pKadDht.lookupEventBufferSize` | sync |
+| `func dht.New(h host.Host, options ...dht.Option) (_ *dht.IpfsDHT, err error)` | `Go.libp2pKadDht.new$` | sync |
+| `func dht.NewDHT(h host.Host, dstore datastore.Batching) *dht.IpfsDHT` | `Go.libp2pKadDht.newDht` | sync |
+| `func dht.NewDHTClient(h host.Host, dstore datastore.Batching) *dht.IpfsDHT` | `Go.libp2pKadDht.newDhtClient` | sync |
+| `func dht.NewKeyKadID(k string) *dht.KeyKadID` | `Go.libp2pKadDht.newKeyKadId` | sync |
+| `func dht.NewLookupTerminateEvent(reason dht.LookupTerminationReason) *dht.LookupTerminateEvent` | `Go.libp2pKadDht.newLookupTerminateEvent` | sync |
+| `func dht.NewLookupUpdateEvent(cause peer.ID, source peer.ID, heard []peer.ID, waiting []peer.ID, queried []peer.ID, unreachable []peer.ID) *dht.LookupUpdateEvent` | `Go.libp2pKadDht.newLookupUpdateEvent` | sync |
+| `func dht.NewPeerKadID(p peer.ID) *dht.PeerKadID` | `Go.libp2pKadDht.newPeerKadId` | sync |
+| `func dht.NewPeerKadIDSlice(p []peer.ID) []*dht.PeerKadID` | `Go.libp2pKadDht.newPeerKadIdSlice` | sync |
+| `func dht.OptPeerKadID(p peer.ID) *dht.PeerKadID` | `Go.libp2pKadDht.optPeerKadId` | sync |
+| `func dht.PrivateQueryFilter(_ any, ai peer.AddrInfo) bool` | `Go.libp2pKadDht.privateQueryFilter` | sync |
+| `func dht.PrivateRoutingTableFilter(dht any, p peer.ID) bool` | `Go.libp2pKadDht.privateRoutingTableFilter` | sync |
+| `var dht.ProtocolDHT protocol.ID` | `Go.libp2pKadDht.protocolDht` | sync |
+| `func dht.PublicQueryFilter(_ any, ai peer.AddrInfo) bool` | `Go.libp2pKadDht.publicQueryFilter` | sync |
+| `func dht.PublicRoutingTableFilter(dht any, p peer.ID) bool` | `Go.libp2pKadDht.publicRoutingTableFilter` | sync |
+| `func dht.PublishLookupEvent(ctx context.Context, ev *dht.LookupEvent)` | `Go.libp2pKadDht.publishLookupEvent` | Future |
 | `const dht.DefaultPrefix protocol.ID` | `Go.libp2pKadDht.defaultPrefix` | const |
 | `const dht.LookupCancelled dht.LookupTerminationReason` | `Go.libp2pKadDht.lookupCancelled` | const |
 | `const dht.LookupCompleted dht.LookupTerminationReason` | `Go.libp2pKadDht.lookupCompleted` | const |
@@ -1134,10 +3340,102 @@ Omitted:
 | `const dht.ModeClient dht.ModeOpt` | `Go.libp2pKadDht.modeClient` | const |
 | `const dht.ModeServer dht.ModeOpt` | `Go.libp2pKadDht.modeServer` | const |
 
+Omitted:
+
+- `func dht.AddressFilter(f func([]multiaddr.Multiaddr) []multiaddr.Multiaddr) dht.Option`: parameter f: func([]github.com/multiformats/go-multiaddr.Multiaddr) []github.com/multiformats/go-multiaddr.Multiaddr
+- `func dht.BootstrapPeers(bootstrappers ...peer.AddrInfo) dht.Option`: result 0: github.com/libp2p/go-libp2p-kad-dht/internal/config.Option
+- `func dht.BootstrapPeersFunc(getBootstrapPeers func() []peer.AddrInfo) dht.Option`: parameter getBootstrapPeers: func() []github.com/libp2p/go-libp2p/core/peer.AddrInfo
+- `func dht.BucketSize(bucketSize int) dht.Option`: result 0: github.com/libp2p/go-libp2p-kad-dht/internal/config.Option
+- `func dht.Concurrency(alpha int) dht.Option`: result 0: github.com/libp2p/go-libp2p-kad-dht/internal/config.Option
+- `func dht.Datastore(ds datastore.Batching) dht.Option`: result 0: github.com/libp2p/go-libp2p-kad-dht/internal/config.Option
+- `func dht.DisableAutoRefresh() dht.Option`: result 0: github.com/libp2p/go-libp2p-kad-dht/internal/config.Option
+- `func dht.DisableProviders() dht.Option`: result 0: github.com/libp2p/go-libp2p-kad-dht/internal/config.Option
+- `func dht.DisableValues() dht.Option`: result 0: github.com/libp2p/go-libp2p-kad-dht/internal/config.Option
+- `func dht.EnableOptimisticProvide() dht.Option`: result 0: github.com/libp2p/go-libp2p-kad-dht/internal/config.Option
+- `func (*dht.IpfsDHT).Context() context.Context`: result 0: context.Context
+- `func (*dht.IpfsDHT).ForceRefresh() <-chan error`: channel of error
+- `func (*dht.IpfsDHT).RefreshRoutingTable() <-chan error`: channel of error
+- `func dht.LookupCheckConcurrency(n int) dht.Option`: result 0: github.com/libp2p/go-libp2p-kad-dht/internal/config.Option
+- `func (dht.LookupTerminationReason).MarshalJSON() ([]byte, error)`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/libp2p/go-libp2p-kad-dht.LookupTerminationReason
+- `func (dht.LookupTerminationReason).String() string`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/libp2p/go-libp2p-kad-dht.LookupTerminationReason
+- `func dht.MaxRecordAge(maxAge time.Duration) dht.Option`: result 0: github.com/libp2p/go-libp2p-kad-dht/internal/config.Option
+- `func dht.Mode(m dht.ModeOpt) dht.Option`: result 0: github.com/libp2p/go-libp2p-kad-dht/internal/config.Option
+- `func dht.NamespacedValidator(ns string, v record.Validator) dht.Option`: result 0: github.com/libp2p/go-libp2p-kad-dht/internal/config.Option
+- `func dht.NewLookupEvent(node peer.ID, id uuid.UUID, key string, request *dht.LookupUpdateEvent, response *dht.LookupUpdateEvent, terminate *dht.LookupTerminateEvent) *dht.LookupEvent`: parameter id: tipo github.com/google/uuid.UUID
+- `func dht.NewRTPeerDiversityFilter(h host.Host, maxPerCpl int, maxForTable int) *dht.rtPeerIPGroupFilter`: result 0: *unexported type github.com/libp2p/go-libp2p-kad-dht.rtPeerIPGroupFilter
+- `func dht.OnRequestHook(f func(ctx context.Context, s network.Stream, req *dht_pb.Message)) dht.Option`: result 0: github.com/libp2p/go-libp2p-kad-dht/internal/config.Option
+- `func dht.OptimisticProvideJobsPoolSize(size int) dht.Option`: result 0: github.com/libp2p/go-libp2p-kad-dht/internal/config.Option
+- `func dht.ProtocolExtension(ext protocol.ID) dht.Option`: result 0: github.com/libp2p/go-libp2p-kad-dht/internal/config.Option
+- `func dht.ProtocolPrefix(prefix protocol.ID) dht.Option`: result 0: github.com/libp2p/go-libp2p-kad-dht/internal/config.Option
+- `func dht.ProviderDatastore(dstore datastore.Batching) dht.Option`: result 0: github.com/libp2p/go-libp2p-kad-dht/internal/config.Option
+- `func dht.ProviderManagerOpts(opts ...records.Option) dht.Option`: result 0: github.com/libp2p/go-libp2p-kad-dht/internal/config.Option
+- `func dht.QueryFilter(filter dht.QueryFilterFunc) dht.Option`: result 0: github.com/libp2p/go-libp2p-kad-dht/internal/config.Option
+- `func dht.Quorum(n int) routing.Option`: result 0: github.com/libp2p/go-libp2p/core/routing.Option
+- `func dht.RegisterForLookupEvents(ctx context.Context) (context.Context, <-chan *dht.LookupEvent)`: result 0: context.Context
+- `func dht.Resiliency(beta int) dht.Option`: result 0: github.com/libp2p/go-libp2p-kad-dht/internal/config.Option
+- `func dht.RoutingTableFilter(filter dht.RouteTableFilterFunc) dht.Option`: result 0: github.com/libp2p/go-libp2p-kad-dht/internal/config.Option
+- `func dht.RoutingTableLatencyTolerance(latency time.Duration) dht.Option`: result 0: github.com/libp2p/go-libp2p-kad-dht/internal/config.Option
+- `func dht.RoutingTablePeerDiversityFilter(pg peerdiversity.PeerIPGroupFilter) dht.Option`: result 0: github.com/libp2p/go-libp2p-kad-dht/internal/config.Option
+- `func dht.RoutingTableRefreshPeriod(period time.Duration) dht.Option`: result 0: github.com/libp2p/go-libp2p-kad-dht/internal/config.Option
+- `func dht.RoutingTableRefreshQueryTimeout(timeout time.Duration) dht.Option`: result 0: github.com/libp2p/go-libp2p-kad-dht/internal/config.Option
+- `func dht.V1ProtocolOverride(proto protocol.ID) dht.Option`: result 0: github.com/libp2p/go-libp2p-kad-dht/internal/config.Option
+- `func dht.Validator(v record.Validator) dht.Option`: result 0: github.com/libp2p/go-libp2p-kad-dht/internal/config.Option
+- `func dht.ValueDatastore(dstore datastore.Batching) dht.Option`: result 0: github.com/libp2p/go-libp2p-kad-dht/internal/config.Option
+- `func dht.ValueGCInterval(interval time.Duration) dht.Option`: result 0: github.com/libp2p/go-libp2p-kad-dht/internal/config.Option
+- `func dht.WithCustomMessageSender(messageSenderBuilder func(h host.Host, protos []protocol.ID) dht_pb.MessageSenderWithDisconnect) dht.Option`: parameter messageSenderBuilder: func(h github.com/libp2p/go-libp2p/core/host.Host, protos []github.com/libp2p/go-libp2p/core/protocol.ID) github.com/libp2p/go-libp2p-kad-dht/pb.MessageSenderWithDisconnect
+
 ## `github.com/libp2p/go-libp2p-kad-dht/pb` → `Go.libp2pKadDht.pb` (`lib/go/libp2p_kad_dht/pb.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
+| `func dht_pb.Connectedness(c dht_pb.Message_ConnectionType) network.Connectedness` | `Go.libp2pKadDht.pb.connectedness` | sync |
+| `func dht_pb.ConnectionType(c network.Connectedness) dht_pb.Message_ConnectionType` | `Go.libp2pKadDht.pb.connectionType` | sync |
+| `var dht_pb.File_github_com_libp2p_go_libp2p_kad_dht_pb_dht_proto protoreflect.FileDescriptor` | `Go.libp2pKadDht.pb.fileGithubComLibp2pGoLibp2pKadDhtPbDhtProto` | sync |
+| `func (*dht_pb.Message).Descriptor() ([]byte, []int)` | `Libp2pKadDhtPbMessage.descriptor` | sync |
+| `func (*dht_pb.Message).GetCloserPeers() []*dht_pb.Message_Peer` | `Libp2pKadDhtPbMessage.getCloserPeers` | sync |
+| `func (*dht_pb.Message).GetClusterLevel() int` | `Libp2pKadDhtPbMessage.getClusterLevel` | sync |
+| `func (*dht_pb.Message).GetClusterLevelRaw() int32` | `Libp2pKadDhtPbMessage.getClusterLevelRaw` | sync |
+| `func (*dht_pb.Message).GetKey() []byte` | `Libp2pKadDhtPbMessage.getKey` | sync |
+| `func (*dht_pb.Message).GetProviderPeers() []*dht_pb.Message_Peer` | `Libp2pKadDhtPbMessage.getProviderPeers` | sync |
+| `func (*dht_pb.Message).GetRecord() *pb.Record` | `Libp2pKadDhtPbMessage.getRecord` | sync |
+| `func (*dht_pb.Message).GetType() dht_pb.Message_MessageType` | `Libp2pKadDhtPbMessage.getType` | sync |
+| `func (*dht_pb.Message).ProtoMessage()` | `Libp2pKadDhtPbMessage.protoMessage` | sync |
+| `func (*dht_pb.Message).ProtoReflect() protoreflect.Message` | `Libp2pKadDhtPbMessage.protoReflect` | sync |
+| `func (*dht_pb.Message).Reset()` | `Libp2pKadDhtPbMessage.reset` | sync |
+| `func (*dht_pb.Message).SetClusterLevel(level int)` | `Libp2pKadDhtPbMessage.setClusterLevel` | sync |
+| `func (*dht_pb.Message).String() string` | `Libp2pKadDhtPbMessage.string` | sync |
+| `func (dht_pb.MessageSender).SendMessage(ctx context.Context, p peer.ID, pmes *dht_pb.Message) error` | `Libp2pKadDhtPbMessageSender.sendMessage` | Future |
+| `func (dht_pb.MessageSender).SendRequest(ctx context.Context, p peer.ID, pmes *dht_pb.Message) (*dht_pb.Message, error)` | `Libp2pKadDhtPbMessageSender.sendRequest` | Future |
+| `func (dht_pb.MessageSenderWithDisconnect).OnDisconnect(context.Context, peer.ID)` | `Libp2pKadDhtPbMessageSenderWithDisconnect.onDisconnect` | Future |
+| `var dht_pb.Message_ConnectionType_name map[int32]string` | `Go.libp2pKadDht.pb.messageConnectionTypeName` | sync |
+| `var dht_pb.Message_ConnectionType_value map[string]int32` | `Go.libp2pKadDht.pb.messageConnectionTypeValue` | sync |
+| `var dht_pb.Message_MessageType_name map[int32]string` | `Go.libp2pKadDht.pb.messageMessageTypeName` | sync |
+| `var dht_pb.Message_MessageType_value map[string]int32` | `Go.libp2pKadDht.pb.messageMessageTypeValue` | sync |
+| `func (*dht_pb.Message_Peer).Addresses() []multiaddr.Multiaddr` | `Libp2pKadDhtPbMessagePeer.addresses` | sync |
+| `func (*dht_pb.Message_Peer).Descriptor() ([]byte, []int)` | `Libp2pKadDhtPbMessagePeer.descriptor` | sync |
+| `func (*dht_pb.Message_Peer).GetAddrs() [][]byte` | `Libp2pKadDhtPbMessagePeer.getAddrs` | sync |
+| `func (*dht_pb.Message_Peer).GetConnection() dht_pb.Message_ConnectionType` | `Libp2pKadDhtPbMessagePeer.getConnection` | sync |
+| `func (*dht_pb.Message_Peer).GetId() []byte` | `Libp2pKadDhtPbMessagePeer.getId` | sync |
+| `func (*dht_pb.Message_Peer).ProtoMessage()` | `Libp2pKadDhtPbMessagePeer.protoMessage` | sync |
+| `func (*dht_pb.Message_Peer).ProtoReflect() protoreflect.Message` | `Libp2pKadDhtPbMessagePeer.protoReflect` | sync |
+| `func (*dht_pb.Message_Peer).Reset()` | `Libp2pKadDhtPbMessagePeer.reset` | sync |
+| `func (*dht_pb.Message_Peer).String() string` | `Libp2pKadDhtPbMessagePeer.string` | sync |
+| `func dht_pb.NewMessage(typ dht_pb.Message_MessageType, key []byte, level int) *dht_pb.Message` | `factory Libp2pKadDhtPbMessage` | sync |
+| `func dht_pb.NewProtocolMessenger(msgSender dht_pb.MessageSender, opts ...dht_pb.ProtocolMessengerOption) (*dht_pb.ProtocolMessenger, error)` | `factory Libp2pKadDhtPbProtocolMessenger` | sync |
+| `func dht_pb.PBPeerToPeerInfo(pbp *dht_pb.Message_Peer) peer.AddrInfo` | `Go.libp2pKadDht.pb.pbPeerToPeerInfo` | sync |
+| `func dht_pb.PBPeersToPeerInfos(pbps []*dht_pb.Message_Peer) []*peer.AddrInfo` | `Go.libp2pKadDht.pb.pbPeersToPeerInfos` | sync |
+| `func dht_pb.PeerInfoToPBPeer(n network.Network, p peer.AddrInfo) *dht_pb.Message_Peer` | `Go.libp2pKadDht.pb.peerInfoToPbPeer` | sync |
+| `func dht_pb.PeerInfosToPBPeers(n network.Network, peers []peer.AddrInfo) []*dht_pb.Message_Peer` | `Go.libp2pKadDht.pb.peerInfosToPbPeers` | sync |
+| `func dht_pb.PeerRoutingInfosToPBPeers(peers []dht_pb.PeerRoutingInfo) []*dht_pb.Message_Peer` | `Go.libp2pKadDht.pb.peerRoutingInfosToPbPeers` | sync |
+| `func (*dht_pb.ProtocolMessenger).GetClosestPeers(ctx context.Context, p peer.ID, id peer.ID) (closerPeers []*peer.AddrInfo, err error)` | `Libp2pKadDhtPbProtocolMessenger.getClosestPeers` | Future |
+| `func (*dht_pb.ProtocolMessenger).GetProviders(ctx context.Context, p peer.ID, key multihash.Multihash) (provs []*peer.AddrInfo, closerPeers []*peer.AddrInfo, err error)` | `Libp2pKadDhtPbProtocolMessenger.getProviders` | Future |
+| `func (*dht_pb.ProtocolMessenger).GetValue(ctx context.Context, p peer.ID, key string) (record *pb.Record, closerPeers []*peer.AddrInfo, err error)` | `Libp2pKadDhtPbProtocolMessenger.getValue` | Future |
+| `func (*dht_pb.ProtocolMessenger).Ping(ctx context.Context, p peer.ID) (err error)` | `Libp2pKadDhtPbProtocolMessenger.ping` | Future |
+| `func (*dht_pb.ProtocolMessenger).PutProvider(ctx context.Context, p peer.ID, key multihash.Multihash, h host.Host) error` | `Libp2pKadDhtPbProtocolMessenger.putProvider` | Future |
+| `func (*dht_pb.ProtocolMessenger).PutProviderAddrs(ctx context.Context, p peer.ID, key multihash.Multihash, self peer.AddrInfo) (err error)` | `Libp2pKadDhtPbProtocolMessenger.putProviderAddrs` | Future |
+| `func (*dht_pb.ProtocolMessenger).PutValue(ctx context.Context, p peer.ID, rec *pb.Record) (err error)` | `Libp2pKadDhtPbProtocolMessenger.putValue` | Future |
+| `func dht_pb.RawPeerInfosToPBPeers(peers []peer.AddrInfo) []*dht_pb.Message_Peer` | `Go.libp2pKadDht.pb.rawPeerInfosToPbPeers` | sync |
+| `dht_pb.MessageSender → x.(dht_pb.MessageSenderWithDisconnect)` | `Libp2pKadDhtPbMessageSender.asLibp2pKadDhtPbMessageSenderWithDisconnect` | cast |
 | `const dht_pb.MaxPeerRecordSize untyped int` | `Go.libp2pKadDht.pb.maxPeerRecordSize` | const |
 | `const dht_pb.Message_ADD_PROVIDER dht_pb.Message_MessageType` | `Go.libp2pKadDht.pb.messageAddProvider` | const |
 | `const dht_pb.Message_CANNOT_CONNECT dht_pb.Message_ConnectionType` | `Go.libp2pKadDht.pb.messageCannotConnect` | const |
@@ -1150,46 +3448,298 @@ Omitted:
 | `const dht_pb.Message_PING dht_pb.Message_MessageType` | `Go.libp2pKadDht.pb.messagePing` | const |
 | `const dht_pb.Message_PUT_VALUE dht_pb.Message_MessageType` | `Go.libp2pKadDht.pb.messagePutValue` | const |
 
+Omitted:
+
+- `func (dht_pb.Message_ConnectionType).Descriptor() protoreflect.EnumDescriptor`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/libp2p/go-libp2p-kad-dht/pb.Message_ConnectionType
+- `func (dht_pb.Message_ConnectionType).Enum() *dht_pb.Message_ConnectionType`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/libp2p/go-libp2p-kad-dht/pb.Message_ConnectionType
+- `func (dht_pb.Message_ConnectionType).EnumDescriptor() ([]byte, []int)`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/libp2p/go-libp2p-kad-dht/pb.Message_ConnectionType
+- `func (dht_pb.Message_ConnectionType).Number() protoreflect.EnumNumber`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/libp2p/go-libp2p-kad-dht/pb.Message_ConnectionType
+- `func (dht_pb.Message_ConnectionType).String() string`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/libp2p/go-libp2p-kad-dht/pb.Message_ConnectionType
+- `func (dht_pb.Message_ConnectionType).Type() protoreflect.EnumType`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/libp2p/go-libp2p-kad-dht/pb.Message_ConnectionType
+- `func (dht_pb.Message_MessageType).Descriptor() protoreflect.EnumDescriptor`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/libp2p/go-libp2p-kad-dht/pb.Message_MessageType
+- `func (dht_pb.Message_MessageType).Enum() *dht_pb.Message_MessageType`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/libp2p/go-libp2p-kad-dht/pb.Message_MessageType
+- `func (dht_pb.Message_MessageType).EnumDescriptor() ([]byte, []int)`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/libp2p/go-libp2p-kad-dht/pb.Message_MessageType
+- `func (dht_pb.Message_MessageType).Number() protoreflect.EnumNumber`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/libp2p/go-libp2p-kad-dht/pb.Message_MessageType
+- `func (dht_pb.Message_MessageType).String() string`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/libp2p/go-libp2p-kad-dht/pb.Message_MessageType
+- `func (dht_pb.Message_MessageType).Type() protoreflect.EnumType`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/libp2p/go-libp2p-kad-dht/pb.Message_MessageType
+
 ## `github.com/libp2p/go-libp2p-kad-dht/records` → `Go.libp2pKadDht.records` (`lib/go/libp2p_kad_dht/records.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
+| `func records.NewProviderManager(local peer.ID, ps peerstore.Peerstore, dstore datastore.Batching, opts ...records.Option) (*records.ProviderManager, error)` | `factory Libp2pKadDhtRecordsProviderManager` | sync |
+| `func records.NewValueStore(dstore datastore.Datastore, validator record.Validator, maxRecordAge time.Duration) *records.ValueStore` | `factory Libp2pKadDhtRecordsValueStore` | sync |
+| `func (*records.ProviderManager).AddProvider(ctx context.Context, k []byte, provInfo peer.AddrInfo) error` | `Libp2pKadDhtRecordsProviderManager.addProvider` | Future |
+| `func (*records.ProviderManager).Close() error` | `Libp2pKadDhtRecordsProviderManager.close` | sync |
+| `func (*records.ProviderManager).GetProviders(ctx context.Context, k []byte) ([]peer.AddrInfo, error)` | `Libp2pKadDhtRecordsProviderManager.getProviders` | Future |
+| `func (records.ProviderStore).AddProvider(ctx context.Context, key []byte, prov peer.AddrInfo) error` | `Libp2pKadDhtRecordsProviderStore.addProvider` | Future |
+| `func (records.ProviderStore).GetProviders(ctx context.Context, key []byte) ([]peer.AddrInfo, error)` | `Libp2pKadDhtRecordsProviderStore.getProviders` | Future |
+| `func (*records.ValueStore).Close() error` | `Libp2pKadDhtRecordsValueStore.close` | sync |
+| `func (*records.ValueStore).Get(ctx context.Context, key string) (*pb.Record, error)` | `Libp2pKadDhtRecordsValueStore.get` | Future |
+| `func (*records.ValueStore).Put(ctx context.Context, key string, rec *pb.Record) error` | `Libp2pKadDhtRecordsValueStore.put` | Future |
+| `func (*records.ValueStore).StartGC(ctx context.Context, interval time.Duration)` | `Libp2pKadDhtRecordsValueStore.startGc` | Future |
+| `records.ProviderStore → x.(*records.ProviderManager)` | `Libp2pKadDhtRecordsProviderStore.asLibp2pKadDhtRecordsProviderManager` | cast |
 | `const records.ProvidersKeyPrefix untyped string` | `Go.libp2pKadDht.records.providersKeyPrefix` | const |
+
+Omitted:
+
+- `func records.Cache(c simplelru.LRUCache) records.Option`: result 0: github.com/libp2p/go-libp2p-kad-dht/records.Option
+- `func records.CleanupInterval(d time.Duration) records.Option`: result 0: github.com/libp2p/go-libp2p-kad-dht/records.Option
+- `func records.ProvideValidity(d time.Duration) records.Option`: result 0: github.com/libp2p/go-libp2p-kad-dht/records.Option
+- `func records.ProviderAddrTTL(d time.Duration) records.Option`: result 0: github.com/libp2p/go-libp2p-kad-dht/records.Option
 
 ## `github.com/libp2p/go-libp2p-kbucket` → `Go.libp2pKbucket` (`lib/go/libp2p_kbucket.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
-| `func (*kbucket.RoutingTable).Size() int` | `Libp2pKbucketRoutingTable.size` | sync |
+| `func kbucket.Closer(a peer.ID, b peer.ID, key string) bool` | `Go.libp2pKbucket.closer` | sync |
+| `func kbucket.CommonPrefixLen(a kbucket.ID, b kbucket.ID) int` | `Go.libp2pKbucket.commonPrefixLen` | sync |
+| `func kbucket.ConvertKey(id string) kbucket.ID` | `Go.libp2pKbucket.convertKey` | sync |
+| `func kbucket.ConvertPeerID(id peer.ID) kbucket.ID` | `Go.libp2pKbucket.convertPeerId` | sync |
+| `func kbucket.GenRandPeerIDWithCPL(targetID kbucket.ID, cpl uint) (peer.ID, error)` | `Go.libp2pKbucket.genRandPeerIdWithCpl` | sync |
+| `func kbucket.NewRoutingTable(bucketsize int, localID kbucket.ID, latency time.Duration, m peerstore.Metrics, usefulnessGracePeriod time.Duration, df *peerdiversity.Filter) (*kbucket.RoutingTable, error)` | `factory Libp2pKbucketRoutingTable` | sync |
+| `func (*kbucket.RoutingTable).Close() error` | `Libp2pKbucketRoutingTable.close` | sync |
+| `func (*kbucket.RoutingTable).Find(id peer.ID) peer.ID` | `Libp2pKbucketRoutingTable.find` | sync |
+| `func (*kbucket.RoutingTable).GenRandPeerID(targetCpl uint) (peer.ID, error)` | `Libp2pKbucketRoutingTable.genRandPeerId` | sync |
+| `func (*kbucket.RoutingTable).GenRandomKey(targetCpl uint) (kbucket.ID, error)` | `Libp2pKbucketRoutingTable.genRandomKey` | sync |
+| `func (*kbucket.RoutingTable).GetDiversityStats() []peerdiversity.CplDiversityStats` | `Libp2pKbucketRoutingTable.getDiversityStats` | sync |
+| `func (*kbucket.RoutingTable).GetPeerInfos() []kbucket.PeerInfo` | `Libp2pKbucketRoutingTable.getPeerInfos` | sync |
+| `func (*kbucket.RoutingTable).GetTrackedCplsForRefresh() []time.Time` | `Libp2pKbucketRoutingTable.getTrackedCplsForRefresh` | sync |
 | `func (*kbucket.RoutingTable).ListPeers() []peer.ID` | `Libp2pKbucketRoutingTable.listPeers` | sync |
+| `func (*kbucket.RoutingTable).MarkAllPeersIrreplaceable()` | `Libp2pKbucketRoutingTable.markAllPeersIrreplaceable` | sync |
+| `func (*kbucket.RoutingTable).NPeersForCpl(cpl uint) int` | `Libp2pKbucketRoutingTable.nPeersForCpl` | sync |
+| `func (*kbucket.RoutingTable).NearestPeer(id kbucket.ID) peer.ID` | `Libp2pKbucketRoutingTable.nearestPeer` | sync |
+| `func (*kbucket.RoutingTable).NearestPeers(id kbucket.ID, count int) []peer.ID` | `Libp2pKbucketRoutingTable.nearestPeers` | sync |
+| `func (*kbucket.RoutingTable).Print()` | `Libp2pKbucketRoutingTable.print` | sync |
+| `func (*kbucket.RoutingTable).RemovePeer(p peer.ID)` | `Libp2pKbucketRoutingTable.removePeer` | sync |
+| `func (*kbucket.RoutingTable).ResetCplRefreshedAtForID(id kbucket.ID, newTime time.Time)` | `Libp2pKbucketRoutingTable.resetCplRefreshedAtForId` | sync |
+| `func (*kbucket.RoutingTable).Size() int` | `Libp2pKbucketRoutingTable.size` | sync |
+| `func (*kbucket.RoutingTable).TryAddPeer(p peer.ID, queryPeer bool, isReplaceable bool) (bool, error)` | `Libp2pKbucketRoutingTable.tryAddPeer` | sync |
+| `func (*kbucket.RoutingTable).UpdateLastSuccessfulOutboundQueryAt(p peer.ID, t time.Time) bool` | `Libp2pKbucketRoutingTable.updateLastSuccessfulOutboundQueryAt` | sync |
+| `func (*kbucket.RoutingTable).UpdateLastUsefulAt(p peer.ID, t time.Time) bool` | `Libp2pKbucketRoutingTable.updateLastUsefulAt` | sync |
+| `func (*kbucket.RoutingTable).UsefulNewPeer(p peer.ID) bool` | `Libp2pKbucketRoutingTable.usefulNewPeer` | sync |
+| `func kbucket.SortClosestPeers(peers []peer.ID, target kbucket.ID) []peer.ID` | `Go.libp2pKbucket.sortClosestPeers` | sync |
+| `func kbucket.Xor(a kbucket.ID, b kbucket.ID) kbucket.ID` | `Go.libp2pKbucket.xor` | sync |
 | `const kbucket.PeerIDPreimageMaxCpl uint` | `Go.libp2pKbucket.peerIdPreimageMaxCpl` | const |
 
 ## `github.com/libp2p/go-libp2p-pubsub` → `Go.libp2pPubsub` (`lib/go/libp2p_pubsub.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
+| `func (pubsub.BatchPublisher).PublishBatch(messages []*pubsub.Message, opts *pubsub.BatchPublishOptions)` | `Libp2pPubsubBatchPublisher.publishBatch` | sync |
+| `func (pubsub.Blacklist).Add(peer.ID) bool` | `Libp2pPubsubBlacklist.add` | sync |
+| `func (pubsub.Blacklist).Contains(peer.ID) bool` | `Libp2pPubsubBlacklist.contains` | sync |
+| `func pubsub.DefaultGossipSubParams() pubsub.GossipSubParams` | `Go.libp2pPubsub.defaultGossipSubParams` | sync |
+| `func pubsub.DefaultGossipSubRouter(h host.Host) *pubsub.GossipSubRouter` | `Go.libp2pPubsub.defaultGossipSubRouter` | sync |
+| `func pubsub.DefaultMsgIdFn(pmsg *pubsub_pb.Message) string` | `Go.libp2pPubsub.defaultMsgIdFn` | sync |
+| `func pubsub.DefaultPeerFilter(pid peer.ID, topic string) bool` | `Go.libp2pPubsub.defaultPeerFilter` | sync |
+| `var pubsub.DefaultPeerGaterDuplicateWeight float64` | `Go.libp2pPubsub.defaultPeerGaterDuplicateWeight` | sync |
+| `var pubsub.DefaultPeerGaterGlobalDecay float64` | `Go.libp2pPubsub.defaultPeerGaterGlobalDecay` | sync |
+| `var pubsub.DefaultPeerGaterIgnoreWeight float64` | `Go.libp2pPubsub.defaultPeerGaterIgnoreWeight` | sync |
+| `func pubsub.DefaultPeerGaterParams() *pubsub.PeerGaterParams` | `Go.libp2pPubsub.defaultPeerGaterParams` | sync |
+| `var pubsub.DefaultPeerGaterQuiet time.Duration` | `Go.libp2pPubsub.defaultPeerGaterQuiet` | sync |
+| `var pubsub.DefaultPeerGaterRejectWeight float64` | `Go.libp2pPubsub.defaultPeerGaterRejectWeight` | sync |
+| `var pubsub.DefaultPeerGaterRetainStats time.Duration` | `Go.libp2pPubsub.defaultPeerGaterRetainStats` | sync |
+| `var pubsub.DefaultPeerGaterSourceDecay float64` | `Go.libp2pPubsub.defaultPeerGaterSourceDecay` | sync |
+| `var pubsub.DefaultPeerGaterThreshold float64` | `Go.libp2pPubsub.defaultPeerGaterThreshold` | sync |
+| `var pubsub.DiscoveryPollInitialDelay time.Duration` | `Go.libp2pPubsub.discoveryPollInitialDelay` | sync |
+| `var pubsub.DiscoveryPollInterval time.Duration` | `Go.libp2pPubsub.discoveryPollInterval` | sync |
+| `func (pubsub.EventTracer).Trace(evt *pubsub_pb.TraceEvent)` | `Libp2pPubsubEventTracer.trace` | sync |
+| `func pubsub.FilterSubscriptions(subs []*pubsub_pb.RPC_SubOpts, filter func(string) bool) []*pubsub_pb.RPC_SubOpts` | `Go.libp2pPubsub.filterSubscriptions` | Future |
+| `func (*pubsub.FloodSubRouter).AcceptFrom(peer.ID) pubsub.AcceptStatus` | `Libp2pPubsubFloodSubRouter.acceptFrom` | sync |
+| `func (*pubsub.FloodSubRouter).Attach(p *pubsub.PubSub)` | `Libp2pPubsubFloodSubRouter.attach` | sync |
+| `func (*pubsub.FloodSubRouter).EnoughPeers(topic string, suggested int) bool` | `Libp2pPubsubFloodSubRouter.enoughPeers` | sync |
+| `func (*pubsub.FloodSubRouter).HandleRPC(rpc *pubsub.RPC)` | `Libp2pPubsubFloodSubRouter.handleRpc` | sync |
+| `func (*pubsub.FloodSubRouter).Join(topic string)` | `Libp2pPubsubFloodSubRouter.join` | sync |
+| `func (*pubsub.FloodSubRouter).Leave(topic string)` | `Libp2pPubsubFloodSubRouter.leave` | sync |
+| `func (*pubsub.FloodSubRouter).OnClosedIncomingStream(peer.ID, protocol.ID)` | `Libp2pPubsubFloodSubRouter.onClosedIncomingStream` | sync |
+| `func (*pubsub.FloodSubRouter).OnClosedOutboundStream(p peer.ID)` | `Libp2pPubsubFloodSubRouter.onClosedOutboundStream` | sync |
+| `func (*pubsub.FloodSubRouter).OnNewIncomingStream(peer.ID, protocol.ID)` | `Libp2pPubsubFloodSubRouter.onNewIncomingStream` | sync |
+| `func (*pubsub.FloodSubRouter).OnNewOutboundStream(p peer.ID, proto protocol.ID, hello *pubsub.RPC) *pubsub.RPC` | `Libp2pPubsubFloodSubRouter.onNewOutboundStream` | sync |
+| `func (*pubsub.FloodSubRouter).Preprocess(from peer.ID, msgs []*pubsub.Message)` | `Libp2pPubsubFloodSubRouter.preprocess` | sync |
+| `func (*pubsub.FloodSubRouter).Protocols() []protocol.ID` | `Libp2pPubsubFloodSubRouter.protocols` | sync |
+| `func (*pubsub.FloodSubRouter).Publish(msg *pubsub.Message)` | `Libp2pPubsubFloodSubRouter.publish` | sync |
+| `var pubsub.GossipSubConnTagBumpMessageDelivery int` | `Go.libp2pPubsub.gossipSubConnTagBumpMessageDelivery` | sync |
+| `var pubsub.GossipSubConnTagDecayAmount int` | `Go.libp2pPubsub.gossipSubConnTagDecayAmount` | sync |
+| `var pubsub.GossipSubConnTagDecayInterval time.Duration` | `Go.libp2pPubsub.gossipSubConnTagDecayInterval` | sync |
+| `var pubsub.GossipSubConnTagMessageDeliveryCap int` | `Go.libp2pPubsub.gossipSubConnTagMessageDeliveryCap` | sync |
+| `var pubsub.GossipSubConnectionTimeout time.Duration` | `Go.libp2pPubsub.gossipSubConnectionTimeout` | sync |
+| `var pubsub.GossipSubConnectors int` | `Go.libp2pPubsub.gossipSubConnectors` | sync |
+| `var pubsub.GossipSubD int` | `Go.libp2pPubsub.gossipSubD` | sync |
+| `func pubsub.GossipSubDefaultFeatures(feat pubsub.GossipSubFeature, proto protocol.ID) bool` | `Go.libp2pPubsub.gossipSubDefaultFeatures` | sync |
+| `var pubsub.GossipSubDefaultProtocols []protocol.ID` | `Go.libp2pPubsub.gossipSubDefaultProtocols` | sync |
+| `var pubsub.GossipSubDhi int` | `Go.libp2pPubsub.gossipSubDhi` | sync |
+| `var pubsub.GossipSubDirectConnectInitialDelay time.Duration` | `Go.libp2pPubsub.gossipSubDirectConnectInitialDelay` | sync |
+| `var pubsub.GossipSubDirectConnectTicks uint64` | `Go.libp2pPubsub.gossipSubDirectConnectTicks` | sync |
+| `var pubsub.GossipSubDlazy int` | `Go.libp2pPubsub.gossipSubDlazy` | sync |
+| `var pubsub.GossipSubDlo int` | `Go.libp2pPubsub.gossipSubDlo` | sync |
+| `var pubsub.GossipSubDout int` | `Go.libp2pPubsub.gossipSubDout` | sync |
+| `var pubsub.GossipSubDscore int` | `Go.libp2pPubsub.gossipSubDscore` | sync |
+| `var pubsub.GossipSubFanoutTTL time.Duration` | `Go.libp2pPubsub.gossipSubFanoutTtl` | sync |
+| `var pubsub.GossipSubGossipFactor float64` | `Go.libp2pPubsub.gossipSubGossipFactor` | sync |
+| `var pubsub.GossipSubGossipRetransmission int` | `Go.libp2pPubsub.gossipSubGossipRetransmission` | sync |
+| `var pubsub.GossipSubGraftFloodThreshold time.Duration` | `Go.libp2pPubsub.gossipSubGraftFloodThreshold` | sync |
+| `var pubsub.GossipSubHeartbeatInitialDelay time.Duration` | `Go.libp2pPubsub.gossipSubHeartbeatInitialDelay` | sync |
+| `var pubsub.GossipSubHeartbeatInterval time.Duration` | `Go.libp2pPubsub.gossipSubHeartbeatInterval` | sync |
+| `var pubsub.GossipSubHistoryGossip int` | `Go.libp2pPubsub.gossipSubHistoryGossip` | sync |
+| `var pubsub.GossipSubHistoryLength int` | `Go.libp2pPubsub.gossipSubHistoryLength` | sync |
+| `var pubsub.GossipSubIDontWantMessageTTL int` | `Go.libp2pPubsub.gossipSubIDontWantMessageTtl` | sync |
+| `var pubsub.GossipSubIDontWantMessageThreshold int` | `Go.libp2pPubsub.gossipSubIDontWantMessageThreshold` | sync |
+| `var pubsub.GossipSubIWantFollowupTime time.Duration` | `Go.libp2pPubsub.gossipSubIWantFollowupTime` | sync |
+| `var pubsub.GossipSubMaxIDontWantLength int` | `Go.libp2pPubsub.gossipSubMaxIDontWantLength` | sync |
+| `var pubsub.GossipSubMaxIDontWantMessages int` | `Go.libp2pPubsub.gossipSubMaxIDontWantMessages` | sync |
+| `var pubsub.GossipSubMaxIHaveLength int` | `Go.libp2pPubsub.gossipSubMaxIHaveLength` | sync |
+| `var pubsub.GossipSubMaxIHaveMessages int` | `Go.libp2pPubsub.gossipSubMaxIHaveMessages` | sync |
+| `var pubsub.GossipSubMaxPendingConnections int` | `Go.libp2pPubsub.gossipSubMaxPendingConnections` | sync |
+| `var pubsub.GossipSubOpportunisticGraftPeers int` | `Go.libp2pPubsub.gossipSubOpportunisticGraftPeers` | sync |
+| `var pubsub.GossipSubOpportunisticGraftTicks uint64` | `Go.libp2pPubsub.gossipSubOpportunisticGraftTicks` | sync |
+| `var pubsub.GossipSubPruneBackoff time.Duration` | `Go.libp2pPubsub.gossipSubPruneBackoff` | sync |
+| `var pubsub.GossipSubPrunePeers int` | `Go.libp2pPubsub.gossipSubPrunePeers` | sync |
+| `func (*pubsub.GossipSubRouter).AcceptFrom(p peer.ID) pubsub.AcceptStatus` | `Libp2pPubsubGossipSubRouter.acceptFrom` | sync |
+| `func (*pubsub.GossipSubRouter).AddDirectPeer(pi peer.AddrInfo)` | `Libp2pPubsubGossipSubRouter.addDirectPeer` | sync |
+| `func (*pubsub.GossipSubRouter).Attach(p *pubsub.PubSub)` | `Libp2pPubsubGossipSubRouter.attach` | sync |
+| `func (*pubsub.GossipSubRouter).EnoughPeers(topic string, suggested int) bool` | `Libp2pPubsubGossipSubRouter.enoughPeers` | sync |
+| `func (*pubsub.GossipSubRouter).HandleRPC(rpc *pubsub.RPC)` | `Libp2pPubsubGossipSubRouter.handleRpc` | sync |
+| `func (*pubsub.GossipSubRouter).Join(topic string)` | `Libp2pPubsubGossipSubRouter.join` | sync |
+| `func (*pubsub.GossipSubRouter).Leave(topic string)` | `Libp2pPubsubGossipSubRouter.leave` | sync |
+| `func (*pubsub.GossipSubRouter).OnClosedIncomingStream(pid peer.ID, proto protocol.ID)` | `Libp2pPubsubGossipSubRouter.onClosedIncomingStream` | sync |
+| `func (*pubsub.GossipSubRouter).OnClosedOutboundStream(p peer.ID)` | `Libp2pPubsubGossipSubRouter.onClosedOutboundStream` | sync |
+| `func (*pubsub.GossipSubRouter).OnNewIncomingStream(peer.ID, protocol.ID)` | `Libp2pPubsubGossipSubRouter.onNewIncomingStream` | sync |
+| `func (*pubsub.GossipSubRouter).OnNewOutboundStream(p peer.ID, proto protocol.ID, helloPacket *pubsub.RPC) *pubsub.RPC` | `Libp2pPubsubGossipSubRouter.onNewOutboundStream` | sync |
+| `func (*pubsub.GossipSubRouter).Preprocess(from peer.ID, msgs []*pubsub.Message)` | `Libp2pPubsubGossipSubRouter.preprocess` | sync |
+| `func (*pubsub.GossipSubRouter).Protocols() []protocol.ID` | `Libp2pPubsubGossipSubRouter.protocols` | sync |
+| `func (*pubsub.GossipSubRouter).Publish(msg *pubsub.Message)` | `Libp2pPubsubGossipSubRouter.publish` | sync |
+| `func (*pubsub.GossipSubRouter).PublishBatch(messages []*pubsub.Message, opts *pubsub.BatchPublishOptions)` | `Libp2pPubsubGossipSubRouter.publishBatch` | sync |
+| `func (*pubsub.GossipSubRouter).RemoveDirectPeer(p peer.ID)` | `Libp2pPubsubGossipSubRouter.removeDirectPeer` | sync |
+| `func (*pubsub.GossipSubRouter).SendControl(p peer.ID, ctl *pubsub_pb.ControlMessage, msgs ...*pubsub_pb.Message)` | `Libp2pPubsubGossipSubRouter.sendControl` | sync |
+| `var pubsub.GossipSubUnsubscribeBackoff time.Duration` | `Go.libp2pPubsub.gossipSubUnsubscribeBackoff` | sync |
+| `func (*pubsub.basicTracer).Close()` | `Libp2pPubsubJsonTracer.close` | sync |
+| `func (*pubsub.basicTracer).Trace(evt *pubsub_pb.TraceEvent)` | `Libp2pPubsubJsonTracer.trace` | sync |
+| `func (*pubsub.Message).GetFrom() peer.ID` | `Libp2pPubsubMessage.getFrom` | sync |
+| `func (*pubsub.MessageCache).Get(mid string) (*pubsub.Message, bool)` | `Libp2pPubsubMessageCache.get` | sync |
+| `func (*pubsub.MessageCache).GetForPeer(mid string, p peer.ID) (*pubsub.Message, int, bool)` | `Libp2pPubsubMessageCache.getForPeer` | sync |
+| `func (*pubsub.MessageCache).GetGossipIDs(topic string) []string` | `Libp2pPubsubMessageCache.getGossipIds` | sync |
+| `func (*pubsub.MessageCache).Put(msg *pubsub.Message)` | `Libp2pPubsubMessageCache.put` | sync |
+| `func (*pubsub.MessageCache).Shift()` | `Libp2pPubsubMessageCache.shift` | sync |
+| `func pubsub.MinTopicSize(size int) pubsub.RouterReady` | `Go.libp2pPubsub.minTopicSize` | sync |
+| `var pubsub.MinTraceBatchSize int` | `Go.libp2pPubsub.minTraceBatchSize` | sync |
+| `func pubsub.NewAllowlistSubscriptionFilter(topics ...string) pubsub.SubscriptionFilter` | `Go.libp2pPubsub.newAllowlistSubscriptionFilter` | sync |
+| `func pubsub.NewBasicSeqnoValidator(meta pubsub.PeerMetadataStore, logger *slog.Logger) pubsub.ValidatorEx` | `Go.libp2pPubsub.newBasicSeqnoValidator` | sync |
+| `func pubsub.NewFloodSub(ctx context.Context, h host.Host, opts ...pubsub.Option) (*pubsub.PubSub, error)` | `Go.libp2pPubsub.newFloodSub` | Future |
+| `func pubsub.NewFloodsubWithProtocols(ctx context.Context, h host.Host, ps []protocol.ID, opts ...pubsub.Option) (*pubsub.PubSub, error)` | `Go.libp2pPubsub.newFloodsubWithProtocols` | Future |
 | `func pubsub.NewGossipSub(ctx context.Context, h host.Host, opts ...pubsub.Option) (*pubsub.PubSub, error)` | `Go.libp2pPubsub.newGossipSub` | Future |
-| `func (*pubsub.PubSub).Join(topic string, opts ...pubsub.TopicOpt) (*pubsub.Topic, error)` | `Libp2pPubsubPubSub.join` | Future |
-| `func (*pubsub.PubSub).GetTopics() []string` | `Libp2pPubsubPubSub.getTopics` | Future |
-| `func (*pubsub.PubSub).ListPeers(topic string) []peer.ID` | `Libp2pPubsubPubSub.listPeers` | Future |
+| `func pubsub.NewGossipSubWithRouter(ctx context.Context, h host.Host, rt pubsub.PubSubRouter, opts ...pubsub.Option) (*pubsub.PubSub, error)` | `Go.libp2pPubsub.newGossipSubWithRouter` | Future |
+| `func pubsub.NewJSONTracer(file string) (*pubsub.JSONTracer, error)` | `factory Libp2pPubsubJsonTracer` | sync |
+| `func pubsub.NewMapBlacklist() pubsub.Blacklist` | `Go.libp2pPubsub.newMapBlacklist` | sync |
+| `func pubsub.NewMessageCache(gossip int, history int) *pubsub.MessageCache` | `factory Libp2pPubsubMessageCache` | sync |
+| `func pubsub.NewPBTracer(file string) (*pubsub.PBTracer, error)` | `factory Libp2pPubsubPbTracer` | sync |
+| `func pubsub.NewPeerGaterParams(threshold float64, globalDecay float64, sourceDecay float64) *pubsub.PeerGaterParams` | `Go.libp2pPubsub.newPeerGaterParams` | sync |
+| `func pubsub.NewPubSub(ctx context.Context, h host.Host, rt pubsub.PubSubRouter, opts ...pubsub.Option) (*pubsub.PubSub, error)` | `Go.libp2pPubsub.newPubSub` | Future |
+| `func pubsub.NewRandomSub(ctx context.Context, h host.Host, size int, opts ...pubsub.Option) (*pubsub.PubSub, error)` | `Go.libp2pPubsub.newRandomSub` | Future |
+| `func pubsub.NewRegexpSubscriptionFilter(rx *regexp.Regexp) pubsub.SubscriptionFilter` | `Go.libp2pPubsub.newRegexpSubscriptionFilter` | sync |
+| `func pubsub.NewRemoteTracer(ctx context.Context, host host.Host, pi peer.AddrInfo, logger *slog.Logger) (*pubsub.RemoteTracer, error)` | `Go.libp2pPubsub.newRemoteTracer` | Future |
+| `func pubsub.NewTimeCachedBlacklist(expiry time.Duration) (pubsub.Blacklist, error)` | `Go.libp2pPubsub.newTimeCachedBlacklist` | sync |
+| `func pubsub.OpenJSONTracer(file string, flags int, perm os.FileMode, logger *slog.Logger) (*pubsub.JSONTracer, error)` | `Go.libp2pPubsub.openJsonTracer` | sync |
+| `func pubsub.OpenPBTracer(file string, flags int, perm os.FileMode, logger *slog.Logger) (*pubsub.PBTracer, error)` | `Go.libp2pPubsub.openPbTracer` | sync |
+| `func (*pubsub.basicTracer).Close()` | `Libp2pPubsubPbTracer.close` | sync |
+| `func (*pubsub.basicTracer).Trace(evt *pubsub_pb.TraceEvent)` | `Libp2pPubsubPbTracer.trace` | sync |
+| `func (*pubsub.PeerExtensions).ExtendRPC(rpc *pubsub.RPC) *pubsub.RPC` | `Libp2pPubsubPeerExtensions.extendRpc` | sync |
+| `func (*pubsub.PeerGaterParams).WithTopicDeliveryWeights(w map[string]float64) *pubsub.PeerGaterParams` | `Libp2pPubsubPeerGaterParams.withTopicDeliveryWeights` | sync |
+| `func (pubsub.PeerMetadataStore).Get(context.Context, peer.ID) ([]byte, error)` | `Libp2pPubsubPeerMetadataStore.get` | Future |
+| `func (pubsub.PeerMetadataStore).Put(context.Context, peer.ID, []byte) error` | `Libp2pPubsubPeerMetadataStore.put` | Future |
 | `func (*pubsub.PubSub).AddDirectPeer(pInfo peer.AddrInfo) error` | `Libp2pPubsubPubSub.addDirectPeer` | Future |
-| `func (*pubsub.PubSub).RemoveDirectPeer(pid peer.ID) error` | `Libp2pPubsubPubSub.removeDirectPeer` | Future |
 | `func (*pubsub.PubSub).BlacklistPeer(pid peer.ID)` | `Libp2pPubsubPubSub.blacklistPeer` | Future |
-| `func (*pubsub.Topic).Publish(ctx context.Context, data []byte, opts ...pubsub.PubOpt) error` | `Libp2pPubsubTopic.publish` | Future |
-| `func (*pubsub.Topic).Subscribe(opts ...pubsub.SubOpt) (*pubsub.Subscription, error)` | `Libp2pPubsubTopic.subscribe` | Future |
-| `func (*pubsub.Topic).ListPeers() []peer.ID` | `Libp2pPubsubTopic.listPeers` | Future |
-| `func (*pubsub.Topic).EventHandler(opts ...pubsub.TopicEventHandlerOpt) (*pubsub.TopicEventHandler, error)` | `Libp2pPubsubTopic.eventHandler` | Future |
-| `func (*pubsub.Topic).String() string` | `Libp2pPubsubTopic.string` | sync |
-| `func (*pubsub.Topic).Close() error` | `Libp2pPubsubTopic.close` | Future |
+| `func (*pubsub.PubSub).GetTopics() []string` | `Libp2pPubsubPubSub.getTopics` | Future |
+| `func (*pubsub.PubSub).Join(topic string, opts ...pubsub.TopicOpt) (*pubsub.Topic, error)` | `Libp2pPubsubPubSub.join` | Future |
+| `func (*pubsub.PubSub).ListPeers(topic string) []peer.ID` | `Libp2pPubsubPubSub.listPeers` | Future |
+| `func (*pubsub.PubSub).PeerFeedback(topic string, peer peer.ID, kind pubsub.PeerFeedbackKind) error` | `Libp2pPubsubPubSub.peerFeedback` | sync |
+| `func (*pubsub.PubSub).Publish(topic string, data []byte, opts ...pubsub.PubOpt) error` | `Libp2pPubsubPubSub.publish` | sync |
+| `func (*pubsub.PubSub).PublishBatch(batch *pubsub.MessageBatch, opts ...pubsub.BatchPubOpt) error` | `Libp2pPubsubPubSub.publishBatch` | sync |
+| `func (*pubsub.PubSub).RegisterTopicValidator(topic string, val any, opts ...pubsub.ValidatorOpt) error` | `Libp2pPubsubPubSub.registerTopicValidator` | Future |
+| `func (*pubsub.PubSub).RemoveDirectPeer(pid peer.ID) error` | `Libp2pPubsubPubSub.removeDirectPeer` | Future |
+| `func (*pubsub.PubSub).Subscribe(topic string, opts ...pubsub.SubOpt) (*pubsub.Subscription, error)` | `Libp2pPubsubPubSub.subscribe` | sync |
+| `func (*pubsub.PubSub).UnregisterTopicValidator(topic string) error` | `Libp2pPubsubPubSub.unregisterTopicValidator` | Future |
+| `func (pubsub.PubSubRouter).AcceptFrom(peer.ID) pubsub.AcceptStatus` | `Libp2pPubsubPubSubRouter.acceptFrom` | sync |
+| `func (pubsub.PubSubRouter).Attach(*pubsub.PubSub)` | `Libp2pPubsubPubSubRouter.attach` | sync |
+| `func (pubsub.PubSubRouter).EnoughPeers(topic string, suggested int) bool` | `Libp2pPubsubPubSubRouter.enoughPeers` | sync |
+| `func (pubsub.PubSubRouter).HandleRPC(*pubsub.RPC)` | `Libp2pPubsubPubSubRouter.handleRpc` | sync |
+| `func (pubsub.PubSubRouter).Join(topic string)` | `Libp2pPubsubPubSubRouter.join` | sync |
+| `func (pubsub.PubSubRouter).Leave(topic string)` | `Libp2pPubsubPubSubRouter.leave` | sync |
+| `func (pubsub.PubSubRouter).OnClosedIncomingStream(peer.ID, protocol.ID)` | `Libp2pPubsubPubSubRouter.onClosedIncomingStream` | sync |
+| `func (pubsub.PubSubRouter).OnClosedOutboundStream(peer.ID)` | `Libp2pPubsubPubSubRouter.onClosedOutboundStream` | sync |
+| `func (pubsub.PubSubRouter).OnNewIncomingStream(peer.ID, protocol.ID)` | `Libp2pPubsubPubSubRouter.onNewIncomingStream` | sync |
+| `func (pubsub.PubSubRouter).OnNewOutboundStream(peer.ID, protocol.ID, *pubsub.RPC) *pubsub.RPC` | `Libp2pPubsubPubSubRouter.onNewOutboundStream` | sync |
+| `func (pubsub.PubSubRouter).Preprocess(from peer.ID, msgs []*pubsub.Message)` | `Libp2pPubsubPubSubRouter.preprocess` | sync |
+| `func (pubsub.PubSubRouter).Protocols() []protocol.ID` | `Libp2pPubsubPubSubRouter.protocols` | sync |
+| `func (pubsub.PubSubRouter).Publish(*pubsub.Message)` | `Libp2pPubsubPubSubRouter.publish` | sync |
+| `func (*pubsub.RPC).From() peer.ID` | `Libp2pPubsubRpc.from` | sync |
+| `func (*pubsub.RPC).LogValue() slog.Value` | `Libp2pPubsubRpc.logValue` | sync |
+| `func (pubsub.RPCScheduler).AddRPC(peer peer.ID, msgID string, rpc *pubsub.RPC)` | `Libp2pPubsubRpcScheduler.addRpc` | sync |
+| `var pubsub.RandomSubD int` | `Go.libp2pPubsub.randomSubD` | sync |
+| `func (*pubsub.RandomSubRouter).AcceptFrom(peer.ID) pubsub.AcceptStatus` | `Libp2pPubsubRandomSubRouter.acceptFrom` | sync |
+| `func (*pubsub.RandomSubRouter).Attach(p *pubsub.PubSub)` | `Libp2pPubsubRandomSubRouter.attach` | sync |
+| `func (*pubsub.RandomSubRouter).EnoughPeers(topic string, suggested int) bool` | `Libp2pPubsubRandomSubRouter.enoughPeers` | sync |
+| `func (*pubsub.RandomSubRouter).HandleRPC(rpc *pubsub.RPC)` | `Libp2pPubsubRandomSubRouter.handleRpc` | sync |
+| `func (*pubsub.RandomSubRouter).Join(topic string)` | `Libp2pPubsubRandomSubRouter.join` | sync |
+| `func (*pubsub.RandomSubRouter).Leave(topic string)` | `Libp2pPubsubRandomSubRouter.leave` | sync |
+| `func (*pubsub.RandomSubRouter).OnClosedIncomingStream(peer.ID, protocol.ID)` | `Libp2pPubsubRandomSubRouter.onClosedIncomingStream` | sync |
+| `func (*pubsub.RandomSubRouter).OnClosedOutboundStream(p peer.ID)` | `Libp2pPubsubRandomSubRouter.onClosedOutboundStream` | sync |
+| `func (*pubsub.RandomSubRouter).OnNewIncomingStream(peer.ID, protocol.ID)` | `Libp2pPubsubRandomSubRouter.onNewIncomingStream` | sync |
+| `func (*pubsub.RandomSubRouter).OnNewOutboundStream(p peer.ID, proto protocol.ID, hello *pubsub.RPC) *pubsub.RPC` | `Libp2pPubsubRandomSubRouter.onNewOutboundStream` | sync |
+| `func (*pubsub.RandomSubRouter).Preprocess(from peer.ID, msgs []*pubsub.Message)` | `Libp2pPubsubRandomSubRouter.preprocess` | sync |
+| `func (*pubsub.RandomSubRouter).Protocols() []protocol.ID` | `Libp2pPubsubRandomSubRouter.protocols` | sync |
+| `func (*pubsub.RandomSubRouter).Publish(msg *pubsub.Message)` | `Libp2pPubsubRandomSubRouter.publish` | sync |
+| `func (pubsub.RawTracer).DeliverMessage(msg *pubsub.Message)` | `Libp2pPubsubRawTracer.deliverMessage` | sync |
+| `func (pubsub.RawTracer).DropRPC(rpc *pubsub.RPC, p peer.ID)` | `Libp2pPubsubRawTracer.dropRpc` | sync |
+| `func (pubsub.RawTracer).DuplicateMessage(msg *pubsub.Message)` | `Libp2pPubsubRawTracer.duplicateMessage` | sync |
+| `func (pubsub.RawTracer).Graft(p peer.ID, topic string)` | `Libp2pPubsubRawTracer.graft` | sync |
+| `func (pubsub.RawTracer).Join(topic string)` | `Libp2pPubsubRawTracer.join` | sync |
+| `func (pubsub.RawTracer).Leave(topic string)` | `Libp2pPubsubRawTracer.leave` | sync |
+| `func (pubsub.RawTracer).OnClosedOutboundStream(p peer.ID)` | `Libp2pPubsubRawTracer.onClosedOutboundStream` | sync |
+| `func (pubsub.RawTracer).OnNewOutboundStream(p peer.ID, proto protocol.ID)` | `Libp2pPubsubRawTracer.onNewOutboundStream` | sync |
+| `func (pubsub.RawTracer).Prune(p peer.ID, topic string)` | `Libp2pPubsubRawTracer.prune` | sync |
+| `func (pubsub.RawTracer).RecvRPC(rpc *pubsub.RPC)` | `Libp2pPubsubRawTracer.recvRpc` | sync |
+| `func (pubsub.RawTracer).RejectMessage(msg *pubsub.Message, reason string)` | `Libp2pPubsubRawTracer.rejectMessage` | sync |
+| `func (pubsub.RawTracer).SendRPC(rpc *pubsub.RPC, p peer.ID)` | `Libp2pPubsubRawTracer.sendRpc` | sync |
+| `func (pubsub.RawTracer).ThrottlePeer(p peer.ID)` | `Libp2pPubsubRawTracer.throttlePeer` | sync |
+| `func (pubsub.RawTracer).UndeliverableMessage(msg *pubsub.Message)` | `Libp2pPubsubRawTracer.undeliverableMessage` | sync |
+| `func (pubsub.RawTracer).ValidateMessage(msg *pubsub.Message)` | `Libp2pPubsubRawTracer.validateMessage` | sync |
+| `func (*pubsub.basicTracer).Close()` | `Libp2pPubsubRemoteTracer.close` | sync |
+| `func (*pubsub.basicTracer).Trace(evt *pubsub_pb.TraceEvent)` | `Libp2pPubsubRemoteTracer.trace` | sync |
+| `func (*pubsub.RoundRobinMessageIDScheduler).AddRPC(peer peer.ID, msgID string, rpc *pubsub.RPC)` | `Libp2pPubsubRoundRobinMessageIdScheduler.addRpc` | sync |
+| `func pubsub.ScoreParameterDecay(decay time.Duration) float64` | `Go.libp2pPubsub.scoreParameterDecay` | sync |
+| `func pubsub.ScoreParameterDecayWithBase(decay time.Duration, base time.Duration, decayToZero float64) float64` | `Go.libp2pPubsub.scoreParameterDecayWithBase` | sync |
+| `func (*pubsub.Subscription).Cancel()` | `Libp2pPubsubSubscription.cancel` | Future |
 | `func (*pubsub.Subscription).Next(ctx context.Context) (*pubsub.Message, error)` | `Libp2pPubsubSubscription.next` | Future |
 | `func (*pubsub.Subscription).Topic() string` | `Libp2pPubsubSubscription.topic` | sync |
-| `func (*pubsub.Subscription).Cancel()` | `Libp2pPubsubSubscription.cancel` | Future |
-| `func (*pubsub.Message).GetFrom() peer.ID` | `Libp2pPubsubMessage.getFrom` | sync |
-| `func (*pubsub.TopicEventHandler).NextPeerEvent(ctx context.Context) (pubsub.PeerEvent, error)` | `Libp2pPubsubTopicEventHandler.nextPeerEvent` | Future |
+| `func (pubsub.SubscriptionFilter).CanSubscribe(topic string) bool` | `Libp2pPubsubSubscriptionFilter.canSubscribe` | sync |
+| `func (pubsub.SubscriptionFilter).FilterIncomingSubscriptions(peer.ID, []*pubsub_pb.RPC_SubOpts) ([]*pubsub_pb.RPC_SubOpts, error)` | `Libp2pPubsubSubscriptionFilter.filterIncomingSubscriptions` | sync |
+| `var pubsub.TimeCacheDuration time.Duration` | `Go.libp2pPubsub.timeCacheDuration` | sync |
+| `var pubsub.TimeCacheStrategy timecache.Strategy` | `Go.libp2pPubsub.timeCacheStrategy` | sync |
+| `func (*pubsub.TimeCachedBlacklist).Add(p peer.ID) bool` | `Libp2pPubsubTimeCachedBlacklist.add` | sync |
+| `func (*pubsub.TimeCachedBlacklist).Contains(p peer.ID) bool` | `Libp2pPubsubTimeCachedBlacklist.contains` | sync |
+| `func (*pubsub.Topic).AddToBatch(ctx context.Context, batch *pubsub.MessageBatch, data []byte, opts ...pubsub.PubOpt) error` | `Libp2pPubsubTopic.addToBatch` | Future |
+| `func (*pubsub.Topic).Close() error` | `Libp2pPubsubTopic.close` | Future |
+| `func (*pubsub.Topic).EventHandler(opts ...pubsub.TopicEventHandlerOpt) (*pubsub.TopicEventHandler, error)` | `Libp2pPubsubTopic.eventHandler` | Future |
+| `func (*pubsub.Topic).ListPeers() []peer.ID` | `Libp2pPubsubTopic.listPeers` | Future |
+| `func (*pubsub.Topic).Publish(ctx context.Context, data []byte, opts ...pubsub.PubOpt) error` | `Libp2pPubsubTopic.publish` | Future |
+| `func (*pubsub.Topic).Relay() (pubsub.RelayCancelFunc, error)` | `Libp2pPubsubTopic.relay` | sync |
+| `func (*pubsub.Topic).SetScoreParams(p *pubsub.TopicScoreParams) error` | `Libp2pPubsubTopic.setScoreParams` | sync |
+| `func (*pubsub.Topic).String() string` | `Libp2pPubsubTopic.string` | sync |
+| `func (*pubsub.Topic).Subscribe(opts ...pubsub.SubOpt) (*pubsub.Subscription, error)` | `Libp2pPubsubTopic.subscribe` | Future |
 | `func (*pubsub.TopicEventHandler).Cancel()` | `Libp2pPubsubTopicEventHandler.cancel` | Future |
-| `func (*pubsub.PubSub).RegisterTopicValidator(topic string, val any, opts ...pubsub.ValidatorOpt) error` | `Libp2pPubsubPubSub.registerTopicValidator` | Future |
-| `func (*pubsub.PubSub).UnregisterTopicValidator(topic string) error` | `Libp2pPubsubPubSub.unregisterTopicValidator` | Future |
-| `func pubsub.DefaultGossipSubParams() pubsub.GossipSubParams` | `Go.libp2pPubsub.defaultGossipSubParams` | sync |
+| `func (*pubsub.TopicEventHandler).NextPeerEvent(ctx context.Context) (pubsub.PeerEvent, error)` | `Libp2pPubsubTopicEventHandler.nextPeerEvent` | Future |
+| `var pubsub.TraceBufferSize int` | `Go.libp2pPubsub.traceBufferSize` | sync |
+| `func pubsub.WrapLimitSubscriptionFilter(filter pubsub.SubscriptionFilter, limit int) pubsub.SubscriptionFilter` | `Go.libp2pPubsub.wrapLimitSubscriptionFilter` | sync |
+| `pubsub.BatchPublisher → x.(*pubsub.GossipSubRouter)` | `Libp2pPubsubBatchPublisher.asLibp2pPubsubGossipSubRouter` | cast |
+| `pubsub.Blacklist → x.(*pubsub.TimeCachedBlacklist)` | `Libp2pPubsubBlacklist.asLibp2pPubsubTimeCachedBlacklist` | cast |
+| `pubsub.EventTracer → x.(*pubsub.JSONTracer)` | `Libp2pPubsubEventTracer.asLibp2pPubsubJsonTracer` | cast |
+| `pubsub.EventTracer → x.(*pubsub.PBTracer)` | `Libp2pPubsubEventTracer.asLibp2pPubsubPbTracer` | cast |
+| `pubsub.EventTracer → x.(*pubsub.RemoteTracer)` | `Libp2pPubsubEventTracer.asLibp2pPubsubRemoteTracer` | cast |
+| `pubsub.PubSubRouter → x.(*pubsub.FloodSubRouter)` | `Libp2pPubsubPubSubRouter.asLibp2pPubsubFloodSubRouter` | cast |
+| `pubsub.PubSubRouter → x.(*pubsub.GossipSubRouter)` | `Libp2pPubsubPubSubRouter.asLibp2pPubsubGossipSubRouter` | cast |
+| `pubsub.PubSubRouter → x.(*pubsub.RandomSubRouter)` | `Libp2pPubsubPubSubRouter.asLibp2pPubsubRandomSubRouter` | cast |
+| `pubsub.RPCScheduler → x.(*pubsub.RoundRobinMessageIDScheduler)` | `Libp2pPubsubRpcScheduler.asLibp2pPubsubRoundRobinMessageIdScheduler` | cast |
 | `const pubsub.AcceptAll pubsub.AcceptStatus` | `Go.libp2pPubsub.acceptAll` | const |
 | `const pubsub.AcceptControl pubsub.AcceptStatus` | `Go.libp2pPubsub.acceptControl` | const |
 | `const pubsub.AcceptNone pubsub.AcceptStatus` | `Go.libp2pPubsub.acceptNone` | const |
@@ -1240,14 +3790,363 @@ Omitted:
 | `const pubsub.ValidationIgnore pubsub.ValidationResult` | `Go.libp2pPubsub.validationIgnore` | const |
 | `const pubsub.ValidationReject pubsub.ValidationResult` | `Go.libp2pPubsub.validationReject` | const |
 
+Omitted:
+
+- `func pubsub.FanoutOnly() pubsub.TopicOpt`: result 0: github.com/libp2p/go-libp2p-pubsub.TopicOpt
+- `func (*pubsub.GossipSubRouter).WithDefaultTagTracer() pubsub.Option`: result 0: github.com/libp2p/go-libp2p-pubsub.Option
+- `func (pubsub.MapBlacklist).Add(p peer.ID) bool`: receiver is neither a handle, a DTO nor a value type: *tipo github.com/libp2p/go-libp2p-pubsub.MapBlacklist
+- `func (pubsub.MapBlacklist).Contains(p peer.ID) bool`: receiver is neither a handle, a DTO nor a value type: *tipo github.com/libp2p/go-libp2p-pubsub.MapBlacklist
+- `func (*pubsub.MessageCache).SetMsgIdFn(msgID func(*pubsub.Message) string)`: parameter msgID: func(*github.com/libp2p/go-libp2p-pubsub.Message) string
+- `func pubsub.OnlyPublicAddrsOnPeerExchange() pubsub.Option`: result 0: github.com/libp2p/go-libp2p-pubsub.Option
+- `func (pubsub.RPCScheduler).All() iter.Seq2[peer.ID, *pubsub.RPC]`: result 0: generic iter.Seq2[github.com/libp2p/go-libp2p/core/peer.ID, *github.com/libp2p/go-libp2p-pubsub.RPC]
+- `func pubsub.RequestPartialMessages() pubsub.TopicOpt`: result 0: github.com/libp2p/go-libp2p-pubsub.TopicOpt
+- `func (*pubsub.RoundRobinMessageIDScheduler).All() iter.Seq2[peer.ID, *pubsub.RPC]`: result 0: generic iter.Seq2[github.com/libp2p/go-libp2p/core/peer.ID, *github.com/libp2p/go-libp2p-pubsub.RPC]
+- `func pubsub.SupportsPartialMessages() pubsub.TopicOpt`: result 0: github.com/libp2p/go-libp2p-pubsub.TopicOpt
+- `func pubsub.WithAppSpecificRpcInspector(inspector func(peer.ID, *pubsub.RPC) error) pubsub.Option`: result 0: github.com/libp2p/go-libp2p-pubsub.Option
+- `func pubsub.WithBlacklist(b pubsub.Blacklist) pubsub.Option`: result 0: github.com/libp2p/go-libp2p-pubsub.Option
+- `func pubsub.WithBufferSize(size int) pubsub.SubOpt`: result 0: github.com/libp2p/go-libp2p-pubsub.SubOpt
+- `func pubsub.WithCustomPXRecordReducer(f pubsub.PXRecordReducer) pubsub.Option`: result 0: github.com/libp2p/go-libp2p-pubsub.Option
+- `func pubsub.WithDefaultValidator(val any, opts ...pubsub.ValidatorOpt) pubsub.Option`: result 0: github.com/libp2p/go-libp2p-pubsub.Option
+- `func pubsub.WithDirectConnectTicks(t uint64) pubsub.Option`: result 0: github.com/libp2p/go-libp2p-pubsub.Option
+- `func pubsub.WithDirectPeers(pis []peer.AddrInfo) pubsub.Option`: result 0: github.com/libp2p/go-libp2p-pubsub.Option
+- `func pubsub.WithDiscoverConnector(connFactory pubsub.BackoffConnectorFactory) pubsub.DiscoverOpt`: result 0: github.com/libp2p/go-libp2p-pubsub.DiscoverOpt
+- `func pubsub.WithDiscovery(d discovery.Discovery, opts ...pubsub.DiscoverOpt) pubsub.Option`: result 0: github.com/libp2p/go-libp2p-pubsub.Option
+- `func pubsub.WithDiscoveryOpts(opts ...discovery.Option) pubsub.DiscoverOpt`: result 0: github.com/libp2p/go-libp2p-pubsub.DiscoverOpt
+- `func pubsub.WithEventTracer(tracer pubsub.EventTracer) pubsub.Option`: result 0: github.com/libp2p/go-libp2p-pubsub.Option
+- `func pubsub.WithFloodPublish(floodPublish bool) pubsub.Option`: result 0: github.com/libp2p/go-libp2p-pubsub.Option
+- `func pubsub.WithGossipSubParams(cfg pubsub.GossipSubParams) pubsub.Option`: result 0: github.com/libp2p/go-libp2p-pubsub.Option
+- `func pubsub.WithGossipSubProtocols(protos []protocol.ID, feature pubsub.GossipSubFeatureTest) pubsub.Option`: result 0: github.com/libp2p/go-libp2p-pubsub.Option
+- `func pubsub.WithLocalPublication(local bool) pubsub.PubOpt`: result 0: github.com/libp2p/go-libp2p-pubsub.PubOpt
+- `func pubsub.WithLogger(logger *slog.Logger) pubsub.Option`: result 0: github.com/libp2p/go-libp2p-pubsub.Option
+- `func pubsub.WithMaxControlMessageSize(maxControlMessageSize int) pubsub.Option`: result 0: github.com/libp2p/go-libp2p-pubsub.Option
+- `func pubsub.WithMaxMessageSize(maxMessageSize int) pubsub.Option`: result 0: github.com/libp2p/go-libp2p-pubsub.Option
+- `func pubsub.WithMessageAuthor(author peer.ID) pubsub.Option`: result 0: github.com/libp2p/go-libp2p-pubsub.Option
+- `func pubsub.WithMessageFilter(filter func(*pubsub.Message) bool) pubsub.SubOpt`: result 0: github.com/libp2p/go-libp2p-pubsub.SubOpt
+- `func pubsub.WithMessageIdFn(fn pubsub.MsgIdFunction) pubsub.Option`: result 0: github.com/libp2p/go-libp2p-pubsub.Option
+- `func pubsub.WithMessageSignaturePolicy(policy pubsub.MessageSignaturePolicy) pubsub.Option`: result 0: github.com/libp2p/go-libp2p-pubsub.Option
+- `func pubsub.WithMessageSigning(enabled bool) pubsub.Option`: result 0: github.com/libp2p/go-libp2p-pubsub.Option
+- `func pubsub.WithNoAuthor() pubsub.Option`: result 0: github.com/libp2p/go-libp2p-pubsub.Option
+- `func pubsub.WithPeerExchange(doPX bool) pubsub.Option`: result 0: github.com/libp2p/go-libp2p-pubsub.Option
+- `func pubsub.WithPeerFilter(filter pubsub.PeerFilter) pubsub.Option`: result 0: github.com/libp2p/go-libp2p-pubsub.Option
+- `func pubsub.WithPeerGater(params *pubsub.PeerGaterParams) pubsub.Option`: result 0: github.com/libp2p/go-libp2p-pubsub.Option
+- `func pubsub.WithPeerOutboundQueueSize(size int) pubsub.Option`: result 0: github.com/libp2p/go-libp2p-pubsub.Option
+- `func pubsub.WithPeerScore(params *pubsub.PeerScoreParams, thresholds *pubsub.PeerScoreThresholds) pubsub.Option`: result 0: github.com/libp2p/go-libp2p-pubsub.Option
+- `func pubsub.WithPeerScoreInspect(inspect any, period time.Duration) pubsub.Option`: result 0: github.com/libp2p/go-libp2p-pubsub.Option
+- `func pubsub.WithProtocolMatchFn(m pubsub.ProtocolMatchFn) pubsub.Option`: parameter m: func(github.com/libp2p/go-libp2p/core/protocol.ID) func(github.com/libp2p/go-libp2p/core/protocol.ID) bool
+- `func pubsub.WithRPCLogger(logger *slog.Logger) pubsub.Option`: result 0: github.com/libp2p/go-libp2p-pubsub.Option
+- `func pubsub.WithRawTracer(tracer pubsub.RawTracer) pubsub.Option`: result 0: github.com/libp2p/go-libp2p-pubsub.Option
+- `func pubsub.WithReadiness(ready pubsub.RouterReady) pubsub.PubOpt`: result 0: github.com/libp2p/go-libp2p-pubsub.PubOpt
+- `func pubsub.WithSecretKeyAndPeerId(key crypto.PrivKey, pid peer.ID) pubsub.PubOpt`: result 0: github.com/libp2p/go-libp2p-pubsub.PubOpt
+- `func pubsub.WithSeenMessagesStrategy(strategy timecache.Strategy) pubsub.Option`: result 0: github.com/libp2p/go-libp2p-pubsub.Option
+- `func pubsub.WithSeenMessagesTTL(ttl time.Duration) pubsub.Option`: result 0: github.com/libp2p/go-libp2p-pubsub.Option
+- `func pubsub.WithStrictSignatureVerification(required bool) pubsub.Option`: result 0: github.com/libp2p/go-libp2p-pubsub.Option
+- `func pubsub.WithSubscriptionFilter(subFilter pubsub.SubscriptionFilter) pubsub.Option`: result 0: github.com/libp2p/go-libp2p-pubsub.Option
+- `func pubsub.WithTestExtension(c pubsub.TestExtensionConfig) pubsub.Option`: result 0: github.com/libp2p/go-libp2p-pubsub.Option
+- `func pubsub.WithTopicMessageIdFn(msgId pubsub.MsgIdFunction) pubsub.TopicOpt`: result 0: github.com/libp2p/go-libp2p-pubsub.TopicOpt
+- `func pubsub.WithValidateQueueSize(n int) pubsub.Option`: result 0: github.com/libp2p/go-libp2p-pubsub.Option
+- `func pubsub.WithValidateThrottle(n int) pubsub.Option`: result 0: github.com/libp2p/go-libp2p-pubsub.Option
+- `func pubsub.WithValidateWorkers(n int) pubsub.Option`: result 0: github.com/libp2p/go-libp2p-pubsub.Option
+- `func pubsub.WithValidatorConcurrency(n int) pubsub.ValidatorOpt`: result 0: github.com/libp2p/go-libp2p-pubsub.ValidatorOpt
+- `func pubsub.WithValidatorData(data any) pubsub.PubOpt`: result 0: github.com/libp2p/go-libp2p-pubsub.PubOpt
+- `func pubsub.WithValidatorInline(inline bool) pubsub.ValidatorOpt`: result 0: github.com/libp2p/go-libp2p-pubsub.ValidatorOpt
+- `func pubsub.WithValidatorTimeout(timeout time.Duration) pubsub.ValidatorOpt`: result 0: github.com/libp2p/go-libp2p-pubsub.ValidatorOpt
+
 ## `github.com/libp2p/go-libp2p-pubsub/pb` → `Go.libp2pPubsub.pb` (`lib/go/libp2p_pubsub/pb.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
+| `func (*pubsub_pb.ControlExtensions).Descriptor() ([]byte, []int)` | `Libp2pPubsubPbControlExtensions.descriptor` | sync |
+| `func (*pubsub_pb.ControlExtensions).GetPartialMessages() bool` | `Libp2pPubsubPbControlExtensions.getPartialMessages` | sync |
+| `func (*pubsub_pb.ControlExtensions).GetTestExtension() bool` | `Libp2pPubsubPbControlExtensions.getTestExtension` | sync |
+| `func (*pubsub_pb.ControlExtensions).ProtoMessage()` | `Libp2pPubsubPbControlExtensions.protoMessage` | sync |
+| `func (*pubsub_pb.ControlExtensions).ProtoReflect() protoreflect.Message` | `Libp2pPubsubPbControlExtensions.protoReflect` | sync |
+| `func (*pubsub_pb.ControlExtensions).Reset()` | `Libp2pPubsubPbControlExtensions.reset` | sync |
+| `func (*pubsub_pb.ControlExtensions).String() string` | `Libp2pPubsubPbControlExtensions.string` | sync |
+| `func (*pubsub_pb.ControlGraft).Descriptor() ([]byte, []int)` | `Libp2pPubsubPbControlGraft.descriptor` | sync |
+| `func (*pubsub_pb.ControlGraft).GetTopicID() string` | `Libp2pPubsubPbControlGraft.getTopicId` | sync |
+| `func (*pubsub_pb.ControlGraft).ProtoMessage()` | `Libp2pPubsubPbControlGraft.protoMessage` | sync |
+| `func (*pubsub_pb.ControlGraft).ProtoReflect() protoreflect.Message` | `Libp2pPubsubPbControlGraft.protoReflect` | sync |
+| `func (*pubsub_pb.ControlGraft).Reset()` | `Libp2pPubsubPbControlGraft.reset` | sync |
+| `func (*pubsub_pb.ControlGraft).String() string` | `Libp2pPubsubPbControlGraft.string` | sync |
+| `func (*pubsub_pb.ControlIDontWant).Descriptor() ([]byte, []int)` | `Libp2pPubsubPbControlIDontWant.descriptor` | sync |
+| `func (*pubsub_pb.ControlIDontWant).GetMessageIDs() []string` | `Libp2pPubsubPbControlIDontWant.getMessageIds` | sync |
+| `func (*pubsub_pb.ControlIDontWant).ProtoMessage()` | `Libp2pPubsubPbControlIDontWant.protoMessage` | sync |
+| `func (*pubsub_pb.ControlIDontWant).ProtoReflect() protoreflect.Message` | `Libp2pPubsubPbControlIDontWant.protoReflect` | sync |
+| `func (*pubsub_pb.ControlIDontWant).Reset()` | `Libp2pPubsubPbControlIDontWant.reset` | sync |
+| `func (*pubsub_pb.ControlIDontWant).String() string` | `Libp2pPubsubPbControlIDontWant.string` | sync |
+| `func (*pubsub_pb.ControlIHave).Descriptor() ([]byte, []int)` | `Libp2pPubsubPbControlIHave.descriptor` | sync |
+| `func (*pubsub_pb.ControlIHave).GetMessageIDs() []string` | `Libp2pPubsubPbControlIHave.getMessageIds` | sync |
+| `func (*pubsub_pb.ControlIHave).GetTopicID() string` | `Libp2pPubsubPbControlIHave.getTopicId` | sync |
+| `func (*pubsub_pb.ControlIHave).ProtoMessage()` | `Libp2pPubsubPbControlIHave.protoMessage` | sync |
+| `func (*pubsub_pb.ControlIHave).ProtoReflect() protoreflect.Message` | `Libp2pPubsubPbControlIHave.protoReflect` | sync |
+| `func (*pubsub_pb.ControlIHave).Reset()` | `Libp2pPubsubPbControlIHave.reset` | sync |
+| `func (*pubsub_pb.ControlIHave).String() string` | `Libp2pPubsubPbControlIHave.string` | sync |
+| `func (*pubsub_pb.ControlIWant).Descriptor() ([]byte, []int)` | `Libp2pPubsubPbControlIWant.descriptor` | sync |
+| `func (*pubsub_pb.ControlIWant).GetMessageIDs() []string` | `Libp2pPubsubPbControlIWant.getMessageIds` | sync |
+| `func (*pubsub_pb.ControlIWant).ProtoMessage()` | `Libp2pPubsubPbControlIWant.protoMessage` | sync |
+| `func (*pubsub_pb.ControlIWant).ProtoReflect() protoreflect.Message` | `Libp2pPubsubPbControlIWant.protoReflect` | sync |
+| `func (*pubsub_pb.ControlIWant).Reset()` | `Libp2pPubsubPbControlIWant.reset` | sync |
+| `func (*pubsub_pb.ControlIWant).String() string` | `Libp2pPubsubPbControlIWant.string` | sync |
+| `func (*pubsub_pb.ControlMessage).Descriptor() ([]byte, []int)` | `Libp2pPubsubPbControlMessage.descriptor` | sync |
+| `func (*pubsub_pb.ControlMessage).GetExtensions() *pubsub_pb.ControlExtensions` | `Libp2pPubsubPbControlMessage.getExtensions` | sync |
+| `func (*pubsub_pb.ControlMessage).GetGraft() []*pubsub_pb.ControlGraft` | `Libp2pPubsubPbControlMessage.getGraft` | sync |
+| `func (*pubsub_pb.ControlMessage).GetIdontwant() []*pubsub_pb.ControlIDontWant` | `Libp2pPubsubPbControlMessage.getIdontwant` | sync |
+| `func (*pubsub_pb.ControlMessage).GetIhave() []*pubsub_pb.ControlIHave` | `Libp2pPubsubPbControlMessage.getIhave` | sync |
+| `func (*pubsub_pb.ControlMessage).GetIwant() []*pubsub_pb.ControlIWant` | `Libp2pPubsubPbControlMessage.getIwant` | sync |
+| `func (*pubsub_pb.ControlMessage).GetPrune() []*pubsub_pb.ControlPrune` | `Libp2pPubsubPbControlMessage.getPrune` | sync |
+| `func (*pubsub_pb.ControlMessage).ProtoMessage()` | `Libp2pPubsubPbControlMessage.protoMessage` | sync |
+| `func (*pubsub_pb.ControlMessage).ProtoReflect() protoreflect.Message` | `Libp2pPubsubPbControlMessage.protoReflect` | sync |
+| `func (*pubsub_pb.ControlMessage).Reset()` | `Libp2pPubsubPbControlMessage.reset` | sync |
+| `func (*pubsub_pb.ControlMessage).String() string` | `Libp2pPubsubPbControlMessage.string` | sync |
+| `func (*pubsub_pb.ControlPrune).Descriptor() ([]byte, []int)` | `Libp2pPubsubPbControlPrune.descriptor` | sync |
+| `func (*pubsub_pb.ControlPrune).GetBackoff() uint64` | `Libp2pPubsubPbControlPrune.getBackoff` | sync |
+| `func (*pubsub_pb.ControlPrune).GetPeers() []*pubsub_pb.PeerInfo` | `Libp2pPubsubPbControlPrune.getPeers` | sync |
+| `func (*pubsub_pb.ControlPrune).GetTopicID() string` | `Libp2pPubsubPbControlPrune.getTopicId` | sync |
+| `func (*pubsub_pb.ControlPrune).ProtoMessage()` | `Libp2pPubsubPbControlPrune.protoMessage` | sync |
+| `func (*pubsub_pb.ControlPrune).ProtoReflect() protoreflect.Message` | `Libp2pPubsubPbControlPrune.protoReflect` | sync |
+| `func (*pubsub_pb.ControlPrune).Reset()` | `Libp2pPubsubPbControlPrune.reset` | sync |
+| `func (*pubsub_pb.ControlPrune).String() string` | `Libp2pPubsubPbControlPrune.string` | sync |
+| `var pubsub_pb.File_rpc_proto protoreflect.FileDescriptor` | `Go.libp2pPubsub.pb.fileRpcProto` | sync |
+| `var pubsub_pb.File_trace_proto protoreflect.FileDescriptor` | `Go.libp2pPubsub.pb.fileTraceProto` | sync |
+| `func (*pubsub_pb.Message).Descriptor() ([]byte, []int)` | `Libp2pPubsubPbMessage.descriptor` | sync |
 | `func (*pubsub_pb.Message).GetData() []byte` | `Libp2pPubsubPbMessage.getData` | sync |
 | `func (*pubsub_pb.Message).GetFrom() []byte` | `Libp2pPubsubPbMessage.getFrom` | sync |
+| `func (*pubsub_pb.Message).GetKey() []byte` | `Libp2pPubsubPbMessage.getKey` | sync |
 | `func (*pubsub_pb.Message).GetSeqno() []byte` | `Libp2pPubsubPbMessage.getSeqno` | sync |
+| `func (*pubsub_pb.Message).GetSignature() []byte` | `Libp2pPubsubPbMessage.getSignature` | sync |
 | `func (*pubsub_pb.Message).GetTopic() string` | `Libp2pPubsubPbMessage.getTopic` | sync |
+| `func (*pubsub_pb.Message).ProtoMessage()` | `Libp2pPubsubPbMessage.protoMessage` | sync |
+| `func (*pubsub_pb.Message).ProtoReflect() protoreflect.Message` | `Libp2pPubsubPbMessage.protoReflect` | sync |
+| `func (*pubsub_pb.Message).Reset()` | `Libp2pPubsubPbMessage.reset` | sync |
+| `func (*pubsub_pb.Message).String() string` | `Libp2pPubsubPbMessage.string` | sync |
+| `func (*pubsub_pb.PartialMessagesExtension).Descriptor() ([]byte, []int)` | `Libp2pPubsubPbPartialMessagesExtension.descriptor` | sync |
+| `func (*pubsub_pb.PartialMessagesExtension).GetGroupID() []byte` | `Libp2pPubsubPbPartialMessagesExtension.getGroupId` | sync |
+| `func (*pubsub_pb.PartialMessagesExtension).GetPartialMessage() []byte` | `Libp2pPubsubPbPartialMessagesExtension.getPartialMessage` | sync |
+| `func (*pubsub_pb.PartialMessagesExtension).GetPartsMetadata() []byte` | `Libp2pPubsubPbPartialMessagesExtension.getPartsMetadata` | sync |
+| `func (*pubsub_pb.PartialMessagesExtension).GetTopicID() string` | `Libp2pPubsubPbPartialMessagesExtension.getTopicId` | sync |
+| `func (*pubsub_pb.PartialMessagesExtension).LogValue() slog.Value` | `Libp2pPubsubPbPartialMessagesExtension.logValue` | sync |
+| `func (*pubsub_pb.PartialMessagesExtension).ProtoMessage()` | `Libp2pPubsubPbPartialMessagesExtension.protoMessage` | sync |
+| `func (*pubsub_pb.PartialMessagesExtension).ProtoReflect() protoreflect.Message` | `Libp2pPubsubPbPartialMessagesExtension.protoReflect` | sync |
+| `func (*pubsub_pb.PartialMessagesExtension).Reset()` | `Libp2pPubsubPbPartialMessagesExtension.reset` | sync |
+| `func (*pubsub_pb.PartialMessagesExtension).String() string` | `Libp2pPubsubPbPartialMessagesExtension.string` | sync |
+| `func (*pubsub_pb.PeerInfo).Descriptor() ([]byte, []int)` | `Libp2pPubsubPbPeerInfo.descriptor` | sync |
+| `func (*pubsub_pb.PeerInfo).GetPeerID() []byte` | `Libp2pPubsubPbPeerInfo.getPeerId` | sync |
+| `func (*pubsub_pb.PeerInfo).GetSignedPeerRecord() []byte` | `Libp2pPubsubPbPeerInfo.getSignedPeerRecord` | sync |
+| `func (*pubsub_pb.PeerInfo).ProtoMessage()` | `Libp2pPubsubPbPeerInfo.protoMessage` | sync |
+| `func (*pubsub_pb.PeerInfo).ProtoReflect() protoreflect.Message` | `Libp2pPubsubPbPeerInfo.protoReflect` | sync |
+| `func (*pubsub_pb.PeerInfo).Reset()` | `Libp2pPubsubPbPeerInfo.reset` | sync |
+| `func (*pubsub_pb.PeerInfo).String() string` | `Libp2pPubsubPbPeerInfo.string` | sync |
+| `func (*pubsub_pb.RPC).Descriptor() ([]byte, []int)` | `Libp2pPubsubPbRpc.descriptor` | sync |
+| `func (*pubsub_pb.RPC).GetControl() *pubsub_pb.ControlMessage` | `Libp2pPubsubPbRpc.getControl` | sync |
+| `func (*pubsub_pb.RPC).GetPartial() *pubsub_pb.PartialMessagesExtension` | `Libp2pPubsubPbRpc.getPartial` | sync |
+| `func (*pubsub_pb.RPC).GetPublish() []*pubsub_pb.Message` | `Libp2pPubsubPbRpc.getPublish` | sync |
+| `func (*pubsub_pb.RPC).GetSubscriptions() []*pubsub_pb.RPC_SubOpts` | `Libp2pPubsubPbRpc.getSubscriptions` | sync |
+| `func (*pubsub_pb.RPC).GetTestExtension() *pubsub_pb.TestExtension` | `Libp2pPubsubPbRpc.getTestExtension` | sync |
+| `func (*pubsub_pb.RPC).LogValue() slog.Value` | `Libp2pPubsubPbRpc.logValue` | sync |
+| `func (*pubsub_pb.RPC).ProtoMessage()` | `Libp2pPubsubPbRpc.protoMessage` | sync |
+| `func (*pubsub_pb.RPC).ProtoReflect() protoreflect.Message` | `Libp2pPubsubPbRpc.protoReflect` | sync |
+| `func (*pubsub_pb.RPC).Reset()` | `Libp2pPubsubPbRpc.reset` | sync |
+| `func (*pubsub_pb.RPC).String() string` | `Libp2pPubsubPbRpc.string` | sync |
+| `func (*pubsub_pb.RPC_SubOpts).Descriptor() ([]byte, []int)` | `Libp2pPubsubPbRpcSubOpts.descriptor` | sync |
+| `func (*pubsub_pb.RPC_SubOpts).GetRequestsPartial() bool` | `Libp2pPubsubPbRpcSubOpts.getRequestsPartial` | sync |
+| `func (*pubsub_pb.RPC_SubOpts).GetSubscribe() bool` | `Libp2pPubsubPbRpcSubOpts.getSubscribe` | sync |
+| `func (*pubsub_pb.RPC_SubOpts).GetSupportsSendingPartial() bool` | `Libp2pPubsubPbRpcSubOpts.getSupportsSendingPartial` | sync |
+| `func (*pubsub_pb.RPC_SubOpts).GetTopicid() string` | `Libp2pPubsubPbRpcSubOpts.getTopicid` | sync |
+| `func (*pubsub_pb.RPC_SubOpts).ProtoMessage()` | `Libp2pPubsubPbRpcSubOpts.protoMessage` | sync |
+| `func (*pubsub_pb.RPC_SubOpts).ProtoReflect() protoreflect.Message` | `Libp2pPubsubPbRpcSubOpts.protoReflect` | sync |
+| `func (*pubsub_pb.RPC_SubOpts).Reset()` | `Libp2pPubsubPbRpcSubOpts.reset` | sync |
+| `func (*pubsub_pb.RPC_SubOpts).String() string` | `Libp2pPubsubPbRpcSubOpts.string` | sync |
+| `func (*pubsub_pb.TestExtension).Descriptor() ([]byte, []int)` | `Libp2pPubsubPbTestExtension.descriptor` | sync |
+| `func (*pubsub_pb.TestExtension).ProtoMessage()` | `Libp2pPubsubPbTestExtension.protoMessage` | sync |
+| `func (*pubsub_pb.TestExtension).ProtoReflect() protoreflect.Message` | `Libp2pPubsubPbTestExtension.protoReflect` | sync |
+| `func (*pubsub_pb.TestExtension).Reset()` | `Libp2pPubsubPbTestExtension.reset` | sync |
+| `func (*pubsub_pb.TestExtension).String() string` | `Libp2pPubsubPbTestExtension.string` | sync |
+| `func (*pubsub_pb.TraceEvent).Descriptor() ([]byte, []int)` | `Libp2pPubsubPbTraceEvent.descriptor` | sync |
+| `func (*pubsub_pb.TraceEvent).GetDeliverMessage() *pubsub_pb.TraceEvent_DeliverMessage` | `Libp2pPubsubPbTraceEvent.getDeliverMessage` | sync |
+| `func (*pubsub_pb.TraceEvent).GetDropRPC() *pubsub_pb.TraceEvent_DropRPC` | `Libp2pPubsubPbTraceEvent.getDropRpc` | sync |
+| `func (*pubsub_pb.TraceEvent).GetDuplicateMessage() *pubsub_pb.TraceEvent_DuplicateMessage` | `Libp2pPubsubPbTraceEvent.getDuplicateMessage` | sync |
+| `func (*pubsub_pb.TraceEvent).GetGraft() *pubsub_pb.TraceEvent_Graft` | `Libp2pPubsubPbTraceEvent.getGraft` | sync |
+| `func (*pubsub_pb.TraceEvent).GetJoin() *pubsub_pb.TraceEvent_Join` | `Libp2pPubsubPbTraceEvent.getJoin` | sync |
+| `func (*pubsub_pb.TraceEvent).GetLeave() *pubsub_pb.TraceEvent_Leave` | `Libp2pPubsubPbTraceEvent.getLeave` | sync |
+| `func (*pubsub_pb.TraceEvent).GetOnClosedOutboundStream() *pubsub_pb.TraceEvent_OnClosedOutboundStream` | `Libp2pPubsubPbTraceEvent.getOnClosedOutboundStream` | sync |
+| `func (*pubsub_pb.TraceEvent).GetOnNewOutboundStream() *pubsub_pb.TraceEvent_OnNewOutboundStream` | `Libp2pPubsubPbTraceEvent.getOnNewOutboundStream` | sync |
+| `func (*pubsub_pb.TraceEvent).GetPeerID() []byte` | `Libp2pPubsubPbTraceEvent.getPeerId` | sync |
+| `func (*pubsub_pb.TraceEvent).GetPrune() *pubsub_pb.TraceEvent_Prune` | `Libp2pPubsubPbTraceEvent.getPrune` | sync |
+| `func (*pubsub_pb.TraceEvent).GetPublishMessage() *pubsub_pb.TraceEvent_PublishMessage` | `Libp2pPubsubPbTraceEvent.getPublishMessage` | sync |
+| `func (*pubsub_pb.TraceEvent).GetRecvRPC() *pubsub_pb.TraceEvent_RecvRPC` | `Libp2pPubsubPbTraceEvent.getRecvRpc` | sync |
+| `func (*pubsub_pb.TraceEvent).GetRejectMessage() *pubsub_pb.TraceEvent_RejectMessage` | `Libp2pPubsubPbTraceEvent.getRejectMessage` | sync |
+| `func (*pubsub_pb.TraceEvent).GetSendRPC() *pubsub_pb.TraceEvent_SendRPC` | `Libp2pPubsubPbTraceEvent.getSendRpc` | sync |
+| `func (*pubsub_pb.TraceEvent).GetTimestamp() int64` | `Libp2pPubsubPbTraceEvent.getTimestamp` | sync |
+| `func (*pubsub_pb.TraceEvent).GetType() pubsub_pb.TraceEvent_Type` | `Libp2pPubsubPbTraceEvent.getType` | sync |
+| `func (*pubsub_pb.TraceEvent).ProtoMessage()` | `Libp2pPubsubPbTraceEvent.protoMessage` | sync |
+| `func (*pubsub_pb.TraceEvent).ProtoReflect() protoreflect.Message` | `Libp2pPubsubPbTraceEvent.protoReflect` | sync |
+| `func (*pubsub_pb.TraceEvent).Reset()` | `Libp2pPubsubPbTraceEvent.reset` | sync |
+| `func (*pubsub_pb.TraceEvent).String() string` | `Libp2pPubsubPbTraceEvent.string` | sync |
+| `func (*pubsub_pb.TraceEventBatch).Descriptor() ([]byte, []int)` | `Libp2pPubsubPbTraceEventBatch.descriptor` | sync |
+| `func (*pubsub_pb.TraceEventBatch).GetBatch() []*pubsub_pb.TraceEvent` | `Libp2pPubsubPbTraceEventBatch.getBatch` | sync |
+| `func (*pubsub_pb.TraceEventBatch).ProtoMessage()` | `Libp2pPubsubPbTraceEventBatch.protoMessage` | sync |
+| `func (*pubsub_pb.TraceEventBatch).ProtoReflect() protoreflect.Message` | `Libp2pPubsubPbTraceEventBatch.protoReflect` | sync |
+| `func (*pubsub_pb.TraceEventBatch).Reset()` | `Libp2pPubsubPbTraceEventBatch.reset` | sync |
+| `func (*pubsub_pb.TraceEventBatch).String() string` | `Libp2pPubsubPbTraceEventBatch.string` | sync |
+| `func (*pubsub_pb.TraceEvent_ControlGraftMeta).Descriptor() ([]byte, []int)` | `Libp2pPubsubPbTraceEventControlGraftMeta.descriptor` | sync |
+| `func (*pubsub_pb.TraceEvent_ControlGraftMeta).GetTopic() string` | `Libp2pPubsubPbTraceEventControlGraftMeta.getTopic` | sync |
+| `func (*pubsub_pb.TraceEvent_ControlGraftMeta).ProtoMessage()` | `Libp2pPubsubPbTraceEventControlGraftMeta.protoMessage` | sync |
+| `func (*pubsub_pb.TraceEvent_ControlGraftMeta).ProtoReflect() protoreflect.Message` | `Libp2pPubsubPbTraceEventControlGraftMeta.protoReflect` | sync |
+| `func (*pubsub_pb.TraceEvent_ControlGraftMeta).Reset()` | `Libp2pPubsubPbTraceEventControlGraftMeta.reset` | sync |
+| `func (*pubsub_pb.TraceEvent_ControlGraftMeta).String() string` | `Libp2pPubsubPbTraceEventControlGraftMeta.string` | sync |
+| `func (*pubsub_pb.TraceEvent_ControlIDontWantMeta).Descriptor() ([]byte, []int)` | `Libp2pPubsubPbTraceEventControlIDontWantMeta.descriptor` | sync |
+| `func (*pubsub_pb.TraceEvent_ControlIDontWantMeta).GetMessageIDs() [][]byte` | `Libp2pPubsubPbTraceEventControlIDontWantMeta.getMessageIds` | sync |
+| `func (*pubsub_pb.TraceEvent_ControlIDontWantMeta).ProtoMessage()` | `Libp2pPubsubPbTraceEventControlIDontWantMeta.protoMessage` | sync |
+| `func (*pubsub_pb.TraceEvent_ControlIDontWantMeta).ProtoReflect() protoreflect.Message` | `Libp2pPubsubPbTraceEventControlIDontWantMeta.protoReflect` | sync |
+| `func (*pubsub_pb.TraceEvent_ControlIDontWantMeta).Reset()` | `Libp2pPubsubPbTraceEventControlIDontWantMeta.reset` | sync |
+| `func (*pubsub_pb.TraceEvent_ControlIDontWantMeta).String() string` | `Libp2pPubsubPbTraceEventControlIDontWantMeta.string` | sync |
+| `func (*pubsub_pb.TraceEvent_ControlIHaveMeta).Descriptor() ([]byte, []int)` | `Libp2pPubsubPbTraceEventControlIHaveMeta.descriptor` | sync |
+| `func (*pubsub_pb.TraceEvent_ControlIHaveMeta).GetMessageIDs() [][]byte` | `Libp2pPubsubPbTraceEventControlIHaveMeta.getMessageIds` | sync |
+| `func (*pubsub_pb.TraceEvent_ControlIHaveMeta).GetTopic() string` | `Libp2pPubsubPbTraceEventControlIHaveMeta.getTopic` | sync |
+| `func (*pubsub_pb.TraceEvent_ControlIHaveMeta).ProtoMessage()` | `Libp2pPubsubPbTraceEventControlIHaveMeta.protoMessage` | sync |
+| `func (*pubsub_pb.TraceEvent_ControlIHaveMeta).ProtoReflect() protoreflect.Message` | `Libp2pPubsubPbTraceEventControlIHaveMeta.protoReflect` | sync |
+| `func (*pubsub_pb.TraceEvent_ControlIHaveMeta).Reset()` | `Libp2pPubsubPbTraceEventControlIHaveMeta.reset` | sync |
+| `func (*pubsub_pb.TraceEvent_ControlIHaveMeta).String() string` | `Libp2pPubsubPbTraceEventControlIHaveMeta.string` | sync |
+| `func (*pubsub_pb.TraceEvent_ControlIWantMeta).Descriptor() ([]byte, []int)` | `Libp2pPubsubPbTraceEventControlIWantMeta.descriptor` | sync |
+| `func (*pubsub_pb.TraceEvent_ControlIWantMeta).GetMessageIDs() [][]byte` | `Libp2pPubsubPbTraceEventControlIWantMeta.getMessageIds` | sync |
+| `func (*pubsub_pb.TraceEvent_ControlIWantMeta).ProtoMessage()` | `Libp2pPubsubPbTraceEventControlIWantMeta.protoMessage` | sync |
+| `func (*pubsub_pb.TraceEvent_ControlIWantMeta).ProtoReflect() protoreflect.Message` | `Libp2pPubsubPbTraceEventControlIWantMeta.protoReflect` | sync |
+| `func (*pubsub_pb.TraceEvent_ControlIWantMeta).Reset()` | `Libp2pPubsubPbTraceEventControlIWantMeta.reset` | sync |
+| `func (*pubsub_pb.TraceEvent_ControlIWantMeta).String() string` | `Libp2pPubsubPbTraceEventControlIWantMeta.string` | sync |
+| `func (*pubsub_pb.TraceEvent_ControlMeta).Descriptor() ([]byte, []int)` | `Libp2pPubsubPbTraceEventControlMeta.descriptor` | sync |
+| `func (*pubsub_pb.TraceEvent_ControlMeta).GetGraft() []*pubsub_pb.TraceEvent_ControlGraftMeta` | `Libp2pPubsubPbTraceEventControlMeta.getGraft` | sync |
+| `func (*pubsub_pb.TraceEvent_ControlMeta).GetIdontwant() []*pubsub_pb.TraceEvent_ControlIDontWantMeta` | `Libp2pPubsubPbTraceEventControlMeta.getIdontwant` | sync |
+| `func (*pubsub_pb.TraceEvent_ControlMeta).GetIhave() []*pubsub_pb.TraceEvent_ControlIHaveMeta` | `Libp2pPubsubPbTraceEventControlMeta.getIhave` | sync |
+| `func (*pubsub_pb.TraceEvent_ControlMeta).GetIwant() []*pubsub_pb.TraceEvent_ControlIWantMeta` | `Libp2pPubsubPbTraceEventControlMeta.getIwant` | sync |
+| `func (*pubsub_pb.TraceEvent_ControlMeta).GetPrune() []*pubsub_pb.TraceEvent_ControlPruneMeta` | `Libp2pPubsubPbTraceEventControlMeta.getPrune` | sync |
+| `func (*pubsub_pb.TraceEvent_ControlMeta).ProtoMessage()` | `Libp2pPubsubPbTraceEventControlMeta.protoMessage` | sync |
+| `func (*pubsub_pb.TraceEvent_ControlMeta).ProtoReflect() protoreflect.Message` | `Libp2pPubsubPbTraceEventControlMeta.protoReflect` | sync |
+| `func (*pubsub_pb.TraceEvent_ControlMeta).Reset()` | `Libp2pPubsubPbTraceEventControlMeta.reset` | sync |
+| `func (*pubsub_pb.TraceEvent_ControlMeta).String() string` | `Libp2pPubsubPbTraceEventControlMeta.string` | sync |
+| `func (*pubsub_pb.TraceEvent_ControlPruneMeta).Descriptor() ([]byte, []int)` | `Libp2pPubsubPbTraceEventControlPruneMeta.descriptor` | sync |
+| `func (*pubsub_pb.TraceEvent_ControlPruneMeta).GetPeers() [][]byte` | `Libp2pPubsubPbTraceEventControlPruneMeta.getPeers` | sync |
+| `func (*pubsub_pb.TraceEvent_ControlPruneMeta).GetTopic() string` | `Libp2pPubsubPbTraceEventControlPruneMeta.getTopic` | sync |
+| `func (*pubsub_pb.TraceEvent_ControlPruneMeta).ProtoMessage()` | `Libp2pPubsubPbTraceEventControlPruneMeta.protoMessage` | sync |
+| `func (*pubsub_pb.TraceEvent_ControlPruneMeta).ProtoReflect() protoreflect.Message` | `Libp2pPubsubPbTraceEventControlPruneMeta.protoReflect` | sync |
+| `func (*pubsub_pb.TraceEvent_ControlPruneMeta).Reset()` | `Libp2pPubsubPbTraceEventControlPruneMeta.reset` | sync |
+| `func (*pubsub_pb.TraceEvent_ControlPruneMeta).String() string` | `Libp2pPubsubPbTraceEventControlPruneMeta.string` | sync |
+| `func (*pubsub_pb.TraceEvent_DeliverMessage).Descriptor() ([]byte, []int)` | `Libp2pPubsubPbTraceEventDeliverMessage.descriptor` | sync |
+| `func (*pubsub_pb.TraceEvent_DeliverMessage).GetMessageID() []byte` | `Libp2pPubsubPbTraceEventDeliverMessage.getMessageId` | sync |
+| `func (*pubsub_pb.TraceEvent_DeliverMessage).GetReceivedFrom() []byte` | `Libp2pPubsubPbTraceEventDeliverMessage.getReceivedFrom` | sync |
+| `func (*pubsub_pb.TraceEvent_DeliverMessage).GetTopic() string` | `Libp2pPubsubPbTraceEventDeliverMessage.getTopic` | sync |
+| `func (*pubsub_pb.TraceEvent_DeliverMessage).ProtoMessage()` | `Libp2pPubsubPbTraceEventDeliverMessage.protoMessage` | sync |
+| `func (*pubsub_pb.TraceEvent_DeliverMessage).ProtoReflect() protoreflect.Message` | `Libp2pPubsubPbTraceEventDeliverMessage.protoReflect` | sync |
+| `func (*pubsub_pb.TraceEvent_DeliverMessage).Reset()` | `Libp2pPubsubPbTraceEventDeliverMessage.reset` | sync |
+| `func (*pubsub_pb.TraceEvent_DeliverMessage).String() string` | `Libp2pPubsubPbTraceEventDeliverMessage.string` | sync |
+| `func (*pubsub_pb.TraceEvent_DropRPC).Descriptor() ([]byte, []int)` | `Libp2pPubsubPbTraceEventDropRpc.descriptor` | sync |
+| `func (*pubsub_pb.TraceEvent_DropRPC).GetMeta() *pubsub_pb.TraceEvent_RPCMeta` | `Libp2pPubsubPbTraceEventDropRpc.getMeta` | sync |
+| `func (*pubsub_pb.TraceEvent_DropRPC).GetSendTo() []byte` | `Libp2pPubsubPbTraceEventDropRpc.getSendTo` | sync |
+| `func (*pubsub_pb.TraceEvent_DropRPC).ProtoMessage()` | `Libp2pPubsubPbTraceEventDropRpc.protoMessage` | sync |
+| `func (*pubsub_pb.TraceEvent_DropRPC).ProtoReflect() protoreflect.Message` | `Libp2pPubsubPbTraceEventDropRpc.protoReflect` | sync |
+| `func (*pubsub_pb.TraceEvent_DropRPC).Reset()` | `Libp2pPubsubPbTraceEventDropRpc.reset` | sync |
+| `func (*pubsub_pb.TraceEvent_DropRPC).String() string` | `Libp2pPubsubPbTraceEventDropRpc.string` | sync |
+| `func (*pubsub_pb.TraceEvent_DuplicateMessage).Descriptor() ([]byte, []int)` | `Libp2pPubsubPbTraceEventDuplicateMessage.descriptor` | sync |
+| `func (*pubsub_pb.TraceEvent_DuplicateMessage).GetMessageID() []byte` | `Libp2pPubsubPbTraceEventDuplicateMessage.getMessageId` | sync |
+| `func (*pubsub_pb.TraceEvent_DuplicateMessage).GetReceivedFrom() []byte` | `Libp2pPubsubPbTraceEventDuplicateMessage.getReceivedFrom` | sync |
+| `func (*pubsub_pb.TraceEvent_DuplicateMessage).GetTopic() string` | `Libp2pPubsubPbTraceEventDuplicateMessage.getTopic` | sync |
+| `func (*pubsub_pb.TraceEvent_DuplicateMessage).ProtoMessage()` | `Libp2pPubsubPbTraceEventDuplicateMessage.protoMessage` | sync |
+| `func (*pubsub_pb.TraceEvent_DuplicateMessage).ProtoReflect() protoreflect.Message` | `Libp2pPubsubPbTraceEventDuplicateMessage.protoReflect` | sync |
+| `func (*pubsub_pb.TraceEvent_DuplicateMessage).Reset()` | `Libp2pPubsubPbTraceEventDuplicateMessage.reset` | sync |
+| `func (*pubsub_pb.TraceEvent_DuplicateMessage).String() string` | `Libp2pPubsubPbTraceEventDuplicateMessage.string` | sync |
+| `func (*pubsub_pb.TraceEvent_Graft).Descriptor() ([]byte, []int)` | `Libp2pPubsubPbTraceEventGraft.descriptor` | sync |
+| `func (*pubsub_pb.TraceEvent_Graft).GetPeerID() []byte` | `Libp2pPubsubPbTraceEventGraft.getPeerId` | sync |
+| `func (*pubsub_pb.TraceEvent_Graft).GetTopic() string` | `Libp2pPubsubPbTraceEventGraft.getTopic` | sync |
+| `func (*pubsub_pb.TraceEvent_Graft).ProtoMessage()` | `Libp2pPubsubPbTraceEventGraft.protoMessage` | sync |
+| `func (*pubsub_pb.TraceEvent_Graft).ProtoReflect() protoreflect.Message` | `Libp2pPubsubPbTraceEventGraft.protoReflect` | sync |
+| `func (*pubsub_pb.TraceEvent_Graft).Reset()` | `Libp2pPubsubPbTraceEventGraft.reset` | sync |
+| `func (*pubsub_pb.TraceEvent_Graft).String() string` | `Libp2pPubsubPbTraceEventGraft.string` | sync |
+| `func (*pubsub_pb.TraceEvent_Join).Descriptor() ([]byte, []int)` | `Libp2pPubsubPbTraceEventJoin.descriptor` | sync |
+| `func (*pubsub_pb.TraceEvent_Join).GetTopic() string` | `Libp2pPubsubPbTraceEventJoin.getTopic` | sync |
+| `func (*pubsub_pb.TraceEvent_Join).ProtoMessage()` | `Libp2pPubsubPbTraceEventJoin.protoMessage` | sync |
+| `func (*pubsub_pb.TraceEvent_Join).ProtoReflect() protoreflect.Message` | `Libp2pPubsubPbTraceEventJoin.protoReflect` | sync |
+| `func (*pubsub_pb.TraceEvent_Join).Reset()` | `Libp2pPubsubPbTraceEventJoin.reset` | sync |
+| `func (*pubsub_pb.TraceEvent_Join).String() string` | `Libp2pPubsubPbTraceEventJoin.string` | sync |
+| `func (*pubsub_pb.TraceEvent_Leave).Descriptor() ([]byte, []int)` | `Libp2pPubsubPbTraceEventLeave.descriptor` | sync |
+| `func (*pubsub_pb.TraceEvent_Leave).GetTopic() string` | `Libp2pPubsubPbTraceEventLeave.getTopic` | sync |
+| `func (*pubsub_pb.TraceEvent_Leave).ProtoMessage()` | `Libp2pPubsubPbTraceEventLeave.protoMessage` | sync |
+| `func (*pubsub_pb.TraceEvent_Leave).ProtoReflect() protoreflect.Message` | `Libp2pPubsubPbTraceEventLeave.protoReflect` | sync |
+| `func (*pubsub_pb.TraceEvent_Leave).Reset()` | `Libp2pPubsubPbTraceEventLeave.reset` | sync |
+| `func (*pubsub_pb.TraceEvent_Leave).String() string` | `Libp2pPubsubPbTraceEventLeave.string` | sync |
+| `func (*pubsub_pb.TraceEvent_MessageMeta).Descriptor() ([]byte, []int)` | `Libp2pPubsubPbTraceEventMessageMeta.descriptor` | sync |
+| `func (*pubsub_pb.TraceEvent_MessageMeta).GetMessageID() []byte` | `Libp2pPubsubPbTraceEventMessageMeta.getMessageId` | sync |
+| `func (*pubsub_pb.TraceEvent_MessageMeta).GetTopic() string` | `Libp2pPubsubPbTraceEventMessageMeta.getTopic` | sync |
+| `func (*pubsub_pb.TraceEvent_MessageMeta).ProtoMessage()` | `Libp2pPubsubPbTraceEventMessageMeta.protoMessage` | sync |
+| `func (*pubsub_pb.TraceEvent_MessageMeta).ProtoReflect() protoreflect.Message` | `Libp2pPubsubPbTraceEventMessageMeta.protoReflect` | sync |
+| `func (*pubsub_pb.TraceEvent_MessageMeta).Reset()` | `Libp2pPubsubPbTraceEventMessageMeta.reset` | sync |
+| `func (*pubsub_pb.TraceEvent_MessageMeta).String() string` | `Libp2pPubsubPbTraceEventMessageMeta.string` | sync |
+| `func (*pubsub_pb.TraceEvent_OnClosedOutboundStream).Descriptor() ([]byte, []int)` | `Libp2pPubsubPbTraceEventOnClosedOutboundStream.descriptor` | sync |
+| `func (*pubsub_pb.TraceEvent_OnClosedOutboundStream).GetPeerID() []byte` | `Libp2pPubsubPbTraceEventOnClosedOutboundStream.getPeerId` | sync |
+| `func (*pubsub_pb.TraceEvent_OnClosedOutboundStream).ProtoMessage()` | `Libp2pPubsubPbTraceEventOnClosedOutboundStream.protoMessage` | sync |
+| `func (*pubsub_pb.TraceEvent_OnClosedOutboundStream).ProtoReflect() protoreflect.Message` | `Libp2pPubsubPbTraceEventOnClosedOutboundStream.protoReflect` | sync |
+| `func (*pubsub_pb.TraceEvent_OnClosedOutboundStream).Reset()` | `Libp2pPubsubPbTraceEventOnClosedOutboundStream.reset` | sync |
+| `func (*pubsub_pb.TraceEvent_OnClosedOutboundStream).String() string` | `Libp2pPubsubPbTraceEventOnClosedOutboundStream.string` | sync |
+| `func (*pubsub_pb.TraceEvent_OnNewOutboundStream).Descriptor() ([]byte, []int)` | `Libp2pPubsubPbTraceEventOnNewOutboundStream.descriptor` | sync |
+| `func (*pubsub_pb.TraceEvent_OnNewOutboundStream).GetPeerID() []byte` | `Libp2pPubsubPbTraceEventOnNewOutboundStream.getPeerId` | sync |
+| `func (*pubsub_pb.TraceEvent_OnNewOutboundStream).GetProto() string` | `Libp2pPubsubPbTraceEventOnNewOutboundStream.getProto` | sync |
+| `func (*pubsub_pb.TraceEvent_OnNewOutboundStream).ProtoMessage()` | `Libp2pPubsubPbTraceEventOnNewOutboundStream.protoMessage` | sync |
+| `func (*pubsub_pb.TraceEvent_OnNewOutboundStream).ProtoReflect() protoreflect.Message` | `Libp2pPubsubPbTraceEventOnNewOutboundStream.protoReflect` | sync |
+| `func (*pubsub_pb.TraceEvent_OnNewOutboundStream).Reset()` | `Libp2pPubsubPbTraceEventOnNewOutboundStream.reset` | sync |
+| `func (*pubsub_pb.TraceEvent_OnNewOutboundStream).String() string` | `Libp2pPubsubPbTraceEventOnNewOutboundStream.string` | sync |
+| `func (*pubsub_pb.TraceEvent_Prune).Descriptor() ([]byte, []int)` | `Libp2pPubsubPbTraceEventPrune.descriptor` | sync |
+| `func (*pubsub_pb.TraceEvent_Prune).GetPeerID() []byte` | `Libp2pPubsubPbTraceEventPrune.getPeerId` | sync |
+| `func (*pubsub_pb.TraceEvent_Prune).GetTopic() string` | `Libp2pPubsubPbTraceEventPrune.getTopic` | sync |
+| `func (*pubsub_pb.TraceEvent_Prune).ProtoMessage()` | `Libp2pPubsubPbTraceEventPrune.protoMessage` | sync |
+| `func (*pubsub_pb.TraceEvent_Prune).ProtoReflect() protoreflect.Message` | `Libp2pPubsubPbTraceEventPrune.protoReflect` | sync |
+| `func (*pubsub_pb.TraceEvent_Prune).Reset()` | `Libp2pPubsubPbTraceEventPrune.reset` | sync |
+| `func (*pubsub_pb.TraceEvent_Prune).String() string` | `Libp2pPubsubPbTraceEventPrune.string` | sync |
+| `func (*pubsub_pb.TraceEvent_PublishMessage).Descriptor() ([]byte, []int)` | `Libp2pPubsubPbTraceEventPublishMessage.descriptor` | sync |
+| `func (*pubsub_pb.TraceEvent_PublishMessage).GetMessageID() []byte` | `Libp2pPubsubPbTraceEventPublishMessage.getMessageId` | sync |
+| `func (*pubsub_pb.TraceEvent_PublishMessage).GetTopic() string` | `Libp2pPubsubPbTraceEventPublishMessage.getTopic` | sync |
+| `func (*pubsub_pb.TraceEvent_PublishMessage).ProtoMessage()` | `Libp2pPubsubPbTraceEventPublishMessage.protoMessage` | sync |
+| `func (*pubsub_pb.TraceEvent_PublishMessage).ProtoReflect() protoreflect.Message` | `Libp2pPubsubPbTraceEventPublishMessage.protoReflect` | sync |
+| `func (*pubsub_pb.TraceEvent_PublishMessage).Reset()` | `Libp2pPubsubPbTraceEventPublishMessage.reset` | sync |
+| `func (*pubsub_pb.TraceEvent_PublishMessage).String() string` | `Libp2pPubsubPbTraceEventPublishMessage.string` | sync |
+| `func (*pubsub_pb.TraceEvent_RPCMeta).Descriptor() ([]byte, []int)` | `Libp2pPubsubPbTraceEventRpcMeta.descriptor` | sync |
+| `func (*pubsub_pb.TraceEvent_RPCMeta).GetControl() *pubsub_pb.TraceEvent_ControlMeta` | `Libp2pPubsubPbTraceEventRpcMeta.getControl` | sync |
+| `func (*pubsub_pb.TraceEvent_RPCMeta).GetMessages() []*pubsub_pb.TraceEvent_MessageMeta` | `Libp2pPubsubPbTraceEventRpcMeta.getMessages` | sync |
+| `func (*pubsub_pb.TraceEvent_RPCMeta).GetSubscription() []*pubsub_pb.TraceEvent_SubMeta` | `Libp2pPubsubPbTraceEventRpcMeta.getSubscription` | sync |
+| `func (*pubsub_pb.TraceEvent_RPCMeta).ProtoMessage()` | `Libp2pPubsubPbTraceEventRpcMeta.protoMessage` | sync |
+| `func (*pubsub_pb.TraceEvent_RPCMeta).ProtoReflect() protoreflect.Message` | `Libp2pPubsubPbTraceEventRpcMeta.protoReflect` | sync |
+| `func (*pubsub_pb.TraceEvent_RPCMeta).Reset()` | `Libp2pPubsubPbTraceEventRpcMeta.reset` | sync |
+| `func (*pubsub_pb.TraceEvent_RPCMeta).String() string` | `Libp2pPubsubPbTraceEventRpcMeta.string` | sync |
+| `func (*pubsub_pb.TraceEvent_RecvRPC).Descriptor() ([]byte, []int)` | `Libp2pPubsubPbTraceEventRecvRpc.descriptor` | sync |
+| `func (*pubsub_pb.TraceEvent_RecvRPC).GetMeta() *pubsub_pb.TraceEvent_RPCMeta` | `Libp2pPubsubPbTraceEventRecvRpc.getMeta` | sync |
+| `func (*pubsub_pb.TraceEvent_RecvRPC).GetReceivedFrom() []byte` | `Libp2pPubsubPbTraceEventRecvRpc.getReceivedFrom` | sync |
+| `func (*pubsub_pb.TraceEvent_RecvRPC).ProtoMessage()` | `Libp2pPubsubPbTraceEventRecvRpc.protoMessage` | sync |
+| `func (*pubsub_pb.TraceEvent_RecvRPC).ProtoReflect() protoreflect.Message` | `Libp2pPubsubPbTraceEventRecvRpc.protoReflect` | sync |
+| `func (*pubsub_pb.TraceEvent_RecvRPC).Reset()` | `Libp2pPubsubPbTraceEventRecvRpc.reset` | sync |
+| `func (*pubsub_pb.TraceEvent_RecvRPC).String() string` | `Libp2pPubsubPbTraceEventRecvRpc.string` | sync |
+| `func (*pubsub_pb.TraceEvent_RejectMessage).Descriptor() ([]byte, []int)` | `Libp2pPubsubPbTraceEventRejectMessage.descriptor` | sync |
+| `func (*pubsub_pb.TraceEvent_RejectMessage).GetMessageID() []byte` | `Libp2pPubsubPbTraceEventRejectMessage.getMessageId` | sync |
+| `func (*pubsub_pb.TraceEvent_RejectMessage).GetReason() string` | `Libp2pPubsubPbTraceEventRejectMessage.getReason` | sync |
+| `func (*pubsub_pb.TraceEvent_RejectMessage).GetReceivedFrom() []byte` | `Libp2pPubsubPbTraceEventRejectMessage.getReceivedFrom` | sync |
+| `func (*pubsub_pb.TraceEvent_RejectMessage).GetTopic() string` | `Libp2pPubsubPbTraceEventRejectMessage.getTopic` | sync |
+| `func (*pubsub_pb.TraceEvent_RejectMessage).ProtoMessage()` | `Libp2pPubsubPbTraceEventRejectMessage.protoMessage` | sync |
+| `func (*pubsub_pb.TraceEvent_RejectMessage).ProtoReflect() protoreflect.Message` | `Libp2pPubsubPbTraceEventRejectMessage.protoReflect` | sync |
+| `func (*pubsub_pb.TraceEvent_RejectMessage).Reset()` | `Libp2pPubsubPbTraceEventRejectMessage.reset` | sync |
+| `func (*pubsub_pb.TraceEvent_RejectMessage).String() string` | `Libp2pPubsubPbTraceEventRejectMessage.string` | sync |
+| `func (*pubsub_pb.TraceEvent_SendRPC).Descriptor() ([]byte, []int)` | `Libp2pPubsubPbTraceEventSendRpc.descriptor` | sync |
+| `func (*pubsub_pb.TraceEvent_SendRPC).GetMeta() *pubsub_pb.TraceEvent_RPCMeta` | `Libp2pPubsubPbTraceEventSendRpc.getMeta` | sync |
+| `func (*pubsub_pb.TraceEvent_SendRPC).GetSendTo() []byte` | `Libp2pPubsubPbTraceEventSendRpc.getSendTo` | sync |
+| `func (*pubsub_pb.TraceEvent_SendRPC).ProtoMessage()` | `Libp2pPubsubPbTraceEventSendRpc.protoMessage` | sync |
+| `func (*pubsub_pb.TraceEvent_SendRPC).ProtoReflect() protoreflect.Message` | `Libp2pPubsubPbTraceEventSendRpc.protoReflect` | sync |
+| `func (*pubsub_pb.TraceEvent_SendRPC).Reset()` | `Libp2pPubsubPbTraceEventSendRpc.reset` | sync |
+| `func (*pubsub_pb.TraceEvent_SendRPC).String() string` | `Libp2pPubsubPbTraceEventSendRpc.string` | sync |
+| `func (*pubsub_pb.TraceEvent_SubMeta).Descriptor() ([]byte, []int)` | `Libp2pPubsubPbTraceEventSubMeta.descriptor` | sync |
+| `func (*pubsub_pb.TraceEvent_SubMeta).GetSubscribe() bool` | `Libp2pPubsubPbTraceEventSubMeta.getSubscribe` | sync |
+| `func (*pubsub_pb.TraceEvent_SubMeta).GetTopic() string` | `Libp2pPubsubPbTraceEventSubMeta.getTopic` | sync |
+| `func (*pubsub_pb.TraceEvent_SubMeta).ProtoMessage()` | `Libp2pPubsubPbTraceEventSubMeta.protoMessage` | sync |
+| `func (*pubsub_pb.TraceEvent_SubMeta).ProtoReflect() protoreflect.Message` | `Libp2pPubsubPbTraceEventSubMeta.protoReflect` | sync |
+| `func (*pubsub_pb.TraceEvent_SubMeta).Reset()` | `Libp2pPubsubPbTraceEventSubMeta.reset` | sync |
+| `func (*pubsub_pb.TraceEvent_SubMeta).String() string` | `Libp2pPubsubPbTraceEventSubMeta.string` | sync |
+| `var pubsub_pb.TraceEvent_Type_name map[int32]string` | `Go.libp2pPubsub.pb.traceEventTypeName` | sync |
+| `var pubsub_pb.TraceEvent_Type_value map[string]int32` | `Go.libp2pPubsub.pb.traceEventTypeValue` | sync |
+| `func pubsub_pb.ValidateRawRPCControlMessageSize(msg []byte, maxControlMessageSize int) error` | `Go.libp2pPubsub.pb.validateRawRpcControlMessageSize` | sync |
 | `const pubsub_pb.TraceEvent_DELIVER_MESSAGE pubsub_pb.TraceEvent_Type` | `Go.libp2pPubsub.pb.traceEventDeliverMessage` | const |
 | `const pubsub_pb.TraceEvent_DROP_RPC pubsub_pb.TraceEvent_Type` | `Go.libp2pPubsub.pb.traceEventDropRpc` | const |
 | `const pubsub_pb.TraceEvent_DUPLICATE_MESSAGE pubsub_pb.TraceEvent_Type` | `Go.libp2pPubsub.pb.traceEventDuplicateMessage` | const |
@@ -1262,59 +4161,197 @@ Omitted:
 | `const pubsub_pb.TraceEvent_REJECT_MESSAGE pubsub_pb.TraceEvent_Type` | `Go.libp2pPubsub.pb.traceEventRejectMessage` | const |
 | `const pubsub_pb.TraceEvent_SEND_RPC pubsub_pb.TraceEvent_Type` | `Go.libp2pPubsub.pb.traceEventSendRpc` | const |
 
+Omitted:
+
+- `func (pubsub_pb.TraceEvent_Type).Descriptor() protoreflect.EnumDescriptor`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/libp2p/go-libp2p-pubsub/pb.TraceEvent_Type
+- `func (pubsub_pb.TraceEvent_Type).Enum() *pubsub_pb.TraceEvent_Type`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/libp2p/go-libp2p-pubsub/pb.TraceEvent_Type
+- `func (pubsub_pb.TraceEvent_Type).EnumDescriptor() ([]byte, []int)`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/libp2p/go-libp2p-pubsub/pb.TraceEvent_Type
+- `func (pubsub_pb.TraceEvent_Type).Number() protoreflect.EnumNumber`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/libp2p/go-libp2p-pubsub/pb.TraceEvent_Type
+- `func (pubsub_pb.TraceEvent_Type).String() string`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/libp2p/go-libp2p-pubsub/pb.TraceEvent_Type
+- `func (pubsub_pb.TraceEvent_Type).Type() protoreflect.EnumType`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/libp2p/go-libp2p-pubsub/pb.TraceEvent_Type
+- `func (*pubsub_pb.TraceEvent_Type).UnmarshalJSON(b []byte) error`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/libp2p/go-libp2p-pubsub/pb.TraceEvent_Type
+
 ## `github.com/libp2p/go-libp2p/core/connmgr` → `Go.libp2p.core.connmgr` (`lib/go/libp2p/core/connmgr.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
-| `func (connmgr.ConnManager).Protect(id peer.ID, tag string)` | `Libp2pCoreConnmgrConnManager.protect` | sync |
-| `func (connmgr.ConnManager).Unprotect(id peer.ID, tag string) (protected bool)` | `Libp2pCoreConnmgrConnManager.unprotect` | sync |
+| `func connmgr.BumpOverwrite() connmgr.BumpFn` | `Go.libp2p.core.connmgr.bumpOverwrite` | sync |
+| `func connmgr.BumpSumBounded(min int, max int) connmgr.BumpFn` | `Go.libp2p.core.connmgr.bumpSumBounded` | sync |
+| `func connmgr.BumpSumUnbounded() connmgr.BumpFn` | `Go.libp2p.core.connmgr.bumpSumUnbounded` | sync |
+| `func (connmgr.ConnManager).CheckLimit(l connmgr.GetConnLimiter) error` | `Libp2pCoreConnmgrConnManager.checkLimit` | sync |
+| `func (connmgr.ConnManager).Close() error` | `Libp2pCoreConnmgrConnManager.close` | sync |
+| `func (connmgr.ConnManager).GetTagInfo(p peer.ID) *connmgr.TagInfo` | `Libp2pCoreConnmgrConnManager.getTagInfo` | sync |
 | `func (connmgr.ConnManager).IsProtected(id peer.ID, tag string) (protected bool)` | `Libp2pCoreConnmgrConnManager.isProtected` | sync |
+| `func (connmgr.ConnManager).Notifee() network.Notifiee` | `Libp2pCoreConnmgrConnManager.notifee` | sync |
+| `func (connmgr.ConnManager).Protect(id peer.ID, tag string)` | `Libp2pCoreConnmgrConnManager.protect` | sync |
 | `func (connmgr.ConnManager).TagPeer(peer.ID, string, int)` | `Libp2pCoreConnmgrConnManager.tagPeer` | sync |
-| `func (connmgr.ConnManager).UntagPeer(p peer.ID, tag string)` | `Libp2pCoreConnmgrConnManager.untagPeer` | sync |
 | `func (connmgr.ConnManager).TrimOpenConns(ctx context.Context)` | `Libp2pCoreConnmgrConnManager.trimOpenConns` | Future |
+| `func (connmgr.ConnManager).Unprotect(id peer.ID, tag string) (protected bool)` | `Libp2pCoreConnmgrConnManager.unprotect` | sync |
+| `func (connmgr.ConnManager).UntagPeer(p peer.ID, tag string)` | `Libp2pCoreConnmgrConnManager.untagPeer` | sync |
+| `func (connmgr.ConnectionGater).InterceptAccept(network.ConnMultiaddrs) (allow bool)` | `Libp2pCoreConnmgrConnectionGater.interceptAccept` | sync |
+| `func (connmgr.ConnectionGater).InterceptAddrDial(peer.ID, multiaddr.Multiaddr) (allow bool)` | `Libp2pCoreConnmgrConnectionGater.interceptAddrDial` | sync |
+| `func (connmgr.ConnectionGater).InterceptPeerDial(p peer.ID) (allow bool)` | `Libp2pCoreConnmgrConnectionGater.interceptPeerDial` | sync |
+| `func (connmgr.ConnectionGater).InterceptSecured(network.Direction, peer.ID, network.ConnMultiaddrs) (allow bool)` | `Libp2pCoreConnmgrConnectionGater.interceptSecured` | sync |
+| `func (connmgr.ConnectionGater).InterceptUpgraded(network.Conn) (allow bool, reason control.DisconnectReason)` | `Libp2pCoreConnmgrConnectionGater.interceptUpgraded` | sync |
+| `func connmgr.DecayExpireWhenInactive(after time.Duration) connmgr.DecayFn` | `Go.libp2p.core.connmgr.decayExpireWhenInactive` | sync |
+| `func connmgr.DecayFixed(minuend int) connmgr.DecayFn` | `Go.libp2p.core.connmgr.decayFixed` | sync |
+| `func connmgr.DecayLinear(coef float64) connmgr.DecayFn` | `Go.libp2p.core.connmgr.decayLinear` | sync |
+| `func connmgr.DecayNone() connmgr.DecayFn` | `Go.libp2p.core.connmgr.decayNone` | sync |
+| `func (connmgr.Decayer).RegisterDecayingTag(name string, interval time.Duration, decayFn connmgr.DecayFn, bumpFn connmgr.BumpFn) (connmgr.DecayingTag, error)` | `Libp2pCoreConnmgrDecayer.registerDecayingTag` | sync |
+| `func (connmgr.DecayingTag).Bump(peer peer.ID, delta int) error` | `Libp2pCoreConnmgrDecayingTag.bump` | sync |
+| `func (connmgr.DecayingTag).Close() error` | `Libp2pCoreConnmgrDecayingTag.close` | sync |
+| `func (connmgr.DecayingTag).Interval() time.Duration` | `Libp2pCoreConnmgrDecayingTag.interval` | sync |
+| `func (connmgr.DecayingTag).Name() string` | `Libp2pCoreConnmgrDecayingTag.name` | sync |
+| `func (connmgr.DecayingTag).Remove(peer peer.ID) error` | `Libp2pCoreConnmgrDecayingTag.remove` | sync |
+| `func (connmgr.NullConnMgr).CheckLimit(_ connmgr.GetConnLimiter) error` | `Libp2pCoreConnmgrNullConnMgr.checkLimit` | sync |
+| `func (connmgr.NullConnMgr).Close() error` | `Libp2pCoreConnmgrNullConnMgr.close` | sync |
+| `func (connmgr.NullConnMgr).GetTagInfo(peer.ID) *connmgr.TagInfo` | `Libp2pCoreConnmgrNullConnMgr.getTagInfo` | sync |
+| `func (connmgr.NullConnMgr).IsProtected(peer.ID, string) bool` | `Libp2pCoreConnmgrNullConnMgr.isProtected` | sync |
+| `func (connmgr.NullConnMgr).Notifee() network.Notifiee` | `Libp2pCoreConnmgrNullConnMgr.notifee` | sync |
+| `func (connmgr.NullConnMgr).Protect(peer.ID, string)` | `Libp2pCoreConnmgrNullConnMgr.protect` | sync |
+| `func (connmgr.NullConnMgr).TagPeer(peer.ID, string, int)` | `Libp2pCoreConnmgrNullConnMgr.tagPeer` | sync |
+| `func (connmgr.NullConnMgr).TrimOpenConns(_ context.Context)` | `Libp2pCoreConnmgrNullConnMgr.trimOpenConns` | Future |
+| `func (connmgr.NullConnMgr).Unprotect(peer.ID, string) bool` | `Libp2pCoreConnmgrNullConnMgr.unprotect` | sync |
+| `func (connmgr.NullConnMgr).UntagPeer(peer.ID, string)` | `Libp2pCoreConnmgrNullConnMgr.untagPeer` | sync |
+| `func connmgr.SupportsDecay(mgr connmgr.ConnManager) (connmgr.Decayer, bool)` | `Go.libp2p.core.connmgr.supportsDecay` | sync |
+
+Omitted:
+
+- `func (connmgr.ConnManager).UpsertTag(p peer.ID, tag string, upsert func(int) int)`: parameter upsert: func(int) int
+- `func (connmgr.GetConnLimiter).GetConnLimit() int`: receiver is neither a handle, a DTO nor a value type: 
+- `func (connmgr.NullConnMgr).UpsertTag(peer.ID, string, func(int) int)`: parameter arg2: func(int) int
 
 ## `github.com/libp2p/go-libp2p/core/crypto` → `Go.libp2p.core.crypto` (`lib/go/libp2p/core/crypto.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
-| `func crypto.GenerateKeyPair(typ int, bits int) (crypto.PrivKey, crypto.PubKey, error)` | `Go.libp2p.core.crypto.generateKeyPair` | sync |
-| `func crypto.MarshalPrivateKey(k crypto.PrivKey) ([]byte, error)` | `Go.libp2p.core.crypto.marshalPrivateKey` | sync |
-| `func crypto.UnmarshalPrivateKey(data []byte) (crypto.PrivKey, error)` | `Go.libp2p.core.crypto.unmarshalPrivateKey` | sync |
-| `func crypto.MarshalPublicKey(k crypto.PubKey) ([]byte, error)` | `Go.libp2p.core.crypto.marshalPublicKey` | sync |
-| `func crypto.UnmarshalPublicKey(data []byte) (crypto.PubKey, error)` | `Go.libp2p.core.crypto.unmarshalPublicKey` | sync |
-| `func (crypto.PrivKey).GetPublic() crypto.PubKey` | `Libp2pCoreCryptoPrivKey.getPublic` | sync |
-| `func (crypto.PrivKey).Sign([]byte) ([]byte, error)` | `Libp2pCoreCryptoPrivKey.sign` | sync |
-| `func (crypto.PubKey).Verify(data []byte, sig []byte) (bool, error)` | `Libp2pCoreCryptoPubKey.verify` | sync |
-| `func crypto.KeyEqual(k1 crypto.Key, k2 crypto.Key) bool` | `Go.libp2p.core.crypto.keyEqual` | sync |
-| `func crypto.ConfigEncodeKey(b []byte) string` | `Go.libp2p.core.crypto.configEncodeKey` | sync |
 | `func crypto.ConfigDecodeKey(b string) ([]byte, error)` | `Go.libp2p.core.crypto.configDecodeKey` | sync |
-| `func crypto.UnmarshalEd25519PrivateKey(data []byte) (crypto.PrivKey, error)` | `Go.libp2p.core.crypto.unmarshalEd25519PrivateKey` | sync |
-| `func crypto.UnmarshalEd25519PublicKey(data []byte) (crypto.PubKey, error)` | `Go.libp2p.core.crypto.unmarshalEd25519PublicKey` | sync |
-| `func crypto.UnmarshalSecp256k1PrivateKey(data []byte) (k crypto.PrivKey, err error)` | `Go.libp2p.core.crypto.unmarshalSecp256k1PrivateKey` | sync |
-| `func crypto.UnmarshalSecp256k1PublicKey(data []byte) (_k crypto.PubKey, err error)` | `Go.libp2p.core.crypto.unmarshalSecp256k1PublicKey` | sync |
-| `func crypto.UnmarshalRsaPrivateKey(b []byte) (key crypto.PrivKey, err error)` | `Go.libp2p.core.crypto.unmarshalRsaPrivateKey` | sync |
-| `func crypto.UnmarshalRsaPublicKey(b []byte) (key crypto.PubKey, err error)` | `Go.libp2p.core.crypto.unmarshalRsaPublicKey` | sync |
-| `func crypto.UnmarshalECDSAPrivateKey(data []byte) (res crypto.PrivKey, err error)` | `Go.libp2p.core.crypto.unmarshalEcdsaPrivateKey` | sync |
-| `func crypto.UnmarshalECDSAPublicKey(data []byte) (key crypto.PubKey, err error)` | `Go.libp2p.core.crypto.unmarshalEcdsaPublicKey` | sync |
+| `func crypto.ConfigEncodeKey(b []byte) string` | `Go.libp2p.core.crypto.configEncodeKey` | sync |
+| `var crypto.ECDSACurve elliptic.Curve` | `Go.libp2p.core.crypto.ecdsaCurve` | sync |
+| `func crypto.ECDSAKeyPairFromKey(priv *ecdsa.PrivateKey) (crypto.PrivKey, crypto.PubKey, error)` | `Go.libp2p.core.crypto.ecdsaKeyPairFromKey` | sync |
+| `func (*crypto.ECDSAPrivateKey).Equals(o crypto.Key) bool` | `Libp2pCoreCryptoEcdsaPrivateKey.equals` | sync |
+| `func (*crypto.ECDSAPrivateKey).GetPublic() crypto.PubKey` | `Libp2pCoreCryptoEcdsaPrivateKey.getPublic` | sync |
+| `func (*crypto.ECDSAPrivateKey).Raw() (res []byte, err error)` | `Libp2pCoreCryptoEcdsaPrivateKey.raw` | sync |
+| `func (*crypto.ECDSAPrivateKey).Sign(data []byte) (sig []byte, err error)` | `Libp2pCoreCryptoEcdsaPrivateKey.sign` | sync |
+| `func (*crypto.ECDSAPrivateKey).Type() pb.KeyType` | `Libp2pCoreCryptoEcdsaPrivateKey.type` | sync |
+| `func (*crypto.ECDSAPublicKey).Equals(o crypto.Key) bool` | `Libp2pCoreCryptoEcdsaPublicKey.equals` | sync |
+| `func (*crypto.ECDSAPublicKey).Raw() ([]byte, error)` | `Libp2pCoreCryptoEcdsaPublicKey.raw` | sync |
+| `func (*crypto.ECDSAPublicKey).Type() pb.KeyType` | `Libp2pCoreCryptoEcdsaPublicKey.type` | sync |
+| `func (*crypto.ECDSAPublicKey).Verify(data []byte, sigBytes []byte) (success bool, err error)` | `Libp2pCoreCryptoEcdsaPublicKey.verify` | sync |
+| `func crypto.ECDSAPublicKeyFromPubKey(pub ecdsa.PublicKey) (crypto.PubKey, error)` | `Go.libp2p.core.crypto.ecdsaPublicKeyFromPubKey` | sync |
+| `func (*crypto.Ed25519PrivateKey).Equals(o crypto.Key) bool` | `Libp2pCoreCryptoEd25519PrivateKey.equals` | sync |
+| `func (*crypto.Ed25519PrivateKey).GetPublic() crypto.PubKey` | `Libp2pCoreCryptoEd25519PrivateKey.getPublic` | sync |
+| `func (*crypto.Ed25519PrivateKey).Raw() ([]byte, error)` | `Libp2pCoreCryptoEd25519PrivateKey.raw` | sync |
+| `func (*crypto.Ed25519PrivateKey).Sign(msg []byte) (res []byte, err error)` | `Libp2pCoreCryptoEd25519PrivateKey.sign` | sync |
+| `func (*crypto.Ed25519PrivateKey).Type() pb.KeyType` | `Libp2pCoreCryptoEd25519PrivateKey.type` | sync |
+| `func (*crypto.Ed25519PublicKey).Equals(o crypto.Key) bool` | `Libp2pCoreCryptoEd25519PublicKey.equals` | sync |
+| `func (*crypto.Ed25519PublicKey).Raw() ([]byte, error)` | `Libp2pCoreCryptoEd25519PublicKey.raw` | sync |
+| `func (*crypto.Ed25519PublicKey).Type() pb.KeyType` | `Libp2pCoreCryptoEd25519PublicKey.type` | sync |
+| `func (*crypto.Ed25519PublicKey).Verify(data []byte, sig []byte) (success bool, err error)` | `Libp2pCoreCryptoEd25519PublicKey.verify` | sync |
+| `func crypto.GenerateECDSAKeyPair(src io.Reader) (crypto.PrivKey, crypto.PubKey, error)` | `Go.libp2p.core.crypto.generateEcdsaKeyPair` | sync |
+| `func crypto.GenerateECDSAKeyPairWithCurve(curve elliptic.Curve, src io.Reader) (crypto.PrivKey, crypto.PubKey, error)` | `Go.libp2p.core.crypto.generateEcdsaKeyPairWithCurve` | sync |
+| `func crypto.GenerateEd25519Key(src io.Reader) (crypto.PrivKey, crypto.PubKey, error)` | `Go.libp2p.core.crypto.generateEd25519Key` | sync |
+| `func crypto.GenerateKeyPair(typ int, bits int) (crypto.PrivKey, crypto.PubKey, error)` | `Go.libp2p.core.crypto.generateKeyPair` | sync |
+| `func crypto.GenerateKeyPairWithReader(typ int, bits int, src io.Reader) (crypto.PrivKey, crypto.PubKey, error)` | `Go.libp2p.core.crypto.generateKeyPairWithReader` | sync |
+| `func crypto.GenerateRSAKeyPair(bits int, src io.Reader) (crypto.PrivKey, crypto.PubKey, error)` | `Go.libp2p.core.crypto.generateRsaKeyPair` | sync |
+| `func crypto.GenerateSecp256k1Key(_ io.Reader) (crypto.PrivKey, crypto.PubKey, error)` | `Go.libp2p.core.crypto.generateSecp256k1Key` | sync |
+| `func (crypto.Key).Equals(crypto.Key) bool` | `Libp2pCoreCryptoKey.equals` | sync |
 | `func (crypto.Key).Raw() ([]byte, error)` | `Libp2pCoreCryptoKey.raw` | sync |
 | `func (crypto.Key).Type() pb.KeyType` | `Libp2pCoreCryptoKey.type` | sync |
-| `func (crypto.Key).Equals(crypto.Key) bool` | `Libp2pCoreCryptoKey.equals` | sync |
+| `func crypto.KeyEqual(k1 crypto.Key, k2 crypto.Key) bool` | `Go.libp2p.core.crypto.keyEqual` | sync |
+| `func crypto.KeyPairFromStdKey(priv crypto.PrivateKey) (crypto.PrivKey, crypto.PubKey, error)` | `Go.libp2p.core.crypto.keyPairFromStdKey` | sync |
+| `var crypto.KeyTypes []int` | `Go.libp2p.core.crypto.keyTypes` | sync |
+| `func crypto.MarshalECDSAPrivateKey(ePriv crypto.ECDSAPrivateKey) (res []byte, err error)` | `Go.libp2p.core.crypto.marshalEcdsaPrivateKey` | sync |
+| `func crypto.MarshalECDSAPublicKey(ePub crypto.ECDSAPublicKey) (res []byte, err error)` | `Go.libp2p.core.crypto.marshalEcdsaPublicKey` | sync |
+| `func crypto.MarshalPrivateKey(k crypto.PrivKey) ([]byte, error)` | `Go.libp2p.core.crypto.marshalPrivateKey` | sync |
+| `func crypto.MarshalPublicKey(k crypto.PubKey) ([]byte, error)` | `Go.libp2p.core.crypto.marshalPublicKey` | sync |
+| `var crypto.MinRsaKeyBits int` | `Go.libp2p.core.crypto.minRsaKeyBits` | sync |
+| `func (crypto.PrivKey).GetPublic() crypto.PubKey` | `Libp2pCoreCryptoPrivKey.getPublic` | sync |
+| `func (crypto.PrivKey).Sign([]byte) ([]byte, error)` | `Libp2pCoreCryptoPrivKey.sign` | sync |
+| `func crypto.PrivKeyToStdKey(priv crypto.PrivKey) (crypto.PrivateKey, error)` | `Go.libp2p.core.crypto.privKeyToStdKey` | sync |
+| `var crypto.PrivKeyUnmarshallers map[pb.KeyType]crypto.PrivKeyUnmarshaller` | `Go.libp2p.core.crypto.privKeyUnmarshallers` | sync |
+| `func (crypto.PubKey).Verify(data []byte, sig []byte) (bool, error)` | `Libp2pCoreCryptoPubKey.verify` | sync |
+| `func crypto.PubKeyToStdKey(pub crypto.PubKey) (crypto.PublicKey, error)` | `Go.libp2p.core.crypto.pubKeyToStdKey` | sync |
+| `var crypto.PubKeyUnmarshallers map[pb.KeyType]crypto.PubKeyUnmarshaller` | `Go.libp2p.core.crypto.pubKeyUnmarshallers` | sync |
+| `func crypto.PublicKeyFromProto(pmes *pb.PublicKey) (crypto.PubKey, error)` | `Go.libp2p.core.crypto.publicKeyFromProto` | sync |
+| `func crypto.PublicKeyToProto(k crypto.PubKey) (*pb.PublicKey, error)` | `Go.libp2p.core.crypto.publicKeyToProto` | sync |
+| `func (*crypto.RsaPrivateKey).Equals(k crypto.Key) bool` | `Libp2pCoreCryptoRsaPrivateKey.equals` | sync |
+| `func (*crypto.RsaPrivateKey).GetPublic() crypto.PubKey` | `Libp2pCoreCryptoRsaPrivateKey.getPublic` | sync |
+| `func (*crypto.RsaPrivateKey).Raw() (res []byte, err error)` | `Libp2pCoreCryptoRsaPrivateKey.raw` | sync |
+| `func (*crypto.RsaPrivateKey).Sign(message []byte) (sig []byte, err error)` | `Libp2pCoreCryptoRsaPrivateKey.sign` | sync |
+| `func (*crypto.RsaPrivateKey).Type() pb.KeyType` | `Libp2pCoreCryptoRsaPrivateKey.type` | sync |
+| `func (*crypto.RsaPublicKey).Equals(k crypto.Key) bool` | `Libp2pCoreCryptoRsaPublicKey.equals` | sync |
+| `func (*crypto.RsaPublicKey).Raw() (res []byte, err error)` | `Libp2pCoreCryptoRsaPublicKey.raw` | sync |
+| `func (*crypto.RsaPublicKey).Type() pb.KeyType` | `Libp2pCoreCryptoRsaPublicKey.type` | sync |
+| `func (*crypto.RsaPublicKey).Verify(data []byte, sig []byte) (success bool, err error)` | `Libp2pCoreCryptoRsaPublicKey.verify` | sync |
+| `func (*crypto.Secp256k1PrivateKey).Equals(o crypto.Key) bool` | `Libp2pCoreCryptoSecp256k1PrivateKey.equals` | sync |
+| `func (*crypto.Secp256k1PrivateKey).GetPublic() crypto.PubKey` | `Libp2pCoreCryptoSecp256k1PrivateKey.getPublic` | sync |
+| `func (*crypto.Secp256k1PrivateKey).Raw() ([]byte, error)` | `Libp2pCoreCryptoSecp256k1PrivateKey.raw` | sync |
+| `func (*crypto.Secp256k1PrivateKey).Sign(data []byte) (_sig []byte, err error)` | `Libp2pCoreCryptoSecp256k1PrivateKey.sign` | sync |
+| `func (*crypto.Secp256k1PrivateKey).Type() pb.KeyType` | `Libp2pCoreCryptoSecp256k1PrivateKey.type` | sync |
+| `func (*crypto.Secp256k1PublicKey).Equals(o crypto.Key) bool` | `Libp2pCoreCryptoSecp256k1PublicKey.equals` | sync |
+| `func (*crypto.Secp256k1PublicKey).Raw() (res []byte, err error)` | `Libp2pCoreCryptoSecp256k1PublicKey.raw` | sync |
+| `func (*crypto.Secp256k1PublicKey).Type() pb.KeyType` | `Libp2pCoreCryptoSecp256k1PublicKey.type` | sync |
+| `func (*crypto.Secp256k1PublicKey).Verify(data []byte, sigStr []byte) (success bool, err error)` | `Libp2pCoreCryptoSecp256k1PublicKey.verify` | sync |
+| `func crypto.UnmarshalECDSAPrivateKey(data []byte) (res crypto.PrivKey, err error)` | `Go.libp2p.core.crypto.unmarshalEcdsaPrivateKey` | sync |
+| `func crypto.UnmarshalECDSAPublicKey(data []byte) (key crypto.PubKey, err error)` | `Go.libp2p.core.crypto.unmarshalEcdsaPublicKey` | sync |
+| `func crypto.UnmarshalEd25519PrivateKey(data []byte) (crypto.PrivKey, error)` | `Go.libp2p.core.crypto.unmarshalEd25519PrivateKey` | sync |
+| `func crypto.UnmarshalEd25519PublicKey(data []byte) (crypto.PubKey, error)` | `Go.libp2p.core.crypto.unmarshalEd25519PublicKey` | sync |
+| `func crypto.UnmarshalPrivateKey(data []byte) (crypto.PrivKey, error)` | `Go.libp2p.core.crypto.unmarshalPrivateKey` | sync |
+| `func crypto.UnmarshalPublicKey(data []byte) (crypto.PubKey, error)` | `Go.libp2p.core.crypto.unmarshalPublicKey` | sync |
+| `func crypto.UnmarshalRsaPrivateKey(b []byte) (key crypto.PrivKey, err error)` | `Go.libp2p.core.crypto.unmarshalRsaPrivateKey` | sync |
+| `func crypto.UnmarshalRsaPublicKey(b []byte) (key crypto.PubKey, err error)` | `Go.libp2p.core.crypto.unmarshalRsaPublicKey` | sync |
+| `func crypto.UnmarshalSecp256k1PrivateKey(data []byte) (k crypto.PrivKey, err error)` | `Go.libp2p.core.crypto.unmarshalSecp256k1PrivateKey` | sync |
+| `func crypto.UnmarshalSecp256k1PublicKey(data []byte) (_k crypto.PubKey, err error)` | `Go.libp2p.core.crypto.unmarshalSecp256k1PublicKey` | sync |
+| `crypto.Key → x.(*crypto.ECDSAPrivateKey)` | `Libp2pCoreCryptoKey.asLibp2pCoreCryptoEcdsaPrivateKey` | cast |
+| `crypto.Key → x.(*crypto.ECDSAPublicKey)` | `Libp2pCoreCryptoKey.asLibp2pCoreCryptoEcdsaPublicKey` | cast |
+| `crypto.Key → x.(*crypto.Ed25519PrivateKey)` | `Libp2pCoreCryptoKey.asLibp2pCoreCryptoEd25519PrivateKey` | cast |
+| `crypto.Key → x.(*crypto.Ed25519PublicKey)` | `Libp2pCoreCryptoKey.asLibp2pCoreCryptoEd25519PublicKey` | cast |
+| `crypto.Key → x.(*crypto.RsaPrivateKey)` | `Libp2pCoreCryptoKey.asLibp2pCoreCryptoRsaPrivateKey` | cast |
+| `crypto.Key → x.(*crypto.RsaPublicKey)` | `Libp2pCoreCryptoKey.asLibp2pCoreCryptoRsaPublicKey` | cast |
+| `crypto.Key → x.(*crypto.Secp256k1PublicKey)` | `Libp2pCoreCryptoKey.asLibp2pCoreCryptoSecp256k1PublicKey` | cast |
 | `crypto.Key → x.(crypto.PrivKey)` | `Libp2pCoreCryptoKey.asLibp2pCoreCryptoPrivKey` | cast |
 | `crypto.Key → x.(crypto.PubKey)` | `Libp2pCoreCryptoKey.asLibp2pCoreCryptoPubKey` | cast |
+| `crypto.PrivKey → x.(*crypto.ECDSAPrivateKey)` | `Libp2pCoreCryptoPrivKey.asLibp2pCoreCryptoEcdsaPrivateKey` | cast |
+| `crypto.PrivKey → x.(*crypto.Ed25519PrivateKey)` | `Libp2pCoreCryptoPrivKey.asLibp2pCoreCryptoEd25519PrivateKey` | cast |
+| `crypto.PrivKey → x.(*crypto.RsaPrivateKey)` | `Libp2pCoreCryptoPrivKey.asLibp2pCoreCryptoRsaPrivateKey` | cast |
+| `crypto.PubKey → x.(*crypto.ECDSAPublicKey)` | `Libp2pCoreCryptoPubKey.asLibp2pCoreCryptoEcdsaPublicKey` | cast |
+| `crypto.PubKey → x.(*crypto.Ed25519PublicKey)` | `Libp2pCoreCryptoPubKey.asLibp2pCoreCryptoEd25519PublicKey` | cast |
+| `crypto.PubKey → x.(*crypto.RsaPublicKey)` | `Libp2pCoreCryptoPubKey.asLibp2pCoreCryptoRsaPublicKey` | cast |
+| `crypto.PubKey → x.(*crypto.Secp256k1PublicKey)` | `Libp2pCoreCryptoPubKey.asLibp2pCoreCryptoSecp256k1PublicKey` | cast |
 | `const crypto.ECDSA untyped int` | `Go.libp2p.core.crypto.ecdsa` | const |
 | `const crypto.Ed25519 untyped int` | `Go.libp2p.core.crypto.ed25519` | const |
 | `const crypto.RSA untyped int` | `Go.libp2p.core.crypto.rsa` | const |
 | `const crypto.Secp256k1 untyped int` | `Go.libp2p.core.crypto.secp256k1` | const |
 | `const crypto.WeakRsaKeyEnv untyped string` | `Go.libp2p.core.crypto.weakRsaKeyEnv` | const |
 
+## `github.com/libp2p/go-libp2p/core/crypto/pb` → `Go.libp2p.core.crypto.pb` (`lib/go/libp2p/core/crypto/pb.dart`)
+
+| Go | Dart | Mode |
+|---|---|---|
+| `const pb.KeyType_ECDSA pb.KeyType` | `Go.libp2p.core.crypto.pb.keyTypeEcdsa` | const |
+| `const pb.KeyType_Ed25519 pb.KeyType` | `Go.libp2p.core.crypto.pb.keyTypeEd25519` | const |
+| `const pb.KeyType_RSA pb.KeyType` | `Go.libp2p.core.crypto.pb.keyTypeRsa` | const |
+| `const pb.KeyType_Secp256k1 pb.KeyType` | `Go.libp2p.core.crypto.pb.keyTypeSecp256k1` | const |
+
+## `github.com/libp2p/go-libp2p/core/discovery` → `Go.libp2p.core.discovery` (`lib/go/libp2p/core/discovery.dart`)
+
+| Go | Dart | Mode |
+|---|---|---|
+| `discovery.Discovery → x.(*routing.DiscoveryRouting)` | `Libp2pCoreDiscovery.asLibp2pP2pDiscoveryRouting` | cast |
+| `discovery.Discovery → x.(*routing.RoutingDiscovery)` | `Libp2pCoreDiscovery.asLibp2pP2pDiscoveryRoutingDiscovery` | cast |
+
 ## `github.com/libp2p/go-libp2p/core/event` → `Go.libp2p.core.event` (`lib/go/libp2p/core/event.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
-| `func (event.Bus).Subscribe(eventType any, opts ...event.SubscriptionOpt) (event.Subscription, error)` | `Libp2pCoreEventBus.subscribe` | sync |
-| `func (event.Subscription).Out() <-chan any` | `Libp2pCoreEventSubscription.out` | Stream |
-| `func (event.Subscription).Name() string` | `Libp2pCoreEventSubscription.name` | sync |
 | `func (io.Closer).Close() error` | `Libp2pCoreEventSubscription.close` | sync |
+| `func (event.Bus).Emitter(eventType any, opts ...event.EmitterOpt) (event.Emitter, error)` | `Libp2pCoreEventBus.emitter` | sync |
+| `func (event.Bus).GetAllEventTypes() []reflect.Type` | `Libp2pCoreEventBus.getAllEventTypes` | sync |
+| `func (event.Bus).Subscribe(eventType any, opts ...event.SubscriptionOpt) (event.Subscription, error)` | `Libp2pCoreEventBus.subscribe` | sync |
+| `func (event.Emitter).Emit(evt any) error` | `Libp2pCoreEventEmitter.emit` | sync |
+| `func (event.Subscription).Name() string` | `Libp2pCoreEventSubscription.name` | sync |
+| `func (event.Subscription).Out() <-chan any` | `Libp2pCoreEventSubscription.out` | Stream |
 | `const event.Added event.AddrAction` | `Go.libp2p.core.event.added` | const |
 | `const event.Maintained event.AddrAction` | `Go.libp2p.core.event.maintained` | const |
 | `const event.Removed event.AddrAction` | `Go.libp2p.core.event.removed` | const |
@@ -1322,25 +4359,28 @@ Omitted:
 
 Omitted:
 
+- `func (event.Bus).Emitter(eventType any, opts ...event.EmitterOpt) (event.Emitter, error)`: called without `opts: []func(any) error`
 - `func (event.Bus).Subscribe(eventType any, opts ...event.SubscriptionOpt) (event.Subscription, error)`: called without `opts: []func(any) error`
+- `var event.WildcardSubscription *event.wildcardSubscriptionType`: result 0: *unexported type github.com/libp2p/go-libp2p/core/event.wildcardSubscriptionType
 
 ## `github.com/libp2p/go-libp2p/core/host` → `Go.libp2p.core.host` (`lib/go/libp2p/core/host.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
-| `func (host.Host).ConnManager() connmgr.ConnManager` | `Libp2pCoreHost.connManager` | sync |
-| `func (host.Host).ID() peer.ID` | `Libp2pCoreHost.id` | sync |
 | `func (host.Host).Addrs() []multiaddr.Multiaddr` | `Libp2pCoreHost.addrs` | sync |
-| `func (host.Host).Connect(ctx context.Context, pi peer.AddrInfo) error` | `Libp2pCoreHost.connect` | Future |
-| `func (host.Host).Network() network.Network` | `Libp2pCoreHost.network` | sync |
-| `func (host.Host).Peerstore() peerstore.Peerstore` | `Libp2pCoreHost.peerstore` | sync |
 | `func (host.Host).Close() error` | `Libp2pCoreHost.close` | Future |
-| `func host.InfoFromHost(h host.Host) *peer.AddrInfo` | `Go.libp2p.core.host.infoFromHost` | sync |
+| `func (host.Host).ConnManager() connmgr.ConnManager` | `Libp2pCoreHost.connManager` | sync |
+| `func (host.Host).Connect(ctx context.Context, pi peer.AddrInfo) error` | `Libp2pCoreHost.connect` | Future |
+| `func (host.Host).EventBus() event.Bus` | `Libp2pCoreHost.eventBus` | sync |
+| `func (host.Host).ID() peer.ID` | `Libp2pCoreHost.id` | sync |
+| `func (host.Host).Mux() protocol.Switch` | `Libp2pCoreHost.mux` | sync |
+| `func (host.Host).Network() network.Network` | `Libp2pCoreHost.network` | sync |
 | `func (host.Host).NewStream(ctx context.Context, p peer.ID, pids ...protocol.ID) (network.Stream, error)` | `Libp2pCoreHost.newStream` | Future |
+| `func (host.Host).Peerstore() peerstore.Peerstore` | `Libp2pCoreHost.peerstore` | sync |
+| `func (host.Host).RemoveStreamHandler(pid protocol.ID)` | `Libp2pCoreHost.removeStreamHandler` | sync |
 | `func (host.Host).SetStreamHandler(pid protocol.ID, handler network.StreamHandler)` | `Libp2pCoreHost.setStreamHandler` | sync |
 | `func (host.Host).SetStreamHandlerMatch(protocol.ID, func(protocol.ID) bool, network.StreamHandler)` | `Libp2pCoreHost.setStreamHandlerMatch` | sync |
-| `func (host.Host).RemoveStreamHandler(pid protocol.ID)` | `Libp2pCoreHost.removeStreamHandler` | sync |
-| `func (host.Host).EventBus() event.Bus` | `Libp2pCoreHost.eventBus` | sync |
+| `func host.InfoFromHost(h host.Host) *peer.AddrInfo` | `Go.libp2p.core.host.infoFromHost` | sync |
 
 ## `github.com/libp2p/go-libp2p/core/network` → `Go.libp2p.core.network` (`lib/go/libp2p/core/network.dart`)
 
@@ -1348,20 +4388,15 @@ Omitted:
 |---|---|---|
 | `func (network.ResourceScopeViewer).ViewSystem(func(network.ResourceScope) error) error` | `Libp2pCoreNetworkResourceManager.viewSystem` | Future |
 | `func (network.ResourceScopeViewer).ViewTransient(func(network.ResourceScope) error) error` | `Libp2pCoreNetworkResourceManager.viewTransient` | Future |
-| `func (network.ResourceScope).Stat() network.ScopeStat` | `Libp2pCoreNetworkResourceScope.stat` | sync |
 | `func (network.Dialer).Peers() []peer.ID` | `Libp2pCoreNetwork.peers` | sync |
 | `func (network.Dialer).Conns() []network.Conn` | `Libp2pCoreNetwork.conns` | sync |
 | `func (network.Dialer).ConnsToPeer(p peer.ID) []network.Conn` | `Libp2pCoreNetwork.connsToPeer` | sync |
 | `func (network.Dialer).Connectedness(peer.ID) network.Connectedness` | `Libp2pCoreNetwork.connectedness` | sync |
 | `func (network.Dialer).ClosePeer(peer.ID) error` | `Libp2pCoreNetwork.closePeer` | sync |
-| `func (network.Network).ListenAddresses() []multiaddr.Multiaddr` | `Libp2pCoreNetwork.listenAddresses` | sync |
-| `func (network.Network).InterfaceListenAddresses() ([]multiaddr.Multiaddr, error)` | `Libp2pCoreNetwork.interfaceListenAddresses` | sync |
-| `func (network.Conn).ID() string` | `Libp2pCoreNetworkConn.id` | sync |
 | `func (network.ConnSecurity).RemotePeer() peer.ID` | `Libp2pCoreNetworkConn.remotePeer` | sync |
 | `func (network.ConnMultiaddrs).RemoteMultiaddr() multiaddr.Multiaddr` | `Libp2pCoreNetworkConn.remoteMultiaddr` | sync |
 | `func (network.ConnMultiaddrs).LocalMultiaddr() multiaddr.Multiaddr` | `Libp2pCoreNetworkConn.localMultiaddr` | sync |
 | `func (network.ConnStat).Stat() network.ConnStats` | `Libp2pCoreNetworkConn.stat` | sync |
-| `func (network.Conn).IsClosed() bool` | `Libp2pCoreNetworkConn.isClosed` | sync |
 | `func (io.Closer).Close() error` | `Libp2pCoreNetworkConn.close` | Future |
 | `func (io.Reader).Read(p []byte) (n int, err error)` | `Libp2pCoreNetworkStream.read` | Future |
 | `func (io.Writer).Write(p []byte) (n int, err error)` | `Libp2pCoreNetworkStream.write` | Future |
@@ -1372,12 +4407,144 @@ Omitted:
 | `func (network.MuxedStream).SetDeadline(time.Time) error` | `Libp2pCoreNetworkStream.setDeadline` | sync |
 | `func (network.MuxedStream).SetReadDeadline(time.Time) error` | `Libp2pCoreNetworkStream.setReadDeadline` | sync |
 | `func (network.MuxedStream).SetWriteDeadline(time.Time) error` | `Libp2pCoreNetworkStream.setWriteDeadline` | sync |
-| `func (network.Stream).ID() string` | `Libp2pCoreNetworkStream.id` | sync |
-| `func (network.Stream).Protocol() protocol.ID` | `Libp2pCoreNetworkStream.protocol` | sync |
-| `func (network.Stream).Conn() network.Conn` | `Libp2pCoreNetworkStream.conn` | sync |
 | `Dart implementation of network.Notifiee` | `factory Libp2pCoreNetworkNotifiee` | sync |
 | `func (network.Dialer).Notify(network.Notifiee)` | `Libp2pCoreNetwork.notify` | sync |
 | `func (network.Dialer).StopNotify(network.Notifiee)` | `Libp2pCoreNetwork.stopNotify` | sync |
+| `func (network.Conn).As(target any) bool` | `Libp2pCoreNetworkConn.as` | sync |
+| `func (network.Conn).CloseWithError(errCode network.ConnErrorCode) error` | `Libp2pCoreNetworkConn.closeWithError` | sync |
+| `func (network.Conn).GetStreams() []network.Stream` | `Libp2pCoreNetworkConn.getStreams` | sync |
+| `func (network.Conn).ID() string` | `Libp2pCoreNetworkConn.id` | sync |
+| `func (network.Conn).IsClosed() bool` | `Libp2pCoreNetworkConn.isClosed` | sync |
+| `func (network.Conn).NewStream(context.Context) (network.Stream, error)` | `Libp2pCoreNetworkConn.newStream` | Future |
+| `func (network.ConnManagementScope).PeerScope() network.PeerScope` | `Libp2pCoreNetworkConnManagementScope.peerScope` | sync |
+| `func (network.ConnManagementScope).SetPeer(peer.ID) error` | `Libp2pCoreNetworkConnManagementScope.setPeer` | sync |
+| `func (network.ConnScoper).Scope() network.ConnScope` | `Libp2pCoreNetworkConnScoper.scope` | sync |
+| `func (network.ConnSecurity).ConnState() network.ConnectionState` | `Libp2pCoreNetworkConnSecurity.connState` | sync |
+| `func (network.ConnSecurity).LocalPeer() peer.ID` | `Libp2pCoreNetworkConnSecurity.localPeer` | sync |
+| `func (network.ConnSecurity).RemotePeer() peer.ID` | `Libp2pCoreNetworkConnSecurity.remotePeer` | sync |
+| `func (network.ConnSecurity).RemotePublicKey() crypto.PubKey` | `Libp2pCoreNetworkConnSecurity.remotePublicKey` | sync |
+| `var network.DialPeerTimeout time.Duration` | `Go.libp2p.core.network.dialPeerTimeout` | sync |
+| `func (network.Dialer).CanDial(p peer.ID, addr multiaddr.Multiaddr) bool` | `Libp2pCoreNetworkDialer.canDial` | sync |
+| `func (network.Dialer).ClosePeer(peer.ID) error` | `Libp2pCoreNetworkDialer.closePeer` | sync |
+| `func (network.Dialer).Connectedness(peer.ID) network.Connectedness` | `Libp2pCoreNetworkDialer.connectedness` | sync |
+| `func (network.Dialer).Conns() []network.Conn` | `Libp2pCoreNetworkDialer.conns` | sync |
+| `func (network.Dialer).ConnsToPeer(p peer.ID) []network.Conn` | `Libp2pCoreNetworkDialer.connsToPeer` | sync |
+| `func (network.Dialer).DialPeer(context.Context, peer.ID) (network.Conn, error)` | `Libp2pCoreNetworkDialer.dialPeer` | Future |
+| `func (network.Dialer).LocalPeer() peer.ID` | `Libp2pCoreNetworkDialer.localPeer` | sync |
+| `func (network.Dialer).Notify(network.Notifiee)` | `Libp2pCoreNetworkDialer.notify` | sync |
+| `func (network.Dialer).Peers() []peer.ID` | `Libp2pCoreNetworkDialer.peers` | sync |
+| `func (network.Dialer).Peerstore() peerstore.Peerstore` | `Libp2pCoreNetworkDialer.peerstore` | sync |
+| `func (network.Dialer).StopNotify(network.Notifiee)` | `Libp2pCoreNetworkDialer.stopNotify` | sync |
+| `func network.GetAllowLimitedConn(ctx context.Context) (usetransient bool, reason string)` | `Go.libp2p.core.network.getAllowLimitedConn` | Future |
+| `func network.GetDialPeerTimeout(ctx context.Context) time.Duration` | `Go.libp2p.core.network.getDialPeerTimeout` | Future |
+| `func network.GetForceDirectDial(ctx context.Context) (forceDirect bool, reason string)` | `Go.libp2p.core.network.getForceDirectDial` | Future |
+| `func network.GetNoDial(ctx context.Context) (nodial bool, reason string)` | `Go.libp2p.core.network.getNoDial` | Future |
+| `func network.GetSimultaneousConnect(ctx context.Context) (simconnect bool, isClient bool, reason string)` | `Go.libp2p.core.network.getSimultaneousConnect` | Future |
+| `func network.GetUseTransient(ctx context.Context) (usetransient bool, reason string)` | `Go.libp2p.core.network.getUseTransient` | Future |
+| `var network.GlobalNoopNotifiee *network.NoopNotifiee` | `Go.libp2p.core.network.globalNoopNotifiee` | sync |
+| `func (network.MultiaddrDNSResolver).ResolveDNSAddr(ctx context.Context, expectedPeerID peer.ID, maddr multiaddr.Multiaddr, recursionLimit int, outputLimit int) ([]multiaddr.Multiaddr, error)` | `Libp2pCoreNetworkMultiaddrDnsResolver.resolveDnsAddr` | Future |
+| `func (network.MultiaddrDNSResolver).ResolveDNSComponent(ctx context.Context, maddr multiaddr.Multiaddr, outputLimit int) ([]multiaddr.Multiaddr, error)` | `Libp2pCoreNetworkMultiaddrDnsResolver.resolveDnsComponent` | Future |
+| `func (network.Multiplexer).NewConn(c net.Conn, isServer bool, scope network.PeerScope) (network.MuxedConn, error)` | `Libp2pCoreNetworkMultiplexer.newConn` | sync |
+| `func (network.MuxedConn).AcceptStream() (network.MuxedStream, error)` | `Libp2pCoreNetworkMuxedConn.acceptStream` | sync |
+| `func (network.MuxedConn).As(target any) bool` | `Libp2pCoreNetworkMuxedConn.as` | sync |
+| `func (network.MuxedConn).CloseWithError(errCode network.ConnErrorCode) error` | `Libp2pCoreNetworkMuxedConn.closeWithError` | sync |
+| `func (network.MuxedConn).IsClosed() bool` | `Libp2pCoreNetworkMuxedConn.isClosed` | sync |
+| `func (network.MuxedConn).OpenStream(context.Context) (network.MuxedStream, error)` | `Libp2pCoreNetworkMuxedConn.openStream` | Future |
+| `func (network.MuxedStream).CloseRead() error` | `Libp2pCoreNetworkMuxedStream.closeRead` | sync |
+| `func (network.MuxedStream).CloseWrite() error` | `Libp2pCoreNetworkMuxedStream.closeWrite` | sync |
+| `func (network.MuxedStream).Reset() error` | `Libp2pCoreNetworkMuxedStream.reset` | sync |
+| `func (network.MuxedStream).ResetWithError(errCode network.StreamErrorCode) error` | `Libp2pCoreNetworkMuxedStream.resetWithError` | sync |
+| `func (network.MuxedStream).SetDeadline(time.Time) error` | `Libp2pCoreNetworkMuxedStream.setDeadline` | sync |
+| `func (network.MuxedStream).SetReadDeadline(time.Time) error` | `Libp2pCoreNetworkMuxedStream.setReadDeadline` | sync |
+| `func (network.MuxedStream).SetWriteDeadline(time.Time) error` | `Libp2pCoreNetworkMuxedStream.setWriteDeadline` | sync |
+| `func (network.Network).InterfaceListenAddresses() ([]multiaddr.Multiaddr, error)` | `Libp2pCoreNetwork.interfaceListenAddresses` | sync |
+| `func (network.Network).Listen(...multiaddr.Multiaddr) error` | `Libp2pCoreNetwork.listen` | sync |
+| `func (network.Network).ListenAddresses() []multiaddr.Multiaddr` | `Libp2pCoreNetwork.listenAddresses` | sync |
+| `func (network.Network).NewStream(context.Context, peer.ID) (network.Stream, error)` | `Libp2pCoreNetwork.newStream` | Future |
+| `func (network.Network).ResourceManager() network.ResourceManager` | `Libp2pCoreNetwork.resourceManager` | sync |
+| `func (*network.NoopNotifiee).Connected(_ network.Network, _ network.Conn)` | `Libp2pCoreNetworkNoopNotifiee.connected` | sync |
+| `func (*network.NoopNotifiee).Disconnected(_ network.Network, _ network.Conn)` | `Libp2pCoreNetworkNoopNotifiee.disconnected` | sync |
+| `func (*network.NoopNotifiee).Listen(_ network.Network, _ multiaddr.Multiaddr)` | `Libp2pCoreNetworkNoopNotifiee.listen` | sync |
+| `func (*network.NoopNotifiee).ListenClose(_ network.Network, _ multiaddr.Multiaddr)` | `Libp2pCoreNetworkNoopNotifiee.listenClose` | sync |
+| `func (network.Notifiee).Connected(network.Network, network.Conn)` | `Libp2pCoreNetworkNotifiee.connected` | sync |
+| `func (network.Notifiee).Disconnected(network.Network, network.Conn)` | `Libp2pCoreNetworkNotifiee.disconnected` | sync |
+| `func (network.Notifiee).Listen(network.Network, multiaddr.Multiaddr)` | `Libp2pCoreNetworkNotifiee.listen` | sync |
+| `func (network.Notifiee).ListenClose(network.Network, multiaddr.Multiaddr)` | `Libp2pCoreNetworkNotifiee.listenClose` | sync |
+| `func (*network.NotifyBundle).Connected(n network.Network, c network.Conn)` | `Libp2pCoreNetworkNotifyBundle.connected` | sync |
+| `func (*network.NotifyBundle).Disconnected(n network.Network, c network.Conn)` | `Libp2pCoreNetworkNotifyBundle.disconnected` | sync |
+| `func (*network.NotifyBundle).Listen(n network.Network, a multiaddr.Multiaddr)` | `Libp2pCoreNetworkNotifyBundle.listen` | sync |
+| `func (*network.NotifyBundle).ListenClose(n network.Network, a multiaddr.Multiaddr)` | `Libp2pCoreNetworkNotifyBundle.listenClose` | sync |
+| `func (*network.NullResourceManager).Close() error` | `Libp2pCoreNetworkNullResourceManager.close` | sync |
+| `func (*network.NullResourceManager).OpenConnection(_ network.Direction, _ bool, _ multiaddr.Multiaddr) (network.ConnManagementScope, error)` | `Libp2pCoreNetworkNullResourceManager.openConnection` | sync |
+| `func (*network.NullResourceManager).OpenStream(_ peer.ID, _ network.Direction) (network.StreamManagementScope, error)` | `Libp2pCoreNetworkNullResourceManager.openStream` | sync |
+| `func (*network.NullResourceManager).VerifySourceAddress(_ net.Addr) bool` | `Libp2pCoreNetworkNullResourceManager.verifySourceAddress` | sync |
+| `func (*network.NullScope).BeginSpan() (network.ResourceScopeSpan, error)` | `Libp2pCoreNetworkNullScope.beginSpan` | sync |
+| `func (*network.NullScope).Done()` | `Libp2pCoreNetworkNullScope.done` | sync |
+| `func (*network.NullScope).Name() string` | `Libp2pCoreNetworkNullScope.name` | sync |
+| `func (*network.NullScope).Peer() peer.ID` | `Libp2pCoreNetworkNullScope.peer` | sync |
+| `func (*network.NullScope).PeerScope() network.PeerScope` | `Libp2pCoreNetworkNullScope.peerScope` | sync |
+| `func (*network.NullScope).Protocol() protocol.ID` | `Libp2pCoreNetworkNullScope.protocol` | sync |
+| `func (*network.NullScope).ProtocolScope() network.ProtocolScope` | `Libp2pCoreNetworkNullScope.protocolScope` | sync |
+| `func (*network.NullScope).ReleaseMemory(_ int)` | `Libp2pCoreNetworkNullScope.releaseMemory` | sync |
+| `func (*network.NullScope).ReserveMemory(_ int, _ uint8) error` | `Libp2pCoreNetworkNullScope.reserveMemory` | sync |
+| `func (*network.NullScope).ServiceScope() network.ServiceScope` | `Libp2pCoreNetworkNullScope.serviceScope` | sync |
+| `func (*network.NullScope).SetPeer(peer.ID) error` | `Libp2pCoreNetworkNullScope.setPeer` | sync |
+| `func (*network.NullScope).SetProtocol(_ protocol.ID) error` | `Libp2pCoreNetworkNullScope.setProtocol` | sync |
+| `func (*network.NullScope).SetService(_ string) error` | `Libp2pCoreNetworkNullScope.setService` | sync |
+| `func (*network.NullScope).Stat() network.ScopeStat` | `Libp2pCoreNetworkNullScope.stat` | sync |
+| `func (*network.NullScope).VerifySourceAddress(_ net.Addr) bool` | `Libp2pCoreNetworkNullScope.verifySourceAddress` | sync |
+| `func (network.PeerScope).Peer() peer.ID` | `Libp2pCoreNetworkPeerScope.peer` | sync |
+| `func (network.ProtocolScope).Protocol() protocol.ID` | `Libp2pCoreNetworkProtocolScope.protocol` | sync |
+| `func (network.ResourceManager).Close() error` | `Libp2pCoreNetworkResourceManager.close` | sync |
+| `func (network.ResourceManager).OpenConnection(dir network.Direction, usefd bool, endpoint multiaddr.Multiaddr) (network.ConnManagementScope, error)` | `Libp2pCoreNetworkResourceManager.openConnection` | sync |
+| `func (network.ResourceManager).OpenStream(p peer.ID, dir network.Direction) (network.StreamManagementScope, error)` | `Libp2pCoreNetworkResourceManager.openStream` | sync |
+| `func (network.ResourceManager).VerifySourceAddress(addr net.Addr) bool` | `Libp2pCoreNetworkResourceManager.verifySourceAddress` | sync |
+| `func (network.ResourceScope).BeginSpan() (network.ResourceScopeSpan, error)` | `Libp2pCoreNetworkResourceScope.beginSpan` | sync |
+| `func (network.ResourceScope).ReleaseMemory(size int)` | `Libp2pCoreNetworkResourceScope.releaseMemory` | sync |
+| `func (network.ResourceScope).ReserveMemory(size int, prio uint8) error` | `Libp2pCoreNetworkResourceScope.reserveMemory` | sync |
+| `func (network.ResourceScope).Stat() network.ScopeStat` | `Libp2pCoreNetworkResourceScope.stat` | sync |
+| `func (network.ResourceScopeSpan).Done()` | `Libp2pCoreNetworkResourceScopeSpan.done` | sync |
+| `func (network.ServiceScope).Name() string` | `Libp2pCoreNetworkServiceScope.name` | sync |
+| `func (network.Stream).Conn() network.Conn` | `Libp2pCoreNetworkStream.conn` | sync |
+| `func (network.Stream).ID() string` | `Libp2pCoreNetworkStream.id` | sync |
+| `func (network.Stream).Protocol() protocol.ID` | `Libp2pCoreNetworkStream.protocol` | sync |
+| `func (network.Stream).ResetWithError(errCode network.StreamErrorCode) error` | `Libp2pCoreNetworkStream.resetWithError` | sync |
+| `func (network.Stream).Scope() network.StreamScope` | `Libp2pCoreNetworkStream.scope` | sync |
+| `func (network.Stream).SetProtocol(id protocol.ID) error` | `Libp2pCoreNetworkStream.setProtocol` | sync |
+| `func (network.Stream).Stat() network.Stats` | `Libp2pCoreNetworkStream.stat` | sync |
+| `func (network.StreamManagementScope).PeerScope() network.PeerScope` | `Libp2pCoreNetworkStreamManagementScope.peerScope` | sync |
+| `func (network.StreamManagementScope).ProtocolScope() network.ProtocolScope` | `Libp2pCoreNetworkStreamManagementScope.protocolScope` | sync |
+| `func (network.StreamManagementScope).ServiceScope() network.ServiceScope` | `Libp2pCoreNetworkStreamManagementScope.serviceScope` | sync |
+| `func (network.StreamManagementScope).SetProtocol(proto protocol.ID) error` | `Libp2pCoreNetworkStreamManagementScope.setProtocol` | sync |
+| `func (network.StreamManagementScope).SetService(srv string) error` | `Libp2pCoreNetworkStreamManagementScope.setService` | sync |
+| `func (network.StreamScope).SetService(srv string) error` | `Libp2pCoreNetworkStreamScope.setService` | sync |
+| `func network.UnwrapConnManagementScope(ctx context.Context) (network.ConnManagementScope, error)` | `Go.libp2p.core.network.unwrapConnManagementScope` | Future |
+| `network.Conn → x.(*swarm.Conn)` | `Libp2pCoreNetworkConn.asLibp2pP2pNetSwarmConn` | cast |
+| `network.ConnScoper → x.(*swarm.Conn)` | `Libp2pCoreNetworkConnScoper.asLibp2pP2pNetSwarmConn` | cast |
+| `network.ConnScoper → x.(network.Conn)` | `Libp2pCoreNetworkConnScoper.asLibp2pCoreNetworkConn` | cast |
+| `network.ConnScoper → x.(transport.CapableConn)` | `Libp2pCoreNetworkConnScoper.asLibp2pCoreTransportCapableConn` | cast |
+| `network.ConnSecurity → x.(*swarm.Conn)` | `Libp2pCoreNetworkConnSecurity.asLibp2pP2pNetSwarmConn` | cast |
+| `network.ConnSecurity → x.(network.Conn)` | `Libp2pCoreNetworkConnSecurity.asLibp2pCoreNetworkConn` | cast |
+| `network.ConnSecurity → x.(sec.SecureConn)` | `Libp2pCoreNetworkConnSecurity.asLibp2pCoreSecSecureConn` | cast |
+| `network.ConnSecurity → x.(transport.CapableConn)` | `Libp2pCoreNetworkConnSecurity.asLibp2pCoreTransportCapableConn` | cast |
+| `network.Dialer → x.(*swarm.Swarm)` | `Libp2pCoreNetworkDialer.asLibp2pP2pNetSwarm` | cast |
+| `network.Dialer → x.(network.Network)` | `Libp2pCoreNetworkDialer.asLibp2pCoreNetwork` | cast |
+| `network.Multiplexer → x.(*yamux.Transport)` | `Libp2pCoreNetworkMultiplexer.asLibp2pP2pMuxerYamuxTransport` | cast |
+| `network.MuxedConn → x.(transport.CapableConn)` | `Libp2pCoreNetworkMuxedConn.asLibp2pCoreTransportCapableConn` | cast |
+| `network.MuxedStream → x.(*swarm.Stream)` | `Libp2pCoreNetworkMuxedStream.asLibp2pP2pNetSwarmStream` | cast |
+| `network.MuxedStream → x.(network.Stream)` | `Libp2pCoreNetworkMuxedStream.asLibp2pCoreNetworkStream` | cast |
+| `network.Network → x.(*swarm.Swarm)` | `Libp2pCoreNetwork.asLibp2pP2pNetSwarm` | cast |
+| `network.ResourceScope → x.(network.ConnManagementScope)` | `Libp2pCoreNetworkResourceScope.asLibp2pCoreNetworkConnManagementScope` | cast |
+| `network.ResourceScope → x.(network.ConnScope)` | `Libp2pCoreNetworkResourceScope.asLibp2pCoreNetworkConnScope` | cast |
+| `network.ResourceScope → x.(network.PeerScope)` | `Libp2pCoreNetworkResourceScope.asLibp2pCoreNetworkPeerScope` | cast |
+| `network.ResourceScope → x.(network.ProtocolScope)` | `Libp2pCoreNetworkResourceScope.asLibp2pCoreNetworkProtocolScope` | cast |
+| `network.ResourceScope → x.(network.ResourceScopeSpan)` | `Libp2pCoreNetworkResourceScope.asLibp2pCoreNetworkResourceScopeSpan` | cast |
+| `network.ResourceScope → x.(network.ServiceScope)` | `Libp2pCoreNetworkResourceScope.asLibp2pCoreNetworkServiceScope` | cast |
+| `network.ResourceScope → x.(network.StreamManagementScope)` | `Libp2pCoreNetworkResourceScope.asLibp2pCoreNetworkStreamManagementScope` | cast |
+| `network.ResourceScope → x.(network.StreamScope)` | `Libp2pCoreNetworkResourceScope.asLibp2pCoreNetworkStreamScope` | cast |
+| `network.ResourceScopeSpan → x.(network.ConnManagementScope)` | `Libp2pCoreNetworkResourceScopeSpan.asLibp2pCoreNetworkConnManagementScope` | cast |
+| `network.ResourceScopeSpan → x.(network.StreamManagementScope)` | `Libp2pCoreNetworkResourceScopeSpan.asLibp2pCoreNetworkStreamManagementScope` | cast |
+| `network.Stream → x.(*swarm.Stream)` | `Libp2pCoreNetworkStream.asLibp2pP2pNetSwarmStream` | cast |
 | `const network.CanConnect network.Connectedness` | `Go.libp2p.core.network.canConnect` | const |
 | `const network.CannotConnect network.Connectedness` | `Go.libp2p.core.network.cannotConnect` | const |
 | `const network.ConnCodeOutOfRange network.ConnErrorCode` | `Go.libp2p.core.network.connCodeOutOfRange` | const |
@@ -1422,30 +4589,93 @@ Omitted:
 | `const network.StreamShutdown network.StreamErrorCode` | `Go.libp2p.core.network.streamShutdown` | const |
 | `const network.StreamSupplanted network.StreamErrorCode` | `Go.libp2p.core.network.streamSupplanted` | const |
 
+Omitted:
+
+- `func (network.ConnMultiaddrs).LocalMultiaddr() multiaddr.Multiaddr`: receiver is neither a handle, a DTO nor a value type: 
+- `func (network.ConnMultiaddrs).RemoteMultiaddr() multiaddr.Multiaddr`: receiver is neither a handle, a DTO nor a value type: 
+- `func (network.ConnStat).Stat() network.ConnStats`: receiver is neither a handle, a DTO nor a value type: 
+- `func (network.Connectedness).String() string`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/libp2p/go-libp2p/core/network.Connectedness
+- `func (network.Direction).String() string`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/libp2p/go-libp2p/core/network.Direction
+- `func (network.NATDeviceType).String() string`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/libp2p/go-libp2p/core/network.NATDeviceType
+- `func (network.NATTransportProtocol).String() string`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/libp2p/go-libp2p/core/network.NATTransportProtocol
+- `func (network.Network).SetStreamHandler(network.StreamHandler)`: takes a callback nobody checked yet: an explicit root in roots.txt if Go only calls it during the call, retainedFuncs if Go keeps it
+- `func (*network.NullResourceManager).ViewPeer(_ peer.ID, f func(network.PeerScope) error) error`: takes a callback nobody checked yet: an explicit root in roots.txt if Go only calls it during the call, retainedFuncs if Go keeps it
+- `func (*network.NullResourceManager).ViewProtocol(_ protocol.ID, f func(network.ProtocolScope) error) error`: takes a callback nobody checked yet: an explicit root in roots.txt if Go only calls it during the call, retainedFuncs if Go keeps it
+- `func (*network.NullResourceManager).ViewService(_ string, f func(network.ServiceScope) error) error`: takes a callback nobody checked yet: an explicit root in roots.txt if Go only calls it during the call, retainedFuncs if Go keeps it
+- `func (*network.NullResourceManager).ViewSystem(f func(network.ResourceScope) error) error`: takes a callback nobody checked yet: an explicit root in roots.txt if Go only calls it during the call, retainedFuncs if Go keeps it
+- `func (*network.NullResourceManager).ViewTransient(f func(network.ResourceScope) error) error`: takes a callback nobody checked yet: an explicit root in roots.txt if Go only calls it during the call, retainedFuncs if Go keeps it
+- `func (network.Reachability).String() string`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/libp2p/go-libp2p/core/network.Reachability
+- `func (network.ResourceScopeViewer).ViewPeer(peer.ID, func(network.PeerScope) error) error`: takes a callback nobody checked yet: an explicit root in roots.txt if Go only calls it during the call, retainedFuncs if Go keeps it
+- `func (network.ResourceScopeViewer).ViewProtocol(protocol.ID, func(network.ProtocolScope) error) error`: takes a callback nobody checked yet: an explicit root in roots.txt if Go only calls it during the call, retainedFuncs if Go keeps it
+- `func (network.ResourceScopeViewer).ViewService(string, func(network.ServiceScope) error) error`: takes a callback nobody checked yet: an explicit root in roots.txt if Go only calls it during the call, retainedFuncs if Go keeps it
+- `func (network.ResourceScopeViewer).ViewSystem(func(network.ResourceScope) error) error`: takes a callback nobody checked yet: an explicit root in roots.txt if Go only calls it during the call, retainedFuncs if Go keeps it
+- `func (network.ResourceScopeViewer).ViewTransient(func(network.ResourceScope) error) error`: takes a callback nobody checked yet: an explicit root in roots.txt if Go only calls it during the call, retainedFuncs if Go keeps it
+- `func network.WithAllowLimitedConn(ctx context.Context, reason string) context.Context`: result 0: context.Context
+- `func network.WithConnManagementScope(ctx context.Context, scope network.ConnManagementScope) context.Context`: result 0: context.Context
+- `func network.WithDialPeerTimeout(ctx context.Context, timeout time.Duration) context.Context`: result 0: context.Context
+- `func network.WithForceDirectDial(ctx context.Context, reason string) context.Context`: result 0: context.Context
+- `func network.WithNoDial(ctx context.Context, reason string) context.Context`: result 0: context.Context
+- `func network.WithSimultaneousConnect(ctx context.Context, isClient bool, reason string) context.Context`: result 0: context.Context
+- `func network.WithUseTransient(ctx context.Context, reason string) context.Context`: result 0: context.Context
+
 ## `github.com/libp2p/go-libp2p/core/peer` → `Go.libp2p.core.peer` (`lib/go/libp2p/core/peer.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
+| `func (*peer.AddrInfo).Loggable() map[string]any` | `Libp2pCorePeerAddrInfo.loggable` | sync |
+| `func (peer.AddrInfo).MarshalJSON() (res []byte, err error)` | `Libp2pCorePeerAddrInfo.marshalJson` | sync |
+| `func (peer.AddrInfo).String() string` | `Libp2pCorePeerAddrInfo.string` | sync |
+| `func (*peer.AddrInfo).UnmarshalJSON(b []byte) (err error)` | `Libp2pCorePeerAddrInfo.unmarshalJson` | sync |
+| `func peer.AddrInfoFromP2pAddr(m multiaddr.Multiaddr) (*peer.AddrInfo, error)` | `Go.libp2p.core.peer.addrInfoFromP2pAddr` | sync |
 | `func peer.AddrInfoFromString(s string) (*peer.AddrInfo, error)` | `Go.libp2p.core.peer.addrInfoFromString` | sync |
 | `func peer.AddrInfoToP2pAddrs(pi *peer.AddrInfo) ([]multiaddr.Multiaddr, error)` | `Go.libp2p.core.peer.addrInfoToP2pAddrs` | sync |
-| `func peer.IDFromPrivateKey(sk crypto.PrivKey) (peer.ID, error)` | `Go.libp2p.core.peer.idFromPrivateKey` | sync |
-| `func peer.IDFromPublicKey(pk crypto.PubKey) (peer.ID, error)` | `Go.libp2p.core.peer.idFromPublicKey` | sync |
-| `func peer.AddrInfoFromP2pAddr(m multiaddr.Multiaddr) (*peer.AddrInfo, error)` | `Go.libp2p.core.peer.addrInfoFromP2pAddr` | sync |
 | `func peer.AddrInfosFromP2pAddrs(maddrs ...multiaddr.Multiaddr) ([]peer.AddrInfo, error)` | `Go.libp2p.core.peer.addrInfosFromP2pAddrs` | sync |
-| `func peer.Decode(s string) (peer.ID, error)` | `Go.libp2p.core.peer.decode` | sync |
-| `func peer.IDFromBytes(b []byte) (peer.ID, error)` | `Go.libp2p.core.peer.idFromBytes` | sync |
-| `func peer.FromCid(c cid.Cid) (peer.ID, error)` | `Go.libp2p.core.peer.fromCid` | sync |
-| `func peer.ToCid(id peer.ID) cid.Cid` | `Go.libp2p.core.peer.toCid` | sync |
-| `func peer.IDFromP2PAddr(m multiaddr.Multiaddr) (peer.ID, error)` | `Go.libp2p.core.peer.idFromP2pAddr` | sync |
-| `func peer.SplitAddr(m multiaddr.Multiaddr) (transport multiaddr.Multiaddr, id peer.ID)` | `Go.libp2p.core.peer.splitAddr` | sync |
 | `func peer.AddrInfosToIDs(pis []peer.AddrInfo) []peer.ID` | `Go.libp2p.core.peer.addrInfosToIds` | sync |
-| `func (peer.ID).Validate() error` | `Libp2pCorePeerId.validate` | sync |
-| `func (peer.ID).Marshal() ([]byte, error)` | `Libp2pCorePeerId.marshal` | sync |
+| `var peer.AdvancedEnableInlining bool` | `Go.libp2p.core.peer.advancedEnableInlining` | sync |
+| `func peer.Decode(s string) (peer.ID, error)` | `Go.libp2p.core.peer.decode` | sync |
+| `func peer.FromCid(c cid.Cid) (peer.ID, error)` | `Go.libp2p.core.peer.fromCid` | sync |
 | `func (peer.ID).ExtractPublicKey() (crypto.PubKey, error)` | `Libp2pCorePeerId.extractPublicKey` | sync |
+| `func (peer.ID).Loggable() map[string]any` | `Libp2pCorePeerId.loggable` | sync |
+| `func (peer.ID).Marshal() ([]byte, error)` | `Libp2pCorePeerId.marshal` | sync |
+| `func (peer.ID).MarshalBinary() ([]byte, error)` | `Libp2pCorePeerId.marshalBinary` | sync |
+| `func (peer.ID).MarshalJSON() ([]byte, error)` | `Libp2pCorePeerId.marshalJson` | sync |
+| `func (peer.ID).MarshalText() ([]byte, error)` | `Libp2pCorePeerId.marshalText` | sync |
+| `func (peer.ID).MarshalTo(data []byte) (n int, err error)` | `Libp2pCorePeerId.marshalTo` | sync |
 | `func (peer.ID).MatchesPrivateKey(sk crypto.PrivKey) bool` | `Libp2pCorePeerId.matchesPrivateKey` | sync |
 | `func (peer.ID).MatchesPublicKey(pk crypto.PubKey) bool` | `Libp2pCorePeerId.matchesPublicKey` | sync |
 | `func (peer.ID).ShortString() string` | `Libp2pCorePeerId.shortString` | sync |
+| `func (peer.ID).Size() int` | `Libp2pCorePeerId.size` | sync |
+| `func (peer.ID).String() string` | `Libp2pCorePeerId.string` | sync |
+| `func (*peer.ID).Unmarshal(data []byte) (err error)` | `Libp2pCorePeerId.unmarshal` | sync |
+| `func (*peer.ID).UnmarshalBinary(data []byte) error` | `Libp2pCorePeerId.unmarshalBinary` | sync |
+| `func (*peer.ID).UnmarshalJSON(data []byte) (err error)` | `Libp2pCorePeerId.unmarshalJson` | sync |
+| `func (*peer.ID).UnmarshalText(data []byte) error` | `Libp2pCorePeerId.unmarshalText` | sync |
+| `func (peer.ID).Validate() error` | `Libp2pCorePeerId.validate` | sync |
+| `func peer.IDFromBytes(b []byte) (peer.ID, error)` | `Go.libp2p.core.peer.idFromBytes` | sync |
+| `func peer.IDFromP2PAddr(m multiaddr.Multiaddr) (peer.ID, error)` | `Go.libp2p.core.peer.idFromP2pAddr` | sync |
+| `func peer.IDFromPrivateKey(sk crypto.PrivKey) (peer.ID, error)` | `Go.libp2p.core.peer.idFromPrivateKey` | sync |
+| `func peer.IDFromPublicKey(pk crypto.PubKey) (peer.ID, error)` | `Go.libp2p.core.peer.idFromPublicKey` | sync |
+| `func peer.NewPeerRecord() *peer.PeerRecord` | `Go.libp2p.core.peer.newPeerRecord` | sync |
+| `func (*peer.PeerRecord).Codec() []byte` | `Libp2pCorePeerRecord.codec` | sync |
+| `func (*peer.PeerRecord).Domain() string` | `Libp2pCorePeerRecord.domain` | sync |
+| `func (*peer.PeerRecord).Equal(other *peer.PeerRecord) bool` | `Libp2pCorePeerRecord.equal` | sync |
+| `func (*peer.PeerRecord).MarshalRecord() (res []byte, err error)` | `Libp2pCorePeerRecord.marshalRecord` | sync |
+| `func (*peer.PeerRecord).ToProtobuf() (*pb.PeerRecord, error)` | `Libp2pCorePeerRecord.toProtobuf` | sync |
+| `func (*peer.PeerRecord).UnmarshalRecord(bytes []byte) (err error)` | `Libp2pCorePeerRecord.unmarshalRecord` | sync |
+| `var peer.PeerRecordEnvelopePayloadType []byte` | `Go.libp2p.core.peer.peerRecordEnvelopePayloadType` | sync |
+| `func peer.PeerRecordFromAddrInfo(info peer.AddrInfo) *peer.PeerRecord` | `Go.libp2p.core.peer.peerRecordFromAddrInfo` | sync |
+| `func peer.PeerRecordFromProtobuf(msg *pb.PeerRecord) (*peer.PeerRecord, error)` | `Go.libp2p.core.peer.peerRecordFromProtobuf` | sync |
+| `func peer.SplitAddr(m multiaddr.Multiaddr) (transport multiaddr.Multiaddr, id peer.ID)` | `Go.libp2p.core.peer.splitAddr` | sync |
+| `func peer.TimestampSeq() uint64` | `Go.libp2p.core.peer.timestampSeq` | sync |
+| `func peer.ToCid(id peer.ID) cid.Cid` | `Go.libp2p.core.peer.toCid` | sync |
 | `const peer.PeerRecordEnvelopeDomain untyped string` | `Go.libp2p.core.peer.peerRecordEnvelopeDomain` | const |
+
+Omitted:
+
+- `func (peer.IDSlice).Len() int`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/libp2p/go-libp2p/core/peer.IDSlice
+- `func (peer.IDSlice).Less(i int, j int) bool`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/libp2p/go-libp2p/core/peer.IDSlice
+- `func (peer.IDSlice).String() string`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/libp2p/go-libp2p/core/peer.IDSlice
+- `func (peer.IDSlice).Swap(i int, j int)`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/libp2p/go-libp2p/core/peer.IDSlice
 
 ## `github.com/libp2p/go-libp2p/core/peerstore` → `Go.libp2p.core.peerstore` (`lib/go/libp2p/core/peerstore.dart`)
 
@@ -1454,25 +4684,111 @@ Omitted:
 | `func (peerstore.AddrBook).AddAddrs(p peer.ID, addrs []multiaddr.Multiaddr, ttl time.Duration)` | `Libp2pCorePeerstore.addAddrs` | sync |
 | `func (peerstore.AddrBook).Addrs(p peer.ID) []multiaddr.Multiaddr` | `Libp2pCorePeerstore.addrs` | sync |
 | `func (peerstore.AddrBook).ClearAddrs(p peer.ID)` | `Libp2pCorePeerstore.clearAddrs` | sync |
-| `func (peerstore.Peerstore).PeerInfo(peer.ID) peer.AddrInfo` | `Libp2pCorePeerstore.peerInfo` | sync |
-| `func (peerstore.Peerstore).Peers() peer.IDSlice` | `Libp2pCorePeerstore.peers` | sync |
 | `func (peerstore.AddrBook).PeersWithAddrs() peer.IDSlice` | `Libp2pCorePeerstore.peersWithAddrs` | sync |
 | `func (peerstore.ProtoBook).GetProtocols(peer.ID) ([]protocol.ID, error)` | `Libp2pCorePeerstore.getProtocols` | sync |
 | `func (peerstore.PeerMetadata).Get(p peer.ID, key string) (any, error)` | `Libp2pCorePeerstore.get` | sync |
 | `func (peerstore.Metrics).LatencyEWMA(peer.ID) time.Duration` | `Libp2pCorePeerstore.latencyEwma` | sync |
+| `func (peerstore.AddrBook).AddAddr(p peer.ID, addr multiaddr.Multiaddr, ttl time.Duration)` | `Libp2pCorePeerstoreAddrBook.addAddr` | sync |
+| `func (peerstore.AddrBook).AddAddrs(p peer.ID, addrs []multiaddr.Multiaddr, ttl time.Duration)` | `Libp2pCorePeerstoreAddrBook.addAddrs` | sync |
+| `func (peerstore.AddrBook).AddrStream(context.Context, peer.ID) <-chan multiaddr.Multiaddr` | `Libp2pCorePeerstoreAddrBook.addrStream` | Stream |
+| `func (peerstore.AddrBook).Addrs(p peer.ID) []multiaddr.Multiaddr` | `Libp2pCorePeerstoreAddrBook.addrs` | sync |
+| `func (peerstore.AddrBook).ClearAddrs(p peer.ID)` | `Libp2pCorePeerstoreAddrBook.clearAddrs` | sync |
+| `func (peerstore.AddrBook).PeersWithAddrs() peer.IDSlice` | `Libp2pCorePeerstoreAddrBook.peersWithAddrs` | sync |
+| `func (peerstore.AddrBook).SetAddr(p peer.ID, addr multiaddr.Multiaddr, ttl time.Duration)` | `Libp2pCorePeerstoreAddrBook.setAddr` | sync |
+| `func (peerstore.AddrBook).SetAddrs(p peer.ID, addrs []multiaddr.Multiaddr, ttl time.Duration)` | `Libp2pCorePeerstoreAddrBook.setAddrs` | sync |
+| `func (peerstore.AddrBook).UpdateAddrs(p peer.ID, oldTTL time.Duration, newTTL time.Duration)` | `Libp2pCorePeerstoreAddrBook.updateAddrs` | sync |
 | `func peerstore.AddrInfos(ps peerstore.Peerstore, peers []peer.ID) []peer.AddrInfo` | `Go.libp2p.core.peerstore.addrInfos` | sync |
+| `var peerstore.AddressTTL time.Duration` | `Go.libp2p.core.peerstore.addressTtl` | sync |
+| `func (peerstore.CertifiedAddrBook).ConsumePeerRecord(s *record.Envelope, ttl time.Duration) (accepted bool, err error)` | `Libp2pCorePeerstoreCertifiedAddrBook.consumePeerRecord` | sync |
+| `func (peerstore.CertifiedAddrBook).GetPeerRecord(p peer.ID) *record.Envelope` | `Libp2pCorePeerstoreCertifiedAddrBook.getPeerRecord` | sync |
+| `func peerstore.GetCertifiedAddrBook(ab peerstore.AddrBook) (cab peerstore.CertifiedAddrBook, ok bool)` | `Go.libp2p.core.peerstore.getCertifiedAddrBook` | sync |
+| `func (peerstore.KeyBook).AddPrivKey(peer.ID, crypto.PrivKey) error` | `Libp2pCorePeerstoreKeyBook.addPrivKey` | sync |
+| `func (peerstore.KeyBook).AddPubKey(peer.ID, crypto.PubKey) error` | `Libp2pCorePeerstoreKeyBook.addPubKey` | sync |
+| `func (peerstore.KeyBook).PeersWithKeys() peer.IDSlice` | `Libp2pCorePeerstoreKeyBook.peersWithKeys` | sync |
+| `func (peerstore.KeyBook).PrivKey(peer.ID) crypto.PrivKey` | `Libp2pCorePeerstoreKeyBook.privKey` | sync |
+| `func (peerstore.KeyBook).PubKey(peer.ID) crypto.PubKey` | `Libp2pCorePeerstoreKeyBook.pubKey` | sync |
+| `func (peerstore.KeyBook).RemovePeer(peer.ID)` | `Libp2pCorePeerstoreKeyBook.removePeer` | sync |
+| `func (peerstore.Metrics).LatencyEWMA(peer.ID) time.Duration` | `Libp2pCorePeerstoreMetrics.latencyEwma` | sync |
+| `func (peerstore.Metrics).RecordLatency(peer.ID, time.Duration)` | `Libp2pCorePeerstoreMetrics.recordLatency` | sync |
+| `func (peerstore.Metrics).RemovePeer(peer.ID)` | `Libp2pCorePeerstoreMetrics.removePeer` | sync |
+| `var peerstore.OwnObservedAddrTTL time.Duration` | `Go.libp2p.core.peerstore.ownObservedAddrTtl` | sync |
+| `func (peerstore.PeerMetadata).Get(p peer.ID, key string) (any, error)` | `Libp2pCorePeerstorePeerMetadata.get` | sync |
+| `func (peerstore.PeerMetadata).Put(p peer.ID, key string, val any) error` | `Libp2pCorePeerstorePeerMetadata.put` | sync |
+| `func (peerstore.PeerMetadata).RemovePeer(peer.ID)` | `Libp2pCorePeerstorePeerMetadata.removePeer` | sync |
+| `func (peerstore.Peerstore).PeerInfo(peer.ID) peer.AddrInfo` | `Libp2pCorePeerstore.peerInfo` | sync |
+| `func (peerstore.Peerstore).Peers() peer.IDSlice` | `Libp2pCorePeerstore.peers` | sync |
+| `func (peerstore.Peerstore).RemovePeer(peer.ID)` | `Libp2pCorePeerstore.removePeer` | sync |
+| `func (peerstore.ProtoBook).AddProtocols(peer.ID, ...protocol.ID) error` | `Libp2pCorePeerstoreProtoBook.addProtocols` | sync |
+| `func (peerstore.ProtoBook).FirstSupportedProtocol(peer.ID, ...protocol.ID) (protocol.ID, error)` | `Libp2pCorePeerstoreProtoBook.firstSupportedProtocol` | sync |
+| `func (peerstore.ProtoBook).GetProtocols(peer.ID) ([]protocol.ID, error)` | `Libp2pCorePeerstoreProtoBook.getProtocols` | sync |
+| `func (peerstore.ProtoBook).RemovePeer(peer.ID)` | `Libp2pCorePeerstoreProtoBook.removePeer` | sync |
+| `func (peerstore.ProtoBook).RemoveProtocols(peer.ID, ...protocol.ID) error` | `Libp2pCorePeerstoreProtoBook.removeProtocols` | sync |
+| `func (peerstore.ProtoBook).SetProtocols(peer.ID, ...protocol.ID) error` | `Libp2pCorePeerstoreProtoBook.setProtocols` | sync |
+| `func (peerstore.ProtoBook).SupportsProtocols(peer.ID, ...protocol.ID) ([]protocol.ID, error)` | `Libp2pCorePeerstoreProtoBook.supportsProtocols` | sync |
+| `var peerstore.RecentlyConnectedAddrTTL time.Duration` | `Go.libp2p.core.peerstore.recentlyConnectedAddrTtl` | sync |
+| `var peerstore.TempAddrTTL time.Duration` | `Go.libp2p.core.peerstore.tempAddrTtl` | sync |
+| `peerstore.AddrBook → x.(peerstore.Peerstore)` | `Libp2pCorePeerstoreAddrBook.asLibp2pCorePeerstore` | cast |
+| `peerstore.KeyBook → x.(peerstore.Peerstore)` | `Libp2pCorePeerstoreKeyBook.asLibp2pCorePeerstore` | cast |
+| `peerstore.Metrics → x.(peerstore.Peerstore)` | `Libp2pCorePeerstoreMetrics.asLibp2pCorePeerstore` | cast |
+| `peerstore.PeerMetadata → x.(peerstore.Peerstore)` | `Libp2pCorePeerstorePeerMetadata.asLibp2pCorePeerstore` | cast |
+| `peerstore.ProtoBook → x.(peerstore.Peerstore)` | `Libp2pCorePeerstoreProtoBook.asLibp2pCorePeerstore` | cast |
 | `const peerstore.ConnectedAddrTTL untyped int` | `Go.libp2p.core.peerstore.connectedAddrTtl` | const |
 | `const peerstore.PermanentAddrTTL untyped int` | `Go.libp2p.core.peerstore.permanentAddrTtl` | const |
+
+## `github.com/libp2p/go-libp2p/core/protocol` → `Go.libp2p.core.protocol` (`lib/go/libp2p/core/protocol.dart`)
+
+| Go | Dart | Mode |
+|---|---|---|
+| `const protocol.TestingID protocol.ID` | `Go.libp2p.core.protocol.testingId` | const |
 
 ## `github.com/libp2p/go-libp2p/core/routing` → `Go.libp2p.core.routing` (`lib/go/libp2p/core/routing.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
+| `func (routing.ContentDiscovery).FindProvidersAsync(context.Context, cid.Cid, int) <-chan peer.AddrInfo` | `Libp2pCoreRoutingContentDiscovery.findProvidersAsync` | Stream |
+| `func (routing.ContentProviding).Provide(context.Context, cid.Cid, bool) error` | `Libp2pCoreRoutingContentProviding.provide` | Future |
+| `func routing.GetPublicKey(r routing.ValueStore, ctx context.Context, p peer.ID) (crypto.PubKey, error)` | `Go.libp2p.core.routing.getPublicKey` | Future |
+| `func routing.KeyForPublicKey(id peer.ID) string` | `Go.libp2p.core.routing.keyForPublicKey` | sync |
+| `func (*routing.Options).Apply(options ...routing.Option) error` | `Libp2pCoreRoutingOptions.apply` | sync |
+| `func (routing.PeerRouting).FindPeer(context.Context, peer.ID) (peer.AddrInfo, error)` | `Libp2pCoreRoutingPeerRouting.findPeer` | Future |
+| `func (routing.PubKeyFetcher).GetPublicKey(context.Context, peer.ID) (crypto.PubKey, error)` | `Libp2pCoreRoutingPubKeyFetcher.getPublicKey` | Future |
+| `func routing.PublishQueryEvent(ctx context.Context, ev *routing.QueryEvent)` | `Go.libp2p.core.routing.publishQueryEvent` | Future |
+| `func (*routing.QueryEvent).MarshalJSON() ([]byte, error)` | `Libp2pCoreRoutingQueryEvent.marshalJson` | sync |
+| `func (*routing.QueryEvent).UnmarshalJSON(b []byte) error` | `Libp2pCoreRoutingQueryEvent.unmarshalJson` | sync |
+| `var routing.QueryEventBufferSize int` | `Go.libp2p.core.routing.queryEventBufferSize` | sync |
+| `func (routing.Routing).Bootstrap(context.Context) error` | `Libp2pCoreRouting.bootstrap` | Future |
+| `func routing.SubscribesToQueryEvents(ctx context.Context) bool` | `Go.libp2p.core.routing.subscribesToQueryEvents` | Future |
+| `func (routing.ValueStore).GetValue(context.Context, string, ...routing.Option) ([]byte, error)` | `Libp2pCoreRoutingValueStore.getValue` | Future |
+| `func (routing.ValueStore).PutValue(context.Context, string, []byte, ...routing.Option) error` | `Libp2pCoreRoutingValueStore.putValue` | Future |
+| `func (routing.ValueStore).SearchValue(context.Context, string, ...routing.Option) (<-chan []byte, error)` | `Libp2pCoreRoutingValueStore.searchValue` | Stream |
 | `routing.ContentDiscovery → x.(*dht.IpfsDHT)` | `Libp2pCoreRoutingContentDiscovery.asLibp2pKadDhtIpfsDht` | cast |
+| `routing.ContentDiscovery → x.(*routing.DiscoveryRouting)` | `Libp2pCoreRoutingContentDiscovery.asLibp2pP2pDiscoveryRouting` | cast |
 | `routing.ContentDiscovery → x.(*routing.RoutingDiscovery)` | `Libp2pCoreRoutingContentDiscovery.asLibp2pP2pDiscoveryRoutingDiscovery` | cast |
+| `routing.ContentDiscovery → x.(routing.ProvideManyRouter)` | `Libp2pCoreRoutingContentDiscovery.asKuboRoutingProvideManyRouter` | cast |
 | `routing.ContentDiscovery → x.(routing.ContentRouting)` | `Libp2pCoreRoutingContentDiscovery.asLibp2pCoreRoutingContentRouting` | cast |
+| `routing.ContentDiscovery → x.(routing.Routing)` | `Libp2pCoreRoutingContentDiscovery.asLibp2pCoreRouting` | cast |
+| `routing.ContentProviding → x.(*node.LegacyProvider)` | `Libp2pCoreRoutingContentProviding.asKuboCoreNodeLegacyProvider` | cast |
+| `routing.ContentProviding → x.(*dht.IpfsDHT)` | `Libp2pCoreRoutingContentProviding.asLibp2pKadDhtIpfsDht` | cast |
+| `routing.ContentProviding → x.(*routing.DiscoveryRouting)` | `Libp2pCoreRoutingContentProviding.asLibp2pP2pDiscoveryRouting` | cast |
+| `routing.ContentProviding → x.(*routing.RoutingDiscovery)` | `Libp2pCoreRoutingContentProviding.asLibp2pP2pDiscoveryRoutingDiscovery` | cast |
+| `routing.ContentProviding → x.(routing.ProvideManyRouter)` | `Libp2pCoreRoutingContentProviding.asKuboRoutingProvideManyRouter` | cast |
+| `routing.ContentProviding → x.(routing.ContentRouting)` | `Libp2pCoreRoutingContentProviding.asLibp2pCoreRoutingContentRouting` | cast |
+| `routing.ContentProviding → x.(routing.Routing)` | `Libp2pCoreRoutingContentProviding.asLibp2pCoreRouting` | cast |
 | `routing.ContentRouting → x.(*dht.IpfsDHT)` | `Libp2pCoreRoutingContentRouting.asLibp2pKadDhtIpfsDht` | cast |
+| `routing.ContentRouting → x.(*routing.DiscoveryRouting)` | `Libp2pCoreRoutingContentRouting.asLibp2pP2pDiscoveryRouting` | cast |
 | `routing.ContentRouting → x.(*routing.RoutingDiscovery)` | `Libp2pCoreRoutingContentRouting.asLibp2pP2pDiscoveryRoutingDiscovery` | cast |
+| `routing.ContentRouting → x.(routing.ProvideManyRouter)` | `Libp2pCoreRoutingContentRouting.asKuboRoutingProvideManyRouter` | cast |
+| `routing.ContentRouting → x.(routing.Routing)` | `Libp2pCoreRoutingContentRouting.asLibp2pCoreRouting` | cast |
+| `routing.PeerRouting → x.(*coreapi.RoutingAPI)` | `Libp2pCoreRoutingPeerRouting.asKuboCoreCoreapiRoutingApi` | cast |
+| `routing.PeerRouting → x.(*dht.IpfsDHT)` | `Libp2pCoreRoutingPeerRouting.asLibp2pKadDhtIpfsDht` | cast |
+| `routing.PeerRouting → x.(routing.ProvideManyRouter)` | `Libp2pCoreRoutingPeerRouting.asKuboRoutingProvideManyRouter` | cast |
+| `routing.PeerRouting → x.(routing.Routing)` | `Libp2pCoreRoutingPeerRouting.asLibp2pCoreRouting` | cast |
+| `routing.PubKeyFetcher → x.(*dht.IpfsDHT)` | `Libp2pCoreRoutingPubKeyFetcher.asLibp2pKadDhtIpfsDht` | cast |
+| `routing.Routing → x.(*dht.IpfsDHT)` | `Libp2pCoreRouting.asLibp2pKadDhtIpfsDht` | cast |
+| `routing.Routing → x.(routing.ProvideManyRouter)` | `Libp2pCoreRouting.asKuboRoutingProvideManyRouter` | cast |
+| `routing.ValueStore → x.(*dht.IpfsDHT)` | `Libp2pCoreRoutingValueStore.asLibp2pKadDhtIpfsDht` | cast |
+| `routing.ValueStore → x.(routing.ProvideManyRouter)` | `Libp2pCoreRoutingValueStore.asKuboRoutingProvideManyRouter` | cast |
+| `routing.ValueStore → x.(routing.Routing)` | `Libp2pCoreRoutingValueStore.asLibp2pCoreRouting` | cast |
 | `const routing.AddingPeer routing.QueryEventType` | `Go.libp2p.core.routing.addingPeer` | const |
 | `const routing.DialingPeer routing.QueryEventType` | `Go.libp2p.core.routing.dialingPeer` | const |
 | `const routing.FinalPeer routing.QueryEventType` | `Go.libp2p.core.routing.finalPeer` | const |
@@ -1482,35 +4798,175 @@ Omitted:
 | `const routing.SendingQuery routing.QueryEventType` | `Go.libp2p.core.routing.sendingQuery` | const |
 | `const routing.Value routing.QueryEventType` | `Go.libp2p.core.routing.value$` | const |
 
+Omitted:
+
+- `var routing.Expired routing.Option`: result 0: github.com/libp2p/go-libp2p/core/routing.Option
+- `var routing.Offline routing.Option`: result 0: github.com/libp2p/go-libp2p/core/routing.Option
+- `func (*routing.Options).ToOption() routing.Option`: result 0: github.com/libp2p/go-libp2p/core/routing.Option
+- `func routing.RegisterForQueryEvents(ctx context.Context) (context.Context, <-chan *routing.QueryEvent)`: result 0: context.Context
+
+## `github.com/libp2p/go-libp2p/core/transport` → `Go.libp2p.core.transport` (`lib/go/libp2p/core/transport.dart`)
+
+| Go | Dart | Mode |
+|---|---|---|
+| `transport.Transport → x.(*libp2pwebrtc.WebRTCTransport)` | `Libp2pCoreTransport.asLibp2pP2pTransportWebrtcWebRtcTransport` | cast |
+| `const transport.UpdateKindDialFailed transport.DialUpdateKind` | `Go.libp2p.core.transport.updateKindDialFailed` | const |
+| `const transport.UpdateKindDialSuccessful transport.DialUpdateKind` | `Go.libp2p.core.transport.updateKindDialSuccessful` | const |
+| `const transport.UpdateKindHandshakeProgressed transport.DialUpdateKind` | `Go.libp2p.core.transport.updateKindHandshakeProgressed` | const |
+
 ## `github.com/libp2p/go-libp2p/p2p/discovery/mdns` → `Go.libp2p.p2p.discovery.mdns` (`lib/go/libp2p/p2p/discovery/mdns.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
 | `Dart implementation of mdns.Notifee` | `factory Libp2pP2pDiscoveryMdnsNotifee` | sync |
-| `func mdns.NewMdnsService(host host.Host, serviceName string, notifee mdns.Notifee) *mdns.mdnsService` | `Go.libp2p.p2p.discovery.mdns.newMdnsService` | sync |
-| `func (mdns.Service).Start() error` | `Libp2pP2pDiscoveryMdnsService.start` | sync |
 | `func (io.Closer).Close() error` | `Libp2pP2pDiscoveryMdnsService.close` | sync |
+| `func mdns.NewMdnsService(host host.Host, serviceName string, notifee mdns.Notifee) *mdns.mdnsService` | `Go.libp2p.p2p.discovery.mdns.newMdnsService` | sync |
+| `func (mdns.Notifee).HandlePeerFound(peer.AddrInfo)` | `Libp2pP2pDiscoveryMdnsNotifee.handlePeerFound` | sync |
+| `func (mdns.Service).Start() error` | `Libp2pP2pDiscoveryMdnsService.start` | sync |
 | `const mdns.ServiceName untyped string` | `Go.libp2p.p2p.discovery.mdns.serviceName` | const |
 
 ## `github.com/libp2p/go-libp2p/p2p/discovery/routing` → `Go.libp2p.p2p.discovery.routing` (`lib/go/libp2p/p2p/discovery/routing.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
+| `func (*routing.DiscoveryRouting).FindProvidersAsync(ctx context.Context, c cid.Cid, limit int) <-chan peer.AddrInfo` | `Libp2pP2pDiscoveryRouting.findProvidersAsync` | Stream |
+| `func (*routing.DiscoveryRouting).Provide(ctx context.Context, c cid.Cid, bcast bool) error` | `Libp2pP2pDiscoveryRouting.provide` | Future |
+| `func routing.NewDiscoveryRouting(disc discovery.Discovery, opts ...discovery.Option) *routing.DiscoveryRouting` | `factory Libp2pP2pDiscoveryRouting` | sync |
 | `func routing.NewRoutingDiscovery(router routing.ContentRouting) *routing.RoutingDiscovery` | `factory Libp2pP2pDiscoveryRoutingDiscovery` | sync |
 | `func (*routing.RoutingDiscovery).Advertise(ctx context.Context, ns string, opts ...discovery.Option) (time.Duration, error)` | `Libp2pP2pDiscoveryRoutingDiscovery.advertise` | Future |
 | `func (*routing.RoutingDiscovery).FindPeers(ctx context.Context, ns string, opts ...discovery.Option) (<-chan peer.AddrInfo, error)` | `Libp2pP2pDiscoveryRoutingDiscovery.findPeers` | Stream |
+
+## `github.com/libp2p/go-libp2p/p2p/host/resource-manager` → `Go.libp2p.p2p.host.resourceManager` (`lib/go/libp2p/p2p/host/resource_manager.dart`)
+
+| Go | Dart | Mode |
+|---|---|---|
+| `const rcmgr.BlockAllLimit rcmgr.LimitVal` | `Go.libp2p.p2p.host.resourceManager.blockAllLimit` | const |
+| `const rcmgr.BlockAllLimit64 rcmgr.LimitVal64` | `Go.libp2p.p2p.host.resourceManager.blockAllLimit64` | const |
+| `const rcmgr.DefaultLimit rcmgr.LimitVal` | `Go.libp2p.p2p.host.resourceManager.defaultLimit` | const |
+| `const rcmgr.DefaultLimit64 rcmgr.LimitVal64` | `Go.libp2p.p2p.host.resourceManager.defaultLimit64` | const |
+| `const rcmgr.TraceAddConnEvt rcmgr.TraceEvtTyp` | `Go.libp2p.p2p.host.resourceManager.traceAddConnEvt` | const |
+| `const rcmgr.TraceAddStreamEvt rcmgr.TraceEvtTyp` | `Go.libp2p.p2p.host.resourceManager.traceAddStreamEvt` | const |
+| `const rcmgr.TraceBlockAddConnEvt rcmgr.TraceEvtTyp` | `Go.libp2p.p2p.host.resourceManager.traceBlockAddConnEvt` | const |
+| `const rcmgr.TraceBlockAddStreamEvt rcmgr.TraceEvtTyp` | `Go.libp2p.p2p.host.resourceManager.traceBlockAddStreamEvt` | const |
+| `const rcmgr.TraceBlockReserveMemoryEvt rcmgr.TraceEvtTyp` | `Go.libp2p.p2p.host.resourceManager.traceBlockReserveMemoryEvt` | const |
+| `const rcmgr.TraceCreateScopeEvt rcmgr.TraceEvtTyp` | `Go.libp2p.p2p.host.resourceManager.traceCreateScopeEvt` | const |
+| `const rcmgr.TraceDestroyScopeEvt rcmgr.TraceEvtTyp` | `Go.libp2p.p2p.host.resourceManager.traceDestroyScopeEvt` | const |
+| `const rcmgr.TraceReleaseMemoryEvt rcmgr.TraceEvtTyp` | `Go.libp2p.p2p.host.resourceManager.traceReleaseMemoryEvt` | const |
+| `const rcmgr.TraceRemoveConnEvt rcmgr.TraceEvtTyp` | `Go.libp2p.p2p.host.resourceManager.traceRemoveConnEvt` | const |
+| `const rcmgr.TraceRemoveStreamEvt rcmgr.TraceEvtTyp` | `Go.libp2p.p2p.host.resourceManager.traceRemoveStreamEvt` | const |
+| `const rcmgr.TraceReserveMemoryEvt rcmgr.TraceEvtTyp` | `Go.libp2p.p2p.host.resourceManager.traceReserveMemoryEvt` | const |
+| `const rcmgr.TraceStartEvt rcmgr.TraceEvtTyp` | `Go.libp2p.p2p.host.resourceManager.traceStartEvt` | const |
+| `const rcmgr.Unlimited rcmgr.LimitVal` | `Go.libp2p.p2p.host.resourceManager.unlimited` | const |
+| `const rcmgr.Unlimited64 rcmgr.LimitVal64` | `Go.libp2p.p2p.host.resourceManager.unlimited64` | const |
 
 ## `github.com/libp2p/go-libp2p/p2p/muxer/yamux` → `Go.libp2p.p2p.muxer.yamux` (`lib/go/libp2p/p2p/muxer/yamux.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
 | `var yamux.DefaultTransport *yamux.Transport` | `Go.libp2p.p2p.muxer.yamux.defaultTransport` | sync |
+| `func yamux.NewMuxedConn(m *yamux.Session) network.MuxedConn` | `Go.libp2p.p2p.muxer.yamux.newMuxedConn` | sync |
+| `func (*yamux.Transport).Config() *yamux.Config` | `Libp2pP2pMuxerYamuxTransport.config` | sync |
+| `func (*yamux.Transport).NewConn(nc net.Conn, isServer bool, scope network.PeerScope) (network.MuxedConn, error)` | `Libp2pP2pMuxerYamuxTransport.newConn` | sync |
 | `const yamux.ID untyped string` | `Go.libp2p.p2p.muxer.yamux.id` | const |
 
 ## `github.com/libp2p/go-libp2p/p2p/net/swarm` → `Go.libp2p.p2p.net.swarm` (`lib/go/libp2p/p2p/net/swarm.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
+| `var swarm.BackoffBase time.Duration` | `Go.libp2p.p2p.net.swarm.backoffBase` | sync |
+| `var swarm.BackoffCoef time.Duration` | `Go.libp2p.p2p.net.swarm.backoffCoef` | sync |
+| `var swarm.BackoffMax time.Duration` | `Go.libp2p.p2p.net.swarm.backoffMax` | sync |
+| `func (*swarm.BlackHoleSuccessCounter).HandleRequest() swarm.BlackHoleState` | `Libp2pP2pNetSwarmBlackHoleSuccessCounter.handleRequest` | sync |
+| `func (*swarm.BlackHoleSuccessCounter).RecordResult(success bool)` | `Libp2pP2pNetSwarmBlackHoleSuccessCounter.recordResult` | sync |
+| `func (*swarm.BlackHoleSuccessCounter).State() swarm.BlackHoleState` | `Libp2pP2pNetSwarmBlackHoleSuccessCounter.state` | sync |
+| `func (swarm.Clock).InstantTimer(when time.Time) swarm.InstantTimer` | `Libp2pP2pNetSwarmClock.instantTimer` | sync |
+| `func (swarm.Clock).Now() time.Time` | `Libp2pP2pNetSwarmClock.now` | sync |
+| `func (swarm.Clock).Since(t time.Time) time.Duration` | `Libp2pP2pNetSwarmClock.since` | sync |
+| `func (*swarm.Conn).As(target any) bool` | `Libp2pP2pNetSwarmConn.as` | sync |
+| `func (*swarm.Conn).Close() error` | `Libp2pP2pNetSwarmConn.close` | Future |
+| `func (*swarm.Conn).CloseWithError(errCode network.ConnErrorCode) error` | `Libp2pP2pNetSwarmConn.closeWithError` | sync |
+| `func (*swarm.Conn).ConnState() network.ConnectionState` | `Libp2pP2pNetSwarmConn.connState` | sync |
+| `func (*swarm.Conn).GetStreams() []network.Stream` | `Libp2pP2pNetSwarmConn.getStreams` | sync |
+| `func (*swarm.Conn).ID() string` | `Libp2pP2pNetSwarmConn.id` | sync |
+| `func (*swarm.Conn).IsClosed() bool` | `Libp2pP2pNetSwarmConn.isClosed` | sync |
+| `func (*swarm.Conn).LocalMultiaddr() multiaddr.Multiaddr` | `Libp2pP2pNetSwarmConn.localMultiaddr` | sync |
+| `func (*swarm.Conn).LocalPeer() peer.ID` | `Libp2pP2pNetSwarmConn.localPeer` | sync |
+| `func (*swarm.Conn).NewStream(ctx context.Context) (network.Stream, error)` | `Libp2pP2pNetSwarmConn.newStream` | Future |
+| `func (*swarm.Conn).RemoteMultiaddr() multiaddr.Multiaddr` | `Libp2pP2pNetSwarmConn.remoteMultiaddr` | sync |
+| `func (*swarm.Conn).RemotePeer() peer.ID` | `Libp2pP2pNetSwarmConn.remotePeer` | sync |
+| `func (*swarm.Conn).RemotePublicKey() crypto.PubKey` | `Libp2pP2pNetSwarmConn.remotePublicKey` | sync |
+| `func (*swarm.Conn).Scope() network.ConnScope` | `Libp2pP2pNetSwarmConn.scope` | sync |
+| `func (*swarm.Conn).Stat() network.ConnStats` | `Libp2pP2pNetSwarmConn.stat` | sync |
+| `func (*swarm.Conn).String() string` | `Libp2pP2pNetSwarmConn.string` | sync |
+| `func swarm.DefaultDialRanker(addrs []multiaddr.Multiaddr) []network.AddrDelay` | `Go.libp2p.p2p.net.swarm.defaultDialRanker` | sync |
+| `var swarm.DefaultPerPeerRateLimit int` | `Go.libp2p.p2p.net.swarm.defaultPerPeerRateLimit` | sync |
+| `func (*swarm.DialBackoff).AddBackoff(p peer.ID, addr multiaddr.Multiaddr)` | `Libp2pP2pNetSwarmDialBackoff.addBackoff` | sync |
+| `func (*swarm.DialBackoff).Backoff(p peer.ID, addr multiaddr.Multiaddr) (backoff bool)` | `Libp2pP2pNetSwarmDialBackoff.backoff` | sync |
+| `func (*swarm.DialBackoff).Clear(p peer.ID)` | `Libp2pP2pNetSwarmDialBackoff.clear` | sync |
+| `func (swarm.InstantTimer).Ch() <-chan time.Time` | `Libp2pP2pNetSwarmInstantTimer.ch` | Stream |
+| `func (swarm.InstantTimer).Reset(d time.Time) bool` | `Libp2pP2pNetSwarmInstantTimer.reset` | sync |
+| `func (swarm.InstantTimer).Stop() bool` | `Libp2pP2pNetSwarmInstantTimer.stop` | sync |
+| `func (swarm.MetricsTracer).ClosedConnection(network.Direction, time.Duration, network.ConnectionState, multiaddr.Multiaddr)` | `Libp2pP2pNetSwarmMetricsTracer.closedConnection` | sync |
+| `func (swarm.MetricsTracer).CompletedHandshake(time.Duration, network.ConnectionState, multiaddr.Multiaddr)` | `Libp2pP2pNetSwarmMetricsTracer.completedHandshake` | sync |
+| `func (swarm.MetricsTracer).DialCompleted(success bool, totalDials int, latency time.Duration)` | `Libp2pP2pNetSwarmMetricsTracer.dialCompleted` | sync |
+| `func (swarm.MetricsTracer).DialRankingDelay(d time.Duration)` | `Libp2pP2pNetSwarmMetricsTracer.dialRankingDelay` | sync |
+| `func (swarm.MetricsTracer).OpenedConnection(network.Direction, crypto.PubKey, network.ConnectionState, multiaddr.Multiaddr)` | `Libp2pP2pNetSwarmMetricsTracer.openedConnection` | sync |
+| `func (swarm.MetricsTracer).UpdatedBlackHoleSuccessCounter(name string, state swarm.BlackHoleState, nextProbeAfter int, successFraction float64)` | `Libp2pP2pNetSwarmMetricsTracer.updatedBlackHoleSuccessCounter` | sync |
+| `func swarm.NewMetricsTracer(opts ...swarm.MetricsTracerOption) swarm.MetricsTracer` | `factory Libp2pP2pNetSwarmMetricsTracer` | sync |
+| `func swarm.NewSwarm(local peer.ID, peers peerstore.Peerstore, eventBus event.Bus, opts ...swarm.Option) (*swarm.Swarm, error)` | `factory Libp2pP2pNetSwarm` | sync |
+| `func swarm.NoDelayDialRanker(addrs []multiaddr.Multiaddr) []network.AddrDelay` | `Go.libp2p.p2p.net.swarm.noDelayDialRanker` | sync |
+| `func (swarm.RealClock).InstantTimer(when time.Time) swarm.InstantTimer` | `Libp2pP2pNetSwarmRealClock.instantTimer` | sync |
+| `func (swarm.RealClock).Now() time.Time` | `Libp2pP2pNetSwarmRealClock.now` | sync |
+| `func (swarm.RealClock).Since(t time.Time) time.Duration` | `Libp2pP2pNetSwarmRealClock.since` | sync |
+| `func (swarm.RealTimer).Ch() <-chan time.Time` | `Libp2pP2pNetSwarmRealTimer.ch` | Stream |
+| `func (swarm.RealTimer).Reset(d time.Time) bool` | `Libp2pP2pNetSwarmRealTimer.reset` | sync |
+| `func (swarm.RealTimer).Stop() bool` | `Libp2pP2pNetSwarmRealTimer.stop` | sync |
+| `func (swarm.ResolverFromMaDNS).ResolveDNSAddr(ctx context.Context, expectedPeerID peer.ID, maddr multiaddr.Multiaddr, recursionLimit int, outputLimit int) ([]multiaddr.Multiaddr, error)` | `Libp2pP2pNetSwarmResolverFromMaDns.resolveDnsAddr` | Future |
+| `func (swarm.ResolverFromMaDNS).ResolveDNSComponent(ctx context.Context, maddr multiaddr.Multiaddr, outputLimit int) ([]multiaddr.Multiaddr, error)` | `Libp2pP2pNetSwarmResolverFromMaDns.resolveDnsComponent` | Future |
+| `func (*swarm.Stream).Close() error` | `Libp2pP2pNetSwarmStream.close` | Future |
+| `func (*swarm.Stream).CloseRead() error` | `Libp2pP2pNetSwarmStream.closeRead` | sync |
+| `func (*swarm.Stream).CloseWrite() error` | `Libp2pP2pNetSwarmStream.closeWrite` | Future |
+| `func (*swarm.Stream).Conn() network.Conn` | `Libp2pP2pNetSwarmStream.conn` | sync |
+| `func (*swarm.Stream).ID() string` | `Libp2pP2pNetSwarmStream.id` | sync |
+| `func (*swarm.Stream).Protocol() protocol.ID` | `Libp2pP2pNetSwarmStream.protocol` | sync |
+| `func (*swarm.Stream).Read(p []byte) (int, error)` | `Libp2pP2pNetSwarmStream.read` | Future |
+| `func (*swarm.Stream).Reset() error` | `Libp2pP2pNetSwarmStream.reset` | sync |
+| `func (*swarm.Stream).ResetWithError(errCode network.StreamErrorCode) error` | `Libp2pP2pNetSwarmStream.resetWithError` | sync |
+| `func (*swarm.Stream).Scope() network.StreamScope` | `Libp2pP2pNetSwarmStream.scope` | sync |
+| `func (*swarm.Stream).SetDeadline(t time.Time) error` | `Libp2pP2pNetSwarmStream.setDeadline` | sync |
+| `func (*swarm.Stream).SetProtocol(p protocol.ID) error` | `Libp2pP2pNetSwarmStream.setProtocol` | sync |
+| `func (*swarm.Stream).SetReadDeadline(t time.Time) error` | `Libp2pP2pNetSwarmStream.setReadDeadline` | sync |
+| `func (*swarm.Stream).SetWriteDeadline(t time.Time) error` | `Libp2pP2pNetSwarmStream.setWriteDeadline` | sync |
+| `func (*swarm.Stream).Stat() network.Stats` | `Libp2pP2pNetSwarmStream.stat` | sync |
+| `func (*swarm.Stream).String() string` | `Libp2pP2pNetSwarmStream.string` | sync |
+| `func (*swarm.Stream).Write(p []byte) (int, error)` | `Libp2pP2pNetSwarmStream.write` | Future |
+| `func (*swarm.Swarm).AddCertHashes(listenAddrs []multiaddr.Multiaddr) []multiaddr.Multiaddr` | `Libp2pP2pNetSwarm.addCertHashes` | sync |
+| `func (*swarm.Swarm).AddListenAddr(a multiaddr.Multiaddr) error` | `Libp2pP2pNetSwarm.addListenAddr` | sync |
+| `func (*swarm.Swarm).AddTransport(t transport.Transport) error` | `Libp2pP2pNetSwarm.addTransport` | sync |
+| `func (*swarm.Swarm).Backoff() *swarm.DialBackoff` | `Libp2pP2pNetSwarm.backoff` | sync |
+| `func (*swarm.Swarm).CanDial(p peer.ID, addr multiaddr.Multiaddr) bool` | `Libp2pP2pNetSwarm.canDial` | sync |
+| `func (*swarm.Swarm).Close() error` | `Libp2pP2pNetSwarm.close` | sync |
+| `func (*swarm.Swarm).ClosePeer(p peer.ID) error` | `Libp2pP2pNetSwarm.closePeer` | sync |
+| `func (*swarm.Swarm).Connectedness(p peer.ID) network.Connectedness` | `Libp2pP2pNetSwarm.connectedness` | sync |
+| `func (*swarm.Swarm).Conns() []network.Conn` | `Libp2pP2pNetSwarm.conns` | sync |
+| `func (*swarm.Swarm).ConnsToPeer(p peer.ID) []network.Conn` | `Libp2pP2pNetSwarm.connsToPeer` | sync |
+| `func (*swarm.Swarm).DialPeer(ctx context.Context, p peer.ID) (network.Conn, error)` | `Libp2pP2pNetSwarm.dialPeer` | Future |
+| `func (*swarm.Swarm).InterfaceListenAddresses() ([]multiaddr.Multiaddr, error)` | `Libp2pP2pNetSwarm.interfaceListenAddresses` | sync |
+| `func (*swarm.Swarm).Listen(addrs ...multiaddr.Multiaddr) error` | `Libp2pP2pNetSwarm.listen` | sync |
+| `func (*swarm.Swarm).ListenAddresses() []multiaddr.Multiaddr` | `Libp2pP2pNetSwarm.listenAddresses` | sync |
+| `func (*swarm.Swarm).ListenClose(addrs ...multiaddr.Multiaddr)` | `Libp2pP2pNetSwarm.listenClose` | sync |
+| `func (*swarm.Swarm).LocalPeer() peer.ID` | `Libp2pP2pNetSwarm.localPeer` | sync |
+| `func (*swarm.Swarm).NewStream(ctx context.Context, p peer.ID) (network.Stream, error)` | `Libp2pP2pNetSwarm.newStream` | Future |
+| `func (*swarm.Swarm).Notify(f network.Notifiee)` | `Libp2pP2pNetSwarm.notify` | sync |
+| `func (*swarm.Swarm).Peers() []peer.ID` | `Libp2pP2pNetSwarm.peers` | sync |
+| `func (*swarm.Swarm).Peerstore() peerstore.Peerstore` | `Libp2pP2pNetSwarm.peerstore` | sync |
+| `func (*swarm.Swarm).ResourceManager() network.ResourceManager` | `Libp2pP2pNetSwarm.resourceManager` | sync |
+| `func (*swarm.Swarm).StopNotify(f network.Notifiee)` | `Libp2pP2pNetSwarm.stopNotify` | sync |
+| `func (*swarm.Swarm).StreamHandler() network.StreamHandler` | `Libp2pP2pNetSwarm.streamHandler` | sync |
+| `func (*swarm.Swarm).String() string` | `Libp2pP2pNetSwarm.string` | sync |
+| `func (*swarm.Swarm).TransportForDialing(a multiaddr.Multiaddr) transport.Transport` | `Libp2pP2pNetSwarm.transportForDialing` | sync |
+| `func (*swarm.Swarm).TransportForListening(a multiaddr.Multiaddr) transport.Transport` | `Libp2pP2pNetSwarm.transportForListening` | sync |
+| `swarm.InstantTimer → x.(*swarm.RealTimer)` | `Libp2pP2pNetSwarmInstantTimer.asLibp2pP2pNetSwarmRealTimer` | cast |
 | `const swarm.ConcurrentFdDials untyped int` | `Go.libp2p.p2p.net.swarm.concurrentFdDials` | const |
 | `const swarm.DialAttempts untyped int` | `Go.libp2p.p2p.net.swarm.dialAttempts` | const |
 | `const swarm.PrivateOtherDelay time.Duration` | `Go.libp2p.p2p.net.swarm.privateOtherDelay` | const |
@@ -1521,22 +4977,74 @@ Omitted:
 | `const swarm.PublicTCPDelay time.Duration` | `Go.libp2p.p2p.net.swarm.publicTcpDelay` | const |
 | `const swarm.RelayDelay time.Duration` | `Go.libp2p.p2p.net.swarm.relayDelay` | const |
 
+Omitted:
+
+- `func (swarm.BlackHoleState).String() string`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/libp2p/go-libp2p/p2p/net/swarm.BlackHoleState
+- `func (swarm.MetricsTracer).FailedDialing(multiaddr.Multiaddr, error, error)`: parameter error: error
+- `func (swarm.OrderedListener).ListenOrder() int`: receiver is neither a handle, a DTO nor a value type: 
+- `func (*swarm.Swarm).Done() <-chan struct{}`: result 0: chan of struct{}
+- `func (*swarm.Swarm).SetStreamHandler(handler network.StreamHandler)`: takes a callback nobody checked yet: an explicit root in roots.txt if Go only calls it during the call, retainedFuncs if Go keeps it
+- `func swarm.WithConnectionGater(gater connmgr.ConnectionGater) swarm.Option`: result 0: github.com/libp2p/go-libp2p/p2p/net/swarm.Option
+- `func swarm.WithDialRanker(d network.DialRanker) swarm.Option`: result 0: github.com/libp2p/go-libp2p/p2p/net/swarm.Option
+- `func swarm.WithDialTimeout(t time.Duration) swarm.Option`: result 0: github.com/libp2p/go-libp2p/p2p/net/swarm.Option
+- `func swarm.WithDialTimeoutLocal(t time.Duration) swarm.Option`: result 0: github.com/libp2p/go-libp2p/p2p/net/swarm.Option
+- `func swarm.WithIPv6BlackHoleSuccessCounter(f *swarm.BlackHoleSuccessCounter) swarm.Option`: result 0: github.com/libp2p/go-libp2p/p2p/net/swarm.Option
+- `func swarm.WithMetrics(reporter metrics.Reporter) swarm.Option`: result 0: github.com/libp2p/go-libp2p/p2p/net/swarm.Option
+- `func swarm.WithMetricsTracer(t swarm.MetricsTracer) swarm.Option`: result 0: github.com/libp2p/go-libp2p/p2p/net/swarm.Option
+- `func swarm.WithMultiaddrResolver(resolver network.MultiaddrDNSResolver) swarm.Option`: result 0: github.com/libp2p/go-libp2p/p2p/net/swarm.Option
+- `func swarm.WithReadOnlyBlackHoleDetector() swarm.Option`: result 0: github.com/libp2p/go-libp2p/p2p/net/swarm.Option
+- `func swarm.WithRegisterer(reg prometheus.Registerer) swarm.MetricsTracerOption`: result 0: github.com/libp2p/go-libp2p/p2p/net/swarm.MetricsTracerOption
+- `func swarm.WithResourceManager(m network.ResourceManager) swarm.Option`: result 0: github.com/libp2p/go-libp2p/p2p/net/swarm.Option
+- `func swarm.WithUDPBlackHoleSuccessCounter(f *swarm.BlackHoleSuccessCounter) swarm.Option`: result 0: github.com/libp2p/go-libp2p/p2p/net/swarm.Option
+
 ## `github.com/libp2p/go-libp2p/p2p/protocol/circuitv2/relay` → `Go.libp2p.p2p.protocol.circuitv2.relay` (`lib/go/libp2p/p2p/protocol/circuitv2/relay.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
-| `func relay.DefaultResources() relay.Resources` | `Go.libp2p.p2p.protocol.circuitv2.relay.defaultResources` | sync |
+| `func (relay.ACLFilter).AllowConnect(src peer.ID, srcAddr multiaddr.Multiaddr, dest peer.ID) bool` | `Libp2pP2pProtocolCircuitv2RelayAclFilter.allowConnect` | sync |
+| `func (relay.ACLFilter).AllowReserve(p peer.ID, a multiaddr.Multiaddr) bool` | `Libp2pP2pProtocolCircuitv2RelayAclFilter.allowReserve` | sync |
 | `func relay.DefaultLimit() *relay.RelayLimit` | `Go.libp2p.p2p.protocol.circuitv2.relay.defaultLimit` | sync |
+| `func relay.DefaultResources() relay.Resources` | `Go.libp2p.p2p.protocol.circuitv2.relay.defaultResources` | sync |
+| `func (relay.MetricsTracer).BytesTransferred(cnt int)` | `Libp2pP2pProtocolCircuitv2RelayMetricsTracer.bytesTransferred` | sync |
+| `func (relay.MetricsTracer).ConnectionClosed(d time.Duration)` | `Libp2pP2pProtocolCircuitv2RelayMetricsTracer.connectionClosed` | sync |
+| `func (relay.MetricsTracer).ConnectionOpened()` | `Libp2pP2pProtocolCircuitv2RelayMetricsTracer.connectionOpened` | sync |
+| `func (relay.MetricsTracer).ConnectionRequestHandled(status pb.Status)` | `Libp2pP2pProtocolCircuitv2RelayMetricsTracer.connectionRequestHandled` | sync |
+| `func (relay.MetricsTracer).RelayStatus(enabled bool)` | `Libp2pP2pProtocolCircuitv2RelayMetricsTracer.relayStatus` | sync |
+| `func (relay.MetricsTracer).ReservationAllowed(isRenewal bool)` | `Libp2pP2pProtocolCircuitv2RelayMetricsTracer.reservationAllowed` | sync |
+| `func (relay.MetricsTracer).ReservationClosed(cnt int)` | `Libp2pP2pProtocolCircuitv2RelayMetricsTracer.reservationClosed` | sync |
+| `func (relay.MetricsTracer).ReservationRequestHandled(status pb.Status)` | `Libp2pP2pProtocolCircuitv2RelayMetricsTracer.reservationRequestHandled` | sync |
+| `func relay.New(h host.Host, opts ...relay.Option) (*relay.Relay, error)` | `Go.libp2p.p2p.protocol.circuitv2.relay.new$` | sync |
+| `func relay.NewMetricsTracer(opts ...relay.MetricsTracerOption) relay.MetricsTracer` | `factory Libp2pP2pProtocolCircuitv2RelayMetricsTracer` | sync |
+| `func (*relay.Relay).Close() error` | `Libp2pP2pProtocolCircuitv2Relay.close` | sync |
 | `const relay.ConnectTimeout time.Duration` | `Go.libp2p.p2p.protocol.circuitv2.relay.connectTimeout` | const |
 | `const relay.HandshakeTimeout time.Duration` | `Go.libp2p.p2p.protocol.circuitv2.relay.handshakeTimeout` | const |
 | `const relay.ReservationTagWeight untyped int` | `Go.libp2p.p2p.protocol.circuitv2.relay.reservationTagWeight` | const |
 | `const relay.ServiceName untyped string` | `Go.libp2p.p2p.protocol.circuitv2.relay.serviceName` | const |
 | `const relay.StreamTimeout time.Duration` | `Go.libp2p.p2p.protocol.circuitv2.relay.streamTimeout` | const |
 
+Omitted:
+
+- `func relay.WithACL(acl relay.ACLFilter) relay.Option`: result 0: github.com/libp2p/go-libp2p/p2p/protocol/circuitv2/relay.Option
+- `func relay.WithInfiniteLimits() relay.Option`: result 0: github.com/libp2p/go-libp2p/p2p/protocol/circuitv2/relay.Option
+- `func relay.WithLimit(limit *relay.RelayLimit) relay.Option`: result 0: github.com/libp2p/go-libp2p/p2p/protocol/circuitv2/relay.Option
+- `func relay.WithMetricsTracer(mt relay.MetricsTracer) relay.Option`: result 0: github.com/libp2p/go-libp2p/p2p/protocol/circuitv2/relay.Option
+- `func relay.WithRegisterer(reg prometheus.Registerer) relay.MetricsTracerOption`: result 0: github.com/libp2p/go-libp2p/p2p/protocol/circuitv2/relay.MetricsTracerOption
+- `func relay.WithReservationAddressFilter(filter relay.ReservationAddressFilterFunc) (option relay.Option)`: result 0: github.com/libp2p/go-libp2p/p2p/protocol/circuitv2/relay.Option
+- `func relay.WithResources(rc relay.Resources) relay.Option`: result 0: github.com/libp2p/go-libp2p/p2p/protocol/circuitv2/relay.Option
+
 ## `github.com/libp2p/go-libp2p/p2p/protocol/holepunch` → `Go.libp2p.p2p.protocol.holepunch` (`lib/go/libp2p/p2p/protocol/holepunch.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
+| `func (holepunch.AddrFilter).FilterLocal(remoteID peer.ID, maddrs []multiaddr.Multiaddr) []multiaddr.Multiaddr` | `Libp2pP2pProtocolHolepunchAddrFilter.filterLocal` | sync |
+| `func (holepunch.AddrFilter).FilterRemote(remoteID peer.ID, maddrs []multiaddr.Multiaddr) []multiaddr.Multiaddr` | `Libp2pP2pProtocolHolepunchAddrFilter.filterRemote` | sync |
+| `func (holepunch.EventTracer).Trace(evt *holepunch.Event)` | `Libp2pP2pProtocolHolepunchEventTracer.trace` | sync |
+| `func (holepunch.MetricsTracer).DirectDialFinished(success bool)` | `Libp2pP2pProtocolHolepunchMetricsTracer.directDialFinished` | sync |
+| `func (holepunch.MetricsTracer).HolePunchFinished(side string, attemptNum int, theirAddrs []multiaddr.Multiaddr, ourAddr []multiaddr.Multiaddr, directConn network.ConnMultiaddrs)` | `Libp2pP2pProtocolHolepunchMetricsTracer.holePunchFinished` | sync |
+| `func holepunch.NewMetricsTracer(opts ...holepunch.MetricsTracerOption) holepunch.MetricsTracer` | `factory Libp2pP2pProtocolHolepunchMetricsTracer` | sync |
+| `func (*holepunch.Service).Close() error` | `Libp2pP2pProtocolHolepunchService.close` | sync |
+| `func (*holepunch.Service).DirectConnect(p peer.ID) error` | `Libp2pP2pProtocolHolepunchService.directConnect` | sync |
+| `var holepunch.StreamTimeout time.Duration` | `Go.libp2p.p2p.protocol.holepunch.streamTimeout` | sync |
 | `const holepunch.DirectDialEvtT untyped string` | `Go.libp2p.p2p.protocol.holepunch.directDialEvtT` | const |
 | `const holepunch.EndHolePunchEvtT untyped string` | `Go.libp2p.p2p.protocol.holepunch.endHolePunchEvtT` | const |
 | `const holepunch.HolePunchAttemptEvtT untyped string` | `Go.libp2p.p2p.protocol.holepunch.holePunchAttemptEvtT` | const |
@@ -1545,11 +5053,24 @@ Omitted:
 | `const holepunch.ServiceName untyped string` | `Go.libp2p.p2p.protocol.holepunch.serviceName` | const |
 | `const holepunch.StartHolePunchEvtT untyped string` | `Go.libp2p.p2p.protocol.holepunch.startHolePunchEvtT` | const |
 
+Omitted:
+
+- `func holepunch.DirectDialTimeout(timeout time.Duration) holepunch.Option`: result 0: github.com/libp2p/go-libp2p/p2p/protocol/holepunch.Option
+- `func holepunch.NewService(h host.Host, ids identify.IDService, listenAddrs func() []multiaddr.Multiaddr, opts ...holepunch.Option) (*holepunch.Service, error)`: parameter listenAddrs: func() []github.com/multiformats/go-multiaddr.Multiaddr
+- `func holepunch.WithAddrFilter(f holepunch.AddrFilter) holepunch.Option`: result 0: github.com/libp2p/go-libp2p/p2p/protocol/holepunch.Option
+- `func holepunch.WithMetricsAndEventTracer(mt holepunch.MetricsTracer, et holepunch.EventTracer) holepunch.Option`: result 0: github.com/libp2p/go-libp2p/p2p/protocol/holepunch.Option
+- `func holepunch.WithMetricsTracer(mt holepunch.MetricsTracer) holepunch.Option`: result 0: github.com/libp2p/go-libp2p/p2p/protocol/holepunch.Option
+- `func holepunch.WithRegisterer(reg prometheus.Registerer) holepunch.MetricsTracerOption`: result 0: github.com/libp2p/go-libp2p/p2p/protocol/holepunch.MetricsTracerOption
+- `func holepunch.WithTracer(et holepunch.EventTracer) holepunch.Option`: result 0: github.com/libp2p/go-libp2p/p2p/protocol/holepunch.Option
+
 ## `github.com/libp2p/go-libp2p/p2p/protocol/ping` → `Go.libp2p.p2p.protocol.ping` (`lib/go/libp2p/p2p/protocol/ping.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
+| `func ping.NewPingService(h host.Host) *ping.PingService` | `Go.libp2p.p2p.protocol.ping.newPingService` | sync |
 | `func ping.Ping(ctx context.Context, h host.Host, p peer.ID) <-chan ping.Result` | `Go.libp2p.p2p.protocol.ping.ping` | Stream |
+| `func (*ping.PingService).Ping(ctx context.Context, p peer.ID) <-chan ping.Result` | `Libp2pP2pProtocolPingService.ping` | Stream |
+| `func (*ping.PingService).PingHandler(s network.Stream)` | `Libp2pP2pProtocolPingService.pingHandler` | sync |
 | `const ping.ID untyped string` | `Go.libp2p.p2p.protocol.ping.id` | const |
 | `const ping.PingSize untyped int` | `Go.libp2p.p2p.protocol.ping.pingSize` | const |
 | `const ping.ServiceName untyped string` | `Go.libp2p.p2p.protocol.ping.serviceName` | const |
@@ -1558,47 +5079,167 @@ Omitted:
 
 | Go | Dart | Mode |
 |---|---|---|
+| `func (noise.EarlyDataHandler).Received(context.Context, net.Conn, *pb.NoiseExtensions) error` | `Libp2pP2pSecurityNoiseEarlyDataHandler.received` | Future |
+| `func (noise.EarlyDataHandler).Send(context.Context, net.Conn, peer.ID) *pb.NoiseExtensions` | `Libp2pP2pSecurityNoiseEarlyDataHandler.send` | Future |
+| `func noise.New(id protocol.ID, privkey crypto.PrivKey, muxers []upgrader.StreamMuxer) (*noise.Transport, error)` | `Go.libp2p.p2p.security.noise.new$` | sync |
+| `func (*noise.SessionTransport).ID() protocol.ID` | `Libp2pP2pSecurityNoiseSessionTransport.id` | sync |
+| `func (*noise.SessionTransport).SecureInbound(ctx context.Context, insecure net.Conn, p peer.ID) (sec.SecureConn, error)` | `Libp2pP2pSecurityNoiseSessionTransport.secureInbound` | Future |
+| `func (*noise.SessionTransport).SecureOutbound(ctx context.Context, insecure net.Conn, p peer.ID) (sec.SecureConn, error)` | `Libp2pP2pSecurityNoiseSessionTransport.secureOutbound` | Future |
+| `func (*noise.Transport).ID() protocol.ID` | `Libp2pP2pSecurityNoiseTransport.id` | sync |
+| `func (*noise.Transport).SecureInbound(ctx context.Context, insecure net.Conn, p peer.ID) (sec.SecureConn, error)` | `Libp2pP2pSecurityNoiseTransport.secureInbound` | Future |
+| `func (*noise.Transport).SecureOutbound(ctx context.Context, insecure net.Conn, p peer.ID) (sec.SecureConn, error)` | `Libp2pP2pSecurityNoiseTransport.secureOutbound` | Future |
+| `func (*noise.Transport).WithSessionOptions(opts ...noise.SessionOption) (*noise.SessionTransport, error)` | `Libp2pP2pSecurityNoiseTransport.withSessionOptions` | sync |
 | `const noise.ID untyped string` | `Go.libp2p.p2p.security.noise.id` | const |
 | `const noise.LengthPrefixLength untyped int` | `Go.libp2p.p2p.security.noise.lengthPrefixLength` | const |
 | `const noise.MaxPlaintextLength untyped int` | `Go.libp2p.p2p.security.noise.maxPlaintextLength` | const |
 | `const noise.MaxTransportMsgLength untyped int` | `Go.libp2p.p2p.security.noise.maxTransportMsgLength` | const |
 
+Omitted:
+
+- `func noise.DisablePeerIDCheck() noise.SessionOption`: result 0: func(*github.com/libp2p/go-libp2p/p2p/security/noise.SessionTransport) error
+- `func noise.EarlyData(initiator noise.EarlyDataHandler, responder noise.EarlyDataHandler) noise.SessionOption`: result 0: func(*github.com/libp2p/go-libp2p/p2p/security/noise.SessionTransport) error
+- `func noise.Prologue(prologue []byte) noise.SessionOption`: result 0: func(*github.com/libp2p/go-libp2p/p2p/security/noise.SessionTransport) error
+- `func noise.SessionWithConnState(s *noise.secureSession, muxer protocol.ID) *noise.secureSession`: parameter s: *unexported type github.com/libp2p/go-libp2p/p2p/security/noise.secureSession
+- `func (*noise.Transport).WithSessionOptions(opts ...noise.SessionOption) (*noise.SessionTransport, error)`: called without `opts: []func(*github.com/libp2p/go-libp2p/p2p/security/noise.SessionTransport) error`
+
 ## `github.com/libp2p/go-libp2p/p2p/security/tls` → `Go.libp2p.p2p.security.tls` (`lib/go/libp2p/p2p/security/tls.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
+| `func libp2ptls.GenerateSignedExtension(sk crypto.PrivKey, pubKey crypto.PublicKey) (pkix.Extension, error)` | `Go.libp2p.p2p.security.tls.generateSignedExtension` | sync |
+| `func libp2ptls.New(id protocol.ID, key crypto.PrivKey, muxers []upgrader.StreamMuxer) (*libp2ptls.Transport, error)` | `Go.libp2p.p2p.security.tls.new$` | sync |
+| `func libp2ptls.NewIdentity(privKey crypto.PrivKey, opts ...libp2ptls.IdentityOption) (*libp2ptls.Identity, error)` | `factory Libp2pP2pSecurityTlsIdentity` | sync |
+| `func libp2ptls.PubKeyFromCertChain(chain []*x509.Certificate) (crypto.PubKey, error)` | `Go.libp2p.p2p.security.tls.pubKeyFromCertChain` | sync |
+| `func (*libp2ptls.Transport).ID() protocol.ID` | `Libp2pP2pSecurityTlsTransport.id` | sync |
+| `func (*libp2ptls.Transport).SecureInbound(ctx context.Context, insecure net.Conn, p peer.ID) (sec.SecureConn, error)` | `Libp2pP2pSecurityTlsTransport.secureInbound` | Future |
+| `func (*libp2ptls.Transport).SecureOutbound(ctx context.Context, insecure net.Conn, p peer.ID) (sec.SecureConn, error)` | `Libp2pP2pSecurityTlsTransport.secureOutbound` | Future |
 | `const libp2ptls.ID untyped string` | `Go.libp2p.p2p.security.tls.id` | const |
+
+Omitted:
+
+- `func (*libp2ptls.Identity).ConfigForPeer(remote peer.ID) (*tls.Config, <-chan crypto.PubKey)`: channel with other results
+- `func libp2ptls.WithCertTemplate(template *x509.Certificate) libp2ptls.IdentityOption`: result 0: github.com/libp2p/go-libp2p/p2p/security/tls.IdentityOption
+- `func libp2ptls.WithKeyLogWriter(w io.Writer) libp2ptls.IdentityOption`: result 0: github.com/libp2p/go-libp2p/p2p/security/tls.IdentityOption
 
 ## `github.com/libp2p/go-libp2p/p2p/transport/quic` → `Go.libp2p.p2p.transport.quic` (`lib/go/libp2p/p2p/transport/quic.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
+| `var libp2pquic.HolePunchTimeout time.Duration` | `Go.libp2p.p2p.transport.quic.holePunchTimeout` | sync |
+| `func libp2pquic.NewTransport(key crypto.PrivKey, connManager *quicreuse.ConnManager, psk pnet.PSK, gater connmgr.ConnectionGater, rcmgr network.ResourceManager, opts ...libp2pquic.Option) (transport.Transport, error)` | `Go.libp2p.p2p.transport.quic.newTransport` | sync |
 | `const libp2pquic.ListenOrder untyped int` | `Go.libp2p.p2p.transport.quic.listenOrder` | const |
+
+Omitted:
+
+- `func libp2pquic.WithTLSIdentityOption(opt ...libp2ptls.IdentityOption) libp2pquic.Option`: result 0: github.com/libp2p/go-libp2p/p2p/transport/quic.Option
 
 ## `github.com/libp2p/go-libp2p/p2p/transport/webrtc` → `Go.libp2p.p2p.transport.webrtc` (`lib/go/libp2p/p2p/transport/webrtc.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
+| `func libp2pwebrtc.IsWebRTCDirectMultiaddr(addr multiaddr.Multiaddr) (bool, int)` | `Go.libp2p.p2p.transport.webrtc.isWebRtcDirectMultiaddr` | sync |
+| `func libp2pwebrtc.New(privKey crypto.PrivKey, psk pnet.PSK, gater connmgr.ConnectionGater, rcmgr network.ResourceManager, listenUDP libp2pwebrtc.ListenUDPFn, opts ...libp2pwebrtc.Option) (*libp2pwebrtc.WebRTCTransport, error)` | `Go.libp2p.p2p.transport.webrtc.new$` | sync |
+| `func (*libp2pwebrtc.WebRTCTransport).AddCertHashes(addr multiaddr.Multiaddr) (multiaddr.Multiaddr, bool)` | `Libp2pP2pTransportWebrtcWebRtcTransport.addCertHashes` | sync |
+| `func (*libp2pwebrtc.WebRTCTransport).CanDial(addr multiaddr.Multiaddr) bool` | `Libp2pP2pTransportWebrtcWebRtcTransport.canDial` | sync |
+| `func (*libp2pwebrtc.WebRTCTransport).Dial(ctx context.Context, remoteMultiaddr multiaddr.Multiaddr, p peer.ID) (transport.CapableConn, error)` | `Libp2pP2pTransportWebrtcWebRtcTransport.dial` | Future |
+| `func (*libp2pwebrtc.WebRTCTransport).Listen(addr multiaddr.Multiaddr) (transport.Listener, error)` | `Libp2pP2pTransportWebrtcWebRtcTransport.listen` | sync |
+| `func (*libp2pwebrtc.WebRTCTransport).ListenOrder() int` | `Libp2pP2pTransportWebrtcWebRtcTransport.listenOrder` | sync |
+| `func (*libp2pwebrtc.WebRTCTransport).Protocols() []int` | `Libp2pP2pTransportWebrtcWebRtcTransport.protocols` | sync |
+| `func (*libp2pwebrtc.WebRTCTransport).Proxy() bool` | `Libp2pP2pTransportWebrtcWebRtcTransport.proxy` | sync |
 | `const libp2pwebrtc.DefaultDisconnectedTimeout time.Duration` | `Go.libp2p.p2p.transport.webrtc.defaultDisconnectedTimeout` | const |
 | `const libp2pwebrtc.DefaultFailedTimeout time.Duration` | `Go.libp2p.p2p.transport.webrtc.defaultFailedTimeout` | const |
 | `const libp2pwebrtc.DefaultKeepaliveTimeout time.Duration` | `Go.libp2p.p2p.transport.webrtc.defaultKeepaliveTimeout` | const |
 | `const libp2pwebrtc.DefaultMaxInFlightConnections untyped int` | `Go.libp2p.p2p.transport.webrtc.defaultMaxInFlightConnections` | const |
 
+Omitted:
+
+- `func libp2pwebrtc.WithDialerVersion(version int) libp2pwebrtc.Option`: result 0: github.com/libp2p/go-libp2p/p2p/transport/webrtc.Option
+
 ## `github.com/multiformats/go-multiaddr` → `Go.multiaddr` (`lib/go/multiaddr.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
+| `func multiaddr.AddProtocol(p multiaddr.Protocol) error` | `Go.multiaddr.addProtocol` | sync |
+| `func multiaddr.Cast(b []byte) multiaddr.Multiaddr` | `Go.multiaddr.cast` | sync |
+| `func multiaddr.CodeToVarint(num int) []byte` | `Go.multiaddr.codeToVarint` | sync |
+| `func (*multiaddr.Component).Bytes() []byte` | `MultiaddrComponent.bytes` | sync |
+| `func (*multiaddr.Component).Code() int` | `MultiaddrComponent.code` | sync |
+| `func (*multiaddr.Component).Compare(o *multiaddr.Component) int` | `MultiaddrComponent.compare` | sync |
+| `func (*multiaddr.Component).Decapsulate(o multiaddr.Multiaddrer) multiaddr.Multiaddr` | `MultiaddrComponent.decapsulate` | sync |
+| `func (*multiaddr.Component).Encapsulate(o multiaddr.Multiaddrer) multiaddr.Multiaddr` | `MultiaddrComponent.encapsulate` | sync |
+| `func (*multiaddr.Component).Equal(o *multiaddr.Component) bool` | `MultiaddrComponent.equal` | sync |
+| `func (*multiaddr.Component).MarshalBinary() ([]byte, error)` | `MultiaddrComponent.marshalBinary` | sync |
+| `func (*multiaddr.Component).MarshalJSON() ([]byte, error)` | `MultiaddrComponent.marshalJson` | sync |
+| `func (*multiaddr.Component).MarshalText() ([]byte, error)` | `MultiaddrComponent.marshalText` | sync |
+| `func (*multiaddr.Component).Multiaddr() multiaddr.Multiaddr` | `MultiaddrComponent.multiaddr` | sync |
+| `func (*multiaddr.Component).Protocol() multiaddr.Protocol` | `MultiaddrComponent.protocol` | sync |
+| `func (*multiaddr.Component).Protocols() []multiaddr.Protocol` | `MultiaddrComponent.protocols` | sync |
+| `func (*multiaddr.Component).RawValue() []byte` | `MultiaddrComponent.rawValue` | sync |
+| `func (*multiaddr.Component).String() string` | `MultiaddrComponent.string` | sync |
+| `func (*multiaddr.Component).UnmarshalBinary(data []byte) error` | `MultiaddrComponent.unmarshalBinary` | sync |
+| `func (*multiaddr.Component).UnmarshalJSON(data []byte) error` | `MultiaddrComponent.unmarshalJson` | sync |
+| `func (*multiaddr.Component).UnmarshalText(data []byte) error` | `MultiaddrComponent.unmarshalText` | sync |
+| `func (*multiaddr.Component).Value() string` | `MultiaddrComponent.value$` | sync |
+| `func (*multiaddr.Component).ValueForProtocol(code int) (string, error)` | `MultiaddrComponent.valueForProtocol` | sync |
+| `func multiaddr.Contains(addrs []multiaddr.Multiaddr, addr multiaddr.Multiaddr) bool` | `Go.multiaddr.contains` | sync |
+| `func multiaddr.FilterAddrs(a []multiaddr.Multiaddr, filters ...func(multiaddr.Multiaddr) bool) []multiaddr.Multiaddr` | `Go.multiaddr.filterAddrs` | sync |
+| `func (*multiaddr.Filters).ActionForFilter(ipnet net.IPNet) (action multiaddr.Action, ok bool)` | `MultiaddrFilters.actionForFilter` | sync |
+| `func (*multiaddr.Filters).AddFilter(ipnet net.IPNet, action multiaddr.Action)` | `MultiaddrFilters.addFilter` | sync |
+| `func (*multiaddr.Filters).AddrBlocked(a multiaddr.Multiaddr) (deny bool)` | `MultiaddrFilters.addrBlocked` | sync |
+| `func (*multiaddr.Filters).FiltersForAction(action multiaddr.Action) (result []net.IPNet)` | `MultiaddrFilters.filtersForAction` | sync |
+| `func (*multiaddr.Filters).RemoveLiteral(ipnet net.IPNet) (removed bool)` | `MultiaddrFilters.removeLiteral` | sync |
+| `func multiaddr.ForEach(m multiaddr.Multiaddr, cb func(c multiaddr.Component) bool)` | `Go.multiaddr.forEach` | Future |
+| `func multiaddr.Join(msInterfaces ...multiaddr.Multiaddrer) multiaddr.Multiaddr` | `Go.multiaddr.join` | sync |
+| `func (multiaddr.Multiaddr).AppendComponent(cs ...*multiaddr.Component) multiaddr.Multiaddr` | `Multiaddr.appendComponent` | sync |
+| `func (multiaddr.Multiaddr).Bytes() []byte` | `Multiaddr.bytes` | sync |
+| `func (multiaddr.Multiaddr).Compare(o multiaddr.Multiaddr) int` | `Multiaddr.compare` | sync |
+| `func (multiaddr.Multiaddr).Decapsulate(rightPartsAny multiaddr.Multiaddrer) multiaddr.Multiaddr` | `Multiaddr.decapsulate` | sync |
+| `func (multiaddr.Multiaddr).Encapsulate(other multiaddr.Multiaddrer) multiaddr.Multiaddr` | `Multiaddr.encapsulate` | sync |
+| `func (multiaddr.Multiaddr).Equal(m2 multiaddr.Multiaddr) bool` | `Multiaddr.equal` | sync |
+| `func (multiaddr.Multiaddr).MarshalBinary() ([]byte, error)` | `Multiaddr.marshalBinary` | sync |
+| `func (multiaddr.Multiaddr).MarshalJSON() ([]byte, error)` | `Multiaddr.marshalJson` | sync |
+| `func (multiaddr.Multiaddr).MarshalText() ([]byte, error)` | `Multiaddr.marshalText` | sync |
+| `func (multiaddr.Multiaddr).Match(p ...meg.Pattern) (bool, error)` | `Multiaddr.match` | sync |
+| `func (multiaddr.Multiaddr).Multiaddr() multiaddr.Multiaddr` | `Multiaddr.multiaddr` | sync |
+| `func (multiaddr.Multiaddr).Protocols() []multiaddr.Protocol` | `Multiaddr.protocols` | sync |
+| `func (multiaddr.Multiaddr).String() string` | `Multiaddr.string` | sync |
+| `func (*multiaddr.Multiaddr).UnmarshalBinary(data []byte) error` | `Multiaddr.unmarshalBinary` | sync |
+| `func (*multiaddr.Multiaddr).UnmarshalJSON(data []byte) error` | `Multiaddr.unmarshalJson` | sync |
+| `func (*multiaddr.Multiaddr).UnmarshalText(data []byte) error` | `Multiaddr.unmarshalText` | sync |
+| `func (multiaddr.Multiaddr).ValueForProtocol(code int) (value string, err error)` | `Multiaddr.valueForProtocol` | sync |
+| `func multiaddr.NewComponent(protocol string, value string) (*multiaddr.Component, error)` | `factory MultiaddrComponent` | sync |
+| `func multiaddr.NewFilters() *multiaddr.Filters` | `factory MultiaddrFilters` | sync |
 | `func multiaddr.NewMultiaddr(s string) (a multiaddr.Multiaddr, err error)` | `Go.multiaddr.newMultiaddr` | sync |
 | `func multiaddr.NewMultiaddrBytes(b []byte) (a multiaddr.Multiaddr, err error)` | `Go.multiaddr.newMultiaddrBytes` | sync |
-| `func multiaddr.Join(msInterfaces ...multiaddr.Multiaddrer) multiaddr.Multiaddr` | `Go.multiaddr.join` | sync |
-| `func multiaddr.Contains(addrs []multiaddr.Multiaddr, addr multiaddr.Multiaddr) bool` | `Go.multiaddr.contains` | sync |
+| `func multiaddr.ProtocolWithCode(c int) multiaddr.Protocol` | `Go.multiaddr.protocolWithCode` | sync |
+| `func multiaddr.ProtocolWithName(s string) multiaddr.Protocol` | `Go.multiaddr.protocolWithName` | sync |
+| `var multiaddr.Protocols []multiaddr.Protocol` | `Go.multiaddr.protocols` | sync |
+| `func multiaddr.ProtocolsWithString(s string) ([]multiaddr.Protocol, error)` | `Go.multiaddr.protocolsWithString` | sync |
+| `func multiaddr.ReadVarintCode(b []byte) (int, int, error)` | `Go.multiaddr.readVarintCode` | sync |
+| `func multiaddr.Split(m multiaddr.Multiaddr) []multiaddr.Component` | `Go.multiaddr.split` | sync |
+| `func multiaddr.SplitFirst(m multiaddr.Multiaddr) (*multiaddr.Component, multiaddr.Multiaddr)` | `Go.multiaddr.splitFirst` | sync |
+| `func multiaddr.SplitFunc(m multiaddr.Multiaddr, cb func(multiaddr.Component) bool) (multiaddr.Multiaddr, multiaddr.Multiaddr)` | `Go.multiaddr.splitFunc` | Future |
+| `func multiaddr.SplitLast(m multiaddr.Multiaddr) (multiaddr.Multiaddr, *multiaddr.Component)` | `Go.multiaddr.splitLast` | sync |
+| `func multiaddr.StringCast(s string) multiaddr.Multiaddr` | `Go.multiaddr.stringCast` | sync |
+| `func (multiaddr.Transcoder).BytesToString([]byte) (string, error)` | `MultiaddrTranscoder.bytesToString` | sync |
+| `func (multiaddr.Transcoder).StringToBytes(string) ([]byte, error)` | `MultiaddrTranscoder.stringToBytes` | sync |
+| `func (multiaddr.Transcoder).ValidateBytes([]byte) error` | `MultiaddrTranscoder.validateBytes` | sync |
+| `var multiaddr.TranscoderCertHash multiaddr.Transcoder` | `Go.multiaddr.transcoderCertHash` | sync |
+| `var multiaddr.TranscoderDns multiaddr.Transcoder` | `Go.multiaddr.transcoderDns` | sync |
+| `var multiaddr.TranscoderGarlic32 multiaddr.Transcoder` | `Go.multiaddr.transcoderGarlic32` | sync |
+| `var multiaddr.TranscoderGarlic64 multiaddr.Transcoder` | `Go.multiaddr.transcoderGarlic64` | sync |
+| `var multiaddr.TranscoderHTTPPath multiaddr.Transcoder` | `Go.multiaddr.transcoderHttpPath` | sync |
+| `var multiaddr.TranscoderIP4 multiaddr.Transcoder` | `Go.multiaddr.transcoderIp4` | sync |
+| `var multiaddr.TranscoderIP6 multiaddr.Transcoder` | `Go.multiaddr.transcoderIp6` | sync |
+| `var multiaddr.TranscoderIP6Zone multiaddr.Transcoder` | `Go.multiaddr.transcoderIp6Zone` | sync |
+| `var multiaddr.TranscoderIPCIDR multiaddr.Transcoder` | `Go.multiaddr.transcoderIpcidr` | sync |
+| `var multiaddr.TranscoderMemory multiaddr.Transcoder` | `Go.multiaddr.transcoderMemory` | sync |
+| `var multiaddr.TranscoderOnion multiaddr.Transcoder` | `Go.multiaddr.transcoderOnion` | sync |
+| `var multiaddr.TranscoderOnion3 multiaddr.Transcoder` | `Go.multiaddr.transcoderOnion3` | sync |
+| `var multiaddr.TranscoderP2P multiaddr.Transcoder` | `Go.multiaddr.transcoderP2p` | sync |
+| `var multiaddr.TranscoderPort multiaddr.Transcoder` | `Go.multiaddr.transcoderPort` | sync |
+| `var multiaddr.TranscoderUnix multiaddr.Transcoder` | `Go.multiaddr.transcoderUnix` | sync |
 | `func multiaddr.Unique(addrs []multiaddr.Multiaddr) []multiaddr.Multiaddr` | `Go.multiaddr.unique` | sync |
-| `func (multiaddr.Multiaddr).Bytes() []byte` | `Multiaddr.bytes` | sync |
-| `func (multiaddr.Multiaddr).Equal(m2 multiaddr.Multiaddr) bool` | `Multiaddr.equal` | sync |
-| `func (multiaddr.Multiaddr).Compare(o multiaddr.Multiaddr) int` | `Multiaddr.compare` | sync |
-| `func (multiaddr.Multiaddr).Encapsulate(other multiaddr.Multiaddrer) multiaddr.Multiaddr` | `Multiaddr.encapsulate` | sync |
-| `func (multiaddr.Multiaddr).Decapsulate(rightPartsAny multiaddr.Multiaddrer) multiaddr.Multiaddr` | `Multiaddr.decapsulate` | sync |
-| `func (multiaddr.Multiaddr).ValueForProtocol(code int) (value string, err error)` | `Multiaddr.valueForProtocol` | sync |
 | `const multiaddr.ActionAccept multiaddr.Action` | `Go.multiaddr.actionAccept` | const |
 | `const multiaddr.ActionDeny multiaddr.Action` | `Go.multiaddr.actionDeny` | const |
 | `const multiaddr.ActionNone multiaddr.Action` | `Go.multiaddr.actionNone` | const |
@@ -1643,18 +5284,27 @@ Omitted:
 | `const multiaddr.P_WS untyped int` | `Go.multiaddr.pWs` | const |
 | `const multiaddr.P_WSS untyped int` | `Go.multiaddr.pWss` | const |
 
+Omitted:
+
+- `func multiaddr.CaptureAddrPort(network *string, ipPort *netip.AddrPort) (capturePattern meg.Pattern)`: result 0: func(states []github.com/multiformats/go-multiaddr/x/meg.MatchState, nextIdx int) ([]github.com/multiformats/go-multiaddr/x/meg.MatchState, int)
+- `func multiaddr.FilterAddrs(a []multiaddr.Multiaddr, filters ...func(multiaddr.Multiaddr) bool) []multiaddr.Multiaddr`: called without `filters: []func(github.com/multiformats/go-multiaddr.Multiaddr) bool`
+- `func (multiaddr.Multiaddr).Match(p ...meg.Pattern) (bool, error)`: called without `p: []func(states []github.com/multiformats/go-multiaddr/x/meg.MatchState, nextIdx int) ([]github.com/multiformats/go-multiaddr/x/meg.MatchState, int)`
+- `func (multiaddr.Multiaddrer).Multiaddr() multiaddr.Multiaddr`: receiver is neither a handle, a DTO nor a value type: 
+- `func multiaddr.NewTranscoderFromFunctions(s2b func(string) ([]byte, error), b2s func([]byte) (string, error), val func([]byte) error) multiaddr.Transcoder`: parameter s2b: func(string) ([]byte, error)
+
 ## `github.com/multiformats/go-multibase` → `Go.multibase` (`lib/go/multibase.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
-| `func multibase.Encode(base multibase.Encoding, data []byte) (string, error)` | `Go.multibase.encode` | sync |
 | `func multibase.Decode(data string) (multibase.Encoding, []byte, error)` | `Go.multibase.decode` | sync |
-| `func multibase.EncoderByName(str string) (multibase.Encoder, error)` | `Go.multibase.encoderByName` | sync |
-| `func multibase.NewEncoder(base multibase.Encoding) (multibase.Encoder, error)` | `factory MultibaseEncoder` | sync |
+| `func multibase.Encode(base multibase.Encoding, data []byte) (string, error)` | `Go.multibase.encode` | sync |
 | `func (multibase.Encoder).Encode(data []byte) string` | `MultibaseEncoder.encode` | sync |
 | `func (multibase.Encoder).Encoding() multibase.Encoding` | `MultibaseEncoder.encoding` | sync |
+| `func multibase.EncoderByName(str string) (multibase.Encoder, error)` | `Go.multibase.encoderByName` | sync |
 | `var multibase.EncodingToStr map[multibase.Encoding]string` | `Go.multibase.encodingToStr` | sync |
 | `var multibase.Encodings map[string]multibase.Encoding` | `Go.multibase.encodings` | sync |
+| `func multibase.MustNewEncoder(base multibase.Encoding) multibase.Encoder` | `Go.multibase.mustNewEncoder` | sync |
+| `func multibase.NewEncoder(base multibase.Encoding) (multibase.Encoder, error)` | `factory MultibaseEncoder` | sync |
 | `const multibase.Base10 untyped rune` | `Go.multibase.base10` | const |
 | `const multibase.Base16 untyped rune` | `Go.multibase.base16` | const |
 | `const multibase.Base16Upper untyped rune` | `Go.multibase.base16Upper` | const |
@@ -1685,6 +5335,7 @@ Omitted:
 | Go | Dart | Mode |
 |---|---|---|
 | `const multicodec.CarMultihashIndexSorted multicodec.Code` | `Go.multicodec.carMultihashIndexSorted` | const |
+| `func multicodec.KnownCodes() []multicodec.Code` | `Go.multicodec.knownCodes` | sync |
 | `const multicodec.Aes128 multicodec.Code` | `Go.multicodec.aes128` | const |
 | `const multicodec.Aes192 multicodec.Code` | `Go.multicodec.aes192` | const |
 | `const multicodec.Aes256 multicodec.Code` | `Go.multicodec.aes256` | const |
@@ -2290,24 +5941,31 @@ Omitted:
 | `const multicodec.Zeronet multicodec.Code` | `Go.multicodec.zeronet` | const |
 | `const multicodec.ZeroxcertImprint256 multicodec.Code` | `Go.multicodec.zeroxcertImprint256` | const |
 
+Omitted:
+
+- `func (*multicodec.Code).Set(text string) error`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/multiformats/go-multicodec.Code
+- `func (multicodec.Code).String() string`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/multiformats/go-multicodec.Code
+- `func (multicodec.Code).Tag() string`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/multiformats/go-multicodec.Code
+
 ## `github.com/multiformats/go-multihash` → `Go.multihash` (`lib/go/multihash.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
-| `func multihash.Sum(data []byte, code uint64, length int) (multihash.Multihash, error)` | `Go.multihash.sum` | sync |
-| `func multihash.SumStream(r io.Reader, code uint64, length int) (multihash.Multihash, error)` | `Go.multihash.sumStream` | sync |
+| `func multihash.Cast(buf []byte) (multihash.Multihash, error)` | `Go.multihash.cast` | sync |
+| `var multihash.Codes map[uint64]string` | `Go.multihash.codes` | sync |
+| `func multihash.Decode(buf []byte) (*multihash.DecodedMultihash, error)` | `Go.multihash.decode` | sync |
+| `var multihash.DefaultLengths map[uint64]int` | `Go.multihash.defaultLengths` | sync |
 | `func multihash.Encode(buf []byte, code uint64) ([]byte, error)` | `Go.multihash.encode` | sync |
 | `func multihash.EncodeName(buf []byte, name string) ([]byte, error)` | `Go.multihash.encodeName` | sync |
-| `func multihash.Decode(buf []byte) (*multihash.DecodedMultihash, error)` | `Go.multihash.decode` | sync |
-| `func multihash.Cast(buf []byte) (multihash.Multihash, error)` | `Go.multihash.cast` | sync |
-| `func multihash.MHFromBytes(buf []byte) (int, multihash.Multihash, error)` | `Go.multihash.mhFromBytes` | sync |
 | `func multihash.FromB58String(s string) (m multihash.Multihash, err error)` | `Go.multihash.fromB58String` | sync |
 | `func multihash.FromHexString(s string) (multihash.Multihash, error)` | `Go.multihash.fromHexString` | sync |
-| `var multihash.Names map[string]uint64` | `Go.multihash.names` | sync |
-| `var multihash.Codes map[uint64]string` | `Go.multihash.codes` | sync |
-| `var multihash.DefaultLengths map[uint64]int` | `Go.multihash.defaultLengths` | sync |
 | `func multihash.GetHasher(indicator uint64) (hash.Hash, error)` | `Go.multihash.getHasher` | sync |
+| `func multihash.MHFromBytes(buf []byte) (int, multihash.Multihash, error)` | `Go.multihash.mhFromBytes` | sync |
+| `var multihash.Names map[string]uint64` | `Go.multihash.names` | sync |
+| `func multihash.NewReader(r io.Reader) multihash.Reader` | `factory MultihashReader` | sync |
 | `func multihash.NewSet() *multihash.Set` | `factory MultihashSet` | sync |
+| `func multihash.NewWriter(w io.Writer) multihash.Writer` | `factory MultihashWriter` | sync |
+| `func (multihash.Reader).ReadMultihash() (multihash.Multihash, error)` | `MultihashReader.readMultihash` | sync |
 | `func (*multihash.Set).Add(m multihash.Multihash)` | `MultihashSet.add` | sync |
 | `func (*multihash.Set).All() []multihash.Multihash` | `MultihashSet.all` | sync |
 | `func (*multihash.Set).ForEach(f func(m multihash.Multihash) error) error` | `MultihashSet.forEach` | Future |
@@ -2315,9 +5973,8 @@ Omitted:
 | `func (*multihash.Set).Len() int` | `MultihashSet.len` | sync |
 | `func (*multihash.Set).Remove(m multihash.Multihash)` | `MultihashSet.remove` | sync |
 | `func (*multihash.Set).Visit(m multihash.Multihash) bool` | `MultihashSet.visit` | sync |
-| `func multihash.NewReader(r io.Reader) multihash.Reader` | `factory MultihashReader` | sync |
-| `func (multihash.Reader).ReadMultihash() (multihash.Multihash, error)` | `MultihashReader.readMultihash` | sync |
-| `func multihash.NewWriter(w io.Writer) multihash.Writer` | `factory MultihashWriter` | sync |
+| `func multihash.Sum(data []byte, code uint64, length int) (multihash.Multihash, error)` | `Go.multihash.sum` | sync |
+| `func multihash.SumStream(r io.Reader, code uint64, length int) (multihash.Multihash, error)` | `Go.multihash.sumStream` | sync |
 | `func (multihash.Writer).WriteMultihash(multihash.Multihash) error` | `MultihashWriter.writeMultihash` | sync |
 | `const multihash.BLAKE2B_MAX untyped int` | `Go.multihash.blake2bMax` | const |
 | `const multihash.BLAKE2B_MIN untyped int` | `Go.multihash.blake2bMin` | const |
@@ -2359,6 +6016,7 @@ Omitted:
 
 | Go | Dart | Mode |
 |---|---|---|
+| `var prometheus.DefaultGatherer prometheus.Gatherer` | `Go.clientGolang.prometheus.defaultGatherer` | sync |
 | `const prometheus.CounterValue prometheus.ValueType` | `Go.clientGolang.prometheus.counterValue` | const |
 | `const prometheus.DefAgeBuckets untyped int` | `Go.clientGolang.prometheus.defAgeBuckets` | const |
 | `const prometheus.DefBufCap untyped int` | `Go.clientGolang.prometheus.defBufCap` | const |
@@ -2369,6 +6027,63 @@ Omitted:
 | `const prometheus.NativeHistogramZeroThresholdZero untyped int` | `Go.clientGolang.prometheus.nativeHistogramZeroThresholdZero` | const |
 | `const prometheus.UntypedValue prometheus.ValueType` | `Go.clientGolang.prometheus.untypedValue` | const |
 
+Omitted:
+
+- `func (prometheus.Gatherer).Gather() ([]*io_prometheus_client.MetricFamily, error)`: receiver is neither a handle, a DTO nor a value type: 
+
+## `github.com/prometheus/client_model/go` → `Go.clientModel.go` (`lib/go/client_model/go.dart`)
+
+| Go | Dart | Mode |
+|---|---|---|
+| `const io_prometheus_client.MetricType_COUNTER io_prometheus_client.MetricType` | `Go.clientModel.go.metricTypeCounter` | const |
+| `const io_prometheus_client.MetricType_GAUGE io_prometheus_client.MetricType` | `Go.clientModel.go.metricTypeGauge` | const |
+| `const io_prometheus_client.MetricType_GAUGE_HISTOGRAM io_prometheus_client.MetricType` | `Go.clientModel.go.metricTypeGaugeHistogram` | const |
+| `const io_prometheus_client.MetricType_HISTOGRAM io_prometheus_client.MetricType` | `Go.clientModel.go.metricTypeHistogram` | const |
+| `const io_prometheus_client.MetricType_SUMMARY io_prometheus_client.MetricType` | `Go.clientModel.go.metricTypeSummary` | const |
+| `const io_prometheus_client.MetricType_UNTYPED io_prometheus_client.MetricType` | `Go.clientModel.go.metricTypeUntyped` | const |
+
+## `go.uber.org/dig` → `Go.dig` (`lib/go/dig.dart`)
+
+| Go | Dart | Mode |
+|---|---|---|
+| `const dig.Version untyped string` | `Go.dig.version` | const |
+
+## `go.uber.org/fx` → `Go.fx` (`lib/go/fx.dart`)
+
+| Go | Dart | Mode |
+|---|---|---|
+| `const fx.DefaultTimeout time.Duration` | `Go.fx.defaultTimeout` | const |
+| `const fx.Version untyped string` | `Go.fx.version` | const |
+
+## `google.golang.org/protobuf/reflect/protoreflect` → `Go.protobuf.reflect.protoreflect` (`lib/go/protobuf/reflect/protoreflect.dart`)
+
+| Go | Dart | Mode |
+|---|---|---|
+| `const protoreflect.BoolKind protoreflect.Kind` | `Go.protobuf.reflect.protoreflect.boolKind` | const |
+| `const protoreflect.BytesKind protoreflect.Kind` | `Go.protobuf.reflect.protoreflect.bytesKind` | const |
+| `const protoreflect.DoubleKind protoreflect.Kind` | `Go.protobuf.reflect.protoreflect.doubleKind` | const |
+| `const protoreflect.Editions protoreflect.Syntax` | `Go.protobuf.reflect.protoreflect.editions` | const |
+| `const protoreflect.EnumKind protoreflect.Kind` | `Go.protobuf.reflect.protoreflect.enumKind` | const |
+| `const protoreflect.Fixed32Kind protoreflect.Kind` | `Go.protobuf.reflect.protoreflect.fixed32Kind` | const |
+| `const protoreflect.Fixed64Kind protoreflect.Kind` | `Go.protobuf.reflect.protoreflect.fixed64Kind` | const |
+| `const protoreflect.FloatKind protoreflect.Kind` | `Go.protobuf.reflect.protoreflect.floatKind` | const |
+| `const protoreflect.GroupKind protoreflect.Kind` | `Go.protobuf.reflect.protoreflect.groupKind` | const |
+| `const protoreflect.Int32Kind protoreflect.Kind` | `Go.protobuf.reflect.protoreflect.int32Kind` | const |
+| `const protoreflect.Int64Kind protoreflect.Kind` | `Go.protobuf.reflect.protoreflect.int64Kind` | const |
+| `const protoreflect.MessageKind protoreflect.Kind` | `Go.protobuf.reflect.protoreflect.messageKind` | const |
+| `const protoreflect.Optional protoreflect.Cardinality` | `Go.protobuf.reflect.protoreflect.optional` | const |
+| `const protoreflect.Proto2 protoreflect.Syntax` | `Go.protobuf.reflect.protoreflect.proto2` | const |
+| `const protoreflect.Proto3 protoreflect.Syntax` | `Go.protobuf.reflect.protoreflect.proto3` | const |
+| `const protoreflect.Repeated protoreflect.Cardinality` | `Go.protobuf.reflect.protoreflect.repeated` | const |
+| `const protoreflect.Required protoreflect.Cardinality` | `Go.protobuf.reflect.protoreflect.required` | const |
+| `const protoreflect.Sfixed32Kind protoreflect.Kind` | `Go.protobuf.reflect.protoreflect.sfixed32Kind` | const |
+| `const protoreflect.Sfixed64Kind protoreflect.Kind` | `Go.protobuf.reflect.protoreflect.sfixed64Kind` | const |
+| `const protoreflect.Sint32Kind protoreflect.Kind` | `Go.protobuf.reflect.protoreflect.sint32Kind` | const |
+| `const protoreflect.Sint64Kind protoreflect.Kind` | `Go.protobuf.reflect.protoreflect.sint64Kind` | const |
+| `const protoreflect.StringKind protoreflect.Kind` | `Go.protobuf.reflect.protoreflect.stringKind` | const |
+| `const protoreflect.Uint32Kind protoreflect.Kind` | `Go.protobuf.reflect.protoreflect.uint32Kind` | const |
+| `const protoreflect.Uint64Kind protoreflect.Kind` | `Go.protobuf.reflect.protoreflect.uint64Kind` | const |
+
 ## `io` → `Go.io` (`lib/go/io.dart`)
 
 | Go | Dart | Mode |
@@ -2376,6 +6091,70 @@ Omitted:
 | `func io.ReadAll(r io.Reader) ([]byte, error)` | `Go.io.readAll` | sync |
 | `func io.Copy(dst io.Writer, src io.Reader) (written int64, err error)` | `Go.io.copy` | sync |
 | `func (io.Closer).Close() error` | `IoReadCloser.close` | sync |
+| `io.Closer → x.(*bitswap.Bitswap)` | `IoCloser.asBoxoBitswap` | cast |
+| `io.Closer → x.(*files.ReaderFile)` | `IoCloser.asBoxoFilesReaderFile` | cast |
+| `io.Closer → x.(*files.SliceFile)` | `IoCloser.asBoxoFilesSliceFile` | cast |
+| `io.Closer → x.(*files.Symlink)` | `IoCloser.asBoxoFilesSymlink` | cast |
+| `io.Closer → x.(*files.TarWriter)` | `IoCloser.asBoxoFilesTarWriter` | cast |
+| `io.Closer → x.(*files.WebFile)` | `IoCloser.asBoxoFilesWebFile` | cast |
+| `io.Closer → x.(*gateway.GetResponse)` | `IoCloser.asBoxoGatewayGetResponse` | cast |
+| `io.Closer → x.(*gateway.HeadResponse)` | `IoCloser.asBoxoGatewayHeadResponse` | cast |
+| `io.Closer → x.(*mfs.Republisher)` | `IoCloser.asBoxoMfsRepublisher` | cast |
+| `io.Closer → x.(*mfs.Root)` | `IoCloser.asBoxoMfsRoot` | cast |
+| `io.Closer → x.(*datastore.LogDatastore)` | `IoCloser.asDatastoreLogDatastore` | cast |
+| `io.Closer → x.(*datastore.MapDatastore)` | `IoCloser.asDatastoreMapDatastore` | cast |
+| `io.Closer → x.(*datastore.NullDatastore)` | `IoCloser.asDatastoreNullDatastore` | cast |
+| `io.Closer → x.(*sync.MutexDatastore)` | `IoCloser.asDatastoreSyncMutexDatastore` | cast |
+| `io.Closer → x.(*core.IpfsNode)` | `IoCloser.asKuboCoreIpfsNode` | cast |
+| `io.Closer → x.(*node.LegacyProvider)` | `IoCloser.asKuboCoreNodeLegacyProvider` | cast |
+| `io.Closer → x.(*loader.PluginLoader)` | `IoCloser.asKuboPluginLoader` | cast |
+| `io.Closer → x.(*fsrepo.FSRepo)` | `IoCloser.asKuboRepoFsrepoFsRepo` | cast |
+| `io.Closer → x.(*car.Reader)` | `IoCloser.asCarV2Reader` | cast |
+| `io.Closer → x.(*blockstore.ReadOnly)` | `IoCloser.asCarV2BlockstoreReadOnly` | cast |
+| `io.Closer → x.(*blockstore.ReadWrite)` | `IoCloser.asCarV2BlockstoreReadWrite` | cast |
+| `io.Closer → x.(*dht.IpfsDHT)` | `IoCloser.asLibp2pKadDhtIpfsDht` | cast |
+| `io.Closer → x.(*records.ProviderManager)` | `IoCloser.asLibp2pKadDhtRecordsProviderManager` | cast |
+| `io.Closer → x.(*records.ValueStore)` | `IoCloser.asLibp2pKadDhtRecordsValueStore` | cast |
+| `io.Closer → x.(*kbucket.RoutingTable)` | `IoCloser.asLibp2pKbucketRoutingTable` | cast |
+| `io.Closer → x.(*pubsub.Topic)` | `IoCloser.asLibp2pPubsubTopic` | cast |
+| `io.Closer → x.(*swarm.Conn)` | `IoCloser.asLibp2pP2pNetSwarmConn` | cast |
+| `io.Closer → x.(*swarm.Stream)` | `IoCloser.asLibp2pP2pNetSwarmStream` | cast |
+| `io.Closer → x.(*swarm.Swarm)` | `IoCloser.asLibp2pP2pNetSwarm` | cast |
+| `io.Closer → x.(*relay.Relay)` | `IoCloser.asLibp2pP2pProtocolCircuitv2Relay` | cast |
+| `io.Closer → x.(*holepunch.Service)` | `IoCloser.asLibp2pP2pProtocolHolepunchService` | cast |
+| `io.Closer → x.(*quicreuse.ConnManager)` | `IoCloser.asLibp2pP2pTransportQuicreuseConnManager` | cast |
+| `io.Closer → x.(*yamux.Session)` | `IoCloser.asYamuxV5Session` | cast |
+| `io.Closer → x.(*os.File)` | `IoCloser.asOsFile` | cast |
+| `io.Closer → x.(blockservice.BlockService)` | `IoCloser.asBoxoBlockserviceBlockService` | cast |
+| `io.Closer → x.(blockservice.BoundedBlockService)` | `IoCloser.asBoxoBlockserviceBoundedBlockService` | cast |
+| `io.Closer → x.(exchange.Interface)` | `IoCloser.asBoxoExchangeInterface` | cast |
+| `io.Closer → x.(exchange.SessionExchange)` | `IoCloser.asBoxoExchangeSessionExchange` | cast |
+| `io.Closer → x.(files.Directory)` | `IoCloser.asBoxoFilesDirectory` | cast |
+| `io.Closer → x.(files.File)` | `IoCloser.asBoxoFilesFile` | cast |
+| `io.Closer → x.(files.FileInfo)` | `IoCloser.asBoxoFilesFileInfo` | cast |
+| `io.Closer → x.(files.Node)` | `IoCloser.asBoxoFilesNode` | cast |
+| `io.Closer → x.(io.DagReader)` | `IoCloser.asBoxoIpldUnixfsIoDagReader` | cast |
+| `io.Closer → x.(mfs.FileDescriptor)` | `IoCloser.asBoxoMfsFileDescriptor` | cast |
+| `io.Closer → x.(datastore.Batching)` | `IoCloser.asDatastoreBatching` | cast |
+| `io.Closer → x.(datastore.Datastore)` | `IoCloser.asDatastore` | cast |
+| `io.Closer → x.(datastore.Shim)` | `IoCloser.asDatastoreShim` | cast |
+| `io.Closer → x.(cmds.StdinArguments)` | `IoCloser.asIpfsCmdsStdinArguments` | cast |
+| `io.Closer → x.(iface.PubSubSubscription)` | `IoCloser.asKuboCoreCoreifacePubSubSubscription` | cast |
+| `io.Closer → x.(iface.Reader)` | `IoCloser.asKuboCoreCoreifaceReader` | cast |
+| `io.Closer → x.(repo.Datastore)` | `IoCloser.asKuboRepoDatastore` | cast |
+| `io.Closer → x.(repo.Repo)` | `IoCloser.asKuboRepo` | cast |
+| `io.Closer → x.(records.ProviderStore)` | `IoCloser.asLibp2pKadDhtRecordsProviderStore` | cast |
+| `io.Closer → x.(connmgr.Decayer)` | `IoCloser.asLibp2pCoreConnmgrDecayer` | cast |
+| `io.Closer → x.(event.Emitter)` | `IoCloser.asLibp2pCoreEventEmitter` | cast |
+| `io.Closer → x.(event.Subscription)` | `IoCloser.asLibp2pCoreEventSubscription` | cast |
+| `io.Closer → x.(network.Conn)` | `IoCloser.asLibp2pCoreNetworkConn` | cast |
+| `io.Closer → x.(network.MuxedConn)` | `IoCloser.asLibp2pCoreNetworkMuxedConn` | cast |
+| `io.Closer → x.(network.MuxedStream)` | `IoCloser.asLibp2pCoreNetworkMuxedStream` | cast |
+| `io.Closer → x.(network.Network)` | `IoCloser.asLibp2pCoreNetwork` | cast |
+| `io.Closer → x.(network.Stream)` | `IoCloser.asLibp2pCoreNetworkStream` | cast |
+| `io.Closer → x.(peerstore.Peerstore)` | `IoCloser.asLibp2pCorePeerstore` | cast |
+| `io.Closer → x.(transport.CapableConn)` | `IoCloser.asLibp2pCoreTransportCapableConn` | cast |
+| `io.Closer → x.(mdns.Service)` | `IoCloser.asLibp2pP2pDiscoveryMdnsService` | cast |
 | `const io.SeekCurrent untyped int` | `Go.io.seekCurrent` | const |
 | `const io.SeekEnd untyped int` | `Go.io.seekEnd` | const |
 | `const io.SeekStart untyped int` | `Go.io.seekStart` | const |
@@ -2423,10 +6202,29 @@ Omitted:
 | `const slog.SourceKey untyped string` | `Go.log.slog.sourceKey` | const |
 | `const slog.TimeKey untyped string` | `Go.log.slog.timeKey` | const |
 
+## `math/big` → `Go.math.big` (`lib/go/math/big.dart`)
+
+| Go | Dart | Mode |
+|---|---|---|
+| `const big.Above big.Accuracy` | `Go.math.big.above` | const |
+| `const big.AwayFromZero big.RoundingMode` | `Go.math.big.awayFromZero` | const |
+| `const big.Below big.Accuracy` | `Go.math.big.below` | const |
+| `const big.Exact big.Accuracy` | `Go.math.big.exact` | const |
+| `const big.MaxBase untyped rune` | `Go.math.big.maxBase` | const |
+| `const big.MaxExp untyped int` | `Go.math.big.maxExp` | const |
+| `const big.MaxPrec untyped int` | `Go.math.big.maxPrec` | const |
+| `const big.MinExp untyped int` | `Go.math.big.minExp` | const |
+| `const big.ToNearestAway big.RoundingMode` | `Go.math.big.toNearestAway` | const |
+| `const big.ToNearestEven big.RoundingMode` | `Go.math.big.toNearestEven` | const |
+| `const big.ToNegativeInf big.RoundingMode` | `Go.math.big.toNegativeInf` | const |
+| `const big.ToPositiveInf big.RoundingMode` | `Go.math.big.toPositiveInf` | const |
+| `const big.ToZero big.RoundingMode` | `Go.math.big.toZero` | const |
+
 ## `net` → `Go.net` (`lib/go/net.dart`)
 
 | Go | Dart | Mode |
 |---|---|---|
+| `net.Conn → x.(sec.SecureConn)` | `NetConn.asLibp2pCoreSecSecureConn` | cast |
 | `const net.FlagBroadcast net.Flags` | `Go.net.flagBroadcast` | const |
 | `const net.FlagLoopback net.Flags` | `Go.net.flagLoopback` | const |
 | `const net.FlagMulticast net.Flags` | `Go.net.flagMulticast` | const |
@@ -2435,6 +6233,96 @@ Omitted:
 | `const net.FlagUp net.Flags` | `Go.net.flagUp` | const |
 | `const net.IPv4len untyped int` | `Go.net.iPv4len` | const |
 | `const net.IPv6len untyped int` | `Go.net.iPv6len` | const |
+
+## `net/http` → `Go.net.http` (`lib/go/net/http.dart`)
+
+| Go | Dart | Mode |
+|---|---|---|
+| `http.Handler → x.(http.HandlerFunc)` | `NetHttpHandler.asNetHttpHandlerFunc` | cast |
+| `const http.DefaultMaxHeaderBytes untyped int` | `Go.net.http.defaultMaxHeaderBytes` | const |
+| `const http.DefaultMaxIdleConnsPerHost untyped int` | `Go.net.http.defaultMaxIdleConnsPerHost` | const |
+| `const http.MethodConnect untyped string` | `Go.net.http.methodConnect` | const |
+| `const http.MethodDelete untyped string` | `Go.net.http.methodDelete` | const |
+| `const http.MethodGet untyped string` | `Go.net.http.methodGet` | const |
+| `const http.MethodHead untyped string` | `Go.net.http.methodHead` | const |
+| `const http.MethodOptions untyped string` | `Go.net.http.methodOptions` | const |
+| `const http.MethodPatch untyped string` | `Go.net.http.methodPatch` | const |
+| `const http.MethodPost untyped string` | `Go.net.http.methodPost` | const |
+| `const http.MethodPut untyped string` | `Go.net.http.methodPut` | const |
+| `const http.MethodTrace untyped string` | `Go.net.http.methodTrace` | const |
+| `const http.SameSiteDefaultMode http.SameSite` | `Go.net.http.sameSiteDefaultMode` | const |
+| `const http.SameSiteLaxMode http.SameSite` | `Go.net.http.sameSiteLaxMode` | const |
+| `const http.SameSiteNoneMode http.SameSite` | `Go.net.http.sameSiteNoneMode` | const |
+| `const http.SameSiteStrictMode http.SameSite` | `Go.net.http.sameSiteStrictMode` | const |
+| `const http.StateActive http.ConnState` | `Go.net.http.stateActive` | const |
+| `const http.StateClosed http.ConnState` | `Go.net.http.stateClosed` | const |
+| `const http.StateHijacked http.ConnState` | `Go.net.http.stateHijacked` | const |
+| `const http.StateIdle http.ConnState` | `Go.net.http.stateIdle` | const |
+| `const http.StateNew http.ConnState` | `Go.net.http.stateNew` | const |
+| `const http.StatusAccepted untyped int` | `Go.net.http.statusAccepted` | const |
+| `const http.StatusAlreadyReported untyped int` | `Go.net.http.statusAlreadyReported` | const |
+| `const http.StatusBadGateway untyped int` | `Go.net.http.statusBadGateway` | const |
+| `const http.StatusBadRequest untyped int` | `Go.net.http.statusBadRequest` | const |
+| `const http.StatusConflict untyped int` | `Go.net.http.statusConflict` | const |
+| `const http.StatusContinue untyped int` | `Go.net.http.statusContinue` | const |
+| `const http.StatusCreated untyped int` | `Go.net.http.statusCreated` | const |
+| `const http.StatusEarlyHints untyped int` | `Go.net.http.statusEarlyHints` | const |
+| `const http.StatusExpectationFailed untyped int` | `Go.net.http.statusExpectationFailed` | const |
+| `const http.StatusFailedDependency untyped int` | `Go.net.http.statusFailedDependency` | const |
+| `const http.StatusForbidden untyped int` | `Go.net.http.statusForbidden` | const |
+| `const http.StatusFound untyped int` | `Go.net.http.statusFound` | const |
+| `const http.StatusGatewayTimeout untyped int` | `Go.net.http.statusGatewayTimeout` | const |
+| `const http.StatusGone untyped int` | `Go.net.http.statusGone` | const |
+| `const http.StatusHTTPVersionNotSupported untyped int` | `Go.net.http.statusHttpVersionNotSupported` | const |
+| `const http.StatusIMUsed untyped int` | `Go.net.http.statusImUsed` | const |
+| `const http.StatusInsufficientStorage untyped int` | `Go.net.http.statusInsufficientStorage` | const |
+| `const http.StatusInternalServerError untyped int` | `Go.net.http.statusInternalServerError` | const |
+| `const http.StatusLengthRequired untyped int` | `Go.net.http.statusLengthRequired` | const |
+| `const http.StatusLocked untyped int` | `Go.net.http.statusLocked` | const |
+| `const http.StatusLoopDetected untyped int` | `Go.net.http.statusLoopDetected` | const |
+| `const http.StatusMethodNotAllowed untyped int` | `Go.net.http.statusMethodNotAllowed` | const |
+| `const http.StatusMisdirectedRequest untyped int` | `Go.net.http.statusMisdirectedRequest` | const |
+| `const http.StatusMovedPermanently untyped int` | `Go.net.http.statusMovedPermanently` | const |
+| `const http.StatusMultiStatus untyped int` | `Go.net.http.statusMultiStatus` | const |
+| `const http.StatusMultipleChoices untyped int` | `Go.net.http.statusMultipleChoices` | const |
+| `const http.StatusNetworkAuthenticationRequired untyped int` | `Go.net.http.statusNetworkAuthenticationRequired` | const |
+| `const http.StatusNoContent untyped int` | `Go.net.http.statusNoContent` | const |
+| `const http.StatusNonAuthoritativeInfo untyped int` | `Go.net.http.statusNonAuthoritativeInfo` | const |
+| `const http.StatusNotAcceptable untyped int` | `Go.net.http.statusNotAcceptable` | const |
+| `const http.StatusNotExtended untyped int` | `Go.net.http.statusNotExtended` | const |
+| `const http.StatusNotFound untyped int` | `Go.net.http.statusNotFound` | const |
+| `const http.StatusNotImplemented untyped int` | `Go.net.http.statusNotImplemented` | const |
+| `const http.StatusNotModified untyped int` | `Go.net.http.statusNotModified` | const |
+| `const http.StatusOK untyped int` | `Go.net.http.statusOk` | const |
+| `const http.StatusPartialContent untyped int` | `Go.net.http.statusPartialContent` | const |
+| `const http.StatusPaymentRequired untyped int` | `Go.net.http.statusPaymentRequired` | const |
+| `const http.StatusPermanentRedirect untyped int` | `Go.net.http.statusPermanentRedirect` | const |
+| `const http.StatusPreconditionFailed untyped int` | `Go.net.http.statusPreconditionFailed` | const |
+| `const http.StatusPreconditionRequired untyped int` | `Go.net.http.statusPreconditionRequired` | const |
+| `const http.StatusProcessing untyped int` | `Go.net.http.statusProcessing` | const |
+| `const http.StatusProxyAuthRequired untyped int` | `Go.net.http.statusProxyAuthRequired` | const |
+| `const http.StatusRequestEntityTooLarge untyped int` | `Go.net.http.statusRequestEntityTooLarge` | const |
+| `const http.StatusRequestHeaderFieldsTooLarge untyped int` | `Go.net.http.statusRequestHeaderFieldsTooLarge` | const |
+| `const http.StatusRequestTimeout untyped int` | `Go.net.http.statusRequestTimeout` | const |
+| `const http.StatusRequestURITooLong untyped int` | `Go.net.http.statusRequestUriTooLong` | const |
+| `const http.StatusRequestedRangeNotSatisfiable untyped int` | `Go.net.http.statusRequestedRangeNotSatisfiable` | const |
+| `const http.StatusResetContent untyped int` | `Go.net.http.statusResetContent` | const |
+| `const http.StatusSeeOther untyped int` | `Go.net.http.statusSeeOther` | const |
+| `const http.StatusServiceUnavailable untyped int` | `Go.net.http.statusServiceUnavailable` | const |
+| `const http.StatusSwitchingProtocols untyped int` | `Go.net.http.statusSwitchingProtocols` | const |
+| `const http.StatusTeapot untyped int` | `Go.net.http.statusTeapot` | const |
+| `const http.StatusTemporaryRedirect untyped int` | `Go.net.http.statusTemporaryRedirect` | const |
+| `const http.StatusTooEarly untyped int` | `Go.net.http.statusTooEarly` | const |
+| `const http.StatusTooManyRequests untyped int` | `Go.net.http.statusTooManyRequests` | const |
+| `const http.StatusUnauthorized untyped int` | `Go.net.http.statusUnauthorized` | const |
+| `const http.StatusUnavailableForLegalReasons untyped int` | `Go.net.http.statusUnavailableForLegalReasons` | const |
+| `const http.StatusUnprocessableEntity untyped int` | `Go.net.http.statusUnprocessableEntity` | const |
+| `const http.StatusUnsupportedMediaType untyped int` | `Go.net.http.statusUnsupportedMediaType` | const |
+| `const http.StatusUpgradeRequired untyped int` | `Go.net.http.statusUpgradeRequired` | const |
+| `const http.StatusUseProxy untyped int` | `Go.net.http.statusUseProxy` | const |
+| `const http.StatusVariantAlsoNegotiates untyped int` | `Go.net.http.statusVariantAlsoNegotiates` | const |
+| `const http.TimeFormat untyped string` | `Go.net.http.timeFormat` | const |
+| `const http.TrailerPrefix untyped string` | `Go.net.http.trailerPrefix` | const |
 
 ## `os` → `Go.os` (`lib/go/os.dart`)
 
@@ -2475,6 +6363,45 @@ Omitted:
 | `const os.SEEK_END int` | `Go.os.seekEnd` | const |
 | `const os.SEEK_SET int` | `Go.os.seekSet` | const |
 
+## `reflect` → `Go.reflect` (`lib/go/reflect.dart`)
+
+| Go | Dart | Mode |
+|---|---|---|
+| `const reflect.Array reflect.Kind` | `Go.reflect.array` | const |
+| `const reflect.Bool reflect.Kind` | `Go.reflect.bool$` | const |
+| `const reflect.BothDir reflect.ChanDir` | `Go.reflect.bothDir` | const |
+| `const reflect.Chan reflect.Kind` | `Go.reflect.chan` | const |
+| `const reflect.Complex128 reflect.Kind` | `Go.reflect.complex128` | const |
+| `const reflect.Complex64 reflect.Kind` | `Go.reflect.complex64` | const |
+| `const reflect.Float32 reflect.Kind` | `Go.reflect.float32` | const |
+| `const reflect.Float64 reflect.Kind` | `Go.reflect.float64` | const |
+| `const reflect.Func reflect.Kind` | `Go.reflect.func` | const |
+| `const reflect.Int reflect.Kind` | `Go.reflect.int$` | const |
+| `const reflect.Int16 reflect.Kind` | `Go.reflect.int16` | const |
+| `const reflect.Int32 reflect.Kind` | `Go.reflect.int32` | const |
+| `const reflect.Int64 reflect.Kind` | `Go.reflect.int64` | const |
+| `const reflect.Int8 reflect.Kind` | `Go.reflect.int8` | const |
+| `const reflect.Interface reflect.Kind` | `Go.reflect.interface` | const |
+| `const reflect.Invalid reflect.Kind` | `Go.reflect.invalid` | const |
+| `const reflect.Map reflect.Kind` | `Go.reflect.map` | const |
+| `const reflect.Pointer reflect.Kind` | `Go.reflect.pointer` | const |
+| `const reflect.Ptr reflect.Kind` | `Go.reflect.ptr` | const |
+| `const reflect.RecvDir reflect.ChanDir` | `Go.reflect.recvDir` | const |
+| `const reflect.SelectDefault reflect.SelectDir` | `Go.reflect.selectDefault` | const |
+| `const reflect.SelectRecv reflect.SelectDir` | `Go.reflect.selectRecv` | const |
+| `const reflect.SelectSend reflect.SelectDir` | `Go.reflect.selectSend` | const |
+| `const reflect.SendDir reflect.ChanDir` | `Go.reflect.sendDir` | const |
+| `const reflect.Slice reflect.Kind` | `Go.reflect.slice` | const |
+| `const reflect.String reflect.Kind` | `Go.reflect.string` | const |
+| `const reflect.Struct reflect.Kind` | `Go.reflect.struct` | const |
+| `const reflect.Uint reflect.Kind` | `Go.reflect.uint` | const |
+| `const reflect.Uint16 reflect.Kind` | `Go.reflect.uint16` | const |
+| `const reflect.Uint32 reflect.Kind` | `Go.reflect.uint32` | const |
+| `const reflect.Uint64 reflect.Kind` | `Go.reflect.uint64` | const |
+| `const reflect.Uint8 reflect.Kind` | `Go.reflect.uint8` | const |
+| `const reflect.Uintptr reflect.Kind` | `Go.reflect.uintptr` | const |
+| `const reflect.UnsafePointer reflect.Kind` | `Go.reflect.unsafePointer` | const |
+
 ## `runtime/debug` → `Go.runtime.debug` (`lib/go/runtime/debug.dart`)
 
 | Go | Dart | Mode |
@@ -2483,13 +6410,52 @@ Omitted:
 
 ## Struct fields that do not cross the bridge
 
+- `crypto/x509.Certificate.PublicKey`: type any
+- `crypto/x509/pkix.AttributeTypeAndValue.Value`: type any
+- `github.com/ipfs/go-datastore.Feature.Interface`: type any
+- `github.com/ipfs/go-datastore.Feature.DatastoreInterface`: type any
+- `github.com/ipfs/go-ipfs-cmds.Command.PreRun`: func(req *github.com/ipfs/go-ipfs-cmds.Request, env github.com/ipfs/go-ipfs-cmds.Environment) error
+- `github.com/ipfs/go-ipfs-cmds.Command.PostRun`: tipo github.com/ipfs/go-ipfs-cmds.PostRunMap
+- `github.com/ipfs/go-ipfs-cmds.Command.Encoders`: tipo github.com/ipfs/go-ipfs-cmds.EncoderMap
+- `github.com/ipfs/go-ipfs-cmds.Command.Type`: type any
+- `github.com/ipfs/go-ipfs-cmds.Command.Subcommands`: map[string]
+- `github.com/ipfs/go-ipfs-cmds.Single.Value`: type any
+- `github.com/ipfs/kubo/config.Datastore.Params`: pointer to encoding/json.RawMessage
+- `github.com/ipfs/kubo/config.ResourceMgr.Limits`: unexported type github.com/ipfs/kubo/config.swarmLimits
+- `github.com/ipfs/kubo/config.Router.Parameters`: type any
+- `github.com/ipfs/kubo/config.Transports.Network`: struct{QUIC github.com/ipfs/kubo/config.Flag "json:\",omitempty\""; TCP github.com/ipfs/kubo/config.Flag "json:\",omitempty\""; Websocket github.com/ipfs/kubo/config.Flag "json:\",omitempty\""; Relay github.com/ipfs/kubo/config.Flag "json:\",omitempty\""; WebTransport github.com/ipfs/kubo/config.Flag "json:\",omitempty\""; WebRTCDirect github.com/ipfs/kubo/config.Flag "json:\",omitempty\""}
+- `github.com/ipfs/kubo/config.Transports.Security`: struct{TLS github.com/ipfs/kubo/config.Priority "json:\",omitempty\""; Noise github.com/ipfs/kubo/config.Priority "json:\",omitempty\""}
+- `github.com/ipfs/kubo/config.Transports.Multiplexers`: struct{Yamux github.com/ipfs/kubo/config.Priority "json:\",omitempty\""}
+- `github.com/ipfs/kubo/core/coreiface/options.NamePublishSettings.TTL`: pointer to time.Duration
+- `github.com/ipfs/kubo/core/coreiface/options.UnixfsAddSettings.SizeEstimationMode`: pointer to github.com/ipfs/boxo/ipld/unixfs/io.SizeEstimationMode
+- `github.com/ipfs/kubo/core/coreiface/options.UnixfsAddSettings.Events`: type chan<- any
+- `github.com/ipld/go-ipld-prime.LinkContext.Ctx`: type context.Context
+- `github.com/ipld/go-ipld-prime/linking.LinkContext.Ctx`: type context.Context
+- `github.com/ipld/go-ipld-prime/traversal.Config.Ctx`: type context.Context
+- `github.com/ipld/go-ipld-prime/traversal.Progress.LastBlock`: struct{Path github.com/ipld/go-ipld-prime/datamodel.Path; Link github.com/ipld/go-ipld-prime/datamodel.Link}
+- `github.com/ipld/go-ipld-prime/traversal.Progress.SeenLinks`: map keyed by github.com/ipld/go-ipld-prime/datamodel.Link
+- `github.com/libp2p/go-libp2p-kad-dht.LookupEvent.ID`: tipo github.com/google/uuid.UUID
 - `github.com/libp2p/go-libp2p-pubsub.Message.ValidatorData`: type any
 - `github.com/libp2p/go-libp2p-pubsub.PeerScoreParams.AppSpecificScore`: func(p github.com/libp2p/go-libp2p/core/peer.ID) float64
 - `github.com/libp2p/go-libp2p-pubsub.TestExtensionConfig.OnReceiveTestExtension`: func(from github.com/libp2p/go-libp2p/core/peer.ID)
+- `github.com/libp2p/go-libp2p/core/network.NotifyBundle.ListenF`: func(github.com/libp2p/go-libp2p/core/network.Network, github.com/multiformats/go-multiaddr.Multiaddr)
+- `github.com/libp2p/go-libp2p/core/network.NotifyBundle.ListenCloseF`: func(github.com/libp2p/go-libp2p/core/network.Network, github.com/multiformats/go-multiaddr.Multiaddr)
+- `github.com/libp2p/go-libp2p/core/network.NotifyBundle.ConnectedF`: func(github.com/libp2p/go-libp2p/core/network.Network, github.com/libp2p/go-libp2p/core/network.Conn)
+- `github.com/libp2p/go-libp2p/core/network.NotifyBundle.DisconnectedF`: func(github.com/libp2p/go-libp2p/core/network.Network, github.com/libp2p/go-libp2p/core/network.Conn)
 - `github.com/libp2p/go-libp2p/core/network.Stats.Extra`: map keyed by any
+- `github.com/libp2p/go-libp2p/core/routing.Options.Other`: map keyed by any
+- `github.com/libp2p/go-libp2p/p2p/host/resource-manager.ScalingLimitConfig.ServiceLimits`: map[string]unexported type github.com/libp2p/go-libp2p/p2p/host/resource-manager.baseLimitConfig
+- `github.com/libp2p/go-libp2p/p2p/host/resource-manager.ScalingLimitConfig.ServicePeerLimits`: map[string]unexported type github.com/libp2p/go-libp2p/p2p/host/resource-manager.baseLimitConfig
+- `github.com/libp2p/go-libp2p/p2p/host/resource-manager.ScalingLimitConfig.ProtocolLimits`: map[string]unexported type github.com/libp2p/go-libp2p/p2p/host/resource-manager.baseLimitConfig
+- `github.com/libp2p/go-libp2p/p2p/host/resource-manager.ScalingLimitConfig.ProtocolPeerLimits`: map[string]unexported type github.com/libp2p/go-libp2p/p2p/host/resource-manager.baseLimitConfig
+- `github.com/libp2p/go-libp2p/p2p/host/resource-manager.ScalingLimitConfig.PeerLimits`: map[string]unexported type github.com/libp2p/go-libp2p/p2p/host/resource-manager.baseLimitConfig
+- `github.com/libp2p/go-libp2p/p2p/protocol/holepunch.Event.Evt`: type any
+- `github.com/libp2p/go-yamux/v5.Config.LogOutput`: type io.Writer
+- `net/http.Client.CheckRedirect`: func(req *net/http.Request, via []*net/http.Request) error
 
 ## Omitted option constructors
 
+- `client.WithDontHaveTimeoutConfig` (client.Option): parameter cfg: *unexported type github.com/ipfs/boxo/bitswap/client/internal/messagequeue.DontHaveTimeoutConfig
 - `dht.AddressFilter` (dht.Option): parameter f: func([]github.com/multiformats/go-multiaddr.Multiaddr) []github.com/multiformats/go-multiaddr.Multiaddr
 - `dht.BootstrapPeersFunc` (dht.Option): parameter getBootstrapPeers: func() []github.com/libp2p/go-libp2p/core/peer.AddrInfo
 - `dht.WithCustomMessageSender` (dht.Option): parameter messageSenderBuilder: func(h github.com/libp2p/go-libp2p/core/host.Host, protos []github.com/libp2p/go-libp2p/core/protocol.ID) github.com/libp2p/go-libp2p-kad-dht/pb.MessageSenderWithDisconnect
@@ -2497,6 +6463,8 @@ Omitted:
 - `libp2p.DefaultPrometheusRegisterer` (config.Option): Prometheus metrics (no namespace; libp2p uses the default registerer)
 - `libp2p.PrometheusRegisterer` (config.Option): Prometheus metrics (no namespace; libp2p uses the default registerer)
 - `libp2p.WithFxOption` (config.Option): the fx dependency injection inside libp2p (Go values only)
+- `libp2ptls.WithKeyLogWriter` (libp2ptls.IdentityOption): parameter w: io.Writer
+- `merkledag.OnError` (merkledag.WalkOption): parameter handler: func(c github.com/ipfs/go-cid.Cid, err error) error
 - `pubsub.WithPartialMessagesExtension` (pubsub.Option): parameter pm: *generic github.com/libp2p/go-libp2p-pubsub/partialmessages.PartialMessagesExtension[PeerState]
 - `pubsub.WithProtocolMatchFn` (pubsub.Option): parameter m: func(github.com/libp2p/go-libp2p/core/protocol.ID) func(github.com/libp2p/go-libp2p/core/protocol.ID) bool
 - `quicreuse.ConnContext` (quicreuse.Option): parameter f: func(ctx context.Context, clientInfo *github.com/quic-go/quic-go.ClientInfo) (context.Context, error)
@@ -2532,6 +6500,9 @@ Omitted:
 - Errors that wrap `io.EOF`, `io.ErrUnexpectedEOF`, `context.Canceled`, `context.DeadlineExceeded` or IPLD's not found become `GolangEofException`, `GolangUnexpectedEofException`, `GolangCanceledException`, `GolangDeadlineExceededException` and `GolangNotFoundException` (subclasses of `GolangException`), as Go's `errors.Is` would find them. Every other exported error sentinel or error type of a package with a library has a `GolangException` subclass there (section "Go errors with a Dart class"): the host walks the error chain (`Unwrap`, `errors.Join`) and Dart throws the class of the outermost link that has one. Every `GolangException` carries `errTexts` (the text of each link, outside in), `errText` (the innermost), `errno` (the chain's `syscall.Errno`: POSIX numbers on linux and Android, Win32 on Windows) and `causes` (the links with a class); `isA<T>()`/`find<T>()` are `errors.Is`/`errors.As`.
 - A root that is only a struct type (`bsadapter.Adapter`, `basicnode.Prototype__Any`) becomes an empty constructor (`Adapter()`, Go's `new(T)`), and its fields, getters and setters.
 - An interface that embeds another gets the cast from it (`idx.asCarV2IndexIterableIndex()`, named after the Dart class; Go's `x.(index.IterableIndex)`).
+- A handle is accepted wherever Go accepts it: Dart has one base class, so each interface's methods are also a mixin (`Libp2pCoreRoutingValueStore$`), and a type mixes in and implements every exposed interface it implements in Go besides its base class's (`Libp2pKadDhtIpfsDht` is a `Libp2pCoreRoutingContentRouting` and a `Libp2pCoreRoutingValueStore`).
+- An element of a list or map is not nullable: a nil one Go sends (a nil pointer, a nil error in a `[]error`) throws `GolangException('Go returned nil')`.
+- A Go declaration whose doc says `Deprecated:` is `@Deprecated` with Go's text: it is there, and the analyzer warns.
 - A pointer to a basic type (`DagByteRange.To *int64`) becomes `int?`: null is nil.
 - A function that returns an unexported type is seen in Dart through an exported interface (table `resultAs`: `merkledag.NewDAGService` → `format.DAGService`); on the wire it is the object's handle.
 - A type defined from an interface of another package (`type BaseBlocks blockstore.Blockstore`) gets no methods of its own: list them as roots on the type itself (`node.BaseBlocks.Has`).
@@ -2560,6 +6531,7 @@ of the chain.
 |---|---|---|
 | `var blocks.ErrWrongHash error` | `BlockFormatErrWrongHash` in `lib/go/block_format.dart` |  |
 | `var blockstore.ErrHashMismatch error` | `BoxoBlockstoreErrHashMismatch` in `lib/go/boxo/blockstore.dart` |  |
+| `var bootstrap.ErrNotEnoughBootstrapPeers error` | `BoxoBootstrapErrNotEnoughBootstrapPeers` in `lib/go/boxo/bootstrap.dart` |  |
 | `var chunk.ErrRabinMin error` | `BoxoChunkerErrRabinMin` in `lib/go/boxo/chunker.dart` |  |
 | `var chunk.ErrSize error` | `BoxoChunkerErrSize` in `lib/go/boxo/chunker.dart` |  |
 | `var chunk.ErrSizeMax error` | `BoxoChunkerErrSizeMax` in `lib/go/boxo/chunker.dart` |  |
@@ -2583,6 +6555,9 @@ of the chain.
 | `var merkledag.ErrNotProtobuf error` | `BoxoIpldMerkledagErrNotProtobuf` in `lib/go/boxo/ipld/merkledag.dart` |  |
 | `var merkledag.ErrNotRawNode error` | `BoxoIpldMerkledagErrNotRawNode` in `lib/go/boxo/ipld/merkledag.dart` |  |
 | `var merkledag.ErrReadOnly error` | `BoxoIpldMerkledagErrReadOnly` in `lib/go/boxo/ipld/merkledag.dart` |  |
+| `var unixfs.ErrMalformedFileFormat error` | `BoxoIpldUnixfsErrMalformedFileFormat` in `lib/go/boxo/ipld/unixfs.dart` |  |
+| `var unixfs.ErrNotProtoNode error` | `BoxoIpldUnixfsErrNotProtoNode` in `lib/go/boxo/ipld/unixfs.dart` |  |
+| `var unixfs.ErrUnrecognizedType error` | `BoxoIpldUnixfsErrUnrecognizedType` in `lib/go/boxo/ipld/unixfs.dart` |  |
 | `var io.ErrCantReadSymlinks error` | `BoxoIpldUnixfsIoErrCantReadSymlinks` in `lib/go/boxo/ipld/unixfs/io.dart` |  |
 | `var io.ErrInvalidHAMTFanout error` | `BoxoIpldUnixfsIoErrInvalidHamtFanout` in `lib/go/boxo/ipld/unixfs/io.dart` |  |
 | `var io.ErrIsDir error` | `BoxoIpldUnixfsIoErrIsDir` in `lib/go/boxo/ipld/unixfs/io.dart` |  |
@@ -2606,6 +6581,8 @@ of the chain.
 | `var ipns.ErrRecordSize error` | `BoxoIpnsErrRecordSize` in `lib/go/boxo/ipns.dart` |  |
 | `var ipns.ErrSignature error` | `BoxoIpnsErrSignature` in `lib/go/boxo/ipns.dart` |  |
 | `var ipns.ErrUnrecognizedValidity error` | `BoxoIpnsErrUnrecognizedValidity` in `lib/go/boxo/ipns.dart` |  |
+| `var keystore.ErrKeyExists error` | `BoxoKeystoreErrKeyExists` in `lib/go/boxo/keystore.dart` |  |
+| `var keystore.ErrNoSuchKey error` | `BoxoKeystoreErrNoSuchKey` in `lib/go/boxo/keystore.dart` |  |
 | `var mfs.ErrClosed error` | `BoxoMfsErrClosed` in `lib/go/boxo/mfs.dart` |  |
 | `var mfs.ErrDirExists error` | `BoxoMfsErrDirExists` in `lib/go/boxo/mfs.dart` |  |
 | `var mfs.ErrInvalidChild error` | `BoxoMfsErrInvalidChild` in `lib/go/boxo/mfs.dart` |  |
@@ -2639,8 +6616,18 @@ of the chain.
 | `prometheus.AlreadyRegisteredError` | `ClientGolangPrometheusAlreadyRegisteredError` in `lib/go/client_golang/prometheus.dart` | (not crossing: ExistingCollector, NewCollector) |
 | `prometheus.MultiError` | `ClientGolangPrometheusMultiError` in `lib/go/client_golang/prometheus.dart` |  |
 | `var dagpb.ErrIntOverflow error` | `CodecDagpbErrIntOverflow` in `lib/go/codec_dagpb.dart` |  |
+| `x509.CertificateInvalidError` | `CryptoX509CertificateInvalidError` in `lib/go/crypto/x509.dart` | reason, detail (not crossing: Cert) |
+| `x509.ConstraintViolationError` | `CryptoX509ConstraintViolationError` in `lib/go/crypto/x509.dart` |  |
+| `var x509.ErrUnsupportedAlgorithm error` | `CryptoX509ErrUnsupportedAlgorithm` in `lib/go/crypto/x509.dart` |  |
+| `x509.HostnameError` | `CryptoX509HostnameError` in `lib/go/crypto/x509.dart` | host (not crossing: Certificate) |
+| `var x509.IncorrectPasswordError error` | `CryptoX509IncorrectPasswordError` in `lib/go/crypto/x509.dart` |  |
+| `x509.InsecureAlgorithmError` | `CryptoX509InsecureAlgorithmError` in `lib/go/crypto/x509.dart` |  |
+| `x509.SystemRootsError` | `CryptoX509SystemRootsError` in `lib/go/crypto/x509.dart` | (not crossing: Err (the next link of the chain)) |
+| `x509.UnhandledCriticalExtension` | `CryptoX509UnhandledCriticalExtension` in `lib/go/crypto/x509.dart` |  |
+| `x509.UnknownAuthorityError` | `CryptoX509UnknownAuthorityError` in `lib/go/crypto/x509.dart` | (not crossing: Cert) |
 | `var datastore.ErrBatchUnsupported error` | `DatastoreErrBatchUnsupported` in `lib/go/datastore.dart` |  |
 | `var datastore.ErrNotFound error` | `DatastoreErrNotFound` in `lib/go/datastore.dart` |  |
+| `dig.PanicError` | `DigPanicError` in `lib/go/dig.dart` | (not crossing: Panic) |
 | `var io.ErrClosedPipe error` | `IoErrClosedPipe` in `lib/go/io.dart` |  |
 | `var io.ErrNoProgress error` | `IoErrNoProgress` in `lib/go/io.dart` |  |
 | `var io.ErrShortBuffer error` | `IoErrShortBuffer` in `lib/go/io.dart` |  |
@@ -2702,6 +6689,7 @@ of the chain.
 | `var fsrepo.ErrNoVersion error` | `KuboRepoFsrepoErrNoVersion` in `lib/go/kubo/repo/fsrepo.dart` |  |
 | `var fsrepo.ErrOldRepo error` | `KuboRepoFsrepoErrOldRepo` in `lib/go/kubo/repo/fsrepo.dart` |  |
 | `fsrepo.NoRepoError` | `KuboRepoFsrepoNoRepoError` in `lib/go/kubo/repo/fsrepo.dart` | path |
+| `routing.ParamNeededError` | `KuboRoutingParamNeededError` in `lib/go/kubo/routing.dart` | paramName, routerType |
 | `var crypto.ErrBadKeyType error` | `Libp2pCoreCryptoErrBadKeyType` in `lib/go/libp2p/core/crypto.dart` |  |
 | `var crypto.ErrNilPrivateKey error` | `Libp2pCoreCryptoErrNilPrivateKey` in `lib/go/libp2p/core/crypto.dart` |  |
 | `var crypto.ErrNilPublicKey error` | `Libp2pCoreCryptoErrNilPublicKey` in `lib/go/libp2p/core/crypto.dart` |  |
@@ -2727,6 +6715,10 @@ of the chain.
 | `var record.ErrPayloadTypeNotRegistered error` | `Libp2pCoreRecordErrPayloadTypeNotRegistered` in `lib/go/libp2p/core/record.dart` |  |
 | `var routing.ErrNotFound error` | `Libp2pCoreRoutingErrNotFound` in `lib/go/libp2p/core/routing.dart` |  |
 | `var routing.ErrNotSupported error` | `Libp2pCoreRoutingErrNotSupported` in `lib/go/libp2p/core/routing.dart` |  |
+| `sec.ErrPeerIDMismatch` | `Libp2pCoreSecErrPeerIdMismatch` in `lib/go/libp2p/core/sec.dart` | expected, actual |
+| `var transport.ErrListenerClosed error` | `Libp2pCoreTransportErrListenerClosed` in `lib/go/libp2p/core/transport.dart` |  |
+| `rcmgr.ErrMemoryLimitExceeded` | `Libp2pP2pHostResourceManagerErrMemoryLimitExceeded` in `lib/go/libp2p/p2p/host/resource_manager.dart` |  |
+| `rcmgr.ErrStreamOrConnLimitExceeded` | `Libp2pP2pHostResourceManagerErrStreamOrConnLimitExceeded` in `lib/go/libp2p/p2p/host/resource_manager.dart` |  |
 | `swarm.DialError` | `Libp2pP2pNetSwarmDialError` in `lib/go/libp2p/p2p/net/swarm.dart` | peer, skipped (not crossing: DialErrors, Cause (the next link of the chain)) |
 | `var swarm.ErrAddrFiltered error` | `Libp2pP2pNetSwarmErrAddrFiltered` in `lib/go/libp2p/p2p/net/swarm.dart` |  |
 | `var swarm.ErrAllDialsFailed error` | `Libp2pP2pNetSwarmErrAllDialsFailed` in `lib/go/libp2p/p2p/net/swarm.dart` |  |
@@ -2741,6 +6733,7 @@ of the chain.
 | `var swarm.ErrNoTransport error` | `Libp2pP2pNetSwarmErrNoTransport` in `lib/go/libp2p/p2p/net/swarm.dart` |  |
 | `var swarm.ErrSwarmClosed error` | `Libp2pP2pNetSwarmErrSwarmClosed` in `lib/go/libp2p/p2p/net/swarm.dart` |  |
 | `swarm.TransportError` | `Libp2pP2pNetSwarmTransportError` in `lib/go/libp2p/p2p/net/swarm.dart` | address (not crossing: Cause (the next link of the chain)) |
+| `var upgrader.ErrNilPeer error` | `Libp2pP2pNetUpgraderErrNilPeer` in `lib/go/libp2p/p2p/net/upgrader.dart` |  |
 | `var holepunch.ErrClosed error` | `Libp2pP2pProtocolHolepunchErrClosed` in `lib/go/libp2p/p2p/protocol/holepunch.dart` |  |
 | `var holepunch.ErrHolePunchActive error` | `Libp2pP2pProtocolHolepunchErrHolePunchActive` in `lib/go/libp2p/p2p/protocol/holepunch.dart` |  |
 | `var libp2pquic.ErrHolePunching error` | `Libp2pP2pTransportQuicErrHolePunching` in `lib/go/libp2p/p2p/transport/quic.dart` |  |
@@ -2765,6 +6758,9 @@ of the chain.
 | `pubsub.ValidationError` | `Libp2pPubsubValidationError` in `lib/go/libp2p_pubsub.dart` | reason |
 | `record.ErrBetterRecord` | `Libp2pRecordErrBetterRecord` in `lib/go/libp2p_record.dart` | key, value$ |
 | `var record.ErrInvalidRecordType error` | `Libp2pRecordErrInvalidRecordType` in `lib/go/libp2p_record.dart` |  |
+| `var log.ErrNoSuchLogger error` | `LogV2ErrNoSuchLogger` in `lib/go/log/v2.dart` |  |
+| `big.ErrNaN` | `MathBigErrNaN` in `lib/go/math/big.dart` |  |
+| `var multipart.ErrMessageTooLarge error` | `MimeMultipartErrMessageTooLarge` in `lib/go/mime/multipart.dart` |  |
 | `var multiaddr.ErrProtocolNotFound error` | `MultiaddrErrProtocolNotFound` in `lib/go/multiaddr.dart` |  |
 | `var multibase.ErrUnsupportedEncoding error` | `MultibaseErrUnsupportedEncoding` in `lib/go/multibase.dart` |  |
 | `multihash.ErrInconsistentLen` | `MultihashErrInconsistentLen` in `lib/go/multihash.dart` |  |
@@ -2786,6 +6782,26 @@ of the chain.
 | `net.OpError` | `NetOpError` in `lib/go/net.dart` | op, net (not crossing: Source, Addr, Err (the next link of the chain)) |
 | `net.ParseError` | `NetParseError` in `lib/go/net.dart` | type, text |
 | `net.UnknownNetworkError` | `NetUnknownNetworkError` in `lib/go/net.dart` |  |
+| `var http.ErrAbortHandler error` | `NetHttpErrAbortHandler` in `lib/go/net/http.dart` |  |
+| `var http.ErrBodyNotAllowed error` | `NetHttpErrBodyNotAllowed` in `lib/go/net/http.dart` |  |
+| `var http.ErrBodyReadAfterClose error` | `NetHttpErrBodyReadAfterClose` in `lib/go/net/http.dart` |  |
+| `var http.ErrContentLength error` | `NetHttpErrContentLength` in `lib/go/net/http.dart` |  |
+| `var http.ErrHandlerTimeout error` | `NetHttpErrHandlerTimeout` in `lib/go/net/http.dart` |  |
+| `var http.ErrHijacked error` | `NetHttpErrHijacked` in `lib/go/net/http.dart` |  |
+| `var http.ErrLineTooLong error` | `NetHttpErrLineTooLong` in `lib/go/net/http.dart` |  |
+| `var http.ErrMissingFile error` | `NetHttpErrMissingFile` in `lib/go/net/http.dart` |  |
+| `var http.ErrNoCookie error` | `NetHttpErrNoCookie` in `lib/go/net/http.dart` |  |
+| `var http.ErrNoLocation error` | `NetHttpErrNoLocation` in `lib/go/net/http.dart` |  |
+| `var http.ErrSchemeMismatch error` | `NetHttpErrSchemeMismatch` in `lib/go/net/http.dart` |  |
+| `var http.ErrServerClosed error` | `NetHttpErrServerClosed` in `lib/go/net/http.dart` |  |
+| `var http.ErrSkipAltProtocol error` | `NetHttpErrSkipAltProtocol` in `lib/go/net/http.dart` |  |
+| `var http.ErrUseLastResponse error` | `NetHttpErrUseLastResponse` in `lib/go/net/http.dart` |  |
+| `var http.ErrWriteAfterFlush error` | `NetHttpErrWriteAfterFlush` in `lib/go/net/http.dart` |  |
+| `http.MaxBytesError` | `NetHttpMaxBytesError` in `lib/go/net/http.dart` | limit |
+| `http.ProtocolError` | `NetHttpProtocolError` in `lib/go/net/http.dart` | errorString |
+| `url.Error` | `NetUrlError` in `lib/go/net/url.dart` | op, url (not crossing: Err (the next link of the chain)) |
+| `url.EscapeError` | `NetUrlEscapeError` in `lib/go/net/url.dart` |  |
+| `url.InvalidHostError` | `NetUrlInvalidHostError` in `lib/go/net/url.dart` |  |
 | `var os.ErrClosed error` | `OsErrClosed` in `lib/go/os.dart` |  |
 | `var os.ErrDeadlineExceeded error` | `OsErrDeadlineExceeded` in `lib/go/os.dart` |  |
 | `var os.ErrExist error` | `OsErrExist` in `lib/go/os.dart` |  |
@@ -2797,6 +6813,12 @@ of the chain.
 | `var os.ErrProcessDone error` | `OsErrProcessDone` in `lib/go/os.dart` |  |
 | `os.LinkError` | `OsLinkError` in `lib/go/os.dart` | op, old, new$ (not crossing: Err (the next link of the chain)) |
 | `os.SyscallError` | `OsSyscallError` in `lib/go/os.dart` | syscall (not crossing: Err (the next link of the chain)) |
+| `reflect.ValueError` | `ReflectValueError` in `lib/go/reflect.dart` | method, kind |
+| `secp256k1.Error` | `Secp256k1V4Error` in `lib/go/secp256k1/v4.dart` | description (not crossing: Err (the next link of the chain)) |
+| `secp256k1.ErrorKind` | `Secp256k1V4ErrorKind` in `lib/go/secp256k1/v4.dart` |  |
+| `yamux.Error` | `YamuxV5Error` in `lib/go/yamux/v5.dart` |  |
+| `yamux.GoAwayError` | `YamuxV5GoAwayError` in `lib/go/yamux/v5.dart` | errorCode, remote |
+| `yamux.StreamError` | `YamuxV5StreamError` in `lib/go/yamux/v5.dart` | errorCode, remote |
 
 Without a class (they cross as `GolangException`, with the message and the chain's
 texts):

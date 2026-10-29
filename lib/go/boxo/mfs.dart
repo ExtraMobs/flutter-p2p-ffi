@@ -2,6 +2,7 @@
 // Go: github.com/ipfs/boxo/mfs
 library;
 
+import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:p2p_ffi/src/go.dart' show GoBoxoMfs;
@@ -9,33 +10,77 @@ import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/boxo/chunker.dart' as $chunker;
 import 'package:p2p_ffi/go/cid.dart' as $cid;
 import 'package:p2p_ffi/go/context.dart' as $context;
+import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/io.dart' as $io;
+import 'package:p2p_ffi/go/ipfs_cmds.dart' as $ipfs_cmds;
 import 'package:p2p_ffi/go/ipld_format.dart' as $ipld_format;
 
 /// Go: `mfs.Directory` (handle).
-class BoxoMfsDirectory extends BoxoMfsFsNode {
+class BoxoMfsDirectory extends BoxoMfsFsNode
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $ipfs_cmds.IpfsCmdsEnvironment$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $ipfs_cmds.IpfsCmdsEnvironment {
   BoxoMfsDirectory.$h(super.$h) : super.$h();
+
+  /// Go: `func (*mfs.Directory).AddChild(name string, nd format.Node) error`.
+  void addChild(String name, $ipld_format.IpldFormatNode nd) {
+    $callSync(
+        905,
+        $W()
+          ..h(this)
+          ..str(name)
+          ..h(nd));
+  }
 
   /// Go: `func (*mfs.Directory).Child(name string) (mfs.FSNode, error)`.
   BoxoMfsFsNode child(String name) {
     final $r = $callSync(
-        164,
+        906,
         $W()
           ..h(this)
           ..str(name));
     return $r.hnn(BoxoMfsFsNode.$h);
   }
 
-  /// Go: `func (*mfs.Directory).ListNames(ctx context.Context) ([]string, error)`.
+  /// Go: `func (*mfs.Directory).Flush() error`.
+  void flush() {
+    $callSync(907, $W()..h(this));
+  }
+
+  /// Go: `func (*mfs.Directory).ForEachEntry(ctx context.Context, f func(mfs.NodeListing) error) error`.
   ///
   /// Asynchronous: runs in a goroutine of the service.
-  Future<List<String>> listNames($context.Context ctx) async {
-    final $r = await $call(
-        168,
+  ///
+  /// [batchSize]: invocations of the callback Go sends at a time (default
+  /// 1024, up to 128 KiB). Go runs at most `batchSize - 1` invocations ahead
+  /// of Dart; 1 is exactly Go's semantics.
+  Future<void> forEachEntry($context.Context ctx,
+      FutureOr<void> Function(BoxoMfsNodeListing nodeListing) f,
+      {int? batchSize}) async {
+    await $callCb(
+        908,
         $W()
           ..h(this)
-          ..h(ctx));
-    return $r.list(() => $r.str());
+          ..h(ctx)
+          ..u32(batchSize ?? 0),
+        (r) => f(r.p() ? BoxoMfsNodeListing.$dec(r) : $nil()));
+  }
+
+  /// Go: `func (*mfs.Directory).GetCidBuilder() cid.Builder`.
+  $cid.CidBuilder getCidBuilder() {
+    final $r = $callSync(909, $W()..h(this));
+    return $r.hnn($cid.CidBuilder.$h);
+  }
+
+  /// Go: `func (*mfs.Directory).GetNode() (format.Node, error)`.
+  $ipld_format.IpldFormatNode getNode() {
+    final $r = $callSync(910, $W()..h(this));
+    return $r.hnn($ipld_format.IpldFormatNode.$h);
   }
 
   /// Go: `func (*mfs.Directory).List(ctx context.Context) ([]mfs.NodeListing, error)`.
@@ -43,17 +88,29 @@ class BoxoMfsDirectory extends BoxoMfsFsNode {
   /// Asynchronous: runs in a goroutine of the service.
   Future<List<BoxoMfsNodeListing>> list($context.Context ctx) async {
     final $r = await $call(
-        167,
+        911,
         $W()
           ..h(this)
           ..h(ctx));
     return $r.list(() => $r.p() ? BoxoMfsNodeListing.$dec($r) : $nil());
   }
 
+  /// Go: `func (*mfs.Directory).ListNames(ctx context.Context) ([]string, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<List<String>> listNames($context.Context ctx) async {
+    final $r = await $call(
+        912,
+        $W()
+          ..h(this)
+          ..h(ctx));
+    return $r.list(() => $r.str());
+  }
+
   /// Go: `func (*mfs.Directory).Mkdir(name string) (*mfs.Directory, error)`.
   BoxoMfsDirectory mkdir(String name) {
     final $r = $callSync(
-        169,
+        913,
         $W()
           ..h(this)
           ..str(name));
@@ -64,7 +121,7 @@ class BoxoMfsDirectory extends BoxoMfsFsNode {
   BoxoMfsDirectory mkdirWithOpts(String name,
       [List<BoxoMfsOption> opts = const []]) {
     final $r = $callSync(
-        170,
+        914,
         $W()
           ..h(this)
           ..str(name)
@@ -72,119 +129,180 @@ class BoxoMfsDirectory extends BoxoMfsFsNode {
     return $r.hnn(BoxoMfsDirectory.$h);
   }
 
-  /// Go: `func (*mfs.Directory).Unlink(name string) error`.
-  void unlink(String name) {
-    $callSync(
-        175,
-        $W()
-          ..h(this)
-          ..str(name));
-  }
-
-  /// Go: `func (*mfs.Directory).Uncache(name string)`.
-  void uncache(String name) {
-    $callSync(
-        174,
-        $W()
-          ..h(this)
-          ..str(name));
-  }
-
-  /// Go: `func (*mfs.Directory).AddChild(name string, nd format.Node) error`.
-  void addChild(String name, $ipld_format.IpldFormatNode nd) {
-    $callSync(
-        163,
-        $W()
-          ..h(this)
-          ..str(name)
-          ..h(nd));
-  }
-
-  /// Go: `func (*mfs.Directory).Flush() error`.
-  void flush() {
-    $callSync(165, $W()..h(this));
-  }
-
-  /// Go: `func (*mfs.Directory).GetNode() (format.Node, error)`.
-  $ipld_format.IpldFormatNode getNode() {
-    final $r = $callSync(166, $W()..h(this));
-    return $r.hnn($ipld_format.IpldFormatNode.$h);
-  }
-
-  /// Go: `func (*mfs.Directory).Path() string`.
-  String path() {
-    final $r = $callSync(173, $W()..h(this));
-    return $r.str();
+  /// Go: `func (*mfs.Directory).ModTime() (time.Time, error)`.
+  DateTime modTime() {
+    final $r = $callSync(915, $W()..h(this));
+    return $r.p() ? $r.time() : $nil();
   }
 
   /// Go: `func (*mfs.Directory).Mode() (os.FileMode, error)`.
   int mode() {
-    final $r = $callSync(172, $W()..h(this));
+    final $r = $callSync(916, $W()..h(this));
     return $r.i64();
   }
 
-  /// Go: `func (*mfs.Directory).ModTime() (time.Time, error)`.
-  DateTime modTime() {
-    final $r = $callSync(171, $W()..h(this));
-    return $r.p() ? $r.time() : $nil();
-  }
-}
-
-/// Go: `mfs.FSNode` (handle).
-class BoxoMfsFsNode extends GoHandle {
-  BoxoMfsFsNode.$h(super.$h);
-
-  /// Go: `func (mfs.FSNode).GetNode() (format.Node, error)`.
-  $ipld_format.IpldFormatNode getNode() {
-    final $r = $callSync(177, $W()..h(this));
-    return $r.hnn($ipld_format.IpldFormatNode.$h);
+  /// Go: `func (*mfs.Directory).Path() string`.
+  String path() {
+    final $r = $callSync(917, $W()..h(this));
+    return $r.str();
   }
 
-  /// Go: `func (mfs.FSNode).Flush() error`.
-  void flush() {
-    $callSync(176, $W()..h(this));
-  }
-
-  /// Go: `func (mfs.FSNode).Type() mfs.NodeType`.
-  int type() {
-    final $r = $callSync(180, $W()..h(this));
-    return $r.i64();
-  }
-
-  /// Go: `func (mfs.FSNode).SetMode(mode os.FileMode) error`.
-  void setMode(int mode) {
+  /// Go: `func (*mfs.Directory).SetCidBuilder(b cid.Builder)`.
+  void setCidBuilder($cid.CidBuilder b) {
     $callSync(
-        179,
+        918,
         $W()
           ..h(this)
-          ..i64(mode));
+          ..h(b));
   }
 
-  /// Go: `func (mfs.FSNode).SetModTime(ts time.Time) error`.
+  /// Go: `func (*mfs.Directory).SetModTime(ts time.Time) error`.
   void setModTime(DateTime ts) {
     $callSync(
-        178,
+        919,
         $W()
           ..h(this)
           ..time(ts));
   }
 
+  /// Go: `func (*mfs.Directory).SetMode(mode os.FileMode) error`.
+  void setMode(int mode) {
+    $callSync(
+        920,
+        $W()
+          ..h(this)
+          ..i64(mode));
+  }
+
+  /// Go: `func (*mfs.Directory).Type() mfs.NodeType`.
+  int type() {
+    final $r = $callSync(921, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (*mfs.Directory).Uncache(name string)`.
+  void uncache(String name) {
+    $callSync(
+        922,
+        $W()
+          ..h(this)
+          ..str(name));
+  }
+
+  /// Go: `func (*mfs.Directory).Unlink(name string) error`.
+  void unlink(String name) {
+    $callSync(
+        923,
+        $W()
+          ..h(this)
+          ..str(name));
+  }
+}
+
+/// Go: `mfs.FSNode` (handle).
+class BoxoMfsFsNode extends GoHandle with BoxoMfsFsNode$ {
+  BoxoMfsFsNode.$h(super.$h);
+}
+
+/// The methods of [BoxoMfsFsNode], mixed into every class Go also accepts as one.
+mixin BoxoMfsFsNode$ on GoHandle {
+  /// Go: `func (mfs.FSNode).Flush() error`.
+  void flush() {
+    $callSync(924, $W()..h(this));
+  }
+
+  /// Go: `func (mfs.FSNode).GetNode() (format.Node, error)`.
+  $ipld_format.IpldFormatNode getNode() {
+    final $r = $callSync(925, $W()..h(this));
+    return $r.hnn($ipld_format.IpldFormatNode.$h);
+  }
+
+  /// Go: `func (mfs.FSNode).SetModTime(ts time.Time) error`.
+  void setModTime(DateTime ts) {
+    $callSync(
+        926,
+        $W()
+          ..h(this)
+          ..time(ts));
+  }
+
+  /// Go: `func (mfs.FSNode).SetMode(mode os.FileMode) error`.
+  void setMode(int mode) {
+    $callSync(
+        927,
+        $W()
+          ..h(this)
+          ..i64(mode));
+  }
+
+  /// Go: `func (mfs.FSNode).Type() mfs.NodeType`.
+  int type() {
+    final $r = $callSync(928, $W()..h(this));
+    return $r.i64();
+  }
+
   /// Go: type assertion `x.(*mfs.Directory)`: null if the object is not one.
   BoxoMfsDirectory? asBoxoMfsDirectory() {
-    final $r = $callSync(72, $W()..h(this));
+    final $r = $callSync(106, $W()..h(this));
     return $r.hn(BoxoMfsDirectory.$h);
   }
 
   /// Go: type assertion `x.(*mfs.File)`: null if the object is not one.
   BoxoMfsFile? asBoxoMfsFile() {
-    final $r = $callSync(73, $W()..h(this));
+    final $r = $callSync(107, $W()..h(this));
     return $r.hn(BoxoMfsFile.$h);
   }
 }
 
 /// Go: `mfs.File` (handle).
-class BoxoMfsFile extends BoxoMfsFsNode {
+class BoxoMfsFile extends BoxoMfsFsNode
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $ipfs_cmds.IpfsCmdsEnvironment$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $ipfs_cmds.IpfsCmdsEnvironment {
   BoxoMfsFile.$h(super.$h) : super.$h();
+
+  /// Go: `field RawLeaves bool`.
+  bool get rawLeaves {
+    final $r = $callSync(934, $W()..h(this));
+    return $r.b();
+  }
+
+  /// Go: `field RawLeaves bool`.
+  set rawLeaves(bool rawLeaves) {
+    $callSync(
+        935,
+        $W()
+          ..h(this)
+          ..b(rawLeaves));
+  }
+
+  /// Go: `func (*mfs.File).Flush() error`.
+  void flush() {
+    $callSync(929, $W()..h(this));
+  }
+
+  /// Go: `func (*mfs.File).GetNode() (format.Node, error)`.
+  $ipld_format.IpldFormatNode getNode() {
+    final $r = $callSync(930, $W()..h(this));
+    return $r.hnn($ipld_format.IpldFormatNode.$h);
+  }
+
+  /// Go: `func (*mfs.File).ModTime() (time.Time, error)`.
+  DateTime modTime() {
+    final $r = $callSync(931, $W()..h(this));
+    return $r.p() ? $r.time() : $nil();
+  }
+
+  /// Go: `func (*mfs.File).Mode() (os.FileMode, error)`.
+  int mode() {
+    final $r = $callSync(932, $W()..h(this));
+    return $r.i64();
+  }
 
   /// Go: `func (*mfs.File).Open(ctx context.Context, flags mfs.Flags) (_ mfs.FileDescriptor, _retErr error)`.
   ///
@@ -192,7 +310,7 @@ class BoxoMfsFile extends BoxoMfsFsNode {
   Future<BoxoMfsFileDescriptor> open(
       $context.Context ctx, BoxoMfsFlags flags) async {
     final $r = await $call(
-        185,
+        933,
         $W()
           ..h(this)
           ..h(ctx)
@@ -200,79 +318,55 @@ class BoxoMfsFile extends BoxoMfsFsNode {
     return $r.hnn(BoxoMfsFileDescriptor.$h);
   }
 
+  /// Go: `func (*mfs.File).SetModTime(ts time.Time) error`.
+  void setModTime(DateTime ts) {
+    $callSync(
+        936,
+        $W()
+          ..h(this)
+          ..time(ts));
+  }
+
+  /// Go: `func (*mfs.File).SetMode(mode os.FileMode) error`.
+  void setMode(int mode) {
+    $callSync(
+        937,
+        $W()
+          ..h(this)
+          ..i64(mode));
+  }
+
   /// Go: `func (*mfs.File).Size() (int64, error)`.
   int size() {
-    final $r = $callSync(188, $W()..h(this));
+    final $r = $callSync(938, $W()..h(this));
     return $r.i64();
-  }
-
-  /// Go: `func (*mfs.File).GetNode() (format.Node, error)`.
-  $ipld_format.IpldFormatNode getNode() {
-    final $r = $callSync(182, $W()..h(this));
-    return $r.hnn($ipld_format.IpldFormatNode.$h);
-  }
-
-  /// Go: `func (*mfs.File).Flush() error`.
-  void flush() {
-    $callSync(181, $W()..h(this));
   }
 
   /// Go: `func (*mfs.File).Sync() error`.
   void sync() {
-    $callSync(189, $W()..h(this));
+    $callSync(939, $W()..h(this));
   }
 
-  /// Go: `func (*mfs.File).Mode() (os.FileMode, error)`.
-  int mode() {
-    final $r = $callSync(184, $W()..h(this));
+  /// Go: `func (*mfs.File).Type() mfs.NodeType`.
+  int type() {
+    final $r = $callSync(940, $W()..h(this));
     return $r.i64();
-  }
-
-  /// Go: `func (*mfs.File).ModTime() (time.Time, error)`.
-  DateTime modTime() {
-    final $r = $callSync(183, $W()..h(this));
-    return $r.p() ? $r.time() : $nil();
-  }
-
-  /// Go: `field RawLeaves bool`.
-  bool get rawLeaves {
-    final $r = $callSync(186, $W()..h(this));
-    return $r.b();
-  }
-
-  /// Go: `field RawLeaves bool`.
-  set rawLeaves(bool rawLeaves) {
-    $callSync(
-        187,
-        $W()
-          ..h(this)
-          ..b(rawLeaves));
   }
 }
 
 /// Go: `mfs.FileDescriptor` (handle).
-class BoxoMfsFileDescriptor extends $io.IoCloser {
+class BoxoMfsFileDescriptor extends $io.IoCloser with BoxoMfsFileDescriptor$ {
   BoxoMfsFileDescriptor.$h(super.$h) : super.$h();
+}
 
+/// The methods of [BoxoMfsFileDescriptor], mixed into every class Go also accepts as one.
+mixin BoxoMfsFileDescriptor$ on GoHandle {
   /// Go: `func (io.Reader).Read(p []byte) (n int, err error)`.
   Uint8List read(int n) {
     final $r = $callSync(
-        193,
+        944,
         $W()
           ..h(this)
-          ..i64(n));
-    return $r.bytes() ?? Uint8List(0);
-  }
-
-  /// Go: `func (mfs.FileDescriptor).CtxReadFull(context.Context, []byte) (int, error)`.
-  ///
-  /// Asynchronous: runs in a goroutine of the service.
-  Future<Uint8List> ctxReadFull($context.Context ctx, int n) async {
-    final $r = await $call(
-        191,
-        $W()
-          ..h(this)
-          ..h(ctx)
           ..i64(n));
     return $r.bytes() ?? Uint8List(0);
   }
@@ -280,7 +374,7 @@ class BoxoMfsFileDescriptor extends $io.IoCloser {
   /// Go: `func (io.Writer).Write(p []byte) (n int, err error)`.
   int write(Uint8List p) {
     final $r = $callSync(
-        197,
+        948,
         $W()
           ..h(this)
           ..bytes(p));
@@ -290,7 +384,7 @@ class BoxoMfsFileDescriptor extends $io.IoCloser {
   /// Go: `func (io.WriterAt).WriteAt(p []byte, off int64) (n int, err error)`.
   int writeAt(Uint8List p, int off) {
     final $r = $callSync(
-        198,
+        949,
         $W()
           ..h(this)
           ..bytes(p)
@@ -301,7 +395,7 @@ class BoxoMfsFileDescriptor extends $io.IoCloser {
   /// Go: `func (io.Seeker).Seek(offset int64, whence int) (int64, error)`.
   int seek(int offset, int whence) {
     final $r = $callSync(
-        194,
+        945,
         $W()
           ..h(this)
           ..i64(offset)
@@ -309,29 +403,42 @@ class BoxoMfsFileDescriptor extends $io.IoCloser {
     return $r.i64();
   }
 
-  /// Go: `func (mfs.FileDescriptor).Truncate(int64) error`.
-  void truncate(int arg0) {
-    $callSync(
-        196,
-        $W()
-          ..h(this)
-          ..i64(arg0));
+  /// Go: `func (io.Closer).Close() error`.
+  void close() {
+    $callSync(941, $W()..h(this));
   }
 
-  /// Go: `func (mfs.FileDescriptor).Size() (int64, error)`.
-  int size() {
-    final $r = $callSync(195, $W()..h(this));
-    return $r.i64();
+  /// Go: `func (mfs.FileDescriptor).CtxReadFull(context.Context, []byte) (int, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<Uint8List> ctxReadFull($context.Context ctx, int n) async {
+    final $r = await $call(
+        942,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..i64(n));
+    return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (mfs.FileDescriptor).Flush() error`.
   void flush() {
-    $callSync(192, $W()..h(this));
+    $callSync(943, $W()..h(this));
   }
 
-  /// Go: `func (io.Closer).Close() error`.
-  void close() {
-    $callSync(190, $W()..h(this));
+  /// Go: `func (mfs.FileDescriptor).Size() (int64, error)`.
+  int size() {
+    final $r = $callSync(946, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (mfs.FileDescriptor).Truncate(int64) error`.
+  void truncate(int arg0) {
+    $callSync(
+        947,
+        $W()
+          ..h(this)
+          ..i64(arg0));
   }
 }
 
@@ -430,19 +537,52 @@ final class BoxoMfsOption extends GoOption {
   BoxoMfsOption.$(super.$i, super.$a);
 }
 
-/// Go: `mfs.Root` (handle).
-class BoxoMfsRoot extends GoHandle {
-  BoxoMfsRoot.$h(super.$h);
+/// Go: `mfs.Republisher` (handle).
+class BoxoMfsRepublisher extends $crypto.CryptoPrivateKey
+    with $crypto.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
+    implements $crypto.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+  BoxoMfsRepublisher.$h(super.$h) : super.$h();
 
-  /// Go: `func (*mfs.Root).GetDirectory() *mfs.Directory`.
-  BoxoMfsDirectory getDirectory() {
-    final $r = $callSync(208, $W()..h(this));
-    return $r.hnn(BoxoMfsDirectory.$h);
+  /// Go: `func (*mfs.Republisher).Close() error`.
+  void close() {
+    $callSync(957, $W()..h(this));
+  }
+
+  /// Go: `func (*mfs.Republisher).Update(c cid.Cid)`.
+  void update($cid.Cid c) {
+    $callSync(
+        958,
+        $W()
+          ..h(this)
+          ..val(c));
+  }
+
+  /// Go: `func (*mfs.Republisher).WaitPub(ctx context.Context) error`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> waitPub($context.Context ctx) async {
+    await $call(
+        959,
+        $W()
+          ..h(this)
+          ..h(ctx));
+  }
+}
+
+/// Go: `mfs.Root` (handle).
+class BoxoMfsRoot extends $crypto.CryptoPrivateKey
+    with $crypto.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
+    implements $crypto.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+  BoxoMfsRoot.$h(super.$h) : super.$h();
+
+  /// Go: `func (*mfs.Root).Close() error`.
+  void close() {
+    $callSync(960, $W()..h(this));
   }
 
   /// Go: `func (*mfs.Root).Flush() error`.
   void flush() {
-    $callSync(206, $W()..h(this));
+    $callSync(961, $W()..h(this));
   }
 
   /// Go: `func (*mfs.Root).FlushMemFree(ctx context.Context) error`.
@@ -450,10 +590,22 @@ class BoxoMfsRoot extends GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> flushMemFree($context.Context ctx) async {
     await $call(
-        207,
+        962,
         $W()
           ..h(this)
           ..h(ctx));
+  }
+
+  /// Go: `func (*mfs.Root).GetChunker() chunk.SplitterGen`.
+  $chunker.BoxoChunkerSplitterGen getChunker() {
+    final $r = $callSync(963, $W()..h(this));
+    return $r.hnn($chunker.BoxoChunkerSplitterGen.$h);
+  }
+
+  /// Go: `func (*mfs.Root).GetDirectory() *mfs.Directory`.
+  BoxoMfsDirectory getDirectory() {
+    final $r = $callSync(964, $W()..h(this));
+    return $r.hnn(BoxoMfsDirectory.$h);
   }
 }
 
@@ -547,23 +699,59 @@ extension GoBoxoMfsApi on GoBoxoMfs {
   BoxoMfsOption withSizeEstimationMode(int mode) =>
       BoxoMfsOption.$(8, (w) => w..i64(mode));
 
-  /// Go: `func mfs.Lookup(r *mfs.Root, path string) (mfs.FSNode, error)`.
-  BoxoMfsFsNode lookup(BoxoMfsRoot r, String path) {
-    final $r = $callSync(
-        202,
+  /// Go: `func mfs.Chmod(rt *mfs.Root, pth string, mode os.FileMode) error`.
+  void chmod(BoxoMfsRoot rt, String pth, int mode) {
+    $callSync(
+        903,
         $W()
-          ..h(r)
-          ..str(path));
-    return $r.hnn(BoxoMfsFsNode.$h);
+          ..h(rt)
+          ..str(pth)
+          ..i64(mode));
   }
 
   /// Go: `func mfs.DirLookup(d *mfs.Directory, pth string) (mfs.FSNode, error)`.
   BoxoMfsFsNode dirLookup(BoxoMfsDirectory d, String pth) {
     final $r = $callSync(
-        162,
+        904,
         $W()
           ..h(d)
           ..str(pth));
+    return $r.hnn(BoxoMfsFsNode.$h);
+  }
+
+  /// Go: `func mfs.FlushPath(ctx context.Context, rt *mfs.Root, pth string) (format.Node, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<$ipld_format.IpldFormatNode> flushPath(
+      $context.Context ctx, BoxoMfsRoot rt, String pth) async {
+    final $r = await $call(
+        950,
+        $W()
+          ..h(ctx)
+          ..h(rt)
+          ..str(pth));
+    return $r.hnn($ipld_format.IpldFormatNode.$h);
+  }
+
+  /// Go: `func mfs.IsDir(fsn mfs.FSNode) bool`.
+  bool isDir(BoxoMfsFsNode fsn) {
+    final $r = $callSync(951, $W()..h(fsn));
+    return $r.b();
+  }
+
+  /// Go: `func mfs.IsFile(fsn mfs.FSNode) bool`.
+  bool isFile(BoxoMfsFsNode fsn) {
+    final $r = $callSync(952, $W()..h(fsn));
+    return $r.b();
+  }
+
+  /// Go: `func mfs.Lookup(r *mfs.Root, path string) (mfs.FSNode, error)`.
+  BoxoMfsFsNode lookup(BoxoMfsRoot r, String path) {
+    final $r = $callSync(
+        953,
+        $W()
+          ..h(r)
+          ..str(path));
     return $r.hnn(BoxoMfsFsNode.$h);
   }
 
@@ -571,7 +759,7 @@ extension GoBoxoMfsApi on GoBoxoMfs {
   void mkdir(BoxoMfsRoot r, String pth, BoxoMfsMkdirOpts opts,
       [List<BoxoMfsOption> dirOpts = const []]) {
     $callSync(
-        203,
+        954,
         $W()
           ..h(r)
           ..str(pth)
@@ -582,7 +770,7 @@ extension GoBoxoMfsApi on GoBoxoMfs {
   /// Go: `func mfs.Mv(r *mfs.Root, src string, dst string) error`.
   void mv(BoxoMfsRoot r, String src, String dst) {
     $callSync(
-        204,
+        955,
         $W()
           ..h(r)
           ..str(src)
@@ -592,57 +780,21 @@ extension GoBoxoMfsApi on GoBoxoMfs {
   /// Go: `func mfs.PutNode(r *mfs.Root, path string, nd format.Node) error`.
   void putNode(BoxoMfsRoot r, String path, $ipld_format.IpldFormatNode nd) {
     $callSync(
-        205,
+        956,
         $W()
           ..h(r)
           ..str(path)
           ..h(nd));
   }
 
-  /// Go: `func mfs.FlushPath(ctx context.Context, rt *mfs.Root, pth string) (format.Node, error)`.
-  ///
-  /// Asynchronous: runs in a goroutine of the service.
-  Future<$ipld_format.IpldFormatNode> flushPath(
-      $context.Context ctx, BoxoMfsRoot rt, String pth) async {
-    final $r = await $call(
-        199,
-        $W()
-          ..h(ctx)
-          ..h(rt)
-          ..str(pth));
-    return $r.hnn($ipld_format.IpldFormatNode.$h);
-  }
-
-  /// Go: `func mfs.Chmod(rt *mfs.Root, pth string, mode os.FileMode) error`.
-  void chmod(BoxoMfsRoot rt, String pth, int mode) {
-    $callSync(
-        161,
-        $W()
-          ..h(rt)
-          ..str(pth)
-          ..i64(mode));
-  }
-
   /// Go: `func mfs.Touch(rt *mfs.Root, pth string, ts time.Time) error`.
   void touch(BoxoMfsRoot rt, String pth, DateTime ts) {
     $callSync(
-        209,
+        965,
         $W()
           ..h(rt)
           ..str(pth)
           ..time(ts));
-  }
-
-  /// Go: `func mfs.IsDir(fsn mfs.FSNode) bool`.
-  bool isDir(BoxoMfsFsNode fsn) {
-    final $r = $callSync(200, $W()..h(fsn));
-    return $r.b();
-  }
-
-  /// Go: `func mfs.IsFile(fsn mfs.FSNode) bool`.
-  bool isFile(BoxoMfsFsNode fsn) {
-    final $r = $callSync(201, $W()..h(fsn));
-    return $r.b();
   }
 
   /// Go: `const mfs.DefaultFetchTimeout time.Duration`.

@@ -1,6 +1,8 @@
-# panics instead of an error
-*.Must*
-# metrics
-github.com/prometheus/*
+# Symbols a "pkg.*" line of roots.txt reaches that must not cross, one pattern
+# per line ("*" matches anything), each with the reason.
+
 # the command class of the same type flattens SizeStat
 github.com/ipfs/kubo/core/corerepo.RepoStat
+
+# hand-written in go/gen/extra/go/kubo/config.dart.extra (a profile is a Transform function)
+github.com/ipfs/kubo/config.Profiles

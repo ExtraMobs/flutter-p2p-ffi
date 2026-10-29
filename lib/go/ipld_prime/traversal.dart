@@ -4,10 +4,194 @@ library;
 
 import 'package:p2p_ffi/src/go.dart' show GoIpldPrimeTraversal;
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/ipfs_cmds.dart' as $ipfs_cmds;
+import 'package:p2p_ffi/go/ipld_prime/datamodel.dart' as $datamodel;
+import 'package:p2p_ffi/go/ipld_prime/linking.dart' as $linking;
+import 'package:p2p_ffi/go/ipld_prime/linking/preload.dart' as $preload;
+import 'package:p2p_ffi/go/ipld_prime/traversal/selector.dart' as $selector;
+
+/// Go: `traversal.Budget`.
+final class IpldPrimeTraversalBudget implements GoDto {
+  IpldPrimeTraversalBudget({int? nodeBudget, int? linkBudget})
+      : nodeBudget = nodeBudget ?? 0,
+        linkBudget = linkBudget ?? 0;
+
+  IpldPrimeTraversalBudget.$dec($R r)
+      : nodeBudget = r.i64(),
+        linkBudget = r.i64();
+
+  /// Go: `NodeBudget`.
+  int nodeBudget;
+
+  /// Go: `LinkBudget`.
+  int linkBudget;
+
+  @override
+  void $enc($W w) {
+    w
+      ..i64(nodeBudget)
+      ..i64(linkBudget);
+  }
+
+  /// Go: `func (*traversal.Budget).Clone() *traversal.Budget`.
+  IpldPrimeTraversalBudget clone() {
+    final $r = $callSync(2081, $W()..dto(this));
+    return $r.p() ? IpldPrimeTraversalBudget.$dec($r) : $nil();
+  }
+}
+
+/// Go: `traversal.Config`.
+///
+/// Fields that do not cross the bridge: `Ctx` (type context.Context).
+final class IpldPrimeTraversalConfig implements GoDto {
+  IpldPrimeTraversalConfig(
+      {$linking.IpldPrimeLinkingLinkSystem? linkSystem,
+      IpldPrimeTraversalLinkTargetNodePrototypeChooser?
+          linkTargetNodePrototypeChooser,
+      bool? linkVisitOnlyOnce,
+      $datamodel.IpldPrimeDatamodelPath? startAtPath,
+      $preload.IpldPrimeLinkingPreloadLoader? preloader})
+      : linkSystem = linkSystem,
+        linkTargetNodePrototypeChooser = linkTargetNodePrototypeChooser,
+        linkVisitOnlyOnce = linkVisitOnlyOnce ?? false,
+        startAtPath = startAtPath,
+        preloader = preloader;
+
+  IpldPrimeTraversalConfig.$dec($R r)
+      : linkSystem = r.hn($linking.IpldPrimeLinkingLinkSystem.$h),
+        linkTargetNodePrototypeChooser =
+            r.hn(IpldPrimeTraversalLinkTargetNodePrototypeChooser.$h),
+        linkVisitOnlyOnce = r.b(),
+        startAtPath = r.hn($datamodel.IpldPrimeDatamodelPath.$h),
+        preloader = r.hn($preload.IpldPrimeLinkingPreloadLoader.$h);
+
+  /// Go: `LinkSystem`.
+  $linking.IpldPrimeLinkingLinkSystem? linkSystem;
+
+  /// Go: `LinkTargetNodePrototypeChooser`.
+  IpldPrimeTraversalLinkTargetNodePrototypeChooser?
+      linkTargetNodePrototypeChooser;
+
+  /// Go: `LinkVisitOnlyOnce`.
+  bool linkVisitOnlyOnce;
+
+  /// Go: `StartAtPath`.
+  $datamodel.IpldPrimeDatamodelPath? startAtPath;
+
+  /// Go: `Preloader`.
+  $preload.IpldPrimeLinkingPreloadLoader? preloader;
+
+  @override
+  void $enc($W w) {
+    w
+      ..h(linkSystem)
+      ..h(linkTargetNodePrototypeChooser)
+      ..b(linkVisitOnlyOnce)
+      ..h(startAtPath)
+      ..h(preloader);
+  }
+}
 
 /// Go: `traversal.LinkTargetNodePrototypeChooser` (handle).
-class IpldPrimeTraversalLinkTargetNodePrototypeChooser extends GoHandle {
-  IpldPrimeTraversalLinkTargetNodePrototypeChooser.$h(super.$h);
+class IpldPrimeTraversalLinkTargetNodePrototypeChooser
+    extends $crypto.CryptoPrivateKey
+    with $crypto.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
+    implements $crypto.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+  IpldPrimeTraversalLinkTargetNodePrototypeChooser.$h(super.$h) : super.$h();
+}
+
+/// Go: `traversal.Progress`.
+///
+/// Fields that do not cross the bridge: `LastBlock` (struct{Path github.com/ipld/go-ipld-prime/datamodel.Path; Link github.com/ipld/go-ipld-prime/datamodel.Link}), `SeenLinks` (map keyed by github.com/ipld/go-ipld-prime/datamodel.Link).
+final class IpldPrimeTraversalProgress implements GoDto {
+  IpldPrimeTraversalProgress(
+      {IpldPrimeTraversalConfig? cfg,
+      IpldPrimeTraversalBudget? budget,
+      $datamodel.IpldPrimeDatamodelPath? path,
+      bool? pastStartAtPath})
+      : cfg = cfg,
+        budget = budget,
+        path = path,
+        pastStartAtPath = pastStartAtPath ?? false;
+
+  IpldPrimeTraversalProgress.$dec($R r)
+      : cfg = r.p() ? IpldPrimeTraversalConfig.$dec(r) : null,
+        budget = r.p() ? IpldPrimeTraversalBudget.$dec(r) : null,
+        path = r.hn($datamodel.IpldPrimeDatamodelPath.$h),
+        pastStartAtPath = r.b();
+
+  /// Go: `Cfg`.
+  IpldPrimeTraversalConfig? cfg;
+
+  /// Go: `Budget`.
+  IpldPrimeTraversalBudget? budget;
+
+  /// Go: `Path`.
+  $datamodel.IpldPrimeDatamodelPath? path;
+
+  /// Go: `PastStartAtPath`.
+  bool pastStartAtPath;
+
+  @override
+  void $enc($W w) {
+    w
+      ..dto(cfg)
+      ..dto(budget)
+      ..h(path)
+      ..b(pastStartAtPath);
+  }
+
+  /// Go: `func (traversal.Progress).FocusedTransform(n datamodel.Node, p datamodel.Path, fn traversal.TransformFn, createParents bool) (datamodel.Node, error)`.
+  $datamodel.IpldPrimeDatamodelNode focusedTransform(
+      $datamodel.IpldPrimeDatamodelNode n,
+      $datamodel.IpldPrimeDatamodelPath p,
+      IpldPrimeTraversalTransformFn fn,
+      bool createParents) {
+    final $r = $callSync(
+        2084,
+        $W()
+          ..dto(this)
+          ..h(n)
+          ..h(p)
+          ..h(fn)
+          ..b(createParents));
+    return $r.hnn($datamodel.IpldPrimeDatamodelNode.$h);
+  }
+
+  /// Go: `func (traversal.Progress).Get(n datamodel.Node, p datamodel.Path) (datamodel.Node, error)`.
+  $datamodel.IpldPrimeDatamodelNode get($datamodel.IpldPrimeDatamodelNode n,
+      $datamodel.IpldPrimeDatamodelPath p) {
+    final $r = $callSync(
+        2085,
+        $W()
+          ..dto(this)
+          ..h(n)
+          ..h(p));
+    return $r.hnn($datamodel.IpldPrimeDatamodelNode.$h);
+  }
+
+  /// Go: `func (traversal.Progress).WalkTransforming(n datamodel.Node, s selector.Selector, fn traversal.TransformFn) (datamodel.Node, error)`.
+  $datamodel.IpldPrimeDatamodelNode walkTransforming(
+      $datamodel.IpldPrimeDatamodelNode n,
+      $selector.IpldPrimeTraversalSelector s,
+      IpldPrimeTraversalTransformFn fn) {
+    final $r = $callSync(
+        2086,
+        $W()
+          ..dto(this)
+          ..h(n)
+          ..h(s)
+          ..h(fn));
+    return $r.hnn($datamodel.IpldPrimeDatamodelNode.$h);
+  }
+}
+
+/// Go: `traversal.TransformFn` (handle).
+class IpldPrimeTraversalTransformFn extends $crypto.CryptoPrivateKey
+    with $crypto.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
+    implements $crypto.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+  IpldPrimeTraversalTransformFn.$h(super.$h) : super.$h();
 }
 
 /// Go: `traversal.ErrBudgetExceeded`: an error. Thrown as this class when it is the outermost
@@ -35,6 +219,54 @@ class IpldPrimeTraversalSkipMe extends GolangException {
 
 /// Go: the package-level members of `github.com/ipld/go-ipld-prime/traversal` (`Go.ipldPrime.traversal`).
 extension GoIpldPrimeTraversalApi on GoIpldPrimeTraversal {
+  /// Go: `func traversal.FocusedTransform(n datamodel.Node, p datamodel.Path, fn traversal.TransformFn, createParents bool) (datamodel.Node, error)`.
+  $datamodel.IpldPrimeDatamodelNode focusedTransform(
+      $datamodel.IpldPrimeDatamodelNode n,
+      $datamodel.IpldPrimeDatamodelPath p,
+      IpldPrimeTraversalTransformFn fn,
+      bool createParents) {
+    final $r = $callSync(
+        2082,
+        $W()
+          ..h(n)
+          ..h(p)
+          ..h(fn)
+          ..b(createParents));
+    return $r.hnn($datamodel.IpldPrimeDatamodelNode.$h);
+  }
+
+  /// Go: `func traversal.Get(n datamodel.Node, p datamodel.Path) (datamodel.Node, error)`.
+  $datamodel.IpldPrimeDatamodelNode get($datamodel.IpldPrimeDatamodelNode n,
+      $datamodel.IpldPrimeDatamodelPath p) {
+    final $r = $callSync(
+        2083,
+        $W()
+          ..h(n)
+          ..h(p));
+    return $r.hnn($datamodel.IpldPrimeDatamodelNode.$h);
+  }
+
+  /// Go: `func traversal.SelectLinks(n datamodel.Node) ([]datamodel.Link, error)`.
+  List<$datamodel.IpldPrimeDatamodelLink> selectLinks(
+      $datamodel.IpldPrimeDatamodelNode n) {
+    final $r = $callSync(2087, $W()..h(n));
+    return $r.list(() => $r.hnn($datamodel.IpldPrimeDatamodelLink.$h));
+  }
+
+  /// Go: `func traversal.WalkTransforming(n datamodel.Node, s selector.Selector, fn traversal.TransformFn) (datamodel.Node, error)`.
+  $datamodel.IpldPrimeDatamodelNode walkTransforming(
+      $datamodel.IpldPrimeDatamodelNode n,
+      $selector.IpldPrimeTraversalSelector s,
+      IpldPrimeTraversalTransformFn fn) {
+    final $r = $callSync(
+        2088,
+        $W()
+          ..h(n)
+          ..h(s)
+          ..h(fn));
+    return $r.hnn($datamodel.IpldPrimeDatamodelNode.$h);
+  }
+
   /// Go: `const traversal.VisitReason_SelectionCandidate traversal.VisitReason`.
   int get visitReasonSelectionCandidate => 120;
 

@@ -250,6 +250,18 @@ func generate(rootsFile string) (map[string][]byte, error) {
 		if err != nil {
 			return nil, err
 		}
+		if expanded[line] {
+			for _, f := range fs {
+				for _, p := range f.params {
+					if p.t.k == kFunc && !p.t.retained && f.why == "" {
+						// called during the call or kept for later? Bridged as
+						// the first, a kept one would be called after the call
+						// returned: someone has to read it first
+						f.why = "takes a callback nobody checked yet: an explicit root in roots.txt if Go only calls it during the call, retainedFuncs if Go keeps it"
+					}
+				}
+			}
+		}
 		fns = append(fns, fs...)
 	}
 	fns = append(fns, m.casts(fns)...)
@@ -339,13 +351,37 @@ func expandRoots(lines, ignore []string, expanded map[string]bool) ([]string, er
 	if err != nil {
 		return nil, err
 	}
+	errIface := types.Universe.Lookup("error").Type().Underlying().(*types.Interface)
+	// errValue: [f] takes or returns a concrete error type as a value
+	// (corerepo.NewMultiError): in Dart an error is only an exception, and
+	// the type stays its error class
+	errValue := func(f *types.Func) bool {
+		sig := f.Type().(*types.Signature)
+		for _, tup := range []*types.Tuple{sig.Params(), sig.Results()} {
+			for i := 0; i < tup.Len(); i++ {
+				t := tup.At(i).Type()
+				if p, ok := t.(*types.Pointer); ok {
+					t = p.Elem()
+				}
+				if _, ok := t.(*types.Named); ok && !types.IsInterface(t) &&
+					(types.Implements(t, errIface) || types.Implements(types.NewPointer(t), errIface)) {
+					return true
+				}
+			}
+		}
+		return false
+	}
 	seen := map[string]bool{}
 	var out []string
+	explicit := map[string]bool{} // an explicit root wins over its "pkg.*", wherever it is
+	for _, l := range lines {
+		explicit[l] = true
+	}
 	add := func(l string, exp bool) {
 		if !seen[l] && !ignored(l) {
 			seen[l] = true
 			out = append(out, l)
-			if exp {
+			if exp && !explicit[l] {
 				expanded[l] = true
 			}
 		}
@@ -360,11 +396,12 @@ func expandRoots(lines, ignore []string, expanded map[string]bool) ([]string, er
 		for _, n := range sc.Names() {
 			switch o := sc.Lookup(n).(type) {
 			case *types.Func:
-				if o.Exported() && o.Type().(*types.Signature).TypeParams() == nil {
+				if o.Exported() && o.Type().(*types.Signature).TypeParams() == nil && !errValue(o) {
 					add(path+"."+n, true)
 				}
 			case *types.Var:
-				if o.Exported() {
+				// an error var is a sentinel: its error class (errors.go)
+				if o.Exported() && !types.Implements(o.Type(), errIface) {
 					add(path+"."+n, true)
 				}
 			case *types.TypeName:
@@ -376,15 +413,20 @@ func expandRoots(lines, ignore []string, expanded map[string]bool) ([]string, er
 				}
 				if it, ok := o.Type().Underlying().(*types.Interface); ok {
 					for i := 0; i < it.NumExplicitMethods(); i++ {
-						if m := it.ExplicitMethod(i); m.Exported() {
+						if m := it.ExplicitMethod(i); m.Exported() && !errValue(m) {
 							add(path+"."+n+"."+m.Name(), true)
 						}
 					}
 					continue
 				}
+				// an error type is an error class (errors.go), its fields
+				// included; its methods would make it a DTO
+				if types.Implements(o.Type(), errIface) || types.Implements(types.NewPointer(o.Type()), errIface) {
+					continue
+				}
 				ms := types.NewMethodSet(types.NewPointer(o.Type()))
 				for i := 0; i < ms.Len(); i++ {
-					if m := ms.At(i).Obj(); m.Exported() && m.Pkg() == o.Pkg() {
+					if m := ms.At(i).Obj().(*types.Func); m.Exported() && m.Pkg() == o.Pkg() && !errValue(m) {
 						add(path+"."+n+"."+m.Name(), true)
 					}
 				}
@@ -684,6 +726,10 @@ func (m *model) casts(fns []*fn) []*fn {
 	var out []*fn
 	for _, i := range ifaces {
 		it := i.named.Underlying().(*types.Interface)
+		if it.NumMethods() == 0 { // crypto.PrivateKey is an `any`: every type would be a cast
+			continue
+		}
+		named := map[string]bool{} // T and *T are one Dart class: one cast
 		// e para as interfaces que embutem esta (index.Index →
 		// index.IterableIndex): o `x.(Maior)` do Go; entre interfaces sem
 		// relação, não (seria um cast para cada par)
@@ -700,6 +746,10 @@ func (m *model) casts(fns []*fn) []*fn {
 			// named after the Dart class, unique by construction: two types of
 			// the same Go name (noise.Transport, tls.Transport) never collide
 			name := "As" + className(m, c)
+			if named[name] {
+				continue
+			}
+			named[name] = true
 			sig := types.NewSignatureType(nil, nil, nil, nil, types.NewTuple(types.NewVar(0, nil, "", c.t)), false)
 			out = append(out, &fn{key: "cast " + i.key + " " + c.key, pkg: i.named.Obj().Pkg(),
 				obj: types.NewFunc(0, i.named.Obj().Pkg(), name, sig), recv: i, results: []*tinfo{c}, cast: c, outBuf: -1})

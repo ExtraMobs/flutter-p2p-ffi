@@ -4,20 +4,56 @@ library;
 
 import 'package:p2p_ffi/src/go.dart' show GoLibp2pP2pMuxerYamux;
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/ipfs_cmds.dart' as $ipfs_cmds;
 import 'package:p2p_ffi/go/libp2p/core/network.dart' as $network;
+import 'package:p2p_ffi/go/net.dart' as $net;
+import 'package:p2p_ffi/go/yamux/v5.dart' as $v5;
 
 /// Go: `yamux.Transport` (handle).
-class Libp2pP2pMuxerYamuxTransport
-    extends $network.Libp2pCoreNetworkMultiplexer {
+class Libp2pP2pMuxerYamuxTransport extends $network.Libp2pCoreNetworkMultiplexer
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        $ipfs_cmds.IpfsCmdsEnvironment$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        $ipfs_cmds.IpfsCmdsEnvironment {
   Libp2pP2pMuxerYamuxTransport.$h(super.$h) : super.$h();
+
+  /// Go: `func (*yamux.Transport).Config() *yamux.Config`.
+  $v5.YamuxV5Config config() {
+    final $r = $callSync(3195, $W()..h(this));
+    return $r.p() ? $v5.YamuxV5Config.$dec($r) : $nil();
+  }
+
+  /// Go: `func (*yamux.Transport).NewConn(nc net.Conn, isServer bool, scope network.PeerScope) (network.MuxedConn, error)`.
+  $network.Libp2pCoreNetworkMuxedConn newConn($net.NetConn nc, bool isServer,
+      $network.Libp2pCoreNetworkPeerScope scope) {
+    final $r = $callSync(
+        3196,
+        $W()
+          ..h(this)
+          ..h(nc)
+          ..b(isServer)
+          ..h(scope));
+    return $r.hnn($network.Libp2pCoreNetworkMuxedConn.$h);
+  }
 }
 
 /// Go: the package-level members of `github.com/libp2p/go-libp2p/p2p/muxer/yamux` (`Go.libp2p.p2p.muxer.yamux`).
 extension GoLibp2pP2pMuxerYamuxApi on GoLibp2pP2pMuxerYamux {
   /// Go: `var yamux.DefaultTransport *yamux.Transport`.
   Libp2pP2pMuxerYamuxTransport get defaultTransport {
-    final $r = $callSync(648);
+    final $r = $callSync(3193);
     return $r.hnn(Libp2pP2pMuxerYamuxTransport.$h);
+  }
+
+  /// Go: `func yamux.NewMuxedConn(m *yamux.Session) network.MuxedConn`.
+  $network.Libp2pCoreNetworkMuxedConn newMuxedConn($v5.YamuxV5Session m) {
+    final $r = $callSync(3194, $W()..h(m));
+    return $r.hnn($network.Libp2pCoreNetworkMuxedConn.$h);
   }
 
   /// Go: `const yamux.ID untyped string`.

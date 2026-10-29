@@ -3,11 +3,18 @@
 library;
 
 import 'package:p2p_ffi/src/go.dart' show GoMulticodec;
+import 'package:p2p_ffi/src/runtime.dart';
 
 /// Go: the package-level members of `github.com/multiformats/go-multicodec` (`Go.multicodec`).
 extension GoMulticodecApi on GoMulticodec {
   /// Go: `const multicodec.CarMultihashIndexSorted multicodec.Code`.
   int get carMultihashIndexSorted => 1025;
+
+  /// Go: `func multicodec.KnownCodes() []multicodec.Code`.
+  List<int> knownCodes() {
+    final $r = $callSync(3436);
+    return $r.list(() => $r.i64());
+  }
 
   /// Go: `const multicodec.Aes128 multicodec.Code`.
   int get aes128 => 160;

@@ -4,12 +4,18 @@ library;
 
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/boxo/ipld/merkledag/dagutils.dart' as $dagutils;
+import 'package:p2p_ffi/go/cid.dart' as $cid;
 
 /// Go: `objectcmd.Changes` (a kubo command output).
 final class KuboCoreCommandsObjectChanges {
   KuboCoreCommandsObjectChanges.$dec($R r)
-      : changes = r.list(() =>
-            r.p() ? $dagutils.BoxoIpldMerkledagDagutilsChange.$dec(r) : null);
+      : changes = r.list(() => r.p()
+            ? $dagutils.BoxoIpldMerkledagDagutilsChange(
+                type: r.i64(),
+                path: r.str(),
+                before: $cid.Cid(r.str()),
+                after: $cid.Cid(r.str()))
+            : null);
 
   /// Go: `Changes`.
   final List<$dagutils.BoxoIpldMerkledagDagutilsChange?> changes;

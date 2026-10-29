@@ -9,19 +9,56 @@ import 'package:p2p_ffi/go/libp2p/core/network.dart' as $network;
 import 'package:p2p_ffi/go/libp2p/core/peer.dart' as $peer;
 import 'package:p2p_ffi/go/libp2p/core/record.dart' as $record;
 import 'package:p2p_ffi/go/multiaddr.dart' as $multiaddr;
+import 'package:p2p_ffi/go/reflect.dart' as $reflect;
 
 /// Go: `event.Bus` (handle).
-class Libp2pCoreEventBus extends GoHandle {
+class Libp2pCoreEventBus extends GoHandle with Libp2pCoreEventBus$ {
   Libp2pCoreEventBus.$h(super.$h);
+}
+
+/// The methods of [Libp2pCoreEventBus], mixed into every class Go also accepts as one.
+mixin Libp2pCoreEventBus$ on GoHandle {
+  /// Go: `func (event.Bus).Emitter(eventType any, opts ...event.EmitterOpt) (event.Emitter, error)`.
+  Libp2pCoreEventEmitter emitter(Object? eventType) {
+    final $r = $callSync(
+        2920,
+        $W()
+          ..h(this)
+          ..any(eventType));
+    return $r.hnn(Libp2pCoreEventEmitter.$h);
+  }
+
+  /// Go: `func (event.Bus).GetAllEventTypes() []reflect.Type`.
+  List<$reflect.ReflectType> getAllEventTypes() {
+    final $r = $callSync(2921, $W()..h(this));
+    return $r.list(() => $r.hnn($reflect.ReflectType.$h));
+  }
 
   /// Go: `func (event.Bus).Subscribe(eventType any, opts ...event.SubscriptionOpt) (event.Subscription, error)`.
   Libp2pCoreEventSubscription subscribe(Object? eventType) {
     final $r = $callSync(
-        563,
+        2922,
         $W()
           ..h(this)
           ..any(eventType));
     return $r.hnn(Libp2pCoreEventSubscription.$h);
+  }
+}
+
+/// Go: `event.Emitter` (handle).
+class Libp2pCoreEventEmitter extends $io.IoCloser with Libp2pCoreEventEmitter$ {
+  Libp2pCoreEventEmitter.$h(super.$h) : super.$h();
+}
+
+/// The methods of [Libp2pCoreEventEmitter], mixed into every class Go also accepts as one.
+mixin Libp2pCoreEventEmitter$ on GoHandle {
+  /// Go: `func (event.Emitter).Emit(evt any) error`.
+  void emit(Object? evt) {
+    $callSync(
+        2923,
+        $W()
+          ..h(this)
+          ..any(evt));
   }
 }
 
@@ -381,22 +418,26 @@ final class Libp2pCoreEventEvtPeerProtocolsUpdated implements GoDto {
 }
 
 /// Go: `event.Subscription` (handle).
-class Libp2pCoreEventSubscription extends $io.IoCloser {
+class Libp2pCoreEventSubscription extends $io.IoCloser
+    with Libp2pCoreEventSubscription$ {
   Libp2pCoreEventSubscription.$h(super.$h) : super.$h();
+}
 
-  /// Go: `func (event.Subscription).Out() <-chan any`.
-  Stream<Object?> out() => $stream(566, $W()..h(this)).map((r) => r.any());
+/// The methods of [Libp2pCoreEventSubscription], mixed into every class Go also accepts as one.
+mixin Libp2pCoreEventSubscription$ on GoHandle {
+  /// Go: `func (io.Closer).Close() error`.
+  void close() {
+    $callSync(2924, $W()..h(this));
+  }
 
   /// Go: `func (event.Subscription).Name() string`.
   String name() {
-    final $r = $callSync(565, $W()..h(this));
+    final $r = $callSync(2925, $W()..h(this));
     return $r.str();
   }
 
-  /// Go: `func (io.Closer).Close() error`.
-  void close() {
-    $callSync(564, $W()..h(this));
-  }
+  /// Go: `func (event.Subscription).Out() <-chan any`.
+  Stream<Object?> out() => $stream(2926, $W()..h(this)).map((r) => r.any());
 }
 
 /// Go: `event.UpdatedAddress`.

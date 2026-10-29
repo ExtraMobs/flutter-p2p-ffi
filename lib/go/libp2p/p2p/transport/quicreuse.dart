@@ -7,7 +7,16 @@ import 'dart:async';
 import 'package:p2p_ffi/src/go.dart' show GoLibp2pP2pTransportQuicreuse;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/client_golang/prometheus.dart' as $prometheus;
+import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/ipfs_cmds.dart' as $ipfs_cmds;
 import 'package:p2p_ffi/go/net.dart' as $net;
+
+/// Go: `quicreuse.ConnManager` (handle).
+class Libp2pP2pTransportQuicreuseConnManager extends $crypto.CryptoPrivateKey
+    with $crypto.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
+    implements $crypto.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+  Libp2pP2pTransportQuicreuseConnManager.$h(super.$h) : super.$h();
+}
 
 /// Go: `quicreuse.Option` (functional option; constructors in the package).
 final class Libp2pP2pTransportQuicreuseOption extends GoOption {

@@ -2,24 +2,221 @@
 // Go: github.com/libp2p/go-libp2p-kbucket
 library;
 
+import 'dart:typed_data';
+
 import 'package:p2p_ffi/src/go.dart' show GoLibp2pKbucket;
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/ipfs_cmds.dart' as $ipfs_cmds;
 import 'package:p2p_ffi/go/libp2p/core/peer.dart' as $peer;
+import 'package:p2p_ffi/go/libp2p/core/peerstore.dart' as $peerstore;
+import 'package:p2p_ffi/go/libp2p_kbucket/peerdiversity.dart' as $peerdiversity;
+
+/// Go: `kbucket.PeerInfo` (handle).
+class Libp2pKbucketPeerInfo extends $crypto.CryptoPrivateKey
+    with $crypto.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
+    implements $crypto.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+  Libp2pKbucketPeerInfo.$h(super.$h) : super.$h();
+}
 
 /// Go: `kbucket.RoutingTable` (handle).
-class Libp2pKbucketRoutingTable extends GoHandle {
-  Libp2pKbucketRoutingTable.$h(super.$h);
+class Libp2pKbucketRoutingTable extends $crypto.CryptoPrivateKey
+    with $crypto.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
+    implements $crypto.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+  Libp2pKbucketRoutingTable.$h(super.$h) : super.$h();
 
-  /// Go: `func (*kbucket.RoutingTable).Size() int`.
-  int size() {
-    final $r = $callSync(507, $W()..h(this));
-    return $r.i64();
+  /// Go: `func kbucket.NewRoutingTable(bucketsize int, localID kbucket.ID, latency time.Duration, m peerstore.Metrics, usefulnessGracePeriod time.Duration, df *peerdiversity.Filter) (*kbucket.RoutingTable, error)`.
+  factory Libp2pKbucketRoutingTable(
+      int bucketsize,
+      Uint8List localId,
+      Duration latency,
+      $peerstore.Libp2pCorePeerstoreMetrics m,
+      Duration usefulnessGracePeriod,
+      $peerdiversity.Libp2pKbucketPeerdiversityFilter df) {
+    final $r = $callSync(
+        2280,
+        $W()
+          ..i64(bucketsize)
+          ..bytes(localId)
+          ..i64((latency).inMicroseconds * 1000)
+          ..h(m)
+          ..i64((usefulnessGracePeriod).inMicroseconds * 1000)
+          ..h(df));
+    return $r.hnn(Libp2pKbucketRoutingTable.$h);
+  }
+
+  /// Go: `func (*kbucket.RoutingTable).Close() error`.
+  void close() {
+    $callSync(2281, $W()..h(this));
+  }
+
+  /// Go: `func (*kbucket.RoutingTable).Find(id peer.ID) peer.ID`.
+  $peer.Libp2pCorePeerId find($peer.Libp2pCorePeerId id) {
+    final $r = $callSync(
+        2282,
+        $W()
+          ..h(this)
+          ..val(id));
+    return $r.p() ? $peer.Libp2pCorePeerId($r.str()) : $nil();
+  }
+
+  /// Go: `func (*kbucket.RoutingTable).GenRandPeerID(targetCpl uint) (peer.ID, error)`.
+  $peer.Libp2pCorePeerId genRandPeerId(int targetCpl) {
+    final $r = $callSync(
+        2283,
+        $W()
+          ..h(this)
+          ..i64(targetCpl));
+    return $r.p() ? $peer.Libp2pCorePeerId($r.str()) : $nil();
+  }
+
+  /// Go: `func (*kbucket.RoutingTable).GenRandomKey(targetCpl uint) (kbucket.ID, error)`.
+  Uint8List genRandomKey(int targetCpl) {
+    final $r = $callSync(
+        2284,
+        $W()
+          ..h(this)
+          ..i64(targetCpl));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (*kbucket.RoutingTable).GetDiversityStats() []peerdiversity.CplDiversityStats`.
+  List<$peerdiversity.Libp2pKbucketPeerdiversityCplDiversityStats>
+      getDiversityStats() {
+    final $r = $callSync(2285, $W()..h(this));
+    return $r.list(() => $r.p()
+        ? $peerdiversity.Libp2pKbucketPeerdiversityCplDiversityStats.$dec($r)
+        : $nil());
+  }
+
+  /// Go: `func (*kbucket.RoutingTable).GetPeerInfos() []kbucket.PeerInfo`.
+  List<Libp2pKbucketPeerInfo> getPeerInfos() {
+    final $r = $callSync(2286, $W()..h(this));
+    return $r.list(() => $r.hnn(Libp2pKbucketPeerInfo.$h));
+  }
+
+  /// Go: `func (*kbucket.RoutingTable).GetTrackedCplsForRefresh() []time.Time`.
+  List<DateTime> getTrackedCplsForRefresh() {
+    final $r = $callSync(2287, $W()..h(this));
+    return $r.list(() => $r.p() ? $r.time() : $nil());
   }
 
   /// Go: `func (*kbucket.RoutingTable).ListPeers() []peer.ID`.
   List<$peer.Libp2pCorePeerId> listPeers() {
-    final $r = $callSync(506, $W()..h(this));
+    final $r = $callSync(2288, $W()..h(this));
     return $r.list(() => $r.p() ? $peer.Libp2pCorePeerId($r.str()) : $nil());
+  }
+
+  /// Go: `func (*kbucket.RoutingTable).MarkAllPeersIrreplaceable()`.
+  void markAllPeersIrreplaceable() {
+    $callSync(2289, $W()..h(this));
+  }
+
+  /// Go: `func (*kbucket.RoutingTable).NPeersForCpl(cpl uint) int`.
+  int nPeersForCpl(int cpl) {
+    final $r = $callSync(
+        2290,
+        $W()
+          ..h(this)
+          ..i64(cpl));
+    return $r.i64();
+  }
+
+  /// Go: `func (*kbucket.RoutingTable).NearestPeer(id kbucket.ID) peer.ID`.
+  $peer.Libp2pCorePeerId nearestPeer(Uint8List id) {
+    final $r = $callSync(
+        2291,
+        $W()
+          ..h(this)
+          ..bytes(id));
+    return $r.p() ? $peer.Libp2pCorePeerId($r.str()) : $nil();
+  }
+
+  /// Go: `func (*kbucket.RoutingTable).NearestPeers(id kbucket.ID, count int) []peer.ID`.
+  List<$peer.Libp2pCorePeerId> nearestPeers(Uint8List id, int count) {
+    final $r = $callSync(
+        2292,
+        $W()
+          ..h(this)
+          ..bytes(id)
+          ..i64(count));
+    return $r.list(() => $r.p() ? $peer.Libp2pCorePeerId($r.str()) : $nil());
+  }
+
+  /// Go: `func (*kbucket.RoutingTable).Print()`.
+  void print() {
+    $callSync(2293, $W()..h(this));
+  }
+
+  /// Go: `func (*kbucket.RoutingTable).RemovePeer(p peer.ID)`.
+  void removePeer($peer.Libp2pCorePeerId p) {
+    $callSync(
+        2294,
+        $W()
+          ..h(this)
+          ..val(p));
+  }
+
+  /// Go: `func (*kbucket.RoutingTable).ResetCplRefreshedAtForID(id kbucket.ID, newTime time.Time)`.
+  void resetCplRefreshedAtForId(Uint8List id, DateTime newTime) {
+    $callSync(
+        2295,
+        $W()
+          ..h(this)
+          ..bytes(id)
+          ..time(newTime));
+  }
+
+  /// Go: `func (*kbucket.RoutingTable).Size() int`.
+  int size() {
+    final $r = $callSync(2296, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (*kbucket.RoutingTable).TryAddPeer(p peer.ID, queryPeer bool, isReplaceable bool) (bool, error)`.
+  bool tryAddPeer(
+      $peer.Libp2pCorePeerId p, bool queryPeer, bool isReplaceable) {
+    final $r = $callSync(
+        2297,
+        $W()
+          ..h(this)
+          ..val(p)
+          ..b(queryPeer)
+          ..b(isReplaceable));
+    return $r.b();
+  }
+
+  /// Go: `func (*kbucket.RoutingTable).UpdateLastSuccessfulOutboundQueryAt(p peer.ID, t time.Time) bool`.
+  bool updateLastSuccessfulOutboundQueryAt(
+      $peer.Libp2pCorePeerId p, DateTime t) {
+    final $r = $callSync(
+        2298,
+        $W()
+          ..h(this)
+          ..val(p)
+          ..time(t));
+    return $r.b();
+  }
+
+  /// Go: `func (*kbucket.RoutingTable).UpdateLastUsefulAt(p peer.ID, t time.Time) bool`.
+  bool updateLastUsefulAt($peer.Libp2pCorePeerId p, DateTime t) {
+    final $r = $callSync(
+        2299,
+        $W()
+          ..h(this)
+          ..val(p)
+          ..time(t));
+    return $r.b();
+  }
+
+  /// Go: `func (*kbucket.RoutingTable).UsefulNewPeer(p peer.ID) bool`.
+  bool usefulNewPeer($peer.Libp2pCorePeerId p) {
+    final $r = $callSync(
+        2300,
+        $W()
+          ..h(this)
+          ..val(p));
+    return $r.b();
   }
 }
 
@@ -52,6 +249,70 @@ class Libp2pKbucketErrPeerRejectedNoCapacity extends GolangException {
 
 /// Go: the package-level members of `github.com/libp2p/go-libp2p-kbucket` (`Go.libp2pKbucket`).
 extension GoLibp2pKbucketApi on GoLibp2pKbucket {
+  /// Go: `func kbucket.Closer(a peer.ID, b peer.ID, key string) bool`.
+  bool closer($peer.Libp2pCorePeerId a, $peer.Libp2pCorePeerId b, String key) {
+    final $r = $callSync(
+        2275,
+        $W()
+          ..val(a)
+          ..val(b)
+          ..str(key));
+    return $r.b();
+  }
+
+  /// Go: `func kbucket.CommonPrefixLen(a kbucket.ID, b kbucket.ID) int`.
+  int commonPrefixLen(Uint8List a, Uint8List b) {
+    final $r = $callSync(
+        2276,
+        $W()
+          ..bytes(a)
+          ..bytes(b));
+    return $r.i64();
+  }
+
+  /// Go: `func kbucket.ConvertKey(id string) kbucket.ID`.
+  Uint8List convertKey(String id) {
+    final $r = $callSync(2277, $W()..str(id));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func kbucket.ConvertPeerID(id peer.ID) kbucket.ID`.
+  Uint8List convertPeerId($peer.Libp2pCorePeerId id) {
+    final $r = $callSync(2278, $W()..val(id));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func kbucket.GenRandPeerIDWithCPL(targetID kbucket.ID, cpl uint) (peer.ID, error)`.
+  $peer.Libp2pCorePeerId genRandPeerIdWithCpl(Uint8List targetId, int cpl) {
+    final $r = $callSync(
+        2279,
+        $W()
+          ..bytes(targetId)
+          ..i64(cpl));
+    return $r.p() ? $peer.Libp2pCorePeerId($r.str()) : $nil();
+  }
+
+  /// Go: `func kbucket.SortClosestPeers(peers []peer.ID, target kbucket.ID) []peer.ID`.
+  List<$peer.Libp2pCorePeerId> sortClosestPeers(
+      List<$peer.Libp2pCorePeerId> peers, Uint8List target) {
+    final $r = $callSync(
+        2301,
+        $W()
+          ..list(peers, (w0, e0) => w0.val(e0))
+          ..bytes(target));
+    return $r.list(() => $r.p() ? $peer.Libp2pCorePeerId($r.str()) : $nil());
+  }
+
+  /// Go: `func kbucket.Xor(a kbucket.ID, b kbucket.ID) kbucket.ID`.
+  Uint8List xor(Uint8List a, Uint8List b) {
+    final $r = $callSync(
+        2302,
+        $W()
+          ..bytes(a)
+          ..bytes(b));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
   /// Go: `const kbucket.PeerIDPreimageMaxCpl uint`.
   int get peerIdPreimageMaxCpl => 15;
 }

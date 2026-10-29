@@ -4,17 +4,27 @@ library;
 
 import 'package:p2p_ffi/src/go.dart' show GoLibp2pP2pHostAutorelay;
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/ipfs_cmds.dart' as $ipfs_cmds;
 import 'package:p2p_ffi/go/libp2p/core/peer.dart' as $peer;
 
 /// Go: `autorelay.ClockWithInstantTimer` (handle).
-class Libp2pP2pHostAutorelayClockWithInstantTimer extends GoHandle {
+class Libp2pP2pHostAutorelayClockWithInstantTimer extends GoHandle
+    with Libp2pP2pHostAutorelayClockWithInstantTimer$ {
   Libp2pP2pHostAutorelayClockWithInstantTimer.$h(super.$h);
 }
 
+/// The methods of [Libp2pP2pHostAutorelayClockWithInstantTimer], mixed into every class Go also accepts as one.
+mixin Libp2pP2pHostAutorelayClockWithInstantTimer$ on GoHandle {}
+
 /// Go: `autorelay.MetricsTracer` (handle).
-class Libp2pP2pHostAutorelayMetricsTracer extends GoHandle {
+class Libp2pP2pHostAutorelayMetricsTracer extends GoHandle
+    with Libp2pP2pHostAutorelayMetricsTracer$ {
   Libp2pP2pHostAutorelayMetricsTracer.$h(super.$h);
 }
+
+/// The methods of [Libp2pP2pHostAutorelayMetricsTracer], mixed into every class Go also accepts as one.
+mixin Libp2pP2pHostAutorelayMetricsTracer$ on GoHandle {}
 
 /// Go: `autorelay.Option` (functional option; constructors in the package).
 final class Libp2pP2pHostAutorelayOption extends GoOption {
@@ -22,8 +32,10 @@ final class Libp2pP2pHostAutorelayOption extends GoOption {
 }
 
 /// Go: `autorelay.PeerSource` (handle).
-class Libp2pP2pHostAutorelayPeerSource extends GoHandle {
-  Libp2pP2pHostAutorelayPeerSource.$h(super.$h);
+class Libp2pP2pHostAutorelayPeerSource extends $crypto.CryptoPrivateKey
+    with $crypto.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
+    implements $crypto.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+  Libp2pP2pHostAutorelayPeerSource.$h(super.$h) : super.$h();
 }
 
 /// Go: the package-level members of `github.com/libp2p/go-libp2p/p2p/host/autorelay` (`Go.libp2p.p2p.host.autorelay`).

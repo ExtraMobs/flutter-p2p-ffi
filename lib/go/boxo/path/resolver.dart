@@ -6,9 +6,12 @@ import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/cid.dart' as $cid;
 
 /// Go: `resolver.Resolver` (handle).
-class BoxoPathResolver extends GoHandle {
+class BoxoPathResolver extends GoHandle with BoxoPathResolver$ {
   BoxoPathResolver.$h(super.$h);
 }
+
+/// The methods of [BoxoPathResolver], mixed into every class Go also accepts as one.
+mixin BoxoPathResolver$ on GoHandle {}
 
 /// Go: `resolver.ErrNoLink`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).

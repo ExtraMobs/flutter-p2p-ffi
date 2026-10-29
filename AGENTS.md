@@ -38,8 +38,10 @@ dart test                                          # the whole suite (needs the 
 
 - Go 1.26.5 (`GOTOOLCHAIN=auto` downloads it). A C compiler only for the `p2p_shm`: mingw-w64
   on Windows, gcc on linux, the NDK for Android.
-- To expose more of Go: one line in `go/gen/roots.txt` and the build; the library path comes
-  from the package's module (`go list -m all`), no table to edit.
+- To expose more of Go: a line `package.*` in `go/gen/roots.txt` (every exported symbol;
+  what the generator cannot bridge is skipped, with the reason in API.md) and the build;
+  `go/gen/ignore_roots.txt` drops what must not cross (patterns, with the reason). The
+  library path comes from the package's module (`go list -m all`), no table to edit.
 - linux through WSL: WSL and Windows overwrite each other's `.dart_tool/package_config.json`;
   run `dart pub get` on the side in use before analyzing or testing.
 - Android: `dart run tool/build.dart android`, then in `example/android_app/`

@@ -5,37 +5,45 @@ library;
 import 'package:p2p_ffi/src/go.dart' show GoIpldPrimeTraversalSelectorParse;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/ipld_prime/datamodel.dart' as $datamodel;
+import 'package:p2p_ffi/go/ipld_prime/traversal/selector.dart' as $selector;
 
 /// Go: the package-level members of `github.com/ipld/go-ipld-prime/traversal/selector/parse` (`Go.ipldPrime.traversal.selector.parse`).
 extension GoIpldPrimeTraversalSelectorParseApi
     on GoIpldPrimeTraversalSelectorParse {
-  /// Go: `func selectorparse.ParseJSONSelector(jsonStr string) (datamodel.Node, error)`.
-  $datamodel.IpldPrimeDatamodelNode parseJsonSelector(String jsonStr) {
-    final $r = $callSync(491, $W()..str(jsonStr));
-    return $r.hnn($datamodel.IpldPrimeDatamodelNode.$h);
-  }
-
-  /// Go: `var selectorparse.CommonSelector_MatchPoint datamodel.Node`.
-  $datamodel.IpldPrimeDatamodelNode get commonSelectorMatchPoint {
-    final $r = $callSync(490);
-    return $r.hnn($datamodel.IpldPrimeDatamodelNode.$h);
-  }
-
-  /// Go: `var selectorparse.CommonSelector_MatchChildren datamodel.Node`.
-  $datamodel.IpldPrimeDatamodelNode get commonSelectorMatchChildren {
-    final $r = $callSync(489);
-    return $r.hnn($datamodel.IpldPrimeDatamodelNode.$h);
-  }
-
   /// Go: `var selectorparse.CommonSelector_ExploreAllRecursively datamodel.Node`.
   $datamodel.IpldPrimeDatamodelNode get commonSelectorExploreAllRecursively {
-    final $r = $callSync(487);
+    final $r = $callSync(2168);
     return $r.hnn($datamodel.IpldPrimeDatamodelNode.$h);
   }
 
   /// Go: `var selectorparse.CommonSelector_MatchAllRecursively datamodel.Node`.
   $datamodel.IpldPrimeDatamodelNode get commonSelectorMatchAllRecursively {
-    final $r = $callSync(488);
+    final $r = $callSync(2169);
+    return $r.hnn($datamodel.IpldPrimeDatamodelNode.$h);
+  }
+
+  /// Go: `var selectorparse.CommonSelector_MatchChildren datamodel.Node`.
+  $datamodel.IpldPrimeDatamodelNode get commonSelectorMatchChildren {
+    final $r = $callSync(2170);
+    return $r.hnn($datamodel.IpldPrimeDatamodelNode.$h);
+  }
+
+  /// Go: `var selectorparse.CommonSelector_MatchPoint datamodel.Node`.
+  $datamodel.IpldPrimeDatamodelNode get commonSelectorMatchPoint {
+    final $r = $callSync(2171);
+    return $r.hnn($datamodel.IpldPrimeDatamodelNode.$h);
+  }
+
+  /// Go: `func selectorparse.ParseAndCompileJSONSelector(jsonStr string) (selector.Selector, error)`.
+  $selector.IpldPrimeTraversalSelector parseAndCompileJsonSelector(
+      String jsonStr) {
+    final $r = $callSync(2172, $W()..str(jsonStr));
+    return $r.hnn($selector.IpldPrimeTraversalSelector.$h);
+  }
+
+  /// Go: `func selectorparse.ParseJSONSelector(jsonStr string) (datamodel.Node, error)`.
+  $datamodel.IpldPrimeDatamodelNode parseJsonSelector(String jsonStr) {
+    final $r = $callSync(2173, $W()..str(jsonStr));
     return $r.hnn($datamodel.IpldPrimeDatamodelNode.$h);
   }
 }

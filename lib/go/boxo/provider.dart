@@ -2,11 +2,224 @@
 // Go: github.com/ipfs/boxo/provider
 library;
 
+import 'dart:async';
+import 'dart:typed_data';
+
 import 'package:p2p_ffi/src/go.dart' show GoBoxoProvider;
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/boxo/fetcher.dart' as $fetcher;
+import 'package:p2p_ffi/go/boxo/verifcid.dart' as $verifcid;
+import 'package:p2p_ffi/go/cid.dart' as $cid;
+import 'package:p2p_ffi/go/context.dart' as $context;
+import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/datastore.dart' as $datastore;
+import 'package:p2p_ffi/go/ipfs_cmds.dart' as $ipfs_cmds;
+import 'package:p2p_ffi/go/kubo/core/node.dart' as $node;
+import 'package:p2p_ffi/go/libp2p/p2p/discovery/routing.dart' as $routing;
+import 'package:p2p_ffi/go/libp2p_kad_dht.dart' as $libp2p_kad_dht;
 
-/// Go: `provider.ReproviderStats` (a kubo command output).
-final class BoxoProviderReproviderStats {
+/// Go: `provider.KeyChanFunc` (handle).
+class BoxoProviderKeyChanFunc extends $crypto.CryptoPrivateKey
+    with $crypto.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
+    implements $crypto.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+  BoxoProviderKeyChanFunc.$h(super.$h) : super.$h();
+}
+
+/// Go: `provider.MultihashProvider` (handle).
+class BoxoProviderMultihashProvider extends GoHandle
+    with BoxoProviderMultihashProvider$ {
+  BoxoProviderMultihashProvider.$h(super.$h);
+}
+
+/// The methods of [BoxoProviderMultihashProvider], mixed into every class Go also accepts as one.
+mixin BoxoProviderMultihashProvider$ on GoHandle {
+  /// Go: `func (provider.MultihashProvider).StartProviding(force bool, keys ...multihash.Multihash) error`.
+  void startProviding(bool force, [List<Uint8List> keys = const []]) {
+    $callSync(
+        1013,
+        $W()
+          ..h(this)
+          ..b(force)
+          ..list(keys, (w0, e0) => w0.bytes(e0)));
+  }
+
+  /// Go: type assertion `x.(*node.LegacyProvider)`: null if the object is not one.
+  $node.KuboCoreNodeLegacyProvider? asKuboCoreNodeLegacyProvider() {
+    final $r = $callSync(113, $W()..h(this));
+    return $r.hn($node.KuboCoreNodeLegacyProvider.$h);
+  }
+}
+
+/// Go: `provider.Option` (functional option; constructors in the package).
+final class BoxoProviderOption extends GoOption {
+  BoxoProviderOption.$(super.$i, super.$a);
+}
+
+/// Go: `provider.Provide` (handle).
+class BoxoProviderProvide extends GoHandle with BoxoProviderProvide$ {
+  BoxoProviderProvide.$h(super.$h);
+}
+
+/// The methods of [BoxoProviderProvide], mixed into every class Go also accepts as one.
+mixin BoxoProviderProvide$ on GoHandle {
+  /// Go: `func (provider.Provide).Provide(context.Context, cid.Cid, bool) error`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> provide($context.Context ctx, $cid.Cid cid, bool arg2) async {
+    await $call(
+        1020,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(cid)
+          ..b(arg2));
+  }
+
+  /// Go: type assertion `x.(*node.LegacyProvider)`: null if the object is not one.
+  $node.KuboCoreNodeLegacyProvider? asKuboCoreNodeLegacyProvider() {
+    final $r = $callSync(114, $W()..h(this));
+    return $r.hn($node.KuboCoreNodeLegacyProvider.$h);
+  }
+
+  /// Go: type assertion `x.(*dht.IpfsDHT)`: null if the object is not one.
+  $libp2p_kad_dht.Libp2pKadDhtIpfsDht? asLibp2pKadDhtIpfsDht() {
+    final $r = $callSync(115, $W()..h(this));
+    return $r.hn($libp2p_kad_dht.Libp2pKadDhtIpfsDht.$h);
+  }
+
+  /// Go: type assertion `x.(*routing.DiscoveryRouting)`: null if the object is not one.
+  $routing.Libp2pP2pDiscoveryRouting? asLibp2pP2pDiscoveryRouting() {
+    final $r = $callSync(116, $W()..h(this));
+    return $r.hn($routing.Libp2pP2pDiscoveryRouting.$h);
+  }
+
+  /// Go: type assertion `x.(*routing.RoutingDiscovery)`: null if the object is not one.
+  $routing.Libp2pP2pDiscoveryRoutingDiscovery?
+      asLibp2pP2pDiscoveryRoutingDiscovery() {
+    final $r = $callSync(117, $W()..h(this));
+    return $r.hn($routing.Libp2pP2pDiscoveryRoutingDiscovery.$h);
+  }
+}
+
+/// Go: `provider.ProvideMany` (handle).
+class BoxoProviderProvideMany extends GoHandle with BoxoProviderProvideMany$ {
+  BoxoProviderProvideMany.$h(super.$h);
+}
+
+/// The methods of [BoxoProviderProvideMany], mixed into every class Go also accepts as one.
+mixin BoxoProviderProvideMany$ on GoHandle {
+  /// Go: `func (provider.ProvideMany).ProvideMany(ctx context.Context, keys []multihash.Multihash) error`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> provideMany($context.Context ctx, List<Uint8List> keys) async {
+    await $call(
+        1021,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..list(keys, (w0, e0) => w0.bytes(e0)));
+  }
+}
+
+/// Go: `provider.Provider` (handle).
+class BoxoProvider extends GoHandle with BoxoProvider$ {
+  BoxoProvider.$h(super.$h);
+}
+
+/// The methods of [BoxoProvider], mixed into every class Go also accepts as one.
+mixin BoxoProvider$ on GoHandle {
+  /// Go: `func (provider.Provider).Provide(context.Context, cid.Cid, bool) error`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> provide($context.Context ctx, $cid.Cid cid, bool arg2) async {
+    await $call(
+        1022,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(cid)
+          ..b(arg2));
+  }
+
+  /// Go: type assertion `x.(*node.LegacyProvider)`: null if the object is not one.
+  $node.KuboCoreNodeLegacyProvider? asKuboCoreNodeLegacyProvider() {
+    final $r = $callSync(118, $W()..h(this));
+    return $r.hn($node.KuboCoreNodeLegacyProvider.$h);
+  }
+
+  /// Go: type assertion `x.(*dht.IpfsDHT)`: null if the object is not one.
+  $libp2p_kad_dht.Libp2pKadDhtIpfsDht? asLibp2pKadDhtIpfsDht() {
+    final $r = $callSync(119, $W()..h(this));
+    return $r.hn($libp2p_kad_dht.Libp2pKadDhtIpfsDht.$h);
+  }
+
+  /// Go: type assertion `x.(*routing.DiscoveryRouting)`: null if the object is not one.
+  $routing.Libp2pP2pDiscoveryRouting? asLibp2pP2pDiscoveryRouting() {
+    final $r = $callSync(120, $W()..h(this));
+    return $r.hn($routing.Libp2pP2pDiscoveryRouting.$h);
+  }
+
+  /// Go: type assertion `x.(*routing.RoutingDiscovery)`: null if the object is not one.
+  $routing.Libp2pP2pDiscoveryRoutingDiscovery?
+      asLibp2pP2pDiscoveryRoutingDiscovery() {
+    final $r = $callSync(121, $W()..h(this));
+    return $r.hn($routing.Libp2pP2pDiscoveryRoutingDiscovery.$h);
+  }
+
+  /// Go: type assertion `x.(provider.System)`: null if the object is not one.
+  BoxoProviderSystem? asBoxoProviderSystem() {
+    final $r = $callSync(122, $W()..h(this));
+    return $r.hn(BoxoProviderSystem.$h);
+  }
+}
+
+/// Go: `provider.Reprovider` (handle).
+class BoxoProviderReprovider extends GoHandle with BoxoProviderReprovider$ {
+  BoxoProviderReprovider.$h(super.$h);
+}
+
+/// The methods of [BoxoProviderReprovider], mixed into every class Go also accepts as one.
+mixin BoxoProviderReprovider$ on GoHandle {
+  /// Go: `func (provider.Reprovider).Reprovide(context.Context) error`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<void> reprovide($context.Context ctx) async {
+    await $call(
+        1023,
+        $W()
+          ..h(this)
+          ..h(ctx));
+  }
+
+  /// Go: type assertion `x.(*node.LegacyProvider)`: null if the object is not one.
+  $node.KuboCoreNodeLegacyProvider? asKuboCoreNodeLegacyProvider() {
+    final $r = $callSync(123, $W()..h(this));
+    return $r.hn($node.KuboCoreNodeLegacyProvider.$h);
+  }
+
+  /// Go: type assertion `x.(provider.System)`: null if the object is not one.
+  BoxoProviderSystem? asBoxoProviderSystem() {
+    final $r = $callSync(124, $W()..h(this));
+    return $r.hn(BoxoProviderSystem.$h);
+  }
+}
+
+/// Go: `provider.ReproviderStats`.
+final class BoxoProviderReproviderStats implements GoDto {
+  BoxoProviderReproviderStats(
+      {int? totalReprovides,
+      int? lastReprovideBatchSize,
+      Duration? reprovideInterval,
+      Duration? avgReprovideDuration,
+      Duration? lastReprovideDuration,
+      DateTime? lastRun})
+      : totalReprovides = totalReprovides ?? 0,
+        lastReprovideBatchSize = lastReprovideBatchSize ?? 0,
+        reprovideInterval = reprovideInterval ?? Duration.zero,
+        avgReprovideDuration = avgReprovideDuration ?? Duration.zero,
+        lastReprovideDuration = lastReprovideDuration ?? Duration.zero,
+        lastRun = lastRun;
+
   BoxoProviderReproviderStats.$dec($R r)
       : totalReprovides = r.i64(),
         lastReprovideBatchSize = r.i64(),
@@ -19,29 +232,179 @@ final class BoxoProviderReproviderStats {
   ///
   /// Go `uint64`: values from 2^63 up arrive negative (same 64 bits);
   /// `BigInt.from(v).toUnsigned(64)` reads them unsigned.
-  final int totalReprovides;
+  int totalReprovides;
 
   /// Go: `LastReprovideBatchSize`.
   ///
   /// Go `uint64`: values from 2^63 up arrive negative (same 64 bits);
   /// `BigInt.from(v).toUnsigned(64)` reads them unsigned.
-  final int lastReprovideBatchSize;
+  int lastReprovideBatchSize;
 
   /// Go: `ReprovideInterval`.
-  final Duration reprovideInterval;
+  Duration reprovideInterval;
 
   /// Go: `AvgReprovideDuration`.
-  final Duration avgReprovideDuration;
+  Duration avgReprovideDuration;
 
   /// Go: `LastReprovideDuration`.
-  final Duration lastReprovideDuration;
+  Duration lastReprovideDuration;
 
   /// Go: `LastRun`.
-  final DateTime? lastRun;
+  DateTime? lastRun;
+
+  @override
+  void $enc($W w) {
+    w
+      ..i64(totalReprovides)
+      ..i64(lastReprovideBatchSize)
+      ..i64((reprovideInterval).inMicroseconds * 1000)
+      ..i64((avgReprovideDuration).inMicroseconds * 1000)
+      ..i64((lastReprovideDuration).inMicroseconds * 1000)
+      ..time(lastRun);
+  }
+}
+
+/// Go: `provider.System` (handle).
+class BoxoProviderSystem extends BoxoProvider
+    with BoxoProviderReprovider$, BoxoProviderSystem$
+    implements BoxoProviderReprovider {
+  BoxoProviderSystem.$h(super.$h) : super.$h();
+}
+
+/// The methods of [BoxoProviderSystem], mixed into every class Go also accepts as one.
+mixin BoxoProviderSystem$ on GoHandle {
+  /// Go: `func (provider.System).Clear() int`.
+  int clear() {
+    final $r = $callSync(1024, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (provider.System).Close() error`.
+  void close() {
+    $callSync(1025, $W()..h(this));
+  }
+
+  /// Go: `func (provider.System).SetKeyProvider(kp provider.KeyChanFunc)`.
+  void setKeyProvider(BoxoProviderKeyChanFunc kp) {
+    $callSync(
+        1026,
+        $W()
+          ..h(this)
+          ..h(kp));
+  }
+
+  /// Go: `func (provider.System).Stat() (provider.ReproviderStats, error)`.
+  BoxoProviderReproviderStats stat() {
+    final $r = $callSync(1027, $W()..h(this));
+    return $r.p() ? BoxoProviderReproviderStats.$dec($r) : $nil();
+  }
+
+  /// Go: type assertion `x.(*node.LegacyProvider)`: null if the object is not one.
+  $node.KuboCoreNodeLegacyProvider? asKuboCoreNodeLegacyProvider() {
+    final $r = $callSync(125, $W()..h(this));
+    return $r.hn($node.KuboCoreNodeLegacyProvider.$h);
+  }
 }
 
 /// Go: the package-level members of `github.com/ipfs/boxo/provider` (`Go.boxo.provider`).
 extension GoBoxoProviderApi on GoBoxoProvider {
+  /// Go: `provider.Allowlist`.
+  BoxoProviderOption allowlist($verifcid.BoxoVerifcidAllowlist allowlist) =>
+      BoxoProviderOption.$(0, (w) => w..h(allowlist));
+
+  /// Go: `provider.DatastorePrefix`.
+  BoxoProviderOption datastorePrefix($datastore.DatastoreKey k) =>
+      BoxoProviderOption.$(1, (w) => w..h(k));
+
+  /// Go: `provider.KeyProvider`.
+  BoxoProviderOption keyProvider(BoxoProviderKeyChanFunc fn) =>
+      BoxoProviderOption.$(2, (w) => w..h(fn));
+
+  /// Go: `provider.MaxBatchSize`.
+  BoxoProviderOption maxBatchSize(int n) =>
+      BoxoProviderOption.$(3, (w) => w..i64(n));
+
+  /// Go: `provider.Online`.
+  BoxoProviderOption online(BoxoProviderProvide rsys) =>
+      BoxoProviderOption.$(4, (w) => w..h(rsys));
+
+  /// Go: `provider.ProvideWorkerCount`.
+  BoxoProviderOption provideWorkerCount(int n) =>
+      BoxoProviderOption.$(5, (w) => w..i64(n));
+
+  /// Go: `provider.ReproviderInterval`.
+  BoxoProviderOption reproviderInterval(Duration duration) =>
+      BoxoProviderOption.$(6, (w) => w..i64((duration).inMicroseconds * 1000));
+
+  /// Go: `provider.ThroughputReport`.
+  BoxoProviderOption throughputReport(
+          FutureOr<bool> Function(bool reprovide, bool complete,
+                  int totalKeysProvided, Duration totalDuration)
+              f,
+          int minimumProvides) =>
+      BoxoProviderOption.$(
+          7,
+          (w) => w
+            ..cb(
+                (r) => f(r.b(), r.b(), r.i64(),
+                    Duration(microseconds: r.i64() ~/ 1000)),
+                true)
+            ..i64(minimumProvides));
+
+  /// Go: `var provider.DefaultKeyPrefix datastore.Key`.
+  $datastore.DatastoreKey get defaultKeyPrefix {
+    final $r = $callSync(1012);
+    return $r.hnn($datastore.DatastoreKey.$h);
+  }
+
+  /// Go: `func provider.New(ds datastore.Batching, opts ...provider.Option) (provider.System, error)`.
+  BoxoProviderSystem new$($datastore.DatastoreBatching ds,
+      [List<BoxoProviderOption> opts = const []]) {
+    final $r = $callSync(
+        1014,
+        $W()
+          ..h(ds)
+          ..list(opts, (w0, e0) => w0.opt(e0)));
+    return $r.hnn(BoxoProviderSystem.$h);
+  }
+
+  /// Go: `func provider.NewBufferedProvider(pinsF provider.KeyChanFunc) provider.KeyChanFunc`.
+  BoxoProviderKeyChanFunc newBufferedProvider(BoxoProviderKeyChanFunc pinsF) {
+    final $r = $callSync(1015, $W()..h(pinsF));
+    return $r.hnn(BoxoProviderKeyChanFunc.$h);
+  }
+
+  /// Go: `func provider.NewConcatProvider(streams ...provider.KeyChanFunc) provider.KeyChanFunc`.
+  BoxoProviderKeyChanFunc newConcatProvider(
+      [List<BoxoProviderKeyChanFunc> streams = const []]) {
+    final $r = $callSync(1016, $W()..list(streams, (w0, e0) => w0.h(e0)));
+    return $r.hnn(BoxoProviderKeyChanFunc.$h);
+  }
+
+  /// Go: `func provider.NewDAGProvider(root cid.Cid, fetchConfig fetcher.Factory) provider.KeyChanFunc`.
+  BoxoProviderKeyChanFunc newDagProvider(
+      $cid.Cid root, $fetcher.BoxoFetcherFactory fetchConfig) {
+    final $r = $callSync(
+        1017,
+        $W()
+          ..val(root)
+          ..h(fetchConfig));
+    return $r.hnn(BoxoProviderKeyChanFunc.$h);
+  }
+
+  /// Go: `func provider.NewNoopProvider() provider.System`.
+  BoxoProviderSystem newNoopProvider() {
+    final $r = $callSync(1018);
+    return $r.hnn(BoxoProviderSystem.$h);
+  }
+
+  /// Go: `func provider.NewPrioritizedProvider(streams ...provider.KeyChanFunc) provider.KeyChanFunc`.
+  BoxoProviderKeyChanFunc newPrioritizedProvider(
+      [List<BoxoProviderKeyChanFunc> streams = const []]) {
+    final $r = $callSync(1019, $W()..list(streams, (w0, e0) => w0.h(e0)));
+    return $r.hnn(BoxoProviderKeyChanFunc.$h);
+  }
+
   /// Go: `const provider.DefaultReproviderInterval time.Duration`.
   Duration get defaultReproviderInterval => Duration(microseconds: 79200000000);
 }

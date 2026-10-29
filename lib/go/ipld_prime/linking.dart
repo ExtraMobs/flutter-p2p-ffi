@@ -2,21 +2,230 @@
 // Go: github.com/ipld/go-ipld-prime/linking
 library;
 
+import 'dart:typed_data';
+
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/ipfs_cmds.dart' as $ipfs_cmds;
+import 'package:p2p_ffi/go/ipld_prime/datamodel.dart' as $datamodel;
 import 'package:p2p_ffi/go/ipld_prime/storage.dart' as $storage;
 
+/// Go: `linking.LinkContext`.
+///
+/// Fields that do not cross the bridge: `Ctx` (type context.Context).
+final class IpldPrimeLinkingLinkContext implements GoDto {
+  IpldPrimeLinkingLinkContext(
+      {$datamodel.IpldPrimeDatamodelPath? linkPath,
+      $datamodel.IpldPrimeDatamodelNode? linkNode,
+      $datamodel.IpldPrimeDatamodelNodeAssembler? linkNodeAssembler,
+      $datamodel.IpldPrimeDatamodelNode? parentNode})
+      : linkPath = linkPath,
+        linkNode = linkNode,
+        linkNodeAssembler = linkNodeAssembler,
+        parentNode = parentNode;
+
+  IpldPrimeLinkingLinkContext.$dec($R r)
+      : linkPath = r.hn($datamodel.IpldPrimeDatamodelPath.$h),
+        linkNode = r.hn($datamodel.IpldPrimeDatamodelNode.$h),
+        linkNodeAssembler = r.hn($datamodel.IpldPrimeDatamodelNodeAssembler.$h),
+        parentNode = r.hn($datamodel.IpldPrimeDatamodelNode.$h);
+
+  /// Go: `LinkPath`.
+  $datamodel.IpldPrimeDatamodelPath? linkPath;
+
+  /// Go: `LinkNode`.
+  $datamodel.IpldPrimeDatamodelNode? linkNode;
+
+  /// Go: `LinkNodeAssembler`.
+  $datamodel.IpldPrimeDatamodelNodeAssembler? linkNodeAssembler;
+
+  /// Go: `ParentNode`.
+  $datamodel.IpldPrimeDatamodelNode? parentNode;
+
+  @override
+  void $enc($W w) {
+    w
+      ..h(linkPath)
+      ..h(linkNode)
+      ..h(linkNodeAssembler)
+      ..h(parentNode);
+  }
+}
+
 /// Go: `linking.LinkSystem` (handle).
-class IpldPrimeLinkingLinkSystem extends GoHandle {
-  IpldPrimeLinkingLinkSystem.$h(super.$h);
+class IpldPrimeLinkingLinkSystem extends $crypto.CryptoPrivateKey
+    with $crypto.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
+    implements $crypto.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+  IpldPrimeLinkingLinkSystem.$h(super.$h) : super.$h();
+
+  /// Go: `func (*linking.LinkSystem).ComputeLink(lp datamodel.LinkPrototype, n datamodel.Node) (datamodel.Link, error)`.
+  $datamodel.IpldPrimeDatamodelLink computeLink(
+      $datamodel.IpldPrimeDatamodelLinkPrototype lp,
+      $datamodel.IpldPrimeDatamodelNode n) {
+    final $r = $callSync(
+        2025,
+        $W()
+          ..h(this)
+          ..h(lp)
+          ..h(n));
+    return $r.hnn($datamodel.IpldPrimeDatamodelLink.$h);
+  }
+
+  /// Go: `func (*linking.LinkSystem).Fill(lnkCtx linking.LinkContext, lnk datamodel.Link, na datamodel.NodeAssembler) error`.
+  void fill(
+      IpldPrimeLinkingLinkContext lnkCtx,
+      $datamodel.IpldPrimeDatamodelLink lnk,
+      $datamodel.IpldPrimeDatamodelNodeAssembler na) {
+    $callSync(
+        2026,
+        $W()
+          ..h(this)
+          ..dto(lnkCtx)
+          ..h(lnk)
+          ..h(na));
+  }
+
+  /// Go: `func (*linking.LinkSystem).Load(lnkCtx linking.LinkContext, lnk datamodel.Link, np datamodel.NodePrototype) (datamodel.Node, error)`.
+  $datamodel.IpldPrimeDatamodelNode load(
+      IpldPrimeLinkingLinkContext lnkCtx,
+      $datamodel.IpldPrimeDatamodelLink lnk,
+      $datamodel.IpldPrimeDatamodelNodePrototype np) {
+    final $r = $callSync(
+        2027,
+        $W()
+          ..h(this)
+          ..dto(lnkCtx)
+          ..h(lnk)
+          ..h(np));
+    return $r.hnn($datamodel.IpldPrimeDatamodelNode.$h);
+  }
+
+  /// Go: `func (*linking.LinkSystem).LoadPlusRaw(lnkCtx linking.LinkContext, lnk datamodel.Link, np datamodel.NodePrototype) (datamodel.Node, []byte, error)`.
+  ($datamodel.IpldPrimeDatamodelNode, Uint8List) loadPlusRaw(
+      IpldPrimeLinkingLinkContext lnkCtx,
+      $datamodel.IpldPrimeDatamodelLink lnk,
+      $datamodel.IpldPrimeDatamodelNodePrototype np) {
+    final $r = $callSync(
+        2028,
+        $W()
+          ..h(this)
+          ..dto(lnkCtx)
+          ..h(lnk)
+          ..h(np));
+    return (
+      $r.hnn($datamodel.IpldPrimeDatamodelNode.$h),
+      $r.bytes() ?? Uint8List(0)
+    );
+  }
+
+  /// Go: `func (*linking.LinkSystem).LoadRaw(lnkCtx linking.LinkContext, lnk datamodel.Link) ([]byte, error)`.
+  Uint8List loadRaw(IpldPrimeLinkingLinkContext lnkCtx,
+      $datamodel.IpldPrimeDatamodelLink lnk) {
+    final $r = $callSync(
+        2029,
+        $W()
+          ..h(this)
+          ..dto(lnkCtx)
+          ..h(lnk));
+    return $r.bytes() ?? Uint8List(0);
+  }
+
+  /// Go: `func (*linking.LinkSystem).MustComputeLink(lp datamodel.LinkPrototype, n datamodel.Node) datamodel.Link`.
+  $datamodel.IpldPrimeDatamodelLink mustComputeLink(
+      $datamodel.IpldPrimeDatamodelLinkPrototype lp,
+      $datamodel.IpldPrimeDatamodelNode n) {
+    final $r = $callSync(
+        2030,
+        $W()
+          ..h(this)
+          ..h(lp)
+          ..h(n));
+    return $r.hnn($datamodel.IpldPrimeDatamodelLink.$h);
+  }
+
+  /// Go: `func (*linking.LinkSystem).MustFill(lnkCtx linking.LinkContext, lnk datamodel.Link, na datamodel.NodeAssembler)`.
+  void mustFill(
+      IpldPrimeLinkingLinkContext lnkCtx,
+      $datamodel.IpldPrimeDatamodelLink lnk,
+      $datamodel.IpldPrimeDatamodelNodeAssembler na) {
+    $callSync(
+        2031,
+        $W()
+          ..h(this)
+          ..dto(lnkCtx)
+          ..h(lnk)
+          ..h(na));
+  }
+
+  /// Go: `func (*linking.LinkSystem).MustLoad(lnkCtx linking.LinkContext, lnk datamodel.Link, np datamodel.NodePrototype) datamodel.Node`.
+  $datamodel.IpldPrimeDatamodelNode mustLoad(
+      IpldPrimeLinkingLinkContext lnkCtx,
+      $datamodel.IpldPrimeDatamodelLink lnk,
+      $datamodel.IpldPrimeDatamodelNodePrototype np) {
+    final $r = $callSync(
+        2032,
+        $W()
+          ..h(this)
+          ..dto(lnkCtx)
+          ..h(lnk)
+          ..h(np));
+    return $r.hnn($datamodel.IpldPrimeDatamodelNode.$h);
+  }
+
+  /// Go: `func (*linking.LinkSystem).MustStore(lnkCtx linking.LinkContext, lp datamodel.LinkPrototype, n datamodel.Node) datamodel.Link`.
+  $datamodel.IpldPrimeDatamodelLink mustStore(
+      IpldPrimeLinkingLinkContext lnkCtx,
+      $datamodel.IpldPrimeDatamodelLinkPrototype lp,
+      $datamodel.IpldPrimeDatamodelNode n) {
+    final $r = $callSync(
+        2033,
+        $W()
+          ..h(this)
+          ..dto(lnkCtx)
+          ..h(lp)
+          ..h(n));
+    return $r.hnn($datamodel.IpldPrimeDatamodelLink.$h);
+  }
 
   /// Go: `func (*linking.LinkSystem).SetReadStorage(store storage.ReadableStorage)`.
   void setReadStorage($storage.IpldPrimeStorageReadableStorage store) {
     $callSync(
-        466,
+        2034,
         $W()
           ..h(this)
           ..h(store));
   }
+
+  /// Go: `func (*linking.LinkSystem).SetWriteStorage(store storage.WritableStorage)`.
+  void setWriteStorage($storage.IpldPrimeStorageWritableStorage store) {
+    $callSync(
+        2035,
+        $W()
+          ..h(this)
+          ..h(store));
+  }
+
+  /// Go: `func (*linking.LinkSystem).Store(lnkCtx linking.LinkContext, lp datamodel.LinkPrototype, n datamodel.Node) (datamodel.Link, error)`.
+  $datamodel.IpldPrimeDatamodelLink store(
+      IpldPrimeLinkingLinkContext lnkCtx,
+      $datamodel.IpldPrimeDatamodelLinkPrototype lp,
+      $datamodel.IpldPrimeDatamodelNode n) {
+    final $r = $callSync(
+        2036,
+        $W()
+          ..h(this)
+          ..dto(lnkCtx)
+          ..h(lp)
+          ..h(n));
+    return $r.hnn($datamodel.IpldPrimeDatamodelLink.$h);
+  }
+}
+
+/// Go: `linking.NodeReifier` (handle).
+class IpldPrimeLinkingNodeReifier extends $crypto.CryptoPrivateKey
+    with $crypto.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
+    implements $crypto.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+  IpldPrimeLinkingNodeReifier.$h(super.$h) : super.$h();
 }
 
 /// Go: `linking.ErrHashMismatch`: an error. Thrown as this class when it is the outermost

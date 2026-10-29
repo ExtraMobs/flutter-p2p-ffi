@@ -33,10 +33,34 @@ extension GoBoxoBitswapNetworkBsnetApi on GoBoxoBitswapNetworkBsnet {
       $host.Libp2pCoreHost host,
       [List<BoxoBitswapNetworkBsnetNetOpt> opts = const []]) {
     final $r = $callSync(
-        106,
+        440,
         $W()
           ..h(host)
           ..list(opts, (w0, e0) => w0.opt(e0)));
     return $r.hnn($network.BoxoBitswapNetworkBitSwapNetwork.$h);
+  }
+
+  /// Go: `var bsnet.ProtocolBitswap protocol.ID`.
+  String get protocolBitswap {
+    final $r = $callSync(441);
+    return $r.str();
+  }
+
+  /// Go: `var bsnet.ProtocolBitswapNoVers protocol.ID`.
+  String get protocolBitswapNoVers {
+    final $r = $callSync(442);
+    return $r.str();
+  }
+
+  /// Go: `var bsnet.ProtocolBitswapOneOne protocol.ID`.
+  String get protocolBitswapOneOne {
+    final $r = $callSync(443);
+    return $r.str();
+  }
+
+  /// Go: `var bsnet.ProtocolBitswapOneZero protocol.ID`.
+  String get protocolBitswapOneZero {
+    final $r = $callSync(444);
+    return $r.str();
   }
 }

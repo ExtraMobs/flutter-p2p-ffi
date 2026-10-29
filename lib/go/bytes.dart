@@ -6,10 +6,14 @@ import 'dart:typed_data';
 
 import 'package:p2p_ffi/src/go.dart' show GoBytes;
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/ipfs_cmds.dart' as $ipfs_cmds;
 
 /// Go: `bytes.Buffer` (handle).
-class BytesBuffer extends GoHandle {
-  BytesBuffer.$h(super.$h);
+class BytesBuffer extends $crypto.CryptoPrivateKey
+    with $crypto.CryptoPublicKey$, $ipfs_cmds.IpfsCmdsEnvironment$
+    implements $crypto.CryptoPublicKey, $ipfs_cmds.IpfsCmdsEnvironment {
+  BytesBuffer.$h(super.$h) : super.$h();
 
   /// Go: `func bytes.NewBuffer(buf []byte) *bytes.Buffer`.
   factory BytesBuffer(Uint8List buf) {

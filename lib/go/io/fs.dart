@@ -6,9 +6,12 @@ import 'package:p2p_ffi/src/go.dart' show GoIoFs;
 import 'package:p2p_ffi/src/runtime.dart';
 
 /// Go: `fs.FileInfo` (handle).
-class IoFsFileInfo extends GoHandle {
+class IoFsFileInfo extends GoHandle with IoFsFileInfo$ {
   IoFsFileInfo.$h(super.$h);
 }
+
+/// The methods of [IoFsFileInfo], mixed into every class Go also accepts as one.
+mixin IoFsFileInfo$ on GoHandle {}
 
 /// Go: `var fs.ErrClosed error`: an error. Thrown as this class when it is the outermost
 /// link of the error chain with a class; otherwise in `causes` (`isA`, `find`).

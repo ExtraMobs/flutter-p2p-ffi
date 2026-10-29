@@ -2,11 +2,644 @@
 // Go: github.com/ipfs/go-ipfs-cmds
 library;
 
+import 'dart:async';
+import 'dart:typed_data';
+
 import 'package:p2p_ffi/src/go.dart' show GoIpfsCmds;
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 
-/// Go: `cmds.ReqLogEntry` (a kubo command output).
-final class IpfsCmdsReqLogEntry {
+/// Go: `cmds.Argument`.
+final class IpfsCmdsArgument implements GoDto {
+  IpfsCmdsArgument(
+      {String? name,
+      int? type,
+      bool? required,
+      bool? variadic,
+      bool? supportsStdin,
+      bool? recursive,
+      String? description})
+      : name = name ?? '',
+        type = type ?? 0,
+        required = required ?? false,
+        variadic = variadic ?? false,
+        supportsStdin = supportsStdin ?? false,
+        recursive = recursive ?? false,
+        description = description ?? '';
+
+  IpfsCmdsArgument.$dec($R r)
+      : name = r.str(),
+        type = r.i64(),
+        required = r.b(),
+        variadic = r.b(),
+        supportsStdin = r.b(),
+        recursive = r.b(),
+        description = r.str();
+
+  /// Go: `Name`.
+  String name;
+
+  /// Go: `Type`.
+  int type;
+
+  /// Go: `Required`.
+  bool required;
+
+  /// Go: `Variadic`.
+  bool variadic;
+
+  /// Go: `SupportsStdin`.
+  bool supportsStdin;
+
+  /// Go: `Recursive`.
+  bool recursive;
+
+  /// Go: `Description`.
+  String description;
+
+  @override
+  void $enc($W w) {
+    w
+      ..str(name)
+      ..i64(type)
+      ..b(required)
+      ..b(variadic)
+      ..b(supportsStdin)
+      ..b(recursive)
+      ..str(description);
+  }
+
+  /// Go: `func (cmds.Argument).EnableRecursive() cmds.Argument`.
+  IpfsCmdsArgument enableRecursive() {
+    final $r = $callSync(1203, $W()..dto(this));
+    return $r.p() ? IpfsCmdsArgument.$dec($r) : $nil();
+  }
+
+  /// Go: `func (cmds.Argument).EnableStdin() cmds.Argument`.
+  IpfsCmdsArgument enableStdin() {
+    final $r = $callSync(1204, $W()..dto(this));
+    return $r.p() ? IpfsCmdsArgument.$dec($r) : $nil();
+  }
+}
+
+/// Go: `cmds.Command`.
+///
+/// Fields that do not cross the bridge: `PreRun` (func(req *github.com/ipfs/go-ipfs-cmds.Request, env github.com/ipfs/go-ipfs-cmds.Environment) error), `PostRun` (tipo github.com/ipfs/go-ipfs-cmds.PostRunMap), `Encoders` (tipo github.com/ipfs/go-ipfs-cmds.EncoderMap), `Type` (type any), `Subcommands` (map[string]).
+final class IpfsCmdsCommand implements GoDto {
+  IpfsCmdsCommand(
+      {List<IpfsCmdsOption>? options,
+      List<IpfsCmdsArgument>? arguments,
+      IpfsCmdsFunction? run,
+      IpfsCmdsHelpText? helptext,
+      bool? external,
+      bool? noRemote,
+      bool? noLocal,
+      int? status,
+      IpfsCmdsExtra? extra})
+      : options = options ?? [],
+        arguments = arguments ?? [],
+        run = run,
+        helptext = helptext,
+        external = external ?? false,
+        noRemote = noRemote ?? false,
+        noLocal = noLocal ?? false,
+        status = status ?? 0,
+        extra = extra;
+
+  IpfsCmdsCommand.$dec($R r)
+      : options = r.list(() => r.hnn(IpfsCmdsOption.$h)),
+        arguments = r.list(() => r.p() ? IpfsCmdsArgument.$dec(r) : $nil()),
+        run = r.hn(IpfsCmdsFunction.$h),
+        helptext = r.p() ? IpfsCmdsHelpText.$dec(r) : null,
+        external = r.b(),
+        noRemote = r.b(),
+        noLocal = r.b(),
+        status = r.i64(),
+        extra = r.hn(IpfsCmdsExtra.$h);
+
+  /// Go: `Options`.
+  List<IpfsCmdsOption> options;
+
+  /// Go: `Arguments`.
+  List<IpfsCmdsArgument> arguments;
+
+  /// Go: `Run`.
+  IpfsCmdsFunction? run;
+
+  /// Go: `Helptext`.
+  IpfsCmdsHelpText? helptext;
+
+  /// Go: `External`.
+  bool external;
+
+  /// Go: `NoRemote`.
+  bool noRemote;
+
+  /// Go: `NoLocal`.
+  bool noLocal;
+
+  /// Go: `Status`.
+  int status;
+
+  /// Go: `Extra`.
+  IpfsCmdsExtra? extra;
+
+  @override
+  void $enc($W w) {
+    w
+      ..list(options, (w0, e0) => w0.h(e0))
+      ..list(arguments, (w0, e0) => w0.dto(e0))
+      ..h(run)
+      ..dto(helptext)
+      ..b(external)
+      ..b(noRemote)
+      ..b(noLocal)
+      ..i64(status)
+      ..h(extra);
+  }
+
+  /// Go: `func (*cmds.Command).Call(req *cmds.Request, re cmds.ResponseEmitter, env cmds.Environment)`.
+  void call(IpfsCmdsRequest req, IpfsCmdsResponseEmitter re,
+      IpfsCmdsEnvironment env) {
+    $callSync(
+        1207,
+        $W()
+          ..dto(this)
+          ..h(req)
+          ..h(re)
+          ..h(env));
+  }
+
+  /// Go: `func (*cmds.Command).CheckArguments(req *cmds.Request) error`.
+  void checkArguments(IpfsCmdsRequest req) {
+    $callSync(
+        1208,
+        $W()
+          ..dto(this)
+          ..h(req));
+  }
+
+  /// Go: `func (*cmds.Command).DebugValidate() map[string][]error`.
+  Map<String, List<String>> debugValidate() {
+    final $r = $callSync(1209, $W()..dto(this));
+    return $r.map(() => $r.str(), () => $r.list(() => $r.err() ?? $nil()));
+  }
+
+  /// Go: `func (*cmds.Command).Get(path []string) (*cmds.Command, error)`.
+  IpfsCmdsCommand get(List<String> path) {
+    final $r = $callSync(
+        1210,
+        $W()
+          ..dto(this)
+          ..list(path, (w0, e0) => w0.str(e0)));
+    return $r.p() ? IpfsCmdsCommand.$dec($r) : $nil();
+  }
+
+  /// Go: `func (*cmds.Command).GetOptions(path []string) (map[string]cmds.Option, error)`.
+  Map<String, IpfsCmdsOption> getOptions(List<String> path) {
+    final $r = $callSync(
+        1211,
+        $W()
+          ..dto(this)
+          ..list(path, (w0, e0) => w0.str(e0)));
+    return $r.map(() => $r.str(), () => $r.hnn(IpfsCmdsOption.$h));
+  }
+
+  /// Go: `func (*cmds.Command).ProcessHelp()`.
+  void processHelp() {
+    $callSync(1212, $W()..dto(this));
+  }
+
+  /// Go: `func (*cmds.Command).Resolve(pth []string) ([]*cmds.Command, error)`.
+  List<IpfsCmdsCommand> resolve(List<String> pth) {
+    final $r = $callSync(
+        1213,
+        $W()
+          ..dto(this)
+          ..list(pth, (w0, e0) => w0.str(e0)));
+    return $r.list(() => $r.p() ? IpfsCmdsCommand.$dec($r) : $nil());
+  }
+
+  /// Go: `func (*cmds.Command).Walk(visitor cmds.CommandVisitor)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  ///
+  /// [batchSize]: invocations of the callback Go sends at a time (default
+  /// 1024, up to 128 KiB). Go runs at most `batchSize - 1` invocations ahead
+  /// of Dart; 1 is exactly Go's semantics.
+  Future<void> walk(FutureOr<void> Function(IpfsCmdsCommand command) visitor,
+      {int? batchSize}) async {
+    await $callCb(
+        1214,
+        $W()
+          ..dto(this)
+          ..u32(batchSize ?? 0),
+        (r) => visitor(r.p() ? IpfsCmdsCommand.$dec(r) : $nil()));
+  }
+}
+
+/// Go: `cmds.Decoder` (handle).
+class IpfsCmdsDecoder extends GoHandle with IpfsCmdsDecoder$ {
+  IpfsCmdsDecoder.$h(super.$h);
+}
+
+/// The methods of [IpfsCmdsDecoder], mixed into every class Go also accepts as one.
+mixin IpfsCmdsDecoder$ on GoHandle {
+  /// Go: `func (cmds.Decoder).Decode(value any) error`.
+  void decode(Object? value) {
+    $callSync(
+        1216,
+        $W()
+          ..h(this)
+          ..any(value));
+  }
+}
+
+/// Go: `cmds.Encoder` (handle).
+class IpfsCmdsEncoder extends GoHandle with IpfsCmdsEncoder$ {
+  IpfsCmdsEncoder.$h(super.$h);
+}
+
+/// The methods of [IpfsCmdsEncoder], mixed into every class Go also accepts as one.
+mixin IpfsCmdsEncoder$ on GoHandle {
+  /// Go: `func (cmds.Encoder).Encode(value any) error`.
+  void encode(Object? value) {
+    $callSync(
+        1219,
+        $W()
+          ..h(this)
+          ..any(value));
+  }
+
+  /// Go: type assertion `x.(*cmds.TextEncoder)`: null if the object is not one.
+  IpfsCmdsTextEncoder? asIpfsCmdsTextEncoder() {
+    final $r = $callSync(180, $W()..h(this));
+    return $r.hn(IpfsCmdsTextEncoder.$h);
+  }
+}
+
+/// Go: `cmds.EncoderFunc` (handle).
+class IpfsCmdsEncoderFunc extends $crypto.CryptoPrivateKey
+    with $crypto.CryptoPublicKey$, IpfsCmdsEnvironment$
+    implements $crypto.CryptoPublicKey, IpfsCmdsEnvironment {
+  IpfsCmdsEncoderFunc.$h(super.$h) : super.$h();
+}
+
+/// Go: `cmds.Environment` (handle).
+class IpfsCmdsEnvironment extends GoHandle with IpfsCmdsEnvironment$ {
+  IpfsCmdsEnvironment.$h(super.$h);
+}
+
+/// The methods of [IpfsCmdsEnvironment], mixed into every class Go also accepts as one.
+mixin IpfsCmdsEnvironment$ on GoHandle {}
+
+/// Go: `cmds.Executor` (handle).
+class IpfsCmdsExecutor extends GoHandle with IpfsCmdsExecutor$ {
+  IpfsCmdsExecutor.$h(super.$h);
+
+  /// Go: `func cmds.NewExecutor(root *cmds.Command) cmds.Executor`.
+  factory IpfsCmdsExecutor(IpfsCmdsCommand root) {
+    final $r = $callSync(1232, $W()..dto(root));
+    return $r.hnn(IpfsCmdsExecutor.$h);
+  }
+}
+
+/// The methods of [IpfsCmdsExecutor], mixed into every class Go also accepts as one.
+mixin IpfsCmdsExecutor$ on GoHandle {
+  /// Go: `func (cmds.Executor).Execute(req *cmds.Request, re cmds.ResponseEmitter, env cmds.Environment) error`.
+  void execute(IpfsCmdsRequest req, IpfsCmdsResponseEmitter re,
+      IpfsCmdsEnvironment env) {
+    $callSync(
+        1220,
+        $W()
+          ..h(this)
+          ..h(req)
+          ..h(re)
+          ..h(env));
+  }
+}
+
+/// Go: `cmds.Extra` (handle).
+class IpfsCmdsExtra extends $crypto.CryptoPrivateKey
+    with $crypto.CryptoPublicKey$, IpfsCmdsEnvironment$
+    implements $crypto.CryptoPublicKey, IpfsCmdsEnvironment {
+  IpfsCmdsExtra.$h(super.$h) : super.$h();
+
+  /// Go: `func (*cmds.Extra).GetValue(key any) (any, bool)`.
+  (Object?, bool) getValue(Object? key) {
+    final $r = $callSync(
+        1221,
+        $W()
+          ..h(this)
+          ..any(key));
+    return ($r.any(), $r.b());
+  }
+
+  /// Go: `func (*cmds.Extra).SetValue(key any, value any) *cmds.Extra`.
+  IpfsCmdsExtra setValue(Object? key, Object? value) {
+    final $r = $callSync(
+        1222,
+        $W()
+          ..h(this)
+          ..any(key)
+          ..any(value));
+    return $r.hnn(IpfsCmdsExtra.$h);
+  }
+}
+
+/// Go: `cmds.Flusher` (values read from the methods; built in Dart, it
+/// crosses as a Go value that returns them).
+final class IpfsCmdsFlusher implements GoDto {
+  IpfsCmdsFlusher({String? flush}) : flush = flush;
+
+  IpfsCmdsFlusher.$dec($R r) : flush = r.err();
+
+  /// Go: `Flush()`.
+  final String? flush;
+
+  @override
+  void $enc($W w) {
+    w..err(flush);
+  }
+}
+
+/// Go: `cmds.Function` (handle).
+class IpfsCmdsFunction extends $crypto.CryptoPrivateKey
+    with $crypto.CryptoPublicKey$, IpfsCmdsEnvironment$
+    implements $crypto.CryptoPublicKey, IpfsCmdsEnvironment {
+  IpfsCmdsFunction.$h(super.$h) : super.$h();
+}
+
+/// Go: `cmds.HTTPHelpText`.
+final class IpfsCmdsHttpHelpText implements GoDto {
+  IpfsCmdsHttpHelpText({String? responseContentType, String? description})
+      : responseContentType = responseContentType ?? '',
+        description = description ?? '';
+
+  IpfsCmdsHttpHelpText.$dec($R r)
+      : responseContentType = r.str(),
+        description = r.str();
+
+  /// Go: `ResponseContentType`.
+  String responseContentType;
+
+  /// Go: `Description`.
+  String description;
+
+  @override
+  void $enc($W w) {
+    w
+      ..str(responseContentType)
+      ..str(description);
+  }
+}
+
+/// Go: `cmds.HelpText`.
+final class IpfsCmdsHelpText implements GoDto {
+  IpfsCmdsHelpText(
+      {String? tagline,
+      String? shortDescription,
+      Map<String, String>? synopsisOptionsValues,
+      String? usage,
+      String? longDescription,
+      String? options,
+      String? arguments,
+      String? subcommands,
+      String? synopsis,
+      IpfsCmdsHttpHelpText? http})
+      : tagline = tagline ?? '',
+        shortDescription = shortDescription ?? '',
+        synopsisOptionsValues = synopsisOptionsValues ?? {},
+        usage = usage ?? '',
+        longDescription = longDescription ?? '',
+        options = options ?? '',
+        arguments = arguments ?? '',
+        subcommands = subcommands ?? '',
+        synopsis = synopsis ?? '',
+        http = http;
+
+  IpfsCmdsHelpText.$dec($R r)
+      : tagline = r.str(),
+        shortDescription = r.str(),
+        synopsisOptionsValues = r.map(() => r.str(), () => r.str()),
+        usage = r.str(),
+        longDescription = r.str(),
+        options = r.str(),
+        arguments = r.str(),
+        subcommands = r.str(),
+        synopsis = r.str(),
+        http = r.p() ? IpfsCmdsHttpHelpText.$dec(r) : null;
+
+  /// Go: `Tagline`.
+  String tagline;
+
+  /// Go: `ShortDescription`.
+  String shortDescription;
+
+  /// Go: `SynopsisOptionsValues`.
+  Map<String, String> synopsisOptionsValues;
+
+  /// Go: `Usage`.
+  String usage;
+
+  /// Go: `LongDescription`.
+  String longDescription;
+
+  /// Go: `Options`.
+  String options;
+
+  /// Go: `Arguments`.
+  String arguments;
+
+  /// Go: `Subcommands`.
+  String subcommands;
+
+  /// Go: `Synopsis`.
+  String synopsis;
+
+  /// Go: `HTTP`.
+  IpfsCmdsHttpHelpText? http;
+
+  @override
+  void $enc($W w) {
+    w
+      ..str(tagline)
+      ..str(shortDescription)
+      ..map(
+          synopsisOptionsValues, (w0, k0) => w0.str(k0), (w0, v0) => w0.str(v0))
+      ..str(usage)
+      ..str(longDescription)
+      ..str(options)
+      ..str(arguments)
+      ..str(subcommands)
+      ..str(synopsis)
+      ..dto(http);
+  }
+}
+
+/// Go: `cmds.MaybeError` (handle).
+class IpfsCmdsMaybeError extends $crypto.CryptoPrivateKey
+    with $crypto.CryptoPublicKey$, IpfsCmdsEnvironment$
+    implements $crypto.CryptoPublicKey, IpfsCmdsEnvironment {
+  IpfsCmdsMaybeError.$h(super.$h) : super.$h();
+
+  /// Go: `func (*cmds.MaybeError).Get() (any, error)`.
+  Object? get() {
+    final $r = $callSync(1229, $W()..h(this));
+    return $r.any();
+  }
+
+  /// Go: `func (*cmds.MaybeError).UnmarshalJSON(data []byte) error`.
+  void unmarshalJson(Uint8List data) {
+    $callSync(
+        1230,
+        $W()
+          ..h(this)
+          ..bytes(data));
+  }
+}
+
+/// Go: `cmds.Option` (handle).
+class IpfsCmdsOption extends GoHandle with IpfsCmdsOption$ {
+  IpfsCmdsOption.$h(super.$h);
+
+  /// Go: `func cmds.NewOption(kind reflect.Kind, names ...string) cmds.Option`.
+  factory IpfsCmdsOption(int kind, [List<String> names = const []]) {
+    final $r = $callSync(
+        1234,
+        $W()
+          ..i64(kind)
+          ..list(names, (w0, e0) => w0.str(e0)));
+    return $r.hnn(IpfsCmdsOption.$h);
+  }
+}
+
+/// The methods of [IpfsCmdsOption], mixed into every class Go also accepts as one.
+mixin IpfsCmdsOption$ on GoHandle {
+  /// Go: `func (cmds.Option).Default() any`.
+  Object? default$() {
+    final $r = $callSync(1237, $W()..h(this));
+    return $r.any();
+  }
+
+  /// Go: `func (cmds.Option).Description() string`.
+  String description() {
+    final $r = $callSync(1238, $W()..h(this));
+    return $r.str();
+  }
+
+  /// Go: `func (cmds.Option).Name() string`.
+  String name() {
+    final $r = $callSync(1239, $W()..h(this));
+    return $r.str();
+  }
+
+  /// Go: `func (cmds.Option).Names() []string`.
+  List<String> names() {
+    final $r = $callSync(1240, $W()..h(this));
+    return $r.list(() => $r.str());
+  }
+
+  /// Go: `func (cmds.Option).Parse(str string) (any, error)`.
+  Object? parse(String str) {
+    final $r = $callSync(
+        1241,
+        $W()
+          ..h(this)
+          ..str(str));
+    return $r.any();
+  }
+
+  /// Go: `func (cmds.Option).Type() reflect.Kind`.
+  int type() {
+    final $r = $callSync(1242, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (cmds.Option).WithDefault(any) cmds.Option`.
+  IpfsCmdsOption withDefault(Object? arg0) {
+    final $r = $callSync(
+        1243,
+        $W()
+          ..h(this)
+          ..any(arg0));
+    return $r.hnn(IpfsCmdsOption.$h);
+  }
+}
+
+/// Go: `cmds.ReqLog` (handle).
+class IpfsCmdsReqLog extends $crypto.CryptoPrivateKey
+    with $crypto.CryptoPublicKey$, IpfsCmdsEnvironment$
+    implements $crypto.CryptoPublicKey, IpfsCmdsEnvironment {
+  IpfsCmdsReqLog.$h(super.$h) : super.$h();
+
+  /// Go: `func (*cmds.ReqLog).Add(req *cmds.Request) *cmds.ReqLogEntry`.
+  IpfsCmdsReqLogEntry add(IpfsCmdsRequest req) {
+    final $r = $callSync(
+        1254,
+        $W()
+          ..h(this)
+          ..h(req));
+    return $r.p() ? IpfsCmdsReqLogEntry.$dec($r) : $nil();
+  }
+
+  /// Go: `func (*cmds.ReqLog).AddEntry(rle *cmds.ReqLogEntry)`.
+  void addEntry(IpfsCmdsReqLogEntry rle) {
+    $callSync(
+        1255,
+        $W()
+          ..h(this)
+          ..dto(rle));
+  }
+
+  /// Go: `func (*cmds.ReqLog).ClearInactive()`.
+  void clearInactive() {
+    $callSync(1256, $W()..h(this));
+  }
+
+  /// Go: `func (*cmds.ReqLog).Finish(rle *cmds.ReqLogEntry)`.
+  void finish(IpfsCmdsReqLogEntry rle) {
+    $callSync(
+        1257,
+        $W()
+          ..h(this)
+          ..dto(rle));
+  }
+
+  /// Go: `func (*cmds.ReqLog).Report() []*cmds.ReqLogEntry`.
+  List<IpfsCmdsReqLogEntry> report() {
+    final $r = $callSync(1258, $W()..h(this));
+    return $r.list(() => $r.p() ? IpfsCmdsReqLogEntry.$dec($r) : $nil());
+  }
+
+  /// Go: `func (*cmds.ReqLog).SetKeepTime(t time.Duration)`.
+  void setKeepTime(Duration t) {
+    $callSync(
+        1259,
+        $W()
+          ..h(this)
+          ..i64((t).inMicroseconds * 1000));
+  }
+}
+
+/// Go: `cmds.ReqLogEntry`.
+final class IpfsCmdsReqLogEntry implements GoDto {
+  IpfsCmdsReqLogEntry(
+      {DateTime? startTime,
+      DateTime? endTime,
+      bool? active,
+      String? command,
+      Map<String, Object?>? options,
+      List<String>? args,
+      int? id})
+      : startTime = startTime,
+        endTime = endTime,
+        active = active ?? false,
+        command = command ?? '',
+        options = options ?? {},
+        args = args ?? [],
+        id = id ?? 0;
+
   IpfsCmdsReqLogEntry.$dec($R r)
       : startTime = r.p() ? r.time() : null,
         endTime = r.p() ? r.time() : null,
@@ -17,25 +650,221 @@ final class IpfsCmdsReqLogEntry {
         id = r.i64();
 
   /// Go: `StartTime`.
-  final DateTime? startTime;
+  DateTime? startTime;
 
   /// Go: `EndTime`.
-  final DateTime? endTime;
+  DateTime? endTime;
 
   /// Go: `Active`.
-  final bool active;
+  bool active;
 
   /// Go: `Command`.
-  final String command;
+  String command;
 
   /// Go: `Options`.
-  final Map<String, Object?> options;
+  Map<String, Object?> options;
 
   /// Go: `Args`.
-  final List<String> args;
+  List<String> args;
 
   /// Go: `ID`.
-  final int id;
+  int id;
+
+  @override
+  void $enc($W w) {
+    w
+      ..time(startTime)
+      ..time(endTime)
+      ..b(active)
+      ..str(command)
+      ..map(options, (w0, k0) => w0.str(k0), (w0, v0) => w0.any(v0))
+      ..list(args, (w0, e0) => w0.str(e0))
+      ..i64(id);
+  }
+
+  /// Go: `func (*cmds.ReqLogEntry).Copy() *cmds.ReqLogEntry`.
+  IpfsCmdsReqLogEntry copy() {
+    final $r = $callSync(1260, $W()..dto(this));
+    return $r.p() ? IpfsCmdsReqLogEntry.$dec($r) : $nil();
+  }
+}
+
+/// Go: `cmds.Request` (handle).
+class IpfsCmdsRequest extends $crypto.CryptoPrivateKey
+    with $crypto.CryptoPublicKey$, IpfsCmdsEnvironment$
+    implements $crypto.CryptoPublicKey, IpfsCmdsEnvironment {
+  IpfsCmdsRequest.$h(super.$h) : super.$h();
+
+  /// Go: `func (*cmds.Request).BodyArgs() cmds.StdinArguments`.
+  IpfsCmdsStdinArguments bodyArgs() {
+    final $r = $callSync(1261, $W()..h(this));
+    return $r.hnn(IpfsCmdsStdinArguments.$h);
+  }
+
+  /// Go: `func (*cmds.Request).FillDefaults() error`.
+  void fillDefaults() {
+    $callSync(1262, $W()..h(this));
+  }
+
+  /// Go: `func (*cmds.Request).ParseBodyArgs() error`.
+  void parseBodyArgs() {
+    $callSync(1263, $W()..h(this));
+  }
+
+  /// Go: `func (*cmds.Request).SetOption(name string, value any)`.
+  void setOption(String name, Object? value) {
+    $callSync(
+        1264,
+        $W()
+          ..h(this)
+          ..str(name)
+          ..any(value));
+  }
+}
+
+/// Go: `cmds.Response` (handle).
+class IpfsCmdsResponse extends GoHandle with IpfsCmdsResponse$ {
+  IpfsCmdsResponse.$h(super.$h);
+}
+
+/// The methods of [IpfsCmdsResponse], mixed into every class Go also accepts as one.
+mixin IpfsCmdsResponse$ on GoHandle {
+  /// Go: `func (cmds.Response).Length() uint64`.
+  int length() {
+    final $r = $callSync(1265, $W()..h(this));
+    return $r.i64();
+  }
+
+  /// Go: `func (cmds.Response).Next() (any, error)`.
+  Object? next() {
+    final $r = $callSync(1266, $W()..h(this));
+    return $r.any();
+  }
+
+  /// Go: `func (cmds.Response).Request() *cmds.Request`.
+  IpfsCmdsRequest request() {
+    final $r = $callSync(1267, $W()..h(this));
+    return $r.hnn(IpfsCmdsRequest.$h);
+  }
+}
+
+/// Go: `cmds.ResponseEmitter` (handle).
+class IpfsCmdsResponseEmitter extends GoHandle with IpfsCmdsResponseEmitter$ {
+  IpfsCmdsResponseEmitter.$h(super.$h);
+}
+
+/// The methods of [IpfsCmdsResponseEmitter], mixed into every class Go also accepts as one.
+mixin IpfsCmdsResponseEmitter$ on GoHandle {
+  /// Go: `func (cmds.ResponseEmitter).Close() error`.
+  void close() {
+    $callSync(1268, $W()..h(this));
+  }
+
+  /// Go: `func (cmds.ResponseEmitter).Emit(value any) error`.
+  void emit(Object? value) {
+    $callSync(
+        1269,
+        $W()
+          ..h(this)
+          ..any(value));
+  }
+
+  /// Go: `func (cmds.ResponseEmitter).SetContentType(contentType string)`.
+  void setContentType(String contentType) {
+    $callSync(
+        1270,
+        $W()
+          ..h(this)
+          ..str(contentType));
+  }
+
+  /// Go: `func (cmds.ResponseEmitter).SetEncodingType(encType cmds.EncodingType)`.
+  void setEncodingType(String encType) {
+    $callSync(
+        1271,
+        $W()
+          ..h(this)
+          ..str(encType));
+  }
+
+  /// Go: `func (cmds.ResponseEmitter).SetLength(length uint64)`.
+  void setLength(int length) {
+    $callSync(
+        1272,
+        $W()
+          ..h(this)
+          ..i64(length));
+  }
+}
+
+/// Go: `cmds.Single`.
+///
+/// Fields that do not cross the bridge: `Value` (type any).
+final class IpfsCmdsSingle implements GoDto {
+  IpfsCmdsSingle();
+  IpfsCmdsSingle.$dec($R r);
+
+  @override
+  void $enc($W w) {}
+
+  /// Go: `func (cmds.Single).GoString() string`.
+  String goString() {
+    final $r = $callSync(1273, $W()..dto(this));
+    return $r.str();
+  }
+
+  /// Go: `func (cmds.Single).String() string`.
+  String string() {
+    final $r = $callSync(1274, $W()..dto(this));
+    return $r.str();
+  }
+}
+
+/// Go: `cmds.StdinArguments` (handle).
+class IpfsCmdsStdinArguments extends GoHandle with IpfsCmdsStdinArguments$ {
+  IpfsCmdsStdinArguments.$h(super.$h);
+}
+
+/// The methods of [IpfsCmdsStdinArguments], mixed into every class Go also accepts as one.
+mixin IpfsCmdsStdinArguments$ on GoHandle {
+  /// Go: `func (cmds.StdinArguments).Argument() string`.
+  String argument() {
+    final $r = $callSync(1275, $W()..h(this));
+    return $r.str();
+  }
+
+  /// Go: `func (cmds.StdinArguments).Err() error`.
+  void err() {
+    $callSync(1276, $W()..h(this));
+  }
+
+  /// Go: `func (cmds.StdinArguments).Scan() bool`.
+  bool scan() {
+    final $r = $callSync(1277, $W()..h(this));
+    return $r.b();
+  }
+}
+
+/// Go: `cmds.TextEncoder` (handle).
+class IpfsCmdsTextEncoder extends IpfsCmdsEncoder
+    with
+        $crypto.CryptoPrivateKey$,
+        $crypto.CryptoPublicKey$,
+        IpfsCmdsEnvironment$
+    implements
+        $crypto.CryptoPrivateKey,
+        $crypto.CryptoPublicKey,
+        IpfsCmdsEnvironment {
+  IpfsCmdsTextEncoder.$h(super.$h) : super.$h();
+
+  /// Go: `func (cmds.TextEncoder).Encode(v any) error`.
+  void encode(Object? v) {
+    $callSync(
+        1281,
+        $W()
+          ..h(this)
+          ..any(v));
+  }
 }
 
 /// Go: `var cmds.ErrClosedEmitter error`: an error. Thrown as this class when it is the outermost
@@ -112,6 +941,235 @@ class IpfsCmdsErrorType extends GolangException {
 
 /// Go: the package-level members of `github.com/ipfs/go-ipfs-cmds` (`Go.ipfsCmds`).
 extension GoIpfsCmdsApi on GoIpfsCmds {
+  /// Go: `func cmds.BoolOption(names ...string) cmds.Option`.
+  IpfsCmdsOption boolOption([List<String> names = const []]) {
+    final $r = $callSync(1205, $W()..list(names, (w0, e0) => w0.str(e0)));
+    return $r.hnn(IpfsCmdsOption.$h);
+  }
+
+  /// Go: `func cmds.ClientError(msg string) error`.
+  void clientError(String msg) {
+    $callSync(1206, $W()..str(msg));
+  }
+
+  /// Go: `func cmds.Copy(re cmds.ResponseEmitter, res cmds.Response) error`.
+  void copy(IpfsCmdsResponseEmitter re, IpfsCmdsResponse res) {
+    $callSync(
+        1215,
+        $W()
+          ..h(re)
+          ..h(res));
+  }
+
+  /// Go: `func cmds.DelimitedStringsOption(delimiter string, names ...string) cmds.Option`.
+  IpfsCmdsOption delimitedStringsOption(String delimiter,
+      [List<String> names = const []]) {
+    final $r = $callSync(
+        1217,
+        $W()
+          ..str(delimiter)
+          ..list(names, (w0, e0) => w0.str(e0)));
+    return $r.hnn(IpfsCmdsOption.$h);
+  }
+
+  /// Go: `func cmds.EmitOnce(re cmds.ResponseEmitter, v any) error`.
+  void emitOnce(IpfsCmdsResponseEmitter re, Object? v) {
+    $callSync(
+        1218,
+        $W()
+          ..h(re)
+          ..any(v));
+  }
+
+  /// Go: `func cmds.FileArg(name string, required bool, variadic bool, description string) cmds.Argument`.
+  IpfsCmdsArgument fileArg(
+      String name, bool required, bool variadic, String description) {
+    final $r = $callSync(
+        1223,
+        $W()
+          ..str(name)
+          ..b(required)
+          ..b(variadic)
+          ..str(description));
+    return $r.p() ? IpfsCmdsArgument.$dec($r) : $nil();
+  }
+
+  /// Go: `func cmds.FloatOption(names ...string) cmds.Option`.
+  IpfsCmdsOption floatOption([List<String> names = const []]) {
+    final $r = $callSync(1224, $W()..list(names, (w0, e0) => w0.str(e0)));
+    return $r.hnn(IpfsCmdsOption.$h);
+  }
+
+  /// Go: `func cmds.GetEncoder(req *cmds.Request, w io.Writer, def cmds.EncodingType) (encType cmds.EncodingType, enc cmds.Encoder, err error)`.
+  (String, IpfsCmdsEncoder) getEncoder(
+      IpfsCmdsRequest req, GoHandle? w, String def) {
+    final $r = $callSync(
+        1225,
+        $W()
+          ..h(req)
+          ..h(w)
+          ..str(def));
+    return ($r.str(), $r.hnn(IpfsCmdsEncoder.$h));
+  }
+
+  /// Go: `func cmds.GetEncoding(req *cmds.Request, def cmds.EncodingType) cmds.EncodingType`.
+  String getEncoding(IpfsCmdsRequest req, String def) {
+    final $r = $callSync(
+        1226,
+        $W()
+          ..h(req)
+          ..str(def));
+    return $r.str();
+  }
+
+  /// Go: `func cmds.Int64Option(names ...string) cmds.Option`.
+  IpfsCmdsOption int64Option([List<String> names = const []]) {
+    final $r = $callSync(1227, $W()..list(names, (w0, e0) => w0.str(e0)));
+    return $r.hnn(IpfsCmdsOption.$h);
+  }
+
+  /// Go: `func cmds.IntOption(names ...string) cmds.Option`.
+  IpfsCmdsOption intOption([List<String> names = const []]) {
+    final $r = $callSync(1228, $W()..list(names, (w0, e0) => w0.str(e0)));
+    return $r.hnn(IpfsCmdsOption.$h);
+  }
+
+  /// Go: `func cmds.NewChanResponsePair(req *cmds.Request) (cmds.ResponseEmitter, cmds.Response)`.
+  (IpfsCmdsResponseEmitter, IpfsCmdsResponse) newChanResponsePair(
+      IpfsCmdsRequest req) {
+    final $r = $callSync(1231, $W()..h(req));
+    return ($r.hnn(IpfsCmdsResponseEmitter.$h), $r.hnn(IpfsCmdsResponse.$h));
+  }
+
+  /// Go: `func cmds.NewFlushForwarder(re cmds.ResponseEmitter, f cmds.Flusher) cmds.ResponseEmitter`.
+  IpfsCmdsResponseEmitter newFlushForwarder(
+      IpfsCmdsResponseEmitter re, IpfsCmdsFlusher f) {
+    final $r = $callSync(
+        1233,
+        $W()
+          ..h(re)
+          ..dto(f));
+    return $r.hnn(IpfsCmdsResponseEmitter.$h);
+  }
+
+  /// Go: `func cmds.NewReaderResponse(r io.Reader, req *cmds.Request) (cmds.Response, error)`.
+  IpfsCmdsResponse newReaderResponse(Object r, IpfsCmdsRequest req) {
+    final $r = $callSync(
+        1235,
+        $W()
+          ..reader(r)
+          ..h(req));
+    return $r.hnn(IpfsCmdsResponse.$h);
+  }
+
+  /// Go: `func cmds.NewWriterResponseEmitter(w io.WriteCloser, req *cmds.Request) (cmds.ResponseEmitter, error)`.
+  IpfsCmdsResponseEmitter newWriterResponseEmitter(
+      Object w, IpfsCmdsRequest req) {
+    final $r = $callSync(
+        1236,
+        $W()
+          ..reader(w)
+          ..h(req));
+    return $r.hnn(IpfsCmdsResponseEmitter.$h);
+  }
+
+  /// Go: `var cmds.OptionDerefArgs cmds.Option`.
+  IpfsCmdsOption get optionDerefArgs {
+    final $r = $callSync(1244);
+    return $r.hnn(IpfsCmdsOption.$h);
+  }
+
+  /// Go: `var cmds.OptionDerefSymlinks cmds.Option`.
+  IpfsCmdsOption get optionDerefSymlinks {
+    final $r = $callSync(1245);
+    return $r.hnn(IpfsCmdsOption.$h);
+  }
+
+  /// Go: `var cmds.OptionEncodingType cmds.Option`.
+  IpfsCmdsOption get optionEncodingType {
+    final $r = $callSync(1246);
+    return $r.hnn(IpfsCmdsOption.$h);
+  }
+
+  /// Go: `var cmds.OptionHidden cmds.Option`.
+  IpfsCmdsOption get optionHidden {
+    final $r = $callSync(1247);
+    return $r.hnn(IpfsCmdsOption.$h);
+  }
+
+  /// Go: `var cmds.OptionIgnore cmds.Option`.
+  IpfsCmdsOption get optionIgnore {
+    final $r = $callSync(1248);
+    return $r.hnn(IpfsCmdsOption.$h);
+  }
+
+  /// Go: `var cmds.OptionIgnoreRules cmds.Option`.
+  IpfsCmdsOption get optionIgnoreRules {
+    final $r = $callSync(1249);
+    return $r.hnn(IpfsCmdsOption.$h);
+  }
+
+  /// Go: `var cmds.OptionRecursivePath cmds.Option`.
+  IpfsCmdsOption get optionRecursivePath {
+    final $r = $callSync(1250);
+    return $r.hnn(IpfsCmdsOption.$h);
+  }
+
+  /// Go: `var cmds.OptionStdinName cmds.Option`.
+  IpfsCmdsOption get optionStdinName {
+    final $r = $callSync(1251);
+    return $r.hnn(IpfsCmdsOption.$h);
+  }
+
+  /// Go: `var cmds.OptionStreamChannels cmds.Option`.
+  IpfsCmdsOption get optionStreamChannels {
+    final $r = $callSync(1252);
+    return $r.hnn(IpfsCmdsOption.$h);
+  }
+
+  /// Go: `var cmds.OptionTimeout cmds.Option`.
+  IpfsCmdsOption get optionTimeout {
+    final $r = $callSync(1253);
+    return $r.hnn(IpfsCmdsOption.$h);
+  }
+
+  /// Go: `func cmds.StringArg(name string, required bool, variadic bool, description string) cmds.Argument`.
+  IpfsCmdsArgument stringArg(
+      String name, bool required, bool variadic, String description) {
+    final $r = $callSync(
+        1278,
+        $W()
+          ..str(name)
+          ..b(required)
+          ..b(variadic)
+          ..str(description));
+    return $r.p() ? IpfsCmdsArgument.$dec($r) : $nil();
+  }
+
+  /// Go: `func cmds.StringOption(names ...string) cmds.Option`.
+  IpfsCmdsOption stringOption([List<String> names = const []]) {
+    final $r = $callSync(1279, $W()..list(names, (w0, e0) => w0.str(e0)));
+    return $r.hnn(IpfsCmdsOption.$h);
+  }
+
+  /// Go: `func cmds.StringsOption(names ...string) cmds.Option`.
+  IpfsCmdsOption stringsOption([List<String> names = const []]) {
+    final $r = $callSync(1280, $W()..list(names, (w0, e0) => w0.str(e0)));
+    return $r.hnn(IpfsCmdsOption.$h);
+  }
+
+  /// Go: `func cmds.Uint64Option(names ...string) cmds.Option`.
+  IpfsCmdsOption uint64Option([List<String> names = const []]) {
+    final $r = $callSync(1282, $W()..list(names, (w0, e0) => w0.str(e0)));
+    return $r.hnn(IpfsCmdsOption.$h);
+  }
+
+  /// Go: `func cmds.UintOption(names ...string) cmds.Option`.
+  IpfsCmdsOption uintOption([List<String> names = const []]) {
+    final $r = $callSync(1283, $W()..list(names, (w0, e0) => w0.str(e0)));
+    return $r.hnn(IpfsCmdsOption.$h);
+  }
+
   /// Go: `const cmds.Active cmds.Status`.
   int get active => 0;
 
