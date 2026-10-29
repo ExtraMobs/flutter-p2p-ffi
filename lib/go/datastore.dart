@@ -11,19 +11,19 @@ class DatastoreBatching extends Datastore {
   DatastoreBatching.$h(super.$h) : super.$h();
 
   /// Go: type assertion `x.(*datastore.MapDatastore)`: null if the object is not one.
-  DatastoreMapDatastore? asMapDatastore() {
+  DatastoreMapDatastore? asDatastoreMapDatastore() {
     final $r = $callSync(74, $W()..h(this));
     return $r.hn(DatastoreMapDatastore.$h);
   }
 
   /// Go: type assertion `x.(*datastore.NullDatastore)`: null if the object is not one.
-  DatastoreNullDatastore? asNullDatastore() {
+  DatastoreNullDatastore? asDatastoreNullDatastore() {
     final $r = $callSync(75, $W()..h(this));
     return $r.hn(DatastoreNullDatastore.$h);
   }
 
   /// Go: type assertion `x.(*sync.MutexDatastore)`: null if the object is not one.
-  $sync.DatastoreSyncMutexDatastore? asMutexDatastore() {
+  $sync.DatastoreSyncMutexDatastore? asDatastoreSyncMutexDatastore() {
     final $r = $callSync(76, $W()..h(this));
     return $r.hn($sync.DatastoreSyncMutexDatastore.$h);
   }
@@ -34,25 +34,25 @@ class Datastore extends DatastoreRead {
   Datastore.$h(super.$h) : super.$h();
 
   /// Go: type assertion `x.(*datastore.MapDatastore)`: null if the object is not one.
-  DatastoreMapDatastore? asMapDatastore() {
+  DatastoreMapDatastore? asDatastoreMapDatastore() {
     final $r = $callSync(77, $W()..h(this));
     return $r.hn(DatastoreMapDatastore.$h);
   }
 
   /// Go: type assertion `x.(*datastore.NullDatastore)`: null if the object is not one.
-  DatastoreNullDatastore? asNullDatastore() {
+  DatastoreNullDatastore? asDatastoreNullDatastore() {
     final $r = $callSync(78, $W()..h(this));
     return $r.hn(DatastoreNullDatastore.$h);
   }
 
   /// Go: type assertion `x.(*sync.MutexDatastore)`: null if the object is not one.
-  $sync.DatastoreSyncMutexDatastore? asMutexDatastore() {
+  $sync.DatastoreSyncMutexDatastore? asDatastoreSyncMutexDatastore() {
     final $r = $callSync(79, $W()..h(this));
     return $r.hn($sync.DatastoreSyncMutexDatastore.$h);
   }
 
   /// Go: type assertion `x.(datastore.Batching)`: null if the object is not one.
-  DatastoreBatching? asBatching() {
+  DatastoreBatching? asDatastoreBatching() {
     final $r = $callSync(80, $W()..h(this));
     return $r.hn(DatastoreBatching.$h);
   }

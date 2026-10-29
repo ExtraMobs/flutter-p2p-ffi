@@ -15,7 +15,7 @@ class BoxoExchangeInterface extends BoxoExchangeFetcher {
   BoxoExchangeInterface.$h(super.$h) : super.$h();
 
   /// Go: type assertion `x.(*bitswap.Bitswap)`: null if the object is not one.
-  $bitswap.BoxoBitswap? asBitswap() {
+  $bitswap.BoxoBitswap? asBoxoBitswap() {
     final $r = $callSync(70, $W()..h(this));
     return $r.hn($bitswap.BoxoBitswap.$h);
   }

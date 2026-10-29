@@ -14,19 +14,20 @@ class Libp2pCoreRoutingContentDiscovery extends GoHandle {
   Libp2pCoreRoutingContentDiscovery.$h(super.$h);
 
   /// Go: type assertion `x.(*dht.IpfsDHT)`: null if the object is not one.
-  $libp2p_kad_dht.Libp2pKadDhtIpfsDht? asIpfsDht() {
+  $libp2p_kad_dht.Libp2pKadDhtIpfsDht? asLibp2pKadDhtIpfsDht() {
     final $r = $callSync(98, $W()..h(this));
     return $r.hn($libp2p_kad_dht.Libp2pKadDhtIpfsDht.$h);
   }
 
   /// Go: type assertion `x.(*routing.RoutingDiscovery)`: null if the object is not one.
-  $routing.Libp2pP2pDiscoveryRoutingDiscovery? asRoutingDiscovery() {
+  $routing.Libp2pP2pDiscoveryRoutingDiscovery?
+      asLibp2pP2pDiscoveryRoutingDiscovery() {
     final $r = $callSync(99, $W()..h(this));
     return $r.hn($routing.Libp2pP2pDiscoveryRoutingDiscovery.$h);
   }
 
   /// Go: type assertion `x.(routing.ContentRouting)`: null if the object is not one.
-  Libp2pCoreRoutingContentRouting? asContentRouting() {
+  Libp2pCoreRoutingContentRouting? asLibp2pCoreRoutingContentRouting() {
     final $r = $callSync(100, $W()..h(this));
     return $r.hn(Libp2pCoreRoutingContentRouting.$h);
   }
@@ -43,13 +44,14 @@ class Libp2pCoreRoutingContentRouting
   Libp2pCoreRoutingContentRouting.$h(super.$h) : super.$h();
 
   /// Go: type assertion `x.(*dht.IpfsDHT)`: null if the object is not one.
-  $libp2p_kad_dht.Libp2pKadDhtIpfsDht? asIpfsDht() {
+  $libp2p_kad_dht.Libp2pKadDhtIpfsDht? asLibp2pKadDhtIpfsDht() {
     final $r = $callSync(101, $W()..h(this));
     return $r.hn($libp2p_kad_dht.Libp2pKadDhtIpfsDht.$h);
   }
 
   /// Go: type assertion `x.(*routing.RoutingDiscovery)`: null if the object is not one.
-  $routing.Libp2pP2pDiscoveryRoutingDiscovery? asRoutingDiscovery() {
+  $routing.Libp2pP2pDiscoveryRoutingDiscovery?
+      asLibp2pP2pDiscoveryRoutingDiscovery() {
     final $r = $callSync(102, $W()..h(this));
     return $r.hn($routing.Libp2pP2pDiscoveryRoutingDiscovery.$h);
   }

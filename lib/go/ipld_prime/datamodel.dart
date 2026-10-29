@@ -12,13 +12,13 @@ class IpldPrimeDatamodelNode extends GoHandle {
   IpldPrimeDatamodelNode.$h(super.$h);
 
   /// Go: type assertion `x.(*merkledag.ProtoNode)`: null if the object is not one.
-  $merkledag.BoxoIpldMerkledagProtoNode? asProtoNode() {
+  $merkledag.BoxoIpldMerkledagProtoNode? asBoxoIpldMerkledagProtoNode() {
     final $r = $callSync(91, $W()..h(this));
     return $r.hn($merkledag.BoxoIpldMerkledagProtoNode.$h);
   }
 
   /// Go: type assertion `x.(*merkledag.RawNode)`: null if the object is not one.
-  $merkledag.BoxoIpldMerkledagRawNode? asRawNode() {
+  $merkledag.BoxoIpldMerkledagRawNode? asBoxoIpldMerkledagRawNode() {
     final $r = $callSync(92, $W()..h(this));
     return $r.hn($merkledag.BoxoIpldMerkledagRawNode.$h);
   }
@@ -29,7 +29,8 @@ class IpldPrimeDatamodelNodePrototype extends GoHandle {
   IpldPrimeDatamodelNodePrototype.$h(super.$h);
 
   /// Go: type assertion `x.(*basicnode.Prototype__Any)`: null if the object is not one.
-  $basicnode.IpldPrimeNodeBasicnodePrototypeAny? asPrototypeAny() {
+  $basicnode.IpldPrimeNodeBasicnodePrototypeAny?
+      asIpldPrimeNodeBasicnodePrototypeAny() {
     final $r = $callSync(93, $W()..h(this));
     return $r.hn($basicnode.IpldPrimeNodeBasicnodePrototypeAny.$h);
   }

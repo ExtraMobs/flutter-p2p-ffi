@@ -573,9 +573,13 @@ class Libp2pCoreNetworkStreamError extends GolangException {
 /// Go: the package-level members of `github.com/libp2p/go-libp2p/core/network` (`Go.libp2p.core.network`).
 extension GoLibp2pCoreNetworkApi on GoLibp2pCoreNetwork {
   /// Go: `const network.CanConnect network.Connectedness`.
+  @Deprecated(
+      "CanConnect is deprecated and will be removed in a future release.")
   int get canConnect => 2;
 
   /// Go: `const network.CannotConnect network.Connectedness`.
+  @Deprecated(
+      "CannotConnect is deprecated and will be removed in a future release.")
   int get cannotConnect => 3;
 
   /// Go: `const network.ConnCodeOutOfRange network.ConnErrorCode`.
@@ -627,6 +631,7 @@ extension GoLibp2pCoreNetworkApi on GoLibp2pCoreNetwork {
   int get messageSizeMax => 4194304;
 
   /// Go: `const network.NATDeviceTypeCone network.NATDeviceType`.
+  @Deprecated("Use NATDeviceTypeEndpointIndependent")
   int get natDeviceTypeCone => 1;
 
   /// Go: `const network.NATDeviceTypeEndpointDependent network.NATDeviceType`.
@@ -636,6 +641,7 @@ extension GoLibp2pCoreNetworkApi on GoLibp2pCoreNetwork {
   int get natDeviceTypeEndpointIndependent => 1;
 
   /// Go: `const network.NATDeviceTypeSymmetric network.NATDeviceType`.
+  @Deprecated("Use NATDeviceTypeEndpointDependent")
   int get natDeviceTypeSymmetric => 2;
 
   /// Go: `const network.NATDeviceTypeUnknown network.NATDeviceType`.

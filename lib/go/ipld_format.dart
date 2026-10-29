@@ -28,7 +28,8 @@ class IpldFormatDagService extends IpldFormatNodeGetter {
   }
 
   /// Go: type assertion `x.(iface.APIDagService)`: null if the object is not one.
-  $coreiface.KuboCoreCoreifaceApiDagService? asApiDagService() {
+  $coreiface.KuboCoreCoreifaceApiDagService?
+      asKuboCoreCoreifaceApiDagService() {
     final $r = $callSync(81, $W()..h(this));
     return $r.hn($coreiface.KuboCoreCoreifaceApiDagService.$h);
   }
@@ -102,13 +103,13 @@ class IpldFormatNode extends IpldFormatResolver {
   }
 
   /// Go: type assertion `x.(*merkledag.ProtoNode)`: null if the object is not one.
-  $merkledag.BoxoIpldMerkledagProtoNode? asProtoNode() {
+  $merkledag.BoxoIpldMerkledagProtoNode? asBoxoIpldMerkledagProtoNode() {
     final $r = $callSync(82, $W()..h(this));
     return $r.hn($merkledag.BoxoIpldMerkledagProtoNode.$h);
   }
 
   /// Go: type assertion `x.(*merkledag.RawNode)`: null if the object is not one.
-  $merkledag.BoxoIpldMerkledagRawNode? asRawNode() {
+  $merkledag.BoxoIpldMerkledagRawNode? asBoxoIpldMerkledagRawNode() {
     final $r = $callSync(83, $W()..h(this));
     return $r.hn($merkledag.BoxoIpldMerkledagRawNode.$h);
   }
@@ -143,13 +144,14 @@ class IpldFormatNodeAdder extends GoHandle {
   }
 
   /// Go: type assertion `x.(format.DAGService)`: null if the object is not one.
-  IpldFormatDagService? asDagService() {
+  IpldFormatDagService? asIpldFormatDagService() {
     final $r = $callSync(84, $W()..h(this));
     return $r.hn(IpldFormatDagService.$h);
   }
 
   /// Go: type assertion `x.(iface.APIDagService)`: null if the object is not one.
-  $coreiface.KuboCoreCoreifaceApiDagService? asApiDagService() {
+  $coreiface.KuboCoreCoreifaceApiDagService?
+      asKuboCoreCoreifaceApiDagService() {
     final $r = $callSync(85, $W()..h(this));
     return $r.hn($coreiface.KuboCoreCoreifaceApiDagService.$h);
   }
@@ -173,13 +175,14 @@ class IpldFormatNodeGetter extends GoHandle {
   }
 
   /// Go: type assertion `x.(format.DAGService)`: null if the object is not one.
-  IpldFormatDagService? asDagService() {
+  IpldFormatDagService? asIpldFormatDagService() {
     final $r = $callSync(86, $W()..h(this));
     return $r.hn(IpldFormatDagService.$h);
   }
 
   /// Go: type assertion `x.(iface.APIDagService)`: null if the object is not one.
-  $coreiface.KuboCoreCoreifaceApiDagService? asApiDagService() {
+  $coreiface.KuboCoreCoreifaceApiDagService?
+      asKuboCoreCoreifaceApiDagService() {
     final $r = $callSync(87, $W()..h(this));
     return $r.hn($coreiface.KuboCoreCoreifaceApiDagService.$h);
   }

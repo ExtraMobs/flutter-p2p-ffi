@@ -70,7 +70,7 @@ Future<void> main() async {
 
     // 2. O mesmo ponteiro Go duas vezes: uma entrada, duas referências.
     final f1 = Go.boxo.files.newBytesFile(Uint8List.fromList([7, 8, 9]));
-    final f2 = f1.asFile()!; // o mesmo objeto Go, visto como File
+    final f2 = f1.asBoxoFilesFile()!; // o mesmo objeto Go, visto como File
     say('\nf1 #${f1.$h} e f2 #${f2.$h}: a mesma entrada, 2 referências');
     f1.release();
     say('  f1 liberado; f2 ainda lê ${Go.io.readAll(f2)}');

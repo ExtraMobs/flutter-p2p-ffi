@@ -371,6 +371,7 @@ extension GoMultihashApi on GoMultihash {
   int get dblSha2256 => 86;
 
   /// Go: `const multihash.ID untyped int`.
+  @Deprecated("use IDENTITY")
   int get id => 0;
 
   /// Go: `const multihash.IDENTITY untyped int`.
@@ -392,6 +393,7 @@ extension GoMultihashApi on GoMultihash {
   int get md5 => 213;
 
   /// Go: `const multihash.MURMUR3 untyped int`.
+  @Deprecated("use MURMUR3X64_64")
   int get murmur3 => 34;
 
   /// Go: `const multihash.MURMUR3X64_64 untyped int`.

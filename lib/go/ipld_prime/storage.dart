@@ -11,13 +11,14 @@ class IpldPrimeStorageReadableStorage extends IpldPrimeStorage {
   IpldPrimeStorageReadableStorage.$h(super.$h) : super.$h();
 
   /// Go: type assertion `x.(*bsadapter.Adapter)`: null if the object is not one.
-  $bsadapter.IpldPrimeStorageBsadapterAdapter? asAdapter() {
+  $bsadapter.IpldPrimeStorageBsadapterAdapter?
+      asIpldPrimeStorageBsadapterAdapter() {
     final $r = $callSync(94, $W()..h(this));
     return $r.hn($bsadapter.IpldPrimeStorageBsadapterAdapter.$h);
   }
 
   /// Go: type assertion `x.(storage.ReadableCar)`: null if the object is not one.
-  $storage.CarV2StorageReadableCar? asReadableCar() {
+  $storage.CarV2StorageReadableCar? asCarV2StorageReadableCar() {
     final $r = $callSync(95, $W()..h(this));
     return $r.hn($storage.CarV2StorageReadableCar.$h);
   }

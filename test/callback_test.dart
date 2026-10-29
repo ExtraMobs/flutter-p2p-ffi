@@ -92,7 +92,7 @@ void main() {
             cid: Go.cid.newPrefixV1(0x55, 0x12).sum(Uint8List.fromList([i])),
             offset: 100 + i)
     ]);
-    final it = idx.asIterableIndex()!;
+    final it = idx.asCarV2IndexIterableIndex()!;
     final offsets = <int>[];
     await it.forEach((mh, offset) {
       expect(mh, hasLength(34)); // sha2-256: 2 de prefixo + 32

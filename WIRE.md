@@ -131,7 +131,7 @@ over basic types (kubo's enums) go as the basic type. By model kind (`go/gen/mod
   `<line>=` (receiver, value → no response);
 - a type assertion from an interface to a concrete handle that implements it (generated on
   its own for the types used, key `cast <interface> <concrete>`): receiver → new `i64`
-  handle, or `0` if the object is not of that type (`FsNode.asDirectory()` in Dart).
+  handle, or `0` if the object is not of that type (`BoxoMfsFsNode.asBoxoMfsDirectory()` in Dart).
 
 **Handles**: the host keeps the objects in a table (`i64` from 1); the app frees them with
 `Free` (in batches, through the `Finalizer`). A handle is only valid during the life of the

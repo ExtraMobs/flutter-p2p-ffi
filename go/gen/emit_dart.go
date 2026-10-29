@@ -694,6 +694,14 @@ func nsImport(l *dartLib) string {
 }
 
 func (e *dartEmitter) class(l *dartLib, c *dclass) string {
+	msg := ""
+	if c.t.named != nil {
+		msg = e.m.deprecated[depKey(c.t.named.Obj())]
+	}
+	return deprecate(e.classBody(l, c), msg)
+}
+
+func (e *dartEmitter) classBody(l *dartLib, c *dclass) string {
 	t := c.t
 	name := className(e.m, t)
 	var b strings.Builder
@@ -837,6 +845,7 @@ func (e *dartEmitter) dto(l *dartLib, b *strings.Builder, t *tinfo, name string)
 	}
 	fmt.Fprintf(b, "final class %s implements GoDto {\n", name)
 	var params, inits, decs, encs []string
+	dec := decodable(t) // a DTO with options inside only goes to Go
 	for _, f := range t.fields {
 		if f.skipped != "" {
 			continue
@@ -848,14 +857,19 @@ func (e *dartEmitter) dto(l *dartLib, b *strings.Builder, t *tinfo, name string)
 		} else {
 			inits = append(inits, fmt.Sprintf("%s = %s", n, n))
 		}
-		decs = append(decs, fmt.Sprintf("%s = %s", n, e.dec(f.t, "r", l, nullable(f.t))))
+		if dec {
+			decs = append(decs, fmt.Sprintf("%s = %s", n, e.dec(f.t, "r", l, nullable(f.t))))
+		}
 		encs = append(encs, ".."+e.enc(f.t, n, 0))
 	}
 	// $dec lê os campos na ordem de tinfo.fields (o initializer list roda em
 	// ordem); a presença do DTO é de quem o contém.
-	if len(params) == 0 {
+	switch {
+	case len(params) == 0:
 		fmt.Fprintf(b, "  %s();\n  %s.$dec($R r);\n", name, name)
-	} else {
+	case !dec:
+		fmt.Fprintf(b, "  %s({%s})\n    : %s;\n", name, strings.Join(params, ", "), strings.Join(inits, ",\n      "))
+	default:
 		fmt.Fprintf(b, "  %s({%s})\n    : %s;\n\n", name, strings.Join(params, ", "), strings.Join(inits, ",\n      "))
 		fmt.Fprintf(b, "  %s.$dec($R r)\n    : %s;\n", name, strings.Join(decs, ",\n      "))
 	}
@@ -1002,6 +1016,10 @@ func (e *dartEmitter) holders(l *dartLib, b *strings.Builder) (members []string)
 // factory (factory): codifica o receptor e os argumentos num $W (WIRE.md),
 // chama a função f.id do host no modo dela e decodifica os resultados do $R.
 func (e *dartEmitter) function(l *dartLib, f *fn, class string, factory bool) string {
+	return deprecate(e.functionBody(l, f, class, factory), e.m.deprecated[depKey(f.obj)])
+}
+
+func (e *dartEmitter) functionBody(l *dartLib, f *fn, class string, factory bool) string {
 	if isConstObj(f.obj) { // constante: o valor do Go, sem ir ao host
 		return fmt.Sprintf("  /// Go: `%s`.\n  %s get %s => %s;\n", goDoc(f.obj), constDart(f.constLit), memberName(f.obj.Name()), f.constLit)
 	}

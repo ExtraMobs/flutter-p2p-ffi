@@ -50,7 +50,8 @@ Future<void> main() async {
     final s = await Sample.build(ctx);
     final carFile = '${tmp.path}/sample.car';
     await s.writeCar(ctx, carFile);
-    final idx = Go.car.v2.generateIndexFromFile(carFile).asIterableIndex()!;
+    final idx =
+        Go.car.v2.generateIndexFromFile(carFile).asCarV2IndexIterableIndex()!;
     final offsets = <int>[];
     await idx.forEach((multihash, offset) => offsets.add(offset));
     say('forEach called the Dart function ${offsets.length} times; offsets '

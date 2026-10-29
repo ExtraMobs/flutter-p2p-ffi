@@ -98,19 +98,19 @@ class BoxoBlockstore extends GoHandle {
       .map((r) => r.p() ? $cid.Cid(r.str()) : $nil());
 
   /// Go: type assertion `x.(*blockstore.ReadOnly)`: null if the object is not one.
-  $blockstore.CarV2BlockstoreReadOnly? asReadOnly() {
+  $blockstore.CarV2BlockstoreReadOnly? asCarV2BlockstoreReadOnly() {
     final $r = $callSync(66, $W()..h(this));
     return $r.hn($blockstore.CarV2BlockstoreReadOnly.$h);
   }
 
   /// Go: type assertion `x.(*blockstore.ReadWrite)`: null if the object is not one.
-  $blockstore.CarV2BlockstoreReadWrite? asReadWrite() {
+  $blockstore.CarV2BlockstoreReadWrite? asCarV2BlockstoreReadWrite() {
     final $r = $callSync(67, $W()..h(this));
     return $r.hn($blockstore.CarV2BlockstoreReadWrite.$h);
   }
 
   /// Go: type assertion `x.(blockstore.GCBlockstore)`: null if the object is not one.
-  BoxoBlockstoreGcBlockstore? asGcBlockstore() {
+  BoxoBlockstoreGcBlockstore? asBoxoBlockstoreGcBlockstore() {
     final $r = $callSync(68, $W()..h(this));
     return $r.hn(BoxoBlockstoreGcBlockstore.$h);
   }
@@ -162,7 +162,7 @@ class BoxoBlockstoreGcLocker extends GoHandle {
   }
 
   /// Go: type assertion `x.(blockstore.GCBlockstore)`: null if the object is not one.
-  BoxoBlockstoreGcBlockstore? asGcBlockstore() {
+  BoxoBlockstoreGcBlockstore? asBoxoBlockstoreGcBlockstore() {
     final $r = $callSync(69, $W()..h(this));
     return $r.hn(BoxoBlockstoreGcBlockstore.$h);
   }

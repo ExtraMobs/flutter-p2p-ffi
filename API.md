@@ -46,10 +46,10 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `func (blockstore.GCLocker).PinLock(context.Context) blockstore.Unlocker` | `BoxoBlockstoreGcLocker.pinLock` | Future |
 | `func (blockstore.GCLocker).GCRequested(context.Context) bool` | `BoxoBlockstoreGcLocker.gcRequested` | Future |
 | `func (blockstore.Unlocker).Unlock(context.Context)` | `BoxoBlockstoreUnlocker.unlock` | Future |
-| `blockstore.Blockstore → x.(*blockstore.ReadOnly)` | `BoxoBlockstore.asReadOnly` | cast |
-| `blockstore.Blockstore → x.(*blockstore.ReadWrite)` | `BoxoBlockstore.asReadWrite` | cast |
-| `blockstore.Blockstore → x.(blockstore.GCBlockstore)` | `BoxoBlockstore.asGcBlockstore` | cast |
-| `blockstore.GCLocker → x.(blockstore.GCBlockstore)` | `BoxoBlockstoreGcLocker.asGcBlockstore` | cast |
+| `blockstore.Blockstore → x.(*blockstore.ReadOnly)` | `BoxoBlockstore.asCarV2BlockstoreReadOnly` | cast |
+| `blockstore.Blockstore → x.(*blockstore.ReadWrite)` | `BoxoBlockstore.asCarV2BlockstoreReadWrite` | cast |
+| `blockstore.Blockstore → x.(blockstore.GCBlockstore)` | `BoxoBlockstore.asBoxoBlockstoreGcBlockstore` | cast |
+| `blockstore.GCLocker → x.(blockstore.GCBlockstore)` | `BoxoBlockstoreGcLocker.asBoxoBlockstoreGcBlockstore` | cast |
 
 ## `github.com/ipfs/boxo/chunker` → `Go.boxo.chunker` (`lib/go/boxo/chunker.dart`)
 
@@ -67,7 +67,7 @@ Each line is an exposed Go symbol and where it is in Dart.
 
 | Go | Dart | Mode |
 |---|---|---|
-| `exchange.Interface → x.(*bitswap.Bitswap)` | `BoxoExchangeInterface.asBitswap` | cast |
+| `exchange.Interface → x.(*bitswap.Bitswap)` | `BoxoExchangeInterface.asBoxoBitswap` | cast |
 
 ## `github.com/ipfs/boxo/exchange/offline` → `Go.boxo.exchange.offline` (`lib/go/boxo/exchange/offline.dart`)
 
@@ -89,7 +89,7 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `func files.NewSerialFile(path string, includeHidden bool, stat os.FileInfo) (files.Node, error)` | `Go.boxo.files.newSerialFile` | sync |
 | `func files.ToFile(n files.Node) files.File` | `Go.boxo.files.toFile` | sync |
 | `func files.WriteTo(nd files.Node, fpath string) error` | `Go.boxo.files.writeTo` | sync |
-| `files.Node → x.(files.File)` | `BoxoFilesNode.asFile` | cast |
+| `files.Node → x.(files.File)` | `BoxoFilesNode.asBoxoFilesFile` | cast |
 | `const files.FileModeHeaderName untyped string` | `Go.boxo.files.fileModeHeaderName` | const |
 | `const files.LastModifiedHeaderName untyped string` | `Go.boxo.files.lastModifiedHeaderName` | const |
 
@@ -264,8 +264,8 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `func (mfs.FileDescriptor).Size() (int64, error)` | `BoxoMfsFileDescriptor.size` | sync |
 | `func (mfs.FileDescriptor).Flush() error` | `BoxoMfsFileDescriptor.flush` | sync |
 | `func (io.Closer).Close() error` | `BoxoMfsFileDescriptor.close` | sync |
-| `mfs.FSNode → x.(*mfs.Directory)` | `BoxoMfsFsNode.asDirectory` | cast |
-| `mfs.FSNode → x.(*mfs.File)` | `BoxoMfsFsNode.asFile` | cast |
+| `mfs.FSNode → x.(*mfs.Directory)` | `BoxoMfsFsNode.asBoxoMfsDirectory` | cast |
+| `mfs.FSNode → x.(*mfs.File)` | `BoxoMfsFsNode.asBoxoMfsFile` | cast |
 | `const mfs.DefaultFetchTimeout time.Duration` | `Go.boxo.mfs.defaultFetchTimeout` | const |
 | `const mfs.TDir mfs.NodeType` | `Go.boxo.mfs.tDir` | const |
 | `const mfs.TFile mfs.NodeType` | `Go.boxo.mfs.tFile` | const |
@@ -384,13 +384,13 @@ Each line is an exposed Go symbol and where it is in Dart.
 |---|---|---|
 | `func datastore.NewNullDatastore() *datastore.NullDatastore` | `factory DatastoreNullDatastore` | sync |
 | `func datastore.NewMapDatastore() (d *datastore.MapDatastore)` | `factory DatastoreMapDatastore` | sync |
-| `datastore.Batching → x.(*datastore.MapDatastore)` | `DatastoreBatching.asMapDatastore` | cast |
-| `datastore.Batching → x.(*datastore.NullDatastore)` | `DatastoreBatching.asNullDatastore` | cast |
-| `datastore.Batching → x.(*sync.MutexDatastore)` | `DatastoreBatching.asMutexDatastore` | cast |
-| `datastore.Datastore → x.(*datastore.MapDatastore)` | `Datastore.asMapDatastore` | cast |
-| `datastore.Datastore → x.(*datastore.NullDatastore)` | `Datastore.asNullDatastore` | cast |
-| `datastore.Datastore → x.(*sync.MutexDatastore)` | `Datastore.asMutexDatastore` | cast |
-| `datastore.Datastore → x.(datastore.Batching)` | `Datastore.asBatching` | cast |
+| `datastore.Batching → x.(*datastore.MapDatastore)` | `DatastoreBatching.asDatastoreMapDatastore` | cast |
+| `datastore.Batching → x.(*datastore.NullDatastore)` | `DatastoreBatching.asDatastoreNullDatastore` | cast |
+| `datastore.Batching → x.(*sync.MutexDatastore)` | `DatastoreBatching.asDatastoreSyncMutexDatastore` | cast |
+| `datastore.Datastore → x.(*datastore.MapDatastore)` | `Datastore.asDatastoreMapDatastore` | cast |
+| `datastore.Datastore → x.(*datastore.NullDatastore)` | `Datastore.asDatastoreNullDatastore` | cast |
+| `datastore.Datastore → x.(*sync.MutexDatastore)` | `Datastore.asDatastoreSyncMutexDatastore` | cast |
+| `datastore.Datastore → x.(datastore.Batching)` | `Datastore.asDatastoreBatching` | cast |
 | `const datastore.FeatureNameBatching untyped string` | `Go.datastore.featureNameBatching` | const |
 | `const datastore.FeatureNameChecked untyped string` | `Go.datastore.featureNameChecked` | const |
 | `const datastore.FeatureNameGC untyped string` | `Go.datastore.featureNameGc` | const |
@@ -470,13 +470,13 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `func format.MakeLink(n format.Node) (*format.Link, error)` | `Go.ipldFormat.makeLink` | sync |
 | `func format.GetLinks(ctx context.Context, ng format.NodeGetter, c cid.Cid) ([]*format.Link, error)` | `Go.ipldFormat.getLinks` | Future |
 | `func format.Copy(ctx context.Context, from format.DAGService, to format.DAGService, root cid.Cid) error` | `Go.ipldFormat.copy` | Future |
-| `format.DAGService → x.(iface.APIDagService)` | `IpldFormatDagService.asApiDagService` | cast |
-| `format.Node → x.(*merkledag.ProtoNode)` | `IpldFormatNode.asProtoNode` | cast |
-| `format.Node → x.(*merkledag.RawNode)` | `IpldFormatNode.asRawNode` | cast |
-| `format.NodeAdder → x.(format.DAGService)` | `IpldFormatNodeAdder.asDagService` | cast |
-| `format.NodeAdder → x.(iface.APIDagService)` | `IpldFormatNodeAdder.asApiDagService` | cast |
-| `format.NodeGetter → x.(format.DAGService)` | `IpldFormatNodeGetter.asDagService` | cast |
-| `format.NodeGetter → x.(iface.APIDagService)` | `IpldFormatNodeGetter.asApiDagService` | cast |
+| `format.DAGService → x.(iface.APIDagService)` | `IpldFormatDagService.asKuboCoreCoreifaceApiDagService` | cast |
+| `format.Node → x.(*merkledag.ProtoNode)` | `IpldFormatNode.asBoxoIpldMerkledagProtoNode` | cast |
+| `format.Node → x.(*merkledag.RawNode)` | `IpldFormatNode.asBoxoIpldMerkledagRawNode` | cast |
+| `format.NodeAdder → x.(format.DAGService)` | `IpldFormatNodeAdder.asIpldFormatDagService` | cast |
+| `format.NodeAdder → x.(iface.APIDagService)` | `IpldFormatNodeAdder.asKuboCoreCoreifaceApiDagService` | cast |
+| `format.NodeGetter → x.(format.DAGService)` | `IpldFormatNodeGetter.asIpldFormatDagService` | cast |
+| `format.NodeGetter → x.(iface.APIDagService)` | `IpldFormatNodeGetter.asKuboCoreCoreifaceApiDagService` | cast |
 
 ## `github.com/ipfs/go-unixfsnode` → `Go.unixfsnode` (`lib/go/unixfsnode.dart`)
 
@@ -810,8 +810,8 @@ Omitted:
 | `func (node.BaseBlocks).GetSize(context.Context, cid.Cid) (int, error)` | `KuboCoreNodeBaseBlocks.getSize` | Future |
 | `func (node.BaseBlocks).DeleteBlock(context.Context, cid.Cid) error` | `KuboCoreNodeBaseBlocks.deleteBlock` | Future |
 | `func (node.BaseBlocks).AllKeysChan(ctx context.Context) (<-chan cid.Cid, error)` | `KuboCoreNodeBaseBlocks.allKeysChan` | Stream |
-| `node.BaseBlocks → x.(*blockstore.ReadOnly)` | `KuboCoreNodeBaseBlocks.asReadOnly` | cast |
-| `node.BaseBlocks → x.(*blockstore.ReadWrite)` | `KuboCoreNodeBaseBlocks.asReadWrite` | cast |
+| `node.BaseBlocks → x.(*blockstore.ReadOnly)` | `KuboCoreNodeBaseBlocks.asCarV2BlockstoreReadOnly` | cast |
+| `node.BaseBlocks → x.(*blockstore.ReadWrite)` | `KuboCoreNodeBaseBlocks.asCarV2BlockstoreReadWrite` | cast |
 | `const node.DefaultEngineBlockstoreWorkerCount untyped int` | `Go.kubo.core.node.defaultEngineBlockstoreWorkerCount` | const |
 | `const node.DefaultEngineTaskWorkerCount untyped int` | `Go.kubo.core.node.defaultEngineTaskWorkerCount` | const |
 | `const node.DefaultIpnsCacheSize untyped int` | `Go.kubo.core.node.defaultIpnsCacheSize` | const |
@@ -958,7 +958,7 @@ Omitted:
 | `func (index.Index).Load([]index.Record) error` | `CarV2Index.load` | sync |
 | `func (index.Index).GetAll(cid.Cid, func(uint64) bool) error` | `CarV2Index.getAll` | Future |
 | `func (index.IterableIndex).ForEach(func(multihash.Multihash, uint64) error) error` | `CarV2IndexIterableIndex.forEach` | Future |
-| `index.Index → x.(index.IterableIndex)` | `CarV2Index.asIterableIndex` | cast |
+| `index.Index → x.(index.IterableIndex)` | `CarV2Index.asCarV2IndexIterableIndex` | cast |
 | `const index.CarIndexNone untyped int` | `Go.car.v2.index.carIndexNone` | const |
 
 ## `github.com/ipld/go-car/v2/storage` → `Go.car.v2.storage` (`lib/go/car/v2/storage.dart`)
@@ -979,9 +979,9 @@ Omitted:
 
 | Go | Dart | Mode |
 |---|---|---|
-| `datamodel.Node → x.(*merkledag.ProtoNode)` | `IpldPrimeDatamodelNode.asProtoNode` | cast |
-| `datamodel.Node → x.(*merkledag.RawNode)` | `IpldPrimeDatamodelNode.asRawNode` | cast |
-| `datamodel.NodePrototype → x.(*basicnode.Prototype__Any)` | `IpldPrimeDatamodelNodePrototype.asPrototypeAny` | cast |
+| `datamodel.Node → x.(*merkledag.ProtoNode)` | `IpldPrimeDatamodelNode.asBoxoIpldMerkledagProtoNode` | cast |
+| `datamodel.Node → x.(*merkledag.RawNode)` | `IpldPrimeDatamodelNode.asBoxoIpldMerkledagRawNode` | cast |
+| `datamodel.NodePrototype → x.(*basicnode.Prototype__Any)` | `IpldPrimeDatamodelNodePrototype.asIpldPrimeNodeBasicnodePrototypeAny` | cast |
 | `const datamodel.Kind_Bool datamodel.Kind` | `Go.ipldPrime.datamodel.kindBool` | const |
 | `const datamodel.Kind_Bytes datamodel.Kind` | `Go.ipldPrime.datamodel.kindBytes` | const |
 | `const datamodel.Kind_Float datamodel.Kind` | `Go.ipldPrime.datamodel.kindFloat` | const |
@@ -1015,8 +1015,8 @@ Omitted:
 
 | Go | Dart | Mode |
 |---|---|---|
-| `storage.ReadableStorage → x.(*bsadapter.Adapter)` | `IpldPrimeStorageReadableStorage.asAdapter` | cast |
-| `storage.ReadableStorage → x.(storage.ReadableCar)` | `IpldPrimeStorageReadableStorage.asReadableCar` | cast |
+| `storage.ReadableStorage → x.(*bsadapter.Adapter)` | `IpldPrimeStorageReadableStorage.asIpldPrimeStorageBsadapterAdapter` | cast |
+| `storage.ReadableStorage → x.(storage.ReadableCar)` | `IpldPrimeStorageReadableStorage.asCarV2StorageReadableCar` | cast |
 
 ## `github.com/ipld/go-ipld-prime/storage/bsadapter` → `Go.ipldPrime.storage.bsadapter` (`lib/go/ipld_prime/storage/bsadapter.dart`)
 
@@ -1299,8 +1299,8 @@ Omitted:
 | `func (crypto.Key).Raw() ([]byte, error)` | `Libp2pCoreCryptoKey.raw` | sync |
 | `func (crypto.Key).Type() pb.KeyType` | `Libp2pCoreCryptoKey.type` | sync |
 | `func (crypto.Key).Equals(crypto.Key) bool` | `Libp2pCoreCryptoKey.equals` | sync |
-| `crypto.Key → x.(crypto.PrivKey)` | `Libp2pCoreCryptoKey.asPrivKey` | cast |
-| `crypto.Key → x.(crypto.PubKey)` | `Libp2pCoreCryptoKey.asPubKey` | cast |
+| `crypto.Key → x.(crypto.PrivKey)` | `Libp2pCoreCryptoKey.asLibp2pCoreCryptoPrivKey` | cast |
+| `crypto.Key → x.(crypto.PubKey)` | `Libp2pCoreCryptoKey.asLibp2pCoreCryptoPubKey` | cast |
 | `const crypto.ECDSA untyped int` | `Go.libp2p.core.crypto.ecdsa` | const |
 | `const crypto.Ed25519 untyped int` | `Go.libp2p.core.crypto.ed25519` | const |
 | `const crypto.RSA untyped int` | `Go.libp2p.core.crypto.rsa` | const |
@@ -1468,11 +1468,11 @@ Omitted:
 
 | Go | Dart | Mode |
 |---|---|---|
-| `routing.ContentDiscovery → x.(*dht.IpfsDHT)` | `Libp2pCoreRoutingContentDiscovery.asIpfsDht` | cast |
-| `routing.ContentDiscovery → x.(*routing.RoutingDiscovery)` | `Libp2pCoreRoutingContentDiscovery.asRoutingDiscovery` | cast |
-| `routing.ContentDiscovery → x.(routing.ContentRouting)` | `Libp2pCoreRoutingContentDiscovery.asContentRouting` | cast |
-| `routing.ContentRouting → x.(*dht.IpfsDHT)` | `Libp2pCoreRoutingContentRouting.asIpfsDht` | cast |
-| `routing.ContentRouting → x.(*routing.RoutingDiscovery)` | `Libp2pCoreRoutingContentRouting.asRoutingDiscovery` | cast |
+| `routing.ContentDiscovery → x.(*dht.IpfsDHT)` | `Libp2pCoreRoutingContentDiscovery.asLibp2pKadDhtIpfsDht` | cast |
+| `routing.ContentDiscovery → x.(*routing.RoutingDiscovery)` | `Libp2pCoreRoutingContentDiscovery.asLibp2pP2pDiscoveryRoutingDiscovery` | cast |
+| `routing.ContentDiscovery → x.(routing.ContentRouting)` | `Libp2pCoreRoutingContentDiscovery.asLibp2pCoreRoutingContentRouting` | cast |
+| `routing.ContentRouting → x.(*dht.IpfsDHT)` | `Libp2pCoreRoutingContentRouting.asLibp2pKadDhtIpfsDht` | cast |
+| `routing.ContentRouting → x.(*routing.RoutingDiscovery)` | `Libp2pCoreRoutingContentRouting.asLibp2pP2pDiscoveryRoutingDiscovery` | cast |
 | `const routing.AddingPeer routing.QueryEventType` | `Go.libp2p.core.routing.addingPeer` | const |
 | `const routing.DialingPeer routing.QueryEventType` | `Go.libp2p.core.routing.dialingPeer` | const |
 | `const routing.FinalPeer routing.QueryEventType` | `Go.libp2p.core.routing.finalPeer` | const |
@@ -2531,7 +2531,7 @@ Omitted:
 - `time.Duration` is a Dart `Duration` (nanoseconds on the wire, rounded to microseconds in Dart).
 - Errors that wrap `io.EOF`, `io.ErrUnexpectedEOF`, `context.Canceled`, `context.DeadlineExceeded` or IPLD's not found become `GolangEofException`, `GolangUnexpectedEofException`, `GolangCanceledException`, `GolangDeadlineExceededException` and `GolangNotFoundException` (subclasses of `GolangException`), as Go's `errors.Is` would find them. Every other exported error sentinel or error type of a package with a library has a `GolangException` subclass there (section "Go errors with a Dart class"): the host walks the error chain (`Unwrap`, `errors.Join`) and Dart throws the class of the outermost link that has one. Every `GolangException` carries `errTexts` (the text of each link, outside in), `errText` (the innermost), `errno` (the chain's `syscall.Errno`: POSIX numbers on linux and Android, Win32 on Windows) and `causes` (the links with a class); `isA<T>()`/`find<T>()` are `errors.Is`/`errors.As`.
 - A root that is only a struct type (`bsadapter.Adapter`, `basicnode.Prototype__Any`) becomes an empty constructor (`Adapter()`, Go's `new(T)`), and its fields, getters and setters.
-- An interface that embeds another gets the cast from it (`idx.asIterableIndex()`, Go's `x.(index.IterableIndex)`).
+- An interface that embeds another gets the cast from it (`idx.asCarV2IndexIterableIndex()`, named after the Dart class; Go's `x.(index.IterableIndex)`).
 - A pointer to a basic type (`DagByteRange.To *int64`) becomes `int?`: null is nil.
 - A function that returns an unexported type is seen in Dart through an exported interface (table `resultAs`: `merkledag.NewDAGService` → `format.DAGService`); on the wire it is the object's handle.
 - A type defined from an interface of another package (`type BaseBlocks blockstore.Blockstore`) gets no methods of its own: list them as roots on the type itself (`node.BaseBlocks.Has`).

@@ -34,13 +34,13 @@ class Libp2pCoreCryptoKey extends GoHandle {
   }
 
   /// Go: type assertion `x.(crypto.PrivKey)`: null if the object is not one.
-  Libp2pCoreCryptoPrivKey? asPrivKey() {
+  Libp2pCoreCryptoPrivKey? asLibp2pCoreCryptoPrivKey() {
     final $r = $callSync(96, $W()..h(this));
     return $r.hn(Libp2pCoreCryptoPrivKey.$h);
   }
 
   /// Go: type assertion `x.(crypto.PubKey)`: null if the object is not one.
-  Libp2pCoreCryptoPubKey? asPubKey() {
+  Libp2pCoreCryptoPubKey? asLibp2pCoreCryptoPubKey() {
     final $r = $callSync(97, $W()..h(this));
     return $r.hn(Libp2pCoreCryptoPubKey.$h);
   }

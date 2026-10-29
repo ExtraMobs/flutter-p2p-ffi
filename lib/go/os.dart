@@ -243,11 +243,14 @@ extension GoOsApi on GoOs {
   int get pathSeparator => 92;
 
   /// Go: `const os.SEEK_CUR int`.
+  @Deprecated("Use io.SeekStart, io.SeekCurrent, and io.SeekEnd.")
   int get seekCur => 1;
 
   /// Go: `const os.SEEK_END int`.
+  @Deprecated("Use io.SeekStart, io.SeekCurrent, and io.SeekEnd.")
   int get seekEnd => 2;
 
   /// Go: `const os.SEEK_SET int`.
+  @Deprecated("Use io.SeekStart, io.SeekCurrent, and io.SeekEnd.")
   int get seekSet => 0;
 }

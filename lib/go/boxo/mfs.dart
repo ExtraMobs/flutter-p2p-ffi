@@ -170,13 +170,13 @@ class BoxoMfsFsNode extends GoHandle {
   }
 
   /// Go: type assertion `x.(*mfs.Directory)`: null if the object is not one.
-  BoxoMfsDirectory? asDirectory() {
+  BoxoMfsDirectory? asBoxoMfsDirectory() {
     final $r = $callSync(72, $W()..h(this));
     return $r.hn(BoxoMfsDirectory.$h);
   }
 
   /// Go: type assertion `x.(*mfs.File)`: null if the object is not one.
-  BoxoMfsFile? asFile() {
+  BoxoMfsFile? asBoxoMfsFile() {
     final $r = $callSync(73, $W()..h(this));
     return $r.hn(BoxoMfsFile.$h);
   }

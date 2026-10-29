@@ -15,6 +15,7 @@ import (
 	"hash/fnv"
 	"os"
 	"path/filepath"
+	"regexp"
 	"sort"
 	"strconv"
 	"strings"
@@ -204,6 +205,14 @@ func generate(rootsFile string) (map[string][]byte, error) {
 	if err != nil {
 		return nil, err
 	}
+	ignore, err := readRoots(filepath.Join(filepath.Dir(rootsFile), "ignore_roots.txt"))
+	if err != nil && !os.IsNotExist(err) {
+		return nil, err
+	}
+	expanded := map[string]bool{}
+	if lines, err = expandRoots(lines, ignore, expanded); err != nil {
+		return nil, err
+	}
 	pkgs, err := load(lines)
 	if err != nil {
 		return nil, err
@@ -234,12 +243,19 @@ func generate(rootsFile string) (map[string][]byte, error) {
 	var fns []*fn
 	for _, line := range lines {
 		fs, err := m.resolve(pkgs, line)
+		if err != nil && expanded[line] {
+			fmt.Fprintln(os.Stderr, "skipped:", err)
+			continue
+		}
 		if err != nil {
 			return nil, err
 		}
 		fns = append(fns, fs...)
 	}
 	fns = append(fns, m.casts(fns)...)
+	if err := m.deprecations(fns); err != nil {
+		return nil, err
+	}
 	if m.toks, err = m.tokens(); err != nil {
 		return nil, err
 	}
@@ -294,6 +310,88 @@ func readRoots(file string) ([]string, error) {
 		}
 	}
 	return lines, nil
+}
+
+// expandRoots: a line "pkg.*" becomes every exported function, variable and
+// method of the package (constants and errors already come with a library);
+// a line matching a pattern of [ignore] ("*" matches anything) is dropped.
+// The lines it adds are marked in [expanded].
+func expandRoots(lines, ignore []string, expanded map[string]bool) ([]string, error) {
+	var res []*regexp.Regexp
+	for _, p := range ignore {
+		res = append(res, regexp.MustCompile("^"+strings.ReplaceAll(regexp.QuoteMeta(p), `\*`, ".*")+"$"))
+	}
+	ignored := func(l string) bool {
+		for _, re := range res {
+			if re.MatchString(l) {
+				return true
+			}
+		}
+		return false
+	}
+	var wild []string
+	for _, l := range lines {
+		if strings.HasSuffix(l, ".*") {
+			wild = append(wild, strings.TrimSuffix(l, ".*"))
+		}
+	}
+	pkgs, err := loadPaths(wild)
+	if err != nil {
+		return nil, err
+	}
+	seen := map[string]bool{}
+	var out []string
+	add := func(l string, exp bool) {
+		if !seen[l] && !ignored(l) {
+			seen[l] = true
+			out = append(out, l)
+			if exp {
+				expanded[l] = true
+			}
+		}
+	}
+	for _, l := range lines {
+		if !strings.HasSuffix(l, ".*") {
+			add(l, false)
+			continue
+		}
+		path := strings.TrimSuffix(l, ".*")
+		sc := pkgs[path].Scope()
+		for _, n := range sc.Names() {
+			switch o := sc.Lookup(n).(type) {
+			case *types.Func:
+				if o.Exported() && o.Type().(*types.Signature).TypeParams() == nil {
+					add(path+"."+n, true)
+				}
+			case *types.Var:
+				if o.Exported() {
+					add(path+"."+n, true)
+				}
+			case *types.TypeName:
+				if !o.Exported() || o.IsAlias() {
+					continue
+				}
+				if nt, ok := o.Type().(*types.Named); ok && nt.TypeParams() != nil {
+					continue
+				}
+				if it, ok := o.Type().Underlying().(*types.Interface); ok {
+					for i := 0; i < it.NumExplicitMethods(); i++ {
+						if m := it.ExplicitMethod(i); m.Exported() {
+							add(path+"."+n+"."+m.Name(), true)
+						}
+					}
+					continue
+				}
+				ms := types.NewMethodSet(types.NewPointer(o.Type()))
+				for i := 0; i < ms.Len(); i++ {
+					if m := ms.At(i).Obj(); m.Exported() && m.Pkg() == o.Pkg() {
+						add(path+"."+n+"."+m.Name(), true)
+					}
+				}
+			}
+		}
+	}
+	return out, nil
 }
 
 // splitRoot: "github.com/ipfs/kubo/core.IpfsNode.Close" → pacote, nome, método.
@@ -536,7 +634,7 @@ func (m *model) fieldRoot(line string, pkg *types.Package, recvT types.Type, v *
 }
 
 // casts: para cada interface handle usada e cada handle concreto usado que a
-// implementa, a type assertion (`asDirectory()` no Dart, `v.(*mfs.Directory)`
+// implementa, a type assertion (`asBoxoMfsDirectory()` no Dart, `v.(*mfs.Directory)`
 // no Go).
 func (m *model) casts(fns []*fn) []*fn {
 	used := map[string]*tinfo{}
@@ -599,7 +697,9 @@ func (m *model) casts(fns []*fn) []*fn {
 			if !types.IsInterface(c.named) && !types.Implements(c.t, it) {
 				continue
 			}
-			name := "As" + c.named.Obj().Name()
+			// named after the Dart class, unique by construction: two types of
+			// the same Go name (noise.Transport, tls.Transport) never collide
+			name := "As" + className(m, c)
 			sig := types.NewSignatureType(nil, nil, nil, nil, types.NewTuple(types.NewVar(0, nil, "", c.t)), false)
 			out = append(out, &fn{key: "cast " + i.key + " " + c.key, pkg: i.named.Obj().Pkg(),
 				obj: types.NewFunc(0, i.named.Obj().Pkg(), name, sig), recv: i, results: []*tinfo{c}, cast: c, outBuf: -1})
@@ -662,9 +762,13 @@ func (m *model) check(f *fn) {
 	}
 	for i, p := range f.params {
 		switch t := p.t; t.k {
-		case kBasic, kBytes, kValue, kDTO, kSnap, kHandle, kMap, kCtx, kWriter, kAny:
+		case kBasic, kBytes, kValue, kHandle, kCtx, kWriter, kAny:
+		case kDTO, kSnap, kMap: // Go decodes options only as the variadic itself
+			if !decodable(t) {
+				fail("parameter %s: %s with an option inside", p.name, describe(t))
+			}
 		case kSlice:
-			if t.elem.k == kOpts || okElem(t.elem) {
+			if t.elem.k == kOpts || decodable(t) {
 				break
 			}
 			fail("parameter %s: %s", p.name, describe(t))
@@ -690,7 +794,11 @@ func (m *model) check(f *fn) {
 	}
 	for i, r := range f.results {
 		switch r.k {
-		case kBasic, kBytes, kValue, kDTO, kSnap, kHandle, kSlice, kMap, kAny:
+		case kBasic, kBytes, kValue, kHandle, kAny:
+		case kSlice, kMap, kDTO, kSnap: // what comes back has to decode, all the way down
+			if !decodable(r) {
+				fail("result %d: %s", i, describe(r))
+			}
 		case kChanRecv:
 			if len(f.results) != 1 || f.stream != nil {
 				fail("channel with other results")
@@ -715,6 +823,38 @@ func (m *model) check(f *fn) {
 	if forceAsync[f.key] {
 		f.async = true
 	}
+}
+
+// decodable: a result Dart can decode (a slice of options, or a DTO with
+// one in a field, cannot).
+func decodable(t *tinfo) bool { return decodableIn(t, map[*tinfo]bool{}) }
+
+func decodableIn(t *tinfo, seen map[*tinfo]bool) bool {
+	if seen[t] {
+		return true
+	}
+	seen[t] = true
+	switch t.k {
+	case kSlice:
+		return decodableIn(t.elem, seen)
+	case kMap:
+		return decodableIn(t.elem, seen) && (t.mkey == nil || decodableIn(t.mkey, seen))
+	case kDTO, kSnap:
+		for _, f := range t.fields {
+			if f.skipped == "" && !decodableIn(f.t, seen) {
+				return false
+			}
+		}
+		for _, g := range t.gets {
+			if !decodableIn(g.t, seen) {
+				return false
+			}
+		}
+		return true
+	case kError:
+		return true
+	}
+	return okElem(t)
 }
 
 func okElem(t *tinfo) bool {

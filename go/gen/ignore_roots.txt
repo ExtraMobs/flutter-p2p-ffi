@@ -1,0 +1,6 @@
+# panics instead of an error
+*.Must*
+# metrics
+github.com/prometheus/*
+# the command class of the same type flattens SizeStat
+github.com/ipfs/kubo/core/corerepo.RepoStat

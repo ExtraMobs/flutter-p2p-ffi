@@ -79,7 +79,7 @@ await P2pService.stop();
   option structs take named parameters (`BoxoMfsFlags(write: true)`).
 - Struct fields are getters and setters (`node.filesRoot`); `any` is `Object?`.
 - A type assertion is a cast that returns null when it does not match
-  (`Go.boxo.mfs.lookup(root, '/a').asFile()`).
+  (`Go.boxo.mfs.lookup(root, '/a').asBoxoMfsFile()`).
 - `Read`/`ReadAt`/`CtxReadFull` take a size and return the bytes read.
 - A Go function that takes a function takes a Dart function (a callback; returning `false`
   or throwing stops Go). A function Go keeps, like a stream handler, is called on the event

@@ -67,7 +67,7 @@ class CarV2Index extends GoHandle {
   }
 
   /// Go: type assertion `x.(index.IterableIndex)`: null if the object is not one.
-  CarV2IndexIterableIndex? asIterableIndex() {
+  CarV2IndexIterableIndex? asCarV2IndexIterableIndex() {
     final $r = $callSync(90, $W()..h(this));
     return $r.hn(CarV2IndexIterableIndex.$h);
   }

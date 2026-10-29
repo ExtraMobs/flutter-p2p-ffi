@@ -146,6 +146,8 @@ type model struct {
 	via map[string]*types.Package
 	// toks: the type and function tokens (tokens.go)
 	toks []*token
+	// deprecated: the Go doc's "Deprecated:" text, by depKey (deprecated.go)
+	deprecated map[string]string
 }
 
 func newModel() *model {

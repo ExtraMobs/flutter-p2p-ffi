@@ -19,7 +19,7 @@ class BoxoFilesNode extends $io.IoCloser {
   BoxoFilesNode.$h(super.$h) : super.$h();
 
   /// Go: type assertion `x.(files.File)`: null if the object is not one.
-  BoxoFilesFile? asFile() {
+  BoxoFilesFile? asBoxoFilesFile() {
     final $r = $callSync(71, $W()..h(this));
     return $r.hn(BoxoFilesFile.$h);
   }

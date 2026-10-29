@@ -69,7 +69,7 @@ Future<void> main() async {
 
     // 2. The same Go pointer twice: one entry, two references.
     final f1 = Go.boxo.files.newBytesFile(Uint8List.fromList([7, 8, 9]));
-    final f2 = f1.asFile()!; // the same Go object, seen as a File
+    final f2 = f1.asBoxoFilesFile()!; // the same Go object, seen as a File
     say('\nf1 #${f1.$h} and f2 #${f2.$h}: the same entry, 2 references');
     f1.release();
     say('  f1 released; f2 still reads ${Go.io.readAll(f2)}');

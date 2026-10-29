@@ -89,13 +89,13 @@ class KuboCoreNodeBaseBlocks extends GoHandle {
       .map((r) => r.p() ? $cid.Cid(r.str()) : $nil());
 
   /// Go: type assertion `x.(*blockstore.ReadOnly)`: null if the object is not one.
-  $blockstore.CarV2BlockstoreReadOnly? asReadOnly() {
+  $blockstore.CarV2BlockstoreReadOnly? asCarV2BlockstoreReadOnly() {
     final $r = $callSync(88, $W()..h(this));
     return $r.hn($blockstore.CarV2BlockstoreReadOnly.$h);
   }
 
   /// Go: type assertion `x.(*blockstore.ReadWrite)`: null if the object is not one.
-  $blockstore.CarV2BlockstoreReadWrite? asReadWrite() {
+  $blockstore.CarV2BlockstoreReadWrite? asCarV2BlockstoreReadWrite() {
     final $r = $callSync(89, $W()..h(this));
     return $r.hn($blockstore.CarV2BlockstoreReadWrite.$h);
   }

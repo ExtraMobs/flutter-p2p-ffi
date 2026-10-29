@@ -95,7 +95,7 @@ Future<void> main() async {
     //         fd, _ := f.Open(ctx, mfs.Flags{Write: true, Sync: true})
     //         fd.Seek(0, io.SeekEnd); fd.Write(b); fd.Close()
     final root = n.filesRoot;
-    final file = Go.boxo.mfs.lookup(root, '/site/index.html').asFile()!;
+    final file = Go.boxo.mfs.lookup(root, '/site/index.html').asBoxoMfsFile()!;
     final w = await file.open(ctx, BoxoMfsFlags(write: true, sync: true));
     w.seek(0, 2); // 2 = io.SeekEnd
     w.write(utf8.encode('<p>appended by mfs</p>\n'));
@@ -110,7 +110,7 @@ Future<void> main() async {
     //    Go:  nd, _ := mfs.FlushPath(ctx, root, "/site")
     final site = await Go.boxo.mfs.flushPath(ctx, root, '/site');
     say('/site flushed: ${site.cid()}');
-    final dir = Go.boxo.mfs.lookup(root, '/site').asDirectory()!;
+    final dir = Go.boxo.mfs.lookup(root, '/site').asBoxoMfsDirectory()!;
     say('  entries: ${(await dir.listNames(ctx)).join(', ')}');
 
     say('\n== Common mistakes\n');

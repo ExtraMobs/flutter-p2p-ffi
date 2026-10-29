@@ -867,8 +867,8 @@ void main() {
       final dirNode = Go.boxo.mfs.lookup(root, '/t013');
       expect(Go.boxo.mfs.isDir(dirNode), isTrue);
       expect(dirNode.type(), Go.boxo.mfs.tDir);
-      expect(dirNode.asFile(), isNull);
-      final dir = dirNode.asDirectory()!;
+      expect(dirNode.asBoxoMfsFile(), isNull);
+      final dir = dirNode.asBoxoMfsDirectory()!;
       expect(dir.path(), '/t013');
 
       // um arquivo pelo nó unixfs de um add
@@ -876,7 +876,7 @@ void main() {
           .unixfs()
           .add(ctx, Go.boxo.files.newBytesFile(utf8.encode('olá mfs')));
       Go.boxo.mfs.putNode(root, '/t013/a.txt', await api.resolveNode(ctx, p));
-      final file = Go.boxo.mfs.lookup(root, '/t013/a.txt').asFile()!;
+      final file = Go.boxo.mfs.lookup(root, '/t013/a.txt').asBoxoMfsFile()!;
       expect(file.size(), utf8.encode('olá mfs').length);
       expect(file.rawLeaves, isFalse);
       file.rawLeaves = true; // campo do Go, leitura e escrita
@@ -923,7 +923,7 @@ void main() {
           .unixfs()
           .add(ctx, Go.boxo.files.newBytesFile(utf8.encode('abc')));
       Go.boxo.mfs.putNode(root, '/t015.txt', await api.resolveNode(ctx, p));
-      final file = Go.boxo.mfs.lookup(root, '/t015.txt').asFile()!;
+      final file = Go.boxo.mfs.lookup(root, '/t015.txt').asBoxoMfsFile()!;
       final fw = await file.open(ctx, BoxoMfsFlags(write: true));
       fw.seek(0, 2);
       fw.write(utf8.encode('def'));
