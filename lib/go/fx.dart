@@ -21,7 +21,7 @@ class FxOption extends GoHandle with FxOption$ {
 /// The methods of [FxOption], mixed into every class Go also accepts as one.
 mixin FxOption$ on GoHandle {}
 
-/// Go: the package-level members of `go.uber.org/fx` (`goFx`).
+/// Go: the package-level members of `go.uber.org/fx` (`go.fx`).
 extension GoFxApi on GoFx {
   /// Go: `const fx.DefaultTimeout time.Duration`.
   Duration get defaultTimeout => Duration(microseconds: 15000000);

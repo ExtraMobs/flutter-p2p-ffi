@@ -15,7 +15,7 @@ final class RuntimeDebugCrashOptions implements GoDto {
   void $enc($W w) {}
 }
 
-/// Go: the package-level members of `runtime/debug` (`goRuntime.debug`).
+/// Go: the package-level members of `runtime/debug` (`go.runtime.debug`).
 extension GoRuntimeDebugApi on GoRuntimeDebug {
   /// Go: `func debug.SetCrashOutput(f *os.File, opts debug.CrashOptions) error`.
   void setCrashOutput($os.OsFile f, RuntimeDebugCrashOptions opts) {

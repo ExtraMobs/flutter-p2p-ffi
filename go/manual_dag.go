@@ -1,7 +1,7 @@
 // `ipfs dag put` e `ipfs dag get` (DAG-CBOR/JSON e os outros codecs do
 // go-ipld-prime). No kubo isso é o corpo dos comandos (core/commands/dag/
 // put.go e get.go), não função de biblioteca, por isso o porte é à mão; o
-// Dart está em lib/go/kubo/core/commands/dag.dart.
+// Dart está em lib/go/ipfs/kubo/core/commands/dag.dart.
 package main
 
 import (

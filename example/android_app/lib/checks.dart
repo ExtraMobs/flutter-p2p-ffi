@@ -15,7 +15,7 @@ typedef Log = void Function(String line);
 
 /// A context of the current service (the handle of a previous service is not
 /// valid after the p2p_host is restarted).
-Context get ctx => goContext.background();
+Context get ctx => go.context.background();
 
 void check(bool ok, String what) {
   if (!ok) throw StateError('failed: $what');
@@ -50,10 +50,11 @@ Future<int> runAll(Map<String, Future<void> Function()> checks, Log log) async {
 /// A new repo with the `test` profile (127.0.0.1, random ports, no bootstrap).
 String newRepo(Directory tmp, String name) {
   final repoPath = '${tmp.path}/$name';
-  final cfg = goKubo.config.initWithIdentity(goKubo.config.createIdentity(
-      null, [goKubo.core.coreiface.options.key.type('ed25519')]));
-  goKubo.config.profiles['test']!.transform(cfg);
-  goKubo.repo.fsrepo.init(repoPath, cfg);
+  final cfg = go.ipfs.kubo.config.initWithIdentity(go.ipfs.kubo.config
+      .createIdentity(
+          null, [go.ipfs.kubo.core.coreiface.options.key.type('ed25519')]));
+  go.ipfs.kubo.config.profiles['test']!.transform(cfg);
+  go.ipfs.kubo.repo.fsrepo.init(repoPath, cfg);
   return repoPath;
 }
 
@@ -61,25 +62,28 @@ String newRepo(Directory tmp, String name) {
 /// be injected). Returns how many failed.
 Future<int> localChecks(Log log) async {
   final tmp = Directory.systemTemp.createTempSync('p2p_ffi_chk_');
-  final n = await goKubo.core.newNode(
+  final n = await go.ipfs.kubo.core.newNode(
       ctx,
       KuboCoreNodeBuildCfg(
-          repo: goKubo.repo.fsrepo.open(newRepo(tmp, 'offline'))));
-  final api = goKubo.core.coreapi.newCoreApi(n);
+          repo: go.ipfs.kubo.repo.fsrepo.open(newRepo(tmp, 'offline'))));
+  final api = go.ipfs.kubo.core.coreapi.newCoreApi(n);
   try {
     return await runAll({
       'add/get, options and pins + GC': () async {
         final p = await api.unixfs().add(
             ctx,
-            goBoxo.files.newBytesFile(utf8.encode('hello from Android')),
-            [goKubo.core.coreiface.options.unixfs.pin(true, '')]);
-        final got = goBoxo.files.toFile(await api.unixfs().get(ctx, p));
-        check(utf8.decode(goIo.readAll(got)) == 'hello from Android',
+            go.ipfs.boxo.files.newBytesFile(utf8.encode('hello from Android')),
+            [go.ipfs.kubo.core.coreiface.options.unixfs.pin(true, '')]);
+        final got = go.ipfs.boxo.files.toFile(await api.unixfs().get(ctx, p));
+        check(utf8.decode(go.io.readAll(got)) == 'hello from Android',
             'get == add');
-        final loose = await api.unixfs().add(ctx,
-            goBoxo.files.newBytesFile(utf8.encode('loose ${DateTime.now()}')));
-        final removed =
-            await goKubo.core.corerepo.garbageCollectAsync(n, ctx).toList();
+        final loose = await api.unixfs().add(
+            ctx,
+            go.ipfs.boxo.files
+                .newBytesFile(utf8.encode('loose ${DateTime.now()}')));
+        final removed = await go.ipfs.kubo.core.corerepo
+            .garbageCollectAsync(n, ctx)
+            .toList();
         check(removed.isNotEmpty, 'GC removed something');
         await expectThrows(api.block().stat(ctx, loose), 'loose block is gone');
         check((await api.block().stat(ctx, p)).size > 0, 'pinned one stayed');
@@ -88,9 +92,10 @@ Future<int> localChecks(Log log) async {
         final data = Uint8List.fromList(List.generate(2 << 20, (i) => i * 7));
         final events = StreamController<KuboCoreCoreifaceAddEvent>();
         final got = events.stream.toList();
-        final p = await api.unixfs().add(ctx, goBoxo.files.newBytesFile(data), [
-          goKubo.core.coreiface.options.unixfs.events(events.sink),
-          goKubo.core.coreiface.options.unixfs.progress(true)
+        final p =
+            await api.unixfs().add(ctx, go.ipfs.boxo.files.newBytesFile(data), [
+          go.ipfs.kubo.core.coreiface.options.unixfs.events(events.sink),
+          go.ipfs.kubo.core.coreiface.options.unixfs.progress(true)
         ]);
         final list = await got;
         check(
@@ -105,68 +110,71 @@ Future<int> localChecks(Log log) async {
       'IPNS, keys and dag put/get': () async {
         final p = await api.unixfs().add(
             ctx,
-            goBoxo.files.newBytesFile(utf8.encode('ipns ${DateTime.now()}')),
-            [goKubo.core.coreiface.options.unixfs.pin(true, '')]);
-        final name = await api.name().publish(
-            ctx, p, [goKubo.core.coreiface.options.name.allowOffline(true)]);
+            go.ipfs.boxo.files
+                .newBytesFile(utf8.encode('ipns ${DateTime.now()}')),
+            [go.ipfs.kubo.core.coreiface.options.unixfs.pin(true, '')]);
+        final name = await api.name().publish(ctx, p,
+            [go.ipfs.kubo.core.coreiface.options.name.allowOffline(true)]);
         final back = await api.name().resolve(ctx, '/ipns/$name',
-            [goKubo.core.coreiface.options.name.cache(false)]);
+            [go.ipfs.kubo.core.coreiface.options.name.cache(false)]);
         check(back.value == p.value, 'resolve == publish');
 
         final k = await api.key().generate(ctx, 'k-android',
-            [goKubo.core.coreiface.options.key.type('ed25519')]);
+            [go.ipfs.kubo.core.coreiface.options.key.type('ed25519')]);
         final (_, sig) = await api.key().sign(ctx, k.name, utf8.encode('x'));
         check((await api.key().verify(ctx, k.name, sig, utf8.encode('x'))).$2,
             'signature matches');
         await api.key().remove(ctx, k.name);
 
-        final c = await goKubo.core.commands.dag
+        final c = await go.ipfs.kubo.core.commands.dag
             .dagPut(api, ctx, utf8.encode('{"a": {"b": [1, 2]}}'));
-        final got = jsonDecode(utf8.decode(await goKubo.core.commands.dag
+        final got = jsonDecode(utf8.decode(await go.ipfs.kubo.core.commands.dag
             .dagGet(api, ctx, BoxoPath('/ipfs/$c/a/b'))));
         check('$got' == '[1, 2]', 'dag get /a/b');
       },
       'CAR: export, GC, import back': () async {
         final p = await api.unixfs().add(
             ctx,
-            goBoxo.files.newBytesFile(
+            go.ipfs.boxo.files.newBytesFile(
                 Uint8List.fromList(List.generate(600000, (i) => i))),
-            [goKubo.core.coreiface.options.unixfs.pin(true, '')]);
-        final bytes = await goKubo.core.commands.dag.dagExport(n, ctx, p);
+            [go.ipfs.kubo.core.coreiface.options.unixfs.pin(true, '')]);
+        final bytes = await go.ipfs.kubo.core.commands.dag.dagExport(n, ctx, p);
         await api.pin().rm(ctx, p);
-        await goKubo.core.corerepo.garbageCollect(n, ctx);
+        await go.ipfs.kubo.core.corerepo.garbageCollect(n, ctx);
         await expectThrows(api.block().stat(ctx, p), 'GC took the file');
-        final r = await goKubo.core.commands.dag.dagImport(n, ctx, bytes);
+        final r = await go.ipfs.kubo.core.commands.dag.dagImport(n, ctx, bytes);
         check(r.roots.single.pinErrorMsg.isEmpty, 'import pinned');
         check((await api.pin().isPinned(ctx, p)).$2, 'pinned after import');
       },
       'RPC commands: id and files': () async {
-        final id = await goKubo.core.commands.id(n, ctx, null).single;
+        final id = await go.ipfs.kubo.core.commands.id(n, ctx, null).single;
         check(id.id == (await api.key().self(ctx)).id!.value, 'id == self');
-        await goKubo.core.commands
+        await go.ipfs.kubo.core.commands
             .filesMkdir(n, ctx, '/app/d', parents: true)
             .drain<void>();
-        await goKubo.core.commands
+        await go.ipfs.kubo.core.commands
             .filesWrite(n, ctx, '/app/d/a.txt',
-                goBoxo.files.newBytesFile(utf8.encode('hello files')),
+                go.ipfs.boxo.files.newBytesFile(utf8.encode('hello files')),
                 create: true)
             .drain<void>();
-        final st =
-            await goKubo.core.commands.filesStat(n, ctx, '/app/d/a.txt').single;
+        final st = await go.ipfs.kubo.core.commands
+            .filesStat(n, ctx, '/app/d/a.txt')
+            .single;
         check(st.size == utf8.encode('hello files').length, 'files stat');
-        final ls = await goKubo.core.commands.filesLs(n, ctx, '/app/d').single;
+        final ls =
+            await go.ipfs.kubo.core.commands.filesLs(n, ctx, '/app/d').single;
         check(
             [for (final e in ls.entries) e.name].join() == 'a.txt', 'files ls');
-        final read = await goKubo.core.commands
+        final read = await go.ipfs.kubo.core.commands
             .filesRead(n, ctx, '/app/d/a.txt')
             .toList();
         check(utf8.decode([for (final b in read) ...b]) == 'hello files',
             'files read');
-        await goKubo.core.commands
+        await go.ipfs.kubo.core.commands
             .filesRm(n, ctx, ['/app'], recursive: true)
             .toList();
         await expectThrows(
-            goKubo.core.commands.filesStat(n, ctx, '/app').single,
+            go.ipfs.kubo.core.commands.filesStat(n, ctx, '/app').single,
             'files rm took the directory');
       },
       'two nodes: connect, bitswap, provide/findProviders and pubsub': () =>
@@ -179,26 +187,28 @@ Future<int> localChecks(Log log) async {
           () async {
         final repoPath = newRepo(tmp, 'cycles');
         for (var i = 0; i < 10; i++) {
-          final nn = await goKubo.core.newNode(
+          final nn = await go.ipfs.kubo.core.newNode(
               ctx,
               KuboCoreNodeBuildCfg(
-                  repo: goKubo.repo.fsrepo.open(repoPath),
+                  repo: go.ipfs.kubo.repo.fsrepo.open(repoPath),
                   online: true,
                   routing: i.isEven
-                      ? goKubo.core.node.libp2p.dhtClientOption
-                      : goKubo.core.node.libp2p.nilRouterOption));
+                      ? go.ipfs.kubo.core.node.libp2p.dhtClientOption
+                      : go.ipfs.kubo.core.node.libp2p.nilRouterOption));
           await nn.close();
         }
-        final nn = await goKubo.core.newNode(
-            ctx, KuboCoreNodeBuildCfg(repo: goKubo.repo.fsrepo.open(repoPath)));
+        final nn = await go.ipfs.kubo.core.newNode(
+            ctx,
+            KuboCoreNodeBuildCfg(
+                repo: go.ipfs.kubo.repo.fsrepo.open(repoPath)));
         try {
-          final a = goKubo.core.coreapi.newCoreApi(nn);
+          final a = go.ipfs.kubo.core.coreapi.newCoreApi(nn);
           final p = await a
               .unixfs()
-              .add(ctx, goBoxo.files.newBytesFile(utf8.encode('end')));
+              .add(ctx, go.ipfs.boxo.files.newBytesFile(utf8.encode('end')));
           check(
-              utf8.decode(goIo.readAll(
-                      goBoxo.files.toFile(await a.unixfs().get(ctx, p)))) ==
+              utf8.decode(go.io.readAll(go.ipfs.boxo.files
+                      .toFile(await a.unixfs().get(ctx, p)))) ==
                   'end',
               'add/get after the cycles');
         } finally {
@@ -251,12 +261,13 @@ Future<int> localChecks(Log log) async {
 
         String us(double v) => '${v.toStringAsFixed(1)} µs';
         final getter = bench(() => api.unixfs());
-        final stat = bench(() => goKubo.repo.fsrepo.isInitialized(repoPath));
+        final stat =
+            bench(() => go.ipfs.kubo.repo.fsrepo.isInitialized(repoPath));
         final c0 = ctx;
         final err = bench(() => c0.err());
         final timeout = bench(() {
           final (_, cancel) =
-              goContext.withTimeout(c0, const Duration(seconds: 1));
+              go.context.withTimeout(c0, const Duration(seconds: 1));
           cancel();
         });
         // Noop (function 0): the channel's floor, without kubo
@@ -264,7 +275,7 @@ Future<int> localChecks(Log log) async {
         final noopAsync = await benchAsync(() => $call(0));
         final p = await api
             .unixfs()
-            .add(ctx, goBoxo.files.newBytesFile(utf8.encode('x')));
+            .add(ctx, go.ipfs.boxo.files.newBytesFile(utf8.encode('x')));
         final block = api.block();
         final statAsync = await benchAsync(() => block.stat(ctx, p));
         log('  synchronous (median): api.unixfs() ${us(getter)}; fsrepo.isInitialized '
@@ -283,14 +294,14 @@ Future<int> localChecks(Log log) async {
 Future<void> _twoNodes(Directory tmp) async {
   Future<(KuboCoreIpfsNode, KuboCoreCoreifaceCoreApi)> online(
       String name) async {
-    final nn = await goKubo.core.newNode(
+    final nn = await go.ipfs.kubo.core.newNode(
         ctx,
         KuboCoreNodeBuildCfg(
-            repo: goKubo.repo.fsrepo.open(newRepo(tmp, name)),
+            repo: go.ipfs.kubo.repo.fsrepo.open(newRepo(tmp, name)),
             online: true,
-            routing: goKubo.core.node.libp2p.dhtServerOption,
+            routing: go.ipfs.kubo.core.node.libp2p.dhtServerOption,
             extraOpts: {'pubsub': true}));
-    return (nn, goKubo.core.coreapi.newCoreApi(nn));
+    return (nn, go.ipfs.kubo.core.coreapi.newCoreApi(nn));
   }
 
   final (na, a) = await online('a');
@@ -304,14 +315,16 @@ Future<void> _twoNodes(Directory tmp) async {
 
     final p = await a.unixfs().add(
         ctx,
-        goBoxo.files.newBytesFile(utf8.encode('from A ${DateTime.now()}')),
-        [goKubo.core.coreiface.options.unixfs.pin(true, '')]);
-    final (c, cancel) = goContext.withTimeout(ctx, const Duration(seconds: 30));
+        go.ipfs.boxo.files
+            .newBytesFile(utf8.encode('from A ${DateTime.now()}')),
+        [go.ipfs.kubo.core.coreiface.options.unixfs.pin(true, '')]);
+    final (c, cancel) =
+        go.context.withTimeout(ctx, const Duration(seconds: 30));
     try {
       check(
           utf8
-              .decode(
-                  goIo.readAll(goBoxo.files.toFile(await b.unixfs().get(c, p))))
+              .decode(go.io.readAll(
+                  go.ipfs.boxo.files.toFile(await b.unixfs().get(c, p))))
               .startsWith('from A'),
           'B read over bitswap');
     } finally {
@@ -323,8 +336,9 @@ Future<void> _twoNodes(Directory tmp) async {
     final deadline = DateTime.now().add(const Duration(seconds: 30));
     while (
         !provs.any((i) => i.id == idA) && DateTime.now().isBefore(deadline)) {
-      provs = await b.routing().findProviders(ctx, p,
-          [goKubo.core.coreiface.options.routing.numProviders(5)]).toList();
+      provs = await b.routing().findProviders(ctx, p, [
+        go.ipfs.kubo.core.coreiface.options.routing.numProviders(5)
+      ]).toList();
       if (provs.isEmpty) {
         await Future<void>.delayed(const Duration(milliseconds: 300));
       }
@@ -334,14 +348,14 @@ Future<void> _twoNodes(Directory tmp) async {
     const topic = 'ipfs-ffi-android';
     final sub = await a.pubSub().subscribe(ctx, topic);
     while (!(await b.pubSub().peers(
-                ctx, [goKubo.core.coreiface.options.pubSub.topic(topic)]))
+                ctx, [go.ipfs.kubo.core.coreiface.options.pubSub.topic(topic)]))
             .contains(idA) &&
         DateTime.now().isBefore(deadline.add(const Duration(seconds: 30)))) {
       await Future<void>.delayed(const Duration(milliseconds: 200));
     }
     await b.pubSub().publish(ctx, topic, utf8.encode('hi from B'));
     final (c2, cancel2) =
-        goContext.withTimeout(ctx, const Duration(seconds: 30));
+        go.context.withTimeout(ctx, const Duration(seconds: 30));
     try {
       check(utf8.decode((await sub.next(c2)).data!) == 'hi from B',
           "A got B's message");
@@ -392,7 +406,7 @@ Future<int> networkChecks(KuboCoreCoreifaceCoreApi api, Log log) => runAll({
       'DNSLink + a block from the network (/ipns/ipfs.tech, up to 60 s)':
           () async {
         final (c, cancel) =
-            goContext.withTimeout(ctx, const Duration(seconds: 60));
+            go.context.withTimeout(ctx, const Duration(seconds: 60));
         try {
           final sw = Stopwatch()..start();
           final p = await api.name().resolve(c, '/ipns/ipfs.tech');

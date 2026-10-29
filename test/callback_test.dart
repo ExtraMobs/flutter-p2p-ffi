@@ -85,11 +85,14 @@ void main() {
   });
 
   test('index: forEach e getAll', () async {
-    final idx = goCar.v2.index.new$(goMulticodec.carMultihashIndexSorted);
+    final idx = go.ipld.car.v2.index
+        .new$(go.multiformats.multicodec.carMultihashIndexSorted);
     idx.load([
       for (var i = 0; i < 5; i++)
         CarV2IndexRecord(
-            cid: goCid.newPrefixV1(0x55, 0x12).sum(Uint8List.fromList([i])),
+            cid: go.ipfs.cid
+                .newPrefixV1(0x55, 0x12)
+                .sum(Uint8List.fromList([i])),
             offset: 100 + i)
     ]);
     final it = idx.asCarV2IndexIterableIndex()!;
@@ -103,7 +106,7 @@ void main() {
     });
     expect(offsets..sort(), [100, 101, 102, 103, 104]);
 
-    final c = goCid.newPrefixV1(0x55, 0x12).sum(Uint8List.fromList([3]));
+    final c = go.ipfs.cid.newPrefixV1(0x55, 0x12).sum(Uint8List.fromList([3]));
     final got = <int>[];
     await idx.getAll(c, (offset) {
       got.add(offset);
@@ -172,19 +175,22 @@ void main() {
   // call: every visit runs before the Future completes, with the call's
   // objects in use.
   test('retained by default: merkledag.walk visits during the call', () async {
-    final ctx = goContext.background();
+    final ctx = go.context.background();
     final bs = BoxoBlockstore(DatastoreMapDatastore());
-    final dag = goBoxo.ipld.merkledag.newDagService(
-        goBoxo.blockservice.new$(bs, goBoxo.exchange.offline.exchange(bs)));
-    final leaf = goBoxo.ipld.merkledag.nodeWithData(Uint8List.fromList([1]));
-    final root = goBoxo.ipld.merkledag.nodeWithData(Uint8List.fromList([2]))
+    final dag = go.ipfs.boxo.ipld.merkledag.newDagService(go
+        .ipfs.boxo.blockservice
+        .new$(bs, go.ipfs.boxo.exchange.offline.exchange(bs)));
+    final leaf =
+        go.ipfs.boxo.ipld.merkledag.nodeWithData(Uint8List.fromList([1]));
+    final root = go.ipfs.boxo.ipld.merkledag
+        .nodeWithData(Uint8List.fromList([2]))
       ..addNodeLink('a', leaf);
     await dag.add(ctx, leaf);
     await dag.add(ctx, root);
-    final getLinks = goBoxo.ipld.merkledag.getLinksDirect(dag);
+    final getLinks = go.ipfs.boxo.ipld.merkledag.getLinksDirect(dag);
     final seen = <Cid>[];
     var busy = false;
-    await goBoxo.ipld.merkledag.walk(ctx, getLinks, root.cid(), (c) {
+    await go.ipfs.boxo.ipld.merkledag.walk(ctx, getLinks, root.cid(), (c) {
       seen.add(c);
       busy = getLinks.isBusy;
       return true;

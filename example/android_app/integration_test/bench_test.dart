@@ -52,13 +52,14 @@ void main() {
     final lines = <String>[];
     for (final spin in [20000, 200000]) {
       await P2pService.start(spin: spin);
-      final ctx = goContext.background();
+      final ctx = go.context.background();
       lines.add('--- spin $spin');
       lines.add('Noop:          ${pct(measure(() => $callSync(0)))}');
       lines.add(
           'Echo 8 B:      ${pct(measure(() => $callSync(2, $W()..i64(1))))}');
       lines.add('ctx.err():     ${pct(measure(() => ctx.err()))}');
-      lines.add('background():  ${pct(measure(() => goContext.background()))}');
+      lines
+          .add('background():  ${pct(measure(() => go.context.background()))}');
       for (final gap in [20, 50, 100]) {
         lines.add('Noop + $gap µs of Dart: '
             '${pct(measure(() => $callSync(0), gapUs: gap, n: 1000))}');
@@ -76,13 +77,15 @@ void main() {
     for (final spin in [20000, 200000]) {
       await P2pService.start(spin: spin);
       setupService(repo); // plugins (once per host) and the app's repo
-      final ctx = goContext.background();
+      final ctx = go.context.background();
       for (final online in [false, true]) {
         final n = online
             ? await startNode(ctx, repo)
-            : await goKubo.core.newNode(
-                ctx, KuboCoreNodeBuildCfg(repo: goKubo.repo.fsrepo.open(repo)));
-        final api = goKubo.core.coreapi.newCoreApi(n);
+            : await go.ipfs.kubo.core.newNode(
+                ctx,
+                KuboCoreNodeBuildCfg(
+                    repo: go.ipfs.kubo.repo.fsrepo.open(repo)));
+        final api = go.ipfs.kubo.core.coreapi.newCoreApi(n);
         if (online) await Future<void>.delayed(const Duration(seconds: 20));
         final peers = online ? (await api.swarm().peers(ctx)).length : 0;
         lines.add(

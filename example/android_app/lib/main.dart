@@ -28,14 +28,14 @@ String get appDataDir => Directory.systemTemp.parent.path;
 KuboCoreNodeLibp2pRoutingOption routingFor(KuboConfig cfg) {
   final type = (cfg.json['Routing'] as Map?)?['Type'] as String? ?? '';
   return switch (type) {
-    'autoclient' => goKubo.core.node.libp2p
-        .constructDefaultRouting(cfg, goKubo.core.node.libp2p.dhtClientOption),
-    'dht' => goKubo.core.node.libp2p.dhtOption,
-    'dhtclient' => goKubo.core.node.libp2p.dhtClientOption,
-    'dhtserver' => goKubo.core.node.libp2p.dhtServerOption,
-    'none' => goKubo.core.node.libp2p.nilRouterOption,
-    _ => goKubo.core.node.libp2p
-        .constructDefaultRouting(cfg, goKubo.core.node.libp2p.dhtOption),
+    'autoclient' => go.ipfs.kubo.core.node.libp2p.constructDefaultRouting(
+        cfg, go.ipfs.kubo.core.node.libp2p.dhtClientOption),
+    'dht' => go.ipfs.kubo.core.node.libp2p.dhtOption,
+    'dhtclient' => go.ipfs.kubo.core.node.libp2p.dhtClientOption,
+    'dhtserver' => go.ipfs.kubo.core.node.libp2p.dhtServerOption,
+    'none' => go.ipfs.kubo.core.node.libp2p.nilRouterOption,
+    _ => go.ipfs.kubo.core.node.libp2p
+        .constructDefaultRouting(cfg, go.ipfs.kubo.core.node.libp2p.dhtOption),
   };
 }
 
@@ -60,14 +60,15 @@ void setupService(String repoPath) {
   KuboPluginLoader('')
     ..initialize()
     ..inject();
-  if (!goKubo.repo.fsrepo.isInitialized(repoPath)) {
-    final cfg = goKubo.config.initWithIdentity(goKubo.config.createIdentity(
-        null, [goKubo.core.coreiface.options.key.type('ed25519')]));
+  if (!go.ipfs.kubo.repo.fsrepo.isInitialized(repoPath)) {
+    final cfg = go.ipfs.kubo.config.initWithIdentity(go.ipfs.kubo.config
+        .createIdentity(
+            null, [go.ipfs.kubo.core.coreiface.options.key.type('ed25519')]));
     final defaults = ((cfg.json['Addresses'] as Map)['Swarm'] as List)
         .cast<String>()
         .toList();
     for (final p in ['randomports', 'lowpower']) {
-      goKubo.config.profiles[p]!.transform(cfg);
+      go.ipfs.kubo.config.profiles[p]!.transform(cfg);
     }
     // randomports replaces the default list with TCP only; without UDP there is
     // no QUIC nor hole punching (DCUtR). Put kubo's default list back (TCP,
@@ -85,14 +86,14 @@ void setupService(String repoPath) {
       ...?cfg.json['DNS'] as Map<String, Object?>?,
       'Resolvers': {'.': 'https://cloudflare-dns.com/dns-query'},
     };
-    goKubo.repo.fsrepo.init(repoPath, cfg);
+    go.ipfs.kubo.repo.fsrepo.init(repoPath, cfg);
   }
 }
 
 /// Starts the online node over [repoPath], with pubsub on.
 Future<KuboCoreIpfsNode> startNode(Context ctx, String repoPath) {
-  final repo = goKubo.repo.fsrepo.open(repoPath);
-  return goKubo.core.newNode(
+  final repo = go.ipfs.kubo.repo.fsrepo.open(repoPath);
+  return go.ipfs.kubo.core.newNode(
       ctx,
       KuboCoreNodeBuildCfg(
           repo: repo,
@@ -153,7 +154,7 @@ class NodePage extends StatefulWidget {
 class _NodePageState extends State<NodePage> {
   /// A context of the current service (the handles of a previous p2p_host are
   /// not valid after a restart).
-  Context get ctx => goContext.background();
+  Context get ctx => go.context.background();
   late final String _crashLog = '$appDataDir/crash.log';
   late final String repoPath = '$appDataDir/ipfs';
   late final AppLifecycleListener _life;
@@ -244,7 +245,7 @@ class _NodePageState extends State<NodePage> {
     _set(() => _status = 'starting the node...');
     final sw = Stopwatch()..start();
     final n = await startNode(ctx, repoPath);
-    final api = goKubo.core.coreapi.newCoreApi(n);
+    final api = go.ipfs.kubo.core.coreapi.newCoreApi(n);
     _node = n;
     _api = api;
     _peerId = (await api.key().self(ctx)).id.toString();

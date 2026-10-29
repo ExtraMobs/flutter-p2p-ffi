@@ -6,7 +6,7 @@ import 'package:p2p_ffi/src/go.dart' show GoOs;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/io/fs.dart' as $fs;
-import 'package:p2p_ffi/go/ipfs_cmds.dart' as $ipfs_cmds;
+import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
 
 /// Go: `os.File` (handle).
 class OsFile extends $crypto.CryptoPrivateKey
@@ -137,7 +137,7 @@ class OsSyscallError extends GolangException {
   String toString() => 'os.SyscallError: $message';
 }
 
-/// Go: the package-level members of `os` (`goOs`).
+/// Go: the package-level members of `os` (`go.os`).
 extension GoOsApi on GoOs {
   /// Go: `func os.Stat(name string) (os.FileInfo, error)`.
   $fs.IoFsFileInfo stat(String name) {

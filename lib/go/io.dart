@@ -6,40 +6,43 @@ import 'dart:typed_data';
 
 import 'package:p2p_ffi/src/go.dart' show GoIo;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/boxo/bitswap.dart' as $bitswap;
-import 'package:p2p_ffi/go/boxo/blockservice.dart' as $blockservice;
-import 'package:p2p_ffi/go/boxo/exchange.dart' as $exchange;
-import 'package:p2p_ffi/go/boxo/files.dart' as $files;
-import 'package:p2p_ffi/go/boxo/gateway.dart' as $gateway;
-import 'package:p2p_ffi/go/boxo/ipld/unixfs/io.dart' as $io;
-import 'package:p2p_ffi/go/boxo/mfs.dart' as $mfs;
-import 'package:p2p_ffi/go/car/v2.dart' as $v2;
-import 'package:p2p_ffi/go/car/v2/blockstore.dart' as $blockstore;
-import 'package:p2p_ffi/go/datastore.dart' as $datastore;
-import 'package:p2p_ffi/go/datastore/sync.dart' as $sync;
-import 'package:p2p_ffi/go/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/kubo/core.dart' as $core;
-import 'package:p2p_ffi/go/kubo/core/coreiface.dart' as $coreiface;
-import 'package:p2p_ffi/go/kubo/core/node.dart' as $node;
-import 'package:p2p_ffi/go/kubo/plugin/loader.dart' as $loader;
-import 'package:p2p_ffi/go/kubo/repo.dart' as $repo;
-import 'package:p2p_ffi/go/kubo/repo/fsrepo.dart' as $fsrepo;
-import 'package:p2p_ffi/go/libp2p/core/connmgr.dart' as $connmgr;
-import 'package:p2p_ffi/go/libp2p/core/event.dart' as $event;
-import 'package:p2p_ffi/go/libp2p/core/network.dart' as $network;
-import 'package:p2p_ffi/go/libp2p/core/peerstore.dart' as $peerstore;
-import 'package:p2p_ffi/go/libp2p/core/transport.dart' as $transport;
-import 'package:p2p_ffi/go/libp2p/p2p/discovery/mdns.dart' as $mdns;
-import 'package:p2p_ffi/go/libp2p/p2p/net/swarm.dart' as $swarm;
-import 'package:p2p_ffi/go/libp2p/p2p/protocol/circuitv2/relay.dart' as $relay;
-import 'package:p2p_ffi/go/libp2p/p2p/protocol/holepunch.dart' as $holepunch;
-import 'package:p2p_ffi/go/libp2p/p2p/transport/quicreuse.dart' as $quicreuse;
-import 'package:p2p_ffi/go/libp2p_kad_dht.dart' as $libp2p_kad_dht;
-import 'package:p2p_ffi/go/libp2p_kad_dht/records.dart' as $records;
-import 'package:p2p_ffi/go/libp2p_kbucket.dart' as $libp2p_kbucket;
-import 'package:p2p_ffi/go/libp2p_pubsub.dart' as $libp2p_pubsub;
+import 'package:p2p_ffi/go/ipfs/boxo/bitswap.dart' as $bitswap;
+import 'package:p2p_ffi/go/ipfs/boxo/blockservice.dart' as $blockservice;
+import 'package:p2p_ffi/go/ipfs/boxo/exchange.dart' as $exchange;
+import 'package:p2p_ffi/go/ipfs/boxo/files.dart' as $files;
+import 'package:p2p_ffi/go/ipfs/boxo/gateway.dart' as $gateway;
+import 'package:p2p_ffi/go/ipfs/boxo/ipld/unixfs/io.dart' as $io;
+import 'package:p2p_ffi/go/ipfs/boxo/mfs.dart' as $mfs;
+import 'package:p2p_ffi/go/ipfs/datastore.dart' as $datastore;
+import 'package:p2p_ffi/go/ipfs/datastore/sync.dart' as $sync;
+import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
+import 'package:p2p_ffi/go/ipfs/kubo/core.dart' as $core;
+import 'package:p2p_ffi/go/ipfs/kubo/core/coreiface.dart' as $coreiface;
+import 'package:p2p_ffi/go/ipfs/kubo/core/node.dart' as $node;
+import 'package:p2p_ffi/go/ipfs/kubo/plugin/loader.dart' as $loader;
+import 'package:p2p_ffi/go/ipfs/kubo/repo.dart' as $repo;
+import 'package:p2p_ffi/go/ipfs/kubo/repo/fsrepo.dart' as $fsrepo;
+import 'package:p2p_ffi/go/ipld/car/v2.dart' as $v2;
+import 'package:p2p_ffi/go/ipld/car/v2/blockstore.dart' as $blockstore;
+import 'package:p2p_ffi/go/libp2p/libp2p/core/connmgr.dart' as $connmgr;
+import 'package:p2p_ffi/go/libp2p/libp2p/core/event.dart' as $event;
+import 'package:p2p_ffi/go/libp2p/libp2p/core/network.dart' as $network;
+import 'package:p2p_ffi/go/libp2p/libp2p/core/peerstore.dart' as $peerstore;
+import 'package:p2p_ffi/go/libp2p/libp2p/core/transport.dart' as $transport;
+import 'package:p2p_ffi/go/libp2p/libp2p/p2p/discovery/mdns.dart' as $mdns;
+import 'package:p2p_ffi/go/libp2p/libp2p/p2p/net/swarm.dart' as $swarm;
+import 'package:p2p_ffi/go/libp2p/libp2p/p2p/protocol/circuitv2/relay.dart'
+    as $relay;
+import 'package:p2p_ffi/go/libp2p/libp2p/p2p/protocol/holepunch.dart'
+    as $holepunch;
+import 'package:p2p_ffi/go/libp2p/libp2p/p2p/transport/quicreuse.dart'
+    as $quicreuse;
+import 'package:p2p_ffi/go/libp2p/libp2p_kad_dht.dart' as $libp2p_kad_dht;
+import 'package:p2p_ffi/go/libp2p/libp2p_kad_dht/records.dart' as $records;
+import 'package:p2p_ffi/go/libp2p/libp2p_kbucket.dart' as $libp2p_kbucket;
+import 'package:p2p_ffi/go/libp2p/libp2p_pubsub.dart' as $libp2p_pubsub;
+import 'package:p2p_ffi/go/libp2p/yamux/v5.dart' as $v5;
 import 'package:p2p_ffi/go/os.dart' as $os;
-import 'package:p2p_ffi/go/yamux/v5.dart' as $v5;
 
 /// Go: `io.Closer` (handle).
 class IoCloser extends GoHandle with IoCloser$ {
@@ -522,7 +525,7 @@ class IoErrShortWrite extends GolangException {
   String toString() => 'io.ErrShortWrite: $message';
 }
 
-/// Go: the package-level members of `io` (`goIo`).
+/// Go: the package-level members of `io` (`go.io`).
 extension GoIoApi on GoIo {
   /// Go: `func io.ReadAll(r io.Reader) ([]byte, error)`.
   Uint8List readAll(Object r) {

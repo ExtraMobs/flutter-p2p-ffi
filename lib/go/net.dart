@@ -6,7 +6,7 @@ import 'dart:typed_data';
 
 import 'package:p2p_ffi/src/go.dart' show GoNet;
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/libp2p/core/sec.dart' as $sec;
+import 'package:p2p_ffi/go/libp2p/libp2p/core/sec.dart' as $sec;
 
 /// Go: `net.Addr` (values read from the methods; built in Dart, it
 /// crosses as a Go value that returns them).
@@ -204,7 +204,7 @@ class NetUnknownNetworkError extends GolangException {
   String toString() => 'net.UnknownNetworkError: $message';
 }
 
-/// Go: the package-level members of `net` (`goNet`).
+/// Go: the package-level members of `net` (`go.net`).
 extension GoNetApi on GoNet {
   /// Go: `const net.FlagBroadcast net.Flags`.
   int get flagBroadcast => 2;

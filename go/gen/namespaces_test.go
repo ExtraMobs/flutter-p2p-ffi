@@ -10,22 +10,41 @@ import (
 
 func TestDartPath(t *testing.T) {
 	for pkg, want := range map[string]string{
-		"github.com/ipfs/boxo/mfs":                           "go/boxo/mfs.dart",
-		"github.com/ipfs/kubo/core/node/libp2p":              "go/kubo/core/node/libp2p.dart",
-		"github.com/ipfs/kubo":                               "go/kubo.dart",
-		"github.com/ipfs/go-cid":                             "go/cid.dart",
-		"github.com/ipfs/go-ipld-format":                     "go/ipld_format.dart",
-		"github.com/ipld/go-car/v2":                          "go/car/v2.dart",
-		"github.com/ipld/go-car/v2/index":                    "go/car/v2/index.dart",
-		"github.com/ipld/go-ipld-prime/linking/cid":          "go/ipld_prime/linking/cid.dart",
-		"github.com/ipld/go-ipld-prime/storage/bsadapter":    "go/ipld_prime/storage/bsadapter.dart",
-		"github.com/libp2p/go-libp2p/core/peer":              "go/libp2p/core/peer.dart",
-		"github.com/libp2p/go-libp2p-kad-dht/provider/stats": "go/libp2p_kad_dht/provider/stats.dart",
+		"github.com/ipfs/boxo/mfs":                           "go/ipfs/boxo/mfs.dart",
+		"github.com/ipfs/kubo/core/node/libp2p":              "go/ipfs/kubo/core/node/libp2p.dart",
+		"github.com/ipfs/kubo":                               "go/ipfs/kubo.dart",
+		"github.com/ipfs/go-cid":                             "go/ipfs/cid.dart",
+		"github.com/ipfs/go-ipld-format":                     "go/ipfs/ipld_format.dart",
+		"github.com/ipld/go-car/v2":                          "go/ipld/car/v2.dart",
+		"github.com/ipld/go-car/v2/index":                    "go/ipld/car/v2/index.dart",
+		"github.com/ipld/go-ipld-prime/linking/cid":          "go/ipld/ipld_prime/linking/cid.dart",
+		"github.com/ipld/go-ipld-prime/storage/bsadapter":    "go/ipld/ipld_prime/storage/bsadapter.dart",
+		"github.com/libp2p/go-libp2p/core/peer":              "go/libp2p/libp2p/core/peer.dart",
+		"github.com/libp2p/go-libp2p-kad-dht/provider/stats": "go/libp2p/libp2p_kad_dht/provider/stats.dart",
 		"context":       "go/context.dart",
 		"runtime/debug": "go/runtime/debug.dart",
 	} {
 		if got := dartPath(pkg); got != want {
 			t.Errorf("dartPath(%s) = %s, quero %s", pkg, got, want)
+		}
+	}
+}
+
+// The namespace keeps the author; the class names do not.
+func TestNamespaceAndClass(t *testing.T) {
+	for _, c := range []struct{ pkg, goName, ns, class string }{
+		{"github.com/ipfs/boxo/mfs", "Root", "go.ipfs.boxo.mfs", "BoxoMfsRoot"},
+		{"github.com/ipfs/go-cid", "Cid", "go.ipfs.cid", "Cid"},
+		{"github.com/libp2p/go-libp2p/core/peer", "ID", "go.libp2p.libp2p.core.peer", "Libp2pCorePeerId"},
+		{"github.com/ipld/go-ipld-prime/storage/bsadapter", "Adapter", "go.ipld.ipldPrime.storage.bsadapter", "IpldPrimeStorageBsadapterAdapter"},
+		{"context", "Context", "go.context", "Context"},
+	} {
+		path := dartPath(c.pkg)
+		if got := nsPath(path); got != c.ns {
+			t.Errorf("nsPath(%s) = %s, quero %s", path, got, c.ns)
+		}
+		if got := qualType(path, c.goName); got != c.class {
+			t.Errorf("qualType(%s, %s) = %s, quero %s", path, c.goName, got, c.class)
 		}
 	}
 }

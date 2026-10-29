@@ -31,7 +31,7 @@ class ReflectValueError extends GolangException {
   String toString() => 'reflect.ValueError: $message';
 }
 
-/// Go: the package-level members of `reflect` (`goReflect`).
+/// Go: the package-level members of `reflect` (`go.reflect`).
 extension GoReflectApi on GoReflect {
   /// Go: `const reflect.Array reflect.Kind`.
   int get array => 17;

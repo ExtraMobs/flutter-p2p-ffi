@@ -5,7 +5,7 @@ library;
 import 'package:p2p_ffi/src/go.dart' show GoNetHttp;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/ipfs_cmds.dart' as $ipfs_cmds;
+import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
 
 /// Go: `http.Client`.
 ///
@@ -248,7 +248,7 @@ class NetHttpProtocolError extends GolangException {
   String toString() => 'http.ProtocolError: $message';
 }
 
-/// Go: the package-level members of `net/http` (`goNet.http`).
+/// Go: the package-level members of `net/http` (`go.net.http`).
 extension GoNetHttpApi on GoNetHttp {
   /// Go: `const http.DefaultMaxHeaderBytes untyped int`.
   int get defaultMaxHeaderBytes => 1048576;

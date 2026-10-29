@@ -6,376 +6,378 @@
 library;
 
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/block_format.dart' as $block_format;
-import 'package:p2p_ffi/go/boxo/blockstore.dart' as $blockstore;
-import 'package:p2p_ffi/go/boxo/bootstrap.dart' as $bootstrap;
-import 'package:p2p_ffi/go/boxo/chunker.dart' as $chunker;
-import 'package:p2p_ffi/go/boxo/files.dart' as $files;
-import 'package:p2p_ffi/go/boxo/filestore.dart' as $filestore;
-import 'package:p2p_ffi/go/boxo/gateway.dart' as $gateway;
-import 'package:p2p_ffi/go/boxo/ipld/merkledag.dart' as $merkledag;
-import 'package:p2p_ffi/go/boxo/ipld/unixfs.dart' as $unixfs;
-import 'package:p2p_ffi/go/boxo/ipld/unixfs/io.dart' as $io;
-import 'package:p2p_ffi/go/boxo/ipns.dart' as $ipns;
-import 'package:p2p_ffi/go/boxo/keystore.dart' as $keystore;
-import 'package:p2p_ffi/go/boxo/mfs.dart' as $mfs;
-import 'package:p2p_ffi/go/boxo/namesys.dart' as $namesys;
-import 'package:p2p_ffi/go/boxo/path.dart' as $path;
-import 'package:p2p_ffi/go/boxo/path/resolver.dart' as $resolver;
-import 'package:p2p_ffi/go/boxo/verifcid.dart' as $verifcid;
 import 'package:p2p_ffi/go/bytes.dart' as $bytes;
-import 'package:p2p_ffi/go/car/v2.dart' as $v2;
-import 'package:p2p_ffi/go/car/v2/storage.dart' as $storage;
-import 'package:p2p_ffi/go/cid.dart' as $cid;
-import 'package:p2p_ffi/go/client_golang/prometheus.dart' as $prometheus;
-import 'package:p2p_ffi/go/codec_dagpb.dart' as $codec_dagpb;
 import 'package:p2p_ffi/go/crypto/x509.dart' as $x509;
-import 'package:p2p_ffi/go/datastore.dart' as $datastore;
+import 'package:p2p_ffi/go/decred/dcrd/dcrec/secp256k1/v4.dart' as $v4;
 import 'package:p2p_ffi/go/dig.dart' as $dig;
-import 'package:p2p_ffi/go/io.dart' as $io2;
+import 'package:p2p_ffi/go/io.dart' as $io;
 import 'package:p2p_ffi/go/io/fs.dart' as $fs;
-import 'package:p2p_ffi/go/ipfs_cmds.dart' as $ipfs_cmds;
-import 'package:p2p_ffi/go/ipld_format.dart' as $ipld_format;
-import 'package:p2p_ffi/go/ipld_prime/datamodel.dart' as $datamodel;
-import 'package:p2p_ffi/go/ipld_prime/linking.dart' as $linking;
-import 'package:p2p_ffi/go/ipld_prime/traversal.dart' as $traversal;
-import 'package:p2p_ffi/go/kubo/config.dart' as $config;
-import 'package:p2p_ffi/go/kubo/core/commands.dart' as $commands;
-import 'package:p2p_ffi/go/kubo/core/commands/object.dart' as $object;
-import 'package:p2p_ffi/go/kubo/core/coreiface.dart' as $coreiface;
-import 'package:p2p_ffi/go/kubo/core/corerepo.dart' as $corerepo;
-import 'package:p2p_ffi/go/kubo/core/node/libp2p.dart' as $libp2p;
-import 'package:p2p_ffi/go/kubo/gc.dart' as $gc;
-import 'package:p2p_ffi/go/kubo/repo.dart' as $repo;
-import 'package:p2p_ffi/go/kubo/repo/fsrepo.dart' as $fsrepo;
-import 'package:p2p_ffi/go/kubo/routing.dart' as $routing;
-import 'package:p2p_ffi/go/libp2p/core/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/libp2p/core/network.dart' as $network;
-import 'package:p2p_ffi/go/libp2p/core/peer.dart' as $peer;
-import 'package:p2p_ffi/go/libp2p/core/peerstore.dart' as $peerstore;
-import 'package:p2p_ffi/go/libp2p/core/record.dart' as $record;
-import 'package:p2p_ffi/go/libp2p/core/routing.dart' as $routing2;
-import 'package:p2p_ffi/go/libp2p/core/sec.dart' as $sec;
-import 'package:p2p_ffi/go/libp2p/core/transport.dart' as $transport;
-import 'package:p2p_ffi/go/libp2p/p2p/host/resource_manager.dart'
+import 'package:p2p_ffi/go/ipfs/block_format.dart' as $block_format;
+import 'package:p2p_ffi/go/ipfs/boxo/blockstore.dart' as $blockstore;
+import 'package:p2p_ffi/go/ipfs/boxo/bootstrap.dart' as $bootstrap;
+import 'package:p2p_ffi/go/ipfs/boxo/chunker.dart' as $chunker;
+import 'package:p2p_ffi/go/ipfs/boxo/files.dart' as $files;
+import 'package:p2p_ffi/go/ipfs/boxo/filestore.dart' as $filestore;
+import 'package:p2p_ffi/go/ipfs/boxo/gateway.dart' as $gateway;
+import 'package:p2p_ffi/go/ipfs/boxo/ipld/merkledag.dart' as $merkledag;
+import 'package:p2p_ffi/go/ipfs/boxo/ipld/unixfs.dart' as $unixfs;
+import 'package:p2p_ffi/go/ipfs/boxo/ipld/unixfs/io.dart' as $io2;
+import 'package:p2p_ffi/go/ipfs/boxo/ipns.dart' as $ipns;
+import 'package:p2p_ffi/go/ipfs/boxo/keystore.dart' as $keystore;
+import 'package:p2p_ffi/go/ipfs/boxo/mfs.dart' as $mfs;
+import 'package:p2p_ffi/go/ipfs/boxo/namesys.dart' as $namesys;
+import 'package:p2p_ffi/go/ipfs/boxo/path.dart' as $path;
+import 'package:p2p_ffi/go/ipfs/boxo/path/resolver.dart' as $resolver;
+import 'package:p2p_ffi/go/ipfs/boxo/verifcid.dart' as $verifcid;
+import 'package:p2p_ffi/go/ipfs/cid.dart' as $cid;
+import 'package:p2p_ffi/go/ipfs/datastore.dart' as $datastore;
+import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
+import 'package:p2p_ffi/go/ipfs/ipld_format.dart' as $ipld_format;
+import 'package:p2p_ffi/go/ipfs/kubo/config.dart' as $config;
+import 'package:p2p_ffi/go/ipfs/kubo/core/commands.dart' as $commands;
+import 'package:p2p_ffi/go/ipfs/kubo/core/commands/object.dart' as $object;
+import 'package:p2p_ffi/go/ipfs/kubo/core/coreiface.dart' as $coreiface;
+import 'package:p2p_ffi/go/ipfs/kubo/core/corerepo.dart' as $corerepo;
+import 'package:p2p_ffi/go/ipfs/kubo/core/node/libp2p.dart' as $libp2p;
+import 'package:p2p_ffi/go/ipfs/kubo/gc.dart' as $gc;
+import 'package:p2p_ffi/go/ipfs/kubo/repo.dart' as $repo;
+import 'package:p2p_ffi/go/ipfs/kubo/repo/fsrepo.dart' as $fsrepo;
+import 'package:p2p_ffi/go/ipfs/kubo/routing.dart' as $routing;
+import 'package:p2p_ffi/go/ipfs/log/v2.dart' as $v2;
+import 'package:p2p_ffi/go/ipld/car/v2.dart' as $v22;
+import 'package:p2p_ffi/go/ipld/car/v2/storage.dart' as $storage;
+import 'package:p2p_ffi/go/ipld/codec_dagpb.dart' as $codec_dagpb;
+import 'package:p2p_ffi/go/ipld/ipld_prime/datamodel.dart' as $datamodel;
+import 'package:p2p_ffi/go/ipld/ipld_prime/linking.dart' as $linking;
+import 'package:p2p_ffi/go/ipld/ipld_prime/traversal.dart' as $traversal;
+import 'package:p2p_ffi/go/libp2p/libp2p/core/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/libp2p/libp2p/core/network.dart' as $network;
+import 'package:p2p_ffi/go/libp2p/libp2p/core/peer.dart' as $peer;
+import 'package:p2p_ffi/go/libp2p/libp2p/core/peerstore.dart' as $peerstore;
+import 'package:p2p_ffi/go/libp2p/libp2p/core/record.dart' as $record;
+import 'package:p2p_ffi/go/libp2p/libp2p/core/routing.dart' as $routing2;
+import 'package:p2p_ffi/go/libp2p/libp2p/core/sec.dart' as $sec;
+import 'package:p2p_ffi/go/libp2p/libp2p/core/transport.dart' as $transport;
+import 'package:p2p_ffi/go/libp2p/libp2p/p2p/host/resource_manager.dart'
     as $resource_manager;
-import 'package:p2p_ffi/go/libp2p/p2p/net/swarm.dart' as $swarm;
-import 'package:p2p_ffi/go/libp2p/p2p/net/upgrader.dart' as $upgrader;
-import 'package:p2p_ffi/go/libp2p/p2p/protocol/holepunch.dart' as $holepunch;
-import 'package:p2p_ffi/go/libp2p/p2p/transport/quic.dart' as $quic;
-import 'package:p2p_ffi/go/libp2p/p2p/transport/webtransport.dart'
+import 'package:p2p_ffi/go/libp2p/libp2p/p2p/net/swarm.dart' as $swarm;
+import 'package:p2p_ffi/go/libp2p/libp2p/p2p/net/upgrader.dart' as $upgrader;
+import 'package:p2p_ffi/go/libp2p/libp2p/p2p/protocol/holepunch.dart'
+    as $holepunch;
+import 'package:p2p_ffi/go/libp2p/libp2p/p2p/transport/quic.dart' as $quic;
+import 'package:p2p_ffi/go/libp2p/libp2p/p2p/transport/webtransport.dart'
     as $webtransport;
-import 'package:p2p_ffi/go/libp2p_kad_dht.dart' as $libp2p_kad_dht;
-import 'package:p2p_ffi/go/libp2p_kad_dht/records.dart' as $records;
-import 'package:p2p_ffi/go/libp2p_kbucket.dart' as $libp2p_kbucket;
-import 'package:p2p_ffi/go/libp2p_pubsub.dart' as $libp2p_pubsub;
-import 'package:p2p_ffi/go/libp2p_record.dart' as $libp2p_record;
-import 'package:p2p_ffi/go/log/v2.dart' as $v22;
+import 'package:p2p_ffi/go/libp2p/libp2p_kad_dht.dart' as $libp2p_kad_dht;
+import 'package:p2p_ffi/go/libp2p/libp2p_kad_dht/records.dart' as $records;
+import 'package:p2p_ffi/go/libp2p/libp2p_kbucket.dart' as $libp2p_kbucket;
+import 'package:p2p_ffi/go/libp2p/libp2p_pubsub.dart' as $libp2p_pubsub;
+import 'package:p2p_ffi/go/libp2p/libp2p_record.dart' as $libp2p_record;
+import 'package:p2p_ffi/go/libp2p/yamux/v5.dart' as $v5;
 import 'package:p2p_ffi/go/math/big.dart' as $big;
 import 'package:p2p_ffi/go/mime/multipart.dart' as $multipart;
-import 'package:p2p_ffi/go/multiaddr.dart' as $multiaddr;
-import 'package:p2p_ffi/go/multibase.dart' as $multibase;
-import 'package:p2p_ffi/go/multihash.dart' as $multihash;
+import 'package:p2p_ffi/go/multiformats/multiaddr.dart' as $multiaddr;
+import 'package:p2p_ffi/go/multiformats/multibase.dart' as $multibase;
+import 'package:p2p_ffi/go/multiformats/multihash.dart' as $multihash;
 import 'package:p2p_ffi/go/net.dart' as $net;
 import 'package:p2p_ffi/go/net/http.dart' as $http;
 import 'package:p2p_ffi/go/net/url.dart' as $url;
 import 'package:p2p_ffi/go/os.dart' as $os;
+import 'package:p2p_ffi/go/prometheus/client_golang/prometheus.dart'
+    as $prometheus;
 import 'package:p2p_ffi/go/reflect.dart' as $reflect;
-import 'package:p2p_ffi/go/secp256k1/v4.dart' as $v4;
-import 'package:p2p_ffi/go/yamux/v5.dart' as $v5;
 
 final $errorTypes = <int, GolangException Function(GolangException base, $R r)>{
-  1: (b, r) => $block_format.BlockFormatErrWrongHash.$(b),
-  2: (b, r) => $blockstore.BoxoBlockstoreErrHashMismatch.$(b),
-  3: (b, r) => $bootstrap.BoxoBootstrapErrNotEnoughBootstrapPeers.$(b),
-  4: (b, r) => $chunker.BoxoChunkerErrRabinMin.$(b),
-  5: (b, r) => $chunker.BoxoChunkerErrSize.$(b),
-  6: (b, r) => $chunker.BoxoChunkerErrSizeMax.$(b),
-  7: (b, r) => $files.BoxoFilesErrInvalidDirectoryEntry.$(b),
-  8: (b, r) => $files.BoxoFilesErrNotDirectory.$(b),
-  9: (b, r) => $files.BoxoFilesErrNotReader.$(b),
-  10: (b, r) => $files.BoxoFilesErrNotSupported.$(b),
-  11: (b, r) => $files.BoxoFilesErrPathExistsOverwrite.$(b),
-  12: (b, r) => $files.BoxoFilesErrUnixFsPathOutsideRoot.$(b),
-  13: (b, r) => $filestore.BoxoFilestoreCorruptReferenceError.$(b, r),
-  14: (b, r) => $filestore.BoxoFilestoreErrFilestoreNotEnabled.$(b),
-  15: (b, r) => $filestore.BoxoFilestoreErrUrlstoreNotEnabled.$(b),
-  16: (b, r) => $gateway.BoxoGatewayErrFetcherUnexpectedEof.$(b),
-  17: (b, r) => $gateway.BoxoGatewayErrInvalidResponse.$(b, r),
-  18: (b, r) => $gateway.BoxoGatewayErrPartialResponse.$(b),
-  19: (b, r) => $gateway.BoxoGatewayErrRetrievalTimeout.$(b),
-  20: (b, r) => $gateway.BoxoGatewayErrTraversalTooDeep.$(b),
-  21: (b, r) => $gateway.BoxoGatewayErrorRetryAfter.$(b, r),
-  22: (b, r) => $gateway.BoxoGatewayErrorStatusCode.$(b, r),
-  23: (b, r) => $merkledag.BoxoIpldMerkledagErrLinkNotFound.$(b),
-  24: (b, r) => $merkledag.BoxoIpldMerkledagErrNotProtobuf.$(b),
-  25: (b, r) => $merkledag.BoxoIpldMerkledagErrNotRawNode.$(b),
-  26: (b, r) => $merkledag.BoxoIpldMerkledagErrReadOnly.$(b),
-  27: (b, r) => $unixfs.BoxoIpldUnixfsErrMalformedFileFormat.$(b),
-  28: (b, r) => $unixfs.BoxoIpldUnixfsErrNotProtoNode.$(b),
-  29: (b, r) => $unixfs.BoxoIpldUnixfsErrUnrecognizedType.$(b),
-  30: (b, r) => $io.BoxoIpldUnixfsIoErrCantReadSymlinks.$(b),
-  31: (b, r) => $io.BoxoIpldUnixfsIoErrInvalidHamtFanout.$(b),
-  32: (b, r) => $io.BoxoIpldUnixfsIoErrIsDir.$(b),
-  33: (b, r) => $io.BoxoIpldUnixfsIoErrNotADir.$(b),
-  34: (b, r) => $io.BoxoIpldUnixfsIoErrSeekNotSupported.$(b),
-  35: (b, r) => $io.BoxoIpldUnixfsIoErrUnkownNodeType.$(b),
-  36: (b, r) => $ipns.BoxoIpnsErrDataMissing.$(b),
-  37: (b, r) => $ipns.BoxoIpnsErrExpiredRecord.$(b),
-  38: (b, r) => $ipns.BoxoIpnsErrInvalidName.$(b),
-  39: (b, r) => $ipns.BoxoIpnsErrInvalidPath.$(b),
-  40: (b, r) => $ipns.BoxoIpnsErrInvalidPublicKey.$(b),
-  41: (b, r) => $ipns.BoxoIpnsErrInvalidRecord.$(b),
-  42: (b, r) => $ipns.BoxoIpnsErrInvalidValidity.$(b),
-  43: (b, r) => $ipns.BoxoIpnsErrMetadataConflict.$(b),
-  44: (b, r) => $ipns.BoxoIpnsErrMetadataEmptyKey.$(b),
-  45: (b, r) => $ipns.BoxoIpnsErrMetadataNotFound.$(b),
-  46: (b, r) => $ipns.BoxoIpnsErrMetadataUnsupportedType.$(b),
-  47: (b, r) => $ipns.BoxoIpnsErrMetadataValueNotSet.$(b),
-  48: (b, r) => $ipns.BoxoIpnsErrPublicKeyMismatch.$(b),
-  49: (b, r) => $ipns.BoxoIpnsErrPublicKeyNotFound.$(b),
-  50: (b, r) => $ipns.BoxoIpnsErrRecordSize.$(b),
-  51: (b, r) => $ipns.BoxoIpnsErrSignature.$(b),
-  52: (b, r) => $ipns.BoxoIpnsErrUnrecognizedValidity.$(b),
-  53: (b, r) => $keystore.BoxoKeystoreErrKeyExists.$(b),
-  54: (b, r) => $keystore.BoxoKeystoreErrNoSuchKey.$(b),
-  55: (b, r) => $mfs.BoxoMfsErrClosed.$(b),
-  56: (b, r) => $mfs.BoxoMfsErrDirExists.$(b),
-  57: (b, r) => $mfs.BoxoMfsErrInvalidChild.$(b),
-  58: (b, r) => $mfs.BoxoMfsErrIsDirectory.$(b),
-  59: (b, r) => $mfs.BoxoMfsErrNotExist.$(b),
-  60: (b, r) => $mfs.BoxoMfsErrNotYetImplemented.$(b),
-  61: (b, r) => $namesys.BoxoNamesysErrInvalidSequence.$(b),
-  62: (b, r) => $namesys.BoxoNamesysErrMissingDnsLinkRecord.$(b),
-  63: (b, r) => $namesys.BoxoNamesysErrMultipleDnsLinkRecords.$(b),
-  64: (b, r) => $namesys.BoxoNamesysErrNoNamesys.$(b),
-  65: (b, r) => $namesys.BoxoNamesysErrResolveFailed.$(b),
-  66: (b, r) => $namesys.BoxoNamesysErrResolveRecursion.$(b),
-  67: (b, r) => $path.BoxoPathErrExpectedImmutable.$(b),
-  68: (b, r) => $path.BoxoPathErrInsufficientComponents.$(b),
-  69: (b, r) => $path.BoxoPathErrInvalidPath.$(b),
-  70: (b, r) => $path.BoxoPathErrUnknownNamespace.$(b),
-  71: (b, r) => $resolver.BoxoPathResolverErrNoLink.$(b, r),
-  72: (b, r) => $verifcid.BoxoVerifcidErrAboveMaximumHashLength.$(b),
-  73: (b, r) => $verifcid.BoxoVerifcidErrBelowMinimumHashLength.$(b),
-  74: (b, r) => $verifcid.BoxoVerifcidErrDigestTooLarge.$(b),
-  75: (b, r) => $verifcid.BoxoVerifcidErrDigestTooSmall.$(b),
-  76: (b, r) => $verifcid.BoxoVerifcidErrPossiblyInsecureHashFunction.$(b),
-  77: (b, r) => $bytes.BytesErrTooLarge.$(b),
-  78: (b, r) => $v2.CarV2ErrAlreadyV1.$(b),
-  79: (b, r) => $v2.CarV2ErrCidTooLarge.$(b, r),
-  80: (b, r) => $v2.CarV2ErrOffsetImpossible.$(b),
-  81: (b, r) => $v2.CarV2ErrSizeMismatch.$(b),
-  82: (b, r) => $storage.CarV2StorageErrClosed.$(b),
-  83: (b, r) => $cid.CidErrInvalidCid.$(b),
-  84: (b, r) => $cid.CidErrInvalidEncoding.$(b),
-  85: (b, r) => $prometheus.ClientGolangPrometheusAlreadyRegisteredError.$(b),
-  86: (b, r) => $prometheus.ClientGolangPrometheusMultiError.$(b),
-  87: (b, r) => $codec_dagpb.CodecDagpbErrIntOverflow.$(b),
-  88: (b, r) => $x509.CryptoX509CertificateInvalidError.$(b, r),
-  89: (b, r) => $x509.CryptoX509ConstraintViolationError.$(b),
-  90: (b, r) => $x509.CryptoX509ErrUnsupportedAlgorithm.$(b),
-  91: (b, r) => $x509.CryptoX509HostnameError.$(b, r),
-  92: (b, r) => $x509.CryptoX509IncorrectPasswordError.$(b),
-  93: (b, r) => $x509.CryptoX509InsecureAlgorithmError.$(b),
-  94: (b, r) => $x509.CryptoX509SystemRootsError.$(b),
-  95: (b, r) => $x509.CryptoX509UnhandledCriticalExtension.$(b),
-  96: (b, r) => $x509.CryptoX509UnknownAuthorityError.$(b),
-  97: (b, r) => $datastore.DatastoreErrBatchUnsupported.$(b),
-  98: (b, r) => $datastore.DatastoreErrNotFound.$(b),
-  99: (b, r) => $dig.DigPanicError.$(b),
-  100: (b, r) => $io2.IoErrClosedPipe.$(b),
-  101: (b, r) => $io2.IoErrNoProgress.$(b),
-  102: (b, r) => $io2.IoErrShortBuffer.$(b),
-  103: (b, r) => $io2.IoErrShortWrite.$(b),
-  104: (b, r) => $fs.IoFsErrClosed.$(b),
-  105: (b, r) => $fs.IoFsErrExist.$(b),
-  106: (b, r) => $fs.IoFsErrInvalid.$(b),
-  107: (b, r) => $fs.IoFsErrNotExist.$(b),
-  108: (b, r) => $fs.IoFsErrPermission.$(b),
-  109: (b, r) => $fs.IoFsPathError.$(b, r),
-  110: (b, r) => $fs.IoFsSkipAll.$(b),
-  111: (b, r) => $fs.IoFsSkipDir.$(b),
-  112: (b, r) => $ipfs_cmds.IpfsCmdsErrClosedEmitter.$(b),
-  113: (b, r) => $ipfs_cmds.IpfsCmdsErrClosingClosedEmitter.$(b),
-  114: (b, r) => $ipfs_cmds.IpfsCmdsErrIncorrectType.$(b),
-  115: (b, r) => $ipfs_cmds.IpfsCmdsErrNoFormatter.$(b),
-  116: (b, r) => $ipfs_cmds.IpfsCmdsErrNotCallable.$(b),
-  117: (b, r) => $ipfs_cmds.IpfsCmdsError.$(b, r),
-  118: (b, r) => $ipfs_cmds.IpfsCmdsErrorType.$(b),
-  119: (b, r) => $ipld_format.IpldFormatEndOfDag.$(b),
-  120: (b, r) => $ipld_format.IpldFormatErrClosed.$(b),
-  121: (b, r) => $ipld_format.IpldFormatErrDownNoChild.$(b),
-  122: (b, r) => $ipld_format.IpldFormatErrNextNoChild.$(b),
-  123: (b, r) => $ipld_format.IpldFormatErrNilVisitor.$(b),
-  124: (b, r) => $ipld_format.IpldFormatErrNotCommited.$(b),
-  125: (b, r) => $datamodel.IpldPrimeDatamodelErrInvalidSegmentForList.$(b, r),
-  126: (b, r) => $datamodel.IpldPrimeDatamodelErrIteratorOverread.$(b),
-  127: (b, r) => $datamodel.IpldPrimeDatamodelErrNotExists.$(b),
-  128: (b, r) => $datamodel.IpldPrimeDatamodelErrRepeatedMapKey.$(b),
-  129: (b, r) => $datamodel.IpldPrimeDatamodelErrWrongKind.$(b, r),
-  130: (b, r) => $linking.IpldPrimeLinkingErrHashMismatch.$(b),
-  131: (b, r) => $linking.IpldPrimeLinkingErrLinkingSetup.$(b, r),
-  132: (b, r) => $traversal.IpldPrimeTraversalErrBudgetExceeded.$(b, r),
-  133: (b, r) => $traversal.IpldPrimeTraversalSkipMe.$(b),
-  134: (b, r) => $config.KuboConfigErrInvalidPeerAddr.$(b),
-  135: (b, r) => $commands.KuboCoreCommandsErrDepthLimitExceeded.$(b),
-  136: (b, r) => $commands.KuboCoreCommandsErrInvalidCompressionLevel.$(b),
-  137: (b, r) => $commands.KuboCoreCommandsErrNotDht.$(b),
-  138: (b, r) => $commands.KuboCoreCommandsErrNotOnline.$(b),
-  139: (b, r) => $commands.KuboCoreCommandsErrPingSelf.$(b),
-  140: (b, r) => $commands.KuboCoreCommandsErrSelfUnsupported.$(b),
-  141: (b, r) => $object.KuboCoreCommandsObjectErrDataEncoding.$(b),
-  142: (b, r) => $coreiface.KuboCoreCoreifaceErrConnNotFound.$(b),
-  143: (b, r) => $coreiface.KuboCoreCoreifaceErrIsDir.$(b),
-  144: (b, r) => $coreiface.KuboCoreCoreifaceErrNotConnected.$(b),
-  145: (b, r) => $coreiface.KuboCoreCoreifaceErrNotFile.$(b),
-  146: (b, r) => $coreiface.KuboCoreCoreifaceErrNotSupported.$(b),
-  147: (b, r) => $coreiface.KuboCoreCoreifaceErrOffline.$(b),
-  148: (b, r) => $coreiface.KuboCoreCoreifaceErrResolveFailed.$(b),
-  149: (b, r) => $corerepo.KuboCoreCorerepoErrMaxStorageExceeded.$(b),
-  150: (b, r) => $corerepo.KuboCoreCorerepoMultiError.$(b),
-  151: (b, r) => $libp2p.KuboCoreNodeLibp2pErrNoResourceMgr.$(b),
-  152: (b, r) => $gc.KuboGcCannotDeleteBlockError.$(b, r),
-  153: (b, r) => $gc.KuboGcCannotFetchLinksError.$(b, r),
-  154: (b, r) => $gc.KuboGcErrCannotDeleteSomeBlocks.$(b),
-  155: (b, r) => $gc.KuboGcErrCannotFetchAllLinks.$(b),
-  156: (b, r) => $repo.KuboRepoErrApiNotRunning.$(b),
-  157: (b, r) => $fsrepo.KuboRepoFsrepoErrNeedMigration.$(b),
-  158: (b, r) => $fsrepo.KuboRepoFsrepoErrNoVersion.$(b),
-  159: (b, r) => $fsrepo.KuboRepoFsrepoErrOldRepo.$(b),
-  160: (b, r) => $fsrepo.KuboRepoFsrepoNoRepoError.$(b, r),
-  161: (b, r) => $routing.KuboRoutingParamNeededError.$(b, r),
-  162: (b, r) => $crypto.Libp2pCoreCryptoErrBadKeyType.$(b),
-  163: (b, r) => $crypto.Libp2pCoreCryptoErrNilPrivateKey.$(b),
-  164: (b, r) => $crypto.Libp2pCoreCryptoErrNilPublicKey.$(b),
-  165: (b, r) => $crypto.Libp2pCoreCryptoErrNilSig.$(b),
-  166: (b, r) => $crypto.Libp2pCoreCryptoErrNotEcdsaPubKey.$(b),
-  167: (b, r) => $crypto.Libp2pCoreCryptoErrRsaKeyTooBig.$(b),
-  168: (b, r) => $crypto.Libp2pCoreCryptoErrRsaKeyTooSmall.$(b),
-  169: (b, r) => $network.Libp2pCoreNetworkConnError.$(b, r),
-  170: (b, r) => $network.Libp2pCoreNetworkErrLimitedConn.$(b),
-  171: (b, r) => $network.Libp2pCoreNetworkErrNoConn.$(b),
-  172: (b, r) => $network.Libp2pCoreNetworkErrNoRemoteAddrs.$(b),
-  173: (b, r) => $network.Libp2pCoreNetworkErrReset.$(b),
-  174: (b, r) => $network.Libp2pCoreNetworkErrResourceScopeClosed.$(b),
-  175: (b, r) => $network.Libp2pCoreNetworkErrTransientConn.$(b),
-  176: (b, r) => $network.Libp2pCoreNetworkStreamError.$(b, r),
-  177: (b, r) => $peer.Libp2pCorePeerErrEmptyPeerId.$(b),
-  178: (b, r) => $peer.Libp2pCorePeerErrInvalidAddr.$(b),
-  179: (b, r) => $peer.Libp2pCorePeerErrNoPublicKey.$(b),
-  180: (b, r) => $peerstore.Libp2pCorePeerstoreErrNotFound.$(b),
-  181: (b, r) => $record.Libp2pCoreRecordErrEmptyDomain.$(b),
-  182: (b, r) => $record.Libp2pCoreRecordErrEmptyPayloadType.$(b),
-  183: (b, r) => $record.Libp2pCoreRecordErrInvalidSignature.$(b),
-  184: (b, r) => $record.Libp2pCoreRecordErrPayloadTypeNotRegistered.$(b),
-  185: (b, r) => $routing2.Libp2pCoreRoutingErrNotFound.$(b),
-  186: (b, r) => $routing2.Libp2pCoreRoutingErrNotSupported.$(b),
-  187: (b, r) => $sec.Libp2pCoreSecErrPeerIdMismatch.$(b, r),
-  188: (b, r) => $transport.Libp2pCoreTransportErrListenerClosed.$(b),
-  189: (b, r) =>
+  1: (b, r) => $bytes.BytesErrTooLarge.$(b),
+  2: (b, r) => $x509.CryptoX509CertificateInvalidError.$(b, r),
+  3: (b, r) => $x509.CryptoX509ConstraintViolationError.$(b),
+  4: (b, r) => $x509.CryptoX509ErrUnsupportedAlgorithm.$(b),
+  5: (b, r) => $x509.CryptoX509HostnameError.$(b, r),
+  6: (b, r) => $x509.CryptoX509IncorrectPasswordError.$(b),
+  7: (b, r) => $x509.CryptoX509InsecureAlgorithmError.$(b),
+  8: (b, r) => $x509.CryptoX509SystemRootsError.$(b),
+  9: (b, r) => $x509.CryptoX509UnhandledCriticalExtension.$(b),
+  10: (b, r) => $x509.CryptoX509UnknownAuthorityError.$(b),
+  11: (b, r) => $v4.Secp256k1V4Error.$(b, r),
+  12: (b, r) => $v4.Secp256k1V4ErrorKind.$(b),
+  13: (b, r) => $dig.DigPanicError.$(b),
+  14: (b, r) => $io.IoErrClosedPipe.$(b),
+  15: (b, r) => $io.IoErrNoProgress.$(b),
+  16: (b, r) => $io.IoErrShortBuffer.$(b),
+  17: (b, r) => $io.IoErrShortWrite.$(b),
+  18: (b, r) => $fs.IoFsErrClosed.$(b),
+  19: (b, r) => $fs.IoFsErrExist.$(b),
+  20: (b, r) => $fs.IoFsErrInvalid.$(b),
+  21: (b, r) => $fs.IoFsErrNotExist.$(b),
+  22: (b, r) => $fs.IoFsErrPermission.$(b),
+  23: (b, r) => $fs.IoFsPathError.$(b, r),
+  24: (b, r) => $fs.IoFsSkipAll.$(b),
+  25: (b, r) => $fs.IoFsSkipDir.$(b),
+  26: (b, r) => $block_format.BlockFormatErrWrongHash.$(b),
+  27: (b, r) => $blockstore.BoxoBlockstoreErrHashMismatch.$(b),
+  28: (b, r) => $bootstrap.BoxoBootstrapErrNotEnoughBootstrapPeers.$(b),
+  29: (b, r) => $chunker.BoxoChunkerErrRabinMin.$(b),
+  30: (b, r) => $chunker.BoxoChunkerErrSize.$(b),
+  31: (b, r) => $chunker.BoxoChunkerErrSizeMax.$(b),
+  32: (b, r) => $files.BoxoFilesErrInvalidDirectoryEntry.$(b),
+  33: (b, r) => $files.BoxoFilesErrNotDirectory.$(b),
+  34: (b, r) => $files.BoxoFilesErrNotReader.$(b),
+  35: (b, r) => $files.BoxoFilesErrNotSupported.$(b),
+  36: (b, r) => $files.BoxoFilesErrPathExistsOverwrite.$(b),
+  37: (b, r) => $files.BoxoFilesErrUnixFsPathOutsideRoot.$(b),
+  38: (b, r) => $filestore.BoxoFilestoreCorruptReferenceError.$(b, r),
+  39: (b, r) => $filestore.BoxoFilestoreErrFilestoreNotEnabled.$(b),
+  40: (b, r) => $filestore.BoxoFilestoreErrUrlstoreNotEnabled.$(b),
+  41: (b, r) => $gateway.BoxoGatewayErrFetcherUnexpectedEof.$(b),
+  42: (b, r) => $gateway.BoxoGatewayErrInvalidResponse.$(b, r),
+  43: (b, r) => $gateway.BoxoGatewayErrPartialResponse.$(b),
+  44: (b, r) => $gateway.BoxoGatewayErrRetrievalTimeout.$(b),
+  45: (b, r) => $gateway.BoxoGatewayErrTraversalTooDeep.$(b),
+  46: (b, r) => $gateway.BoxoGatewayErrorRetryAfter.$(b, r),
+  47: (b, r) => $gateway.BoxoGatewayErrorStatusCode.$(b, r),
+  48: (b, r) => $merkledag.BoxoIpldMerkledagErrLinkNotFound.$(b),
+  49: (b, r) => $merkledag.BoxoIpldMerkledagErrNotProtobuf.$(b),
+  50: (b, r) => $merkledag.BoxoIpldMerkledagErrNotRawNode.$(b),
+  51: (b, r) => $merkledag.BoxoIpldMerkledagErrReadOnly.$(b),
+  52: (b, r) => $unixfs.BoxoIpldUnixfsErrMalformedFileFormat.$(b),
+  53: (b, r) => $unixfs.BoxoIpldUnixfsErrNotProtoNode.$(b),
+  54: (b, r) => $unixfs.BoxoIpldUnixfsErrUnrecognizedType.$(b),
+  55: (b, r) => $io2.BoxoIpldUnixfsIoErrCantReadSymlinks.$(b),
+  56: (b, r) => $io2.BoxoIpldUnixfsIoErrInvalidHamtFanout.$(b),
+  57: (b, r) => $io2.BoxoIpldUnixfsIoErrIsDir.$(b),
+  58: (b, r) => $io2.BoxoIpldUnixfsIoErrNotADir.$(b),
+  59: (b, r) => $io2.BoxoIpldUnixfsIoErrSeekNotSupported.$(b),
+  60: (b, r) => $io2.BoxoIpldUnixfsIoErrUnkownNodeType.$(b),
+  61: (b, r) => $ipns.BoxoIpnsErrDataMissing.$(b),
+  62: (b, r) => $ipns.BoxoIpnsErrExpiredRecord.$(b),
+  63: (b, r) => $ipns.BoxoIpnsErrInvalidName.$(b),
+  64: (b, r) => $ipns.BoxoIpnsErrInvalidPath.$(b),
+  65: (b, r) => $ipns.BoxoIpnsErrInvalidPublicKey.$(b),
+  66: (b, r) => $ipns.BoxoIpnsErrInvalidRecord.$(b),
+  67: (b, r) => $ipns.BoxoIpnsErrInvalidValidity.$(b),
+  68: (b, r) => $ipns.BoxoIpnsErrMetadataConflict.$(b),
+  69: (b, r) => $ipns.BoxoIpnsErrMetadataEmptyKey.$(b),
+  70: (b, r) => $ipns.BoxoIpnsErrMetadataNotFound.$(b),
+  71: (b, r) => $ipns.BoxoIpnsErrMetadataUnsupportedType.$(b),
+  72: (b, r) => $ipns.BoxoIpnsErrMetadataValueNotSet.$(b),
+  73: (b, r) => $ipns.BoxoIpnsErrPublicKeyMismatch.$(b),
+  74: (b, r) => $ipns.BoxoIpnsErrPublicKeyNotFound.$(b),
+  75: (b, r) => $ipns.BoxoIpnsErrRecordSize.$(b),
+  76: (b, r) => $ipns.BoxoIpnsErrSignature.$(b),
+  77: (b, r) => $ipns.BoxoIpnsErrUnrecognizedValidity.$(b),
+  78: (b, r) => $keystore.BoxoKeystoreErrKeyExists.$(b),
+  79: (b, r) => $keystore.BoxoKeystoreErrNoSuchKey.$(b),
+  80: (b, r) => $mfs.BoxoMfsErrClosed.$(b),
+  81: (b, r) => $mfs.BoxoMfsErrDirExists.$(b),
+  82: (b, r) => $mfs.BoxoMfsErrInvalidChild.$(b),
+  83: (b, r) => $mfs.BoxoMfsErrIsDirectory.$(b),
+  84: (b, r) => $mfs.BoxoMfsErrNotExist.$(b),
+  85: (b, r) => $mfs.BoxoMfsErrNotYetImplemented.$(b),
+  86: (b, r) => $namesys.BoxoNamesysErrInvalidSequence.$(b),
+  87: (b, r) => $namesys.BoxoNamesysErrMissingDnsLinkRecord.$(b),
+  88: (b, r) => $namesys.BoxoNamesysErrMultipleDnsLinkRecords.$(b),
+  89: (b, r) => $namesys.BoxoNamesysErrNoNamesys.$(b),
+  90: (b, r) => $namesys.BoxoNamesysErrResolveFailed.$(b),
+  91: (b, r) => $namesys.BoxoNamesysErrResolveRecursion.$(b),
+  92: (b, r) => $path.BoxoPathErrExpectedImmutable.$(b),
+  93: (b, r) => $path.BoxoPathErrInsufficientComponents.$(b),
+  94: (b, r) => $path.BoxoPathErrInvalidPath.$(b),
+  95: (b, r) => $path.BoxoPathErrUnknownNamespace.$(b),
+  96: (b, r) => $resolver.BoxoPathResolverErrNoLink.$(b, r),
+  97: (b, r) => $verifcid.BoxoVerifcidErrAboveMaximumHashLength.$(b),
+  98: (b, r) => $verifcid.BoxoVerifcidErrBelowMinimumHashLength.$(b),
+  99: (b, r) => $verifcid.BoxoVerifcidErrDigestTooLarge.$(b),
+  100: (b, r) => $verifcid.BoxoVerifcidErrDigestTooSmall.$(b),
+  101: (b, r) => $verifcid.BoxoVerifcidErrPossiblyInsecureHashFunction.$(b),
+  102: (b, r) => $cid.CidErrInvalidCid.$(b),
+  103: (b, r) => $cid.CidErrInvalidEncoding.$(b),
+  104: (b, r) => $datastore.DatastoreErrBatchUnsupported.$(b),
+  105: (b, r) => $datastore.DatastoreErrNotFound.$(b),
+  106: (b, r) => $ipfs_cmds.IpfsCmdsErrClosedEmitter.$(b),
+  107: (b, r) => $ipfs_cmds.IpfsCmdsErrClosingClosedEmitter.$(b),
+  108: (b, r) => $ipfs_cmds.IpfsCmdsErrIncorrectType.$(b),
+  109: (b, r) => $ipfs_cmds.IpfsCmdsErrNoFormatter.$(b),
+  110: (b, r) => $ipfs_cmds.IpfsCmdsErrNotCallable.$(b),
+  111: (b, r) => $ipfs_cmds.IpfsCmdsError.$(b, r),
+  112: (b, r) => $ipfs_cmds.IpfsCmdsErrorType.$(b),
+  113: (b, r) => $ipld_format.IpldFormatEndOfDag.$(b),
+  114: (b, r) => $ipld_format.IpldFormatErrClosed.$(b),
+  115: (b, r) => $ipld_format.IpldFormatErrDownNoChild.$(b),
+  116: (b, r) => $ipld_format.IpldFormatErrNextNoChild.$(b),
+  117: (b, r) => $ipld_format.IpldFormatErrNilVisitor.$(b),
+  118: (b, r) => $ipld_format.IpldFormatErrNotCommited.$(b),
+  119: (b, r) => $config.KuboConfigErrInvalidPeerAddr.$(b),
+  120: (b, r) => $commands.KuboCoreCommandsErrDepthLimitExceeded.$(b),
+  121: (b, r) => $commands.KuboCoreCommandsErrInvalidCompressionLevel.$(b),
+  122: (b, r) => $commands.KuboCoreCommandsErrNotDht.$(b),
+  123: (b, r) => $commands.KuboCoreCommandsErrNotOnline.$(b),
+  124: (b, r) => $commands.KuboCoreCommandsErrPingSelf.$(b),
+  125: (b, r) => $commands.KuboCoreCommandsErrSelfUnsupported.$(b),
+  126: (b, r) => $object.KuboCoreCommandsObjectErrDataEncoding.$(b),
+  127: (b, r) => $coreiface.KuboCoreCoreifaceErrConnNotFound.$(b),
+  128: (b, r) => $coreiface.KuboCoreCoreifaceErrIsDir.$(b),
+  129: (b, r) => $coreiface.KuboCoreCoreifaceErrNotConnected.$(b),
+  130: (b, r) => $coreiface.KuboCoreCoreifaceErrNotFile.$(b),
+  131: (b, r) => $coreiface.KuboCoreCoreifaceErrNotSupported.$(b),
+  132: (b, r) => $coreiface.KuboCoreCoreifaceErrOffline.$(b),
+  133: (b, r) => $coreiface.KuboCoreCoreifaceErrResolveFailed.$(b),
+  134: (b, r) => $corerepo.KuboCoreCorerepoErrMaxStorageExceeded.$(b),
+  135: (b, r) => $corerepo.KuboCoreCorerepoMultiError.$(b),
+  136: (b, r) => $libp2p.KuboCoreNodeLibp2pErrNoResourceMgr.$(b),
+  137: (b, r) => $gc.KuboGcCannotDeleteBlockError.$(b, r),
+  138: (b, r) => $gc.KuboGcCannotFetchLinksError.$(b, r),
+  139: (b, r) => $gc.KuboGcErrCannotDeleteSomeBlocks.$(b),
+  140: (b, r) => $gc.KuboGcErrCannotFetchAllLinks.$(b),
+  141: (b, r) => $repo.KuboRepoErrApiNotRunning.$(b),
+  142: (b, r) => $fsrepo.KuboRepoFsrepoErrNeedMigration.$(b),
+  143: (b, r) => $fsrepo.KuboRepoFsrepoErrNoVersion.$(b),
+  144: (b, r) => $fsrepo.KuboRepoFsrepoErrOldRepo.$(b),
+  145: (b, r) => $fsrepo.KuboRepoFsrepoNoRepoError.$(b, r),
+  146: (b, r) => $routing.KuboRoutingParamNeededError.$(b, r),
+  147: (b, r) => $v2.LogV2ErrNoSuchLogger.$(b),
+  148: (b, r) => $v22.CarV2ErrAlreadyV1.$(b),
+  149: (b, r) => $v22.CarV2ErrCidTooLarge.$(b, r),
+  150: (b, r) => $v22.CarV2ErrOffsetImpossible.$(b),
+  151: (b, r) => $v22.CarV2ErrSizeMismatch.$(b),
+  152: (b, r) => $storage.CarV2StorageErrClosed.$(b),
+  153: (b, r) => $codec_dagpb.CodecDagpbErrIntOverflow.$(b),
+  154: (b, r) => $datamodel.IpldPrimeDatamodelErrInvalidSegmentForList.$(b, r),
+  155: (b, r) => $datamodel.IpldPrimeDatamodelErrIteratorOverread.$(b),
+  156: (b, r) => $datamodel.IpldPrimeDatamodelErrNotExists.$(b),
+  157: (b, r) => $datamodel.IpldPrimeDatamodelErrRepeatedMapKey.$(b),
+  158: (b, r) => $datamodel.IpldPrimeDatamodelErrWrongKind.$(b, r),
+  159: (b, r) => $linking.IpldPrimeLinkingErrHashMismatch.$(b),
+  160: (b, r) => $linking.IpldPrimeLinkingErrLinkingSetup.$(b, r),
+  161: (b, r) => $traversal.IpldPrimeTraversalErrBudgetExceeded.$(b, r),
+  162: (b, r) => $traversal.IpldPrimeTraversalSkipMe.$(b),
+  163: (b, r) => $crypto.Libp2pCoreCryptoErrBadKeyType.$(b),
+  164: (b, r) => $crypto.Libp2pCoreCryptoErrNilPrivateKey.$(b),
+  165: (b, r) => $crypto.Libp2pCoreCryptoErrNilPublicKey.$(b),
+  166: (b, r) => $crypto.Libp2pCoreCryptoErrNilSig.$(b),
+  167: (b, r) => $crypto.Libp2pCoreCryptoErrNotEcdsaPubKey.$(b),
+  168: (b, r) => $crypto.Libp2pCoreCryptoErrRsaKeyTooBig.$(b),
+  169: (b, r) => $crypto.Libp2pCoreCryptoErrRsaKeyTooSmall.$(b),
+  170: (b, r) => $network.Libp2pCoreNetworkConnError.$(b, r),
+  171: (b, r) => $network.Libp2pCoreNetworkErrLimitedConn.$(b),
+  172: (b, r) => $network.Libp2pCoreNetworkErrNoConn.$(b),
+  173: (b, r) => $network.Libp2pCoreNetworkErrNoRemoteAddrs.$(b),
+  174: (b, r) => $network.Libp2pCoreNetworkErrReset.$(b),
+  175: (b, r) => $network.Libp2pCoreNetworkErrResourceScopeClosed.$(b),
+  176: (b, r) => $network.Libp2pCoreNetworkErrTransientConn.$(b),
+  177: (b, r) => $network.Libp2pCoreNetworkStreamError.$(b, r),
+  178: (b, r) => $peer.Libp2pCorePeerErrEmptyPeerId.$(b),
+  179: (b, r) => $peer.Libp2pCorePeerErrInvalidAddr.$(b),
+  180: (b, r) => $peer.Libp2pCorePeerErrNoPublicKey.$(b),
+  181: (b, r) => $peerstore.Libp2pCorePeerstoreErrNotFound.$(b),
+  182: (b, r) => $record.Libp2pCoreRecordErrEmptyDomain.$(b),
+  183: (b, r) => $record.Libp2pCoreRecordErrEmptyPayloadType.$(b),
+  184: (b, r) => $record.Libp2pCoreRecordErrInvalidSignature.$(b),
+  185: (b, r) => $record.Libp2pCoreRecordErrPayloadTypeNotRegistered.$(b),
+  186: (b, r) => $routing2.Libp2pCoreRoutingErrNotFound.$(b),
+  187: (b, r) => $routing2.Libp2pCoreRoutingErrNotSupported.$(b),
+  188: (b, r) => $sec.Libp2pCoreSecErrPeerIdMismatch.$(b, r),
+  189: (b, r) => $transport.Libp2pCoreTransportErrListenerClosed.$(b),
+  190: (b, r) =>
       $resource_manager.Libp2pP2pHostResourceManagerErrMemoryLimitExceeded.$(b),
-  190: (b, r) => $resource_manager
+  191: (b, r) => $resource_manager
       .Libp2pP2pHostResourceManagerErrStreamOrConnLimitExceeded.$(b),
-  191: (b, r) => $swarm.Libp2pP2pNetSwarmDialError.$(b, r),
-  192: (b, r) => $swarm.Libp2pP2pNetSwarmErrAddrFiltered.$(b),
-  193: (b, r) => $swarm.Libp2pP2pNetSwarmErrAllDialsFailed.$(b),
-  194: (b, r) => $swarm.Libp2pP2pNetSwarmErrConnClosed.$(b),
-  195: (b, r) => $swarm.Libp2pP2pNetSwarmErrDialBackoff.$(b),
-  196: (b, r) => $swarm.Libp2pP2pNetSwarmErrDialRefusedBlackHole.$(b),
-  197: (b, r) => $swarm.Libp2pP2pNetSwarmErrDialTimeout.$(b),
-  198: (b, r) => $swarm.Libp2pP2pNetSwarmErrDialToSelf.$(b),
-  199: (b, r) => $swarm.Libp2pP2pNetSwarmErrGaterDisallowedConnection.$(b),
-  200: (b, r) => $swarm.Libp2pP2pNetSwarmErrNoAddresses.$(b),
-  201: (b, r) => $swarm.Libp2pP2pNetSwarmErrNoGoodAddresses.$(b),
-  202: (b, r) => $swarm.Libp2pP2pNetSwarmErrNoTransport.$(b),
-  203: (b, r) => $swarm.Libp2pP2pNetSwarmErrSwarmClosed.$(b),
-  204: (b, r) => $swarm.Libp2pP2pNetSwarmTransportError.$(b, r),
-  205: (b, r) => $upgrader.Libp2pP2pNetUpgraderErrNilPeer.$(b),
-  206: (b, r) => $holepunch.Libp2pP2pProtocolHolepunchErrClosed.$(b),
-  207: (b, r) => $holepunch.Libp2pP2pProtocolHolepunchErrHolePunchActive.$(b),
-  208: (b, r) => $quic.Libp2pP2pTransportQuicErrHolePunching.$(b),
-  209: (b, r) =>
+  192: (b, r) => $swarm.Libp2pP2pNetSwarmDialError.$(b, r),
+  193: (b, r) => $swarm.Libp2pP2pNetSwarmErrAddrFiltered.$(b),
+  194: (b, r) => $swarm.Libp2pP2pNetSwarmErrAllDialsFailed.$(b),
+  195: (b, r) => $swarm.Libp2pP2pNetSwarmErrConnClosed.$(b),
+  196: (b, r) => $swarm.Libp2pP2pNetSwarmErrDialBackoff.$(b),
+  197: (b, r) => $swarm.Libp2pP2pNetSwarmErrDialRefusedBlackHole.$(b),
+  198: (b, r) => $swarm.Libp2pP2pNetSwarmErrDialTimeout.$(b),
+  199: (b, r) => $swarm.Libp2pP2pNetSwarmErrDialToSelf.$(b),
+  200: (b, r) => $swarm.Libp2pP2pNetSwarmErrGaterDisallowedConnection.$(b),
+  201: (b, r) => $swarm.Libp2pP2pNetSwarmErrNoAddresses.$(b),
+  202: (b, r) => $swarm.Libp2pP2pNetSwarmErrNoGoodAddresses.$(b),
+  203: (b, r) => $swarm.Libp2pP2pNetSwarmErrNoTransport.$(b),
+  204: (b, r) => $swarm.Libp2pP2pNetSwarmErrSwarmClosed.$(b),
+  205: (b, r) => $swarm.Libp2pP2pNetSwarmTransportError.$(b, r),
+  206: (b, r) => $upgrader.Libp2pP2pNetUpgraderErrNilPeer.$(b),
+  207: (b, r) => $holepunch.Libp2pP2pProtocolHolepunchErrClosed.$(b),
+  208: (b, r) => $holepunch.Libp2pP2pProtocolHolepunchErrHolePunchActive.$(b),
+  209: (b, r) => $quic.Libp2pP2pTransportQuicErrHolePunching.$(b),
+  210: (b, r) =>
       $webtransport.Libp2pP2pTransportWebtransportErrCertHashMismatch.$(b, r),
-  210: (b, r) => $libp2p_kad_dht.Libp2pKadDhtErrNoPeersQueried.$(b),
-  211: (b, r) => $libp2p_kad_dht.Libp2pKadDhtErrReadTimeout.$(b),
-  212: (b, r) => $records.Libp2pKadDhtRecordsErrClosed.$(b),
-  213: (b, r) => $records.Libp2pKadDhtRecordsErrOldRecord.$(b),
-  214: (b, r) => $libp2p_kbucket.Libp2pKbucketErrLookupFailure.$(b),
-  215: (b, r) => $libp2p_kbucket.Libp2pKbucketErrPeerRejectedHighLatency.$(b),
-  216: (b, r) => $libp2p_kbucket.Libp2pKbucketErrPeerRejectedNoCapacity.$(b),
-  217: (b, r) => $libp2p_pubsub.Libp2pPubsubErrEmptyPeerId.$(b),
-  218: (b, r) => $libp2p_pubsub.Libp2pPubsubErrFanoutOnlyTopic.$(b),
-  219: (b, r) => $libp2p_pubsub.Libp2pPubsubErrNilSignKey.$(b),
-  220: (b, r) => $libp2p_pubsub.Libp2pPubsubErrQueueCancelled.$(b),
-  221: (b, r) => $libp2p_pubsub.Libp2pPubsubErrQueueClosed.$(b),
-  222: (b, r) => $libp2p_pubsub.Libp2pPubsubErrQueueFull.$(b),
-  223: (b, r) => $libp2p_pubsub.Libp2pPubsubErrQueuePushOnClosed.$(b),
-  224: (b, r) => $libp2p_pubsub.Libp2pPubsubErrSubscriptionCancelled.$(b),
-  225: (b, r) => $libp2p_pubsub.Libp2pPubsubErrTooManySubscriptions.$(b),
-  226: (b, r) => $libp2p_pubsub.Libp2pPubsubErrTopicClosed.$(b),
-  227: (b, r) => $libp2p_pubsub.Libp2pPubsubValidationError.$(b, r),
-  228: (b, r) => $libp2p_record.Libp2pRecordErrBetterRecord.$(b, r),
-  229: (b, r) => $libp2p_record.Libp2pRecordErrInvalidRecordType.$(b),
-  230: (b, r) => $v22.LogV2ErrNoSuchLogger.$(b),
-  231: (b, r) => $big.MathBigErrNaN.$(b),
-  232: (b, r) => $multipart.MimeMultipartErrMessageTooLarge.$(b),
-  233: (b, r) => $multiaddr.MultiaddrErrProtocolNotFound.$(b),
-  234: (b, r) => $multibase.MultibaseErrUnsupportedEncoding.$(b),
-  235: (b, r) => $multihash.MultihashErrInconsistentLen.$(b),
-  236: (b, r) => $multihash.MultihashErrInvalidMultihash.$(b),
-  237: (b, r) => $multihash.MultihashErrLenNotSupported.$(b),
-  238: (b, r) => $multihash.MultihashErrLenTooLarge.$(b),
-  239: (b, r) => $multihash.MultihashErrSumNotSupported.$(b),
-  240: (b, r) => $multihash.MultihashErrTooLong.$(b),
-  241: (b, r) => $multihash.MultihashErrTooShort.$(b),
-  242: (b, r) => $multihash.MultihashErrUnknownCode.$(b),
-  243: (b, r) => $multihash.MultihashErrVarintBufferShort.$(b),
-  244: (b, r) => $multihash.MultihashErrVarintTooLong.$(b),
-  245: (b, r) => $net.NetAddrError.$(b, r),
-  246: (b, r) => $net.NetDnsConfigError.$(b),
-  247: (b, r) => $net.NetDnsError.$(b, r),
-  248: (b, r) => $net.NetErrClosed.$(b),
-  249: (b, r) => $net.NetErrWriteToConnected.$(b),
-  250: (b, r) => $net.NetInvalidAddrError.$(b),
-  251: (b, r) => $net.NetOpError.$(b, r),
-  252: (b, r) => $net.NetParseError.$(b, r),
-  253: (b, r) => $net.NetUnknownNetworkError.$(b),
-  254: (b, r) => $http.NetHttpErrAbortHandler.$(b),
-  255: (b, r) => $http.NetHttpErrBodyNotAllowed.$(b),
-  256: (b, r) => $http.NetHttpErrBodyReadAfterClose.$(b),
-  257: (b, r) => $http.NetHttpErrContentLength.$(b),
-  258: (b, r) => $http.NetHttpErrHandlerTimeout.$(b),
-  259: (b, r) => $http.NetHttpErrHijacked.$(b),
-  260: (b, r) => $http.NetHttpErrLineTooLong.$(b),
-  261: (b, r) => $http.NetHttpErrMissingFile.$(b),
-  262: (b, r) => $http.NetHttpErrNoCookie.$(b),
-  263: (b, r) => $http.NetHttpErrNoLocation.$(b),
-  264: (b, r) => $http.NetHttpErrSchemeMismatch.$(b),
-  265: (b, r) => $http.NetHttpErrServerClosed.$(b),
-  266: (b, r) => $http.NetHttpErrSkipAltProtocol.$(b),
-  267: (b, r) => $http.NetHttpErrUseLastResponse.$(b),
-  268: (b, r) => $http.NetHttpErrWriteAfterFlush.$(b),
-  269: (b, r) => $http.NetHttpMaxBytesError.$(b, r),
-  270: (b, r) => $http.NetHttpProtocolError.$(b, r),
-  271: (b, r) => $url.NetUrlError.$(b, r),
-  272: (b, r) => $url.NetUrlEscapeError.$(b),
-  273: (b, r) => $url.NetUrlInvalidHostError.$(b),
-  274: (b, r) => $os.OsErrClosed.$(b),
-  275: (b, r) => $os.OsErrDeadlineExceeded.$(b),
-  276: (b, r) => $os.OsErrExist.$(b),
-  277: (b, r) => $os.OsErrInvalid.$(b),
-  278: (b, r) => $os.OsErrNoDeadline.$(b),
-  279: (b, r) => $os.OsErrNoHandle.$(b),
-  280: (b, r) => $os.OsErrNotExist.$(b),
-  281: (b, r) => $os.OsErrPermission.$(b),
-  282: (b, r) => $os.OsErrProcessDone.$(b),
-  283: (b, r) => $os.OsLinkError.$(b, r),
-  284: (b, r) => $os.OsSyscallError.$(b, r),
-  285: (b, r) => $reflect.ReflectValueError.$(b, r),
-  286: (b, r) => $v4.Secp256k1V4Error.$(b, r),
-  287: (b, r) => $v4.Secp256k1V4ErrorKind.$(b),
-  288: (b, r) => $v5.YamuxV5Error.$(b),
-  289: (b, r) => $v5.YamuxV5GoAwayError.$(b, r),
-  290: (b, r) => $v5.YamuxV5StreamError.$(b, r),
+  211: (b, r) => $libp2p_kad_dht.Libp2pKadDhtErrNoPeersQueried.$(b),
+  212: (b, r) => $libp2p_kad_dht.Libp2pKadDhtErrReadTimeout.$(b),
+  213: (b, r) => $records.Libp2pKadDhtRecordsErrClosed.$(b),
+  214: (b, r) => $records.Libp2pKadDhtRecordsErrOldRecord.$(b),
+  215: (b, r) => $libp2p_kbucket.Libp2pKbucketErrLookupFailure.$(b),
+  216: (b, r) => $libp2p_kbucket.Libp2pKbucketErrPeerRejectedHighLatency.$(b),
+  217: (b, r) => $libp2p_kbucket.Libp2pKbucketErrPeerRejectedNoCapacity.$(b),
+  218: (b, r) => $libp2p_pubsub.Libp2pPubsubErrEmptyPeerId.$(b),
+  219: (b, r) => $libp2p_pubsub.Libp2pPubsubErrFanoutOnlyTopic.$(b),
+  220: (b, r) => $libp2p_pubsub.Libp2pPubsubErrNilSignKey.$(b),
+  221: (b, r) => $libp2p_pubsub.Libp2pPubsubErrQueueCancelled.$(b),
+  222: (b, r) => $libp2p_pubsub.Libp2pPubsubErrQueueClosed.$(b),
+  223: (b, r) => $libp2p_pubsub.Libp2pPubsubErrQueueFull.$(b),
+  224: (b, r) => $libp2p_pubsub.Libp2pPubsubErrQueuePushOnClosed.$(b),
+  225: (b, r) => $libp2p_pubsub.Libp2pPubsubErrSubscriptionCancelled.$(b),
+  226: (b, r) => $libp2p_pubsub.Libp2pPubsubErrTooManySubscriptions.$(b),
+  227: (b, r) => $libp2p_pubsub.Libp2pPubsubErrTopicClosed.$(b),
+  228: (b, r) => $libp2p_pubsub.Libp2pPubsubValidationError.$(b, r),
+  229: (b, r) => $libp2p_record.Libp2pRecordErrBetterRecord.$(b, r),
+  230: (b, r) => $libp2p_record.Libp2pRecordErrInvalidRecordType.$(b),
+  231: (b, r) => $v5.YamuxV5Error.$(b),
+  232: (b, r) => $v5.YamuxV5GoAwayError.$(b, r),
+  233: (b, r) => $v5.YamuxV5StreamError.$(b, r),
+  234: (b, r) => $big.MathBigErrNaN.$(b),
+  235: (b, r) => $multipart.MimeMultipartErrMessageTooLarge.$(b),
+  236: (b, r) => $multiaddr.MultiaddrErrProtocolNotFound.$(b),
+  237: (b, r) => $multibase.MultibaseErrUnsupportedEncoding.$(b),
+  238: (b, r) => $multihash.MultihashErrInconsistentLen.$(b),
+  239: (b, r) => $multihash.MultihashErrInvalidMultihash.$(b),
+  240: (b, r) => $multihash.MultihashErrLenNotSupported.$(b),
+  241: (b, r) => $multihash.MultihashErrLenTooLarge.$(b),
+  242: (b, r) => $multihash.MultihashErrSumNotSupported.$(b),
+  243: (b, r) => $multihash.MultihashErrTooLong.$(b),
+  244: (b, r) => $multihash.MultihashErrTooShort.$(b),
+  245: (b, r) => $multihash.MultihashErrUnknownCode.$(b),
+  246: (b, r) => $multihash.MultihashErrVarintBufferShort.$(b),
+  247: (b, r) => $multihash.MultihashErrVarintTooLong.$(b),
+  248: (b, r) => $net.NetAddrError.$(b, r),
+  249: (b, r) => $net.NetDnsConfigError.$(b),
+  250: (b, r) => $net.NetDnsError.$(b, r),
+  251: (b, r) => $net.NetErrClosed.$(b),
+  252: (b, r) => $net.NetErrWriteToConnected.$(b),
+  253: (b, r) => $net.NetInvalidAddrError.$(b),
+  254: (b, r) => $net.NetOpError.$(b, r),
+  255: (b, r) => $net.NetParseError.$(b, r),
+  256: (b, r) => $net.NetUnknownNetworkError.$(b),
+  257: (b, r) => $http.NetHttpErrAbortHandler.$(b),
+  258: (b, r) => $http.NetHttpErrBodyNotAllowed.$(b),
+  259: (b, r) => $http.NetHttpErrBodyReadAfterClose.$(b),
+  260: (b, r) => $http.NetHttpErrContentLength.$(b),
+  261: (b, r) => $http.NetHttpErrHandlerTimeout.$(b),
+  262: (b, r) => $http.NetHttpErrHijacked.$(b),
+  263: (b, r) => $http.NetHttpErrLineTooLong.$(b),
+  264: (b, r) => $http.NetHttpErrMissingFile.$(b),
+  265: (b, r) => $http.NetHttpErrNoCookie.$(b),
+  266: (b, r) => $http.NetHttpErrNoLocation.$(b),
+  267: (b, r) => $http.NetHttpErrSchemeMismatch.$(b),
+  268: (b, r) => $http.NetHttpErrServerClosed.$(b),
+  269: (b, r) => $http.NetHttpErrSkipAltProtocol.$(b),
+  270: (b, r) => $http.NetHttpErrUseLastResponse.$(b),
+  271: (b, r) => $http.NetHttpErrWriteAfterFlush.$(b),
+  272: (b, r) => $http.NetHttpMaxBytesError.$(b, r),
+  273: (b, r) => $http.NetHttpProtocolError.$(b, r),
+  274: (b, r) => $url.NetUrlError.$(b, r),
+  275: (b, r) => $url.NetUrlEscapeError.$(b),
+  276: (b, r) => $url.NetUrlInvalidHostError.$(b),
+  277: (b, r) => $os.OsErrClosed.$(b),
+  278: (b, r) => $os.OsErrDeadlineExceeded.$(b),
+  279: (b, r) => $os.OsErrExist.$(b),
+  280: (b, r) => $os.OsErrInvalid.$(b),
+  281: (b, r) => $os.OsErrNoDeadline.$(b),
+  282: (b, r) => $os.OsErrNoHandle.$(b),
+  283: (b, r) => $os.OsErrNotExist.$(b),
+  284: (b, r) => $os.OsErrPermission.$(b),
+  285: (b, r) => $os.OsErrProcessDone.$(b),
+  286: (b, r) => $os.OsLinkError.$(b, r),
+  287: (b, r) => $os.OsSyscallError.$(b, r),
+  288: (b, r) => $prometheus.ClientGolangPrometheusAlreadyRegisteredError.$(b),
+  289: (b, r) => $prometheus.ClientGolangPrometheusMultiError.$(b),
+  290: (b, r) => $reflect.ReflectValueError.$(b, r),
 };

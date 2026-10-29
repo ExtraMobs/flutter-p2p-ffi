@@ -13,14 +13,16 @@ import (
 	"sync"
 )
 
-// Dart paths (owner's decision): every Go package is one library under
-// lib/go/, at the package's path inside its module. The module is named by the
-// last segment of its path without the `go-` prefix and the major version
-// (github.com/ipfs/go-cid → go/cid.dart, github.com/ipld/go-car/v2/index →
-// go/car/v2/index.dart, github.com/ipfs/boxo/mfs → go/boxo/mfs.dart); the Go
-// standard library sits beside the modules (context → go/context.dart). Each Go
-// type lives only in the library of its package, and no public library
-// re-exports another (checkPublicExports).
+// Dart paths (owner's decisions, 2026-10-29): every Go package is one library
+// under lib/go/, at the package's path after the host of its URL, so the author
+// is part of it and two modules with the same name do not meet; the module's
+// own segment drops the `go-` prefix and its major version goes after it
+// (github.com/ipfs/go-cid → go/ipfs/cid.dart, github.com/ipld/go-car/v2/index →
+// go/ipld/car/v2/index.dart, golang.org/x/crypto/sha3 → go/x/crypto/sha3.dart,
+// lukechampine.com/blake3 → go/blake3.dart); the Go standard library sits
+// beside the authors (context → go/context.dart). Each Go type lives only in
+// the library of its package, and no public library re-exports another
+// (checkPublicExports).
 
 var (
 	modulesOnce sync.Once
@@ -59,35 +61,69 @@ func dartPath(pkgPath string) string {
 		if mod == "" {
 			panic("gen: package outside the modules of go.mod: " + pkgPath)
 		}
-		p = "go/" + moduleDir(mod) + strings.TrimPrefix(pkgPath, majorRE.ReplaceAllString(mod, ""))
+		dir, _ := moduleDir(mod)
+		p = "go/" + dir + strings.TrimPrefix(pkgPath, majorRE.ReplaceAllString(mod, ""))
 	}
-	return strings.NewReplacer("-", "_", ".", "_").Replace(p) + ".dart"
+	return pathChars.Replace(p) + ".dart"
 }
 
-// moduleDir: the folder of a module under lib/go/. A module nested in another
-// (github.com/ipld/go-ipld-prime/storage/bsadapter) keeps the outer one's path
-// (ipld_prime/storage/bsadapter).
-func moduleDir(mod string) string {
+// pathChars: what a Dart file name cannot have.
+var pathChars = strings.NewReplacer("-", "_", ".", "_")
+
+// moduleDir: the folder of a module under lib/go/ (ipfs/cid) and the author's
+// part of it (ipfs/; empty for a host of its own, lukechampine.com/blake3). A
+// module nested in another (github.com/ipld/go-ipld-prime/storage/bsadapter)
+// keeps the outer one's path (ipld/ipld_prime/storage/bsadapter).
+func moduleDir(mod string) (dir, author string) {
 	base := majorRE.ReplaceAllString(mod, "")
 	for _, outer := range goModules() { // longest first: the closest outer module
 		if outer != mod && strings.HasPrefix(base, majorRE.ReplaceAllString(outer, "")+"/") {
-			return moduleDir(outer) + strings.TrimPrefix(base, majorRE.ReplaceAllString(outer, ""))
+			dir, author := moduleDir(outer)
+			return dir + strings.TrimPrefix(base, majorRE.ReplaceAllString(outer, "")), author
 		}
 	}
-	return strings.TrimPrefix(base[strings.LastIndex(base, "/")+1:], "go-")
+	_, rest, _ := strings.Cut(base, "/")
+	i := strings.LastIndex(rest, "/")
+	return rest[:i+1] + strings.TrimPrefix(rest[i+1:], "go-"), rest[:i+1]
 }
 
-// Namespaces (owner's decision, option a): one import, `package:p2p_ffi/p2p_ffi.dart`.
-// The package-level members of a Go package (functions, constants, variables,
-// option constructors) are reached through a tree of const objects, one
-// top-level constant per module (`goBoxo`) and one getter per further segment
-// of the library path (`goBoxo.mfs.newRoot(...)`), lowerCamelCase as Dart
-// names constants and getters (owner's decision, 2026-10-29), generated in
+var (
+	authorsOnce sync.Once
+	authors     map[string]string // a module's folder, as under lib/go/ → its author's part
+)
+
+// classPath: the library path a type's class is named after, without the
+// author (go/ipfs/boxo/mfs.dart → go/boxo/mfs.dart), so the classes keep the
+// short names (BoxoMfsRoot, Cid); the generator refuses two equal ones.
+func classPath(path string) string {
+	authorsOnce.Do(func() {
+		authors = map[string]string{}
+		for _, m := range goModules() {
+			if dir, author := moduleDir(m); author != "" {
+				authors[pathChars.Replace(dir)] = pathChars.Replace(author)
+			}
+		}
+	})
+	p := strings.TrimPrefix(path, "go/")
+	for dir, author := range authors { // the folders of one author share it
+		if rest, ok := strings.CutPrefix(p, dir); ok && (rest == "" || rest[0] == '/' || rest == ".dart") {
+			return "go/" + strings.TrimPrefix(p, author)
+		}
+	}
+	return path
+}
+
+// Namespaces (owner's decisions, option a, and 2026-10-29): one import,
+// `package:p2p_ffi/p2p_ffi.dart`. The package-level members of a Go package
+// (functions, constants, variables, option constructors) are reached through a
+// tree of const objects: the top-level constant `go`, then one getter per
+// segment of the library path, the author first (`go.ipfs.boxo.mfs.newRoot(...)`),
+// lowerCamelCase as Dart names constants and getters, generated in
 // lib/src/go.dart; each library adds its members as an extension on its class
-// (`extension GoBoxoMfsApi on GoBoxoMfs`). Dart has
-// no nested types, so a type keeps a top-level name, unique in the whole
-// package: the library's path in front (`BoxoMfsRoot`), minus the words the Go
-// name already starts with (`cid.Cid` → `Cid`).
+// (`extension GoIpfsBoxoMfsApi on GoIpfsBoxoMfs`). Dart has no nested types, so
+// a type keeps a top-level name, unique in the whole package: the library's
+// path without the author in front (`BoxoMfsRoot`), minus the words the Go name
+// already starts with (`cid.Cid` → `Cid`).
 
 // libWords: the words of a library path (go/boxo/mfs.dart → boxo mfs,
 // go/libp2p_kad_dht.dart → libp2p kad dht).
@@ -106,10 +142,11 @@ func libPrefix(path string) string {
 }
 
 // qualType: the Dart class of the Go type [goName] of library [path]
-// (boxo/mfs Root → BoxoMfsRoot, cid Cid → Cid, boxo/path Path → BoxoPath).
+// (ipfs/boxo/mfs Root → BoxoMfsRoot, ipfs/cid Cid → Cid, ipfs/boxo/path Path →
+// BoxoPath).
 func qualType(path, goName string) string {
 	var pre, ws []string
-	for _, w := range libWords(path) {
+	for _, w := range libWords(classPath(path)) {
 		pre = append(pre, capitalize(w))
 	}
 	for _, w := range words(goName) {
@@ -126,22 +163,22 @@ func qualType(path, goName string) string {
 }
 
 // nsClass: the namespace class of a library path or of a folder of them
-// (go/boxo/mfs.dart and go/boxo/mfs → GoBoxoMfs).
+// (go/ipfs/boxo/mfs.dart and go/ipfs/boxo/mfs → GoIpfsBoxoMfs; the root, "" →
+// Go).
 func nsClass(path string) string { return "Go" + libPrefix(path) }
 
-// nsPath: how Dart reaches the namespace (go/boxo/mfs.dart → goBoxo.mfs).
+// nsPath: how Dart reaches the namespace (go/ipfs/boxo/mfs.dart →
+// go.ipfs.boxo.mfs).
 func nsPath(path string) string {
-	p := strings.TrimSuffix(strings.TrimPrefix(path, "go/"), ".dart")
-	segs := strings.Split(p, "/")
-	segs[0] = nsRoot(segs[0])
-	for i := 1; i < len(segs); i++ {
-		segs[i] = nsMember(segs[i])
+	segs := []string{nsRootConst}
+	for _, seg := range strings.Split(strings.TrimSuffix(strings.TrimPrefix(path, "go/"), ".dart"), "/") {
+		segs = append(segs, nsMember(seg))
 	}
 	return strings.Join(segs, ".")
 }
 
-// nsRoot: the top-level constant of a module (ipld_prime → goIpldPrime).
-func nsRoot(seg string) string { return "go" + libPrefix(seg) }
+// nsRootConst: the top-level constant at the root of the tree.
+const nsRootConst = "go"
 
 // nsMember: the getter of a path segment (libp2p_kad_dht → libp2pKadDht).
 func nsMember(seg string) string { return memberName(seg) }
@@ -261,7 +298,7 @@ func extMembers(src []byte) []string {
 	return out
 }
 
-// goTree: lib/src/go.dart, the root constant of each module, the namespace
+// goTree: lib/src/go.dart, the root constant `go`, the namespace
 // classes (one per folder or library under lib/go/) and the export of every
 // library. [libs]: the library
 // paths (relative to lib/) → their source, the generated and the hand-written
@@ -307,8 +344,8 @@ func goTree(libs map[string][]byte, goPaths map[string]string, runtime []string)
 	var b strings.Builder
 	b.WriteString(generatedHeader + ` from the libraries under lib/go/; do not edit.
 
-/// The Go packages as namespaces: ` + "`go<Module>.<package>`" + ` reaches a package's
-/// functions, constants and variables (` + "`goBoxo.mfs.newRoot(...)`" + `); its
+/// The Go packages as namespaces: ` + "`go.<author>.<package>`" + ` reaches a package's
+/// functions, constants and variables (` + "`go.ipfs.boxo.mfs.newRoot(...)`" + `); its
 /// types are top-level classes named after the package (` + "`BoxoMfsRoot`" + `).
 library;
 
@@ -328,16 +365,12 @@ library;
 		}
 		return g.String()
 	}
-	for _, seg := range sortedKeys(kids[""]) {
-		claim(nsRoot(seg), "lib/src/go.dart")
-		doc := "The module `" + seg + "`"
-		if gp, ok := goPaths["go/"+seg+".dart"]; ok {
-			doc = "Go: package `" + gp + "`"
-		}
-		fmt.Fprintf(&b, "\n/// %s.\nconst %s = %s._();\n", doc, nsRoot(seg), nsClass(seg))
-	}
+	claim(nsRootConst, "lib/src/go.dart")
+	fmt.Fprintf(&b, "\n/// The Go packages: the authors (`%[1]s.ipfs`) and the standard library (`%[1]s.context`).\nconst %[1]s = %[2]s._();\n", nsRootConst, nsClass(""))
 	for _, dir := range sortedKeys(kids) {
 		if dir == "" {
+			claim(nsClass(""), "lib/src/go.dart")
+			fmt.Fprintf(&b, "\n/// `%s`.\nfinal class %s {\n  const %s._();\n%s}\n", nsRootConst, nsClass(""), nsClass(""), getters(""))
 			continue
 		}
 		claim(nsClass(dir), "lib/src/go.dart")

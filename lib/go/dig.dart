@@ -5,7 +5,7 @@ library;
 import 'package:p2p_ffi/src/go.dart' show GoDig;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/ipfs_cmds.dart' as $ipfs_cmds;
+import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
 
 /// Go: `dig.In` (handle).
 class DigIn extends $crypto.CryptoPrivateKey
@@ -30,7 +30,7 @@ class DigPanicError extends GolangException {
   String toString() => 'dig.PanicError: $message';
 }
 
-/// Go: the package-level members of `go.uber.org/dig` (`goDig`).
+/// Go: the package-level members of `go.uber.org/dig` (`go.dig`).
 extension GoDigApi on GoDig {
   /// Go: `const dig.Version untyped string`.
   String get version => "1.19.0";

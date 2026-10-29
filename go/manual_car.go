@@ -1,7 +1,7 @@
 // `ipfs dag export` e `ipfs dag import` (arquivos CAR). No kubo isso é o
 // corpo dos comandos (core/commands/dag/export.go e import.go), não função
 // de biblioteca, por isso o porte é à mão; o Dart está em
-// lib/go/kubo/core/commands/dag.dart. Diferenças do CLI: sem barra de progresso
+// lib/go/ipfs/kubo/core/commands/dag.dart. Diferenças do CLI: sem barra de progresso
 // e sem o fast-provide do DAG inteiro; a raiz é anunciada pelo Provide da
 // CoreAPI (o mesmo enfileiramento).
 package main

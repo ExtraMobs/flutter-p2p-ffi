@@ -3,7 +3,7 @@
 library;
 
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/ipfs_cmds.dart' as $ipfs_cmds;
+import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
 
 /// Go: `regexp.Regexp` (handle).
 class Regexp extends $crypto.CryptoPrivateKey

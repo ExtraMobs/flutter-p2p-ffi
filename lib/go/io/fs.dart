@@ -94,7 +94,7 @@ class IoFsSkipDir extends GolangException {
   String toString() => 'fs.SkipDir: $message';
 }
 
-/// Go: the package-level members of `io/fs` (`goIo.fs`).
+/// Go: the package-level members of `io/fs` (`go.io.fs`).
 extension GoIoFsApi on GoIoFs {
   /// Go: `const fs.ModeAppend fs.FileMode`.
   int get modeAppend => 1073741824;

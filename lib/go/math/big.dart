@@ -5,7 +5,7 @@ library;
 import 'package:p2p_ffi/src/go.dart' show GoMathBig;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/ipfs_cmds.dart' as $ipfs_cmds;
+import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
 
 /// Go: `big.Int` (handle).
 class MathBigInt extends $crypto.CryptoPrivateKey
@@ -23,7 +23,7 @@ class MathBigErrNaN extends GolangException {
   String toString() => 'big.ErrNaN: $message';
 }
 
-/// Go: the package-level members of `math/big` (`goMath.big`).
+/// Go: the package-level members of `math/big` (`go.math.big`).
 extension GoMathBigApi on GoMathBig {
   /// Go: `const big.Above big.Accuracy`.
   int get above => 1;

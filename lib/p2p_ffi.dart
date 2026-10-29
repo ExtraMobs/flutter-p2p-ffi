@@ -4,10 +4,11 @@
 /// This library is the only import: the runtime (the service, its errors and
 /// the handles) and the Go API, generated from `go/gen/roots.txt` (the list of
 /// what exists is in `API.md`). A Go package's functions, constants and
-/// variables are reached through a constant per module, then one getter per
-/// further segment of the package's path (`github.com/ipfs/kubo/repo/fsrepo` →
-/// `goKubo.repo.fsrepo`, `github.com/ipfs/go-cid` → `goCid`); its types are
-/// top-level classes named after that path (`KuboCoreIpfsNode`,
+/// variables are reached through the constant `go`, then one getter per segment
+/// of the package's path after the host of its URL
+/// (`github.com/ipfs/kubo/repo/fsrepo` → `go.ipfs.kubo.repo.fsrepo`,
+/// `github.com/ipfs/go-cid` → `go.ipfs.cid`); its types are top-level classes
+/// named after that path without the author (`KuboCoreIpfsNode`,
 /// `KuboCoreNodeBuildCfg`, `cid.Cid` → `Cid`). Start the service before using
 /// it:
 ///
@@ -15,8 +16,8 @@
 /// import 'package:p2p_ffi/p2p_ffi.dart';
 ///
 /// await P2pService.start();
-/// final n = await goKubo.core.newNode(goContext.background(),
-///     KuboCoreNodeBuildCfg(repo: goKubo.repo.fsrepo.open(repo)));
+/// final n = await go.ipfs.kubo.core.newNode(go.context.background(),
+///     KuboCoreNodeBuildCfg(repo: go.ipfs.kubo.repo.fsrepo.open(repo)));
 /// ```
 library;
 

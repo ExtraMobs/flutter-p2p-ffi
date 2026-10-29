@@ -24,19 +24,20 @@ void main() {
 
   setUpAll(() async {
     await P2pService.start();
-    ctx = goContext.background();
+    ctx = go.context.background();
     KuboPluginLoader('')
       ..initialize()
       ..inject();
     tmp = Directory.systemTemp.createTempSync('p2p_ffi_errors_');
-    final cfg = goKubo.config.initWithIdentity(goKubo.config.createIdentity(
-        null, [goKubo.core.coreiface.options.key.type('ed25519')]));
-    goKubo.config.profiles['test']!.transform(cfg);
-    goKubo.repo.fsrepo.init('${tmp.path}/repo', cfg);
-    n = await goKubo.core.newNode(
+    final cfg = go.ipfs.kubo.config.initWithIdentity(go.ipfs.kubo.config
+        .createIdentity(
+            null, [go.ipfs.kubo.core.coreiface.options.key.type('ed25519')]));
+    go.ipfs.kubo.config.profiles['test']!.transform(cfg);
+    go.ipfs.kubo.repo.fsrepo.init('${tmp.path}/repo', cfg);
+    n = await go.ipfs.kubo.core.newNode(
         ctx,
         KuboCoreNodeBuildCfg(
-            repo: goKubo.repo.fsrepo.open('${tmp.path}/repo')));
+            repo: go.ipfs.kubo.repo.fsrepo.open('${tmp.path}/repo')));
   });
   tearDownAll(() async {
     await n.close();
@@ -48,7 +49,8 @@ void main() {
       () async {
     // mfs answers a missing path with os.ErrNotExist, which is
     // fs.ErrNotExist: both classes are in the chain
-    final e = await thrown(() async => goBoxo.mfs.lookup(n.filesRoot, '/nope'));
+    final e =
+        await thrown(() async => go.ipfs.boxo.mfs.lookup(n.filesRoot, '/nope'));
     expect(e, isA<IoFsErrNotExist>());
     final g = e as GolangException;
     expect(g.isA<OsErrNotExist>(), isTrue);
@@ -60,7 +62,7 @@ void main() {
 
   test('an error type: its fields, and the errno of the chain', () async {
     final missing = '${tmp.path}/does-not-exist.bin';
-    final e = await thrown(() async => goOs.open(missing));
+    final e = await thrown(() async => go.os.open(missing));
     expect(e, isA<IoFsPathError>());
     final p = e as IoFsPathError;
     expect(p.op, 'open');
@@ -75,13 +77,13 @@ void main() {
   });
 
   test('a typed error without fields: cid.ErrInvalidCid', () async {
-    final e = await thrown(() async => goCid.decode('not-a-cid'));
+    final e = await thrown(() async => go.ipfs.cid.decode('not-a-cid'));
     expect(e, isA<CidErrInvalidCid>());
     expect((e as GolangException).errTexts.first, contains('invalid cid'));
   });
 
   test('an error that is only text: GolangException with the chain', () async {
-    final api = goKubo.core.coreapi.newCoreApi(n);
+    final api = go.ipfs.kubo.core.coreapi.newCoreApi(n);
     final e = await thrown(() => api.key().generate(ctx, 'self'));
     expect(e.runtimeType, GolangException);
     final g = e as GolangException;

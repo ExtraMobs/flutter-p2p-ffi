@@ -13,15 +13,15 @@ Future<void> main() async {
   KuboPluginLoader('')
     ..initialize()
     ..inject();
-  final cfg =
-      goKubo.config.initWithIdentity(goKubo.config.createIdentity(null, []));
-  goKubo.config.profiles['test']!.transform(cfg);
+  final cfg = go.ipfs.kubo.config
+      .initWithIdentity(go.ipfs.kubo.config.createIdentity(null, []));
+  go.ipfs.kubo.config.profiles['test']!.transform(cfg);
   final repoPath = '${tmp.path}/r';
-  goKubo.repo.fsrepo.init(repoPath, cfg);
-  final ctx = goContext.background();
-  final n = await goKubo.core.newNode(
-      ctx, KuboCoreNodeBuildCfg(repo: goKubo.repo.fsrepo.open(repoPath)));
-  final api = goKubo.core.coreapi.newCoreApi(n);
+  go.ipfs.kubo.repo.fsrepo.init(repoPath, cfg);
+  final ctx = go.context.background();
+  final n = await go.ipfs.kubo.core.newNode(
+      ctx, KuboCoreNodeBuildCfg(repo: go.ipfs.kubo.repo.fsrepo.open(repoPath)));
+  final api = go.ipfs.kubo.core.coreapi.newCoreApi(n);
 
   void bench(String what, void Function() f) {
     for (var i = 0; i < 2000; i++) {
@@ -38,10 +38,10 @@ Future<void> main() async {
 
   bench('api.unixfs() (handle → handle)', () => api.unixfs());
   bench('fsrepo.isInitialized (string → bool)',
-      () => goKubo.repo.fsrepo.isInitialized(repoPath));
+      () => go.ipfs.kubo.repo.fsrepo.isInitialized(repoPath));
   bench('ctx.err() (à mão)', () => ctx.err());
   bench('withTimeout + cancel (à mão, 2 chamadas)', () {
-    final (_, cancel) = goContext.withTimeout(ctx, const Duration(seconds: 1));
+    final (_, cancel) = go.context.withTimeout(ctx, const Duration(seconds: 1));
     cancel();
   });
 
@@ -67,13 +67,13 @@ Future<void> main() async {
 
   bench('Noop síncrono (função 0, piso do canal)', () => $callSync(0));
   await benchAsync('Noop assíncrono (função 0)', () => $call(0));
-  final p = await api.unixfs().add(ctx, goBoxo.files.newBytesFile(kib));
+  final p = await api.unixfs().add(ctx, go.ipfs.boxo.files.newBytesFile(kib));
   final block = api.block();
   await benchAsync('block.stat assíncrono', () => block.stat(ctx, p));
   await benchAsync('resolvePath assíncrono', () => api.resolvePath(ctx, p));
   final unixfs = api.unixfs();
   await benchAsync('unixfs.add 1 KiB assíncrono',
-      () => unixfs.add(ctx, goBoxo.files.newBytesFile(kib)));
+      () => unixfs.add(ctx, go.ipfs.boxo.files.newBytesFile(kib)));
 
   await n.close();
   await P2pService.stop();

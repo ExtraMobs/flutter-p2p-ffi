@@ -11,7 +11,7 @@ void main() {
   late Directory tmp;
   late KuboCoreIpfsNode n;
   late KuboCoreCoreifaceCoreApi api;
-  final ctx = () => goContext.background();
+  final ctx = () => go.context.background();
 
   setUpAll(() async {
     tmp = Directory.systemTemp.createTempSync('p2p_ffi_cmds_');
@@ -19,15 +19,16 @@ void main() {
     KuboPluginLoader('')
       ..initialize()
       ..inject();
-    final cfg = goKubo.config.initWithIdentity(goKubo.config.createIdentity(
-        null, [goKubo.core.coreiface.options.key.type('ed25519')]));
-    goKubo.config.profiles['test']!.transform(cfg);
-    goKubo.repo.fsrepo.init('${tmp.path}/repo', cfg);
-    n = await goKubo.core.newNode(
+    final cfg = go.ipfs.kubo.config.initWithIdentity(go.ipfs.kubo.config
+        .createIdentity(
+            null, [go.ipfs.kubo.core.coreiface.options.key.type('ed25519')]));
+    go.ipfs.kubo.config.profiles['test']!.transform(cfg);
+    go.ipfs.kubo.repo.fsrepo.init('${tmp.path}/repo', cfg);
+    n = await go.ipfs.kubo.core.newNode(
         ctx(),
         KuboCoreNodeBuildCfg(
-            repo: goKubo.repo.fsrepo.open('${tmp.path}/repo')));
-    api = goKubo.core.coreapi.newCoreApi(n);
+            repo: go.ipfs.kubo.repo.fsrepo.open('${tmp.path}/repo')));
+    api = go.ipfs.kubo.core.coreapi.newCoreApi(n);
   });
 
   tearDownAll(() async {
@@ -38,49 +39,52 @@ void main() {
 
   test('id e version (Future com DTO)', () async {
     final self = (await api.key().self(ctx())).id!;
-    final id = await goKubo.core.commands.id(n, ctx(), null).single;
+    final id = await go.ipfs.kubo.core.commands.id(n, ctx(), null).single;
     expect(id.id, self.value);
     expect(id.agentVersion, startsWith('kubo/'));
-    final v = await goKubo.core.commands.version(n, ctx()).single;
+    final v = await go.ipfs.kubo.core.commands.version(n, ctx()).single;
     expect(v.version, startsWith('0.43.'));
   });
 
   test('files: mkdir, write, stat, ls, read e rm', () async {
-    await goKubo.core.commands
+    await go.ipfs.kubo.core.commands
         .filesMkdir(n, ctx(), '/c/d', parents: true)
         .drain<void>();
-    await goKubo.core.commands
+    await go.ipfs.kubo.core.commands
         .filesWrite(n, ctx(), '/c/d/a.txt',
-            goBoxo.files.newBytesFile(utf8.encode('olá files')),
+            go.ipfs.boxo.files.newBytesFile(utf8.encode('olá files')),
             create: true)
         .drain<void>();
-    final st =
-        await goKubo.core.commands.filesStat(n, ctx(), '/c/d/a.txt').single;
+    final st = await go.ipfs.kubo.core.commands
+        .filesStat(n, ctx(), '/c/d/a.txt')
+        .single;
     expect(st.type, 'file');
     expect(st.size, utf8.encode('olá files').length);
-    final ls =
-        await goKubo.core.commands.filesLs(n, ctx(), '/c/d', long: true).single;
+    final ls = await go.ipfs.kubo.core.commands
+        .filesLs(n, ctx(), '/c/d', long: true)
+        .single;
     expect([for (final e in ls.entries) e.name], ['a.txt']);
-    final read =
-        await goKubo.core.commands.filesRead(n, ctx(), '/c/d/a.txt').toList();
+    final read = await go.ipfs.kubo.core.commands
+        .filesRead(n, ctx(), '/c/d/a.txt')
+        .toList();
     expect(utf8.decode([for (final b in read) ...b]), 'olá files');
-    final part = await goKubo.core.commands
+    final part = await go.ipfs.kubo.core.commands
         .filesRead(n, ctx(), '/c/d/a.txt', offset: 5)
         .toList();
     expect(utf8.decode([for (final b in part) ...b]), 'files');
-    await goKubo.core.commands.filesRm(n, ctx(), ['/c/d/a.txt']).toList();
+    await go.ipfs.kubo.core.commands.filesRm(n, ctx(), ['/c/d/a.txt']).toList();
     await expectLater(
-        goKubo.core.commands.filesStat(n, ctx(), '/c/d/a.txt').single,
+        go.ipfs.kubo.core.commands.filesStat(n, ctx(), '/c/d/a.txt').single,
         throwsA(isA<GolangException>()));
   });
 
   test('config: valor de uma chave e show (dinâmico)', () async {
-    final f = await goKubo.core.commands
+    final f = await go.ipfs.kubo.core.commands
         .config(n, ctx(), 'Datastore.StorageMax', null)
         .single;
     expect(f.key, 'Datastore.StorageMax');
     expect(f.value$, isA<String>());
-    final show = await goKubo.core.commands.configShow(n, ctx()).single;
+    final show = await go.ipfs.kubo.core.commands.configShow(n, ctx()).single;
     expect(show['Identity'], isA<Map<String, Object?>>());
   });
 
@@ -88,36 +92,39 @@ void main() {
     final self = (await api.key().self(ctx())).id!;
     final addr = '/ip4/127.0.0.1/tcp/4001/p2p/${self.value}';
     final added =
-        await goKubo.core.commands.bootstrapAdd(n, ctx(), [addr]).single;
+        await go.ipfs.kubo.core.commands.bootstrapAdd(n, ctx(), [addr]).single;
     expect(added.peers, [addr]);
-    expect((await goKubo.core.commands.bootstrapList(n, ctx()).single).peers,
+    expect(
+        (await go.ipfs.kubo.core.commands.bootstrapList(n, ctx()).single).peers,
         contains(addr));
-    await goKubo.core.commands.bootstrapRm(n, ctx(), [addr]).drain<void>();
-    expect((await goKubo.core.commands.bootstrapList(n, ctx()).single).peers,
+    await go.ipfs.kubo.core.commands
+        .bootstrapRm(n, ctx(), [addr]).drain<void>();
+    expect(
+        (await go.ipfs.kubo.core.commands.bootstrapList(n, ctx()).single).peers,
         isNot(contains(addr)));
   });
 
   test('swarm peering ls: offline, o erro do kubo', () async {
     await expectLater(
-        goKubo.core.commands.swarmPeeringLs(n, ctx()).single,
+        go.ipfs.kubo.core.commands.swarmPeeringLs(n, ctx()).single,
         throwsA(isA<GolangException>()
             .having((e) => '$e', 'msg', contains('online mode'))));
   });
 
   test('key list, pin ls e refs local (Stream)', () async {
-    final keys = await goKubo.core.commands.keyList(n, ctx()).single;
+    final keys = await go.ipfs.kubo.core.commands.keyList(n, ctx()).single;
     expect([for (final k in keys.keys) k.name], contains('self'));
     final p = await api.unixfs().add(
         ctx(),
-        goBoxo.files.newBytesFile(utf8.encode('pinado')),
-        [goKubo.core.coreiface.options.unixfs.pin(true, '')]);
-    final pins = await goKubo.core.commands
+        go.ipfs.boxo.files.newBytesFile(utf8.encode('pinado')),
+        [go.ipfs.kubo.core.coreiface.options.unixfs.pin(true, '')]);
+    final pins = await go.ipfs.kubo.core.commands
         .pinLs(n, ctx(), [], type: 'recursive')
         .toList();
     final cid = p.value.substring('/ipfs/'.length);
     expect(pins.expand((w) => w.keys.keys), contains(cid));
     // o blockstore guarda por multihash: o refs local lista CIDv1 raw
-    final refs = await goKubo.core.commands.refsLocal(n, ctx()).toList();
+    final refs = await go.ipfs.kubo.core.commands.refsLocal(n, ctx()).toList();
     expect(refs, isNotEmpty);
     expect([for (final r in refs) r.err], everyElement(''));
     expect([for (final r in refs) r.ref], everyElement(startsWith('b')));
@@ -126,24 +133,25 @@ void main() {
   test('cid format (Stream), repo stat e cat (bytes)', () async {
     final p = await api
         .unixfs()
-        .add(ctx(), goBoxo.files.newBytesFile(utf8.encode('olá cat')));
+        .add(ctx(), go.ipfs.boxo.files.newBytesFile(utf8.encode('olá cat')));
     final cid = p.value.substring('/ipfs/'.length);
-    final f = await goKubo.core.commands
+    final f = await go.ipfs.kubo.core.commands
         .cidFormat(n, ctx(), [cid], v: '1', b: 'base32')
         .toList();
     expect(f.single.formatted, startsWith('b'));
-    final st = await goKubo.core.commands.repoStat(n, ctx()).single;
+    final st = await go.ipfs.kubo.core.commands.repoStat(n, ctx()).single;
     expect(st.numObjects, greaterThan(0));
-    final out = await goKubo.core.commands.cat(n, ctx(), [p.value]).toList();
+    final out =
+        await go.ipfs.kubo.core.commands.cat(n, ctx(), [p.value]).toList();
     expect(utf8.decode([for (final b in out) ...b]), 'olá cat');
   });
 
   test('erro do comando vira GolangException', () async {
     await expectLater(
-        goKubo.core.commands.filesStat(n, ctx(), '/nao/existe').single,
+        go.ipfs.kubo.core.commands.filesStat(n, ctx(), '/nao/existe').single,
         throwsA(isA<GolangException>()));
     await expectLater(
-        goKubo.core.commands.cat(n, ctx(), ['/ipfs/nao-e-cid']).toList(),
+        go.ipfs.kubo.core.commands.cat(n, ctx(), ['/ipfs/nao-e-cid']).toList(),
         throwsA(isA<GolangException>()));
   });
 }

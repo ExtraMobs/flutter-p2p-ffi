@@ -5,7 +5,7 @@
 library;
 
 import 'package:p2p_ffi/src/runtime.dart';
-import 'package:p2p_ffi/go/libp2p/core/event.dart' as $event;
+import 'package:p2p_ffi/go/libp2p/libp2p/core/event.dart' as $event;
 
 final $anyTypes = <int, Object? Function($R r)>{
   1: (r) =>

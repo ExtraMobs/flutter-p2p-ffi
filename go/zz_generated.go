@@ -185,7 +185,7 @@ var (
 )
 
 // tableHash: o hash da tabela (WIRE.md, Hello), o mesmo do Dart gerado.
-const tableHash uint64 = 0x84bd71b1a31a3c42
+const tableHash uint64 = 0x2982dc858a03beae
 
 // table: as funções geradas por id (WIRE.md); as escritas à mão entram no init delas.
 var table = map[uint32]entry{
@@ -3686,228 +3686,228 @@ var errSentinels = []struct {
 	err error
 	id  uint32
 }{
-	{p_blocks.ErrWrongHash, 1},
-	{p_blockstore.ErrHashMismatch, 2},
-	{p_bootstrap.ErrNotEnoughBootstrapPeers, 3},
-	{p_chunk.ErrRabinMin, 4},
-	{p_chunk.ErrSize, 5},
-	{p_chunk.ErrSizeMax, 6},
-	{p_files.ErrInvalidDirectoryEntry, 7},
-	{p_files.ErrNotDirectory, 8},
-	{p_files.ErrNotReader, 9},
-	{p_files.ErrNotSupported, 10},
-	{p_files.ErrPathExistsOverwrite, 11},
-	{p_files.ErrUnixFSPathOutsideRoot, 12},
-	{p_filestore.ErrFilestoreNotEnabled, 14},
-	{p_filestore.ErrUrlstoreNotEnabled, 15},
-	{p_gateway.ErrFetcherUnexpectedEOF, 16},
-	{p_gateway.ErrRetrievalTimeout, 19},
-	{p_gateway.ErrTraversalTooDeep, 20},
-	{p_merkledag.ErrLinkNotFound, 23},
-	{p_merkledag.ErrNotProtobuf, 24},
-	{p_merkledag.ErrNotRawNode, 25},
-	{p_merkledag.ErrReadOnly, 26},
-	{p_unixfs.ErrMalformedFileFormat, 27},
-	{p_unixfs.ErrNotProtoNode, 28},
-	{p_unixfs.ErrUnrecognizedType, 29},
-	{p_io.ErrCantReadSymlinks, 30},
-	{p_io.ErrInvalidHAMTFanout, 31},
-	{p_io.ErrIsDir, 32},
-	{p_io.ErrNotADir, 33},
-	{p_io.ErrSeekNotSupported, 34},
-	{p_io.ErrUnkownNodeType, 35},
-	{p_ipns.ErrDataMissing, 36},
-	{p_ipns.ErrExpiredRecord, 37},
-	{p_ipns.ErrInvalidName, 38},
-	{p_ipns.ErrInvalidPath, 39},
-	{p_ipns.ErrInvalidPublicKey, 40},
-	{p_ipns.ErrInvalidRecord, 41},
-	{p_ipns.ErrInvalidValidity, 42},
-	{p_ipns.ErrMetadataConflict, 43},
-	{p_ipns.ErrMetadataEmptyKey, 44},
-	{p_ipns.ErrMetadataNotFound, 45},
-	{p_ipns.ErrMetadataUnsupportedType, 46},
-	{p_ipns.ErrMetadataValueNotSet, 47},
-	{p_ipns.ErrPublicKeyMismatch, 48},
-	{p_ipns.ErrPublicKeyNotFound, 49},
-	{p_ipns.ErrRecordSize, 50},
-	{p_ipns.ErrSignature, 51},
-	{p_ipns.ErrUnrecognizedValidity, 52},
-	{p_keystore.ErrKeyExists, 53},
-	{p_keystore.ErrNoSuchKey, 54},
-	{p_mfs.ErrClosed, 55},
-	{p_mfs.ErrDirExists, 56},
-	{p_mfs.ErrInvalidChild, 57},
-	{p_mfs.ErrIsDirectory, 58},
-	{p_mfs.ErrNotExist, 59},
-	{p_mfs.ErrNotYetImplemented, 60},
-	{p_namesys.ErrInvalidSequence, 61},
-	{p_namesys.ErrMissingDNSLinkRecord, 62},
-	{p_namesys.ErrMultipleDNSLinkRecords, 63},
-	{p_namesys.ErrNoNamesys, 64},
-	{p_namesys.ErrResolveFailed, 65},
-	{p_namesys.ErrResolveRecursion, 66},
-	{p_path.ErrExpectedImmutable, 67},
-	{p_path.ErrInsufficientComponents, 68},
-	{p_path.ErrUnknownNamespace, 70},
-	{p_verifcid.ErrAboveMaximumHashLength, 72},
-	{p_verifcid.ErrBelowMinimumHashLength, 73},
-	{p_verifcid.ErrDigestTooLarge, 74},
-	{p_verifcid.ErrDigestTooSmall, 75},
-	{p_verifcid.ErrPossiblyInsecureHashFunction, 76},
-	{p_bytes.ErrTooLarge, 77},
-	{p_car.ErrAlreadyV1, 78},
-	{p_car.ErrOffsetImpossible, 80},
-	{p_car.ErrSizeMismatch, 81},
-	{p_storage.ErrClosed, 82},
-	{p_cid.ErrInvalidEncoding, 84},
-	{p_dagpb.ErrIntOverflow, 87},
-	{p_x509.ErrUnsupportedAlgorithm, 90},
-	{p_x509.IncorrectPasswordError, 92},
-	{p_datastore.ErrBatchUnsupported, 97},
-	{p_datastore.ErrNotFound, 98},
-	{p_io2.ErrClosedPipe, 100},
-	{p_io2.ErrNoProgress, 101},
-	{p_io2.ErrShortBuffer, 102},
-	{p_io2.ErrShortWrite, 103},
-	{p_fs.ErrClosed, 104},
-	{p_fs.ErrExist, 105},
-	{p_fs.ErrInvalid, 106},
-	{p_fs.ErrNotExist, 107},
-	{p_fs.ErrPermission, 108},
-	{p_fs.SkipAll, 110},
-	{p_fs.SkipDir, 111},
-	{p_cmds.ErrClosedEmitter, 112},
-	{p_cmds.ErrClosingClosedEmitter, 113},
-	{p_cmds.ErrIncorrectType, 114},
-	{p_cmds.ErrNoFormatter, 115},
-	{p_cmds.ErrNotCallable, 116},
-	{p_format.EndOfDag, 119},
-	{p_format.ErrClosed, 120},
-	{p_format.ErrDownNoChild, 121},
-	{p_format.ErrNextNoChild, 122},
-	{p_format.ErrNilVisitor, 123},
-	{p_format.ErrNotCommited, 124},
-	{p_config.ErrInvalidPeerAddr, 134},
-	{p_commands.ErrDepthLimitExceeded, 135},
-	{p_commands.ErrInvalidCompressionLevel, 136},
-	{p_commands.ErrNotDHT, 137},
-	{p_commands.ErrNotOnline, 138},
-	{p_commands.ErrPingSelf, 139},
-	{p_commands.ErrSelfUnsupported, 140},
-	{p_objectcmd.ErrDataEncoding, 141},
-	{p_iface.ErrConnNotFound, 142},
-	{p_iface.ErrIsDir, 143},
-	{p_iface.ErrNotConnected, 144},
-	{p_iface.ErrNotFile, 145},
-	{p_iface.ErrNotSupported, 146},
-	{p_iface.ErrOffline, 147},
-	{p_iface.ErrResolveFailed, 148},
-	{p_corerepo.ErrMaxStorageExceeded, 149},
-	{p_libp2p.ErrNoResourceMgr, 151},
-	{p_gc.ErrCannotDeleteSomeBlocks, 154},
-	{p_gc.ErrCannotFetchAllLinks, 155},
-	{p_repo.ErrApiNotRunning, 156},
-	{p_fsrepo.ErrNeedMigration, 157},
-	{p_fsrepo.ErrNoVersion, 158},
-	{p_fsrepo.ErrOldRepo, 159},
-	{p_crypto.ErrBadKeyType, 162},
-	{p_crypto.ErrNilPrivateKey, 163},
-	{p_crypto.ErrNilPublicKey, 164},
-	{p_crypto.ErrNilSig, 165},
-	{p_crypto.ErrNotECDSAPubKey, 166},
-	{p_crypto.ErrRsaKeyTooBig, 167},
-	{p_crypto.ErrRsaKeyTooSmall, 168},
-	{p_network.ErrLimitedConn, 170},
-	{p_network.ErrNoConn, 171},
-	{p_network.ErrNoRemoteAddrs, 172},
-	{p_network.ErrReset, 173},
-	{p_network.ErrResourceScopeClosed, 174},
-	{p_network.ErrTransientConn, 175},
-	{p_peer.ErrEmptyPeerID, 177},
-	{p_peer.ErrInvalidAddr, 178},
-	{p_peer.ErrNoPublicKey, 179},
-	{p_peerstore.ErrNotFound, 180},
-	{p_record2.ErrEmptyDomain, 181},
-	{p_record2.ErrEmptyPayloadType, 182},
-	{p_record2.ErrInvalidSignature, 183},
-	{p_record2.ErrPayloadTypeNotRegistered, 184},
-	{p_routing2.ErrNotFound, 185},
-	{p_routing2.ErrNotSupported, 186},
-	{p_transport.ErrListenerClosed, 188},
-	{p_swarm.ErrAddrFiltered, 192},
-	{p_swarm.ErrAllDialsFailed, 193},
-	{p_swarm.ErrConnClosed, 194},
-	{p_swarm.ErrDialBackoff, 195},
-	{p_swarm.ErrDialRefusedBlackHole, 196},
-	{p_swarm.ErrDialTimeout, 197},
-	{p_swarm.ErrDialToSelf, 198},
-	{p_swarm.ErrGaterDisallowedConnection, 199},
-	{p_swarm.ErrNoAddresses, 200},
-	{p_swarm.ErrNoGoodAddresses, 201},
-	{p_swarm.ErrNoTransport, 202},
-	{p_swarm.ErrSwarmClosed, 203},
-	{p_upgrader.ErrNilPeer, 205},
-	{p_holepunch.ErrClosed, 206},
-	{p_holepunch.ErrHolePunchActive, 207},
-	{p_libp2pquic.ErrHolePunching, 208},
-	{p_dht.ErrNoPeersQueried, 210},
-	{p_dht.ErrReadTimeout, 211},
-	{p_records.ErrClosed, 212},
-	{p_records.ErrOldRecord, 213},
-	{p_kbucket.ErrLookupFailure, 214},
-	{p_kbucket.ErrPeerRejectedHighLatency, 215},
-	{p_kbucket.ErrPeerRejectedNoCapacity, 216},
-	{p_pubsub.ErrEmptyPeerID, 217},
-	{p_pubsub.ErrFanoutOnlyTopic, 218},
-	{p_pubsub.ErrNilSignKey, 219},
-	{p_pubsub.ErrQueueCancelled, 220},
-	{p_pubsub.ErrQueueClosed, 221},
-	{p_pubsub.ErrQueueFull, 222},
-	{p_pubsub.ErrQueuePushOnClosed, 223},
-	{p_pubsub.ErrSubscriptionCancelled, 224},
-	{p_pubsub.ErrTooManySubscriptions, 225},
-	{p_pubsub.ErrTopicClosed, 226},
-	{p_record.ErrInvalidRecordType, 229},
-	{p_log.ErrNoSuchLogger, 230},
-	{p_multipart.ErrMessageTooLarge, 232},
-	{p_multiaddr.ErrProtocolNotFound, 233},
-	{p_multibase.ErrUnsupportedEncoding, 234},
-	{p_multihash.ErrInvalidMultihash, 236},
-	{p_multihash.ErrLenNotSupported, 237},
-	{p_multihash.ErrLenTooLarge, 238},
-	{p_multihash.ErrSumNotSupported, 239},
-	{p_multihash.ErrTooLong, 240},
-	{p_multihash.ErrTooShort, 241},
-	{p_multihash.ErrUnknownCode, 242},
-	{p_multihash.ErrVarintBufferShort, 243},
-	{p_multihash.ErrVarintTooLong, 244},
-	{p_net.ErrClosed, 248},
-	{p_net.ErrWriteToConnected, 249},
-	{p_http.ErrAbortHandler, 254},
-	{p_http.ErrBodyNotAllowed, 255},
-	{p_http.ErrBodyReadAfterClose, 256},
-	{p_http.ErrContentLength, 257},
-	{p_http.ErrHandlerTimeout, 258},
-	{p_http.ErrHijacked, 259},
-	{p_http.ErrLineTooLong, 260},
-	{p_http.ErrMissingFile, 261},
-	{p_http.ErrNoCookie, 262},
-	{p_http.ErrNoLocation, 263},
-	{p_http.ErrSchemeMismatch, 264},
-	{p_http.ErrServerClosed, 265},
-	{p_http.ErrSkipAltProtocol, 266},
-	{p_http.ErrUseLastResponse, 267},
-	{p_http.ErrWriteAfterFlush, 268},
-	{p_os.ErrClosed, 274},
-	{p_os.ErrDeadlineExceeded, 275},
-	{p_os.ErrExist, 276},
-	{p_os.ErrInvalid, 277},
-	{p_os.ErrNoDeadline, 278},
-	{p_os.ErrNoHandle, 279},
-	{p_os.ErrNotExist, 280},
-	{p_os.ErrPermission, 281},
-	{p_os.ErrProcessDone, 282},
+	{p_bytes.ErrTooLarge, 1},
+	{p_x509.ErrUnsupportedAlgorithm, 4},
+	{p_x509.IncorrectPasswordError, 6},
+	{p_io2.ErrClosedPipe, 14},
+	{p_io2.ErrNoProgress, 15},
+	{p_io2.ErrShortBuffer, 16},
+	{p_io2.ErrShortWrite, 17},
+	{p_fs.ErrClosed, 18},
+	{p_fs.ErrExist, 19},
+	{p_fs.ErrInvalid, 20},
+	{p_fs.ErrNotExist, 21},
+	{p_fs.ErrPermission, 22},
+	{p_fs.SkipAll, 24},
+	{p_fs.SkipDir, 25},
+	{p_blocks.ErrWrongHash, 26},
+	{p_blockstore.ErrHashMismatch, 27},
+	{p_bootstrap.ErrNotEnoughBootstrapPeers, 28},
+	{p_chunk.ErrRabinMin, 29},
+	{p_chunk.ErrSize, 30},
+	{p_chunk.ErrSizeMax, 31},
+	{p_files.ErrInvalidDirectoryEntry, 32},
+	{p_files.ErrNotDirectory, 33},
+	{p_files.ErrNotReader, 34},
+	{p_files.ErrNotSupported, 35},
+	{p_files.ErrPathExistsOverwrite, 36},
+	{p_files.ErrUnixFSPathOutsideRoot, 37},
+	{p_filestore.ErrFilestoreNotEnabled, 39},
+	{p_filestore.ErrUrlstoreNotEnabled, 40},
+	{p_gateway.ErrFetcherUnexpectedEOF, 41},
+	{p_gateway.ErrRetrievalTimeout, 44},
+	{p_gateway.ErrTraversalTooDeep, 45},
+	{p_merkledag.ErrLinkNotFound, 48},
+	{p_merkledag.ErrNotProtobuf, 49},
+	{p_merkledag.ErrNotRawNode, 50},
+	{p_merkledag.ErrReadOnly, 51},
+	{p_unixfs.ErrMalformedFileFormat, 52},
+	{p_unixfs.ErrNotProtoNode, 53},
+	{p_unixfs.ErrUnrecognizedType, 54},
+	{p_io.ErrCantReadSymlinks, 55},
+	{p_io.ErrInvalidHAMTFanout, 56},
+	{p_io.ErrIsDir, 57},
+	{p_io.ErrNotADir, 58},
+	{p_io.ErrSeekNotSupported, 59},
+	{p_io.ErrUnkownNodeType, 60},
+	{p_ipns.ErrDataMissing, 61},
+	{p_ipns.ErrExpiredRecord, 62},
+	{p_ipns.ErrInvalidName, 63},
+	{p_ipns.ErrInvalidPath, 64},
+	{p_ipns.ErrInvalidPublicKey, 65},
+	{p_ipns.ErrInvalidRecord, 66},
+	{p_ipns.ErrInvalidValidity, 67},
+	{p_ipns.ErrMetadataConflict, 68},
+	{p_ipns.ErrMetadataEmptyKey, 69},
+	{p_ipns.ErrMetadataNotFound, 70},
+	{p_ipns.ErrMetadataUnsupportedType, 71},
+	{p_ipns.ErrMetadataValueNotSet, 72},
+	{p_ipns.ErrPublicKeyMismatch, 73},
+	{p_ipns.ErrPublicKeyNotFound, 74},
+	{p_ipns.ErrRecordSize, 75},
+	{p_ipns.ErrSignature, 76},
+	{p_ipns.ErrUnrecognizedValidity, 77},
+	{p_keystore.ErrKeyExists, 78},
+	{p_keystore.ErrNoSuchKey, 79},
+	{p_mfs.ErrClosed, 80},
+	{p_mfs.ErrDirExists, 81},
+	{p_mfs.ErrInvalidChild, 82},
+	{p_mfs.ErrIsDirectory, 83},
+	{p_mfs.ErrNotExist, 84},
+	{p_mfs.ErrNotYetImplemented, 85},
+	{p_namesys.ErrInvalidSequence, 86},
+	{p_namesys.ErrMissingDNSLinkRecord, 87},
+	{p_namesys.ErrMultipleDNSLinkRecords, 88},
+	{p_namesys.ErrNoNamesys, 89},
+	{p_namesys.ErrResolveFailed, 90},
+	{p_namesys.ErrResolveRecursion, 91},
+	{p_path.ErrExpectedImmutable, 92},
+	{p_path.ErrInsufficientComponents, 93},
+	{p_path.ErrUnknownNamespace, 95},
+	{p_verifcid.ErrAboveMaximumHashLength, 97},
+	{p_verifcid.ErrBelowMinimumHashLength, 98},
+	{p_verifcid.ErrDigestTooLarge, 99},
+	{p_verifcid.ErrDigestTooSmall, 100},
+	{p_verifcid.ErrPossiblyInsecureHashFunction, 101},
+	{p_cid.ErrInvalidEncoding, 103},
+	{p_datastore.ErrBatchUnsupported, 104},
+	{p_datastore.ErrNotFound, 105},
+	{p_cmds.ErrClosedEmitter, 106},
+	{p_cmds.ErrClosingClosedEmitter, 107},
+	{p_cmds.ErrIncorrectType, 108},
+	{p_cmds.ErrNoFormatter, 109},
+	{p_cmds.ErrNotCallable, 110},
+	{p_format.EndOfDag, 113},
+	{p_format.ErrClosed, 114},
+	{p_format.ErrDownNoChild, 115},
+	{p_format.ErrNextNoChild, 116},
+	{p_format.ErrNilVisitor, 117},
+	{p_format.ErrNotCommited, 118},
+	{p_config.ErrInvalidPeerAddr, 119},
+	{p_commands.ErrDepthLimitExceeded, 120},
+	{p_commands.ErrInvalidCompressionLevel, 121},
+	{p_commands.ErrNotDHT, 122},
+	{p_commands.ErrNotOnline, 123},
+	{p_commands.ErrPingSelf, 124},
+	{p_commands.ErrSelfUnsupported, 125},
+	{p_objectcmd.ErrDataEncoding, 126},
+	{p_iface.ErrConnNotFound, 127},
+	{p_iface.ErrIsDir, 128},
+	{p_iface.ErrNotConnected, 129},
+	{p_iface.ErrNotFile, 130},
+	{p_iface.ErrNotSupported, 131},
+	{p_iface.ErrOffline, 132},
+	{p_iface.ErrResolveFailed, 133},
+	{p_corerepo.ErrMaxStorageExceeded, 134},
+	{p_libp2p.ErrNoResourceMgr, 136},
+	{p_gc.ErrCannotDeleteSomeBlocks, 139},
+	{p_gc.ErrCannotFetchAllLinks, 140},
+	{p_repo.ErrApiNotRunning, 141},
+	{p_fsrepo.ErrNeedMigration, 142},
+	{p_fsrepo.ErrNoVersion, 143},
+	{p_fsrepo.ErrOldRepo, 144},
+	{p_log.ErrNoSuchLogger, 147},
+	{p_car.ErrAlreadyV1, 148},
+	{p_car.ErrOffsetImpossible, 150},
+	{p_car.ErrSizeMismatch, 151},
+	{p_storage.ErrClosed, 152},
+	{p_dagpb.ErrIntOverflow, 153},
+	{p_crypto.ErrBadKeyType, 163},
+	{p_crypto.ErrNilPrivateKey, 164},
+	{p_crypto.ErrNilPublicKey, 165},
+	{p_crypto.ErrNilSig, 166},
+	{p_crypto.ErrNotECDSAPubKey, 167},
+	{p_crypto.ErrRsaKeyTooBig, 168},
+	{p_crypto.ErrRsaKeyTooSmall, 169},
+	{p_network.ErrLimitedConn, 171},
+	{p_network.ErrNoConn, 172},
+	{p_network.ErrNoRemoteAddrs, 173},
+	{p_network.ErrReset, 174},
+	{p_network.ErrResourceScopeClosed, 175},
+	{p_network.ErrTransientConn, 176},
+	{p_peer.ErrEmptyPeerID, 178},
+	{p_peer.ErrInvalidAddr, 179},
+	{p_peer.ErrNoPublicKey, 180},
+	{p_peerstore.ErrNotFound, 181},
+	{p_record2.ErrEmptyDomain, 182},
+	{p_record2.ErrEmptyPayloadType, 183},
+	{p_record2.ErrInvalidSignature, 184},
+	{p_record2.ErrPayloadTypeNotRegistered, 185},
+	{p_routing2.ErrNotFound, 186},
+	{p_routing2.ErrNotSupported, 187},
+	{p_transport.ErrListenerClosed, 189},
+	{p_swarm.ErrAddrFiltered, 193},
+	{p_swarm.ErrAllDialsFailed, 194},
+	{p_swarm.ErrConnClosed, 195},
+	{p_swarm.ErrDialBackoff, 196},
+	{p_swarm.ErrDialRefusedBlackHole, 197},
+	{p_swarm.ErrDialTimeout, 198},
+	{p_swarm.ErrDialToSelf, 199},
+	{p_swarm.ErrGaterDisallowedConnection, 200},
+	{p_swarm.ErrNoAddresses, 201},
+	{p_swarm.ErrNoGoodAddresses, 202},
+	{p_swarm.ErrNoTransport, 203},
+	{p_swarm.ErrSwarmClosed, 204},
+	{p_upgrader.ErrNilPeer, 206},
+	{p_holepunch.ErrClosed, 207},
+	{p_holepunch.ErrHolePunchActive, 208},
+	{p_libp2pquic.ErrHolePunching, 209},
+	{p_dht.ErrNoPeersQueried, 211},
+	{p_dht.ErrReadTimeout, 212},
+	{p_records.ErrClosed, 213},
+	{p_records.ErrOldRecord, 214},
+	{p_kbucket.ErrLookupFailure, 215},
+	{p_kbucket.ErrPeerRejectedHighLatency, 216},
+	{p_kbucket.ErrPeerRejectedNoCapacity, 217},
+	{p_pubsub.ErrEmptyPeerID, 218},
+	{p_pubsub.ErrFanoutOnlyTopic, 219},
+	{p_pubsub.ErrNilSignKey, 220},
+	{p_pubsub.ErrQueueCancelled, 221},
+	{p_pubsub.ErrQueueClosed, 222},
+	{p_pubsub.ErrQueueFull, 223},
+	{p_pubsub.ErrQueuePushOnClosed, 224},
+	{p_pubsub.ErrSubscriptionCancelled, 225},
+	{p_pubsub.ErrTooManySubscriptions, 226},
+	{p_pubsub.ErrTopicClosed, 227},
+	{p_record.ErrInvalidRecordType, 230},
+	{p_multipart.ErrMessageTooLarge, 235},
+	{p_multiaddr.ErrProtocolNotFound, 236},
+	{p_multibase.ErrUnsupportedEncoding, 237},
+	{p_multihash.ErrInvalidMultihash, 239},
+	{p_multihash.ErrLenNotSupported, 240},
+	{p_multihash.ErrLenTooLarge, 241},
+	{p_multihash.ErrSumNotSupported, 242},
+	{p_multihash.ErrTooLong, 243},
+	{p_multihash.ErrTooShort, 244},
+	{p_multihash.ErrUnknownCode, 245},
+	{p_multihash.ErrVarintBufferShort, 246},
+	{p_multihash.ErrVarintTooLong, 247},
+	{p_net.ErrClosed, 251},
+	{p_net.ErrWriteToConnected, 252},
+	{p_http.ErrAbortHandler, 257},
+	{p_http.ErrBodyNotAllowed, 258},
+	{p_http.ErrBodyReadAfterClose, 259},
+	{p_http.ErrContentLength, 260},
+	{p_http.ErrHandlerTimeout, 261},
+	{p_http.ErrHijacked, 262},
+	{p_http.ErrLineTooLong, 263},
+	{p_http.ErrMissingFile, 264},
+	{p_http.ErrNoCookie, 265},
+	{p_http.ErrNoLocation, 266},
+	{p_http.ErrSchemeMismatch, 267},
+	{p_http.ErrServerClosed, 268},
+	{p_http.ErrSkipAltProtocol, 269},
+	{p_http.ErrUseLastResponse, 270},
+	{p_http.ErrWriteAfterFlush, 271},
+	{p_os.ErrClosed, 277},
+	{p_os.ErrDeadlineExceeded, 278},
+	{p_os.ErrExist, 279},
+	{p_os.ErrInvalid, 280},
+	{p_os.ErrNoDeadline, 281},
+	{p_os.ErrNoHandle, 282},
+	{p_os.ErrNotExist, 283},
+	{p_os.ErrPermission, 284},
+	{p_os.ErrProcessDone, 285},
 }
 
 // errClass: as classes Dart do elo de erro e e o codificador dos campos de
@@ -3919,366 +3919,388 @@ func errClass(e error) (out []errLink) {
 		}
 	}
 	switch v := e.(type) {
-	case *p_filestore.CorruptReferenceError:
-		if v != nil {
-			out = append(out, errLink{id: 13, enc: func(w *writer) {
-				encInt[p_filestore.Status](w, v.Code)
-			}})
-		}
-	case p_filestore.CorruptReferenceError:
-		out = append(out, errLink{id: 13, enc: func(w *writer) {
-			encInt[p_filestore.Status](w, v.Code)
-		}})
-	case *p_gateway.ErrInvalidResponse:
-		if v != nil {
-			out = append(out, errLink{id: 17, enc: func(w *writer) {
-				encStr[string](w, v.Message)
-			}})
-		}
-	case p_gateway.ErrInvalidResponse:
-		out = append(out, errLink{id: 17, enc: func(w *writer) {
-			encStr[string](w, v.Message)
-		}})
-	case *p_gateway.ErrPartialResponse:
-		if v != nil {
-			out = append(out, errLink{id: 18, enc: nil})
-		}
-	case p_gateway.ErrPartialResponse:
-		out = append(out, errLink{id: 18, enc: nil})
-	case *p_gateway.ErrorRetryAfter:
-		if v != nil {
-			out = append(out, errLink{id: 21, enc: func(w *writer) {
-				encInt[p_time.Duration](w, v.RetryAfter)
-			}})
-		}
-	case *p_gateway.ErrorStatusCode:
-		if v != nil {
-			out = append(out, errLink{id: 22, enc: func(w *writer) {
-				encInt[int](w, v.StatusCode)
-			}})
-		}
-	case *p_path.ErrInvalidPath:
-		if v != nil {
-			out = append(out, errLink{id: 69, enc: nil})
-		}
-	case *p_resolver.ErrNoLink:
-		if v != nil {
-			out = append(out, errLink{id: 71, enc: func(w *writer) {
-				encStr[string](w, v.Name)
-				encCid(w, v.Node)
-			}})
-		}
-	case *p_car.ErrCidTooLarge:
-		if v != nil {
-			out = append(out, errLink{id: 79, enc: func(w *writer) {
-				encInt[uint64](w, v.MaxSize)
-				encInt[uint64](w, v.CurrentSize)
-			}})
-		}
-	case *p_cid.ErrInvalidCid:
-		if v != nil {
-			out = append(out, errLink{id: 83, enc: nil})
-		}
-	case p_cid.ErrInvalidCid:
-		out = append(out, errLink{id: 83, enc: nil})
-	case *p_prometheus.AlreadyRegisteredError:
-		if v != nil {
-			out = append(out, errLink{id: 85, enc: nil})
-		}
-	case p_prometheus.AlreadyRegisteredError:
-		out = append(out, errLink{id: 85, enc: nil})
-	case *p_prometheus.MultiError:
-		if v != nil {
-			out = append(out, errLink{id: 86, enc: nil})
-		}
-	case p_prometheus.MultiError:
-		out = append(out, errLink{id: 86, enc: nil})
 	case *p_x509.CertificateInvalidError:
 		if v != nil {
-			out = append(out, errLink{id: 88, enc: func(w *writer) {
+			out = append(out, errLink{id: 2, enc: func(w *writer) {
 				encInt[p_x509.InvalidReason](w, v.Reason)
 				encStr[string](w, v.Detail)
 			}})
 		}
 	case p_x509.CertificateInvalidError:
-		out = append(out, errLink{id: 88, enc: func(w *writer) {
+		out = append(out, errLink{id: 2, enc: func(w *writer) {
 			encInt[p_x509.InvalidReason](w, v.Reason)
 			encStr[string](w, v.Detail)
 		}})
 	case *p_x509.ConstraintViolationError:
 		if v != nil {
-			out = append(out, errLink{id: 89, enc: nil})
+			out = append(out, errLink{id: 3, enc: nil})
 		}
 	case p_x509.ConstraintViolationError:
-		out = append(out, errLink{id: 89, enc: nil})
+		out = append(out, errLink{id: 3, enc: nil})
 	case *p_x509.HostnameError:
 		if v != nil {
-			out = append(out, errLink{id: 91, enc: func(w *writer) {
+			out = append(out, errLink{id: 5, enc: func(w *writer) {
 				encStr[string](w, v.Host)
 			}})
 		}
 	case p_x509.HostnameError:
-		out = append(out, errLink{id: 91, enc: func(w *writer) {
+		out = append(out, errLink{id: 5, enc: func(w *writer) {
 			encStr[string](w, v.Host)
 		}})
 	case *p_x509.InsecureAlgorithmError:
 		if v != nil {
-			out = append(out, errLink{id: 93, enc: nil})
+			out = append(out, errLink{id: 7, enc: nil})
 		}
 	case p_x509.InsecureAlgorithmError:
-		out = append(out, errLink{id: 93, enc: nil})
+		out = append(out, errLink{id: 7, enc: nil})
 	case *p_x509.SystemRootsError:
 		if v != nil {
-			out = append(out, errLink{id: 94, enc: nil})
+			out = append(out, errLink{id: 8, enc: nil})
 		}
 	case p_x509.SystemRootsError:
-		out = append(out, errLink{id: 94, enc: nil})
+		out = append(out, errLink{id: 8, enc: nil})
 	case *p_x509.UnhandledCriticalExtension:
 		if v != nil {
-			out = append(out, errLink{id: 95, enc: nil})
+			out = append(out, errLink{id: 9, enc: nil})
 		}
 	case p_x509.UnhandledCriticalExtension:
-		out = append(out, errLink{id: 95, enc: nil})
+		out = append(out, errLink{id: 9, enc: nil})
 	case *p_x509.UnknownAuthorityError:
 		if v != nil {
-			out = append(out, errLink{id: 96, enc: nil})
+			out = append(out, errLink{id: 10, enc: nil})
 		}
 	case p_x509.UnknownAuthorityError:
-		out = append(out, errLink{id: 96, enc: nil})
+		out = append(out, errLink{id: 10, enc: nil})
+	case *p_secp256k1.Error:
+		if v != nil {
+			out = append(out, errLink{id: 11, enc: func(w *writer) {
+				encStr[string](w, v.Description)
+			}})
+		}
+	case p_secp256k1.Error:
+		out = append(out, errLink{id: 11, enc: func(w *writer) {
+			encStr[string](w, v.Description)
+		}})
+	case *p_secp256k1.ErrorKind:
+		if v != nil {
+			out = append(out, errLink{id: 12, enc: nil})
+		}
+	case p_secp256k1.ErrorKind:
+		out = append(out, errLink{id: 12, enc: nil})
 	case *p_dig.PanicError:
 		if v != nil {
-			out = append(out, errLink{id: 99, enc: nil})
+			out = append(out, errLink{id: 13, enc: nil})
 		}
 	case p_dig.PanicError:
-		out = append(out, errLink{id: 99, enc: nil})
+		out = append(out, errLink{id: 13, enc: nil})
 	case *p_fs.PathError:
 		if v != nil {
-			out = append(out, errLink{id: 109, enc: func(w *writer) {
+			out = append(out, errLink{id: 23, enc: func(w *writer) {
 				encStr[string](w, v.Op)
 				encStr[string](w, v.Path)
 			}})
 		}
+	case *p_filestore.CorruptReferenceError:
+		if v != nil {
+			out = append(out, errLink{id: 38, enc: func(w *writer) {
+				encInt[p_filestore.Status](w, v.Code)
+			}})
+		}
+	case p_filestore.CorruptReferenceError:
+		out = append(out, errLink{id: 38, enc: func(w *writer) {
+			encInt[p_filestore.Status](w, v.Code)
+		}})
+	case *p_gateway.ErrInvalidResponse:
+		if v != nil {
+			out = append(out, errLink{id: 42, enc: func(w *writer) {
+				encStr[string](w, v.Message)
+			}})
+		}
+	case p_gateway.ErrInvalidResponse:
+		out = append(out, errLink{id: 42, enc: func(w *writer) {
+			encStr[string](w, v.Message)
+		}})
+	case *p_gateway.ErrPartialResponse:
+		if v != nil {
+			out = append(out, errLink{id: 43, enc: nil})
+		}
+	case p_gateway.ErrPartialResponse:
+		out = append(out, errLink{id: 43, enc: nil})
+	case *p_gateway.ErrorRetryAfter:
+		if v != nil {
+			out = append(out, errLink{id: 46, enc: func(w *writer) {
+				encInt[p_time.Duration](w, v.RetryAfter)
+			}})
+		}
+	case *p_gateway.ErrorStatusCode:
+		if v != nil {
+			out = append(out, errLink{id: 47, enc: func(w *writer) {
+				encInt[int](w, v.StatusCode)
+			}})
+		}
+	case *p_path.ErrInvalidPath:
+		if v != nil {
+			out = append(out, errLink{id: 94, enc: nil})
+		}
+	case *p_resolver.ErrNoLink:
+		if v != nil {
+			out = append(out, errLink{id: 96, enc: func(w *writer) {
+				encStr[string](w, v.Name)
+				encCid(w, v.Node)
+			}})
+		}
+	case *p_cid.ErrInvalidCid:
+		if v != nil {
+			out = append(out, errLink{id: 102, enc: nil})
+		}
+	case p_cid.ErrInvalidCid:
+		out = append(out, errLink{id: 102, enc: nil})
 	case *p_cmds.Error:
 		if v != nil {
-			out = append(out, errLink{id: 117, enc: func(w *writer) {
+			out = append(out, errLink{id: 111, enc: func(w *writer) {
 				encStr[string](w, v.Message)
 				encInt[p_cmds.ErrorType](w, v.Code)
 			}})
 		}
 	case p_cmds.Error:
-		out = append(out, errLink{id: 117, enc: func(w *writer) {
+		out = append(out, errLink{id: 111, enc: func(w *writer) {
 			encStr[string](w, v.Message)
 			encInt[p_cmds.ErrorType](w, v.Code)
 		}})
 	case *p_cmds.ErrorType:
 		if v != nil {
-			out = append(out, errLink{id: 118, enc: nil})
+			out = append(out, errLink{id: 112, enc: nil})
 		}
 	case p_cmds.ErrorType:
-		out = append(out, errLink{id: 118, enc: nil})
+		out = append(out, errLink{id: 112, enc: nil})
+	case *p_corerepo.MultiError:
+		if v != nil {
+			out = append(out, errLink{id: 135, enc: nil})
+		}
+	case *p_gc.CannotDeleteBlockError:
+		if v != nil {
+			out = append(out, errLink{id: 137, enc: func(w *writer) {
+				encCid(w, v.Key)
+			}})
+		}
+	case *p_gc.CannotFetchLinksError:
+		if v != nil {
+			out = append(out, errLink{id: 138, enc: func(w *writer) {
+				encCid(w, v.Key)
+			}})
+		}
+	case *p_fsrepo.NoRepoError:
+		if v != nil {
+			out = append(out, errLink{id: 145, enc: func(w *writer) {
+				encStr[string](w, v.Path)
+			}})
+		}
+	case p_fsrepo.NoRepoError:
+		out = append(out, errLink{id: 145, enc: func(w *writer) {
+			encStr[string](w, v.Path)
+		}})
+	case *p_routing3.ParamNeededError:
+		if v != nil {
+			out = append(out, errLink{id: 146, enc: func(w *writer) {
+				encStr[string](w, v.ParamName)
+				encStr[p_config.RouterType](w, v.RouterType)
+			}})
+		}
+	case *p_car.ErrCidTooLarge:
+		if v != nil {
+			out = append(out, errLink{id: 149, enc: func(w *writer) {
+				encInt[uint64](w, v.MaxSize)
+				encInt[uint64](w, v.CurrentSize)
+			}})
+		}
 	case *p_datamodel.ErrInvalidSegmentForList:
 		if v != nil {
-			out = append(out, errLink{id: 125, enc: func(w *writer) {
+			out = append(out, errLink{id: 154, enc: func(w *writer) {
 				encStr[string](w, v.TypeName)
 			}})
 		}
 	case p_datamodel.ErrInvalidSegmentForList:
-		out = append(out, errLink{id: 125, enc: func(w *writer) {
+		out = append(out, errLink{id: 154, enc: func(w *writer) {
 			encStr[string](w, v.TypeName)
 		}})
 	case *p_datamodel.ErrIteratorOverread:
 		if v != nil {
-			out = append(out, errLink{id: 126, enc: nil})
+			out = append(out, errLink{id: 155, enc: nil})
 		}
 	case p_datamodel.ErrIteratorOverread:
-		out = append(out, errLink{id: 126, enc: nil})
+		out = append(out, errLink{id: 155, enc: nil})
 	case *p_datamodel.ErrNotExists:
 		if v != nil {
-			out = append(out, errLink{id: 127, enc: nil})
+			out = append(out, errLink{id: 156, enc: nil})
 		}
 	case p_datamodel.ErrNotExists:
-		out = append(out, errLink{id: 127, enc: nil})
+		out = append(out, errLink{id: 156, enc: nil})
 	case *p_datamodel.ErrRepeatedMapKey:
 		if v != nil {
-			out = append(out, errLink{id: 128, enc: nil})
+			out = append(out, errLink{id: 157, enc: nil})
 		}
 	case p_datamodel.ErrRepeatedMapKey:
-		out = append(out, errLink{id: 128, enc: nil})
+		out = append(out, errLink{id: 157, enc: nil})
 	case *p_datamodel.ErrWrongKind:
 		if v != nil {
-			out = append(out, errLink{id: 129, enc: func(w *writer) {
+			out = append(out, errLink{id: 158, enc: func(w *writer) {
 				encStr[string](w, v.TypeName)
 				encStr[string](w, v.MethodName)
 				encInt[p_datamodel.Kind](w, v.ActualKind)
 			}})
 		}
 	case p_datamodel.ErrWrongKind:
-		out = append(out, errLink{id: 129, enc: func(w *writer) {
+		out = append(out, errLink{id: 158, enc: func(w *writer) {
 			encStr[string](w, v.TypeName)
 			encStr[string](w, v.MethodName)
 			encInt[p_datamodel.Kind](w, v.ActualKind)
 		}})
 	case *p_linking.ErrHashMismatch:
 		if v != nil {
-			out = append(out, errLink{id: 130, enc: nil})
+			out = append(out, errLink{id: 159, enc: nil})
 		}
 	case p_linking.ErrHashMismatch:
-		out = append(out, errLink{id: 130, enc: nil})
+		out = append(out, errLink{id: 159, enc: nil})
 	case *p_linking.ErrLinkingSetup:
 		if v != nil {
-			out = append(out, errLink{id: 131, enc: func(w *writer) {
+			out = append(out, errLink{id: 160, enc: func(w *writer) {
 				encStr[string](w, v.Detail)
 			}})
 		}
 	case p_linking.ErrLinkingSetup:
-		out = append(out, errLink{id: 131, enc: func(w *writer) {
+		out = append(out, errLink{id: 160, enc: func(w *writer) {
 			encStr[string](w, v.Detail)
 		}})
 	case *p_traversal.ErrBudgetExceeded:
 		if v != nil {
-			out = append(out, errLink{id: 132, enc: func(w *writer) {
+			out = append(out, errLink{id: 161, enc: func(w *writer) {
 				encStr[string](w, v.BudgetKind)
 			}})
 		}
 	case *p_traversal.SkipMe:
 		if v != nil {
-			out = append(out, errLink{id: 133, enc: nil})
+			out = append(out, errLink{id: 162, enc: nil})
 		}
 	case p_traversal.SkipMe:
-		out = append(out, errLink{id: 133, enc: nil})
-	case *p_corerepo.MultiError:
-		if v != nil {
-			out = append(out, errLink{id: 150, enc: nil})
-		}
-	case *p_gc.CannotDeleteBlockError:
-		if v != nil {
-			out = append(out, errLink{id: 152, enc: func(w *writer) {
-				encCid(w, v.Key)
-			}})
-		}
-	case *p_gc.CannotFetchLinksError:
-		if v != nil {
-			out = append(out, errLink{id: 153, enc: func(w *writer) {
-				encCid(w, v.Key)
-			}})
-		}
-	case *p_fsrepo.NoRepoError:
-		if v != nil {
-			out = append(out, errLink{id: 160, enc: func(w *writer) {
-				encStr[string](w, v.Path)
-			}})
-		}
-	case p_fsrepo.NoRepoError:
-		out = append(out, errLink{id: 160, enc: func(w *writer) {
-			encStr[string](w, v.Path)
-		}})
-	case *p_routing3.ParamNeededError:
-		if v != nil {
-			out = append(out, errLink{id: 161, enc: func(w *writer) {
-				encStr[string](w, v.ParamName)
-				encStr[p_config.RouterType](w, v.RouterType)
-			}})
-		}
+		out = append(out, errLink{id: 162, enc: nil})
 	case *p_network.ConnError:
 		if v != nil {
-			out = append(out, errLink{id: 169, enc: func(w *writer) {
+			out = append(out, errLink{id: 170, enc: func(w *writer) {
 				encBool[bool](w, v.Remote)
 				encInt[p_network.ConnErrorCode](w, v.ErrorCode)
 			}})
 		}
 	case *p_network.StreamError:
 		if v != nil {
-			out = append(out, errLink{id: 176, enc: func(w *writer) {
+			out = append(out, errLink{id: 177, enc: func(w *writer) {
 				encInt[p_network.StreamErrorCode](w, v.ErrorCode)
 				encBool[bool](w, v.Remote)
 			}})
 		}
 	case *p_sec.ErrPeerIDMismatch:
 		if v != nil {
-			out = append(out, errLink{id: 187, enc: func(w *writer) {
+			out = append(out, errLink{id: 188, enc: func(w *writer) {
 				encPeerID(w, v.Expected)
 				encPeerID(w, v.Actual)
 			}})
 		}
 	case p_sec.ErrPeerIDMismatch:
-		out = append(out, errLink{id: 187, enc: func(w *writer) {
+		out = append(out, errLink{id: 188, enc: func(w *writer) {
 			encPeerID(w, v.Expected)
 			encPeerID(w, v.Actual)
 		}})
 	case *p_rcmgr.ErrMemoryLimitExceeded:
 		if v != nil {
-			out = append(out, errLink{id: 189, enc: nil})
+			out = append(out, errLink{id: 190, enc: nil})
 		}
 	case *p_rcmgr.ErrStreamOrConnLimitExceeded:
 		if v != nil {
-			out = append(out, errLink{id: 190, enc: nil})
+			out = append(out, errLink{id: 191, enc: nil})
 		}
 	case *p_swarm.DialError:
 		if v != nil {
-			out = append(out, errLink{id: 191, enc: func(w *writer) {
+			out = append(out, errLink{id: 192, enc: func(w *writer) {
 				encPeerID(w, v.Peer)
 				encInt[int](w, v.Skipped)
 			}})
 		}
 	case *p_swarm.TransportError:
 		if v != nil {
-			out = append(out, errLink{id: 204, enc: func(w *writer) {
+			out = append(out, errLink{id: 205, enc: func(w *writer) {
 				encMultiaddr(w, v.Address)
 			}})
 		}
 	case *p_libp2pwebtransport.ErrCertHashMismatch:
 		if v != nil {
-			out = append(out, errLink{id: 209, enc: func(w *writer) {
+			out = append(out, errLink{id: 210, enc: func(w *writer) {
 				encBytes(w, v.Expected)
 			}})
 		}
 	case p_libp2pwebtransport.ErrCertHashMismatch:
-		out = append(out, errLink{id: 209, enc: func(w *writer) {
+		out = append(out, errLink{id: 210, enc: func(w *writer) {
 			encBytes(w, v.Expected)
 		}})
 	case *p_pubsub.ValidationError:
 		if v != nil {
-			out = append(out, errLink{id: 227, enc: func(w *writer) {
+			out = append(out, errLink{id: 228, enc: func(w *writer) {
 				encStr[string](w, v.Reason)
 			}})
 		}
 	case p_pubsub.ValidationError:
-		out = append(out, errLink{id: 227, enc: func(w *writer) {
+		out = append(out, errLink{id: 228, enc: func(w *writer) {
 			encStr[string](w, v.Reason)
 		}})
 	case *p_record.ErrBetterRecord:
 		if v != nil {
-			out = append(out, errLink{id: 228, enc: func(w *writer) {
+			out = append(out, errLink{id: 229, enc: func(w *writer) {
 				encStr[string](w, v.Key)
 				encBytes(w, v.Value)
 			}})
 		}
-	case *p_big.ErrNaN:
+	case *p_yamux2.Error:
 		if v != nil {
 			out = append(out, errLink{id: 231, enc: nil})
 		}
+	case *p_yamux2.GoAwayError:
+		if v != nil {
+			out = append(out, errLink{id: 232, enc: func(w *writer) {
+				encInt[uint32](w, v.ErrorCode)
+				encBool[bool](w, v.Remote)
+			}})
+		}
+	case *p_yamux2.StreamError:
+		if v != nil {
+			out = append(out, errLink{id: 233, enc: func(w *writer) {
+				encInt[uint32](w, v.ErrorCode)
+				encBool[bool](w, v.Remote)
+			}})
+		}
+	case *p_big.ErrNaN:
+		if v != nil {
+			out = append(out, errLink{id: 234, enc: nil})
+		}
 	case p_big.ErrNaN:
-		out = append(out, errLink{id: 231, enc: nil})
+		out = append(out, errLink{id: 234, enc: nil})
 	case *p_multihash.ErrInconsistentLen:
 		if v != nil {
-			out = append(out, errLink{id: 235, enc: nil})
+			out = append(out, errLink{id: 238, enc: nil})
 		}
 	case p_multihash.ErrInconsistentLen:
-		out = append(out, errLink{id: 235, enc: nil})
+		out = append(out, errLink{id: 238, enc: nil})
 	case *p_net.AddrError:
 		if v != nil {
-			out = append(out, errLink{id: 245, enc: func(w *writer) {
+			out = append(out, errLink{id: 248, enc: func(w *writer) {
 				encStr[string](w, v.Err)
 				encStr[string](w, v.Addr)
 			}})
 		}
 	case *p_net.DNSConfigError:
 		if v != nil {
-			out = append(out, errLink{id: 246, enc: nil})
+			out = append(out, errLink{id: 249, enc: nil})
 		}
 	case *p_net.DNSError:
 		if v != nil {
-			out = append(out, errLink{id: 247, enc: func(w *writer) {
+			out = append(out, errLink{id: 250, enc: func(w *writer) {
 				encStr[string](w, v.Err)
 				encStr[string](w, v.Name)
 				encStr[string](w, v.Server)
@@ -4289,64 +4311,64 @@ func errClass(e error) (out []errLink) {
 		}
 	case *p_net.InvalidAddrError:
 		if v != nil {
-			out = append(out, errLink{id: 250, enc: nil})
+			out = append(out, errLink{id: 253, enc: nil})
 		}
 	case p_net.InvalidAddrError:
-		out = append(out, errLink{id: 250, enc: nil})
+		out = append(out, errLink{id: 253, enc: nil})
 	case *p_net.OpError:
 		if v != nil {
-			out = append(out, errLink{id: 251, enc: func(w *writer) {
+			out = append(out, errLink{id: 254, enc: func(w *writer) {
 				encStr[string](w, v.Op)
 				encStr[string](w, v.Net)
 			}})
 		}
 	case *p_net.ParseError:
 		if v != nil {
-			out = append(out, errLink{id: 252, enc: func(w *writer) {
+			out = append(out, errLink{id: 255, enc: func(w *writer) {
 				encStr[string](w, v.Type)
 				encStr[string](w, v.Text)
 			}})
 		}
 	case *p_net.UnknownNetworkError:
 		if v != nil {
-			out = append(out, errLink{id: 253, enc: nil})
+			out = append(out, errLink{id: 256, enc: nil})
 		}
 	case p_net.UnknownNetworkError:
-		out = append(out, errLink{id: 253, enc: nil})
+		out = append(out, errLink{id: 256, enc: nil})
 	case *p_http.MaxBytesError:
 		if v != nil {
-			out = append(out, errLink{id: 269, enc: func(w *writer) {
+			out = append(out, errLink{id: 272, enc: func(w *writer) {
 				encInt[int64](w, v.Limit)
 			}})
 		}
 	case *p_http.ProtocolError:
 		if v != nil {
-			out = append(out, errLink{id: 270, enc: func(w *writer) {
+			out = append(out, errLink{id: 273, enc: func(w *writer) {
 				encStr[string](w, v.ErrorString)
 			}})
 		}
 	case *p_url.Error:
 		if v != nil {
-			out = append(out, errLink{id: 271, enc: func(w *writer) {
+			out = append(out, errLink{id: 274, enc: func(w *writer) {
 				encStr[string](w, v.Op)
 				encStr[string](w, v.URL)
 			}})
 		}
 	case *p_url.EscapeError:
 		if v != nil {
-			out = append(out, errLink{id: 272, enc: nil})
+			out = append(out, errLink{id: 275, enc: nil})
 		}
 	case p_url.EscapeError:
-		out = append(out, errLink{id: 272, enc: nil})
+		out = append(out, errLink{id: 275, enc: nil})
 	case *p_url.InvalidHostError:
 		if v != nil {
-			out = append(out, errLink{id: 273, enc: nil})
+			out = append(out, errLink{id: 276, enc: nil})
 		}
 	case p_url.InvalidHostError:
-		out = append(out, errLink{id: 273, enc: nil})
+		out = append(out, errLink{id: 276, enc: nil})
 	case *p_os.LinkError:
 		if v != nil {
-			out = append(out, errLink{id: 283, enc: func(w *writer) {
+			out = append(out, errLink{id: 286, enc: func(w *writer) {
 				encStr[string](w, v.Op)
 				encStr[string](w, v.Old)
 				encStr[string](w, v.New)
@@ -4354,49 +4376,27 @@ func errClass(e error) (out []errLink) {
 		}
 	case *p_os.SyscallError:
 		if v != nil {
-			out = append(out, errLink{id: 284, enc: func(w *writer) {
+			out = append(out, errLink{id: 287, enc: func(w *writer) {
 				encStr[string](w, v.Syscall)
 			}})
 		}
-	case *p_reflect.ValueError:
-		if v != nil {
-			out = append(out, errLink{id: 285, enc: func(w *writer) {
-				encStr[string](w, v.Method)
-				encInt[p_reflect.Kind](w, v.Kind)
-			}})
-		}
-	case *p_secp256k1.Error:
-		if v != nil {
-			out = append(out, errLink{id: 286, enc: func(w *writer) {
-				encStr[string](w, v.Description)
-			}})
-		}
-	case p_secp256k1.Error:
-		out = append(out, errLink{id: 286, enc: func(w *writer) {
-			encStr[string](w, v.Description)
-		}})
-	case *p_secp256k1.ErrorKind:
-		if v != nil {
-			out = append(out, errLink{id: 287, enc: nil})
-		}
-	case p_secp256k1.ErrorKind:
-		out = append(out, errLink{id: 287, enc: nil})
-	case *p_yamux2.Error:
+	case *p_prometheus.AlreadyRegisteredError:
 		if v != nil {
 			out = append(out, errLink{id: 288, enc: nil})
 		}
-	case *p_yamux2.GoAwayError:
+	case p_prometheus.AlreadyRegisteredError:
+		out = append(out, errLink{id: 288, enc: nil})
+	case *p_prometheus.MultiError:
 		if v != nil {
-			out = append(out, errLink{id: 289, enc: func(w *writer) {
-				encInt[uint32](w, v.ErrorCode)
-				encBool[bool](w, v.Remote)
-			}})
+			out = append(out, errLink{id: 289, enc: nil})
 		}
-	case *p_yamux2.StreamError:
+	case p_prometheus.MultiError:
+		out = append(out, errLink{id: 289, enc: nil})
+	case *p_reflect.ValueError:
 		if v != nil {
 			out = append(out, errLink{id: 290, enc: func(w *writer) {
-				encInt[uint32](w, v.ErrorCode)
-				encBool[bool](w, v.Remote)
+				encStr[string](w, v.Method)
+				encInt[p_reflect.Kind](w, v.Kind)
 			}})
 		}
 	}

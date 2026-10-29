@@ -4,7 +4,7 @@ library;
 
 import 'package:p2p_ffi/src/go.dart' show GoLogSlog;
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
-import 'package:p2p_ffi/go/ipfs_cmds.dart' as $ipfs_cmds;
+import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
 
 /// Go: `slog.Logger` (handle).
 class LogSlogLogger extends $crypto.CryptoPrivateKey
@@ -20,7 +20,7 @@ class LogSlogValue extends $crypto.CryptoPrivateKey
   LogSlogValue.$h(super.$h) : super.$h();
 }
 
-/// Go: the package-level members of `log/slog` (`goLog.slog`).
+/// Go: the package-level members of `log/slog` (`go.log.slog`).
 extension GoLogSlogApi on GoLogSlog {
   /// Go: `const slog.KindAny slog.Kind`.
   int get kindAny => 0;
