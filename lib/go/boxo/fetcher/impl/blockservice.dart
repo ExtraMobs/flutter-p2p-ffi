@@ -70,7 +70,7 @@ class BoxoFetcherImplBlockserviceFetcherConfig
   }
 }
 
-/// Go: the package-level members of `github.com/ipfs/boxo/fetcher/impl/blockservice` (`Go.boxo.fetcher.impl.blockservice`).
+/// Go: the package-level members of `github.com/ipfs/boxo/fetcher/impl/blockservice` (`goBoxo.fetcher.impl.blockservice`).
 extension GoBoxoFetcherImplBlockserviceApi on GoBoxoFetcherImplBlockservice {
   /// Go: `var bsfetcher.DefaultPrototypeChooser func(lnk ipld.Link, lnkCtx ipld.LinkContext) (ipld.NodePrototype, error)`.
   $traversal.IpldPrimeTraversalLinkTargetNodePrototypeChooser

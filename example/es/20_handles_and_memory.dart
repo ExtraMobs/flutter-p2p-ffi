@@ -69,11 +69,11 @@ Future<void> main() async {
     say('  tras release(): liberado ${buf.isReleased}');
 
     // 2. El mismo puntero Go dos veces: una entrada, dos referencias.
-    final f1 = Go.boxo.files.newBytesFile(Uint8List.fromList([7, 8, 9]));
+    final f1 = goBoxo.files.newBytesFile(Uint8List.fromList([7, 8, 9]));
     final f2 = f1.asBoxoFilesFile()!; // el mismo objeto Go, visto como File
     say('\nf1 #${f1.$h} y f2 #${f2.$h}: la misma entrada, 2 referencias');
     f1.release();
-    say('  f1 liberado; f2 todavía lee ${Go.io.readAll(f2)}');
+    say('  f1 liberado; f2 todavía lee ${goIo.readAll(f2)}');
     f2.release();
 
     // 3. Basura flotante: 20 × 8 MiB copiados a buffers de Go.
@@ -81,9 +81,9 @@ Future<void> main() async {
     for (var i = 0; i < 20; i++) {
       // use(): liberado al final del bloque, pase lo que pase dentro.
       BytesBuffer(Uint8List(0)).use((b) {
-        Go.os.open(big).use((f) {
+        goOs.open(big).use((f) {
           try {
-            Go.io.copy(b, f);
+            goIo.copy(b, f);
           } finally {
             f.close(); // el Close de Go: el descriptor del archivo
           }
@@ -93,8 +93,8 @@ Future<void> main() async {
     say('  tras 20 copias con use(): ${hostMiB()} MiB');
     for (var i = 0; i < 20; i++) {
       final b = BytesBuffer(Uint8List(0));
-      final f = Go.os.open(big);
-      Go.io.copy(b, f);
+      final f = goOs.open(big);
+      goIo.copy(b, f);
       f.close(); // cerrado, pero ninguno de los handles liberado
     }
     say('  tras 20 copias dejadas al Finalizer: ${hostMiB()} MiB (Dart no '
@@ -103,10 +103,10 @@ Future<void> main() async {
     // 4. Muchos handles por iteración: un ámbito los libera juntos, en orden
     //    inverso, en un solo mensaje al p2p_host.
     final total = withGoScope((s) {
-      final f = s.manage(Go.os.open(big));
+      final f = s.manage(goOs.open(big));
       try {
         final out = s.manage(BytesBuffer(Uint8List(0)));
-        return Go.io.copy(out, f);
+        return goIo.copy(out, f);
       } finally {
         f.close();
       }
@@ -132,7 +132,7 @@ Future<void> main() async {
     if (Platform.isWindows) {
       final locked = '${tmp.path}/locked.bin';
       File(locked).writeAsBytesSync(Uint8List(64));
-      final f = Go.os.open(locked);
+      final f = goOs.open(locked);
       f.release();
       await mistake('release() sin close() en un archivo abierto',
           why: 'release libera la entrada de la tabla, no el archivo: Go lo '

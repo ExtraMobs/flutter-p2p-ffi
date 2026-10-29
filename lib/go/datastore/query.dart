@@ -136,7 +136,7 @@ class DatastoreQueryResults extends GoHandle with DatastoreQueryResults$ {
 /// The methods of [DatastoreQueryResults], mixed into every class Go also accepts as one.
 mixin DatastoreQueryResults$ on GoHandle {}
 
-/// Go: the package-level members of `github.com/ipfs/go-datastore/query` (`Go.datastore.query`).
+/// Go: the package-level members of `github.com/ipfs/go-datastore/query` (`goDatastore.query`).
 extension GoDatastoreQueryApi on GoDatastoreQuery {
   /// Go: `const query.KeysOnlyBufSize untyped int`.
   int get keysOnlyBufSize => 128;

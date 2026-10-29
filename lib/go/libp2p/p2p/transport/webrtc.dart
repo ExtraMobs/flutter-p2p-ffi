@@ -105,7 +105,7 @@ class Libp2pP2pTransportWebrtcWebRtcTransport
   }
 }
 
-/// Go: the package-level members of `github.com/libp2p/go-libp2p/p2p/transport/webrtc` (`Go.libp2p.p2p.transport.webrtc`).
+/// Go: the package-level members of `github.com/libp2p/go-libp2p/p2p/transport/webrtc` (`goLibp2p.p2p.transport.webrtc`).
 extension GoLibp2pP2pTransportWebrtcApi on GoLibp2pP2pTransportWebrtc {
   /// Go: `webrtc.WithDialerVersion`.
   Libp2pP2pTransportWebrtcOption withDialerVersion(int version) =>

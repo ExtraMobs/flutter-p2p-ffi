@@ -13,7 +13,7 @@ class BoxoAutoconfClient extends $crypto.CryptoPrivateKey
   BoxoAutoconfClient.$h(super.$h) : super.$h();
 }
 
-/// Go: the package-level members of `github.com/ipfs/boxo/autoconf` (`Go.boxo.autoconf`).
+/// Go: the package-level members of `github.com/ipfs/boxo/autoconf` (`goBoxo.autoconf`).
 extension GoBoxoAutoconfApi on GoBoxoAutoconf {
   /// Go: `const autoconf.AutoPlaceholder untyped string`.
   String get autoPlaceholder => "auto";

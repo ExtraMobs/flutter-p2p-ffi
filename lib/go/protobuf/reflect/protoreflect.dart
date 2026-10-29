@@ -33,7 +33,7 @@ class ProtobufReflectProtoreflectMessage extends GoHandle
 /// The methods of [ProtobufReflectProtoreflectMessage], mixed into every class Go also accepts as one.
 mixin ProtobufReflectProtoreflectMessage$ on GoHandle {}
 
-/// Go: the package-level members of `google.golang.org/protobuf/reflect/protoreflect` (`Go.protobuf.reflect.protoreflect`).
+/// Go: the package-level members of `google.golang.org/protobuf/reflect/protoreflect` (`goProtobuf.reflect.protoreflect`).
 extension GoProtobufReflectProtoreflectApi on GoProtobufReflectProtoreflect {
   /// Go: `const protoreflect.BoolKind protoreflect.Kind`.
   int get boolKind => 8;

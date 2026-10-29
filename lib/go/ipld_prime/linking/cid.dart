@@ -99,7 +99,7 @@ final class IpldPrimeLinkingCidMemory implements GoDto {
   }
 }
 
-/// Go: the package-level members of `github.com/ipld/go-ipld-prime/linking/cid` (`Go.ipldPrime.linking.cid`).
+/// Go: the package-level members of `github.com/ipld/go-ipld-prime/linking/cid` (`goIpldPrime.linking.cid`).
 extension GoIpldPrimeLinkingCidApi on GoIpldPrimeLinkingCid {
   /// Go: `func cidlink.DefaultLinkSystem() linking.LinkSystem`.
   $linking.IpldPrimeLinkingLinkSystem defaultLinkSystem() {

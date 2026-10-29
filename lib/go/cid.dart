@@ -467,7 +467,7 @@ class CidErrInvalidEncoding extends GolangException {
   String toString() => 'cid.ErrInvalidEncoding: $message';
 }
 
-/// Go: the package-level members of `github.com/ipfs/go-cid` (`Go.cid`).
+/// Go: the package-level members of `github.com/ipfs/go-cid` (`goCid`).
 extension GoCidApi on GoCid {
   /// Go: `func cid.Cast(data []byte) (cid.Cid, error)`.
   Cid cast(Uint8List data) {

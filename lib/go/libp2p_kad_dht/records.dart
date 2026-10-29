@@ -209,7 +209,7 @@ class Libp2pKadDhtRecordsErrOldRecord extends GolangException {
   String toString() => 'records.ErrOldRecord: $message';
 }
 
-/// Go: the package-level members of `github.com/libp2p/go-libp2p-kad-dht/records` (`Go.libp2pKadDht.records`).
+/// Go: the package-level members of `github.com/libp2p/go-libp2p-kad-dht/records` (`goLibp2pKadDht.records`).
 extension GoLibp2pKadDhtRecordsApi on GoLibp2pKadDhtRecords {
   /// Go: `records.Cache`.
   Libp2pKadDhtRecordsOption cache($simplelru.GolangLruSimplelruLruCache c) =>

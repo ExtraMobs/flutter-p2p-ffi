@@ -464,7 +464,7 @@ final class Libp2pCoreEventUpdatedAddress implements GoDto {
   }
 }
 
-/// Go: the package-level members of `github.com/libp2p/go-libp2p/core/event` (`Go.libp2p.core.event`).
+/// Go: the package-level members of `github.com/libp2p/go-libp2p/core/event` (`goLibp2p.core.event`).
 extension GoLibp2pCoreEventApi on GoLibp2pCoreEvent {
   /// Go: `const event.Added event.AddrAction`.
   int get added => 1;

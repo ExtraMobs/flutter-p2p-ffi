@@ -344,7 +344,7 @@ class BoxoFilestoreErrUrlstoreNotEnabled extends GolangException {
   String toString() => 'filestore.ErrUrlstoreNotEnabled: $message';
 }
 
-/// Go: the package-level members of `github.com/ipfs/boxo/filestore` (`Go.boxo.filestore`).
+/// Go: the package-level members of `github.com/ipfs/boxo/filestore` (`goBoxo.filestore`).
 extension GoBoxoFilestoreApi on GoBoxoFilestore {
   /// Go: `filestore.WithMMapReader`.
   BoxoFilestoreOption withMMapReader() => BoxoFilestoreOption.$(0, (_) {});

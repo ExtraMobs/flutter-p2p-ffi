@@ -7,7 +7,7 @@ import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/ipld_prime/datamodel.dart' as $datamodel;
 import 'package:p2p_ffi/go/ipld_prime/traversal/selector.dart' as $selector;
 
-/// Go: the package-level members of `github.com/ipld/go-ipld-prime/traversal/selector/parse` (`Go.ipldPrime.traversal.selector.parse`).
+/// Go: the package-level members of `github.com/ipld/go-ipld-prime/traversal/selector/parse` (`goIpldPrime.traversal.selector.parse`).
 extension GoIpldPrimeTraversalSelectorParseApi
     on GoIpldPrimeTraversalSelectorParse {
   /// Go: `var selectorparse.CommonSelector_ExploreAllRecursively datamodel.Node`.

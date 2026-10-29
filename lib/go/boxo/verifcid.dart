@@ -96,7 +96,7 @@ class BoxoVerifcidErrPossiblyInsecureHashFunction extends GolangException {
   String toString() => 'verifcid.ErrPossiblyInsecureHashFunction: $message';
 }
 
-/// Go: the package-level members of `github.com/ipfs/boxo/verifcid` (`Go.boxo.verifcid`).
+/// Go: the package-level members of `github.com/ipfs/boxo/verifcid` (`goBoxo.verifcid`).
 extension GoBoxoVerifcidApi on GoBoxoVerifcid {
   /// Go: `func verifcid.NewOverridingAllowlist(override verifcid.Allowlist, allowset map[uint64]bool) verifcid.Allowlist`.
   BoxoVerifcidAllowlist newOverridingAllowlist(

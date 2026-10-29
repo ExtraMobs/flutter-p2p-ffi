@@ -63,7 +63,7 @@ class BoxoPeeringService extends $crypto.CryptoPrivateKey
   }
 }
 
-/// Go: the package-level members of `github.com/ipfs/boxo/peering` (`Go.boxo.peering`).
+/// Go: the package-level members of `github.com/ipfs/boxo/peering` (`goBoxo.peering`).
 extension GoBoxoPeeringApi on GoBoxoPeering {
   /// Go: `const peering.ConnmgrTag untyped string`.
   String get connmgrTag => "ipfs-peering";

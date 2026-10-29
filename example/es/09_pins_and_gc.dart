@@ -33,13 +33,13 @@ import 'lesson.dart';
 Future<void> main() async {
   await P2pService.start();
   final tmp = Directory.systemTemp.createTempSync('lesson09_');
-  final ctx = Go.context.background();
+  final ctx = goContext.background();
   final n = await newNode(ctx, '${tmp.path}/repo');
   try {
-    final api = Go.kubo.core.coreapi.newCoreApi(n);
+    final api = goKubo.core.coreapi.newCoreApi(n);
     Future<BoxoPath> add(String text,
             [List<KuboCoreCoreifaceOptionsUnixfsAddOption> o = const []]) =>
-        api.unixfs().add(ctx, Go.boxo.files.newBytesFile(utf8.encode(text)), o);
+        api.unixfs().add(ctx, goBoxo.files.newBytesFile(utf8.encode(text)), o);
     // No encontrado es el ErrNotFound de ipld, lanzado como
     // GolangNotFoundException; cualquier otro error (un store roto, un nodo
     // cerrado) sube.
@@ -57,20 +57,20 @@ Future<void> main() async {
     // 1. Cuatro archivos, cuatro destinos.
     //    Go:  api.Unixfs().Add(ctx, f, options.Unixfs.Pin(true, "name"))
     final pinned = await add('kept by a pin\n',
-        [Go.kubo.core.coreiface.options.unixfs.pin(true, 'lesson-09')]);
+        [goKubo.core.coreiface.options.unixfs.pin(true, 'lesson-09')]);
     final loose = await add('nothing protects me\n');
     final inMfs = await add('kept by MFS\n');
     final unpinned = await add('pinned, then unpinned\n',
-        [Go.kubo.core.coreiface.options.unixfs.pin(true, '')]);
+        [goKubo.core.coreiface.options.unixfs.pin(true, '')]);
     //    Go:  mfs.PutNode(n.FilesRoot, "/kept.txt", nd)
-    Go.boxo.mfs
+    goBoxo.mfs
         .putNode(n.filesRoot, '/kept.txt', await api.resolveNode(ctx, inMfs));
     //    Go:  api.Pin().Rm(ctx, p)
     await api.pin().rm(ctx, unpinned);
 
     // Un bloque raw (`ipfs block put --pin`): kubo lo fija como recursivo.
     final raw = await api.block().put(ctx, utf8.encode('a raw block'),
-        [Go.kubo.core.coreiface.options.block.pin(true)]);
+        [goKubo.core.coreiface.options.block.pin(true)]);
 
     Future<void> show(String when) async {
       say('\n$when:');
@@ -95,14 +95,14 @@ Future<void> main() async {
     say('\npin ls:');
     await for (final p in api
         .pin()
-        .ls(ctx, [Go.kubo.core.coreiface.options.pin.ls.detailed(true)])) {
+        .ls(ctx, [goKubo.core.coreiface.options.pin.ls.detailed(true)])) {
       say('  ${p.type.padRight(9)} ${p.path} ${p.name}');
     }
 
     // 3. GC: todo lo que no se alcanza desde un pin o desde el MFS se va.
     //    Go:  for r := range corerepo.GarbageCollectAsync(n, ctx) { ... }
     final removed =
-        await Go.kubo.core.corerepo.garbageCollectAsync(n, ctx).toList();
+        await goKubo.core.corerepo.garbageCollectAsync(n, ctx).toList();
     say('\nel GC borró ${removed.length} bloque(s): '
         '${removed.map((r) => r.keyRemoved).join(', ')}');
     await show('después del GC');

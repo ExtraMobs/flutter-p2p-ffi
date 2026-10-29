@@ -1502,7 +1502,7 @@ class DatastoreErrNotFound extends GolangException {
   String toString() => 'datastore.ErrNotFound: $message';
 }
 
-/// Go: the package-level members of `github.com/ipfs/go-datastore` (`Go.datastore`).
+/// Go: the package-level members of `github.com/ipfs/go-datastore` (`goDatastore`).
 extension GoDatastoreApi on GoDatastore {
   /// Go: `func datastore.DiskUsage(ctx context.Context, d datastore.Datastore) (uint64, error)`.
   ///

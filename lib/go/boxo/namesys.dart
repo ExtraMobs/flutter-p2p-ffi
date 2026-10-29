@@ -462,7 +462,7 @@ class BoxoNamesysErrResolveRecursion extends GolangException {
   String toString() => 'namesys.ErrResolveRecursion: $message';
 }
 
-/// Go: the package-level members of `github.com/ipfs/boxo/namesys` (`Go.boxo.namesys`).
+/// Go: the package-level members of `github.com/ipfs/boxo/namesys` (`goBoxo.namesys`).
 extension GoBoxoNamesysApi on GoBoxoNamesys {
   /// Go: `namesys.PublishWithEOL`.
   BoxoNamesysPublishOption publishWithEol(DateTime eol) =>

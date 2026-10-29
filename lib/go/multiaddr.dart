@@ -491,7 +491,7 @@ class MultiaddrErrProtocolNotFound extends GolangException {
   String toString() => 'multiaddr.ErrProtocolNotFound: $message';
 }
 
-/// Go: the package-level members of `github.com/multiformats/go-multiaddr` (`Go.multiaddr`).
+/// Go: the package-level members of `github.com/multiformats/go-multiaddr` (`goMultiaddr`).
 extension GoMultiaddrApi on GoMultiaddr {
   /// Go: `func multiaddr.AddProtocol(p multiaddr.Protocol) error`.
   void addProtocol(MultiaddrProtocol p) {

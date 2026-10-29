@@ -30,21 +30,21 @@ void round(String mode, String big) {
     switch (mode) {
       case 'finalizer':
         final buf = BytesBuffer(Uint8List(0));
-        final f = Go.os.open(big);
-        Go.io.copy(buf, f);
+        final f = goOs.open(big);
+        goIo.copy(buf, f);
         f.close();
       case 'release':
         BytesBuffer(Uint8List(0)).use((buf) {
-          Go.os.open(big).use((f) {
-            Go.io.copy(buf, f);
+          goOs.open(big).use((f) {
+            goIo.copy(buf, f);
             f.close();
           });
         });
       case 'scope':
         withGoScope((s) {
           final buf = s.manage(BytesBuffer(Uint8List(0)));
-          final f = s.manage(Go.os.open(big));
-          Go.io.copy(buf, f);
+          final f = s.manage(goOs.open(big));
+          goIo.copy(buf, f);
           f.close();
         });
       default:

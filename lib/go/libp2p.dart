@@ -24,7 +24,7 @@ import 'package:p2p_ffi/go/libp2p/p2p/protocol/holepunch.dart' as $holepunch;
 import 'package:p2p_ffi/go/libp2p/p2p/transport/quicreuse.dart' as $quicreuse;
 import 'package:p2p_ffi/go/multiaddr.dart' as $multiaddr;
 
-/// Go: the package-level members of `github.com/libp2p/go-libp2p` (`Go.libp2p`).
+/// Go: the package-level members of `github.com/libp2p/go-libp2p` (`goLibp2p`).
 extension GoLibp2pApi on GoLibp2p {
   /// Go: `go-libp2p.AddrsFactory`.
   $config.Libp2pConfigOption addrsFactory(

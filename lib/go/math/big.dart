@@ -23,7 +23,7 @@ class MathBigErrNaN extends GolangException {
   String toString() => 'big.ErrNaN: $message';
 }
 
-/// Go: the package-level members of `math/big` (`Go.math.big`).
+/// Go: the package-level members of `math/big` (`goMath.big`).
 extension GoMathBigApi on GoMathBig {
   /// Go: `const big.Above big.Accuracy`.
   int get above => 1;

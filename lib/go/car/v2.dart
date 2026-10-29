@@ -729,7 +729,7 @@ class CarV2ErrSizeMismatch extends GolangException {
   String toString() => 'car.ErrSizeMismatch: $message';
 }
 
-/// Go: the package-level members of `github.com/ipld/go-car/v2` (`Go.car.v2`).
+/// Go: the package-level members of `github.com/ipld/go-car/v2` (`goCar.v2`).
 extension GoCarV2Api on GoCarV2 {
   /// Go: `v2.AllowDuplicatePuts`.
   CarV2Option allowDuplicatePuts(bool allow) =>

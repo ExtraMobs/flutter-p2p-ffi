@@ -12,7 +12,7 @@ final class BoxoBitswapNetworkBsnetNetOpt extends GoOption {
   BoxoBitswapNetworkBsnetNetOpt.$(super.$i, super.$a);
 }
 
-/// Go: the package-level members of `github.com/ipfs/boxo/bitswap/network/bsnet` (`Go.boxo.bitswap.network.bsnet`).
+/// Go: the package-level members of `github.com/ipfs/boxo/bitswap/network/bsnet` (`goBoxo.bitswap.network.bsnet`).
 extension GoBoxoBitswapNetworkBsnetApi on GoBoxoBitswapNetworkBsnet {
   /// Go: `bsnet.Prefix`.
   BoxoBitswapNetworkBsnetNetOpt prefix(String prefix) =>

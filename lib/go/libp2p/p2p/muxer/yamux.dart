@@ -42,7 +42,7 @@ class Libp2pP2pMuxerYamuxTransport extends $network.Libp2pCoreNetworkMultiplexer
   }
 }
 
-/// Go: the package-level members of `github.com/libp2p/go-libp2p/p2p/muxer/yamux` (`Go.libp2p.p2p.muxer.yamux`).
+/// Go: the package-level members of `github.com/libp2p/go-libp2p/p2p/muxer/yamux` (`goLibp2p.p2p.muxer.yamux`).
 extension GoLibp2pP2pMuxerYamuxApi on GoLibp2pP2pMuxerYamux {
   /// Go: `var yamux.DefaultTransport *yamux.Transport`.
   Libp2pP2pMuxerYamuxTransport get defaultTransport {

@@ -7,7 +7,7 @@ import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/boxo/chunker.dart' as $chunker;
 import 'package:p2p_ffi/go/ipld_format.dart' as $ipld_format;
 
-/// Go: the package-level members of `github.com/ipfs/boxo/ipld/unixfs/importer` (`Go.boxo.ipld.unixfs.importer`).
+/// Go: the package-level members of `github.com/ipfs/boxo/ipld/unixfs/importer` (`goBoxo.ipld.unixfs.importer`).
 extension GoBoxoIpldUnixfsImporterApi on GoBoxoIpldUnixfsImporter {
   /// Go: `func importer.BuildDagFromReader(ds format.DAGService, spl chunk.Splitter) (format.Node, error)`.
   $ipld_format.IpldFormatNode buildDagFromReader(

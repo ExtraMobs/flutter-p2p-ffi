@@ -231,7 +231,7 @@ mixin IpldPrimeStorageWritableStorage$ on GoHandle {
   }
 }
 
-/// Go: the package-level members of `github.com/ipld/go-ipld-prime/storage` (`Go.ipldPrime.storage`).
+/// Go: the package-level members of `github.com/ipld/go-ipld-prime/storage` (`goIpldPrime.storage`).
 extension GoIpldPrimeStorageApi on GoIpldPrimeStorage {
   /// Go: `func storage.Get(ctx context.Context, store storage.ReadableStorage, key string) ([]byte, error)`.
   ///

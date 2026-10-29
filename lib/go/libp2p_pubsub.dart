@@ -2486,7 +2486,7 @@ class Libp2pPubsubValidationError extends GolangException {
   String toString() => 'pubsub.ValidationError: $message';
 }
 
-/// Go: the package-level members of `github.com/libp2p/go-libp2p-pubsub` (`Go.libp2pPubsub`).
+/// Go: the package-level members of `github.com/libp2p/go-libp2p-pubsub` (`goLibp2pPubsub`).
 extension GoLibp2pPubsubApi on GoLibp2pPubsub {
   /// Go: `go-libp2p-pubsub.FanoutOnly`.
   Libp2pPubsubTopicOpt fanoutOnly() => Libp2pPubsubTopicOpt.$(0, (_) {});

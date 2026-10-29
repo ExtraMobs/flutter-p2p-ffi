@@ -1106,7 +1106,7 @@ class KuboConfigErrInvalidPeerAddr extends GolangException {
   String toString() => 'config.ErrInvalidPeerAddr: $message';
 }
 
-/// Go: the package-level members of `github.com/ipfs/kubo/config` (`Go.kubo.config`).
+/// Go: the package-level members of `github.com/ipfs/kubo/config` (`goKubo.config`).
 extension GoKuboConfigApi on GoKuboConfig {
   /// Go: `func config.BootstrapPeerStrings(bps []peer.AddrInfo) []string`.
   List<String> bootstrapPeerStrings(List<$peer.Libp2pCorePeerAddrInfo> bps) {

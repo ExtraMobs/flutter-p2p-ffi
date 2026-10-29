@@ -10,9 +10,9 @@ import 'package:test/test.dart';
 const echo = '/p2p-ffi-test/echo/1.0.0';
 
 Future<Libp2pCoreHost> newHost([Libp2pCoreCryptoPrivKey? key]) =>
-    Go.libp2p.new$([
-      Go.libp2p.listenAddrStrings(['/ip4/127.0.0.1/tcp/0']),
-      if (key != null) Go.libp2p.identity(key),
+    goLibp2p.new$([
+      goLibp2p.listenAddrStrings(['/ip4/127.0.0.1/tcp/0']),
+      if (key != null) goLibp2p.identity(key),
     ]);
 
 void main() {
@@ -21,12 +21,12 @@ void main() {
 
   late Libp2pCoreHost a, b;
   late final Context ctx;
-  setUpAll(() => ctx = Go.context.background());
+  setUpAll(() => ctx = goContext.background());
 
   setUp(() async {
     a = await newHost();
     b = await newHost();
-    await a.connect(ctx, Go.libp2p.core.host.infoFromHost(b));
+    await a.connect(ctx, goLibp2p.core.host.infoFromHost(b));
   });
   tearDown(() async {
     await a.close();
@@ -35,23 +35,23 @@ void main() {
 
   test('identity: the peer ID comes from the key, which survives a round trip',
       () async {
-    final (sk, _) = Go.libp2p.core.crypto
-        .generateKeyPair(Go.libp2p.core.crypto.ed25519, -1);
-    final again = Go.libp2p.core.crypto
-        .unmarshalPrivateKey(Go.libp2p.core.crypto.marshalPrivateKey(sk));
+    final (sk, _) =
+        goLibp2p.core.crypto.generateKeyPair(goLibp2p.core.crypto.ed25519, -1);
+    final again = goLibp2p.core.crypto
+        .unmarshalPrivateKey(goLibp2p.core.crypto.marshalPrivateKey(sk));
     final h = await newHost(again);
     addTearDown(h.close);
-    expect(h.id(), Go.libp2p.core.peer.idFromPrivateKey(sk));
+    expect(h.id(), goLibp2p.core.peer.idFromPrivateKey(sk));
     final sig = sk.sign(utf8.encode('hi'));
     expect(sk.getPublic().verify(utf8.encode('hi'), sig), isTrue);
   });
 
   test('connected, and ping measures the round trip', () async {
-    expect(a.network().connectedness(b.id()), Go.libp2p.core.network.connected);
+    expect(a.network().connectedness(b.id()), goLibp2p.core.network.connected);
     expect(a.network().peers(), contains(b.id()));
-    final (pingCtx, cancel) = Go.context.withCancel(ctx);
+    final (pingCtx, cancel) = goContext.withCancel(ctx);
     final first =
-        await Go.libp2p.p2p.protocol.ping.ping(pingCtx, a, b.id()).first;
+        await goLibp2p.p2p.protocol.ping.ping(pingCtx, a, b.id()).first;
     cancel();
     expect(first.error, isNull);
     // Go itself measures 0 s on Windows loopback (checked with a go test)
@@ -104,8 +104,8 @@ void main() {
   });
 
   test('gossipsub between the two hosts', () async {
-    final psA = await Go.libp2pPubsub.newGossipSub(ctx, a);
-    final psB = await Go.libp2pPubsub.newGossipSub(ctx, b);
+    final psA = await goLibp2pPubsub.newGossipSub(ctx, a);
+    final psB = await goLibp2pPubsub.newGossipSub(ctx, b);
     final topicA = await psA.join('p2p-ffi-test');
     final topicB = await psB.join('p2p-ffi-test');
     final sub = await topicB.subscribe();
@@ -115,7 +115,7 @@ void main() {
     }
     await topicA.publish(ctx, Uint8List.fromList(utf8.encode('news')));
     final (nextCtx, cancel) =
-        Go.context.withTimeout(ctx, const Duration(seconds: 10));
+        goContext.withTimeout(ctx, const Duration(seconds: 10));
     final msg = await sub.next(nextCtx);
     cancel();
     expect(utf8.decode(msg.message!.getData()), 'news');
@@ -125,11 +125,10 @@ void main() {
 
   test('a private DHT: provide on one host, find it from the other', () async {
     final opts = [
-      Go.libp2pKadDht.mode(Go.libp2pKadDht.modeServer),
-      Go.libp2pKadDht.protocolPrefix('/p2p-ffi-test')
+      goLibp2pKadDht.mode(goLibp2pKadDht.modeServer),
+      goLibp2pKadDht.protocolPrefix('/p2p-ffi-test')
     ];
-    final da = Go.libp2pKadDht.new$(a, opts),
-        db = Go.libp2pKadDht.new$(b, opts);
+    final da = goLibp2pKadDht.new$(a, opts), db = goLibp2pKadDht.new$(b, opts);
     addTearDown(() async {
       await da.close();
       await db.close();
@@ -153,17 +152,17 @@ void main() {
   });
 
   test('a topic validator: Go asks Dart, and an exception rejects', () async {
-    final psA = await Go.libp2pPubsub.newGossipSub(ctx, a);
-    final psB = await Go.libp2pPubsub.newGossipSub(ctx, b);
+    final psA = await goLibp2pPubsub.newGossipSub(ctx, a);
+    final psB = await goLibp2pPubsub.newGossipSub(ctx, b);
     final thrown = <Object>[];
     await runZonedGuarded(() {
       return psB.registerTopicValidator('checked', (vctx, from, msg) {
         final text = utf8.decode(msg.message!.getData());
         if (text == 'boom') throw StateError('a bug in the validator');
         return text.startsWith('ok')
-            ? Go.libp2pPubsub.validationAccept
-            : Go.libp2pPubsub.validationReject;
-      }, [Go.libp2pPubsub.withValidatorTimeout(const Duration(seconds: 5))]);
+            ? goLibp2pPubsub.validationAccept
+            : goLibp2pPubsub.validationReject;
+      }, [goLibp2pPubsub.withValidatorTimeout(const Duration(seconds: 5))]);
     }, (e, _) => thrown.add(e));
     final topicA = await psA.join('checked');
     final sub = await (await psB.join('checked')).subscribe();
@@ -176,7 +175,7 @@ void main() {
     final got = <String>[];
     for (var i = 0; i < 2; i++) {
       final (nextCtx, cancel) =
-          Go.context.withTimeout(ctx, const Duration(seconds: 10));
+          goContext.withTimeout(ctx, const Duration(seconds: 10));
       got.add(utf8.decode((await sub.next(nextCtx)).message!.getData()));
       cancel();
     }
@@ -199,8 +198,8 @@ void main() {
     ]);
     final connected = sub.out().firstWhere((e) =>
         e is Libp2pCoreEventEvtPeerConnectednessChanged &&
-        e.connectedness == Go.libp2p.core.network.connected);
-    await c.connect(ctx, Go.libp2p.core.host.infoFromHost(a));
+        e.connectedness == goLibp2p.core.network.connected);
+    await c.connect(ctx, goLibp2p.core.host.infoFromHost(a));
     final e = await connected.timeout(const Duration(seconds: 10))
         as Libp2pCoreEventEvtPeerConnectednessChanged;
     expect(e.peer, a.id());
@@ -210,59 +209,59 @@ void main() {
   test("a stack of one's own: TCP, Noise and yamux, from Go functions",
       () async {
     final opts = [
-      Go.libp2p.transport(Go.libp2p.p2p.transport.tcp.newTcpTransportFunc),
-      Go.libp2p.security(Go.libp2p.p2p.security.noise.id,
-          Go.libp2p.p2p.security.noise.newFunc),
-      Go.libp2p.muxer(Go.libp2p.p2p.muxer.yamux.id,
-          Go.libp2p.p2p.muxer.yamux.defaultTransport),
-      Go.libp2p.listenAddrStrings(['/ip4/127.0.0.1/tcp/0']),
+      goLibp2p.transport(goLibp2p.p2p.transport.tcp.newTcpTransportFunc),
+      goLibp2p.security(
+          goLibp2p.p2p.security.noise.id, goLibp2p.p2p.security.noise.newFunc),
+      goLibp2p.muxer(goLibp2p.p2p.muxer.yamux.id,
+          goLibp2p.p2p.muxer.yamux.defaultTransport),
+      goLibp2p.listenAddrStrings(['/ip4/127.0.0.1/tcp/0']),
     ];
-    final x = await Go.libp2p.new$(opts), y = await Go.libp2p.new$(opts);
+    final x = await goLibp2p.new$(opts), y = await goLibp2p.new$(opts);
     addTearDown(() async {
       await x.close();
       await y.close();
     });
-    await x.connect(ctx, Go.libp2p.core.host.infoFromHost(y));
+    await x.connect(ctx, goLibp2p.core.host.infoFromHost(y));
     expect(x.network().connsToPeer(y.id()), isNotEmpty);
     // without the QUIC transport the host refuses a QUIC address
     await expectLater(
-        Go.libp2p.new$([
+        goLibp2p.new$([
           ...opts.take(3),
-          Go.libp2p.listenAddrStrings(['/ip4/127.0.0.1/udp/0/quic-v1']),
+          goLibp2p.listenAddrStrings(['/ip4/127.0.0.1/udp/0/quic-v1']),
         ]),
         throwsA(isA<GolangException>()));
   });
 
   test('an option that takes a struct: the gossipsub parameters cross',
       () async {
-    final params = Go.libp2pPubsub.defaultGossipSubParams();
+    final params = goLibp2pPubsub.defaultGossipSubParams();
     expect(params.d, greaterThan(0));
     expect(params.heartbeatInterval, greaterThan(Duration.zero));
-    await Go.libp2pPubsub
-        .newGossipSub(ctx, a, [Go.libp2pPubsub.withGossipSubParams(params)]);
+    await goLibp2pPubsub
+        .newGossipSub(ctx, a, [goLibp2pPubsub.withGossipSubParams(params)]);
     // invalid on purpose (Dlo above D): gossipsub refuses what arrived
     params.dlo = params.d + 1;
     await expectLater(
-        Go.libp2pPubsub.newGossipSub(
-            ctx, b, [Go.libp2pPubsub.withGossipSubParams(params)]),
+        goLibp2pPubsub
+            .newGossipSub(ctx, b, [goLibp2pPubsub.withGossipSubParams(params)]),
         throwsA(isA<GolangException>()));
-    final r = await Go.libp2p.new$([
-      Go.libp2p.listenAddrStrings(['/ip4/127.0.0.1/tcp/0']),
-      Go.libp2p.enableRelayService([
-        Go.libp2p.p2p.protocol.circuitv2.relay.withResources(
-            Go.libp2p.p2p.protocol.circuitv2.relay.defaultResources()
-              ..limit = Go.libp2p.p2p.protocol.circuitv2.relay.defaultLimit()),
+    final r = await goLibp2p.new$([
+      goLibp2p.listenAddrStrings(['/ip4/127.0.0.1/tcp/0']),
+      goLibp2p.enableRelayService([
+        goLibp2p.p2p.protocol.circuitv2.relay.withResources(
+            goLibp2p.p2p.protocol.circuitv2.relay.defaultResources()
+              ..limit = goLibp2p.p2p.protocol.circuitv2.relay.defaultLimit()),
       ]),
     ]);
     await r.close();
   });
 
   test('an option that keeps a function: a subscription filter', () async {
-    final psA = await Go.libp2pPubsub.newGossipSub(ctx, a);
-    final psB = await Go.libp2pPubsub.newGossipSub(ctx, b);
+    final psA = await goLibp2pPubsub.newGossipSub(ctx, a);
+    final psB = await goLibp2pPubsub.newGossipSub(ctx, b);
     final topicA = await psA.join('filtered');
     final sub = await (await psB.join('filtered')).subscribe([
-      Go.libp2pPubsub.withMessageFilter(
+      goLibp2pPubsub.withMessageFilter(
           (m) => !utf8.decode(m.message!.getData()).startsWith('skip')),
     ]);
     while (!(await topicA.listPeers()).contains(b.id())) {
@@ -271,7 +270,7 @@ void main() {
     await topicA.publish(ctx, Uint8List.fromList(utf8.encode('skip me')));
     await topicA.publish(ctx, Uint8List.fromList(utf8.encode('keep me')));
     final (nextCtx, cancel) =
-        Go.context.withTimeout(ctx, const Duration(seconds: 10));
+        goContext.withTimeout(ctx, const Duration(seconds: 10));
     final m = await sub.next(nextCtx);
     cancel();
     expect(utf8.decode(m.message!.getData()), 'keep me');

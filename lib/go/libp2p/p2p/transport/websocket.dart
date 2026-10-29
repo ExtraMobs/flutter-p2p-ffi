@@ -5,7 +5,7 @@ library;
 import 'package:p2p_ffi/src/go.dart' show GoLibp2pP2pTransportWebsocket;
 import 'package:p2p_ffi/src/runtime.dart';
 
-/// Go: the package-level members of `github.com/libp2p/go-libp2p/p2p/transport/websocket` (`Go.libp2p.p2p.transport.websocket`).
+/// Go: the package-level members of `github.com/libp2p/go-libp2p/p2p/transport/websocket` (`goLibp2p.p2p.transport.websocket`).
 extension GoLibp2pP2pTransportWebsocketApi on GoLibp2pP2pTransportWebsocket {
   /// Go: the function `websocket.New` as a value (a token: Go gets the function
   /// itself, as in `libp2p.Transport(tcp.NewTCPTransport)`).

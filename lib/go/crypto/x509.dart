@@ -517,7 +517,7 @@ class CryptoX509UnknownAuthorityError extends GolangException {
   String toString() => 'x509.UnknownAuthorityError: $message';
 }
 
-/// Go: the package-level members of `crypto/x509` (`Go.crypto.x509`).
+/// Go: the package-level members of `crypto/x509` (`goCrypto.x509`).
 extension GoCryptoX509Api on GoCryptoX509 {
   /// Go: `const x509.CANotAuthorizedForExtKeyUsage x509.InvalidReason`.
   int get caNotAuthorizedForExtKeyUsage => 9;

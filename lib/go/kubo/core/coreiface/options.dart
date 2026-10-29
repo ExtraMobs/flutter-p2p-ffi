@@ -1129,7 +1129,7 @@ final class _Unixfs {
       KuboCoreCoreifaceOptionsUnixfsLsOption.$(1, (w) => w..b(use));
 }
 
-/// Go: the package-level members of `github.com/ipfs/kubo/core/coreiface/options` (`Go.kubo.core.coreiface.options`).
+/// Go: the package-level members of `github.com/ipfs/kubo/core/coreiface/options` (`goKubo.core.coreiface.options`).
 extension GoKuboCoreCoreifaceOptionsApi on GoKuboCoreCoreifaceOptions {
   /// Go: `var Api`: option constructors.
   _Api get api => const _Api._();

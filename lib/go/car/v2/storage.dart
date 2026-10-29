@@ -180,7 +180,7 @@ class CarV2StorageErrClosed extends GolangException {
   String toString() => 'storage.ErrClosed: $message';
 }
 
-/// Go: the package-level members of `github.com/ipld/go-car/v2/storage` (`Go.car.v2.storage`).
+/// Go: the package-level members of `github.com/ipld/go-car/v2/storage` (`goCar.v2.storage`).
 extension GoCarV2StorageApi on GoCarV2Storage {
   /// Go: `func storage.NewReadableWritable(rw storage.ReaderAtWriterAt, roots []cid.Cid, opts ...car.Option) (*storage.StorageCar, error)`.
   CarV2StorageCar newReadableWritable(Object rw, List<$cid.Cid> roots,

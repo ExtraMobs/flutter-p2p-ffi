@@ -425,7 +425,7 @@ final class Libp2pCoreConnmgrTagInfo implements GoDto {
   }
 }
 
-/// Go: the package-level members of `github.com/libp2p/go-libp2p/core/connmgr` (`Go.libp2p.core.connmgr`).
+/// Go: the package-level members of `github.com/libp2p/go-libp2p/core/connmgr` (`goLibp2p.core.connmgr`).
 extension GoLibp2pCoreConnmgrApi on GoLibp2pCoreConnmgr {
   /// Go: `func connmgr.BumpOverwrite() connmgr.BumpFn`.
   Libp2pCoreConnmgrBumpFn bumpOverwrite() {

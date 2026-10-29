@@ -247,7 +247,7 @@ class Libp2pKbucketErrPeerRejectedNoCapacity extends GolangException {
   String toString() => 'kbucket.ErrPeerRejectedNoCapacity: $message';
 }
 
-/// Go: the package-level members of `github.com/libp2p/go-libp2p-kbucket` (`Go.libp2pKbucket`).
+/// Go: the package-level members of `github.com/libp2p/go-libp2p-kbucket` (`goLibp2pKbucket`).
 extension GoLibp2pKbucketApi on GoLibp2pKbucket {
   /// Go: `func kbucket.Closer(a peer.ID, b peer.ID, key string) bool`.
   bool closer($peer.Libp2pCorePeerId a, $peer.Libp2pCorePeerId b, String key) {

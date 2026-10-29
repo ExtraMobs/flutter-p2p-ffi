@@ -57,7 +57,7 @@ class BoxoIpldUnixfsErrUnrecognizedType extends GolangException {
   String toString() => 'unixfs.ErrUnrecognizedType: $message';
 }
 
-/// Go: the package-level members of `github.com/ipfs/boxo/ipld/unixfs` (`Go.boxo.ipld.unixfs`).
+/// Go: the package-level members of `github.com/ipfs/boxo/ipld/unixfs` (`goBoxo.ipld.unixfs`).
 extension GoBoxoIpldUnixfsApi on GoBoxoIpldUnixfs {
   /// Go: `const unixfs.TDirectory pb.Data_DataType`.
   int get tDirectory => 1;

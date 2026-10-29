@@ -653,7 +653,7 @@ class Libp2pCoreCryptoErrRsaKeyTooSmall extends GolangException {
   String toString() => 'crypto.ErrRsaKeyTooSmall: $message';
 }
 
-/// Go: the package-level members of `github.com/libp2p/go-libp2p/core/crypto` (`Go.libp2p.core.crypto`).
+/// Go: the package-level members of `github.com/libp2p/go-libp2p/core/crypto` (`goLibp2p.core.crypto`).
 extension GoLibp2pCoreCryptoApi on GoLibp2pCoreCrypto {
   /// Go: `func crypto.ConfigDecodeKey(b string) ([]byte, error)`.
   Uint8List configDecodeKey(String b) {

@@ -203,7 +203,7 @@ final class BoxoBitswapStat implements GoDto {
   }
 }
 
-/// Go: the package-level members of `github.com/ipfs/boxo/bitswap` (`Go.boxo.bitswap`).
+/// Go: the package-level members of `github.com/ipfs/boxo/bitswap` (`goBoxo.bitswap`).
 extension GoBoxoBitswapApi on GoBoxoBitswap {
   /// Go: `func bitswap.EngineBlockstoreWorkerCount(count int) bitswap.Option`.
   BoxoBitswapOption engineBlockstoreWorkerCount(int count) {

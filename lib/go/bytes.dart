@@ -37,7 +37,7 @@ class BytesErrTooLarge extends GolangException {
   String toString() => 'bytes.ErrTooLarge: $message';
 }
 
-/// Go: the package-level members of `bytes` (`Go.bytes`).
+/// Go: the package-level members of `bytes` (`goBytes`).
 extension GoBytesApi on GoBytes {
   /// Go: `const bytes.MinRead untyped int`.
   int get minRead => 512;

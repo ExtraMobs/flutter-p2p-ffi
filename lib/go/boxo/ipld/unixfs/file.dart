@@ -8,7 +8,7 @@ import 'package:p2p_ffi/go/boxo/files.dart' as $files;
 import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/ipld_format.dart' as $ipld_format;
 
-/// Go: the package-level members of `github.com/ipfs/boxo/ipld/unixfs/file` (`Go.boxo.ipld.unixfs.file`).
+/// Go: the package-level members of `github.com/ipfs/boxo/ipld/unixfs/file` (`goBoxo.ipld.unixfs.file`).
 extension GoBoxoIpldUnixfsFileApi on GoBoxoIpldUnixfsFile {
   /// Go: `func unixfile.NewUnixfsFile(ctx context.Context, dserv format.DAGService, nd format.Node) (files.Node, error)`.
   ///

@@ -30,7 +30,7 @@ class DigPanicError extends GolangException {
   String toString() => 'dig.PanicError: $message';
 }
 
-/// Go: the package-level members of `go.uber.org/dig` (`Go.dig`).
+/// Go: the package-level members of `go.uber.org/dig` (`goDig`).
 extension GoDigApi on GoDig {
   /// Go: `const dig.Version untyped string`.
   String get version => "1.19.0";

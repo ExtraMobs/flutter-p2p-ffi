@@ -7,7 +7,7 @@ import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/boxo/blockstore.dart' as $blockstore;
 import 'package:p2p_ffi/go/boxo/exchange.dart' as $exchange;
 
-/// Go: the package-level members of `github.com/ipfs/boxo/exchange/offline` (`Go.boxo.exchange.offline`).
+/// Go: the package-level members of `github.com/ipfs/boxo/exchange/offline` (`goBoxo.exchange.offline`).
 extension GoBoxoExchangeOfflineApi on GoBoxoExchangeOffline {
   /// Go: `func offline.Exchange(bs blockstore.Blockstore) exchange.Interface`.
   $exchange.BoxoExchangeInterface exchange($blockstore.BoxoBlockstore bs) {

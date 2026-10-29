@@ -433,7 +433,7 @@ class BoxoBlockstoreErrHashMismatch extends GolangException {
   String toString() => 'blockstore.ErrHashMismatch: $message';
 }
 
-/// Go: the package-level members of `github.com/ipfs/boxo/blockstore` (`Go.boxo.blockstore`).
+/// Go: the package-level members of `github.com/ipfs/boxo/blockstore` (`goBoxo.blockstore`).
 extension GoBoxoBlockstoreApi on GoBoxoBlockstore {
   /// Go: `var blockstore.BlockPrefix datastore.Key`.
   $datastore.DatastoreKey get blockPrefix {

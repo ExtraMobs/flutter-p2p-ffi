@@ -54,7 +54,7 @@ class ClientGolangPrometheusMultiError extends GolangException {
   String toString() => 'prometheus.MultiError: $message';
 }
 
-/// Go: the package-level members of `github.com/prometheus/client_golang/prometheus` (`Go.clientGolang.prometheus`).
+/// Go: the package-level members of `github.com/prometheus/client_golang/prometheus` (`goClientGolang.prometheus`).
 extension GoClientGolangPrometheusApi on GoClientGolangPrometheus {
   /// Go: `var prometheus.DefaultGatherer prometheus.Gatherer`.
   ClientGolangPrometheusGatherer get defaultGatherer {

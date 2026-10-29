@@ -191,7 +191,7 @@ class BoxoBlockserviceSession extends BoxoBlockserviceBlockGetter
           .map((r) => r.p() ? $block_format.BlockFormatBlock.$dec(r) : $nil());
 }
 
-/// Go: the package-level members of `github.com/ipfs/boxo/blockservice` (`Go.boxo.blockservice`).
+/// Go: the package-level members of `github.com/ipfs/boxo/blockservice` (`goBoxo.blockservice`).
 extension GoBoxoBlockserviceApi on GoBoxoBlockservice {
   /// Go: `blockservice.WithAllowlist`.
   BoxoBlockserviceOption withAllowlist(

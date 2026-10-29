@@ -5,7 +5,7 @@
 // do with what they return?
 //
 // Answer: every kubo command is a Dart function in
-// `Go.kubo.core.commands`: the arguments of the command
+// `goKubo.core.commands`: the arguments of the command
 // line are its positional parameters, the flags its named ones (`ipfs files
 // mkdir -p /a` → `filesMkdir(n, ctx, '/a', parents: true)`). They run inside
 // the app's own node and return a Stream: one item per result line of the
@@ -38,15 +38,15 @@ import 'lesson.dart';
 Future<void> main() async {
   await P2pService.start();
   final tmp = Directory.systemTemp.createTempSync('lesson12_');
-  final ctx = Go.context.background();
+  final ctx = goContext.background();
   final n = await newNode(ctx, '${tmp.path}/repo');
   try {
-    final api = Go.kubo.core.coreapi.newCoreApi(n);
+    final api = goKubo.core.coreapi.newCoreApi(n);
 
     // 1. One result: `.single`.            CLI: ipfs id; ipfs repo stat
-    final id = await Go.kubo.core.commands.id(n, ctx, null).single;
+    final id = await goKubo.core.commands.id(n, ctx, null).single;
     say('ipfs id: ${id.id} (${id.agentVersion})');
-    final repo = await Go.kubo.core.commands.repoStat(n, ctx).single;
+    final repo = await goKubo.core.commands.repoStat(n, ctx).single;
     say('ipfs repo stat: ${repo.numObjects} objects, ${repo.repoSize} bytes');
 
     // 2. Many results: `await for`.        CLI: ipfs add -r folder
@@ -54,12 +54,11 @@ Future<void> main() async {
     File('${folder.path}/a.txt').writeAsStringSync('A\n');
     File('${folder.path}/b.txt').writeAsStringSync('B\n');
     say('\nipfs add -r, one event per file:');
-    await for (final e in Go.kubo.core.commands.add(
+    await for (final e in goKubo.core.commands.add(
         n,
         ctx,
         [
-          Go.boxo.files
-              .newSerialFile(folder.path, false, Go.os.stat(folder.path))
+          goBoxo.files.newSerialFile(folder.path, false, goOs.stat(folder.path))
         ],
         recursive: true,
         cidVersion: 1)) {
@@ -68,10 +67,10 @@ Future<void> main() async {
 
     // 3. Bytes in pieces: join them.       CLI: ipfs cat <cid>
     final big = Uint8List(600000);
-    final p = await api.unixfs().add(ctx, Go.boxo.files.newBytesFile(big));
+    final p = await api.unixfs().add(ctx, goBoxo.files.newBytesFile(big));
     final joined = BytesBuilder();
     var pieces = 0;
-    await for (final piece in Go.kubo.core.commands.cat(n, ctx, [p.value])) {
+    await for (final piece in goKubo.core.commands.cat(n, ctx, [p.value])) {
       pieces++;
       joined.add(piece);
     }
@@ -80,7 +79,7 @@ Future<void> main() async {
     // 4. React as items come, without waiting: `.listen`.
     //    CLI: ipfs pin ls --type=recursive
     final done = <String>[];
-    final sub = Go.kubo.core.commands
+    final sub = goKubo.core.commands
         .pinLs(n, ctx, [], type: 'recursive')
         .listen((w) => done.addAll(w.keys.keys),
             onDone: () => say('  (pin ls finished: ${done.length} pins)'));
@@ -88,25 +87,25 @@ Future<void> main() async {
     await sub.asFuture<void>();
 
     // 5. `.drain()`: run and ignore the output.   CLI: ipfs files mkdir -p /a/b
-    await Go.kubo.core.commands
+    await goKubo.core.commands
         .filesMkdir(n, ctx, '/a/b', parents: true)
         .drain<void>();
     say('\nipfs files mkdir -p /a/b: done');
 
     // 6. IPLD objects: JSON in, dag-cbor stored, read back by path, links
     //    followed.                         CLI: ipfs dag put / ipfs dag get
-    final author = await Go.kubo.core.commands.dag
+    final author = await goKubo.core.commands.dag
         .dagPut(api, ctx, utf8.encode('{"name": "Ana", "lang": "pt"}'));
-    final post = await Go.kubo.core.commands.dag.dagPut(
+    final post = await goKubo.core.commands.dag.dagPut(
         api,
         ctx,
         utf8.encode('{"title": "hi", "tags": ["ipfs", "dart"], '
             '"author": {"/": "$author"}}'),
         pin: true);
-    say('\nipfs dag put: post $post (dag-cbor: ${post.type() == Go.multicodec.dagCbor})');
-    final tags = await Go.kubo.core.commands.dag
+    say('\nipfs dag put: post $post (dag-cbor: ${post.type() == goMulticodec.dagCbor})');
+    final tags = await goKubo.core.commands.dag
         .dagGet(api, ctx, BoxoPath('/ipfs/$post/tags'));
-    final name = await Go.kubo.core.commands.dag
+    final name = await goKubo.core.commands.dag
         .dagGet(api, ctx, BoxoPath('/ipfs/$post/author/name'));
     say('  /tags → ${utf8.decode(tags)}');
     say('  /author/name (through the link) → ${utf8.decode(name)}');
@@ -115,13 +114,13 @@ Future<void> main() async {
     await mistake('`.single` on a command that gives many results',
         why: 'single wants exactly one item; ipfs add -r gave one per file',
         instead: '`await for` or `.toList()`',
-        action: () => Go.kubo.core.commands
+        action: () => goKubo.core.commands
             .add(
                 n,
                 ctx,
                 [
-                  Go.boxo.files.newSerialFile(
-                      folder.path, false, Go.os.stat(folder.path))
+                  goBoxo.files
+                      .newSerialFile(folder.path, false, goOs.stat(folder.path))
                 ],
                 recursive: true)
             .single);
@@ -129,12 +128,12 @@ Future<void> main() async {
         why: 'a command error comes through the Stream; no one listened',
         instead: 'await the Stream (or listen with onError) inside a try',
         action: () =>
-            Go.kubo.core.commands.filesStat(n, ctx, '/no/such/path').single);
+            goKubo.core.commands.filesStat(n, ctx, '/no/such/path').single);
     await mistake('dag put of text that is not JSON',
         why: 'the input codec is dag-json by default',
         instead: 'valid JSON, or inputCodec: matching what you send',
-        action: () => Go.kubo.core.commands.dag
-            .dagPut(api, ctx, utf8.encode('not json')));
+        action: () =>
+            goKubo.core.commands.dag.dagPut(api, ctx, utf8.encode('not json')));
   } finally {
     await n.close();
     await P2pService.stop();

@@ -5,7 +5,7 @@ library;
 import 'package:p2p_ffi/src/go.dart' show GoMulticodec;
 import 'package:p2p_ffi/src/runtime.dart';
 
-/// Go: the package-level members of `github.com/multiformats/go-multicodec` (`Go.multicodec`).
+/// Go: the package-level members of `github.com/multiformats/go-multicodec` (`goMulticodec`).
 extension GoMulticodecApi on GoMulticodec {
   /// Go: `const multicodec.CarMultihashIndexSorted multicodec.Code`.
   int get carMultihashIndexSorted => 1025;

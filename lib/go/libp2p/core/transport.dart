@@ -55,7 +55,7 @@ class Libp2pCoreTransportErrListenerClosed extends GolangException {
   String toString() => 'transport.ErrListenerClosed: $message';
 }
 
-/// Go: the package-level members of `github.com/libp2p/go-libp2p/core/transport` (`Go.libp2p.core.transport`).
+/// Go: the package-level members of `github.com/libp2p/go-libp2p/core/transport` (`goLibp2p.core.transport`).
 extension GoLibp2pCoreTransportApi on GoLibp2pCoreTransport {
   /// Go: `const transport.UpdateKindDialFailed transport.DialUpdateKind`.
   int get updateKindDialFailed => 0;

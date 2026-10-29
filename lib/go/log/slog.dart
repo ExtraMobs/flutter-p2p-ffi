@@ -20,7 +20,7 @@ class LogSlogValue extends $crypto.CryptoPrivateKey
   LogSlogValue.$h(super.$h) : super.$h();
 }
 
-/// Go: the package-level members of `log/slog` (`Go.log.slog`).
+/// Go: the package-level members of `log/slog` (`goLog.slog`).
 extension GoLogSlogApi on GoLogSlog {
   /// Go: `const slog.KindAny slog.Kind`.
   int get kindAny => 0;

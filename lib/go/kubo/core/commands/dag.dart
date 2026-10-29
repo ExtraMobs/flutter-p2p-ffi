@@ -13,7 +13,7 @@
 /// ```dart
 /// import 'package:p2p_ffi/p2p_ffi.dart';
 ///
-/// final dag = Go.kubo.core.commands.dag;
+/// final dag = goKubo.core.commands.dag;
 /// final c = await dag.dagPut(api, ctx, utf8.encode('{"a": 1}')); // dag-json → dag-cbor
 /// final json = await dag.dagGet(api, ctx, BoxoPath('/ipfs/$c/a'));
 /// final car = await dag.dagExport(node, ctx, BoxoPath('/ipfs/$c'));
@@ -86,7 +86,7 @@ Future<KuboCoreCommandsDagCarImportResult> _import(
 }
 
 /// Go: the hand port of `ipfs dag put/get/export/import`
-/// (`Go.kubo.core.commands.dag`).
+/// (`goKubo.core.commands.dag`).
 extension GoKuboCoreCommandsDagApi on GoKuboCoreCommandsDag {
   /// `ipfs dag put`: decodes [data] with [inputCodec], stores it with
   /// [storeCodec] (CIDv1, hash [hash]) and returns the CID. [pin] pins

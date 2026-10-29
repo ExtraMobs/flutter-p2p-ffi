@@ -30,7 +30,7 @@ mixin IpldLegacyUniversalNode$ on GoHandle {
   }
 }
 
-/// Go: the package-level members of `github.com/ipfs/go-ipld-legacy` (`Go.ipldLegacy`).
+/// Go: the package-level members of `github.com/ipfs/go-ipld-legacy` (`goIpldLegacy`).
 extension GoIpldLegacyApi on GoIpldLegacy {
   /// Go: `const ipldlegacy.ErrArrayOutOfRange ipldlegacy.errorType`.
   String get errArrayOutOfRange => "array index out of range";

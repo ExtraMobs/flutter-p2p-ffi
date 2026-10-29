@@ -10,7 +10,7 @@ final class DohResolverOption extends GoOption {
   DohResolverOption.$(super.$i, super.$a);
 }
 
-/// Go: the package-level members of `github.com/libp2p/go-doh-resolver` (`Go.dohResolver`).
+/// Go: the package-level members of `github.com/libp2p/go-doh-resolver` (`goDohResolver`).
 extension GoDohResolverApi on GoDohResolver {
   /// Go: `go-doh-resolver.WithCacheDisabled`.
   DohResolverOption withCacheDisabled() => DohResolverOption.$(0, (_) {});

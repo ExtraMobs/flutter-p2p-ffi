@@ -663,7 +663,7 @@ class BoxoMfsErrNotYetImplemented extends GolangException {
   String toString() => 'mfs.ErrNotYetImplemented: $message';
 }
 
-/// Go: the package-level members of `github.com/ipfs/boxo/mfs` (`Go.boxo.mfs`).
+/// Go: the package-level members of `github.com/ipfs/boxo/mfs` (`goBoxo.mfs`).
 extension GoBoxoMfsApi on GoBoxoMfs {
   /// Go: `mfs.WithChunker`.
   BoxoMfsOption withChunker($chunker.BoxoChunkerSplitterGen c) =>

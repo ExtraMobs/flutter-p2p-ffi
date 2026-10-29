@@ -15,11 +15,11 @@
 //   - an error: Go's `error` is thrown as a GolangException, or as the
 //     subclass of that Go error when it has one (`CidErrInvalidCid` for
 //     `cid.ErrInvalidCid`...).
-// Names: a Go package's functions, constants and variables hang from `Go`,
-// along the package's path (`cid.Decode` → `Go.cid.decode`, go-datastore's
-// `sync.MutexWrap` → `Go.datastore.sync.mutexWrap`); its types are classes
-// named after that path (`cid.Cid` → `Cid`, `blockstore.Blockstore` →
-// `BoxoBlockstore`). One import brings them all:
+// Names: a Go package's functions, constants and variables hang from a constant
+// per module, along the package's path (`cid.Decode` → `goCid.decode`,
+// go-datastore's `sync.MutexWrap` → `goDatastore.sync.mutexWrap`); its types
+// are classes named after that path (`cid.Cid` → `Cid`, `blockstore.Blockstore`
+// → `BoxoBlockstore`). One import brings them all:
 // `package:p2p_ffi/p2p_ffi.dart`.
 // A Go function that takes a `context.Context` may block (disk, network), so
 // in Dart it returns a Future; the others answer right away.
@@ -41,7 +41,7 @@ Future<void> main() async {
   await mistake('calling Go before P2pService.start()',
       why: 'the Go code lives in the p2p_host process, which is not running',
       instead: 'await P2pService.start() once, at the start of the program',
-      action: () => Go.cid.decode('bafkqaaa'));
+      action: () => goCid.decode('bafkqaaa'));
 
   await P2pService.start();
   say('this Dart process: pid $pid; the Go process (p2p_host): '
@@ -49,7 +49,7 @@ Future<void> main() async {
 
   // 2. A function without a context answers right away, and its result is a
   //    value. Go:  c, err := cid.Decode("bafkqaaa")
-  final c = Go.cid.decode('bafkqaaa');
+  final c = goCid.decode('bafkqaaa');
   say('\na value: ${c.runtimeType} "$c" (just its text, kept in Dart)');
   // A method of a value is still Go: the text goes there and the answer back.
   //    Go:  c.Version()
@@ -57,13 +57,13 @@ Future<void> main() async {
 
   // 3. A handle: the map lives in Go; Dart only holds its number.
   //    Go:  ds := sync.MutexWrap(datastore.NewMapDatastore())
-  final ds = Go.datastore.sync.mutexWrap(DatastoreMapDatastore());
+  final ds = goDatastore.sync.mutexWrap(DatastoreMapDatastore());
   say('\na handle: ${ds.runtimeType} #${ds.$h} (the object stays in Go)');
 
   // 4. A function with a context returns a Future: it runs in a goroutine of
   //    the p2p_host while Dart's event loop goes on.
   //    Go:  ctx := context.Background()
-  final ctx = Go.context.background();
+  final ctx = goContext.background();
   //    Go:  bs := blockstore.NewBlockstore(ds)
   final bs = BoxoBlockstore(ds);
   //    Go:  data := []byte("hello")
@@ -72,7 +72,7 @@ Future<void> main() async {
   // wraps the hash in a CIDv1 of codec raw. The CID is the block's name,
   // computed from its content.
   //    Go:  key, err := cid.NewPrefixV1(cid.Raw, mh.SHA2_256).Sum(data)
-  final key = Go.cid.newPrefixV1(Go.cid.raw, Go.multihash.sha2256).sum(data);
+  final key = goCid.newPrefixV1(goCid.raw, goMultihash.sha2256).sum(data);
   // Dart only: blocks.Block is a Go interface (Cid(), RawData()...), which
   // has no constructor. Dart builds it from what its methods return, and Go
   // gets a value that answers them. In Go you would call
@@ -91,7 +91,7 @@ Future<void> main() async {
       why: 'Go returned an error; in Dart it is thrown (no `err != nil`)',
       instead: 'catch the class of the error you expect, here '
           '`on CidErrInvalidCid` (lesson 19)',
-      action: () => Go.cid.decode('not-a-cid'));
+      action: () => goCid.decode('not-a-cid'));
 
   // 6. Done with a handle: release it, so Go can free the object now
   //    (otherwise only when Dart's garbage collector gets to it; lesson 20).

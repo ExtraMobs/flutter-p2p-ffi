@@ -18,8 +18,8 @@ void main() {
     final tmp = Directory.systemTemp.createTempSync('p2p_ffi_net_');
     await prepare('${tmp.path}/repo', '${tmp.path}/crash.log');
     final online = Stopwatch()..start();
-    final n = await startNode(Go.context.background(), '${tmp.path}/repo');
-    final api = Go.kubo.core.coreapi.newCoreApi(n);
+    final n = await startNode(goContext.background(), '${tmp.path}/repo');
+    final api = goKubo.core.coreapi.newCoreApi(n);
     final lines = <String>[];
     try {
       var failed = await networkChecks(api, lines.add);

@@ -939,7 +939,7 @@ class IpfsCmdsErrorType extends GolangException {
   String toString() => 'cmds.ErrorType: $message';
 }
 
-/// Go: the package-level members of `github.com/ipfs/go-ipfs-cmds` (`Go.ipfsCmds`).
+/// Go: the package-level members of `github.com/ipfs/go-ipfs-cmds` (`goIpfsCmds`).
 extension GoIpfsCmdsApi on GoIpfsCmds {
   /// Go: `func cmds.BoolOption(names ...string) cmds.Option`.
   IpfsCmdsOption boolOption([List<String> names = const []]) {

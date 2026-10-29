@@ -52,7 +52,7 @@ final class KuboVersionInfo implements GoDto {
   }
 }
 
-/// Go: the package-level members of `github.com/ipfs/kubo` (`Go.kubo`).
+/// Go: the package-level members of `github.com/ipfs/kubo` (`goKubo`).
 extension GoKuboApi on GoKubo {
   /// Go: `var ipfs.CurrentCommit string`.
   String get currentCommit {

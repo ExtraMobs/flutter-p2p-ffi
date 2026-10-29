@@ -522,7 +522,7 @@ class IoErrShortWrite extends GolangException {
   String toString() => 'io.ErrShortWrite: $message';
 }
 
-/// Go: the package-level members of `io` (`Go.io`).
+/// Go: the package-level members of `io` (`goIo`).
 extension GoIoApi on GoIo {
   /// Go: `func io.ReadAll(r io.Reader) ([]byte, error)`.
   Uint8List readAll(Object r) {

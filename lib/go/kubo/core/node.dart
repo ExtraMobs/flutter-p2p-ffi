@@ -509,7 +509,7 @@ final class KuboCoreNodePathResolversOut implements GoDto {
   }
 }
 
-/// Go: the package-level members of `github.com/ipfs/kubo/core/node` (`Go.kubo.core.node`).
+/// Go: the package-level members of `github.com/ipfs/kubo/core/node` (`goKubo.core.node`).
 extension GoKuboCoreNodeApi on GoKuboCoreNode {
   /// Go: `var node.BaseLibP2P fx.Option`.
   $fx.FxOption get baseLibP2p {

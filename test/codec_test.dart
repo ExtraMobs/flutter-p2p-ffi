@@ -135,10 +135,10 @@ void main() {
   });
 
   test('opção funcional: índice do construtor + parâmetros', () {
-    final o = Go.kubo.core.coreiface.options.unixfs.cidVersion(1);
+    final o = goKubo.core.coreiface.options.unixfs.cidVersion(1);
     final w = $W()
       ..list(
-          [o, Go.kubo.core.coreiface.options.pin.ls.all()], (w, e) => w.opt(e));
+          [o, goKubo.core.coreiface.options.pin.ls.all()], (w, e) => w.opt(e));
     final r = _back(w);
     expect(r.i32(), 2);
     expect(r.u32(), o.$i);

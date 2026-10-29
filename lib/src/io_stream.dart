@@ -4,8 +4,8 @@
 /// ```dart
 /// import 'package:p2p_ffi/p2p_ffi.dart';
 ///
-/// final file = Go.boxo.files.toFile(
-///     await Go.boxo.ipld.unixfs.file.newUnixfsFile(ctx, dag, root));
+/// final file = goBoxo.files.toFile(
+///     await goBoxo.ipld.unixfs.file.newUnixfsFile(ctx, dag, root));
 /// await for (final chunk in readerStream(file)) {
 ///   sink.add(chunk);
 /// }

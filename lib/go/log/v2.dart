@@ -23,7 +23,7 @@ class LogV2ErrNoSuchLogger extends GolangException {
   String toString() => 'log.ErrNoSuchLogger: $message';
 }
 
-/// Go: the package-level members of `github.com/ipfs/go-log/v2` (`Go.log.v2`).
+/// Go: the package-level members of `github.com/ipfs/go-log/v2` (`goLog.v2`).
 extension GoLogV2Api on GoLogV2 {
   /// Go: `const log.ColorizedOutput log.LogFormat`.
   int get colorizedOutput => 0;

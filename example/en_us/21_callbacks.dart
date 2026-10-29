@@ -43,7 +43,7 @@ Future<void> main() async {
   await P2pService.start();
   final tmp = Directory.systemTemp.createTempSync('lesson21_');
   try {
-    final ctx = Go.context.background();
+    final ctx = goContext.background();
 
     // 1. Called many times during the call: each entry of a CAR index.
     //    Go:  idx.(index.IterableIndex).ForEach(func(mh multihash.Multihash, off uint64) error {...})
@@ -51,7 +51,7 @@ Future<void> main() async {
     final carFile = '${tmp.path}/sample.car';
     await s.writeCar(ctx, carFile);
     final idx =
-        Go.car.v2.generateIndexFromFile(carFile).asCarV2IndexIterableIndex()!;
+        goCar.v2.generateIndexFromFile(carFile).asCarV2IndexIterableIndex()!;
     final offsets = <int>[];
     await idx.forEach((multihash, offset) => offsets.add(offset));
     say('forEach called the Dart function ${offsets.length} times; offsets '
@@ -69,8 +69,8 @@ Future<void> main() async {
     // 2. Kept by Go: a stream handler, called for every stream that comes,
     //    until removed.
     //    Go:  b.SetStreamHandler(proto, func(s network.Stream) {...})
-    Future<Libp2pCoreHost> newHost() => Go.libp2p.new$([
-          Go.libp2p.listenAddrStrings(['/ip4/127.0.0.1/tcp/0'])
+    Future<Libp2pCoreHost> newHost() => goLibp2p.new$([
+          goLibp2p.listenAddrStrings(['/ip4/127.0.0.1/tcp/0'])
         ]);
     final a = await newHost(), b = await newHost();
     var served = 0;
@@ -80,7 +80,7 @@ Future<void> main() async {
       await st.write(Uint8List.fromList(got.reversed.toList()));
       await st.close();
     });
-    await a.connect(ctx, Go.libp2p.core.host.infoFromHost(b));
+    await a.connect(ctx, goLibp2p.core.host.infoFromHost(b));
     Future<String> echo(String text) async {
       final st = await a.newStream(ctx, b.id(), ['/lesson/echo/1.0.0']);
       await st.write(Uint8List.fromList(utf8.encode(text)));
@@ -99,7 +99,7 @@ Future<void> main() async {
             say('  [Notifiee] lost ${c.remotePeer().shortString()}'));
     a.network().notify(gone);
     final c = await newHost();
-    await a.connect(ctx, Go.libp2p.core.host.infoFromHost(c));
+    await a.connect(ctx, goLibp2p.core.host.infoFromHost(c));
     say('\nclosing c, with a Notifiee on a:');
     await c.close();
     await Future<void>.delayed(const Duration(milliseconds: 300));

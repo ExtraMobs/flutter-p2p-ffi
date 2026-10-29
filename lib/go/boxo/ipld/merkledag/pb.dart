@@ -13,7 +13,7 @@ class BoxoIpldMerkledagPbNode extends $crypto.CryptoPrivateKey
   BoxoIpldMerkledagPbNode.$h(super.$h) : super.$h();
 }
 
-/// Go: the package-level members of `github.com/ipfs/boxo/ipld/merkledag/pb` (`Go.boxo.ipld.merkledag.pb`).
+/// Go: the package-level members of `github.com/ipfs/boxo/ipld/merkledag/pb` (`goBoxo.ipld.merkledag.pb`).
 extension GoBoxoIpldMerkledagPbApi on GoBoxoIpldMerkledagPb {
   /// Go: `const pb.DoNotUpgradeFileEverItWillChangeYourHashes untyped string`.
   String get doNotUpgradeFileEverItWillChangeYourHashes =>

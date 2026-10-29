@@ -23,7 +23,7 @@ final class Libp2pP2pTransportQuicreuseOption extends GoOption {
   Libp2pP2pTransportQuicreuseOption.$(super.$i, super.$a);
 }
 
-/// Go: the package-level members of `github.com/libp2p/go-libp2p/p2p/transport/quicreuse` (`Go.libp2p.p2p.transport.quicreuse`).
+/// Go: the package-level members of `github.com/libp2p/go-libp2p/p2p/transport/quicreuse` (`goLibp2p.p2p.transport.quicreuse`).
 extension GoLibp2pP2pTransportQuicreuseApi on GoLibp2pP2pTransportQuicreuse {
   /// Go: `quicreuse.DisableReuseport`.
   Libp2pP2pTransportQuicreuseOption disableReuseport() =>

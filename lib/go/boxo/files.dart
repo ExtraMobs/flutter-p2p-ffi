@@ -630,7 +630,7 @@ class BoxoFilesErrUnixFsPathOutsideRoot extends GolangException {
   String toString() => 'files.ErrUnixFSPathOutsideRoot: $message';
 }
 
-/// Go: the package-level members of `github.com/ipfs/boxo/files` (`Go.boxo.files`).
+/// Go: the package-level members of `github.com/ipfs/boxo/files` (`goBoxo.files`).
 extension GoBoxoFilesApi on GoBoxoFiles {
   /// Go: `func files.DirFromEntry(e files.DirEntry) files.Directory`.
   BoxoFilesDirectory dirFromEntry(BoxoFilesDirEntry e) {

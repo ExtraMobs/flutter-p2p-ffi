@@ -204,7 +204,7 @@ class NetUnknownNetworkError extends GolangException {
   String toString() => 'net.UnknownNetworkError: $message';
 }
 
-/// Go: the package-level members of `net` (`Go.net`).
+/// Go: the package-level members of `net` (`goNet`).
 extension GoNetApi on GoNet {
   /// Go: `const net.FlagBroadcast net.Flags`.
   int get flagBroadcast => 2;

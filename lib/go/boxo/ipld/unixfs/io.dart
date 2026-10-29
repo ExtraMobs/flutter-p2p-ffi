@@ -936,7 +936,7 @@ class BoxoIpldUnixfsIoErrUnkownNodeType extends GolangException {
   String toString() => 'io.ErrUnkownNodeType: $message';
 }
 
-/// Go: the package-level members of `github.com/ipfs/boxo/ipld/unixfs/io` (`Go.boxo.ipld.unixfs.io`).
+/// Go: the package-level members of `github.com/ipfs/boxo/ipld/unixfs/io` (`goBoxo.ipld.unixfs.io`).
 extension GoBoxoIpldUnixfsIoApi on GoBoxoIpldUnixfsIo {
   /// Go: `var io.DefaultShardWidth int`.
   int get defaultShardWidth {

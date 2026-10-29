@@ -408,7 +408,7 @@ class Libp2pKadDhtPbProtocolMessengerOption extends $crypto.CryptoPrivateKey
   Libp2pKadDhtPbProtocolMessengerOption.$h(super.$h) : super.$h();
 }
 
-/// Go: the package-level members of `github.com/libp2p/go-libp2p-kad-dht/pb` (`Go.libp2pKadDht.pb`).
+/// Go: the package-level members of `github.com/libp2p/go-libp2p-kad-dht/pb` (`goLibp2pKadDht.pb`).
 extension GoLibp2pKadDhtPbApi on GoLibp2pKadDhtPb {
   /// Go: `func dht_pb.Connectedness(c dht_pb.Message_ConnectionType) network.Connectedness`.
   int connectedness(int c) {

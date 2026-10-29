@@ -66,7 +66,7 @@ mixin Libp2pP2pDiscoveryMdnsService$ on GoHandle {
   }
 }
 
-/// Go: the package-level members of `github.com/libp2p/go-libp2p/p2p/discovery/mdns` (`Go.libp2p.p2p.discovery.mdns`).
+/// Go: the package-level members of `github.com/libp2p/go-libp2p/p2p/discovery/mdns` (`goLibp2p.p2p.discovery.mdns`).
 extension GoLibp2pP2pDiscoveryMdnsApi on GoLibp2pP2pDiscoveryMdns {
   /// Go: `func mdns.NewMdnsService(host host.Host, serviceName string, notifee mdns.Notifee) *mdns.mdnsService`.
   Libp2pP2pDiscoveryMdnsService newMdnsService($host.Libp2pCoreHost host,

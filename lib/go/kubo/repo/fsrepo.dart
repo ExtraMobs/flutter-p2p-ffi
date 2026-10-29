@@ -218,7 +218,7 @@ class KuboRepoFsrepoNoRepoError extends GolangException {
   String toString() => 'fsrepo.NoRepoError: $message';
 }
 
-/// Go: the package-level members of `github.com/ipfs/kubo/repo/fsrepo` (`Go.kubo.repo.fsrepo`).
+/// Go: the package-level members of `github.com/ipfs/kubo/repo/fsrepo` (`goKubo.repo.fsrepo`).
 extension GoKuboRepoFsrepoApi on GoKuboRepoFsrepo {
   /// Go: `func fsrepo.APIAddr(repoPath string) (multiaddr.Multiaddr, error)`.
   $multiaddr.Multiaddr apiAddr(String repoPath) {

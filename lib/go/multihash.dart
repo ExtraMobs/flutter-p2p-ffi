@@ -264,7 +264,7 @@ class MultihashErrVarintTooLong extends GolangException {
   String toString() => 'multihash.ErrVarintTooLong: $message';
 }
 
-/// Go: the package-level members of `github.com/multiformats/go-multihash` (`Go.multihash`).
+/// Go: the package-level members of `github.com/multiformats/go-multihash` (`goMultihash`).
 extension GoMultihashApi on GoMultihash {
   /// Go: `func multihash.Cast(buf []byte) (multihash.Multihash, error)`.
   Uint8List cast(Uint8List buf) {

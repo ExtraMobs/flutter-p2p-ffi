@@ -36,20 +36,20 @@ const greet = '/lesson/greet/1.0.0';
 /// network.Connectedness em palavras.
 String state(int c) =>
     {
-      Go.libp2p.core.network.notConnected: 'desconectado',
-      Go.libp2p.core.network.connected: 'conectado',
-      Go.libp2p.core.network.canConnect: 'pode conectar',
-      Go.libp2p.core.network.cannotConnect: 'não consegue conectar',
-      Go.libp2p.core.network.limited: 'conectado (limitado, por um relay)',
+      goLibp2p.core.network.notConnected: 'desconectado',
+      goLibp2p.core.network.connected: 'conectado',
+      goLibp2p.core.network.canConnect: 'pode conectar',
+      goLibp2p.core.network.cannotConnect: 'não consegue conectar',
+      goLibp2p.core.network.limited: 'conectado (limitado, por um relay)',
     }[c] ??
     '$c';
 
 Future<void> main() async {
   await P2pService.start();
   try {
-    final ctx = Go.context.background();
-    Future<Libp2pCoreHost> newHost() => Go.libp2p.new$([
-          Go.libp2p.listenAddrStrings(['/ip4/127.0.0.1/tcp/0'])
+    final ctx = goContext.background();
+    Future<Libp2pCoreHost> newHost() => goLibp2p.new$([
+          goLibp2p.listenAddrStrings(['/ip4/127.0.0.1/tcp/0'])
         ]);
     final a = await newHost(), b = await newHost();
     say('a: ${a.id().shortString()}  b: ${b.id().shortString()}');
@@ -79,14 +79,14 @@ Future<void> main() async {
 
     // 2. Conectar: o ID e os endereços de b, como um AddrInfo.
     //    Go:  a.Connect(ctx, *host.InfoFromHost(b))
-    await a.connect(ctx, Go.libp2p.core.host.infoFromHost(b));
+    await a.connect(ctx, goLibp2p.core.host.infoFromHost(b));
     say('a e b: ${state(a.network().connectedness(b.id()))}');
 
     // 3. Ping: um protocolo que todo host fala (/ipfs/ping/1.0.0).
     //    Go:  for r := range ping.Ping(ctx, a, b.ID()) { r.RTT }
-    final (pingCtx, stopPing) = Go.context.withCancel(ctx);
+    final (pingCtx, stopPing) = goContext.withCancel(ctx);
     await for (final r
-        in Go.libp2p.p2p.protocol.ping.ping(pingCtx, a, b.id()).take(3)) {
+        in goLibp2p.p2p.protocol.ping.ping(pingCtx, a, b.id()).take(3)) {
       // No Windows o relógio do Go é grosso: um ping local pode dar 0.
       say('ping a → b: ${r.rtt.inMicroseconds} µs');
     }
@@ -117,7 +117,7 @@ Future<void> main() async {
     //    Go:  mdns.NewMdnsService(h, "lesson", notifee).Start()
     final c = await newHost();
     final found = Completer<void>();
-    final listen = Go.libp2p.p2p.discovery.mdns
+    final listen = goLibp2p.p2p.discovery.mdns
         .newMdnsService(c, 'p2p-ffi-lesson',
             Libp2pP2pDiscoveryMdnsNotifee(handlePeerFound: (pi) {
       if (pi.id == a.id() && !found.isCompleted) {
@@ -125,7 +125,7 @@ Future<void> main() async {
         found.complete();
       }
     }));
-    final announce = Go.libp2p.p2p.discovery.mdns
+    final announce = goLibp2p.p2p.discovery.mdns
         .newMdnsService(a, 'p2p-ffi-lesson', Libp2pP2pDiscoveryMdnsNotifee());
     listen.start();
     announce.start();

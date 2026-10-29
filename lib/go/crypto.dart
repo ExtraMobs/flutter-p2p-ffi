@@ -21,7 +21,7 @@ class CryptoPublicKey extends GoHandle with CryptoPublicKey$ {
 /// The methods of [CryptoPublicKey], mixed into every class Go also accepts as one.
 mixin CryptoPublicKey$ on GoHandle {}
 
-/// Go: the package-level members of `crypto` (`Go.crypto`).
+/// Go: the package-level members of `crypto` (`goCrypto`).
 extension GoCryptoApi on GoCrypto {
   /// Go: `const crypto.BLAKE2b_256 crypto.Hash`.
   int get blake2b256 => 17;

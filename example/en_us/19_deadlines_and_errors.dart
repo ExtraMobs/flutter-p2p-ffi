@@ -5,9 +5,9 @@
 // different failures apart?
 //
 // Answer: Go's `context`, the first argument of every call that may wait:
-//   - Go.context.withTimeout(parent, d) / withDeadline: Go itself gives up when
+//   - goContext.withTimeout(parent, d) / withDeadline: Go itself gives up when
 //     time is out, and the call throws GolangDeadlineExceededException;
-//   - Go.context.withCancel(parent): call cancel() whenever you want; the call
+//   - goContext.withCancel(parent): call cancel() whenever you want; the call
 //     throws GolangCanceledException;
 //   - always call the cancel function you got back when done: it frees what
 //     Go holds for that context.
@@ -54,20 +54,20 @@ Future<void> main() async {
   await P2pService.start(
       crashLog: '${tmp.path}/crash.log', // where Go writes a crash report
       onStop: (s) => stopped.complete(s));
-  var bg = Go.context.background();
+  var bg = goContext.background();
   // An online node alone (test profile: no bootstrap peers): asking it for
   // a CID nobody has waits forever, the perfect thing to put a limit on.
   var n = await newNode(bg, '${tmp.path}/repo', online: true);
   final nowhere = BoxoPath('/ipfs/'
-      '${Go.cid.newPrefixV1(Go.multicodec.raw, Go.multihash.sha2256).sum(utf8.encode('nobody has this'))}');
+      '${goCid.newPrefixV1(goMulticodec.raw, goMultihash.sha2256).sum(utf8.encode('nobody has this'))}');
   try {
-    var api = Go.kubo.core.coreapi.newCoreApi(n);
+    var api = goKubo.core.coreapi.newCoreApi(n);
 
     // 1. A deadline: Go stops the work when time is out.
     //    Go:  ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
     //         defer cancel()
     final (withDeadline, cancelDeadline) =
-        Go.context.withTimeout(bg, const Duration(seconds: 2));
+        goContext.withTimeout(bg, const Duration(seconds: 2));
     final watch = Stopwatch()..start();
     try {
       await api.unixfs().get(withDeadline, nowhere);
@@ -80,7 +80,7 @@ Future<void> main() async {
 
     // 2. Cancel by hand, from anywhere (a button, the app closing).
     //    Go:  ctx, cancel := context.WithCancel(context.Background())
-    final (cancelable, cancel) = Go.context.withCancel(bg);
+    final (cancelable, cancel) = goContext.withCancel(bg);
     Timer(const Duration(milliseconds: 500), cancel);
     try {
       await api.unixfs().get(cancelable, nowhere);
@@ -106,19 +106,19 @@ Future<void> main() async {
 
     say('\n3. kinds of error:');
     say('  a MFS path that is not there → '
-        '${await kindOf(() => Go.kubo.core.commands.filesStat(n, bg, '/nope').single)}');
+        '${await kindOf(() => goKubo.core.commands.filesStat(n, bg, '/nope').single)}');
     say('  a block not in the blockstore → '
-        '${await kindOf(() => n.blockstore.get(bg, Go.cid.decode(nowhere.value.substring(6))))}');
+        '${await kindOf(() => n.blockstore.get(bg, goCid.decode(nowhere.value.substring(6))))}');
     say('  a CID that is not one → '
-        '${await kindOf(() async => Go.cid.decode('not-a-cid'))}');
-    say('  a file that is not there (Go.os.open) → '
-        '${await kindOf(() async => Go.os.open('${tmp.path}/nope.bin'))}');
+        '${await kindOf(() async => goCid.decode('not-a-cid'))}');
+    say('  a file that is not there (goOs.open) → '
+        '${await kindOf(() async => goOs.open('${tmp.path}/nope.bin'))}');
 
     //    The chain of an error: what each layer added, down to the cause.
     try {
-      Go.os.open('${tmp.path}/nope.bin');
+      goOs.open('${tmp.path}/nope.bin');
     } on GolangException catch (e) {
-      say('  the chain of an Go.os.open error, outside in:');
+      say('  the chain of an goOs.open error, outside in:');
       for (final t in e.errTexts) {
         say('    - ${t.replaceAll(tmp.path, '<tmp>')}');
       }
@@ -136,29 +136,29 @@ Future<void> main() async {
         '${s.uptime.inSeconds} s');
     say("   Go's report starts with: ${s.report.split('\n').first}");
     say('   the old node now: '
-        '${await kindOf(() => api.unixfs().add(bg, Go.boxo.files.newBytesFile(utf8.encode('x'))))}');
+        '${await kindOf(() => api.unixfs().add(bg, goBoxo.files.newBytesFile(utf8.encode('x'))))}');
 
     // 5. Restart: a new process; open everything again on the same repo.
     //    Every handle belongs to the old service, the context too: make new
     //    ones.
     stopped = Completer<P2pStop>();
     await P2pService.restart();
-    bg = Go.context.background();
+    bg = goContext.background();
     n = await openNode(bg, '${tmp.path}/repo', online: true);
-    api = Go.kubo.core.coreapi.newCoreApi(n);
+    api = goKubo.core.coreapi.newCoreApi(n);
     final p = await api
         .unixfs()
-        .add(bg, Go.boxo.files.newBytesFile(utf8.encode('back')));
+        .add(bg, goBoxo.files.newBytesFile(utf8.encode('back')));
     say('5. restarted: the new service added $p');
 
     say('\n== Common mistakes\n');
     await mistake('a Dart .timeout() instead of a Go deadline',
         why: 'Dart stops waiting, but Go keeps looking for the CID: the work '
             'and what it holds go on in the p2p_host',
-        instead: 'Go.context.withTimeout: Go itself stops and frees it',
+        instead: 'goContext.withTimeout: Go itself stops and frees it',
         action: () =>
             api.unixfs().get(bg, nowhere).timeout(const Duration(seconds: 1)));
-    final (done, cancelDone) = Go.context.withCancel(bg);
+    final (done, cancelDone) = goContext.withCancel(bg);
     cancelDone();
     await mistake('reusing a context that was already canceled',
         why: 'a canceled context stays canceled: every call with it fails '

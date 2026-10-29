@@ -297,7 +297,7 @@ class Libp2pCorePeerErrNoPublicKey extends GolangException {
   String toString() => 'peer.ErrNoPublicKey: $message';
 }
 
-/// Go: the package-level members of `github.com/libp2p/go-libp2p/core/peer` (`Go.libp2p.core.peer`).
+/// Go: the package-level members of `github.com/libp2p/go-libp2p/core/peer` (`goLibp2p.core.peer`).
 extension GoLibp2pCorePeerApi on GoLibp2pCorePeer {
   /// Go: `func peer.AddrInfoFromP2pAddr(m multiaddr.Multiaddr) (*peer.AddrInfo, error)`.
   Libp2pCorePeerAddrInfo addrInfoFromP2pAddr($multiaddr.Multiaddr m) {

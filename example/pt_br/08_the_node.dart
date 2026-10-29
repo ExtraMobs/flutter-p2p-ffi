@@ -33,21 +33,21 @@ import 'lesson.dart';
 Future<void> main() async {
   await P2pService.start();
   final tmp = Directory.systemTemp.createTempSync('lesson08_');
-  final ctx = Go.context.background();
+  final ctx = goContext.background();
   try {
     // 1. Um repositório como na lição 07, e o nó sobre ele.
     //    Go:  n, _ := core.NewNode(ctx, &node.BuildCfg{Repo: r, Online: false})
     //         api, _ := coreapi.NewCoreAPI(n)
     loadPlugins();
-    final cfg = Go.kubo.config.initWithIdentity(Go.kubo.config.createIdentity(
-        null, [Go.kubo.core.coreiface.options.key.type('ed25519')]));
-    Go.kubo.config.profiles['test']!.transform(cfg);
-    Go.kubo.repo.fsrepo.init('${tmp.path}/repo', cfg);
-    final n = await Go.kubo.core.newNode(
+    final cfg = goKubo.config.initWithIdentity(goKubo.config.createIdentity(
+        null, [goKubo.core.coreiface.options.key.type('ed25519')]));
+    goKubo.config.profiles['test']!.transform(cfg);
+    goKubo.repo.fsrepo.init('${tmp.path}/repo', cfg);
+    final n = await goKubo.core.newNode(
         ctx,
         KuboCoreNodeBuildCfg(
-            repo: Go.kubo.repo.fsrepo.open('${tmp.path}/repo'), online: false));
-    final api = Go.kubo.core.coreapi.newCoreApi(n);
+            repo: goKubo.repo.fsrepo.open('${tmp.path}/repo'), online: false));
+    final api = goKubo.core.coreapi.newCoreApi(n);
     say('um nó offline em ${tmp.path}/repo');
 
     // 2. add: o importer da lição 03, com os padrões do kubo (CIDv0, pedaços
@@ -56,47 +56,47 @@ Future<void> main() async {
     //    Go:  p, _ := api.Unixfs().Add(ctx, files.NewBytesFile(data))
     final s = await Sample.build(ctx);
     final byHand = (await s.dag.get(ctx, s.root)).links().first.cid!;
-    final p = await api.unixfs().add(ctx, Go.boxo.files.newBytesFile(s.data));
+    final p = await api.unixfs().add(ctx, goBoxo.files.newBytesFile(s.data));
     say('\nadd do data.bin pelo nó: $p');
     say('  o mesmo CID do data.bin da lição 03: ${p.value == '/ipfs/$byHand'}');
 
     // O CIDv1 muda os padrões: folhas raw, uma raiz `bafy...`.
-    final v1 = await api.unixfs().add(ctx, Go.boxo.files.newBytesFile(s.data),
-        [Go.kubo.core.coreiface.options.unixfs.cidVersion(1)]);
-    final v1Root = Go.cid.decode(v1.value.substring('/ipfs/'.length));
+    final v1 = await api.unixfs().add(ctx, goBoxo.files.newBytesFile(s.data),
+        [goKubo.core.coreiface.options.unixfs.cidVersion(1)]);
+    final v1Root = goCid.decode(v1.value.substring('/ipfs/'.length));
     final leaves = await api.unixfs().ls(ctx, v1).toList();
     say('com CIDv1: $v1');
     say('  folhas: ${leaves.map((e) => e.size).join(', ')} bytes, codec de '
         'uma folha 0x${leaves.first.cid!.type().toRadixString(16)} (raw: '
-        '${leaves.first.cid!.type() == Go.multicodec.raw}), codec da raiz 0x'
+        '${leaves.first.cid!.type() == goMulticodec.raw}), codec da raiz 0x'
         '${v1Root.type().toRadixString(16)} (dag-pb)');
 
     // 3. get pela CoreAPI.
     //    Go:  nd, _ := api.Unixfs().Get(ctx, p); data, _ := io.ReadAll(files.ToFile(nd))
     final back =
-        Go.io.readAll(Go.boxo.files.toFile(await api.unixfs().get(ctx, p)));
+        goIo.readAll(goBoxo.files.toFile(await api.unixfs().get(ctx, p)));
     say('\nget: ${back.length} bytes, iguais: ${sameBytes(back, s.data)}');
 
     // 4. As camadas do próprio nó são a pilha da lição 03: um DAGService
     //    sobre n.blocks lê o mesmo arquivo, sem a CoreAPI.
     //    Go:  dag := merkledag.NewDAGService(n.Blocks)
-    final nodeDag = Go.boxo.ipld.merkledag.newDagService(n.blocks);
-    final f = await Go.boxo.ipld.unixfs.file
+    final nodeDag = goBoxo.ipld.merkledag.newDagService(n.blocks);
+    final f = await goBoxo.ipld.unixfs.file
         .newUnixfsFile(ctx, nodeDag, await nodeDag.get(ctx, byHand));
     say('lido por n.blocks + merkledag: '
-        '${Go.io.readAll(Go.boxo.files.toFile(f)).length} bytes');
+        '${goIo.readAll(goBoxo.files.toFile(f)).length} bytes');
     say('  está no n.blockstore: ${await n.blockstore.has(ctx, byHand)}');
 
     // 5. Exportar e importar CAR com o nó (a lição 05 com o kubo fazendo o
     //    percurso): `ipfs dag export` e `ipfs dag import`.
     final out = '${tmp.path}/data.car';
-    await Go.kubo.core.commands.dag.dagExportFile(n, ctx, p, out);
+    await goKubo.core.commands.dag.dagExportFile(n, ctx, p, out);
     final other = await newNode(ctx, '${tmp.path}/other');
     final imported =
-        await Go.kubo.core.commands.dag.dagImportFiles(other, ctx, [out]);
-    final otherApi = Go.kubo.core.coreapi.newCoreApi(other);
-    final copied = Go.io
-        .readAll(Go.boxo.files.toFile(await otherApi.unixfs().get(ctx, p)));
+        await goKubo.core.commands.dag.dagImportFiles(other, ctx, [out]);
+    final otherApi = goKubo.core.coreapi.newCoreApi(other);
+    final copied =
+        goIo.readAll(goBoxo.files.toFile(await otherApi.unixfs().get(ctx, p)));
     say('\nexportei $p para um CAR e importei num segundo nó: '
         '${imported.blockCount} blocos, o arquivo lê ${copied.length} bytes '
         'lá');
@@ -104,20 +104,19 @@ Future<void> main() async {
 
     say('\n== Erros comuns\n');
     final never = BoxoPath(
-        '/ipfs/${Go.cid.newPrefixV1(Go.multicodec.raw, Go.multihash.sha2256).sum(utf8.encode('never added'))}');
+        '/ipfs/${goCid.newPrefixV1(goMulticodec.raw, goMultihash.sha2256).sum(utf8.encode('never added'))}');
     await mistake('pedir, offline, um CID que o nó nunca teve',
         why: 'um nó offline tem o exchange offline da lição 04: ninguém a '
             'quem perguntar',
         instead: 'adicione ou importe antes, ou inicie o nó online (lição 17)',
-        action: () async => Go.io
-            .readAll(Go.boxo.files.toFile(await api.unixfs().get(ctx, never))));
+        action: () async => goIo
+            .readAll(goBoxo.files.toFile(await api.unixfs().get(ctx, never))));
     await n.close();
     await mistake('usar a CoreAPI depois de fechar o nó dela',
         why: 'o close() fechou o blockstore, o repositório e tudo o que foi '
             'montado sobre eles',
         instead: 'feche o nó por último, quando nada mais o usa',
-        action: () =>
-            api.unixfs().add(ctx, Go.boxo.files.newBytesFile(s.data)));
+        action: () => api.unixfs().add(ctx, goBoxo.files.newBytesFile(s.data)));
   } finally {
     await P2pService.stop();
     tmp.deleteSync(recursive: true);

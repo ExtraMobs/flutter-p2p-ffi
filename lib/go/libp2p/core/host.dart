@@ -146,7 +146,7 @@ mixin Libp2pCoreHost$ on GoHandle {
   }
 }
 
-/// Go: the package-level members of `github.com/libp2p/go-libp2p/core/host` (`Go.libp2p.core.host`).
+/// Go: the package-level members of `github.com/libp2p/go-libp2p/core/host` (`goLibp2p.core.host`).
 extension GoLibp2pCoreHostApi on GoLibp2pCoreHost {
   /// Go: `func host.InfoFromHost(h host.Host) *peer.AddrInfo`.
   $peer.Libp2pCorePeerAddrInfo infoFromHost(Libp2pCoreHost h) {

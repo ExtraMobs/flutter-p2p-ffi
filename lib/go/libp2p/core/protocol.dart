@@ -22,7 +22,7 @@ class Libp2pCoreProtocolSwitch extends Libp2pCoreProtocolRouter
 /// The methods of [Libp2pCoreProtocolSwitch], mixed into every class Go also accepts as one.
 mixin Libp2pCoreProtocolSwitch$ on GoHandle {}
 
-/// Go: the package-level members of `github.com/libp2p/go-libp2p/core/protocol` (`Go.libp2p.core.protocol`).
+/// Go: the package-level members of `github.com/libp2p/go-libp2p/core/protocol` (`goLibp2p.core.protocol`).
 extension GoLibp2pCoreProtocolApi on GoLibp2pCoreProtocol {
   /// Go: `const protocol.TestingID protocol.ID`.
   String get testingId => "/p2p/_testing";

@@ -196,7 +196,7 @@ class Libp2pP2pProtocolHolepunchErrHolePunchActive extends GolangException {
   String toString() => 'holepunch.ErrHolePunchActive: $message';
 }
 
-/// Go: the package-level members of `github.com/libp2p/go-libp2p/p2p/protocol/holepunch` (`Go.libp2p.p2p.protocol.holepunch`).
+/// Go: the package-level members of `github.com/libp2p/go-libp2p/p2p/protocol/holepunch` (`goLibp2p.p2p.protocol.holepunch`).
 extension GoLibp2pP2pProtocolHolepunchApi on GoLibp2pP2pProtocolHolepunch {
   /// Go: `holepunch.DirectDialTimeout`.
   Libp2pP2pProtocolHolepunchOption directDialTimeout(Duration timeout) =>

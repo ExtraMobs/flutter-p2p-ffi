@@ -137,7 +137,7 @@ class OsSyscallError extends GolangException {
   String toString() => 'os.SyscallError: $message';
 }
 
-/// Go: the package-level members of `os` (`Go.os`).
+/// Go: the package-level members of `os` (`goOs`).
 extension GoOsApi on GoOs {
   /// Go: `func os.Stat(name string) (os.FileInfo, error)`.
   $fs.IoFsFileInfo stat(String name) {

@@ -246,7 +246,7 @@ final class Libp2pP2pProtocolCircuitv2RelayResources implements GoDto {
   }
 }
 
-/// Go: the package-level members of `github.com/libp2p/go-libp2p/p2p/protocol/circuitv2/relay` (`Go.libp2p.p2p.protocol.circuitv2.relay`).
+/// Go: the package-level members of `github.com/libp2p/go-libp2p/p2p/protocol/circuitv2/relay` (`goLibp2p.p2p.protocol.circuitv2.relay`).
 extension GoLibp2pP2pProtocolCircuitv2RelayApi
     on GoLibp2pP2pProtocolCircuitv2Relay {
   /// Go: `relay.WithACL`.

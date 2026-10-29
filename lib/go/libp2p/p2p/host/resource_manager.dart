@@ -653,7 +653,7 @@ class Libp2pP2pHostResourceManagerErrStreamOrConnLimitExceeded
   String toString() => 'rcmgr.ErrStreamOrConnLimitExceeded: $message';
 }
 
-/// Go: the package-level members of `github.com/libp2p/go-libp2p/p2p/host/resource-manager` (`Go.libp2p.p2p.host.resourceManager`).
+/// Go: the package-level members of `github.com/libp2p/go-libp2p/p2p/host/resource-manager` (`goLibp2p.p2p.host.resourceManager`).
 extension GoLibp2pP2pHostResourceManagerApi on GoLibp2pP2pHostResourceManager {
   /// Go: `const rcmgr.BlockAllLimit rcmgr.LimitVal`.
   int get blockAllLimit => -2;

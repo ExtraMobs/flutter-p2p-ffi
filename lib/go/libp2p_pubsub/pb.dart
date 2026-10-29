@@ -1967,7 +1967,7 @@ class Libp2pPubsubPbTraceEventSubMeta extends $crypto.CryptoPrivateKey
   }
 }
 
-/// Go: the package-level members of `github.com/libp2p/go-libp2p-pubsub/pb` (`Go.libp2pPubsub.pb`).
+/// Go: the package-level members of `github.com/libp2p/go-libp2p-pubsub/pb` (`goLibp2pPubsub.pb`).
 extension GoLibp2pPubsubPbApi on GoLibp2pPubsubPb {
   /// Go: `var pubsub_pb.File_rpc_proto protoreflect.FileDescriptor`.
   $protoreflect.ProtobufReflectProtoreflectFileDescriptor get fileRpcProto {

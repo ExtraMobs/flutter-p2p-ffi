@@ -33,7 +33,7 @@ class CodecDagpbErrIntOverflow extends GolangException {
   String toString() => 'dagpb.ErrIntOverflow: $message';
 }
 
-/// Go: the package-level members of `github.com/ipld/go-codec-dagpb` (`Go.codecDagpb`).
+/// Go: the package-level members of `github.com/ipld/go-codec-dagpb` (`goCodecDagpb`).
 extension GoCodecDagpbApi on GoCodecDagpb {
   /// Go: `func dagpb.AddSupportToChooser(existing traversal.LinkTargetNodePrototypeChooser) traversal.LinkTargetNodePrototypeChooser`.
   $traversal.IpldPrimeTraversalLinkTargetNodePrototypeChooser

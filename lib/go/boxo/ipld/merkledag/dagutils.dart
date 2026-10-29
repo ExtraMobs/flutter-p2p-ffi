@@ -124,7 +124,7 @@ class BoxoIpldMerkledagDagutilsEditor extends $crypto.CryptoPrivateKey
   }
 }
 
-/// Go: the package-level members of `github.com/ipfs/boxo/ipld/merkledag/dagutils` (`Go.boxo.ipld.merkledag.dagutils`).
+/// Go: the package-level members of `github.com/ipfs/boxo/ipld/merkledag/dagutils` (`goBoxo.ipld.merkledag.dagutils`).
 extension GoBoxoIpldMerkledagDagutilsApi on GoBoxoIpldMerkledagDagutils {
   /// Go: `func dagutils.ApplyChange(ctx context.Context, ds format.DAGService, nd *merkledag.ProtoNode, cs []*dagutils.Change) (*merkledag.ProtoNode, error)`.
   ///

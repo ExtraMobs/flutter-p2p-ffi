@@ -837,7 +837,7 @@ final class IpldPrimeTraversalSelectorSlice implements GoDto {
   }
 }
 
-/// Go: the package-level members of `github.com/ipld/go-ipld-prime/traversal/selector` (`Go.ipldPrime.traversal.selector`).
+/// Go: the package-level members of `github.com/ipld/go-ipld-prime/traversal/selector` (`goIpldPrime.traversal.selector`).
 extension GoIpldPrimeTraversalSelectorApi on GoIpldPrimeTraversalSelector {
   /// Go: `func selector.CompileSelector(dmt datamodel.Node) (selector.Selector, error)`.
   IpldPrimeTraversalSelector compileSelector(

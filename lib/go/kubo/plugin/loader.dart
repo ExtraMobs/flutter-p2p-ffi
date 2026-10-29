@@ -64,7 +64,7 @@ class KuboPluginLoader extends $crypto.CryptoPrivateKey
   }
 }
 
-/// Go: the package-level members of `github.com/ipfs/kubo/plugin/loader` (`Go.kubo.plugin.loader`).
+/// Go: the package-level members of `github.com/ipfs/kubo/plugin/loader` (`goKubo.plugin.loader`).
 extension GoKuboPluginLoaderApi on GoKuboPluginLoader {
   /// Go: `func loader.Preload(plugins ...plugin.Plugin)`.
   void preload([List<$plugin.KuboPlugin> plugins = const []]) {

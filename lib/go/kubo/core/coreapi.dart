@@ -881,7 +881,7 @@ class KuboCoreCoreapiUnixfsApi extends $coreiface.KuboCoreCoreifaceUnixfsApi
               r.p() ? $coreiface.KuboCoreCoreifaceDirEntry.$dec(r) : $nil());
 }
 
-/// Go: the package-level members of `github.com/ipfs/kubo/core/coreapi` (`Go.kubo.core.coreapi`).
+/// Go: the package-level members of `github.com/ipfs/kubo/core/coreapi` (`goKubo.core.coreapi`).
 extension GoKuboCoreCoreapiApi on GoKuboCoreCoreapi {
   /// Go: `func coreapi.NewCoreAPI(n *core.IpfsNode, opts ...options.ApiOption) (iface.CoreAPI, error)`.
   $coreiface.KuboCoreCoreifaceCoreApi newCoreApi($core.KuboCoreIpfsNode n,

@@ -38,7 +38,7 @@ class Libp2pP2pHostAutorelayPeerSource extends $crypto.CryptoPrivateKey
   Libp2pP2pHostAutorelayPeerSource.$h(super.$h) : super.$h();
 }
 
-/// Go: the package-level members of `github.com/libp2p/go-libp2p/p2p/host/autorelay` (`Go.libp2p.p2p.host.autorelay`).
+/// Go: the package-level members of `github.com/libp2p/go-libp2p/p2p/host/autorelay` (`goLibp2p.p2p.host.autorelay`).
 extension GoLibp2pP2pHostAutorelayApi on GoLibp2pP2pHostAutorelay {
   /// Go: `autorelay.WithBackoff`.
   Libp2pP2pHostAutorelayOption withBackoff(Duration d) =>

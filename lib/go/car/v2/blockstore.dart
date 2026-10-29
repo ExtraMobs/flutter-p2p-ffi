@@ -415,7 +415,7 @@ class CarV2BlockstoreReadWrite extends CarV2Blockstore
   }
 }
 
-/// Go: the package-level members of `github.com/ipld/go-car/v2/blockstore` (`Go.car.v2.blockstore`).
+/// Go: the package-level members of `github.com/ipld/go-car/v2/blockstore` (`goCar.v2.blockstore`).
 extension GoCarV2BlockstoreApi on GoCarV2Blockstore {
   /// Go: `func blockstore.OpenReadOnly(path string, opts ...car.Option) (*blockstore.ReadOnly, error)`.
   CarV2BlockstoreReadOnly openReadOnly(String path,

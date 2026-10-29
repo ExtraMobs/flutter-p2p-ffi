@@ -1508,7 +1508,7 @@ class KuboCoreCoreifaceErrResolveFailed extends GolangException {
   String toString() => 'iface.ErrResolveFailed: $message';
 }
 
-/// Go: the package-level members of `github.com/ipfs/kubo/core/coreiface` (`Go.kubo.core.coreiface`).
+/// Go: the package-level members of `github.com/ipfs/kubo/core/coreiface` (`goKubo.core.coreiface`).
 extension GoKuboCoreCoreifaceApi on GoKuboCoreCoreiface {
   /// Go: `func iface.FormatKey(key iface.Key) string`.
   String formatKey(KuboCoreCoreifaceKey key) {

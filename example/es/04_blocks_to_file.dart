@@ -33,20 +33,20 @@ import 'lesson.dart';
 Future<void> main() async {
   await P2pService.start();
   try {
-    final ctx = Go.context.background();
+    final ctx = goContext.background();
 
     // La pila y el ejemplo de la lección 03: una carpeta con data.bin
     // (600 000 bytes, 3 hojas) y hello.txt (un bloque).
-    final ds = Go.datastore.sync.mutexWrap(DatastoreMapDatastore());
+    final ds = goDatastore.sync.mutexWrap(DatastoreMapDatastore());
     final bs = BoxoBlockstore(ds);
-    final dag = Go.boxo.ipld.merkledag.newDagService(
-        Go.boxo.blockservice.new$(bs, Go.boxo.exchange.offline.exchange(bs)));
+    final dag = goBoxo.ipld.merkledag.newDagService(
+        goBoxo.blockservice.new$(bs, goBoxo.exchange.offline.exchange(bs)));
     IpldFormatNode importBytes(List<int> data) =>
-        Go.boxo.ipld.unixfs.importer.buildDagFromReader(
+        goBoxo.ipld.unixfs.importer.buildDagFromReader(
             dag,
-            Go.boxo.chunker.newSizeSplitter(
+            goBoxo.chunker.newSizeSplitter(
                 BytesBuffer(Uint8List.fromList(data)),
-                Go.boxo.chunker.defaultBlockSize));
+                goBoxo.chunker.defaultBlockSize));
     final rnd = Random(42);
     final data =
         Uint8List.fromList(List.generate(600000, (_) => rnd.nextInt(256)));
@@ -74,9 +74,9 @@ Future<void> main() async {
     //    Go:  f, _ := unixfile.NewUnixfsFile(ctx, dag, nd)
     //         data, _ := io.ReadAll(files.ToFile(f))
     Future<Uint8List> read(String name) async {
-      final f = await Go.boxo.ipld.unixfs.file
+      final f = await goBoxo.ipld.unixfs.file
           .newUnixfsFile(ctx, dag, await resolve(name));
-      return Go.io.readAll(Go.boxo.files.toFile(f));
+      return goIo.readAll(goBoxo.files.toFile(f));
     }
 
     final back = await read('data.bin');
@@ -88,7 +88,7 @@ Future<void> main() async {
     //    hojas.
     Future<void> walk(Cid c, String name, String indent) async {
       say('$indent$c  ${await bs.getSize(ctx, c)} bytes  $name');
-      for (final l in await Go.ipldFormat.getLinks(ctx, dag, c)) {
+      for (final l in await goIpldFormat.getLinks(ctx, dag, c)) {
         await walk(l.cid!, l.name.isEmpty ? '(hoja)' : l.name, '$indent  ');
       }
     }
@@ -120,8 +120,8 @@ Future<void> main() async {
         'data.bin lee ${(await read('data.bin')).length} bytes');
 
     say('\n== Errores comunes\n');
-    final never = Go.cid
-        .newPrefixV1(Go.multicodec.raw, Go.multihash.sha2256)
+    final never = goCid
+        .newPrefixV1(goMulticodec.raw, goMultihash.sha2256)
         .sum(utf8.encode('never stored'));
     await mistake('obtener un CID que nunca se guardó',
         why: 'offline, "no está aquí" es definitivo: no hay nadie más a quien '

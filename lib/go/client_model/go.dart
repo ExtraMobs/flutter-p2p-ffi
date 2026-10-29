@@ -13,7 +13,7 @@ class ClientModelGoMetricFamily extends $crypto.CryptoPrivateKey
   ClientModelGoMetricFamily.$h(super.$h) : super.$h();
 }
 
-/// Go: the package-level members of `github.com/prometheus/client_model/go` (`Go.clientModel.go`).
+/// Go: the package-level members of `github.com/prometheus/client_model/go` (`goClientModel.go`).
 extension GoClientModelGoApi on GoClientModelGo {
   /// Go: `const io_prometheus_client.MetricType_COUNTER io_prometheus_client.MetricType`.
   int get metricTypeCounter => 0;

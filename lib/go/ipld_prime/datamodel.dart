@@ -741,7 +741,7 @@ class IpldPrimeDatamodelErrWrongKind extends GolangException {
   String toString() => 'datamodel.ErrWrongKind: $message';
 }
 
-/// Go: the package-level members of `github.com/ipld/go-ipld-prime/datamodel` (`Go.ipldPrime.datamodel`).
+/// Go: the package-level members of `github.com/ipld/go-ipld-prime/datamodel` (`goIpldPrime.datamodel`).
 extension GoIpldPrimeDatamodelApi on GoIpldPrimeDatamodel {
   /// Go: `var datamodel.Absent datamodel.Node`.
   IpldPrimeDatamodelNode get absent {

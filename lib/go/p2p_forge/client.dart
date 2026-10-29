@@ -13,7 +13,7 @@ class P2pForgeClientP2pForgeCertMgr extends $crypto.CryptoPrivateKey
   P2pForgeClientP2pForgeCertMgr.$h(super.$h) : super.$h();
 }
 
-/// Go: the package-level members of `github.com/ipshipyard/p2p-forge/client` (`Go.p2pForge.client`).
+/// Go: the package-level members of `github.com/ipshipyard/p2p-forge/client` (`goP2pForge.client`).
 extension GoP2pForgeClientApi on GoP2pForgeClient {
   /// Go: `const client.DefaultCAEndpoint untyped string`.
   String get defaultCaEndpoint =>

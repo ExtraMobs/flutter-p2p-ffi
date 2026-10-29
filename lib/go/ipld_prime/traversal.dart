@@ -217,7 +217,7 @@ class IpldPrimeTraversalSkipMe extends GolangException {
   String toString() => 'traversal.SkipMe: $message';
 }
 
-/// Go: the package-level members of `github.com/ipld/go-ipld-prime/traversal` (`Go.ipldPrime.traversal`).
+/// Go: the package-level members of `github.com/ipld/go-ipld-prime/traversal` (`goIpldPrime.traversal`).
 extension GoIpldPrimeTraversalApi on GoIpldPrimeTraversal {
   /// Go: `func traversal.FocusedTransform(n datamodel.Node, p datamodel.Path, fn traversal.TransformFn, createParents bool) (datamodel.Node, error)`.
   $datamodel.IpldPrimeDatamodelNode focusedTransform(

@@ -386,7 +386,7 @@ class BoxoIpnsErrUnrecognizedValidity extends GolangException {
   String toString() => 'ipns.ErrUnrecognizedValidity: $message';
 }
 
-/// Go: the package-level members of `github.com/ipfs/boxo/ipns` (`Go.boxo.ipns`).
+/// Go: the package-level members of `github.com/ipfs/boxo/ipns` (`goBoxo.ipns`).
 extension GoBoxoIpnsApi on GoBoxoIpns {
   /// Go: `ipns.WithMetadata`.
   BoxoIpnsOption withMetadata(Map<String, Object?> metadata) =>

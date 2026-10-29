@@ -27,7 +27,7 @@ class Libp2pP2pTransportQuicErrHolePunching extends GolangException {
   String toString() => 'libp2pquic.ErrHolePunching: $message';
 }
 
-/// Go: the package-level members of `github.com/libp2p/go-libp2p/p2p/transport/quic` (`Go.libp2p.p2p.transport.quic`).
+/// Go: the package-level members of `github.com/libp2p/go-libp2p/p2p/transport/quic` (`goLibp2p.p2p.transport.quic`).
 extension GoLibp2pP2pTransportQuicApi on GoLibp2pP2pTransportQuic {
   /// Go: `quic.WithTLSIdentityOption`.
   Libp2pP2pTransportQuicOption withTlsIdentityOption(

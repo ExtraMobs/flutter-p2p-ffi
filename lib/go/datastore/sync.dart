@@ -200,7 +200,7 @@ class DatastoreSyncMutexDatastore extends $datastore.DatastoreShim
   }
 }
 
-/// Go: the package-level members of `github.com/ipfs/go-datastore/sync` (`Go.datastore.sync`).
+/// Go: the package-level members of `github.com/ipfs/go-datastore/sync` (`goDatastore.sync`).
 extension GoDatastoreSyncApi on GoDatastoreSync {
   /// Go: `func sync.MutexWrap(d datastore.Datastore) *sync.MutexDatastore`.
   DatastoreSyncMutexDatastore mutexWrap($datastore.Datastore d) {

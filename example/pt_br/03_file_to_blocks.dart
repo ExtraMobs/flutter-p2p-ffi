@@ -38,28 +38,28 @@ import 'lesson.dart';
 Future<void> main() async {
   await P2pService.start();
   try {
-    final ctx = Go.context.background();
+    final ctx = goContext.background();
 
     // 1. A pilha, de baixo para cima.
     //    Go:  ds := sync.MutexWrap(datastore.NewMapDatastore())
     //         bs := blockstore.NewBlockstore(ds)
     //         bserv := blockservice.New(bs, offline.Exchange(bs))
     //         dag := merkledag.NewDAGService(bserv)
-    final ds = Go.datastore.sync.mutexWrap(DatastoreMapDatastore());
+    final ds = goDatastore.sync.mutexWrap(DatastoreMapDatastore());
     final bs = BoxoBlockstore(ds);
     final bserv =
-        Go.boxo.blockservice.new$(bs, Go.boxo.exchange.offline.exchange(bs));
-    final dag = Go.boxo.ipld.merkledag.newDagService(bserv);
+        goBoxo.blockservice.new$(bs, goBoxo.exchange.offline.exchange(bs));
+    final dag = goBoxo.ipld.merkledag.newDagService(bserv);
     Future<int> blocksStored() => bs.allKeysChan(ctx).length;
 
     // 2. Um arquivo de 600 000 bytes, cortado em pedaços de 256 KiB.
     //    Go:  nd, _ := importer.BuildDagFromReader(dag,
     //             chunker.NewSizeSplitter(bytes.NewBuffer(data), chunker.DefaultBlockSize))
-    final chunk = Go.boxo.chunker
-        .defaultBlockSize; // o tamanho de pedaço padrão do `ipfs add`
+    final chunk = goBoxo
+        .chunker.defaultBlockSize; // o tamanho de pedaço padrão do `ipfs add`
     IpldFormatNode importBytes(Uint8List data, [int? size]) =>
-        Go.boxo.ipld.unixfs.importer.buildDagFromReader(dag,
-            Go.boxo.chunker.newSizeSplitter(BytesBuffer(data), size ?? chunk));
+        goBoxo.ipld.unixfs.importer.buildDagFromReader(dag,
+            goBoxo.chunker.newSizeSplitter(BytesBuffer(data), size ?? chunk));
     final rnd = Random(42);
     final data =
         Uint8List.fromList(List.generate(600000, (_) => rnd.nextInt(256)));

@@ -69,7 +69,7 @@ final class Libp2pP2pProtocolPingResult implements GoDto {
   }
 }
 
-/// Go: the package-level members of `github.com/libp2p/go-libp2p/p2p/protocol/ping` (`Go.libp2p.p2p.protocol.ping`).
+/// Go: the package-level members of `github.com/libp2p/go-libp2p/p2p/protocol/ping` (`goLibp2p.p2p.protocol.ping`).
 extension GoLibp2pP2pProtocolPingApi on GoLibp2pP2pProtocolPing {
   /// Go: `func ping.NewPingService(h host.Host) *ping.PingService`.
   Libp2pP2pProtocolPingService newPingService($host.Libp2pCoreHost h) {

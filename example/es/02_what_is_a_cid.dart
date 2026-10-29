@@ -36,7 +36,7 @@ Future<void> main() async {
     //    usar; Sum calcula el hash de los bytes y arma el CID.
     //    Go:  p := cid.NewPrefixV1(cid.Raw, multihash.SHA2_256)
     //         c, _ := p.Sum(data)
-    final raw = Go.cid.newPrefixV1(Go.cid.raw, Go.multihash.sha2256);
+    final raw = goCid.newPrefixV1(goCid.raw, goMultihash.sha2256);
     final hello = raw.sum(utf8.encode('hello'));
     say('"hello" como bytes crudos:   $hello');
     say('  los mismos bytes otra vez: ${raw.sum(utf8.encode('hello'))} '
@@ -61,21 +61,21 @@ Future<void> main() async {
     // 3. El texto es solo una base: el mismo CID escrito de tres maneras.
     say('\nel mismo CID en tres bases:');
     for (final (name, base) in [
-      ('base32', Go.multibase.base32), // 'b', la predeterminada del CIDv1
-      ('base58btc', Go.multibase.base58btc), // 'z', la única base del CIDv0
+      ('base32', goMultibase.base32), // 'b', la predeterminada del CIDv1
+      ('base58btc', goMultibase.base58btc), // 'z', la única base del CIDv0
       (
         'base36',
-        Go.multibase.base36
+        goMultibase.base36
       ), // 'k', para subdominios (sin mayúsculas, corta)
     ]) {
       final text = hello.stringOfBase(base);
       say('  ${name.padRight(9)} $text  (decodifica al mismo: '
-          '${Go.cid.decode(text).equals(hello)})');
+          '${goCid.decode(text).equals(hello)})');
     }
 
     // 4. El codec es parte del nombre: los mismos bytes leídos como raw o
     //    como dag-pb son CIDs distintos con el mismo hash.
-    final asDagPb = Go.cid.newCidV1(Go.multicodec.dagPb, mh);
+    final asDagPb = goCid.newCidV1(goMulticodec.dagPb, mh);
     say('\nel mismo hash con el codec dag-pb: $asDagPb');
     say('  mismo hash: ${hex(asDagPb.hash()) == hex(mh)}, mismo CID: '
         '${asDagPb.equals(hello)}');
@@ -83,18 +83,17 @@ Future<void> main() async {
     // 5. CIDv0: el antiguo `Qm...`, sha2-256 + dag-pb, base58, sin bytes de
     //    prefijo. Se convierte a v1 sin pérdida (mismo codec, mismo hash).
     //    Go:  v0 := cid.NewCidV0(mh); v1 := cid.NewCidV1(cid.DagProtobuf, v0.Hash())
-    final v0 = Go.cid.newCidV0(mh);
-    final v1 = Go.cid.newCidV1(Go.multicodec.dagPb, v0.hash());
+    final v0 = goCid.newCidV0(mh);
+    final v1 = goCid.newCidV1(goMulticodec.dagPb, v0.hash());
     say('\nCIDv0 $v0 (${v0.bytes().length} bytes: solo el multihash)');
     say('  como CIDv1:     $v1 (el mismo que el dag-pb de arriba: '
         '${v1.equals(asDagPb)})');
 
     // 6. Otras funciones de hash, e identity: el "hash" son los propios
     //    datos, para bytes tan pequeños que el hash alargaría el nombre.
-    final sha512 = Go.cid.newPrefixV1(Go.multicodec.raw, Go.multihash.sha2512);
+    final sha512 = goCid.newPrefixV1(goMulticodec.raw, goMultihash.sha2512);
     say('\ncon sha2-512: ${sha512.sum(utf8.encode('hello'))}');
-    final identity =
-        Go.cid.newPrefixV1(Go.multicodec.raw, Go.multihash.identity);
+    final identity = goCid.newPrefixV1(goMulticodec.raw, goMultihash.identity);
     final inline = identity.sum(utf8.encode('hi'));
     say('con identity: $inline (los bytes "hi" están dentro: '
         '${utf8.decode(inline.hash().sublist(2))})');
@@ -111,20 +110,19 @@ Future<void> main() async {
     await silentlyWrong('comparar dos CIDs por su texto',
         why: 'un CID tiene muchos textos (la base, y v0 o v1 para dag-pb)',
         instead: 'compara con equals(), o compara los hashes entre v0 y v1',
-        wrong: () => '$hello' == hello.stringOfBase(Go.multibase.base58btc),
+        wrong: () => '$hello' == hello.stringOfBase(goMultibase.base58btc),
         right: () => hello
-            .equals(Go.cid.decode(hello.stringOfBase(Go.multibase.base58btc))));
+            .equals(goCid.decode(hello.stringOfBase(goMultibase.base58btc))));
     await mistake('un CIDv0 con un hash que no es sha2-256',
         why: 'el v0 no tiene bytes de prefijo: sha2-256 y dag-pb van '
             'implícitos',
-        instead: 'Go.cid.newPrefixV1(codec, hash) para cualquier otra cosa',
-        action: () =>
-            Go.cid.newPrefixV0(Go.multihash.sha2512).sum(Uint8List(3)));
+        instead: 'goCid.newPrefixV1(codec, hash) para cualquier otra cosa',
+        action: () => goCid.newPrefixV0(goMultihash.sha2512).sum(Uint8List(3)));
     await mistake('decodificar un texto cortado a la mitad',
         why: 'la longitud del digest está dentro del CID; uno corto falla',
         instead: 'decodifica el texto entero (al copiar de una URL, ojo con '
             'el final)',
-        action: () => Go.cid.decode('$hello'.substring(0, 30)));
+        action: () => goCid.decode('$hello'.substring(0, 30)));
   } finally {
     await P2pService.stop();
   }

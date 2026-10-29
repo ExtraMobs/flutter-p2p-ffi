@@ -479,7 +479,7 @@ class Libp2pCoreRoutingErrNotSupported extends GolangException {
   String toString() => 'routing.ErrNotSupported: $message';
 }
 
-/// Go: the package-level members of `github.com/libp2p/go-libp2p/core/routing` (`Go.libp2p.core.routing`).
+/// Go: the package-level members of `github.com/libp2p/go-libp2p/core/routing` (`goLibp2p.core.routing`).
 extension GoLibp2pCoreRoutingApi on GoLibp2pCoreRouting {
   /// Go: `var routing.Expired`.
   Libp2pCoreRoutingOption get expired => Libp2pCoreRoutingOption.$(0, (_) {});

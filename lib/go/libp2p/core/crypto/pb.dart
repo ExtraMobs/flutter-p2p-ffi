@@ -13,7 +13,7 @@ class Libp2pCoreCryptoPbPublicKey extends $crypto.CryptoPrivateKey
   Libp2pCoreCryptoPbPublicKey.$h(super.$h) : super.$h();
 }
 
-/// Go: the package-level members of `github.com/libp2p/go-libp2p/core/crypto/pb` (`Go.libp2p.core.crypto.pb`).
+/// Go: the package-level members of `github.com/libp2p/go-libp2p/core/crypto/pb` (`goLibp2p.core.crypto.pb`).
 extension GoLibp2pCoreCryptoPbApi on GoLibp2pCoreCryptoPb {
   /// Go: `const pb.KeyType_ECDSA pb.KeyType`.
   int get keyTypeEcdsa => 3;

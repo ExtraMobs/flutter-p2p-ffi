@@ -1037,7 +1037,7 @@ class Libp2pP2pNetSwarmTransportError extends GolangException {
   String toString() => 'swarm.TransportError: $message';
 }
 
-/// Go: the package-level members of `github.com/libp2p/go-libp2p/p2p/net/swarm` (`Go.libp2p.p2p.net.swarm`).
+/// Go: the package-level members of `github.com/libp2p/go-libp2p/p2p/net/swarm` (`goLibp2p.p2p.net.swarm`).
 extension GoLibp2pP2pNetSwarmApi on GoLibp2pP2pNetSwarm {
   /// Go: `swarm.WithConnectionGater`.
   Libp2pP2pNetSwarmOption withConnectionGater(

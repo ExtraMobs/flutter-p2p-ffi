@@ -106,7 +106,7 @@ class BoxoPathErrUnknownNamespace extends GolangException {
   String toString() => 'path.ErrUnknownNamespace: $message';
 }
 
-/// Go: the package-level members of `github.com/ipfs/boxo/path` (`Go.boxo.path`).
+/// Go: the package-level members of `github.com/ipfs/boxo/path` (`goBoxo.path`).
 extension GoBoxoPathApi on GoBoxoPath {
   /// Go: `func path.FromCid(cid cid.Cid) path.ImmutablePath`.
   BoxoPathImmutablePath fromCid($cid.Cid cid) {

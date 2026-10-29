@@ -1811,7 +1811,7 @@ class Libp2pCoreNetworkStreamError extends GolangException {
   String toString() => 'network.StreamError: $message';
 }
 
-/// Go: the package-level members of `github.com/libp2p/go-libp2p/core/network` (`Go.libp2p.core.network`).
+/// Go: the package-level members of `github.com/libp2p/go-libp2p/core/network` (`goLibp2p.core.network`).
 extension GoLibp2pCoreNetworkApi on GoLibp2pCoreNetwork {
   /// Go: `var network.DialPeerTimeout time.Duration`.
   Duration get dialPeerTimeout {

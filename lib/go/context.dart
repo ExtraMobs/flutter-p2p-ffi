@@ -5,7 +5,7 @@
 /// import 'package:p2p_ffi/p2p_ffi.dart';
 ///
 /// final (ctx, cancel) =
-///     Go.context.withTimeout(Go.context.background(), Duration(seconds: 30));
+///     goContext.withTimeout(goContext.background(), Duration(seconds: 30));
 /// try {
 ///   await api.unixfs().get(ctx, path);
 /// } finally {
@@ -35,7 +35,7 @@ class ContextCancelFunc extends GoHandle {
 (Context, ContextCancelFunc) _pair($R r) =>
     (r.hnn(Context.$h), r.hnn(ContextCancelFunc.$h));
 
-/// Go: the package-level functions of `context` (`Go.context`).
+/// Go: the package-level functions of `context` (`goContext`).
 extension GoContextApi on GoContext {
   /// Go: `func context.Background() context.Context`.
   Context background() => $callSync(16).hnn(Context.$h);

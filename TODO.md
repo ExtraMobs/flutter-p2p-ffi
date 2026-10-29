@@ -2,14 +2,17 @@
 
 ## Done: namespaces as classes, `pkg.*` and ignore_roots.txt (0.28.0)
 
-The owner's decisions (2026-10-28): one import with the `Go` tree (option a); every
+The owner's decisions (2026-10-28): one import with a namespace tree (option a); every
 symbol of a package enters if the generator can bridge it; roots.txt keeps only the
 special roots, ignore_roots.txt what must not cross; Go's `Deprecated:` becomes
-`@Deprecated`; casts named after the class; a nil element of a list throws.
+`@Deprecated`; casts named after the class; a nil element of a list throws. And
+(2026-10-29): each module is a top-level constant and each further `/` a `.`, in
+lowerCamelCase as Dart names constants and getters.
 
 - **Namespaces:** `package:p2p_ffi/p2p_ffi.dart` is the only import. A package's
-  functions, constants and variables are members of `Go.<path>` (`Go.boxo.mfs.newRoot`),
-  its types top-level classes named after the path (`BoxoMfsRoot`, `Libp2pCorePeerId`).
+  functions, constants and variables are members of its module's constant and path
+  (`goBoxo.mfs.newRoot`, `goCid.decode`, `goIpldPrime.traversal.selector.builder`), its
+  types top-level classes named after the path (`BoxoMfsRoot`, `Libp2pCorePeerId`).
   Constants are getters now (not `const`: lesson 14's switch became a map).
 - **`pkg.*`:** 87 packages (those that had a library) enter whole; roots.txt went from
   593 symbol lines to 96 special ones (stdlib, struct fields, methods an interface

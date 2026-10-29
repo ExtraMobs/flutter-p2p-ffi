@@ -297,7 +297,7 @@ class KuboCoreNodeLibp2pErrNoResourceMgr extends GolangException {
   String toString() => 'libp2p.ErrNoResourceMgr: $message';
 }
 
-/// Go: the package-level members of `github.com/ipfs/kubo/core/node/libp2p` (`Go.kubo.core.node.libp2p`).
+/// Go: the package-level members of `github.com/ipfs/kubo/core/node/libp2p` (`goKubo.core.node.libp2p`).
 extension GoKuboCoreNodeLibp2pApi on GoKuboCoreNodeLibp2p {
   /// Go: `func libp2p.AddrsFactory(announce []string, appendAnnounce []string, noAnnounce []string) any`.
   Object? addrsFactory(List<String> announce, List<String> appendAnnounce,

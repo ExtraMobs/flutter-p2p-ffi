@@ -157,7 +157,7 @@ final class IpldPrimeNodeBasicnodePrototypeString implements GoDto {
   }
 }
 
-/// Go: the package-level members of `github.com/ipld/go-ipld-prime/node/basicnode` (`Go.ipldPrime.node.basicnode`).
+/// Go: the package-level members of `github.com/ipld/go-ipld-prime/node/basicnode` (`goIpldPrime.node.basicnode`).
 extension GoIpldPrimeNodeBasicnodeApi on GoIpldPrimeNodeBasicnode {
   /// Go: `func basicnode.Chooser(_ datamodel.Link, _ linking.LinkContext) (datamodel.NodePrototype, error)`.
   $datamodel.IpldPrimeDatamodelNodePrototype chooser(

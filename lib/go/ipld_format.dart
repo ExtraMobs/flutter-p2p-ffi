@@ -867,7 +867,7 @@ class IpldFormatErrNotCommited extends GolangException {
   String toString() => 'format.ErrNotCommited: $message';
 }
 
-/// Go: the package-level members of `github.com/ipfs/go-ipld-format` (`Go.ipldFormat`).
+/// Go: the package-level members of `github.com/ipfs/go-ipld-format` (`goIpldFormat`).
 extension GoIpldFormatApi on GoIpldFormat {
   /// Go: `go-ipld-format.MaxNodesBatchOption`.
   IpldFormatBatchOption maxNodesBatchOption(int num$) =>

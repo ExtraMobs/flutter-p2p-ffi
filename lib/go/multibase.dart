@@ -47,7 +47,7 @@ class MultibaseErrUnsupportedEncoding extends GolangException {
   String toString() => 'multibase.ErrUnsupportedEncoding: $message';
 }
 
-/// Go: the package-level members of `github.com/multiformats/go-multibase` (`Go.multibase`).
+/// Go: the package-level members of `github.com/multiformats/go-multibase` (`goMultibase`).
 extension GoMultibaseApi on GoMultibase {
   /// Go: `func multibase.Decode(data string) (multibase.Encoding, []byte, error)`.
   (int, Uint8List) decode(String data) {

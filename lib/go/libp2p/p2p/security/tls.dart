@@ -81,7 +81,7 @@ class Libp2pP2pSecurityTlsTransport extends $crypto.CryptoPrivateKey
   }
 }
 
-/// Go: the package-level members of `github.com/libp2p/go-libp2p/p2p/security/tls` (`Go.libp2p.p2p.security.tls`).
+/// Go: the package-level members of `github.com/libp2p/go-libp2p/p2p/security/tls` (`goLibp2p.p2p.security.tls`).
 extension GoLibp2pP2pSecurityTlsApi on GoLibp2pP2pSecurityTls {
   /// Go: `tls.WithCertTemplate`.
   Libp2pP2pSecurityTlsIdentityOption withCertTemplate(

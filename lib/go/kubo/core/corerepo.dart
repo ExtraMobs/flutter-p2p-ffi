@@ -158,7 +158,7 @@ class KuboCoreCorerepoMultiError extends GolangException {
   String toString() => 'corerepo.MultiError: $message';
 }
 
-/// Go: the package-level members of `github.com/ipfs/kubo/core/corerepo` (`Go.kubo.core.corerepo`).
+/// Go: the package-level members of `github.com/ipfs/kubo/core/corerepo` (`goKubo.core.corerepo`).
 extension GoKuboCoreCorerepoApi on GoKuboCoreCorerepo {
   /// Go: `func corerepo.BestEffortRoots(n *core.IpfsNode) ([]cid.Cid, error)`.
   List<$cid.Cid> bestEffortRoots($core.KuboCoreIpfsNode n) {

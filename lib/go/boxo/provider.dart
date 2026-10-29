@@ -306,7 +306,7 @@ mixin BoxoProviderSystem$ on GoHandle {
   }
 }
 
-/// Go: the package-level members of `github.com/ipfs/boxo/provider` (`Go.boxo.provider`).
+/// Go: the package-level members of `github.com/ipfs/boxo/provider` (`goBoxo.provider`).
 extension GoBoxoProviderApi on GoBoxoProvider {
   /// Go: `provider.Allowlist`.
   BoxoProviderOption allowlist($verifcid.BoxoVerifcidAllowlist allowlist) =>

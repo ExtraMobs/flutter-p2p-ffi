@@ -42,7 +42,7 @@ final class Libp2pCoreDiscoveryOption extends GoOption {
   Libp2pCoreDiscoveryOption.$(super.$i, super.$a);
 }
 
-/// Go: the package-level members of `github.com/libp2p/go-libp2p/core/discovery` (`Go.libp2p.core.discovery`).
+/// Go: the package-level members of `github.com/libp2p/go-libp2p/core/discovery` (`goLibp2p.core.discovery`).
 extension GoLibp2pCoreDiscoveryApi on GoLibp2pCoreDiscovery {
   /// Go: `discovery.Limit`.
   Libp2pCoreDiscoveryOption limit(int limit) =>

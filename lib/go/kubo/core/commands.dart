@@ -1068,7 +1068,7 @@ class KuboCoreCommandsErrSelfUnsupported extends GolangException {
   String toString() => 'commands.ErrSelfUnsupported: $message';
 }
 
-/// Go: the package-level members of `github.com/ipfs/kubo/core/commands` (`Go.kubo.core.commands`).
+/// Go: the package-level members of `github.com/ipfs/kubo/core/commands` (`goKubo.core.commands`).
 extension GoKuboCoreCommandsApi on GoKuboCoreCommands {
   /// Go: `var commands.ActiveReqsCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get activeReqsCmd {

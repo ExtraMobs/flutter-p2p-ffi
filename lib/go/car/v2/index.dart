@@ -298,7 +298,7 @@ final class CarV2IndexRecord implements GoDto {
   }
 }
 
-/// Go: the package-level members of `github.com/ipld/go-car/v2/index` (`Go.car.v2.index`).
+/// Go: the package-level members of `github.com/ipld/go-car/v2/index` (`goCar.v2.index`).
 extension GoCarV2IndexApi on GoCarV2Index {
   /// Go: `func index.GetFirst(idx index.Index, key cid.Cid) (uint64, error)`.
   int getFirst(CarV2Index idx, $cid.Cid key) {

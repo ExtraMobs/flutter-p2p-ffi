@@ -522,7 +522,7 @@ class Libp2pCorePeerstoreErrNotFound extends GolangException {
   String toString() => 'peerstore.ErrNotFound: $message';
 }
 
-/// Go: the package-level members of `github.com/libp2p/go-libp2p/core/peerstore` (`Go.libp2p.core.peerstore`).
+/// Go: the package-level members of `github.com/libp2p/go-libp2p/core/peerstore` (`goLibp2p.core.peerstore`).
 extension GoLibp2pCorePeerstoreApi on GoLibp2pCorePeerstore {
   /// Go: `func peerstore.AddrInfos(ps peerstore.Peerstore, peers []peer.ID) []peer.AddrInfo`.
   List<$peer.Libp2pCorePeerAddrInfo> addrInfos(

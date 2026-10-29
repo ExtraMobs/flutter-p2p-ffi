@@ -33,7 +33,7 @@ Future<void> main() async {
   await P2pService.start();
   final tmp = Directory.systemTemp.createTempSync('lesson05_');
   try {
-    final ctx = Go.context.background();
+    final ctx = goContext.background();
     final s = await Sample.build(ctx);
     say('the sample folder: ${s.root}');
 
@@ -42,7 +42,7 @@ Future<void> main() async {
     //    returns the block under that exact CID, codec included.
     Future<List<BlockFormatBlock>> dagBlocks(Cid c) async => [
           await s.store.get(ctx, c),
-          for (final l in await Go.ipldFormat.getLinks(ctx, s.dag, c))
+          for (final l in await goIpldFormat.getLinks(ctx, s.dag, c))
             ...await dagBlocks(l.cid!),
         ];
 
@@ -52,7 +52,7 @@ Future<void> main() async {
     //         rw.PutMany(ctx, blks); rw.Finalize()
     final out = '${tmp.path}/folder.car';
     Future<void> writeCar(String path, List<BlockFormatBlock> all) async {
-      final rw = Go.car.v2.blockstore.openReadWrite(path, [s.root]);
+      final rw = goCar.v2.blockstore.openReadWrite(path, [s.root]);
       await rw.putMany(ctx, all);
       rw.finalize();
     }
@@ -64,7 +64,7 @@ Future<void> main() async {
     // 3. Inspect: version, roots, how many blocks, are the roots inside.
     //    The Reader maps the file: always close it.
     //    Go:  r, _ := car.OpenReader(out); defer r.Close(); st, _ := r.Inspect(false)
-    final r = Go.car.v2.openReader(out);
+    final r = goCar.v2.openReader(out);
     try {
       final st = r.inspect(false);
       say('CARv${r.version}, roots ${r.roots()}, ${st.blockCount} blocks '
@@ -79,7 +79,7 @@ Future<void> main() async {
     //    each block as it reads; the end is Go's io.EOF.
     //    Go:  br, _ := car.NewBlockReader(f)
     //         for { b, err := br.Next(); if errors.Is(err, io.EOF) { break } }
-    final f = Go.os.open(out);
+    final f = goOs.open(out);
     try {
       final br = CarV2BlockReader(f);
       say('\nblocks in the file:');
@@ -102,13 +102,13 @@ Future<void> main() async {
     //         nd, _ := dag.Get(ctx, root); f, _ := unixfile.NewUnixfsFile(ctx, dag, nd)
     //         files.WriteTo(f, dir)
     Future<void> extract(String carPath, String dir) async {
-      final ro = Go.car.v2.blockstore.openReadOnly(carPath);
+      final ro = goCar.v2.blockstore.openReadOnly(carPath);
       try {
-        final dag = Go.boxo.ipld.merkledag.newDagService(Go.boxo.blockservice
-            .new$(ro, Go.boxo.exchange.offline.exchange(ro)));
+        final dag = goBoxo.ipld.merkledag.newDagService(
+            goBoxo.blockservice.new$(ro, goBoxo.exchange.offline.exchange(ro)));
         final root = ro.roots().single;
-        Go.boxo.files.writeTo(
-            await Go.boxo.ipld.unixfs.file
+        goBoxo.files.writeTo(
+            await goBoxo.ipld.unixfs.file
                 .newUnixfsFile(ctx, dag, await dag.get(ctx, root)),
             dir);
       } finally {
@@ -116,7 +116,7 @@ Future<void> main() async {
       }
     }
 
-    final ro = Go.car.v2.blockstore.openReadOnly(out);
+    final ro = goCar.v2.blockstore.openReadOnly(out);
     try {
       final b = await ro.get(ctx, s.root);
       say('\nthe root block, read from the CAR: ${b.rawData!.length} bytes');
@@ -135,7 +135,7 @@ Future<void> main() async {
     await mistake('opening a file that is not a CAR',
         why: 'go-car checks the header and rejects it',
         instead: 'handle the error: a CAR you receive may come from anywhere',
-        action: () => Go.car.v2.openReader(notCar).close());
+        action: () => goCar.v2.openReader(notCar).close());
 
     // One byte flipped near the end, in the data of a leaf.
     final good = File(out).readAsBytesSync();
@@ -143,7 +143,7 @@ Future<void> main() async {
     File(corrupted).writeAsBytesSync(
         Uint8List.fromList(good)..[good.length - 2000] ^= 0xff);
     String inspect(String path, bool check) {
-      final r = Go.car.v2.openReader(path);
+      final r = goCar.v2.openReader(path);
       try {
         return '${r.inspect(check).blockCount} blocks, no error';
       } on GolangException catch (e) {
@@ -161,19 +161,19 @@ Future<void> main() async {
         right: () => inspect(corrupted, true));
 
     final unfinished = '${tmp.path}/unfinished.car';
-    final rw = Go.car.v2.blockstore.openReadWrite(unfinished, [s.root]);
+    final rw = goCar.v2.blockstore.openReadWrite(unfinished, [s.root]);
     await rw.put(ctx, await s.store.get(ctx, s.root));
     await mistake('reading a CAR whose writer was never finalized',
         why: 'the header is only written by finalize()',
         instead: 'finalize() when done (or discard() to give up)',
-        action: () => Go.car.v2.openReader(unfinished).close());
+        action: () => goCar.v2.openReader(unfinished).close());
     rw.discard();
 
     // Copying "every block of the blockstore" instead of walking the DAG.
     // A blockstore keys blocks by multihash only: AllKeysChan gives each
     // one back as a raw CIDv1, without the codec it was stored under.
     String rootsInside(String path) {
-      final r = Go.car.v2.openReader(path);
+      final r = goCar.v2.openReader(path);
       try {
         final st = r.inspect(false);
         return 'roots in the CAR: ${st.rootsPresent}, codecs ${st.codecCounts}';

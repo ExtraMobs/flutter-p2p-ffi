@@ -248,7 +248,7 @@ class NetHttpProtocolError extends GolangException {
   String toString() => 'http.ProtocolError: $message';
 }
 
-/// Go: the package-level members of `net/http` (`Go.net.http`).
+/// Go: the package-level members of `net/http` (`goNet.http`).
 extension GoNetHttpApi on GoNetHttp {
   /// Go: `const http.DefaultMaxHeaderBytes untyped int`.
   int get defaultMaxHeaderBytes => 1048576;

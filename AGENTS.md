@@ -4,9 +4,9 @@ Peer-to-peer networking from Go (kubo v0.43.1, boxo, go-libp2p) used from Dart w
 The Go code runs in the `p2p_host` executable, in another process; the app talks to it through shared memory (the `p2p_shm`,
 in C) with a binary protocol (`WIRE.md`). The Dart API is Go's own, generated from
 `go/gen/roots.txt`, all of it behind one import, `lib/p2p_ffi.dart`: a package's functions,
-constants and variables hang from `Go` along the package's path in its module
-(`github.com/ipfs/boxo/mfs` → `Go.boxo.mfs.newRoot`, `github.com/ipfs/go-cid` →
-`Go.cid.decode`), and its types are top-level classes named after that path (`BoxoMfsRoot`,
+constants and variables hang from one constant per module, along the package's path in it
+(`github.com/ipfs/boxo/mfs` → `goBoxo.mfs.newRoot`, `github.com/ipfs/go-cid` →
+`goCid.decode`), and its types are top-level classes named after that path (`BoxoMfsRoot`,
 `cid.Cid` → `Cid`). The code of each package is one library under `lib/go/`, at the same
 path (`lib/go/boxo/mfs.dart`). Targets: VM/AOT on Windows, linux and Android (not JS/Wasm).
 
@@ -19,7 +19,7 @@ done in each version and what is pending.
 
 | Path | What it is |
 |---|---|
-| `lib/` | the Dart package: the generated code (`lib/go/`, one library per Go package; `lib/src/go.dart`, the `Go` namespace tree that exports them) and the runtime in `lib/src/` (`runtime.dart` and its parts, `service.dart`, `shm.dart`), exported only by `lib/p2p_ffi.dart` |
+| `lib/` | the Dart package: the generated code (`lib/go/`, one library per Go package; `lib/src/go.dart`, the namespace tree (`goBoxo`, `goCid`...) that exports them) and the runtime in `lib/src/` (`runtime.dart` and its parts, `service.dart`, `shm.dart`), exported only by `lib/p2p_ffi.dart` |
 | `go/` | the `p2p_host` (`host*.go`, `wire.go`, `callback.go`, `retained.go`, `deadlock.go`, `logpump.go`, the hand ports `manual_*.go`) and the generator (`go/gen`, with `roots.txt`; the Dart paths in `go/gen/namespaces.go`) |
 | `shm/` | the `p2p_shm` in C (rings, the bell, the thread that wakes Dart) |
 | `tool/` | `build.dart` (generates and builds per platform, with the upstream patches) and the benchmarks (`bench*.dart`) |
@@ -50,9 +50,12 @@ dart test                                          # the whole suite (needs the 
 
 ## Conventions
 
-- **Namespaces (owner's decision, 2026-10-28, option a):** one import,
-  `package:p2p_ffi/p2p_ffi.dart`. A package's functions, constants and variables are members
-  of its namespace class (`Go.boxo.mfs` is a `GoBoxoMfs`), added by its library as an
+- **Namespaces (owner's decisions, 2026-10-28, option a, and 2026-10-29):** one import,
+  `package:p2p_ffi/p2p_ffi.dart`. Each module is a top-level constant (`goBoxo`, `goCid`,
+  `goIpldPrime`) and each further `/` of the package's path a `.`
+  (`goIpldPrime.traversal.selector.builder`), lowerCamelCase as Dart names constants and
+  getters. A package's functions, constants and variables are members
+  of its namespace class (`goBoxo.mfs` is a `GoBoxoMfs`), added by its library as an
   extension (`GoBoxoMfsApi`); Dart has no nested types, so a type is a top-level class named
   after its package's path, minus the words the Go name already starts with
   (`BoxoMfsRoot`, `Libp2pCorePeerId`, `cid.Cid` → `Cid`). Every name is unique: the

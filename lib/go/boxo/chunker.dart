@@ -149,7 +149,7 @@ class BoxoChunkerErrSizeMax extends GolangException {
   String toString() => 'chunk.ErrSizeMax: $message';
 }
 
-/// Go: the package-level members of `github.com/ipfs/boxo/chunker` (`Go.boxo.chunker`).
+/// Go: the package-level members of `github.com/ipfs/boxo/chunker` (`goBoxo.chunker`).
 extension GoBoxoChunkerApi on GoBoxoChunker {
   /// Go: `var chunk.DefaultBlockSize int64`.
   int get defaultBlockSize {

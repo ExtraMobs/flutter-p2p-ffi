@@ -37,7 +37,7 @@ class Secp256k1V4ErrorKind extends GolangException {
   String toString() => 'secp256k1.ErrorKind: $message';
 }
 
-/// Go: the package-level members of `github.com/decred/dcrd/dcrec/secp256k1/v4` (`Go.secp256k1.v4`).
+/// Go: the package-level members of `github.com/decred/dcrd/dcrec/secp256k1/v4` (`goSecp256k1.v4`).
 extension GoSecp256k1V4Api on GoSecp256k1V4 {
   /// Go: `const secp256k1.ErrPubKeyInvalidFormat secp256k1.ErrorKind`.
   String get errPubKeyInvalidFormat => "ErrPubKeyInvalidFormat";

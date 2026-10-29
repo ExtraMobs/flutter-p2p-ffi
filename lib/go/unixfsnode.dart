@@ -10,7 +10,7 @@ import 'package:p2p_ffi/go/ipld_prime/traversal.dart' as $traversal;
 import 'package:p2p_ffi/go/ipld_prime/traversal/selector/builder.dart'
     as $builder;
 
-/// Go: the package-level members of `github.com/ipfs/go-unixfsnode` (`Go.unixfsnode`).
+/// Go: the package-level members of `github.com/ipfs/go-unixfsnode` (`goUnixfsnode`).
 extension GoUnixfsnodeApi on GoUnixfsnode {
   /// Go: `func unixfsnode.AddUnixFSReificationToLinkSystem(lsys *ipld.LinkSystem)`.
   void addUnixFsReificationToLinkSystem(

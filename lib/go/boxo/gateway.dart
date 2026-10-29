@@ -1034,7 +1034,7 @@ class BoxoGatewayErrorStatusCode extends GolangException {
   String toString() => 'gateway.ErrorStatusCode: $message';
 }
 
-/// Go: the package-level members of `github.com/ipfs/boxo/gateway` (`Go.boxo.gateway`).
+/// Go: the package-level members of `github.com/ipfs/boxo/gateway` (`goBoxo.gateway`).
 extension GoBoxoGatewayApi on GoBoxoGateway {
   /// Go: `gateway.WithGetBlockTimeout`.
   BoxoGatewayBackendOption withGetBlockTimeout(Duration dur) =>

@@ -477,7 +477,7 @@ class Libp2pKadDhtErrReadTimeout extends GolangException {
   String toString() => 'dht.ErrReadTimeout: $message';
 }
 
-/// Go: the package-level members of `github.com/libp2p/go-libp2p-kad-dht` (`Go.libp2pKadDht`).
+/// Go: the package-level members of `github.com/libp2p/go-libp2p-kad-dht` (`goLibp2pKadDht`).
 extension GoLibp2pKadDhtApi on GoLibp2pKadDht {
   /// Go: `go-libp2p-kad-dht.BootstrapPeers`.
   Libp2pKadDhtOption bootstrapPeers(

@@ -50,28 +50,28 @@ Future<void> main() async {
     // 2. La identidad: una clave ed25519 nueva; el peer ID sale de ella.
     //    Go:  id, _ := config.CreateIdentity(io.Discard, []options.KeyGenerateOption{
     //             options.Key.Type("ed25519")})
-    final identity = Go.kubo.config.createIdentity(
-        null, [Go.kubo.core.coreiface.options.key.type('ed25519')]);
+    final identity = goKubo.config.createIdentity(
+        null, [goKubo.core.coreiface.options.key.type('ed25519')]);
     say('\nidentidad: peer ID ${identity.peerId}');
     say('  (la clave privada queda en la config: quien la tiene ES este peer)');
 
     // 3. La config a partir de la identidad, y un perfil encima.
     //    Go:  cfg, _ := config.InitWithIdentity(id)
     //         config.Profiles["test"].Transform(cfg)
-    final cfg = Go.kubo.config.initWithIdentity(identity);
+    final cfg = goKubo.config.initWithIdentity(identity);
     final before = (cfg.json['Addresses'] as Map)['Swarm'];
-    Go.kubo.config.profiles['test']!.transform(cfg);
+    goKubo.config.profiles['test']!.transform(cfg);
     final after = (cfg.json['Addresses'] as Map)['Swarm'];
     say('\nconfig: escucha en $before por defecto');
     say('  tras el perfil `test`: $after, peers de bootstrap '
         '${(cfg.json['Bootstrap'] as List).length}');
-    say('  perfiles que conoce kubo: ${Go.kubo.config.profiles.keys.join(', ')}');
+    say('  perfiles que conoce kubo: ${goKubo.config.profiles.keys.join(', ')}');
 
     // 4. init escribe la carpeta; open la bloquea para este proceso.
     //    Go:  fsrepo.Init(dir, cfg); r, _ := fsrepo.Open(dir)
-    say('\ninicializado antes de init: ${Go.kubo.repo.fsrepo.isInitialized(dir)}');
-    Go.kubo.repo.fsrepo.init(dir, cfg);
-    say('inicializado después de init: ${Go.kubo.repo.fsrepo.isInitialized(dir)}');
+    say('\ninicializado antes de init: ${goKubo.repo.fsrepo.isInitialized(dir)}');
+    goKubo.repo.fsrepo.init(dir, cfg);
+    say('inicializado después de init: ${goKubo.repo.fsrepo.isInitialized(dir)}');
     void listFolder(String when) {
       final entries = Directory(dir).listSync()
         ..sort((a, b) => a.path.compareTo(b.path));
@@ -82,7 +82,7 @@ Future<void> main() async {
     }
 
     listFolder('tras init');
-    final repo = Go.kubo.repo.fsrepo.open(dir);
+    final repo = goKubo.repo.fsrepo.open(dir);
     listFolder('tras open (los datastores nacen en la primera apertura)');
     final stored = repo.config();
     say('\nabierto; la config leída de vuelta del disco tiene el mismo peer '
@@ -100,8 +100,8 @@ Future<void> main() async {
     repo.close();
 
     say('\n== Errores comunes\n');
-    final other = Go.kubo.config.initWithIdentity(Go.kubo.config.createIdentity(
-        null, [Go.kubo.core.coreiface.options.key.type('ed25519')]));
+    final other = goKubo.config.initWithIdentity(goKubo.config.createIdentity(
+        null, [goKubo.core.coreiface.options.key.type('ed25519')]));
     await silentlyWrong(
         'init otra vez, esperando que la config nueva '
         'reemplace la anterior',
@@ -110,8 +110,8 @@ Future<void> main() async {
         instead: 'cambia un repositorio existente con setConfig/setConfigKey '
             '(paso 5); una identidad nueva pide una carpeta nueva',
         wrong: () {
-          Go.kubo.repo.fsrepo.init(dir, other);
-          final r = Go.kubo.repo.fsrepo.open(dir);
+          goKubo.repo.fsrepo.init(dir, other);
+          final r = goKubo.repo.fsrepo.open(dir);
           final id = (r.config().json['Identity'] as Map)['PeerID'];
           r.close();
           return 'peer ID en el repositorio: $id';
@@ -121,7 +121,7 @@ Future<void> main() async {
     await mistake('abrir una carpeta que nunca se inicializó',
         why: 'no hay config, ni identidad, ni datastore que abrir',
         instead: 'init una vez (pasos 2-4), open las demás',
-        action: () => Go.kubo.repo.fsrepo.open('${tmp.path}/nothing-here'));
+        action: () => goKubo.repo.fsrepo.open('${tmp.path}/nothing-here'));
     await mistake('cargar los plugins dos veces en el mismo servicio',
         why: 'cada plugin de datastore se registra una sola vez en Go',
         instead: 'cárgalos una vez por servicio, justo después de '

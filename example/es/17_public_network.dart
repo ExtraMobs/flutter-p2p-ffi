@@ -45,14 +45,14 @@ const known = 'bafybeifx7yeb55armcsxwwitkymga5xf53dxiarykms3ygqic223w5sk3m';
 KuboCoreNodeLibp2pRoutingOption routingFor(KuboConfig cfg) {
   final type = (cfg.json['Routing'] as Map?)?['Type'] as String? ?? '';
   return switch (type) {
-    '' || 'auto' || 'default' => Go.kubo.core.node.libp2p
-        .constructDefaultRouting(cfg, Go.kubo.core.node.libp2p.dhtOption),
-    'autoclient' => Go.kubo.core.node.libp2p
-        .constructDefaultRouting(cfg, Go.kubo.core.node.libp2p.dhtClientOption),
-    'dht' => Go.kubo.core.node.libp2p.dhtOption,
-    'dhtclient' => Go.kubo.core.node.libp2p.dhtClientOption,
-    'dhtserver' => Go.kubo.core.node.libp2p.dhtServerOption,
-    'none' => Go.kubo.core.node.libp2p.nilRouterOption,
+    '' || 'auto' || 'default' => goKubo.core.node.libp2p
+        .constructDefaultRouting(cfg, goKubo.core.node.libp2p.dhtOption),
+    'autoclient' => goKubo.core.node.libp2p
+        .constructDefaultRouting(cfg, goKubo.core.node.libp2p.dhtClientOption),
+    'dht' => goKubo.core.node.libp2p.dhtOption,
+    'dhtclient' => goKubo.core.node.libp2p.dhtClientOption,
+    'dhtserver' => goKubo.core.node.libp2p.dhtServerOption,
+    'none' => goKubo.core.node.libp2p.nilRouterOption,
     _ => throw ArgumentError('Routing.Type "$type" no tratado aquí'),
   };
 }
@@ -60,16 +60,16 @@ KuboCoreNodeLibp2pRoutingOption routingFor(KuboConfig cfg) {
 Future<void> main() async {
   await P2pService.start();
   final tmp = Directory.systemTemp.createTempSync('lesson17_');
-  final ctx = Go.context.background();
+  final ctx = goContext.background();
   try {
     // 1. Un repositorio con la config normal (peers de bootstrap,
     //    enrutamiento "auto"), solo con puertos aleatorios.
     loadPlugins();
-    final cfg = Go.kubo.config.initWithIdentity(Go.kubo.config.createIdentity(
-        null, [Go.kubo.core.coreiface.options.key.type('ed25519')]));
-    Go.kubo.config.profiles['randomports']!.transform(cfg);
-    Go.kubo.repo.fsrepo.init('${tmp.path}/repo', cfg);
-    final repo = Go.kubo.repo.fsrepo.open('${tmp.path}/repo');
+    final cfg = goKubo.config.initWithIdentity(goKubo.config.createIdentity(
+        null, [goKubo.core.coreiface.options.key.type('ed25519')]));
+    goKubo.config.profiles['randomports']!.transform(cfg);
+    goKubo.repo.fsrepo.init('${tmp.path}/repo', cfg);
+    final repo = goKubo.repo.fsrepo.open('${tmp.path}/repo');
     say('Routing.Type: "${(repo.config().json['Routing'] as Map)['Type']}", '
         '${(repo.config().json['Bootstrap'] as List).length} entradas de '
         'bootstrap');
@@ -78,14 +78,14 @@ Future<void> main() async {
     //    marcha.
     //    Go:  core.NewNode(ctx, &node.BuildCfg{Repo: r, Online: true,
     //             Permanent: true, Routing: routingFor(cfg)})
-    final n = await Go.kubo.core.newNode(
+    final n = await goKubo.core.newNode(
         ctx,
         KuboCoreNodeBuildCfg(
             repo: repo,
             online: true,
             permanent: true,
             routing: routingFor(repo.config())));
-    final api = Go.kubo.core.coreapi.newCoreApi(n);
+    final api = goKubo.core.coreapi.newCoreApi(n);
     try {
       say('online como ${(await api.key().self(ctx)).id}');
       // (Solo se muestran las de loopback: las otras son las IPs reales de
@@ -109,12 +109,12 @@ Future<void> main() async {
       // 4. Traer algo que publicó otra persona: el enrutamiento encuentra
       //    sus proveedores, bitswap trae los bloques, cada uno comprobado.
       final (fctx, cancel) =
-          Go.context.withTimeout(ctx, const Duration(seconds: 90));
+          goContext.withTimeout(ctx, const Duration(seconds: 90));
       final watch = Stopwatch()..start();
       try {
         final f = await api.unixfs().get(fctx, BoxoPath('/ipfs/$known'));
         say('traje /ipfs/$known en ${watch.elapsed.inSeconds} s: '
-            '"${utf8.decode(Go.io.readAll(Go.boxo.files.toFile(f))).trim()}"');
+            '"${utf8.decode(goIo.readAll(goBoxo.files.toFile(f))).trim()}"');
       } on GolangException catch (e) {
         say('no pude traerlo en 90 s: ${brief(e)}');
       } finally {
@@ -125,13 +125,13 @@ Future<void> main() async {
       //    anuncio ya en lugar de esperar a la cola).
       final p = await api.unixfs().add(
           ctx,
-          Go.boxo.files
+          goBoxo.files
               .newBytesFile(utf8.encode('hello from a Dart app over p2p_ffi '
                   '${DateTime.now().toUtc()}\n')),
-          [Go.kubo.core.coreiface.options.unixfs.pin(true, 'lesson-17')]);
+          [goKubo.core.coreiface.options.unixfs.pin(true, 'lesson-17')]);
       say('\nañadí $p; anunciándolo...');
       final (pctx, pcancel) =
-          Go.context.withTimeout(ctx, const Duration(seconds: 60));
+          goContext.withTimeout(ctx, const Duration(seconds: 60));
       try {
         await api.routing().provide(pctx, p);
         say('  anunciado: cualquier nodo (o https://ipfs.io/ipfs/...) puede '
@@ -146,18 +146,18 @@ Future<void> main() async {
       say('\n== Errores comunes\n');
       // Un nodo online sin enrutamiento y sin peers de bootstrap: online,
       // pero solo.
-      final lonelyCfg = Go.kubo.config.initWithIdentity(Go.kubo.config
+      final lonelyCfg = goKubo.config.initWithIdentity(goKubo.config
           .createIdentity(
-              null, [Go.kubo.core.coreiface.options.key.type('ed25519')]));
-      Go.kubo.config.profiles['test']!.transform(lonelyCfg);
-      Go.kubo.repo.fsrepo.init('${tmp.path}/lonely', lonelyCfg);
-      final lonely = await Go.kubo.core.newNode(
+              null, [goKubo.core.coreiface.options.key.type('ed25519')]));
+      goKubo.config.profiles['test']!.transform(lonelyCfg);
+      goKubo.repo.fsrepo.init('${tmp.path}/lonely', lonelyCfg);
+      final lonely = await goKubo.core.newNode(
           ctx,
           KuboCoreNodeBuildCfg(
-              repo: Go.kubo.repo.fsrepo.open('${tmp.path}/lonely'),
+              repo: goKubo.repo.fsrepo.open('${tmp.path}/lonely'),
               online: true,
-              routing: Go.kubo.core.node.libp2p.nilRouterOption));
-      final lonelyApi = Go.kubo.core.coreapi.newCoreApi(lonely);
+              routing: goKubo.core.node.libp2p.nilRouterOption));
+      final lonelyApi = goKubo.core.coreapi.newCoreApi(lonely);
       await mistake('traer con un nodo online sin peers y sin enrutamiento',
           why: '"online" solo significa que bitswap está activo: sin nadie '
               'conectado y sin enrutador, no hay a quién preguntar (el perfil '
@@ -166,7 +166,7 @@ Future<void> main() async {
               'defecto), o conectarse a un peer que tenga el contenido',
           action: () async {
         final (tctx, cancel) =
-            Go.context.withTimeout(ctx, const Duration(seconds: 5));
+            goContext.withTimeout(ctx, const Duration(seconds: 5));
         try {
           await lonelyApi.unixfs().get(tctx, BoxoPath('/ipfs/$known'));
         } finally {

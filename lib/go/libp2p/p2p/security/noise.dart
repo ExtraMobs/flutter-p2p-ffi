@@ -144,7 +144,7 @@ class Libp2pP2pSecurityNoiseTransport extends $crypto.CryptoPrivateKey
   }
 }
 
-/// Go: the package-level members of `github.com/libp2p/go-libp2p/p2p/security/noise` (`Go.libp2p.p2p.security.noise`).
+/// Go: the package-level members of `github.com/libp2p/go-libp2p/p2p/security/noise` (`goLibp2p.p2p.security.noise`).
 extension GoLibp2pP2pSecurityNoiseApi on GoLibp2pP2pSecurityNoise {
   /// Go: `func noise.New(id protocol.ID, privkey crypto.PrivKey, muxers []upgrader.StreamMuxer) (*noise.Transport, error)`.
   Libp2pP2pSecurityNoiseTransport new$(

@@ -806,7 +806,7 @@ class BoxoIpldMerkledagErrReadOnly extends GolangException {
   String toString() => 'merkledag.ErrReadOnly: $message';
 }
 
-/// Go: the package-level members of `github.com/ipfs/boxo/ipld/merkledag` (`Go.boxo.ipld.merkledag`).
+/// Go: the package-level members of `github.com/ipfs/boxo/ipld/merkledag` (`goBoxo.ipld.merkledag`).
 extension GoBoxoIpldMerkledagApi on GoBoxoIpldMerkledag {
   /// Go: `merkledag.Concurrency`.
   BoxoIpldMerkledagWalkOption concurrency(int worker) =>

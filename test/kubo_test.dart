@@ -25,7 +25,7 @@ void main() {
     tmp = Directory.systemTemp.createTempSync('p2p_ffi_kubo_');
     await P2pService.start(
         crashLog: '${tmp.path}/crash.log', onStop: stops.add);
-    ctx = Go.context.background();
+    ctx = goContext.background();
     final repoPath = '${tmp.path}/repo';
 
     // Plugins: uma vez por processo (como o setupPlugins do kubo-as-a-library).
@@ -34,19 +34,19 @@ void main() {
     plugins.inject();
 
     // ipfs init
-    final identity = Go.kubo.config.createIdentity(
-        null, [Go.kubo.core.coreiface.options.key.type('ed25519')]);
-    final cfg = Go.kubo.config.initWithIdentity(identity);
-    Go.kubo.config.profiles['test']!
+    final identity = goKubo.config.createIdentity(
+        null, [goKubo.core.coreiface.options.key.type('ed25519')]);
+    final cfg = goKubo.config.initWithIdentity(identity);
+    goKubo.config.profiles['test']!
         .transform(cfg); // portas aleatórias, sem bootstrap
-    expect(Go.kubo.repo.fsrepo.isInitialized(repoPath), isFalse);
-    Go.kubo.repo.fsrepo.init(repoPath, cfg);
-    expect(Go.kubo.repo.fsrepo.isInitialized(repoPath), isTrue);
+    expect(goKubo.repo.fsrepo.isInitialized(repoPath), isFalse);
+    goKubo.repo.fsrepo.init(repoPath, cfg);
+    expect(goKubo.repo.fsrepo.isInitialized(repoPath), isTrue);
 
     // nó offline sobre o repo em disco
-    final repo = Go.kubo.repo.fsrepo.open(repoPath);
-    n = await Go.kubo.core.newNode(ctx, KuboCoreNodeBuildCfg(repo: repo));
-    api = Go.kubo.core.coreapi.newCoreApi(n);
+    final repo = goKubo.repo.fsrepo.open(repoPath);
+    n = await goKubo.core.newNode(ctx, KuboCoreNodeBuildCfg(repo: repo));
+    api = goKubo.core.coreapi.newCoreApi(n);
   });
 
   tearDownAll(() async {
@@ -58,10 +58,10 @@ void main() {
   test('add e get de bytes', () async {
     final p = await api
         .unixfs()
-        .add(ctx, Go.boxo.files.newBytesFile(utf8.encode('olá ipfs')));
+        .add(ctx, goBoxo.files.newBytesFile(utf8.encode('olá ipfs')));
     expect(p.value, startsWith('/ipfs/Qm')); // padrão do kubo: CIDv0
     final got = await api.unixfs().get(ctx, p);
-    expect(utf8.decode(Go.io.readAll(Go.boxo.files.toFile(got))), 'olá ipfs');
+    expect(utf8.decode(goIo.readAll(goBoxo.files.toFile(got))), 'olá ipfs');
   });
 
   // 0.20: any io.Reader handle as a Stream, in 256 KiB pieces
@@ -69,8 +69,7 @@ void main() {
     final rnd = Random(3);
     final data =
         Uint8List.fromList(List.generate(1 << 20, (_) => rnd.nextInt(256)));
-    final pieces =
-        await readerStream(Go.boxo.files.newBytesFile(data)).toList();
+    final pieces = await readerStream(goBoxo.files.newBytesFile(data)).toList();
     expect(pieces.length, 4);
     expect(Uint8List.fromList([for (final p in pieces) ...p]), data);
   });
@@ -78,9 +77,9 @@ void main() {
   test('opções do add (CIDv1, raw leaves)', () async {
     final p = await api
         .unixfs()
-        .add(ctx, Go.boxo.files.newBytesFile(utf8.encode('x')), [
-      Go.kubo.core.coreiface.options.unixfs.cidVersion(1),
-      Go.kubo.core.coreiface.options.unixfs.rawLeaves(true)
+        .add(ctx, goBoxo.files.newBytesFile(utf8.encode('x')), [
+      goKubo.core.coreiface.options.unixfs.cidVersion(1),
+      goKubo.core.coreiface.options.unixfs.rawLeaves(true)
     ]);
     expect(p.value, startsWith('/ipfs/bafkrei'));
   });
@@ -90,8 +89,8 @@ void main() {
     File('${dir.path}/a.txt').writeAsStringSync('A');
     File('${dir.path}/b.txt').writeAsStringSync('BB');
 
-    final root = await api.unixfs().add(ctx,
-        Go.boxo.files.newSerialFile(dir.path, false, Go.os.stat(dir.path)));
+    final root = await api.unixfs().add(
+        ctx, goBoxo.files.newSerialFile(dir.path, false, goOs.stat(dir.path)));
     final entries = await api.unixfs().ls(ctx, root).toList();
     expect([for (final e in entries) e.name], ['a.txt', 'b.txt']);
     expect([for (final e in entries) e.size], [1, 2]);
@@ -102,21 +101,21 @@ void main() {
     expect(rest, isEmpty);
 
     final out = '${tmp.path}/out';
-    Go.boxo.files.writeTo(await api.unixfs().get(ctx, root), out);
+    goBoxo.files.writeTo(await api.unixfs().get(ctx, root), out);
     expect(File('$out/b.txt').readAsStringSync(), 'BB');
   });
 
   test('context: cancelado e com prazo vencido', () async {
-    final (c, cancel) = Go.context.withCancel(Go.context.background());
+    final (c, cancel) = goContext.withCancel(goContext.background());
     expect(c.err(), isNull);
     cancel();
     expect(c.err(), 'context canceled');
     await expectLater(
-        api.unixfs().add(c, Go.boxo.files.newBytesFile(utf8.encode('y'))),
+        api.unixfs().add(c, goBoxo.files.newBytesFile(utf8.encode('y'))),
         throwsA(isA<GolangException>()));
 
     final (t, cancelT) =
-        Go.context.withTimeout(Go.context.background(), Duration.zero);
+        goContext.withTimeout(goContext.background(), Duration.zero);
     expect(t.err(), 'context deadline exceeded');
     cancelT();
   });
@@ -134,8 +133,8 @@ void main() {
   // M2: pins, blocos e GC
   Future<BoxoPathImmutablePath> addUnpinned(String s) => api.unixfs().add(
       ctx,
-      Go.boxo.files.newBytesFile(utf8.encode(s)),
-      [Go.kubo.core.coreiface.options.unixfs.pin(false, '')]);
+      goBoxo.files.newBytesFile(utf8.encode(s)),
+      [goKubo.core.coreiface.options.unixfs.pin(false, '')]);
 
   test('pin add, isPinned, ls, update e rm', () async {
     final a = await addUnpinned('pin a');
@@ -144,14 +143,14 @@ void main() {
 
     await api
         .pin()
-        .add(ctx, a, [Go.kubo.core.coreiface.options.pin.name('meu-pin')]);
+        .add(ctx, a, [goKubo.core.coreiface.options.pin.name('meu-pin')]);
     final (how, pinned) = await api.pin().isPinned(ctx, a);
     expect((how, pinned), ('recursive', true));
     // o filtro por nome só vale com detailed (como `ipfs pin ls --names`)
     final pins = await api.pin().ls(ctx, [
-      Go.kubo.core.coreiface.options.pin.ls.recursive(),
-      Go.kubo.core.coreiface.options.pin.ls.detailed(true),
-      Go.kubo.core.coreiface.options.pin.ls.name('meu-pin'),
+      goKubo.core.coreiface.options.pin.ls.recursive(),
+      goKubo.core.coreiface.options.pin.ls.detailed(true),
+      goKubo.core.coreiface.options.pin.ls.name('meu-pin'),
     ]).toList();
     expect([for (final p in pins) p.path?.value], [a.value]);
     expect(pins.single.name, 'meu-pin');
@@ -170,13 +169,13 @@ void main() {
     final data = utf8.encode('bloco cru');
     final st = await api
         .block()
-        .put(ctx, data, [Go.kubo.core.coreiface.options.block.pin(false)]);
+        .put(ctx, data, [goKubo.core.coreiface.options.block.pin(false)]);
     expect(st.size, data.length);
     expect(st.path!.value, startsWith('/ipfs/bafkrei')); // raw + sha2-256
 
     expect((await api.block().stat(ctx, st.path!)).size, data.length);
     final r = await api.block().get(ctx, st.path!);
-    expect(Go.io.readAll(r), data);
+    expect(goIo.readAll(r), data);
 
     await api.block().rm(ctx, st.path!);
     await expectLater(
@@ -188,11 +187,11 @@ void main() {
     // a CoreAPI não pina por padrão (o `ipfs add` do CLI é que passa pin=true)
     final kept = await api.unixfs().add(
         ctx,
-        Go.boxo.files.newBytesFile(utf8.encode('pinado ${DateTime.now()}')),
-        [Go.kubo.core.coreiface.options.unixfs.pin(true, '')]);
+        goBoxo.files.newBytesFile(utf8.encode('pinado ${DateTime.now()}')),
+        [goKubo.core.coreiface.options.unixfs.pin(true, '')]);
 
     final removed =
-        await Go.kubo.core.corerepo.garbageCollectAsync(n, ctx).toList();
+        await goKubo.core.corerepo.garbageCollectAsync(n, ctx).toList();
     // O blockstore guarda pelo multihash: o GC informa CIDv1 raw (bafkrei...),
     // não o CIDv0 (Qm...) do add.
     expect(removed, isNotEmpty);
@@ -201,8 +200,7 @@ void main() {
     await expectLater(
         api.block().stat(ctx, loose), throwsA(isA<GolangException>()));
     expect((await api.block().stat(ctx, kept)).size, greaterThan(0));
-    await Go.kubo.core.corerepo
-        .garbageCollect(n, ctx); // a versão que só espera
+    await goKubo.core.corerepo.garbageCollect(n, ctx); // a versão que só espera
   });
 
   // 0.20: the node's blockstore block by block, and the GC locks
@@ -211,7 +209,7 @@ void main() {
     final data = utf8.encode('evict me ${DateTime.now()}');
     final st = await api
         .block()
-        .put(ctx, data, [Go.kubo.core.coreiface.options.block.pin(false)]);
+        .put(ctx, data, [goKubo.core.coreiface.options.block.pin(false)]);
     final c = Cid(st.path!.value.substring('/ipfs/'.length)); // raw
     final bs = n.blockstore;
     expect(await bs.getSize(ctx, c), data.length);
@@ -222,7 +220,7 @@ void main() {
 
     final pin = await n.gcLocker.pinLock(ctx);
     var collected = false;
-    final gc = Go.kubo.core.corerepo
+    final gc = goKubo.core.corerepo
         .garbageCollect(n, ctx)
         .then((_) => collected = true);
     final deadline = DateTime.now().add(const Duration(seconds: 10));
@@ -242,7 +240,7 @@ void main() {
     final data = utf8.encode('base ${DateTime.now()}');
     final st = await api
         .block()
-        .put(ctx, data, [Go.kubo.core.coreiface.options.block.pin(false)]);
+        .put(ctx, data, [goKubo.core.coreiface.options.block.pin(false)]);
     final c = Cid(st.path!.value.substring('/ipfs/'.length));
     final base = n.baseBlocks;
     expect(await base.has(ctx, c), isTrue);
@@ -256,20 +254,20 @@ void main() {
   test('conditionalGc and periodicGc follow the watermark', () async {
     // offset far beyond StorageMax*watermark: collects now
     var loose = await addUnpinned('conditional ${DateTime.now()}');
-    await Go.kubo.core.corerepo.conditionalGc(ctx, n, 1 << 50);
+    await goKubo.core.corerepo.conditionalGc(ctx, n, 1 << 50);
     await expectLater(
         api.block().stat(ctx, loose), throwsA(isA<GolangException>()));
     // below the watermark: nothing happens
     loose = await addUnpinned('kept ${DateTime.now()}');
-    await Go.kubo.core.corerepo.conditionalGc(ctx, n, 0);
+    await goKubo.core.corerepo.conditionalGc(ctx, n, 0);
     expect((await api.block().stat(ctx, loose)).size, greaterThan(0));
 
     // a tiny StorageMax and a short period: the loop collects on its own
     final repo = n.repo;
     repo.setConfigKey('Datastore.StorageMax', '1KB');
     repo.setConfigKey('Datastore.GCPeriod', '100ms');
-    final (gcCtx, cancel) = Go.context.withCancel(ctx);
-    final loop = Go.kubo.core.corerepo.periodicGc(gcCtx, n);
+    final (gcCtx, cancel) = goContext.withCancel(ctx);
+    final loop = goKubo.core.corerepo.periodicGc(gcCtx, n);
     try {
       final deadline = DateTime.now().add(const Duration(seconds: 10));
       while (true) {
@@ -293,18 +291,18 @@ void main() {
   // upstreamPatches; go/upstream_test.go afirma cada um sem o patch).
   test('upstream corrigido: Routing none fecha e reabre o mesmo repo',
       () async {
-    final cfg = Go.kubo.config.initWithIdentity(Go.kubo.config.createIdentity(
-        null, [Go.kubo.core.coreiface.options.key.type('ed25519')]));
-    Go.kubo.config.profiles['test']!.transform(cfg);
+    final cfg = goKubo.config.initWithIdentity(goKubo.config.createIdentity(
+        null, [goKubo.core.coreiface.options.key.type('ed25519')]));
+    goKubo.config.profiles['test']!.transform(cfg);
     final repoPath = '${tmp.path}/none';
-    Go.kubo.repo.fsrepo.init(repoPath, cfg);
+    goKubo.repo.fsrepo.init(repoPath, cfg);
     for (var i = 0; i < 2; i++) {
-      final nn = await Go.kubo.core.newNode(
+      final nn = await goKubo.core.newNode(
           ctx,
           KuboCoreNodeBuildCfg(
-              repo: Go.kubo.repo.fsrepo.open(repoPath),
+              repo: goKubo.repo.fsrepo.open(repoPath),
               online: true,
-              routing: Go.kubo.core.node.libp2p.nilRouterOption));
+              routing: goKubo.core.node.libp2p.nilRouterOption));
       await nn.close();
     }
   });
@@ -318,19 +316,19 @@ void main() {
 
     Future<(KuboCoreIpfsNode, KuboCoreCoreifaceCoreApi)> online(
         String name) async {
-      final cfg = Go.kubo.config.initWithIdentity(Go.kubo.config.createIdentity(
-          null, [Go.kubo.core.coreiface.options.key.type('ed25519')]));
-      Go.kubo.config.profiles['test']!.transform(cfg);
+      final cfg = goKubo.config.initWithIdentity(goKubo.config.createIdentity(
+          null, [goKubo.core.coreiface.options.key.type('ed25519')]));
+      goKubo.config.profiles['test']!.transform(cfg);
       final repoPath = '${tmp.path}/$name';
-      Go.kubo.repo.fsrepo.init(repoPath, cfg);
-      final n = await Go.kubo.core.newNode(
+      goKubo.repo.fsrepo.init(repoPath, cfg);
+      final n = await goKubo.core.newNode(
           ctx,
           KuboCoreNodeBuildCfg(
-              repo: Go.kubo.repo.fsrepo.open(repoPath),
+              repo: goKubo.repo.fsrepo.open(repoPath),
               online: true,
-              routing: Go.kubo.core.node.libp2p.dhtServerOption,
+              routing: goKubo.core.node.libp2p.dhtServerOption,
               extraOpts: {'pubsub': true})); // como Pubsub.Enabled no daemon
-      return (n, Go.kubo.core.coreapi.newCoreApi(n));
+      return (n, goKubo.core.coreapi.newCoreApi(n));
     }
 
     setUpAll(() async {
@@ -359,9 +357,9 @@ void main() {
       expect(known[idA], isNotEmpty);
 
       // o mesmo AddrInfo pelo formato texto /ip4/.../p2p/<id>
-      final p2p = Go.libp2p.core.peer
+      final p2p = goLibp2p.core.peer
           .addrInfoToP2pAddrs(Libp2pCorePeerAddrInfo(id: idA, addrs: addrs));
-      expect(Go.libp2p.core.peer.addrInfoFromString(p2p.first.value).id, idA);
+      expect(goLibp2p.core.peer.addrInfoFromString(p2p.first.value).id, idA);
 
       final found = await b.routing().findPeer(ctx, idA);
       expect(found.addrs, isNotEmpty);
@@ -377,27 +375,27 @@ void main() {
       File('${dir.path}/dados.bin').writeAsBytesSync(data);
       File('${dir.path}/outro.txt').writeAsStringSync('não pedido');
       final p = await a.unixfs().add(ctx,
-          Go.boxo.files.newSerialFile(dir.path, false, Go.os.stat(dir.path)), [
-        Go.kubo.core.coreiface.options.unixfs.cidVersion(1),
-        Go.kubo.core.coreiface.options.unixfs.chunker('size-262144'),
-        Go.kubo.core.coreiface.options.unixfs.pin(true, '')
+          goBoxo.files.newSerialFile(dir.path, false, goOs.stat(dir.path)), [
+        goKubo.core.coreiface.options.unixfs.cidVersion(1),
+        goKubo.core.coreiface.options.unixfs.chunker('size-262144'),
+        goKubo.core.coreiface.options.unixfs.pin(true, '')
       ]);
       // B não tem nada disso: só pela rede
       final offline =
-          b.withOptions([Go.kubo.core.coreiface.options.api.offline(true)]);
+          b.withOptions([goKubo.core.coreiface.options.api.offline(true)]);
       await expectLater(
           offline.block().stat(ctx, p), throwsA(isA<GolangException>()));
 
       final backend = BoxoGatewayBlocksBackend(nb.blocks);
-      final (c, cancel) = Go.context
-          .withTimeout(Go.context.background(), const Duration(seconds: 30));
+      final (c, cancel) = goContext.withTimeout(
+          goContext.background(), const Duration(seconds: 30));
       try {
         /// O CAR de [path]: os CIDs e os dados das fatias raw, em ordem.
         Future<(List<String>, Uint8List)> getCar(
             String where, BoxoGatewayCarParams params) async {
           final (_, rc) =
               await backend.getCar(c, BoxoPathImmutablePath(where), params);
-          final br = CarV2BlockReader(Go.io.readAll(rc));
+          final br = CarV2BlockReader(goIo.readAll(rc));
           rc.close();
           final cids = <String>[];
           final leaves = BytesBuilder();
@@ -415,7 +413,7 @@ void main() {
         final file = '${p.value}/dados.bin';
         // entity: a pasta (prova do caminho), a raiz do arquivo e 3 fatias
         final (all, bytes) = await getCar(
-            file, BoxoGatewayCarParams(scope: Go.boxo.gateway.dagScopeEntity));
+            file, BoxoGatewayCarParams(scope: goBoxo.gateway.dagScopeEntity));
         expect(all, hasLength(5));
         expect(all.first, p.value.substring('/ipfs/'.length));
         expect(bytes, data);
@@ -423,7 +421,7 @@ void main() {
         final (some, part) = await getCar(
             file,
             BoxoGatewayCarParams(
-                scope: Go.boxo.gateway.dagScopeEntity,
+                scope: goBoxo.gateway.dagScopeEntity,
                 range: BoxoGatewayDagByteRange(from: 300000, to: 300099)));
         expect(some, hasLength(3));
         expect(part, data.sublist(262144, 2 * 262144));
@@ -438,21 +436,21 @@ void main() {
       final rnd = Random(11);
       final data =
           Uint8List.fromList(List.generate(600000, (_) => rnd.nextInt(256)));
-      final p = await a.unixfs().add(ctx, Go.boxo.files.newBytesFile(data), [
-        Go.kubo.core.coreiface.options.unixfs.cidVersion(1),
-        Go.kubo.core.coreiface.options.unixfs.pin(true, ''),
+      final p = await a.unixfs().add(ctx, goBoxo.files.newBytesFile(data), [
+        goKubo.core.coreiface.options.unixfs.cidVersion(1),
+        goKubo.core.coreiface.options.unixfs.pin(true, ''),
       ]);
       final root = Cid(p.value.substring('/ipfs/'.length));
-      final (c, cancel) = Go.context
-          .withTimeout(Go.context.background(), const Duration(seconds: 30));
+      final (c, cancel) = goContext.withTimeout(
+          goContext.background(), const Duration(seconds: 30));
       try {
-        final bs = Go.boxo.blockservice
+        final bs = goBoxo.blockservice
             .new$(BoxoBlockstore(DatastoreNullDatastore()), nb.exchange);
-        final dag = Go.boxo.ipld.merkledag.newDagService(bs);
-        final nd = await Go.boxo.ipld.unixfs.file
+        final dag = goBoxo.ipld.merkledag.newDagService(bs);
+        final nd = await goBoxo.ipld.unixfs.file
             .newUnixfsFile(c, dag, await dag.get(c, root));
         final got = BytesBuilder();
-        await for (final chunk in readerStream(Go.boxo.files.toFile(nd))) {
+        await for (final chunk in readerStream(goBoxo.files.toFile(nd))) {
           got.add(chunk);
         }
         expect(got.toBytes(), data);
@@ -465,27 +463,27 @@ void main() {
     // README, "Points of attention" › "Config": as duas camadas do bitswap pela config
     test('bitswap só por libp2p e sem servir; sem nenhuma camada, não sobe',
         () async {
-      final cfg = Go.kubo.config.initWithIdentity(Go.kubo.config.createIdentity(
-          null, [Go.kubo.core.coreiface.options.key.type('ed25519')]));
-      Go.kubo.config.profiles['test']!.transform(cfg);
+      final cfg = goKubo.config.initWithIdentity(goKubo.config.createIdentity(
+          null, [goKubo.core.coreiface.options.key.type('ed25519')]));
+      goKubo.config.profiles['test']!.transform(cfg);
       final repoPath = '${tmp.path}/bitswap-cfg';
-      Go.kubo.repo.fsrepo.init(repoPath, cfg);
-      final repo = Go.kubo.repo.fsrepo.open(repoPath);
+      goKubo.repo.fsrepo.init(repoPath, cfg);
+      final repo = goKubo.repo.fsrepo.open(repoPath);
       repo.setConfigKey('HTTPRetrieval.Enabled', false);
       repo.setConfigKey('Bitswap.ServerEnabled', false);
-      final c = await Go.kubo.core
+      final c = await goKubo.core
           .newNode(ctx, KuboCoreNodeBuildCfg(repo: repo, online: true));
-      final api = Go.kubo.core.coreapi.newCoreApi(c);
+      final api = goKubo.core.coreapi.newCoreApi(c);
       final p = await api
           .unixfs()
-          .add(ctx, Go.boxo.files.newBytesFile(utf8.encode('x')));
+          .add(ctx, goBoxo.files.newBytesFile(utf8.encode('x')));
       expect((await api.block().stat(ctx, p)).size, greaterThan(0));
       await c.close();
 
-      final repo2 = Go.kubo.repo.fsrepo.open(repoPath);
+      final repo2 = goKubo.repo.fsrepo.open(repoPath);
       repo2.setConfigKey('Bitswap.Libp2pEnabled', false);
       await expectLater(
-          Go.kubo.core
+          goKubo.core
               .newNode(ctx, KuboCoreNodeBuildCfg(repo: repo2, online: true)),
           throwsA(isA<GolangException>().having((e) => e.message, 'message',
               contains('Libp2pEnabled and HTTPRetrieval.Enabled'))));
@@ -493,13 +491,13 @@ void main() {
 
     test('B busca por bitswap o que A adicionou', () async {
       final data = utf8.encode('de A para B ${DateTime.now()}');
-      final p = await a.unixfs().add(ctx, Go.boxo.files.newBytesFile(data),
-          [Go.kubo.core.coreiface.options.unixfs.pin(true, '')]);
-      final (c, cancel) = Go.context
-          .withTimeout(Go.context.background(), const Duration(seconds: 30));
+      final p = await a.unixfs().add(ctx, goBoxo.files.newBytesFile(data),
+          [goKubo.core.coreiface.options.unixfs.pin(true, '')]);
+      final (c, cancel) = goContext.withTimeout(
+          goContext.background(), const Duration(seconds: 30));
       try {
         final got = await b.unixfs().get(c, p);
-        expect(Go.io.readAll(Go.boxo.files.toFile(got)), data);
+        expect(goIo.readAll(goBoxo.files.toFile(got)), data);
       } finally {
         cancel();
       }
@@ -509,8 +507,8 @@ void main() {
       final idA = (await a.key().self(ctx)).id!;
       final p = await a.unixfs().add(
           ctx,
-          Go.boxo.files.newBytesFile(utf8.encode('provide ${DateTime.now()}')),
-          [Go.kubo.core.coreiface.options.unixfs.pin(true, '')]);
+          goBoxo.files.newBytesFile(utf8.encode('provide ${DateTime.now()}')),
+          [goKubo.core.coreiface.options.unixfs.pin(true, '')]);
       // No kubo 0.43 o Provide só enfileira o anúncio (StartProviding): a
       // busca é repetida até o registro chegar à DHT.
       await a.routing().provide(ctx, p);
@@ -519,7 +517,7 @@ void main() {
       while (
           !provs.any((i) => i.id == idA) && DateTime.now().isBefore(deadline)) {
         provs = await b.routing().findProviders(ctx, p,
-            [Go.kubo.core.coreiface.options.routing.numProviders(5)]).toList();
+            [goKubo.core.coreiface.options.routing.numProviders(5)]).toList();
         if (provs.isEmpty)
           await Future<void>.delayed(const Duration(milliseconds: 300));
       }
@@ -536,14 +534,14 @@ void main() {
       // B só entrega a quem ele já sabe que assina o tópico (gossipsub)
       final deadline = DateTime.now().add(const Duration(seconds: 30));
       while (!(await b.pubSub().peers(
-                  ctx, [Go.kubo.core.coreiface.options.pubSub.topic(topic)]))
+                  ctx, [goKubo.core.coreiface.options.pubSub.topic(topic)]))
               .contains(idA) &&
           DateTime.now().isBefore(deadline)) {
         await Future<void>.delayed(const Duration(milliseconds: 200));
       }
 
-      final (c, cancel) = Go.context
-          .withTimeout(Go.context.background(), const Duration(seconds: 30));
+      final (c, cancel) = goContext.withTimeout(
+          goContext.background(), const Duration(seconds: 30));
       try {
         await b.pubSub().publish(ctx, topic, utf8.encode('olá do B'));
         final msg = await sub.next(c);
@@ -602,7 +600,7 @@ void main() {
     test('disconnect', () async {
       final idA = (await a.key().self(ctx)).id!;
       // como `ipfs swarm disconnect`: o multiaddr tem de terminar em /p2p/<id>
-      final p2p = Go.libp2p.core.peer
+      final p2p = goLibp2p.core.peer
           .addrInfoToP2pAddrs(Libp2pCorePeerAddrInfo(id: idA, addrs: [
         for (final c in await b.swarm().peers(ctx))
           if (c.id == idA) c.address!
@@ -618,13 +616,13 @@ void main() {
     test('publish e resolve (offline, chave do nó)', () async {
       final p = await api.unixfs().add(
           ctx,
-          Go.boxo.files.newBytesFile(utf8.encode('ipns ${DateTime.now()}')),
-          [Go.kubo.core.coreiface.options.unixfs.pin(true, '')]);
+          goBoxo.files.newBytesFile(utf8.encode('ipns ${DateTime.now()}')),
+          [goKubo.core.coreiface.options.unixfs.pin(true, '')]);
       final name = await api.name().publish(
-          ctx, p, [Go.kubo.core.coreiface.options.name.allowOffline(true)]);
+          ctx, p, [goKubo.core.coreiface.options.name.allowOffline(true)]);
       expect(name.value, startsWith('k51'));
       final resolved = await api.name().resolve(ctx, '/ipns/$name',
-          [Go.kubo.core.coreiface.options.name.cache(false)]);
+          [goKubo.core.coreiface.options.name.cache(false)]);
       expect(resolved.value, p.value);
       final found = await api.name().search(ctx, '/ipns/$name').toList();
       expect([for (final r in found) r.path?.value], contains(p.value));
@@ -632,7 +630,7 @@ void main() {
 
     test('generate, list, rename, sign, verify e remove', () async {
       final k = await api.key().generate(
-          ctx, 'k1', [Go.kubo.core.coreiface.options.key.type('ed25519')]);
+          ctx, 'k1', [goKubo.core.coreiface.options.key.type('ed25519')]);
       expect(k.name, 'k1');
       expect([for (final k in await api.key().list(ctx)) k.name],
           containsAll(['self', 'k1']));
@@ -656,7 +654,7 @@ void main() {
       final got = await api.dag().get(ctx, raw.cid());
       expect(utf8.decode(got.rawData()), 'folha');
 
-      final pn = Go.boxo.ipld.merkledag.nodeWithData(utf8.encode('raiz'));
+      final pn = goBoxo.ipld.merkledag.nodeWithData(utf8.encode('raiz'));
       pn.addNodeLink('filho', raw);
       await api.dag().pinning().add(ctx, pn);
       expect(utf8.decode(pn.data()), 'raiz');
@@ -681,11 +679,11 @@ void main() {
 
     test('dag put/get: DAG-JSON → DAG-CBOR, caminho dentro do nó e link',
         () async {
-      final c = await Go.kubo.core.commands.dag
+      final c = await goKubo.core.commands.dag
           .dagPut(api, ctx, utf8.encode('{"a": {"b": [1, 2]}, "t": "oi"}'));
       expect(c.value, startsWith('bafyrei')); // dag-cbor + sha2-256
       expect(
-          jsonDecode(utf8.decode(await Go.kubo.core.commands.dag
+          jsonDecode(utf8.decode(await goKubo.core.commands.dag
               .dagGet(api, ctx, BoxoPath('/ipfs/$c')))),
           {
             'a': {
@@ -694,29 +692,29 @@ void main() {
             't': 'oi'
           });
       expect(
-          jsonDecode(utf8.decode(await Go.kubo.core.commands.dag
+          jsonDecode(utf8.decode(await goKubo.core.commands.dag
               .dagGet(api, ctx, BoxoPath('/ipfs/$c/a/b')))),
           [1, 2]);
 
       // link IPLD: {"/": cid} em dag-json
-      final c2 = await Go.kubo.core.commands.dag
+      final c2 = await goKubo.core.commands.dag
           .dagPut(api, ctx, utf8.encode('{"x": {"/": "$c"}}'), pin: true);
       expect(
-          jsonDecode(utf8.decode(await Go.kubo.core.commands.dag
+          jsonDecode(utf8.decode(await goKubo.core.commands.dag
               .dagGet(api, ctx, BoxoPath('/ipfs/$c2/x/t')))),
           'oi');
 
       // outro codec de saída: o mesmo nó em dag-cbor tem o próprio CID como hash
-      final cbor = await Go.kubo.core.commands.dag
+      final cbor = await goKubo.core.commands.dag
           .dagGet(api, ctx, BoxoPath('/ipfs/$c'), outputCodec: 'dag-cbor');
       expect(cbor, isNotEmpty);
 
       // bloco acima de 2 MiB: recusado, como no CLI, salvo allowBigBlock
       final big = utf8.encode('{"d": "${'x' * (2 * 1024 * 1024 + 1)}"}');
-      await expectLater(Go.kubo.core.commands.dag.dagPut(api, ctx, big),
+      await expectLater(goKubo.core.commands.dag.dagPut(api, ctx, big),
           throwsA(isA<GolangException>()));
       expect(
-          (await Go.kubo.core.commands.dag
+          (await goKubo.core.commands.dag
                   .dagPut(api, ctx, big, allowBigBlock: true))
               .value,
           startsWith('bafyrei'));
@@ -732,9 +730,9 @@ void main() {
       var closed = false;
       events.stream.listen(got.add, onDone: () => closed = true);
 
-      final p = await api.unixfs().add(ctx, Go.boxo.files.newBytesFile(data), [
-        Go.kubo.core.coreiface.options.unixfs.events(events.sink),
-        Go.kubo.core.coreiface.options.unixfs.progress(true),
+      final p = await api.unixfs().add(ctx, goBoxo.files.newBytesFile(data), [
+        goKubo.core.coreiface.options.unixfs.events(events.sink),
+        goKubo.core.coreiface.options.unixfs.progress(true),
       ]);
       expect(closed, isTrue, reason: 'o sink fecha antes do Future completar');
 
@@ -756,8 +754,8 @@ void main() {
       final names = events.stream.map((e) => e.name).toList();
       final root = await api.unixfs().add(
           ctx,
-          Go.boxo.files.newSerialFile(dir.path, false, Go.os.stat(dir.path)),
-          [Go.kubo.core.coreiface.options.unixfs.events(events.sink)]);
+          goBoxo.files.newSerialFile(dir.path, false, goOs.stat(dir.path)),
+          [goKubo.core.coreiface.options.unixfs.events(events.sink)]);
       // nomes relativos à raiz ('' = o próprio diretório); o `ipfs add` do CLI
       // mostra 'ev/x.txt' porque embrulha a pasta num diretório com o nome dela
       expect(await names, containsAll(['x.txt', 'y.txt', '']));
@@ -765,14 +763,14 @@ void main() {
     });
 
     test('context cancelado: o Future falha e o sink fecha', () async {
-      final (c, cancel) = Go.context.withCancel(Go.context.background());
+      final (c, cancel) = goContext.withCancel(goContext.background());
       cancel();
       final events = StreamController<KuboCoreCoreifaceAddEvent>();
       final done = events.stream.toList();
       await expectLater(
-          api.unixfs().add(c, Go.boxo.files.newBytesFile(Uint8List(1 << 20)), [
-            Go.kubo.core.coreiface.options.unixfs.events(events.sink),
-            Go.kubo.core.coreiface.options.unixfs.progress(true)
+          api.unixfs().add(c, goBoxo.files.newBytesFile(Uint8List(1 << 20)), [
+            goKubo.core.coreiface.options.unixfs.events(events.sink),
+            goKubo.core.coreiface.options.unixfs.progress(true)
           ]),
           throwsA(isA<GolangException>()));
       await done.timeout(const Duration(seconds: 5));
@@ -823,50 +821,48 @@ void main() {
   group('0.13', () {
     test('withOptions (offline) e routing get/put sem rede', () async {
       final off =
-          api.withOptions([Go.kubo.core.coreiface.options.api.offline(true)]);
+          api.withOptions([goKubo.core.coreiface.options.api.offline(true)]);
       final p = await off
           .unixfs()
-          .add(ctx, Go.boxo.files.newBytesFile(utf8.encode('off')));
+          .add(ctx, goBoxo.files.newBytesFile(utf8.encode('off')));
       expect(
-          utf8.decode(Go.io
-              .readAll(Go.boxo.files.toFile(await off.unixfs().get(ctx, p)))),
+          utf8.decode(goIo
+              .readAll(goBoxo.files.toFile(await off.unixfs().get(ctx, p)))),
           'off');
       await expectLater(off.routing().get(ctx, '/ipns/nao-existe'),
           throwsA(isA<GolangException>()));
       await expectLater(
           off.routing().put(ctx, '/ipns/nao-existe', Uint8List(1),
-              [Go.kubo.core.coreiface.options.routing.allowOffline(true)]),
+              [goKubo.core.coreiface.options.routing.allowOffline(true)]),
           throwsA(isA<GolangException>()));
     });
 
     test('object addLink, rmLink e diff (com as constantes)', () async {
       final empty = Directory('${tmp.path}/vazio')..createSync();
-      final p0 = await api.unixfs().add(
-          ctx,
-          Go.boxo.files
-              .newSerialFile(empty.path, false, Go.os.stat(empty.path)));
+      final p0 = await api.unixfs().add(ctx,
+          goBoxo.files.newSerialFile(empty.path, false, goOs.stat(empty.path)));
       final child = await api
           .unixfs()
-          .add(ctx, Go.boxo.files.newBytesFile(utf8.encode('filho')));
+          .add(ctx, goBoxo.files.newBytesFile(utf8.encode('filho')));
       final obj = api.object();
       final p1 = await obj.addLink(ctx, p0, 'a', child);
       final added = await obj.diff(ctx, p0, p1);
       expect([for (final c in added) (c.type, c.path)],
-          [(Go.kubo.core.coreiface.diffAdd, 'a')]);
+          [(goKubo.core.coreiface.diffAdd, 'a')]);
       final p2 = await obj.rmLink(ctx, p1, 'a');
       final removed = await obj.diff(ctx, p1, p2);
       expect([for (final c in removed) (c.type, c.path)],
-          [(Go.kubo.core.coreiface.diffRemove, 'a')]);
+          [(goKubo.core.coreiface.diffRemove, 'a')]);
       expect(p2.value, p0.value);
     });
 
     test('MFS: mkdir, casts, escrita, leitura, list, mv e flush', () async {
       final root = n.filesRoot;
-      Go.boxo.mfs.mkdir(
+      goBoxo.mfs.mkdir(
           root, '/t013/sub', BoxoMfsMkdirOpts(mkparents: true, flush: true));
-      final dirNode = Go.boxo.mfs.lookup(root, '/t013');
-      expect(Go.boxo.mfs.isDir(dirNode), isTrue);
-      expect(dirNode.type(), Go.boxo.mfs.tDir);
+      final dirNode = goBoxo.mfs.lookup(root, '/t013');
+      expect(goBoxo.mfs.isDir(dirNode), isTrue);
+      expect(dirNode.type(), goBoxo.mfs.tDir);
       expect(dirNode.asBoxoMfsFile(), isNull);
       final dir = dirNode.asBoxoMfsDirectory()!;
       expect(dir.path(), '/t013');
@@ -874,9 +870,9 @@ void main() {
       // um arquivo pelo nó unixfs de um add
       final p = await api
           .unixfs()
-          .add(ctx, Go.boxo.files.newBytesFile(utf8.encode('olá mfs')));
-      Go.boxo.mfs.putNode(root, '/t013/a.txt', await api.resolveNode(ctx, p));
-      final file = Go.boxo.mfs.lookup(root, '/t013/a.txt').asBoxoMfsFile()!;
+          .add(ctx, goBoxo.files.newBytesFile(utf8.encode('olá mfs')));
+      goBoxo.mfs.putNode(root, '/t013/a.txt', await api.resolveNode(ctx, p));
+      final file = goBoxo.mfs.lookup(root, '/t013/a.txt').asBoxoMfsFile()!;
       expect(file.size(), utf8.encode('olá mfs').length);
       expect(file.rawLeaves, isFalse);
       file.rawLeaves = true; // campo do Go, leitura e escrita
@@ -905,15 +901,15 @@ void main() {
 
       expect(await dir.listNames(ctx), unorderedEquals(['a.txt', 'sub']));
       final list = {for (final e in await dir.list(ctx)) e.name: e};
-      expect(list['a.txt']!.type, Go.boxo.mfs.tFile);
-      expect(list['sub']!.type, Go.boxo.mfs.tDir);
+      expect(list['a.txt']!.type, goBoxo.mfs.tFile);
+      expect(list['sub']!.type, goBoxo.mfs.tDir);
 
-      Go.boxo.mfs.mv(root, '/t013/a.txt', '/t013/sub/b.txt');
-      expect(Go.boxo.mfs.isFile(Go.boxo.mfs.lookup(root, '/t013/sub/b.txt')),
+      goBoxo.mfs.mv(root, '/t013/a.txt', '/t013/sub/b.txt');
+      expect(goBoxo.mfs.isFile(goBoxo.mfs.lookup(root, '/t013/sub/b.txt')),
           isTrue);
-      expect(() => Go.boxo.mfs.lookup(root, '/t013/a.txt'),
+      expect(() => goBoxo.mfs.lookup(root, '/t013/a.txt'),
           throwsA(isA<GolangException>()));
-      final flushed = await Go.boxo.mfs.flushPath(ctx, root, '/t013');
+      final flushed = await goBoxo.mfs.flushPath(ctx, root, '/t013');
       expect(flushed.cid().value, isNotEmpty);
     });
 
@@ -921,9 +917,9 @@ void main() {
       final root = n.filesRoot;
       final p = await api
           .unixfs()
-          .add(ctx, Go.boxo.files.newBytesFile(utf8.encode('abc')));
-      Go.boxo.mfs.putNode(root, '/t015.txt', await api.resolveNode(ctx, p));
-      final file = Go.boxo.mfs.lookup(root, '/t015.txt').asBoxoMfsFile()!;
+          .add(ctx, goBoxo.files.newBytesFile(utf8.encode('abc')));
+      goBoxo.mfs.putNode(root, '/t015.txt', await api.resolveNode(ctx, p));
+      final file = goBoxo.mfs.lookup(root, '/t015.txt').asBoxoMfsFile()!;
       final fw = await file.open(ctx, BoxoMfsFlags(write: true));
       fw.seek(0, 2);
       fw.write(utf8.encode('def'));
@@ -944,9 +940,9 @@ void main() {
 
       final id = (await api.key().self(ctx)).id!;
       final s = '/ip4/127.0.0.1/tcp/4001/p2p/${id.value}';
-      final infos = Go.kubo.config.parseBootstrapPeers([s]);
+      final infos = goKubo.config.parseBootstrapPeers([s]);
       expect(infos.single.id, id);
-      expect(Go.kubo.config.bootstrapPeerStrings(infos), [s]);
+      expect(goKubo.config.bootstrapPeerStrings(infos), [s]);
       expect(File(r.backupConfig('teste-')).existsSync(), isTrue);
     });
   });
@@ -959,46 +955,46 @@ void main() {
           .writeAsStringSync('B' * 300000); // vários blocos
       final root = await api.unixfs().add(
           ctx,
-          Go.boxo.files.newSerialFile(dir.path, false, Go.os.stat(dir.path)),
-          [Go.kubo.core.coreiface.options.unixfs.pin(true, '')]);
+          goBoxo.files.newSerialFile(dir.path, false, goOs.stat(dir.path)),
+          [goKubo.core.coreiface.options.unixfs.pin(true, '')]);
 
-      final bytes = await Go.kubo.core.commands.dag.dagExport(n, ctx, root);
+      final bytes = await goKubo.core.commands.dag.dagExport(n, ctx, root);
       expect(bytes.length, greaterThan(300000));
-      final partial = await Go.kubo.core.commands.dag
+      final partial = await goKubo.core.commands.dag
           .dagExport(n, ctx, root, localOnly: true);
       expect(partial, bytes, reason: 'tudo local: o CAR parcial é o completo');
 
       // some do repo
       await api.pin().rm(ctx, root);
-      await Go.kubo.core.corerepo.garbageCollect(n, ctx);
+      await goKubo.core.corerepo.garbageCollect(n, ctx);
       await expectLater(
           api.block().stat(ctx, root), throwsA(isA<GolangException>()));
 
-      final r = await Go.kubo.core.commands.dag.dagImport(n, ctx, bytes);
+      final r = await goKubo.core.commands.dag.dagImport(n, ctx, bytes);
       expect([for (final m in r.roots) (m.cid.value, m.pinErrorMsg)],
           [(root.value.substring('/ipfs/'.length), '')]);
       expect(r.blockCount, greaterThan(2));
       expect(r.blockBytesCount, greaterThan(300000));
       expect((await api.pin().isPinned(ctx, root)).$2, isTrue);
       final out = '${tmp.path}/car-out';
-      Go.boxo.files.writeTo(await api.unixfs().get(ctx, root), out);
+      goBoxo.files.writeTo(await api.unixfs().get(ctx, root), out);
       expect(File('$out/b.txt').lengthSync(), 300000);
     });
 
     test('dagExportFile e dagImportFiles (sem pin)', () async {
-      final c = await Go.kubo.core.commands.dag
+      final c = await goKubo.core.commands.dag
           .dagPut(api, ctx, utf8.encode('{"car": true}'), pin: true);
       final file = '${tmp.path}/obj.car';
-      await Go.kubo.core.commands.dag
+      await goKubo.core.commands.dag
           .dagExportFile(n, ctx, BoxoPath('/ipfs/$c'), file);
       expect(File(file).lengthSync(), greaterThan(0));
 
-      final r = await Go.kubo.core.commands.dag
+      final r = await goKubo.core.commands.dag
           .dagImportFiles(n, ctx, [file], pinRoots: false);
       expect(r.roots, isEmpty); // sem --pin-roots, nada é pinado nem listado
       expect(r.blockCount, 1);
       await expectLater(
-          Go.kubo.core.commands.dag
+          goKubo.core.commands.dag
               .dagImportFiles(n, ctx, ['${tmp.path}/nao-existe.car']),
           throwsA(isA<GolangException>()));
     });
@@ -1028,7 +1024,7 @@ void main() {
     // sem restart() o serviço fica fora: as chamadas falham
     expect(P2pService.isRunning, isFalse);
     expect(
-        () => Go.context.background(),
+        () => goContext.background(),
         throwsA(isA<P2pServiceException>()
             .having((e) => e.reason, 'reason', P2pStopReason.crash)));
 
@@ -1038,7 +1034,7 @@ void main() {
     expect(P2pService.hostPid, isNot(oldPid));
 
     // o serviço novo funciona; os handles do anterior não valem nele
-    expect(Go.context.background().err(), isNull);
+    expect(goContext.background().err(), isNull);
     expect(() => ctx.err(), throwsA(isA<P2pServiceException>()));
     expect(() => api.unixfs(), throwsA(isA<P2pServiceException>()));
     // processo novo: os plugins do kubo são injetados de novo
@@ -1046,18 +1042,18 @@ void main() {
       ..initialize()
       ..inject();
     final repo = '${tmp.path}/depois-do-crash';
-    final cfg = Go.kubo.config.initWithIdentity(Go.kubo.config.createIdentity(
-        null, [Go.kubo.core.coreiface.options.key.type('ed25519')]));
-    Go.kubo.config.profiles['test']!.transform(cfg);
-    Go.kubo.repo.fsrepo.init(repo, cfg);
-    final n2 = await Go.kubo.core.newNode(Go.context.background(),
-        KuboCoreNodeBuildCfg(repo: Go.kubo.repo.fsrepo.open(repo)));
-    final api2 = Go.kubo.core.coreapi.newCoreApi(n2);
-    final p = await api2.unixfs().add(Go.context.background(),
-        Go.boxo.files.newBytesFile(utf8.encode('de volta')));
+    final cfg = goKubo.config.initWithIdentity(goKubo.config.createIdentity(
+        null, [goKubo.core.coreiface.options.key.type('ed25519')]));
+    goKubo.config.profiles['test']!.transform(cfg);
+    goKubo.repo.fsrepo.init(repo, cfg);
+    final n2 = await goKubo.core.newNode(goContext.background(),
+        KuboCoreNodeBuildCfg(repo: goKubo.repo.fsrepo.open(repo)));
+    final api2 = goKubo.core.coreapi.newCoreApi(n2);
+    final p = await api2.unixfs().add(goContext.background(),
+        goBoxo.files.newBytesFile(utf8.encode('de volta')));
     expect(
-        utf8.decode(Go.io.readAll(Go.boxo.files
-            .toFile(await api2.unixfs().get(Go.context.background(), p)))),
+        utf8.decode(goIo.readAll(goBoxo.files
+            .toFile(await api2.unixfs().get(goContext.background(), p)))),
         'de volta');
     await n2.close();
   }, timeout: const Timeout(Duration(minutes: 2)));
@@ -1081,7 +1077,7 @@ void main() {
     expect(s.report, isEmpty);
     expect(P2pService.isRunning, isFalse);
     expect(
-        () => Go.context.background(),
+        () => goContext.background(),
         throwsA(isA<P2pServiceException>()
             .having((e) => e.reason, 'reason', P2pStopReason.background)));
     await P2pService.appInBackground(); // já parado: nada
@@ -1094,7 +1090,7 @@ void main() {
       await P2pService.appInBackground();
       expect(P2pService.isRunning, isTrue);
       expect(P2pService.hostPid, pid);
-      expect(Go.context.background().err(), isNull);
+      expect(goContext.background().err(), isNull);
     } finally {
       P2pService.background = P2pBackground.stop;
     }

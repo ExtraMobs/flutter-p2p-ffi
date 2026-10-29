@@ -30,15 +30,15 @@ import 'lesson.dart';
 Future<void> main() async {
   await P2pService.start();
   final tmp = Directory.systemTemp.createTempSync('lesson11_');
-  final ctx = Go.context.background();
+  final ctx = goContext.background();
   final n = await newNode(ctx, '${tmp.path}/repo');
   try {
-    final api = Go.kubo.core.coreapi.newCoreApi(n);
+    final api = goKubo.core.coreapi.newCoreApi(n);
 
     // 1. The node's own key, "self": its IPNS name is its peer ID.
     //    Go:  k, _ := api.Key().Self(ctx)
     final self = await api.key().self(ctx);
-    final selfName = Go.boxo.ipns.nameFromPeer(self.id!);
+    final selfName = goBoxo.ipns.nameFromPeer(self.id!);
     say('key "${self.name}": peer ${self.id}');
     say('  its IPNS name: ${selfName.asPath()}');
 
@@ -49,12 +49,12 @@ Future<void> main() async {
     for (final version in ['v1', 'v2']) {
       final p = await api.unixfs().add(
           ctx,
-          Go.boxo.files.newBytesFile(utf8.encode('my site, $version\n')),
-          [Go.kubo.core.coreiface.options.unixfs.pin(true, 'site-$version')]);
+          goBoxo.files.newBytesFile(utf8.encode('my site, $version\n')),
+          [goKubo.core.coreiface.options.unixfs.pin(true, 'site-$version')]);
       final name = await api.name().publish(
-          ctx, p, [Go.kubo.core.coreiface.options.name.allowOffline(true)]);
+          ctx, p, [goKubo.core.coreiface.options.name.allowOffline(true)]);
       final target = await api.name().resolve(ctx, '/ipns/$name',
-          [Go.kubo.core.coreiface.options.name.cache(false)]);
+          [goKubo.core.coreiface.options.name.cache(false)]);
       say('\npublished $version: /ipns/$name → $target');
     }
 
@@ -62,13 +62,13 @@ Future<void> main() async {
     //    Go:  k, _ := api.Key().Generate(ctx, "blog", options.Key.Type("ed25519"))
     //         api.Name().Publish(ctx, p, options.Name.Key("blog"), ...)
     final blog = await api.key().generate(
-        ctx, 'blog', [Go.kubo.core.coreiface.options.key.type('ed25519')]);
+        ctx, 'blog', [goKubo.core.coreiface.options.key.type('ed25519')]);
     final post = await api
         .unixfs()
-        .add(ctx, Go.boxo.files.newBytesFile(utf8.encode('first post\n')));
+        .add(ctx, goBoxo.files.newBytesFile(utf8.encode('first post\n')));
     final blogName = await api.name().publish(ctx, post, [
-      Go.kubo.core.coreiface.options.name.key('blog'),
-      Go.kubo.core.coreiface.options.name.allowOffline(true)
+      goKubo.core.coreiface.options.name.key('blog'),
+      goKubo.core.coreiface.options.name.allowOffline(true)
     ]);
     say('\nkey "blog" (${blog.id}): /ipns/$blogName → $post');
     say('  keys in the keystore: '
@@ -98,16 +98,16 @@ Future<void> main() async {
         why: 'by default publish wants to reach the network, so the record '
             'can be found; this node is offline',
         instead:
-            'Go.kubo.core.coreiface.options.name.allowOffline(true) for a local record, or an '
+            'goKubo.core.coreiface.options.name.allowOffline(true) for a local record, or an '
             'online node (lesson 17)',
         action: () async => api.name().publish(
-            ctx, post, [Go.kubo.core.coreiface.options.name.key('self')]));
+            ctx, post, [goKubo.core.coreiface.options.name.key('self')]));
     await mistake('publishing with a key that does not exist',
         why: 'there is no private key to sign the record with',
         instead: 'api.key().generate first; api.key().list shows what exists',
         action: () => api.name().publish(ctx, post, [
-              Go.kubo.core.coreiface.options.name.key('no-such-key'),
-              Go.kubo.core.coreiface.options.name.allowOffline(true)
+              goKubo.core.coreiface.options.name.key('no-such-key'),
+              goKubo.core.coreiface.options.name.allowOffline(true)
             ]));
     await mistake('generating a key named "self"',
         why: '"self" is the node\'s own identity key, always present',

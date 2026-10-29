@@ -22,7 +22,7 @@ class Libp2pP2pTransportWebtransportErrCertHashMismatch
   String toString() => 'libp2pwebtransport.ErrCertHashMismatch: $message';
 }
 
-/// Go: the package-level members of `github.com/libp2p/go-libp2p/p2p/transport/webtransport` (`Go.libp2p.p2p.transport.webtransport`).
+/// Go: the package-level members of `github.com/libp2p/go-libp2p/p2p/transport/webtransport` (`goLibp2p.p2p.transport.webtransport`).
 extension GoLibp2pP2pTransportWebtransportApi
     on GoLibp2pP2pTransportWebtransport {
   /// Go: the function `libp2pwebtransport.New` as a value (a token: Go gets the function

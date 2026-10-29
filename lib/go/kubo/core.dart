@@ -223,7 +223,7 @@ class KuboCoreIpfsNode extends $crypto.CryptoPrivateKey
   }
 }
 
-/// Go: the package-level members of `github.com/ipfs/kubo/core` (`Go.kubo.core`).
+/// Go: the package-level members of `github.com/ipfs/kubo/core` (`goKubo.core`).
 extension GoKuboCoreApi on GoKuboCore {
   /// Go: `func core.NewNode(ctx context.Context, cfg *core.BuildCfg) (*core.IpfsNode, error)`.
   ///
