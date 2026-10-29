@@ -37,8 +37,23 @@ Pending:
   them. Already seen: `SetStreamHandler` of `network.Network`/`swarm.Swarm`, `mfs.NewRoot`
   (`PubFunc`) and bitswap's `WithPeerBlockRequestFilter`/`WithTaskComparator` keep it;
   `merkledag.Walk`/`WalkDepth` call it from several goroutines with `Concurrency`.
-- **The universe** (the owner's item 1): measure the whole graph (751 packages outside the
-  stdlib, 124 in it) before choosing what goes to ignore_roots.txt.
+- **The universe** (the owner's item 1): the whole graph (751 packages outside the
+  stdlib, 124 in it) does not generate yet; the measurement (a scratch worktree) stopped
+  at the Go emitter. Each run takes ~17 min (the Dart side alone ~13 min) and showed:
+  - a package path with a dot in its last element (`otel/semconv/v1.26.0`): `splitRoot`
+    cuts there;
+  - 9 Dart library paths shared by two modules (`errors`: the stdlib, cockroachdb and
+    pkg/errors; `crypto/sha3`: the stdlib and x/crypto; `protobuf/proto` three times;
+    `clock`, `bbloom`, `blake3`, `libdht/kad`...): needs a naming rule;
+  - 11 names that clash in the single import: a type against a type
+    (`gob.Decoder`/`gob.GobDecoder` both `EncodingGobDecoder`, `grpc.BackoffConfig`/
+    `grpc/backoff.Config`, `pebble/v2.WalCreateInfo`), a member against a sub-namespace
+    (`crypto.MD5` and the package `crypto/md5`, `errors.Join`, `grpc.Peer`), `GoScanner`
+    (`go/scanner`) against a namespace class: needs a naming rule;
+  - kubo's command sub-packages (`dagcmd`...) repeat the commands' DTOs; the `context`
+    package clashes with the hand-written `lib/go/context.dart`;
+  - fixed in the generator: a method's class is in its receiver's home library;
+  - open: an option inside a DTO has no Go decoder (`circuitv2/relay.Option`).
 - Not done, awaiting the owner: the retained callback as the default (item 3) and
   `GolangPanicException` (item 4).
 - Android and linux not rebuilt for this version.
