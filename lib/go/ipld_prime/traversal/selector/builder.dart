@@ -19,7 +19,7 @@ mixin IpldPrimeTraversalSelectorBuilderExploreFieldsSpecBuilder$ on GoHandle {
   /// Go: `func (builder.ExploreFieldsSpecBuilder).Insert(k string, v builder.SelectorSpec)`.
   void insert(String k, IpldPrimeTraversalSelectorBuilderSelectorSpec v) {
     $callSync(
-        2154,
+        2179,
         $W()
           ..h(this)
           ..str(k)
@@ -37,13 +37,13 @@ class IpldPrimeTraversalSelectorBuilderSelectorSpec extends GoHandle
 mixin IpldPrimeTraversalSelectorBuilderSelectorSpec$ on GoHandle {
   /// Go: `func (builder.SelectorSpec).Node() datamodel.Node`.
   $datamodel.IpldPrimeDatamodelNode node() {
-    final $r = $callSync(2156, $W()..h(this));
+    final $r = $callSync(2181, $W()..h(this));
     return $r.hnn($datamodel.IpldPrimeDatamodelNode.$h);
   }
 
   /// Go: `func (builder.SelectorSpec).Selector() (selector.Selector, error)`.
   $selector.IpldPrimeTraversalSelector selector() {
-    final $r = $callSync(2157, $W()..h(this));
+    final $r = $callSync(2182, $W()..h(this));
     return $r.hnn($selector.IpldPrimeTraversalSelector.$h);
   }
 }
@@ -56,7 +56,7 @@ class IpldPrimeTraversalSelectorBuilderSelectorSpecBuilder extends GoHandle
   /// Go: `func builder.NewSelectorSpecBuilder(np datamodel.NodePrototype) builder.SelectorSpecBuilder`.
   factory IpldPrimeTraversalSelectorBuilderSelectorSpecBuilder(
       $datamodel.IpldPrimeDatamodelNodePrototype np) {
-    final $r = $callSync(2155, $W()..h(np));
+    final $r = $callSync(2180, $W()..h(np));
     return $r.hnn(IpldPrimeTraversalSelectorBuilderSelectorSpecBuilder.$h);
   }
 }
@@ -67,7 +67,7 @@ mixin IpldPrimeTraversalSelectorBuilderSelectorSpecBuilder$ on GoHandle {
   IpldPrimeTraversalSelectorBuilderSelectorSpec exploreAll(
       IpldPrimeTraversalSelectorBuilderSelectorSpec next) {
     final $r = $callSync(
-        2158,
+        2183,
         $W()
           ..h(this)
           ..h(next));
@@ -87,7 +87,7 @@ mixin IpldPrimeTraversalSelectorBuilderSelectorSpecBuilder$ on GoHandle {
           callback,
       {int? batchSize}) async {
     final $r = await $callCb(
-        2159,
+        2184,
         $W()
           ..h(this)
           ..u32(batchSize ?? 1),
@@ -100,7 +100,7 @@ mixin IpldPrimeTraversalSelectorBuilderSelectorSpecBuilder$ on GoHandle {
   IpldPrimeTraversalSelectorBuilderSelectorSpec exploreIndex(
       int index, IpldPrimeTraversalSelectorBuilderSelectorSpec next) {
     final $r = $callSync(
-        2160,
+        2185,
         $W()
           ..h(this)
           ..i64(index)
@@ -112,7 +112,7 @@ mixin IpldPrimeTraversalSelectorBuilderSelectorSpecBuilder$ on GoHandle {
   IpldPrimeTraversalSelectorBuilderSelectorSpec exploreInterpretAs(
       String as, IpldPrimeTraversalSelectorBuilderSelectorSpec next) {
     final $r = $callSync(
-        2161,
+        2186,
         $W()
           ..h(this)
           ..str(as)
@@ -124,7 +124,7 @@ mixin IpldPrimeTraversalSelectorBuilderSelectorSpecBuilder$ on GoHandle {
   IpldPrimeTraversalSelectorBuilderSelectorSpec exploreRange(
       int start, int end, IpldPrimeTraversalSelectorBuilderSelectorSpec next) {
     final $r = $callSync(
-        2162,
+        2187,
         $W()
           ..h(this)
           ..i64(start)
@@ -138,7 +138,7 @@ mixin IpldPrimeTraversalSelectorBuilderSelectorSpecBuilder$ on GoHandle {
       $selector.IpldPrimeTraversalSelectorRecursionLimit limit,
       IpldPrimeTraversalSelectorBuilderSelectorSpec sequence) {
     final $r = $callSync(
-        2163,
+        2188,
         $W()
           ..h(this)
           ..h(limit)
@@ -148,7 +148,7 @@ mixin IpldPrimeTraversalSelectorBuilderSelectorSpecBuilder$ on GoHandle {
 
   /// Go: `func (builder.SelectorSpecBuilder).ExploreRecursiveEdge() builder.SelectorSpec`.
   IpldPrimeTraversalSelectorBuilderSelectorSpec exploreRecursiveEdge() {
-    final $r = $callSync(2164, $W()..h(this));
+    final $r = $callSync(2189, $W()..h(this));
     return $r.hnn(IpldPrimeTraversalSelectorBuilderSelectorSpec.$h);
   }
 
@@ -157,7 +157,7 @@ mixin IpldPrimeTraversalSelectorBuilderSelectorSpecBuilder$ on GoHandle {
       [List<IpldPrimeTraversalSelectorBuilderSelectorSpec> selectorSpecs =
           const []]) {
     final $r = $callSync(
-        2165,
+        2190,
         $W()
           ..h(this)
           ..list(selectorSpecs, (w0, e0) => w0.h(e0)));
@@ -166,7 +166,7 @@ mixin IpldPrimeTraversalSelectorBuilderSelectorSpecBuilder$ on GoHandle {
 
   /// Go: `func (builder.SelectorSpecBuilder).Matcher() builder.SelectorSpec`.
   IpldPrimeTraversalSelectorBuilderSelectorSpec matcher() {
-    final $r = $callSync(2166, $W()..h(this));
+    final $r = $callSync(2191, $W()..h(this));
     return $r.hnn(IpldPrimeTraversalSelectorBuilderSelectorSpec.$h);
   }
 
@@ -174,7 +174,7 @@ mixin IpldPrimeTraversalSelectorBuilderSelectorSpecBuilder$ on GoHandle {
   IpldPrimeTraversalSelectorBuilderSelectorSpec matcherSubset(
       int from, int to) {
     final $r = $callSync(
-        2167,
+        2192,
         $W()
           ..h(this)
           ..i64(from)

@@ -23,7 +23,7 @@ class Libp2pP2pDiscoveryMdnsNotifee extends GoHandle
       {FutureOr<void> Function($peer.Libp2pCorePeerAddrInfo addrInfo)?
           handlePeerFound}) {
     final $r = $callSync(
-        3183,
+        3222,
         $W()
           ..cb(
               handlePeerFound == null
@@ -40,7 +40,7 @@ mixin Libp2pP2pDiscoveryMdnsNotifee$ on GoHandle {
   /// Go: `func (mdns.Notifee).HandlePeerFound(peer.AddrInfo)`.
   void handlePeerFound($peer.Libp2pCorePeerAddrInfo addrInfo) {
     $callSync(
-        3184,
+        3223,
         $W()
           ..h(this)
           ..dto(addrInfo));
@@ -57,12 +57,12 @@ class Libp2pP2pDiscoveryMdnsService extends $io.IoCloser
 mixin Libp2pP2pDiscoveryMdnsService$ on GoHandle {
   /// Go: `func (io.Closer).Close() error`.
   void close() {
-    $callSync(3185, $W()..h(this));
+    $callSync(3224, $W()..h(this));
   }
 
   /// Go: `func (mdns.Service).Start() error`.
   void start() {
-    $callSync(3186, $W()..h(this));
+    $callSync(3225, $W()..h(this));
   }
 }
 
@@ -72,7 +72,7 @@ extension GoLibp2pP2pDiscoveryMdnsApi on GoLibp2pP2pDiscoveryMdns {
   Libp2pP2pDiscoveryMdnsService newMdnsService($host.Libp2pCoreHost host,
       String serviceName, Libp2pP2pDiscoveryMdnsNotifee notifee) {
     final $r = $callSync(
-        3182,
+        3221,
         $W()
           ..h(host)
           ..str(serviceName)

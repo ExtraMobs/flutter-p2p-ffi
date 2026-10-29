@@ -166,6 +166,33 @@ void main() {
       expect(touched, 5);
     });
   });
+
+  // A callback of a pkg.* root nobody checked (0.28.0): a retained callback
+  // Go waits on, in an asynchronous call. merkledag.Walk calls it during the
+  // call: every visit runs before the Future completes, with the call's
+  // objects in use.
+  test('retained by default: merkledag.walk visits during the call', () async {
+    final ctx = goContext.background();
+    final bs = BoxoBlockstore(DatastoreMapDatastore());
+    final dag = goBoxo.ipld.merkledag.newDagService(
+        goBoxo.blockservice.new$(bs, goBoxo.exchange.offline.exchange(bs)));
+    final leaf = goBoxo.ipld.merkledag.nodeWithData(Uint8List.fromList([1]));
+    final root = goBoxo.ipld.merkledag.nodeWithData(Uint8List.fromList([2]))
+      ..addNodeLink('a', leaf);
+    await dag.add(ctx, leaf);
+    await dag.add(ctx, root);
+    final getLinks = goBoxo.ipld.merkledag.getLinksDirect(dag);
+    final seen = <Cid>[];
+    var busy = false;
+    await goBoxo.ipld.merkledag.walk(ctx, getLinks, root.cid(), (c) {
+      seen.add(c);
+      busy = getLinks.isBusy;
+      return true;
+    });
+    expect(seen, [root.cid(), leaf.cid()]);
+    expect(busy, isTrue);
+    expect(getLinks.isBusy, isFalse);
+  });
 }
 
 /// Handle sem classe gerada (o objeto com trava das funções de teste).

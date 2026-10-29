@@ -41,7 +41,7 @@ mixin Libp2pCoreTransport$ on GoHandle {
   /// Go: type assertion `x.(*libp2pwebrtc.WebRTCTransport)`: null if the object is not one.
   $webrtc.Libp2pP2pTransportWebrtcWebRtcTransport?
       asLibp2pP2pTransportWebrtcWebRtcTransport() {
-    final $r = $callSync(347, $W()..h(this));
+    final $r = $callSync(348, $W()..h(this));
     return $r.hn($webrtc.Libp2pP2pTransportWebrtcWebRtcTransport.$h);
   }
 }

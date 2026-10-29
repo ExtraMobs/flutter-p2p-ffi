@@ -24,13 +24,13 @@ class BoxoFilesDirEntry extends GoHandle with BoxoFilesDirEntry$ {
 mixin BoxoFilesDirEntry$ on GoHandle {
   /// Go: `func (files.DirEntry).Name() string`.
   String name() {
-    final $r = $callSync(515, $W()..h(this));
+    final $r = $callSync(519, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (files.DirEntry).Node() files.Node`.
   BoxoFilesNode node() {
-    final $r = $callSync(516, $W()..h(this));
+    final $r = $callSync(520, $W()..h(this));
     return $r.hnn(BoxoFilesNode.$h);
   }
 
@@ -51,12 +51,12 @@ class BoxoFilesDirIterator extends BoxoFilesDirEntry
 mixin BoxoFilesDirIterator$ on GoHandle {
   /// Go: `func (files.DirIterator).Err() error`.
   void err() {
-    $callSync(518, $W()..h(this));
+    $callSync(522, $W()..h(this));
   }
 
   /// Go: `func (files.DirIterator).Next() bool`.
   bool next() {
-    final $r = $callSync(519, $W()..h(this));
+    final $r = $callSync(523, $W()..h(this));
     return $r.b();
   }
 }
@@ -70,7 +70,7 @@ class BoxoFilesDirectory extends BoxoFilesNode with BoxoFilesDirectory$ {
 mixin BoxoFilesDirectory$ on GoHandle {
   /// Go: `func (files.Directory).Entries() files.DirIterator`.
   BoxoFilesDirIterator entries() {
-    final $r = $callSync(520, $W()..h(this));
+    final $r = $callSync(524, $W()..h(this));
     return $r.hnn(BoxoFilesDirIterator.$h);
   }
 
@@ -116,13 +116,13 @@ class BoxoFilesFileInfo extends BoxoFilesNode with BoxoFilesFileInfo$ {
 mixin BoxoFilesFileInfo$ on GoHandle {
   /// Go: `func (files.FileInfo).AbsPath() string`.
   String absPath() {
-    final $r = $callSync(523, $W()..h(this));
+    final $r = $callSync(527, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (files.FileInfo).Stat() os.FileInfo`.
   $fs.IoFsFileInfo stat() {
-    final $r = $callSync(524, $W()..h(this));
+    final $r = $callSync(528, $W()..h(this));
     return $r.hnn($fs.IoFsFileInfo.$h);
   }
 
@@ -165,7 +165,7 @@ final class BoxoFilesFilter implements GoDto {
   /// Go: `func (*files.Filter).ShouldExclude(fileInfo os.FileInfo) (result bool)`.
   bool shouldExclude($fs.IoFsFileInfo fileInfo) {
     final $r = $callSync(
-        525,
+        529,
         $W()
           ..dto(this)
           ..h(fileInfo));
@@ -183,7 +183,7 @@ class BoxoFilesMultiFileReader extends $crypto.CryptoPrivateKey
   factory BoxoFilesMultiFileReader(
       BoxoFilesDirectory file, bool form, bool rawAbsPath) {
     final $r = $callSync(
-        536,
+        540,
         $W()
           ..h(file)
           ..b(form)
@@ -193,14 +193,14 @@ class BoxoFilesMultiFileReader extends $crypto.CryptoPrivateKey
 
   /// Go: `func (*files.MultiFileReader).Boundary() string`.
   String boundary() {
-    final $r = $callSync(527, $W()..h(this));
+    final $r = $callSync(531, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*files.MultiFileReader).Read(buf []byte) (written int, err error)`.
   Uint8List read(int n) {
     final $r = $callSync(
-        528,
+        532,
         $W()
           ..h(this)
           ..i64(n));
@@ -217,19 +217,19 @@ class BoxoFilesNode extends $io.IoCloser with BoxoFilesNode$ {
 mixin BoxoFilesNode$ on GoHandle {
   /// Go: `func (files.Node).ModTime() (mtime time.Time)`.
   DateTime modTime() {
-    final $r = $callSync(548, $W()..h(this));
+    final $r = $callSync(552, $W()..h(this));
     return $r.p() ? $r.time() : $nil();
   }
 
   /// Go: `func (files.Node).Mode() os.FileMode`.
   int mode() {
-    final $r = $callSync(549, $W()..h(this));
+    final $r = $callSync(553, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (files.Node).Size() (int64, error)`.
   int size() {
-    final $r = $callSync(550, $W()..h(this));
+    final $r = $callSync(554, $W()..h(this));
     return $r.i64();
   }
 
@@ -290,31 +290,31 @@ class BoxoFilesReaderFile extends BoxoFilesFileInfo
 
   /// Go: `func (*files.ReaderFile).AbsPath() string`.
   String absPath() {
-    final $r = $callSync(551, $W()..h(this));
+    final $r = $callSync(555, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*files.ReaderFile).Close() error`.
   void close() {
-    $callSync(552, $W()..h(this));
+    $callSync(556, $W()..h(this));
   }
 
   /// Go: `func (*files.ReaderFile).ModTime() time.Time`.
   DateTime modTime() {
-    final $r = $callSync(553, $W()..h(this));
+    final $r = $callSync(557, $W()..h(this));
     return $r.p() ? $r.time() : $nil();
   }
 
   /// Go: `func (*files.ReaderFile).Mode() os.FileMode`.
   int mode() {
-    final $r = $callSync(554, $W()..h(this));
+    final $r = $callSync(558, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*files.ReaderFile).Read(p []byte) (int, error)`.
   Uint8List read(int n) {
     final $r = $callSync(
-        555,
+        559,
         $W()
           ..h(this)
           ..i64(n));
@@ -324,7 +324,7 @@ class BoxoFilesReaderFile extends BoxoFilesFileInfo
   /// Go: `func (*files.ReaderFile).Seek(offset int64, whence int) (int64, error)`.
   int seek(int offset, int whence) {
     final $r = $callSync(
-        556,
+        560,
         $W()
           ..h(this)
           ..i64(offset)
@@ -334,13 +334,13 @@ class BoxoFilesReaderFile extends BoxoFilesFileInfo
 
   /// Go: `func (*files.ReaderFile).Size() (int64, error)`.
   int size() {
-    final $r = $callSync(557, $W()..h(this));
+    final $r = $callSync(561, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*files.ReaderFile).Stat() os.FileInfo`.
   $fs.IoFsFileInfo stat() {
-    final $r = $callSync(558, $W()..h(this));
+    final $r = $callSync(562, $W()..h(this));
     return $r.hnn($fs.IoFsFileInfo.$h);
   }
 }
@@ -384,36 +384,36 @@ class BoxoFilesSliceFile extends BoxoFilesDirectory
 
   /// Go: `func (*files.SliceFile).Close() error`.
   void close() {
-    $callSync(559, $W()..h(this));
+    $callSync(563, $W()..h(this));
   }
 
   /// Go: `func (*files.SliceFile).Entries() files.DirIterator`.
   BoxoFilesDirIterator entries() {
-    final $r = $callSync(560, $W()..h(this));
+    final $r = $callSync(564, $W()..h(this));
     return $r.hnn(BoxoFilesDirIterator.$h);
   }
 
   /// Go: `func (*files.SliceFile).Length() int`.
   int length() {
-    final $r = $callSync(561, $W()..h(this));
+    final $r = $callSync(565, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*files.SliceFile).ModTime() time.Time`.
   DateTime modTime() {
-    final $r = $callSync(562, $W()..h(this));
+    final $r = $callSync(566, $W()..h(this));
     return $r.p() ? $r.time() : $nil();
   }
 
   /// Go: `func (*files.SliceFile).Mode() os.FileMode`.
   int mode() {
-    final $r = $callSync(563, $W()..h(this));
+    final $r = $callSync(567, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*files.SliceFile).Size() (int64, error)`.
   int size() {
-    final $r = $callSync(564, $W()..h(this));
+    final $r = $callSync(568, $W()..h(this));
     return $r.i64();
   }
 }
@@ -432,25 +432,25 @@ class BoxoFilesSymlink extends BoxoFilesNode
 
   /// Go: `func (*files.Symlink).Close() error`.
   void close() {
-    $callSync(565, $W()..h(this));
+    $callSync(569, $W()..h(this));
   }
 
   /// Go: `func (*files.Symlink).ModTime() time.Time`.
   DateTime modTime() {
-    final $r = $callSync(566, $W()..h(this));
+    final $r = $callSync(570, $W()..h(this));
     return $r.p() ? $r.time() : $nil();
   }
 
   /// Go: `func (*files.Symlink).Mode() os.FileMode`.
   int mode() {
-    final $r = $callSync(567, $W()..h(this));
+    final $r = $callSync(571, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*files.Symlink).Read(b []byte) (int, error)`.
   Uint8List read(int n) {
     final $r = $callSync(
-        568,
+        572,
         $W()
           ..h(this)
           ..i64(n));
@@ -460,7 +460,7 @@ class BoxoFilesSymlink extends BoxoFilesNode
   /// Go: `func (*files.Symlink).Seek(offset int64, whence int) (int64, error)`.
   int seek(int offset, int whence) {
     final $r = $callSync(
-        569,
+        573,
         $W()
           ..h(this)
           ..i64(offset)
@@ -470,7 +470,7 @@ class BoxoFilesSymlink extends BoxoFilesNode
 
   /// Go: `func (*files.Symlink).Size() (int64, error)`.
   int size() {
-    final $r = $callSync(570, $W()..h(this));
+    final $r = $callSync(574, $W()..h(this));
     return $r.i64();
   }
 }
@@ -483,19 +483,19 @@ class BoxoFilesTarWriter extends $crypto.CryptoPrivateKey
 
   /// Go: `func files.NewTarWriter(w io.Writer) (*files.TarWriter, error)`.
   factory BoxoFilesTarWriter(GoHandle? w) {
-    final $r = $callSync(546, $W()..h(w));
+    final $r = $callSync(550, $W()..h(w));
     return $r.hnn(BoxoFilesTarWriter.$h);
   }
 
   /// Go: `func (*files.TarWriter).Close() error`.
   void close() {
-    $callSync(571, $W()..h(this));
+    $callSync(575, $W()..h(this));
   }
 
   /// Go: `func (*files.TarWriter).SetFormat(format tar.Format)`.
   void setFormat(int format) {
     $callSync(
-        572,
+        576,
         $W()
           ..h(this)
           ..i64(format));
@@ -504,7 +504,7 @@ class BoxoFilesTarWriter extends $crypto.CryptoPrivateKey
   /// Go: `func (*files.TarWriter).WriteFile(nd files.Node, fpath string) error`.
   void writeFile(BoxoFilesNode nd, String fpath) {
     $callSync(
-        573,
+        577,
         $W()
           ..h(this)
           ..h(nd)
@@ -526,37 +526,37 @@ class BoxoFilesWebFile extends BoxoFilesFileInfo
 
   /// Go: `func files.NewWebFile(url *url.URL) *files.WebFile`.
   factory BoxoFilesWebFile($url.NetUrl url) {
-    final $r = $callSync(547, $W()..dto(url));
+    final $r = $callSync(551, $W()..dto(url));
     return $r.hnn(BoxoFilesWebFile.$h);
   }
 
   /// Go: `func (*files.WebFile).AbsPath() string`.
   String absPath() {
-    final $r = $callSync(585, $W()..h(this));
+    final $r = $callSync(589, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*files.WebFile).Close() error`.
   void close() {
-    $callSync(586, $W()..h(this));
+    $callSync(590, $W()..h(this));
   }
 
   /// Go: `func (*files.WebFile).ModTime() time.Time`.
   DateTime modTime() {
-    final $r = $callSync(587, $W()..h(this));
+    final $r = $callSync(591, $W()..h(this));
     return $r.p() ? $r.time() : $nil();
   }
 
   /// Go: `func (*files.WebFile).Mode() os.FileMode`.
   int mode() {
-    final $r = $callSync(588, $W()..h(this));
+    final $r = $callSync(592, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*files.WebFile).Read(b []byte) (int, error)`.
   Uint8List read(int n) {
     final $r = $callSync(
-        589,
+        593,
         $W()
           ..h(this)
           ..i64(n));
@@ -565,13 +565,13 @@ class BoxoFilesWebFile extends BoxoFilesFileInfo
 
   /// Go: `func (*files.WebFile).Size() (int64, error)`.
   int size() {
-    final $r = $callSync(590, $W()..h(this));
+    final $r = $callSync(594, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*files.WebFile).Stat() os.FileInfo`.
   $fs.IoFsFileInfo stat() {
-    final $r = $callSync(591, $W()..h(this));
+    final $r = $callSync(595, $W()..h(this));
     return $r.hnn($fs.IoFsFileInfo.$h);
   }
 }
@@ -634,14 +634,14 @@ class BoxoFilesErrUnixFsPathOutsideRoot extends GolangException {
 extension GoBoxoFilesApi on GoBoxoFiles {
   /// Go: `func files.DirFromEntry(e files.DirEntry) files.Directory`.
   BoxoFilesDirectory dirFromEntry(BoxoFilesDirEntry e) {
-    final $r = $callSync(517, $W()..h(e));
+    final $r = $callSync(521, $W()..h(e));
     return $r.hnn(BoxoFilesDirectory.$h);
   }
 
   /// Go: `func files.FileEntry(name string, file files.Node) files.DirEntry`.
   BoxoFilesDirEntry fileEntry(String name, BoxoFilesNode file) {
     final $r = $callSync(
-        521,
+        525,
         $W()
           ..str(name)
           ..h(file));
@@ -650,26 +650,26 @@ extension GoBoxoFilesApi on GoBoxoFiles {
 
   /// Go: `func files.FileFromEntry(e files.DirEntry) files.File`.
   BoxoFilesFile fileFromEntry(BoxoFilesDirEntry e) {
-    final $r = $callSync(522, $W()..h(e));
+    final $r = $callSync(526, $W()..h(e));
     return $r.hnn(BoxoFilesFile.$h);
   }
 
   /// Go: `func files.ModePermsToUnixPerms(fileMode os.FileMode) uint32`.
   int modePermsToUnixPerms(int fileMode) {
-    final $r = $callSync(526, $W()..i64(fileMode));
+    final $r = $callSync(530, $W()..i64(fileMode));
     return $r.i64();
   }
 
   /// Go: `func files.NewBytesFile(b []byte) files.File`.
   BoxoFilesFile newBytesFile(Uint8List b) {
-    final $r = $callSync(529, $W()..bytes(b));
+    final $r = $callSync(533, $W()..bytes(b));
     return $r.hnn(BoxoFilesFile.$h);
   }
 
   /// Go: `func files.NewBytesStatFile(b []byte, stat os.FileInfo) files.File`.
   BoxoFilesFile newBytesStatFile(Uint8List b, $fs.IoFsFileInfo stat) {
     final $r = $callSync(
-        530,
+        534,
         $W()
           ..bytes(b)
           ..h(stat));
@@ -680,7 +680,7 @@ extension GoBoxoFilesApi on GoBoxoFiles {
   BoxoFilesDirectory newFileFromPartReader(
       $multipart.MimeMultipartReader reader, String mediatype) {
     final $r = $callSync(
-        531,
+        535,
         $W()
           ..h(reader)
           ..str(mediatype));
@@ -691,7 +691,7 @@ extension GoBoxoFilesApi on GoBoxoFiles {
   BoxoFilesFilter newFilter(
       String ignoreFile, List<String> rules, bool includeHidden) {
     final $r = $callSync(
-        532,
+        536,
         $W()
           ..str(ignoreFile)
           ..list(rules, (w0, e0) => w0.str(e0))
@@ -702,7 +702,7 @@ extension GoBoxoFilesApi on GoBoxoFiles {
   /// Go: `func files.NewLinkFile(target string, stat os.FileInfo) files.File`.
   BoxoFilesFile newLinkFile(String target, $fs.IoFsFileInfo stat) {
     final $r = $callSync(
-        533,
+        537,
         $W()
           ..str(target)
           ..h(stat));
@@ -712,7 +712,7 @@ extension GoBoxoFilesApi on GoBoxoFiles {
   /// Go: `func files.NewMapDirectory(f map[string]files.Node) files.Directory`.
   BoxoFilesDirectory newMapDirectory(Map<String, BoxoFilesNode> f) {
     final $r = $callSync(
-        534, $W()..map(f, (w0, k0) => w0.str(k0), (w0, v0) => w0.h(v0)));
+        538, $W()..map(f, (w0, k0) => w0.str(k0), (w0, v0) => w0.h(v0)));
     return $r.hnn(BoxoFilesDirectory.$h);
   }
 
@@ -720,7 +720,7 @@ extension GoBoxoFilesApi on GoBoxoFiles {
   BoxoFilesDirectory newMapStatDirectory(
       Map<String, BoxoFilesNode> f, $fs.IoFsFileInfo stat) {
     final $r = $callSync(
-        535,
+        539,
         $W()
           ..map(f, (w0, k0) => w0.str(k0), (w0, v0) => w0.h(v0))
           ..h(stat));
@@ -729,7 +729,7 @@ extension GoBoxoFilesApi on GoBoxoFiles {
 
   /// Go: `func files.NewReaderFile(reader io.Reader) files.File`.
   BoxoFilesFile newReaderFile(Object reader) {
-    final $r = $callSync(537, $W()..reader(reader));
+    final $r = $callSync(541, $W()..reader(reader));
     return $r.hnn(BoxoFilesFile.$h);
   }
 
@@ -737,7 +737,7 @@ extension GoBoxoFilesApi on GoBoxoFiles {
   BoxoFilesReaderFile newReaderPathFile(
       String path, Object reader, $fs.IoFsFileInfo stat) {
     final $r = $callSync(
-        538,
+        542,
         $W()
           ..str(path)
           ..reader(reader)
@@ -748,7 +748,7 @@ extension GoBoxoFilesApi on GoBoxoFiles {
   /// Go: `func files.NewReaderStatFile(reader io.Reader, stat os.FileInfo) files.File`.
   BoxoFilesFile newReaderStatFile(Object reader, $fs.IoFsFileInfo stat) {
     final $r = $callSync(
-        539,
+        543,
         $W()
           ..reader(reader)
           ..h(stat));
@@ -759,7 +759,7 @@ extension GoBoxoFilesApi on GoBoxoFiles {
   BoxoFilesNode newSerialFile(
       String path, bool includeHidden, $fs.IoFsFileInfo stat) {
     final $r = $callSync(
-        540,
+        544,
         $W()
           ..str(path)
           ..b(includeHidden)
@@ -771,7 +771,7 @@ extension GoBoxoFilesApi on GoBoxoFiles {
   BoxoFilesNode newSerialFileWithFilter(
       String path, BoxoFilesFilter filter, $fs.IoFsFileInfo stat) {
     final $r = $callSync(
-        541,
+        545,
         $W()
           ..str(path)
           ..dto(filter)
@@ -783,7 +783,7 @@ extension GoBoxoFilesApi on GoBoxoFiles {
   BoxoFilesNode newSerialFileWithOptions(
       String path, $fs.IoFsFileInfo stat, BoxoFilesSerialFileOptions opts) {
     final $r = $callSync(
-        542,
+        546,
         $W()
           ..str(path)
           ..h(stat)
@@ -793,7 +793,7 @@ extension GoBoxoFilesApi on GoBoxoFiles {
 
   /// Go: `func files.NewSliceDirectory(files []files.DirEntry) files.Directory`.
   BoxoFilesDirectory newSliceDirectory(List<BoxoFilesDirEntry> files) {
-    final $r = $callSync(543, $W()..list(files, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(547, $W()..list(files, (w0, e0) => w0.h(e0)));
     return $r.hnn(BoxoFilesDirectory.$h);
   }
 
@@ -801,7 +801,7 @@ extension GoBoxoFilesApi on GoBoxoFiles {
   BoxoFilesDirectory newSliceStatDirectory(
       List<BoxoFilesDirEntry> files, $fs.IoFsFileInfo stat) {
     final $r = $callSync(
-        544,
+        548,
         $W()
           ..list(files, (w0, e0) => w0.h(e0))
           ..h(stat));
@@ -811,7 +811,7 @@ extension GoBoxoFilesApi on GoBoxoFiles {
   /// Go: `func files.NewSymlinkFile(target string, mtime time.Time) files.File`.
   BoxoFilesFile newSymlinkFile(String target, DateTime mtime) {
     final $r = $callSync(
-        545,
+        549,
         $W()
           ..str(target)
           ..time(mtime));
@@ -820,38 +820,38 @@ extension GoBoxoFilesApi on GoBoxoFiles {
 
   /// Go: `func files.ToDir(n files.Node) files.Directory`.
   BoxoFilesDirectory toDir(BoxoFilesNode n) {
-    final $r = $callSync(574, $W()..h(n));
+    final $r = $callSync(578, $W()..h(n));
     return $r.hnn(BoxoFilesDirectory.$h);
   }
 
   /// Go: `func files.ToFile(n files.Node) files.File`.
   BoxoFilesFile toFile(BoxoFilesNode n) {
-    final $r = $callSync(575, $W()..h(n));
+    final $r = $callSync(579, $W()..h(n));
     return $r.hnn(BoxoFilesFile.$h);
   }
 
   /// Go: `func files.ToSymlink(n files.Node) *files.Symlink`.
   BoxoFilesSymlink toSymlink(BoxoFilesNode n) {
-    final $r = $callSync(576, $W()..h(n));
+    final $r = $callSync(580, $W()..h(n));
     return $r.hnn(BoxoFilesSymlink.$h);
   }
 
   /// Go: `func files.UnixPermsOrDefault(n files.Node) uint32`.
   int unixPermsOrDefault(BoxoFilesNode n) {
-    final $r = $callSync(577, $W()..h(n));
+    final $r = $callSync(581, $W()..h(n));
     return $r.i64();
   }
 
   /// Go: `func files.UnixPermsToModePerms(unixPerms uint32) os.FileMode`.
   int unixPermsToModePerms(int unixPerms) {
-    final $r = $callSync(578, $W()..i64(unixPerms));
+    final $r = $callSync(582, $W()..i64(unixPerms));
     return $r.i64();
   }
 
   /// Go: `func files.UpdateFileMode(path string, mode os.FileMode) error`.
   void updateFileMode(String path, int mode) {
     $callSync(
-        579,
+        583,
         $W()
           ..str(path)
           ..i64(mode));
@@ -860,7 +860,7 @@ extension GoBoxoFilesApi on GoBoxoFiles {
   /// Go: `func files.UpdateFileModeUnix(path string, mode uint32) error`.
   void updateFileModeUnix(String path, int mode) {
     $callSync(
-        580,
+        584,
         $W()
           ..str(path)
           ..i64(mode));
@@ -869,7 +869,7 @@ extension GoBoxoFilesApi on GoBoxoFiles {
   /// Go: `func files.UpdateMeta(path string, mode os.FileMode, mtime time.Time) error`.
   void updateMeta(String path, int mode, DateTime mtime) {
     $callSync(
-        581,
+        585,
         $W()
           ..str(path)
           ..i64(mode)
@@ -879,7 +879,7 @@ extension GoBoxoFilesApi on GoBoxoFiles {
   /// Go: `func files.UpdateMetaUnix(path string, mode uint32, mtime time.Time) error`.
   void updateMetaUnix(String path, int mode, DateTime mtime) {
     $callSync(
-        582,
+        586,
         $W()
           ..str(path)
           ..i64(mode)
@@ -889,7 +889,7 @@ extension GoBoxoFilesApi on GoBoxoFiles {
   /// Go: `func files.UpdateModTime(path string, mtime time.Time) error`.
   void updateModTime(String path, DateTime mtime) {
     $callSync(
-        583,
+        587,
         $W()
           ..str(path)
           ..time(mtime));
@@ -906,7 +906,7 @@ extension GoBoxoFilesApi on GoBoxoFiles {
       FutureOr<void> Function(String fpath, BoxoFilesNode nd) cb,
       {int? batchSize}) async {
     await $callCb(
-        584,
+        588,
         $W()
           ..h(nd)
           ..u32(batchSize ?? 1),
@@ -916,7 +916,7 @@ extension GoBoxoFilesApi on GoBoxoFiles {
   /// Go: `func files.WriteTo(nd files.Node, fpath string) error`.
   void writeTo(BoxoFilesNode nd, String fpath) {
     $callSync(
-        592,
+        596,
         $W()
           ..h(nd)
           ..str(fpath));

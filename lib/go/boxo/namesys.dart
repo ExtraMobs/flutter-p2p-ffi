@@ -66,7 +66,7 @@ class BoxoNamesysDnsResolver extends BoxoNamesysResolver
 
   /// Go: `func namesys.NewDNSResolver(lookup namesys.LookupTXTFunc) *namesys.DNSResolver`.
   factory BoxoNamesysDnsResolver(BoxoNamesysLookupTxtFunc lookup) {
-    final $r = $callSync(974, $W()..h(lookup));
+    final $r = $callSync(989, $W()..h(lookup));
     return $r.hnn(BoxoNamesysDnsResolver.$h);
   }
 
@@ -76,7 +76,7 @@ class BoxoNamesysDnsResolver extends BoxoNamesysResolver
   Future<BoxoNamesysResult> resolve($context.Context ctx, $path.BoxoPath p,
       [List<BoxoNamesysResolveOption> options = const []]) async {
     final $r = await $call(
-        966,
+        981,
         $W()
           ..h(this)
           ..h(ctx)
@@ -90,7 +90,7 @@ class BoxoNamesysDnsResolver extends BoxoNamesysResolver
           $context.Context ctx, $path.BoxoPath p,
           [List<BoxoNamesysResolveOption> options = const []]) =>
       $stream(
-              967,
+              982,
               $W()
                 ..h(this)
                 ..h(ctx)
@@ -115,7 +115,7 @@ class BoxoNamesysIpnsPublisher extends BoxoNamesysPublisher
   factory BoxoNamesysIpnsPublisher(
       $routing.Libp2pCoreRoutingValueStore route, $datastore.Datastore ds) {
     final $r = $callSync(
-        976,
+        991,
         $W()
           ..h(route)
           ..h(ds));
@@ -128,7 +128,7 @@ class BoxoNamesysIpnsPublisher extends BoxoNamesysPublisher
   Future<$ipns.BoxoIpnsRecord> getPublished(
       $context.Context ctx, $ipns.BoxoIpnsName name, bool checkRouting) async {
     final $r = await $call(
-        969,
+        984,
         $W()
           ..h(this)
           ..h(ctx)
@@ -144,7 +144,7 @@ class BoxoNamesysIpnsPublisher extends BoxoNamesysPublisher
       $crypto2.Libp2pCoreCryptoPrivKey priv, $path.BoxoPath value,
       [List<BoxoNamesysPublishOption> options = const []]) async {
     await $call(
-        970,
+        985,
         $W()
           ..h(this)
           ..h(ctx)
@@ -168,7 +168,7 @@ class BoxoNamesysIpnsResolver extends BoxoNamesysResolver
 
   /// Go: `func namesys.NewIPNSResolver(route routing.ValueStore) *namesys.IPNSResolver`.
   factory BoxoNamesysIpnsResolver($routing.Libp2pCoreRoutingValueStore route) {
-    final $r = $callSync(977, $W()..h(route));
+    final $r = $callSync(992, $W()..h(route));
     return $r.hnn(BoxoNamesysIpnsResolver.$h);
   }
 
@@ -178,7 +178,7 @@ class BoxoNamesysIpnsResolver extends BoxoNamesysResolver
   Future<BoxoNamesysResult> resolve($context.Context ctx, $path.BoxoPath p,
       [List<BoxoNamesysResolveOption> options = const []]) async {
     final $r = await $call(
-        971,
+        986,
         $W()
           ..h(this)
           ..h(ctx)
@@ -192,7 +192,7 @@ class BoxoNamesysIpnsResolver extends BoxoNamesysResolver
           $context.Context ctx, $path.BoxoPath p,
           [List<BoxoNamesysResolveOption> options = const []]) =>
       $stream(
-              972,
+              987,
               $W()
                 ..h(this)
                 ..h(ctx)
@@ -225,7 +225,7 @@ class BoxoNamesysNameSystem extends BoxoNamesysResolver
   factory BoxoNamesysNameSystem($routing.Libp2pCoreRoutingValueStore r,
       [List<BoxoNamesysOption> opts = const []]) {
     final $r = $callSync(
-        978,
+        993,
         $W()
           ..h(r)
           ..list(opts, (w0, e0) => w0.opt(e0)));
@@ -260,7 +260,7 @@ mixin BoxoNamesysPublisher$ on GoHandle {
       $crypto2.Libp2pCoreCryptoPrivKey sk, $path.BoxoPath value,
       [List<BoxoNamesysPublishOption> options = const []]) async {
     await $call(
-        982,
+        997,
         $W()
           ..h(this)
           ..h(ctx)
@@ -337,7 +337,7 @@ mixin BoxoNamesysResolver$ on GoHandle {
   Future<BoxoNamesysResult> resolve($context.Context ctx, $path.BoxoPath path,
       [List<BoxoNamesysResolveOption> opts = const []]) async {
     final $r = await $call(
-        986,
+        1001,
         $W()
           ..h(this)
           ..h(ctx)
@@ -351,7 +351,7 @@ mixin BoxoNamesysResolver$ on GoHandle {
           $context.Context ctx, $path.BoxoPath path,
           [List<BoxoNamesysResolveOption> opts = const []]) =>
       $stream(
-              987,
+              1002,
               $W()
                 ..h(this)
                 ..h(ctx)
@@ -518,33 +518,33 @@ extension GoBoxoNamesysApi on GoBoxoNamesys {
 
   /// Go: `func namesys.DefaultResolveOptions() namesys.ResolveOptions`.
   BoxoNamesysResolveOptions defaultResolveOptions() {
-    final $r = $callSync(968);
+    final $r = $callSync(983);
     return $r.p() ? BoxoNamesysResolveOptions.$dec($r) : $nil();
   }
 
   /// Go: `func namesys.IpnsDsKey(name ipns.Name) datastore.Key`.
   $datastore.DatastoreKey ipnsDsKey($ipns.BoxoIpnsName name) {
-    final $r = $callSync(973, $W()..val(name));
+    final $r = $callSync(988, $W()..val(name));
     return $r.hnn($datastore.DatastoreKey.$h);
   }
 
   /// Go: `func namesys.NewDNSResolverWithTTL(lookup namesys.LookupTXTWithTTLFunc) *namesys.DNSResolver`.
   BoxoNamesysDnsResolver newDnsResolverWithTtl(
       BoxoNamesysLookupTxtWithTtlFunc lookup) {
-    final $r = $callSync(975, $W()..h(lookup));
+    final $r = $callSync(990, $W()..h(lookup));
     return $r.hnn(BoxoNamesysDnsResolver.$h);
   }
 
   /// Go: `func namesys.PkRoutingKey(id peer.ID) string`.
   String pkRoutingKey($peer.Libp2pCorePeerId id) {
-    final $r = $callSync(979, $W()..val(id));
+    final $r = $callSync(994, $W()..val(id));
     return $r.str();
   }
 
   /// Go: `func namesys.ProcessResolveOptions(opts []namesys.ResolveOption) namesys.ResolveOptions`.
   BoxoNamesysResolveOptions processResolveOptions(
       List<BoxoNamesysResolveOption> opts) {
-    final $r = $callSync(980, $W()..list(opts, (w0, e0) => w0.opt(e0)));
+    final $r = $callSync(995, $W()..list(opts, (w0, e0) => w0.opt(e0)));
     return $r.p() ? BoxoNamesysResolveOptions.$dec($r) : $nil();
   }
 
@@ -557,7 +557,7 @@ extension GoBoxoNamesysApi on GoBoxoNamesys {
       $crypto2.Libp2pCoreCryptoPubKey pubKey,
       $ipns.BoxoIpnsRecord rec) async {
     await $call(
-        981,
+        996,
         $W()
           ..h(ctx)
           ..h(r)
@@ -574,7 +574,7 @@ extension GoBoxoNamesysApi on GoBoxoNamesys {
       $ipns.BoxoIpnsName name,
       $ipns.BoxoIpnsRecord rec) async {
     await $call(
-        983,
+        998,
         $W()
           ..h(ctx)
           ..h(r)
@@ -591,7 +591,7 @@ extension GoBoxoNamesysApi on GoBoxoNamesys {
       $peer.Libp2pCorePeerId pid,
       $crypto2.Libp2pCoreCryptoPubKey pubKey) async {
     await $call(
-        984,
+        999,
         $W()
           ..h(ctx)
           ..h(r)
@@ -605,7 +605,7 @@ extension GoBoxoNamesysApi on GoBoxoNamesys {
   Future<BoxoNamesysResult> resolve(
       $context.Context ctx, BoxoNamesysNameSystem ns, $path.BoxoPath p) async {
     final $r = await $call(
-        985,
+        1000,
         $W()
           ..h(ctx)
           ..h(ns)

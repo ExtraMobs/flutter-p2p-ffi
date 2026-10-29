@@ -49,7 +49,7 @@ final class BoxoIpldMerkledagComboService implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> add($context.Context ctx, $ipld_format.IpldFormatNode nd) async {
     await $call(
-        673,
+        679,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -62,7 +62,7 @@ final class BoxoIpldMerkledagComboService implements GoDto {
   Future<void> addMany(
       $context.Context ctx, List<$ipld_format.IpldFormatNode> nds) async {
     await $call(
-        674,
+        680,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -75,7 +75,7 @@ final class BoxoIpldMerkledagComboService implements GoDto {
   Future<$ipld_format.IpldFormatNode> get(
       $context.Context ctx, $cid.Cid c) async {
     final $r = await $call(
-        675,
+        681,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -87,7 +87,7 @@ final class BoxoIpldMerkledagComboService implements GoDto {
   Stream<$ipld_format.IpldFormatNodeOption> getMany(
           $context.Context ctx, List<$cid.Cid> cids) =>
       $stream(
-              676,
+              682,
               $W()
                 ..dto(this)
                 ..h(ctx)
@@ -100,7 +100,7 @@ final class BoxoIpldMerkledagComboService implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> remove($context.Context ctx, $cid.Cid c) async {
     await $call(
-        677,
+        683,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -112,7 +112,7 @@ final class BoxoIpldMerkledagComboService implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> removeMany($context.Context ctx, List<$cid.Cid> cids) async {
     await $call(
-        678,
+        684,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -139,7 +139,7 @@ final class BoxoIpldMerkledagErrorService implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> add($context.Context ctx, $ipld_format.IpldFormatNode nd) async {
     await $call(
-        683,
+        689,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -152,7 +152,7 @@ final class BoxoIpldMerkledagErrorService implements GoDto {
   Future<void> addMany(
       $context.Context ctx, List<$ipld_format.IpldFormatNode> nds) async {
     await $call(
-        684,
+        690,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -165,7 +165,7 @@ final class BoxoIpldMerkledagErrorService implements GoDto {
   Future<$ipld_format.IpldFormatNode> get(
       $context.Context ctx, $cid.Cid c) async {
     final $r = await $call(
-        685,
+        691,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -177,7 +177,7 @@ final class BoxoIpldMerkledagErrorService implements GoDto {
   Stream<$ipld_format.IpldFormatNodeOption> getMany(
           $context.Context ctx, List<$cid.Cid> cids) =>
       $stream(
-              686,
+              692,
               $W()
                 ..dto(this)
                 ..h(ctx)
@@ -190,7 +190,7 @@ final class BoxoIpldMerkledagErrorService implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> remove($context.Context ctx, $cid.Cid c) async {
     await $call(
-        687,
+        693,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -202,7 +202,7 @@ final class BoxoIpldMerkledagErrorService implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> removeMany($context.Context ctx, List<$cid.Cid> cids) async {
     await $call(
-        688,
+        694,
         $W()
           ..dto(this)
           ..h(ctx)
@@ -252,14 +252,14 @@ class BoxoIpldMerkledagProgressTracker extends $crypto.CryptoPrivateKey
 
   /// Go: `func (*merkledag.ProgressTracker).ProgressStat() merkledag.ProgressStat`.
   BoxoIpldMerkledagProgressStat progressStat() {
-    final $r = $callSync(701, $W()..h(this));
+    final $r = $callSync(707, $W()..h(this));
     return $r.p() ? BoxoIpldMerkledagProgressStat.$dec($r) : $nil();
   }
 
   /// Go: `func (*merkledag.ProgressTracker).Update(bytes uint64)`.
   void update(int bytes) {
     $callSync(
-        702,
+        708,
         $W()
           ..h(this)
           ..i64(bytes));
@@ -267,7 +267,7 @@ class BoxoIpldMerkledagProgressTracker extends $crypto.CryptoPrivateKey
 
   /// Go: `func (*merkledag.ProgressTracker).Value() int`.
   int value$() {
-    final $r = $callSync(703, $W()..h(this));
+    final $r = $callSync(709, $W()..h(this));
     return $r.i64();
   }
 }
@@ -291,7 +291,7 @@ class BoxoIpldMerkledagProtoNode extends $datamodel.IpldPrimeDatamodelNode
   /// Go: `func (*merkledag.ProtoNode).AddNodeLink(name string, that format.Node) error`.
   void addNodeLink(String name, $ipld_format.IpldFormatNode that) {
     $callSync(
-        704,
+        710,
         $W()
           ..h(this)
           ..str(name)
@@ -301,7 +301,7 @@ class BoxoIpldMerkledagProtoNode extends $datamodel.IpldPrimeDatamodelNode
   /// Go: `func (*merkledag.ProtoNode).AddRawLink(name string, l *format.Link) error`.
   void addRawLink(String name, $ipld_format.IpldFormatLink l) {
     $callSync(
-        705,
+        711,
         $W()
           ..h(this)
           ..str(name)
@@ -310,68 +310,68 @@ class BoxoIpldMerkledagProtoNode extends $datamodel.IpldPrimeDatamodelNode
 
   /// Go: `func (*merkledag.ProtoNode).AsBool() (bool, error)`.
   bool asBool() {
-    final $r = $callSync(706, $W()..h(this));
+    final $r = $callSync(712, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*merkledag.ProtoNode).AsBytes() ([]byte, error)`.
   Uint8List asBytes() {
-    final $r = $callSync(707, $W()..h(this));
+    final $r = $callSync(713, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*merkledag.ProtoNode).AsFloat() (float64, error)`.
   double asFloat() {
-    final $r = $callSync(708, $W()..h(this));
+    final $r = $callSync(714, $W()..h(this));
     return $r.f64();
   }
 
   /// Go: `func (*merkledag.ProtoNode).AsInt() (int64, error)`.
   int asInt() {
-    final $r = $callSync(709, $W()..h(this));
+    final $r = $callSync(715, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*merkledag.ProtoNode).AsLink() (ipld.Link, error)`.
   $datamodel.IpldPrimeDatamodelLink asLink() {
-    final $r = $callSync(710, $W()..h(this));
+    final $r = $callSync(716, $W()..h(this));
     return $r.hnn($datamodel.IpldPrimeDatamodelLink.$h);
   }
 
   /// Go: `func (*merkledag.ProtoNode).AsString() (string, error)`.
   String asString() {
-    final $r = $callSync(711, $W()..h(this));
+    final $r = $callSync(717, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*merkledag.ProtoNode).Cid() cid.Cid`.
   $cid.Cid cid() {
-    final $r = $callSync(712, $W()..h(this));
+    final $r = $callSync(718, $W()..h(this));
     return $r.p() ? $cid.Cid($r.str()) : $nil();
   }
 
   /// Go: `func (*merkledag.ProtoNode).CidBuilder() cid.Builder`.
   $cid.CidBuilder cidBuilder() {
-    final $r = $callSync(713, $W()..h(this));
+    final $r = $callSync(719, $W()..h(this));
     return $r.hnn($cid.CidBuilder.$h);
   }
 
   /// Go: `func (*merkledag.ProtoNode).Copy() format.Node`.
   $ipld_format.IpldFormatNode copy() {
-    final $r = $callSync(714, $W()..h(this));
+    final $r = $callSync(720, $W()..h(this));
     return $r.hnn($ipld_format.IpldFormatNode.$h);
   }
 
   /// Go: `func (*merkledag.ProtoNode).Data() []byte`.
   Uint8List data() {
-    final $r = $callSync(715, $W()..h(this));
+    final $r = $callSync(721, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*merkledag.ProtoNode).EncodeProtobuf(force bool) ([]byte, error)`.
   Uint8List encodeProtobuf(bool force) {
     final $r = $callSync(
-        716,
+        722,
         $W()
           ..h(this)
           ..b(force));
@@ -384,7 +384,7 @@ class BoxoIpldMerkledagProtoNode extends $datamodel.IpldPrimeDatamodelNode
   Future<$ipld_format.IpldFormatNode> getLinkedNode($context.Context ctx,
       $ipld_format.IpldFormatDagService ds, String name) async {
     final $r = await $call(
-        717,
+        723,
         $W()
           ..h(this)
           ..h(ctx)
@@ -399,7 +399,7 @@ class BoxoIpldMerkledagProtoNode extends $datamodel.IpldPrimeDatamodelNode
   Future<BoxoIpldMerkledagProtoNode> getLinkedProtoNode($context.Context ctx,
       $ipld_format.IpldFormatDagService ds, String name) async {
     final $r = await $call(
-        718,
+        724,
         $W()
           ..h(this)
           ..h(ctx)
@@ -411,7 +411,7 @@ class BoxoIpldMerkledagProtoNode extends $datamodel.IpldPrimeDatamodelNode
   /// Go: `func (*merkledag.ProtoNode).GetNodeLink(name string) (*format.Link, error)`.
   $ipld_format.IpldFormatLink getNodeLink(String name) {
     final $r = $callSync(
-        719,
+        725,
         $W()
           ..h(this)
           ..str(name));
@@ -420,57 +420,57 @@ class BoxoIpldMerkledagProtoNode extends $datamodel.IpldPrimeDatamodelNode
 
   /// Go: `func (*merkledag.ProtoNode).GetPBNode() *pb.PBNode`.
   $pb.BoxoIpldMerkledagPbNode getPbNode() {
-    final $r = $callSync(720, $W()..h(this));
+    final $r = $callSync(726, $W()..h(this));
     return $r.hnn($pb.BoxoIpldMerkledagPbNode.$h);
   }
 
   /// Go: `func (*merkledag.ProtoNode).IsAbsent() bool`.
   bool isAbsent() {
-    final $r = $callSync(721, $W()..h(this));
+    final $r = $callSync(727, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*merkledag.ProtoNode).IsNull() bool`.
   bool isNull() {
-    final $r = $callSync(722, $W()..h(this));
+    final $r = $callSync(728, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*merkledag.ProtoNode).Kind() ipld.Kind`.
   int kind() {
-    final $r = $callSync(723, $W()..h(this));
+    final $r = $callSync(729, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*merkledag.ProtoNode).Length() int64`.
   int length() {
-    final $r = $callSync(724, $W()..h(this));
+    final $r = $callSync(730, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*merkledag.ProtoNode).Links() []*format.Link`.
   List<$ipld_format.IpldFormatLink> links() {
-    final $r = $callSync(725, $W()..h(this));
+    final $r = $callSync(731, $W()..h(this));
     return $r
         .list(() => $r.p() ? $ipld_format.IpldFormatLink.$dec($r) : $nil());
   }
 
   /// Go: `func (*merkledag.ProtoNode).ListIterator() ipld.ListIterator`.
   $datamodel.IpldPrimeDatamodelListIterator listIterator() {
-    final $r = $callSync(726, $W()..h(this));
+    final $r = $callSync(732, $W()..h(this));
     return $r.hnn($datamodel.IpldPrimeDatamodelListIterator.$h);
   }
 
   /// Go: `func (*merkledag.ProtoNode).Loggable() map[string]any`.
   Map<String, Object?> loggable() {
-    final $r = $callSync(727, $W()..h(this));
+    final $r = $callSync(733, $W()..h(this));
     return $r.map(() => $r.str(), () => $r.any());
   }
 
   /// Go: `func (*merkledag.ProtoNode).LookupByIndex(idx int64) (ipld.Node, error)`.
   $datamodel.IpldPrimeDatamodelNode lookupByIndex(int idx) {
     final $r = $callSync(
-        728,
+        734,
         $W()
           ..h(this)
           ..i64(idx));
@@ -481,7 +481,7 @@ class BoxoIpldMerkledagProtoNode extends $datamodel.IpldPrimeDatamodelNode
   $datamodel.IpldPrimeDatamodelNode lookupByNode(
       $datamodel.IpldPrimeDatamodelNode key) {
     final $r = $callSync(
-        729,
+        735,
         $W()
           ..h(this)
           ..h(key));
@@ -492,7 +492,7 @@ class BoxoIpldMerkledagProtoNode extends $datamodel.IpldPrimeDatamodelNode
   $datamodel.IpldPrimeDatamodelNode lookupBySegment(
       $datamodel.IpldPrimeDatamodelPathSegment seg) {
     final $r = $callSync(
-        730,
+        736,
         $W()
           ..h(this)
           ..h(seg));
@@ -502,7 +502,7 @@ class BoxoIpldMerkledagProtoNode extends $datamodel.IpldPrimeDatamodelNode
   /// Go: `func (*merkledag.ProtoNode).LookupByString(key string) (ipld.Node, error)`.
   $datamodel.IpldPrimeDatamodelNode lookupByString(String key) {
     final $r = $callSync(
-        731,
+        737,
         $W()
           ..h(this)
           ..str(key));
@@ -511,44 +511,44 @@ class BoxoIpldMerkledagProtoNode extends $datamodel.IpldPrimeDatamodelNode
 
   /// Go: `func (*merkledag.ProtoNode).MapIterator() ipld.MapIterator`.
   $datamodel.IpldPrimeDatamodelMapIterator mapIterator() {
-    final $r = $callSync(732, $W()..h(this));
+    final $r = $callSync(738, $W()..h(this));
     return $r.hnn($datamodel.IpldPrimeDatamodelMapIterator.$h);
   }
 
   /// Go: `func (*merkledag.ProtoNode).Marshal() ([]byte, error)`.
   Uint8List marshal() {
-    final $r = $callSync(733, $W()..h(this));
+    final $r = $callSync(739, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*merkledag.ProtoNode).MarshalJSON() ([]byte, error)`.
   Uint8List marshalJson() {
-    final $r = $callSync(734, $W()..h(this));
+    final $r = $callSync(740, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*merkledag.ProtoNode).Multihash() multihash.Multihash`.
   Uint8List multihash() {
-    final $r = $callSync(735, $W()..h(this));
+    final $r = $callSync(741, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*merkledag.ProtoNode).Prototype() ipld.NodePrototype`.
   $datamodel.IpldPrimeDatamodelNodePrototype prototype() {
-    final $r = $callSync(736, $W()..h(this));
+    final $r = $callSync(742, $W()..h(this));
     return $r.hnn($datamodel.IpldPrimeDatamodelNodePrototype.$h);
   }
 
   /// Go: `func (*merkledag.ProtoNode).RawData() []byte`.
   Uint8List rawData() {
-    final $r = $callSync(737, $W()..h(this));
+    final $r = $callSync(743, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*merkledag.ProtoNode).RemoveNodeLink(name string) error`.
   void removeNodeLink(String name) {
     $callSync(
-        738,
+        744,
         $W()
           ..h(this)
           ..str(name));
@@ -557,7 +557,7 @@ class BoxoIpldMerkledagProtoNode extends $datamodel.IpldPrimeDatamodelNode
   /// Go: `func (*merkledag.ProtoNode).Resolve(path []string) (any, []string, error)`.
   (Object?, List<String>) resolve(List<String> path) {
     final $r = $callSync(
-        739,
+        745,
         $W()
           ..h(this)
           ..list(path, (w0, e0) => w0.str(e0)));
@@ -567,7 +567,7 @@ class BoxoIpldMerkledagProtoNode extends $datamodel.IpldPrimeDatamodelNode
   /// Go: `func (*merkledag.ProtoNode).ResolveLink(path []string) (*format.Link, []string, error)`.
   ($ipld_format.IpldFormatLink, List<String>) resolveLink(List<String> path) {
     final $r = $callSync(
-        740,
+        746,
         $W()
           ..h(this)
           ..list(path, (w0, e0) => w0.str(e0)));
@@ -580,7 +580,7 @@ class BoxoIpldMerkledagProtoNode extends $datamodel.IpldPrimeDatamodelNode
   /// Go: `func (*merkledag.ProtoNode).SetCidBuilder(builder cid.Builder) error`.
   void setCidBuilder($cid.CidBuilder builder) {
     $callSync(
-        741,
+        747,
         $W()
           ..h(this)
           ..h(builder));
@@ -589,7 +589,7 @@ class BoxoIpldMerkledagProtoNode extends $datamodel.IpldPrimeDatamodelNode
   /// Go: `func (*merkledag.ProtoNode).SetData(d []byte)`.
   void setData(Uint8List d) {
     $callSync(
-        742,
+        748,
         $W()
           ..h(this)
           ..bytes(d));
@@ -598,7 +598,7 @@ class BoxoIpldMerkledagProtoNode extends $datamodel.IpldPrimeDatamodelNode
   /// Go: `func (*merkledag.ProtoNode).SetLinks(links []*format.Link) error`.
   void setLinks(List<$ipld_format.IpldFormatLink> links) {
     $callSync(
-        743,
+        749,
         $W()
           ..h(this)
           ..list(links, (w0, e0) => w0.dto(e0)));
@@ -606,26 +606,26 @@ class BoxoIpldMerkledagProtoNode extends $datamodel.IpldPrimeDatamodelNode
 
   /// Go: `func (*merkledag.ProtoNode).Size() (uint64, error)`.
   int size() {
-    final $r = $callSync(744, $W()..h(this));
+    final $r = $callSync(750, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*merkledag.ProtoNode).Stat() (*format.NodeStat, error)`.
   $ipld_format.IpldFormatNodeStat stat() {
-    final $r = $callSync(745, $W()..h(this));
+    final $r = $callSync(751, $W()..h(this));
     return $r.p() ? $ipld_format.IpldFormatNodeStat.$dec($r) : $nil();
   }
 
   /// Go: `func (*merkledag.ProtoNode).String() string`.
   String string() {
-    final $r = $callSync(746, $W()..h(this));
+    final $r = $callSync(752, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*merkledag.ProtoNode).Tree(p string, depth int) []string`.
   List<String> tree(String p, int depth) {
     final $r = $callSync(
-        747,
+        753,
         $W()
           ..h(this)
           ..str(p)
@@ -636,7 +636,7 @@ class BoxoIpldMerkledagProtoNode extends $datamodel.IpldPrimeDatamodelNode
   /// Go: `func (*merkledag.ProtoNode).UnmarshalJSON(b []byte) error`.
   void unmarshalJson(Uint8List b) {
     $callSync(
-        748,
+        754,
         $W()
           ..h(this)
           ..bytes(b));
@@ -646,7 +646,7 @@ class BoxoIpldMerkledagProtoNode extends $datamodel.IpldPrimeDatamodelNode
   BoxoIpldMerkledagProtoNode updateNodeLink(
       String name, BoxoIpldMerkledagProtoNode that) {
     final $r = $callSync(
-        749,
+        755,
         $W()
           ..h(this)
           ..str(name)
@@ -673,33 +673,33 @@ class BoxoIpldMerkledagRawNode extends $datamodel.IpldPrimeDatamodelNode
 
   /// Go: `func merkledag.NewRawNode(data []byte) *merkledag.RawNode`.
   factory BoxoIpldMerkledagRawNode(Uint8List data) {
-    final $r = $callSync(695, $W()..bytes(data));
+    final $r = $callSync(701, $W()..bytes(data));
     return $r.hnn(BoxoIpldMerkledagRawNode.$h);
   }
 
   /// Go: `func (*merkledag.RawNode).Copy() format.Node`.
   $ipld_format.IpldFormatNode copy() {
-    final $r = $callSync(751, $W()..h(this));
+    final $r = $callSync(757, $W()..h(this));
     return $r.hnn($ipld_format.IpldFormatNode.$h);
   }
 
   /// Go: `func (*merkledag.RawNode).Links() []*format.Link`.
   List<$ipld_format.IpldFormatLink> links() {
-    final $r = $callSync(752, $W()..h(this));
+    final $r = $callSync(758, $W()..h(this));
     return $r
         .list(() => $r.p() ? $ipld_format.IpldFormatLink.$dec($r) : $nil());
   }
 
   /// Go: `func (*merkledag.RawNode).MarshalJSON() ([]byte, error)`.
   Uint8List marshalJson() {
-    final $r = $callSync(753, $W()..h(this));
+    final $r = $callSync(759, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*merkledag.RawNode).Resolve(path []string) (any, []string, error)`.
   (Object?, List<String>) resolve(List<String> path) {
     final $r = $callSync(
-        754,
+        760,
         $W()
           ..h(this)
           ..list(path, (w0, e0) => w0.str(e0)));
@@ -709,7 +709,7 @@ class BoxoIpldMerkledagRawNode extends $datamodel.IpldPrimeDatamodelNode
   /// Go: `func (*merkledag.RawNode).ResolveLink(path []string) (*format.Link, []string, error)`.
   ($ipld_format.IpldFormatLink, List<String>) resolveLink(List<String> path) {
     final $r = $callSync(
-        755,
+        761,
         $W()
           ..h(this)
           ..list(path, (w0, e0) => w0.str(e0)));
@@ -721,20 +721,20 @@ class BoxoIpldMerkledagRawNode extends $datamodel.IpldPrimeDatamodelNode
 
   /// Go: `func (*merkledag.RawNode).Size() (uint64, error)`.
   int size() {
-    final $r = $callSync(756, $W()..h(this));
+    final $r = $callSync(762, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*merkledag.RawNode).Stat() (*format.NodeStat, error)`.
   $ipld_format.IpldFormatNodeStat stat() {
-    final $r = $callSync(757, $W()..h(this));
+    final $r = $callSync(763, $W()..h(this));
     return $r.p() ? $ipld_format.IpldFormatNodeStat.$dec($r) : $nil();
   }
 
   /// Go: `func (*merkledag.RawNode).Tree(p string, depth int) []string`.
   List<String> tree(String p, int depth) {
     final $r = $callSync(
-        758,
+        764,
         $W()
           ..h(this)
           ..str(p)
@@ -757,7 +757,7 @@ mixin BoxoIpldMerkledagSessionMaker$ on GoHandle {
   Future<$ipld_format.IpldFormatNodeGetter> session(
       $context.Context ctx) async {
     final $r = await $call(
-        760,
+        766,
         $W()
           ..h(this)
           ..h(ctx));
@@ -843,27 +843,27 @@ extension GoBoxoIpldMerkledagApi on GoBoxoIpldMerkledag {
 
   /// Go: `func merkledag.DecodeProtobuf(encoded []byte) (*merkledag.ProtoNode, error)`.
   BoxoIpldMerkledagProtoNode decodeProtobuf(Uint8List encoded) {
-    final $r = $callSync(679, $W()..bytes(encoded));
+    final $r = $callSync(685, $W()..bytes(encoded));
     return $r.hnn(BoxoIpldMerkledagProtoNode.$h);
   }
 
   /// Go: `func merkledag.DecodeProtobufBlock(b blocks.Block) (format.Node, error)`.
   $ipld_format.IpldFormatNode decodeProtobufBlock(
       $block_format.BlockFormatBlock b) {
-    final $r = $callSync(680, $W()..dto(b));
+    final $r = $callSync(686, $W()..dto(b));
     return $r.hnn($ipld_format.IpldFormatNode.$h);
   }
 
   /// Go: `func merkledag.DecodeRawBlock(block blocks.Block) (format.Node, error)`.
   $ipld_format.IpldFormatNode decodeRawBlock(
       $block_format.BlockFormatBlock block) {
-    final $r = $callSync(681, $W()..dto(block));
+    final $r = $callSync(687, $W()..dto(block));
     return $r.hnn($ipld_format.IpldFormatNode.$h);
   }
 
   /// Go: `var merkledag.DefaultPBNodeFieldOrder merkledag.PBNodeFieldOrder`.
   int get defaultPbNodeFieldOrder {
-    final $r = $callSync(682);
+    final $r = $callSync(688);
     return $r.i64();
   }
 
@@ -874,7 +874,7 @@ extension GoBoxoIpldMerkledagApi on GoBoxoIpldMerkledag {
       $ipld_format.IpldFormatDagService serv,
       [List<BoxoIpldMerkledagWalkOption> opts = const []]) async {
     await $call(
-        689,
+        695,
         $W()
           ..h(ctx)
           ..val(root)
@@ -889,7 +889,7 @@ extension GoBoxoIpldMerkledagApi on GoBoxoIpldMerkledag {
       int depthLim, $ipld_format.IpldFormatDagService serv,
       [List<BoxoIpldMerkledagWalkOption> opts = const []]) async {
     await $call(
-        690,
+        696,
         $W()
           ..h(ctx)
           ..val(root)
@@ -901,7 +901,7 @@ extension GoBoxoIpldMerkledagApi on GoBoxoIpldMerkledag {
   /// Go: `func merkledag.GetLinksDirect(serv format.NodeGetter) merkledag.GetLinks`.
   BoxoIpldMerkledagGetLinks getLinksDirect(
       $ipld_format.IpldFormatNodeGetter serv) {
-    final $r = $callSync(691, $W()..h(serv));
+    final $r = $callSync(697, $W()..h(serv));
     return $r.hnn(BoxoIpldMerkledagGetLinks.$h);
   }
 
@@ -910,7 +910,7 @@ extension GoBoxoIpldMerkledagApi on GoBoxoIpldMerkledag {
       $ipld_format.IpldFormatNodeGetter serv,
       BoxoIpldMerkledagProgressTracker tracker) {
     final $r = $callSync(
-        692,
+        698,
         $W()
           ..h(serv)
           ..h(tracker));
@@ -920,14 +920,14 @@ extension GoBoxoIpldMerkledagApi on GoBoxoIpldMerkledag {
   /// Go: `func merkledag.GetLinksWithDAG(ng format.NodeGetter) merkledag.GetLinks`.
   BoxoIpldMerkledagGetLinks getLinksWithDag(
       $ipld_format.IpldFormatNodeGetter ng) {
-    final $r = $callSync(693, $W()..h(ng));
+    final $r = $callSync(699, $W()..h(ng));
     return $r.hnn(BoxoIpldMerkledagGetLinks.$h);
   }
 
   /// Go: `func merkledag.NewDAGService(bs blockservice.BlockService) *merkledag.dagService`.
   $ipld_format.IpldFormatDagService newDagService(
       $blockservice.BoxoBlockserviceBlockService bs) {
-    final $r = $callSync(694, $W()..h(bs));
+    final $r = $callSync(700, $W()..h(bs));
     return $r.hnn($ipld_format.IpldFormatDagService.$h);
   }
 
@@ -935,7 +935,7 @@ extension GoBoxoIpldMerkledagApi on GoBoxoIpldMerkledag {
   BoxoIpldMerkledagRawNode newRawNodeWPrefix(
       Uint8List data, $cid.CidBuilder builder) {
     final $r = $callSync(
-        696,
+        702,
         $W()
           ..bytes(data)
           ..h(builder));
@@ -945,7 +945,7 @@ extension GoBoxoIpldMerkledagApi on GoBoxoIpldMerkledag {
   /// Go: `func merkledag.NewReadOnlyDagService(ng format.NodeGetter) format.DAGService`.
   $ipld_format.IpldFormatDagService newReadOnlyDagService(
       $ipld_format.IpldFormatNodeGetter ng) {
-    final $r = $callSync(697, $W()..h(ng));
+    final $r = $callSync(703, $W()..h(ng));
     return $r.hnn($ipld_format.IpldFormatDagService.$h);
   }
 
@@ -955,7 +955,7 @@ extension GoBoxoIpldMerkledagApi on GoBoxoIpldMerkledag {
   Future<$ipld_format.IpldFormatNodeGetter> newSession(
       $context.Context ctx, $ipld_format.IpldFormatNodeGetter g) async {
     final $r = await $call(
-        698,
+        704,
         $W()
           ..h(ctx)
           ..h(g));
@@ -964,13 +964,13 @@ extension GoBoxoIpldMerkledagApi on GoBoxoIpldMerkledag {
 
   /// Go: `func merkledag.NodeWithData(d []byte) *merkledag.ProtoNode`.
   BoxoIpldMerkledagProtoNode nodeWithData(Uint8List d) {
-    final $r = $callSync(699, $W()..bytes(d));
+    final $r = $callSync(705, $W()..bytes(d));
     return $r.hnn(BoxoIpldMerkledagProtoNode.$h);
   }
 
   /// Go: `func merkledag.PrefixForCidVersion(version int) (cid.Prefix, error)`.
   $cid.CidPrefix prefixForCidVersion(int version) {
-    final $r = $callSync(700, $W()..i64(version));
+    final $r = $callSync(706, $W()..i64(version));
     return $r.p() ? $cid.CidPrefix.$dec($r) : $nil();
   }
 
@@ -978,7 +978,7 @@ extension GoBoxoIpldMerkledagApi on GoBoxoIpldMerkledag {
   $ipld_legacy.IpldLegacyUniversalNode protoNodeConverter(
       $block_format.BlockFormatBlock b, $datamodel.IpldPrimeDatamodelNode nd) {
     final $r = $callSync(
-        750,
+        756,
         $W()
           ..dto(b)
           ..h(nd));
@@ -989,7 +989,7 @@ extension GoBoxoIpldMerkledagApi on GoBoxoIpldMerkledag {
   $ipld_legacy.IpldLegacyUniversalNode rawNodeConverter(
       $block_format.BlockFormatBlock b, $datamodel.IpldPrimeDatamodelNode nd) {
     final $r = $callSync(
-        759,
+        765,
         $W()
           ..dto(b)
           ..h(nd));
@@ -998,20 +998,63 @@ extension GoBoxoIpldMerkledagApi on GoBoxoIpldMerkledag {
 
   /// Go: `func merkledag.V0CidPrefix() cid.Prefix`.
   $cid.CidPrefix v0CidPrefix() {
-    final $r = $callSync(761);
+    final $r = $callSync(767);
     return $r.p() ? $cid.CidPrefix.$dec($r) : $nil();
   }
 
   /// Go: `func merkledag.V1CidPrefix() cid.Prefix`.
   $cid.CidPrefix v1CidPrefix() {
-    final $r = $callSync(762);
+    final $r = $callSync(768);
     return $r.p() ? $cid.CidPrefix.$dec($r) : $nil();
+  }
+
+  /// Go: `func merkledag.Walk(ctx context.Context, getLinks merkledag.GetLinks, c cid.Cid, visit func(cid.Cid) bool, options ...merkledag.WalkOption) error`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  ///
+  /// Go calls [visit] on the Dart event loop, during the call or
+  /// later for as long as it holds it (nobody checked which), and waits for
+  /// each invocation (a retained callback, WIRE.md).
+  Future<void> walk($context.Context ctx, BoxoIpldMerkledagGetLinks getLinks,
+      $cid.Cid c, FutureOr<bool> Function($cid.Cid cid) visit,
+      [List<BoxoIpldMerkledagWalkOption> options = const []]) async {
+    await $call(
+        769,
+        $W()
+          ..h(ctx)
+          ..h(getLinks)
+          ..val(c)
+          ..cb((r) => visit(r.p() ? $cid.Cid(r.str()) : $nil()), true)
+          ..list(options, (w0, e0) => w0.opt(e0)));
+  }
+
+  /// Go: `func merkledag.WalkDepth(ctx context.Context, getLinks merkledag.GetLinks, c cid.Cid, visit func(cid.Cid, int) bool, options ...merkledag.WalkOption) error`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  ///
+  /// Go calls [visit] on the Dart event loop, during the call or
+  /// later for as long as it holds it (nobody checked which), and waits for
+  /// each invocation (a retained callback, WIRE.md).
+  Future<void> walkDepth(
+      $context.Context ctx,
+      BoxoIpldMerkledagGetLinks getLinks,
+      $cid.Cid c,
+      FutureOr<bool> Function($cid.Cid cid, int arg1) visit,
+      [List<BoxoIpldMerkledagWalkOption> options = const []]) async {
+    await $call(
+        770,
+        $W()
+          ..h(ctx)
+          ..h(getLinks)
+          ..val(c)
+          ..cb((r) => visit(r.p() ? $cid.Cid(r.str()) : $nil(), r.i64()), true)
+          ..list(options, (w0, e0) => w0.opt(e0)));
   }
 
   /// Go: `func merkledag.WrapSession(s *blockservice.Session) format.NodeGetter`.
   $ipld_format.IpldFormatNodeGetter wrapSession(
       $blockservice.BoxoBlockserviceSession s) {
-    final $r = $callSync(763, $W()..h(s));
+    final $r = $callSync(771, $W()..h(s));
     return $r.hnn($ipld_format.IpldFormatNodeGetter.$h);
   }
 

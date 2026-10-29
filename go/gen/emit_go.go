@@ -262,7 +262,7 @@ func (g *goEmitter) funcLit(t *tinfo, cb string) string {
 	call := cb + ".item"
 	if t.retained { // retained.go: ask waits for the verdict, call does not
 		call = cb + ".ask"
-		if t.fret == fretNone {
+		if t.fret == fretNone && !t.unchecked { // unchecked: maybe during the call, which must not return first
 			call = cb + ".call"
 		}
 	}

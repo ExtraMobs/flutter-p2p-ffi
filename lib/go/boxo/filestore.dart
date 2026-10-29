@@ -2,6 +2,8 @@
 // Go: github.com/ipfs/boxo/filestore
 library;
 
+import 'dart:async';
+
 import 'package:p2p_ffi/src/go.dart' show GoBoxoFilestore;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/block_format.dart' as $block_format;
@@ -25,7 +27,7 @@ class BoxoFilestoreFileManager extends $crypto.CryptoPrivateKey
   factory BoxoFilestoreFileManager($datastore.DatastoreBatching ds, String root,
       [List<BoxoFilestoreOption> options = const []]) {
     final $r = $callSync(
-        612,
+        617,
         $W()
           ..h(ds)
           ..str(root)
@@ -35,7 +37,7 @@ class BoxoFilestoreFileManager extends $crypto.CryptoPrivateKey
 
   /// Go: `func (*filestore.FileManager).AllKeysChan(ctx context.Context) (<-chan cid.Cid, error)`.
   Stream<$cid.Cid> allKeysChan($context.Context ctx) => $stream(
-          593,
+          597,
           $W()
             ..h(this)
             ..h(ctx))
@@ -46,7 +48,7 @@ class BoxoFilestoreFileManager extends $crypto.CryptoPrivateKey
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> deleteBlock($context.Context ctx, $cid.Cid c) async {
     await $call(
-        594,
+        598,
         $W()
           ..h(this)
           ..h(ctx)
@@ -59,7 +61,7 @@ class BoxoFilestoreFileManager extends $crypto.CryptoPrivateKey
   Future<$block_format.BlockFormatBlock> get(
       $context.Context ctx, $cid.Cid c) async {
     final $r = await $call(
-        595,
+        599,
         $W()
           ..h(this)
           ..h(ctx)
@@ -72,7 +74,7 @@ class BoxoFilestoreFileManager extends $crypto.CryptoPrivateKey
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> getSize($context.Context ctx, $cid.Cid c) async {
     final $r = await $call(
-        596,
+        600,
         $W()
           ..h(this)
           ..h(ctx)
@@ -85,7 +87,7 @@ class BoxoFilestoreFileManager extends $crypto.CryptoPrivateKey
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> has($context.Context ctx, $cid.Cid c) async {
     final $r = await $call(
-        597,
+        601,
         $W()
           ..h(this)
           ..h(ctx)
@@ -99,7 +101,7 @@ class BoxoFilestoreFileManager extends $crypto.CryptoPrivateKey
   Future<void> put($context.Context ctx,
       $posinfo.BoxoFilestorePosinfoFilestoreNode b) async {
     await $call(
-        598,
+        602,
         $W()
           ..h(this)
           ..h(ctx)
@@ -112,7 +114,7 @@ class BoxoFilestoreFileManager extends $crypto.CryptoPrivateKey
   Future<void> putMany($context.Context ctx,
       List<$posinfo.BoxoFilestorePosinfoFilestoreNode> bs) async {
     await $call(
-        599,
+        603,
         $W()
           ..h(this)
           ..h(ctx)
@@ -140,7 +142,7 @@ class BoxoFilestore extends $blockstore.BoxoBlockstore
       BoxoFilestoreFileManager fm,
       $provider.BoxoProviderMultihashProvider prov) {
     final $r = $callSync(
-        613,
+        618,
         $W()
           ..h(bs)
           ..h(fm)
@@ -150,7 +152,7 @@ class BoxoFilestore extends $blockstore.BoxoBlockstore
 
   /// Go: `func (*filestore.Filestore).AllKeysChan(ctx context.Context) (<-chan cid.Cid, error)`.
   Stream<$cid.Cid> allKeysChan($context.Context ctx) => $stream(
-          600,
+          604,
           $W()
             ..h(this)
             ..h(ctx))
@@ -161,7 +163,7 @@ class BoxoFilestore extends $blockstore.BoxoBlockstore
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> deleteBlock($context.Context ctx, $cid.Cid c) async {
     await $call(
-        601,
+        605,
         $W()
           ..h(this)
           ..h(ctx)
@@ -170,7 +172,7 @@ class BoxoFilestore extends $blockstore.BoxoBlockstore
 
   /// Go: `func (*filestore.Filestore).FileManager() *filestore.FileManager`.
   BoxoFilestoreFileManager fileManager() {
-    final $r = $callSync(602, $W()..h(this));
+    final $r = $callSync(606, $W()..h(this));
     return $r.hnn(BoxoFilestoreFileManager.$h);
   }
 
@@ -180,7 +182,7 @@ class BoxoFilestore extends $blockstore.BoxoBlockstore
   Future<$block_format.BlockFormatBlock> get(
       $context.Context ctx, $cid.Cid c) async {
     final $r = await $call(
-        603,
+        607,
         $W()
           ..h(this)
           ..h(ctx)
@@ -193,7 +195,7 @@ class BoxoFilestore extends $blockstore.BoxoBlockstore
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> getSize($context.Context ctx, $cid.Cid c) async {
     final $r = await $call(
-        604,
+        608,
         $W()
           ..h(this)
           ..h(ctx)
@@ -206,7 +208,7 @@ class BoxoFilestore extends $blockstore.BoxoBlockstore
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> has($context.Context ctx, $cid.Cid c) async {
     final $r = await $call(
-        605,
+        609,
         $W()
           ..h(this)
           ..h(ctx)
@@ -216,7 +218,7 @@ class BoxoFilestore extends $blockstore.BoxoBlockstore
 
   /// Go: `func (*filestore.Filestore).MainBlockstore() blockstore.Blockstore`.
   $blockstore.BoxoBlockstore mainBlockstore() {
-    final $r = $callSync(606, $W()..h(this));
+    final $r = $callSync(610, $W()..h(this));
     return $r.hnn($blockstore.BoxoBlockstore.$h);
   }
 
@@ -226,7 +228,7 @@ class BoxoFilestore extends $blockstore.BoxoBlockstore
   Future<void> put(
       $context.Context ctx, $block_format.BlockFormatBlock b) async {
     await $call(
-        607,
+        611,
         $W()
           ..h(this)
           ..h(ctx)
@@ -239,7 +241,7 @@ class BoxoFilestore extends $blockstore.BoxoBlockstore
   Future<void> putMany(
       $context.Context ctx, List<$block_format.BlockFormatBlock> bs) async {
     await $call(
-        608,
+        612,
         $W()
           ..h(this)
           ..h(ctx)
@@ -305,6 +307,23 @@ final class BoxoFilestoreListRes implements GoDto {
       ..i64(offset)
       ..i64(size);
   }
+
+  /// Go: `func (*filestore.ListRes).FormatLong(enc func(cid.Cid) string) string`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  ///
+  /// Go calls [enc] on the Dart event loop, during the call or
+  /// later for as long as it holds it (nobody checked which), and waits for
+  /// each invocation (a retained callback, WIRE.md).
+  Future<String> formatLong(FutureOr<String> Function($cid.Cid cid) enc) async {
+    final $r = await $call(
+        616,
+        $W()
+          ..dto(this)
+          ..cb((r) => enc(r.p() ? $cid.Cid(r.str()) : $nil()), true,
+              (w, v) => w.str(v as String)));
+    return $r.str();
+  }
 }
 
 /// Go: `filestore.Option` (functional option; constructors in the package).
@@ -351,13 +370,13 @@ extension GoBoxoFilestoreApi on GoBoxoFilestore {
 
   /// Go: `var filestore.FilestorePrefix datastore.Key`.
   $datastore.DatastoreKey get filestorePrefix {
-    final $r = $callSync(609);
+    final $r = $callSync(613);
     return $r.hnn($datastore.DatastoreKey.$h);
   }
 
   /// Go: `func filestore.IsURL(str string) bool`.
   bool isUrl(String str) {
-    final $r = $callSync(610, $W()..str(str));
+    final $r = $callSync(614, $W()..str(str));
     return $r.b();
   }
 
@@ -367,7 +386,7 @@ extension GoBoxoFilestoreApi on GoBoxoFilestore {
   Future<BoxoFilestoreListRes> list(
       $context.Context ctx, BoxoFilestore fs, $cid.Cid key) async {
     final $r = await $call(
-        611,
+        615,
         $W()
           ..h(ctx)
           ..h(fs)
@@ -381,7 +400,7 @@ extension GoBoxoFilestoreApi on GoBoxoFilestore {
   Future<BoxoFilestoreListRes> verify(
       $context.Context ctx, BoxoFilestore fs, $cid.Cid key) async {
     final $r = await $call(
-        614,
+        619,
         $W()
           ..h(ctx)
           ..h(fs)

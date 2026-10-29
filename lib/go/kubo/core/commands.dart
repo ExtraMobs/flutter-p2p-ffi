@@ -57,7 +57,7 @@ final class KuboCoreCommandsBlockStat implements GoDto {
 
   /// Go: `func (commands.BlockStat).String() string`.
   String string() {
-    final $r = $callSync(1452, $W()..dto(this));
+    final $r = $callSync(1469, $W()..dto(this));
     return $r.str();
   }
 }
@@ -72,7 +72,7 @@ class KuboCoreCommandsRefWriter extends $crypto.CryptoPrivateKey
   void writeEdge($cid.Cid from, $cid.Cid to, String linkname,
       $cidenc.CidutilCidencEncoder enc) {
     $callSync(
-        1490,
+        1507,
         $W()
           ..h(this)
           ..val(from)
@@ -84,7 +84,7 @@ class KuboCoreCommandsRefWriter extends $crypto.CryptoPrivateKey
   /// Go: `func (*commands.RefWriter).WriteRefs(c cid.Cid, enc cidenc.Encoder) (int, error)`.
   int writeRefs($cid.Cid c, $cidenc.CidutilCidencEncoder enc) {
     final $r = $callSync(
-        1491,
+        1508,
         $W()
           ..h(this)
           ..val(c)
@@ -1072,73 +1072,73 @@ class KuboCoreCommandsErrSelfUnsupported extends GolangException {
 extension GoKuboCoreCommandsApi on GoKuboCoreCommands {
   /// Go: `var commands.ActiveReqsCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get activeReqsCmd {
-    final $r = $callSync(1448);
+    final $r = $callSync(1465);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var commands.AddCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get addCmd {
-    final $r = $callSync(1449);
+    final $r = $callSync(1466);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var commands.BitswapCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get bitswapCmd {
-    final $r = $callSync(1450);
+    final $r = $callSync(1467);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var commands.BlockCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get blockCmd {
-    final $r = $callSync(1451);
+    final $r = $callSync(1468);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var commands.BootstrapCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get bootstrapCmd {
-    final $r = $callSync(1453);
+    final $r = $callSync(1470);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var commands.CatCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get catCmd {
-    final $r = $callSync(1454);
+    final $r = $callSync(1471);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var commands.CidCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get cidCmd {
-    final $r = $callSync(1455);
+    final $r = $callSync(1472);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `func commands.CommandsCmd(root *cmds.Command) *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand commandsCmd($ipfs_cmds.IpfsCmdsCommand root) {
-    final $r = $callSync(1456, $W()..dto(root));
+    final $r = $callSync(1473, $W()..dto(root));
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var commands.CommandsDaemonCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get commandsDaemonCmd {
-    final $r = $callSync(1457);
+    final $r = $callSync(1474);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `func commands.CompletionCmd(root *cmds.Command) *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand completionCmd($ipfs_cmds.IpfsCmdsCommand root) {
-    final $r = $callSync(1458, $W()..dto(root));
+    final $r = $callSync(1475, $W()..dto(root));
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var commands.ConfigCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get configCmd {
-    final $r = $callSync(1459);
+    final $r = $callSync(1476);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `func commands.CreateCmdExtras(opts ...func(e *cmds.Extra)) *cmds.Extra`.
   $ipfs_cmds.IpfsCmdsExtra createCmdExtras() {
-    final $r = $callSync(1460);
+    final $r = $callSync(1477);
     return $r.hnn($ipfs_cmds.IpfsCmdsExtra.$h);
   }
 
@@ -1146,7 +1146,7 @@ extension GoKuboCoreCommandsApi on GoKuboCoreCommands {
   void daemonNotRunning(
       $ipfs_cmds.IpfsCmdsRequest req, $ipfs_cmds.IpfsCmdsEnvironment env) {
     $callSync(
-        1461,
+        1478,
         $W()
           ..h(req)
           ..h(env));
@@ -1154,7 +1154,7 @@ extension GoKuboCoreCommandsApi on GoKuboCoreCommands {
 
   /// Go: `var commands.DefaultBufSize int`.
   int get defaultBufSize {
-    final $r = $callSync(1462);
+    final $r = $callSync(1479);
     return $r.i64();
   }
 
@@ -1162,7 +1162,7 @@ extension GoKuboCoreCommandsApi on GoKuboCoreCommands {
   KuboCoreCommandsVersionCheckOutput detectNewKuboVersion(
       $core.KuboCoreIpfsNode nd, int minPercent) {
     final $r = $callSync(
-        1463,
+        1480,
         $W()
           ..h(nd)
           ..i64(minPercent));
@@ -1171,109 +1171,109 @@ extension GoKuboCoreCommandsApi on GoKuboCoreCommands {
 
   /// Go: `var commands.DhtCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get dhtCmd {
-    final $r = $callSync(1464);
+    final $r = $callSync(1481);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var commands.DiagCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get diagCmd {
-    final $r = $callSync(1465);
+    final $r = $callSync(1482);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `func commands.ExternalBinary(instructions string) *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand externalBinary(String instructions) {
-    final $r = $callSync(1466, $W()..str(instructions));
+    final $r = $callSync(1483, $W()..str(instructions));
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var commands.FileStoreCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get fileStoreCmd {
-    final $r = $callSync(1467);
+    final $r = $callSync(1484);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var commands.FilesCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get filesCmd {
-    final $r = $callSync(1468);
+    final $r = $callSync(1485);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var commands.GetCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get getCmd {
-    final $r = $callSync(1469);
+    final $r = $callSync(1486);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `func commands.GetDoesNotUseConfigAsInput(e *cmds.Extra) (val bool, found bool)`.
   (bool, bool) getDoesNotUseConfigAsInput($ipfs_cmds.IpfsCmdsExtra e) {
-    final $r = $callSync(1470, $W()..h(e));
+    final $r = $callSync(1487, $W()..h(e));
     return ($r.b(), $r.b());
   }
 
   /// Go: `func commands.GetDoesNotUseRepo(e *cmds.Extra) (val bool, found bool)`.
   (bool, bool) getDoesNotUseRepo($ipfs_cmds.IpfsCmdsExtra e) {
-    final $r = $callSync(1471, $W()..h(e));
+    final $r = $callSync(1488, $W()..h(e));
     return ($r.b(), $r.b());
   }
 
   /// Go: `func commands.GetPreemptsAutoUpdate(e *cmds.Extra) (val bool, found bool)`.
   (bool, bool) getPreemptsAutoUpdate($ipfs_cmds.IpfsCmdsExtra e) {
-    final $r = $callSync(1472, $W()..h(e));
+    final $r = $callSync(1489, $W()..h(e));
     return ($r.b(), $r.b());
   }
 
   /// Go: `var commands.HumanJSONEncoder func(*cmds.Request) func(io.Writer) cmds.Encoder`.
   $ipfs_cmds.IpfsCmdsEncoderFunc get humanJsonEncoder {
-    final $r = $callSync(1473);
+    final $r = $callSync(1490);
     return $r.hnn($ipfs_cmds.IpfsCmdsEncoderFunc.$h);
   }
 
   /// Go: `var commands.IDCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get idCmd {
-    final $r = $callSync(1474);
+    final $r = $callSync(1491);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var commands.KeyCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get keyCmd {
-    final $r = $callSync(1475);
+    final $r = $callSync(1492);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var commands.LogCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get logCmd {
-    final $r = $callSync(1476);
+    final $r = $callSync(1493);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var commands.LsCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get lsCmd {
-    final $r = $callSync(1477);
+    final $r = $callSync(1494);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var commands.MbaseCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get mbaseCmd {
-    final $r = $callSync(1478);
+    final $r = $callSync(1495);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var commands.MountCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get mountCmd {
-    final $r = $callSync(1479);
+    final $r = $callSync(1496);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var commands.P2PCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get p2pCmd {
-    final $r = $callSync(1480);
+    final $r = $callSync(1497);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `func commands.ParsePeerParam(text string) (multiaddr.Multiaddr, peer.ID, error)`.
   ($multiaddr.Multiaddr, $peer.Libp2pCorePeerId) parsePeerParam(String text) {
-    final $r = $callSync(1481, $W()..str(text));
+    final $r = $callSync(1498, $W()..str(text));
     return (
       $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil(),
       $r.p() ? $peer.Libp2pCorePeerId($r.str()) : $nil()
@@ -1282,115 +1282,115 @@ extension GoKuboCoreCommandsApi on GoKuboCoreCommands {
 
   /// Go: `var commands.PingCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get pingCmd {
-    final $r = $callSync(1482);
+    final $r = $callSync(1499);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var commands.ProvideCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get provideCmd {
-    final $r = $callSync(1483);
+    final $r = $callSync(1500);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var commands.PubsubCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get pubsubCmd {
-    final $r = $callSync(1484);
+    final $r = $callSync(1501);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var commands.PubsubLsCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get pubsubLsCmd {
-    final $r = $callSync(1485);
+    final $r = $callSync(1502);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var commands.PubsubPeersCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get pubsubPeersCmd {
-    final $r = $callSync(1486);
+    final $r = $callSync(1503);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var commands.PubsubPubCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get pubsubPubCmd {
-    final $r = $callSync(1487);
+    final $r = $callSync(1504);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var commands.PubsubResetCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get pubsubResetCmd {
-    final $r = $callSync(1488);
+    final $r = $callSync(1505);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var commands.PubsubSubCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get pubsubSubCmd {
-    final $r = $callSync(1489);
+    final $r = $callSync(1506);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var commands.RefsCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get refsCmd {
-    final $r = $callSync(1492);
+    final $r = $callSync(1509);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var commands.RefsLocalCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get refsLocalCmd {
-    final $r = $callSync(1493);
+    final $r = $callSync(1510);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var commands.RemovedDHTCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get removedDhtCmd {
-    final $r = $callSync(1494);
+    final $r = $callSync(1511);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var commands.RepoCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get repoCmd {
-    final $r = $callSync(1495);
+    final $r = $callSync(1512);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var commands.ResolveCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get resolveCmd {
-    final $r = $callSync(1496);
+    final $r = $callSync(1513);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var commands.Root *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get root {
-    final $r = $callSync(1497);
+    final $r = $callSync(1514);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var commands.RoutingCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get routingCmd {
-    final $r = $callSync(1498);
+    final $r = $callSync(1515);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var commands.StatsCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get statsCmd {
-    final $r = $callSync(1499);
+    final $r = $callSync(1516);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var commands.SwarmCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get swarmCmd {
-    final $r = $callSync(1500);
+    final $r = $callSync(1517);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var commands.UpdateCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get updateCmd {
-    final $r = $callSync(1501);
+    final $r = $callSync(1518);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 
   /// Go: `var commands.VersionCmd *cmds.Command`.
   $ipfs_cmds.IpfsCmdsCommand get versionCmd {
-    final $r = $callSync(1502);
+    final $r = $callSync(1519);
     return $r.p() ? $ipfs_cmds.IpfsCmdsCommand.$dec($r) : $nil();
   }
 

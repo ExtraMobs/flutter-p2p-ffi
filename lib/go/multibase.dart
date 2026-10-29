@@ -17,14 +17,14 @@ class MultibaseEncoder extends $crypto.CryptoPrivateKey
 
   /// Go: `func multibase.NewEncoder(base multibase.Encoding) (multibase.Encoder, error)`.
   factory MultibaseEncoder(int base) {
-    final $r = $callSync(3435, $W()..i64(base));
+    final $r = $callSync(3475, $W()..i64(base));
     return $r.hnn(MultibaseEncoder.$h);
   }
 
   /// Go: `func (multibase.Encoder).Encode(data []byte) string`.
   String encode(Uint8List data) {
     final $r = $callSync(
-        3429,
+        3469,
         $W()
           ..h(this)
           ..bytes(data));
@@ -33,7 +33,7 @@ class MultibaseEncoder extends $crypto.CryptoPrivateKey
 
   /// Go: `func (multibase.Encoder).Encoding() multibase.Encoding`.
   int encoding() {
-    final $r = $callSync(3430, $W()..h(this));
+    final $r = $callSync(3470, $W()..h(this));
     return $r.i64();
   }
 }
@@ -51,14 +51,14 @@ class MultibaseErrUnsupportedEncoding extends GolangException {
 extension GoMultibaseApi on GoMultibase {
   /// Go: `func multibase.Decode(data string) (multibase.Encoding, []byte, error)`.
   (int, Uint8List) decode(String data) {
-    final $r = $callSync(3427, $W()..str(data));
+    final $r = $callSync(3467, $W()..str(data));
     return ($r.i64(), $r.bytes() ?? Uint8List(0));
   }
 
   /// Go: `func multibase.Encode(base multibase.Encoding, data []byte) (string, error)`.
   String encode(int base, Uint8List data) {
     final $r = $callSync(
-        3428,
+        3468,
         $W()
           ..i64(base)
           ..bytes(data));
@@ -67,25 +67,25 @@ extension GoMultibaseApi on GoMultibase {
 
   /// Go: `func multibase.EncoderByName(str string) (multibase.Encoder, error)`.
   MultibaseEncoder encoderByName(String str) {
-    final $r = $callSync(3431, $W()..str(str));
+    final $r = $callSync(3471, $W()..str(str));
     return $r.hnn(MultibaseEncoder.$h);
   }
 
   /// Go: `var multibase.EncodingToStr map[multibase.Encoding]string`.
   Map<int, String> get encodingToStr {
-    final $r = $callSync(3432);
+    final $r = $callSync(3472);
     return $r.map(() => $r.i64(), () => $r.str());
   }
 
   /// Go: `var multibase.Encodings map[string]multibase.Encoding`.
   Map<String, int> get encodings {
-    final $r = $callSync(3433);
+    final $r = $callSync(3473);
     return $r.map(() => $r.str(), () => $r.i64());
   }
 
   /// Go: `func multibase.MustNewEncoder(base multibase.Encoding) multibase.Encoder`.
   MultibaseEncoder mustNewEncoder(int base) {
-    final $r = $callSync(3434, $W()..i64(base));
+    final $r = $callSync(3474, $W()..i64(base));
     return $r.hnn(MultibaseEncoder.$h);
   }
 

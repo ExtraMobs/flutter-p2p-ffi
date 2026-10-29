@@ -326,20 +326,20 @@ extension GoLibp2pApi on GoLibp2p {
   /// Asynchronous: runs in a goroutine of the service.
   Future<$host.Libp2pCoreHost> new$(
       [List<$config.Libp2pConfigOption> opts = const []]) async {
-    final $r = await $call(2800, $W()..list(opts, (w0, e0) => w0.opt(e0)));
+    final $r = await $call(2826, $W()..list(opts, (w0, e0) => w0.opt(e0)));
     return $r.hnn($host.Libp2pCoreHost.$h);
   }
 
   /// Go: `func libp2p.NewWithoutDefaults(opts ...libp2p.Option) (host.Host, error)`.
   $host.Libp2pCoreHost newWithoutDefaults(
       [List<$config.Libp2pConfigOption> opts = const []]) {
-    final $r = $callSync(2801, $W()..list(opts, (w0, e0) => w0.opt(e0)));
+    final $r = $callSync(2827, $W()..list(opts, (w0, e0) => w0.opt(e0)));
     return $r.hnn($host.Libp2pCoreHost.$h);
   }
 
   /// Go: `func libp2p.SetDefaultServiceLimits(config *rcmgr.ScalingLimitConfig)`.
   void setDefaultServiceLimits(
       $resource_manager.Libp2pP2pHostResourceManagerScalingLimitConfig config) {
-    $callSync(2802, $W()..dto(config));
+    $callSync(2828, $W()..dto(config));
   }
 }

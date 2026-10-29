@@ -165,9 +165,11 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `func bitswap.SetSimulateDontHavesOnTimeout(send bool) bitswap.Option` | `goBoxo.bitswap.setSimulateDontHavesOnTimeout` | sync |
 | `func bitswap.TaskWorkerCount(count int) bitswap.Option` | `goBoxo.bitswap.taskWorkerCount` | sync |
 | `func bitswap.WithBlockReceivedNotifier(brn client.BlockReceivedNotifier) bitswap.Option` | `goBoxo.bitswap.withBlockReceivedNotifier` | sync |
+| `func bitswap.WithPeerBlockRequestFilter(pbrf server.PeerBlockRequestFilter) bitswap.Option` | `goBoxo.bitswap.withPeerBlockRequestFilter` | Future |
 | `func bitswap.WithScoreLedger(scoreLedger server.ScoreLedger) bitswap.Option` | `goBoxo.bitswap.withScoreLedger` | sync |
 | `func bitswap.WithServerEnabled(enabled bool) bitswap.Option` | `goBoxo.bitswap.withServerEnabled` | sync |
 | `func bitswap.WithTargetMessageSize(tms int) bitswap.Option` | `goBoxo.bitswap.withTargetMessageSize` | sync |
+| `func bitswap.WithTaskComparator(comparator server.TaskComparator) bitswap.Option` | `goBoxo.bitswap.withTaskComparator` | Future |
 | `func bitswap.WithTracer(tap tracer.Tracer) bitswap.Option` | `goBoxo.bitswap.withTracer` | sync |
 | `func bitswap.WithWantHaveReplaceSize(size int) bitswap.Option` | `goBoxo.bitswap.withWantHaveReplaceSize` | sync |
 | `func bitswap.WithoutDuplicatedBlockStats() bitswap.Option` | `goBoxo.bitswap.withoutDuplicatedBlockStats` | sync |
@@ -176,9 +178,7 @@ Omitted:
 
 - `func (*bitswap.Bitswap).ReceiveError(err error)`: parameter err: error
 - `func bitswap.WithClientOption(opt client.Option) bitswap.Option`: parameter opt: github.com/ipfs/boxo/bitswap/client.Option
-- `func bitswap.WithPeerBlockRequestFilter(pbrf server.PeerBlockRequestFilter) bitswap.Option`: takes a callback nobody checked yet: an explicit root in roots.txt if Go only calls it during the call, retainedFuncs if Go keeps it
 - `func bitswap.WithServerOption(opt server.Option) bitswap.Option`: parameter opt: github.com/ipfs/boxo/bitswap/server.Option
-- `func bitswap.WithTaskComparator(comparator server.TaskComparator) bitswap.Option`: takes a callback nobody checked yet: an explicit root in roots.txt if Go only calls it during the call, retainedFuncs if Go keeps it
 
 ## `github.com/ipfs/boxo/bitswap/client` → `goBoxo.bitswap.client` (`lib/go/boxo/bitswap/client.dart`)
 
@@ -266,6 +266,7 @@ Omitted:
 | `func (blockstore.Blockstore).Has(context.Context, cid.Cid) (bool, error)` | `BoxoBlockstoreValidatingBlockstore.has` | Future |
 | `func (blockstore.Blockstore).Put(context.Context, blocks.Block) error` | `BoxoBlockstoreValidatingBlockstore.put` | Future |
 | `func (blockstore.Blockstore).PutMany(context.Context, []blocks.Block) error` | `BoxoBlockstoreValidatingBlockstore.putMany` | Future |
+| `func (blockstore.Viewer).View(ctx context.Context, cid cid.Cid, callback func([]byte) error) error` | `BoxoBlockstoreViewer.view` | Future |
 | `func blockstore.WriteThrough(enabled bool) blockstore.Option` | `goBoxo.blockstore.writeThrough` | sync |
 | `blockstore.Blockstore → x.(*blockstore.ValidatingBlockstore)` | `BoxoBlockstore.asBoxoBlockstoreValidatingBlockstore` | cast |
 | `blockstore.Blockstore → x.(*filestore.Filestore)` | `BoxoBlockstore.asBoxoFilestore` | cast |
@@ -278,7 +279,6 @@ Omitted:
 
 - `func (blockstore.AllKeysChanWithErrer).AllKeysChanWithErr(ctx context.Context) (<-chan cid.Cid, func() error, error)`: channel with other results
 - `func (*blockstore.ValidatingBlockstore).AllKeysChanWithErr(ctx context.Context) (<-chan cid.Cid, func() error, error)`: channel with other results
-- `func (blockstore.Viewer).View(ctx context.Context, cid cid.Cid, callback func([]byte) error) error`: takes a callback nobody checked yet: an explicit root in roots.txt if Go only calls it during the call, retainedFuncs if Go keeps it
 
 ## `github.com/ipfs/boxo/chunker` → `goBoxo.chunker` (`lib/go/boxo/chunker.dart`)
 
@@ -469,6 +469,7 @@ Omitted:
 | `var filestore.FilestorePrefix datastore.Key` | `goBoxo.filestore.filestorePrefix` | sync |
 | `func filestore.IsURL(str string) bool` | `goBoxo.filestore.isUrl` | sync |
 | `func filestore.List(ctx context.Context, fs *filestore.Filestore, key cid.Cid) *filestore.ListRes` | `goBoxo.filestore.list` | Future |
+| `func (*filestore.ListRes).FormatLong(enc func(cid.Cid) string) string` | `BoxoFilestoreListRes.formatLong` | Future |
 | `func filestore.NewFileManager(ds datastore.Batching, root string, options ...filestore.Option) *filestore.FileManager` | `factory BoxoFilestoreFileManager` | sync |
 | `func filestore.NewFilestore(bs blockstore.Blockstore, fm *filestore.FileManager, prov provider.MultihashProvider) *filestore.Filestore` | `factory BoxoFilestore` | sync |
 | `func filestore.Verify(ctx context.Context, fs *filestore.Filestore, key cid.Cid) *filestore.ListRes` | `goBoxo.filestore.verify` | Future |
@@ -482,7 +483,6 @@ Omitted:
 Omitted:
 
 - `func filestore.ListAll(ctx context.Context, fs *filestore.Filestore, fileOrder bool) (func(context.Context) *filestore.ListRes, error)`: result 0: func(context.Context) *github.com/ipfs/boxo/filestore.ListRes
-- `func (*filestore.ListRes).FormatLong(enc func(cid.Cid) string) string`: parameter enc: func(github.com/ipfs/go-cid.Cid) string
 - `func (filestore.Status).Format() string`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/ipfs/boxo/filestore.Status
 - `func (filestore.Status).String() string`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/ipfs/boxo/filestore.Status
 - `func filestore.VerifyAll(ctx context.Context, fs *filestore.Filestore, fileOrder bool) (func(context.Context) *filestore.ListRes, error)`: result 0: func(context.Context) *github.com/ipfs/boxo/filestore.ListRes
@@ -512,6 +512,7 @@ Omitted:
 | `func (*gateway.CarBackend).IsCached(ctx context.Context, path path.Path) bool` | `BoxoGatewayCarBackend.isCached` | Future |
 | `func (*gateway.baseBackend).ResolveMutable(ctx context.Context, p path.Path) (path.ImmutablePath, time.Duration, time.Time, error)` | `BoxoGatewayCarBackend.resolveMutable` | Future |
 | `func (*gateway.CarBackend).ResolvePath(ctx context.Context, p path.ImmutablePath) (gateway.ContentPathMetadata, error)` | `BoxoGatewayCarBackend.resolvePath` | Future |
+| `func (gateway.CarFetcher).Fetch(ctx context.Context, path path.ImmutablePath, params gateway.CarParams, cb gateway.DataCallback) error` | `BoxoGatewayCarFetcher.fetch` | Future |
 | `var gateway.EmptyIdentityCID cid.Cid` | `goBoxo.gateway.emptyIdentityCid` | sync |
 | `func (*gateway.GetResponse).Close() error` | `BoxoGatewayGetResponse.close` | sync |
 | `func (*gateway.HeadResponse).Close() error` | `BoxoGatewayHeadResponse.close` | sync |
@@ -577,7 +578,6 @@ Omitted:
 Omitted:
 
 - `func (*gateway.BlocksBackend).WrapContextForRequest(ctx context.Context) context.Context`: result 0: context.Context
-- `func (gateway.CarFetcher).Fetch(ctx context.Context, path path.ImmutablePath, params gateway.CarParams, cb gateway.DataCallback) error`: takes a callback nobody checked yet: an explicit root in roots.txt if Go only calls it during the call, retainedFuncs if Go keeps it
 - `func (gateway.DuplicateBlocksPolicy).Bool() bool`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/ipfs/boxo/gateway.DuplicateBlocksPolicy
 - `func (gateway.DuplicateBlocksPolicy).String() string`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/ipfs/boxo/gateway.DuplicateBlocksPolicy
 - `func gateway.NewGetResponseFromDirectoryListing(dagSize uint64, entries <-chan unixfs.LinkResult, closeFn func() error) *gateway.GetResponse`: parameter entries: <-chan github.com/ipfs/boxo/ipld/unixfs.LinkResult
@@ -683,6 +683,8 @@ Omitted:
 | `func (merkledag.SessionMaker).Session(context.Context) format.NodeGetter` | `BoxoIpldMerkledagSessionMaker.session` | Future |
 | `func merkledag.V0CidPrefix() cid.Prefix` | `goBoxo.ipld.merkledag.v0CidPrefix` | sync |
 | `func merkledag.V1CidPrefix() cid.Prefix` | `goBoxo.ipld.merkledag.v1CidPrefix` | sync |
+| `func merkledag.Walk(ctx context.Context, getLinks merkledag.GetLinks, c cid.Cid, visit func(cid.Cid) bool, options ...merkledag.WalkOption) error` | `goBoxo.ipld.merkledag.walk` | Future |
+| `func merkledag.WalkDepth(ctx context.Context, getLinks merkledag.GetLinks, c cid.Cid, visit func(cid.Cid, int) bool, options ...merkledag.WalkOption) error` | `goBoxo.ipld.merkledag.walkDepth` | Future |
 | `func merkledag.WrapSession(s *blockservice.Session) format.NodeGetter` | `goBoxo.ipld.merkledag.wrapSession` | sync |
 | `const merkledag.PBNodeDataFirst merkledag.PBNodeFieldOrder` | `goBoxo.ipld.merkledag.pbNodeDataFirst` | const |
 | `const merkledag.PBNodeLinksFirst merkledag.PBNodeFieldOrder` | `goBoxo.ipld.merkledag.pbNodeLinksFirst` | const |
@@ -697,8 +699,6 @@ Omitted:
 - `func merkledag.OnMissing(callback func(c cid.Cid)) merkledag.WalkOption`: result 0: github.com/ipfs/boxo/ipld/merkledag.WalkOption
 - `func (*merkledag.ProgressTracker).DeriveContext(ctx context.Context) context.Context`: result 0: context.Context
 - `func merkledag.SkipRoot() merkledag.WalkOption`: result 0: github.com/ipfs/boxo/ipld/merkledag.WalkOption
-- `func merkledag.Walk(ctx context.Context, getLinks merkledag.GetLinks, c cid.Cid, visit func(cid.Cid) bool, options ...merkledag.WalkOption) error`: takes a callback nobody checked yet: an explicit root in roots.txt if Go only calls it during the call, retainedFuncs if Go keeps it
-- `func merkledag.WalkDepth(ctx context.Context, getLinks merkledag.GetLinks, c cid.Cid, visit func(cid.Cid, int) bool, options ...merkledag.WalkOption) error`: takes a callback nobody checked yet: an explicit root in roots.txt if Go only calls it during the call, retainedFuncs if Go keeps it
 - `func merkledag.WithProvider(p provider.MultihashProvider) merkledag.WalkOption`: result 0: github.com/ipfs/boxo/ipld/merkledag.WalkOption
 
 ## `github.com/ipfs/boxo/ipld/merkledag/dagutils` → `goBoxo.ipld.merkledag.dagutils` (`lib/go/boxo/ipld/merkledag/dagutils.dart`)
@@ -761,6 +761,7 @@ Omitted:
 | `func (*io.BasicDirectory).AddChild(ctx context.Context, name string, node format.Node) error` | `BoxoIpldUnixfsIoBasicDirectory.addChild` | Future |
 | `func (*io.BasicDirectory).EnumLinksAsync(ctx context.Context) <-chan unixfs.LinkResult` | `BoxoIpldUnixfsIoBasicDirectory.enumLinksAsync` | Stream |
 | `func (*io.BasicDirectory).Find(ctx context.Context, name string) (format.Node, error)` | `BoxoIpldUnixfsIoBasicDirectory.find` | Future |
+| `func (*io.BasicDirectory).ForEachLink(_ context.Context, f func(*format.Link) error) error` | `BoxoIpldUnixfsIoBasicDirectory.forEachLink` | Future |
 | `func (*io.BasicDirectory).GetCidBuilder() cid.Builder` | `BoxoIpldUnixfsIoBasicDirectory.getCidBuilder` | sync |
 | `func (*io.BasicDirectory).GetHAMTShardingSize() int` | `BoxoIpldUnixfsIoBasicDirectory.getHamtShardingSize` | sync |
 | `func (*io.BasicDirectory).GetMaxHAMTFanout() int` | `BoxoIpldUnixfsIoBasicDirectory.getMaxHamtFanout` | sync |
@@ -783,6 +784,7 @@ Omitted:
 | `func (io.Directory).AddChild(context.Context, string, format.Node) error` | `BoxoIpldUnixfsIoDirectory.addChild` | Future |
 | `func (io.Directory).EnumLinksAsync(context.Context) <-chan unixfs.LinkResult` | `BoxoIpldUnixfsIoDirectory.enumLinksAsync` | Stream |
 | `func (io.Directory).Find(context.Context, string) (format.Node, error)` | `BoxoIpldUnixfsIoDirectory.find` | Future |
+| `func (io.Directory).ForEachLink(context.Context, func(*format.Link) error) error` | `BoxoIpldUnixfsIoDirectory.forEachLink` | Future |
 | `func (io.Directory).GetCidBuilder() cid.Builder` | `BoxoIpldUnixfsIoDirectory.getCidBuilder` | sync |
 | `func (io.Directory).GetHAMTShardingSize() int` | `BoxoIpldUnixfsIoDirectory.getHamtShardingSize` | sync |
 | `func (io.Directory).GetMaxHAMTFanout() int` | `BoxoIpldUnixfsIoDirectory.getMaxHamtFanout` | sync |
@@ -800,6 +802,7 @@ Omitted:
 | `func (*io.DynamicDirectory).AddChild(ctx context.Context, name string, nd format.Node) error` | `BoxoIpldUnixfsIoDynamicDirectory.addChild` | Future |
 | `func (io.Directory).EnumLinksAsync(context.Context) <-chan unixfs.LinkResult` | `BoxoIpldUnixfsIoDynamicDirectory.enumLinksAsync` | Stream |
 | `func (io.Directory).Find(context.Context, string) (format.Node, error)` | `BoxoIpldUnixfsIoDynamicDirectory.find` | Future |
+| `func (io.Directory).ForEachLink(context.Context, func(*format.Link) error) error` | `BoxoIpldUnixfsIoDynamicDirectory.forEachLink` | Future |
 | `func (io.Directory).GetCidBuilder() cid.Builder` | `BoxoIpldUnixfsIoDynamicDirectory.getCidBuilder` | sync |
 | `func (io.Directory).GetHAMTShardingSize() int` | `BoxoIpldUnixfsIoDynamicDirectory.getHamtShardingSize` | sync |
 | `func (io.Directory).GetMaxHAMTFanout() int` | `BoxoIpldUnixfsIoDynamicDirectory.getMaxHamtFanout` | sync |
@@ -817,6 +820,7 @@ Omitted:
 | `func (*io.HAMTDirectory).AddChild(ctx context.Context, name string, nd format.Node) error` | `BoxoIpldUnixfsIoHamtDirectory.addChild` | Future |
 | `func (*io.HAMTDirectory).EnumLinksAsync(ctx context.Context) <-chan unixfs.LinkResult` | `BoxoIpldUnixfsIoHamtDirectory.enumLinksAsync` | Stream |
 | `func (*io.HAMTDirectory).Find(ctx context.Context, name string) (format.Node, error)` | `BoxoIpldUnixfsIoHamtDirectory.find` | Future |
+| `func (*io.HAMTDirectory).ForEachLink(ctx context.Context, f func(*format.Link) error) error` | `BoxoIpldUnixfsIoHamtDirectory.forEachLink` | Future |
 | `func (*io.HAMTDirectory).GetCidBuilder() cid.Builder` | `BoxoIpldUnixfsIoHamtDirectory.getCidBuilder` | sync |
 | `func (*io.HAMTDirectory).GetHAMTShardingSize() int` | `BoxoIpldUnixfsIoHamtDirectory.getHamtShardingSize` | sync |
 | `func (*io.HAMTDirectory).GetMaxHAMTFanout() int` | `BoxoIpldUnixfsIoHamtDirectory.getMaxHamtFanout` | sync |
@@ -856,13 +860,6 @@ Omitted:
 | `const io.SizeEstimationBlock io.SizeEstimationMode` | `goBoxo.ipld.unixfs.io.sizeEstimationBlock` | const |
 | `const io.SizeEstimationDisabled io.SizeEstimationMode` | `goBoxo.ipld.unixfs.io.sizeEstimationDisabled` | const |
 | `const io.SizeEstimationLinks io.SizeEstimationMode` | `goBoxo.ipld.unixfs.io.sizeEstimationLinks` | const |
-
-Omitted:
-
-- `func (*io.BasicDirectory).ForEachLink(_ context.Context, f func(*format.Link) error) error`: takes a callback nobody checked yet: an explicit root in roots.txt if Go only calls it during the call, retainedFuncs if Go keeps it
-- `func (io.Directory).ForEachLink(context.Context, func(*format.Link) error) error`: takes a callback nobody checked yet: an explicit root in roots.txt if Go only calls it during the call, retainedFuncs if Go keeps it
-- `func (io.Directory).ForEachLink(context.Context, func(*format.Link) error) error`: takes a callback nobody checked yet: an explicit root in roots.txt if Go only calls it during the call, retainedFuncs if Go keeps it
-- `func (*io.HAMTDirectory).ForEachLink(ctx context.Context, f func(*format.Link) error) error`: takes a callback nobody checked yet: an explicit root in roots.txt if Go only calls it during the call, retainedFuncs if Go keeps it
 
 ## `github.com/ipfs/boxo/ipns` → `goBoxo.ipns` (`lib/go/boxo/ipns.dart`)
 
@@ -978,6 +975,9 @@ Omitted:
 | `func mfs.Lookup(r *mfs.Root, path string) (mfs.FSNode, error)` | `goBoxo.mfs.lookup` | sync |
 | `func mfs.Mkdir(r *mfs.Root, pth string, opts mfs.MkdirOpts, dirOpts ...mfs.Option) error` | `goBoxo.mfs.mkdir` | sync |
 | `func mfs.Mv(r *mfs.Root, src string, dst string) error` | `goBoxo.mfs.mv` | sync |
+| `func mfs.NewEmptyRoot(ctx context.Context, ds format.DAGService, pf mfs.PubFunc, prov provider.MultihashProvider, opts ...mfs.Option) (*mfs.Root, error)` | `goBoxo.mfs.newEmptyRoot` | Future |
+| `func mfs.NewRepublisher(pf mfs.PubFunc, tshort time.Duration, tlong time.Duration, lastPublished cid.Cid) *mfs.Republisher` | `goBoxo.mfs.newRepublisher` | Future |
+| `func mfs.NewRoot(ctx context.Context, ds format.DAGService, node *merkledag.ProtoNode, pf mfs.PubFunc, prov provider.MultihashProvider, opts ...mfs.Option) (*mfs.Root, error)` | `goBoxo.mfs.newRoot` | Future |
 | `func mfs.PutNode(r *mfs.Root, path string, nd format.Node) error` | `goBoxo.mfs.putNode` | sync |
 | `func (*mfs.Republisher).Close() error` | `BoxoMfsRepublisher.close` | sync |
 | `func (*mfs.Republisher).Update(c cid.Cid)` | `BoxoMfsRepublisher.update` | sync |
@@ -998,10 +998,7 @@ Omitted:
 
 - `func mfs.NewDirectory(ctx context.Context, name string, node format.Node, parent mfs.parent, dserv format.DAGService, prov provider.MultihashProvider) (*mfs.Directory, error)`: parameter parent: unexported type github.com/ipfs/boxo/mfs.parent
 - `func mfs.NewEmptyDirectory(ctx context.Context, name string, p mfs.parent, dserv format.DAGService, prov provider.MultihashProvider, opts ...mfs.Option) (*mfs.Directory, error)`: parameter p: unexported type github.com/ipfs/boxo/mfs.parent
-- `func mfs.NewEmptyRoot(ctx context.Context, ds format.DAGService, pf mfs.PubFunc, prov provider.MultihashProvider, opts ...mfs.Option) (*mfs.Root, error)`: takes a callback nobody checked yet: an explicit root in roots.txt if Go only calls it during the call, retainedFuncs if Go keeps it
 - `func mfs.NewFile(name string, node format.Node, parent mfs.parent, dserv format.DAGService, providing provider.MultihashProvider) (*mfs.File, error)`: parameter parent: unexported type github.com/ipfs/boxo/mfs.parent
-- `func mfs.NewRepublisher(pf mfs.PubFunc, tshort time.Duration, tlong time.Duration, lastPublished cid.Cid) *mfs.Republisher`: takes a callback nobody checked yet: an explicit root in roots.txt if Go only calls it during the call, retainedFuncs if Go keeps it
-- `func mfs.NewRoot(ctx context.Context, ds format.DAGService, node *merkledag.ProtoNode, pf mfs.PubFunc, prov provider.MultihashProvider, opts ...mfs.Option) (*mfs.Root, error)`: takes a callback nobody checked yet: an explicit root in roots.txt if Go only calls it during the call, retainedFuncs if Go keeps it
 - `func mfs.WithChunker(c chunk.SplitterGen) mfs.Option`: result 0: github.com/ipfs/boxo/mfs.Option
 - `func mfs.WithCidBuilder(b cid.Builder) mfs.Option`: result 0: github.com/ipfs/boxo/mfs.Option
 - `func mfs.WithFetchTimeout(d time.Duration) mfs.Option`: result 0: github.com/ipfs/boxo/mfs.Option
@@ -1662,8 +1659,10 @@ Omitted:
 | `func (format.Resolver).Tree(path string, depth int) []string` | `IpldFormatResolver.tree` | sync |
 | `func (*format.Walker).ActiveChildIndex() uint` | `IpldFormatWalker.activeChildIndex` | sync |
 | `func (*format.Walker).ActiveNode() format.NavigableNode` | `IpldFormatWalker.activeNode` | sync |
+| `func (*format.Walker).Iterate(visitor format.Visitor) error` | `IpldFormatWalker.iterate` | Future |
 | `func (*format.Walker).NextChild() error` | `IpldFormatWalker.nextChild` | sync |
 | `func (*format.Walker).Pause()` | `IpldFormatWalker.pause` | sync |
+| `func (*format.Walker).Seek(visitor format.Visitor) error` | `IpldFormatWalker.seek` | Future |
 | `func (*format.Walker).SetContext(ctx context.Context)` | `IpldFormatWalker.setContext` | Future |
 | `format.DAGService → x.(*format.BufferedDAG)` | `IpldFormatDagService.asIpldFormatBufferedDag` | cast |
 | `format.DAGService → x.(iface.APIDagService)` | `IpldFormatDagService.asKuboCoreCoreifaceApiDagService` | cast |
@@ -1692,8 +1691,6 @@ Omitted:
 - `func format.MaxNodesBatchOption(num int) format.BatchOption`: result 0: github.com/ipfs/go-ipld-format.BatchOption
 - `func format.MaxSizeBatchOption(size int) format.BatchOption`: result 0: github.com/ipfs/go-ipld-format.BatchOption
 - `func (*format.NodePromise).Fail(err error)`: parameter err: error
-- `func (*format.Walker).Iterate(visitor format.Visitor) error`: takes a callback nobody checked yet: an explicit root in roots.txt if Go only calls it during the call, retainedFuncs if Go keeps it
-- `func (*format.Walker).Seek(visitor format.Visitor) error`: takes a callback nobody checked yet: an explicit root in roots.txt if Go only calls it during the call, retainedFuncs if Go keeps it
 
 ## `github.com/ipfs/go-ipld-legacy` → `goIpldLegacy` (`lib/go/ipld_legacy.dart`)
 
@@ -3038,27 +3035,24 @@ Omitted:
 | Go | Dart | Mode |
 |---|---|---|
 | `func (*traversal.Budget).Clone() *traversal.Budget` | `IpldPrimeTraversalBudget.clone` | sync |
+| `func traversal.Focus(n datamodel.Node, p datamodel.Path, fn traversal.VisitFn) error` | `goIpldPrime.traversal.focus` | Future |
 | `func traversal.FocusedTransform(n datamodel.Node, p datamodel.Path, fn traversal.TransformFn, createParents bool) (datamodel.Node, error)` | `goIpldPrime.traversal.focusedTransform` | sync |
 | `func traversal.Get(n datamodel.Node, p datamodel.Path) (datamodel.Node, error)` | `goIpldPrime.traversal.get` | sync |
+| `func (traversal.Progress).Focus(n datamodel.Node, p datamodel.Path, fn traversal.VisitFn) error` | `IpldPrimeTraversalProgress.focus` | Future |
 | `func (traversal.Progress).FocusedTransform(n datamodel.Node, p datamodel.Path, fn traversal.TransformFn, createParents bool) (datamodel.Node, error)` | `IpldPrimeTraversalProgress.focusedTransform` | sync |
 | `func (traversal.Progress).Get(n datamodel.Node, p datamodel.Path) (datamodel.Node, error)` | `IpldPrimeTraversalProgress.get` | sync |
+| `func (traversal.Progress).WalkAdv(n datamodel.Node, s selector.Selector, fn traversal.AdvVisitFn) error` | `IpldPrimeTraversalProgress.walkAdv` | Future |
+| `func (traversal.Progress).WalkLocal(n datamodel.Node, fn traversal.VisitFn) error` | `IpldPrimeTraversalProgress.walkLocal` | Future |
+| `func (traversal.Progress).WalkMatching(n datamodel.Node, s selector.Selector, fn traversal.VisitFn) error` | `IpldPrimeTraversalProgress.walkMatching` | Future |
 | `func (traversal.Progress).WalkTransforming(n datamodel.Node, s selector.Selector, fn traversal.TransformFn) (datamodel.Node, error)` | `IpldPrimeTraversalProgress.walkTransforming` | sync |
 | `func traversal.SelectLinks(n datamodel.Node) ([]datamodel.Link, error)` | `goIpldPrime.traversal.selectLinks` | sync |
+| `func traversal.WalkAdv(n datamodel.Node, s selector.Selector, fn traversal.AdvVisitFn) error` | `goIpldPrime.traversal.walkAdv` | Future |
+| `func traversal.WalkLocal(n datamodel.Node, fn traversal.VisitFn) error` | `goIpldPrime.traversal.walkLocal` | Future |
+| `func traversal.WalkMatching(n datamodel.Node, s selector.Selector, fn traversal.VisitFn) error` | `goIpldPrime.traversal.walkMatching` | Future |
 | `func traversal.WalkTransforming(n datamodel.Node, s selector.Selector, fn traversal.TransformFn) (datamodel.Node, error)` | `goIpldPrime.traversal.walkTransforming` | sync |
 | `const traversal.VisitReason_SelectionCandidate traversal.VisitReason` | `goIpldPrime.traversal.visitReasonSelectionCandidate` | const |
 | `const traversal.VisitReason_SelectionMatch traversal.VisitReason` | `goIpldPrime.traversal.visitReasonSelectionMatch` | const |
 | `const traversal.VisitReason_SelectionParent traversal.VisitReason` | `goIpldPrime.traversal.visitReasonSelectionParent` | const |
-
-Omitted:
-
-- `func traversal.Focus(n datamodel.Node, p datamodel.Path, fn traversal.VisitFn) error`: takes a callback nobody checked yet: an explicit root in roots.txt if Go only calls it during the call, retainedFuncs if Go keeps it
-- `func (traversal.Progress).Focus(n datamodel.Node, p datamodel.Path, fn traversal.VisitFn) error`: takes a callback nobody checked yet: an explicit root in roots.txt if Go only calls it during the call, retainedFuncs if Go keeps it
-- `func (traversal.Progress).WalkAdv(n datamodel.Node, s selector.Selector, fn traversal.AdvVisitFn) error`: takes a callback nobody checked yet: an explicit root in roots.txt if Go only calls it during the call, retainedFuncs if Go keeps it
-- `func (traversal.Progress).WalkLocal(n datamodel.Node, fn traversal.VisitFn) error`: takes a callback nobody checked yet: an explicit root in roots.txt if Go only calls it during the call, retainedFuncs if Go keeps it
-- `func (traversal.Progress).WalkMatching(n datamodel.Node, s selector.Selector, fn traversal.VisitFn) error`: takes a callback nobody checked yet: an explicit root in roots.txt if Go only calls it during the call, retainedFuncs if Go keeps it
-- `func traversal.WalkAdv(n datamodel.Node, s selector.Selector, fn traversal.AdvVisitFn) error`: takes a callback nobody checked yet: an explicit root in roots.txt if Go only calls it during the call, retainedFuncs if Go keeps it
-- `func traversal.WalkLocal(n datamodel.Node, fn traversal.VisitFn) error`: takes a callback nobody checked yet: an explicit root in roots.txt if Go only calls it during the call, retainedFuncs if Go keeps it
-- `func traversal.WalkMatching(n datamodel.Node, s selector.Selector, fn traversal.VisitFn) error`: takes a callback nobody checked yet: an explicit root in roots.txt if Go only calls it during the call, retainedFuncs if Go keeps it
 
 ## `github.com/ipld/go-ipld-prime/traversal/selector` → `goIpldPrime.traversal.selector` (`lib/go/ipld_prime/traversal/selector.dart`)
 
@@ -3620,6 +3614,7 @@ Omitted:
 | `func (*pubsub.MessageCache).GetForPeer(mid string, p peer.ID) (*pubsub.Message, int, bool)` | `Libp2pPubsubMessageCache.getForPeer` | sync |
 | `func (*pubsub.MessageCache).GetGossipIDs(topic string) []string` | `Libp2pPubsubMessageCache.getGossipIds` | sync |
 | `func (*pubsub.MessageCache).Put(msg *pubsub.Message)` | `Libp2pPubsubMessageCache.put` | sync |
+| `func (*pubsub.MessageCache).SetMsgIdFn(msgID func(*pubsub.Message) string)` | `Libp2pPubsubMessageCache.setMsgIdFn` | Future |
 | `func (*pubsub.MessageCache).Shift()` | `Libp2pPubsubMessageCache.shift` | sync |
 | `func pubsub.MinTopicSize(size int) pubsub.RouterReady` | `goLibp2pPubsub.minTopicSize` | sync |
 | `var pubsub.MinTraceBatchSize int` | `goLibp2pPubsub.minTraceBatchSize` | sync |
@@ -3796,7 +3791,6 @@ Omitted:
 - `func (*pubsub.GossipSubRouter).WithDefaultTagTracer() pubsub.Option`: result 0: github.com/libp2p/go-libp2p-pubsub.Option
 - `func (pubsub.MapBlacklist).Add(p peer.ID) bool`: receiver is neither a handle, a DTO nor a value type: *tipo github.com/libp2p/go-libp2p-pubsub.MapBlacklist
 - `func (pubsub.MapBlacklist).Contains(p peer.ID) bool`: receiver is neither a handle, a DTO nor a value type: *tipo github.com/libp2p/go-libp2p-pubsub.MapBlacklist
-- `func (*pubsub.MessageCache).SetMsgIdFn(msgID func(*pubsub.Message) string)`: parameter msgID: func(*github.com/libp2p/go-libp2p-pubsub.Message) string
 - `func pubsub.OnlyPublicAddrsOnPeerExchange() pubsub.Option`: result 0: github.com/libp2p/go-libp2p-pubsub.Option
 - `func (pubsub.RPCScheduler).All() iter.Seq2[peer.ID, *pubsub.RPC]`: result 0: generic iter.Seq2[github.com/libp2p/go-libp2p/core/peer.ID, *github.com/libp2p/go-libp2p-pubsub.RPC]
 - `func pubsub.RequestPartialMessages() pubsub.TopicOpt`: result 0: github.com/libp2p/go-libp2p-pubsub.TopicOpt
@@ -4188,6 +4182,7 @@ Omitted:
 | `func (connmgr.ConnManager).TrimOpenConns(ctx context.Context)` | `Libp2pCoreConnmgrConnManager.trimOpenConns` | Future |
 | `func (connmgr.ConnManager).Unprotect(id peer.ID, tag string) (protected bool)` | `Libp2pCoreConnmgrConnManager.unprotect` | sync |
 | `func (connmgr.ConnManager).UntagPeer(p peer.ID, tag string)` | `Libp2pCoreConnmgrConnManager.untagPeer` | sync |
+| `func (connmgr.ConnManager).UpsertTag(p peer.ID, tag string, upsert func(int) int)` | `Libp2pCoreConnmgrConnManager.upsertTag` | Future |
 | `func (connmgr.ConnectionGater).InterceptAccept(network.ConnMultiaddrs) (allow bool)` | `Libp2pCoreConnmgrConnectionGater.interceptAccept` | sync |
 | `func (connmgr.ConnectionGater).InterceptAddrDial(peer.ID, multiaddr.Multiaddr) (allow bool)` | `Libp2pCoreConnmgrConnectionGater.interceptAddrDial` | sync |
 | `func (connmgr.ConnectionGater).InterceptPeerDial(p peer.ID) (allow bool)` | `Libp2pCoreConnmgrConnectionGater.interceptPeerDial` | sync |
@@ -4197,7 +4192,7 @@ Omitted:
 | `func connmgr.DecayFixed(minuend int) connmgr.DecayFn` | `goLibp2p.core.connmgr.decayFixed` | sync |
 | `func connmgr.DecayLinear(coef float64) connmgr.DecayFn` | `goLibp2p.core.connmgr.decayLinear` | sync |
 | `func connmgr.DecayNone() connmgr.DecayFn` | `goLibp2p.core.connmgr.decayNone` | sync |
-| `func (connmgr.Decayer).RegisterDecayingTag(name string, interval time.Duration, decayFn connmgr.DecayFn, bumpFn connmgr.BumpFn) (connmgr.DecayingTag, error)` | `Libp2pCoreConnmgrDecayer.registerDecayingTag` | sync |
+| `func (connmgr.Decayer).RegisterDecayingTag(name string, interval time.Duration, decayFn connmgr.DecayFn, bumpFn connmgr.BumpFn) (connmgr.DecayingTag, error)` | `Libp2pCoreConnmgrDecayer.registerDecayingTag` | Future |
 | `func (connmgr.DecayingTag).Bump(peer peer.ID, delta int) error` | `Libp2pCoreConnmgrDecayingTag.bump` | sync |
 | `func (connmgr.DecayingTag).Close() error` | `Libp2pCoreConnmgrDecayingTag.close` | sync |
 | `func (connmgr.DecayingTag).Interval() time.Duration` | `Libp2pCoreConnmgrDecayingTag.interval` | sync |
@@ -4213,13 +4208,12 @@ Omitted:
 | `func (connmgr.NullConnMgr).TrimOpenConns(_ context.Context)` | `Libp2pCoreConnmgrNullConnMgr.trimOpenConns` | Future |
 | `func (connmgr.NullConnMgr).Unprotect(peer.ID, string) bool` | `Libp2pCoreConnmgrNullConnMgr.unprotect` | sync |
 | `func (connmgr.NullConnMgr).UntagPeer(peer.ID, string)` | `Libp2pCoreConnmgrNullConnMgr.untagPeer` | sync |
+| `func (connmgr.NullConnMgr).UpsertTag(peer.ID, string, func(int) int)` | `Libp2pCoreConnmgrNullConnMgr.upsertTag` | Future |
 | `func connmgr.SupportsDecay(mgr connmgr.ConnManager) (connmgr.Decayer, bool)` | `goLibp2p.core.connmgr.supportsDecay` | sync |
 
 Omitted:
 
-- `func (connmgr.ConnManager).UpsertTag(p peer.ID, tag string, upsert func(int) int)`: parameter upsert: func(int) int
 - `func (connmgr.GetConnLimiter).GetConnLimit() int`: receiver is neither a handle, a DTO nor a value type: 
-- `func (connmgr.NullConnMgr).UpsertTag(peer.ID, string, func(int) int)`: parameter arg2: func(int) int
 
 ## `github.com/libp2p/go-libp2p/core/crypto` → `goLibp2p.core.crypto` (`lib/go/libp2p/core/crypto.dart`)
 
@@ -4462,6 +4456,7 @@ Omitted:
 | `func (network.Network).ListenAddresses() []multiaddr.Multiaddr` | `Libp2pCoreNetwork.listenAddresses` | sync |
 | `func (network.Network).NewStream(context.Context, peer.ID) (network.Stream, error)` | `Libp2pCoreNetwork.newStream` | Future |
 | `func (network.Network).ResourceManager() network.ResourceManager` | `Libp2pCoreNetwork.resourceManager` | sync |
+| `func (network.Network).SetStreamHandler(network.StreamHandler)` | `Libp2pCoreNetwork.setStreamHandler` | Future |
 | `func (*network.NoopNotifiee).Connected(_ network.Network, _ network.Conn)` | `Libp2pCoreNetworkNoopNotifiee.connected` | sync |
 | `func (*network.NoopNotifiee).Disconnected(_ network.Network, _ network.Conn)` | `Libp2pCoreNetworkNoopNotifiee.disconnected` | sync |
 | `func (*network.NoopNotifiee).Listen(_ network.Network, _ multiaddr.Multiaddr)` | `Libp2pCoreNetworkNoopNotifiee.listen` | sync |
@@ -4478,6 +4473,11 @@ Omitted:
 | `func (*network.NullResourceManager).OpenConnection(_ network.Direction, _ bool, _ multiaddr.Multiaddr) (network.ConnManagementScope, error)` | `Libp2pCoreNetworkNullResourceManager.openConnection` | sync |
 | `func (*network.NullResourceManager).OpenStream(_ peer.ID, _ network.Direction) (network.StreamManagementScope, error)` | `Libp2pCoreNetworkNullResourceManager.openStream` | sync |
 | `func (*network.NullResourceManager).VerifySourceAddress(_ net.Addr) bool` | `Libp2pCoreNetworkNullResourceManager.verifySourceAddress` | sync |
+| `func (*network.NullResourceManager).ViewPeer(_ peer.ID, f func(network.PeerScope) error) error` | `Libp2pCoreNetworkNullResourceManager.viewPeer` | Future |
+| `func (*network.NullResourceManager).ViewProtocol(_ protocol.ID, f func(network.ProtocolScope) error) error` | `Libp2pCoreNetworkNullResourceManager.viewProtocol` | Future |
+| `func (*network.NullResourceManager).ViewService(_ string, f func(network.ServiceScope) error) error` | `Libp2pCoreNetworkNullResourceManager.viewService` | Future |
+| `func (*network.NullResourceManager).ViewSystem(f func(network.ResourceScope) error) error` | `Libp2pCoreNetworkNullResourceManager.viewSystem` | Future |
+| `func (*network.NullResourceManager).ViewTransient(f func(network.ResourceScope) error) error` | `Libp2pCoreNetworkNullResourceManager.viewTransient` | Future |
 | `func (*network.NullScope).BeginSpan() (network.ResourceScopeSpan, error)` | `Libp2pCoreNetworkNullScope.beginSpan` | sync |
 | `func (*network.NullScope).Done()` | `Libp2pCoreNetworkNullScope.done` | sync |
 | `func (*network.NullScope).Name() string` | `Libp2pCoreNetworkNullScope.name` | sync |
@@ -4504,6 +4504,11 @@ Omitted:
 | `func (network.ResourceScope).ReserveMemory(size int, prio uint8) error` | `Libp2pCoreNetworkResourceScope.reserveMemory` | sync |
 | `func (network.ResourceScope).Stat() network.ScopeStat` | `Libp2pCoreNetworkResourceScope.stat` | sync |
 | `func (network.ResourceScopeSpan).Done()` | `Libp2pCoreNetworkResourceScopeSpan.done` | sync |
+| `func (network.ResourceScopeViewer).ViewPeer(peer.ID, func(network.PeerScope) error) error` | `Libp2pCoreNetworkResourceScopeViewer.viewPeer` | Future |
+| `func (network.ResourceScopeViewer).ViewProtocol(protocol.ID, func(network.ProtocolScope) error) error` | `Libp2pCoreNetworkResourceScopeViewer.viewProtocol` | Future |
+| `func (network.ResourceScopeViewer).ViewService(string, func(network.ServiceScope) error) error` | `Libp2pCoreNetworkResourceScopeViewer.viewService` | Future |
+| `func (network.ResourceScopeViewer).ViewSystem(func(network.ResourceScope) error) error` | `Libp2pCoreNetworkResourceScopeViewer.viewSystem` | Future |
+| `func (network.ResourceScopeViewer).ViewTransient(func(network.ResourceScope) error) error` | `Libp2pCoreNetworkResourceScopeViewer.viewTransient` | Future |
 | `func (network.ServiceScope).Name() string` | `Libp2pCoreNetworkServiceScope.name` | sync |
 | `func (network.Stream).Conn() network.Conn` | `Libp2pCoreNetworkStream.conn` | sync |
 | `func (network.Stream).ID() string` | `Libp2pCoreNetworkStream.id` | sync |
@@ -4544,6 +4549,7 @@ Omitted:
 | `network.ResourceScope → x.(network.StreamScope)` | `Libp2pCoreNetworkResourceScope.asLibp2pCoreNetworkStreamScope` | cast |
 | `network.ResourceScopeSpan → x.(network.ConnManagementScope)` | `Libp2pCoreNetworkResourceScopeSpan.asLibp2pCoreNetworkConnManagementScope` | cast |
 | `network.ResourceScopeSpan → x.(network.StreamManagementScope)` | `Libp2pCoreNetworkResourceScopeSpan.asLibp2pCoreNetworkStreamManagementScope` | cast |
+| `network.ResourceScopeViewer → x.(network.ResourceManager)` | `Libp2pCoreNetworkResourceScopeViewer.asLibp2pCoreNetworkResourceManager` | cast |
 | `network.Stream → x.(*swarm.Stream)` | `Libp2pCoreNetworkStream.asLibp2pP2pNetSwarmStream` | cast |
 | `const network.CanConnect network.Connectedness` | `goLibp2p.core.network.canConnect` | const |
 | `const network.CannotConnect network.Connectedness` | `goLibp2p.core.network.cannotConnect` | const |
@@ -4598,18 +4604,7 @@ Omitted:
 - `func (network.Direction).String() string`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/libp2p/go-libp2p/core/network.Direction
 - `func (network.NATDeviceType).String() string`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/libp2p/go-libp2p/core/network.NATDeviceType
 - `func (network.NATTransportProtocol).String() string`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/libp2p/go-libp2p/core/network.NATTransportProtocol
-- `func (network.Network).SetStreamHandler(network.StreamHandler)`: takes a callback nobody checked yet: an explicit root in roots.txt if Go only calls it during the call, retainedFuncs if Go keeps it
-- `func (*network.NullResourceManager).ViewPeer(_ peer.ID, f func(network.PeerScope) error) error`: takes a callback nobody checked yet: an explicit root in roots.txt if Go only calls it during the call, retainedFuncs if Go keeps it
-- `func (*network.NullResourceManager).ViewProtocol(_ protocol.ID, f func(network.ProtocolScope) error) error`: takes a callback nobody checked yet: an explicit root in roots.txt if Go only calls it during the call, retainedFuncs if Go keeps it
-- `func (*network.NullResourceManager).ViewService(_ string, f func(network.ServiceScope) error) error`: takes a callback nobody checked yet: an explicit root in roots.txt if Go only calls it during the call, retainedFuncs if Go keeps it
-- `func (*network.NullResourceManager).ViewSystem(f func(network.ResourceScope) error) error`: takes a callback nobody checked yet: an explicit root in roots.txt if Go only calls it during the call, retainedFuncs if Go keeps it
-- `func (*network.NullResourceManager).ViewTransient(f func(network.ResourceScope) error) error`: takes a callback nobody checked yet: an explicit root in roots.txt if Go only calls it during the call, retainedFuncs if Go keeps it
 - `func (network.Reachability).String() string`: receiver is neither a handle, a DTO nor a value type: pointer to github.com/libp2p/go-libp2p/core/network.Reachability
-- `func (network.ResourceScopeViewer).ViewPeer(peer.ID, func(network.PeerScope) error) error`: takes a callback nobody checked yet: an explicit root in roots.txt if Go only calls it during the call, retainedFuncs if Go keeps it
-- `func (network.ResourceScopeViewer).ViewProtocol(protocol.ID, func(network.ProtocolScope) error) error`: takes a callback nobody checked yet: an explicit root in roots.txt if Go only calls it during the call, retainedFuncs if Go keeps it
-- `func (network.ResourceScopeViewer).ViewService(string, func(network.ServiceScope) error) error`: takes a callback nobody checked yet: an explicit root in roots.txt if Go only calls it during the call, retainedFuncs if Go keeps it
-- `func (network.ResourceScopeViewer).ViewSystem(func(network.ResourceScope) error) error`: takes a callback nobody checked yet: an explicit root in roots.txt if Go only calls it during the call, retainedFuncs if Go keeps it
-- `func (network.ResourceScopeViewer).ViewTransient(func(network.ResourceScope) error) error`: takes a callback nobody checked yet: an explicit root in roots.txt if Go only calls it during the call, retainedFuncs if Go keeps it
 - `func network.WithAllowLimitedConn(ctx context.Context, reason string) context.Context`: result 0: context.Context
 - `func network.WithConnManagementScope(ctx context.Context, scope network.ConnManagementScope) context.Context`: result 0: context.Context
 - `func network.WithDialPeerTimeout(ctx context.Context, timeout time.Duration) context.Context`: result 0: context.Context
@@ -4961,6 +4956,7 @@ Omitted:
 | `func (*swarm.Swarm).Peers() []peer.ID` | `Libp2pP2pNetSwarm.peers` | sync |
 | `func (*swarm.Swarm).Peerstore() peerstore.Peerstore` | `Libp2pP2pNetSwarm.peerstore` | sync |
 | `func (*swarm.Swarm).ResourceManager() network.ResourceManager` | `Libp2pP2pNetSwarm.resourceManager` | sync |
+| `func (*swarm.Swarm).SetStreamHandler(handler network.StreamHandler)` | `Libp2pP2pNetSwarm.setStreamHandler` | Future |
 | `func (*swarm.Swarm).StopNotify(f network.Notifiee)` | `Libp2pP2pNetSwarm.stopNotify` | sync |
 | `func (*swarm.Swarm).StreamHandler() network.StreamHandler` | `Libp2pP2pNetSwarm.streamHandler` | sync |
 | `func (*swarm.Swarm).String() string` | `Libp2pP2pNetSwarm.string` | sync |
@@ -4983,7 +4979,6 @@ Omitted:
 - `func (swarm.MetricsTracer).FailedDialing(multiaddr.Multiaddr, error, error)`: parameter error: error
 - `func (swarm.OrderedListener).ListenOrder() int`: receiver is neither a handle, a DTO nor a value type: 
 - `func (*swarm.Swarm).Done() <-chan struct{}`: result 0: chan of struct{}
-- `func (*swarm.Swarm).SetStreamHandler(handler network.StreamHandler)`: takes a callback nobody checked yet: an explicit root in roots.txt if Go only calls it during the call, retainedFuncs if Go keeps it
 - `func swarm.WithConnectionGater(gater connmgr.ConnectionGater) swarm.Option`: result 0: github.com/libp2p/go-libp2p/p2p/net/swarm.Option
 - `func swarm.WithDialRanker(d network.DialRanker) swarm.Option`: result 0: github.com/libp2p/go-libp2p/p2p/net/swarm.Option
 - `func swarm.WithDialTimeout(t time.Duration) swarm.Option`: result 0: github.com/libp2p/go-libp2p/p2p/net/swarm.Option
@@ -6491,6 +6486,7 @@ Omitted:
 - A package variable becomes a getter; a named function type (`libp2p.RoutingOption`) is an opaque handle, created only in Go; an unnamed func identical to a named type of the package, or of one it imports, uses the named type (`bsfetcher.DefaultPrototypeChooser`).
 - A function parameter that returns nothing, `bool` or `error` (a callback) becomes a Dart function (`idx.forEach((mh, offset) {...})`): Go calls a real callback, which takes the arguments to Dart in batches and waits for the verdict; `false` or an exception stops Go, and the call throws the original Dart exception. `batchSize` (optional): invocations per batch, default 1024 (up to 128 KiB, measured) or 1 when the callback receives Go objects; Go stays at most `batchSize - 1` ahead. The call's objects are in use (`isBusy`, `P2pService.busy`); a call to them from inside the callback that waits on a lock the Go function holds becomes `GolangDeadlockException` (WIRE.md, "Callback").
 - A function Go keeps past the call (a handler; table `retainedFuncs`: `host.setStreamHandler`) is a retained callback (WIRE.md): Go calls it, on the Dart event loop, for as long as it holds it, and Dart drops it when Go's garbage collector frees it. A root that is an interface type (`network.Notifiee`, `mdns.Notifee`) becomes a factory with one optional function per method (`Notifee(handlePeerFound: (pi) {...})`), each a retained callback. An exception in a retained callback goes to the zone (like a `Timer`'s).
+- A callback of a `pkg.*` root nobody checked (Go may call it during the call or keep it) is a retained callback by default (owner's decision, 2026-10-29): the call is asynchronous, Go waits for each invocation, so all of those made during the call run before its `Future` completes, and the call's objects are in use, as with a callback (`GolangDeadlockException`). Read in Go, it becomes an explicit root in roots.txt (called only during the call: batches, the call throws the Dart exception) or a line of `retainedFuncs` (kept: Go does not wait when it returns nothing).
 - Functional options built in another package come with it: libp2p's (`libp2p.listenAddrStrings(...)`) build a `config.Option` (`libp2p.Option` is its alias), and a package variable of the option's type is a getter (`libp2p.noListenAddrs`). The type of an internal package seen through an exported alias of the same name lives in the alias's library (`dht.Option`).
 - An `any` parameter that takes one Go type (table `anyAs`: `pubsub.registerTopicValidator`'s `val` is a `ValidatorEx`) crosses as that type; a retained callback may return a basic value (`pubsub.validationAccept`), and `cbOnThrow` says what Go gets when the Dart function throws (`validationReject`).
 - Tokens (`go/gen/tokens.go`, WIRE.md tag 9): a listed struct type has `static const $type`, which Go turns into `new(T)` where a parameter takes the type by example (`bus.subscribe(event.EvtPeerConnectednessChanged.$type)`, or a list of them), and its values come out of a dynamic value as the class (`sub.out()`); a listed Go function is a `<name>Func` constant that Go gets as the function itself (`libp2p.transport(tcp.newTcpTransportFunc)`).
@@ -6517,7 +6513,7 @@ Omitted:
 - Value types (CID, path, peer ID, multiaddr) keep the string; validation happens in Go, when they cross.
 - `config.Config` keeps kubo's JSON (the same as the repo's `config` file) in `json`.
 - A Go `nil` result where Dart expects an object becomes `GolangException`.
-- Kubo runs in `p2p_host`, in another process (`P2pService.start()` before the API; protocol in `WIRE.md`): a Go panic stops only the service, and pending calls fail with `P2pServiceException`.
+- Kubo runs in `p2p_host`, in another process (`P2pService.start()` before the API; protocol in `WIRE.md`): a Go panic inside a call is recovered and thrown as `GolangPanicException` (with the Go stack; close and remake the object the call touched), and one in a goroutine of the library stops only the service, whose pending calls fail with `P2pServiceException`.
 - Handles are freed by the Dart `Finalizer` (in batches, through the service's Free function) and are only valid in the service they were born in; Go resources (node, repo) still need Go's own `Close`.
 
 ## Go errors with a Dart class

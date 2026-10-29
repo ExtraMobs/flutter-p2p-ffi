@@ -2,6 +2,8 @@
 // Go: github.com/ipld/go-ipld-prime/traversal
 library;
 
+import 'dart:async';
+
 import 'package:p2p_ffi/src/go.dart' show GoIpldPrimeTraversal;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
@@ -36,7 +38,7 @@ final class IpldPrimeTraversalBudget implements GoDto {
 
   /// Go: `func (*traversal.Budget).Clone() *traversal.Budget`.
   IpldPrimeTraversalBudget clone() {
-    final $r = $callSync(2081, $W()..dto(this));
+    final $r = $callSync(2098, $W()..dto(this));
     return $r.p() ? IpldPrimeTraversalBudget.$dec($r) : $nil();
   }
 }
@@ -142,6 +144,31 @@ final class IpldPrimeTraversalProgress implements GoDto {
       ..b(pastStartAtPath);
   }
 
+  /// Go: `func (traversal.Progress).Focus(n datamodel.Node, p datamodel.Path, fn traversal.VisitFn) error`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  ///
+  /// Go calls [fn] on the Dart event loop, during the call or
+  /// later for as long as it holds it (nobody checked which), and waits for
+  /// each invocation (a retained callback, WIRE.md).
+  Future<void> focus(
+      $datamodel.IpldPrimeDatamodelNode n,
+      $datamodel.IpldPrimeDatamodelPath p,
+      FutureOr<void> Function(IpldPrimeTraversalProgress progress,
+              $datamodel.IpldPrimeDatamodelNode node)
+          fn) async {
+    await $call(
+        2102,
+        $W()
+          ..dto(this)
+          ..h(n)
+          ..h(p)
+          ..cb(
+              (r) => fn(r.p() ? IpldPrimeTraversalProgress.$dec(r) : $nil(),
+                  r.hnn($datamodel.IpldPrimeDatamodelNode.$h)),
+              true));
+  }
+
   /// Go: `func (traversal.Progress).FocusedTransform(n datamodel.Node, p datamodel.Path, fn traversal.TransformFn, createParents bool) (datamodel.Node, error)`.
   $datamodel.IpldPrimeDatamodelNode focusedTransform(
       $datamodel.IpldPrimeDatamodelNode n,
@@ -149,7 +176,7 @@ final class IpldPrimeTraversalProgress implements GoDto {
       IpldPrimeTraversalTransformFn fn,
       bool createParents) {
     final $r = $callSync(
-        2084,
+        2103,
         $W()
           ..dto(this)
           ..h(n)
@@ -163,12 +190,85 @@ final class IpldPrimeTraversalProgress implements GoDto {
   $datamodel.IpldPrimeDatamodelNode get($datamodel.IpldPrimeDatamodelNode n,
       $datamodel.IpldPrimeDatamodelPath p) {
     final $r = $callSync(
-        2085,
+        2104,
         $W()
           ..dto(this)
           ..h(n)
           ..h(p));
     return $r.hnn($datamodel.IpldPrimeDatamodelNode.$h);
+  }
+
+  /// Go: `func (traversal.Progress).WalkAdv(n datamodel.Node, s selector.Selector, fn traversal.AdvVisitFn) error`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  ///
+  /// Go calls [fn] on the Dart event loop, during the call or
+  /// later for as long as it holds it (nobody checked which), and waits for
+  /// each invocation (a retained callback, WIRE.md).
+  Future<void> walkAdv(
+      $datamodel.IpldPrimeDatamodelNode n,
+      $selector.IpldPrimeTraversalSelector s,
+      FutureOr<void> Function(IpldPrimeTraversalProgress progress,
+              $datamodel.IpldPrimeDatamodelNode node, int arg2)
+          fn) async {
+    await $call(
+        2105,
+        $W()
+          ..dto(this)
+          ..h(n)
+          ..h(s)
+          ..cb(
+              (r) => fn(r.p() ? IpldPrimeTraversalProgress.$dec(r) : $nil(),
+                  r.hnn($datamodel.IpldPrimeDatamodelNode.$h), r.i64()),
+              true));
+  }
+
+  /// Go: `func (traversal.Progress).WalkLocal(n datamodel.Node, fn traversal.VisitFn) error`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  ///
+  /// Go calls [fn] on the Dart event loop, during the call or
+  /// later for as long as it holds it (nobody checked which), and waits for
+  /// each invocation (a retained callback, WIRE.md).
+  Future<void> walkLocal(
+      $datamodel.IpldPrimeDatamodelNode n,
+      FutureOr<void> Function(IpldPrimeTraversalProgress progress,
+              $datamodel.IpldPrimeDatamodelNode node)
+          fn) async {
+    await $call(
+        2106,
+        $W()
+          ..dto(this)
+          ..h(n)
+          ..cb(
+              (r) => fn(r.p() ? IpldPrimeTraversalProgress.$dec(r) : $nil(),
+                  r.hnn($datamodel.IpldPrimeDatamodelNode.$h)),
+              true));
+  }
+
+  /// Go: `func (traversal.Progress).WalkMatching(n datamodel.Node, s selector.Selector, fn traversal.VisitFn) error`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  ///
+  /// Go calls [fn] on the Dart event loop, during the call or
+  /// later for as long as it holds it (nobody checked which), and waits for
+  /// each invocation (a retained callback, WIRE.md).
+  Future<void> walkMatching(
+      $datamodel.IpldPrimeDatamodelNode n,
+      $selector.IpldPrimeTraversalSelector s,
+      FutureOr<void> Function(IpldPrimeTraversalProgress progress,
+              $datamodel.IpldPrimeDatamodelNode node)
+          fn) async {
+    await $call(
+        2107,
+        $W()
+          ..dto(this)
+          ..h(n)
+          ..h(s)
+          ..cb(
+              (r) => fn(r.p() ? IpldPrimeTraversalProgress.$dec(r) : $nil(),
+                  r.hnn($datamodel.IpldPrimeDatamodelNode.$h)),
+              true));
   }
 
   /// Go: `func (traversal.Progress).WalkTransforming(n datamodel.Node, s selector.Selector, fn traversal.TransformFn) (datamodel.Node, error)`.
@@ -177,7 +277,7 @@ final class IpldPrimeTraversalProgress implements GoDto {
       $selector.IpldPrimeTraversalSelector s,
       IpldPrimeTraversalTransformFn fn) {
     final $r = $callSync(
-        2086,
+        2108,
         $W()
           ..dto(this)
           ..h(n)
@@ -219,6 +319,30 @@ class IpldPrimeTraversalSkipMe extends GolangException {
 
 /// Go: the package-level members of `github.com/ipld/go-ipld-prime/traversal` (`goIpldPrime.traversal`).
 extension GoIpldPrimeTraversalApi on GoIpldPrimeTraversal {
+  /// Go: `func traversal.Focus(n datamodel.Node, p datamodel.Path, fn traversal.VisitFn) error`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  ///
+  /// Go calls [fn] on the Dart event loop, during the call or
+  /// later for as long as it holds it (nobody checked which), and waits for
+  /// each invocation (a retained callback, WIRE.md).
+  Future<void> focus(
+      $datamodel.IpldPrimeDatamodelNode n,
+      $datamodel.IpldPrimeDatamodelPath p,
+      FutureOr<void> Function(IpldPrimeTraversalProgress progress,
+              $datamodel.IpldPrimeDatamodelNode node)
+          fn) async {
+    await $call(
+        2099,
+        $W()
+          ..h(n)
+          ..h(p)
+          ..cb(
+              (r) => fn(r.p() ? IpldPrimeTraversalProgress.$dec(r) : $nil(),
+                  r.hnn($datamodel.IpldPrimeDatamodelNode.$h)),
+              true));
+  }
+
   /// Go: `func traversal.FocusedTransform(n datamodel.Node, p datamodel.Path, fn traversal.TransformFn, createParents bool) (datamodel.Node, error)`.
   $datamodel.IpldPrimeDatamodelNode focusedTransform(
       $datamodel.IpldPrimeDatamodelNode n,
@@ -226,7 +350,7 @@ extension GoIpldPrimeTraversalApi on GoIpldPrimeTraversal {
       IpldPrimeTraversalTransformFn fn,
       bool createParents) {
     final $r = $callSync(
-        2082,
+        2100,
         $W()
           ..h(n)
           ..h(p)
@@ -239,7 +363,7 @@ extension GoIpldPrimeTraversalApi on GoIpldPrimeTraversal {
   $datamodel.IpldPrimeDatamodelNode get($datamodel.IpldPrimeDatamodelNode n,
       $datamodel.IpldPrimeDatamodelPath p) {
     final $r = $callSync(
-        2083,
+        2101,
         $W()
           ..h(n)
           ..h(p));
@@ -249,8 +373,78 @@ extension GoIpldPrimeTraversalApi on GoIpldPrimeTraversal {
   /// Go: `func traversal.SelectLinks(n datamodel.Node) ([]datamodel.Link, error)`.
   List<$datamodel.IpldPrimeDatamodelLink> selectLinks(
       $datamodel.IpldPrimeDatamodelNode n) {
-    final $r = $callSync(2087, $W()..h(n));
+    final $r = $callSync(2109, $W()..h(n));
     return $r.list(() => $r.hnn($datamodel.IpldPrimeDatamodelLink.$h));
+  }
+
+  /// Go: `func traversal.WalkAdv(n datamodel.Node, s selector.Selector, fn traversal.AdvVisitFn) error`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  ///
+  /// Go calls [fn] on the Dart event loop, during the call or
+  /// later for as long as it holds it (nobody checked which), and waits for
+  /// each invocation (a retained callback, WIRE.md).
+  Future<void> walkAdv(
+      $datamodel.IpldPrimeDatamodelNode n,
+      $selector.IpldPrimeTraversalSelector s,
+      FutureOr<void> Function(IpldPrimeTraversalProgress progress,
+              $datamodel.IpldPrimeDatamodelNode node, int arg2)
+          fn) async {
+    await $call(
+        2110,
+        $W()
+          ..h(n)
+          ..h(s)
+          ..cb(
+              (r) => fn(r.p() ? IpldPrimeTraversalProgress.$dec(r) : $nil(),
+                  r.hnn($datamodel.IpldPrimeDatamodelNode.$h), r.i64()),
+              true));
+  }
+
+  /// Go: `func traversal.WalkLocal(n datamodel.Node, fn traversal.VisitFn) error`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  ///
+  /// Go calls [fn] on the Dart event loop, during the call or
+  /// later for as long as it holds it (nobody checked which), and waits for
+  /// each invocation (a retained callback, WIRE.md).
+  Future<void> walkLocal(
+      $datamodel.IpldPrimeDatamodelNode n,
+      FutureOr<void> Function(IpldPrimeTraversalProgress progress,
+              $datamodel.IpldPrimeDatamodelNode node)
+          fn) async {
+    await $call(
+        2111,
+        $W()
+          ..h(n)
+          ..cb(
+              (r) => fn(r.p() ? IpldPrimeTraversalProgress.$dec(r) : $nil(),
+                  r.hnn($datamodel.IpldPrimeDatamodelNode.$h)),
+              true));
+  }
+
+  /// Go: `func traversal.WalkMatching(n datamodel.Node, s selector.Selector, fn traversal.VisitFn) error`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  ///
+  /// Go calls [fn] on the Dart event loop, during the call or
+  /// later for as long as it holds it (nobody checked which), and waits for
+  /// each invocation (a retained callback, WIRE.md).
+  Future<void> walkMatching(
+      $datamodel.IpldPrimeDatamodelNode n,
+      $selector.IpldPrimeTraversalSelector s,
+      FutureOr<void> Function(IpldPrimeTraversalProgress progress,
+              $datamodel.IpldPrimeDatamodelNode node)
+          fn) async {
+    await $call(
+        2112,
+        $W()
+          ..h(n)
+          ..h(s)
+          ..cb(
+              (r) => fn(r.p() ? IpldPrimeTraversalProgress.$dec(r) : $nil(),
+                  r.hnn($datamodel.IpldPrimeDatamodelNode.$h)),
+              true));
   }
 
   /// Go: `func traversal.WalkTransforming(n datamodel.Node, s selector.Selector, fn traversal.TransformFn) (datamodel.Node, error)`.
@@ -259,7 +453,7 @@ extension GoIpldPrimeTraversalApi on GoIpldPrimeTraversal {
       $selector.IpldPrimeTraversalSelector s,
       IpldPrimeTraversalTransformFn fn) {
     final $r = $callSync(
-        2088,
+        2113,
         $W()
           ..h(n)
           ..h(s)

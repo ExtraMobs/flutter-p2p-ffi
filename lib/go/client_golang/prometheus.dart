@@ -58,7 +58,7 @@ class ClientGolangPrometheusMultiError extends GolangException {
 extension GoClientGolangPrometheusApi on GoClientGolangPrometheus {
   /// Go: `var prometheus.DefaultGatherer prometheus.Gatherer`.
   ClientGolangPrometheusGatherer get defaultGatherer {
-    final $r = $callSync(3462);
+    final $r = $callSync(3502);
     return $r.p() ? ClientGolangPrometheusGatherer.$dec($r) : $nil();
   }
 

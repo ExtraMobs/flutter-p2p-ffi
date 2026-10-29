@@ -75,7 +75,9 @@ await P2pService.stop();
   Any `GolangException`, the text-only ones too, carries `errTexts` (the chain's texts,
   from the outside in; `errText` is the original cause), `errno` (the `syscall.Errno` of
   the chain, if any) and `causes`; `e.isA<T>()` and `e.find<T>()` are Go's `errors.Is`
-  and `errors.As`.
+  and `errors.As`. A Go panic inside a call is `GolangPanicException`, with the Go
+  stack in `goStack`: the service goes on, but close and remake the object the call
+  touched (the panic may have left it half updated).
 - Functional options are a list (`[options.unixfs.cidVersion(1), options.unixfs.pin(true, '')]`);
   option structs take named parameters (`BoxoMfsFlags(write: true)`).
 - Struct fields are getters and setters (`node.filesRoot`); `any` is `Object?`.

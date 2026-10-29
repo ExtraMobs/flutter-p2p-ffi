@@ -21,7 +21,7 @@ mixin BoxoExchangeFetcher$ on GoHandle {
   Future<$block_format.BlockFormatBlock> getBlock(
       $context.Context ctx, $cid.Cid cid) async {
     final $r = await $call(
-        505,
+        509,
         $W()
           ..h(this)
           ..h(ctx)
@@ -33,7 +33,7 @@ mixin BoxoExchangeFetcher$ on GoHandle {
   Stream<$block_format.BlockFormatBlock> getBlocks(
           $context.Context ctx, List<$cid.Cid> cids) =>
       $stream(
-              506,
+              510,
               $W()
                 ..h(this)
                 ..h(ctx)
@@ -73,7 +73,7 @@ mixin BoxoExchangeInterface$ on GoHandle {
   Future<void> notifyNewBlocks($context.Context ctx,
       [List<$block_format.BlockFormatBlock> blocks = const []]) async {
     await $call(
-        507,
+        511,
         $W()
           ..h(this)
           ..h(ctx)
@@ -106,7 +106,7 @@ mixin BoxoExchangeSessionExchange$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<BoxoExchangeFetcher> newSession($context.Context ctx) async {
     final $r = await $call(
-        508,
+        512,
         $W()
           ..h(this)
           ..h(ctx));

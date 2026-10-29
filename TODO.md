@@ -31,15 +31,23 @@ lowerCamelCase as Dart names constants and getters.
   by construction (the prototype had 101 colliding `asTransport`...).
 - **Deprecated:** the generator reads the Go doc of each declaration; 7 symbols with the
   current roots (`os.SEEK_*`, `multihash.ID`...).
-- Checked on Windows: go vet, go test, gen -check, dart analyze, the suite (118) and the
-  63 lessons.
+- **Unchecked callbacks are retained by default** (the owner's item 3): a callback of a
+  `pkg.*` root nobody read in Go (called during the call, or kept?) is a retained
+  callback Go waits on, in an asynchronous call, so it serves both: the 35 functions that
+  were left out are in (`merkledag.walk`, `io.Directory.forEachLink`, `traversal.walk*`,
+  `mfs.newRoot`'s `PubFunc`, `swarm.setStreamHandler`...). The call's objects are in use
+  while it runs (`isBusy`), so the deadlock watch covers a call back into them from the
+  callback. Unlike a checked callback, an exception in it goes to the zone and Go gets a
+  failure, and each invocation is a round trip (no batches); read in Go, a function
+  moves to an explicit root or to `retainedFuncs`.
+- **`GolangPanicException`** (the owner's item 4): a Go panic inside a call (recovered by
+  `guard`) is thrown as its own class with the Go stack (`goStack`, `debug.Stack()` at the
+  panic; WIRE.md error code 7); when the panic value is an error, it is a link of the
+  chain. The service goes on, but the object the call touched should be remade.
+- Checked on Windows: go vet, go test, gen -check, dart analyze, the suite and the 63
+  lessons.
 
-Pending:
-- **35 functions that take a callback** are left out until someone reads whether Go only
-  calls it during the call (an explicit root) or keeps it (`retainedFuncs`): API.md lists
-  them. Already seen: `SetStreamHandler` of `network.Network`/`swarm.Swarm`, `mfs.NewRoot`
-  (`PubFunc`) and bitswap's `WithPeerBlockRequestFilter`/`WithTaskComparator` keep it;
-  `merkledag.Walk`/`WalkDepth` call it from several goroutines with `Concurrency`.
+Pending (on demand, the owner's decision of 2026-10-29: no whole graph for now):
 - **The universe** (the owner's item 1): the whole graph (751 packages outside the
   stdlib, 124 in it) does not generate yet; the measurement (a scratch worktree) stopped
   at the Go emitter. Each run takes ~17 min (the Dart side alone ~13 min) and showed:
@@ -57,9 +65,6 @@ Pending:
     package clashes with the hand-written `lib/go/context.dart`;
   - fixed in the generator: a method's class is in its receiver's home library;
   - open: an option inside a DTO has no Go decoder (`circuitv2/relay.Option`).
-- Not done, awaiting the owner: the retained callback as the default (item 3) and
-  `GolangPanicException` (item 4).
-- Android and linux not rebuilt for this version.
 
 ## Done: go-multihash, go-multibase and the lessons' constants (0.27.0)
 

@@ -43,7 +43,7 @@ class DatastoreSyncMutexDatastore extends $datastore.DatastoreShim
   /// Asynchronous: runs in a goroutine of the service.
   Future<$datastore.DatastoreBatch> batch($context.Context ctx) async {
     final $r = await $call(
-        1188,
+        1203,
         $W()
           ..h(this)
           ..h(ctx));
@@ -55,7 +55,7 @@ class DatastoreSyncMutexDatastore extends $datastore.DatastoreShim
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> check($context.Context ctx) async {
     await $call(
-        1189,
+        1204,
         $W()
           ..h(this)
           ..h(ctx));
@@ -63,13 +63,13 @@ class DatastoreSyncMutexDatastore extends $datastore.DatastoreShim
 
   /// Go: `func (*sync.MutexDatastore).Children() []datastore.Datastore`.
   List<$datastore.Datastore> children() {
-    final $r = $callSync(1190, $W()..h(this));
+    final $r = $callSync(1205, $W()..h(this));
     return $r.list(() => $r.hnn($datastore.Datastore.$h));
   }
 
   /// Go: `func (*sync.MutexDatastore).Close() error`.
   void close() {
-    $callSync(1191, $W()..h(this));
+    $callSync(1206, $W()..h(this));
   }
 
   /// Go: `func (*sync.MutexDatastore).CollectGarbage(ctx context.Context) error`.
@@ -77,7 +77,7 @@ class DatastoreSyncMutexDatastore extends $datastore.DatastoreShim
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> collectGarbage($context.Context ctx) async {
     await $call(
-        1192,
+        1207,
         $W()
           ..h(this)
           ..h(ctx));
@@ -88,7 +88,7 @@ class DatastoreSyncMutexDatastore extends $datastore.DatastoreShim
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> delete($context.Context ctx, $datastore.DatastoreKey key) async {
     await $call(
-        1193,
+        1208,
         $W()
           ..h(this)
           ..h(ctx)
@@ -100,7 +100,7 @@ class DatastoreSyncMutexDatastore extends $datastore.DatastoreShim
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> diskUsage($context.Context ctx) async {
     final $r = await $call(
-        1194,
+        1209,
         $W()
           ..h(this)
           ..h(ctx));
@@ -113,7 +113,7 @@ class DatastoreSyncMutexDatastore extends $datastore.DatastoreShim
   Future<Uint8List> get(
       $context.Context ctx, $datastore.DatastoreKey key) async {
     final $r = await $call(
-        1195,
+        1210,
         $W()
           ..h(this)
           ..h(ctx)
@@ -126,7 +126,7 @@ class DatastoreSyncMutexDatastore extends $datastore.DatastoreShim
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> getSize($context.Context ctx, $datastore.DatastoreKey key) async {
     final $r = await $call(
-        1196,
+        1211,
         $W()
           ..h(this)
           ..h(ctx)
@@ -139,7 +139,7 @@ class DatastoreSyncMutexDatastore extends $datastore.DatastoreShim
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> has($context.Context ctx, $datastore.DatastoreKey key) async {
     final $r = await $call(
-        1197,
+        1212,
         $W()
           ..h(this)
           ..h(ctx)
@@ -153,7 +153,7 @@ class DatastoreSyncMutexDatastore extends $datastore.DatastoreShim
   Future<void> put($context.Context ctx, $datastore.DatastoreKey key,
       Uint8List value) async {
     await $call(
-        1198,
+        1213,
         $W()
           ..h(this)
           ..h(ctx)
@@ -167,7 +167,7 @@ class DatastoreSyncMutexDatastore extends $datastore.DatastoreShim
   Future<$query.DatastoreQueryResults> query(
       $context.Context ctx, $query.DatastoreQuery q) async {
     final $r = await $call(
-        1199,
+        1214,
         $W()
           ..h(this)
           ..h(ctx)
@@ -180,7 +180,7 @@ class DatastoreSyncMutexDatastore extends $datastore.DatastoreShim
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> scrub($context.Context ctx) async {
     await $call(
-        1200,
+        1215,
         $W()
           ..h(this)
           ..h(ctx));
@@ -192,7 +192,7 @@ class DatastoreSyncMutexDatastore extends $datastore.DatastoreShim
   Future<void> sync(
       $context.Context ctx, $datastore.DatastoreKey prefix) async {
     await $call(
-        1201,
+        1216,
         $W()
           ..h(this)
           ..h(ctx)
@@ -204,7 +204,7 @@ class DatastoreSyncMutexDatastore extends $datastore.DatastoreShim
 extension GoDatastoreSyncApi on GoDatastoreSync {
   /// Go: `func sync.MutexWrap(d datastore.Datastore) *sync.MutexDatastore`.
   DatastoreSyncMutexDatastore mutexWrap($datastore.Datastore d) {
-    final $r = $callSync(1202, $W()..h(d));
+    final $r = $callSync(1217, $W()..h(d));
     return $r.hnn(DatastoreSyncMutexDatastore.$h);
   }
 }

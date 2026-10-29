@@ -22,7 +22,7 @@ mixin Libp2pCorePeerstoreAddrBook$ on GoHandle {
   void addAddr(
       $peer.Libp2pCorePeerId p, $multiaddr.Multiaddr addr, Duration ttl) {
     $callSync(
-        3120,
+        3159,
         $W()
           ..h(this)
           ..val(p)
@@ -34,7 +34,7 @@ mixin Libp2pCorePeerstoreAddrBook$ on GoHandle {
   void addAddrs($peer.Libp2pCorePeerId p, List<$multiaddr.Multiaddr> addrs,
       Duration ttl) {
     $callSync(
-        3121,
+        3160,
         $W()
           ..h(this)
           ..val(p)
@@ -46,7 +46,7 @@ mixin Libp2pCorePeerstoreAddrBook$ on GoHandle {
   Stream<$multiaddr.Multiaddr> addrStream(
           $context.Context ctx, $peer.Libp2pCorePeerId id) =>
       $stream(
-              3122,
+              3161,
               $W()
                 ..h(this)
                 ..h(ctx)
@@ -56,7 +56,7 @@ mixin Libp2pCorePeerstoreAddrBook$ on GoHandle {
   /// Go: `func (peerstore.AddrBook).Addrs(p peer.ID) []multiaddr.Multiaddr`.
   List<$multiaddr.Multiaddr> addrs($peer.Libp2pCorePeerId p) {
     final $r = $callSync(
-        3123,
+        3162,
         $W()
           ..h(this)
           ..val(p));
@@ -66,7 +66,7 @@ mixin Libp2pCorePeerstoreAddrBook$ on GoHandle {
   /// Go: `func (peerstore.AddrBook).ClearAddrs(p peer.ID)`.
   void clearAddrs($peer.Libp2pCorePeerId p) {
     $callSync(
-        3124,
+        3163,
         $W()
           ..h(this)
           ..val(p));
@@ -74,7 +74,7 @@ mixin Libp2pCorePeerstoreAddrBook$ on GoHandle {
 
   /// Go: `func (peerstore.AddrBook).PeersWithAddrs() peer.IDSlice`.
   List<$peer.Libp2pCorePeerId> peersWithAddrs() {
-    final $r = $callSync(3125, $W()..h(this));
+    final $r = $callSync(3164, $W()..h(this));
     return $r.list(() => $r.p() ? $peer.Libp2pCorePeerId($r.str()) : $nil());
   }
 
@@ -82,7 +82,7 @@ mixin Libp2pCorePeerstoreAddrBook$ on GoHandle {
   void setAddr(
       $peer.Libp2pCorePeerId p, $multiaddr.Multiaddr addr, Duration ttl) {
     $callSync(
-        3126,
+        3165,
         $W()
           ..h(this)
           ..val(p)
@@ -94,7 +94,7 @@ mixin Libp2pCorePeerstoreAddrBook$ on GoHandle {
   void setAddrs($peer.Libp2pCorePeerId p, List<$multiaddr.Multiaddr> addrs,
       Duration ttl) {
     $callSync(
-        3127,
+        3166,
         $W()
           ..h(this)
           ..val(p)
@@ -105,7 +105,7 @@ mixin Libp2pCorePeerstoreAddrBook$ on GoHandle {
   /// Go: `func (peerstore.AddrBook).UpdateAddrs(p peer.ID, oldTTL time.Duration, newTTL time.Duration)`.
   void updateAddrs($peer.Libp2pCorePeerId p, Duration oldTtl, Duration newTtl) {
     $callSync(
-        3128,
+        3167,
         $W()
           ..h(this)
           ..val(p)
@@ -115,7 +115,7 @@ mixin Libp2pCorePeerstoreAddrBook$ on GoHandle {
 
   /// Go: type assertion `x.(peerstore.Peerstore)`: null if the object is not one.
   Libp2pCorePeerstore? asLibp2pCorePeerstore() {
-    final $r = $callSync(314, $W()..h(this));
+    final $r = $callSync(315, $W()..h(this));
     return $r.hn(Libp2pCorePeerstore.$h);
   }
 }
@@ -131,7 +131,7 @@ mixin Libp2pCorePeerstoreCertifiedAddrBook$ on GoHandle {
   /// Go: `func (peerstore.CertifiedAddrBook).ConsumePeerRecord(s *record.Envelope, ttl time.Duration) (accepted bool, err error)`.
   bool consumePeerRecord($record.Libp2pCoreRecordEnvelope s, Duration ttl) {
     final $r = $callSync(
-        3131,
+        3170,
         $W()
           ..h(this)
           ..h(s)
@@ -142,7 +142,7 @@ mixin Libp2pCorePeerstoreCertifiedAddrBook$ on GoHandle {
   /// Go: `func (peerstore.CertifiedAddrBook).GetPeerRecord(p peer.ID) *record.Envelope`.
   $record.Libp2pCoreRecordEnvelope getPeerRecord($peer.Libp2pCorePeerId p) {
     final $r = $callSync(
-        3132,
+        3171,
         $W()
           ..h(this)
           ..val(p));
@@ -162,7 +162,7 @@ mixin Libp2pCorePeerstoreKeyBook$ on GoHandle {
   void addPrivKey(
       $peer.Libp2pCorePeerId id, $crypto.Libp2pCoreCryptoPrivKey privKey) {
     $callSync(
-        3134,
+        3173,
         $W()
           ..h(this)
           ..val(id)
@@ -173,7 +173,7 @@ mixin Libp2pCorePeerstoreKeyBook$ on GoHandle {
   void addPubKey(
       $peer.Libp2pCorePeerId id, $crypto.Libp2pCoreCryptoPubKey pubKey) {
     $callSync(
-        3135,
+        3174,
         $W()
           ..h(this)
           ..val(id)
@@ -182,14 +182,14 @@ mixin Libp2pCorePeerstoreKeyBook$ on GoHandle {
 
   /// Go: `func (peerstore.KeyBook).PeersWithKeys() peer.IDSlice`.
   List<$peer.Libp2pCorePeerId> peersWithKeys() {
-    final $r = $callSync(3136, $W()..h(this));
+    final $r = $callSync(3175, $W()..h(this));
     return $r.list(() => $r.p() ? $peer.Libp2pCorePeerId($r.str()) : $nil());
   }
 
   /// Go: `func (peerstore.KeyBook).PrivKey(peer.ID) crypto.PrivKey`.
   $crypto.Libp2pCoreCryptoPrivKey privKey($peer.Libp2pCorePeerId id) {
     final $r = $callSync(
-        3137,
+        3176,
         $W()
           ..h(this)
           ..val(id));
@@ -199,7 +199,7 @@ mixin Libp2pCorePeerstoreKeyBook$ on GoHandle {
   /// Go: `func (peerstore.KeyBook).PubKey(peer.ID) crypto.PubKey`.
   $crypto.Libp2pCoreCryptoPubKey pubKey($peer.Libp2pCorePeerId id) {
     final $r = $callSync(
-        3138,
+        3177,
         $W()
           ..h(this)
           ..val(id));
@@ -209,7 +209,7 @@ mixin Libp2pCorePeerstoreKeyBook$ on GoHandle {
   /// Go: `func (peerstore.KeyBook).RemovePeer(peer.ID)`.
   void removePeer($peer.Libp2pCorePeerId id) {
     $callSync(
-        3139,
+        3178,
         $W()
           ..h(this)
           ..val(id));
@@ -217,7 +217,7 @@ mixin Libp2pCorePeerstoreKeyBook$ on GoHandle {
 
   /// Go: type assertion `x.(peerstore.Peerstore)`: null if the object is not one.
   Libp2pCorePeerstore? asLibp2pCorePeerstore() {
-    final $r = $callSync(315, $W()..h(this));
+    final $r = $callSync(316, $W()..h(this));
     return $r.hn(Libp2pCorePeerstore.$h);
   }
 }
@@ -233,7 +233,7 @@ mixin Libp2pCorePeerstoreMetrics$ on GoHandle {
   /// Go: `func (peerstore.Metrics).LatencyEWMA(peer.ID) time.Duration`.
   Duration latencyEwma($peer.Libp2pCorePeerId id) {
     final $r = $callSync(
-        3140,
+        3179,
         $W()
           ..h(this)
           ..val(id));
@@ -243,7 +243,7 @@ mixin Libp2pCorePeerstoreMetrics$ on GoHandle {
   /// Go: `func (peerstore.Metrics).RecordLatency(peer.ID, time.Duration)`.
   void recordLatency($peer.Libp2pCorePeerId id, Duration arg1) {
     $callSync(
-        3141,
+        3180,
         $W()
           ..h(this)
           ..val(id)
@@ -253,7 +253,7 @@ mixin Libp2pCorePeerstoreMetrics$ on GoHandle {
   /// Go: `func (peerstore.Metrics).RemovePeer(peer.ID)`.
   void removePeer($peer.Libp2pCorePeerId id) {
     $callSync(
-        3142,
+        3181,
         $W()
           ..h(this)
           ..val(id));
@@ -261,7 +261,7 @@ mixin Libp2pCorePeerstoreMetrics$ on GoHandle {
 
   /// Go: type assertion `x.(peerstore.Peerstore)`: null if the object is not one.
   Libp2pCorePeerstore? asLibp2pCorePeerstore() {
-    final $r = $callSync(316, $W()..h(this));
+    final $r = $callSync(317, $W()..h(this));
     return $r.hn(Libp2pCorePeerstore.$h);
   }
 }
@@ -277,7 +277,7 @@ mixin Libp2pCorePeerstorePeerMetadata$ on GoHandle {
   /// Go: `func (peerstore.PeerMetadata).Get(p peer.ID, key string) (any, error)`.
   Object? get($peer.Libp2pCorePeerId p, String key) {
     final $r = $callSync(
-        3144,
+        3183,
         $W()
           ..h(this)
           ..val(p)
@@ -288,7 +288,7 @@ mixin Libp2pCorePeerstorePeerMetadata$ on GoHandle {
   /// Go: `func (peerstore.PeerMetadata).Put(p peer.ID, key string, val any) error`.
   void put($peer.Libp2pCorePeerId p, String key, Object? val) {
     $callSync(
-        3145,
+        3184,
         $W()
           ..h(this)
           ..val(p)
@@ -299,7 +299,7 @@ mixin Libp2pCorePeerstorePeerMetadata$ on GoHandle {
   /// Go: `func (peerstore.PeerMetadata).RemovePeer(peer.ID)`.
   void removePeer($peer.Libp2pCorePeerId id) {
     $callSync(
-        3146,
+        3185,
         $W()
           ..h(this)
           ..val(id));
@@ -307,7 +307,7 @@ mixin Libp2pCorePeerstorePeerMetadata$ on GoHandle {
 
   /// Go: type assertion `x.(peerstore.Peerstore)`: null if the object is not one.
   Libp2pCorePeerstore? asLibp2pCorePeerstore() {
-    final $r = $callSync(317, $W()..h(this));
+    final $r = $callSync(318, $W()..h(this));
     return $r.hn(Libp2pCorePeerstore.$h);
   }
 }
@@ -334,7 +334,7 @@ mixin Libp2pCorePeerstore$ on GoHandle {
   void addAddrs($peer.Libp2pCorePeerId p, List<$multiaddr.Multiaddr> addrs,
       Duration ttl) {
     $callSync(
-        3147,
+        3186,
         $W()
           ..h(this)
           ..val(p)
@@ -345,7 +345,7 @@ mixin Libp2pCorePeerstore$ on GoHandle {
   /// Go: `func (peerstore.AddrBook).Addrs(p peer.ID) []multiaddr.Multiaddr`.
   List<$multiaddr.Multiaddr> addrs($peer.Libp2pCorePeerId p) {
     final $r = $callSync(
-        3148,
+        3187,
         $W()
           ..h(this)
           ..val(p));
@@ -355,7 +355,7 @@ mixin Libp2pCorePeerstore$ on GoHandle {
   /// Go: `func (peerstore.AddrBook).ClearAddrs(p peer.ID)`.
   void clearAddrs($peer.Libp2pCorePeerId p) {
     $callSync(
-        3149,
+        3188,
         $W()
           ..h(this)
           ..val(p));
@@ -363,14 +363,14 @@ mixin Libp2pCorePeerstore$ on GoHandle {
 
   /// Go: `func (peerstore.AddrBook).PeersWithAddrs() peer.IDSlice`.
   List<$peer.Libp2pCorePeerId> peersWithAddrs() {
-    final $r = $callSync(3155, $W()..h(this));
+    final $r = $callSync(3194, $W()..h(this));
     return $r.list(() => $r.p() ? $peer.Libp2pCorePeerId($r.str()) : $nil());
   }
 
   /// Go: `func (peerstore.ProtoBook).GetProtocols(peer.ID) ([]protocol.ID, error)`.
   List<String> getProtocols($peer.Libp2pCorePeerId id) {
     final $r = $callSync(
-        3151,
+        3190,
         $W()
           ..h(this)
           ..val(id));
@@ -380,7 +380,7 @@ mixin Libp2pCorePeerstore$ on GoHandle {
   /// Go: `func (peerstore.PeerMetadata).Get(p peer.ID, key string) (any, error)`.
   Object? get($peer.Libp2pCorePeerId p, String key) {
     final $r = $callSync(
-        3150,
+        3189,
         $W()
           ..h(this)
           ..val(p)
@@ -391,7 +391,7 @@ mixin Libp2pCorePeerstore$ on GoHandle {
   /// Go: `func (peerstore.Metrics).LatencyEWMA(peer.ID) time.Duration`.
   Duration latencyEwma($peer.Libp2pCorePeerId id) {
     final $r = $callSync(
-        3152,
+        3191,
         $W()
           ..h(this)
           ..val(id));
@@ -401,7 +401,7 @@ mixin Libp2pCorePeerstore$ on GoHandle {
   /// Go: `func (peerstore.Peerstore).PeerInfo(peer.ID) peer.AddrInfo`.
   $peer.Libp2pCorePeerAddrInfo peerInfo($peer.Libp2pCorePeerId id) {
     final $r = $callSync(
-        3153,
+        3192,
         $W()
           ..h(this)
           ..val(id));
@@ -410,14 +410,14 @@ mixin Libp2pCorePeerstore$ on GoHandle {
 
   /// Go: `func (peerstore.Peerstore).Peers() peer.IDSlice`.
   List<$peer.Libp2pCorePeerId> peers() {
-    final $r = $callSync(3154, $W()..h(this));
+    final $r = $callSync(3193, $W()..h(this));
     return $r.list(() => $r.p() ? $peer.Libp2pCorePeerId($r.str()) : $nil());
   }
 
   /// Go: `func (peerstore.Peerstore).RemovePeer(peer.ID)`.
   void removePeer($peer.Libp2pCorePeerId id) {
     $callSync(
-        3156,
+        3195,
         $W()
           ..h(this)
           ..val(id));
@@ -435,7 +435,7 @@ mixin Libp2pCorePeerstoreProtoBook$ on GoHandle {
   /// Go: `func (peerstore.ProtoBook).AddProtocols(peer.ID, ...protocol.ID) error`.
   void addProtocols($peer.Libp2pCorePeerId id, [List<String> arg1 = const []]) {
     $callSync(
-        3157,
+        3196,
         $W()
           ..h(this)
           ..val(id)
@@ -446,7 +446,7 @@ mixin Libp2pCorePeerstoreProtoBook$ on GoHandle {
   String firstSupportedProtocol($peer.Libp2pCorePeerId id,
       [List<String> arg1 = const []]) {
     final $r = $callSync(
-        3158,
+        3197,
         $W()
           ..h(this)
           ..val(id)
@@ -457,7 +457,7 @@ mixin Libp2pCorePeerstoreProtoBook$ on GoHandle {
   /// Go: `func (peerstore.ProtoBook).GetProtocols(peer.ID) ([]protocol.ID, error)`.
   List<String> getProtocols($peer.Libp2pCorePeerId id) {
     final $r = $callSync(
-        3159,
+        3198,
         $W()
           ..h(this)
           ..val(id));
@@ -467,7 +467,7 @@ mixin Libp2pCorePeerstoreProtoBook$ on GoHandle {
   /// Go: `func (peerstore.ProtoBook).RemovePeer(peer.ID)`.
   void removePeer($peer.Libp2pCorePeerId id) {
     $callSync(
-        3160,
+        3199,
         $W()
           ..h(this)
           ..val(id));
@@ -477,7 +477,7 @@ mixin Libp2pCorePeerstoreProtoBook$ on GoHandle {
   void removeProtocols($peer.Libp2pCorePeerId id,
       [List<String> arg1 = const []]) {
     $callSync(
-        3161,
+        3200,
         $W()
           ..h(this)
           ..val(id)
@@ -487,7 +487,7 @@ mixin Libp2pCorePeerstoreProtoBook$ on GoHandle {
   /// Go: `func (peerstore.ProtoBook).SetProtocols(peer.ID, ...protocol.ID) error`.
   void setProtocols($peer.Libp2pCorePeerId id, [List<String> arg1 = const []]) {
     $callSync(
-        3162,
+        3201,
         $W()
           ..h(this)
           ..val(id)
@@ -498,7 +498,7 @@ mixin Libp2pCorePeerstoreProtoBook$ on GoHandle {
   List<String> supportsProtocols($peer.Libp2pCorePeerId id,
       [List<String> arg1 = const []]) {
     final $r = $callSync(
-        3163,
+        3202,
         $W()
           ..h(this)
           ..val(id)
@@ -508,7 +508,7 @@ mixin Libp2pCorePeerstoreProtoBook$ on GoHandle {
 
   /// Go: type assertion `x.(peerstore.Peerstore)`: null if the object is not one.
   Libp2pCorePeerstore? asLibp2pCorePeerstore() {
-    final $r = $callSync(318, $W()..h(this));
+    final $r = $callSync(319, $W()..h(this));
     return $r.hn(Libp2pCorePeerstore.$h);
   }
 }
@@ -528,7 +528,7 @@ extension GoLibp2pCorePeerstoreApi on GoLibp2pCorePeerstore {
   List<$peer.Libp2pCorePeerAddrInfo> addrInfos(
       Libp2pCorePeerstore ps, List<$peer.Libp2pCorePeerId> peers) {
     final $r = $callSync(
-        3129,
+        3168,
         $W()
           ..h(ps)
           ..list(peers, (w0, e0) => w0.val(e0)));
@@ -538,14 +538,14 @@ extension GoLibp2pCorePeerstoreApi on GoLibp2pCorePeerstore {
 
   /// Go: `var peerstore.AddressTTL time.Duration`.
   Duration get addressTtl {
-    final $r = $callSync(3130);
+    final $r = $callSync(3169);
     return Duration(microseconds: $r.i64() ~/ 1000);
   }
 
   /// Go: `func peerstore.GetCertifiedAddrBook(ab peerstore.AddrBook) (cab peerstore.CertifiedAddrBook, ok bool)`.
   (Libp2pCorePeerstoreCertifiedAddrBook, bool) getCertifiedAddrBook(
       Libp2pCorePeerstoreAddrBook ab) {
-    final $r = $callSync(3133, $W()..h(ab));
+    final $r = $callSync(3172, $W()..h(ab));
     return ($r.hnn(Libp2pCorePeerstoreCertifiedAddrBook.$h), $r.b());
   }
 
@@ -553,19 +553,19 @@ extension GoLibp2pCorePeerstoreApi on GoLibp2pCorePeerstore {
   @Deprecated(
       "observed addresses are maintained till we disconnect from the peer which provided it")
   Duration get ownObservedAddrTtl {
-    final $r = $callSync(3143);
+    final $r = $callSync(3182);
     return Duration(microseconds: $r.i64() ~/ 1000);
   }
 
   /// Go: `var peerstore.RecentlyConnectedAddrTTL time.Duration`.
   Duration get recentlyConnectedAddrTtl {
-    final $r = $callSync(3164);
+    final $r = $callSync(3203);
     return Duration(microseconds: $r.i64() ~/ 1000);
   }
 
   /// Go: `var peerstore.TempAddrTTL time.Duration`.
   Duration get tempAddrTtl {
-    final $r = $callSync(3165);
+    final $r = $callSync(3204);
     return Duration(microseconds: $r.i64() ~/ 1000);
   }
 

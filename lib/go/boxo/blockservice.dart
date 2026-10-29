@@ -28,7 +28,7 @@ mixin BoxoBlockserviceBlockGetter$ on GoHandle {
   Future<$block_format.BlockFormatBlock> getBlock(
       $context.Context ctx, $cid.Cid c) async {
     final $r = await $call(
-        445,
+        448,
         $W()
           ..h(this)
           ..h(ctx)
@@ -40,7 +40,7 @@ mixin BoxoBlockserviceBlockGetter$ on GoHandle {
   Stream<$block_format.BlockFormatBlock> getBlocks(
           $context.Context ctx, List<$cid.Cid> ks) =>
       $stream(
-              446,
+              449,
               $W()
                 ..h(this)
                 ..h(ctx)
@@ -81,7 +81,7 @@ mixin BoxoBlockserviceBlockService$ on GoHandle {
   Future<void> addBlock(
       $context.Context ctx, $block_format.BlockFormatBlock o) async {
     await $call(
-        447,
+        450,
         $W()
           ..h(this)
           ..h(ctx)
@@ -94,7 +94,7 @@ mixin BoxoBlockserviceBlockService$ on GoHandle {
   Future<void> addBlocks(
       $context.Context ctx, List<$block_format.BlockFormatBlock> bs) async {
     await $call(
-        448,
+        451,
         $W()
           ..h(this)
           ..h(ctx)
@@ -103,7 +103,7 @@ mixin BoxoBlockserviceBlockService$ on GoHandle {
 
   /// Go: `func (blockservice.BlockService).Blockstore() blockstore.Blockstore`.
   $blockstore.BoxoBlockstore blockstore() {
-    final $r = $callSync(449, $W()..h(this));
+    final $r = $callSync(452, $W()..h(this));
     return $r.hnn($blockstore.BoxoBlockstore.$h);
   }
 
@@ -112,7 +112,7 @@ mixin BoxoBlockserviceBlockService$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> deleteBlock($context.Context ctx, $cid.Cid o) async {
     await $call(
-        450,
+        453,
         $W()
           ..h(this)
           ..h(ctx)
@@ -121,7 +121,7 @@ mixin BoxoBlockserviceBlockService$ on GoHandle {
 
   /// Go: `func (blockservice.BlockService).Exchange() exchange.Interface`.
   $exchange.BoxoExchangeInterface exchange() {
-    final $r = $callSync(451, $W()..h(this));
+    final $r = $callSync(454, $W()..h(this));
     return $r.hnn($exchange.BoxoExchangeInterface.$h);
   }
 
@@ -143,7 +143,7 @@ class BoxoBlockserviceBoundedBlockService extends BoxoBlockserviceBlockService
 mixin BoxoBlockserviceBoundedBlockService$ on GoHandle {
   /// Go: `func (blockservice.BoundedBlockService).Allowlist() verifcid.Allowlist`.
   $verifcid.BoxoVerifcidAllowlist allowlist() {
-    final $r = $callSync(452, $W()..h(this));
+    final $r = $callSync(455, $W()..h(this));
     return $r.hnn($verifcid.BoxoVerifcidAllowlist.$h);
   }
 }
@@ -171,7 +171,7 @@ class BoxoBlockserviceSession extends BoxoBlockserviceBlockGetter
   Future<$block_format.BlockFormatBlock> getBlock(
       $context.Context ctx, $cid.Cid c) async {
     final $r = await $call(
-        455,
+        458,
         $W()
           ..h(this)
           ..h(ctx)
@@ -183,7 +183,7 @@ class BoxoBlockserviceSession extends BoxoBlockserviceBlockGetter
   Stream<$block_format.BlockFormatBlock> getBlocks(
           $context.Context ctx, List<$cid.Cid> ks) =>
       $stream(
-              456,
+              459,
               $W()
                 ..h(this)
                 ..h(ctx)
@@ -207,7 +207,7 @@ extension GoBoxoBlockserviceApi on GoBoxoBlockservice {
       $blockstore.BoxoBlockstore bs, $exchange.BoxoExchangeInterface exchange,
       [List<BoxoBlockserviceOption> opts = const []]) {
     final $r = $callSync(
-        453,
+        456,
         $W()
           ..h(bs)
           ..h(exchange)
@@ -221,7 +221,7 @@ extension GoBoxoBlockserviceApi on GoBoxoBlockservice {
   Future<BoxoBlockserviceSession> newSession(
       $context.Context ctx, BoxoBlockserviceBlockService bs) async {
     final $r = await $call(
-        454,
+        457,
         $W()
           ..h(ctx)
           ..h(bs));

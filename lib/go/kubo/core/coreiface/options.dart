@@ -1167,7 +1167,7 @@ extension GoKuboCoreCoreifaceOptionsApi on GoKuboCoreCoreifaceOptions {
   /// Go: `func options.ApiOptions(opts ...options.ApiOption) (*options.ApiSettings, error)`.
   KuboCoreCoreifaceOptionsApiSettings apiOptions(
       [List<KuboCoreCoreifaceOptionsApiOption> opts = const []]) {
-    final $r = $callSync(1627, $W()..list(opts, (w0, e0) => w0.opt(e0)));
+    final $r = $callSync(1644, $W()..list(opts, (w0, e0) => w0.opt(e0)));
     return $r.p() ? KuboCoreCoreifaceOptionsApiSettings.$dec($r) : $nil();
   }
 
@@ -1176,7 +1176,7 @@ extension GoKuboCoreCoreifaceOptionsApi on GoKuboCoreCoreifaceOptions {
       KuboCoreCoreifaceOptionsApiSettings options,
       [List<KuboCoreCoreifaceOptionsApiOption> opts = const []]) {
     final $r = $callSync(
-        1628,
+        1645,
         $W()
           ..dto(options)
           ..list(opts, (w0, e0) => w0.opt(e0)));
@@ -1186,21 +1186,21 @@ extension GoKuboCoreCoreifaceOptionsApi on GoKuboCoreCoreifaceOptions {
   /// Go: `func options.BlockPutOptions(opts ...options.BlockPutOption) (*options.BlockPutSettings, error)`.
   KuboCoreCoreifaceOptionsBlockPutSettings blockPutOptions(
       [List<KuboCoreCoreifaceOptionsBlockPutOption> opts = const []]) {
-    final $r = $callSync(1629, $W()..list(opts, (w0, e0) => w0.opt(e0)));
+    final $r = $callSync(1646, $W()..list(opts, (w0, e0) => w0.opt(e0)));
     return $r.p() ? KuboCoreCoreifaceOptionsBlockPutSettings.$dec($r) : $nil();
   }
 
   /// Go: `func options.BlockRmOptions(opts ...options.BlockRmOption) (*options.BlockRmSettings, error)`.
   KuboCoreCoreifaceOptionsBlockRmSettings blockRmOptions(
       [List<KuboCoreCoreifaceOptionsBlockRmOption> opts = const []]) {
-    final $r = $callSync(1630, $W()..list(opts, (w0, e0) => w0.opt(e0)));
+    final $r = $callSync(1647, $W()..list(opts, (w0, e0) => w0.opt(e0)));
     return $r.p() ? KuboCoreCoreifaceOptionsBlockRmSettings.$dec($r) : $nil();
   }
 
   /// Go: `func options.CheckKeySize(algorithm string, size int) error`.
   void checkKeySize(String algorithm, int size) {
     $callSync(
-        1631,
+        1648,
         $W()
           ..str(algorithm)
           ..i64(size));
@@ -1209,7 +1209,7 @@ extension GoKuboCoreCoreifaceOptionsApi on GoKuboCoreCoreifaceOptions {
   /// Go: `func options.KeyGenerateOptions(opts ...options.KeyGenerateOption) (*options.KeyGenerateSettings, error)`.
   KuboCoreCoreifaceOptionsKeyGenerateSettings keyGenerateOptions(
       [List<KuboCoreCoreifaceOptionsKeyGenerateOption> opts = const []]) {
-    final $r = $callSync(1632, $W()..list(opts, (w0, e0) => w0.opt(e0)));
+    final $r = $callSync(1649, $W()..list(opts, (w0, e0) => w0.opt(e0)));
     return $r.p()
         ? KuboCoreCoreifaceOptionsKeyGenerateSettings.$dec($r)
         : $nil();
@@ -1218,14 +1218,14 @@ extension GoKuboCoreCoreifaceOptionsApi on GoKuboCoreCoreifaceOptions {
   /// Go: `func options.KeyRenameOptions(opts ...options.KeyRenameOption) (*options.KeyRenameSettings, error)`.
   KuboCoreCoreifaceOptionsKeyRenameSettings keyRenameOptions(
       [List<KuboCoreCoreifaceOptionsKeyRenameOption> opts = const []]) {
-    final $r = $callSync(1633, $W()..list(opts, (w0, e0) => w0.opt(e0)));
+    final $r = $callSync(1650, $W()..list(opts, (w0, e0) => w0.opt(e0)));
     return $r.p() ? KuboCoreCoreifaceOptionsKeyRenameSettings.$dec($r) : $nil();
   }
 
   /// Go: `func options.NamePublishOptions(opts ...options.NamePublishOption) (*options.NamePublishSettings, error)`.
   KuboCoreCoreifaceOptionsNamePublishSettings namePublishOptions(
       [List<KuboCoreCoreifaceOptionsNamePublishOption> opts = const []]) {
-    final $r = $callSync(1634, $W()..list(opts, (w0, e0) => w0.opt(e0)));
+    final $r = $callSync(1651, $W()..list(opts, (w0, e0) => w0.opt(e0)));
     return $r.p()
         ? KuboCoreCoreifaceOptionsNamePublishSettings.$dec($r)
         : $nil();
@@ -1234,7 +1234,7 @@ extension GoKuboCoreCoreifaceOptionsApi on GoKuboCoreCoreifaceOptions {
   /// Go: `func options.ObjectAddLinkOptions(opts ...options.ObjectAddLinkOption) (*options.ObjectAddLinkSettings, error)`.
   KuboCoreCoreifaceOptionsObjectAddLinkSettings objectAddLinkOptions(
       [List<KuboCoreCoreifaceOptionsObjectAddLinkOption> opts = const []]) {
-    final $r = $callSync(1635, $W()..list(opts, (w0, e0) => w0.opt(e0)));
+    final $r = $callSync(1652, $W()..list(opts, (w0, e0) => w0.opt(e0)));
     return $r.p()
         ? KuboCoreCoreifaceOptionsObjectAddLinkSettings.$dec($r)
         : $nil();
@@ -1243,7 +1243,7 @@ extension GoKuboCoreCoreifaceOptionsApi on GoKuboCoreCoreifaceOptions {
   /// Go: `func options.ObjectRmLinkOptions(opts ...options.ObjectRmLinkOption) (*options.ObjectRmLinkSettings, error)`.
   KuboCoreCoreifaceOptionsObjectRmLinkSettings objectRmLinkOptions(
       [List<KuboCoreCoreifaceOptionsObjectRmLinkOption> opts = const []]) {
-    final $r = $callSync(1636, $W()..list(opts, (w0, e0) => w0.opt(e0)));
+    final $r = $callSync(1653, $W()..list(opts, (w0, e0) => w0.opt(e0)));
     return $r.p()
         ? KuboCoreCoreifaceOptionsObjectRmLinkSettings.$dec($r)
         : $nil();
@@ -1252,14 +1252,14 @@ extension GoKuboCoreCoreifaceOptionsApi on GoKuboCoreCoreifaceOptions {
   /// Go: `func options.PinAddOptions(opts ...options.PinAddOption) (*options.PinAddSettings, error)`.
   KuboCoreCoreifaceOptionsPinAddSettings pinAddOptions(
       [List<KuboCoreCoreifaceOptionsPinAddOption> opts = const []]) {
-    final $r = $callSync(1637, $W()..list(opts, (w0, e0) => w0.opt(e0)));
+    final $r = $callSync(1654, $W()..list(opts, (w0, e0) => w0.opt(e0)));
     return $r.p() ? KuboCoreCoreifaceOptionsPinAddSettings.$dec($r) : $nil();
   }
 
   /// Go: `func options.PinIsPinnedOptions(opts ...options.PinIsPinnedOption) (*options.PinIsPinnedSettings, error)`.
   KuboCoreCoreifaceOptionsPinIsPinnedSettings pinIsPinnedOptions(
       [List<KuboCoreCoreifaceOptionsPinIsPinnedOption> opts = const []]) {
-    final $r = $callSync(1638, $W()..list(opts, (w0, e0) => w0.opt(e0)));
+    final $r = $callSync(1655, $W()..list(opts, (w0, e0) => w0.opt(e0)));
     return $r.p()
         ? KuboCoreCoreifaceOptionsPinIsPinnedSettings.$dec($r)
         : $nil();
@@ -1268,28 +1268,28 @@ extension GoKuboCoreCoreifaceOptionsApi on GoKuboCoreCoreifaceOptions {
   /// Go: `func options.PinLsOptions(opts ...options.PinLsOption) (*options.PinLsSettings, error)`.
   KuboCoreCoreifaceOptionsPinLsSettings pinLsOptions(
       [List<KuboCoreCoreifaceOptionsPinLsOption> opts = const []]) {
-    final $r = $callSync(1639, $W()..list(opts, (w0, e0) => w0.opt(e0)));
+    final $r = $callSync(1656, $W()..list(opts, (w0, e0) => w0.opt(e0)));
     return $r.p() ? KuboCoreCoreifaceOptionsPinLsSettings.$dec($r) : $nil();
   }
 
   /// Go: `func options.PinRmOptions(opts ...options.PinRmOption) (*options.PinRmSettings, error)`.
   KuboCoreCoreifaceOptionsPinRmSettings pinRmOptions(
       [List<KuboCoreCoreifaceOptionsPinRmOption> opts = const []]) {
-    final $r = $callSync(1640, $W()..list(opts, (w0, e0) => w0.opt(e0)));
+    final $r = $callSync(1657, $W()..list(opts, (w0, e0) => w0.opt(e0)));
     return $r.p() ? KuboCoreCoreifaceOptionsPinRmSettings.$dec($r) : $nil();
   }
 
   /// Go: `func options.PinUpdateOptions(opts ...options.PinUpdateOption) (*options.PinUpdateSettings, error)`.
   KuboCoreCoreifaceOptionsPinUpdateSettings pinUpdateOptions(
       [List<KuboCoreCoreifaceOptionsPinUpdateOption> opts = const []]) {
-    final $r = $callSync(1641, $W()..list(opts, (w0, e0) => w0.opt(e0)));
+    final $r = $callSync(1658, $W()..list(opts, (w0, e0) => w0.opt(e0)));
     return $r.p() ? KuboCoreCoreifaceOptionsPinUpdateSettings.$dec($r) : $nil();
   }
 
   /// Go: `func options.PubSubPeersOptions(opts ...options.PubSubPeersOption) (*options.PubSubPeersSettings, error)`.
   KuboCoreCoreifaceOptionsPubSubPeersSettings pubSubPeersOptions(
       [List<KuboCoreCoreifaceOptionsPubSubPeersOption> opts = const []]) {
-    final $r = $callSync(1642, $W()..list(opts, (w0, e0) => w0.opt(e0)));
+    final $r = $callSync(1659, $W()..list(opts, (w0, e0) => w0.opt(e0)));
     return $r.p()
         ? KuboCoreCoreifaceOptionsPubSubPeersSettings.$dec($r)
         : $nil();
@@ -1298,7 +1298,7 @@ extension GoKuboCoreCoreifaceOptionsApi on GoKuboCoreCoreifaceOptions {
   /// Go: `func options.PubSubSubscribeOptions(opts ...options.PubSubSubscribeOption) (*options.PubSubSubscribeSettings, error)`.
   KuboCoreCoreifaceOptionsPubSubSubscribeSettings pubSubSubscribeOptions(
       [List<KuboCoreCoreifaceOptionsPubSubSubscribeOption> opts = const []]) {
-    final $r = $callSync(1643, $W()..list(opts, (w0, e0) => w0.opt(e0)));
+    final $r = $callSync(1660, $W()..list(opts, (w0, e0) => w0.opt(e0)));
     return $r.p()
         ? KuboCoreCoreifaceOptionsPubSubSubscribeSettings.$dec($r)
         : $nil();
@@ -1309,7 +1309,7 @@ extension GoKuboCoreCoreifaceOptionsApi on GoKuboCoreCoreifaceOptions {
       routingFindProvidersOptions(
           [List<KuboCoreCoreifaceOptionsRoutingFindProvidersOption> opts =
               const []]) {
-    final $r = $callSync(1644, $W()..list(opts, (w0, e0) => w0.opt(e0)));
+    final $r = $callSync(1661, $W()..list(opts, (w0, e0) => w0.opt(e0)));
     return $r.p()
         ? KuboCoreCoreifaceOptionsRoutingFindProvidersSettings.$dec($r)
         : $nil();
@@ -1318,7 +1318,7 @@ extension GoKuboCoreCoreifaceOptionsApi on GoKuboCoreCoreifaceOptions {
   /// Go: `func options.RoutingProvideOptions(opts ...options.RoutingProvideOption) (*options.RoutingProvideSettings, error)`.
   KuboCoreCoreifaceOptionsRoutingProvideSettings routingProvideOptions(
       [List<KuboCoreCoreifaceOptionsRoutingProvideOption> opts = const []]) {
-    final $r = $callSync(1645, $W()..list(opts, (w0, e0) => w0.opt(e0)));
+    final $r = $callSync(1662, $W()..list(opts, (w0, e0) => w0.opt(e0)));
     return $r.p()
         ? KuboCoreCoreifaceOptionsRoutingProvideSettings.$dec($r)
         : $nil();
@@ -1327,7 +1327,7 @@ extension GoKuboCoreCoreifaceOptionsApi on GoKuboCoreCoreifaceOptions {
   /// Go: `func options.RoutingPutOptions(opts ...options.RoutingPutOption) (*options.RoutingPutSettings, error)`.
   KuboCoreCoreifaceOptionsRoutingPutSettings routingPutOptions(
       [List<KuboCoreCoreifaceOptionsRoutingPutOption> opts = const []]) {
-    final $r = $callSync(1646, $W()..list(opts, (w0, e0) => w0.opt(e0)));
+    final $r = $callSync(1663, $W()..list(opts, (w0, e0) => w0.opt(e0)));
     return $r.p()
         ? KuboCoreCoreifaceOptionsRoutingPutSettings.$dec($r)
         : $nil();
@@ -1336,7 +1336,7 @@ extension GoKuboCoreCoreifaceOptionsApi on GoKuboCoreCoreifaceOptions {
   /// Go: `func options.UnixfsAddOptions(opts ...options.UnixfsAddOption) (*options.UnixfsAddSettings, cid.Prefix, error)`.
   (KuboCoreCoreifaceOptionsUnixfsAddSettings, $cid.CidPrefix) unixfsAddOptions(
       [List<KuboCoreCoreifaceOptionsUnixfsAddOption> opts = const []]) {
-    final $r = $callSync(1647, $W()..list(opts, (w0, e0) => w0.opt(e0)));
+    final $r = $callSync(1664, $W()..list(opts, (w0, e0) => w0.opt(e0)));
     return (
       $r.p() ? KuboCoreCoreifaceOptionsUnixfsAddSettings.$dec($r) : $nil(),
       $r.p() ? $cid.CidPrefix.$dec($r) : $nil()
@@ -1346,7 +1346,7 @@ extension GoKuboCoreCoreifaceOptionsApi on GoKuboCoreCoreifaceOptions {
   /// Go: `func options.UnixfsLsOptions(opts ...options.UnixfsLsOption) (*options.UnixfsLsSettings, error)`.
   KuboCoreCoreifaceOptionsUnixfsLsSettings unixfsLsOptions(
       [List<KuboCoreCoreifaceOptionsUnixfsLsOption> opts = const []]) {
-    final $r = $callSync(1648, $W()..list(opts, (w0, e0) => w0.opt(e0)));
+    final $r = $callSync(1665, $W()..list(opts, (w0, e0) => w0.opt(e0)));
     return $r.p() ? KuboCoreCoreifaceOptionsUnixfsLsSettings.$dec($r) : $nil();
   }
 

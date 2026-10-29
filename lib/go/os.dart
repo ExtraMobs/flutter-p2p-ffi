@@ -16,7 +16,7 @@ class OsFile extends $crypto.CryptoPrivateKey
 
   /// Go: `func (*os.File).Close() error`.
   void close() {
-    $callSync(3467, $W()..h(this));
+    $callSync(3507, $W()..h(this));
   }
 }
 
@@ -141,26 +141,26 @@ class OsSyscallError extends GolangException {
 extension GoOsApi on GoOs {
   /// Go: `func os.Stat(name string) (os.FileInfo, error)`.
   $fs.IoFsFileInfo stat(String name) {
-    final $r = $callSync(3470, $W()..str(name));
+    final $r = $callSync(3510, $W()..str(name));
     return $r.hnn($fs.IoFsFileInfo.$h);
   }
 
   /// Go: `func os.Create(name string) (*os.File, error)`.
   OsFile create(String name) {
-    final $r = $callSync(3466, $W()..str(name));
+    final $r = $callSync(3506, $W()..str(name));
     return $r.hnn(OsFile.$h);
   }
 
   /// Go: `func os.Open(name string) (*os.File, error)`.
   OsFile open(String name) {
-    final $r = $callSync(3468, $W()..str(name));
+    final $r = $callSync(3508, $W()..str(name));
     return $r.hnn(OsFile.$h);
   }
 
   /// Go: `func os.OpenFile(name string, flag int, perm os.FileMode) (*os.File, error)`.
   OsFile openFile(String name, int flag, int perm) {
     final $r = $callSync(
-        3469,
+        3509,
         $W()
           ..str(name)
           ..i64(flag)

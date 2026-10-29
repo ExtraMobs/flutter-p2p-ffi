@@ -146,6 +146,24 @@ class GolangDeadlockException extends GolangException {
   String toString() => 'GolangDeadlockException: $message';
 }
 
+/// A Go panic inside the call (`Must*`, a bug of the library): the host
+/// recovered it, so the service goes on, but what the panic left half done
+/// (a lock never unlocked, a half-updated struct) stays so. In Go a panic
+/// means a bug and the program dies; here, close the object the call touched
+/// (the node, the store...) and make it again. [message] is `panic: <value>`;
+/// when the value is an error, it is the first link of [causes]/[errTexts].
+class GolangPanicException extends GolangException {
+  GolangPanicException(super.message,
+      {required this.goStack, super.errno, super.errTexts, super.causes});
+
+  /// The stack of the goroutine that panicked, at the panic
+  /// (`debug.Stack()`).
+  final String goStack;
+
+  @override
+  String toString() => 'GolangPanicException: $message\n$goStack';
+}
+
 /// The `error` event of the host (WIRE.md): the fixed sentinel code
 /// (`errors.Is`), the message, the errno, the text of each link of the chain
 /// and the links that have a generated class. The exception thrown is the
@@ -188,6 +206,8 @@ GolangException $goError(Uint8List data) {
         errno: errno, errTexts: errTexts, causes: causes),
     6 => GolangDeadlockException(message,
         errno: errno, errTexts: errTexts, causes: causes),
+    7 => GolangPanicException(message,
+        goStack: r.str(), errno: errno, errTexts: errTexts, causes: causes),
     _ => causes.isNotEmpty ? causes.first : whole,
   };
 }
@@ -410,11 +430,20 @@ $R $callSync(int fn, [$W? w]) {
   }
 }
 
-/// Asynchronous call: the response arrives through the channel.
+/// Asynchronous call: the response arrives through the channel. With a
+/// retained callback Go waits on, the call's objects are in use until it
+/// ends, as with [$callCb].
 Future<$R> $call(int fn, [$W? w]) {
   final c = Completer<$R>();
+  final handles = [
+    if (w != null && w._asks)
+      for (final h in w._keep)
+        if (h is GoHandle) h,
+  ];
   _start(fn, _async, w, c);
-  return c.future;
+  if (handles.isEmpty) return c.future;
+  _setBusy(handles, true);
+  return c.future.whenComplete(() => _setBusy(handles, false));
 }
 
 /// Stream: one `item` per value of the Go channel, until `end` or `error`.

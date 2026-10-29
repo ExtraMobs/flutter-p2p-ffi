@@ -28,20 +28,20 @@ class IpldPrimeStorageBsadapterAdapter
 
   /// Go: `func bsadapter.NewAdapter() *bsadapter.Adapter`.
   factory IpldPrimeStorageBsadapterAdapter() {
-    final $r = $callSync(2075);
+    final $r = $callSync(2092);
     return $r.hnn(IpldPrimeStorageBsadapterAdapter.$h);
   }
 
   /// Go: `field Wrapped blockstore.Blockstore`.
   $blockstore.BoxoBlockstore get wrapped {
-    final $r = $callSync(2079, $W()..h(this));
+    final $r = $callSync(2096, $W()..h(this));
     return $r.hnn($blockstore.BoxoBlockstore.$h);
   }
 
   /// Go: `field Wrapped blockstore.Blockstore`.
   set wrapped($blockstore.BoxoBlockstore wrapped) {
     $callSync(
-        2080,
+        2097,
         $W()
           ..h(this)
           ..h(wrapped));
@@ -52,7 +52,7 @@ class IpldPrimeStorageBsadapterAdapter
   /// Asynchronous: runs in a goroutine of the service.
   Future<Uint8List> get($context.Context ctx, String key) async {
     final $r = await $call(
-        2076,
+        2093,
         $W()
           ..h(this)
           ..h(ctx)
@@ -65,7 +65,7 @@ class IpldPrimeStorageBsadapterAdapter
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> has($context.Context ctx, String key) async {
     final $r = await $call(
-        2077,
+        2094,
         $W()
           ..h(this)
           ..h(ctx)
@@ -78,7 +78,7 @@ class IpldPrimeStorageBsadapterAdapter
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> put($context.Context ctx, String key, Uint8List content) async {
     await $call(
-        2078,
+        2095,
         $W()
           ..h(this)
           ..h(ctx)

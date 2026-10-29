@@ -17,6 +17,10 @@ final class $W {
   /// Option sinks (id, sink), registered by the runtime when sending.
   final _sinks = <(int, GoSink<Object?>)>[];
 
+  /// A retained callback Go waits on ([cb]'s asks): the call's objects are in
+  /// use while it is pending (deadlock.go).
+  var _asks = false;
+
   /// Deferred error (handle from a previous service, argument that does not
   /// cross): the call fails with it, through the Future/Stream when it is
   /// asynchronous.
@@ -195,6 +199,7 @@ final class $W {
       try {
         id = _channel.newId();
         _pending[id] = _Pending(_Retained(item, asks, value), null, const []);
+        _asks = _asks || asks;
       } on P2pServiceException catch (e) {
         _error ??= e;
       }

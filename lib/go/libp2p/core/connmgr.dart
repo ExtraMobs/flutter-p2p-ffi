@@ -2,6 +2,8 @@
 // Go: github.com/libp2p/go-libp2p/core/connmgr
 library;
 
+import 'dart:async';
+
 import 'package:p2p_ffi/src/go.dart' show GoLibp2pCoreConnmgr;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
@@ -30,7 +32,7 @@ mixin Libp2pCoreConnmgrConnManager$ on GoHandle {
   /// Go: `func (connmgr.ConnManager).CheckLimit(l connmgr.GetConnLimiter) error`.
   void checkLimit(Libp2pCoreConnmgrGetConnLimiter l) {
     $callSync(
-        2806,
+        2832,
         $W()
           ..h(this)
           ..dto(l));
@@ -38,13 +40,13 @@ mixin Libp2pCoreConnmgrConnManager$ on GoHandle {
 
   /// Go: `func (connmgr.ConnManager).Close() error`.
   void close() {
-    $callSync(2807, $W()..h(this));
+    $callSync(2833, $W()..h(this));
   }
 
   /// Go: `func (connmgr.ConnManager).GetTagInfo(p peer.ID) *connmgr.TagInfo`.
   Libp2pCoreConnmgrTagInfo getTagInfo($peer.Libp2pCorePeerId p) {
     final $r = $callSync(
-        2808,
+        2834,
         $W()
           ..h(this)
           ..val(p));
@@ -54,7 +56,7 @@ mixin Libp2pCoreConnmgrConnManager$ on GoHandle {
   /// Go: `func (connmgr.ConnManager).IsProtected(id peer.ID, tag string) (protected bool)`.
   bool isProtected($peer.Libp2pCorePeerId id, String tag) {
     final $r = $callSync(
-        2809,
+        2835,
         $W()
           ..h(this)
           ..val(id)
@@ -64,14 +66,14 @@ mixin Libp2pCoreConnmgrConnManager$ on GoHandle {
 
   /// Go: `func (connmgr.ConnManager).Notifee() network.Notifiee`.
   $network.Libp2pCoreNetworkNotifiee notifee() {
-    final $r = $callSync(2810, $W()..h(this));
+    final $r = $callSync(2836, $W()..h(this));
     return $r.hnn($network.Libp2pCoreNetworkNotifiee.$h);
   }
 
   /// Go: `func (connmgr.ConnManager).Protect(id peer.ID, tag string)`.
   void protect($peer.Libp2pCorePeerId id, String tag) {
     $callSync(
-        2811,
+        2837,
         $W()
           ..h(this)
           ..val(id)
@@ -81,7 +83,7 @@ mixin Libp2pCoreConnmgrConnManager$ on GoHandle {
   /// Go: `func (connmgr.ConnManager).TagPeer(peer.ID, string, int)`.
   void tagPeer($peer.Libp2pCorePeerId id, String arg1, int arg2) {
     $callSync(
-        2812,
+        2838,
         $W()
           ..h(this)
           ..val(id)
@@ -94,7 +96,7 @@ mixin Libp2pCoreConnmgrConnManager$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> trimOpenConns($context.Context ctx) async {
     await $call(
-        2813,
+        2839,
         $W()
           ..h(this)
           ..h(ctx));
@@ -103,7 +105,7 @@ mixin Libp2pCoreConnmgrConnManager$ on GoHandle {
   /// Go: `func (connmgr.ConnManager).Unprotect(id peer.ID, tag string) (protected bool)`.
   bool unprotect($peer.Libp2pCorePeerId id, String tag) {
     final $r = $callSync(
-        2814,
+        2840,
         $W()
           ..h(this)
           ..val(id)
@@ -114,11 +116,29 @@ mixin Libp2pCoreConnmgrConnManager$ on GoHandle {
   /// Go: `func (connmgr.ConnManager).UntagPeer(p peer.ID, tag string)`.
   void untagPeer($peer.Libp2pCorePeerId p, String tag) {
     $callSync(
-        2815,
+        2841,
         $W()
           ..h(this)
           ..val(p)
           ..str(tag));
+  }
+
+  /// Go: `func (connmgr.ConnManager).UpsertTag(p peer.ID, tag string, upsert func(int) int)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  ///
+  /// Go calls [upsert] on the Dart event loop, during the call or
+  /// later for as long as it holds it (nobody checked which), and waits for
+  /// each invocation (a retained callback, WIRE.md).
+  Future<void> upsertTag($peer.Libp2pCorePeerId p, String tag,
+      FutureOr<int> Function(int arg0) upsert) async {
+    await $call(
+        2842,
+        $W()
+          ..h(this)
+          ..val(p)
+          ..str(tag)
+          ..cb((r) => upsert(r.i64()), true, (w, v) => w.i64(v as int)));
   }
 }
 
@@ -134,7 +154,7 @@ mixin Libp2pCoreConnmgrConnectionGater$ on GoHandle {
   bool interceptAccept(
       $network.Libp2pCoreNetworkConnMultiaddrs connMultiaddrs) {
     final $r = $callSync(
-        2816,
+        2843,
         $W()
           ..h(this)
           ..dto(connMultiaddrs));
@@ -145,7 +165,7 @@ mixin Libp2pCoreConnmgrConnectionGater$ on GoHandle {
   bool interceptAddrDial(
       $peer.Libp2pCorePeerId id, $multiaddr.Multiaddr multiaddr) {
     final $r = $callSync(
-        2817,
+        2844,
         $W()
           ..h(this)
           ..val(id)
@@ -156,7 +176,7 @@ mixin Libp2pCoreConnmgrConnectionGater$ on GoHandle {
   /// Go: `func (connmgr.ConnectionGater).InterceptPeerDial(p peer.ID) (allow bool)`.
   bool interceptPeerDial($peer.Libp2pCorePeerId p) {
     final $r = $callSync(
-        2818,
+        2845,
         $W()
           ..h(this)
           ..val(p));
@@ -167,7 +187,7 @@ mixin Libp2pCoreConnmgrConnectionGater$ on GoHandle {
   bool interceptSecured(int arg0, $peer.Libp2pCorePeerId id,
       $network.Libp2pCoreNetworkConnMultiaddrs connMultiaddrs) {
     final $r = $callSync(
-        2819,
+        2846,
         $W()
           ..h(this)
           ..i64(arg0)
@@ -179,7 +199,7 @@ mixin Libp2pCoreConnmgrConnectionGater$ on GoHandle {
   /// Go: `func (connmgr.ConnectionGater).InterceptUpgraded(network.Conn) (allow bool, reason control.DisconnectReason)`.
   (bool, int) interceptUpgraded($network.Libp2pCoreNetworkConn conn) {
     final $r = $callSync(
-        2820,
+        2847,
         $W()
           ..h(this)
           ..h(conn));
@@ -203,19 +223,31 @@ class Libp2pCoreConnmgrDecayer extends $io.IoCloser
 /// The methods of [Libp2pCoreConnmgrDecayer], mixed into every class Go also accepts as one.
 mixin Libp2pCoreConnmgrDecayer$ on GoHandle {
   /// Go: `func (connmgr.Decayer).RegisterDecayingTag(name string, interval time.Duration, decayFn connmgr.DecayFn, bumpFn connmgr.BumpFn) (connmgr.DecayingTag, error)`.
-  Libp2pCoreConnmgrDecayingTag registerDecayingTag(
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  ///
+  /// Go calls [bumpFn] on the Dart event loop, during the call or
+  /// later for as long as it holds it (nobody checked which), and waits for
+  /// each invocation (a retained callback, WIRE.md).
+  Future<Libp2pCoreConnmgrDecayingTag> registerDecayingTag(
       String name,
       Duration interval,
       Libp2pCoreConnmgrDecayFn decayFn,
-      Libp2pCoreConnmgrBumpFn bumpFn) {
-    final $r = $callSync(
-        2825,
+      FutureOr<int> Function(Libp2pCoreConnmgrDecayingValue value, int delta)
+          bumpFn) async {
+    final $r = await $call(
+        2852,
         $W()
           ..h(this)
           ..str(name)
           ..i64((interval).inMicroseconds * 1000)
           ..h(decayFn)
-          ..h(bumpFn));
+          ..cb(
+              (r) => bumpFn(
+                  r.p() ? Libp2pCoreConnmgrDecayingValue.$dec(r) : $nil(),
+                  r.i64()),
+              true,
+              (w, v) => w.i64(v as int)));
     return $r.hnn(Libp2pCoreConnmgrDecayingTag.$h);
   }
 }
@@ -231,7 +263,7 @@ mixin Libp2pCoreConnmgrDecayingTag$ on GoHandle {
   /// Go: `func (connmgr.DecayingTag).Bump(peer peer.ID, delta int) error`.
   void bump($peer.Libp2pCorePeerId peer, int delta) {
     $callSync(
-        2826,
+        2853,
         $W()
           ..h(this)
           ..val(peer)
@@ -240,28 +272,75 @@ mixin Libp2pCoreConnmgrDecayingTag$ on GoHandle {
 
   /// Go: `func (connmgr.DecayingTag).Close() error`.
   void close() {
-    $callSync(2827, $W()..h(this));
+    $callSync(2854, $W()..h(this));
   }
 
   /// Go: `func (connmgr.DecayingTag).Interval() time.Duration`.
   Duration interval() {
-    final $r = $callSync(2828, $W()..h(this));
+    final $r = $callSync(2855, $W()..h(this));
     return Duration(microseconds: $r.i64() ~/ 1000);
   }
 
   /// Go: `func (connmgr.DecayingTag).Name() string`.
   String name() {
-    final $r = $callSync(2829, $W()..h(this));
+    final $r = $callSync(2856, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (connmgr.DecayingTag).Remove(peer peer.ID) error`.
   void remove($peer.Libp2pCorePeerId peer) {
     $callSync(
-        2830,
+        2857,
         $W()
           ..h(this)
           ..val(peer));
+  }
+}
+
+/// Go: `connmgr.DecayingValue`.
+final class Libp2pCoreConnmgrDecayingValue implements GoDto {
+  Libp2pCoreConnmgrDecayingValue(
+      {Libp2pCoreConnmgrDecayingTag? tag,
+      $peer.Libp2pCorePeerId? peer,
+      DateTime? added,
+      DateTime? lastVisit,
+      int? value$})
+      : tag = tag,
+        peer = peer,
+        added = added,
+        lastVisit = lastVisit,
+        value$ = value$ ?? 0;
+
+  Libp2pCoreConnmgrDecayingValue.$dec($R r)
+      : tag = r.hn(Libp2pCoreConnmgrDecayingTag.$h),
+        peer = r.p() ? $peer.Libp2pCorePeerId(r.str()) : null,
+        added = r.p() ? r.time() : null,
+        lastVisit = r.p() ? r.time() : null,
+        value$ = r.i64();
+
+  /// Go: `Tag`.
+  Libp2pCoreConnmgrDecayingTag? tag;
+
+  /// Go: `Peer`.
+  $peer.Libp2pCorePeerId? peer;
+
+  /// Go: `Added`.
+  DateTime? added;
+
+  /// Go: `LastVisit`.
+  DateTime? lastVisit;
+
+  /// Go: `Value`.
+  int value$;
+
+  @override
+  void $enc($W w) {
+    w
+      ..h(tag)
+      ..val(peer)
+      ..time(added)
+      ..time(lastVisit)
+      ..i64(value$);
   }
 }
 
@@ -293,7 +372,7 @@ final class Libp2pCoreConnmgrNullConnMgr implements GoDto {
   /// Go: `func (connmgr.NullConnMgr).CheckLimit(_ connmgr.GetConnLimiter) error`.
   void checkLimit(Libp2pCoreConnmgrGetConnLimiter getConnLimiter) {
     $callSync(
-        2831,
+        2858,
         $W()
           ..dto(this)
           ..dto(getConnLimiter));
@@ -301,13 +380,13 @@ final class Libp2pCoreConnmgrNullConnMgr implements GoDto {
 
   /// Go: `func (connmgr.NullConnMgr).Close() error`.
   void close() {
-    $callSync(2832, $W()..dto(this));
+    $callSync(2859, $W()..dto(this));
   }
 
   /// Go: `func (connmgr.NullConnMgr).GetTagInfo(peer.ID) *connmgr.TagInfo`.
   Libp2pCoreConnmgrTagInfo getTagInfo($peer.Libp2pCorePeerId id) {
     final $r = $callSync(
-        2833,
+        2860,
         $W()
           ..dto(this)
           ..val(id));
@@ -317,7 +396,7 @@ final class Libp2pCoreConnmgrNullConnMgr implements GoDto {
   /// Go: `func (connmgr.NullConnMgr).IsProtected(peer.ID, string) bool`.
   bool isProtected($peer.Libp2pCorePeerId id, String arg1) {
     final $r = $callSync(
-        2834,
+        2861,
         $W()
           ..dto(this)
           ..val(id)
@@ -327,14 +406,14 @@ final class Libp2pCoreConnmgrNullConnMgr implements GoDto {
 
   /// Go: `func (connmgr.NullConnMgr).Notifee() network.Notifiee`.
   $network.Libp2pCoreNetworkNotifiee notifee() {
-    final $r = $callSync(2835, $W()..dto(this));
+    final $r = $callSync(2862, $W()..dto(this));
     return $r.hnn($network.Libp2pCoreNetworkNotifiee.$h);
   }
 
   /// Go: `func (connmgr.NullConnMgr).Protect(peer.ID, string)`.
   void protect($peer.Libp2pCorePeerId id, String arg1) {
     $callSync(
-        2836,
+        2863,
         $W()
           ..dto(this)
           ..val(id)
@@ -344,7 +423,7 @@ final class Libp2pCoreConnmgrNullConnMgr implements GoDto {
   /// Go: `func (connmgr.NullConnMgr).TagPeer(peer.ID, string, int)`.
   void tagPeer($peer.Libp2pCorePeerId id, String arg1, int arg2) {
     $callSync(
-        2837,
+        2864,
         $W()
           ..dto(this)
           ..val(id)
@@ -357,7 +436,7 @@ final class Libp2pCoreConnmgrNullConnMgr implements GoDto {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> trimOpenConns($context.Context ctx) async {
     await $call(
-        2838,
+        2865,
         $W()
           ..dto(this)
           ..h(ctx));
@@ -366,7 +445,7 @@ final class Libp2pCoreConnmgrNullConnMgr implements GoDto {
   /// Go: `func (connmgr.NullConnMgr).Unprotect(peer.ID, string) bool`.
   bool unprotect($peer.Libp2pCorePeerId id, String arg1) {
     final $r = $callSync(
-        2839,
+        2866,
         $W()
           ..dto(this)
           ..val(id)
@@ -377,11 +456,29 @@ final class Libp2pCoreConnmgrNullConnMgr implements GoDto {
   /// Go: `func (connmgr.NullConnMgr).UntagPeer(peer.ID, string)`.
   void untagPeer($peer.Libp2pCorePeerId id, String arg1) {
     $callSync(
-        2840,
+        2867,
         $W()
           ..dto(this)
           ..val(id)
           ..str(arg1));
+  }
+
+  /// Go: `func (connmgr.NullConnMgr).UpsertTag(peer.ID, string, func(int) int)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  ///
+  /// Go calls [callback] on the Dart event loop, during the call or
+  /// later for as long as it holds it (nobody checked which), and waits for
+  /// each invocation (a retained callback, WIRE.md).
+  Future<void> upsertTag($peer.Libp2pCorePeerId id, String arg1,
+      FutureOr<int> Function(int arg0) callback) async {
+    await $call(
+        2868,
+        $W()
+          ..dto(this)
+          ..val(id)
+          ..str(arg1)
+          ..cb((r) => callback(r.i64()), true, (w, v) => w.i64(v as int)));
   }
 }
 
@@ -429,14 +526,14 @@ final class Libp2pCoreConnmgrTagInfo implements GoDto {
 extension GoLibp2pCoreConnmgrApi on GoLibp2pCoreConnmgr {
   /// Go: `func connmgr.BumpOverwrite() connmgr.BumpFn`.
   Libp2pCoreConnmgrBumpFn bumpOverwrite() {
-    final $r = $callSync(2803);
+    final $r = $callSync(2829);
     return $r.hnn(Libp2pCoreConnmgrBumpFn.$h);
   }
 
   /// Go: `func connmgr.BumpSumBounded(min int, max int) connmgr.BumpFn`.
   Libp2pCoreConnmgrBumpFn bumpSumBounded(int min, int max) {
     final $r = $callSync(
-        2804,
+        2830,
         $W()
           ..i64(min)
           ..i64(max));
@@ -445,38 +542,38 @@ extension GoLibp2pCoreConnmgrApi on GoLibp2pCoreConnmgr {
 
   /// Go: `func connmgr.BumpSumUnbounded() connmgr.BumpFn`.
   Libp2pCoreConnmgrBumpFn bumpSumUnbounded() {
-    final $r = $callSync(2805);
+    final $r = $callSync(2831);
     return $r.hnn(Libp2pCoreConnmgrBumpFn.$h);
   }
 
   /// Go: `func connmgr.DecayExpireWhenInactive(after time.Duration) connmgr.DecayFn`.
   Libp2pCoreConnmgrDecayFn decayExpireWhenInactive(Duration after) {
-    final $r = $callSync(2821, $W()..i64((after).inMicroseconds * 1000));
+    final $r = $callSync(2848, $W()..i64((after).inMicroseconds * 1000));
     return $r.hnn(Libp2pCoreConnmgrDecayFn.$h);
   }
 
   /// Go: `func connmgr.DecayFixed(minuend int) connmgr.DecayFn`.
   Libp2pCoreConnmgrDecayFn decayFixed(int minuend) {
-    final $r = $callSync(2822, $W()..i64(minuend));
+    final $r = $callSync(2849, $W()..i64(minuend));
     return $r.hnn(Libp2pCoreConnmgrDecayFn.$h);
   }
 
   /// Go: `func connmgr.DecayLinear(coef float64) connmgr.DecayFn`.
   Libp2pCoreConnmgrDecayFn decayLinear(double coef) {
-    final $r = $callSync(2823, $W()..f64(coef));
+    final $r = $callSync(2850, $W()..f64(coef));
     return $r.hnn(Libp2pCoreConnmgrDecayFn.$h);
   }
 
   /// Go: `func connmgr.DecayNone() connmgr.DecayFn`.
   Libp2pCoreConnmgrDecayFn decayNone() {
-    final $r = $callSync(2824);
+    final $r = $callSync(2851);
     return $r.hnn(Libp2pCoreConnmgrDecayFn.$h);
   }
 
   /// Go: `func connmgr.SupportsDecay(mgr connmgr.ConnManager) (connmgr.Decayer, bool)`.
   (Libp2pCoreConnmgrDecayer, bool) supportsDecay(
       Libp2pCoreConnmgrConnManager mgr) {
-    final $r = $callSync(2841, $W()..h(mgr));
+    final $r = $callSync(2869, $W()..h(mgr));
     return ($r.hnn(Libp2pCoreConnmgrDecayer.$h), $r.b());
   }
 }

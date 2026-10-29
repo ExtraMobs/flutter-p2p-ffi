@@ -3,6 +3,8 @@
 library;
 
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/cid.dart' as $cid;
+import 'package:p2p_ffi/go/libp2p/core/peer.dart' as $peer;
 
 /// Go: `decision.ScoreLedger` (handle).
 class BoxoBitswapServerScoreLedger extends GoHandle
@@ -12,3 +14,57 @@ class BoxoBitswapServerScoreLedger extends GoHandle
 
 /// The methods of [BoxoBitswapServerScoreLedger], mixed into every class Go also accepts as one.
 mixin BoxoBitswapServerScoreLedger$ on GoHandle {}
+
+/// Go: `decision.TaskInfo`.
+final class BoxoBitswapServerTaskInfo implements GoDto {
+  BoxoBitswapServerTaskInfo(
+      {$peer.Libp2pCorePeerId? peer,
+      $cid.Cid? cid,
+      bool? isWantBlock,
+      bool? sendDontHave,
+      int? blockSize,
+      bool? haveBlock})
+      : peer = peer,
+        cid = cid,
+        isWantBlock = isWantBlock ?? false,
+        sendDontHave = sendDontHave ?? false,
+        blockSize = blockSize ?? 0,
+        haveBlock = haveBlock ?? false;
+
+  BoxoBitswapServerTaskInfo.$dec($R r)
+      : peer = r.p() ? $peer.Libp2pCorePeerId(r.str()) : null,
+        cid = r.p() ? $cid.Cid(r.str()) : null,
+        isWantBlock = r.b(),
+        sendDontHave = r.b(),
+        blockSize = r.i64(),
+        haveBlock = r.b();
+
+  /// Go: `Peer`.
+  $peer.Libp2pCorePeerId? peer;
+
+  /// Go: `Cid`.
+  $cid.Cid? cid;
+
+  /// Go: `IsWantBlock`.
+  bool isWantBlock;
+
+  /// Go: `SendDontHave`.
+  bool sendDontHave;
+
+  /// Go: `BlockSize`.
+  int blockSize;
+
+  /// Go: `HaveBlock`.
+  bool haveBlock;
+
+  @override
+  void $enc($W w) {
+    w
+      ..val(peer)
+      ..val(cid)
+      ..b(isWantBlock)
+      ..b(sendDontHave)
+      ..i64(blockSize)
+      ..b(haveBlock);
+  }
+}

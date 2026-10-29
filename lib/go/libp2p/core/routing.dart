@@ -28,7 +28,7 @@ mixin Libp2pCoreRoutingContentDiscovery$ on GoHandle {
   Stream<$peer.Libp2pCorePeerAddrInfo> findProvidersAsync(
           $context.Context ctx, $cid.Cid cid, int arg2) =>
       $stream(
-              3166,
+              3205,
               $W()
                 ..h(this)
                 ..h(ctx)
@@ -38,38 +38,38 @@ mixin Libp2pCoreRoutingContentDiscovery$ on GoHandle {
 
   /// Go: type assertion `x.(*dht.IpfsDHT)`: null if the object is not one.
   $libp2p_kad_dht.Libp2pKadDhtIpfsDht? asLibp2pKadDhtIpfsDht() {
-    final $r = $callSync(319, $W()..h(this));
+    final $r = $callSync(320, $W()..h(this));
     return $r.hn($libp2p_kad_dht.Libp2pKadDhtIpfsDht.$h);
   }
 
   /// Go: type assertion `x.(*routing.DiscoveryRouting)`: null if the object is not one.
   $routing.Libp2pP2pDiscoveryRouting? asLibp2pP2pDiscoveryRouting() {
-    final $r = $callSync(320, $W()..h(this));
+    final $r = $callSync(321, $W()..h(this));
     return $r.hn($routing.Libp2pP2pDiscoveryRouting.$h);
   }
 
   /// Go: type assertion `x.(*routing.RoutingDiscovery)`: null if the object is not one.
   $routing.Libp2pP2pDiscoveryRoutingDiscovery?
       asLibp2pP2pDiscoveryRoutingDiscovery() {
-    final $r = $callSync(321, $W()..h(this));
+    final $r = $callSync(322, $W()..h(this));
     return $r.hn($routing.Libp2pP2pDiscoveryRoutingDiscovery.$h);
   }
 
   /// Go: type assertion `x.(routing.ProvideManyRouter)`: null if the object is not one.
   $routing2.KuboRoutingProvideManyRouter? asKuboRoutingProvideManyRouter() {
-    final $r = $callSync(322, $W()..h(this));
+    final $r = $callSync(323, $W()..h(this));
     return $r.hn($routing2.KuboRoutingProvideManyRouter.$h);
   }
 
   /// Go: type assertion `x.(routing.ContentRouting)`: null if the object is not one.
   Libp2pCoreRoutingContentRouting? asLibp2pCoreRoutingContentRouting() {
-    final $r = $callSync(323, $W()..h(this));
+    final $r = $callSync(324, $W()..h(this));
     return $r.hn(Libp2pCoreRoutingContentRouting.$h);
   }
 
   /// Go: type assertion `x.(routing.Routing)`: null if the object is not one.
   Libp2pCoreRouting? asLibp2pCoreRouting() {
-    final $r = $callSync(324, $W()..h(this));
+    final $r = $callSync(325, $W()..h(this));
     return $r.hn(Libp2pCoreRouting.$h);
   }
 }
@@ -87,7 +87,7 @@ mixin Libp2pCoreRoutingContentProviding$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> provide($context.Context ctx, $cid.Cid cid, bool arg2) async {
     await $call(
-        3167,
+        3206,
         $W()
           ..h(this)
           ..h(ctx)
@@ -97,44 +97,44 @@ mixin Libp2pCoreRoutingContentProviding$ on GoHandle {
 
   /// Go: type assertion `x.(*node.LegacyProvider)`: null if the object is not one.
   $node.KuboCoreNodeLegacyProvider? asKuboCoreNodeLegacyProvider() {
-    final $r = $callSync(325, $W()..h(this));
+    final $r = $callSync(326, $W()..h(this));
     return $r.hn($node.KuboCoreNodeLegacyProvider.$h);
   }
 
   /// Go: type assertion `x.(*dht.IpfsDHT)`: null if the object is not one.
   $libp2p_kad_dht.Libp2pKadDhtIpfsDht? asLibp2pKadDhtIpfsDht() {
-    final $r = $callSync(326, $W()..h(this));
+    final $r = $callSync(327, $W()..h(this));
     return $r.hn($libp2p_kad_dht.Libp2pKadDhtIpfsDht.$h);
   }
 
   /// Go: type assertion `x.(*routing.DiscoveryRouting)`: null if the object is not one.
   $routing.Libp2pP2pDiscoveryRouting? asLibp2pP2pDiscoveryRouting() {
-    final $r = $callSync(327, $W()..h(this));
+    final $r = $callSync(328, $W()..h(this));
     return $r.hn($routing.Libp2pP2pDiscoveryRouting.$h);
   }
 
   /// Go: type assertion `x.(*routing.RoutingDiscovery)`: null if the object is not one.
   $routing.Libp2pP2pDiscoveryRoutingDiscovery?
       asLibp2pP2pDiscoveryRoutingDiscovery() {
-    final $r = $callSync(328, $W()..h(this));
+    final $r = $callSync(329, $W()..h(this));
     return $r.hn($routing.Libp2pP2pDiscoveryRoutingDiscovery.$h);
   }
 
   /// Go: type assertion `x.(routing.ProvideManyRouter)`: null if the object is not one.
   $routing2.KuboRoutingProvideManyRouter? asKuboRoutingProvideManyRouter() {
-    final $r = $callSync(329, $W()..h(this));
+    final $r = $callSync(330, $W()..h(this));
     return $r.hn($routing2.KuboRoutingProvideManyRouter.$h);
   }
 
   /// Go: type assertion `x.(routing.ContentRouting)`: null if the object is not one.
   Libp2pCoreRoutingContentRouting? asLibp2pCoreRoutingContentRouting() {
-    final $r = $callSync(330, $W()..h(this));
+    final $r = $callSync(331, $W()..h(this));
     return $r.hn(Libp2pCoreRoutingContentRouting.$h);
   }
 
   /// Go: type assertion `x.(routing.Routing)`: null if the object is not one.
   Libp2pCoreRouting? asLibp2pCoreRouting() {
-    final $r = $callSync(331, $W()..h(this));
+    final $r = $callSync(332, $W()..h(this));
     return $r.hn(Libp2pCoreRouting.$h);
   }
 }
@@ -150,32 +150,32 @@ class Libp2pCoreRoutingContentRouting extends Libp2pCoreRoutingContentDiscovery
 mixin Libp2pCoreRoutingContentRouting$ on GoHandle {
   /// Go: type assertion `x.(*dht.IpfsDHT)`: null if the object is not one.
   $libp2p_kad_dht.Libp2pKadDhtIpfsDht? asLibp2pKadDhtIpfsDht() {
-    final $r = $callSync(332, $W()..h(this));
+    final $r = $callSync(333, $W()..h(this));
     return $r.hn($libp2p_kad_dht.Libp2pKadDhtIpfsDht.$h);
   }
 
   /// Go: type assertion `x.(*routing.DiscoveryRouting)`: null if the object is not one.
   $routing.Libp2pP2pDiscoveryRouting? asLibp2pP2pDiscoveryRouting() {
-    final $r = $callSync(333, $W()..h(this));
+    final $r = $callSync(334, $W()..h(this));
     return $r.hn($routing.Libp2pP2pDiscoveryRouting.$h);
   }
 
   /// Go: type assertion `x.(*routing.RoutingDiscovery)`: null if the object is not one.
   $routing.Libp2pP2pDiscoveryRoutingDiscovery?
       asLibp2pP2pDiscoveryRoutingDiscovery() {
-    final $r = $callSync(334, $W()..h(this));
+    final $r = $callSync(335, $W()..h(this));
     return $r.hn($routing.Libp2pP2pDiscoveryRoutingDiscovery.$h);
   }
 
   /// Go: type assertion `x.(routing.ProvideManyRouter)`: null if the object is not one.
   $routing2.KuboRoutingProvideManyRouter? asKuboRoutingProvideManyRouter() {
-    final $r = $callSync(335, $W()..h(this));
+    final $r = $callSync(336, $W()..h(this));
     return $r.hn($routing2.KuboRoutingProvideManyRouter.$h);
   }
 
   /// Go: type assertion `x.(routing.Routing)`: null if the object is not one.
   Libp2pCoreRouting? asLibp2pCoreRouting() {
-    final $r = $callSync(336, $W()..h(this));
+    final $r = $callSync(337, $W()..h(this));
     return $r.hn(Libp2pCoreRouting.$h);
   }
 }
@@ -213,7 +213,7 @@ final class Libp2pCoreRoutingOptions implements GoDto {
   /// Go: `func (*routing.Options).Apply(options ...routing.Option) error`.
   void apply([List<Libp2pCoreRoutingOption> options = const []]) {
     $callSync(
-        3170,
+        3209,
         $W()
           ..dto(this)
           ..list(options, (w0, e0) => w0.opt(e0)));
@@ -234,7 +234,7 @@ mixin Libp2pCoreRoutingPeerRouting$ on GoHandle {
   Future<$peer.Libp2pCorePeerAddrInfo> findPeer(
       $context.Context ctx, $peer.Libp2pCorePeerId id) async {
     final $r = await $call(
-        3171,
+        3210,
         $W()
           ..h(this)
           ..h(ctx)
@@ -244,25 +244,25 @@ mixin Libp2pCoreRoutingPeerRouting$ on GoHandle {
 
   /// Go: type assertion `x.(*coreapi.RoutingAPI)`: null if the object is not one.
   $coreapi.KuboCoreCoreapiRoutingApi? asKuboCoreCoreapiRoutingApi() {
-    final $r = $callSync(337, $W()..h(this));
+    final $r = $callSync(338, $W()..h(this));
     return $r.hn($coreapi.KuboCoreCoreapiRoutingApi.$h);
   }
 
   /// Go: type assertion `x.(*dht.IpfsDHT)`: null if the object is not one.
   $libp2p_kad_dht.Libp2pKadDhtIpfsDht? asLibp2pKadDhtIpfsDht() {
-    final $r = $callSync(338, $W()..h(this));
+    final $r = $callSync(339, $W()..h(this));
     return $r.hn($libp2p_kad_dht.Libp2pKadDhtIpfsDht.$h);
   }
 
   /// Go: type assertion `x.(routing.ProvideManyRouter)`: null if the object is not one.
   $routing2.KuboRoutingProvideManyRouter? asKuboRoutingProvideManyRouter() {
-    final $r = $callSync(339, $W()..h(this));
+    final $r = $callSync(340, $W()..h(this));
     return $r.hn($routing2.KuboRoutingProvideManyRouter.$h);
   }
 
   /// Go: type assertion `x.(routing.Routing)`: null if the object is not one.
   Libp2pCoreRouting? asLibp2pCoreRouting() {
-    final $r = $callSync(340, $W()..h(this));
+    final $r = $callSync(341, $W()..h(this));
     return $r.hn(Libp2pCoreRouting.$h);
   }
 }
@@ -281,7 +281,7 @@ mixin Libp2pCoreRoutingPubKeyFetcher$ on GoHandle {
   Future<$crypto.Libp2pCoreCryptoPubKey> getPublicKey(
       $context.Context ctx, $peer.Libp2pCorePeerId id) async {
     final $r = await $call(
-        3172,
+        3211,
         $W()
           ..h(this)
           ..h(ctx)
@@ -291,7 +291,7 @@ mixin Libp2pCoreRoutingPubKeyFetcher$ on GoHandle {
 
   /// Go: type assertion `x.(*dht.IpfsDHT)`: null if the object is not one.
   $libp2p_kad_dht.Libp2pKadDhtIpfsDht? asLibp2pKadDhtIpfsDht() {
-    final $r = $callSync(341, $W()..h(this));
+    final $r = $callSync(342, $W()..h(this));
     return $r.hn($libp2p_kad_dht.Libp2pKadDhtIpfsDht.$h);
   }
 }
@@ -338,14 +338,14 @@ final class Libp2pCoreRoutingQueryEvent implements GoDto {
 
   /// Go: `func (*routing.QueryEvent).MarshalJSON() ([]byte, error)`.
   Uint8List marshalJson() {
-    final $r = $callSync(3174, $W()..dto(this));
+    final $r = $callSync(3213, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*routing.QueryEvent).UnmarshalJSON(b []byte) error`.
   void unmarshalJson(Uint8List b) {
     $callSync(
-        3175,
+        3214,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -373,7 +373,7 @@ mixin Libp2pCoreRouting$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> bootstrap($context.Context ctx) async {
     await $call(
-        3177,
+        3216,
         $W()
           ..h(this)
           ..h(ctx));
@@ -381,13 +381,13 @@ mixin Libp2pCoreRouting$ on GoHandle {
 
   /// Go: type assertion `x.(*dht.IpfsDHT)`: null if the object is not one.
   $libp2p_kad_dht.Libp2pKadDhtIpfsDht? asLibp2pKadDhtIpfsDht() {
-    final $r = $callSync(342, $W()..h(this));
+    final $r = $callSync(343, $W()..h(this));
     return $r.hn($libp2p_kad_dht.Libp2pKadDhtIpfsDht.$h);
   }
 
   /// Go: type assertion `x.(routing.ProvideManyRouter)`: null if the object is not one.
   $routing2.KuboRoutingProvideManyRouter? asKuboRoutingProvideManyRouter() {
-    final $r = $callSync(343, $W()..h(this));
+    final $r = $callSync(344, $W()..h(this));
     return $r.hn($routing2.KuboRoutingProvideManyRouter.$h);
   }
 }
@@ -406,7 +406,7 @@ mixin Libp2pCoreRoutingValueStore$ on GoHandle {
   Future<Uint8List> getValue($context.Context ctx, String arg1,
       [List<Libp2pCoreRoutingOption> opts = const []]) async {
     final $r = await $call(
-        3179,
+        3218,
         $W()
           ..h(this)
           ..h(ctx)
@@ -421,7 +421,7 @@ mixin Libp2pCoreRoutingValueStore$ on GoHandle {
   Future<void> putValue($context.Context ctx, String arg1, Uint8List arg2,
       [List<Libp2pCoreRoutingOption> opts = const []]) async {
     await $call(
-        3180,
+        3219,
         $W()
           ..h(this)
           ..h(ctx)
@@ -434,7 +434,7 @@ mixin Libp2pCoreRoutingValueStore$ on GoHandle {
   Stream<Uint8List> searchValue($context.Context ctx, String arg1,
           [List<Libp2pCoreRoutingOption> opts = const []]) =>
       $stream(
-              3181,
+              3220,
               $W()
                 ..h(this)
                 ..h(ctx)
@@ -444,19 +444,19 @@ mixin Libp2pCoreRoutingValueStore$ on GoHandle {
 
   /// Go: type assertion `x.(*dht.IpfsDHT)`: null if the object is not one.
   $libp2p_kad_dht.Libp2pKadDhtIpfsDht? asLibp2pKadDhtIpfsDht() {
-    final $r = $callSync(344, $W()..h(this));
+    final $r = $callSync(345, $W()..h(this));
     return $r.hn($libp2p_kad_dht.Libp2pKadDhtIpfsDht.$h);
   }
 
   /// Go: type assertion `x.(routing.ProvideManyRouter)`: null if the object is not one.
   $routing2.KuboRoutingProvideManyRouter? asKuboRoutingProvideManyRouter() {
-    final $r = $callSync(345, $W()..h(this));
+    final $r = $callSync(346, $W()..h(this));
     return $r.hn($routing2.KuboRoutingProvideManyRouter.$h);
   }
 
   /// Go: type assertion `x.(routing.Routing)`: null if the object is not one.
   Libp2pCoreRouting? asLibp2pCoreRouting() {
-    final $r = $callSync(346, $W()..h(this));
+    final $r = $callSync(347, $W()..h(this));
     return $r.hn(Libp2pCoreRouting.$h);
   }
 }
@@ -495,7 +495,7 @@ extension GoLibp2pCoreRoutingApi on GoLibp2pCoreRouting {
       $context.Context ctx,
       $peer.Libp2pCorePeerId p) async {
     final $r = await $call(
-        3168,
+        3207,
         $W()
           ..h(r)
           ..h(ctx)
@@ -505,7 +505,7 @@ extension GoLibp2pCoreRoutingApi on GoLibp2pCoreRouting {
 
   /// Go: `func routing.KeyForPublicKey(id peer.ID) string`.
   String keyForPublicKey($peer.Libp2pCorePeerId id) {
-    final $r = $callSync(3169, $W()..val(id));
+    final $r = $callSync(3208, $W()..val(id));
     return $r.str();
   }
 
@@ -515,7 +515,7 @@ extension GoLibp2pCoreRoutingApi on GoLibp2pCoreRouting {
   Future<void> publishQueryEvent(
       $context.Context ctx, Libp2pCoreRoutingQueryEvent ev) async {
     await $call(
-        3173,
+        3212,
         $W()
           ..h(ctx)
           ..dto(ev));
@@ -523,7 +523,7 @@ extension GoLibp2pCoreRoutingApi on GoLibp2pCoreRouting {
 
   /// Go: `var routing.QueryEventBufferSize int`.
   int get queryEventBufferSize {
-    final $r = $callSync(3176);
+    final $r = $callSync(3215);
     return $r.i64();
   }
 
@@ -531,7 +531,7 @@ extension GoLibp2pCoreRoutingApi on GoLibp2pCoreRouting {
   ///
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> subscribesToQueryEvents($context.Context ctx) async {
-    final $r = await $call(3178, $W()..h(ctx));
+    final $r = await $call(3217, $W()..h(ctx));
     return $r.b();
   }
 

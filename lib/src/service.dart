@@ -40,6 +40,7 @@ export 'runtime.dart'
         GolangEofException,
         GolangException,
         GolangNotFoundException,
+        GolangPanicException,
         P2pServiceException,
         P2pStopReason,
         GolangUnexpectedEofException,

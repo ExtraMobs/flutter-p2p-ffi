@@ -21,7 +21,7 @@ mixin Libp2pCoreEventBus$ on GoHandle {
   /// Go: `func (event.Bus).Emitter(eventType any, opts ...event.EmitterOpt) (event.Emitter, error)`.
   Libp2pCoreEventEmitter emitter(Object? eventType) {
     final $r = $callSync(
-        2920,
+        2948,
         $W()
           ..h(this)
           ..any(eventType));
@@ -30,14 +30,14 @@ mixin Libp2pCoreEventBus$ on GoHandle {
 
   /// Go: `func (event.Bus).GetAllEventTypes() []reflect.Type`.
   List<$reflect.ReflectType> getAllEventTypes() {
-    final $r = $callSync(2921, $W()..h(this));
+    final $r = $callSync(2949, $W()..h(this));
     return $r.list(() => $r.hnn($reflect.ReflectType.$h));
   }
 
   /// Go: `func (event.Bus).Subscribe(eventType any, opts ...event.SubscriptionOpt) (event.Subscription, error)`.
   Libp2pCoreEventSubscription subscribe(Object? eventType) {
     final $r = $callSync(
-        2922,
+        2950,
         $W()
           ..h(this)
           ..any(eventType));
@@ -55,7 +55,7 @@ mixin Libp2pCoreEventEmitter$ on GoHandle {
   /// Go: `func (event.Emitter).Emit(evt any) error`.
   void emit(Object? evt) {
     $callSync(
-        2923,
+        2951,
         $W()
           ..h(this)
           ..any(evt));
@@ -427,17 +427,17 @@ class Libp2pCoreEventSubscription extends $io.IoCloser
 mixin Libp2pCoreEventSubscription$ on GoHandle {
   /// Go: `func (io.Closer).Close() error`.
   void close() {
-    $callSync(2924, $W()..h(this));
+    $callSync(2952, $W()..h(this));
   }
 
   /// Go: `func (event.Subscription).Name() string`.
   String name() {
-    final $r = $callSync(2925, $W()..h(this));
+    final $r = $callSync(2953, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (event.Subscription).Out() <-chan any`.
-  Stream<Object?> out() => $stream(2926, $W()..h(this)).map((r) => r.any());
+  Stream<Object?> out() => $stream(2954, $W()..h(this)).map((r) => r.any());
 }
 
 /// Go: `event.UpdatedAddress`.

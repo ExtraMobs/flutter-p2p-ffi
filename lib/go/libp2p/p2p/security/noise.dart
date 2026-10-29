@@ -28,7 +28,7 @@ mixin Libp2pP2pSecurityNoiseEarlyDataHandler$ on GoHandle {
   Future<void> received($context.Context ctx, $net.NetConn conn,
       $pb.Libp2pP2pSecurityNoisePbNoiseExtensions noiseExtensions) async {
     await $call(
-        3318,
+        3358,
         $W()
           ..h(this)
           ..h(ctx)
@@ -42,7 +42,7 @@ mixin Libp2pP2pSecurityNoiseEarlyDataHandler$ on GoHandle {
   Future<$pb.Libp2pP2pSecurityNoisePbNoiseExtensions> send($context.Context ctx,
       $net.NetConn conn, $peer.Libp2pCorePeerId id) async {
     final $r = await $call(
-        3319,
+        3359,
         $W()
           ..h(this)
           ..h(ctx)
@@ -60,7 +60,7 @@ class Libp2pP2pSecurityNoiseSessionTransport extends $crypto.CryptoPrivateKey
 
   /// Go: `func (*noise.SessionTransport).ID() protocol.ID`.
   String id() {
-    final $r = $callSync(3321, $W()..h(this));
+    final $r = $callSync(3361, $W()..h(this));
     return $r.str();
   }
 
@@ -70,7 +70,7 @@ class Libp2pP2pSecurityNoiseSessionTransport extends $crypto.CryptoPrivateKey
   Future<$sec.Libp2pCoreSecSecureConn> secureInbound($context.Context ctx,
       $net.NetConn insecure, $peer.Libp2pCorePeerId p) async {
     final $r = await $call(
-        3322,
+        3362,
         $W()
           ..h(this)
           ..h(ctx)
@@ -85,7 +85,7 @@ class Libp2pP2pSecurityNoiseSessionTransport extends $crypto.CryptoPrivateKey
   Future<$sec.Libp2pCoreSecSecureConn> secureOutbound($context.Context ctx,
       $net.NetConn insecure, $peer.Libp2pCorePeerId p) async {
     final $r = await $call(
-        3323,
+        3363,
         $W()
           ..h(this)
           ..h(ctx)
@@ -103,7 +103,7 @@ class Libp2pP2pSecurityNoiseTransport extends $crypto.CryptoPrivateKey
 
   /// Go: `func (*noise.Transport).ID() protocol.ID`.
   String id() {
-    final $r = $callSync(3324, $W()..h(this));
+    final $r = $callSync(3364, $W()..h(this));
     return $r.str();
   }
 
@@ -113,7 +113,7 @@ class Libp2pP2pSecurityNoiseTransport extends $crypto.CryptoPrivateKey
   Future<$sec.Libp2pCoreSecSecureConn> secureInbound($context.Context ctx,
       $net.NetConn insecure, $peer.Libp2pCorePeerId p) async {
     final $r = await $call(
-        3325,
+        3365,
         $W()
           ..h(this)
           ..h(ctx)
@@ -128,7 +128,7 @@ class Libp2pP2pSecurityNoiseTransport extends $crypto.CryptoPrivateKey
   Future<$sec.Libp2pCoreSecSecureConn> secureOutbound($context.Context ctx,
       $net.NetConn insecure, $peer.Libp2pCorePeerId p) async {
     final $r = await $call(
-        3326,
+        3366,
         $W()
           ..h(this)
           ..h(ctx)
@@ -139,7 +139,7 @@ class Libp2pP2pSecurityNoiseTransport extends $crypto.CryptoPrivateKey
 
   /// Go: `func (*noise.Transport).WithSessionOptions(opts ...noise.SessionOption) (*noise.SessionTransport, error)`.
   Libp2pP2pSecurityNoiseSessionTransport withSessionOptions() {
-    final $r = $callSync(3327, $W()..h(this));
+    final $r = $callSync(3367, $W()..h(this));
     return $r.hnn(Libp2pP2pSecurityNoiseSessionTransport.$h);
   }
 }
@@ -152,7 +152,7 @@ extension GoLibp2pP2pSecurityNoiseApi on GoLibp2pP2pSecurityNoise {
       $crypto2.Libp2pCoreCryptoPrivKey privkey,
       List<$upgrader.Libp2pP2pNetUpgraderStreamMuxer> muxers) {
     final $r = $callSync(
-        3320,
+        3360,
         $W()
           ..str(id)
           ..h(privkey)

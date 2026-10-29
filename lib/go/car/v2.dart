@@ -73,7 +73,7 @@ class CarV2BlockReader extends $crypto.CryptoPrivateKey
   /// Go: `func car.NewBlockReader(r io.Reader, opts ...car.Option) (*car.BlockReader, error)`.
   factory CarV2BlockReader(Object r, [List<CarV2Option> opts = const []]) {
     final $r = $callSync(
-        1827,
+        1844,
         $W()
           ..reader(r)
           ..list(opts, (w0, e0) => w0.opt(e0)));
@@ -82,14 +82,14 @@ class CarV2BlockReader extends $crypto.CryptoPrivateKey
 
   /// Go: `field Version uint64`.
   int get version {
-    final $r = $callSync(1811, $W()..h(this));
+    final $r = $callSync(1828, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `field Version uint64`.
   set version(int version) {
     $callSync(
-        1812,
+        1829,
         $W()
           ..h(this)
           ..i64(version));
@@ -97,14 +97,14 @@ class CarV2BlockReader extends $crypto.CryptoPrivateKey
 
   /// Go: `field Roots []cid.Cid`.
   List<$cid.Cid> get roots {
-    final $r = $callSync(1808, $W()..h(this));
+    final $r = $callSync(1825, $W()..h(this));
     return $r.list(() => $r.p() ? $cid.Cid($r.str()) : $nil());
   }
 
   /// Go: `field Roots []cid.Cid`.
   set roots(List<$cid.Cid> roots) {
     $callSync(
-        1809,
+        1826,
         $W()
           ..h(this)
           ..list(roots, (w0, e0) => w0.val(e0)));
@@ -112,13 +112,13 @@ class CarV2BlockReader extends $crypto.CryptoPrivateKey
 
   /// Go: `func (*car.BlockReader).Next() (blocks.Block, error)`.
   $block_format.BlockFormatBlock next() {
-    final $r = $callSync(1806, $W()..h(this));
+    final $r = $callSync(1823, $W()..h(this));
     return $r.p() ? $block_format.BlockFormatBlock.$dec($r) : $nil();
   }
 
   /// Go: `func (*car.BlockReader).NextReader() (cid.Cid, io.Reader, uint64, error)`.
   ($cid.Cid, $io.IoReader, int) nextReader() {
-    final $r = $callSync(1807, $W()..h(this));
+    final $r = $callSync(1824, $W()..h(this));
     return (
       $r.p() ? $cid.Cid($r.str()) : $nil(),
       $r.hnn($io.IoReader.$h),
@@ -128,7 +128,7 @@ class CarV2BlockReader extends $crypto.CryptoPrivateKey
 
   /// Go: `func (*car.BlockReader).SkipNext() (*car.BlockMetadata, error)`.
   CarV2BlockMetadata skipNext() {
-    final $r = $callSync(1810, $W()..h(this));
+    final $r = $callSync(1827, $W()..h(this));
     return $r.p() ? CarV2BlockMetadata.$dec($r) : $nil();
   }
 }
@@ -164,14 +164,14 @@ final class CarV2Characteristics implements GoDto {
 
   /// Go: `func (*car.Characteristics).IsFullyIndexed() bool`.
   bool isFullyIndexed() {
-    final $r = $callSync(1813, $W()..dto(this));
+    final $r = $callSync(1830, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*car.Characteristics).ReadFrom(r io.Reader) (int64, error)`.
   int readFrom(Object r) {
     final $r = $callSync(
-        1814,
+        1831,
         $W()
           ..dto(this)
           ..reader(r));
@@ -181,7 +181,7 @@ final class CarV2Characteristics implements GoDto {
   /// Go: `func (*car.Characteristics).SetFullyIndexed(b bool)`.
   void setFullyIndexed(bool b) {
     $callSync(
-        1815,
+        1832,
         $W()
           ..dto(this)
           ..b(b));
@@ -190,7 +190,7 @@ final class CarV2Characteristics implements GoDto {
   /// Go: `func (car.Characteristics).WriteTo(w io.Writer) (n int64, err error)`.
   int writeTo(GoHandle? w) {
     final $r = $callSync(
-        1816,
+        1833,
         $W()
           ..dto(this)
           ..h(w));
@@ -248,14 +248,14 @@ final class CarV2Header implements GoDto {
 
   /// Go: `func (car.Header).HasIndex() bool`.
   bool hasIndex() {
-    final $r = $callSync(1820, $W()..dto(this));
+    final $r = $callSync(1837, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (*car.Header).ReadFrom(r io.Reader) (int64, error)`.
   int readFrom(Object r) {
     final $r = $callSync(
-        1821,
+        1838,
         $W()
           ..dto(this)
           ..reader(r));
@@ -265,7 +265,7 @@ final class CarV2Header implements GoDto {
   /// Go: `func (car.Header).WithDataPadding(padding uint64) car.Header`.
   CarV2Header withDataPadding(int padding) {
     final $r = $callSync(
-        1822,
+        1839,
         $W()
           ..dto(this)
           ..i64(padding));
@@ -275,7 +275,7 @@ final class CarV2Header implements GoDto {
   /// Go: `func (car.Header).WithDataSize(size uint64) car.Header`.
   CarV2Header withDataSize(int size) {
     final $r = $callSync(
-        1823,
+        1840,
         $W()
           ..dto(this)
           ..i64(size));
@@ -285,7 +285,7 @@ final class CarV2Header implements GoDto {
   /// Go: `func (car.Header).WithIndexPadding(padding uint64) car.Header`.
   CarV2Header withIndexPadding(int padding) {
     final $r = $callSync(
-        1824,
+        1841,
         $W()
           ..dto(this)
           ..i64(padding));
@@ -295,7 +295,7 @@ final class CarV2Header implements GoDto {
   /// Go: `func (car.Header).WriteTo(w io.Writer) (n int64, err error)`.
   int writeTo(GoHandle? w) {
     final $r = $callSync(
-        1825,
+        1842,
         $W()
           ..dto(this)
           ..h(w));
@@ -451,7 +451,7 @@ class CarV2Reader extends $crypto.CryptoPrivateKey
   /// Go: `func car.NewReader(r io.ReaderAt, opts ...car.Option) (*car.Reader, error)`.
   factory CarV2Reader(Object r, [List<CarV2Option> opts = const []]) {
     final $r = $callSync(
-        1829,
+        1846,
         $W()
           ..reader(r)
           ..list(opts, (w0, e0) => w0.opt(e0)));
@@ -460,14 +460,14 @@ class CarV2Reader extends $crypto.CryptoPrivateKey
 
   /// Go: `field Header car.Header`.
   CarV2Header get header {
-    final $r = $callSync(1837, $W()..h(this));
+    final $r = $callSync(1854, $W()..h(this));
     return $r.p() ? CarV2Header.$dec($r) : $nil();
   }
 
   /// Go: `field Header car.Header`.
   set header(CarV2Header header) {
     $callSync(
-        1838,
+        1855,
         $W()
           ..h(this)
           ..dto(header));
@@ -475,14 +475,14 @@ class CarV2Reader extends $crypto.CryptoPrivateKey
 
   /// Go: `field Version uint64`.
   int get version {
-    final $r = $callSync(1842, $W()..h(this));
+    final $r = $callSync(1859, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `field Version uint64`.
   set version(int version) {
     $callSync(
-        1843,
+        1860,
         $W()
           ..h(this)
           ..i64(version));
@@ -490,25 +490,25 @@ class CarV2Reader extends $crypto.CryptoPrivateKey
 
   /// Go: `func (*car.Reader).Close() error`.
   void close() {
-    $callSync(1835, $W()..h(this));
+    $callSync(1852, $W()..h(this));
   }
 
   /// Go: `func (*car.Reader).DataReader() (car.SectionReader, error)`.
   CarV2SectionReader dataReader() {
-    final $r = $callSync(1836, $W()..h(this));
+    final $r = $callSync(1853, $W()..h(this));
     return $r.hnn(CarV2SectionReader.$h);
   }
 
   /// Go: `func (*car.Reader).IndexReader() (io.Reader, error)`.
   $io.IoReader indexReader() {
-    final $r = $callSync(1839, $W()..h(this));
+    final $r = $callSync(1856, $W()..h(this));
     return $r.hnn($io.IoReader.$h);
   }
 
   /// Go: `func (*car.Reader).Inspect(validateBlockHash bool) (car.Stats, error)`.
   CarV2Stats inspect(bool validateBlockHash) {
     final $r = $callSync(
-        1840,
+        1857,
         $W()
           ..h(this)
           ..b(validateBlockHash));
@@ -517,7 +517,7 @@ class CarV2Reader extends $crypto.CryptoPrivateKey
 
   /// Go: `func (*car.Reader).Roots() ([]cid.Cid, error)`.
   List<$cid.Cid> roots() {
-    final $r = $callSync(1841, $W()..h(this));
+    final $r = $callSync(1858, $W()..h(this));
     return $r.list(() => $r.p() ? $cid.Cid($r.str()) : $nil());
   }
 }
@@ -787,14 +787,14 @@ extension GoCarV2Api on GoCarV2 {
 
   /// Go: `func car.ApplyOptions(opt ...car.Option) car.Options`.
   CarV2Options applyOptions([List<CarV2Option> opt = const []]) {
-    final $r = $callSync(1804, $W()..list(opt, (w0, e0) => w0.opt(e0)));
+    final $r = $callSync(1821, $W()..list(opt, (w0, e0) => w0.opt(e0)));
     return $r.p() ? CarV2Options.$dec($r) : $nil();
   }
 
   /// Go: `func car.AttachIndex(path string, idx index.Index, offset uint64) error`.
   void attachIndex(String path, $index.CarV2Index idx, int offset) {
     $callSync(
-        1805,
+        1822,
         $W()
           ..str(path)
           ..h(idx)
@@ -805,7 +805,7 @@ extension GoCarV2Api on GoCarV2 {
   void extractV1File(String srcPath, String dstPath,
       [List<CarV2Option> opts = const []]) {
     $callSync(
-        1817,
+        1834,
         $W()
           ..str(srcPath)
           ..str(dstPath)
@@ -816,7 +816,7 @@ extension GoCarV2Api on GoCarV2 {
   $index.CarV2Index generateIndex(Object v1r,
       [List<CarV2Option> opts = const []]) {
     final $r = $callSync(
-        1818,
+        1835,
         $W()
           ..reader(v1r)
           ..list(opts, (w0, e0) => w0.opt(e0)));
@@ -827,7 +827,7 @@ extension GoCarV2Api on GoCarV2 {
   $index.CarV2Index generateIndexFromFile(String path,
       [List<CarV2Option> opts = const []]) {
     final $r = $callSync(
-        1819,
+        1836,
         $W()
           ..str(path)
           ..list(opts, (w0, e0) => w0.opt(e0)));
@@ -838,7 +838,7 @@ extension GoCarV2Api on GoCarV2 {
   void loadIndex($index.CarV2Index idx, Object r,
       [List<CarV2Option> opts = const []]) {
     $callSync(
-        1826,
+        1843,
         $W()
           ..h(idx)
           ..reader(r)
@@ -847,7 +847,7 @@ extension GoCarV2Api on GoCarV2 {
 
   /// Go: `func car.NewHeader(dataSize uint64) car.Header`.
   CarV2Header newHeader(int dataSize) {
-    final $r = $callSync(1828, $W()..i64(dataSize));
+    final $r = $callSync(1845, $W()..i64(dataSize));
     return $r.p() ? CarV2Header.$dec($r) : $nil();
   }
 
@@ -861,7 +861,7 @@ extension GoCarV2Api on GoCarV2 {
       $datamodel.IpldPrimeDatamodelNode selector,
       [List<CarV2Option> opts = const []]) async {
     final $r = await $call(
-        1830,
+        1847,
         $W()
           ..h(ctx)
           ..h(ls)
@@ -874,7 +874,7 @@ extension GoCarV2Api on GoCarV2 {
   /// Go: `func car.OpenReader(path string, opts ...car.Option) (*car.Reader, error)`.
   CarV2Reader openReader(String path, [List<CarV2Option> opts = const []]) {
     final $r = $callSync(
-        1831,
+        1848,
         $W()
           ..str(path)
           ..list(opts, (w0, e0) => w0.opt(e0)));
@@ -883,7 +883,7 @@ extension GoCarV2Api on GoCarV2 {
 
   /// Go: `var car.Pragma []byte`.
   Uint8List get pragma {
-    final $r = $callSync(1832);
+    final $r = $callSync(1849);
     return $r.bytes() ?? Uint8List(0);
   }
 
@@ -891,7 +891,7 @@ extension GoCarV2Api on GoCarV2 {
   $index.CarV2Index readOrGenerateIndex(Object rs,
       [List<CarV2Option> opts = const []]) {
     final $r = $callSync(
-        1833,
+        1850,
         $W()
           ..reader(rs)
           ..list(opts, (w0, e0) => w0.opt(e0)));
@@ -901,7 +901,7 @@ extension GoCarV2Api on GoCarV2 {
   /// Go: `func car.ReadVersion(r io.Reader, opts ...car.Option) (uint64, error)`.
   int readVersion(Object r, [List<CarV2Option> opts = const []]) {
     final $r = $callSync(
-        1834,
+        1851,
         $W()
           ..reader(r)
           ..list(opts, (w0, e0) => w0.opt(e0)));
@@ -912,7 +912,7 @@ extension GoCarV2Api on GoCarV2 {
   void replaceRootsInFile(String path, List<$cid.Cid> roots,
       [List<CarV2Option> opts = const []]) {
     $callSync(
-        1844,
+        1861,
         $W()
           ..str(path)
           ..list(roots, (w0, e0) => w0.val(e0))
@@ -930,7 +930,7 @@ extension GoCarV2Api on GoCarV2 {
       String destination,
       [List<CarV2Option> opts = const []]) async {
     await $call(
-        1845,
+        1862,
         $W()
           ..h(ctx)
           ..h(ls)
@@ -951,7 +951,7 @@ extension GoCarV2Api on GoCarV2 {
       GoHandle? writer,
       [List<CarV2Option> opts = const []]) async {
     final $r = await $call(
-        1846,
+        1863,
         $W()
           ..h(ctx)
           ..h(ls)
@@ -965,7 +965,7 @@ extension GoCarV2Api on GoCarV2 {
   /// Go: `func car.WrapV1(src io.ReadSeeker, dst io.Writer, opts ...car.Option) error`.
   void wrapV1(Object src, GoHandle? dst, [List<CarV2Option> opts = const []]) {
     $callSync(
-        1847,
+        1864,
         $W()
           ..reader(src)
           ..h(dst)
@@ -975,7 +975,7 @@ extension GoCarV2Api on GoCarV2 {
   /// Go: `func car.WrapV1File(srcPath string, dstPath string) error`.
   void wrapV1File(String srcPath, String dstPath) {
     $callSync(
-        1848,
+        1865,
         $W()
           ..str(srcPath)
           ..str(dstPath));

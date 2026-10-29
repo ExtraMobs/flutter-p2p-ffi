@@ -37,26 +37,26 @@ final class Libp2pCorePeerAddrInfo implements GoDto {
 
   /// Go: `func (*peer.AddrInfo).Loggable() map[string]any`.
   Map<String, Object?> loggable() {
-    final $r = $callSync(3074, $W()..dto(this));
+    final $r = $callSync(3113, $W()..dto(this));
     return $r.map(() => $r.str(), () => $r.any());
   }
 
   /// Go: `func (peer.AddrInfo).MarshalJSON() (res []byte, err error)`.
   Uint8List marshalJson() {
-    final $r = $callSync(3075, $W()..dto(this));
+    final $r = $callSync(3114, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (peer.AddrInfo).String() string`.
   String string() {
-    final $r = $callSync(3076, $W()..dto(this));
+    final $r = $callSync(3115, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*peer.AddrInfo).UnmarshalJSON(b []byte) (err error)`.
   void unmarshalJson(Uint8List b) {
     $callSync(
-        3077,
+        3116,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -69,44 +69,44 @@ class Libp2pCorePeerId extends GoValue {
 
   /// Go: `func (peer.ID).ExtractPublicKey() (crypto.PubKey, error)`.
   $crypto.Libp2pCoreCryptoPubKey extractPublicKey() {
-    final $r = $callSync(3086, $W()..val(this));
+    final $r = $callSync(3125, $W()..val(this));
     return $r.hnn($crypto.Libp2pCoreCryptoPubKey.$h);
   }
 
   /// Go: `func (peer.ID).Loggable() map[string]any`.
   Map<String, Object?> loggable() {
-    final $r = $callSync(3087, $W()..val(this));
+    final $r = $callSync(3126, $W()..val(this));
     return $r.map(() => $r.str(), () => $r.any());
   }
 
   /// Go: `func (peer.ID).Marshal() ([]byte, error)`.
   Uint8List marshal() {
-    final $r = $callSync(3088, $W()..val(this));
+    final $r = $callSync(3127, $W()..val(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (peer.ID).MarshalBinary() ([]byte, error)`.
   Uint8List marshalBinary() {
-    final $r = $callSync(3089, $W()..val(this));
+    final $r = $callSync(3128, $W()..val(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (peer.ID).MarshalJSON() ([]byte, error)`.
   Uint8List marshalJson() {
-    final $r = $callSync(3090, $W()..val(this));
+    final $r = $callSync(3129, $W()..val(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (peer.ID).MarshalText() ([]byte, error)`.
   Uint8List marshalText() {
-    final $r = $callSync(3091, $W()..val(this));
+    final $r = $callSync(3130, $W()..val(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (peer.ID).MarshalTo(data []byte) (n int, err error)`.
   int marshalTo(Uint8List data) {
     final $r = $callSync(
-        3092,
+        3131,
         $W()
           ..val(this)
           ..bytes(data));
@@ -116,7 +116,7 @@ class Libp2pCorePeerId extends GoValue {
   /// Go: `func (peer.ID).MatchesPrivateKey(sk crypto.PrivKey) bool`.
   bool matchesPrivateKey($crypto.Libp2pCoreCryptoPrivKey sk) {
     final $r = $callSync(
-        3093,
+        3132,
         $W()
           ..val(this)
           ..h(sk));
@@ -126,7 +126,7 @@ class Libp2pCorePeerId extends GoValue {
   /// Go: `func (peer.ID).MatchesPublicKey(pk crypto.PubKey) bool`.
   bool matchesPublicKey($crypto.Libp2pCoreCryptoPubKey pk) {
     final $r = $callSync(
-        3094,
+        3133,
         $W()
           ..val(this)
           ..h(pk));
@@ -135,26 +135,26 @@ class Libp2pCorePeerId extends GoValue {
 
   /// Go: `func (peer.ID).ShortString() string`.
   String shortString() {
-    final $r = $callSync(3095, $W()..val(this));
+    final $r = $callSync(3134, $W()..val(this));
     return $r.str();
   }
 
   /// Go: `func (peer.ID).Size() int`.
   int size() {
-    final $r = $callSync(3096, $W()..val(this));
+    final $r = $callSync(3135, $W()..val(this));
     return $r.i64();
   }
 
   /// Go: `func (peer.ID).String() string`.
   String string() {
-    final $r = $callSync(3097, $W()..val(this));
+    final $r = $callSync(3136, $W()..val(this));
     return $r.str();
   }
 
   /// Go: `func (*peer.ID).Unmarshal(data []byte) (err error)`.
   void unmarshal(Uint8List data) {
     $callSync(
-        3098,
+        3137,
         $W()
           ..val(this)
           ..bytes(data));
@@ -163,7 +163,7 @@ class Libp2pCorePeerId extends GoValue {
   /// Go: `func (*peer.ID).UnmarshalBinary(data []byte) error`.
   void unmarshalBinary(Uint8List data) {
     $callSync(
-        3099,
+        3138,
         $W()
           ..val(this)
           ..bytes(data));
@@ -172,7 +172,7 @@ class Libp2pCorePeerId extends GoValue {
   /// Go: `func (*peer.ID).UnmarshalJSON(data []byte) (err error)`.
   void unmarshalJson(Uint8List data) {
     $callSync(
-        3100,
+        3139,
         $W()
           ..val(this)
           ..bytes(data));
@@ -181,7 +181,7 @@ class Libp2pCorePeerId extends GoValue {
   /// Go: `func (*peer.ID).UnmarshalText(data []byte) error`.
   void unmarshalText(Uint8List data) {
     $callSync(
-        3101,
+        3140,
         $W()
           ..val(this)
           ..bytes(data));
@@ -189,7 +189,7 @@ class Libp2pCorePeerId extends GoValue {
 
   /// Go: `func (peer.ID).Validate() error`.
   void validate() {
-    $callSync(3102, $W()..val(this));
+    $callSync(3141, $W()..val(this));
   }
 }
 
@@ -228,20 +228,20 @@ final class Libp2pCorePeerRecord implements GoDto {
 
   /// Go: `func (*peer.PeerRecord).Codec() []byte`.
   Uint8List codec() {
-    final $r = $callSync(3108, $W()..dto(this));
+    final $r = $callSync(3147, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*peer.PeerRecord).Domain() string`.
   String domain() {
-    final $r = $callSync(3109, $W()..dto(this));
+    final $r = $callSync(3148, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*peer.PeerRecord).Equal(other *peer.PeerRecord) bool`.
   bool equal(Libp2pCorePeerRecord other) {
     final $r = $callSync(
-        3110,
+        3149,
         $W()
           ..dto(this)
           ..dto(other));
@@ -250,20 +250,20 @@ final class Libp2pCorePeerRecord implements GoDto {
 
   /// Go: `func (*peer.PeerRecord).MarshalRecord() (res []byte, err error)`.
   Uint8List marshalRecord() {
-    final $r = $callSync(3111, $W()..dto(this));
+    final $r = $callSync(3150, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*peer.PeerRecord).ToProtobuf() (*pb.PeerRecord, error)`.
   $pb.Libp2pCorePeerPbPeerRecord toProtobuf() {
-    final $r = $callSync(3112, $W()..dto(this));
+    final $r = $callSync(3151, $W()..dto(this));
     return $r.hnn($pb.Libp2pCorePeerPbPeerRecord.$h);
   }
 
   /// Go: `func (*peer.PeerRecord).UnmarshalRecord(bytes []byte) (err error)`.
   void unmarshalRecord(Uint8List bytes) {
     $callSync(
-        3113,
+        3152,
         $W()
           ..dto(this)
           ..bytes(bytes));
@@ -301,105 +301,105 @@ class Libp2pCorePeerErrNoPublicKey extends GolangException {
 extension GoLibp2pCorePeerApi on GoLibp2pCorePeer {
   /// Go: `func peer.AddrInfoFromP2pAddr(m multiaddr.Multiaddr) (*peer.AddrInfo, error)`.
   Libp2pCorePeerAddrInfo addrInfoFromP2pAddr($multiaddr.Multiaddr m) {
-    final $r = $callSync(3078, $W()..val(m));
+    final $r = $callSync(3117, $W()..val(m));
     return $r.p() ? Libp2pCorePeerAddrInfo.$dec($r) : $nil();
   }
 
   /// Go: `func peer.AddrInfoFromString(s string) (*peer.AddrInfo, error)`.
   Libp2pCorePeerAddrInfo addrInfoFromString(String s) {
-    final $r = $callSync(3079, $W()..str(s));
+    final $r = $callSync(3118, $W()..str(s));
     return $r.p() ? Libp2pCorePeerAddrInfo.$dec($r) : $nil();
   }
 
   /// Go: `func peer.AddrInfoToP2pAddrs(pi *peer.AddrInfo) ([]multiaddr.Multiaddr, error)`.
   List<$multiaddr.Multiaddr> addrInfoToP2pAddrs(Libp2pCorePeerAddrInfo pi) {
-    final $r = $callSync(3080, $W()..dto(pi));
+    final $r = $callSync(3119, $W()..dto(pi));
     return $r.list(() => $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil());
   }
 
   /// Go: `func peer.AddrInfosFromP2pAddrs(maddrs ...multiaddr.Multiaddr) ([]peer.AddrInfo, error)`.
   List<Libp2pCorePeerAddrInfo> addrInfosFromP2pAddrs(
       [List<$multiaddr.Multiaddr> maddrs = const []]) {
-    final $r = $callSync(3081, $W()..list(maddrs, (w0, e0) => w0.val(e0)));
+    final $r = $callSync(3120, $W()..list(maddrs, (w0, e0) => w0.val(e0)));
     return $r.list(() => $r.p() ? Libp2pCorePeerAddrInfo.$dec($r) : $nil());
   }
 
   /// Go: `func peer.AddrInfosToIDs(pis []peer.AddrInfo) []peer.ID`.
   List<Libp2pCorePeerId> addrInfosToIds(List<Libp2pCorePeerAddrInfo> pis) {
-    final $r = $callSync(3082, $W()..list(pis, (w0, e0) => w0.dto(e0)));
+    final $r = $callSync(3121, $W()..list(pis, (w0, e0) => w0.dto(e0)));
     return $r.list(() => $r.p() ? Libp2pCorePeerId($r.str()) : $nil());
   }
 
   /// Go: `var peer.AdvancedEnableInlining bool`.
   bool get advancedEnableInlining {
-    final $r = $callSync(3083);
+    final $r = $callSync(3122);
     return $r.b();
   }
 
   /// Go: `func peer.Decode(s string) (peer.ID, error)`.
   Libp2pCorePeerId decode(String s) {
-    final $r = $callSync(3084, $W()..str(s));
+    final $r = $callSync(3123, $W()..str(s));
     return $r.p() ? Libp2pCorePeerId($r.str()) : $nil();
   }
 
   /// Go: `func peer.FromCid(c cid.Cid) (peer.ID, error)`.
   Libp2pCorePeerId fromCid($cid.Cid c) {
-    final $r = $callSync(3085, $W()..val(c));
+    final $r = $callSync(3124, $W()..val(c));
     return $r.p() ? Libp2pCorePeerId($r.str()) : $nil();
   }
 
   /// Go: `func peer.IDFromBytes(b []byte) (peer.ID, error)`.
   Libp2pCorePeerId idFromBytes(Uint8List b) {
-    final $r = $callSync(3103, $W()..bytes(b));
+    final $r = $callSync(3142, $W()..bytes(b));
     return $r.p() ? Libp2pCorePeerId($r.str()) : $nil();
   }
 
   /// Go: `func peer.IDFromP2PAddr(m multiaddr.Multiaddr) (peer.ID, error)`.
   Libp2pCorePeerId idFromP2pAddr($multiaddr.Multiaddr m) {
-    final $r = $callSync(3104, $W()..val(m));
+    final $r = $callSync(3143, $W()..val(m));
     return $r.p() ? Libp2pCorePeerId($r.str()) : $nil();
   }
 
   /// Go: `func peer.IDFromPrivateKey(sk crypto.PrivKey) (peer.ID, error)`.
   Libp2pCorePeerId idFromPrivateKey($crypto.Libp2pCoreCryptoPrivKey sk) {
-    final $r = $callSync(3105, $W()..h(sk));
+    final $r = $callSync(3144, $W()..h(sk));
     return $r.p() ? Libp2pCorePeerId($r.str()) : $nil();
   }
 
   /// Go: `func peer.IDFromPublicKey(pk crypto.PubKey) (peer.ID, error)`.
   Libp2pCorePeerId idFromPublicKey($crypto.Libp2pCoreCryptoPubKey pk) {
-    final $r = $callSync(3106, $W()..h(pk));
+    final $r = $callSync(3145, $W()..h(pk));
     return $r.p() ? Libp2pCorePeerId($r.str()) : $nil();
   }
 
   /// Go: `func peer.NewPeerRecord() *peer.PeerRecord`.
   Libp2pCorePeerRecord newPeerRecord() {
-    final $r = $callSync(3107);
+    final $r = $callSync(3146);
     return $r.p() ? Libp2pCorePeerRecord.$dec($r) : $nil();
   }
 
   /// Go: `var peer.PeerRecordEnvelopePayloadType []byte`.
   Uint8List get peerRecordEnvelopePayloadType {
-    final $r = $callSync(3114);
+    final $r = $callSync(3153);
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func peer.PeerRecordFromAddrInfo(info peer.AddrInfo) *peer.PeerRecord`.
   Libp2pCorePeerRecord peerRecordFromAddrInfo(Libp2pCorePeerAddrInfo info) {
-    final $r = $callSync(3115, $W()..dto(info));
+    final $r = $callSync(3154, $W()..dto(info));
     return $r.p() ? Libp2pCorePeerRecord.$dec($r) : $nil();
   }
 
   /// Go: `func peer.PeerRecordFromProtobuf(msg *pb.PeerRecord) (*peer.PeerRecord, error)`.
   Libp2pCorePeerRecord peerRecordFromProtobuf(
       $pb.Libp2pCorePeerPbPeerRecord msg) {
-    final $r = $callSync(3116, $W()..h(msg));
+    final $r = $callSync(3155, $W()..h(msg));
     return $r.p() ? Libp2pCorePeerRecord.$dec($r) : $nil();
   }
 
   /// Go: `func peer.SplitAddr(m multiaddr.Multiaddr) (transport multiaddr.Multiaddr, id peer.ID)`.
   ($multiaddr.Multiaddr, Libp2pCorePeerId) splitAddr($multiaddr.Multiaddr m) {
-    final $r = $callSync(3117, $W()..val(m));
+    final $r = $callSync(3156, $W()..val(m));
     return (
       $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil(),
       $r.p() ? Libp2pCorePeerId($r.str()) : $nil()
@@ -408,13 +408,13 @@ extension GoLibp2pCorePeerApi on GoLibp2pCorePeer {
 
   /// Go: `func peer.TimestampSeq() uint64`.
   int timestampSeq() {
-    final $r = $callSync(3118);
+    final $r = $callSync(3157);
     return $r.i64();
   }
 
   /// Go: `func peer.ToCid(id peer.ID) cid.Cid`.
   $cid.Cid toCid(Libp2pCorePeerId id) {
-    final $r = $callSync(3119, $W()..val(id));
+    final $r = $callSync(3158, $W()..val(id));
     return $r.p() ? $cid.Cid($r.str()) : $nil();
   }
 

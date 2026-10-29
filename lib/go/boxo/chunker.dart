@@ -24,19 +24,19 @@ class BoxoChunkerBuzhash extends BoxoChunkerSplitter
 
   /// Go: `func chunk.NewBuzhash(r io.Reader) *chunk.Buzhash`.
   factory BoxoChunkerBuzhash(Object r) {
-    final $r = $callSync(495, $W()..reader(r));
+    final $r = $callSync(499, $W()..reader(r));
     return $r.hnn(BoxoChunkerBuzhash.$h);
   }
 
   /// Go: `func (*chunk.Buzhash).NextBytes() ([]byte, error)`.
   Uint8List nextBytes() {
-    final $r = $callSync(489, $W()..h(this));
+    final $r = $callSync(493, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*chunk.Buzhash).Reader() io.Reader`.
   $io.IoReader reader() {
-    final $r = $callSync(490, $W()..h(this));
+    final $r = $callSync(494, $W()..h(this));
     return $r.hnn($io.IoReader.$h);
   }
 }
@@ -56,7 +56,7 @@ class BoxoChunkerRabin extends BoxoChunkerSplitter
   /// Go: `func chunk.NewRabin(r io.Reader, avgBlkSize uint64) *chunk.Rabin`.
   factory BoxoChunkerRabin(Object r, int avgBlkSize) {
     final $r = $callSync(
-        496,
+        500,
         $W()
           ..reader(r)
           ..i64(avgBlkSize));
@@ -65,13 +65,13 @@ class BoxoChunkerRabin extends BoxoChunkerSplitter
 
   /// Go: `func (*chunk.Rabin).NextBytes() ([]byte, error)`.
   Uint8List nextBytes() {
-    final $r = $callSync(499, $W()..h(this));
+    final $r = $callSync(503, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*chunk.Rabin).Reader() io.Reader`.
   $io.IoReader reader() {
-    final $r = $callSync(500, $W()..h(this));
+    final $r = $callSync(504, $W()..h(this));
     return $r.hnn($io.IoReader.$h);
   }
 }
@@ -85,13 +85,13 @@ class BoxoChunkerSplitter extends GoHandle with BoxoChunkerSplitter$ {
 mixin BoxoChunkerSplitter$ on GoHandle {
   /// Go: `func (chunk.Splitter).NextBytes() ([]byte, error)`.
   Uint8List nextBytes() {
-    final $r = $callSync(503, $W()..h(this));
+    final $r = $callSync(507, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (chunk.Splitter).Reader() io.Reader`.
   $io.IoReader reader() {
-    final $r = $callSync(504, $W()..h(this));
+    final $r = $callSync(508, $W()..h(this));
     return $r.hnn($io.IoReader.$h);
   }
 
@@ -153,20 +153,20 @@ class BoxoChunkerErrSizeMax extends GolangException {
 extension GoBoxoChunkerApi on GoBoxoChunker {
   /// Go: `var chunk.DefaultBlockSize int64`.
   int get defaultBlockSize {
-    final $r = $callSync(491);
+    final $r = $callSync(495);
     return $r.i64();
   }
 
   /// Go: `func chunk.DefaultSplitter(r io.Reader) chunk.Splitter`.
   BoxoChunkerSplitter defaultSplitter(Object r) {
-    final $r = $callSync(492, $W()..reader(r));
+    final $r = $callSync(496, $W()..reader(r));
     return $r.hnn(BoxoChunkerSplitter.$h);
   }
 
   /// Go: `func chunk.FromString(r io.Reader, chunker string) (chunk.Splitter, error)`.
   BoxoChunkerSplitter fromString(Object r, String chunker) {
     final $r = $callSync(
-        493,
+        497,
         $W()
           ..reader(r)
           ..str(chunker));
@@ -175,14 +175,14 @@ extension GoBoxoChunkerApi on GoBoxoChunker {
 
   /// Go: `var chunk.IpfsRabinPoly chunker.Pol`.
   int get ipfsRabinPoly {
-    final $r = $callSync(494);
+    final $r = $callSync(498);
     return $r.i64();
   }
 
   /// Go: `func chunk.NewRabinMinMax(r io.Reader, min uint64, avg uint64, max uint64) *chunk.Rabin`.
   BoxoChunkerRabin newRabinMinMax(Object r, int min, int avg, int max) {
     final $r = $callSync(
-        497,
+        501,
         $W()
           ..reader(r)
           ..i64(min)
@@ -194,7 +194,7 @@ extension GoBoxoChunkerApi on GoBoxoChunker {
   /// Go: `func chunk.NewSizeSplitter(r io.Reader, size int64) chunk.Splitter`.
   BoxoChunkerSplitter newSizeSplitter(Object r, int size) {
     final $r = $callSync(
-        498,
+        502,
         $W()
           ..reader(r)
           ..i64(size));
@@ -204,7 +204,7 @@ extension GoBoxoChunkerApi on GoBoxoChunker {
   /// Go: `func chunk.Register(name string, fn chunk.SplitterFunc)`.
   void register(String name, BoxoChunkerSplitterFunc fn) {
     $callSync(
-        501,
+        505,
         $W()
           ..str(name)
           ..h(fn));
@@ -212,7 +212,7 @@ extension GoBoxoChunkerApi on GoBoxoChunker {
 
   /// Go: `func chunk.SizeSplitterGen(size int64) chunk.SplitterGen`.
   BoxoChunkerSplitterGen sizeSplitterGen(int size) {
-    final $r = $callSync(502, $W()..i64(size));
+    final $r = $callSync(506, $W()..i64(size));
     return $r.hnn(BoxoChunkerSplitterGen.$h);
   }
 

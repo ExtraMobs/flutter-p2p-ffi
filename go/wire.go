@@ -15,6 +15,7 @@ import (
 	"io"
 	"math"
 	"reflect"
+	"runtime/debug"
 	"sync"
 	"syscall"
 	"time"
@@ -74,7 +75,10 @@ func (q *req) item(enc func(*writer)) {
 // ou, sem ele, a do elo reconhecido mais de fora.
 func errData(err error) []byte {
 	var code byte
+	var pe *panicError
 	switch {
+	case errors.As(err, &pe):
+		code = errPanic
 	case errors.Is(err, io.EOF):
 		code = errEOF
 	case errors.Is(err, io.ErrUnexpectedEOF):
@@ -115,6 +119,9 @@ func errData(err error) []byte {
 		if l.enc != nil {
 			l.enc(w)
 		}
+	}
+	if pe != nil {
+		w.str(string(pe.stack))
 	}
 	return w.b
 }
@@ -185,6 +192,7 @@ const (
 	errDeadline
 	errNotFound
 	errDeadlock // deadlock.go: só o host o produz
+	errPanic    // guard: a panic of the call; the Go stack follows the links
 )
 
 // invoke roda a entrada [e] sobre [args] e devolve a resposta final (valor,
@@ -207,8 +215,25 @@ func invoke(e entry, id uint32, args []byte, send sendFn) (byte, []byte) {
 // goroutine interna do kubo derruba o processo (e o app o relança).
 func guard(err *error) {
 	if r := recover(); r != nil {
-		*err = fmt.Errorf("panic: %v", r)
+		*err = &panicError{v: r, stack: debug.Stack()}
 	}
+}
+
+// panicError: a panic of the call that guard recovered; Dart gets
+// GolangPanicException with the Go stack (errPanic). What the panic left
+// half done (a lock never unlocked, a half-updated struct) stays so: the
+// object it touched should be closed and made again.
+type panicError struct {
+	v     any
+	stack []byte
+}
+
+func (e *panicError) Error() string { return fmt.Sprintf("panic: %v", e.v) }
+
+// Unwrap: the value when it is an error (panic(err)), for errors.Is/As.
+func (e *panicError) Unwrap() error {
+	err, _ := e.v.(error)
+	return err
 }
 
 // try roda f; um panic vira o erro devolvido.

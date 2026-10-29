@@ -2,6 +2,8 @@
 // Go: github.com/ipfs/boxo/bitswap
 library;
 
+import 'dart:async';
+
 import 'package:p2p_ffi/src/go.dart' show GoBoxoBitswap;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/block_format.dart' as $block_format;
@@ -35,7 +37,7 @@ class BoxoBitswap extends $exchange.BoxoExchangeSessionExchange
 
   /// Go: `func (*bitswap.Bitswap).Close() error`.
   void close() {
-    $callSync(415, $W()..h(this));
+    $callSync(416, $W()..h(this));
   }
 
   /// Go: `func (*bitswap.Bitswap).NotifyNewBlocks(ctx context.Context, blks ...blocks.Block) error`.
@@ -44,7 +46,7 @@ class BoxoBitswap extends $exchange.BoxoExchangeSessionExchange
   Future<void> notifyNewBlocks($context.Context ctx,
       [List<$block_format.BlockFormatBlock> blks = const []]) async {
     await $call(
-        416,
+        417,
         $W()
           ..h(this)
           ..h(ctx)
@@ -54,7 +56,7 @@ class BoxoBitswap extends $exchange.BoxoExchangeSessionExchange
   /// Go: `func (*bitswap.Bitswap).PeerConnected(p peer.ID)`.
   void peerConnected($peer.Libp2pCorePeerId p) {
     $callSync(
-        417,
+        418,
         $W()
           ..h(this)
           ..val(p));
@@ -63,7 +65,7 @@ class BoxoBitswap extends $exchange.BoxoExchangeSessionExchange
   /// Go: `func (*bitswap.Bitswap).PeerDisconnected(p peer.ID)`.
   void peerDisconnected($peer.Libp2pCorePeerId p) {
     $callSync(
-        418,
+        419,
         $W()
           ..h(this)
           ..val(p));
@@ -75,7 +77,7 @@ class BoxoBitswap extends $exchange.BoxoExchangeSessionExchange
   Future<void> receiveMessage($context.Context ctx, $peer.Libp2pCorePeerId p,
       $message.BoxoBitswapMessageBitSwapMessage incoming) async {
     await $call(
-        419,
+        420,
         $W()
           ..h(this)
           ..h(ctx)
@@ -85,14 +87,14 @@ class BoxoBitswap extends $exchange.BoxoExchangeSessionExchange
 
   /// Go: `func (*bitswap.Bitswap).Stat() (*bitswap.Stat, error)`.
   BoxoBitswapStat stat() {
-    final $r = $callSync(420, $W()..h(this));
+    final $r = $callSync(421, $W()..h(this));
     return $r.p() ? BoxoBitswapStat.$dec($r) : $nil();
   }
 
   /// Go: `func (*bitswap.Bitswap).WantlistForPeer(p peer.ID) []cid.Cid`.
   List<$cid.Cid> wantlistForPeer($peer.Libp2pCorePeerId p) {
     final $r = $callSync(
-        421,
+        422,
         $W()
           ..h(this)
           ..val(p));
@@ -207,31 +209,31 @@ final class BoxoBitswapStat implements GoDto {
 extension GoBoxoBitswapApi on GoBoxoBitswap {
   /// Go: `func bitswap.EngineBlockstoreWorkerCount(count int) bitswap.Option`.
   BoxoBitswapOption engineBlockstoreWorkerCount(int count) {
-    final $r = $callSync(422, $W()..i64(count));
+    final $r = $callSync(423, $W()..i64(count));
     return $r.hnn(BoxoBitswapOption.$h);
   }
 
   /// Go: `func bitswap.EngineTaskWorkerCount(count int) bitswap.Option`.
   BoxoBitswapOption engineTaskWorkerCount(int count) {
-    final $r = $callSync(423, $W()..i64(count));
+    final $r = $callSync(424, $W()..i64(count));
     return $r.hnn(BoxoBitswapOption.$h);
   }
 
   /// Go: `func bitswap.MaxCidSize(n uint) bitswap.Option`.
   BoxoBitswapOption maxCidSize(int n) {
-    final $r = $callSync(424, $W()..i64(n));
+    final $r = $callSync(425, $W()..i64(n));
     return $r.hnn(BoxoBitswapOption.$h);
   }
 
   /// Go: `func bitswap.MaxOutstandingBytesPerPeer(count int) bitswap.Option`.
   BoxoBitswapOption maxOutstandingBytesPerPeer(int count) {
-    final $r = $callSync(425, $W()..i64(count));
+    final $r = $callSync(426, $W()..i64(count));
     return $r.hnn(BoxoBitswapOption.$h);
   }
 
   /// Go: `func bitswap.MaxQueuedWantlistEntriesPerPeer(count uint) bitswap.Option`.
   BoxoBitswapOption maxQueuedWantlistEntriesPerPeer(int count) {
-    final $r = $callSync(426, $W()..i64(count));
+    final $r = $callSync(427, $W()..i64(count));
     return $r.hnn(BoxoBitswapOption.$h);
   }
 
@@ -245,7 +247,7 @@ extension GoBoxoBitswapApi on GoBoxoBitswap {
       $blockstore.BoxoBlockstore bstore,
       [List<BoxoBitswapOption> options = const []]) async {
     final $r = await $call(
-        427,
+        428,
         $W()
           ..h(ctx)
           ..h(net)
@@ -258,76 +260,118 @@ extension GoBoxoBitswapApi on GoBoxoBitswap {
   /// Go: `func bitswap.ProviderSearchDelay(newProvSearchDelay time.Duration) bitswap.Option`.
   BoxoBitswapOption providerSearchDelay(Duration newProvSearchDelay) {
     final $r =
-        $callSync(428, $W()..i64((newProvSearchDelay).inMicroseconds * 1000));
+        $callSync(429, $W()..i64((newProvSearchDelay).inMicroseconds * 1000));
     return $r.hnn(BoxoBitswapOption.$h);
   }
 
   /// Go: `func bitswap.RebroadcastDelay(newRebroadcastDelay time.Duration) bitswap.Option`.
   BoxoBitswapOption rebroadcastDelay(Duration newRebroadcastDelay) {
     final $r =
-        $callSync(429, $W()..i64((newRebroadcastDelay).inMicroseconds * 1000));
+        $callSync(430, $W()..i64((newRebroadcastDelay).inMicroseconds * 1000));
     return $r.hnn(BoxoBitswapOption.$h);
   }
 
   /// Go: `func bitswap.SetSendDontHaves(send bool) bitswap.Option`.
   BoxoBitswapOption setSendDontHaves(bool send) {
-    final $r = $callSync(430, $W()..b(send));
+    final $r = $callSync(431, $W()..b(send));
     return $r.hnn(BoxoBitswapOption.$h);
   }
 
   /// Go: `func bitswap.SetSimulateDontHavesOnTimeout(send bool) bitswap.Option`.
   BoxoBitswapOption setSimulateDontHavesOnTimeout(bool send) {
-    final $r = $callSync(431, $W()..b(send));
+    final $r = $callSync(432, $W()..b(send));
     return $r.hnn(BoxoBitswapOption.$h);
   }
 
   /// Go: `func bitswap.TaskWorkerCount(count int) bitswap.Option`.
   BoxoBitswapOption taskWorkerCount(int count) {
-    final $r = $callSync(432, $W()..i64(count));
+    final $r = $callSync(433, $W()..i64(count));
     return $r.hnn(BoxoBitswapOption.$h);
   }
 
   /// Go: `func bitswap.WithBlockReceivedNotifier(brn client.BlockReceivedNotifier) bitswap.Option`.
   BoxoBitswapOption withBlockReceivedNotifier(
       $client.BoxoBitswapClientBlockReceivedNotifier brn) {
-    final $r = $callSync(433, $W()..h(brn));
+    final $r = $callSync(434, $W()..h(brn));
+    return $r.hnn(BoxoBitswapOption.$h);
+  }
+
+  /// Go: `func bitswap.WithPeerBlockRequestFilter(pbrf server.PeerBlockRequestFilter) bitswap.Option`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  ///
+  /// Go calls [pbrf] on the Dart event loop, during the call or
+  /// later for as long as it holds it (nobody checked which), and waits for
+  /// each invocation (a retained callback, WIRE.md).
+  Future<BoxoBitswapOption> withPeerBlockRequestFilter(
+      FutureOr<bool> Function($peer.Libp2pCorePeerId p, $cid.Cid c)
+          pbrf) async {
+    final $r = await $call(
+        435,
+        $W()
+          ..cb(
+              (r) => pbrf(r.p() ? $peer.Libp2pCorePeerId(r.str()) : $nil(),
+                  r.p() ? $cid.Cid(r.str()) : $nil()),
+              true));
     return $r.hnn(BoxoBitswapOption.$h);
   }
 
   /// Go: `func bitswap.WithScoreLedger(scoreLedger server.ScoreLedger) bitswap.Option`.
   BoxoBitswapOption withScoreLedger(
       $server.BoxoBitswapServerScoreLedger scoreLedger) {
-    final $r = $callSync(434, $W()..h(scoreLedger));
+    final $r = $callSync(436, $W()..h(scoreLedger));
     return $r.hnn(BoxoBitswapOption.$h);
   }
 
   /// Go: `func bitswap.WithServerEnabled(enabled bool) bitswap.Option`.
   BoxoBitswapOption withServerEnabled(bool enabled) {
-    final $r = $callSync(435, $W()..b(enabled));
+    final $r = $callSync(437, $W()..b(enabled));
     return $r.hnn(BoxoBitswapOption.$h);
   }
 
   /// Go: `func bitswap.WithTargetMessageSize(tms int) bitswap.Option`.
   BoxoBitswapOption withTargetMessageSize(int tms) {
-    final $r = $callSync(436, $W()..i64(tms));
+    final $r = $callSync(438, $W()..i64(tms));
+    return $r.hnn(BoxoBitswapOption.$h);
+  }
+
+  /// Go: `func bitswap.WithTaskComparator(comparator server.TaskComparator) bitswap.Option`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  ///
+  /// Go calls [comparator] on the Dart event loop, during the call or
+  /// later for as long as it holds it (nobody checked which), and waits for
+  /// each invocation (a retained callback, WIRE.md).
+  Future<BoxoBitswapOption> withTaskComparator(
+      FutureOr<bool> Function($server.BoxoBitswapServerTaskInfo ta,
+              $server.BoxoBitswapServerTaskInfo tb)
+          comparator) async {
+    final $r = await $call(
+        439,
+        $W()
+          ..cb(
+              (r) => comparator(
+                  r.p() ? $server.BoxoBitswapServerTaskInfo.$dec(r) : $nil(),
+                  r.p() ? $server.BoxoBitswapServerTaskInfo.$dec(r) : $nil()),
+              true));
     return $r.hnn(BoxoBitswapOption.$h);
   }
 
   /// Go: `func bitswap.WithTracer(tap tracer.Tracer) bitswap.Option`.
   BoxoBitswapOption withTracer($tracer.BoxoBitswapTracer tap) {
-    final $r = $callSync(437, $W()..h(tap));
+    final $r = $callSync(440, $W()..h(tap));
     return $r.hnn(BoxoBitswapOption.$h);
   }
 
   /// Go: `func bitswap.WithWantHaveReplaceSize(size int) bitswap.Option`.
   BoxoBitswapOption withWantHaveReplaceSize(int size) {
-    final $r = $callSync(438, $W()..i64(size));
+    final $r = $callSync(441, $W()..i64(size));
     return $r.hnn(BoxoBitswapOption.$h);
   }
 
   /// Go: `func bitswap.WithoutDuplicatedBlockStats() bitswap.Option`.
   BoxoBitswapOption withoutDuplicatedBlockStats() {
-    final $r = $callSync(439);
+    final $r = $callSync(442);
     return $r.hnn(BoxoBitswapOption.$h);
   }
 }

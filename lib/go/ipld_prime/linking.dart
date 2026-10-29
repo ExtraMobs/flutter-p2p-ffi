@@ -63,7 +63,7 @@ class IpldPrimeLinkingLinkSystem extends $crypto.CryptoPrivateKey
       $datamodel.IpldPrimeDatamodelLinkPrototype lp,
       $datamodel.IpldPrimeDatamodelNode n) {
     final $r = $callSync(
-        2025,
+        2042,
         $W()
           ..h(this)
           ..h(lp)
@@ -77,7 +77,7 @@ class IpldPrimeLinkingLinkSystem extends $crypto.CryptoPrivateKey
       $datamodel.IpldPrimeDatamodelLink lnk,
       $datamodel.IpldPrimeDatamodelNodeAssembler na) {
     $callSync(
-        2026,
+        2043,
         $W()
           ..h(this)
           ..dto(lnkCtx)
@@ -91,7 +91,7 @@ class IpldPrimeLinkingLinkSystem extends $crypto.CryptoPrivateKey
       $datamodel.IpldPrimeDatamodelLink lnk,
       $datamodel.IpldPrimeDatamodelNodePrototype np) {
     final $r = $callSync(
-        2027,
+        2044,
         $W()
           ..h(this)
           ..dto(lnkCtx)
@@ -106,7 +106,7 @@ class IpldPrimeLinkingLinkSystem extends $crypto.CryptoPrivateKey
       $datamodel.IpldPrimeDatamodelLink lnk,
       $datamodel.IpldPrimeDatamodelNodePrototype np) {
     final $r = $callSync(
-        2028,
+        2045,
         $W()
           ..h(this)
           ..dto(lnkCtx)
@@ -122,7 +122,7 @@ class IpldPrimeLinkingLinkSystem extends $crypto.CryptoPrivateKey
   Uint8List loadRaw(IpldPrimeLinkingLinkContext lnkCtx,
       $datamodel.IpldPrimeDatamodelLink lnk) {
     final $r = $callSync(
-        2029,
+        2046,
         $W()
           ..h(this)
           ..dto(lnkCtx)
@@ -135,7 +135,7 @@ class IpldPrimeLinkingLinkSystem extends $crypto.CryptoPrivateKey
       $datamodel.IpldPrimeDatamodelLinkPrototype lp,
       $datamodel.IpldPrimeDatamodelNode n) {
     final $r = $callSync(
-        2030,
+        2047,
         $W()
           ..h(this)
           ..h(lp)
@@ -149,7 +149,7 @@ class IpldPrimeLinkingLinkSystem extends $crypto.CryptoPrivateKey
       $datamodel.IpldPrimeDatamodelLink lnk,
       $datamodel.IpldPrimeDatamodelNodeAssembler na) {
     $callSync(
-        2031,
+        2048,
         $W()
           ..h(this)
           ..dto(lnkCtx)
@@ -163,7 +163,7 @@ class IpldPrimeLinkingLinkSystem extends $crypto.CryptoPrivateKey
       $datamodel.IpldPrimeDatamodelLink lnk,
       $datamodel.IpldPrimeDatamodelNodePrototype np) {
     final $r = $callSync(
-        2032,
+        2049,
         $W()
           ..h(this)
           ..dto(lnkCtx)
@@ -178,7 +178,7 @@ class IpldPrimeLinkingLinkSystem extends $crypto.CryptoPrivateKey
       $datamodel.IpldPrimeDatamodelLinkPrototype lp,
       $datamodel.IpldPrimeDatamodelNode n) {
     final $r = $callSync(
-        2033,
+        2050,
         $W()
           ..h(this)
           ..dto(lnkCtx)
@@ -190,7 +190,7 @@ class IpldPrimeLinkingLinkSystem extends $crypto.CryptoPrivateKey
   /// Go: `func (*linking.LinkSystem).SetReadStorage(store storage.ReadableStorage)`.
   void setReadStorage($storage.IpldPrimeStorageReadableStorage store) {
     $callSync(
-        2034,
+        2051,
         $W()
           ..h(this)
           ..h(store));
@@ -199,7 +199,7 @@ class IpldPrimeLinkingLinkSystem extends $crypto.CryptoPrivateKey
   /// Go: `func (*linking.LinkSystem).SetWriteStorage(store storage.WritableStorage)`.
   void setWriteStorage($storage.IpldPrimeStorageWritableStorage store) {
     $callSync(
-        2035,
+        2052,
         $W()
           ..h(this)
           ..h(store));
@@ -211,7 +211,7 @@ class IpldPrimeLinkingLinkSystem extends $crypto.CryptoPrivateKey
       $datamodel.IpldPrimeDatamodelLinkPrototype lp,
       $datamodel.IpldPrimeDatamodelNode n) {
     final $r = $callSync(
-        2036,
+        2053,
         $W()
           ..h(this)
           ..dto(lnkCtx)

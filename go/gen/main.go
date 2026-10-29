@@ -218,6 +218,7 @@ func generate(rootsFile string) (map[string][]byte, error) {
 		return nil, err
 	}
 	m := newModel()
+	m.expanded = expanded
 	m.load = func(path string) *types.Package {
 		if p, ok := pkgs[path]; ok {
 			return p
@@ -249,18 +250,6 @@ func generate(rootsFile string) (map[string][]byte, error) {
 		}
 		if err != nil {
 			return nil, err
-		}
-		if expanded[line] {
-			for _, f := range fs {
-				for _, p := range f.params {
-					if p.t.k == kFunc && !p.t.retained && f.why == "" {
-						// called during the call or kept for later? Bridged as
-						// the first, a kept one would be called after the call
-						// returned: someone has to read it first
-						f.why = "takes a callback nobody checked yet: an explicit root in roots.txt if Go only calls it during the call, retainedFuncs if Go keeps it"
-					}
-				}
-			}
 		}
 		fns = append(fns, fs...)
 	}
@@ -578,8 +567,12 @@ func (m *model) resolve(pkgs map[string]*types.Package, line string) ([]*fn, err
 		}
 		p.t = m.classify(vt)
 		if p.t.k != kOpts {
-			if ft := m.funcParam(vt); ft != nil && (ft.fret != fretVal || retainedFuncs[line]) {
-				ft.retained = retainedFuncs[line]
+			// a "pkg.*" root nobody checked: called during the call or kept
+			// for later? A retained callback that Go waits on serves both
+			unchecked := m.expanded[line] && !retainedFuncs[line]
+			if ft := m.funcParam(vt); ft != nil && (ft.fret != fretVal || retainedFuncs[line] || unchecked) {
+				ft.retained = retainedFuncs[line] || unchecked
+				ft.unchecked = unchecked
 				p.t = ft
 				if names := cbArgNames[line]; len(names) == len(ft.fnames) {
 					ft.fnames = names
@@ -829,6 +822,7 @@ func (m *model) check(f *fn) {
 			f.stream = t.elem
 		case kFunc: // callback sob demanda: a chamada espera o Dart consumir
 			if t.retained { // kept by Go: invoked later, not during the call
+				f.async = f.async || t.unchecked // or during it: Dart must be free to run it
 				break
 			}
 			if funcParamIdx(f) != i {

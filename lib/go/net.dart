@@ -42,7 +42,7 @@ class NetConn extends GoHandle with NetConn$ {
 mixin NetConn$ on GoHandle {
   /// Go: type assertion `x.(sec.SecureConn)`: null if the object is not one.
   $sec.Libp2pCoreSecSecureConn? asLibp2pCoreSecSecureConn() {
-    final $r = $callSync(413, $W()..h(this));
+    final $r = $callSync(414, $W()..h(this));
     return $r.hn($sec.Libp2pCoreSecSecureConn.$h);
   }
 }

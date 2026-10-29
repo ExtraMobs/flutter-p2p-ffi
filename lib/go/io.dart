@@ -50,392 +50,392 @@ class IoCloser extends GoHandle with IoCloser$ {
 mixin IoCloser$ on GoHandle {
   /// Go: type assertion `x.(*bitswap.Bitswap)`: null if the object is not one.
   $bitswap.BoxoBitswap? asBoxoBitswap() {
-    final $r = $callSync(349, $W()..h(this));
+    final $r = $callSync(350, $W()..h(this));
     return $r.hn($bitswap.BoxoBitswap.$h);
   }
 
   /// Go: type assertion `x.(*files.ReaderFile)`: null if the object is not one.
   $files.BoxoFilesReaderFile? asBoxoFilesReaderFile() {
-    final $r = $callSync(350, $W()..h(this));
+    final $r = $callSync(351, $W()..h(this));
     return $r.hn($files.BoxoFilesReaderFile.$h);
   }
 
   /// Go: type assertion `x.(*files.SliceFile)`: null if the object is not one.
   $files.BoxoFilesSliceFile? asBoxoFilesSliceFile() {
-    final $r = $callSync(351, $W()..h(this));
+    final $r = $callSync(352, $W()..h(this));
     return $r.hn($files.BoxoFilesSliceFile.$h);
   }
 
   /// Go: type assertion `x.(*files.Symlink)`: null if the object is not one.
   $files.BoxoFilesSymlink? asBoxoFilesSymlink() {
-    final $r = $callSync(352, $W()..h(this));
+    final $r = $callSync(353, $W()..h(this));
     return $r.hn($files.BoxoFilesSymlink.$h);
   }
 
   /// Go: type assertion `x.(*files.TarWriter)`: null if the object is not one.
   $files.BoxoFilesTarWriter? asBoxoFilesTarWriter() {
-    final $r = $callSync(353, $W()..h(this));
+    final $r = $callSync(354, $W()..h(this));
     return $r.hn($files.BoxoFilesTarWriter.$h);
   }
 
   /// Go: type assertion `x.(*files.WebFile)`: null if the object is not one.
   $files.BoxoFilesWebFile? asBoxoFilesWebFile() {
-    final $r = $callSync(354, $W()..h(this));
+    final $r = $callSync(355, $W()..h(this));
     return $r.hn($files.BoxoFilesWebFile.$h);
   }
 
   /// Go: type assertion `x.(*gateway.GetResponse)`: null if the object is not one.
   $gateway.BoxoGatewayGetResponse? asBoxoGatewayGetResponse() {
-    final $r = $callSync(355, $W()..h(this));
+    final $r = $callSync(356, $W()..h(this));
     return $r.hn($gateway.BoxoGatewayGetResponse.$h);
   }
 
   /// Go: type assertion `x.(*gateway.HeadResponse)`: null if the object is not one.
   $gateway.BoxoGatewayHeadResponse? asBoxoGatewayHeadResponse() {
-    final $r = $callSync(356, $W()..h(this));
+    final $r = $callSync(357, $W()..h(this));
     return $r.hn($gateway.BoxoGatewayHeadResponse.$h);
   }
 
   /// Go: type assertion `x.(*mfs.Republisher)`: null if the object is not one.
   $mfs.BoxoMfsRepublisher? asBoxoMfsRepublisher() {
-    final $r = $callSync(357, $W()..h(this));
+    final $r = $callSync(358, $W()..h(this));
     return $r.hn($mfs.BoxoMfsRepublisher.$h);
   }
 
   /// Go: type assertion `x.(*mfs.Root)`: null if the object is not one.
   $mfs.BoxoMfsRoot? asBoxoMfsRoot() {
-    final $r = $callSync(358, $W()..h(this));
+    final $r = $callSync(359, $W()..h(this));
     return $r.hn($mfs.BoxoMfsRoot.$h);
   }
 
   /// Go: type assertion `x.(*datastore.LogDatastore)`: null if the object is not one.
   $datastore.DatastoreLogDatastore? asDatastoreLogDatastore() {
-    final $r = $callSync(359, $W()..h(this));
+    final $r = $callSync(360, $W()..h(this));
     return $r.hn($datastore.DatastoreLogDatastore.$h);
   }
 
   /// Go: type assertion `x.(*datastore.MapDatastore)`: null if the object is not one.
   $datastore.DatastoreMapDatastore? asDatastoreMapDatastore() {
-    final $r = $callSync(360, $W()..h(this));
+    final $r = $callSync(361, $W()..h(this));
     return $r.hn($datastore.DatastoreMapDatastore.$h);
   }
 
   /// Go: type assertion `x.(*datastore.NullDatastore)`: null if the object is not one.
   $datastore.DatastoreNullDatastore? asDatastoreNullDatastore() {
-    final $r = $callSync(361, $W()..h(this));
+    final $r = $callSync(362, $W()..h(this));
     return $r.hn($datastore.DatastoreNullDatastore.$h);
   }
 
   /// Go: type assertion `x.(*sync.MutexDatastore)`: null if the object is not one.
   $sync.DatastoreSyncMutexDatastore? asDatastoreSyncMutexDatastore() {
-    final $r = $callSync(362, $W()..h(this));
+    final $r = $callSync(363, $W()..h(this));
     return $r.hn($sync.DatastoreSyncMutexDatastore.$h);
   }
 
   /// Go: type assertion `x.(*core.IpfsNode)`: null if the object is not one.
   $core.KuboCoreIpfsNode? asKuboCoreIpfsNode() {
-    final $r = $callSync(363, $W()..h(this));
+    final $r = $callSync(364, $W()..h(this));
     return $r.hn($core.KuboCoreIpfsNode.$h);
   }
 
   /// Go: type assertion `x.(*node.LegacyProvider)`: null if the object is not one.
   $node.KuboCoreNodeLegacyProvider? asKuboCoreNodeLegacyProvider() {
-    final $r = $callSync(364, $W()..h(this));
+    final $r = $callSync(365, $W()..h(this));
     return $r.hn($node.KuboCoreNodeLegacyProvider.$h);
   }
 
   /// Go: type assertion `x.(*loader.PluginLoader)`: null if the object is not one.
   $loader.KuboPluginLoader? asKuboPluginLoader() {
-    final $r = $callSync(365, $W()..h(this));
+    final $r = $callSync(366, $W()..h(this));
     return $r.hn($loader.KuboPluginLoader.$h);
   }
 
   /// Go: type assertion `x.(*fsrepo.FSRepo)`: null if the object is not one.
   $fsrepo.KuboRepoFsrepoFsRepo? asKuboRepoFsrepoFsRepo() {
-    final $r = $callSync(366, $W()..h(this));
+    final $r = $callSync(367, $W()..h(this));
     return $r.hn($fsrepo.KuboRepoFsrepoFsRepo.$h);
   }
 
   /// Go: type assertion `x.(*car.Reader)`: null if the object is not one.
   $v2.CarV2Reader? asCarV2Reader() {
-    final $r = $callSync(367, $W()..h(this));
+    final $r = $callSync(368, $W()..h(this));
     return $r.hn($v2.CarV2Reader.$h);
   }
 
   /// Go: type assertion `x.(*blockstore.ReadOnly)`: null if the object is not one.
   $blockstore.CarV2BlockstoreReadOnly? asCarV2BlockstoreReadOnly() {
-    final $r = $callSync(368, $W()..h(this));
+    final $r = $callSync(369, $W()..h(this));
     return $r.hn($blockstore.CarV2BlockstoreReadOnly.$h);
   }
 
   /// Go: type assertion `x.(*blockstore.ReadWrite)`: null if the object is not one.
   $blockstore.CarV2BlockstoreReadWrite? asCarV2BlockstoreReadWrite() {
-    final $r = $callSync(369, $W()..h(this));
+    final $r = $callSync(370, $W()..h(this));
     return $r.hn($blockstore.CarV2BlockstoreReadWrite.$h);
   }
 
   /// Go: type assertion `x.(*dht.IpfsDHT)`: null if the object is not one.
   $libp2p_kad_dht.Libp2pKadDhtIpfsDht? asLibp2pKadDhtIpfsDht() {
-    final $r = $callSync(370, $W()..h(this));
+    final $r = $callSync(371, $W()..h(this));
     return $r.hn($libp2p_kad_dht.Libp2pKadDhtIpfsDht.$h);
   }
 
   /// Go: type assertion `x.(*records.ProviderManager)`: null if the object is not one.
   $records.Libp2pKadDhtRecordsProviderManager?
       asLibp2pKadDhtRecordsProviderManager() {
-    final $r = $callSync(371, $W()..h(this));
+    final $r = $callSync(372, $W()..h(this));
     return $r.hn($records.Libp2pKadDhtRecordsProviderManager.$h);
   }
 
   /// Go: type assertion `x.(*records.ValueStore)`: null if the object is not one.
   $records.Libp2pKadDhtRecordsValueStore? asLibp2pKadDhtRecordsValueStore() {
-    final $r = $callSync(372, $W()..h(this));
+    final $r = $callSync(373, $W()..h(this));
     return $r.hn($records.Libp2pKadDhtRecordsValueStore.$h);
   }
 
   /// Go: type assertion `x.(*kbucket.RoutingTable)`: null if the object is not one.
   $libp2p_kbucket.Libp2pKbucketRoutingTable? asLibp2pKbucketRoutingTable() {
-    final $r = $callSync(373, $W()..h(this));
+    final $r = $callSync(374, $W()..h(this));
     return $r.hn($libp2p_kbucket.Libp2pKbucketRoutingTable.$h);
   }
 
   /// Go: type assertion `x.(*pubsub.Topic)`: null if the object is not one.
   $libp2p_pubsub.Libp2pPubsubTopic? asLibp2pPubsubTopic() {
-    final $r = $callSync(374, $W()..h(this));
+    final $r = $callSync(375, $W()..h(this));
     return $r.hn($libp2p_pubsub.Libp2pPubsubTopic.$h);
   }
 
   /// Go: type assertion `x.(*swarm.Conn)`: null if the object is not one.
   $swarm.Libp2pP2pNetSwarmConn? asLibp2pP2pNetSwarmConn() {
-    final $r = $callSync(375, $W()..h(this));
+    final $r = $callSync(376, $W()..h(this));
     return $r.hn($swarm.Libp2pP2pNetSwarmConn.$h);
   }
 
   /// Go: type assertion `x.(*swarm.Stream)`: null if the object is not one.
   $swarm.Libp2pP2pNetSwarmStream? asLibp2pP2pNetSwarmStream() {
-    final $r = $callSync(376, $W()..h(this));
+    final $r = $callSync(377, $W()..h(this));
     return $r.hn($swarm.Libp2pP2pNetSwarmStream.$h);
   }
 
   /// Go: type assertion `x.(*swarm.Swarm)`: null if the object is not one.
   $swarm.Libp2pP2pNetSwarm? asLibp2pP2pNetSwarm() {
-    final $r = $callSync(377, $W()..h(this));
+    final $r = $callSync(378, $W()..h(this));
     return $r.hn($swarm.Libp2pP2pNetSwarm.$h);
   }
 
   /// Go: type assertion `x.(*relay.Relay)`: null if the object is not one.
   $relay.Libp2pP2pProtocolCircuitv2Relay? asLibp2pP2pProtocolCircuitv2Relay() {
-    final $r = $callSync(378, $W()..h(this));
+    final $r = $callSync(379, $W()..h(this));
     return $r.hn($relay.Libp2pP2pProtocolCircuitv2Relay.$h);
   }
 
   /// Go: type assertion `x.(*holepunch.Service)`: null if the object is not one.
   $holepunch.Libp2pP2pProtocolHolepunchService?
       asLibp2pP2pProtocolHolepunchService() {
-    final $r = $callSync(379, $W()..h(this));
+    final $r = $callSync(380, $W()..h(this));
     return $r.hn($holepunch.Libp2pP2pProtocolHolepunchService.$h);
   }
 
   /// Go: type assertion `x.(*quicreuse.ConnManager)`: null if the object is not one.
   $quicreuse.Libp2pP2pTransportQuicreuseConnManager?
       asLibp2pP2pTransportQuicreuseConnManager() {
-    final $r = $callSync(380, $W()..h(this));
+    final $r = $callSync(381, $W()..h(this));
     return $r.hn($quicreuse.Libp2pP2pTransportQuicreuseConnManager.$h);
   }
 
   /// Go: type assertion `x.(*yamux.Session)`: null if the object is not one.
   $v5.YamuxV5Session? asYamuxV5Session() {
-    final $r = $callSync(381, $W()..h(this));
+    final $r = $callSync(382, $W()..h(this));
     return $r.hn($v5.YamuxV5Session.$h);
   }
 
   /// Go: type assertion `x.(*os.File)`: null if the object is not one.
   $os.OsFile? asOsFile() {
-    final $r = $callSync(382, $W()..h(this));
+    final $r = $callSync(383, $W()..h(this));
     return $r.hn($os.OsFile.$h);
   }
 
   /// Go: type assertion `x.(blockservice.BlockService)`: null if the object is not one.
   $blockservice.BoxoBlockserviceBlockService? asBoxoBlockserviceBlockService() {
-    final $r = $callSync(383, $W()..h(this));
+    final $r = $callSync(384, $W()..h(this));
     return $r.hn($blockservice.BoxoBlockserviceBlockService.$h);
   }
 
   /// Go: type assertion `x.(blockservice.BoundedBlockService)`: null if the object is not one.
   $blockservice.BoxoBlockserviceBoundedBlockService?
       asBoxoBlockserviceBoundedBlockService() {
-    final $r = $callSync(384, $W()..h(this));
+    final $r = $callSync(385, $W()..h(this));
     return $r.hn($blockservice.BoxoBlockserviceBoundedBlockService.$h);
   }
 
   /// Go: type assertion `x.(exchange.Interface)`: null if the object is not one.
   $exchange.BoxoExchangeInterface? asBoxoExchangeInterface() {
-    final $r = $callSync(385, $W()..h(this));
+    final $r = $callSync(386, $W()..h(this));
     return $r.hn($exchange.BoxoExchangeInterface.$h);
   }
 
   /// Go: type assertion `x.(exchange.SessionExchange)`: null if the object is not one.
   $exchange.BoxoExchangeSessionExchange? asBoxoExchangeSessionExchange() {
-    final $r = $callSync(386, $W()..h(this));
+    final $r = $callSync(387, $W()..h(this));
     return $r.hn($exchange.BoxoExchangeSessionExchange.$h);
   }
 
   /// Go: type assertion `x.(files.Directory)`: null if the object is not one.
   $files.BoxoFilesDirectory? asBoxoFilesDirectory() {
-    final $r = $callSync(387, $W()..h(this));
+    final $r = $callSync(388, $W()..h(this));
     return $r.hn($files.BoxoFilesDirectory.$h);
   }
 
   /// Go: type assertion `x.(files.File)`: null if the object is not one.
   $files.BoxoFilesFile? asBoxoFilesFile() {
-    final $r = $callSync(388, $W()..h(this));
+    final $r = $callSync(389, $W()..h(this));
     return $r.hn($files.BoxoFilesFile.$h);
   }
 
   /// Go: type assertion `x.(files.FileInfo)`: null if the object is not one.
   $files.BoxoFilesFileInfo? asBoxoFilesFileInfo() {
-    final $r = $callSync(389, $W()..h(this));
+    final $r = $callSync(390, $W()..h(this));
     return $r.hn($files.BoxoFilesFileInfo.$h);
   }
 
   /// Go: type assertion `x.(files.Node)`: null if the object is not one.
   $files.BoxoFilesNode? asBoxoFilesNode() {
-    final $r = $callSync(390, $W()..h(this));
+    final $r = $callSync(391, $W()..h(this));
     return $r.hn($files.BoxoFilesNode.$h);
   }
 
   /// Go: type assertion `x.(io.DagReader)`: null if the object is not one.
   $io.BoxoIpldUnixfsIoDagReader? asBoxoIpldUnixfsIoDagReader() {
-    final $r = $callSync(391, $W()..h(this));
+    final $r = $callSync(392, $W()..h(this));
     return $r.hn($io.BoxoIpldUnixfsIoDagReader.$h);
   }
 
   /// Go: type assertion `x.(mfs.FileDescriptor)`: null if the object is not one.
   $mfs.BoxoMfsFileDescriptor? asBoxoMfsFileDescriptor() {
-    final $r = $callSync(392, $W()..h(this));
+    final $r = $callSync(393, $W()..h(this));
     return $r.hn($mfs.BoxoMfsFileDescriptor.$h);
   }
 
   /// Go: type assertion `x.(datastore.Batching)`: null if the object is not one.
   $datastore.DatastoreBatching? asDatastoreBatching() {
-    final $r = $callSync(393, $W()..h(this));
+    final $r = $callSync(394, $W()..h(this));
     return $r.hn($datastore.DatastoreBatching.$h);
   }
 
   /// Go: type assertion `x.(datastore.Datastore)`: null if the object is not one.
   $datastore.Datastore? asDatastore() {
-    final $r = $callSync(394, $W()..h(this));
+    final $r = $callSync(395, $W()..h(this));
     return $r.hn($datastore.Datastore.$h);
   }
 
   /// Go: type assertion `x.(datastore.Shim)`: null if the object is not one.
   $datastore.DatastoreShim? asDatastoreShim() {
-    final $r = $callSync(395, $W()..h(this));
+    final $r = $callSync(396, $W()..h(this));
     return $r.hn($datastore.DatastoreShim.$h);
   }
 
   /// Go: type assertion `x.(cmds.StdinArguments)`: null if the object is not one.
   $ipfs_cmds.IpfsCmdsStdinArguments? asIpfsCmdsStdinArguments() {
-    final $r = $callSync(396, $W()..h(this));
+    final $r = $callSync(397, $W()..h(this));
     return $r.hn($ipfs_cmds.IpfsCmdsStdinArguments.$h);
   }
 
   /// Go: type assertion `x.(iface.PubSubSubscription)`: null if the object is not one.
   $coreiface.KuboCoreCoreifacePubSubSubscription?
       asKuboCoreCoreifacePubSubSubscription() {
-    final $r = $callSync(397, $W()..h(this));
+    final $r = $callSync(398, $W()..h(this));
     return $r.hn($coreiface.KuboCoreCoreifacePubSubSubscription.$h);
   }
 
   /// Go: type assertion `x.(iface.Reader)`: null if the object is not one.
   $coreiface.KuboCoreCoreifaceReader? asKuboCoreCoreifaceReader() {
-    final $r = $callSync(398, $W()..h(this));
+    final $r = $callSync(399, $W()..h(this));
     return $r.hn($coreiface.KuboCoreCoreifaceReader.$h);
   }
 
   /// Go: type assertion `x.(repo.Datastore)`: null if the object is not one.
   $repo.KuboRepoDatastore? asKuboRepoDatastore() {
-    final $r = $callSync(399, $W()..h(this));
+    final $r = $callSync(400, $W()..h(this));
     return $r.hn($repo.KuboRepoDatastore.$h);
   }
 
   /// Go: type assertion `x.(repo.Repo)`: null if the object is not one.
   $repo.KuboRepo? asKuboRepo() {
-    final $r = $callSync(400, $W()..h(this));
+    final $r = $callSync(401, $W()..h(this));
     return $r.hn($repo.KuboRepo.$h);
   }
 
   /// Go: type assertion `x.(records.ProviderStore)`: null if the object is not one.
   $records.Libp2pKadDhtRecordsProviderStore?
       asLibp2pKadDhtRecordsProviderStore() {
-    final $r = $callSync(401, $W()..h(this));
+    final $r = $callSync(402, $W()..h(this));
     return $r.hn($records.Libp2pKadDhtRecordsProviderStore.$h);
   }
 
   /// Go: type assertion `x.(connmgr.Decayer)`: null if the object is not one.
   $connmgr.Libp2pCoreConnmgrDecayer? asLibp2pCoreConnmgrDecayer() {
-    final $r = $callSync(402, $W()..h(this));
+    final $r = $callSync(403, $W()..h(this));
     return $r.hn($connmgr.Libp2pCoreConnmgrDecayer.$h);
   }
 
   /// Go: type assertion `x.(event.Emitter)`: null if the object is not one.
   $event.Libp2pCoreEventEmitter? asLibp2pCoreEventEmitter() {
-    final $r = $callSync(403, $W()..h(this));
+    final $r = $callSync(404, $W()..h(this));
     return $r.hn($event.Libp2pCoreEventEmitter.$h);
   }
 
   /// Go: type assertion `x.(event.Subscription)`: null if the object is not one.
   $event.Libp2pCoreEventSubscription? asLibp2pCoreEventSubscription() {
-    final $r = $callSync(404, $W()..h(this));
+    final $r = $callSync(405, $W()..h(this));
     return $r.hn($event.Libp2pCoreEventSubscription.$h);
   }
 
   /// Go: type assertion `x.(network.Conn)`: null if the object is not one.
   $network.Libp2pCoreNetworkConn? asLibp2pCoreNetworkConn() {
-    final $r = $callSync(405, $W()..h(this));
+    final $r = $callSync(406, $W()..h(this));
     return $r.hn($network.Libp2pCoreNetworkConn.$h);
   }
 
   /// Go: type assertion `x.(network.MuxedConn)`: null if the object is not one.
   $network.Libp2pCoreNetworkMuxedConn? asLibp2pCoreNetworkMuxedConn() {
-    final $r = $callSync(406, $W()..h(this));
+    final $r = $callSync(407, $W()..h(this));
     return $r.hn($network.Libp2pCoreNetworkMuxedConn.$h);
   }
 
   /// Go: type assertion `x.(network.MuxedStream)`: null if the object is not one.
   $network.Libp2pCoreNetworkMuxedStream? asLibp2pCoreNetworkMuxedStream() {
-    final $r = $callSync(407, $W()..h(this));
+    final $r = $callSync(408, $W()..h(this));
     return $r.hn($network.Libp2pCoreNetworkMuxedStream.$h);
   }
 
   /// Go: type assertion `x.(network.Network)`: null if the object is not one.
   $network.Libp2pCoreNetwork? asLibp2pCoreNetwork() {
-    final $r = $callSync(408, $W()..h(this));
+    final $r = $callSync(409, $W()..h(this));
     return $r.hn($network.Libp2pCoreNetwork.$h);
   }
 
   /// Go: type assertion `x.(network.Stream)`: null if the object is not one.
   $network.Libp2pCoreNetworkStream? asLibp2pCoreNetworkStream() {
-    final $r = $callSync(409, $W()..h(this));
+    final $r = $callSync(410, $W()..h(this));
     return $r.hn($network.Libp2pCoreNetworkStream.$h);
   }
 
   /// Go: type assertion `x.(peerstore.Peerstore)`: null if the object is not one.
   $peerstore.Libp2pCorePeerstore? asLibp2pCorePeerstore() {
-    final $r = $callSync(410, $W()..h(this));
+    final $r = $callSync(411, $W()..h(this));
     return $r.hn($peerstore.Libp2pCorePeerstore.$h);
   }
 
   /// Go: type assertion `x.(transport.CapableConn)`: null if the object is not one.
   $transport.Libp2pCoreTransportCapableConn?
       asLibp2pCoreTransportCapableConn() {
-    final $r = $callSync(411, $W()..h(this));
+    final $r = $callSync(412, $W()..h(this));
     return $r.hn($transport.Libp2pCoreTransportCapableConn.$h);
   }
 
   /// Go: type assertion `x.(mdns.Service)`: null if the object is not one.
   $mdns.Libp2pP2pDiscoveryMdnsService? asLibp2pP2pDiscoveryMdnsService() {
-    final $r = $callSync(412, $W()..h(this));
+    final $r = $callSync(413, $W()..h(this));
     return $r.hn($mdns.Libp2pP2pDiscoveryMdnsService.$h);
   }
 }
@@ -446,7 +446,7 @@ class IoReadCloser extends GoHandle {
 
   /// Go: `func (io.Closer).Close() error`.
   void close() {
-    $callSync(3465, $W()..h(this));
+    $callSync(3505, $W()..h(this));
   }
 }
 
@@ -526,14 +526,14 @@ class IoErrShortWrite extends GolangException {
 extension GoIoApi on GoIo {
   /// Go: `func io.ReadAll(r io.Reader) ([]byte, error)`.
   Uint8List readAll(Object r) {
-    final $r = $callSync(3464, $W()..reader(r));
+    final $r = $callSync(3504, $W()..reader(r));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func io.Copy(dst io.Writer, src io.Reader) (written int64, err error)`.
   int copy(GoHandle? dst, Object src) {
     final $r = $callSync(
-        3463,
+        3503,
         $W()
           ..h(dst)
           ..reader(src));

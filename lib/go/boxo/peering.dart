@@ -17,14 +17,14 @@ class BoxoPeeringService extends $crypto.CryptoPrivateKey
 
   /// Go: `func peering.NewPeeringService(host host.Host) *peering.PeeringService`.
   factory BoxoPeeringService($host.Libp2pCoreHost host) {
-    final $r = $callSync(1005, $W()..h(host));
+    final $r = $callSync(1020, $W()..h(host));
     return $r.hnn(BoxoPeeringService.$h);
   }
 
   /// Go: `func (*peering.PeeringService).AddPeer(info peer.AddrInfo)`.
   void addPeer($peer.Libp2pCorePeerAddrInfo info) {
     $callSync(
-        1006,
+        1021,
         $W()
           ..h(this)
           ..dto(info));
@@ -32,13 +32,13 @@ class BoxoPeeringService extends $crypto.CryptoPrivateKey
 
   /// Go: `func (*peering.PeeringService).GetState() peering.State`.
   int getState() {
-    final $r = $callSync(1007, $W()..h(this));
+    final $r = $callSync(1022, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*peering.PeeringService).ListPeers() []peer.AddrInfo`.
   List<$peer.Libp2pCorePeerAddrInfo> listPeers() {
-    final $r = $callSync(1008, $W()..h(this));
+    final $r = $callSync(1023, $W()..h(this));
     return $r
         .list(() => $r.p() ? $peer.Libp2pCorePeerAddrInfo.$dec($r) : $nil());
   }
@@ -46,7 +46,7 @@ class BoxoPeeringService extends $crypto.CryptoPrivateKey
   /// Go: `func (*peering.PeeringService).RemovePeer(id peer.ID)`.
   void removePeer($peer.Libp2pCorePeerId id) {
     $callSync(
-        1009,
+        1024,
         $W()
           ..h(this)
           ..val(id));
@@ -54,12 +54,12 @@ class BoxoPeeringService extends $crypto.CryptoPrivateKey
 
   /// Go: `func (*peering.PeeringService).Start() error`.
   void start() {
-    $callSync(1010, $W()..h(this));
+    $callSync(1025, $W()..h(this));
   }
 
   /// Go: `func (*peering.PeeringService).Stop()`.
   void stop() {
-    $callSync(1011, $W()..h(this));
+    $callSync(1026, $W()..h(this));
   }
 }
 

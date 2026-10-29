@@ -37,7 +37,7 @@ extension GoLibp2pP2pTransportQuicApi on GoLibp2pP2pTransportQuic {
 
   /// Go: `var libp2pquic.HolePunchTimeout time.Duration`.
   Duration get holePunchTimeout {
-    final $r = $callSync(3335);
+    final $r = $callSync(3375);
     return Duration(microseconds: $r.i64() ~/ 1000);
   }
 
@@ -50,7 +50,7 @@ extension GoLibp2pP2pTransportQuicApi on GoLibp2pP2pTransportQuic {
       $network.Libp2pCoreNetworkResourceManager rcmgr,
       [List<Libp2pP2pTransportQuicOption> opts = const []]) {
     final $r = $callSync(
-        3336,
+        3376,
         $W()
           ..h(key)
           ..h(connManager)

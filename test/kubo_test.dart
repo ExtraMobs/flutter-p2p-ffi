@@ -778,14 +778,16 @@ void main() {
   });
 
   // As goroutines do próprio p2p_ffi (go/runtime.go try/goTry): o panic vira
-  // GolangException e o processo segue.
+  // GolangPanicException, com a pilha do Go, e o processo segue.
   group('panic em goroutine do p2p_ffi vira erro', () {
     test('função do kubo com chan<- (goTry)', () async {
       final events = <Object?>[];
       await expectLater(
           $stream(25).map((r) => r.i64()).forEach(events.add),
-          throwsA(isA<GolangException>().having((e) => e.message, 'message',
-              contains('test panic in a function with a channel'))));
+          throwsA(isA<GolangPanicException>()
+              .having((e) => e.message, 'message',
+                  contains('test panic in a function with a channel'))
+              .having((e) => e.goStack, 'goStack', contains('goroutine'))));
       expect(events, [1]); // o que saiu antes do panic chega
     });
 
@@ -795,8 +797,10 @@ void main() {
       // o erro chega ao sink antes de a chamada voltar
       final check = expectLater(
           c.stream.forEach(got.add),
-          throwsA(isA<GolangException>().having((e) => e.message, 'message',
-              contains('test panic in the sink'))));
+          throwsA(isA<GolangPanicException>()
+              .having((e) => e.message, 'message',
+                  contains('test panic in the sink'))
+              .having((e) => e.goStack, 'goStack', contains('goroutine'))));
       await $call(26, $W()..sink(GoSink(c.sink, (r) => r.i64())));
       await check;
       expect(got, [1]);

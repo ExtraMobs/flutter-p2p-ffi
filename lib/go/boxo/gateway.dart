@@ -2,6 +2,7 @@
 // Go: github.com/ipfs/boxo/gateway
 library;
 
+import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:p2p_ffi/src/go.dart' show GoBoxoGateway;
@@ -46,7 +47,7 @@ class BoxoGatewayBlocksBackend extends BoxoGatewayIpfsBackend
       $blockservice.BoxoBlockserviceBlockService blockService,
       [List<BoxoGatewayBackendOption> opts = const []]) {
     final $r = $callSync(
-        652,
+        658,
         $W()
           ..h(blockService)
           ..list(opts, (w0, e0) => w0.opt(e0)));
@@ -60,7 +61,7 @@ class BoxoGatewayBlocksBackend extends BoxoGatewayIpfsBackend
       $context.Context ctx, $path.BoxoPathImmutablePath path,
       [List<BoxoGatewayByteRange> ranges = const []]) async {
     final $r = await $call(
-        615,
+        620,
         $W()
           ..h(this)
           ..h(ctx)
@@ -78,7 +79,7 @@ class BoxoGatewayBlocksBackend extends BoxoGatewayIpfsBackend
   Future<(BoxoGatewayContentPathMetadata, $files.BoxoFilesNode)> getAll(
       $context.Context ctx, $path.BoxoPathImmutablePath path) async {
     final $r = await $call(
-        616,
+        621,
         $W()
           ..h(this)
           ..h(ctx)
@@ -95,7 +96,7 @@ class BoxoGatewayBlocksBackend extends BoxoGatewayIpfsBackend
   Future<(BoxoGatewayContentPathMetadata, $files.BoxoFilesFile)> getBlock(
       $context.Context ctx, $path.BoxoPathImmutablePath path) async {
     final $r = await $call(
-        617,
+        622,
         $W()
           ..h(this)
           ..h(ctx)
@@ -114,7 +115,7 @@ class BoxoGatewayBlocksBackend extends BoxoGatewayIpfsBackend
       $path.BoxoPathImmutablePath p,
       BoxoGatewayCarParams params) async {
     final $r = await $call(
-        618,
+        623,
         $W()
           ..h(this)
           ..h(ctx)
@@ -132,7 +133,7 @@ class BoxoGatewayBlocksBackend extends BoxoGatewayIpfsBackend
   Future<$path.BoxoPath> getDnsLinkRecord(
       $context.Context ctx, String hostname) async {
     final $r = await $call(
-        619,
+        624,
         $W()
           ..h(this)
           ..h(ctx)
@@ -145,7 +146,7 @@ class BoxoGatewayBlocksBackend extends BoxoGatewayIpfsBackend
   /// Asynchronous: runs in a goroutine of the service.
   Future<Uint8List> getIpnsRecord($context.Context ctx, $cid.Cid c) async {
     final $r = await $call(
-        620,
+        625,
         $W()
           ..h(this)
           ..h(ctx)
@@ -159,7 +160,7 @@ class BoxoGatewayBlocksBackend extends BoxoGatewayIpfsBackend
   Future<(BoxoGatewayContentPathMetadata, BoxoGatewayHeadResponse)> head(
       $context.Context ctx, $path.BoxoPathImmutablePath path) async {
     final $r = await $call(
-        621,
+        626,
         $W()
           ..h(this)
           ..h(ctx)
@@ -175,7 +176,7 @@ class BoxoGatewayBlocksBackend extends BoxoGatewayIpfsBackend
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> isCached($context.Context ctx, $path.BoxoPath p) async {
     final $r = await $call(
-        622,
+        627,
         $W()
           ..h(this)
           ..h(ctx)
@@ -189,7 +190,7 @@ class BoxoGatewayBlocksBackend extends BoxoGatewayIpfsBackend
   Future<($path.BoxoPathImmutablePath, Duration, DateTime)> resolveMutable(
       $context.Context ctx, $path.BoxoPath p) async {
     final $r = await $call(
-        623,
+        628,
         $W()
           ..h(this)
           ..h(ctx)
@@ -207,7 +208,7 @@ class BoxoGatewayBlocksBackend extends BoxoGatewayIpfsBackend
   Future<BoxoGatewayContentPathMetadata> resolvePath(
       $context.Context ctx, $path.BoxoPathImmutablePath path) async {
     final $r = await $call(
-        624,
+        629,
         $W()
           ..h(this)
           ..h(ctx)
@@ -256,7 +257,7 @@ class BoxoGatewayCarBackend extends BoxoGatewayIpfsBackend
   factory BoxoGatewayCarBackend(BoxoGatewayCarFetcher f,
       [List<BoxoGatewayBackendOption> opts = const []]) {
     final $r = $callSync(
-        654,
+        660,
         $W()
           ..h(f)
           ..list(opts, (w0, e0) => w0.opt(e0)));
@@ -270,7 +271,7 @@ class BoxoGatewayCarBackend extends BoxoGatewayIpfsBackend
       $context.Context ctx, $path.BoxoPathImmutablePath path,
       [List<BoxoGatewayByteRange> byteRanges = const []]) async {
     final $r = await $call(
-        625,
+        630,
         $W()
           ..h(this)
           ..h(ctx)
@@ -288,7 +289,7 @@ class BoxoGatewayCarBackend extends BoxoGatewayIpfsBackend
   Future<(BoxoGatewayContentPathMetadata, $files.BoxoFilesNode)> getAll(
       $context.Context ctx, $path.BoxoPathImmutablePath path) async {
     final $r = await $call(
-        626,
+        631,
         $W()
           ..h(this)
           ..h(ctx)
@@ -305,7 +306,7 @@ class BoxoGatewayCarBackend extends BoxoGatewayIpfsBackend
   Future<(BoxoGatewayContentPathMetadata, $files.BoxoFilesFile)> getBlock(
       $context.Context ctx, $path.BoxoPathImmutablePath p) async {
     final $r = await $call(
-        627,
+        632,
         $W()
           ..h(this)
           ..h(ctx)
@@ -324,7 +325,7 @@ class BoxoGatewayCarBackend extends BoxoGatewayIpfsBackend
       $path.BoxoPathImmutablePath p,
       BoxoGatewayCarParams params) async {
     final $r = await $call(
-        628,
+        633,
         $W()
           ..h(this)
           ..h(ctx)
@@ -342,7 +343,7 @@ class BoxoGatewayCarBackend extends BoxoGatewayIpfsBackend
   Future<$path.BoxoPath> getDnsLinkRecord(
       $context.Context ctx, String hostname) async {
     final $r = await $call(
-        629,
+        634,
         $W()
           ..h(this)
           ..h(ctx)
@@ -355,7 +356,7 @@ class BoxoGatewayCarBackend extends BoxoGatewayIpfsBackend
   /// Asynchronous: runs in a goroutine of the service.
   Future<Uint8List> getIpnsRecord($context.Context ctx, $cid.Cid c) async {
     final $r = await $call(
-        630,
+        635,
         $W()
           ..h(this)
           ..h(ctx)
@@ -369,7 +370,7 @@ class BoxoGatewayCarBackend extends BoxoGatewayIpfsBackend
   Future<(BoxoGatewayContentPathMetadata, BoxoGatewayHeadResponse)> head(
       $context.Context ctx, $path.BoxoPathImmutablePath p) async {
     final $r = await $call(
-        631,
+        636,
         $W()
           ..h(this)
           ..h(ctx)
@@ -385,7 +386,7 @@ class BoxoGatewayCarBackend extends BoxoGatewayIpfsBackend
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> isCached($context.Context ctx, $path.BoxoPath path) async {
     final $r = await $call(
-        632,
+        637,
         $W()
           ..h(this)
           ..h(ctx)
@@ -399,7 +400,7 @@ class BoxoGatewayCarBackend extends BoxoGatewayIpfsBackend
   Future<($path.BoxoPathImmutablePath, Duration, DateTime)> resolveMutable(
       $context.Context ctx, $path.BoxoPath p) async {
     final $r = await $call(
-        633,
+        638,
         $W()
           ..h(this)
           ..h(ctx)
@@ -417,7 +418,7 @@ class BoxoGatewayCarBackend extends BoxoGatewayIpfsBackend
   Future<BoxoGatewayContentPathMetadata> resolvePath(
       $context.Context ctx, $path.BoxoPathImmutablePath p) async {
     final $r = await $call(
-        634,
+        639,
         $W()
           ..h(this)
           ..h(ctx)
@@ -432,7 +433,34 @@ class BoxoGatewayCarFetcher extends GoHandle with BoxoGatewayCarFetcher$ {
 }
 
 /// The methods of [BoxoGatewayCarFetcher], mixed into every class Go also accepts as one.
-mixin BoxoGatewayCarFetcher$ on GoHandle {}
+mixin BoxoGatewayCarFetcher$ on GoHandle {
+  /// Go: `func (gateway.CarFetcher).Fetch(ctx context.Context, path path.ImmutablePath, params gateway.CarParams, cb gateway.DataCallback) error`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  ///
+  /// Go calls [cb] on the Dart event loop, during the call or
+  /// later for as long as it holds it (nobody checked which), and waits for
+  /// each invocation (a retained callback, WIRE.md).
+  Future<void> fetch(
+      $context.Context ctx,
+      $path.BoxoPathImmutablePath path,
+      BoxoGatewayCarParams params,
+      FutureOr<void> Function(
+              $path.BoxoPathImmutablePath p, $io.IoReader reader)
+          cb) async {
+    await $call(
+        640,
+        $W()
+          ..h(this)
+          ..h(ctx)
+          ..val(path)
+          ..dto(params)
+          ..cb(
+              (r) => cb(r.p() ? $path.BoxoPathImmutablePath(r.str()) : $nil(),
+                  r.hnn($io.IoReader.$h)),
+              true));
+  }
+}
 
 /// Go: `gateway.CarParams`.
 final class BoxoGatewayCarParams implements GoDto {
@@ -672,7 +700,7 @@ class BoxoGatewayGetResponse extends $crypto.CryptoPrivateKey
 
   /// Go: `func (*gateway.GetResponse).Close() error`.
   void close() {
-    $callSync(636, $W()..h(this));
+    $callSync(642, $W()..h(this));
   }
 }
 
@@ -684,7 +712,7 @@ class BoxoGatewayHeadResponse extends $crypto.CryptoPrivateKey
 
   /// Go: `func (*gateway.HeadResponse).Close() error`.
   void close() {
-    $callSync(637, $W()..h(this));
+    $callSync(643, $W()..h(this));
   }
 }
 
@@ -697,7 +725,7 @@ class BoxoGatewayHeaders extends $crypto.CryptoPrivateKey
   /// Go: `func gateway.NewHeaders(headers map[string][]string) *gateway.Headers`.
   factory BoxoGatewayHeaders(Map<String, List<String>> headers) {
     final $r = $callSync(
-        664,
+        670,
         $W()
           ..map(headers, (w0, k0) => w0.str(k0),
               (w0, v0) => w0.list(v0, (w1, e1) => w1.str(e1))));
@@ -706,20 +734,20 @@ class BoxoGatewayHeaders extends $crypto.CryptoPrivateKey
 
   /// Go: `func (*gateway.Headers).ApplyCors() *gateway.Headers`.
   BoxoGatewayHeaders applyCors() {
-    final $r = $callSync(638, $W()..h(this));
+    final $r = $callSync(644, $W()..h(this));
     return $r.hnn(BoxoGatewayHeaders.$h);
   }
 
   /// Go: `func (*gateway.Headers).WithDeprecatedXIpfsPath() *gateway.Headers`.
   BoxoGatewayHeaders withDeprecatedXIpfsPath() {
-    final $r = $callSync(639, $W()..h(this));
+    final $r = $callSync(645, $W()..h(this));
     return $r.hnn(BoxoGatewayHeaders.$h);
   }
 
   /// Go: `func (*gateway.Headers).Wrap(next http.Handler) http.Handler`.
   $http.NetHttpHandler wrap($http.NetHttpHandler next) {
     final $r = $callSync(
-        640,
+        646,
         $W()
           ..h(this)
           ..h(next));
@@ -741,7 +769,7 @@ mixin BoxoGatewayIpfsBackend$ on GoHandle {
       $context.Context ctx, $path.BoxoPathImmutablePath immutablePath,
       [List<BoxoGatewayByteRange> byteRanges = const []]) async {
     final $r = await $call(
-        641,
+        647,
         $W()
           ..h(this)
           ..h(ctx)
@@ -759,7 +787,7 @@ mixin BoxoGatewayIpfsBackend$ on GoHandle {
   Future<(BoxoGatewayContentPathMetadata, $files.BoxoFilesNode)> getAll(
       $context.Context ctx, $path.BoxoPathImmutablePath immutablePath) async {
     final $r = await $call(
-        642,
+        648,
         $W()
           ..h(this)
           ..h(ctx)
@@ -776,7 +804,7 @@ mixin BoxoGatewayIpfsBackend$ on GoHandle {
   Future<(BoxoGatewayContentPathMetadata, $files.BoxoFilesFile)> getBlock(
       $context.Context ctx, $path.BoxoPathImmutablePath immutablePath) async {
     final $r = await $call(
-        643,
+        649,
         $W()
           ..h(this)
           ..h(ctx)
@@ -795,7 +823,7 @@ mixin BoxoGatewayIpfsBackend$ on GoHandle {
       $path.BoxoPathImmutablePath immutablePath,
       BoxoGatewayCarParams carParams) async {
     final $r = await $call(
-        644,
+        650,
         $W()
           ..h(this)
           ..h(ctx)
@@ -813,7 +841,7 @@ mixin BoxoGatewayIpfsBackend$ on GoHandle {
   Future<$path.BoxoPath> getDnsLinkRecord(
       $context.Context ctx, String arg1) async {
     final $r = await $call(
-        645,
+        651,
         $W()
           ..h(this)
           ..h(ctx)
@@ -826,7 +854,7 @@ mixin BoxoGatewayIpfsBackend$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<Uint8List> getIpnsRecord($context.Context ctx, $cid.Cid cid) async {
     final $r = await $call(
-        646,
+        652,
         $W()
           ..h(this)
           ..h(ctx)
@@ -840,7 +868,7 @@ mixin BoxoGatewayIpfsBackend$ on GoHandle {
   Future<(BoxoGatewayContentPathMetadata, BoxoGatewayHeadResponse)> head(
       $context.Context ctx, $path.BoxoPathImmutablePath immutablePath) async {
     final $r = await $call(
-        647,
+        653,
         $W()
           ..h(this)
           ..h(ctx)
@@ -856,7 +884,7 @@ mixin BoxoGatewayIpfsBackend$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> isCached($context.Context ctx, $path.BoxoPath path) async {
     final $r = await $call(
-        648,
+        654,
         $W()
           ..h(this)
           ..h(ctx)
@@ -870,7 +898,7 @@ mixin BoxoGatewayIpfsBackend$ on GoHandle {
   Future<($path.BoxoPathImmutablePath, Duration, DateTime)> resolveMutable(
       $context.Context ctx, $path.BoxoPath path) async {
     final $r = await $call(
-        649,
+        655,
         $W()
           ..h(this)
           ..h(ctx)
@@ -888,7 +916,7 @@ mixin BoxoGatewayIpfsBackend$ on GoHandle {
   Future<BoxoGatewayContentPathMetadata> resolvePath(
       $context.Context ctx, $path.BoxoPathImmutablePath immutablePath) async {
     final $r = await $call(
-        650,
+        656,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1059,13 +1087,13 @@ extension GoBoxoGatewayApi on GoBoxoGateway {
 
   /// Go: `var gateway.EmptyIdentityCID cid.Cid`.
   $cid.Cid get emptyIdentityCid {
-    final $r = $callSync(635);
+    final $r = $callSync(641);
     return $r.p() ? $cid.Cid($r.str()) : $nil();
   }
 
   /// Go: `func gateway.InlineDNSLink(fqdn string) (dnsLabel string, err error)`.
   String inlineDnsLink(String fqdn) {
-    final $r = $callSync(651, $W()..str(fqdn));
+    final $r = $callSync(657, $W()..str(fqdn));
     return $r.str();
   }
 
@@ -1073,7 +1101,7 @@ extension GoBoxoGatewayApi on GoBoxoGateway {
   $blockstore.BoxoBlockstore newCacheBlockStore(
       int size, $prometheus.ClientGolangPrometheusRegisterer reg) {
     final $r = $callSync(
-        653,
+        659,
         $W()
           ..i64(size)
           ..h(reg));
@@ -1085,7 +1113,7 @@ extension GoBoxoGatewayApi on GoBoxoGateway {
       Map<String, String> resolvers,
       [List<$doh_resolver.DohResolverOption> dohOpts = const []]) {
     final $r = $callSync(
-        655,
+        661,
         $W()
           ..map(resolvers, (w0, k0) => w0.str(k0), (w0, v0) => w0.str(v0))
           ..list(dohOpts, (w0, e0) => w0.opt(e0)));
@@ -1094,13 +1122,13 @@ extension GoBoxoGatewayApi on GoBoxoGateway {
 
   /// Go: `func gateway.NewDagByteRange(rangeStr string) (gateway.DagByteRange, error)`.
   BoxoGatewayDagByteRange newDagByteRange(String rangeStr) {
-    final $r = $callSync(656, $W()..str(rangeStr));
+    final $r = $callSync(662, $W()..str(rangeStr));
     return $r.p() ? BoxoGatewayDagByteRange.$dec($r) : $nil();
   }
 
   /// Go: `func gateway.NewDuplicateBlocksPolicy(dupsValue string) (gateway.DuplicateBlocksPolicy, error)`.
   int newDuplicateBlocksPolicy(String dupsValue) {
-    final $r = $callSync(657, $W()..str(dupsValue));
+    final $r = $callSync(663, $W()..str(dupsValue));
     return $r.i64();
   }
 
@@ -1108,7 +1136,7 @@ extension GoBoxoGatewayApi on GoBoxoGateway {
   BoxoGatewayGetResponse newGetResponseFromReader(
       Object file, int fullFileSize) {
     final $r = $callSync(
-        658,
+        664,
         $W()
           ..reader(file)
           ..i64(fullFileSize));
@@ -1119,7 +1147,7 @@ extension GoBoxoGatewayApi on GoBoxoGateway {
   BoxoGatewayGetResponse newGetResponseFromSymlink(
       $files.BoxoFilesSymlink symlink, int size) {
     final $r = $callSync(
-        659,
+        665,
         $W()
           ..h(symlink)
           ..i64(size));
@@ -1130,7 +1158,7 @@ extension GoBoxoGatewayApi on GoBoxoGateway {
   $http.NetHttpHandler newHandler(
       BoxoGatewayConfig c, BoxoGatewayIpfsBackend backend) {
     final $r = $callSync(
-        660,
+        666,
         $W()
           ..dto(c)
           ..h(backend));
@@ -1139,7 +1167,7 @@ extension GoBoxoGatewayApi on GoBoxoGateway {
 
   /// Go: `func gateway.NewHeadResponseForDirectory(dagSize int64) *gateway.HeadResponse`.
   BoxoGatewayHeadResponse newHeadResponseForDirectory(int dagSize) {
-    final $r = $callSync(661, $W()..i64(dagSize));
+    final $r = $callSync(667, $W()..i64(dagSize));
     return $r.hnn(BoxoGatewayHeadResponse.$h);
   }
 
@@ -1147,7 +1175,7 @@ extension GoBoxoGatewayApi on GoBoxoGateway {
   BoxoGatewayHeadResponse newHeadResponseForFile(
       Object startingBytes, int size) {
     final $r = $callSync(
-        662,
+        668,
         $W()
           ..reader(startingBytes)
           ..i64(size));
@@ -1156,7 +1184,7 @@ extension GoBoxoGatewayApi on GoBoxoGateway {
 
   /// Go: `func gateway.NewHeadResponseForSymlink(symlinkSize int64) *gateway.HeadResponse`.
   BoxoGatewayHeadResponse newHeadResponseForSymlink(int symlinkSize) {
-    final $r = $callSync(663, $W()..i64(symlinkSize));
+    final $r = $callSync(669, $W()..i64(symlinkSize));
     return $r.hnn(BoxoGatewayHeadResponse.$h);
   }
 
@@ -1164,7 +1192,7 @@ extension GoBoxoGatewayApi on GoBoxoGateway {
   $http.NetHttpHandlerFunc newHostnameHandler(BoxoGatewayConfig c,
       BoxoGatewayIpfsBackend backend, $http.NetHttpHandler next) {
     final $r = $callSync(
-        665,
+        671,
         $W()
           ..dto(c)
           ..h(backend)
@@ -1177,7 +1205,7 @@ extension GoBoxoGatewayApi on GoBoxoGateway {
       List<String> gatewayUrl, $http.NetHttpClient httpClient,
       [List<BoxoGatewayBackendOption> opts = const []]) {
     final $r = $callSync(
-        666,
+        672,
         $W()
           ..list(gatewayUrl, (w0, e0) => w0.str(e0))
           ..dto(httpClient)
@@ -1189,7 +1217,7 @@ extension GoBoxoGatewayApi on GoBoxoGateway {
   $blockstore.BoxoBlockstore newRemoteBlockstore(
       List<String> gatewayUrl, $http.NetHttpClient httpClient) {
     final $r = $callSync(
-        667,
+        673,
         $W()
           ..list(gatewayUrl, (w0, e0) => w0.str(e0))
           ..dto(httpClient));
@@ -1201,7 +1229,7 @@ extension GoBoxoGatewayApi on GoBoxoGateway {
       List<String> gatewayUrl, $http.NetHttpClient httpClient,
       [List<BoxoGatewayBackendOption> opts = const []]) {
     final $r = $callSync(
-        668,
+        674,
         $W()
           ..list(gatewayUrl, (w0, e0) => w0.str(e0))
           ..dto(httpClient)
@@ -1213,7 +1241,7 @@ extension GoBoxoGatewayApi on GoBoxoGateway {
   BoxoGatewayCarFetcher newRemoteCarFetcher(
       List<String> gatewayUrl, $http.NetHttpClient httpClient) {
     final $r = $callSync(
-        669,
+        675,
         $W()
           ..list(gatewayUrl, (w0, e0) => w0.str(e0))
           ..dto(httpClient));
@@ -1224,7 +1252,7 @@ extension GoBoxoGatewayApi on GoBoxoGateway {
   $routing.Libp2pCoreRoutingValueStore newRemoteValueStore(
       List<String> gatewayUrl, $http.NetHttpClient httpClient) {
     final $r = $callSync(
-        670,
+        676,
         $W()
           ..list(gatewayUrl, (w0, e0) => w0.str(e0))
           ..dto(httpClient));
@@ -1235,7 +1263,7 @@ extension GoBoxoGatewayApi on GoBoxoGateway {
   BoxoGatewayCarFetcher newRetryCarFetcher(
       BoxoGatewayCarFetcher inner, int allowedRetries) {
     final $r = $callSync(
-        671,
+        677,
         $W()
           ..h(inner)
           ..i64(allowedRetries));
@@ -1244,7 +1272,7 @@ extension GoBoxoGatewayApi on GoBoxoGateway {
 
   /// Go: `func gateway.UninlineDNSLink(dnsLabel string) (fqdn string)`.
   String uninlineDnsLink(String dnsLabel) {
-    final $r = $callSync(672, $W()..str(dnsLabel));
+    final $r = $callSync(678, $W()..str(dnsLabel));
     return $r.str();
   }
 

@@ -59,7 +59,7 @@ class NetHttpHandler extends GoHandle with NetHttpHandler$ {
 mixin NetHttpHandler$ on GoHandle {
   /// Go: type assertion `x.(http.HandlerFunc)`: null if the object is not one.
   NetHttpHandlerFunc? asNetHttpHandlerFunc() {
-    final $r = $callSync(414, $W()..h(this));
+    final $r = $callSync(415, $W()..h(this));
     return $r.hn(NetHttpHandlerFunc.$h);
   }
 }

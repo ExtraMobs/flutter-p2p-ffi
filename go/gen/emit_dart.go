@@ -1165,6 +1165,8 @@ func (e *dartEmitter) functionBody(l *dartLib, f *fn, class string, factory bool
 			what := "Go keeps [" + dartParamName(p.name) + "] and calls it on the Dart event loop for as\n/// long as it holds it"
 			if f.impl != nil {
 				what = "Go keeps the functions and calls them on the Dart event loop for as\n/// long as it holds the object; a method left out does nothing"
+			} else if p.t.unchecked {
+				what = "Go calls [" + dartParamName(p.name) + "] on the Dart event loop, during the call or\n/// later for as long as it holds it (nobody checked which), and waits for\n/// each invocation"
 			}
 			what = strings.ReplaceAll(what, "\n", "\n"+indent)
 			fmt.Fprintf(&b, "%s///\n%s/// %s (a retained callback, WIRE.md).\n", indent, indent, what)
@@ -1273,7 +1275,7 @@ func (e *dartEmitter) retainedCb(t *tinfo, n string, l *dartLib, nullable bool) 
 	if t.fret == fretVal { // the value goes back in the CallbackAck
 		return fmt.Sprintf("cb(%s, true, (w, v) => w.%s)", call, e.enc(t.fres, "v as "+e.dt(t.fres, l), 0))
 	}
-	return fmt.Sprintf("cb(%s, %v)", call, t.fret != fretNone)
+	return fmt.Sprintf("cb(%s, %v)", call, t.fret != fretNone || t.unchecked)
 }
 
 // better: a interface [a] é melhor base para um handle concreto que [b].

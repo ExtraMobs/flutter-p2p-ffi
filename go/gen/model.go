@@ -92,8 +92,12 @@ type tinfo struct {
 	// kFunc: Go keeps the function past the call (retainedFuncs, a Dart
 	// implementation of an interface): WIRE.md, "Retained callback"
 	retained bool
-	fres     *tinfo    // kFunc fretVal: the type of the value
-	fthrow   [2]string // kFunc fretVal: the Go constant (package, name) when Dart throws (cbOnThrow); "" = the zero value
+	// kFunc retained by default (a "pkg.*" root nobody checked): Go may call
+	// it during the call or keep it, so the call is asynchronous and each
+	// invocation waits for Dart, which runs them all before the call returns
+	unchecked bool
+	fres      *tinfo    // kFunc fretVal: the type of the value
+	fthrow    [2]string // kFunc fretVal: the Go constant (package, name) when Dart throws (cbOnThrow); "" = the zero value
 }
 
 type field struct {
@@ -148,6 +152,8 @@ type model struct {
 	toks []*token
 	// deprecated: the Go doc's "Deprecated:" text, by depKey (deprecated.go)
 	deprecated map[string]string
+	// expanded: the roots that came from a "pkg.*" line, not written out
+	expanded map[string]bool
 }
 
 func newModel() *model {

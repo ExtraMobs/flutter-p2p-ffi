@@ -12,7 +12,7 @@ extension GoMulticodecApi on GoMulticodec {
 
   /// Go: `func multicodec.KnownCodes() []multicodec.Code`.
   List<int> knownCodes() {
-    final $r = $callSync(3436);
+    final $r = $callSync(3476);
     return $r.list(() => $r.i64());
   }
 

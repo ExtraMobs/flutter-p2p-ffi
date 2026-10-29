@@ -13,7 +13,7 @@ extension GoBoxoIpldUnixfsImporterApi on GoBoxoIpldUnixfsImporter {
   $ipld_format.IpldFormatNode buildDagFromReader(
       $ipld_format.IpldFormatDagService ds, $chunker.BoxoChunkerSplitter spl) {
     final $r = $callSync(
-        776,
+        784,
         $W()
           ..h(ds)
           ..h(spl));
@@ -24,7 +24,7 @@ extension GoBoxoIpldUnixfsImporterApi on GoBoxoIpldUnixfsImporter {
   $ipld_format.IpldFormatNode buildTrickleDagFromReader(
       $ipld_format.IpldFormatDagService ds, $chunker.BoxoChunkerSplitter spl) {
     final $r = $callSync(
-        777,
+        785,
         $W()
           ..h(ds)
           ..h(spl));

@@ -25,7 +25,7 @@ class Libp2pKadDhtPbMessage extends $crypto.CryptoPrivateKey
   /// Go: `func dht_pb.NewMessage(typ dht_pb.Message_MessageType, key []byte, level int) *dht_pb.Message`.
   factory Libp2pKadDhtPbMessage(int typ, Uint8List key, int level) {
     final $r = $callSync(
-        2249,
+        2274,
         $W()
           ..i64(typ)
           ..bytes(key)
@@ -36,72 +36,72 @@ class Libp2pKadDhtPbMessage extends $crypto.CryptoPrivateKey
   /// Go: `func (*dht_pb.Message).Descriptor() ([]byte, []int)`.
   @Deprecated("Use Message.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(2220, $W()..h(this));
+    final $r = $callSync(2245, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*dht_pb.Message).GetCloserPeers() []*dht_pb.Message_Peer`.
   List<Libp2pKadDhtPbMessagePeer> getCloserPeers() {
-    final $r = $callSync(2221, $W()..h(this));
+    final $r = $callSync(2246, $W()..h(this));
     return $r.list(() => $r.hnn(Libp2pKadDhtPbMessagePeer.$h));
   }
 
   /// Go: `func (*dht_pb.Message).GetClusterLevel() int`.
   int getClusterLevel() {
-    final $r = $callSync(2222, $W()..h(this));
+    final $r = $callSync(2247, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*dht_pb.Message).GetClusterLevelRaw() int32`.
   int getClusterLevelRaw() {
-    final $r = $callSync(2223, $W()..h(this));
+    final $r = $callSync(2248, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*dht_pb.Message).GetKey() []byte`.
   Uint8List getKey() {
-    final $r = $callSync(2224, $W()..h(this));
+    final $r = $callSync(2249, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*dht_pb.Message).GetProviderPeers() []*dht_pb.Message_Peer`.
   List<Libp2pKadDhtPbMessagePeer> getProviderPeers() {
-    final $r = $callSync(2225, $W()..h(this));
+    final $r = $callSync(2250, $W()..h(this));
     return $r.list(() => $r.hnn(Libp2pKadDhtPbMessagePeer.$h));
   }
 
   /// Go: `func (*dht_pb.Message).GetRecord() *pb.Record`.
   $pb.Libp2pRecordPbRecord getRecord() {
-    final $r = $callSync(2226, $W()..h(this));
+    final $r = $callSync(2251, $W()..h(this));
     return $r.hnn($pb.Libp2pRecordPbRecord.$h);
   }
 
   /// Go: `func (*dht_pb.Message).GetType() dht_pb.Message_MessageType`.
   int getType() {
-    final $r = $callSync(2227, $W()..h(this));
+    final $r = $callSync(2252, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*dht_pb.Message).ProtoMessage()`.
   void protoMessage() {
-    $callSync(2228, $W()..h(this));
+    $callSync(2253, $W()..h(this));
   }
 
   /// Go: `func (*dht_pb.Message).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(2229, $W()..h(this));
+    final $r = $callSync(2254, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*dht_pb.Message).Reset()`.
   void reset() {
-    $callSync(2230, $W()..h(this));
+    $callSync(2255, $W()..h(this));
   }
 
   /// Go: `func (*dht_pb.Message).SetClusterLevel(level int)`.
   void setClusterLevel(int level) {
     $callSync(
-        2231,
+        2256,
         $W()
           ..h(this)
           ..i64(level));
@@ -109,7 +109,7 @@ class Libp2pKadDhtPbMessage extends $crypto.CryptoPrivateKey
 
   /// Go: `func (*dht_pb.Message).String() string`.
   String string() {
-    final $r = $callSync(2232, $W()..h(this));
+    final $r = $callSync(2257, $W()..h(this));
     return $r.str();
   }
 }
@@ -128,7 +128,7 @@ mixin Libp2pKadDhtPbMessageSender$ on GoHandle {
   Future<void> sendMessage($context.Context ctx, $peer.Libp2pCorePeerId p,
       Libp2pKadDhtPbMessage pmes) async {
     await $call(
-        2233,
+        2258,
         $W()
           ..h(this)
           ..h(ctx)
@@ -142,7 +142,7 @@ mixin Libp2pKadDhtPbMessageSender$ on GoHandle {
   Future<Libp2pKadDhtPbMessage> sendRequest($context.Context ctx,
       $peer.Libp2pCorePeerId p, Libp2pKadDhtPbMessage pmes) async {
     final $r = await $call(
-        2234,
+        2259,
         $W()
           ..h(this)
           ..h(ctx)
@@ -174,7 +174,7 @@ mixin Libp2pKadDhtPbMessageSenderWithDisconnect$ on GoHandle {
   Future<void> onDisconnect(
       $context.Context ctx, $peer.Libp2pCorePeerId id) async {
     await $call(
-        2235,
+        2260,
         $W()
           ..h(this)
           ..h(ctx)
@@ -190,54 +190,54 @@ class Libp2pKadDhtPbMessagePeer extends $crypto.CryptoPrivateKey
 
   /// Go: `func (*dht_pb.Message_Peer).Addresses() []multiaddr.Multiaddr`.
   List<$multiaddr.Multiaddr> addresses() {
-    final $r = $callSync(2240, $W()..h(this));
+    final $r = $callSync(2265, $W()..h(this));
     return $r.list(() => $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil());
   }
 
   /// Go: `func (*dht_pb.Message_Peer).Descriptor() ([]byte, []int)`.
   @Deprecated("Use Message_Peer.ProtoReflect.Descriptor instead.")
   (Uint8List, List<int>) descriptor() {
-    final $r = $callSync(2241, $W()..h(this));
+    final $r = $callSync(2266, $W()..h(this));
     return ($r.bytes() ?? Uint8List(0), $r.list(() => $r.i64()));
   }
 
   /// Go: `func (*dht_pb.Message_Peer).GetAddrs() [][]byte`.
   List<Uint8List> getAddrs() {
-    final $r = $callSync(2242, $W()..h(this));
+    final $r = $callSync(2267, $W()..h(this));
     return $r.list(() => $r.bytes() ?? Uint8List(0));
   }
 
   /// Go: `func (*dht_pb.Message_Peer).GetConnection() dht_pb.Message_ConnectionType`.
   int getConnection() {
-    final $r = $callSync(2243, $W()..h(this));
+    final $r = $callSync(2268, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (*dht_pb.Message_Peer).GetId() []byte`.
   Uint8List getId() {
-    final $r = $callSync(2244, $W()..h(this));
+    final $r = $callSync(2269, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*dht_pb.Message_Peer).ProtoMessage()`.
   void protoMessage() {
-    $callSync(2245, $W()..h(this));
+    $callSync(2270, $W()..h(this));
   }
 
   /// Go: `func (*dht_pb.Message_Peer).ProtoReflect() protoreflect.Message`.
   $protoreflect.ProtobufReflectProtoreflectMessage protoReflect() {
-    final $r = $callSync(2246, $W()..h(this));
+    final $r = $callSync(2271, $W()..h(this));
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectMessage.$h);
   }
 
   /// Go: `func (*dht_pb.Message_Peer).Reset()`.
   void reset() {
-    $callSync(2247, $W()..h(this));
+    $callSync(2272, $W()..h(this));
   }
 
   /// Go: `func (*dht_pb.Message_Peer).String() string`.
   String string() {
-    final $r = $callSync(2248, $W()..h(this));
+    final $r = $callSync(2273, $W()..h(this));
     return $r.str();
   }
 }
@@ -277,7 +277,7 @@ class Libp2pKadDhtPbProtocolMessenger extends $crypto.CryptoPrivateKey
   factory Libp2pKadDhtPbProtocolMessenger(Libp2pKadDhtPbMessageSender msgSender,
       [List<Libp2pKadDhtPbProtocolMessengerOption> opts = const []]) {
     final $r = $callSync(
-        2250,
+        2275,
         $W()
           ..h(msgSender)
           ..list(opts, (w0, e0) => w0.h(e0)));
@@ -292,7 +292,7 @@ class Libp2pKadDhtPbProtocolMessenger extends $crypto.CryptoPrivateKey
       $peer.Libp2pCorePeerId p,
       $peer.Libp2pCorePeerId id) async {
     final $r = await $call(
-        2256,
+        2281,
         $W()
           ..h(this)
           ..h(ctx)
@@ -313,7 +313,7 @@ class Libp2pKadDhtPbProtocolMessenger extends $crypto.CryptoPrivateKey
       getProviders(
           $context.Context ctx, $peer.Libp2pCorePeerId p, Uint8List key) async {
     final $r = await $call(
-        2257,
+        2282,
         $W()
           ..h(this)
           ..h(ctx)
@@ -332,7 +332,7 @@ class Libp2pKadDhtPbProtocolMessenger extends $crypto.CryptoPrivateKey
       getValue(
           $context.Context ctx, $peer.Libp2pCorePeerId p, String key) async {
     final $r = await $call(
-        2258,
+        2283,
         $W()
           ..h(this)
           ..h(ctx)
@@ -349,7 +349,7 @@ class Libp2pKadDhtPbProtocolMessenger extends $crypto.CryptoPrivateKey
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> ping($context.Context ctx, $peer.Libp2pCorePeerId p) async {
     await $call(
-        2259,
+        2284,
         $W()
           ..h(this)
           ..h(ctx)
@@ -362,7 +362,7 @@ class Libp2pKadDhtPbProtocolMessenger extends $crypto.CryptoPrivateKey
   Future<void> putProvider($context.Context ctx, $peer.Libp2pCorePeerId p,
       Uint8List key, $host.Libp2pCoreHost h) async {
     await $call(
-        2260,
+        2285,
         $W()
           ..h(this)
           ..h(ctx)
@@ -377,7 +377,7 @@ class Libp2pKadDhtPbProtocolMessenger extends $crypto.CryptoPrivateKey
   Future<void> putProviderAddrs($context.Context ctx, $peer.Libp2pCorePeerId p,
       Uint8List key, $peer.Libp2pCorePeerAddrInfo self) async {
     await $call(
-        2261,
+        2286,
         $W()
           ..h(this)
           ..h(ctx)
@@ -392,7 +392,7 @@ class Libp2pKadDhtPbProtocolMessenger extends $crypto.CryptoPrivateKey
   Future<void> putValue($context.Context ctx, $peer.Libp2pCorePeerId p,
       $pb.Libp2pRecordPbRecord rec) async {
     await $call(
-        2262,
+        2287,
         $W()
           ..h(this)
           ..h(ctx)
@@ -412,57 +412,57 @@ class Libp2pKadDhtPbProtocolMessengerOption extends $crypto.CryptoPrivateKey
 extension GoLibp2pKadDhtPbApi on GoLibp2pKadDhtPb {
   /// Go: `func dht_pb.Connectedness(c dht_pb.Message_ConnectionType) network.Connectedness`.
   int connectedness(int c) {
-    final $r = $callSync(2217, $W()..i64(c));
+    final $r = $callSync(2242, $W()..i64(c));
     return $r.i64();
   }
 
   /// Go: `func dht_pb.ConnectionType(c network.Connectedness) dht_pb.Message_ConnectionType`.
   int connectionType(int c) {
-    final $r = $callSync(2218, $W()..i64(c));
+    final $r = $callSync(2243, $W()..i64(c));
     return $r.i64();
   }
 
   /// Go: `var dht_pb.File_github_com_libp2p_go_libp2p_kad_dht_pb_dht_proto protoreflect.FileDescriptor`.
   $protoreflect.ProtobufReflectProtoreflectFileDescriptor
       get fileGithubComLibp2pGoLibp2pKadDhtPbDhtProto {
-    final $r = $callSync(2219);
+    final $r = $callSync(2244);
     return $r.hnn($protoreflect.ProtobufReflectProtoreflectFileDescriptor.$h);
   }
 
   /// Go: `var dht_pb.Message_ConnectionType_name map[int32]string`.
   Map<int, String> get messageConnectionTypeName {
-    final $r = $callSync(2236);
+    final $r = $callSync(2261);
     return $r.map(() => $r.i64(), () => $r.str());
   }
 
   /// Go: `var dht_pb.Message_ConnectionType_value map[string]int32`.
   Map<String, int> get messageConnectionTypeValue {
-    final $r = $callSync(2237);
+    final $r = $callSync(2262);
     return $r.map(() => $r.str(), () => $r.i64());
   }
 
   /// Go: `var dht_pb.Message_MessageType_name map[int32]string`.
   Map<int, String> get messageMessageTypeName {
-    final $r = $callSync(2238);
+    final $r = $callSync(2263);
     return $r.map(() => $r.i64(), () => $r.str());
   }
 
   /// Go: `var dht_pb.Message_MessageType_value map[string]int32`.
   Map<String, int> get messageMessageTypeValue {
-    final $r = $callSync(2239);
+    final $r = $callSync(2264);
     return $r.map(() => $r.str(), () => $r.i64());
   }
 
   /// Go: `func dht_pb.PBPeerToPeerInfo(pbp *dht_pb.Message_Peer) peer.AddrInfo`.
   $peer.Libp2pCorePeerAddrInfo pbPeerToPeerInfo(Libp2pKadDhtPbMessagePeer pbp) {
-    final $r = $callSync(2251, $W()..h(pbp));
+    final $r = $callSync(2276, $W()..h(pbp));
     return $r.p() ? $peer.Libp2pCorePeerAddrInfo.$dec($r) : $nil();
   }
 
   /// Go: `func dht_pb.PBPeersToPeerInfos(pbps []*dht_pb.Message_Peer) []*peer.AddrInfo`.
   List<$peer.Libp2pCorePeerAddrInfo> pbPeersToPeerInfos(
       List<Libp2pKadDhtPbMessagePeer> pbps) {
-    final $r = $callSync(2252, $W()..list(pbps, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(2277, $W()..list(pbps, (w0, e0) => w0.h(e0)));
     return $r
         .list(() => $r.p() ? $peer.Libp2pCorePeerAddrInfo.$dec($r) : $nil());
   }
@@ -471,7 +471,7 @@ extension GoLibp2pKadDhtPbApi on GoLibp2pKadDhtPb {
   Libp2pKadDhtPbMessagePeer peerInfoToPbPeer(
       $network.Libp2pCoreNetwork n, $peer.Libp2pCorePeerAddrInfo p) {
     final $r = $callSync(
-        2253,
+        2278,
         $W()
           ..h(n)
           ..dto(p));
@@ -482,7 +482,7 @@ extension GoLibp2pKadDhtPbApi on GoLibp2pKadDhtPb {
   List<Libp2pKadDhtPbMessagePeer> peerInfosToPbPeers(
       $network.Libp2pCoreNetwork n, List<$peer.Libp2pCorePeerAddrInfo> peers) {
     final $r = $callSync(
-        2254,
+        2279,
         $W()
           ..h(n)
           ..list(peers, (w0, e0) => w0.dto(e0)));
@@ -492,14 +492,14 @@ extension GoLibp2pKadDhtPbApi on GoLibp2pKadDhtPb {
   /// Go: `func dht_pb.PeerRoutingInfosToPBPeers(peers []dht_pb.PeerRoutingInfo) []*dht_pb.Message_Peer`.
   List<Libp2pKadDhtPbMessagePeer> peerRoutingInfosToPbPeers(
       List<Libp2pKadDhtPbPeerRoutingInfo> peers) {
-    final $r = $callSync(2255, $W()..list(peers, (w0, e0) => w0.dto(e0)));
+    final $r = $callSync(2280, $W()..list(peers, (w0, e0) => w0.dto(e0)));
     return $r.list(() => $r.hnn(Libp2pKadDhtPbMessagePeer.$h));
   }
 
   /// Go: `func dht_pb.RawPeerInfosToPBPeers(peers []peer.AddrInfo) []*dht_pb.Message_Peer`.
   List<Libp2pKadDhtPbMessagePeer> rawPeerInfosToPbPeers(
       List<$peer.Libp2pCorePeerAddrInfo> peers) {
-    final $r = $callSync(2263, $W()..list(peers, (w0, e0) => w0.dto(e0)));
+    final $r = $callSync(2288, $W()..list(peers, (w0, e0) => w0.dto(e0)));
     return $r.list(() => $r.hnn(Libp2pKadDhtPbMessagePeer.$h));
   }
 

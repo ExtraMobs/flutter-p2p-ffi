@@ -33,6 +33,7 @@ export 'src/service.dart'
         GolangEofException,
         GolangException,
         GolangNotFoundException,
+        GolangPanicException,
         P2pPlatform,
         P2pService,
         P2pServiceException,

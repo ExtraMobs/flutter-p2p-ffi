@@ -43,7 +43,9 @@ Everything is little-endian.
   (`GolangCanceledException`), `4` `context.DeadlineExceeded`
   (`GolangDeadlineExceededException`), `5` not found (`ipld.ErrNotFound`, the `ErrNotFound`
   of go-car's storage; `GolangNotFoundException`), `6` deadlock with a callback (only the
-  host produces it; `GolangDeadlockException`). Dart throws the fixed sentinel's class,
+  host produces it; `GolangDeadlockException`), `7` a panic of the call that the host
+  recovered (`GolangPanicException`; after the links, `str` the Go stack of the panic).
+  Dart throws the fixed sentinel's class,
   or else the class of the first link with one, or else `GolangException`; all of them
   carry the message, the errno, the texts and the links (`causes`). The host's own
   messages (unknown function, table mismatch) use the same layout with one text and no

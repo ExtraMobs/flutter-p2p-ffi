@@ -28,7 +28,7 @@ class BoxoFetcherImplBlockserviceFetcherConfig
   /// Go: `func bsfetcher.NewFetcherConfig(blockService blockservice.BlockService) bsfetcher.FetcherConfig`.
   factory BoxoFetcherImplBlockserviceFetcherConfig(
       $blockservice.BoxoBlockserviceBlockService blockService) {
-    final $r = $callSync(514, $W()..h(blockService));
+    final $r = $callSync(518, $W()..h(blockService));
     return $r.hnn(BoxoFetcherImplBlockserviceFetcherConfig.$h);
   }
 
@@ -38,7 +38,7 @@ class BoxoFetcherImplBlockserviceFetcherConfig
   Future<$fetcher.BoxoFetcher> fetcherWithSession(
       $context.Context ctx, $blockservice.BoxoBlockserviceSession s) async {
     final $r = await $call(
-        511,
+        515,
         $W()
           ..h(this)
           ..h(ctx)
@@ -51,7 +51,7 @@ class BoxoFetcherImplBlockserviceFetcherConfig
   /// Asynchronous: runs in a goroutine of the service.
   Future<$fetcher.BoxoFetcher> newSession($context.Context ctx) async {
     final $r = await $call(
-        512,
+        516,
         $W()
           ..h(this)
           ..h(ctx));
@@ -62,7 +62,7 @@ class BoxoFetcherImplBlockserviceFetcherConfig
   $fetcher.BoxoFetcherFactory withReifier(
       $linking.IpldPrimeLinkingNodeReifier nr) {
     final $r = $callSync(
-        513,
+        517,
         $W()
           ..h(this)
           ..h(nr));
@@ -75,7 +75,7 @@ extension GoBoxoFetcherImplBlockserviceApi on GoBoxoFetcherImplBlockservice {
   /// Go: `var bsfetcher.DefaultPrototypeChooser func(lnk ipld.Link, lnkCtx ipld.LinkContext) (ipld.NodePrototype, error)`.
   $traversal.IpldPrimeTraversalLinkTargetNodePrototypeChooser
       get defaultPrototypeChooser {
-    final $r = $callSync(510);
+    final $r = $callSync(514);
     return $r
         .hnn($traversal.IpldPrimeTraversalLinkTargetNodePrototypeChooser.$h);
   }
