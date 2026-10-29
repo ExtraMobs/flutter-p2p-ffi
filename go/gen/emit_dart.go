@@ -1060,7 +1060,7 @@ func (e *dartEmitter) function(l *dartLib, f *fn, class string, factory bool) st
 }
 
 func (e *dartEmitter) functionBody(l *dartLib, f *fn, class string, factory bool) string {
-	if isConstObj(f.obj) { // constante: o valor do Go, sem ir ao host
+	if f.constLit != "" { // constante: o valor do Go, sem ir ao host
 		return fmt.Sprintf("  /// Go: `%s`.\n  %s get %s => %s;\n", goDoc(f.obj), constDart(f.constLit), memberName(f.obj.Name()), f.constLit)
 	}
 	if f.cast != nil { // type assertion: um handle novo, ou null

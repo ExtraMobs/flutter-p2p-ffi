@@ -154,6 +154,8 @@ type model struct {
 	deprecated map[string]string
 	// expanded: the roots that came from a "pkg.*" line, not written out
 	expanded map[string]bool
+	// platform: the constants whose value depends on the target (platform.go)
+	platform map[string]string
 }
 
 func newModel() *model {

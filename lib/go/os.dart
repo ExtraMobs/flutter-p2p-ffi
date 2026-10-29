@@ -16,7 +16,7 @@ class OsFile extends $crypto.CryptoPrivateKey
 
   /// Go: `func (*os.File).Close() error`.
   void close() {
-    $callSync(3507, $W()..h(this));
+    $callSync(3508, $W()..h(this));
   }
 }
 
@@ -141,7 +141,7 @@ class OsSyscallError extends GolangException {
 extension GoOsApi on GoOs {
   /// Go: `func os.Stat(name string) (os.FileInfo, error)`.
   $fs.IoFsFileInfo stat(String name) {
-    final $r = $callSync(3510, $W()..str(name));
+    final $r = $callSync(3514, $W()..str(name));
     return $r.hnn($fs.IoFsFileInfo.$h);
   }
 
@@ -153,14 +153,14 @@ extension GoOsApi on GoOs {
 
   /// Go: `func os.Open(name string) (*os.File, error)`.
   OsFile open(String name) {
-    final $r = $callSync(3508, $W()..str(name));
+    final $r = $callSync(3510, $W()..str(name));
     return $r.hnn(OsFile.$h);
   }
 
   /// Go: `func os.OpenFile(name string, flag int, perm os.FileMode) (*os.File, error)`.
   OsFile openFile(String name, int flag, int perm) {
     final $r = $callSync(
-        3509,
+        3511,
         $W()
           ..str(name)
           ..i64(flag)
@@ -169,7 +169,28 @@ extension GoOsApi on GoOs {
   }
 
   /// Go: `const os.DevNull untyped string`.
-  String get devNull => "NUL";
+  String get devNull {
+    final $r = $callSync(3507);
+    return $r.str();
+  }
+
+  /// Go: `const os.O_SYNC int`.
+  int get oSync {
+    final $r = $callSync(3509);
+    return $r.i64();
+  }
+
+  /// Go: `const os.PathListSeparator untyped rune`.
+  int get pathListSeparator {
+    final $r = $callSync(3512);
+    return $r.i64();
+  }
+
+  /// Go: `const os.PathSeparator untyped rune`.
+  int get pathSeparator {
+    final $r = $callSync(3513);
+    return $r.i64();
+  }
 
   /// Go: `const os.ModeAppend fs.FileMode`.
   int get modeAppend => 1073741824;
@@ -231,20 +252,11 @@ extension GoOsApi on GoOs {
   /// Go: `const os.O_RDWR int`.
   int get oRdwr => 2;
 
-  /// Go: `const os.O_SYNC int`.
-  int get oSync => 4096;
-
   /// Go: `const os.O_TRUNC int`.
   int get oTrunc => 512;
 
   /// Go: `const os.O_WRONLY int`.
   int get oWronly => 1;
-
-  /// Go: `const os.PathListSeparator untyped rune`.
-  int get pathListSeparator => 59;
-
-  /// Go: `const os.PathSeparator untyped rune`.
-  int get pathSeparator => 92;
 
   /// Go: `const os.SEEK_CUR int`.
   @Deprecated("Use io.SeekStart, io.SeekCurrent, and io.SeekEnd.")

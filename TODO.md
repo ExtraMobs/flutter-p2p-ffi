@@ -44,6 +44,13 @@ lowerCamelCase as Dart names constants and getters.
   `guard`) is thrown as its own class with the Go stack (`goStack`, `debug.Stack()` at the
   panic; WIRE.md error code 7); when the panic value is an error, it is a link of the
   chain. The service goes on, but the object the call touched should be remade.
+- **Found building for linux: constants that depend on the platform.** `os.*` brought
+  `os.DevNull`, `PathSeparator`, `PathListSeparator` and `O_SYNC`, whose values were
+  written into Dart from the machine that ran the generator (`"NUL"` on linux too). The
+  generator now type-checks the packages with files a build constraint leaves out under
+  each target (windows/amd64, linux/amd64, android/arm64 and amd64; `platform.go`): a
+  constant with different values is a getter that asks the host, and one some targets
+  lack is left out.
 - Checked on Windows: go vet, go test, gen -check, dart analyze, the suite and the 63
   lessons.
 

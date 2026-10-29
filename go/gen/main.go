@@ -16,6 +16,7 @@ import (
 	"os"
 	"path/filepath"
 	"regexp"
+	"slices"
 	"sort"
 	"strconv"
 	"strings"
@@ -124,8 +125,6 @@ type fn struct {
 	dropped  string           // a trailing variadic that does not cross, left out (Go gets none): its name and why
 }
 
-func isConstObj(o types.Object) bool { _, ok := o.(*types.Const); return ok }
-
 // outBufMethods: métodos no formato do io.Reader (o Go preenche o []byte e
 // devolve quantos bytes): no Dart recebem o tamanho e devolvem os bytes lidos.
 var outBufMethods = setOf(`Read ReadAt CtxReadFull`)
@@ -140,7 +139,7 @@ const firstID = 64
 func assignIDs(fns []*fn) uint64 {
 	var live []*fn
 	for _, f := range fns {
-		if f.why == "" && !isConstObj(f.obj) { // constantes não vão ao host
+		if f.why == "" && f.constLit == "" { // constantes não vão ao host
 			live = append(live, f)
 		}
 	}
@@ -219,6 +218,14 @@ func generate(rootsFile string) (map[string][]byte, error) {
 	}
 	m := newModel()
 	m.expanded = expanded
+	if m.platform, err = platformConsts(sortedKeys(pkgs)); err != nil {
+		return nil, err
+	}
+	for _, k := range sortedKeys(m.platform) { // roots of their own: they go to the host
+		if !slices.Contains(lines, k) {
+			lines = append(lines, k)
+		}
+	}
 	m.load = func(path string) *types.Package {
 		if p, ok := pkgs[path]; ok {
 			return p
@@ -487,6 +494,11 @@ func (m *model) resolve(pkgs map[string]*types.Package, line string) ([]*fn, err
 		case *types.Const: // constante: o valor vai direto no Dart
 			f.obj = o
 			f.results = []*tinfo{m.classify(o.Type())}
+			if why, ok := m.platform[line]; ok { // its value depends on the target: the host's
+				f.isVar, f.why = true, why
+				f.results = []*tinfo{m.classify(types.Default(o.Type()))} // untyped rune → rune
+				return []*fn{f}, nil
+			}
 			if f.constLit = dartConstLit(o); f.constLit == "" {
 				f.why = "constant of type " + o.Type().String()
 			}

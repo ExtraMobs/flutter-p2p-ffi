@@ -22,7 +22,7 @@ func emitGo(m *model, fns []*fn, errs []*goError, hash uint64) ([]byte, error) {
 	g := &goEmitter{m: m, aliases: map[string]string{}, used: map[string]bool{}, helpers: map[string]string{}}
 	var live []*fn
 	for _, f := range fns {
-		if f.why == "" && !isConstObj(f.obj) { // constantes ficam só no Dart
+		if f.why == "" && f.constLit == "" { // constantes ficam só no Dart
 			live = append(live, f)
 		}
 	}

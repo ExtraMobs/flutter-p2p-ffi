@@ -6328,7 +6328,10 @@ Omitted:
 | `func (*os.File).Close() error` | `OsFile.close` | sync |
 | `func os.Open(name string) (*os.File, error)` | `goOs.open` | sync |
 | `func os.OpenFile(name string, flag int, perm os.FileMode) (*os.File, error)` | `goOs.openFile` | sync |
-| `const os.DevNull untyped string` | `goOs.devNull` | const |
+| `const os.DevNull untyped string` | `goOs.devNull` | sync |
+| `const os.O_SYNC int` | `goOs.oSync` | sync |
+| `const os.PathListSeparator untyped rune` | `goOs.pathListSeparator` | sync |
+| `const os.PathSeparator untyped rune` | `goOs.pathSeparator` | sync |
 | `const os.ModeAppend fs.FileMode` | `goOs.modeAppend` | const |
 | `const os.ModeCharDevice fs.FileMode` | `goOs.modeCharDevice` | const |
 | `const os.ModeDevice fs.FileMode` | `goOs.modeDevice` | const |
@@ -6349,11 +6352,8 @@ Omitted:
 | `const os.O_EXCL int` | `goOs.oExcl` | const |
 | `const os.O_RDONLY int` | `goOs.oRdonly` | const |
 | `const os.O_RDWR int` | `goOs.oRdwr` | const |
-| `const os.O_SYNC int` | `goOs.oSync` | const |
 | `const os.O_TRUNC int` | `goOs.oTrunc` | const |
 | `const os.O_WRONLY int` | `goOs.oWronly` | const |
-| `const os.PathListSeparator untyped rune` | `goOs.pathListSeparator` | const |
-| `const os.PathSeparator untyped rune` | `goOs.pathSeparator` | const |
 | `const os.SEEK_CUR int` | `goOs.seekCur` | const |
 | `const os.SEEK_END int` | `goOs.seekEnd` | const |
 | `const os.SEEK_SET int` | `goOs.seekSet` | const |
@@ -6469,7 +6469,7 @@ Omitted:
 ## Adaptations (generator rules and hand-written code)
 
 - One import, `package:p2p_ffi/p2p_ffi.dart`. A package's functions, constants and variables are reached through the namespace tree: a top-level constant per module, then one getter per further segment of the package's path, lowerCamelCase as Dart names constants and getters (`github.com/ipfs/boxo/mfs` → `goBoxo.mfs.newRoot(...)`, `github.com/ipfs/go-cid` → `goCid`, `github.com/libp2p/go-libp2p-kad-dht` → `goLibp2pKadDht`, `context` → `goContext`); the module is named by the last segment of its path without `go-` and the major version, a nested module keeps the outer one's path, and the Go standard library sits beside the modules. Dart has no nested types, so a type is a top-level class named after its package's path, minus the words the Go name already starts with (`mfs.Root` → `BoxoMfsRoot`, `peer.ID` → `Libp2pCorePeerId`, `cid.Cid` → `Cid`, `context.Context` → `Context`): every name is unique in the import. The code of each package is one library under `lib/go/` (`lib/go/boxo/mfs.dart`), which adds the members to its namespace class as an extension (`GoBoxoMfsApi on GoBoxoMfs`); `lib/src/go.dart` holds the tree and exports them all, and the generator refuses two equal names, a member that hides a sub-namespace, and an `export` in a public library outside `lib/p2p_ffi.dart`.
-- A package constant is a getter of its namespace (`goMulticodec.raw`), not a Dart `const`.
+- A package constant is a getter of its namespace (`goMulticodec.raw`), not a Dart `const`. Its value is written into the Dart code, except when it is not the same on every target (`go/gen/platform.go`: windows, linux, android; `goOs.devNull`, `goOs.pathSeparator`): then the getter asks the host, which has the value of the platform that runs.
 - `context` (`goContext`, hand-written in `lib/go/context.dart`): `background`, `withCancel`, `withTimeout`, `withDeadline`; `ContextCancelFunc` is callable (`cancel()`).
 - `readerStream` (exported by `package:p2p_ffi/p2p_ffi.dart`, hand-written): any `io.Reader` handle as a `Stream<Uint8List>`, in 256 KiB pieces; cancel through the reader's context.
 - `config.Profiles` (hand-written): `goKubo.config.profiles[name]!.transform(cfg)`; in Go it is a map of functions.

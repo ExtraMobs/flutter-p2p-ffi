@@ -185,7 +185,7 @@ var (
 )
 
 // tableHash: o hash da tabela (WIRE.md, Hello), o mesmo do Dart gerado.
-const tableHash uint64 = 0x1d7fcdbef8a46385
+const tableHash uint64 = 0x84bd71b1a31a3c42
 
 // table: as funções geradas por id (WIRE.md); as escritas à mão entram no init delas.
 var table = map[uint32]entry{
@@ -3632,11 +3632,15 @@ var table = map[uint32]entry{
 	3504: {"io.ReadAll", fn3504, false},
 	3505: {"io.ReadCloser.Close", fn3505, false},
 	3506: {"os.Create", fn3506, false},
-	3507: {"os.File.Close", fn3507, false},
-	3508: {"os.Open", fn3508, false},
-	3509: {"os.OpenFile", fn3509, false},
-	3510: {"os.Stat", fn3510, false},
-	3511: {"runtime/debug.SetCrashOutput", fn3511, false},
+	3507: {"os.DevNull", fn3507, false},
+	3508: {"os.File.Close", fn3508, false},
+	3509: {"os.O_SYNC", fn3509, false},
+	3510: {"os.Open", fn3510, false},
+	3511: {"os.OpenFile", fn3511, false},
+	3512: {"os.PathListSeparator", fn3512, false},
+	3513: {"os.PathSeparator", fn3513, false},
+	3514: {"os.Stat", fn3514, false},
+	3515: {"runtime/debug.SetCrashOutput", fn3515, false},
 }
 
 // anyTypes: the types whose values cross a dynamic value as their Dart class (gen/tokens.go).
@@ -64567,8 +64571,18 @@ func fn3506(q *req, r *reader, w *writer) error {
 	return nil
 }
 
-// os.File.Close
+// os.DevNull
 func fn3507(q *req, r *reader, w *writer) error {
+	if err := r.done(); err != nil {
+		return err
+	}
+	r0 := p_os.DevNull
+	encStr[string](w, r0)
+	return nil
+}
+
+// os.File.Close
+func fn3508(q *req, r *reader, w *writer) error {
 	recv, err := decH[*p_os.File](r)
 	if err != nil {
 		return err
@@ -64582,8 +64596,18 @@ func fn3507(q *req, r *reader, w *writer) error {
 	return nil
 }
 
+// os.O_SYNC
+func fn3509(q *req, r *reader, w *writer) error {
+	if err := r.done(); err != nil {
+		return err
+	}
+	r0 := p_os.O_SYNC
+	encInt[int](w, r0)
+	return nil
+}
+
 // os.Open
-func fn3508(q *req, r *reader, w *writer) error {
+func fn3510(q *req, r *reader, w *writer) error {
 	p0, err := decStr[string](r)
 	if err != nil {
 		return err
@@ -64600,7 +64624,7 @@ func fn3508(q *req, r *reader, w *writer) error {
 }
 
 // os.OpenFile
-func fn3509(q *req, r *reader, w *writer) error {
+func fn3511(q *req, r *reader, w *writer) error {
 	p0, err := decStr[string](r)
 	if err != nil {
 		return err
@@ -64624,8 +64648,28 @@ func fn3509(q *req, r *reader, w *writer) error {
 	return nil
 }
 
+// os.PathListSeparator
+func fn3512(q *req, r *reader, w *writer) error {
+	if err := r.done(); err != nil {
+		return err
+	}
+	r0 := p_os.PathListSeparator
+	encInt[rune](w, r0)
+	return nil
+}
+
+// os.PathSeparator
+func fn3513(q *req, r *reader, w *writer) error {
+	if err := r.done(); err != nil {
+		return err
+	}
+	r0 := p_os.PathSeparator
+	encInt[rune](w, r0)
+	return nil
+}
+
 // os.Stat
-func fn3510(q *req, r *reader, w *writer) error {
+func fn3514(q *req, r *reader, w *writer) error {
 	p0, err := decStr[string](r)
 	if err != nil {
 		return err
@@ -64642,7 +64686,7 @@ func fn3510(q *req, r *reader, w *writer) error {
 }
 
 // runtime/debug.SetCrashOutput
-func fn3511(q *req, r *reader, w *writer) error {
+func fn3515(q *req, r *reader, w *writer) error {
 	p0, err := decH[*p_os.File](r)
 	if err != nil {
 		return err

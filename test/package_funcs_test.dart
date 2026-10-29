@@ -1,6 +1,7 @@
 // Package functions and value type methods without a node (0.25.0): CIDs,
 // peer IDs, multiaddrs, paths, IPNS names, keys and dag-pb links. Needs
 // `dart run tool/build.dart`.
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:p2p_ffi/p2p_ffi.dart';
@@ -127,6 +128,15 @@ void main() {
     for (final k in [sk, pk, sk2, pk2]) {
       k.release();
     }
+  });
+
+  // 0.28.0: a constant whose value depends on the target is the host's (the
+  // generator runs on one machine; os.DevNull is "NUL" only on Windows).
+  test('os: constants of the platform that runs', () {
+    final windows = Platform.isWindows;
+    expect(goOs.devNull, windows ? 'NUL' : '/dev/null');
+    expect(goOs.pathSeparator, (windows ? r'\' : '/').codeUnitAt(0));
+    expect(goOs.pathListSeparator, (windows ? ';' : ':').codeUnitAt(0));
   });
 
   test('merkledag: links of a dag-pb node through its protobuf', () {
