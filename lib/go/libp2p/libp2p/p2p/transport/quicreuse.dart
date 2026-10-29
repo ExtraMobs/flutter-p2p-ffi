@@ -4,7 +4,10 @@ library;
 
 import 'dart:async';
 
-import 'package:p2p_ffi/src/go.dart' show GoLibp2pLibp2pP2pTransportQuicreuse;
+import 'package:p2p_ffi/src/go.dart'
+    show
+        GoLibp2pLibp2pP2pTransportQuicreuse,
+        GoLibp2pLibp2pP2pTransportQuicreuseOptions;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
@@ -27,6 +30,14 @@ final class Libp2pP2pTransportQuicreuseOption extends GoOption {
 /// Go: the package-level members of `github.com/libp2p/go-libp2p/p2p/transport/quicreuse` (`go.libp2p.libp2p.p2p.transport.quicreuse`).
 extension GoLibp2pLibp2pP2pTransportQuicreuseApi
     on GoLibp2pLibp2pP2pTransportQuicreuse {
+  /// Go: the function `quicreuse.NewConnManager` as a value (a token: Go gets the function
+  /// itself, as in `libp2p.Transport(tcp.NewTCPTransport)`).
+  GoToken get newConnManagerFunc => const GoToken(14);
+}
+
+/// Go: the option constructors of `github.com/libp2p/go-libp2p/p2p/transport/quicreuse` (`go.libp2p.libp2p.p2p.transport.quicreuse.options`).
+extension GoLibp2pLibp2pP2pTransportQuicreuseOptionsApi
+    on GoLibp2pLibp2pP2pTransportQuicreuseOptions {
   /// Go: `quicreuse.DisableReuseport`.
   Libp2pP2pTransportQuicreuseOption disableReuseport() =>
       Libp2pP2pTransportQuicreuseOption.$(1, (_) {});
@@ -45,8 +56,4 @@ extension GoLibp2pLibp2pP2pTransportQuicreuseApi
   /// Go: `quicreuse.WithQlogTracerDir`.
   Libp2pP2pTransportQuicreuseOption withQlogTracerDir(String dir) =>
       Libp2pP2pTransportQuicreuseOption.$(6, (w) => w..str(dir));
-
-  /// Go: the function `quicreuse.NewConnManager` as a value (a token: Go gets the function
-  /// itself, as in `libp2p.Transport(tcp.NewTCPTransport)`).
-  GoToken get newConnManagerFunc => const GoToken(14);
 }

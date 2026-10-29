@@ -132,3 +132,33 @@ func TestConstLayer(t *testing.T) {
 		t.Errorf("nsPath = %s", got)
 	}
 }
+
+func TestMarkClasses(t *testing.T) {
+	defer clear(classMarks)
+	markClasses([][2]string{
+		{"go/grpc.dart", "BackoffConfig"}, {"go/grpc/backoff.dart", "Config"},
+		{"go/pebble/v2.dart", "WALCreateInfo"}, {"go/pebble/v2/wal.dart", "CreateInfo"},
+		{"go/encoding/gob.dart", "Decoder"}, {"go/encoding/gob.dart", "GobDecoder"},
+		{"go/errors/errorspb.dart", "EncodedErrorLeaf"}, {"go/errors/errorspb.dart", "EncodedError_Leaf"},
+		{"go/encoding/gob.dart", "Encoder"},
+	})
+	for _, c := range [][3]string{
+		{"go/grpc/backoff.dart", "Config", "GrpcBackoffConfig"},
+		{"go/grpc.dart", "BackoffConfig", "Grpc_BackoffConfig"},
+		{"go/pebble/v2/wal.dart", "CreateInfo", "PebbleV2WalCreateInfo"},
+		{"go/pebble/v2.dart", "WALCreateInfo", "PebbleV2_WalCreateInfo"},
+		{"go/encoding/gob.dart", "Decoder", "EncodingGobDecoder"},
+		{"go/encoding/gob.dart", "GobDecoder", "EncodingGob_GobDecoder"},
+		{"go/errors/errorspb.dart", "EncodedErrorLeaf", "ErrorsErrorspbEncodedErrorLeaf"},
+		{"go/errors/errorspb.dart", "EncodedError_Leaf", "ErrorsErrorspbEncodedError_Leaf"},
+		{"go/encoding/gob.dart", "Encoder", "EncodingGobEncoder"},
+	} {
+		if got := qualType(c[0], c[1]); got != c[2] {
+			t.Errorf("qualType(%s, %s) = %s, quero %s", c[0], c[1], got, c[2])
+		}
+	}
+	src := "/// Go: `grpc.BackoffConfig` (handle).\nclass Grpc_BackoffConfig extends GoHandle {\n}\n\nmixin Grpc_BackoffConfig$ on GoHandle {\n}\n"
+	if got := ignoreMarked(src); strings.Count(got, "// ignore: camel_case_types\n") != 2 || !strings.Contains(got, "(handle).\n// ignore: camel_case_types\nclass ") {
+		t.Errorf("ignoreMarked:\n%s", got)
+	}
+}

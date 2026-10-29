@@ -4,7 +4,8 @@ library;
 
 import 'dart:typed_data';
 
-import 'package:p2p_ffi/src/go.dart' show GoIpldCarV2, GoIpldCarV2Consts;
+import 'package:p2p_ffi/src/go.dart'
+    show GoIpldCarV2, GoIpldCarV2Consts, GoIpldCarV2Options;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/bytes.dart' as $bytes;
 import 'package:p2p_ffi/go/context.dart' as $context;
@@ -731,60 +732,6 @@ class CarV2ErrSizeMismatch extends GolangException {
 
 /// Go: the package-level members of `github.com/ipld/go-car/v2` (`go.ipld.car.v2`).
 extension GoIpldCarV2Api on GoIpldCarV2 {
-  /// Go: `v2.AllowDuplicatePuts`.
-  CarV2Option allowDuplicatePuts(bool allow) =>
-      CarV2Option.$(0, (w) => w..b(allow));
-
-  /// Go: `v2.MaxAllowedHeaderSize`.
-  CarV2Option maxAllowedHeaderSize(int max) =>
-      CarV2Option.$(1, (w) => w..i64(max));
-
-  /// Go: `v2.MaxAllowedSectionSize`.
-  CarV2Option maxAllowedSectionSize(int max) =>
-      CarV2Option.$(2, (w) => w..i64(max));
-
-  /// Go: `v2.MaxIndexCidSize`.
-  CarV2Option maxIndexCidSize(int s) => CarV2Option.$(3, (w) => w..i64(s));
-
-  /// Go: `v2.MaxTraversalLinks`.
-  CarV2Option maxTraversalLinks(int maxTraversalLinks) =>
-      CarV2Option.$(4, (w) => w..i64(maxTraversalLinks));
-
-  /// Go: `v2.StoreIdentityCIDs`.
-  CarV2Option storeIdentityCids(bool b) => CarV2Option.$(5, (w) => w..b(b));
-
-  /// Go: `v2.UseDataPadding`.
-  CarV2Option useDataPadding(int p) => CarV2Option.$(6, (w) => w..i64(p));
-
-  /// Go: `v2.UseIndexCodec`.
-  CarV2Option useIndexCodec(int c) => CarV2Option.$(7, (w) => w..i64(c));
-
-  /// Go: `v2.UseIndexPadding`.
-  CarV2Option useIndexPadding(int p) => CarV2Option.$(8, (w) => w..i64(p));
-
-  /// Go: `v2.UseWholeCIDs`.
-  CarV2Option useWholeCids(bool enable) =>
-      CarV2Option.$(9, (w) => w..b(enable));
-
-  /// Go: `v2.WithTraversalPrototypeChooser`.
-  CarV2Option withTraversalPrototypeChooser(
-          $traversal.IpldPrimeTraversalLinkTargetNodePrototypeChooser t) =>
-      CarV2Option.$(10, (w) => w..h(t));
-
-  /// Go: `v2.WithTrustedCAR`.
-  CarV2Option withTrustedCar(bool t) => CarV2Option.$(11, (w) => w..b(t));
-
-  /// Go: `v2.WithoutIndex`.
-  CarV2Option withoutIndex() => CarV2Option.$(12, (_) {});
-
-  /// Go: `v2.WriteAsCarV1`.
-  CarV2Option writeAsCarV1(bool asCarV1) =>
-      CarV2Option.$(13, (w) => w..b(asCarV1));
-
-  /// Go: `v2.ZeroLengthSectionAsEOF`.
-  CarV2Option zeroLengthSectionAsEof(bool enable) =>
-      CarV2Option.$(14, (w) => w..b(enable));
-
   /// Go: `func car.ApplyOptions(opt ...car.Option) car.Options`.
   CarV2Options applyOptions([List<CarV2Option> opt = const []]) {
     final $r = $callSync(1821, $W()..list(opt, (w0, e0) => w0.opt(e0)));
@@ -1001,4 +948,61 @@ extension GoIpldCarV2ConstsApi on GoIpldCarV2Consts {
 
   /// Go: `const car.PragmaSize untyped int`.
   int get pragmaSize => 11;
+}
+
+/// Go: the option constructors of `github.com/ipld/go-car/v2` (`go.ipld.car.v2.options`).
+extension GoIpldCarV2OptionsApi on GoIpldCarV2Options {
+  /// Go: `v2.AllowDuplicatePuts`.
+  CarV2Option allowDuplicatePuts(bool allow) =>
+      CarV2Option.$(0, (w) => w..b(allow));
+
+  /// Go: `v2.MaxAllowedHeaderSize`.
+  CarV2Option maxAllowedHeaderSize(int max) =>
+      CarV2Option.$(1, (w) => w..i64(max));
+
+  /// Go: `v2.MaxAllowedSectionSize`.
+  CarV2Option maxAllowedSectionSize(int max) =>
+      CarV2Option.$(2, (w) => w..i64(max));
+
+  /// Go: `v2.MaxIndexCidSize`.
+  CarV2Option maxIndexCidSize(int s) => CarV2Option.$(3, (w) => w..i64(s));
+
+  /// Go: `v2.MaxTraversalLinks`.
+  CarV2Option maxTraversalLinks(int maxTraversalLinks) =>
+      CarV2Option.$(4, (w) => w..i64(maxTraversalLinks));
+
+  /// Go: `v2.StoreIdentityCIDs`.
+  CarV2Option storeIdentityCids(bool b) => CarV2Option.$(5, (w) => w..b(b));
+
+  /// Go: `v2.UseDataPadding`.
+  CarV2Option useDataPadding(int p) => CarV2Option.$(6, (w) => w..i64(p));
+
+  /// Go: `v2.UseIndexCodec`.
+  CarV2Option useIndexCodec(int c) => CarV2Option.$(7, (w) => w..i64(c));
+
+  /// Go: `v2.UseIndexPadding`.
+  CarV2Option useIndexPadding(int p) => CarV2Option.$(8, (w) => w..i64(p));
+
+  /// Go: `v2.UseWholeCIDs`.
+  CarV2Option useWholeCids(bool enable) =>
+      CarV2Option.$(9, (w) => w..b(enable));
+
+  /// Go: `v2.WithTraversalPrototypeChooser`.
+  CarV2Option withTraversalPrototypeChooser(
+          $traversal.IpldPrimeTraversalLinkTargetNodePrototypeChooser t) =>
+      CarV2Option.$(10, (w) => w..h(t));
+
+  /// Go: `v2.WithTrustedCAR`.
+  CarV2Option withTrustedCar(bool t) => CarV2Option.$(11, (w) => w..b(t));
+
+  /// Go: `v2.WithoutIndex`.
+  CarV2Option withoutIndex() => CarV2Option.$(12, (_) {});
+
+  /// Go: `v2.WriteAsCarV1`.
+  CarV2Option writeAsCarV1(bool asCarV1) =>
+      CarV2Option.$(13, (w) => w..b(asCarV1));
+
+  /// Go: `v2.ZeroLengthSectionAsEOF`.
+  CarV2Option zeroLengthSectionAsEof(bool enable) =>
+      CarV2Option.$(14, (w) => w..b(enable));
 }

@@ -6,7 +6,10 @@ import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:p2p_ffi/src/go.dart'
-    show GoLibp2pLibp2pKadDht, GoLibp2pLibp2pKadDhtEnums;
+    show
+        GoLibp2pLibp2pKadDht,
+        GoLibp2pLibp2pKadDhtEnums,
+        GoLibp2pLibp2pKadDhtOptions;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
@@ -481,156 +484,6 @@ class Libp2pKadDhtErrReadTimeout extends GolangException {
 
 /// Go: the package-level members of `github.com/libp2p/go-libp2p-kad-dht` (`go.libp2p.libp2pKadDht`).
 extension GoLibp2pLibp2pKadDhtApi on GoLibp2pLibp2pKadDht {
-  /// Go: `go-libp2p-kad-dht.BootstrapPeers`.
-  Libp2pKadDhtOption bootstrapPeers(
-          [List<$peer.Libp2pCorePeerAddrInfo> bootstrappers = const []]) =>
-      Libp2pKadDhtOption.$(
-          1, (w) => w..list(bootstrappers, (w0, e0) => w0.dto(e0)));
-
-  /// Go: `go-libp2p-kad-dht.BucketSize`.
-  Libp2pKadDhtOption bucketSize(int bucketSize) =>
-      Libp2pKadDhtOption.$(3, (w) => w..i64(bucketSize));
-
-  /// Go: `go-libp2p-kad-dht.Concurrency`.
-  Libp2pKadDhtOption concurrency(int alpha) =>
-      Libp2pKadDhtOption.$(4, (w) => w..i64(alpha));
-
-  /// Go: `go-libp2p-kad-dht.Datastore`.
-  Libp2pKadDhtOption datastore($datastore.DatastoreBatching ds) =>
-      Libp2pKadDhtOption.$(5, (w) => w..h(ds));
-
-  /// Go: `go-libp2p-kad-dht.DisableAutoRefresh`.
-  Libp2pKadDhtOption disableAutoRefresh() => Libp2pKadDhtOption.$(6, (_) {});
-
-  /// Go: `go-libp2p-kad-dht.DisableProviders`.
-  Libp2pKadDhtOption disableProviders() => Libp2pKadDhtOption.$(7, (_) {});
-
-  /// Go: `go-libp2p-kad-dht.DisableValues`.
-  Libp2pKadDhtOption disableValues() => Libp2pKadDhtOption.$(8, (_) {});
-
-  /// Go: `go-libp2p-kad-dht.EnableOptimisticProvide`.
-  Libp2pKadDhtOption enableOptimisticProvide() =>
-      Libp2pKadDhtOption.$(9, (_) {});
-
-  /// Go: `go-libp2p-kad-dht.LookupCheckConcurrency`.
-  Libp2pKadDhtOption lookupCheckConcurrency(int n) =>
-      Libp2pKadDhtOption.$(10, (w) => w..i64(n));
-
-  /// Go: `go-libp2p-kad-dht.MaxRecordAge`.
-  Libp2pKadDhtOption maxRecordAge(Duration maxAge) =>
-      Libp2pKadDhtOption.$(11, (w) => w..i64((maxAge).inMicroseconds * 1000));
-
-  /// Go: `go-libp2p-kad-dht.Mode`.
-  Libp2pKadDhtOption mode(int m) => Libp2pKadDhtOption.$(12, (w) => w..i64(m));
-
-  /// Go: `go-libp2p-kad-dht.NamespacedValidator`.
-  Libp2pKadDhtOption namespacedValidator(
-          String ns, $libp2p_record.Libp2pRecordValidator v) =>
-      Libp2pKadDhtOption.$(
-          13,
-          (w) => w
-            ..str(ns)
-            ..h(v));
-
-  /// Go: `go-libp2p-kad-dht.OnRequestHook`.
-  Libp2pKadDhtOption onRequestHook(
-          FutureOr<void> Function(
-                  $context.Context ctx,
-                  $network.Libp2pCoreNetworkStream s,
-                  $pb.Libp2pKadDhtPbMessage req)
-              f) =>
-      Libp2pKadDhtOption.$(
-          14,
-          (w) => w
-            ..cb(
-                (r) => f(
-                    r.hnn($context.Context.$h),
-                    r.hnn($network.Libp2pCoreNetworkStream.$h),
-                    r.hnn($pb.Libp2pKadDhtPbMessage.$h)),
-                false));
-
-  /// Go: `go-libp2p-kad-dht.OptimisticProvideJobsPoolSize`.
-  Libp2pKadDhtOption optimisticProvideJobsPoolSize(int size) =>
-      Libp2pKadDhtOption.$(15, (w) => w..i64(size));
-
-  /// Go: `go-libp2p-kad-dht.ProtocolExtension`.
-  Libp2pKadDhtOption protocolExtension(String ext) =>
-      Libp2pKadDhtOption.$(16, (w) => w..str(ext));
-
-  /// Go: `go-libp2p-kad-dht.ProtocolPrefix`.
-  Libp2pKadDhtOption protocolPrefix(String prefix) =>
-      Libp2pKadDhtOption.$(17, (w) => w..str(prefix));
-
-  /// Go: `go-libp2p-kad-dht.ProviderDatastore`.
-  Libp2pKadDhtOption providerDatastore($datastore.DatastoreBatching dstore) =>
-      Libp2pKadDhtOption.$(18, (w) => w..h(dstore));
-
-  /// Go: `go-libp2p-kad-dht.ProviderManagerOpts`.
-  Libp2pKadDhtOption providerManagerOpts(
-          [List<$records.Libp2pKadDhtRecordsOption> opts = const []]) =>
-      Libp2pKadDhtOption.$(19, (w) => w..list(opts, (w0, e0) => w0.opt(e0)));
-
-  /// Go: `go-libp2p-kad-dht.QueryFilter`.
-  Libp2pKadDhtOption queryFilter(
-          FutureOr<bool> Function(Object? dht, $peer.Libp2pCorePeerAddrInfo ai)
-              filter) =>
-      Libp2pKadDhtOption.$(
-          20,
-          (w) => w
-            ..cb(
-                (r) => filter(r.any(),
-                    r.p() ? $peer.Libp2pCorePeerAddrInfo.$dec(r) : $nil()),
-                true));
-
-  /// Go: `go-libp2p-kad-dht.Resiliency`.
-  Libp2pKadDhtOption resiliency(int beta) =>
-      Libp2pKadDhtOption.$(21, (w) => w..i64(beta));
-
-  /// Go: `go-libp2p-kad-dht.RoutingTableFilter`.
-  Libp2pKadDhtOption routingTableFilter(
-          FutureOr<bool> Function(Object? dht, $peer.Libp2pCorePeerId p)
-              filter) =>
-      Libp2pKadDhtOption.$(
-          22,
-          (w) => w
-            ..cb(
-                (r) => filter(
-                    r.any(), r.p() ? $peer.Libp2pCorePeerId(r.str()) : $nil()),
-                true));
-
-  /// Go: `go-libp2p-kad-dht.RoutingTableLatencyTolerance`.
-  Libp2pKadDhtOption routingTableLatencyTolerance(Duration latency) =>
-      Libp2pKadDhtOption.$(23, (w) => w..i64((latency).inMicroseconds * 1000));
-
-  /// Go: `go-libp2p-kad-dht.RoutingTablePeerDiversityFilter`.
-  Libp2pKadDhtOption routingTablePeerDiversityFilter(
-          $peerdiversity.Libp2pKbucketPeerdiversityPeerIpGroupFilter pg) =>
-      Libp2pKadDhtOption.$(24, (w) => w..h(pg));
-
-  /// Go: `go-libp2p-kad-dht.RoutingTableRefreshPeriod`.
-  Libp2pKadDhtOption routingTableRefreshPeriod(Duration period) =>
-      Libp2pKadDhtOption.$(25, (w) => w..i64((period).inMicroseconds * 1000));
-
-  /// Go: `go-libp2p-kad-dht.RoutingTableRefreshQueryTimeout`.
-  Libp2pKadDhtOption routingTableRefreshQueryTimeout(Duration timeout) =>
-      Libp2pKadDhtOption.$(26, (w) => w..i64((timeout).inMicroseconds * 1000));
-
-  /// Go: `go-libp2p-kad-dht.V1ProtocolOverride`.
-  Libp2pKadDhtOption v1ProtocolOverride(String proto) =>
-      Libp2pKadDhtOption.$(27, (w) => w..str(proto));
-
-  /// Go: `go-libp2p-kad-dht.Validator`.
-  Libp2pKadDhtOption validator($libp2p_record.Libp2pRecordValidator v) =>
-      Libp2pKadDhtOption.$(28, (w) => w..h(v));
-
-  /// Go: `go-libp2p-kad-dht.ValueDatastore`.
-  Libp2pKadDhtOption valueDatastore($datastore.DatastoreBatching dstore) =>
-      Libp2pKadDhtOption.$(29, (w) => w..h(dstore));
-
-  /// Go: `go-libp2p-kad-dht.ValueGCInterval`.
-  Libp2pKadDhtOption valueGcInterval(Duration interval) =>
-      Libp2pKadDhtOption.$(30, (w) => w..i64((interval).inMicroseconds * 1000));
-
   /// Go: `var dht.DefaultBootstrapPeers []multiaddr.Multiaddr`.
   List<$multiaddr.Multiaddr> get defaultBootstrapPeers {
     final $r = $callSync(2199);
@@ -827,4 +680,157 @@ extension GoLibp2pLibp2pKadDhtEnumsApi on GoLibp2pLibp2pKadDhtEnums {
 
   /// Go: `const dht.ModeServer dht.ModeOpt`.
   int get modeServer => 2;
+}
+
+/// Go: the option constructors of `github.com/libp2p/go-libp2p-kad-dht` (`go.libp2p.libp2pKadDht.options`).
+extension GoLibp2pLibp2pKadDhtOptionsApi on GoLibp2pLibp2pKadDhtOptions {
+  /// Go: `go-libp2p-kad-dht.BootstrapPeers`.
+  Libp2pKadDhtOption bootstrapPeers(
+          [List<$peer.Libp2pCorePeerAddrInfo> bootstrappers = const []]) =>
+      Libp2pKadDhtOption.$(
+          1, (w) => w..list(bootstrappers, (w0, e0) => w0.dto(e0)));
+
+  /// Go: `go-libp2p-kad-dht.BucketSize`.
+  Libp2pKadDhtOption bucketSize(int bucketSize) =>
+      Libp2pKadDhtOption.$(3, (w) => w..i64(bucketSize));
+
+  /// Go: `go-libp2p-kad-dht.Concurrency`.
+  Libp2pKadDhtOption concurrency(int alpha) =>
+      Libp2pKadDhtOption.$(4, (w) => w..i64(alpha));
+
+  /// Go: `go-libp2p-kad-dht.Datastore`.
+  Libp2pKadDhtOption datastore($datastore.DatastoreBatching ds) =>
+      Libp2pKadDhtOption.$(5, (w) => w..h(ds));
+
+  /// Go: `go-libp2p-kad-dht.DisableAutoRefresh`.
+  Libp2pKadDhtOption disableAutoRefresh() => Libp2pKadDhtOption.$(6, (_) {});
+
+  /// Go: `go-libp2p-kad-dht.DisableProviders`.
+  Libp2pKadDhtOption disableProviders() => Libp2pKadDhtOption.$(7, (_) {});
+
+  /// Go: `go-libp2p-kad-dht.DisableValues`.
+  Libp2pKadDhtOption disableValues() => Libp2pKadDhtOption.$(8, (_) {});
+
+  /// Go: `go-libp2p-kad-dht.EnableOptimisticProvide`.
+  Libp2pKadDhtOption enableOptimisticProvide() =>
+      Libp2pKadDhtOption.$(9, (_) {});
+
+  /// Go: `go-libp2p-kad-dht.LookupCheckConcurrency`.
+  Libp2pKadDhtOption lookupCheckConcurrency(int n) =>
+      Libp2pKadDhtOption.$(10, (w) => w..i64(n));
+
+  /// Go: `go-libp2p-kad-dht.MaxRecordAge`.
+  Libp2pKadDhtOption maxRecordAge(Duration maxAge) =>
+      Libp2pKadDhtOption.$(11, (w) => w..i64((maxAge).inMicroseconds * 1000));
+
+  /// Go: `go-libp2p-kad-dht.Mode`.
+  Libp2pKadDhtOption mode(int m) => Libp2pKadDhtOption.$(12, (w) => w..i64(m));
+
+  /// Go: `go-libp2p-kad-dht.NamespacedValidator`.
+  Libp2pKadDhtOption namespacedValidator(
+          String ns, $libp2p_record.Libp2pRecordValidator v) =>
+      Libp2pKadDhtOption.$(
+          13,
+          (w) => w
+            ..str(ns)
+            ..h(v));
+
+  /// Go: `go-libp2p-kad-dht.OnRequestHook`.
+  Libp2pKadDhtOption onRequestHook(
+          FutureOr<void> Function(
+                  $context.Context ctx,
+                  $network.Libp2pCoreNetworkStream s,
+                  $pb.Libp2pKadDhtPbMessage req)
+              f) =>
+      Libp2pKadDhtOption.$(
+          14,
+          (w) => w
+            ..cb(
+                (r) => f(
+                    r.hnn($context.Context.$h),
+                    r.hnn($network.Libp2pCoreNetworkStream.$h),
+                    r.hnn($pb.Libp2pKadDhtPbMessage.$h)),
+                false));
+
+  /// Go: `go-libp2p-kad-dht.OptimisticProvideJobsPoolSize`.
+  Libp2pKadDhtOption optimisticProvideJobsPoolSize(int size) =>
+      Libp2pKadDhtOption.$(15, (w) => w..i64(size));
+
+  /// Go: `go-libp2p-kad-dht.ProtocolExtension`.
+  Libp2pKadDhtOption protocolExtension(String ext) =>
+      Libp2pKadDhtOption.$(16, (w) => w..str(ext));
+
+  /// Go: `go-libp2p-kad-dht.ProtocolPrefix`.
+  Libp2pKadDhtOption protocolPrefix(String prefix) =>
+      Libp2pKadDhtOption.$(17, (w) => w..str(prefix));
+
+  /// Go: `go-libp2p-kad-dht.ProviderDatastore`.
+  Libp2pKadDhtOption providerDatastore($datastore.DatastoreBatching dstore) =>
+      Libp2pKadDhtOption.$(18, (w) => w..h(dstore));
+
+  /// Go: `go-libp2p-kad-dht.ProviderManagerOpts`.
+  Libp2pKadDhtOption providerManagerOpts(
+          [List<$records.Libp2pKadDhtRecordsOption> opts = const []]) =>
+      Libp2pKadDhtOption.$(19, (w) => w..list(opts, (w0, e0) => w0.opt(e0)));
+
+  /// Go: `go-libp2p-kad-dht.QueryFilter`.
+  Libp2pKadDhtOption queryFilter(
+          FutureOr<bool> Function(Object? dht, $peer.Libp2pCorePeerAddrInfo ai)
+              filter) =>
+      Libp2pKadDhtOption.$(
+          20,
+          (w) => w
+            ..cb(
+                (r) => filter(r.any(),
+                    r.p() ? $peer.Libp2pCorePeerAddrInfo.$dec(r) : $nil()),
+                true));
+
+  /// Go: `go-libp2p-kad-dht.Resiliency`.
+  Libp2pKadDhtOption resiliency(int beta) =>
+      Libp2pKadDhtOption.$(21, (w) => w..i64(beta));
+
+  /// Go: `go-libp2p-kad-dht.RoutingTableFilter`.
+  Libp2pKadDhtOption routingTableFilter(
+          FutureOr<bool> Function(Object? dht, $peer.Libp2pCorePeerId p)
+              filter) =>
+      Libp2pKadDhtOption.$(
+          22,
+          (w) => w
+            ..cb(
+                (r) => filter(
+                    r.any(), r.p() ? $peer.Libp2pCorePeerId(r.str()) : $nil()),
+                true));
+
+  /// Go: `go-libp2p-kad-dht.RoutingTableLatencyTolerance`.
+  Libp2pKadDhtOption routingTableLatencyTolerance(Duration latency) =>
+      Libp2pKadDhtOption.$(23, (w) => w..i64((latency).inMicroseconds * 1000));
+
+  /// Go: `go-libp2p-kad-dht.RoutingTablePeerDiversityFilter`.
+  Libp2pKadDhtOption routingTablePeerDiversityFilter(
+          $peerdiversity.Libp2pKbucketPeerdiversityPeerIpGroupFilter pg) =>
+      Libp2pKadDhtOption.$(24, (w) => w..h(pg));
+
+  /// Go: `go-libp2p-kad-dht.RoutingTableRefreshPeriod`.
+  Libp2pKadDhtOption routingTableRefreshPeriod(Duration period) =>
+      Libp2pKadDhtOption.$(25, (w) => w..i64((period).inMicroseconds * 1000));
+
+  /// Go: `go-libp2p-kad-dht.RoutingTableRefreshQueryTimeout`.
+  Libp2pKadDhtOption routingTableRefreshQueryTimeout(Duration timeout) =>
+      Libp2pKadDhtOption.$(26, (w) => w..i64((timeout).inMicroseconds * 1000));
+
+  /// Go: `go-libp2p-kad-dht.V1ProtocolOverride`.
+  Libp2pKadDhtOption v1ProtocolOverride(String proto) =>
+      Libp2pKadDhtOption.$(27, (w) => w..str(proto));
+
+  /// Go: `go-libp2p-kad-dht.Validator`.
+  Libp2pKadDhtOption validator($libp2p_record.Libp2pRecordValidator v) =>
+      Libp2pKadDhtOption.$(28, (w) => w..h(v));
+
+  /// Go: `go-libp2p-kad-dht.ValueDatastore`.
+  Libp2pKadDhtOption valueDatastore($datastore.DatastoreBatching dstore) =>
+      Libp2pKadDhtOption.$(29, (w) => w..h(dstore));
+
+  /// Go: `go-libp2p-kad-dht.ValueGCInterval`.
+  Libp2pKadDhtOption valueGcInterval(Duration interval) =>
+      Libp2pKadDhtOption.$(30, (w) => w..i64((interval).inMicroseconds * 1000));
 }

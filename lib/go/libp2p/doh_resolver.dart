@@ -2,7 +2,7 @@
 // Go: github.com/libp2p/go-doh-resolver
 library;
 
-import 'package:p2p_ffi/src/go.dart' show GoLibp2pDohResolver;
+import 'package:p2p_ffi/src/go.dart' show GoLibp2pDohResolverOptions;
 import 'package:p2p_ffi/src/runtime.dart';
 
 /// Go: `doh.Option` (functional option; constructors in the package).
@@ -10,8 +10,8 @@ final class DohResolverOption extends GoOption {
   DohResolverOption.$(super.$i, super.$a);
 }
 
-/// Go: the package-level members of `github.com/libp2p/go-doh-resolver` (`go.libp2p.dohResolver`).
-extension GoLibp2pDohResolverApi on GoLibp2pDohResolver {
+/// Go: the option constructors of `github.com/libp2p/go-doh-resolver` (`go.libp2p.dohResolver.options`).
+extension GoLibp2pDohResolverOptionsApi on GoLibp2pDohResolverOptions {
   /// Go: `go-doh-resolver.WithCacheDisabled`.
   DohResolverOption withCacheDisabled() => DohResolverOption.$(0, (_) {});
 

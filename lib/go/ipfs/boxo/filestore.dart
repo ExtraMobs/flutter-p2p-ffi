@@ -5,7 +5,10 @@ library;
 import 'dart:async';
 
 import 'package:p2p_ffi/src/go.dart'
-    show GoIpfsBoxoFilestore, GoIpfsBoxoFilestoreEnums;
+    show
+        GoIpfsBoxoFilestore,
+        GoIpfsBoxoFilestoreEnums,
+        GoIpfsBoxoFilestoreOptions;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
@@ -366,9 +369,6 @@ class BoxoFilestoreErrUrlstoreNotEnabled extends GolangException {
 
 /// Go: the package-level members of `github.com/ipfs/boxo/filestore` (`go.ipfs.boxo.filestore`).
 extension GoIpfsBoxoFilestoreApi on GoIpfsBoxoFilestore {
-  /// Go: `filestore.WithMMapReader`.
-  BoxoFilestoreOption withMMapReader() => BoxoFilestoreOption.$(0, (_) {});
-
   /// Go: `var filestore.FilestorePrefix datastore.Key`.
   $datastore.DatastoreKey get filestorePrefix {
     final $r = $callSync(613);
@@ -429,4 +429,10 @@ extension GoIpfsBoxoFilestoreEnumsApi on GoIpfsBoxoFilestoreEnums {
 
   /// Go: `const filestore.StatusOtherError filestore.Status`.
   int get statusOtherError => 20;
+}
+
+/// Go: the option constructors of `github.com/ipfs/boxo/filestore` (`go.ipfs.boxo.filestore.options`).
+extension GoIpfsBoxoFilestoreOptionsApi on GoIpfsBoxoFilestoreOptions {
+  /// Go: `filestore.WithMMapReader`.
+  BoxoFilestoreOption withMMapReader() => BoxoFilestoreOption.$(0, (_) {});
 }

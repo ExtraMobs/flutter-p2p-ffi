@@ -6,7 +6,8 @@ import 'package:p2p_ffi/src/go.dart'
     show
         GoLibp2pLibp2pP2pProtocolHolepunch,
         GoLibp2pLibp2pP2pProtocolHolepunchConsts,
-        GoLibp2pLibp2pP2pProtocolHolepunchEnums;
+        GoLibp2pLibp2pP2pProtocolHolepunchEnums,
+        GoLibp2pLibp2pP2pProtocolHolepunchOptions;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
@@ -204,41 +205,6 @@ class Libp2pP2pProtocolHolepunchErrHolePunchActive extends GolangException {
 /// Go: the package-level members of `github.com/libp2p/go-libp2p/p2p/protocol/holepunch` (`go.libp2p.libp2p.p2p.protocol.holepunch`).
 extension GoLibp2pLibp2pP2pProtocolHolepunchApi
     on GoLibp2pLibp2pP2pProtocolHolepunch {
-  /// Go: `holepunch.DirectDialTimeout`.
-  Libp2pP2pProtocolHolepunchOption directDialTimeout(Duration timeout) =>
-      Libp2pP2pProtocolHolepunchOption.$(
-          0, (w) => w..i64((timeout).inMicroseconds * 1000));
-
-  /// Go: `holepunch.WithAddrFilter`.
-  Libp2pP2pProtocolHolepunchOption withAddrFilter(
-          Libp2pP2pProtocolHolepunchAddrFilter f) =>
-      Libp2pP2pProtocolHolepunchOption.$(1, (w) => w..h(f));
-
-  /// Go: `holepunch.WithMetricsAndEventTracer`.
-  Libp2pP2pProtocolHolepunchOption withMetricsAndEventTracer(
-          Libp2pP2pProtocolHolepunchMetricsTracer mt,
-          Libp2pP2pProtocolHolepunchEventTracer et) =>
-      Libp2pP2pProtocolHolepunchOption.$(
-          2,
-          (w) => w
-            ..h(mt)
-            ..h(et));
-
-  /// Go: `holepunch.WithMetricsTracer`.
-  Libp2pP2pProtocolHolepunchOption withMetricsTracer(
-          Libp2pP2pProtocolHolepunchMetricsTracer mt) =>
-      Libp2pP2pProtocolHolepunchOption.$(3, (w) => w..h(mt));
-
-  /// Go: `holepunch.WithRegisterer`.
-  Libp2pP2pProtocolHolepunchMetricsTracerOption withRegisterer(
-          $prometheus.ClientGolangPrometheusRegisterer reg) =>
-      Libp2pP2pProtocolHolepunchMetricsTracerOption.$(0, (w) => w..h(reg));
-
-  /// Go: `holepunch.WithTracer`.
-  Libp2pP2pProtocolHolepunchOption withTracer(
-          Libp2pP2pProtocolHolepunchEventTracer et) =>
-      Libp2pP2pProtocolHolepunchOption.$(4, (w) => w..h(et));
-
   /// Go: `var holepunch.StreamTimeout time.Duration`.
   Duration get streamTimeout {
     final $r = $callSync(3353);
@@ -273,4 +239,43 @@ extension GoLibp2pLibp2pP2pProtocolHolepunchEnumsApi
     on GoLibp2pLibp2pP2pProtocolHolepunchEnums {
   /// Go: `const holepunch.Protocol protocol.ID`.
   String get protocol => "/libp2p/dcutr";
+}
+
+/// Go: the option constructors of `github.com/libp2p/go-libp2p/p2p/protocol/holepunch` (`go.libp2p.libp2p.p2p.protocol.holepunch.options`).
+extension GoLibp2pLibp2pP2pProtocolHolepunchOptionsApi
+    on GoLibp2pLibp2pP2pProtocolHolepunchOptions {
+  /// Go: `holepunch.DirectDialTimeout`.
+  Libp2pP2pProtocolHolepunchOption directDialTimeout(Duration timeout) =>
+      Libp2pP2pProtocolHolepunchOption.$(
+          0, (w) => w..i64((timeout).inMicroseconds * 1000));
+
+  /// Go: `holepunch.WithAddrFilter`.
+  Libp2pP2pProtocolHolepunchOption withAddrFilter(
+          Libp2pP2pProtocolHolepunchAddrFilter f) =>
+      Libp2pP2pProtocolHolepunchOption.$(1, (w) => w..h(f));
+
+  /// Go: `holepunch.WithMetricsAndEventTracer`.
+  Libp2pP2pProtocolHolepunchOption withMetricsAndEventTracer(
+          Libp2pP2pProtocolHolepunchMetricsTracer mt,
+          Libp2pP2pProtocolHolepunchEventTracer et) =>
+      Libp2pP2pProtocolHolepunchOption.$(
+          2,
+          (w) => w
+            ..h(mt)
+            ..h(et));
+
+  /// Go: `holepunch.WithMetricsTracer`.
+  Libp2pP2pProtocolHolepunchOption withMetricsTracer(
+          Libp2pP2pProtocolHolepunchMetricsTracer mt) =>
+      Libp2pP2pProtocolHolepunchOption.$(3, (w) => w..h(mt));
+
+  /// Go: `holepunch.WithRegisterer`.
+  Libp2pP2pProtocolHolepunchMetricsTracerOption withRegisterer(
+          $prometheus.ClientGolangPrometheusRegisterer reg) =>
+      Libp2pP2pProtocolHolepunchMetricsTracerOption.$(0, (w) => w..h(reg));
+
+  /// Go: `holepunch.WithTracer`.
+  Libp2pP2pProtocolHolepunchOption withTracer(
+          Libp2pP2pProtocolHolepunchEventTracer et) =>
+      Libp2pP2pProtocolHolepunchOption.$(4, (w) => w..h(et));
 }

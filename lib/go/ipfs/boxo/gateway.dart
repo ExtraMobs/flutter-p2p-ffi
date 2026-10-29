@@ -6,7 +6,11 @@ import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:p2p_ffi/src/go.dart'
-    show GoIpfsBoxoGateway, GoIpfsBoxoGatewayConsts, GoIpfsBoxoGatewayEnums;
+    show
+        GoIpfsBoxoGateway,
+        GoIpfsBoxoGatewayConsts,
+        GoIpfsBoxoGatewayEnums,
+        GoIpfsBoxoGatewayOptions;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
@@ -1066,27 +1070,6 @@ class BoxoGatewayErrorStatusCode extends GolangException {
 
 /// Go: the package-level members of `github.com/ipfs/boxo/gateway` (`go.ipfs.boxo.gateway`).
 extension GoIpfsBoxoGatewayApi on GoIpfsBoxoGateway {
-  /// Go: `gateway.WithGetBlockTimeout`.
-  BoxoGatewayBackendOption withGetBlockTimeout(Duration dur) =>
-      BoxoGatewayBackendOption.$(0, (w) => w..i64((dur).inMicroseconds * 1000));
-
-  /// Go: `gateway.WithMaxTraversalDepth`.
-  BoxoGatewayBackendOption withMaxTraversalDepth(int depth) =>
-      BoxoGatewayBackendOption.$(1, (w) => w..i64(depth));
-
-  /// Go: `gateway.WithNameSystem`.
-  BoxoGatewayBackendOption withNameSystem($namesys.BoxoNamesysNameSystem ns) =>
-      BoxoGatewayBackendOption.$(2, (w) => w..h(ns));
-
-  /// Go: `gateway.WithResolver`.
-  BoxoGatewayBackendOption withResolver($resolver.BoxoPathResolver r) =>
-      BoxoGatewayBackendOption.$(4, (w) => w..h(r));
-
-  /// Go: `gateway.WithValueStore`.
-  BoxoGatewayBackendOption withValueStore(
-          $routing.Libp2pCoreRoutingValueStore vs) =>
-      BoxoGatewayBackendOption.$(5, (w) => w..h(vs));
-
   /// Go: `var gateway.EmptyIdentityCID cid.Cid`.
   $cid.Cid get emptyIdentityCid {
     final $r = $callSync(641);
@@ -1346,4 +1329,28 @@ extension GoIpfsBoxoGatewayEnumsApi on GoIpfsBoxoGatewayEnums {
 
   /// Go: `const gateway.SubdomainHostnameKey gateway.RequestContextKey`.
   String get subdomainHostnameKey => "subdomain-hostname";
+}
+
+/// Go: the option constructors of `github.com/ipfs/boxo/gateway` (`go.ipfs.boxo.gateway.options`).
+extension GoIpfsBoxoGatewayOptionsApi on GoIpfsBoxoGatewayOptions {
+  /// Go: `gateway.WithGetBlockTimeout`.
+  BoxoGatewayBackendOption withGetBlockTimeout(Duration dur) =>
+      BoxoGatewayBackendOption.$(0, (w) => w..i64((dur).inMicroseconds * 1000));
+
+  /// Go: `gateway.WithMaxTraversalDepth`.
+  BoxoGatewayBackendOption withMaxTraversalDepth(int depth) =>
+      BoxoGatewayBackendOption.$(1, (w) => w..i64(depth));
+
+  /// Go: `gateway.WithNameSystem`.
+  BoxoGatewayBackendOption withNameSystem($namesys.BoxoNamesysNameSystem ns) =>
+      BoxoGatewayBackendOption.$(2, (w) => w..h(ns));
+
+  /// Go: `gateway.WithResolver`.
+  BoxoGatewayBackendOption withResolver($resolver.BoxoPathResolver r) =>
+      BoxoGatewayBackendOption.$(4, (w) => w..h(r));
+
+  /// Go: `gateway.WithValueStore`.
+  BoxoGatewayBackendOption withValueStore(
+          $routing.Libp2pCoreRoutingValueStore vs) =>
+      BoxoGatewayBackendOption.$(5, (w) => w..h(vs));
 }

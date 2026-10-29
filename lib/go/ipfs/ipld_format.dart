@@ -5,7 +5,8 @@ library;
 import 'dart:async';
 import 'dart:typed_data';
 
-import 'package:p2p_ffi/src/go.dart' show GoIpfsIpldFormat;
+import 'package:p2p_ffi/src/go.dart'
+    show GoIpfsIpldFormat, GoIpfsIpldFormatOptions;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
@@ -902,14 +903,6 @@ class IpldFormatErrNotCommited extends GolangException {
 
 /// Go: the package-level members of `github.com/ipfs/go-ipld-format` (`go.ipfs.ipldFormat`).
 extension GoIpfsIpldFormatApi on GoIpfsIpldFormat {
-  /// Go: `go-ipld-format.MaxNodesBatchOption`.
-  IpldFormatBatchOption maxNodesBatchOption(int num$) =>
-      IpldFormatBatchOption.$(0, (w) => w..i64(num$));
-
-  /// Go: `go-ipld-format.MaxSizeBatchOption`.
-  IpldFormatBatchOption maxSizeBatchOption(int size) =>
-      IpldFormatBatchOption.$(1, (w) => w..i64(size));
-
   /// Go: `func format.Copy(ctx context.Context, from format.DAGService, to format.DAGService, root cid.Cid) error`.
   ///
   /// Asynchronous: runs in a goroutine of the service.
@@ -1038,4 +1031,15 @@ extension GoIpfsIpldFormatApi on GoIpfsIpldFormat {
           ..h(root));
     return $r.hnn(IpldFormatWalker.$h);
   }
+}
+
+/// Go: the option constructors of `github.com/ipfs/go-ipld-format` (`go.ipfs.ipldFormat.options`).
+extension GoIpfsIpldFormatOptionsApi on GoIpfsIpldFormatOptions {
+  /// Go: `go-ipld-format.MaxNodesBatchOption`.
+  IpldFormatBatchOption maxNodesBatchOption(int num$) =>
+      IpldFormatBatchOption.$(0, (w) => w..i64(num$));
+
+  /// Go: `go-ipld-format.MaxSizeBatchOption`.
+  IpldFormatBatchOption maxSizeBatchOption(int size) =>
+      IpldFormatBatchOption.$(1, (w) => w..i64(size));
 }

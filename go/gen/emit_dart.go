@@ -25,7 +25,7 @@ type dartLib struct {
 	bytes   bool     // usa Uint8List
 	async   bool     // usa StreamSink (dart:async)
 	ns      bool     // has members: an extension on its namespace class (lib/src/go.dart)
-	layers  []string // the constant layers it has (consts, enums): an extension on each
+	layers  []string // the layers it has (consts, enums, options): an extension on each
 }
 
 type dclass struct {
@@ -149,6 +149,13 @@ func emitDart(m *model, fns []*fn, hash uint64, more func(*dartEmitter)) (map[st
 			l.funcs = append(l.funcs, f)
 		}
 	}
+	var classes [][2]string
+	for _, l := range e.libs {
+		for _, c := range l.classes {
+			classes = append(classes, [2]string{l.path, classGoName(c.t)})
+		}
+	}
+	markClasses(classes)
 	e.linkInterfaces()
 	e.linkConcrete()
 	e.linkMixins()
@@ -400,11 +407,15 @@ func (e *dartEmitter) imp(from *dartLib, uri string) string {
 
 // className: the Dart class of [t], named after its library (qualType).
 func className(m *model, t *tinfo) string {
-	path := dartPath(m.home(t.named.Obj().Pkg()).Path())
+	return qualType(dartPath(m.home(t.named.Obj().Pkg()).Path()), classGoName(t))
+}
+
+// classGoName: the Go name a class is named after.
+func classGoName(t *tinfo) string {
 	if t.k == kValue {
-		return qualType(path, t.val.dartClass)
+		return t.val.dartClass
 	}
-	return qualType(path, t.named.Obj().Name())
+	return t.named.Obj().Name()
 }
 
 func basicDart(t *tinfo) string {
@@ -622,8 +633,8 @@ func (e *dartEmitter) body(l *dartLib) string {
 	for _, k := range sortedKeys(l.classes) {
 		body.WriteString(e.class(l, l.classes[k]))
 	}
-	members := e.holders(l, &body)
-	layered := map[string][]string{}
+	members, ctors := e.holders(l, &body)
+	layered := map[string][]string{"options": ctors}
 	for _, f := range l.funcs {
 		if layer := constLayer(f.obj); layer != "" {
 			layered[layer] = append(layered[layer], e.function(l, f, "", false))
@@ -641,10 +652,10 @@ func (e *dartEmitter) body(l *dartLib) string {
 		l.ns = true
 	}
 	l.layers = nil
-	for _, layer := range constLayers {
+	for _, layer := range layers {
 		if ms := layered[layer]; len(ms) > 0 {
 			ns := nsClass(layerPath(l.path, layer))
-			fmt.Fprintf(&body, "/// Go: the %s of `%s` (`%s`).\nextension %sApi on %s {\n%s}\n", constLayerDoc[layer], l.goPath, nsPath(layerPath(l.path, layer)), ns, ns, strings.Join(ms, "\n"))
+			fmt.Fprintf(&body, "/// Go: the %s of `%s` (`%s`).\nextension %sApi on %s {\n%s}\n", layerDoc[layer], l.goPath, nsPath(layerPath(l.path, layer)), ns, ns, strings.Join(ms, "\n"))
 			l.layers = append(l.layers, layer)
 		}
 	}
@@ -719,7 +730,7 @@ func (e *dartEmitter) emitLib(l *dartLib) string {
 }
 
 // nsImport: the import of the library's namespace classes (its own, when it
-// has members, and its constant layers').
+// has members, and its layers').
 func nsImport(l *dartLib) string {
 	var show []string
 	if l.ns {
@@ -736,7 +747,19 @@ func (e *dartEmitter) class(l *dartLib, c *dclass) string {
 	if c.t.named != nil {
 		msg = e.m.deprecated[depKey(c.t.named.Obj())]
 	}
-	return deprecate(e.classBody(l, c), msg)
+	return ignoreMarked(deprecate(e.classBody(l, c), msg))
+}
+
+// ignoreMarked: a marked class (classMarks, Grpc_BackoffConfig) and its mixin
+// are declared under `// ignore: camel_case_types`.
+func ignoreMarked(src string) string {
+	lines := strings.SplitAfter(src, "\n")
+	for i, line := range lines {
+		if m := declRE.FindStringSubmatch(line); m != nil && strings.Contains(m[1], "_") {
+			lines[i] = "// ignore: camel_case_types\n" + line
+		}
+	}
+	return strings.Join(lines, "")
 }
 
 func (e *dartEmitter) classBody(l *dartLib, c *dclass) string {
@@ -969,8 +992,9 @@ func isU64(t types.Type) bool {
 }
 
 // holders: as variáveis de opções do pacote (options.Unixfs, options.Pin.Ls...),
-// com os construtores das opções usadas.
-func (e *dartEmitter) holders(l *dartLib, b *strings.Builder) (members []string) {
+// com os construtores das opções usadas ([members]), e as funções e variáveis
+// do pacote que são opções ([ctors], a camada options).
+func (e *dartEmitter) holders(l *dartLib, b *strings.Builder) (members, ctors []string) {
 	type node struct {
 		kids  map[string]*node
 		ctors []string
@@ -1071,7 +1095,7 @@ func (e *dartEmitter) holders(l *dartLib, b *strings.Builder) (members []string)
 		emit([]string{k}, root.kids[k])
 	}
 	sort.Strings(root.ctors)
-	return append(members, root.ctors...) // the package's functions: members of its namespace
+	return members, root.ctors
 }
 
 // function emite uma função de nível de pacote, um método (inClass) ou uma

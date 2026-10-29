@@ -3,7 +3,11 @@
 library;
 
 import 'package:p2p_ffi/src/go.dart'
-    show GoIpfsBoxoNamesys, GoIpfsBoxoNamesysConsts, GoIpfsBoxoNamesysEnums;
+    show
+        GoIpfsBoxoNamesys,
+        GoIpfsBoxoNamesysConsts,
+        GoIpfsBoxoNamesysEnums,
+        GoIpfsBoxoNamesysOptions;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
@@ -465,58 +469,6 @@ class BoxoNamesysErrResolveRecursion extends GolangException {
 
 /// Go: the package-level members of `github.com/ipfs/boxo/namesys` (`go.ipfs.boxo.namesys`).
 extension GoIpfsBoxoNamesysApi on GoIpfsBoxoNamesys {
-  /// Go: `namesys.PublishWithEOL`.
-  BoxoNamesysPublishOption publishWithEol(DateTime eol) =>
-      BoxoNamesysPublishOption.$(0, (w) => w..time(eol));
-
-  /// Go: `namesys.PublishWithIPNSOption`.
-  BoxoNamesysPublishOption publishWithIpnsOption($ipns.BoxoIpnsOption option) =>
-      BoxoNamesysPublishOption.$(
-          1, (w) => w..list([option], (w0, e0) => w0.opt(e0)));
-
-  /// Go: `namesys.PublishWithSequence`.
-  BoxoNamesysPublishOption publishWithSequence(int seq) =>
-      BoxoNamesysPublishOption.$(2, (w) => w..i64(seq));
-
-  /// Go: `namesys.PublishWithTTL`.
-  BoxoNamesysPublishOption publishWithTtl(Duration ttl) =>
-      BoxoNamesysPublishOption.$(3, (w) => w..i64((ttl).inMicroseconds * 1000));
-
-  /// Go: `namesys.ResolveWithDepth`.
-  BoxoNamesysResolveOption resolveWithDepth(int depth) =>
-      BoxoNamesysResolveOption.$(0, (w) => w..i64(depth));
-
-  /// Go: `namesys.ResolveWithDhtRecordCount`.
-  BoxoNamesysResolveOption resolveWithDhtRecordCount(int count) =>
-      BoxoNamesysResolveOption.$(1, (w) => w..i64(count));
-
-  /// Go: `namesys.ResolveWithDhtTimeout`.
-  BoxoNamesysResolveOption resolveWithDhtTimeout(Duration timeout) =>
-      BoxoNamesysResolveOption.$(
-          2, (w) => w..i64((timeout).inMicroseconds * 1000));
-
-  /// Go: `namesys.WithCache`.
-  BoxoNamesysOption withCache(int size) =>
-      BoxoNamesysOption.$(0, (w) => w..i64(size));
-
-  /// Go: `namesys.WithDNSResolverWithTTL`.
-  BoxoNamesysOption withDnsResolverWithTtl(
-          BoxoNamesysLookupTxtWithTtlFunc lookup) =>
-      BoxoNamesysOption.$(2, (w) => w..h(lookup));
-
-  /// Go: `namesys.WithDNSResolver`.
-  BoxoNamesysOption withDnsResolver(
-          $multiaddr_dns.MultiaddrDnsBasicResolver rslv) =>
-      BoxoNamesysOption.$(1, (w) => w..h(rslv));
-
-  /// Go: `namesys.WithDatastore`.
-  BoxoNamesysOption withDatastore($datastore.Datastore ds) =>
-      BoxoNamesysOption.$(3, (w) => w..h(ds));
-
-  /// Go: `namesys.WithMaxCacheTTL`.
-  BoxoNamesysOption withMaxCacheTtl(Duration dur) =>
-      BoxoNamesysOption.$(4, (w) => w..i64((dur).inMicroseconds * 1000));
-
   /// Go: `func namesys.DefaultResolveOptions() namesys.ResolveOptions`.
   BoxoNamesysResolveOptions defaultResolveOptions() {
     final $r = $callSync(983);
@@ -634,4 +586,59 @@ extension GoIpfsBoxoNamesysEnumsApi on GoIpfsBoxoNamesysEnums {
 
   /// Go: `const namesys.DefaultResolverDhtTimeout time.Duration`.
   Duration get defaultResolverDhtTimeout => Duration(microseconds: 60000000);
+}
+
+/// Go: the option constructors of `github.com/ipfs/boxo/namesys` (`go.ipfs.boxo.namesys.options`).
+extension GoIpfsBoxoNamesysOptionsApi on GoIpfsBoxoNamesysOptions {
+  /// Go: `namesys.PublishWithEOL`.
+  BoxoNamesysPublishOption publishWithEol(DateTime eol) =>
+      BoxoNamesysPublishOption.$(0, (w) => w..time(eol));
+
+  /// Go: `namesys.PublishWithIPNSOption`.
+  BoxoNamesysPublishOption publishWithIpnsOption($ipns.BoxoIpnsOption option) =>
+      BoxoNamesysPublishOption.$(
+          1, (w) => w..list([option], (w0, e0) => w0.opt(e0)));
+
+  /// Go: `namesys.PublishWithSequence`.
+  BoxoNamesysPublishOption publishWithSequence(int seq) =>
+      BoxoNamesysPublishOption.$(2, (w) => w..i64(seq));
+
+  /// Go: `namesys.PublishWithTTL`.
+  BoxoNamesysPublishOption publishWithTtl(Duration ttl) =>
+      BoxoNamesysPublishOption.$(3, (w) => w..i64((ttl).inMicroseconds * 1000));
+
+  /// Go: `namesys.ResolveWithDepth`.
+  BoxoNamesysResolveOption resolveWithDepth(int depth) =>
+      BoxoNamesysResolveOption.$(0, (w) => w..i64(depth));
+
+  /// Go: `namesys.ResolveWithDhtRecordCount`.
+  BoxoNamesysResolveOption resolveWithDhtRecordCount(int count) =>
+      BoxoNamesysResolveOption.$(1, (w) => w..i64(count));
+
+  /// Go: `namesys.ResolveWithDhtTimeout`.
+  BoxoNamesysResolveOption resolveWithDhtTimeout(Duration timeout) =>
+      BoxoNamesysResolveOption.$(
+          2, (w) => w..i64((timeout).inMicroseconds * 1000));
+
+  /// Go: `namesys.WithCache`.
+  BoxoNamesysOption withCache(int size) =>
+      BoxoNamesysOption.$(0, (w) => w..i64(size));
+
+  /// Go: `namesys.WithDNSResolverWithTTL`.
+  BoxoNamesysOption withDnsResolverWithTtl(
+          BoxoNamesysLookupTxtWithTtlFunc lookup) =>
+      BoxoNamesysOption.$(2, (w) => w..h(lookup));
+
+  /// Go: `namesys.WithDNSResolver`.
+  BoxoNamesysOption withDnsResolver(
+          $multiaddr_dns.MultiaddrDnsBasicResolver rslv) =>
+      BoxoNamesysOption.$(1, (w) => w..h(rslv));
+
+  /// Go: `namesys.WithDatastore`.
+  BoxoNamesysOption withDatastore($datastore.Datastore ds) =>
+      BoxoNamesysOption.$(3, (w) => w..h(ds));
+
+  /// Go: `namesys.WithMaxCacheTTL`.
+  BoxoNamesysOption withMaxCacheTtl(Duration dur) =>
+      BoxoNamesysOption.$(4, (w) => w..i64((dur).inMicroseconds * 1000));
 }

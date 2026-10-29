@@ -5,7 +5,11 @@ library;
 import 'dart:typed_data';
 
 import 'package:p2p_ffi/src/go.dart'
-    show GoIpfsBoxoIpns, GoIpfsBoxoIpnsConsts, GoIpfsBoxoIpnsEnums;
+    show
+        GoIpfsBoxoIpns,
+        GoIpfsBoxoIpnsConsts,
+        GoIpfsBoxoIpnsEnums,
+        GoIpfsBoxoIpnsOptions;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/ipfs/boxo/path.dart' as $path;
@@ -389,21 +393,6 @@ class BoxoIpnsErrUnrecognizedValidity extends GolangException {
 
 /// Go: the package-level members of `github.com/ipfs/boxo/ipns` (`go.ipfs.boxo.ipns`).
 extension GoIpfsBoxoIpnsApi on GoIpfsBoxoIpns {
-  /// Go: `ipns.WithMetadata`.
-  BoxoIpnsOption withMetadata(Map<String, Object?> metadata) =>
-      BoxoIpnsOption.$(
-          0,
-          (w) =>
-              w..map(metadata, (w0, k0) => w0.str(k0), (w0, v0) => w0.any(v0)));
-
-  /// Go: `ipns.WithPublicKey`.
-  BoxoIpnsOption withPublicKey(bool embedded) =>
-      BoxoIpnsOption.$(1, (w) => w..b(embedded));
-
-  /// Go: `ipns.WithV1Compatibility`.
-  BoxoIpnsOption withV1Compatibility(bool compatible) =>
-      BoxoIpnsOption.$(2, (w) => w..b(compatible));
-
   /// Go: `func ipns.ExtractPublicKey(rec *ipns.Record, name ipns.Name) (crypto.PubKey, error)`.
   $crypto2.Libp2pCoreCryptoPubKey extractPublicKey(
       BoxoIpnsRecord rec, BoxoIpnsName name) {
@@ -507,4 +496,22 @@ extension GoIpfsBoxoIpnsEnumsApi on GoIpfsBoxoIpnsEnums {
 
   /// Go: `const ipns.ValidityEOL ipns.ValidityType`.
   int get validityEol => 0;
+}
+
+/// Go: the option constructors of `github.com/ipfs/boxo/ipns` (`go.ipfs.boxo.ipns.options`).
+extension GoIpfsBoxoIpnsOptionsApi on GoIpfsBoxoIpnsOptions {
+  /// Go: `ipns.WithMetadata`.
+  BoxoIpnsOption withMetadata(Map<String, Object?> metadata) =>
+      BoxoIpnsOption.$(
+          0,
+          (w) =>
+              w..map(metadata, (w0, k0) => w0.str(k0), (w0, v0) => w0.any(v0)));
+
+  /// Go: `ipns.WithPublicKey`.
+  BoxoIpnsOption withPublicKey(bool embedded) =>
+      BoxoIpnsOption.$(1, (w) => w..b(embedded));
+
+  /// Go: `ipns.WithV1Compatibility`.
+  BoxoIpnsOption withV1Compatibility(bool compatible) =>
+      BoxoIpnsOption.$(2, (w) => w..b(compatible));
 }

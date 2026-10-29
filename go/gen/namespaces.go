@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"cmp"
 	"fmt"
 	"go/types"
 	"io/fs"
@@ -9,6 +10,7 @@ import (
 	"os/exec"
 	"path/filepath"
 	"regexp"
+	"slices"
 	"sort"
 	"strings"
 	"sync"
@@ -146,7 +148,68 @@ func libPrefix(path string) string {
 // (ipfs/boxo/mfs Root → BoxoMfsRoot, ipfs/cid Cid → Cid, ipfs/boxo/path Path →
 // BoxoPath).
 func qualType(path, goName string) string {
-	var pre, ws []string
+	if c, ok := classMarks[path+" "+goName]; ok {
+		return c
+	}
+	pre, ws := typeParts(path, goName)
+	return escapeType(strings.Join(pre, "") + strings.Join(ws, ""))
+}
+
+// Class collisions (owner's decision, 2026-10-29): when two types get the same
+// class, the one with the longer Go name is marked with a `_` and keeps its Go
+// name whole: after its path (grpc.BackoffConfig → Grpc_BackoffConfig, beside
+// grpc/backoff.Config → GrpcBackoffConfig; gob.GobDecoder →
+// EncodingGob_GobDecoder), or at its own `_` when it has one
+// (errorspb.EncodedError_Leaf → ErrorsErrorspbEncodedError_Leaf). The
+// declaration carries `// ignore: camel_case_types`.
+var classMarks = map[string]string{} // library path + " " + Go name → its class
+
+// markClasses fills classMarks from every class, as (library path, Go name).
+func markClasses(classes [][2]string) {
+	clear(classMarks)
+	byName := map[string][][2]string{}
+	seen := map[[2]string]bool{}
+	for _, c := range classes {
+		if !seen[c] {
+			seen[c] = true
+			byName[qualType(c[0], c[1])] = append(byName[qualType(c[0], c[1])], c)
+		}
+	}
+	for _, group := range byName {
+		slices.SortFunc(group, func(a, b [2]string) int { return cmp.Compare(len(a[1]), len(b[1])) })
+		for _, c := range group[1:] {
+			if len(c[1]) > len(group[0][1]) { // a tie is left to goTree, which refuses it
+				classMarks[c[0]+" "+c[1]] = markedType(c[0], c[1])
+			}
+		}
+	}
+}
+
+// markedType: the class of a type whose plain name another one has.
+func markedType(path, goName string) string {
+	if !strings.Contains(strings.Trim(goName, "_"), "_") {
+		return libPrefix(classPath(path)) + "_" + camelType(goName)
+	}
+	pre, _ := typeParts(path, goName)
+	var segs []string
+	for _, s := range strings.Split(goName, "_") {
+		if s != "" {
+			segs = append(segs, camelType(s))
+		}
+	}
+	return strings.Join(pre, "") + strings.Join(segs, "_")
+}
+
+func camelType(goName string) string {
+	var b strings.Builder
+	for _, w := range words(goName) {
+		b.WriteString(capitalize(w))
+	}
+	return b.String()
+}
+
+// typeParts: the words of qualType's class, the path's and the Go name's.
+func typeParts(path, goName string) (pre, ws []string) {
 	for _, w := range libWords(classPath(path)) {
 		pre = append(pre, capitalize(w))
 	}
@@ -160,7 +223,7 @@ func qualType(path, goName string) string {
 			break
 		}
 	}
-	return escapeType(strings.Join(pre[:len(pre)-k], "") + strings.Join(ws, ""))
+	return pre[:len(pre)-k], ws
 }
 
 // nsClass: the namespace class of a library path or of a folder of them
@@ -181,15 +244,18 @@ func nsPath(path string) string {
 // nsRootConst: the top-level constant at the root of the tree.
 const nsRootConst = "go"
 
-// Constant layers (owner's decision, 2026-10-29): a package's constants are not
-// members of its namespace but of one of two layers under it, so a constant
-// does not hide a sub-package (crypto.MD5 and crypto/md5): `enums`, a constant
-// of a named type (`go.crypto.enums.md5`, `go.multiformats.multicodec.enums.raw`),
-// and `consts`, the others (`go.ipfs.cid.consts.raw`, `go.os.consts.devNull`).
-// Variables and functions stay members of the namespace.
-var constLayers = []string{"consts", "enums"}
+// Layers (owner's decisions, 2026-10-29): a package's constants and option
+// constructors are not members of its namespace but of a layer under it, so
+// they do not hide a sub-package (crypto.MD5 and crypto/md5, grpc.Peer and
+// grpc/peer): `enums`, a constant of a named type (`go.crypto.enums.md5`,
+// `go.multiformats.multicodec.enums.raw`), `consts`, the other constants
+// (`go.ipfs.cid.consts.raw`, `go.os.consts.devNull`), and `options`, a function
+// or variable that is a functional option
+// (`go.libp2p.libp2p.options.listenAddrStrings`). The other variables and
+// functions stay members of the namespace.
+var layers = []string{"consts", "enums", "options"}
 
-var constLayerDoc = map[string]string{"consts": "constants", "enums": "constants of a named type"}
+var layerDoc = map[string]string{"consts": "constants", "enums": "constants of a named type", "options": "option constructors"}
 
 // constLayer: the layer of a package-level object ("" when it is not a
 // constant).
@@ -337,13 +403,13 @@ func extMembers(src []byte, on string) []string {
 // ones, with the generated part of a hand-written one appended; [goPaths]: the
 // Go package of each library, when known. It fails when two exported names
 // are the same, or a member of a library's namespace hides a sub-namespace.
-// A library's constant layers (consts, enums) are leaves under it.
+// A library's layers (consts, enums, options) are leaves under it.
 func goTree(libs map[string][]byte, goPaths map[string]string, runtime []string) ([]byte, error) {
-	layers := map[string]string{} // a constant layer, as a library path → its doc
+	lays := map[string]string{} // a layer, as a library path → its doc
 	for path, src := range libs {
-		for _, layer := range constLayers {
+		for _, layer := range layers {
 			if lp := layerPath(path, layer); bytes.Contains(src, []byte(" on "+nsClass(lp)+" {")) {
-				layers[lp] = "The " + constLayerDoc[layer] + " of `" + nsPath(path) + "`"
+				lays[lp] = "The " + layerDoc[layer] + " of `" + nsPath(path) + "`"
 			}
 		}
 	}
@@ -351,14 +417,14 @@ func goTree(libs map[string][]byte, goPaths map[string]string, runtime []string)
 		if gp, ok := goPaths[path]; ok {
 			return "Go: package `" + gp + "`", true
 		}
-		d, ok := layers[path]
+		d, ok := lays[path]
 		return d, ok
 	}
 	kids := map[string]map[string]bool{} // folder ("" = the root) → its child segments
 	nodes := sortedKeys(libs)            // the libraries and the layers
-	for _, lp := range sortedKeys(layers) {
+	for _, lp := range sortedKeys(lays) {
 		if _, ok := libs[lp]; ok {
-			return nil, fmt.Errorf("lib/%s: a package with the name of a constant layer", lp)
+			return nil, fmt.Errorf("lib/%s: a package with the name of a layer", lp)
 		}
 		nodes = append(nodes, lp)
 	}

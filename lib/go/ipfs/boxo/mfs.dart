@@ -5,7 +5,8 @@ library;
 import 'dart:async';
 import 'dart:typed_data';
 
-import 'package:p2p_ffi/src/go.dart' show GoIpfsBoxoMfs, GoIpfsBoxoMfsEnums;
+import 'package:p2p_ffi/src/go.dart'
+    show GoIpfsBoxoMfs, GoIpfsBoxoMfsEnums, GoIpfsBoxoMfsOptions;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
@@ -667,40 +668,6 @@ class BoxoMfsErrNotYetImplemented extends GolangException {
 
 /// Go: the package-level members of `github.com/ipfs/boxo/mfs` (`go.ipfs.boxo.mfs`).
 extension GoIpfsBoxoMfsApi on GoIpfsBoxoMfs {
-  /// Go: `mfs.WithChunker`.
-  BoxoMfsOption withChunker($chunker.BoxoChunkerSplitterGen c) =>
-      BoxoMfsOption.$(0, (w) => w..h(c));
-
-  /// Go: `mfs.WithCidBuilder`.
-  BoxoMfsOption withCidBuilder($cid.CidBuilder b) =>
-      BoxoMfsOption.$(1, (w) => w..h(b));
-
-  /// Go: `mfs.WithFetchTimeout`.
-  BoxoMfsOption withFetchTimeout(Duration d) =>
-      BoxoMfsOption.$(2, (w) => w..i64((d).inMicroseconds * 1000));
-
-  /// Go: `mfs.WithHAMTShardingSize`.
-  BoxoMfsOption withHamtShardingSize(int size) =>
-      BoxoMfsOption.$(3, (w) => w..i64(size));
-
-  /// Go: `mfs.WithMaxHAMTFanout`.
-  BoxoMfsOption withMaxHamtFanout(int n) =>
-      BoxoMfsOption.$(4, (w) => w..i64(n));
-
-  /// Go: `mfs.WithMaxLinks`.
-  BoxoMfsOption withMaxLinks(int n) => BoxoMfsOption.$(5, (w) => w..i64(n));
-
-  /// Go: `mfs.WithModTime`.
-  BoxoMfsOption withModTime(DateTime t) =>
-      BoxoMfsOption.$(6, (w) => w..time(t));
-
-  /// Go: `mfs.WithMode`.
-  BoxoMfsOption withMode(int mode) => BoxoMfsOption.$(7, (w) => w..i64(mode));
-
-  /// Go: `mfs.WithSizeEstimationMode`.
-  BoxoMfsOption withSizeEstimationMode(int mode) =>
-      BoxoMfsOption.$(8, (w) => w..i64(mode));
-
   /// Go: `func mfs.Chmod(rt *mfs.Root, pth string, mode os.FileMode) error`.
   void chmod(BoxoMfsRoot rt, String pth, int mode) {
     $callSync(
@@ -891,4 +858,41 @@ extension GoIpfsBoxoMfsEnumsApi on GoIpfsBoxoMfsEnums {
 
   /// Go: `const mfs.TFile mfs.NodeType`.
   int get tFile => 0;
+}
+
+/// Go: the option constructors of `github.com/ipfs/boxo/mfs` (`go.ipfs.boxo.mfs.options`).
+extension GoIpfsBoxoMfsOptionsApi on GoIpfsBoxoMfsOptions {
+  /// Go: `mfs.WithChunker`.
+  BoxoMfsOption withChunker($chunker.BoxoChunkerSplitterGen c) =>
+      BoxoMfsOption.$(0, (w) => w..h(c));
+
+  /// Go: `mfs.WithCidBuilder`.
+  BoxoMfsOption withCidBuilder($cid.CidBuilder b) =>
+      BoxoMfsOption.$(1, (w) => w..h(b));
+
+  /// Go: `mfs.WithFetchTimeout`.
+  BoxoMfsOption withFetchTimeout(Duration d) =>
+      BoxoMfsOption.$(2, (w) => w..i64((d).inMicroseconds * 1000));
+
+  /// Go: `mfs.WithHAMTShardingSize`.
+  BoxoMfsOption withHamtShardingSize(int size) =>
+      BoxoMfsOption.$(3, (w) => w..i64(size));
+
+  /// Go: `mfs.WithMaxHAMTFanout`.
+  BoxoMfsOption withMaxHamtFanout(int n) =>
+      BoxoMfsOption.$(4, (w) => w..i64(n));
+
+  /// Go: `mfs.WithMaxLinks`.
+  BoxoMfsOption withMaxLinks(int n) => BoxoMfsOption.$(5, (w) => w..i64(n));
+
+  /// Go: `mfs.WithModTime`.
+  BoxoMfsOption withModTime(DateTime t) =>
+      BoxoMfsOption.$(6, (w) => w..time(t));
+
+  /// Go: `mfs.WithMode`.
+  BoxoMfsOption withMode(int mode) => BoxoMfsOption.$(7, (w) => w..i64(mode));
+
+  /// Go: `mfs.WithSizeEstimationMode`.
+  BoxoMfsOption withSizeEstimationMode(int mode) =>
+      BoxoMfsOption.$(8, (w) => w..i64(mode));
 }

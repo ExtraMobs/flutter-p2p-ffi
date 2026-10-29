@@ -8,7 +8,8 @@ import 'package:p2p_ffi/src/go.dart'
     show
         GoLibp2pLibp2pP2pProtocolCircuitv2Relay,
         GoLibp2pLibp2pP2pProtocolCircuitv2RelayConsts,
-        GoLibp2pLibp2pP2pProtocolCircuitv2RelayEnums;
+        GoLibp2pLibp2pP2pProtocolCircuitv2RelayEnums,
+        GoLibp2pLibp2pP2pProtocolCircuitv2RelayOptions;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
@@ -254,44 +255,6 @@ final class Libp2pP2pProtocolCircuitv2RelayResources implements GoDto {
 /// Go: the package-level members of `github.com/libp2p/go-libp2p/p2p/protocol/circuitv2/relay` (`go.libp2p.libp2p.p2p.protocol.circuitv2.relay`).
 extension GoLibp2pLibp2pP2pProtocolCircuitv2RelayApi
     on GoLibp2pLibp2pP2pProtocolCircuitv2Relay {
-  /// Go: `relay.WithACL`.
-  Libp2pP2pProtocolCircuitv2RelayOption withAcl(
-          Libp2pP2pProtocolCircuitv2RelayAclFilter acl) =>
-      Libp2pP2pProtocolCircuitv2RelayOption.$(0, (w) => w..h(acl));
-
-  /// Go: `relay.WithInfiniteLimits`.
-  Libp2pP2pProtocolCircuitv2RelayOption withInfiniteLimits() =>
-      Libp2pP2pProtocolCircuitv2RelayOption.$(1, (_) {});
-
-  /// Go: `relay.WithLimit`.
-  Libp2pP2pProtocolCircuitv2RelayOption withLimit(
-          Libp2pP2pProtocolCircuitv2RelayLimit limit) =>
-      Libp2pP2pProtocolCircuitv2RelayOption.$(2, (w) => w..dto(limit));
-
-  /// Go: `relay.WithMetricsTracer`.
-  Libp2pP2pProtocolCircuitv2RelayOption withMetricsTracer(
-          Libp2pP2pProtocolCircuitv2RelayMetricsTracer mt) =>
-      Libp2pP2pProtocolCircuitv2RelayOption.$(3, (w) => w..h(mt));
-
-  /// Go: `relay.WithRegisterer`.
-  Libp2pP2pProtocolCircuitv2RelayMetricsTracerOption withRegisterer(
-          $prometheus.ClientGolangPrometheusRegisterer reg) =>
-      Libp2pP2pProtocolCircuitv2RelayMetricsTracerOption.$(0, (w) => w..h(reg));
-
-  /// Go: `relay.WithReservationAddressFilter`.
-  Libp2pP2pProtocolCircuitv2RelayOption withReservationAddressFilter(
-          FutureOr<bool> Function($multiaddr.Multiaddr addr) filter) =>
-      Libp2pP2pProtocolCircuitv2RelayOption.$(
-          4,
-          (w) => w
-            ..cb((r) => filter(r.p() ? $multiaddr.Multiaddr(r.str()) : $nil()),
-                true));
-
-  /// Go: `relay.WithResources`.
-  Libp2pP2pProtocolCircuitv2RelayOption withResources(
-          Libp2pP2pProtocolCircuitv2RelayResources rc) =>
-      Libp2pP2pProtocolCircuitv2RelayOption.$(5, (w) => w..dto(rc));
-
   /// Go: `func relay.DefaultLimit() *relay.RelayLimit`.
   Libp2pP2pProtocolCircuitv2RelayLimit defaultLimit() {
     final $r = $callSync(3332);
@@ -337,4 +300,46 @@ extension GoLibp2pLibp2pP2pProtocolCircuitv2RelayEnumsApi
 
   /// Go: `const relay.StreamTimeout time.Duration`.
   Duration get streamTimeout => Duration(microseconds: 60000000);
+}
+
+/// Go: the option constructors of `github.com/libp2p/go-libp2p/p2p/protocol/circuitv2/relay` (`go.libp2p.libp2p.p2p.protocol.circuitv2.relay.options`).
+extension GoLibp2pLibp2pP2pProtocolCircuitv2RelayOptionsApi
+    on GoLibp2pLibp2pP2pProtocolCircuitv2RelayOptions {
+  /// Go: `relay.WithACL`.
+  Libp2pP2pProtocolCircuitv2RelayOption withAcl(
+          Libp2pP2pProtocolCircuitv2RelayAclFilter acl) =>
+      Libp2pP2pProtocolCircuitv2RelayOption.$(0, (w) => w..h(acl));
+
+  /// Go: `relay.WithInfiniteLimits`.
+  Libp2pP2pProtocolCircuitv2RelayOption withInfiniteLimits() =>
+      Libp2pP2pProtocolCircuitv2RelayOption.$(1, (_) {});
+
+  /// Go: `relay.WithLimit`.
+  Libp2pP2pProtocolCircuitv2RelayOption withLimit(
+          Libp2pP2pProtocolCircuitv2RelayLimit limit) =>
+      Libp2pP2pProtocolCircuitv2RelayOption.$(2, (w) => w..dto(limit));
+
+  /// Go: `relay.WithMetricsTracer`.
+  Libp2pP2pProtocolCircuitv2RelayOption withMetricsTracer(
+          Libp2pP2pProtocolCircuitv2RelayMetricsTracer mt) =>
+      Libp2pP2pProtocolCircuitv2RelayOption.$(3, (w) => w..h(mt));
+
+  /// Go: `relay.WithRegisterer`.
+  Libp2pP2pProtocolCircuitv2RelayMetricsTracerOption withRegisterer(
+          $prometheus.ClientGolangPrometheusRegisterer reg) =>
+      Libp2pP2pProtocolCircuitv2RelayMetricsTracerOption.$(0, (w) => w..h(reg));
+
+  /// Go: `relay.WithReservationAddressFilter`.
+  Libp2pP2pProtocolCircuitv2RelayOption withReservationAddressFilter(
+          FutureOr<bool> Function($multiaddr.Multiaddr addr) filter) =>
+      Libp2pP2pProtocolCircuitv2RelayOption.$(
+          4,
+          (w) => w
+            ..cb((r) => filter(r.p() ? $multiaddr.Multiaddr(r.str()) : $nil()),
+                true));
+
+  /// Go: `relay.WithResources`.
+  Libp2pP2pProtocolCircuitv2RelayOption withResources(
+          Libp2pP2pProtocolCircuitv2RelayResources rc) =>
+      Libp2pP2pProtocolCircuitv2RelayOption.$(5, (w) => w..dto(rc));
 }

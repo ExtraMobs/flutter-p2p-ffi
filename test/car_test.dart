@@ -343,7 +343,7 @@ void main() {
       // a reificação UnixFS só pega nós dag-pb tipados: o escolhedor do
       // gateway (sem ele, o go-car decodifica genérico e o caminho não anda)
       final chooser = [
-        go.ipld.car.v2.withTraversalPrototypeChooser(go.ipld.codecDagpb
+        go.ipld.car.v2.options.withTraversalPrototypeChooser(go.ipld.codecDagpb
             .addSupportToChooser(
                 go.ipfs.boxo.fetcher.impl.blockservice.defaultPrototypeChooser))
       ];

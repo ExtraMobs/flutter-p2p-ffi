@@ -13,13 +13,14 @@ import 'package:p2p_ffi/p2p_ffi.dart';
 const echo = '/p2p-ffi-test/echo/1.0.0';
 
 Future<Libp2pCoreHost> newHost() => go.libp2p.libp2p.new$([
-      go.libp2p.libp2p
+      go.libp2p.libp2p.options
           .transport(go.libp2p.libp2p.p2p.transport.tcp.newTcpTransportFunc),
-      go.libp2p.libp2p.security(go.libp2p.libp2p.p2p.security.noise.consts.id,
+      go.libp2p.libp2p.options.security(
+          go.libp2p.libp2p.p2p.security.noise.consts.id,
           go.libp2p.libp2p.p2p.security.noise.newFunc),
-      go.libp2p.libp2p.muxer(go.libp2p.libp2p.p2p.muxer.yamux.consts.id,
+      go.libp2p.libp2p.options.muxer(go.libp2p.libp2p.p2p.muxer.yamux.consts.id,
           go.libp2p.libp2p.p2p.muxer.yamux.defaultTransport),
-      go.libp2p.libp2p.listenAddrStrings(['/ip4/127.0.0.1/tcp/0']),
+      go.libp2p.libp2p.options.listenAddrStrings(['/ip4/127.0.0.1/tcp/0']),
     ]);
 
 Uint8List bytes(String s) => Uint8List.fromList(utf8.encode(s));
@@ -66,9 +67,9 @@ void main() {
       });
       final topicA = await psA.join('bench');
       final subB = await (await psB.join('bench')).subscribe([
-        go.libp2p.libp2pPubsub
+        go.libp2p.libp2pPubsub.options
             .withBufferSize(256), // the default 32 drops a burst (measured)
-        go.libp2p.libp2pPubsub.withMessageFilter((m) => true),
+        go.libp2p.libp2pPubsub.options.withMessageFilter((m) => true),
       ]);
       while (!(await topicA.listPeers()).contains(b.id())) {
         await Future<void>.delayed(const Duration(milliseconds: 50));

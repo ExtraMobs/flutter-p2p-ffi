@@ -28,11 +28,15 @@ path without the author, minus the words the Go name already starts with:
 | `peer.ID` (`github.com/libp2p/go-libp2p/core/peer`) | `Libp2pCorePeerId` |
 | `cid.Raw` (an untyped constant) | `go.ipfs.cid.consts.raw` |
 | `multicodec.Raw` (a constant of type `multicodec.Code`) | `go.multiformats.multicodec.enums.raw` |
+| `mfs.WithMaxLinks` (returns a functional option) | `go.ipfs.boxo.mfs.options.withMaxLinks` |
 
-Every name is unique in the import. A package's constants sit one level down, so a constant
-never hides a sub-package (Go's `crypto.MD5` and the package `crypto/md5`): `enums` for a
-constant of a named type, `consts` for the others. A constant is a getter, not a Dart
-`const`.
+Every name is unique in the import. A package's constants and option constructors sit one
+level down, so they never hide a sub-package (Go's `crypto.MD5` and the package `crypto/md5`,
+`grpc.Peer` and `grpc/peer`): `enums` for a constant of a named type, `consts` for the other
+constants, `options` for a function or variable that is a functional option. A constant is a
+getter, not a Dart `const`. When two types would get the same class, the one with the longer
+Go name keeps it whole after a `_` (`grpc.BackoffConfig` → `Grpc_BackoffConfig`, beside
+`grpc/backoff.Config` → `GrpcBackoffConfig`).
 
 | Document | What it has |
 |---|---|
@@ -97,7 +101,7 @@ await P2pService.stop();
 - Where Go reflects on an `any`, the generator fixes the type: a pubsub validator is a Dart
   function, an event type goes by example as its class's `$type`
   (`Libp2pCoreEventEvtPeerConnectednessChanged.$type`), and a Go constructor as a token
-  (`go.libp2p.libp2p.transport(go.libp2p.libp2p.p2p.transport.tcp.newTcpTransportFunc)`).
+  (`go.libp2p.libp2p.options.transport(go.libp2p.libp2p.p2p.transport.tcp.newTcpTransportFunc)`).
 - CID, path, peer ID and multiaddr are values (their text form); objects with state stay in
   Go, behind a handle.
 
@@ -185,7 +189,7 @@ returning a `Stream`; their result types are named after their Go packages
 - **`Unprotect` returns whether other tags still protect the peer**, not whether it was
   protected; peering protects its own peers too.
 - **libp2p without kubo** (`go.libp2p.libp2p.new$([...])`): a host has only what its options give it.
-  Without `go.libp2p.libp2p.identity(key)` the peer ID changes at each start (keep
+  Without `go.libp2p.libp2p.options.identity(key)` the peer ID changes at each start (keep
   `go.libp2p.libp2p.core.crypto.marshalPrivateKey`); there is no DHT, pubsub or mDNS until you create them on the
   host, and the default listen addresses are on every interface (Windows asks for the
   firewall; `listenAddrStrings(['/ip4/127.0.0.1/tcp/0'])` stays local).
@@ -201,7 +205,7 @@ returning a `Stream`; their result types are named after their Go packages
 - **Do not wait synchronously on what a retained callback holds.** Pubsub's methods that
   go through its event loop are `Future`s for that reason (the loop runs the subscription
   filter and waits for Dart).
-- **A subscription keeps 32 messages by default** (`go.libp2p.libp2pPubsub.withBufferSize`): Dart pulls them
+- **A subscription keeps 32 messages by default** (`go.libp2p.libp2pPubsub.options.withBufferSize`): Dart pulls them
   one at a time with `next()`, so a burst beyond that is dropped. On a phone, 39 of a burst
   of 200 arrived with the default and 200 of 200 with `withBufferSize(256)`.
 - **A function given to an option runs per message or per peer** (`withMessageFilter`,
@@ -217,7 +221,7 @@ returning a `Stream`; their result types are named after their Go packages
 - go-car's `has` matches multihashes unless `useWholeCids(true)`.
 - Wrapping a CARv2 again is accepted and produces a broken file.
 - UnixFS selectors need the dag-pb prototype chooser
-  (`go.ipld.car.v2.withTraversalPrototypeChooser(go.ipld.codecDagpb.addSupportToChooser(go.ipfs.boxo.fetcher.impl.blockservice.defaultPrototypeChooser))`),
+  (`go.ipld.car.v2.options.withTraversalPrototypeChooser(go.ipld.codecDagpb.addSupportToChooser(go.ipfs.boxo.fetcher.impl.blockservice.defaultPrototypeChooser))`),
   or the traversal stops at the directory.
 - go-car's `AttachIndex` always fails (upstream bug).
 

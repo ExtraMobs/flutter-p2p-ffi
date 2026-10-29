@@ -6,7 +6,10 @@ import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:p2p_ffi/src/go.dart'
-    show GoIpfsBoxoIpldMerkledag, GoIpfsBoxoIpldMerkledagEnums;
+    show
+        GoIpfsBoxoIpldMerkledag,
+        GoIpfsBoxoIpldMerkledagEnums,
+        GoIpfsBoxoIpldMerkledagOptions;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
@@ -809,39 +812,6 @@ class BoxoIpldMerkledagErrReadOnly extends GolangException {
 
 /// Go: the package-level members of `github.com/ipfs/boxo/ipld/merkledag` (`go.ipfs.boxo.ipld.merkledag`).
 extension GoIpfsBoxoIpldMerkledagApi on GoIpfsBoxoIpldMerkledag {
-  /// Go: `merkledag.Concurrency`.
-  BoxoIpldMerkledagWalkOption concurrency(int worker) =>
-      BoxoIpldMerkledagWalkOption.$(0, (w) => w..i64(worker));
-
-  /// Go: `merkledag.Concurrent`.
-  BoxoIpldMerkledagWalkOption concurrent() =>
-      BoxoIpldMerkledagWalkOption.$(1, (_) {});
-
-  /// Go: `merkledag.IgnoreErrors`.
-  BoxoIpldMerkledagWalkOption ignoreErrors() =>
-      BoxoIpldMerkledagWalkOption.$(2, (_) {});
-
-  /// Go: `merkledag.IgnoreMissing`.
-  BoxoIpldMerkledagWalkOption ignoreMissing() =>
-      BoxoIpldMerkledagWalkOption.$(3, (_) {});
-
-  /// Go: `merkledag.OnMissing`.
-  BoxoIpldMerkledagWalkOption onMissing(
-          FutureOr<void> Function($cid.Cid c) callback) =>
-      BoxoIpldMerkledagWalkOption.$(
-          5,
-          (w) => w
-            ..cb((r) => callback(r.p() ? $cid.Cid(r.str()) : $nil()), false));
-
-  /// Go: `merkledag.SkipRoot`.
-  BoxoIpldMerkledagWalkOption skipRoot() =>
-      BoxoIpldMerkledagWalkOption.$(6, (_) {});
-
-  /// Go: `merkledag.WithProvider`.
-  BoxoIpldMerkledagWalkOption withProvider(
-          $provider.BoxoProviderMultihashProvider p) =>
-      BoxoIpldMerkledagWalkOption.$(7, (w) => w..h(p));
-
   /// Go: `func merkledag.DecodeProtobuf(encoded []byte) (*merkledag.ProtoNode, error)`.
   BoxoIpldMerkledagProtoNode decodeProtobuf(Uint8List encoded) {
     final $r = $callSync(685, $W()..bytes(encoded));
@@ -1067,4 +1037,40 @@ extension GoIpfsBoxoIpldMerkledagEnumsApi on GoIpfsBoxoIpldMerkledagEnums {
 
   /// Go: `const merkledag.PBNodeLinksFirst merkledag.PBNodeFieldOrder`.
   int get pbNodeLinksFirst => 0;
+}
+
+/// Go: the option constructors of `github.com/ipfs/boxo/ipld/merkledag` (`go.ipfs.boxo.ipld.merkledag.options`).
+extension GoIpfsBoxoIpldMerkledagOptionsApi on GoIpfsBoxoIpldMerkledagOptions {
+  /// Go: `merkledag.Concurrency`.
+  BoxoIpldMerkledagWalkOption concurrency(int worker) =>
+      BoxoIpldMerkledagWalkOption.$(0, (w) => w..i64(worker));
+
+  /// Go: `merkledag.Concurrent`.
+  BoxoIpldMerkledagWalkOption concurrent() =>
+      BoxoIpldMerkledagWalkOption.$(1, (_) {});
+
+  /// Go: `merkledag.IgnoreErrors`.
+  BoxoIpldMerkledagWalkOption ignoreErrors() =>
+      BoxoIpldMerkledagWalkOption.$(2, (_) {});
+
+  /// Go: `merkledag.IgnoreMissing`.
+  BoxoIpldMerkledagWalkOption ignoreMissing() =>
+      BoxoIpldMerkledagWalkOption.$(3, (_) {});
+
+  /// Go: `merkledag.OnMissing`.
+  BoxoIpldMerkledagWalkOption onMissing(
+          FutureOr<void> Function($cid.Cid c) callback) =>
+      BoxoIpldMerkledagWalkOption.$(
+          5,
+          (w) => w
+            ..cb((r) => callback(r.p() ? $cid.Cid(r.str()) : $nil()), false));
+
+  /// Go: `merkledag.SkipRoot`.
+  BoxoIpldMerkledagWalkOption skipRoot() =>
+      BoxoIpldMerkledagWalkOption.$(6, (_) {});
+
+  /// Go: `merkledag.WithProvider`.
+  BoxoIpldMerkledagWalkOption withProvider(
+          $provider.BoxoProviderMultihashProvider p) =>
+      BoxoIpldMerkledagWalkOption.$(7, (w) => w..h(p));
 }

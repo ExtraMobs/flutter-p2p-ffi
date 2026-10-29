@@ -3,7 +3,10 @@
 library;
 
 import 'package:p2p_ffi/src/go.dart'
-    show GoLibp2pLibp2pP2pSecurityTls, GoLibp2pLibp2pP2pSecurityTlsConsts;
+    show
+        GoLibp2pLibp2pP2pSecurityTls,
+        GoLibp2pLibp2pP2pSecurityTlsConsts,
+        GoLibp2pLibp2pP2pSecurityTlsOptions;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
@@ -84,11 +87,6 @@ class Libp2pP2pSecurityTlsTransport extends $crypto.CryptoPrivateKey
 
 /// Go: the package-level members of `github.com/libp2p/go-libp2p/p2p/security/tls` (`go.libp2p.libp2p.p2p.security.tls`).
 extension GoLibp2pLibp2pP2pSecurityTlsApi on GoLibp2pLibp2pP2pSecurityTls {
-  /// Go: `tls.WithCertTemplate`.
-  Libp2pP2pSecurityTlsIdentityOption withCertTemplate(
-          $x509.CryptoX509Certificate template) =>
-      Libp2pP2pSecurityTlsIdentityOption.$(0, (w) => w..dto(template));
-
   /// Go: `func libp2ptls.GenerateSignedExtension(sk crypto.PrivKey, pubKey crypto.PublicKey) (pkix.Extension, error)`.
   $pkix.CryptoX509PkixExtension generateSignedExtension(
       $crypto2.Libp2pCoreCryptoPrivKey sk, $crypto.CryptoPublicKey pubKey) {
@@ -131,4 +129,13 @@ extension GoLibp2pLibp2pP2pSecurityTlsConstsApi
     on GoLibp2pLibp2pP2pSecurityTlsConsts {
   /// Go: `const libp2ptls.ID untyped string`.
   String get id => "/tls/1.0.0";
+}
+
+/// Go: the option constructors of `github.com/libp2p/go-libp2p/p2p/security/tls` (`go.libp2p.libp2p.p2p.security.tls.options`).
+extension GoLibp2pLibp2pP2pSecurityTlsOptionsApi
+    on GoLibp2pLibp2pP2pSecurityTlsOptions {
+  /// Go: `tls.WithCertTemplate`.
+  Libp2pP2pSecurityTlsIdentityOption withCertTemplate(
+          $x509.CryptoX509Certificate template) =>
+      Libp2pP2pSecurityTlsIdentityOption.$(0, (w) => w..dto(template));
 }

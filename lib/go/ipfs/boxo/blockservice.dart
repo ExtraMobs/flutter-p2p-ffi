@@ -2,7 +2,8 @@
 // Go: github.com/ipfs/boxo/blockservice
 library;
 
-import 'package:p2p_ffi/src/go.dart' show GoIpfsBoxoBlockservice;
+import 'package:p2p_ffi/src/go.dart'
+    show GoIpfsBoxoBlockservice, GoIpfsBoxoBlockserviceOptions;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
@@ -193,15 +194,6 @@ class BoxoBlockserviceSession extends BoxoBlockserviceBlockGetter
 
 /// Go: the package-level members of `github.com/ipfs/boxo/blockservice` (`go.ipfs.boxo.blockservice`).
 extension GoIpfsBoxoBlockserviceApi on GoIpfsBoxoBlockservice {
-  /// Go: `blockservice.WithAllowlist`.
-  BoxoBlockserviceOption withAllowlist(
-          $verifcid.BoxoVerifcidAllowlist allowlist) =>
-      BoxoBlockserviceOption.$(0, (w) => w..h(allowlist));
-
-  /// Go: `blockservice.WriteThrough`.
-  BoxoBlockserviceOption writeThrough(bool enabled) =>
-      BoxoBlockserviceOption.$(1, (w) => w..b(enabled));
-
   /// Go: `func blockservice.New(bs blockstore.Blockstore, exchange exchange.Interface, opts ...blockservice.Option) blockservice.BlockService`.
   BoxoBlockserviceBlockService new$(
       $blockstore.BoxoBlockstore bs, $exchange.BoxoExchangeInterface exchange,
@@ -227,4 +219,16 @@ extension GoIpfsBoxoBlockserviceApi on GoIpfsBoxoBlockservice {
           ..h(bs));
     return $r.hnn(BoxoBlockserviceSession.$h);
   }
+}
+
+/// Go: the option constructors of `github.com/ipfs/boxo/blockservice` (`go.ipfs.boxo.blockservice.options`).
+extension GoIpfsBoxoBlockserviceOptionsApi on GoIpfsBoxoBlockserviceOptions {
+  /// Go: `blockservice.WithAllowlist`.
+  BoxoBlockserviceOption withAllowlist(
+          $verifcid.BoxoVerifcidAllowlist allowlist) =>
+      BoxoBlockserviceOption.$(0, (w) => w..h(allowlist));
+
+  /// Go: `blockservice.WriteThrough`.
+  BoxoBlockserviceOption writeThrough(bool enabled) =>
+      BoxoBlockserviceOption.$(1, (w) => w..b(enabled));
 }

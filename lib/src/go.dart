@@ -548,6 +548,15 @@ final class GoIpfsBoxoBitswapNetwork {
       const GoIpfsBoxoBitswapNetworkBsnet._();
 }
 
+/// Go: package `github.com/ipfs/boxo/bitswap/network/bsnet`, as `go.ipfs.boxo.bitswap.network.bsnet`.
+final class GoIpfsBoxoBitswapNetworkBsnet {
+  const GoIpfsBoxoBitswapNetworkBsnet._();
+
+  /// The option constructors of `go.ipfs.boxo.bitswap.network.bsnet`.
+  GoIpfsBoxoBitswapNetworkBsnetOptions get options =>
+      const GoIpfsBoxoBitswapNetworkBsnetOptions._();
+}
+
 /// Go: package `github.com/ipfs/boxo/bitswap/server`, as `go.ipfs.boxo.bitswap.server`.
 final class GoIpfsBoxoBitswapServer {
   const GoIpfsBoxoBitswapServer._();
@@ -564,6 +573,15 @@ final class GoIpfsBoxoBitswapServerInternal {
   /// Go: package `github.com/ipfs/boxo/bitswap/server/internal/decision`.
   GoIpfsBoxoBitswapServerInternalDecision get decision =>
       const GoIpfsBoxoBitswapServerInternalDecision._();
+}
+
+/// Go: package `github.com/ipfs/boxo/blockservice`, as `go.ipfs.boxo.blockservice`.
+final class GoIpfsBoxoBlockservice {
+  const GoIpfsBoxoBlockservice._();
+
+  /// The option constructors of `go.ipfs.boxo.blockservice`.
+  GoIpfsBoxoBlockserviceOptions get options =>
+      const GoIpfsBoxoBlockserviceOptions._();
 }
 
 /// Go: package `github.com/ipfs/boxo/chunker`, as `go.ipfs.boxo.chunker`.
@@ -614,6 +632,10 @@ final class GoIpfsBoxoFilestore {
   /// The constants of a named type of `go.ipfs.boxo.filestore`.
   GoIpfsBoxoFilestoreEnums get enums => const GoIpfsBoxoFilestoreEnums._();
 
+  /// The option constructors of `go.ipfs.boxo.filestore`.
+  GoIpfsBoxoFilestoreOptions get options =>
+      const GoIpfsBoxoFilestoreOptions._();
+
   /// Go: package `github.com/ipfs/boxo/filestore/posinfo`.
   GoIpfsBoxoFilestorePosinfo get posinfo =>
       const GoIpfsBoxoFilestorePosinfo._();
@@ -631,6 +653,9 @@ final class GoIpfsBoxoGateway {
 
   /// The constants of a named type of `go.ipfs.boxo.gateway`.
   GoIpfsBoxoGatewayEnums get enums => const GoIpfsBoxoGatewayEnums._();
+
+  /// The option constructors of `go.ipfs.boxo.gateway`.
+  GoIpfsBoxoGatewayOptions get options => const GoIpfsBoxoGatewayOptions._();
 }
 
 /// `go.ipfs.boxo.ipld`.
@@ -655,6 +680,10 @@ final class GoIpfsBoxoIpldMerkledag {
   /// The constants of a named type of `go.ipfs.boxo.ipld.merkledag`.
   GoIpfsBoxoIpldMerkledagEnums get enums =>
       const GoIpfsBoxoIpldMerkledagEnums._();
+
+  /// The option constructors of `go.ipfs.boxo.ipld.merkledag`.
+  GoIpfsBoxoIpldMerkledagOptions get options =>
+      const GoIpfsBoxoIpldMerkledagOptions._();
 
   /// Go: package `github.com/ipfs/boxo/ipld/merkledag/pb`.
   GoIpfsBoxoIpldMerkledagPb get pb => const GoIpfsBoxoIpldMerkledagPb._();
@@ -714,6 +743,9 @@ final class GoIpfsBoxoIpns {
 
   /// The constants of a named type of `go.ipfs.boxo.ipns`.
   GoIpfsBoxoIpnsEnums get enums => const GoIpfsBoxoIpnsEnums._();
+
+  /// The option constructors of `go.ipfs.boxo.ipns`.
+  GoIpfsBoxoIpnsOptions get options => const GoIpfsBoxoIpnsOptions._();
 }
 
 /// Go: package `github.com/ipfs/boxo/mfs`, as `go.ipfs.boxo.mfs`.
@@ -722,6 +754,9 @@ final class GoIpfsBoxoMfs {
 
   /// The constants of a named type of `go.ipfs.boxo.mfs`.
   GoIpfsBoxoMfsEnums get enums => const GoIpfsBoxoMfsEnums._();
+
+  /// The option constructors of `go.ipfs.boxo.mfs`.
+  GoIpfsBoxoMfsOptions get options => const GoIpfsBoxoMfsOptions._();
 }
 
 /// Go: package `github.com/ipfs/boxo/namesys`, as `go.ipfs.boxo.namesys`.
@@ -733,6 +768,9 @@ final class GoIpfsBoxoNamesys {
 
   /// The constants of a named type of `go.ipfs.boxo.namesys`.
   GoIpfsBoxoNamesysEnums get enums => const GoIpfsBoxoNamesysEnums._();
+
+  /// The option constructors of `go.ipfs.boxo.namesys`.
+  GoIpfsBoxoNamesysOptions get options => const GoIpfsBoxoNamesysOptions._();
 }
 
 /// Go: package `github.com/ipfs/boxo/path`, as `go.ipfs.boxo.path`.
@@ -763,6 +801,9 @@ final class GoIpfsBoxoProvider {
 
   /// The constants of a named type of `go.ipfs.boxo.provider`.
   GoIpfsBoxoProviderEnums get enums => const GoIpfsBoxoProviderEnums._();
+
+  /// The option constructors of `go.ipfs.boxo.provider`.
+  GoIpfsBoxoProviderOptions get options => const GoIpfsBoxoProviderOptions._();
 }
 
 /// Go: package `github.com/ipfs/boxo/verifcid`, as `go.ipfs.boxo.verifcid`.
@@ -820,6 +861,14 @@ final class GoIpfsIpfsCmds {
 
   /// The constants of a named type of `go.ipfs.ipfsCmds`.
   GoIpfsIpfsCmdsEnums get enums => const GoIpfsIpfsCmdsEnums._();
+}
+
+/// Go: package `github.com/ipfs/go-ipld-format`, as `go.ipfs.ipldFormat`.
+final class GoIpfsIpldFormat {
+  const GoIpfsIpldFormat._();
+
+  /// The option constructors of `go.ipfs.ipldFormat`.
+  GoIpfsIpldFormatOptions get options => const GoIpfsIpldFormatOptions._();
 }
 
 /// Go: package `github.com/ipfs/go-ipld-legacy`, as `go.ipfs.ipldLegacy`.
@@ -1036,6 +1085,9 @@ final class GoIpldCarV2 {
   /// Go: package `github.com/ipld/go-car/v2/index`.
   GoIpldCarV2Index get index => const GoIpldCarV2Index._();
 
+  /// The option constructors of `go.ipld.car.v2`.
+  GoIpldCarV2Options get options => const GoIpldCarV2Options._();
+
   /// Go: package `github.com/ipld/go-car/v2/storage`.
   GoIpldCarV2Storage get storage => const GoIpldCarV2Storage._();
 }
@@ -1200,6 +1252,15 @@ final class GoLibp2p {
   GoLibp2pYamux get yamux => const GoLibp2pYamux._();
 }
 
+/// Go: package `github.com/libp2p/go-doh-resolver`, as `go.libp2p.dohResolver`.
+final class GoLibp2pDohResolver {
+  const GoLibp2pDohResolver._();
+
+  /// The option constructors of `go.libp2p.dohResolver`.
+  GoLibp2pDohResolverOptions get options =>
+      const GoLibp2pDohResolverOptions._();
+}
+
 /// Go: package `github.com/libp2p/go-libp2p`, as `go.libp2p.libp2p`.
 final class GoLibp2pLibp2p {
   const GoLibp2pLibp2p._();
@@ -1209,6 +1270,9 @@ final class GoLibp2pLibp2p {
 
   /// `libp2p/libp2p/core`.
   GoLibp2pLibp2pCore get core => const GoLibp2pLibp2pCore._();
+
+  /// The option constructors of `go.libp2p.libp2p`.
+  GoLibp2pLibp2pOptions get options => const GoLibp2pLibp2pOptions._();
 
   /// `libp2p/libp2p/p2p`.
   GoLibp2pLibp2pP2p get p2p => const GoLibp2pLibp2pP2p._();
@@ -1286,6 +1350,15 @@ final class GoLibp2pLibp2pCoreCryptoPb {
       const GoLibp2pLibp2pCoreCryptoPbEnums._();
 }
 
+/// Go: package `github.com/libp2p/go-libp2p/core/discovery`, as `go.libp2p.libp2p.core.discovery`.
+final class GoLibp2pLibp2pCoreDiscovery {
+  const GoLibp2pLibp2pCoreDiscovery._();
+
+  /// The option constructors of `go.libp2p.libp2p.core.discovery`.
+  GoLibp2pLibp2pCoreDiscoveryOptions get options =>
+      const GoLibp2pLibp2pCoreDiscoveryOptions._();
+}
+
 /// Go: package `github.com/libp2p/go-libp2p/core/event`, as `go.libp2p.libp2p.core.event`.
 final class GoLibp2pLibp2pCoreEvent {
   const GoLibp2pLibp2pCoreEvent._();
@@ -1345,6 +1418,10 @@ final class GoLibp2pLibp2pCoreRouting {
   /// The constants of a named type of `go.libp2p.libp2p.core.routing`.
   GoLibp2pLibp2pCoreRoutingEnums get enums =>
       const GoLibp2pLibp2pCoreRoutingEnums._();
+
+  /// The option constructors of `go.libp2p.libp2p.core.routing`.
+  GoLibp2pLibp2pCoreRoutingOptions get options =>
+      const GoLibp2pLibp2pCoreRoutingOptions._();
 }
 
 /// Go: package `github.com/libp2p/go-libp2p/core/transport`, as `go.libp2p.libp2p.core.transport`.
@@ -1422,6 +1499,15 @@ final class GoLibp2pLibp2pP2pHost {
       const GoLibp2pLibp2pP2pHostResourceManager._();
 }
 
+/// Go: package `github.com/libp2p/go-libp2p/p2p/host/autorelay`, as `go.libp2p.libp2p.p2p.host.autorelay`.
+final class GoLibp2pLibp2pP2pHostAutorelay {
+  const GoLibp2pLibp2pP2pHostAutorelay._();
+
+  /// The option constructors of `go.libp2p.libp2p.p2p.host.autorelay`.
+  GoLibp2pLibp2pP2pHostAutorelayOptions get options =>
+      const GoLibp2pLibp2pP2pHostAutorelayOptions._();
+}
+
 /// Go: package `github.com/libp2p/go-libp2p/p2p/host/resource-manager`, as `go.libp2p.libp2p.p2p.host.resourceManager`.
 final class GoLibp2pLibp2pP2pHostResourceManager {
   const GoLibp2pLibp2pP2pHostResourceManager._();
@@ -1472,6 +1558,10 @@ final class GoLibp2pLibp2pP2pNetSwarm {
   /// The constants of a named type of `go.libp2p.libp2p.p2p.net.swarm`.
   GoLibp2pLibp2pP2pNetSwarmEnums get enums =>
       const GoLibp2pLibp2pP2pNetSwarmEnums._();
+
+  /// The option constructors of `go.libp2p.libp2p.p2p.net.swarm`.
+  GoLibp2pLibp2pP2pNetSwarmOptions get options =>
+      const GoLibp2pLibp2pP2pNetSwarmOptions._();
 }
 
 /// `go.libp2p.libp2p.p2p.protocol`.
@@ -1511,6 +1601,10 @@ final class GoLibp2pLibp2pP2pProtocolCircuitv2Relay {
   /// The constants of a named type of `go.libp2p.libp2p.p2p.protocol.circuitv2.relay`.
   GoLibp2pLibp2pP2pProtocolCircuitv2RelayEnums get enums =>
       const GoLibp2pLibp2pP2pProtocolCircuitv2RelayEnums._();
+
+  /// The option constructors of `go.libp2p.libp2p.p2p.protocol.circuitv2.relay`.
+  GoLibp2pLibp2pP2pProtocolCircuitv2RelayOptions get options =>
+      const GoLibp2pLibp2pP2pProtocolCircuitv2RelayOptions._();
 }
 
 /// Go: package `github.com/libp2p/go-libp2p/p2p/protocol/holepunch`, as `go.libp2p.libp2p.p2p.protocol.holepunch`.
@@ -1524,6 +1618,10 @@ final class GoLibp2pLibp2pP2pProtocolHolepunch {
   /// The constants of a named type of `go.libp2p.libp2p.p2p.protocol.holepunch`.
   GoLibp2pLibp2pP2pProtocolHolepunchEnums get enums =>
       const GoLibp2pLibp2pP2pProtocolHolepunchEnums._();
+
+  /// The option constructors of `go.libp2p.libp2p.p2p.protocol.holepunch`.
+  GoLibp2pLibp2pP2pProtocolHolepunchOptions get options =>
+      const GoLibp2pLibp2pP2pProtocolHolepunchOptions._();
 }
 
 /// Go: package `github.com/libp2p/go-libp2p/p2p/protocol/ping`, as `go.libp2p.libp2p.p2p.protocol.ping`.
@@ -1568,6 +1666,10 @@ final class GoLibp2pLibp2pP2pSecurityTls {
   /// The constants of `go.libp2p.libp2p.p2p.security.tls`.
   GoLibp2pLibp2pP2pSecurityTlsConsts get consts =>
       const GoLibp2pLibp2pP2pSecurityTlsConsts._();
+
+  /// The option constructors of `go.libp2p.libp2p.p2p.security.tls`.
+  GoLibp2pLibp2pP2pSecurityTlsOptions get options =>
+      const GoLibp2pLibp2pP2pSecurityTlsOptions._();
 }
 
 /// `go.libp2p.libp2p.p2p.transport`.
@@ -1606,6 +1708,19 @@ final class GoLibp2pLibp2pP2pTransportQuic {
   /// The constants of `go.libp2p.libp2p.p2p.transport.quic`.
   GoLibp2pLibp2pP2pTransportQuicConsts get consts =>
       const GoLibp2pLibp2pP2pTransportQuicConsts._();
+
+  /// The option constructors of `go.libp2p.libp2p.p2p.transport.quic`.
+  GoLibp2pLibp2pP2pTransportQuicOptions get options =>
+      const GoLibp2pLibp2pP2pTransportQuicOptions._();
+}
+
+/// Go: package `github.com/libp2p/go-libp2p/p2p/transport/quicreuse`, as `go.libp2p.libp2p.p2p.transport.quicreuse`.
+final class GoLibp2pLibp2pP2pTransportQuicreuse {
+  const GoLibp2pLibp2pP2pTransportQuicreuse._();
+
+  /// The option constructors of `go.libp2p.libp2p.p2p.transport.quicreuse`.
+  GoLibp2pLibp2pP2pTransportQuicreuseOptions get options =>
+      const GoLibp2pLibp2pP2pTransportQuicreuseOptions._();
 }
 
 /// Go: package `github.com/libp2p/go-libp2p/p2p/transport/webrtc`, as `go.libp2p.libp2p.p2p.transport.webrtc`.
@@ -1619,6 +1734,10 @@ final class GoLibp2pLibp2pP2pTransportWebrtc {
   /// The constants of a named type of `go.libp2p.libp2p.p2p.transport.webrtc`.
   GoLibp2pLibp2pP2pTransportWebrtcEnums get enums =>
       const GoLibp2pLibp2pP2pTransportWebrtcEnums._();
+
+  /// The option constructors of `go.libp2p.libp2p.p2p.transport.webrtc`.
+  GoLibp2pLibp2pP2pTransportWebrtcOptions get options =>
+      const GoLibp2pLibp2pP2pTransportWebrtcOptions._();
 }
 
 /// Go: package `github.com/libp2p/go-libp2p-kad-dht`, as `go.libp2p.libp2pKadDht`.
@@ -1627,6 +1746,10 @@ final class GoLibp2pLibp2pKadDht {
 
   /// The constants of a named type of `go.libp2p.libp2pKadDht`.
   GoLibp2pLibp2pKadDhtEnums get enums => const GoLibp2pLibp2pKadDhtEnums._();
+
+  /// The option constructors of `go.libp2p.libp2pKadDht`.
+  GoLibp2pLibp2pKadDhtOptions get options =>
+      const GoLibp2pLibp2pKadDhtOptions._();
 
   /// Go: package `github.com/libp2p/go-libp2p-kad-dht/pb`.
   GoLibp2pLibp2pKadDhtPb get pb => const GoLibp2pLibp2pKadDhtPb._();
@@ -1669,6 +1792,10 @@ final class GoLibp2pLibp2pKadDhtRecords {
   /// The constants of `go.libp2p.libp2pKadDht.records`.
   GoLibp2pLibp2pKadDhtRecordsConsts get consts =>
       const GoLibp2pLibp2pKadDhtRecordsConsts._();
+
+  /// The option constructors of `go.libp2p.libp2pKadDht.records`.
+  GoLibp2pLibp2pKadDhtRecordsOptions get options =>
+      const GoLibp2pLibp2pKadDhtRecordsOptions._();
 }
 
 /// Go: package `github.com/libp2p/go-libp2p-kbucket`, as `go.libp2p.libp2pKbucket`.
@@ -1693,6 +1820,10 @@ final class GoLibp2pLibp2pPubsub {
 
   /// The constants of a named type of `go.libp2p.libp2pPubsub`.
   GoLibp2pLibp2pPubsubEnums get enums => const GoLibp2pLibp2pPubsubEnums._();
+
+  /// The option constructors of `go.libp2p.libp2pPubsub`.
+  GoLibp2pLibp2pPubsubOptions get options =>
+      const GoLibp2pLibp2pPubsubOptions._();
 
   /// Go: package `github.com/libp2p/go-libp2p-pubsub/pb`.
   GoLibp2pLibp2pPubsubPb get pb => const GoLibp2pLibp2pPubsubPb._();
@@ -2076,9 +2207,9 @@ final class GoIpfsBoxoBitswapMessage {
   const GoIpfsBoxoBitswapMessage._();
 }
 
-/// Go: package `github.com/ipfs/boxo/bitswap/network/bsnet`, as `go.ipfs.boxo.bitswap.network.bsnet`.
-final class GoIpfsBoxoBitswapNetworkBsnet {
-  const GoIpfsBoxoBitswapNetworkBsnet._();
+/// The option constructors of `go.ipfs.boxo.bitswap.network.bsnet`, as `go.ipfs.boxo.bitswap.network.bsnet.options`.
+final class GoIpfsBoxoBitswapNetworkBsnetOptions {
+  const GoIpfsBoxoBitswapNetworkBsnetOptions._();
 }
 
 /// Go: package `github.com/ipfs/boxo/bitswap/server/internal/decision`, as `go.ipfs.boxo.bitswap.server.internal.decision`.
@@ -2091,9 +2222,9 @@ final class GoIpfsBoxoBitswapTracer {
   const GoIpfsBoxoBitswapTracer._();
 }
 
-/// Go: package `github.com/ipfs/boxo/blockservice`, as `go.ipfs.boxo.blockservice`.
-final class GoIpfsBoxoBlockservice {
-  const GoIpfsBoxoBlockservice._();
+/// The option constructors of `go.ipfs.boxo.blockservice`, as `go.ipfs.boxo.blockservice.options`.
+final class GoIpfsBoxoBlockserviceOptions {
+  const GoIpfsBoxoBlockserviceOptions._();
 }
 
 /// Go: package `github.com/ipfs/boxo/blockstore`, as `go.ipfs.boxo.blockstore`.
@@ -2131,6 +2262,11 @@ final class GoIpfsBoxoFilestoreEnums {
   const GoIpfsBoxoFilestoreEnums._();
 }
 
+/// The option constructors of `go.ipfs.boxo.filestore`, as `go.ipfs.boxo.filestore.options`.
+final class GoIpfsBoxoFilestoreOptions {
+  const GoIpfsBoxoFilestoreOptions._();
+}
+
 /// Go: package `github.com/ipfs/boxo/filestore/posinfo`, as `go.ipfs.boxo.filestore.posinfo`.
 final class GoIpfsBoxoFilestorePosinfo {
   const GoIpfsBoxoFilestorePosinfo._();
@@ -2151,6 +2287,11 @@ final class GoIpfsBoxoGatewayEnums {
   const GoIpfsBoxoGatewayEnums._();
 }
 
+/// The option constructors of `go.ipfs.boxo.gateway`, as `go.ipfs.boxo.gateway.options`.
+final class GoIpfsBoxoGatewayOptions {
+  const GoIpfsBoxoGatewayOptions._();
+}
+
 /// The constants of a named type of `go.ipfs.boxo.ipld.merkledag.dagutils`, as `go.ipfs.boxo.ipld.merkledag.dagutils.enums`.
 final class GoIpfsBoxoIpldMerkledagDagutilsEnums {
   const GoIpfsBoxoIpldMerkledagDagutilsEnums._();
@@ -2159,6 +2300,11 @@ final class GoIpfsBoxoIpldMerkledagDagutilsEnums {
 /// The constants of a named type of `go.ipfs.boxo.ipld.merkledag`, as `go.ipfs.boxo.ipld.merkledag.enums`.
 final class GoIpfsBoxoIpldMerkledagEnums {
   const GoIpfsBoxoIpldMerkledagEnums._();
+}
+
+/// The option constructors of `go.ipfs.boxo.ipld.merkledag`, as `go.ipfs.boxo.ipld.merkledag.options`.
+final class GoIpfsBoxoIpldMerkledagOptions {
+  const GoIpfsBoxoIpldMerkledagOptions._();
 }
 
 /// The constants of `go.ipfs.boxo.ipld.merkledag.pb`, as `go.ipfs.boxo.ipld.merkledag.pb.consts`.
@@ -2196,6 +2342,11 @@ final class GoIpfsBoxoIpnsEnums {
   const GoIpfsBoxoIpnsEnums._();
 }
 
+/// The option constructors of `go.ipfs.boxo.ipns`, as `go.ipfs.boxo.ipns.options`.
+final class GoIpfsBoxoIpnsOptions {
+  const GoIpfsBoxoIpnsOptions._();
+}
+
 /// Go: package `github.com/ipfs/boxo/keystore`, as `go.ipfs.boxo.keystore`.
 final class GoIpfsBoxoKeystore {
   const GoIpfsBoxoKeystore._();
@@ -2206,6 +2357,11 @@ final class GoIpfsBoxoMfsEnums {
   const GoIpfsBoxoMfsEnums._();
 }
 
+/// The option constructors of `go.ipfs.boxo.mfs`, as `go.ipfs.boxo.mfs.options`.
+final class GoIpfsBoxoMfsOptions {
+  const GoIpfsBoxoMfsOptions._();
+}
+
 /// The constants of `go.ipfs.boxo.namesys`, as `go.ipfs.boxo.namesys.consts`.
 final class GoIpfsBoxoNamesysConsts {
   const GoIpfsBoxoNamesysConsts._();
@@ -2214,6 +2370,11 @@ final class GoIpfsBoxoNamesysConsts {
 /// The constants of a named type of `go.ipfs.boxo.namesys`, as `go.ipfs.boxo.namesys.enums`.
 final class GoIpfsBoxoNamesysEnums {
   const GoIpfsBoxoNamesysEnums._();
+}
+
+/// The option constructors of `go.ipfs.boxo.namesys`, as `go.ipfs.boxo.namesys.options`.
+final class GoIpfsBoxoNamesysOptions {
+  const GoIpfsBoxoNamesysOptions._();
 }
 
 /// The constants of `go.ipfs.boxo.path`, as `go.ipfs.boxo.path.consts`.
@@ -2239,6 +2400,11 @@ final class GoIpfsBoxoPeeringEnums {
 /// The constants of a named type of `go.ipfs.boxo.provider`, as `go.ipfs.boxo.provider.enums`.
 final class GoIpfsBoxoProviderEnums {
   const GoIpfsBoxoProviderEnums._();
+}
+
+/// The option constructors of `go.ipfs.boxo.provider`, as `go.ipfs.boxo.provider.options`.
+final class GoIpfsBoxoProviderOptions {
+  const GoIpfsBoxoProviderOptions._();
 }
 
 /// The constants of `go.ipfs.boxo.verifcid`, as `go.ipfs.boxo.verifcid.consts`.
@@ -2281,9 +2447,9 @@ final class GoIpfsIpfsCmdsEnums {
   const GoIpfsIpfsCmdsEnums._();
 }
 
-/// Go: package `github.com/ipfs/go-ipld-format`, as `go.ipfs.ipldFormat`.
-final class GoIpfsIpldFormat {
-  const GoIpfsIpldFormat._();
+/// The option constructors of `go.ipfs.ipldFormat`, as `go.ipfs.ipldFormat.options`.
+final class GoIpfsIpldFormatOptions {
+  const GoIpfsIpldFormatOptions._();
 }
 
 /// The constants of a named type of `go.ipfs.ipldLegacy`, as `go.ipfs.ipldLegacy.enums`.
@@ -2421,6 +2587,11 @@ final class GoIpldCarV2IndexConsts {
   const GoIpldCarV2IndexConsts._();
 }
 
+/// The option constructors of `go.ipld.car.v2`, as `go.ipld.car.v2.options`.
+final class GoIpldCarV2Options {
+  const GoIpldCarV2Options._();
+}
+
 /// Go: package `github.com/ipld/go-car/v2/storage`, as `go.ipld.car.v2.storage`.
 final class GoIpldCarV2Storage {
   const GoIpldCarV2Storage._();
@@ -2491,9 +2662,9 @@ final class GoIpshipyardP2pForgeClientConsts {
   const GoIpshipyardP2pForgeClientConsts._();
 }
 
-/// Go: package `github.com/libp2p/go-doh-resolver`, as `go.libp2p.dohResolver`.
-final class GoLibp2pDohResolver {
-  const GoLibp2pDohResolver._();
+/// The option constructors of `go.libp2p.dohResolver`, as `go.libp2p.dohResolver.options`.
+final class GoLibp2pDohResolverOptions {
+  const GoLibp2pDohResolverOptions._();
 }
 
 /// Go: package `github.com/libp2p/go-libp2p/config`, as `go.libp2p.libp2p.config`.
@@ -2516,9 +2687,9 @@ final class GoLibp2pLibp2pCoreCryptoPbEnums {
   const GoLibp2pLibp2pCoreCryptoPbEnums._();
 }
 
-/// Go: package `github.com/libp2p/go-libp2p/core/discovery`, as `go.libp2p.libp2p.core.discovery`.
-final class GoLibp2pLibp2pCoreDiscovery {
-  const GoLibp2pLibp2pCoreDiscovery._();
+/// The option constructors of `go.libp2p.libp2p.core.discovery`, as `go.libp2p.libp2p.core.discovery.options`.
+final class GoLibp2pLibp2pCoreDiscoveryOptions {
+  const GoLibp2pLibp2pCoreDiscoveryOptions._();
 }
 
 /// The constants of a named type of `go.libp2p.libp2p.core.event`, as `go.libp2p.libp2p.core.event.enums`.
@@ -2576,6 +2747,11 @@ final class GoLibp2pLibp2pCoreRoutingEnums {
   const GoLibp2pLibp2pCoreRoutingEnums._();
 }
 
+/// The option constructors of `go.libp2p.libp2p.core.routing`, as `go.libp2p.libp2p.core.routing.options`.
+final class GoLibp2pLibp2pCoreRoutingOptions {
+  const GoLibp2pLibp2pCoreRoutingOptions._();
+}
+
 /// Go: package `github.com/libp2p/go-libp2p/core/sec`, as `go.libp2p.libp2p.core.sec`.
 final class GoLibp2pLibp2pCoreSec {
   const GoLibp2pLibp2pCoreSec._();
@@ -2584,6 +2760,11 @@ final class GoLibp2pLibp2pCoreSec {
 /// The constants of a named type of `go.libp2p.libp2p.core.transport`, as `go.libp2p.libp2p.core.transport.enums`.
 final class GoLibp2pLibp2pCoreTransportEnums {
   const GoLibp2pLibp2pCoreTransportEnums._();
+}
+
+/// The option constructors of `go.libp2p.libp2p`, as `go.libp2p.libp2p.options`.
+final class GoLibp2pLibp2pOptions {
+  const GoLibp2pLibp2pOptions._();
 }
 
 /// The constants of `go.libp2p.libp2p.p2p.discovery.mdns`, as `go.libp2p.libp2p.p2p.discovery.mdns.consts`.
@@ -2596,9 +2777,9 @@ final class GoLibp2pLibp2pP2pDiscoveryRouting {
   const GoLibp2pLibp2pP2pDiscoveryRouting._();
 }
 
-/// Go: package `github.com/libp2p/go-libp2p/p2p/host/autorelay`, as `go.libp2p.libp2p.p2p.host.autorelay`.
-final class GoLibp2pLibp2pP2pHostAutorelay {
-  const GoLibp2pLibp2pP2pHostAutorelay._();
+/// The option constructors of `go.libp2p.libp2p.p2p.host.autorelay`, as `go.libp2p.libp2p.p2p.host.autorelay.options`.
+final class GoLibp2pLibp2pP2pHostAutorelayOptions {
+  const GoLibp2pLibp2pP2pHostAutorelayOptions._();
 }
 
 /// Go: package `github.com/libp2p/go-libp2p/p2p/host/basic`, as `go.libp2p.libp2p.p2p.host.basic`.
@@ -2626,6 +2807,11 @@ final class GoLibp2pLibp2pP2pNetSwarmEnums {
   const GoLibp2pLibp2pP2pNetSwarmEnums._();
 }
 
+/// The option constructors of `go.libp2p.libp2p.p2p.net.swarm`, as `go.libp2p.libp2p.p2p.net.swarm.options`.
+final class GoLibp2pLibp2pP2pNetSwarmOptions {
+  const GoLibp2pLibp2pP2pNetSwarmOptions._();
+}
+
 /// Go: package `github.com/libp2p/go-libp2p/p2p/net/upgrader`, as `go.libp2p.libp2p.p2p.net.upgrader`.
 final class GoLibp2pLibp2pP2pNetUpgrader {
   const GoLibp2pLibp2pP2pNetUpgrader._();
@@ -2641,6 +2827,11 @@ final class GoLibp2pLibp2pP2pProtocolCircuitv2RelayEnums {
   const GoLibp2pLibp2pP2pProtocolCircuitv2RelayEnums._();
 }
 
+/// The option constructors of `go.libp2p.libp2p.p2p.protocol.circuitv2.relay`, as `go.libp2p.libp2p.p2p.protocol.circuitv2.relay.options`.
+final class GoLibp2pLibp2pP2pProtocolCircuitv2RelayOptions {
+  const GoLibp2pLibp2pP2pProtocolCircuitv2RelayOptions._();
+}
+
 /// The constants of `go.libp2p.libp2p.p2p.protocol.holepunch`, as `go.libp2p.libp2p.p2p.protocol.holepunch.consts`.
 final class GoLibp2pLibp2pP2pProtocolHolepunchConsts {
   const GoLibp2pLibp2pP2pProtocolHolepunchConsts._();
@@ -2649,6 +2840,11 @@ final class GoLibp2pLibp2pP2pProtocolHolepunchConsts {
 /// The constants of a named type of `go.libp2p.libp2p.p2p.protocol.holepunch`, as `go.libp2p.libp2p.p2p.protocol.holepunch.enums`.
 final class GoLibp2pLibp2pP2pProtocolHolepunchEnums {
   const GoLibp2pLibp2pP2pProtocolHolepunchEnums._();
+}
+
+/// The option constructors of `go.libp2p.libp2p.p2p.protocol.holepunch`, as `go.libp2p.libp2p.p2p.protocol.holepunch.options`.
+final class GoLibp2pLibp2pP2pProtocolHolepunchOptions {
+  const GoLibp2pLibp2pP2pProtocolHolepunchOptions._();
 }
 
 /// The constants of `go.libp2p.libp2p.p2p.protocol.ping`, as `go.libp2p.libp2p.p2p.protocol.ping.consts`.
@@ -2671,14 +2867,24 @@ final class GoLibp2pLibp2pP2pSecurityTlsConsts {
   const GoLibp2pLibp2pP2pSecurityTlsConsts._();
 }
 
+/// The option constructors of `go.libp2p.libp2p.p2p.security.tls`, as `go.libp2p.libp2p.p2p.security.tls.options`.
+final class GoLibp2pLibp2pP2pSecurityTlsOptions {
+  const GoLibp2pLibp2pP2pSecurityTlsOptions._();
+}
+
 /// The constants of `go.libp2p.libp2p.p2p.transport.quic`, as `go.libp2p.libp2p.p2p.transport.quic.consts`.
 final class GoLibp2pLibp2pP2pTransportQuicConsts {
   const GoLibp2pLibp2pP2pTransportQuicConsts._();
 }
 
-/// Go: package `github.com/libp2p/go-libp2p/p2p/transport/quicreuse`, as `go.libp2p.libp2p.p2p.transport.quicreuse`.
-final class GoLibp2pLibp2pP2pTransportQuicreuse {
-  const GoLibp2pLibp2pP2pTransportQuicreuse._();
+/// The option constructors of `go.libp2p.libp2p.p2p.transport.quic`, as `go.libp2p.libp2p.p2p.transport.quic.options`.
+final class GoLibp2pLibp2pP2pTransportQuicOptions {
+  const GoLibp2pLibp2pP2pTransportQuicOptions._();
+}
+
+/// The option constructors of `go.libp2p.libp2p.p2p.transport.quicreuse`, as `go.libp2p.libp2p.p2p.transport.quicreuse.options`.
+final class GoLibp2pLibp2pP2pTransportQuicreuseOptions {
+  const GoLibp2pLibp2pP2pTransportQuicreuseOptions._();
 }
 
 /// Go: package `github.com/libp2p/go-libp2p/p2p/transport/tcp`, as `go.libp2p.libp2p.p2p.transport.tcp`.
@@ -2696,6 +2902,11 @@ final class GoLibp2pLibp2pP2pTransportWebrtcEnums {
   const GoLibp2pLibp2pP2pTransportWebrtcEnums._();
 }
 
+/// The option constructors of `go.libp2p.libp2p.p2p.transport.webrtc`, as `go.libp2p.libp2p.p2p.transport.webrtc.options`.
+final class GoLibp2pLibp2pP2pTransportWebrtcOptions {
+  const GoLibp2pLibp2pP2pTransportWebrtcOptions._();
+}
+
 /// Go: package `github.com/libp2p/go-libp2p/p2p/transport/websocket`, as `go.libp2p.libp2p.p2p.transport.websocket`.
 final class GoLibp2pLibp2pP2pTransportWebsocket {
   const GoLibp2pLibp2pP2pTransportWebsocket._();
@@ -2709,6 +2920,11 @@ final class GoLibp2pLibp2pP2pTransportWebtransport {
 /// The constants of a named type of `go.libp2p.libp2pKadDht`, as `go.libp2p.libp2pKadDht.enums`.
 final class GoLibp2pLibp2pKadDhtEnums {
   const GoLibp2pLibp2pKadDhtEnums._();
+}
+
+/// The option constructors of `go.libp2p.libp2pKadDht`, as `go.libp2p.libp2pKadDht.options`.
+final class GoLibp2pLibp2pKadDhtOptions {
+  const GoLibp2pLibp2pKadDhtOptions._();
 }
 
 /// The constants of `go.libp2p.libp2pKadDht.pb`, as `go.libp2p.libp2pKadDht.pb.consts`.
@@ -2731,6 +2947,11 @@ final class GoLibp2pLibp2pKadDhtRecordsConsts {
   const GoLibp2pLibp2pKadDhtRecordsConsts._();
 }
 
+/// The option constructors of `go.libp2p.libp2pKadDht.records`, as `go.libp2p.libp2pKadDht.records.options`.
+final class GoLibp2pLibp2pKadDhtRecordsOptions {
+  const GoLibp2pLibp2pKadDhtRecordsOptions._();
+}
+
 /// The constants of `go.libp2p.libp2pKbucket`, as `go.libp2p.libp2pKbucket.consts`.
 final class GoLibp2pLibp2pKbucketConsts {
   const GoLibp2pLibp2pKbucketConsts._();
@@ -2749,6 +2970,11 @@ final class GoLibp2pLibp2pPubsubConsts {
 /// The constants of a named type of `go.libp2p.libp2pPubsub`, as `go.libp2p.libp2pPubsub.enums`.
 final class GoLibp2pLibp2pPubsubEnums {
   const GoLibp2pLibp2pPubsubEnums._();
+}
+
+/// The option constructors of `go.libp2p.libp2pPubsub`, as `go.libp2p.libp2pPubsub.options`.
+final class GoLibp2pLibp2pPubsubOptions {
+  const GoLibp2pLibp2pPubsubOptions._();
 }
 
 /// The constants of a named type of `go.libp2p.libp2pPubsub.pb`, as `go.libp2p.libp2pPubsub.pb.enums`.

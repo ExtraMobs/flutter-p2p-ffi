@@ -2,7 +2,7 @@
 // Go: github.com/libp2p/go-libp2p/core/discovery
 library;
 
-import 'package:p2p_ffi/src/go.dart' show GoLibp2pLibp2pCoreDiscovery;
+import 'package:p2p_ffi/src/go.dart' show GoLibp2pLibp2pCoreDiscoveryOptions;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/libp2p/libp2p/p2p/discovery/routing.dart'
     as $routing;
@@ -43,8 +43,9 @@ final class Libp2pCoreDiscoveryOption extends GoOption {
   Libp2pCoreDiscoveryOption.$(super.$i, super.$a);
 }
 
-/// Go: the package-level members of `github.com/libp2p/go-libp2p/core/discovery` (`go.libp2p.libp2p.core.discovery`).
-extension GoLibp2pLibp2pCoreDiscoveryApi on GoLibp2pLibp2pCoreDiscovery {
+/// Go: the option constructors of `github.com/libp2p/go-libp2p/core/discovery` (`go.libp2p.libp2p.core.discovery.options`).
+extension GoLibp2pLibp2pCoreDiscoveryOptionsApi
+    on GoLibp2pLibp2pCoreDiscoveryOptions {
   /// Go: `discovery.Limit`.
   Libp2pCoreDiscoveryOption limit(int limit) =>
       Libp2pCoreDiscoveryOption.$(0, (w) => w..i64(limit));

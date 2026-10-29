@@ -2,7 +2,8 @@
 // Go: github.com/ipfs/boxo/bitswap/network/bsnet
 library;
 
-import 'package:p2p_ffi/src/go.dart' show GoIpfsBoxoBitswapNetworkBsnet;
+import 'package:p2p_ffi/src/go.dart'
+    show GoIpfsBoxoBitswapNetworkBsnet, GoIpfsBoxoBitswapNetworkBsnetOptions;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/ipfs/boxo/bitswap/network.dart' as $network;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/host.dart' as $host;
@@ -14,20 +15,6 @@ final class BoxoBitswapNetworkBsnetNetOpt extends GoOption {
 
 /// Go: the package-level members of `github.com/ipfs/boxo/bitswap/network/bsnet` (`go.ipfs.boxo.bitswap.network.bsnet`).
 extension GoIpfsBoxoBitswapNetworkBsnetApi on GoIpfsBoxoBitswapNetworkBsnet {
-  /// Go: `bsnet.Prefix`.
-  BoxoBitswapNetworkBsnetNetOpt prefix(String prefix) =>
-      BoxoBitswapNetworkBsnetNetOpt.$(0, (w) => w..str(prefix));
-
-  /// Go: `bsnet.SupportedProtocols`.
-  BoxoBitswapNetworkBsnetNetOpt supportedProtocols(List<String> protos) =>
-      BoxoBitswapNetworkBsnetNetOpt.$(
-          1, (w) => w..list(protos, (w0, e0) => w0.str(e0)));
-
-  /// Go: `bsnet.WithConnectEventManager`.
-  BoxoBitswapNetworkBsnetNetOpt withConnectEventManager(
-          $network.BoxoBitswapNetworkConnectEventManager evm) =>
-      BoxoBitswapNetworkBsnetNetOpt.$(2, (w) => w..h(evm));
-
   /// Go: `func bsnet.NewFromIpfsHost(host host.Host, opts ...bsnet.NetOpt) network.BitSwapNetwork`.
   $network.BoxoBitswapNetworkBitSwapNetwork newFromIpfsHost(
       $host.Libp2pCoreHost host,
@@ -63,4 +50,22 @@ extension GoIpfsBoxoBitswapNetworkBsnetApi on GoIpfsBoxoBitswapNetworkBsnet {
     final $r = $callSync(447);
     return $r.str();
   }
+}
+
+/// Go: the option constructors of `github.com/ipfs/boxo/bitswap/network/bsnet` (`go.ipfs.boxo.bitswap.network.bsnet.options`).
+extension GoIpfsBoxoBitswapNetworkBsnetOptionsApi
+    on GoIpfsBoxoBitswapNetworkBsnetOptions {
+  /// Go: `bsnet.Prefix`.
+  BoxoBitswapNetworkBsnetNetOpt prefix(String prefix) =>
+      BoxoBitswapNetworkBsnetNetOpt.$(0, (w) => w..str(prefix));
+
+  /// Go: `bsnet.SupportedProtocols`.
+  BoxoBitswapNetworkBsnetNetOpt supportedProtocols(List<String> protos) =>
+      BoxoBitswapNetworkBsnetNetOpt.$(
+          1, (w) => w..list(protos, (w0, e0) => w0.str(e0)));
+
+  /// Go: `bsnet.WithConnectEventManager`.
+  BoxoBitswapNetworkBsnetNetOpt withConnectEventManager(
+          $network.BoxoBitswapNetworkConnectEventManager evm) =>
+      BoxoBitswapNetworkBsnetNetOpt.$(2, (w) => w..h(evm));
 }

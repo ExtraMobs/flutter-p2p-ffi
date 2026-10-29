@@ -11,8 +11,8 @@ const echo = '/p2p-ffi-test/echo/1.0.0';
 
 Future<Libp2pCoreHost> newHost([Libp2pCoreCryptoPrivKey? key]) =>
     go.libp2p.libp2p.new$([
-      go.libp2p.libp2p.listenAddrStrings(['/ip4/127.0.0.1/tcp/0']),
-      if (key != null) go.libp2p.libp2p.identity(key),
+      go.libp2p.libp2p.options.listenAddrStrings(['/ip4/127.0.0.1/tcp/0']),
+      if (key != null) go.libp2p.libp2p.options.identity(key),
     ]);
 
 void main() {
@@ -126,8 +126,9 @@ void main() {
 
   test('a private DHT: provide on one host, find it from the other', () async {
     final opts = [
-      go.libp2p.libp2pKadDht.mode(go.libp2p.libp2pKadDht.enums.modeServer),
-      go.libp2p.libp2pKadDht.protocolPrefix('/p2p-ffi-test')
+      go.libp2p.libp2pKadDht.options
+          .mode(go.libp2p.libp2pKadDht.enums.modeServer),
+      go.libp2p.libp2pKadDht.options.protocolPrefix('/p2p-ffi-test')
     ];
     final da = go.libp2p.libp2pKadDht.new$(a, opts),
         db = go.libp2p.libp2pKadDht.new$(b, opts);
@@ -165,7 +166,8 @@ void main() {
             ? go.libp2p.libp2pPubsub.enums.validationAccept
             : go.libp2p.libp2pPubsub.enums.validationReject;
       }, [
-        go.libp2p.libp2pPubsub.withValidatorTimeout(const Duration(seconds: 5))
+        go.libp2p.libp2pPubsub.options
+            .withValidatorTimeout(const Duration(seconds: 5))
       ]);
     }, (e, _) => thrown.add(e));
     final topicA = await psA.join('checked');
@@ -213,13 +215,14 @@ void main() {
   test("a stack of one's own: TCP, Noise and yamux, from Go functions",
       () async {
     final opts = [
-      go.libp2p.libp2p
+      go.libp2p.libp2p.options
           .transport(go.libp2p.libp2p.p2p.transport.tcp.newTcpTransportFunc),
-      go.libp2p.libp2p.security(go.libp2p.libp2p.p2p.security.noise.consts.id,
+      go.libp2p.libp2p.options.security(
+          go.libp2p.libp2p.p2p.security.noise.consts.id,
           go.libp2p.libp2p.p2p.security.noise.newFunc),
-      go.libp2p.libp2p.muxer(go.libp2p.libp2p.p2p.muxer.yamux.consts.id,
+      go.libp2p.libp2p.options.muxer(go.libp2p.libp2p.p2p.muxer.yamux.consts.id,
           go.libp2p.libp2p.p2p.muxer.yamux.defaultTransport),
-      go.libp2p.libp2p.listenAddrStrings(['/ip4/127.0.0.1/tcp/0']),
+      go.libp2p.libp2p.options.listenAddrStrings(['/ip4/127.0.0.1/tcp/0']),
     ];
     final x = await go.libp2p.libp2p.new$(opts),
         y = await go.libp2p.libp2p.new$(opts);
@@ -233,7 +236,8 @@ void main() {
     await expectLater(
         go.libp2p.libp2p.new$([
           ...opts.take(3),
-          go.libp2p.libp2p.listenAddrStrings(['/ip4/127.0.0.1/udp/0/quic-v1']),
+          go.libp2p.libp2p.options
+              .listenAddrStrings(['/ip4/127.0.0.1/udp/0/quic-v1']),
         ]),
         throwsA(isA<GolangException>()));
   });
@@ -244,17 +248,17 @@ void main() {
     expect(params.d, greaterThan(0));
     expect(params.heartbeatInterval, greaterThan(Duration.zero));
     await go.libp2p.libp2pPubsub.newGossipSub(
-        ctx, a, [go.libp2p.libp2pPubsub.withGossipSubParams(params)]);
+        ctx, a, [go.libp2p.libp2pPubsub.options.withGossipSubParams(params)]);
     // invalid on purpose (Dlo above D): gossipsub refuses what arrived
     params.dlo = params.d + 1;
     await expectLater(
-        go.libp2p.libp2pPubsub.newGossipSub(
-            ctx, b, [go.libp2p.libp2pPubsub.withGossipSubParams(params)]),
+        go.libp2p.libp2pPubsub.newGossipSub(ctx, b,
+            [go.libp2p.libp2pPubsub.options.withGossipSubParams(params)]),
         throwsA(isA<GolangException>()));
     final r = await go.libp2p.libp2p.new$([
-      go.libp2p.libp2p.listenAddrStrings(['/ip4/127.0.0.1/tcp/0']),
-      go.libp2p.libp2p.enableRelayService([
-        go.libp2p.libp2p.p2p.protocol.circuitv2.relay.withResources(
+      go.libp2p.libp2p.options.listenAddrStrings(['/ip4/127.0.0.1/tcp/0']),
+      go.libp2p.libp2p.options.enableRelayService([
+        go.libp2p.libp2p.p2p.protocol.circuitv2.relay.options.withResources(
             go.libp2p.libp2p.p2p.protocol.circuitv2.relay.defaultResources()
               ..limit =
                   go.libp2p.libp2p.p2p.protocol.circuitv2.relay.defaultLimit()),
@@ -268,7 +272,7 @@ void main() {
     final psB = await go.libp2p.libp2pPubsub.newGossipSub(ctx, b);
     final topicA = await psA.join('filtered');
     final sub = await (await psB.join('filtered')).subscribe([
-      go.libp2p.libp2pPubsub.withMessageFilter(
+      go.libp2p.libp2pPubsub.options.withMessageFilter(
           (m) => !utf8.decode(m.message!.getData()).startsWith('skip')),
     ]);
     while (!(await topicA.listPeers()).contains(b.id())) {

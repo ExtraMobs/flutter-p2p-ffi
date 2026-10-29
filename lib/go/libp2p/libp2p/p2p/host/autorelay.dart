@@ -2,7 +2,7 @@
 // Go: github.com/libp2p/go-libp2p/p2p/host/autorelay
 library;
 
-import 'package:p2p_ffi/src/go.dart' show GoLibp2pLibp2pP2pHostAutorelay;
+import 'package:p2p_ffi/src/go.dart' show GoLibp2pLibp2pP2pHostAutorelayOptions;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
@@ -38,8 +38,9 @@ class Libp2pP2pHostAutorelayPeerSource extends $crypto.CryptoPrivateKey
   Libp2pP2pHostAutorelayPeerSource.$h(super.$h) : super.$h();
 }
 
-/// Go: the package-level members of `github.com/libp2p/go-libp2p/p2p/host/autorelay` (`go.libp2p.libp2p.p2p.host.autorelay`).
-extension GoLibp2pLibp2pP2pHostAutorelayApi on GoLibp2pLibp2pP2pHostAutorelay {
+/// Go: the option constructors of `github.com/libp2p/go-libp2p/p2p/host/autorelay` (`go.libp2p.libp2p.p2p.host.autorelay.options`).
+extension GoLibp2pLibp2pP2pHostAutorelayOptionsApi
+    on GoLibp2pLibp2pP2pHostAutorelayOptions {
   /// Go: `autorelay.WithBackoff`.
   Libp2pP2pHostAutorelayOption withBackoff(Duration d) =>
       Libp2pP2pHostAutorelayOption.$(

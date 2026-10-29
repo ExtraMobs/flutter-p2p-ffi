@@ -6,7 +6,7 @@ import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:p2p_ffi/src/go.dart'
-    show GoIpfsBoxoProvider, GoIpfsBoxoProviderEnums;
+    show GoIpfsBoxoProvider, GoIpfsBoxoProviderEnums, GoIpfsBoxoProviderOptions;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
@@ -310,49 +310,6 @@ mixin BoxoProviderSystem$ on GoHandle {
 
 /// Go: the package-level members of `github.com/ipfs/boxo/provider` (`go.ipfs.boxo.provider`).
 extension GoIpfsBoxoProviderApi on GoIpfsBoxoProvider {
-  /// Go: `provider.Allowlist`.
-  BoxoProviderOption allowlist($verifcid.BoxoVerifcidAllowlist allowlist) =>
-      BoxoProviderOption.$(0, (w) => w..h(allowlist));
-
-  /// Go: `provider.DatastorePrefix`.
-  BoxoProviderOption datastorePrefix($datastore.DatastoreKey k) =>
-      BoxoProviderOption.$(1, (w) => w..h(k));
-
-  /// Go: `provider.KeyProvider`.
-  BoxoProviderOption keyProvider(BoxoProviderKeyChanFunc fn) =>
-      BoxoProviderOption.$(2, (w) => w..h(fn));
-
-  /// Go: `provider.MaxBatchSize`.
-  BoxoProviderOption maxBatchSize(int n) =>
-      BoxoProviderOption.$(3, (w) => w..i64(n));
-
-  /// Go: `provider.Online`.
-  BoxoProviderOption online(BoxoProviderProvide rsys) =>
-      BoxoProviderOption.$(4, (w) => w..h(rsys));
-
-  /// Go: `provider.ProvideWorkerCount`.
-  BoxoProviderOption provideWorkerCount(int n) =>
-      BoxoProviderOption.$(5, (w) => w..i64(n));
-
-  /// Go: `provider.ReproviderInterval`.
-  BoxoProviderOption reproviderInterval(Duration duration) =>
-      BoxoProviderOption.$(6, (w) => w..i64((duration).inMicroseconds * 1000));
-
-  /// Go: `provider.ThroughputReport`.
-  BoxoProviderOption throughputReport(
-          FutureOr<bool> Function(bool reprovide, bool complete,
-                  int totalKeysProvided, Duration totalDuration)
-              f,
-          int minimumProvides) =>
-      BoxoProviderOption.$(
-          7,
-          (w) => w
-            ..cb(
-                (r) => f(r.b(), r.b(), r.i64(),
-                    Duration(microseconds: r.i64() ~/ 1000)),
-                true)
-            ..i64(minimumProvides));
-
   /// Go: `var provider.DefaultKeyPrefix datastore.Key`.
   $datastore.DatastoreKey get defaultKeyPrefix {
     final $r = $callSync(1027);
@@ -412,4 +369,50 @@ extension GoIpfsBoxoProviderApi on GoIpfsBoxoProvider {
 extension GoIpfsBoxoProviderEnumsApi on GoIpfsBoxoProviderEnums {
   /// Go: `const provider.DefaultReproviderInterval time.Duration`.
   Duration get defaultReproviderInterval => Duration(microseconds: 79200000000);
+}
+
+/// Go: the option constructors of `github.com/ipfs/boxo/provider` (`go.ipfs.boxo.provider.options`).
+extension GoIpfsBoxoProviderOptionsApi on GoIpfsBoxoProviderOptions {
+  /// Go: `provider.Allowlist`.
+  BoxoProviderOption allowlist($verifcid.BoxoVerifcidAllowlist allowlist) =>
+      BoxoProviderOption.$(0, (w) => w..h(allowlist));
+
+  /// Go: `provider.DatastorePrefix`.
+  BoxoProviderOption datastorePrefix($datastore.DatastoreKey k) =>
+      BoxoProviderOption.$(1, (w) => w..h(k));
+
+  /// Go: `provider.KeyProvider`.
+  BoxoProviderOption keyProvider(BoxoProviderKeyChanFunc fn) =>
+      BoxoProviderOption.$(2, (w) => w..h(fn));
+
+  /// Go: `provider.MaxBatchSize`.
+  BoxoProviderOption maxBatchSize(int n) =>
+      BoxoProviderOption.$(3, (w) => w..i64(n));
+
+  /// Go: `provider.Online`.
+  BoxoProviderOption online(BoxoProviderProvide rsys) =>
+      BoxoProviderOption.$(4, (w) => w..h(rsys));
+
+  /// Go: `provider.ProvideWorkerCount`.
+  BoxoProviderOption provideWorkerCount(int n) =>
+      BoxoProviderOption.$(5, (w) => w..i64(n));
+
+  /// Go: `provider.ReproviderInterval`.
+  BoxoProviderOption reproviderInterval(Duration duration) =>
+      BoxoProviderOption.$(6, (w) => w..i64((duration).inMicroseconds * 1000));
+
+  /// Go: `provider.ThroughputReport`.
+  BoxoProviderOption throughputReport(
+          FutureOr<bool> Function(bool reprovide, bool complete,
+                  int totalKeysProvided, Duration totalDuration)
+              f,
+          int minimumProvides) =>
+      BoxoProviderOption.$(
+          7,
+          (w) => w
+            ..cb(
+                (r) => f(r.b(), r.b(), r.i64(),
+                    Duration(microseconds: r.i64() ~/ 1000)),
+                true)
+            ..i64(minimumProvides));
 }

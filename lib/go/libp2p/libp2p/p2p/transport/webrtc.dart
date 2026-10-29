@@ -8,7 +8,8 @@ import 'package:p2p_ffi/src/go.dart'
     show
         GoLibp2pLibp2pP2pTransportWebrtc,
         GoLibp2pLibp2pP2pTransportWebrtcConsts,
-        GoLibp2pLibp2pP2pTransportWebrtcEnums;
+        GoLibp2pLibp2pP2pTransportWebrtcEnums,
+        GoLibp2pLibp2pP2pTransportWebrtcOptions;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
@@ -112,10 +113,6 @@ class Libp2pP2pTransportWebrtcWebRtcTransport
 /// Go: the package-level members of `github.com/libp2p/go-libp2p/p2p/transport/webrtc` (`go.libp2p.libp2p.p2p.transport.webrtc`).
 extension GoLibp2pLibp2pP2pTransportWebrtcApi
     on GoLibp2pLibp2pP2pTransportWebrtc {
-  /// Go: `webrtc.WithDialerVersion`.
-  Libp2pP2pTransportWebrtcOption withDialerVersion(int version) =>
-      Libp2pP2pTransportWebrtcOption.$(0, (w) => w..i64(version));
-
   /// Go: `func libp2pwebrtc.IsWebRTCDirectMultiaddr(addr multiaddr.Multiaddr) (bool, int)`.
   (bool, int) isWebRtcDirectMultiaddr($multiaddr.Multiaddr addr) {
     final $r = $callSync(3377, $W()..val(addr));
@@ -165,4 +162,12 @@ extension GoLibp2pLibp2pP2pTransportWebrtcEnumsApi
 
   /// Go: `const libp2pwebrtc.DefaultKeepaliveTimeout time.Duration`.
   Duration get defaultKeepaliveTimeout => Duration(microseconds: 15000000);
+}
+
+/// Go: the option constructors of `github.com/libp2p/go-libp2p/p2p/transport/webrtc` (`go.libp2p.libp2p.p2p.transport.webrtc.options`).
+extension GoLibp2pLibp2pP2pTransportWebrtcOptionsApi
+    on GoLibp2pLibp2pP2pTransportWebrtcOptions {
+  /// Go: `webrtc.WithDialerVersion`.
+  Libp2pP2pTransportWebrtcOption withDialerVersion(int version) =>
+      Libp2pP2pTransportWebrtcOption.$(0, (w) => w..i64(version));
 }

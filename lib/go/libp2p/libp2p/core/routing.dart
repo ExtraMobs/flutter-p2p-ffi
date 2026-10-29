@@ -5,7 +5,10 @@ library;
 import 'dart:typed_data';
 
 import 'package:p2p_ffi/src/go.dart'
-    show GoLibp2pLibp2pCoreRouting, GoLibp2pLibp2pCoreRoutingEnums;
+    show
+        GoLibp2pLibp2pCoreRouting,
+        GoLibp2pLibp2pCoreRoutingEnums,
+        GoLibp2pLibp2pCoreRoutingOptions;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/ipfs/cid.dart' as $cid;
@@ -483,12 +486,6 @@ class Libp2pCoreRoutingErrNotSupported extends GolangException {
 
 /// Go: the package-level members of `github.com/libp2p/go-libp2p/core/routing` (`go.libp2p.libp2p.core.routing`).
 extension GoLibp2pLibp2pCoreRoutingApi on GoLibp2pLibp2pCoreRouting {
-  /// Go: `var routing.Expired`.
-  Libp2pCoreRoutingOption get expired => Libp2pCoreRoutingOption.$(0, (_) {});
-
-  /// Go: `var routing.Offline`.
-  Libp2pCoreRoutingOption get offline => Libp2pCoreRoutingOption.$(1, (_) {});
-
   /// Go: `func routing.GetPublicKey(r routing.ValueStore, ctx context.Context, p peer.ID) (crypto.PubKey, error)`.
   ///
   /// Asynchronous: runs in a goroutine of the service.
@@ -563,4 +560,14 @@ extension GoLibp2pLibp2pCoreRoutingEnumsApi on GoLibp2pLibp2pCoreRoutingEnums {
 
   /// Go: `const routing.Value routing.QueryEventType`.
   int get value$ => 5;
+}
+
+/// Go: the option constructors of `github.com/libp2p/go-libp2p/core/routing` (`go.libp2p.libp2p.core.routing.options`).
+extension GoLibp2pLibp2pCoreRoutingOptionsApi
+    on GoLibp2pLibp2pCoreRoutingOptions {
+  /// Go: `var routing.Expired`.
+  Libp2pCoreRoutingOption get expired => Libp2pCoreRoutingOption.$(0, (_) {});
+
+  /// Go: `var routing.Offline`.
+  Libp2pCoreRoutingOption get offline => Libp2pCoreRoutingOption.$(1, (_) {});
 }

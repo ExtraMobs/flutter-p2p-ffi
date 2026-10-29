@@ -9,7 +9,8 @@ import 'package:p2p_ffi/src/go.dart'
     show
         GoLibp2pLibp2pP2pNetSwarm,
         GoLibp2pLibp2pP2pNetSwarmConsts,
-        GoLibp2pLibp2pP2pNetSwarmEnums;
+        GoLibp2pLibp2pP2pNetSwarmEnums,
+        GoLibp2pLibp2pP2pNetSwarmOptions;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
@@ -1063,62 +1064,6 @@ class Libp2pP2pNetSwarmTransportError extends GolangException {
 
 /// Go: the package-level members of `github.com/libp2p/go-libp2p/p2p/net/swarm` (`go.libp2p.libp2p.p2p.net.swarm`).
 extension GoLibp2pLibp2pP2pNetSwarmApi on GoLibp2pLibp2pP2pNetSwarm {
-  /// Go: `swarm.WithConnectionGater`.
-  Libp2pP2pNetSwarmOption withConnectionGater(
-          $connmgr.Libp2pCoreConnmgrConnectionGater gater) =>
-      Libp2pP2pNetSwarmOption.$(0, (w) => w..h(gater));
-
-  /// Go: `swarm.WithDialRanker`.
-  Libp2pP2pNetSwarmOption withDialRanker(
-          $network.Libp2pCoreNetworkDialRanker d) =>
-      Libp2pP2pNetSwarmOption.$(1, (w) => w..h(d));
-
-  /// Go: `swarm.WithDialTimeoutLocal`.
-  Libp2pP2pNetSwarmOption withDialTimeoutLocal(Duration t) =>
-      Libp2pP2pNetSwarmOption.$(3, (w) => w..i64((t).inMicroseconds * 1000));
-
-  /// Go: `swarm.WithDialTimeout`.
-  Libp2pP2pNetSwarmOption withDialTimeout(Duration t) =>
-      Libp2pP2pNetSwarmOption.$(2, (w) => w..i64((t).inMicroseconds * 1000));
-
-  /// Go: `swarm.WithIPv6BlackHoleSuccessCounter`.
-  Libp2pP2pNetSwarmOption withIPv6BlackHoleSuccessCounter(
-          Libp2pP2pNetSwarmBlackHoleSuccessCounter f) =>
-      Libp2pP2pNetSwarmOption.$(4, (w) => w..h(f));
-
-  /// Go: `swarm.WithMetricsTracer`.
-  Libp2pP2pNetSwarmOption withMetricsTracer(Libp2pP2pNetSwarmMetricsTracer t) =>
-      Libp2pP2pNetSwarmOption.$(6, (w) => w..h(t));
-
-  /// Go: `swarm.WithMetrics`.
-  Libp2pP2pNetSwarmOption withMetrics(
-          $metrics.Libp2pCoreMetricsReporter reporter) =>
-      Libp2pP2pNetSwarmOption.$(5, (w) => w..h(reporter));
-
-  /// Go: `swarm.WithMultiaddrResolver`.
-  Libp2pP2pNetSwarmOption withMultiaddrResolver(
-          $network.Libp2pCoreNetworkMultiaddrDnsResolver resolver) =>
-      Libp2pP2pNetSwarmOption.$(7, (w) => w..h(resolver));
-
-  /// Go: `swarm.WithReadOnlyBlackHoleDetector`.
-  Libp2pP2pNetSwarmOption withReadOnlyBlackHoleDetector() =>
-      Libp2pP2pNetSwarmOption.$(8, (_) {});
-
-  /// Go: `swarm.WithRegisterer`.
-  Libp2pP2pNetSwarmMetricsTracerOption withRegisterer(
-          $prometheus.ClientGolangPrometheusRegisterer reg) =>
-      Libp2pP2pNetSwarmMetricsTracerOption.$(0, (w) => w..h(reg));
-
-  /// Go: `swarm.WithResourceManager`.
-  Libp2pP2pNetSwarmOption withResourceManager(
-          $network.Libp2pCoreNetworkResourceManager m) =>
-      Libp2pP2pNetSwarmOption.$(9, (w) => w..h(m));
-
-  /// Go: `swarm.WithUDPBlackHoleSuccessCounter`.
-  Libp2pP2pNetSwarmOption withUdpBlackHoleSuccessCounter(
-          Libp2pP2pNetSwarmBlackHoleSuccessCounter f) =>
-      Libp2pP2pNetSwarmOption.$(10, (w) => w..h(f));
-
   /// Go: `var swarm.BackoffBase time.Duration`.
   Duration get backoffBase {
     final $r = $callSync(3236);
@@ -1192,4 +1137,64 @@ extension GoLibp2pLibp2pP2pNetSwarmEnumsApi on GoLibp2pLibp2pP2pNetSwarmEnums {
 
   /// Go: `const swarm.RelayDelay time.Duration`.
   Duration get relayDelay => Duration(microseconds: 500000);
+}
+
+/// Go: the option constructors of `github.com/libp2p/go-libp2p/p2p/net/swarm` (`go.libp2p.libp2p.p2p.net.swarm.options`).
+extension GoLibp2pLibp2pP2pNetSwarmOptionsApi
+    on GoLibp2pLibp2pP2pNetSwarmOptions {
+  /// Go: `swarm.WithConnectionGater`.
+  Libp2pP2pNetSwarmOption withConnectionGater(
+          $connmgr.Libp2pCoreConnmgrConnectionGater gater) =>
+      Libp2pP2pNetSwarmOption.$(0, (w) => w..h(gater));
+
+  /// Go: `swarm.WithDialRanker`.
+  Libp2pP2pNetSwarmOption withDialRanker(
+          $network.Libp2pCoreNetworkDialRanker d) =>
+      Libp2pP2pNetSwarmOption.$(1, (w) => w..h(d));
+
+  /// Go: `swarm.WithDialTimeoutLocal`.
+  Libp2pP2pNetSwarmOption withDialTimeoutLocal(Duration t) =>
+      Libp2pP2pNetSwarmOption.$(3, (w) => w..i64((t).inMicroseconds * 1000));
+
+  /// Go: `swarm.WithDialTimeout`.
+  Libp2pP2pNetSwarmOption withDialTimeout(Duration t) =>
+      Libp2pP2pNetSwarmOption.$(2, (w) => w..i64((t).inMicroseconds * 1000));
+
+  /// Go: `swarm.WithIPv6BlackHoleSuccessCounter`.
+  Libp2pP2pNetSwarmOption withIPv6BlackHoleSuccessCounter(
+          Libp2pP2pNetSwarmBlackHoleSuccessCounter f) =>
+      Libp2pP2pNetSwarmOption.$(4, (w) => w..h(f));
+
+  /// Go: `swarm.WithMetricsTracer`.
+  Libp2pP2pNetSwarmOption withMetricsTracer(Libp2pP2pNetSwarmMetricsTracer t) =>
+      Libp2pP2pNetSwarmOption.$(6, (w) => w..h(t));
+
+  /// Go: `swarm.WithMetrics`.
+  Libp2pP2pNetSwarmOption withMetrics(
+          $metrics.Libp2pCoreMetricsReporter reporter) =>
+      Libp2pP2pNetSwarmOption.$(5, (w) => w..h(reporter));
+
+  /// Go: `swarm.WithMultiaddrResolver`.
+  Libp2pP2pNetSwarmOption withMultiaddrResolver(
+          $network.Libp2pCoreNetworkMultiaddrDnsResolver resolver) =>
+      Libp2pP2pNetSwarmOption.$(7, (w) => w..h(resolver));
+
+  /// Go: `swarm.WithReadOnlyBlackHoleDetector`.
+  Libp2pP2pNetSwarmOption withReadOnlyBlackHoleDetector() =>
+      Libp2pP2pNetSwarmOption.$(8, (_) {});
+
+  /// Go: `swarm.WithRegisterer`.
+  Libp2pP2pNetSwarmMetricsTracerOption withRegisterer(
+          $prometheus.ClientGolangPrometheusRegisterer reg) =>
+      Libp2pP2pNetSwarmMetricsTracerOption.$(0, (w) => w..h(reg));
+
+  /// Go: `swarm.WithResourceManager`.
+  Libp2pP2pNetSwarmOption withResourceManager(
+          $network.Libp2pCoreNetworkResourceManager m) =>
+      Libp2pP2pNetSwarmOption.$(9, (w) => w..h(m));
+
+  /// Go: `swarm.WithUDPBlackHoleSuccessCounter`.
+  Libp2pP2pNetSwarmOption withUdpBlackHoleSuccessCounter(
+          Libp2pP2pNetSwarmBlackHoleSuccessCounter f) =>
+      Libp2pP2pNetSwarmOption.$(10, (w) => w..h(f));
 }

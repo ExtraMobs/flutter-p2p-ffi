@@ -4,7 +4,7 @@ library;
 
 import 'dart:typed_data';
 
-import 'package:p2p_ffi/src/go.dart' show GoLibp2pLibp2p;
+import 'package:p2p_ffi/src/go.dart' show GoLibp2pLibp2p, GoLibp2pLibp2pOptions;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/libp2p/libp2p/config.dart' as $config;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/connmgr.dart' as $connmgr;
@@ -29,6 +29,31 @@ import 'package:p2p_ffi/go/multiformats/multiaddr.dart' as $multiaddr;
 
 /// Go: the package-level members of `github.com/libp2p/go-libp2p` (`go.libp2p.libp2p`).
 extension GoLibp2pLibp2pApi on GoLibp2pLibp2p {
+  /// Go: `func libp2p.New(opts ...libp2p.Option) (host.Host, error)`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<$host.Libp2pCoreHost> new$(
+      [List<$config.Libp2pConfigOption> opts = const []]) async {
+    final $r = await $call(2826, $W()..list(opts, (w0, e0) => w0.opt(e0)));
+    return $r.hnn($host.Libp2pCoreHost.$h);
+  }
+
+  /// Go: `func libp2p.NewWithoutDefaults(opts ...libp2p.Option) (host.Host, error)`.
+  $host.Libp2pCoreHost newWithoutDefaults(
+      [List<$config.Libp2pConfigOption> opts = const []]) {
+    final $r = $callSync(2827, $W()..list(opts, (w0, e0) => w0.opt(e0)));
+    return $r.hnn($host.Libp2pCoreHost.$h);
+  }
+
+  /// Go: `func libp2p.SetDefaultServiceLimits(config *rcmgr.ScalingLimitConfig)`.
+  void setDefaultServiceLimits(
+      $resource_manager.Libp2pP2pHostResourceManagerScalingLimitConfig config) {
+    $callSync(2828, $W()..dto(config));
+  }
+}
+
+/// Go: the option constructors of `github.com/libp2p/go-libp2p` (`go.libp2p.libp2p.options`).
+extension GoLibp2pLibp2pOptionsApi on GoLibp2pLibp2pOptions {
   /// Go: `go-libp2p.AddrsFactory`.
   $config.Libp2pConfigOption addrsFactory(
           $basic.Libp2pP2pHostBasicAddrsFactory factory) =>
@@ -323,26 +348,4 @@ extension GoLibp2pLibp2pApi on GoLibp2pLibp2p {
   /// Go: `var go-libp2p.RandomIdentity`.
   $config.Libp2pConfigOption get randomIdentity =>
       $config.Libp2pConfigOption.$(60, (_) {});
-
-  /// Go: `func libp2p.New(opts ...libp2p.Option) (host.Host, error)`.
-  ///
-  /// Asynchronous: runs in a goroutine of the service.
-  Future<$host.Libp2pCoreHost> new$(
-      [List<$config.Libp2pConfigOption> opts = const []]) async {
-    final $r = await $call(2826, $W()..list(opts, (w0, e0) => w0.opt(e0)));
-    return $r.hnn($host.Libp2pCoreHost.$h);
-  }
-
-  /// Go: `func libp2p.NewWithoutDefaults(opts ...libp2p.Option) (host.Host, error)`.
-  $host.Libp2pCoreHost newWithoutDefaults(
-      [List<$config.Libp2pConfigOption> opts = const []]) {
-    final $r = $callSync(2827, $W()..list(opts, (w0, e0) => w0.opt(e0)));
-    return $r.hnn($host.Libp2pCoreHost.$h);
-  }
-
-  /// Go: `func libp2p.SetDefaultServiceLimits(config *rcmgr.ScalingLimitConfig)`.
-  void setDefaultServiceLimits(
-      $resource_manager.Libp2pP2pHostResourceManagerScalingLimitConfig config) {
-    $callSync(2828, $W()..dto(config));
-  }
 }

@@ -58,14 +58,21 @@ dart test                                          # the whole suite (needs the 
   host of its own without an author, the standard library beside the authors: `go.context`),
   so two modules with the same name do not meet; lowerCamelCase as Dart names constants and
   getters. A package's functions and variables are members
-  of its namespace class, its constants of one of two layers under it, so a constant never
-  hides a sub-package (`crypto.MD5` and `crypto/md5`; owner's decision, 2026-10-29): `enums`
-  for a constant of a named type (`go.multiformats.multicodec.enums.raw`), `consts` for the
-  others (`go.ipfs.cid.consts.raw`). The members are added by the package's library as an
+  of its namespace class, its constants and option constructors of a layer under it, so they
+  never hide a sub-package (`crypto.MD5` and `crypto/md5`, `grpc.Peer` and `grpc/peer`;
+  owner's decisions, 2026-10-29): `enums` for a constant of a named type
+  (`go.multiformats.multicodec.enums.raw`), `consts` for the other constants
+  (`go.ipfs.cid.consts.raw`), `options` for a function or variable that is a functional
+  option (`go.ipfs.boxo.mfs.options.withMaxLinks`; a variable holding option constructors,
+  `go.ipfs.kubo.core.coreiface.options.unixfs`, stays a member). The members are added by the package's library as an
   extension on the namespace class (`go.ipfs.boxo.mfs` is a `GoIpfsBoxoMfs`; the extension
   `GoIpfsBoxoMfsApi`, and `GoIpfsCidConstsApi` on the layer `GoIpfsCidConsts`); Dart has no nested types, so a type is a top-level class named
   after its package's path without the author, minus the words the Go name already starts with
-  (`BoxoMfsRoot`, `Libp2pCorePeerId`, `cid.Cid` → `Cid`). Every name is unique: the
+  (`BoxoMfsRoot`, `Libp2pCorePeerId`, `cid.Cid` → `Cid`); when two types would get the same
+  class, the one with the longer Go name keeps it whole after a `_`, after its path or at its
+  own `_` (`grpc.BackoffConfig` → `Grpc_BackoffConfig` beside `GrpcBackoffConfig`,
+  `errorspb.EncodedError_Leaf` → `ErrorsErrorspbEncodedError_Leaf`), declared under
+  `// ignore: camel_case_types` (owner's decision, 2026-10-29). Every name is unique: the
   generator refuses two equal names, a member that hides a sub-namespace, and an `export`
   in a public library outside `lib/p2p_ffi.dart`. A hand-written library of a Go package
   adds its members the same way (`extension GoContextApi on GoContext`) and gets the

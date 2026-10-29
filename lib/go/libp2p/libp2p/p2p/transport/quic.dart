@@ -5,7 +5,10 @@ library;
 import 'dart:typed_data';
 
 import 'package:p2p_ffi/src/go.dart'
-    show GoLibp2pLibp2pP2pTransportQuic, GoLibp2pLibp2pP2pTransportQuicConsts;
+    show
+        GoLibp2pLibp2pP2pTransportQuic,
+        GoLibp2pLibp2pP2pTransportQuicConsts,
+        GoLibp2pLibp2pP2pTransportQuicOptions;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/libp2p/libp2p/core/connmgr.dart' as $connmgr;
 import 'package:p2p_ffi/go/libp2p/libp2p/core/crypto.dart' as $crypto;
@@ -31,12 +34,6 @@ class Libp2pP2pTransportQuicErrHolePunching extends GolangException {
 
 /// Go: the package-level members of `github.com/libp2p/go-libp2p/p2p/transport/quic` (`go.libp2p.libp2p.p2p.transport.quic`).
 extension GoLibp2pLibp2pP2pTransportQuicApi on GoLibp2pLibp2pP2pTransportQuic {
-  /// Go: `quic.WithTLSIdentityOption`.
-  Libp2pP2pTransportQuicOption withTlsIdentityOption(
-          [List<$tls.Libp2pP2pSecurityTlsIdentityOption> opt = const []]) =>
-      Libp2pP2pTransportQuicOption.$(
-          0, (w) => w..list(opt, (w0, e0) => w0.opt(e0)));
-
   /// Go: `var libp2pquic.HolePunchTimeout time.Duration`.
   Duration get holePunchTimeout {
     final $r = $callSync(3375);
@@ -73,4 +70,14 @@ extension GoLibp2pLibp2pP2pTransportQuicConstsApi
     on GoLibp2pLibp2pP2pTransportQuicConsts {
   /// Go: `const libp2pquic.ListenOrder untyped int`.
   int get listenOrder => 1;
+}
+
+/// Go: the option constructors of `github.com/libp2p/go-libp2p/p2p/transport/quic` (`go.libp2p.libp2p.p2p.transport.quic.options`).
+extension GoLibp2pLibp2pP2pTransportQuicOptionsApi
+    on GoLibp2pLibp2pP2pTransportQuicOptions {
+  /// Go: `quic.WithTLSIdentityOption`.
+  Libp2pP2pTransportQuicOption withTlsIdentityOption(
+          [List<$tls.Libp2pP2pSecurityTlsIdentityOption> opt = const []]) =>
+      Libp2pP2pTransportQuicOption.$(
+          0, (w) => w..list(opt, (w0, e0) => w0.opt(e0)));
 }
