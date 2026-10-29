@@ -137,7 +137,8 @@ func emitDart(m *model, fns []*fn, hash uint64, more func(*dartEmitter)) (map[st
 		e.collect(f.stream)
 		switch {
 		case f.recv != nil:
-			c := e.lib(f.recv.named.Obj().Pkg().Path()).classes[classKey(f.recv)]
+			// the class lives in its home library (an alias's package)
+			c := e.lib(e.m.home(f.recv.named.Obj().Pkg()).Path()).classes[classKey(f.recv)]
 			c.methods = append(c.methods, f)
 		case isFactory(f):
 			c := e.lib(f.pkg.Path()).classes[classKey(f.results[0])]
