@@ -6,7 +6,10 @@ import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:p2p_ffi/src/go.dart'
-    show GoIpfsBoxoIpldUnixfsIo, GoIpfsBoxoIpldUnixfsIoEnums;
+    show
+        GoIpfsBoxoIpldUnixfsIo,
+        GoIpfsBoxoIpldUnixfsIoEnums,
+        GoIpfsBoxoIpldUnixfsIoOptions;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
@@ -1122,7 +1125,22 @@ extension GoIpfsBoxoIpldUnixfsIoApi on GoIpfsBoxoIpldUnixfsIo {
     final $r = $callSync(876);
     return $r.p() ? BoxoIpldUnixfsIoUnixFsProfile.$dec($r) : $nil();
   }
+}
 
+/// Go: the constants of a named type of `github.com/ipfs/boxo/ipld/unixfs/io` (`go.ipfs.boxo.ipld.unixfs.io.enums`).
+extension GoIpfsBoxoIpldUnixfsIoEnumsApi on GoIpfsBoxoIpldUnixfsIoEnums {
+  /// Go: `const io.SizeEstimationBlock io.SizeEstimationMode`.
+  int get sizeEstimationBlock => 1;
+
+  /// Go: `const io.SizeEstimationDisabled io.SizeEstimationMode`.
+  int get sizeEstimationDisabled => 2;
+
+  /// Go: `const io.SizeEstimationLinks io.SizeEstimationMode`.
+  int get sizeEstimationLinks => 0;
+}
+
+/// Go: the option constructors of `github.com/ipfs/boxo/ipld/unixfs/io` (`go.ipfs.boxo.ipld.unixfs.io.options`).
+extension GoIpfsBoxoIpldUnixfsIoOptionsApi on GoIpfsBoxoIpldUnixfsIoOptions {
   /// Go: `func io.WithCidBuilder(cb cid.Builder) io.DirectoryOption`.
   BoxoIpldUnixfsIoDirectoryOption withCidBuilder($cid.CidBuilder cb) {
     final $r = $callSync(877, $W()..h(cb));
@@ -1156,16 +1174,4 @@ extension GoIpfsBoxoIpldUnixfsIoApi on GoIpfsBoxoIpldUnixfsIo {
           ..time(mtime));
     return $r.hnn(BoxoIpldUnixfsIoDirectoryOption.$h);
   }
-}
-
-/// Go: the constants of a named type of `github.com/ipfs/boxo/ipld/unixfs/io` (`go.ipfs.boxo.ipld.unixfs.io.enums`).
-extension GoIpfsBoxoIpldUnixfsIoEnumsApi on GoIpfsBoxoIpldUnixfsIoEnums {
-  /// Go: `const io.SizeEstimationBlock io.SizeEstimationMode`.
-  int get sizeEstimationBlock => 1;
-
-  /// Go: `const io.SizeEstimationDisabled io.SizeEstimationMode`.
-  int get sizeEstimationDisabled => 2;
-
-  /// Go: `const io.SizeEstimationLinks io.SizeEstimationMode`.
-  int get sizeEstimationLinks => 0;
 }

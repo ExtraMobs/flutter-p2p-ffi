@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"go/format"
 	"go/types"
+	"regexp"
 	"sort"
 	"strings"
 )
@@ -82,7 +83,10 @@ func emitGo(m *model, fns []*fn, errs []*goError, hash uint64) ([]byte, error) {
 }
 
 func (g *goEmitter) qual(p *types.Package) string {
-	p = g.m.home(p) // an internal package is spelled through its alias (dht.Option)
+	return g.qualExact(g.m.home(p)) // an internal package is spelled through its alias (dht.Option)
+}
+
+func (g *goEmitter) qualExact(p *types.Package) string {
 	if a, ok := g.aliases[p.Path()]; ok {
 		return a
 	}
@@ -95,7 +99,30 @@ func (g *goEmitter) qual(p *types.Package) string {
 	return a
 }
 
-func (g *goEmitter) ts(t types.Type) string { return types.TypeString(t, g.qual) }
+// ts: Go's spelling of [t]; an internal type through the package that
+// aliases it (homeOf), type by type.
+func (g *goEmitter) ts(t types.Type) string {
+	pkgs := map[string]*types.Package{}
+	s := types.TypeString(t, func(p *types.Package) string {
+		pkgs[p.Path()] = p
+		return "\x00" + p.Path() + "\x00"
+	})
+	return typeRefRE.ReplaceAllStringFunc(s, func(ref string) string {
+		m := typeRefRE.FindStringSubmatch(ref)
+		p := pkgs[m[1]]
+		if o := p.Scope().Lookup(m[2]); o != nil {
+			if _, aliased := g.m.via[objKey(o)]; isInternal(p.Path()) && !aliased {
+				// no exported name: its underlying type, assignable to it
+				// (base.ComparePointSuffixes → func(a, b []byte) int)
+				return g.ts(o.Type().Underlying())
+			}
+			return g.qualExact(g.m.homeOf(o)) + "." + m[2]
+		}
+		return g.qual(p) + "." + m[2]
+	})
+}
+
+var typeRefRE = regexp.MustCompile(`\x00([^\x00]+)\x00\.([A-Za-z_][A-Za-z0-9_]*)`)
 
 const fail = "\tif err != nil {\n\t\treturn err\n\t}\n"
 

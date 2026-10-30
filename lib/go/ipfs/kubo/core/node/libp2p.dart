@@ -5,7 +5,10 @@ library;
 import 'dart:typed_data';
 
 import 'package:p2p_ffi/src/go.dart'
-    show GoIpfsKuboCoreNodeLibp2p, GoIpfsKuboCoreNodeLibp2pConsts;
+    show
+        GoIpfsKuboCoreNodeLibp2p,
+        GoIpfsKuboCoreNodeLibp2pConsts,
+        GoIpfsKuboCoreNodeLibp2pOptions;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 import 'package:p2p_ffi/go/dig.dart' as $dig;
@@ -348,53 +351,11 @@ extension GoIpfsKuboCoreNodeLibp2pApi on GoIpfsKuboCoreNodeLibp2p {
     return $r.any();
   }
 
-  /// Go: `func libp2p.ConstructDefaultRouting(cfg *config.Config, routingOpt libp2p.RoutingOption) libp2p.RoutingOption`.
-  KuboCoreNodeLibp2pRoutingOption constructDefaultRouting(
-      $config.KuboConfig cfg, KuboCoreNodeLibp2pRoutingOption routingOpt) {
-    final $r = $callSync(
-        1729,
-        $W()
-          ..json(cfg)
-          ..h(routingOpt));
-    return $r.hnn(KuboCoreNodeLibp2pRoutingOption.$h);
-  }
-
-  /// Go: `func libp2p.ConstructDelegatedOnlyRouting(cfg *config.Config) libp2p.RoutingOption`.
-  KuboCoreNodeLibp2pRoutingOption constructDelegatedOnlyRouting(
-      $config.KuboConfig cfg) {
-    final $r = $callSync(1730, $W()..json(cfg));
-    return $r.hnn(KuboCoreNodeLibp2pRoutingOption.$h);
-  }
-
   /// Go: `func libp2p.ContentDiscovery(in routing.ProvideManyRouter) routing.ContentDiscovery`.
   $routing2.Libp2pCoreRoutingContentDiscovery contentDiscovery(
       $routing.KuboRoutingProvideManyRouter in$) {
     final $r = $callSync(1731, $W()..h(in$));
     return $r.hnn($routing2.Libp2pCoreRoutingContentDiscovery.$h);
-  }
-
-  /// Go: `var libp2p.DHTClientOption libp2p.RoutingOption`.
-  KuboCoreNodeLibp2pRoutingOption get dhtClientOption {
-    final $r = $callSync(1732);
-    return $r.hnn(KuboCoreNodeLibp2pRoutingOption.$h);
-  }
-
-  /// Go: `var libp2p.DHTOption libp2p.RoutingOption`.
-  KuboCoreNodeLibp2pRoutingOption get dhtOption {
-    final $r = $callSync(1733);
-    return $r.hnn(KuboCoreNodeLibp2pRoutingOption.$h);
-  }
-
-  /// Go: `var libp2p.DHTServerOption libp2p.RoutingOption`.
-  KuboCoreNodeLibp2pRoutingOption get dhtServerOption {
-    final $r = $callSync(1734);
-    return $r.hnn(KuboCoreNodeLibp2pRoutingOption.$h);
-  }
-
-  /// Go: `var libp2p.DefaultHostOption libp2p.HostOption`.
-  KuboCoreNodeLibp2pHostOption get defaultHostOption {
-    final $r = $callSync(1735);
-    return $r.hnn(KuboCoreNodeLibp2pHostOption.$h);
   }
 
   /// Go: `func libp2p.DetectNAT(h host.Host) string`.
@@ -451,18 +412,6 @@ extension GoIpfsKuboCoreNodeLibp2pApi on GoIpfsKuboCoreNodeLibp2p {
     return $r.any();
   }
 
-  /// Go: `func libp2p.MaybeAutoRelay(staticRelays []string, cfgPeering config.Peering, enabled bool) fx.Option`.
-  $fx.FxOption maybeAutoRelay(List<String> staticRelays,
-      $config.KuboConfigPeering cfgPeering, bool enabled) {
-    final $r = $callSync(
-        1744,
-        $W()
-          ..list(staticRelays, (w0, e0) => w0.str(e0))
-          ..dto(cfgPeering)
-          ..b(enabled));
-    return $r.hnn($fx.FxOption.$h);
-  }
-
   /// Go: `func libp2p.MergeLimitsAndStatsIntoLimitsConfigAndUsage(l rcmgr.ConcreteLimitConfig, stats rcmgr.ResourceManagerStat) libp2p.LimitsConfigAndUsage`.
   KuboCoreNodeLibp2pLimitsConfigAndUsage
       mergeLimitsAndStatsIntoLimitsConfigAndUsage(
@@ -481,12 +430,6 @@ extension GoIpfsKuboCoreNodeLibp2pApi on GoIpfsKuboCoreNodeLibp2p {
       $multiaddr_dns.MultiaddrDnsResolver rslv) {
     final $r = $callSync(1746, $W()..h(rslv));
     return $r.p() ? KuboCoreNodeLibp2pOpts.$dec($r) : $nil();
-  }
-
-  /// Go: `var libp2p.NilRouterOption func(_ libp2p.RoutingOptionArgs) (routing.Routing, error)`.
-  KuboCoreNodeLibp2pRoutingOption get nilRouterOption {
-    final $r = $callSync(1747);
-    return $r.hnn(KuboCoreNodeLibp2pRoutingOption.$h);
   }
 
   /// Go: `func libp2p.P2PForgeCertMgr(repoPath string, cfg config.AutoTLS, atlsLog *log.ZapEventLogger) any`.
@@ -594,4 +537,68 @@ extension GoIpfsKuboCoreNodeLibp2pConstsApi on GoIpfsKuboCoreNodeLibp2pConsts {
 
   /// Go: `const libp2p.SeqnoStorePrefix untyped string`.
   String get seqnoStorePrefix => "/pubsub/seqno/";
+}
+
+/// Go: the option constructors of `github.com/ipfs/kubo/core/node/libp2p` (`go.ipfs.kubo.core.node.libp2p.options`).
+extension GoIpfsKuboCoreNodeLibp2pOptionsApi
+    on GoIpfsKuboCoreNodeLibp2pOptions {
+  /// Go: `func libp2p.ConstructDefaultRouting(cfg *config.Config, routingOpt libp2p.RoutingOption) libp2p.RoutingOption`.
+  KuboCoreNodeLibp2pRoutingOption constructDefaultRouting(
+      $config.KuboConfig cfg, KuboCoreNodeLibp2pRoutingOption routingOpt) {
+    final $r = $callSync(
+        1729,
+        $W()
+          ..json(cfg)
+          ..h(routingOpt));
+    return $r.hnn(KuboCoreNodeLibp2pRoutingOption.$h);
+  }
+
+  /// Go: `func libp2p.ConstructDelegatedOnlyRouting(cfg *config.Config) libp2p.RoutingOption`.
+  KuboCoreNodeLibp2pRoutingOption constructDelegatedOnlyRouting(
+      $config.KuboConfig cfg) {
+    final $r = $callSync(1730, $W()..json(cfg));
+    return $r.hnn(KuboCoreNodeLibp2pRoutingOption.$h);
+  }
+
+  /// Go: `var libp2p.DHTClientOption libp2p.RoutingOption`.
+  KuboCoreNodeLibp2pRoutingOption get dhtClientOption {
+    final $r = $callSync(1732);
+    return $r.hnn(KuboCoreNodeLibp2pRoutingOption.$h);
+  }
+
+  /// Go: `var libp2p.DHTOption libp2p.RoutingOption`.
+  KuboCoreNodeLibp2pRoutingOption get dhtOption {
+    final $r = $callSync(1733);
+    return $r.hnn(KuboCoreNodeLibp2pRoutingOption.$h);
+  }
+
+  /// Go: `var libp2p.DHTServerOption libp2p.RoutingOption`.
+  KuboCoreNodeLibp2pRoutingOption get dhtServerOption {
+    final $r = $callSync(1734);
+    return $r.hnn(KuboCoreNodeLibp2pRoutingOption.$h);
+  }
+
+  /// Go: `var libp2p.DefaultHostOption libp2p.HostOption`.
+  KuboCoreNodeLibp2pHostOption get defaultHostOption {
+    final $r = $callSync(1735);
+    return $r.hnn(KuboCoreNodeLibp2pHostOption.$h);
+  }
+
+  /// Go: `func libp2p.MaybeAutoRelay(staticRelays []string, cfgPeering config.Peering, enabled bool) fx.Option`.
+  $fx.FxOption maybeAutoRelay(List<String> staticRelays,
+      $config.KuboConfigPeering cfgPeering, bool enabled) {
+    final $r = $callSync(
+        1744,
+        $W()
+          ..list(staticRelays, (w0, e0) => w0.str(e0))
+          ..dto(cfgPeering)
+          ..b(enabled));
+    return $r.hnn($fx.FxOption.$h);
+  }
+
+  /// Go: `var libp2p.NilRouterOption func(_ libp2p.RoutingOptionArgs) (routing.Routing, error)`.
+  KuboCoreNodeLibp2pRoutingOption get nilRouterOption {
+    final $r = $callSync(1747);
+    return $r.hnn(KuboCoreNodeLibp2pRoutingOption.$h);
+  }
 }

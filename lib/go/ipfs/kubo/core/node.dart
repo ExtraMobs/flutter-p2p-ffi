@@ -5,7 +5,11 @@ library;
 import 'dart:typed_data';
 
 import 'package:p2p_ffi/src/go.dart'
-    show GoIpfsKuboCoreNode, GoIpfsKuboCoreNodeConsts, GoIpfsKuboCoreNodeEnums;
+    show
+        GoIpfsKuboCoreNode,
+        GoIpfsKuboCoreNodeConsts,
+        GoIpfsKuboCoreNodeEnums,
+        GoIpfsKuboCoreNodeOptions;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
@@ -512,12 +516,6 @@ final class KuboCoreNodePathResolversOut implements GoDto {
 
 /// Go: the package-level members of `github.com/ipfs/kubo/core/node` (`go.ipfs.kubo.core.node`).
 extension GoIpfsKuboCoreNodeApi on GoIpfsKuboCoreNode {
-  /// Go: `var node.BaseLibP2P fx.Option`.
-  $fx.FxOption get baseLibP2p {
-    final $r = $callSync(1683);
-    return $r.hnn($fx.FxOption.$h);
-  }
-
   /// Go: `func node.Bitswap(serverEnabled bool, libp2pEnabled bool, httpEnabled bool) any`.
   Object? bitswap(bool serverEnabled, bool libp2pEnabled, bool httpEnabled) {
     final $r = $callSync(
@@ -533,12 +531,6 @@ extension GoIpfsKuboCoreNodeApi on GoIpfsKuboCoreNode {
   Object? bitswapOptions($config.KuboConfig cfg) {
     final $r = $callSync(1685, $W()..json(cfg));
     return $r.any();
-  }
-
-  /// Go: `var node.Core fx.Option`.
-  $fx.FxOption get core {
-    final $r = $callSync(1686);
-    return $r.hnn($fx.FxOption.$h);
   }
 
   /// Go: `func node.DNSResolver(cfg *config.Config) (*madns.Resolver, error)`.
@@ -585,6 +577,100 @@ extension GoIpfsKuboCoreNodeApi on GoIpfsKuboCoreNode {
       $r.hnn($blockstore.BoxoBlockstoreGcBlockstore.$h),
       $r.hnn($blockstore.BoxoBlockstore.$h)
     );
+  }
+
+  /// Go: `func node.OnlineExchange(isBitswapActive bool) any`.
+  Object? onlineExchange(bool isBitswapActive) {
+    final $r = $callSync(1716, $W()..b(isBitswapActive));
+    return $r.any();
+  }
+
+  /// Go: `func node.PathResolverConfig(fetchers node.FetchersIn) node.PathResolversOut`.
+  KuboCoreNodePathResolversOut pathResolverConfig(
+      KuboCoreNodeFetchersIn fetchers) {
+    final $r = $callSync(1718, $W()..dto(fetchers));
+    return $r.p() ? KuboCoreNodePathResolversOut.$dec($r) : $nil();
+  }
+
+  /// Go: `func node.Peering(lc fx.Lifecycle, host host.Host) *peering.PeeringService`.
+  $peering.BoxoPeeringService peering(
+      $fx.FxLifecycle lc, $host.Libp2pCoreHost host) {
+    final $r = $callSync(
+        1720,
+        $W()
+          ..h(lc)
+          ..h(host));
+    return $r.hnn($peering.BoxoPeeringService.$h);
+  }
+
+  /// Go: `func node.PurgeStaleDHTValueRecords(lc fx.Lifecycle, repo repo.Repo)`.
+  void purgeStaleDhtValueRecords($fx.FxLifecycle lc, $repo.KuboRepo repo) {
+    $callSync(
+        1721,
+        $W()
+          ..h(lc)
+          ..h(repo));
+  }
+
+  /// Go: `func node.RecordValidator(ps peerstore.Peerstore) record.Validator`.
+  $libp2p_record.Libp2pRecordValidator recordValidator(
+      $peerstore.Libp2pCorePeerstore ps) {
+    final $r = $callSync(1722, $W()..h(ps));
+    return $r.hnn($libp2p_record.Libp2pRecordValidator.$h);
+  }
+
+  /// Go: `func node.RepoConfig(repo repo.Repo) (*config.Config, error)`.
+  $config.KuboConfig repoConfig($repo.KuboRepo repo) {
+    final $r = $callSync(1723, $W()..h(repo));
+    return $r.p() ? $config.KuboConfig($r.json()) : $nil();
+  }
+}
+
+/// Go: the constants of `github.com/ipfs/kubo/core/node` (`go.ipfs.kubo.core.node.consts`).
+extension GoIpfsKuboCoreNodeConstsApi on GoIpfsKuboCoreNodeConsts {
+  /// Go: `const node.DefaultEngineBlockstoreWorkerCount untyped int`.
+  int get defaultEngineBlockstoreWorkerCount => 128;
+
+  /// Go: `const node.DefaultEngineTaskWorkerCount untyped int`.
+  int get defaultEngineTaskWorkerCount => 8;
+
+  /// Go: `const node.DefaultIpnsCacheSize untyped int`.
+  int get defaultIpnsCacheSize => 128;
+
+  /// Go: `const node.DefaultMaxOutstandingBytesPerPeer untyped int`.
+  int get defaultMaxOutstandingBytesPerPeer => 1048576;
+
+  /// Go: `const node.DefaultMaxProviders untyped int`.
+  int get defaultMaxProviders => 10;
+
+  /// Go: `const node.DefaultTaskWorkerCount untyped int`.
+  int get defaultTaskWorkerCount => 8;
+
+  /// Go: `const node.DefaultWantHaveReplaceSize untyped int`.
+  int get defaultWantHaveReplaceSize => 1024;
+
+  /// Go: `const node.KeystoreDatastorePath untyped string`.
+  String get keystoreDatastorePath => "provider-keystore";
+}
+
+/// Go: the constants of a named type of `github.com/ipfs/kubo/core/node` (`go.ipfs.kubo.core.node.enums`).
+extension GoIpfsKuboCoreNodeEnumsApi on GoIpfsKuboCoreNodeEnums {
+  /// Go: `const node.DefaultProviderSearchDelay time.Duration`.
+  Duration get defaultProviderSearchDelay => Duration(microseconds: 1000000);
+}
+
+/// Go: the option constructors of `github.com/ipfs/kubo/core/node` (`go.ipfs.kubo.core.node.options`).
+extension GoIpfsKuboCoreNodeOptionsApi on GoIpfsKuboCoreNodeOptions {
+  /// Go: `var node.BaseLibP2P fx.Option`.
+  $fx.FxOption get baseLibP2p {
+    final $r = $callSync(1683);
+    return $r.hnn($fx.FxOption.$h);
+  }
+
+  /// Go: `var node.Core fx.Option`.
+  $fx.FxOption get core {
+    final $r = $callSync(1686);
+    return $r.hnn($fx.FxOption.$h);
   }
 
   /// Go: `func node.IPFS(ctx context.Context, bcfg *node.BuildCfg) fx.Option`.
@@ -682,12 +768,6 @@ extension GoIpfsKuboCoreNodeApi on GoIpfsKuboCoreNode {
     return $r.hnn($fx.FxOption.$h);
   }
 
-  /// Go: `func node.OnlineExchange(isBitswapActive bool) any`.
-  Object? onlineExchange(bool isBitswapActive) {
-    final $r = $callSync(1716, $W()..b(isBitswapActive));
-    return $r.any();
-  }
-
   /// Go: `func node.OnlineProviders(provide bool, cfg *config.Config) fx.Option`.
   $fx.FxOption onlineProviders(bool provide, $config.KuboConfig cfg) {
     final $r = $callSync(
@@ -698,50 +778,10 @@ extension GoIpfsKuboCoreNodeApi on GoIpfsKuboCoreNode {
     return $r.hnn($fx.FxOption.$h);
   }
 
-  /// Go: `func node.PathResolverConfig(fetchers node.FetchersIn) node.PathResolversOut`.
-  KuboCoreNodePathResolversOut pathResolverConfig(
-      KuboCoreNodeFetchersIn fetchers) {
-    final $r = $callSync(1718, $W()..dto(fetchers));
-    return $r.p() ? KuboCoreNodePathResolversOut.$dec($r) : $nil();
-  }
-
   /// Go: `func node.PeerWith(peers ...peer.AddrInfo) fx.Option`.
   $fx.FxOption peerWith([List<$peer.Libp2pCorePeerAddrInfo> peers = const []]) {
     final $r = $callSync(1719, $W()..list(peers, (w0, e0) => w0.dto(e0)));
     return $r.hnn($fx.FxOption.$h);
-  }
-
-  /// Go: `func node.Peering(lc fx.Lifecycle, host host.Host) *peering.PeeringService`.
-  $peering.BoxoPeeringService peering(
-      $fx.FxLifecycle lc, $host.Libp2pCoreHost host) {
-    final $r = $callSync(
-        1720,
-        $W()
-          ..h(lc)
-          ..h(host));
-    return $r.hnn($peering.BoxoPeeringService.$h);
-  }
-
-  /// Go: `func node.PurgeStaleDHTValueRecords(lc fx.Lifecycle, repo repo.Repo)`.
-  void purgeStaleDhtValueRecords($fx.FxLifecycle lc, $repo.KuboRepo repo) {
-    $callSync(
-        1721,
-        $W()
-          ..h(lc)
-          ..h(repo));
-  }
-
-  /// Go: `func node.RecordValidator(ps peerstore.Peerstore) record.Validator`.
-  $libp2p_record.Libp2pRecordValidator recordValidator(
-      $peerstore.Libp2pCorePeerstore ps) {
-    final $r = $callSync(1722, $W()..h(ps));
-    return $r.hnn($libp2p_record.Libp2pRecordValidator.$h);
-  }
-
-  /// Go: `func node.RepoConfig(repo repo.Repo) (*config.Config, error)`.
-  $config.KuboConfig repoConfig($repo.KuboRepo repo) {
-    final $r = $callSync(1723, $W()..h(repo));
-    return $r.p() ? $config.KuboConfig($r.json()) : $nil();
   }
 
   /// Go: `func node.Storage(bcfg *node.BuildCfg, cfg *config.Config) fx.Option`.
@@ -759,37 +799,4 @@ extension GoIpfsKuboCoreNodeApi on GoIpfsKuboCoreNode {
     final $r = $callSync(1725, $W()..json(cfg));
     return $r.hnn($fx.FxOption.$h);
   }
-}
-
-/// Go: the constants of `github.com/ipfs/kubo/core/node` (`go.ipfs.kubo.core.node.consts`).
-extension GoIpfsKuboCoreNodeConstsApi on GoIpfsKuboCoreNodeConsts {
-  /// Go: `const node.DefaultEngineBlockstoreWorkerCount untyped int`.
-  int get defaultEngineBlockstoreWorkerCount => 128;
-
-  /// Go: `const node.DefaultEngineTaskWorkerCount untyped int`.
-  int get defaultEngineTaskWorkerCount => 8;
-
-  /// Go: `const node.DefaultIpnsCacheSize untyped int`.
-  int get defaultIpnsCacheSize => 128;
-
-  /// Go: `const node.DefaultMaxOutstandingBytesPerPeer untyped int`.
-  int get defaultMaxOutstandingBytesPerPeer => 1048576;
-
-  /// Go: `const node.DefaultMaxProviders untyped int`.
-  int get defaultMaxProviders => 10;
-
-  /// Go: `const node.DefaultTaskWorkerCount untyped int`.
-  int get defaultTaskWorkerCount => 8;
-
-  /// Go: `const node.DefaultWantHaveReplaceSize untyped int`.
-  int get defaultWantHaveReplaceSize => 1024;
-
-  /// Go: `const node.KeystoreDatastorePath untyped string`.
-  String get keystoreDatastorePath => "provider-keystore";
-}
-
-/// Go: the constants of a named type of `github.com/ipfs/kubo/core/node` (`go.ipfs.kubo.core.node.enums`).
-extension GoIpfsKuboCoreNodeEnumsApi on GoIpfsKuboCoreNodeEnums {
-  /// Go: `const node.DefaultProviderSearchDelay time.Duration`.
-  Duration get defaultProviderSearchDelay => Duration(microseconds: 1000000);
 }

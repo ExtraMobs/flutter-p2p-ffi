@@ -309,7 +309,7 @@ void main() {
           KuboCoreNodeBuildCfg(
               repo: go.ipfs.kubo.repo.fsrepo.open(repoPath),
               online: true,
-              routing: go.ipfs.kubo.core.node.libp2p.nilRouterOption));
+              routing: go.ipfs.kubo.core.node.libp2p.options.nilRouterOption));
       await nn.close();
     }
   });
@@ -334,7 +334,7 @@ void main() {
           KuboCoreNodeBuildCfg(
               repo: go.ipfs.kubo.repo.fsrepo.open(repoPath),
               online: true,
-              routing: go.ipfs.kubo.core.node.libp2p.dhtServerOption,
+              routing: go.ipfs.kubo.core.node.libp2p.options.dhtServerOption,
               extraOpts: {'pubsub': true})); // como Pubsub.Enabled no daemon
       return (n, go.ipfs.kubo.core.coreapi.newCoreApi(n));
     }

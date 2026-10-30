@@ -36,7 +36,7 @@ func emitAPI(m *model, fns []*fn) []byte {
 			case isFactory(f):
 				dart = "factory " + className(m, f.results[0])
 			default:
-				if layer := constLayer(f.obj); layer != "" {
+				if layer := fnLayer(f); layer != "" {
 					dart = nsPath(layerPath(dartPath(pkg), layer)) + "." + dart
 				} else {
 					dart = nsPath(dartPath(pkg)) + "." + dart
@@ -88,7 +88,7 @@ func emitAPI(m *model, fns []*fn) []byte {
 		if t.k == kOpts && key == types.TypeString(t.t, nil) { // not again under an alias (libp2p.Option)
 			for _, c := range t.ctors {
 				if ok, why := okOptCtor(c); !ok {
-					opts = append(opts, fmt.Sprintf("- `%s.%s` (%s.%s): %s", m.home(c.pkg).Name(), strings.Join(c.path, "."), m.home(t.named.Obj().Pkg()).Name(), t.named.Obj().Name(), why))
+					opts = append(opts, fmt.Sprintf("- `%s.%s` (%s.%s): %s", m.home(c.pkg).Name(), strings.Join(c.path, "."), m.homeOf(t.named.Obj()).Name(), t.named.Obj().Name(), why))
 				}
 			}
 		}
@@ -99,6 +99,16 @@ func emitAPI(m *model, fns []*fn) []byte {
 	}
 	if len(opts) > 0 {
 		b.WriteString("\n## Omitted option constructors\n\n" + strings.Join(opts, "\n") + "\n")
+	}
+	if len(hiddenClasses) > 0 {
+		b.WriteString("\n## Classes outside the single import\n\nTwo modules declare a class of the same name; the single import hides it, and each origin's library has it (`import 'package:p2p_ffi/go/ipfs/bbloom.dart' as ipfs;`, then `ipfs.BbloomBloom`).\n\n")
+		for _, h := range hiddenClasses {
+			var libs []string
+			for _, p := range strings.Fields(h[1]) {
+				libs = append(libs, "`lib/"+p+"`")
+			}
+			fmt.Fprintf(&b, "- `%s`: %s\n", h[0], strings.Join(libs, ", "))
+		}
 	}
 	b.WriteString("\n## Adaptations (generator rules and hand-written code)\n\n")
 	for _, a := range adaptations {
@@ -111,7 +121,7 @@ func emitAPI(m *model, fns []*fn) []byte {
 // listed at the end of API.md.
 var adaptations = []string{
 	"One import, `package:p2p_ffi/p2p_ffi.dart`. A package's functions, constants and variables are reached through the namespace tree: the top-level constant `go`, then one getter per segment of the package's path after the host of its URL, the author first, lowerCamelCase as Dart names constants and getters (`github.com/ipfs/boxo/mfs` → `go.ipfs.boxo.mfs.newRoot(...)`, `github.com/ipfs/go-cid` → `go.ipfs.cid`, `github.com/libp2p/go-libp2p-kad-dht` → `go.libp2p.libp2pKadDht`, `golang.org/x/crypto` → `go.x.crypto`, `context` → `go.context`); the module's own segment drops `go-` and its major version goes after it, a nested module keeps the outer one's path, a host of its own has no author (`lukechampine.com/blake3` → `go.blake3`), and the Go standard library sits beside the authors. Dart has no nested types, so a type is a top-level class named after its package's path without the author, minus the words the Go name already starts with (`mfs.Root` → `BoxoMfsRoot`, `peer.ID` → `Libp2pCorePeerId`, `cid.Cid` → `Cid`, `context.Context` → `Context`); when two types get the same class, the one with the longer Go name keeps it whole after a `_` (owner's decision, 2026-10-29): after its path (`grpc.BackoffConfig` → `Grpc_BackoffConfig`, beside `grpc/backoff.Config` → `GrpcBackoffConfig`), or at its own `_` (`errorspb.EncodedError_Leaf` → `ErrorsErrorspbEncodedError_Leaf`), declared under `// ignore: camel_case_types`. Every name is unique in the import. The code of each package is one library under `lib/go/` (`lib/go/ipfs/boxo/mfs.dart`), which adds the members to its namespace class as an extension (`GoIpfsBoxoMfsApi on GoIpfsBoxoMfs`); `lib/src/go.dart` holds the tree and exports them all, and the generator refuses two equal names, a member that hides a sub-namespace, and an `export` in a public library outside `lib/p2p_ffi.dart`.",
-	"A package constant is a getter of one of two layers of its namespace (owner's decision, 2026-10-29), so it does not hide a sub-package (`crypto.MD5` and `crypto/md5`): `enums`, a constant of a named type (`go.multiformats.multicodec.enums.raw`, `go.crypto.enums.md5`), and `consts`, the others (`go.ipfs.cid.consts.raw`); not a Dart `const`. Likewise a function or variable that is a functional option is a member of the layer `options` (`grpc.Peer` and `grpc/peer`: `go.libp2p.libp2p.options.listenAddrStrings(...)`); a variable that holds option constructors stays a member of the namespace (`go.ipfs.kubo.core.coreiface.options.unixfs.pin(true, '')`). Its value is written into the Dart code, except when it is not the same on every target (`go/gen/platform.go`: windows, linux, android; `go.os.consts.devNull`, `go.os.consts.pathSeparator`): then the getter asks the host, which has the value of the platform that runs.",
+	"A package constant is a getter of one of two layers of its namespace (owner's decision, 2026-10-29), so it does not hide a sub-package (`crypto.MD5` and `crypto/md5`): `enums`, a constant of a named type (`go.multiformats.multicodec.enums.raw`, `go.crypto.enums.md5`), and `consts`, the others (`go.ipfs.cid.consts.raw`); not a Dart `const`. Likewise a function or variable of a type named `...Option` (a functional option, or grpc's `CallOption`, an interface) is a member of the layer `options` (`grpc.Peer` and `grpc/peer`: `go.grpc.options.peer(p)`, `go.libp2p.libp2p.options.listenAddrStrings(...)`); any other member with the name of a sub-package gets a `$` (`go.cockroachdb.errors.join$`; owner's decisions, 2026-10-30); a variable that holds option constructors stays a member of the namespace (`go.ipfs.kubo.core.coreiface.options.unixfs.pin(true, '')`). Its value is written into the Dart code, except when it is not the same on every target (`go/gen/platform.go`: windows, linux, android; `go.os.consts.devNull`, `go.os.consts.pathSeparator`): then the getter asks the host, which has the value of the platform that runs.",
 	"`context` (`go.context`, hand-written in `lib/go/context.dart`): `background`, `withCancel`, `withTimeout`, `withDeadline`; `ContextCancelFunc` is callable (`cancel()`).",
 	"`readerStream` (exported by `package:p2p_ffi/p2p_ffi.dart`, hand-written): any `io.Reader` handle as a `Stream<Uint8List>`, in 256 KiB pieces; cancel through the reader's context.",
 	"`config.Profiles` (hand-written): `go.ipfs.kubo.config.profiles[name]!.transform(cfg)`; in Go it is a map of functions.",

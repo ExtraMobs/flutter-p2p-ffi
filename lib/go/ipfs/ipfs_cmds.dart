@@ -6,7 +6,11 @@ import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:p2p_ffi/src/go.dart'
-    show GoIpfsIpfsCmds, GoIpfsIpfsCmdsConsts, GoIpfsIpfsCmdsEnums;
+    show
+        GoIpfsIpfsCmds,
+        GoIpfsIpfsCmdsConsts,
+        GoIpfsIpfsCmdsEnums,
+        GoIpfsIpfsCmdsOptions;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
 
@@ -942,12 +946,6 @@ class IpfsCmdsErrorType extends GolangException {
 
 /// Go: the package-level members of `github.com/ipfs/go-ipfs-cmds` (`go.ipfs.ipfsCmds`).
 extension GoIpfsIpfsCmdsApi on GoIpfsIpfsCmds {
-  /// Go: `func cmds.BoolOption(names ...string) cmds.Option`.
-  IpfsCmdsOption boolOption([List<String> names = const []]) {
-    final $r = $callSync(1222, $W()..list(names, (w0, e0) => w0.str(e0)));
-    return $r.hnn(IpfsCmdsOption.$h);
-  }
-
   /// Go: `func cmds.ClientError(msg string) error`.
   void clientError(String msg) {
     $callSync(1223, $W()..str(msg));
@@ -960,17 +958,6 @@ extension GoIpfsIpfsCmdsApi on GoIpfsIpfsCmds {
         $W()
           ..h(re)
           ..h(res));
-  }
-
-  /// Go: `func cmds.DelimitedStringsOption(delimiter string, names ...string) cmds.Option`.
-  IpfsCmdsOption delimitedStringsOption(String delimiter,
-      [List<String> names = const []]) {
-    final $r = $callSync(
-        1234,
-        $W()
-          ..str(delimiter)
-          ..list(names, (w0, e0) => w0.str(e0)));
-    return $r.hnn(IpfsCmdsOption.$h);
   }
 
   /// Go: `func cmds.EmitOnce(re cmds.ResponseEmitter, v any) error`.
@@ -995,12 +982,6 @@ extension GoIpfsIpfsCmdsApi on GoIpfsIpfsCmds {
     return $r.p() ? IpfsCmdsArgument.$dec($r) : $nil();
   }
 
-  /// Go: `func cmds.FloatOption(names ...string) cmds.Option`.
-  IpfsCmdsOption floatOption([List<String> names = const []]) {
-    final $r = $callSync(1241, $W()..list(names, (w0, e0) => w0.str(e0)));
-    return $r.hnn(IpfsCmdsOption.$h);
-  }
-
   /// Go: `func cmds.GetEncoder(req *cmds.Request, w io.Writer, def cmds.EncodingType) (encType cmds.EncodingType, enc cmds.Encoder, err error)`.
   (String, IpfsCmdsEncoder) getEncoder(
       IpfsCmdsRequest req, GoHandle? w, String def) {
@@ -1021,18 +1002,6 @@ extension GoIpfsIpfsCmdsApi on GoIpfsIpfsCmds {
           ..h(req)
           ..str(def));
     return $r.str();
-  }
-
-  /// Go: `func cmds.Int64Option(names ...string) cmds.Option`.
-  IpfsCmdsOption int64Option([List<String> names = const []]) {
-    final $r = $callSync(1244, $W()..list(names, (w0, e0) => w0.str(e0)));
-    return $r.hnn(IpfsCmdsOption.$h);
-  }
-
-  /// Go: `func cmds.IntOption(names ...string) cmds.Option`.
-  IpfsCmdsOption intOption([List<String> names = const []]) {
-    final $r = $callSync(1245, $W()..list(names, (w0, e0) => w0.str(e0)));
-    return $r.hnn(IpfsCmdsOption.$h);
   }
 
   /// Go: `func cmds.NewChanResponsePair(req *cmds.Request) (cmds.ResponseEmitter, cmds.Response)`.
@@ -1074,66 +1043,6 @@ extension GoIpfsIpfsCmdsApi on GoIpfsIpfsCmds {
     return $r.hnn(IpfsCmdsResponseEmitter.$h);
   }
 
-  /// Go: `var cmds.OptionDerefArgs cmds.Option`.
-  IpfsCmdsOption get optionDerefArgs {
-    final $r = $callSync(1261);
-    return $r.hnn(IpfsCmdsOption.$h);
-  }
-
-  /// Go: `var cmds.OptionDerefSymlinks cmds.Option`.
-  IpfsCmdsOption get optionDerefSymlinks {
-    final $r = $callSync(1262);
-    return $r.hnn(IpfsCmdsOption.$h);
-  }
-
-  /// Go: `var cmds.OptionEncodingType cmds.Option`.
-  IpfsCmdsOption get optionEncodingType {
-    final $r = $callSync(1263);
-    return $r.hnn(IpfsCmdsOption.$h);
-  }
-
-  /// Go: `var cmds.OptionHidden cmds.Option`.
-  IpfsCmdsOption get optionHidden {
-    final $r = $callSync(1264);
-    return $r.hnn(IpfsCmdsOption.$h);
-  }
-
-  /// Go: `var cmds.OptionIgnore cmds.Option`.
-  IpfsCmdsOption get optionIgnore {
-    final $r = $callSync(1265);
-    return $r.hnn(IpfsCmdsOption.$h);
-  }
-
-  /// Go: `var cmds.OptionIgnoreRules cmds.Option`.
-  IpfsCmdsOption get optionIgnoreRules {
-    final $r = $callSync(1266);
-    return $r.hnn(IpfsCmdsOption.$h);
-  }
-
-  /// Go: `var cmds.OptionRecursivePath cmds.Option`.
-  IpfsCmdsOption get optionRecursivePath {
-    final $r = $callSync(1267);
-    return $r.hnn(IpfsCmdsOption.$h);
-  }
-
-  /// Go: `var cmds.OptionStdinName cmds.Option`.
-  IpfsCmdsOption get optionStdinName {
-    final $r = $callSync(1268);
-    return $r.hnn(IpfsCmdsOption.$h);
-  }
-
-  /// Go: `var cmds.OptionStreamChannels cmds.Option`.
-  IpfsCmdsOption get optionStreamChannels {
-    final $r = $callSync(1269);
-    return $r.hnn(IpfsCmdsOption.$h);
-  }
-
-  /// Go: `var cmds.OptionTimeout cmds.Option`.
-  IpfsCmdsOption get optionTimeout {
-    final $r = $callSync(1270);
-    return $r.hnn(IpfsCmdsOption.$h);
-  }
-
   /// Go: `func cmds.StringArg(name string, required bool, variadic bool, description string) cmds.Argument`.
   IpfsCmdsArgument stringArg(
       String name, bool required, bool variadic, String description) {
@@ -1145,30 +1054,6 @@ extension GoIpfsIpfsCmdsApi on GoIpfsIpfsCmds {
           ..b(variadic)
           ..str(description));
     return $r.p() ? IpfsCmdsArgument.$dec($r) : $nil();
-  }
-
-  /// Go: `func cmds.StringOption(names ...string) cmds.Option`.
-  IpfsCmdsOption stringOption([List<String> names = const []]) {
-    final $r = $callSync(1296, $W()..list(names, (w0, e0) => w0.str(e0)));
-    return $r.hnn(IpfsCmdsOption.$h);
-  }
-
-  /// Go: `func cmds.StringsOption(names ...string) cmds.Option`.
-  IpfsCmdsOption stringsOption([List<String> names = const []]) {
-    final $r = $callSync(1297, $W()..list(names, (w0, e0) => w0.str(e0)));
-    return $r.hnn(IpfsCmdsOption.$h);
-  }
-
-  /// Go: `func cmds.Uint64Option(names ...string) cmds.Option`.
-  IpfsCmdsOption uint64Option([List<String> names = const []]) {
-    final $r = $callSync(1299, $W()..list(names, (w0, e0) => w0.str(e0)));
-    return $r.hnn(IpfsCmdsOption.$h);
-  }
-
-  /// Go: `func cmds.UintOption(names ...string) cmds.Option`.
-  IpfsCmdsOption uintOption([List<String> names = const []]) {
-    final $r = $callSync(1300, $W()..list(names, (w0, e0) => w0.str(e0)));
-    return $r.hnn(IpfsCmdsOption.$h);
   }
 }
 
@@ -1308,4 +1193,126 @@ extension GoIpfsIpfsCmdsEnumsApi on GoIpfsIpfsCmdsEnums {
 
   /// Go: `const cmds.Uint64 reflect.Kind`.
   int get uint64 => 11;
+}
+
+/// Go: the option constructors of `github.com/ipfs/go-ipfs-cmds` (`go.ipfs.ipfsCmds.options`).
+extension GoIpfsIpfsCmdsOptionsApi on GoIpfsIpfsCmdsOptions {
+  /// Go: `func cmds.BoolOption(names ...string) cmds.Option`.
+  IpfsCmdsOption boolOption([List<String> names = const []]) {
+    final $r = $callSync(1222, $W()..list(names, (w0, e0) => w0.str(e0)));
+    return $r.hnn(IpfsCmdsOption.$h);
+  }
+
+  /// Go: `func cmds.DelimitedStringsOption(delimiter string, names ...string) cmds.Option`.
+  IpfsCmdsOption delimitedStringsOption(String delimiter,
+      [List<String> names = const []]) {
+    final $r = $callSync(
+        1234,
+        $W()
+          ..str(delimiter)
+          ..list(names, (w0, e0) => w0.str(e0)));
+    return $r.hnn(IpfsCmdsOption.$h);
+  }
+
+  /// Go: `func cmds.FloatOption(names ...string) cmds.Option`.
+  IpfsCmdsOption floatOption([List<String> names = const []]) {
+    final $r = $callSync(1241, $W()..list(names, (w0, e0) => w0.str(e0)));
+    return $r.hnn(IpfsCmdsOption.$h);
+  }
+
+  /// Go: `func cmds.Int64Option(names ...string) cmds.Option`.
+  IpfsCmdsOption int64Option([List<String> names = const []]) {
+    final $r = $callSync(1244, $W()..list(names, (w0, e0) => w0.str(e0)));
+    return $r.hnn(IpfsCmdsOption.$h);
+  }
+
+  /// Go: `func cmds.IntOption(names ...string) cmds.Option`.
+  IpfsCmdsOption intOption([List<String> names = const []]) {
+    final $r = $callSync(1245, $W()..list(names, (w0, e0) => w0.str(e0)));
+    return $r.hnn(IpfsCmdsOption.$h);
+  }
+
+  /// Go: `var cmds.OptionDerefArgs cmds.Option`.
+  IpfsCmdsOption get optionDerefArgs {
+    final $r = $callSync(1261);
+    return $r.hnn(IpfsCmdsOption.$h);
+  }
+
+  /// Go: `var cmds.OptionDerefSymlinks cmds.Option`.
+  IpfsCmdsOption get optionDerefSymlinks {
+    final $r = $callSync(1262);
+    return $r.hnn(IpfsCmdsOption.$h);
+  }
+
+  /// Go: `var cmds.OptionEncodingType cmds.Option`.
+  IpfsCmdsOption get optionEncodingType {
+    final $r = $callSync(1263);
+    return $r.hnn(IpfsCmdsOption.$h);
+  }
+
+  /// Go: `var cmds.OptionHidden cmds.Option`.
+  IpfsCmdsOption get optionHidden {
+    final $r = $callSync(1264);
+    return $r.hnn(IpfsCmdsOption.$h);
+  }
+
+  /// Go: `var cmds.OptionIgnore cmds.Option`.
+  IpfsCmdsOption get optionIgnore {
+    final $r = $callSync(1265);
+    return $r.hnn(IpfsCmdsOption.$h);
+  }
+
+  /// Go: `var cmds.OptionIgnoreRules cmds.Option`.
+  IpfsCmdsOption get optionIgnoreRules {
+    final $r = $callSync(1266);
+    return $r.hnn(IpfsCmdsOption.$h);
+  }
+
+  /// Go: `var cmds.OptionRecursivePath cmds.Option`.
+  IpfsCmdsOption get optionRecursivePath {
+    final $r = $callSync(1267);
+    return $r.hnn(IpfsCmdsOption.$h);
+  }
+
+  /// Go: `var cmds.OptionStdinName cmds.Option`.
+  IpfsCmdsOption get optionStdinName {
+    final $r = $callSync(1268);
+    return $r.hnn(IpfsCmdsOption.$h);
+  }
+
+  /// Go: `var cmds.OptionStreamChannels cmds.Option`.
+  IpfsCmdsOption get optionStreamChannels {
+    final $r = $callSync(1269);
+    return $r.hnn(IpfsCmdsOption.$h);
+  }
+
+  /// Go: `var cmds.OptionTimeout cmds.Option`.
+  IpfsCmdsOption get optionTimeout {
+    final $r = $callSync(1270);
+    return $r.hnn(IpfsCmdsOption.$h);
+  }
+
+  /// Go: `func cmds.StringOption(names ...string) cmds.Option`.
+  IpfsCmdsOption stringOption([List<String> names = const []]) {
+    final $r = $callSync(1296, $W()..list(names, (w0, e0) => w0.str(e0)));
+    return $r.hnn(IpfsCmdsOption.$h);
+  }
+
+  /// Go: `func cmds.StringsOption(names ...string) cmds.Option`.
+  IpfsCmdsOption stringsOption([List<String> names = const []]) {
+    final $r = $callSync(1297, $W()..list(names, (w0, e0) => w0.str(e0)));
+    return $r.hnn(IpfsCmdsOption.$h);
+  }
+
+  /// Go: `func cmds.Uint64Option(names ...string) cmds.Option`.
+  IpfsCmdsOption uint64Option([List<String> names = const []]) {
+    final $r = $callSync(1299, $W()..list(names, (w0, e0) => w0.str(e0)));
+    return $r.hnn(IpfsCmdsOption.$h);
+  }
+
+  /// Go: `func cmds.UintOption(names ...string) cmds.Option`.
+  IpfsCmdsOption uintOption([List<String> names = const []]) {
+    final $r = $callSync(1300, $W()..list(names, (w0, e0) => w0.str(e0)));
+    return $r.hnn(IpfsCmdsOption.$h);
+  }
 }

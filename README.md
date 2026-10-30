@@ -33,10 +33,20 @@ path without the author, minus the words the Go name already starts with:
 Every name is unique in the import. A package's constants and option constructors sit one
 level down, so they never hide a sub-package (Go's `crypto.MD5` and the package `crypto/md5`,
 `grpc.Peer` and `grpc/peer`): `enums` for a constant of a named type, `consts` for the other
-constants, `options` for a function or variable that is a functional option. A constant is a
-getter, not a Dart `const`. When two types would get the same class, the one with the longer
-Go name keeps it whole after a `_` (`grpc.BackoffConfig` → `Grpc_BackoffConfig`, beside
-`grpc/backoff.Config` → `GrpcBackoffConfig`).
+constants, `options` for a function or variable of a type named `...Option` (a functional
+option, or grpc's `CallOption`). A constant is a getter, not a Dart `const`. Any other member
+with the name of a sub-package gets a `$` (`go.cockroachdb.errors.join$` beside the package
+`go.cockroachdb.errors.join`). When two types of one module would get the same class, the one
+with the longer Go name keeps it whole after a `_` (`grpc.BackoffConfig` →
+`Grpc_BackoffConfig`, beside `grpc/backoff.Config` → `GrpcBackoffConfig`). When two modules
+declare a class of the same name (`bbloom.Bloom` of `ipfs` and of `AndreasBriese`), the single
+import leaves it out and each origin's library has it (`API.md` lists them):
+
+```dart
+import 'package:p2p_ffi/go/ipfs/bbloom.dart' as ipfs;
+
+final ipfs.BbloomBloom b = go.ipfs.bbloom.new$([65536, 0.01]);
+```
 
 | Document | What it has |
 |---|---|

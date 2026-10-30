@@ -153,26 +153,26 @@ Each line is an exposed Go symbol and where it is in Dart.
 | `func (*bitswap.Bitswap).ReceiveMessage(ctx context.Context, p peer.ID, incoming message.BitSwapMessage)` | `BoxoBitswap.receiveMessage` | Future |
 | `func (*bitswap.Bitswap).Stat() (*bitswap.Stat, error)` | `BoxoBitswap.stat` | sync |
 | `func (*bitswap.Bitswap).WantlistForPeer(p peer.ID) []cid.Cid` | `BoxoBitswap.wantlistForPeer` | sync |
-| `func bitswap.EngineBlockstoreWorkerCount(count int) bitswap.Option` | `go.ipfs.boxo.bitswap.engineBlockstoreWorkerCount` | sync |
-| `func bitswap.EngineTaskWorkerCount(count int) bitswap.Option` | `go.ipfs.boxo.bitswap.engineTaskWorkerCount` | sync |
-| `func bitswap.MaxCidSize(n uint) bitswap.Option` | `go.ipfs.boxo.bitswap.maxCidSize` | sync |
-| `func bitswap.MaxOutstandingBytesPerPeer(count int) bitswap.Option` | `go.ipfs.boxo.bitswap.maxOutstandingBytesPerPeer` | sync |
-| `func bitswap.MaxQueuedWantlistEntriesPerPeer(count uint) bitswap.Option` | `go.ipfs.boxo.bitswap.maxQueuedWantlistEntriesPerPeer` | sync |
+| `func bitswap.EngineBlockstoreWorkerCount(count int) bitswap.Option` | `go.ipfs.boxo.bitswap.options.engineBlockstoreWorkerCount` | sync |
+| `func bitswap.EngineTaskWorkerCount(count int) bitswap.Option` | `go.ipfs.boxo.bitswap.options.engineTaskWorkerCount` | sync |
+| `func bitswap.MaxCidSize(n uint) bitswap.Option` | `go.ipfs.boxo.bitswap.options.maxCidSize` | sync |
+| `func bitswap.MaxOutstandingBytesPerPeer(count int) bitswap.Option` | `go.ipfs.boxo.bitswap.options.maxOutstandingBytesPerPeer` | sync |
+| `func bitswap.MaxQueuedWantlistEntriesPerPeer(count uint) bitswap.Option` | `go.ipfs.boxo.bitswap.options.maxQueuedWantlistEntriesPerPeer` | sync |
 | `func bitswap.New(ctx context.Context, net network.BitSwapNetwork, providerFinder routing.ContentDiscovery, bstore blockstore.Blockstore, options ...bitswap.Option) *bitswap.Bitswap` | `go.ipfs.boxo.bitswap.new$` | Future |
-| `func bitswap.ProviderSearchDelay(newProvSearchDelay time.Duration) bitswap.Option` | `go.ipfs.boxo.bitswap.providerSearchDelay` | sync |
-| `func bitswap.RebroadcastDelay(newRebroadcastDelay time.Duration) bitswap.Option` | `go.ipfs.boxo.bitswap.rebroadcastDelay` | sync |
-| `func bitswap.SetSendDontHaves(send bool) bitswap.Option` | `go.ipfs.boxo.bitswap.setSendDontHaves` | sync |
-| `func bitswap.SetSimulateDontHavesOnTimeout(send bool) bitswap.Option` | `go.ipfs.boxo.bitswap.setSimulateDontHavesOnTimeout` | sync |
-| `func bitswap.TaskWorkerCount(count int) bitswap.Option` | `go.ipfs.boxo.bitswap.taskWorkerCount` | sync |
-| `func bitswap.WithBlockReceivedNotifier(brn client.BlockReceivedNotifier) bitswap.Option` | `go.ipfs.boxo.bitswap.withBlockReceivedNotifier` | sync |
-| `func bitswap.WithPeerBlockRequestFilter(pbrf server.PeerBlockRequestFilter) bitswap.Option` | `go.ipfs.boxo.bitswap.withPeerBlockRequestFilter` | Future |
-| `func bitswap.WithScoreLedger(scoreLedger server.ScoreLedger) bitswap.Option` | `go.ipfs.boxo.bitswap.withScoreLedger` | sync |
-| `func bitswap.WithServerEnabled(enabled bool) bitswap.Option` | `go.ipfs.boxo.bitswap.withServerEnabled` | sync |
-| `func bitswap.WithTargetMessageSize(tms int) bitswap.Option` | `go.ipfs.boxo.bitswap.withTargetMessageSize` | sync |
-| `func bitswap.WithTaskComparator(comparator server.TaskComparator) bitswap.Option` | `go.ipfs.boxo.bitswap.withTaskComparator` | Future |
-| `func bitswap.WithTracer(tap tracer.Tracer) bitswap.Option` | `go.ipfs.boxo.bitswap.withTracer` | sync |
-| `func bitswap.WithWantHaveReplaceSize(size int) bitswap.Option` | `go.ipfs.boxo.bitswap.withWantHaveReplaceSize` | sync |
-| `func bitswap.WithoutDuplicatedBlockStats() bitswap.Option` | `go.ipfs.boxo.bitswap.withoutDuplicatedBlockStats` | sync |
+| `func bitswap.ProviderSearchDelay(newProvSearchDelay time.Duration) bitswap.Option` | `go.ipfs.boxo.bitswap.options.providerSearchDelay` | sync |
+| `func bitswap.RebroadcastDelay(newRebroadcastDelay time.Duration) bitswap.Option` | `go.ipfs.boxo.bitswap.options.rebroadcastDelay` | sync |
+| `func bitswap.SetSendDontHaves(send bool) bitswap.Option` | `go.ipfs.boxo.bitswap.options.setSendDontHaves` | sync |
+| `func bitswap.SetSimulateDontHavesOnTimeout(send bool) bitswap.Option` | `go.ipfs.boxo.bitswap.options.setSimulateDontHavesOnTimeout` | sync |
+| `func bitswap.TaskWorkerCount(count int) bitswap.Option` | `go.ipfs.boxo.bitswap.options.taskWorkerCount` | sync |
+| `func bitswap.WithBlockReceivedNotifier(brn client.BlockReceivedNotifier) bitswap.Option` | `go.ipfs.boxo.bitswap.options.withBlockReceivedNotifier` | sync |
+| `func bitswap.WithPeerBlockRequestFilter(pbrf server.PeerBlockRequestFilter) bitswap.Option` | `go.ipfs.boxo.bitswap.options.withPeerBlockRequestFilter` | Future |
+| `func bitswap.WithScoreLedger(scoreLedger server.ScoreLedger) bitswap.Option` | `go.ipfs.boxo.bitswap.options.withScoreLedger` | sync |
+| `func bitswap.WithServerEnabled(enabled bool) bitswap.Option` | `go.ipfs.boxo.bitswap.options.withServerEnabled` | sync |
+| `func bitswap.WithTargetMessageSize(tms int) bitswap.Option` | `go.ipfs.boxo.bitswap.options.withTargetMessageSize` | sync |
+| `func bitswap.WithTaskComparator(comparator server.TaskComparator) bitswap.Option` | `go.ipfs.boxo.bitswap.options.withTaskComparator` | Future |
+| `func bitswap.WithTracer(tap tracer.Tracer) bitswap.Option` | `go.ipfs.boxo.bitswap.options.withTracer` | sync |
+| `func bitswap.WithWantHaveReplaceSize(size int) bitswap.Option` | `go.ipfs.boxo.bitswap.options.withWantHaveReplaceSize` | sync |
+| `func bitswap.WithoutDuplicatedBlockStats() bitswap.Option` | `go.ipfs.boxo.bitswap.options.withoutDuplicatedBlockStats` | sync |
 
 Omitted:
 
@@ -256,8 +256,8 @@ Omitted:
 | `func blockstore.NewGCBlockstore(bs blockstore.Blockstore, gcl blockstore.GCLocker) blockstore.GCBlockstore` | `factory BoxoBlockstoreGcBlockstore` | sync |
 | `func blockstore.NewGCLocker() blockstore.GCLocker` | `factory BoxoBlockstoreGcLocker` | sync |
 | `func blockstore.NewIdStore(bs blockstore.Blockstore) blockstore.Blockstore` | `go.ipfs.boxo.blockstore.newIdStore` | sync |
-| `func blockstore.NoPrefix() blockstore.Option` | `go.ipfs.boxo.blockstore.noPrefix` | sync |
-| `func blockstore.Provider(provider provider.MultihashProvider) blockstore.Option` | `go.ipfs.boxo.blockstore.provider` | sync |
+| `func blockstore.NoPrefix() blockstore.Option` | `go.ipfs.boxo.blockstore.options.noPrefix` | sync |
+| `func blockstore.Provider(provider provider.MultihashProvider) blockstore.Option` | `go.ipfs.boxo.blockstore.options.provider` | sync |
 | `func (blockstore.Unlocker).Unlock(context.Context)` | `BoxoBlockstoreUnlocker.unlock` | Future |
 | `func (blockstore.Blockstore).AllKeysChan(ctx context.Context) (<-chan cid.Cid, error)` | `BoxoBlockstoreValidatingBlockstore.allKeysChan` | Stream |
 | `func (blockstore.Blockstore).DeleteBlock(context.Context, cid.Cid) error` | `BoxoBlockstoreValidatingBlockstore.deleteBlock` | Future |
@@ -267,7 +267,7 @@ Omitted:
 | `func (blockstore.Blockstore).Put(context.Context, blocks.Block) error` | `BoxoBlockstoreValidatingBlockstore.put` | Future |
 | `func (blockstore.Blockstore).PutMany(context.Context, []blocks.Block) error` | `BoxoBlockstoreValidatingBlockstore.putMany` | Future |
 | `func (blockstore.Viewer).View(ctx context.Context, cid cid.Cid, callback func([]byte) error) error` | `BoxoBlockstoreViewer.view` | Future |
-| `func blockstore.WriteThrough(enabled bool) blockstore.Option` | `go.ipfs.boxo.blockstore.writeThrough` | sync |
+| `func blockstore.WriteThrough(enabled bool) blockstore.Option` | `go.ipfs.boxo.blockstore.options.writeThrough` | sync |
 | `blockstore.Blockstore → x.(*blockstore.ValidatingBlockstore)` | `BoxoBlockstore.asBoxoBlockstoreValidatingBlockstore` | cast |
 | `blockstore.Blockstore → x.(*filestore.Filestore)` | `BoxoBlockstore.asBoxoFilestore` | cast |
 | `blockstore.Blockstore → x.(*blockstore.ReadOnly)` | `BoxoBlockstore.asCarV2BlockstoreReadOnly` | cast |
@@ -849,11 +849,11 @@ Omitted:
 | `func (io.UnixFSProfile).CidBuilder() cid.Builder` | `BoxoIpldUnixfsIoUnixFsProfile.cidBuilder` | sync |
 | `var io.UnixFS_v0_2015 io.UnixFSProfile` | `go.ipfs.boxo.ipld.unixfs.io.unixFsV02015` | sync |
 | `var io.UnixFS_v1_2025 io.UnixFSProfile` | `go.ipfs.boxo.ipld.unixfs.io.unixFsV12025` | sync |
-| `func io.WithCidBuilder(cb cid.Builder) io.DirectoryOption` | `go.ipfs.boxo.ipld.unixfs.io.withCidBuilder` | sync |
-| `func io.WithMaxHAMTFanout(n int) io.DirectoryOption` | `go.ipfs.boxo.ipld.unixfs.io.withMaxHamtFanout` | sync |
-| `func io.WithMaxLinks(n int) io.DirectoryOption` | `go.ipfs.boxo.ipld.unixfs.io.withMaxLinks` | sync |
-| `func io.WithSizeEstimationMode(mode io.SizeEstimationMode) io.DirectoryOption` | `go.ipfs.boxo.ipld.unixfs.io.withSizeEstimationMode` | sync |
-| `func io.WithStat(mode os.FileMode, mtime time.Time) io.DirectoryOption` | `go.ipfs.boxo.ipld.unixfs.io.withStat` | sync |
+| `func io.WithCidBuilder(cb cid.Builder) io.DirectoryOption` | `go.ipfs.boxo.ipld.unixfs.io.options.withCidBuilder` | sync |
+| `func io.WithMaxHAMTFanout(n int) io.DirectoryOption` | `go.ipfs.boxo.ipld.unixfs.io.options.withMaxHamtFanout` | sync |
+| `func io.WithMaxLinks(n int) io.DirectoryOption` | `go.ipfs.boxo.ipld.unixfs.io.options.withMaxLinks` | sync |
+| `func io.WithSizeEstimationMode(mode io.SizeEstimationMode) io.DirectoryOption` | `go.ipfs.boxo.ipld.unixfs.io.options.withSizeEstimationMode` | sync |
+| `func io.WithStat(mode os.FileMode, mtime time.Time) io.DirectoryOption` | `go.ipfs.boxo.ipld.unixfs.io.options.withStat` | sync |
 | `io.Directory → x.(*io.BasicDirectory)` | `BoxoIpldUnixfsIoDirectory.asBoxoIpldUnixfsIoBasicDirectory` | cast |
 | `io.Directory → x.(*io.DynamicDirectory)` | `BoxoIpldUnixfsIoDirectory.asBoxoIpldUnixfsIoDynamicDirectory` | cast |
 | `io.Directory → x.(*io.HAMTDirectory)` | `BoxoIpldUnixfsIoDirectory.asBoxoIpldUnixfsIoHamtDirectory` | cast |
@@ -1466,7 +1466,7 @@ Omitted:
 |---|---|---|
 | `func (cmds.Argument).EnableRecursive() cmds.Argument` | `IpfsCmdsArgument.enableRecursive` | sync |
 | `func (cmds.Argument).EnableStdin() cmds.Argument` | `IpfsCmdsArgument.enableStdin` | sync |
-| `func cmds.BoolOption(names ...string) cmds.Option` | `go.ipfs.ipfsCmds.boolOption` | sync |
+| `func cmds.BoolOption(names ...string) cmds.Option` | `go.ipfs.ipfsCmds.options.boolOption` | sync |
 | `func cmds.ClientError(msg string) error` | `go.ipfs.ipfsCmds.clientError` | sync |
 | `func (*cmds.Command).Call(req *cmds.Request, re cmds.ResponseEmitter, env cmds.Environment)` | `IpfsCmdsCommand.call` | sync |
 | `func (*cmds.Command).CheckArguments(req *cmds.Request) error` | `IpfsCmdsCommand.checkArguments` | sync |
@@ -1478,18 +1478,18 @@ Omitted:
 | `func (*cmds.Command).Walk(visitor cmds.CommandVisitor)` | `IpfsCmdsCommand.walk` | Future |
 | `func cmds.Copy(re cmds.ResponseEmitter, res cmds.Response) error` | `go.ipfs.ipfsCmds.copy` | sync |
 | `func (cmds.Decoder).Decode(value any) error` | `IpfsCmdsDecoder.decode` | sync |
-| `func cmds.DelimitedStringsOption(delimiter string, names ...string) cmds.Option` | `go.ipfs.ipfsCmds.delimitedStringsOption` | sync |
+| `func cmds.DelimitedStringsOption(delimiter string, names ...string) cmds.Option` | `go.ipfs.ipfsCmds.options.delimitedStringsOption` | sync |
 | `func cmds.EmitOnce(re cmds.ResponseEmitter, v any) error` | `go.ipfs.ipfsCmds.emitOnce` | sync |
 | `func (cmds.Encoder).Encode(value any) error` | `IpfsCmdsEncoder.encode` | sync |
 | `func (cmds.Executor).Execute(req *cmds.Request, re cmds.ResponseEmitter, env cmds.Environment) error` | `IpfsCmdsExecutor.execute` | sync |
 | `func (*cmds.Extra).GetValue(key any) (any, bool)` | `IpfsCmdsExtra.getValue` | sync |
 | `func (*cmds.Extra).SetValue(key any, value any) *cmds.Extra` | `IpfsCmdsExtra.setValue` | sync |
 | `func cmds.FileArg(name string, required bool, variadic bool, description string) cmds.Argument` | `go.ipfs.ipfsCmds.fileArg` | sync |
-| `func cmds.FloatOption(names ...string) cmds.Option` | `go.ipfs.ipfsCmds.floatOption` | sync |
+| `func cmds.FloatOption(names ...string) cmds.Option` | `go.ipfs.ipfsCmds.options.floatOption` | sync |
 | `func cmds.GetEncoder(req *cmds.Request, w io.Writer, def cmds.EncodingType) (encType cmds.EncodingType, enc cmds.Encoder, err error)` | `go.ipfs.ipfsCmds.getEncoder` | sync |
 | `func cmds.GetEncoding(req *cmds.Request, def cmds.EncodingType) cmds.EncodingType` | `go.ipfs.ipfsCmds.getEncoding` | sync |
-| `func cmds.Int64Option(names ...string) cmds.Option` | `go.ipfs.ipfsCmds.int64Option` | sync |
-| `func cmds.IntOption(names ...string) cmds.Option` | `go.ipfs.ipfsCmds.intOption` | sync |
+| `func cmds.Int64Option(names ...string) cmds.Option` | `go.ipfs.ipfsCmds.options.int64Option` | sync |
+| `func cmds.IntOption(names ...string) cmds.Option` | `go.ipfs.ipfsCmds.options.intOption` | sync |
 | `func (*cmds.MaybeError).Get() (any, error)` | `IpfsCmdsMaybeError.get` | sync |
 | `func (*cmds.MaybeError).UnmarshalJSON(data []byte) error` | `IpfsCmdsMaybeError.unmarshalJson` | sync |
 | `func cmds.NewChanResponsePair(req *cmds.Request) (cmds.ResponseEmitter, cmds.Response)` | `go.ipfs.ipfsCmds.newChanResponsePair` | sync |
@@ -1505,16 +1505,16 @@ Omitted:
 | `func (cmds.Option).Parse(str string) (any, error)` | `IpfsCmdsOption.parse` | sync |
 | `func (cmds.Option).Type() reflect.Kind` | `IpfsCmdsOption.type` | sync |
 | `func (cmds.Option).WithDefault(any) cmds.Option` | `IpfsCmdsOption.withDefault` | sync |
-| `var cmds.OptionDerefArgs cmds.Option` | `go.ipfs.ipfsCmds.optionDerefArgs` | sync |
-| `var cmds.OptionDerefSymlinks cmds.Option` | `go.ipfs.ipfsCmds.optionDerefSymlinks` | sync |
-| `var cmds.OptionEncodingType cmds.Option` | `go.ipfs.ipfsCmds.optionEncodingType` | sync |
-| `var cmds.OptionHidden cmds.Option` | `go.ipfs.ipfsCmds.optionHidden` | sync |
-| `var cmds.OptionIgnore cmds.Option` | `go.ipfs.ipfsCmds.optionIgnore` | sync |
-| `var cmds.OptionIgnoreRules cmds.Option` | `go.ipfs.ipfsCmds.optionIgnoreRules` | sync |
-| `var cmds.OptionRecursivePath cmds.Option` | `go.ipfs.ipfsCmds.optionRecursivePath` | sync |
-| `var cmds.OptionStdinName cmds.Option` | `go.ipfs.ipfsCmds.optionStdinName` | sync |
-| `var cmds.OptionStreamChannels cmds.Option` | `go.ipfs.ipfsCmds.optionStreamChannels` | sync |
-| `var cmds.OptionTimeout cmds.Option` | `go.ipfs.ipfsCmds.optionTimeout` | sync |
+| `var cmds.OptionDerefArgs cmds.Option` | `go.ipfs.ipfsCmds.options.optionDerefArgs` | sync |
+| `var cmds.OptionDerefSymlinks cmds.Option` | `go.ipfs.ipfsCmds.options.optionDerefSymlinks` | sync |
+| `var cmds.OptionEncodingType cmds.Option` | `go.ipfs.ipfsCmds.options.optionEncodingType` | sync |
+| `var cmds.OptionHidden cmds.Option` | `go.ipfs.ipfsCmds.options.optionHidden` | sync |
+| `var cmds.OptionIgnore cmds.Option` | `go.ipfs.ipfsCmds.options.optionIgnore` | sync |
+| `var cmds.OptionIgnoreRules cmds.Option` | `go.ipfs.ipfsCmds.options.optionIgnoreRules` | sync |
+| `var cmds.OptionRecursivePath cmds.Option` | `go.ipfs.ipfsCmds.options.optionRecursivePath` | sync |
+| `var cmds.OptionStdinName cmds.Option` | `go.ipfs.ipfsCmds.options.optionStdinName` | sync |
+| `var cmds.OptionStreamChannels cmds.Option` | `go.ipfs.ipfsCmds.options.optionStreamChannels` | sync |
+| `var cmds.OptionTimeout cmds.Option` | `go.ipfs.ipfsCmds.options.optionTimeout` | sync |
 | `func (*cmds.ReqLog).Add(req *cmds.Request) *cmds.ReqLogEntry` | `IpfsCmdsReqLog.add` | sync |
 | `func (*cmds.ReqLog).AddEntry(rle *cmds.ReqLogEntry)` | `IpfsCmdsReqLog.addEntry` | sync |
 | `func (*cmds.ReqLog).ClearInactive()` | `IpfsCmdsReqLog.clearInactive` | sync |
@@ -1540,11 +1540,11 @@ Omitted:
 | `func (cmds.StdinArguments).Err() error` | `IpfsCmdsStdinArguments.err` | sync |
 | `func (cmds.StdinArguments).Scan() bool` | `IpfsCmdsStdinArguments.scan` | sync |
 | `func cmds.StringArg(name string, required bool, variadic bool, description string) cmds.Argument` | `go.ipfs.ipfsCmds.stringArg` | sync |
-| `func cmds.StringOption(names ...string) cmds.Option` | `go.ipfs.ipfsCmds.stringOption` | sync |
-| `func cmds.StringsOption(names ...string) cmds.Option` | `go.ipfs.ipfsCmds.stringsOption` | sync |
+| `func cmds.StringOption(names ...string) cmds.Option` | `go.ipfs.ipfsCmds.options.stringOption` | sync |
+| `func cmds.StringsOption(names ...string) cmds.Option` | `go.ipfs.ipfsCmds.options.stringsOption` | sync |
 | `func (cmds.TextEncoder).Encode(v any) error` | `IpfsCmdsTextEncoder.encode` | sync |
-| `func cmds.Uint64Option(names ...string) cmds.Option` | `go.ipfs.ipfsCmds.uint64Option` | sync |
-| `func cmds.UintOption(names ...string) cmds.Option` | `go.ipfs.ipfsCmds.uintOption` | sync |
+| `func cmds.Uint64Option(names ...string) cmds.Option` | `go.ipfs.ipfsCmds.options.uint64Option` | sync |
+| `func cmds.UintOption(names ...string) cmds.Option` | `go.ipfs.ipfsCmds.options.uintOption` | sync |
 | `cmds.Encoder → x.(*cmds.TextEncoder)` | `IpfsCmdsEncoder.asIpfsCmdsTextEncoder` | cast |
 | `const cmds.Active cmds.Status` | `go.ipfs.ipfsCmds.enums.active` | const |
 | `const cmds.ArgFile cmds.ArgumentType` | `go.ipfs.ipfsCmds.enums.argFile` | const |
@@ -2353,10 +2353,10 @@ Omitted:
 | `func (node.BaseBlocks).Has(context.Context, cid.Cid) (bool, error)` | `KuboCoreNodeBaseBlocks.has` | Future |
 | `func (node.BaseBlocks).Put(context.Context, blocks.Block) error` | `KuboCoreNodeBaseBlocks.put` | Future |
 | `func (node.BaseBlocks).PutMany(context.Context, []blocks.Block) error` | `KuboCoreNodeBaseBlocks.putMany` | Future |
-| `var node.BaseLibP2P fx.Option` | `go.ipfs.kubo.core.node.baseLibP2p` | sync |
+| `var node.BaseLibP2P fx.Option` | `go.ipfs.kubo.core.node.options.baseLibP2p` | sync |
 | `func node.Bitswap(serverEnabled bool, libp2pEnabled bool, httpEnabled bool) any` | `go.ipfs.kubo.core.node.bitswap` | sync |
 | `func node.BitswapOptions(cfg *config.Config) any` | `go.ipfs.kubo.core.node.bitswapOptions` | sync |
-| `var node.Core fx.Option` | `go.ipfs.kubo.core.node.core` | sync |
+| `var node.Core fx.Option` | `go.ipfs.kubo.core.node.options.core` | sync |
 | `func (node.DHTProvider).Clear() int` | `KuboCoreNodeDhtProvider.clear` | sync |
 | `func (node.DHTProvider).Close() error` | `KuboCoreNodeDhtProvider.close` | sync |
 | `func (node.DHTProvider).ProvideOnce(keys ...multihash.Multihash) error` | `KuboCoreNodeDhtProvider.provideOnce` | sync |
@@ -2368,34 +2368,34 @@ Omitted:
 | `func node.FetcherConfig(bs blockservice.BlockService) node.FetchersOut` | `go.ipfs.kubo.core.node.fetcherConfig` | sync |
 | `var node.FilesRootDatastoreKey datastore.Key` | `go.ipfs.kubo.core.node.filesRootDatastoreKey` | sync |
 | `func node.GcBlockstoreCtor(bb node.BaseBlocks) (gclocker blockstore.GCLocker, gcbs blockstore.GCBlockstore, bs blockstore.Blockstore)` | `go.ipfs.kubo.core.node.gcBlockstoreCtor` | sync |
-| `func node.IPFS(ctx context.Context, bcfg *node.BuildCfg) fx.Option` | `go.ipfs.kubo.core.node.ipfs` | Future |
-| `var node.IPNS fx.Option` | `go.ipfs.kubo.core.node.ipns` | sync |
-| `func node.Identity(cfg *config.Config) fx.Option` | `go.ipfs.kubo.core.node.identity` | sync |
+| `func node.IPFS(ctx context.Context, bcfg *node.BuildCfg) fx.Option` | `go.ipfs.kubo.core.node.options.ipfs` | Future |
+| `var node.IPNS fx.Option` | `go.ipfs.kubo.core.node.options.ipns` | sync |
+| `func node.Identity(cfg *config.Config) fx.Option` | `go.ipfs.kubo.core.node.options.identity` | sync |
 | `func (*node.LegacyProvider).Clear() int` | `KuboCoreNodeLegacyProvider.clear` | sync |
 | `func (*node.LegacyProvider).ProvideOnce(keys ...multihash.Multihash) error` | `KuboCoreNodeLegacyProvider.provideOnce` | sync |
 | `func (*node.LegacyProvider).RefreshSchedule() error` | `KuboCoreNodeLegacyProvider.refreshSchedule` | sync |
 | `func (*node.LegacyProvider).StartProviding(force bool, keys ...multihash.Multihash) error` | `KuboCoreNodeLegacyProvider.startProviding` | sync |
-| `func node.LegacyProviderOpt(reprovideInterval time.Duration, strategy string, acceleratedDHTClient bool, provideWorkerCount int) fx.Option` | `go.ipfs.kubo.core.node.legacyProviderOpt` | sync |
-| `func node.LibP2P(bcfg *node.BuildCfg, cfg *config.Config, userResourceOverrides rcmgr.PartialLimitConfig) fx.Option` | `go.ipfs.kubo.core.node.libP2p` | sync |
-| `func node.Networked(bcfg *node.BuildCfg, cfg *config.Config, userResourceOverrides rcmgr.PartialLimitConfig) fx.Option` | `go.ipfs.kubo.core.node.networked` | sync |
+| `func node.LegacyProviderOpt(reprovideInterval time.Duration, strategy string, acceleratedDHTClient bool, provideWorkerCount int) fx.Option` | `go.ipfs.kubo.core.node.options.legacyProviderOpt` | sync |
+| `func node.LibP2P(bcfg *node.BuildCfg, cfg *config.Config, userResourceOverrides rcmgr.PartialLimitConfig) fx.Option` | `go.ipfs.kubo.core.node.options.libP2p` | sync |
+| `func node.Networked(bcfg *node.BuildCfg, cfg *config.Config, userResourceOverrides rcmgr.PartialLimitConfig) fx.Option` | `go.ipfs.kubo.core.node.options.networked` | sync |
 | `func (*node.NoopProvider).Clear() int` | `KuboCoreNodeNoopProvider.clear` | sync |
 | `func (*node.NoopProvider).Close() error` | `KuboCoreNodeNoopProvider.close` | sync |
 | `func (*node.NoopProvider).ProvideOnce(...multihash.Multihash) error` | `KuboCoreNodeNoopProvider.provideOnce` | sync |
 | `func (*node.NoopProvider).RefreshSchedule() error` | `KuboCoreNodeNoopProvider.refreshSchedule` | sync |
 | `func (*node.NoopProvider).StartProviding(bool, ...multihash.Multihash) error` | `KuboCoreNodeNoopProvider.startProviding` | sync |
-| `func node.Offline(cfg *config.Config) fx.Option` | `go.ipfs.kubo.core.node.offline` | sync |
-| `func node.OfflineProviders() fx.Option` | `go.ipfs.kubo.core.node.offlineProviders` | sync |
-| `func node.Online(bcfg *node.BuildCfg, cfg *config.Config, userResourceOverrides rcmgr.PartialLimitConfig) fx.Option` | `go.ipfs.kubo.core.node.online` | sync |
+| `func node.Offline(cfg *config.Config) fx.Option` | `go.ipfs.kubo.core.node.options.offline` | sync |
+| `func node.OfflineProviders() fx.Option` | `go.ipfs.kubo.core.node.options.offlineProviders` | sync |
+| `func node.Online(bcfg *node.BuildCfg, cfg *config.Config, userResourceOverrides rcmgr.PartialLimitConfig) fx.Option` | `go.ipfs.kubo.core.node.options.online` | sync |
 | `func node.OnlineExchange(isBitswapActive bool) any` | `go.ipfs.kubo.core.node.onlineExchange` | sync |
-| `func node.OnlineProviders(provide bool, cfg *config.Config) fx.Option` | `go.ipfs.kubo.core.node.onlineProviders` | sync |
+| `func node.OnlineProviders(provide bool, cfg *config.Config) fx.Option` | `go.ipfs.kubo.core.node.options.onlineProviders` | sync |
 | `func node.PathResolverConfig(fetchers node.FetchersIn) node.PathResolversOut` | `go.ipfs.kubo.core.node.pathResolverConfig` | sync |
-| `func node.PeerWith(peers ...peer.AddrInfo) fx.Option` | `go.ipfs.kubo.core.node.peerWith` | sync |
+| `func node.PeerWith(peers ...peer.AddrInfo) fx.Option` | `go.ipfs.kubo.core.node.options.peerWith` | sync |
 | `func node.Peering(lc fx.Lifecycle, host host.Host) *peering.PeeringService` | `go.ipfs.kubo.core.node.peering` | sync |
 | `func node.PurgeStaleDHTValueRecords(lc fx.Lifecycle, repo repo.Repo)` | `go.ipfs.kubo.core.node.purgeStaleDhtValueRecords` | sync |
 | `func node.RecordValidator(ps peerstore.Peerstore) record.Validator` | `go.ipfs.kubo.core.node.recordValidator` | sync |
 | `func node.RepoConfig(repo repo.Repo) (*config.Config, error)` | `go.ipfs.kubo.core.node.repoConfig` | sync |
-| `func node.Storage(bcfg *node.BuildCfg, cfg *config.Config) fx.Option` | `go.ipfs.kubo.core.node.storage` | sync |
-| `func node.SweepingProviderOpt(cfg *config.Config) fx.Option` | `go.ipfs.kubo.core.node.sweepingProviderOpt` | sync |
+| `func node.Storage(bcfg *node.BuildCfg, cfg *config.Config) fx.Option` | `go.ipfs.kubo.core.node.options.storage` | sync |
+| `func node.SweepingProviderOpt(cfg *config.Config) fx.Option` | `go.ipfs.kubo.core.node.options.sweepingProviderOpt` | sync |
 | `node.BaseBlocks → x.(*blockstore.ValidatingBlockstore)` | `KuboCoreNodeBaseBlocks.asBoxoBlockstoreValidatingBlockstore` | cast |
 | `node.BaseBlocks → x.(*filestore.Filestore)` | `KuboCoreNodeBaseBlocks.asBoxoFilestore` | cast |
 | `node.BaseBlocks → x.(*blockstore.ReadOnly)` | `KuboCoreNodeBaseBlocks.asCarV2BlockstoreReadOnly` | cast |
@@ -2432,13 +2432,13 @@ Omitted:
 | `func libp2p.AddrsFactory(announce []string, appendAnnounce []string, noAnnounce []string) any` | `go.ipfs.kubo.core.node.libp2p.addrsFactory` | sync |
 | `func libp2p.BandwidthCounter() (opts libp2p.Libp2pOpts, reporter *metrics.BandwidthCounter)` | `go.ipfs.kubo.core.node.libp2p.bandwidthCounter` | sync |
 | `func libp2p.BaseRouting(cfg *config.Config) any` | `go.ipfs.kubo.core.node.libp2p.baseRouting` | sync |
-| `func libp2p.ConstructDefaultRouting(cfg *config.Config, routingOpt libp2p.RoutingOption) libp2p.RoutingOption` | `go.ipfs.kubo.core.node.libp2p.constructDefaultRouting` | sync |
-| `func libp2p.ConstructDelegatedOnlyRouting(cfg *config.Config) libp2p.RoutingOption` | `go.ipfs.kubo.core.node.libp2p.constructDelegatedOnlyRouting` | sync |
+| `func libp2p.ConstructDefaultRouting(cfg *config.Config, routingOpt libp2p.RoutingOption) libp2p.RoutingOption` | `go.ipfs.kubo.core.node.libp2p.options.constructDefaultRouting` | sync |
+| `func libp2p.ConstructDelegatedOnlyRouting(cfg *config.Config) libp2p.RoutingOption` | `go.ipfs.kubo.core.node.libp2p.options.constructDelegatedOnlyRouting` | sync |
 | `func libp2p.ContentDiscovery(in routing.ProvideManyRouter) routing.ContentDiscovery` | `go.ipfs.kubo.core.node.libp2p.contentDiscovery` | sync |
-| `var libp2p.DHTClientOption libp2p.RoutingOption` | `go.ipfs.kubo.core.node.libp2p.dhtClientOption` | sync |
-| `var libp2p.DHTOption libp2p.RoutingOption` | `go.ipfs.kubo.core.node.libp2p.dhtOption` | sync |
-| `var libp2p.DHTServerOption libp2p.RoutingOption` | `go.ipfs.kubo.core.node.libp2p.dhtServerOption` | sync |
-| `var libp2p.DefaultHostOption libp2p.HostOption` | `go.ipfs.kubo.core.node.libp2p.defaultHostOption` | sync |
+| `var libp2p.DHTClientOption libp2p.RoutingOption` | `go.ipfs.kubo.core.node.libp2p.options.dhtClientOption` | sync |
+| `var libp2p.DHTOption libp2p.RoutingOption` | `go.ipfs.kubo.core.node.libp2p.options.dhtOption` | sync |
+| `var libp2p.DHTServerOption libp2p.RoutingOption` | `go.ipfs.kubo.core.node.libp2p.options.dhtServerOption` | sync |
+| `var libp2p.DefaultHostOption libp2p.HostOption` | `go.ipfs.kubo.core.node.libp2p.options.defaultHostOption` | sync |
 | `func libp2p.DetectNAT(h host.Host) string` | `go.ipfs.kubo.core.node.libp2p.detectNat` | sync |
 | `func libp2p.FloodSub(pubsubOptions ...pubsub.Option) any` | `go.ipfs.kubo.core.node.libp2p.floodSub` | sync |
 | `func libp2p.GossipSub(pubsubOptions ...pubsub.Option) any` | `go.ipfs.kubo.core.node.libp2p.gossipSub` | sync |
@@ -2447,10 +2447,10 @@ Omitted:
 | `func (libp2p.LimitsConfigAndUsage).MarshalJSON() ([]byte, error)` | `KuboCoreNodeLibp2pLimitsConfigAndUsage.marshalJson` | sync |
 | `func (libp2p.LimitsConfigAndUsage).ToPartialLimitConfig() (result rcmgr.PartialLimitConfig)` | `KuboCoreNodeLibp2pLimitsConfigAndUsage.toPartialLimitConfig` | sync |
 | `func libp2p.ListenOn(addresses []string) any` | `go.ipfs.kubo.core.node.libp2p.listenOn` | sync |
-| `func libp2p.MaybeAutoRelay(staticRelays []string, cfgPeering config.Peering, enabled bool) fx.Option` | `go.ipfs.kubo.core.node.libp2p.maybeAutoRelay` | sync |
+| `func libp2p.MaybeAutoRelay(staticRelays []string, cfgPeering config.Peering, enabled bool) fx.Option` | `go.ipfs.kubo.core.node.libp2p.options.maybeAutoRelay` | sync |
 | `func libp2p.MergeLimitsAndStatsIntoLimitsConfigAndUsage(l rcmgr.ConcreteLimitConfig, stats rcmgr.ResourceManagerStat) libp2p.LimitsConfigAndUsage` | `go.ipfs.kubo.core.node.libp2p.mergeLimitsAndStatsIntoLimitsConfigAndUsage` | sync |
 | `func libp2p.MultiaddrResolver(rslv *madns.Resolver) (opts libp2p.Libp2pOpts, err error)` | `go.ipfs.kubo.core.node.libp2p.multiaddrResolver` | sync |
-| `var libp2p.NilRouterOption func(_ libp2p.RoutingOptionArgs) (routing.Routing, error)` | `go.ipfs.kubo.core.node.libp2p.nilRouterOption` | sync |
+| `var libp2p.NilRouterOption func(_ libp2p.RoutingOptionArgs) (routing.Routing, error)` | `go.ipfs.kubo.core.node.libp2p.options.nilRouterOption` | sync |
 | `func libp2p.P2PForgeCertMgr(repoPath string, cfg config.AutoTLS, atlsLog *log.ZapEventLogger) any` | `go.ipfs.kubo.core.node.libp2p.p2pForgeCertMgr` | sync |
 | `func libp2p.PNet(repo repo.Repo) (opts libp2p.Libp2pOpts, fp libp2p.PNetFingerprint, err error)` | `go.ipfs.kubo.core.node.libp2p.pNet` | sync |
 | `func libp2p.PNetChecker(repo repo.Repo, ph host.Host, lc fx.Lifecycle) error` | `go.ipfs.kubo.core.node.libp2p.pNetChecker` | sync |
@@ -6472,7 +6472,7 @@ Omitted:
 ## Adaptations (generator rules and hand-written code)
 
 - One import, `package:p2p_ffi/p2p_ffi.dart`. A package's functions, constants and variables are reached through the namespace tree: the top-level constant `go`, then one getter per segment of the package's path after the host of its URL, the author first, lowerCamelCase as Dart names constants and getters (`github.com/ipfs/boxo/mfs` → `go.ipfs.boxo.mfs.newRoot(...)`, `github.com/ipfs/go-cid` → `go.ipfs.cid`, `github.com/libp2p/go-libp2p-kad-dht` → `go.libp2p.libp2pKadDht`, `golang.org/x/crypto` → `go.x.crypto`, `context` → `go.context`); the module's own segment drops `go-` and its major version goes after it, a nested module keeps the outer one's path, a host of its own has no author (`lukechampine.com/blake3` → `go.blake3`), and the Go standard library sits beside the authors. Dart has no nested types, so a type is a top-level class named after its package's path without the author, minus the words the Go name already starts with (`mfs.Root` → `BoxoMfsRoot`, `peer.ID` → `Libp2pCorePeerId`, `cid.Cid` → `Cid`, `context.Context` → `Context`); when two types get the same class, the one with the longer Go name keeps it whole after a `_` (owner's decision, 2026-10-29): after its path (`grpc.BackoffConfig` → `Grpc_BackoffConfig`, beside `grpc/backoff.Config` → `GrpcBackoffConfig`), or at its own `_` (`errorspb.EncodedError_Leaf` → `ErrorsErrorspbEncodedError_Leaf`), declared under `// ignore: camel_case_types`. Every name is unique in the import. The code of each package is one library under `lib/go/` (`lib/go/ipfs/boxo/mfs.dart`), which adds the members to its namespace class as an extension (`GoIpfsBoxoMfsApi on GoIpfsBoxoMfs`); `lib/src/go.dart` holds the tree and exports them all, and the generator refuses two equal names, a member that hides a sub-namespace, and an `export` in a public library outside `lib/p2p_ffi.dart`.
-- A package constant is a getter of one of two layers of its namespace (owner's decision, 2026-10-29), so it does not hide a sub-package (`crypto.MD5` and `crypto/md5`): `enums`, a constant of a named type (`go.multiformats.multicodec.enums.raw`, `go.crypto.enums.md5`), and `consts`, the others (`go.ipfs.cid.consts.raw`); not a Dart `const`. Likewise a function or variable that is a functional option is a member of the layer `options` (`grpc.Peer` and `grpc/peer`: `go.libp2p.libp2p.options.listenAddrStrings(...)`); a variable that holds option constructors stays a member of the namespace (`go.ipfs.kubo.core.coreiface.options.unixfs.pin(true, '')`). Its value is written into the Dart code, except when it is not the same on every target (`go/gen/platform.go`: windows, linux, android; `go.os.consts.devNull`, `go.os.consts.pathSeparator`): then the getter asks the host, which has the value of the platform that runs.
+- A package constant is a getter of one of two layers of its namespace (owner's decision, 2026-10-29), so it does not hide a sub-package (`crypto.MD5` and `crypto/md5`): `enums`, a constant of a named type (`go.multiformats.multicodec.enums.raw`, `go.crypto.enums.md5`), and `consts`, the others (`go.ipfs.cid.consts.raw`); not a Dart `const`. Likewise a function or variable of a type named `...Option` (a functional option, or grpc's `CallOption`, an interface) is a member of the layer `options` (`grpc.Peer` and `grpc/peer`: `go.grpc.options.peer(p)`, `go.libp2p.libp2p.options.listenAddrStrings(...)`); any other member with the name of a sub-package gets a `$` (`go.cockroachdb.errors.join$`; owner's decisions, 2026-10-30); a variable that holds option constructors stays a member of the namespace (`go.ipfs.kubo.core.coreiface.options.unixfs.pin(true, '')`). Its value is written into the Dart code, except when it is not the same on every target (`go/gen/platform.go`: windows, linux, android; `go.os.consts.devNull`, `go.os.consts.pathSeparator`): then the getter asks the host, which has the value of the platform that runs.
 - `context` (`go.context`, hand-written in `lib/go/context.dart`): `background`, `withCancel`, `withTimeout`, `withDeadline`; `ContextCancelFunc` is callable (`cancel()`).
 - `readerStream` (exported by `package:p2p_ffi/p2p_ffi.dart`, hand-written): any `io.Reader` handle as a `Stream<Uint8List>`, in 256 KiB pieces; cancel through the reader's context.
 - `config.Profiles` (hand-written): `go.ipfs.kubo.config.profiles[name]!.transform(cfg)`; in Go it is a map of functions.

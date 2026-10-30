@@ -532,6 +532,9 @@ final class GoIpfsBoxoBitswap {
   /// Go: package `github.com/ipfs/boxo/bitswap/network`.
   GoIpfsBoxoBitswapNetwork get network => const GoIpfsBoxoBitswapNetwork._();
 
+  /// The option constructors of `go.ipfs.boxo.bitswap`.
+  GoIpfsBoxoBitswapOptions get options => const GoIpfsBoxoBitswapOptions._();
+
   /// Go: package `github.com/ipfs/boxo/bitswap/server`.
   GoIpfsBoxoBitswapServer get server => const GoIpfsBoxoBitswapServer._();
 
@@ -582,6 +585,15 @@ final class GoIpfsBoxoBlockservice {
   /// The option constructors of `go.ipfs.boxo.blockservice`.
   GoIpfsBoxoBlockserviceOptions get options =>
       const GoIpfsBoxoBlockserviceOptions._();
+}
+
+/// Go: package `github.com/ipfs/boxo/blockstore`, as `go.ipfs.boxo.blockstore`.
+final class GoIpfsBoxoBlockstore {
+  const GoIpfsBoxoBlockstore._();
+
+  /// The option constructors of `go.ipfs.boxo.blockstore`.
+  GoIpfsBoxoBlockstoreOptions get options =>
+      const GoIpfsBoxoBlockstoreOptions._();
 }
 
 /// Go: package `github.com/ipfs/boxo/chunker`, as `go.ipfs.boxo.chunker`.
@@ -732,6 +744,10 @@ final class GoIpfsBoxoIpldUnixfsIo {
   /// The constants of a named type of `go.ipfs.boxo.ipld.unixfs.io`.
   GoIpfsBoxoIpldUnixfsIoEnums get enums =>
       const GoIpfsBoxoIpldUnixfsIoEnums._();
+
+  /// The option constructors of `go.ipfs.boxo.ipld.unixfs.io`.
+  GoIpfsBoxoIpldUnixfsIoOptions get options =>
+      const GoIpfsBoxoIpldUnixfsIoOptions._();
 }
 
 /// Go: package `github.com/ipfs/boxo/ipns`, as `go.ipfs.boxo.ipns`.
@@ -861,6 +877,9 @@ final class GoIpfsIpfsCmds {
 
   /// The constants of a named type of `go.ipfs.ipfsCmds`.
   GoIpfsIpfsCmdsEnums get enums => const GoIpfsIpfsCmdsEnums._();
+
+  /// The option constructors of `go.ipfs.ipfsCmds`.
+  GoIpfsIpfsCmdsOptions get options => const GoIpfsIpfsCmdsOptions._();
 }
 
 /// Go: package `github.com/ipfs/go-ipld-format`, as `go.ipfs.ipldFormat`.
@@ -996,6 +1015,9 @@ final class GoIpfsKuboCoreNode {
 
   /// Go: package `github.com/ipfs/kubo/core/node/libp2p`.
   GoIpfsKuboCoreNodeLibp2p get libp2p => const GoIpfsKuboCoreNodeLibp2p._();
+
+  /// The option constructors of `go.ipfs.kubo.core.node`.
+  GoIpfsKuboCoreNodeOptions get options => const GoIpfsKuboCoreNodeOptions._();
 }
 
 /// Go: package `github.com/ipfs/kubo/core/node/libp2p`, as `go.ipfs.kubo.core.node.libp2p`.
@@ -1005,6 +1027,10 @@ final class GoIpfsKuboCoreNodeLibp2p {
   /// The constants of `go.ipfs.kubo.core.node.libp2p`.
   GoIpfsKuboCoreNodeLibp2pConsts get consts =>
       const GoIpfsKuboCoreNodeLibp2pConsts._();
+
+  /// The option constructors of `go.ipfs.kubo.core.node.libp2p`.
+  GoIpfsKuboCoreNodeLibp2pOptions get options =>
+      const GoIpfsKuboCoreNodeLibp2pOptions._();
 }
 
 /// Go: package `github.com/ipfs/kubo/plugin`, as `go.ipfs.kubo.plugin`.
@@ -2212,6 +2238,11 @@ final class GoIpfsBoxoBitswapNetworkBsnetOptions {
   const GoIpfsBoxoBitswapNetworkBsnetOptions._();
 }
 
+/// The option constructors of `go.ipfs.boxo.bitswap`, as `go.ipfs.boxo.bitswap.options`.
+final class GoIpfsBoxoBitswapOptions {
+  const GoIpfsBoxoBitswapOptions._();
+}
+
 /// Go: package `github.com/ipfs/boxo/bitswap/server/internal/decision`, as `go.ipfs.boxo.bitswap.server.internal.decision`.
 final class GoIpfsBoxoBitswapServerInternalDecision {
   const GoIpfsBoxoBitswapServerInternalDecision._();
@@ -2227,9 +2258,9 @@ final class GoIpfsBoxoBlockserviceOptions {
   const GoIpfsBoxoBlockserviceOptions._();
 }
 
-/// Go: package `github.com/ipfs/boxo/blockstore`, as `go.ipfs.boxo.blockstore`.
-final class GoIpfsBoxoBlockstore {
-  const GoIpfsBoxoBlockstore._();
+/// The option constructors of `go.ipfs.boxo.blockstore`, as `go.ipfs.boxo.blockstore.options`.
+final class GoIpfsBoxoBlockstoreOptions {
+  const GoIpfsBoxoBlockstoreOptions._();
 }
 
 /// Go: package `github.com/ipfs/boxo/bootstrap`, as `go.ipfs.boxo.bootstrap`.
@@ -2330,6 +2361,11 @@ final class GoIpfsBoxoIpldUnixfsImporter {
 /// The constants of a named type of `go.ipfs.boxo.ipld.unixfs.io`, as `go.ipfs.boxo.ipld.unixfs.io.enums`.
 final class GoIpfsBoxoIpldUnixfsIoEnums {
   const GoIpfsBoxoIpldUnixfsIoEnums._();
+}
+
+/// The option constructors of `go.ipfs.boxo.ipld.unixfs.io`, as `go.ipfs.boxo.ipld.unixfs.io.options`.
+final class GoIpfsBoxoIpldUnixfsIoOptions {
+  const GoIpfsBoxoIpldUnixfsIoOptions._();
 }
 
 /// The constants of `go.ipfs.boxo.ipns`, as `go.ipfs.boxo.ipns.consts`.
@@ -2447,6 +2483,11 @@ final class GoIpfsIpfsCmdsEnums {
   const GoIpfsIpfsCmdsEnums._();
 }
 
+/// The option constructors of `go.ipfs.ipfsCmds`, as `go.ipfs.ipfsCmds.options`.
+final class GoIpfsIpfsCmdsOptions {
+  const GoIpfsIpfsCmdsOptions._();
+}
+
 /// The option constructors of `go.ipfs.ipldFormat`, as `go.ipfs.ipldFormat.options`.
 final class GoIpfsIpldFormatOptions {
   const GoIpfsIpldFormatOptions._();
@@ -2535,6 +2576,16 @@ final class GoIpfsKuboCoreNodeEnums {
 /// The constants of `go.ipfs.kubo.core.node.libp2p`, as `go.ipfs.kubo.core.node.libp2p.consts`.
 final class GoIpfsKuboCoreNodeLibp2pConsts {
   const GoIpfsKuboCoreNodeLibp2pConsts._();
+}
+
+/// The option constructors of `go.ipfs.kubo.core.node.libp2p`, as `go.ipfs.kubo.core.node.libp2p.options`.
+final class GoIpfsKuboCoreNodeLibp2pOptions {
+  const GoIpfsKuboCoreNodeLibp2pOptions._();
+}
+
+/// The option constructors of `go.ipfs.kubo.core.node`, as `go.ipfs.kubo.core.node.options`.
+final class GoIpfsKuboCoreNodeOptions {
+  const GoIpfsKuboCoreNodeOptions._();
 }
 
 /// Go: package `github.com/ipfs/kubo/gc`, as `go.ipfs.kubo.gc`.

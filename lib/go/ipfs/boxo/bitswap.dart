@@ -4,7 +4,8 @@ library;
 
 import 'dart:async';
 
-import 'package:p2p_ffi/src/go.dart' show GoIpfsBoxoBitswap;
+import 'package:p2p_ffi/src/go.dart'
+    show GoIpfsBoxoBitswap, GoIpfsBoxoBitswapOptions;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
@@ -207,6 +208,29 @@ final class BoxoBitswapStat implements GoDto {
 
 /// Go: the package-level members of `github.com/ipfs/boxo/bitswap` (`go.ipfs.boxo.bitswap`).
 extension GoIpfsBoxoBitswapApi on GoIpfsBoxoBitswap {
+  /// Go: `func bitswap.New(ctx context.Context, net network.BitSwapNetwork, providerFinder routing.ContentDiscovery, bstore blockstore.Blockstore, options ...bitswap.Option) *bitswap.Bitswap`.
+  ///
+  /// Asynchronous: runs in a goroutine of the service.
+  Future<BoxoBitswap> new$(
+      $context.Context ctx,
+      $network.BoxoBitswapNetworkBitSwapNetwork net,
+      $routing.Libp2pCoreRoutingContentDiscovery providerFinder,
+      $blockstore.BoxoBlockstore bstore,
+      [List<BoxoBitswapOption> options = const []]) async {
+    final $r = await $call(
+        428,
+        $W()
+          ..h(ctx)
+          ..h(net)
+          ..h(providerFinder)
+          ..h(bstore)
+          ..list(options, (w0, e0) => w0.h(e0)));
+    return $r.hnn(BoxoBitswap.$h);
+  }
+}
+
+/// Go: the option constructors of `github.com/ipfs/boxo/bitswap` (`go.ipfs.boxo.bitswap.options`).
+extension GoIpfsBoxoBitswapOptionsApi on GoIpfsBoxoBitswapOptions {
   /// Go: `func bitswap.EngineBlockstoreWorkerCount(count int) bitswap.Option`.
   BoxoBitswapOption engineBlockstoreWorkerCount(int count) {
     final $r = $callSync(423, $W()..i64(count));
@@ -235,26 +259,6 @@ extension GoIpfsBoxoBitswapApi on GoIpfsBoxoBitswap {
   BoxoBitswapOption maxQueuedWantlistEntriesPerPeer(int count) {
     final $r = $callSync(427, $W()..i64(count));
     return $r.hnn(BoxoBitswapOption.$h);
-  }
-
-  /// Go: `func bitswap.New(ctx context.Context, net network.BitSwapNetwork, providerFinder routing.ContentDiscovery, bstore blockstore.Blockstore, options ...bitswap.Option) *bitswap.Bitswap`.
-  ///
-  /// Asynchronous: runs in a goroutine of the service.
-  Future<BoxoBitswap> new$(
-      $context.Context ctx,
-      $network.BoxoBitswapNetworkBitSwapNetwork net,
-      $routing.Libp2pCoreRoutingContentDiscovery providerFinder,
-      $blockstore.BoxoBlockstore bstore,
-      [List<BoxoBitswapOption> options = const []]) async {
-    final $r = await $call(
-        428,
-        $W()
-          ..h(ctx)
-          ..h(net)
-          ..h(providerFinder)
-          ..h(bstore)
-          ..list(options, (w0, e0) => w0.h(e0)));
-    return $r.hnn(BoxoBitswap.$h);
   }
 
   /// Go: `func bitswap.ProviderSearchDelay(newProvSearchDelay time.Duration) bitswap.Option`.

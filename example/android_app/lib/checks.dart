@@ -193,8 +193,8 @@ Future<int> localChecks(Log log) async {
                   repo: go.ipfs.kubo.repo.fsrepo.open(repoPath),
                   online: true,
                   routing: i.isEven
-                      ? go.ipfs.kubo.core.node.libp2p.dhtClientOption
-                      : go.ipfs.kubo.core.node.libp2p.nilRouterOption));
+                      ? go.ipfs.kubo.core.node.libp2p.options.dhtClientOption
+                      : go.ipfs.kubo.core.node.libp2p.options.nilRouterOption));
           await nn.close();
         }
         final nn = await go.ipfs.kubo.core.newNode(
@@ -299,7 +299,7 @@ Future<void> _twoNodes(Directory tmp) async {
         KuboCoreNodeBuildCfg(
             repo: go.ipfs.kubo.repo.fsrepo.open(newRepo(tmp, name)),
             online: true,
-            routing: go.ipfs.kubo.core.node.libp2p.dhtServerOption,
+            routing: go.ipfs.kubo.core.node.libp2p.options.dhtServerOption,
             extraOpts: {'pubsub': true}));
     return (nn, go.ipfs.kubo.core.coreapi.newCoreApi(nn));
   }

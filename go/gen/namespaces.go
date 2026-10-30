@@ -85,7 +85,12 @@ func moduleDir(mod string) (dir, author string) {
 			return dir + strings.TrimPrefix(base, majorRE.ReplaceAllString(outer, "")), author
 		}
 	}
-	_, rest, _ := strings.Cut(base, "/")
+	host, rest, _ := strings.Cut(base, "/")
+	if rest == "" { // a module that is only a host (go.opencensus.io): its name, as an author
+		name := strings.TrimPrefix(strings.TrimPrefix(host, "www."), "go.")
+		name = name[:max(strings.LastIndex(name, "."), 0)]
+		return name, name + "/"
+	}
 	i := strings.LastIndex(rest, "/")
 	return rest[:i+1] + strings.TrimPrefix(rest[i+1:], "go-"), rest[:i+1]
 }
@@ -257,6 +262,33 @@ var layers = []string{"consts", "enums", "options"}
 
 var layerDoc = map[string]string{"consts": "constants", "enums": "constants of a named type", "options": "option constructors"}
 
+// memberLayer: the layer of a package-level object ("" = its namespace): a
+// constant's, or `options` for a function or variable of a named type whose
+// name ends in Option (owner's decision, 2026-10-30: grpc.Peer's CallOption,
+// an interface).
+func memberLayer(o types.Object) string {
+	if l := constLayer(o); l != "" {
+		return l
+	}
+	var t types.Type
+	switch o := o.(type) {
+	case *types.Func:
+		res, _ := splitErr(o.Type().(*types.Signature).Results())
+		if len(res) != 1 {
+			return ""
+		}
+		t = res[0]
+	case *types.Var:
+		t = o.Type()
+	default:
+		return ""
+	}
+	if n, ok := types.Unalias(t).(*types.Named); ok && strings.HasSuffix(n.Obj().Name(), "Option") {
+		return "options"
+	}
+	return ""
+}
+
 // constLayer: the layer of a package-level object ("" when it is not a
 // constant).
 func constLayer(o types.Object) string {
@@ -275,6 +307,15 @@ func constLayer(o types.Object) string {
 // name it (GoIpfsCidConsts, go.ipfs.cid.consts).
 func layerPath(path, layer string) string {
 	return strings.TrimSuffix(path, ".dart") + "/" + layer + ".dart"
+}
+
+// hiddenClasses: the classes goTree left out of the single import, each with
+// its libraries (API.md).
+var hiddenClasses [][2]string
+
+// typeDeclRE: the declaration of the class or mixin [name].
+func typeDeclRE(name string) *regexp.Regexp {
+	return regexp.MustCompile(`(?m)^(?:(?:final|abstract|base|sealed|interface) )*(?:class|mixin) ` + regexp.QuoteMeta(name) + `\b`)
 }
 
 // nsMember: the getter of a path segment (libp2p_kad_dht → libp2pKadDht).
@@ -452,13 +493,40 @@ func goTree(libs map[string][]byte, goPaths map[string]string, runtime []string)
 	for _, n := range runtime {
 		claim(n, "lib/p2p_ffi.dart")
 	}
+	// a class two modules declare (bbloom.Bloom of ipfs and of AndreasBriese)
+	// leaves the single import (owner's decision, 2026-10-30): `hide`, and
+	// the library of each origin has it
+	declaredIn := map[string][]string{} // a class → the libraries that declare it
 	for _, path := range sortedKeys(libs) {
 		for _, n := range publicNames(libs[path]) {
-			claim(n, "lib/"+path)
+			if typeDeclRE(n).Match(libs[path]) && !slices.Contains(declaredIn[n], path) {
+				declaredIn[n] = append(declaredIn[n], path)
+			}
+		}
+	}
+	hide := map[string][]string{} // a library → the classes it does not export
+	hiddenClasses = nil
+	for _, n := range sortedKeys(declaredIn) {
+		if ps := declaredIn[n]; len(ps) > 1 {
+			for _, p := range ps {
+				hide[p] = append(hide[p], n)
+			}
+			hiddenClasses = append(hiddenClasses, [2]string{n, strings.Join(ps, " ")})
+		}
+	}
+	for _, path := range sortedKeys(libs) {
+		for _, n := range publicNames(libs[path]) {
+			if !slices.Contains(hide[path], n) {
+				claim(n, "lib/"+path)
+			}
 		}
 		dir := strings.TrimSuffix(strings.TrimPrefix(path, "go/"), ".dart")
+		getters := map[string]bool{}
+		for seg := range kids[dir] {
+			getters[nsMember(seg)] = true
+		}
 		for _, n := range extMembers(libs[path], nsClass(path)) {
-			if kids[dir][n] || kids[dir][strings.TrimSuffix(n, "$")] {
+			if getters[n] {
 				dup = append(dup, fmt.Sprintf("%s.%s: a member of lib/%s and a sub-namespace", nsPath(path), n, path))
 			}
 		}
@@ -473,6 +541,10 @@ library;
 
 `)
 	for _, path := range sortedKeys(libs) {
+		if h := hide[path]; len(h) > 0 {
+			fmt.Fprintf(&b, "export '%s%s' hide %s;\n", pkgPrefix, path, strings.Join(h, ", "))
+			continue
+		}
 		fmt.Fprintf(&b, "export '%s%s';\n", pkgPrefix, path)
 	}
 	getters := func(dir string) string {
@@ -483,7 +555,7 @@ library;
 			if !ok {
 				d = "`" + sub + "`"
 			}
-			fmt.Fprintf(&g, "\n  /// %s.\n  %s get %s => const %s._();\n", d, nsClass(sub), nsMember(seg), nsClass(sub))
+			fmt.Fprintf(&g, "\n  /// %s.\n  %s get %s => const %s._();\n", d, nsClass("go/"+sub), nsMember(seg), nsClass("go/"+sub))
 		}
 		return g.String()
 	}
@@ -495,24 +567,24 @@ library;
 			fmt.Fprintf(&b, "\n/// `%s`.\nfinal class %s {\n  const %s._();\n%s}\n", nsRootConst, nsClass(""), nsClass(""), getters(""))
 			continue
 		}
-		claim(nsClass(dir), "lib/src/go.dart")
-		doc := "`" + nsPath(dir) + "`"
+		claim(nsClass("go/"+dir), "lib/src/go.dart")
+		doc := "`" + nsPath("go/"+dir) + "`"
 		if gp, ok := goPaths["go/"+dir+".dart"]; ok {
-			doc = "Go: package `" + gp + "`, as `" + nsPath(dir) + "`"
+			doc = "Go: package `" + gp + "`, as `" + nsPath("go/"+dir) + "`"
 		}
-		fmt.Fprintf(&b, "\n/// %s.\nfinal class %s {\n  const %s._();\n%s}\n", doc, nsClass(dir), nsClass(dir), getters(dir))
+		fmt.Fprintf(&b, "\n/// %s.\nfinal class %s {\n  const %s._();\n%s}\n", doc, nsClass("go/"+dir), nsClass("go/"+dir), getters(dir))
 	}
 	for _, path := range nodes { // a library or a layer without a folder of its own
 		dir := strings.TrimSuffix(strings.TrimPrefix(path, "go/"), ".dart")
 		if _, ok := kids[dir]; ok {
 			continue
 		}
-		claim(nsClass(dir), "lib/src/go.dart")
-		d := "`" + nsPath(dir) + "`"
+		claim(nsClass("go/"+dir), "lib/src/go.dart")
+		d := "`" + nsPath("go/"+dir) + "`"
 		if pd, ok := doc(path); ok {
-			d = pd + ", as `" + nsPath(dir) + "`"
+			d = pd + ", as `" + nsPath("go/"+dir) + "`"
 		}
-		fmt.Fprintf(&b, "\n/// %s.\nfinal class %s {\n  const %s._();\n}\n", d, nsClass(dir), nsClass(dir))
+		fmt.Fprintf(&b, "\n/// %s.\nfinal class %s {\n  const %s._();\n}\n", d, nsClass("go/"+dir), nsClass("go/"+dir))
 	}
 	if len(dup) > 0 {
 		sort.Strings(dup)

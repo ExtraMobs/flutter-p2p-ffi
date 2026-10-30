@@ -176,3 +176,54 @@ func TestSplitRoot(t *testing.T) {
 		}
 	}
 }
+
+func TestGoTreeStdlibGo(t *testing.T) {
+	t.Chdir("..") // as the generator runs: dart format reads ../pubspec.yaml
+	// the standard library's go/scanner keeps its go: go.go.scanner, GoGoScanner
+	src := []byte("library;\n\nextension GoGoScannerApi on GoGoScanner {\n  int get x => 1;\n}\n")
+	out, err := goTree(map[string][]byte{"go/go/scanner.dart": src}, map[string]string{"go/go/scanner.dart": "go/scanner"}, nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, want := range []string{"final class GoGoScanner {", "GoGo get go => const GoGo._();", "GoGoScanner get scanner => const GoGoScanner._();"} {
+		if !strings.Contains(string(out), want) {
+			t.Errorf("go.dart lacks %q:\n%s", want, out)
+		}
+	}
+}
+
+func TestGoTreeHidesSharedClass(t *testing.T) {
+	t.Chdir("..")
+	lib := []byte("library;\n\nclass BbloomBloom extends GoHandle {}\n")
+	out, err := goTree(map[string][]byte{"go/ipfs/bbloom.dart": lib, "go/AndreasBriese/bbloom.dart": lib}, nil, nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, want := range []string{"export 'package:p2p_ffi/go/ipfs/bbloom.dart' hide BbloomBloom;", "export 'package:p2p_ffi/go/AndreasBriese/bbloom.dart' hide BbloomBloom;"} {
+		if !strings.Contains(string(out), want) {
+			t.Errorf("go.dart lacks %q", want)
+		}
+	}
+	if len(hiddenClasses) != 1 || hiddenClasses[0][0] != "BbloomBloom" {
+		t.Errorf("hiddenClasses = %v", hiddenClasses)
+	}
+}
+
+func TestHostOnlyModule(t *testing.T) {
+	if dir, author := moduleDir("go.opencensus.io"); dir != "opencensus" || author != "opencensus/" {
+		t.Errorf("moduleDir(go.opencensus.io) = %q, %q", dir, author)
+	}
+}
+
+func TestOptionsLayer(t *testing.T) {
+	pkg := types.NewPackage("google.golang.org/grpc", "grpc")
+	iface := types.NewNamed(types.NewTypeName(0, pkg, "CallOption", nil), types.NewInterfaceType(nil, nil), nil)
+	sig := types.NewSignatureType(nil, nil, nil, nil, types.NewTuple(types.NewVar(0, pkg, "", iface)), false)
+	if got := memberLayer(types.NewFunc(0, pkg, "Peer", sig)); got != "options" {
+		t.Errorf("memberLayer(grpc.Peer) = %q", got)
+	}
+	plain := types.NewSignatureType(nil, nil, nil, nil, types.NewTuple(types.NewVar(0, pkg, "", types.Typ[types.Int])), false)
+	if got := memberLayer(types.NewFunc(0, pkg, "Size", plain)); got != "" {
+		t.Errorf("memberLayer(grpc.Size) = %q", got)
+	}
+}

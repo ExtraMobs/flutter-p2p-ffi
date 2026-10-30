@@ -62,9 +62,13 @@ dart test                                          # the whole suite (needs the 
   never hide a sub-package (`crypto.MD5` and `crypto/md5`, `grpc.Peer` and `grpc/peer`;
   owner's decisions, 2026-10-29): `enums` for a constant of a named type
   (`go.multiformats.multicodec.enums.raw`), `consts` for the other constants
-  (`go.ipfs.cid.consts.raw`), `options` for a function or variable that is a functional
-  option (`go.ipfs.boxo.mfs.options.withMaxLinks`; a variable holding option constructors,
-  `go.ipfs.kubo.core.coreiface.options.unixfs`, stays a member). The members are added by the package's library as an
+  (`go.ipfs.cid.consts.raw`), `options` for a function or variable of a type named
+  `...Option`, a functional option or grpc's `CallOption` (`go.ipfs.boxo.mfs.options.withMaxLinks`,
+  `go.grpc.options.peer`; a variable holding option constructors,
+  `go.ipfs.kubo.core.coreiface.options.unixfs`, stays a member). Any other member with the
+  name of a sub-package gets a `$` (`go.cockroachdb.errors.join$`; owner's decisions,
+  2026-10-30, as the next two). A module that is only a host takes its name as the author
+  (`go.opencensus.io/trace` → `go.opencensus.trace`). The members are added by the package's library as an
   extension on the namespace class (`go.ipfs.boxo.mfs` is a `GoIpfsBoxoMfs`; the extension
   `GoIpfsBoxoMfsApi`, and `GoIpfsCidConstsApi` on the layer `GoIpfsCidConsts`); Dart has no nested types, so a type is a top-level class named
   after its package's path without the author, minus the words the Go name already starts with
@@ -72,9 +76,12 @@ dart test                                          # the whole suite (needs the 
   class, the one with the longer Go name keeps it whole after a `_`, after its path or at its
   own `_` (`grpc.BackoffConfig` → `Grpc_BackoffConfig` beside `GrpcBackoffConfig`,
   `errorspb.EncodedError_Leaf` → `ErrorsErrorspbEncodedError_Leaf`), declared under
-  `// ignore: camel_case_types` (owner's decision, 2026-10-29). Every name is unique: the
-  generator refuses two equal names, a member that hides a sub-namespace, and an `export`
-  in a public library outside `lib/p2p_ffi.dart`. A hand-written library of a Go package
+  `// ignore: camel_case_types` (owner's decision, 2026-10-29). A class two modules declare
+  (`bbloom.Bloom` of `ipfs` and of `AndreasBriese`) leaves the single import (`export ...
+  hide`) and is reached through its origin's library (`import
+  'package:p2p_ffi/go/ipfs/bbloom.dart' as ipfs;`), listed in `API.md`. Every other name is
+  unique: the generator refuses two equal names, a member that hides a sub-namespace, and an
+  `export` in a public library outside `lib/p2p_ffi.dart`. A hand-written library of a Go package
   adds its members the same way (`extension GoContextApi on GoContext`) and gets the
   generated part of that package as `<name>.g.dart`.
 

@@ -41,9 +41,10 @@ type dclass struct {
 type dartEmitter struct {
 	m           *model
 	libs        map[string]*dartLib
-	paramIfaces map[string]bool // interfaces usadas como parâmetro (linkConcrete)
-	ifaces      []*dclass       // the interfaces a handle can extend or mix in (linkConcrete)
-	optIfaces   map[string]bool // interfaces only an option constructor takes: the last choice of linkConcrete
+	paramIfaces map[string]bool            // interfaces usadas como parâmetro (linkConcrete)
+	ifaces      []*dclass                  // the interfaces a handle can extend or mix in (linkConcrete)
+	optIfaces   map[string]bool            // interfaces only an option constructor takes: the last choice of linkConcrete
+	subNs       map[string]map[string]bool // a namespace's folder → its sub-namespaces' getters (subNamespaces)
 }
 
 func (e *dartEmitter) lib(goPath string) *dartLib {
@@ -82,7 +83,7 @@ func (e *dartEmitter) collect(t *tinfo) {
 	default:
 		return
 	}
-	l := e.lib(e.m.home(t.named.Obj().Pkg()).Path())
+	l := e.lib(e.m.homeOf(t.named.Obj()).Path())
 	if _, ok := l.classes[classKey(t)]; ok || handNames(l.goPath)[className(e.m, t)] {
 		return // a hand-written class (context.CancelFunc's ContextCancelFunc) is the type's
 	}
@@ -139,7 +140,7 @@ func emitDart(m *model, fns []*fn, hash uint64, more func(*dartEmitter)) (map[st
 		switch {
 		case f.recv != nil:
 			// the class lives in its home library (an alias's package)
-			c := e.lib(e.m.home(f.recv.named.Obj().Pkg()).Path()).classes[classKey(f.recv)]
+			c := e.lib(e.m.homeOf(f.recv.named.Obj()).Path()).classes[classKey(f.recv)]
 			c.methods = append(c.methods, f)
 		case isFactory(f):
 			c := e.lib(f.pkg.Path()).classes[classKey(f.results[0])]
@@ -263,7 +264,7 @@ func (e *dartEmitter) tokens() string {
 			continue
 		}
 		e.collect(t.t)
-		e.lib(e.m.home(t.t.named.Obj().Pkg()).Path()).classes[classKey(t.t)].token = t.id
+		e.lib(e.m.homeOf(t.t.named.Obj()).Path()).classes[classKey(t.t)].token = t.id
 		decs = append(decs, fmt.Sprintf("  %d: (r) => %s,", t.id, e.dec(t.t, "r", src, true)))
 	}
 	var b strings.Builder
@@ -377,11 +378,50 @@ func isFactory(f *fn) bool {
 // ref: nome (qualificado, se de outra library) da classe de [t].
 func (e *dartEmitter) ref(t *tinfo, from *dartLib) string {
 	name := className(e.m, t)
-	l := e.lib(e.m.home(t.named.Obj().Pkg()).Path())
+	l := e.lib(e.m.homeOf(t.named.Obj()).Path())
 	if l == from {
 		return name
 	}
 	return e.imp(from, pkgPrefix+l.path) + "." + name
+}
+
+// subNamespaces: the getters of the sub-namespaces under [l]'s
+// (go.cockroachdb.errors → join), from every library: the generated ones and
+// the hand-written.
+func (e *dartEmitter) subNamespaces(l *dartLib) map[string]bool {
+	if e.subNs == nil {
+		e.subNs = map[string]map[string]bool{}
+		paths := sortedKeys(e.libs)
+		_ = filepath.WalkDir("../lib/go", func(p string, d fs.DirEntry, err error) error {
+			if err == nil && !d.IsDir() && strings.HasSuffix(p, ".dart") && !strings.HasSuffix(p, ".g.dart") {
+				if src, err := os.ReadFile(p); err == nil && !bytes.HasPrefix(src, []byte(generatedHeader)) {
+					paths = append(paths, filepath.ToSlash(strings.TrimPrefix(p, filepath.Clean("../lib")+string(filepath.Separator))))
+				}
+			}
+			return nil
+		})
+		for _, p := range paths {
+			segs := strings.Split(strings.TrimSuffix(strings.TrimPrefix(p, "go/"), ".dart"), "/")
+			for i := 1; i < len(segs); i++ {
+				dir := strings.Join(segs[:i], "/")
+				if e.subNs[dir] == nil {
+					e.subNs[dir] = map[string]bool{}
+				}
+				e.subNs[dir][nsMember(segs[i])] = true
+			}
+		}
+	}
+	return e.subNs[strings.TrimSuffix(strings.TrimPrefix(l.path, "go/"), ".dart")]
+}
+
+// extName: the extension of [l] on the namespace class [ns] (GoIpfsBoxoMfsApi);
+// GoContextGeneratedApi beside the hand-written GoContextApi of the same
+// library.
+func extName(l *dartLib, ns string) string {
+	if handNames(l.goPath)[ns+"Api"] {
+		return ns + "GeneratedApi"
+	}
+	return ns + "Api"
 }
 
 // ctxRef: the class of context.Context (hand-written in lib/go/context.dart),
@@ -416,7 +456,7 @@ func (e *dartEmitter) imp(from *dartLib, uri string) string {
 
 // className: the Dart class of [t], named after its library (qualType).
 func className(m *model, t *tinfo) string {
-	return qualType(dartPath(m.home(t.named.Obj().Pkg()).Path()), classGoName(t))
+	return qualType(dartPath(m.homeOf(t.named.Obj()).Path()), classGoName(t))
 }
 
 // classGoName: the Go name a class is named after.
@@ -645,7 +685,7 @@ func (e *dartEmitter) body(l *dartLib) string {
 	members, ctors := e.holders(l, &body)
 	layered := map[string][]string{"options": ctors}
 	for _, f := range l.funcs {
-		if layer := constLayer(f.obj); layer != "" {
+		if layer := fnLayer(f); layer != "" {
 			layered[layer] = append(layered[layer], e.function(l, f, "", false))
 			continue
 		}
@@ -657,14 +697,14 @@ func (e *dartEmitter) body(l *dartLib) string {
 	}
 	if len(members) > 0 {
 		ns := nsClass(l.path)
-		fmt.Fprintf(&body, "/// Go: the package-level members of `%s` (`%s`).\nextension %sApi on %s {\n%s}\n", l.goPath, nsPath(l.path), ns, ns, strings.Join(members, "\n"))
+		fmt.Fprintf(&body, "/// Go: the package-level members of `%s` (`%s`).\nextension %s on %s {\n%s}\n", l.goPath, nsPath(l.path), extName(l, ns), ns, strings.Join(members, "\n"))
 		l.ns = true
 	}
 	l.layers = nil
 	for _, layer := range layers {
 		if ms := layered[layer]; len(ms) > 0 {
 			ns := nsClass(layerPath(l.path, layer))
-			fmt.Fprintf(&body, "/// Go: the %s of `%s` (`%s`).\nextension %sApi on %s {\n%s}\n", layerDoc[layer], l.goPath, nsPath(layerPath(l.path, layer)), ns, ns, strings.Join(ms, "\n"))
+			fmt.Fprintf(&body, "/// Go: the %s of `%s` (`%s`).\nextension %s on %s {\n%s}\n", layerDoc[layer], l.goPath, nsPath(layerPath(l.path, layer)), extName(l, ns), ns, strings.Join(ms, "\n"))
 			l.layers = append(l.layers, layer)
 		}
 	}
@@ -1206,6 +1246,9 @@ func (e *dartEmitter) functionBody(l *dartLib, f *fn, class string, factory bool
 	}
 	indent := "  " // a class member, or one of the namespace's extension
 	name := memberName(f.obj.Name())
+	for class == "" && e.subNamespaces(l)[name] { // a member that would hide a sub-package (owner's decision, 2026-10-30): errors.join$
+		name += "$"
+	}
 	var b strings.Builder
 	if f.impl != nil {
 		fmt.Fprintf(&b, "%s/// A Dart implementation of Go's `%s`.\n", indent, docType(f.results[0]))
@@ -1591,9 +1634,9 @@ func (m *model) leaveHand(fns []*fn) {
 		var name, goPath string
 		switch {
 		case f.recv != nil && f.recv.named != nil: // a method of a hand-written class
-			name, goPath = className(m, f.recv), m.home(f.recv.named.Obj().Pkg()).Path()
+			name, goPath = className(m, f.recv), m.homeOf(f.recv.named.Obj()).Path()
 		case isFactory(f):
-			name, goPath = className(m, f.results[0]), m.home(f.results[0].named.Obj().Pkg()).Path()
+			name, goPath = className(m, f.results[0]), m.homeOf(f.results[0].named.Obj()).Path()
 		case f.recv == nil:
 			name, goPath = memberName(f.obj.Name()), f.pkg.Path()
 		}
@@ -1601,4 +1644,14 @@ func (m *model) leaveHand(fns []*fn) {
 			f.why = "hand-written in `lib/" + dartPath(goPath) + "`"
 		}
 	}
+}
+
+// fnLayer: the layer of a package-level [f] (memberLayer); a variable of an
+// unnamed func type is seen as the named type it converts to
+// (libp2p.NilRouterOption, a RoutingOption).
+func fnLayer(f *fn) string {
+	if n, ok := f.conv.(*types.Named); ok && strings.HasSuffix(n.Obj().Name(), "Option") {
+		return "options"
+	}
+	return memberLayer(f.obj)
 }

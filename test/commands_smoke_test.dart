@@ -99,8 +99,9 @@ void main() {
         KuboCoreNodeBuildCfg(
             repo: go.ipfs.kubo.repo.fsrepo.open('${tmp.path}/$name'),
             online: online,
-            routing:
-                online ? go.ipfs.kubo.core.node.libp2p.dhtServerOption : null,
+            routing: online
+                ? go.ipfs.kubo.core.node.libp2p.options.dhtServerOption
+                : null,
             extraOpts: {'pubsub': true}));
     return (n, go.ipfs.kubo.core.coreapi.newCoreApi(n));
   }

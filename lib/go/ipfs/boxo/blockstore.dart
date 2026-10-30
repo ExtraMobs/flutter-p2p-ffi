@@ -5,7 +5,8 @@ library;
 import 'dart:async';
 import 'dart:typed_data';
 
-import 'package:p2p_ffi/src/go.dart' show GoIpfsBoxoBlockstore;
+import 'package:p2p_ffi/src/go.dart'
+    show GoIpfsBoxoBlockstore, GoIpfsBoxoBlockstoreOptions;
 import 'package:p2p_ffi/src/runtime.dart';
 import 'package:p2p_ffi/go/context.dart' as $context;
 import 'package:p2p_ffi/go/crypto.dart' as $crypto;
@@ -502,7 +503,10 @@ extension GoIpfsBoxoBlockstoreApi on GoIpfsBoxoBlockstore {
     final $r = $callSync(480, $W()..h(bs));
     return $r.hnn(BoxoBlockstore.$h);
   }
+}
 
+/// Go: the option constructors of `github.com/ipfs/boxo/blockstore` (`go.ipfs.boxo.blockstore.options`).
+extension GoIpfsBoxoBlockstoreOptionsApi on GoIpfsBoxoBlockstoreOptions {
   /// Go: `func blockstore.NoPrefix() blockstore.Option`.
   BoxoBlockstoreOption noPrefix() {
     final $r = $callSync(481);

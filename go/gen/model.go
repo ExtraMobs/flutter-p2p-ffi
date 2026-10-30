@@ -147,7 +147,8 @@ type model struct {
 	// via: an internal package reached through an exported alias of the same
 	// name (dht.Option = internal/config.Option): its types are spelled, and
 	// their Dart class lives, in the alias's package.
-	via map[string]*types.Package
+	via    map[string]*types.Package // an internal type (objKey) → the exported package that aliases it with its name
+	viaPkg map[string]*types.Package // an internal package → one that aliases a type of it
 	// toks: the type and function tokens (tokens.go)
 	toks []*token
 	// deprecated: the Go doc's "Deprecated:" text, by depKey (deprecated.go)
@@ -161,16 +162,26 @@ type model struct {
 
 func newModel() *model {
 	return &model{types: map[string]*tinfo{}, optPkgs: map[*types.Package]map[string][]optCtor{}, newTypes: map[string]bool{},
-		optAlias: map[string][]*types.Package{}, via: map[string]*types.Package{}}
+		optAlias: map[string][]*types.Package{}, via: map[string]*types.Package{}, viaPkg: map[string]*types.Package{}}
 }
 
-// home: the package where [p]'s types are seen from outside (its own, or the
-// exported one that aliases an internal package's type).
+// home: the package where [p] is seen from outside (its own, or an exported
+// one that aliases a type of the internal [p]).
 func (m *model) home(p *types.Package) *types.Package {
-	if v, ok := m.via[p.Path()]; ok {
+	if v, ok := m.viaPkg[p.Path()]; ok {
 		return v
 	}
 	return p
+}
+
+// homeOf: the package where the type [o] is seen from outside: an internal
+// type, the one that aliases it (pebble.KeyRange = base.KeyRange, while
+// sstable aliases other types of base).
+func (m *model) homeOf(o types.Object) *types.Package {
+	if v, ok := m.via[objKey(o)]; ok {
+		return v
+	}
+	return m.home(o.Pkg())
 }
 
 func objKey(o types.Object) string {
@@ -294,7 +305,20 @@ func (m *model) fill(ti *tinfo) {
 					m.optAlias[objKey(n.Obj())] = append(m.optAlias[objKey(n.Obj())], t.Obj().Pkg())
 				}
 				if tp := n.Obj().Pkg(); tp != nil && isInternal(tp.Path()) && n.Obj().Name() == t.Obj().Name() {
-					m.via[tp.Path()] = t.Obj().Pkg()
+					m.viaPkg[tp.Path()] = t.Obj().Pkg()
+					// every type of tp the exported package aliases by name, before
+					// descending (server.TaskComparator's func takes *decision.TaskInfo,
+					// which server aliases too)
+					scope := t.Obj().Pkg().Scope()
+					for _, name := range scope.Names() {
+						if a, ok := scope.Lookup(name).(*types.TypeName); ok && a.IsAlias() && a.Exported() {
+							if an, ok := types.Unalias(a.Type()).(*types.Named); ok && an.Obj().Pkg() == tp && an.Obj().Name() == name {
+								if _, seen := m.via[objKey(an.Obj())]; !seen {
+									m.via[objKey(an.Obj())] = t.Obj().Pkg()
+								}
+							}
+						}
+					}
 				}
 			}
 			*ti = *m.classify(u)
@@ -326,7 +350,7 @@ func (m *model) fillNamed(ti *tinfo, n *types.Named) {
 		ti.k, ti.reader = kHandle, true
 		return
 	}
-	if obj.Pkg() == nil || !obj.Exported() || (isInternal(obj.Pkg().Path()) && m.via[obj.Pkg().Path()] == nil) {
+	if obj.Pkg() == nil || !obj.Exported() || (isInternal(obj.Pkg().Path()) && m.via[objKey(obj)] == nil) {
 		unsupported(ti, "unexported type %s", key)
 		return
 	}

@@ -28,14 +28,15 @@ String get appDataDir => Directory.systemTemp.parent.path;
 KuboCoreNodeLibp2pRoutingOption routingFor(KuboConfig cfg) {
   final type = (cfg.json['Routing'] as Map?)?['Type'] as String? ?? '';
   return switch (type) {
-    'autoclient' => go.ipfs.kubo.core.node.libp2p.constructDefaultRouting(
-        cfg, go.ipfs.kubo.core.node.libp2p.dhtClientOption),
-    'dht' => go.ipfs.kubo.core.node.libp2p.dhtOption,
-    'dhtclient' => go.ipfs.kubo.core.node.libp2p.dhtClientOption,
-    'dhtserver' => go.ipfs.kubo.core.node.libp2p.dhtServerOption,
-    'none' => go.ipfs.kubo.core.node.libp2p.nilRouterOption,
-    _ => go.ipfs.kubo.core.node.libp2p
-        .constructDefaultRouting(cfg, go.ipfs.kubo.core.node.libp2p.dhtOption),
+    'autoclient' => go.ipfs.kubo.core.node.libp2p.options
+        .constructDefaultRouting(
+            cfg, go.ipfs.kubo.core.node.libp2p.options.dhtClientOption),
+    'dht' => go.ipfs.kubo.core.node.libp2p.options.dhtOption,
+    'dhtclient' => go.ipfs.kubo.core.node.libp2p.options.dhtClientOption,
+    'dhtserver' => go.ipfs.kubo.core.node.libp2p.options.dhtServerOption,
+    'none' => go.ipfs.kubo.core.node.libp2p.options.nilRouterOption,
+    _ => go.ipfs.kubo.core.node.libp2p.options.constructDefaultRouting(
+        cfg, go.ipfs.kubo.core.node.libp2p.options.dhtOption),
   };
 }
 
