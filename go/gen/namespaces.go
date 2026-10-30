@@ -315,7 +315,7 @@ var hiddenClasses [][2]string
 
 // typeDeclRE: the declaration of the class or mixin [name].
 func typeDeclRE(name string) *regexp.Regexp {
-	return regexp.MustCompile(`(?m)^(?:(?:final|abstract|base|sealed|interface) )*(?:class|mixin) ` + regexp.QuoteMeta(name) + `\b`)
+	return regexp.MustCompile(`(?m)^(?:(?:final|abstract|base|sealed|interface) )*(?:class|mixin) ` + regexp.QuoteMeta(name) + `(?:[^A-Za-z0-9_$]|$)`)
 }
 
 // nsMember: the getter of a path segment (libp2p_kad_dht → libp2pKadDht).

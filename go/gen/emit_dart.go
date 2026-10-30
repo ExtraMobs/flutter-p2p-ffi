@@ -1213,6 +1213,11 @@ func (e *dartEmitter) functionBody(l *dartLib, f *fn, class string, factory bool
 		} else {
 			segs = append(segs, e.enc(p.t, n, 0))
 		}
+		if p.variadic && p.t.k == kBytes { // ...uint8: a Uint8List has no const empty value
+			segs[len(segs)-1] = e.enc(p.t, "("+n+" ?? Uint8List(0))", 0)
+			opt = fmt.Sprintf("[%s? %s]", e.dt(p.t, l), n)
+			continue
+		}
 		if p.variadic {
 			opt = fmt.Sprintf("[%s %s = const []]", e.dt(p.t, l), n)
 			continue
@@ -1399,10 +1404,14 @@ func realMethods(c *dclass) int {
 func (e *dartEmitter) funcType(t *tinfo, l *dartLib) string {
 	l.async = true // FutureOr
 	var ps []string
+	seen := map[string]int{}
 	for i, a := range t.fargs {
 		n := dartParamName(t.fnames[i])
 		if n == "" || n == "_" {
 			n = dartParamName(paramName(a, i)) // the type's name (stream, conn), as for parameters
+		}
+		if seen[n]++; seen[n] > 1 { // two of one type (local, remote Candidate): candidate, candidate2
+			n = fmt.Sprintf("%s%d", n, seen[n])
 		}
 		ps = append(ps, e.dt(a, l)+" "+n)
 	}
@@ -1536,7 +1545,7 @@ func (e *dartEmitter) linkConcrete() {
 			var best *dclass
 			for _, i := range ifaces {
 				it := i.t.named.Underlying().(*types.Interface)
-				if !types.Implements(types.NewPointer(c.t.named), it) && !types.Implements(c.t.named, it) {
+				if !types.Implements(types.NewPointer(c.t.named), it) && !types.Implements(c.t.named, it) || asyncClash(c, i) {
 					continue
 				}
 				// a com métodos expostos ganha da usada só como parâmetro
@@ -1596,6 +1605,37 @@ func (e *dartEmitter) linkMixins() {
 				}
 				ms = append(ms, i)
 			}
+			// a method two of them shape differently in Dart (io.Closer's Close is
+			// sync, host.Host's async): the deeper interface keeps it, the other
+			// is not mixed in (its cast, asIoCloser(), still converts)
+			shape := map[string]string{} // the superclasses' (BasicHost extends host.Host's class)
+			for s := c.t.super; s != nil; s = s.super {
+				if sc := e.lib(e.m.homeOf(s.named.Obj()).Path()).classes[classKey(s)]; sc != nil {
+					for _, f := range sc.methods {
+						if _, ok := shape[f.obj.Name()]; !ok {
+							shape[f.obj.Name()] = fnShape(f)
+						}
+					}
+				}
+			}
+			sort.SliceStable(ms, func(a, b int) bool { return depth(ms[a]) > depth(ms[b]) })
+			var keep []*dclass
+			for _, i := range ms {
+				clash := asyncClash(c, i)
+				for _, f := range i.methods {
+					if s, ok := shape[f.obj.Name()]; ok && s != fnShape(f) {
+						clash = true
+					}
+				}
+				if clash {
+					continue
+				}
+				for _, f := range i.methods {
+					shape[f.obj.Name()] = fnShape(f)
+				}
+				keep = append(keep, i)
+			}
+			ms = keep
 			sort.SliceStable(ms, func(a, b int) bool { return depth(ms[a]) < depth(ms[b]) })
 			c.mixins = ms
 		}
@@ -1654,4 +1694,26 @@ func fnLayer(f *fn) string {
 		return "options"
 	}
 	return memberLayer(f.obj)
+}
+
+// fnShape: what a method's Dart signature depends on, to compare two of the
+// same name (linkMixins).
+func fnShape(f *fn) string {
+	return fmt.Sprint(f.async, f.stream != nil, len(f.params), len(f.results))
+}
+
+// asyncClash: [c] has an async method its interface [i] has sync
+// (pubsub.PubSub.Join, forced async; RouterPubsub's): Dart cannot override
+// it, and alignOverrides only makes a sync one async.
+func asyncClash(c, i *dclass) bool {
+	async := map[string]bool{}
+	for _, f := range c.methods {
+		async[f.obj.Name()] = f.async
+	}
+	for _, f := range i.methods {
+		if async[f.obj.Name()] && !f.async {
+			return true
+		}
+	}
+	return false
 }

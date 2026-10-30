@@ -78,8 +78,9 @@ var dartCoreTypes = setOf(`Object String List Map Set BigInt Function Null Never
 Future Stream Type Error Exception Duration DateTime Uri Symbol Record Enum Pattern RegExp Sink
 Comparable Iterator Invocation Expando`)
 
-// Membros que toda classe gerada já tem (Object, GoHandle, GoValue).
-var dartBaseMembers = setOf(`hashCode runtimeType toString noSuchMethod value`)
+// Membros que toda classe gerada já tem (Object, GoHandle, GoValue): um
+// método Go com o nome deles escapa (crlib.Semaphore.Release → release$).
+var dartBaseMembers = setOf(`hashCode runtimeType toString noSuchMethod value release isReleased isBusy`)
 
 // dartParamName: parâmetro Dart. Só as palavras reservadas escapam: um
 // parâmetro `value` num método de tipo-valor esconde o GoValue.value, mas o

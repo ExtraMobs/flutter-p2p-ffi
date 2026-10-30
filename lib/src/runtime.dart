@@ -684,4 +684,4 @@ abstract class GoOption {
 Never $nil() => throw GolangException('Go returned nil');
 
 /// Snapshot getter with an error: the value, or null if Go returned an error.
-T? $orErr<T>(T v, String? err) => err == null ? v : null;
+T? $orErr<T>(T? v, String? err) => err == null ? v : null;
