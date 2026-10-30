@@ -135,18 +135,53 @@ func manualNames() map[string]bool {
 }
 
 // prepare: argumentos, opções, retorno e modo de cada comando.
+// skip: o nome Dart do comando e, se ele não é gerado, o porquê.
+func (ci *cmdInfo) skip(manual map[string]bool) {
+	ci.dart = cmdName(strings.Join(ci.path, "-"))
+	if why, ok := cmdSkip[ci.path[0]]; ok {
+		ci.skipped = why
+	} else if why, ok := cmdSkip[strings.Join(ci.path, " ")]; ok {
+		ci.skipped = why
+	} else if manual[ci.dart] {
+		ci.skipped = "hand port with the same name (`" + dartPath(cmdsPkg+"/dag") + "`)"
+	}
+}
+
+// leaveCmdOutputs: a method of a handle type that a generated command emits
+// (dagcmd.DagStatSummary.String; a field it does not encode makes it a handle):
+// no function hands out the Go value, the command's output crosses as data,
+// so the type's class is the command's DTO, with its fields.
+func (m *model) leaveCmdOutputs(fns []*fn, manual map[string]bool) {
+	outs := map[string]bool{}
+	var walk func(t reflect.Type)
+	walk = func(t reflect.Type) {
+		switch cmdschema.Of(t) {
+		case cmdschema.List, cmdschema.Map, cmdschema.Ptr:
+			walk(t.Elem())
+		case cmdschema.Struct:
+			if k := t.PkgPath() + "." + t.Name(); !outs[k] {
+				outs[k] = true
+				for _, f := range cmdschema.Fields(t) {
+					walk(f.Type)
+				}
+			}
+		}
+	}
+	for _, ci := range walkCommands() {
+		if ci.skip(manual); ci.skipped == "" && ci.c.Type != nil {
+			walk(reflect.TypeOf(ci.c.Type))
+		}
+	}
+	for _, f := range fns {
+		if f.why == "" && f.recv != nil && f.recv.k == kHandle && f.recv.named != nil && outs[objKey(f.recv.named.Obj())] {
+			f.why = "a kubo command output: crosses as data, the command's DTO"
+		}
+	}
+}
+
 func (e *cmdEmitter) prepare(cs []*cmdInfo, manual map[string]bool) {
 	for _, ci := range cs {
-		key := strings.Join(ci.path, " ")
-		ci.dart = cmdName(strings.Join(ci.path, "-"))
-		if why, ok := cmdSkip[ci.path[0]]; ok {
-			ci.skipped = why
-		} else if why, ok := cmdSkip[key]; ok {
-			ci.skipped = why
-		} else if manual[ci.dart] {
-			ci.skipped = "hand port with the same name (`" + dartPath(cmdsPkg+"/dag") + "`)"
-		}
-		if ci.skipped != "" {
+		if ci.skip(manual); ci.skipped != "" {
 			continue
 		}
 		used := map[string]bool{"node": true, "ctx": true}

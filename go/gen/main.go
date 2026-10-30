@@ -263,6 +263,7 @@ func generate(rootsFile string) (map[string][]byte, error) {
 	}
 	fns = append(fns, m.casts(fns)...)
 	m.leaveHand(fns)
+	m.leaveCmdOutputs(fns, manualNames())
 	if err := m.deprecations(fns); err != nil {
 		return nil, err
 	}
