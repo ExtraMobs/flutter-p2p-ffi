@@ -26,7 +26,7 @@ mixin DatastoreBatch$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> commit($context.Context ctx) async {
     await $call(
-        1103,
+        1105,
         $W()
           ..h(this)
           ..h(ctx));
@@ -91,7 +91,7 @@ mixin DatastoreBatchingFeature$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<DatastoreBatch> batch($context.Context ctx) async {
     final $r = await $call(
-        1104,
+        1106,
         $W()
           ..h(this)
           ..h(ctx));
@@ -147,7 +147,7 @@ mixin DatastoreCheckedFeature$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> check($context.Context ctx) async {
     await $call(
-        1105,
+        1107,
         $W()
           ..h(this)
           ..h(ctx));
@@ -186,7 +186,7 @@ mixin Datastore$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> sync($context.Context ctx, DatastoreKey prefix) async {
     await $call(
-        1106,
+        1108,
         $W()
           ..h(this)
           ..h(ctx)
@@ -265,7 +265,7 @@ mixin DatastoreGcFeature$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> collectGarbage($context.Context ctx) async {
     await $call(
-        1112,
+        1114,
         $W()
           ..h(this)
           ..h(ctx));
@@ -298,26 +298,26 @@ class DatastoreKey extends $crypto.CryptoPrivateKey
 
   /// Go: `func datastore.NewKey(s string) datastore.Key`.
   factory DatastoreKey(String s) {
-    final $r = $callSync(1168, $W()..str(s));
+    final $r = $callSync(1170, $W()..str(s));
     return $r.hnn(DatastoreKey.$h);
   }
 
   /// Go: `func (datastore.Key).BaseNamespace() string`.
   String baseNamespace() {
-    final $r = $callSync(1115, $W()..h(this));
+    final $r = $callSync(1117, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (datastore.Key).Bytes() []byte`.
   Uint8List bytes() {
-    final $r = $callSync(1116, $W()..h(this));
+    final $r = $callSync(1118, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (datastore.Key).Child(k2 datastore.Key) datastore.Key`.
   DatastoreKey child(DatastoreKey k2) {
     final $r = $callSync(
-        1117,
+        1119,
         $W()
           ..h(this)
           ..h(k2));
@@ -327,7 +327,7 @@ class DatastoreKey extends $crypto.CryptoPrivateKey
   /// Go: `func (datastore.Key).ChildString(s string) datastore.Key`.
   DatastoreKey childString(String s) {
     final $r = $callSync(
-        1118,
+        1120,
         $W()
           ..h(this)
           ..str(s));
@@ -336,13 +336,13 @@ class DatastoreKey extends $crypto.CryptoPrivateKey
 
   /// Go: `func (*datastore.Key).Clean()`.
   void clean() {
-    $callSync(1119, $W()..h(this));
+    $callSync(1121, $W()..h(this));
   }
 
   /// Go: `func (datastore.Key).Compare(k2 datastore.Key) int`.
   int compare(DatastoreKey k2) {
     final $r = $callSync(
-        1120,
+        1122,
         $W()
           ..h(this)
           ..h(k2));
@@ -352,7 +352,7 @@ class DatastoreKey extends $crypto.CryptoPrivateKey
   /// Go: `func (datastore.Key).Equal(k2 datastore.Key) bool`.
   bool equal(DatastoreKey k2) {
     final $r = $callSync(
-        1121,
+        1123,
         $W()
           ..h(this)
           ..h(k2));
@@ -362,7 +362,7 @@ class DatastoreKey extends $crypto.CryptoPrivateKey
   /// Go: `func (datastore.Key).Instance(s string) datastore.Key`.
   DatastoreKey instance(String s) {
     final $r = $callSync(
-        1122,
+        1124,
         $W()
           ..h(this)
           ..str(s));
@@ -372,7 +372,7 @@ class DatastoreKey extends $crypto.CryptoPrivateKey
   /// Go: `func (datastore.Key).IsAncestorOf(other datastore.Key) bool`.
   bool isAncestorOf(DatastoreKey other) {
     final $r = $callSync(
-        1123,
+        1125,
         $W()
           ..h(this)
           ..h(other));
@@ -382,7 +382,7 @@ class DatastoreKey extends $crypto.CryptoPrivateKey
   /// Go: `func (datastore.Key).IsDescendantOf(other datastore.Key) bool`.
   bool isDescendantOf(DatastoreKey other) {
     final $r = $callSync(
-        1124,
+        1126,
         $W()
           ..h(this)
           ..h(other));
@@ -391,14 +391,14 @@ class DatastoreKey extends $crypto.CryptoPrivateKey
 
   /// Go: `func (datastore.Key).IsTopLevel() bool`.
   bool isTopLevel() {
-    final $r = $callSync(1125, $W()..h(this));
+    final $r = $callSync(1127, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (datastore.Key).Less(k2 datastore.Key) bool`.
   bool less(DatastoreKey k2) {
     final $r = $callSync(
-        1126,
+        1128,
         $W()
           ..h(this)
           ..h(k2));
@@ -407,68 +407,68 @@ class DatastoreKey extends $crypto.CryptoPrivateKey
 
   /// Go: `func (datastore.Key).List() []string`.
   List<String> list() {
-    final $r = $callSync(1127, $W()..h(this));
+    final $r = $callSync(1129, $W()..h(this));
     return $r.list(() => $r.str());
   }
 
   /// Go: `func (datastore.Key).MarshalJSON() ([]byte, error)`.
   Uint8List marshalJson() {
-    final $r = $callSync(1128, $W()..h(this));
+    final $r = $callSync(1130, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (datastore.Key).Name() string`.
   String name() {
-    final $r = $callSync(1129, $W()..h(this));
+    final $r = $callSync(1131, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (datastore.Key).Namespaces() []string`.
   List<String> namespaces() {
-    final $r = $callSync(1130, $W()..h(this));
+    final $r = $callSync(1132, $W()..h(this));
     return $r.list(() => $r.str());
   }
 
   /// Go: `func (datastore.Key).Parent() datastore.Key`.
   DatastoreKey parent() {
-    final $r = $callSync(1131, $W()..h(this));
+    final $r = $callSync(1133, $W()..h(this));
     return $r.hnn(DatastoreKey.$h);
   }
 
   /// Go: `func (datastore.Key).Path() datastore.Key`.
   DatastoreKey path() {
-    final $r = $callSync(1132, $W()..h(this));
+    final $r = $callSync(1134, $W()..h(this));
     return $r.hnn(DatastoreKey.$h);
   }
 
   /// Go: `func (datastore.Key).Reverse() datastore.Key`.
   DatastoreKey reverse() {
-    final $r = $callSync(1133, $W()..h(this));
+    final $r = $callSync(1135, $W()..h(this));
     return $r.hnn(DatastoreKey.$h);
   }
 
   /// Go: `func (datastore.Key).RootNamespace() string`.
   String rootNamespace() {
-    final $r = $callSync(1134, $W()..h(this));
+    final $r = $callSync(1136, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (datastore.Key).String() string`.
   String string() {
-    final $r = $callSync(1135, $W()..h(this));
+    final $r = $callSync(1137, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (datastore.Key).Type() string`.
   String type() {
-    final $r = $callSync(1136, $W()..h(this));
+    final $r = $callSync(1138, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*datastore.Key).UnmarshalJSON(data []byte) error`.
   void unmarshalJson(Uint8List data) {
     $callSync(
-        1137,
+        1139,
         $W()
           ..h(this)
           ..bytes(data));
@@ -492,7 +492,7 @@ class DatastoreLogBatch extends DatastoreBatch
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> commit($context.Context ctx) async {
     await $call(
-        1139,
+        1141,
         $W()
           ..h(this)
           ..h(ctx));
@@ -503,7 +503,7 @@ class DatastoreLogBatch extends DatastoreBatch
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> delete($context.Context ctx, DatastoreKey key) async {
     await $call(
-        1140,
+        1142,
         $W()
           ..h(this)
           ..h(ctx)
@@ -516,7 +516,7 @@ class DatastoreLogBatch extends DatastoreBatch
   Future<void> put(
       $context.Context ctx, DatastoreKey key, Uint8List value) async {
     await $call(
-        1141,
+        1143,
         $W()
           ..h(this)
           ..h(ctx)
@@ -554,7 +554,7 @@ class DatastoreLogDatastore extends DatastoreShim
   /// Go: `func datastore.NewLogDatastore(ds datastore.Datastore, name string) *datastore.LogDatastore`.
   factory DatastoreLogDatastore(Datastore ds, String name) {
     final $r = $callSync(
-        1169,
+        1171,
         $W()
           ..h(ds)
           ..str(name));
@@ -566,7 +566,7 @@ class DatastoreLogDatastore extends DatastoreShim
   /// Asynchronous: runs in a goroutine of the service.
   Future<DatastoreBatch> batch($context.Context ctx) async {
     final $r = await $call(
-        1142,
+        1144,
         $W()
           ..h(this)
           ..h(ctx));
@@ -578,7 +578,7 @@ class DatastoreLogDatastore extends DatastoreShim
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> check($context.Context ctx) async {
     await $call(
-        1143,
+        1145,
         $W()
           ..h(this)
           ..h(ctx));
@@ -586,13 +586,13 @@ class DatastoreLogDatastore extends DatastoreShim
 
   /// Go: `func (*datastore.LogDatastore).Children() []datastore.Datastore`.
   List<Datastore> children() {
-    final $r = $callSync(1144, $W()..h(this));
+    final $r = $callSync(1146, $W()..h(this));
     return $r.list(() => $r.hnn(Datastore.$h));
   }
 
   /// Go: `func (*datastore.LogDatastore).Close() error`.
   void close() {
-    $callSync(1145, $W()..h(this));
+    $callSync(1147, $W()..h(this));
   }
 
   /// Go: `func (*datastore.LogDatastore).CollectGarbage(ctx context.Context) error`.
@@ -600,7 +600,7 @@ class DatastoreLogDatastore extends DatastoreShim
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> collectGarbage($context.Context ctx) async {
     await $call(
-        1146,
+        1148,
         $W()
           ..h(this)
           ..h(ctx));
@@ -611,7 +611,7 @@ class DatastoreLogDatastore extends DatastoreShim
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> delete($context.Context ctx, DatastoreKey key) async {
     await $call(
-        1147,
+        1149,
         $W()
           ..h(this)
           ..h(ctx)
@@ -623,7 +623,7 @@ class DatastoreLogDatastore extends DatastoreShim
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> diskUsage($context.Context ctx) async {
     final $r = await $call(
-        1148,
+        1150,
         $W()
           ..h(this)
           ..h(ctx));
@@ -635,7 +635,7 @@ class DatastoreLogDatastore extends DatastoreShim
   /// Asynchronous: runs in a goroutine of the service.
   Future<Uint8List> get($context.Context ctx, DatastoreKey key) async {
     final $r = await $call(
-        1149,
+        1151,
         $W()
           ..h(this)
           ..h(ctx)
@@ -648,7 +648,7 @@ class DatastoreLogDatastore extends DatastoreShim
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> getSize($context.Context ctx, DatastoreKey key) async {
     final $r = await $call(
-        1150,
+        1152,
         $W()
           ..h(this)
           ..h(ctx)
@@ -661,7 +661,7 @@ class DatastoreLogDatastore extends DatastoreShim
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> has($context.Context ctx, DatastoreKey key) async {
     final $r = await $call(
-        1151,
+        1153,
         $W()
           ..h(this)
           ..h(ctx)
@@ -675,7 +675,7 @@ class DatastoreLogDatastore extends DatastoreShim
   Future<void> put(
       $context.Context ctx, DatastoreKey key, Uint8List value) async {
     await $call(
-        1152,
+        1154,
         $W()
           ..h(this)
           ..h(ctx)
@@ -689,7 +689,7 @@ class DatastoreLogDatastore extends DatastoreShim
   Future<$query.DatastoreQueryResults> query(
       $context.Context ctx, $query.DatastoreQuery q) async {
     final $r = await $call(
-        1153,
+        1155,
         $W()
           ..h(this)
           ..h(ctx)
@@ -702,7 +702,7 @@ class DatastoreLogDatastore extends DatastoreShim
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> scrub($context.Context ctx) async {
     await $call(
-        1154,
+        1156,
         $W()
           ..h(this)
           ..h(ctx));
@@ -713,7 +713,7 @@ class DatastoreLogDatastore extends DatastoreShim
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> sync($context.Context ctx, DatastoreKey prefix) async {
     await $call(
-        1155,
+        1157,
         $W()
           ..h(this)
           ..h(ctx)
@@ -741,7 +741,7 @@ class DatastoreMapDatastore extends Datastore
 
   /// Go: `func datastore.NewMapDatastore() (d *datastore.MapDatastore)`.
   factory DatastoreMapDatastore() {
-    final $r = $callSync(1170);
+    final $r = $callSync(1172);
     return $r.hnn(DatastoreMapDatastore.$h);
   }
 
@@ -750,7 +750,7 @@ class DatastoreMapDatastore extends Datastore
   /// Asynchronous: runs in a goroutine of the service.
   Future<DatastoreBatch> batch($context.Context ctx) async {
     final $r = await $call(
-        1156,
+        1158,
         $W()
           ..h(this)
           ..h(ctx));
@@ -759,7 +759,7 @@ class DatastoreMapDatastore extends Datastore
 
   /// Go: `func (*datastore.MapDatastore).Close() error`.
   void close() {
-    $callSync(1157, $W()..h(this));
+    $callSync(1159, $W()..h(this));
   }
 
   /// Go: `func (*datastore.MapDatastore).Delete(ctx context.Context, key datastore.Key) error`.
@@ -767,7 +767,7 @@ class DatastoreMapDatastore extends Datastore
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> delete($context.Context ctx, DatastoreKey key) async {
     await $call(
-        1158,
+        1160,
         $W()
           ..h(this)
           ..h(ctx)
@@ -779,7 +779,7 @@ class DatastoreMapDatastore extends Datastore
   /// Asynchronous: runs in a goroutine of the service.
   Future<Uint8List> get($context.Context ctx, DatastoreKey key) async {
     final $r = await $call(
-        1159,
+        1161,
         $W()
           ..h(this)
           ..h(ctx)
@@ -792,7 +792,7 @@ class DatastoreMapDatastore extends Datastore
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> getSize($context.Context ctx, DatastoreKey key) async {
     final $r = await $call(
-        1160,
+        1162,
         $W()
           ..h(this)
           ..h(ctx)
@@ -805,7 +805,7 @@ class DatastoreMapDatastore extends Datastore
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> has($context.Context ctx, DatastoreKey key) async {
     final $r = await $call(
-        1161,
+        1163,
         $W()
           ..h(this)
           ..h(ctx)
@@ -819,7 +819,7 @@ class DatastoreMapDatastore extends Datastore
   Future<void> put(
       $context.Context ctx, DatastoreKey key, Uint8List value) async {
     await $call(
-        1162,
+        1164,
         $W()
           ..h(this)
           ..h(ctx)
@@ -833,7 +833,7 @@ class DatastoreMapDatastore extends Datastore
   Future<$query.DatastoreQueryResults> query(
       $context.Context ctx, $query.DatastoreQuery q) async {
     final $r = await $call(
-        1163,
+        1165,
         $W()
           ..h(this)
           ..h(ctx)
@@ -846,7 +846,7 @@ class DatastoreMapDatastore extends Datastore
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> sync($context.Context ctx, DatastoreKey prefix) async {
     await $call(
-        1164,
+        1166,
         $W()
           ..h(this)
           ..h(ctx)
@@ -884,7 +884,7 @@ class DatastoreNullDatastore extends Datastore
 
   /// Go: `func datastore.NewNullDatastore() *datastore.NullDatastore`.
   factory DatastoreNullDatastore() {
-    final $r = $callSync(1171);
+    final $r = $callSync(1173);
     return $r.hnn(DatastoreNullDatastore.$h);
   }
 
@@ -893,7 +893,7 @@ class DatastoreNullDatastore extends Datastore
   /// Asynchronous: runs in a goroutine of the service.
   Future<DatastoreBatch> batch($context.Context ctx) async {
     final $r = await $call(
-        1172,
+        1174,
         $W()
           ..h(this)
           ..h(ctx));
@@ -905,7 +905,7 @@ class DatastoreNullDatastore extends Datastore
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> check($context.Context ctx) async {
     await $call(
-        1173,
+        1175,
         $W()
           ..h(this)
           ..h(ctx));
@@ -913,7 +913,7 @@ class DatastoreNullDatastore extends Datastore
 
   /// Go: `func (*datastore.NullDatastore).Close() error`.
   void close() {
-    $callSync(1174, $W()..h(this));
+    $callSync(1176, $W()..h(this));
   }
 
   /// Go: `func (*datastore.NullDatastore).CollectGarbage(ctx context.Context) error`.
@@ -921,7 +921,7 @@ class DatastoreNullDatastore extends Datastore
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> collectGarbage($context.Context ctx) async {
     await $call(
-        1175,
+        1177,
         $W()
           ..h(this)
           ..h(ctx));
@@ -932,7 +932,7 @@ class DatastoreNullDatastore extends Datastore
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> delete($context.Context ctx, DatastoreKey key) async {
     await $call(
-        1176,
+        1178,
         $W()
           ..h(this)
           ..h(ctx)
@@ -944,7 +944,7 @@ class DatastoreNullDatastore extends Datastore
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> diskUsage($context.Context ctx) async {
     final $r = await $call(
-        1177,
+        1179,
         $W()
           ..h(this)
           ..h(ctx));
@@ -956,7 +956,7 @@ class DatastoreNullDatastore extends Datastore
   /// Asynchronous: runs in a goroutine of the service.
   Future<Uint8List> get($context.Context ctx, DatastoreKey key) async {
     final $r = await $call(
-        1178,
+        1180,
         $W()
           ..h(this)
           ..h(ctx)
@@ -969,7 +969,7 @@ class DatastoreNullDatastore extends Datastore
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> getSize($context.Context ctx, DatastoreKey key) async {
     final $r = await $call(
-        1179,
+        1181,
         $W()
           ..h(this)
           ..h(ctx)
@@ -982,7 +982,7 @@ class DatastoreNullDatastore extends Datastore
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> has($context.Context ctx, DatastoreKey key) async {
     final $r = await $call(
-        1180,
+        1182,
         $W()
           ..h(this)
           ..h(ctx)
@@ -996,7 +996,7 @@ class DatastoreNullDatastore extends Datastore
   Future<DatastoreTxn> newTransaction(
       $context.Context ctx, bool readOnly) async {
     final $r = await $call(
-        1181,
+        1183,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1010,7 +1010,7 @@ class DatastoreNullDatastore extends Datastore
   Future<void> put(
       $context.Context ctx, DatastoreKey key, Uint8List value) async {
     await $call(
-        1182,
+        1184,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1024,7 +1024,7 @@ class DatastoreNullDatastore extends Datastore
   Future<$query.DatastoreQueryResults> query(
       $context.Context ctx, $query.DatastoreQuery q) async {
     final $r = await $call(
-        1183,
+        1185,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1037,7 +1037,7 @@ class DatastoreNullDatastore extends Datastore
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> scrub($context.Context ctx) async {
     await $call(
-        1184,
+        1186,
         $W()
           ..h(this)
           ..h(ctx));
@@ -1048,7 +1048,7 @@ class DatastoreNullDatastore extends Datastore
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> sync($context.Context ctx, DatastoreKey prefix) async {
     await $call(
-        1185,
+        1187,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1069,7 +1069,7 @@ mixin DatastorePersistentFeature$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> diskUsage($context.Context ctx) async {
     final $r = await $call(
-        1186,
+        1188,
         $W()
           ..h(this)
           ..h(ctx));
@@ -1107,7 +1107,7 @@ mixin DatastoreRead$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<Uint8List> get($context.Context ctx, DatastoreKey key) async {
     final $r = await $call(
-        1189,
+        1191,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1120,7 +1120,7 @@ mixin DatastoreRead$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> getSize($context.Context ctx, DatastoreKey key) async {
     final $r = await $call(
-        1190,
+        1192,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1133,7 +1133,7 @@ mixin DatastoreRead$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> has($context.Context ctx, DatastoreKey key) async {
     final $r = await $call(
-        1191,
+        1193,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1147,7 +1147,7 @@ mixin DatastoreRead$ on GoHandle {
   Future<$query.DatastoreQueryResults> query(
       $context.Context ctx, $query.DatastoreQuery q) async {
     final $r = await $call(
-        1192,
+        1194,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1222,7 +1222,7 @@ mixin DatastoreScrubbedFeature$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> scrub($context.Context ctx) async {
     await $call(
-        1193,
+        1195,
         $W()
           ..h(this)
           ..h(ctx));
@@ -1258,7 +1258,7 @@ class DatastoreShim extends Datastore
 mixin DatastoreShim$ on GoHandle {
   /// Go: `func (datastore.Shim).Children() []datastore.Datastore`.
   List<Datastore> children() {
-    final $r = $callSync(1194, $W()..h(this));
+    final $r = $callSync(1196, $W()..h(this));
     return $r.list(() => $r.hnn(Datastore.$h));
   }
 
@@ -1287,7 +1287,7 @@ mixin DatastoreTtl$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<DateTime> getExpiration($context.Context ctx, DatastoreKey key) async {
     final $r = await $call(
-        1195,
+        1197,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1301,7 +1301,7 @@ mixin DatastoreTtl$ on GoHandle {
   Future<void> putWithTtl($context.Context ctx, DatastoreKey key,
       Uint8List value, Duration ttl) async {
     await $call(
-        1196,
+        1198,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1316,7 +1316,7 @@ mixin DatastoreTtl$ on GoHandle {
   Future<void> setTtl(
       $context.Context ctx, DatastoreKey key, Duration ttl) async {
     await $call(
-        1197,
+        1199,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1339,7 +1339,7 @@ mixin DatastoreTxn$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> commit($context.Context ctx) async {
     await $call(
-        1198,
+        1200,
         $W()
           ..h(this)
           ..h(ctx));
@@ -1350,7 +1350,7 @@ mixin DatastoreTxn$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> discard($context.Context ctx) async {
     await $call(
-        1199,
+        1201,
         $W()
           ..h(this)
           ..h(ctx));
@@ -1370,7 +1370,7 @@ mixin DatastoreTxnFeature$ on GoHandle {
   Future<DatastoreTxn> newTransaction(
       $context.Context ctx, bool readOnly) async {
     final $r = await $call(
-        1200,
+        1202,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1397,7 +1397,7 @@ mixin DatastoreWrite$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> delete($context.Context ctx, DatastoreKey key) async {
     await $call(
-        1201,
+        1203,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1410,7 +1410,7 @@ mixin DatastoreWrite$ on GoHandle {
   Future<void> put(
       $context.Context ctx, DatastoreKey key, Uint8List value) async {
     await $call(
-        1202,
+        1204,
         $W()
           ..h(this)
           ..h(ctx)
@@ -1510,7 +1510,7 @@ extension GoIpfsDatastoreApi on GoIpfsDatastore {
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> diskUsage($context.Context ctx, Datastore d) async {
     final $r = await $call(
-        1107,
+        1109,
         $W()
           ..h(ctx)
           ..h(d));
@@ -1519,25 +1519,25 @@ extension GoIpfsDatastoreApi on GoIpfsDatastore {
 
   /// Go: `func datastore.EntryKeys(e []query.Entry) []datastore.Key`.
   List<DatastoreKey> entryKeys(List<$query.DatastoreQueryEntry> e) {
-    final $r = $callSync(1108, $W()..list(e, (w0, e0) => w0.dto(e0)));
+    final $r = $callSync(1110, $W()..list(e, (w0, e0) => w0.dto(e0)));
     return $r.list(() => $r.hnn(DatastoreKey.$h));
   }
 
   /// Go: `func datastore.FeatureByName(name string) (datastore.Feature, bool)`.
   (DatastoreFeature, bool) featureByName(String name) {
-    final $r = $callSync(1109, $W()..str(name));
+    final $r = $callSync(1111, $W()..str(name));
     return ($r.p() ? DatastoreFeature.$dec($r) : $nil(), $r.b());
   }
 
   /// Go: `func datastore.Features() []datastore.Feature`.
   List<DatastoreFeature> features() {
-    final $r = $callSync(1110);
+    final $r = $callSync(1112);
     return $r.list(() => $r.p() ? DatastoreFeature.$dec($r) : $nil());
   }
 
   /// Go: `func datastore.FeaturesForDatastore(dstore datastore.Datastore) (features []datastore.Feature)`.
   List<DatastoreFeature> featuresForDatastore(Datastore dstore) {
-    final $r = $callSync(1111, $W()..h(dstore));
+    final $r = $callSync(1113, $W()..h(dstore));
     return $r.list(() => $r.p() ? DatastoreFeature.$dec($r) : $nil());
   }
 
@@ -1547,7 +1547,7 @@ extension GoIpfsDatastoreApi on GoIpfsDatastore {
   Future<bool> getBackedHas(
       $context.Context ctx, DatastoreRead ds, DatastoreKey key) async {
     final $r = await $call(
-        1113,
+        1115,
         $W()
           ..h(ctx)
           ..h(ds)
@@ -1561,7 +1561,7 @@ extension GoIpfsDatastoreApi on GoIpfsDatastore {
   Future<int> getBackedSize(
       $context.Context ctx, DatastoreRead ds, DatastoreKey key) async {
     final $r = await $call(
-        1114,
+        1116,
         $W()
           ..h(ctx)
           ..h(ds)
@@ -1571,37 +1571,37 @@ extension GoIpfsDatastoreApi on GoIpfsDatastore {
 
   /// Go: `func datastore.KeyWithNamespaces(ns []string) datastore.Key`.
   DatastoreKey keyWithNamespaces(List<String> ns) {
-    final $r = $callSync(1138, $W()..list(ns, (w0, e0) => w0.str(e0)));
+    final $r = $callSync(1140, $W()..list(ns, (w0, e0) => w0.str(e0)));
     return $r.hnn(DatastoreKey.$h);
   }
 
   /// Go: `func datastore.NamespaceType(namespace string) string`.
   String namespaceType(String namespace) {
-    final $r = $callSync(1165, $W()..str(namespace));
+    final $r = $callSync(1167, $W()..str(namespace));
     return $r.str();
   }
 
   /// Go: `func datastore.NamespaceValue(namespace string) string`.
   String namespaceValue(String namespace) {
-    final $r = $callSync(1166, $W()..str(namespace));
+    final $r = $callSync(1168, $W()..str(namespace));
     return $r.str();
   }
 
   /// Go: `func datastore.NewBasicBatch(ds datastore.Datastore) datastore.Batch`.
   DatastoreBatch newBasicBatch(Datastore ds) {
-    final $r = $callSync(1167, $W()..h(ds));
+    final $r = $callSync(1169, $W()..h(ds));
     return $r.hnn(DatastoreBatch.$h);
   }
 
   /// Go: `func datastore.RandomKey() datastore.Key`.
   DatastoreKey randomKey() {
-    final $r = $callSync(1187);
+    final $r = $callSync(1189);
     return $r.hnn(DatastoreKey.$h);
   }
 
   /// Go: `func datastore.RawKey(s string) datastore.Key`.
   DatastoreKey rawKey(String s) {
-    final $r = $callSync(1188, $W()..str(s));
+    final $r = $callSync(1190, $W()..str(s));
     return $r.hnn(DatastoreKey.$h);
   }
 }

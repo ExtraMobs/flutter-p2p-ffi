@@ -16,7 +16,7 @@ class OsFile extends $crypto.CryptoPrivateKey
 
   /// Go: `func (*os.File).Close() error`.
   void close() {
-    $callSync(3508, $W()..h(this));
+    $callSync(3514, $W()..h(this));
   }
 }
 
@@ -141,26 +141,26 @@ class OsSyscallError extends GolangException {
 extension GoOsApi on GoOs {
   /// Go: `func os.Stat(name string) (os.FileInfo, error)`.
   $fs.IoFsFileInfo stat(String name) {
-    final $r = $callSync(3514, $W()..str(name));
+    final $r = $callSync(3520, $W()..str(name));
     return $r.hnn($fs.IoFsFileInfo.$h);
   }
 
   /// Go: `func os.Create(name string) (*os.File, error)`.
   OsFile create(String name) {
-    final $r = $callSync(3506, $W()..str(name));
+    final $r = $callSync(3512, $W()..str(name));
     return $r.hnn(OsFile.$h);
   }
 
   /// Go: `func os.Open(name string) (*os.File, error)`.
   OsFile open(String name) {
-    final $r = $callSync(3510, $W()..str(name));
+    final $r = $callSync(3516, $W()..str(name));
     return $r.hnn(OsFile.$h);
   }
 
   /// Go: `func os.OpenFile(name string, flag int, perm os.FileMode) (*os.File, error)`.
   OsFile openFile(String name, int flag, int perm) {
     final $r = $callSync(
-        3511,
+        3517,
         $W()
           ..str(name)
           ..i64(flag)
@@ -173,25 +173,25 @@ extension GoOsApi on GoOs {
 extension GoOsConstsApi on GoOsConsts {
   /// Go: `const os.DevNull untyped string`.
   String get devNull {
-    final $r = $callSync(3507);
+    final $r = $callSync(3513);
     return $r.str();
   }
 
   /// Go: `const os.O_SYNC int`.
   int get oSync {
-    final $r = $callSync(3509);
+    final $r = $callSync(3515);
     return $r.i64();
   }
 
   /// Go: `const os.PathListSeparator untyped rune`.
   int get pathListSeparator {
-    final $r = $callSync(3512);
+    final $r = $callSync(3518);
     return $r.i64();
   }
 
   /// Go: `const os.PathSeparator untyped rune`.
   int get pathSeparator {
-    final $r = $callSync(3513);
+    final $r = $callSync(3519);
     return $r.i64();
   }
 

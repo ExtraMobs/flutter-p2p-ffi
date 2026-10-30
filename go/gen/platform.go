@@ -19,10 +19,10 @@ var targets = [][2]string{{"windows", "amd64"}, {"linux", "amd64"}, {"android", 
 // is "", or why it is left out (a constant some targets lack). Only the
 // packages with files a build constraint leaves out are compared, each
 // type-checked under every target.
-func platformConsts(paths []string) (map[string]string, error) {
+func platformConsts(paths []string) (map[string]string, map[string]*types.Const, error) {
 	list, err := packages.Load(&packages.Config{Mode: packages.NeedName | packages.NeedFiles}, paths...)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 	var check []string
 	for _, p := range list {
@@ -32,8 +32,9 @@ func platformConsts(paths []string) (map[string]string, error) {
 	}
 	sort.Strings(check)
 	out := map[string]string{}
+	objs := map[string]*types.Const{}
 	if len(check) == 0 {
-		return out, nil
+		return out, objs, nil
 	}
 	vals := map[string]map[string]bool{} // constant → its values
 	seen := map[string]int{}             // constant → on how many targets
@@ -44,7 +45,7 @@ func platformConsts(paths []string) (map[string]string, error) {
 		}
 		ps, err := packages.Load(cfg, check...)
 		if err != nil {
-			return nil, err
+			return nil, nil, err
 		}
 		for _, p := range ps {
 			if p.Types == nil {
@@ -61,6 +62,9 @@ func platformConsts(paths []string) (map[string]string, error) {
 				}
 				vals[k][c.Val().ExactString()] = true
 				seen[k]++
+				if objs[k] == nil {
+					objs[k] = c
+				}
 			}
 		}
 	}
@@ -72,5 +76,10 @@ func platformConsts(paths []string) (map[string]string, error) {
 			out[k] = ""
 		}
 	}
-	return out, nil
+	for k := range objs {
+		if _, ok := out[k]; !ok {
+			delete(objs, k)
+		}
+	}
+	return out, objs, nil
 }

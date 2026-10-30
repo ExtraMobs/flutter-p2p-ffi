@@ -3,6 +3,21 @@
 library;
 
 import 'package:p2p_ffi/src/runtime.dart';
+import 'package:p2p_ffi/go/crypto.dart' as $crypto;
+import 'package:p2p_ffi/go/ipfs/ipfs_cmds.dart' as $ipfs_cmds;
+
+/// Go: `metrics.BandwidthCounter` (handle).
+class Libp2pCoreMetricsBandwidthCounter extends $crypto.CryptoPrivateKey
+    with
+        $crypto.CryptoPublicKey$,
+        $ipfs_cmds.IpfsCmdsEnvironment$,
+        Libp2pCoreMetricsReporter$
+    implements
+        $crypto.CryptoPublicKey,
+        $ipfs_cmds.IpfsCmdsEnvironment,
+        Libp2pCoreMetricsReporter {
+  Libp2pCoreMetricsBandwidthCounter.$h(super.$h) : super.$h();
+}
 
 /// Go: `metrics.Reporter` (handle).
 class Libp2pCoreMetricsReporter extends GoHandle

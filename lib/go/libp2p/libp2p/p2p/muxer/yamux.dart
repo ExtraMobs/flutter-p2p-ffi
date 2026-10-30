@@ -25,7 +25,7 @@ class Libp2pP2pMuxerYamuxTransport extends $network.Libp2pCoreNetworkMultiplexer
 
   /// Go: `func (*yamux.Transport).Config() *yamux.Config`.
   $v5.YamuxV5Config config() {
-    final $r = $callSync(3234, $W()..h(this));
+    final $r = $callSync(3240, $W()..h(this));
     return $r.p() ? $v5.YamuxV5Config.$dec($r) : $nil();
   }
 
@@ -33,7 +33,7 @@ class Libp2pP2pMuxerYamuxTransport extends $network.Libp2pCoreNetworkMultiplexer
   $network.Libp2pCoreNetworkMuxedConn newConn($net.NetConn nc, bool isServer,
       $network.Libp2pCoreNetworkPeerScope scope) {
     final $r = $callSync(
-        3235,
+        3241,
         $W()
           ..h(this)
           ..h(nc)
@@ -47,13 +47,13 @@ class Libp2pP2pMuxerYamuxTransport extends $network.Libp2pCoreNetworkMultiplexer
 extension GoLibp2pLibp2pP2pMuxerYamuxApi on GoLibp2pLibp2pP2pMuxerYamux {
   /// Go: `var yamux.DefaultTransport *yamux.Transport`.
   Libp2pP2pMuxerYamuxTransport get defaultTransport {
-    final $r = $callSync(3232);
+    final $r = $callSync(3238);
     return $r.hnn(Libp2pP2pMuxerYamuxTransport.$h);
   }
 
   /// Go: `func yamux.NewMuxedConn(m *yamux.Session) network.MuxedConn`.
   $network.Libp2pCoreNetworkMuxedConn newMuxedConn($v5.YamuxV5Session m) {
-    final $r = $callSync(3233, $W()..h(m));
+    final $r = $callSync(3239, $W()..h(m));
     return $r.hnn($network.Libp2pCoreNetworkMuxedConn.$h);
   }
 }

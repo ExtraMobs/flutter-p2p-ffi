@@ -38,7 +38,7 @@ mixin BoxoProviderMultihashProvider$ on GoHandle {
   /// Go: `func (provider.MultihashProvider).StartProviding(force bool, keys ...multihash.Multihash) error`.
   void startProviding(bool force, [List<Uint8List> keys = const []]) {
     $callSync(
-        1028,
+        1030,
         $W()
           ..h(this)
           ..b(force)
@@ -69,7 +69,7 @@ mixin BoxoProviderProvide$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> provide($context.Context ctx, $cid.Cid cid, bool arg2) async {
     await $call(
-        1035,
+        1037,
         $W()
           ..h(this)
           ..h(ctx)
@@ -115,7 +115,7 @@ mixin BoxoProviderProvideMany$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> provideMany($context.Context ctx, List<Uint8List> keys) async {
     await $call(
-        1036,
+        1038,
         $W()
           ..h(this)
           ..h(ctx)
@@ -135,7 +135,7 @@ mixin BoxoProvider$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> provide($context.Context ctx, $cid.Cid cid, bool arg2) async {
     await $call(
-        1037,
+        1039,
         $W()
           ..h(this)
           ..h(ctx)
@@ -187,7 +187,7 @@ mixin BoxoProviderReprovider$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> reprovide($context.Context ctx) async {
     await $call(
-        1038,
+        1040,
         $W()
           ..h(this)
           ..h(ctx));
@@ -277,19 +277,19 @@ class BoxoProviderSystem extends BoxoProvider
 mixin BoxoProviderSystem$ on GoHandle {
   /// Go: `func (provider.System).Clear() int`.
   int clear() {
-    final $r = $callSync(1039, $W()..h(this));
+    final $r = $callSync(1041, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (provider.System).Close() error`.
   void close() {
-    $callSync(1040, $W()..h(this));
+    $callSync(1042, $W()..h(this));
   }
 
   /// Go: `func (provider.System).SetKeyProvider(kp provider.KeyChanFunc)`.
   void setKeyProvider(BoxoProviderKeyChanFunc kp) {
     $callSync(
-        1041,
+        1043,
         $W()
           ..h(this)
           ..h(kp));
@@ -297,7 +297,7 @@ mixin BoxoProviderSystem$ on GoHandle {
 
   /// Go: `func (provider.System).Stat() (provider.ReproviderStats, error)`.
   BoxoProviderReproviderStats stat() {
-    final $r = $callSync(1042, $W()..h(this));
+    final $r = $callSync(1044, $W()..h(this));
     return $r.p() ? BoxoProviderReproviderStats.$dec($r) : $nil();
   }
 
@@ -312,7 +312,7 @@ mixin BoxoProviderSystem$ on GoHandle {
 extension GoIpfsBoxoProviderApi on GoIpfsBoxoProvider {
   /// Go: `var provider.DefaultKeyPrefix datastore.Key`.
   $datastore.DatastoreKey get defaultKeyPrefix {
-    final $r = $callSync(1027);
+    final $r = $callSync(1029);
     return $r.hnn($datastore.DatastoreKey.$h);
   }
 
@@ -320,7 +320,7 @@ extension GoIpfsBoxoProviderApi on GoIpfsBoxoProvider {
   BoxoProviderSystem new$($datastore.DatastoreBatching ds,
       [List<BoxoProviderOption> opts = const []]) {
     final $r = $callSync(
-        1029,
+        1031,
         $W()
           ..h(ds)
           ..list(opts, (w0, e0) => w0.opt(e0)));
@@ -329,14 +329,14 @@ extension GoIpfsBoxoProviderApi on GoIpfsBoxoProvider {
 
   /// Go: `func provider.NewBufferedProvider(pinsF provider.KeyChanFunc) provider.KeyChanFunc`.
   BoxoProviderKeyChanFunc newBufferedProvider(BoxoProviderKeyChanFunc pinsF) {
-    final $r = $callSync(1030, $W()..h(pinsF));
+    final $r = $callSync(1032, $W()..h(pinsF));
     return $r.hnn(BoxoProviderKeyChanFunc.$h);
   }
 
   /// Go: `func provider.NewConcatProvider(streams ...provider.KeyChanFunc) provider.KeyChanFunc`.
   BoxoProviderKeyChanFunc newConcatProvider(
       [List<BoxoProviderKeyChanFunc> streams = const []]) {
-    final $r = $callSync(1031, $W()..list(streams, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(1033, $W()..list(streams, (w0, e0) => w0.h(e0)));
     return $r.hnn(BoxoProviderKeyChanFunc.$h);
   }
 
@@ -344,7 +344,7 @@ extension GoIpfsBoxoProviderApi on GoIpfsBoxoProvider {
   BoxoProviderKeyChanFunc newDagProvider(
       $cid.Cid root, $fetcher.BoxoFetcherFactory fetchConfig) {
     final $r = $callSync(
-        1032,
+        1034,
         $W()
           ..val(root)
           ..h(fetchConfig));
@@ -353,14 +353,14 @@ extension GoIpfsBoxoProviderApi on GoIpfsBoxoProvider {
 
   /// Go: `func provider.NewNoopProvider() provider.System`.
   BoxoProviderSystem newNoopProvider() {
-    final $r = $callSync(1033);
+    final $r = $callSync(1035);
     return $r.hnn(BoxoProviderSystem.$h);
   }
 
   /// Go: `func provider.NewPrioritizedProvider(streams ...provider.KeyChanFunc) provider.KeyChanFunc`.
   BoxoProviderKeyChanFunc newPrioritizedProvider(
       [List<BoxoProviderKeyChanFunc> streams = const []]) {
-    final $r = $callSync(1034, $W()..list(streams, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(1036, $W()..list(streams, (w0, e0) => w0.h(e0)));
     return $r.hnn(BoxoProviderKeyChanFunc.$h);
   }
 }

@@ -63,7 +63,7 @@ extension GoPrometheusClientGolangPrometheusApi
     on GoPrometheusClientGolangPrometheus {
   /// Go: `var prometheus.DefaultGatherer prometheus.Gatherer`.
   ClientGolangPrometheusGatherer get defaultGatherer {
-    final $r = $callSync(3502);
+    final $r = $callSync(3508);
     return $r.p() ? ClientGolangPrometheusGatherer.$dec($r) : $nil();
   }
 }

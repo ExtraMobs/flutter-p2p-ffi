@@ -17,29 +17,29 @@ class KuboPluginLoader extends $crypto.CryptoPrivateKey
 
   /// Go: `func loader.NewPluginLoader(repo string) (*loader.PluginLoader, error)`.
   factory KuboPluginLoader(String repo) {
-    final $r = $callSync(1753, $W()..str(repo));
+    final $r = $callSync(1759, $W()..str(repo));
     return $r.hnn(KuboPluginLoader.$h);
   }
 
   /// Go: `func (*loader.PluginLoader).Close() error`.
   void close() {
-    $callSync(1754, $W()..h(this));
+    $callSync(1760, $W()..h(this));
   }
 
   /// Go: `func (*loader.PluginLoader).Initialize() error`.
   void initialize() {
-    $callSync(1755, $W()..h(this));
+    $callSync(1761, $W()..h(this));
   }
 
   /// Go: `func (*loader.PluginLoader).Inject() error`.
   void inject() {
-    $callSync(1756, $W()..h(this));
+    $callSync(1762, $W()..h(this));
   }
 
   /// Go: `func (*loader.PluginLoader).Load(pl plugin.Plugin) error`.
   void load($plugin.KuboPlugin pl) {
     $callSync(
-        1757,
+        1763,
         $W()
           ..h(this)
           ..h(pl));
@@ -48,7 +48,7 @@ class KuboPluginLoader extends $crypto.CryptoPrivateKey
   /// Go: `func (*loader.PluginLoader).LoadDirectory(pluginDir string) error`.
   void loadDirectory(String pluginDir) {
     $callSync(
-        1758,
+        1764,
         $W()
           ..h(this)
           ..str(pluginDir));
@@ -57,7 +57,7 @@ class KuboPluginLoader extends $crypto.CryptoPrivateKey
   /// Go: `func (*loader.PluginLoader).Start(node *core.IpfsNode) error`.
   void start($core.KuboCoreIpfsNode node) {
     $callSync(
-        1759,
+        1765,
         $W()
           ..h(this)
           ..h(node));
@@ -68,6 +68,6 @@ class KuboPluginLoader extends $crypto.CryptoPrivateKey
 extension GoIpfsKuboPluginLoaderApi on GoIpfsKuboPluginLoader {
   /// Go: `func loader.Preload(plugins ...plugin.Plugin)`.
   void preload([List<$plugin.KuboPlugin> plugins = const []]) {
-    $callSync(1760, $W()..list(plugins, (w0, e0) => w0.h(e0)));
+    $callSync(1766, $W()..list(plugins, (w0, e0) => w0.h(e0)));
   }
 }

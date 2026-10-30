@@ -162,7 +162,7 @@ class KuboCoreCorerepoMultiError extends GolangException {
 extension GoIpfsKuboCoreCorerepoApi on GoIpfsKuboCoreCorerepo {
   /// Go: `func corerepo.BestEffortRoots(n *core.IpfsNode) ([]cid.Cid, error)`.
   List<$cid.Cid> bestEffortRoots($core.KuboCoreIpfsNode n) {
-    final $r = $callSync(1666, $W()..h(n));
+    final $r = $callSync(1669, $W()..h(n));
     return $r.list(() => $r.p() ? $cid.Cid($r.str()) : $nil());
   }
 
@@ -172,7 +172,7 @@ extension GoIpfsKuboCoreCorerepoApi on GoIpfsKuboCoreCorerepo {
   Future<void> conditionalGc(
       $context.Context ctx, $core.KuboCoreIpfsNode node, int offset) async {
     await $call(
-        1667,
+        1670,
         $W()
           ..h(ctx)
           ..h(node)
@@ -185,7 +185,7 @@ extension GoIpfsKuboCoreCorerepoApi on GoIpfsKuboCoreCorerepo {
   Future<void> garbageCollect(
       $core.KuboCoreIpfsNode n, $context.Context ctx) async {
     await $call(
-        1668,
+        1671,
         $W()
           ..h(n)
           ..h(ctx));
@@ -195,7 +195,7 @@ extension GoIpfsKuboCoreCorerepoApi on GoIpfsKuboCoreCorerepo {
   Stream<$gc.KuboGcResult> garbageCollectAsync(
           $core.KuboCoreIpfsNode n, $context.Context ctx) =>
       $stream(
-              1669,
+              1672,
               $W()
                 ..h(n)
                 ..h(ctx))
@@ -203,7 +203,7 @@ extension GoIpfsKuboCoreCorerepoApi on GoIpfsKuboCoreCorerepo {
 
   /// Go: `func corerepo.NewGC(n *core.IpfsNode) (*corerepo.GC, error)`.
   KuboCoreCorerepoGc newGc($core.KuboCoreIpfsNode n) {
-    final $r = $callSync(1670, $W()..h(n));
+    final $r = $callSync(1673, $W()..h(n));
     return $r.p() ? KuboCoreCorerepoGc.$dec($r) : $nil();
   }
 
@@ -213,7 +213,7 @@ extension GoIpfsKuboCoreCorerepoApi on GoIpfsKuboCoreCorerepo {
   Future<void> periodicGc(
       $context.Context ctx, $core.KuboCoreIpfsNode node) async {
     await $call(
-        1671,
+        1674,
         $W()
           ..h(ctx)
           ..h(node));
@@ -225,7 +225,7 @@ extension GoIpfsKuboCoreCorerepoApi on GoIpfsKuboCoreCorerepo {
   Future<KuboCoreCorerepoSizeStat> repoSize(
       $context.Context ctx, $core.KuboCoreIpfsNode n) async {
     final $r = await $call(
-        1672,
+        1675,
         $W()
           ..h(ctx)
           ..h(n));

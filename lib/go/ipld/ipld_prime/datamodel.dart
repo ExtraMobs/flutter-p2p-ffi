@@ -24,7 +24,7 @@ class IpldPrimeDatamodelLargeBytesNode extends IpldPrimeDatamodelNode
 mixin IpldPrimeDatamodelLargeBytesNode$ on GoHandle {
   /// Go: `func (datamodel.LargeBytesNode).AsLargeBytes() (io.ReadSeeker, error)`.
   $io.IoReadSeeker asLargeBytes() {
-    final $r = $callSync(1969, $W()..h(this));
+    final $r = $callSync(1975, $W()..h(this));
     return $r.hnn($io.IoReadSeeker.$h);
   }
 }
@@ -38,19 +38,19 @@ class IpldPrimeDatamodelLink extends GoHandle with IpldPrimeDatamodelLink$ {
 mixin IpldPrimeDatamodelLink$ on GoHandle {
   /// Go: `func (datamodel.Link).Binary() string`.
   String binary() {
-    final $r = $callSync(1970, $W()..h(this));
+    final $r = $callSync(1976, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (datamodel.Link).Prototype() datamodel.LinkPrototype`.
   IpldPrimeDatamodelLinkPrototype prototype() {
-    final $r = $callSync(1971, $W()..h(this));
+    final $r = $callSync(1977, $W()..h(this));
     return $r.hnn(IpldPrimeDatamodelLinkPrototype.$h);
   }
 
   /// Go: `func (datamodel.Link).String() string`.
   String string() {
-    final $r = $callSync(1972, $W()..h(this));
+    final $r = $callSync(1978, $W()..h(this));
     return $r.str();
   }
 }
@@ -66,7 +66,7 @@ mixin IpldPrimeDatamodelLinkPrototype$ on GoHandle {
   /// Go: `func (datamodel.LinkPrototype).BuildLink(hashsum []byte) datamodel.Link`.
   IpldPrimeDatamodelLink buildLink(Uint8List hashsum) {
     final $r = $callSync(
-        1973,
+        1979,
         $W()
           ..h(this)
           ..bytes(hashsum));
@@ -84,19 +84,19 @@ class IpldPrimeDatamodelListAssembler extends GoHandle
 mixin IpldPrimeDatamodelListAssembler$ on GoHandle {
   /// Go: `func (datamodel.ListAssembler).AssembleValue() datamodel.NodeAssembler`.
   IpldPrimeDatamodelNodeAssembler assembleValue() {
-    final $r = $callSync(1974, $W()..h(this));
+    final $r = $callSync(1980, $W()..h(this));
     return $r.hnn(IpldPrimeDatamodelNodeAssembler.$h);
   }
 
   /// Go: `func (datamodel.ListAssembler).Finish() error`.
   void finish() {
-    $callSync(1975, $W()..h(this));
+    $callSync(1981, $W()..h(this));
   }
 
   /// Go: `func (datamodel.ListAssembler).ValuePrototype(idx int64) datamodel.NodePrototype`.
   IpldPrimeDatamodelNodePrototype valuePrototype(int idx) {
     final $r = $callSync(
-        1976,
+        1982,
         $W()
           ..h(this)
           ..i64(idx));
@@ -114,13 +114,13 @@ class IpldPrimeDatamodelListIterator extends GoHandle
 mixin IpldPrimeDatamodelListIterator$ on GoHandle {
   /// Go: `func (datamodel.ListIterator).Done() bool`.
   bool done() {
-    final $r = $callSync(1977, $W()..h(this));
+    final $r = $callSync(1983, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (datamodel.ListIterator).Next() (idx int64, value datamodel.Node, err error)`.
   (int, IpldPrimeDatamodelNode) next() {
-    final $r = $callSync(1978, $W()..h(this));
+    final $r = $callSync(1984, $W()..h(this));
     return ($r.i64(), $r.hnn(IpldPrimeDatamodelNode.$h));
   }
 }
@@ -136,7 +136,7 @@ mixin IpldPrimeDatamodelMapAssembler$ on GoHandle {
   /// Go: `func (datamodel.MapAssembler).AssembleEntry(k string) (datamodel.NodeAssembler, error)`.
   IpldPrimeDatamodelNodeAssembler assembleEntry(String k) {
     final $r = $callSync(
-        1979,
+        1985,
         $W()
           ..h(this)
           ..str(k));
@@ -145,31 +145,31 @@ mixin IpldPrimeDatamodelMapAssembler$ on GoHandle {
 
   /// Go: `func (datamodel.MapAssembler).AssembleKey() datamodel.NodeAssembler`.
   IpldPrimeDatamodelNodeAssembler assembleKey() {
-    final $r = $callSync(1980, $W()..h(this));
+    final $r = $callSync(1986, $W()..h(this));
     return $r.hnn(IpldPrimeDatamodelNodeAssembler.$h);
   }
 
   /// Go: `func (datamodel.MapAssembler).AssembleValue() datamodel.NodeAssembler`.
   IpldPrimeDatamodelNodeAssembler assembleValue() {
-    final $r = $callSync(1981, $W()..h(this));
+    final $r = $callSync(1987, $W()..h(this));
     return $r.hnn(IpldPrimeDatamodelNodeAssembler.$h);
   }
 
   /// Go: `func (datamodel.MapAssembler).Finish() error`.
   void finish() {
-    $callSync(1982, $W()..h(this));
+    $callSync(1988, $W()..h(this));
   }
 
   /// Go: `func (datamodel.MapAssembler).KeyPrototype() datamodel.NodePrototype`.
   IpldPrimeDatamodelNodePrototype keyPrototype() {
-    final $r = $callSync(1983, $W()..h(this));
+    final $r = $callSync(1989, $W()..h(this));
     return $r.hnn(IpldPrimeDatamodelNodePrototype.$h);
   }
 
   /// Go: `func (datamodel.MapAssembler).ValuePrototype(k string) datamodel.NodePrototype`.
   IpldPrimeDatamodelNodePrototype valuePrototype(String k) {
     final $r = $callSync(
-        1984,
+        1990,
         $W()
           ..h(this)
           ..str(k));
@@ -187,13 +187,13 @@ class IpldPrimeDatamodelMapIterator extends GoHandle
 mixin IpldPrimeDatamodelMapIterator$ on GoHandle {
   /// Go: `func (datamodel.MapIterator).Done() bool`.
   bool done() {
-    final $r = $callSync(1985, $W()..h(this));
+    final $r = $callSync(1991, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (datamodel.MapIterator).Next() (key datamodel.Node, value datamodel.Node, err error)`.
   (IpldPrimeDatamodelNode, IpldPrimeDatamodelNode) next() {
-    final $r = $callSync(1986, $W()..h(this));
+    final $r = $callSync(1992, $W()..h(this));
     return (
       $r.hnn(IpldPrimeDatamodelNode.$h),
       $r.hnn(IpldPrimeDatamodelNode.$h)
@@ -210,74 +210,74 @@ class IpldPrimeDatamodelNode extends GoHandle with IpldPrimeDatamodelNode$ {
 mixin IpldPrimeDatamodelNode$ on GoHandle {
   /// Go: `func (datamodel.Node).AsBool() (bool, error)`.
   bool asBool() {
-    final $r = $callSync(1989, $W()..h(this));
+    final $r = $callSync(1995, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (datamodel.Node).AsBytes() ([]byte, error)`.
   Uint8List asBytes() {
-    final $r = $callSync(1990, $W()..h(this));
+    final $r = $callSync(1996, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (datamodel.Node).AsFloat() (float64, error)`.
   double asFloat() {
-    final $r = $callSync(1991, $W()..h(this));
+    final $r = $callSync(1997, $W()..h(this));
     return $r.f64();
   }
 
   /// Go: `func (datamodel.Node).AsInt() (int64, error)`.
   int asInt() {
-    final $r = $callSync(1992, $W()..h(this));
+    final $r = $callSync(1998, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (datamodel.Node).AsLink() (datamodel.Link, error)`.
   IpldPrimeDatamodelLink asLink() {
-    final $r = $callSync(1993, $W()..h(this));
+    final $r = $callSync(1999, $W()..h(this));
     return $r.hnn(IpldPrimeDatamodelLink.$h);
   }
 
   /// Go: `func (datamodel.Node).AsString() (string, error)`.
   String asString() {
-    final $r = $callSync(1994, $W()..h(this));
+    final $r = $callSync(2000, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (datamodel.Node).IsAbsent() bool`.
   bool isAbsent() {
-    final $r = $callSync(1995, $W()..h(this));
+    final $r = $callSync(2001, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (datamodel.Node).IsNull() bool`.
   bool isNull() {
-    final $r = $callSync(1996, $W()..h(this));
+    final $r = $callSync(2002, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (datamodel.Node).Kind() datamodel.Kind`.
   int kind() {
-    final $r = $callSync(1997, $W()..h(this));
+    final $r = $callSync(2003, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (datamodel.Node).Length() int64`.
   int length() {
-    final $r = $callSync(1998, $W()..h(this));
+    final $r = $callSync(2004, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (datamodel.Node).ListIterator() datamodel.ListIterator`.
   IpldPrimeDatamodelListIterator listIterator() {
-    final $r = $callSync(1999, $W()..h(this));
+    final $r = $callSync(2005, $W()..h(this));
     return $r.hnn(IpldPrimeDatamodelListIterator.$h);
   }
 
   /// Go: `func (datamodel.Node).LookupByIndex(idx int64) (datamodel.Node, error)`.
   IpldPrimeDatamodelNode lookupByIndex(int idx) {
     final $r = $callSync(
-        2000,
+        2006,
         $W()
           ..h(this)
           ..i64(idx));
@@ -287,7 +287,7 @@ mixin IpldPrimeDatamodelNode$ on GoHandle {
   /// Go: `func (datamodel.Node).LookupByNode(key datamodel.Node) (datamodel.Node, error)`.
   IpldPrimeDatamodelNode lookupByNode(IpldPrimeDatamodelNode key) {
     final $r = $callSync(
-        2001,
+        2007,
         $W()
           ..h(this)
           ..h(key));
@@ -297,7 +297,7 @@ mixin IpldPrimeDatamodelNode$ on GoHandle {
   /// Go: `func (datamodel.Node).LookupBySegment(seg datamodel.PathSegment) (datamodel.Node, error)`.
   IpldPrimeDatamodelNode lookupBySegment(IpldPrimeDatamodelPathSegment seg) {
     final $r = $callSync(
-        2002,
+        2008,
         $W()
           ..h(this)
           ..h(seg));
@@ -307,7 +307,7 @@ mixin IpldPrimeDatamodelNode$ on GoHandle {
   /// Go: `func (datamodel.Node).LookupByString(key string) (datamodel.Node, error)`.
   IpldPrimeDatamodelNode lookupByString(String key) {
     final $r = $callSync(
-        2003,
+        2009,
         $W()
           ..h(this)
           ..str(key));
@@ -316,13 +316,13 @@ mixin IpldPrimeDatamodelNode$ on GoHandle {
 
   /// Go: `func (datamodel.Node).MapIterator() datamodel.MapIterator`.
   IpldPrimeDatamodelMapIterator mapIterator() {
-    final $r = $callSync(2004, $W()..h(this));
+    final $r = $callSync(2010, $W()..h(this));
     return $r.hnn(IpldPrimeDatamodelMapIterator.$h);
   }
 
   /// Go: `func (datamodel.Node).Prototype() datamodel.NodePrototype`.
   IpldPrimeDatamodelNodePrototype prototype() {
-    final $r = $callSync(2005, $W()..h(this));
+    final $r = $callSync(2011, $W()..h(this));
     return $r.hnn(IpldPrimeDatamodelNodePrototype.$h);
   }
 
@@ -368,7 +368,7 @@ mixin IpldPrimeDatamodelNodeAssembler$ on GoHandle {
   /// Go: `func (datamodel.NodeAssembler).AssignBool(bool) error`.
   void assignBool(bool arg0) {
     $callSync(
-        2006,
+        2012,
         $W()
           ..h(this)
           ..b(arg0));
@@ -377,7 +377,7 @@ mixin IpldPrimeDatamodelNodeAssembler$ on GoHandle {
   /// Go: `func (datamodel.NodeAssembler).AssignBytes([]byte) error`.
   void assignBytes(Uint8List arg0) {
     $callSync(
-        2007,
+        2013,
         $W()
           ..h(this)
           ..bytes(arg0));
@@ -386,7 +386,7 @@ mixin IpldPrimeDatamodelNodeAssembler$ on GoHandle {
   /// Go: `func (datamodel.NodeAssembler).AssignFloat(float64) error`.
   void assignFloat(double arg0) {
     $callSync(
-        2008,
+        2014,
         $W()
           ..h(this)
           ..f64(arg0));
@@ -395,7 +395,7 @@ mixin IpldPrimeDatamodelNodeAssembler$ on GoHandle {
   /// Go: `func (datamodel.NodeAssembler).AssignInt(int64) error`.
   void assignInt(int arg0) {
     $callSync(
-        2009,
+        2015,
         $W()
           ..h(this)
           ..i64(arg0));
@@ -404,7 +404,7 @@ mixin IpldPrimeDatamodelNodeAssembler$ on GoHandle {
   /// Go: `func (datamodel.NodeAssembler).AssignLink(datamodel.Link) error`.
   void assignLink(IpldPrimeDatamodelLink link) {
     $callSync(
-        2010,
+        2016,
         $W()
           ..h(this)
           ..h(link));
@@ -413,7 +413,7 @@ mixin IpldPrimeDatamodelNodeAssembler$ on GoHandle {
   /// Go: `func (datamodel.NodeAssembler).AssignNode(datamodel.Node) error`.
   void assignNode(IpldPrimeDatamodelNode node) {
     $callSync(
-        2011,
+        2017,
         $W()
           ..h(this)
           ..h(node));
@@ -421,13 +421,13 @@ mixin IpldPrimeDatamodelNodeAssembler$ on GoHandle {
 
   /// Go: `func (datamodel.NodeAssembler).AssignNull() error`.
   void assignNull() {
-    $callSync(2012, $W()..h(this));
+    $callSync(2018, $W()..h(this));
   }
 
   /// Go: `func (datamodel.NodeAssembler).AssignString(string) error`.
   void assignString(String arg0) {
     $callSync(
-        2013,
+        2019,
         $W()
           ..h(this)
           ..str(arg0));
@@ -436,7 +436,7 @@ mixin IpldPrimeDatamodelNodeAssembler$ on GoHandle {
   /// Go: `func (datamodel.NodeAssembler).BeginList(sizeHint int64) (datamodel.ListAssembler, error)`.
   IpldPrimeDatamodelListAssembler beginList(int sizeHint) {
     final $r = $callSync(
-        2014,
+        2020,
         $W()
           ..h(this)
           ..i64(sizeHint));
@@ -446,7 +446,7 @@ mixin IpldPrimeDatamodelNodeAssembler$ on GoHandle {
   /// Go: `func (datamodel.NodeAssembler).BeginMap(sizeHint int64) (datamodel.MapAssembler, error)`.
   IpldPrimeDatamodelMapAssembler beginMap(int sizeHint) {
     final $r = $callSync(
-        2015,
+        2021,
         $W()
           ..h(this)
           ..i64(sizeHint));
@@ -455,7 +455,7 @@ mixin IpldPrimeDatamodelNodeAssembler$ on GoHandle {
 
   /// Go: `func (datamodel.NodeAssembler).Prototype() datamodel.NodePrototype`.
   IpldPrimeDatamodelNodePrototype prototype() {
-    final $r = $callSync(2016, $W()..h(this));
+    final $r = $callSync(2022, $W()..h(this));
     return $r.hnn(IpldPrimeDatamodelNodePrototype.$h);
   }
 
@@ -476,13 +476,13 @@ class IpldPrimeDatamodelNodeBuilder extends IpldPrimeDatamodelNodeAssembler
 mixin IpldPrimeDatamodelNodeBuilder$ on GoHandle {
   /// Go: `func (datamodel.NodeBuilder).Build() datamodel.Node`.
   IpldPrimeDatamodelNode build() {
-    final $r = $callSync(2017, $W()..h(this));
+    final $r = $callSync(2023, $W()..h(this));
     return $r.hnn(IpldPrimeDatamodelNode.$h);
   }
 
   /// Go: `func (datamodel.NodeBuilder).Reset()`.
   void reset() {
-    $callSync(2018, $W()..h(this));
+    $callSync(2024, $W()..h(this));
   }
 }
 
@@ -496,7 +496,7 @@ class IpldPrimeDatamodelNodePrototype extends GoHandle
 mixin IpldPrimeDatamodelNodePrototype$ on GoHandle {
   /// Go: `func (datamodel.NodePrototype).NewBuilder() datamodel.NodeBuilder`.
   IpldPrimeDatamodelNodeBuilder newBuilder() {
-    final $r = $callSync(2019, $W()..h(this));
+    final $r = $callSync(2025, $W()..h(this));
     return $r.hnn(IpldPrimeDatamodelNodeBuilder.$h);
   }
 
@@ -519,7 +519,7 @@ mixin IpldPrimeDatamodelNodePrototypeSupportingAmend$ on GoHandle {
   /// Go: `func (datamodel.NodePrototypeSupportingAmend).AmendingBuilder(base datamodel.Node) datamodel.NodeBuilder`.
   IpldPrimeDatamodelNodeBuilder amendingBuilder(IpldPrimeDatamodelNode base) {
     final $r = $callSync(
-        2020,
+        2026,
         $W()
           ..h(this)
           ..h(base));
@@ -535,14 +535,14 @@ class IpldPrimeDatamodelPath extends $crypto.CryptoPrivateKey
 
   /// Go: `func datamodel.NewPath(segments []datamodel.PathSegment) datamodel.Path`.
   factory IpldPrimeDatamodelPath(List<IpldPrimeDatamodelPathSegment> segments) {
-    final $r = $callSync(1987, $W()..list(segments, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(1993, $W()..list(segments, (w0, e0) => w0.h(e0)));
     return $r.hnn(IpldPrimeDatamodelPath.$h);
   }
 
   /// Go: `func (datamodel.Path).AppendSegment(ps datamodel.PathSegment) datamodel.Path`.
   IpldPrimeDatamodelPath appendSegment(IpldPrimeDatamodelPathSegment ps) {
     final $r = $callSync(
-        2024,
+        2030,
         $W()
           ..h(this)
           ..h(ps));
@@ -552,7 +552,7 @@ class IpldPrimeDatamodelPath extends $crypto.CryptoPrivateKey
   /// Go: `func (datamodel.Path).AppendSegmentInt(ps int64) datamodel.Path`.
   IpldPrimeDatamodelPath appendSegmentInt(int ps) {
     final $r = $callSync(
-        2025,
+        2031,
         $W()
           ..h(this)
           ..i64(ps));
@@ -562,7 +562,7 @@ class IpldPrimeDatamodelPath extends $crypto.CryptoPrivateKey
   /// Go: `func (datamodel.Path).AppendSegmentString(ps string) datamodel.Path`.
   IpldPrimeDatamodelPath appendSegmentString(String ps) {
     final $r = $callSync(
-        2026,
+        2032,
         $W()
           ..h(this)
           ..str(ps));
@@ -572,7 +572,7 @@ class IpldPrimeDatamodelPath extends $crypto.CryptoPrivateKey
   /// Go: `func (datamodel.Path).Join(p2 datamodel.Path) datamodel.Path`.
   IpldPrimeDatamodelPath join(IpldPrimeDatamodelPath p2) {
     final $r = $callSync(
-        2027,
+        2033,
         $W()
           ..h(this)
           ..h(p2));
@@ -581,37 +581,37 @@ class IpldPrimeDatamodelPath extends $crypto.CryptoPrivateKey
 
   /// Go: `func (datamodel.Path).Last() datamodel.PathSegment`.
   IpldPrimeDatamodelPathSegment last() {
-    final $r = $callSync(2028, $W()..h(this));
+    final $r = $callSync(2034, $W()..h(this));
     return $r.hnn(IpldPrimeDatamodelPathSegment.$h);
   }
 
   /// Go: `func (datamodel.Path).Len() int`.
   int len() {
-    final $r = $callSync(2029, $W()..h(this));
+    final $r = $callSync(2035, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (datamodel.Path).Parent() datamodel.Path`.
   IpldPrimeDatamodelPath parent() {
-    final $r = $callSync(2030, $W()..h(this));
+    final $r = $callSync(2036, $W()..h(this));
     return $r.hnn(IpldPrimeDatamodelPath.$h);
   }
 
   /// Go: `func (datamodel.Path).Pop() datamodel.Path`.
   IpldPrimeDatamodelPath pop() {
-    final $r = $callSync(2031, $W()..h(this));
+    final $r = $callSync(2037, $W()..h(this));
     return $r.hnn(IpldPrimeDatamodelPath.$h);
   }
 
   /// Go: `func (datamodel.Path).Segments() []datamodel.PathSegment`.
   List<IpldPrimeDatamodelPathSegment> segments() {
-    final $r = $callSync(2032, $W()..h(this));
+    final $r = $callSync(2038, $W()..h(this));
     return $r.list(() => $r.hnn(IpldPrimeDatamodelPathSegment.$h));
   }
 
   /// Go: `func (datamodel.Path).Shift() (datamodel.PathSegment, datamodel.Path)`.
   (IpldPrimeDatamodelPathSegment, IpldPrimeDatamodelPath) shift() {
-    final $r = $callSync(2033, $W()..h(this));
+    final $r = $callSync(2039, $W()..h(this));
     return (
       $r.hnn(IpldPrimeDatamodelPathSegment.$h),
       $r.hnn(IpldPrimeDatamodelPath.$h)
@@ -620,14 +620,14 @@ class IpldPrimeDatamodelPath extends $crypto.CryptoPrivateKey
 
   /// Go: `func (datamodel.Path).String() string`.
   String string() {
-    final $r = $callSync(2034, $W()..h(this));
+    final $r = $callSync(2040, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (datamodel.Path).Truncate(i int) datamodel.Path`.
   IpldPrimeDatamodelPath truncate(int i) {
     final $r = $callSync(
-        2035,
+        2041,
         $W()
           ..h(this)
           ..i64(i));
@@ -644,7 +644,7 @@ class IpldPrimeDatamodelPathSegment extends $crypto.CryptoPrivateKey
   /// Go: `func (datamodel.PathSegment).Equals(o datamodel.PathSegment) bool`.
   bool equals(IpldPrimeDatamodelPathSegment o) {
     final $r = $callSync(
-        2036,
+        2042,
         $W()
           ..h(this)
           ..h(o));
@@ -653,13 +653,13 @@ class IpldPrimeDatamodelPathSegment extends $crypto.CryptoPrivateKey
 
   /// Go: `func (datamodel.PathSegment).Index() (int64, error)`.
   int index() {
-    final $r = $callSync(2037, $W()..h(this));
+    final $r = $callSync(2043, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (datamodel.PathSegment).String() string`.
   String string() {
-    final $r = $callSync(2038, $W()..h(this));
+    final $r = $callSync(2044, $W()..h(this));
     return $r.str();
   }
 }
@@ -674,7 +674,7 @@ class IpldPrimeDatamodelUintNode extends IpldPrimeDatamodelNode
 mixin IpldPrimeDatamodelUintNode$ on GoHandle {
   /// Go: `func (datamodel.UintNode).AsUint() (uint64, error)`.
   int asUint() {
-    final $r = $callSync(2041, $W()..h(this));
+    final $r = $callSync(2047, $W()..h(this));
     return $r.i64();
   }
 }
@@ -746,14 +746,14 @@ class IpldPrimeDatamodelErrWrongKind extends GolangException {
 extension GoIpldIpldPrimeDatamodelApi on GoIpldIpldPrimeDatamodel {
   /// Go: `var datamodel.Absent datamodel.Node`.
   IpldPrimeDatamodelNode get absent {
-    final $r = $callSync(1953);
+    final $r = $callSync(1959);
     return $r.hnn(IpldPrimeDatamodelNode.$h);
   }
 
   /// Go: `func datamodel.Copy(n datamodel.Node, na datamodel.NodeAssembler) error`.
   void copy(IpldPrimeDatamodelNode n, IpldPrimeDatamodelNodeAssembler na) {
     $callSync(
-        1954,
+        1960,
         $W()
           ..h(n)
           ..h(na));
@@ -762,7 +762,7 @@ extension GoIpldIpldPrimeDatamodelApi on GoIpldIpldPrimeDatamodel {
   /// Go: `func datamodel.DeepEqual(x datamodel.Node, y datamodel.Node) bool`.
   bool deepEqual(IpldPrimeDatamodelNode x, IpldPrimeDatamodelNode y) {
     final $r = $callSync(
-        1955,
+        1961,
         $W()
           ..h(x)
           ..h(y));
@@ -771,116 +771,116 @@ extension GoIpldIpldPrimeDatamodelApi on GoIpldIpldPrimeDatamodel {
 
   /// Go: `var datamodel.EmptyPath datamodel.Path`.
   IpldPrimeDatamodelPath get emptyPath {
-    final $r = $callSync(1956);
+    final $r = $callSync(1962);
     return $r.hnn(IpldPrimeDatamodelPath.$h);
   }
 
   /// Go: `var datamodel.EmptyPathSegment datamodel.PathSegment`.
   IpldPrimeDatamodelPathSegment get emptyPathSegment {
-    final $r = $callSync(1957);
+    final $r = $callSync(1963);
     return $r.hnn(IpldPrimeDatamodelPathSegment.$h);
   }
 
   /// Go: `var datamodel.KindSet_JustBool datamodel.KindSet`.
   List<int> get kindSetJustBool {
-    final $r = $callSync(1958);
+    final $r = $callSync(1964);
     return $r.list(() => $r.i64());
   }
 
   /// Go: `var datamodel.KindSet_JustBytes datamodel.KindSet`.
   List<int> get kindSetJustBytes {
-    final $r = $callSync(1959);
+    final $r = $callSync(1965);
     return $r.list(() => $r.i64());
   }
 
   /// Go: `var datamodel.KindSet_JustFloat datamodel.KindSet`.
   List<int> get kindSetJustFloat {
-    final $r = $callSync(1960);
+    final $r = $callSync(1966);
     return $r.list(() => $r.i64());
   }
 
   /// Go: `var datamodel.KindSet_JustInt datamodel.KindSet`.
   List<int> get kindSetJustInt {
-    final $r = $callSync(1961);
+    final $r = $callSync(1967);
     return $r.list(() => $r.i64());
   }
 
   /// Go: `var datamodel.KindSet_JustLink datamodel.KindSet`.
   List<int> get kindSetJustLink {
-    final $r = $callSync(1962);
+    final $r = $callSync(1968);
     return $r.list(() => $r.i64());
   }
 
   /// Go: `var datamodel.KindSet_JustList datamodel.KindSet`.
   List<int> get kindSetJustList {
-    final $r = $callSync(1963);
+    final $r = $callSync(1969);
     return $r.list(() => $r.i64());
   }
 
   /// Go: `var datamodel.KindSet_JustMap datamodel.KindSet`.
   List<int> get kindSetJustMap {
-    final $r = $callSync(1964);
+    final $r = $callSync(1970);
     return $r.list(() => $r.i64());
   }
 
   /// Go: `var datamodel.KindSet_JustNull datamodel.KindSet`.
   List<int> get kindSetJustNull {
-    final $r = $callSync(1965);
+    final $r = $callSync(1971);
     return $r.list(() => $r.i64());
   }
 
   /// Go: `var datamodel.KindSet_JustString datamodel.KindSet`.
   List<int> get kindSetJustString {
-    final $r = $callSync(1966);
+    final $r = $callSync(1972);
     return $r.list(() => $r.i64());
   }
 
   /// Go: `var datamodel.KindSet_Recursive datamodel.KindSet`.
   List<int> get kindSetRecursive {
-    final $r = $callSync(1967);
+    final $r = $callSync(1973);
     return $r.list(() => $r.i64());
   }
 
   /// Go: `var datamodel.KindSet_Scalar datamodel.KindSet`.
   List<int> get kindSetScalar {
-    final $r = $callSync(1968);
+    final $r = $callSync(1974);
     return $r.list(() => $r.i64());
   }
 
   /// Go: `func datamodel.NewPathNocopy(segments []datamodel.PathSegment) datamodel.Path`.
   IpldPrimeDatamodelPath newPathNocopy(
       List<IpldPrimeDatamodelPathSegment> segments) {
-    final $r = $callSync(1988, $W()..list(segments, (w0, e0) => w0.h(e0)));
+    final $r = $callSync(1994, $W()..list(segments, (w0, e0) => w0.h(e0)));
     return $r.hnn(IpldPrimeDatamodelPath.$h);
   }
 
   /// Go: `var datamodel.Null datamodel.Node`.
   IpldPrimeDatamodelNode get null$ {
-    final $r = $callSync(2021);
+    final $r = $callSync(2027);
     return $r.hnn(IpldPrimeDatamodelNode.$h);
   }
 
   /// Go: `func datamodel.ParsePath(pth string) datamodel.Path`.
   IpldPrimeDatamodelPath parsePath(String pth) {
-    final $r = $callSync(2022, $W()..str(pth));
+    final $r = $callSync(2028, $W()..str(pth));
     return $r.hnn(IpldPrimeDatamodelPath.$h);
   }
 
   /// Go: `func datamodel.ParsePathSegment(s string) datamodel.PathSegment`.
   IpldPrimeDatamodelPathSegment parsePathSegment(String s) {
-    final $r = $callSync(2023, $W()..str(s));
+    final $r = $callSync(2029, $W()..str(s));
     return $r.hnn(IpldPrimeDatamodelPathSegment.$h);
   }
 
   /// Go: `func datamodel.PathSegmentOfInt(i int64) datamodel.PathSegment`.
   IpldPrimeDatamodelPathSegment pathSegmentOfInt(int i) {
-    final $r = $callSync(2039, $W()..i64(i));
+    final $r = $callSync(2045, $W()..i64(i));
     return $r.hnn(IpldPrimeDatamodelPathSegment.$h);
   }
 
   /// Go: `func datamodel.PathSegmentOfString(s string) datamodel.PathSegment`.
   IpldPrimeDatamodelPathSegment pathSegmentOfString(String s) {
-    final $r = $callSync(2040, $W()..str(s));
+    final $r = $callSync(2046, $W()..str(s));
     return $r.hnn(IpldPrimeDatamodelPathSegment.$h);
   }
 }

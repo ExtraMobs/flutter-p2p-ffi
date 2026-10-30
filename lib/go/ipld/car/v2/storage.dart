@@ -28,13 +28,13 @@ class CarV2StorageReadableCar extends $storage.IpldPrimeStorageReadableStorage
 mixin CarV2StorageReadableCar$ on GoHandle {
   /// Go: `func (storage.ReadableCar).Index() index.Index`.
   $index.CarV2Index index() {
-    final $r = $callSync(1931, $W()..h(this));
+    final $r = $callSync(1937, $W()..h(this));
     return $r.hnn($index.CarV2Index.$h);
   }
 
   /// Go: `func (storage.ReadableCar).Roots() []cid.Cid`.
   List<$cid.Cid> roots() {
-    final $r = $callSync(1932, $W()..h(this));
+    final $r = $callSync(1938, $W()..h(this));
     return $r.list(() => $r.p() ? $cid.Cid($r.str()) : $nil());
   }
 
@@ -70,7 +70,7 @@ class CarV2StorageCar extends CarV2StorageReadableCar
 
   /// Go: `func (*storage.StorageCar).Finalize() error`.
   void finalize() {
-    $callSync(1933, $W()..h(this));
+    $callSync(1939, $W()..h(this));
   }
 
   /// Go: `func (*storage.StorageCar).Get(ctx context.Context, keyStr string) ([]byte, error)`.
@@ -78,7 +78,7 @@ class CarV2StorageCar extends CarV2StorageReadableCar
   /// Asynchronous: runs in a goroutine of the service.
   Future<Uint8List> get($context.Context ctx, String keyStr) async {
     final $r = await $call(
-        1934,
+        1940,
         $W()
           ..h(this)
           ..h(ctx)
@@ -92,7 +92,7 @@ class CarV2StorageCar extends CarV2StorageReadableCar
   Future<$io.IoReadCloser> getStream(
       $context.Context ctx, String keyStr) async {
     final $r = await $call(
-        1935,
+        1941,
         $W()
           ..h(this)
           ..h(ctx)
@@ -105,7 +105,7 @@ class CarV2StorageCar extends CarV2StorageReadableCar
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> has($context.Context ctx, String keyStr) async {
     final $r = await $call(
-        1936,
+        1942,
         $W()
           ..h(this)
           ..h(ctx)
@@ -115,7 +115,7 @@ class CarV2StorageCar extends CarV2StorageReadableCar
 
   /// Go: `func (*storage.StorageCar).Index() index.Index`.
   $index.CarV2Index index() {
-    final $r = $callSync(1937, $W()..h(this));
+    final $r = $callSync(1943, $W()..h(this));
     return $r.hnn($index.CarV2Index.$h);
   }
 
@@ -124,7 +124,7 @@ class CarV2StorageCar extends CarV2StorageReadableCar
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> put($context.Context ctx, String keyStr, Uint8List data) async {
     await $call(
-        1938,
+        1944,
         $W()
           ..h(this)
           ..h(ctx)
@@ -134,7 +134,7 @@ class CarV2StorageCar extends CarV2StorageReadableCar
 
   /// Go: `func (*storage.StorageCar).Roots() []cid.Cid`.
   List<$cid.Cid> roots() {
-    final $r = $callSync(1939, $W()..h(this));
+    final $r = $callSync(1945, $W()..h(this));
     return $r.list(() => $r.p() ? $cid.Cid($r.str()) : $nil());
   }
 }
@@ -149,18 +149,18 @@ class CarV2StorageWritableCar extends $storage.IpldPrimeStorageWritableStorage
 mixin CarV2StorageWritableCar$ on GoHandle {
   /// Go: `func (storage.WritableCar).Finalize() error`.
   void finalize() {
-    $callSync(1940, $W()..h(this));
+    $callSync(1946, $W()..h(this));
   }
 
   /// Go: `func (storage.WritableCar).Index() index.Index`.
   $index.CarV2Index index() {
-    final $r = $callSync(1941, $W()..h(this));
+    final $r = $callSync(1947, $W()..h(this));
     return $r.hnn($index.CarV2Index.$h);
   }
 
   /// Go: `func (storage.WritableCar).Roots() []cid.Cid`.
   List<$cid.Cid> roots() {
-    final $r = $callSync(1942, $W()..h(this));
+    final $r = $callSync(1948, $W()..h(this));
     return $r.list(() => $r.p() ? $cid.Cid($r.str()) : $nil());
   }
 
@@ -186,7 +186,7 @@ extension GoIpldCarV2StorageApi on GoIpldCarV2Storage {
   CarV2StorageCar newReadableWritable(Object rw, List<$cid.Cid> roots,
       [List<$v2.CarV2Option> opts = const []]) {
     final $r = $callSync(
-        1927,
+        1933,
         $W()
           ..reader(rw)
           ..list(roots, (w0, e0) => w0.val(e0))
@@ -198,7 +198,7 @@ extension GoIpldCarV2StorageApi on GoIpldCarV2Storage {
   CarV2StorageWritableCar newWritable(GoHandle? writer, List<$cid.Cid> roots,
       [List<$v2.CarV2Option> opts = const []]) {
     final $r = $callSync(
-        1928,
+        1934,
         $W()
           ..h(writer)
           ..list(roots, (w0, e0) => w0.val(e0))
@@ -210,7 +210,7 @@ extension GoIpldCarV2StorageApi on GoIpldCarV2Storage {
   CarV2StorageReadableCar openReadable(Object reader,
       [List<$v2.CarV2Option> opts = const []]) {
     final $r = $callSync(
-        1929,
+        1935,
         $W()
           ..reader(reader)
           ..list(opts, (w0, e0) => w0.opt(e0)));
@@ -221,7 +221,7 @@ extension GoIpldCarV2StorageApi on GoIpldCarV2Storage {
   CarV2StorageCar openReadableWritable(Object rw, List<$cid.Cid> roots,
       [List<$v2.CarV2Option> opts = const []]) {
     final $r = $callSync(
-        1930,
+        1936,
         $W()
           ..reader(rw)
           ..list(roots, (w0, e0) => w0.val(e0))

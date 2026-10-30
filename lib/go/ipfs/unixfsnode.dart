@@ -15,14 +15,14 @@ extension GoIpfsUnixfsnodeApi on GoIpfsUnixfsnode {
   /// Go: `func unixfsnode.AddUnixFSReificationToLinkSystem(lsys *ipld.LinkSystem)`.
   void addUnixFsReificationToLinkSystem(
       $linking.IpldPrimeLinkingLinkSystem lsys) {
-    $callSync(1357, $W()..h(lsys));
+    $callSync(1359, $W()..h(lsys));
   }
 
   /// Go: `func unixfsnode.BytesConsumingMatcher(p traversal.Progress, n datamodel.Node) error`.
   void bytesConsumingMatcher($traversal.IpldPrimeTraversalProgress p,
       $datamodel.IpldPrimeDatamodelNode n) {
     $callSync(
-        1358,
+        1360,
         $W()
           ..dto(p)
           ..h(n));
@@ -31,28 +31,28 @@ extension GoIpfsUnixfsnodeApi on GoIpfsUnixfsnode {
   /// Go: `var unixfsnode.ExploreAllRecursivelySelector builder.SelectorSpec`.
   $builder.IpldPrimeTraversalSelectorBuilderSelectorSpec
       get exploreAllRecursivelySelector {
-    final $r = $callSync(1359);
+    final $r = $callSync(1361);
     return $r.hnn($builder.IpldPrimeTraversalSelectorBuilderSelectorSpec.$h);
   }
 
   /// Go: `var unixfsnode.MatchUnixFSEntitySelector builder.SelectorSpec`.
   $builder.IpldPrimeTraversalSelectorBuilderSelectorSpec
       get matchUnixFsEntitySelector {
-    final $r = $callSync(1360);
+    final $r = $callSync(1362);
     return $r.hnn($builder.IpldPrimeTraversalSelectorBuilderSelectorSpec.$h);
   }
 
   /// Go: `var unixfsnode.MatchUnixFSPreloadSelector builder.SelectorSpec`.
   $builder.IpldPrimeTraversalSelectorBuilderSelectorSpec
       get matchUnixFsPreloadSelector {
-    final $r = $callSync(1361);
+    final $r = $callSync(1363);
     return $r.hnn($builder.IpldPrimeTraversalSelectorBuilderSelectorSpec.$h);
   }
 
   /// Go: `var unixfsnode.MatchUnixFSSelector builder.SelectorSpec`.
   $builder.IpldPrimeTraversalSelectorBuilderSelectorSpec
       get matchUnixFsSelector {
-    final $r = $callSync(1362);
+    final $r = $callSync(1364);
     return $r.hnn($builder.IpldPrimeTraversalSelectorBuilderSelectorSpec.$h);
   }
 
@@ -62,7 +62,7 @@ extension GoIpfsUnixfsnodeApi on GoIpfsUnixfsnode {
       $datamodel.IpldPrimeDatamodelNode maybePbNodeRoot,
       $linking.IpldPrimeLinkingLinkSystem lsys) {
     final $r = $callSync(
-        1363,
+        1365,
         $W()
           ..dto(lnkCtx)
           ..h(maybePbNodeRoot)
@@ -72,7 +72,7 @@ extension GoIpfsUnixfsnodeApi on GoIpfsUnixfsnode {
 
   /// Go: `func unixfsnode.UnixFSPathSelector(path string) datamodel.Node`.
   $datamodel.IpldPrimeDatamodelNode unixFsPathSelector(String path) {
-    final $r = $callSync(1364, $W()..str(path));
+    final $r = $callSync(1366, $W()..str(path));
     return $r.hnn($datamodel.IpldPrimeDatamodelNode.$h);
   }
 
@@ -82,7 +82,7 @@ extension GoIpfsUnixfsnodeApi on GoIpfsUnixfsnode {
       $builder.IpldPrimeTraversalSelectorBuilderSelectorSpec targetSelector,
       bool matchPath) {
     final $r = $callSync(
-        1365,
+        1367,
         $W()
           ..str(path)
           ..h(targetSelector)

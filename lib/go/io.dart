@@ -449,7 +449,7 @@ class IoReadCloser extends GoHandle {
 
   /// Go: `func (io.Closer).Close() error`.
   void close() {
-    $callSync(3505, $W()..h(this));
+    $callSync(3511, $W()..h(this));
   }
 }
 
@@ -529,14 +529,14 @@ class IoErrShortWrite extends GolangException {
 extension GoIoApi on GoIo {
   /// Go: `func io.ReadAll(r io.Reader) ([]byte, error)`.
   Uint8List readAll(Object r) {
-    final $r = $callSync(3504, $W()..reader(r));
+    final $r = $callSync(3510, $W()..reader(r));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func io.Copy(dst io.Writer, src io.Reader) (written int64, err error)`.
   int copy(GoHandle? dst, Object src) {
     final $r = $callSync(
-        3503,
+        3509,
         $W()
           ..h(dst)
           ..reader(src));

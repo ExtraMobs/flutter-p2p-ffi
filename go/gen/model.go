@@ -155,7 +155,8 @@ type model struct {
 	// expanded: the roots that came from a "pkg.*" line, not written out
 	expanded map[string]bool
 	// platform: the constants whose value depends on the target (platform.go)
-	platform map[string]string
+	platform    map[string]string
+	platformObj map[string]*types.Const // each one as a target that has it declares it
 }
 
 func newModel() *model {
@@ -436,6 +437,9 @@ func (m *model) fillStruct(ti *tinfo, n *types.Named, u *types.Struct) {
 		case kBasic, kBytes, kValue, kDTO, kSnap, kHandle, kSlice, kMap, kError:
 			if ft.k == kSnap {
 				fd.skipped = "read-only interface"
+			}
+			if (ft.k == kSlice || ft.k == kMap) && ft.elem.k == kOpts { // config.Config.RelayServiceOpts
+				fd.skipped = "functional options: they cross only as call arguments"
 			}
 		default:
 			fd.skipped = ft.why

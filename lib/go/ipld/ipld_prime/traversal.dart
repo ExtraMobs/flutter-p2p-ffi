@@ -40,7 +40,7 @@ final class IpldPrimeTraversalBudget implements GoDto {
 
   /// Go: `func (*traversal.Budget).Clone() *traversal.Budget`.
   IpldPrimeTraversalBudget clone() {
-    final $r = $callSync(2098, $W()..dto(this));
+    final $r = $callSync(2104, $W()..dto(this));
     return $r.p() ? IpldPrimeTraversalBudget.$dec($r) : $nil();
   }
 }
@@ -160,7 +160,7 @@ final class IpldPrimeTraversalProgress implements GoDto {
               $datamodel.IpldPrimeDatamodelNode node)
           fn) async {
     await $call(
-        2102,
+        2108,
         $W()
           ..dto(this)
           ..h(n)
@@ -178,7 +178,7 @@ final class IpldPrimeTraversalProgress implements GoDto {
       IpldPrimeTraversalTransformFn fn,
       bool createParents) {
     final $r = $callSync(
-        2103,
+        2109,
         $W()
           ..dto(this)
           ..h(n)
@@ -192,7 +192,7 @@ final class IpldPrimeTraversalProgress implements GoDto {
   $datamodel.IpldPrimeDatamodelNode get($datamodel.IpldPrimeDatamodelNode n,
       $datamodel.IpldPrimeDatamodelPath p) {
     final $r = $callSync(
-        2104,
+        2110,
         $W()
           ..dto(this)
           ..h(n)
@@ -214,7 +214,7 @@ final class IpldPrimeTraversalProgress implements GoDto {
               $datamodel.IpldPrimeDatamodelNode node, int arg2)
           fn) async {
     await $call(
-        2105,
+        2111,
         $W()
           ..dto(this)
           ..h(n)
@@ -238,7 +238,7 @@ final class IpldPrimeTraversalProgress implements GoDto {
               $datamodel.IpldPrimeDatamodelNode node)
           fn) async {
     await $call(
-        2106,
+        2112,
         $W()
           ..dto(this)
           ..h(n)
@@ -262,7 +262,7 @@ final class IpldPrimeTraversalProgress implements GoDto {
               $datamodel.IpldPrimeDatamodelNode node)
           fn) async {
     await $call(
-        2107,
+        2113,
         $W()
           ..dto(this)
           ..h(n)
@@ -279,7 +279,7 @@ final class IpldPrimeTraversalProgress implements GoDto {
       $selector.IpldPrimeTraversalSelector s,
       IpldPrimeTraversalTransformFn fn) {
     final $r = $callSync(
-        2108,
+        2114,
         $W()
           ..dto(this)
           ..h(n)
@@ -335,7 +335,7 @@ extension GoIpldIpldPrimeTraversalApi on GoIpldIpldPrimeTraversal {
               $datamodel.IpldPrimeDatamodelNode node)
           fn) async {
     await $call(
-        2099,
+        2105,
         $W()
           ..h(n)
           ..h(p)
@@ -352,7 +352,7 @@ extension GoIpldIpldPrimeTraversalApi on GoIpldIpldPrimeTraversal {
       IpldPrimeTraversalTransformFn fn,
       bool createParents) {
     final $r = $callSync(
-        2100,
+        2106,
         $W()
           ..h(n)
           ..h(p)
@@ -365,7 +365,7 @@ extension GoIpldIpldPrimeTraversalApi on GoIpldIpldPrimeTraversal {
   $datamodel.IpldPrimeDatamodelNode get($datamodel.IpldPrimeDatamodelNode n,
       $datamodel.IpldPrimeDatamodelPath p) {
     final $r = $callSync(
-        2101,
+        2107,
         $W()
           ..h(n)
           ..h(p));
@@ -375,7 +375,7 @@ extension GoIpldIpldPrimeTraversalApi on GoIpldIpldPrimeTraversal {
   /// Go: `func traversal.SelectLinks(n datamodel.Node) ([]datamodel.Link, error)`.
   List<$datamodel.IpldPrimeDatamodelLink> selectLinks(
       $datamodel.IpldPrimeDatamodelNode n) {
-    final $r = $callSync(2109, $W()..h(n));
+    final $r = $callSync(2115, $W()..h(n));
     return $r.list(() => $r.hnn($datamodel.IpldPrimeDatamodelLink.$h));
   }
 
@@ -393,7 +393,7 @@ extension GoIpldIpldPrimeTraversalApi on GoIpldIpldPrimeTraversal {
               $datamodel.IpldPrimeDatamodelNode node, int arg2)
           fn) async {
     await $call(
-        2110,
+        2116,
         $W()
           ..h(n)
           ..h(s)
@@ -416,7 +416,7 @@ extension GoIpldIpldPrimeTraversalApi on GoIpldIpldPrimeTraversal {
               $datamodel.IpldPrimeDatamodelNode node)
           fn) async {
     await $call(
-        2111,
+        2117,
         $W()
           ..h(n)
           ..cb(
@@ -439,7 +439,7 @@ extension GoIpldIpldPrimeTraversalApi on GoIpldIpldPrimeTraversal {
               $datamodel.IpldPrimeDatamodelNode node)
           fn) async {
     await $call(
-        2112,
+        2118,
         $W()
           ..h(n)
           ..h(s)
@@ -455,7 +455,7 @@ extension GoIpldIpldPrimeTraversalApi on GoIpldIpldPrimeTraversal {
       $selector.IpldPrimeTraversalSelector s,
       IpldPrimeTraversalTransformFn fn) {
     final $r = $callSync(
-        2113,
+        2119,
         $W()
           ..h(n)
           ..h(s)

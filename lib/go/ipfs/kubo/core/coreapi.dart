@@ -38,7 +38,7 @@ class KuboCoreCoreapiBlockApi extends $coreiface.KuboCoreCoreifaceBlockApi
   /// Asynchronous: runs in a goroutine of the service.
   Future<$io.IoReader> get($context.Context ctx, $path.BoxoPath p) async {
     final $r = await $call(
-        1520,
+        1522,
         $W()
           ..h(this)
           ..h(ctx)
@@ -54,7 +54,7 @@ class KuboCoreCoreapiBlockApi extends $coreiface.KuboCoreCoreifaceBlockApi
       [List<$options.KuboCoreCoreifaceOptionsBlockPutOption> opts =
           const []]) async {
     final $r = await $call(
-        1521,
+        1523,
         $W()
           ..h(this)
           ..h(ctx)
@@ -70,7 +70,7 @@ class KuboCoreCoreapiBlockApi extends $coreiface.KuboCoreCoreifaceBlockApi
       [List<$options.KuboCoreCoreifaceOptionsBlockRmOption> opts =
           const []]) async {
     await $call(
-        1522,
+        1524,
         $W()
           ..h(this)
           ..h(ctx)
@@ -84,7 +84,7 @@ class KuboCoreCoreapiBlockApi extends $coreiface.KuboCoreCoreifaceBlockApi
   Future<$coreiface.KuboCoreCoreifaceBlockStat> stat(
       $context.Context ctx, $path.BoxoPath p) async {
     final $r = await $call(
-        1523,
+        1525,
         $W()
           ..h(this)
           ..h(ctx)
@@ -101,13 +101,13 @@ class KuboCoreCoreapiBlockStat extends $crypto.CryptoPrivateKey
 
   /// Go: `func (*coreapi.BlockStat).Path() path.ImmutablePath`.
   $path.BoxoPathImmutablePath path() {
-    final $r = $callSync(1524, $W()..h(this));
+    final $r = $callSync(1526, $W()..h(this));
     return $r.p() ? $path.BoxoPathImmutablePath($r.str()) : $nil();
   }
 
   /// Go: `func (*coreapi.BlockStat).Size() int`.
   int size() {
-    final $r = $callSync(1525, $W()..h(this));
+    final $r = $callSync(1527, $W()..h(this));
     return $r.i64();
   }
 }
@@ -126,43 +126,43 @@ class KuboCoreCoreapiCoreApi extends $coreiface.KuboCoreCoreifaceCoreApi
 
   /// Go: `func (*coreapi.CoreAPI).Block() iface.BlockAPI`.
   $coreiface.KuboCoreCoreifaceBlockApi block() {
-    final $r = $callSync(1526, $W()..h(this));
+    final $r = $callSync(1528, $W()..h(this));
     return $r.hnn($coreiface.KuboCoreCoreifaceBlockApi.$h);
   }
 
   /// Go: `func (*coreapi.CoreAPI).Dag() iface.APIDagService`.
   $coreiface.KuboCoreCoreifaceApiDagService dag() {
-    final $r = $callSync(1527, $W()..h(this));
+    final $r = $callSync(1529, $W()..h(this));
     return $r.hnn($coreiface.KuboCoreCoreifaceApiDagService.$h);
   }
 
   /// Go: `func (*coreapi.CoreAPI).Key() iface.KeyAPI`.
   $coreiface.KuboCoreCoreifaceKeyApi key() {
-    final $r = $callSync(1528, $W()..h(this));
+    final $r = $callSync(1530, $W()..h(this));
     return $r.hnn($coreiface.KuboCoreCoreifaceKeyApi.$h);
   }
 
   /// Go: `func (*coreapi.CoreAPI).Name() iface.NameAPI`.
   $coreiface.KuboCoreCoreifaceNameApi name() {
-    final $r = $callSync(1529, $W()..h(this));
+    final $r = $callSync(1531, $W()..h(this));
     return $r.hnn($coreiface.KuboCoreCoreifaceNameApi.$h);
   }
 
   /// Go: `func (*coreapi.CoreAPI).Object() iface.ObjectAPI`.
   $coreiface.KuboCoreCoreifaceObjectApi object() {
-    final $r = $callSync(1530, $W()..h(this));
+    final $r = $callSync(1532, $W()..h(this));
     return $r.hnn($coreiface.KuboCoreCoreifaceObjectApi.$h);
   }
 
   /// Go: `func (*coreapi.CoreAPI).Pin() iface.PinAPI`.
   $coreiface.KuboCoreCoreifacePinApi pin() {
-    final $r = $callSync(1531, $W()..h(this));
+    final $r = $callSync(1533, $W()..h(this));
     return $r.hnn($coreiface.KuboCoreCoreifacePinApi.$h);
   }
 
   /// Go: `func (*coreapi.CoreAPI).PubSub() iface.PubSubAPI`.
   $coreiface.KuboCoreCoreifacePubSubApi pubSub() {
-    final $r = $callSync(1532, $W()..h(this));
+    final $r = $callSync(1534, $W()..h(this));
     return $r.hnn($coreiface.KuboCoreCoreifacePubSubApi.$h);
   }
 
@@ -172,7 +172,7 @@ class KuboCoreCoreapiCoreApi extends $coreiface.KuboCoreCoreifaceCoreApi
   Future<$ipld_format.IpldFormatNode> resolveNode(
       $context.Context ctx, $path.BoxoPath p) async {
     final $r = await $call(
-        1533,
+        1535,
         $W()
           ..h(this)
           ..h(ctx)
@@ -186,7 +186,7 @@ class KuboCoreCoreapiCoreApi extends $coreiface.KuboCoreCoreifaceCoreApi
   Future<($path.BoxoPathImmutablePath, List<String>)> resolvePath(
       $context.Context ctx, $path.BoxoPath p) async {
     final $r = await $call(
-        1534,
+        1536,
         $W()
           ..h(this)
           ..h(ctx)
@@ -199,19 +199,19 @@ class KuboCoreCoreapiCoreApi extends $coreiface.KuboCoreCoreifaceCoreApi
 
   /// Go: `func (*coreapi.CoreAPI).Routing() iface.RoutingAPI`.
   $coreiface.KuboCoreCoreifaceRoutingApi routing() {
-    final $r = $callSync(1535, $W()..h(this));
+    final $r = $callSync(1537, $W()..h(this));
     return $r.hnn($coreiface.KuboCoreCoreifaceRoutingApi.$h);
   }
 
   /// Go: `func (*coreapi.CoreAPI).Swarm() iface.SwarmAPI`.
   $coreiface.KuboCoreCoreifaceSwarmApi swarm() {
-    final $r = $callSync(1536, $W()..h(this));
+    final $r = $callSync(1538, $W()..h(this));
     return $r.hnn($coreiface.KuboCoreCoreifaceSwarmApi.$h);
   }
 
   /// Go: `func (*coreapi.CoreAPI).Unixfs() iface.UnixfsAPI`.
   $coreiface.KuboCoreCoreifaceUnixfsApi unixfs() {
-    final $r = $callSync(1537, $W()..h(this));
+    final $r = $callSync(1539, $W()..h(this));
     return $r.hnn($coreiface.KuboCoreCoreifaceUnixfsApi.$h);
   }
 
@@ -219,7 +219,7 @@ class KuboCoreCoreapiCoreApi extends $coreiface.KuboCoreCoreifaceCoreApi
   $coreiface.KuboCoreCoreifaceCoreApi withOptions(
       [List<$options.KuboCoreCoreifaceOptionsApiOption> opts = const []]) {
     final $r = $callSync(
-        1538,
+        1540,
         $W()
           ..h(this)
           ..list(opts, (w0, e0) => w0.opt(e0)));
@@ -247,7 +247,7 @@ class KuboCoreCoreapiKeyApi extends $coreiface.KuboCoreCoreifaceKeyApi
       [List<$options.KuboCoreCoreifaceOptionsKeyGenerateOption> opts =
           const []]) async {
     final $r = await $call(
-        1539,
+        1541,
         $W()
           ..h(this)
           ..h(ctx)
@@ -262,7 +262,7 @@ class KuboCoreCoreapiKeyApi extends $coreiface.KuboCoreCoreifaceKeyApi
   Future<List<$coreiface.KuboCoreCoreifaceKey>> list(
       $context.Context ctx) async {
     final $r = await $call(
-        1540,
+        1542,
         $W()
           ..h(this)
           ..h(ctx));
@@ -276,7 +276,7 @@ class KuboCoreCoreapiKeyApi extends $coreiface.KuboCoreCoreifaceKeyApi
   Future<$coreiface.KuboCoreCoreifaceKey> remove(
       $context.Context ctx, String name) async {
     final $r = await $call(
-        1541,
+        1543,
         $W()
           ..h(this)
           ..h(ctx)
@@ -292,7 +292,7 @@ class KuboCoreCoreapiKeyApi extends $coreiface.KuboCoreCoreifaceKeyApi
       [List<$options.KuboCoreCoreifaceOptionsKeyRenameOption> opts =
           const []]) async {
     final $r = await $call(
-        1542,
+        1544,
         $W()
           ..h(this)
           ..h(ctx)
@@ -307,7 +307,7 @@ class KuboCoreCoreapiKeyApi extends $coreiface.KuboCoreCoreifaceKeyApi
   /// Asynchronous: runs in a goroutine of the service.
   Future<$coreiface.KuboCoreCoreifaceKey> self($context.Context ctx) async {
     final $r = await $call(
-        1543,
+        1545,
         $W()
           ..h(this)
           ..h(ctx));
@@ -320,7 +320,7 @@ class KuboCoreCoreapiKeyApi extends $coreiface.KuboCoreCoreifaceKeyApi
   Future<($coreiface.KuboCoreCoreifaceKey, Uint8List)> sign(
       $context.Context ctx, String name, Uint8List data) async {
     final $r = await $call(
-        1544,
+        1546,
         $W()
           ..h(this)
           ..h(ctx)
@@ -338,7 +338,7 @@ class KuboCoreCoreapiKeyApi extends $coreiface.KuboCoreCoreifaceKeyApi
   Future<($coreiface.KuboCoreCoreifaceKey, bool)> verify($context.Context ctx,
       String keyOrName, Uint8List signature, Uint8List data) async {
     final $r = await $call(
-        1545,
+        1547,
         $W()
           ..h(this)
           ..h(ctx)
@@ -368,7 +368,7 @@ class KuboCoreCoreapiNameApi extends $coreiface.KuboCoreCoreifaceNameApi
       [List<$options.KuboCoreCoreifaceOptionsNamePublishOption> opts =
           const []]) async {
     final $r = await $call(
-        1546,
+        1548,
         $W()
           ..h(this)
           ..h(ctx)
@@ -384,7 +384,7 @@ class KuboCoreCoreapiNameApi extends $coreiface.KuboCoreCoreifaceNameApi
       [List<$options.KuboCoreCoreifaceOptionsNameResolveOption> opts =
           const []]) async {
     final $r = await $call(
-        1547,
+        1549,
         $W()
           ..h(this)
           ..h(ctx)
@@ -399,7 +399,7 @@ class KuboCoreCoreapiNameApi extends $coreiface.KuboCoreCoreifaceNameApi
           [List<$options.KuboCoreCoreifaceOptionsNameResolveOption> opts =
               const []]) =>
       $stream(
-              1548,
+              1550,
               $W()
                 ..h(this)
                 ..h(ctx)
@@ -429,7 +429,7 @@ class KuboCoreCoreapiObjectApi extends $coreiface.KuboCoreCoreifaceObjectApi
       [List<$options.KuboCoreCoreifaceOptionsObjectAddLinkOption> opts =
           const []]) async {
     final $r = await $call(
-        1550,
+        1552,
         $W()
           ..h(this)
           ..h(ctx)
@@ -446,7 +446,7 @@ class KuboCoreCoreapiObjectApi extends $coreiface.KuboCoreCoreifaceObjectApi
   Future<List<$coreiface.KuboCoreCoreifaceObjectChange>> diff(
       $context.Context ctx, $path.BoxoPath before, $path.BoxoPath after) async {
     final $r = await $call(
-        1551,
+        1553,
         $W()
           ..h(this)
           ..h(ctx)
@@ -464,7 +464,7 @@ class KuboCoreCoreapiObjectApi extends $coreiface.KuboCoreCoreifaceObjectApi
       [List<$options.KuboCoreCoreifaceOptionsObjectRmLinkOption> opts =
           const []]) async {
     final $r = await $call(
-        1552,
+        1554,
         $W()
           ..h(this)
           ..h(ctx)
@@ -494,7 +494,7 @@ class KuboCoreCoreapiPinApi extends $coreiface.KuboCoreCoreifacePinApi
       [List<$options.KuboCoreCoreifaceOptionsPinAddOption> opts =
           const []]) async {
     await $call(
-        1553,
+        1555,
         $W()
           ..h(this)
           ..h(ctx)
@@ -509,7 +509,7 @@ class KuboCoreCoreapiPinApi extends $coreiface.KuboCoreCoreifacePinApi
       [List<$options.KuboCoreCoreifaceOptionsPinIsPinnedOption> opts =
           const []]) async {
     final $r = await $call(
-        1554,
+        1556,
         $W()
           ..h(this)
           ..h(ctx)
@@ -523,7 +523,7 @@ class KuboCoreCoreapiPinApi extends $coreiface.KuboCoreCoreifacePinApi
           [List<$options.KuboCoreCoreifaceOptionsPinLsOption> opts =
               const []]) =>
       $stream(
-              1555,
+              1557,
               $W()
                 ..h(this)
                 ..h(ctx)
@@ -537,7 +537,7 @@ class KuboCoreCoreapiPinApi extends $coreiface.KuboCoreCoreifacePinApi
       [List<$options.KuboCoreCoreifaceOptionsPinRmOption> opts =
           const []]) async {
     await $call(
-        1556,
+        1558,
         $W()
           ..h(this)
           ..h(ctx)
@@ -553,7 +553,7 @@ class KuboCoreCoreapiPinApi extends $coreiface.KuboCoreCoreifacePinApi
       [List<$options.KuboCoreCoreifaceOptionsPinUpdateOption> opts =
           const []]) async {
     await $call(
-        1557,
+        1559,
         $W()
           ..h(this)
           ..h(ctx)
@@ -565,7 +565,7 @@ class KuboCoreCoreapiPinApi extends $coreiface.KuboCoreCoreifacePinApi
   /// Go: `func (*coreapi.PinAPI).Verify(ctx context.Context) (<-chan iface.PinStatus, error)`.
   Stream<$coreiface.KuboCoreCoreifacePinStatus> verify($context.Context ctx) =>
       $stream(
-              1558,
+              1560,
               $W()
                 ..h(this)
                 ..h(ctx))
@@ -590,7 +590,7 @@ class KuboCoreCoreapiPubSubApi extends $coreiface.KuboCoreCoreifacePubSubApi
   /// Asynchronous: runs in a goroutine of the service.
   Future<List<String>> ls($context.Context ctx) async {
     final $r = await $call(
-        1559,
+        1561,
         $W()
           ..h(this)
           ..h(ctx));
@@ -604,7 +604,7 @@ class KuboCoreCoreapiPubSubApi extends $coreiface.KuboCoreCoreifacePubSubApi
       [List<$options.KuboCoreCoreifaceOptionsPubSubPeersOption> opts =
           const []]) async {
     final $r = await $call(
-        1560,
+        1562,
         $W()
           ..h(this)
           ..h(ctx)
@@ -618,7 +618,7 @@ class KuboCoreCoreapiPubSubApi extends $coreiface.KuboCoreCoreifacePubSubApi
   Future<void> publish(
       $context.Context ctx, String topic, Uint8List data) async {
     await $call(
-        1561,
+        1563,
         $W()
           ..h(this)
           ..h(ctx)
@@ -634,7 +634,7 @@ class KuboCoreCoreapiPubSubApi extends $coreiface.KuboCoreCoreifacePubSubApi
       [List<$options.KuboCoreCoreifaceOptionsPubSubSubscribeOption> opts =
           const []]) async {
     final $r = await $call(
-        1562,
+        1564,
         $W()
           ..h(this)
           ..h(ctx)
@@ -664,7 +664,7 @@ class KuboCoreCoreapiRoutingApi extends $coreiface.KuboCoreCoreifaceRoutingApi
   Future<$peer.Libp2pCorePeerAddrInfo> findPeer(
       $context.Context ctx, $peer.Libp2pCorePeerId p) async {
     final $r = await $call(
-        1563,
+        1565,
         $W()
           ..h(this)
           ..h(ctx)
@@ -678,7 +678,7 @@ class KuboCoreCoreapiRoutingApi extends $coreiface.KuboCoreCoreifaceRoutingApi
           [List<$options.KuboCoreCoreifaceOptionsRoutingFindProvidersOption>
               opts = const []]) =>
       $stream(
-              1564,
+              1566,
               $W()
                 ..h(this)
                 ..h(ctx)
@@ -691,7 +691,7 @@ class KuboCoreCoreapiRoutingApi extends $coreiface.KuboCoreCoreifaceRoutingApi
   /// Asynchronous: runs in a goroutine of the service.
   Future<Uint8List> get($context.Context ctx, String key) async {
     final $r = await $call(
-        1565,
+        1567,
         $W()
           ..h(this)
           ..h(ctx)
@@ -706,7 +706,7 @@ class KuboCoreCoreapiRoutingApi extends $coreiface.KuboCoreCoreifaceRoutingApi
       [List<$options.KuboCoreCoreifaceOptionsRoutingProvideOption> opts =
           const []]) async {
     await $call(
-        1566,
+        1568,
         $W()
           ..h(this)
           ..h(ctx)
@@ -721,7 +721,7 @@ class KuboCoreCoreapiRoutingApi extends $coreiface.KuboCoreCoreifaceRoutingApi
       [List<$options.KuboCoreCoreifaceOptionsRoutingPutOption> opts =
           const []]) async {
     await $call(
-        1567,
+        1569,
         $W()
           ..h(this)
           ..h(ctx)
@@ -749,7 +749,7 @@ class KuboCoreCoreapiSwarmApi extends $coreiface.KuboCoreCoreifaceSwarmApi
   Future<void> connect(
       $context.Context ctx, $peer.Libp2pCorePeerAddrInfo pi) async {
     await $call(
-        1568,
+        1570,
         $W()
           ..h(this)
           ..h(ctx)
@@ -762,7 +762,7 @@ class KuboCoreCoreapiSwarmApi extends $coreiface.KuboCoreCoreifaceSwarmApi
   Future<void> disconnect(
       $context.Context ctx, $multiaddr.Multiaddr addr) async {
     await $call(
-        1569,
+        1571,
         $W()
           ..h(this)
           ..h(ctx)
@@ -775,7 +775,7 @@ class KuboCoreCoreapiSwarmApi extends $coreiface.KuboCoreCoreifaceSwarmApi
   Future<Map<$peer.Libp2pCorePeerId, List<$multiaddr.Multiaddr>>> knownAddrs(
       $context.Context ctx) async {
     final $r = await $call(
-        1570,
+        1572,
         $W()
           ..h(this)
           ..h(ctx));
@@ -788,7 +788,7 @@ class KuboCoreCoreapiSwarmApi extends $coreiface.KuboCoreCoreifaceSwarmApi
   /// Asynchronous: runs in a goroutine of the service.
   Future<List<$multiaddr.Multiaddr>> listenAddrs($context.Context ctx) async {
     final $r = await $call(
-        1571,
+        1573,
         $W()
           ..h(this)
           ..h(ctx));
@@ -800,7 +800,7 @@ class KuboCoreCoreapiSwarmApi extends $coreiface.KuboCoreCoreifaceSwarmApi
   /// Asynchronous: runs in a goroutine of the service.
   Future<List<$multiaddr.Multiaddr>> localAddrs($context.Context ctx) async {
     final $r = await $call(
-        1572,
+        1574,
         $W()
           ..h(this)
           ..h(ctx));
@@ -813,7 +813,7 @@ class KuboCoreCoreapiSwarmApi extends $coreiface.KuboCoreCoreifaceSwarmApi
   Future<List<$coreiface.KuboCoreCoreifaceConnectionInfo>> peers(
       $context.Context ctx) async {
     final $r = await $call(
-        1573,
+        1575,
         $W()
           ..h(this)
           ..h(ctx));
@@ -842,7 +842,7 @@ class KuboCoreCoreapiUnixfsApi extends $coreiface.KuboCoreCoreifaceUnixfsApi
       [List<$options.KuboCoreCoreifaceOptionsUnixfsAddOption> opts =
           const []]) async {
     final $r = await $call(
-        1574,
+        1576,
         $W()
           ..h(this)
           ..h(ctx)
@@ -857,7 +857,7 @@ class KuboCoreCoreapiUnixfsApi extends $coreiface.KuboCoreCoreifaceUnixfsApi
   Future<$files.BoxoFilesNode> get(
       $context.Context ctx, $path.BoxoPath p) async {
     final $r = await $call(
-        1575,
+        1577,
         $W()
           ..h(this)
           ..h(ctx)
@@ -871,7 +871,7 @@ class KuboCoreCoreapiUnixfsApi extends $coreiface.KuboCoreCoreifaceUnixfsApi
           [List<$options.KuboCoreCoreifaceOptionsUnixfsLsOption> opts =
               const []]) =>
       $stream(
-              1576,
+              1578,
               $W()
                 ..h(this)
                 ..h(ctx)
@@ -887,7 +887,7 @@ extension GoIpfsKuboCoreCoreapiApi on GoIpfsKuboCoreCoreapi {
   $coreiface.KuboCoreCoreifaceCoreApi newCoreApi($core.KuboCoreIpfsNode n,
       [List<$options.KuboCoreCoreifaceOptionsApiOption> opts = const []]) {
     final $r = $callSync(
-        1549,
+        1551,
         $W()
           ..h(n)
           ..list(opts, (w0, e0) => w0.opt(e0)));

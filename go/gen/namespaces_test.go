@@ -162,3 +162,17 @@ func TestMarkClasses(t *testing.T) {
 		t.Errorf("ignoreMarked:\n%s", got)
 	}
 }
+
+func TestSplitRoot(t *testing.T) {
+	for _, c := range [][4]string{
+		{"github.com/ipfs/kubo/core.IpfsNode.Close", "github.com/ipfs/kubo/core", "IpfsNode", "Close"},
+		{"go.opentelemetry.io/otel/semconv/v1.26.0.ServiceName", "go.opentelemetry.io/otel/semconv/v1.26.0", "ServiceName", ""},
+		{"go.opentelemetry.io/otel/semconv/v1.26.0", "go.opentelemetry.io/otel/semconv/v1.26.0", "", ""},
+		{"gopkg.in/yaml.v3.Node.Decode", "gopkg.in/yaml.v3", "Node", "Decode"},
+		{"context", "context", "", ""},
+	} {
+		if p, n, m := splitRoot(c[0]); p != c[1] || n != c[2] || m != c[3] {
+			t.Errorf("splitRoot(%s) = %s %s %s", c[0], p, n, m)
+		}
+	}
+}

@@ -20,6 +20,7 @@ import (
 	"sort"
 	"strconv"
 	"strings"
+	"unicode"
 
 	"golang.org/x/tools/go/packages"
 )
@@ -218,7 +219,7 @@ func generate(rootsFile string) (map[string][]byte, error) {
 	}
 	m := newModel()
 	m.expanded = expanded
-	if m.platform, err = platformConsts(sortedKeys(pkgs)); err != nil {
+	if m.platform, m.platformObj, err = platformConsts(sortedKeys(pkgs)); err != nil {
 		return nil, err
 	}
 	for _, k := range sortedKeys(m.platform) { // roots of their own: they go to the host
@@ -261,6 +262,7 @@ func generate(rootsFile string) (map[string][]byte, error) {
 		fns = append(fns, fs...)
 	}
 	fns = append(fns, m.casts(fns)...)
+	m.leaveHand(fns)
 	if err := m.deprecations(fns); err != nil {
 		return nil, err
 	}
@@ -436,7 +438,14 @@ func expandRoots(lines, ignore []string, expanded map[string]bool) ([]string, er
 func splitRoot(line string) (pkg, name, method string) {
 	slash := strings.LastIndex(line, "/")
 	parts := strings.Split(line[slash+1:], ".")
-	pkg = line[:slash+1] + parts[0]
+	// a dot inside the path's last element (semconv/v1.26.0, yaml.v3): a root
+	// names exported symbols, which start with a capital letter
+	k := 1
+	for k < len(parts) && parts[k] != "" && !unicode.IsUpper(rune(parts[k][0])) {
+		k++
+	}
+	pkg = line[:slash+1] + strings.Join(parts[:k], ".")
+	parts = parts[k-1:]
 	if len(parts) > 1 {
 		name = parts[1]
 	}
@@ -487,6 +496,9 @@ func (m *model) resolve(pkgs map[string]*types.Package, line string) ([]*fn, err
 		return nil, fmt.Errorf("raiz inválida: %s", line)
 	}
 	obj := pkg.Scope().Lookup(name)
+	if c, ok := m.platformObj[line]; ok && obj == nil { // a constant this machine's GOOS lacks (fuse/mount.AutomaticIno)
+		obj = c
+	}
 	f := &fn{key: line, pkg: pkg, outBuf: -1}
 	switch {
 	case method == "":

@@ -252,14 +252,14 @@ final class KuboConfigDuration implements GoDto {
 
   /// Go: `func (config.Duration).MarshalJSON() ([]byte, error)`.
   Uint8List marshalJson() {
-    final $r = $callSync(1382, $W()..dto(this));
+    final $r = $callSync(1384, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*config.Duration).UnmarshalJSON(b []byte) error`.
   void unmarshalJson(Uint8List b) {
     $callSync(
-        1383,
+        1385,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -298,7 +298,7 @@ final class KuboConfigHttpRouterParams implements GoDto {
 
   /// Go: `func (*config.HTTPRouterParams).FillDefaults()`.
   void fillDefaults() {
-    $callSync(1387, $W()..dto(this));
+    $callSync(1389, $W()..dto(this));
   }
 }
 
@@ -328,7 +328,7 @@ final class KuboConfigIdentity implements GoDto {
   /// Go: `func (*config.Identity).DecodePrivateKey(passphrase string) (crypto.PrivKey, error)`.
   $crypto.Libp2pCoreCryptoPrivKey decodePrivateKey(String passphrase) {
     final $r = $callSync(
-        1389,
+        1391,
         $W()
           ..dto(this)
           ..str(passphrase));
@@ -462,25 +462,25 @@ final class KuboConfigImport implements GoDto {
 
   /// Go: `func (*config.Import).HAMTSizeEstimationMode() io.SizeEstimationMode`.
   int hamtSizeEstimationMode() {
-    final $r = $callSync(1390, $W()..dto(this));
+    final $r = $callSync(1392, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*config.Import).PBNodeFieldOrderMode() merkledag.PBNodeFieldOrder`.
   int pbNodeFieldOrderMode() {
-    final $r = $callSync(1391, $W()..dto(this));
+    final $r = $callSync(1393, $W()..dto(this));
     return $r.i64();
   }
 
   /// Go: `func (*config.Import).UnixFSCidBuilder() (cid.Builder, error)`.
   $cid.CidBuilder unixFsCidBuilder() {
-    final $r = $callSync(1392, $W()..dto(this));
+    final $r = $callSync(1394, $W()..dto(this));
     return $r.hnn($cid.CidBuilder.$h);
   }
 
   /// Go: `func (*config.Import).UnixFSSplitterFunc() chunk.SplitterGen`.
   $chunker.BoxoChunkerSplitterGen unixFsSplitterFunc() {
-    final $r = $callSync(1393, $W()..dto(this));
+    final $r = $callSync(1395, $W()..dto(this));
     return $r.hnn($chunker.BoxoChunkerSplitterGen.$h);
   }
 }
@@ -503,26 +503,26 @@ final class KuboConfigOptionalBytes implements GoDto {
 
   /// Go: `func (*config.OptionalBytes).IsDefault() bool`.
   bool isDefault() {
-    final $r = $callSync(1403, $W()..dto(this));
+    final $r = $callSync(1405, $W()..dto(this));
     return $r.b();
   }
 
   /// Go: `func (config.OptionalString).MarshalJSON() ([]byte, error)`.
   Uint8List marshalJson() {
-    final $r = $callSync(1404, $W()..dto(this));
+    final $r = $callSync(1406, $W()..dto(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (config.OptionalString).String() string`.
   String string() {
-    final $r = $callSync(1405, $W()..dto(this));
+    final $r = $callSync(1407, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (*config.OptionalBytes).UnmarshalJSON(input []byte) error`.
   void unmarshalJson(Uint8List input) {
     $callSync(
-        1406,
+        1408,
         $W()
           ..dto(this)
           ..bytes(input));
@@ -531,7 +531,7 @@ final class KuboConfigOptionalBytes implements GoDto {
   /// Go: `func (*config.OptionalBytes).WithDefault(defaultValue uint64) (value uint64)`.
   int withDefault(int defaultValue) {
     final $r = $callSync(
-        1407,
+        1409,
         $W()
           ..dto(this)
           ..i64(defaultValue));
@@ -547,32 +547,32 @@ class KuboConfigOptionalDuration extends $crypto2.CryptoPrivateKey
 
   /// Go: `func config.NewOptionalDuration(d time.Duration) *config.OptionalDuration`.
   factory KuboConfigOptionalDuration(Duration d) {
-    final $r = $callSync(1400, $W()..i64((d).inMicroseconds * 1000));
+    final $r = $callSync(1402, $W()..i64((d).inMicroseconds * 1000));
     return $r.hnn(KuboConfigOptionalDuration.$h);
   }
 
   /// Go: `func (*config.OptionalDuration).IsDefault() bool`.
   bool isDefault() {
-    final $r = $callSync(1408, $W()..h(this));
+    final $r = $callSync(1410, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (config.OptionalDuration).MarshalJSON() ([]byte, error)`.
   Uint8List marshalJson() {
-    final $r = $callSync(1409, $W()..h(this));
+    final $r = $callSync(1411, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (config.OptionalDuration).String() string`.
   String string() {
-    final $r = $callSync(1410, $W()..h(this));
+    final $r = $callSync(1412, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*config.OptionalDuration).UnmarshalJSON(input []byte) error`.
   void unmarshalJson(Uint8List input) {
     $callSync(
-        1411,
+        1413,
         $W()
           ..h(this)
           ..bytes(input));
@@ -581,7 +581,7 @@ class KuboConfigOptionalDuration extends $crypto2.CryptoPrivateKey
   /// Go: `func (*config.OptionalDuration).WithDefault(defaultValue time.Duration) time.Duration`.
   Duration withDefault(Duration defaultValue) {
     final $r = $callSync(
-        1412,
+        1414,
         $W()
           ..h(this)
           ..i64((defaultValue).inMicroseconds * 1000));
@@ -597,32 +597,32 @@ class KuboConfigOptionalInteger extends $crypto2.CryptoPrivateKey
 
   /// Go: `func config.NewOptionalInteger(v int64) *config.OptionalInteger`.
   factory KuboConfigOptionalInteger(int v) {
-    final $r = $callSync(1401, $W()..i64(v));
+    final $r = $callSync(1403, $W()..i64(v));
     return $r.hnn(KuboConfigOptionalInteger.$h);
   }
 
   /// Go: `func (*config.OptionalInteger).IsDefault() bool`.
   bool isDefault() {
-    final $r = $callSync(1413, $W()..h(this));
+    final $r = $callSync(1415, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (config.OptionalInteger).MarshalJSON() ([]byte, error)`.
   Uint8List marshalJson() {
-    final $r = $callSync(1414, $W()..h(this));
+    final $r = $callSync(1416, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (config.OptionalInteger).String() string`.
   String string() {
-    final $r = $callSync(1415, $W()..h(this));
+    final $r = $callSync(1417, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*config.OptionalInteger).UnmarshalJSON(input []byte) error`.
   void unmarshalJson(Uint8List input) {
     $callSync(
-        1416,
+        1418,
         $W()
           ..h(this)
           ..bytes(input));
@@ -631,7 +631,7 @@ class KuboConfigOptionalInteger extends $crypto2.CryptoPrivateKey
   /// Go: `func (*config.OptionalInteger).WithDefault(defaultValue int64) (value int64)`.
   int withDefault(int defaultValue) {
     final $r = $callSync(
-        1417,
+        1419,
         $W()
           ..h(this)
           ..i64(defaultValue));
@@ -647,32 +647,32 @@ class KuboConfigOptionalString extends $crypto2.CryptoPrivateKey
 
   /// Go: `func config.NewOptionalString(s string) *config.OptionalString`.
   factory KuboConfigOptionalString(String s) {
-    final $r = $callSync(1402, $W()..str(s));
+    final $r = $callSync(1404, $W()..str(s));
     return $r.hnn(KuboConfigOptionalString.$h);
   }
 
   /// Go: `func (*config.OptionalString).IsDefault() bool`.
   bool isDefault() {
-    final $r = $callSync(1418, $W()..h(this));
+    final $r = $callSync(1420, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (config.OptionalString).MarshalJSON() ([]byte, error)`.
   Uint8List marshalJson() {
-    final $r = $callSync(1419, $W()..h(this));
+    final $r = $callSync(1421, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (config.OptionalString).String() string`.
   String string() {
-    final $r = $callSync(1420, $W()..h(this));
+    final $r = $callSync(1422, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*config.OptionalString).UnmarshalJSON(input []byte) error`.
   void unmarshalJson(Uint8List input) {
     $callSync(
-        1421,
+        1423,
         $W()
           ..h(this)
           ..bytes(input));
@@ -681,7 +681,7 @@ class KuboConfigOptionalString extends $crypto2.CryptoPrivateKey
   /// Go: `func (*config.OptionalString).WithDefault(defaultValue string) (value string)`.
   String withDefault(String defaultValue) {
     final $r = $callSync(
-        1422,
+        1424,
         $W()
           ..h(this)
           ..str(defaultValue));
@@ -1005,7 +1005,7 @@ final class KuboConfigRouterParser implements GoDto {
   /// Go: `func (*config.RouterParser).UnmarshalJSON(b []byte) error`.
   void unmarshalJson(Uint8List b) {
     $callSync(
-        1431,
+        1433,
         $W()
           ..dto(this)
           ..bytes(b));
@@ -1111,18 +1111,18 @@ class KuboConfigErrInvalidPeerAddr extends GolangException {
 extension GoIpfsKuboConfigApi on GoIpfsKuboConfig {
   /// Go: `func config.BootstrapPeerStrings(bps []peer.AddrInfo) []string`.
   List<String> bootstrapPeerStrings(List<$peer.Libp2pCorePeerAddrInfo> bps) {
-    final $r = $callSync(1371, $W()..list(bps, (w0, e0) => w0.dto(e0)));
+    final $r = $callSync(1373, $W()..list(bps, (w0, e0) => w0.dto(e0)));
     return $r.list(() => $r.str());
   }
 
   /// Go: `func config.CheckKey(key string) error`.
   void checkKey(String key) {
-    $callSync(1372, $W()..str(key));
+    $callSync(1374, $W()..str(key));
   }
 
   /// Go: `func config.ConvertAuthSecret(secret string) string`.
   String convertAuthSecret(String secret) {
-    final $r = $callSync(1373, $W()..str(secret));
+    final $r = $callSync(1375, $W()..str(secret));
     return $r.str();
   }
 
@@ -1130,7 +1130,7 @@ extension GoIpfsKuboConfigApi on GoIpfsKuboConfig {
   KuboConfigIdentity createIdentity(GoHandle? out,
       List<$options.KuboCoreCoreifaceOptionsKeyGenerateOption> opts) {
     final $r = $callSync(
-        1374,
+        1376,
         $W()
           ..h(out)
           ..list(opts, (w0, e0) => w0.opt(e0)));
@@ -1139,50 +1139,50 @@ extension GoIpfsKuboConfigApi on GoIpfsKuboConfig {
 
   /// Go: `func config.DataStorePath(configroot string) (string, error)`.
   String dataStorePath(String configroot) {
-    final $r = $callSync(1375, $W()..str(configroot));
+    final $r = $callSync(1377, $W()..str(configroot));
     return $r.str();
   }
 
   /// Go: `func config.DefaultDatastoreConfig() config.Datastore`.
   KuboConfigDatastore defaultDatastoreConfig() {
-    final $r = $callSync(1376);
+    final $r = $callSync(1378);
     return $r.p() ? KuboConfigDatastore.$dec($r) : $nil();
   }
 
   /// Go: `var config.DefaultHTTPRoutersFilterProtocols []string`.
   List<String> get defaultHttpRoutersFilterProtocols {
-    final $r = $callSync(1377);
+    final $r = $callSync(1379);
     return $r.list(() => $r.str());
   }
 
   /// Go: `var config.DefaultMigrationDownloadSources []string`.
   List<String> get defaultMigrationDownloadSources {
-    final $r = $callSync(1378);
+    final $r = $callSync(1380);
     return $r.list(() => $r.str());
   }
 
   /// Go: `var config.DefaultUnixFSDirectoryMaxLinks int64`.
   int get defaultUnixFsDirectoryMaxLinks {
-    final $r = $callSync(1379);
+    final $r = $callSync(1381);
     return $r.i64();
   }
 
   /// Go: `var config.DefaultUnixFSFileMaxLinks int64`.
   int get defaultUnixFsFileMaxLinks {
-    final $r = $callSync(1380);
+    final $r = $callSync(1382);
     return $r.i64();
   }
 
   /// Go: `var config.DefaultUnixFSHAMTDirectoryMaxFanout int64`.
   int get defaultUnixFshamtDirectoryMaxFanout {
-    final $r = $callSync(1381);
+    final $r = $callSync(1383);
     return $r.i64();
   }
 
   /// Go: `func config.Filename(configroot string, userConfigFile string) (string, error)`.
   String filename(String configroot, String userConfigFile) {
     final $r = $callSync(
-        1384,
+        1386,
         $W()
           ..str(configroot)
           ..str(userConfigFile));
@@ -1192,26 +1192,26 @@ extension GoIpfsKuboConfigApi on GoIpfsKuboConfig {
   /// Go: `func config.FromMap(v map[string]any) (*config.Config, error)`.
   KuboConfig fromMap(Map<String, Object?> v) {
     final $r = $callSync(
-        1385, $W()..map(v, (w0, k0) => w0.str(k0), (w0, v0) => w0.any(v0)));
+        1387, $W()..map(v, (w0, k0) => w0.str(k0), (w0, v0) => w0.any(v0)));
     return $r.p() ? KuboConfig($r.json()) : $nil();
   }
 
   /// Go: `func config.GetAutoConfClient(cfg *config.Config) (*autoconf.Client, error)`.
   $autoconf.BoxoAutoconfClient getAutoConfClient(KuboConfig cfg) {
-    final $r = $callSync(1386, $W()..json(cfg));
+    final $r = $callSync(1388, $W()..json(cfg));
     return $r.hnn($autoconf.BoxoAutoconfClient.$h);
   }
 
   /// Go: `func config.HumanOutput(value any) ([]byte, error)`.
   Uint8List humanOutput(Object? value) {
-    final $r = $callSync(1388, $W()..any(value));
+    final $r = $callSync(1390, $W()..any(value));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func config.Init(out io.Writer, nBitsForKeypair int) (*config.Config, error)`.
   KuboConfig init(GoHandle? out, int nBitsForKeypair) {
     final $r = $callSync(
-        1394,
+        1396,
         $W()
           ..h(out)
           ..i64(nBitsForKeypair));
@@ -1220,51 +1220,51 @@ extension GoIpfsKuboConfigApi on GoIpfsKuboConfig {
 
   /// Go: `func config.InitWithIdentity(identity config.Identity) (*config.Config, error)`.
   KuboConfig initWithIdentity(KuboConfigIdentity identity) {
-    final $r = $callSync(1395, $W()..dto(identity));
+    final $r = $callSync(1397, $W()..dto(identity));
     return $r.p() ? KuboConfig($r.json()) : $nil();
   }
 
   /// Go: `func config.Marshal(value any) ([]byte, error)`.
   Uint8List marshal(Object? value) {
-    final $r = $callSync(1396, $W()..any(value));
+    final $r = $callSync(1398, $W()..any(value));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `var config.MethodNameList []config.MethodName`.
   List<String> get methodNameList {
-    final $r = $callSync(1397);
+    final $r = $callSync(1399);
     return $r.list(() => $r.str());
   }
 
   /// Go: `func config.MustParseProvideStrategy(s string) config.ProvideStrategy`.
   int mustParseProvideStrategy(String s) {
-    final $r = $callSync(1398, $W()..str(s));
+    final $r = $callSync(1400, $W()..str(s));
     return $r.i64();
   }
 
   /// Go: `func config.NewOptionalBytes(s string) *config.OptionalBytes`.
   KuboConfigOptionalBytes newOptionalBytes(String s) {
-    final $r = $callSync(1399, $W()..str(s));
+    final $r = $callSync(1401, $W()..str(s));
     return $r.p() ? KuboConfigOptionalBytes.$dec($r) : $nil();
   }
 
   /// Go: `func config.ParseBootstrapPeers(addrs []string) ([]peer.AddrInfo, error)`.
   List<$peer.Libp2pCorePeerAddrInfo> parseBootstrapPeers(List<String> addrs) {
-    final $r = $callSync(1423, $W()..list(addrs, (w0, e0) => w0.str(e0)));
+    final $r = $callSync(1425, $W()..list(addrs, (w0, e0) => w0.str(e0)));
     return $r
         .list(() => $r.p() ? $peer.Libp2pCorePeerAddrInfo.$dec($r) : $nil());
   }
 
   /// Go: `func config.ParseProvideStrategy(s string) (#rv1 config.ProvideStrategy, #rv2 error)`.
   int parseProvideStrategy(String s) {
-    final $r = $callSync(1424, $W()..str(s));
+    final $r = $callSync(1426, $W()..str(s));
     return $r.i64();
   }
 
   /// Go: `func config.Path(configroot string, extension string) (string, error)`.
   String path(String configroot, String extension) {
     final $r = $callSync(
-        1425,
+        1427,
         $W()
           ..str(configroot)
           ..str(extension));
@@ -1273,25 +1273,25 @@ extension GoIpfsKuboConfigApi on GoIpfsKuboConfig {
 
   /// Go: `func config.PathRoot() (string, error)`.
   String pathRoot() {
-    final $r = $callSync(1426);
+    final $r = $callSync(1428);
     return $r.str();
   }
 
   /// Go: `var config.PinningConcealSelector []string`.
   List<String> get pinningConcealSelector {
-    final $r = $callSync(1427);
+    final $r = $callSync(1429);
     return $r.list(() => $r.str());
   }
 
   /// Go: `func config.ReflectToMap(conf any) any`.
   Object? reflectToMap(Object? conf) {
-    final $r = $callSync(1428, $W()..any(conf));
+    final $r = $callSync(1430, $W()..any(conf));
     return $r.any();
   }
 
   /// Go: `var config.RemoteServicesPath string`.
   String get remoteServicesPath {
-    final $r = $callSync(1429);
+    final $r = $callSync(1431);
     return $r.str();
   }
 
@@ -1299,7 +1299,7 @@ extension GoIpfsKuboConfigApi on GoIpfsKuboConfig {
   bool resolveBoolFromConfig(
       bool userValue, bool userSet, int configFlag, bool defaultValue) {
     final $r = $callSync(
-        1430,
+        1432,
         $W()
           ..b(userValue)
           ..b(userSet)
@@ -1312,7 +1312,7 @@ extension GoIpfsKuboConfigApi on GoIpfsKuboConfig {
   bool shouldProvideForStrategy(
       int strategy, bool isPinned, bool isPinnedRoot, bool isMfs) {
     final $r = $callSync(
-        1432,
+        1434,
         $W()
           ..i64(strategy)
           ..b(isPinned)
@@ -1323,14 +1323,14 @@ extension GoIpfsKuboConfigApi on GoIpfsKuboConfig {
 
   /// Go: `func config.ToMap(conf *config.Config) (map[string]any, error)`.
   Map<String, Object?> toMap(KuboConfig conf) {
-    final $r = $callSync(1433, $W()..json(conf));
+    final $r = $callSync(1435, $W()..json(conf));
     return $r.map(() => $r.str(), () => $r.any());
   }
 
   /// Go: `func config.ValidateAutoConfWithRepo(cfg *config.Config, swarmKeyExists bool) error`.
   void validateAutoConfWithRepo(KuboConfig cfg, bool swarmKeyExists) {
     $callSync(
-        1434,
+        1436,
         $W()
           ..json(cfg)
           ..b(swarmKeyExists));
@@ -1338,12 +1338,12 @@ extension GoIpfsKuboConfigApi on GoIpfsKuboConfig {
 
   /// Go: `func config.ValidateImportConfig(cfg *config.Import) error`.
   void validateImportConfig(KuboConfigImport cfg) {
-    $callSync(1435, $W()..dto(cfg));
+    $callSync(1437, $W()..dto(cfg));
   }
 
   /// Go: `func config.ValidateProvideConfig(cfg *config.Provide) error`.
   void validateProvideConfig(KuboConfigProvide cfg) {
-    $callSync(1436, $W()..dto(cfg));
+    $callSync(1438, $W()..dto(cfg));
   }
 }
 

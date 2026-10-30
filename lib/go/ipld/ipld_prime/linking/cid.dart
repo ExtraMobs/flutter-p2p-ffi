@@ -28,19 +28,19 @@ final class IpldPrimeLinkingCidLink implements GoDto {
 
   /// Go: `func (cidlink.Link).Binary() string`.
   String binary() {
-    final $r = $callSync(2055, $W()..dto(this));
+    final $r = $callSync(2061, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (cidlink.Link).Prototype() datamodel.LinkPrototype`.
   $datamodel.IpldPrimeDatamodelLinkPrototype prototype() {
-    final $r = $callSync(2056, $W()..dto(this));
+    final $r = $callSync(2062, $W()..dto(this));
     return $r.hnn($datamodel.IpldPrimeDatamodelLinkPrototype.$h);
   }
 
   /// Go: `func (cidlink.Link).String() string`.
   String string() {
-    final $r = $callSync(2057, $W()..dto(this));
+    final $r = $callSync(2063, $W()..dto(this));
     return $r.str();
   }
 }
@@ -63,7 +63,7 @@ final class IpldPrimeLinkingCidLinkPrototype implements GoDto {
   /// Go: `func (cidlink.LinkPrototype).BuildLink(hashsum []byte) datamodel.Link`.
   $datamodel.IpldPrimeDatamodelLink buildLink(Uint8List hashsum) {
     final $r = $callSync(
-        2058,
+        2064,
         $W()
           ..dto(this)
           ..bytes(hashsum));
@@ -90,7 +90,7 @@ final class IpldPrimeLinkingCidMemory implements GoDto {
   $io.IoReader openRead($linking.IpldPrimeLinkingLinkContext lnkCtx,
       $datamodel.IpldPrimeDatamodelLink lnk) {
     final $r = $callSync(
-        2060,
+        2066,
         $W()
           ..dto(this)
           ..dto(lnkCtx)
@@ -103,14 +103,14 @@ final class IpldPrimeLinkingCidMemory implements GoDto {
 extension GoIpldIpldPrimeLinkingCidApi on GoIpldIpldPrimeLinkingCid {
   /// Go: `func cidlink.DefaultLinkSystem() linking.LinkSystem`.
   $linking.IpldPrimeLinkingLinkSystem defaultLinkSystem() {
-    final $r = $callSync(2054);
+    final $r = $callSync(2060);
     return $r.hnn($linking.IpldPrimeLinkingLinkSystem.$h);
   }
 
   /// Go: `func cidlink.LinkSystemUsingMulticodecRegistry(mcReg multicodec.Registry) linking.LinkSystem`.
   $linking.IpldPrimeLinkingLinkSystem linkSystemUsingMulticodecRegistry(
       $multicodec.IpldPrimeMulticodecRegistry mcReg) {
-    final $r = $callSync(2059, $W()..h(mcReg));
+    final $r = $callSync(2065, $W()..h(mcReg));
     return $r.hnn($linking.IpldPrimeLinkingLinkSystem.$h);
   }
 }

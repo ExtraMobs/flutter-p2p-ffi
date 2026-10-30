@@ -37,7 +37,7 @@ mixin KuboRepoFsrepoDatastoreConfig$ on GoHandle {
   /// Go: `func (fsrepo.DatastoreConfig).Create(path string) (repo.Datastore, error)`.
   $repo.KuboRepoDatastore create(String path) {
     final $r = $callSync(
-        1795,
+        1801,
         $W()
           ..h(this)
           ..str(path));
@@ -60,7 +60,7 @@ class KuboRepoFsrepoFsRepo extends $repo.KuboRepo
   /// Go: `func (*fsrepo.FSRepo).BackupConfig(prefix string) (string, error)`.
   String backupConfig(String prefix) {
     final $r = $callSync(
-        1796,
+        1802,
         $W()
           ..h(this)
           ..str(prefix));
@@ -69,31 +69,31 @@ class KuboRepoFsrepoFsRepo extends $repo.KuboRepo
 
   /// Go: `func (*fsrepo.FSRepo).Close() error`.
   void close() {
-    $callSync(1797, $W()..h(this));
+    $callSync(1803, $W()..h(this));
   }
 
   /// Go: `func (*fsrepo.FSRepo).Config() (*config.Config, error)`.
   $config.KuboConfig config() {
-    final $r = $callSync(1798, $W()..h(this));
+    final $r = $callSync(1804, $W()..h(this));
     return $r.p() ? $config.KuboConfig($r.json()) : $nil();
   }
 
   /// Go: `func (*fsrepo.FSRepo).Datastore() repo.Datastore`.
   $repo.KuboRepoDatastore datastore() {
-    final $r = $callSync(1799, $W()..h(this));
+    final $r = $callSync(1805, $W()..h(this));
     return $r.hnn($repo.KuboRepoDatastore.$h);
   }
 
   /// Go: `func (*fsrepo.FSRepo).FileManager() *filestore.FileManager`.
   $filestore.BoxoFilestoreFileManager fileManager() {
-    final $r = $callSync(1800, $W()..h(this));
+    final $r = $callSync(1806, $W()..h(this));
     return $r.hnn($filestore.BoxoFilestoreFileManager.$h);
   }
 
   /// Go: `func (*fsrepo.FSRepo).GetConfigKey(key string) (any, error)`.
   Object? getConfigKey(String key) {
     final $r = $callSync(
-        1801,
+        1807,
         $W()
           ..h(this)
           ..str(key));
@@ -105,7 +105,7 @@ class KuboRepoFsrepoFsRepo extends $repo.KuboRepo
   /// Asynchronous: runs in a goroutine of the service.
   Future<int> getStorageUsage($context.Context ctx) async {
     final $r = await $call(
-        1802,
+        1808,
         $W()
           ..h(this)
           ..h(ctx));
@@ -114,20 +114,20 @@ class KuboRepoFsrepoFsRepo extends $repo.KuboRepo
 
   /// Go: `func (*fsrepo.FSRepo).Keystore() keystore.Keystore`.
   $keystore.BoxoKeystore keystore() {
-    final $r = $callSync(1803, $W()..h(this));
+    final $r = $callSync(1809, $W()..h(this));
     return $r.hnn($keystore.BoxoKeystore.$h);
   }
 
   /// Go: `func (*fsrepo.FSRepo).Path() string`.
   String path() {
-    final $r = $callSync(1804, $W()..h(this));
+    final $r = $callSync(1810, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (*fsrepo.FSRepo).SetAPIAddr(addr multiaddr.Multiaddr) error`.
   void setApiAddr($multiaddr.Multiaddr addr) {
     $callSync(
-        1805,
+        1811,
         $W()
           ..h(this)
           ..val(addr));
@@ -136,7 +136,7 @@ class KuboRepoFsrepoFsRepo extends $repo.KuboRepo
   /// Go: `func (*fsrepo.FSRepo).SetConfig(updated *config.Config) error`.
   void setConfig($config.KuboConfig updated) {
     $callSync(
-        1806,
+        1812,
         $W()
           ..h(this)
           ..json(updated));
@@ -145,7 +145,7 @@ class KuboRepoFsrepoFsRepo extends $repo.KuboRepo
   /// Go: `func (*fsrepo.FSRepo).SetConfigKey(key string, value any) error`.
   void setConfigKey(String key, Object? value) {
     $callSync(
-        1807,
+        1813,
         $W()
           ..h(this)
           ..str(key)
@@ -155,7 +155,7 @@ class KuboRepoFsrepoFsRepo extends $repo.KuboRepo
   /// Go: `func (*fsrepo.FSRepo).SetGatewayAddr(addr net.Addr) error`.
   void setGatewayAddr($net.NetAddr addr) {
     $callSync(
-        1808,
+        1814,
         $W()
           ..h(this)
           ..dto(addr));
@@ -163,14 +163,14 @@ class KuboRepoFsrepoFsRepo extends $repo.KuboRepo
 
   /// Go: `func (*fsrepo.FSRepo).SwarmKey() ([]byte, error)`.
   Uint8List swarmKey() {
-    final $r = $callSync(1809, $W()..h(this));
+    final $r = $callSync(1815, $W()..h(this));
     return $r.bytes() ?? Uint8List(0);
   }
 
   /// Go: `func (*fsrepo.FSRepo).UserResourceOverrides() (rcmgr.PartialLimitConfig, error)`.
   $resource_manager.Libp2pP2pHostResourceManagerPartialLimitConfig
       userResourceOverrides() {
-    final $r = $callSync(1810, $W()..h(this));
+    final $r = $callSync(1816, $W()..h(this));
     return $r.p()
         ? $resource_manager.Libp2pP2pHostResourceManagerPartialLimitConfig.$dec(
             $r)
@@ -223,14 +223,14 @@ class KuboRepoFsrepoNoRepoError extends GolangException {
 extension GoIpfsKuboRepoFsrepoApi on GoIpfsKuboRepoFsrepo {
   /// Go: `func fsrepo.APIAddr(repoPath string) (multiaddr.Multiaddr, error)`.
   $multiaddr.Multiaddr apiAddr(String repoPath) {
-    final $r = $callSync(1791, $W()..str(repoPath));
+    final $r = $callSync(1797, $W()..str(repoPath));
     return $r.p() ? $multiaddr.Multiaddr($r.str()) : $nil();
   }
 
   /// Go: `func fsrepo.AddDatastoreConfigHandler(name string, dsc fsrepo.ConfigFromMap) error`.
   void addDatastoreConfigHandler(String name, KuboRepoFsrepoConfigFromMap dsc) {
     $callSync(
-        1792,
+        1798,
         $W()
           ..str(name)
           ..h(dsc));
@@ -239,21 +239,21 @@ extension GoIpfsKuboRepoFsrepoApi on GoIpfsKuboRepoFsrepo {
   /// Go: `func fsrepo.AnyDatastoreConfig(params map[string]any) (fsrepo.DatastoreConfig, error)`.
   KuboRepoFsrepoDatastoreConfig anyDatastoreConfig(
       Map<String, Object?> params) {
-    final $r = $callSync(1793,
+    final $r = $callSync(1799,
         $W()..map(params, (w0, k0) => w0.str(k0), (w0, v0) => w0.any(v0)));
     return $r.hnn(KuboRepoFsrepoDatastoreConfig.$h);
   }
 
   /// Go: `func fsrepo.BestKnownPath() (string, error)`.
   String bestKnownPath() {
-    final $r = $callSync(1794);
+    final $r = $callSync(1800);
     return $r.str();
   }
 
   /// Go: `func fsrepo.Init(repoPath string, conf *config.Config) error`.
   void init(String repoPath, $config.KuboConfig conf) {
     $callSync(
-        1811,
+        1817,
         $W()
           ..str(repoPath)
           ..json(conf));
@@ -261,20 +261,20 @@ extension GoIpfsKuboRepoFsrepoApi on GoIpfsKuboRepoFsrepo {
 
   /// Go: `func fsrepo.IsInitialized(path string) bool`.
   bool isInitialized(String path) {
-    final $r = $callSync(1812, $W()..str(path));
+    final $r = $callSync(1818, $W()..str(path));
     return $r.b();
   }
 
   /// Go: `func fsrepo.LockedByOtherProcess(repoPath string) (bool, error)`.
   bool lockedByOtherProcess(String repoPath) {
-    final $r = $callSync(1813, $W()..str(repoPath));
+    final $r = $callSync(1819, $W()..str(repoPath));
     return $r.b();
   }
 
   /// Go: `func fsrepo.LogDatastoreConfig(params map[string]any) (fsrepo.DatastoreConfig, error)`.
   KuboRepoFsrepoDatastoreConfig logDatastoreConfig(
       Map<String, Object?> params) {
-    final $r = $callSync(1814,
+    final $r = $callSync(1820,
         $W()..map(params, (w0, k0) => w0.str(k0), (w0, v0) => w0.any(v0)));
     return $r.hnn(KuboRepoFsrepoDatastoreConfig.$h);
   }
@@ -282,7 +282,7 @@ extension GoIpfsKuboRepoFsrepoApi on GoIpfsKuboRepoFsrepo {
   /// Go: `func fsrepo.MeasureDatastoreConfig(params map[string]any) (fsrepo.DatastoreConfig, error)`.
   KuboRepoFsrepoDatastoreConfig measureDatastoreConfig(
       Map<String, Object?> params) {
-    final $r = $callSync(1815,
+    final $r = $callSync(1821,
         $W()..map(params, (w0, k0) => w0.str(k0), (w0, v0) => w0.any(v0)));
     return $r.hnn(KuboRepoFsrepoDatastoreConfig.$h);
   }
@@ -290,7 +290,7 @@ extension GoIpfsKuboRepoFsrepoApi on GoIpfsKuboRepoFsrepo {
   /// Go: `func fsrepo.MemDatastoreConfig(params map[string]any) (fsrepo.DatastoreConfig, error)`.
   KuboRepoFsrepoDatastoreConfig memDatastoreConfig(
       Map<String, Object?> params) {
-    final $r = $callSync(1816,
+    final $r = $callSync(1822,
         $W()..map(params, (w0, k0) => w0.str(k0), (w0, v0) => w0.any(v0)));
     return $r.hnn(KuboRepoFsrepoDatastoreConfig.$h);
   }
@@ -298,14 +298,14 @@ extension GoIpfsKuboRepoFsrepoApi on GoIpfsKuboRepoFsrepo {
   /// Go: `func fsrepo.MountDatastoreConfig(params map[string]any) (fsrepo.DatastoreConfig, error)`.
   KuboRepoFsrepoDatastoreConfig mountDatastoreConfig(
       Map<String, Object?> params) {
-    final $r = $callSync(1817,
+    final $r = $callSync(1823,
         $W()..map(params, (w0, k0) => w0.str(k0), (w0, v0) => w0.any(v0)));
     return $r.hnn(KuboRepoFsrepoDatastoreConfig.$h);
   }
 
   /// Go: `func fsrepo.Open(repoPath string) (repo.Repo, error)`.
   $repo.KuboRepo open(String repoPath) {
-    final $r = $callSync(1818, $W()..str(repoPath));
+    final $r = $callSync(1824, $W()..str(repoPath));
     return $r.hnn($repo.KuboRepo.$h);
   }
 
@@ -313,7 +313,7 @@ extension GoIpfsKuboRepoFsrepoApi on GoIpfsKuboRepoFsrepo {
   $repo.KuboRepo openWithUserConfig(
       String repoPath, String userConfigFilePath) {
     final $r = $callSync(
-        1819,
+        1825,
         $W()
           ..str(repoPath)
           ..str(userConfigFilePath));
@@ -322,7 +322,7 @@ extension GoIpfsKuboRepoFsrepoApi on GoIpfsKuboRepoFsrepo {
 
   /// Go: `var fsrepo.RepoVersion int`.
   int get repoVersion {
-    final $r = $callSync(1820);
+    final $r = $callSync(1826);
     return $r.i64();
   }
 }

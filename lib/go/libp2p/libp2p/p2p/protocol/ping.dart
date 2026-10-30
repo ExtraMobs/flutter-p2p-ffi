@@ -29,7 +29,7 @@ final class Libp2pP2pProtocolPingService implements GoDto {
   Stream<Libp2pP2pProtocolPingResult> ping(
           $context.Context ctx, $peer.Libp2pCorePeerId p) =>
       $stream(
-              3356,
+              3362,
               $W()
                 ..dto(this)
                 ..h(ctx)
@@ -39,7 +39,7 @@ final class Libp2pP2pProtocolPingService implements GoDto {
   /// Go: `func (*ping.PingService).PingHandler(s network.Stream)`.
   void pingHandler($network.Libp2pCoreNetworkStream s) {
     $callSync(
-        3357,
+        3363,
         $W()
           ..dto(this)
           ..h(s));
@@ -74,7 +74,7 @@ final class Libp2pP2pProtocolPingResult implements GoDto {
 extension GoLibp2pLibp2pP2pProtocolPingApi on GoLibp2pLibp2pP2pProtocolPing {
   /// Go: `func ping.NewPingService(h host.Host) *ping.PingService`.
   Libp2pP2pProtocolPingService newPingService($host.Libp2pCoreHost h) {
-    final $r = $callSync(3354, $W()..h(h));
+    final $r = $callSync(3360, $W()..h(h));
     return $r.p() ? Libp2pP2pProtocolPingService.$dec($r) : $nil();
   }
 
@@ -82,7 +82,7 @@ extension GoLibp2pLibp2pP2pProtocolPingApi on GoLibp2pLibp2pP2pProtocolPing {
   Stream<Libp2pP2pProtocolPingResult> ping($context.Context ctx,
           $host.Libp2pCoreHost h, $peer.Libp2pCorePeerId p) =>
       $stream(
-              3355,
+              3361,
               $W()
                 ..h(ctx)
                 ..h(h)

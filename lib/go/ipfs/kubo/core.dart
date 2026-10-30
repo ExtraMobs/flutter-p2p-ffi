@@ -27,14 +27,14 @@ class KuboCoreIpfsNode extends $crypto.CryptoPrivateKey
 
   /// Go: `field FilesRoot *mfs.Root`.
   $mfs.BoxoMfsRoot get filesRoot {
-    final $r = $callSync(1447, $W()..h(this));
+    final $r = $callSync(1449, $W()..h(this));
     return $r.hnn($mfs.BoxoMfsRoot.$h);
   }
 
   /// Go: `field FilesRoot *mfs.Root`.
   set filesRoot($mfs.BoxoMfsRoot filesRoot) {
     $callSync(
-        1448,
+        1450,
         $W()
           ..h(this)
           ..h(filesRoot));
@@ -42,14 +42,14 @@ class KuboCoreIpfsNode extends $crypto.CryptoPrivateKey
 
   /// Go: `field Repo repo.Repo`.
   $repo.KuboRepo get repo {
-    final $r = $callSync(1458, $W()..h(this));
+    final $r = $callSync(1460, $W()..h(this));
     return $r.hnn($repo.KuboRepo.$h);
   }
 
   /// Go: `field Repo repo.Repo`.
   set repo($repo.KuboRepo repo) {
     $callSync(
-        1459,
+        1461,
         $W()
           ..h(this)
           ..h(repo));
@@ -57,14 +57,14 @@ class KuboCoreIpfsNode extends $crypto.CryptoPrivateKey
 
   /// Go: `field Peering *peering.PeeringService`.
   $peering.BoxoPeeringService get peering {
-    final $r = $callSync(1455, $W()..h(this));
+    final $r = $callSync(1457, $W()..h(this));
     return $r.hnn($peering.BoxoPeeringService.$h);
   }
 
   /// Go: `field Peering *peering.PeeringService`.
   set peering($peering.BoxoPeeringService peering) {
     $callSync(
-        1456,
+        1458,
         $W()
           ..h(this)
           ..h(peering));
@@ -72,14 +72,14 @@ class KuboCoreIpfsNode extends $crypto.CryptoPrivateKey
 
   /// Go: `field Blocks blockservice.BlockService`.
   $blockservice.BoxoBlockserviceBlockService get blocks {
-    final $r = $callSync(1439, $W()..h(this));
+    final $r = $callSync(1441, $W()..h(this));
     return $r.hnn($blockservice.BoxoBlockserviceBlockService.$h);
   }
 
   /// Go: `field Blocks blockservice.BlockService`.
   set blocks($blockservice.BoxoBlockserviceBlockService blocks) {
     $callSync(
-        1440,
+        1442,
         $W()
           ..h(this)
           ..h(blocks));
@@ -87,14 +87,14 @@ class KuboCoreIpfsNode extends $crypto.CryptoPrivateKey
 
   /// Go: `field Blockstore blockstore.GCBlockstore`.
   $blockstore.BoxoBlockstoreGcBlockstore get blockstore {
-    final $r = $callSync(1441, $W()..h(this));
+    final $r = $callSync(1443, $W()..h(this));
     return $r.hnn($blockstore.BoxoBlockstoreGcBlockstore.$h);
   }
 
   /// Go: `field Blockstore blockstore.GCBlockstore`.
   set blockstore($blockstore.BoxoBlockstoreGcBlockstore blockstore) {
     $callSync(
-        1442,
+        1444,
         $W()
           ..h(this)
           ..h(blockstore));
@@ -102,14 +102,14 @@ class KuboCoreIpfsNode extends $crypto.CryptoPrivateKey
 
   /// Go: `field Exchange exchange.Interface`.
   $exchange.BoxoExchangeInterface get exchange {
-    final $r = $callSync(1445, $W()..h(this));
+    final $r = $callSync(1447, $W()..h(this));
     return $r.hnn($exchange.BoxoExchangeInterface.$h);
   }
 
   /// Go: `field Exchange exchange.Interface`.
   set exchange($exchange.BoxoExchangeInterface exchange) {
     $callSync(
-        1446,
+        1448,
         $W()
           ..h(this)
           ..h(exchange));
@@ -117,14 +117,14 @@ class KuboCoreIpfsNode extends $crypto.CryptoPrivateKey
 
   /// Go: `field GCLocker blockstore.GCLocker`.
   $blockstore.BoxoBlockstoreGcLocker get gcLocker {
-    final $r = $callSync(1449, $W()..h(this));
+    final $r = $callSync(1451, $W()..h(this));
     return $r.hnn($blockstore.BoxoBlockstoreGcLocker.$h);
   }
 
   /// Go: `field GCLocker blockstore.GCLocker`.
   set gcLocker($blockstore.BoxoBlockstoreGcLocker gcLocker) {
     $callSync(
-        1450,
+        1452,
         $W()
           ..h(this)
           ..h(gcLocker));
@@ -132,14 +132,14 @@ class KuboCoreIpfsNode extends $crypto.CryptoPrivateKey
 
   /// Go: `field PeerHost host.Host`.
   $host.Libp2pCoreHost get peerHost {
-    final $r = $callSync(1453, $W()..h(this));
+    final $r = $callSync(1455, $W()..h(this));
     return $r.hnn($host.Libp2pCoreHost.$h);
   }
 
   /// Go: `field PeerHost host.Host`.
   set peerHost($host.Libp2pCoreHost peerHost) {
     $callSync(
-        1454,
+        1456,
         $W()
           ..h(this)
           ..h(peerHost));
@@ -147,7 +147,7 @@ class KuboCoreIpfsNode extends $crypto.CryptoPrivateKey
 
   /// Go: `field ResourceManager network.ResourceManager`.
   $network.Libp2pCoreNetworkResourceManager get resourceManager {
-    final $r = $callSync(1460, $W()..h(this));
+    final $r = $callSync(1462, $W()..h(this));
     return $r.hnn($network.Libp2pCoreNetworkResourceManager.$h);
   }
 
@@ -155,7 +155,7 @@ class KuboCoreIpfsNode extends $crypto.CryptoPrivateKey
   set resourceManager(
       $network.Libp2pCoreNetworkResourceManager resourceManager) {
     $callSync(
-        1461,
+        1463,
         $W()
           ..h(this)
           ..h(resourceManager));
@@ -163,14 +163,14 @@ class KuboCoreIpfsNode extends $crypto.CryptoPrivateKey
 
   /// Go: `field BaseBlocks node.BaseBlocks`.
   $node.KuboCoreNodeBaseBlocks get baseBlocks {
-    final $r = $callSync(1437, $W()..h(this));
+    final $r = $callSync(1439, $W()..h(this));
     return $r.hnn($node.KuboCoreNodeBaseBlocks.$h);
   }
 
   /// Go: `field BaseBlocks node.BaseBlocks`.
   set baseBlocks($node.KuboCoreNodeBaseBlocks baseBlocks) {
     $callSync(
-        1438,
+        1440,
         $W()
           ..h(this)
           ..h(baseBlocks));
@@ -179,7 +179,7 @@ class KuboCoreIpfsNode extends $crypto.CryptoPrivateKey
   /// Go: `func (*core.IpfsNode).Bootstrap(cfg bootstrap.BootstrapConfig) error`.
   void bootstrap($bootstrap.BoxoBootstrapConfig cfg) {
     $callSync(
-        1443,
+        1445,
         $W()
           ..h(this)
           ..h(cfg));
@@ -189,25 +189,25 @@ class KuboCoreIpfsNode extends $crypto.CryptoPrivateKey
   ///
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> close() async {
-    await $call(1444, $W()..h(this));
+    await $call(1446, $W()..h(this));
   }
 
   /// Go: `func (*core.IpfsNode).HasActiveDHTClient() bool`.
   bool hasActiveDhtClient() {
-    final $r = $callSync(1451, $W()..h(this));
+    final $r = $callSync(1453, $W()..h(this));
     return $r.b();
   }
 
   /// Go: `func (*core.IpfsNode).MFSRoots() []*mfs.Root`.
   List<$mfs.BoxoMfsRoot> mfsRoots() {
-    final $r = $callSync(1452, $W()..h(this));
+    final $r = $callSync(1454, $W()..h(this));
     return $r.list(() => $r.hnn($mfs.BoxoMfsRoot.$h));
   }
 
   /// Go: `func (*core.IpfsNode).RegisterMFSRoot(r *mfs.Root)`.
   void registerMfsRoot($mfs.BoxoMfsRoot r) {
     $callSync(
-        1457,
+        1459,
         $W()
           ..h(this)
           ..h(r));
@@ -216,7 +216,7 @@ class KuboCoreIpfsNode extends $crypto.CryptoPrivateKey
   /// Go: `func (*core.IpfsNode).UnregisterMFSRoot(r *mfs.Root)`.
   void unregisterMfsRoot($mfs.BoxoMfsRoot r) {
     $callSync(
-        1462,
+        1464,
         $W()
           ..h(this)
           ..h(r));
@@ -231,7 +231,7 @@ extension GoIpfsKuboCoreApi on GoIpfsKuboCore {
   Future<KuboCoreIpfsNode> newNode(
       $context.Context ctx, $node.KuboCoreNodeBuildCfg cfg) async {
     final $r = await $call(
-        1463,
+        1465,
         $W()
           ..h(ctx)
           ..dto(cfg));
@@ -240,7 +240,7 @@ extension GoIpfsKuboCoreApi on GoIpfsKuboCore {
 
   /// Go: `var core.TempBootstrapPeersKey datastore.Key`.
   $datastore.DatastoreKey get tempBootstrapPeersKey {
-    final $r = $callSync(1464);
+    final $r = $callSync(1466);
     return $r.hnn($datastore.DatastoreKey.$h);
   }
 }

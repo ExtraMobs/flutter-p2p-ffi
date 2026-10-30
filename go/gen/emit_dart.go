@@ -83,8 +83,8 @@ func (e *dartEmitter) collect(t *tinfo) {
 		return
 	}
 	l := e.lib(e.m.home(t.named.Obj().Pkg()).Path())
-	if _, ok := l.classes[classKey(t)]; ok {
-		return
+	if _, ok := l.classes[classKey(t)]; ok || handNames(l.goPath)[className(e.m, t)] {
+		return // a hand-written class (context.CancelFunc's ContextCancelFunc) is the type's
 	}
 	plain := *t
 	plain.ptr = false
@@ -384,6 +384,15 @@ func (e *dartEmitter) ref(t *tinfo, from *dartLib) string {
 	return e.imp(from, pkgPrefix+l.path) + "." + name
 }
 
+// ctxRef: the class of context.Context (hand-written in lib/go/context.dart),
+// as [from] names it.
+func (e *dartEmitter) ctxRef(from *dartLib) string {
+	if from.path == dartPath("context") {
+		return "Context"
+	}
+	return e.imp(from, pkgPrefix+dartPath("context")) + ".Context"
+}
+
 func (e *dartEmitter) imp(from *dartLib, uri string) string {
 	if p, ok := from.prefix[uri]; ok {
 		return p
@@ -463,7 +472,7 @@ func (e *dartEmitter) dt(t *tinfo, from *dartLib) string {
 		}
 		return "Map<" + key + ", " + e.dt(t.elem, from) + ">"
 	case kCtx:
-		return e.imp(from, pkgPrefix+"go/context.dart") + ".Context"
+		return e.ctxRef(from)
 	case kChanSend, kChanRecv:
 		return "Stream<" + e.dt(t.elem, from) + ">"
 	case kAny:
@@ -581,7 +590,7 @@ func (e *dartEmitter) dec(t *tinfo, r string, from *dartLib, opt bool) string {
 	case kAny:
 		return r + ".any()"
 	case kCtx: // a callback's context (pubsub's validators): its handle
-		return r + ".hnn(" + e.imp(from, pkgPrefix+"go/context.dart") + ".Context.$h)"
+		return r + ".hnn(" + e.ctxRef(from) + ".$h)"
 	case kValue:
 		var inner string
 		switch {
@@ -1546,6 +1555,50 @@ func (e *dartEmitter) linkMixins() {
 			}
 			sort.SliceStable(ms, func(a, b int) bool { return depth(ms[a]) < depth(ms[b]) })
 			c.mixins = ms
+		}
+	}
+}
+
+// Hand-written library of a Go package (lib/go/context.dart): the generator
+// adds the rest of the package in its part (`context.g.dart`) and leaves out
+// what it declares, a member (`background`) or a class (`ContextCancelFunc`).
+var handCache = map[string]map[string]bool{}
+
+// handNames: the names the hand-written library of [goPath] declares; nil
+// when its library is generated.
+func handNames(goPath string) map[string]bool {
+	if names, ok := handCache[goPath]; ok {
+		return names
+	}
+	var names map[string]bool
+	if src, err := os.ReadFile(filepath.Join("..", "lib", dartPath(goPath))); err == nil && !bytes.HasPrefix(src, []byte(generatedHeader)) {
+		names = map[string]bool{}
+		for _, n := range append(publicNames(src), extMembers(src, "")...) {
+			names[n] = true
+		}
+	}
+	handCache[goPath] = names
+	return names
+}
+
+// leaveHand: the roots a hand-written library already has are left out, with
+// the reason (API.md).
+func (m *model) leaveHand(fns []*fn) {
+	for _, f := range fns {
+		if f.why != "" {
+			continue
+		}
+		var name, goPath string
+		switch {
+		case f.recv != nil && f.recv.named != nil: // a method of a hand-written class
+			name, goPath = className(m, f.recv), m.home(f.recv.named.Obj().Pkg()).Path()
+		case isFactory(f):
+			name, goPath = className(m, f.results[0]), m.home(f.results[0].named.Obj().Pkg()).Path()
+		case f.recv == nil:
+			name, goPath = memberName(f.obj.Name()), f.pkg.Path()
+		}
+		if goPath != "" && handNames(goPath)[name] {
+			f.why = "hand-written in `lib/" + dartPath(goPath) + "`"
 		}
 	}
 }

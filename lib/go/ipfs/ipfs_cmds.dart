@@ -72,13 +72,13 @@ final class IpfsCmdsArgument implements GoDto {
 
   /// Go: `func (cmds.Argument).EnableRecursive() cmds.Argument`.
   IpfsCmdsArgument enableRecursive() {
-    final $r = $callSync(1218, $W()..dto(this));
+    final $r = $callSync(1220, $W()..dto(this));
     return $r.p() ? IpfsCmdsArgument.$dec($r) : $nil();
   }
 
   /// Go: `func (cmds.Argument).EnableStdin() cmds.Argument`.
   IpfsCmdsArgument enableStdin() {
-    final $r = $callSync(1219, $W()..dto(this));
+    final $r = $callSync(1221, $W()..dto(this));
     return $r.p() ? IpfsCmdsArgument.$dec($r) : $nil();
   }
 }
@@ -163,7 +163,7 @@ final class IpfsCmdsCommand implements GoDto {
   void call(IpfsCmdsRequest req, IpfsCmdsResponseEmitter re,
       IpfsCmdsEnvironment env) {
     $callSync(
-        1222,
+        1224,
         $W()
           ..dto(this)
           ..h(req)
@@ -174,7 +174,7 @@ final class IpfsCmdsCommand implements GoDto {
   /// Go: `func (*cmds.Command).CheckArguments(req *cmds.Request) error`.
   void checkArguments(IpfsCmdsRequest req) {
     $callSync(
-        1223,
+        1225,
         $W()
           ..dto(this)
           ..h(req));
@@ -182,14 +182,14 @@ final class IpfsCmdsCommand implements GoDto {
 
   /// Go: `func (*cmds.Command).DebugValidate() map[string][]error`.
   Map<String, List<String>> debugValidate() {
-    final $r = $callSync(1224, $W()..dto(this));
+    final $r = $callSync(1226, $W()..dto(this));
     return $r.map(() => $r.str(), () => $r.list(() => $r.err() ?? $nil()));
   }
 
   /// Go: `func (*cmds.Command).Get(path []string) (*cmds.Command, error)`.
   IpfsCmdsCommand get(List<String> path) {
     final $r = $callSync(
-        1225,
+        1227,
         $W()
           ..dto(this)
           ..list(path, (w0, e0) => w0.str(e0)));
@@ -199,7 +199,7 @@ final class IpfsCmdsCommand implements GoDto {
   /// Go: `func (*cmds.Command).GetOptions(path []string) (map[string]cmds.Option, error)`.
   Map<String, IpfsCmdsOption> getOptions(List<String> path) {
     final $r = $callSync(
-        1226,
+        1228,
         $W()
           ..dto(this)
           ..list(path, (w0, e0) => w0.str(e0)));
@@ -208,13 +208,13 @@ final class IpfsCmdsCommand implements GoDto {
 
   /// Go: `func (*cmds.Command).ProcessHelp()`.
   void processHelp() {
-    $callSync(1227, $W()..dto(this));
+    $callSync(1229, $W()..dto(this));
   }
 
   /// Go: `func (*cmds.Command).Resolve(pth []string) ([]*cmds.Command, error)`.
   List<IpfsCmdsCommand> resolve(List<String> pth) {
     final $r = $callSync(
-        1228,
+        1230,
         $W()
           ..dto(this)
           ..list(pth, (w0, e0) => w0.str(e0)));
@@ -231,7 +231,7 @@ final class IpfsCmdsCommand implements GoDto {
   Future<void> walk(FutureOr<void> Function(IpfsCmdsCommand command) visitor,
       {int? batchSize}) async {
     await $callCb(
-        1229,
+        1231,
         $W()
           ..dto(this)
           ..u32(batchSize ?? 0),
@@ -249,7 +249,7 @@ mixin IpfsCmdsDecoder$ on GoHandle {
   /// Go: `func (cmds.Decoder).Decode(value any) error`.
   void decode(Object? value) {
     $callSync(
-        1231,
+        1233,
         $W()
           ..h(this)
           ..any(value));
@@ -266,7 +266,7 @@ mixin IpfsCmdsEncoder$ on GoHandle {
   /// Go: `func (cmds.Encoder).Encode(value any) error`.
   void encode(Object? value) {
     $callSync(
-        1234,
+        1236,
         $W()
           ..h(this)
           ..any(value));
@@ -300,7 +300,7 @@ class IpfsCmdsExecutor extends GoHandle with IpfsCmdsExecutor$ {
 
   /// Go: `func cmds.NewExecutor(root *cmds.Command) cmds.Executor`.
   factory IpfsCmdsExecutor(IpfsCmdsCommand root) {
-    final $r = $callSync(1247, $W()..dto(root));
+    final $r = $callSync(1249, $W()..dto(root));
     return $r.hnn(IpfsCmdsExecutor.$h);
   }
 }
@@ -311,7 +311,7 @@ mixin IpfsCmdsExecutor$ on GoHandle {
   void execute(IpfsCmdsRequest req, IpfsCmdsResponseEmitter re,
       IpfsCmdsEnvironment env) {
     $callSync(
-        1235,
+        1237,
         $W()
           ..h(this)
           ..h(req)
@@ -329,7 +329,7 @@ class IpfsCmdsExtra extends $crypto.CryptoPrivateKey
   /// Go: `func (*cmds.Extra).GetValue(key any) (any, bool)`.
   (Object?, bool) getValue(Object? key) {
     final $r = $callSync(
-        1236,
+        1238,
         $W()
           ..h(this)
           ..any(key));
@@ -339,7 +339,7 @@ class IpfsCmdsExtra extends $crypto.CryptoPrivateKey
   /// Go: `func (*cmds.Extra).SetValue(key any, value any) *cmds.Extra`.
   IpfsCmdsExtra setValue(Object? key, Object? value) {
     final $r = $callSync(
-        1237,
+        1239,
         $W()
           ..h(this)
           ..any(key)
@@ -486,14 +486,14 @@ class IpfsCmdsMaybeError extends $crypto.CryptoPrivateKey
 
   /// Go: `func (*cmds.MaybeError).Get() (any, error)`.
   Object? get() {
-    final $r = $callSync(1244, $W()..h(this));
+    final $r = $callSync(1246, $W()..h(this));
     return $r.any();
   }
 
   /// Go: `func (*cmds.MaybeError).UnmarshalJSON(data []byte) error`.
   void unmarshalJson(Uint8List data) {
     $callSync(
-        1245,
+        1247,
         $W()
           ..h(this)
           ..bytes(data));
@@ -507,7 +507,7 @@ class IpfsCmdsOption extends GoHandle with IpfsCmdsOption$ {
   /// Go: `func cmds.NewOption(kind reflect.Kind, names ...string) cmds.Option`.
   factory IpfsCmdsOption(int kind, [List<String> names = const []]) {
     final $r = $callSync(
-        1249,
+        1251,
         $W()
           ..i64(kind)
           ..list(names, (w0, e0) => w0.str(e0)));
@@ -519,32 +519,32 @@ class IpfsCmdsOption extends GoHandle with IpfsCmdsOption$ {
 mixin IpfsCmdsOption$ on GoHandle {
   /// Go: `func (cmds.Option).Default() any`.
   Object? default$() {
-    final $r = $callSync(1252, $W()..h(this));
+    final $r = $callSync(1254, $W()..h(this));
     return $r.any();
   }
 
   /// Go: `func (cmds.Option).Description() string`.
   String description() {
-    final $r = $callSync(1253, $W()..h(this));
+    final $r = $callSync(1255, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (cmds.Option).Name() string`.
   String name() {
-    final $r = $callSync(1254, $W()..h(this));
+    final $r = $callSync(1256, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (cmds.Option).Names() []string`.
   List<String> names() {
-    final $r = $callSync(1255, $W()..h(this));
+    final $r = $callSync(1257, $W()..h(this));
     return $r.list(() => $r.str());
   }
 
   /// Go: `func (cmds.Option).Parse(str string) (any, error)`.
   Object? parse(String str) {
     final $r = $callSync(
-        1256,
+        1258,
         $W()
           ..h(this)
           ..str(str));
@@ -553,14 +553,14 @@ mixin IpfsCmdsOption$ on GoHandle {
 
   /// Go: `func (cmds.Option).Type() reflect.Kind`.
   int type() {
-    final $r = $callSync(1257, $W()..h(this));
+    final $r = $callSync(1259, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (cmds.Option).WithDefault(any) cmds.Option`.
   IpfsCmdsOption withDefault(Object? arg0) {
     final $r = $callSync(
-        1258,
+        1260,
         $W()
           ..h(this)
           ..any(arg0));
@@ -577,7 +577,7 @@ class IpfsCmdsReqLog extends $crypto.CryptoPrivateKey
   /// Go: `func (*cmds.ReqLog).Add(req *cmds.Request) *cmds.ReqLogEntry`.
   IpfsCmdsReqLogEntry add(IpfsCmdsRequest req) {
     final $r = $callSync(
-        1269,
+        1271,
         $W()
           ..h(this)
           ..h(req));
@@ -587,7 +587,7 @@ class IpfsCmdsReqLog extends $crypto.CryptoPrivateKey
   /// Go: `func (*cmds.ReqLog).AddEntry(rle *cmds.ReqLogEntry)`.
   void addEntry(IpfsCmdsReqLogEntry rle) {
     $callSync(
-        1270,
+        1272,
         $W()
           ..h(this)
           ..dto(rle));
@@ -595,13 +595,13 @@ class IpfsCmdsReqLog extends $crypto.CryptoPrivateKey
 
   /// Go: `func (*cmds.ReqLog).ClearInactive()`.
   void clearInactive() {
-    $callSync(1271, $W()..h(this));
+    $callSync(1273, $W()..h(this));
   }
 
   /// Go: `func (*cmds.ReqLog).Finish(rle *cmds.ReqLogEntry)`.
   void finish(IpfsCmdsReqLogEntry rle) {
     $callSync(
-        1272,
+        1274,
         $W()
           ..h(this)
           ..dto(rle));
@@ -609,14 +609,14 @@ class IpfsCmdsReqLog extends $crypto.CryptoPrivateKey
 
   /// Go: `func (*cmds.ReqLog).Report() []*cmds.ReqLogEntry`.
   List<IpfsCmdsReqLogEntry> report() {
-    final $r = $callSync(1273, $W()..h(this));
+    final $r = $callSync(1275, $W()..h(this));
     return $r.list(() => $r.p() ? IpfsCmdsReqLogEntry.$dec($r) : $nil());
   }
 
   /// Go: `func (*cmds.ReqLog).SetKeepTime(t time.Duration)`.
   void setKeepTime(Duration t) {
     $callSync(
-        1274,
+        1276,
         $W()
           ..h(this)
           ..i64((t).inMicroseconds * 1000));
@@ -685,7 +685,7 @@ final class IpfsCmdsReqLogEntry implements GoDto {
 
   /// Go: `func (*cmds.ReqLogEntry).Copy() *cmds.ReqLogEntry`.
   IpfsCmdsReqLogEntry copy() {
-    final $r = $callSync(1275, $W()..dto(this));
+    final $r = $callSync(1277, $W()..dto(this));
     return $r.p() ? IpfsCmdsReqLogEntry.$dec($r) : $nil();
   }
 }
@@ -698,24 +698,24 @@ class IpfsCmdsRequest extends $crypto.CryptoPrivateKey
 
   /// Go: `func (*cmds.Request).BodyArgs() cmds.StdinArguments`.
   IpfsCmdsStdinArguments bodyArgs() {
-    final $r = $callSync(1276, $W()..h(this));
+    final $r = $callSync(1278, $W()..h(this));
     return $r.hnn(IpfsCmdsStdinArguments.$h);
   }
 
   /// Go: `func (*cmds.Request).FillDefaults() error`.
   void fillDefaults() {
-    $callSync(1277, $W()..h(this));
+    $callSync(1279, $W()..h(this));
   }
 
   /// Go: `func (*cmds.Request).ParseBodyArgs() error`.
   void parseBodyArgs() {
-    $callSync(1278, $W()..h(this));
+    $callSync(1280, $W()..h(this));
   }
 
   /// Go: `func (*cmds.Request).SetOption(name string, value any)`.
   void setOption(String name, Object? value) {
     $callSync(
-        1279,
+        1281,
         $W()
           ..h(this)
           ..str(name)
@@ -732,19 +732,19 @@ class IpfsCmdsResponse extends GoHandle with IpfsCmdsResponse$ {
 mixin IpfsCmdsResponse$ on GoHandle {
   /// Go: `func (cmds.Response).Length() uint64`.
   int length() {
-    final $r = $callSync(1280, $W()..h(this));
+    final $r = $callSync(1282, $W()..h(this));
     return $r.i64();
   }
 
   /// Go: `func (cmds.Response).Next() (any, error)`.
   Object? next() {
-    final $r = $callSync(1281, $W()..h(this));
+    final $r = $callSync(1283, $W()..h(this));
     return $r.any();
   }
 
   /// Go: `func (cmds.Response).Request() *cmds.Request`.
   IpfsCmdsRequest request() {
-    final $r = $callSync(1282, $W()..h(this));
+    final $r = $callSync(1284, $W()..h(this));
     return $r.hnn(IpfsCmdsRequest.$h);
   }
 }
@@ -758,13 +758,13 @@ class IpfsCmdsResponseEmitter extends GoHandle with IpfsCmdsResponseEmitter$ {
 mixin IpfsCmdsResponseEmitter$ on GoHandle {
   /// Go: `func (cmds.ResponseEmitter).Close() error`.
   void close() {
-    $callSync(1283, $W()..h(this));
+    $callSync(1285, $W()..h(this));
   }
 
   /// Go: `func (cmds.ResponseEmitter).Emit(value any) error`.
   void emit(Object? value) {
     $callSync(
-        1284,
+        1286,
         $W()
           ..h(this)
           ..any(value));
@@ -773,7 +773,7 @@ mixin IpfsCmdsResponseEmitter$ on GoHandle {
   /// Go: `func (cmds.ResponseEmitter).SetContentType(contentType string)`.
   void setContentType(String contentType) {
     $callSync(
-        1285,
+        1287,
         $W()
           ..h(this)
           ..str(contentType));
@@ -782,7 +782,7 @@ mixin IpfsCmdsResponseEmitter$ on GoHandle {
   /// Go: `func (cmds.ResponseEmitter).SetEncodingType(encType cmds.EncodingType)`.
   void setEncodingType(String encType) {
     $callSync(
-        1286,
+        1288,
         $W()
           ..h(this)
           ..str(encType));
@@ -791,7 +791,7 @@ mixin IpfsCmdsResponseEmitter$ on GoHandle {
   /// Go: `func (cmds.ResponseEmitter).SetLength(length uint64)`.
   void setLength(int length) {
     $callSync(
-        1287,
+        1289,
         $W()
           ..h(this)
           ..i64(length));
@@ -810,13 +810,13 @@ final class IpfsCmdsSingle implements GoDto {
 
   /// Go: `func (cmds.Single).GoString() string`.
   String goString() {
-    final $r = $callSync(1288, $W()..dto(this));
+    final $r = $callSync(1290, $W()..dto(this));
     return $r.str();
   }
 
   /// Go: `func (cmds.Single).String() string`.
   String string() {
-    final $r = $callSync(1289, $W()..dto(this));
+    final $r = $callSync(1291, $W()..dto(this));
     return $r.str();
   }
 }
@@ -830,18 +830,18 @@ class IpfsCmdsStdinArguments extends GoHandle with IpfsCmdsStdinArguments$ {
 mixin IpfsCmdsStdinArguments$ on GoHandle {
   /// Go: `func (cmds.StdinArguments).Argument() string`.
   String argument() {
-    final $r = $callSync(1290, $W()..h(this));
+    final $r = $callSync(1292, $W()..h(this));
     return $r.str();
   }
 
   /// Go: `func (cmds.StdinArguments).Err() error`.
   void err() {
-    $callSync(1291, $W()..h(this));
+    $callSync(1293, $W()..h(this));
   }
 
   /// Go: `func (cmds.StdinArguments).Scan() bool`.
   bool scan() {
-    final $r = $callSync(1292, $W()..h(this));
+    final $r = $callSync(1294, $W()..h(this));
     return $r.b();
   }
 }
@@ -861,7 +861,7 @@ class IpfsCmdsTextEncoder extends IpfsCmdsEncoder
   /// Go: `func (cmds.TextEncoder).Encode(v any) error`.
   void encode(Object? v) {
     $callSync(
-        1296,
+        1298,
         $W()
           ..h(this)
           ..any(v));
@@ -944,19 +944,19 @@ class IpfsCmdsErrorType extends GolangException {
 extension GoIpfsIpfsCmdsApi on GoIpfsIpfsCmds {
   /// Go: `func cmds.BoolOption(names ...string) cmds.Option`.
   IpfsCmdsOption boolOption([List<String> names = const []]) {
-    final $r = $callSync(1220, $W()..list(names, (w0, e0) => w0.str(e0)));
+    final $r = $callSync(1222, $W()..list(names, (w0, e0) => w0.str(e0)));
     return $r.hnn(IpfsCmdsOption.$h);
   }
 
   /// Go: `func cmds.ClientError(msg string) error`.
   void clientError(String msg) {
-    $callSync(1221, $W()..str(msg));
+    $callSync(1223, $W()..str(msg));
   }
 
   /// Go: `func cmds.Copy(re cmds.ResponseEmitter, res cmds.Response) error`.
   void copy(IpfsCmdsResponseEmitter re, IpfsCmdsResponse res) {
     $callSync(
-        1230,
+        1232,
         $W()
           ..h(re)
           ..h(res));
@@ -966,7 +966,7 @@ extension GoIpfsIpfsCmdsApi on GoIpfsIpfsCmds {
   IpfsCmdsOption delimitedStringsOption(String delimiter,
       [List<String> names = const []]) {
     final $r = $callSync(
-        1232,
+        1234,
         $W()
           ..str(delimiter)
           ..list(names, (w0, e0) => w0.str(e0)));
@@ -976,7 +976,7 @@ extension GoIpfsIpfsCmdsApi on GoIpfsIpfsCmds {
   /// Go: `func cmds.EmitOnce(re cmds.ResponseEmitter, v any) error`.
   void emitOnce(IpfsCmdsResponseEmitter re, Object? v) {
     $callSync(
-        1233,
+        1235,
         $W()
           ..h(re)
           ..any(v));
@@ -986,7 +986,7 @@ extension GoIpfsIpfsCmdsApi on GoIpfsIpfsCmds {
   IpfsCmdsArgument fileArg(
       String name, bool required, bool variadic, String description) {
     final $r = $callSync(
-        1238,
+        1240,
         $W()
           ..str(name)
           ..b(required)
@@ -997,7 +997,7 @@ extension GoIpfsIpfsCmdsApi on GoIpfsIpfsCmds {
 
   /// Go: `func cmds.FloatOption(names ...string) cmds.Option`.
   IpfsCmdsOption floatOption([List<String> names = const []]) {
-    final $r = $callSync(1239, $W()..list(names, (w0, e0) => w0.str(e0)));
+    final $r = $callSync(1241, $W()..list(names, (w0, e0) => w0.str(e0)));
     return $r.hnn(IpfsCmdsOption.$h);
   }
 
@@ -1005,7 +1005,7 @@ extension GoIpfsIpfsCmdsApi on GoIpfsIpfsCmds {
   (String, IpfsCmdsEncoder) getEncoder(
       IpfsCmdsRequest req, GoHandle? w, String def) {
     final $r = $callSync(
-        1240,
+        1242,
         $W()
           ..h(req)
           ..h(w)
@@ -1016,7 +1016,7 @@ extension GoIpfsIpfsCmdsApi on GoIpfsIpfsCmds {
   /// Go: `func cmds.GetEncoding(req *cmds.Request, def cmds.EncodingType) cmds.EncodingType`.
   String getEncoding(IpfsCmdsRequest req, String def) {
     final $r = $callSync(
-        1241,
+        1243,
         $W()
           ..h(req)
           ..str(def));
@@ -1025,20 +1025,20 @@ extension GoIpfsIpfsCmdsApi on GoIpfsIpfsCmds {
 
   /// Go: `func cmds.Int64Option(names ...string) cmds.Option`.
   IpfsCmdsOption int64Option([List<String> names = const []]) {
-    final $r = $callSync(1242, $W()..list(names, (w0, e0) => w0.str(e0)));
+    final $r = $callSync(1244, $W()..list(names, (w0, e0) => w0.str(e0)));
     return $r.hnn(IpfsCmdsOption.$h);
   }
 
   /// Go: `func cmds.IntOption(names ...string) cmds.Option`.
   IpfsCmdsOption intOption([List<String> names = const []]) {
-    final $r = $callSync(1243, $W()..list(names, (w0, e0) => w0.str(e0)));
+    final $r = $callSync(1245, $W()..list(names, (w0, e0) => w0.str(e0)));
     return $r.hnn(IpfsCmdsOption.$h);
   }
 
   /// Go: `func cmds.NewChanResponsePair(req *cmds.Request) (cmds.ResponseEmitter, cmds.Response)`.
   (IpfsCmdsResponseEmitter, IpfsCmdsResponse) newChanResponsePair(
       IpfsCmdsRequest req) {
-    final $r = $callSync(1246, $W()..h(req));
+    final $r = $callSync(1248, $W()..h(req));
     return ($r.hnn(IpfsCmdsResponseEmitter.$h), $r.hnn(IpfsCmdsResponse.$h));
   }
 
@@ -1046,7 +1046,7 @@ extension GoIpfsIpfsCmdsApi on GoIpfsIpfsCmds {
   IpfsCmdsResponseEmitter newFlushForwarder(
       IpfsCmdsResponseEmitter re, IpfsCmdsFlusher f) {
     final $r = $callSync(
-        1248,
+        1250,
         $W()
           ..h(re)
           ..dto(f));
@@ -1056,7 +1056,7 @@ extension GoIpfsIpfsCmdsApi on GoIpfsIpfsCmds {
   /// Go: `func cmds.NewReaderResponse(r io.Reader, req *cmds.Request) (cmds.Response, error)`.
   IpfsCmdsResponse newReaderResponse(Object r, IpfsCmdsRequest req) {
     final $r = $callSync(
-        1250,
+        1252,
         $W()
           ..reader(r)
           ..h(req));
@@ -1067,7 +1067,7 @@ extension GoIpfsIpfsCmdsApi on GoIpfsIpfsCmds {
   IpfsCmdsResponseEmitter newWriterResponseEmitter(
       Object w, IpfsCmdsRequest req) {
     final $r = $callSync(
-        1251,
+        1253,
         $W()
           ..reader(w)
           ..h(req));
@@ -1076,61 +1076,61 @@ extension GoIpfsIpfsCmdsApi on GoIpfsIpfsCmds {
 
   /// Go: `var cmds.OptionDerefArgs cmds.Option`.
   IpfsCmdsOption get optionDerefArgs {
-    final $r = $callSync(1259);
+    final $r = $callSync(1261);
     return $r.hnn(IpfsCmdsOption.$h);
   }
 
   /// Go: `var cmds.OptionDerefSymlinks cmds.Option`.
   IpfsCmdsOption get optionDerefSymlinks {
-    final $r = $callSync(1260);
+    final $r = $callSync(1262);
     return $r.hnn(IpfsCmdsOption.$h);
   }
 
   /// Go: `var cmds.OptionEncodingType cmds.Option`.
   IpfsCmdsOption get optionEncodingType {
-    final $r = $callSync(1261);
+    final $r = $callSync(1263);
     return $r.hnn(IpfsCmdsOption.$h);
   }
 
   /// Go: `var cmds.OptionHidden cmds.Option`.
   IpfsCmdsOption get optionHidden {
-    final $r = $callSync(1262);
+    final $r = $callSync(1264);
     return $r.hnn(IpfsCmdsOption.$h);
   }
 
   /// Go: `var cmds.OptionIgnore cmds.Option`.
   IpfsCmdsOption get optionIgnore {
-    final $r = $callSync(1263);
+    final $r = $callSync(1265);
     return $r.hnn(IpfsCmdsOption.$h);
   }
 
   /// Go: `var cmds.OptionIgnoreRules cmds.Option`.
   IpfsCmdsOption get optionIgnoreRules {
-    final $r = $callSync(1264);
+    final $r = $callSync(1266);
     return $r.hnn(IpfsCmdsOption.$h);
   }
 
   /// Go: `var cmds.OptionRecursivePath cmds.Option`.
   IpfsCmdsOption get optionRecursivePath {
-    final $r = $callSync(1265);
+    final $r = $callSync(1267);
     return $r.hnn(IpfsCmdsOption.$h);
   }
 
   /// Go: `var cmds.OptionStdinName cmds.Option`.
   IpfsCmdsOption get optionStdinName {
-    final $r = $callSync(1266);
+    final $r = $callSync(1268);
     return $r.hnn(IpfsCmdsOption.$h);
   }
 
   /// Go: `var cmds.OptionStreamChannels cmds.Option`.
   IpfsCmdsOption get optionStreamChannels {
-    final $r = $callSync(1267);
+    final $r = $callSync(1269);
     return $r.hnn(IpfsCmdsOption.$h);
   }
 
   /// Go: `var cmds.OptionTimeout cmds.Option`.
   IpfsCmdsOption get optionTimeout {
-    final $r = $callSync(1268);
+    final $r = $callSync(1270);
     return $r.hnn(IpfsCmdsOption.$h);
   }
 
@@ -1138,7 +1138,7 @@ extension GoIpfsIpfsCmdsApi on GoIpfsIpfsCmds {
   IpfsCmdsArgument stringArg(
       String name, bool required, bool variadic, String description) {
     final $r = $callSync(
-        1293,
+        1295,
         $W()
           ..str(name)
           ..b(required)
@@ -1149,25 +1149,25 @@ extension GoIpfsIpfsCmdsApi on GoIpfsIpfsCmds {
 
   /// Go: `func cmds.StringOption(names ...string) cmds.Option`.
   IpfsCmdsOption stringOption([List<String> names = const []]) {
-    final $r = $callSync(1294, $W()..list(names, (w0, e0) => w0.str(e0)));
+    final $r = $callSync(1296, $W()..list(names, (w0, e0) => w0.str(e0)));
     return $r.hnn(IpfsCmdsOption.$h);
   }
 
   /// Go: `func cmds.StringsOption(names ...string) cmds.Option`.
   IpfsCmdsOption stringsOption([List<String> names = const []]) {
-    final $r = $callSync(1295, $W()..list(names, (w0, e0) => w0.str(e0)));
+    final $r = $callSync(1297, $W()..list(names, (w0, e0) => w0.str(e0)));
     return $r.hnn(IpfsCmdsOption.$h);
   }
 
   /// Go: `func cmds.Uint64Option(names ...string) cmds.Option`.
   IpfsCmdsOption uint64Option([List<String> names = const []]) {
-    final $r = $callSync(1297, $W()..list(names, (w0, e0) => w0.str(e0)));
+    final $r = $callSync(1299, $W()..list(names, (w0, e0) => w0.str(e0)));
     return $r.hnn(IpfsCmdsOption.$h);
   }
 
   /// Go: `func cmds.UintOption(names ...string) cmds.Option`.
   IpfsCmdsOption uintOption([List<String> names = const []]) {
-    final $r = $callSync(1298, $W()..list(names, (w0, e0) => w0.str(e0)));
+    final $r = $callSync(1300, $W()..list(names, (w0, e0) => w0.str(e0)));
     return $r.hnn(IpfsCmdsOption.$h);
   }
 }

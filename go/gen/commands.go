@@ -282,6 +282,14 @@ func (e *cmdEmitter) decStruct(t reflect.Type, r string) string {
 	if !ok {
 		return e.ref(t) + ".$dec(" + r + ")"
 	}
+	return e.sharedCtor(t, ti, e.ref(t), cmdschema.Fields(t), r)
+}
+
+// sharedCtor: the class [ref] of [ti] built from [fields] of the command's
+// [t]. The fields of a struct embedded by value come flattened, in a row
+// (pin.PinVerifyRes's Ok and BadNodes): they build the class of the
+// embedded field (pinStatus).
+func (e *cmdEmitter) sharedCtor(t reflect.Type, ti *tinfo, ref string, fields []cmdschema.Field, r string) string {
 	have := map[string]*tinfo{}
 	for _, f := range ti.fields {
 		if f.skipped == "" {
@@ -289,7 +297,24 @@ func (e *cmdEmitter) decStruct(t reflect.Type, r string) string {
 		}
 	}
 	var args []string
-	for _, f := range cmdschema.Fields(t) {
+	for i := 0; i < len(fields); i++ {
+		f := fields[i]
+		if len(f.Index) > 1 {
+			ef := t.Field(f.Index[0])
+			var sub []cmdschema.Field
+			for ; i < len(fields) && len(fields[i].Index) > 1 && fields[i].Index[0] == f.Index[0]; i++ {
+				g := fields[i]
+				g.Index = g.Index[1:]
+				sub = append(sub, g)
+			}
+			i--
+			n := memberName(ef.Name)
+			if et := have[n]; et != nil && et.k == kDTO {
+				args = append(args, n+": "+e.sharedCtor(ef.Type, et, e.de.ref(et, e.cur), sub, r))
+				continue
+			}
+			panic(fmt.Sprintf("gen: o campo embutido %s.%s do comando não é uma classe de dados em %s", t, ef.Name, className(e.de.m, ti)))
+		}
 		n := memberName(f.Name)
 		if have[n] == nil {
 			panic(fmt.Sprintf("gen: o campo %s.%s do comando não existe na classe %s", t, f.Name, className(e.de.m, ti)))
@@ -305,7 +330,7 @@ func (e *cmdEmitter) decStruct(t reflect.Type, r string) string {
 		}
 		args = append(args, n+": "+dec)
 	}
-	return e.ref(t) + "(" + strings.Join(args, ", ") + ")"
+	return ref + "(" + strings.Join(args, ", ") + ")"
 }
 
 func pkgOf(t reflect.Type) string {

@@ -26,7 +26,7 @@ mixin IpldPrimeStoragePeekableStorage$ on GoHandle {
   Future<(Uint8List, $io.IoCloser)> peek(
       $context.Context ctx, String key) async {
     final $r = await $call(
-        2084,
+        2090,
         $W()
           ..h(this)
           ..h(ctx)
@@ -48,7 +48,7 @@ mixin IpldPrimeStorageReadableStorage$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<Uint8List> get($context.Context ctx, String key) async {
     final $r = await $call(
-        2087,
+        2093,
         $W()
           ..h(this)
           ..h(ctx)
@@ -88,7 +88,7 @@ mixin IpldPrimeStorage$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<bool> has($context.Context ctx, String key) async {
     final $r = await $call(
-        2088,
+        2094,
         $W()
           ..h(this)
           ..h(ctx)
@@ -147,7 +147,7 @@ mixin IpldPrimeStorageStreamingReadableStorage$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<$io.IoReadCloser> getStream($context.Context ctx, String key) async {
     final $r = await $call(
-        2089,
+        2095,
         $W()
           ..h(this)
           ..h(ctx)
@@ -182,7 +182,7 @@ mixin IpldPrimeStorageVectorWritableStorage$ on GoHandle {
   Future<void> putVec(
       $context.Context ctx, String key, List<Uint8List> blobVec) async {
     await $call(
-        2090,
+        2096,
         $W()
           ..h(this)
           ..h(ctx)
@@ -204,7 +204,7 @@ mixin IpldPrimeStorageWritableStorage$ on GoHandle {
   /// Asynchronous: runs in a goroutine of the service.
   Future<void> put($context.Context ctx, String key, Uint8List content) async {
     await $call(
-        2091,
+        2097,
         $W()
           ..h(this)
           ..h(ctx)
@@ -240,7 +240,7 @@ extension GoIpldIpldPrimeStorageApi on GoIpldIpldPrimeStorage {
   Future<Uint8List> get($context.Context ctx,
       IpldPrimeStorageReadableStorage store, String key) async {
     final $r = await $call(
-        2080,
+        2086,
         $W()
           ..h(ctx)
           ..h(store)
@@ -254,7 +254,7 @@ extension GoIpldIpldPrimeStorageApi on GoIpldIpldPrimeStorage {
   Future<$io.IoReadCloser> getStream($context.Context ctx,
       IpldPrimeStorageReadableStorage store, String key) async {
     final $r = await $call(
-        2081,
+        2087,
         $W()
           ..h(ctx)
           ..h(store)
@@ -268,7 +268,7 @@ extension GoIpldIpldPrimeStorageApi on GoIpldIpldPrimeStorage {
   Future<bool> has(
       $context.Context ctx, IpldPrimeStorage store, String key) async {
     final $r = await $call(
-        2082,
+        2088,
         $W()
           ..h(ctx)
           ..h(store)
@@ -282,7 +282,7 @@ extension GoIpldIpldPrimeStorageApi on GoIpldIpldPrimeStorage {
   Future<(Uint8List, $io.IoCloser)> peek($context.Context ctx,
       IpldPrimeStorageReadableStorage store, String key) async {
     final $r = await $call(
-        2083,
+        2089,
         $W()
           ..h(ctx)
           ..h(store)
@@ -296,7 +296,7 @@ extension GoIpldIpldPrimeStorageApi on GoIpldIpldPrimeStorage {
   Future<void> put($context.Context ctx, IpldPrimeStorageWritableStorage store,
       String key, Uint8List content) async {
     await $call(
-        2085,
+        2091,
         $W()
           ..h(ctx)
           ..h(store)
@@ -313,7 +313,7 @@ extension GoIpldIpldPrimeStorageApi on GoIpldIpldPrimeStorage {
       String key,
       List<Uint8List> blobVec) async {
     await $call(
-        2086,
+        2092,
         $W()
           ..h(ctx)
           ..h(store)

@@ -1015,6 +1015,7 @@ Omitted:
 |---|---|---|
 | `func (*namesys.DNSResolver).Resolve(ctx context.Context, p path.Path, options ...namesys.ResolveOption) (namesys.Result, error)` | `BoxoNamesysDnsResolver.resolve` | Future |
 | `func (*namesys.DNSResolver).ResolveAsync(ctx context.Context, p path.Path, options ...namesys.ResolveOption) <-chan namesys.AsyncResult` | `BoxoNamesysDnsResolver.resolveAsync` | Stream |
+| `func namesys.DefaultPublishOptions() namesys.PublishOptions` | `go.ipfs.boxo.namesys.defaultPublishOptions` | sync |
 | `func namesys.DefaultResolveOptions() namesys.ResolveOptions` | `go.ipfs.boxo.namesys.defaultResolveOptions` | sync |
 | `func (*namesys.IPNSPublisher).GetPublished(ctx context.Context, name ipns.Name, checkRouting bool) (*ipns.Record, error)` | `BoxoNamesysIpnsPublisher.getPublished` | Future |
 | `func (*namesys.IPNSPublisher).Publish(ctx context.Context, priv crypto.PrivKey, value path.Path, options ...namesys.PublishOption) error` | `BoxoNamesysIpnsPublisher.publish` | Future |
@@ -1027,6 +1028,7 @@ Omitted:
 | `func namesys.NewIPNSResolver(route routing.ValueStore) *namesys.IPNSResolver` | `factory BoxoNamesysIpnsResolver` | sync |
 | `func namesys.NewNameSystem(r routing.ValueStore, opts ...namesys.Option) (#rv1 namesys.NameSystem, #rv2 error)` | `factory BoxoNamesysNameSystem` | sync |
 | `func namesys.PkRoutingKey(id peer.ID) string` | `go.ipfs.boxo.namesys.pkRoutingKey` | sync |
+| `func namesys.ProcessPublishOptions(opts []namesys.PublishOption) namesys.PublishOptions` | `go.ipfs.boxo.namesys.processPublishOptions` | sync |
 | `func namesys.ProcessResolveOptions(opts []namesys.ResolveOption) namesys.ResolveOptions` | `go.ipfs.boxo.namesys.processResolveOptions` | sync |
 | `func namesys.PublishIPNSRecord(ctx context.Context, r routing.ValueStore, pubKey crypto.PubKey, rec *ipns.Record) error` | `go.ipfs.boxo.namesys.publishIpnsRecord` | Future |
 | `func (namesys.Publisher).Publish(ctx context.Context, sk crypto.PrivKey, value path.Path, options ...namesys.PublishOption) error` | `BoxoNamesysPublisher.publish` | Future |
@@ -1048,9 +1050,7 @@ Omitted:
 
 Omitted:
 
-- `func namesys.DefaultPublishOptions() namesys.PublishOptions`: result 0: github.com/ipfs/boxo/namesys.PublishOptions
 - `func (*namesys.IPNSPublisher).ListPublished(ctx context.Context) (map[ipns.Name]*ipns.Record, error)`: result 0: map keyed by github.com/ipfs/boxo/ipns.Name
-- `func namesys.ProcessPublishOptions(opts []namesys.PublishOption) namesys.PublishOptions`: result 0: github.com/ipfs/boxo/namesys.PublishOptions
 - `func namesys.PublishWithEOL(eol time.Time) namesys.PublishOption`: result 0: github.com/ipfs/boxo/namesys.PublishOption
 - `func namesys.PublishWithIPNSOption(option ipns.Option) namesys.PublishOption`: parameter option: github.com/ipfs/boxo/ipns.Option
 - `func namesys.PublishWithSequence(seq uint64) namesys.PublishOption`: result 0: github.com/ipfs/boxo/namesys.PublishOption
@@ -2287,6 +2287,7 @@ Omitted:
 | `func options.KeyGenerateOptions(opts ...options.KeyGenerateOption) (*options.KeyGenerateSettings, error)` | `go.ipfs.kubo.core.coreiface.options.keyGenerateOptions` | sync |
 | `func options.KeyRenameOptions(opts ...options.KeyRenameOption) (*options.KeyRenameSettings, error)` | `go.ipfs.kubo.core.coreiface.options.keyRenameOptions` | sync |
 | `func options.NamePublishOptions(opts ...options.NamePublishOption) (*options.NamePublishSettings, error)` | `go.ipfs.kubo.core.coreiface.options.namePublishOptions` | sync |
+| `func options.NameResolveOptions(opts ...options.NameResolveOption) (*options.NameResolveSettings, error)` | `go.ipfs.kubo.core.coreiface.options.nameResolveOptions` | sync |
 | `func options.ObjectAddLinkOptions(opts ...options.ObjectAddLinkOption) (*options.ObjectAddLinkSettings, error)` | `go.ipfs.kubo.core.coreiface.options.objectAddLinkOptions` | sync |
 | `func options.ObjectRmLinkOptions(opts ...options.ObjectRmLinkOption) (*options.ObjectRmLinkSettings, error)` | `go.ipfs.kubo.core.coreiface.options.objectRmLinkOptions` | sync |
 | `func options.PinAddOptions(opts ...options.PinAddOption) (*options.PinAddSettings, error)` | `go.ipfs.kubo.core.coreiface.options.pinAddOptions` | sync |
@@ -2317,7 +2318,6 @@ Omitted:
 - `var options.DhtProvideOptions func(opts ...options.RoutingProvideOption) (*options.RoutingProvideSettings, error)`: result 0: func(opts ...github.com/ipfs/kubo/core/coreiface/options.RoutingProvideOption) (*github.com/ipfs/kubo/core/coreiface/options.RoutingProvideSettings, error)
 - `var options.Key options.keyOpts`: result 0: unexported type github.com/ipfs/kubo/core/coreiface/options.keyOpts
 - `var options.Name options.nameOpts`: result 0: unexported type github.com/ipfs/kubo/core/coreiface/options.nameOpts
-- `func options.NameResolveOptions(opts ...options.NameResolveOption) (*options.NameResolveSettings, error)`: result 0: *github.com/ipfs/kubo/core/coreiface/options.NameResolveSettings
 - `var options.Object options.objectOpts`: result 0: unexported type github.com/ipfs/kubo/core/coreiface/options.objectOpts
 - `var options.Pin options.pinOpts`: result 0: unexported type github.com/ipfs/kubo/core/coreiface/options.pinOpts
 - `var options.PubSub options.pubsubOpts`: result 0: unexported type github.com/ipfs/kubo/core/coreiface/options.pubsubOpts
@@ -2430,6 +2430,7 @@ Omitted:
 | Go | Dart | Mode |
 |---|---|---|
 | `func libp2p.AddrsFactory(announce []string, appendAnnounce []string, noAnnounce []string) any` | `go.ipfs.kubo.core.node.libp2p.addrsFactory` | sync |
+| `func libp2p.BandwidthCounter() (opts libp2p.Libp2pOpts, reporter *metrics.BandwidthCounter)` | `go.ipfs.kubo.core.node.libp2p.bandwidthCounter` | sync |
 | `func libp2p.BaseRouting(cfg *config.Config) any` | `go.ipfs.kubo.core.node.libp2p.baseRouting` | sync |
 | `func libp2p.ConstructDefaultRouting(cfg *config.Config, routingOpt libp2p.RoutingOption) libp2p.RoutingOption` | `go.ipfs.kubo.core.node.libp2p.constructDefaultRouting` | sync |
 | `func libp2p.ConstructDelegatedOnlyRouting(cfg *config.Config) libp2p.RoutingOption` | `go.ipfs.kubo.core.node.libp2p.constructDelegatedOnlyRouting` | sync |
@@ -2448,8 +2449,10 @@ Omitted:
 | `func libp2p.ListenOn(addresses []string) any` | `go.ipfs.kubo.core.node.libp2p.listenOn` | sync |
 | `func libp2p.MaybeAutoRelay(staticRelays []string, cfgPeering config.Peering, enabled bool) fx.Option` | `go.ipfs.kubo.core.node.libp2p.maybeAutoRelay` | sync |
 | `func libp2p.MergeLimitsAndStatsIntoLimitsConfigAndUsage(l rcmgr.ConcreteLimitConfig, stats rcmgr.ResourceManagerStat) libp2p.LimitsConfigAndUsage` | `go.ipfs.kubo.core.node.libp2p.mergeLimitsAndStatsIntoLimitsConfigAndUsage` | sync |
+| `func libp2p.MultiaddrResolver(rslv *madns.Resolver) (opts libp2p.Libp2pOpts, err error)` | `go.ipfs.kubo.core.node.libp2p.multiaddrResolver` | sync |
 | `var libp2p.NilRouterOption func(_ libp2p.RoutingOptionArgs) (routing.Routing, error)` | `go.ipfs.kubo.core.node.libp2p.nilRouterOption` | sync |
 | `func libp2p.P2PForgeCertMgr(repoPath string, cfg config.AutoTLS, atlsLog *log.ZapEventLogger) any` | `go.ipfs.kubo.core.node.libp2p.p2pForgeCertMgr` | sync |
+| `func libp2p.PNet(repo repo.Repo) (opts libp2p.Libp2pOpts, fp libp2p.PNetFingerprint, err error)` | `go.ipfs.kubo.core.node.libp2p.pNet` | sync |
 | `func libp2p.PNetChecker(repo repo.Repo, ph host.Host, lc fx.Lifecycle) error` | `go.ipfs.kubo.core.node.libp2p.pNetChecker` | sync |
 | `func libp2p.Peerstore(lc fx.Lifecycle) (peerstore.Peerstore, error)` | `go.ipfs.kubo.core.node.libp2p.peerstore` | sync |
 | `func libp2p.PstoreAddSelfKeys(id peer.ID, sk crypto.PrivKey, ps peerstore.Peerstore) error` | `go.ipfs.kubo.core.node.libp2p.pstoreAddSelfKeys` | sync |
@@ -2466,7 +2469,6 @@ Omitted:
 
 - `func libp2p.AddrFilters(filters []string) func() (*multiaddr.Filters, libp2p.Libp2pOpts, error)`: result 0: func() (*github.com/multiformats/go-multiaddr.Filters, github.com/ipfs/kubo/core/node/libp2p.Libp2pOpts, error)
 - `func libp2p.AutoNATService(throttle *config.AutoNATThrottleConfig, v1only bool) func() libp2p.Libp2pOpts`: result 0: func() github.com/ipfs/kubo/core/node/libp2p.Libp2pOpts
-- `func libp2p.BandwidthCounter() (opts libp2p.Libp2pOpts, reporter *metrics.BandwidthCounter)`: result 0: github.com/ipfs/kubo/core/node/libp2p.Libp2pOpts
 - `func libp2p.ConnectionManager(low int, high int, grace time.Duration, silence time.Duration) func() (opts libp2p.Libp2pOpts, err error)`: result 0: func() (opts github.com/ipfs/kubo/core/node/libp2p.Libp2pOpts, err error)
 - `func libp2p.ConstructDelegatedRouting(routers config.Routers, methods config.Methods, peerID string, addrs config.Addresses, privKey string, httpRetrieval bool) libp2p.RoutingOption`: parameter routers: tipo github.com/ipfs/kubo/config.Routers
 - `func libp2p.ContentRouting(in libp2p.p2pOnlineContentRoutingIn) routing.ContentRouting`: parameter in: unexported type github.com/ipfs/kubo/core/node/libp2p.p2pOnlineContentRoutingIn
@@ -2476,11 +2478,9 @@ Omitted:
 - `func libp2p.Host(mctx helpers.MetricsCtx, lc fx.Lifecycle, params libp2p.P2PHostIn) (out libp2p.P2PHostOut, err error)`: parameter params: github.com/ipfs/kubo/core/node/libp2p.P2PHostIn with an option inside
 - `func libp2p.MonitorCGNAT() func(fx.Lifecycle, host.Host) error`: result 0: func(go.uber.org/fx.Lifecycle, github.com/libp2p/go-libp2p/core/host.Host) error
 - `func libp2p.MonitorDeadListeners(swarmListen []string, addrFilters []string, noAnnounce []string) func(fx.Lifecycle, host.Host) error`: result 0: func(go.uber.org/fx.Lifecycle, github.com/libp2p/go-libp2p/core/host.Host) error
-- `func libp2p.MultiaddrResolver(rslv *madns.Resolver) (opts libp2p.Libp2pOpts, err error)`: result 0: github.com/ipfs/kubo/core/node/libp2p.Libp2pOpts
 - `var libp2p.NatPortMap func() (opts libp2p.Libp2pOpts, err error)`: result 0: func() (opts github.com/ipfs/kubo/core/node/libp2p.Libp2pOpts, err error)
 - `func libp2p.NonPublicAddrPublishing(val config.Flag) func() (opts libp2p.Libp2pOpts)`: result 0: func() (opts github.com/ipfs/kubo/core/node/libp2p.Libp2pOpts)
 - `func libp2p.OfflineRouting(dstore datastore.Datastore, validator record.Validator) libp2p.p2pRouterOut`: result 0: unexported type github.com/ipfs/kubo/core/node/libp2p.p2pRouterOut
-- `func libp2p.PNet(repo repo.Repo) (opts libp2p.Libp2pOpts, fp libp2p.PNetFingerprint, err error)`: result 0: github.com/ipfs/kubo/core/node/libp2p.Libp2pOpts
 - `func libp2p.PubsubRouter(mctx helpers.MetricsCtx, lc fx.Lifecycle, in libp2p.p2pPSRoutingIn) (libp2p.p2pRouterOut, *namesys.PubsubValueStore, error)`: parameter in: unexported type github.com/ipfs/kubo/core/node/libp2p.p2pPSRoutingIn
 - `func libp2p.RelayService(enable bool, relayOpts config.RelayService) func() (opts libp2p.Libp2pOpts, err error)`: result 0: func() (opts github.com/ipfs/kubo/core/node/libp2p.Libp2pOpts, err error)
 - `func libp2p.RelayTransport(enableRelay bool) func() (opts libp2p.Libp2pOpts, err error)`: result 0: func() (opts github.com/ipfs/kubo/core/node/libp2p.Libp2pOpts, err error)
@@ -6407,6 +6407,7 @@ Omitted:
 
 - `crypto/x509.Certificate.PublicKey`: type any
 - `crypto/x509/pkix.AttributeTypeAndValue.Value`: type any
+- `github.com/ipfs/boxo/namesys.PublishOptions.IPNSOptions`: functional options: they cross only as call arguments
 - `github.com/ipfs/go-datastore.Feature.Interface`: type any
 - `github.com/ipfs/go-datastore.Feature.DatastoreInterface`: type any
 - `github.com/ipfs/go-ipfs-cmds.Command.PreRun`: func(req *github.com/ipfs/go-ipfs-cmds.Request, env github.com/ipfs/go-ipfs-cmds.Environment) error
@@ -6422,8 +6423,10 @@ Omitted:
 - `github.com/ipfs/kubo/config.Transports.Security`: struct{TLS github.com/ipfs/kubo/config.Priority "json:\",omitempty\""; Noise github.com/ipfs/kubo/config.Priority "json:\",omitempty\""}
 - `github.com/ipfs/kubo/config.Transports.Multiplexers`: struct{Yamux github.com/ipfs/kubo/config.Priority "json:\",omitempty\""}
 - `github.com/ipfs/kubo/core/coreiface/options.NamePublishSettings.TTL`: pointer to time.Duration
+- `github.com/ipfs/kubo/core/coreiface/options.NameResolveSettings.ResolveOpts`: functional options: they cross only as call arguments
 - `github.com/ipfs/kubo/core/coreiface/options.UnixfsAddSettings.SizeEstimationMode`: pointer to github.com/ipfs/boxo/ipld/unixfs/io.SizeEstimationMode
 - `github.com/ipfs/kubo/core/coreiface/options.UnixfsAddSettings.Events`: type chan<- any
+- `github.com/ipfs/kubo/core/node/libp2p.Libp2pOpts.Opts`: functional options: they cross only as call arguments
 - `github.com/ipld/go-ipld-prime.LinkContext.Ctx`: type context.Context
 - `github.com/ipld/go-ipld-prime/linking.LinkContext.Ctx`: type context.Context
 - `github.com/ipld/go-ipld-prime/traversal.Config.Ctx`: type context.Context

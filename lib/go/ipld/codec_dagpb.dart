@@ -19,7 +19,7 @@ class CodecDagpbPbLinksItr extends $crypto.CryptoPrivateKey
 
   /// Go: `func (*dagpb.PBLinks__Itr).Done() bool`.
   bool done() {
-    final $r = $callSync(1951, $W()..h(this));
+    final $r = $callSync(1957, $W()..h(this));
     return $r.b();
   }
 }
@@ -40,7 +40,7 @@ extension GoIpldCodecDagpbApi on GoIpldCodecDagpb {
       addSupportToChooser(
           $traversal.IpldPrimeTraversalLinkTargetNodePrototypeChooser
               existing) {
-    final $r = $callSync(1943, $W()..h(existing));
+    final $r = $callSync(1949, $W()..h(existing));
     return $r
         .hnn($traversal.IpldPrimeTraversalLinkTargetNodePrototypeChooser.$h);
   }
@@ -49,7 +49,7 @@ extension GoIpldCodecDagpbApi on GoIpldCodecDagpb {
   Uint8List appendEncode(
       Uint8List enc, $datamodel.IpldPrimeDatamodelNode inNode) {
     final $r = $callSync(
-        1944,
+        1950,
         $W()
           ..bytes(enc)
           ..h(inNode));
@@ -59,7 +59,7 @@ extension GoIpldCodecDagpbApi on GoIpldCodecDagpb {
   /// Go: `func dagpb.Decode(na ipld.NodeAssembler, in io.Reader) error`.
   void decode($datamodel.IpldPrimeDatamodelNodeAssembler na, Object in$) {
     $callSync(
-        1945,
+        1951,
         $W()
           ..h(na)
           ..reader(in$));
@@ -69,7 +69,7 @@ extension GoIpldCodecDagpbApi on GoIpldCodecDagpb {
   void decodeBytes(
       $datamodel.IpldPrimeDatamodelNodeAssembler na, Uint8List src) {
     $callSync(
-        1946,
+        1952,
         $W()
           ..h(na)
           ..bytes(src));
@@ -79,7 +79,7 @@ extension GoIpldCodecDagpbApi on GoIpldCodecDagpb {
   @Deprecated("use Decode instead.")
   void decoder($datamodel.IpldPrimeDatamodelNodeAssembler na, Object r) {
     $callSync(
-        1947,
+        1953,
         $W()
           ..h(na)
           ..reader(r));
@@ -88,7 +88,7 @@ extension GoIpldCodecDagpbApi on GoIpldCodecDagpb {
   /// Go: `func dagpb.Encode(node ipld.Node, w io.Writer) error`.
   void encode($datamodel.IpldPrimeDatamodelNode node, GoHandle? w) {
     $callSync(
-        1948,
+        1954,
         $W()
           ..h(node)
           ..h(w));
@@ -98,7 +98,7 @@ extension GoIpldCodecDagpbApi on GoIpldCodecDagpb {
   @Deprecated("use Encode instead.")
   void encoder($datamodel.IpldPrimeDatamodelNode inNode, GoHandle? w) {
     $callSync(
-        1949,
+        1955,
         $W()
           ..h(inNode)
           ..h(w));
@@ -108,7 +108,7 @@ extension GoIpldCodecDagpbApi on GoIpldCodecDagpb {
   @Deprecated("use Encode instead.")
   void marshal($datamodel.IpldPrimeDatamodelNode inNode, GoHandle? w) {
     $callSync(
-        1950,
+        1956,
         $W()
           ..h(inNode)
           ..h(w));
@@ -118,7 +118,7 @@ extension GoIpldCodecDagpbApi on GoIpldCodecDagpb {
   @Deprecated("use Decode instead.")
   void unmarshal($datamodel.IpldPrimeDatamodelNodeAssembler na, Object r) {
     $callSync(
-        1952,
+        1958,
         $W()
           ..h(na)
           ..reader(r));
