@@ -32,14 +32,15 @@ final class Sample {
   final Uint8List data;
 
   static Future<Sample> build(Context ctx) async {
-    final bs =
-        BoxoBlockstore(goDatastore.sync.mutexWrap(DatastoreMapDatastore()));
-    final dag = goBoxo.ipld.merkledag.newDagService(
-        goBoxo.blockservice.new$(bs, goBoxo.exchange.offline.exchange(bs)));
+    final bs = BoxoBlockstore(
+        go.ipfs.datastore.sync.mutexWrap(DatastoreMapDatastore()));
+    final dag = go.ipfs.boxo.ipld.merkledag.newDagService(go
+        .ipfs.boxo.blockservice
+        .new$(bs, go.ipfs.boxo.exchange.offline.exchange(bs)));
     IpldFormatNode file(List<int> data) =>
-        goBoxo.ipld.unixfs.importer.buildDagFromReader(
+        go.ipfs.boxo.ipld.unixfs.importer.buildDagFromReader(
             dag,
-            goBoxo.chunker.newSizeSplitter(
+            go.ipfs.boxo.chunker.newSizeSplitter(
                 BytesBuffer(Uint8List.fromList(data)), 256 * 1024));
     final rnd = Random(42);
     final data =
@@ -55,13 +56,13 @@ final class Sample {
   /// The blocks of the DAG under [c], parent before children (lesson 05).
   Future<List<BlockFormatBlock>> blocksOf(Context ctx, Cid c) async => [
         await store.get(ctx, c),
-        for (final l in await goIpldFormat.getLinks(ctx, dag, c))
+        for (final l in await go.ipfs.ipldFormat.getLinks(ctx, dag, c))
           ...await blocksOf(ctx, l.cid!),
       ];
 
   /// Writes the whole sample as a CARv2 at [path] (lesson 05).
   Future<void> writeCar(Context ctx, String path) async {
-    final rw = goCar.v2.blockstore.openReadWrite(path, [root]);
+    final rw = go.ipld.car.v2.blockstore.openReadWrite(path, [root]);
     await rw.putMany(ctx, await blocksOf(ctx, root));
     rw.finalize();
   }
@@ -85,12 +86,13 @@ int? _pluginsFor;
 Future<KuboCoreIpfsNode> newNode(Context ctx, String dir,
     {bool online = false, List<String> profiles = const ['test']}) async {
   loadPlugins();
-  final cfg = goKubo.config.initWithIdentity(goKubo.config.createIdentity(
-      null, [goKubo.core.coreiface.options.key.type('ed25519')]));
+  final cfg = go.ipfs.kubo.config.initWithIdentity(go.ipfs.kubo.config
+      .createIdentity(
+          null, [go.ipfs.kubo.core.coreiface.options.key.type('ed25519')]));
   for (final p in profiles) {
-    goKubo.config.profiles[p]!.transform(cfg);
+    go.ipfs.kubo.config.profiles[p]!.transform(cfg);
   }
-  goKubo.repo.fsrepo.init(dir, cfg);
+  go.ipfs.kubo.repo.fsrepo.init(dir, cfg);
   return openNode(ctx, dir, online: online);
 }
 
@@ -99,8 +101,10 @@ Future<KuboCoreIpfsNode> newNode(Context ctx, String dir,
 Future<KuboCoreIpfsNode> openNode(Context ctx, String dir,
     {bool online = false}) {
   loadPlugins();
-  return goKubo.core.newNode(ctx,
-      KuboCoreNodeBuildCfg(repo: goKubo.repo.fsrepo.open(dir), online: online));
+  return go.ipfs.kubo.core.newNode(
+      ctx,
+      KuboCoreNodeBuildCfg(
+          repo: go.ipfs.kubo.repo.fsrepo.open(dir), online: online));
 }
 
 /// Whether [a] and [b] hold the same bytes.

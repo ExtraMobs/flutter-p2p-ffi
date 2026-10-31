@@ -6,9 +6,9 @@
 //
 // Respuesta: el `context` de Go, el primer argumento de toda llamada que
 // puede esperar:
-//   - goContext.withTimeout(padre, d) / withDeadline: Go mismo se rinde cuando
+//   - go.context.withTimeout(padre, d) / withDeadline: Go mismo se rinde cuando
 //     se acaba el tiempo, y la llamada lanza GolangDeadlineExceededException;
-//   - goContext.withCancel(padre): llama a cancel() cuando quieras; la llamada
+//   - go.context.withCancel(padre): llama a cancel() cuando quieras; la llamada
 //     lanza GolangCanceledException;
 //   - llama siempre a la función de cancelación que recibiste al terminar:
 //     libera lo que Go guarda para ese context.
@@ -57,20 +57,20 @@ Future<void> main() async {
   await P2pService.start(
       crashLog: '${tmp.path}/crash.log', // donde Go escribe un informe de caída
       onStop: (s) => stopped.complete(s));
-  var bg = goContext.background();
+  var bg = go.context.background();
   // Un nodo online solo (perfil test: sin peers de bootstrap): pedirle un CID
   // que nadie tiene espera para siempre, lo ideal para ponerle un límite.
   var n = await newNode(bg, '${tmp.path}/repo', online: true);
   final nowhere = BoxoPath('/ipfs/'
-      '${goCid.newPrefixV1(goMulticodec.raw, goMultihash.sha2256).sum(utf8.encode('nobody has this'))}');
+      '${go.ipfs.cid.newPrefixV1(go.multiformats.multicodec.enums.raw, go.multiformats.multihash.consts.sha2256).sum(utf8.encode('nobody has this'))}');
   try {
-    var api = goKubo.core.coreapi.newCoreApi(n);
+    var api = go.ipfs.kubo.core.coreapi.newCoreApi(n);
 
     // 1. Un plazo: Go detiene el trabajo cuando se acaba el tiempo.
     //    Go:  ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
     //         defer cancel()
     final (withDeadline, cancelDeadline) =
-        goContext.withTimeout(bg, const Duration(seconds: 2));
+        go.context.withTimeout(bg, const Duration(seconds: 2));
     final watch = Stopwatch()..start();
     try {
       await api.unixfs().get(withDeadline, nowhere);
@@ -83,7 +83,7 @@ Future<void> main() async {
 
     // 2. Cancelar a mano, desde donde sea (un botón, la app cerrándose).
     //    Go:  ctx, cancel := context.WithCancel(context.Background())
-    final (cancelable, cancel) = goContext.withCancel(bg);
+    final (cancelable, cancel) = go.context.withCancel(bg);
     Timer(const Duration(milliseconds: 500), cancel);
     try {
       await api.unixfs().get(cancelable, nowhere);
@@ -109,19 +109,19 @@ Future<void> main() async {
 
     say('\n3. tipos de error:');
     say('  una ruta del MFS que no existe → '
-        '${await kindOf(() => goKubo.core.commands.filesStat(n, bg, '/nope').single)}');
+        '${await kindOf(() => go.ipfs.kubo.core.commands.filesStat(n, bg, '/nope').single)}');
     say('  un bloque que no está en el blockstore → '
-        '${await kindOf(() => n.blockstore.get(bg, goCid.decode(nowhere.value.substring(6))))}');
+        '${await kindOf(() => n.blockstore.get(bg, go.ipfs.cid.decode(nowhere.value.substring(6))))}');
     say('  un CID que no lo es → '
-        '${await kindOf(() async => goCid.decode('not-a-cid'))}');
-    say('  un archivo que no existe (goOs.open) → '
-        '${await kindOf(() async => goOs.open('${tmp.path}/nope.bin'))}');
+        '${await kindOf(() async => go.ipfs.cid.decode('not-a-cid'))}');
+    say('  un archivo que no existe (go.os.open) → '
+        '${await kindOf(() async => go.os.open('${tmp.path}/nope.bin'))}');
 
     //    La cadena de un error: lo que añadió cada capa, hasta la causa.
     try {
-      goOs.open('${tmp.path}/nope.bin');
+      go.os.open('${tmp.path}/nope.bin');
     } on GolangException catch (e) {
-      say('  la cadena de un error de goOs.open, de fuera hacia dentro:');
+      say('  la cadena de un error de go.os.open, de fuera hacia dentro:');
       for (final t in e.errTexts) {
         say('    - ${t.replaceAll(tmp.path, '<tmp>')}');
       }
@@ -139,29 +139,29 @@ Future<void> main() async {
         '${s.exitCode}, activo ${s.uptime.inSeconds} s');
     say('   el informe de Go empieza por: ${s.report.split('\n').first}');
     say('   el nodo antiguo ahora: '
-        '${await kindOf(() => api.unixfs().add(bg, goBoxo.files.newBytesFile(utf8.encode('x'))))}');
+        '${await kindOf(() => api.unixfs().add(bg, go.ipfs.boxo.files.newBytesFile(utf8.encode('x'))))}');
 
     // 5. Reiniciar: un proceso nuevo; abre todo otra vez sobre el mismo
     //    repositorio. Todo handle pertenece al servicio antiguo, el context
     //    también: crea otros nuevos.
     stopped = Completer<P2pStop>();
     await P2pService.restart();
-    bg = goContext.background();
+    bg = go.context.background();
     n = await openNode(bg, '${tmp.path}/repo', online: true);
-    api = goKubo.core.coreapi.newCoreApi(n);
+    api = go.ipfs.kubo.core.coreapi.newCoreApi(n);
     final p = await api
         .unixfs()
-        .add(bg, goBoxo.files.newBytesFile(utf8.encode('back')));
+        .add(bg, go.ipfs.boxo.files.newBytesFile(utf8.encode('back')));
     say('5. reiniciado: el servicio nuevo añadió $p');
 
     say('\n== Errores comunes\n');
     await mistake('un .timeout() de Dart en lugar de un plazo de Go',
         why: 'Dart deja de esperar, pero Go sigue buscando el CID: el trabajo '
             'y lo que retiene siguen en el p2p_host',
-        instead: 'goContext.withTimeout: Go mismo se detiene y lo libera',
+        instead: 'go.context.withTimeout: Go mismo se detiene y lo libera',
         action: () =>
             api.unixfs().get(bg, nowhere).timeout(const Duration(seconds: 1)));
-    final (done, cancelDone) = goContext.withCancel(bg);
+    final (done, cancelDone) = go.context.withCancel(bg);
     cancelDone();
     await mistake('reutilizar un context que ya fue cancelado',
         why: 'un context cancelado sigue cancelado: toda llamada con él falla '

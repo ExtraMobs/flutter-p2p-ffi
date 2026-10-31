@@ -37,43 +37,44 @@ Future<void> main() async {
     // 1. Um par de chaves, e o peer ID que vem dele.
     //    Go:  sk, pk, _ := crypto.GenerateKeyPair(crypto.Ed25519, -1)
     //         id, _ := peer.IDFromPrivateKey(sk)
-    final (sk, pk) =
-        goLibp2p.core.crypto.generateKeyPair(goLibp2p.core.crypto.ed25519, -1);
-    final id = goLibp2p.core.peer.idFromPrivateKey(sk);
+    final (sk, pk) = go.libp2p.libp2p.core.crypto
+        .generateKeyPair(go.libp2p.libp2p.core.crypto.consts.ed25519, -1);
+    final id = go.libp2p.libp2p.core.peer.idFromPrivateKey(sk);
     say('peer ID: $id');
     say('  também a partir da chave pública: '
-        '${goLibp2p.core.peer.idFromPublicKey(pk) == id}; bate com a chave privada: '
+        '${go.libp2p.libp2p.core.peer.idFromPublicKey(pk) == id}; bate com a chave privada: '
         '${id.matchesPrivateKey(sk)}');
     // O mesmo ID como CID (codec libp2p-key): é o que um nome IPNS é
     // (lição 11).
-    final asCid = goLibp2p.core.peer.toCid(id);
-    say('  como CID: ${asCid.stringOfBase(goMultibase.base36)} (codec 0x'
+    final asCid = go.libp2p.libp2p.core.peer.toCid(id);
+    say('  como CID: ${asCid.stringOfBase(go.multiformats.multibase.consts.base36)} (codec 0x'
         '${asCid.type().toRadixString(16)}, libp2p-key: '
-        '${asCid.type() == goMulticodec.libp2pKey})');
+        '${asCid.type() == go.multiformats.multicodec.enums.libp2pKey})');
 
     // 2. Guardar a chave é guardar o ID: serialize-a (num arquivo, num
     //    armazenamento seguro) e a desserialize no próximo início.
     //    Go:  b, _ := crypto.MarshalPrivateKey(sk); sk2, _ := crypto.UnmarshalPrivateKey(b)
-    final saved = goLibp2p.core.crypto.marshalPrivateKey(sk);
-    final loaded = goLibp2p.core.crypto.unmarshalPrivateKey(saved);
+    final saved = go.libp2p.libp2p.core.crypto.marshalPrivateKey(sk);
+    final loaded = go.libp2p.libp2p.core.crypto.unmarshalPrivateKey(saved);
     say('\na chave guardada em ${saved.length} bytes e carregada de volta: o '
-        'mesmo ID ${goLibp2p.core.peer.idFromPrivateKey(loaded) == id}');
+        'mesmo ID ${go.libp2p.libp2p.core.peer.idFromPrivateKey(loaded) == id}');
 
     // 3. Multiaddrs: interpretar, desmontar, montar.
     //    Go:  ma, _ := multiaddr.NewMultiaddr("/ip4/127.0.0.1/tcp/4001")
-    final addr = goMultiaddr.newMultiaddr('/ip4/127.0.0.1/tcp/4001');
-    final full = goMultiaddr.newMultiaddr('$addr/p2p/$id');
+    final addr =
+        go.multiformats.multiaddr.newMultiaddr('/ip4/127.0.0.1/tcp/4001');
+    final full = go.multiformats.multiaddr.newMultiaddr('$addr/p2p/$id');
     say('\nmultiaddr $addr');
     say('  com o peer: $full');
     say('  a porta TCP: ${addr.valueForProtocol(6)}; o peer no fim: '
-        '${goLibp2p.core.peer.splitAddr(full).$2 == id}');
+        '${go.libp2p.libp2p.core.peer.splitAddr(full).$2 == id}');
 
     // 4. Um host com esta chave, escutando em dois transportes, portas
     //    escolhidas pelo sistema (0).
     //    Go:  h, _ := libp2p.New(libp2p.Identity(sk), libp2p.ListenAddrStrings(...))
-    final h = await goLibp2p.new$([
-      goLibp2p.identity(loaded),
-      goLibp2p.listenAddrStrings(
+    final h = await go.libp2p.libp2p.new$([
+      go.libp2p.libp2p.options.identity(loaded),
+      go.libp2p.libp2p.options.listenAddrStrings(
           ['/ip4/127.0.0.1/tcp/0', '/ip4/127.0.0.1/udp/0/quic-v1']),
     ]);
     say('\num host: ${h.id()} (o mesmo ID: ${h.id() == id})');
@@ -86,13 +87,15 @@ Future<void> main() async {
     //    construtor Go, passado como token.
     //    Go:  libp2p.New(libp2p.Transport(tcp.NewTCPTransport),
     //             libp2p.Security(noise.ID, noise.New), libp2p.Muxer(yamux.ID, yamux.DefaultTransport))
-    final small = await goLibp2p.new$([
-      goLibp2p.transport(goLibp2p.p2p.transport.tcp.newTcpTransportFunc),
-      goLibp2p.security(
-          goLibp2p.p2p.security.noise.id, goLibp2p.p2p.security.noise.newFunc),
-      goLibp2p.muxer(goLibp2p.p2p.muxer.yamux.id,
-          goLibp2p.p2p.muxer.yamux.defaultTransport),
-      goLibp2p.listenAddrStrings(['/ip4/127.0.0.1/tcp/0']),
+    final small = await go.libp2p.libp2p.new$([
+      go.libp2p.libp2p.options
+          .transport(go.libp2p.libp2p.p2p.transport.tcp.newTcpTransportFunc),
+      go.libp2p.libp2p.options.security(
+          go.libp2p.libp2p.p2p.security.noise.consts.id,
+          go.libp2p.libp2p.p2p.security.noise.newFunc),
+      go.libp2p.libp2p.options.muxer(go.libp2p.libp2p.p2p.muxer.yamux.consts.id,
+          go.libp2p.libp2p.p2p.muxer.yamux.defaultTransport),
+      go.libp2p.libp2p.options.listenAddrStrings(['/ip4/127.0.0.1/tcp/0']),
     ]);
     say('\num host só TCP: ${small.addrs()} (uma chave aleatória: outro ID, '
         '${small.id().shortString()})');
@@ -102,30 +105,32 @@ Future<void> main() async {
         why: 'um host só escuta nas próprias interfaces (0.0.0.0 quer dizer '
             'todas elas)',
         instead: '/ip4/0.0.0.0/tcp/0, ou 127.0.0.1 só para esta máquina',
-        action: () async => (await goLibp2p.new$([
-              goLibp2p.listenAddrStrings(['/ip4/203.0.113.7/tcp/0'])
+        action: () async => (await go.libp2p.libp2p.new$([
+              go.libp2p.libp2p.options
+                  .listenAddrStrings(['/ip4/203.0.113.7/tcp/0'])
             ]))
                 .close());
     await small.close();
     await mistake('um multiaddr escrito como URL',
         why: 'um multiaddr são pares /protocolo/valor, não host:porta',
         instead: '/ip4/127.0.0.1/tcp/4001 (ou /dns4/example.com/tcp/4001)',
-        action: () => goMultiaddr.newMultiaddr('127.0.0.1:4001'));
+        action: () => go.multiformats.multiaddr.newMultiaddr('127.0.0.1:4001'));
     await mistake('um peer ID que não é um',
         why: 'um peer ID é o multihash de uma chave; um texto qualquer não '
             'decodifica',
         instead: 'pegue-o do host (h.id()) ou de um endereço /p2p/',
-        action: () => goLibp2p.core.peer.decode('my-peer'));
+        action: () => go.libp2p.libp2p.core.peer.decode('my-peer'));
     await silentlyWrong('uma chave nova a cada início',
         why: 'o peer ID é a chave: chave nova é peer novo para todos que '
             'conheciam você',
         instead: 'serialize a chave uma vez e carregue-a a cada início '
             '(passo 2)',
-        wrong: () => goLibp2p.core.peer.idFromPrivateKey(goLibp2p.core.crypto
-            .generateKeyPair(goLibp2p.core.crypto.ed25519, -1)
+        wrong: () => go.libp2p.libp2p.core.peer.idFromPrivateKey(go
+            .libp2p.libp2p.core.crypto
+            .generateKeyPair(go.libp2p.libp2p.core.crypto.consts.ed25519, -1)
             .$1),
-        right: () => goLibp2p.core.peer
-            .idFromPrivateKey(goLibp2p.core.crypto.unmarshalPrivateKey(saved)));
+        right: () => go.libp2p.libp2p.core.peer.idFromPrivateKey(
+            go.libp2p.libp2p.core.crypto.unmarshalPrivateKey(saved)));
   } finally {
     await P2pService.stop();
   }

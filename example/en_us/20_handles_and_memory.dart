@@ -68,11 +68,11 @@ Future<void> main() async {
     say('  after release(): released ${buf.isReleased}');
 
     // 2. The same Go pointer twice: one entry, two references.
-    final f1 = goBoxo.files.newBytesFile(Uint8List.fromList([7, 8, 9]));
+    final f1 = go.ipfs.boxo.files.newBytesFile(Uint8List.fromList([7, 8, 9]));
     final f2 = f1.asBoxoFilesFile()!; // the same Go object, seen as a File
     say('\nf1 #${f1.$h} and f2 #${f2.$h}: the same entry, 2 references');
     f1.release();
-    say('  f1 released; f2 still reads ${goIo.readAll(f2)}');
+    say('  f1 released; f2 still reads ${go.io.readAll(f2)}');
     f2.release();
 
     // 3. Floating garbage: 20 × 8 MiB copied into Go buffers.
@@ -80,9 +80,9 @@ Future<void> main() async {
     for (var i = 0; i < 20; i++) {
       // use(): released at the end of the block, whatever happens inside.
       BytesBuffer(Uint8List(0)).use((b) {
-        goOs.open(big).use((f) {
+        go.os.open(big).use((f) {
           try {
-            goIo.copy(b, f);
+            go.io.copy(b, f);
           } finally {
             f.close(); // Go's Close: the file descriptor
           }
@@ -92,8 +92,8 @@ Future<void> main() async {
     say('  after 20 copies with use(): ${hostMiB()} MiB');
     for (var i = 0; i < 20; i++) {
       final b = BytesBuffer(Uint8List(0));
-      final f = goOs.open(big);
-      goIo.copy(b, f);
+      final f = go.os.open(big);
+      go.io.copy(b, f);
       f.close(); // closed, but neither handle released
     }
     say('  after 20 copies left to the Finalizer: ${hostMiB()} MiB (Dart '
@@ -102,10 +102,10 @@ Future<void> main() async {
     // 4. Many handles per iteration: a scope releases them together, in
     //    reverse order, in one message to the p2p_host.
     final total = withGoScope((s) {
-      final f = s.manage(goOs.open(big));
+      final f = s.manage(go.os.open(big));
       try {
         final out = s.manage(BytesBuffer(Uint8List(0)));
-        return goIo.copy(out, f);
+        return go.io.copy(out, f);
       } finally {
         f.close();
       }
@@ -129,7 +129,7 @@ Future<void> main() async {
     if (Platform.isWindows) {
       final locked = '${tmp.path}/locked.bin';
       File(locked).writeAsBytesSync(Uint8List(64));
-      final f = goOs.open(locked);
+      final f = go.os.open(locked);
       f.release();
       await mistake('release() without close() on an open file',
           why: 'release frees the table entry, not the file: Go keeps it '

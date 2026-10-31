@@ -11,10 +11,10 @@
 // MFS fica protegido do GC (lição 09).
 //
 // Duas camadas, a mesma árvore:
-//   - os comandos (`goKubo.core.commands.filesWrite`, `filesLs`,
+//   - os comandos (`go.ipfs.kubo.core.commands.filesWrite`, `filesLs`,
 //     `filesRead`...): o `ipfs files` da linha de comando, cada um um Stream
 //     de resultados;
-//   - o pacote mfs do boxo (`goBoxo.mfs.mkdir`, `goBoxo.mfs.lookup`,
+//   - o pacote mfs do boxo (`go.ipfs.boxo.mfs.mkdir`, `go.ipfs.boxo.mfs.lookup`,
 //     `BoxoMfsFile.open`...): a camada que os comandos usam por dentro, com
 //     mais controle (abrir um arquivo, posicionar, escrever um pedaço) e mais
 //     deveres (fechar o que abriu, flush).
@@ -37,55 +37,55 @@ import 'lesson.dart';
 Future<void> main() async {
   await P2pService.start();
   final tmp = Directory.systemTemp.createTempSync('lesson10_');
-  final ctx = goContext.background();
+  final ctx = go.context.background();
   final n = await newNode(ctx, '${tmp.path}/repo');
   try {
-    final api = goKubo.core.coreapi.newCoreApi(n);
+    final api = go.ipfs.kubo.core.coreapi.newCoreApi(n);
     Future<String> rootCid() async =>
-        (await goKubo.core.commands.filesStat(n, ctx, '/').single).hash;
+        (await go.ipfs.kubo.core.commands.filesStat(n, ctx, '/').single).hash;
 
     // 1. Os comandos: mkdir, write, ls, read, como na linha de comando.
     //    CLI: ipfs files mkdir -p /site; echo ... | ipfs files write --create /site/index.html
     final empty = await rootCid();
-    await goKubo.core.commands
+    await go.ipfs.kubo.core.commands
         .filesMkdir(n, ctx, '/site', parents: true)
         .drain<void>();
-    await goKubo.core.commands
+    await go.ipfs.kubo.core.commands
         .filesWrite(n, ctx, '/site/index.html',
-            goBoxo.files.newBytesFile(utf8.encode('<h1>v1</h1>\n')),
+            go.ipfs.boxo.files.newBytesFile(utf8.encode('<h1>v1</h1>\n')),
             create: true)
         .drain<void>();
     final v1 = await rootCid();
     say('a raiz do MFS: vazia $empty → depois de um write $v1');
-    final ls =
-        await goKubo.core.commands.filesLs(n, ctx, '/site', long: true).single;
+    final ls = await go.ipfs.kubo.core.commands
+        .filesLs(n, ctx, '/site', long: true)
+        .single;
     for (final e in ls.entries) {
       say('  /site/${e.name}  ${e.size} bytes  ${e.hash}');
     }
-    final html = await goKubo.core.commands
+    final html = await go.ipfs.kubo.core.commands
         .filesRead(n, ctx, '/site/index.html')
         .fold<List<int>>([], (all, piece) => all..addAll(piece));
     say('  lido: ${utf8.decode(html).trim()}');
 
     // 2. Editar o mesmo nome: a raiz ganha um CID novo, a antiga ainda
     //    mostra a v1 (imutável, como sempre).
-    await goKubo.core.commands
+    await go.ipfs.kubo.core.commands
         .filesWrite(n, ctx, '/site/index.html',
-            goBoxo.files.newBytesFile(utf8.encode('<h1>v2</h1>\n')),
+            go.ipfs.boxo.files.newBytesFile(utf8.encode('<h1>v2</h1>\n')),
             truncate: true)
         .drain<void>();
     final v2 = await rootCid();
-    final old = await goKubo.core.commands
+    final old = await go.ipfs.kubo.core.commands
         .cat(n, ctx, ['/ipfs/$v1/site/index.html']).fold<List<int>>(
             [], (all, piece) => all..addAll(piece));
     say('\ndepois de editar: raiz $v2');
     say('  a raiz antiga ainda lê: ${utf8.decode(old).trim()}');
 
     // 3. Um CID de fora, ligado no MFS sem copiar (`files cp`).
-    final logo = await api
-        .unixfs()
-        .add(ctx, goBoxo.files.newBytesFile(utf8.encode('a logo, say\n')));
-    await goKubo.core.commands
+    final logo = await api.unixfs().add(
+        ctx, go.ipfs.boxo.files.newBytesFile(utf8.encode('a logo, say\n')));
+    await go.ipfs.kubo.core.commands
         .filesCp(n, ctx, logo.value, '/site/logo.txt')
         .drain<void>();
     say('\nliguei $logo como /site/logo.txt (nenhum byte copiado)');
@@ -95,7 +95,8 @@ Future<void> main() async {
     //         fd, _ := f.Open(ctx, mfs.Flags{Write: true, Sync: true})
     //         fd.Seek(0, io.SeekEnd); fd.Write(b); fd.Close()
     final root = n.filesRoot;
-    final file = goBoxo.mfs.lookup(root, '/site/index.html').asBoxoMfsFile()!;
+    final file =
+        go.ipfs.boxo.mfs.lookup(root, '/site/index.html').asBoxoMfsFile()!;
     final w = await file.open(ctx, BoxoMfsFlags(write: true, sync: true));
     w.seek(0, 2); // 2 = io.SeekEnd
     w.write(utf8.encode('<p>appended by mfs</p>\n'));
@@ -105,12 +106,13 @@ Future<void> main() async {
     r.close();
     say('\nmfs, depois de acrescentar:\n${utf8.decode(now)}');
     //    Go:  mfs.Mv(root, "/site/logo.txt", "/site/img/logo.txt")
-    goBoxo.mfs.mkdir(root, '/site/img', BoxoMfsMkdirOpts(mkparents: true));
-    goBoxo.mfs.mv(root, '/site/logo.txt', '/site/img/logo.txt');
+    go.ipfs.boxo.mfs
+        .mkdir(root, '/site/img', BoxoMfsMkdirOpts(mkparents: true));
+    go.ipfs.boxo.mfs.mv(root, '/site/logo.txt', '/site/img/logo.txt');
     //    Go:  nd, _ := mfs.FlushPath(ctx, root, "/site")
-    final site = await goBoxo.mfs.flushPath(ctx, root, '/site');
+    final site = await go.ipfs.boxo.mfs.flushPath(ctx, root, '/site');
     say('/site gravado (flush): ${site.cid()}');
-    final dir = goBoxo.mfs.lookup(root, '/site').asBoxoMfsDirectory()!;
+    final dir = go.ipfs.boxo.mfs.lookup(root, '/site').asBoxoMfsDirectory()!;
     say('  entradas: ${(await dir.listNames(ctx)).join(', ')}');
 
     say('\n== Erros comuns\n');
@@ -118,9 +120,9 @@ Future<void> main() async {
         why: 'o files write cria o arquivo (create: true), não as pastas '
             'acima dele',
         instead: 'filesMkdir(..., parents: true) antes',
-        action: () => goKubo.core.commands
+        action: () => go.ipfs.kubo.core.commands
             .filesWrite(n, ctx, '/nope/a.txt',
-                goBoxo.files.newBytesFile(utf8.encode('x')),
+                go.ipfs.boxo.files.newBytesFile(utf8.encode('x')),
                 create: true)
             .drain<void>());
     // (Abrir um arquivo para escrita enquanto outro descritor está aberto não
@@ -130,15 +132,16 @@ Future<void> main() async {
         why: 'o files rm recusa pastas, a menos que você mande remover o que '
             'tem dentro',
         instead: 'filesRm(..., recursive: true)',
-        action: () =>
-            goKubo.core.commands.filesRm(n, ctx, ['/site']).drain<void>());
+        action: () => go.ipfs.kubo.core.commands
+            .filesRm(n, ctx, ['/site']).drain<void>());
     await mistake('ler um caminho que não existe',
         why: 'caminhos do MFS são nomes na árvore, não CIDs: um erro de '
             'digitação é um erro',
         instead: 'filesStat ou filesLs para conferir; caminhos /ipfs/<cid> vão '
             'para o cat',
-        action: () =>
-            goKubo.core.commands.filesStat(n, ctx, '/site/index.htm').single);
+        action: () => go.ipfs.kubo.core.commands
+            .filesStat(n, ctx, '/site/index.htm')
+            .single);
   } finally {
     await n.close();
     await P2pService.stop();

@@ -41,28 +41,29 @@ import 'lesson.dart';
 Future<void> main() async {
   await P2pService.start();
   final tmp = Directory.systemTemp.createTempSync('lesson18_');
-  final ctx = goContext.background();
+  final ctx = go.context.background();
   try {
     // 1. El pubsub de kubo: dos nodos online en loopback, pubsub activado.
     //    Go:  core.NewNode(ctx, &node.BuildCfg{..., ExtraOpts: map[string]bool{"pubsub": true}})
     loadPlugins();
     Future<KuboCoreIpfsNode> pubsubNode(String name) async {
-      final cfg = goKubo.config.initWithIdentity(goKubo.config.createIdentity(
-          null, [goKubo.core.coreiface.options.key.type('ed25519')]));
-      goKubo.config.profiles['test']!.transform(cfg);
-      goKubo.repo.fsrepo.init('${tmp.path}/$name', cfg);
-      return goKubo.core.newNode(
+      final cfg = go.ipfs.kubo.config.initWithIdentity(go.ipfs.kubo.config
+          .createIdentity(
+              null, [go.ipfs.kubo.core.coreiface.options.key.type('ed25519')]));
+      go.ipfs.kubo.config.profiles['test']!.transform(cfg);
+      go.ipfs.kubo.repo.fsrepo.init('${tmp.path}/$name', cfg);
+      return go.ipfs.kubo.core.newNode(
           ctx,
           KuboCoreNodeBuildCfg(
-              repo: goKubo.repo.fsrepo.open('${tmp.path}/$name'),
+              repo: go.ipfs.kubo.repo.fsrepo.open('${tmp.path}/$name'),
               online: true,
-              routing: goKubo.core.node.libp2p.dhtServerOption,
+              routing: go.ipfs.kubo.core.node.libp2p.options.dhtServerOption,
               extraOpts: {'pubsub': true}));
     }
 
     final na = await pubsubNode('a'), nb = await pubsubNode('b');
-    final a = goKubo.core.coreapi.newCoreApi(na),
-        b = goKubo.core.coreapi.newCoreApi(nb);
+    final a = go.ipfs.kubo.core.coreapi.newCoreApi(na),
+        b = go.ipfs.kubo.core.coreapi.newCoreApi(nb);
     final idA = (await a.key().self(ctx)).id!;
     await b.swarm().connect(
         ctx,
@@ -72,11 +73,10 @@ Future<void> main() async {
     //    a se suscribe; b espera hasta ver a a en el tema, y entonces
     //    publica.
     //    Go:  sub, _ := api.PubSub().Subscribe(ctx, "news")
-    final (subCtx, stopSub) = goContext.withCancel(ctx);
+    final (subCtx, stopSub) = go.context.withCancel(ctx);
     final sub = await a.pubSub().subscribe(subCtx, 'news');
-    while (!(await b
-            .pubSub()
-            .peers(ctx, [goKubo.core.coreiface.options.pubSub.topic('news')]))
+    while (!(await b.pubSub().peers(
+            ctx, [go.ipfs.kubo.core.coreiface.options.pubSub.topic('news')]))
         .contains(idA)) {
       await Future<void>.delayed(const Duration(milliseconds: 100));
     }
@@ -95,15 +95,15 @@ Future<void> main() async {
     //    Go:  ps, _ := pubsub.NewGossipSub(ctx, h); t, _ := ps.Join("chat")
     final hosts = [
       for (var i = 0; i < 3; i++)
-        await goLibp2p.new$([
-          goLibp2p.listenAddrStrings(['/ip4/127.0.0.1/tcp/0'])
+        await go.libp2p.libp2p.new$([
+          go.libp2p.libp2p.options.listenAddrStrings(['/ip4/127.0.0.1/tcp/0'])
         ]),
     ];
     final [x, y, z] = hosts;
-    await x.connect(ctx, goLibp2p.core.host.infoFromHost(y));
-    await z.connect(ctx, goLibp2p.core.host.infoFromHost(y));
+    await x.connect(ctx, go.libp2p.libp2p.core.host.infoFromHost(y));
+    await z.connect(ctx, go.libp2p.libp2p.core.host.infoFromHost(y));
     final routers = [
-      for (final h in hosts) await goLibp2pPubsub.newGossipSub(ctx, h)
+      for (final h in hosts) await go.libp2p.libp2pPubsub.newGossipSub(ctx, h)
     ];
     //    z solo acepta mensajes cortos: una función Dart que Go llama por
     //    cada mensaje (aceptar, ignorar o rechazar; una excepción también
@@ -112,8 +112,8 @@ Future<void> main() async {
     await routers[2].registerTopicValidator(
         'chat',
         (_, from, msg) => msg.message!.getData().length <= 64
-            ? goLibp2pPubsub.validationAccept
-            : goLibp2pPubsub.validationReject);
+            ? go.libp2p.libp2pPubsub.enums.validationAccept
+            : go.libp2p.libp2pPubsub.enums.validationReject);
     final topics = [for (final r in routers) await r.join('chat')];
     final zSub = await topics[2].subscribe();
     final ySub = await topics[1].subscribe(); // y solo reenvía si se suscribe
@@ -127,11 +127,11 @@ Future<void> main() async {
     await topics[0].publish(ctx, Uint8List.fromList(utf8.encode('bye from x')));
     for (var i = 0; i < 2; i++) {
       final (nctx, cancel) =
-          goContext.withTimeout(ctx, const Duration(seconds: 10));
+          go.context.withTimeout(ctx, const Duration(seconds: 10));
       final got = await zSub.next(nctx);
       cancel();
       say('gossipsub: z recibió "${utf8.decode(got.message!.getData())}" '
-          '(autor ${goLibp2p.core.peer.idFromBytes(got.message!.getFrom()).shortString()}, '
+          '(autor ${go.libp2p.libp2p.core.peer.idFromBytes(got.message!.getFrom()).shortString()}, '
           'reenviado por ${got.receivedFrom!.shortString()})');
     }
 
@@ -143,7 +143,7 @@ Future<void> main() async {
         instead: 'publica un CID o un nombre IPNS para el historial; pubsub '
             'solo para lo que pasa ahora', action: () async {
       final (nctx, cancel) =
-          goContext.withTimeout(ctx, const Duration(seconds: 2));
+          go.context.withTimeout(ctx, const Duration(seconds: 2));
       try {
         await late.next(nctx);
       } finally {

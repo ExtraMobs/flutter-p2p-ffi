@@ -30,15 +30,15 @@ import 'lesson.dart';
 Future<void> main() async {
   await P2pService.start();
   final tmp = Directory.systemTemp.createTempSync('lesson11_');
-  final ctx = goContext.background();
+  final ctx = go.context.background();
   final n = await newNode(ctx, '${tmp.path}/repo');
   try {
-    final api = goKubo.core.coreapi.newCoreApi(n);
+    final api = go.ipfs.kubo.core.coreapi.newCoreApi(n);
 
     // 1. A chave do próprio nó, "self": o nome IPNS dela é o peer ID.
     //    Go:  k, _ := api.Key().Self(ctx)
     final self = await api.key().self(ctx);
-    final selfName = goBoxo.ipns.nameFromPeer(self.id!);
+    final selfName = go.ipfs.boxo.ipns.nameFromPeer(self.id!);
     say('chave "${self.name}": peer ${self.id}');
     say('  o nome IPNS dela: ${selfName.asPath()}');
 
@@ -47,14 +47,14 @@ Future<void> main() async {
     //    Go:  name, _ := api.Name().Publish(ctx, p, options.Name.AllowOffline(true))
     //         target, _ := api.Name().Resolve(ctx, "/ipns/"+name.String(), options.Name.Cache(false))
     for (final version in ['v1', 'v2']) {
-      final p = await api.unixfs().add(
-          ctx,
-          goBoxo.files.newBytesFile(utf8.encode('my site, $version\n')),
-          [goKubo.core.coreiface.options.unixfs.pin(true, 'site-$version')]);
-      final name = await api.name().publish(
-          ctx, p, [goKubo.core.coreiface.options.name.allowOffline(true)]);
+      final p = await api.unixfs().add(ctx,
+          go.ipfs.boxo.files.newBytesFile(utf8.encode('my site, $version\n')), [
+        go.ipfs.kubo.core.coreiface.options.unixfs.pin(true, 'site-$version')
+      ]);
+      final name = await api.name().publish(ctx, p,
+          [go.ipfs.kubo.core.coreiface.options.name.allowOffline(true)]);
       final target = await api.name().resolve(ctx, '/ipns/$name',
-          [goKubo.core.coreiface.options.name.cache(false)]);
+          [go.ipfs.kubo.core.coreiface.options.name.cache(false)]);
       say('\npubliquei a $version: /ipns/$name → $target');
     }
 
@@ -62,13 +62,13 @@ Future<void> main() async {
     //    Go:  k, _ := api.Key().Generate(ctx, "blog", options.Key.Type("ed25519"))
     //         api.Name().Publish(ctx, p, options.Name.Key("blog"), ...)
     final blog = await api.key().generate(
-        ctx, 'blog', [goKubo.core.coreiface.options.key.type('ed25519')]);
+        ctx, 'blog', [go.ipfs.kubo.core.coreiface.options.key.type('ed25519')]);
     final post = await api
         .unixfs()
-        .add(ctx, goBoxo.files.newBytesFile(utf8.encode('first post\n')));
+        .add(ctx, go.ipfs.boxo.files.newBytesFile(utf8.encode('first post\n')));
     final blogName = await api.name().publish(ctx, post, [
-      goKubo.core.coreiface.options.name.key('blog'),
-      goKubo.core.coreiface.options.name.allowOffline(true)
+      go.ipfs.kubo.core.coreiface.options.name.key('blog'),
+      go.ipfs.kubo.core.coreiface.options.name.allowOffline(true)
     ]);
     say('\nchave "blog" (${blog.id}): /ipns/$blogName → $post');
     say('  chaves no keystore: '
@@ -97,16 +97,16 @@ Future<void> main() async {
         why: 'por padrão o publish quer alcançar a rede, para o registro ser '
             'encontrado; este nó está offline',
         instead:
-            'goKubo.core.coreiface.options.name.allowOffline(true) para um registro local, ou '
+            'go.ipfs.kubo.core.coreiface.options.name.allowOffline(true) para um registro local, ou '
             'um nó online (lição 17)',
         action: () async => api.name().publish(
-            ctx, post, [goKubo.core.coreiface.options.name.key('self')]));
+            ctx, post, [go.ipfs.kubo.core.coreiface.options.name.key('self')]));
     await mistake('publicar com uma chave que não existe',
         why: 'não há chave privada para assinar o registro',
         instead: 'api.key().generate antes; api.key().list mostra o que existe',
         action: () => api.name().publish(ctx, post, [
-              goKubo.core.coreiface.options.name.key('no-such-key'),
-              goKubo.core.coreiface.options.name.allowOffline(true)
+              go.ipfs.kubo.core.coreiface.options.name.key('no-such-key'),
+              go.ipfs.kubo.core.coreiface.options.name.allowOffline(true)
             ]));
     await mistake('gerar uma chave chamada "self"',
         why: '"self" é a chave de identidade do próprio nó, sempre presente',
