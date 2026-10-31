@@ -1,5 +1,19 @@
 # Pendências do ipfs_ffi
 
+## Done: an interface without methods is any handle (0.30.0)
+
+The owner's decision (2026-10-31): a named empty interface (`crypto.PrivateKey`,
+`crypto.PublicKey`, `crypto.DecrypterOpts`, `xml.Token`, `proto.GeneratedMessage`,
+`cmds.Environment`, `peertask.Topic`) is satisfied by every Go type, so every handle
+extended or mixed it in (629 classes in 292 libraries: a `BlockFormatBasicBlock` was a
+`CryptoPrivateKey`). Now it is typed `GoHandle` (any handle) where Go takes or returns
+it, and no class extends it or mixes it in; it still crosses as a handle, so a key read
+from Go goes back intact (`tls.Certificate.privateKey`).
+
+- `lib/go` 380 k → 356 k lines (476 files changed); the Go side is unchanged.
+- Checked: go vet ./..., go test ./..., the generator run, the Windows build, dart analyze
+  (lib, test, tool and the three languages), the suite on Windows 120/120.
+
 ## Done: the host's whole build, namespaces by author (0.29.0)
 
 The owner's decisions (2026-10-28 to 2026-10-30): every package enters as far as the
@@ -42,9 +56,8 @@ host, the author first; constants and options in layers under the namespace.
   network 1/1.
 
 Pending:
-- An option inside a DTO has no Go decoder (`circuitv2/relay.Option`).
-- The handles that extend empty interfaces (`type X any`: every handle is a
-  `CryptoPrivateKey$`...); the owner asked to leave them for now.
+- A struct read from Go and sent back loses its fields of functional options
+  (`config.Config.RelayServiceOpts`, skipped: an option crosses only as a call argument).
 
 ## Done: namespaces as classes, `pkg.*` and ignore_roots.txt (0.28.0)
 
